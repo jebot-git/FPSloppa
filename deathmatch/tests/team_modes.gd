@@ -1,0 +1,66 @@
+extends SceneTree
+const Fixture=preload("res://deathmatch/tests/fixture.gd")
+const Config=preload("res://deathmatch/server/config.gd")
+var g
+var failures: Array=[]
+func check(ok: bool,label: String):
+	print("PASS " if ok else "FAIL ",label)
+	if not ok:failures.append(label)
+func _initialize():call_deferred("run")
+func prepare(kind: String) -> void:
+	g.intermission=0;g.round_left=600;g.frag_limit=10
+	g.match_mode.configure({"sv_gametype":kind,"capturelimit":2,"hilllimit":3})
+	g.match_mode.reset();g.match_mode.bases=[Fixture.point(-8,0),Fixture.point(8,0)];g.match_mode.hill=Fixture.point()
+	for i in range(2):g.match_mode.return_flag(i)
+	for id in g.players:
+		var s:Dictionary=g.players[id];s.team=-1 if s.spectator else 0 if id==1 or id==-2 else 1
+		g._spawn(id);s.invulnerable=0;s.kills=0;s.deaths=0;g.fighters[id].position=Fixture.point(-15,15)
+func run():
+	for mode in ["dm","tdm","ctf","koth","TDM"]:
+		check(not Config.parse('set sv_gametype "'+mode+'"').has("error"),"Config accepts "+mode)
+	for source in ['set sv_gametype "coop"','set capturelimit "0"','set hilllimit "3601"','set sv_friendlyfire "2"']:
+		check(Config.parse(source).has("error"),"Reject invalid config: "+source)
+	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);Fixture.setup(g);await physics_frame
+	g.match_mode.kind="ctf";g.start_host("Red",0,100,60,true);g.bots.free();g.bots=null;g.set_physics_process(false)
+	check(g.match_mode.kind=="dm" and g.players[1].team==-1,"In-game host forces DM")
+	g._add_player(-4,"Observer",true)
+	prepare("tdm")
+	check(g.match_mode.assign_team(false)==0 and g.match_mode.assign_team(true)==-1,"Balanced team assignment excludes spectators")
+	g._damage(-2,1,20,"test",true);check(g.players[-2].hp==100,"Friendly fire off blocks teammate damage")
+	g._damage(-1,1,1000,"test",true);check(g.match_mode.scores==[1,0] and g.players[1].kills==1,"Enemy kill scores one team frag")
+	g.match_mode.friendly_fire=true;g._damage(-2,1,1000,"test",true)
+	check(g.match_mode.scores==[0,0] and g.players[1].kills==0,"Teamkill penalizes killer and team")
+	g._damage(1,1,1000,"test",true);check(g.match_mode.scores==[-1,0],"Suicide subtracts team frag")
+	g.match_mode.scores=[10,0];g.match_mode.check_limit();check(g.intermission>0 and g.round_message.begins_with("RED WINS"),"TDM limit ends match with team winner")
+	prepare("ctf")
+	g.fighters[1].position=g.match_mode.bases[1];g.match_mode.tick(.1)
+	check(g.match_mode.flags[1].carrier==1,"Enemy flag can be taken")
+	g.fighters[1].position=g.match_mode.bases[0];g.match_mode.tick(.1)
+	check(g.match_mode.scores==[1,0] and g.match_mode.flags[1].carrier==0,"Capture scores and returns enemy flag")
+	g.fighters[-1].position=g.match_mode.bases[0];g.fighters[1].position=g.match_mode.bases[1];g.match_mode.tick(.1)
+	g.fighters[1].position=g.match_mode.bases[0];g.fighters[-1].position=Fixture.point(0,10);g.match_mode.tick(.1)
+	check(g.match_mode.scores==[1,0] and g.match_mode.flags[1].carrier==1,"Cannot capture while own flag is stolen")
+	g._damage(-1,1,1000,"test",true)
+	check(g.match_mode.flags[0].dropped and g.match_mode.flags[0].carrier==0,"Death drops carried flag")
+	g.fighters[1].position=g.match_mode.flags[0].position;g.match_mode.tick(.1)
+	check(not g.match_mode.flags[0].dropped,"Touching own dropped flag returns it")
+	g.fighters[1].position=g.match_mode.bases[0];g.match_mode.tick(.1)
+	check(g.intermission>0 and g.match_mode.scores==[2,0],"Capture limit ends CTF match")
+	prepare("ctf");g.fighters[1].position=g.match_mode.bases[1];g.match_mode.tick(.1);g.match_mode.drop(1);g.fighters[1].position=Fixture.point(-15,15);g.clock+=31;g.match_mode.tick(.1)
+	check(not g.match_mode.flags[1].dropped and g.match_mode.flags[1].position==g.match_mode.bases[1],"Dropped flag returns after 30 seconds")
+	g.fighters[-4].position=g.match_mode.bases[0];g.match_mode.tick(.1)
+	check(g.match_mode.flags[0].carrier==0,"Spectators cannot take flags")
+	prepare("koth");g.fighters[1].position=Fixture.point();g.match_mode.tick(1.0)
+	check(g.match_mode.scores==[1,0] and g.match_mode.hill_owner==0,"Holding hill scores one point per second")
+	g.fighters[-1].position=Fixture.point(1,0);g.match_mode.tick(2.0)
+	check(g.match_mode.scores==[1,0] and g.match_mode.hill_owner==-2,"Contested hill awards no points")
+	g.players[-1].dead=true;g.fighters[-4].position=Fixture.point();g.match_mode.tick(2.0)
+	check(g.match_mode.scores==[3,0] and g.intermission>0,"Dead enemies and spectators cannot contest; hill limit ends round")
+	prepare("koth");g.fighters[1].position=Fixture.point(9.5,0);g.match_mode.hill=Fixture.point(11,0);g.match_mode.tick(1.0)
+	check(g.match_mode.scores==[0,0],"Walls prevent objective interaction")
+	g.fighters[1].position=g.match_mode.hill+Vector3.UP*4;g.match_mode.tick(1.0);check(g.match_mode.scores==[0,0],"Different floor cannot control hill")
+	var replica=preload("res://deathmatch/modes/match.gd").new();replica.setup(g);replica.receive(g.match_mode.snapshot())
+	check(replica.kind=="koth" and replica.hill==g.match_mode.hill and replica.limit()==3,"Client receives objective mode, positions, score and limit")
+	g.match_mode.scores=[2,2];g._end_round();check(g.round_message.begins_with("DRAW"),"Tied team scores produce draw")
+	g._restart_round();check(g.match_mode.scores==[0,0] and g.players[-4].spectator and g.players[1].team==0,"New round clears objective state and preserves teams and spectators")
+	print("TEAM_MODES_RESULT ",JSON.stringify(failures));g.free();quit(0 if failures.is_empty() else 1)

@@ -1,37 +1,242 @@
 [
   {
     "id": "lqdm1",
-    "title": "Solstice",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        5.148,
+        0.06,
+        9.588
+      ],
+      "hill": [
+        1.217,
+        -0.7,
+        -18.822
+      ],
+      "red": [
+        0.546,
+        0.06,
+        -47.96
+      ]
+    },
     "path": "res://deathmatch/maps/raw/lqdm1.bsp",
     "scene": "res://deathmatch/maps/cache/lqdm1.scn",
-    "sha256": "eb1f9a74e489e32d82718e6366c29f92a65553c2c809b7b90f9862376b015708"
+    "sha256": "eb1f9a74e489e32d82718e6366c29f92a65553c2c809b7b90f9862376b015708",
+    "title": "Solstice"
   },
   {
     "id": "lqdm2",
-    "title": "Torture Pit",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        -24.5,
+        11.06,
+        1.0
+      ],
+      "hill": [
+        3.892,
+        5.3,
+        -17.159
+      ],
+      "red": [
+        24.472,
+        5.06,
+        -18.668
+      ]
+    },
     "path": "res://deathmatch/maps/raw/lqdm2.bsp",
     "scene": "res://deathmatch/maps/cache/lqdm2.scn",
-    "sha256": "a2327d080cc62e4307cbdde8ed0ae376dc74b66d88b3fad8fb1b0f4cf7b8714a"
+    "sha256": "a2327d080cc62e4307cbdde8ed0ae376dc74b66d88b3fad8fb1b0f4cf7b8714a",
+    "title": "Torture Pit"
   },
   {
     "id": "lqdm4",
-    "title": "Psychofuge",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        -5.0,
+        -9.94,
+        -29.0
+      ],
+      "hill": [
+        9.596,
+        -13.7,
+        -12.498
+      ],
+      "red": [
+        10.5,
+        -13.94,
+        10.0
+      ]
+    },
     "path": "res://deathmatch/maps/raw/lqdm4.bsp",
     "scene": "res://deathmatch/maps/cache/lqdm4.scn",
-    "sha256": "7c9b4420a8a1b70a6743ceb9a7b6c87d13bc7967afaec1b7b80ce42375f35311"
+    "sha256": "7c9b4420a8a1b70a6743ceb9a7b6c87d13bc7967afaec1b7b80ce42375f35311",
+    "title": "Psychofuge"
   },
   {
     "id": "lqdm7",
-    "title": "Boomstick Basement",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        37.355,
+        3.56,
+        7.909
+      ],
+      "hill": [
+        3.931,
+        3.75,
+        8.289
+      ],
+      "red": [
+        -22.988,
+        3.56,
+        -9.985
+      ]
+    },
     "path": "res://deathmatch/maps/raw/lqdm7.bsp",
     "scene": "res://deathmatch/maps/cache/lqdm7.scn",
-    "sha256": "ef2dcf601eaaeab064224654e25bec5d97619cb2493a648ce4997f18f583a30d"
+    "sha256": "ef2dcf601eaaeab064224654e25bec5d97619cb2493a648ce4997f18f583a30d",
+    "title": "Boomstick Basement"
   },
   {
     "id": "lqdm8",
-    "title": "Alichar Sector",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        26.446,
+        8.56,
+        -5.048
+      ],
+      "hill": [
+        2.228,
+        6.3,
+        -0.947
+      ],
+      "red": [
+        -24.5,
+        12.06,
+        -2.5
+      ]
+    },
     "path": "res://deathmatch/maps/raw/lqdm8.bsp",
     "scene": "res://deathmatch/maps/cache/lqdm8.scn",
-    "sha256": "844f8eef6c7af366c2280d7eebf1d7766f6b2a271d6a886dee188d02f945f196"
+    "sha256": "844f8eef6c7af366c2280d7eebf1d7766f6b2a271d6a886dee188d02f945f196",
+    "title": "Alichar Sector"
+  },
+  {
+    "id": "lqdm3",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        -37.468,
+        -1.44,
+        -4.392
+      ],
+      "hill": [
+        -17.877,
+        -4.2,
+        13.439
+      ],
+      "red": [
+        2.831,
+        0.06,
+        38.09
+      ]
+    },
+    "path": "res://deathmatch/maps/raw/lqdm3.bsp",
+    "scene": "res://deathmatch/maps/cache/lqdm3.scn",
+    "sha256": "aeda1799bcf5166bf13beef2b354ba4aa4ac424a235a36c14fe4f5612fc36553",
+    "title": "Hyperborea"
+  },
+  {
+    "id": "lqdm5",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        -2.0,
+        10.06,
+        -46.0
+      ],
+      "hill": [
+        -28.4,
+        4.25,
+        -14.691
+      ],
+      "red": [
+        2.0,
+        9.06,
+        12.0
+      ]
+    },
+    "path": "res://deathmatch/maps/raw/lqdm5.bsp",
+    "scene": "res://deathmatch/maps/cache/lqdm5.scn",
+    "sha256": "528a761134dfe057ec566bed9bcf97f379d74cb837823364c8fedea79619dec4",
+    "title": "Transport Tubes"
+  },
+  {
+    "id": "lqdm6",
+    "modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth"
+    ],
+    "objectives": {
+      "blue": [
+        11.836,
+        6.06,
+        -25.181
+      ],
+      "hill": [
+        16.61,
+        6.25,
+        -4.69
+      ],
+      "red": [
+        -5.5,
+        6.06,
+        16.5
+      ]
+    },
+    "path": "res://deathmatch/maps/raw/lqdm6.bsp",
+    "scene": "res://deathmatch/maps/cache/lqdm6.scn",
+    "sha256": "4b43640199bd7bf53c6d7ffbc00a843673feba36cd77c78473f5a7bae7d21039",
+    "title": "Ghost Quarter"
   }
 ]

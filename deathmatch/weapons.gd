@@ -5,7 +5,7 @@ extends RefCounted
 const DATA = [
 	{"name":"FIST", "ammo":-1, "cost":0, "cycle":0.57, "pellets":1, "spread":5.6, "vertical":0.0, "range":2.88, "damage":2, "dice":10},
 	{"name":"CHAINSAW", "ammo":-1, "cost":0, "cycle":0.114, "pellets":1, "spread":5.6, "vertical":0.0, "range":2.92, "damage":2, "dice":10},
-	{"name":"PISTOL", "ammo":0, "cost":1, "cycle":0.4, "pellets":1, "spread":5.6, "vertical":0.0, "range":100.0, "damage":5, "dice":3},
+	{"name":"DUAL PISTOLS", "ammo":0, "cost":1, "cycle":0.4, "pellets":1, "spread":4.2, "vertical":0.0, "range":100.0, "damage":6, "dice":3},
 	{"name":"SHOTGUN", "ammo":1, "cost":1, "cycle":1.0, "pellets":7, "spread":5.6, "vertical":0.0, "range":100.0, "damage":5, "dice":3},
 	{"name":"SUPER SHOTGUN", "ammo":1, "cost":2, "cycle":1.63, "pellets":20, "spread":11.2, "vertical":7.1, "range":100.0, "damage":5, "dice":3},
 	{"name":"CHAINGUN", "ammo":0, "cost":1, "cycle":0.114, "pellets":1, "spread":5.6, "vertical":0.0, "range":100.0, "damage":5, "dice":3},

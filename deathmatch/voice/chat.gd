@@ -84,7 +84,10 @@ func stop_capture() -> void:
 	hangover=0
 	if mic: mic.stop(); mic.queue_free(); mic=null
 	capture=null
-	if bus_index>=0: AudioServer.remove_bus(bus_index); bus_index=-1
+	if bus_index>=0:
+		var index:=AudioServer.get_bus_index("VoiceCapture")
+		if index>=0:AudioServer.remove_bus(index)
+		bus_index=-1
 
 func push_to_talk() -> bool:
 	if game.is_vr():
@@ -135,6 +138,8 @@ func _process(delta: float) -> void:
 		if not state.started:
 			if state.queue.size()<3 and game.clock-state.first_time<.06: continue
 			state.started=true
+		if state.playback==null and is_instance_valid(state.player) and state.player.has_method("get_inner_stream_playback"):
+			state.playback=state.player.get_inner_stream_playback()
 		var playback=state.playback
 		if playback:
 			while not state.queue.is_empty() and playback.get_frames_available()>=Codec.FRAMES:
@@ -185,7 +190,7 @@ func receive(id: int,serial: int,data: PackedByteArray) -> void:
 		var player: AudioStreamPlayer3D
 		var playback
 		if not game.headless:
-			player=AudioStreamPlayer3D.new()
+			player=game.spatial.create_player()
 			game.spatial.configure(player,true)
 			var generator:=AudioStreamGenerator.new()
 			generator.mix_rate=Codec.RATE
@@ -193,7 +198,7 @@ func receive(id: int,serial: int,data: PackedByteArray) -> void:
 			player.stream=generator
 			add_child(player)
 			player.play()
-			playback=player.get_stream_playback()
+			playback=null if player.has_method("get_inner_stream_playback") else player.get_stream_playback()
 		streams[id]={"player":player,"playback":playback,"mouth_queue":[],"queue":[],"last":-1,"last_time":game.clock,"first_time":game.clock,"started":false}
 	var state: Dictionary=streams[id]
 	if serial<=state.last: return
@@ -208,10 +213,13 @@ func receive(id: int,serial: int,data: PackedByteArray) -> void:
 	received_packets+=1
 
 @rpc("authority","call_remote","reliable",0)
-func policy(allowed: bool,host_name: String) -> void:
-	game.voice_enabled=allowed
+func policy(allowed: bool,host_name: String,backend: String="builtin",external_url: String="") -> void:
+	game.voice_backend=backend if backend in ["builtin","mumble"] else "builtin"
+	game.mumble_url=external_url if preload("res://deathmatch/voice/external.gd").valid_url(external_url) else ""
+	game.voice_enabled=allowed and game.voice_backend=="builtin"
 	game.server_name=host_name
-	if not allowed: stop_capture(); message="Voice disabled by host"
+	if game.voice_backend=="mumble":stop_capture();message="Server uses external Mumble · open your Mumble client below. Its audio and push-to-talk controls are separate."
+	elif not allowed: stop_capture(); message="Voice disabled by host"
 	else: set_mode(mode)
 
 func set_muted(id: int,value: bool) -> void:

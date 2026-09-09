@@ -90,8 +90,8 @@ func _process_modification_with_delta(_delta: float) -> void:
 			var desired: Basis=sk.global_basis.orthonormalized().inverse()*palm_basis
 			sk.set_bone_pose_rotation(hand,(sk.get_bone_global_pose(parent).basis.orthonormalized().inverse()*desired).get_rotation_quaternion())
 		else:
-			# Both hands track the weapon grip; elbows use outward/downward poles.
-			var grip: Vector3=preload("res://deathmatch/art.gd").desktop_hand(side=="Left",rig.aim_pitch,rig.recoil)
+			# Pistols use separate grips; other weapons retain the supporting hand.
+			var grip: Vector3=preload("res://deathmatch/art.gd").desktop_hand(side=="Left",rig.aim_pitch,rig.offhand_recoil if side=="Left" and rig.weapon_id==2 else rig.recoil,rig.weapon_id==2)
 			solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",rig.to_global(grip),rig.to_global(Vector3(sign_x*.65,.8,-.1)))
 			var middle := bone(sk,side+"MiddleProximal")
 			if middle>=0:

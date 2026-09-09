@@ -17,7 +17,7 @@ logs.mkdir(exist_ok=True)
 processes = []
 handles = []
 try:
-    for role in ['server', 'shooter', 'target']:
+    for role in (['server','shooter','target'] if '--bsp' in sys.argv else ['server','shooter','target','spectator']):
         handle = (logs / (role + '.log')).open('w')
         handles.append(handle)
         cmd = [godot, '--headless','--xr-mode','off', '--path', str(root), '--script', 'res://deathmatch/tests/bsp_network_runner.gd' if '--bsp' in sys.argv else 'res://deathmatch/tests/network_runner.gd', '--', role]

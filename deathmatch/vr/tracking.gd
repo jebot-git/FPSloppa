@@ -11,9 +11,12 @@ var osc_port:=9000
 var corrections: Dictionary={}
 var calibrated:=false
 var native_corrections: Dictionary={}
+var native_foot_offsets: Dictionary={}
 var osc_alignment:=Transform3D.IDENTITY
 var status:="No extra tracking detected; using IK"
 var role_nodes: Dictionary={}
+var hand_curls: Dictionary={}
+var hand_sources: Dictionary={}
 var permission_message:=""
 func setup(value: Node) -> void:
 	rig=value
@@ -21,7 +24,7 @@ func setup(value: Node) -> void:
 		rig.game.permissions.completed.connect(_permission_result)
 		rig.game.permissions.request_tracking.call_deferred()
 	for key in VIVE:
-		role_nodes[key]=rig.controller("Tracker_"+key,"/user/vive_tracker_htcx/role/"+VIVE[key],"default")
+		role_nodes[key]=rig.controller("Tracker_"+key,"/user/vive_tracker_htcx/role/"+VIVE[key],"tracker_pose")
 	var cfg:=ConfigFile.new()
 	if cfg.load("user://tracking.cfg")==OK:
 		osc_ip=str(cfg.get_value("slime","source_ip","127.0.0.1"))
@@ -57,7 +60,7 @@ func external() -> Dictionary:
 			# Also accept role poses from runtimes/bridges using grip or the older action name.
 			var tracker=XRServer.get_tracker(node.tracker)
 			if tracker is XRPositionalTracker:
-				for pose_name in ["default","grip","tracker_pose"]:
+				for pose_name in ["tracker","tracker_pose","default","grip"]:
 					var tracked=tracker.get_pose(pose_name) if tracker.has_pose(pose_name) else null
 					if tracked and tracked.has_tracking_data:
 						result[key]=rig.origin.transform*tracked.get_adjusted_transform();break
@@ -93,6 +96,7 @@ func calibrate() -> void:
 	var raw:=external()
 	for key in raw: corrections[key]=raw[key].affine_inverse()*facing*Transform3D(Basis.IDENTITY,targets[key])
 	native_corrections.clear()
+	native_foot_offsets.clear()
 	var native_count:=0
 	for tracker in XRServer.get_trackers(XRServer.TRACKER_BODY).values():
 		if not tracker is XRBodyTracker or not tracker.has_tracking_data:continue
@@ -103,6 +107,11 @@ func calibrate() -> void:
 			var basis_here:Basis=preload("res://deathmatch/vr/body_basis.gd").native_to_facing(key,tracker.get_joint_transform(JOINTS[key]).basis)
 			adjustments[key]=basis_here.inverse()*rig.origin.basis.inverse()*facing.basis
 			native_count+=1
+			if key in ["left_knee","right_knee"] and flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID:
+				# Some bridges expose calf-mounted trackers as lower-leg joints,
+				# without an ankle/foot joint. Calibrate the tracker-to-ankle length.
+				var height:float=tracker.get_joint_transform(JOINTS[key]).origin.y*XRServer.world_scale
+				native_foot_offsets[str(tracker.name)+key]=clampf(height-.08*XRServer.world_scale,.05*XRServer.world_scale,.65*XRServer.world_scale)
 		native_corrections[tracker.name]=adjustments
 	calibrated=not corrections.is_empty() or native_count>0
 	status="Calibrated %d external / %d native targets"%[corrections.size(),native_count] if calibrated else "No body tracking data available to calibrate"
@@ -117,41 +126,61 @@ static func has_body_pose(body: Dictionary) -> bool:
 		if body.has(joint): return true
 	return false
 func sample() -> Dictionary:
-	if not enabled or not rig.focused: return {}
+	if not rig.focused:
+		hand_curls.clear();hand_sources.clear()
+		return {}
 	var result: Dictionary={}
-	for tracker in XRServer.get_trackers(XRServer.TRACKER_BODY).values():
-		if not tracker is XRBodyTracker or not tracker.has_tracking_data: continue
-		for key in JOINTS:
-			var flags: int=tracker.get_joint_flags(JOINTS[key])
-			if flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID and flags&XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID:
-				var pose: Transform3D=tracker.get_joint_transform(JOINTS[key])
-				pose.origin*=XRServer.world_scale
-				pose.basis=preload("res://deathmatch/vr/body_basis.gd").native_to_facing(key,pose.basis)*native_corrections.get(tracker.name,{}).get(key,Basis.IDENTITY)
-				result[key]=rig.origin.transform*pose
 	var raw:=external()
-	for key in raw:
-		if corrections.has(key): result[key]=raw[key]*corrections[key]
-	# Optional optical hands only animate the avatar. Controllers still own weapons/input.
+	if enabled:
+		for tracker in XRServer.get_trackers(XRServer.TRACKER_BODY).values():
+			if not tracker is XRBodyTracker or not tracker.has_tracking_data: continue
+			for key in JOINTS:
+				var flags: int=tracker.get_joint_flags(JOINTS[key])
+				if flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID and flags&XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID:
+					var pose: Transform3D=tracker.get_joint_transform(JOINTS[key])
+					pose.origin*=XRServer.world_scale
+					pose.basis=preload("res://deathmatch/vr/body_basis.gd").native_to_facing(key,pose.basis)*native_corrections.get(tracker.name,{}).get(key,Basis.IDENTITY)
+					result[key]=rig.origin.transform*pose
+			# A tracked lower leg must drive the endpoint too, not just the knee
+			# bend hint of a foot that remains planted by procedural walking.
+			for side in ["left","right"]:
+				var knee:String=side+"_knee";var foot:String=side+"_foot"
+				var leg_flags:int=tracker.get_joint_flags(JOINTS[knee])
+				if result.has(knee) and not result.has(foot) and leg_flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID and leg_flags&XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID:
+					var offset_key:String=str(tracker.name)+knee
+					if not native_foot_offsets.has(offset_key):
+						var height:float=tracker.get_joint_transform(JOINTS[knee]).origin.y*XRServer.world_scale
+						native_foot_offsets[offset_key]=clampf(height-.08*XRServer.world_scale,.05*XRServer.world_scale,.65*XRServer.world_scale)
+					var inferred:Transform3D=estimated_foot(result[knee],native_foot_offsets[offset_key])
+					inferred.origin.y=maxf(inferred.origin.y,rig.origin.position.y+.03*XRServer.world_scale)
+					result[foot]=inferred
+		for key in raw:
+			if corrections.has(key): result[key]=raw[key]*corrections[key]
+	hand_sources.clear()
 	for side in ["left","right"]:
-		var hand=XRServer.get_tracker("/user/hand_tracker/"+side)
-		if not hand is XRHandTracker or not hand.has_tracking_data: continue
-		var flags: int=hand.get_hand_joint_flags(XRHandTracker.HAND_JOINT_WRIST)
-		if not flags&XRHandTracker.HAND_JOINT_FLAG_POSITION_VALID or not flags&XRHandTracker.HAND_JOINT_FLAG_ORIENTATION_VALID: continue
-		var pose: Transform3D=hand.get_hand_joint_transform(XRHandTracker.HAND_JOINT_WRIST)
-		pose.origin*=XRServer.world_scale
-		result[side+"_hand"]=rig.origin.transform*pose
-		var curls:=PackedFloat32Array()
-		for joints in [[2,3,4,5],[7,8,9,10],[12,13,14,15],[17,18,19,20],[22,23,24,25]]:
-			var a: Vector3=hand.get_hand_joint_transform(joints[1]).origin-hand.get_hand_joint_transform(joints[0]).origin
-			var b: Vector3=hand.get_hand_joint_transform(joints[3]).origin-hand.get_hand_joint_transform(joints[2]).origin
-			curls.append(clampf(a.angle_to(b)/2.4,0,1) if a.length()>.001 and b.length()>.001 else 0)
+		var hand=XRServer.get_tracker("/user/hand_tracker/"+side) as XRHandTracker
+		var controller=rig.get(side) as XRController3D
+		var curls:=preload("res://deathmatch/vr/hand_input.gd").sample(controller,hand)
+		hand_curls[side]=curls
 		result[side+"_curls"]=curls
-	if not result.is_empty(): status="Tracking: "+", ".join(result.keys())
-	elif not raw.is_empty(): status="Trackers detected: stand straight and CALIBRATE BODY"
-	else: status=permission_message if not permission_message.is_empty() else "No extra tracking data; using animated IK"
+		hand_sources[side]="native joints" if hand and hand.has_tracking_data else "controller gestures"
+		# Inferred controller wrists must not replace our calibrated grip mapping.
+		if not hand or not hand.has_tracking_data or hand.hand_tracking_source!=XRHandTracker.HAND_TRACKING_SOURCE_UNOBSTRUCTED: continue
+		var flags:=hand.get_hand_joint_flags(XRHandTracker.HAND_JOINT_WRIST)
+		if flags&XRHandTracker.HAND_JOINT_FLAG_POSITION_VALID and flags&XRHandTracker.HAND_JOINT_FLAG_ORIENTATION_VALID:
+			var pose:=hand.get_hand_joint_transform(XRHandTracker.HAND_JOINT_WRIST)
+			pose.origin*=XRServer.world_scale
+			result[side+"_hand"]=rig.origin.transform*pose
+	if has_body_pose(result): status="Tracking: "+", ".join(result.keys())
+	elif not raw.is_empty(): status="%d trackers detected: stand straight and CALIBRATE BODY"%raw.size()
+	else: status=permission_message if not permission_message.is_empty() else "No body poses; assign Vive roles in SteamVR or enable body tracking in WiVRn"
+	if not enabled: status="Body tracking disabled"
+	status+=" | Hands: L "+hand_sources.left+", R "+hand_sources.right
 	if rig.get("game") and rig.game.permissions:
 		var access_status: String=rig.game.permissions.tracking_status()
 		if not access_status.is_empty(): status=access_status
 	return result
+static func estimated_foot(lower_leg: Transform3D,ankle_offset: float) -> Transform3D:
+	return lower_leg*Transform3D(Basis.IDENTITY,Vector3.DOWN*ankle_offset)
 func _exit_tree() -> void:
 	if udp: udp.close()

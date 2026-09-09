@@ -33,20 +33,18 @@ var resume: Button
 var leave: Button
 var launch_buttons: Array = []
 var voice_button: Button
+var votes_panel: PanelContainer
+var votes_button: Button
+var settings_panel: PanelContainer
+var spectator_choice: CheckButton
+var scoreboard_was_open:=false
 
 func panel_style(color: Color) -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = color
-	style.border_color = Color("45555b")
-	style.set_border_width_all(1)
-	style.set_corner_radius_all(4)
-	style.content_margin_left = 22
-	style.content_margin_right = 22
-	style.content_margin_top = 18
-	style.content_margin_bottom = 18
+	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
+	style.bg_color=Color(.12,.105,.085,color.a)
 	return style
 
-func text(parent: Node,value: String,size: int = 16,color: Color = Color("dce3df")) -> Label:
+func text(parent: Node,value: String,size: int = 16,color: Color = Color("e5d5ad")) -> Label:
 	var label := Label.new()
 	label.text = value
 	label.add_theme_font_size_override("font_size",size)
@@ -57,6 +55,7 @@ func text(parent: Node,value: String,size: int = 16,color: Color = Color("dce3df
 func setup(arena: Node) -> void:
 	game = arena
 	var root := Control.new()
+	root.theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
 	add_child(root)
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -66,9 +65,9 @@ func setup(arena: Node) -> void:
 	hud.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	match_status = text(hud,"",17)
 	match_status.position = Vector2(24,18)
-	avatar_status = text(hud,"",13,Color("a1c7c0"))
-	avatar_status.position = Vector2(24,45)
-	kill_feed = text(hud,"",15,Color("becbc8"))
+	avatar_status = text(hud,"",13,Color("ae9571"))
+	avatar_status.position = Vector2(24,72)
+	kill_feed = text(hud,"",15,Color("c3b499"))
 	kill_feed.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	kill_feed.offset_left = -580
 	kill_feed.offset_top = 20
@@ -82,7 +81,7 @@ func setup(arena: Node) -> void:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation",36)
 	bottom.add_child(row)
-	vitals = text(row,"",26,Color("d9e8df"))
+	vitals = text(row,"",26,Color("e5d5ad"))
 	vitals.custom_minimum_size.x = 310
 	weapon = text(row,"",18,Color("e7bb70"))
 	weapon.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -102,7 +101,7 @@ func setup(arena: Node) -> void:
 	center_message.offset_right = 380
 	center_message.offset_top = 55
 	center_message.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	toast_label = text(hud,"",17,Color("a1d9c6"))
+	toast_label = text(hud,"",17,Color("e5bc75"))
 	toast_label.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 	toast_label.offset_left = -400
 	toast_label.offset_right = 400
@@ -152,6 +151,9 @@ func setup(arena: Node) -> void:
 		get_viewport().set_input_as_handled()
 	)
 	_build_menu(root)
+	settings_panel=preload("res://deathmatch/settings/panel.gd").new()
+	root.add_child(settings_panel);settings_panel.setup(game)
+	votes_panel=preload("res://deathmatch/modes/panel.gd").new();root.add_child(votes_panel);votes_panel.setup(game)
 	show_menu(true)
 
 func _build_menu(root: Control) -> void:
@@ -159,7 +161,7 @@ func _build_menu(root: Control) -> void:
 	root.add_child(menu)
 	menu.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var dim := ColorRect.new()
-	dim.color = Color(.015,.026,.03,.91)
+	dim.color = Color(.035,.025,.02,.94)
 	menu.add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var center := CenterContainer.new()
@@ -170,12 +172,14 @@ func _build_menu(root: Control) -> void:
 	panel.add_theme_stylebox_override("panel",panel_style(Color("122027")))
 	center.add_child(panel)
 	var column := VBoxContainer.new()
-	column.add_theme_constant_override("separation",8)
+	column.add_theme_constant_override("separation",6)
 	panel.add_child(column)
-	text(column,"U A C   /   C O M B A T   S I M U L A T I O N",13,Color("8aafa9"))
-	text(column,"ENTRYWAY",40,Color("efddba"))
+	text(column,"I R O N   /   B L O O D   /   T H U N D E R",13,Color("ae9571"))
+	var logo:=text(column,"ENTRYWAY",40,Color("d7a966"))
+	logo.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"))
+	logo.add_theme_color_override("font_shadow_color",Color("7e211b"));logo.add_theme_constant_override("shadow_offset_y",3)
 	text(column,"DEATHMATCH  /  2–8 PLAYERS",17,Color("c39860"))
-	text(column,"Fast movement. No magazines. Every pickup matters.",15,Color("aebdbb"))
+	text(column,"Fast movement. No magazines. Every pickup matters.",15,Color("baac95"))
 	var identity := HBoxContainer.new()
 	column.add_child(identity)
 	text(identity,"CALLSIGN",14).custom_minimum_size.x = 110
@@ -195,6 +199,7 @@ func _build_menu(root: Control) -> void:
 		game.voice.panel.reparent(root)
 		game.voice.panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		voice_button=button(identity,"VOICE…",game.voice.panel.open)
+	button(identity,"SETTINGS…",func():settings_panel.open())
 	var connection := HBoxContainer.new()
 	column.add_child(connection)
 	text(connection,"HOST ADDRESS",14).custom_minimum_size.x = 110
@@ -239,10 +244,12 @@ func _build_menu(root: Control) -> void:
 	minutes.value = 10
 	rules.add_child(minutes)
 	text(rules,"minutes",14)
+	spectator_choice=CheckButton.new();spectator_choice.text="Join as spectator";spectator_choice.custom_minimum_size.y=36
+	column.add_child(spectator_choice)
 	var actions := HBoxContainer.new()
 	column.add_child(actions)
 	var host := button(actions,"HOST MATCH",func(): game.start_host(name_field.text,int(port_field.value),int(frags.value),int(minutes.value),false))
-	var join := button(actions,"JOIN MATCH",func(): game.start_join(name_field.text,address_field.text,int(port_field.value)))
+	var join := button(actions,"JOIN MATCH",func(): game.start_join(name_field.text,address_field.text,int(port_field.value),spectator_choice.button_pressed))
 	var training := button(actions,"PRACTICE VS BOTS",func(): game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true))
 	launch_buttons = [host,join,training]
 	resume = button(column,"RESUME",func():
@@ -250,7 +257,9 @@ func _build_menu(root: Control) -> void:
 		show_menu(false)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
 	)
-	leave = button(column,"LEAVE MATCH",func(): game.disconnect_game())
+	var session_actions:=HBoxContainer.new();column.add_child(session_actions)
+	leave = button(session_actions,"LEAVE MATCH",func(): game.disconnect_game())
+	votes_button=button(session_actions,"TEAMS & VOTES…",func():votes_panel.open())
 	vr_actions=HBoxContainer.new()
 	column.add_child(vr_actions)
 	button(vr_actions,"CHAT",func():
@@ -271,7 +280,7 @@ func _build_menu(root: Control) -> void:
 		if game.is_vr(): game.xr_rig.tracking.toggle_osc(); status.text=game.xr_rig.tracking.status)
 	button(tracking_actions,"BODY TRACKING ON / OFF",func():
 		if game.is_vr(): game.xr_rig.tracking.enabled=not game.xr_rig.tracking.enabled)
-	status = text(column,"LAN / direct IP · Internet hosts must forward the selected UDP port.",14,Color("a1c7c0"))
+	status = text(column,"LAN / direct IP · Internet hosts must forward the selected UDP port.",14,Color("ae9571"))
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	status.custom_minimum_size = Vector2(590,32)
 	controls=text(column,"WASD  Move   SHIFT  Walk   MOUSE  Aim / fire   1–7 / WHEEL  Weapons\nE  Door   F  Weapon whip   TAB  Scores   ENTER  Chat   ESC  Menu\nSPACE  Jump / swim in Quake maps; respawn when dead.",13,Color("859b9e"))
@@ -300,9 +309,13 @@ func button(parent: Node,title: String,action: Callable) -> Button:
 func show_menu(open: bool) -> void:
 	menu.visible = open
 	resume.visible = game.active
+	spectator_choice.visible=not game.active
 	leave.visible = game.active
+	votes_button.visible=game.active
+	if votes_panel and not open:votes_panel.hide()
 	for b in launch_buttons: b.visible = not game.active
 	if not open:
+		if settings_panel:settings_panel.hide()
 		if game.voice and game.voice.panel: game.voice.panel.hide()
 		save_preferences()
 
@@ -323,14 +336,24 @@ func _process(_delta: float) -> void:
 	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · LEFT Y/B Scores"
 	hud.visible = game.active
 	avatar_status.text = game.avatars.message
-	if not game.active: return
+	if not game.active:
+		scoreboard_was_open=false
+		return
+	if game.intermission>0 and not scoreboard_was_open:
+		game.menu_open=false;show_menu(false)
+		if not game.headless and not game.is_vr():Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
+	scoreboard_was_open=game.intermission>0
 	var state: Dictionary = game.local_state()
 	if state.is_empty(): return
 	var d: Dictionary = W.DATA[state.weapon]
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
 	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
-	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS   ·   %d ms" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.size(),game.local_ping]
+	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS   ·   %d ms" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size(),game.local_ping]
+	if game.match_mode.team_game():
+		match_status.text=game.match_mode.status(game.multiplayer.get_unique_id()).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
+	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
+	if not vote.is_empty():match_status.text+="\nVOTE: "+vote.title+" · MENU → TEAMS & VOTES"
 	if game.voice and game.voice.transmitting: match_status.text += "   ·   MIC LIVE"
 	var lines := PackedStringArray()
 	for entry in game.feed:
@@ -342,19 +365,32 @@ func _process(_delta: float) -> void:
 	center_message.text = ""
 	if game.intermission>0:
 		center_message.text = game.round_message+"\nNext round in %d" % ceili(game.intermission)
+	elif state.spectator:
+		center_message.text="SPECTATING · WASD move · SPACE / CTRL fly" if not game.is_vr() else "SPECTATING"
 	elif state.dead:
 		var wait: float = maxf(0,state.respawn_at-game.clock)
 		center_message.text = "FRAGGED\n"+("Respawn in %.1f" % wait if wait>0 else "Fire or Space to respawn")
 	elif state.invulnerable>game.clock:
 		center_message.text = "SPAWN PROTECTION"
+	if state.spectator:
+		vitals.text="SPECTATOR";weapon.text="";ammo.text=""
 	scoreboard.visible = not game.menu_open and (Input.is_physical_key_pressed(KEY_TAB) or (game.is_vr() and game.xr_rig.scores) or game.intermission>0)
 	if scoreboard.visible:
-		var sorted: Array = game.players.values().duplicate()
-		sorted.sort_custom(func(a,b): return a.kills>b.kills)
-		var board := "ENTRYWAY  /  DEATHMATCH\n\nMARINE                       FRAGS    DEATHS    PING\n"
+		var sorted: Array=game.players.values().filter(func(player):return not player.spectator)
+		sorted.sort_custom(func(a,b):return a.kills>b.kills if a.kills!=b.kills else a.deaths<b.deaths)
+		var board: String="ROUND COMPLETE\n"+game.round_message+"\nNext round in %d\n"%ceili(game.intermission) if game.intermission>0 else "ENTRYWAY / "+game.match_mode.NAMES[game.match_mode.kind]+"\n"
+		if game.match_mode.team_game():board+="RED %d : BLUE %d   LIMIT %d\n"%[game.match_mode.scores[0],game.match_mode.scores[1],game.match_mode.limit()]
+		board+="\nMARINE                 FRAGS   DEATHS   PING\n"
 		for player in sorted:
-			board += "\n%-23s    %3d       %3d       %3d" % [player.name,player.kills,player.deaths,player.ping]
-		scores.text = board
+			board+="\n%-18s     %3d      %3d    %3d"%[("R " if player.team==0 else "B " if player.team==1 else "")+player.name,player.kills,player.deaths,player.ping]
+		var spectators: Array=game.players.values().filter(func(player):return player.spectator)
+		if not spectators.is_empty():
+			board+="\n\nSpectators:"
+			for i in range(spectators.size()):board+=("\n" if i%2==0 else "   ")+spectators[i].name
+		scores.text=board
+		scores.add_theme_font_size_override("font_size",16 if game.players.size()>8 else 20)
+		scoreboard.offset_top=-280 if game.players.size()>8 else -220
+		center_message.text=""
 
 func _import_bsp(path: String) -> void:
 	status.text="Importing Quake BSP geometry and textures…"

@@ -1,0 +1,144 @@
+--- a/src/server.hpp
++++ b/src/server.hpp
+@@ -8,6 +8,13 @@
+ #include <atomic>
+ #include <condition_variable>
+ #include <mutex>
++#include "godot_cpp/classes/audio_server.hpp"
++
++// Main-thread code must lock the audio driver before state_mutex, matching mixer order.
++struct AudioDriverGuard {
++ AudioDriverGuard() { godot::AudioServer::get_singleton()->lock(); }
++ ~AudioDriverGuard() { godot::AudioServer::get_singleton()->unlock(); }
++};
+ 
+ using namespace godot;
+ 
+@@ -43,6 +50,7 @@
+ 	static void _bind_methods();
+ 
+ public:
++	std::recursive_mutex state_mutex; // Serializes mixer, simulation and source lifetime.
+ 	SteamAudioServer();
+ 	~SteamAudioServer();
+ 
+--- a/src/server.cpp
++++ b/src/server.cpp
+@@ -12,6 +12,8 @@
+ #include <godot_cpp/variant/utility_functions.hpp>
+ 
+ void SteamAudioServer::tick() {
++	AudioDriverGuard audio_guard;
++	std::lock_guard<std::recursive_mutex> state_guard(state_mutex);
+ 	if (Engine::get_singleton()->is_editor_hint()) {
+ 		return;
+ 	}
+@@ -176,6 +178,10 @@
+ 		iplSourceSetInputs(ls->src.src, IPL_SIMULATIONFLAGS_REFLECTIONS, &inputs);
+ 	}
+ 
++	bool needs_reflections = false;
++	for (auto ls : local_states) if (ls->cfg.is_reflection_on) needs_reflections = true;
++	if (!needs_reflections) return;
++
+ 	shared_inputs = IPLSimulationSharedInputs{};
+ 	shared_inputs.listener = global_state.listener_coords;
+ 	shared_inputs.numRays = listener->get_num_refl_rays();
+@@ -250,6 +256,8 @@
+ 			std::unique_lock<std::mutex> lock(this->refl_mux);
+ 			cv.wait(lock, [&] { return is_refl_thread_processing.load() || !is_running.load(); });
+ 		}
++		if (!is_running.load()) break;
++		std::lock_guard<std::recursive_mutex> state_guard(state_mutex);
+ 		// if someone removed a local state, then the reflection sim might crash, so
+ 		// we need it to wait for another tick.
+ 		// XXX: what happens if a local state is removed in the middle of a sim run...?
+@@ -327,8 +335,8 @@
+ 
+ SteamAudioServer::~SteamAudioServer() {
+ 	is_running.store(false);
+-	refl_thread->wait_to_finish();
+-	refl_thread.unref();
++	cv.notify_one();
++	if (refl_thread.is_valid()) { refl_thread->wait_to_finish(); refl_thread.unref(); }
+ 
+ 	if (!self->is_global_state_init.load()) {
+ 		return;
+--- a/src/player.hpp
++++ b/src/player.hpp
+@@ -47,6 +47,7 @@
+ 	static void _bind_methods();
+ 
+ public:
++	std::vector<Ref<AudioStreamPlayback>> live_playbacks;
+ 	SteamAudioPlayer();
+ 	~SteamAudioPlayer();
+ 	void ready_internal();
+--- a/src/stream.cpp
++++ b/src/stream.cpp
+@@ -19,6 +19,7 @@
+ 	playback.instantiate();
+ 	playback->set_stream(stream);
+ 	playback->parent = parent;
++	if (parent) parent->live_playbacks.push_back(playback);
+ 
+ 	return playback;
+ }
+@@ -33,6 +34,8 @@
+ SteamAudioStreamPlayback::~SteamAudioStreamPlayback() {}
+ 
+ int32_t SteamAudioStreamPlayback::_mix(AudioFrame *buffer, float rate_scale, int32_t frames) {
++	std::lock_guard<std::recursive_mutex> state_guard(SteamAudioServer::get_singleton()->state_mutex);
++	for (int i = 0; i < frames; ++i) buffer[i] = AudioFrame();
+ 	if (parent == nullptr) {
+ 		return frames;
+ 	}
+@@ -67,6 +70,8 @@
+ 		return frames;
+ 	}
+ 
++	// Fail silent instead of overwriting native buffers if a mixer block changes.
++	if (frames > ls->bufs.in.numSamples) return frames;
+ 	PackedVector2Array mixed_frames = stream_playback->mix_audio(rate_scale, frames);
+ 	frames = int(mixed_frames.size());
+ 
+--- a/src/player.cpp
++++ b/src/player.cpp
+@@ -87,6 +87,16 @@
+ 	}
+ }
+ SteamAudioPlayer::~SteamAudioPlayer() {
++	AudioDriverGuard audio_guard;
++	std::lock_guard<std::recursive_mutex> state_guard(SteamAudioServer::get_singleton()->state_mutex);
++	can_load_local_state.store(false);
++	for (auto &ref : live_playbacks) {
++		auto playback = dynamic_cast<SteamAudioStreamPlayback *>(ref.ptr());
++		if (playback) playback->parent = nullptr;
++	}
++	auto outer = dynamic_cast<SteamAudioStream *>(get_stream().ptr());
++	if (outer) outer->parent = nullptr;
++	stop();
+ 	SteamAudio::log(SteamAudio::log_debug, "destroying player");
+ 	if (!is_local_state_init.load()) {
+ 		return;
+@@ -104,6 +114,10 @@
+ 	iplSourceRemove(local_state.src.src, gs->sim);
+ 	iplSourceRelease(&local_state.src.src);
+ 	iplDirectEffectRelease(&local_state.fx.direct);
++	iplReflectionEffectRelease(&local_state.fx.refl);
++	iplAmbisonicsDecodeEffectRelease(&local_state.fx.dec);
++	iplAmbisonicsDecodeEffectRelease(&local_state.fx.refl_dec);
++	iplAmbisonicsEncodeEffectRelease(&local_state.fx.enc);
+ 
+ 	iplAudioBufferFree(gs->ctx, &local_state.bufs.in);
+ 	iplAudioBufferFree(gs->ctx, &local_state.bufs.direct);
+--- a/SConstruct
++++ b/SConstruct
+@@ -39,6 +39,7 @@
+     env.Append(LIBPATH=[f'{steam_audio_lib_path}/osx'])
+     env.Append(LINKFLAGS=['-Wl,-rpath,@loader_path'])
+ elif env["platform"] == "android":
++    env.Append(LINKFLAGS=["-Wl,-z,max-page-size=16384"])
+     if env["arch"] == "arm64":
+         env.Append(LIBPATH=[f'{steam_audio_lib_path}/android-armv8'])
+     if env["arch"] == "arm32":

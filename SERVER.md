@@ -36,19 +36,29 @@ set sv_maplist "lqdm1 lqdm2 lqdm4 lqdm7 lqdm8"
 | net_ip | Local bind address, or `*` for all interfaces |
 | net_port | UDP port, 1024–65535 |
 | sv_maxclients | 1–16 players (default 8); dedicated host consumes no player slot |
-| fraglimit | 1–100 frags |
+| fraglimit | 1–100 individual DM or team TDM frags |
+| sv_gametype | Initial `dm`, `tdm`, `ctf` or `koth`; default `dm` |
+| sv_gametypes | Optional space-separated allowlist for mode votes; includes initial mode |
+| capturelimit | CTF captures to win, 1–100, default 5 |
+| hilllimit | KOTH points to win, 1–3600, default 120 |
+| sv_friendlyfire | Team damage, 0 or 1; default 0 |
+| sv_votes | Enable majority map/team/mode votes, default 1 |
 | timelimit | 1–60 minutes |
-| sv_voice | 1 permits voice relay; 0 rejects voice packets |
+| sv_voice | 1 enables configured voice; 0 disables voice |
+| sv_voice_backend | `builtin` (default) or external `mumble` handoff |
+| sv_mumble_url | `mumble://host:port/channel` endpoint; required for Mumble, no credentials |
 | map | Bundled or cached custom arena ID when no rotation is configured |
 | sv_maplist | Optional quoted, space-separated rotation of up to 32 map IDs |
 
 Set `sv_maxclients "16"` to opt into a 16-player dedicated server. In-game hosting always remains capped at eight total players.
 
+See [GAMEMODES.md](GAMEMODES.md) for team rules, objective scoring and player votes. In-game hosts remain DM-only. See [VOICE.md](VOICE.md) for the external Mumble option.
+
 Restart the server to apply configuration changes. `--port`, `--map`, `--frags` and `--minutes` override file values. A nonempty `sv_maplist` starts with its first map and advances after each intermission, wrapping at the end. An empty list repeats `map`; `--map` selects a single arena and overrides the rotation. Every map must be bundled or already cached on the server; unknown IDs stop startup.
 
 Clients stay connected during rotation and download a missing map automatically. Scores, inventory, projectiles and map entities reset. The new round waits for map transfers or their timeout. Packets from the previous map are rejected. This is a small Q3-style configuration subset, not a Quake console: no command chaining, nested exec, arbitrary script execution, RCON, passwords or master-server registration.
 
-Clients need this protocol version (`entryway-dm-10-melee`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
+Clients need this protocol version (`entryway-13-team-modes`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
 
 ## Running as a service
 
@@ -78,4 +88,21 @@ Build again with official Godot 4.7.2 export templates and `python3 tools/build_
 
 For an offline packaged-asset diagnostic, run `./EntrywayServer.x86_64 -- --check-assets`. It checks bundled source hashes, decodes all three default VRMs and verifies spring-bone initialization, then exits with a result code. It does not start a listening server.
 
-Source rotation checks: `python3 deathmatch/tests/run_rotation_tests.py`. Independent clients cover wraparound, missing-map download, preserved peer identities, round resets and rejection of old-map snapshots. Use matching 0.2v clients and server packages for this protocol.
+Source rotation checks: `python3 deathmatch/tests/run_rotation_tests.py`. Independent clients cover wraparound, missing-map download, preserved peer identities, round resets and rejection of old-map snapshots. Use matching 0.3v clients and server packages for this protocol.
+
+Spectators join through the normal map handshake and occupy a configured connection slot. Their role is server-owned, survives map changes, and is excluded from combat and winner selection. The client checkbox **Join as spectator** or `--connect ADDRESS --spectate` requests that role.
+
+## Extensive diagnostics
+
+```cfg
+set sv_log_level "verbose"
+set sv_log_file "user://logs/server.jsonl"
+set sv_log_max_mb "8"
+set sv_log_backups "3"
+```
+
+`sv_log_level` accepts `off`, `normal` (default) and `verbose`. Structured records appear on stdout with a `SERVER_LOG` prefix. A nonempty `sv_log_file` also writes plain JSONL to that file; parent directories are created. `user://` uses the server's Godot user-data directory, or use an absolute path writable by its service account. Startup fails clearly if the requested log file cannot be opened.
+
+Normal logs include startup/version/protocol/configuration summaries, joins/rejections/timeouts, disconnections, match announcements, round results and map transitions. Verbose adds damage/kill details, spawns, pickups, ballots, and a five-second health record with peer teams, ping, input age/sequence, health, scores, pending joins, projectile count, accepted/received input counts, voice relay/rejection counts and process/physics timings. Chat message contents, voice samples, credentials, and raw XR/body poses are not logged.
+
+Files rotate at `sv_log_max_mb` (1–512 MiB, default 8), retaining `sv_log_backups` older files (1–9, default 3). Normal events flush immediately; verbose batches flush each second. Individual records are bounded to 16 KiB. Keep verbose enabled while diagnosing a problem, then return to normal to reduce disk and console traffic. `off` disables these additional structured records; Godot errors and existing startup/game messages still reach stdout/stderr.

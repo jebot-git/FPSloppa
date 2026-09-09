@@ -28,7 +28,7 @@ Godot BSP importer by jitspoe, MIT: https://github.com/jitspoe/godot_bsp_importe
 
 ## Weapon models
 
-Oldschool AFPS Weapons by **Drummyfish** (also published as tastyfish), **CC0 1.0**: https://opengameart.org/content/oldschool-afps-weapons and https://blendswap.com/blend/28963 . Original archive: https://opengameart.org/sites/default/files/afps_weapons.zip . CC0 waiver: https://creativecommons.org/publicdomain/zero/1.0/ . The author's meshes and 1024-pixel textures were converted to GLB in Blender, reoriented and scaled. The saw sword serves as the chainsaw; the lightning-gun mesh is adapted into the BFG. The short double-barrel super shotgun is project-authored procedural geometry in `deathmatch/art.gd`. Animations/recoil remain project code.
+Oldschool AFPS Weapons by **Drummyfish** (also published as tastyfish), **CC0 1.0**: https://opengameart.org/content/oldschool-afps-weapons and https://blendswap.com/blend/28963 . Original archive: https://opengameart.org/sites/default/files/afps_weapons.zip . CC0 waiver: https://creativecommons.org/publicdomain/zero/1.0/ . The author's meshes and 1024-pixel textures were converted to GLB in Blender, reoriented and scaled. The saw sword serves as the chainsaw; the lightning-gun mesh is adapted into the BFG. The super shotgun uses the original textured shotgun mesh with a wider stock and the paired-bores adaptation in `deathmatch/art.gd`. Animations/recoil remain project code.
 
 `deathmatch/weapons/fist.glb` is a posed right hand extracted from the CC0 VRoid AvatarSample D described above. This derivative is separate from the unchanged player-model VRM. Blender conversion scripts are in `tools/`; the downloaded source pack is also retained beside the project in `../WeaponSource/`.
 
@@ -51,3 +51,20 @@ Release compatibility patches in Godot-VRM use ordinary Arrays for spring/collid
 Official Godot OpenXR Vendors 5.1.0-stable: https://github.com/GodotVR/godot_openxr_vendors/releases/tag/5.1.0-stable. Addon and bundled third-party license notices are retained under addons/godotopenxrvendors. The new launcher icon (`deathmatch/icon-final.png`) was generated for this project using the built-in image generation tool. Its exact prompt and provenance are in ICON.md; it contains no intentionally borrowed game logo or character.
 
 Godot-VRM secondary physics has a small runtime guard to skip signal-driven spring simulation for hidden/disabled avatars. Body IK caches bone IDs, samples floor contacts at 12.5 Hz and caches distant poses at 30/15 Hz. Eye animation code is authored for this project.
+
+## Supply models and music
+
+The bevelled ammo racks, rocket carrier, cell pack, medkit, armour vests and bonus supplies in `deathmatch/pickups/models.gd` were authored for this project. The meshes use a muted industrial vertex-colour palette, without external textures or downloaded models. These authored pickup meshes are offered under CC0 1.0.
+
+**Iron Circuit**, **Pressure Lock**, **Foundry Run** and **Dark Relay** are original four-channel tracker scores using edited CC0 Karoryfer instrument recordings, offered under CC0 1.0. Editable MODs, compact Ogg playback and provenance are in [deathmatch/audio/music/SOURCES.md](deathmatch/audio/music/SOURCES.md). No existing game score or game recording is included.
+
+
+## 0.3v additions
+
+- LibreQuake v0.09-beta: Hyperborea (`lqdm3`), Transport Tubes (`lqdm5`) and Ghost Quarter (`lqdm6`), by ZungryWare. Original BSP/LIT files from the [official full release](https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta); BSD-3-Clause notices remain in `deathmatch/maps/LibreQuake-*.txt`. Objective placements are project-authored adaptations.
+- Bebas Neue headline font: Copyright 2010 Dharma Type, SIL Open Font License 1.1. [Google Fonts source](https://github.com/google/fonts/tree/main/ofl/bebasneue), license `deathmatch/ui/OFL.txt`.
+- Procedural CTF banners, team emblems and UI frames: original project assets, CC0. Mesh source: `deathmatch/modes/flag.gd`; no proprietary Doom/Quake UI artwork is used.
+- Steam Audio integration/runtime notices: `addons/godot-steam-audio/LICENSE`, `STEAM-AUDIO-LICENSE.txt`, `THIRDPARTY.md`, and `SOURCES.md`.
+
+- Additional soundtrack instruments: Karoryfer Lecolds / Brian Wood, CC0 1.0; Black and Green Guitars, Growlybass and Big Rusty Drums. Exact pinned recordings and transformations: `deathmatch/audio/music/SOURCES.md`. Original compositions and renders: CC0 1.0.
+- Pain grunts: HaelDB, Male Grunt/Yelling Sounds, CC0 1.0. Selection and processing: `deathmatch/audio/recorded/SOURCES.md`.

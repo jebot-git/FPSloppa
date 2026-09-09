@@ -18,6 +18,7 @@ var left_aim: XRController3D
 var right_aim: XRController3D
 var pointers: Array=[]
 var hand_models: Array=[]
+var hand_animators: Array=[]
 var panel
 var keyboard
 var status_surface: MeshInstance3D
@@ -27,6 +28,7 @@ var damage_overlay: MeshInstance3D
 var damage_material: ShaderMaterial
 var blackout: MeshInstance3D
 var gun: Node3D
+var offhand_gun: Node3D
 var gun_id:=-1
 var origin_offset:=Vector3.ZERO
 var turn_latched:=false
@@ -60,6 +62,9 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 		var hand_model=load("res://addons/godot-xr-tools/hands/scenes/lowpoly/"+item[1]+"_tac_glove_low.tscn").instantiate()
 		item[0].add_child(hand_model)
 		hand_models.append(hand_model)
+		var fingers=preload("res://deathmatch/vr/glove_fingers.gd").new()
+		fingers.setup(hand_model,item[1])
+		hand_animators.append(fingers)
 		var pointer=load("res://addons/godot-xr-tools/functions/function_pointer.tscn").instantiate()
 		pointer.distance=6
 		pointer.hand_offset_mode=4 # Aim nodes already supply the runtime's exact pose.
@@ -84,6 +89,9 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 		# Full-rate PC shading keeps streamed headset imagery and the HUD clear.
 		get_viewport().vrs_mode=Viewport.VRS_XR if OS.has_feature("android") else Viewport.VRS_DISABLED
 		if xr.has_signal("session_begun"): xr.connect("session_begun",configure_refresh_rate)
+		if xr.has_signal("session_begun"): xr.connect("session_begun",configure_hands)
+		configure_hands()
+		print("XR_RUNTIME ",JSON.stringify(xr.get_system_info()))
 		configure_refresh_rate()
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		if xr.has_signal("session_focussed"): xr.connect("session_focussed",func(): focused=true)
@@ -165,6 +173,8 @@ func build_ui() -> void:
 	status_surface.material_override=status_material
 	head.add_child(status_surface)
 	status_surface.hide()
+	apply_hud_preferences(game.presentation)
+
 	turn_panel=preload("res://deathmatch/vr/turn_panel.gd").new()
 	ui_root.add_child(turn_panel);turn_panel.setup(self)
 	blackout=MeshInstance3D.new()
@@ -192,6 +202,12 @@ func build_ui() -> void:
 	head.add_child(damage_overlay)
 	damage_overlay.hide()
 	place_menu()
+func apply_hud_preferences(values: Dictionary) -> void:
+	if not is_instance_valid(status_surface):return
+	var bounds=preload("res://deathmatch/vr/preferences.gd")
+	status_surface.scale=Vector3.ONE*bounds.bounded(values.get("hud_scale",1.0),.7,1.4,1.0)
+	status_surface.position=Vector3(0,bounds.bounded(values.get("hud_y",-.46),-.65,.55,-.46),-1.5)
+
 func place_menu() -> void:
 	if not panel: return
 	var yaw:=head.global_rotation.y
@@ -227,6 +243,9 @@ func _process(delta: float) -> void:
 	if not enabled: return
 	left.visible=simulated or left.get_has_tracking_data()
 	right.visible=simulated or right.get_has_tracking_data()
+	var fingers: Dictionary=tracking.sample() if tracking else {}
+	for i in range(hand_animators.size()):
+		hand_animators[i].curls=fingers.get("left_curls" if i==0 else "right_curls",PackedFloat32Array([0,0,0,0,0]))
 	var mine:=multiplayer.get_unique_id()
 	var actor=game.fighters.get(mine)
 	if actor:
@@ -238,11 +257,11 @@ func _process(delta: float) -> void:
 	if actor and not game.menu_open and focused:
 		var stick:=right.get_vector2("primary")
 		apply_turn(stick.x,delta)
-		if absf(stick.y)>.75 and not cycle_latched:
+		if absf(stick.y)>.75 and not cycle_latched and not game.local_state().get("spectator",false):
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
 			cycle_latched=true
 		if absf(stick.y)<.3: cycle_latched=false
-	var menu_visible: bool=game.menu_open or scores or not game.active
+	var menu_visible: bool=game.menu_open or scores or game.intermission>0 or not game.active
 	damage_overlay.visible=game.hurt_flash>0 and focused and not menu_visible
 	damage_material.set_shader_parameter("strength",clampf(game.hurt_flash/.35,0,1))
 	if menu_visible and not last_panel: place_menu()
@@ -261,9 +280,13 @@ func _process(delta: float) -> void:
 		var s: Dictionary=game.local_state()
 		var leader:=0
 		for player in game.players.values():leader=maxi(leader,player.kills)
-		status_hud.update_status(s,game.round_left,game.frag_limit,leader,game.intermission>0,game.voice and game.voice.transmitting)
+		status_hud.update_status(s,game.round_left,game.frag_limit,leader,game.intermission>0,game.voice and game.voice.transmitting,_objective_hud(s))
 		if s.weapon!=gun_id:
 			if is_instance_valid(gun): gun.free()
+			if is_instance_valid(offhand_gun): offhand_gun.free()
+			offhand_gun=null
+			if s.weapon==2:
+				offhand_gun=Art.weapon(2);add_child(offhand_gun)
 			gun=Art.weapon(s.weapon)
 			(left_aim if left_handed else right_aim).add_child(gun)
 			gun_id=s.weapon
@@ -272,6 +295,11 @@ func _process(delta: float) -> void:
 		var grip: XRController3D=left if left_handed else right
 		var aim: XRController3D=left_aim if left_handed else right_aim
 		gun.global_transform=Art.held_transform(Poses.held_weapon(grip.global_transform,aim.global_transform),s.weapon)
+		if is_instance_valid(offhand_gun):
+			var other_grip: XRController3D=right if left_handed else left
+			var other_aim: XRController3D=right_aim if left_handed else left_aim
+			offhand_gun.visible=not s.dead and not menu_visible and focused and (simulated or (other_grip.get_has_tracking_data() and other_aim.get_has_tracking_data()))
+			offhand_gun.global_transform=Art.held_transform(Poses.held_weapon(other_grip.global_transform,other_aim.global_transform),2)
 		# Local IK reads current tracking directly; it must not wait for a network echo.
 		var pose:=sample_pose()
 		actor.xr_pose=pose
@@ -279,10 +307,11 @@ func _process(delta: float) -> void:
 		for model in hand_models: model.visible=not actor.local_body_visible
 		var from: Vector3=actor.position+Vector3.UP*1.45
 		var wall:=PhysicsRayQueryParameters3D.create(from,head.global_position,1)
-		blackout.visible=not game.get_world_3d().direct_space_state.intersect_ray(wall).is_empty() or head.global_position.distance_to(from)>1.3
+		blackout.visible=not s.spectator and (not game.get_world_3d().direct_space_state.intersect_ray(wall).is_empty() or head.global_position.distance_to(from)>1.3)
 	else:
 		for model in hand_models: model.visible=true
 		if gun: gun.visible=false
+		if offhand_gun: offhand_gun.visible=false
 		blackout.visible=false
 func compensate_room_move(shift: Vector3) -> void:
 	# Preserve the physical head/hand world positions, including when collision clips a move.
@@ -302,7 +331,13 @@ func sample_pose() -> Dictionary:
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
 	var pose: Dictionary={"head":origin.transform*head.transform,"left":origin.transform*left.transform,"right":origin.transform*right.transform,"weapon":origin.transform*Poses.held_weapon(hand.transform,aim.transform),"left_handed":left_handed}
+	var other_hand: XRController3D=right if left_handed else left
+	var other_aim: XRController3D=right_aim if left_handed else left_aim
+	if simulated or (other_hand.get_has_tracking_data() and other_aim.get_has_tracking_data()):
+		pose.offhand_weapon=origin.transform*Poses.held_weapon(other_hand.transform,other_aim.transform)
 	pose.body=tracking.sample() if tracking else {}
+	for i in range(hand_animators.size()):
+		hand_animators[i].curls=pose.body.get("left_curls" if i==0 else "right_curls",PackedFloat32Array([0,0,0,0,0]))
 	pose.face=eyes.sample() if eyes else {}
 	return Poses.validate(pose)
 
@@ -316,13 +351,16 @@ func command(sequence: int) -> Dictionary:
 	var movement:=Basis(Vector3.UP,head.rotation.y)*Vector3(stick.x,0,-stick.y)
 	var pose:=sample_pose()
 	var trigger: bool=hand.get_float("trigger")>.55
+	var other_hand: XRController3D=right if left_handed else left
+	var other_trigger: bool=other_hand.get_float("trigger")>.55
 	var room:=Vector3.ZERO
 	if not blocked and not pose.is_empty():
 		var horizontal:=Vector3(pose.head.origin.x,0,pose.head.origin.z)
 		room=RoomScale.request(horizontal)
-	return {"seq":sequence,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not blocked and tracked and not pose.is_empty() and not blackout.visible,"fire":trigger and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":left.is_button_pressed("primary_click"),"jump":not blocked and right.is_button_pressed("ax_button"),"respawn":not blocked and (trigger or right.is_button_pressed("ax_button")),"xr":pose,"room":room}
-func feedback(strength: float,seconds: float=.08) -> void:
-	if enabled and not simulated: (left if left_handed else right).trigger_haptic_pulse("haptic",0,clampf(strength,0,1),seconds,0)
+	return {"seq":sequence,"fly":right.get_vector2("primary").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":left.is_button_pressed("primary_click"),"jump":not blocked and right.is_button_pressed("ax_button"),"respawn":not blocked and (trigger or right.is_button_pressed("ax_button")),"xr":pose,"room":room}
+func feedback(strength: float,seconds: float=.08,offhand: bool=false) -> void:
+	var use_left:=left_handed!=offhand
+	if enabled and not simulated: (left if use_left else right).trigger_haptic_pulse("haptic",0,clampf(strength,0,1),seconds,0)
 
 func focused_edit() -> Control:
 	var viewport: SubViewport=panel.get_node("Viewport")
@@ -339,3 +377,21 @@ func configure_refresh_rate() -> void:
 	for rate in rates:
 		if rate>=72.0: preferred=minf(preferred,rate)
 	if preferred<1000: xr.set_display_refresh_rate(preferred)
+
+func configure_hands() -> void:
+	var xr:=XRServer.find_interface("OpenXR") as OpenXRInterface
+	if xr and xr.is_initialized():
+		xr.set_motion_range(OpenXRInterface.HAND_LEFT,OpenXRInterface.HAND_MOTION_RANGE_UNOBSTRUCTED)
+		xr.set_motion_range(OpenXRInterface.HAND_RIGHT,OpenXRInterface.HAND_MOTION_RANGE_UNOBSTRUCTED)
+
+func _objective_hud(s: Dictionary) -> String:
+	var mode=game.match_mode
+	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
+	if not vote.is_empty():return "VOTE: "+vote.title+" · OPEN MENU"
+	if not mode.team_game():return ""
+	var extra: String=" [R]" if s.team==0 else " [B]" if s.team==1 else ""
+	if mode.kind=="koth":extra+=" CONTESTED" if mode.hill_owner==-2 else " HOLD" if mode.hill_owner==s.team and s.team>=0 else ""
+	if mode.kind=="ctf" and mode.flags.size()==2:
+		for flag in mode.flags:
+			if flag.carrier==game.multiplayer.get_unique_id():extra+=" CARRYING FLAG"
+	return "%s R%d B%d / %d"%[mode.kind.to_upper(),mode.scores[0],mode.scores[1],mode.limit()]+extra

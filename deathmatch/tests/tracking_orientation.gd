@@ -16,13 +16,19 @@ func _initialize():call_deferred("run")
 func run():
  var actions=load("res://deathmatch/vr/actions.tres")
  var profile=actions.find_interaction_profile("/interaction_profiles/htc/vive_tracker_htcx")
- check(profile!=null and profile.bindings.size()==8 and profile.bindings.all(func(binding):return binding.action.resource_name=="default_pose" and binding.binding_path.ends_with("/input/grip/pose")),"All eight Vive roles bind to the standard pose action")
+ check(profile!=null and profile.bindings.size()==8 and profile.bindings.all(func(binding):return binding.action.resource_name=="tracker_pose" and binding.binding_path.ends_with("/input/grip/pose")),"All eight Vive roles bind to the dedicated pose action")
+ for action in actions.get_action_set(0).actions:
+  if action.resource_name in ["default_pose","haptic"]:check(action.toplevel_paths.size()==2,"Hand action excludes unsupported and unrelated tracker subpaths: "+action.resource_name)
  var rig:=FakeRig.new();root.add_child(rig)
  var tracking=load("res://deathmatch/vr/tracking.gd").new();rig.add_child(tracking);tracking.setup(rig)
  var vive:=XRControllerTracker.new();vive.name="/user/vive_tracker_htcx/role/waist";XRServer.add_tracker(vive)
  vive.set_pose("default",Transform3D(Basis(Vector3.UP,PI),Vector3(0,.9,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
  await process_frame
  check(tracking.external().has("hips"),"SteamVR standard default role pose is detected")
+ vive.invalidate_pose("default")
+ vive.set_pose("tracker_pose",Transform3D(Basis(Vector3.UP,PI),Vector3(0,.9,0)),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+ await process_frame
+ check(tracking.external().has("hips") and tracking.role_nodes.hips.get_has_tracking_data(),"Dedicated Vive action drives the live role node")
  rig.head.rotation.y=PI
  tracking.calibrate()
  check(tracking.sample().hips.basis.z.dot(Vector3.FORWARD)>.99,"Vive calibration follows the direction the player faces")
@@ -42,6 +48,18 @@ func run():
  native_tracker.set_joint_transform(XRBodyTracker.JOINT_HIPS,Transform3D(Basis.from_euler(Vector3(PI/2,.4,0)),Vector3(0,.9,0)))
  XRServer.add_tracker(native_tracker);tracking.calibrate()
  check(tracking.sample().hips.basis.is_equal_approx(Basis.IDENTITY) and tracking.sample().hips.origin.is_equal_approx(Vector3(0,.9,0)),"Native bridge calibration corrects orientation without shifting measured joints")
+ native_tracker.set_joint_flags(XRBodyTracker.JOINT_LEFT_LOWER_LEG,XRBodyTracker.JOINT_FLAG_POSITION_VALID|XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID)
+ var lower_basis:Basis=Basis(Vector3.UP,PI)*Body.native_rest.LeftLowerLeg
+ native_tracker.set_joint_transform(XRBodyTracker.JOINT_LEFT_LOWER_LEG,Transform3D(lower_basis,Vector3(-.13,.32,0)))
+ tracking.calibrate()
+ var planted:Transform3D=tracking.sample().left_foot
+ check(absf(planted.origin.y-.08)<.001,"Calf tracker without foot joint calibrates ankle height")
+ native_tracker.set_joint_transform(XRBodyTracker.JOINT_LEFT_LOWER_LEG,Transform3D(Basis(Vector3.RIGHT,-PI/2)*lower_basis,Vector3(-.13,.62,0)))
+ var lifted:Transform3D=tracking.sample().left_foot
+ check(lifted.origin.y>planted.origin.y+.4 and lifted.origin.z>.2,"Lifting and bending native lower leg lifts the estimated foot instead of pinning it to floor")
+ native_tracker.set_joint_flags(XRBodyTracker.JOINT_LEFT_FOOT,XRBodyTracker.JOINT_FLAG_POSITION_VALID|XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID)
+ native_tracker.set_joint_transform(XRBodyTracker.JOINT_LEFT_FOOT,Transform3D(Basis.IDENTITY,Vector3(-.2,.4,-.3)))
+ check(tracking.sample().left_foot.origin.is_equal_approx(Vector3(-.2,.4,-.3)),"An actual native foot joint takes priority over the inferred ankle")
  XRServer.remove_tracker(native_tracker)
  rig.free()
  var world:=Node3D.new();root.add_child(world)

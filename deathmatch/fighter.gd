@@ -1,9 +1,11 @@
 extends CharacterBody3D
 const Art = preload("res://deathmatch/art.gd")
 var gibbed:=false
+var spectator:=false
 var xr_pose: Dictionary={}
 var avatar_hash := ""
 var visual_velocity := Vector3.ZERO
+var blast_velocity:=Vector2.ZERO
 var visual_pitch := 0.0
 var visual_weapon := 2
 var alive_state := true
@@ -52,10 +54,13 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	var direction := (basis * Vector3(input.x,0,input.y)).limit_length(1.0)
 	var speed := 5.2 if slow else 9.4
 	var acceleration := 65.0 if input.length()>.01 else 45.0
+	velocity.x-=blast_velocity.x;velocity.z-=blast_velocity.y
+	blast_velocity=blast_velocity.move_toward(Vector2.ZERO,(24.0 if is_on_floor() and velocity.y<=0 else 2.0)*delta)
 	velocity.x = move_toward(velocity.x,direction.x*speed,acceleration*delta)
 	velocity.z = move_toward(velocity.z,direction.z*speed,acceleration*delta)
-	velocity.y = -.2 if is_on_floor() else maxf(velocity.y-20.0*delta,-30.0)
-	if quake_movement and jump and (in_water or is_on_floor() and not jump_held): velocity.y = 5.5 if in_water else 7.4
+	velocity.x+=blast_velocity.x;velocity.z+=blast_velocity.y
+	velocity.y = -.2 if is_on_floor() and velocity.y<=0 else maxf(velocity.y-20.0*delta,-30.0)
+	if quake_movement and jump and (in_water or is_on_floor() and not jump_held): velocity.y = maxf(velocity.y,5.5 if in_water else 7.4)
 	if in_water: velocity.y = maxf(velocity.y,-2.0)
 	jump_held = jump
 	var was_grounded:=is_on_floor()
@@ -67,6 +72,13 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	move_and_slide()
 	if stepping and is_on_floor() and absf(position.y-previous_y)<=step+.05:
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
+
+func apply_blast(impulse: Vector3) -> void:
+	if not impulse.is_finite() or spectator:return
+	var previous:=blast_velocity
+	blast_velocity=(blast_velocity+Vector2(impulse.x,impulse.z)).limit_length(20.0)
+	velocity.x+=blast_velocity.x-previous.x;velocity.z+=blast_velocity.y-previous.y
+	velocity.y=clampf(velocity.y+impulse.y,-30.0,20.0)
 
 func step_up(travel: Vector3,height: float) -> void:
 	if travel.length()<.001: return
@@ -93,9 +105,11 @@ func reset_view() -> void:
 	view_offset=0
 
 func show_alive(alive: bool, is_local: bool) -> void:
+	alive=alive and not spectator
 	alive_state = alive
 	local_player = is_local
 	collision_layer = 2 if alive else 0
+	collision_mask=0 if spectator else 3
 	if avatar:
 		if not avatar_hash.is_empty():
 			avatar.dead = not alive
@@ -111,8 +125,8 @@ func set_avatar(model: Node3D, hash: String) -> void:
 	add_child(avatar)
 	show_alive(alive_state,local_player)
 
-func animate_fire() -> void:
-	if avatar and not avatar_hash.is_empty(): avatar.fire()
+func animate_fire(offhand: bool=false) -> void:
+	if avatar and not avatar_hash.is_empty(): avatar.fire(offhand)
 
 func set_local_body(value: bool) -> void:
 	value=value and local_player and alive_state and not gibbed and not avatar_hash.is_empty()
@@ -128,4 +142,4 @@ func _process(_delta: float) -> void:
 	avatar.movement = basis.inverse()*visual_velocity
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)
-	avatar.visible = not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<2.5)
+	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<2.5)

@@ -10,7 +10,7 @@ This is a PC OpenXR VR FPS built with Godot 4.7.2 and Godot XR Tools 4.5.1. Star
 | Walk | Left stick click | Left stick click |
 | Turn | Right stick left/right | Right stick left/right |
 | Cycle owned weapons | Right stick up/down | Right stick up/down |
-| Fire | Gun-hand trigger | Gun-hand trigger |
+| Fire | Gun-hand trigger; other trigger fires second pistol in slot 2 | Gun-hand trigger; other trigger fires second pistol in slot 2 |
 | Jump / swim / respawn | Right A | Right A |
 | Use nearby door | Left X | Left A |
 | Scoreboard | Left Y | Left B |
@@ -51,9 +51,9 @@ The default config is under `~/.local/share/godot/app_userdata/Entryway Deathmat
 
 Recorded CC0 gunfire, impact and footstep variants supplement the original synthesized effects. Combat and voice audio use spatial attenuation, wall occlusion and room reverb; see [AUDIO.md](AUDIO.md). Hits produce directional avatar flinches, blood bursts and surface stains. Heavy kills produce low-poly head/meat/bone gibs. These effects are cosmetic and bounded: 12 blood bursts, 48 stains, 32 gibs and 32 simultaneous combat sound voices. Local damage adds a brief red edge tint and a quiet, unoccluded pain sound, including small hits. The tint fades quickly and is hidden over VR menus or on focus loss. VR hit and shot feedback includes controller haptics; hit animation never kicks or rolls the headset camera.
 
-The super shotgun now has its own short double-barrel model, dark steel receiver, wood grip and red shell carrier. Player damage uses a continuous 0.40 m radius, 1.80 m tall capsule; movement collision remains unchanged. Rocket/plasma/BFG radii are 0.14/0.16/0.30 m, also reflected in their visible projectile sizes. Swept collision considers target motion between server ticks and blocks enlarged hits through cover. Existing hitscan latency rewind remains bounded to 200 ms.
+The super shotgun again uses the original textured CC0 shotgun mesh, with its original wider stock and paired-bores adaptation for a consistent weapon style. Player damage uses a continuous 0.40 m radius, 1.80 m tall capsule; movement collision remains unchanged. Rocket/plasma/BFG radii are 0.14/0.16/0.30 m, also reflected in their visible projectile sizes. Swept collision considers target motion between server ticks and blocks enlarged hits through cover. Existing hitscan latency rewind remains bounded to 200 ms.
 
-This source revision uses protocol `entryway-dm-10-melee`; clients and server must use matching source/builds.
+This source revision uses protocol `entryway-13-team-modes`; clients and server must use matching source/builds.
 
 ## Validation and remaining device checks
 
@@ -86,3 +86,11 @@ Engine behavior: https://github.com/godotengine/godot/blob/4.7.2-stable/modules/
 PC VR uses full-rate shading for clear streamed headset imagery and HUD text. Android retains XR variable-rate shading. See [LIVE_VR_TEST.md](LIVE_VR_TEST.md) for the Quest Pro/WiVRn hardware checks and their limits.
 
 Swing the held weapon to **weapon whip** an opponent, even with empty ammo. A short swept weapon volume detects contact, deals 10 damage before armor and allows one target per swing, with a 0.8-second cooldown. Slow the weapon before the next swing. Holding it against a player, stick turning and ordinary locomotion do not initiate attacks. Menus, focus loss, invalid tracking and BFG charging disable the attack.
+
+Dual pistols have independent aim, trigger input and shot haptics for each hand, including left-handed mode. Either pistol can perform a weapon whip; both share the same 0.8-second melee cooldown.
+
+**Join as spectator** enables a free-flying view: left stick moves, right stick turns and its vertical axis changes height. The round-end scoreboard now opens its VR surface automatically. Audio, music and graphics options use large controls on the same pointer-selectable canvas; no native popup is required.
+
+### HUD placement and size
+
+Settings → Graphics provides **VR HUD size** (70–140%) and **VR HUD height** (−65 to +55 cm relative to eye level). Changes apply immediately and persist in the presentation section of the client config (`hud_scale`, `hud_y`). The HUD remains 1.5 metres in front of the headset and does not intercept menu pointers. Default: 100%, −46 cm.

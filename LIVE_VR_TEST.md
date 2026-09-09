@@ -12,6 +12,10 @@ This optional test entry point records device poses and control states locally a
 
 The probe's `practice` action starts a bot-free private host bound to `127.0.0.1:29108` with voice available. Ordinary offline practice disables voice, so it cannot validate microphone capture. The probe records audio level meters and push-to-talk state, without recording microphone audio.
 
+For an explicitly requested microphone recording, run `godot --headless --xr-mode off --path . --script res://deathmatch/tests/live_voice.gd` after the private host is ready. This local spectator records incoming ADPCM voice packets into `test-results/live-vr-microphone.wav` (16 kHz mono), writes a level/packet report, then replays the sample through the ordinary network voice channel. Recording begins on the first PTT packet and stops after 12 seconds; silence while PTT is released is omitted. `-- --replay-only` replays the saved sample without recording again. These private files stay in the ignored test-results directory and are excluded from commits and release packages.
+
+The live VR probe accepts `-- --standard-audio` or `-- --steam-audio` for a temporary backend choice. Add `--voice-monitor` to keep the named local recording spectator 1.5 metres to the listener's right for audible positional playback. These switches belong to the diagnostic script and do not alter saved audio preferences.
+
 Checks with a wearer:
 
 1. Stand upright, recenter, point at controls with both controllers, and check menu alignment.
@@ -33,3 +37,13 @@ After the wearer reported very low image quality, PC VR variable-rate shading wa
 The OSC receive buffer and per-frame packet budget were increased after observing dropped packets during loading. A separate burst regression check passed. Controller hand IK, native orientation calibration, eye/controller bindings, and tracking/audio regression checks also passed.
 
 The installed vendor face plugin requests both visual and audio tracking sources. WiVRn rejected the unsupported audio face source, so native face/blink tracking did not initialize. Eye gaze is independent. Standalone Quest/Pico microphone permissions and Android builds were not exercised by this PC-streamed session.
+
+## Final 0.3v session
+
+The final WiVRn test exposed a native Steam Audio crash during gameplay. Source lifecycle and simulation/mixer synchronization were repaired, then checked with 960 rapid source creations/deletions and a new live session. Spatial effects were subsequently reported as too quiet. Correcting the SDK's reference-distance gain and using point-source binaural convolution restored their level without changing music. A comparison regression now requires nearby HRTF output to stay within 6 dB of the standard spatializer.
+
+Native lower-leg joints were arriving, but no real foot joints were present. The IK previously used these only as knee bend hints. Estimated ankles now follow calibrated lower-leg translation and rotation; genuine foot poses take priority. The wearer lifted both legs during the final session and confirmed: **“Tracking and audio seem fixed now.”** Final source additionally bounds inferred ankle height above the tracking floor.
+
+The microphone test used the headset's `wivrn.source`, the game's normal PTT capture and ADPCM encoder, and a separate local ENet spectator. It received 424 packets and saved 8.48 seconds of 16 kHz mono speech, peak 0.506 and RMS 0.046, with no clipping. The recording was replayed through the network voice path, including the repaired Steam Audio backend. The private WAV and detailed device logs remain only in ignored `test-results/`; release documentation contains measurements, not recorded speech or raw poses.
+
+The final session produced 1,739 diagnostic samples at a median 72 FPS, rendering 2520×2772 per eye. This validates the connected Quest Pro/WiVRn session. It does not establish standalone Android, physical Vive/Index compatibility, WAN performance, or independent ankle articulation without foot trackers.

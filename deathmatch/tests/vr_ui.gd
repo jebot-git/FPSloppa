@@ -118,6 +118,27 @@ func run() -> void:
 	point_at(pointer,rig.panel,voice_panel.close.get_global_transform_with_canvas()*(voice_panel.close.size*.5))
 	click(pointer)
 	check(not voice_panel.visible,"Controller closes voice panel")
+	var settings_button: Button
+	for button in g.hud.menu.find_children("*","Button",true,false):
+		if button.text=="SETTINGS…":settings_button=button
+	point_at(pointer,rig.panel,settings_button.get_global_transform_with_canvas()*(settings_button.size*.5));click(pointer)
+	await process_frame;await process_frame
+	var settings=g.hud.settings_panel
+	check(settings.visible and settings.size.y<=640,"Audio and graphics options open and fit the VR canvas")
+	var music_before:float=settings.values.music
+	var music_plus:Button=settings.controls.music.get_parent().get_child(3)
+	point_at(pointer,rig.panel,music_plus.get_global_transform_with_canvas()*(music_plus.size*.5));click(pointer)
+	check(is_equal_approx(settings.values.music,minf(1,music_before+.1)),"Controller changes music volume through the real menu pointer")
+	var graphics_button:Button
+	for button in settings.find_children("*","Button",true,false):
+		if button.text=="GRAPHICS":graphics_button=button
+	point_at(pointer,rig.panel,graphics_button.get_global_transform_with_canvas()*(graphics_button.size*.5));click(pointer)
+	await process_frame;await process_frame
+	var msaa_before:int=settings.values.msaa
+	var msaa_button:Button=settings.controls.msaa
+	point_at(pointer,rig.panel,msaa_button.get_global_transform_with_canvas()*(msaa_button.size*.5));click(pointer)
+	check(settings.values.msaa==(msaa_before+1)%4,"Controller configures graphics without a native popup")
+	settings.hide()
 	var turn_button: Button
 	for button in g.hud.vr_actions.get_children():
 		if button.text=="TURN SETTINGS…":turn_button=button

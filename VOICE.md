@@ -15,3 +15,16 @@ This initial voice implementation has no acoustic echo cancellation, noise suppr
 Sources: [AudioEffectCapture](https://docs.godotengine.org/en/stable/classes/class_audioeffectcapture.html) and [AudioStreamGenerator](https://docs.godotengine.org/en/stable/classes/class_audiostreamgenerator.html). Implementation is in `deathmatch/voice/`; tests include `voice_server.gd`, `permissions.gd`, `vr_ui.gd`, `local_body.gd`, `voice_network.gd` and `run_voice_tests.py`.
 
 VRM mouth expressions follow speech automatically when available. See [AUDIO.md](AUDIO.md) for the approximate vowel estimator and spatial mixer.
+
+
+## Optional dedicated-server Mumble handoff
+
+```cfg
+set sv_voice "1"
+set sv_voice_backend "mumble"
+set sv_mumble_url "mumble://voice.example.org:64738/Entryway"
+```
+
+This advertises an **Open external Mumble client** button in the voice menu and disables the built-in microphone/relay for that server. Clicking it hands the endpoint to an installed client via `mumble://`; it never automatically joins or opens a microphone. Configure the Mumble service independently and install a compatible client on each participating device. Mumble has its own audio, mute and push-to-talk settings; the game's VR grip PTT and avatar mouth animation do not control external Mumble. Standalone headsets need a compatible Android client/URI handler and may have foreground/background restrictions.
+
+No maintained Godot 4 Mumble/XMPP voice-client plugin was identified during this integration. This option is a deliberate external-client handoff, not an embedded Mumble implementation, positional Link plugin, or protocol bridge. The [official Mumble project](https://github.com/mumble-voip/mumble) provides client/server software and [downloads](https://www.mumble.info/downloads/). In-game hosts always use the existing simple voice system; dedicated servers use it by default (`sv_voice_backend "builtin"`). Built-in received voice now uses Steam Audio HRTF when selected in Audio settings.

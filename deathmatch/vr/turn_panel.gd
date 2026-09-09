@@ -8,11 +8,12 @@ var speed_up: Button
 var angle_up: Button
 func setup(value: Node) -> void:
 	rig=value;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var style:=StyleBoxFlat.new();style.bg_color=Color("122027")
+	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
+	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
 	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:style.set_content_margin(side,30)
 	add_theme_stylebox_override("panel",style)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",24);add_child(column)
-	var title:=Label.new();title.text="VR TURNING";title.add_theme_font_size_override("font_size",30);column.add_child(title)
+	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="VR TURNING";title.add_theme_font_size_override("font_size",30);column.add_child(title)
 	mode=add_button(column,"",func():rig.smooth_turn=not rig.smooth_turn;save())
 	for setting in ["turn_speed","snap_angle"]:
 		var label:=Label.new();label.text="Smooth turn speed" if setting=="turn_speed" else "Snap turn angle";column.add_child(label)

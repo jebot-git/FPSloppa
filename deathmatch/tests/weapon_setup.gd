@@ -22,7 +22,7 @@ func run() -> void:
 			weapon.free()
 	var shotgun:=Art.weapon(3)
 	var double:=Art.weapon(4)
-	check(shotgun.has_node("TexturedWeapon") and double.has_node("DoubleBreech") and not double.has_node("TexturedWeapon"),"Super shotgun uses a separate model silhouette")
+	check(shotgun.has_node("TexturedWeapon") and double.has_node("TexturedWeapon") and double.get_node("TexturedWeapon").scale.x>1,"Super shotgun restores textured CC0 model with its original paired-bore variant")
 	shotgun.free();double.free()
 	var path:="/tmp/fpsloppa-profile-test.cfg"
 	var config:=ConfigFile.new();config.set_value("custom","keep",42);config.save(path)

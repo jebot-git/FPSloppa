@@ -5,16 +5,17 @@ const Melee=preload("res://deathmatch/melee.gd")
 var g
 var failures: Array=[]
 var sequence:=0
+var offhand:=false
 func _initialize():call_deferred("run")
 func check(value: bool,label: String):
 	print("PASS " if value else "FAIL ",label)
 	if not value:failures.append(label)
 func reset():
-	g.intermission=0;g.clock+=2
+	g.intermission=0;g.clock+=2;offhand=false
 	for id in g.players:
 		var s: Dictionary=g.players[id]
 		s.hp=100;s.armor=0;s.dead=false;s.invulnerable=0;s.charge=0;s.cooldown=0;s.fire=false
-		s.melee=false;s.melee_state={};s.melee_seq=-1;s.xr={};s.vr_device=false;s.weapon=2;s.owned=range(9);s.ammo=[0,0,0,0]
+		s.melee=false;s.melee_state={};s.melee_seq=-1;s.offhand_melee_state={};s.offhand_melee_seq=-1;s.xr={};s.vr_device=false;s.weapon=2;s.owned=range(9);s.ammo=[0,0,0,0]
 		s.yaw=0;s.pitch=0;s.last_input=g.clock
 	g.fighters[1].position=Fixture.point()
 	g.fighters[-1].position=Fixture.point(0,-1)
@@ -25,6 +26,9 @@ func swing(x: float,dt: float=.05,enabled: bool=true,head_shift: Vector3=Vector3
 	pose.head.origin+=head_shift
 	pose.right=Transform3D(Basis(Vector3.UP,rotation),Vector3(x,1.1,-.6)+head_shift)
 	pose.weapon=pose.right
+	if offhand:
+		pose.left=pose.right;pose.offhand_weapon=pose.left
+		pose.right=Poses.neutral().right;pose.weapon=pose.right
 	g._accept_input(1,{"seq":sequence,"move":Vector2.ZERO,"yaw":g.players[1].yaw,"pitch":0.0,"fire":false,"melee":enabled,"weapon":g.players[1].weapon,"slow":false,"respawn":false,"xr":pose})
 	g._update_melee(1)
 func strike():
@@ -45,6 +49,10 @@ func run():
 	check(g.players[-1].hp==90,"A second swing inside the cooldown cannot hit")
 	swing(-.8,.9);swing(-.8);swing(-.65);swing(-.45)
 	check(g.players[-1].hp==80,"A fresh deliberate swing can hit after cooldown")
+	reset();offhand=true;strike()
+	check(g.players[-1].hp==90,"Offhand pistol can whip without ammunition")
+	offhand=false;strike()
+	check(g.players[-1].hp==90,"Alternating pistols cannot bypass the shared melee cooldown")
 	reset();swing(0.0)
 	for i in range(25):swing(0.0)
 	check(g.players[-1].hp==100,"Holding the weapon inside a target does no contact damage")

@@ -1,6 +1,6 @@
 # Quake BSP arenas
 
-Choose **ARENA** before hosting. Five free deathmatch maps from [LibreQuake v0.09-beta](https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta) are bundled:
+Choose **ARENA** before hosting. Eight free deathmatch maps from [LibreQuake v0.09-beta](https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta) are bundled:
 
 | ID | Arena | Deathmatch spawn points |
 |---|---|---:|
@@ -9,6 +9,9 @@ Choose **ARENA** before hosting. Five free deathmatch maps from [LibreQuake v0.0
 | lqdm4 | Psychofuge | 9 |
 | lqdm7 | Boomstick Basement | 12 |
 | lqdm8 | Alichar Sector | 8 |
+| lqdm3 | Hyperborea | 10 |
+| lqdm5 | Transport Tubes | 8 |
+| lqdm6 | Ghost Quarter | 9 |
 
 **PRACTICE VS BOTS** starts a fully offline match with three bots on the selected BSP arena, using the same pistol-only inventory, pickups, damage, respawns and frag/time limits as multiplayer. No listening network socket is opened. The original Entryway map and its assets have been removed; `--debug-entryway` is no longer supported.
 
@@ -19,6 +22,8 @@ A dedicated server can select an arena with:
 ```bash
 ./run-desktop.sh --headless -- --server --map lqdm8 --port 7777
 ```
+
+All eight support dedicated TDM, CTF and KOTH through the objective adaptations described in [GAMEMODES.md](GAMEMODES.md). The new maps are original LibreQuake v0.09-beta BSP/LIT files with the same BSD-3-Clause notices as the existing pack. No original id Software texture data is bundled.
 
 ## Custom maps
 
@@ -34,7 +39,7 @@ The adapter uses [jitspoe's Godot BSP importer](https://github.com/jitspoe/godot
 
 Quake weapon, ammunition, health and armor entities become this game's server-controlled pickups. Nail weapons use the chaingun/plasma equivalents; lightning uses the BFG. Grenade-launcher pickups become shotguns; Quake artifacts become large health pickups. Combat remains Doom-inspired.
 
-This is a map adapter, not a Quake engine: QuakeC, monsters, custom scripted entities, trains, button/trigger chains, original baked lightmaps, and Quake-specific powerup behavior are not executed. Lighting uses ambient illumination and the nearest eight map lights on PC / four on standalone headsets. Trigger regions and BSPX liquids use bounding boxes, which approximate irregular brushes. Maps without embedded textures use the importer's fallback material; the supplied palette is LibreQuake's. General community maps may need entity adaptation. The five supplied BSP29 maps are tested; BSP2 parsing is provided by the importer but has no bundled BSP2 fixture.
+This is a map adapter, not a Quake engine: QuakeC, monsters, custom scripted entities, trains, button/trigger chains, original baked lightmaps, and Quake-specific powerup behavior are not executed. Lighting uses ambient illumination and the nearest eight map lights on PC / four on standalone headsets. Trigger regions and BSPX liquids use bounding boxes, which approximate irregular brushes. Maps without embedded textures use the importer's fallback material; the supplied palette is LibreQuake's. General community maps may need entity adaptation. The eight supplied BSP29 maps are tested; BSP2 parsing is provided by the importer but has no bundled BSP2 fixture.
 
 ## Assets and rebuilding
 
@@ -48,6 +53,6 @@ godot --headless --path . --script res://deathmatch/tests/build_maps.gd
 
 LibreQuake maps, embedded textures and palette are BSD-3-Clause. Original notices are preserved in `deathmatch/maps/LibreQuake-COPYING.txt`, `LibreQuake-CREDITS.txt` and `LibreQuake-README-IMPORTANT-LICENCE-INFO.txt`. No LibreQuake QuakeC or `progs.dat` is included. The BSP importer is MIT; its license is in `addons/bsp_importer/`.
 
-Validation: `tests/maps.gd` checks all five scenes and 45 spawn floors; `tests/map_import.gd` exercises custom compilation, cache loading, hashing and imported weapon meshes; `run_network_tests.py --bsp` runs a server and two clients with different initial map selections, teleporting and platform movement. Run `map_import.gd` with an isolated XDG_DATA_HOME because it intentionally creates a custom map entry.
+Validation: `tests/maps.gd` checks all eight scenes and 72 spawn floors; `tests/map_import.gd` exercises custom compilation, cache loading, hashing and imported weapon meshes; `run_network_tests.py --bsp` runs a server and two clients with different initial map selections, teleporting and platform movement. Run `map_import.gd` with an isolated XDG_DATA_HOME because it intentionally creates a custom map entry.
 
 `run_network_tests.py --maps` tests a host and two clients with isolated caches: automatic BSP download, checksum/cache validation, joining, pistol-only inventory and replicated VR poses. `tests/map_transfer_guards.gd` checks oversized/unsolicited transfers, invalid chunk order and malformed texture tables.

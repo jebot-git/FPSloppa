@@ -1,6 +1,6 @@
 # VRM eye tracking
 
-Gaze and measured blinks are cosmetic and replicate with the existing XR pose snapshots. All peers must use protocol `entryway-dm-10-melee`. Eye tracking never affects aim, collision or damage.
+Gaze and measured blinks are cosmetic and replicate with the existing XR pose snapshots. All peers must use protocol `entryway-13-team-modes`. Eye tracking never affects aim, collision or damage.
 
 The OpenXR `XR_EXT_eye_gaze_interaction` profile supplies combined gaze through `/user/eyes_ext`. Runtimes exposing a Godot `XRFaceTracker` at `/user/face_tracker` additionally supply left/right eyelid closure and, when combined gaze is absent, eye-look weights. The official Vendors plugin's optional Meta face extension is enabled for capable hardware such as standalone Quest Pro. Permit the headset's tracking permissions; if first-time permission changes do not activate the tracker, restart the app.
 

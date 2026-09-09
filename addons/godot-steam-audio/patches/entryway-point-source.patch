@@ -1,0 +1,63 @@
+--- a/src/steam_audio.hpp
++++ b/src/steam_audio.hpp
+@@ -61,6 +61,7 @@
+ };
+ 
+ struct SteamAudioEffects {
++	IPLBinauralEffect binaural;
+ 	IPLDirectEffect direct;
+ 	IPLReflectionEffect refl;
+ 	IPLAmbisonicsDecodeEffect dec;
+--- a/src/player.cpp
++++ b/src/player.cpp
+@@ -113,6 +113,7 @@
+ 
+ 	iplSourceRemove(local_state.src.src, gs->sim);
+ 	iplSourceRelease(&local_state.src.src);
++	iplBinauralEffectRelease(&local_state.fx.binaural);
+ 	iplDirectEffectRelease(&local_state.fx.direct);
+ 	iplReflectionEffectRelease(&local_state.fx.refl);
+ 	iplAmbisonicsDecodeEffectRelease(&local_state.fx.dec);
+@@ -157,6 +158,9 @@
+ 	// TODO: check if we can't create effects globally and use their Reset functions.
+ 	// If we create these globally and use them for all sources, then strange things happen
+ 	// (e.g. one source may start to play audio from all sources and positioning gets screwed)
++	IPLBinauralEffectSettings binaural_cfg{};
++	binaural_cfg.hrtf = gs->hrtf;
++	handleErr(iplBinauralEffectCreate(gs->ctx, &gs->audio_cfg, &binaural_cfg, &local_state.fx.binaural));
+ 	IPLDirectEffectSettings dir_effect_cfg;
+ 	dir_effect_cfg.numChannels = 2;
+ 	iplDirectEffectCreate(gs->ctx, &gs->audio_cfg, &dir_effect_cfg, &local_state.fx.direct);
+--- a/src/stream.cpp
++++ b/src/stream.cpp
+@@ -119,17 +119,19 @@
+ 	dec_params.binaural = IPL_TRUE;
+ 
+ 	if (ls->cfg.is_ambisonics_on) {
+-		IPLAmbisonicsEncodeEffectParams enc_params{};
+-		enc_params.direction = ipl_vec3_from(ls->dir_to_listener);
+-		enc_params.order = ls->cfg.ambisonics_order;
+-		iplAmbisonicsEncodeEffectApply(
+-				ls->fx.enc, &enc_params,
+-				&ls->bufs.direct, &ls->bufs.ambi);
+-
+-		iplAmbisonicsDecodeEffectApply(
+-				ls->fx.dec, &dec_params,
+-				&ls->bufs.ambi, &ls->bufs.out);
+-		SteamAudio::log(SteamAudio::log_debug, "mixing: finished ambisonics");
++		// Game effects and voice are point sources. Apply the HRTF directly,
++		// avoiding the first-order ambisonic encode/decode energy loss.
++		IPLBinauralEffectParams params{};
++		auto listener = gs->listener_coords;
++		IPLVector3 source{listener.origin.x + ls->dir_to_listener.x,
++			listener.origin.y + ls->dir_to_listener.y,
++			listener.origin.z + ls->dir_to_listener.z};
++		params.direction = iplCalculateRelativeDirection(gs->ctx, source,
++			listener.origin, listener.ahead, listener.up);
++		params.interpolation = IPL_HRTFINTERPOLATION_BILINEAR;
++		params.spatialBlend = 1.0f;
++		params.hrtf = gs->hrtf;
++		iplBinauralEffectApply(ls->fx.binaural, &params, &ls->bufs.direct, &ls->bufs.out);
+ 	} else {
+ 		iplAudioBufferMix(gs->ctx, &ls->bufs.direct, &ls->bufs.out);
+ 	}

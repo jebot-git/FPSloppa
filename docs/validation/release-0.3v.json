@@ -1,0 +1,396 @@
+{
+  "version": "0.3v",
+  "date": "2026-09-09",
+  "protocol": "entryway-13-team-modes",
+  "team_and_logging_checks": [
+    {
+      "test": "team_modes",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "server_logging",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "votes",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "steam_audio",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "maps",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "team_objectives",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "presentation",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "network-server",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "network-red",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "network-blue",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "network-observer",
+      "passed": true,
+      "exit": 0
+    }
+  ],
+  "tracking_combat_checks": [
+    {
+      "test": "hand_tracking",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "dual_pistols",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "melee",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "tracking_orientation",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "tracking_audio",
+      "passed": true,
+      "exit": 0
+    }
+  ],
+  "voice_network": {
+    "passed": true,
+    "exported_server": null
+  },
+  "exported_linux_join": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "exported_verbose_logging": {
+    "passed": true,
+    "records": 2,
+    "events": [
+      "server_started",
+      "health"
+    ]
+  },
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 171537722,
+      "sha256": "7a32fe4e82ba323bf6b4be6f29712293967d41ebb10b5f56eaaae1ce2a7da056",
+      "assets_verified": [
+        "deathmatch/maps/raw/lqdm1.bsp",
+        "deathmatch/maps/raw/lqdm2.bsp",
+        "deathmatch/maps/raw/lqdm4.bsp",
+        "deathmatch/maps/raw/lqdm7.bsp",
+        "deathmatch/maps/raw/lqdm8.bsp",
+        "deathmatch/maps/raw/lqdm3.bsp",
+        "deathmatch/maps/raw/lqdm5.bsp",
+        "deathmatch/maps/raw/lqdm6.bsp",
+        "deathmatch/avatars/models/sample_d.vrm",
+        "deathmatch/avatars/models/sample_f.vrm",
+        "deathmatch/avatars/models/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 171537442,
+      "sha256": "54cfcc71c7ece768990905f89c57b45fa8a6afafb26975adc652e035b578a66c",
+      "assets_verified": [
+        "deathmatch/maps/raw/lqdm1.bsp",
+        "deathmatch/maps/raw/lqdm2.bsp",
+        "deathmatch/maps/raw/lqdm4.bsp",
+        "deathmatch/maps/raw/lqdm7.bsp",
+        "deathmatch/maps/raw/lqdm8.bsp",
+        "deathmatch/maps/raw/lqdm3.bsp",
+        "deathmatch/maps/raw/lqdm5.bsp",
+        "deathmatch/maps/raw/lqdm6.bsp",
+        "deathmatch/avatars/models/sample_d.vrm",
+        "deathmatch/avatars/models/sample_f.vrm",
+        "deathmatch/avatars/models/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    }
+  ],
+  "live_vr": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Meta Quest Pro",
+    "wearer_confirmation": "Tracking and audio seem fixed now",
+    "render_per_eye": [
+      2520,
+      2772
+    ],
+    "samples": 1739,
+    "fps_median": 72.0,
+    "foot_heights": {
+      "left_foot": {
+        "minimum": -0.0983,
+        "maximum": 0.704
+      },
+      "right_foot": {
+        "minimum": -0.1052,
+        "maximum": 0.9829
+      }
+    },
+    "microphone": {
+      "decoded_seconds": 8.48,
+      "peak": 0.505615234375,
+      "received_packets": 424,
+      "rms": 0.0460523652677774,
+      "saved": true,
+      "source": "WiVRn headset microphone via live host capture, PTT, ADPCM and local ENet peer"
+    },
+    "remaining_hardware_limits": [
+      "No standalone Android wearer test",
+      "No physical native SteamVR/Vive/Index test",
+      "Foot poses inferred from lower-leg trackers where runtime lacks feet",
+      "Vendor face-tracking audio source unsupported by WiVRn"
+    ],
+    "scope": "Tracking/audio wearer confirmation predates rocket jumping, new music/feedback and adjustable HUD; those additions received automated and rendered-preview checks."
+  },
+  "network_logs": [
+    "final-network.log",
+    "final-voice.log",
+    "team-rotation.log"
+  ],
+  "native_audio": {
+    "upstream": "godot-steam-audio 0.3.1, Steam Audio 4.8.0",
+    "patches": [
+      "source lifetime synchronization",
+      "direct point-source binaural HRTF",
+      "normalized reference distance",
+      "16 KiB Android ELF alignment"
+    ],
+    "stress_sources": 960,
+    "nearby_660hz_energy": {
+      "steam_audio_stereo_sum": 0.002198,
+      "standard_stereo_sum": 0.001397
+    },
+    "headset_gain_and_tracking_confirmed": true
+  },
+  "limitations": [
+    "Android packages inspected and signed but not installed/tested on standalone hardware",
+    "Native SteamVR/Vive/Index hardware not exercised",
+    "External Mumble is a separate-client handoff, not an embedded Mumble client; not live tested",
+    "WiVRn vendor face-tracking audio source unsupported",
+    "Upstream singleton and transient audio resources can produce ObjectDB shutdown warnings",
+    "No WAN or production load benchmark"
+  ],
+  "files": [
+    {
+      "path": "../Builds/Linux/Entryway.pck",
+      "bytes": 125073740,
+      "sha256": "441f6dd3e22ff37da4ea4581280d47f51b2c0a21ec6c97d8918d552391c87511"
+    },
+    {
+      "path": "../Builds/Linux/Entryway.x86_64",
+      "bytes": 73519416,
+      "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+    },
+    {
+      "path": "../Builds/Linux/libgodot-steam-audio.linux.template_release.x86_64.so",
+      "bytes": 965896,
+      "sha256": "a091f6b2b45c85947eada1724a9edae7f41be5ef09fa9bcbd8a8b35d626cf1bf"
+    },
+    {
+      "path": "../Builds/Linux/libgodotopenxrvendors.so",
+      "bytes": 4772248,
+      "sha256": "5156f0e90bd2d105263ac509b37a815386ef67b458f67f5b275a853c988d8b7e"
+    },
+    {
+      "path": "../Builds/Linux/libphonon.so",
+      "bytes": 40474032,
+      "sha256": "faf7c4d69e0f104366f6553cda38d3f946f761f7db223baf12663f6fbf2387da"
+    },
+    {
+      "path": "../Builds/Windows/Entryway.exe",
+      "bytes": 109235712,
+      "sha256": "e43de15078554edc98df172b0929dbeed14e7157fb2624992ba0dd3639a3f4b7"
+    },
+    {
+      "path": "../Builds/Windows/Entryway.pck",
+      "bytes": 125073740,
+      "sha256": "441f6dd3e22ff37da4ea4581280d47f51b2c0a21ec6c97d8918d552391c87511"
+    },
+    {
+      "path": "../Builds/Windows/libgodot-steam-audio.windows.template_release.x86_64.dll",
+      "bytes": 1133568,
+      "sha256": "a5445345d9d63cfbcaa50575bb890268340fd33ccf51de04bae8ebae3e6789ef"
+    },
+    {
+      "path": "../Builds/Windows/libgodotopenxrvendors.dll",
+      "bytes": 5049344,
+      "sha256": "07cd29a3ef623cab7b88cb96abcf26c4a7c210dc6a1e44ff7d99298afdf3ac50"
+    },
+    {
+      "path": "../Builds/Windows/phonon.dll",
+      "bytes": 52950168,
+      "sha256": "2c8107d7ce545e3737c55595f6ac9d2bd3177c043ed7311ab63a6c22e2a480d6"
+    },
+    {
+      "path": "../Builds/Server/EntrywayServer.pck",
+      "bytes": 125073804,
+      "sha256": "41d733f1504aa5906440dae4e45521fe2b65718e447f2a8913338d8e84f660f4"
+    },
+    {
+      "path": "../Builds/Server/EntrywayServer.x86_64",
+      "bytes": 73519416,
+      "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+    },
+    {
+      "path": "../Builds/Server/libgodot-steam-audio.linux.template_release.x86_64.so",
+      "bytes": 965896,
+      "sha256": "a091f6b2b45c85947eada1724a9edae7f41be5ef09fa9bcbd8a8b35d626cf1bf"
+    },
+    {
+      "path": "../Builds/Server/libgodotopenxrvendors.so",
+      "bytes": 4772248,
+      "sha256": "5156f0e90bd2d105263ac509b37a815386ef67b458f67f5b275a853c988d8b7e"
+    },
+    {
+      "path": "../Builds/Server/libphonon.so",
+      "bytes": 40474032,
+      "sha256": "faf7c4d69e0f104366f6553cda38d3f946f761f7db223baf12663f6fbf2387da"
+    }
+  ],
+  "presentation_checks": [
+    {
+      "test": "combat",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "local_body",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "spectator",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "presentation",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "pickup_models",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "weapon_setup",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "music",
+      "passed": true,
+      "exit": 0
+    }
+  ],
+  "network_checks": {
+    "passed": true,
+    "roles": {
+      "server": 0,
+      "shooter": 0,
+      "target": 0,
+      "spectator": 0
+    }
+  },
+  "feedback_checks": [
+    {
+      "suite": "rocket_jump",
+      "passed": true,
+      "exit_code": 0,
+      "log": "test-results/feedback-rocket_jump.log"
+    },
+    {
+      "suite": "feedback_audio",
+      "passed": true,
+      "exit_code": 0,
+      "log": "test-results/feedback-feedback_audio.log"
+    },
+    {
+      "suite": "combat",
+      "passed": true,
+      "exit_code": 0,
+      "log": "test-results/feedback-combat.log"
+    },
+    {
+      "suite": "presentation",
+      "passed": true,
+      "exit_code": 0,
+      "log": "test-results/feedback-presentation.log"
+    },
+    {
+      "suite": "pickup_models",
+      "passed": true,
+      "exit_code": 0,
+      "log": "test-results/feedback-pickup_models.log"
+    },
+    {
+      "suite": "music",
+      "passed": true,
+      "exit_code": 0,
+      "log": "test-results/feedback-music.log"
+    }
+  ],
+  "hud_graphics_button_check": "Passed headless fixture with presentation enabled; real Graphics menu render inspected",
+  "soundtrack": {
+    "tracks": 4,
+    "runtime_bytes": 2794392,
+    "module_bytes_each": 52880,
+    "recorded_instruments": "CC0 Karoryfer guitar, bass and acoustic drums"
+  }
+}

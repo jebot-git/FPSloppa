@@ -11,9 +11,9 @@ static func valid_transform(value: Variant) -> bool:
 		if absf(axis.length()-1.0)>.02: return false
 	return absf(value.basis.x.dot(value.basis.y))<.02 and absf(value.basis.x.dot(value.basis.z))<.02 and absf(value.basis.y.dot(value.basis.z))<.02
 static func validate(data: Variant) -> Dictionary:
-	if not data is Dictionary or data.size()<5 or data.size()>7: return {}
+	if not data is Dictionary or data.size()<5 or data.size()>8: return {}
 	for key in data:
-		if key not in ["head","left","right","weapon","left_handed","body","face"]: return {}
+		if key not in ["head","left","right","weapon","left_handed","body","face","offhand_weapon"]: return {}
 	if not data.has("left_handed") or not data.left_handed is bool: return {}
 	for key in ["head","left","right","weapon"]:
 		if not valid_transform(data.get(key)): return {}
@@ -23,6 +23,9 @@ static func validate(data: Variant) -> Dictionary:
 		if data[key].origin.distance_to(Vector3(0,1.2,0))>1.45: return {}
 	var hand: Transform3D=data.left if data.left_handed else data.right
 	if data.weapon.origin.distance_to(hand.origin)>.4: return {}
+	if data.has("offhand_weapon"):
+		var offhand: Transform3D=data.right if data.left_handed else data.left
+		if not valid_transform(data.offhand_weapon) or data.offhand_weapon.origin.distance_to(offhand.origin)>.4: return {}
 	var result: Dictionary=data.duplicate()
 	if data.has("body"):
 		result.body=validate_body(data.body)

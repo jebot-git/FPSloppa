@@ -63,11 +63,16 @@ func run() -> void:
 	body.has_tracking_data=false
 	check(not tracking.sample().has("hips"),"Native tracking loss falls back")
 	XRServer.remove_tracker(body)
-	var hand:=XRHandTracker.new();hand.name="/user/hand_tracker/left";hand.has_tracking_data=true
+	var hand:=XRHandTracker.new();hand.name="/user/hand_tracker/left";hand.has_tracking_data=true;hand.hand_tracking_source=XRHandTracker.HAND_TRACKING_SOURCE_UNOBSTRUCTED
 	hand.set_hand_joint_transform(XRHandTracker.HAND_JOINT_WRIST,Transform3D(Basis.IDENTITY,Vector3(-.3,1.2,-.3)))
 	hand.set_hand_joint_flags(XRHandTracker.HAND_JOINT_WRIST,XRHandTracker.HAND_JOINT_FLAG_POSITION_VALID|XRHandTracker.HAND_JOINT_FLAG_ORIENTATION_VALID)
 	XRServer.add_tracker(hand)
 	check(tracking.sample().has("left_hand") and tracking.sample().left_curls.size()==5,"Native optical wrist and finger path")
+	hand.hand_tracking_source=XRHandTracker.HAND_TRACKING_SOURCE_CONTROLLER
+	check(not tracking.sample().has("left_hand") and tracking.sample().left_curls.size()==5,"Controller-inferred wrists preserve calibrated grip alignment")
+	tracking.enabled=false
+	check(tracking.sample().has("left_curls") and not tracking.sample().has("hips"),"Finger animation remains enabled independently of body tracking")
+	tracking.enabled=true
 	XRServer.remove_tracker(hand)
 	tracking.osc.parse(message("/tracking/trackers/2/position",Vector3(.1,.1,.2)),Time.get_ticks_msec()*.001)
 	tracking.calibrate()
@@ -105,8 +110,10 @@ func run() -> void:
 	var fighter=preload("res://deathmatch/fighter.gd").new();fighter.setup(2,"Talker",Color.WHITE);game.add_child(fighter);game.fighters[2]=fighter
 	var mono:=PackedFloat32Array()
 	for frame in speech: mono.append(frame.x)
+	game.voice.set_process(false)
 	game.voice.receive(2,1,preload("res://deathmatch/voice/codec.gd").encode(mono))
 	check(game.voice.streams.has(2) and game.voice.streams[2].player is AudioStreamPlayer3D,"Received voice creates a positional audio source")
+	await create_timer(.1).timeout # Steam Audio starts the inner generator on the mixer thread.
 	game.clock+=.1;game.voice._process(.02)
 	check(not game.voice.streams[2].mouth_queue.is_empty(),"Decoded voice schedules synchronized mouth animation")
 	game.voice.set_muted(2,true)

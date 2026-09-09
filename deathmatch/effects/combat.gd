@@ -32,18 +32,19 @@ func hit(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: 
 	if dead or game.clock-float(last_hit.get(id,-10))>.09:
 		last_hit[id]=game.clock
 		play("gib" if gibbed else "death" if dead else "flesh",pos)
-		if not dead and amount>10 and id!=multiplayer.get_unique_id(): play("pain",pos,-13)
+		if not dead and amount>10 and id!=multiplayer.get_unique_id(): play("pain",pos,-8)
 		if enabled: blood(pos,direction,seed_value)
 	if enabled and gibbed: burst_gibs(pos,direction,seed_value)
 	if id==multiplayer.get_unique_id() and game.is_vr(): game.xr_rig.feedback(.8,.12)
 func local_hit() -> void:
-	if game.headless or game.clock-local_pain_at<.09: return
+	if game.headless or game.clock-local_pain_at<.3: return
 	local_pain_at=game.clock
 	if not is_instance_valid(local_pain):
 		local_pain=AudioStreamPlayer.new()
-		local_pain.stream=game.spatial.choose("pain")
-		local_pain.volume_db=-12
+		local_pain.bus="ArenaEffects"
+		local_pain.volume_db=-8
 		add_child(local_pain)
+	local_pain.stream=game.spatial.choose("pain")
 	local_pain.play()
 
 func blood(pos: Vector3,direction: Vector3,seed_value: int) -> void:

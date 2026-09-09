@@ -1,14 +1,14 @@
-# FPSloppa · 0.1.1v
+# FPSloppa · 0.3v
 
-[Download release 0.2v](https://github.com/jebot-git/FPSloppa/releases/tag/0.2v) · [Release notes](docs/RELEASE-0.2v.md)
+[Latest published release: 0.2v](https://github.com/jebot-git/FPSloppa/releases/tag/0.2v) · [Current 0.3v build notes](docs/RELEASE-0.3v.md)
 
-FPSloppa (in-game title: Entryway Deathmatch) is a PC OpenXR and desktop online arena shooter with five bundled LibreQuake deathmatch arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
+FPSloppa (in-game title: Entryway Deathmatch) is a PC OpenXR and desktop online arena shooter with eight bundled LibreQuake arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
-See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Multiplayer spawns grant **only the pistol and 50 bullets**. Blood, gibs, pain reactions and spatial sound effects are included.
+See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Multiplayer spawns grant **only dual pistols and 50 shared bullets**. Blood, gibs, pain reactions and spatial sound effects are included.
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.2v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.3v clients and servers; the protocol changed from earlier releases.
 
 ## Play online
 
@@ -18,17 +18,18 @@ For VR callsign editing, saved-name configuration and the system-username fallba
 
 All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and support **up to 16 players** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. There is no account service, automatic matchmaking, NAT relay, public server browser, or host migration. Dedicated servers support configured map rotation. WAN latency and router traversal have not been tested from this workspace; real ENet loopback sessions with independent processes have been tested.
 
-**PRACTICE VS BOTS** starts an offline match on the selected BSP map with three simple AI opponents. Everyone spawns with a pistol and collects other weapons from the arena.
+**PRACTICE VS BOTS** starts an offline match on the selected BSP map with three simple AI opponents. Everyone spawns with dual pistols and collects other weapons from the arena.
 
 ## Desktop controls
 
 | Control | Action |
 |---|---|
 | WASD / mouse | Move / aim |
-| Left mouse | Fire; hold for repeated fire |
+| Left mouse | Fire primary weapon; hold for repeated fire |
+| Right mouse | Fire the second pistol while dual pistols are selected |
 | Shift | Walk instead of running |
 | 1 | Fist / chainsaw |
-| 2 | Pistol |
+| 2 | Dual pistols |
 | 3 | Shotgun / super shotgun |
 | 4, 5, 6, 7 | Chaingun, rocket launcher, plasma rifle, BFG |
 | Mouse wheel | Cycle owned weapons |
@@ -44,13 +45,13 @@ Movement is fast. All maps allow jumping and swimming. Stair stepping is automat
 
 ## Weapon behavior
 
-There are no magazines or manual reloads. Shotguns have an automatic firing/reload cycle. First pistol/chaingun shots are accurate; sustained fire spreads. Pellet damage is randomized. Free vertical mouse aim replaces the original game's vertical auto-aim.
+There are no magazines or manual reloads. Shotguns have an automatic firing/reload cycle. First pistol/chaingun shots are accurate; sustained fire spreads. Pistols use 4.2° horizontal spread (down from 5.6°). Selecting slot 2 equips a pair, with independent firing cycles and one shared bullet pool. Pellet damage is randomized. Free vertical mouse aim replaces the original game's vertical auto-aim.
 
 | Weapon | Behavior | Approximate firing interval / ammo |
 |---|---|---|
 | Fist | 2–20 melee damage | 0.57 s, no ammo |
 | Chainsaw | Rapid 2–20 melee damage | 0.114 s, no ammo |
-| Pistol | 5/10/15 hitscan damage | 0.40 s, 1 bullet |
+| Dual pistols | 6/12/18 hitscan damage per shot | 0.40 s per pistol, 1 shared bullet per shot |
 | Shotgun | 7 pellets, mostly horizontal spread | 1.00 s, 1 shell |
 | Super shotgun | 20 pellets, wider horizontal/vertical spread | 1.63 s, 2 shells |
 | Chaingun | Rapid 5/10/15 hitscan damage | 0.114 s, 1 bullet |
@@ -58,12 +59,12 @@ There are no magazines or manual reloads. Shotguns have an automatic firing/relo
 | Plasma rifle | Rapid traveling bolts, 5–40 damage | 0.086 s, 1 cell |
 | BFG 9000 | 0.86 s charge, large projectile, then 40 forward tracer rays from the shooter's location on impact | 1.72 s, 40 cells |
 
-These are approximations, not an emulation of Doom's 35 Hz state machine or random table. Weapon models use the CC0 Oldschool AFPS Weapons pack by Drummyfish, converted in Blender, with a BFG adaptation and a separate project-authored double-barrel super shotgun. The fist derives from the bundled CC0 VRoid model. Muzzle flashes, shot tracers, recoil, hit feedback and synthesized sounds are authored for this project. Green armor absorbs one third of incoming damage; blue armor absorbs one half, limited by remaining armor.
+These are approximations, not an emulation of Doom's 35 Hz state machine or random table. Weapon models use the CC0 Oldschool AFPS Weapons pack by Drummyfish, converted in Blender, with a BFG adaptation and the original textured shotgun-based super-shotgun variant. The fist derives from the bundled CC0 VRoid model. Muzzle flashes, shot tracers, recoil, hit feedback and synthesized sounds are authored for this project. Green armor absorbs one third of incoming damage; blue armor absorbs one half, limited by remaining armor.
 
 ## Match rules
 
 - Default: **20 frags / 10 minutes**, followed by a ten-second intermission and automatic restart.
-- Players spawn with 100 health, only a pistol and 50 bullets. Inventory resets on death. Spawn points favor distance from living opponents.
+- Players spawn with 100 health, only dual pistols and 50 shared bullets. Inventory resets on death. Spawn points favor distance from living opponents.
 - Spawn protection lasts 1.5 seconds and is cancelled by firing.
 - Suicides subtract one frag. A death adds to the victim's death count. Fire/Space respawns after two seconds; automatic respawn follows three seconds later.
 - Weapons, ammunition, health and armor respawn after 30 seconds; the BFG pickup takes 60 seconds. Pickup claims are resolved by the server once.
@@ -100,14 +101,33 @@ godot --headless --xr-mode off --path . --script res://deathmatch/tests/combat.g
 python3 deathmatch/tests/run_network_tests.py /path/to/godot
 ```
 
-Core files: `arena.gd` (networking/combat/match), `fighter.gd` (movement and marine), `weapons.gd` (tuning), `art.gd` (weapon asset assembly and sound), `interface.gd` (menus/HUD) and `bots.gd` (offline navigation and combat input). Only the five BSP arenas and user-imported BSPs are playable.
+Core files: `arena.gd` (networking/combat/match), `fighter.gd` (movement and marine), `weapons.gd` (tuning), `art.gd` (weapon asset assembly and sound), `interface.gd` (menus/HUD) and `bots.gd` (offline navigation and combat input). The eight bundled BSP arenas and user-imported BSPs are playable.
 
 Behavior references: [id Software's original weapon routines](https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/p_pspr.c). Networking references: [Godot high-level multiplayer](https://docs.godotengine.org/en/4.7/tutorials/networking/high_level_multiplayer.html) and [ENet peer statistics](https://docs.godotengine.org/en/stable/classes/class_enetpacketpeer.html). This implementation is independently written. Original Doom music, sound samples, sprites and source code are not bundled. See [asset credits](ASSET_CREDITS.md).
 
-Optional [body tracking](TRACKING.md), [recorded spatial audio and speech-driven VRM mouths](AUDIO.md) are included in protocol `entryway-dm-10-melee`. Update the server and every client together.
+Optional [body tracking](TRACKING.md), [recorded spatial audio and speech-driven VRM mouths](AUDIO.md) are included in protocol `entryway-13-team-modes`. Update the server and every client together.
 
 Eye-tracked VRM gaze and measured blinking are automatic on supported OpenXR runtimes/models; see [EYES.md](EYES.md). See [PERFORMANCE.md](PERFORMANCE.md) for rendering changes, profiling commands and hardware-validation limits. The generated launcher artwork is documented in [ICON.md](ICON.md).
 
 Voice starts in push-to-talk mode (**V** / VR off-hand grip). The voice controls are selectable inside the VR menu; Android requests microphone and vendor tracking access with a retry option. Tracked VR players can look down at their own head-hidden avatar body for an IK reference. See [VOICE.md](VOICE.md) and [TRACKING.md](TRACKING.md).
 
 Every held weapon can perform a short-range weapon whip: press **F** on desktop or swing the weapon in VR. It deals **10 damage** before armor, with **0.8 seconds** between attacks and at most one victim per swing. A deliberate VR swing is required; resting the weapon against a player does no damage. The server checks range, walls, cooldown and normal spawn protection. VR swings require slowing the weapon before swinging again.
+
+### Spectators, presentation and soundtrack
+
+Select **Join as spectator** before **JOIN MATCH** to watch with a free-flying camera. Desktop uses WASD and Space/Ctrl for up/down; VR uses the left stick to move, right stick left/right to turn and right stick up/down to fly. Spectators have no visible avatar, collision, pickups, weapons or damage, appear separately on the scoreboard, and keep their role through map downloads and rotation. They occupy a connection slot (8 on menu-hosted servers, up to 16 in dedicated server configuration). CLI joining also accepts `--spectate` alongside `--connect`.
+
+The final scoreboard opens automatically when a match ends, including its VR surface, and closes for the next round. **SETTINGS…** is available before joining and during matches. Audio controls include master, effects, music, voice playback, output device and access to microphone/voice controls. Graphics controls include render resolution (50–125%), MSAA and shadows; desktop also offers fullscreen/windowed mode and FOV. Changes apply immediately and persist alongside your other client preferences. VR FOV and refresh timing remain headset/runtime controlled.
+
+Four original tracker compositions provide a looping industrial action score with recorded guitar, bass and acoustic drums. Their editable ProTracker modules are about 52 KiB each; portable Ogg playback totals 2.67 MiB. Music defaults to 30% and has its own saved volume control. See [music sources](deathmatch/audio/music/SOURCES.md). New supply models distinguish bullets, shells, rockets, cells, medkits and armour with cached single-surface meshes.
+
+
+## 0.3v arena update
+
+Dedicated servers support DM, TDM, CTF and KOTH, with configurable limits, team switching and majority votes for balance, available maps and allowed game types. In-game hosting remains DM-only with eight slots. See [GAMEMODES.md](GAMEMODES.md) and [server.cfg](server.cfg).
+
+Eight freely licensed LibreQuake arenas are bundled. Menus use an original iron/brass theme with large VR controls; CTF flags use cloth banners with distinct team emblems. Steam Audio provides headphone HRTF spatialisation for effects and built-in positional voice on Linux, Windows and Android. Sound settings include a standard spatial-audio fallback. Dedicated servers may advertise an external Mumble client handoff; built-in voice remains the default.
+
+This build also includes the previously developed dual pistols, controller finger gestures/tracker fixes, spectator mode, end-of-match scoreboard, audio/graphics settings, new pickup models, restored CC0 super shotgun and four original tracker soundtracks.
+
+Rocket splash now supports rocket jumping with reduced self damage and bounded, replicated knockback. Megahealth and mega armour have distinct colours, labels and moving halos; pain, respawn, powerful-item spawn and pickup cues are improved. Settings → Graphics adjusts VR HUD size and vertical position within saved limits.

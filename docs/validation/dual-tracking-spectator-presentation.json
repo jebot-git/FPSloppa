@@ -1,0 +1,171 @@
+{
+  "date": "2026-09-09",
+  "base_commit": "2ba37eb346f83b7e9340e06b23f839a433d11602",
+  "source_protocol": "entryway-dm-12-spectators",
+  "scope": "Unreleased source changes: dual pistols, SteamVR/WiVRn tracking and fingers, spectators, scoreboard, presentation settings, pickup art, original tracker music",
+  "regression_suite_count": 23,
+  "regressions": [
+    {
+      "test": "rules",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "melee",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "combat",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "controller_tracking",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "eyes_bots",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr_ik",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "tracking_audio",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "tracking_orientation",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "room_scale",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "local_body",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "permissions",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "stairs",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "map_visuals_feedback",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "weapon_setup",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "hit_detection",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "osc_burst",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "hand_tracking",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "dual_pistols",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "spectator",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "presentation",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "pickup_models",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "music",
+      "passed": true,
+      "exit": 0
+    }
+  ],
+  "multiplayer": {
+    "server_two_players_and_spectator": {
+      "passed": true,
+      "roles": {
+        "server": 0,
+        "shooter": 0,
+        "target": 0,
+        "spectator": 0
+      }
+    },
+    "map_rotation_with_spectator_download": true,
+    "voice": {
+      "passed": true,
+      "exported_server": null
+    }
+  },
+  "live_vr": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Quest Pro",
+    "user_confirmed": [
+      "Touch controller finger gestures",
+      "wrist alignment preserved"
+    ],
+    "observed": [
+      "Grip, trigger and thumb touch input",
+      "Native body joints",
+      "72 FPS at 2520 x 2772 per-eye render size during latest session",
+      "Music output on independent ArenaMusic and Master buses"
+    ],
+    "not_hardware_verified": [
+      "Vive tracker roles on native SteamVR",
+      "Index controller-inferred finger joints on native SteamVR"
+    ]
+  },
+  "music": [
+    {
+      "file": "deathmatch/audio/music/iron_circuit.ogg",
+      "bytes": 605421,
+      "sha256": "8dd3103d1ed7e74030daa11f59c82ce39f3ce340a9dd1eede1976b2383abaca2"
+    },
+    {
+      "file": "deathmatch/audio/music/pressure_lock.ogg",
+      "bytes": 648526,
+      "sha256": "a0d6ad07404413c2f322b39a5581a4572dd5d46e3e4cb5587158b7fe18488f2a"
+    }
+  ],
+  "pickup_preview": "test-results/pickup-models-preview.png"
+}

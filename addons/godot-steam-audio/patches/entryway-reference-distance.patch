@@ -1,0 +1,23 @@
+--- a/src/server.cpp
++++ b/src/server.cpp
+@@ -117,6 +117,10 @@
+ 
+ 		IPLSimulationOutputs outputs{};
+ 		iplSourceGetOutputs(ls->src.src, IPL_SIMULATIONFLAGS_DIRECT, &outputs);
++		// SDK inverse distance returns 1/max(distance, minimum), not minimum/distance.
++		// Match the game reference distance: unity gain inside the near radius.
++		if (ls->cfg.is_dist_attn_on) outputs.direct.distanceAttenuation = std::min(1.0f,
++			outputs.direct.distanceAttenuation * std::max(0.001f, ls->cfg.min_attn_dist));
+ 		ls->direct_outputs = outputs.direct;
+ 	}
+ 
+--- a/src/stream.cpp
++++ b/src/stream.cpp
+@@ -128,6 +128,7 @@
+ 			listener.origin.z + ls->dir_to_listener.z};
+ 		params.direction = iplCalculateRelativeDirection(gs->ctx, source,
+ 			listener.origin, listener.ahead, listener.up);
++		if (ls->dir_to_listener.length_squared() < 0.000001f) params.direction = IPLVector3{0, 0, -1};
+ 		params.interpolation = IPL_HRTFINTERPOLATION_BILINEAR;
+ 		params.spatialBlend = 1.0f;
+ 		params.hrtf = gs->hrtf;

@@ -15,6 +15,7 @@ var animation_mode := 0
 var rotating := true
 
 func setup(network: Node) -> void:
+	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
 	service = network
 	library = service.library
 	title = "ENTRYWAY / PLAYER MODEL"

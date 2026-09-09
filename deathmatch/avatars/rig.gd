@@ -17,11 +17,13 @@ var movement := Vector3.ZERO
 var aim_pitch := 0.0
 var phase := 0.0
 var recoil := 0.0
+var offhand_recoil := 0.0
 var dead := false
 var death_time := 0.0
 var preview_mode := -1
 var weapon_id := -1
 var gun: Node3D
+var offhand_gun: Node3D
 var body_height := 1.70
 var scale_factor := 1.0
 var first_person := false
@@ -98,6 +100,7 @@ func set_first_person(value: bool) -> void:
 	for mesh in visual_meshes:
 		mesh.visible=bool(mesh.get_meta("arena_first_person" if value else "arena_third_person"))
 	if gun: gun.visible=not value and not dead
+	if offhand_gun: offhand_gun.visible=not value and not dead
 
 func build_animations() -> void:
 	motion = AnimationPlayer.new()
@@ -124,6 +127,10 @@ func set_weapon(value: int) -> void:
 	if value==weapon_id: return
 	weapon_id = value
 	if is_instance_valid(gun): gun.free()
+	if is_instance_valid(offhand_gun): offhand_gun.free()
+	offhand_gun=null
+	if value==2:
+		offhand_gun=Art.weapon(2);add_child(offhand_gun)
 	gun = Art.weapon(value)
 	gun.scale = Vector3.ONE*.48
 	add_child(gun)
@@ -132,8 +139,9 @@ func hurt(direction: Vector3, strength: float) -> void:
 	pain=minf(1.0,strength/40.0)
 	pain_direction=global_basis.inverse()*direction
 
-func fire() -> void:
-	recoil = 1.0
+func fire(offhand: bool=false) -> void:
+	if offhand: offhand_recoil=1.0
+	else: recoil = 1.0
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(skeleton): return
@@ -141,6 +149,9 @@ func _process(delta: float) -> void:
 	elif xr_pose.is_empty() or first_person: xr_pose=target_xr_pose.duplicate()
 	else:
 		for key in ["head","left","right","weapon"]: xr_pose[key]=xr_pose[key].interpolate_with(target_xr_pose[key],minf(1.0,delta*22))
+		if target_xr_pose.has("offhand_weapon"):
+			xr_pose.offhand_weapon=xr_pose.get("offhand_weapon",target_xr_pose.offhand_weapon).interpolate_with(target_xr_pose.offhand_weapon,minf(1.0,delta*22))
+		else: xr_pose.erase("offhand_weapon")
 		xr_pose.left_handed=target_xr_pose.left_handed
 		xr_pose.face=target_xr_pose.get("face",{})
 		var next_body: Dictionary=target_xr_pose.get("body",{})
@@ -157,6 +168,7 @@ func _process(delta: float) -> void:
 	if motion.current_animation!=clip: motion.play(clip,.18)
 	phase += delta*(1.0 if speed<.2 else 1.25 if speed<6.0 else 1.92)
 	recoil = move_toward(recoil,0.0,delta*7)
+	offhand_recoil=move_toward(offhand_recoil,0.0,delta*7)
 	pain=move_toward(pain,0.0,delta*3.5)
 	if dead:
 		death_time += delta
@@ -170,8 +182,16 @@ func _process(delta: float) -> void:
 	if gun and not xr_pose.is_empty() and not dead:
 		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id)
 		gun.visible=not first_person
+		if offhand_gun:
+			offhand_gun.visible=not first_person and xr_pose.has("offhand_weapon")
+			if xr_pose.has("offhand_weapon"): offhand_gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.offhand_weapon,2)
 		return
 	if gun:
 		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+recoil*.12),Art.desktop_hand(false,aim_pitch,recoil))
 		gun.transform=Art.held_transform(grip,weapon_id,.48)
 		gun.visible = not dead and not first_person
+
+	if offhand_gun:
+		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+offhand_recoil*.12),Art.desktop_hand(true,aim_pitch,offhand_recoil,true))
+		offhand_gun.transform=Art.held_transform(grip,2,.48)
+		offhand_gun.visible=not dead and not first_person

@@ -2,7 +2,7 @@
 
 Separate ARM64 release-runtime APKs can be built with Godot 4.7.2 and official Godot OpenXR Vendors 5.1.0 (Meta for Quest, Pico for Pico). They use the Vulkan Mobile renderer, mobile textures, Internet and microphone permissions, and a persistent local development signing key. These are experimental sideload builds, not store releases.
 
-Both share PC/server protocol `entryway-dm-10-melee`, authoritative combat, pistol-only spawns, fixed hitboxes, host map downloads and 25 MB avatar transfers. Crossplay is preserved in the implementation; a completed cross-device match has not been verified. Native APK behavior has not been tested on a standalone headset; Quest Pro/WiVRn checks exercised the PC build.
+Both share PC/server protocol `entryway-13-team-modes`, authoritative combat, pistol-only spawns, fixed hitboxes, host map downloads and 25 MB avatar transfers. Crossplay is preserved in the implementation; a completed cross-device match has not been verified. Native APK behavior has not been tested on a standalone headset; Quest Pro/WiVRn checks exercised the PC build.
 
 ## Install and play
 
@@ -30,7 +30,7 @@ python3 tools/build_android.py --target Pico
 
 The installer accepts `JAVA_HOME` and `ANDROID_SDK_ROOT` overrides. The builder also accepts `GODOT_BIN`, and otherwise finds `godot` on PATH. It restores the generated Gradle template from the matching installed export templates when absent. Source archives exclude android/build and its caches. The local signing key and password stay outside the project under `~/.local/share/entryway-toolchains/signing/`; back up that directory privately to preserve update compatibility. These credentials are never included in the source archive. A different key requires uninstalling the previous installation or choosing another package ID.
 
-Run `python3 tools/verify_android.py` to check vendor manifests, ARM64 libraries, protocol and original map/avatar hashes. The verifier requires microphone/vendor tracking declarations and current voice/body scripts, so old APKs will fail. The Android SDK and matching Android export templates are now installed, including the generated `android/build` Gradle project. Version 0.2v APKs were exported and passed manifest, signature, 16 KB ZIP alignment, source-script and asset checks. Body and hand extensions are optional and require device/runtime support.
+Run `python3 tools/verify_android.py` to check vendor manifests, ARM64 libraries, protocol and original map/avatar hashes. The verifier requires microphone/vendor tracking declarations and current voice/body scripts, so old APKs will fail. The Android SDK and matching Android export templates are installed, including the generated `android/build` Gradle project. Version 0.3v includes rebuilt Steam Audio extension libraries aligned for 16 KiB pages. Body and hand extensions are optional and require device/runtime support.
 
 Exports and signature reports are under `test-results/`; APKs and SHA256 files are under `../Builds/Android/`. The builder verifies signatures and 16 KB ZIP alignment. Both exports retain plain GDScript and the VRM release-runtime compatibility patches. The Entryway exporter includes original VRM/BSP files for network transfers.
 
@@ -46,4 +46,4 @@ See TRACKING.md for Quest body permission, SlimeVR setup and native Pico tracker
 
 This release requests the lowest advertised standalone refresh rate at or above 72 Hz, enables OpenXR VRS/foveation, uses 2× MSAA on Android, and reduces avatar/light costs. These are configuration and code optimizations, not a measured 72 FPS headset certification. See PERFORMANCE.md.
 
-The 0.2v APKs use version code 6 and a newly generated local development signing key. If an older APK was signed with a different key, Android requires uninstalling it before sideloading this build; preserve any wanted local settings first. The signing key is retained privately outside this repository for future builds.
+The 0.3v APKs use version code 7 and the same private development signing key used for 0.2v. Builds signed with a different key require uninstalling the older app before sideloading; preserve any wanted local settings first. The signing key stays outside this repository.
