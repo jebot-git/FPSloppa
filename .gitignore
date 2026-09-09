@@ -1,0 +1,17 @@
+# Godot's generated imports and editor state
+.godot/
+*.import
+# Generated Gradle project and local signing configuration
+/android/
+.env
+.env.*
+*.keystore
+*.jks
+*.p12
+# Local build and test output
+/test-results/
+/release-assets/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
