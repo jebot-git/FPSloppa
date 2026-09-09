@@ -1,6 +1,6 @@
-# FPSloppa · 0.1v
+# FPSloppa · 0.1.1v
 
-[Download release 0.1v](https://github.com/jebot-git/FPSloppa/releases/tag/0.1v) · [Release notes](docs/RELEASE-0.1v.md)
+[Download release 0.1.1v](https://github.com/jebot-git/FPSloppa/releases/tag/0.1.1v) · [Release notes](docs/RELEASE-0.1.1v.md)
 
 FPSloppa (in-game title: Entryway Deathmatch) is a PC OpenXR and desktop online arena shooter with five bundled LibreQuake deathmatch arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 

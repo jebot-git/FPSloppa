@@ -4,7 +4,7 @@ var rig
 var gaze: XRController3D
 func setup(owner_rig: Node) -> void:
 	rig=owner_rig
-	gaze=rig.controller("EyeGaze","/user/eyes_ext","default_pose")
+	gaze=rig.controller("EyeGaze","/user/eyes_ext","eye_gaze")
 func sample() -> Dictionary:
 	if not rig.focused: return {}
 	var result: Dictionary={"look":Vector2.ZERO,"blink":Vector2.ZERO,"gaze":false,"lids":false}

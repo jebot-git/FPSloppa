@@ -33,13 +33,15 @@ func run() -> void:
 	check(eyes.sample().is_empty(),"Unfocused session clears eye data")
 	rig.focused=true;XRServer.remove_tracker(face)
 	var gaze:=XRPositionalTracker.new();gaze.name="/user/eyes_ext";gaze.type=XRServer.TRACKER_CONTROLLER;XRServer.add_tracker(gaze)
-	gaze.set_pose("default_pose",Transform3D(Basis(Vector3.UP,.1),Vector3.ZERO),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	gaze.set_pose("eye_gaze",Transform3D(Basis(Vector3.UP,.1),Vector3.ZERO),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
 	await process_frame
 	var measured:=eyes.sample()
 	check(measured.get("gaze",false) and not measured.get("lids",false) and absf(measured.look.x-.1)<.001,"OpenXR gaze works without inventing blinks")
 	XRServer.remove_tracker(gaze);rig.free()
 	var library=preload("res://deathmatch/avatars/library.gd").new();root.add_child(library)
 	for hash in library.entries:
+		# Saved custom avatars need not have eyes; these assertions describe bundled samples.
+		if not library.entries[hash].path.begins_with("res://deathmatch/avatars/models/"): continue
 		var actor:=Node3D.new();root.add_child(actor)
 		var avatar=library.create_avatar(hash);actor.add_child(avatar)
 		check(avatar.eyes.eye_bones.size()==2 or not avatar.eyes.binds[0].is_empty(),"VRM supports bounded look: "+library.entries[hash].title)

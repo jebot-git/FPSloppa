@@ -51,3 +51,11 @@ python3 deathmatch/tests/run_network_tests.py --maps
 ```
 
 Optional full-body input, SlimeVR setup, Quest body/hand support and native Pico limitations are documented in [TRACKING.md](TRACKING.md).
+
+## Controller pose hotfix (0.1.1v)
+
+0.1v incorrectly selected `grip_pose` / `aim_pose` on XRController3D. Godot's OpenXR bridge exposes those actions as tracker poses `grip` / `aim`, so the old nodes remained at the tracking origin even with correct Touch bindings. 0.1.1v fixes both hands and weapon aim, hides untracked hands, and requires a valid pose for pointers and weapon input. Eye gaze now has a separate action to avoid sharing the controller default pose.
+
+The Touch, Index and Pico profiles retain their grip/aim bindings. Automated XRControllerTracker tests verify late connection, movement, independent grip/aim poses, disconnection and profile bindings. VDXR and SteamVR still require a physical headset retest; no runtime-specific profile change should be necessary for this bug.
+
+Engine behavior: https://github.com/godotengine/godot/blob/4.7.2-stable/modules/openxr/openxr_interface.cpp (`create_action`).

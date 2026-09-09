@@ -109,7 +109,7 @@ toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right")
 resource_name = "default_pose"
 localized_name = "Default pose"
 action_type = 3
-toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right", "/user/vive_tracker_htcx/role/left_foot", "/user/vive_tracker_htcx/role/right_foot", "/user/vive_tracker_htcx/role/left_shoulder", "/user/vive_tracker_htcx/role/right_shoulder", "/user/vive_tracker_htcx/role/left_elbow", "/user/vive_tracker_htcx/role/right_elbow", "/user/vive_tracker_htcx/role/left_knee", "/user/vive_tracker_htcx/role/right_knee", "/user/vive_tracker_htcx/role/waist", "/user/vive_tracker_htcx/role/chest", "/user/vive_tracker_htcx/role/camera", "/user/vive_tracker_htcx/role/keyboard", "/user/vive_tracker_htcx/role/left_wrist", "/user/vive_tracker_htcx/role/right_wrist", "/user/vive_tracker_htcx/role/left_ankle", "/user/vive_tracker_htcx/role/right_ankle", "/user/eyes_ext")
+toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right", "/user/vive_tracker_htcx/role/left_foot", "/user/vive_tracker_htcx/role/right_foot", "/user/vive_tracker_htcx/role/left_shoulder", "/user/vive_tracker_htcx/role/right_shoulder", "/user/vive_tracker_htcx/role/left_elbow", "/user/vive_tracker_htcx/role/right_elbow", "/user/vive_tracker_htcx/role/left_knee", "/user/vive_tracker_htcx/role/right_knee", "/user/vive_tracker_htcx/role/waist", "/user/vive_tracker_htcx/role/chest", "/user/vive_tracker_htcx/role/camera", "/user/vive_tracker_htcx/role/keyboard", "/user/vive_tracker_htcx/role/left_wrist", "/user/vive_tracker_htcx/role/right_wrist", "/user/vive_tracker_htcx/role/left_ankle", "/user/vive_tracker_htcx/role/right_ankle")
 
 [sub_resource type="OpenXRAction" id="OpenXRAction_6pny5"]
 resource_name = "aim_pose"
@@ -141,10 +141,16 @@ localized_name = "Body tracker pose"
 action_type = 3
 toplevel_paths = PackedStringArray("/user/vive_tracker_htcx/role/waist", "/user/vive_tracker_htcx/role/chest", "/user/vive_tracker_htcx/role/left_foot", "/user/vive_tracker_htcx/role/right_foot", "/user/vive_tracker_htcx/role/left_knee", "/user/vive_tracker_htcx/role/right_knee", "/user/vive_tracker_htcx/role/left_elbow", "/user/vive_tracker_htcx/role/right_elbow")
 
+[sub_resource type="OpenXRAction" id="EyeGazeAction"]
+resource_name = "eye_gaze"
+localized_name = "Eye gaze"
+action_type = 3
+toplevel_paths = PackedStringArray("/user/eyes_ext")
+
 [sub_resource type="OpenXRActionSet" id="OpenXRActionSet_2156u"]
 resource_name = "godot"
 localized_name = "Godot action set"
-actions = [SubResource("TrackerPose"), SubResource("OpenXRAction_i4tct"), SubResource("OpenXRAction_f5lk2"), SubResource("OpenXRAction_awgmp"), SubResource("OpenXRAction_wabxk"), SubResource("OpenXRAction_jdxf4"), SubResource("OpenXRAction_wjkme"), SubResource("OpenXRAction_tpbt1"), SubResource("OpenXRAction_aqkra"), SubResource("OpenXRAction_7x3md"), SubResource("OpenXRAction_24inm"), SubResource("OpenXRAction_5n1ws"), SubResource("OpenXRAction_rc08j"), SubResource("OpenXRAction_gxliq"), SubResource("OpenXRAction_lwbpy"), SubResource("OpenXRAction_r65k8"), SubResource("OpenXRAction_50t32"), SubResource("OpenXRAction_pkncd"), SubResource("OpenXRAction_df6al"), SubResource("OpenXRAction_av6j5"), SubResource("OpenXRAction_6pny5"), SubResource("OpenXRAction_of0sg"), SubResource("OpenXRAction_2xchm"), SubResource("OpenXRAction_shm6l")]
+actions = [SubResource("EyeGazeAction"), SubResource("TrackerPose"), SubResource("OpenXRAction_i4tct"), SubResource("OpenXRAction_f5lk2"), SubResource("OpenXRAction_awgmp"), SubResource("OpenXRAction_wabxk"), SubResource("OpenXRAction_jdxf4"), SubResource("OpenXRAction_wjkme"), SubResource("OpenXRAction_tpbt1"), SubResource("OpenXRAction_aqkra"), SubResource("OpenXRAction_7x3md"), SubResource("OpenXRAction_24inm"), SubResource("OpenXRAction_5n1ws"), SubResource("OpenXRAction_rc08j"), SubResource("OpenXRAction_gxliq"), SubResource("OpenXRAction_lwbpy"), SubResource("OpenXRAction_r65k8"), SubResource("OpenXRAction_50t32"), SubResource("OpenXRAction_pkncd"), SubResource("OpenXRAction_df6al"), SubResource("OpenXRAction_av6j5"), SubResource("OpenXRAction_6pny5"), SubResource("OpenXRAction_of0sg"), SubResource("OpenXRAction_2xchm"), SubResource("OpenXRAction_shm6l")]
 
 [sub_resource type="OpenXRIPBinding" id="OpenXRIPBinding_7n6ks"]
 action = SubResource("OpenXRAction_av6j5")
@@ -767,7 +773,7 @@ interaction_profile_path = "/interaction_profiles/htc/vive_tracker_htcx"
 bindings = [SubResource("TrackerBinding0"), SubResource("TrackerBinding1"), SubResource("TrackerBinding2"), SubResource("TrackerBinding3"), SubResource("TrackerBinding4"), SubResource("TrackerBinding5"), SubResource("TrackerBinding6"), SubResource("TrackerBinding7")]
 
 [sub_resource type="OpenXRIPBinding" id="EyeGazeBinding"]
-action = SubResource("OpenXRAction_av6j5")
+action = SubResource("EyeGazeAction")
 binding_path = "/user/eyes_ext/input/gaze_ext/pose"
 
 [sub_resource type="OpenXRInteractionProfile" id="EyeGazeProfile"]

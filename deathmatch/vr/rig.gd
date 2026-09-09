@@ -44,10 +44,7 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 	head.name="Head"
 	head.near=.04
 	origin.add_child(head)
-	left=controller("Left","left_hand","grip_pose")
-	right=controller("Right","right_hand","grip_pose")
-	left_aim=controller("LeftAim","left_hand","aim_pose")
-	right_aim=controller("RightAim","right_hand","aim_pose")
+	setup_controllers()
 	for item in [[left,"left"],[right,"right"]]:
 		var hand_model=load("res://addons/godot-xr-tools/hands/scenes/lowpoly/"+item[1]+"_tac_glove_low.tscn").instantiate()
 		item[0].add_child(hand_model)
@@ -83,6 +80,12 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 	Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	print("XR_READY ","simulated" if simulated else "OpenXR")
 	return true
+func setup_controllers() -> void:
+	# OpenXRInterface maps *_pose action names to these built-in tracker names.
+	left=controller("Left","left_hand","grip")
+	right=controller("Right","right_hand","grip")
+	left_aim=controller("LeftAim","left_hand","aim")
+	right_aim=controller("RightAim","right_hand","aim")
 func controller(node_name: String,tracker_name: String,pose_name: String) -> XRController3D:
 	var c:=XRController3D.new()
 	c.name=node_name
@@ -166,6 +169,8 @@ func toggle_menu() -> void:
 	if game.menu_open: place_menu()
 func _process(delta: float) -> void:
 	if not enabled: return
+	left.visible=simulated or left.get_has_tracking_data()
+	right.visible=simulated or right.get_has_tracking_data()
 	var mine:=multiplayer.get_unique_id()
 	var actor=game.fighters.get(mine)
 	if actor:
@@ -194,7 +199,7 @@ func _process(delta: float) -> void:
 	keyboard.visible=menu_visible and (focused_control is LineEdit or focused_control is TextEdit)
 	keyboard.enabled=keyboard.visible
 	for i in range(pointers.size()):
-		pointers[i].enabled=menu_visible and (simulated or (left if i==0 else right).get_is_active())
+		pointers[i].enabled=menu_visible and (simulated or (left if i==0 else right).get_has_tracking_data())
 		pointers[i].visible=pointers[i].enabled
 	if actor:
 		var s: Dictionary=game.local_state()
@@ -207,7 +212,7 @@ func _process(delta: float) -> void:
 			(left_aim if left_handed else right_aim).add_child(gun)
 			gun_id=s.weapon
 		if gun.get_parent()!=(left_aim if left_handed else right_aim): gun.reparent(left_aim if left_handed else right_aim,false)
-		gun.visible=not s.dead and not game.menu_open and (simulated or (left_aim if left_handed else right_aim).get_is_active())
+		gun.visible=not s.dead and not game.menu_open and (simulated or (left_aim if left_handed else right_aim).get_has_tracking_data())
 		gun.position=Vector3(0,-.025,game.recoil*.018)
 		gun.rotation.x=game.recoil*.025
 		var from: Vector3=actor.position+Vector3.UP*1.45
@@ -221,7 +226,7 @@ func command(sequence: int) -> Dictionary:
 	var blocked: bool=game.menu_open or scores or not focused
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
-	var tracked: bool=simulated or (hand.get_is_active() and aim.get_is_active())
+	var tracked: bool=simulated or (hand.get_has_tracking_data() and aim.get_has_tracking_data())
 	var stick:=left.get_vector2("primary") if not blocked else Vector2.ZERO
 	if stick.length()<.18: stick=Vector2.ZERO
 	var movement:=Basis(Vector3.UP,head.rotation.y)*Vector3(stick.x,0,-stick.y)
