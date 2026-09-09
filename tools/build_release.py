@@ -4,7 +4,9 @@ import subprocess, shutil, zipfile, json, os, sys
 
 root=Path(__file__).resolve().parents[1]
 builds=root.parent/'Builds'
-godot=os.environ.get('GODOT_BIN','/home/blux/.local/bin/Godot_v4.7.2-stable_linux.x86_64')
+godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
+if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
+(root/'test-results').mkdir(exist_ok=True)
 targets=[('Linux PC','Linux','Entryway.x86_64'),('Windows PC','Windows','Entryway.exe'),('Linux Dedicated Server','Server','EntrywayServer.x86_64')]
 if '--package-only' not in sys.argv:
     for preset,folder,binary in targets:
@@ -19,7 +21,7 @@ if '--exports-only' in sys.argv:raise SystemExit(0)
 
 for _,folder,_ in targets:
     dest=builds/folder
-    for name in ['EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','STANDALONE.md','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
+    for name in ['EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','STANDALONE.md','LIVE_VR_TEST.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         shutil.copy2(root/name,dest/name)
     for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio/recorded').rglob('*')):
         if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name=='SOURCES.md'):
@@ -47,10 +49,17 @@ for folder,name in [('Linux','Entryway-Linux.zip'),('Windows','Entryway-Windows.
     archives.append(archive)
 archive=root.parent/'Entryway-Deathmatch.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
-    for f in sorted(root.rglob('*')):
-        rel=f.relative_to(root)
-        if rel.parts[0] == 'android':continue
-        if not f.is_file() or any(x in {'.godot','.git','__pycache__'} for x in rel.parts) or f.suffix in {'.import','.pyc'}:continue
+    # Honor Git exclusions: never ship local tracking captures, build caches,
+    # signing files or release archives recursively inside the source archive.
+    if (root/'.git').exists():
+        files=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=root).decode().split('\0')
+    else:
+        files=[str(f.relative_to(root)) for f in root.rglob('*') if f.is_file()]
+    for name in sorted(set(files)-{''}):
+        rel=Path(name);f=root/rel
+        if not f.is_file() or rel.parts[0] in {'android','test-results','release-assets','.agents','.codex'}:continue
+        if any(part in {'.godot','.git','__pycache__'} for part in rel.parts):continue
+        if f.suffix in {'.import','.pyc','.log','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
         z.write(f,Path('Godot')/rel)
 archives.append(archive)
 for archive in archives:

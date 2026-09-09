@@ -20,12 +20,12 @@ func _process_modification_with_delta(_delta: float) -> void:
 	var camera:=get_viewport().get_camera_3d()
 	var distance: float=rig.global_position.distance_to(camera.global_position) if camera else 0.0
 	solve_tick-=_delta
-	if solve_tick>0 and not cached_poses.is_empty():
+	if not rig.first_person and solve_tick>0 and not cached_poses.is_empty():
 		for index in cached_poses:
 			sk.set_bone_pose_rotation(index,cached_poses[index][0])
 			sk.set_bone_pose_position(index,cached_poses[index][1])
 		return
-	solve_tick=1.0/15.0 if distance>18 else 1.0/30.0 if distance>6 else 0.0
+	solve_tick=0.0 if rig.first_person else 1.0/15.0 if distance>18 else 1.0/30.0 if distance>6 else 0.0
 	if rest.is_empty():
 		for i in range(sk.get_bone_count()): rest[i] = sk.get_bone_global_rest(i)
 	# AnimationPlayer owns hip breathing / gait bob. Reset solved bones each frame.
@@ -46,9 +46,9 @@ func _process_modification_with_delta(_delta: float) -> void:
 		var local: Vector3=sk.to_local(target.origin)
 		if parent>=0: local=sk.get_bone_global_pose(parent).affine_inverse()*local
 		sk.set_bone_pose_position(hips,local)
-		orient(sk,hips,target.basis*Basis(Vector3.UP,PI))
+		orient(sk,hips,target.basis*reference_basis(sk,hips))
 	if body.has("chest"):
-		orient(sk,bone(sk,"Chest"),rig.get_parent().global_basis*body.chest.basis*Basis(Vector3.UP,PI))
+		orient(sk,bone(sk,"Chest"),rig.get_parent().global_basis*body.chest.basis*reference_basis(sk,bone(sk,"Chest")))
 	var direction: Vector3 = rig.movement.normalized()
 	if direction.length()<.1: direction = Vector3.FORWARD
 	var stride := clampf(rig.speed/9.4,0.0,1.0)*.30
@@ -73,24 +73,25 @@ func _process_modification_with_delta(_delta: float) -> void:
 		var foot_parent := sk.get_bone_parent(foot_idx)
 		sk.set_bone_pose_rotation(foot_idx,(sk.get_bone_global_pose(foot_parent).basis.inverse()*rest[foot_idx].basis).get_rotation_quaternion())
 		if body.has(side.to_lower()+"_foot"):
-			orient(sk,foot_idx,rig.get_parent().global_basis*body[side.to_lower()+"_foot"].basis*Basis(Vector3.UP,PI))
+			orient(sk,foot_idx,rig.get_parent().global_basis*body[side.to_lower()+"_foot"].basis*reference_basis(sk,foot_idx))
 		var hand := bone(sk,side+"Hand")
 		if not rig.xr_pose.is_empty():
 			var target: Transform3D=rig.get_parent().global_transform*rig.xr_pose[side.to_lower()]
-			if body.has(side.to_lower()+"_hand"): target=rig.get_parent().global_transform*body[side.to_lower()+"_hand"]
+			var optical:=body.has(side.to_lower()+"_hand")
+			if optical: target=rig.get_parent().global_transform*body[side.to_lower()+"_hand"]
+			else: target.origin+=target.basis.y*.06 # Grip is at the palm, IK ends at the wrist.
 			var elbow: Vector3=rig.to_global(Vector3(sign_x*.65,.85,.05))
 			if body.has(side.to_lower()+"_elbow"): elbow=(rig.get_parent().global_transform*body[side.to_lower()+"_elbow"]).origin
 			solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",target.origin,elbow)
 			var parent:=sk.get_bone_parent(hand)
-			# VRM hands use +Y along the fingers, controllers aim along -Z.
-			var palm_basis: Basis=target.basis*Basis(Vector3.RIGHT,-PI/2)*Basis(Vector3.UP,PI if side=="Left" else 0)
+			# OpenXR grip -Z runs little-finger to thumb; it is not the aim/finger axis.
+			# Humanoid hands use +Y along fingers and +Z toward the palm.
+			var palm_basis: Basis=target.basis if optical else target.basis*controller_hand_basis(side=="Left")
 			var desired: Basis=sk.global_basis.orthonormalized().inverse()*palm_basis
 			sk.set_bone_pose_rotation(hand,(sk.get_bone_global_pose(parent).basis.orthonormalized().inverse()*desired).get_rotation_quaternion())
 		else:
 			# Both hands track the weapon grip; elbows use outward/downward poles.
-			var grip := Vector3(.10 if side=="Left" else .13,1.15,-.46 if side=="Left" else -.30)
-			var pivot := Vector3(0,1.3,0)
-			grip = pivot+Basis(Vector3.RIGHT,rig.aim_pitch)*(grip-pivot)+Vector3(0,0,rig.recoil*.035)
+			var grip: Vector3=preload("res://deathmatch/art.gd").desktop_hand(side=="Left",rig.aim_pitch,rig.recoil)
 			solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",rig.to_global(grip),rig.to_global(Vector3(sign_x*.65,.8,-.1)))
 			var middle := bone(sk,side+"MiddleProximal")
 			if middle>=0:
@@ -102,13 +103,11 @@ func _process_modification_with_delta(_delta: float) -> void:
 				var index := bone(sk,side+finger+joint)
 				if index<0: continue
 				sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion())
-				var curl_axis: Vector3 = (sk.global_basis.inverse()*rig.global_basis*Vector3.RIGHT).normalized()
-				var finger_parent := sk.get_bone_parent(index)
 				var curl:=.8
 				if body.has(side.to_lower()+"_curls"):
 					curl=body[side.to_lower()+"_curls"][["Thumb","Index","Middle","Ring","Little"].find(finger)]*1.25
-				var desired := Basis(curl_axis,-curl)*sk.get_bone_global_pose(index).basis.orthonormalized()
-				sk.set_bone_pose_rotation(index,(sk.get_bone_global_pose(finger_parent).basis.orthonormalized().inverse()*desired).get_rotation_quaternion())
+				# Bend in each finger's own rest frame, so rotating the wrist cannot twist the fingers.
+				sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion()*Quaternion(Vector3.RIGHT,curl))
 	var head := bone(sk,"Head")
 	if head>=0:
 		var q := sk.get_bone_rest(head).basis.get_rotation_quaternion()
@@ -160,3 +159,11 @@ func orient(sk: Skeleton3D,index: int,world_basis: Basis) -> void:
 	var parent:=sk.get_bone_parent(index)
 	var parent_basis:=sk.get_bone_global_pose(parent).basis.orthonormalized() if parent>=0 else Basis.IDENTITY
 	sk.set_bone_pose_rotation(index,(parent_basis.inverse()*sk.global_basis.orthonormalized().inverse()*world_basis.orthonormalized()).get_rotation_quaternion())
+
+func reference_basis(sk: Skeleton3D,index: int) -> Basis:
+	# Preserve each retargeted bone's authored axis convention (feet differ from hips).
+	return rig.get_parent().global_basis.orthonormalized().inverse()*sk.global_basis.orthonormalized()*sk.get_bone_global_rest(index).basis.orthonormalized()
+
+static func controller_hand_basis(left_hand: bool) -> Basis:
+	var sign_side:=1.0 if left_hand else -1.0
+	return Basis(Vector3.BACK*sign_side,Vector3.DOWN,Vector3.RIGHT*sign_side)

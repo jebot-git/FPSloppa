@@ -1,9 +1,10 @@
 """Voice relay integration; optionally use the exported dedicated server."""
 from pathlib import Path
-import subprocess,time,sys,json
+import subprocess,time,sys,json,os,shutil
 root=Path(__file__).resolve().parents[2]
 logs=root/'test-results'; logs.mkdir(exist_ok=True)
-godot='/home/blux/.local/bin/Godot_v4.7.2-stable_linux.x86_64'
+godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
+if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
 processes=[]; handles=[]
 external=Path(sys.argv[1]).resolve() if len(sys.argv)>1 else None
 try:

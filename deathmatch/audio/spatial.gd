@@ -1,4 +1,5 @@
 extends Node3D
+const WeaponLevels = preload("res://deathmatch/audio/weapon_levels.gd")
 ## Shared bounded spatial mixer. Occlusion is a cosmetic static-world ray test.
 var game
 var active: Array=[]
@@ -45,6 +46,8 @@ func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	var player:=AudioStreamPlayer3D.new()
 	configure(player)
 	player.stream=choose(kind)
+	if kind.begins_with("weapon_"):
+		volume += float(WeaponLevels.TRIM_DB.get(player.stream.resource_path.get_file(),0.0))
 	player.volume_db=volume
 	player.set_meta("dry_db",volume)
 	player.pitch_scale=randf_range(.97,1.03)

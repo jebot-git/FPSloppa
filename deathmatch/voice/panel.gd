@@ -1,75 +1,92 @@
-extends Window
+extends PanelContainer
+## The voice panel lives in the same canvas as the VR menu, with no native popup.
 var voice
-var modes: OptionButton
+var modes: Array[Button]=[]
 var status: Label
 var peers: VBoxContainer
+var mute: CheckButton
+var volume: HSlider
+var close: Button
 var roster_key:=""
 var elapsed:=0.0
 func setup(service: Node) -> void:
 	voice=service
-	title="VOICE CHAT"
-	size=Vector2i(900,700)
-	min_size=size
+	name="VoicePanel"
 	visible=false
-	close_requested.connect(hide)
-	var margin:=MarginContainer.new()
-	add_child(margin)
-	margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	for side in ["left","right","top","bottom"]: margin.add_theme_constant_override("margin_"+side,20)
+	mouse_filter=Control.MOUSE_FILTER_STOP
+	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var background:=StyleBoxFlat.new()
+	background.bg_color=Color("122027")
+	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]: background.set_content_margin(side,20)
+	add_theme_stylebox_override("panel",background)
 	var column:=VBoxContainer.new()
-	column.add_theme_constant_override("separation",12)
-	margin.add_child(column)
+	column.add_theme_constant_override("separation",8)
+	add_child(column)
 	var theme_resource:=Theme.new()
-	theme_resource.default_font_size=28
+	theme_resource.default_font_size=18
 	column.theme=theme_resource
 	var intro:=Label.new()
-	intro.text="Match-wide voice · microphone off by default\nPush-to-talk: V or off-hand controller grip"
+	intro.text="VOICE CHAT\nPush-to-talk: hold V or the off-hand controller grip"
 	column.add_child(intro)
-	modes=OptionButton.new()
-	for label in ["MIC OFF (listen only)","PUSH TO TALK","VOICE ACTIVATION"]: modes.add_item(label)
-	modes.item_selected.connect(voice.set_mode)
-	column.add_child(modes)
-	var devices:=OptionButton.new()
-	for device in AudioServer.get_input_device_list(): devices.add_item(device)
-	devices.item_selected.connect(func(index):
-		AudioServer.input_device=devices.get_item_text(index)
+	var mode_row:=HBoxContainer.new()
+	column.add_child(mode_row)
+	var group:=ButtonGroup.new()
+	for label in ["LISTEN ONLY","PUSH TO TALK","VOICE ACTIVATION"]:
+		var mode:=Button.new()
+		mode.text=label;mode.toggle_mode=true;mode.button_group=group
+		mode.custom_minimum_size.y=48;mode.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+		mode.pressed.connect(voice.set_mode.bind(modes.size()))
+		mode_row.add_child(mode);modes.append(mode)
+	var devices:=Button.new()
+	devices.custom_minimum_size.y=44
+	devices.text="Microphone: "+(AudioServer.input_device if not AudioServer.input_device.is_empty() else "System default")+" (select to cycle)"
+	devices.pressed.connect(func():
+		var available:=AudioServer.get_input_device_list()
+		if available.is_empty(): return
+		AudioServer.input_device=available[(available.find(AudioServer.input_device)+1)%available.size()]
+		devices.text="Microphone: "+(AudioServer.input_device if not AudioServer.input_device.is_empty() else "System default")+" (select to cycle)"
 		voice.set_mode(voice.mode))
 	column.add_child(devices)
-	var mute:=CheckButton.new()
-	mute.text="Mute all incoming voice"
+	mute=CheckButton.new()
+	mute.text="Mute all incoming voice";mute.custom_minimum_size.y=44
 	mute.toggled.connect(func(value):
 		voice.muted_all=value
 		if value:
 			for id in voice.streams.keys(): voice.remove_stream(id))
 	column.add_child(mute)
-	var volume:=HSlider.new()
-	volume.min_value=0; volume.max_value=1; volume.step=.05; volume.value=voice.volume
-	volume.custom_minimum_size.y=30
-	volume.tooltip_text="Voice playback volume"
+	var volume_label:=Label.new();volume_label.text="Voice playback volume";column.add_child(volume_label)
+	volume=HSlider.new()
+	volume.min_value=0;volume.max_value=1;volume.step=.05;volume.value=voice.volume
+	volume.custom_minimum_size.y=44
 	volume.value_changed.connect(func(value): voice.volume=value)
 	column.add_child(volume)
-	status=Label.new()
-	status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	status=Label.new();status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+	status.custom_minimum_size.y=52
 	column.add_child(status)
-	var scroll:=ScrollContainer.new()
-	scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	var retry:=Button.new();retry.text="RETRY ACCESS";retry.custom_minimum_size.y=44
+	retry.visible=OS.has_feature("android")
+	retry.pressed.connect(voice.retry_access);column.add_child(retry)
+	var scroll:=ScrollContainer.new();scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	column.add_child(scroll)
-	peers=VBoxContainer.new()
-	peers.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	peers=VBoxContainer.new();peers.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	scroll.add_child(peers)
-	var close:=Button.new()
-	close.text="CLOSE"
-	close.custom_minimum_size.y=48
-	close.pressed.connect(hide)
-	column.add_child(close)
+	close=Button.new();close.text="BACK";close.custom_minimum_size.y=48
+	close.pressed.connect(hide);column.add_child(close)
+
+func open() -> void:
+	show()
+	get_parent().move_child(self,-1)
+	elapsed=1;refresh(0)
 
 func refresh(delta: float) -> void:
 	if not visible: return
 	elapsed+=delta
 	if elapsed<.15: return
 	elapsed=0
-	modes.select(voice.mode)
-	modes.disabled=voice.game.active and not voice.game.voice_enabled
+	for i in range(modes.size()):
+		modes[i].set_pressed_no_signal(i==voice.mode)
+		modes[i].disabled=voice.game.active and not voice.game.voice_enabled
+	mute.set_pressed_no_signal(voice.muted_all)
 	status.text=("TRANSMITTING · " if voice.transmitting else "")+voice.message+"\nInput level: %d%%"%mini(100,roundi(voice.meter*500))
 	var key:=str(voice.game.players.keys())+str(voice.muted)
 	if key==roster_key: return
@@ -78,7 +95,7 @@ func refresh(delta: float) -> void:
 	for id in voice.game.players:
 		if id==multiplayer.get_unique_id() or id<1: continue
 		var check:=CheckButton.new()
-		check.text="Mute "+str(voice.game.players[id].name)
+		check.text="Mute "+str(voice.game.players[id].name);check.custom_minimum_size.y=44
 		check.button_pressed=voice.muted.has(id)
 		check.toggled.connect(func(value): voice.set_muted(id,value))
 		peers.add_child(check)

@@ -1,6 +1,6 @@
 """Build locally signed release-runtime Quest/Pico sideload APKs (Godot 4.7.2)."""
 from pathlib import Path
-import os, subprocess, secrets, json, zipfile, hashlib, argparse, re
+import os, subprocess, secrets, json, zipfile, hashlib, argparse, re, shutil
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
@@ -8,7 +8,8 @@ parser.add_argument('--target', choices=['Quest', 'Pico', 'both'], default='both
 args = parser.parse_args()
 sdk = Path(os.environ.get('ANDROID_SDK_ROOT', str(Path.home() / 'Android/Sdk')))
 jdk = Path(os.environ.get('JAVA_HOME', str(Path.home() / '.local/share/entryway-toolchains/jdk-17.0.20.1+1')))
-godot = os.environ.get('GODOT_BIN', str(Path.home() / '.local/bin/Godot_v4.7.2-stable_linux.x86_64'))
+godot = os.environ.get('GODOT_BIN') or shutil.which('godot')
+if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
 env = dict(os.environ, JAVA_HOME=str(jdk), ANDROID_HOME=str(sdk), ANDROID_SDK_ROOT=str(sdk))
 env['PATH'] = str(jdk / 'bin') + os.pathsep + env['PATH']
 signing = Path.home() / '.local/share/entryway-toolchains/signing'
@@ -36,7 +37,8 @@ if settings.exists():
     contents = settings.read_text()
     for name, value in [('java_sdk_path', jdk), ('android_sdk_path', sdk)]:
         line = 'export/android/' + name + ' = ' + json.dumps(str(value))
-        contents = re.sub(r'export/android/' + name + r'\s*=.*', lambda _: line, contents)
+        pattern = r'export/android/' + name + r'\s*=.*'
+        contents = re.sub(pattern, lambda _: line, contents) if re.search(pattern, contents) else contents.rstrip() + '\n' + line + '\n'
     settings.write_text(contents)
 logs = root / 'test-results'
 logs.mkdir(exist_ok=True)

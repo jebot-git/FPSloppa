@@ -13,7 +13,7 @@ with (logs/'binary_server.log').open('w') as server_log,(logs/'binary_client.log
         result=subprocess.run([str(client),'--xr-mode','off','--quit-after','240','--','--connect','127.0.0.1','--port','28890'],stdout=client_log,stderr=subprocess.STDOUT,timeout=60)
         server_text=(logs/'binary_server.log').read_text()
         client_text=(logs/'binary_client.log').read_text()
-        passed=result.returncode==0 and 'Marine joined the arena' in server_text and 'ERROR:' not in client_text and 'ERROR:' not in server_text
+        passed=result.returncode==0 and 'joined the arena' in server_text and 'ERROR:' not in client_text and 'ERROR:' not in server_text
         (logs/'binary_smoke_summary.json').write_text(json.dumps({'passed':passed,'client_exit':result.returncode,'graphical_linux_client':True},indent=2))
         print(server_text,client_text,'BINARY_SMOKE',passed)
         raise SystemExit(0 if passed else 1)

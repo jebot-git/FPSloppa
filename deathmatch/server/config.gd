@@ -1,6 +1,7 @@
 extends RefCounted
-const DEFAULTS={"sv_hostname":"Entryway Arena","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_voice":1,"map":"lqdm1"}
-const RANGES={"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,8),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_voice":Vector2i(0,1)}
+const MAX_CLIENTS := 16
+const DEFAULTS={"sv_hostname":"Entryway Arena","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_voice":1,"map":"lqdm1","sv_maplist":""}
+const RANGES={"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_voice":Vector2i(0,1)}
 
 static func parse(source: String) -> Dictionary:
 	var values:=DEFAULTS.duplicate()
@@ -25,8 +26,11 @@ static func parse(source: String) -> Dictionary:
 			if number<RANGES[key].x or number>RANGES[key].y: return {"error":"Line %d: %s is out of range."%[line_number,key]}
 			values[key]=number
 		else:
-			if value.is_empty() or value.length()>80: return {"error":"Line %d: empty or excessive value."%line_number}
+			if (value.is_empty() and key!="sv_maplist") or value.length()>(2048 if key=="sv_maplist" else 80): return {"error":"Line %d: empty or excessive value."%line_number}
 			values[key]=value
+	var maps:=str(values.sv_maplist).split(" ",false)
+	if maps.size()>32: return {"error":"sv_maplist supports at most 32 maps."}
+	values["maps"]=Array(maps) if not maps.is_empty() else [values.map]
 	return {"values":values}
 
 static func tokens(line: String) -> Dictionary:

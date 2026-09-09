@@ -10,6 +10,10 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func run() -> void:
+	var config=preload("res://deathmatch/server/config.gd")
+	check(config.parse('set sv_maxclients 16').values.sv_maxclients==16,"Dedicated config accepts sixteen players")
+	check(config.parse('set sv_maxclients 17').has("error"),"Dedicated config rejects more than sixteen players")
+	check(config.parse('').values.sv_maxclients==8,"Dedicated default remains eight players")
 	check(W.DATA[3].pellets==7 and W.DATA[4].pellets==20,"Shotgun pellet counts")
 	check(W.can_fire(0,[0,0,0,0]) and W.can_fire(1,[0,0,0,0]),"Melee needs no ammunition")
 	check(not W.can_fire(4,[50,1,0,0]),"Super shotgun requires two shells")
@@ -37,5 +41,5 @@ func run() -> void:
 	scene.active = false
 	scene.queue_free()
 	await process_frame
-	print("RULES_RESULT ",JSON.stringify({"passed":13-failures.size(),"failures":failures}))
+	print("RULES_RESULT ",JSON.stringify({"passed":16-failures.size(),"failures":failures}))
 	quit(0 if failures.is_empty() else 1)

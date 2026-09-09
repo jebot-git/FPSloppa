@@ -24,6 +24,8 @@ var weapon_id := -1
 var gun: Node3D
 var body_height := 1.70
 var scale_factor := 1.0
+var first_person := false
+var visual_meshes: Array[MeshInstance3D]=[]
 
 func configure(root: Node3D) -> bool:
 	model = root
@@ -76,6 +78,10 @@ func strip_nonvisual(node: Node) -> void:
 			child.free()
 		else: strip_nonvisual(child)
 	if node is MeshInstance3D:
+		visual_meshes.append(node)
+		node.set_meta("arena_first_person",(node.layers&(1<<19))!=0)
+		node.set_meta("arena_third_person",(node.layers&1)!=0)
+		node.visible=bool(node.get_meta("arena_third_person"))
 		node.layers = 1
 		node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		# MToon outlines add a second draw for every material surface.
@@ -85,6 +91,13 @@ func strip_nonvisual(node: Node) -> void:
 				if not material.has_meta("arena_outline"): material.set_meta("arena_outline",material.next_pass)
 				material.next_pass=null
 		node.visibility_range_end = 65
+
+func set_first_person(value: bool) -> void:
+	if first_person==value: return
+	first_person=value
+	for mesh in visual_meshes:
+		mesh.visible=bool(mesh.get_meta("arena_first_person" if value else "arena_third_person"))
+	if gun: gun.visible=not value and not dead
 
 func build_animations() -> void:
 	motion = AnimationPlayer.new()
@@ -125,7 +138,7 @@ func fire() -> void:
 func _process(delta: float) -> void:
 	if not is_instance_valid(skeleton): return
 	if target_xr_pose.is_empty(): xr_pose.clear()
-	elif xr_pose.is_empty(): xr_pose=target_xr_pose.duplicate()
+	elif xr_pose.is_empty() or first_person: xr_pose=target_xr_pose.duplicate()
 	else:
 		for key in ["head","left","right","weapon"]: xr_pose[key]=xr_pose[key].interpolate_with(target_xr_pose[key],minf(1.0,delta*22))
 		xr_pose.left_handed=target_xr_pose.left_handed
@@ -155,12 +168,10 @@ func _process(delta: float) -> void:
 		rotation.z = -pain*pain_direction.x*.12
 		position.y = 0
 	if gun and not xr_pose.is_empty() and not dead:
-		gun.global_transform=get_parent().global_transform*xr_pose.weapon
-		gun.scale=Vector3.ONE*.65
-		gun.visible=true
+		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id)
+		gun.visible=not first_person
 		return
 	if gun:
-		gun.scale=Vector3.ONE*.48
-		gun.position = Vector3(.13,1.14,-.33)+Vector3(0,0,recoil*.035)
-		gun.rotation.x = aim_pitch+recoil*.12
-		gun.visible = not dead
+		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+recoil*.12),Art.desktop_hand(false,aim_pitch,recoil))
+		gun.transform=Art.held_transform(grip,weapon_id,.48)
+		gun.visible = not dead and not first_person

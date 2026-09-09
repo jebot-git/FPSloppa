@@ -55,6 +55,8 @@ func configure(arena: Node, root: Node3D) -> void:
 			game.lifts.append({"node":node,"base":node.position.y,"travel":travel})
 		elif kind=="func_illusionary": node.collision_layer=0
 		elif kind.begins_with("trigger_") and node is Area3D:
+			# Compiled BSP trigger brushes are logic volumes, never visible geometry.
+			for mesh in node.find_children("*","GeometryInstance3D",true,false): mesh.hide()
 			node.collision_layer=0
 			node.collision_mask=2
 			regions.append({"area":node,"kind":kind,"data":e})

@@ -38,11 +38,30 @@ static func barrel(parent: Node3D, pos: Vector3, radius: float, length: float, m
 
 static var weapon_scenes: Dictionary = {}
 const WEAPON_ASSETS = ["fist","afps_1","afps_2","afps_4","afps_4","afps_3","afps_6","afps_5","afps_9"]
-const WEAPON_LENGTHS = [.22,.90,.55,1.05,1.05,1.05,1.10,.90,1.05]
+const WEAPON_LENGTHS = [.22,.90,.55,1.05,.84,1.05,1.10,.90,1.05]
+const VR_SCALE := .65
+# Model-space palm anchors. Exported meshes are centered on their bounds,
+# rather than on their handles; never use that origin as a controller grip.
+const GRIPS = [Vector3.ZERO,Vector3(0,0,.10),Vector3(0,-.10,.11),Vector3(0,-.035,.04),Vector3(0,-.075,.07),Vector3(0,-.11,-.22),Vector3(0,-.14,.06),Vector3(0,-.11,-.13),Vector3(0,-.10,.02)]
+
+static func muzzle(id: int) -> Vector3:
+	return Vector3(0,.05,.22-WEAPON_LENGTHS[id])
+
+static func held_transform(pose: Transform3D, id: int, size: float = VR_SCALE) -> Transform3D:
+	return Transform3D(pose.basis.scaled(Vector3.ONE*size),pose.origin-pose.basis*(GRIPS[id]*size))
+
+static func desktop_hand(left: bool, pitch: float, recoil: float) -> Vector3:
+	var grip := Vector3(.10 if left else .13,1.15,-.46 if left else -.30)
+	var pivot := Vector3(0,1.3,0)
+	return pivot+Basis(Vector3.RIGHT,pitch)*(grip-pivot)+Vector3(0,0,recoil*.035)
 
 static func weapon(id: int) -> Node3D:
 	var root := Node3D.new()
 	root.name = "WeaponModel"
+	if id==4:
+		_super_shotgun(root)
+		root.set_meta("muzzle",muzzle(id))
+		return root
 	var asset: String = WEAPON_ASSETS[clampi(id,0,8)]
 	if not weapon_scenes.has(asset): weapon_scenes[asset] = load("res://deathmatch/weapons/"+asset+".glb")
 	var model: Node3D = weapon_scenes[asset].instantiate()
@@ -51,19 +70,35 @@ static func weapon(id: int) -> Node3D:
 	if id==0:
 		model.rotation_degrees = Vector3(0,90,0)
 		model.position=Vector3(.08,0,-.05)
-	elif id==4:
-		# Expanded stock and paired steel bores distinguish the two-shell shotgun.
-		model.scale.x=1.30
-		var steel:=material(Color("667079"),.8)
-		for x in [-.065,.065]:
-			barrel(root,Vector3(x,.05,-.56),.053,.52,steel)
-			barrel(root,Vector3(x,.05,-.826),.039,.008,material(Color("101315")))
 	elif id==8:
 		model.scale=Vector3(1.25,1.1,1.0)
 		for x in [-.16,.16]:
 			barrel(root,Vector3(x,.05,-.57),.045,.25,material(Color("6cdf58"),.25,1.8))
-	root.set_meta("muzzle",Vector3(0,.05,.22-WEAPON_LENGTHS[id]))
+	root.set_meta("muzzle",muzzle(id))
 	return root
+
+static func _super_shotgun(root: Node3D) -> void:
+	# A short, wide break-action silhouette, recognisable from behind in VR.
+	var steel:=material(Color("434d58"),.8)
+	var trim:=material(Color("bac2c5"),.85)
+	var wood:=material(Color("6e3021"))
+	var dark:=material(Color("111417"))
+	box(root,Vector3(0,.015,-.07),Vector3(.26,.15,.28),steel).name="DoubleBreech"
+	var stock:=box(root,Vector3(0,-.075,.095),Vector3(.12,.16,.25),wood)
+	stock.rotation.x=-.22
+	box(root,Vector3(0,-.095,.215),Vector3(.125,.17,.025),dark)
+	box(root,Vector3(0,-.035,-.30),Vector3(.25,.08,.26),wood)
+	for x in [-.082,.082]:
+		barrel(root,Vector3(x,.05,-.40),.076,.44,steel)
+		barrel(root,Vector3(x,.05,-.608),.080,.024,trim)
+		barrel(root,Vector3(x,.05,-.623),.059,.006,dark)
+		box(root,Vector3(x,.105,.035),Vector3(.025,.075,.055),trim)
+	box(root,Vector3(0,.126,-.39),Vector3(.025,.022,.44),steel)
+	box(root,Vector3(0,.148,-.58),Vector3(.018,.025,.027),material(Color("e8c46e"),.65))
+	# Red shells and brass bases add a distinct side view as well.
+	for z in [-.12,-.035,.05]:
+		box(root,Vector3(.144,-.018,z),Vector3(.034,.095,.048),material(Color("aa3028")))
+		box(root,Vector3(.144,.032,z),Vector3(.038,.018,.052),material(Color("d2ad64"),.65))
 
 static func marine(color: Color) -> Node3D:
 	var root := Node3D.new()

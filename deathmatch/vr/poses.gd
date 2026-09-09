@@ -1,5 +1,9 @@
 extends RefCounted
-## Cosmetic tracking never changes the common collision capsule or damage volumes.
+static func held_weapon(grip: Transform3D, aim: Transform3D) -> Transform3D:
+	# Position at the palm, but preserve the runtime's independent aim direction.
+	return Transform3D(aim.basis,grip.origin)
+
+## Pose validation bounds room-scale requests; movement still uses the shared capsule.
 static func valid_transform(value: Variant) -> bool:
 	if not value is Transform3D or not value.origin.is_finite() or not value.basis.is_finite(): return false
 	if absf(value.basis.determinant()-1.0)>.05: return false
@@ -14,7 +18,7 @@ static func validate(data: Variant) -> Dictionary:
 	for key in ["head","left","right","weapon"]:
 		if not valid_transform(data.get(key)): return {}
 	var head: Vector3=data.head.origin
-	if Vector2(head.x,head.z).length()>.75 or head.y<.35 or head.y>2.2: return {}
+	if Vector2(head.x,head.z).length()>preload("res://deathmatch/vr/room_scale.gd").MAX_OFFSET or head.y<.35 or head.y>2.2: return {}
 	for key in ["left","right"]:
 		if data[key].origin.distance_to(Vector3(0,1.2,0))>1.45: return {}
 	var hand: Transform3D=data.left if data.left_handed else data.right

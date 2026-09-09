@@ -33,7 +33,7 @@ func run() -> void:
 	check(eyes.sample().is_empty(),"Unfocused session clears eye data")
 	rig.focused=true;XRServer.remove_tracker(face)
 	var gaze:=XRPositionalTracker.new();gaze.name="/user/eyes_ext";gaze.type=XRServer.TRACKER_CONTROLLER;XRServer.add_tracker(gaze)
-	gaze.set_pose("eye_gaze",Transform3D(Basis(Vector3.UP,.1),Vector3.ZERO),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	gaze.set_pose("eye_gaze_pose",Transform3D(Basis(Vector3.UP,.1),Vector3.ZERO),Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
 	await process_frame
 	var measured:=eyes.sample()
 	check(measured.get("gaze",false) and not measured.get("lids",false) and absf(measured.look.x-.1)<.001,"OpenXR gaze works without inventing blinks")

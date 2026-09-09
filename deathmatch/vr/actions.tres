@@ -135,14 +135,8 @@ localized_name = "Haptic"
 action_type = 4
 toplevel_paths = PackedStringArray("/user/hand/left", "/user/hand/right", "/user/vive_tracker_htcx/role/left_foot", "/user/vive_tracker_htcx/role/right_foot", "/user/vive_tracker_htcx/role/left_shoulder", "/user/vive_tracker_htcx/role/right_shoulder", "/user/vive_tracker_htcx/role/left_elbow", "/user/vive_tracker_htcx/role/right_elbow", "/user/vive_tracker_htcx/role/left_knee", "/user/vive_tracker_htcx/role/right_knee", "/user/vive_tracker_htcx/role/waist", "/user/vive_tracker_htcx/role/chest", "/user/vive_tracker_htcx/role/camera", "/user/vive_tracker_htcx/role/keyboard", "/user/vive_tracker_htcx/role/left_wrist", "/user/vive_tracker_htcx/role/right_wrist", "/user/vive_tracker_htcx/role/left_ankle", "/user/vive_tracker_htcx/role/right_ankle")
 
-[sub_resource type="OpenXRAction" id="TrackerPose"]
-resource_name = "tracker_pose"
-localized_name = "Body tracker pose"
-action_type = 3
-toplevel_paths = PackedStringArray("/user/vive_tracker_htcx/role/waist", "/user/vive_tracker_htcx/role/chest", "/user/vive_tracker_htcx/role/left_foot", "/user/vive_tracker_htcx/role/right_foot", "/user/vive_tracker_htcx/role/left_knee", "/user/vive_tracker_htcx/role/right_knee", "/user/vive_tracker_htcx/role/left_elbow", "/user/vive_tracker_htcx/role/right_elbow")
-
 [sub_resource type="OpenXRAction" id="EyeGazeAction"]
-resource_name = "eye_gaze"
+resource_name = "eye_gaze_pose"
 localized_name = "Eye gaze"
 action_type = 3
 toplevel_paths = PackedStringArray("/user/eyes_ext")
@@ -150,7 +144,7 @@ toplevel_paths = PackedStringArray("/user/eyes_ext")
 [sub_resource type="OpenXRActionSet" id="OpenXRActionSet_2156u"]
 resource_name = "godot"
 localized_name = "Godot action set"
-actions = [SubResource("EyeGazeAction"), SubResource("TrackerPose"), SubResource("OpenXRAction_i4tct"), SubResource("OpenXRAction_f5lk2"), SubResource("OpenXRAction_awgmp"), SubResource("OpenXRAction_wabxk"), SubResource("OpenXRAction_jdxf4"), SubResource("OpenXRAction_wjkme"), SubResource("OpenXRAction_tpbt1"), SubResource("OpenXRAction_aqkra"), SubResource("OpenXRAction_7x3md"), SubResource("OpenXRAction_24inm"), SubResource("OpenXRAction_5n1ws"), SubResource("OpenXRAction_rc08j"), SubResource("OpenXRAction_gxliq"), SubResource("OpenXRAction_lwbpy"), SubResource("OpenXRAction_r65k8"), SubResource("OpenXRAction_50t32"), SubResource("OpenXRAction_pkncd"), SubResource("OpenXRAction_df6al"), SubResource("OpenXRAction_av6j5"), SubResource("OpenXRAction_6pny5"), SubResource("OpenXRAction_of0sg"), SubResource("OpenXRAction_2xchm"), SubResource("OpenXRAction_shm6l")]
+actions = [SubResource("EyeGazeAction"), SubResource("OpenXRAction_i4tct"), SubResource("OpenXRAction_f5lk2"), SubResource("OpenXRAction_awgmp"), SubResource("OpenXRAction_wabxk"), SubResource("OpenXRAction_jdxf4"), SubResource("OpenXRAction_wjkme"), SubResource("OpenXRAction_tpbt1"), SubResource("OpenXRAction_aqkra"), SubResource("OpenXRAction_7x3md"), SubResource("OpenXRAction_24inm"), SubResource("OpenXRAction_5n1ws"), SubResource("OpenXRAction_rc08j"), SubResource("OpenXRAction_gxliq"), SubResource("OpenXRAction_lwbpy"), SubResource("OpenXRAction_r65k8"), SubResource("OpenXRAction_50t32"), SubResource("OpenXRAction_pkncd"), SubResource("OpenXRAction_df6al"), SubResource("OpenXRAction_av6j5"), SubResource("OpenXRAction_6pny5"), SubResource("OpenXRAction_of0sg"), SubResource("OpenXRAction_2xchm"), SubResource("OpenXRAction_shm6l")]
 
 [sub_resource type="OpenXRIPBinding" id="OpenXRIPBinding_7n6ks"]
 action = SubResource("OpenXRAction_av6j5")
@@ -737,35 +731,35 @@ interaction_profile_path = "/interaction_profiles/valve/index_controller"
 bindings = [SubResource("OpenXRIPBinding_jgbil"), SubResource("OpenXRIPBinding_83tgv"), SubResource("OpenXRIPBinding_1qp1l"), SubResource("OpenXRIPBinding_sd72g"), SubResource("OpenXRIPBinding_cdbir"), SubResource("OpenXRIPBinding_o6bx7"), SubResource("OpenXRIPBinding_4r4bn"), SubResource("OpenXRIPBinding_uo65x"), SubResource("OpenXRIPBinding_e7kcb"), SubResource("OpenXRIPBinding_g1pas"), SubResource("OpenXRIPBinding_whlua"), SubResource("OpenXRIPBinding_q2jc6"), SubResource("OpenXRIPBinding_es736"), SubResource("OpenXRIPBinding_d3ns5"), SubResource("OpenXRIPBinding_tewx1"), SubResource("OpenXRIPBinding_j4ku1"), SubResource("OpenXRIPBinding_8cfpi"), SubResource("OpenXRIPBinding_myvwb"), SubResource("OpenXRIPBinding_frroe"), SubResource("OpenXRIPBinding_y7rvy"), SubResource("OpenXRIPBinding_qfbx3"), SubResource("OpenXRIPBinding_wmar4"), SubResource("OpenXRIPBinding_j1esk"), SubResource("OpenXRIPBinding_tleh8"), SubResource("OpenXRIPBinding_4syjc"), SubResource("OpenXRIPBinding_44k55")]
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding0"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/waist/input/grip/pose"
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding1"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/chest/input/grip/pose"
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding2"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/left_foot/input/grip/pose"
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding3"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/right_foot/input/grip/pose"
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding4"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/left_knee/input/grip/pose"
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding5"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/right_knee/input/grip/pose"
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding6"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/left_elbow/input/grip/pose"
 
 [sub_resource type="OpenXRIPBinding" id="TrackerBinding7"]
-action = SubResource("TrackerPose")
+action = SubResource("OpenXRAction_av6j5")
 binding_path = "/user/vive_tracker_htcx/role/right_elbow/input/grip/pose"
 
 [sub_resource type="OpenXRInteractionProfile" id="ViveTrackers"]

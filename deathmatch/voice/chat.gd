@@ -1,15 +1,16 @@
 extends Node
 const Codec=preload("res://deathmatch/voice/codec.gd")
 const Visemes=preload("res://deathmatch/voice/visemes.gd")
+const Permissions=preload("res://deathmatch/vr/permissions.gd")
 var game
-var mode:=0 # 0 disabled, 1 push-to-talk, 2 voice activation. Never enable on startup.
+var mode:=1 # 0 listen only, 1 push-to-talk (startup default), 2 voice activation.
 var muted_all:=false
 var muted: Dictionary={}
 var volume:=0.8
 var threshold:=0.018
 var meter:=0.0
 var transmitting:=false
-var message:="Microphone off"
+var message:="Push-to-talk · hold V / off-hand grip"
 var mic: AudioStreamPlayer
 var capture: AudioEffectCapture
 var bus_index:=-1
@@ -22,7 +23,7 @@ var decoded_packets:=0
 var relayed_packets:=0
 var rejected_packets:=0
 var permission_wait:=false
-var panel: Window
+var panel: Control
 var test_receive:=false
 
 func setup(arena: Node) -> void:
@@ -32,27 +33,36 @@ func setup(arena: Node) -> void:
 		add_child(panel)
 		panel.setup(self)
 	multiplayer.peer_disconnected.connect(remove_peer)
-	if OS.has_feature("android"):
-		get_tree().on_request_permissions_result.connect(func(permission: String,granted: bool):
-			if permission=="android.permission.RECORD_AUDIO":
-				permission_wait=false
-				if granted and mode>0: start_capture()
-				else: mode=0; message="Microphone permission denied")
+	game.permissions.completed.connect(_permission_result)
+	if not game.headless: set_mode.call_deferred(mode)
+
+func _permission_result(permission: String,allowed: bool) -> void:
+	if permission!=Permissions.MICROPHONE: return
+	permission_wait=false
+	if mode==0 or not game.voice_enabled: return
+	if allowed: start_capture()
+	else: message="Microphone access denied · listening only. Use RETRY ACCESS or headset app permissions."
 
 func set_mode(value: int) -> void:
 	mode=clampi(value,0,2)
 	stop_capture()
 	if mode==0: message="Microphone off"; return
 	if game.headless: return
-	if OS.has_feature("android") and not OS.get_granted_permissions().has("android.permission.RECORD_AUDIO"):
+	if not game.voice_enabled: message="Voice disabled by host"; return
+	if not game.permissions.granted(Permissions.MICROPHONE):
 		permission_wait=true
 		message="Allow microphone access to speak"
-		OS.request_permission("android.permission.RECORD_AUDIO")
+		game.permissions.request(Permissions.MICROPHONE)
 		return
 	start_capture()
 
+func retry_access() -> void:
+	if mode>0 and not game.headless:
+		game.permissions.request(Permissions.MICROPHONE,true)
+	game.permissions.request_tracking(true)
+
 func start_capture() -> void:
-	if mic or mode==0: return
+	if mic or mode==0 or game.headless or not game.voice_enabled or not game.permissions.granted(Permissions.MICROPHONE): return
 	bus_index=AudioServer.bus_count
 	AudioServer.add_bus()
 	AudioServer.set_bus_name(bus_index,"VoiceCapture")
@@ -68,6 +78,7 @@ func start_capture() -> void:
 	message="Hold V / off-hand grip to talk" if mode==1 else "Voice activation enabled"
 
 func stop_capture() -> void:
+	permission_wait=false
 	transmitting=false
 	meter=0
 	hangover=0
@@ -79,10 +90,11 @@ func push_to_talk() -> bool:
 	if game.is_vr():
 		var rig=game.xr_rig
 		var hand=rig.right if rig.left_handed else rig.left
-		return hand.get_float("grip")>.6
+		return rig.focused and (rig.simulated or hand.get_has_tracking_data()) and hand.get_float("grip")>.6
 	return Input.is_physical_key_pressed(KEY_V)
 
 func _process(delta: float) -> void:
+	if mode==1 and not push_to_talk(): transmitting=false
 	if capture:
 		var can_send: bool=game.active and not game.practice and not game.dedicated and game.voice_enabled and game.players.has(multiplayer.get_unique_id())
 		if game.is_vr() and not game.xr_rig.focused: can_send=false
@@ -199,7 +211,8 @@ func receive(id: int,serial: int,data: PackedByteArray) -> void:
 func policy(allowed: bool,host_name: String) -> void:
 	game.voice_enabled=allowed
 	game.server_name=host_name
-	if not allowed: stop_capture(); mode=0; message="Voice disabled by host"
+	if not allowed: stop_capture(); message="Voice disabled by host"
+	else: set_mode(mode)
 
 func set_muted(id: int,value: bool) -> void:
 	if value: muted[id]=true; remove_stream(id)
@@ -216,8 +229,8 @@ func remove_peer(id: int) -> void:
 func reset() -> void:
 	for id in streams.keys(): remove_stream(id)
 	guard.clear(); muted.clear(); sequence=0
-	set_mode(0)
 	game.voice_enabled=true
+	set_mode(mode)
 
 func _exit_tree() -> void:
 	stop_capture()

@@ -28,12 +28,15 @@ func offer(peer: int) -> void:
 			var file:=FileAccess.open(row.path,FileAccess.READ)
 			if file: size=file.get_length()
 			break
-	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title)
+	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title,game.map_epoch)
 @rpc("authority","call_remote","reliable",5)
-func _offer(map_id: String,hash: String,size: int,title: String) -> void:
+func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0) -> void:
+	if epoch<game.map_epoch: return
+	if epoch>game.map_epoch or game.active: game._prepare_client_map(epoch)
 	if not expected.is_empty() or not incoming.is_empty(): return
 	for row in game.map_catalog:
 		if row.sha256==hash and game._load_map(row.id):
+			game.map_loading=false
 			game._map_ready.rpc_id(1,hash)
 			return
 	if not Hash.valid_hash(hash) or size<124 or size>MAX_BYTES:
@@ -100,6 +103,7 @@ func finish() -> void:
 	game.selected_map=result.id
 	if game.hud: game.hud.refresh_maps()
 	message="Map downloaded and verified."
+	game.map_loading=false
 	game._map_ready.rpc_id(1,hash)
 @rpc("any_peer","call_remote","reliable",5)
 func _ack(hash: String,offset: int) -> void:

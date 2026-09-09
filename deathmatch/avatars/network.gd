@@ -115,7 +115,7 @@ func sync_peer(id: int) -> void:
 
 @rpc("authority","call_remote","reliable",4)
 func _catalog(data: Dictionary) -> void:
-	if data.size()>8: return
+	if data.size()>game.SERVER_MAX_PLAYERS: return
 	choices = data.duplicate(true)
 	library.pinned = choices.values().map(func(row): return row.hash)
 	for id in choices:

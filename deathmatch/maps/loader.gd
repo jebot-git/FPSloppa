@@ -57,6 +57,7 @@ static func read(path: String) -> Node3D:
 		var models_size := file.get_32()
 		for node in result.get_children():
 			if not node is Area3D or not "attributes" in node: continue
+			for mesh in node.find_children("*","GeometryInstance3D",true,false): mesh.hide()
 			var model: String = node.attributes.get("model","")
 			if not model.begins_with("*"): continue
 			var index := model.substr(1).to_int()

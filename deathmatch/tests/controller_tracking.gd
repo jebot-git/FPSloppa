@@ -33,7 +33,7 @@ func run() -> void:
 					if binding.action.resource_name==pose+"_pose" and binding.binding_path=="/user/hand/"+hand+"/input/"+pose+"/pose": found=true
 				check(found,path+" binds "+hand+" "+pose)
 	var eye_profile=map.find_interaction_profile("/interaction_profiles/ext/eye_gaze_interaction")
-	check(eye_profile.get_bindings()[0].action.resource_name=="eye_gaze","Gaze has a separate action from controller default pose")
+	check(eye_profile.get_bindings()[0].action.resource_name=="eye_gaze_pose","Gaze has a separate action from controller default pose")
 	for tracker in trackers: XRServer.remove_tracker(tracker)
 	await process_frame
 	check(not rig.left.get_has_tracking_data() and not rig.right_aim.get_has_tracking_data(),"Tracker disconnection clears tracking")

@@ -28,7 +28,7 @@ Godot BSP importer by jitspoe, MIT: https://github.com/jitspoe/godot_bsp_importe
 
 ## Weapon models
 
-Oldschool AFPS Weapons by **Drummyfish** (also published as tastyfish), **CC0 1.0**: https://opengameart.org/content/oldschool-afps-weapons and https://blendswap.com/blend/28963 . Original archive: https://opengameart.org/sites/default/files/afps_weapons.zip . CC0 waiver: https://creativecommons.org/publicdomain/zero/1.0/ . The author's meshes and 1024-pixel textures were converted to GLB in Blender, reoriented and scaled. The saw sword serves as the chainsaw; shotgun and lightning-gun meshes are also adapted into the super shotgun and BFG. Animations/recoil remain project code.
+Oldschool AFPS Weapons by **Drummyfish** (also published as tastyfish), **CC0 1.0**: https://opengameart.org/content/oldschool-afps-weapons and https://blendswap.com/blend/28963 . Original archive: https://opengameart.org/sites/default/files/afps_weapons.zip . CC0 waiver: https://creativecommons.org/publicdomain/zero/1.0/ . The author's meshes and 1024-pixel textures were converted to GLB in Blender, reoriented and scaled. The saw sword serves as the chainsaw; the lightning-gun mesh is adapted into the BFG. The short double-barrel super shotgun is project-authored procedural geometry in `deathmatch/art.gd`. Animations/recoil remain project code.
 
 `deathmatch/weapons/fist.glb` is a posed right hand extracted from the CC0 VRoid AvatarSample D described above. This derivative is separate from the unchanged player-model VRM. Blender conversion scripts are in `tools/`; the downloaded source pack is also retained beside the project in `../WeaponSource/`.
 

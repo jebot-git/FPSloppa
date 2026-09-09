@@ -16,14 +16,16 @@ var label: Label3D
 var target := Vector3.ZERO
 var target_yaw := 0.0
 var local_player := false
+var local_body_visible := false
 var spawn_serial := -1
+var view_offset := 0.0
 
 func setup(id: int, nickname: String, color: Color) -> void:
 	peer_id = id
 	name = "P_%d" % id
 	collision_layer = 2
 	collision_mask = 3
-	floor_snap_length = .45
+	floor_snap_length = .6
 	floor_max_angle = deg_to_rad(50)
 	var shape := CollisionShape3D.new()
 	var capsule := CapsuleShape3D.new()
@@ -56,14 +58,39 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	if quake_movement and jump and (in_water or is_on_floor() and not jump_held): velocity.y = 5.5 if in_water else 7.4
 	if in_water: velocity.y = maxf(velocity.y,-2.0)
 	jump_held = jump
+	var was_grounded:=is_on_floor()
+	var previous_y:=position.y
+	var stepping:=was_grounded and velocity.y<=0 and not in_water
 	var step := .55 if quake_movement else .43
 	var travel := Vector3(velocity.x,0,velocity.z)*delta
-	if is_on_floor() and travel.length()>.001 and test_move(global_transform,travel):
-		var raised := global_transform
-		raised.origin.y += step
-		if not test_move(global_transform,Vector3.UP*step) and not test_move(raised,travel):
-			position.y += step
+	if stepping: step_up(travel,step)
 	move_and_slide()
+	if stepping and is_on_floor() and absf(position.y-previous_y)<=step+.05:
+		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
+
+func step_up(travel: Vector3,height: float) -> void:
+	if travel.length()<.001: return
+	var obstacle:=KinematicCollision3D.new()
+	if not test_move(global_transform,travel,obstacle): return
+	if obstacle.get_normal().dot(Vector3.UP)>=cos(floor_max_angle): return
+	var raised:=global_transform
+	if test_move(raised,Vector3.UP*height): return
+	raised.origin.y+=height
+	# Probe beyond the rounded capsule edge even after a wall has slowed velocity.
+	var probe:=travel.normalized()*maxf(travel.length(),.15)
+	if test_move(raised,probe): return
+	raised.origin+=probe
+	var landing:=KinematicCollision3D.new()
+	if not test_move(raised,Vector3.DOWN*(height+.05),landing): return
+	if landing.get_normal().dot(Vector3.UP)<cos(floor_max_angle): return
+	if landing.get_collider() is CharacterBody3D: return
+	var rise: float=raised.origin.y+landing.get_travel().y-global_position.y
+	if rise>.005 and rise<=height+.001:
+		global_position.y+=rise
+		velocity.y=0
+
+func reset_view() -> void:
+	view_offset=0
 
 func show_alive(alive: bool, is_local: bool) -> void:
 	alive_state = alive
@@ -72,8 +99,9 @@ func show_alive(alive: bool, is_local: bool) -> void:
 	if avatar:
 		if not avatar_hash.is_empty():
 			avatar.dead = not alive
-			avatar.process_mode = Node.PROCESS_MODE_DISABLED if is_local else Node.PROCESS_MODE_INHERIT
-		avatar.visible = alive and not is_local
+			avatar.process_mode = Node.PROCESS_MODE_DISABLED if is_local and not local_body_visible else Node.PROCESS_MODE_INHERIT
+			avatar.set_first_person(is_local and local_body_visible)
+		avatar.visible = alive and (not is_local or local_body_visible)
 	if label: label.visible = alive and not is_local
 
 func set_avatar(model: Node3D, hash: String) -> void:
@@ -86,11 +114,18 @@ func set_avatar(model: Node3D, hash: String) -> void:
 func animate_fire() -> void:
 	if avatar and not avatar_hash.is_empty(): avatar.fire()
 
+func set_local_body(value: bool) -> void:
+	value=value and local_player and alive_state and not gibbed and not avatar_hash.is_empty()
+	if local_body_visible==value: return
+	local_body_visible=value
+	show_alive(alive_state,local_player)
+
 func _process(_delta: float) -> void:
+	view_offset*=exp(-18.0*_delta)
 	if not avatar or avatar_hash.is_empty(): return
 	avatar.target_xr_pose=xr_pose
 	avatar.speed = Vector2(visual_velocity.x,visual_velocity.z).length()
 	avatar.movement = basis.inverse()*visual_velocity
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)
-	avatar.visible = not gibbed and not local_player and (alive_state or avatar.death_time<2.5)
+	avatar.visible = not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<2.5)

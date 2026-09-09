@@ -1,10 +1,10 @@
 """Exercise real dedicated binary configuration, admission limits and bad-config exit."""
 from pathlib import Path
-import subprocess, tempfile, time, json
+import subprocess, tempfile, time, json, os, shutil
 
 root=Path(__file__).resolve().parents[2]
 binary=root.parent/'Builds/Server/EntrywayServer.x86_64'
-godot='/home/blux/.local/bin/Godot_v4.7.2-stable_linux.x86_64'
+godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
 logs=root/'test-results'
 processes=[]; handles=[]
 try:

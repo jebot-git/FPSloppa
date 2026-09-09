@@ -1,15 +1,24 @@
 extends Node3D
+const RoomScale=preload("res://deathmatch/vr/room_scale.gd")
 const W = preload("res://deathmatch/weapons.gd")
 const Art = preload("res://deathmatch/art.gd")
 const Fighter = preload("res://deathmatch/fighter.gd")
 const Interface = preload("res://deathmatch/interface.gd")
-const PROTOCOL := "entryway-dm-7-eyes"
-const MAX_PLAYERS := 8
+const Profile = preload("res://deathmatch/profile.gd")
+const HitDetection = preload("res://deathmatch/hit_detection.gd")
+const PROTOCOL := "entryway-dm-10-melee"
+const Melee=preload("res://deathmatch/melee.gd")
+const MAX_PLAYERS := 8 # In-game hosts include the playing host.
+const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
 const VRPoses=preload("res://deathmatch/vr/poses.gd")
 const Maps = preload("res://deathmatch/maps/loader.gd")
 var map_catalog: Array = Maps.catalog()
 var selected_map := "lqdm1"
 var current_map := ""
+var map_rotation: Array=[]
+var rotation_index:=0
+var map_epoch:=0
+var map_loading:=false
 var map_title := ""
 var map_sha := ""
 var spawn_points: Array = []
@@ -40,6 +49,7 @@ var bind_address := "*"
 var max_clients := MAX_PLAYERS
 var voice_enabled := true
 var voice
+var permissions
 var practice := false
 var bots
 var round_left := 600.0
@@ -52,11 +62,13 @@ var local_yaw := 0.0
 var local_pitch := 0.0
 var desired_weapon := 2
 var fire_down := false
+var camera_eye_height:=1.48
 var camera: Camera3D
 var viewmodel: Node3D
 var model_weapon := -1
 var recoil := 0.0
 var visual_cooldown := 0.0
+var melee_animation := 0.0
 var hurt_flash := 0.0
 var hit_flash := 0.0
 var last_local_hp := 100
@@ -75,6 +87,9 @@ var predicted_shot_clock := -10.0
 
 func _ready() -> void:
 	headless = DisplayServer.get_name() == "headless"
+	nickname = Profile.load_name()
+	permissions=preload("res://deathmatch/vr/permissions.gd").new()
+	add_child(permissions)
 	spatial=preload("res://deathmatch/audio/spatial.gd").new()
 	add_child(spatial)
 	spatial.setup(self)
@@ -125,9 +140,9 @@ func _ready() -> void:
 	if args.has("--server") or OS.has_feature("dedicated_server"):
 		_start_dedicated(args)
 	elif args.has("--practice"):
-		start_host("Marine",0,20,10,true)
+		start_host(nickname,0,20,10,true)
 	elif args.has("--connect"):
-		start_join("Marine",_arg_value(args,"--connect","127.0.0.1"),_arg_int(args,"--port",7777))
+		start_join(nickname,_arg_value(args,"--connect","127.0.0.1"),_arg_int(args,"--port",7777))
 
 func _start_dedicated(args: PackedStringArray) -> void:
 	dedicated=true
@@ -144,12 +159,18 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	bind_address=settings.net_ip
 	max_clients=settings.sv_maxclients
 	voice_enabled=settings.sv_voice==1
-	selected_map=_arg_value(args,"--map",settings.map)
+	map_rotation=settings.maps.duplicate()
+	if args.has("--map"): map_rotation=[_arg_value(args,"--map",settings.map)]
+	for map_id in map_rotation:
+		if not map_catalog.any(func(row): return row.id==map_id and ResourceLoader.exists(row.scene)):
+			push_error("Unknown or unavailable map in rotation: "+str(map_id));get_tree().quit(2);return
+	rotation_index=0
+	selected_map=map_rotation[0]
 	start_host("Server",_arg_int(args,"--port",settings.net_port),_arg_int(args,"--frags",settings.fraglimit),_arg_int(args,"--minutes",settings.timelimit),false)
 	if not active:
 		get_tree().quit(2)
 		return
-	print("SERVER_CONFIG name=",server_name," bind=",bind_address," maxclients=",max_clients," voice=",voice_enabled," map=",current_map)
+	print("SERVER_CONFIG name=",server_name," bind=",bind_address," maxclients=",max_clients," voice=",voice_enabled," map=",current_map," rotation=",map_rotation)
 
 func _arg_value(args: PackedStringArray,key: String,fallback: String) -> String:
 	var i := args.find(key)
@@ -203,6 +224,7 @@ func _pickup_art(p: Dictionary) -> Node3D:
 
 func start_host(player_name: String,port: int,frags: int,minutes: int,training: bool) -> void:
 	if active: return
+	max_clients=clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else MAX_PLAYERS
 	if not _load_map(selected_map):
 		status("Could not load the selected map.")
 		return
@@ -257,10 +279,7 @@ func start_join(player_name: String,address: String,port: int) -> void:
 	status("Connecting to %s:%d…" % [address,port])
 
 func clean_name(value: String) -> String:
-	var output := ""
-	for character in value.strip_edges().left(64):
-		if character.unicode_at(0)>=32 and character not in ["[","]","\n","\r"]: output += character
-	return output.left(18) if not output.is_empty() else "Marine"
+	return Profile.clean(value)
 
 func _connected() -> void:
 	_hello.rpc_id(1,nickname,PROTOCOL)
@@ -301,7 +320,7 @@ func _rejected(reason: String) -> void:
 	disconnect_game(reason)
 
 func _new_state(player_name: String,id: int) -> Dictionary:
-	return {"name":clean_name(player_name),"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"xr":{},"vr_device":false,"room":Vector3.ZERO}
+	return {"name":clean_name(player_name),"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"melee":false,"melee_state":{},"melee_seq":-1,"xr":{},"vr_device":false,"room":Vector3.ZERO}
 
 func _create_fighter(id: int) -> void:
 	var actor = Fighter.new()
@@ -327,6 +346,7 @@ func _broadcast_roster() -> void:
 
 @rpc("authority","call_local","reliable",0)
 func _roster(data: Array) -> void:
+	if map_loading and not multiplayer.is_server(): return
 	var keep: Array = []
 	for row in data:
 		var id: int = row[0]
@@ -388,6 +408,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	avatars.reset()
 	voice.reset()
 	map_network.reset()
+	map_epoch=0;map_loading=false;map_rotation.clear();rotation_index=0
 	effects.clear()
 	connect_deadline = 0
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
@@ -407,6 +428,8 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	practice = false
 	menu_open = true
 	intermission = 0
+	hurt_flash=0
+	camera_eye_height=1.48
 	feed.clear()
 	if not headless:
 		if is_vr():
@@ -436,8 +459,9 @@ func _spawn(id: int) -> void:
 			best_score = score
 	fighters[id].position = best
 	fighters[id].velocity = Vector3.ZERO
+	fighters[id].reset_view()
 	fighters[id].gibbed=false
-	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"cooldown":.3,"charge":0.0,"invulnerable":clock+1.5,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
+	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"cooldown":.3,"charge":0.0,"invulnerable":clock+1.5,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
 	if not spawn_yaws.is_empty(): state.yaw = spawn_yaws[spawn_points.find(best)]
 	if id==multiplayer.get_unique_id():
 		local_yaw = state.yaw
@@ -484,11 +508,11 @@ func _local_command() -> Dictionary:
 	if is_vr(): return xr_rig.command(sequence)
 	var blocked: bool = menu_open or (hud != null and hud.chat.has_focus())
 	var move := Vector2.ZERO if blocked else Vector2(float(Input.is_physical_key_pressed(KEY_D))-float(Input.is_physical_key_pressed(KEY_A)),float(Input.is_physical_key_pressed(KEY_S))-float(Input.is_physical_key_pressed(KEY_W))).limit_length(1)
-	return {"seq":sequence,"move":move,"yaw":local_yaw,"pitch":local_pitch,"fire":fire_down and not blocked,"weapon":desired_weapon,"slow":Input.is_physical_key_pressed(KEY_SHIFT),"jump":not blocked and Input.is_physical_key_pressed(KEY_SPACE),"respawn":not blocked and (fire_down or Input.is_physical_key_pressed(KEY_SPACE))}
+	return {"seq":sequence,"move":move,"yaw":local_yaw,"pitch":local_pitch,"fire":fire_down and not blocked,"melee":not blocked and Input.is_physical_key_pressed(KEY_F),"weapon":desired_weapon,"slow":Input.is_physical_key_pressed(KEY_SHIFT),"jump":not blocked and Input.is_physical_key_pressed(KEY_SPACE),"respawn":not blocked and (fire_down or Input.is_physical_key_pressed(KEY_SPACE))}
 
 @rpc("any_peer","call_remote","unreliable_ordered",2)
 func _input_command(command: Dictionary) -> void:
-	if multiplayer.is_server(): _accept_input(multiplayer.get_remote_sender_id(),command)
+	if multiplayer.is_server() and command.get("map_epoch",-1)==map_epoch: _accept_input(multiplayer.get_remote_sender_id(),command)
 
 func _accept_input(id: int,command: Dictionary) -> void:
 	if not players.has(id) or not active: return
@@ -507,15 +531,14 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	s.yaw = wrapf(command.yaw,-PI,PI)
 	s.pitch = clampf(command.pitch,-1.45,1.45)
 	s.fire = command.fire
+	s.melee = command.get("melee",false)==true
 	s.slow = command.slow
 	s.want_respawn = command.respawn
 	s.jump = command.get("jump",false)==true
 	s.vr_device=command.has("xr")
 	s.xr=VRPoses.validate(command.get("xr",{}))
-	s.room=Vector3.ZERO
-	if command.get("room") is Vector3 and command.room.is_finite() and not s.xr.is_empty():
-		s.room=Vector3(command.room.x,0,command.room.z).limit_length(.08)
-	if command.has("xr") and s.xr.is_empty(): s.fire=false
+	s.room=RoomScale.validate(command.get("room"),s.xr)
+	if command.has("xr") and s.xr.is_empty(): s.fire=false;s.melee=false
 	if s.owned.has(command.weapon) and command.weapon!=s.weapon and s.charge<=0:
 		s.weapon = command.weapon
 		s.cooldown = maxf(s.cooldown,.28)
@@ -529,6 +552,7 @@ func _physics_process(delta: float) -> void:
 	if players.has(mine) and not dedicated:
 		sequence += 1
 		var command := _local_command()
+		command.map_epoch=map_epoch
 		if multiplayer.is_server(): _accept_input(mine,command)
 		else:
 			input_accumulator += delta
@@ -536,12 +560,12 @@ func _physics_process(delta: float) -> void:
 				input_accumulator = 0
 				_input_command.rpc_id(1,command)
 			if not players[mine].dead and intermission<=0:
-				var room: Vector3=command.get("room",Vector3.ZERO)
+				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed:=5.2 if command.slow else 9.4
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false))
 				if is_vr():
-					fighters[mine].move_and_collide(Basis(Vector3.UP,local_yaw)*room*delta*30)
-					xr_rig.origin_offset-=room*delta*30
+					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
+					xr_rig.compensate_room_move(actual)
 			if not headless and command.fire and not players[mine].dead and intermission<=0 and visual_cooldown<=0 and W.can_fire(players[mine].weapon,players[mine].ammo):
 				predicted_shot_clock = clock
 				_play_shot_fx(mine,players[mine].weapon)
@@ -570,6 +594,12 @@ func _server_tick(delta: float) -> void:
 		if clock>pending_joins[id]:
 			multiplayer.multiplayer_peer.disconnect_peer(id)
 			pending_joins.erase(id)
+			pending_names.erase(id)
+			map_network.outgoing.erase(id)
+	if map_loading:
+		if not pending_names.is_empty(): return
+		map_loading=false
+		_announcement.rpc("New map · "+map_title)
 	if intermission>0:
 		intermission -= delta
 		if intermission<=0: _restart_round()
@@ -579,6 +609,9 @@ func _server_tick(delta: float) -> void:
 		_end_round()
 		return
 	if practice and is_instance_valid(bots): bots.tick(delta)
+	var movement_start: Dictionary = {}
+	for id in fighters:
+		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial}
 	for id in players:
 		var s: Dictionary = players[id]
 		if s.dead:
@@ -588,11 +621,13 @@ func _server_tick(delta: float) -> void:
 			s.move = Vector2.ZERO
 			s.room=Vector3.ZERO
 			s.fire = false
+			s.melee = false
 		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/(5.2 if s.slow else 9.4),1.0)),s.yaw,s.slow,delta,s.jump)
 		if not s.xr.is_empty():
-			var shift: Vector3=s.room*delta*30.0
-			fighters[id].move_and_collide(Basis(Vector3.UP,s.yaw)*shift)
-			if id==multiplayer.get_unique_id() and is_vr(): xr_rig.origin_offset-=shift
+			var shift:=RoomScale.move_capsule(fighters[id],s.room,s.yaw,delta)
+			s.room-=shift
+			RoomScale.rebase_pose(s.xr,shift)
+			if id==multiplayer.get_unique_id() and is_vr(): xr_rig.compensate_room_move(shift)
 		if fighters[id].position.y < fall_limit:
 			_damage(id,id,1000,"fell out of the arena",true)
 			continue
@@ -600,10 +635,11 @@ func _server_tick(delta: float) -> void:
 		if s.charge>0:
 			s.charge -= delta
 			if s.charge<=0: _launch(id,8)
+		_update_melee(id)
 		if s.fire and s.cooldown<=0: _fire(id)
 		if not s.fire: s.held = false
 		_collect(id)
-	_update_projectiles(delta)
+	_update_projectiles(delta,movement_start)
 	for pickup in pickups:
 		if not pickup.available and clock>=pickup.respawn: pickup.available = true
 	for gate in gates:
@@ -664,6 +700,44 @@ func _pickup_event(id: int,kind: String,item: int,weapon: int) -> void:
 		last_event = (W.DATA[item].name if kind=="weapon" else kind.to_upper())+" acquired"
 		if hud: hud.toast(last_event)
 
+func _update_melee(id: int) -> void:
+	var s: Dictionary=players[id]
+	var state: Dictionary=s.melee_state
+	if not multiplayer.is_server() or not s.melee or s.dead or intermission>0 or clock-s.last_input>.35 or s.charge>0:
+		Melee.reset_motion(state)
+		return
+	var segments: Array=[]
+	var started:=false
+	var frame:=Transform3D.IDENTITY
+	if s.vr_device:
+		if s.xr.is_empty(): Melee.reset_motion(state);return
+		if s.melee_seq==s.last_seq: return
+		s.melee_seq=s.last_seq
+		var swing:=Melee.sample(state,s.xr,clock,s.weapon)
+		if swing.is_empty(): return
+		started=swing.started;segments=swing.segments
+		frame=Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*Transform3D(Basis.IDENTITY,s.xr.head.origin)
+	else:
+		if clock<state.get("ready_at",0.0): return
+		state.ready_at=clock+Melee.COOLDOWN;state.hit=false;started=true
+		var weapon:=_weapon_transform(id)
+		segments.append([weapon.origin,weapon*Vector3(0,0,-Melee.DESKTOP_REACH)])
+	if started:
+		s.invulnerable=0
+		s.cooldown=maxf(s.cooldown,.3)
+		_melee_fx.rpc(id)
+	var body: Vector3=fighters[id].position+Vector3.UP*1.25
+	for segment in segments:
+		var start: Vector3=frame*segment[0]
+		var end: Vector3=frame*segment[1]
+		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,start,1)).is_empty(): continue
+		var hit:=_trace(start,end,id,0,Melee.RADIUS)
+		if hit.id==0: continue
+		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,hit.position,1)).is_empty(): continue
+		state.hit=true
+		_damage(hit.id,id,Melee.DAMAGE,"WEAPON WHIP",false,hit.position,(end-start).normalized())
+		return
+
 func _fire(id: int) -> void:
 	if _weapon_blocked(id): return
 	var s: Dictionary = players[id]
@@ -701,11 +775,11 @@ func _fire(id: int) -> void:
 		_impacts.rpc(start,endpoints,w)
 	s.held = true
 
-func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0) -> Dictionary:
-	var query := PhysicsRayQueryParameters3D.create(start,end,1)
-	var wall := get_world_3d().direct_space_state.intersect_ray(query)
-	var point: Vector3 = wall.get("position",end)
-	var nearest_distance := start.distance_to(point)
+func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius: float = 0.0,movement_start: Dictionary = {}) -> Dictionary:
+	var space := get_world_3d().direct_space_state
+	var wall_fraction := HitDetection.world_fraction(space,start,end,radius)
+	var nearest := wall_fraction
+	var point := start.lerp(end,minf(1.0,nearest))
 	var target := 0
 	var old: Dictionary = {}
 	if rewind>0:
@@ -714,15 +788,21 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0) -> Dic
 	for id in players:
 		if id==exclude or players[id].dead: continue
 		var position: Vector3 = old.get(id,fighters[id].position)
-		for height in [.32,.62,.92,1.22,1.38]:
-			var hits := Geometry3D.segment_intersects_sphere(start,end,position+Vector3.UP*height,.32)
-			if not hits.is_empty():
-				var distance := start.distance_to(hits[0])
-				if distance<nearest_distance:
-					nearest_distance = distance
-					point = hits[0]
-					target = id
-	return {"id":target,"position":point,"hit":target!=0 or not wall.is_empty()}
+		var previous: Vector3 = position
+		if movement_start.has(id) and movement_start[id].serial==players[id].serial:
+			previous=movement_start[id].position
+		# Relative motion catches targets crossing the projectile between ticks.
+		var fraction := HitDetection.capsule_fraction(start-previous,end-position,HitDetection.PLAYER_RADIUS+radius)
+		if fraction<nearest:
+			var impact := start.lerp(end,fraction)
+			var target_at := previous.lerp(position,fraction)
+			var axis := target_at+Vector3.UP*clampf(impact.y-target_at.y,HitDetection.PLAYER_BOTTOM,HitDetection.PLAYER_TOP)
+			# Expanded damage volumes must not reach through thin walls/corners.
+			if not space.intersect_ray(PhysicsRayQueryParameters3D.create(impact,axis,1)).is_empty(): continue
+			nearest=fraction
+			point=impact
+			target=id
+	return {"id":target,"position":point,"hit":target!=0 or is_finite(wall_fraction)}
 
 func _launch(id: int,weapon: int) -> void:
 	if not players.has(id) or players[id].dead: return
@@ -743,20 +823,22 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 		add_child(node)
 		node.position = pos
 		var ball := SphereMesh.new()
-		ball.radius = .27 if weapon==8 else .10
+		ball.radius = W.DATA[weapon].radius
 		ball.height = ball.radius*2
 		var mesh := MeshInstance3D.new()
 		mesh.mesh = ball
 		mesh.material_override = Art.material(W.COLORS[weapon],0,3)
 		node.add_child(mesh)
-	projectiles[id] = {"owner":owner_id,"weapon":weapon,"position":pos,"direction":direction,"life":4.0,"node":node,"yaw":yaw,"pitch":pitch}
+	projectiles[id] = {"owner":owner_id,"weapon":weapon,"position":pos,"direction":direction,"life":4.0,"node":node,"yaw":yaw,"pitch":pitch,"fresh":true}
 
-func _update_projectiles(delta: float) -> void:
+func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 	for id in projectiles.keys():
 		var p: Dictionary = projectiles[id]
 		p.life -= delta
 		var end: Vector3 = p.position+p.direction*W.DATA[p.weapon].speed*delta
-		var hit := _trace(p.position,end,p.owner)
+		# New shots originate after this tick's movement: do not hit a past crossing.
+		var hit := _trace(p.position,end,p.owner,0.0,W.DATA[p.weapon].radius,{} if p.fresh else movement_start)
+		p.fresh=false
 		if hit.hit or p.life<=0:
 			var d: Dictionary = W.DATA[p.weapon]
 			if hit.id!=0: _damage(hit.id,p.owner,d.damage*randi_range(1,d.dice),d.name,false,hit.position,p.direction)
@@ -821,6 +903,12 @@ func _end_round() -> void:
 	_announcement.rpc(round_message)
 
 func _restart_round() -> void:
+	intermission=0
+	if map_rotation.size()>1:
+		var next_index: int=(rotation_index+1)%map_rotation.size()
+		if map_rotation[next_index]!=current_map:
+			if _rotate_map(map_rotation[next_index]): rotation_index=next_index;return
+		else: rotation_index=next_index
 	round_left = time_limit
 	round_message = ""
 	for id in players:
@@ -829,6 +917,7 @@ func _restart_round() -> void:
 		_spawn(id)
 	for p in pickups: p.available = true
 	for id in projectiles.keys(): _projectile_end.rpc(id,projectiles[id].position,7)
+	history.clear()
 	_announcement.rpc("New round · frag limit %d" % frag_limit)
 
 func _record_history() -> void:
@@ -850,10 +939,11 @@ func _send_snapshot() -> void:
 		shots.append([id,p.position,p.owner,p.weapon,p.direction,p.yaw,p.pitch])
 	var gate_states: Array = []
 	for gate in gates: gate_states.append(gate.open)
-	_snapshot.rpc(data,items,round_left,intermission,round_message,frag_limit,time_limit,shots,gate_states)
+	_snapshot.rpc(data,items,round_left,intermission,round_message,frag_limit,time_limit,shots,gate_states,map_epoch)
 
 @rpc("authority","call_local","unreliable_ordered",1)
-func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,message: String,limit: int,duration: float,shots: Array,gate_states: Array) -> void:
+func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,message: String,limit: int,duration: float,shots: Array,gate_states: Array,epoch: int=0) -> void:
+	if epoch!=map_epoch or (not multiplayer.is_server() and (map_loading or not active)): return
 	round_left = remaining
 	intermission = pause
 	round_message = message
@@ -878,6 +968,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 				actor.velocity.y = row[2].y
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
+			actor.reset_view()
 			actor.gibbed=false
 			if not headless: effects.play("spawn",row[1],-15)
 			actor.position = row[1]
@@ -893,7 +984,6 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		actor.visual_weapon = row[8]
 		actor.show_alive(not s.dead,id==mine and not dedicated)
 		if id==mine:
-			if s.hp<last_local_hp: hurt_flash = .45
 			last_local_hp = s.hp
 	for i in range(mini(items.size(),pickups.size())):
 		if not multiplayer.is_server(): pickups[i].available = items[i]==1
@@ -974,6 +1064,14 @@ func _hit_confirm(id: int) -> void:
 	if id==multiplayer.get_unique_id(): hit_flash = .14
 
 @rpc("authority","call_local","unreliable",3)
+func _melee_fx(id: int) -> void:
+	if fighters.has(id): fighters[id].animate_fire()
+	if headless: return
+	if id==multiplayer.get_unique_id():
+		melee_animation=.3
+		if is_vr(): xr_rig.feedback(.2)
+
+@rpc("authority","call_local","unreliable",3)
 func _shot_fx(id: int,weapon: int) -> void:
 	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and clock-predicted_shot_clock<.5: return
 	_play_shot_fx(id,weapon)
@@ -1030,6 +1128,7 @@ func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
 
 func _process(delta: float) -> void:
 	if headless: return
+	melee_animation=maxf(0,melee_animation-delta)
 	hurt_flash = maxf(0,hurt_flash-delta)
 	hit_flash = maxf(0,hit_flash-delta)
 	recoil = move_toward(recoil,0,delta*7)
@@ -1053,12 +1152,17 @@ func _process(delta: float) -> void:
 		camera.add_child(viewmodel)
 		model_weapon = s.weapon
 	camera.rotation.x = local_pitch
-	camera.position.y = lerpf(camera.position.y,.35 if s.dead else 1.48,delta*8)
+	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead else 1.48,minf(1,delta*8))
+	camera.position.y = camera_eye_height+fighters[multiplayer.get_unique_id()].view_offset
 	fighters[multiplayer.get_unique_id()].rotation.y = local_yaw
 	viewmodel.visible = not s.dead and not menu_open
 	var speed: float = fighters[multiplayer.get_unique_id()].velocity.length()
 	viewmodel.position = Vector3(.18+sin(clock*10)*minf(speed*.003,.025),-.24+absf(cos(clock*10))*minf(speed*.003,.025)-recoil*.035,-.48+recoil*.075)
 	viewmodel.rotation = Vector3(recoil*.10,.10,0)
+	if melee_animation>0:
+		var swing:=sin((1.0-melee_animation/.3)*PI)
+		viewmodel.position+=Vector3(-.2,-.02,-.22)*swing
+		viewmodel.rotation+=Vector3(-.3,-.7,.45)*swing
 	if s.weapon==3 and visual_cooldown>.25 and visual_cooldown<.8: viewmodel.rotation.x -= sin((visual_cooldown-.25)/.55*PI)*.22
 	if s.weapon==4 and visual_cooldown>.3 and visual_cooldown<1.3: viewmodel.rotation.x -= sin((visual_cooldown-.3)*PI)*.38
 
@@ -1104,8 +1208,8 @@ func _weapon_transform(id: int) -> Transform3D:
 func _shot_origin(id: int) -> Vector3:
 	var transform_here:=_weapon_transform(id)
 	if players[id].xr.is_empty(): return transform_here.origin
-	var offset: Vector3=Vector3(0,.025,.22-Art.WEAPON_LENGTHS[players[id].weapon])*.65
-	return transform_here*offset
+	var weapon: int=players[id].weapon
+	return Art.held_transform(transform_here,weapon)*Art.muzzle(weapon)
 func _weapon_blocked(id: int) -> bool:
 	if not players.has(id) or players[id].xr.is_empty(): return false
 	var from: Vector3=fighters[id].position+Vector3.UP*1.25
@@ -1115,7 +1219,55 @@ func _weapon_blocked(id: int) -> bool:
 @rpc("authority","call_local","reliable",0)
 func _hurt_fx(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int) -> void:
 	effects.hit(id,pos,direction,amount,dead,gibbed,seed_value)
+	if id==multiplayer.get_unique_id() and not dedicated and not headless:
+		hurt_flash=maxf(hurt_flash,clampf(.18+amount*.006,.18,.42))
+		effects.local_hit()
 
 @rpc("authority","call_local","unreliable",3)
 func _teleport_fx(pos: Vector3) -> void:
 	effects.play("teleport",pos)
+
+func _clear_map_players() -> void:
+	# Preserve the ENet connection; every peer goes through map readiness again.
+	active=false
+	for actor in fighters.values(): actor.free()
+	fighters.clear();players.clear()
+	for shot in projectiles.values():
+		if is_instance_valid(shot.node): shot.node.free()
+	projectiles.clear();history.clear()
+	avatars.reset();effects.clear()
+	camera=xr_rig.head if is_vr() else null
+	viewmodel=null;model_weapon=-1;camera_eye_height=1.48
+	hurt_flash=0;hit_flash=0;recoil=0;visual_cooldown=0;melee_animation=0
+	if not headless and not is_vr(): $Overview.make_current()
+
+func _prepare_client_map(epoch: int) -> void:
+	map_network.reset()
+	_clear_map_players()
+	map_epoch=epoch;map_loading=true
+	connect_deadline=clock+240
+	menu_open=true
+	if hud: hud.show_menu(true)
+
+func _rotate_map(map_id: String) -> bool:
+	if not multiplayer.is_server(): return false
+	if not _load_map(map_id):
+		status("Could not load rotation map: "+map_id)
+		return false
+	var names: Dictionary=pending_names.duplicate()
+	for id in players:
+		if id>1: names[id]=players[id].name
+	map_network.reset()
+	_clear_map_players()
+	pending_names=names
+	map_epoch+=1;map_loading=not names.is_empty()
+	selected_map=map_id
+	round_left=time_limit;round_message="";intermission=0
+	active=true
+	# Send the new map on the same reliable channel as its download messages.
+	for id in names:
+		pending_joins[id]=clock+240
+		map_network.offer(id)
+	if not dedicated: _add_player(1,nickname)
+	print("MAP_ROTATED ",current_map," epoch=",map_epoch)
+	return true

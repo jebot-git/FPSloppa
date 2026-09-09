@@ -1,0 +1,141 @@
+{
+  "version": "0.2v",
+  "protocol": "entryway-dm-10-melee",
+  "date": "2026-09-09",
+  "source_regressions": [
+    {
+      "test": "rules",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "melee",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "combat",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "controller_tracking",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "eyes_bots",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr_ik",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "tracking_audio",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "tracking_orientation",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "room_scale",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "local_body",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "permissions",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "stairs",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "map_visuals_feedback",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "weapon_setup",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "hit_detection",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "osc_burst",
+      "passed": true,
+      "exit": 0
+    }
+  ],
+  "capacity": [
+    {
+      "mode": "dedicated",
+      "players": 16,
+      "avatars": 16,
+      "extra_rejected": true
+    },
+    {
+      "mode": "host",
+      "players": 8,
+      "avatars": 8,
+      "extra_rejected": true
+    }
+  ],
+  "linux_export_connection": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "server_config": {
+    "passed": true,
+    "bad_config_exit": 2
+  },
+  "melee_network": {
+    "passed": true,
+    "roles": {
+      "server": 0,
+      "shooter": 0,
+      "target": 0
+    }
+  },
+  "voice_export": true,
+  "rotation": true,
+  "live_wearer_confirmed": [
+    "menu alignment and recentering",
+    "wrists and fingers",
+    "turn settings",
+    "audio output",
+    "microphone",
+    "rendering"
+  ],
+  "live_record": "LIVE_VR_TEST.md",
+  "limits": [
+    "Standalone headset APK behavior not tested",
+    "Native SteamVR trackers not tested",
+    "Physical weapon whip not yet wearer-tuned",
+    "Windows executable exported but not run on Windows",
+    "No WAN or production load test"
+  ]
+}

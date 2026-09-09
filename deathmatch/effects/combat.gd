@@ -10,6 +10,8 @@ var voices: Array=[]
 var last_hit: Dictionary={}
 var steps: Dictionary={}
 var enabled:=true
+var local_pain: AudioStreamPlayer
+var local_pain_at:=-10.0
 func setup(arena: Node) -> void: game=arena
 func play(kind: String,position_here: Vector3,volume: float=-8.0) -> void:
 	game.spatial.play(kind,position_here,volume)
@@ -17,6 +19,7 @@ func clear() -> void:
 	if game.spatial: game.spatial.clear()
 	for child in get_children(): child.queue_free()
 	particles.clear();gibs.clear();stains.clear();voices.clear();steps.clear();last_hit.clear()
+	local_pain=null;local_pain_at=-10
 func hit(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int) -> void:
 	if game.headless: return
 	if game.fighters.has(id):
@@ -29,10 +32,20 @@ func hit(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: 
 	if dead or game.clock-float(last_hit.get(id,-10))>.09:
 		last_hit[id]=game.clock
 		play("gib" if gibbed else "death" if dead else "flesh",pos)
-		if not dead and amount>10: play("pain",pos,-13)
+		if not dead and amount>10 and id!=multiplayer.get_unique_id(): play("pain",pos,-13)
 		if enabled: blood(pos,direction,seed_value)
 	if enabled and gibbed: burst_gibs(pos,direction,seed_value)
 	if id==multiplayer.get_unique_id() and game.is_vr(): game.xr_rig.feedback(.8,.12)
+func local_hit() -> void:
+	if game.headless or game.clock-local_pain_at<.09: return
+	local_pain_at=game.clock
+	if not is_instance_valid(local_pain):
+		local_pain=AudioStreamPlayer.new()
+		local_pain.stream=game.spatial.choose("pain")
+		local_pain.volume_db=-12
+		add_child(local_pain)
+	local_pain.play()
+
 func blood(pos: Vector3,direction: Vector3,seed_value: int) -> void:
 	particles=particles.filter(is_instance_valid)
 	if particles.size()>=12: return

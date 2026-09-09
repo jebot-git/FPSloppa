@@ -47,11 +47,32 @@ func server_run() -> void:
 		if game.players[id].name=="Shooter": shooter=id
 		else: target=id
 	check(shooter!=0 and target!=0,"Nicknames and distinct peer identities")
+	game.fighters[shooter].position=Fixture.point()
+	game.fighters[target].position=Fixture.point(0,-1)
+	for id in [shooter,target]:
+		game.players[id].invulnerable=0;game.players[id].serial+=1
+	game.players[shooter].ammo=[0,0,0,0]
+	game._announcement.rpc("TEST_MELEE")
+	check(await wait_for(func():return game.players[target].hp==90,3),"Remote VR weapon sweep deals authoritative melee damage with no ammo")
+	await pause(.3)
+	check(game.players[target].hp==90,"Remote weapon contact cannot register repeated melee hits")
+	game._announcement.rpc("TEST_TRACKING_END")
+	await pause(.2)
 	game._announcement.rpc("TEST_TRACKING")
 	check(await wait_for(func(): return game.players[shooter].xr.get("body",{}).has("left_foot"),3),"Body targets accepted through ENet input")
 	await pause(.4)
 	game._announcement.rpc("TEST_TRACKING_END")
 	await pause(.3)
+	game.fighters[shooter].position=Fixture.point()
+	game.fighters[target].position=Fixture.point(2,-3)
+	for id in [shooter,target]:game.players[id].serial+=1
+	await pause(.2)
+	game._announcement.rpc("TEST_ROOM")
+	check(await wait_for(func():return game.fighters[shooter].position.x>Fixture.ORIGIN.x+.25,3),"Remote headset motion moves authoritative damage capsule")
+	await pause(.3)
+	check(game.fighters[shooter].position.x<Fixture.ORIGIN.x+.35,"Remote room-scale movement remains bounded below headset")
+	game._announcement.rpc("TEST_TRACKING_END")
+	await pause(.2)
 	game.fighters[shooter].position = Fixture.point()
 	game.fighters[target].position = Fixture.point(0,-2.7)
 	for id in [shooter,target]:
@@ -119,6 +140,8 @@ func client_run() -> void:
 	var saw_late_projectile := false
 	var saw_late_gate := false
 	var saw_tracking := false
+	var saw_melee := false
+	var melee_started := -1
 	var saw_eyes:=false
 	var completed := false
 	var deadline := Time.get_ticks_msec()+20000
@@ -136,15 +159,34 @@ func client_run() -> void:
 			for actor in game.fighters.values():
 				if actor.xr_pose.get("body",{}).has("left_foot"): saw_tracking=true
 				if actor.xr_pose.get("face",{}).get("lids",false): saw_eyes=true
+			if game.last_event=="TEST_MELEE":
+				for state in game.players.values():
+					if state.name=="Target" and state.hp==90:saw_melee=true
+				if is_shooter:
+					if melee_started<0:melee_started=Time.get_ticks_msec()
+					game.set_physics_process(false);game.sequence+=1
+					var command:Dictionary=game._local_command();command.map_epoch=game.map_epoch;command.yaw=0.0;command.melee=true
+					command.xr=preload("res://deathmatch/vr/poses.gd").neutral()
+					command.xr.right.origin=Vector3(minf(.2,-.8+(Time.get_ticks_msec()-melee_started)*.002),1.1,-.6)
+					command.xr.weapon=command.xr.right
+					game._input_command.rpc_id(1,command)
 			if game.last_event=="TEST_TRACKING" and is_shooter:
 				game.set_physics_process(false)
 				game.sequence+=1
 				var command: Dictionary=game._local_command()
+				command.map_epoch=game.map_epoch
 				command.xr=preload("res://deathmatch/vr/poses.gd").neutral()
 				command.xr.face={"look":Vector2(.1,.05),"blink":Vector2(.5,.2),"gaze":true,"lids":true}
 				command.xr.body={"left_foot":Transform3D(Basis.IDENTITY,Vector3(-.15,.25,0))}
 				game._input_command.rpc_id(1,command)
 			if game.last_event=="TEST_TRACKING_END": game.set_physics_process(true)
+			if game.last_event=="TEST_ROOM" and is_shooter:
+				game.set_physics_process(false);game.sequence+=1
+				var command:Dictionary=game._local_command();command.map_epoch=game.map_epoch;command.yaw=0
+				command.xr=preload("res://deathmatch/vr/poses.gd").neutral()
+				command.xr.head.origin.x=Fixture.ORIGIN.x+.3-game.fighters[game.multiplayer.get_unique_id()].target.x
+				command.room=preload("res://deathmatch/vr/room_scale.gd").request(command.xr.head.origin)
+				game._input_command.rpc_id(1,command)
 			if game.last_event=="TEST_FIRE" and is_shooter:
 				game.local_yaw=0;game.local_pitch=0
 				game.desired_weapon = 4
@@ -159,6 +201,7 @@ func client_run() -> void:
 				game.start_join("Target","127.0.0.1",27777)
 				rejoined = true
 		await pause(.02)
+	check(saw_melee,"Melee damage replicated to both clients")
 	check(saw_eyes,"Measured eye data replicated in multiplayer snapshot")
 	check(saw_tracking,"Body tracking replicated in multiplayer snapshot")
 	check(saw_death,"Death replicated to client")

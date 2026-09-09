@@ -153,7 +153,10 @@ func create_avatar(hash: String) -> Node3D:
 		for extension in extensions: GLTFDocument.register_gltf_document_extension(extension,true)
 		var state := GLTFState.new()
 		state.handle_binary_image = GLTFState.HANDLE_BINARY_EMBED_AS_UNCOMPRESSED
-		state.set_additional_data("vrm/head_hiding_method",0)
+		# Keep separate full and head-hidden mesh variants for remote/local views.
+		state.set_additional_data("vrm/head_hiding_method",3)
+		state.set_additional_data("vrm/first_person_layers",1<<19)
+		state.set_additional_data("vrm/third_person_layers",1)
 		var error := gltf.append_from_file(entries[hash].path,state,8)
 		var model: Node3D = gltf.generate_scene(state) if error==OK else null
 		for extension in extensions: GLTFDocument.unregister_gltf_document_extension(extension)

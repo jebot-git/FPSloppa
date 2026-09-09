@@ -1,5 +1,6 @@
 extends CanvasLayer
 const W = preload("res://deathmatch/weapons.gd")
+const Profile = preload("res://deathmatch/profile.gd")
 var game
 var map_import: Button
 var map_choice: OptionButton
@@ -31,6 +32,7 @@ var toast_until := 0.0
 var resume: Button
 var leave: Button
 var launch_buttons: Array = []
+var voice_button: Button
 
 func panel_style(color: Color) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
@@ -178,17 +180,21 @@ func _build_menu(root: Control) -> void:
 	column.add_child(identity)
 	text(identity,"CALLSIGN",14).custom_minimum_size.x = 110
 	name_field = LineEdit.new()
-	name_field.text = "Marine"
+	name_field.text = game.nickname
 	name_field.max_length = 18
 	name_field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	identity.add_child(name_field)
+	name_field.focus_exited.connect(save_preferences)
+	name_field.text_submitted.connect(func(_value): name_field.release_focus())
+	name_field.tooltip_text = "Saved for your next match. In VR, select this field to open the keyboard."
 	avatar_picker = preload("res://deathmatch/avatars/picker.gd").new()
 	add_child(avatar_picker)
 	avatar_picker.setup(game.avatars)
 	button(identity,"MODEL…",avatar_picker.open)
 	if game.voice and game.voice.panel:
-		game.voice.panel.reparent(self)
-		button(identity,"VOICE…",func(): game.voice.panel.popup_centered())
+		game.voice.panel.reparent(root)
+		game.voice.panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		voice_button=button(identity,"VOICE…",game.voice.panel.open)
 	var connection := HBoxContainer.new()
 	column.add_child(connection)
 	text(connection,"HOST ADDRESS",14).custom_minimum_size.x = 110
@@ -255,8 +261,8 @@ func _build_menu(root: Control) -> void:
 		if game.is_vr(): game.xr_rig.recenter())
 	button(vr_actions,"SWAP GUN HAND",func():
 		if game.is_vr(): game.xr_rig.left_handed=not game.xr_rig.left_handed)
-	button(vr_actions,"SNAP / SMOOTH TURN",func():
-		if game.is_vr(): game.xr_rig.smooth_turn=not game.xr_rig.smooth_turn)
+	button(vr_actions,"TURN SETTINGS…",func():
+		if game.is_vr(): game.xr_rig.turn_panel.open())
 	var tracking_actions:=HBoxContainer.new()
 	column.add_child(tracking_actions)
 	button(tracking_actions,"CALIBRATE BODY",func():
@@ -268,12 +274,18 @@ func _build_menu(root: Control) -> void:
 	status = text(column,"LAN / direct IP · Internet hosts must forward the selected UDP port.",14,Color("a1c7c0"))
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	status.custom_minimum_size = Vector2(590,32)
-	controls=text(column,"WASD  Move   SHIFT  Walk   MOUSE  Aim / fire   1–7 / WHEEL  Weapons\nE  Door   TAB  Scores   ENTER  Chat   ESC  Menu\nSPACE  Jump / swim in Quake maps; respawn when dead.",13,Color("859b9e"))
+	controls=text(column,"WASD  Move   SHIFT  Walk   MOUSE  Aim / fire   1–7 / WHEEL  Weapons\nE  Door   F  Weapon whip   TAB  Scores   ENTER  Chat   ESC  Menu\nSPACE  Jump / swim in Quake maps; respawn when dead.",13,Color("859b9e"))
 	button(column,"QUIT",func(): get_tree().quit())
 	var config := ConfigFile.new()
-	if config.load("user://deathmatch.cfg")==OK:
-		name_field.text = str(config.get_value("player","name","Marine"))
+	if config.load(Profile.config_path())==OK:
 		address_field.text = str(config.get_value("network","address","127.0.0.1"))
+	if not FileAccess.file_exists(Profile.config_path()): save_preferences()
+
+func save_preferences() -> void:
+	name_field.text = Profile.clean(name_field.text,Profile.system_name())
+	game.nickname = name_field.text
+	var error := Profile.save(name_field.text,address_field.text)
+	if error!=OK: game.status("Could not save callsign: "+error_string(error))
 
 func button(parent: Node,title: String,action: Callable) -> Button:
 	var b := Button.new()
@@ -291,10 +303,8 @@ func show_menu(open: bool) -> void:
 	leave.visible = game.active
 	for b in launch_buttons: b.visible = not game.active
 	if not open:
-		var config := ConfigFile.new()
-		config.set_value("player","name",name_field.text)
-		config.set_value("network","address",address_field.text)
-		config.save("user://deathmatch.cfg")
+		if game.voice and game.voice.panel: game.voice.panel.hide()
+		save_preferences()
 
 func open_chat() -> void:
 	chat.show()

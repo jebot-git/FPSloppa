@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Entryway Deathmatch"
-config/version="0.1.1v"
+config/version="0.2v"
 run/main_scene="res://deathmatch/arena.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://deathmatch/icon-final.png"
@@ -35,6 +35,10 @@ window/stretch/mode="canvas_items"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/entryway_export/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg", "res://addons/bsp_importer/plugin.cfg", "res://addons/vrm/plugin.cfg", "res://addons/Godot-MToon-Shader/plugin.cfg")
+
+[filesystem]
+
+import/blender/enabled=false
 
 [navigation]
 
@@ -60,4 +64,5 @@ openxr/extensions/eye_gaze_interaction=true
 shaders/enabled=true
 openxr/extensions/meta/body_tracking=true
 openxr/extensions/meta/face_tracking=true
+openxr/extensions/automatically_request_runtime_permissions=false
 openxr/enabled.dedicated_server=false

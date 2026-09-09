@@ -25,7 +25,7 @@ func run() -> void:
 	g.active=true
 	g.players[2]=g._new_state("Speaker",2)
 	data=Codec.encode(samples)
-	check(g.voice.mode==0 and g.voice.mic==null,"Microphone defaults to off")
+	check(g.voice.mode==1 and g.voice.mic==null,"Push-to-talk defaults on without opening a headless microphone")
 	check(g.voice.accept_sender(2,1,data),"Joined speaker accepted")
 	check(not g.voice.accept_sender(3,1,data),"Unjoined speaker rejected")
 	check(not g.voice.accept_sender(2,1,data),"Replayed voice sequence rejected")

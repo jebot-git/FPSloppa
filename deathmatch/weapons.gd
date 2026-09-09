@@ -9,9 +9,9 @@ const DATA = [
 	{"name":"SHOTGUN", "ammo":1, "cost":1, "cycle":1.0, "pellets":7, "spread":5.6, "vertical":0.0, "range":100.0, "damage":5, "dice":3},
 	{"name":"SUPER SHOTGUN", "ammo":1, "cost":2, "cycle":1.63, "pellets":20, "spread":11.2, "vertical":7.1, "range":100.0, "damage":5, "dice":3},
 	{"name":"CHAINGUN", "ammo":0, "cost":1, "cycle":0.114, "pellets":1, "spread":5.6, "vertical":0.0, "range":100.0, "damage":5, "dice":3},
-	{"name":"ROCKET LAUNCHER", "ammo":2, "cost":1, "cycle":0.57, "speed":31.5, "damage":20, "dice":8},
-	{"name":"PLASMA RIFLE", "ammo":3, "cost":1, "cycle":0.086, "speed":39.4, "damage":5, "dice":8},
-	{"name":"BFG 9000", "ammo":3, "cost":40, "cycle":1.72, "charge":0.86, "speed":39.4, "damage":100, "dice":8}
+	{"name":"ROCKET LAUNCHER", "ammo":2, "cost":1, "cycle":0.57, "speed":31.5, "radius":0.14, "damage":20, "dice":8},
+	{"name":"PLASMA RIFLE", "ammo":3, "cost":1, "cycle":0.086, "speed":39.4, "radius":0.16, "damage":5, "dice":8},
+	{"name":"BFG 9000", "ammo":3, "cost":40, "cycle":1.72, "charge":0.86, "speed":39.4, "radius":0.30, "damage":100, "dice":8}
 ]
 const MAX_AMMO = [200,50,50,300]
 const AMMO_NAMES = ["BULLETS","SHELLS","ROCKETS","CELLS"]
