@@ -63,4 +63,7 @@ Validation: `tests/maps.gd` checks all eight scenes and 72 spawn floors; `tests/
 
 ## Optional local AD conversions
 
-[The AD adaptation tools](optional-ad-tools/README.md) screen Arcane Dimensions 1.80 patch 1 maps, exclude test maps and incompatible geometry, and add current-game multiplayer entities. Converted BSPs remain local with original notices. Optional `<mode>_ad_maplist.txt` files suggest rotations without changing the default maplists. These are experimental asymmetric arenas and have not been certified for standalone headset performance.
+[The AD adaptation tools](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v) screen Arcane Dimensions 1.80 patch 1 maps, exclude test maps and incompatible geometry, and add current-game multiplayer entities. Converted BSPs remain local with original notices. Optional `<mode>_ad_maplist.txt` files suggest rotations without changing the default maplists. These are experimental asymmetric arenas and have not been certified for standalone headset performance.
+
+
+The forty-map Arena Collection 1 and ThreeWave, TeamFortress and Arcane Dimensions conversion tools are archived exclusively with [0.5v](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They are no longer included or maintained; see [the archive policy](docs/ARCHIVED-EXTRAS.md).

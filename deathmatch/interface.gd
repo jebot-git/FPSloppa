@@ -71,7 +71,7 @@ func setup(arena: Node) -> void:
 	kill_feed = text(hud,"",15,Color("c3b499"))
 	kill_feed.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	kill_feed.offset_left = -580
-	kill_feed.offset_top = 20
+	kill_feed.offset_top = 50
 	kill_feed.offset_right = -24
 	kill_feed.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var bottom := PanelContainer.new()
@@ -305,6 +305,9 @@ func _build_menu(root: Control) -> void:
 		address_field.text = str(config.get_value("network","address","127.0.0.1"))
 	if not FileAccess.file_exists(Profile.config_path()): save_preferences()
 
+	var connection_overlay=preload("res://deathmatch/network/loading_overlay.gd").new()
+	root.add_child(connection_overlay);connection_overlay.setup(game)
+
 func save_preferences() -> void:
 	name_field.text = Profile.clean(name_field.text,Profile.system_name())
 	game.nickname = name_field.text
@@ -351,7 +354,7 @@ func _process(_delta: float) -> void:
 	vr_actions.visible=game.is_vr()
 	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · LEFT Y/B Scores"
 	hud.visible = game.active
-	avatar_status.text = game.avatars.message
+	avatar_status.text = ""
 	if not game.active:
 		scoreboard_was_open=false
 		return
@@ -365,7 +368,7 @@ func _process(_delta: float) -> void:
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
 	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
-	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS   ·   %d ms" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size(),game.local_ping]
+	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size()]
 	if game.match_mode.kind!="dm":
 		match_status.text=game.match_mode.status(game.multiplayer.get_unique_id()).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
 	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view

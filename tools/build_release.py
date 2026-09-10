@@ -3,6 +3,7 @@ from pathlib import Path
 import subprocess, shutil, zipfile, json, os, sys
 
 root=Path(__file__).resolve().parents[1]
+RETIRED={'optional-arena-pack','optional-threewave-tools','optional-tf-tools','optional-ad-tools'}
 builds=root.parent/'Builds'
 godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
 if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
@@ -72,7 +73,7 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         # Local AD derivatives are excluded even when packaging a non-Git checkout.
         if 'AD-NOTICES' in rel.parts or rel.name.startswith('ad_arena_') or rel.name.endswith('_ad_maplist.txt') or rel.name=='ad-maplists.cfg':continue
         if len(rel.parts)>1 and rel.parts[:2]==('optional-ad-tools','local'):continue
-        if not f.is_file() or rel.parts[0] in {'android','test-results','release-assets','.agents','.codex'}:continue
+        if not f.is_file() or rel.parts[0] in RETIRED | {'android','test-results','release-assets','.agents','.codex'}:continue
         if any(part in {'.godot','.git','__pycache__'} for part in rel.parts):continue
         if f.suffix in {'.import','.pyc','.log','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
         z.write(f,Path('Godot')/rel)

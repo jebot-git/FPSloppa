@@ -1,6 +1,6 @@
 ## 0.4v additions
 
-The railgun uses `afps_8.glb`, the existing sniper mesh from drummyfish’s CC0 [Oldschool AFPS Weapons](https://opengameart.org/content/oldschool-afps-weapons). `tools/generate_rail_sound.py` generates the original rail effect. Optional LibreQuake maps retain upstream licenses, author readmes and texture provenance in `optional-map-pack/`. The ThreeWave tools contain only the converter and BSD LibreQuake texture donors; no ThreeWave BSPs are published. See `optional-threewave-tools/RIGHTS.md`.
+The railgun uses `afps_8.glb`, the existing sniper mesh from drummyfish’s CC0 [Oldschool AFPS Weapons](https://opengameart.org/content/oldschool-afps-weapons). `tools/generate_rail_sound.py` generates the original rail effect. Optional LibreQuake maps retain upstream licenses, author readmes and texture provenance in `optional-map-pack/`. The ThreeWave tools contain only the converter and BSD LibreQuake texture donors; no ThreeWave BSPs are published. See [0.5v archived extras](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v).
 
 # Asset credits
 
@@ -75,16 +75,19 @@ The bevelled ammo racks, rocket carrier, cell pack, medkit, armour vests and bon
 
 ## TF development assets
 
-Ironspan and Relayworks use original CC0 geometry and MAP sources in `optional-tf-map-pack/`. Every embedded texture mip is checked against the BSD LibreQuake donor WAD in `optional-tf-tools/`; both packages retain its notices and provenance. The cloak shader and conversion tools are original project code. Converted original 2fort5/Well6 BSPs are excluded from the repository and public packages; see `TF.md` and `optional-tf-tools/RIGHTS.md`.
+Ironspan and Relayworks use original CC0 geometry and MAP sources in `optional-tf-map-pack/`. Every embedded texture mip was checked against the BSD LibreQuake donor WAD archived with the 0.5v TF conversion tools; the arena package retains the notices, provenance and validation hashes. The cloak shader and conversion tools are original project code. Converted original 2fort5/Well6 BSPs are excluded from the repository and public packages; see `TF.md` and [0.5v archived extras](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v).
 
 ## Arena Collection 1
 
-Forty original CC0 BSP layouts and MAP sources in `optional-arena-pack/` use only BSD-3-Clause LibreQuake v0.09-beta texture pixels. The texture subset, original notices, exact source hashes and four-mip validation accompany the pack. Gameplay references are documented in `optional-arena-pack/REFERENCES.md`; no reference screenshots or original commercial maps are packaged.
+The forty original CC0 BSP layouts and MAP sources archived with 0.5v use only BSD-3-Clause LibreQuake v0.09-beta texture pixels. The texture subset, original notices, exact source hashes and four-mip validation accompany the pack. Gameplay references are documented in the archived pack’s `REFERENCES.md`; no reference screenshots or original commercial maps are packaged.
 
 The opt-in FPSloppa lighting additions to the Godot MToon shader retain the upstream license and are documented in `AVATAR_LIGHTING.md`.
 
 ### LibreQuake map fixtures and local AD tools
 
-`deathmatch/maps/librequake-props/` contains mesh/skin conversions of LibreQuake's flame and wall-torch models, under BSD-3-Clause. Its `SOURCES.json`, `LICENCE.txt` and `CREDITS.txt` preserve provenance and attribution. The converters live in `optional-ad-tools/`.
+`deathmatch/maps/librequake-props/` contains mesh/skin conversions of LibreQuake's flame and wall-torch models, under BSD-3-Clause. Its `SOURCES.json`, `LICENCE.txt` and `CREDITS.txt` preserve provenance and attribution. The converters are archived with the 0.5v AD tools download.
 
-Arcane Dimensions derivatives are local testing assets, excluded from this repository and release packages. The tools preserve original notices with local output; see [the adaptation instructions](optional-ad-tools/README.md). Embedded AD/Quake-derived artwork is not represented as LibreQuake or as freely redistributable FPSloppa content.
+Arcane Dimensions derivatives are local testing assets, excluded from this repository and release packages. The tools preserve original notices with local output; see [the adaptation instructions](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). Embedded AD/Quake-derived artwork is not represented as LibreQuake or as freely redistributable FPSloppa content.
+
+
+The forty-map Arena Collection 1 and ThreeWave, TeamFortress and Arcane Dimensions conversion tools are archived exclusively with [0.5v](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They are no longer included or maintained; see [the archive policy](docs/ARCHIVED-EXTRAS.md).

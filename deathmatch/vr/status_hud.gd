@@ -2,6 +2,10 @@ extends Control
 ## Transparent, noninteractive HUD drawn into a head-relative stereo surface.
 const W=preload("res://deathmatch/weapons.gd")
 var values: Dictionary={}
+var network:Dictionary={}
+func update_network(progress: Dictionary,ping: int,host: bool) -> void:
+	var next:={"show":progress.visible,"percent":int(progress.fraction*100),"ping":ping,"host":host}
+	if next!=network:network=next;queue_redraw()
 const INK=Color("e5d5ad")
 func update_status(state: Dictionary,remaining: float,limit: int,leader: int,intermission: bool,mic: bool,objective: String="") -> void:
 	var ammo_type:int=W.DATA[state.weapon].ammo
@@ -10,6 +14,9 @@ func update_status(state: Dictionary,remaining: float,limit: int,leader: int,int
 func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
 	draw_string(ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
 func _draw() -> void:
+	if not network.is_empty():
+		if network.show:label(Vector2(16,205),"↓ ASSETS %d%%"%network.percent,18,Color("d8bc8b"))
+		label(Vector2(832,205),"HOST" if network.host else "%d ms"%network.ping if network.ping>0 else "— ms",18,Color("b9a98e"))
 	if values.is_empty():return
 	var style:=StyleBoxFlat.new();style.bg_color=Color(.10,.075,.05,.80);style.border_color=Color("a88550");style.set_border_width_all(2)
 	draw_style_box(style,Rect2(4,4,952,172))

@@ -1,0 +1,301 @@
+{
+  "version": "0.6v",
+  "date": "2026-09-10",
+  "protocol": "fpsloppa-18-asset-readiness",
+  "tests": [
+    {
+      "test": "loading_ui",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "map_transfer_guards",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "avatar_transfer_guards",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "capsule_equivalence",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "projectile_targets",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "hit_detection",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "lag_reliability",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "projectile_ordering",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "rocket_jump",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "combat",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "fortress",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "special_modes",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "presentation",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "loading_join",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "network",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "rotation",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "voice",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "tf_network",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "lobby",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "test": "lag",
+      "passed": true,
+      "exit_code": 0
+    }
+  ],
+  "rendered_loading": [
+    {
+      "role": "server",
+      "passed": true
+    },
+    {
+      "role": "client",
+      "passed": true
+    }
+  ],
+  "binary_smoke": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 122365228,
+      "sha256": "2f93e94cfe783a0536a5e16378de16207a610a5b9662756331e82b73911f606e",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 122364944,
+      "sha256": "f3bdcdb5aaf6cd5b169eebd5105de0e2d2b6de3c0a505d572edb6b0a9389a48f",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    }
+  ],
+  "package_contents": [
+    {
+      "failures": [],
+      "files": 941,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 941,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 941,
+      "pack": "/home/blux/Documents/Builds/Server/FPSloppaServer.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1060,
+      "failures": []
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Pico.apk",
+      "files": 1060,
+      "failures": []
+    }
+  ],
+  "server_load": [
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.671,
+        "tick_max_ms": 9.045,
+        "tick_p50_ms": 3.64,
+        "tick_p95_ms": 4.51,
+        "ticks": 600,
+        "version": "0.6v"
+      }
+    }
+  ],
+  "legacy_extras": {
+    "archived_release": "0.5v",
+    "excluded_roots": [
+      "optional-arena-pack",
+      "optional-threewave-tools",
+      "optional-tf-tools",
+      "optional-ad-tools"
+    ],
+    "policy": "Permanent exclusion from future packaging; no continued development unless loader/format compatibility needs revisiting"
+  },
+  "source_archive_check": "tools/prepare_release.py rejects retired paths and verifies archive integrity before staging",
+  "limitations": [
+    "No new physical headset test",
+    "Windows package exported and inspected, not executed on Windows",
+    "Rendered join test used Dummy audio; voice tested separately over ENet",
+    "Pre-existing Steam Audio shutdown singleton/thread warning remains"
+  ],
+  "process_checks": {
+    "release06-checks": {
+      "command": [
+        "python3",
+        "/tmp/fpsloppa-release06-checks.py"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 135.76,
+      "peak_family_rss_kib": 785276,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    "loading-rendered-join": {
+      "command": [
+        "python3",
+        "tools/validate_loading.py",
+        "--render-client"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 22.542,
+      "peak_family_rss_kib": 1014692,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    "release06-binary": {
+      "command": [
+        "python3",
+        "deathmatch/tests/run_binary_smoke.py"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 7.087,
+      "peak_family_rss_kib": 915132,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    "release06-performance": {
+      "command": [
+        "python3",
+        "tools/validate_server_optimization.py",
+        "--stage",
+        "release06",
+        "--skip-tests",
+        "--players",
+        "16"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 13.076,
+      "peak_family_rss_kib": 213912,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    }
+  }
+}

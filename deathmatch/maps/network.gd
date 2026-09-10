@@ -44,6 +44,8 @@ func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0) ->
 	if not Hash.valid_hash(hash) or size<124 or size>MAX_BYTES:
 		game.disconnect_game("Host map has invalid size or identity.")
 		return
+	game.loading.phase="Downloading map · "+title.left(60)
+	game.loading.begin_item("map:"+hash,size,title)
 	expected={"hash":hash,"size":size,"title":title.left(60),"time":Time.get_ticks_msec()}
 	game.connect_deadline=game.clock+240
 	game.status("Downloading host map · "+title.left(60))
@@ -76,6 +78,7 @@ func _chunk(hash: String,offset: int,bytes: PackedByteArray) -> void:
 		game.disconnect_game("Invalid map download chunk."); return
 	incoming.file.store_buffer(bytes)
 	incoming.offset+=bytes.size()
+	game.loading.advance("map:"+hash,incoming.offset)
 	incoming.time=Time.get_ticks_msec()
 	game.connect_deadline=game.clock+120
 	message="Downloading map · %d%%"%int(100.0*incoming.offset/incoming.size)
@@ -93,6 +96,7 @@ func finish() -> void:
 	if FileAccess.get_sha256(path)!=hash:
 		DirAccess.remove_absolute(path)
 		game.disconnect_game("Map checksum failed."); return
+	game.loading.phase="Verifying and preparing map…"
 	game.status("Preparing downloaded arena…")
 	await get_tree().process_frame
 	var result: Dictionary=Loader.import_custom(path,title)
@@ -104,6 +108,7 @@ func finish() -> void:
 	game.map_title=title
 	game.selected_map=result.id
 	if game.hud: game.hud.refresh_maps()
+	game.loading.complete("map:"+hash)
 	message="Map downloaded and verified."
 	game.map_loading=false
 	game._map_ready.rpc_id(1,hash)

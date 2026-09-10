@@ -70,13 +70,17 @@ func _process(delta: float) -> void:
 			transfer.sent += data.size()
 			transfer_budget -= data.size()
 	for hash in incoming.keys():
+		if not incoming.has(hash):continue
 		if Time.get_ticks_msec()-incoming[hash].time>30000:
 			drop_incoming(hash)
 			message = "Avatar transfer timed out; using fallback marine."
+			if game:game.loading.fail("model:"+hash,"Required model download timed out.")
 	for hash in expected.keys():
+		if not expected.has(hash):continue
 		if Time.get_ticks_msec()-expected[hash].time>30000:
 			pending.erase(expected[hash].peer)
 			expected.erase(hash)
+			game.loading.fail("model:"+hash,"Required model request timed out.")
 	if not game.headless:
 		for player_id in choices:queue_avatar(player_id)
 	if not load_queue.is_empty() and not game.headless:
@@ -131,6 +135,7 @@ func _catalog(data: Dictionary) -> void:
 			if FileAccess.get_sha256(Library.CACHE+hash+".vrm")==hash: library.register_file(Library.CACHE+hash+".vrm",false)
 		if library.entries.has(hash): queue_avatar(id)
 		elif not multiplayer.is_server() and not expected.has(hash) and not incoming.has(hash):
+			game.loading.begin_item("model:"+hash,size,"Player model")
 			expected[hash] = {"peer":1,"size":size,"time":Time.get_ticks_msec()}
 			_request.rpc_id(1,hash)
 
@@ -146,10 +151,13 @@ func _request(hash: String) -> void:
 	var peer := multiplayer.get_remote_sender_id()
 	if not Library.valid_hash(hash) or not library.entries.has(hash): return
 	if multiplayer.is_server():
-		if not game.players.has(peer): return
+		if not game.players.has(peer) and not game.loading.pending.has(peer): return
 		var allowed := false
 		for row in choices.values():
 			if row.hash==hash: allowed = true
+		if game.loading.pending.has(peer):
+			for row in game.loading.pending[peer].data.values():
+				if row.hash==hash:allowed=true
 		if not allowed: return
 	else:
 		if peer!=1 or hash!=offered: return
@@ -167,7 +175,7 @@ func _request(hash: String) -> void:
 func _busy(hash: String) -> void:
 	if not expected.has(hash) or expected[hash].peer!=multiplayer.get_remote_sender_id(): return
 	await get_tree().create_timer(1.0).timeout
-	if expected.has(hash) and game.active:
+	if expected.has(hash) and (game.active or game.loading.blocking):
 		expected[hash].time = Time.get_ticks_msec()
 		_request.rpc_id(expected[hash].peer,hash)
 
@@ -178,7 +186,9 @@ func _begin(hash: String, size: int) -> void:
 	if incoming.has(hash): return
 	var path: String = Library.CACHE+hash+".%d.part"%multiplayer.get_unique_id()
 	var file := FileAccess.open(path,FileAccess.WRITE)
-	if not file: return
+	if not file:
+		if game:game.loading.fail("model:"+hash,"Cannot write required model download.")
+		return
 	incoming[hash] = {"peer":peer,"size":size,"offset":0,"file":file,"path":path,"time":Time.get_ticks_msec()}
 	expected.erase(hash)
 
@@ -189,9 +199,11 @@ func _chunk(hash: String, offset: int, bytes: PackedByteArray) -> void:
 	if transfer.peer!=multiplayer.get_remote_sender_id(): return
 	if offset!=transfer.offset or bytes.is_empty() or bytes.size()>CHUNK or offset+bytes.size()>transfer.size:
 		drop_incoming(hash)
+		if game:game.loading.fail("model:"+hash,"Invalid model download chunk.")
 		return
 	transfer.file.store_buffer(bytes)
 	transfer.offset += bytes.size()
+	if game and not multiplayer.is_server():game.loading.advance("model:"+hash,transfer.offset)
 	transfer.time = Time.get_ticks_msec()
 	message = "Downloading avatar · %d%%" % int(100.0*transfer.offset/transfer.size)
 	_ack.rpc_id(transfer.peer,hash,transfer.offset)
@@ -203,13 +215,16 @@ func _chunk(hash: String, offset: int, bytes: PackedByteArray) -> void:
 			DirAccess.remove_absolute(path)
 			pending.erase(transfer.peer)
 			message = "Avatar checksum failed; using fallback marine."
+			if game:game.loading.fail("model:"+hash,"Required model checksum failed.")
 			return
 		var result: String = library.register_file(path)
 		DirAccess.remove_absolute(path)
 		if result!=hash:
 			pending.erase(transfer.peer)
 			message = library.last_error
+			if game:game.loading.fail("model:"+hash,"Required model is invalid: "+message)
 			return
+		if game:game.loading.complete("model:"+hash)
 		message = "Avatar downloaded and verified."
 		if multiplayer.is_server():
 			for id in pending.keys():

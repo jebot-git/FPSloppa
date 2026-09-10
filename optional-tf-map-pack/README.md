@@ -11,6 +11,6 @@ Extract the downloadable ZIP so the BSPs land in the game's external `maps/` and
 
 All layout geometry, MAP sources and generator are authored for FPSloppa and dedicated to CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/ . No original TF map data was used. Embedded texture pixels come only from LibreQuake v0.09-beta BSD-3-Clause WAD assets; retain the enclosed COPYING, CREDITS, important license info and texture-sources.json. Quake palette indices are used for engine compatibility; no id Software texture pixels are embedded.
 
-Rebuild from the repository with `python3 tools/generate_tf_maps.py --compiler-dir /path/to/ericw-tools/bin` (tested with official ericw-tools v0.18.1, https://github.com/ericwa/ericw-tools/releases/tag/v0.18.1). The sources reference `librequake.wad`, supplied in `optional-tf-tools/`. The compiler is a separate GPL tool and is not bundled in this asset pack.
+Rebuild from the repository with `python3 tools/generate_tf_maps.py --compiler-dir /path/to/ericw-tools/bin --wad /path/to/librequake.wad` (tested with official ericw-tools v0.18.1, https://github.com/ericwa/ericw-tools/releases/tag/v0.18.1). The sources reference `librequake.wad`, available from the archived 0.5v TF tools download. The compiler is a separate GPL tool and is not bundled in this asset pack.
 
 This is a playable initial layout, not a claim of competitive balance or headset performance certification. Report spawn camping, route balance and visibility issues during playtesting.

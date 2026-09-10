@@ -1,0 +1,615 @@
+{
+  "date": "2026-09-10",
+  "commit": "cec9edddcec7ccb2c8ab5541d96397e90fc6ce06",
+  "version": "0.5v",
+  "baseline": "668da3f",
+  "engine": "Godot 4.7.2 stable Fedora ed1daf0bf",
+  "cpu": "Intel Core i7-12700",
+  "gpu": "Intel Arc A770",
+  "headset_tested": false,
+  "functional": [
+    {
+      "name": "new_features",
+      "passed": true,
+      "log": "test-results/performance-audit/new_features.log",
+      "mode": "headless"
+    },
+    {
+      "name": "fortress",
+      "passed": true,
+      "log": "test-results/performance-audit/fortress.log",
+      "mode": "headless"
+    },
+    {
+      "name": "special_modes",
+      "passed": true,
+      "log": "test-results/performance-audit/special_modes.log",
+      "mode": "headless"
+    },
+    {
+      "name": "lag_reliability",
+      "passed": true,
+      "log": "test-results/performance-audit/lag_reliability.log",
+      "mode": "headless"
+    },
+    {
+      "name": "hit_detection",
+      "passed": true,
+      "log": "test-results/performance-audit/hit_detection.log",
+      "mode": "headless"
+    },
+    {
+      "name": "projectile_ordering",
+      "passed": true,
+      "log": "test-results/performance-audit/projectile_ordering.log",
+      "mode": "headless"
+    },
+    {
+      "name": "map_transfer_guards",
+      "passed": true,
+      "log": "test-results/performance-audit/map_transfer_guards.log",
+      "mode": "headless"
+    },
+    {
+      "name": "avatar_transfer_guards",
+      "passed": true,
+      "log": "test-results/performance-audit/avatar_transfer_guards.log",
+      "mode": "headless"
+    },
+    {
+      "name": "baked_light",
+      "passed": true,
+      "log": "test-results/performance-audit/baked_light.log",
+      "mode": "headless"
+    },
+    {
+      "name": "avatar_lighting",
+      "passed": true,
+      "log": "test-results/performance-audit/avatar-lighting-rendered.log",
+      "mode": "rendered"
+    },
+    {
+      "name": "map_visuals_feedback",
+      "passed": true,
+      "log": "test-results/performance-audit/map_visuals_feedback.log",
+      "mode": "headless"
+    },
+    {
+      "name": "rocket_jump",
+      "passed": true,
+      "log": "test-results/performance-audit/rocket_jump.log",
+      "mode": "headless"
+    },
+    {
+      "name": "combat",
+      "passed": true,
+      "log": "test-results/performance-audit/combat.log",
+      "mode": "headless"
+    },
+    {
+      "name": "presentation",
+      "passed": true,
+      "log": "test-results/performance-audit/presentation.log",
+      "mode": "headless"
+    },
+    {
+      "name": "vr_ui",
+      "passed": true,
+      "log": "test-results/performance-audit/vr_ui.log",
+      "mode": "headless"
+    },
+    {
+      "name": "tracking_orientation",
+      "passed": true,
+      "log": "test-results/performance-audit/tracking_orientation.log",
+      "mode": "headless"
+    },
+    {
+      "name": "hand_tracking",
+      "passed": true,
+      "log": "test-results/performance-audit/hand_tracking.log",
+      "mode": "headless"
+    },
+    {
+      "name": "osc_burst",
+      "passed": true,
+      "log": "test-results/performance-audit/osc_burst.log",
+      "mode": "headless"
+    },
+    {
+      "name": "server_logging",
+      "passed": true,
+      "log": "test-results/performance-audit/server_logging.log",
+      "mode": "headless"
+    },
+    {
+      "name": "steam_audio",
+      "passed": true,
+      "log": "test-results/performance-audit/steam_audio.log",
+      "mode": "headless"
+    }
+  ],
+  "rendering": [
+    {
+      "avatars": 8,
+      "device": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "draw_calls_p50": 43.0,
+      "frame_ms_p50": 6.037,
+      "frame_ms_p95": 7.373,
+      "frames": 360,
+      "headset": false,
+      "primitives_p50": 221798.0,
+      "process_ms_p95": 9.485,
+      "renderer": "mobile",
+      "name": "baseline03"
+    },
+    {
+      "avatars": 8,
+      "device": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "draw_calls_p50": 43.0,
+      "frame_ms_p50": 5.992,
+      "frame_ms_p95": 7.082,
+      "frames": 360,
+      "headset": false,
+      "primitives_p50": 221794.0,
+      "process_ms_p95": 8.999,
+      "renderer": "mobile",
+      "name": "current05"
+    },
+    {
+      "avatars": 8,
+      "device": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "draw_calls_p50": 43.0,
+      "frame_ms_p50": 6.215,
+      "frame_ms_p95": 7.392,
+      "frames": 360,
+      "headset": false,
+      "primitives_p50": 221794.0,
+      "process_ms_p95": 13.069,
+      "renderer": "mobile",
+      "name": "current05-repeat"
+    },
+    {
+      "avatars": 8,
+      "device": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "draw_calls_p50": 43.0,
+      "frame_ms_p50": 5.877,
+      "frame_ms_p95": 6.642,
+      "frames": 360,
+      "headset": false,
+      "primitives_p50": 221798.0,
+      "process_ms_p95": 11.114,
+      "renderer": "mobile",
+      "name": "baseline03-repeat"
+    }
+  ],
+  "server_load": [
+    {
+      "history_entries": 7,
+      "max_projectiles": 281,
+      "players": 8,
+      "snapshot_p95_ms": 0.287,
+      "tick_max_ms": 7.865,
+      "tick_p50_ms": 3.439,
+      "tick_p95_ms": 3.715,
+      "ticks": 600,
+      "version": "0.3v"
+    },
+    {
+      "history_entries": 22,
+      "max_projectiles": 281,
+      "players": 8,
+      "snapshot_p95_ms": 0.338,
+      "tick_max_ms": 13.085,
+      "tick_p50_ms": 4.93,
+      "tick_p95_ms": 5.419,
+      "ticks": 600,
+      "version": "0.5v"
+    },
+    {
+      "history_entries": 7,
+      "max_projectiles": 523,
+      "players": 16,
+      "snapshot_p95_ms": 0.55,
+      "tick_max_ms": 20.215,
+      "tick_p50_ms": 11.0,
+      "tick_p95_ms": 11.541,
+      "ticks": 600,
+      "version": "0.3v"
+    },
+    {
+      "history_entries": 22,
+      "max_projectiles": 523,
+      "players": 16,
+      "snapshot_p95_ms": 0.622,
+      "tick_max_ms": 38.261,
+      "tick_p50_ms": 16.246,
+      "tick_p95_ms": 17.094,
+      "ticks": 600,
+      "version": "0.5v"
+    },
+    {
+      "history_entries": 22,
+      "max_projectiles": 1085,
+      "players": 32,
+      "snapshot_p95_ms": 1.341,
+      "tick_max_ms": 68.184,
+      "tick_p50_ms": 64.299,
+      "tick_p95_ms": 66.797,
+      "ticks": 600,
+      "version": "0.5v"
+    }
+  ],
+  "projectile_ab": [
+    {
+      "label": "stock",
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.604,
+        "tick_max_ms": 24.402,
+        "tick_p50_ms": 16.545,
+        "tick_p95_ms": 17.434,
+        "ticks": 600,
+        "version": "0.5v"
+      },
+      "profile": {
+        "collect_ms_per_tick": 0.106027777777778,
+        "history_ms_per_tick": 0.0188625,
+        "melee_ms_per_tick": 0.0669847222222222,
+        "projectiles_ms_per_tick": 13.1805944444444
+      }
+    },
+    {
+      "label": "skip-zero-rewind",
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.576,
+        "tick_max_ms": 21.337,
+        "tick_p50_ms": 12.219,
+        "tick_p95_ms": 12.898,
+        "ticks": 600,
+        "version": "0.5v"
+      },
+      "profile": {
+        "collect_ms_per_tick": 0.104356944444444,
+        "history_ms_per_tick": 0.0279,
+        "melee_ms_per_tick": 0.0650277777777778,
+        "projectiles_ms_per_tick": 9.60796388888889
+      }
+    }
+  ],
+  "network": [
+    {
+      "name": "voice",
+      "exit": 0
+    },
+    {
+      "name": "sessions",
+      "exit": 0
+    },
+    {
+      "name": "fortress",
+      "exit": 0
+    },
+    {
+      "name": "assets",
+      "exit": 0
+    }
+  ],
+  "lifecycle": [
+    {
+      "kind": "sessions",
+      "cycles": 24,
+      "failures": [],
+      "warm_cycles": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "static_mib_range": [
+        46.392245292663574,
+        46.426817893981934
+      ],
+      "objects_range": [
+        2414,
+        2414
+      ],
+      "nodes_range": [
+        345,
+        345
+      ],
+      "orphan_max": 0,
+      "gpu_mib_range": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "arenas",
+      "cycles": 16,
+      "failures": [],
+      "warm_cycles": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "static_mib_range": [
+        79.81411743164062,
+        80.11985397338867
+      ],
+      "objects_range": [
+        1876,
+        1876
+      ],
+      "nodes_range": [
+        3,
+        3
+      ],
+      "orphan_max": 0,
+      "gpu_mib_range": [
+        99.75239562988281,
+        99.75239562988281
+      ]
+    },
+    {
+      "kind": "maps",
+      "cycles": 16,
+      "failures": [],
+      "warm_cycles": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "static_mib_range": [
+        104.05753707885742,
+        104.52438354492188
+      ],
+      "objects_range": [
+        5164,
+        5164
+      ],
+      "nodes_range": [
+        1206,
+        1206
+      ],
+      "orphan_max": 0,
+      "gpu_mib_range": [
+        523.5537719726562,
+        523.5537719726562
+      ]
+    },
+    {
+      "kind": "demos",
+      "cycles": 16,
+      "failures": [],
+      "warm_cycles": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "static_mib_range": [
+        105.05373001098633,
+        105.07069778442383
+      ],
+      "objects_range": [
+        5138,
+        5138
+      ],
+      "nodes_range": [
+        1206,
+        1206
+      ],
+      "orphan_max": 0,
+      "gpu_mib_range": [
+        515.4215545654297,
+        515.4215545654297
+      ]
+    },
+    {
+      "kind": "combat",
+      "cycles": 16,
+      "failures": [],
+      "warm_cycles": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "static_mib_range": [
+        105.01564025878906,
+        105.43759536743164
+      ],
+      "objects_range": [
+        5137,
+        5143
+      ],
+      "nodes_range": [
+        1206,
+        1206
+      ],
+      "orphan_max": 0,
+      "gpu_mib_range": [
+        515.4215545654297,
+        515.4215545654297
+      ]
+    }
+  ],
+  "process_audits": [
+    {
+      "name": "regressions",
+      "exit_code": 1,
+      "timeout": false,
+      "seconds": 118.117,
+      "peak_family_rss_kib": 513776,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "lifecycle-headless",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 13.637,
+      "peak_family_rss_kib": 191320,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "lifecycle-rendered",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 39.053,
+      "peak_family_rss_kib": 1289296,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "avatar-lighting-rendered",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 2.903,
+      "peak_family_rss_kib": 525128,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "network-lag",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 31.944,
+      "peak_family_rss_kib": 584416,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "network-integrations",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 52.821,
+      "peak_family_rss_kib": 648588,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "rendered-comparison",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 80.077,
+      "peak_family_rss_kib": 826460,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "native-empty-control",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.558,
+      "peak_family_rss_kib": 123804,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "native-steam-control",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.56,
+      "peak_family_rss_kib": 127008,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "server-cpu",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 91.601,
+      "peak_family_rss_kib": 202972,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    {
+      "name": "profile-pair",
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 26.356,
+      "peak_family_rss_kib": 210728,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    }
+  ],
+  "process_inventory": {
+    "preexisting_zombies": 20,
+    "remaining_preexisting_zombies": 20,
+    "new_processes_or_zombies": [],
+    "parent_pid": 3726,
+    "parent_comm": "oadesktopentry-"
+  },
+  "native_control": {
+    "plain_engine_leak_warning": false,
+    "steam_audio_only_leak_warning": true,
+    "same_native_binaries_as_03": true
+  },
+  "limitations": [
+    "Single-machine synthetic desktop and server loads; not VR/Android/WAN acceptance or long thermal testing.",
+    "RSS and GPU caching can retain high-water allocations; no native allocation-stack sanitizer was run.",
+    "The initial avatar-lighting headless test timed out waiting for a rendered frame. Its rendered rerun passed and both runs left no children.",
+    "Two initial profiler runs leaked test-created state during script replacement. The harness was corrected and the clean paired rerun retained only the pre-existing native warning.",
+    "The zero-rewind optimization exists only in the diagnostic subclass; production files remain unchanged."
+  ]
+}

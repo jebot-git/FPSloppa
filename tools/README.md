@@ -9,3 +9,5 @@ Run `python3 tools/generate_sounds.py` from any directory to regenerate the twen
 `python3 tools/build_android.py` builds separate Quest/Pico release APKs and validates signing and alignment. See STANDALONE.md for toolchain setup and local signing details. Generated Android templates and caches are excluded from source archives.
 
 Use the official matching Godot executable via `GODOT_BIN` for release exports. The source ZIP honors Git exclusions, omitting private live-device captures, build caches, signing files and generated release archives.
+
+`python3 tools/prepare_release.py` stages a fixed artifact allowlist and checksums after exports and packaging. Arena Collection 1 and the ThreeWave/TF/AD converters are permanently excluded from subsequent releases; obtain them from 0.5v. See [the archive policy](../docs/ARCHIVED-EXTRAS.md).

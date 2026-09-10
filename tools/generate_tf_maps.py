@@ -5,7 +5,7 @@ from pathlib import Path
 import argparse,subprocess,shutil,json,hashlib
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'optional-tf-map-pack'
-WAD=ROOT/'optional-tf-tools/librequake.wad'
+WAD=Path('librequake.wad')
 class Arena:
  def __init__(self,name,title,x=1536,y=768,ceiling=512):
   self.name=name;self.title=title;self.brushes=[];self.entities=[];self.x=x;self.y=y;self.ceiling=ceiling
@@ -114,7 +114,8 @@ def relayworks():
  a.ent('info_player_start',(-1120,656,24),angle=0);a.lights();return a
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--compiler-dir',type=Path);args=p.parse_args();OUT.mkdir(exist_ok=True);(OUT/'source').mkdir(exist_ok=True)
+ global WAD
+ p=argparse.ArgumentParser();p.add_argument('--compiler-dir',type=Path);p.add_argument('--wad',type=Path,required=True);args=p.parse_args();WAD=args.wad.resolve();OUT.mkdir(exist_ok=True);(OUT/'source').mkdir(exist_ok=True)
  report=[]
  for arena in [ironspan(),relayworks()]:
   source=arena.write()

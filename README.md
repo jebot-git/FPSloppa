@@ -1,10 +1,10 @@
-# FPSloppa · TF development build
+# FPSloppa 0.6v
 
-[0.5v build notes](docs/RELEASE-0.5v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.6v build notes](docs/RELEASE-0.6v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**Arena Collection 1:** forty additional original BSPs, five per game mode, with an optional installer and visual atlas. See [the map-pack readme](optional-arena-pack/README.md). VRMs now use restrained arena lighting; see [AVATAR_LIGHTING.md](AVATAR_LIGHTING.md).
+**New in 0.6v:** verified map/model downloads before spawning, a loading screen with progress and estimated time remaining, compact download/latency indicators for desktop and VR, and substantially faster server projectile processing.
 
-**New in 0.5v:** optional TF classes, class badges, VRM spy disguises and two original TF arenas. See [TF.md](TF.md). This uses a newer protocol than the published 0.4v release.
+**Archived extras:** the original forty-map Arena Collection 1 and the ThreeWave, TeamFortress and Arcane Dimensions conversion tools are available only from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They will not be revised or developed further, or bundled with subsequent releases. These static assets/tools do not need repeated releases unless the map loader or format changes. See [the archive policy](docs/ARCHIVED-EXTRAS.md).
 
 FPSloppa is a PC OpenXR and desktop online arena shooter with eight external LibreQuake arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
@@ -12,7 +12,7 @@ See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.5v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.6v clients and servers; the protocol changed from earlier releases.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Standalone users should open **ASSETS…** and download the base assets, or extract the Base-Assets ZIP into the app’s external files directory. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Freeze Tag and Chainsaw Circus are available.
 

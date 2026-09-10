@@ -20,7 +20,7 @@ def allocated_sections(binary):
 version = re.search(r'config/version="([^"]+)"', (root / 'project.godot').read_text()).group(1)
 protocol = re.search(r'const PROTOCOL := "([^"]+)"', (root / 'deathmatch/arena.gd').read_text()).group(1)
 for target in ['Quest', 'Pico']:
-    apk = root.parent / 'Builds/Android' / f'Entryway-{target}.apk'
+    apk = root.parent / 'Builds/Android' / f'FPSloppa-{target}.apk'
     manifest = subprocess.check_output([str(sdk / 'build-tools/36.1.0/aapt2'), 'dump', 'xmltree', str(apk), '--file', 'AndroidManifest.xml'], text=True)
     (root / 'test-results' / f'android_{target.lower()}_manifest.txt').write_text(manifest)
     required = ['android.permission.INTERNET', 'android.permission.RECORD_AUDIO', 'org.khronos.openxr.intent.category.IMMERSIVE_HMD', 'org.godotengine.openxr.vendors.GodotOpenXR']
@@ -57,7 +57,7 @@ for target in ['Quest', 'Pico']:
             assert not any(n.startswith('assets/maps/') or n.startswith('assets/vrm/') for n in z.namelist())
         assert 'assets/deathmatch/avatars/eyes.gd' in z.namelist()
         assert protocol.encode() in z.read('assets/deathmatch/arena.gd')
-        for script in ['arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
+        for script in ['network/loading.gd', 'network/loading_overlay.gd', 'projectile_targets.gd', 'maps/network.gd', 'interface.gd', 'arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
             path = 'deathmatch/' + script
             assert z.read('assets/' + path) == (root / path).read_bytes(), ('Outdated APK script', target, path)
         audio_files=list((root/'deathmatch/audio/music').glob('*.ogg'))

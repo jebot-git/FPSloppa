@@ -6,7 +6,8 @@ const Fighter = preload("res://deathmatch/fighter.gd")
 const Interface = preload("res://deathmatch/interface.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
-const PROTOCOL := "fpsloppa-17-lag-compensation"
+const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
+const PROTOCOL := "fpsloppa-18-asset-readiness"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -32,6 +33,7 @@ var spawn_points: Array = []
 var spawn_yaws: Array = []
 var fall_limit := -8.0
 var pending_names: Dictionary = {}
+var loading: Node
 var map_network: Node
 var xr_rig
 var effects
@@ -137,6 +139,7 @@ func _ready() -> void:
 	(multiplayer as SceneMultiplayer).server_relay = false
 
 	if not headless: get_viewport().msaa_3d = Viewport.MSAA_2X if OS.has_feature("android") else Viewport.MSAA_4X
+	loading=preload("res://deathmatch/network/loading.gd").new();loading.name="Loading";add_child(loading);loading.setup(self)
 	avatars = preload("res://deathmatch/avatars/network.gd").new()
 	avatars.name = "AvatarNetwork"
 	add_child(avatars)
@@ -296,6 +299,7 @@ func _pickup_art(p: Dictionary) -> Node3D:
 	return root
 
 func start_host(player_name: String,port: int,frags: int,minutes: int,training: bool, mode: String="dm") -> void:
+	if loading.blocking:return
 	if active: return
 	if not dedicated: match_mode.configure({"sv_gametype":mode if match_mode.NAMES.has(mode) else "dm","capturelimit":clampi(frags,1,100),"hilllimit":clampi(frags,1,100)});votes.enabled=true;votes.allowed_modes=match_mode.NAMES.keys();voice_backend="builtin";mumble_url="";voice_enabled=true
 	max_clients=clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else MAX_PLAYERS
@@ -340,7 +344,8 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 	print("DM_HOST_READY port=",port," practice=",practice)
 
 func start_join(player_name: String,address: String,port: int,spectator: bool=false) -> void:
-	if active: return
+	if active or loading.blocking: return
+	local_ping=0
 	nickname = clean_name(player_name)
 	joining_as_spectator=spectator
 	if address.strip_edges().is_empty():
@@ -352,6 +357,8 @@ func start_join(player_name: String,address: String,port: int,spectator: bool=fa
 		status("Could not create connection: "+error_string(err))
 		return
 	multiplayer.multiplayer_peer = peer
+	loading.begin();menu_open=true
+	if hud:hud.show_menu(true)
 	connect_deadline = clock+10
 	status("Connecting to %s:%d…" % [address,port])
 
@@ -385,8 +392,12 @@ func _map_ready(checksum: String) -> void:
 	if not multiplayer.is_server(): return
 	var id := multiplayer.get_remote_sender_id()
 	if not pending_names.has(id) or checksum!=map_sha: return
+	loading.offer(id)
+
+func _finish_join(id: int) -> void:
+	if not pending_names.has(id):return
 	if players.size()>=max_clients:
-		_rejected.rpc_id(id,"Server filled while downloading map.")
+		_rejected.rpc_id(id,"Server filled while downloading assets.")
 		return
 	var player_name: String = pending_names[id]
 	pending_names.erase(id)
@@ -476,6 +487,7 @@ func _roster(data: Array) -> void:
 		if hud: hud.show_menu(false)
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if players.has(mine):
+		loading.blocking=false
 		if is_vr():
 			camera=xr_rig.head
 			camera.make_current()
@@ -492,6 +504,7 @@ func _peer_left(id: int) -> void:
 	match_mode.fortress.departed(id)
 	server_log.record("peer_disconnected",{"peer":id})
 	avatars.remove_peer(id)
+	loading.pending.erase(id)
 	pending_joins.erase(id)
 	pending_names.erase(id)
 	pending_spectators.erase(id)
@@ -518,6 +531,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	votes.reset();votes.cooldown=0
 	avatars.reset()
 	voice.reset()
+	loading.reset()
 	map_network.reset()
 	if uploads:uploads.reset()
 	map_epoch=0;map_loading=false;map_rotation.clear();mode_maplists.clear();rotation_index=0
@@ -762,6 +776,7 @@ func _server_tick(delta: float) -> void:
 			multiplayer.multiplayer_peer.disconnect_peer(id)
 			pending_joins.erase(id)
 			pending_names.erase(id)
+			loading.pending.erase(id)
 			pending_spectators.erase(id)
 			map_network.outgoing.erase(id)
 	if map_loading:
@@ -1032,14 +1047,14 @@ func _fire(id: int, offhand: bool=false) -> void:
 	if offhand: s.offhand_held=true
 	else: s.held = true
 
-func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius: float = 0.0,movement_start: Dictionary = {}) -> Dictionary:
+func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius: float = 0.0,movement_start: Dictionary = {},candidates: Variant = null) -> Dictionary:
 	var space := get_world_3d().direct_space_state
 	var wall_fraction := HitDetection.world_fraction(space,start,end,radius)
 	var nearest := wall_fraction
 	var point := start.lerp(end,minf(1.0,nearest))
 	var target := 0
 	var old:=_rewound_positions(rewind)
-	for id in players:
+	for id in (players if candidates==null else candidates):
 		if id==exclude or players[id].dead or players[id].spectator: continue
 		var position: Vector3 = old.get(id,fighters[id].position)
 		var previous: Vector3 = position
@@ -1090,12 +1105,16 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 	projectiles[id] = {"owner":owner_id,"weapon":weapon,"position":pos,"direction":direction,"life":4.0,"node":node,"yaw":yaw,"pitch":pitch,"fresh":true,"visual_error":Vector3.ZERO,"visual_age":0.0}
 
 func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
+	if projectiles.is_empty():return
+	var targets:=ProjectileTargets.new()
+	targets.build(players,fighters,movement_start)
 	for id in projectiles.keys():
 		var p: Dictionary = projectiles[id]
 		p.life -= delta
 		var end: Vector3 = p.position+p.direction*W.DATA[p.weapon].speed*delta
 		# New shots originate after this tick's movement: do not hit a past crossing.
-		var hit := _trace(p.position,end,p.owner,0.0,W.DATA[p.weapon].radius,{} if p.fresh else movement_start)
+		var radius:float=W.DATA[p.weapon].radius
+		var hit := _trace(p.position,end,p.owner,0.0,radius,{} if p.fresh else movement_start,targets.candidates(p.position,end,radius))
 		p.fresh=false
 		if hit.hit or p.life<=0:
 			var d: Dictionary = W.DATA[p.weapon]
@@ -1212,6 +1231,9 @@ func _record_history() -> void:
 	history.append({"time":clock,"positions":_history_positions()})
 	while history.size()>2 and history[1].time<clock-LagCompensation.MAX_REWIND-.05:history.pop_front()
 func _rewound_positions(rewind: float) -> Dictionary:
+	# Projectiles and local shots use current positions. Avoid building a complete
+	# player-history dictionary only for LagCompensation to immediately discard it.
+	if rewind<=0 or history.is_empty():return {}
 	return LagCompensation.positions(history,clock,rewind,_history_positions())
 func _shot_rewind(id: int) -> float:
 	if id<=1:return 0.0 # Local host and bots see the authoritative world.
@@ -1615,6 +1637,7 @@ func _clear_map_players() -> void:
 	if not headless and not is_vr(): $Overview.make_current()
 
 func _prepare_client_map(epoch: int) -> void:
+	loading.begin();loading.phase="Preparing server map…"
 	map_network.reset()
 	if uploads:uploads.reset()
 	_clear_map_players()
@@ -1639,6 +1662,7 @@ func _rotate_map(map_id: String) -> bool:
 	_clear_map_players()
 	pending_names=names
 	pending_spectators=spectators
+	loading.pending.clear()
 	map_epoch+=1;map_loading=not names.is_empty()
 	selected_map=map_id
 	round_left=time_limit;round_message="";intermission=0

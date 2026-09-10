@@ -12,4 +12,6 @@ Each gamemode has its own `maps/<tag>_maplist.txt`: `dm`, `tdm`, `ctf`, `koth`, 
 
 The optional LibreQuake pack adds `lqdm9`–`lqdm13`. Extract its `maps/` directory alongside the existing one and add IDs to the desired mode lists. It includes upstream notices, author readmes and texture provenance. All embedded texture mip levels use LibreQuake WAD assets.
 
-ThreeWave BSPs are deliberately absent from GitHub and release assets. Download the separate conversion-tools package and follow its `RIGHTS.md`. Converted community maps are for local testing and non-commercial server use, retain their original notices, and are not relicensed. Native CTF flags/team spawns are recognized; QuakeC scripting, runes and grapples are not reproduced.
+ThreeWave BSPs are deliberately absent from GitHub and release assets. Download the archived conversion-tools package from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v) and follow its `RIGHTS.md`. Converted community maps are for local testing and non-commercial server use, retain their original notices, and are not relicensed. Native CTF flags/team spawns are recognized; QuakeC scripting, runes and grapples are not reproduced.
+
+Initial server connections and map changes now wait for map and required model verification before spawning. The loading screen shows byte progress and an estimated remaining time. Later model downloads appear in a small corner indicator; latency is shown in the opposite corner (on the floating status HUD in VR).

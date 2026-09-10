@@ -22,7 +22,7 @@ func run():
   check(Config.parse('set sv_maplist "'+"lqdm1 ".repeat(33)+'"').has("error"),"Excessive rotation list rejected")
   var config_path:="user://rotation_test_server.cfg"
   var file:=FileAccess.open(config_path,FileAccess.WRITE)
-  file.store_string('set sv_gametype "ctf"\nset sv_gametypes "ctf koth"\nset net_port "28901"\nmap lqdm7\nset sv_maplist "lqdm1 lqdm2"\n');file.close()
+  file.store_string('set sv_gametype "ctf"\nset sv_gametypes "ctf koth"\nset net_port "28901"\nmap lqdm7\nset sv_maplist "lqdm1 lqdm2"\nset ctf_maplist "lqdm1 lqdm2"\nset koth_maplist "lqdm1"\n');file.close()
   game._start_dedicated(PackedStringArray(["--config",config_path]))
   DirAccess.remove_absolute(config_path)
   check(game.active and game.current_map=="lqdm1" and game.map_rotation==["lqdm1","lqdm2"],"Dedicated startup reads rotation and starts its first entry")

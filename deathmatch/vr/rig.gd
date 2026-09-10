@@ -162,15 +162,15 @@ func build_ui() -> void:
 	add_child(keyboard)
 	keyboard.get_scene_instance().focus_target=focused_edit
 	var status_viewport:=SubViewport.new()
-	status_viewport.size=Vector2i(960,180)
+	status_viewport.size=Vector2i(960,220)
 	status_viewport.transparent_bg=true
 	status_viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS
 	add_child(status_viewport)
 	status_hud=preload("res://deathmatch/vr/status_hud.gd").new()
-	status_hud.size=Vector2(960,180);status_hud.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	status_hud.size=Vector2(960,220);status_hud.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	status_viewport.add_child(status_hud)
 	status_surface=MeshInstance3D.new()
-	var status_quad:=QuadMesh.new();status_quad.size=Vector2(.96,.18)
+	var status_quad:=QuadMesh.new();status_quad.size=Vector2(.96,.22)
 	status_surface.mesh=status_quad;status_surface.position=Vector3(0,-.46,-1.5)
 	status_surface.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var status_material:=StandardMaterial3D.new()
@@ -317,6 +317,7 @@ func _process(delta: float) -> void:
 		var s: Dictionary=game.local_state()
 		var leader:=0
 		for player in game.players.values():leader=maxi(leader,player.kills)
+		status_hud.update_network(game.loading.snapshot(),game.local_ping,game.multiplayer.is_server())
 		status_hud.update_status(s,game.round_left,game.frag_limit,leader,game.intermission>0,game.voice and game.voice.transmitting,_objective_hud(s))
 		if s.weapon!=gun_id:
 			if is_instance_valid(gun): gun.free()

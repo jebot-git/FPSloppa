@@ -1,0 +1,1128 @@
+{
+  "date": "2026-09-10",
+  "base_commit": "cec9edd",
+  "engine": "Godot 4.7.2 Fedora ed1daf0bf",
+  "cpu": "Intel Core i7-12700",
+  "scope": "Source-project server CPU stress; synthetic actors, not a 32-client network capacity certification",
+  "production_sha256": {
+    "deathmatch/arena.gd": "3a942e818de8150b633b1620402d5886f21b3f4f7ec95626a7dd69d7b0af816c",
+    "deathmatch/hit_detection.gd": "25de8c570d70d425f71280434e68a38329ebb7df845d8ed739877de6ce1e8797",
+    "deathmatch/projectile_targets.gd": "42f09a93f0c610bc0e23e474411ffbdaf6ecc4686ab7220c7a951420b7bc0ffb"
+  },
+  "baseline": [
+    {
+      "history_entries": 22,
+      "max_projectiles": 281,
+      "players": 8,
+      "snapshot_p95_ms": 0.338,
+      "tick_max_ms": 13.085,
+      "tick_p50_ms": 4.93,
+      "tick_p95_ms": 5.419,
+      "ticks": 600,
+      "version": "0.5v"
+    },
+    {
+      "history_entries": 22,
+      "max_projectiles": 523,
+      "players": 16,
+      "snapshot_p95_ms": 0.622,
+      "tick_max_ms": 38.261,
+      "tick_p50_ms": 16.246,
+      "tick_p95_ms": 17.094,
+      "ticks": 600,
+      "version": "0.5v"
+    },
+    {
+      "history_entries": 22,
+      "max_projectiles": 1085,
+      "players": 32,
+      "snapshot_p95_ms": 1.341,
+      "tick_max_ms": 68.184,
+      "tick_p50_ms": 64.299,
+      "tick_p95_ms": 66.797,
+      "ticks": 600,
+      "version": "0.5v"
+    }
+  ],
+  "phase1": [
+    {
+      "name": "capsule_equivalence",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "hit_detection",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "lag_reliability",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "projectile_ordering",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "rocket_jump",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "combat",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "fortress",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.587,
+        "tick_max_ms": 19.385,
+        "tick_p50_ms": 8.603,
+        "tick_p95_ms": 9.218,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    },
+    {
+      "name": "cpu32",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 1085,
+        "players": 32,
+        "snapshot_p95_ms": 1.287,
+        "tick_max_ms": 32.997,
+        "tick_p50_ms": 30.18,
+        "tick_p95_ms": 31.519,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    }
+  ],
+  "phase2": [
+    {
+      "name": "capsule_equivalence",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "projectile_targets",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "hit_detection",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "lag_reliability",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "projectile_ordering",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "rocket_jump",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "combat",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "fortress",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.612,
+        "tick_max_ms": 8.306,
+        "tick_p50_ms": 3.33,
+        "tick_p95_ms": 3.805,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    },
+    {
+      "name": "cpu32",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 1085,
+        "players": 32,
+        "snapshot_p95_ms": 1.145,
+        "tick_max_ms": 10.868,
+        "tick_p50_ms": 6.541,
+        "tick_p95_ms": 7.479,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    }
+  ],
+  "repeat_before_extreme_coordinate_guard": [
+    {
+      "name": "cpu8",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 281,
+        "players": 8,
+        "snapshot_p95_ms": 0.33,
+        "tick_max_ms": 5.401,
+        "tick_p50_ms": 1.883,
+        "tick_p95_ms": 2.438,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    },
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.578,
+        "tick_max_ms": 8.41,
+        "tick_p50_ms": 3.287,
+        "tick_p95_ms": 3.826,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    },
+    {
+      "name": "cpu32",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 1085,
+        "players": 32,
+        "snapshot_p95_ms": 1.16,
+        "tick_max_ms": 12.414,
+        "tick_p50_ms": 6.657,
+        "tick_p95_ms": 7.693,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    }
+  ],
+  "final": [
+    {
+      "name": "capsule_equivalence",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "projectile_targets",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "hit_detection",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "lag_reliability",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "projectile_ordering",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "rocket_jump",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "combat",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "fortress",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "cpu8",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 281,
+        "players": 8,
+        "snapshot_p95_ms": 0.316,
+        "tick_max_ms": 5.274,
+        "tick_p50_ms": 1.914,
+        "tick_p95_ms": 2.254,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    },
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.603,
+        "tick_max_ms": 8.728,
+        "tick_p50_ms": 3.449,
+        "tick_p95_ms": 4.05,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    },
+    {
+      "name": "cpu32",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 1085,
+        "players": 32,
+        "snapshot_p95_ms": 1.119,
+        "tick_max_ms": 11.583,
+        "tick_p50_ms": 6.832,
+        "tick_p95_ms": 7.82,
+        "ticks": 600,
+        "version": "0.5v"
+      }
+    }
+  ],
+  "soak": {
+    "name": "cpu32",
+    "passed": true,
+    "exit_code": 0,
+    "load": {
+      "history_entries": 23,
+      "max_projectiles": 1085,
+      "players": 32,
+      "snapshot_p95_ms": 1.295,
+      "tick_max_ms": 19.708,
+      "tick_p50_ms": 7.098,
+      "tick_p95_ms": 8.154,
+      "ticks": 5880,
+      "version": "0.5v"
+    },
+    "memory": [
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 0,
+        "resources": 390,
+        "static_bytes": 49923753,
+        "tick": 0
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51390413,
+        "tick": 300
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51385669,
+        "tick": 600
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51396709,
+        "tick": 900
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51433589,
+        "tick": 1200
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51433589,
+        "tick": 1500
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51458453,
+        "tick": 1800
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51458453,
+        "tick": 2100
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51466973,
+        "tick": 2400
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51495749,
+        "tick": 2700
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51495749,
+        "tick": 3000
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51495749,
+        "tick": 3300
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51508541,
+        "tick": 3600
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51551693,
+        "tick": 3900
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51551693,
+        "tick": 4200
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51551693,
+        "tick": 4500
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51551693,
+        "tick": 4800
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51570869,
+        "tick": 5100
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51570869,
+        "tick": 5400
+      },
+      {
+        "nodes": 413,
+        "objects": 2518,
+        "orphans": 0,
+        "projectiles": 1085,
+        "resources": 390,
+        "static_bytes": 51635597,
+        "tick": 5700
+      }
+    ],
+    "memory_final": {
+      "nodes": 3,
+      "objects": 1759,
+      "orphans": 0,
+      "resources": 106,
+      "static_bytes": 43437884
+    }
+  },
+  "steady_memory_ranges": {
+    "static_bytes": {
+      "min": 51385669,
+      "max": 51635597
+    },
+    "objects": {
+      "min": 2518,
+      "max": 2518
+    },
+    "resources": {
+      "min": 390,
+      "max": 390
+    },
+    "nodes": {
+      "min": 413,
+      "max": 413
+    },
+    "orphans": {
+      "min": 0,
+      "max": 0
+    },
+    "projectiles": {
+      "min": 1085,
+      "max": 1085
+    }
+  },
+  "network_lag": [
+    {
+      "rtt_ms": 20,
+      "jitter_ms": 0,
+      "loss": 0,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 28,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 28,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 28,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 28,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3648,
+        "dropped": 0,
+        "delivered": 3648,
+        "duplicated": 0
+      }
+    },
+    {
+      "rtt_ms": 40,
+      "jitter_ms": 0,
+      "loss": 0,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 48,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 48,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 48,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 48,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3642,
+        "dropped": 0,
+        "delivered": 3642,
+        "duplicated": 0
+      }
+    },
+    {
+      "rtt_ms": 60,
+      "jitter_ms": 0,
+      "loss": 0,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 69,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 69,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 69,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 69,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3635,
+        "dropped": 0,
+        "delivered": 3635,
+        "duplicated": 0
+      }
+    },
+    {
+      "rtt_ms": 80,
+      "jitter_ms": 0,
+      "loss": 0,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 89,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 89,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 89,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 89,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3625,
+        "dropped": 0,
+        "delivered": 3625,
+        "duplicated": 0
+      }
+    },
+    {
+      "rtt_ms": 100,
+      "jitter_ms": 0,
+      "loss": 0,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 110,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 110,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 110,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 110,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3623,
+        "dropped": 0,
+        "delivered": 3623,
+        "duplicated": 0
+      }
+    },
+    {
+      "rtt_ms": 50,
+      "jitter_ms": 10,
+      "loss": 0.01,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 60,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 56,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 12,
+              "ping_ms": 61,
+              "shots": 12,
+              "weapon": 7
+            },
+            {
+              "hits": 6,
+              "ping_ms": 61,
+              "shots": 6,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3690,
+        "dropped": 41,
+        "delivered": 3667,
+        "duplicated": 18
+      }
+    },
+    {
+      "rtt_ms": 100,
+      "jitter_ms": 15,
+      "loss": 0.02,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 104,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 2,
+              "ping_ms": 103,
+              "shots": 2,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 103,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 114,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3692,
+        "dropped": 80,
+        "delivered": 3626,
+        "duplicated": 14
+      }
+    },
+    {
+      "rtt_ms": 100,
+      "jitter_ms": 5,
+      "loss": 0.01,
+      "uplink_ms": 20,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 110,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 2,
+              "ping_ms": 110,
+              "shots": 2,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 110,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 110,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3714,
+        "dropped": 41,
+        "delivered": 3691,
+        "duplicated": 18
+      }
+    }
+  ],
+  "fortress": [
+    {
+      "test": "fortress",
+      "passed": true
+    },
+    {
+      "test": "fortress_maps",
+      "passed": true
+    },
+    {
+      "test": "network-server",
+      "passed": true
+    },
+    {
+      "test": "network-scout",
+      "passed": true
+    },
+    {
+      "test": "network-spy",
+      "passed": true
+    }
+  ],
+  "network": {
+    "passed": true,
+    "roles": {
+      "server": 0,
+      "shooter": 0,
+      "target": 0,
+      "spectator": 0
+    }
+  },
+  "processes": {
+    "verified": {
+      "command": [
+        "python3",
+        "tools/validate_server_optimization.py",
+        "--stage",
+        "verified"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 48.98,
+      "peak_family_rss_kib": 213840,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    "soak": {
+      "command": [
+        "python3",
+        "tools/validate_server_optimization.py",
+        "--stage",
+        "soak",
+        "--skip-tests",
+        "--players",
+        "32",
+        "--ticks",
+        "6000",
+        "--memory"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 101.633,
+      "peak_family_rss_kib": 213720,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": [],
+      "steady_godot": {
+        "rss_kib": {
+          "min": 196936,
+          "max": 196936
+        },
+        "threads": {
+          "min": 26,
+          "max": 26
+        },
+        "fds": {
+          "min": 12,
+          "max": 12
+        }
+      }
+    },
+    "lag": {
+      "command": [
+        "python3",
+        "tools/validate_lag_network.py"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 243.197,
+      "peak_family_rss_kib": 589236,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    "fortress": {
+      "command": [
+        "python3",
+        "tools/validate_fortress.py"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 31.535,
+      "peak_family_rss_kib": 636040,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    },
+    "network": {
+      "command": [
+        "python3",
+        "deathmatch/tests/run_network_tests.py",
+        "/usr/bin/godot"
+      ],
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 9.404,
+      "peak_family_rss_kib": 773324,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "adopted_children_reaped": [],
+      "survivors": []
+    }
+  },
+  "limitations": [
+    "No multi-hour native allocation sanitizer run",
+    "Existing Steam Audio singleton shutdown warning unchanged",
+    "No exported binaries rebuilt or published"
+  ]
+}
