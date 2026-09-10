@@ -1,3 +1,7 @@
+## Owner-reported 0.3v results
+
+Passed: Quest 3 standalone; Linux PCVR with WiVRn; Windows PCVR with SteamVR; Windows PCVR with Virtual Desktop. Pico 4 and other configurations remain untested. These reports apply to 0.3v, not hardware certification of 0.4v.
+
 # Local live VR checks
 
 Start WiVRn and connect the headset, then run:

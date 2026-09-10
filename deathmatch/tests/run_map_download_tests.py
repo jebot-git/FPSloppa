@@ -1,5 +1,5 @@
 from pathlib import Path
-import subprocess,time,tempfile,os,hashlib,json
+import shutil, subprocess,time,tempfile,os,hashlib,json
 
 def main():
  root=Path(__file__).resolve().parents[2]
@@ -7,14 +7,15 @@ def main():
  logs=root/'test-results';logs.mkdir(exist_ok=True)
  processes=[];handles=[]
  with tempfile.TemporaryDirectory(prefix='arena-map-download-') as temp:
-  data=(root/'deathmatch/maps/raw/lqdm2.bsp').read_bytes()+(' test '+temp).encode()
+  data=(root/'maps/lqdm2.bsp').read_bytes()+(' test '+temp).encode()
   path=Path(temp)/'host-arena.bsp';path.write_bytes(data)
   sha=hashlib.sha256(data).hexdigest()
   try:
    for role in ['server','client_a','client_b']:
     handle=(logs/f'map_{role}.log').open('w');handles.append(handle)
     env=os.environ.copy();env['XDG_DATA_HOME']=str(Path(temp)/role)
-    cmd=[godot,'--headless','--xr-mode','off','--path',str(root),'--script','res://deathmatch/tests/map_download_runner.gd','--',role,str(path),sha]
+    asset_root=Path(temp)/('assets-'+role);shutil.copytree(root/'maps',asset_root/'maps');shutil.copytree(root/'vrm',asset_root/'vrm')
+    cmd=[godot,'--headless','--xr-mode','off','--path',str(root),'--script','res://deathmatch/tests/map_download_runner.gd','--',role,str(path),sha,"--asset-root",str(asset_root)]
     process=subprocess.Popen(cmd,env=env,stdout=handle,stderr=subprocess.STDOUT);processes.append((role,process))
     if role=='server':
      deadline=time.monotonic()+15

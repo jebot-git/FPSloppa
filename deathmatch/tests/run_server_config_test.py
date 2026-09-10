@@ -10,7 +10,7 @@ processes=[]; handles=[]
 try:
     with tempfile.TemporaryDirectory(prefix='entryway-config-') as temporary:
         cfg=Path(temporary)/'arena.cfg'
-        cfg.write_text('sets sv_hostname "Config Test Arena"\nset net_ip 127.0.0.1\nset net_port 28889\nset sv_maxclients 1\nset fraglimit 7\nset timelimit 3\nset sv_voice 0\nmap lqdm2\n')
+        cfg.write_text('sets sv_hostname "Config Test Arena"\nset net_ip 127.0.0.1\nset net_port 28889\nset sv_maxclients 1\nset fraglimit 7\nset timelimit 3\nset sv_voice 0\nset dm_maplist "lqdm2"\nmap lqdm2\n')
         for role in ['server','first','extra']:
             handle=(logs/('config_'+role+'.log')).open('w');handles.append(handle)
             cmd=[str(binary),'--','+exec',str(cfg)] if role=='server' else [godot,'--headless','--xr-mode','off','--path',str(root),'--script','res://deathmatch/tests/server_config_client.gd','--',role]

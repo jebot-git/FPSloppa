@@ -8,7 +8,7 @@ func setup(arena: Node) -> void:
 	game=arena
 	region=NavigationRegion3D.new()
 	add_child(region)
-	var cached: String="res://deathmatch/maps/navigation/"+game.current_map+".res"
+	var cached: String=preload("res://deathmatch/assets/paths.gd").folder("maps")+"navigation/"+game.current_map+".res"
 	if ResourceLoader.exists(cached):
 		region.navigation_mesh=load(cached)
 		ready_to_walk=true
@@ -34,7 +34,7 @@ static func new_mesh() -> NavigationMesh:
 func tick(_delta: float) -> void:
 	for id in brains:
 		var s: Dictionary=game.players[id]
-		if s.dead: continue
+		if s.dead or game.match_mode.special.blocked(id): continue
 		var brain: Dictionary=brains[id]
 		if game.clock<brain.next: continue
 		brain.next=game.clock+.2
@@ -45,7 +45,7 @@ func tick(_delta: float) -> void:
 		var enemy:=0
 		var nearest:=35.0
 		for other in game.players:
-			if other==id or game.players[other].dead: continue
+			if other==id or game.players[other].dead or game.players[other].spectator or game.match_mode.same_team(id,other) or game.match_mode.special.frozen.has(other): continue
 			var target: Vector3=game.fighters[other].position+Vector3.UP*1.1
 			var distance:=eye.distance_to(target)
 			if distance>=nearest: continue
@@ -70,6 +70,9 @@ func tick(_delta: float) -> void:
 				if pickup.available: choices.append(pickup.position)
 			brain.goal=choices.pick_random() if not choices.is_empty() else game.spawn_points.pick_random()
 			brain.stuck=0.0;brain.route_at=0.0
+		if game.match_mode.kind=="ft":
+			for friend in game.match_mode.special.frozen:
+				if game.match_mode.same_team(id,friend):brain.goal=game.fighters[friend].position;break
 		var travel: Vector3=brain.goal-actor.position
 		if ready_to_walk and game.clock>=brain.route_at:
 			brain.path=NavigationServer3D.map_get_path(region.get_navigation_map(),actor.position,brain.goal,true)
@@ -80,7 +83,10 @@ func tick(_delta: float) -> void:
 		if enemy==0 and travel.length()>.1: s.yaw=lerp_angle(s.yaw,atan2(-travel.x,-travel.z),.7)
 		var local: Vector3=Basis(Vector3.UP,-s.yaw)*travel
 		s.move=Vector2(local.x,local.z).normalized()*.75
-		if enemy!=0 and nearest<5: s.move=Vector2(sin(game.clock+id)*.65,.25)
+		if enemy!=0 and nearest<5 and s.weapon!=1: s.move=Vector2(sin(game.clock+id)*.65,.25)
+		if game.match_mode.kind=="ft":
+			for friend in game.match_mode.special.frozen:
+				if game.match_mode.same_team(id,friend) and game.match_mode.nearby(id,game.fighters[friend].position,1.2):s.move=Vector2.ZERO
 		brain.stuck=brain.stuck+.2 if actor.position.distance_to(brain.last)<.15 else 0.0
 		s.jump=brain.stuck>.4 and not actor.jump_held
 		brain.last=actor.position

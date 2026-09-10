@@ -1,3 +1,7 @@
+## 0.4v modes
+
+IG, FT and CC rules are documented in [0.4v release notes](docs/RELEASE-0.4v.md). CC disables every pickup through the gamemode, without editing map files. Each mode uses its own `<tag>_maplist`.
+
 # Arena modes and player votes
 
 In-game hosting and offline practice always use **DM** and allow at most eight players. Dedicated servers can use DM, TDM, CTF or KOTH and opt into up to 16 connections (including spectators).

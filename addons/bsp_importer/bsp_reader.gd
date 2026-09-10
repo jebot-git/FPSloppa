@@ -966,6 +966,15 @@ func read_bsp(source_file : String) -> Node:
 					face_position += vert
 					i += 1
 				face_position /= i # Average all the verts
+				# Quake T-junction repair can leave collinear fan triangles. They
+				# have no visible area and must not enter tangents or collision.
+				var triangle_indices := PackedInt32Array()
+				for corner in range(1, face_verts.size()-1):
+					var edge_a: Vector3=face_verts[corner]-face_verts[0]
+					var edge_b: Vector3=face_verts[corner+1]-face_verts[0]
+					if edge_a.cross(edge_b).length_squared() > maxf(1e-10,edge_a.length_squared()*edge_b.length_squared()*1e-12):
+						triangle_indices.append_array([0,corner,corner+1])
+				if triangle_indices.is_empty(): continue
 				var surf_tool : SurfaceTool
 				if (texture.is_transparent):
 					# Transparent meshes need to be sorted, so make each face its own mesh for now.
@@ -988,7 +997,10 @@ func read_bsp(source_file : String) -> Node:
 						surf_tool.set_material(texture.material)
 						surface_tools[texture.name] = surf_tool
 					mesh_grid[grid_index] = surface_tools
-				surf_tool.add_triangle_fan(face_verts, face_uvs, [], [], face_normals)
+				for corner in triangle_indices:
+					surf_tool.set_uv(face_uvs[corner])
+					surf_tool.set_normal(face_normals[corner])
+					surf_tool.add_vertex(face_verts[corner])
 				apply_surface_info_to_collision(texture, model_index, face_position, face_normal, face_verts, face_uvs)
 
 				# Need to create unique meshes for each transparent surface so they sort properly.
@@ -999,7 +1011,7 @@ func read_bsp(source_file : String) -> Node:
 					surf_tool.generate_tangents()
 					var array_mesh : ArrayMesh = null
 					array_mesh = surf_tool.commit(array_mesh)
-					mesh_instance.mesh = array_mesh
+					mesh_instance.mesh = clean_triangle_mesh(array_mesh)
 					mesh_instance.name = "TransparentMesh"
 					parent_node.add_child(mesh_instance, true)
 					mesh_instance.transform = parent_inv_transform
@@ -1023,6 +1035,7 @@ func read_bsp(source_file : String) -> Node:
 					else:
 						array_mesh = surf_tool.commit(array_mesh)
 
+				if array_mesh:array_mesh=clean_triangle_mesh(array_mesh)
 				if (array_mesh || has_nocull_materials):
 					mesh_instance.name = "Mesh"
 					parent_node.add_child(mesh_instance, true)
@@ -1038,7 +1051,7 @@ func read_bsp(source_file : String) -> Node:
 							var offset = vertices.size()
 							var arrays := array_mesh.surface_get_arrays(i)
 							vertices.append_array(arrays[ArrayMesh.ARRAY_VERTEX])
-							if arrays[ArrayMesh.ARRAY_INDEX] == null:
+							if arrays[ArrayMesh.ARRAY_INDEX] == null or arrays[ArrayMesh.ARRAY_INDEX].is_empty():
 								indices.append_array(range(offset, offset + arrays[ArrayMesh.ARRAY_VERTEX].size()))
 							else:
 								for index in arrays[ArrayMesh.ARRAY_INDEX]:
@@ -1078,7 +1091,7 @@ func read_bsp(source_file : String) -> Node:
 								array_mesh = surf_tool.commit(array_mesh)
 
 					array_mesh.shadow_mesh = shadow_mesh # This will be null if generate_shadow_mesh isn't set.
-					mesh_instance.mesh = array_mesh
+					mesh_instance.mesh = clean_triangle_mesh(array_mesh)
 
 					#print("Shadow mesh: ", shadow_mesh.get_surface_count(), ", ", shadow_mesh.get_faces())
 					if (shadow_mesh):
@@ -1093,7 +1106,16 @@ func read_bsp(source_file : String) -> Node:
 				if (use_triangle_collision):
 					var collision_shape := CollisionShape3D.new()
 					collision_shape.name = "CollisionShape"
-					collision_shape.shape = mesh_instance.mesh.create_trimesh_shape()
+					# Godot's physics face extraction welds nearby vertices and can
+					# collapse additional slivers even when render arrays are valid.
+					var faces: PackedVector3Array=mesh_instance.mesh.get_faces()
+					var collision_faces:=PackedVector3Array()
+					for triangle in range(0,faces.size(),3):
+						if (faces[triangle+1]-faces[triangle]).cross(faces[triangle+2]-faces[triangle]).length_squared()>1e-14:
+							collision_faces.append_array(faces.slice(triangle,triangle+3))
+					var triangle_shape:=ConcavePolygonShape3D.new()
+					triangle_shape.set_faces(collision_faces)
+					collision_shape.shape=triangle_shape
 					parent_node.add_child(collision_shape, true)
 					mesh_instance.transform = parent_inv_transform
 					collision_shape.owner = root_node
@@ -2460,3 +2482,29 @@ func convex_has_volume(points: PackedVector3Array) -> bool:
 	for p in points:
 		if absf(normal.dot(p-a))>.0001: return true
 	return false
+
+
+static func clean_triangle_mesh(mesh: ArrayMesh) -> ArrayMesh:
+	# MikkTSpace vertex welding can collapse very thin Quake T-junction fans
+	# after the input check. Filter the final data shared by rendering/physics.
+	var surfaces: Array=[]
+	var changed:=false
+	for surface in range(mesh.get_surface_count()):
+		var arrays:=mesh.surface_get_arrays(surface)
+		var vertices: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX]
+		var indices: PackedInt32Array=arrays[Mesh.ARRAY_INDEX] if arrays[Mesh.ARRAY_INDEX]!=null else PackedInt32Array(range(vertices.size()))
+		if indices.is_empty():indices=PackedInt32Array(range(vertices.size()))
+		var valid:=PackedInt32Array()
+		for index in range(0,indices.size(),3):
+			var a:=vertices[indices[index]];var b:=vertices[indices[index+1]];var c:=vertices[indices[index+2]]
+			if (b-a).cross(c-a).length_squared()>1e-14:valid.append_array(indices.slice(index,index+3))
+		if valid.size()!=indices.size():changed=true
+		arrays[Mesh.ARRAY_INDEX]=valid
+		surfaces.append(arrays)
+	if not changed:return mesh
+	var result:=ArrayMesh.new()
+	for surface in range(surfaces.size()):
+		if surfaces[surface][Mesh.ARRAY_INDEX].is_empty():continue
+		result.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,surfaces[surface])
+		result.surface_set_material(result.get_surface_count()-1,mesh.surface_get_material(surface))
+	return result

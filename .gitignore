@@ -15,3 +15,17 @@ __pycache__/
 *.pyc
 *.log
 .DS_Store
+
+# External libraries may contain private player/server downloads. Base files are tracked explicitly.
+/maps/*.bsp
+/maps/cache/*.scn
+/maps/*.download
+/maps/*.upload
+/vrm/*.vrm
+/vrm/*.part
+
+# Converted ThreeWave content is local/server-only.
+**/threewave_*.bsp
+**/ctf2m*.bsp
+
+/Builds/

@@ -8,7 +8,7 @@ func run():
 	var g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.set_physics_process(false)
 	for row in g.map_catalog:
 		g._load_map(row.id);g.match_mode.kind="ctf";g.match_mode.reset()
-		var region:=NavigationRegion3D.new();g.add_child(region);region.navigation_mesh=load("res://deathmatch/maps/navigation/"+row.id+".res")
+		var region:=NavigationRegion3D.new();g.add_child(region);region.navigation_mesh=load("res://maps/navigation/"+row.id+".res")
 		for i in range(10):await physics_frame
 		var nav: RID=region.get_navigation_map()
 		for attempt in range(60):

@@ -35,14 +35,17 @@ func configure(arena: Node, root: Node3D) -> void:
 			node.visible=false
 			if node is CollisionObject3D: node.collision_layer=0
 			continue
-		if kind=="info_player_deathmatch":
+		if kind in ["info_player_deathmatch","info_player_team1","info_player_team2"]:
 			game.spawn_points.append(node.global_position-Vector3.UP*.70)
 			game.spawn_yaws.append(deg_to_rad(float(e.get("angle",0))))
+			if kind!="info_player_deathmatch":game.ctf_spawns[0 if kind=="info_player_team1" else 1].append(game.spawn_points.back())
 		elif kind=="info_teleport_destination":
 			destinations[e.get("targetname","")] = {"position":node.global_position-Vector3.UP*.70,"yaw":deg_to_rad(float(e.get("angle",0)))}
+		elif kind in ["item_flag_team1","item_flag_team2"]:
+			game.map_objectives["red" if kind=="item_flag_team1" else "blue"]=node.global_position-Vector3.UP*.70
 		elif kind.begins_with("weapon_") or kind.begins_with("item_"): add_pickup(e,node.global_position)
 		elif kind.begins_with("light") and not game.headless: add_light(e,node.global_position)
-		elif kind=="func_door":
+		elif kind in ["func_door","func_door_secret"]:
 			var b := node_bounds(node)
 			var angle := float(e.get("angle",0))
 			var direction := Vector3.UP if angle==-1 else Vector3.DOWN if angle==-2 else Vector3(-sin(deg_to_rad(angle)),0,-cos(deg_to_rad(angle)))
@@ -120,7 +123,7 @@ func _physics_process(_delta: float) -> void:
 		for actor in region.area.get_overlapping_bodies():
 			if not "peer_id" in actor or not game.players.has(actor.peer_id): continue
 			var id: int=actor.peer_id
-			if game.players[id].dead: continue
+			if game.players[id].dead or game.match_mode.special.blocked(id): continue
 			if region.kind=="water": actor.in_water=true
 			if not multiplayer.is_server(): continue
 			if region.kind=="trigger_teleport" and game.clock>=teleport_until.get(id,0):

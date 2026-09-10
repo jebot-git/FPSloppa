@@ -1,3 +1,7 @@
+## 0.4v installation change
+
+APKs no longer contain maps or VRMs. Use the ASSETS menu downloader or install the separate Base-Assets ZIP as described in [external assets](docs/EXTERNAL-ASSETS.md). The owner confirmed 0.3v on Quest 3; 0.4v needs hardware retesting and Pico 4 remains untested.
+
 # Quest / Pico standalone builds
 
 Separate ARM64 release-runtime APKs can be built with Godot 4.7.2 and official Godot OpenXR Vendors 5.1.0 (Meta for Quest, Pico for Pico). They use the Vulkan Mobile renderer, mobile textures, Internet and microphone permissions, and a persistent local development signing key. These are experimental sideload builds, not store releases.

@@ -7,7 +7,7 @@ func run():
 	for row in rows:
 		game._load_map(row.id);await physics_frame;await physics_frame
 		var region:=NavigationRegion3D.new();game.add_child(region)
-		region.navigation_mesh=load("res://deathmatch/maps/navigation/"+row.id+".res")
+		region.navigation_mesh=load("res://maps/navigation/"+row.id+".res")
 		var nav_map: RID=region.get_navigation_map()
 		for attempt in range(10):await physics_frame
 		var best:=-1.0;var bases: Array=[];var route:=PackedVector3Array()

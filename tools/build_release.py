@@ -21,6 +21,11 @@ if '--exports-only' in sys.argv:raise SystemExit(0)
 
 for _,folder,_ in targets:
     dest=builds/folder
+    asset_manifest=json.loads((root/"deathmatch/assets/base_manifest.json").read_text())
+    for row in asset_manifest["files"]:
+        source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,destination)
+    for source in (root/'docs').glob('*.md'):
+        out=dest/'docs'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
     for name in ['EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','LIVE_VR_TEST.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         shutil.copy2(root/name,dest/name)
     for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio/recorded').rglob('*'))+list((root/'deathmatch/audio/music').rglob('*'))+list((root/'deathmatch/ui').rglob('*')):
@@ -45,7 +50,9 @@ for folder,name in [('Linux','Entryway-Linux.zip'),('Windows','Entryway-Windows.
     archive=root.parent/name
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         for f in sorted((builds/folder).rglob('*')):
-            if f.is_file():z.write(f,Path('Entryway-'+folder)/f.relative_to(builds/folder))
+            rel=f.relative_to(builds/folder)
+            if rel.parts[0] in {'maps','vrm'} and rel.as_posix() not in {row['path'] for row in asset_manifest['files']}:continue
+            if f.is_file():z.write(f,Path('Entryway-'+folder)/rel)
     archives.append(archive)
 archive=root.parent/'Entryway-Deathmatch.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:

@@ -1,5 +1,7 @@
 extends CharacterBody3D
 const Art = preload("res://deathmatch/art.gd")
+var frozen:=false
+var ice: MeshInstance3D
 var gibbed:=false
 var spectator:=false
 var xr_pose: Dictionary={}
@@ -113,7 +115,7 @@ func show_alive(alive: bool, is_local: bool) -> void:
 	if avatar:
 		if not avatar_hash.is_empty():
 			avatar.dead = not alive
-			avatar.process_mode = Node.PROCESS_MODE_DISABLED if is_local and not local_body_visible else Node.PROCESS_MODE_INHERIT
+			avatar.process_mode = Node.PROCESS_MODE_DISABLED if frozen or is_local and not local_body_visible else Node.PROCESS_MODE_INHERIT
 			avatar.set_first_person(is_local and local_body_visible)
 		avatar.visible = alive and (not is_local or local_body_visible)
 	if label: label.visible = alive and not is_local
@@ -136,10 +138,21 @@ func set_local_body(value: bool) -> void:
 
 func _process(_delta: float) -> void:
 	view_offset*=exp(-18.0*_delta)
-	if not avatar or avatar_hash.is_empty(): return
+	if frozen or not avatar or avatar_hash.is_empty(): return
 	avatar.target_xr_pose=xr_pose
 	avatar.speed = Vector2(visual_velocity.x,visual_velocity.z).length()
 	avatar.movement = basis.inverse()*visual_velocity
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)
 	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<2.5)
+
+func set_frozen(value: bool, progress: float=0.0) -> void:
+	if frozen!=value:
+		frozen=value
+		show_alive(alive_state,local_player)
+	if value and not is_instance_valid(ice):
+		ice=MeshInstance3D.new();var shape:=CapsuleMesh.new();shape.radius=.4;shape.height=1.85;ice.mesh=shape;ice.position.y=.9
+		var mat:=Art.material(Color(.35,.8,1,.35),.2,.3);mat.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;ice.material_override=mat
+		ice.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(ice)
+	if is_instance_valid(ice):ice.visible=value and not local_player
+	if is_instance_valid(ice):ice.scale=Vector3.ONE*(1.0-.04*progress/3.0)

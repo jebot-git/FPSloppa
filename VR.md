@@ -1,3 +1,7 @@
+## 0.4v controls
+
+Open **VR CONTROLS…** to mirror movement/turn sticks and their action buttons independently of weapon handedness. Seated mode translates headset height to standing eye level without scaling weapon reach; body tracking temporarily suspends that compensation. Recenter after changing seats.
+
 # Arena VR
 
 This is a PC OpenXR VR FPS built with Godot 4.7.2 and Godot XR Tools 4.5.1. Start your OpenXR runtime and headset, then run `./run-vr.sh`. Use `./run-desktop.sh` for desktop play; both modes can join the same server. Set `GODOT_BIN` if the launcher cannot locate Godot. PC executable ZIPs and an optional dedicated-server ZIP are now supplied alongside the source project. Experimental Quest/Pico sideload APKs are supplied; see [STANDALONE.md](STANDALONE.md).

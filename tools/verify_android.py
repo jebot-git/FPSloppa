@@ -49,14 +49,15 @@ for target in ['Quest', 'Pico']:
         for group, key in [('deathmatch/maps/manifest.json', 'sha256'), ('deathmatch/avatars/models/manifest.json', 'hash')]:
             for entry in json.loads((root / group).read_text()):
                 path = entry['path'].removeprefix('res://')
-                assert hashlib.sha256(z.read('assets/' + path)).hexdigest() == entry[key], path
+                assert 'assets/'+path not in z.namelist(), ('Map/VRM unexpectedly bundled',path)
+                assert hashlib.sha256((root/path).read_bytes()).hexdigest()==entry[key],path
                 checked.append(path)
         assert not any(n.startswith('assets/entryway/') or n=='assets/deathmatch/arena.glb' for n in z.namelist())
         for entry in json.loads((root/'deathmatch/maps/manifest.json').read_text()):
-            assert 'assets/deathmatch/maps/navigation/'+entry['id']+'.res' in z.namelist()
+            assert not any(n.startswith('assets/maps/') or n.startswith('assets/vrm/') for n in z.namelist())
         assert 'assets/deathmatch/avatars/eyes.gd' in z.namelist()
         assert protocol.encode() in z.read('assets/deathmatch/arena.gd')
-        for script in ['arena.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
+        for script in ['arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
             path = 'deathmatch/' + script
             assert z.read('assets/' + path) == (root / path).read_bytes(), ('Outdated APK script', target, path)
         audio_files=list((root/'deathmatch/audio/music').glob('*.ogg'))

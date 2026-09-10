@@ -11,6 +11,7 @@ func run() -> void:
 	root.add_child(library)
 	check(library.entries.size()>=3,"three bundled VRMs")
 	for path in OS.get_cmdline_user_args():
+		if not path.to_lower().ends_with(".vrm"):continue
 		check(not library.register_file(path,false).is_empty(),"additional VRM fixture")
 	for hash in library.entries:
 		var entry: Dictionary = library.entries[hash]

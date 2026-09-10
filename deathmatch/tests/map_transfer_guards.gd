@@ -21,7 +21,7 @@ func run() -> void:
 	service.incoming={"hash":hash,"size":124,"offset":0,"file":file,"path":path}
 	service._chunk(hash,1,PackedByteArray([1,2]))
 	check(service.incoming.is_empty() and not FileAccess.file_exists(path),"Out-of-order chunk cancels and removes partial file")
-	var data:=FileAccess.get_file_as_bytes("res://deathmatch/maps/raw/lqdm1.bsp")
+	var data:=FileAccess.get_file_as_bytes("res://maps/lqdm1.bsp")
 	var texture_offset:=data.decode_u32(20)
 	data.encode_u32(texture_offset,1000000)
 	file=FileAccess.open(path,FileAccess.WRITE)

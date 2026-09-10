@@ -7,9 +7,9 @@ func check(value: bool,label: String) -> void:
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	check(not Maps.validate("res://project.godot").is_empty(),"Non-BSP file rejected")
-	var row=Maps.import_custom("res://deathmatch/maps/raw/lqdm1.bsp")
+	var row=Maps.import_custom("res://maps/lqdm1.bsp")
 	check(row.get("id","")=="lqdm1","Bundled BSP deduplicates by content hash")
-	var bytes=FileAccess.get_file_as_bytes("res://deathmatch/maps/raw/lqdm2.bsp")
+	var bytes=FileAccess.get_file_as_bytes("res://maps/lqdm2.bsp")
 	bytes.append_array(" custom import test".to_utf8_buffer())
 	var path="user://test_custom.bsp"
 	var file=FileAccess.open(path,FileAccess.WRITE)

@@ -25,7 +25,7 @@ func run() -> void:
 		game.start_join(role,"127.0.0.1",27779)
 		check(await wait_for(func(): return game.active,45),"Automatic BSP download and load completed")
 		check(game.map_sha==hash,"Downloaded BSP SHA256 agrees with host")
-		check(FileAccess.file_exists("user://maps/custom_"+hash+".bsp"),"Raw map cached for future joins")
+		check(FileAccess.file_exists(preload("res://deathmatch/assets/paths.gd").folder("maps")+"custom_"+hash+".bsp"),"Raw map cached for future joins")
 		if game.active:
 			game.set_physics_process(false)
 			var cmd: Dictionary=game._local_command()

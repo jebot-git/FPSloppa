@@ -1,0 +1,457 @@
+{
+  "engine": "4.7.2-stable (official)",
+  "failures": [],
+  "maps": [
+    {
+      "collision_shapes": 35,
+      "invalid_triangles": 0,
+      "map": "lqdm9",
+      "meshes": 51,
+      "spawn_checks": [
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -6.5,
+            2.04999995231628,
+            -17.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            27.5,
+            0.550000011920929,
+            -4.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -17.0,
+            0.050000011920929,
+            -13.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            18.0,
+            0.050000011920929,
+            -14.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -6.0,
+            6.05000019073486,
+            -40.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -6.0,
+            0.050000011920929,
+            -57.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            27.0,
+            0.550000011920929,
+            -29.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -21.0,
+            -4.94999980926514,
+            -29.0
+          ]
+        }
+      ],
+      "teleports": 1,
+      "triangles": 14978,
+      "validation": ""
+    },
+    {
+      "collision_shapes": 25,
+      "invalid_triangles": 0,
+      "map": "lqdm10",
+      "meshes": 221,
+      "spawn_checks": [
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            17.0,
+            0.050000011920929,
+            5.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            13.0,
+            6.05000019073486,
+            19.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            26.5,
+            10.0500001907349,
+            -14.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -7.0,
+            12.0500001907349,
+            -28.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -11.0,
+            2.04999995231628,
+            3.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -7.0,
+            6.05000019073486,
+            -13.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            29.0,
+            10.0500001907349,
+            21.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            14.0,
+            6.05000019073486,
+            -4.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            36.5,
+            1.04999995231628,
+            15.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            0.5,
+            0.050000011920929,
+            11.5
+          ]
+        }
+      ],
+      "teleports": 0,
+      "triangles": 14250,
+      "validation": ""
+    },
+    {
+      "collision_shapes": 4,
+      "invalid_triangles": 0,
+      "map": "lqdm11",
+      "meshes": 8,
+      "spawn_checks": [
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            25.0,
+            13.0500001907349,
+            -20.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -33.0,
+            9.05000019073486,
+            -22.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -18.0,
+            12.0500001907349,
+            27.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            16.0,
+            6.05000019073486,
+            23.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -26.0,
+            6.05000019073486,
+            25.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -8.0,
+            13.0500001907349,
+            -17.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            21.0,
+            9.05000019073486,
+            8.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -13.0,
+            6.05000019073486,
+            -9.0
+          ]
+        }
+      ],
+      "teleports": 1,
+      "triangles": 4938,
+      "validation": ""
+    },
+    {
+      "collision_shapes": 43,
+      "invalid_triangles": 0,
+      "map": "lqdm12",
+      "meshes": 87,
+      "spawn_checks": [
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -0.5,
+            6.05000019073486,
+            -23.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -10.0,
+            6.05000019073486,
+            10.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -10.0,
+            0.050000011920929,
+            28.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -3.0,
+            6.05000019073486,
+            28.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            33.0,
+            6.05000019073486,
+            -11.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            19.0,
+            6.05000019073486,
+            -23.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            21.0,
+            12.0500001907349,
+            -11.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            5.0,
+            12.0500001907349,
+            5.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -9.5,
+            12.0500001907349,
+            2.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -11.5,
+            6.05000019073486,
+            19.5
+          ]
+        }
+      ],
+      "teleports": 2,
+      "triangles": 6268,
+      "validation": ""
+    },
+    {
+      "collision_shapes": 25,
+      "invalid_triangles": 0,
+      "map": "lqdm13",
+      "meshes": 60,
+      "spawn_checks": [
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -35.5,
+            4.05000019073486,
+            -3.5
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            17.0,
+            6.05000019073486,
+            -7.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            -2.0,
+            12.0500001907349,
+            -16.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            16.0,
+            12.0500001907349,
+            -16.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            4.0,
+            12.0500001907349,
+            11.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            15.0,
+            6.05000019073486,
+            3.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            9.0,
+            0.050000011920929,
+            9.0
+          ]
+        },
+        {
+          "blocked": false,
+          "floor": true,
+          "position": [
+            20.0,
+            6.05000019073486,
+            -3.0
+          ]
+        }
+      ],
+      "teleports": 1,
+      "triangles": 21933,
+      "validation": ""
+    }
+  ]
+}

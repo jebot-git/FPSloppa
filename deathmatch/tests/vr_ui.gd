@@ -141,7 +141,7 @@ func run() -> void:
 	settings.hide()
 	var turn_button: Button
 	for button in g.hud.vr_actions.get_children():
-		if button.text=="TURN SETTINGS…":turn_button=button
+		if button.text=="VR CONTROLS…":turn_button=button
 	point_at(pointer,rig.panel,turn_button.get_global_transform_with_canvas()*(turn_button.size*.5));click(pointer)
 	await process_frame;await process_frame
 	check(rig.turn_panel.visible,"Controller opens turn settings inside VR menu")
@@ -151,6 +151,11 @@ func run() -> void:
 	check(rig.turn_speed==150 and rig.snap_angle==35 and not rig.smooth_turn,"Controller configures turn speed, snap angle and mode")
 	var turn_settings=preload("res://deathmatch/vr/preferences.gd").read_settings()
 	check(turn_settings.turn_speed==150 and turn_settings.snap_angle==35 and not turn_settings.smooth_turn,"Turn preferences persist in client config")
+	for button in [rig.turn_panel.controls,rig.turn_panel.seat]:
+		point_at(pointer,rig.panel,button.get_global_transform_with_canvas()*(button.size*.5));click(pointer)
+	check(rig.left_controls and rig.seated,"Controller enables mirrored controls and seated mode")
+	check(rig.turn_panel.size.y<=640,"Expanded VR controls fit headset canvas")
+	rig.left_controls=false;rig.seated=false
 	rig.turn_panel.hide()
 	g.active=true;g.menu_open=false
 	rig._process(0)

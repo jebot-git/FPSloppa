@@ -46,6 +46,7 @@ func run() -> void:
 	game.players[1].xr=Poses.neutral()
 	game.players[1].xr.right.origin=Vector3(.3,1.45,0)
 	game.players[1].xr.weapon=Transform3D(Basis(Vector3.UP,-PI/2),Vector3(.3,1.45,0))
+	game.players[1].cooldown=0 # This aim test starts after the spawn weapon delay.
 	game._fire(1)
 	check(game.players[-1].hp<100 and game.players[1].ammo[0]==49,"Authoritative VR shot uses hand aim, not body facing")
 	var wall:=StaticBody3D.new()

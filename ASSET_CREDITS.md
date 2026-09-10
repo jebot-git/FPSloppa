@@ -1,3 +1,7 @@
+## 0.4v additions
+
+The railgun uses `afps_8.glb`, the existing sniper mesh from drummyfish’s CC0 [Oldschool AFPS Weapons](https://opengameart.org/content/oldschool-afps-weapons). `tools/generate_rail_sound.py` generates the original rail effect. Optional LibreQuake maps retain upstream licenses, author readmes and texture provenance in `optional-map-pack/`. The ThreeWave tools contain only the converter and BSD LibreQuake texture donors; no ThreeWave BSPs are published. See `optional-threewave-tools/RIGHTS.md`.
+
 # Asset credits
 
 This is an independent arena shooter with Doom-inspired weapon behavior. The previous Entryway reconstruction, its map references and its environment assets have been removed from the game. Fallback marine geometry, HUD and game code were authored for this project.

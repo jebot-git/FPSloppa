@@ -62,8 +62,8 @@ func _request(hash: String) -> void:
 func _begin(hash: String,size: int) -> void:
 	if size<124 or size>MAX_BYTES: return
 	if expected.get("hash","")!=hash or expected.get("size",0)!=size or not incoming.is_empty(): return
-	DirAccess.make_dir_recursive_absolute("user://maps")
-	var path:="user://maps/"+hash+".download"
+	DirAccess.make_dir_recursive_absolute(Loader.Paths.folder("maps"))
+	var path:=Loader.Paths.folder("maps")+hash+".download"
 	var file:=FileAccess.open(path,FileAccess.WRITE)
 	if not file: game.disconnect_game("Cannot write downloaded map."); return
 	incoming={"hash":hash,"size":size,"file":file,"path":path,"offset":0,"time":Time.get_ticks_msec()}

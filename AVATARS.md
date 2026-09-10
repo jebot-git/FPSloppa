@@ -1,3 +1,7 @@
+## 0.4v avatar storage
+
+Default and imported VRMs now live in external `vrm/`. Dedicated servers persist received models there across restarts. The per-model limit remains 25 MiB. See [external assets](docs/EXTERNAL-ASSETS.md).
+
 # VRM player models
 
 Requires Godot 4.7 or newer. The supplied V-Sekai Godot-VRM 2.0.1 and MToon plugins are enabled in the portable project.

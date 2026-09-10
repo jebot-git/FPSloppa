@@ -4,7 +4,7 @@ PROJECT=Path(__file__).resolve().parents[1]
 SOURCE=PROJECT.parent/"WeaponSource"
 from mathutils import Vector, Quaternion
 bpy.ops.object.select_all(action='SELECT');bpy.ops.object.delete(use_global=False)
-bpy.ops.import_scene.gltf(filepath=str(PROJECT/'deathmatch/avatars/models/sample_d.vrm'))
+bpy.ops.import_scene.gltf(filepath=str(PROJECT/'vrm/sample_d.vrm'))
 rig=next(o for o in bpy.context.scene.objects if o.type=='ARMATURE')
 print('HAND_BONES',[b.name for b in rig.data.bones if '_R_' in b.name and any(n in b.name for n in ['Hand','Thumb','Index','Middle','Ring','Little'])])
 for b in rig.pose.bones:

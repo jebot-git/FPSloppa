@@ -6,7 +6,7 @@ const Fighter = preload("res://deathmatch/fighter.gd")
 const Interface = preload("res://deathmatch/interface.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
-const PROTOCOL := "entryway-13-team-modes"
+const PROTOCOL := "entryway-14-special-modes"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -16,6 +16,11 @@ var map_catalog: Array = Maps.catalog()
 var selected_map := "lqdm1"
 var current_map := ""
 var map_rotation: Array=[]
+var mode_maplists: Dictionary={}
+var map_objectives: Dictionary={}
+var ctf_spawns: Array=[[],[]]
+var map_uploads:=true
+var uploads: Node
 var rotation_index:=0
 var map_epoch:=0
 var map_loading:=false
@@ -125,6 +130,7 @@ func _ready() -> void:
 	map_network.name="MapNetwork"
 	add_child(map_network)
 	map_network.setup(self)
+	uploads=preload("res://deathmatch/maps/uploads.gd").new();uploads.name="MapUploads";add_child(uploads);uploads.setup(self)
 	effects=preload("res://deathmatch/effects/combat.gd").new()
 	effects.name="CombatEffects"
 	add_child(effects)
@@ -154,6 +160,11 @@ func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
 	if args.has("--frame-stats") and not headless: add_child(preload("res://deathmatch/performance/frame_stats.gd").new())
 	selected_map = _arg_value(args,"--map",selected_map)
+	if args.has("--import-map"):
+		var imported: Dictionary=Maps.import_custom(_arg_value(args,"--import-map",""))
+		print("MAP_IMPORT_RESULT ",JSON.stringify(imported))
+		get_tree().quit(1 if imported.has("error") else 0)
+		return
 	if args.has("--check-assets"):
 		var result: int=await preload("res://deathmatch/diagnostics.gd").check_assets(self)
 		get_tree().quit(result)
@@ -161,7 +172,7 @@ func _ready() -> void:
 	if args.has("--server") or OS.has_feature("dedicated_server"):
 		_start_dedicated(args)
 	elif args.has("--practice"):
-		start_host(nickname,0,20,10,true)
+		start_host(nickname,0,20,10,true,_arg_value(args,"--mode","dm"))
 	elif args.has("--connect"):
 		start_join(nickname,_arg_value(args,"--connect","127.0.0.1"),_arg_int(args,"--port",7777),args.has("--spectate"))
 
@@ -182,12 +193,25 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	max_clients=settings.sv_maxclients
 	voice_backend=settings.sv_voice_backend if settings.sv_voice==1 else "builtin";mumble_url=settings.sv_mumble_url if settings.sv_voice==1 else ""
 	voice_enabled=settings.sv_voice==1 and voice_backend=="builtin"
+	map_uploads=settings.sv_map_uploads==1
 	match_mode.configure(settings)
 	votes.enabled=settings.sv_votes==1;votes.allowed_modes=settings.gametypes
-	map_rotation=settings.maps.duplicate()
+	mode_maplists=settings.mode_maps.duplicate(true)
+	for kind in match_mode.NAMES:
+		var list_path: String=Maps.Paths.folder("maps")+kind+"_maplist.txt"
+		if mode_maplists[kind].is_empty() and FileAccess.file_exists(list_path):
+			for line in FileAccess.get_file_as_string(list_path).split("\n"):
+				for name in line.split("#")[0].replace("\t"," ").strip_edges().split(" ",false):
+					mode_maplists[kind].append(name)
+		if mode_maplists[kind].is_empty():mode_maplists[kind]=settings.maps.duplicate()
+		if mode_maplists[kind].size()>32:push_error(kind+" maplist exceeds 32 maps");get_tree().quit(2);return
+		if kind in votes.allowed_modes:
+			for map_id in mode_maplists[kind]:
+				if not map_catalog.any(func(row):return row.id==map_id):push_error("Unknown map in "+kind+"_maplist: "+str(map_id));get_tree().quit(2);return
+	map_rotation=mode_maplists[match_mode.kind].duplicate()
 	if args.has("--map"): map_rotation=[_arg_value(args,"--map",settings.map)]
 	for map_id in map_rotation:
-		if not map_catalog.any(func(row): return row.id==map_id and ResourceLoader.exists(row.scene)):
+		if not map_catalog.any(func(row): return row.id==map_id and FileAccess.file_exists(row.path)):
 			push_error("Unknown or unavailable map in rotation: "+str(map_id));get_tree().quit(2);return
 	rotation_index=0
 	selected_map=map_rotation[0]
@@ -244,9 +268,9 @@ func _pickup_art(p: Dictionary) -> Node3D:
 	root.add_child(label)
 	return root
 
-func start_host(player_name: String,port: int,frags: int,minutes: int,training: bool) -> void:
+func start_host(player_name: String,port: int,frags: int,minutes: int,training: bool, mode: String="dm") -> void:
 	if active: return
-	if not dedicated: match_mode.configure({});votes.enabled=true;votes.allowed_modes=["dm"];voice_backend="builtin";mumble_url="";voice_enabled=true
+	if not dedicated: match_mode.configure({"sv_gametype":mode if match_mode.NAMES.has(mode) else "dm","capturelimit":clampi(frags,1,100),"hilllimit":clampi(frags,1,100)});votes.enabled=true;votes.allowed_modes=match_mode.NAMES.keys();voice_backend="builtin";mumble_url="";voice_enabled=true
 	max_clients=clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else MAX_PLAYERS
 	if not _load_map(selected_map):
 		status("Could not load the selected map.")
@@ -270,7 +294,7 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 	round_message = ""
 	history.clear()
 	for pickup in pickups:
-		pickup.available = true
+		pickup.available = not match_mode.kind in ["ig","cc"]
 		pickup.respawn = 0
 	for gate in gates:
 		gate.open = false
@@ -463,7 +487,8 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	avatars.reset()
 	voice.reset()
 	map_network.reset()
-	map_epoch=0;map_loading=false;map_rotation.clear();rotation_index=0
+	if uploads:uploads.reset()
+	map_epoch=0;map_loading=false;map_rotation.clear();mode_maplists.clear();rotation_index=0
 	effects.clear()
 	connect_deadline = 0
 	multiplayer.multiplayer_peer = OfflineMultiplayerPeer.new()
@@ -527,8 +552,10 @@ func _spawn(id: int) -> void:
 	fighters[id].reset_view()
 	fighters[id].gibbed=false
 	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":clock+1.5,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
+	match_mode.special.spawn(id)
 	if not spawn_yaws.is_empty(): state.yaw = spawn_yaws[spawn_points.find(best)]
 	if id==multiplayer.get_unique_id():
+		desired_weapon=state.weapon
 		local_yaw = state.yaw
 		local_pitch = 0.0
 	state.xr={}
@@ -595,6 +622,9 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	server_log.count("input_accepted")
 	s.last_seq = command.seq
 	s.last_input = clock
+	if match_mode.special.blocked(id):
+		s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.fire=false;s.offhand_fire=false;s.melee=false;s.jump=false
+		return
 	s.move = command.move.limit_length(1.0)
 	s.fly=preload("res://deathmatch/vr/preferences.gd").bounded(command.get("fly",0.0),-1,1,0)
 	s.yaw = wrapf(command.yaw,-PI,PI)
@@ -635,7 +665,7 @@ func _physics_process(delta: float) -> void:
 				_input_command.rpc_id(1,command)
 			if players[mine].spectator and intermission<=0:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
-			if not players[mine].dead and intermission<=0:
+			if not players[mine].dead and not match_mode.special.blocked(mine) and intermission<=0:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed:=5.2 if command.slow else 9.4
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false))
@@ -647,7 +677,7 @@ func _physics_process(delta: float) -> void:
 				var pressed: bool=command.get("offhand_fire",false) if offhand else command.fire
 				var weapon: int=players[mine].weapon
 				var ready: bool=(offhand_visual_cooldown if offhand else visual_cooldown)<=0
-				if headless or not pressed or players[mine].dead or intermission>0 or not ready or not W.can_fire(weapon,players[mine].ammo): continue
+				if headless or not pressed or players[mine].dead or match_mode.special.blocked(mine) or intermission>0 or not ready or not W.can_fire(weapon,players[mine].ammo): continue
 				if offhand and weapon!=2: continue
 				if weapon==2 and predicted_bullets<=0: continue
 				if offhand: predicted_offhand_shot_clock=clock
@@ -712,6 +742,7 @@ func _server_tick(delta: float) -> void:
 			if clock-s.last_input>.35:s.move=Vector2.ZERO;s.fly=0.0
 			_move_spectator(id,s.move,s.fly,s.yaw,s.slow,delta)
 			continue
+		if match_mode.special.blocked(id):continue
 		if s.dead:
 			if clock>=s.respawn_at and (s.want_respawn or clock>s.respawn_at+3 or id<0): _spawn(id)
 			continue
@@ -757,6 +788,7 @@ func _server_tick(delta: float) -> void:
 				_gate_state.rpc(gates.find(gate),false)
 
 func _collect(id: int) -> void:
+	if match_mode.kind in ["ig","cc"] or match_mode.special.blocked(id):return
 	var s: Dictionary = players[id]
 	if s.spectator:return
 	for p in pickups:
@@ -799,10 +831,11 @@ func _collect(id: int) -> void:
 			_pickup_event.rpc(id,p.kind,p.item,s.weapon)
 
 func _respawn_pickups() -> void:
+	if match_mode.kind in ["ig","cc"]:return
 	if not multiplayer.is_server():return
 	for pickup in pickups:
 		if not pickup.available and clock>=pickup.respawn:
-			pickup.available = true
+			pickup.available = not match_mode.kind in ["ig","cc"]
 			if powerful_pickup(pickup.kind,pickup.item):_power_spawn.rpc(pickup.position)
 
 static func powerful_pickup(kind: String,item: int) -> bool:
@@ -825,10 +858,12 @@ func _pickup_event(id: int,kind: String,item: int,weapon: int) -> void:
 		if hud: hud.toast(last_event)
 
 func _update_melee(id: int) -> void:
+	if match_mode.kind in ["ig","cc"] or match_mode.special.blocked(id):return
 	_update_melee_hand(id,false)
 	_update_melee_hand(id,true)
 
 func _update_melee_hand(id: int,offhand: bool) -> void:
+	if match_mode.kind in ["ig","cc"] or match_mode.special.blocked(id):return
 	var s: Dictionary=players[id]
 	var state: Dictionary=s.offhand_melee_state if offhand else s.melee_state
 	var other: Dictionary=s.melee_state if offhand else s.offhand_melee_state
@@ -876,6 +911,7 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 		return
 
 func _fire(id: int, offhand: bool=false) -> void:
+	if match_mode.special.blocked(id):return
 	if not multiplayer.is_server() or not players.has(id) or players[id].dead or intermission>0: return
 	if offhand and (players[id].weapon!=2 or (players[id].vr_device and not players[id].xr.has("offhand_weapon"))): return
 	if _weapon_blocked(id,offhand): return
@@ -898,11 +934,28 @@ func _fire(id: int, offhand: bool=false) -> void:
 	_shot_fx.rpc(id,w,offhand)
 	if w==8:
 		s.charge = d.charge
-	elif w>=6:
+	elif w>=6 and w<=8:
 		_launch(id,w)
 	else:
 		var start: Vector3 = _shot_origin(id,offhand)
 		var endpoints := PackedVector3Array()
+		if w==9:
+			var end: Vector3=start-_weapon_transform(id).basis.z*d.range
+			var wall:=HitDetection.world_fraction(get_world_3d().direct_space_state,start,end,0.0)
+			end=start.lerp(end,minf(1.0,wall))
+			var rewound: Dictionary={}
+			var rewind:=minf(s.ping/2000.0,.2)
+			if rewind>0.0:
+				for sample in history:
+					if sample.time<=clock-rewind:rewound=sample.positions
+			for target in players:
+				if target==id or players[target].dead or players[target].spectator:continue
+				var target_pos: Vector3=rewound.get(target,fighters[target].position)
+				var fraction:=HitDetection.capsule_fraction(start-target_pos,end-target_pos,HitDetection.PLAYER_RADIUS)
+				if fraction<=1.0:_damage(target,id,10000,"RAILGUN",false,start.lerp(end,fraction),(end-start).normalized())
+			_impacts.rpc(start,PackedVector3Array([end]),w)
+			s.held=true
+			return
 		for pellet in range(d.pellets):
 			var spread: float = 0.0 if (w==2 or w==5) and not (s.offhand_held if offhand else s.held) else d.spread
 			var yaw: float = s.yaw+deg_to_rad((randf()-randf())*spread)
@@ -1017,12 +1070,18 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float) -> void:
 func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: bool = false,impact: Vector3=Vector3.INF,direction: Vector3=Vector3.ZERO) -> void:
 	if not multiplayer.is_server() or not players.has(victim): return
 	var s: Dictionary = players[victim]
-	if s.spectator or s.dead or intermission>0 or (s.invulnerable>clock and not bypass): return
+	if s.spectator or s.dead or match_mode.special.blocked(victim) or intermission>0 or (s.invulnerable>clock and not bypass): return
 	if attacker!=victim and match_mode.same_team(victim,attacker) and not match_mode.friendly_fire: return
-	var damage := W.armor_damage(amount,s.armor,s.tier)
+	var damage := Vector2i(amount,s.armor) if match_mode.kind=="ig" or weapon_name=="CIRCUS HUNGER" else W.armor_damage(amount,s.armor,s.tier)
 	var old_hp: int=s.hp
 	s.hp = maxi(0,s.hp-damage.x)
 	s.armor = damage.y
+	match_mode.special.heal(attacker,victim,old_hp-s.hp,weapon_name)
+	if s.hp==0 and match_mode.kind=="ft" and not bypass:
+		if attacker!=victim and players.has(attacker):_hit_confirm.rpc(attacker)
+		_hurt_fx.rpc(victim,fighters[victim].position+Vector3.UP,direction,damage.x,false,false,randi())
+		match_mode.special.freeze(victim,attacker)
+		return
 	if attacker!=victim and players.has(attacker): _hit_confirm.rpc(attacker)
 	if not impact.is_finite(): impact=fighters[victim].position+Vector3.UP
 	if direction.length()<.1 and fighters.has(attacker): direction=(fighters[victim].position-fighters[attacker].position).normalized()
@@ -1070,7 +1129,7 @@ func _restart_round() -> void:
 		players[id].kills = 0
 		players[id].deaths = 0
 		_spawn(id)
-	for p in pickups: p.available = true
+	for p in pickups: p.available = not match_mode.kind in ["ig","cc"]
 	for id in projectiles.keys(): _projectile_end.rpc(id,projectiles[id].position,7)
 	history.clear()
 	_announcement.rpc("New round · "+match_mode.status())
@@ -1148,7 +1207,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			last_local_hp = s.hp
 	for i in range(mini(items.size(),pickups.size())):
 		if not multiplayer.is_server(): pickups[i].available = items[i]==1
-		if is_instance_valid(pickups[i].node): pickups[i].node.visible = items[i]==1
+		if is_instance_valid(pickups[i].node): pickups[i].node.visible = items[i]==1 and not match_mode.kind in ["ig","cc"]
 	for shot in shots:
 		if multiplayer.is_server(): continue
 		if not projectiles.has(shot[0]): _projectile_spawn(shot[0],shot[2],shot[3],shot[1],shot[4],shot[5],shot[6])
@@ -1179,6 +1238,7 @@ func _use_request() -> void:
 	if multiplayer.is_server(): _use_for(multiplayer.get_remote_sender_id())
 
 func _use_for(id: int) -> void:
+	if match_mode.special.blocked(id):return
 	if not players.has(id) or players[id].dead or clock<players[id].use_at: return
 	players[id].use_at = clock+.5
 	for i in range(gates.size()):
@@ -1278,9 +1338,9 @@ func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
 				impact_budget-=1
 		var length := start.distance_to(end)
 		if length<.02: continue
-		var tracer := Art.box(self,(start+end)/2,Vector3(.013,.013,length),Art.material(W.COLORS[weapon],0,1))
+		var tracer := Art.box(self,(start+end)/2,Vector3(.035 if weapon==9 else .013,.035 if weapon==9 else .013,length),Art.material(W.COLORS[weapon],0,1))
 		tracer.look_at(end)
-		get_tree().create_timer(.055).timeout.connect(tracer.queue_free)
+		get_tree().create_timer(.3 if weapon==9 else .055).timeout.connect(tracer.queue_free)
 
 @rpc("authority","call_local","reliable",0)
 func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
@@ -1353,7 +1413,7 @@ func _load_map(map_id: String) -> bool:
 	for row in map_catalog:
 		if row.id==map_id: info=row; break
 	if info.is_empty(): return false
-	var scene: PackedScene=load(info.scene)
+	var scene: PackedScene=Maps.scene(info)
 	if not scene: return false
 	match_mode.clear_visuals()
 	for child in $Map.get_children(): child.free()
@@ -1362,6 +1422,7 @@ func _load_map(map_id: String) -> bool:
 	lifts.clear()
 	spawn_points.clear()
 	spawn_yaws.clear()
+	map_objectives.clear();ctf_spawns=[[],[]]
 	var level := scene.instantiate()
 	$Map.add_child(level)
 	current_map=map_id
@@ -1429,6 +1490,7 @@ func _clear_map_players() -> void:
 
 func _prepare_client_map(epoch: int) -> void:
 	map_network.reset()
+	if uploads:uploads.reset()
 	_clear_map_players()
 	map_epoch=epoch;map_loading=true
 	connect_deadline=clock+240
@@ -1446,6 +1508,7 @@ func _rotate_map(map_id: String) -> bool:
 	for id in players:
 		if id>1: names[id]=players[id].name;spectators[id]=players[id].spectator;pending_teams[id]=players[id].team
 	map_network.reset()
+	if uploads:uploads.reset()
 	_clear_map_players()
 	pending_names=names
 	pending_spectators=spectators

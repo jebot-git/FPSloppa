@@ -9,7 +9,7 @@ func run() -> void:
 		var data:=NavigationMeshSourceGeometryData3D.new()
 		NavigationServer3D.parse_source_geometry_data(mesh,data,level)
 		NavigationServer3D.bake_from_source_geometry_data(mesh,data)
-		var path: String="res://deathmatch/maps/navigation/"+row.id+".res"
+		var path: String="res://maps/navigation/"+row.id+".res"
 		if mesh.get_polygon_count()==0 or ResourceSaver.save(mesh,path)!=OK: quit(1);return
 		print("NAV_BAKED ",row.id," polygons=",mesh.get_polygon_count())
 		level.free()

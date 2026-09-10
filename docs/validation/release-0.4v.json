@@ -1,0 +1,188 @@
+{
+  "version": "0.4v",
+  "base_commit": "668da3f",
+  "hardware_testing": "Owner-confirmed 0.3v: Quest 3 standalone, Linux/WiVRn, Windows/SteamVR, Windows/Virtual Desktop. 0.4v not headset tested. Pico 4 untested.",
+  "gameplay_vr": [
+    {
+      "test": "special_modes",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "controls_seated",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "controller_tracking",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "combat",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "melee",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "dual_pistols",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "team_modes",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "votes",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "map_import",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "optional_maps",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "network-server",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "network-red",
+      "passed": true,
+      "exit": 0
+    },
+    {
+      "test": "network-blue",
+      "passed": true,
+      "exit": 0
+    }
+  ],
+  "map_upload_download": [
+    {
+      "role": "server",
+      "passed": true
+    },
+    {
+      "role": "uploader",
+      "passed": true
+    },
+    {
+      "role": "receiver",
+      "passed": true
+    }
+  ],
+  "avatar_upload_restart": {
+    "passed": true,
+    "sha256": "f6cf58428849bf41d7fa93f825fa08fcfa782666a4256e48ad3c836c7f977ebc",
+    "bytes": 14198748
+  },
+  "exported_linux_network": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "server_config": {
+    "passed": true,
+    "bad_config_exit": 2
+  },
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 122868064,
+      "sha256": "44529f9d091a0d8ea100ea4c9fa2612ce5ab78cc245f4969290cbdaaacb13ccb",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 122867784,
+      "sha256": "2151c32d3f68ad2ce58b340390d7900b60dad65b36b3e8002256e6030a160a40",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    }
+  ],
+  "pck": [
+    {
+      "target": "Linux",
+      "entries": 905,
+      "maps_and_vrms_excluded": true
+    },
+    {
+      "target": "Windows",
+      "entries": 905,
+      "maps_and_vrms_excluded": true
+    },
+    {
+      "target": "Server",
+      "entries": 905,
+      "maps_and_vrms_excluded": true
+    }
+  ],
+  "base_install": {
+    "passed": true,
+    "maps": 8,
+    "models": 3
+  },
+  "exported_assets": {
+    "passed": true
+  },
+  "local_threewave": {
+    "published_bsps": false,
+    "maps": 6,
+    "validation_failures": []
+  }
+}

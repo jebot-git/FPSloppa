@@ -1,3 +1,7 @@
+## 0.4v external storage and rotations
+
+See [external assets](docs/EXTERNAL-ASSETS.md) for persistent map/VRM directories, client BSP uploads, storage limits and separate `<tag>_maplist` settings. `sv_map_uploads 0` disables client BSP uploads. Use only matching 0.4v clients.
+
 # Dedicated server
 
 The optional **Entryway-Dedicated-Server-Linux.zip** contains a Linux x86-64 executable and its PCK. Godot installation, a display, GPU and audio hardware are not required. Keep the executable and PCK together. Unzip, edit `server.cfg`, then run:

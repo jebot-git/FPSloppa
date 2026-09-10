@@ -227,17 +227,23 @@ func _build_menu(root: Control) -> void:
 	bsp_dialog.filters=PackedStringArray(["*.bsp ; Quake I BSP map"])
 	add_child(bsp_dialog)
 	bsp_dialog.file_selected.connect(_import_bsp)
+	var assets_panel=preload("res://deathmatch/assets/panel.gd").new();get_child(0).add_child(assets_panel);assets_panel.setup(game)
+	button(map_row,"ASSETS…",assets_panel.open)
 	map_import=button(map_row,"IMPORT BSP…",func(): bsp_dialog.popup_centered_ratio(.8))
 	var rules := HBoxContainer.new()
 	rules.add_theme_constant_override("separation",10)
 	column.add_child(rules)
-	text(rules,"HOST RULES",14).custom_minimum_size.x = 100
+	var mode_choice:=OptionButton.new()
+	for kind in game.match_mode.NAMES:
+		mode_choice.add_item(kind.to_upper()+" · "+game.match_mode.NAMES[kind]);mode_choice.set_item_metadata(mode_choice.item_count-1,kind)
+	rules.add_child(mode_choice)
+	rules.move_child(mode_choice,0)
 	frags = SpinBox.new()
 	frags.min_value = 1
 	frags.max_value = 100
 	frags.value = 20
 	rules.add_child(frags)
-	text(rules,"frags",14)
+	text(rules,"limit",14)
 	minutes = SpinBox.new()
 	minutes.min_value = 1
 	minutes.max_value = 60
@@ -248,9 +254,9 @@ func _build_menu(root: Control) -> void:
 	column.add_child(spectator_choice)
 	var actions := HBoxContainer.new()
 	column.add_child(actions)
-	var host := button(actions,"HOST MATCH",func(): game.start_host(name_field.text,int(port_field.value),int(frags.value),int(minutes.value),false))
+	var host := button(actions,"HOST MATCH",func(): game.start_host(name_field.text,int(port_field.value),int(frags.value),int(minutes.value),false,str(mode_choice.get_selected_metadata())))
 	var join := button(actions,"JOIN MATCH",func(): game.start_join(name_field.text,address_field.text,int(port_field.value),spectator_choice.button_pressed))
-	var training := button(actions,"PRACTICE VS BOTS",func(): game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true))
+	var training := button(actions,"PRACTICE VS BOTS",func(): game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,str(mode_choice.get_selected_metadata())))
 	launch_buttons = [host,join,training]
 	resume = button(column,"RESUME",func():
 		game.menu_open = false
@@ -270,7 +276,7 @@ func _build_menu(root: Control) -> void:
 		if game.is_vr(): game.xr_rig.recenter())
 	button(vr_actions,"SWAP GUN HAND",func():
 		if game.is_vr(): game.xr_rig.left_handed=not game.xr_rig.left_handed)
-	button(vr_actions,"TURN SETTINGS…",func():
+	button(vr_actions,"VR CONTROLS…",func():
 		if game.is_vr(): game.xr_rig.turn_panel.open())
 	var tracking_actions:=HBoxContainer.new()
 	column.add_child(tracking_actions)
@@ -331,7 +337,7 @@ func toast(message: String) -> void:
 func _process(_delta: float) -> void:
 	if game==null: return
 	map_choice.disabled=game.active
-	map_import.disabled=game.active
+	map_import.disabled=game.active and multiplayer.is_server()
 	vr_actions.visible=game.is_vr()
 	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · LEFT Y/B Scores"
 	hud.visible = game.active
@@ -348,9 +354,9 @@ func _process(_delta: float) -> void:
 	var d: Dictionary = W.DATA[state.weapon]
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
-	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
+	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 else "MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS   ·   %d ms" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size(),game.local_ping]
-	if game.match_mode.team_game():
+	if game.match_mode.kind!="dm":
 		match_status.text=game.match_mode.status(game.multiplayer.get_unique_id()).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
 	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
 	if not vote.is_empty():match_status.text+="\nVOTE: "+vote.title+" · MENU → TEAMS & VOTES"
@@ -404,8 +410,10 @@ func _import_bsp(path: String) -> void:
 	for i in range(game.map_catalog.size()):
 		map_choice.add_item(game.map_catalog[i].title)
 		if game.map_catalog[i].id==row.id: map_choice.select(i)
-	game.selected_map=row.id
-	status.text="Map imported. Joining clients will download it from the host."
+	if not game.active:game.selected_map=row.id
+	if game.active and not multiplayer.is_server():
+		game.uploads.upload(row);status.text="Map imported. Offering it to the server for reuse…"
+	else:status.text="Map imported. Joining clients will download it from the host."
 
 func refresh_maps() -> void:
 	map_choice.clear()

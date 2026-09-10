@@ -13,7 +13,7 @@ func run() -> void:
 		var aim:=Transform3D(Basis.from_euler(Vector3(.2,-.5,.3)),grip.origin+Vector3(.04,.07,-.1))
 		var pose:=Poses.held_weapon(grip,aim)
 		check(pose.origin==grip.origin and pose.basis==aim.basis,"Weapon uses palm translation and independent aim rotation")
-		for id in range(9):
+		for id in range(preload("res://deathmatch/weapons.gd").DATA.size()):
 			var weapon:=Art.weapon(id)
 			root.add_child(weapon)
 			weapon.transform=Art.held_transform(pose,id)

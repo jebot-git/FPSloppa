@@ -37,12 +37,12 @@ static func barrel(parent: Node3D, pos: Vector3, radius: float, length: float, m
 	return ob
 
 static var weapon_scenes: Dictionary = {}
-const WEAPON_ASSETS = ["fist","afps_1","afps_2","afps_4","afps_4","afps_3","afps_6","afps_5","afps_9"]
-const WEAPON_LENGTHS = [.22,.90,.55,1.05,1.05,1.05,1.10,.90,1.05]
+const WEAPON_ASSETS = ["fist","afps_1","afps_2","afps_4","afps_4","afps_3","afps_6","afps_5","afps_9","afps_8"]
+const WEAPON_LENGTHS = [.22,.90,.55,1.05,1.05,1.05,1.10,.90,1.05,1.2]
 const VR_SCALE := .65
 # Model-space palm anchors. Exported meshes are centered on their bounds,
 # rather than on their handles; never use that origin as a controller grip.
-const GRIPS = [Vector3.ZERO,Vector3(0,0,.10),Vector3(0,-.10,.11),Vector3(0,-.035,.04),Vector3(0,-.035,.04),Vector3(0,-.11,-.22),Vector3(0,-.14,.06),Vector3(0,-.11,-.13),Vector3(0,-.10,.02)]
+const GRIPS = [Vector3.ZERO,Vector3(0,0,.10),Vector3(0,-.10,.11),Vector3(0,-.035,.04),Vector3(0,-.035,.04),Vector3(0,-.11,-.22),Vector3(0,-.14,.06),Vector3(0,-.11,-.13),Vector3(0,-.10,.02),Vector3(0,-.10,.12)]
 
 static func muzzle(id: int) -> Vector3:
 	return Vector3(0,.05,.22-WEAPON_LENGTHS[id])
@@ -59,7 +59,7 @@ static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: 
 static func weapon(id: int) -> Node3D:
 	var root := Node3D.new()
 	root.name = "WeaponModel"
-	var asset: String = WEAPON_ASSETS[clampi(id,0,8)]
+	var asset: String = WEAPON_ASSETS[clampi(id,0,W.DATA.size()-1)]
 	if not weapon_scenes.has(asset): weapon_scenes[asset] = load("res://deathmatch/weapons/"+asset+".glb")
 	var model: Node3D = weapon_scenes[asset].instantiate()
 	model.name = "TexturedWeapon"

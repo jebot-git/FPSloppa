@@ -1,9 +1,10 @@
 extends RefCounted
 ## All rules run on the server. Clients receive a read-only objective snapshot.
-const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL"}
+const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS"}
 const COLORS=[Color("ed6558"),Color("65a9ef")]
 const TEAMS=["RED","BLUE"]
 var game
+var special=preload("res://deathmatch/modes/special.gd").new()
 var kind:="dm"
 var friendly_fire:=false
 var capture_limit:=5
@@ -17,13 +18,13 @@ var hill_credit:=0.0
 var visuals: Node3D
 var visual_key:=""
 
-func setup(arena: Node) -> void: game=arena
+func setup(arena: Node) -> void: game=arena;special.setup(self)
 func configure(settings: Dictionary) -> void:
 	kind=settings.get("sv_gametype","dm")
 	friendly_fire=settings.get("sv_friendlyfire",0)==1
 	capture_limit=settings.get("capturelimit",5)
 	hill_limit=settings.get("hilllimit",120)
-func team_game() -> bool: return kind!="dm"
+func team_game() -> bool: return kind in ["tdm","ctf","koth","ft"]
 func assign_team(spectator: bool) -> int:
 	if spectator or not team_game():return -1
 	var count: Array=[0,0]
@@ -33,6 +34,7 @@ func assign_team(spectator: bool) -> int:
 func same_team(a: int,b: int) -> bool:
 	return team_game() and game.players.has(a) and game.players.has(b) and game.players[a].team>=0 and game.players[a].team==game.players[b].team
 func reset() -> void:
+	special.reset()
 	scores=[0,0];hill_owner=-1;hill_credit=0.0;flags.clear();bases.clear()
 	if game.spawn_points.is_empty():return
 	# BSP spawn origins are known playable locations; custom maps get a conservative fallback.
@@ -51,10 +53,12 @@ func reset() -> void:
 		if row.id!=game.current_map or not row.has("objectives"):continue
 		var data: Dictionary=row.objectives
 		bases=[vector(data.red),vector(data.blue)];hill=vector(data.hill)
+	if game.map_objectives.has("red") and game.map_objectives.has("blue"):bases=[game.map_objectives.red,game.map_objectives.blue]
 	for i in range(2):flags.append({"carrier":0,"dropped":false,"position":bases[i],"return_at":0.0})
 	clear_visuals()
 func vector(value: Array) -> Vector3:return Vector3(value[0],value[1],value[2])
 func spawns(team: int) -> Array:
+	if kind=="ctf" and team in [0,1] and not game.ctf_spawns[team].is_empty():return game.ctf_spawns[team]
 	if kind!="ctf" or team<0 or bases.size()!=2:return game.spawn_points
 	var result: Array=[]
 	for point in game.spawn_points:
@@ -68,7 +72,7 @@ func killed(victim: int,attacker: int) -> void:
 	if kind=="tdm" and game.players[attacker].team>=0:
 		scores[game.players[attacker].team]+=-1 if penalty else 1
 		check_limit()
-	elif kind=="dm" and game.players[attacker].kills>=game.frag_limit:game._end_round()
+	elif kind in ["dm","ig","cc"] and game.players[attacker].kills>=game.frag_limit:game._end_round()
 func drop(id: int) -> void:
 	for i in range(flags.size()):
 		var f: Dictionary=flags[i]
@@ -89,6 +93,7 @@ func nearby(id: int,pos: Vector3,radius: float) -> bool:
 	return game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin+Vector3.UP*.8,pos+Vector3.UP*.8,1)).is_empty()
 func tick(delta: float) -> void:
 	if not game.multiplayer.is_server() or game.intermission>0:return
+	special.tick(delta)
 	if kind=="ctf":
 		for i in range(2):
 			var f: Dictionary=flags[i]
@@ -128,17 +133,19 @@ func check_limit() -> void:
 func result() -> String:
 	return ("DRAW" if scores[0]==scores[1] else TEAMS[0 if scores[0]>scores[1] else 1]+" WINS")+" · %d : %d"%[scores[0],scores[1]]
 func status(id: int=0) -> String:
-	if not team_game():return "DM · %d FRAGS"%game.frag_limit
+	if not team_game():return kind.to_upper()+" · %d FRAGS"%game.frag_limit
 	var text: String=kind.to_upper()+" · RED %d  BLUE %d / %d"%[scores[0],scores[1],limit()]
 	if game.players.has(id) and game.players[id].team>=0:text+=" · YOU: "+TEAMS[game.players[id].team]
 	if kind=="ctf" and flags.size()==2:
 		for i in range(2):text+=" · "+TEAMS[i]+" FLAG "+("TAKEN" if flags[i].carrier!=0 else "DROPPED" if flags[i].dropped else "HOME")
 	elif kind=="koth":text+=" · HILL "+("CONTESTED" if hill_owner==-2 else "OPEN" if hill_owner==-1 else TEAMS[hill_owner])
+	if kind=="ft":text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
 	return text
 func snapshot() -> Dictionary:
-	return {"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"limit":limit(),"friendly_fire":friendly_fire}
+	return {"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at}
 func receive(data: Dictionary) -> void:
 	if data.is_empty():return
+	special.frozen=data.get("frozen",{});special.reset_at=data.get("freeze_reset",0.0)
 	kind=data.kind;scores=data.scores;bases=data.bases;flags=data.flags;hill=data.hill;hill_owner=data.owner;friendly_fire=data.friendly_fire
 	if kind=="ctf":capture_limit=data.limit
 	elif kind=="koth":hill_limit=data.limit
@@ -147,6 +154,7 @@ func clear_visuals() -> void:
 	visuals=null;visual_key=""
 func draw_objectives() -> void:
 	if game.headless:return
+	for id in game.fighters:game.fighters[id].set_frozen(special.frozen.has(id),float(special.frozen.get(id,0.0)))
 	var key: String=kind+str(bases)+str(hill)
 	if visual_key!=key or not is_instance_valid(visuals):
 		clear_visuals();visual_key=key

@@ -1,3 +1,7 @@
+## 0.4v map storage
+
+Maps now live in external `maps/`, not inside the Godot package. Five extra LibreQuake arenas are available as an optional pack. ThreeWave is tools-only on GitHub; converted BSPs remain local for non-commercial testing/server use. See [setup and compatibility](docs/EXTERNAL-ASSETS.md).
+
 # Quake BSP arenas
 
 Choose **ARENA** before hosting. Eight free deathmatch maps from [LibreQuake v0.09-beta](https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta) are bundled:

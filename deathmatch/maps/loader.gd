@@ -1,14 +1,50 @@
 extends RefCounted
 const Reader = preload("res://addons/bsp_importer/bsp_reader.gd")
 const SCALE := 1.0/32.0
+const Paths=preload("res://deathmatch/assets/paths.gd")
 static func catalog() -> Array:
+	if DirAccess.dir_exists_absolute("user://maps"):
+		for filename in DirAccess.get_files_at("user://maps"):
+			if filename.ends_with(".bsp") and not FileAccess.file_exists(Paths.folder("maps")+filename):
+				var legacy:="user://maps/"+filename
+				if validate(legacy).is_empty():DirAccess.copy_absolute(legacy,Paths.folder("maps")+filename)
+	var result: Array=[]
+	var known: Dictionary={}
 	var rows: Array=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/maps/manifest.json"))
-	if FileAccess.file_exists("user://maps/catalog.json"):
-		var custom=JSON.parse_string(FileAccess.get_file_as_string("user://maps/catalog.json"))
-		if custom is Array:
-			for row in custom:
-				if row is Dictionary and row.has("scene") and FileAccess.file_exists(row.scene): rows.append(row)
-	return rows
+	for row in rows:
+		row=row.duplicate(true);row.path=Paths.resolve(row.path);row.scene=Paths.resolve(row.scene)
+		if not FileAccess.file_exists(row.path):continue
+		var hash:=FileAccess.get_sha256(row.path)
+		if hash!=row.sha256:row.scene=Paths.folder("maps")+"cache/"+hash+".scn";row.sha256=hash
+		result.append(row);known[row.path]=true
+	for filename in DirAccess.get_files_at(Paths.folder("maps")):
+		if filename.get_extension().to_lower()!="bsp":continue
+		var path:=Paths.folder("maps")+filename
+		if known.has(path):continue
+		var id:=filename.get_basename()
+		if id.length()>80 or not id.is_valid_filename():continue
+		var error:=validate(path)
+		if not error.is_empty():push_warning(filename+": "+error);continue
+		var hash:=FileAccess.get_sha256(path)
+		result.append({"id":id,"title":map_title(path,id),"path":path,"scene":Paths.folder("maps")+"cache/"+hash+".scn","sha256":hash})
+	return result
+static func map_title(path: String,fallback: String) -> String:
+	var file:=FileAccess.open(path,FileAccess.READ)
+	if not file:return fallback
+	file.seek(4);var offset:=file.get_32();var length:=file.get_32();file.seek(offset)
+	var world:=file.get_buffer(mini(length,65536)).get_string_from_utf8().split("}")[0]
+	var regex:=RegEx.new();regex.compile('"message"\\s*"([^"\\n]*)"')
+	var found:=regex.search(world)
+	return found.get_string(1).left(60) if found else fallback
+static func scene(row: Dictionary) -> PackedScene:
+	if FileAccess.file_exists(row.scene):return load(row.scene)
+	var node:=read(row.path)
+	if not node:return null
+	var packed:=PackedScene.new();var error:=packed.pack(node);node.free()
+	if error!=OK:return null
+	DirAccess.make_dir_recursive_absolute(row.scene.get_base_dir())
+	ResourceSaver.save(packed,row.scene)
+	return packed
 static func point(value: String) -> Vector3:
 	var v := value.split_floats(" ",false)
 	return Vector3(-v[1],v[2],-v[0])*SCALE if v.size()==3 else Vector3.ZERO
@@ -41,7 +77,7 @@ static func read(path: String) -> Node3D:
 	reader.import_lights = false
 	reader.include_sky_surfaces = false
 	reader.entity_path_pattern = "res://deathmatch/maps/point.tscn"
-	for name in ["func_door","func_plat","func_wall","func_button","func_train","func_illusionary"]:
+	for name in ["func_door","func_door_secret","func_plat","func_wall","func_button","func_train","func_illusionary"]:
 		reader.entity_remap[name] = "res://deathmatch/maps/brush.tscn"
 	for name in ["trigger_teleport","trigger_hurt","trigger_push","trigger_multiple","trigger_once"]:
 		reader.entity_remap[name] = "res://deathmatch/maps/trigger.tscn"
@@ -107,23 +143,15 @@ static func import_custom(path: String,title_override: String="") -> Dictionary:
 	if spawns<2:
 		root.free()
 		return {"error":"A deathmatch BSP needs at least two info_player_deathmatch entities."}
-	DirAccess.make_dir_recursive_absolute("user://maps")
+	var directory:=Paths.folder("maps")
+	DirAccess.make_dir_recursive_absolute(directory+"cache")
 	var packed:=PackedScene.new()
-	packed.pack(root)
-	root.free()
-	var scene_path:="user://maps/"+id+".scn"
-	if ResourceSaver.save(packed,scene_path)!=OK: return {"error":"Could not cache the imported scene."}
-	var raw_path:="user://maps/"+id+".bsp"
-	if DirAccess.copy_absolute(path,raw_path)!=OK: return {"error":"Could not copy BSP to map library."}
-	var row:={"id":id,"title":title_override.left(60) if not title_override.is_empty() else path.get_file().get_basename().left(60),"path":raw_path,"scene":scene_path,"sha256":checksum}
-	var custom: Array=[]
-	for existing in catalog():
-		if existing.id.begins_with("custom_"): custom.append(existing)
-	custom.append(row)
-	var file:=FileAccess.open("user://maps/catalog.json",FileAccess.WRITE)
-	if not file: return {"error":"Could not save map library."}
-	file.store_string(JSON.stringify(custom))
-	return row
+	packed.pack(root);root.free()
+	var scene_path:=directory+"cache/"+checksum+".scn"
+	if ResourceSaver.save(packed,scene_path)!=OK:return {"error":"Could not cache the imported scene."}
+	var raw_path:=directory+id+".bsp"
+	if path!=raw_path and DirAccess.copy_absolute(path,raw_path)!=OK:return {"error":"Could not copy BSP to maps folder."}
+	return {"id":id,"title":title_override.left(60) if not title_override.is_empty() else path.get_file().get_basename().left(60),"path":raw_path,"scene":scene_path,"sha256":checksum}
 
 static func validate_geometry(path: String) -> String:
 	var bytes:=FileAccess.get_file_as_bytes(path)

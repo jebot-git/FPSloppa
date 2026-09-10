@@ -35,6 +35,10 @@ var turn_latched:=false
 var cycle_latched:=false
 var scores:=false
 var left_handed:=false
+var left_controls:=false
+var seated:=false
+var seated_active:=false
+var seated_height_offset:=0.0
 var smooth_turn:=true
 var turn_speed:=120.0
 var snap_angle:=30.0
@@ -50,6 +54,7 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 	enabled=true
 	var settings:=Preferences.read_settings()
 	smooth_turn=settings.smooth_turn;turn_speed=settings.turn_speed;snap_angle=settings.snap_angle
+	left_controls=settings.left_controls;seated=settings.seated
 	origin=XROrigin3D.new()
 	origin.name="Origin"
 	add_child(origin)
@@ -215,7 +220,12 @@ func place_menu() -> void:
 	keyboard.global_transform=panel.global_transform*Transform3D(Basis(Vector3.RIGHT,-.2),Vector3(0,-1.0,.15))
 func recenter() -> void:
 	if not enabled: return
-	if not simulated and head.position.y>.5:
+	if seated:
+		# Translate the tracking space, preserving real-world reach and movement.
+		var physical_height:=head.position.y/XRServer.world_scale
+		XRServer.world_scale=1.0
+		seated_height_offset=clampf(1.65-physical_height,-.5,1.4)
+	elif not simulated and head.position.y>.5:
 		XRServer.world_scale=clampf(XRServer.world_scale*1.65/head.position.y,.65,1.5)
 	origin_offset=Vector3(-head.position.x,0,-head.position.z)
 	calibration_pending=false
@@ -224,16 +234,23 @@ func recenter() -> void:
 func on_spawn() -> void:
 	origin_offset=Vector3(-head.position.x,0,-head.position.z)
 	scores=false
-func left_button(action: String) -> void:
-	if action=="by_button":
-		scores=not scores
-		if scores: place_menu()
-	elif action=="menu_button": toggle_menu()
-	elif action=="ax_button" and game.active and not game.menu_open:
+func movement_hand() -> XRController3D: return right if left_controls else left
+func turning_hand() -> XRController3D: return left if left_controls else right
+func left_button(action: String) -> void: control_button(action,not left_controls)
+func right_button(action: String) -> void: control_button(action,left_controls)
+func control_button(action: String, movement_side: bool) -> void:
+	if action=="menu_button": toggle_menu()
+	elif action=="by_button":
+		if movement_side:
+			scores=not scores
+			if scores: place_menu()
+		else: toggle_menu()
+	elif action=="ax_button" and movement_side and game.active and not game.menu_open:
 		if multiplayer.is_server(): game._use_for(multiplayer.get_unique_id())
 		else: game._use_request.rpc_id(1)
-func right_button(action: String) -> void:
-	if action=="by_button": toggle_menu()
+func update_seated(body: Dictionary) -> void:
+	seated_active=seated and not (tracking and tracking.has_body_pose(body))
+	origin_offset.y=seated_height_offset if seated_active else 0.0
 func toggle_menu() -> void:
 	game.menu_open=not game.menu_open or not game.active
 	game.hud.show_menu(game.menu_open)
@@ -252,10 +269,11 @@ func _process(delta: float) -> void:
 		global_transform=Transform3D(Basis(Vector3.UP,game.local_yaw),actor.position)
 	elif not game.spawn_points.is_empty():
 		global_transform=Transform3D(Basis(Vector3.UP,game.spawn_yaws[0] if not game.spawn_yaws.is_empty() else 0.0),game.spawn_points[0])
+	update_seated(fingers)
 	origin.position=origin_offset+Vector3.UP*(actor.view_offset if actor else 0.0)
 	if calibration_pending and (simulated or head.position.y>.5): recenter()
 	if actor and not game.menu_open and focused:
-		var stick:=right.get_vector2("primary")
+		var stick:=turning_hand().get_vector2("primary")
 		apply_turn(stick.x,delta)
 		if absf(stick.y)>.75 and not cycle_latched and not game.local_state().get("spectator",false):
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
@@ -326,7 +344,7 @@ func apply_turn(axis: float,delta: float) -> void:
 	if absf(axis)<.3:turn_latched=false
 func save_turn_settings() -> Error:
 	turn_latched=false
-	return Preferences.save_settings({"smooth_turn":smooth_turn,"turn_speed":turn_speed,"snap_angle":snap_angle})
+	return Preferences.save_settings({"smooth_turn":smooth_turn,"turn_speed":turn_speed,"snap_angle":snap_angle,"left_controls":left_controls,"seated":seated})
 func sample_pose() -> Dictionary:
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
@@ -346,7 +364,7 @@ func command(sequence: int) -> Dictionary:
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
 	var tracked: bool=simulated or (hand.get_has_tracking_data() and aim.get_has_tracking_data())
-	var stick:=left.get_vector2("primary") if not blocked else Vector2.ZERO
+	var stick:=movement_hand().get_vector2("primary") if not blocked else Vector2.ZERO
 	if stick.length()<.18: stick=Vector2.ZERO
 	var movement:=Basis(Vector3.UP,head.rotation.y)*Vector3(stick.x,0,-stick.y)
 	var pose:=sample_pose()
@@ -357,7 +375,7 @@ func command(sequence: int) -> Dictionary:
 	if not blocked and not pose.is_empty():
 		var horizontal:=Vector3(pose.head.origin.x,0,pose.head.origin.z)
 		room=RoomScale.request(horizontal)
-	return {"seq":sequence,"fly":right.get_vector2("primary").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":left.is_button_pressed("primary_click"),"jump":not blocked and right.is_button_pressed("ax_button"),"respawn":not blocked and (trigger or right.is_button_pressed("ax_button")),"xr":pose,"room":room}
+	return {"seq":sequence,"fly":turning_hand().get_vector2("primary").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":movement_hand().is_button_pressed("primary_click"),"jump":not blocked and turning_hand().is_button_pressed("ax_button"),"respawn":not blocked and (trigger or turning_hand().is_button_pressed("ax_button")),"xr":pose,"room":room}
 func feedback(strength: float,seconds: float=.08,offhand: bool=false) -> void:
 	var use_left:=left_handed!=offhand
 	if enabled and not simulated: (left if use_left else right).trigger_haptic_pulse("haptic",0,clampf(strength,0,1),seconds,0)
@@ -388,7 +406,8 @@ func _objective_hud(s: Dictionary) -> String:
 	var mode=game.match_mode
 	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
 	if not vote.is_empty():return "VOTE: "+vote.title+" · OPEN MENU"
-	if not mode.team_game():return ""
+	if not mode.team_game():return mode.kind.to_upper() if mode.kind!="dm" else ""
+	if mode.kind=="ft" and mode.special.frozen.has(game.multiplayer.get_unique_id()):return "FROZEN · THAW %.1f / 3s"%mode.special.frozen[game.multiplayer.get_unique_id()]
 	var extra: String=" [R]" if s.team==0 else " [B]" if s.team==1 else ""
 	if mode.kind=="koth":extra+=" CONTESTED" if mode.hill_owner==-2 else " HOLD" if mode.hill_owner==s.team and s.team>=0 else ""
 	if mode.kind=="ctf" and mode.flags.size()==2:

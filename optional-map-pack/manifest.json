@@ -1,0 +1,1401 @@
+{
+  "source": "https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta",
+  "license": "BSD-3-Clause",
+  "maps": [
+    {
+      "id": "lqdm9",
+      "title": "The Outlands",
+      "author": "ZungryWare",
+      "spawns": 8,
+      "sha256": "a0897b5bf8b6917a978d89784b2a9c4c7f635d2c9faabbf1fd77f5a79a848dce",
+      "upstream_sha256": "a0897b5bf8b6917a978d89784b2a9c4c7f635d2c9faabbf1fd77f5a79a848dce",
+      "textures": [
+        {
+          "name": "skip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "90776c8a801008cff4aceea7eaa79d1376fcc61a472357f31048fb477c28cc23",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_2m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "ee27a0c130fcdc651f58a56cca1e4bcb4467f1b9c782d6b8abe7d621f340e392",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flr1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "6d0e4ed6f7bd9cdb438aa505242e23ddd4fc62eafc8db319b667aa2735f2497a",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_trm1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "76cb9fc905cf843f4238b4d51eea0fb0be190fa5322d5527cbbe3a0678888e9e",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "a9a10c9e916a2c987922e6bc1ddeed485d7242bccd901a3cc0bd129583251ae7",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_0m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "95b03a325190d75ca8c0cf562fc7ca7e224ed049b7cce59095f264c76e95cadb",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk2_0_m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "8b5f7024da89f12137ba7d426b29b23b1ea92e290f19242480ed0be540a7841d",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "may_drt1_1",
+          "wad": "lq_terra.wad",
+          "source_sha256": "8efdd5344f91264455c8d81dc6f17b384a7c2ee6b59f29fb7daf153bab97aee4",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_1m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "d906cbf5d0680ce91c2132f73e6f43e1c4abc75df7829a0fb1e1e3b111d50a04",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_0",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "1c4f84bea317f4276f06ab21730027bd96731009f0c43ea2e71ba7d6a20e378d",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "4c872fb64fbf9b8486be0fe10f906b490ac1a40fc5cf1f307ca0778480597b99",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_trm1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "5753dc4bde668918be4614592b69d6c7bb7d9f6afeb2ba9f1e09b34e9e482646",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "t_blok04",
+          "wad": "lq_tech.wad",
+          "source_sha256": "479d0dcec7b0425de32a5c09c5a2490d6fc61495415a9deb623c181b1b514bc7",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_trim1d",
+          "wad": "lq_tech.wad",
+          "source_sha256": "357f626e40c56416a05e6b76e4639df9ccac8888f13aa8cdd1e032efa3bc914b",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_blok1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "c13dbcc0c1ad0cdab6afddd046a14066692a4af18feed121ff16388c18481e86",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_blok2_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "56a1c754bf4981dc4cb991139e4de2862c892b120e6d44f43acc5cb9c23e82db",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_platst",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "4fcb20c2c11ecf9f29d46138682df2ff18b09c6a3788e2b32552a359ab253a93",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_3",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "89fb01e5372598be862d68f28dadd69807403f3b4aa22fd2ed9e73d73b44a0da",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk_old",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "e04b8526c821079c3ff7f8f8d1bb4a70ad88462ce909e21f858e620df6ee09b0",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "med_rock10a",
+          "wad": "lq_terra.wad",
+          "source_sha256": "c4e026513cafd01290e950deea807d8af6735eecd06aadaed01a40294976d693",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "may_blok2_1_m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "12f887f266e15e305908cd60c563072f95ad16c9dc619e6e108494821b27d835",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_wall1_3a",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "86baa1408a158ae1d415226242e3904cc3376f92d21a29cbc7af411543dcfb32",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_trim2d",
+          "wad": "lq_tech.wad",
+          "source_sha256": "9c4babd3b006031366fdc83dd6cd8f3645d8a0b5973466529558dd400849aebe",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "dc4a319dd769bccfa8ab422f19a6fc2be99c2cd7e88fbd3b4e593d0917e44cae",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "*tele3",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "254fce02206941ff1b5b46ebee031474122333a7072abd868763504b889e2a56",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_deco1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "6b5230a708278d4d4eac5aa7f45e910ba2afae9d4dbbab3fd92072f3e4b012d6",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_5",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "85919864fed983618d6d438b18a92ddbc3704787962510913943da3b142e3dd0",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk2_0",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "eef3ef0554edb7d240d081f61bfc5582ab318cba75b7b492fdc76a5248e2db67",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "afloor1_3",
+          "wad": "lq_terra.wad",
+          "source_sha256": "f9acd4cc3d059c5c67cd2dfcb8aae3f826b25beff76aee0e1670a2d5ef2fdcbf",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_wall7a",
+          "wad": "lq_tech.wad",
+          "source_sha256": "971c9260a8710124a8d2fd0a3cf6e856b1417c9cf211aaa7607c75278f7dfd82",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "t_wall6a",
+          "wad": "lq_tech.wad",
+          "source_sha256": "97456092628942d85fef45a12179614387fac2757db09cbcbe6ff9fee211465f",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "w94_1",
+          "wad": "lq_tech.wad",
+          "source_sha256": "fbc77268c59d3d52fb0bf327567f7654fe268679e099bd741012aa739e3756f8",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "treadplatemetal",
+          "wad": "lq_tech.wad",
+          "source_sha256": "a47239fce5283477891c50f7e6ae4e5bc00f1647c066e29d747ccc34426e8627",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "sky5_blu",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "404ecb11d9bed52f6cd1b2f04ca2df85171429a2debf7ad22c1b552fc7a86a67",
+          "width": 256,
+          "height": 128
+        },
+        {
+          "name": "*water2",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "259855d492577d4c89beaeb83a03cc64db5f31ccec85a3df88c7df80283cae32",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "+0water_f2",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "2e99f6d44672a820adc9979bc33bbff04bbbdcf6a7b47103c615b5846ceb091d",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_wall1_4a",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "8e92cd2faebe5df91b74c6af0a05fef36481cba9afddee86a5adb9d4a8b4e1cb",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "med_flat5a",
+          "wad": "lq_terra.wad",
+          "source_sha256": "1705105f69396ee0c0ca007302311a4ece5719d5db013138bd71bbf67c2812d3",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "black",
+          "wad": "lq_utility.wad",
+          "source_sha256": "0d8fe5206583c8676c0ac95373dbc4e106adb3f3da9a16aa7ad6be2909353c4a",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "may_blok1_2_m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "8c5d7c8b20d4e505534445eb36e1741e7f05ff79cbb9abbcb3b3c3af93673208",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_door1_1m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "634919e2a9ca437b22019d789bbcbf992c9f1363c6a1e747d408306ce39b8ad2",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "may_brk_oldm",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "04d63c897582b46719ef4adb244d09abf9fcf9e9a0e1a61fdd9c57d156c98e7b",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flt1_1m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "e92b678ef2085066d266744f4a71da0225b90002c5031961da4695f6804d9af3",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_blok1_m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "2b49bb343d54a80d1d180a94f7cf6a8a02e971d19b390295e8564e3dda4854fa",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_3",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "8b47ad19fcd815416f185a1118c9da2f0c4fe4c91b12b17cd7a18c49cbe9c330",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_3m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "541a1d0c69e189b9476e7b30662fd3e7026c745cb5f0fcfa41e4b34bfc48064a",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_deco1_3m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "5eecee05b7910e99884ed257d9dbd3db2eeaa21cc6a45de8b21976b2db64242c",
+          "width": 192,
+          "height": 128
+        },
+        {
+          "name": "may_bnd_skull",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "a099eb91c6276356e5929bdd06e41f97bb93f1a37c441698c9a5a4690e13d502",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_door1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "6ba6519d3528cf39c5ccb11782a9159c5d7b0e13afd26f8ed14ffa23327c56b0",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "clip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "f55d0e5f31d3282ca7cd310f282cd347d586c792f74690878bae9c006fabc612",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_trm1_a",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "c976ff4b9fb3149b248e9674448306298b9adfa9fb869f6d2108f369bbac73db",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_2m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "ff94555c1f852082d3afbe6604ed4a36214cf10b779e6102d994975705a1ee85",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "comp1_6",
+          "wad": "lq_tech.wad",
+          "source_sha256": "c4bff430e810fcd67103ebc7d5a5dc474dccaad1041ae05dd6bf2ff8c4e23af6",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flt1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "34321bb5c8b1ae829a5f52e653fa6652085afe8e3565b673981610ea484df474",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_tech01",
+          "wad": "lq_tech.wad",
+          "source_sha256": "a90d7f0badeacc98f6802975841b2a94b61e8419bad4520c48faa34e8dd03f2c",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "comp1_2",
+          "wad": "lq_tech.wad",
+          "source_sha256": "f76924fed0c4392ba042a4f970122e10afbf72300e2c57cac2acd468141e14ae",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "compbase",
+          "wad": "lq_tech.wad",
+          "source_sha256": "609d97a9aa8b79f2da5c87eb0d3cab87ad19a0a4195ce30a04b9bc64777e2e1e",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "aqmetl33",
+          "wad": "lq_tech.wad",
+          "source_sha256": "0e61ceaf09e8b09f9d362b50fb9bc58a643599179b037bad4a74bb7166b423bf",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "aqtrim08",
+          "wad": "lq_tech.wad",
+          "source_sha256": "4b59df33fa1c5b848c94b113e253af02a11ec28b7109b1cd261d48ca948b5883",
+          "width": 64,
+          "height": 16
+        },
+        {
+          "name": "comp1_1",
+          "wad": "lq_tech.wad",
+          "source_sha256": "c1bb9b1828b3b38a71e5646bdd16459f4da0bc389aeb9b790370c79234af8704",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_blok04h",
+          "wad": "lq_tech.wad",
+          "source_sha256": "20571dfb5e341f54e0d5dc707dd5a711444dc10f9f78e2bd35a49cadcf12998a",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_blok09",
+          "wad": "lq_tech.wad",
+          "source_sha256": "997da8d2cdb339ee9e20956590cc2a7014e2ee85b1da767d62072ffc059c4ec6",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_wall1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "eef59f155046ab0f2babef213df8188d572d9c069cbbe0a2ec95bf6f1e24f798",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_5m",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "ef61671bf0fb03ac199d156292d53982ebad717a9ac2820a2a53b408e3d16980",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_trim1e",
+          "wad": "lq_tech.wad",
+          "source_sha256": "9799d20638c57f15991371d57e3fc07e935ad66d9c2c8af64d77148539712576",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_wall7b",
+          "wad": "lq_tech.wad",
+          "source_sha256": "07c5b223e406d03184d1f45bb32f674d59689d0f4aa95fbebeda08fd486f13d2",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "t_blok10c",
+          "wad": "lq_tech.wad",
+          "source_sha256": "f155fc7f93c12c2c0394855fd4fab20acc2b4076c581b9c2fca7304c03aca157",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_trim2e",
+          "wad": "lq_tech.wad",
+          "source_sha256": "092bd200c4a70694656de80238f2cd28be3b395623249da01035d11a0deb4166",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "t_blok12c",
+          "wad": "lq_tech.wad",
+          "source_sha256": "e655df46aa2743c7aada4b9cc69fee7c8f45b16bf182ed80ac18792ab5e7ee44",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "trigger",
+          "wad": "lq_utility.wad",
+          "source_sha256": "0ecfb8fa2ae69ecd3f0fa9f15f70400d0459f5dceb8c3e560a2c0bba19ba13aa",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flr1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "9a9a448006aefbfb26b55c366503cf9c7819d2dde490c96091027841ffd2383b",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "aqpipe13",
+          "wad": "lq_tech.wad",
+          "source_sha256": "60d7b296fed35e43be5436cd05823759c0e1c5557eea1d892d30af8b35b42fb6",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "tele_frame3",
+          "wad": "lq_tech.wad",
+          "source_sha256": "f4f5c4d8f9f5b936612a1eb4eb6464a4538c6bd234303047d882a40d8649a6eb",
+          "width": 48,
+          "height": 128
+        },
+        {
+          "name": "tele_frame1",
+          "wad": "lq_tech.wad",
+          "source_sha256": "ee27ac0c99300a80ab83e7a80d3a4aad00b3c9c9d4776434d8fb48736934bce4",
+          "width": 64,
+          "height": 128
+        },
+        {
+          "name": "may_plr1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "9f064f92a40b969d83304e25bbb23137da67ff2fecaf790e154e6749a28dd9a4",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "plat_stem",
+          "wad": "lq_tech.wad",
+          "source_sha256": "c5a744d193e061fb0b890ad0bfa770abd5d842a980260674b610e3165e76dcc7",
+          "width": 16,
+          "height": 64
+        },
+        {
+          "name": "tele_frame2",
+          "wad": "lq_tech.wad",
+          "source_sha256": "0b823cead52f9b38100d921c30f12d014bb644415e4d21f292aa518870f04cb3",
+          "width": 16,
+          "height": 64
+        },
+        {
+          "name": "t_flor1b",
+          "wad": "lq_tech.wad",
+          "source_sha256": "96eed00bb0e03a2e8ea0299b4f84156c2f47d0c8031cad3d332e24fd43f7c607",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "floor5_3",
+          "wad": "lq_tech.wad",
+          "source_sha256": "6ac17182ae5350f7773e7e552c2e4fff3b167b7d75eebda868e25130c44c0a89",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "comp1_5",
+          "wad": "lq_tech.wad",
+          "source_sha256": "bea66f4d1bc7f4dba2324ef28f96e0d5537c0d98bd47d52e4b4b62594f6eb0a4",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "aqtrim02",
+          "wad": "lq_tech.wad",
+          "source_sha256": "9f5cccbac05c56d4a23f778d65334367af4a1f22d10d44edfc6545d6c6a4aac4",
+          "width": 128,
+          "height": 16
+        },
+        {
+          "name": "comp1_8",
+          "wad": "lq_tech.wad",
+          "source_sha256": "f18c9efe111317aac0340322afd33076c33879d7740648f915db9d5bda9d1ce5",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_lite1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "e42936b420b1178235bcc6567391d017de1f3dc51f5e92590accbe35d1888f57",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "grk_leaf1_1",
+          "wad": "lq_terra.wad",
+          "source_sha256": "a84e83049cafc33883b6cad7d3c6758fcfbff4cee8e30ff67f15c4f03b3a4b67",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_tskull",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "c61ddb9e8c187bcf3d09db6191d92e9bb382fe06cf6153d043ff622d6cfd11b8",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "rw33_flat",
+          "wad": "lq_tech.wad",
+          "source_sha256": "b3d57e531f0f9e0170a85a3449cba7f0efb375632754ef9ff3458b9db66e7798",
+          "width": 64,
+          "height": 128
+        },
+        {
+          "name": "may_bnd1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "04ed97df8f0374bf6c87a33e460d93e40e2a18d35c69ce0a8b5fdf6ea8ca6832",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_deco1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "6c4e524978a2950fa9b10b2ac83a830535133cd6e7ef0bc3a6e16f85a2540a44",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "+0arrow2_d",
+          "wad": "lq_tech.wad",
+          "source_sha256": "f98404d2f6eca05679d783877957360f989bd6d43a95946c6411dd822c7debc1",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "tlightblfb",
+          "wad": "lq_tech.wad",
+          "source_sha256": "71d5a69a7adea3a7bd14f670cb502be46d6e049e3b8a16704e319bcf7b657595",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "t_blok05",
+          "wad": "lq_tech.wad",
+          "source_sha256": "0bdbf943ee1b4040782addb329e5bacb445a62da1b8afaf9120f843838a637fc",
+          "width": 64,
+          "height": 128
+        },
+        {
+          "name": "t_blok11",
+          "wad": "lq_tech.wad",
+          "source_sha256": "071b22e618e17904b89e87b1b3d4a1c2e3b5b0bcaafad944dd71ee537996013e",
+          "width": 64,
+          "height": 128
+        },
+        {
+          "name": "+alit8s",
+          "wad": "lq_tech.wad",
+          "source_sha256": "485d36fb894f259dceb3ec87fb9cec5be0005fc19aeec89be3f72335e4b23438",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "t_metalsheeta",
+          "wad": "lq_tech.wad",
+          "source_sha256": "03262d4bab735fecde2c703d82f5932a369501378439aa3e8954955f64b5da94",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "doortrak1",
+          "wad": "lq_tech.wad",
+          "source_sha256": "2cdb8eaccc34435494a442953e74d2f9bfb333b7afae61d7e0e3b9eafded7732",
+          "width": 32,
+          "height": 64
+        },
+        {
+          "name": "med_flat5",
+          "wad": "lq_terra.wad",
+          "source_sha256": "300f4497af9e49913f9a398dfe9054d6e60e02a95dbb1ee2d7ab5486f2558ed6",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "woodbark64",
+          "wad": "lq_wood.wad",
+          "source_sha256": "422d3186ca6c8f770f76825dea6952785bc03b46409d5a4c88f0c4c756e94539",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "med_rock10b",
+          "wad": "lq_terra.wad",
+          "source_sha256": "9a3ded01573253872008c2bad81334e921a0d53cf298565e2260c3e4c2cb995f",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "t_lit06",
+          "wad": "lq_tech.wad",
+          "source_sha256": "c7f3cd1c23401651bc9038bb53b656d20a4f3f50b978b8803bf836b837bdd86f",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "+1water_f2",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "4ac2f66ca454f7a6400f4fcfd1c2b705423843124a696ea1803ce27f064fef68",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "+2water_f2",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "512334f1850ed5fcc2260dc91d4269b606438382244dda53b2ac7e10e9659857",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "+3water_f2",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "db7db33b8f7013ebb83e1c8e1fb9f51948f0b27f3c7abdf9ef89760f3a08ea50",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "+1arrow2_d",
+          "wad": "lq_tech.wad",
+          "source_sha256": "2ed49f77539210f1f4987ba3df3c30a476bf129d3b048da95e086134056ceddf",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "+2arrow2_d",
+          "wad": "lq_tech.wad",
+          "source_sha256": "d752c91bb524a3b10fb8d11a83b93d38f132a6fd0a8c38eedb39d2f7978b507b",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "+0lit8s",
+          "wad": "lq_tech.wad",
+          "source_sha256": "87f45042e518706d50630b203dc03ae19fe0dace0d207697463a081a39fdfbaa",
+          "width": 16,
+          "height": 16
+        }
+      ],
+      "entity_classes": [
+        "ambient_comp_hum",
+        "ambient_light_buzz",
+        "ambient_swamp1",
+        "ambient_swamp2",
+        "func_button",
+        "func_door",
+        "func_illusionary",
+        "func_plat",
+        "func_wall",
+        "info_intermission",
+        "info_player_deathmatch",
+        "info_player_start",
+        "info_teleport_destination",
+        "item_armor1",
+        "item_armor2",
+        "item_armorInv",
+        "item_artifact_invisibility",
+        "item_artifact_invulnerability",
+        "item_artifact_super_damage",
+        "item_cells",
+        "item_health",
+        "item_rockets",
+        "item_shells",
+        "item_spikes",
+        "light",
+        "light_flame_large_yellow",
+        "light_flame_small_white",
+        "trigger_once",
+        "trigger_push",
+        "trigger_teleport",
+        "weapon_grenadelauncher",
+        "weapon_lightning",
+        "weapon_nailgun",
+        "weapon_rocketlauncher",
+        "weapon_supernailgun",
+        "weapon_supershotgun",
+        "worldspawn"
+      ],
+      "adaptations": [
+        "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
+        "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
+        "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
+      ]
+    },
+    {
+      "id": "lqdm10",
+      "title": "Lucifer's Gambit",
+      "author": "ZungryWare",
+      "spawns": 10,
+      "sha256": "42ed4a96a228b76a7ff14827e09671b9f2577f2c68c2bba43126e0eb18c305e6",
+      "upstream_sha256": "42ed4a96a228b76a7ff14827e09671b9f2577f2c68c2bba43126e0eb18c305e6",
+      "textures": [
+        {
+          "name": "skip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "90776c8a801008cff4aceea7eaa79d1376fcc61a472357f31048fb477c28cc23",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_0",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "1c4f84bea317f4276f06ab21730027bd96731009f0c43ea2e71ba7d6a20e378d",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_5",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "85919864fed983618d6d438b18a92ddbc3704787962510913943da3b142e3dd0",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_trm1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "5753dc4bde668918be4614592b69d6c7bb7d9f6afeb2ba9f1e09b34e9e482646",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "may_trm1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "76cb9fc905cf843f4238b4d51eea0fb0be190fa5322d5527cbbe3a0678888e9e",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "a9a10c9e916a2c987922e6bc1ddeed485d7242bccd901a3cc0bd129583251ae7",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk_old",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "e04b8526c821079c3ff7f8f8d1bb4a70ad88462ce909e21f858e620df6ee09b0",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flt1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "34321bb5c8b1ae829a5f52e653fa6652085afe8e3565b673981610ea484df474",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "*lava1",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "602982a61f9abcb31dc48b2df8a79805d9d14486e0f62262a9058bf6636a46db",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_brk1_3",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "8b47ad19fcd815416f185a1118c9da2f0c4fe4c91b12b17cd7a18c49cbe9c330",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_bnd1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "04ed97df8f0374bf6c87a33e460d93e40e2a18d35c69ce0a8b5fdf6ea8ca6832",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_blok2_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "56a1c754bf4981dc4cb991139e4de2862c892b120e6d44f43acc5cb9c23e82db",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_blok1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "c13dbcc0c1ad0cdab6afddd046a14066692a4af18feed121ff16388c18481e86",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_plr1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "9f064f92a40b969d83304e25bbb23137da67ff2fecaf790e154e6749a28dd9a4",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_wall1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "eef59f155046ab0f2babef213df8188d572d9c069cbbe0a2ec95bf6f1e24f798",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flesh1_b",
+          "wad": "lq_flesh.wad",
+          "source_sha256": "3c2476a73a362db40a0b0f7d4a394673b76188b20b4df009649eef3a3fab0344",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "may_flr1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "9a9a448006aefbfb26b55c366503cf9c7819d2dde490c96091027841ffd2383b",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "clip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "f55d0e5f31d3282ca7cd310f282cd347d586c792f74690878bae9c006fabc612",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_deco1_3",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "622ebc99bf368655727b790d4068cded242b415d0701e0796431053140beff1e",
+          "width": 192,
+          "height": 128
+        },
+        {
+          "name": "sky_orng",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "adcaff516fc298a22a033a9068b05d1913a21b140071521d9e84ba5122af458a",
+          "width": 256,
+          "height": 128
+        },
+        {
+          "name": "hintskip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "ff7ffd1e69d21564da729b042a8f9973cb47292343487b6e4807467471af96d9",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "hint",
+          "wad": "lq_utility.wad",
+          "source_sha256": "a6e13953465b399e015060e162e892359844e4c282d182f3edac6a1e2e263422",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_platst",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "4fcb20c2c11ecf9f29d46138682df2ff18b09c6a3788e2b32552a359ab253a93",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_plats",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "e62b26fdfe7b16cdb2657192ec0a42464ec16a103a234f7f70bcf22a6ba6c49c",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_platt",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "6202e9b6dcf1eb8863d959231c1440d4a4bcf7d8ca44d3a587e29ddc06e415e6",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "trigger",
+          "wad": "lq_utility.wad",
+          "source_sha256": "0ecfb8fa2ae69ecd3f0fa9f15f70400d0459f5dceb8c3e560a2c0bba19ba13aa",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flr1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "6d0e4ed6f7bd9cdb438aa505242e23ddd4fc62eafc8db319b667aa2735f2497a",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_lite1_1",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "e42936b420b1178235bcc6567391d017de1f3dc51f5e92590accbe35d1888f57",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "may_flesh1_sp2",
+          "wad": "lq_flesh.wad",
+          "source_sha256": "f3acc62e6d9d105d00e7066c6b269eadfec8b20306c144f7e1836c57301a9754",
+          "width": 256,
+          "height": 128
+        },
+        {
+          "name": "may_lite1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "50e9d9db0163ce15338e00d5754a22aaf7db07f7034fa2c6a6aeb8c9be0789ed",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "may_deco1_2",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "6b5230a708278d4d4eac5aa7f45e910ba2afae9d4dbbab3fd92072f3e4b012d6",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "may_flesh5_1c",
+          "wad": "lq_flesh.wad",
+          "source_sha256": "5d599ca1004cfa97252bc78262d682a3e80b413ccca0746e642d82e0b6046379",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "may_flesh1_te",
+          "wad": "lq_flesh.wad",
+          "source_sha256": "5c9e7718c4bb0544ab00db978c1502f2c0fb065e5fa7f3d994169f841431c7df",
+          "width": 128,
+          "height": 128
+        },
+        {
+          "name": "may_trm1_a",
+          "wad": "lq_mayan.wad",
+          "source_sha256": "c976ff4b9fb3149b248e9674448306298b9adfa9fb869f6d2108f369bbac73db",
+          "width": 64,
+          "height": 64
+        }
+      ],
+      "entity_classes": [
+        "ambient_swamp1",
+        "func_door",
+        "func_illusionary",
+        "func_plat",
+        "func_wall",
+        "info_intermission",
+        "info_player_deathmatch",
+        "info_player_start",
+        "item_armor1",
+        "item_armor2",
+        "item_armorInv",
+        "item_artifact_invisibility",
+        "item_artifact_invulnerability",
+        "item_cells",
+        "item_health",
+        "item_rockets",
+        "item_shells",
+        "item_spikes",
+        "light",
+        "light_flame_small_yellow",
+        "light_torch_small_walltorch",
+        "misc_fireball",
+        "trigger_once",
+        "trigger_relay",
+        "weapon_grenadelauncher",
+        "weapon_lightning",
+        "weapon_nailgun",
+        "weapon_rocketlauncher",
+        "weapon_supernailgun",
+        "weapon_supershotgun",
+        "worldspawn"
+      ],
+      "adaptations": [
+        "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
+        "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
+        "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
+      ]
+    },
+    {
+      "id": "lqdm11",
+      "title": "The Wicked Night",
+      "author": "ZungryWare",
+      "spawns": 8,
+      "sha256": "fefeee9549a780734467d187fe75e7290ad597d55043a4478562f2da971a6f8b",
+      "upstream_sha256": "fefeee9549a780734467d187fe75e7290ad597d55043a4478562f2da971a6f8b",
+      "textures": [
+        {
+          "name": "skip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "90776c8a801008cff4aceea7eaa79d1376fcc61a472357f31048fb477c28cc23",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "wall_grey_b",
+          "wad": "lq_dev.wad",
+          "source_sha256": "47f9793374585ee2a59410b4e0e8c6e607e92ffa2743774a42386ccfe0e83f7e",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "floor_yellow_c",
+          "wad": "lq_dev.wad",
+          "source_sha256": "8ce0190676678f3d10fabb1294e1d07eb0abf9e967e19cf67ba90aba9f510222",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "clip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "f55d0e5f31d3282ca7cd310f282cd347d586c792f74690878bae9c006fabc612",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "floor_blue_c",
+          "wad": "lq_dev.wad",
+          "source_sha256": "d51faedd1bf4af93cf5e34b465098b76e9ddc4d75bf99616741dc33af655aa78",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "trigger",
+          "wad": "lq_utility.wad",
+          "source_sha256": "0ecfb8fa2ae69ecd3f0fa9f15f70400d0459f5dceb8c3e560a2c0bba19ba13aa",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "*teleport",
+          "wad": "lq_dev.wad",
+          "source_sha256": "7ff05537b534c97340cc050ffa4bdfcd12116871c49f2d524b3510f4dbc7d618",
+          "width": 64,
+          "height": 64
+        }
+      ],
+      "entity_classes": [
+        "func_plat",
+        "info_player_deathmatch",
+        "info_player_start",
+        "info_teleport_destination",
+        "item_armor1",
+        "item_armor2",
+        "item_armorInv",
+        "item_artifact_super_damage",
+        "item_cells",
+        "item_health",
+        "item_rockets",
+        "item_shells",
+        "item_spikes",
+        "light",
+        "trigger_teleport",
+        "weapon_grenadelauncher",
+        "weapon_lightning",
+        "weapon_nailgun",
+        "weapon_rocketlauncher",
+        "weapon_supernailgun",
+        "weapon_supershotgun",
+        "worldspawn"
+      ],
+      "adaptations": [
+        "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
+      ]
+    },
+    {
+      "id": "lqdm12",
+      "title": "Javelin",
+      "author": "ZungryWare",
+      "spawns": 10,
+      "sha256": "7d53379df2ce4783b5cae03e6d304696af47ee43088817e021d94efaa6854551",
+      "upstream_sha256": "bfdbe9ff8ff13838b14456254aa69b151ab030fd1736981b64cd36911fadddc0",
+      "textures": [
+        {
+          "name": "skip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "90776c8a801008cff4aceea7eaa79d1376fcc61a472357f31048fb477c28cc23",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "floor_grey_c",
+          "wad": "lq_dev.wad",
+          "source_sha256": "d9967b81011af58e0b7f74ef7f9cc0b3fe86a7e65bf4f3b8d7d5a8227c428e31",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "floor_green_b",
+          "wad": "lq_dev.wad",
+          "source_sha256": "bf79dc532cd4d12e737a1d67fd7a262fee096c42772243308a94fa62ddbb20cd",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "key_silver_1",
+          "wad": "lq_dev.wad",
+          "source_sha256": "1ad263e2e5a21a9b33910eec5652cf95277cc51b2030f453b2774ae35552452c",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "*lava1",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "602982a61f9abcb31dc48b2df8a79805d9d14486e0f62262a9058bf6636a46db",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "*teleport",
+          "wad": "lq_dev.wad",
+          "source_sha256": "7ff05537b534c97340cc050ffa4bdfcd12116871c49f2d524b3510f4dbc7d618",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "trigger",
+          "wad": "lq_utility.wad",
+          "source_sha256": "0ecfb8fa2ae69ecd3f0fa9f15f70400d0459f5dceb8c3e560a2c0bba19ba13aa",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "wall_green_c",
+          "wad": "lq_dev.wad",
+          "source_sha256": "6052630fb43c4bd5ce3b23717eecbecd7a7bac49b962653d3af4e4613b7855be",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "clip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "f55d0e5f31d3282ca7cd310f282cd347d586c792f74690878bae9c006fabc612",
+          "width": 64,
+          "height": 64
+        }
+      ],
+      "entity_classes": [
+        "func_door",
+        "func_illusionary",
+        "info_player_deathmatch",
+        "info_player_start",
+        "info_teleport_destination",
+        "item_armor1",
+        "item_armor2",
+        "item_armorInv",
+        "item_artifact_invisibility",
+        "item_artifact_invulnerability",
+        "item_artifact_super_damage",
+        "item_cells",
+        "item_health",
+        "item_key1",
+        "item_rockets",
+        "item_shells",
+        "item_spikes",
+        "light",
+        "trigger_counter",
+        "trigger_once",
+        "trigger_push",
+        "trigger_relay",
+        "trigger_teleport",
+        "weapon_grenadelauncher",
+        "weapon_lightning",
+        "weapon_nailgun",
+        "weapon_rocketlauncher",
+        "weapon_supernailgun",
+        "weapon_supershotgun",
+        "worldspawn"
+      ],
+      "adaptations": [
+        "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
+        "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
+        "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
+      ]
+    },
+    {
+      "id": "lqdm13",
+      "title": "Death Provides No Return",
+      "author": "ZungryWare",
+      "spawns": 8,
+      "sha256": "1619a212a21f31d483dc4ad5ea12a8e837923eee113e9a2d123cf7145306683f",
+      "upstream_sha256": "1619a212a21f31d483dc4ad5ea12a8e837923eee113e9a2d123cf7145306683f",
+      "textures": [
+        {
+          "name": "skip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "90776c8a801008cff4aceea7eaa79d1376fcc61a472357f31048fb477c28cc23",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "wall_grey_c",
+          "wad": "lq_dev.wad",
+          "source_sha256": "9d19a0148b6c55ccc8483ceedbb97f974d54156b3b077def25117f743d85678c",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "floor_red_c",
+          "wad": "lq_dev.wad",
+          "source_sha256": "00339b739aa0808f8ded58f081ead5f435762a9fcf9516e1f2045e695b3c731c",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "sky_void",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "43a5b7211ba30cf8b1621a2cb612dacd60ab1d4f09560fc26bbc4aafb01ca2e2",
+          "width": 256,
+          "height": 128
+        },
+        {
+          "name": "clip",
+          "wad": "lq_utility.wad",
+          "source_sha256": "f55d0e5f31d3282ca7cd310f282cd347d586c792f74690878bae9c006fabc612",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "wall_grey_b",
+          "wad": "lq_dev.wad",
+          "source_sha256": "47f9793374585ee2a59410b4e0e8c6e607e92ffa2743774a42386ccfe0e83f7e",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "trigger",
+          "wad": "lq_utility.wad",
+          "source_sha256": "0ecfb8fa2ae69ecd3f0fa9f15f70400d0459f5dceb8c3e560a2c0bba19ba13aa",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "floor_grey_c",
+          "wad": "lq_dev.wad",
+          "source_sha256": "d9967b81011af58e0b7f74ef7f9cc0b3fe86a7e65bf4f3b8d7d5a8227c428e31",
+          "width": 32,
+          "height": 32
+        },
+        {
+          "name": "*tele3",
+          "wad": "lq_liquidsky.wad",
+          "source_sha256": "254fce02206941ff1b5b46ebee031474122333a7072abd868763504b889e2a56",
+          "width": 64,
+          "height": 64
+        },
+        {
+          "name": "black",
+          "wad": "lq_utility.wad",
+          "source_sha256": "0d8fe5206583c8676c0ac95373dbc4e106adb3f3da9a16aa7ad6be2909353c4a",
+          "width": 16,
+          "height": 16
+        },
+        {
+          "name": "floor_red_a",
+          "wad": "lq_dev.wad",
+          "source_sha256": "ecbca51e95698fbc1f5340d03ab9d5ab5e71cce4ca078d91638debea91c2060b",
+          "width": 32,
+          "height": 32
+        }
+      ],
+      "entity_classes": [
+        "func_door",
+        "func_illusionary",
+        "func_wall",
+        "info_intermission",
+        "info_player_deathmatch",
+        "info_player_start",
+        "info_teleport_destination",
+        "item_armor1",
+        "item_armor2",
+        "item_armorInv",
+        "item_artifact_invisibility",
+        "item_artifact_super_damage",
+        "item_cells",
+        "item_health",
+        "item_rockets",
+        "item_shells",
+        "item_spikes",
+        "light",
+        "trigger_hurt",
+        "trigger_once",
+        "trigger_push",
+        "trigger_relay",
+        "trigger_teleport",
+        "weapon_grenadelauncher",
+        "weapon_lightning",
+        "weapon_nailgun",
+        "weapon_rocketlauncher",
+        "weapon_supernailgun",
+        "weapon_supershotgun",
+        "worldspawn"
+      ],
+      "adaptations": [
+        "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
+        "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
+        "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
+      ]
+    }
+  ]
+}

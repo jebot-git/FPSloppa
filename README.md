@@ -1,14 +1,16 @@
-# FPSloppa · 0.3v
+# FPSloppa · 0.4v
 
-[Latest published release: 0.2v](https://github.com/jebot-git/FPSloppa/releases/tag/0.2v) · [Current 0.3v build notes](docs/RELEASE-0.3v.md)
+[Latest release: 0.4v](https://github.com/jebot-git/FPSloppa/releases/tag/0.4v) · [Current 0.4v build notes](docs/RELEASE-0.4v.md)
 
-FPSloppa (in-game title: Entryway Deathmatch) is a PC OpenXR and desktop online arena shooter with eight bundled LibreQuake arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
+FPSloppa (in-game title: Entryway Deathmatch) is a PC OpenXR and desktop online arena shooter with eight external LibreQuake arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
-See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Multiplayer spawns grant **only dual pistols and 50 shared bullets**. Blood, gibs, pain reactions and spatial sound effects are included.
+See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG and CC use their mode-specific weapons. Blood, gibs, pain reactions and spatial sound effects are included.
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.3v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.4v clients and servers; the protocol changed from earlier releases.
+
+Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Standalone users should open **ASSETS…** and download the base assets, or extract the Base-Assets ZIP into the app’s external files directory. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Freeze Tag and Chainsaw Circus are available.
 
 ## Play online
 
@@ -18,7 +20,7 @@ For VR callsign editing, saved-name configuration and the system-username fallba
 
 All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and support **up to 16 players** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. There is no account service, automatic matchmaking, NAT relay, public server browser, or host migration. Dedicated servers support configured map rotation. WAN latency and router traversal have not been tested from this workspace; real ENet loopback sessions with independent processes have been tested.
 
-**PRACTICE VS BOTS** starts an offline match on the selected BSP map with three simple AI opponents. Everyone spawns with dual pistols and collects other weapons from the arena.
+**PRACTICE VS BOTS** starts an offline match on the selected BSP map with three simple AI opponents. The selected gamemode determines weapons and pickups.
 
 ## Desktop controls
 
@@ -122,7 +124,7 @@ The final scoreboard opens automatically when a match ends, including its VR sur
 Four original tracker compositions provide a looping industrial action score with recorded guitar, bass and acoustic drums. Their editable ProTracker modules are about 52 KiB each; portable Ogg playback totals 2.67 MiB. Music defaults to 30% and has its own saved volume control. See [music sources](deathmatch/audio/music/SOURCES.md). New supply models distinguish bullets, shells, rockets, cells, medkits and armour with cached single-surface meshes.
 
 
-## 0.3v arena update
+## 0.4v arena update
 
 Dedicated servers support DM, TDM, CTF and KOTH, with configurable limits, team switching and majority votes for balance, available maps and allowed game types. In-game hosting remains DM-only with eight slots. See [GAMEMODES.md](GAMEMODES.md) and [server.cfg](server.cfg).
 

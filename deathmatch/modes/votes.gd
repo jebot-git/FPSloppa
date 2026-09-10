@@ -13,7 +13,7 @@ func eligible(id: int) -> bool:return id>0 and game.players.has(id) and not game
 func choices() -> Array:
 	var result: Array=[]
 	for row in game.map_catalog:
-		if ResourceLoader.exists(row.scene):result.append({"id":row.id,"title":row.title})
+		if FileAccess.file_exists(row.path) and (game.mode_maplists.is_empty() or row.id in game.map_rotation):result.append({"id":row.id,"title":row.title})
 	return result
 func offer(id: int) -> void:policy.rpc_id(id,enabled,choices(),allowed_modes)
 @rpc("authority","call_remote","reliable",0)
@@ -72,6 +72,7 @@ func switch_team(team: int) -> void:
 func team_request(team: int) -> void:
 	if multiplayer.is_server():change_team(multiplayer.get_remote_sender_id(),team)
 func change_team(id: int,team: int,force: bool=false) -> bool:
+	if game.match_mode.special.blocked(id):return false
 	if not game.active or not game.match_mode.team_game() or not eligible(id) or not team in [0,1] or game.players[id].team==team or game.intermission>0 or game.map_loading:return false
 	if not force:
 		if game.clock<team_cooldowns.get(id,0):return false
@@ -102,4 +103,7 @@ func change_mode(value: String) -> void:
 	# A new game type starts a fresh round on this map, assigning teams again as peers rejoin.
 	for s in game.players.values():s.team=-1
 	game.pending_teams.clear()
-	game._rotate_map(game.current_map)
+	if game.mode_maplists.has(value):
+		game.map_rotation=game.mode_maplists[value].duplicate();game.rotation_index=0
+		game._rotate_map(game.map_rotation[0])
+	else:game._rotate_map(game.current_map)

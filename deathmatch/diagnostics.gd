@@ -6,7 +6,7 @@ static func check_assets(game: Node) -> int:
 		var rows=JSON.parse_string(FileAccess.get_file_as_string(manifest))
 		if not rows is Array: failures.append(manifest); continue
 		for row in rows:
-			if FileAccess.get_sha256(row.path)!=row.get("sha256",row.get("hash","")): failures.append("raw bytes "+row.path)
+			if FileAccess.get_sha256(preload("res://deathmatch/assets/paths.gd").resolve(row.path))!=row.get("sha256",row.get("hash","")): failures.append("raw bytes "+row.path)
 	var library=load("res://deathmatch/avatars/library.gd").new()
 	game.add_child(library)
 	var avatars=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/avatars/models/manifest.json"))

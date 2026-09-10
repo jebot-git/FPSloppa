@@ -1,7 +1,9 @@
 extends Node
 ## Content-addressed, self-contained VRM library. Gameplay never derives collision from it.
 const MAX_BYTES := 25_000_000
-const CACHE := "user://avatars/"
+const Paths=preload("res://deathmatch/assets/paths.gd")
+static var CACHE: String:
+	get: return Paths.folder("vrm")
 const Extension = preload("res://addons/vrm/vrm_extension.gd")
 const Rig = preload("res://deathmatch/avatars/rig.gd")
 var entries: Dictionary = {}
@@ -11,13 +13,24 @@ var last_error := ""
 var pinned: Array = []
 const CACHE_BUDGET := 1_000_000_000
 
-func _ready() -> void:
+func _ready() -> void:reload()
+func reload() -> void:
+	entries.clear();scenes.clear();selected=""
 	DirAccess.make_dir_recursive_absolute(CACHE)
 	var manifest = JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/avatars/models/manifest.json"))
 	if manifest is Array:
 		for row in manifest:
+			row=row.duplicate(true);row.path=Paths.resolve(row.path)
+			if not FileAccess.file_exists(row.path) or FileAccess.get_sha256(row.path)!=row.hash:continue
 			entries[row.hash] = row
 			if selected.is_empty(): selected = row.hash
+	for filename in DirAccess.get_files_at(CACHE):
+		if filename.get_extension().to_lower()=="vrm":register_file(CACHE+filename,false)
+	# Copy older local imports once; keep the original files intact.
+	if DirAccess.dir_exists_absolute("user://avatars"):
+		for filename in DirAccess.get_files_at("user://avatars"):
+			if filename.ends_with(".vrm") and not FileAccess.file_exists(CACHE+filename):register_file("user://avatars/"+filename)
+	if selected.is_empty() and not entries.is_empty():selected=entries.keys()[0]
 	var config := ConfigFile.new()
 	if config.load("user://avatars.cfg") == OK:
 		for saved in config.get_value("avatar","imports",[]):
@@ -211,7 +224,7 @@ static func validate_structure(doc: Dictionary) -> String:
 
 func reserve_cache(required: int) -> bool:
 	var total := 0
-	var candidates: Array = []
+	# Persistent libraries are never evicted behind the server operator's back.
 	for file_name in DirAccess.get_files_at(CACHE):
 		if not file_name.ends_with(".vrm"): continue
 		var path := CACHE+file_name
@@ -219,13 +232,4 @@ func reserve_cache(required: int) -> bool:
 		if not file: continue
 		var size := file.get_length()
 		total += size
-		var hash := file_name.get_basename()
-		if hash!=selected and not pinned.has(hash): candidates.append({"path":path,"hash":hash,"size":size,"time":FileAccess.get_modified_time(path)})
-	candidates.sort_custom(func(a,b): return a.time<b.time)
-	for row in candidates:
-		if total+required<=CACHE_BUDGET: break
-		if DirAccess.remove_absolute(row.path)==OK:
-			total -= row.size
-			entries.erase(row.hash)
-			scenes.erase(row.hash)
 	return total+required<=CACHE_BUDGET

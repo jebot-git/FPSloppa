@@ -29,7 +29,7 @@ func run() -> void:
 				if springs==0: failures.append("spring bones not initialized "+row.path)
 				avatar.queue_free()
 				await process_frame
-	for id in range(9):
+	for id in range(preload("res://deathmatch/weapons.gd").DATA.size()):
 		var weapon=load("res://deathmatch/art.gd").weapon(id)
 		if not weapon: failures.append("weapon "+str(id))
 		else: weapon.free()
