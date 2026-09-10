@@ -80,6 +80,15 @@ uniform float _DebugMode : hint_range(0,3,1) = 0.0;
 
 uniform float _MToonVersion = 33;
 
+// FPSloppa: opt-in arena exposure. Defaults preserve the upstream importer/editor.
+// A small texture-coloured fill preserves readability; local lights still supply
+// direction and colour, with bounded accumulation instead of MToon's near-binary
+// additional-light attenuation. See AVATAR_LIGHTING.md.
+uniform bool _ArenaLightingEnabled = false;
+uniform float _ArenaFill : hint_range(0.0, 0.3) = 0.10;
+uniform float _ArenaDirect : hint_range(0.0, 1.0) = 0.60;
+uniform float _ArenaLightLimit : hint_range(0.0, 2.0) = 0.55;
+
 // const
 const float PI_2 = 6.283185307180;
 const float EPS_COL = 0.00001;
@@ -320,6 +329,12 @@ void fragment() {
 
 	ALBEDO = albedo;
 	EMISSION = emission;
+	if (_ArenaLightingEnabled && isOutline < 0.5) {
+		ALBEDO = clamp(lit.rgb, vec3(0.0), vec3(1.0)) * 0.65;
+		EMISSION = ALBEDO * _ArenaFill + clamp(emission, vec3(0.0), vec3(0.08));
+		NORMAL = viewNormal;
+		RIM = 0.0;
+	}
 
 	ROUGHNESS = 1.0;
 	METALLIC = 0.0;
@@ -341,6 +356,15 @@ float SchlickFresnel(float u) {
 }
 
 void light() {
+	if (_ArenaLightingEnabled && isOutline < 0.5) {
+		float ndotl = dot(normalize(viewNormal), LIGHT);
+		float toon = smoothstep(-0.20, 0.60, ndotl);
+		vec3 response = clamp(mix(shade.rgb, lit.rgb, toon) / max(lit.rgb, vec3(0.02)), vec3(0.3), vec3(1.15));
+		float wrapped = clamp((ndotl + 0.30) / 1.30, 0.0, 1.0);
+		vec3 incoming = LIGHT_COLOR / 3.14159265 * ATTENUATION * (0.3 + 0.7 * wrapped) * _ArenaDirect;
+		DIFFUSE_LIGHT = min(DIFFUSE_LIGHT + incoming * response, vec3(_ArenaLightLimit));
+		SPECULAR_LIGHT = vec3(0.0);
+	} else {
 	bool isDirectional = true; // TODO: Generates clustered forward artifacts unless godotegnine/godot#48012 is applied
 	// isDirectional = (RIM == 1.0);
 	vec3 indirectLighting = vec3(0.0);
@@ -395,4 +419,5 @@ void light() {
 		SPECULAR_LIGHT = vec3(0.0);
 	}
 	DIFFUSE_LIGHT += diffuse_output / fragment_albedo_output;
+	}
 }

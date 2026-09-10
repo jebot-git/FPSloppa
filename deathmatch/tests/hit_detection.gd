@@ -46,6 +46,11 @@ func run() -> void:
 	await physics_frame
 	g.fighters[-1].position=Fixture.point(.5,-3)
 	check(g._trace(start,end,1,0,.16).id==0,"Expanded capsule cannot reach through side cover")
+	g.fighters[-1].position=Fixture.point(.35,-3)
+	g.fighters[1].position=Fixture.point();g.players[1].weapon=9;g.players[1].yaw=0.0;g.players[1].pitch=0.0;g.players[1].cooldown=0.0
+	var covered_hp: int=g.players[-1].hp
+	g._fire(1)
+	check(g.players[-1].hp==covered_hp,"Railgun cannot hit the part of a damage capsule extending through side cover")
 	wall.free()
 	await physics_frame
 	g.fighters[-1].position=Fixture.point(1,-3)
@@ -55,6 +60,16 @@ func run() -> void:
 	var hp: int=g.players[-1].hp
 	g._update_projectiles(6.0/39.4,previous)
 	check(g.players[-1].hp<hp and not g.projectiles.has(999),"Crossing target takes authoritative damage exactly once")
+	for weapon in [6,7,8]:
+		g.players[-1].hp=10000;g.players[-1].dead=false;g.players[-1].invulnerable=0
+		g.fighters[-1].position=Fixture.point(1,-3)
+		previous[-1]={"position":Fixture.point(-1,-3),"serial":g.players[-1].serial}
+		g._projectile_spawn(1000+weapon,1,weapon,start,Vector3.FORWARD,0.0,0.0)
+		g.projectiles[1000+weapon].fresh=false
+		g._update_projectiles(6.0/g.W.DATA[weapon].speed,previous)
+		var after: int=g.players[-1].hp
+		g._update_projectiles(.1,previous)
+		check(after<10000 and g.players[-1].hp==after and not g.projectiles.has(1000+weapon),"Weapon %d sweeps a crossing target and cannot deal duplicate damage"%weapon)
 	g.free()
 	print("HIT_DETECTION_RESULT ",JSON.stringify(failures))
 	quit(0 if failures.is_empty() else 1)

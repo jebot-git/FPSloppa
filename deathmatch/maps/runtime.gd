@@ -13,6 +13,7 @@ func configure(arena: Node, root: Node3D) -> void:
 	game = arena
 	var stack: Array = [root]
 	var entities: Array = []
+	var fixtures: Array=[]
 	while not stack.is_empty():
 		var node: Node = stack.pop_back()
 		stack.append_array(node.get_children())
@@ -39,6 +40,22 @@ func configure(arena: Node, root: Node3D) -> void:
 			game.spawn_points.append(node.global_position-Vector3.UP*.70)
 			game.spawn_yaws.append(deg_to_rad(float(e.get("angle",0))))
 			if kind!="info_player_deathmatch":game.ctf_spawns[0 if kind=="info_player_team1" else 1].append(game.spawn_points.back())
+		elif kind=="info_player_teamspawn" and int(e.get("team_no",0)) in [1,2]:
+			var team:=0 if int(e.team_no)==2 else 1
+			game.spawn_points.append(node.global_position-Vector3.UP*.70);game.spawn_yaws.append(deg_to_rad(float(e.get("angle",0))))
+			game.ctf_spawns[team].append(game.spawn_points.back())
+		elif kind=="item_tfgoal" and int(e.get("owned_by",0)) in [1,2] and str(e.get("mdl","")).contains("flag"):
+			game.map_objectives["red" if int(e.owned_by)==2 else "blue"]=node.global_position-Vector3.UP*.70
+		elif kind=="info_tfgoal" and int(e.get("team_no",0)) in [1,2]:
+			var team:=0 if int(e.team_no)==2 else 1
+			if int(e.get("items_allowed",0))>0:game.tf_capture[team]=node.global_position-Vector3.UP*.70
+			elif int(e.get("ammo_shells",0))>0 or int(e.get("ammo_medikit",0))>0:game.tf_resupply[team].append(node.global_position-Vector3.UP*.70)
+		elif kind in ["info_tf_capture_red","info_tf_capture_blue"]:
+			game.tf_capture[0 if kind.ends_with("red") else 1]=node.global_position-Vector3.UP*.70
+		elif kind in ["info_tf_resupply_red","info_tf_resupply_blue"]:
+			game.tf_resupply[0 if kind.ends_with("red") else 1].append(node.global_position-Vector3.UP*.70)
+		elif kind=="misc_librequake_fixture":fixtures.append(e)
+		elif kind=="info_koth_control":game.map_objectives["hill"]=node.global_position-Vector3.UP*.70
 		elif kind=="info_teleport_destination":
 			destinations[e.get("targetname","")] = {"position":node.global_position-Vector3.UP*.70,"yaw":deg_to_rad(float(e.get("angle",0)))}
 		elif kind in ["item_flag_team1","item_flag_team2"]:
@@ -63,6 +80,7 @@ func configure(arena: Node, root: Node3D) -> void:
 			node.collision_layer=0
 			node.collision_mask=2
 			regions.append({"area":node,"kind":kind,"data":e})
+	if not game.headless and not fixtures.is_empty():preload("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
 	if game.spawn_points.is_empty():
 		for node in entities:
 			if node.attributes.get("classname","")=="info_player_start":

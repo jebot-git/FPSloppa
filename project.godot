@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Entryway Deathmatch"
-config/version="0.4v"
+config/name="FPSloppa"
+config/version="0.5v"
 run/main_scene="res://deathmatch/arena.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://deathmatch/icon-final.png"

@@ -3,7 +3,7 @@ from pathlib import Path
 import hashlib,json,zipfile
 ROOT=Path(__file__).resolve().parents[1]
 def sha(data):return hashlib.sha256(data).hexdigest()
-version='0.4v'
+version=(ROOT/'VERSION').read_text().strip()
 out=ROOT.parent/'Builds'/f'FPSloppa-{version}-Base-Assets.zip';out.parent.mkdir(exist_ok=True)
 files=[]
 # Select known base assets only. Never package players' downloaded/imported files.
@@ -13,7 +13,7 @@ for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
  lit='maps/'+row['id']+'.lit'
  if (ROOT/lit).is_file():paths.append(lit)
 for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
-paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('*_maplist.txt'))
+paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','cc','tf'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('LibreQuake-*.txt'))
 paths.extend(['maps/README.txt','vrm/README.txt'])
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:

@@ -3,8 +3,8 @@ from pathlib import Path
 import subprocess,time,json
 root=Path(__file__).resolve().parents[2]
 logs=root/'test-results'
-server=root.parent/'Builds/Server/EntrywayServer.x86_64'
-client=root.parent/'Builds/Linux/Entryway.x86_64'
+server=root.parent/'Builds/Server/FPSloppaServer.x86_64'
+client=root.parent/'Builds/Linux/FPSloppa.x86_64'
 with (logs/'binary_server.log').open('w') as server_log,(logs/'binary_client.log').open('w') as client_log:
     proc=subprocess.Popen([str(server),'--','--port','28890'],stdout=server_log,stderr=subprocess.STDOUT)
     try:

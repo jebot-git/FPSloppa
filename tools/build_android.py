@@ -45,7 +45,7 @@ logs.mkdir(exist_ok=True)
 out = root.parent / 'Builds/Android'
 out.mkdir(parents=True, exist_ok=True)
 for target in (['Quest', 'Pico'] if args.target == 'both' else [args.target]):
-    apk = out / f'Entryway-{target}.apk'
+    apk = out / f'FPSloppa-{target}.apk'
     log = logs / f'export_android_{target.lower()}.log'
     with log.open('w') as f:
         result = subprocess.run([godot, '--headless', '--path', str(root), '--xr-mode', 'off', '--export-release', f'{target} (experimental)', str(apk)], env=env, stdout=f, stderr=subprocess.STDOUT)

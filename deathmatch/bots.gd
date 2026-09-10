@@ -14,10 +14,16 @@ func setup(arena: Node) -> void:
 		ready_to_walk=true
 	else:
 		var mesh:=new_mesh()
+		if game.current_map.begins_with("ad_arena_"):mesh.cell_size=.25
 		region.navigation_mesh=mesh
 		var data:=NavigationMeshSourceGeometryData3D.new()
 		NavigationServer3D.parse_source_geometry_data(mesh,data,game.get_node("Map").get_child(0))
 		NavigationServer3D.bake_from_source_geometry_data_async(mesh,data,func(): ready_to_walk=true)
+	var nav_map: RID=region.get_navigation_map()
+	NavigationServer3D.map_set_cell_size(nav_map,region.navigation_mesh.cell_size)
+	var ad_map: bool=game.current_map.begins_with("ad_arena_")
+	NavigationServer3D.map_set_use_edge_connections(nav_map,not ad_map)
+	if NavigationServer3D.has_method("map_set_merge_rasterizer_cell_scale"):NavigationServer3D.call("map_set_merge_rasterizer_cell_scale",nav_map,.1 if ad_map else 1.0)
 	for id in game.players:
 		if id<0: brains[id]={"next":game.clock+randf()*.2,"goal":game.fighters[id].position,"last":game.fighters[id].position,"stuck":0.0,"path":PackedVector3Array(),"step":0,"route_at":0.0,"enemy":0,"seen_at":0.0}
 static func new_mesh() -> NavigationMesh:
@@ -45,7 +51,8 @@ func tick(_delta: float) -> void:
 		var enemy:=0
 		var nearest:=35.0
 		for other in game.players:
-			if other==id or game.players[other].dead or game.players[other].spectator or game.match_mode.same_team(id,other) or game.match_mode.special.frozen.has(other): continue
+			if other==id or game.players[other].dead or game.players[other].spectator or game.match_mode.same_team(id,other) or game.match_mode.special.frozen.has(other) or game.match_mode.fortress.cloaked(other): continue
+			if game.match_mode.kind=="tf" and game.players[other].get("tf_disguise",{}).get("team",-1)==s.team:continue
 			var target: Vector3=game.fighters[other].position+Vector3.UP*1.1
 			var distance:=eye.distance_to(target)
 			if distance>=nearest: continue
@@ -62,8 +69,8 @@ func tick(_delta: float) -> void:
 			s.pitch=clampf(asin(direction.y)+randf_range(-.025,.025),-1.3,1.3)
 			s.fire=game.clock-brain.seen_at>.35 and absf(angle_difference(s.yaw,aim))<.12
 			# Prefer collected weapons; never grant equipment or ammunition.
-			for weapon in [5,4,3,7,2]:
-				if weapon in s.owned and game.W.can_fire(weapon,s.ammo): s.weapon=weapon;break
+			for weapon in ([9,6,5,7,4,3,2] if game.match_mode.kind=="tf" else [5,4,3,7,2]):
+				if weapon in s.owned and game.match_mode.fortress.can_fire(id,weapon): s.weapon=weapon;break
 		if actor.position.distance_to(brain.goal)<1.2 or brain.stuck>1.2:
 			var choices: Array=[]
 			for pickup in game.pickups:
@@ -73,8 +80,20 @@ func tick(_delta: float) -> void:
 		if game.match_mode.kind=="ft":
 			for friend in game.match_mode.special.frozen:
 				if game.match_mode.same_team(id,friend):brain.goal=game.fighters[friend].position;break
+		if game.match_mode.kind in ["ctf","tf"] and s.team>=0 and game.match_mode.flags.size()==2:
+			var own: int=s.team;var enemy_flag: Dictionary=game.match_mode.flags[1-own]
+			if enemy_flag.carrier==id:brain.goal=game.match_mode.captures[own]
+			elif game.match_mode.flags[own].dropped:brain.goal=game.match_mode.flags[own].position
+			elif enemy==0:brain.goal=enemy_flag.position
+		if game.match_mode.kind=="tf":
+			if s.get("tf_class","")=="medic":
+				for friend in game.players:
+					if friend!=id and game.match_mode.same_team(id,friend) and not game.players[friend].dead and game.players[friend].hp<game.match_mode.fortress.max_health(friend):
+						brain.goal=game.fighters[friend].position
+						var heal_dir: Vector3=(brain.goal+Vector3.UP*1.2-eye).normalized();s.yaw=atan2(-heal_dir.x,-heal_dir.z);s.pitch=asin(heal_dir.y);s.fire=false;break
+			if enemy!=0 or s.get("tf_class","") in ["medic","engineer","scout"]:game.match_mode.fortress.action(id)
 		var travel: Vector3=brain.goal-actor.position
-		if ready_to_walk and game.clock>=brain.route_at:
+		if ready_to_walk and NavigationServer3D.map_get_iteration_id(region.get_navigation_map())>0 and game.clock>=brain.route_at:
 			brain.path=NavigationServer3D.map_get_path(region.get_navigation_map(),actor.position,brain.goal,true)
 			brain.step=0;brain.route_at=game.clock+.6
 		if brain.step<brain.path.size():

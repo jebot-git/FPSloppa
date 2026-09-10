@@ -51,10 +51,11 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	label.no_depth_test = false
 	add_child(label)
 
+var speed_multiplier:=1.0
 func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false) -> void:
 	rotation.y = yaw
 	var direction := (basis * Vector3(input.x,0,input.y)).limit_length(1.0)
-	var speed := 5.2 if slow else 9.4
+	var speed := (5.2 if slow else 9.4)*speed_multiplier
 	var acceleration := 65.0 if input.length()>.01 else 45.0
 	velocity.x-=blast_velocity.x;velocity.z-=blast_velocity.y
 	blast_velocity=blast_velocity.move_toward(Vector2.ZERO,(24.0 if is_on_floor() and velocity.y<=0 else 2.0)*delta)
@@ -138,6 +139,15 @@ func set_local_body(value: bool) -> void:
 
 func _process(_delta: float) -> void:
 	view_offset*=exp(-18.0*_delta)
+	var unarmed: bool=get_parent().lobby.active()
+	if avatar:
+		if avatar_hash.is_empty():
+			for weapon in avatar.find_children("WeaponModel","Node3D",true,false):weapon.visible=not unarmed
+		else:
+			avatar.unarmed=unarmed
+			if unarmed:
+				if is_instance_valid(avatar.gun):avatar.gun.hide()
+				if is_instance_valid(avatar.offhand_gun):avatar.offhand_gun.hide()
 	if frozen or not avatar or avatar_hash.is_empty(): return
 	avatar.target_xr_pose=xr_pose
 	avatar.speed = Vector2(visual_velocity.x,visual_velocity.z).length()
@@ -156,3 +166,43 @@ func set_frozen(value: bool, progress: float=0.0) -> void:
 		ice.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(ice)
 	if is_instance_valid(ice):ice.visible=value and not local_player
 	if is_instance_valid(ice):ice.scale=Vector3.ONE*(1.0-.04*progress/3.0)
+
+var class_badge: Label3D
+func set_class_badge(title: String,color: Color) -> void:
+	if title.is_empty():
+		if is_instance_valid(class_badge):class_badge.hide()
+		return
+	if not is_instance_valid(class_badge):
+		class_badge=Label3D.new();class_badge.name="ClassBadge";add_child(class_badge)
+		class_badge.position.y=2.32;class_badge.font_size=44;class_badge.pixel_size=.006
+		class_badge.billboard=BaseMaterial3D.BILLBOARD_ENABLED;class_badge.outline_size=12
+		class_badge.outline_modulate=Color("11151be6");class_badge.no_depth_test=false
+	class_badge.text="[ "+title+" ]";class_badge.modulate=color
+	class_badge.visible=alive_state and not spectator and not local_player
+
+var cloak_material: ShaderMaterial
+var cloak_meshes: Array=[]
+var cloak_active:=false
+var cloak_visibility:=1.0
+var cloak_avatar: Node3D
+func set_cloak_visual(active: bool,friendly: bool,tint: Color,delta: float) -> void:
+	if not active:
+		for entry in cloak_meshes:
+			if is_instance_valid(entry.node):entry.node.material_override=entry.material;entry.node.cast_shadow=entry.shadow
+		cloak_meshes.clear();cloak_active=false;cloak_visibility=1.0;cloak_avatar=null
+		return
+	if not cloak_active or cloak_avatar!=avatar:
+		cloak_meshes.clear();cloak_avatar=avatar;cloak_active=true
+		cloak_material=ShaderMaterial.new();cloak_material.shader=preload("res://deathmatch/avatars/cloak.gdshader")
+		for mesh in avatar.find_children("*","MeshInstance3D",true,false):
+			cloak_meshes.append({"node":mesh,"material":mesh.material_override,"shadow":mesh.cast_shadow})
+			mesh.material_override=cloak_material;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	# Weapon meshes may be rebuilt after an avatar swap; cloak those too.
+	for mesh in avatar.find_children("*","MeshInstance3D",true,false):
+		if not cloak_meshes.any(func(entry):return entry.node==mesh):
+			cloak_meshes.append({"node":mesh,"material":mesh.material_override,"shadow":mesh.cast_shadow})
+			mesh.material_override=cloak_material;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	cloak_visibility=move_toward(cloak_visibility,.22 if friendly else 0.0,delta*2.5)
+	cloak_material.set_shader_parameter("visibility",cloak_visibility);cloak_material.set_shader_parameter("tint",tint)
+	if label:label.visible=friendly and alive_state and not local_player
+	if is_instance_valid(class_badge):class_badge.visible=friendly and alive_state and not local_player

@@ -1,4 +1,5 @@
 extends RefCounted
+const MAX_BYTES:=25_000_000
 const Reader = preload("res://addons/bsp_importer/bsp_reader.gd")
 const SCALE := 1.0/32.0
 const Paths=preload("res://deathmatch/assets/paths.gd")
@@ -37,6 +38,16 @@ static func map_title(path: String,fallback: String) -> String:
 	var found:=regex.search(world)
 	return found.get_string(1).left(60) if found else fallback
 static func scene(row: Dictionary) -> PackedScene:
+	# Generated bakes use a renderer-versioned cache, including palette policy.
+	# Existing third-party/prebuilt maps retain their original cache paths.
+	var file:=FileAccess.open(row.path,FileAccess.READ)
+	if file and file.get_length()>=124:
+		file.seek(4);var offset:=file.get_32();var length:=file.get_32()
+		if offset+length<=file.get_length():
+			file.seek(offset)
+			var world:=file.get_buffer(mini(length,65536)).get_string_from_ascii().split("}")[0]
+			if world.contains('"_fpsloppa_bake" "1"'):
+				row=row.duplicate();row.scene=str(row.scene).get_basename()+("-ad-cutout3-lightmap1.scn" if world.contains('"_fpsloppa_ad" "1"') else "-lightmap1.scn")
 	if FileAccess.file_exists(row.scene):return load(row.scene)
 	var node:=read(row.path)
 	if not node:return null
@@ -51,7 +62,7 @@ static func point(value: String) -> Vector3:
 static func validate(path: String) -> String:
 	var f := FileAccess.open(path,FileAccess.READ)
 	if not f: return "Cannot read BSP."
-	if f.get_length()<124 or f.get_length()>128_000_000: return "BSP must be between 124 bytes and 128 MB."
+	if f.get_length()<124 or f.get_length()>MAX_BYTES: return "BSP must be between 124 bytes and 25 MB."
 	if not f.get_32() in [29,0x32505342,0x42535032]: return "Only Quake I BSP29 and BSP2 are supported."
 	for i in range(15):
 		var offset := f.get_32()
@@ -116,6 +127,10 @@ static func read(path: String) -> Node3D:
 				result.add_child(area,true)
 				area.owner=result
 				add_volume_box(area,result,AABB(brush.mins,Vector3.ZERO).expand(brush.maxs),Transform3D.IDENTITY)
+	if result:
+		var source:=FileAccess.open(path,FileAccess.READ);source.seek(4);var offset:=source.get_32();var length:=source.get_32();source.seek(offset)
+		var world:=source.get_buffer(mini(length,65536)).get_string_from_ascii().split("}")[0]
+		if world.contains('"_fpsloppa_ad" "1"'):preload("res://deathmatch/maps/static_batch.gd").apply(result)
 	reader.free()
 	return result
 

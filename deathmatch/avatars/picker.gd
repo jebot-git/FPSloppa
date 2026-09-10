@@ -11,6 +11,9 @@ var chooser: FileDialog
 var apply_button: Button
 var hashes: Array = []
 var current := ""
+var preview_hash:=""
+var preview_request:=0
+var preview_button: Button
 var animation_mode := 0
 var rotating := true
 
@@ -18,7 +21,7 @@ func setup(network: Node) -> void:
 	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
 	service = network
 	library = service.library
-	title = "ENTRYWAY / PLAYER MODEL"
+	title = "FPSloppa / PLAYER MODEL"
 	size = Vector2i(940,640)
 	min_size = Vector2i(740,540)
 	transient = true
@@ -42,12 +45,13 @@ func setup(network: Node) -> void:
 	row.add_child(left)
 	options = ItemList.new()
 	options.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	options.item_selected.connect(func(index): show_model(hashes[index]))
+	options.item_selected.connect(func(index): select_model(hashes[index]))
 	left.add_child(options)
 	detail = Label.new()
 	detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	detail.custom_minimum_size = Vector2(250,130)
 	left.add_child(detail)
+	preview_button=add_button(left,"LOAD SELECTED PREVIEW",func():show_model(current))
 	add_button(left,"IMPORT .VRM…",func(): chooser.popup_centered_ratio(.8))
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -146,6 +150,7 @@ func setup(network: Node) -> void:
 	add_child(chooser)
 	chooser.file_selected.connect(import_model)
 	visibility_changed.connect(func():
+		if not visible:preview_request+=1;preview_button.disabled=false
 		viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS if visible else SubViewport.UPDATE_DISABLED
 		viewport.process_mode = Node.PROCESS_MODE_INHERIT if visible else Node.PROCESS_MODE_DISABLED
 	)
@@ -163,7 +168,7 @@ func add_button(parent: Node, label: String, callback: Callable) -> Button:
 func open() -> void:
 	refresh()
 	popup_centered()
-	show_model(library.selected)
+	select_model(library.selected)
 
 func refresh() -> void:
 	options.clear()
@@ -172,24 +177,29 @@ func refresh() -> void:
 		options.add_item(library.entries[hash].title)
 		if hash==library.selected: options.select(options.item_count-1)
 
+func select_model(hash: String) -> void:
+	preview_request+=1
+	current=hash
+	if not library.entries.has(hash):apply_button.disabled=true;preview_button.disabled=true;return
+	var info: Dictionary=library.entries[hash]
+	detail.text="%s\n\n%s\nVRM %s · %.1f MB\n%s"%[info.title,info.author,info.version,float(info.size)/1_000_000,info.license]
+	apply_button.disabled=false;preview_button.disabled=false
+	if is_instance_valid(preview):preview.visible=preview_hash==hash
+	feedback.text="Selected. Use this model directly, or load its 3D preview."
 func show_model(hash: String) -> void:
-	if not library.entries.has(hash): return
-	current = hash
-	apply_button.disabled = true
-	feedback.text = "Loading VRM preview…"
-	await get_tree().process_frame
-	if current!=hash: return
-	if is_instance_valid(preview): preview.free()
-	preview = library.create_avatar(hash)
-	if not preview:
-		feedback.text = library.last_error
-		return
-	stage.add_child(preview)
-	preview.preview_mode = animation_mode
-	var info: Dictionary = library.entries[hash]
-	detail.text = "%s\n\n%s\nVRM %s · %.1f MB\n%s" % [info.title,info.author,info.version,float(info.size)/1_000_000,info.license]
-	feedback.text = "All models: 1.70 m visual height · identical collision and damage hitbox."
-	apply_button.disabled = false
+	if not library.entries.has(hash) or not visible:return
+	if preview_hash==hash and is_instance_valid(preview):preview.show();return
+	preview_request+=1;var request:=preview_request
+	preview_button.disabled=true;feedback.text="Loading selected VRM preview…"
+	# Paint feedback first; cancel superseded requests before expensive plugin work.
+	await get_tree().create_timer(.15).timeout
+	if request!=preview_request or not visible or current!=hash:return
+	var model: Node3D=library.create_avatar(hash)
+	preview_button.disabled=false
+	if not model:feedback.text=library.last_error;return
+	if is_instance_valid(preview):preview.queue_free()
+	preview=model;preview_hash=hash;stage.add_child(preview);preview.preview_mode=animation_mode
+	feedback.text="1.70 m visual height · identical collision and damage hitbox."
 
 func import_model(path: String) -> void:
 	feedback.text = "Checking VRM…"
@@ -200,7 +210,7 @@ func import_model(path: String) -> void:
 		return
 	refresh()
 	options.select(hashes.find(hash))
-	show_model(hash)
+	select_model(hash)
 
 func _process(delta: float) -> void:
 	if visible and preview and rotating: preview.rotation.y += delta*.35

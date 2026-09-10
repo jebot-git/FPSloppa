@@ -3,7 +3,7 @@ from pathlib import Path
 import subprocess, tempfile, time, json, os, shutil
 
 root=Path(__file__).resolve().parents[2]
-binary=root.parent/'Builds/Server/EntrywayServer.x86_64'
+binary=root.parent/'Builds/Server/FPSloppaServer.x86_64'
 godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
 logs=root/'test-results'
 processes=[]; handles=[]

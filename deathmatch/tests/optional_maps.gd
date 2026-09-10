@@ -8,7 +8,12 @@ func run() -> void:
 	var args:=OS.get_cmdline_user_args()
 	var threewave:=args.has("--threewave")
 	var paths: Array=[]
-	if threewave:
+	if args.has("--tf"):
+		paths=["res://optional-tf-map-pack/tf_ironspan.bsp","res://optional-tf-map-pack/tf_relayworks.bsp"]
+		if args.has("--local-tf"):
+			var directory: String=args[args.find("--local-tf")+1]
+			for name in ["2fort5","well6"]:paths.append(directory.path_join("tf_original_"+name+".bsp"))
+	elif threewave:
 		var directory: String=args[args.find("--threewave")+1]
 		for number in range(1,7):paths.append(directory.path_join("threewave_ctf2m%d.bsp"%number))
 	else:
@@ -50,7 +55,7 @@ func run() -> void:
 			if kind=="trigger_teleport":
 				report.teleports+=1
 				if not destinations.has(node.attributes.get("target","")):failures.append("Unresolved teleport in "+path)
-			if not kind in ["info_player_deathmatch","info_player_team1","info_player_team2"]:continue
+			if not kind in ["info_player_deathmatch","info_player_team1","info_player_team2","info_player_teamspawn"]:continue
 			var pos: Vector3=node.global_position-Vector3.UP*.70
 			var floor:=world.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(pos+Vector3.UP*.15,pos-Vector3.UP*4,1))
 			var query:=PhysicsShapeQueryParameters3D.new();var capsule:=CapsuleShape3D.new();capsule.radius=.29;capsule.height=1.63;query.shape=capsule;query.transform=Transform3D(Basis.IDENTITY,pos+Vector3.UP*.835);query.collision_mask=1;query.margin=0.001
@@ -60,5 +65,6 @@ func run() -> void:
 		if report.meshes==0 or report.collision_shapes==0 or report.invalid_triangles>0:failures.append("Invalid geometry: "+str(report))
 		reports.append(report);map.free();await physics_frame
 	var output:="res://test-results/threewave-validation.json" if threewave else "res://optional-map-pack/validation.json"
+	if args.has("--tf"):output="res://test-results/tf-map-validation.json"
 	var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"maps":reports,"failures":failures},"  "));file.close()
 	print("OPTIONAL_MAPS_RESULT ",JSON.stringify(failures));world.free();quit(0 if failures.is_empty() else 1)

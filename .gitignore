@@ -29,3 +29,32 @@ __pycache__/
 **/ctf2m*.bsp
 
 /Builds/
+
+# Original TF conversions are local/server-only.
+**/tf_original_*.bsp
+**/2fort5.bsp
+**/well6.bsp
+
+# Locally installed optional TF assets are maintained in optional-tf-map-pack.
+/maps/tf_*.lit
+/maps/navigation/tf_*.res
+
+# External map packs and player-supplied navigation stay separate from source packs.
+/maps/*.lit
+/maps/navigation/*.res
+
+/maps/*.before-arena-pack-*
+/maps/arena-collection-1/
+
+/demos/
+/video-output/
+
+# Arcane Dimensions derivatives and source assets stay local.
+**/ad_arena_*.bsp
+**/ad_arena_*.lit
+/optional-ad-tools/local/
+
+/maps/AD-NOTICES/
+/maps/ad_arena_*-README.txt
+/maps/*_ad_maplist.txt
+/maps/ad-maplists.cfg

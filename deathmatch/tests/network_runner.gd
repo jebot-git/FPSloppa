@@ -4,6 +4,12 @@ var game
 var role := ""
 var failures: Array = []
 var peer_id := 0
+class ReplicaProbe extends Node:
+	var rocket_seen: Dictionary={}
+	@rpc("any_peer","call_remote","reliable")
+	func observed_rocket() -> void:
+		if multiplayer.is_server():rocket_seen[multiplayer.get_remote_sender_id()]=true
+var probe: ReplicaProbe
 
 func _initialize() -> void:
 	call_deferred("run")
@@ -27,6 +33,7 @@ func run() -> void:
 	role = args[0] if args.size()>0 else "server"
 	game = load("res://deathmatch/arena.tscn").instantiate()
 	root.add_child(game)
+	probe=ReplicaProbe.new();probe.name="ReplicaProbe";root.add_child(probe)
 	Fixture.setup(game)
 	await process_frame
 	if role=="server": await server_run()
@@ -90,6 +97,9 @@ func server_run() -> void:
 	game._blast(game.fighters[shooter].position+Vector3(-.5,.1,0),shooter,128,5.76)
 	await pause(.35)
 	check(game.fighters[shooter].position.y>Fixture.ORIGIN.y+1 and game.fighters[shooter].blast_velocity.length()>1,"Server retains rocket jump during remote input simulation")
+	# Do not erase this transient state while a slower client is still rendering
+	# buffered snapshots. Every peer must actually observe both replicated fields.
+	check(await wait_for(func():return probe.rocket_seen.size()==3,3),"All peers acknowledge replicated rocket position and knockback")
 	for id in [shooter,target]:
 		game.fighters[id].velocity=Vector3.ZERO;game.fighters[id].blast_velocity=Vector2.ZERO
 		game.players[id].serial+=1
@@ -175,7 +185,8 @@ func client_run() -> void:
 				if state.dead: saw_death = true
 				if state.owned.has(1): saw_pickup = true
 			for actor in game.fighters.values():
-				if actor.blast_velocity.length()>1 and actor.target.y>Fixture.ORIGIN.y+.5:saw_rocket=true
+				if not saw_rocket and actor.blast_velocity.length()>1 and actor.target.y>Fixture.ORIGIN.y+.5:
+					saw_rocket=true;probe.observed_rocket.rpc_id(1)
 				if actor.xr_pose.get("body",{}).has("left_foot"): saw_tracking=true
 				if actor.xr_pose.get("body",{}).get("left_curls",PackedFloat32Array())==PackedFloat32Array([0,.25,.5,.75,1]): saw_fingers=true
 				if actor.xr_pose.has("offhand_weapon") and game.players.values().any(func(s):return s.offhand_cooldown>0): saw_dual=true
@@ -219,8 +230,9 @@ func client_run() -> void:
 			if game.last_event=="TEST_FIRE" and is_shooter:
 				game.local_yaw=0;game.local_pitch=0
 				game.desired_weapon = 4
-				game.fire_down = true
-			if game.last_event=="TEST_STOP": game.fire_down = false
+				var fire_event:=InputEventMouseButton.new();fire_event.button_index=MOUSE_BUTTON_LEFT;fire_event.pressed=true;Input.parse_input_event(fire_event)
+			if game.last_event=="TEST_STOP":
+				var fire_event:=InputEventMouseButton.new();fire_event.button_index=MOUSE_BUTTON_LEFT;fire_event.pressed=false;Input.parse_input_event(fire_event)
 			if game.last_event=="TEST_CHAT" and is_shooter and not sent_chat:
 				game.chat_send("hello arena")
 				sent_chat = true

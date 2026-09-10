@@ -2,7 +2,7 @@ extends Node
 ## Only the current host-selected raw BSP is served. No executable scenes cross the network.
 const Loader=preload("res://deathmatch/maps/loader.gd")
 const Hash=preload("res://deathmatch/avatars/library.gd")
-const MAX_BYTES=128_000_000
+const MAX_BYTES=Loader.MAX_BYTES
 const CHUNK=32_768
 const WINDOW=262_144
 var game
@@ -34,6 +34,8 @@ func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0) ->
 	if epoch<game.map_epoch: return
 	if epoch>game.map_epoch or game.active: game._prepare_client_map(epoch)
 	if not expected.is_empty() or not incoming.is_empty(): return
+	if map_id==game.lobby.ID and hash==game.lobby.HASH.sha256_text() and size==0:
+		game.lobby.build();game.map_loading=false;game._map_ready.rpc_id(1,hash);return
 	for row in game.map_catalog:
 		if row.sha256==hash and game._load_map(row.id):
 			game.map_loading=false

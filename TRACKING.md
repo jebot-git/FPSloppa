@@ -39,7 +39,7 @@ source_ip="192.168.1.50"
 listen_port=9000
 ```
 
-Set `source_ip` to the SlimeVR server's address. Set the SlimeVR destination to the headset's LAN address, using the same port. On desktop the file is under Godot's `app_userdata/Entryway Deathmatch`; Android uses the application's private user-data directory, so configuring it may require device development tools. The menu toggle persists; the address/port are configuration-file settings. The receiver accepts packets only from the configured source IP, caps packet/bundle work per frame, rejects malformed/nonfinite data and expires position samples after 250 ms. OSC itself is unencrypted and unauthenticated; use a trusted LAN.
+Set `source_ip` to the SlimeVR server's address. Set the SlimeVR destination to the headset's LAN address, using the same port. On desktop the file is under Godot's `app_userdata/FPSloppa`; Android uses the application's private user-data directory, so configuring it may require device development tools. The menu toggle persists; the address/port are configuration-file settings. The receiver accepts packets only from the configured source IP, caps packet/bundle work per frame, rejects malformed/nonfinite data and expires position samples after 250 ms. OSC itself is unencrypted and unauthenticated; use a trusted LAN.
 
 ## Quest setup and fallback
 

@@ -93,8 +93,8 @@ func push_to_talk() -> bool:
 	if game.is_vr():
 		var rig=game.xr_rig
 		var hand=rig.right if rig.left_handed else rig.left
-		return rig.focused and (rig.simulated or hand.get_has_tracking_data()) and hand.get_float("grip")>.6
-	return Input.is_physical_key_pressed(KEY_V)
+		return rig.focused and game.bindings.vr_pressed(rig,"ptt")
+	return game.bindings.pressed("ptt")
 
 func _process(delta: float) -> void:
 	if mode==1 and not push_to_talk(): transmitting=false

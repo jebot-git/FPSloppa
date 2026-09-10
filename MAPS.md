@@ -31,11 +31,11 @@ All eight support dedicated TDM, CTF and KOTH through the objective adaptations 
 
 ## Custom maps
 
-Select **IMPORT BSP…** beside ARENA and choose a standalone Quake I BSP29 or BSP2 file. Imports require at least two deathmatch spawn entities and a file no larger than 128,000,000 bytes. The game saves a source copy and compiled Godot scene in its user-data `maps/` directory. Reimporting identical content selects the existing entry. Imported maps appear in the arena selector after restarting, too.
+Select **IMPORT BSP…** beside ARENA and choose a standalone Quake I BSP29 or BSP2 file. Imports require at least two deathmatch spawn entities and a file no larger than 25,000,000 bytes. The game saves a source copy and compiled Godot scene in its user-data `maps/` directory. Reimporting identical content selects the existing entry. Imported maps appear in the arena selector after restarting, too.
 
 Clients automatically download the host’s current BSP when their local map checksum does not match. The host sends the original BSP, never a Godot scene or script. The client checks the size, SHA-256 and BSP structure, compiles it locally, caches it under `user://maps/`, and then joins. Cached matching content avoids downloading again.
 
-Transfers use reliable ENet channel 5, 32 KiB chunks, a 256 KiB acknowledgement window and a 2 MiB/s aggregate host budget shared across downloading clients. The 128,000,000-byte map limit is independent of the 25 MB VRM limit. Transfers with invalid sizes, checksums or chunk order fail; 30 seconds without progress cancels the transfer and removes its partial file. Map compilation may briefly stall a client. There is no interrupted-download resume or map-cache eviction. Hosts should select maps they have permission to redistribute.
+Transfers use reliable ENet channel 5, 32 KiB chunks, a 256 KiB acknowledgement window and a 2 MiB/s aggregate host budget shared across downloading clients. The 25,000,000-byte map limit is the same byte cap as the 25 MB VRM limit. Transfers with invalid sizes, checksums or chunk order fail; 30 seconds without progress cancels the transfer and removes its partial file. Map compilation may briefly stall a client. There is no interrupted-download resume or map-cache eviction. Hosts should select maps they have permission to redistribute.
 
 ## Supported behavior
 
@@ -60,3 +60,7 @@ LibreQuake maps, embedded textures and palette are BSD-3-Clause. Original notice
 Validation: `tests/maps.gd` checks all eight scenes and 72 spawn floors; `tests/map_import.gd` exercises custom compilation, cache loading, hashing and imported weapon meshes; `run_network_tests.py --bsp` runs a server and two clients with different initial map selections, teleporting and platform movement. Run `map_import.gd` with an isolated XDG_DATA_HOME because it intentionally creates a custom map entry.
 
 `run_network_tests.py --maps` tests a host and two clients with isolated caches: automatic BSP download, checksum/cache validation, joining, pistol-only inventory and replicated VR poses. `tests/map_transfer_guards.gd` checks oversized/unsolicited transfers, invalid chunk order and malformed texture tables.
+
+## Optional local AD conversions
+
+[The AD adaptation tools](optional-ad-tools/README.md) screen Arcane Dimensions 1.80 patch 1 maps, exclude test maps and incompatible geometry, and add current-game multiplayer entities. Converted BSPs remain local with original notices. Optional `<mode>_ad_maplist.txt` files suggest rotations without changing the default maplists. These are experimental asymmetric arenas and have not been certified for standalone headset performance.

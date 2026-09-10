@@ -1,14 +1,18 @@
-# FPSloppa · 0.4v
+# FPSloppa · TF development build
 
-[Latest release: 0.4v](https://github.com/jebot-git/FPSloppa/releases/tag/0.4v) · [Current 0.4v build notes](docs/RELEASE-0.4v.md)
+[0.5v build notes](docs/RELEASE-0.5v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-FPSloppa (in-game title: Entryway Deathmatch) is a PC OpenXR and desktop online arena shooter with eight external LibreQuake arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
+**Arena Collection 1:** forty additional original BSPs, five per game mode, with an optional installer and visual atlas. See [the map-pack readme](optional-arena-pack/README.md). VRMs now use restrained arena lighting; see [AVATAR_LIGHTING.md](AVATAR_LIGHTING.md).
 
-See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG and CC use their mode-specific weapons. Blood, gibs, pain reactions and spatial sound effects are included.
+**New in 0.5v:** optional TF classes, class badges, VRM spy disguises and two original TF arenas. See [TF.md](TF.md). This uses a newer protocol than the published 0.4v release.
+
+FPSloppa is a PC OpenXR and desktop online arena shooter with eight external LibreQuake arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
+
+See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.4v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.5v clients and servers; the protocol changed from earlier releases.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Standalone users should open **ASSETS…** and download the base assets, or extract the Base-Assets ZIP into the app’s external files directory. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Freeze Tag and Chainsaw Circus are available.
 
@@ -18,7 +22,7 @@ Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside t
 2. Other players enter that host's IP address or hostname and the same port, then select **Join Match**. Use `127.0.0.1` only for clients on the host's own computer; use the host's LAN address for other computers on the same network.
 3. For Internet play, allow the selected UDP port through the host firewall and forward it on the router to the hosting computer, or use a publicly reachable dedicated server. Join using the host's public address.
 
-All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and support **up to 16 players** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. There is no account service, automatic matchmaking, NAT relay, public server browser, or host migration. Dedicated servers support configured map rotation. WAN latency and router traversal have not been tested from this workspace; real ENet loopback sessions with independent processes have been tested.
+All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and allow **up to 32 players (above 16 is unsupported; performance, gameplay and maps are not balanced for these counts)** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. There is no account service, automatic matchmaking, NAT relay, public server browser, or host migration. Dedicated servers support configured map rotation. WAN latency and router traversal have not been tested from this workspace; real ENet loopback sessions with independent processes have been tested.
 
 **PRACTICE VS BOTS** starts an offline match on the selected BSP map with three simple AI opponents. The selected gamemode determines weapons and pickups.
 
@@ -117,7 +121,7 @@ Every held weapon can perform a short-range weapon whip: press **F** on desktop 
 
 ### Spectators, presentation and soundtrack
 
-Select **Join as spectator** before **JOIN MATCH** to watch with a free-flying camera. Desktop uses WASD and Space/Ctrl for up/down; VR uses the left stick to move, right stick left/right to turn and right stick up/down to fly. Spectators have no visible avatar, collision, pickups, weapons or damage, appear separately on the scoreboard, and keep their role through map downloads and rotation. They occupy a connection slot (8 on menu-hosted servers, up to 16 in dedicated server configuration). CLI joining also accepts `--spectate` alongside `--connect`.
+Select **Join as spectator** before **JOIN MATCH** to watch with a free-flying camera. Desktop uses WASD and Space/Ctrl for up/down; VR uses the left stick to move, right stick left/right to turn and right stick up/down to fly. Spectators have no visible avatar, collision, pickups, weapons or damage, appear separately on the scoreboard, and keep their role through map downloads and rotation. They occupy a connection slot (8 on menu-hosted servers, up to 32 in dedicated server configuration; above 16 is unsupported). CLI joining also accepts `--spectate` alongside `--connect`.
 
 The final scoreboard opens automatically when a match ends, including its VR surface, and closes for the next round. **SETTINGS…** is available before joining and during matches. Audio controls include master, effects, music, voice playback, output device and access to microphone/voice controls. Graphics controls include render resolution (50–125%), MSAA and shadows; desktop also offers fullscreen/windowed mode and FOV. Changes apply immediately and persist alongside your other client preferences. VR FOV and refresh timing remain headset/runtime controlled.
 
@@ -133,3 +137,7 @@ Eight freely licensed LibreQuake arenas are bundled. Menus use an original iron/
 This build also includes the previously developed dual pistols, controller finger gestures/tracker fixes, spectator mode, end-of-match scoreboard, audio/graphics settings, new pickup models, restored CC0 super shotgun and four original tracker soundtracks.
 
 Rocket splash now supports rocket jumping with reduced self damage and bounded, replicated knockback. Megahealth and mega armour have distinct colours, labels and moving halos; pain, respawn, powerful-item spawn and pickup cues are improved. Settings → Graphics adjusts VR HUD size and vertical position within saved limits.
+
+Controls, two-handed aiming, physical jumps, demo/video tools and the optional voting lobby: [session features](SESSION_FEATURES.md).
+
+Hit registration, latency simulation and test limitations: [network testing](NETWORK_TESTING.md).

@@ -1,0 +1,124 @@
+{
+  "version": "0.5v",
+  "base_commit": "d103791",
+  "engine": "Godot 4.7.2",
+  "protocol": "fpsloppa-17-lag-compensation",
+  "hardware_testing": "Not newly headset tested. Owner-confirmed 0.3v setups: Quest 3 standalone, Linux/WiVRn, Windows/SteamVR and Windows/Virtual Desktop. Pico untested.",
+  "builds": [
+    {
+      "target": "Linux/FPSloppa.x86_64",
+      "bytes": 73519416,
+      "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63",
+      "export_passed": true
+    },
+    {
+      "target": "Windows/FPSloppa.exe",
+      "bytes": 109235712,
+      "sha256": "0d22a66c1f8cca4fa2f924fa147cbd6584f30d69e88827ab7f0d9e2d646dd8ef",
+      "export_passed": true
+    },
+    {
+      "target": "Server/FPSloppaServer.x86_64",
+      "bytes": 73519416,
+      "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63",
+      "export_passed": true
+    },
+    {
+      "target": "Android/FPSloppa-Quest.apk",
+      "bytes": 122989863,
+      "sha256": "2a90ff51f80196ee5b10c1051a3e3795dbeaa78e7ca3b072f68e1b365738a08f",
+      "export_passed": true
+    },
+    {
+      "target": "Android/FPSloppa-Pico.apk",
+      "bytes": 122989579,
+      "sha256": "3264180df72f8d791f03ce251311be86e078ec2e7e92fd4d72e2211b0062552f",
+      "export_passed": true
+    }
+  ],
+  "tests": {
+    "enet": {
+      "passed": true,
+      "roles": {
+        "server": 0,
+        "shooter": 0,
+        "target": 0,
+        "spectator": 0
+      }
+    },
+    "binary_smoke": {
+      "passed": true,
+      "client_exit": 0,
+      "graphical_linux_client": true
+    },
+    "pack_audit": [
+      {
+        "failures": [],
+        "files": 937,
+        "pack": "/home/blux/Documents/Entryway/Builds/Linux/FPSloppa.pck"
+      },
+      {
+        "failures": [],
+        "files": 937,
+        "pack": "/home/blux/Documents/Entryway/Builds/Windows/FPSloppa.pck"
+      },
+      {
+        "failures": [],
+        "files": 937,
+        "pack": "/home/blux/Documents/Entryway/Builds/Server/FPSloppaServer.pck"
+      },
+      {
+        "apk": "/home/blux/Documents/Entryway/Builds/Android/FPSloppa-Quest.apk",
+        "files": 1056,
+        "failures": []
+      },
+      {
+        "apk": "/home/blux/Documents/Entryway/Builds/Android/FPSloppa-Pico.apk",
+        "files": 1056,
+        "failures": []
+      }
+    ],
+    "arena_maps": {
+      "maps": 40,
+      "passed": true,
+      "route_checks": 24903
+    },
+    "local_ad_maps": {
+      "maps": 16,
+      "passed": true,
+      "route_checks": 7695
+    },
+    "fortress": {
+      "passed": true,
+      "results": [
+        "fortress True",
+        "fortress_maps True",
+        "network-server True",
+        "network-scout True",
+        "network-spy True"
+      ]
+    },
+    "session": {
+      "passed": true,
+      "results": [
+        "PASS new-features.log",
+        "PASS new-features-votes.log",
+        "PASS lobby server",
+        "PASS lobby early",
+        "PASS lobby late"
+      ]
+    },
+    "network_harness": "Initial concurrent-build run missed transient rocket knockback on one client. Added an explicit peer observation barrier before fixture reset; unchanged position/velocity assertions now pass on server, shooter, target and spectator.",
+    "quest_signing": {
+      "verified": true,
+      "zipalign_16k": true,
+      "version_code": 10
+    },
+    "pico_signing": {
+      "verified": true,
+      "zipalign_16k": true,
+      "version_code": 10
+    }
+  },
+  "excluded_content": "No converted AD, ThreeWave or original TF BSPs; external BSP/VRM assets excluded from PCK/APK."
+}

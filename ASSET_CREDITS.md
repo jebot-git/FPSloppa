@@ -72,3 +72,19 @@ The bevelled ammo racks, rocket carrier, cell pack, medkit, armour vests and bon
 
 - Additional soundtrack instruments: Karoryfer Lecolds / Brian Wood, CC0 1.0; Black and Green Guitars, Growlybass and Big Rusty Drums. Exact pinned recordings and transformations: `deathmatch/audio/music/SOURCES.md`. Original compositions and renders: CC0 1.0.
 - Pain grunts: HaelDB, Male Grunt/Yelling Sounds, CC0 1.0. Selection and processing: `deathmatch/audio/recorded/SOURCES.md`.
+
+## TF development assets
+
+Ironspan and Relayworks use original CC0 geometry and MAP sources in `optional-tf-map-pack/`. Every embedded texture mip is checked against the BSD LibreQuake donor WAD in `optional-tf-tools/`; both packages retain its notices and provenance. The cloak shader and conversion tools are original project code. Converted original 2fort5/Well6 BSPs are excluded from the repository and public packages; see `TF.md` and `optional-tf-tools/RIGHTS.md`.
+
+## Arena Collection 1
+
+Forty original CC0 BSP layouts and MAP sources in `optional-arena-pack/` use only BSD-3-Clause LibreQuake v0.09-beta texture pixels. The texture subset, original notices, exact source hashes and four-mip validation accompany the pack. Gameplay references are documented in `optional-arena-pack/REFERENCES.md`; no reference screenshots or original commercial maps are packaged.
+
+The opt-in FPSloppa lighting additions to the Godot MToon shader retain the upstream license and are documented in `AVATAR_LIGHTING.md`.
+
+### LibreQuake map fixtures and local AD tools
+
+`deathmatch/maps/librequake-props/` contains mesh/skin conversions of LibreQuake's flame and wall-torch models, under BSD-3-Clause. Its `SOURCES.json`, `LICENCE.txt` and `CREDITS.txt` preserve provenance and attribution. The converters live in `optional-ad-tools/`.
+
+Arcane Dimensions derivatives are local testing assets, excluded from this repository and release packages. The tools preserve original notices with local output; see [the adaptation instructions](optional-ad-tools/README.md). Embedded AD/Quake-derived artwork is not represented as LibreQuake or as freely redistributable FPSloppa content.

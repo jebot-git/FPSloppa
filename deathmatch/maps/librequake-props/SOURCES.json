@@ -1,0 +1,21 @@
+{
+  "source": "LibreQuake full release used by FPSloppa base assets",
+  "pak_sha256": "08018cb7fc66908881dbae75fbf691125d3f3524fcfddc5c579e8e8877d46382",
+  "license": "BSD-3-Clause",
+  "models": [
+    {
+      "model": "flame",
+      "source": "progs/flame.mdl",
+      "sha256": "be5ac42cef50c8d28298f2f33279419fff157bbac2796cb45400d66ad80c0326",
+      "triangles": 118,
+      "conversion": "first frame, original UV/skin, Quake-to-Godot coordinates"
+    },
+    {
+      "model": "flame2",
+      "source": "progs/flame2.mdl",
+      "sha256": "4a32718fd90824ed11a71512bdf466d36f6cc11ba552cddb0c0ece3696a21f21",
+      "triangles": 102,
+      "conversion": "first frame, original UV/skin, Quake-to-Godot coordinates"
+    }
+  ]
+}

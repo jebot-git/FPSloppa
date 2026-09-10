@@ -4,7 +4,7 @@ import json, os, shutil, subprocess, tempfile, time
 
 root = Path(__file__).resolve().parents[2]
 godot = os.environ.get('GODOT_BIN') or shutil.which('godot')
-binary = root.parent / 'Builds/Server/EntrywayServer.x86_64'
+binary = root.parent / 'Builds/Server/FPSloppaServer.x86_64'
 logs = root / 'test-results'
 stop = logs / 'capacity-stop'
 

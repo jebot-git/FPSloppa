@@ -28,6 +28,10 @@ func run() -> void:
 		game.start_join(role,"127.0.0.1",28774)
 		check(await wait_for(func():return game.active and not game.local_state().is_empty()),"Client joins")
 		if role=="uploader":
+			await wait_for(func():return game.players.size()==2)
+			await create_timer(.2).timeout
+			game.uploads.offer.rpc_id(1,"b".repeat(64),25_000_001,"oversized")
+			check(await wait_for(func():return game.last_event.contains("25 MB"),3),"Server rejects an oversized BSP upload offer")
 			var row: Dictionary=game.Maps.import_custom(args[1]);check(not row.has("error"),"Client imports map")
 			if not row.has("error"):game.map_catalog=game.Maps.catalog();game.uploads.upload(row)
 		check(await wait_for(func():return game.active and game.map_sha==hash and not game.local_state().is_empty()),"Client loads uploaded map through host transfer")

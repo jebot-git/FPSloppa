@@ -5,6 +5,9 @@ const W=preload("res://deathmatch/weapons.gd")
 const RoomScale=preload("res://deathmatch/vr/room_scale.gd")
 const Preferences=preload("res://deathmatch/vr/preferences.gd")
 const UI_LAYER := 1<<22
+var control_edges: Dictionary={}
+var support_aim=preload("res://deathmatch/vr/aim_support.gd").new()
+var jump_detector=preload("res://deathmatch/vr/physical_jump.gd").new()
 var game
 var tracking
 var eyes
@@ -219,6 +222,7 @@ func place_menu() -> void:
 	panel.global_transform=Transform3D(Basis(Vector3.UP,yaw),head.global_position+Basis(Vector3.UP,yaw)*Vector3(0,-.05,-1.8))
 	keyboard.global_transform=panel.global_transform*Transform3D(Basis(Vector3.RIGHT,-.2),Vector3(0,-1.0,.15))
 func recenter() -> void:
+	support_aim.reset();jump_detector.reset()
 	if not enabled: return
 	if seated:
 		# Translate the tracking space, preserving real-world reach and movement.
@@ -236,18 +240,31 @@ func on_spawn() -> void:
 	scores=false
 func movement_hand() -> XRController3D: return right if left_controls else left
 func turning_hand() -> XRController3D: return left if left_controls else right
-func left_button(action: String) -> void: control_button(action,not left_controls)
-func right_button(action: String) -> void: control_button(action,left_controls)
-func control_button(action: String, movement_side: bool) -> void:
-	if action=="menu_button": toggle_menu()
-	elif action=="by_button":
-		if movement_side:
-			scores=not scores
-			if scores: place_menu()
-		else: toggle_menu()
-	elif action=="ax_button" and movement_side and game.active and not game.menu_open:
-		if multiplayer.is_server(): game._use_for(multiplayer.get_unique_id())
-		else: game._use_request.rpc_id(1)
+func left_button(action: String) -> void: control_button(action,left)
+func right_button(action: String) -> void: control_button(action,right)
+func control_button(action: String, _hand: XRController3D) -> void:
+	if action=="menu_button":toggle_menu()
+func poll_controls() -> void:
+	for action in ["menu","scores","use"]:
+		var pressed: bool=focused and game.bindings.vr_pressed(self,action)
+		if pressed and not control_edges.get(action,false):
+			match action:
+				"menu":toggle_menu()
+				"scores":
+					scores=not scores
+					if scores:place_menu()
+				"use":
+					if game.active and not game.menu_open:
+						if multiplayer.is_server():game._use_for(multiplayer.get_unique_id())
+						else:game._use_request.rpc_id(1)
+		control_edges[action]=pressed
+func weapon_pose() -> Transform3D:
+	var hand: XRController3D=left if left_handed else right
+	var aim: XRController3D=left_aim if left_handed else right_aim
+	var other: XRController3D=right if left_handed else left
+	var held:=Poses.held_weapon(hand.transform,aim.transform)
+	var valid: bool=game.bindings.two_handed and not game.menu_open and not scores and focused and (simulated or (hand.get_has_tracking_data() and aim.get_has_tracking_data() and other.get_has_tracking_data()))
+	return support_aim.solve(held,other.transform,game.local_state().get("weapon",game.desired_weapon),game.bindings.vr_pressed(self,"support"),valid)
 func update_seated(body: Dictionary) -> void:
 	seated_active=seated and not (tracking and tracking.has_body_pose(body))
 	origin_offset.y=seated_height_offset if seated_active else 0.0
@@ -258,6 +275,7 @@ func toggle_menu() -> void:
 	if game.menu_open: place_menu()
 func _process(delta: float) -> void:
 	if not enabled: return
+	poll_controls()
 	left.visible=simulated or left.get_has_tracking_data()
 	right.visible=simulated or right.get_has_tracking_data()
 	var fingers: Dictionary=tracking.sample() if tracking else {}
@@ -270,10 +288,11 @@ func _process(delta: float) -> void:
 	elif not game.spawn_points.is_empty():
 		global_transform=Transform3D(Basis(Vector3.UP,game.spawn_yaws[0] if not game.spawn_yaws.is_empty() else 0.0),game.spawn_points[0])
 	update_seated(fingers)
+	jump_detector.sample(head.position.y,delta,game.bindings.physical_jump and not seated_active and not calibration_pending and focused and not game.menu_open and head_tracked() and actor!=null and not game.local_state().get("dead",true),actor!=null and actor.is_on_floor())
 	origin.position=origin_offset+Vector3.UP*(actor.view_offset if actor else 0.0)
 	if calibration_pending and (simulated or head.position.y>.5): recenter()
 	if actor and not game.menu_open and focused:
-		var stick:=turning_hand().get_vector2("primary")
+		var stick: Vector2=game.bindings.axis(self,"turn")
 		apply_turn(stick.x,delta)
 		if absf(stick.y)>.75 and not cycle_latched and not game.local_state().get("spectator",false):
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
@@ -309,14 +328,14 @@ func _process(delta: float) -> void:
 			(left_aim if left_handed else right_aim).add_child(gun)
 			gun_id=s.weapon
 		if gun.get_parent()!=(left_aim if left_handed else right_aim): gun.reparent(left_aim if left_handed else right_aim,false)
-		gun.visible=not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
+		gun.visible=not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
 		var grip: XRController3D=left if left_handed else right
 		var aim: XRController3D=left_aim if left_handed else right_aim
-		gun.global_transform=Art.held_transform(Poses.held_weapon(grip.global_transform,aim.global_transform),s.weapon)
+		gun.global_transform=Art.held_transform(origin.global_transform*weapon_pose(),s.weapon)
 		if is_instance_valid(offhand_gun):
 			var other_grip: XRController3D=right if left_handed else left
 			var other_aim: XRController3D=right_aim if left_handed else left_aim
-			offhand_gun.visible=not s.dead and not menu_visible and focused and (simulated or (other_grip.get_has_tracking_data() and other_aim.get_has_tracking_data()))
+			offhand_gun.visible=not game.lobby.active() and not s.dead and not menu_visible and focused and (simulated or (other_grip.get_has_tracking_data() and other_aim.get_has_tracking_data()))
 			offhand_gun.global_transform=Art.held_transform(Poses.held_weapon(other_grip.global_transform,other_aim.global_transform),2)
 		# Local IK reads current tracking directly; it must not wait for a network echo.
 		var pose:=sample_pose()
@@ -348,7 +367,7 @@ func save_turn_settings() -> Error:
 func sample_pose() -> Dictionary:
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
-	var pose: Dictionary={"head":origin.transform*head.transform,"left":origin.transform*left.transform,"right":origin.transform*right.transform,"weapon":origin.transform*Poses.held_weapon(hand.transform,aim.transform),"left_handed":left_handed}
+	var pose: Dictionary={"head":origin.transform*head.transform,"left":origin.transform*left.transform,"right":origin.transform*right.transform,"weapon":origin.transform*weapon_pose(),"left_handed":left_handed}
 	var other_hand: XRController3D=right if left_handed else left
 	var other_aim: XRController3D=right_aim if left_handed else left_aim
 	if simulated or (other_hand.get_has_tracking_data() and other_aim.get_has_tracking_data()):
@@ -364,18 +383,19 @@ func command(sequence: int) -> Dictionary:
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
 	var tracked: bool=simulated or (hand.get_has_tracking_data() and aim.get_has_tracking_data())
-	var stick:=movement_hand().get_vector2("primary") if not blocked else Vector2.ZERO
+	var stick: Vector2=game.bindings.axis(self,"move") if not blocked else Vector2.ZERO
 	if stick.length()<.18: stick=Vector2.ZERO
 	var movement:=Basis(Vector3.UP,head.rotation.y)*Vector3(stick.x,0,-stick.y)
 	var pose:=sample_pose()
-	var trigger: bool=hand.get_float("trigger")>.55
+	var trigger: bool=game.bindings.vr_pressed(self,"fire")
 	var other_hand: XRController3D=right if left_handed else left
-	var other_trigger: bool=other_hand.get_float("trigger")>.55
+	var other_trigger: bool=game.bindings.vr_pressed(self,"offhand_fire")
 	var room:=Vector3.ZERO
 	if not blocked and not pose.is_empty():
 		var horizontal:=Vector3(pose.head.origin.x,0,pose.head.origin.z)
 		room=RoomScale.request(horizontal)
-	return {"seq":sequence,"fly":turning_hand().get_vector2("primary").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":movement_hand().is_button_pressed("primary_click"),"jump":not blocked and turning_hand().is_button_pressed("ax_button"),"respawn":not blocked and (trigger or turning_hand().is_button_pressed("ax_button")),"xr":pose,"room":room}
+	var jump: bool=game.bindings.vr_pressed(self,"jump") or jump_detector.consume()
+	return {"seq":sequence,"fly":game.bindings.axis(self,"turn").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":game.bindings.vr_pressed(self,"slow"),"jump":not blocked and jump,"respawn":not blocked and (trigger or game.bindings.vr_pressed(self,"jump")),"xr":pose,"room":room}
 func feedback(strength: float,seconds: float=.08,offhand: bool=false) -> void:
 	var use_left:=left_handed!=offhand
 	if enabled and not simulated: (left if use_left else right).trigger_haptic_pulse("haptic",0,clampf(strength,0,1),seconds,0)
@@ -414,3 +434,10 @@ func _objective_hud(s: Dictionary) -> String:
 		for flag in mode.flags:
 			if flag.carrier==game.multiplayer.get_unique_id():extra+=" CARRYING FLAG"
 	return "%s R%d B%d / %d"%[mode.kind.to_upper(),mode.scores[0],mode.scores[1],mode.limit()]+extra
+
+func head_tracked() -> bool:
+	if simulated:return true
+	var tracker=XRServer.get_tracker("head")
+	if tracker==null:return false
+	var pose=tracker.get_pose("default")
+	return pose!=null and pose.has_tracking_data

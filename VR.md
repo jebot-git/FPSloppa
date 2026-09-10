@@ -49,7 +49,7 @@ For a keyboard-free setup, copy `client.example.cfg`, edit `[player] name`, and 
 
 Or supply a launch override: `./run-vr.sh -- --name "YourCallsign"`. The same options work with desktop mode, `--practice`, and `--connect`. Menu edits also update the selected config file. Names changed during a match apply on the next join.
 
-The default config is under `~/.local/share/godot/app_userdata/Entryway Deathmatch/` on Linux, or `%APPDATA%\Godot\app_userdata\Entryway Deathmatch\` on Windows. Close the game before editing the file externally.
+The default config is under `~/.local/share/godot/app_userdata/FPSloppa/` on Linux, or `%APPDATA%\Godot\app_userdata\FPSloppa\` on Windows. Close the game before editing the file externally.
 
 ## Combat feedback
 

@@ -25,7 +25,7 @@ func propose(kind: String,value: String="") -> void:
 func request(kind: String,value: String) -> void:
 	if multiplayer.is_server():start(multiplayer.get_remote_sender_id(),kind,value)
 func start(id: int,kind: String,value: String) -> bool:
-	if not enabled or not game.active or game.practice or game.map_loading or game.intermission>0 or not eligible(id) or not ballot.is_empty() or game.clock<cooldown:return false
+	if game.lobby.active() or not enabled or not game.active or game.practice or game.map_loading or game.intermission>0 or not eligible(id) or not ballot.is_empty() or game.clock<cooldown:return false
 	if kind=="balance":
 		if not game.match_mode.team_game():return false
 	elif kind=="mode":
@@ -81,6 +81,7 @@ func change_team(id: int,team: int,force: bool=false) -> bool:
 			if s.team>=0 and not s.spectator:count[s.team]+=1
 		# A voluntary switch must improve numerical balance; votes can reshuffle equal teams.
 		if count[team]>=count[1-team]:return false
+	game.match_mode.fortress.departed(id)
 	game.match_mode.drop(id);game.players[id].team=team;team_cooldowns[id]=game.clock+30
 	game._spawn(id);game.players[id].invulnerable=0
 	game._broadcast_roster();game._announcement.rpc(game.players[id].name+" joined "+game.match_mode.TEAMS[team]);return true

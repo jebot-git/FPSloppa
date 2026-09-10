@@ -339,6 +339,7 @@ var lava_planes_array := []
 var file : FileAccess
 var leaves_offset : int
 var nodes_offset : int
+var arena_bake: RefCounted
 var root_node : Node3D
 var plane_normals : PackedVector3Array
 var plane_distances : PackedFloat32Array
@@ -415,6 +416,8 @@ class BSPXModelBrushes:
 
 
 func read_bsp(source_file : String) -> Node:
+	arena_bake = preload("res://deathmatch/maps/baked_light.gd").new()
+	arena_bake.open(source_file)
 	clear_data() # Probably not necessary, but just in case somebody reads a bsp file with the same instance
 	print("Attempting to import %s" % source_file)
 	#import_singleton = Engine.get_singleton(
@@ -975,12 +978,13 @@ func read_bsp(source_file : String) -> Node:
 					if edge_a.cross(edge_b).length_squared() > maxf(1e-10,edge_a.length_squared()*edge_b.length_squared()*1e-12):
 						triangle_indices.append_array([0,corner,corner+1])
 				if triangle_indices.is_empty(): continue
+				var baked_uvs: PackedVector2Array = arena_bake.face_uvs(face_uvs, Vector2(tex_width, tex_height), bsp_face.lightmap)
 				var surf_tool : SurfaceTool
 				if (texture.is_transparent):
 					# Transparent meshes need to be sorted, so make each face its own mesh for now.
 					surf_tool = SurfaceTool.new()
 					surf_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-					surf_tool.set_material(texture.material)
+					surf_tool.set_material(arena_bake.material(texture.material))
 				else:
 					var grid_index
 					if (separate_mesh_on_grid):
@@ -994,10 +998,11 @@ func read_bsp(source_file : String) -> Node:
 					else:
 						surf_tool = SurfaceTool.new()
 						surf_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-						surf_tool.set_material(texture.material)
+						surf_tool.set_material(arena_bake.material(texture.material))
 						surface_tools[texture.name] = surf_tool
 					mesh_grid[grid_index] = surface_tools
 				for corner in triangle_indices:
+					if not baked_uvs.is_empty(): surf_tool.set_uv2(baked_uvs[corner])
 					surf_tool.set_uv(face_uvs[corner])
 					surf_tool.set_normal(face_normals[corner])
 					surf_tool.add_vertex(face_verts[corner])
@@ -1158,6 +1163,7 @@ func read_bsp(source_file : String) -> Node:
 	file.close()
 	file = null
 	print("BSP read complete.")
+	arena_bake.finish(root_node)
 	return root_node
 
 ## Check for things like alpha test in the texture.
@@ -1790,17 +1796,24 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 					print("Reading texture from bsp file at ", bsp_texture.texture_data_offset)
 					file.seek(bsp_texture.texture_data_offset)
 					var num_pixels := width * height
+					var masked := bsp_texture.has_alpha_test or (not transparent_texture_prefix.is_empty() and name.begins_with(transparent_texture_prefix))
+					var channels := 4 if masked else 3
 					var image_data : PackedByteArray = []
 					var image_data_emission : PackedByteArray = []
-					image_data.resize(num_pixels * 3)
+					image_data.resize(num_pixels * channels)
 					var has_emission := false
 					var image_cursor := 0
 					for pixel_index in num_pixels:
 						var indexed_color := file.get_8()
+						# Quake fence textures reserve palette index 255 for a cutout,
+						# not a pink fullbright pixel. Zero-initialized RGBA leaves it clear.
+						if masked and indexed_color==255:
+							image_cursor+=4
+							continue
 						if (is_fullbright_index(indexed_color)):
 							if (!has_emission):
 								has_emission = true
-								image_data_emission.resize(num_pixels * 3)
+								image_data_emission.resize(num_pixels * channels)
 							# If it's fullbright, write the color to emission and black to albedo.
 							image_data[image_cursor] = 0
 							image_data_emission[image_cursor] = palette[indexed_color * 3 + 0] # Sir_Kane thought it was disguisting that I didn't have a + 0 here.
@@ -1818,10 +1831,14 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 							image_cursor += 1
 							image_data[image_cursor] = palette[indexed_color * 3 + 2]
 							image_cursor += 1
-					image = Image.create_from_data(width, height, false, Image.FORMAT_RGB8, image_data)
+						if masked:
+							image_data[image_cursor]=255
+							if has_emission:image_data_emission[image_cursor]=255
+							image_cursor+=1
+					image = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8 if masked else Image.FORMAT_RGB8, image_data)
 					image.generate_mipmaps()
 					if (has_emission):
-						image_emission = Image.create_from_data(width, height, false, Image.FORMAT_RGB8, image_data_emission)
+						image_emission = Image.create_from_data(width, height, false, Image.FORMAT_RGBA8 if masked else Image.FORMAT_RGB8, image_data_emission)
 						image_emission.generate_mipmaps()
 					texture = ImageTexture.create_from_image(image)
 					need_to_save_image = true
@@ -1843,7 +1860,7 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 			material.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 			material.diffuse_mode = BaseMaterial3D.DIFFUSE_BURLEY
 			material.specular_mode = BaseMaterial3D.SPECULAR_DISABLED
-			if (name.begins_with(transparent_texture_prefix)):
+			if (bsp_texture and bsp_texture.has_alpha_test) or (not transparent_texture_prefix.is_empty() and name.begins_with(transparent_texture_prefix)):
 				print("Transparency enabled.")
 				material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
 			if (save_separate_materials): # Write materials

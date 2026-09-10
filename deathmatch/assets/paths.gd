@@ -17,3 +17,13 @@ static func resolve(path: String) -> String:
 	for kind in ["maps","vrm"]:
 		if path.begins_with("res://"+kind+"/"):return folder(kind)+path.trim_prefix("res://"+kind+"/")
 	return path
+
+static func migrate_preferences() -> void:
+	# Desktop project rename: keep existing settings without replacing new choices.
+	if OS.has_feature("android"):return
+	var legacy:=OS.get_user_data_dir().get_base_dir().path_join("Entryway Deathmatch")
+	for filename in ["deathmatch.cfg","tracking.cfg","avatars.cfg"]:
+		var destination: String="user://"+filename
+		var source:=legacy.path_join(filename)
+		if not FileAccess.file_exists(destination) and FileAccess.file_exists(source):
+			DirAccess.copy_absolute(source,ProjectSettings.globalize_path(destination))

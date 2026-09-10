@@ -2,6 +2,7 @@ extends CanvasLayer
 const W = preload("res://deathmatch/weapons.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 var game
+var fortress_button: Button
 var map_import: Button
 var map_choice: OptionButton
 var avatar_picker: Window
@@ -164,9 +165,11 @@ func _build_menu(root: Control) -> void:
 	dim.color = Color(.035,.025,.02,.94)
 	menu.add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	var menu_scroll:=ScrollContainer.new();menu.add_child(menu_scroll);menu_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	menu_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	var center := CenterContainer.new()
-	menu.add_child(center)
-	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center.size_flags_horizontal=Control.SIZE_EXPAND_FILL;center.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	menu_scroll.add_child(center)
 	var panel := PanelContainer.new()
 	panel.custom_minimum_size = Vector2(650,0)
 	panel.add_theme_stylebox_override("panel",panel_style(Color("122027")))
@@ -175,7 +178,7 @@ func _build_menu(root: Control) -> void:
 	column.add_theme_constant_override("separation",6)
 	panel.add_child(column)
 	text(column,"I R O N   /   B L O O D   /   T H U N D E R",13,Color("ae9571"))
-	var logo:=text(column,"ENTRYWAY",40,Color("d7a966"))
+	var logo:=text(column,"FPSloppa",40,Color("d7a966"))
 	logo.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"))
 	logo.add_theme_color_override("font_shadow_color",Color("7e211b"));logo.add_theme_constant_override("shadow_offset_y",3)
 	text(column,"DEATHMATCH  /  2–8 PLAYERS",17,Color("c39860"))
@@ -265,6 +268,8 @@ func _build_menu(root: Control) -> void:
 	)
 	var session_actions:=HBoxContainer.new();column.add_child(session_actions)
 	leave = button(session_actions,"LEAVE MATCH",func(): game.disconnect_game())
+	var fortress_panel=preload("res://deathmatch/modes/fortress_panel.gd").new();get_child(0).add_child(fortress_panel);fortress_panel.setup(game)
+	fortress_button=button(session_actions,"TF CLASS…",fortress_panel.open)
 	votes_button=button(session_actions,"TEAMS & VOTES…",func():votes_panel.open())
 	vr_actions=HBoxContainer.new()
 	column.add_child(vr_actions)
@@ -286,6 +291,10 @@ func _build_menu(root: Control) -> void:
 		if game.is_vr(): game.xr_rig.tracking.toggle_osc(); status.text=game.xr_rig.tracking.status)
 	button(tracking_actions,"BODY TRACKING ON / OFF",func():
 		if game.is_vr(): game.xr_rig.tracking.enabled=not game.xr_rig.tracking.enabled)
+	var feature_actions:=HBoxContainer.new();column.add_child(feature_actions)
+	button(feature_actions,"DEMOS…",open_demos)
+	button(feature_actions,"BINDINGS…",open_bindings)
+	button(feature_actions,"LOBBY VOTE…",open_lobby)
 	status = text(column,"LAN / direct IP · Internet hosts must forward the selected UDP port.",14,Color("ae9571"))
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	status.custom_minimum_size = Vector2(590,32)
@@ -336,6 +345,7 @@ func toast(message: String) -> void:
 
 func _process(_delta: float) -> void:
 	if game==null: return
+	fortress_button.visible=game.active and game.match_mode.kind=="tf" and not game.local_state().get("spectator",false)
 	map_choice.disabled=game.active
 	map_import.disabled=game.active and multiplayer.is_server()
 	vr_actions.visible=game.is_vr()
@@ -351,10 +361,10 @@ func _process(_delta: float) -> void:
 	scoreboard_was_open=game.intermission>0
 	var state: Dictionary = game.local_state()
 	if state.is_empty(): return
-	var d: Dictionary = W.DATA[state.weapon]
+	var d: Dictionary = game.match_mode.fortress.weapon_data(multiplayer.get_unique_id(),state.weapon)
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
-	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 else "MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
+	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS   ·   %d ms" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size(),game.local_ping]
 	if game.match_mode.kind!="dm":
 		match_status.text=game.match_mode.status(game.multiplayer.get_unique_id()).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
@@ -380,11 +390,11 @@ func _process(_delta: float) -> void:
 		center_message.text = "SPAWN PROTECTION"
 	if state.spectator:
 		vitals.text="SPECTATOR";weapon.text="";ammo.text=""
-	scoreboard.visible = not game.menu_open and (Input.is_physical_key_pressed(KEY_TAB) or (game.is_vr() and game.xr_rig.scores) or game.intermission>0)
+	scoreboard.visible = not game.menu_open and (game.bindings.pressed("scores") or (game.is_vr() and game.xr_rig.scores) or game.intermission>0)
 	if scoreboard.visible:
 		var sorted: Array=game.players.values().filter(func(player):return not player.spectator)
 		sorted.sort_custom(func(a,b):return a.kills>b.kills if a.kills!=b.kills else a.deaths<b.deaths)
-		var board: String="ROUND COMPLETE\n"+game.round_message+"\nNext round in %d\n"%ceili(game.intermission) if game.intermission>0 else "ENTRYWAY / "+game.match_mode.NAMES[game.match_mode.kind]+"\n"
+		var board: String="ROUND COMPLETE\n"+game.round_message+"\nNext round in %d\n"%ceili(game.intermission) if game.intermission>0 else "FPSloppa / "+game.match_mode.NAMES[game.match_mode.kind]+"\n"
 		if game.match_mode.team_game():board+="RED %d : BLUE %d   LIMIT %d\n"%[game.match_mode.scores[0],game.match_mode.scores[1],game.match_mode.limit()]
 		board+="\nMARINE                 FRAGS   DEATHS   PING\n"
 		for player in sorted:
@@ -420,3 +430,22 @@ func refresh_maps() -> void:
 	for row in game.map_catalog:
 		map_choice.add_item(row.title)
 		if row.id==game.selected_map: map_choice.select(map_choice.item_count-1)
+
+var bindings_panel
+func open_bindings() -> void:
+	if not is_instance_valid(bindings_panel) or bindings_panel.is_queued_for_deletion():
+		bindings_panel=preload("res://deathmatch/settings/bindings_panel.gd").new();get_child(0).add_child(bindings_panel);bindings_panel.setup(game)
+	bindings_panel.open()
+
+var lobby_panel
+func open_lobby() -> void:
+	if not game.lobby.active():toast("Lobby voting is available between matches on enabled servers.");return
+	if not is_instance_valid(lobby_panel):
+		lobby_panel=preload("res://deathmatch/modes/lobby_panel.gd").new();get_child(0).add_child(lobby_panel);lobby_panel.setup(game)
+	lobby_panel.open()
+
+var demos_panel
+func open_demos() -> void:
+	if not is_instance_valid(demos_panel):
+		demos_panel=preload("res://deathmatch/demos/panel.gd").new();get_child(0).add_child(demos_panel);demos_panel.setup(game)
+	demos_panel.open()

@@ -1,4 +1,5 @@
 extends Node3D
+var unarmed:=false
 ## Shared humanoid locomotion and aiming, retargeted by the VRM plugin.
 const Pose = preload("res://deathmatch/avatars/pose.gd")
 const Art = preload("res://deathmatch/art.gd")
@@ -90,6 +91,7 @@ func strip_nonvisual(node: Node) -> void:
 		for surface in range(node.mesh.get_surface_count()):
 			var material: Material=node.get_active_material(surface)
 			if material:
+				preload("res://deathmatch/avatars/lighting.gd").prepare(material)
 				if not material.has_meta("arena_outline"): material.set_meta("arena_outline",material.next_pass)
 				material.next_pass=null
 		node.visibility_range_end = 65
@@ -181,17 +183,17 @@ func _process(delta: float) -> void:
 		position.y = 0
 	if gun and not xr_pose.is_empty() and not dead:
 		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id)
-		gun.visible=not first_person
+		gun.visible=not unarmed and not first_person
 		if offhand_gun:
-			offhand_gun.visible=not first_person and xr_pose.has("offhand_weapon")
+			offhand_gun.visible=not unarmed and not first_person and xr_pose.has("offhand_weapon")
 			if xr_pose.has("offhand_weapon"): offhand_gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.offhand_weapon,2)
 		return
 	if gun:
 		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+recoil*.12),Art.desktop_hand(false,aim_pitch,recoil))
 		gun.transform=Art.held_transform(grip,weapon_id,.48)
-		gun.visible = not dead and not first_person
+		gun.visible = not unarmed and not dead and not first_person
 
 	if offhand_gun:
 		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+offhand_recoil*.12),Art.desktop_hand(true,aim_pitch,offhand_recoil,true))
 		offhand_gun.transform=Art.held_transform(grip,2,.48)
-		offhand_gun.visible=not dead and not first_person
+		offhand_gun.visible=not unarmed and not dead and not first_person

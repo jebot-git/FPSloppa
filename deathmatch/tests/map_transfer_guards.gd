@@ -8,9 +8,14 @@ func run() -> void:
 	var game=load("res://deathmatch/arena.tscn").instantiate()
 	root.add_child(game)
 	var service=game.map_network
+	check(game.Maps.MAX_BYTES==25_000_000 and service.MAX_BYTES==25_000_000 and game.uploads.MAX_BYTES==25_000_000,"Import, host download and player upload share the 25 MB cap")
+	var large_path:="user://oversized-bsp-test.bsp"
+	var large:=FileAccess.open(large_path,FileAccess.WRITE);large.seek(25_000_000);large.store_8(0);large.close()
+	check(game.Maps.validate(large_path).contains("25 MB"),"Oversized local BSP is rejected before parsing")
+	DirAccess.remove_absolute(large_path)
 	var hash: String="a".repeat(64)
-	service.expected={"hash":hash,"size":128_000_001,"title":"Test"}
-	service._begin(hash,128_000_001)
+	service.expected={"hash":hash,"size":25_000_001,"title":"Test"}
+	service._begin(hash,25_000_001)
 	check(service.incoming.is_empty(),"Oversized BSP rejected at transfer start")
 	service.reset()
 	service._begin(hash,1024)

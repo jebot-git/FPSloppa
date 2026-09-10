@@ -13,11 +13,11 @@ Both share PC/server protocol `entryway-13-team-modes`, authoritative combat, pi
 Enable developer mode and USB debugging on the headset, authorize this computer, then install the appropriate package:
 
 ```sh
-adb install -r Builds/Android/Entryway-Quest.apk
-adb install -r Builds/Android/Entryway-Pico.apk
+adb install -r Builds/Android/FPSloppa-Quest.apk
+adb install -r Builds/Android/FPSloppa-Pico.apk
 ```
 
-Use only the APK matching your headset. Launch Entryway Arena from the headset's unknown sources/developer applications. Join the PC or dedicated server's reachable IP and configured UDP port (see SERVER.md). Voice starts in push-to-talk mode and requests microphone access at startup. Hold the off-hand grip to speak. Quest tracking permissions (body, hands, eyes, face) and Pico eye permission are queued after microphone access. Denial leaves the game usable; retry from **VOICE… → RETRY ACCESS** or headset app settings. Tracking support still depends on the hardware/runtime, and first-time grants may require an app restart. Smooth turning is the default. Touch and Pico controller profiles are included; PC Index support remains.
+Use only the APK matching your headset. Launch FPSloppa from the headset's unknown sources/developer applications. Join the PC or dedicated server's reachable IP and configured UDP port (see SERVER.md). Voice starts in push-to-talk mode and requests microphone access at startup. Hold the off-hand grip to speak. Quest tracking permissions (body, hands, eyes, face) and Pico eye permission are queued after microphone access. Denial leaves the game usable; retry from **VOICE… → RETRY ACCESS** or headset app settings. Tracking support still depends on the hardware/runtime, and first-time grants may require an app restart. Smooth turning is the default. Touch and Pico controller profiles are included; PC Index support remains.
 
 ## Rebuild
 

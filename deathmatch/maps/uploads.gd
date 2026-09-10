@@ -3,7 +3,7 @@ extends Node
 const Maps=preload("res://deathmatch/maps/loader.gd")
 const Hash=preload("res://deathmatch/avatars/library.gd")
 const CHUNK:=32768
-const MAX_BYTES:=128_000_000
+const MAX_BYTES:=Maps.MAX_BYTES
 const DISK_BUDGET:=2_000_000_000
 var game
 var incoming: Dictionary={}
@@ -17,13 +17,15 @@ func upload(row: Dictionary) -> void:
 	var file:=FileAccess.open(row.path,FileAccess.READ)
 	if not file:return
 	var size:=file.get_length();file.close()
+	if size<124 or size>MAX_BYTES:game.status("BSP uploads must be between 124 bytes and 25 MB.");return
 	offered=row.duplicate();offered.time=Time.get_ticks_msec();offer.rpc_id(1,row.sha256,size,row.title)
 @rpc("any_peer","call_remote","reliable",5)
 func offer(hash: String,size: int,title: String) -> void:
 	if not multiplayer.is_server():return
 	var peer:=multiplayer.get_remote_sender_id()
 	if game.players.has(peer) and not game.map_uploads:rejected.rpc_id(peer,"Server map uploads are disabled.");return
-	if not game.players.has(peer) or game.players[peer].spectator or not Hash.valid_hash(hash) or size<124 or size>MAX_BYTES:return
+	if not game.players.has(peer) or game.players[peer].spectator or not Hash.valid_hash(hash):return
+	if size<124 or size>MAX_BYTES:rejected.rpc_id(peer,"BSP uploads must be between 124 bytes and 25 MB.");return
 	for row in game.map_catalog:
 		if row.sha256==hash:stored.rpc_id(peer,hash,row.id);return
 	if incoming.has(peer) or incoming.size()>=2 or Time.get_ticks_msec()<cooldowns.get(peer,0):return

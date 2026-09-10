@@ -15,6 +15,7 @@ var next_offer := 0.0
 var message := ""
 var offer_times: Dictionary = {}
 var load_queue: Array = []
+var avatar_attempts: Dictionary={}
 var transfer_budget := 0.0
 
 func setup(arena: Node) -> void:
@@ -34,10 +35,10 @@ func reset() -> void:
 	offer_times.clear()
 	offered = ""
 	next_offer = 0
-	load_queue.clear()
+	load_queue.clear();avatar_attempts.clear()
 
 func remove_peer(id: int) -> void:
-	choices.erase(id)
+	choices.erase(id);avatar_attempts.erase(id)
 	pending.erase(id)
 	offer_times.erase(id)
 	outgoing.erase(id)
@@ -76,13 +77,17 @@ func _process(delta: float) -> void:
 		if Time.get_ticks_msec()-expected[hash].time>30000:
 			pending.erase(expected[hash].peer)
 			expected.erase(hash)
+	if not game.headless:
+		for player_id in choices:queue_avatar(player_id)
 	if not load_queue.is_empty() and not game.headless:
 		var id: int = load_queue.pop_front()
 		if game.fighters.has(id) and choices.has(id):
-			var hash: String = choices[id].hash
+			var hash: String = game.match_mode.fortress.display_avatar(id,choices[id].hash)
 			if library.entries.has(hash):
+				avatar_attempts[id]=hash+":"+str(game.fighters[id].get_instance_id())
 				var avatar: Node3D = library.create_avatar(hash)
-				if avatar: game.fighters[id].set_avatar(avatar,hash)
+				if avatar:
+					game.fighters[id].set_avatar(avatar,hash)
 
 @rpc("any_peer","call_remote","reliable",4)
 func _offer(hash: String, size: int) -> void:
@@ -130,7 +135,11 @@ func _catalog(data: Dictionary) -> void:
 			_request.rpc_id(1,hash)
 
 func queue_avatar(id: int) -> void:
-	if game.fighters.has(id) and game.fighters[id].avatar_hash!=choices[id].hash and not load_queue.has(id): load_queue.append(id)
+	if not game.fighters.has(id) or not choices.has(id):return
+	var hash: String=game.match_mode.fortress.display_avatar(id,choices[id].hash)
+	var attempt: String=hash+":"+str(game.fighters[id].get_instance_id())
+	if library.entries.has(hash) and game.fighters[id].avatar_hash!=hash and avatar_attempts.get(id,"")!=attempt and not load_queue.has(id):
+		load_queue.append(id)
 
 @rpc("any_peer","call_remote","reliable",4)
 func _request(hash: String) -> void:

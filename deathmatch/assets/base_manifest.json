@@ -1,7 +1,7 @@
 {
-  "version": "0.4v",
-  "url": "https://github.com/jebot-git/FPSloppa/releases/download/0.4v/FPSloppa-0.4v-Base-Assets.zip",
-  "sha256": "9f6baba20ebcd1847e36877436fe811b84abbc70707954aa68e8883d968496ae",
+  "version": "0.5v",
+  "url": "https://github.com/jebot-git/FPSloppa/releases/download/0.5v/FPSloppa-0.5v-Base-Assets.zip",
+  "sha256": "ac635307838f0ddf964475fe9911d0730201d3e8be87cfe52f5ffe6f0cfca43c",
   "files": [
     {
       "path": "maps/LibreQuake-COPYING.txt",
@@ -212,6 +212,11 @@
       "path": "maps/tdm_maplist.txt",
       "size": 104,
       "sha256": "5e25057384e61b488801044a8bfe44d2d48259c7cedfa1f187e52190b8ef5d7f"
+    },
+    {
+      "path": "maps/tf_maplist.txt",
+      "size": 48,
+      "sha256": "9c9edcb8008b2606fc375a06d689c33eef6c54187396ee305572b635b80c80a0"
     },
     {
       "path": "vrm/README.txt",
