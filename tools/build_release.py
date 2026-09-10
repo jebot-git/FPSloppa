@@ -29,7 +29,7 @@ for _,folder,_ in targets:
         out=dest/'docs'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
     for name in ['NETWORK_TESTING.md','SESSION_FEATURES.md','AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','LIVE_VR_TEST.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         shutil.copy2(root/name,dest/name)
-    for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio/recorded').rglob('*'))+list((root/'deathmatch/audio/music').rglob('*'))+list((root/'deathmatch/ui').rglob('*')):
+    for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio/recorded').rglob('*'))+list((root/'deathmatch/audio/music').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
         if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt'}):
             out=dest/'licenses'/source.relative_to(root);out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
     for source in (root/'deathmatch/maps').glob('LibreQuake-*.txt'):

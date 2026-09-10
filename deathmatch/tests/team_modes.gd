@@ -22,7 +22,7 @@ func run():
 		check(Config.parse(source).has("error"),"Reject invalid config: "+source)
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);Fixture.setup(g);await physics_frame
 	g.match_mode.kind="ctf";g.start_host("Red",0,100,60,true);g.bots.free();g.bots=null;g.set_physics_process(false)
-	check(g.match_mode.kind=="dm" and g.players[1].team==-1,"In-game host forces DM")
+	check(g.match_mode.kind=="dm" and g.players[1].team==-1,"In-game host defaults to DM when no mode is selected")
 	g._add_player(-4,"Observer",true)
 	prepare("tdm")
 	check(g.match_mode.assign_team(false)==0 and g.match_mode.assign_team(true)==-1,"Balanced team assignment excludes spectators")
@@ -37,6 +37,7 @@ func run():
 	check(g.match_mode.flags[1].carrier==1,"Enemy flag can be taken")
 	g.fighters[1].position=g.match_mode.bases[0];g.match_mode.tick(.1)
 	check(g.match_mode.scores==[1,0] and g.match_mode.flags[1].carrier==0,"Capture scores and returns enemy flag")
+	check(g.match_mode.capture_status().get("text","")=="RED CAPTURED THE FLAG!" and g.match_mode.capture_status().detail.contains("Red"),"A real flag capture announces scoring team and player")
 	g.fighters[-1].position=g.match_mode.bases[0];g.fighters[1].position=g.match_mode.bases[1];g.match_mode.tick(.1)
 	g.fighters[1].position=g.match_mode.bases[0];g.fighters[-1].position=Fixture.point(0,10);g.match_mode.tick(.1)
 	check(g.match_mode.scores==[1,0] and g.match_mode.flags[1].carrier==1,"Cannot capture while own flag is stolen")

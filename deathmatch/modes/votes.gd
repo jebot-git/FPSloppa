@@ -6,6 +6,7 @@ var ballot: Dictionary={}
 var cooldown:=0.0
 var team_cooldowns: Dictionary={}
 var allowed_maps: Array=[]
+var allowed_matches: Array=[]
 var allowed_modes: Array=["dm"]
 var view: Dictionary={}
 func setup(arena: Node) -> void:game=arena
@@ -15,9 +16,16 @@ func choices() -> Array:
 	for row in game.map_catalog:
 		if FileAccess.file_exists(row.path) and (game.mode_maplists.is_empty() or row.id in game.map_rotation):result.append({"id":row.id,"title":row.title})
 	return result
-func offer(id: int) -> void:policy.rpc_id(id,enabled,choices(),allowed_modes)
+func match_choices() -> Array:
+	var result: Array=[]
+	for mode in allowed_modes:
+		var maplist: Array=game.mode_maplists.get(mode,game.map_rotation)
+		for row in game.map_catalog:
+			if FileAccess.file_exists(row.path) and (maplist.is_empty() or row.id in maplist):result.append({"mode":mode,"map":row.id,"title":row.title})
+	return result
+func offer(id: int) -> void:policy.rpc_id(id,enabled,choices(),allowed_modes,match_choices())
 @rpc("authority","call_remote","reliable",0)
-func policy(allowed: bool,maps: Array,modes: Array=["dm"]) -> void:enabled=allowed;allowed_maps=maps;allowed_modes=modes
+func policy(allowed: bool,maps: Array,modes: Array=["dm"],matches: Array=[]) -> void:enabled=allowed;allowed_maps=maps;allowed_modes=modes;allowed_matches=matches
 func propose(kind: String,value: String="") -> void:
 	if multiplayer.is_server():start(multiplayer.get_unique_id(),kind,value)
 	else:request.rpc_id(1,kind,value)
@@ -30,13 +38,17 @@ func start(id: int,kind: String,value: String) -> bool:
 		if not game.match_mode.team_game():return false
 	elif kind=="mode":
 		if allowed_modes.size()<2 or not allowed_modes.has(value) or value==game.match_mode.kind:return false
+	elif kind=="match":
+		var pair:=value.split("|")
+		if pair.size()!=2 or not match_choices().any(func(row):return row.mode==pair[0] and row.map==pair[1]):return false
+		if pair[0]==game.match_mode.kind and pair[1]==game.current_map:return false
 	elif kind=="map":
 		if value==game.current_map or not choices().any(func(row):return row.id==value):return false
 	else:return false
 	var electorate: Array=game.players.keys().filter(eligible)
 	ballot={"kind":kind,"value":value,"eligible":electorate,"votes":{id:true},"needed":electorate.size()/2+1,"until":game.clock+25.0}
 	cooldown=game.clock+60.0
-	game._announcement.rpc(game.players[id].name+" called vote: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change map to "+value))
+	game._announcement.rpc(game.players[id].name+" called vote: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change match to "+value.replace("|"," / ") if kind=="match" else "change map to "+value))
 	evaluate();return true
 func vote(yes: bool) -> void:
 	if multiplayer.is_server():cast(multiplayer.get_unique_id(),yes)
@@ -53,9 +65,10 @@ func evaluate() -> void:
 	var yes: int=ballot.votes.values().count(true);var no: int=ballot.votes.values().count(false)
 	if yes>=ballot.needed:
 		var kind: String=ballot.kind;var value: String=ballot.value;ballot.clear()
-		game._announcement.rpc("Vote passed: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change map to "+value))
+		game._announcement.rpc("Vote passed: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change match to "+value.replace("|"," / ") if kind=="match" else "change map to "+value))
 		if kind=="balance":balance()
 		elif kind=="mode":change_mode.call_deferred(value)
+		elif kind=="match":change_match.call_deferred(value)
 		else:change_map.call_deferred(value)
 	elif no>ballot.eligible.size()-ballot.needed or game.clock>=ballot.until:
 		ballot.clear();game._announcement.rpc("Vote failed")
@@ -64,7 +77,7 @@ func tick() -> void:
 	else:evaluate()
 func snapshot() -> Dictionary:
 	if ballot.is_empty():return {}
-	return {"title":"BALANCE TEAMS" if ballot.kind=="balance" else "MODE: "+ballot.value.to_upper() if ballot.kind=="mode" else "MAP: "+ballot.value,"yes":ballot.votes.values().count(true),"no":ballot.votes.values().count(false),"needed":ballot.needed,"seconds":maxi(0,ceili(ballot.until-game.clock)),"voted":ballot.votes.keys()}
+	return {"title":"BALANCE TEAMS" if ballot.kind=="balance" else "MODE: "+ballot.value.to_upper() if ballot.kind=="mode" else "MATCH: "+ballot.value.replace("|"," / ") if ballot.kind=="match" else "MAP: "+ballot.value,"yes":ballot.votes.values().count(true),"no":ballot.votes.values().count(false),"needed":ballot.needed,"seconds":maxi(0,ceili(ballot.until-game.clock)),"voted":ballot.votes.keys()}
 func switch_team(team: int) -> void:
 	if multiplayer.is_server():change_team(multiplayer.get_unique_id(),team)
 	else:team_request.rpc_id(1,team)
@@ -108,3 +121,14 @@ func change_mode(value: String) -> void:
 		game.map_rotation=game.mode_maplists[value].duplicate();game.rotation_index=0
 		game._rotate_map(game.map_rotation[0])
 	else:game._rotate_map(game.current_map)
+
+func change_match(value: String) -> void:
+	if not game.active or not multiplayer.is_server():return
+	var pair:=value.split("|")
+	if pair.size()!=2 or not match_choices().any(func(row):return row.mode==pair[0] and row.map==pair[1]):return
+	game.match_mode.kind=pair[0]
+	if game.mode_maplists.has(pair[0]):game.map_rotation=game.mode_maplists[pair[0]].duplicate()
+	for s in game.players.values():s.team=-1
+	game.pending_teams.clear()
+	game.rotation_index=maxi(0,game.map_rotation.find(pair[1]))
+	game._rotate_map(pair[1])

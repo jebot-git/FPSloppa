@@ -51,3 +51,5 @@ BSP imports, player uploads and host downloads accept at most **25,000,000 bytes
 | 200 ms | ±10 ms jitter, 1% loss, packet duplication | 203–212 ms | 30/30 |
 
 All nine cover checks and both clients in each profile passed. The core 20–100 ms matrix registered 240/240 accepted shots; the extra 100 ms-per-direction stress case registered 30/30. Deterministic moving-target tests registered 200/200; the old rewind formula missed 188/200 in that demanding fixture. These are controlled test counts, not a predicted human accuracy rate.
+
+The exported-client smoke test runs for ten seconds with `-- --quit-after-seconds 10`. This uses the same graceful music/microphone shutdown as the Quit button and window close; Godot’s immediate `--quit-after` flag bypasses that cleanup interval.

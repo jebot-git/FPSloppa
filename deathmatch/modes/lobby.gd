@@ -29,7 +29,7 @@ func begin() -> void:
 	if not fallback in offered and not offered.is_empty():fallback=offered[0]
 	if offered.is_empty():game._restart_round();return
 	game._rotate_map(ID);until=game.clock+seconds;game.round_left=seconds
-	game._announcement.rpc("Waiting room · open LOBBY VOTE to choose the next match")
+	game._announcement.rpc("Waiting room · choose the next match on the voting wall")
 func build() -> bool:
 	for child in game.get_node("Map").get_children():child.free()
 	game.match_mode.clear_visuals();game.pickups.clear();game.gates.clear();game.lifts.clear();game.spawn_points.clear();game.spawn_yaws.clear();game.map_objectives.clear();game.ctf_spawns=[[],[]];game.tf_capture.clear();game.tf_resupply=[[],[]]
@@ -45,6 +45,10 @@ func build() -> bool:
 	game.fall_limit=-5;game.current_map=ID;game.map_title="Waiting lobby";game.map_sha=HASH.sha256_text()
 	if not game.headless:
 		var light:=OmniLight3D.new();light.position=Vector3(0,6,0);light.omni_range=22;light.light_energy=2;root.add_child(light)
+		var wall:=preload("res://deathmatch/modes/lobby_wall.gd").new();wall.name="VoteWall";root.add_child(wall)
+		wall.position=Vector3(-3.3,3.4,-11.35);wall.setup(game)
+		var mirror:=preload("res://deathmatch/modes/lobby_mirror.gd").new();mirror.name="TrackingMirror";root.add_child(mirror)
+		mirror.position=Vector3(6.5,1.25,-11.3);mirror.setup(game)
 	return true
 func submit(mode: String,map: String) -> void:
 	if multiplayer.is_server():cast(multiplayer.get_unique_id(),mode,map)
@@ -67,7 +71,7 @@ func snapshot() -> Dictionary:
 	if not active():return {}
 	var counts: Array=[]
 	for option in offered:counts.append({"mode":option.mode,"map":option.map,"votes":ballots.values().count(option)})
-	return {"seconds":maxi(0,ceili(until-game.clock)),"options":counts,"voted":ballots.keys()}
+	return {"seconds":maxi(0,ceili(until-game.clock)),"options":counts,"voted":ballots.keys(),"ballots":ballots.duplicate(true)}
 @rpc("authority","call_remote","reliable",0)
 func receive_state(data: Dictionary) -> void:
 	if active():view=data

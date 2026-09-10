@@ -7,7 +7,7 @@ const Interface = preload("res://deathmatch/interface.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-18-asset-readiness"
+const PROTOCOL := "fpsloppa-20-quake-movement"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -108,6 +108,7 @@ var match_mode=preload("res://deathmatch/modes/match.gd").new()
 var joining_as_spectator:=false
 var presentation: Dictionary={}
 var music: Node
+var quitting:=false
 const Presentation=preload("res://deathmatch/settings/preferences.gd")
 var connect_deadline := 0.0
 var local_ping := 0
@@ -119,6 +120,7 @@ var lobby
 var demos
 var bindings=preload("res://deathmatch/settings/bindings.gd").new()
 func _ready() -> void:
+	get_tree().auto_accept_quit=false
 	preload("res://deathmatch/assets/paths.gd").migrate_preferences()
 	bindings.load_settings()
 	demos=preload("res://deathmatch/demos/session.gd").new();demos.name="DemoSession";add_child(demos);demos.setup(self)
@@ -176,6 +178,8 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(func(): disconnect_game("Connection failed. Check address and UDP port."))
 	multiplayer.server_disconnected.connect(func(): disconnect_game("The host disconnected."))
 	var args := OS.get_cmdline_user_args()
+	if args.has("--quit-after-seconds"):
+		get_tree().create_timer(maxf(.1,float(_arg_value(args,"--quit-after-seconds","10")))).timeout.connect(request_quit)
 	if args.has("--frame-stats") and not headless: add_child(preload("res://deathmatch/performance/frame_stats.gd").new())
 	selected_map = _arg_value(args,"--map",selected_map)
 	if args.has("--import-map"):
@@ -203,6 +207,18 @@ func _ready() -> void:
 	if args.has("--record-demo"):
 		demos.auto_path=_arg_value(args,"--record-demo","");demos.auto_record=true
 		if active:demos.start_record(demos.auto_path)
+
+func _notification(what: int) -> void:
+	if what==NOTIFICATION_WM_CLOSE_REQUEST:request_quit()
+
+func request_quit() -> void:
+	if quitting:return
+	quitting=true
+	if is_instance_valid(music):music.stop()
+	if is_instance_valid(voice):voice.set_mode(0)
+	# Let the audio mixer release stopped playback before engine teardown.
+	await get_tree().create_timer(.1).timeout
+	get_tree().quit()
 
 func _start_dedicated(args: PackedStringArray) -> void:
 	dedicated=true
@@ -417,7 +433,7 @@ func _rejected(reason: String) -> void:
 	disconnect_game(reason)
 
 func _new_state(player_name: String,id: int) -> Dictionary:
-	return {"name":clean_name(player_name),"spectator":false,"team":-1,"fly":0.0,"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"offhand_cooldown":0.0,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"melee":false,"melee_state":{},"melee_seq":-1,"offhand_melee_state":{},"offhand_melee_seq":-1,"xr":{},"vr_device":false,"room":Vector3.ZERO}
+	return {"name":clean_name(player_name),"spectator":false,"team":-1,"fly":0.0,"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"offhand_cooldown":0.0,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"xr":{},"vr_device":false,"room":Vector3.ZERO}
 
 func _create_fighter(id: int) -> void:
 	var actor = Fighter.new()
@@ -598,7 +614,7 @@ func _spawn(id: int) -> void:
 	fighters[id].blast_velocity=Vector2.ZERO
 	fighters[id].reset_view()
 	fighters[id].gibbed=false
-	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":clock+1.5,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
+	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":clock+1.5,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
 	match_mode.special.spawn(id);match_mode.fortress.spawn(id)
 	if not spawn_yaws.is_empty(): state.yaw = spawn_yaws[spawn_points.find(best)]
 	if id==multiplayer.get_unique_id():
@@ -813,6 +829,7 @@ func _server_tick(delta: float) -> void:
 		if clock-s.last_input>.35:
 			s.move = Vector2.ZERO
 			s.room=Vector3.ZERO
+			s.jump=false
 			s.fire = false
 			s.offhand_fire=false
 			s.melee = false
@@ -929,12 +946,50 @@ func _update_melee(id: int) -> void:
 	if match_mode.kind in ["ig","cc"] or match_mode.special.blocked(id):return
 	_update_melee_hand(id,false)
 	_update_melee_hand(id,true)
+	_update_melee_foot(id,"left")
+	_update_melee_foot(id,"right")
+
+func _begin_melee(id: int,state: Dictionary) -> void:
+	var s: Dictionary=players[id]
+	s.melee_ready_at=clock+Melee.COOLDOWN
+	for other in [s.melee_state,s.offhand_melee_state,s.get("left_kick",{}),s.get("right_kick",{})]:
+		if not is_same(other,state):other.swing_until=0.0
+	match_mode.fortress.revealed(id)
+	s.invulnerable=0
+	s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
+
+func _update_melee_foot(id: int,side: String) -> void:
+	var s: Dictionary=players[id]
+	if not s.vr_device:return
+	var key:=side+"_kick"
+	if not s.has(key):s[key]={}
+	var state: Dictionary=s[key]
+	if s.get("melee_ready_at",0.0)>clock:state.ready_at=maxf(state.get("ready_at",0.0),s.melee_ready_at)
+	if not multiplayer.is_server() or not s.vr_device or not s.melee or s.dead or intermission>0 or clock-s.last_input>.35 or s.charge>0 or s.xr.is_empty():
+		Melee.reset_motion(state);return
+	if state.get("seq",-1)==s.last_seq:return
+	state.seq=s.last_seq
+	var swing:=Melee.sample_foot(state,s.xr,clock,side)
+	if swing.is_empty():return
+	if swing.started:_begin_melee(id,state)
+	var frame:=Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*Transform3D(Basis.IDENTITY,s.xr.head.origin)
+	var body: Vector3=fighters[id].position+Vector3.UP*1.25
+	for segment in swing.segments:
+		var start: Vector3=frame*segment[0];var end: Vector3=frame*segment[1]
+		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,start,1)).is_empty():continue
+		var hit:=_trace(start,end,id,0,Melee.KICK_RADIUS)
+		if hit.id==0:continue
+		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,hit.position,1)).is_empty():continue
+		state.hit=true
+		_damage(hit.id,id,Melee.DAMAGE,"KICK",false,hit.position,(end-start).normalized())
+		return
 
 func _update_melee_hand(id: int,offhand: bool) -> void:
 	if match_mode.kind in ["ig","cc"] or match_mode.special.blocked(id):return
 	var s: Dictionary=players[id]
 	var state: Dictionary=s.offhand_melee_state if offhand else s.melee_state
 	var other: Dictionary=s.melee_state if offhand else s.offhand_melee_state
+	if s.get("melee_ready_at",0.0)>clock:state.ready_at=maxf(state.get("ready_at",0.0),s.melee_ready_at)
 	if other.has("ready_at"): state.ready_at=maxf(state.get("ready_at",0.0),other.ready_at)
 	if offhand and (not s.vr_device or s.weapon!=2 or not s.xr.has("offhand_weapon")):
 		Melee.reset_motion(state);return
@@ -961,11 +1016,7 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 		var weapon:=_weapon_transform(id)
 		segments.append([weapon.origin,weapon*Vector3(0,0,-Melee.DESKTOP_REACH)])
 	if started:
-		match_mode.fortress.revealed(id)
-		other.swing_until=0.0
-		s.invulnerable=0
-		s.cooldown=maxf(s.cooldown,.3)
-		s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
+		_begin_melee(id,state)
 		_melee_fx.rpc(id,offhand)
 	var body: Vector3=fighters[id].position+Vector3.UP*1.25
 	for segment in segments:
@@ -1175,7 +1226,7 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	if direction.length()<.1 and fighters.has(attacker): direction=(fighters[victim].position-fighters[attacker].position).normalized()
 	server_log.record("damage",{"victim":victim,"attacker":attacker,"damage":damage.x,"remaining_hp":s.hp,"remaining_armor":s.armor,"weapon":weapon_name,"fatal":s.hp==0},2)
 	var gibbed: bool=s.hp==0 and (damage.x-old_hp>=25 or weapon_name in ["ROCKET LAUNCHER","BFG 9000"])
-	_hurt_fx.rpc(victim,impact,direction,damage.x,s.hp==0,gibbed,randi())
+	_hurt_fx.rpc(victim,impact,direction,damage.x,s.hp==0,gibbed,randi(),weapon_name=="CIRCUS HUNGER")
 	if s.hp>0: return
 	s.dead = true
 	s.deaths += 1
@@ -1302,8 +1353,13 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			actor.target_yaw = row[3]
 			if id==mine and actor.spawn_serial==row[14]:
 				var error: Vector3 = row[1]-actor.position
-				if error.length()>2.5: actor.position = row[1]
-				elif error.length()>.12: actor.position += error*.18
+				if error.length()>2.5:
+					actor.position = row[1];actor.velocity=row[2]
+				else:
+					if error.length()>.12: actor.position += error*.18
+					# Air momentum persists now, so correct velocity drift as well as position.
+					actor.velocity.x=lerpf(actor.velocity.x,row[2].x,.18)
+					actor.velocity.z=lerpf(actor.velocity.z,row[2].z,.18)
 				actor.velocity.y = row[2].y
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
@@ -1608,12 +1664,13 @@ func _weapon_blocked(id: int, offhand: bool=false) -> bool:
 	return not get_world_3d().direct_space_state.intersect_ray(query).is_empty()
 
 @rpc("authority","call_local","reliable",0)
-func _hurt_fx(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int) -> void:
-	demos.event("_hurt_fx",[id,pos,direction,amount,dead,gibbed,seed_value])
-	effects.hit(id,pos,direction,amount,dead,gibbed,seed_value)
+func _hurt_fx(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int,screen_only: bool=false) -> void:
+	demos.event("_hurt_fx",[id,pos,direction,amount,dead,gibbed,seed_value,screen_only])
+	# Hunger has no impact/pain sounds, blood or hit haptics. Preserve fatal death effects.
+	if not screen_only or dead:effects.hit(id,pos,direction,amount,dead,gibbed,seed_value)
 	if id==multiplayer.get_unique_id() and not dedicated and not headless:
 		hurt_flash=maxf(hurt_flash,clampf(.18+amount*.006,.18,.42))
-		effects.local_hit()
+		if not screen_only:effects.local_hit()
 
 @rpc("authority","call_local","unreliable",3)
 func _teleport_fx(pos: Vector3) -> void:
@@ -1675,3 +1732,7 @@ func _rotate_map(map_id: String) -> bool:
 	server_log.record("map_rotated",{"map":current_map,"waiting_peers":pending_names.size()})
 	print("MAP_ROTATED ",current_map," epoch=",map_epoch)
 	return true
+
+@rpc("authority","call_local","reliable",0)
+func _capture_feedback(team: int,scorer: String,score: int) -> void:
+	match_mode.capture_feedback(team,scorer,score)

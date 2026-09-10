@@ -41,6 +41,9 @@ func run() -> void:
 	rig.keyboard.global_transform=rig.panel.global_transform*Transform3D(Basis.IDENTITY,Vector3(0,-1,.15))
 	await physics_frame
 	await physics_frame
+	var menu_scroll: ScrollContainer=g.hud.menu.get_node("MainMenuScroll")
+	print("MENU_METRICS ",menu_scroll.size," max=",menu_scroll.get_v_scroll_bar().max_value)
+	check(menu_scroll.get_v_scroll_bar().max_value<=menu_scroll.size.y,"Main VR menu fits without scrolling")
 	check(g.hud.get_parent() is SubViewport and rig.pointers.size()==2,"Both controller pointers and viewport UI exist")
 	var field: LineEdit=g.hud.name_field
 	var pixel: Vector2=field.get_global_transform_with_canvas()*(field.size*.5)
@@ -138,10 +141,9 @@ func run() -> void:
 	var msaa_button:Button=settings.controls.msaa
 	point_at(pointer,rig.panel,msaa_button.get_global_transform_with_canvas()*(msaa_button.size*.5));click(pointer)
 	check(settings.values.msaa==(msaa_before+1)%4,"Controller configures graphics without a native popup")
-	settings.hide()
-	var turn_button: Button
-	for button in g.hud.vr_actions.get_children():
-		if button.text=="VR CONTROLS…":turn_button=button
+	settings.section="controls";settings.refresh()
+	await process_frame;await process_frame
+	var turn_button: Button=settings.controls.vr_controls
 	point_at(pointer,rig.panel,turn_button.get_global_transform_with_canvas()*(turn_button.size*.5));click(pointer)
 	await process_frame;await process_frame
 	check(rig.turn_panel.visible,"Controller opens turn settings inside VR menu")
@@ -160,6 +162,54 @@ func run() -> void:
 	g.active=true;g.menu_open=false
 	rig._process(0)
 	check(not rig.keyboard.visible and not rig.panel.enabled and not rig.pointers[0].enabled,"Closing menu disables keyboard and pointers")
+	g.active=false;g.set_physics_process(false);g.hud.show_menu(true);rig.panel.visible=true
+	var fortress=preload("res://deathmatch/modes/fortress_panel.gd").new();g.hud.get_child(0).add_child(fortress);fortress.setup(g);fortress.open()
+	g.menu_open=true;rig.panel.enabled=true;pointer.enabled=true
+	await process_frame;await process_frame
+	fortress.choice.vr_mode_override=true
+	point_at(pointer,rig.panel,fortress.choice.trigger.get_global_transform_with_canvas()*(fortress.choice.trigger.size*.5));click(pointer)
+	await process_frame;await process_frame
+	check(fortress.choice.popup.visible,"TF class popup opens inside the VR viewport")
+	check(not fortress.choice.scroll.get_v_scroll_bar().visible,"VR dropdown hides its scrollbar")
+	var previous_class: String=fortress.choice.value
+	var drag_at: Vector2=fortress.choice.entries.get_child(2).get_global_transform_with_canvas()*(fortress.choice.entries.get_child(2).size*.5)
+	point_at(pointer,rig.panel,drag_at);pointer._button_pressed()
+	point_at(pointer,rig.panel,drag_at-Vector2(0,120));pointer._button_released()
+	await process_frame
+	check(fortress.choice.scroll.scroll_vertical>40,"Holding trigger and dragging scrolls the VR class list")
+	check(fortress.choice.popup.visible and fortress.choice.value==previous_class,"Dragging does not accidentally select or close the class list")
+	fortress.choice.scroll.scroll_vertical=0;await process_frame
+	var class_item=fortress.choice.entries.get_child(0)
+	point_at(pointer,rig.panel,class_item.get_global_transform_with_canvas()*(class_item.size*.5));click(pointer)
+	check(fortress.choice.value=="scout" and not fortress.choice.popup.visible,"Releasing a stationary trigger selects the TF class")
+	fortress.hide();fortress.queue_free()
+	# Exercise the persistent selector through the same controller-to-viewport route on a wall.
+	g.set_physics_process(false);g.headless=false
+	g.lobby.offered=[{"mode":"dm","map":"lqdm1"},{"mode":"ctf","map":"lqdm2"}]
+	g.lobby.until=g.clock+60;g.lobby.build()
+	var wall=g.get_node("Map/WaitingRoom/VoteWall")
+	await process_frame;await process_frame;await physics_frame
+	var selector=wall.panel.selector
+	pointer.enabled=true;pointer.visible=true
+	point_at(pointer,wall.surface,selector.modes.trigger.get_global_transform_with_canvas()*(selector.modes.trigger.size*.5));click(pointer)
+	await process_frame;await process_frame
+	check(selector.modes.popup.visible,"Controller opens wall-mounted mode popup")
+	for i in 4:wall.panel.refresh();await process_frame
+	check(selector.modes.popup.visible,"Wall mode popup survives live lobby refresh")
+	var option=selector.modes.entries.get_child(1)
+	point_at(pointer,wall.surface,option.get_global_transform_with_canvas()*(option.size*.5));click(pointer)
+	await process_frame;await process_frame
+	check(selector.modes.value=="ctf" and selector.maps.items.size()==1,"Controller selects mode and filters the wall maplist")
+	point_at(pointer,wall.surface,selector.maps.trigger.get_global_transform_with_canvas()*(selector.maps.trigger.size*.5));click(pointer)
+	await process_frame;await process_frame
+	option=selector.maps.entries.get_child(0)
+	point_at(pointer,wall.surface,option.get_global_transform_with_canvas()*(option.size*.5));click(pointer)
+	check(selector.maps.value=="lqdm2","Controller selects map through wall viewport popup")
+	var offered_before: Array=g.lobby.offered.duplicate(true)
+	wall.panel.set_meta("drag_test_options",[{"mode":"ctf","map":"dummy_map","title":"DRAG TEST MAP"}]);wall.panel.refresh()
+	selector.maps.choose("dummy_map");wall.panel.refresh()
+	check(wall.panel.vote.disabled and wall.panel.status.text.contains("TEST ENTRY"),"Dummy drag-test entries cannot be submitted as lobby votes")
+	check(g.lobby.offered==offered_before,"Drag-test entries leave the real server maplist unchanged")
 	g.free()
 	if had_config:
 		var config_file:=FileAccess.open(config_path,FileAccess.WRITE)

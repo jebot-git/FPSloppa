@@ -9,6 +9,10 @@ const RADIUS := .10
 const SWING_SPEED := 1.0
 const RESET_SPEED := .35
 const SWING_WINDOW := .22
+const KICK_RADIUS := .14
+const KICK_SPEED := 1.2
+const KICK_MIN_HEIGHT := .18
+const KICK_REACH := 1.35
 
 static func reset_motion(state: Dictionary) -> void:
 	state.erase("pose")
@@ -43,3 +47,25 @@ static func sample(state: Dictionary, pose: Dictionary, now: float, weapon: int)
 			segments.append([a*Vector3(0,0,-reach),b*Vector3(0,0,-reach)])
 		segments.append([b.origin,b*Vector3(0,0,-WEAPON_LENGTH)])
 	return {"started":started,"segments":segments}
+
+static func sample_foot(state: Dictionary,pose: Dictionary,now: float,side: String) -> Dictionary:
+	var foot=pose.get("body",{}).get(side+"_foot")
+	if not foot is Transform3D:
+		reset_motion(state);return {}
+	var current: Vector3=foot.origin-pose.head.origin
+	if Vector2(current.x,current.z).length()>KICK_REACH or foot.origin.y<-.1 or foot.origin.y>1.6:
+		reset_motion(state);return {}
+	var previous: Vector3=state.get("pose",current)
+	var dt: float=now-float(state.get("time",now))
+	state.pose=current;state.time=now
+	var distance:=previous.distance_to(current)
+	if dt<.005 or dt>.15 or distance>.65:
+		state.armed=true;state.swing_until=0.0;return {}
+	# Horizontal extension and a raised foot distinguish kicks from standing/head bob.
+	var speed:=Vector2(current.x-previous.x,current.z-previous.z).length()/dt
+	if speed<RESET_SPEED:state.armed=true
+	var started:=false
+	if speed>=KICK_SPEED and distance>=.04 and foot.origin.y>=KICK_MIN_HEIGHT and state.get("armed",true) and now>=state.get("ready_at",0.0):
+		state.armed=false;state.ready_at=now+COOLDOWN;state.swing_until=now+SWING_WINDOW;state.hit=false;started=true
+	if state.get("hit",false) or now>=state.get("swing_until",0.0) or speed<RESET_SPEED or foot.origin.y<KICK_MIN_HEIGHT:return {}
+	return {"started":started,"segments":[[previous,current]]}

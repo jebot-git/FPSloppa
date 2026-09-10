@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-10",
+  "status": "automated checks passed; wearer confirmed blinking in WiVRn",
+  "source_commit_before_changes": "dd013a396cacb8bdb20d9f8d99df927d7df33d8f",
+  "automated_passed": [
+    "tracking_audio including quiet speech",
+    "vr_ui including trigger dragging and dummy-entry safeguards",
+    "vote_ui",
+    "opus_reliability including packet loss/reordering and stream cleanup",
+    "three-process network voice",
+    "lobby_mirror including local speech, blink forwarding and tracking-loss rest",
+    "host_modes all eight modes",
+    "team_modes including capture feedback",
+    "session features and three-process lobby",
+    "Linux debug/release OpenXR vendor build, maximum GLIBC requirement 2.34 retained"
+  ],
+  "live": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Meta Quest Pro",
+    "render_size_per_eye": [
+      2520,
+      2772
+    ],
+    "typical_fps": 72,
+    "voice_roundtrip": {
+      "packets": 82,
+      "decoded_peak": 0.5159465,
+      "decoded_rms": 0.0337498,
+      "clipped": false,
+      "wearer_clarity_confirmation": false
+    },
+    "speech_after_gain_fix": {
+      "local_peak_weight": 0.4744,
+      "mirror_peak_weight": 0.489
+    },
+    "lobby_ballot_observed": "KOTH / lqdm2",
+    "blink": {
+      "runtime_visual_source": true,
+      "runtime_audio_source": false,
+      "mirror_peak_closure": [
+        0.8534,
+        0.8432
+      ],
+      "wearer_confirmation": true
+    }
+  },
+  "limitations": [
+    "Linux/WiVRn live test; Android/Windows runtime not tested in this session",
+    "Automated tests still report pre-existing Steam Audio shutdown ObjectDB warnings",
+    "Private microphone recordings and raw tracking logs remain excluded from source and release files"
+  ]
+}

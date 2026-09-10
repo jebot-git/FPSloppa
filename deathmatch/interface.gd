@@ -4,7 +4,7 @@ const Profile = preload("res://deathmatch/profile.gd")
 var game
 var fortress_button: Button
 var map_import: Button
-var map_choice: OptionButton
+var map_choice
 var avatar_picker: Window
 var avatar_status: Label
 var menu: Control
@@ -35,8 +35,13 @@ var leave: Button
 var launch_buttons: Array = []
 var voice_button: Button
 var votes_panel: PanelContainer
+var capture_alert: Label
+var vote_alert: Button
 var votes_button: Button
 var settings_panel: PanelContainer
+var host_panel: PanelContainer
+var host_mode
+var host_port: SpinBox
 var spectator_choice: CheckButton
 var scoreboard_was_open:=false
 
@@ -154,6 +159,13 @@ func setup(arena: Node) -> void:
 	_build_menu(root)
 	settings_panel=preload("res://deathmatch/settings/panel.gd").new()
 	root.add_child(settings_panel);settings_panel.setup(game)
+	capture_alert=Label.new();root.add_child(capture_alert);capture_alert.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;capture_alert.add_theme_font_size_override("font_size",24)
+	capture_alert.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP);capture_alert.offset_left=-410;capture_alert.offset_right=410;capture_alert.offset_top=140;capture_alert.offset_bottom=212
+	capture_alert.add_theme_stylebox_override("normal",preload("res://deathmatch/ui/iron_theme.gd").panel(8));capture_alert.hide();capture_alert.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	vote_alert=Button.new();vote_alert.name="ActiveVoteAlert";root.add_child(vote_alert)
+	vote_alert.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	vote_alert.offset_left=-370;vote_alert.offset_right=370;vote_alert.offset_top=64;vote_alert.offset_bottom=132;vote_alert.hide()
+	vote_alert.pressed.connect(func():game.menu_open=true;show_menu(true);votes_panel.open())
 	votes_panel=preload("res://deathmatch/modes/panel.gd").new();root.add_child(votes_panel);votes_panel.setup(game)
 	show_menu(true)
 
@@ -166,6 +178,8 @@ func _build_menu(root: Control) -> void:
 	menu.add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var menu_scroll:=ScrollContainer.new();menu.add_child(menu_scroll);menu_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	menu_scroll.offset_bottom=-56
+	menu_scroll.name="MainMenuScroll"
 	menu_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
 	var center := CenterContainer.new()
 	center.size_flags_horizontal=Control.SIZE_EXPAND_FILL;center.size_flags_vertical=Control.SIZE_EXPAND_FILL
@@ -177,12 +191,10 @@ func _build_menu(root: Control) -> void:
 	var column := VBoxContainer.new()
 	column.add_theme_constant_override("separation",6)
 	panel.add_child(column)
-	text(column,"I R O N   /   B L O O D   /   T H U N D E R",13,Color("ae9571"))
 	var logo:=text(column,"FPSloppa",40,Color("d7a966"))
 	logo.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"))
 	logo.add_theme_color_override("font_shadow_color",Color("7e211b"));logo.add_theme_constant_override("shadow_offset_y",3)
-	text(column,"DEATHMATCH  /  2–8 PLAYERS",17,Color("c39860"))
-	text(column,"Fast movement. No magazines. Every pickup matters.",15,Color("baac95"))
+	text(column,"ARENA COMBAT  /  2–8 PLAYERS",17,Color("c39860"))
 	var identity := HBoxContainer.new()
 	column.add_child(identity)
 	text(identity,"CALLSIGN",14).custom_minimum_size.x = 110
@@ -216,14 +228,22 @@ func _build_menu(root: Control) -> void:
 	port_field.max_value = 65535
 	port_field.value = 7777
 	connection.add_child(port_field)
+	host_panel=PanelContainer.new();host_panel.name="HostMatchMenu";root.add_child(host_panel)
+	host_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);host_panel.hide()
+	host_panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(24))
+	var host_column:=VBoxContainer.new();host_column.add_theme_constant_override("separation",12);host_panel.add_child(host_column)
+	var host_title:=text(host_column,"HOST MATCH",30);host_title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"))
+	text(host_column,"Configure your arena, game mode and match limits.",16)
+	var host_network:=HBoxContainer.new();host_column.add_child(host_network)
+	text(host_network,"SERVER PORT",16);host_port=SpinBox.new();host_port.min_value=1024;host_port.max_value=65535;host_port.value=7777;host_network.add_child(host_port)
 	var map_row := HBoxContainer.new()
-	column.add_child(map_row)
+	host_column.add_child(map_row)
 	text(map_row,"ARENA",14).custom_minimum_size.x=110
-	map_choice=OptionButton.new()
+	map_choice=preload("res://deathmatch/ui/choice.gd").new()
 	map_choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-	for row in game.map_catalog: map_choice.add_item(row.title)
-	map_choice.item_selected.connect(func(index): game.selected_map=game.map_catalog[index].id)
 	map_row.add_child(map_choice)
+	map_choice.selected.connect(func(id):game.selected_map=id)
+	refresh_maps()
 	var bsp_dialog:=FileDialog.new()
 	bsp_dialog.access=FileDialog.ACCESS_FILESYSTEM
 	bsp_dialog.file_mode=FileDialog.FILE_MODE_OPEN_FILE
@@ -235,12 +255,11 @@ func _build_menu(root: Control) -> void:
 	map_import=button(map_row,"IMPORT BSP…",func(): bsp_dialog.popup_centered_ratio(.8))
 	var rules := HBoxContainer.new()
 	rules.add_theme_constant_override("separation",10)
-	column.add_child(rules)
-	var mode_choice:=OptionButton.new()
-	for kind in game.match_mode.NAMES:
-		mode_choice.add_item(kind.to_upper()+" · "+game.match_mode.NAMES[kind]);mode_choice.set_item_metadata(mode_choice.item_count-1,kind)
-	rules.add_child(mode_choice)
-	rules.move_child(mode_choice,0)
+	host_column.add_child(rules)
+	host_mode=preload("res://deathmatch/ui/choice.gd").new();host_column.add_child(host_mode)
+	var host_modes: Array=[]
+	for kind in game.match_mode.NAMES:host_modes.append({"id":kind,"title":game.match_mode.NAMES[kind]})
+	host_mode.configure(host_modes,"SELECT GAME MODE");host_mode.choose("dm")
 	frags = SpinBox.new()
 	frags.min_value = 1
 	frags.max_value = 100
@@ -253,21 +272,30 @@ func _build_menu(root: Control) -> void:
 	minutes.value = 10
 	rules.add_child(minutes)
 	text(rules,"minutes",14)
+	var host_space:=Control.new();host_space.size_flags_vertical=Control.SIZE_EXPAND_FILL;host_column.add_child(host_space)
+	var host_actions:=HBoxContainer.new();host_column.add_child(host_actions)
+	var start_host:=button(host_actions,"START HOST",func():game.start_host(name_field.text,int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value))
+	start_host.custom_minimum_size.y=48
+	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,host_mode.value))
+	start_practice.custom_minimum_size.y=48
+	button(host_column,"BACK",host_panel.hide).custom_minimum_size.y=44
 	spectator_choice=CheckButton.new();spectator_choice.text="Join as spectator";spectator_choice.custom_minimum_size.y=36
 	column.add_child(spectator_choice)
 	var actions := HBoxContainer.new()
 	column.add_child(actions)
-	var host := button(actions,"HOST MATCH",func(): game.start_host(name_field.text,int(port_field.value),int(frags.value),int(minutes.value),false,str(mode_choice.get_selected_metadata())))
+	var host := button(actions,"HOST MATCH…",open_host)
 	var join := button(actions,"JOIN MATCH",func(): game.start_join(name_field.text,address_field.text,int(port_field.value),spectator_choice.button_pressed))
-	var training := button(actions,"PRACTICE VS BOTS",func(): game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,str(mode_choice.get_selected_metadata())))
-	launch_buttons = [host,join,training]
+	launch_buttons = [host,join]
 	resume = button(column,"RESUME",func():
 		game.menu_open = false
 		show_menu(false)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
 	)
 	var session_actions:=HBoxContainer.new();column.add_child(session_actions)
-	leave = button(session_actions,"LEAVE MATCH",func(): game.disconnect_game())
+	leave = button(session_actions,"LEAVE MATCH",func():
+		# Hiding a pressed VR control can deliver another release during teardown.
+		if game.active:game.disconnect_game()
+	)
 	var fortress_panel=preload("res://deathmatch/modes/fortress_panel.gd").new();get_child(0).add_child(fortress_panel);fortress_panel.setup(game)
 	fortress_button=button(session_actions,"TF CLASS…",fortress_panel.open)
 	votes_button=button(session_actions,"TEAMS & VOTES…",func():votes_panel.open())
@@ -277,29 +305,16 @@ func _build_menu(root: Control) -> void:
 		if game.active:
 			show_menu(false)
 			open_chat())
-	button(vr_actions,"RECENTER VR",func():
-		if game.is_vr(): game.xr_rig.recenter())
-	button(vr_actions,"SWAP GUN HAND",func():
-		if game.is_vr(): game.xr_rig.left_handed=not game.xr_rig.left_handed)
-	button(vr_actions,"VR CONTROLS…",func():
-		if game.is_vr(): game.xr_rig.turn_panel.open())
-	var tracking_actions:=HBoxContainer.new()
-	column.add_child(tracking_actions)
-	button(tracking_actions,"CALIBRATE BODY",func():
-		if game.is_vr(): game.xr_rig.tracking.calibrate(); status.text=game.xr_rig.tracking.status)
-	button(tracking_actions,"SLIMEVR OSC ON / OFF",func():
-		if game.is_vr(): game.xr_rig.tracking.toggle_osc(); status.text=game.xr_rig.tracking.status)
-	button(tracking_actions,"BODY TRACKING ON / OFF",func():
-		if game.is_vr(): game.xr_rig.tracking.enabled=not game.xr_rig.tracking.enabled)
 	var feature_actions:=HBoxContainer.new();column.add_child(feature_actions)
 	button(feature_actions,"DEMOS…",open_demos)
-	button(feature_actions,"BINDINGS…",open_bindings)
-	button(feature_actions,"LOBBY VOTE…",open_lobby)
 	status = text(column,"LAN / direct IP · Internet hosts must forward the selected UDP port.",14,Color("ae9571"))
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	status.custom_minimum_size = Vector2(590,32)
 	controls=text(column,"WASD  Move   SHIFT  Walk   MOUSE  Aim / fire   1–7 / WHEEL  Weapons\nE  Door   F  Weapon whip   TAB  Scores   ENTER  Chat   ESC  Menu\nSPACE  Jump / swim in Quake maps; respawn when dead.",13,Color("859b9e"))
-	button(column,"QUIT",func(): get_tree().quit())
+	var quit_button:=button(menu,"QUIT",func(): game.request_quit())
+	quit_button.name="QuitFooter"
+	quit_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	quit_button.offset_top=-52;quit_button.offset_bottom=-4;quit_button.offset_left=8;quit_button.offset_right=-8
 	var config := ConfigFile.new()
 	if config.load(Profile.config_path())==OK:
 		address_field.text = str(config.get_value("network","address","127.0.0.1"))
@@ -334,6 +349,7 @@ func show_menu(open: bool) -> void:
 	for b in launch_buttons: b.visible = not game.active
 	if not open:
 		if settings_panel:settings_panel.hide()
+		if host_panel:host_panel.hide()
 		if game.voice and game.voice.panel: game.voice.panel.hide()
 		save_preferences()
 
@@ -349,12 +365,13 @@ func toast(message: String) -> void:
 func _process(_delta: float) -> void:
 	if game==null: return
 	fortress_button.visible=game.active and game.match_mode.kind=="tf" and not game.local_state().get("spectator",false)
-	map_choice.disabled=game.active
+	map_choice.trigger.disabled=game.active
 	map_import.disabled=game.active and multiplayer.is_server()
 	vr_actions.visible=game.is_vr()
 	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · LEFT Y/B Scores"
 	hud.visible = game.active
 	avatar_status.text = ""
+	vote_alert.visible=false;capture_alert.visible=false
 	if not game.active:
 		scoreboard_was_open=false
 		return
@@ -371,7 +388,14 @@ func _process(_delta: float) -> void:
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size()]
 	if game.match_mode.kind!="dm":
 		match_status.text=game.match_mode.status(game.multiplayer.get_unique_id()).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
+	var capture: Dictionary=game.match_mode.capture_status()
+	capture_alert.visible=not capture.is_empty() and (not game.is_vr() or game.menu_open or game.intermission>0)
+	if not capture.is_empty():
+		capture_alert.text=capture.text+"\n"+capture.detail
+		capture_alert.add_theme_color_override("font_color",Color("ffa18c") if capture.team==0 else Color("91caff"))
 	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
+	vote_alert.visible=not vote.is_empty() and not game.menu_open and not game.is_vr()
+	if not vote.is_empty():vote_alert.text="VOTE STARTED · %s\nYES %d/%d · NO %d · %ds · ESC → TEAMS & VOTES"%[vote.title,vote.yes,vote.needed,vote.no,vote.seconds]
 	if not vote.is_empty():match_status.text+="\nVOTE: "+vote.title+" · MENU → TEAMS & VOTES"
 	if game.voice and game.voice.transmitting: match_status.text += "   ·   MIC LIVE"
 	var lines := PackedStringArray()
@@ -419,33 +443,25 @@ func _import_bsp(path: String) -> void:
 		status.text=row.error
 		return
 	game.map_catalog=game.Maps.catalog()
-	map_choice.clear()
-	for i in range(game.map_catalog.size()):
-		map_choice.add_item(game.map_catalog[i].title)
-		if game.map_catalog[i].id==row.id: map_choice.select(i)
 	if not game.active:game.selected_map=row.id
+	refresh_maps()
 	if game.active and not multiplayer.is_server():
 		game.uploads.upload(row);status.text="Map imported. Offering it to the server for reuse…"
 	else:status.text="Map imported. Joining clients will download it from the host."
 
 func refresh_maps() -> void:
-	map_choice.clear()
-	for row in game.map_catalog:
-		map_choice.add_item(row.title)
-		if row.id==game.selected_map: map_choice.select(map_choice.item_count-1)
+	var rows: Array=[]
+	for row in game.map_catalog:rows.append({"id":row.id,"title":row.title})
+	map_choice.configure(rows,"SELECT ARENA");map_choice.choose(game.selected_map)
+
+func open_host() -> void:
+	refresh_maps();host_panel.get_parent().move_child(host_panel,-1);host_panel.show()
 
 var bindings_panel
 func open_bindings() -> void:
 	if not is_instance_valid(bindings_panel) or bindings_panel.is_queued_for_deletion():
 		bindings_panel=preload("res://deathmatch/settings/bindings_panel.gd").new();get_child(0).add_child(bindings_panel);bindings_panel.setup(game)
 	bindings_panel.open()
-
-var lobby_panel
-func open_lobby() -> void:
-	if not game.lobby.active():toast("Lobby voting is available between matches on enabled servers.");return
-	if not is_instance_valid(lobby_panel):
-		lobby_panel=preload("res://deathmatch/modes/lobby_panel.gd").new();get_child(0).add_child(lobby_panel);lobby_panel.setup(game)
-	lobby_panel.open()
 
 var demos_panel
 func open_demos() -> void:

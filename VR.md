@@ -98,3 +98,5 @@ Dual pistols have independent aim, trigger input and shot haptics for each hand,
 ### HUD placement and size
 
 Settings → Graphics provides **VR HUD size** (70–140%) and **VR HUD height** (−65 to +55 cm relative to eye level). Changes apply immediately and persist in the presentation section of the client config (`hud_scale`, `hud_y`). The HUD remains 1.5 metres in front of the headset and does not intercept menu pointers. Default: 100%, −46 cm.
+
+With full body tracking, deliberately swing a raised foot to kick for 10 damage before armour. Either foot shares the 0.8-second cooldown with weapon whipping. Stationary feet, ground sliding and stale/discontinuous tracking do not count as kicks; the server checks reach and walls. Kicks follow the existing physical-melee restrictions in IG and CC.

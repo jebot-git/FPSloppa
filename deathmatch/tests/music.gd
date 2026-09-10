@@ -33,6 +33,8 @@ func run():
 	check(AudioServer.is_bus_mute(AudioServer.get_bus_index("ArenaMusic")),"Music volume zero mutes its independent bus")
 	Settings.bus_volume("ArenaMusic",.3)
 	check(not AudioServer.is_bus_mute(AudioServer.get_bus_index("ArenaMusic")),"Music can resume at its saved level")
+	music.stop()
+	await create_timer(.1).timeout
 	game.free()
 	check(AudioServer.get_bus_index("ArenaMusic")==-1,"Music removes its owned bus on shutdown")
 	print("MUSIC_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

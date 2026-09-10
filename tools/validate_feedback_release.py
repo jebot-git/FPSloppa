@@ -3,7 +3,7 @@ from pathlib import Path
 import json,os,subprocess
 root=Path(__file__).resolve().parents[1]
 results=[]
-for name in ['rocket_jump','feedback_audio','combat','presentation','pickup_models','music']:
+for name in ['kicks','melee','quake_movement','stairs','room_scale','rocket_jump','feedback_audio','combat','presentation','pickup_models','music']:
     log=root/'test-results'/('feedback-'+name+'.log')
     with log.open('w') as f:
         try:

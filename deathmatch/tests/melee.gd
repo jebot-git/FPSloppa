@@ -16,6 +16,7 @@ func reset():
 		var s: Dictionary=g.players[id]
 		s.hp=100;s.armor=0;s.dead=false;s.invulnerable=0;s.charge=0;s.cooldown=0;s.fire=false
 		s.melee=false;s.melee_state={};s.melee_seq=-1;s.offhand_melee_state={};s.offhand_melee_seq=-1;s.xr={};s.vr_device=false;s.weapon=2;s.owned=range(9);s.ammo=[0,0,0,0]
+		s.left_kick={};s.right_kick={};s.melee_ready_at=0.0
 		s.yaw=0;s.pitch=0;s.last_input=g.clock
 	g.fighters[1].position=Fixture.point()
 	g.fighters[-1].position=Fixture.point(0,-1)

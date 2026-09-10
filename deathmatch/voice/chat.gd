@@ -1,5 +1,6 @@
 extends Node
-const Codec=preload("res://deathmatch/voice/codec.gd")
+const Speaker=preload("res://addons/twovoip/voiphelper/two_voip_speaker.gd")
+const Microphone=preload("res://deathmatch/voice/microphone.gd")
 const Visemes=preload("res://deathmatch/voice/visemes.gd")
 const Permissions=preload("res://deathmatch/vr/permissions.gd")
 var game
@@ -11,12 +12,11 @@ var threshold:=0.018
 var meter:=0.0
 var transmitting:=false
 var message:="Push-to-talk · hold V / off-hand grip"
-var mic: AudioStreamPlayer
-var capture: AudioEffectCapture
-var bus_index:=-1
+var mic: Node
 var sequence:=0
 var hangover:=0.0
 var streams: Dictionary={}
+var mouth_poses: Dictionary={}
 var guard: Dictionary={}
 var received_packets:=0
 var decoded_packets:=0
@@ -63,31 +63,19 @@ func retry_access() -> void:
 
 func start_capture() -> void:
 	if mic or mode==0 or game.headless or not game.voice_enabled or not game.permissions.granted(Permissions.MICROPHONE): return
-	bus_index=AudioServer.bus_count
-	AudioServer.add_bus()
-	AudioServer.set_bus_name(bus_index,"VoiceCapture")
-	AudioServer.set_bus_mute(bus_index,true) # Capture effect receives samples; never monitor own mic.
-	capture=AudioEffectCapture.new()
-	capture.buffer_length=.12
-	AudioServer.add_bus_effect(bus_index,capture)
-	mic=AudioStreamPlayer.new()
-	mic.stream=AudioStreamMicrophone.new()
-	mic.bus="VoiceCapture"
-	add_child(mic)
-	mic.play()
-	message="Hold V / off-hand grip to talk" if mode==1 else "Voice activation enabled"
+	mic=Microphone.new();add_child(mic)
+	if not mic.configure(self):
+		mic.queue_free();mic=null;message="Microphone unavailable · select an input device and retry";return
+	mic.transmit_audio_packet.connect(send_packet)
+	message="TwoVoIP · hold V / off-hand grip" if mode==1 else "TwoVoIP · voice activation enabled"
 
 func stop_capture() -> void:
-	permission_wait=false
-	transmitting=false
-	meter=0
-	hangover=0
-	if mic: mic.stop(); mic.queue_free(); mic=null
-	capture=null
-	if bus_index>=0:
-		var index:=AudioServer.get_bus_index("VoiceCapture")
-		if index>=0:AudioServer.remove_bus(index)
-		bus_index=-1
+	permission_wait=false;transmitting=false;meter=0;hangover=0
+	if is_instance_valid(mic):
+		mic.set_process(false);remove_child(mic);mic.queue_free();mic=null
+
+func can_transmit() -> bool:
+	return game.active and not game.practice and not game.dedicated and game.voice_enabled and game.players.has(multiplayer.get_unique_id()) and (not game.is_vr() or game.xr_rig.focused)
 
 func push_to_talk() -> bool:
 	if game.is_vr():
@@ -97,120 +85,84 @@ func push_to_talk() -> bool:
 	return game.bindings.pressed("ptt")
 
 func _process(delta: float) -> void:
-	if mode==1 and not push_to_talk(): transmitting=false
-	if capture:
-		var can_send: bool=game.active and not game.practice and not game.dedicated and game.voice_enabled and game.players.has(multiplayer.get_unique_id())
-		if game.is_vr() and not game.xr_rig.focused: can_send=false
-		if not can_send:
-			capture.clear_buffer(); transmitting=false; meter=0
-		else:
-			# 20 ms at the device's mixer rate, averaged into 16 kHz mono bins.
-			var count:=roundi(AudioServer.get_mix_rate()*.02)
-			var budget:=3
-			while capture.can_get_buffer(count) and budget>0:
-				budget-=1
-				var input:=capture.get_buffer(count)
-				var samples:=PackedFloat32Array()
-				samples.resize(Codec.FRAMES)
-				var energy:=0.0
-				for i in range(Codec.FRAMES):
-					var begin:=int(i*count/float(Codec.FRAMES))
-					var end:=maxi(begin+1,int((i+1)*count/float(Codec.FRAMES)))
-					var value:=0.0
-					for j in range(begin,mini(end,count)): value+=(input[j].x+input[j].y)*.5
-					value/=end-begin
-					samples[i]=clampf(value,-1,1); energy+=value*value
-				meter=sqrt(energy/Codec.FRAMES)
-				if meter>threshold: hangover=.18
-				else: hangover=maxf(0,hangover-.02)
-				transmitting=push_to_talk() if mode==1 else hangover>0
-				if transmitting:
-					var packet:=Codec.encode(samples)
-					animate_mouth(multiplayer.get_unique_id(),Codec.decode(packet))
-					send_packet(packet)
-			if capture.get_frames_available()>count*3: capture.clear_buffer()
 	for id in streams.keys():
 		var state: Dictionary=streams[id]
-		if not game.players.has(id) or game.clock-state.last_time>2: remove_peer(id); continue
-		while not state.mouth_queue.is_empty() and state.mouth_queue[0][0]<=game.clock:
-			animate_mouth(id,state.mouth_queue.pop_front()[1])
-		if state.queue.is_empty(): state.started=false; continue
-		if not state.started:
-			if state.queue.size()<3 and game.clock-state.first_time<.06: continue
-			state.started=true
-		if state.playback==null and is_instance_valid(state.player) and state.player.has_method("get_inner_stream_playback"):
-			state.playback=state.player.get_inner_stream_playback()
-		var playback=state.playback
-		if playback:
-			while not state.queue.is_empty() and playback.get_frames_available()>=Codec.FRAMES:
-				var decoded:=Codec.decode(state.queue.pop_front())
-				var delay:=maxf(0,.12-playback.get_frames_available()/float(Codec.RATE))
-				state.mouth_queue.append([game.clock+delay,decoded])
-				playback.push_buffer(decoded)
-			if game.fighters.has(id): state.player.global_position=game.fighters[id].global_position+Vector3.UP*1.55
-			game.spatial.update_source(state.player,linear_to_db(volume) if not muted_all and not muted.has(id) else -80.0)
-		elif test_receive:
-			while not state.queue.is_empty():
-				if Codec.decode(state.queue.pop_front()).size()==Codec.FRAMES: decoded_packets+=1
-	if panel: panel.refresh(delta)
+		if not game.players.has(id) or game.clock-state.last_time>2:remove_stream(id);continue
+		var speaker=state.speaker
+		if game.clock-state.last_time>.16 and speaker.inopusstream:speaker.external_end_stream()
+		if game.fighters.has(id) and state.player is AudioStreamPlayer3D:state.player.global_position=game.fighters[id].global_position+Vector3.UP*1.55
+		state.player.volume_db=linear_to_db(maxf(.0001,volume)) if not muted_all and not muted.has(id) else -80.0
+		if speaker.audio_stream_playback_opus:
+			var peak: float=speaker.audio_stream_playback_opus.get_chunk_max()
+			if peak>.001:decoded_peak=maxf(decoded_peak,peak)
+			var audible: bool=speaker.inopusstream or speaker.audio_stream_playback_opus.queue_length_frames()>0
+			var opening: float=clampf(sqrt(maxf(0,peak-.004))*2.6,0,.9) if audible else 0.0
+			set_mouth_pose(id,PackedFloat32Array([opening,0,0,0,0]))
+
+	if panel:panel.refresh(delta)
+
+var decoded_peak:=0.0
+signal packet_received(id: int,serial: int,data: PackedByteArray)
+static func valid_packet(data: PackedByteArray) -> bool:
+	# Fixed 48 kHz mono, 20 ms Opus frames. The prefix is replaced by the relay sequence.
+	return data.size()>=3 and data.size()<=400 and (data[2]>>3) in [1,5,9,13,15,19,23,27,31] and (data[2]&7)==0
 
 func send_packet(data: PackedByteArray) -> void:
 	sequence+=1
-	if multiplayer.is_server(): relay(multiplayer.get_unique_id(),sequence,data)
-	else: submit.rpc_id(1,sequence,data)
+	if multiplayer.is_server():relay(multiplayer.get_unique_id(),sequence,data)
+	else:submit.rpc_id(1,sequence,data)
 
-@rpc("any_peer","call_remote","unreliable_ordered",6)
+@rpc("any_peer","call_remote","unreliable",6)
 func submit(serial: int,data: PackedByteArray) -> void:
-	if multiplayer.is_server(): relay(multiplayer.get_remote_sender_id(),serial,data)
+	if multiplayer.is_server():relay(multiplayer.get_remote_sender_id(),serial,data)
 
 func accept_sender(id: int,serial: int,data: PackedByteArray) -> bool:
-	if not game.active or not game.voice_enabled or not game.players.has(id) or id<1 or not Codec.valid(data) or serial<0 or serial>2147483647:
-		rejected_packets+=1; return false
-	var state: Dictionary=guard.get(id,{"last":-1,"tokens":8.0,"time":game.clock})
-	state.tokens=minf(8,state.tokens+maxf(0,game.clock-state.time)*55)
-	state.time=game.clock
-	guard[id]=state
-	if serial<=state.last or state.tokens<1:
-		rejected_packets+=1; return false
-	state.last=serial; state.tokens-=1
+	if not game.active or not game.voice_enabled or not game.players.has(id) or id<1 or not valid_packet(data) or serial<0 or serial>2147483647:
+		rejected_packets+=1;return false
+	var state: Dictionary=guard.get(id,{"last":-1,"seen":{},"tokens":12.0,"time":game.clock})
+	state.tokens=minf(12,state.tokens+maxf(0,game.clock-state.time)*55);state.time=game.clock;guard[id]=state
+	if serial<state.last-32 or state.seen.has(serial) or state.tokens<1:
+		rejected_packets+=1;return false
+	state.last=maxi(state.last,serial);state.seen[serial]=true;state.tokens-=1
+	for old in state.seen.keys():
+		if old<state.last-32:state.seen.erase(old)
 	return true
 
 func relay(id: int,serial: int,data: PackedByteArray) -> void:
-	if not accept_sender(id,serial,data): return
+	if not accept_sender(id,serial,data):return
 	for peer in game.players:
-		if peer>1 and peer!=id: receive.rpc_id(peer,id,serial,data)
-	if id!=1 and not game.dedicated: receive(id,serial,data)
+		if peer>1 and peer!=id:receive.rpc_id(peer,id,serial,data)
+	if id!=1 and not game.dedicated:receive(id,serial,data)
 	relayed_packets+=1
 
-@rpc("authority","call_remote","unreliable_ordered",6)
+func create_stream(id: int,serial: int) -> void:
+	var player=AudioStreamPlayer.new() if game.headless else AudioStreamPlayer3D.new()
+	if player is AudioStreamPlayer3D:
+		player.unit_size=8;player.max_distance=60;player.attenuation_filter_cutoff_hz=18000
+	add_child(player)
+	var speaker=Speaker.new();speaker.audio_buffer_lag_time_target=.08;speaker.audio_buffer_lag_time_target_tolerance=.06;player.add_child(speaker)
+	speaker.packet_decoded.connect(func():decoded_packets+=1)
+	var header:={"opussamplerate":48000,"opuschannels":1,"lenchunkprefix":2,"opusstreamcount":0,"opusframesize":960,"opusframecount":0,"talkingtimestart":0}
+	speaker.receive_audio_packet(JSON.stringify(header).to_ascii_buffer())
+	streams[id]={"player":player,"speaker":speaker,"base":serial,"last":serial-1,"seen":{},"last_time":game.clock}
+
+@rpc("authority","call_remote","unreliable",6)
 func receive(id: int,serial: int,data: PackedByteArray) -> void:
-	if not game.voice_enabled or not game.players.has(id) or id==multiplayer.get_unique_id() or muted_all or muted.has(id) or not Codec.valid(data): return
-	if game.headless and not test_receive: return
-	if not streams.has(id):
-		var player: AudioStreamPlayer3D
-		var playback
-		if not game.headless:
-			player=game.spatial.create_player()
-			game.spatial.configure(player,true)
-			var generator:=AudioStreamGenerator.new()
-			generator.mix_rate=Codec.RATE
-			generator.buffer_length=.12
-			player.stream=generator
-			add_child(player)
-			player.play()
-			playback=null if player.has_method("get_inner_stream_playback") else player.get_stream_playback()
-		streams[id]={"player":player,"playback":playback,"mouth_queue":[],"queue":[],"last":-1,"last_time":game.clock,"first_time":game.clock,"started":false}
+	if not game.voice_enabled or not game.players.has(id) or id==multiplayer.get_unique_id() or muted_all or muted.has(id) or not valid_packet(data):return
+	if game.headless and not test_receive:return
+	if streams.has(id):
+		var old: Dictionary=streams[id]
+		if serial<old.base or serial<old.last-32 or old.seen.has(serial):return
+		if serial>old.last+50 or serial-old.base>=32000 or game.clock-old.last_time>.16:remove_stream(id)
+	if not streams.has(id):create_stream(id,serial)
 	var state: Dictionary=streams[id]
-	if serial<=state.last: return
-	if state.queue.is_empty(): state.first_time=game.clock
-	# Conceal short losses with silence, never retransmit stale speech.
-	var silence:=PackedFloat32Array(); silence.resize(Codec.FRAMES)
-	for i in range(mini(2,maxi(0,serial-state.last-1))):
-		if state.last>=0: state.queue.append(Codec.encode(silence))
-	state.last=serial; state.last_time=game.clock
-	state.queue.append(data)
-	while state.queue.size()>6: state.queue.pop_front()
-	received_packets+=1
+	state.last=maxi(state.last,serial);state.last_time=game.clock;state.seen[serial]=true
+	for old in state.seen.keys():
+		if old<state.last-32:state.seen.erase(old)
+	var frame: int=serial-state.base
+	var packet:=data.duplicate();packet[0]=frame&255;packet[1]=(frame>>8)&127
+	state.speaker.receive_audio_packet(packet)
+	received_packets+=1;packet_received.emit(id,serial,data)
 
 @rpc("authority","call_remote","reliable",0)
 func policy(allowed: bool,host_name: String,backend: String="builtin",external_url: String="") -> void:
@@ -229,14 +181,14 @@ func set_muted(id: int,value: bool) -> void:
 func remove_stream(id: int) -> void:
 	if streams.has(id):
 		if is_instance_valid(streams[id].player): streams[id].player.queue_free()
-		streams.erase(id)
+		streams.erase(id);mouth_poses.erase(id)
 
 func remove_peer(id: int) -> void:
 	remove_stream(id); guard.erase(id); muted.erase(id)
 
 func reset() -> void:
 	for id in streams.keys(): remove_stream(id)
-	guard.clear(); muted.clear(); sequence=0
+	guard.clear(); muted.clear();mouth_poses.clear(); sequence=0
 	game.voice_enabled=true
 	set_mode(mode)
 
@@ -244,7 +196,13 @@ func _exit_tree() -> void:
 	stop_capture()
 
 func animate_mouth(id: int,samples: PackedVector2Array) -> void:
-	if not game.fighters.has(id): return
+	set_mouth_pose(id,Visemes.analyze(samples))
+func set_mouth_pose(id: int,weights: PackedFloat32Array) -> void:
+	mouth_poses[id]={"weights":weights,"until":game.clock+.14}
+	if not game.fighters.has(id):return
 	var actor=game.fighters[id]
-	if actor.avatar_hash.is_empty() or not is_instance_valid(actor.avatar) or actor.avatar.dead: return
-	if actor.avatar.mouth: actor.avatar.mouth.speak(Visemes.analyze(samples))
+	if actor.avatar_hash.is_empty() or not is_instance_valid(actor.avatar) or actor.avatar.dead:return
+	if actor.avatar.mouth:actor.avatar.mouth.speak(weights)
+func mouth_pose(id: int) -> PackedFloat32Array:
+	var state: Dictionary=mouth_poses.get(id,{})
+	return state.weights if state.get("until",0)>game.clock else PackedFloat32Array([0,0,0,0,0])

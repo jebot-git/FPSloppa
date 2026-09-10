@@ -1,0 +1,19 @@
+{
+  "source_commit": "7afcd397e6206d9751b82100559ff39a93a8f59e",
+  "godot_cpp_commit": "58d1de720b8ffe9f8ffcdfe3a85148582cfd2e74",
+  "patch": "tools/patches/openxr-supported-face-sources.patch",
+  "preview_extensions": false,
+  "toolchain": "Ubuntu 22.04 / GCC 11",
+  "binaries": [
+    {
+      "path": ".bin/linux/template_debug/x86_64/libgodotopenxrvendors.so",
+      "sha256": "80235ce4d0cf1e633f841b205c44b9c971d7129058a40f0256a593713ace532a",
+      "required_glibc_max": "GLIBC_2.34"
+    },
+    {
+      "path": ".bin/linux/template_release/x86_64/libgodotopenxrvendors.so",
+      "sha256": "653197c69265c23d2d9057d555ec7b15139fe421a9fb26b1332fdb444c2ff130",
+      "required_glibc_max": "GLIBC_2.34"
+    }
+  ]
+}

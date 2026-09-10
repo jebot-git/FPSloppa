@@ -106,25 +106,27 @@ func setup(network: Node) -> void:
 	stage.add_child(floor_mesh)
 	var controls := HBoxContainer.new()
 	right.add_child(controls)
-	var animation := OptionButton.new()
-	for clip in ["Idle","Walk","Run","Fire"]: animation.add_item(clip)
-	animation.item_selected.connect(func(index):
-		animation_mode = index
-		if preview: preview.preview_mode = animation_mode
-	)
+	var animation:=preload("res://deathmatch/ui/choice.gd").new();animation.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	var clips: Array=[]
+	for i in 4:clips.append({"id":str(i),"title":["Idle","Walk","Run","Fire"][i]})
+	animation.configure(clips,"ANIMATION");animation.choose("0")
+	animation.selected.connect(func(value):
+		animation_mode=int(value)
+		if preview:preview.preview_mode=animation_mode)
 	controls.add_child(animation)
 	var rotate := CheckButton.new()
 	rotate.text = "Rotate"
 	rotate.button_pressed = true
 	rotate.toggled.connect(func(value): rotating = value)
 	controls.add_child(rotate)
-	var weapons := OptionButton.new()
-	for item in preload("res://deathmatch/weapons.gd").DATA: weapons.add_item(item.name)
-	weapons.select(2)
-	weapons.item_selected.connect(func(index):
-		if preview: preview.set_weapon(index)
-	)
+	var weapons:=preload("res://deathmatch/ui/choice.gd").new();weapons.size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	var weapon_items: Array=[]
+	for i in preload("res://deathmatch/weapons.gd").DATA.size():weapon_items.append({"id":str(i),"title":preload("res://deathmatch/weapons.gd").DATA[i].name})
+	weapons.configure(weapon_items,"WEAPON");weapons.choose("2")
+	weapons.selected.connect(func(value):
+		if preview:preview.set_weapon(int(value)))
 	controls.add_child(weapons)
+	animation.trigger.pressed.connect(func():weapons.popup.hide());weapons.trigger.pressed.connect(func():animation.popup.hide())
 	feedback = Label.new()
 	feedback.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	feedback.custom_minimum_size.y = 45

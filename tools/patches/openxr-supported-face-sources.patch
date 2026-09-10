@@ -1,0 +1,37 @@
+--- a/plugin/src/main/cpp/extensions/openxr_fb_face_tracking_extension.cpp
++++ b/plugin/src/main/cpp/extensions/openxr_fb_face_tracking_extension.cpp
+@@ -104,21 +104,29 @@
+ }
+ 
+ void OpenXRFbFaceTrackingExtension::_on_session_created(uint64_t instance) {
++	UtilityFunctions::print("FACE_TRACKING_SOURCES extension=", fb_face_tracking2_ext, " visual=", system_face_tracking_properties2.supportsVisualFaceTracking, " audio=", system_face_tracking_properties2.supportsAudioFaceTracking);
+ 	// Skip if not enabled
+ 	if (!is_enabled()) {
+ 		return;
+ 	}
+ 
+ 	// Create the face-tracker handle
+-	XrFaceTrackingDataSource2FB dataSources[2] = {
+-		XR_FACE_TRACKING_DATA_SOURCE2_VISUAL_FB,
+-		XR_FACE_TRACKING_DATA_SOURCE2_AUDIO_FB
+-	};
++	XrFaceTrackingDataSource2FB dataSources[2];
++	uint32_t dataSourceCount = 0;
++	if (system_face_tracking_properties2.supportsVisualFaceTracking) {
++		dataSources[dataSourceCount++] = XR_FACE_TRACKING_DATA_SOURCE2_VISUAL_FB;
++	}
++	if (system_face_tracking_properties2.supportsAudioFaceTracking) {
++		dataSources[dataSourceCount++] = XR_FACE_TRACKING_DATA_SOURCE2_AUDIO_FB;
++	}
++	if (dataSourceCount == 0) {
++		return;
++	}
+ 	XrFaceTrackerCreateInfo2FB createInfo2 = {
+ 		XR_TYPE_FACE_TRACKER_CREATE_INFO2_FB, // type
+ 		nullptr, // next
+ 		XR_FACE_EXPRESSION_SET2_DEFAULT_FB, // faceExpressionSet
+-		2, // requestedDataSourceCount
++		dataSourceCount, // requestedDataSourceCount
+ 		dataSources // requestedDataSources
+ 	};
+ 	XrResult result = xrCreateFaceTracker2FB(SESSION, &createInfo2, &face_tracker2);

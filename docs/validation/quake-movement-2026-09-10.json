@@ -1,0 +1,51 @@
+{
+  "date": "2026-09-10",
+  "upstream": {
+    "repository": "https://github.com/rhulha/quake3-movement-godot",
+    "commit": "13f7ffcafe7e30666468ac00391ae0387f9b3f37",
+    "license": "MIT",
+    "original_engine": "Godot 3",
+    "adapted_engine": "Godot 4.7.2"
+  },
+  "tests": [
+    {
+      "suite": "quake_movement",
+      "passed": true,
+      "checks": 22
+    },
+    {
+      "suite": "stairs",
+      "passed": true,
+      "checks": 6
+    },
+    {
+      "suite": "rocket_jump",
+      "passed": true,
+      "checks": 10
+    },
+    {
+      "suite": "room_scale",
+      "passed": true,
+      "checks": 16
+    },
+    {
+      "suite": "network",
+      "passed": true,
+      "checks": 71
+    }
+  ],
+  "network_protocol": "fpsloppa-20-quake-movement",
+  "live": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Meta Quest Pro",
+    "typical_fps": 72,
+    "frame_ms_p50": 13.89,
+    "frame_ms_p95": 14.29,
+    "wearer_confirmation": true
+  },
+  "limitations": [
+    "Quake-style port, not a claim of exact Quake III physics",
+    "Existing Steam Audio ObjectDB shutdown warning remains in automated tests",
+    "Android and Windows runtime movement not tested during this change"
+  ]
+}

@@ -24,8 +24,14 @@ func _process(delta: float) -> void:
 	players[current].volume_db=linear_to_db(maxf(.001,fade))
 	players[1-current].volume_db=linear_to_db(maxf(.001,1-fade))
 	if fade>=1 and players[1-current].playing:players[1-current].stop()
+func stop() -> void:
+	set_process(false)
+	for player in players:
+		player.stop()
+		player.stream=null
+	players.clear()
 func _exit_tree() -> void:
-	for player in players:player.stop()
+	stop()
 	if owned_bus:
 		var index:=AudioServer.get_bus_index("ArenaMusic")
 		if index>=0:AudioServer.remove_bus(index)

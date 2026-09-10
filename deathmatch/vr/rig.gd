@@ -162,15 +162,15 @@ func build_ui() -> void:
 	add_child(keyboard)
 	keyboard.get_scene_instance().focus_target=focused_edit
 	var status_viewport:=SubViewport.new()
-	status_viewport.size=Vector2i(960,220)
+	status_viewport.size=Vector2i(960,292)
 	status_viewport.transparent_bg=true
 	status_viewport.render_target_update_mode=SubViewport.UPDATE_ALWAYS
 	add_child(status_viewport)
 	status_hud=preload("res://deathmatch/vr/status_hud.gd").new()
-	status_hud.size=Vector2(960,220);status_hud.mouse_filter=Control.MOUSE_FILTER_IGNORE
+	status_hud.size=Vector2(960,292);status_hud.mouse_filter=Control.MOUSE_FILTER_IGNORE
 	status_viewport.add_child(status_hud)
 	status_surface=MeshInstance3D.new()
-	var status_quad:=QuadMesh.new();status_quad.size=Vector2(.96,.22)
+	var status_quad:=QuadMesh.new();status_quad.size=Vector2(.96,.292)
 	status_surface.mesh=status_quad;status_surface.position=Vector3(0,-.46,-1.5)
 	status_surface.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var status_material:=StandardMaterial3D.new()
@@ -311,12 +311,15 @@ func _process(delta: float) -> void:
 	keyboard.visible=menu_visible and (focused_control is LineEdit or focused_control is TextEdit)
 	keyboard.enabled=keyboard.visible
 	for i in range(pointers.size()):
-		pointers[i].enabled=menu_visible and focused and (simulated or (left_aim if i==0 else right_aim).get_has_tracking_data())
+		pointers[i].distance=6 if menu_visible else 28
+		pointers[i].enabled=(menu_visible or game.lobby.active()) and focused and (simulated or (left_aim if i==0 else right_aim).get_has_tracking_data())
 		pointers[i].visible=pointers[i].enabled
 	if actor:
 		var s: Dictionary=game.local_state()
 		var leader:=0
 		for player in game.players.values():leader=maxi(leader,player.kills)
+		status_hud.update_capture(game.match_mode.capture_status())
+		status_hud.update_vote(game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view)
 		status_hud.update_network(game.loading.snapshot(),game.local_ping,game.multiplayer.is_server())
 		status_hud.update_status(s,game.round_left,game.frag_limit,leader,game.intermission>0,game.voice and game.voice.transmitting,_objective_hud(s))
 		if s.weapon!=gun_id:

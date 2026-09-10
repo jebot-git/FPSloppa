@@ -2,6 +2,11 @@ extends SceneTree
 const Fixture=preload("res://deathmatch/tests/fixture.gd")
 var g
 var failures: Array=[]
+class HitProbe extends RefCounted:
+	var impacts:=0
+	var pain:=0
+	func hit(_id,_pos,_direction,_amount,_dead,_gibbed,_seed):impacts+=1
+	func local_hit():pain+=1
 func check(value: bool,label: String) -> void:
 	print("PASS " if value else "FAIL ",label)
 	if not value:failures.append(label)
@@ -31,6 +36,12 @@ func run() -> void:
 	g.players[1].hp=40;g.players[-1].hp=5;g._damage(-1,1,40,"CHAINSAW")
 	check(g.players[1].hp==45,"CC heals actual damage, excluding overkill")
 	g.players[1].armor=200;g.match_mode.tick(1.0);check(g.players[1].hp==42,"CC loses 3 health per second through armor")
+	var effects=g.effects;var probe:=HitProbe.new();g.effects=probe;g.headless=false;g.hurt_flash=0
+	g.match_mode.tick(1.0)
+	check(g.hurt_flash>0 and probe.impacts==0 and probe.pain==0,"CC hunger retains screen feedback without impact or pain audio")
+	g._damage(1,-1,6,"CHAINSAW")
+	check(probe.impacts==1 and probe.pain==1,"Weapon damage in CC retains normal pain audio")
+	g.effects=effects;g.headless=true
 	g.players[1].hp=1;g.match_mode.tick(1.0);check(g.players[1].dead,"CC hunger can kill")
 	prepare("cc");g.players[1].melee=true;g.players[1].melee_state={};g._update_melee(1);check(g.players[1].melee_state.is_empty(),"CC blocks physical melee")
 	prepare("ft");g.fighters[-1].position=Fixture.point();g.fighters[-3].position=Fixture.point(1,0)

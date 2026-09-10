@@ -4,7 +4,7 @@ var capture:=""
 var notice: Label
 var buttons: Dictionary={}
 func setup(arena: Node) -> void:
-	game=arena;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	game=arena;theme=preload("res://deathmatch/ui/iron_theme.gd").theme();hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	var scroll:=ScrollContainer.new();add_child(scroll)
 	var column:=VBoxContainer.new();column.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(column)
 	var title:=Label.new();title.text="CONTROL BINDINGS";column.add_child(title)
@@ -18,20 +18,21 @@ func setup(arena: Node) -> void:
 		button.pressed.connect(func():capture=action;notice.text="Press a key / mouse button for "+action+"; Escape cancels.")
 	for action in ["move","turn"]:
 		var label:=Label.new();label.text="VR "+action+" stick";column.add_child(label)
-		var axis:=OptionButton.new();axis.custom_minimum_size.y=48;column.add_child(axis)
-		for role in ["move","turn","left","right"]:
-			axis.add_item(role)
-			if role==game.bindings.axes[action]:axis.select(axis.item_count-1)
-		axis.item_selected.connect(func(index):game.bindings.axes[action]=axis.get_item_text(index);save())
+		var axis:=preload("res://deathmatch/ui/choice.gd").new();column.add_child(axis)
+		var roles: Array=[]
+		for role in ["move","turn","left","right"]:roles.append({"id":role,"title":role})
+		axis.configure(roles,"SELECT STICK");axis.choose(game.bindings.axes[action])
+		axis.selected.connect(func(value):game.bindings.axes[action]=value;save())
 	for action in game.bindings.VR:
 		var row:=HBoxContainer.new();column.add_child(row)
 		var label:=Label.new();label.text="VR "+action;label.custom_minimum_size.x=180;row.add_child(label)
-		var choice:=OptionButton.new();choice.custom_minimum_size.y=48;choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(choice)
+		var choice:=preload("res://deathmatch/ui/choice.gd").new();choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(choice)
+		var roles: Array=[]
 		for role in ["weapon","support","move","turn","left","right"]:
 			for input in game.bindings.INPUTS:
-				var value: String=role+":"+input;choice.add_item(value)
-				if value==game.bindings.vr[action]:choice.select(choice.item_count-1)
-		choice.item_selected.connect(func(index):game.bindings.vr[action]=choice.get_item_text(index);save())
+				var value: String=role+":"+input;roles.append({"id":value,"title":value})
+		choice.configure(roles,"SELECT BINDING");choice.choose(game.bindings.vr[action])
+		choice.selected.connect(func(value):game.bindings.vr[action]=value;save())
 	var reset:=Button.new();reset.text="RESET BINDINGS";reset.custom_minimum_size.y=48;column.add_child(reset)
 	reset.pressed.connect(func():game.bindings.keys=game.bindings.KEYS.duplicate();game.bindings.vr=game.bindings.VR.duplicate();game.bindings.axes={"move":"move","turn":"turn"};save();hide();queue_free();game.hud.open_bindings())
 	var back:=Button.new();back.text="BACK";back.custom_minimum_size.y=52;column.add_child(back);back.pressed.connect(func():capture="";hide())

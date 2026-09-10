@@ -37,7 +37,7 @@ for target in ['Quest', 'Pico']:
         assert {n.split('/')[1] for n in z.namelist() if n.startswith('lib/')} == {'arm64-v8a'}
         for name in ['libgodot_android.so', 'libopenxr_loader.so', 'libgodotopenxrvendors.so']:
             assert 'lib/arm64-v8a/' + name in z.namelist()
-        for name, local in [('libgodot-steam-audio.android.template_release.arm64.so','addons/godot-steam-audio/bin/libgodot-steam-audio.android.template_release.arm64.so'),('libphonon.so','addons/godot-steam-audio/bin/android/arm64/libphonon.so')]:
+        for name, local in [('libgodot-steam-audio.android.template_release.arm64.so','addons/godot-steam-audio/bin/libgodot-steam-audio.android.template_release.arm64.so'),('libphonon.so','addons/godot-steam-audio/bin/android/arm64/libphonon.so'),('libtwovoip.android.template_release.arm64.so','addons/twovoip/libs/libtwovoip.android.template_release.arm64.so')]:
             binary=z.read('lib/arm64-v8a/'+name)
             assert binary[:6]==b'\x7fELF\x02\x01', (target,name,'expected ELF64 little endian')
             assert allocated_sections(binary)==allocated_sections((root/local).read_bytes()), ('Outdated native audio library',target,name)
@@ -57,16 +57,16 @@ for target in ['Quest', 'Pico']:
             assert not any(n.startswith('assets/maps/') or n.startswith('assets/vrm/') for n in z.namelist())
         assert 'assets/deathmatch/avatars/eyes.gd' in z.namelist()
         assert protocol.encode() in z.read('assets/deathmatch/arena.gd')
-        for script in ['network/loading.gd', 'network/loading_overlay.gd', 'projectile_targets.gd', 'maps/network.gd', 'interface.gd', 'arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
+        for script in ['movement/quake.gd', 'voice/microphone.gd', 'voice/visemes.gd', 'modes/lobby_mirror.gd', 'modes/lobby_wall.gd', 'modes/match_selector.gd', 'ui/choice.gd', 'network/loading.gd', 'network/loading_overlay.gd', 'projectile_targets.gd', 'maps/network.gd', 'interface.gd', 'arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
             path = 'deathmatch/' + script
             assert z.read('assets/' + path) == (root / path).read_bytes(), ('Outdated APK script', target, path)
         audio_files=list((root/'deathmatch/audio/music').glob('*.ogg'))
-        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
+        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
         audio_files += list((root/'deathmatch/audio/recorded').glob('pain_*.wav'))
         for source in audio_files:
             remap=re.search(r'^path="res://([^"]+)"',Path(str(source)+'.import').read_text(),re.M).group(1)
             assert z.read('assets/'+remap)==(root/remap).read_bytes(), ('Outdated APK audio',target,source.name)
         assert not any(n.startswith('assets/deathmatch/audio/music/samples/') for n in z.namelist()), 'Source sample bank should not inflate APKs'
-    reports.append({'target': target, 'bytes': apk.stat().st_size, 'sha256': hashlib.sha256(apk.read_bytes()).hexdigest(), 'assets_verified': checked, 'arm64_only': True, 'vendor_manifest': True, 'steam_audio_current':True, 'steam_audio_16k_pages':True,'current_feedback_and_music':True})
+    reports.append({'target': target, 'bytes': apk.stat().st_size, 'sha256': hashlib.sha256(apk.read_bytes()).hexdigest(), 'assets_verified': checked, 'arm64_only': True, 'vendor_manifest': True, 'twovoip_current':True,'twovoip_16k_pages':True,'steam_audio_current':True, 'steam_audio_16k_pages':True,'current_feedback_and_music':True})
 (root / 'test-results/android_artifacts.json').write_text(json.dumps(reports, indent=2) + '\n')
-print('Verified both ARM64 APKs, vendor manifests, protocol, current scripts/assets and 16 KiB-aligned Steam Audio libraries.')
+print('Verified both ARM64 APKs, vendor manifests, protocol, current scripts/assets and 16 KiB-aligned Steam Audio and TwoVoIP libraries.')

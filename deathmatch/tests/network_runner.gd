@@ -54,6 +54,20 @@ func server_run() -> void:
 		if game.players[id].name=="Shooter": shooter=id
 		elif game.players[id].name=="Target": target=id
 	check(shooter!=0 and target!=0,"Nicknames and distinct peer identities")
+	game.fighters[shooter].position=Fixture.point(0,6)
+	game.fighters[target].position=Fixture.point(-6,6)
+	for id in [shooter,target]:game.players[id].serial+=1
+	await pause(.2)
+	game._announcement.rpc("TEST_MOVEMENT")
+	var airborne:=false
+	for i in 32:
+		await pause(.05)
+		airborne=airborne or game.fighters[shooter].position.y>Fixture.ORIGIN.y+.5
+	check(airborne and game.fighters[shooter].position.z<Fixture.ORIGIN.z,"Remote movement and manual jump run through the authoritative Quake simulation")
+	game._announcement.rpc("TEST_MOVEMENT_END")
+	await pause(.2)
+	for id in [shooter,target]:
+		game.fighters[id].velocity=Vector3.ZERO;game.fighters[id].blast_velocity=Vector2.ZERO
 	game.fighters[shooter].position=Fixture.point()
 	game.fighters[target].position=Fixture.point(0,-1)
 	for id in [shooter,target]:
@@ -63,6 +77,14 @@ func server_run() -> void:
 	check(await wait_for(func():return game.players[target].hp==90,3),"Remote VR weapon sweep deals authoritative melee damage with no ammo")
 	await pause(.3)
 	check(game.players[target].hp==90,"Remote weapon contact cannot register repeated melee hits")
+	game._announcement.rpc("TEST_TRACKING_END")
+	await pause(.9)
+	game.players[target].hp=100
+	await pause(.2)
+	game._announcement.rpc("TEST_KICK")
+	check(await wait_for(func():return game.players[shooter].get("left_kick",{}).get("hit",false) and game.players[target].hp==90,3),"Remote tracked kick deals authoritative damage through ENet")
+	await pause(.2)
+	check(game.players[target].hp==90,"Holding the remote foot in contact cannot repeatedly hit")
 	game._announcement.rpc("TEST_TRACKING_END")
 	await pause(.2)
 	game.players[shooter].ammo=[50,0,0,0]
@@ -171,8 +193,14 @@ func client_run() -> void:
 	var saw_fingers:=false
 	var melee_started := -1
 	var saw_eyes:=false
+	var kick_started:=-1
+	var saw_kick:=false
+	var movement_started:=-1
+	var saw_movement:=false
+	var prediction_samples:=0
+	var prediction_error:=0.0
 	var completed := false
-	var deadline := Time.get_ticks_msec()+20000
+	var deadline := Time.get_ticks_msec()+25000
 	while Time.get_ticks_msec()<deadline:
 		if game.active:
 			if game.feed.any(func(entry): return entry.text=="TEST_DONE"):
@@ -185,12 +213,26 @@ func client_run() -> void:
 				if state.dead: saw_death = true
 				if state.owned.has(1): saw_pickup = true
 			for actor in game.fighters.values():
+				if game.last_event=="TEST_MOVEMENT" and actor.visual_velocity.length()>7 and actor.target.y>Fixture.ORIGIN.y+.3:saw_movement=true
 				if not saw_rocket and actor.blast_velocity.length()>1 and actor.target.y>Fixture.ORIGIN.y+.5:
 					saw_rocket=true;probe.observed_rocket.rpc_id(1)
 				if actor.xr_pose.get("body",{}).has("left_foot"): saw_tracking=true
 				if actor.xr_pose.get("body",{}).get("left_curls",PackedFloat32Array())==PackedFloat32Array([0,.25,.5,.75,1]): saw_fingers=true
 				if actor.xr_pose.has("offhand_weapon") and game.players.values().any(func(s):return s.offhand_cooldown>0): saw_dual=true
 				if actor.xr_pose.get("face",{}).get("lids",false): saw_eyes=true
+			if game.last_event=="TEST_MOVEMENT" and is_shooter:
+				if movement_started<0:
+					movement_started=Time.get_ticks_msec();game.local_yaw=0;game.menu_open=false
+					game.bindings.keys.forward=KEY_W;game.bindings.keys.jump=KEY_SPACE
+					for keycode in [KEY_W,KEY_SPACE]:
+						var key:=InputEventKey.new();key.physical_keycode=keycode;key.pressed=true;Input.parse_input_event(key)
+				if Time.get_ticks_msec()-movement_started>600:
+					var own=game.fighters[game.multiplayer.get_unique_id()]
+					prediction_error+=own.position.distance_to(own.target);prediction_samples+=1
+			elif movement_started>=0:
+				for keycode in [KEY_W,KEY_SPACE]:
+					var key:=InputEventKey.new();key.physical_keycode=keycode;key.pressed=false;Input.parse_input_event(key)
+				movement_started=-1
 			if game.last_event=="TEST_MELEE":
 				for state in game.players.values():
 					if state.name=="Target" and state.hp==90:saw_melee=true
@@ -210,6 +252,16 @@ func client_run() -> void:
 				command.xr.offhand_weapon=command.xr.left
 				command.xr.weapon.basis=Basis(Vector3.UP,PI/2)
 				game._input_command.rpc_id(1,command)
+			if game.last_event=="TEST_KICK":
+				for state in game.players.values():
+					if state.name=="Target" and state.hp==90:saw_kick=true
+				if is_shooter:
+					if kick_started<0:kick_started=Time.get_ticks_msec()
+					game.set_physics_process(false);game.sequence+=1
+					var command:Dictionary=game._local_command();command.map_epoch=game.map_epoch;command.yaw=0;command.melee=true
+					command.xr=preload("res://deathmatch/vr/poses.gd").neutral()
+					command.xr.body={"left_foot":Transform3D(Basis.IDENTITY,Vector3(0,.35,maxf(-.8,-(Time.get_ticks_msec()-kick_started)*.0035)))}
+					game._input_command.rpc_id(1,command)
 			if game.last_event=="TEST_TRACKING" and is_shooter:
 				game.set_physics_process(false)
 				game.sequence+=1
@@ -243,6 +295,9 @@ func client_run() -> void:
 				rejoined = true
 		await pause(.02)
 	check(saw_rocket,"Rocket position and knockback replicate to players and spectator")
+	check(saw_kick,"Tracked kick damage replicates to both players and spectator")
+	check(saw_movement,"Quake running and jumping replicate to players and spectator")
+	if is_shooter:check(prediction_samples>0 and prediction_error/maxi(1,prediction_samples)<1.0,"Client movement prediction stays close to authoritative snapshots")
 	check(saw_dual,"Secondary pistol pose and cooldown replicate to both clients")
 	check(saw_fingers,"Independent finger curls replicate to both clients")
 	check(saw_melee,"Melee damage replicated to both clients")

@@ -4,7 +4,7 @@ Open **BINDINGS…** in the main/pause menu to reassign keyboard, mouse and VR c
 
 **Two-handed aim** is enabled by default. Hold the support-hand grip near a non-pistol weapon's fore-end to align the weapon between your hands. Release to return to one-handed aiming. This changes orientation only: damage, spread, firing rate, ammunition and firing origin remain identical. Pistols and fists do not use this assistance.
 
-**Physical jumping** is opt-in in BINDINGS. A quick upward headset movement while grounded requests the same jump as the jump button. It is disabled in seated mode, menus and when tracking is unavailable. Recenter after changing your standing height. Headset motion detection and controller comfort still need hardware testing.
+**Physical jumping** is opt-in in **Settings → Controls → Bindings**. A quick upward headset movement while grounded requests the same jump as the jump button. It is disabled in seated mode, menus and when tracking is unavailable. Recenter after changing your standing height. Headset motion detection and controller comfort still need hardware testing.
 
 ## Demos and video
 
@@ -29,7 +29,7 @@ set sv_lobby "1"
 set sv_lobby_seconds "45"
 ```
 
-After a match's results screen, everyone enters an empty room with movement and voice chat, without weapons, pickups or damage. Open **LOBBY VOTE…** to choose a gamemode/map pair from the server's per-mode maplists. Each player has one changeable vote. The highest tally wins; ties favor the next rotation entry when available. With no votes, rotation supplies the next match. Late joiners can vote. The duration accepts 15–180 seconds.
+After a match's results screen, everyone enters an empty room with movement and voice chat, without weapons, pickups or damage. Use the wall-mounted ballot to select a mode first, then a map from that mode’s server maplist. A camera-based tracking mirror beside it shows your full avatar between matches. Each player has one changeable vote. The highest tally wins; ties favor the next rotation entry when available. With no votes, rotation supplies the next match. Late joiners can vote. The duration accepts 15–180 seconds.
 
 The default is `sv_lobby "0"`, preserving regular menu voting and rotation. Offline practice does not use this lobby. Clients and server must share the updated network protocol.
 

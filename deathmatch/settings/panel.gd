@@ -8,6 +8,9 @@ var section:="audio"
 var config_path:=""
 var audio_page: VBoxContainer
 var graphics_page: VBoxContainer
+var input_page: VBoxContainer
+var tracking_page: VBoxContainer
+var tracking_status: Label
 func setup(arena: Node) -> void:
 	game=arena;values=game.presentation;name="AudioGraphicsSettings";hide()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -16,10 +19,28 @@ func setup(arena: Node) -> void:
 	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:style.set_content_margin(side,20)
 	add_theme_stylebox_override("panel",style)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",8);add_child(column)
-	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="AUDIO & GRAPHICS";title.add_theme_font_size_override("font_size",28);column.add_child(title)
+	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="SETTINGS";title.add_theme_font_size_override("font_size",28);column.add_child(title)
 	var tabs:=HBoxContainer.new();column.add_child(tabs)
 	button(tabs,"AUDIO",func():section="audio";refresh())
 	button(tabs,"GRAPHICS",func():section="graphics";refresh())
+	button(tabs,"CONTROLS",func():section="controls";refresh())
+	button(tabs,"TRACKING",func():section="tracking";refresh())
+	input_page=VBoxContainer.new();input_page.add_theme_constant_override("separation",8);column.add_child(input_page)
+	tracking_page=VBoxContainer.new();tracking_page.add_theme_constant_override("separation",8);column.add_child(tracking_page)
+	button(input_page,"BINDINGS…",func():game.hud.open_bindings())
+	controls.vr_controls=button(input_page,"VR CONTROLS…",func():
+		if game.is_vr():game.xr_rig.turn_panel.open())
+	controls.gun_hand=button(input_page,"SWAP GUN HAND",func():
+		if game.is_vr():game.xr_rig.left_handed=not game.xr_rig.left_handed;refresh())
+	controls.recenter=button(tracking_page,"RECENTER VR",func():
+		if game.is_vr():game.xr_rig.recenter();refresh())
+	controls.calibrate=button(tracking_page,"CALIBRATE BODY",func():
+		if game.is_vr():game.xr_rig.tracking.calibrate();refresh())
+	controls.osc=button(tracking_page,"SLIMEVR OSC",func():
+		if game.is_vr():game.xr_rig.tracking.toggle_osc();refresh())
+	controls.body=button(tracking_page,"BODY TRACKING",func():
+		if game.is_vr():game.xr_rig.tracking.enabled=not game.xr_rig.tracking.enabled;refresh())
+	tracking_status=Label.new();tracking_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;tracking_page.add_child(tracking_status)
 	audio_page=VBoxContainer.new();audio_page.add_theme_constant_override("separation",8);column.add_child(audio_page)
 	graphics_page=VBoxContainer.new();graphics_page.add_theme_constant_override("separation",8);column.add_child(graphics_page)
 	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.1)
@@ -58,7 +79,13 @@ func save() -> void:
 	notice.text="Saved. Changes applied." if err==OK else "Settings applied; saving failed: "+error_string(err)
 	refresh()
 func refresh() -> void:
-	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics"
+	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics";input_page.visible=section=="controls";tracking_page.visible=section=="tracking"
+	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
+	tracking_status.text=game.xr_rig.tracking.status if game.is_vr() else "Connect a VR headset to configure tracking."
+	if game.is_vr():
+		controls.gun_hand.text="GUN HAND: "+("LEFT" if game.xr_rig.left_handed else "RIGHT")+" · SWAP"
+		controls.body.text="BODY TRACKING: "+("ON" if game.xr_rig.tracking.enabled else "OFF")
+		controls.osc.text="SLIMEVR OSC: "+("ON" if game.xr_rig.tracking.udp!=null else "OFF")
 	values.voice=game.voice.volume
 	for key in ["master","effects","voice","music","render_scale"]:controls[key].text="%d%%"%roundi(values[key]*100)
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()

@@ -1,8 +1,8 @@
-# FPSloppa 0.6v
+# FPSloppa 0.7v
 
-[0.6v build notes](docs/RELEASE-0.6v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.7v build notes](docs/RELEASE-0.7v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.6v:** verified map/model downloads before spawning, a loading screen with progress and estimated time remaining, compact download/latency indicators for desktop and VR, and substantially faster server projectile processing.
+**New in 0.7v:** TwoVoIP/Opus voice, Quake-style movement, persistent VR dropdowns with trigger dragging, wall-mounted lobby voting, compact menus, a tracking mirror, capture feedback and repaired WiVRn blinking.
 
 **Archived extras:** the original forty-map Arena Collection 1 and the ThreeWave, TeamFortress and Arcane Dimensions conversion tools are available only from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They will not be revised or developed further, or bundled with subsequent releases. These static assets/tools do not need repeated releases unless the map loader or format changes. See [the archive policy](docs/ARCHIVED-EXTRAS.md).
 
@@ -12,7 +12,7 @@ See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.6v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.7v clients and servers; the protocol changed from earlier releases.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Standalone users should open **ASSETS…** and download the base assets, or extract the Base-Assets ZIP into the app’s external files directory. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Freeze Tag and Chainsaw Circus are available.
 
@@ -47,7 +47,7 @@ All participants need the same project version. In-game hosting supports **eight
 | Esc | Match menu / resume |
 | Fire or Space while dead | Respawn after the two-second delay |
 
-Movement is fast. All maps allow jumping and swimming. Stair stepping is automatic. Platforms cycle automatically.
+Movement uses Quake-style ground friction and air strafing. Release and press jump for each bunny hop; release movement in midair to keep momentum, or steer with directional input. Run/walk speeds and TF class modifiers are retained, including proportional VR thumbstick control. All maps allow jumping and swimming. Stair stepping is automatic. [Movement provenance and tuning](deathmatch/movement/SOURCES.md). Platforms cycle automatically.
 
 ## Weapon behavior
 
@@ -132,7 +132,7 @@ Four original tracker compositions provide a looping industrial action score wit
 
 Dedicated servers support DM, TDM, CTF and KOTH, with configurable limits, team switching and majority votes for balance, available maps and allowed game types. In-game hosting remains DM-only with eight slots. See [GAMEMODES.md](GAMEMODES.md) and [server.cfg](server.cfg).
 
-Eight freely licensed LibreQuake arenas are bundled. Menus use an original iron/brass theme with large VR controls; CTF flags use cloth banners with distinct team emblems. Steam Audio provides headphone HRTF spatialisation for effects and built-in positional voice on Linux, Windows and Android. Sound settings include a standard spatial-audio fallback. Dedicated servers may advertise an external Mumble client handoff; built-in voice remains the default.
+Eight freely licensed LibreQuake arenas are bundled. Menus use an original iron/brass theme with large VR controls; CTF flags use cloth banners with distinct team emblems. Steam Audio provides headphone HRTF spatialisation for effects on Linux, Windows and Android; TwoVoIP supplies native Opus positional voice. Sound settings include a standard spatial-audio fallback. Dedicated servers may advertise an external Mumble client handoff; built-in voice remains the default.
 
 This build also includes the previously developed dual pistols, controller finger gestures/tracker fixes, spectator mode, end-of-match scoreboard, audio/graphics settings, new pickup models, restored CC0 super shotgun and four original tracker soundtracks.
 
@@ -141,3 +141,9 @@ Rocket splash now supports rocket jumping with reduced self damage and bounded, 
 Controls, two-handed aiming, physical jumps, demo/video tools and the optional voting lobby: [session features](SESSION_FEATURES.md).
 
 Hit registration, latency simulation and test limitations: [network testing](NETWORK_TESTING.md).
+
+## VR menus and voting
+
+The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Freeze Tag, Chainsaw Circus and Team Fortress (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns use trigger-held dragging instead of scrollbars, including the TF class selector. Flag captures produce a short fanfare and a team/player banner.
+
+Lobby voting is available on the waiting-room wall (controller pointer in VR; aim and click on desktop). Select a mode first, then a map from that mode's server maplist. In-game match votes use the same selection order. The themed selectors stay open until an option is selected, including while lobby votes refresh. Active in-game votes display their target, vote counts, time remaining and menu instructions on both desktop and VR HUDs.

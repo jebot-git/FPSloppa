@@ -14,6 +14,8 @@ var scores: Array=[0,0]
 var bases: Array=[]
 var flags: Array=[]
 var captures: Array=[]
+var capture_notice: Dictionary={}
+signal capture_announced(team: int,scorer: String,score: int)
 var hill:=Vector3.ZERO
 var hill_owner:=-1 # -1 empty, -2 contested.
 var hill_credit:=0.0
@@ -36,6 +38,7 @@ func assign_team(spectator: bool) -> int:
 func same_team(a: int,b: int) -> bool:
 	return team_game() and game.players.has(a) and game.players.has(b) and game.players[a].team>=0 and game.players[a].team==game.players[b].team
 func reset() -> void:
+	capture_notice.clear()
 	special.reset();fortress.reset()
 	scores=[0,0];hill_owner=-1;hill_credit=0.0;flags.clear();bases.clear();captures.clear()
 	if game.spawn_points.is_empty():return
@@ -117,7 +120,7 @@ func tick(delta: float) -> void:
 				fortress.revealed(id)
 				game._announcement.rpc(s.name+" took the "+TEAMS[enemy]+" flag")
 			if flags[enemy].carrier==id and (kind=="tf" or flags[own].carrier==0 and not flags[own].dropped) and nearby(id,captures[own] if kind=="tf" else bases[own],1.4):
-				return_flag(enemy);scores[own]+=1;game._announcement.rpc(TEAMS[own]+" captured the flag!");check_limit()
+				return_flag(enemy);scores[own]+=1;game._announcement.rpc(TEAMS[own]+" captured the flag!");game._capture_feedback.rpc(own,s.name,scores[own]);check_limit()
 				if game.intermission>0:return
 	elif kind=="koth":
 		var present: Array=[false,false]
@@ -181,3 +184,13 @@ func marker(pos: Vector3,color: Color,title: String,radius: float) -> void:
 	var mesh:=MeshInstance3D.new();var ring:=TorusMesh.new();ring.inner_radius=radius-.06;ring.outer_radius=radius
 	mesh.mesh=ring;mesh.position.y=.10;mesh.material_override=preload("res://deathmatch/art.gd").material(color,0,.5);root.add_child(mesh)
 	var label:=Label3D.new();label.text=title;label.position.y=2.6;label.font_size=40;label.pixel_size=.006;label.modulate=color;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;root.add_child(label)
+
+func capture_feedback(team: int,scorer: String,score: int) -> void:
+	if not team in [0,1]:return
+	capture_notice={"text":TEAMS[team]+" CAPTURED THE FLAG!","detail":scorer+" · "+str(score)+" captures","team":team,"until":game.clock+4.0}
+	capture_announced.emit(team,scorer,score)
+	if game.headless:return
+	var sound:=AudioStreamPlayer.new();sound.stream=load("res://deathmatch/audio/flag_capture.wav");sound.bus="ArenaEffects";sound.volume_db=-8
+	game.add_child(sound);sound.finished.connect(sound.queue_free);sound.play()
+func capture_status() -> Dictionary:
+	return capture_notice if capture_notice.get("until",0.0)>game.clock else {}

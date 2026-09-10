@@ -1,0 +1,263 @@
+{
+  "version": "0.7v",
+  "date": "2026-09-10",
+  "protocol": "fpsloppa-20-quake-movement",
+  "source_commit_before_changes": "dd013a396cacb8bdb20d9f8d99df927d7df33d8f",
+  "source_tests": [
+    {
+      "suite": "quake-movement",
+      "checks": 22,
+      "passed": true
+    },
+    {
+      "suite": "quake-stairs",
+      "checks": 6,
+      "passed": true
+    },
+    {
+      "suite": "quake-rocket-jump",
+      "checks": 10,
+      "passed": true
+    },
+    {
+      "suite": "quake-room-scale",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "suite": "quake-network",
+      "checks": 71,
+      "passed": true
+    },
+    {
+      "suite": "release07-kicks",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "suite": "release07-melee",
+      "checks": 25,
+      "passed": true
+    },
+    {
+      "suite": "release07-special-modes",
+      "checks": 22,
+      "passed": true
+    },
+    {
+      "suite": "twovoip-vr-ui",
+      "checks": 45,
+      "passed": true
+    },
+    {
+      "suite": "vote-ui",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "suite": "lobby-mirror",
+      "checks": 10,
+      "passed": true
+    },
+    {
+      "suite": "host-modes",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "suite": "twovoip-network",
+      "checks": 11,
+      "passed": true
+    },
+    {
+      "suite": "twovoip-session",
+      "checks": 5,
+      "passed": true
+    },
+    {
+      "suite": "music",
+      "checks": 15,
+      "passed": true
+    }
+  ],
+  "additional_validation": "docs/validation/voice-vr-ui-2026-09-10.json",
+  "live": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Meta Quest Pro",
+    "render_size_per_eye": [
+      2520,
+      2772
+    ],
+    "final_kick_session_samples": 2156,
+    "median_fps": 72,
+    "wearer_confirmed_movement_and_feedback": true,
+    "wearer_confirmed_kicks": true,
+    "wearer_confirmed_mirror_blinks": true,
+    "client_exit": 0,
+    "voice_roundtrip": {
+      "packets": 82,
+      "decoded_peak": 0.5159465,
+      "decoded_rms": 0.0337498,
+      "clipped": false,
+      "wearer_clarity_confirmation": false
+    }
+  },
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 128799116,
+      "sha256": "3cf93cf1f8ddad32449d535e4bc7b00c036261d88dbddf72a48ff649d3e9dc7e",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 128798832,
+      "sha256": "ac0aa677581a0839946514693c59e19ca9656178359ae58366278267123d3f02",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    }
+  ],
+  "package_contents": [
+    {
+      "failures": [],
+      "files": 969,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 969,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 969,
+      "pack": "/home/blux/Documents/Builds/Server/FPSloppaServer.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1089,
+      "failures": []
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Pico.apk",
+      "files": 1089,
+      "failures": []
+    }
+  ],
+  "server_load": [
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.671,
+        "tick_max_ms": 6.624,
+        "tick_p50_ms": 3.705,
+        "tick_p95_ms": 4.256,
+        "ticks": 600,
+        "version": "0.7v"
+      },
+      "memory": [
+        {
+          "nodes": 382,
+          "objects": 2485,
+          "orphans": 0,
+          "projectiles": 0,
+          "resources": 400,
+          "static_bytes": 50063916,
+          "tick": 0
+        },
+        {
+          "nodes": 382,
+          "objects": 2485,
+          "orphans": 0,
+          "projectiles": 523,
+          "resources": 400,
+          "static_bytes": 50875344,
+          "tick": 300
+        },
+        {
+          "nodes": 382,
+          "objects": 2485,
+          "orphans": 0,
+          "projectiles": 523,
+          "resources": 400,
+          "static_bytes": 50880424,
+          "tick": 600
+        }
+      ],
+      "memory_final": {
+        "nodes": 3,
+        "objects": 1773,
+        "orphans": 0,
+        "resources": 116,
+        "static_bytes": 43935539
+      }
+    }
+  ],
+  "legacy_extras": {
+    "archived_release": "0.5v",
+    "excluded_roots": [
+      "optional-arena-pack",
+      "optional-threewave-tools",
+      "optional-tf-tools",
+      "optional-ad-tools"
+    ],
+    "policy": "No future bundling or development unless loader/format compatibility needs revisiting"
+  },
+  "source_archive_check": "tools/prepare_release.py checks archive integrity and rejects retired/private content before staging",
+  "limitations": [
+    "Windows and standalone Android built and inspected, not tested on physical devices in this session",
+    "Existing Steam Audio singleton/thread shutdown warnings remain",
+    "The short server load check is not a long-duration memory leak certification",
+    "Private microphone audio and raw tracking logs are excluded from release artifacts",
+    "Live OpenXR teardown reported spatial-extension disconnect and interaction-profile RID warnings after the diagnostic exit; no gameplay crash occurred."
+  ],
+  "shutdown_fix": "The binary smoke exposed retained looping Ogg playback at immediate engine exit. Normal Quit/window close now stop music and microphone, then allow 100 ms for mixer cleanup; the smoke uses this same shutdown path.",
+  "binary_smoke": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "native_plugin_hashes_verified": true
+}

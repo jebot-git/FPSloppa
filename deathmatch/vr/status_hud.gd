@@ -3,6 +3,15 @@ extends Control
 const W=preload("res://deathmatch/weapons.gd")
 var values: Dictionary={}
 var network:Dictionary={}
+var capture_text:=""
+var capture_team:=0
+func update_capture(data: Dictionary) -> void:
+	var next: String="" if data.is_empty() else data.text+"  "+data.detail
+	if next!=capture_text:capture_text=next;capture_team=data.get("team",0);queue_redraw()
+var vote_text:=""
+func update_vote(data: Dictionary) -> void:
+	var next: String="" if data.is_empty() else "%s · YES %d/%d · NO %d · %ds\nMENU → TEAMS & VOTES TO RESPOND"%[data.title,data.yes,data.needed,data.no,data.seconds]
+	if next!=vote_text:vote_text=next;queue_redraw()
 func update_network(progress: Dictionary,ping: int,host: bool) -> void:
 	var next:={"show":progress.visible,"percent":int(progress.fraction*100),"ping":ping,"host":host}
 	if next!=network:network=next;queue_redraw()
@@ -14,6 +23,16 @@ func update_status(state: Dictionary,remaining: float,limit: int,leader: int,int
 func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
 	draw_string(ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
 func _draw() -> void:
+	if not capture_text.is_empty():
+		draw_rect(Rect2(4,0,952,70),Color(.23,.06,.04,.94) if capture_team==0 else Color(.035,.10,.23,.94))
+		label(Vector2(20,28),capture_text.left(82),22,Color("fff0bf"))
+		if not vote_text.is_empty():label(Vector2(20,56),vote_text.split("\n")[0].left(86),18)
+	elif not vote_text.is_empty():
+		draw_rect(Rect2(4,0,952,70),Color(.16,.07,.025,.94))
+		var lines:=vote_text.split("\n")
+		label(Vector2(20,25),lines[0].left(86),20,Color("ffcf80"))
+		label(Vector2(20,53),lines[1],21,Color("ffcf80"))
+	draw_set_transform(Vector2(0,72))
 	if not network.is_empty():
 		if network.show:label(Vector2(16,205),"↓ ASSETS %d%%"%network.percent,18,Color("d8bc8b"))
 		label(Vector2(832,205),"HOST" if network.host else "%d ms"%network.ping if network.ping>0 else "— ms",18,Color("b9a98e"))

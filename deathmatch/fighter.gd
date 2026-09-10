@@ -1,5 +1,6 @@
 extends CharacterBody3D
 const Art = preload("res://deathmatch/art.gd")
+const QuakeMovement = preload("res://deathmatch/movement/quake.gd")
 var frozen:=false
 var ice: MeshInstance3D
 var gibbed:=false
@@ -14,6 +15,7 @@ var alive_state := true
 var quake_movement := false
 var in_water := false
 var jump_held := false
+var jump_queued := false
 var peer_id := 0
 var avatar: Node3D
 var label: Label3D
@@ -56,15 +58,25 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	rotation.y = yaw
 	var direction := (basis * Vector3(input.x,0,input.y)).limit_length(1.0)
 	var speed := (5.2 if slow else 9.4)*speed_multiplier
-	var acceleration := 65.0 if input.length()>.01 else 45.0
+	if jump and not jump_held:jump_queued=true
+	elif not jump:jump_queued=false
+	var grounded:=is_on_floor() and velocity.y<=0
+	var jumping:=quake_movement and jump_queued and grounded and not in_water
 	velocity.x-=blast_velocity.x;velocity.z-=blast_velocity.y
-	blast_velocity=blast_velocity.move_toward(Vector2.ZERO,(24.0 if is_on_floor() and velocity.y<=0 else 2.0)*delta)
-	velocity.x = move_toward(velocity.x,direction.x*speed,acceleration*delta)
-	velocity.z = move_toward(velocity.z,direction.z*speed,acceleration*delta)
+	blast_velocity=blast_velocity.move_toward(Vector2.ZERO,(24.0 if grounded else 2.0)*delta)
+	if quake_movement and not in_water:
+		var horizontal:=QuakeMovement.horizontal(Vector2(velocity.x,velocity.z),Vector2(direction.x,direction.z),speed,grounded,jumping,delta)
+		velocity.x=horizontal.x;velocity.z=horizontal.y
+	else:
+		var acceleration := 65.0 if input.length()>.01 else 45.0
+		velocity.x = move_toward(velocity.x,direction.x*speed,acceleration*delta)
+		velocity.z = move_toward(velocity.z,direction.z*speed,acceleration*delta)
 	velocity.x+=blast_velocity.x;velocity.z+=blast_velocity.y
-	velocity.y = -.2 if is_on_floor() and velocity.y<=0 else maxf(velocity.y-20.0*delta,-30.0)
-	if quake_movement and jump and (in_water or is_on_floor() and not jump_held): velocity.y = maxf(velocity.y,5.5 if in_water else 7.4)
-	if in_water: velocity.y = maxf(velocity.y,-2.0)
+	velocity.y = -.2 if grounded else maxf(velocity.y-20.0*delta,-30.0)
+	# Consume each press once; another takeoff requires release and a fresh press.
+	if jumping:velocity.y=7.4;jump_queued=false
+	elif quake_movement and jump and in_water:velocity.y=maxf(velocity.y,5.5)
+	if in_water: velocity.y = maxf(velocity.y,-2.0);jump_queued=false
 	jump_held = jump
 	var was_grounded:=is_on_floor()
 	var previous_y:=position.y
@@ -139,6 +151,7 @@ func set_local_body(value: bool) -> void:
 
 func _process(_delta: float) -> void:
 	view_offset*=exp(-18.0*_delta)
+	if not avatar:return
 	var unarmed: bool=get_parent().lobby.active()
 	if avatar:
 		if avatar_hash.is_empty():

@@ -10,7 +10,8 @@ with (logs/'binary_server.log').open('w') as server_log,(logs/'binary_client.log
     try:
         end=time.monotonic()+10
         while time.monotonic()<end and 'DM_HOST_READY' not in (logs/'binary_server.log').read_text():time.sleep(.05)
-        result=subprocess.run([str(client),'--xr-mode','off','--audio-driver','Dummy','--quit-after','600','--','--asset-root',str(root),'--connect','127.0.0.1','--port','28890'],stdout=client_log,stderr=subprocess.STDOUT,timeout=60)
+        # Keep the graphical client alive for ten seconds even on fast renderers.
+        result=subprocess.run([str(client),'--verbose','--xr-mode','off','--audio-driver','Dummy','--max-fps','60','--','--asset-root',str(root),'--quit-after-seconds','10','--connect','127.0.0.1','--port','28890'],stdout=client_log,stderr=subprocess.STDOUT,timeout=60)
         server_text=(logs/'binary_server.log').read_text()
         client_text=(logs/'binary_client.log').read_text()
         passed=result.returncode==0 and 'joined the arena' in server_text and 'ERROR:' not in client_text and 'ERROR:' not in server_text

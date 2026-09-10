@@ -1,5 +1,5 @@
 extends SceneTree
-const Codec=preload("res://deathmatch/voice/codec.gd")
+const Fixture=preload("res://deathmatch/tests/opus_fixture.gd")
 var game
 var role:=""
 var failures: Array=[]
@@ -30,15 +30,14 @@ func run() -> void:
 		check(await wait_for(func(): return game.active and game.players.size()==2),"Client joined same protocol/map")
 		check(game.local_state().get("owned",[])==[2],"Pistol-only inventory preserved")
 		if role=="sender":
-			var samples:=PackedFloat32Array()
-			for i in range(320): samples.append(sin(i*TAU*440/16000.0)*.25)
-			var block:=Codec.encode(samples)
+			var enc:=Fixture.encoder()
 			for i in range(140):
-				game.voice.send_packet(block)
+				game.voice.send_packet(Fixture.packet(enc,i*960))
 				await create_timer(.02).timeout
 			check(game.voice.received_packets==0,"Sender does not hear network echo")
 		else:
 			check(await wait_for(func(): return game.voice.decoded_packets>=10),"Cross-process voice received and decoded")
+			check(game.voice.decoded_peak>.01,"Opus playback contains audible decoded signal")
 			var speaker:=0
 			for id in game.players:
 				if game.players[id].name=="sender": speaker=id
@@ -51,4 +50,5 @@ func run() -> void:
 			await create_timer(2).timeout
 	print("VOICE_NETWORK_RESULT ",role," ",failures)
 	game.disconnect_game()
+	game.queue_free();await process_frame;await process_frame
 	quit(0 if failures.is_empty() else 1)

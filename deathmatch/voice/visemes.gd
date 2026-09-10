@@ -13,13 +13,13 @@ static func analyze(samples: PackedVector2Array) -> PackedFloat32Array:
 	var rms:=0.0
 	for sample in samples: rms+=sample.x*sample.x
 	rms=sqrt(rms/samples.size())
-	if rms<.008: return weights
+	if rms<.006: return weights
 	var low:=energy(samples,400)+energy(samples,650)
 	var mid:=energy(samples,1000)+energy(samples,1400)
 	var high:=energy(samples,2200)+energy(samples,2800)
 	var total:=low+mid+high+.000001
-	var openness:=clampf((rms-.008)*10,0,.9)
-	weights[0]=openness*(.25+.6*mid/total)
+	var openness:=clampf(sqrt(maxf(0,rms-.006))*3.2,0,.95)
+	weights[0]=openness*(.55+.35*mid/total)
 	weights[1]=openness*.55*high/total
 	weights[2]=openness*.5*low/total
 	weights[3]=openness*.3*(mid+high)/total
