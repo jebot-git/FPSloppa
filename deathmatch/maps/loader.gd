@@ -1,8 +1,16 @@
 extends RefCounted
 const MAX_BYTES:=25_000_000
 const Reader = preload("res://addons/bsp_importer/bsp_reader.gd")
+const Replacements=preload("res://deathmatch/maps/texture_replacements/dictionary.gd")
 const SCALE := 1.0/32.0
 const Paths=preload("res://deathmatch/assets/paths.gd")
+static func supports_assault(path: String) -> bool:
+	var file:=FileAccess.open(path,FileAccess.READ)
+	if not file or file.get_length()<124:return false
+	file.seek(4);var offset:=file.get_32();var length:=file.get_32()
+	if offset+length>file.get_length() or length>1048576:return false
+	file.seek(offset);var entities:=file.get_buffer(length).get_string_from_ascii()
+	return entities.count('"info_as_objective"')==2 and entities.contains('"info_player_team1"') and entities.contains('"info_player_team2"')
 static func catalog() -> Array:
 	if DirAccess.dir_exists_absolute("user://maps"):
 		for filename in DirAccess.get_files_at("user://maps"):
@@ -49,6 +57,8 @@ static func scene(row: Dictionary) -> PackedScene:
 			var world:=file.get_buffer(mini(length,65536)).get_string_from_ascii().split("}")[0]
 			if world.contains('"_fpsloppa_bake" "1"'):
 				row=row.duplicate();row.scene=str(row.scene).get_basename()+("-ad-cutout3-lightmap1.scn" if world.contains('"_fpsloppa_ad" "1"') else "-lightmap1.scn")
+	if Replacements.has_missing(row.path):
+		row=row.duplicate();row.scene=str(row.scene).get_basename()+"-textures-"+Replacements.version()+".scn"
 	if FileAccess.file_exists(row.scene):return load(row.scene)
 	var node:=read(row.path)
 	if not node:return null
@@ -75,6 +85,7 @@ static func read(path: String) -> Node3D:
 	var reader := Reader.new()
 	reader.unit_scale = SCALE
 	reader.generate_texture_materials = true
+	reader.use_named_texture_replacements = true
 	reader.transparent_texture_prefix = "{"
 	reader.save_separate_materials = false
 	reader.material_path_pattern = "res://deathmatch/maps/materials/{texture_name}.tres"

@@ -16,7 +16,7 @@ AUDIO = ROOT / "deathmatch/audio"
 cycles = [float(v) for v in re.findall(r'"cycle":([\d.]+)', (ROOT / "deathmatch/weapons.gd").read_text())]
 trims = {}
 for weapon, cycle in enumerate(cycles):
-    paths = sorted((AUDIO / "recorded").glob(f"weapon_{weapon}_*.wav"))
+    paths = [AUDIO / "doom-style" / f"weapon_{weapon}.wav"] if (AUDIO / "doom-style" / f"weapon_{weapon}.wav").exists() else sorted((AUDIO / "recorded").glob(f"weapon_{weapon}_*.wav"))
     if weapon == 0:
         paths = sorted((AUDIO / "recorded").glob("impactPunch_heavy_*.ogg"))
     if not paths:

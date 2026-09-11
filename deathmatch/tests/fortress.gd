@@ -58,6 +58,12 @@ func run() -> void:
 		check(not tf.action(1),"One sentry per engineer")
 		tf.damage_building(key,-1,500);check(tf.buildings.is_empty(),"Enemy fire destroys sentry")
 
+	await test_grenades()
+
+	var objective_calls: Array=[]
+	g.announcer.cue_received.connect(func(cue,_target):
+		if cue=="objective_completed":objective_calls.append(cue)
+	)
 	# TF captures are independent of the home flag; defenders wait for timed returns.
 	for id in g.players:g.fighters[id].position=Fixture.point(-15,-15)
 	g.players[1].team=0;g.fighters[1].position=Fixture.point(0,0)
@@ -67,7 +73,62 @@ func run() -> void:
 	g.match_mode.tick(.01);check(g.match_mode.flags[0].dropped,"TF defenders cannot touch-return own flag")
 	g.match_mode.flags[1].carrier=1;var old_score: int=g.match_mode.scores[0]
 	g.match_mode.tick(.01);check(g.match_mode.scores[0]==old_score+1,"TF captures while own flag is away")
+	check(objective_calls.size()==1,"TF flag capture announces objective completed exactly once")
 	var before: Dictionary=g.match_mode.snapshot();tf.receive(before.fortress)
 	check(g.players[1].tf_class=="engineer","Snapshot preserves class state")
 	g.match_mode.kind="dm";check(tf.speed(1)==1 and tf.weapon_data(1,9).damage==10000,"Other modes retain original speed and weapon data")
 	print("FORTRESS_RESULT ",JSON.stringify(failures));g.free();quit(0 if failures.is_empty() else 1)
+
+func test_grenades() -> void:
+	for id in g.players:
+		g.fighters[id].set_physics_process(false)
+		g.fighters[id].position=Fixture.point(-15,-15)
+	for name in ["soldier","demoman","pyro"]:
+		role(1,name);g.fighters[1].position=Fixture.point(0,4);g.players[1].yaw=0;g.players[1].pitch=0
+		await physics_frame
+		var origin: Vector3=g._shot_origin(1)
+		check(tf.action(1),name+" throws a grenade")
+		if not tf.charges.has(1):continue
+		var start: Vector3=tf.charges[1].position
+		check(start.distance_to(origin)<.4 and tf.charges[1].velocity.length()>10,name+" starts at weapon with launch velocity")
+		var before_v: float=tf.charges[1].velocity.y
+		g.clock+=.1;tf.tick_charges(.1)
+		check(tf.charges.has(1) and tf.charges[1].position.distance_to(start)>1 and tf.charges[1].velocity.y<before_v,name+" travels under gravity")
+		if name=="demoman":
+			check(not tf.action(1),"Pipe cannot detonate before arming")
+			check(tf.status(1).contains("USE DETONATE PIPE:") and not tf.status(1).contains("READY"),"HUD names the pending pipe detonation and arming countdown")
+			var snapshot: Dictionary=tf.snapshot();var server_clock: float=g.clock
+			var expected: float=tf.ability_state(1).remaining
+			g.clock=server_clock+500;tf.receive(snapshot)
+			check(absf(tf.ability_state(1).remaining-expected)<.001,"Pipe arming indicator survives different server/client clocks")
+			g.clock=server_clock;tf.charges.clear()
+			tf.cooldowns[1]=0;tf.action(1);g.clock+=.71
+			check(tf.status(1).contains("DETONATE PIPE: READY"),"HUD shows armed pipe ready without waiting for throw cooldown")
+			check(tf.action(1) and not tf.charges.has(1),"Armed pipe detonates through Use and resets cooldown")
+			check(tf.ability_state(1).remaining>7.9,"Pipe detonation starts eight-second cooldown")
+		else:
+			g.clock+=1.21;tf.tick_charges(.01)
+			check(not tf.charges.has(1),name+" fuse removes projectile and detonates")
+	# A thin wall catches a fast grenade even with a large simulation step.
+	role(1,"soldier");g.fighters[1].position=Fixture.point(8,0);g.players[1].yaw=-PI/2;g.players[1].pitch=0
+	await physics_frame
+	check(tf.action(1),"Wall-bounce grenade launches")
+	if tf.charges.has(1):
+		g.clock+=.2;tf.tick_charges(.2)
+		check(tf.charges.has(1) and tf.charges[1].position.x<Fixture.ORIGIN.x+9.88 and tf.charges[1].velocity.x<0,"Swept grenade bounces off thin wall without tunnelling")
+	tf.charges.clear()
+	# Impact with an opposing player detonates before the timed fuse.
+	role(1,"soldier");role(-1,"soldier");g.players[-1].team=1;g.players[1].team=0
+	g.fighters[1].position=Fixture.point(0,4);g.players[1].yaw=0;g.players[1].pitch=0;g.fighters[-1].position=Fixture.point(0,1)
+	g.players[-1].armor=0;var health: int=g.players[-1].hp
+	await physics_frame
+	check(tf.action(1),"Impact grenade launches")
+	for step in 20:g.clock+=.02;tf.tick_charges(.02)
+	check(not tf.charges.has(1) and g.players[-1].hp<health,"Grenade player impact detonates and applies authoritative damage")
+	role(1,"soldier");g.players[1].ammo[2]=0
+	check(not tf.action(1) and not tf.charges.has(1),"Grenades require ammunition")
+	g.players[1].ammo[2]=3;g.players[1].dead=true
+	check(not tf.action(1),"Dead players cannot throw grenades")
+	g.players[1].dead=false;g.players[1].spectator=true
+	check(not tf.action(1),"Spectators cannot throw grenades")
+	g.players[1].spectator=false;role(1,"engineer")

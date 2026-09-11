@@ -28,7 +28,7 @@ Bundled `deathmatch/avatars/models/sample_d.vrm`, `sample_f.vrm`, and `sample_g.
 
 Five BSP maps (lqdm1, lqdm2, lqdm4, lqdm7, lqdm8), embedded textures and the palette come from LibreQuake v0.09-beta, BSD-3-Clause: https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta . The full attribution and license files are preserved in `deathmatch/maps/`. See MAPS.md for titles and adaptations.
 
-Godot BSP importer by jitspoe, MIT: https://github.com/jitspoe/godot_bsp_importer . The vendored copy guards missing collision shapes and degenerate convex hulls. This project uses triangle collision plus separate trigger volumes and its own entity adapter.
+Godot BSP importer by jitspoe, MIT: https://github.com/jitspoe/godot_bsp_importer . The vendored copy guards missing collision shapes and degenerate convex hulls, and aligns brush triangle collision with inverse entity rotation. This project uses triangle collision plus separate trigger volumes and its own entity adapter.
 
 ## Weapon models
 
@@ -119,3 +119,15 @@ takes are by Brian Wood. Sources, hashes, processing notes and listening links
 are in [the audition folder](docs/audio/metal-alternates/README.md). The metal direction was selected for all eight gameplay modes. Comparison
 assets and source recordings under docs/ are excluded from game exports; the
 selected Ogg renders are installed in the active soundtrack.
+
+## Classic weapon and movement sound refresh
+
+Edited Freedoom weapon, explosion and mechanical pickup samples are BSD-3-Clause, with the original copyright, license and credits in `deathmatch/audio/doom-style/`. Jump/landing and some pickup layers use the existing Kenney and HaelDB CC0 recordings. Exact pinned sources, modifications and output mapping: [SOURCES.md](deathmatch/audio/doom-style/SOURCES.md). These derived effects are not covered by the procedural-effects CC0 waiver above.
+
+## Shared BSP counterpart dictionary
+
+LibreQuake BSD-3-Clause material and four original generated gothic reliefs replace missing named BSP textures. See `deathmatch/maps/texture_replacements/SOURCES.md` and `tools/texture_replacements/PROMPT.md`. Map source licenses remain separate. No original id or QRP texture pixels are included.
+
+AS theme: **Mega Destruction** (`mega_destruction.xm`) by **Zilly Mike**, listed as **Public Domain** by [Mod Archive](https://modarchive.org/index.php?request=view_by_moduleid&query=50252). Original module and conversion provenance: [Assault music](docs/audio/assault/README.md).
+
+HiSlop is an authored train Assault concept with LibreQuake textures. The generator is CC0-1.0; embedded art remains BSD-3-Clause. Notices and exact texture provenance accompany the external map in `maps/HiSlop/`. No Unreal Tournament packages or extracted art are included.

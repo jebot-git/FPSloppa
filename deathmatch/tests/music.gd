@@ -35,11 +35,14 @@ func run():
 		if key in ['title','lobby']:
 			var source:=FileAccess.get_file_as_bytes('res://deathmatch/audio/music/'+file+'.mod')
 			check(source.slice(1080,1084).get_string_from_ascii()=='8CHN' and source.size()<400000,key+' retains compact eight-channel tracker source')
+		elif key=='as':
+			var source=JSON.parse_string(FileAccess.get_file_as_string('res://deathmatch/audio/music/'+file+'.score.json'))
+			check(source is Dictionary and source.get('key')=='as' and source.get('source_format')=='XM' and source.get('license')=='Public Domain' and source.get('sha256')==FileAccess.get_sha256('res://deathmatch/audio/music/'+file+'.ogg'),'Assault uses the attributed public-domain XM conversion')
 		else:
 			var source=JSON.parse_string(FileAccess.get_file_as_string('res://deathmatch/audio/music/'+file+'.score.json'))
 			check(source is Dictionary and source.get('key')==key and source.get('events',[]).size()>100 and source.get('sha256')==FileAccess.get_sha256('res://deathmatch/audio/music/'+file+'.ogg'),key+' metal arrangement matches its rendered audio')
 		hashes.append(FileAccess.get_sha256('res://deathmatch/audio/music/'+file+'.ogg'))
-	check(bytes<16000000 and hashes.size()==10 and hashes.all(func(h):return hashes.count(h)==1),'Ten distinct runtime scores stay below 16 MB total')
+	check(bytes<19000000 and hashes.size()==11 and hashes.all(func(h):return hashes.count(h)==1),'Eleven distinct runtime scores stay below 19 MB total')
 	var game:=FakeGame.new();root.add_child(game)
 	var server:=Music.new();game.add_child(server);game.headless=true;server.setup(game)
 	check(server.players.is_empty() and server.cache.is_empty(),'Dedicated server loads no music resources');server.free();game.headless=false
@@ -55,7 +58,7 @@ func run():
 	check(not music.players[1-music.current].playing,'Outgoing track stops after the crossfade')
 	var before: int=music.current;game.current_map='lqdm2';music._process(.1)
 	check(music.current==before and music.selected=='dm','Map changes within one mode do not restart its music')
-	for key in ['tdm','ctf','koth','ig','ft','cc','tf']:
+	for key in ['tdm','ctf','koth','ig','ft','cc','tf','as']:
 		game.match_mode.kind=key
 		check(await ready_track(music,key),key+' selects its own track asynchronously')
 	game.lobby.in_lobby=true

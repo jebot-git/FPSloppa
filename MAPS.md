@@ -75,3 +75,30 @@ Map/model transfers use bounded disk-worker queues for chunk reads and writes, c
 The brief filtering-switch freeze reported in live WiVRn testing has been optimized in source. Texture pixels and three retained filtering variants are prepared at asset load; changing the setting skips pixel processing and untextured/UI materials. Temporary hidden mesh instances prepare pipelines and are then removed. Existing live materials and their gameplay colour/uniform changes are preserved. Baked-light materials keep one shader and select the sampler through a uniform, including an automatic upgrade for older cached shaders.
 
 The [filter-switch profile](docs/validation/filter-switch-profile.json) reproduced this on lqdm1 with the Vulkan Mobile renderer: repeated switches trigger draw-time pipeline compilations, and the settings path additionally reads back 26 textures despite existing mipmaps. Omitting pixel processing reduced direct settings work to about 2 ms but left roughly 78–80 ms until draw completion. The [optimization results](docs/validation/filter-switch-optimisation.json) show repeated switches around 5–7 ms on lqdm1/lqdm2 and the baked-shader fixture, with no pixel readbacks and no repeat draw-time pipeline compilations. New drivers or rendering configurations may still require first-use compilation; a new wearer check remains pending. These timings are desktop-renderer measurements on the test machine, not headset latency measurements.
+
+## Converted-map traversal audit
+
+The local AD, original TF and ThreeWave conversions have a repeatable physics audit: [results and compatibility limits](docs/CONVERTED_MAP_TRAVERSAL.md). Run `python3 tools/validate_converted_traversal.py` with the retained local maps, then `python3 tools/report_converted_traversal.py`. The audit covers movement/swimming, door collision, lift passengers, teleport destinations and push triggers.
+
+Brush triangle collision now uses the same inverse entity rotation as the visible mesh. The runtime also corrects old cached brush collision, so previously cached angled doors and lifts receive the repair without requiring users to remove files. Teleport destinations apply Quake’s 27-unit upward adjustment before conversion to player feet coordinates.
+
+FortressOne TF candidates were converted and reviewed locally; none passed base-map acceptance. See [the review](docs/FORTRESSONE_MAP_REVIEW.md) and [reproducible tools](tools/fortressone/README.md). Their BSPs stay outside the repository and default TF rotation.
+
+## Optional original Quake deathmatch source ports
+
+DM1–DM6 plus bonus DM7 can be compiled from the GPL source release with the shared LibreQuake/generated counterpart dictionary. Singleplayer maps and DM8 are excluded. See `tools/quake_source/README.md`. Missing named textures in all imported BSPs use the same dictionary; embedded art stays intact. See `tools/texture_replacements/README.md` for conversion and preview tools. ThreeWave and original TF conversions remain local only.
+
+## Experimental HiSpeed Assault concept
+
+The optional, locally generated BSP29 train map and experimental **AS — Assault**
+mode are documented in [tools/hispeed_concept/README.md](tools/hispeed_concept/README.md).
+It uses LibreQuake textures, ordered objectives, paired timed attacks and three
+destructible map sentries. Build output is `../Builds/HiSpeed-Concept`; it is not
+installed into the production rotation. See the [playtest report](tools/hispeed_concept/PLAYTEST.md)
+for collision, turret, networking and VRM lighting checks.
+
+## HiSlop (AS)
+
+The base package includes `as_hislop.bsp` (HiSlop), a train Assault map with
+baked lighting and moving scenery. Its separate rotation is `maps/as_maplist.txt`.
+See [AS.md](AS.md); texture notices and provenance ship in `maps/HiSlop/`.

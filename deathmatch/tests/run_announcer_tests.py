@@ -1,10 +1,10 @@
 """Exercise the announcer mixer and authoritative policy on real ENet peers."""
 from pathlib import Path
-import subprocess, shutil, time, json
+import subprocess, shutil, time, json, os
 
 root = Path(__file__).resolve().parents[2]
 logs = root / 'test-results'
-godot = shutil.which('godot')
+godot = os.environ.get('GODOT_BIN') or shutil.which('godot') or str(Path.home()/'.local/bin/Godot_v4.7.2-stable_linux.x86_64')
 processes, handles, results = [], [], []
 try:
     for role in ['server', 'client']:

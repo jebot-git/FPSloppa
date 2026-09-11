@@ -253,5 +253,20 @@
     "source_file": "breach_protocol.score.json",
     "sample_rate": 44100,
     "generator": "tools/generate_metal_alternates.py"
+  },
+  {
+    "key": "as",
+    "stem": "mega_destruction",
+    "title": "Mega Destruction",
+    "artist": "Zilly Mike",
+    "duration": 156.9,
+    "target_lufs": -19,
+    "bytes": 2213053,
+    "sha256": "5f99374b4de24afb51f276ba2c7dec74965ff86df116e6c1ba73edda21358122",
+    "source_sha256": "af0ba099a25ea5a474428a55d8fe9b7bba93dff0bdfdfc44226e0c1f3f144090",
+    "source_format": "XM",
+    "license": "Public Domain",
+    "source_url": "https://modarchive.org/index.php?request=view_by_moduleid&query=50252",
+    "processing": "Original instrumentation; 45 Hz high-pass, 14 kHz low-pass, short loop-edge fades, two-pass loudness master, 44.1 kHz stereo Vorbis quality 5"
   }
 ]

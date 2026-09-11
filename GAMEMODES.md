@@ -51,3 +51,6 @@ Proposals last 25 seconds and require a strict majority of the active human play
 The eight bundled [LibreQuake arenas](MAPS.md) have authored red-base, blue-base and hill coordinates in `deathmatch/maps/manifest.json`. These are adaptations of freely licensed deathmatch layouts, not original symmetrical CTF maps. Connected walkable routes, objective floors and multiple home-side spawns are checked automatically; competitive balance still benefits from playtesting. Hyperborea, Transport Tubes and Ghost Quarter were added for this update.
 
 Custom BSP maps use separated deathmatch spawn locations as fallback flag bases and a central spawn as the hill. Server operators should test custom objective layouts before putting them in a team rotation. Objective coordinates are supplied by the server, so downloaded BSPs retain the host's placements even if cached under a different ID. `tools/place_objectives.gd` regenerates bundled coordinates from baked navigation and world collision; `deathmatch/tests/team_objectives.gd` verifies them.
+
+Assault (AS) is available with the bundled **HiSlop** train map. Enable it through
+`sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).

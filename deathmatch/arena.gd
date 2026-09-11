@@ -7,7 +7,7 @@ const Interface = preload("res://deathmatch/interface.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-22-saw-contacts"
+const PROTOCOL := "fpsloppa-26-fortress-effects"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -18,6 +18,7 @@ var selected_map := "lqdm1"
 var current_map := ""
 var map_rotation: Array=[]
 var mode_maplists: Dictionary={}
+var map_assault: Array=[]
 var map_objectives: Dictionary={}
 var tf_capture: Dictionary={}
 var tf_resupply: Array=[[],[]]
@@ -37,6 +38,7 @@ var loading: Node
 var map_network: Node
 var xr_rig
 var effects
+var ability_effects: Node3D
 var avatars: Node
 const COLORS = [Color("6dd5ed"),Color("f07866"),Color("b9da70"),Color("c79deb"),Color("ecc76a"),Color("f28fbd"),Color("8eb3ed"),Color("e7e4cf")]
 var players: Dictionary = {}
@@ -332,6 +334,9 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 	if not _load_map(selected_map):
 		status("Could not load the selected map.")
 		return
+	if match_mode.kind=="as" and not match_mode.assault.supported():
+		status("Experimental AS requires a map with two ordered AS objectives and team spawns.")
+		return
 	match_mode.reset()
 	nickname = clean_name(player_name)
 	if training:
@@ -467,6 +472,7 @@ func _create_fighter(id: int) -> void:
 	var actor = Fighter.new()
 	var team: int=players[id].team
 	actor.setup(id,("["+match_mode.TEAMS[team]+"] " if team>=0 else "")+players[id].name,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
+	actor.movement_sound.connect(_fighter_movement_sound.bind(id))
 	actor.quake_movement = true
 	actor.spectator=players[id].spectator
 	add_child(actor)
@@ -636,6 +642,7 @@ func _spawn(id: int) -> void:
 		fighters[id].velocity=Vector3.ZERO;fighters[id].blast_velocity=Vector2.ZERO;fighters[id].reset_view();fighters[id].show_alive(false,id==multiplayer.get_unique_id())
 		state.serial+=1
 		return
+	state.suicide_respawn=false
 	var best: Vector3 = spawn_points[0]
 	var best_score := -1.0
 	for point in match_mode.spawns(state.team):
@@ -654,6 +661,7 @@ func _spawn(id: int) -> void:
 	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":clock+1.5,"swim":Vector3.ZERO,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
 	match_mode.special.spawn(id);match_mode.fortress.spawn(id)
 	if not spawn_yaws.is_empty(): state.yaw = spawn_yaws[spawn_points.find(best)]
+	if match_mode.kind=="as":state.yaw=0.0 if state.team==match_mode.assault.attacking else PI
 	if id==multiplayer.get_unique_id():
 		desired_weapon=state.weapon
 		local_yaw = state.yaw
@@ -697,6 +705,29 @@ func _unhandled_input(event: InputEvent) -> void:
 func local_state() -> Dictionary:
 	if demos and demos.playing:return players.get(demos.selected_player,{})
 	return players.get(multiplayer.get_unique_id(),{}) if active else {}
+
+func request_suicide() -> void:
+	if not active or demos.playing:return
+	if multiplayer.is_server():_suicide_for(multiplayer.get_unique_id())
+	else:_suicide_request.rpc_id(1,map_epoch,int(local_state().get("serial",-1)))
+
+@rpc("any_peer","call_remote","reliable",0)
+func _suicide_request(epoch: int,life: int) -> void:
+	var sender:=multiplayer.get_remote_sender_id()
+	if multiplayer.is_server() and epoch==map_epoch and players.has(sender) and players[sender].serial==life:
+		_suicide_for(sender)
+
+func _suicide_for(id: int) -> bool:
+	if not multiplayer.is_server() or not active or intermission>0 or lobby.active() or not players.has(id):return false
+	var state: Dictionary=players[id]
+	# Frozen players must still be thawed by their team; this cannot bypass FT rules.
+	if state.dead or state.spectator or match_mode.special.blocked(id):return false
+	# Use the normal death/flag-drop/scoring path, including its -1 suicide frag.
+	_damage(id,id,100000,"SUICIDE",true)
+	if state.dead:
+		state.want_respawn=true;state.suicide_respawn=true
+		server_log.record("suicide",{"peer":id},1)
+	return state.dead
 
 func _local_command() -> Dictionary:
 	if is_vr(): return xr_rig.command(sequence)
@@ -756,7 +787,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 
 func _physics_process(delta: float) -> void:
 	# Simulation uses the engine physics delta; _process interpolates to the current display frame.
-	if demos.playing:demos.tick(delta);return
+	if demos.playing:clock+=delta;demos.tick(delta);return
 	clock += delta
 	if connect_deadline>0 and clock>connect_deadline: disconnect_game("Connection timed out. Check host, firewall and UDP port forwarding.")
 	if not active: return
@@ -853,12 +884,14 @@ func _server_tick(delta: float) -> void:
 	if intermission>0:
 		intermission -= delta
 		if intermission<=0:
-			if lobby.enabled and not practice:lobby.begin()
+			if match_mode.kind=="as" and match_mode.assault.switching:match_mode.assault.next_leg()
+			elif lobby.enabled and not practice:lobby.begin()
 			else:_restart_round()
 		return
 	round_left = maxf(0,round_left-delta)
 	if round_left<=0:
-		_end_round()
+		if match_mode.kind=="as":match_mode.assault.timeout()
+		else:_end_round()
 		return
 	if practice and is_instance_valid(bots): bots.tick(delta)
 	var movement_start: Dictionary = {}
@@ -872,7 +905,7 @@ func _server_tick(delta: float) -> void:
 			continue
 		if match_mode.special.blocked(id):continue
 		if s.dead:
-			if clock>=s.respawn_at and (s.want_respawn or clock>s.respawn_at+3 or id<0): _spawn(id)
+			if clock>=s.respawn_at and (s.want_respawn or s.get("suicide_respawn",false) or clock>s.respawn_at+3 or id<0): _spawn(id)
 			continue
 		if clock-s.last_input>.35:
 			s.move = Vector2.ZERO
@@ -1144,7 +1177,8 @@ func _fire(id: int, offhand: bool=false) -> void:
 				_damage(hit.id,id,amount,d.name,false,hit.position,direction)
 				if d.name=="FLAMETHROWER":match_mode.fortress.ignite(hit.id,id)
 			if hit.has("building"):match_mode.fortress.damage_building(hit.building,id,amount)
-		_impacts.rpc(start,endpoints,w)
+		if d.name=="FLAMETHROWER":_ability_fx.rpc("flame",start,endpoints[0],s.team)
+		else:_impacts.rpc(start,endpoints,w)
 	if offhand: s.offhand_held=true
 	else: s.held = true
 
@@ -1479,6 +1513,7 @@ func _use_for(id: int) -> void:
 	players[id].use_at = clock+.5
 	match_mode.fortress.action(id)
 	for i in range(gates.size()):
+		if match_mode.kind=="as" and match_mode.assault.stage<int(gates[i].get("as_unlock",0)):continue
 		var offset: Vector3 = fighters[id].position-gates[i].get("center",gates[i].node.position)
 		offset.y = 0
 		if offset.length()<2.5:
@@ -1566,6 +1601,15 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false) -> void:
 			get_tree().create_timer(.055).timeout.connect(flash.queue_free)
 	if fighters.has(id):
 		spatial.play("weapon_"+str(weapon),_weapon_transform(id,offhand).origin,-4)
+
+@rpc("authority","call_local","unreliable",3)
+func _ability_fx(kind: String,start: Vector3,end: Vector3,team: int) -> void:
+	if not kind in preload("res://deathmatch/modes/fortress_fx.gd").KINDS or not start.is_finite() or not end.is_finite() or team not in [0,1]:return
+	demos.event("_ability_fx",[kind,start,end,team])
+	if headless:return
+	if not is_instance_valid(ability_effects):
+		ability_effects=preload("res://deathmatch/modes/fortress_fx.gd").new();ability_effects.game=self;ability_effects.name="AbilityEffects";add_child(ability_effects)
+	ability_effects.emit(kind,start,end,team)
 
 @rpc("authority","call_local","unreliable",3)
 func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
@@ -1662,6 +1706,7 @@ func _load_map(map_id: String) -> bool:
 	for row in map_catalog:
 		if row.id==map_id: info=row; break
 	if info.is_empty(): return false
+	if match_mode.kind=="as" and not Maps.supports_assault(info.path):return false
 	var scene: PackedScene=Maps.scene(info)
 	if not scene: return false
 	match_mode.clear_visuals()
@@ -1671,7 +1716,7 @@ func _load_map(map_id: String) -> bool:
 	lifts.clear()
 	spawn_points.clear()
 	spawn_yaws.clear()
-	map_objectives.clear();ctf_spawns=[[],[]];tf_resupply=[[],[]];tf_capture.clear()
+	map_objectives.clear();ctf_spawns=[[],[]];tf_resupply=[[],[]];tf_capture.clear();map_assault.clear()
 	var level := scene.instantiate()
 	$Map.add_child(level)
 	current_map=map_id
@@ -1796,11 +1841,10 @@ func _rotate_map(map_id: String) -> bool:
 @rpc("authority","call_local","reliable",0)
 func _capture_feedback(team: int,scorer: String,score: int) -> void:
 	match_mode.capture_feedback(team,scorer,score)
-	announcer.enqueue("objective_completed",2)
 
 func _announcer_cue(cue: String,target: int=0) -> void:
 	var listener: int=demos.selected_player if demos.playing else multiplayer.get_unique_id()
-	if target==0 or target==listener:announcer.enqueue(cue)
+	if target==0 or target==listener:announcer.enqueue(cue,2 if cue=="objective_completed" else 1)
 
 @rpc("authority","call_local","unreliable",3)
 func _saw_contact(pos: Vector3,normal: Vector3,id: int,other: int=0) -> void:
@@ -1809,3 +1853,20 @@ func _saw_contact(pos: Vector3,normal: Vector3,id: int,other: int=0) -> void:
 	effects.sparks(pos,normal)
 	effects.play("saw_grind",pos,-12)
 	if is_vr() and multiplayer.get_unique_id() in [id,other]:xr_rig.feedback(.45,.08)
+
+func _fighter_movement_sound(kind: String,where: Vector3,id: int) -> void:
+	# Predicted client movement never creates a second copy of the server cue.
+	if not multiplayer.is_server() or not active or not players.has(id):return
+	if players[id].dead or players[id].spectator:return
+	_movement_sound.rpc(map_epoch,id,int(players[id].serial),kind,where)
+
+@rpc("authority","call_local","reliable",3)
+func _movement_sound(epoch: int,id: int,serial: int,kind: String,where: Vector3) -> void:
+	if not kind in ["jump","land"] or not where.is_finite():return
+	if not demos.playing:
+		if epoch!=map_epoch or not players.has(id) or serial<int(players[id].serial):return
+		# Reliable audio may precede the next unreliable spawn snapshot.
+		if serial==int(players[id].serial) and (players[id].dead or players[id].spectator):return
+	demos.event("_movement_sound",[epoch,id,serial,kind,where])
+	if headless:return
+	effects.play(kind,where,-10 if kind=="jump" else -14)

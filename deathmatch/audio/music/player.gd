@@ -1,5 +1,5 @@
 extends Node
-const TRACKS={"title":"dead_air","lobby":"please_hold","dm":"iron_circuit","tdm":"pressure_lock","ctf":"dark_relay","koth":"high_ground","ig":"foundry_run","ft":"cryostasis","cc":"carousel_of_teeth","tf":"breach_protocol"}
+const TRACKS={"title":"dead_air","lobby":"please_hold","dm":"iron_circuit","tdm":"pressure_lock","ctf":"dark_relay","koth":"high_ground","ig":"foundry_run","ft":"cryostasis","cc":"carousel_of_teeth","tf":"breach_protocol","as":"mega_destruction"}
 var game
 var players: Array[AudioStreamPlayer]=[]
 var selected:=""

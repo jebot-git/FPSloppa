@@ -31,6 +31,7 @@ func begin() -> void:
 	game._rotate_map(ID);until=game.clock+seconds;game.round_left=seconds
 	game._announcement.rpc("Waiting room · choose the next match on the voting wall")
 func build() -> bool:
+	game.map_assault.clear()
 	for child in game.get_node("Map").get_children():child.free()
 	game.match_mode.clear_visuals();game.pickups.clear();game.gates.clear();game.lifts.clear();game.spawn_points.clear();game.spawn_yaws.clear();game.map_objectives.clear();game.ctf_spawns=[[],[]];game.tf_capture.clear();game.tf_resupply=[[],[]]
 	var root:=Node3D.new();root.name="WaitingRoom";game.get_node("Map").add_child(root)

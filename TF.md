@@ -9,7 +9,7 @@ Each player has a readable class-name badge and class colour above their name. T
 | Scout | 75 / 25 | 125% | Pistols, shotgun, fist. Three-second sprint; ten-second cooldown. |
 | Sniper | 90 / 25 | 90% | Railgun, pistols, fist. Rail costs two bullets and deals 90 before armor instead of instagib. Four-second focus raises it to 150 and halves movement; twelve-second cooldown. |
 | Soldier | 150 / 100 | 85% | Rockets, shotgun, fist. Aimed grenade with visible 1.2-second fuse; eight-second cooldown and one rocket cost. |
-| Demoman | 120 / 75 | 95% | Rockets, shotgun, fist. Places one visible pipe charge within four metres; use again after arming to detonate. One rocket; eight-second reuse cooldown. |
+| Demoman | 120 / 75 | 95% | Rockets, shotgun, fist. Throws one visible pipe grenade with gravity and world bounce; use again after 0.7 seconds of arming to detonate. One rocket; eight-second reuse cooldown. |
 | Medic | 110 / 50 | 110% | Slower plasma, pistols, fist. Aim at a teammate within six metres to heal 35 HP and extinguish; two-second cooldown. Regenerates three HP per second. |
 | Heavy | 200 / 150 | 65% | Chaingun, shotgun, fist. Four-second brace reduces incoming combat damage by 35% and halves movement; twelve-second cooldown. Hazards bypass brace. |
 | Pyro | 125 / 75 | 100% | Plasma mesh becomes an eight-metre flamethrower; shotgun and fist. Burning lasts three seconds. Aimed napalm grenade costs 20 cells with a ten-second cooldown. Fire resistance. |
@@ -20,7 +20,7 @@ Spy disguises instantiate the copied VRM separately: the spy keeps their own ske
 
 Sentries fire at visible enemies up to 18 m away, respect spawn protection and are fooled by an enemy-team disguise. Bullets, rails, projectiles and explosions can destroy buildings. Dispensers resupply nearby teammates. Buildings have 150 HP, cannot obstruct player movement, cannot be placed in walls or on spawns/flags, and disappear when their owner leaves or switches team/class. Build/repair and all class actions are server-authoritative and bounded by cooldowns and ammo. Ordinary weapon pickups are ignored in TF to preserve class roles; health/ammo/armor pickups and team resupply remain useful. Supply refills to the class loadout limits, never grants a new weapon.
 
-TF keeps the classic distinction from ordinary CTF: defenders cannot touch-return a dropped flag (it returns after 30 seconds), and a team can score even while its own flag is away. Capture points may differ from flag homes. `capturelimit` counts captures, not individual frags. This implementation omits QuakeC scripting, infection, concussion movement, MIRV clusters, original reload/clip rules, armor types and every historical TF map variant. Grenades are aimed ground deployments with a fuse rather than a recreation of Quake’s grenade physics. It is an independent adaptation, not an exact port or Valve product.
+TF keeps the classic distinction from ordinary CTF: defenders cannot touch-return a dropped flag (it returns after 30 seconds), and a team can score even while its own flag is away. Capture points may differ from flag homes. `capturelimit` counts captures, not individual frags. This implementation omits QuakeC scripting, infection, concussion movement, MIRV clusters, original reload/clip rules, armor types and every historical TF map variant. Grenades launch from the weapon and use server-authoritative swept collision, gravity and bouncing. Soldier and napalm grenades detonate on player impact or their 1.2-second fuse; the demoman pipe uses manual detonation after arming (30-second safety fuse). The HUD shows the action name and remaining cooldown, including the pipe’s arming state. It is an independent adaptation, not an exact port or Valve product.
 
 ## Maps and hosting
 
@@ -36,7 +36,7 @@ set capturelimit 5
 map tf_ironspan
 ```
 
-Existing BSPs also work with fallback flag locations and team spawn allocation, although dedicated TF layouts are preferable. Map and custom VRM transfers use the existing external `maps/` and `vrm/` directories. Use matching TF-enabled clients and servers (protocol 15).
+Existing BSPs also work with fallback flag locations and team spawn allocation, although dedicated TF layouts are preferable. Map and custom VRM transfers use the existing external `maps/` and `vrm/` directories. Use matching TF-enabled clients and servers (protocol 26 / `fpsloppa-26-fortress-effects`).
 
 The two generated arenas contain original geometry, not decompiled or traced layouts. Their MAP sources and generator are CC0; textures are BSD LibreQuake assets with notices and provenance. Ironspan has three base entrances, sniper galleries, dry flanks and a canal beneath its bridge. Relayworks has separate elevated flag rooms and ground-level capture areas, twin ramp approaches, a central tunnel and two flanks. Both have four team spawns and resupply per side.
 
@@ -46,3 +46,5 @@ Automated validation does not establish headset frame rate, long-match balance o
 
 
 The forty-map Arena Collection 1 and ThreeWave, TeamFortress and Arcane Dimensions conversion tools are archived exclusively with [0.5v](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They are no longer included or maintained; see [the archive policy](docs/ARCHIVED-EXTRAS.md).
+
+Current TF effects/grenade and eight-player AS test results: [TF/AS validation review](docs/TF_AS_TEST_REVIEW.md).

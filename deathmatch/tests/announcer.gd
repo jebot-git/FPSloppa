@@ -39,14 +39,15 @@ func run() -> void:
 	check(a.player.bus=='ArenaAnnouncer' and AudioServer.get_bus_send(AudioServer.get_bus_index('ArenaAnnouncer'))=='Master',"Announcer bypasses positional attenuation and world reverb")
 	AudioServer.set_bus_mute(AudioServer.get_bus_index('ArenaAnnouncer'),true)
 	g.match_mode.kind='dm';a.clear_audio();a.was_active=true
-	for cue in ['start','first_blood','double_kill','rampage','dominating']:a.enqueue(cue)
+	for cue in ['first_blood','double_kill','triple_kill','rampage','dominating']:a.enqueue(cue)
 	check(a.pending.size()==4,"Notification queue remains bounded during bursts")
-	a.enqueue('objective_completed',2)
+	g.match_mode.kind='tf';a.enqueue('objective_completed',2)
 	check(a.pending[0].cue=='objective_completed',"Capture calls take precedence over queued awards")
-	a.enqueue('game_over',3)
-	check(a.pending.size()==1 and a.pending[0].cue=='game_over',"Match result replaces obsolete queued calls")
+	var queued: int=a.pending.size()
+	for cue in ['start','team_deathmatch','capture_the_flag','last_man_standing','round_winner','game_over']:a.enqueue(cue,3);a.receive(cue)
+	check(a.pending.size()==queued and heard.is_empty(),"Retired match, mode and result voices cannot queue or dispatch")
 	a._process(0)
-	check(a.player.playing and a.pending.is_empty(),"A queued call starts on the single audio player")
+	check(a.player.playing and a.pending.size()==3,"A queued call starts on the single audio player")
 	await create_timer(.2).timeout
 	a.policy(false)
 	check(not a.player.playing and a.pending.is_empty(),"Disabling policy stops current playback immediately")
@@ -54,13 +55,19 @@ func run() -> void:
 	await create_timer(.5).timeout
 	a.policy(true);a.was_active=true;a.enqueue('first_blood');g.clock+=7;a._process(0)
 	check(a.pending.is_empty() and not a.player.playing,"Stale calls expire without playback")
-	g.players[1].kills=3;g.players[2].kills=1
-	check(a.result_cue()=='round_winner',"Local winner receives the victory call")
-	g.players[2].kills=3
-	check(a.result_cue()=='game_over',"A drawn match does not announce a false winner")
-	g.match_mode.kind='ctf';g.match_mode.scores=[0,1];g.players[1].team=0
-	check(a.result_cue()=='game_over',"Opposing team victory does not congratulate the losing player")
-	g.presentation.announcer=0;a.enqueue('start')
+	a.clear_audio();g.intermission=0;a.was_active=false;a._process(0)
+	check(not a.player.playing and a.pending.is_empty(),"Match start is silent")
+	g.intermission=8;a._process(0)
+	check(not a.player.playing and a.pending.is_empty(),"Match result is silent")
+	for mode in ["ctf","dm","ft"]:
+		g.match_mode.kind=mode;a.receive("objective_completed")
+	check(heard.is_empty(),"Ordinary CTF and other modes do not trigger objective voice")
+	for mode in ["tf","as"]:
+		g.match_mode.kind=mode;a.objective_completed()
+	check(heard==[["objective_completed",0],["objective_completed",0]],"TF and AS objectives dispatch the global objective voice")
+	check(a.pending.size()==2,"Separate objectives completed close together each retain their voice")
+	a.clear_audio()
+	g.presentation.announcer=0;a.enqueue('rampage')
 	check(a.pending.is_empty(),"Local zero volume also prevents delayed queues")
 	g.headless=true;a.reset();g.players.clear();g.free()
 	await create_timer(.1).timeout

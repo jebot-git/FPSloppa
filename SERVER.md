@@ -128,3 +128,6 @@ clock. When the last ready client disconnects, the remaining match time pauses;
 lobby and intermission countdowns pause as well. Connection timeouts and asset
 transfer work continue. A new client resumes the existing countdown; normal
 client-hosted and practice-game timing is unchanged.
+
+Assault (AS) is available with the bundled **HiSlop** train map. Enable it through
+`sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).

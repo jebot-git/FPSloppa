@@ -1,7 +1,7 @@
-# Original FPSloppa soundtrack
+# FPSloppa soundtrack
 
-Metal instrumentation was selected after an A/B audition. Each gameplay mode
-now uses its own original electric-guitar, bass and acoustic-drum arrangement.
+Metal instrumentation was selected after an A/B audition. The eight original gameplay scores
+use their own electric-guitar, bass and acoustic-drum arrangement.
 Title and lobby keep their previously approved compositions and renders.
 
 | Context | Title | BPM | Length | Arrangement |
@@ -16,6 +16,7 @@ Title and lobby keep their previously approved compositions and renders.
 | Freeze tag | Cold Anvil | 104 | 148 s | Low C doom riffs and ringing power chords |
 | Chainsaw carousel | Chain Drive | 152 | 101 s | Low D groove, chugs and heavy half-time snare |
 | Team Fortress | Siege Engine | 124 | 124 s | C-sharp battle rhythm and open chord accents |
+| Assault | Mega Destruction — Zilly Mike | Tracker tempo | 157 s | Public-domain XM metal arrangement |
 
 Metal tracks use independent left/right guitar recordings, open and palm-muted
 articulations, root/fifth/octave power chords, amp saturation, cabinet-like EQ
@@ -23,7 +24,7 @@ and acoustic drums with short room tails. They retain 44.1 kHz stereo detail in
 compact Vorbis files. Title/lobby use 32 kHz stereo Vorbis and retain editable
 eight-channel MODs. No existing game soundtrack recording or melody is used.
 
-The ten active Ogg files total **15,039,851 bytes (14.34 MiB)**. Gameplay is mastered
+The eleven active Ogg files total **17,252,904 bytes (16.45 MiB)**. Gameplay is mastered
 to −19 LUFS, title −22 and lobby −21, with a −3 dBTP target before Vorbis encoding.
 Loop-edge fades prevent sample-boundary clicks. Selection remains asynchronous,
 with 2.5-second crossfades, a separate persistent music volume, and no restart
@@ -32,7 +33,7 @@ when only the map changes within the same mode. Headless servers load no music.
 ## Sources, editing and comparison
 
 - `scores.json` records all active assignments, durations, sizes and hashes.
-- Each gameplay `*.score.json` stores its recorded-sample arrangement and matching
+- Each original gameplay `*.score.json` stores its recorded-sample arrangement and matching
   render hash. These replace the previous gameplay MOD sources; they are not
   represented as tracker modules.
 - `python3 tools/generate_metal_alternates.py --install` regenerates and installs
@@ -40,7 +41,7 @@ when only the map changes within the same mode. Headless servers load no music.
   other previously rendered tracks. NumPy and FFmpeg are required.
 - `python3 tools/generate_tracker_music.py title lobby` regenerates only the two
   remaining tracker compositions; its default now selects title and lobby.
-- `python3 tools/validate_soundtrack.py` audits all ten active renders.
+- `python3 tools/validate_soundtrack.py` audits the active renders.
 
 The three auditioned metal tracks are installed without further audio changes.
 The five remaining modes use the same recorded-instrument rendering approach
@@ -102,3 +103,7 @@ The original compositions, arrangements, edited instruments and rendered music
 are dedicated under **CC0 1.0 Universal**, matching the recordings' license:
 https://creativecommons.org/publicdomain/zero/1.0/ . This applies to these music
 assets, not the whole game.
+
+## Assault — Mega Destruction
+
+AS uses **Mega Destruction** by **Zilly Mike**, an external XM module listed as **Public Domain** by [Mod Archive](https://modarchive.org/index.php?request=view_by_moduleid&query=50252). Its original instrumentation is retained, converted and mastered to match the gameplay music. The original XM, source/license links and regeneration instructions are in [docs/audio/assault/README.md](../../../docs/audio/assault/README.md). This track is separate from the original compositions and their CC0 dedication above.

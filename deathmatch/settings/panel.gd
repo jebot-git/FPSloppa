@@ -55,6 +55,7 @@ func setup(arena: Node) -> void:
 	controls.texture_filter=button(graphics_page,"",func():values.texture_filter=(int(values.texture_filter)+1)%3;save())
 	controls.msaa=button(graphics_page,"",func():values.msaa=(int(values.msaa)+1)%4;save())
 	controls.shadows=button(graphics_page,"",func():values.shadows=not values.shadows;save())
+	controls.train_motion=button(input_page,"",func():values.train_motion=not values.train_motion;save())
 	controls.fullscreen=button(graphics_page,"",func():values.fullscreen=not values.fullscreen;save())
 	stepper(graphics_page,"fov","Desktop field of view",5)
 	stepper(graphics_page,"hud_scale","VR HUD size",.1)
@@ -95,6 +96,7 @@ func refresh() -> void:
 	controls.texture_filter.text="TEXTURES: "+["PIXELATED + MIPMAPS","TRILINEAR","ANISOTROPIC"][int(values.texture_filter)]
 	controls.msaa.text="ANTI-ALIASING: "+["OFF","2× MSAA","4× MSAA","8× MSAA"][int(values.msaa)]
 	controls.shadows.text="SHADOWS: "+("ON" if values.shadows else "OFF")
+	controls.train_motion.text="TRAIN SCENERY MOTION: "+("ON" if values.train_motion else "OFF (REDUCED MOTION)")
 	controls.fullscreen.text="DISPLAY: "+("FULLSCREEN" if values.fullscreen else "WINDOWED");controls.fullscreen.visible=not game.is_vr() and not OS.has_feature("android")
 	controls.spatial_audio.text="SPATIAL AUDIO: "+("STEAM AUDIO HRTF (HEADPHONES)" if values.spatial_audio=="steam_audio" else "STANDARD STEREO")
 	controls.output.text="OUTPUT: "+AudioServer.output_device+" (select to cycle)"

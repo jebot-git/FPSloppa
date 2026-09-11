@@ -36,7 +36,16 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	for node in entities:
 		var e: Dictionary = node.attributes
 		var kind: String = e.get("classname","")
+		# Repair existing scene caches created before triangle collisions received
+		# the same inverse entity rotation as their brush meshes.
+		if node is PhysicsBody3D and str(e.get("model","")).begins_with("*"):
+			for shape in node.get_children():
+				if shape is CollisionShape3D and shape.shape is ConcavePolygonShape3D:
+					shape.transform=Transform3D(node.transform.basis.inverse(),Vector3.ZERO)
 		var flags := int(e.get("spawnflags",0))
+		if kind.begins_with("info_as_"):
+			var row:=e.duplicate();row["kind"]=kind;row["position"]=node.global_position-Vector3.UP*.70
+			game.map_assault.append(row)
 		if flags&2048: # Quake SPAWNFLAG_NOT_DEATHMATCH
 			node.visible=false
 			if node is CollisionObject3D: node.collision_layer=0
@@ -62,7 +71,8 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 		elif kind=="misc_librequake_fixture":fixtures.append(e)
 		elif kind=="info_koth_control":game.map_objectives["hill"]=node.global_position-Vector3.UP*.70
 		elif kind=="info_teleport_destination":
-			destinations[e.get("targetname","")] = {"position":node.global_position-Vector3.UP*.70,"yaw":deg_to_rad(float(e.get("angle",0)))}
+			# Quake raises info_teleport_destination by 27 units before use.
+			destinations[e.get("targetname","")] = {"position":node.global_position+Vector3.UP*(27.0*Loader.SCALE-.70),"yaw":deg_to_rad(float(e.get("angle",0)))}
 		elif kind in ["item_flag_team1","item_flag_team2"]:
 			game.map_objectives["red" if kind=="item_flag_team1" else "blue"]=node.global_position-Vector3.UP*.70
 		elif kind.begins_with("weapon_") or kind.begins_with("item_"): add_pickup(e,node.global_position)
@@ -72,7 +82,7 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			var angle := float(e.get("angle",0))
 			var direction := Vector3.UP if angle==-1 else Vector3.DOWN if angle==-2 else Vector3(-sin(deg_to_rad(angle)),0,-cos(deg_to_rad(angle)))
 			var distance := absf(direction.dot(b.size))-float(e.get("lip",8))*Loader.SCALE
-			game.gates.append({"node":node,"base":node.position.y,"base_position":node.position,"travel":direction*maxf(distance,.5),"center":b.get_center(),"open":false,"until":0.0,"bsp":true})
+			game.gates.append({"node":node,"base":node.position.y,"base_position":node.position,"travel":direction*maxf(distance,.5),"center":b.get_center(),"open":false,"until":0.0,"bsp":true,"as_unlock":int(e.get("as_unlock",0))})
 		elif kind=="func_plat":
 			var b := node_bounds(node)
 			var travel := float(e.get("height",maxf((b.size.y-.25)/Loader.SCALE,48)))*Loader.SCALE
@@ -87,6 +97,8 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			regions.append({"area":node,"kind":kind,"data":e})
 	if not game.headless and not fixtures.is_empty():preload("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
 	if not game.headless:preload("res://deathmatch/maps/filtering.gd").new().apply(root,int(game.presentation.get("texture_filter",2)))
+	if not game.headless and entities.any(func(node):return node.attributes.get("classname","")=="info_train_motion"):
+		var motion:=preload("res://deathmatch/maps/train_motion.gd").new();motion.name="TrainMotion";add_child(motion);motion.configure(game,root,entities)
 	if game.spawn_points.is_empty():
 		for node in entities:
 			if node.attributes.get("classname","")=="info_player_start":
@@ -200,6 +212,7 @@ func _physics_process(_delta: float) -> void:
 	for i in range(game.gates.size()):
 		var gate: Dictionary=game.gates[i]
 		if not gate.get("bsp",false) or gate.open: continue
+		if game.match_mode.kind=="as" and game.match_mode.assault.stage<int(gate.get("as_unlock",0)):continue
 		for id in game.players:
 			if not game.players[id].dead and game.fighters[id].position.distance_to(gate.center)<3:
 				gate.until=game.clock+4

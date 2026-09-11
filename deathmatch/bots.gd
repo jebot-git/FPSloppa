@@ -23,7 +23,7 @@ func setup(arena: Node) -> void:
 	NavigationServer3D.map_set_cell_size(nav_map,region.navigation_mesh.cell_size)
 	var ad_map: bool=game.current_map.begins_with("ad_arena_")
 	NavigationServer3D.map_set_use_edge_connections(nav_map,not ad_map)
-	if NavigationServer3D.has_method("map_set_merge_rasterizer_cell_scale"):NavigationServer3D.call("map_set_merge_rasterizer_cell_scale",nav_map,.1 if ad_map else 1.0)
+	if NavigationServer3D.has_method("map_set_merge_rasterizer_cell_scale"):NavigationServer3D.call("map_set_merge_rasterizer_cell_scale",nav_map,.1 if ad_map or game.current_map=="as_hislop" or game.current_map.ends_with("hispeed_concept") else 1.0)
 	for id in game.players:
 		if id<0: brains[id]={"next":game.clock+randf()*.2,"goal":game.fighters[id].position,"last":game.fighters[id].position,"stuck":0.0,"path":PackedVector3Array(),"step":0,"route_at":0.0,"enemy":0,"seen_at":0.0}
 static func new_mesh() -> NavigationMesh:
@@ -85,6 +85,9 @@ func tick(_delta: float) -> void:
 			if enemy_flag.carrier==id:brain.goal=game.match_mode.captures[own]
 			elif game.match_mode.flags[own].dropped:brain.goal=game.match_mode.flags[own].position
 			elif enemy==0:brain.goal=enemy_flag.position
+		if game.match_mode.kind=="as" and enemy==0:
+			var assault=game.match_mode.assault
+			if assault.stage<assault.objectives.size():brain.goal=assault.objectives[assault.stage].position
 		if game.match_mode.kind=="tf":
 			if s.get("tf_class","")=="medic":
 				for friend in game.players:

@@ -256,12 +256,12 @@ func control_button(action: String, _hand: XRController3D) -> void:
 func poll_controls() -> void:
 	for action in ["menu","scores","use"]:
 		var pressed: bool=focused and game.bindings.vr_pressed(self,action)
+		if action=="scores":
+			scores=pressed and game.active and not game.menu_open
+			if scores and not control_edges.get(action,false):place_menu()
 		if pressed and not control_edges.get(action,false):
 			match action:
 				"menu":toggle_menu()
-				"scores":
-					scores=not scores
-					if scores:place_menu()
 				"use":
 					if game.active and not game.menu_open:
 						if multiplayer.is_server():game._use_for(multiplayer.get_unique_id())
@@ -319,7 +319,7 @@ func _process(delta: float) -> void:
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
 			cycle_latched=true
 		if absf(stick.y)<.3: cycle_latched=false
-	var menu_visible: bool=game.menu_open or scores or game.intermission>0 or not game.active
+	var menu_visible: bool=game.menu_open or scores or (focused and game.bindings.pressed("scores")) or not game.active
 	damage_overlay.visible=(game.hurt_flash>0 or actor!=null and actor.underwater) and focused and not menu_visible
 	damage_material.set_shader_parameter("underwater",1.0 if actor!=null and actor.underwater else 0.0)
 	damage_material.set_shader_parameter("strength",clampf(game.hurt_flash/.35,0,1))

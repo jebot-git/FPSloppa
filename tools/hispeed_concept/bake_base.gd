@@ -1,0 +1,23 @@
+extends SceneTree
+func _initialize() -> void:call_deferred("run")
+func run() -> void:
+ var loader=preload("res://deathmatch/maps/loader.gd")
+ var path:="res://maps/as_hislop.bsp"
+ assert(loader.validate(path).is_empty())
+ assert(loader.supports_assault(path))
+ assert(loader.map_title(path,"")=="HiSlop")
+ var level=loader.read(path)
+ assert(level!=null)
+ var scene:=PackedScene.new()
+ assert(scene.pack(level)==OK)
+ assert(ResourceSaver.save(scene,"res://maps/cache/as_hislop.scn")==OK)
+ assert(ResourceSaver.save(scene,"res://maps/cache/as_hislop-lightmap1.scn")==OK)
+ root.add_child(level)
+ var mesh=preload("res://deathmatch/bots.gd").new_mesh()
+ var data:=NavigationMeshSourceGeometryData3D.new()
+ NavigationServer3D.parse_source_geometry_data(mesh,data,level)
+ NavigationServer3D.bake_from_source_geometry_data(mesh,data)
+ assert(mesh.get_polygon_count()>0)
+ assert(ResourceSaver.save(mesh,"res://maps/navigation/as_hislop.res")==OK)
+ print("HISLOP_BASE_BAKED polygons=",mesh.get_polygon_count())
+ level.free();quit()

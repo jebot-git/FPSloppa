@@ -38,10 +38,11 @@ func run():
 	g._add_player(1,"Player");g._add_player(-4,"Observer",true);g.active=true;g.menu_open=false;g.intermission=10;g.round_message="Player wins"
 	await process_frame
 	g.xr_rig._process(.016);g.hud._process(.016)
-	check(g.xr_rig.panel.visible and g.hud.scoreboard.visible and g.hud.scores.text.contains("ROUND COMPLETE"),"End of match opens the scoreboard surface automatically in VR")
-	check(g.hud.scores.text.contains("Spectators:\nObserver"),"Scoreboard lists observers separately from ranked players")
+	check(not g.xr_rig.panel.visible and not g.hud.scoreboard.visible,"Intermission does not force a scoreboard without holding its control")
+	g.hud.score_table.refresh(g)
+	check(g.hud.score_table.observers.text.contains("Observer"),"Scoreboard lists observers separately from ranked players")
 	g.intermission=0;g.xr_rig._process(.016);g.hud._process(.016)
-	check(not g.xr_rig.panel.visible and not g.hud.scoreboard.visible,"Automatic scoreboard closes when the next round starts")
+	check(not g.xr_rig.panel.visible and not g.hud.scoreboard.visible,"Scoreboard remains closed when the next round starts")
 	g.menu_open=true;g.hud.show_menu(true);g.hud.settings_panel.open();g.xr_rig._process(.016)
 	await process_frame
 	check(g.hud.settings_panel.visible and g.xr_rig.panel.visible,"Audio/graphics settings use the VR menu surface")
@@ -53,6 +54,10 @@ func run():
 	panel.section="graphics";panel.refresh()
 	await process_frame;await process_frame
 	check(panel.get_rect().size.y<=640 and panel.controls.hud_y.get_global_rect().end.y<=640,"Graphics and HUD controls fit the VR canvas")
+	panel.section="controls";panel.refresh();await process_frame;await process_frame
+	check(panel.get_rect().size.y<=640 and panel.controls.train_motion.get_global_rect().end.y<=640,"Scenery motion control fits the VR controls page")
+	panel.controls.train_motion.pressed.emit()
+	check(not Settings.read_settings(path).train_motion,"Reduced scenery motion persists through the menu")
 	# Exercise the presentation branch despite running this fixture headlessly.
 	g.headless=false
 	panel.controls.hud_scale.get_parent().get_child(3).pressed.emit()

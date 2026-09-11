@@ -29,11 +29,11 @@ func setup(arena: Node) -> void:
 		AudioServer.set_bus_name(idx,"ArenaEffects");AudioServer.set_bus_send(idx,"ArenaSpatial")
 func choose(kind: String) -> AudioStream:
 	var file:="res://deathmatch/audio/"+kind+".wav"
-	if kind in ["weapon_2","weapon_5"]: file="res://deathmatch/audio/recorded/"+kind+"_"+str(randi_range(0,3))+".wav"
-	elif kind in ["weapon_3","weapon_4"]: file="res://deathmatch/audio/recorded/"+kind+"_0.wav"
+	if kind in ["jump","land"]:file="res://deathmatch/audio/doom-style/"+kind+"_%d.wav"%randi_range(0,2)
+	elif kind in ["weapon_1","weapon_2","weapon_3","weapon_4","weapon_5","weapon_6","weapon_7","weapon_8","explosion","pickup_ammo","pickup_weapon","pickup_armor","pickup_health","pickup_mega"]:file="res://deathmatch/audio/doom-style/"+kind+".wav"
 	elif kind=="pain":file="res://deathmatch/audio/recorded/pain_%d.wav"%randi_range(0,2)
-	elif kind in ["step","land","flesh","weapon_0","impact"]:
-		var stem:="footstep_concrete" if kind in ["step","land"] else "impactMetal_light" if kind=="impact" else "impactPunch_heavy"
+	elif kind in ["step","flesh","weapon_0","impact"]:
+		var stem:="footstep_concrete" if kind=="step" else "impactMetal_light" if kind=="impact" else "impactPunch_heavy"
 		file="res://deathmatch/audio/recorded/%s_%03d.ogg"%[stem,randi_range(0,4)]
 	if not cache.has(file): cache[file]=load(file)
 	return cache[file]
@@ -61,7 +61,10 @@ func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	player.volume_db=volume
 	player.set_meta("dry_db",volume)
 	player.set_meta("expires",game.clock+source.get_length()/.97+.15)
-	player.pitch_scale=randf_range(.97,1.03)
+	player.pitch_scale=randf_range(.985,1.015) if kind.begins_with("weapon_") else randf_range(.97,1.03)
+	if kind in ["jump","land"]:
+		player.max_distance=28;player.unit_size=3.5
+		if player.has_method("play_stream"):player.set("min_attenuation_distance",player.unit_size)
 	add_child(player)
 	player.global_position=where
 	active.append(player)

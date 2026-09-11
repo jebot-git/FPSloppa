@@ -58,3 +58,13 @@ __pycache__/
 /maps/ad_arena_*-README.txt
 /maps/*_ad_maplist.txt
 /maps/ad-maplists.cfg
+
+# FortressOne conversions require separate rights and playability clearance.
+**/tf_fo_*.bsp
+**/tf_fo_*.scn
+/tools/fortressone/local/
+
+# Local BSP editor extraction output; never redistribute imported textures.
+/materials/
+/textures/
+/optional-arena-pack/

@@ -46,5 +46,9 @@ func run():
  check(g.demos.valid_frame(frame),"Legacy seven-argument damage events remain compatible")
  frame.events[0][1].append("invalid")
  check(not g.demos.valid_frame(frame),"Malformed extended damage events remain rejected")
+ frame.events=[["_movement_sound",[0,1,1,"jump",Vector3.ZERO]]]
+ check(g.demos.valid_frame(frame),"Recorded jump sound validates for movie playback")
+ frame.events[0][1][4]="invalid position"
+ check(not g.demos.valid_frame(frame),"Malformed movement sound event is rejected")
  g.demos.stop_playback();g.disconnect_game("Checks complete");g.free()
  print("POST07_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

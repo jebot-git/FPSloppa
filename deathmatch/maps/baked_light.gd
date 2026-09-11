@@ -11,6 +11,9 @@ var materials := {}
 var cursor := Vector2i(2, 0)
 var shelf := 0
 var faces := 0
+var unlit_faces := 0
+var invalid_faces := 0
+var overflow_faces := 0
 func open(path: String) -> void:
 	var f := FileAccess.open(path, FileAccess.READ)
 	if not f or f.get_length()<124 or not f.get_32() in [29,0x32505342]:return
@@ -46,10 +49,13 @@ func face_uvs(uvs: PackedVector2Array, dimensions: Vector2, offset: int) -> Pack
 	lo=lo.floor();hi=hi.ceil()
 	var size:=Vector2i(hi-lo)+Vector2i.ONE
 	if offset<0 or offset==0xffffffff or size.x<1 or size.y<1 or offset+size.x*size.y>lighting.size():
+		if offset<0 or offset==0xffffffff:unlit_faces+=1
+		else:invalid_faces+=1
 		for uv in uvs:result.append(Vector2(.5,.5)/atlas_size)
 		return result
 	if cursor.x+size.x+2>atlas_size:cursor=Vector2i(0,cursor.y+shelf);shelf=0
 	if cursor.y+size.y+2>atlas_size:
+		overflow_faces+=1
 		push_error("Arena baked-light atlas exceeds budget")
 		for uv in uvs:result.append(Vector2(.5,.5)/atlas_size)
 		return result
@@ -67,6 +73,7 @@ func material(original: Material) -> Material:
 	if not enabled or not original is StandardMaterial3D:return original
 	if materials.has(original):return materials[original]
 	var result:=ShaderMaterial.new();result.shader=preload("res://deathmatch/maps/baked_light.gdshader")
+	result.set_meta("bsp_texture_name",original.get_meta("bsp_texture_name",""))
 	result.set_shader_parameter("base_texture",original.albedo_texture)
 	result.set_shader_parameter("base_colour",original.albedo_color)
 	result.set_shader_parameter("alpha_cutout",original.transparency==BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR)
@@ -80,4 +87,7 @@ func finish(root: Node) -> void:
 	if not enabled:return
 	texture.update(image)
 	root.set_meta("baked_light_faces",faces)
+	root.set_meta("baked_light_unlit_faces",unlit_faces)
+	root.set_meta("baked_light_invalid_faces",invalid_faces)
+	root.set_meta("baked_light_overflow_faces",overflow_faces)
 	root.set_meta("baked_light_rgb",not rgb.is_empty())

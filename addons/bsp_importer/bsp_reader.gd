@@ -132,6 +132,7 @@ class BSPTexture:
 	var is_transparent := false
 	var has_alpha_test := false # If the material has alpha testing we want to know for collision.
 	var texture_data_offset : int
+	var source_name := ""
 
 	static func get_data_size() -> int:
 		return 40 # 16 + 4 * 6
@@ -139,6 +140,7 @@ class BSPTexture:
 	func read_texture(file : FileAccess, reader : BSPReader) -> int:
 		var texture_header_file_offset := file.get_position()
 		name = file.get_buffer(16).get_string_from_ascii()
+		source_name = name.to_lower()
 		if (name.begins_with("*")):
 			name = name.substr(1)
 			is_warp = true
@@ -340,6 +342,8 @@ var file : FileAccess
 var leaves_offset : int
 var nodes_offset : int
 var arena_bake: RefCounted
+# FPSloppa opts in; preserve generic importer configuration for other projects.
+var use_named_texture_replacements := false
 var root_node : Node3D
 var plane_normals : PackedVector3Array
 var plane_distances : PackedFloat32Array
@@ -787,6 +791,7 @@ func read_bsp(source_file : String) -> Node:
 			bad_tex.width = 64
 			bad_tex.height = 64
 			bad_tex.name = "_bad_texture_"
+			bad_tex.material = load_or_create_material(bad_tex.name, bad_tex).material
 			textures[i] = bad_tex
 		else:
 			var complete_offset := textures_offset + texture_offset
@@ -1121,6 +1126,8 @@ func read_bsp(source_file : String) -> Node:
 					var triangle_shape:=ConcavePolygonShape3D.new()
 					triangle_shape.set_faces(collision_faces)
 					collision_shape.shape=triangle_shape
+					# Brush vertices are in BSP world axes, just like the visible mesh.
+					collision_shape.transform=parent_inv_transform
 					parent_node.add_child(collision_shape, true)
 					mesh_instance.transform = parent_inv_transform
 					collision_shape.owner = root_node
@@ -1722,6 +1729,11 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 	else:
 		image_path = texture_path_pattern.replace("{texture_name}", name)
 	var original_image_path := image_path
+	var embedded := bsp_texture != null and bsp_texture.texture_data_offset > 0 and not is_gsrc
+	if use_named_texture_replacements and embedded:
+		# A same-named bundled texture belongs to this BSP, never another map.
+		image_path = ""
+		material_path = ""
 	
 	if (!ResourceLoader.exists(image_path)):
 		image_path = str(image_path.get_basename(), ".jpg") # Jpeg fallback
@@ -1746,7 +1758,7 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 				if not found_texture:
 					# bit ugly but because gsrc has to load from wads we need to do this early exit so the bsp importer doesnt read garbage data.
 					material = StandardMaterial3D.new()
-					material.albedo_color = Color(randf_range(0.0, 1.0), randf_range(0.0, 1.0), randf_range(0.0, 1.0))
+					material.albedo_color = Color(0.32, 0.29, 0.25)
 					var material_info := MaterialInfo.new()
 					material_info.material = material
 					material_info.width = width
@@ -1764,7 +1776,7 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 	
 	var image_emission_path : String
 	image_emission_path = texture_emission_path_pattern.replace("{texture_name}", name)
-	if (ResourceLoader.exists(image_emission_path)):
+	if (ResourceLoader.exists(image_emission_path) and not (use_named_texture_replacements and embedded)):
 		texture_emission = load(image_emission_path)
 	if (ResourceLoader.exists(material_path)):
 		material = load(material_path)
@@ -1845,9 +1857,14 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 					#file.seek(bsp_texture.current_file_offset) # Go back to where we were, in case that matters for reading the next texture.
 				else:
 					print("No texture data in BSP file.")
+					if use_named_texture_replacements:
+						var replacement:=preload("res://deathmatch/maps/texture_replacements/dictionary.gd").resolve(bsp_texture.source_name if not bsp_texture.source_name.is_empty() else str(name))
+						texture=replacement.get("texture")
+						texture_emission=replacement.get("emission")
 		if (texture && generate_texture_materials):
 			print("Creating material with texture.")
 			material = StandardMaterial3D.new()
+			material.set_meta("bsp_texture_name",str(name))
 			material.albedo_texture = texture
 			#print("albedo_texture set to ", material.albedo_texture)
 			if (image_emission):
@@ -1901,9 +1918,9 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 			if (material):
 				print("Material with no texture image.")
 			if (!material):
-				print("No texture found.  Assigning random color.")
+				print("No texture found. Assigning neutral stone colour.")
 				material = StandardMaterial3D.new()
-				material.albedo_color = Color(randf_range(0.0, 1.0), randf_range(0.0, 1.0), randf_range(0.0, 1.0))
+				material.albedo_color = Color(0.32, 0.29, 0.25)
 	var material_info := MaterialInfo.new()
 	material_info.material = material
 	material_info.width = width

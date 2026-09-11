@@ -3,7 +3,9 @@ const MAX_PLAYERS:=preload("res://deathmatch/server/config.gd").MAX_CLIENTS
 const MAGIC:="FPSDEMO1"
 const MAX_FILE:=1_073_741_824
 const MAX_FRAME:=2_097_152
-const EVENTS=["_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
+# Retired cues remain readable in old recordings, but are never played.
+const LEGACY_ANNOUNCER_CUES=["start","team_deathmatch","capture_the_flag","last_man_standing","round_winner","game_over"]
+const EVENTS=["_ability_fx","_movement_sound","_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
 var game
 var auto_record:=false
 var auto_path:=""
@@ -91,9 +93,11 @@ static func valid_frame(frame: Variant) -> bool:
 	for e in frame.events:
 		if not e is Array or e.size()!=2 or not e[0] in EVENTS or not e[1] is Array:return false
 		var schemas={"_saw_contact":[TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_INT],"_announcer_cue":[TYPE_STRING,TYPE_INT],"_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_melee_fx":[TYPE_INT,TYPE_BOOL],"_impacts":[TYPE_VECTOR3,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT],"_hurt_fx":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_BOOL,TYPE_BOOL,TYPE_INT],"_projectile_end":[TYPE_INT,TYPE_VECTOR3,TYPE_INT],"_teleport_fx":[TYPE_VECTOR3]}
+		schemas["_ability_fx"]=[TYPE_STRING,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT]
+		schemas["_movement_sound"]=[TYPE_INT,TYPE_INT,TYPE_INT,TYPE_STRING,TYPE_VECTOR3]
 		if e[0]=="_hurt_fx" and e[1].size()==8:schemas["_hurt_fx"].append(TYPE_BOOL)
 		if not typed_values(e[1],schemas[e[0]]):return false
-		if e[0]=="_announcer_cue" and not e[1][0] in preload("res://deathmatch/audio/announcer.gd").CLIPS:return false
+		if e[0]=="_announcer_cue" and not e[1][0] in preload("res://deathmatch/audio/announcer.gd").CLIPS+LEGACY_ANNOUNCER_CUES:return false
 		if e[0]=="_shot_fx" and not game_weapon(e[1][1]):return false
 		if e[0] in ["_impacts","_projectile_end"] and not game_weapon(e[1][2]):return false
 	return true
@@ -143,6 +147,8 @@ func apply_frame(frame: Dictionary,play_events: bool=true) -> void:
 			if maps.is_empty():stop_playback();game.disconnect_game("Demo needs map "+id+" (matching BSP hash).");return
 			id=maps[0].id
 		game._clear_map_players();game._load_map(id);game.active=true;game.camera=camera
+		# Loading a BSP makes its Overview camera current; restore the replay camera.
+		if is_instance_valid(camera):camera.make_current()
 	game.map_loading=false;game._roster(frame.roster);game.active=true
 	for id in frame.avatars:
 		var choice=frame.avatars[id]

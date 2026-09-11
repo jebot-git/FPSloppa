@@ -44,4 +44,25 @@ func run() -> void:
 	tf.revealed(spy)
 	for i in 15:tf.draw();await process_frame
 	check(actor.avatar_hash==hash_d and not actor.cloak_active,"Reveal restores original VRM and materials")
+	await test_ability_effects(game,camera)
 	print("TF_VISUAL_RESULT ",JSON.stringify(failures));game.free();await process_frame;await process_frame;quit(0 if failures.is_empty() else 1)
+
+func test_ability_effects(game,camera: Camera3D) -> void:
+	for actor in game.fighters.values():actor.hide()
+	camera.position=Vector3(0,8,15);camera.fov=60;camera.look_at(Vector3(0,0,0))
+	var kinds=preload("res://deathmatch/modes/fortress_fx.gd").KINDS
+	for i in kinds.size():
+		var pos:=Vector3((i%4-1.5)*4,1,(int(i/4)-1)*4)
+		var label:=Label3D.new();label.text=kinds[i].to_upper();label.font_size=40;label.pixel_size=.007;label.position=pos+Vector3(0,-.8,1);label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;game.add_child(label)
+	for i in 12:await process_frame
+	for i in kinds.size():
+		var pos:=Vector3((i%4-1.5)*4,1,(int(i/4)-1)*4)
+		game._ability_fx(kinds[i],pos,pos+Vector3(1.4,.2,0),i%2)
+	check(game.ability_effects.bursts.size()==kinds.size(),"Every supported ability creates its graphical effect")
+	await shot("tf-ability-effects")
+	await create_timer(.8).timeout
+	check(game.ability_effects.bursts.is_empty(),"All ability effects expire and release their nodes")
+	for i in 90:game._ability_fx("heal",Vector3.ZERO,Vector3.RIGHT,0)
+	check(game.ability_effects.bursts.size()==64,"Simultaneous effects remain bounded at 64")
+	await create_timer(.8).timeout
+	check(game.ability_effects.bursts.is_empty(),"Capped effects clean up without stale references")

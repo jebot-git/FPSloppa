@@ -13,7 +13,7 @@ try:
         cfg.write_text('sets sv_hostname "Config Test Arena"\nset net_ip 127.0.0.1\nset net_port 28889\nset sv_maxclients 1\nset fraglimit 7\nset timelimit 3\nset sv_voice 0\nset dm_maplist "lqdm2"\nmap lqdm2\n')
         for role in ['server','first','extra']:
             handle=(logs/('config_'+role+'.log')).open('w');handles.append(handle)
-            cmd=[str(binary),'--','+exec',str(cfg)] if role=='server' else [godot,'--headless','--xr-mode','off','--path',str(root),'--script','res://deathmatch/tests/server_config_client.gd','--',role]
+            cmd=[str(binary),'--','+exec',str(cfg)] if role=='server' else [godot,'--headless','--xr-mode','off','--path',str(root),'--script','res://deathmatch/tests/server_config_client.gd','--',role,'--hold-file',str(Path(temporary)/'release-first')]
             proc=subprocess.Popen(cmd,stdout=handle,stderr=subprocess.STDOUT);processes.append(proc)
             if role in ['server','first']:
                 marker='SERVER_CONFIG' if role=='server' else 'CONFIG_CLIENT_READY'
@@ -21,7 +21,9 @@ try:
                 while time.monotonic()<end and marker not in (logs/('config_'+role+'.log')).read_text():
                     if proc.poll() is not None:break
                     time.sleep(.05)
-        for proc in processes[1:]:proc.wait(timeout=12)
+        processes[2].wait(timeout=20)
+        (Path(temporary)/'release-first').touch()
+        processes[1].wait(timeout=10)
         passed=all(p.returncode==0 for p in processes[1:]) and processes[0].poll() is None
         contents=(logs/'config_server.log').read_text()
         passed &= 'maxclients=1 voice=false map=lqdm2' in contents and 'ERROR:' not in contents

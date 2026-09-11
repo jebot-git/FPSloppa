@@ -4,7 +4,7 @@ const CLASSES={
 	"scout":{"name":"SCOUT","hp":75,"armor":25,"speed":1.25,"owned":[0,2,3],"weapon":3,"ammo":[100,25,0,0],"action":"Sprint for 3 seconds · 10s cooldown"},
 	"sniper":{"name":"SNIPER","hp":90,"armor":25,"speed":.9,"owned":[0,2,9],"weapon":9,"ammo":[80,0,0,0],"action":"Focus for 4 seconds: slow movement, stronger rail · 12s cooldown"},
 	"soldier":{"name":"SOLDIER","hp":150,"armor":100,"speed":.85,"owned":[0,3,6],"weapon":6,"ammo":[0,25,12,0],"action":"Launch explosive grenade · 8s cooldown"},
-	"demoman":{"name":"DEMOMAN","hp":120,"armor":75,"speed":.95,"owned":[0,3,6],"weapon":6,"ammo":[0,25,15,0],"action":"Place a pipe charge; use again to detonate · 8s cooldown"},
+	"demoman":{"name":"DEMOMAN","hp":120,"armor":75,"speed":.95,"owned":[0,3,6],"weapon":6,"ammo":[0,25,15,0],"action":"Throw a pipe grenade; use again to detonate · 8s cooldown"},
 	"medic":{"name":"MEDIC","hp":110,"armor":50,"speed":1.1,"owned":[0,2,7],"weapon":7,"ammo":[80,0,0,100],"action":"Aim at a teammate: heal 35 HP and extinguish · 2s cooldown"},
 	"heavy":{"name":"HEAVY","hp":200,"armor":150,"speed":.65,"owned":[0,3,5],"weapon":5,"ammo":[200,25,0,0],"action":"Brace for 4 seconds: 35% less damage, slower movement · 12s cooldown"},
 	"pyro":{"name":"PYRO","hp":125,"armor":75,"speed":1.0,"owned":[0,3,7],"weapon":7,"ammo":[0,25,0,150],"action":"Launch a napalm grenade · 10s cooldown"},
@@ -28,6 +28,7 @@ var visuals: Dictionary={}
 var request_times: Dictionary={}
 func setup(value) -> void:mode_ref=weakref(value)
 func enabled() -> bool:return mode.kind=="tf"
+func structures_enabled() -> bool:return enabled() or mode.kind=="as"
 func definition(id: int) -> Dictionary:
 	return CLASSES.get(game.players.get(id,{}).get("tf_class","soldier"),CLASSES.soldier)
 func max_health(id: int) -> int:return definition(id).hp if enabled() else 100
@@ -79,7 +80,7 @@ func weapon_data(id: int,weapon: int) -> Dictionary:
 	var data: Dictionary=game.W.DATA[weapon]
 	if not enabled():return data
 	data=data.duplicate()
-	var role: String=game.players[id].get("tf_class","soldier")
+	var role: String=game.players.get(id,{}).get("tf_class","soldier")
 	if weapon==9:
 		data.damage=150 if effects.get(id,{}).get("until",0)>game.clock else 90
 		data.cycle=1.5;data.ammo=0;data.cost=2
@@ -123,26 +124,26 @@ func action(id: int) -> bool:
 			if role=="spy":copy_disguise(id)
 			effects[id]={"kind":role,"until":game.clock+({"scout":3.0,"sniper":4.0,"heavy":4.0,"spy":6.0}[role])}
 			cooldowns[id]=game.clock+({"scout":10.0,"sniper":12.0,"heavy":12.0,"spy":14.0}[role])
+			game._ability_fx.rpc(role,game.fighters[id].position,game.fighters[id].position,s.team)
 		"medic":
 			var hit: Dictionary=game._trace(game._shot_origin(id),game._shot_origin(id)-game._weapon_transform(id).basis.z*6,id)
 			var other: int=hit.id
 			if other==0 or not mode.same_team(id,other) or game.players[other].dead:return false
 			if game.players[other].hp>=max_health(other) and not burns.has(other):return false
 			game.players[other].hp=mini(max_health(other),game.players[other].hp+35);burns.erase(other);cooldowns[id]=game.clock+2
-			game._impacts.rpc(game._shot_origin(id),PackedVector3Array([hit.position]),7)
+			game._ability_fx.rpc("heal",game._shot_origin(id),hit.position,s.team)
 		"engineer":used=engineer(id)
 		"demoman","soldier","pyro":
 			if s.ammo[2]<1 and role!="pyro":return false
 			if role=="pyro" and s.ammo[3]<20:return false
 			var origin: Vector3=game._shot_origin(id)
 			if game._weapon_blocked(id):return false
-			var end: Vector3=origin-game._weapon_transform(id).basis.z*(4 if role=="demoman" else 14)
-			var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,end,1))
-			var pos: Vector3=hit.position+hit.normal*.15 if not hit.is_empty() else end
-			var floor: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(pos,pos-Vector3.UP*8,1))
-			if floor.is_empty():return false
-			pos=floor.position+Vector3.UP*.12
-			charges[id]={"owner":id,"team":s.team,"position":pos,"kind":"pipe" if role=="demoman" else "napalm" if role=="pyro" else "grenade","armed":game.clock+.7,"until":game.clock+(30 if role=="demoman" else 1.2)}
+			# Swept, server-simulated projectile; never teleport a charge to a floor.
+			var direction: Vector3=-game._weapon_transform(id).basis.z
+			var pos:=origin+direction*.25
+			if game.HitDetection.world_fraction(game.get_world_3d().direct_space_state,origin,pos,.12)<=1.0:return false
+			charges[id]={"owner":id,"team":s.team,"position":pos,"velocity":direction*14+Vector3.UP*3,"kind":"pipe" if role=="demoman" else "napalm" if role=="pyro" else "grenade","armed":game.clock+.7,"until":game.clock+(30 if role=="demoman" else 1.2),"bounce_fx":0.0}
+
 			s.ammo[3 if role=="pyro" else 2]-=20 if role=="pyro" else 1
 			cooldowns[id]=game.clock+(10 if role=="pyro" else 8)
 	if used:s.invulnerable=0
@@ -157,7 +158,7 @@ func engineer(id: int) -> bool:
 		if b.team!=s.team or b.hp>=150 or b.position.distance_to(game.fighters[id].position)>3.5:continue
 		if not mode.nearby(id,b.position,3.5):continue
 		if s.ammo[3]<10:return false
-		b.hp=mini(150,b.hp+40);s.ammo[3]-=10;cooldowns[id]=game.clock+1;return true
+		b.hp=mini(150,b.hp+40);s.ammo[3]-=10;cooldowns[id]=game.clock+1;game._ability_fx.rpc("repair",origin,b.position+Vector3.UP*.7,s.team);return true
 	var tool: String=s.get("tf_tool","sentry")
 	for b in buildings.values():if b.owner==id and b.kind==tool:return false
 	if s.ammo[3]<60:return false
@@ -172,23 +173,24 @@ func engineer(id: int) -> bool:
 	for other in game.fighters:if game.fighters[other].position.distance_to(pos)<1.3:return false
 	for b in buildings.values():if b.position.distance_to(pos)<1.5:return false
 	buildings[next_id]={"owner":id,"team":s.team,"position":pos,"kind":tool,"hp":150,"ready":game.clock+3,"next":game.clock+3,"expires":game.clock+120}
-	next_id+=1;s.ammo[3]-=60;cooldowns[id]=game.clock+2;return true
+	next_id+=1;s.ammo[3]-=60;cooldowns[id]=game.clock+2;game._ability_fx.rpc("build",pos,pos,s.team);return true
 func damage_building(key: int,attacker: int,amount: int) -> void:
-	if not multiplayer.is_server() or not enabled() or not buildings.has(key):return
+	if not multiplayer.is_server() or not structures_enabled() or not buildings.has(key):return
 	var b: Dictionary=buildings[key]
 	if game.players.has(attacker) and game.players[attacker].team==b.team and not mode.friendly_fire:return
 	b.hp-=maxi(0,amount)
-	if b.hp<=0:buildings.erase(key)
+	if b.hp<=0:
+		buildings.erase(key);game._ability_fx.rpc("explosion",b.position+Vector3.UP*.6,b.position,b.team)
 func trace(start: Vector3,end: Vector3,limit: float,radius: float=0.0) -> Dictionary:
 	var result: Dictionary={}
-	if not enabled():return result
+	if not structures_enabled():return result
 	for key in buildings:
 		var pos: Vector3=buildings[key].position
 		var fraction: float=game.HitDetection.capsule_fraction(start-pos,end-pos,.55+radius)
 		if fraction<limit:limit=fraction;result={"key":key,"fraction":fraction}
 	return result
 func blast(pos: Vector3,owner: int,damage: int,radius: float) -> void:
-	if not enabled():return
+	if not structures_enabled():return
 	for key in buildings.keys():
 		var target: Vector3=buildings[key].position+Vector3.UP*.6
 		var distance:=pos.distance_to(target)
@@ -198,18 +200,19 @@ func detonate(id: int) -> void:
 	if not charges.has(id):return
 	var charge: Dictionary=charges[id];charges.erase(id)
 	game._blast(charge.position,id,100,4.5)
-	game._impacts.rpc(charge.position+Vector3.UP*.1,PackedVector3Array([charge.position+Vector3.UP*2]),6)
+	game._ability_fx.rpc("napalm" if charge.kind=="napalm" else "explosion",charge.position,charge.position,charge.team)
 	if charge.kind=="napalm":
 		for target in game.players:
 			if not game.players[target].dead and mode.nearby(target,charge.position,4.5):ignite(target,id)
 func tick(delta: float) -> void:
+	if mode.kind=="as":
+		if multiplayer.is_server():tick_sentries()
+		return
 	if not enabled() or not multiplayer.is_server():return
 	for id in cooldowns.keys():if not game.players.has(id):departed(id)
 	for id in effects.keys():
 		if effects[id].until<=game.clock or not game.players.has(id) or game.players[id].dead or carrying(id):effects.erase(id)
-	for id in charges.keys():
-		if not game.players.has(id):charges.erase(id)
-		elif game.clock>=charges[id].until:detonate(id)
+	tick_charges(delta)
 	for id in burns.keys():
 		var burn: Dictionary=burns[id]
 		if not game.players.has(id) or game.players[id].dead or burn.until<=game.clock:burns.erase(id);continue
@@ -229,9 +232,11 @@ func tick(delta: float) -> void:
 		if stations.is_empty() and s.team in [0,1]:stations=mode.spawns(s.team)
 		for point in stations:
 			if mode.nearby(id,point,1.8):resupply(id,elapsed);break
+	tick_sentries()
+func tick_sentries() -> void:
 	for key in buildings.keys():
 		var b: Dictionary=buildings[key]
-		if not game.players.has(b.owner) or game.players[b.owner].team!=b.team or game.clock>b.expires:buildings.erase(key);continue
+		if not b.get("map_owned",false) and (not game.players.has(b.owner) or game.players[b.owner].team!=b.team or game.clock>b.expires):buildings.erase(key);continue
 		if game.clock<b.ready or game.clock<b.next:continue
 		b.next=game.clock+(.5 if b.kind=="sentry" else 1.0)
 		if b.kind=="dispenser":
@@ -248,7 +253,7 @@ func tick(delta: float) -> void:
 				if distance<nearest and game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,target,1)).is_empty():nearest=distance;victim=id
 			if victim!=0:
 				var target: Vector3=game.fighters[victim].position+Vector3.UP*.9
-				game._damage(victim,b.owner,12,"SENTRY",false,target,(target-origin).normalized());game._impacts.rpc(origin,PackedVector3Array([target]),5)
+				game._damage(victim,b.owner,12,"SENTRY",false,target,(target-origin).normalized());b["aim"]=target;game._ability_fx.rpc("sentry_fire",origin,target,b.team)
 func resupply(id: int,delta: float) -> void:
 	var s: Dictionary=game.players[id];var data:=definition(id)
 	if s.hp<data.hp:s.hp=mini(data.hp,s.hp+maxi(1,int(20*delta)))
@@ -258,6 +263,7 @@ func resupply(id: int,delta: float) -> void:
 		if s.ammo[i]<maximum:s.ammo[i]=mini(maximum,s.ammo[i]+maxi(1,int([40,10,4,40][i]*delta)))
 	burns.erase(id)
 func snapshot() -> Dictionary:
+	if mode.kind=="as":return {"buildings":buildings.duplicate(true)}
 	if not enabled():return {}
 	var people: Dictionary={}
 	for id in game.players:
@@ -265,10 +271,14 @@ func snapshot() -> Dictionary:
 		people[id]={"class":s.get("tf_class","soldier"),"next":s.get("tf_next","soldier"),"tool":s.get("tf_tool","sentry"),"disguise":s.get("tf_disguise",{}),"cooldown":maxf(0,cooldowns.get(id,0)-game.clock)}
 	var state_effects:=effects.duplicate(true)
 	for effect in state_effects.values():effect.until=maxf(0,effect.until-game.clock)
-	return {"players":people,"buildings":buildings.duplicate(true),"charges":charges.duplicate(true),"effects":state_effects}
+	var state_charges:=charges.duplicate(true)
+	for charge in state_charges.values():
+		charge.armed=maxf(0,charge.armed-game.clock);charge.until=maxf(0,charge.until-game.clock)
+	return {"players":people,"buildings":buildings.duplicate(true),"charges":state_charges,"effects":state_effects}
 func receive(data: Dictionary) -> void:
 	buildings=data.get("buildings",{});charges=data.get("charges",{});effects=data.get("effects",{})
 	for effect in effects.values():effect.until+=game.clock
+	for charge in charges.values():charge.armed+=game.clock;charge.until+=game.clock
 	for id in data.get("players",{}):
 		if not game.players.has(id):continue
 		var row: Dictionary=data.players[id];var s: Dictionary=game.players[id]
@@ -276,13 +286,14 @@ func receive(data: Dictionary) -> void:
 func status(id: int) -> String:
 	if not enabled() or not game.players.has(id):return ""
 	var s: Dictionary=game.players[id]
-	return " · "+definition(id).name+" · USE: "+("READY" if cooldowns.get(id,0)<=game.clock else "%.0fs"%[cooldowns[id]-game.clock])+ (" · NEXT: "+s.get("tf_next","soldier").to_upper() if s.get("tf_next","soldier")!=s.get("tf_class","soldier") else "")
+	var ability:=ability_state(id)
+	return " · "+definition(id).name+" · USE "+ability.label+": "+("READY" if ability.ready else "%.1fs"%[ability.remaining])+ (" · NEXT: "+s.get("tf_next","soldier").to_upper() if s.get("tf_next","soldier")!=s.get("tf_class","soldier") else "")
 func draw() -> void:
 	if game.headless:return
-	var mine: int=multiplayer.get_unique_id()
+	var mine: int=game.demos.selected_player if game.demos.playing else multiplayer.get_unique_id()
 	for id in game.fighters:
 		game.fighters[id].visible=true
-		var role: String=game.players[id].get("tf_class","soldier")
+		var role: String=game.players.get(id,{}).get("tf_class","soldier")
 		var friendly: bool=mode.same_team(id,mine) or id==mine
 		var disguise: Dictionary=game.players[id].get("tf_disguise",{}) if enabled() else {}
 		if not friendly and not disguise.is_empty():role=disguise.get("class","soldier")
@@ -294,14 +305,19 @@ func draw() -> void:
 			if team in [0,1] and enabled():label.modulate=mode.COLORS[team].lightened(.4)
 		game.fighters[id].set_cloak_visual(cloaked(id),friendly,mode.COLORS[maxi(0,game.players[id].team)],get_process_delta_time())
 	var desired: Dictionary={}
-	if enabled():
+	if structures_enabled():
 		for key in buildings:desired["b"+str(key)]=buildings[key]
 		for key in charges:desired["c"+str(key)]=charges[key]
 	for key in visuals.keys():
 		if not desired.has(key):visuals[key].queue_free();visuals.erase(key)
 	for key in desired:
 		var row: Dictionary=desired[key]
-		if visuals.has(key):continue
+		if visuals.has(key):
+			visuals[key].position=row.position
+			if row.has("aim"):
+				var gun=visuals[key].get_node_or_null("SentryGun")
+				if gun and gun.global_position.distance_to(row.aim)>.01:gun.look_at(row.aim)
+			continue
 		var node:=Node3D.new();game.add_child(node);node.position=row.position;visuals[key]=node
 		var material=game.Art.material(mode.COLORS[row.team],.5,.1)
 		var dark=game.Art.material(Color("343d43"),.7,0)
@@ -309,13 +325,15 @@ func draw() -> void:
 			game.Art.box(node,Vector3(0,.3,0),Vector3(1,.6,.8),material)
 			if row.kind=="sentry":
 				game.Art.box(node,Vector3(0,.8,0),Vector3(.35,.65,.35),dark)
-				var gun: Node3D=game.Art.weapon(5);node.add_child(gun);gun.position=Vector3(0,1.1,0);gun.scale*=.7
+				var gun: Node3D=game.Art.weapon(5);node.add_child(gun);gun.name="SentryGun";gun.position=Vector3(0,1.1,0);gun.scale*=.7
 			else:
 				game.Art.box(node,Vector3(0,.8,0),Vector3(.75,.6,.6),dark)
 				game.Art.box(node,Vector3(0,.8,-.31),Vector3(.12,.4,.02),game.Art.material(Color.WHITE))
 				game.Art.box(node,Vector3(0,.8,-.32),Vector3(.4,.12,.02),game.Art.material(Color.WHITE))
 			var label:=Label3D.new();node.add_child(label);label.text=row.kind.to_upper();label.position.y=1.7;label.font_size=28;label.pixel_size=.006;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
-		else:game.Art.box(node,Vector3(0,.12,0),Vector3(.3,.24,.3),material)
+		else:
+			var ball:=MeshInstance3D.new();var sphere:=SphereMesh.new();sphere.radius=.12;sphere.height=.24;sphere.radial_segments=8;sphere.rings=4;ball.mesh=sphere;ball.material_override=material;node.add_child(ball)
+			game.Art.box(node,Vector3(0,.13,0),Vector3(.10,.08,.08),game.Art.material(Color("ffd267"),0,1))
 
 func copy_disguise(id: int) -> void:
 	var nearest:=INF;var selected:=0
@@ -342,3 +360,44 @@ func can_fire(id: int,weapon: int) -> bool:
 	if not game.players.has(id) or weapon<0 or weapon>=game.W.DATA.size():return false
 	var data:=weapon_data(id,weapon)
 	return data.ammo<0 or game.players[id].ammo[data.ammo]>=data.cost
+
+func tick_charges(delta: float) -> void:
+	var space=game.get_world_3d().direct_space_state
+	for id in charges.keys():
+		if not game.players.has(id):charges.erase(id);continue
+		if game.clock>=charges[id].until:detonate(id);continue
+		var charge: Dictionary=charges[id]
+		var steps:=clampi(int(ceil(delta*60)),1,16);var dt:=clampf(delta,0,.25)/steps
+		for step in steps:
+			if not charges.has(id):break
+			var start: Vector3=charge.position;var velocity: Vector3=charge.get("velocity",Vector3.ZERO)
+			velocity.y-=20*dt;var end:=start+velocity*dt
+			var fraction: float=game.HitDetection.world_fraction(space,start,end,.12)
+			var victim:=0
+			for other in game.players:
+				if other==id or game.players[other].dead or game.players[other].spectator:continue
+				var pos: Vector3=game.fighters[other].position
+				var at: float=game.HitDetection.capsule_fraction(start-pos,end-pos,.42)
+				if at<=1.0 and at<fraction:fraction=at;victim=other
+			if fraction<=1.0:
+				charge.position=start.lerp(end,maxf(0,fraction-.005))
+				if victim!=0 and charge.kind!="pipe":detonate(id);break
+				var hit: Dictionary=space.intersect_ray(PhysicsRayQueryParameters3D.create(start,end+velocity.normalized()*.16,1))
+				var normal: Vector3=hit.normal if not hit.is_empty() else -velocity.normalized()
+				charge.position+=normal*.015;velocity=velocity.bounce(normal)*.55
+				if normal.y>.7 and velocity.length()<1:velocity=Vector3.ZERO
+				if game.clock>=charge.get("bounce_fx",0):
+					game._ability_fx.rpc("bounce",charge.position,charge.position,charge.team);charge.bounce_fx=game.clock+.2
+			else:charge.position=end
+			charge.velocity=velocity
+
+func ability_state(id: int) -> Dictionary:
+	if not enabled() or not game.players.has(id):return {}
+	var role: String=game.players.get(id,{}).get("tf_class","soldier")
+	var labels={"scout":"SPRINT","sniper":"FOCUS","soldier":"GRENADE","demoman":"PIPE GRENADE","medic":"HEAL","heavy":"BRACE","pyro":"NAPALM","spy":"CLOAK","engineer":"BUILD / REPAIR"}
+	var total: float={"scout":10.0,"sniper":12.0,"soldier":8.0,"demoman":8.0,"medic":2.0,"heavy":12.0,"pyro":10.0,"spy":14.0,"engineer":2.0}[role]
+	var remaining:=maxf(0,cooldowns.get(id,0)-game.clock)
+	var active_left:=maxf(0,effects.get(id,{}).get("until",0)-game.clock)
+	if role=="demoman" and charges.has(id):
+		remaining=maxf(0,charges[id].armed-game.clock);total=.7;labels[role]="DETONATE PIPE"
+	return {"label":labels[role],"remaining":remaining,"fraction":1-clampf(remaining/total,0,1),"active":active_left,"ready":remaining<=0}

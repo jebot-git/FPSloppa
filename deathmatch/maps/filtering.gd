@@ -64,7 +64,7 @@ func material(source: Material) -> void:
 			source.set_shader_parameter("texture_filter_mode",mode)
 			return
 		if prepare_assets:
-			for key in ["base_texture","glow_texture"]:
+			for key in ["base_texture","glow_texture","_MainTex","_ShadeTexture","_EmissionMap","_SphereAdd","_RimTexture","_ShadingGradeTexture","_ReceiveShadowTexture","_UvAnimMaskTexture","_OutlineWidthTexture"]:
 				var value=source.get_shader_parameter(key)
 				if value is Texture2D:
 					var prepared:=texture(value)

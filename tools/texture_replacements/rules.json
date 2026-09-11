@@ -1,0 +1,2435 @@
+{
+  "review": "Curated material, motif and colour counterparts. Exact original names and texture dimensions retained; not an official upstream crosswalk.",
+  "dimension_reference": "Original-name texture dimensions cross-checked against QRP reference WADs; light3_2 and strng1_4 use QuadCompati dimensions. No reference pixels are included.",
+  "textures": {
+    "*04mwat2": {
+      "librequake": "*water0",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "*04water2": {
+      "librequake": "*water1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "*lava1": {
+      "librequake": "*lava1",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "*teleport": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "*water1": {
+      "librequake": "*water1",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "+0button": {
+      "librequake": "+0med_but_s1",
+      "width": 48,
+      "height": 48,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "+0floorsw": {
+      "librequake": "+0med_but_s1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "+2button": {
+      "librequake": "+2med_but_s1",
+      "width": 48,
+      "height": 48,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "adoor03_6": {
+      "librequake": "med_csl_brk7_1b",
+      "width": 16,
+      "height": 16,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "afloor1_3": {
+      "librequake": "afloor1_3",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "afloor1_4": {
+      "librequake": "afloor1_4",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "afloor1_8": {
+      "librequake": "afloor1_8",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "az1_6": {
+      "librequake": "med_ret_wood1",
+      "width": 32,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "bodiesa2_1": {
+      "width": 64,
+      "height": 128,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "guardian"
+    },
+    "bodiesa2_4": {
+      "width": 64,
+      "height": 128,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "gargoyle"
+    },
+    "bodiesa3_1": {
+      "width": 64,
+      "height": 128,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "guardian"
+    },
+    "bodiesa3_2": {
+      "width": 64,
+      "height": 128,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "guardian"
+    },
+    "bodiesa3_3": {
+      "width": 64,
+      "height": 128,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "gargoyle"
+    },
+    "bricka2_4": {
+      "librequake": "med_csl_brk7_1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "bricka2_6": {
+      "librequake": "med_csl_brk2_2",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city2_3": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city2_6": {
+      "librequake": "med_dbrick6",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city2_7": {
+      "librequake": "med_ebrick6",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city2_8": {
+      "librequake": "med_ebrick18",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city3_4": {
+      "librequake": "med_plaster2",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city4_1": {
+      "librequake": "med_csl_brk7_2",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city4_2": {
+      "librequake": "med_csl_brk7_1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "city4_7": {
+      "librequake": "med_csl_brk17b",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "comp1_1": {
+      "librequake": "comp1_1",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "comp1_2": {
+      "librequake": "comp1_2",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "comp1_3": {
+      "librequake": "comp1_3",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "comp1_4": {
+      "librequake": "comp1_4",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "comp1_5": {
+      "librequake": "comp1_5",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "comp1_6": {
+      "librequake": "comp1_6",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "comp1_7": {
+      "librequake": "comp1_7",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "comp1_8": {
+      "librequake": "comp1_8",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "cop1_1": {
+      "librequake": "met_cop_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "cop1_2": {
+      "librequake": "met_cop_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "cop1_3": {
+      "librequake": "met_blu_block",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "cop1_5": {
+      "librequake": "ecop1_4",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "cop1_6": {
+      "librequake": "met_cop_riv",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "cop1_7": {
+      "librequake": "met_brn_grate",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "cop2_5": {
+      "librequake": "met_cop_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "cop3_4": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "door04_1": {
+      "librequake": "med_dr3a",
+      "width": 128,
+      "height": 192,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "door05_3": {
+      "librequake": "med_wood6",
+      "width": 16,
+      "height": 16,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "dung01_1": {
+      "width": 128,
+      "height": 128,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "ossuary"
+    },
+    "dung01_2": {
+      "librequake": "med_wood2",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "dung01_3": {
+      "librequake": "med_wood6",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "dung01_4": {
+      "librequake": "med_wood2",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 90
+    },
+    "dung01_5": {
+      "librequake": "med_wood6",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 90
+    },
+    "dung02_1": {
+      "librequake": "med_wood8",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "dung02_5": {
+      "width": 64,
+      "height": 64,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "ossuary"
+    },
+    "ecop1_4": {
+      "librequake": "ecop1_4",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "ecop1_6": {
+      "librequake": "met_cop_riv",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "emetal1_3": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "ground1_2": {
+      "librequake": "med_bigdirt3",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "ground1_5": {
+      "librequake": "med_cobstn2_1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "ground1_6": {
+      "librequake": "med_cobstn2_1a",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "ground1_7": {
+      "librequake": "med_rock5",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "lgmetal4": {
+      "librequake": "met_brn_block",
+      "width": 320,
+      "height": 192,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "light3_2": {
+      "librequake": "met_brn_lit1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "light3_7": {
+      "librequake": "+0_sqshoot1",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "light3_8": {
+      "librequake": "met_brn_lit6",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "met5_1": {
+      "librequake": "met_brn_rivs",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "met5_2": {
+      "librequake": "altar1_4",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "met5_3": {
+      "librequake": "dem4_4",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal1_3": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal1_4": {
+      "librequake": "met_blu_rivs",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal1_6": {
+      "librequake": "med_flat9",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal1_7": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal2_2": {
+      "librequake": "met_gry_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal2_4": {
+      "librequake": "met_brn_stile2",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal4_3": {
+      "librequake": "met_brn_trim16s",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal4_4": {
+      "librequake": "metal4_4",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "metal4_5": {
+      "librequake": "met_gry_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal5_1": {
+      "librequake": "met_cop_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal5_8": {
+      "librequake": "med_flat8",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal6_1": {
+      "librequake": "met_blu_rivs",
+      "width": 32,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metal6_2": {
+      "librequake": "met_brn_rivs",
+      "width": 32,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metalt1_2": {
+      "librequake": "dem4_4",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metalt2_1": {
+      "librequake": "altar1_4",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metalt2_3": {
+      "librequake": "met_brn_trim32s",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "metalt2_8": {
+      "librequake": "altar1_3",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "mmetal1_1": {
+      "librequake": "met_brn_trim32",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "mmetal1_2": {
+      "librequake": "met_brn_rivg",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "mmetal1_3": {
+      "librequake": "met_blu_slat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "mmetal1_6": {
+      "librequake": "met_grate",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "muh_bad": {
+      "width": 320,
+      "height": 192,
+      "match": "original generated gothic relief; approximate motif counterpart",
+      "rotation": 0,
+      "generated": "sentinel"
+    },
+    "nmetal2_1": {
+      "librequake": "met_gry_flat",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "plat_side1": {
+      "librequake": "plat_side1",
+      "width": 64,
+      "height": 16,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "plat_stem": {
+      "librequake": "plat_stem",
+      "width": 16,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "plat_top1": {
+      "librequake": "plat_top1",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "plat_top2": {
+      "librequake": "plat_top2",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "rune1_1": {
+      "librequake": "met_brn_signs",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune1_5": {
+      "librequake": "met_brn_signs",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune1_6": {
+      "librequake": "met_brn_signs",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune1_7": {
+      "librequake": "met_brn_signs",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune2_1": {
+      "librequake": "met_rune1",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune2_2": {
+      "librequake": "met_rune1",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune2_3": {
+      "librequake": "met_rune1",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune2_4": {
+      "librequake": "met_rune1",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "rune2_5": {
+      "librequake": "met_rune1",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor1_2": {
+      "librequake": "t_flor1b",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor3_2": {
+      "librequake": "med_plaster2",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor4_1": {
+      "librequake": "met_grate",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor4_2": {
+      "librequake": "tek_grate",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor4_4": {
+      "librequake": "floor5_3",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor4_5": {
+      "librequake": "met_brn_grt2a",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor4_7": {
+      "librequake": "met_brn_grt2a",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sfloor4_8": {
+      "librequake": "met_brn_grt2a",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "sky4": {
+      "librequake": "sky4",
+      "width": 256,
+      "height": 128,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "strng1_4": {
+      "librequake": "med_wood6",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech01_1": {
+      "librequake": "t_wire01",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech01_2": {
+      "librequake": "tek_pipe1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech01_5": {
+      "librequake": "t_wire01",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech01_6": {
+      "librequake": "t_wire02",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech01_7": {
+      "librequake": "w94_1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech02_6": {
+      "librequake": "aqrust03",
+      "width": 32,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech02_7": {
+      "librequake": "aqsupp08",
+      "width": 32,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech03_1": {
+      "librequake": "tech08_1",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech03_2": {
+      "librequake": "tech08_2",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech04_1": {
+      "librequake": "tech04_1",
+      "width": 128,
+      "height": 16,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "tech04_2": {
+      "librequake": "aqtrim02",
+      "width": 128,
+      "height": 16,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech04_3": {
+      "librequake": "tech04_3",
+      "width": 16,
+      "height": 128,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "tech04_4": {
+      "librequake": "aqsupp06",
+      "width": 16,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech04_5": {
+      "librequake": "tech04_1",
+      "width": 128,
+      "height": 16,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech04_6": {
+      "librequake": "aqtrim02",
+      "width": 128,
+      "height": 16,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech04_7": {
+      "librequake": "tech04_3",
+      "width": 16,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech04_8": {
+      "librequake": "aqsupp06",
+      "width": 16,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech05_1": {
+      "librequake": "t_wall2aa",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech05_2": {
+      "librequake": "tech14-1",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech06_1": {
+      "librequake": "t_blok01a",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech06_2": {
+      "librequake": "t_wall2ab",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech07_1": {
+      "librequake": "t_blok04",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tech07_2": {
+      "librequake": "t_blok05",
+      "width": 128,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tele_top": {
+      "librequake": "telepad1",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tlight01": {
+      "librequake": "tlightfb",
+      "width": 32,
+      "height": 32,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tlight02": {
+      "librequake": "t_lit07",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tlight03": {
+      "librequake": "tek_lit1",
+      "width": 32,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tlight07": {
+      "librequake": "tek_lit3",
+      "width": 32,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tlight08": {
+      "librequake": "door02_1",
+      "width": 32,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "tlight09": {
+      "librequake": "tek_lit3",
+      "width": 32,
+      "height": 128,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "trigger": {
+      "librequake": "trigger",
+      "width": 64,
+      "height": 64,
+      "match": "same-name counterpart",
+      "rotation": 0
+    },
+    "wmet4_8": {
+      "librequake": "met_blu_trim32s",
+      "width": 64,
+      "height": 64,
+      "match": "reviewed material/pattern counterpart",
+      "rotation": 0
+    },
+    "+1button": {
+      "librequake": "+1med_but_s1",
+      "width": 48,
+      "height": 48,
+      "match": "matching button animation frame",
+      "rotation": 0
+    },
+    "+3button": {
+      "librequake": "+3med_but_s1",
+      "width": 48,
+      "height": 48,
+      "match": "matching button animation frame",
+      "rotation": 0
+    },
+    "+abutton": {
+      "librequake": "+amed_but_s1",
+      "width": 48,
+      "height": 48,
+      "match": "matching alternate button frame",
+      "rotation": 0
+    },
+    "rock3_8": {
+      "librequake": "med_rock5",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizwood1_3": {
+      "librequake": "med_wood2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "rwood2": {
+      "librequake": "med_wood2",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wswamp2_1": {
+      "librequake": "wswamp2_1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "rock4_1": {
+      "librequake": "med_rock5",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizwood1_5": {
+      "librequake": "med_wood2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal1_2": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizwood1_2": {
+      "librequake": "med_wood2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wswamp2_2": {
+      "librequake": "wswamp2_2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "wbrick1_5": {
+      "librequake": "wbrick1_5",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "wall3_4": {
+      "librequake": "med_dbrick6",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "*water2": {
+      "librequake": "*water2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "afloor3_1": {
+      "librequake": "afloor3_1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "+3slip": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizmet1_2": {
+      "librequake": "met_blu_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "bwood2": {
+      "librequake": "med_wood2",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wall14_5": {
+      "librequake": "wall14_5",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "wwall1_1": {
+      "librequake": "med_dbrick6",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wiz1_1": {
+      "librequake": "med_dbrick6",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "sky1": {
+      "librequake": "sky4",
+      "width": 256,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tech02_3": {
+      "librequake": "comp1_2",
+      "width": 16,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "key02_1": {
+      "librequake": "met_brn_signs",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wkey02_1": {
+      "librequake": "met_brn_signs",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "door01_2": {
+      "librequake": "med_dr3a",
+      "width": 128,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wiz1_4": {
+      "librequake": "wiz1_4",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "wswamp1_4": {
+      "librequake": "med_cobstn2_1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizmet1_7": {
+      "librequake": "met_blu_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wkey02_3": {
+      "librequake": "met_brn_signs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "adoor02_2": {
+      "librequake": "med_dr3a",
+      "width": 128,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wswitch1": {
+      "librequake": "+0med_but_s1",
+      "width": 48,
+      "height": 48,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "basebutn3": {
+      "librequake": "+0med_but_s1",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "azwall1_5": {
+      "librequake": "med_dbrick6",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "adoor01_2": {
+      "librequake": "med_dr3a",
+      "width": 128,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wkey02_2": {
+      "librequake": "met_brn_signs",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "door04_2": {
+      "librequake": "med_dr3a",
+      "width": 128,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+0slip": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+1slip": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+2slip": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+4slip": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+5slip": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+6slip": {
+      "librequake": "*teleport",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "sfloor4_6": {
+      "librequake": "met_grate",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city2_1": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city2_2": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city3_2": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "column1_5": {
+      "librequake": "met_brn_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "crate0_top": {
+      "librequake": "crate0_top",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "crate1_side": {
+      "librequake": "crate1_side",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "crate0_side": {
+      "librequake": "crate0_side",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "city5_3": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city5_8": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal5_2": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfrbs5": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city5_4": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city6_3": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city5_1": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "c-white": {
+      "librequake": "med_flat9",
+      "width": 16,
+      "height": 16,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "c-black": {
+      "librequake": "med_flat9",
+      "width": 16,
+      "height": 16,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wmet4_7": {
+      "librequake": "met_blu_trim32s",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfrfr2": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "rock1_2": {
+      "librequake": "rock1_2",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "city5_6": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "sky2": {
+      "librequake": "sky2",
+      "width": 256,
+      "height": 128,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "city5_7": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "rock4_2": {
+      "librequake": "med_rock5",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "dem5_3": {
+      "librequake": "dem5_3",
+      "width": 64,
+      "height": 128,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "demc4_4": {
+      "librequake": "med_dbrick1_t3",
+      "width": 64,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "*slime1": {
+      "librequake": "*slime1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "*water0": {
+      "librequake": "*water0",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "wizwood1_8": {
+      "librequake": "med_wood2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal5_6": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfrfb1": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "window02_1": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "window01_4": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "window01_3": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizwin1_2": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+0slipbot": {
+      "librequake": "+0slipbot",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "slipbotsd": {
+      "librequake": "*teleport",
+      "width": 16,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "carch03": {
+      "librequake": "med_dr2a",
+      "width": 256,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wgrnd1_6": {
+      "librequake": "med_bigdirt3",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "twall2_5": {
+      "librequake": "t_wall2aa",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "twall2_2": {
+      "librequake": "t_wall2aa",
+      "width": 64,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ecop1_7": {
+      "librequake": "met_cop_riv",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tlight11": {
+      "librequake": "tlight11",
+      "width": 16,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "ceil1_1": {
+      "librequake": "met_brn_trim32",
+      "width": 16,
+      "height": 16,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "light1_7": {
+      "librequake": "met_brn_lit1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+0sliptop": {
+      "librequake": "+0sliptop",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "sliptopsd": {
+      "librequake": "*teleport",
+      "width": 16,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tlightb": {
+      "librequake": "wall_blue_a",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tlightr": {
+      "librequake": "wall_red_a",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "light1_4": {
+      "librequake": "met_brn_lit1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "rarrow": {
+      "librequake": "wall_red_a",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "barrow": {
+      "librequake": "wall_blue_a",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city2_0": {
+      "librequake": "med_ebrick8",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal5_4": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal4_2": {
+      "librequake": "met_brn_trim32",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbbs4": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city4_6": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbfr2": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metalt1_1": {
+      "librequake": "met_brn_trim32",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbfm": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "window01_2": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "window1_3": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "window01_1": {
+      "librequake": "med_dr2a",
+      "width": 64,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "door03_5": {
+      "librequake": "med_dr3a",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "mswtch_3": {
+      "librequake": "+0med_but_s1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "door03_4": {
+      "librequake": "med_dr3a",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "twall2_1": {
+      "librequake": "t_wall2aa",
+      "width": 64,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+1floorsw": {
+      "librequake": "+1med_but_s1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+2floorsw": {
+      "librequake": "+2med_but_s1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+3floorsw": {
+      "librequake": "+3med_but_s1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+afloorsw": {
+      "librequake": "+amed_but_s1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "unwall1_8": {
+      "librequake": "med_dbrick6",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wmet3_3": {
+      "librequake": "met_blu_trim32s",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "*lava2": {
+      "librequake": "*lava2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "ctfrfr1": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbfr1": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "*02owat": {
+      "librequake": "*water1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city4_5": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "rock3_7": {
+      "librequake": "med_rock5",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "citya1_1": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal2": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wmet2_1": {
+      "librequake": "met_blu_trim32s",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "m5_5": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal5_3": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "c-blue": {
+      "librequake": "wall_blue_a",
+      "width": 16,
+      "height": 16,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfrfm": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "c-red": {
+      "librequake": "wall_red_a",
+      "width": 16,
+      "height": 16,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizmet1_1": {
+      "librequake": "met_blu_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal6_4": {
+      "librequake": "met_brn_flat",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal6_3": {
+      "librequake": "met_brn_flat",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tech10_1": {
+      "librequake": "comp1_1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "door02_1": {
+      "librequake": "door02_1",
+      "width": 16,
+      "height": 128,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "*slime0": {
+      "librequake": "*slime1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "light1_1": {
+      "librequake": "met_brn_lit1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "mmetal1_8": {
+      "librequake": "met_blu_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "arrow_m": {
+      "librequake": "med_flat9",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "light1_2": {
+      "librequake": "met_brn_lit1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizmet1_8": {
+      "librequake": "met_blu_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "light3_3": {
+      "librequake": "met_brn_lit1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "black": {
+      "librequake": "black",
+      "width": 16,
+      "height": 16,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "twall5_1": {
+      "librequake": "t_wall2aa",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "edoor01_1": {
+      "librequake": "edoor01_1",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "door03_3": {
+      "librequake": "med_dr3a",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "rock5_2": {
+      "librequake": "med_rock5",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal2_8": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ground1_1": {
+      "librequake": "med_bigdirt3",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctftex_r1_1": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbr5": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfmet_r03": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbb5": {
+      "librequake": "wall_blue_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal2_1": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city2_5": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wall9_8": {
+      "librequake": "med_dbrick6",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfmet_r04": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfflag_b5": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wmet3_1": {
+      "librequake": "met_blu_trim32s",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctftex_r3": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfmet_r01": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfflag_r5": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfmet_r08": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfflag_r6": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfflag_b6": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tech08_2": {
+      "librequake": "tech08_2",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "qtex08": {
+      "librequake": "comp1_1",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "twall5_2": {
+      "librequake": "t_wall2aa",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tech14_1": {
+      "librequake": "comp1_1",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tech13_2": {
+      "librequake": "comp1_1",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfrt1": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbt1": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfrbs3": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal5r8": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tlight01_2": {
+      "librequake": "met_brn_lit1",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal2r8": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "metal1r6": {
+      "librequake": "wall_red_a",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbbs3": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfbtdr": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ctfrtdr": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+0basebtn": {
+      "librequake": "+0basebtn",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "wmet3_4": {
+      "librequake": "met_blu_trim32s",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "+1basebtn": {
+      "librequake": "+1basebtn",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "+abasebtn": {
+      "librequake": "+abasebtn",
+      "width": 32,
+      "height": 32,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "wgrass1_1": {
+      "librequake": "med_cobstn2_1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "city6_8": {
+      "librequake": "med_ebrick8",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "lgmetal2": {
+      "librequake": "met_brn_flat",
+      "width": 320,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "mmetal1_7": {
+      "librequake": "met_blu_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wizwood1_6": {
+      "librequake": "med_wood2",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tf1": {
+      "librequake": "wall_red_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "tf2": {
+      "librequake": "wall_blue_a",
+      "width": 128,
+      "height": 128,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "ecop1_1": {
+      "librequake": "ecop1_1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "azfloor1_1": {
+      "librequake": "azfloor1_1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "same-name counterpart"
+    },
+    "grave01_1": {
+      "librequake": "med_dbrick1_t3",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "*04awater1": {
+      "librequake": "*water1",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wceiling4": {
+      "librequake": "met_brn_trim32",
+      "width": 192,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "m5_8": {
+      "librequake": "met_brn_flat",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "wmet2_6": {
+      "librequake": "met_blu_trim32s",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "grave03_7": {
+      "librequake": "med_dbrick1_t3",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "column1_4": {
+      "librequake": "met_brn_rivs",
+      "width": 64,
+      "height": 64,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    },
+    "adoor09_2": {
+      "librequake": "med_dr3a",
+      "width": 128,
+      "height": 192,
+      "rotation": 0,
+      "match": "multiplayer material family / team marker; approximate"
+    }
+  }
+}

@@ -147,3 +147,6 @@ Hit registration, latency simulation and test limitations: [network testing](NET
 The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Freeze Tag, Chainsaw Circus and Team Fortress (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns use trigger-held dragging instead of scrollbars, including the TF class selector. Flag captures produce a short fanfare and a team/player banner.
 
 Lobby voting is available on the waiting-room wall (controller pointer in VR; aim and click on desktop). Select a mode first, then a map from that mode's server maplist. In-game match votes use the same selection order. The themed selectors stay open until an option is selected, including while lobby votes refresh. Active in-game votes display their target, vote counts, time remaining and menu instructions on both desktop and VR HUDs.
+
+Assault (AS) is available with the bundled **HiSlop** train map. Enable it through
+`sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).

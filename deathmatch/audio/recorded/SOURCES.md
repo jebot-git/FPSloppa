@@ -26,3 +26,7 @@ Archive SHA-256: `e9100a4e3b9dcd146993089970dc6097dcf9935fa4683b196040012bad65d6
 pulses, producing mono 32 kHz PCM at −8 dBFS peak. It uses the normal effects bus,
 spatial attenuation and a per-player 180 ms contact-feedback limit. It does not
 change the weapon-report loudness calibration.
+
+## Current selection
+
+Weapon reports, explosions and pickups now select the edited effects described in `../doom-style/SOURCES.md`. The field-recorded gunshots and generated tonal pickups above remain legacy assets. Footsteps, impacts and pain grunts remain active; their CC0 recordings also supply the new pickup and jump/landing layers.

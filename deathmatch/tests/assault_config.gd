@@ -1,0 +1,16 @@
+extends SceneTree
+func _initialize() -> void:
+ const Config=preload("res://deathmatch/server/config.gd")
+ var config=Config.parse('set sv_gametype "as"\nset sv_gametypes "dm tf as"\nmap "as_hislop"\nset as_maplist "as_hislop"')
+ assert(not config.has("error"))
+ assert(config.values.gametypes==["dm","tf","as"])
+ assert(config.values.mode_maps.as==["as_hislop"])
+ var defaults=Config.parse('set sv_gametype "as"\nmap "as_hislop"')
+ assert(defaults.values.gametypes==["as"])
+ assert(defaults.values.mode_maps.as.is_empty())
+ assert(Config.parse('set sv_gametype "as"\nset sv_gametypes "tf"').has("error"))
+ assert(FileAccess.get_file_as_string("res://maps/as_maplist.txt").strip_edges()=="as_hislop")
+ var entries=preload("res://deathmatch/maps/loader.gd").catalog()
+ assert(entries.any(func(row):return row.id=="as_hislop" and row.title=="HiSlop" and row.modes==["as"]))
+ print("ASSAULT_CONFIG_PASS mixed allowlist, default AS-only, per-mode maplist, bundled title")
+ quit()

@@ -1,4 +1,5 @@
 extends CharacterBody3D
+signal movement_sound(kind: String,where: Vector3)
 const Art = preload("res://deathmatch/art.gd")
 const QuakeMovement = preload("res://deathmatch/movement/quake.gd")
 var frozen:=false
@@ -38,6 +39,8 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	name = "P_%d" % id
 	collision_layer = 2
 	collision_mask = 3
+	# World lifts can carry players; other player capsules must not carry them on respawn.
+	platform_floor_layers = 1
 	floor_snap_length = .6
 	floor_max_angle = deg_to_rad(50)
 	var shape := CollisionShape3D.new()
@@ -98,7 +101,10 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	var step := .55 if quake_movement else .43
 	var travel := Vector3(velocity.x,0,velocity.z)*delta
 	if stepping: step_up(travel,step)
+	var impact_speed:=velocity.y
 	move_and_slide()
+	if jumping and velocity.y>0:movement_sound.emit("jump",global_position+Vector3.UP*.65)
+	elif not was_grounded and is_on_floor() and impact_speed < -3.2 and not in_water:movement_sound.emit("land",global_position+Vector3.UP*.2)
 	if stepping and not is_on_floor() and velocity.y<=0:apply_floor_snap()
 	if stepping and is_on_floor() and absf(position.y-previous_y)<=step+.05:
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)

@@ -6,6 +6,7 @@ func _initialize():
 	var uv=bake.face_uvs(PackedVector2Array([Vector2(-.5,-.5),Vector2(.5,-.5),Vector2(.5,.5),Vector2(-.5,.5)]),Vector2(16,16),0)
 	# Fractional UV extents span three luxels here, so malformed data must safely fallback.
 	assert(uv[0]==Vector2(.5,.5)/1024)
+	assert(bake.invalid_faces==1 and bake.overflow_faces==0)
 	uv=bake.face_uvs(PackedVector2Array([Vector2.ZERO,Vector2.RIGHT,Vector2.ONE,Vector2.DOWN]),Vector2(16,16),0)
 	assert(bake.faces==1)
 	assert(bake.image.get_pixel(3,1)==Color.RED)

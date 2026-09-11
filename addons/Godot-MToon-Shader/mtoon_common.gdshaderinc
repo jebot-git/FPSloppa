@@ -41,9 +41,9 @@ uniform float _AlphaCutoutEnable : hint_range(0,1,1) = 0.0;
 uniform float _Cutoff : hint_range(0,1) = 0.5;
 uniform vec4 _Color : source_color = vec4(1.0,1.0,1.0,1.0); // "Lit Texture + Alpha"
 uniform vec4 _ShadeColor : source_color = vec4(0.97, 0.81, 0.86, 1); // "Shade Color"
-uniform sampler2D _MainTex : source_color, hint_default_white;
+uniform sampler2D _MainTex : source_color, hint_default_white, filter_linear_mipmap_anisotropic;
 uniform vec4 _MainTex_ST = vec4(1.0,1.0,0.0,0.0);
-uniform sampler2D _ShadeTexture : source_color, hint_default_white;
+uniform sampler2D _ShadeTexture : source_color, hint_default_white, filter_linear_mipmap_anisotropic;
 uniform float _BumpScale : hint_range(-16,16) = 1.0; // "Normal Scale"
 uniform sampler2D _BumpMap : hint_normal; // "Normal Texture"
 uniform sampler2D _ReceiveShadowTexture : hint_default_white;
@@ -54,16 +54,16 @@ uniform float _ShadeShift : hint_range(-1.0, 1.0) = 0.0;
 uniform float _ShadeToony : hint_range(0.0, 1.0) = 0.9;
 uniform float _LightColorAttenuation : hint_range(0.0, 1.0) = 0.0;
 uniform float _IndirectLightIntensity : hint_range(0.0, 1.0) = 0.1;
-uniform sampler2D _RimTexture : source_color, hint_default_white;
+uniform sampler2D _RimTexture : source_color, hint_default_white, filter_linear_mipmap_anisotropic;
 uniform vec4 _RimColor : source_color = vec4(0,0,0,1);
 uniform float _RimLightingMix : hint_range(0.0, 1.0) = 0.0;
 uniform float _RimFresnelPower : hint_range(0.0, 100.0) = 1.0;
 uniform float _RimLift : hint_range(0.0, 1.0) = 0.0;
 uniform vec4 _MatcapColor : source_color = vec4(0,0,0,1);
-uniform sampler2D _SphereAdd : source_color, hint_default_black; // "Sphere Texture(Add)"
+uniform sampler2D _SphereAdd : source_color, hint_default_black, filter_linear_mipmap_anisotropic; // "Sphere Texture(Add)"
 uniform vec4 _EmissionColor : source_color = vec4(0,0,0,1); // "Color"
 uniform float _EmissionMultiplier = 1.0;
-uniform sampler2D _EmissionMap : source_color, hint_default_white;
+uniform sampler2D _EmissionMap : source_color, hint_default_white, filter_linear_mipmap_anisotropic;
 // Not implemented:
 uniform float _OutlineWidthMode : hint_range(0,2,1) = 1;
 uniform sampler2D _OutlineWidthTexture : hint_default_white;
@@ -239,7 +239,8 @@ void fragment() {
 	 // Albedo color
 	shade = texture(_ShadeTexture, mainUv);
 	lit = mainTex;
-	vec3 emission = texture(_EmissionMap, mainUv).rgb * _EmissionColor.rgb * _EmissionMultiplier;
+	vec3 authoredEmission = texture(_EmissionMap, mainUv).rgb * _EmissionColor.rgb * _EmissionMultiplier;
+	vec3 emission = authoredEmission;
 
 	vec3 tangentNormal = vec3(0.0,0.0,1.0);
 	if (_NORMALMAP) {
@@ -331,7 +332,10 @@ void fragment() {
 	EMISSION = emission;
 	if (_ArenaLightingEnabled && isOutline < 0.5) {
 		ALBEDO = clamp(lit.rgb, vec3(0.0), vec3(1.0)) * 0.65;
-		EMISSION = ALBEDO * _ArenaFill + clamp(emission, vec3(0.0), vec3(0.08));
+		// Rim/matcap already contribute to legacy emission above. Do not leak
+		// these view-dependent highlights into the arena policy: they shimmer
+		// over fine hair and clothing even when RIM and specular are disabled.
+		EMISSION = ALBEDO * _ArenaFill + clamp(authoredEmission, vec3(0.0), vec3(0.08));
 		NORMAL = viewNormal;
 		RIM = 0.0;
 	}

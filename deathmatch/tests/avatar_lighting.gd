@@ -45,7 +45,11 @@ func run() -> void:
 			for i in mesh.mesh.get_surface_count():
 				var material: Material=mesh.get_active_material(i)
 				print("AVATAR_MATERIAL ",sample," ",material.get_class()," ",material.shader.resource_path if material is ShaderMaterial else "PBR")
-				if material is ShaderMaterial:check(material.get_shader_parameter("_ArenaLightingEnabled")==true,"MToon arena response enabled")
+				if material is ShaderMaterial:
+					check(material.get_shader_parameter("_ArenaLightingEnabled")==true,"MToon arena response enabled")
+					for key in ["_MainTex","_ShadeTexture","_EmissionMap"]:
+						var texture=material.get_shader_parameter(key)
+						if texture is Texture2D and maxi(texture.get_width(),texture.get_height())>8:check(texture.get_image().has_mipmaps(),"MToon "+key+" has mipmaps")
 		sun.light_energy=0;lamp.light_energy=0;environment.ambient_light_energy=.02
 		var dark:=stats(await shot(sample+"-dark"))
 		sun.light_energy=5;lamp.light_energy=8;lamp.light_color=Color.WHITE;environment.ambient_light_energy=.6

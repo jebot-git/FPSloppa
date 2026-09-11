@@ -2,7 +2,7 @@ extends RefCounted
 const Profile=preload("res://deathmatch/profile.gd")
 const Bounds=preload("res://deathmatch/vr/preferences.gd")
 static func defaults() -> Dictionary:
-	return {"spatial_audio":"steam_audio","master":1.0,"music":.3,"effects":1.0,"voice":.8,"announcer":.8,"output":"Default","render_scale":1.0,"msaa":1 if OS.has_feature("android") else 2,"texture_filter":2,"shadows":false,"fullscreen":false,"fov":85.0,"hud_scale":1.0,"hud_y":-.46}
+	return {"train_motion":true,"spatial_audio":"steam_audio","master":1.0,"music":.3,"effects":1.0,"voice":.8,"announcer":.8,"output":"Default","render_scale":1.0,"msaa":1 if OS.has_feature("android") else 2,"texture_filter":2,"shadows":false,"fullscreen":false,"fov":85.0,"hud_scale":1.0,"hud_y":-.46}
 static func limits(key: String) -> Array:
 	return [0,2] if key=="texture_filter" else [.7,1.4] if key=="hud_scale" else [-.65,.55] if key=="hud_y" else [.5,1.25] if key=="render_scale" else [0,3] if key=="msaa" else [60,110] if key=="fov" else [0,1]
 static func read_settings(path: String="") -> Dictionary:

@@ -1,0 +1,21 @@
+{
+  "id": "as_hislop",
+  "format": 29,
+  "bytes": 2027788,
+  "sha256": "3359abe0c2161dd1080bf31e6afa45d5ed764a84e9678a1c28f85a06ca764008",
+  "brushes": 316,
+  "entities": 112,
+  "textures": 15,
+  "recommended_players": [
+    4,
+    10
+  ],
+  "concept": true,
+  "modes": [
+    "as",
+    "tf"
+  ],
+  "objective_adapter": "native paired AS; optional TF flag-and-capture concept",
+  "scenery_motion": true,
+  "full_vis": true
+}

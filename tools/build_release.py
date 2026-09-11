@@ -27,10 +27,10 @@ for _,folder,_ in targets:
         source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,destination)
     for source in (root/'docs').glob('*.md'):
         out=dest/'docs'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
-    for name in ['NETWORK_TESTING.md','SESSION_FEATURES.md','AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','LIVE_VR_TEST.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
+    for name in ['NETWORK_TESTING.md','SESSION_FEATURES.md','AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','LIVE_VR_TEST.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         shutil.copy2(root/name,dest/name)
-    for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio/recorded').rglob('*'))+list((root/'deathmatch/audio/announcer').rglob('*'))+list((root/'deathmatch/audio/music').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
-        if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt'}):
+    for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
+        if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt','CREDITS.txt'}):
             out=dest/'licenses'/source.relative_to(root);out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
     for source in (root/'deathmatch/maps').glob('LibreQuake-*.txt'):
         out=dest/'licenses'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
@@ -75,9 +75,10 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
     for name in sorted(set(files)-{''}):
         rel=Path(name);f=root/rel
         # Local AD derivatives are excluded even when packaging a non-Git checkout.
+        if rel.name.startswith('tf_fo_') or rel.parts[:3]==('tools','fortressone','local'):continue
         if 'AD-NOTICES' in rel.parts or rel.name.startswith('ad_arena_') or rel.name.endswith('_ad_maplist.txt') or rel.name=='ad-maplists.cfg':continue
         if len(rel.parts)>1 and rel.parts[:2]==('optional-ad-tools','local'):continue
-        if not f.is_file() or rel.parts[0] in RETIRED | {'android','test-results','release-assets','.agents','.codex'}:continue
+        if not f.is_file() or rel.parts[0] in RETIRED | {'materials','textures','android','test-results','release-assets','.agents','.codex'}:continue
         if any(part in {'.godot','.git','__pycache__'} for part in rel.parts):continue
         if f.suffix in {'.import','.pyc','.log','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
         z.write(f,Path('Godot')/rel)

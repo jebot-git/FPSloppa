@@ -23,6 +23,8 @@ var damage: ColorRect
 var hit: Label
 var scoreboard: PanelContainer
 var scores: Label
+var score_table
+var suicide: Button
 var name_field: LineEdit
 var address_field: LineEdit
 var port_field: SpinBox
@@ -44,7 +46,6 @@ var host_panel: PanelContainer
 var host_mode
 var host_port: SpinBox
 var spectator_choice: CheckButton
-var scoreboard_was_open:=false
 
 func panel_style(color: Color) -> StyleBoxFlat:
 	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
@@ -121,18 +122,11 @@ func setup(arena: Node) -> void:
 	hud.add_child(damage)
 	damage.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	damage.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	scoreboard = PanelContainer.new()
+	score_table=preload("res://deathmatch/ui/scoreboard.gd").new()
+	scoreboard=score_table
 	hud.add_child(scoreboard)
-	scoreboard.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
-	scoreboard.offset_left = -340
-	scoreboard.offset_right = 340
-	scoreboard.offset_top = -215
-	scoreboard.offset_bottom = 140
-	scoreboard.add_theme_stylebox_override("panel",panel_style(Color(.02,.035,.04,.97)))
-	scores = text(scoreboard,"",21)
-	var mono := SystemFont.new()
-	mono.font_names = PackedStringArray(["DejaVu Sans Mono","monospace"])
-	scores.add_theme_font_override("font",mono)
+	score_table.setup()
+	scores=score_table.title
 	chat = LineEdit.new()
 	hud.add_child(chat)
 	chat.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
@@ -295,6 +289,12 @@ func _build_menu(root: Control) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
 	)
 	var session_actions:=HBoxContainer.new();column.add_child(session_actions)
+	suicide=button(session_actions,"SUICIDE · −1 FRAG",func():
+		game.request_suicide()
+		game.menu_open=false;show_menu(false)
+		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
+	)
+	suicide.tooltip_text="Respawn after the normal delay. Costs one frag. Unavailable while frozen or waiting between rounds."
 	leave = button(session_actions,"LEAVE MATCH",func():
 		# Hiding a pressed VR control can deliver another release during teardown.
 		if game.active:game.disconnect_game()
@@ -347,6 +347,7 @@ func show_menu(open: bool) -> void:
 	resume.visible = game.active
 	spectator_choice.visible=not game.active
 	leave.visible = game.active
+	suicide.visible = game.active
 	votes_button.visible=game.active
 	if votes_panel and not open:votes_panel.hide()
 	for b in launch_buttons: b.visible = not game.active
@@ -367,30 +368,27 @@ func toast(message: String) -> void:
 
 func _process(_delta: float) -> void:
 	if game==null: return
-	fortress_button.visible=game.active and game.match_mode.kind=="tf" and not game.local_state().get("spectator",false)
+	fortress_button.visible=game.active and not game.demos.playing and game.match_mode.kind=="tf" and not game.local_state().get("spectator",false)
 	map_choice.trigger.disabled=game.active
 	map_import.disabled=game.active and multiplayer.is_server()
 	vr_actions.visible=game.is_vr()
-	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · LEFT Y/B Scores"
+	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · HOLD LEFT Y/B Scores"
 	hud.visible = game.active
 	avatar_status.text = ""
 	vote_alert.visible=false;capture_alert.visible=false
 	if not game.active:
-		scoreboard_was_open=false
 		return
-	if game.intermission>0 and not scoreboard_was_open:
-		game.menu_open=false;show_menu(false)
-		if not game.headless and not game.is_vr():Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
-	scoreboard_was_open=game.intermission>0
 	var state: Dictionary = game.local_state()
+	var viewed_id: int=game.demos.selected_player if game.demos.playing else multiplayer.get_unique_id()
+	suicide.disabled=game.demos.playing or state.is_empty() or state.get("dead",true) or state.get("spectator",false) or game.intermission>0 or game.lobby.active() or game.match_mode.special.blocked(viewed_id)
 	if state.is_empty(): return
-	var d: Dictionary = game.match_mode.fortress.weapon_data(multiplayer.get_unique_id(),state.weapon)
+	var d: Dictionary = game.match_mode.fortress.weapon_data(viewed_id,state.weapon)
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
 	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size()]
 	if game.match_mode.kind!="dm":
-		match_status.text=game.match_mode.status(game.multiplayer.get_unique_id()).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
+		match_status.text=game.match_mode.status(viewed_id).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
 	var capture: Dictionary=game.match_mode.capture_status()
 	capture_alert.visible=not capture.is_empty() and (not game.is_vr() or game.menu_open or game.intermission>0)
 	if not capture.is_empty():
@@ -407,7 +405,7 @@ func _process(_delta: float) -> void:
 	kill_feed.text = "\n".join(lines)
 	hit.visible = game.hit_flash>0
 	damage.color.a = game.hurt_flash*.28
-	var actor=game.fighters.get(game.multiplayer.get_unique_id())
+	var actor=game.fighters.get(viewed_id)
 	water_tint.visible=actor!=null and actor.underwater and not state.dead and not game.menu_open
 	if water_tint.visible:match_status.text+="   ·   "+("AIR %ds"%ceili(actor.air_left) if actor.air_left>0 else "DROWNING · SURFACE!")
 	toast_label.visible = game.clock<toast_until
@@ -423,22 +421,9 @@ func _process(_delta: float) -> void:
 		center_message.text = "SPAWN PROTECTION"
 	if state.spectator:
 		vitals.text="SPECTATOR";weapon.text="";ammo.text=""
-	scoreboard.visible = not game.menu_open and (game.bindings.pressed("scores") or (game.is_vr() and game.xr_rig.scores) or game.intermission>0)
+	scoreboard.visible = not game.menu_open and (game.bindings.pressed("scores") or (game.is_vr() and game.xr_rig.scores))
 	if scoreboard.visible:
-		var sorted: Array=game.players.values().filter(func(player):return not player.spectator)
-		sorted.sort_custom(func(a,b):return a.kills>b.kills if a.kills!=b.kills else a.deaths<b.deaths)
-		var board: String="ROUND COMPLETE\n"+game.round_message+"\nNext round in %d\n"%ceili(game.intermission) if game.intermission>0 else "FPSloppa / "+game.match_mode.NAMES[game.match_mode.kind]+"\n"
-		if game.match_mode.team_game():board+="RED %d : BLUE %d   LIMIT %d\n"%[game.match_mode.scores[0],game.match_mode.scores[1],game.match_mode.limit()]
-		board+="\nMARINE                 FRAGS   DEATHS   PING\n"
-		for player in sorted:
-			board+="\n%-18s     %3d      %3d    %3d"%[("R " if player.team==0 else "B " if player.team==1 else "")+player.name,player.kills,player.deaths,player.ping]
-		var spectators: Array=game.players.values().filter(func(player):return player.spectator)
-		if not spectators.is_empty():
-			board+="\n\nSpectators:"
-			for i in range(spectators.size()):board+=("\n" if i%2==0 else "   ")+spectators[i].name
-		scores.text=board
-		scores.add_theme_font_size_override("font_size",16 if game.players.size()>8 else 20)
-		scoreboard.offset_top=-280 if game.players.size()>8 else -220
+		score_table.refresh(game)
 		center_message.text=""
 
 func _import_bsp(path: String) -> void:

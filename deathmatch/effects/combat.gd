@@ -161,8 +161,10 @@ func burst_gibs(pos: Vector3,direction: Vector3,seed_value: int) -> void:
 		body.linear_velocity=direction.normalized()*3+Vector3(rng.randf_range(-3,3),rng.randf_range(3,6),rng.randf_range(-3,3))
 		body.angular_velocity=Vector3(rng.randf_range(-6,6),rng.randf_range(-6,6),rng.randf_range(-6,6))
 		gibs.append(body)
+		var reference: WeakRef=weakref(body)
 		get_tree().create_timer(10).timeout.connect(func():
-			if is_instance_valid(body): body.queue_free())
+			var piece=reference.get_ref()
+			if is_instance_valid(piece):gibs.erase(piece);piece.queue_free())
 func _process(delta: float) -> void:
 	if not game or not game.active or game.headless: return
 	for id in game.fighters:

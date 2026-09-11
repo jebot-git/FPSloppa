@@ -1,8 +1,38 @@
 {
-  "version": "0.8v",
-  "url": "https://github.com/jebot-git/FPSloppa/releases/download/0.8v/FPSloppa-0.8v-Base-Assets.zip",
-  "sha256": "edbe823437fcb29265d2aaac619254afbf3632abffc99947be189f323872c77c",
+  "version": "0.9v",
+  "url": "https://github.com/jebot-git/FPSloppa/releases/download/0.9v/FPSloppa-0.9v-Base-Assets.zip",
+  "sha256": "d90ff18639da55e364e14a7886e9c7101c94b0def328a2e671d9d92d24db3bca",
   "files": [
+    {
+      "path": "maps/HiSlop/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/HiSlop/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/HiSlop/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "size": 706,
+      "sha256": "121e4f2bbae888f442be76795c7e1b431bbfce9c7dd968407b4da969ccb50eae"
+    },
+    {
+      "path": "maps/HiSlop/README.md",
+      "size": 1470,
+      "sha256": "7e72c0f09ae7838485e4c9d97c735425e503e4d0968d94451e84b12bba72de52"
+    },
+    {
+      "path": "maps/HiSlop/manifest.json",
+      "size": 424,
+      "sha256": "b0dd180a239eb2fead0e9f524816543c1d62dac636c636ba5bb5bf748e27ed78"
+    },
+    {
+      "path": "maps/HiSlop/texture-sources.json",
+      "size": 3587,
+      "sha256": "69653ee83f01e3b7eb1d290077798120482021c7cc01362734ca5758918f307e"
+    },
     {
       "path": "maps/LibreQuake-COPYING.txt",
       "size": 1697,
@@ -22,6 +52,26 @@
       "path": "maps/README.txt",
       "size": 921,
       "sha256": "2e58f8172e837eb7df8e65c1554afd0217a6fb7d94b6b43f339a7bf15a060f77"
+    },
+    {
+      "path": "maps/as_hislop.bsp",
+      "size": 2027788,
+      "sha256": "3359abe0c2161dd1080bf31e6afa45d5ed764a84e9678a1c28f85a06ca764008"
+    },
+    {
+      "path": "maps/as_maplist.txt",
+      "size": 10,
+      "sha256": "f79ce397090f680fd5b42410e8a6e9b71de074c54a096a0c6fcf0877fc3f1e7c"
+    },
+    {
+      "path": "maps/cache/as_hislop-lightmap1.scn",
+      "size": 15491154,
+      "sha256": "fefb076f3bd201077e846615ae8e5248cd3d1aba89c8c53c20fc188f4759b802"
+    },
+    {
+      "path": "maps/cache/as_hislop.scn",
+      "size": 15491154,
+      "sha256": "fefb076f3bd201077e846615ae8e5248cd3d1aba89c8c53c20fc188f4759b802"
     },
     {
       "path": "maps/cache/lqdm1.scn",
@@ -167,6 +217,11 @@
       "path": "maps/lqdm8.lit",
       "size": 499976,
       "sha256": "41079a9d85da770a4a582fbeb69c6ce8caa5c5d4ebd484056426b02154b13096"
+    },
+    {
+      "path": "maps/navigation/as_hislop.res",
+      "size": 61879,
+      "sha256": "22e30f7813719d17360b111eae79786c1621993dede02289a7d6ed90b403c11f"
     },
     {
       "path": "maps/navigation/lqdm1.res",

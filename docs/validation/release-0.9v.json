@@ -1,0 +1,253 @@
+{
+  "version": "0.9v",
+  "date": "2026-09-11",
+  "protocol": "fpsloppa-26-fortress-effects",
+  "android_version_code": 14,
+  "hislop": {
+    "sha256": "3359abe0c2161dd1080bf31e6afa45d5ed764a84e9678a1c28f85a06ca764008",
+    "bytes": 2027788,
+    "format": 29,
+    "full_vis": true,
+    "supersampled_bspx_light": true,
+    "geometry_lumps_match_tested_concept": {
+      "1": true,
+      "3": true,
+      "5": true,
+      "6": true,
+      "7": false,
+      "9": true,
+      "10": true,
+      "11": true,
+      "12": true,
+      "13": true,
+      "14": true
+    },
+    "navigation_polygons": 2053,
+    "eight_client_simulation": [
+      {
+        "role": "server",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 38.233,
+          "failures": [],
+          "role": "server",
+          "samples": 0
+        }
+      },
+      {
+        "role": "player0",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 25.489,
+          "failures": [],
+          "role": "player0",
+          "samples": 663
+        }
+      },
+      {
+        "role": "player1",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 31.192,
+          "failures": [],
+          "role": "player1",
+          "samples": 662
+        }
+      },
+      {
+        "role": "player2",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 24.055,
+          "failures": [],
+          "role": "player2",
+          "samples": 662
+        }
+      },
+      {
+        "role": "player3",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 27.822,
+          "failures": [],
+          "role": "player3",
+          "samples": 663
+        }
+      },
+      {
+        "role": "player4",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 24.956,
+          "failures": [],
+          "role": "player4",
+          "samples": 664
+        }
+      },
+      {
+        "role": "player5",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 25.131,
+          "failures": [],
+          "role": "player5",
+          "samples": 662
+        }
+      },
+      {
+        "role": "player6",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 24.067,
+          "failures": [],
+          "role": "player6",
+          "samples": 661
+        }
+      },
+      {
+        "role": "player7",
+        "exit": 0,
+        "passed": true,
+        "result": {
+          "elapsed_s": 24.381,
+          "failures": [],
+          "role": "player7",
+          "samples": 662
+        }
+      }
+    ],
+    "assault_rule_test_passed": true,
+    "server_mode_configuration_passed": true,
+    "exported_server_client": {
+      "passed": true,
+      "checks": {
+        "client_exit": true,
+        "server_alive": true,
+        "joined": true,
+        "as_config": true,
+        "default_maplist": true,
+        "client_map": true,
+        "no_runtime_errors": true
+      }
+    }
+  },
+  "general_network": {
+    "passed": true,
+    "roles": {
+      "server": 0,
+      "shooter": 0,
+      "target": 0,
+      "spectator": 0
+    }
+  },
+  "binary_smoke": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "package_audit": [
+    {
+      "failures": [],
+      "files": 1079,
+      "pack": "/home/blux/Documents/Entryway/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1079,
+      "pack": "/home/blux/Documents/Entryway/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1079,
+      "pack": "/home/blux/Documents/Entryway/Builds/Server/FPSloppaServer.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Entryway/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1199,
+      "failures": []
+    },
+    {
+      "apk": "/home/blux/Documents/Entryway/Builds/Android/FPSloppa-Pico.apk",
+      "files": 1199,
+      "failures": []
+    }
+  ],
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 146275251,
+      "sha256": "1298f48111a6b7aa69399dde3b4f93d8aa5f4185b31bbc6c1f65c71c483d2a5b",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "maps/as_hislop.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 146274963,
+      "sha256": "a5d9678db3ae420ec7acd8075bc924363bc158ce9df67a748bb4aed6bd34adae",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "maps/as_hislop.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    }
+  ],
+  "prior_current_source_validation": [
+    "TF_AS_TEST_REVIEW.md",
+    "TURTLER_TF_EIGHT_REPLAY.md",
+    "AS_EIGHT_PLAYER_REPLAY.md"
+  ],
+  "limits": [
+    "Windows and Quest/Pico not physically tested this session.",
+    "Scripted encounters do not certify bot navigation, balance or headset frame rate.",
+    "Known isolated shutdown ObjectDB/resource warnings persist.",
+    "Initial overlapping graphical smoke test had desktop NO GRAB error; standalone rerun passed."
+  ],
+  "dedicated_configuration": {
+    "passed": true,
+    "bad_config_exit": 2
+  },
+  "test_harness_note": "Admission test now holds the first client until the second completes; slow source imports previously outlasted its fixed hold."
+}

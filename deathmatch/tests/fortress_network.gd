@@ -36,6 +36,16 @@ func run() -> void:
 			g.match_mode.fortress.buildings[500]={"owner":scout,"team":0,"position":Fixture.point(),"kind":"sentry","hp":150,"ready":0.0,"next":999.0,"expires":999.0}
 			await snapshots(15)
 			g.match_mode.fortress.revealed(spy);await snapshots(2)
+			g.players[scout].tf_next="demoman";g._spawn(scout)
+			g.fighters[scout].position=Fixture.point(0,4);g.players[scout].yaw=0;g.players[scout].pitch=0
+			g.fighters[spy].position=Fixture.point(-15,-15);g.match_mode.fortress.cooldowns[scout]=0
+			await create_timer(.1).timeout
+			check(g.match_mode.fortress.action(scout),"Server launches network pipe grenade")
+			await snapshots(2)
+			for step in 10:
+				g.clock+=.1;g.match_mode.fortress.tick_charges(.1);await snapshots(.2)
+			check(g.match_mode.fortress.action(scout),"Server detonates armed network pipe")
+			await snapshots(2)
 	else:
 		if role=="scout":
 			var entry: String=g.avatars.library.register_file(custom,true);check(not entry.is_empty(),"Custom VRM accepted under 25 MB")
@@ -48,4 +58,12 @@ func run() -> void:
 		check(await wait_for(func():return g.avatars.library.entries.has(hash),45),"Peer receives the custom disguise asset")
 		if role=="spy":check(g.match_mode.fortress.display_avatar(g.multiplayer.get_unique_id(),"")==hash,"Spy uses downloaded VRM with its own player state")
 		check(await wait_for(func():return g.match_mode.fortress.effects.is_empty(),30),"Reveal replicates")
+		check(await wait_for(func():return not g.match_mode.fortress.charges.is_empty(),15),"Thrown pipe grenade replicates")
+		if not g.match_mode.fortress.charges.is_empty():
+			var owner: int=g.match_mode.fortress.charges.keys()[0]
+			var charge: Dictionary=g.match_mode.fortress.charges[owner];var start: Vector3=charge.position
+			check(charge.velocity.length()>10 and g.match_mode.fortress.ability_state(owner).remaining>.4 and g.match_mode.fortress.ability_state(owner).remaining<=.71,"Launch velocity and arming time survive independent network clocks")
+			check(await wait_for(func():return g.match_mode.fortress.charges.has(owner) and g.match_mode.fortress.charges[owner].position.distance_to(start)>1,8),"Authoritative grenade flight reaches clients")
+			check(await wait_for(func():return g.match_mode.fortress.charges.is_empty(),8),"Pipe detonation removes client projectile")
+			check(g.match_mode.fortress.ability_state(owner).remaining>7,"Detonation cooldown replicates")
 	print("TF_NETWORK_RESULT ",role," ",JSON.stringify(failures));g.disconnect_game();g.free();quit(0 if failures.is_empty() else 1)

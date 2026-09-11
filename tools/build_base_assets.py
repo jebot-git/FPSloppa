@@ -10,11 +10,14 @@ files=[]
 paths=[]
 for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
  paths.extend([row['path'].removeprefix('res://'),row['scene'].removeprefix('res://'),'maps/navigation/'+row['id']+'.res'])
+ cache=row['scene'].removeprefix('res://').removesuffix('.scn')+'-lightmap1.scn'
+ if (ROOT/cache).is_file():paths.append(cache)
  lit='maps/'+row['id']+'.lit'
  if (ROOT/lit).is_file():paths.append(lit)
 for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
-paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','cc','tf'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
+paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','cc','tf','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('LibreQuake-*.txt'))
+paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps/HiSlop').rglob('*') if p.is_file())
 paths.extend(['maps/README.txt','vrm/README.txt'])
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
  for path in sorted(set(paths)):
