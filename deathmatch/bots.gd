@@ -49,6 +49,7 @@ func tick(_delta: float) -> void:
 		var actor: CharacterBody3D=game.fighters[id]
 		var eye:=actor.position+Vector3.UP*1.4
 		var enemy:=0
+		var objective_aim:=false
 		var nearest:=35.0
 		for other in game.players:
 			if other==id or game.players[other].dead or game.players[other].spectator or game.match_mode.same_team(id,other) or game.match_mode.special.frozen.has(other) or game.match_mode.fortress.cloaked(other): continue
@@ -88,6 +89,14 @@ func tick(_delta: float) -> void:
 		if game.match_mode.kind=="as" and enemy==0:
 			var assault=game.match_mode.assault
 			if assault.stage<assault.objectives.size():brain.goal=assault.objectives[assault.stage].position
+			if assault.stage<assault.objectives.size() and s.team==assault.attacking and int(assault.objectives[assault.stage].get("health",0))>0:
+				var target: Vector3=brain.goal+Vector3.UP*.85
+				if eye.distance_to(target)<20 and actor.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(eye,target,1)).is_empty():
+					var direction: Vector3=(target-eye).normalized();var aim:=atan2(-direction.x,-direction.z)
+					s.yaw=lerp_angle(s.yaw,aim,.7);s.pitch=asin(direction.y);objective_aim=true
+					s.fire=absf(angle_difference(s.yaw,aim))<.12
+					for weapon in [5,4,3,7,2]:
+						if weapon in s.owned and game.match_mode.fortress.can_fire(id,weapon):s.weapon=weapon;break
 		if game.match_mode.kind=="tf":
 			if s.get("tf_class","")=="medic":
 				for friend in game.players:
@@ -102,9 +111,10 @@ func tick(_delta: float) -> void:
 		if brain.step<brain.path.size():
 			while brain.step<brain.path.size()-1 and actor.position.distance_to(brain.path[brain.step])<.8: brain.step+=1
 			travel=brain.path[brain.step]-actor.position
-		if enemy==0 and travel.length()>.1: s.yaw=lerp_angle(s.yaw,atan2(-travel.x,-travel.z),.7)
+		if enemy==0 and not objective_aim and travel.length()>.1: s.yaw=lerp_angle(s.yaw,atan2(-travel.x,-travel.z),.7)
 		var local: Vector3=Basis(Vector3.UP,-s.yaw)*travel
 		s.move=Vector2(local.x,local.z).normalized()*.75
+		if objective_aim and actor.position.distance_to(brain.goal)<3:s.move=Vector2.ZERO
 		if enemy!=0 and nearest<5 and s.weapon!=1: s.move=Vector2(sin(game.clock+id)*.65,.25)
 		if game.match_mode.kind=="ft":
 			for friend in game.match_mode.special.frozen:

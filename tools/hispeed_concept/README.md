@@ -14,12 +14,12 @@ initial playtest: 4–10 players; **AS**, seven minutes per opening assault.
 
 ## Play
 
-Copy `maps/tf_hispeed_concept.bsp` into the game's external `maps` directory,
-then select **AS — ASSAULT** and this map. The filename retains the
-original TF concept name; it supports both modes. From the Godot project:
+Copy `maps/as_hislop.bsp` into the game's external `maps` directory,
+then select **Assault** and this map. It supports both AS and the TF adapter.
+From the Godot project:
 
 ```sh
-./run.sh --xr-mode off -- --import-map ../Builds/HiSpeed-Concept/maps/tf_hispeed_concept.bsp --practice --mode as
+./run.sh --xr-mode off -- --import-map ../Builds/HiSpeed-Concept/maps/as_hislop.bsp --practice --mode as
 ```
 
 For a dedicated server, install the BSP in its maps directory and launch with
@@ -32,7 +32,12 @@ human multiplayer testing is complete. AS requires the updated source/build
 containers, beam wagon and acid tanker, then CAR 3 → CAR 2 → CAR 1. Touch the
 upper control switch, then descend and touch the lower control console.
 The upper switch unlocks the cabin door, persists after death, and is required
-before the final console can activate. Entry checkpoints advance future spawns.
+before the final console can activate. The passenger, supply, equipment and switch
+rooms have offset doorways. Return down CAR 1’s stairs through the lower vestibule
+and service passage to the cabin. Its door slides into the bulkhead; sealed side
+windows, locomotive end and continuous upper floor prevent entering around or
+above the lock. The roof hatch reaches the upper switch room only. Entry
+checkpoints advance future spawns outside the locked cabin.
 
 **Blue defends first.** Three map-owned sentries use the existing TF turret
 combat, damage and rendering routines. They can be shot and destroyed, never
@@ -90,6 +95,21 @@ python3 tools/hispeed_concept/build.py \
   --wad-dir /path/to/LibreQuake/dev/texture-wads \
   --compiler-dir /path/to/ericw-tools/bin
 ```
+
+For a geometry-only rebuild, the installed map can supply its exact embedded
+LibreQuake textures without downloading the original WAD collection:
+
+```sh
+python3 tools/hispeed_concept/build.py \
+  --reuse-textures maps/as_hislop.bsp \
+  --compiler-dir /path/to/ericw-tools/bin \
+  --output test-results/hislop-interior/build
+```
+
+This verifies every texture against `maps/HiSlop/texture-sources.json` and copies
+its existing license files. New textures still require the original WAD inputs.
+After installing the new BSP, run `tools/hispeed_concept/bake_base.gd` to replace
+both scene caches and bot navigation, and update the map catalog SHA-256.
 
 Output defaults to `../Builds/HiSpeed-Concept`. The package contains editable
 Quake `.map` source, a subset WAD, texture provenance, compiler logs, config and a

@@ -5,6 +5,8 @@ var binds: Array=[[],[],[],[],[]]
 var weights:=PackedFloat32Array([0,0,0,0,0])
 var target:=PackedFloat32Array([0,0,0,0,0])
 var remaining:=0.0
+var external_mixer:=false
+var mixer: Callable
 func setup(model: Node) -> void:
 	for node in model.find_children("*","AnimationPlayer",true,false):
 		var base: Node=node.get_node(node.root_node)
@@ -41,5 +43,8 @@ func _process(delta: float) -> void:
 			var mesh: MeshInstance3D=bind[0]
 			if not totals.has(mesh): totals[mesh]={}
 			totals[mesh][bind[1]]=float(totals[mesh].get(bind[1],0))+weights[i]*bind[2]
+	if external_mixer:
+		if mixer.is_valid():mixer.call()
+		return
 	for mesh in totals:
 		for shape in totals[mesh]: mesh.set_blend_shape_value(shape,clampf(totals[mesh][shape],0,.999))

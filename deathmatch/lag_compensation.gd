@@ -6,7 +6,7 @@ static func delay(clock: float,ping_ms: int,view_time: float,received: float) ->
 	var bound:=minf(MAX_REWIND,maxi(0,ping_ms)/1000.0+VIEW_ALLOWANCE)
 	if not is_finite(view_time) or view_time<0 or view_time>received:return minf(bound,maxi(0,ping_ms)/1000.0+.075)
 	return clampf(clock-view_time,0,bound)
-static func positions(history: Array,now: float,rewind: float,current: Dictionary) -> Dictionary:
+static func positions(history: Array,now: float,rewind: float,current: Dictionary,heights: bool=false) -> Dictionary:
 	if rewind<=0 or history.is_empty():return {}
 	var at:=now-clampf(rewind,0,MAX_REWIND)
 	var before: Dictionary=history[0]
@@ -22,5 +22,5 @@ static func positions(history: Array,now: float,rewind: float,current: Dictionar
 		# Never rewind into another life or interpolate across a teleport.
 		if a.get("serial",-1)!=current[id].serial or b.get("serial",-1)!=current[id].serial:continue
 		if a.position.distance_to(b.position)>3.0:continue
-		result[id]=a.position.lerp(b.position,weight)
+		result[id]=lerpf(a.get("height",1.65),b.get("height",1.65),weight) if heights else a.position.lerp(b.position,weight)
 	return result

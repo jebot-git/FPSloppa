@@ -47,8 +47,8 @@ func run() -> void:
 	check(g.fighters[1].position.distance_to(initial)>.1,"Players can move in the lobby")
 	check(not g.lobby.cast(1,"ig","lqdm1"),"Lobby rejects map outside mode maplist")
 	check(g.lobby.cast(1,"ig","lqdm2"),"Player can vote for valid map and mode")
-	g._send_snapshot();g.clock+=.5
-	check(g.lobby.cast(1,"dm","lqdm2") and g.lobby.ballots.size()==1,"Changing a vote replaces the previous vote")
+	g._send_snapshot();g.clock+=6
+	check(g.lobby.cast(1,"dm","lqdm2") and g.lobby.result()=={"mode":"dm","map":"lqdm2"},"A subsequent approved proposal replaces the next match")
 	g._send_snapshot();g.lobby.until=g.clock;g.lobby.tick(.02);g._send_snapshot()
 	check(g.current_map=="lqdm2" and not g.lobby.active(),"Vote winner starts a normal match")
 	g.demos.stop_record()

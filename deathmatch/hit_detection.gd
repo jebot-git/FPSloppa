@@ -16,18 +16,18 @@ static func sphere_fraction(start: Vector3, motion: Vector3, center: Vector3, ra
 	var t := (-b-sqrt(discriminant))/a
 	return t if t>=0 and t<=1 else INF
 
-static func capsule_fraction(start: Vector3, end: Vector3, radius: float = PLAYER_RADIUS) -> float:
+static func capsule_fraction(start: Vector3, end: Vector3, radius: float = PLAYER_RADIUS,top: float=PLAYER_TOP) -> float:
 	# Conservative bounds on the whole relative-motion segment. Most projectile /
 	# player pairs are far apart; reject them before the sphere roots and cylinder
 	# solve. Test both endpoints so a fast crossing can never be culled as distant.
 	var bound:=radius+.000001
 	if minf(start.x,end.x)>bound or maxf(start.x,end.x)<-bound: return INF
 	if minf(start.z,end.z)>bound or maxf(start.z,end.z)<-bound: return INF
-	if minf(start.y,end.y)>PLAYER_TOP+bound or maxf(start.y,end.y)<PLAYER_BOTTOM-bound: return INF
+	if minf(start.y,end.y)>top+bound or maxf(start.y,end.y)<PLAYER_BOTTOM-bound: return INF
 	var motion := end-start
-	var closest := Vector3(0,clampf(start.y,PLAYER_BOTTOM,PLAYER_TOP),0)
+	var closest := Vector3(0,clampf(start.y,PLAYER_BOTTOM,top),0)
 	if start.distance_squared_to(closest)<=radius*radius: return 0.0
-	var first := minf(sphere_fraction(start,motion,Vector3.UP*PLAYER_BOTTOM,radius),sphere_fraction(start,motion,Vector3.UP*PLAYER_TOP,radius))
+	var first := minf(sphere_fraction(start,motion,Vector3.UP*PLAYER_BOTTOM,radius),sphere_fraction(start,motion,Vector3.UP*top,radius))
 	var a := motion.x*motion.x+motion.z*motion.z
 	if a>1e-12:
 		var b := start.x*motion.x+start.z*motion.z
@@ -36,7 +36,7 @@ static func capsule_fraction(start: Vector3, end: Vector3, radius: float = PLAYE
 		if discriminant>=0:
 			var t := (-b-sqrt(discriminant))/a
 			var height := start.y+motion.y*t
-			if t>=0 and t<=1 and height>=PLAYER_BOTTOM and height<=PLAYER_TOP: first=minf(first,t)
+			if t>=0 and t<=1 and height>=PLAYER_BOTTOM and height<=top: first=minf(first,t)
 	return first
 
 static func world_fraction(space: PhysicsDirectSpaceState3D, start: Vector3, end: Vector3, radius: float) -> float:

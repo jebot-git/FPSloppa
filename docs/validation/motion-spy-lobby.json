@@ -1,0 +1,155 @@
+{
+  "base": "0.9v / 5105fb8",
+  "protocol": "fpsloppa-29-acknowledged-movement",
+  "engine": "Godot 4.7.2 Fedora",
+  "checks": 550,
+  "passed": true,
+  "tests": [
+    {
+      "test": "local_prediction",
+      "passed": true,
+      "checks": 12,
+      "errors": []
+    },
+    {
+      "test": "spy_rules",
+      "passed": true,
+      "checks": 27,
+      "errors": []
+    },
+    {
+      "test": "quake_movement",
+      "passed": true,
+      "checks": 22,
+      "errors": []
+    },
+    {
+      "test": "movement_timing",
+      "passed": true,
+      "checks": 8,
+      "errors": []
+    },
+    {
+      "test": "physical_rig",
+      "passed": true,
+      "checks": 21,
+      "errors": []
+    },
+    {
+      "test": "fortress",
+      "passed": true,
+      "checks": 79,
+      "errors": []
+    },
+    {
+      "test": "combat",
+      "passed": true,
+      "checks": 13,
+      "errors": []
+    },
+    {
+      "test": "vr_crouch_water",
+      "passed": true,
+      "checks": 36,
+      "errors": []
+    },
+    {
+      "test": "pad_telefrag",
+      "passed": true,
+      "checks": 23,
+      "errors": []
+    },
+    {
+      "test": "assault",
+      "passed": true,
+      "checks": 68,
+      "errors": []
+    },
+    {
+      "test": "dispenser_supply",
+      "passed": true,
+      "checks": 12,
+      "errors": []
+    },
+    {
+      "test": "sentry_feedback",
+      "passed": true,
+      "checks": 12,
+      "errors": []
+    },
+    {
+      "test": "vr_alignment",
+      "passed": true,
+      "checks": 18,
+      "errors": []
+    },
+    {
+      "test": "new_features",
+      "passed": true,
+      "checks": 27,
+      "errors": []
+    },
+    {
+      "test": "votes",
+      "passed": true,
+      "checks": 31,
+      "errors": []
+    },
+    {
+      "test": "vote_ui",
+      "passed": true,
+      "checks": 16,
+      "errors": []
+    },
+    {
+      "test": "lobby_mirror",
+      "passed": true,
+      "checks": 10,
+      "errors": []
+    },
+    {
+      "test": "lobby_transition",
+      "passed": true,
+      "checks": 14,
+      "errors": []
+    },
+    {
+      "test": "lobby-network-server",
+      "passed": true,
+      "checks": 7,
+      "errors": []
+    },
+    {
+      "test": "lobby-network-early",
+      "passed": true,
+      "checks": 4,
+      "errors": []
+    },
+    {
+      "test": "lobby-network-late",
+      "passed": true,
+      "checks": 4,
+      "errors": []
+    },
+    {
+      "test": "network",
+      "passed": true,
+      "checks": 72,
+      "errors": []
+    },
+    {
+      "test": "lobby-board-preview",
+      "passed": true,
+      "checks": 14,
+      "errors": []
+    }
+  ],
+  "import_passed": true,
+  "limitations": [
+    "Delay scenarios use synthetic delayed snapshots; network integration uses ENet loopback.",
+    "No live headset comfort confirmation in this pass.",
+    "Existing ObjectDB shutdown warnings and bundled asset UID fallback warnings remain.",
+    "Windows SteamVR/microphone crash requires affected-user confirmation; see LIVE_09_FEEDBACK.md."
+  ],
+  "board_preview": "test-results/motion-spy/lobby-board.png"
+}

@@ -60,6 +60,9 @@ func apply_input_device() -> void:
 	AudioServer.input_device=input_device if input_device in available else "Default"
 
 func select_input_device(value: String) -> void:
+	# WASAPI/OpenXR headset inputs can disappear or change rate during a switch.
+	# Release capture before touching the driver, then create exactly one encoder.
+	stop_capture()
 	input_device=value;apply_input_device();save_preferences();set_mode(mode)
 
 func set_mode(value: int,persist: bool=false) -> void:
@@ -85,7 +88,7 @@ func start_capture() -> void:
 	if mic or mode==0 or game.headless or not game.voice_enabled or not game.permissions.granted(Permissions.MICROPHONE): return
 	mic=Microphone.new();add_child(mic)
 	if not mic.configure(self):
-		mic.queue_free();mic=null;message="Microphone unavailable · select an input device and retry";return
+		stop_capture();message="Microphone unavailable · select an input device and retry";return
 	mic.transmit_audio_packet.connect(send_packet)
 	message="TwoVoIP · hold V / off-hand grip" if mode==1 else "TwoVoIP · voice activation enabled"
 

@@ -27,7 +27,7 @@ func fire(game: Node,id: int) -> void:
 	var line:=blade(game,id)
 	var space: PhysicsDirectSpaceState3D=game.get_world_3d().direct_space_state
 	# A VR hand on the far side of a wall cannot cut or parry through it.
-	var chest: Vector3=game.fighters[id].position+Vector3.UP*1.25
+	var chest: Vector3=game.fighters[id].position+Vector3.UP*game.fighters[id].torso_height()
 	var obstruction:=space.intersect_ray(PhysicsRayQueryParameters3D.create(chest,line[0],1))
 	if not obstruction.is_empty():feedback(game,id,obstruction.position,obstruction.normal);return
 	var hit: Dictionary=game._trace(line[0],line[1],id,0.0,.035)

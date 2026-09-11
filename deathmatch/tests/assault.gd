@@ -25,6 +25,7 @@ func run() -> void:
 	check(state.weapon==2 and state.owned==[2] and state.hp==100,"AS uses normal pistol-only spawn and 100 HP")
 	check(not fortress.enabled() and fortress.speed(1)==1.0 and not fortress.select_class(1,"engineer"),"Classes and class abilities are unavailable in AS")
 	check(fortress.buildings.size()==3,"Three defender-owned map sentries exist")
+	await test_physical_consoles()
 	rules.tick(.02);check(is_equal_approx(rules.budget,420),"First attack gets configured seven-minute budget")
 	actor.position=rules.objectives[1].position;rules.tick(.02)
 	check(rules.stage==0,"Final console is locked until first objective")
@@ -49,7 +50,7 @@ func run() -> void:
 	# Reuse real shared hit tests, blast damage and enemy-only sentry targeting.
 	state.invulnerable=0;state.hp=100;state.armor=0;state.team=0
 	var gun: Dictionary=fortress.buildings[100001]
-	actor.position=gun.position+Vector3(0,0,-3)
+	actor.position=gun.position+Vector3(0,0,3)
 	game.clock=10;fortress.tick(.5)
 	check(state.hp<100,"Sentry damages a visible attacker using production damage")
 	state.team=1;state.hp=100;game.clock=11;fortress.tick(.5)
@@ -82,6 +83,17 @@ func run() -> void:
 	check(not game.Maps.supports_assault("res://maps/lqdm1.bsp"),"Ordinary maps do not advertise AS support")
 	var config=load("res://deathmatch/server/config.gd").parse('set sv_gametype "as"\nset as_maplist "tf_hispeed_concept"')
 	check(not config.has("error") and config.values.mode_maps.as==["tf_hispeed_concept"],"Dedicated configuration accepts AS and its separate maplist")
+	# Buildings are arena children: both replication and scene transitions must clear them.
+	game.headless=false;fortress.draw();game.headless=true
+	var old_visuals: Array=fortress.visuals.values().duplicate()
+	var old_snapshot: Dictionary=fortress.snapshot().duplicate(true)
+	check(old_visuals.size()==3,"AS creates all three actual arena-owned sentry visuals")
+	check(game._rotate_map(game.lobby.ID),"AS rotates into the built-in lobby")
+	await process_frame
+	check(fortress.buildings.is_empty() and fortress.visuals.is_empty() and old_visuals.all(func(node):return not is_instance_valid(node)),"Lobby transition frees sentry nodes and authoritative state")
+	fortress.receive(old_snapshot)
+	check(fortress.buildings.is_empty() and fortress.snapshot().is_empty() and not fortress.structures_enabled(),"A stale AS snapshot cannot restore lobby sentries")
+	check(game._rotate_map(key) and fortress.buildings.size()==3,"Rotating out of lobby installs destination AS sentries")
 	finish()
 func finish() -> void:
 	print("ASSAULT_RESULT ",JSON.stringify({"failures":failures}))
@@ -122,28 +134,48 @@ func test_all_sentries() -> void:
 		var hits:=0
 		for feet in visible:
 			actor.position=feet;state.team=1-int(gun.team);state.dead=false;state.spectator=false;state.invulnerable=0;state.hp=100;state.armor=0
-			game.clock+=1;gun.ready=0;gun.next=0;fortress.tick_sentries()
+			game.clock+=1;gun.ready=0;gun.next=0;gun.scan_at=0;fortress.tick_sentries()
 			if state.hp==88:hits+=1
 		check(hits==visible.size() and hits>0,"Sentry %s deals 12 damage at every visible probe (%s/%s)"%[key,hits,visible.size()])
 		var wall_hits:=0
 		for feet in blocked:
-			actor.position=feet;state.hp=100;game.clock+=1;gun.next=0;fortress.tick_sentries()
+			actor.position=feet;state.hp=100;game.clock+=1;gun.next=0;gun.scan_at=0;fortress.tick_sentries()
 			if state.hp!=100:wall_hits+=1
 		check(wall_hits==0,"Sentry %s cannot shoot through map solids"%key)
 		if not visible.is_empty():
-			actor.position=visible[0];state.team=int(gun.team);state.hp=100;game.clock+=1;gun.next=0;fortress.tick_sentries()
+			actor.position=visible[0];state.team=int(gun.team);state.hp=100;game.clock+=1;gun.next=0;gun.scan_at=0;fortress.tick_sentries()
 			check(state.hp==100,"Sentry %s protects defenders"%key)
-			state.team=1-int(gun.team);state.spectator=true;game.clock+=1;gun.next=0;fortress.tick_sentries()
+			state.team=1-int(gun.team);state.spectator=true;game.clock+=1;gun.next=0;gun.scan_at=0;fortress.tick_sentries()
 			check(state.hp==100,"Sentry %s ignores spectators"%key)
-			state.spectator=false;state.invulnerable=game.clock+10;gun.next=0;fortress.tick_sentries()
+			state.spectator=false;state.invulnerable=game.clock+10;gun.next=0;gun.scan_at=0;fortress.tick_sentries()
 			check(state.hp==100,"Sentry %s respects spawn protection"%key)
-			state.invulnerable=0;state.dead=true;gun.next=0;fortress.tick_sentries()
+			state.invulnerable=0;state.dead=true;gun.next=0;gun.scan_at=0;fortress.tick_sentries()
 			check(state.hp==100,"Sentry %s ignores dead players"%key)
-			state.dead=false;gun.next=0;fortress.tick_sentries();var hp: int=state.hp
+			state.dead=false;gun.next=0;gun.scan_at=0;fortress.tick_sentries();var hp: int=state.hp
 			game.clock+=.25;fortress.tick_sentries();check(state.hp==hp,"Sentry %s observes firing cooldown"%key)
 			game.clock+=.26;fortress.tick_sentries();check(state.hp==hp-12,"Sentry %s fires again after cooldown"%key)
-			gun.team=1-int(gun.team);state.team=1-int(gun.team);state.hp=100;game.clock+=1;gun.next=0;fortress.tick_sentries()
+			gun.team=1-int(gun.team);state.team=1-int(gun.team);state.hp=100;game.clock+=1;gun.next=0;gun.scan_at=0;fortress.tick_sentries()
 			check(state.hp==88,"Sentry %s hits the opposite attacker after role swap"%key)
 		reports.append({"id":key,"position":str(gun.position),"visible_probes":visible.size(),"hits":hits,"occluded_probes":blocked.size(),"wall_hits":wall_hits})
 	fortress.buildings=saved;actor.position=original_position;state.team=0;state.spectator=false;state.dead=false;state.invulnerable=0
 	FileAccess.open("res://test-results/hispeed-sentries.json",FileAccess.WRITE).store_string(JSON.stringify({"map_sha256":FileAccess.get_sha256(OS.get_cmdline_user_args()[0]),"sentries":reports},"  "))
+
+func test_physical_consoles() -> void:
+	var rules=game.match_mode.assault;var actor=game.fighters[1];var s: Dictionary=game.players[1]
+	var physical=game.match_mode.fortress.physical
+	var saved: Vector3=actor.position
+	for i in rules.objectives.size():
+		var target: Vector3=rules.button_position(i);var reachable:=false
+		for offset in [Vector3.ZERO,Vector3(0,0,.5),Vector3(0,0,-.5),Vector3(.5,0,0),Vector3(-.5,0,0)]:
+			actor.position=rules.objectives[i].position+offset
+			if game.match_mode.nearby(1,rules.objectives[i].position,1.4) and physical.clear_path(actor.position+Vector3.UP*1.25,target):reachable=true;break
+		check(reachable,"HiSlop console %d has reachable physical button without wall penetration"%(i+1))
+	actor.position=rules.objectives[0].position+Vector3(0,0,.5);s.xr=preload("res://deathmatch/vr/poses.gd").neutral();s.physical=true;s.vr_device=true;s.yaw=0
+	var button: Vector3=rules.button_position(0)-actor.position
+	s.xr.left.origin=button+Vector3(0,.3,0);game.clock+=.033;physical.sample(1)
+	s.xr.left.origin=button;game.clock+=.033;physical.sample(1)
+	check(rules.stage==1 and game.gates[0].open,"Tracked hand presses actual upper HiSlop switch")
+	s.use_at=0;game._use_for(1)
+	check(game.gates[0].until>game.clock+420,"Use near activated console cannot shorten persistent door unlock")
+	actor.position=saved;s.xr={};s.physical=false;s.vr_device=false;physical.reset();rules.reset()
+	for gate in game.gates:gate.open=false;gate.until=0

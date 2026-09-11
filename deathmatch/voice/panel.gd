@@ -48,8 +48,7 @@ func setup(service: Node) -> void:
 		var available:=AudioServer.get_input_device_list()
 		if available.is_empty(): return
 		voice.select_input_device(available[(available.find(AudioServer.input_device)+1)%available.size()])
-		devices.text="Microphone: "+(AudioServer.input_device if not AudioServer.input_device.is_empty() else "System default")+" (select to cycle)"
-		voice.set_mode(voice.mode))
+		devices.text="Microphone: "+(AudioServer.input_device if not AudioServer.input_device.is_empty() else "System default")+" (select to cycle)")
 	column.add_child(devices)
 	mute=CheckButton.new()
 	mute.text="Mute all incoming voice";mute.custom_minimum_size.y=44

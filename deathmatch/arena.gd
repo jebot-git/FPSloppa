@@ -7,7 +7,7 @@ const Interface = preload("res://deathmatch/interface.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-26-fortress-effects"
+const PROTOCOL := "fpsloppa-29-acknowledged-movement"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -222,6 +222,9 @@ func _notification(what: int) -> void:
 func request_quit() -> void:
 	if quitting:return
 	quitting=true
+	active=false
+	if is_instance_valid(spatial):spatial.clear()
+	if is_instance_valid(effects) and is_instance_valid(effects.local_pain):effects.local_pain.stop()
 	if is_instance_valid(announcer):announcer.set_process(false);announcer.clear_audio()
 	if is_instance_valid(music):music.stop()
 	if is_instance_valid(voice):voice.set_mode(0)
@@ -657,11 +660,12 @@ func _spawn(id: int) -> void:
 	fighters[id].velocity = Vector3.ZERO
 	fighters[id].blast_velocity=Vector2.ZERO
 	fighters[id].reset_view()
+	fighters[id].update_height(1.65,true)
 	fighters[id].gibbed=false
 	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":clock+1.5,"swim":Vector3.ZERO,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
-	match_mode.special.spawn(id);match_mode.fortress.spawn(id)
+	if not lobby.active():match_mode.special.spawn(id);match_mode.fortress.spawn(id)
 	if not spawn_yaws.is_empty(): state.yaw = spawn_yaws[spawn_points.find(best)]
-	if match_mode.kind=="as":state.yaw=0.0 if state.team==match_mode.assault.attacking else PI
+	if match_mode.kind=="as" and not lobby.active():state.yaw=0.0 if state.team==match_mode.assault.attacking else PI
 	if id==multiplayer.get_unique_id():
 		desired_weapon=state.weapon
 		local_yaw = state.yaw
@@ -769,6 +773,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	s.slow = command.slow
 	s.want_respawn = command.respawn
 	s.jump = command.get("jump",false)==true
+	s.physical=command.get("physical",false)==true
 	s.vr_device=command.has("xr")
 	s.xr=VRPoses.validate(command.get("xr",{}))
 	s.room=RoomScale.validate(command.get("room"),s.xr)
@@ -784,6 +789,8 @@ func _accept_input(id: int,command: Dictionary) -> void:
 		s.offhand_cooldown=maxf(s.offhand_cooldown,.28)
 		s.offhand_held=false
 		s.held = false
+
+	match_mode.fortress.physical.sample(id)
 
 func _physics_process(delta: float) -> void:
 	# Simulation uses the engine physics delta; _process interpolates to the current display frame.
@@ -813,22 +820,13 @@ func _physics_process(delta: float) -> void:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
+				_update_crouch(mine,command.get("xr",{}))
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
 					xr_rig.compensate_room_move(actual)
-			var predicted_bullets: int=players[mine].ammo[0]
-			for offhand in [false,true]:
-				var pressed: bool=command.get("offhand_fire",false) if offhand else command.fire
-				var weapon: int=players[mine].weapon
-				var ready: bool=(offhand_visual_cooldown if offhand else visual_cooldown)<=0
-				if headless or not pressed or players[mine].dead or match_mode.special.blocked(mine) or intermission>0 or lobby.active() or not ready or not match_mode.fortress.can_fire(mine,weapon): continue
-				if offhand and weapon!=2: continue
-				if weapon==2 and predicted_bullets<=0: continue
-				if offhand: predicted_offhand_shot_clock=clock
-				else: predicted_shot_clock=clock
-				_play_shot_fx(mine,weapon,offhand)
-				if weapon==2: predicted_bullets-=1
+			fighters[mine].prediction.remember(sequence,fighters[mine].position,fighters[mine].velocity)
+			_predict_shots(mine,command)
 
 	if multiplayer.is_server():
 		_server_tick(delta)
@@ -846,6 +844,23 @@ func _physics_process(delta: float) -> void:
 	for lift in lifts:
 		var phase := fmod(time_limit-round_left,10.0)
 		lift.node.position.y = lift.base + clampf((phase-2)/2,0,1)*float(lift.get("travel",1.65)) if phase<6 else lift.base+clampf((10-phase)/2,0,1)*float(lift.get("travel",1.65))
+
+func _predict_shots(id: int,command: Dictionary) -> void:
+	# Match the authority before predicting audio, flash or recoil.
+	var predicted_bullets: int=players[id].ammo[0]
+	for offhand in [false,true]:
+		var pressed: bool=command.get("offhand_fire",false) if offhand else command.fire
+		var weapon: int=players[id].weapon
+		if weapon==0 and command.has("xr"):continue
+		var ready: bool=(offhand_visual_cooldown if offhand else visual_cooldown)<=0
+		if headless or not pressed or players[id].dead or match_mode.special.blocked(id) or intermission>0 or lobby.active() or not ready or not match_mode.fortress.can_fire(id,weapon): continue
+		if offhand and weapon!=2: continue
+		if weapon==2 and predicted_bullets<=0: continue
+		if weapon!=1 and _weapon_blocked(id,offhand):continue
+		if offhand: predicted_offhand_shot_clock=clock
+		else: predicted_shot_clock=clock
+		_play_shot_fx(id,weapon,offhand)
+		if weapon==2: predicted_bullets-=1
 
 func _interpolate_remote_players(delta: float) -> void:
 	var mine:=multiplayer.get_unique_id()
@@ -896,7 +911,7 @@ func _server_tick(delta: float) -> void:
 	if practice and is_instance_valid(bots): bots.tick(delta)
 	var movement_start: Dictionary = {}
 	for id in fighters:
-		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial}
+		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height}
 	for id in players:
 		var s: Dictionary = players[id]
 		if s.spectator:
@@ -914,6 +929,7 @@ func _server_tick(delta: float) -> void:
 			s.fire = false
 			s.offhand_fire=false
 			s.melee = false
+		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
 		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,s.jump,s.get("swim",Vector3.ZERO))
 		if not s.xr.is_empty():
@@ -947,7 +963,6 @@ func _server_tick(delta: float) -> void:
 				offset.y = 0
 				if offset.length()<1.3: clear = false
 			if clear:
-				gate.open = false
 				_gate_state.rpc(gates.find(gate),false)
 
 func _collect(id: int) -> void:
@@ -1035,7 +1050,6 @@ func _begin_melee(id: int,state: Dictionary) -> void:
 	s.melee_ready_at=clock+Melee.COOLDOWN
 	for other in [s.melee_state,s.offhand_melee_state,s.get("left_kick",{}),s.get("right_kick",{})]:
 		if not is_same(other,state):other.swing_until=0.0
-	match_mode.fortress.revealed(id)
 	s.invulnerable=0
 	s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
 
@@ -1054,7 +1068,7 @@ func _update_melee_foot(id: int,side: String) -> void:
 	if swing.is_empty():return
 	if swing.started:_begin_melee(id,state)
 	var frame:=Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*Transform3D(Basis.IDENTITY,s.xr.head.origin)
-	var body: Vector3=fighters[id].position+Vector3.UP*1.25
+	var body: Vector3=fighters[id].position+Vector3.UP*fighters[id].torso_height()
 	for segment in swing.segments:
 		var start: Vector3=frame*segment[0];var end: Vector3=frame*segment[1]
 		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,start,1)).is_empty():continue
@@ -1099,7 +1113,7 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 	if started:
 		_begin_melee(id,state)
 		_melee_fx.rpc(id,offhand)
-	var body: Vector3=fighters[id].position+Vector3.UP*1.25
+	var body: Vector3=fighters[id].position+Vector3.UP*fighters[id].torso_height()
 	for segment in segments:
 		var start: Vector3=frame*segment[0]
 		var end: Vector3=frame*segment[1]
@@ -1116,10 +1130,13 @@ func _fire(id: int, offhand: bool=false) -> void:
 	if match_mode.special.blocked(id):return
 	if not multiplayer.is_server() or not players.has(id) or players[id].dead or intermission>0: return
 	if offhand and (players[id].weapon!=2 or (players[id].vr_device and not players[id].xr.has("offhand_weapon"))): return
-	if players[id].weapon!=1 and _weapon_blocked(id,offhand): return
 	var s: Dictionary = players[id]
 	var w: int = s.weapon
+	if w==0 and s.vr_device:return # VR fists use physical melee, not trigger hitscan.
 	if (s.offhand_cooldown if offhand else s.cooldown)>0: return
+	# Clearance sweeps run only for a ready shot, then share the result with launch.
+	var shot: Dictionary={} if w==1 else _shot_solution(id,offhand)
+	if shot.get("blocked",false):return
 	if not match_mode.fortress.can_fire(id,w):
 		for choice in [7,4,5,3,2,1,0]:
 			if s.owned.has(choice) and W.can_fire(choice,s.ammo):
@@ -1131,7 +1148,7 @@ func _fire(id: int, offhand: bool=false) -> void:
 	if d.ammo>=0: s.ammo[d.ammo] -= d.cost
 	if offhand: s.offhand_cooldown=d.cycle
 	else: s.cooldown = d.cycle
-	match_mode.fortress.revealed(id)
+	if w>=2:match_mode.fortress.revealed(id)
 	s.invulnerable = 0
 	s.shots += 1
 	_shot_fx.rpc(id,w,offhand)
@@ -1140,22 +1157,24 @@ func _fire(id: int, offhand: bool=false) -> void:
 	if w==8:
 		s.charge = d.charge
 	elif w>=6 and w<=8 and not (match_mode.kind=="tf" and s.get("tf_class","")=="pyro" and w==7):
-		_launch(id,w)
+		_launch(id,w,shot)
 	else:
-		var start: Vector3 = _shot_origin(id,offhand)
+		var start: Vector3 = shot.origin
 		var endpoints := PackedVector3Array()
 		if w==9:
 			var end: Vector3=start-_weapon_transform(id).basis.z*d.range
 			var wall:=HitDetection.world_fraction(get_world_3d().direct_space_state,start,end,0.0)
 			end=start.lerp(end,minf(1.0,wall))
 			var rewound:=_rewound_positions(_shot_rewind(id))
+			var heights:=_rewound_heights(_shot_rewind(id))
 			for target in players:
 				if target==id or players[target].dead or players[target].spectator:continue
 				var target_pos: Vector3=rewound.get(target,fighters[target].position)
-				var fraction:=HitDetection.capsule_fraction(start-target_pos,end-target_pos,HitDetection.PLAYER_RADIUS)
+				var top: float=minf(1.4,float(heights.get(target,fighters[target].collision_height))-.25)
+				var fraction:=HitDetection.capsule_fraction(start-target_pos,end-target_pos,HitDetection.PLAYER_RADIUS,top)
 				if fraction<=1.0:
 					var impact:=start.lerp(end,fraction)
-					var axis:=target_pos+Vector3.UP*clampf(impact.y-target_pos.y,HitDetection.PLAYER_BOTTOM,HitDetection.PLAYER_TOP)
+					var axis:=target_pos+Vector3.UP*clampf(impact.y-target_pos.y,HitDetection.PLAYER_BOTTOM,top)
 					if get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(impact,axis,1)).is_empty():
 						_damage(target,id,d.damage,"RAILGUN",false,impact,(end-start).normalized())
 			var structure: Dictionary=match_mode.fortress.trace(start,end,1.0)
@@ -1189,18 +1208,22 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 	var point := start.lerp(end,minf(1.0,nearest))
 	var target := 0
 	var old:=_rewound_positions(rewind)
+	var heights:=_rewound_heights(rewind)
 	for id in (players if candidates==null else candidates):
 		if id==exclude or players[id].dead or players[id].spectator: continue
 		var position: Vector3 = old.get(id,fighters[id].position)
 		var previous: Vector3 = position
 		if movement_start.has(id) and movement_start[id].serial==players[id].serial:
 			previous=movement_start[id].position
+		var height: float=heights.get(id,fighters[id].collision_height)
+		if movement_start.has(id) and movement_start[id].serial==players[id].serial:height=maxf(height,movement_start[id].get("height",height))
+		var top:=minf(1.4,height-.25)
 		# Relative motion catches targets crossing the projectile between ticks.
-		var fraction := HitDetection.capsule_fraction(start-previous,end-position,HitDetection.PLAYER_RADIUS+radius)
+		var fraction := HitDetection.capsule_fraction(start-previous,end-position,HitDetection.PLAYER_RADIUS+radius,top)
 		if fraction<nearest:
 			var impact := start.lerp(end,fraction)
 			var target_at := previous.lerp(position,fraction)
-			var axis := target_at+Vector3.UP*clampf(impact.y-target_at.y,HitDetection.PLAYER_BOTTOM,HitDetection.PLAYER_TOP)
+			var axis := target_at+Vector3.UP*clampf(impact.y-target_at.y,HitDetection.PLAYER_BOTTOM,top)
 			# Expanded damage volumes must not reach through thin walls/corners.
 			if not space.intersect_ray(PhysicsRayQueryParameters3D.create(impact,axis,1)).is_empty(): continue
 			nearest=fraction
@@ -1210,11 +1233,12 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 	if not structure.is_empty():return {"id":0,"building":structure.key,"position":start.lerp(end,structure.fraction),"hit":true}
 	return {"id":target,"position":point,"hit":target!=0 or is_finite(wall_fraction)}
 
-func _launch(id: int,weapon: int) -> void:
+func _launch(id: int,weapon: int,solution: Dictionary={}) -> void:
 	if not players.has(id) or players[id].dead: return
-	if _weapon_blocked(id) or (players[id].vr_device and players[id].xr.is_empty()): return
+	if solution.is_empty():solution=_shot_solution(id)
+	if solution.blocked or (players[id].vr_device and players[id].xr.is_empty()): return
 	var s: Dictionary = players[id]
-	var start: Vector3 = _shot_origin(id)
+	var start: Vector3 = solution.origin
 	var direction := -_weapon_transform(id).basis.z
 	var shot_yaw:=atan2(-direction.x,-direction.z)
 	var shot_pitch:=asin(clampf(direction.y,-1,1))
@@ -1258,7 +1282,7 @@ func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 			if p.weapon==6: _blast(hit.position,p.owner,128,5.76)
 			if p.weapon==8:_blast(hit.position,p.owner,W.BFG_SPLASH_DAMAGE,W.BFG_SPLASH_RADIUS,"BFG 9000")
 			if p.weapon==8 and players.has(p.owner):
-				var origin: Vector3 = fighters[p.owner].position+Vector3.UP*1.45
+				var origin: Vector3 = fighters[p.owner].position+Vector3.UP*minf(1.45,fighters[p.owner].collision_height-.15)
 				for ray in range(40):
 					var dir := W.direction(p.yaw+deg_to_rad(-45+90.0*ray/39),p.pitch)
 					var target := _trace(origin,origin+dir*46,p.owner)
@@ -1277,7 +1301,7 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: St
 		if players[id].dead or players[id].spectator or players[id].invulnerable>clock: continue
 		if id==owner_id and weapon_name=="BFG 9000":continue
 		if id!=owner_id and match_mode.same_team(id,owner_id) and not match_mode.friendly_fire:continue
-		var target: Vector3 = fighters[id].position+Vector3.UP*.85
+		var target: Vector3 = fighters[id].position+Vector3.UP*(.85 if fighters[id].collision_height>=1.65 else fighters[id].collision_height*.5)
 		var distance := maxf(0,pos.distance_to(target)-.3)
 		if distance>=radius: continue
 		var query := PhysicsRayQueryParameters3D.create(pos+(target-pos).normalized()*.06,target,1)
@@ -1293,14 +1317,18 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	if lobby.active():return
 	if not multiplayer.is_server() or not players.has(victim): return
 	var s: Dictionary = players[victim]
-	if s.spectator or s.dead or match_mode.special.blocked(victim) or intermission>0 or (s.invulnerable>clock and not bypass): return
-	if attacker!=victim and match_mode.same_team(victim,attacker) and not match_mode.friendly_fire: return
+	var telefrag:=weapon_name=="TELEFRAG" and bypass
+	if s.spectator or s.dead or (match_mode.special.blocked(victim) and not (telefrag and match_mode.special.frozen.has(victim))) or intermission>0 or (s.invulnerable>clock and not bypass): return
+	if attacker!=victim and match_mode.same_team(victim,attacker) and not match_mode.friendly_fire and not telefrag: return
 	amount=match_mode.fortress.outgoing_damage(attacker,victim,amount,weapon_name)
 	amount=match_mode.fortress.incoming_damage(victim,amount,weapon_name,bypass)
 	var damage := Vector2i(amount,s.armor) if match_mode.kind=="ig" or weapon_name=="CIRCUS HUNGER" else W.armor_damage(amount,s.armor,s.tier)
+	var old_armor: int=s.armor
 	var old_hp: int=s.hp
 	s.hp = maxi(0,s.hp-damage.x)
 	s.armor = damage.y
+	if weapon_name in ["FIST","CHAINSAW","WEAPON WHIP","KICK"] and (s.hp<old_hp or s.armor<old_armor):
+		match_mode.fortress.revealed(attacker)
 	match_mode.special.heal(attacker,victim,old_hp-s.hp,weapon_name)
 	if s.hp==0 and match_mode.kind=="ft" and not bypass:
 		if attacker!=victim and players.has(attacker):_hit_confirm.rpc(attacker)
@@ -1314,11 +1342,14 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	var gibbed: bool=s.hp==0 and (damage.x-old_hp>=25 or weapon_name in ["ROCKET LAUNCHER","BFG 9000"])
 	_hurt_fx.rpc(victim,impact,direction,damage.x,s.hp==0,gibbed,randi(),weapon_name=="CIRCUS HUNGER")
 	if s.hp>0: return
+	var already_frozen: bool=telefrag and match_mode.special.frozen.has(victim)
 	s.dead = true
-	s.deaths += 1
+	if telefrag:match_mode.special.frozen.erase(victim)
+	if not already_frozen:s.deaths += 1
 	s.fire = false
 	s.charge = 0
 	s.respawn_at = clock+2
+	if already_frozen:return # A frozen victim already awarded its death and frag.
 	var killer: String = s.name
 	if players.has(attacker):
 		killer = players[attacker].name
@@ -1364,7 +1395,7 @@ func _restart_round() -> void:
 
 func _history_positions() -> Dictionary:
 	var positions: Dictionary={}
-	for id in players:positions[id]={"position":fighters[id].position,"serial":players[id].serial}
+	for id in players:positions[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height}
 	return positions
 func _record_history() -> void:
 	history.append({"time":clock,"positions":_history_positions()})
@@ -1374,6 +1405,9 @@ func _rewound_positions(rewind: float) -> Dictionary:
 	# player-history dictionary only for LagCompensation to immediately discard it.
 	if rewind<=0 or history.is_empty():return {}
 	return LagCompensation.positions(history,clock,rewind,_history_positions())
+func _rewound_heights(rewind: float) -> Dictionary:
+	if rewind<=0 or history.is_empty():return {}
+	return LagCompensation.positions(history,clock,rewind,_history_positions(),true)
 func _shot_rewind(id: int) -> float:
 	if id<=1:return 0.0 # Local host and bots see the authoritative world.
 	var s: Dictionary=players[id]
@@ -1393,6 +1427,8 @@ func _send_snapshot() -> void:
 	var gate_states: Array = []
 	for gate in gates: gate_states.append(gate.open)
 	var mode_state: Dictionary=match_mode.snapshot();mode_state["lobby"]={"seconds":maxi(0,ceili(lobby.until-clock))} if lobby.active() else {}
+	mode_state["movement_ack"]={}
+	for id in players:mode_state.movement_ack[id]=players[id].last_seq
 	var state: Array=[data,items,round_left,intermission,round_message,frag_limit,time_limit,shots,gate_states,map_epoch,mode_state,votes.snapshot(),clock,projectile_id]
 	callv("_snapshot",state)
 	if not multiplayer.get_peers().is_empty():
@@ -1434,21 +1470,14 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			s.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"offhand_cooldown":row[19],"spectator":row[20]},true)
 			var old_blast:Vector2=actor.blast_velocity
 			actor.blast_velocity=row[21] if row.size()>21 else Vector2.ZERO
-			actor.velocity.x+=actor.blast_velocity.x-old_blast.x;actor.velocity.z+=actor.blast_velocity.y-old_blast.y
+			if id!=mine:
+				actor.velocity.x+=actor.blast_velocity.x-old_blast.x;actor.velocity.z+=actor.blast_velocity.y-old_blast.y
 			s.respawn_at = clock+row[15]
 			s.invulnerable = clock+1 if row[16] else 0
 			actor.target = row[1]
 			actor.target_yaw = row[3]
 			if id==mine and actor.spawn_serial==row[14]:
-				var error: Vector3 = row[1]-actor.position
-				if error.length()>2.5:
-					actor.position = row[1];actor.velocity=row[2];actor.reset_view()
-				else:
-					if error.length()>.12: actor.position += error*.18
-					# Air momentum persists now, so correct velocity drift as well as position.
-					actor.velocity.x=lerpf(actor.velocity.x,row[2].x,.18)
-					actor.velocity.z=lerpf(actor.velocity.z,row[2].z,.18)
-				actor.velocity.y = row[2].y
+				actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2])
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
 			actor.gibbed=false
@@ -1461,7 +1490,10 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 				local_pitch = 0
 				desired_weapon = row[8]
 				if is_vr(): xr_rig.on_spawn()
-		actor.xr_pose=row[18] if row.size()>18 else {}
+		# The owner samples tracking every render frame; network echoes are older.
+		if id!=mine or demos.playing or multiplayer.is_server() or not is_vr():
+			actor.xr_pose=row[18] if row.size()>18 else {}
+			if not multiplayer.is_server():actor.update_height(float(actor.xr_pose.get("height",1.65)),true)
 		if not multiplayer.is_server(): s.xr=actor.xr_pose
 		actor.visual_velocity = row[2]
 		actor.visual_pitch = row[4]
@@ -1512,24 +1544,36 @@ func _use_for(id: int) -> void:
 	if not players.has(id) or players[id].dead or clock<players[id].use_at: return
 	players[id].use_at = clock+.5
 	match_mode.fortress.action(id)
+	# Desktop AS keeps proximity activation; Use is the VR accessibility fallback.
+	if players[id].get("vr_device",false):match_mode.assault.activate(id)
 	for i in range(gates.size()):
 		if match_mode.kind=="as" and match_mode.assault.stage<int(gates[i].get("as_unlock",0)):continue
 		var offset: Vector3 = fighters[id].position-gates[i].get("center",gates[i].node.position)
 		offset.y = 0
 		if offset.length()<2.5:
-			gates[i].open = true
-			gates[i].until = clock+4
+			gates[i].until = maxf(gates[i].until,clock+4)
 			_gate_state.rpc(i,true)
 
 @rpc("authority","call_local","reliable",0)
 func _gate_state(index: int,opened: bool) -> void:
-	if index>=gates.size(): return
+	if index<0 or index>=gates.size(): return
 	var gate: Dictionary = gates[index]
+	if gate.open==opened:return
 	gate.open = opened
+	if gate.has("motion_tween") and is_instance_valid(gate.motion_tween):gate.motion_tween.kill()
+	var motion:=create_tween().bind_node(gate.node).set_process_mode(Tween.TWEEN_PROCESS_PHYSICS)
+	gate.motion_tween=motion
+	# Place the motor just outside the solid door toward the listener, avoiding
+	# permanent self-occlusion by the panel it belongs to.
+	var sound_position: Vector3=gate.get("center",gate.node.global_position)
+	if not headless and is_instance_valid(camera):
+		var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(camera.global_position,sound_position,1))
+		if not hit.is_empty() and hit.collider==gate.node:sound_position=hit.position+hit.normal*.08
+	effects.play("door_open" if opened else "door_close",sound_position,-7)
 	if gate.has("base_position"):
-		create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).tween_property(gate.node,"position",gate.base_position+(gate.travel if opened else Vector3.ZERO),.6)
+		motion.tween_property(gate.node,"position",gate.base_position+(gate.travel if opened else Vector3.ZERO),.6)
 	else:
-		create_tween().set_process_mode(Tween.TWEEN_PROCESS_PHYSICS).tween_property(gate.node,"position:y",gate.base+(3.5 if opened else 0),.6)
+		motion.tween_property(gate.node,"position:y",gate.base+(3.5 if opened else 0),.6)
 
 func chat_send(message: String) -> void:
 	if multiplayer.is_server(): _chat_for(1,message)
@@ -1750,21 +1794,36 @@ func is_vr() -> bool:
 	return is_instance_valid(xr_rig) and xr_rig.enabled
 func _weapon_transform(id: int, offhand: bool=false) -> Transform3D:
 	var s: Dictionary=players[id]
+	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and is_vr() and not demos.playing:
+		var pose: Dictionary=xr_rig.sample_pose()
+		if not pose.is_empty():return Transform3D(Basis(Vector3.UP,local_yaw),fighters[id].render_position())*pose.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
 	if not s.xr.is_empty(): return Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*s.xr.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
 	var aim:=Basis(Vector3.UP,s.yaw)*Basis(Vector3.RIGHT,s.pitch)
 	var offset:=Vector3(-.18 if offhand else .18,0,0) if s.weapon==2 else Vector3.ZERO
 	return Transform3D(aim,fighters[id].position+Vector3.UP*1.45+aim*offset)
+func _update_crouch(id: int,pose: Dictionary) -> void:
+	var requested:=1.65
+	if not pose.is_empty():requested=maxf(float(pose.get("height",1.65)),clampf(pose.head.origin.y+.10,.80,1.65))
+	fighters[id].update_height(requested)
+	if not pose.is_empty():pose.height=fighters[id].collision_height
 func _shot_origin(id: int, offhand: bool=false) -> Vector3:
+	return _shot_solution(id,offhand).origin
+func _shot_solution(id: int, offhand: bool=false) -> Dictionary:
+	var local_tracking: bool=id==multiplayer.get_unique_id() and not multiplayer.is_server() and is_vr() and not demos.playing
+	if players[id].vr_device and players[id].xr.is_empty() and not local_tracking:return {"origin":fighters[id].position,"blocked":true,"clipped":false}
 	var transform_here:=_weapon_transform(id,offhand)
-	if players[id].xr.is_empty(): return transform_here.origin
+	var chest: Vector3=fighters[id].position+Vector3.UP*fighters[id].torso_height()
+	if players[id].xr.is_empty() and not local_tracking:
+		var blocked:=false
+		if players[id].weapon==2:blocked=not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(chest,transform_here.origin,1)).is_empty()
+		return {"origin":transform_here.origin,"blocked":blocked,"clipped":false}
 	var weapon: int=players[id].weapon
-	return Art.held_transform(transform_here,weapon)*Art.muzzle(weapon)
+	var muzzle: Vector3=Art.held_transform(transform_here,weapon)*Art.muzzle(weapon)
+	var radius: float=W.DATA[weapon].radius if weapon in [6,7,8] else .025
+	return preload("res://deathmatch/vr/weapon_clearance.gd").solve(get_world_3d().direct_space_state,chest,transform_here.origin,muzzle,radius)
 func _weapon_blocked(id: int, offhand: bool=false) -> bool:
 	if not players.has(id): return true
-	if players[id].xr.is_empty() and players[id].weapon!=2: return false
-	var from: Vector3=fighters[id].position+Vector3.UP*1.25
-	var query:=PhysicsRayQueryParameters3D.create(from,_shot_origin(id,offhand),1)
-	return not get_world_3d().direct_space_state.intersect_ray(query).is_empty()
+	return _shot_solution(id,offhand).blocked
 
 @rpc("authority","call_local","reliable",0)
 func _hurt_fx(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int,screen_only: bool=false) -> void:
@@ -1775,12 +1834,15 @@ func _hurt_fx(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gib
 		hurt_flash=maxf(hurt_flash,clampf(.18+amount*.006,.18,.42))
 		if not screen_only:effects.local_hit()
 
-@rpc("authority","call_local","unreliable",3)
+@rpc("authority","call_local","reliable",0)
 func _teleport_fx(pos: Vector3) -> void:
 	demos.event("_teleport_fx",[pos])
 	effects.play("teleport",pos)
 
 func _clear_map_players() -> void:
+	# Cosmetic buildings live under the arena, not under the map scene.
+	# The authority has already installed destination-map sentries in _rotate_map.
+	if not multiplayer.is_server():match_mode.fortress.reset()
 	chainsaw.reset()
 	announcer.reset()
 	votes.reset()

@@ -1,0 +1,95 @@
+{
+  "source": "serverup.log",
+  "sha256": "4114d6d948c204295ec498bb57bdd2dfe5f62a2aa110f286da68502f848b8e4f",
+  "first_utc": "2026-09-11T13:00:02Z",
+  "last_utc": "2026-09-11T13:51:40Z",
+  "events": {
+    "server_started": 1,
+    "health": 619,
+    "peer_connected": 2,
+    "spawn": 12,
+    "player_joined": 8,
+    "match_event": 37,
+    "pickup": 35,
+    "damage": 141,
+    "map_rotated": 7,
+    "round_ended": 1,
+    "peer_disconnected": 2
+  },
+  "health_samples": 619,
+  "groups": {
+    "all": {
+      "physics_ms": {
+        "samples": 619,
+        "p50": 0.531,
+        "p95": 5.136,
+        "max": 8.885
+      },
+      "process_ms": {
+        "samples": 619,
+        "p50": 0.352,
+        "p95": 3.147,
+        "max": 17.057
+      }
+    },
+    "occupied": {
+      "physics_ms": {
+        "samples": 138,
+        "p50": 2.601,
+        "p95": 6.886,
+        "max": 8.885
+      },
+      "process_ms": {
+        "samples": 138,
+        "p50": 0.873,
+        "p95": 5.066,
+        "max": 17.057
+      }
+    },
+    "empty": {
+      "physics_ms": {
+        "samples": 481,
+        "p50": 0.484,
+        "p95": 2.909,
+        "max": 5.125
+      },
+      "process_ms": {
+        "samples": 481,
+        "p50": 0.326,
+        "p95": 2.603,
+        "max": 4.887
+      }
+    }
+  },
+  "ping_ms": {
+    "samples": 138,
+    "p50": 27,
+    "p95": 51,
+    "max": 400
+  },
+  "input_age_ms": {
+    "samples": 138,
+    "p50": 17,
+    "p95": 33,
+    "max": 2467
+  },
+  "max_simultaneous_clients": 1,
+  "input_counters": {
+    "input_accepted": 20412,
+    "input_received": 20412
+  },
+  "damage_weapons": {
+    "ROCKET LAUNCHER": 2,
+    "DROWNING": 14,
+    "SENTRY": 8,
+    "environment": 6,
+    "CIRCUS HUNGER": 111
+  },
+  "voice_relayed": 84,
+  "voice_rejected": 0,
+  "limitations": [
+    "Health metrics are instantaneous five-second samples, not a histogram of all physics ticks.",
+    "No process memory, native stack trace, or voice playback recording is present.",
+    "The disconnect during CC map loading does not include a cause."
+  ]
+}

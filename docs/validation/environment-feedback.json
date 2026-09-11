@@ -1,0 +1,81 @@
+{
+  "date": "2026-09-11",
+  "engine": "Godot 4.7.2",
+  "suites": [
+    {
+      "test": "environment_feedback",
+      "checks": 11,
+      "passed": true
+    },
+    {
+      "test": "auto_calibration",
+      "checks": 9,
+      "passed": true
+    },
+    {
+      "test": "vr_gestures",
+      "checks": 33,
+      "passed": true
+    },
+    {
+      "test": "pad_telefrag",
+      "checks": 23,
+      "passed": true
+    },
+    {
+      "test": "assault",
+      "checks": 73,
+      "passed": true
+    },
+    {
+      "test": "frigate",
+      "checks": 28,
+      "passed": true
+    }
+  ],
+  "network": [
+    {
+      "role": "server",
+      "exit_code": 0,
+      "checks": 7,
+      "passed": true
+    },
+    {
+      "role": "client",
+      "exit_code": 0,
+      "checks": 8,
+      "passed": true
+    }
+  ],
+  "checks": 192,
+  "passed": true,
+  "icon": {
+    "path": "deathmatch/icon-final.png",
+    "size": [
+      512,
+      512
+    ],
+    "mode": "RGB",
+    "source": "docs/art/slop-icon-source.png",
+    "reference": "docs/art/slop-title-parody.png",
+    "small_size_review": 64
+  },
+  "recording": {
+    "name": "last.mp4",
+    "duration_seconds": 289.08231,
+    "review": "docs/LAST_VR_REVIEW.md",
+    "wearer_confirmation": [
+      "swimming",
+      "jitter",
+      "map layout",
+      "lobby system",
+      "gun-to-wall collision"
+    ],
+    "minor_followup": "Moving-wall visual inconsistency; exact cause not established"
+  },
+  "limitations": [
+    "Headless fixtures retain the previously observed ObjectDB shutdown warning.",
+    "New door/portal sound and relaxed auto-calibration changes have not had a new wearer test.",
+    "No new platform exports or release publication."
+  ]
+}

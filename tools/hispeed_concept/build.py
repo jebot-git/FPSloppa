@@ -1,7 +1,7 @@
 """Build a reference-inspired HiSpeed concept, using only LibreQuake miptex.
 
 No UT packages, geometry, textures, music or screenshots are build inputs.
-Requires the project's generator helpers, LibreQuake WADs and ericw-tools 0.18.
+Requires the project's generator helpers, LibreQuake textures and ericw-tools 0.18.
 """
 from pathlib import Path
 import argparse, hashlib, json, shutil, struct, subprocess, sys
@@ -37,7 +37,7 @@ def generate():
             a.box((x+24*i, y0, base), (x+24*(i+1), y1, base+16*(i+1)), FLOOR)
     def pad(x, y, z=0):
         a.box((x-32,y-32,z), (x+32,y+32,z+4), HAZARD)
-        volume('trigger_push', (x-30,y-30,z+4), (x+30,y+30,z+24), angle='-1', speed='850')
+        volume('trigger_push', (x-30,y-30,z+4), (x+30,y+30,z+24), angle='-1', speed='850', fpsloppa_push_scale='1')
         light((x,y,z+72), 150, '0.3 1 0.6')
     def crate(x,y,z=0,w=96,h=112):
         a.box((x-w/2,y-w/2,z),(x+w/2,y+w/2,z+h),'met_grn_panel1')
@@ -46,7 +46,6 @@ def generate():
     def mount(x,y,z):
         # A clear, level build location for the existing TF engineer sentry.
         a.box((x-40,y-40,z-8),(x+40,y+40,z),HAZARD)
-        pickup('weapon_nailgun',(x,y,z))
         a.ent('info_tf_resupply_blue',(x,y,z+24))
         a.ent('info_as_sentry',(x,y,z+24))
     # Sealed rail cutting under a star sky; the train is the stationary play frame.
@@ -169,7 +168,7 @@ def generate():
             a.box((xx,-80,112),(xx+16,80,304),TRIM)
         # Stair ascent is off the lower corridor; middle car forces this upper route.
         stairs(start+48,-176,-64)
-        a.box((start+264,-184,128),(end-96,184,144),FLOOR)
+        a.box((start+264,-184,128),(end if car==1 else end-96,184,144),FLOOR)
         if car==2:a.box((c-16,-184,0),(c+48,184,128),'met_grn_panel1')
         # Front car hatch gives a direct roof-to-access-token route.
         if car==1:
@@ -185,14 +184,37 @@ def generate():
         # Number of yellow stripes denotes CAR 3 / 2 / 1 at every entrance.
         for n in range(car):a.box((start-4,-60+n*40,160),(start, -36+n*40,224),HAZARD)
         if car<3:pad(start+24,248)
+    # Interior bulkheads create rooms and offset doorways instead of one open tube.
+    def bulkhead(x, z0, z1, opening, top=112):
+        left,right=opening
+        for y0,y1 in [(-184,left),(right,184)]:
+            a.box((x,y0,z0),(x+16,y1,z1),METAL)
+        a.box((x,left,z0+top),(x+16,right,z1),TRIM)
+        for y in [left-8,right]:
+            a.box((x-2,y,z0),(x+18,y+8,z0+top),HAZARD)
+    bulkhead(512,0,128,(-112,0))           # CAR 3 supply compartment.
+    bulkhead(1216,144,304,(0,112))         # CAR 2 upper passenger compartment.
+    bulkhead(1704,0,128,(-32,80))          # CAR 1 lower entrance vestibule.
+    a.box((1744,16,0),(1840,32,128),METAL) # Equipment room off the service passage.
+    bulkhead(1808,144,304,(-112,0))        # CAR 1 upper switch room.
+    bulkhead(1904,0,128,(-128,-16))        # Enclosed control cabin, one real doorway.
+    # Continuous upper floor seals the cabin from the roof hatch. Close lower
+    # windows and the locomotive-end opening so catwalks cannot bypass its door.
+    for y0,y1 in [(-200,-184),(184,200)]:
+        a.box((1904,y0,40),(2064,y1,104),METAL)
+    a.box((2048,-80,0),(2064,80,112),METAL)
+    # Distinct machinery, switch station and driving console provide room identity.
+    a.box((1776,112,0),(1824,168,72),'comp1_6')
+    a.box((1840,144,144),(1904,176,208),'comp1_6')
+    a.box((2032,-160,0),(2048,-64,64),'comp1_6')
+    light((1832,96,240),210,'0.4 0.85 1')
+    light((1984,-96,88),190,'1 0.65 0.25')
     # Supply/defensive alcoves in CAR 3; CAR 1's objective console and guard pads.
     crate(640,120,w=80,h=80)
-    a.box((2000,-144,0),(2032,-48,64),'comp1_6')
-    a.box((1904,-112,144),(1936,-48,192),'comp1_6')
     light((1968,-96,224),180,'1 0.65 0.25')
     mount(640,-120,144)
     mount(1632,120,0)
-    mount(1968,120,320)
+    mount(1840,120,0)
     # A sloped locomotive nose, headlights and exhausts finish the front silhouette.
     a.ramp_x(2064,2240,-184,184,176,48,METAL)
     a.box((2208,-168,56),(2240,168,88),HAZARD)
@@ -200,36 +222,39 @@ def generate():
         a.box((2240,yy,88),(2248,yy+32,112),'tlight12')
     a.box((2112,-40,120),(2160,40,240),TRIM)
     # Native TF objectives: upper access token -> lower cabin capture.
-    a.team(-1,(-2656,0,24),[(-2528,y,24) for y in [-72,72]]+[(-2192,y,24) for y in [-112,112]],(-2688,64,24),(1984,-64,24))
-    a.team(1,(1872,-32,168),[(x,y,24) for x in [432,688] for y in [-32,64]],(688,80,24),(688,-80,24))
+    a.team(-1,(-2656,0,24),[(-2528,y,24) for y in [-72,72]]+[(-2192,y,24) for y in [-112,112]],(-2688,64,24),(2016,-112,24))
+    a.team(1,(1856,112,168),[(x,y,24) for x in [432,688] for y in [-32,64]],(688,80,24),(688,-80,24))
     a.ent('info_player_start',(-2528,0,24),angle=0)
-    for x,y,z in [(-1824,224,0),(-800,0,0),(-288,224,0),(1152,64,144),(1808,64,144)]:
+    for x,y,z in [(-1824,224,0),(-800,0,0),(-288,224,0),(1152,64,144),(1776,64,144)]:
         a.ent('info_player_deathmatch',(x,y,z+24),angle=0)
     for kind,p in [('weapon_rocketlauncher',(-2256,0,0)),('weapon_supernailgun',(-2560,0,0)),('weapon_supershotgun',(-1440,224,0)),('weapon_nailgun',(-608,0,0)),('weapon_supernailgun',(64,224,0)),('weapon_rocketlauncher',(1056,48,144)),('weapon_supershotgun',(1312,0,0))]:pickup(kind,p)
-    for x,y,z in [(-1984,112,0),(-640,224,0),(304,96,0),(1232,96,144),(1952,64,0)]:pickup('item_health',(x,y,z))
+    for x,y,z in [(-1984,112,0),(-640,224,0),(304,96,0),(1264,96,144),(1952,64,0)]:pickup('item_health',(x,y,z))
     for x,y,z in [(-2336,112,0),(-944,0,0),(624,40,144),(1280,96,144)]:pickup('item_shells',(x,y,z));pickup('item_cells',(x+40,y,z))
     pickup('item_armor2',(752,0,0))
     pickup('item_health',(1168,0,144),spawnflags=2)
     pickup('item_spikes',(1280,0,144))
     pickup('weapon_nailgun',(1552,0,0))
     pickup('item_spikes',(1584,0,0))
-    a.ent('info_koth_control',(1872,-32,168))
-    a.ent('info_as_objective',(1872,-32,168),step=1,title='Unlock control cabin')
-    a.ent('info_as_objective',(1984,-64,24),step=2,title='Override train controls')
+    a.ent('info_koth_control',(1856,112,168))
+    a.ent('info_as_objective',(1856,112,168),step=1,title='Unlock control cabin')
+    a.ent('info_as_objective',(2016,-112,24),step=2,title='Override train controls')
     for index,x in [(1,256),(2,1504)]:
         a.ent('info_as_checkpoint',(x,0,24),checkpoint=index)
-    for index,attack,defend in [(1,432,1280),(2,1584,1984)]:
+    for index,attack,defend in [(1,432,1280),(2,1584,1880)]:
         for y in [-24,64]:
             a.ent('info_as_spawn',(attack,y,24),checkpoint=index,role='attack')
             a.ent('info_as_spawn',(defend,y,24),checkpoint=index,role='defend')
-    # The AS switch unlocks this ordinary engine-operated door. In TF it is proximity-operated.
-    volume('func_door',(1936,-80,0),(1952,80,112),TRIM,angle='-1',as_unlock='1',lip='-8')
+    # The cabin door slides sideways into the bulkhead, clear of the upper room.
+    # The AS switch unlocks it; in TF it is proximity-operated.
+    volume('func_door',(1904,-128,0),(1920,-16,112),TRIM,angle='90',as_unlock='1',lip='-8')
     return a,brush_entities
 
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--wad-dir',type=Path,required=True)
+    textures=p.add_mutually_exclusive_group(required=True)
+    textures.add_argument('--wad-dir',type=Path)
+    textures.add_argument('--reuse-textures',type=Path,help='Existing HiSlop BSP; requires its sibling HiSlop license/provenance directory')
     p.add_argument('--compiler-dir',type=Path,required=True)
     p.add_argument('--output',type=Path,default=ROOT.parent/'Builds/HiSpeed-Concept')
     p.add_argument('--fast-vis',action='store_true',help='Iteration only: conservative visibility, more rendered faces')
@@ -239,20 +264,37 @@ def main():
     used={line.split(')')[-1].strip().split()[0] for brush in a.brushes+[b for _,b in brush_entities] for line in brush.splitlines() if line.startswith('(')}
     # Compiler trigger texture need not be shipped, but give it a real licensed miptex.
     donors={};sources={}
-    for path in sorted(args.wad_dir.glob('*.wad')):
-        wad_hash=hashlib.sha256(path.read_bytes()).hexdigest()
-        for name,tile in wad_read(path).items():donors[name]=tile;sources[name]={'wad':path.name,'wad_sha256':wad_hash}
-    donors['trigger']=donors['met_blc_trim64'];sources['trigger']=dict(sources['met_blc_trim64'],donor='met_blc_trim64')
-    for alias,donor in [('hs_track','met_blc_trim64'),('hs_cutting','med_flat9'),('hs_rail','met_blu_trim16')]:
-        donors[alias]=donors[donor];sources[alias]=dict(sources[donor],donor=donor,license='BSD-3-Clause')
-    # Same licensed panel detail, shifted to the cool steel palette of the reference.
-    raw=donors['aqconc04'];w,h,at=struct.unpack_from('<III',raw,16)
-    palette=(ROOT/'deathmatch/maps/palette.lmp').read_bytes()
-    panel=Image.frombytes('P',(w,h),raw[at:at+w*h]);panel.putpalette(palette)
-    panel=ImageOps.colorize(ImageOps.grayscale(panel), '#102531', '#a9c9d5')
-    quant=Image.new('P',(1,1));quant.putpalette(palette[:224*3]+palette[:3]*32)
-    donors[METAL]=miptex(METAL,panel.quantize(palette=quant,dither=Image.Dither.NONE))
-    sources[METAL]=dict(sources['aqconc04'],donor='aqconc04',edit='cool steel recolor; geometry/detail preserved',license='BSD-3-Clause')
+    if args.reuse_textures:
+        data=args.reuse_textures.read_bytes()
+        assert struct.unpack_from('<i',data)[0]==29, 'Texture source must be BSP29'
+        offset,length=struct.unpack_from('<ii',data,4+2*8)
+        lump=data[offset:offset+length];count=struct.unpack_from('<i',lump)[0]
+        metadata=args.reuse_textures.parent/'HiSlop'
+        sources=json.loads((metadata/'texture-sources.json').read_text())
+        for index in range(count):
+            at=struct.unpack_from('<i',lump,4+4*index)[0]
+            if at<0:continue
+            name=lump[at:at+16].split(b'\0')[0].decode('ascii')
+            w,h=struct.unpack_from('<II',lump,at+16)
+            raw=lump[at:at+40+w*h*85//64]
+            assert name in sources and hashlib.sha256(raw).hexdigest()==sources[name]['sha256'], 'Texture provenance mismatch: '+name
+            donors[name]=raw
+        donors['trigger']=donors['met_blc_trim64'];sources['trigger']=dict(sources['met_blc_trim64'],donor='met_blc_trim64')
+    else:
+        for path in sorted(args.wad_dir.glob('*.wad')):
+            wad_hash=hashlib.sha256(path.read_bytes()).hexdigest()
+            for name,tile in wad_read(path).items():donors[name]=tile;sources[name]={'wad':path.name,'wad_sha256':wad_hash}
+        donors['trigger']=donors['met_blc_trim64'];sources['trigger']=dict(sources['met_blc_trim64'],donor='met_blc_trim64')
+        for alias,donor in [('hs_track','met_blc_trim64'),('hs_cutting','med_flat9'),('hs_rail','met_blu_trim16')]:
+            donors[alias]=donors[donor];sources[alias]=dict(sources[donor],donor=donor,license='BSD-3-Clause')
+        # Same licensed panel detail, shifted to the cool steel palette of the reference.
+        raw=donors['aqconc04'];w,h,at=struct.unpack_from('<III',raw,16)
+        palette=(ROOT/'deathmatch/maps/palette.lmp').read_bytes()
+        panel=Image.frombytes('P',(w,h),raw[at:at+w*h]);panel.putpalette(palette)
+        panel=ImageOps.colorize(ImageOps.grayscale(panel), '#102531', '#a9c9d5')
+        quant=Image.new('P',(1,1));quant.putpalette(palette[:224*3]+palette[:3]*32)
+        donors[METAL]=miptex(METAL,panel.quantize(palette=quant,dither=Image.Dither.NONE))
+        sources[METAL]=dict(sources['aqconc04'],donor='aqconc04',edit='cool steel recolor; geometry/detail preserved',license='BSD-3-Clause')
     wad=bytearray(b'WAD2'+bytes(8));directory=[];provenance={}
     for name in sorted(used):
         raw=donors[name];raw=struct.pack('16s',name.encode())+raw[16:]
@@ -277,7 +319,8 @@ def main():
     assert "Couldn't create brush faces" not in compiler_log, 'Invalid brush discarded by QBSP'
     (out/'texture-sources.json').write_text(json.dumps(provenance,indent=2)+'\n')
     for name in ['COPYING','CREDITS','README-IMPORTANT-LICENCE-INFO']:
-        shutil.copy2(args.wad_dir.parent/'docs'/name,out/'licenses'/('LibreQuake-'+name+'.txt'))
+        source_license=(metadata/('LibreQuake-'+name+'.txt') if args.reuse_textures else args.wad_dir.parent/'docs'/name)
+        shutil.copy2(source_license,out/'licenses'/('LibreQuake-'+name+'.txt'))
     shutil.copy2(Path(__file__).with_name('README.md'),out/'README.md')
     (out/'tf_maplist.txt').write_text(NAME+'\n')
     (out/'as_maplist.txt').write_text(NAME+'\n')

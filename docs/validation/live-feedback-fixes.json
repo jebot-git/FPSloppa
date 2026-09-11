@@ -1,0 +1,82 @@
+{
+  "date": "2026-09-11",
+  "base_commit": "5105fb8",
+  "protocol": "fpsloppa-28-vr-crouch-face",
+  "tests": [
+    {
+      "test": "assault",
+      "checks": 68,
+      "passed": true
+    },
+    {
+      "test": "fortress",
+      "checks": 79,
+      "passed": true
+    },
+    {
+      "test": "sentry_feedback",
+      "checks": 12,
+      "passed": true
+    },
+    {
+      "test": "voice_server",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "test": "voice_switch",
+      "checks": 5,
+      "passed": true
+    },
+    {
+      "test": "file_browser",
+      "checks": 13,
+      "passed": true
+    },
+    {
+      "test": "burning_feedback",
+      "checks": 10,
+      "passed": true
+    },
+    {
+      "test": "dispenser_supply",
+      "checks": 12,
+      "passed": true
+    },
+    {
+      "test": "vr_ui",
+      "checks": 57,
+      "passed": true
+    },
+    {
+      "test": "physical_rig",
+      "checks": 19,
+      "passed": true
+    }
+  ],
+  "voice_network": {
+    "passed": true,
+    "exported_server": null
+  },
+  "native_microphone": {
+    "platform": "Linux/PulseAudio",
+    "devices": 4,
+    "switches": 8,
+    "crashes": 0,
+    "checks": 9,
+    "driver_error_present": true,
+    "driver_error": "PulseAudio pa_stream_disconnect: Bad state",
+    "recorded_audio": false,
+    "transmitted_audio": false,
+    "windows_reproduction": false
+  },
+  "visuals": [
+    "test-results/turret-voice/file-browser.png",
+    "test-results/turret-voice/burning-sentry.png"
+  ],
+  "limitations": [
+    "Native microphone driver close error persists despite completing all switches.",
+    "No Windows crash stack or live Windows verification is available.",
+    "Existing ObjectDB shutdown warnings remain."
+  ]
+}

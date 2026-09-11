@@ -1,5 +1,6 @@
 extends Node3D
-const LENGTH:=.24
+const LENGTH:=.60
+const START_OFFSET:=.04
 var beam: MeshInstance3D
 func _ready() -> void:
 	top_level=true
@@ -14,7 +15,9 @@ func update(pose: Transform3D,weapon: int,enabled: bool) -> void:
 	var art=preload("res://deathmatch/art.gd")
 	var start:Vector3=art.held_transform(pose,weapon)*art.muzzle(weapon)
 	var direction:Vector3=-pose.basis.z.normalized()
-	var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,start+direction*LENGTH,1))
-	var length:float=start.distance_to(hit.position) if not hit.is_empty() else LENGTH
+	var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,start+direction*(LENGTH+START_OFFSET),1))
+	var length:float=start.distance_to(hit.position) if not hit.is_empty() else LENGTH+START_OFFSET
+	if length<=START_OFFSET:hide();return
+	start+=direction*START_OFFSET;length-=START_OFFSET
 	global_transform=Transform3D(pose.basis.orthonormalized(),start)
 	beam.scale.y=maxf(.001,length);beam.position.z=-length*.5

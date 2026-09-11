@@ -1,0 +1,161 @@
+{
+  "base_commit": "5105fb8",
+  "source_version": "0.9v",
+  "protocol": "fpsloppa-27-vr-interactions",
+  "date": "2026-09-11",
+  "tests": [
+    {
+      "test": "vr_interactions",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 68,
+      "result": [
+        "VR_INTERACTIONS_RESULT []"
+      ]
+    },
+    {
+      "test": "physical_rig",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 15,
+      "result": [
+        "PHYSICAL_RIG_RESULT []"
+      ]
+    },
+    {
+      "test": "fortress",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 79,
+      "result": [
+        "FORTRESS_RESULT []"
+      ]
+    },
+    {
+      "test": "combat",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 13,
+      "result": [
+        "COMBAT_RESULT {\"failures\":[]}"
+      ]
+    },
+    {
+      "test": "ultimate_saw",
+      "passed": true,
+      "exit_code": 0,
+      "checks": 25,
+      "result": [
+        "ULTIMATE_SAW_RESULT []"
+      ]
+    },
+    {
+      "test": "vr",
+      "passed": true,
+      "checks": 14
+    },
+    {
+      "test": "rocket_jump",
+      "passed": true,
+      "checks": 10
+    },
+    {
+      "test": "room_scale",
+      "passed": true,
+      "checks": 16
+    },
+    {
+      "test": "vr_gestures",
+      "passed": true,
+      "checks": 27
+    },
+    {
+      "test": "stairs",
+      "passed": true,
+      "checks": 12
+    },
+    {
+      "test": "stair_contacts",
+      "passed": true,
+      "checks": 36
+    },
+    {
+      "test": "assault",
+      "passed": true,
+      "checks": 68
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "checks": 57
+    }
+  ],
+  "network": [
+    {
+      "role": "server",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 7
+    },
+    {
+      "role": "client",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 7
+    }
+  ],
+  "load": {
+    "combat": [
+      {
+        "history_entries": 23,
+        "max_projectiles": 562,
+        "players": 16,
+        "snapshot_p95_ms": 0.71,
+        "tick_max_ms": 8.379,
+        "tick_p50_ms": 4.258,
+        "tick_p95_ms": 5.046,
+        "ticks": 360,
+        "version": "0.9v",
+        "vr": true
+      }
+    ],
+    "memory_samples": [
+      {
+        "nodes": 387,
+        "objects": 2517,
+        "orphans": 0,
+        "projectiles": 0,
+        "resources": 408,
+        "static_bytes": 47299533,
+        "tick": 0
+      },
+      {
+        "nodes": 387,
+        "objects": 2517,
+        "orphans": 0,
+        "projectiles": 562,
+        "resources": 408,
+        "static_bytes": 48176297,
+        "tick": 300
+      }
+    ],
+    "memory_final": [
+      {
+        "nodes": 3,
+        "objects": 1783,
+        "orphans": 0,
+        "resources": 124,
+        "static_bytes": 40984028
+      }
+    ]
+  },
+  "automated_passed": true,
+  "headset_tested": false,
+  "build_published": false,
+  "notes": [
+    "Prior uncommitted stair fixes retained.",
+    "Combat test used obsolete 1.8 m chainsaw contact distance; baseline firing code fails it too. Fixture changed to 0.9 m. Dedicated range and parry checks pass.",
+    "Single pre-existing ObjectDB shutdown warning remains. No orphan nodes in VR load samples or final cleanup.",
+    "Synthetic rig input verifies control routing; physical gesture comfort and presentation still require headset testing."
+  ]
+}

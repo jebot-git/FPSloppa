@@ -1,0 +1,173 @@
+{
+  "base_commit": "5105fb8",
+  "date": "2026-09-11",
+  "protocol": "fpsloppa-28-vr-crouch-face",
+  "tests": [
+    {
+      "test": "vr_crouch_water",
+      "passed": true,
+      "checks": 36,
+      "results": [
+        "VR_CROUCH_WATER_RESULT []"
+      ]
+    },
+    {
+      "test": "face_expressions",
+      "passed": true,
+      "checks": 30,
+      "results": [
+        "FACE_EXPRESSIONS_RESULT []"
+      ]
+    },
+    {
+      "test": "vr_gestures",
+      "passed": true,
+      "checks": 27,
+      "results": [
+        "VR_GESTURES_RESULT []"
+      ]
+    },
+    {
+      "test": "water",
+      "passed": true,
+      "checks": 24,
+      "results": [
+        "WATER_RESULT []"
+      ]
+    },
+    {
+      "test": "quake_movement",
+      "passed": true,
+      "checks": 22,
+      "results": [
+        "QUAKE_MOVEMENT_RESULT []"
+      ]
+    },
+    {
+      "test": "stair_contacts",
+      "passed": true,
+      "checks": 36,
+      "results": [
+        "STAIR_CONTACT_RESULT {\"failures\":[],\"metrics\":[{\"angle\":0.0,\"end\":\"(-2.0, 1.995834, -4.156372)\",\"hz\":60,\"max_travel\":0.0156831741333008,\"triangles\":false},{\"angle\":55.0,\"end\":\"(1.815441, 1.48451, -2.168161)\",\"hz\":60,\"max_travel\":0.0156676713377237,\"triangles\":false},{\"angle\":0.0,\"end\":\"(-2.0, 1.995798, -4.158411)\",\"hz\":60,\"max_travel\":0.0157036781311035,\"triangles\":true},{\"angle\":55.0,\"end\":\"(1.815617, 1.486846, -2.168986)\",\"hz\":60,\"max_travel\":0.0156963225454092,\"triangles\":true},{\"angle\":0.0,\"end\":\"(-2.0, 1.995834, -4.150584)\",\"hz\":90,\"max_travel\":0.0104629993438721,\"triangles\":false},{\"angle\":55.0,\"end\":\"(1.810553, 1.480449, -2.156486)\",\"hz\":90,\"max_travel\":0.0104451142251492,\"triangles\":false},{\"angle\":0.0,\"end\":\"(-2.0, 1.995799, -4.148763)\",\"hz\":90,\"max_travel\":0.0105023384094238,\"triangles\":true},{\"angle\":55.0,\"end\":\"(1.81102, 1.48133, -2.158695)\",\"hz\":90,\"max_travel\":0.010448238812387,\"triangles\":true},{\"angle\":0.0,\"end\":\"(-2.0, 1.995115, -4.134511)\",\"hz\":144,\"max_travel\":0.00655317306518555,\"triangles\":false},{\"angle\":55.0,\"end\":\"(1.807171, 1.474212, -2.14177)\",\"hz\":144,\"max_travel\":0.00652860384434462,\"triangles\":false},{\"angle\":0.0,\"end\":\"(-2.0, 1.995434, -4.140413)\",\"hz\":144,\"max_travel\":0.00656247138977051,\"triangles\":true},{\"angle\":55.0,\"end\":\"(1.808323, 1.478472, -2.150008)\",\"hz\":144,\"max_travel\":0.00652860384434462,\"triangles\":true},{\"end\":\"(-3.392025, -0.00417, -30.08733)\",\"map\":\"lqdm1\",\"progress\":1.46733093261719,\"start\":\"(-5.5, -0.975, -28.62)\"},{\"end\":\"(-1.639924, -0.004165, -31.09326)\",\"map\":\"lqdm1\",\"progress\":1.4732551574707,\"start\":\"(-3.75, -0.475, -29.62)\"},{\"end\":\"(30.08643, 0.974363, -22.88815)\",\"map\":\"lqdm1\",\"progress\":1.4664306640625,\"start\":\"(28.62, 0.025, -25.0)\"},{\"end\":\"(31.0869, 1.474404, -22.88825)\",\"map\":\"lqdm1\",\"progress\":1.46689987182617,\"start\":\"(29.62, 0.525, -25.0)\"},{\"end\":\"(26.60696, -0.004168, -20.08406)\",\"map\":\"lqdm1\",\"progress\":1.46405792236328,\"start\":\"(24.5, -0.975, -18.62)\"},{\"end\":\"(33.92678, 3.745832, -19.10282)\",\"map\":\"lqdm1\",\"progress\":1.45321655273438,\"start\":\"(35.38, 3.025, -17.0)\"}]}"
+      ]
+    },
+    {
+      "test": "capsule_equivalence",
+      "passed": true,
+      "checks": 0,
+      "results": [
+        "CAPSULE_EQUIVALENCE_RESULT {\"cases\":40000,\"failures\":0,\"hits\":13266}"
+      ]
+    },
+    {
+      "test": "lag_reliability",
+      "passed": true,
+      "checks": 10,
+      "results": [
+        "LAG_RELIABILITY_RESULT []"
+      ]
+    },
+    {
+      "test": "combat",
+      "passed": true,
+      "checks": 13,
+      "results": [
+        "COMBAT_RESULT {\"failures\":[]}"
+      ]
+    },
+    {
+      "test": "rocket_jump",
+      "passed": true,
+      "checks": 10,
+      "results": [
+        "ROCKET_JUMP_RESULT []"
+      ]
+    },
+    {
+      "test": "vr_interactions",
+      "passed": true,
+      "checks": 68,
+      "results": [
+        "VR_INTERACTIONS_RESULT []"
+      ]
+    },
+    {
+      "test": "physical_rig",
+      "passed": true,
+      "checks": 19,
+      "results": [
+        "PHYSICAL_RIG_RESULT []"
+      ]
+    },
+    {
+      "test": "tracking_audio",
+      "passed": true,
+      "checks": 66,
+      "results": [
+        "TRACKING_AUDIO_RESULT []"
+      ]
+    },
+    {
+      "test": "lobby_mirror",
+      "passed": true,
+      "checks": 10,
+      "results": [
+        "LOBBY_MIRROR_RESULT []"
+      ]
+    },
+    {
+      "test": "room_scale",
+      "passed": true,
+      "checks": 16,
+      "results": [
+        "ROOM_SCALE_RESULT []"
+      ]
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "checks": 57,
+      "results": [
+        "VR_UI_RESULT []"
+      ]
+    },
+    {
+      "test": "assault",
+      "passed": true,
+      "checks": 68,
+      "results": [
+        "ASSAULT_RESULT {\"failures\":[]}"
+      ]
+    }
+  ],
+  "network": [
+    {
+      "role": "server",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 8
+    },
+    {
+      "role": "client",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 8
+    }
+  ],
+  "load": {
+    "players": 16,
+    "vr": true,
+    "ticks_measured": 360,
+    "p50_ms": 4.464,
+    "p95_ms": 5.32,
+    "max_ms": 6.358,
+    "snapshot_p95_ms": 0.784,
+    "max_projectiles": 562,
+    "orphans_after_cleanup": 0
+  },
+  "notes": [
+    "No live headset acceptance test performed.",
+    "Known Godot ObjectDB shutdown warnings remain.",
+    "An assault_demo harness invocation lacked its required demo/map arguments and timed out; the focused crouch test subsequently verified actual demo recording and playback restoration."
+  ]
+}

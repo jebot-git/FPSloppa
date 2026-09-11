@@ -17,6 +17,14 @@ var visual_pitch := 0.0
 var visual_weapon := 2
 var alive_state := true
 var quake_movement := false
+var collision_height:=1.65
+var body_shape: CollisionShape3D
+var water_surface:=false
+var water_jump_used:=false
+var water_deep_time:=0.0
+var water_exit_grace:=0.0
+var water_boost:=0.0
+var was_in_water:=false
 var in_water := false
 var underwater:=false
 var air_left:=12.0
@@ -32,9 +40,14 @@ var local_body_visible := false
 var spawn_serial := -1
 var view_offset := 0.0
 var floor_grace:=0.0
+# A swept step can rest on a tread edge before move_and_slide reports a floor.
+var stepped_last_frame:=false
 var visual_reset_until:=-1
+var prediction=preload("res://deathmatch/movement/prediction.gd").new()
+var prediction_view_offset:=Vector3.ZERO
 
 func setup(id: int, nickname: String, color: Color) -> void:
+	process_priority=-20
 	peer_id = id
 	name = "P_%d" % id
 	collision_layer = 2
@@ -47,6 +60,7 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	var capsule := CapsuleShape3D.new()
 	capsule.radius = .30
 	capsule.height = 1.65
+	body_shape=shape
 	shape.shape = capsule
 	shape.position.y = .83
 	add_child(shape)
@@ -64,8 +78,29 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	add_child(label)
 
 var speed_multiplier:=1.0
+func is_supported() -> bool:
+	return is_on_floor() or stepped_last_frame
+
+func torso_height() -> float:return minf(1.25,collision_height-.40)
+func damage_top() -> float:return minf(1.40,collision_height-.25)
+func update_height(requested: float,force: bool=false) -> void:
+	if not is_instance_valid(body_shape) or not is_finite(requested):return
+	requested=clampf(requested,.80,1.65)
+	if is_equal_approx(requested,collision_height):return
+	if requested>collision_height and not force:
+		var query:=PhysicsShapeQueryParameters3D.new();var capsule:=CapsuleShape3D.new();capsule.radius=.30;capsule.height=requested-collision_height+.60
+		# Test only the added upper volume; the existing feet may touch the floor.
+		query.shape=capsule;query.transform=global_transform*Transform3D(Basis.IDENTITY,Vector3.UP*((collision_height+requested)*.5-.30+.005));query.collision_mask=3;query.exclude=[get_rid()];query.margin=.001
+		if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return
+	collision_height=requested;body_shape.shape.height=requested;body_shape.position.y=requested*.5+.005
 func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false, swim: Vector3=Vector3.ZERO) -> void:
 	rotation.y = yaw
+	water_boost=maxf(0,water_boost-delta)
+	water_exit_grace=maxf(0,water_exit_grace-delta)
+	if was_in_water and not in_water:water_exit_grace=.18
+	was_in_water=in_water
+	water_deep_time=water_deep_time+delta if underwater else 0.0
+	if water_deep_time>.25 or is_supported() and not in_water:water_jump_used=false
 	var direction := (basis * Vector3(input.x,0,input.y)).limit_length(1.0)
 	var speed := (5.2 if slow else 9.4)*speed_multiplier
 	var stroke: Vector3=(basis*swim.limit_length(1.0)) if in_water and swim.is_finite() else Vector3.ZERO
@@ -74,8 +109,10 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 		direction=(direction+stroke).limit_length(1.0)
 	if jump and not jump_held:jump_queued=true
 	elif not jump:jump_queued=false
-	var grounded:=is_on_floor() and velocity.y<=0
-	var jumping:=quake_movement and jump_queued and grounded and not in_water
+	var grounded:=is_supported() and velocity.y<=0
+	var surface_jump:=quake_movement and not water_jump_used and (in_water and water_surface or water_exit_grace>0) and (jump or stroke.y>.15) and velocity.y>-.5
+	var jumping:=quake_movement and jump_queued and grounded and not in_water or surface_jump
+	if surface_jump:water_jump_used=true;water_exit_grace=0;water_boost=.25
 	velocity.x-=blast_velocity.x;velocity.z-=blast_velocity.y
 	blast_velocity=blast_velocity.move_toward(Vector2.ZERO,(24.0 if grounded else 2.0)*delta)
 	if quake_movement and not in_water:
@@ -88,25 +125,29 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	velocity.x+=blast_velocity.x;velocity.z+=blast_velocity.y
 	velocity.y = -.2 if grounded else maxf(velocity.y-20.0*delta,-30.0)
 	# Consume each press once; another takeoff requires release and a fresh press.
-	if jumping:velocity.y=7.4;jump_queued=false
+	# Surface takeoff begins with the waist still submerged. Cover that depth
+	# plus raised pool lips; ordinary ground jumps keep their existing strength.
+	if jumping:velocity.y=9.4 if surface_jump else 7.4;jump_queued=false
 	elif quake_movement and jump and in_water:velocity.y=maxf(velocity.y,5.5)
 	if in_water:
-		if stroke.length()>.05 and not jump:velocity.y=move_toward(velocity.y,direction.y*speed,24.0*delta)
-		velocity.y=maxf(velocity.y,-speed if stroke.length()>.05 else -2.0);jump_queued=false
+		# Level strokes must not hold the swimmer at zero vertical velocity.
+		if absf(stroke.y)>.05 and not jump and water_boost<=0:velocity.y=move_toward(velocity.y,stroke.y*speed,24.0*delta)
+		velocity.y=maxf(velocity.y,-speed if stroke.y<-.05 else -2.0);jump_queued=false
 	jump_held = jump
-	floor_grace=.1 if is_on_floor() else maxf(0,floor_grace-delta)
+	floor_grace=.1 if is_supported() else maxf(0,floor_grace-delta)
 	var was_grounded:=is_on_floor() or floor_grace>0
 	var previous_y:=position.y
 	var stepping:=was_grounded and velocity.y<=0 and not in_water
 	var step := .55 if quake_movement else .43
 	var travel := Vector3(velocity.x,0,velocity.z)*delta
-	if stepping: step_up(travel,step)
+	stepped_last_frame=stepping and step_up(travel,step)
 	var impact_speed:=velocity.y
-	move_and_slide()
+	# The successful sweep already consumed this frame's horizontal motion.
+	if not stepped_last_frame:move_and_slide()
 	if jumping and velocity.y>0:movement_sound.emit("jump",global_position+Vector3.UP*.65)
 	elif not was_grounded and is_on_floor() and impact_speed < -3.2 and not in_water:movement_sound.emit("land",global_position+Vector3.UP*.2)
-	if stepping and not is_on_floor() and velocity.y<=0:apply_floor_snap()
-	if stepping and is_on_floor() and absf(position.y-previous_y)<=step+.05:
+	if stepping and not is_supported() and velocity.y<=0:apply_floor_snap()
+	if stepping and is_supported() and absf(position.y-previous_y)<=step+.05:
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
 
 func apply_blast(impulse: Vector3) -> void:
@@ -116,35 +157,56 @@ func apply_blast(impulse: Vector3) -> void:
 	velocity.x+=blast_velocity.x-previous.x;velocity.z+=blast_velocity.y-previous.y
 	velocity.y=clampf(velocity.y+impulse.y,-30.0,20.0)
 
-func step_up(travel: Vector3,height: float) -> void:
-	if travel.length()<.001: return
+func step_up(travel: Vector3,height: float) -> bool:
+	if travel.length()<.001:return false
+	# Match move_and_slide's recovery contacts. Without these, very small
+	# inward motions look clear here but are stopped by its wall recovery.
 	var obstacle:=KinematicCollision3D.new()
-	if not test_move(global_transform,travel,obstacle): return
-	if obstacle.get_normal().dot(Vector3.UP)>=cos(floor_max_angle): return
+	if not test_move(global_transform,travel,obstacle,safe_margin,true,4):return false
+	var blocked:=false
+	for i in obstacle.get_collision_count():
+		if obstacle.get_normal(i).dot(travel)<-.0000001:blocked=true;break
+	if not blocked:return false
 	var raised:=global_transform
-	if test_move(raised,Vector3.UP*height): return
+	var ceiling:=KinematicCollision3D.new()
+	# A low ceiling may still leave enough room for this particular riser.
+	if test_move(raised,Vector3.UP*height,ceiling):height=maxf(0,ceiling.get_travel().y)
+	if height<.001:return false
 	raised.origin.y+=height
-	# Probe beyond the rounded capsule edge even after a wall has slowed velocity.
-	var probe:=travel.normalized()*maxf(travel.length(),.15)
-	if test_move(raised,probe): return
-	raised.origin+=probe
+	if test_move(raised,travel):return false
+	raised.origin+=travel
 	var landing:=KinematicCollision3D.new()
-	if not test_move(raised,Vector3.DOWN*(height+.05),landing): return
-	if landing.get_normal().dot(Vector3.UP)<cos(floor_max_angle): return
-	if landing.get_collider() is CharacterBody3D: return
-	var rise: float=raised.origin.y+landing.get_travel().y-global_position.y
-	if rise>.005 and rise<=height+.001:
-		global_position.y+=rise
-		velocity.y=0
+	if not test_move(raised,Vector3.DOWN*(height+.05),landing):return false
+	if landing.get_collider() is CharacterBody3D:return false
+	var tread_height:=landing.get_position().y
+	if landing.get_normal().dot(Vector3.UP)<cos(floor_max_angle):
+		# Rounded capsule/riser contacts have a diagonal normal even on a flat
+		# tread. Validate the real surface just inside the edge, not that normal.
+		var into_step:=-landing.get_normal().slide(Vector3.UP).normalized()
+		var edge:=landing.get_position()+into_step*.02
+		var support:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(edge+Vector3.UP*.05,edge-Vector3.UP*.1,1))
+		if support.is_empty() or support.normal.dot(Vector3.UP)<cos(floor_max_angle):return false
+		tread_height=support.position.y
+	# Capsule bottom is 0.005 m above the body origin. Check the actual tread
+	# height too, so partial contact cannot ratchet up an over-height obstacle.
+	if tread_height-global_position.y-.005>height+.001:return false
+	var target_position:=raised.origin+landing.get_travel()
+	var rise:=target_position.y-global_position.y
+	if rise<=.00001 or rise>height+.001:return false
+	global_position=target_position
+	velocity.y=0
+	return true
 
 func reset_view() -> void:
-	view_offset=0;floor_grace=0
+	prediction.clear();prediction_view_offset=Vector3.ZERO
+	water_jump_used=false;water_deep_time=0;water_exit_grace=0;water_boost=0;was_in_water=false
+	view_offset=0;floor_grace=0;stepped_last_frame=false
 	reset_physics_interpolation()
 	visual_reset_until=Engine.get_physics_frames()+1
 
 func render_position() -> Vector3:
 	var rendered:=get_global_transform_interpolated().origin
-	return global_position if Engine.get_physics_frames()<=visual_reset_until else rendered
+	return global_position if Engine.get_physics_frames()<=visual_reset_until else rendered+prediction_view_offset
 
 func show_alive(alive: bool, is_local: bool) -> void:
 	alive=alive and not spectator
@@ -179,6 +241,7 @@ func set_local_body(value: bool) -> void:
 	show_alive(alive_state,local_player)
 
 func _process(_delta: float) -> void:
+	prediction_view_offset*=exp(-12.0*_delta)
 	view_offset*=exp(-18.0*_delta)
 	if not avatar:return
 	var unarmed: bool=get_parent().lobby.active()
@@ -192,8 +255,9 @@ func _process(_delta: float) -> void:
 				if is_instance_valid(avatar.offhand_gun):avatar.offhand_gun.hide()
 	if frozen or not avatar or avatar_hash.is_empty(): return
 	avatar.target_xr_pose=xr_pose
-	avatar.speed = Vector2(visual_velocity.x,visual_velocity.z).length()
-	avatar.movement = basis.inverse()*visual_velocity
+	var displayed_velocity: Vector3=velocity if local_player else visual_velocity
+	avatar.speed = Vector2(displayed_velocity.x,displayed_velocity.z).length()
+	avatar.movement = basis.inverse()*displayed_velocity
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)
 	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<2.5)
@@ -270,3 +334,25 @@ func set_cloak_visual(active: bool,friendly: bool,tint: Color,delta: float) -> v
 	cloak_material.set_shader_parameter("visibility",cloak_visibility);cloak_material.set_shader_parameter("tint",tint)
 	if label:label.visible=friendly and alive_state and not local_player
 	if is_instance_valid(class_badge):class_badge.visible=friendly and alive_state and not local_player
+
+var fire_particles: CPUParticles3D
+func set_burning_visual(active: bool) -> void:
+	if not active:
+		if is_instance_valid(fire_particles):fire_particles.queue_free();fire_particles=null
+		return
+	if not is_instance_valid(fire_particles):
+		fire_particles=CPUParticles3D.new();fire_particles.name="BurningFlames"
+		fire_particles.amount=20;fire_particles.lifetime=.55;fire_particles.preprocess=.2
+		fire_particles.direction=Vector3.UP;fire_particles.spread=15
+		fire_particles.initial_velocity_min=.5;fire_particles.initial_velocity_max=1.2
+		fire_particles.gravity=Vector3(0,.5,0);fire_particles.scale_amount_min=.07;fire_particles.scale_amount_max=.16
+		fire_particles.emission_shape=CPUParticles3D.EMISSION_SHAPE_BOX
+		fire_particles.emission_box_extents=Vector3(.3,.25,.22)
+		var ramp:=Gradient.new();ramp.colors=PackedColorArray([Color(1,.7,.12,.7),Color(1,.18,.02,.55),Color(.2,.03,.01,0)]);ramp.offsets=PackedFloat32Array([0,.45,1]);fire_particles.color_ramp=ramp
+		var mesh:=QuadMesh.new();mesh.size=Vector2(.9,1.8);fire_particles.mesh=mesh
+		var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.vertex_color_use_as_albedo=true;material.billboard_mode=BaseMaterial3D.BILLBOARD_PARTICLES;material.cull_mode=BaseMaterial3D.CULL_DISABLED
+		material.albedo_texture=preload("res://deathmatch/effects/flame.svg")
+		fire_particles.material_override=material;fire_particles.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		add_child(fire_particles)
+	fire_particles.position.y=minf(.6,collision_height*.35)

@@ -92,6 +92,17 @@ var internal_modifier_node: Node3D
 
 # Props
 
+var local_body_disabled:=false
+
+func set_local_body(value: bool) -> void:
+	if local_body_disabled==value:return
+	local_body_disabled=value
+	# Clear only spring overrides; the humanoid IK owns the tracked body.
+	for spring in spring_bones_internal:
+		for verlet in spring.verlets:
+			if verlet.bone_idx>=0:skel.set_bone_global_pose_override(verlet.bone_idx,Transform3D.IDENTITY,0.0,false)
+	if not value and is_inside_tree():_ready()
+
 var spring_bones_internal: Array
 var springs_centers: PackedInt32Array
 
@@ -344,6 +355,7 @@ func _on_secondary_process_modification_processed() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func do_process(delta: float) -> void:
+	if local_body_disabled:return
 	# Arena: disabled/hidden avatars must not continue signal-driven spring simulation.
 	if not Engine.is_editor_hint() and (not can_process() or not is_visible_in_tree()): return
 	if not Engine.is_editor_hint() or check_for_editor_update():

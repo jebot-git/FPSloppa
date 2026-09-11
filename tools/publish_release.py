@@ -27,7 +27,7 @@ def api(method,path,data=None,allow_missing=False):
 base='/repos/'+repo+'/releases'
 release=api('GET',base+'/tags/'+version,allow_missing=True)
 if release is None:
-    release=api('POST',base,{'tag_name':version,'target_commitish':commit,'name':'FPSloppa '+version+' — HiSlop Assault and TF combat effects','body':(assets_dir/'RELEASE-NOTES.md').read_text(),'draft':True,'prerelease':False})
+    release=api('POST',base,{'tag_name':version,'target_commitish':commit,'name':'FPSloppa '+version+' — Frigate and VR interaction fixes','body':(assets_dir/'RELEASE-NOTES.md').read_text(),'draft':True,'prerelease':False})
 assert release['draft'], 'Release already published; refusing to modify it'
 expected=[]
 for name in sorted(p.name for p in assets_dir.iterdir() if p.is_file()):

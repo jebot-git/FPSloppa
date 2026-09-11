@@ -90,7 +90,7 @@ DM1–DM6 plus bonus DM7 can be compiled from the GPL source release with the sh
 
 ## Experimental HiSpeed Assault concept
 
-The optional, locally generated BSP29 train map and experimental **AS — Assault**
+The optional, locally generated BSP29 train map and experimental **Assault**
 mode are documented in [tools/hispeed_concept/README.md](tools/hispeed_concept/README.md).
 It uses LibreQuake textures, ordered objectives, paired timed attacks and three
 destructible map sentries. Build output is `../Builds/HiSpeed-Concept`; it is not
@@ -102,3 +102,13 @@ for collision, turret, networking and VRM lighting checks.
 The base package includes `as_hislop.bsp` (HiSlop), a train Assault map with
 baked lighting and moving scenery. Its separate rotation is `maps/as_maplist.txt`.
 See [AS.md](AS.md); texture notices and provenance ship in `maps/HiSlop/`.
+
+## Frigate (AS)
+
+`as_frigate.bsp` adds an independently built harbor assault: board the warship,
+destroy the aft compressor, then activate the upper gun controls. It has a
+submerged alternate entry, two stair routes, defensive sentry and a six-minute
+playtest configuration. The source build installs it in the AS maplist; the next
+base asset package includes its BSP, scene caches and navigation. Construction,
+reference attribution and tests are in [Frigate notes](tools/frigate_concept/README.md);
+texture provenance and notices are in `maps/Frigate/`.

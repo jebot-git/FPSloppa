@@ -2,11 +2,16 @@ extends "res://addons/twovoip/voiphelper/two_voip_mic.gd"
 ## Game-controlled capture around TwoVoIP's resampler, denoiser and Opus encoder.
 var voice
 var pending:=PackedVector2Array()
+var owns_capture:=false
 func configure(owner_voice: Node) -> bool:
 	voice=owner_voice
-	if not set_opus_values(48000,20,1,24000,5,true,TwovoipOpusEncoder.DENOISER_RNNOISE,TwovoipOpusEncoder.AGC_DISABLED):return false
+	# Open the new device before querying its rate for the native resampler.
+	if AudioServer.set_input_device_active(true)!=OK:return false
+	owns_capture=true
+	if AudioServer.get_input_mix_rate()<=0 or not set_opus_values(48000,20,1,24000,5,true,TwovoipOpusEncoder.DENOISER_RNNOISE,TwovoipOpusEncoder.AGC_DISABLED):
+		AudioServer.set_input_device_active(false);owns_capture=false;return false
 	set_process(true)
-	return AudioServer.set_input_device_active(true)==OK
+	return true
 func _process(_delta: float) -> void:
 	var allowed: bool=voice.can_transmit()
 	var talking: bool=allowed and (voice.push_to_talk() if voice.mode==1 else voice.hangover>0)
@@ -32,4 +37,4 @@ func _process(_delta: float) -> void:
 			voice.animate_mouth(voice.multiplayer.get_unique_id(),mouth)
 			processopuschunk()
 func _exit_tree() -> void:
-	AudioServer.set_input_device_active(false)
+	if owns_capture:AudioServer.set_input_device_active(false);owns_capture=false

@@ -4,6 +4,7 @@ var g
 func _initialize():call_deferred("run")
 func run():
 	var args:=OS.get_cmdline_user_args();var count:=int(args[0]) if not args.is_empty() else 16
+	var vr:=args.has("--vr")
 	var duration:=720;var duration_arg:=args.find("--ticks")
 	if duration_arg>=0:duration=maxi(121,int(args[duration_arg+1]))
 	g=load("res://deathmatch/arena.tscn").instantiate();
@@ -19,6 +20,7 @@ func run():
 	g.players.clear();g.fighters.clear()
 	for id in range(1,count+1):
 		g._add_player(id,"Load actor");g.players[id].hp=1000000;g.players[id].owned=[2,6,7];g.players[id].weapon=7;g.players[id].ammo=[200,50,50,30000];g.players[id].invulnerable=0
+		if vr:g.players[id].xr=preload("res://deathmatch/vr/poses.gd").neutral();g.players[id].vr_device=true
 		var a:float=TAU*(id-1)/count;g.fighters[id].position=Fixture.point(cos(a)*7,sin(a)*7);g.players[id].yaw=-a-PI/2
 	var times: Array=[];var snapshots: Array=[];var maximum_projectiles:=0
 	for tick in duration:
@@ -35,7 +37,7 @@ func run():
 		if args.has("--memory") and tick%300==0:
 			print("SERVER_MEMORY_SAMPLE ",JSON.stringify({"tick":tick,"projectiles":g.projectiles.size(),"static_bytes":int(Performance.get_monitor(Performance.MEMORY_STATIC)),"objects":int(Performance.get_monitor(Performance.OBJECT_COUNT)),"resources":int(Performance.get_monitor(Performance.OBJECT_RESOURCE_COUNT)),"nodes":int(Performance.get_monitor(Performance.OBJECT_NODE_COUNT)),"orphans":int(Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT))}))
 	times.sort();snapshots.sort()
-	print("SERVER_LOAD_RESULT ",JSON.stringify({"players":count,"version":ProjectSettings.get_setting("application/config/version"),"ticks":times.size(),"tick_p50_ms":times[times.size()/2],"tick_p95_ms":times[int(times.size()*.95)],"tick_max_ms":times.back(),"snapshot_p95_ms":snapshots[int(snapshots.size()*.95)],"max_projectiles":maximum_projectiles,"history_entries":g.history.size()}))
+	print("SERVER_LOAD_RESULT ",JSON.stringify({"players":count,"vr":vr,"version":ProjectSettings.get_setting("application/config/version"),"ticks":times.size(),"tick_p50_ms":times[times.size()/2],"tick_p95_ms":times[int(times.size()*.95)],"tick_max_ms":times.back(),"snapshot_p95_ms":snapshots[int(snapshots.size()*.95)],"max_projectiles":maximum_projectiles,"history_entries":g.history.size()}))
 	if args.has("--profile"):
 		print("SERVER_PROFILE_RESULT ",JSON.stringify({"projectiles_ms_per_tick":g.audit_projectile_us/1000.0/g.audit_ticks,"history_ms_per_tick":g.audit_history_us/1000.0/g.audit_ticks,"collect_ms_per_tick":g.audit_collect_us/1000.0/g.audit_ticks,"melee_ms_per_tick":g.audit_melee_us/1000.0/g.audit_ticks}))
 	g.disconnect_game();g.free();await process_frame

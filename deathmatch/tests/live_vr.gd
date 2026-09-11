@@ -75,9 +75,15 @@ func sample():
   var c=rig.get(side)
   controls[side]={"grip_tracked":c.get_has_tracking_data(),"aim_tracked":rig.get(side+"_aim").get_has_tracking_data(),"trigger":c.get_float("trigger"),"grip":c.get_float("grip"),"stick":str(c.get_vector2("primary")),"a":c.is_button_pressed("ax_button"),"b":c.is_button_pressed("by_button"),"trigger_touch":c.is_button_pressed("trigger_touch"),"thumbrest_touch":c.is_button_pressed("thumbrest_touch"),"ax_touch":c.is_button_pressed("ax_touch"),"by_touch":c.is_button_pressed("by_touch"),"primary_touch":c.is_button_pressed("primary_touch"),"secondary_touch":c.is_button_pressed("secondary_touch")}
  var report:={"ms":Time.get_ticks_msec(),"phase":phase,"focused":rig.focused,"active":game.active,"menu":game.menu_open,"fps":Engine.get_frames_per_second(),"head":pose(rig.head.transform),"head_world":vector(rig.head.global_position),"origin":pose(rig.origin.transform),"yaw":game.local_yaw,"actor":vector(actor.position) if actor else [],"head_capsule_offset":vector(rig.head.global_position-actor.position) if actor else [],"blackout":rig.blackout.visible,"body_visible":actor.local_body_visible if actor else false,"pose_valid":not sampled.is_empty(),"body":body,"tracking_status":rig.tracking.status,"tracking_enabled":rig.tracking.enabled,"native_calibration":str(rig.tracking.native_corrections),"calibration":rig.tracking.corrections.keys(),"osc_roles":rig.tracking.osc.current(Time.get_ticks_msec()*.001).keys(),"controls":controls,"trackers":trackers,"turn":{"smooth":rig.smooth_turn,"speed":rig.turn_speed,"snap":rig.snap_angle},"lobby":game.lobby.active(),"voice_packets":game.voice.sequence,"voice_received":game.voice.received_packets,"voice_decoded_peak":game.voice.decoded_peak,"mouth_pose":Array(game.voice.mouth_pose(game.multiplayer.get_unique_id())),"voice_mode":game.voice.mode,"voice_transmitting":game.voice.transmitting,"voice_meter":game.voice.meter,"voice_status":game.voice.message,"audio_input":AudioServer.input_device,"audio_output":AudioServer.output_device,"audio_buses":buses,"listener":root.audio_listener_enable_3d,"render_size":str(xr.get_render_target_size()),"texture_filter":game.presentation.get("texture_filter",2),"render_multiplier":xr.render_target_size_multiplier,"scale3d":root.scaling_3d_scale,"vrs":root.vrs_mode}
+ report["assault"]={"map":game.current_map,"stage":game.match_mode.assault.stage,"leg":game.match_mode.assault.leg,"sentries":game.match_mode.fortress.buildings.size(),"sentry_visuals":game.match_mode.fortress.visuals.size(),"doors_open":game.gates.map(func(gate):return gate.open)}
  if actor:
   report["water"]={"swimming":actor.in_water,"underwater":actor.underwater,"air":actor.air_left}
   report["motion"]={"physics_hz":Engine.physics_ticks_per_second,"render_position":vector(actor.render_position()),"grounded":actor.is_on_floor(),"velocity":vector(actor.velocity)}
+ report["face_expression"]={"enabled":game.bindings.face_expressions,"presets":["happy","angry","sad","relaxed","surprised"],"pose":Array(sampled.get("face",{}).get("expression",PackedFloat32Array()))}
+ if face:
+  report.face_expression["classified"]=Array(preload("res://deathmatch/vr/face_expressions.gd").sample(face))
+  report.face_expression["raw"]={}
+  for item in [["smile_l",XRFaceTracker.FT_MOUTH_CORNER_PULL_LEFT],["smile_r",XRFaceTracker.FT_MOUTH_CORNER_PULL_RIGHT],["frown_l",XRFaceTracker.FT_MOUTH_FROWN_LEFT],["brow_lower_l",XRFaceTracker.FT_BROW_LOWERER_LEFT],["brow_inner_l",XRFaceTracker.FT_BROW_INNER_UP_LEFT],["brow_outer_l",XRFaceTracker.FT_BROW_OUTER_UP_LEFT],["eye_wide_l",XRFaceTracker.FT_EYE_WIDE_LEFT],["jaw",XRFaceTracker.FT_JAW_OPEN]]:report.face_expression.raw[item[0]]=face.get_blend_shape(item[1])
  if game.players.has(-99):report["kick_target_health"]=game.players[-99].hp
  if game.players.has(1):
   report["kick_hits"]=[game.players[1].get("left_kick",{}).get("hit",false),game.players[1].get("right_kick",{}).get("hit",false)]
@@ -88,6 +94,8 @@ func sample():
  if mirror and is_instance_valid(mirror.avatar):
   report["mirror_mouth"]=Array(mirror.avatar.mouth.weights)
   report["mirror_blink"]=[mirror.avatar.eyes.blink.x,mirror.avatar.eyes.blink.y]
+  report["mirror_expression"]=Array(mirror.avatar.eyes.expression_weights)
+  report["mirror_expression_bindings"]=mirror.avatar.eyes.binds.slice(7,12).map(func(binds):return binds.size())
  log_file.store_line(JSON.stringify(report));log_file.flush()
  var status:=FileAccess.open(STATUS_PATH,FileAccess.WRITE);status.store_string(JSON.stringify(report,"  "));status.close()
  var inventory:=str(trackers.keys())+str(body.keys())+str(rig.focused)
@@ -109,9 +117,25 @@ func command():
    for id in game.players.keys():
     if id<0:game.fighters[id].free();game.fighters.erase(id);game.players.erase(id)
    game.players[1].invulnerable=0 if game.match_mode.kind=="cc" else game.clock+3600
-  "lobby":
+  "assault_cabin":
+   if game.active:game.disconnect_game()
+   game.selected_map="as_hislop";game.bind_address="127.0.0.1"
+   game.start_host(game.nickname,29108,20,30,false,"as")
+   game.players[1].team=0;game.players[1].invulnerable=game.clock+3600
+   game.fighters[1].position=Vector3(0,.05,-1496.0/32)
+   game.fighters[1].velocity=Vector3.ZERO
+   game.local_yaw=0;game.local_pitch=0
+   game.xr_rig.recenter()
+  "sludge":
+   if game.active and game.current_map=="as_hislop":
+    game.fighters[1].position=Vector3(-7,.05,0)
+    game.fighters[1].velocity=Vector3.ZERO;game.fighters[1].reset_view()
+    game.local_yaw=PI/2;game.local_pitch=0;game.xr_rig.recenter()
+  "lobby", "face_lobby":
+   if not game.active:
+    game.bind_address="127.0.0.1";game.start_host(game.nickname,29108,20,60,false,"dm")
    game.votes.allowed_modes=["dm","ctf","koth"];game.mode_maplists={"dm":["lqdm1","lqdm2"],"ctf":["lqdm1"],"koth":["lqdm2"]}
-   game.lobby.enabled=true;game.lobby.seconds=600;game.lobby.begin()
+   game.lobby.enabled=true;game.lobby.seconds=3600 if data.get("action","")=="face_lobby" else 600;game.lobby.begin()
   "drag_test":
    var wall=game.get_node_or_null("Map/WaitingRoom/VoteWall")
    if wall:

@@ -1,5 +1,9 @@
 # HiSpeed concept — local playtest, 2026-09-11
 
+> These are historical concept-build results. The subsequent HiSlop multiroom
+> rebuild, locked-cabin collision tests, sentry cleanup and live VR follow-up are
+> documented in [HISLOP_VR_FOLLOWUP.md](../../docs/HISLOP_VR_FOLLOWUP.md).
+
 Final BSP: `tf_hispeed_concept.bsp`, 2,027,812 bytes, BSP29.
 SHA-256: `af9d23ae64f764b4ed768b6f297797665fbe707c8483a3d6d43ba1c3f2a1a495`.
 Requires the current source version with protocol `fpsloppa-25-assault`.
@@ -84,7 +88,7 @@ not included as final comparison videos.
 
 ## Additional VRM chase recording
 
-The mode picker now reads **AS — ASSAULT**. `playthrough-vrm-06.fpsdemo` is a
+The mode picker now reads **Assault**. `playthrough-vrm-06.fpsdemo` is a
 separate 110.08-second paired assault with explicitly selected **VRoid Sample D**
 for Red and **VRoid Sample F** for Blue. This recording retains model hashes;
 playback logs confirm both full VRM rigs load, rather than fallback marines.

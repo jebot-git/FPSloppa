@@ -35,7 +35,8 @@ func propose(kind: String,value: String="") -> void:
 func request(kind: String,value: String) -> void:
 	if multiplayer.is_server():start(multiplayer.get_remote_sender_id(),kind,value)
 func start(id: int,kind: String,value: String) -> bool:
-	if game.lobby.active() or not enabled or not game.active or game.practice or game.map_loading or game.intermission>0 or not eligible(id) or not ballot.is_empty() or game.clock<cooldown:return false
+	if not enabled or not game.active or (game.practice and not game.lobby.active()) or game.map_loading or game.intermission>0 or not eligible(id) or not ballot.is_empty() or game.clock<cooldown:return false
+	if game.lobby.active() and kind!="match":return false
 	if kind=="balance":
 		if not game.match_mode.team_game():return false
 	elif kind=="mode":
@@ -43,14 +44,16 @@ func start(id: int,kind: String,value: String) -> bool:
 		if value=="as" and not match_choices().any(func(row):return row.mode=="as"):return false
 	elif kind=="match":
 		var pair:=value.split("|")
-		if pair.size()!=2 or not match_choices().any(func(row):return row.mode==pair[0] and row.map==pair[1]):return false
+		var options: Array=game.lobby.offered if game.lobby.active() else match_choices()
+		if pair.size()!=2 or not options.any(func(row):return row.mode==pair[0] and row.map==pair[1]):return false
 		if pair[0]==game.match_mode.kind and pair[1]==game.current_map:return false
 	elif kind=="map":
 		if value==game.current_map or not choices().any(func(row):return row.id==value):return false
 	else:return false
 	var electorate: Array=game.players.keys().filter(eligible)
 	ballot={"kind":kind,"value":value,"eligible":electorate,"votes":{id:true},"needed":electorate.size()/2+1,"until":game.clock+25.0}
-	cooldown=game.clock+60.0
+	if game.lobby.active():ballot.until=minf(ballot.until,game.lobby.until);game.lobby.vote_result="";game.lobby.next_publish=0
+	cooldown=game.clock+(5.0 if game.lobby.active() else 60.0)
 	game._announcement.rpc(game.players[id].name+" called vote: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change match to "+value.replace("|"," / ") if kind=="match" else "change map to "+value))
 	evaluate();return true
 func vote(yes: bool) -> void:
@@ -62,25 +65,29 @@ func cast_request(yes: bool) -> void:
 func cast(id: int,yes: bool) -> bool:
 	if ballot.is_empty() or not eligible(id) or not ballot.eligible.has(id) or ballot.votes.has(id):return false
 	game.server_log.record("vote_cast",{"peer":id,"yes":yes,"kind":ballot.kind},2)
-	ballot.votes[id]=yes;evaluate();return true
+	ballot.votes[id]=yes
+	if game.lobby.active():game.lobby.next_publish=0
+	evaluate();return true
 func evaluate() -> void:
 	if ballot.is_empty():return
 	var yes: int=ballot.votes.values().count(true);var no: int=ballot.votes.values().count(false)
 	if yes>=ballot.needed:
 		var kind: String=ballot.kind;var value: String=ballot.value;ballot.clear()
 		game._announcement.rpc("Vote passed: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change match to "+value.replace("|"," / ") if kind=="match" else "change map to "+value))
-		if kind=="balance":balance()
+		if game.lobby.active() and kind=="match":game.lobby.accept_match(value)
+		elif kind=="balance":balance()
 		elif kind=="mode":change_mode.call_deferred(value)
 		elif kind=="match":change_match.call_deferred(value)
 		else:change_map.call_deferred(value)
 	elif no>ballot.eligible.size()-ballot.needed or game.clock>=ballot.until:
 		ballot.clear();game._announcement.rpc("Vote failed")
+		if game.lobby.active():game.lobby.vote_result="VOTE FAILED · next match unchanged";game.lobby.next_publish=0
 func tick() -> void:
 	if game.intermission>0 or game.map_loading:ballot.clear()
 	else:evaluate()
 func snapshot() -> Dictionary:
 	if ballot.is_empty():return {}
-	return {"title":"BALANCE TEAMS" if ballot.kind=="balance" else "MODE: "+ballot.value.to_upper() if ballot.kind=="mode" else "MATCH: "+ballot.value.replace("|"," / ") if ballot.kind=="match" else "MAP: "+ballot.value,"yes":ballot.votes.values().count(true),"no":ballot.votes.values().count(false),"needed":ballot.needed,"seconds":maxi(0,ceili(ballot.until-game.clock)),"voted":ballot.votes.keys()}
+	return {"title":"BALANCE TEAMS" if ballot.kind=="balance" else "MODE: "+ballot.value.to_upper() if ballot.kind=="mode" else "MATCH: "+ballot.value.replace("|"," / ") if ballot.kind=="match" else "MAP: "+ballot.value,"yes":ballot.votes.values().count(true),"no":ballot.votes.values().count(false),"needed":ballot.needed,"seconds":maxi(0,ceili(ballot.until-game.clock)),"voted":ballot.votes.keys(),"responses":ballot.votes.duplicate(),"eligible":ballot.eligible.duplicate()}
 func switch_team(team: int) -> void:
 	if multiplayer.is_server():change_team(multiplayer.get_unique_id(),team)
 	else:team_request.rpc_id(1,team)

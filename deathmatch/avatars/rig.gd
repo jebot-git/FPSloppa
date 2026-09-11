@@ -28,9 +28,11 @@ var offhand_gun: Node3D
 var body_height := 1.70
 var scale_factor := 1.0
 var first_person := false
+var secondary_nodes: Array[Node]=[]
 var visual_meshes: Array[MeshInstance3D]=[]
 
 func configure(root: Node3D) -> bool:
+	process_priority=-10
 	model = root
 	model.rotation.y += PI
 	skeleton = find_skeleton(root)
@@ -54,6 +56,7 @@ func configure(root: Node3D) -> bool:
 	eyes.rig=self
 	skeleton.add_child(eyes)
 	eyes.setup(model)
+	mouth.external_mixer=true;mouth.mixer=eyes.apply_morphs
 	build_animations()
 	set_weapon(2)
 	return true
@@ -76,6 +79,7 @@ func mesh_bounds(node: Node3D, parent_transform: Transform3D) -> AABB:
 	return result
 
 func strip_nonvisual(node: Node) -> void:
+	if node is VRMSecondary:secondary_nodes.append(node)
 	for child in node.get_children():
 		if child is CollisionObject3D or child is Camera3D or child is Light3D or child is AudioStreamPlayer3D:
 			child.free()
@@ -99,6 +103,12 @@ func strip_nonvisual(node: Node) -> void:
 func set_first_person(value: bool) -> void:
 	if first_person==value: return
 	first_person=value
+	# The capsule moves on physics ticks; tracked rendering owns this transform.
+	# Keep that parent motion from shifting the mesh between VR/IK updates.
+	top_level=value
+	transform=tracking_transform() if value else Transform3D.IDENTITY
+	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF if value else Node.PHYSICS_INTERPOLATION_MODE_INHERIT
+	for secondary in secondary_nodes:secondary.set_local_body(value)
 	for mesh in visual_meshes:
 		mesh.visible=bool(mesh.get_meta("arena_first_person" if value else "arena_third_person"))
 	if gun: gun.visible=not value and not dead
@@ -145,8 +155,20 @@ func fire(offhand: bool=false) -> void:
 	if offhand: offhand_recoil=1.0
 	else: recoil = 1.0
 
+func tracking_transform() -> Transform3D:
+	var actor=get_parent()
+	if first_person and actor.has_method("render_position"):
+		var game=actor.get_parent()
+		if game.is_vr():return game.xr_rig.global_transform
+		return Transform3D(Basis(Vector3.UP,game.local_yaw),actor.render_position())
+	return actor.global_transform
+
 func _process(delta: float) -> void:
 	if not is_instance_valid(skeleton): return
+	if first_person:
+		global_transform=tracking_transform()
+	else:
+		position.x=0;position.z=0;rotation.y=0
 	if target_xr_pose.is_empty(): xr_pose.clear()
 	elif xr_pose.is_empty() or first_person: xr_pose=target_xr_pose.duplicate()
 	else:
@@ -178,9 +200,9 @@ func _process(delta: float) -> void:
 		position.y = lerpf(position.y,.22,delta*8)
 	else:
 		death_time = 0
-		rotation.x = pain*pain_direction.z*.12
-		rotation.z = -pain*pain_direction.x*.12
-		position.y = 0
+		rotation.x = 0.0 if first_person else pain*pain_direction.z*.12
+		rotation.z = 0.0 if first_person else -pain*pain_direction.x*.12
+		if not first_person:position.y = 0
 	if gun and not xr_pose.is_empty() and not dead:
 		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id)
 		gun.visible=not unarmed and not first_person

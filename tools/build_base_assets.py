@@ -18,6 +18,7 @@ for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text
 paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','cc','tf','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('LibreQuake-*.txt'))
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps/HiSlop').rglob('*') if p.is_file())
+paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps/Frigate').rglob('*') if p.is_file())
 paths.extend(['maps/README.txt','vrm/README.txt'])
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
  for path in sorted(set(paths)):

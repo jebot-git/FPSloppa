@@ -9,7 +9,7 @@ var last_at:=Vector2.ZERO
 func setup(arena: Node) -> void:
 	game=arena
 	surface=load("res://addons/godot-xr-tools/objects/viewport_2d_in_3d.tscn").instantiate()
-	surface.screen_size=Vector2(7.2,5.4);surface.viewport_size=Vector2(960,720)
+	surface.screen_size=Vector2(9.0,5.4);surface.viewport_size=Vector2(1200,720)
 	surface.collision_layer=UI_LAYER;surface.unshaded=true;surface.input_keyboard=false
 	add_child(surface)
 	panel=preload("res://deathmatch/modes/lobby_panel.gd").new();panel.wall=true

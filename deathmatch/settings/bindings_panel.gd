@@ -10,10 +10,10 @@ func setup(arena: Node) -> void:
 	var scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();scroll.name="BindingsScroll";scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;layout.add_child(scroll)
 	var column:=VBoxContainer.new();column.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(column)
 	var title:=Label.new();title.text="CONTROL BINDINGS";column.add_child(title)
-	for option in ["two_handed","physical_jump"]:
-		var check:=CheckButton.new();check.text="Support-hand aim (hold grip near fore-end)" if option=="two_handed" else "Physical playspace jump (standing only)";check.button_pressed=game.bindings.get(option);check.custom_minimum_size.y=48;column.add_child(check)
+	for option in ["two_handed","physical_jump","physical_crouch","physical_interactions","face_expressions"]:
+		var check:=CheckButton.new();check.text={"two_handed":"Support-hand aim (hold grip near fore-end)","physical_jump":"Physical playspace jump (standing only)","physical_crouch":"Physical playspace crouch (standing only)","face_expressions":"Face expression matching (experimental)","physical_interactions":"Physical TF abilities / AS buttons"}[option];check.button_pressed=game.bindings.get(option);check.custom_minimum_size.y=48;column.add_child(check)
 		check.toggled.connect(func(value):game.bindings.set(option,value);save())
-	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Select a desktop action, then press a key or mouse button. Escape cancels. VR roles follow your hand settings. Shared bindings trigger both actions.";column.add_child(notice)
+	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Select a desktop action, then press a key or mouse button. Escape cancels. VR roles follow your hand settings. Shared bindings trigger both actions. TF: hold support grip + offhand trigger for ability / grenade; release grip to throw, or release trigger during a throw. Slap buildings to repair, touch teammates to heal. AS: press the console or Use.";column.add_child(notice)
 	for action in game.bindings.KEYS:
 		var button:=Button.new();button.custom_minimum_size.y=48;column.add_child(button);buttons[action]=button
 		button.pressed.connect(func():

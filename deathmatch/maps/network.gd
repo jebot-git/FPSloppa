@@ -27,12 +27,15 @@ func offer(peer: int) -> void:
 		if row.id==game.current_map: 
 			size=int(row.get("size",0))
 			break
-	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title,game.map_epoch)
+	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title,game.map_epoch,game.match_mode.kind)
 @rpc("authority","call_remote","reliable",5)
-func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0) -> void:
+func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0,mode: String="dm") -> void:
 	if epoch<game.map_epoch: return
 	if epoch>game.map_epoch or game.active: game._prepare_client_map(epoch)
 	if not expected.is_empty() or not incoming.is_empty(): return
+	if not game.match_mode.NAMES.has(mode):game.disconnect_game("Host selected an unknown game mode.");return
+	# Mode must arrive before loading: an AS client must accept a voted DM/IG map.
+	game.match_mode.kind=mode
 	if map_id==game.lobby.ID and hash==game.lobby.HASH.sha256_text() and size==0:
 		game.lobby.build();game.map_loading=false;game._map_ready.rpc_id(1,hash);return
 	for row in game.map_catalog:

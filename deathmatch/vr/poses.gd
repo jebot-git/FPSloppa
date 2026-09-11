@@ -11,9 +11,9 @@ static func valid_transform(value: Variant) -> bool:
 		if absf(axis.length()-1.0)>.02: return false
 	return absf(value.basis.x.dot(value.basis.y))<.02 and absf(value.basis.x.dot(value.basis.z))<.02 and absf(value.basis.y.dot(value.basis.z))<.02
 static func validate(data: Variant) -> Dictionary:
-	if not data is Dictionary or data.size()<5 or data.size()>8: return {}
+	if not data is Dictionary or data.size()<5 or data.size()>9: return {}
 	for key in data:
-		if key not in ["head","left","right","weapon","left_handed","body","face","offhand_weapon"]: return {}
+		if key not in ["head","left","right","weapon","left_handed","body","face","offhand_weapon","height"]: return {}
 	if not data.has("left_handed") or not data.left_handed is bool: return {}
 	for key in ["head","left","right","weapon"]:
 		if not valid_transform(data.get(key)): return {}
@@ -27,6 +27,9 @@ static func validate(data: Variant) -> Dictionary:
 		var offhand: Transform3D=data.right if data.left_handed else data.left
 		if not valid_transform(data.offhand_weapon) or data.offhand_weapon.origin.distance_to(offhand.origin)>.4: return {}
 	var result: Dictionary=data.duplicate()
+	if data.has("height"):
+		if not (data.height is float or data.height is int) or not is_finite(float(data.height)):return {}
+		result.height=clampf(float(data.height),.80,1.65)
 	if data.has("body"):
 		result.body=validate_body(data.body)
 	if data.has("face"): result.face=validate_face(data.face)
@@ -49,8 +52,20 @@ static func validate_body(value: Variant) -> Dictionary:
 	return result
 
 static func validate_face(value: Variant) -> Dictionary:
-	if not value is Dictionary or value.size()!=4: return {}
+	if not value is Dictionary or value.size()<4 or value.size()>5: return {}
+	for key in value:
+		if not key in ["look","blink","gaze","lids","expression"]:return {}
 	if not value.get("look") is Vector2 or not value.get("blink") is Vector2: return {}
 	if not value.get("gaze") is bool or not value.get("lids") is bool: return {}
 	if not value.look.is_finite() or not value.blink.is_finite(): return {}
-	return {"look":value.look.clamp(Vector2(-.20944,-.139626),Vector2(.20944,.139626)),"blink":value.blink.clamp(Vector2.ZERO,Vector2(.9,.9)),"gaze":value.gaze,"lids":value.lids}
+	var result: Dictionary={"look":value.look.clamp(Vector2(-.20944,-.139626),Vector2(.20944,.139626)),"blink":value.blink.clamp(Vector2.ZERO,Vector2(.9,.9)),"gaze":value.gaze,"lids":value.lids}
+	if value.has("expression"):
+		if not value.expression is PackedFloat32Array or value.expression.size()!=5:return {}
+		var weights: PackedFloat32Array=value.expression.duplicate();var total:=0.0
+		for i in 5:
+			if not is_finite(weights[i]):return {}
+			weights[i]=clampf(weights[i],0,1);total+=weights[i]
+		if total>1:
+			for i in 5:weights[i]/=total
+		result.expression=weights
+	return result

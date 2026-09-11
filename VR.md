@@ -31,7 +31,7 @@ A large world-space panel provides hosting, joining, map selection and model pre
 
 Choose MODEL to preview any bundled VRM or import a self-contained custom VRM up to **25,000,000 bytes**. Models download through the server for other players. See [AVATARS.md](AVATARS.md) for structural limits and licensing. Missing BSP maps download from the host before joining; see [MAPS.md](MAPS.md).
 
-Head, hands and weapon poses are replicated. Remote avatars use smoothed tracked head orientation, crouching hip motion, arm IK and ground-aligned feet. Every model keeps the same movement capsule and damage volumes. Small physical steps and leaning move the shared movement/damage capsule horizontally toward the headset, with a 2 cm tolerance. Tracking offsets are limited to 0.75 m and room-scale motion to 2.4 m/s, sharing the normal locomotion speed budget. The server validates the request against the headset pose and performs collision checks. Only actual capsule travel is subtracted from the tracking origin and replicated poses, preserving headset/weapon world positions when walls block movement. Capsule dimensions stay fixed; room-scale input cannot move it vertically. Implausible/nonfinite/scaled poses are rejected. A muzzle through a wall cannot shoot. Losing gun-controller tracking blocks firing. Head penetration fades the view to black.
+Head, hands and weapon poses are replicated. Remote avatars use smoothed tracked head orientation, crouching hip motion, arm IK and ground-aligned feet. Every model shares the same standing capsule and damage volumes; tracked crouching reduces their height together. Small physical steps and leaning move the shared movement/damage capsule horizontally toward the headset, with a 2 cm tolerance. Tracking offsets are limited to 0.75 m and room-scale motion to 2.4 m/s, sharing the normal locomotion speed budget. The server validates the request against the headset pose and performs collision checks. Only actual capsule travel is subtracted from the tracking origin and replicated poses, preserving headset/weapon world positions when walls block movement. Room-scale input cannot move the capsule vertically. Physical crouching can shorten its height while keeping its feet on the ground. Implausible/nonfinite/scaled poses are rejected. A muzzle through a wall cannot shoot. Losing gun-controller tracking blocks firing. Head penetration fades the view to black.
 
 Stair movement probes for reachable treads and snaps down to descending steps. A short visual height blend softens the step change in both desktop and VR while headset motion remains direct. Invisible map trigger volumes retain their behavior but no longer render opaque boxes, including on lqdm1.
 
@@ -118,7 +118,7 @@ Movement integrates using Godot’s supplied physics delta, with per-render-fram
 ## Arm swimming and automatic body calibration
 
 While in water, short backward hand pulls propel you in the direction you look;
-downward strokes lift you toward the surface. One arm or alternating arms work,
+downward strokes also propel you along your current view direction. One arm or alternating arms work,
 and a stroke of roughly 3.5 cm is enough to begin producing thrust. Point your
 view downward while pulling to dive. Stroke strength is bounded and shares the
 normal water movement speed budget with the stick. Holding jump still swims
@@ -126,13 +126,64 @@ upward and takes priority over arm strokes. Menus, lost tracking/focus, death,
 spectating and frozen state stop gesture thrust; it cannot propel you on land.
 
 With hip and both foot (or lower-leg) trackers available, stand upright and hold
-your arms out at shoulder height in a T-pose for about **1.4 seconds**. A short
+your arms out approximately at shoulder height in a T-pose for about **1.1 seconds**.
+Slightly lowered or forward arms, modest head tilt, tracking jitter and brief
+pose deviations are tolerated; you do not need a perfectly rigid pose. A short
 local bell jingle and haptic pulse confirm successful calibration. This works
 with native body/Vive-role tracking and fresh SlimeVR OSC poses, including before
-the external trackers have been calibrated. T-pose calibration also places
+the external trackers have been calibrated. The gesture recenters your playspace
+before applying the new tracker calibration. T-pose calibration also places
 external elbow targets at shoulder height. Controller-only and upper-body-only
 tracking do not trigger full-body calibration. Seated mode, swimming, airborne
 movement, loss of focus and unstable poses prevent accidental calibration.
-Lower your arms for at least 0.7 seconds before repeating; there is a five-second
+Lower your arms for at least 0.55 seconds before repeating; there is a five-second
 cooldown. The existing manual calibration button remains available and also
 plays the completion cue on success. The cue follows the sound-effects volume.
+
+## Physical TF / AS interactions and close-surface shooting
+
+**Settings → Bindings → Physical TF abilities / AS buttons** is enabled by default
+and saved in the client configuration. Engineers can slap friendly buildings;
+medics can touch teammates. Hold support grip and press the offhand trigger for a
+class ability or to hold a grenade. Release grip to throw or drop it, or release the
+trigger during a throwing stroke. AS objectives have physical pressable consoles.
+The ordinary Use binding remains an accessible alternative. Full controls and costs
+are in [TF.md](TF.md#physical-vr-abilities) and [AS.md](AS.md#vr-objective-buttons).
+
+When a tracked hand is clear but the extended barrel reaches the floor or a wall,
+the weapon and short aim guide retract to a safe firing point on the near side.
+Projectile clearance includes the projectile radius. This allows ground-facing
+rocket jumps and close-range firing; a tracked weapon hand pushed through a wall
+still prevents firing before ammunition is spent. Hand tracking itself is unchanged.
+
+These changes require matching clients and servers using protocol
+`fpsloppa-29-acknowledged-movement`. Source version remains 0.9v until the next release.
+See [implementation and validation notes](docs/VR_PHYSICAL_INTERACTIONS.md).
+
+## Physical crouching, surface jumps and face expressions
+
+Physical playspace crouching is enabled by default in **Settings → Bindings**.
+Recenter while standing to calibrate. Lower your headset by 30 cm to crouch;
+stand within 20 cm of the calibrated height to release it. The server adjusts
+movement and damage height together, bounded to 0.80–1.65 m, and checks overhead
+clearance before restoring full height. Seated mode disables physical crouching.
+Standing up from a crouch does not trigger the physical-jump detector.
+
+At the water surface, holding jump or swimming upward while looking up gives one
+normal-strength jump to clear a bank. It rearms after sustained immersion or
+landing on dry ground. Level arm strokes propel forward while gravity continues
+to let you sink; look up/down to steer vertically. Holding jump still swims up.
+
+**Face expression matching (experimental)** is enabled in Settings → Bindings and
+saved to the client config. When native face data is available, facial movements
+approximate VRM happy, angry, sad, relaxed and surprised presets. Models without
+those morphs are unchanged. The strongest cue fades in gently and returns to
+neutral when tracking is unavailable. Eye movements, blinking and speech visemes
+remain independent. This matches facial shapes, not a person's emotional state.
+See [implementation and test notes](docs/VR_CROUCH_WATER_FACE.md).
+
+VRM and BSP import use a shared in-menu browser: choose LOCATIONS for drives,
+Downloads or game folders; open directories with one trigger click, use UP for
+the parent, and drag the file list. Select a file and press IMPORT to confirm.
+Large directories have additional pages. The path field supports direct paths
+and the VR keyboard. Access is still limited by the operating system permissions.

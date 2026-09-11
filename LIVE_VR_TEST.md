@@ -1,5 +1,12 @@
 ## Owner-reported 0.3v results
 
+The diagnostic `face_lobby` action starts a private loopback host and opens the
+tracking-mirror lobby for one hour. It records raw expression inputs, the five
+classified VRM presets, sampled pose weights, mirror weights and available
+expression bindings alongside the existing blink telemetry. These are local
+measurements, not evidence of wearer-confirmed expression quality. The normal
+launcher does not read these commands or write this diagnostic telemetry.
+
 Passed: Quest 3 standalone; Linux PCVR with WiVRn; Windows PCVR with SteamVR; Windows PCVR with Virtual Desktop. Pico 4 and other configurations remain untested. These reports apply to 0.3v, not hardware certification of 0.4v.
 
 # Local live VR checks
@@ -12,7 +19,7 @@ godot --xr-mode on --path . --script res://deathmatch/tests/live_vr.gd -- --fram
 
 This optional test entry point records device poses and control states locally at 10 Hz in `test-results/live-vr.jsonl`, with the latest state in `live-vr-status.json`. Nothing is transmitted outside the normal VR session. The runtime log identifies the headset/runtime and reports application frame timing. Existing logs should be copied before another run.
 
-`test-results/live-vr-command.json` accepts a JSON object with `phase` (a label) and optional `action`: `practice`, `recenter`, `calibrate`, `damage` (local feedback only), `audio_test` (a quiet cue repeated for 15 seconds), `lobby` (private test wall with three mode maplists), `drag_test` (after `lobby`, adds temporary long mode/map lists for trigger-drag testing; dummy entries cannot be voted into a match), `vote_alert` (temporary diagnostic ballot), `end_lobby`, `kick_target` (stationary combat dummy in private practice), `capture_feedback` (local capture fanfare/banner), `menu`, or `stop`. Changing the file applies one command. Clear a previous stop command before starting another session. The normal game launcher does not read these files or record this telemetry.
+`test-results/live-vr-command.json` accepts a JSON object with `phase` (a label) and optional `action`: `practice`, `recenter`, `calibrate`, `damage` (local feedback only), `audio_test` (a quiet cue repeated for 15 seconds), `lobby` (private test wall with three mode maplists), `drag_test` (after `lobby`, adds temporary long mode/map lists for trigger-drag testing; dummy entries cannot be voted into a match), `vote_alert` (temporary diagnostic ballot), `end_lobby`, `kick_target` (stationary combat dummy in private practice), `capture_feedback` (local capture fanfare/banner), `menu`, `assault_cabin` (private HiSlop host, start at CAR 1 stairs), `sludge` (move an active HiSlop test onto the tank catwalk), or `stop`. Changing the file applies one command. Clear a previous stop command before starting another session. The normal game launcher does not read these files or record this telemetry.
 
 The probe's `practice` action starts a bot-free private host bound to `127.0.0.1:29108` with voice available. Ordinary offline practice disables voice, so it cannot validate microphone capture. The probe records audio level meters and push-to-talk state, without recording microphone audio. `mouth_pose` and `mirror_mouth` report speech-expression weights for checking the smaller lobby tracking mirror while holding push-to-talk.
 
@@ -65,3 +72,27 @@ The wearer also reported missing blinks. The vendor plugin requested an audio fa
 The final Quest Pro/WiVRn test retained 2520×2772 per-eye rendering. After manual jump input and silent CC hunger damage were applied, the wearer reported that all else seemed fine. Holding jump still continuously swims upward; automated collision tests cover both that case and release/press ground jumping.
 
 Tracked kicks were then tested against a stationary combat dummy in the private host. The wearer confirmed: “Kicks register.” This session recorded 2,156 diagnostic samples at a median 72 FPS and observed foot-hit flags and target damage. Kicks deal 10 damage and share the 0.8-second weapon-whip cooldown; regression tests cover both feet, hand/foot cooldown interactions, movement rejection, walls, armour and normal frag accounting. The live client exited with code 0 after testing; OpenXR teardown still logged spatial-extension disconnect and interaction-profile RID warnings. Raw poses and recordings remain excluded from the release.
+
+## Face-expression mirror check, 2026-09-11
+
+The current Quest Pro / WiVRn 26.6.2 session ran the private lobby at 72 FPS,
+2520×2772 per eye. The face tracker supplied live samples; all five VRM preset
+bindings were present on the selected avatar, and classified values reached the
+mirror. The initial 787 samples included mirror happy weight 0.65, angry 0.355,
+relaxed 0.203 and both eyelid closures 0.9. Sad/surprised activity was small in
+that window; this is not an isolated strength calibration of each preset.
+
+After being prompted to exercise expressions and blinking, the wearer confirmed
+**“All works.”** This confirms the current local headset/model mirror behavior;
+it does not certify other runtimes or models. Raw telemetry stays in ignored
+`test-results/live-vr.jsonl`. The lobby was left running for further inspection.
+
+## HiSlop recorded test confirmation, 2026-09-11
+
+The wearer supplied `last.mp4` and confirmed that swimming, local avatar jitter,
+map layout, the lobby system and gun-to-wall collisions now appear correct.
+The recording shows HiSlop traversal followed by an indoor lobby return, mirror
+use and an approved wall-board vote. A small moving-wall animation inconsistency
+remains a noncritical visual follow-up. See [the timestamped review](docs/LAST_VR_REVIEW.md)
+for direct observations, limits and subsequent sound/calibration changes. Those
+new changes have automated coverage but have not yet had a new wearer test.

@@ -37,11 +37,11 @@ func run() -> void:
 	tf.cooldowns[1]=0;g.players[-2].team=1
 	check(not tf.action(1),"Medic cannot heal an enemy")
 	role(1,"spy");g.avatars.choices[-2]={"hash":g.avatars.library.selected,"size":1}
-	check(tf.action(1) and tf.cloaked(1) and not g.players[1].tf_disguise.is_empty(),"Spy cloaks and copies enemy identity")
+	check(tf.action(1) and not tf.cloaked(1) and not g.players[1].tf_disguise.is_empty(),"Default Spy copies enemy identity without invisibility")
 	check(tf.display_avatar(1,"")==g.avatars.library.selected,"Disguise reuses validated custom/default VRM")
 	tf.incoming_damage(1,5,"PISTOL",false);check(not tf.cloaked(1) and g.players[1].tf_disguise.is_empty(),"Damage reveals spy and restores avatar identity")
 	tf.cooldowns[1]=0;tf.action(1);g.players[1].melee=true;g.players[1].last_input=g.clock;g.players[1].melee_state.clear();g._update_melee_hand(1,false)
-	check(not tf.cloaked(1) and g.players[1].tf_disguise.is_empty(),"Physical melee reveals spy even when swing misses")
+	check(not tf.cloaked(1) and not g.players[1].tf_disguise.is_empty(),"Missed physical melee preserves Spy disguise")
 	g.players[1].melee=false
 	tf.cooldowns[1]=0;g.match_mode.flags[1].carrier=1
 	check(not tf.action(1),"Flag carrier cannot cloak")

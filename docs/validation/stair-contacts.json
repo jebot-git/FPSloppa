@@ -1,0 +1,668 @@
+{
+  "base_commit": "5105fb8",
+  "video": "https://streamable.com/l02zcj",
+  "map": "lqdm1 / Solstice",
+  "map_sha256": "eb1f9a74e489e32d82718e6366c29f92a65553c2c809b7b90f9862376b015708",
+  "map_geometry_modified": false,
+  "baseline_synthetic_failures": [
+    "Low analog input keeps climbing: 60 Hz, boxes, 0 degree approach",
+    "Low analog input keeps climbing: 60 Hz, boxes, 55 degree approach",
+    "Low analog input keeps climbing: 60 Hz, triangles, 0 degree approach",
+    "Low analog input keeps climbing: 60 Hz, triangles, 55 degree approach",
+    "Low analog input keeps climbing: 90 Hz, boxes, 0 degree approach",
+    "Low analog input keeps climbing: 90 Hz, boxes, 55 degree approach",
+    "Low analog input keeps climbing: 90 Hz, triangles, 0 degree approach",
+    "Low analog input keeps climbing: 90 Hz, triangles, 55 degree approach",
+    "Low analog input keeps climbing: 144 Hz, boxes, 55 degree approach",
+    "Low analog input keeps climbing: 144 Hz, triangles, 55 degree approach"
+  ],
+  "stair_contacts": {
+    "failures": [],
+    "metrics": [
+      {
+        "angle": 0.0,
+        "end": "(-2.0, 1.995834, -4.156372)",
+        "hz": 60,
+        "max_travel": 0.0156831741333008,
+        "triangles": false
+      },
+      {
+        "angle": 55.0,
+        "end": "(1.815441, 1.48451, -2.168161)",
+        "hz": 60,
+        "max_travel": 0.0156676713377237,
+        "triangles": false
+      },
+      {
+        "angle": 0.0,
+        "end": "(-2.0, 1.995798, -4.158411)",
+        "hz": 60,
+        "max_travel": 0.0157036781311035,
+        "triangles": true
+      },
+      {
+        "angle": 55.0,
+        "end": "(1.815617, 1.486846, -2.168986)",
+        "hz": 60,
+        "max_travel": 0.0156963225454092,
+        "triangles": true
+      },
+      {
+        "angle": 0.0,
+        "end": "(-2.0, 1.995834, -4.150584)",
+        "hz": 90,
+        "max_travel": 0.0104629993438721,
+        "triangles": false
+      },
+      {
+        "angle": 55.0,
+        "end": "(1.810553, 1.480449, -2.156486)",
+        "hz": 90,
+        "max_travel": 0.0104451142251492,
+        "triangles": false
+      },
+      {
+        "angle": 0.0,
+        "end": "(-2.0, 1.995799, -4.148763)",
+        "hz": 90,
+        "max_travel": 0.0105023384094238,
+        "triangles": true
+      },
+      {
+        "angle": 55.0,
+        "end": "(1.81102, 1.48133, -2.158695)",
+        "hz": 90,
+        "max_travel": 0.010448238812387,
+        "triangles": true
+      },
+      {
+        "angle": 0.0,
+        "end": "(-2.0, 1.995115, -4.134511)",
+        "hz": 144,
+        "max_travel": 0.00655317306518555,
+        "triangles": false
+      },
+      {
+        "angle": 55.0,
+        "end": "(1.807171, 1.474212, -2.14177)",
+        "hz": 144,
+        "max_travel": 0.00652860384434462,
+        "triangles": false
+      },
+      {
+        "angle": 0.0,
+        "end": "(-2.0, 1.995434, -4.140413)",
+        "hz": 144,
+        "max_travel": 0.00656247138977051,
+        "triangles": true
+      },
+      {
+        "angle": 55.0,
+        "end": "(1.808323, 1.478472, -2.150008)",
+        "hz": 144,
+        "max_travel": 0.00652860384434462,
+        "triangles": true
+      },
+      {
+        "end": "(-3.392025, -0.00417, -30.08733)",
+        "map": "lqdm1",
+        "progress": 1.46733093261719,
+        "start": "(-5.5, -0.975, -28.62)"
+      },
+      {
+        "end": "(-1.639924, -0.004165, -31.09326)",
+        "map": "lqdm1",
+        "progress": 1.4732551574707,
+        "start": "(-3.75, -0.475, -29.62)"
+      },
+      {
+        "end": "(30.08643, 0.974363, -22.88815)",
+        "map": "lqdm1",
+        "progress": 1.4664306640625,
+        "start": "(28.62, 0.025, -25.0)"
+      },
+      {
+        "end": "(31.0869, 1.474404, -22.88825)",
+        "map": "lqdm1",
+        "progress": 1.46689987182617,
+        "start": "(29.62, 0.525, -25.0)"
+      },
+      {
+        "end": "(26.60696, -0.004168, -20.08406)",
+        "map": "lqdm1",
+        "progress": 1.46405792236328,
+        "start": "(24.5, -0.975, -18.62)"
+      },
+      {
+        "end": "(33.92678, 3.745832, -19.10282)",
+        "map": "lqdm1",
+        "progress": 1.45321655273438,
+        "start": "(35.38, 3.025, -17.0)"
+      }
+    ]
+  },
+  "new_checks": 36,
+  "existing_regressions": [
+    {
+      "test": "stairs",
+      "passed": true,
+      "exit": 0,
+      "checks": 12,
+      "errors": []
+    },
+    {
+      "test": "quake_movement",
+      "passed": true,
+      "exit": 0,
+      "checks": 22,
+      "errors": []
+    },
+    {
+      "test": "rocket_jump",
+      "passed": true,
+      "exit": 0,
+      "checks": 10,
+      "errors": []
+    },
+    {
+      "test": "room_scale",
+      "passed": true,
+      "exit": 0,
+      "checks": 16,
+      "errors": []
+    },
+    {
+      "test": "water",
+      "passed": true,
+      "exit": 0,
+      "checks": 24,
+      "errors": []
+    },
+    {
+      "test": "movement_audio",
+      "passed": true,
+      "exit": 0,
+      "checks": 26,
+      "errors": []
+    },
+    {
+      "test": "vr_gestures",
+      "passed": true,
+      "exit": 0,
+      "checks": 27,
+      "errors": []
+    },
+    {
+      "test": "player_platform",
+      "passed": true,
+      "exit": 0,
+      "checks": 0,
+      "errors": []
+    }
+  ],
+  "map_survey": {
+    "candidate_approaches": 220,
+    "definition": "Settled grounded candidates progressing less than 0.8 m into the riser after five seconds of 10% input at a 55 degree angle. Candidates are automatically paired tread bounds, not all valid routes.",
+    "blocked_before": 54,
+    "blocked_after": 14,
+    "newly_blocked": 0,
+    "improved": [
+      {
+        "case": 0,
+        "start": [
+          -5.5,
+          -0.975,
+          -28.62
+        ],
+        "before": "(-2.598603, -1.004181, -28.69906)",
+        "after": "(-3.392025, -0.00417, -30.08733)"
+      },
+      {
+        "case": 1,
+        "start": [
+          -2.5,
+          -0.975,
+          -28.62
+        ],
+        "before": "(0.401398, -1.004202, -28.69906)",
+        "after": "(-0.392037, -0.00416, -30.08652)"
+      },
+      {
+        "case": 4,
+        "start": [
+          2.5,
+          -0.975,
+          -28.62
+        ],
+        "before": "(4.698814, -1.004174, -28.69906)",
+        "after": "(4.606729, -0.004171, -30.08314)"
+      },
+      {
+        "case": 18,
+        "start": [
+          -3.75,
+          -0.475,
+          -29.62
+        ],
+        "before": "(-0.848603, -0.50418, -29.69906)",
+        "after": "(-1.639924, -0.004165, -31.09326)"
+      },
+      {
+        "case": 19,
+        "start": [
+          -2.5,
+          -0.475,
+          -29.62
+        ],
+        "before": "(0.401398, -0.504188, -29.69906)",
+        "after": "(-0.389947, -0.004162, -31.09338)"
+      },
+      {
+        "case": 20,
+        "start": [
+          2.5,
+          -0.475,
+          -29.62
+        ],
+        "before": "(4.699523, -0.504066, -29.69901)",
+        "after": "(4.609915, -0.004163, -31.09373)"
+      },
+      {
+        "case": 70,
+        "start": [
+          -4.62,
+          2.025,
+          -10.0
+        ],
+        "before": "(-5.222076, 2.056573, -11.35233)",
+        "after": "(-6.094215, 2.992601, -12.10658)"
+      },
+      {
+        "case": 71,
+        "start": [
+          2.38,
+          0.025,
+          5.0
+        ],
+        "before": "(2.300962, -0.004926, 2.300325)",
+        "after": "(0.911642, 0.995807, 2.89133)"
+      },
+      {
+        "case": 73,
+        "start": [
+          -0.62,
+          1.525,
+          5.0
+        ],
+        "before": "(-0.698934, 1.494906, 2.300301)",
+        "after": "(-2.093332, 1.995834, 2.889975)"
+      },
+      {
+        "case": 74,
+        "start": [
+          0.38,
+          1.025,
+          5.0
+        ],
+        "before": "(0.300943, 0.99584, 2.300423)",
+        "after": "(-1.086735, 1.995838, 2.892206)"
+      },
+      {
+        "case": 82,
+        "start": [
+          8.0,
+          4.025,
+          -32.38
+        ],
+        "before": "(6.30113, 3.994992, -32.29984)",
+        "after": "(6.800942, 4.495816, -31.30107)"
+      },
+      {
+        "case": 83,
+        "start": [
+          8.0,
+          4.525,
+          -31.38
+        ],
+        "before": "(6.80141, 4.495817, -31.30094)",
+        "after": "(6.300942, 4.995766, -29.61229)"
+      },
+      {
+        "case": 151,
+        "start": [
+          6.0,
+          4.025,
+          -1.62
+        ],
+        "before": "(8.90136, 3.995918, -1.698929)",
+        "after": "(7.199056, 4.495825, -2.699005)"
+      },
+      {
+        "case": 152,
+        "start": [
+          6.0,
+          4.525,
+          -2.62
+        ],
+        "before": "(7.19903, 4.495833, -2.699059)",
+        "after": "(7.699059, 4.995825, -4.387653)"
+      },
+      {
+        "case": 153,
+        "start": [
+          17.0,
+          0.025,
+          -6.38
+        ],
+        "before": "(16.41365, 0.450947, -6.00472)",
+        "after": "(15.9221, 0.744689, -5.496498)"
+      },
+      {
+        "case": 157,
+        "start": [
+          28.62,
+          0.025,
+          -25.0
+        ],
+        "before": "(29.08808, -0.004162, -22.32773)",
+        "after": "(30.08643, 0.974363, -22.88815)"
+      },
+      {
+        "case": 160,
+        "start": [
+          28.62,
+          0.025,
+          -9.0
+        ],
+        "before": "(29.08809, -0.004172, -6.327796)",
+        "after": "(30.08759, 0.974301, -6.887992)"
+      },
+      {
+        "case": 165,
+        "start": [
+          18.38,
+          0.525,
+          -30.75
+        ],
+        "before": "(18.77773, 0.474731, -31.38364)",
+        "after": "(16.9075, 2.493941, -32.85453)"
+      },
+      {
+        "case": 166,
+        "start": [
+          29.62,
+          0.525,
+          -25.0
+        ],
+        "before": "(30.08747, -0.004189, -22.31067)",
+        "after": "(31.0869, 1.474404, -22.88825)"
+      },
+      {
+        "case": 167,
+        "start": [
+          30.62,
+          1.025,
+          -25.0
+        ],
+        "before": "(31.08565, -0.004159, -22.30937)",
+        "after": "(31.83769, 1.947658, -23.25314)"
+      },
+      {
+        "case": 168,
+        "start": [
+          31.62,
+          1.525,
+          -24.9427900314331
+        ],
+        "before": "(31.69838, 0.377847, -22.1701)",
+        "after": "(32.69907, 1.99485, -23.30094)"
+      },
+      {
+        "case": 169,
+        "start": [
+          29.62,
+          0.525,
+          -9.0
+        ],
+        "before": "(30.08748, -0.004089, -6.310634)",
+        "after": "(31.08532, 1.474507, -6.88851)"
+      },
+      {
+        "case": 170,
+        "start": [
+          30.62,
+          1.025,
+          -9.0
+        ],
+        "before": "(30.99985, -0.005042, -6.425452)",
+        "after": "(31.77145, 1.889494, -7.345707)"
+      },
+      {
+        "case": 172,
+        "start": [
+          31.62,
+          1.525,
+          -9.0
+        ],
+        "before": "(31.69898, 1.495837, -7.314873)",
+        "after": "(33.34181, 2.495815, -7.300942)"
+      },
+      {
+        "case": 177,
+        "start": [
+          20.5,
+          -0.975,
+          -19.62
+        ],
+        "before": "(23.66278, -1.004177, -18.7111)",
+        "after": "(22.57571, -0.004164, -20.9366)"
+      },
+      {
+        "case": 193,
+        "start": [
+          24.5,
+          -0.975,
+          -18.62
+        ],
+        "before": "(27.40154, -1.004189, -18.69906)",
+        "after": "(26.60696, -0.004168, -20.08406)"
+      },
+      {
+        "case": 197,
+        "start": [
+          24.5,
+          -0.975,
+          -15.38
+        ],
+        "before": "(21.83742, -1.004172, -14.85913)",
+        "after": "(22.39014, -0.287029, -13.90627)"
+      },
+      {
+        "case": 203,
+        "start": [
+          26.5,
+          -0.475,
+          -19.62
+        ],
+        "before": "(27.69901, -0.504935, -19.69905)",
+        "after": "(28.6099, -0.004184, -21.09374)"
+      },
+      {
+        "case": 206,
+        "start": [
+          26.5,
+          -0.475,
+          -14.38
+        ],
+        "before": "(23.64102, -0.504177, -14.22049)",
+        "after": "(24.39081, -0.004164, -12.90848)"
+      },
+      {
+        "case": 208,
+        "start": [
+          35.38,
+          3.025,
+          -17.0
+        ],
+        "before": "(35.1442, 2.99584, -19.83216)",
+        "after": "(33.92678, 3.745832, -19.10282)"
+      },
+      {
+        "case": 209,
+        "start": [
+          33.88,
+          3.775,
+          -17.0
+        ],
+        "before": "(33.64672, 3.017689, -19.85308)",
+        "after": "(32.40826, 3.995709, -19.10932)"
+      },
+      {
+        "case": 210,
+        "start": [
+          34.38,
+          3.525,
+          -17.0
+        ],
+        "before": "(34.1467, 2.99584, -19.85293)",
+        "after": "(32.91633, 3.995934, -19.10667)"
+      },
+      {
+        "case": 211,
+        "start": [
+          34.88,
+          3.275,
+          -17.0
+        ],
+        "before": "(34.64611, 2.995829, -19.85252)",
+        "after": "(33.42229, 3.995833, -19.10445)"
+      },
+      {
+        "case": 212,
+        "start": [
+          32.62,
+          2.025,
+          -24.9427900314331
+        ],
+        "before": "(32.69906, 1.994811, -23.30037)",
+        "after": "(34.08801, 2.995839, -22.83562)"
+      },
+      {
+        "case": 213,
+        "start": [
+          33.5,
+          2.525,
+          -23.38
+        ],
+        "before": "(30.94854, -0.004182, -22.62061)",
+        "after": "(31.31991, 0.181637, -21.87032)"
+      },
+      {
+        "case": 214,
+        "start": [
+          33.62,
+          2.525,
+          -25.0
+        ],
+        "before": "(34.18477, 2.995874, -22.48073)",
+        "after": "(35.09362, 2.99584, -22.89)"
+      },
+      {
+        "case": 215,
+        "start": [
+          32.62,
+          2.025,
+          -9.0
+        ],
+        "before": "(32.69958, 1.995837, -7.329436)",
+        "after": "(34.34017, 2.995824, -7.300944)"
+      },
+      {
+        "case": 216,
+        "start": [
+          33.62,
+          2.525,
+          -10.0
+        ],
+        "before": "(33.69897, 2.495765, -7.300383)",
+        "after": "(35.09373, 2.99584, -7.890105)"
+      },
+      {
+        "case": 217,
+        "start": [
+          33.5,
+          2.525,
+          -10.62
+        ],
+        "before": "(33.69746, 2.699047, -10.69854)",
+        "after": "(35.60831, 2.995772, -12.09494)"
+      },
+      {
+        "case": 218,
+        "start": [
+          33.62,
+          2.525,
+          -8.5
+        ],
+        "before": "(33.69898, 2.495808, -7.301414)",
+        "after": "(35.85699, 2.99733, -7.301068)"
+      }
+    ]
+  },
+  "server_load": [
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.567,
+        "tick_max_ms": 7.76,
+        "tick_p50_ms": 3.536,
+        "tick_p95_ms": 4.172,
+        "ticks": 360,
+        "version": "0.9v"
+      },
+      "memory": [
+        {
+          "nodes": 386,
+          "objects": 2513,
+          "orphans": 0,
+          "projectiles": 0,
+          "resources": 406,
+          "static_bytes": 47078050,
+          "tick": 0
+        },
+        {
+          "nodes": 386,
+          "objects": 2513,
+          "orphans": 0,
+          "projectiles": 523,
+          "resources": 406,
+          "static_bytes": 47909106,
+          "tick": 300
+        }
+      ],
+      "memory_final": {
+        "nodes": 3,
+        "objects": 1781,
+        "orphans": 0,
+        "resources": 122,
+        "static_bytes": 40789337
+      }
+    }
+  ],
+  "limits": [
+    "Source-level physics tests, not a replay of the exact video inputs or a live VR comfort test.",
+    "Remaining survey failures are not certified navigable paths; real walls and insufficient headroom must remain blocking.",
+    "Short server load check does not certify long-duration memory behavior. Known isolated Godot shutdown ObjectDB warning remains.",
+    "No new release binaries built or published."
+  ],
+  "passed": true,
+  "editor_import": {
+    "passed": true,
+    "note": "Initial scan attempted to import disposable malformed BSP fixtures. Added an ignored test-results/.gdignore and reran successfully; known one-instance ObjectDB shutdown warning remains."
+  }
+}

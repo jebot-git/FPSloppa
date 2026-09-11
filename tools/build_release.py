@@ -46,6 +46,7 @@ for _,folder,_ in targets:
             f=dest/f'Play-{label}.sh'
             f.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$game_dir/FPSloppa.x86_64" --xr-mode '+mode+' "$@"\n');f.chmod(0o755)
     else:
+        shutil.copy2(root/"tools"/"Diagnose-VR.cmd",dest/"Diagnose-VR.cmd")
         for label,mode in [('VR','on'),('Desktop','off')]:
             (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --xr-mode '+mode+' %*\r\n').encode())
 

@@ -36,19 +36,19 @@ func _process_modification_with_delta(_delta: float) -> void:
 		var hips:=bone(sk,"Hips")
 		var offset: Vector3=rig.xr_pose.head.origin-Vector3(0,1.65,0)
 		offset=Vector3(offset.x*.45,clampf(offset.y,-.55,.1),offset.z*.45)
-		var local_offset: Vector3=sk.global_basis.inverse()*rig.get_parent().global_basis*offset
+		var local_offset: Vector3=sk.global_basis.inverse()*rig.tracking_transform().basis*offset
 		sk.set_bone_pose_position(hips,sk.get_bone_rest(hips).origin+local_offset)
 	var body: Dictionary=rig.xr_pose.get("body",{}) if not rig.dead else {}
 	if body.has("hips"):
 		var hips:=bone(sk,"Hips")
-		var target: Transform3D=rig.get_parent().global_transform*body.hips
+		var target: Transform3D=rig.tracking_transform()*body.hips
 		var parent:=sk.get_bone_parent(hips)
 		var local: Vector3=sk.to_local(target.origin)
 		if parent>=0: local=sk.get_bone_global_pose(parent).affine_inverse()*local
 		sk.set_bone_pose_position(hips,local)
 		orient(sk,hips,target.basis*reference_basis(sk,hips))
 	if body.has("chest"):
-		orient(sk,bone(sk,"Chest"),rig.get_parent().global_basis*body.chest.basis*reference_basis(sk,bone(sk,"Chest")))
+		orient(sk,bone(sk,"Chest"),rig.tracking_transform().basis*body.chest.basis*reference_basis(sk,bone(sk,"Chest")))
 	var direction: Vector3 = rig.movement.normalized()
 	if direction.length()<.1: direction = Vector3.FORWARD
 	var stride := clampf(rig.speed/9.4,0.0,1.0)*.30
@@ -67,24 +67,24 @@ func _process_modification_with_delta(_delta: float) -> void:
 		if floor_heights.has(side): foot.y=maxf(foot.y,floor_heights[side])
 		var foot_world: Vector3=rig.to_global(foot)
 		var hip_world:Vector3=sk.to_global(sk.get_bone_global_pose(bone(sk,side+"UpperLeg")).origin)
-		var knee_world: Vector3=hip_world+rig.get_parent().global_basis*Vector3(sign_x*.08,0,-.65)
-		if body.has(side.to_lower()+"_foot"): foot_world=(rig.get_parent().global_transform*body[side.to_lower()+"_foot"]).origin
+		var knee_world: Vector3=hip_world+rig.tracking_transform().basis*Vector3(sign_x*.08,0,-.65)
+		if body.has(side.to_lower()+"_foot"): foot_world=(rig.tracking_transform()*body[side.to_lower()+"_foot"]).origin
 		if body.has("hips") and not body.has(side.to_lower()+"_knee"):
-			knee_world=leg_pole(body,side.to_lower(),hip_world,rig.get_parent().global_transform)
-		if body.has(side.to_lower()+"_knee"): knee_world=(rig.get_parent().global_transform*body[side.to_lower()+"_knee"]).origin
+			knee_world=leg_pole(body,side.to_lower(),hip_world,rig.tracking_transform())
+		if body.has(side.to_lower()+"_knee"): knee_world=(rig.tracking_transform()*body[side.to_lower()+"_knee"]).origin
 		solve(sk,side+"UpperLeg",side+"LowerLeg",side+"Foot",foot_world,knee_world)
 		var foot_parent := sk.get_bone_parent(foot_idx)
 		sk.set_bone_pose_rotation(foot_idx,(sk.get_bone_global_pose(foot_parent).basis.inverse()*rest[foot_idx].basis).get_rotation_quaternion())
 		if body.has(side.to_lower()+"_foot"):
-			orient(sk,foot_idx,rig.get_parent().global_basis*body[side.to_lower()+"_foot"].basis*reference_basis(sk,foot_idx))
+			orient(sk,foot_idx,rig.tracking_transform().basis*body[side.to_lower()+"_foot"].basis*reference_basis(sk,foot_idx))
 		var hand := bone(sk,side+"Hand")
 		if not rig.xr_pose.is_empty():
-			var target: Transform3D=rig.get_parent().global_transform*rig.xr_pose[side.to_lower()]
+			var target: Transform3D=rig.tracking_transform()*rig.xr_pose[side.to_lower()]
 			var optical:=body.has(side.to_lower()+"_hand")
-			if optical: target=rig.get_parent().global_transform*body[side.to_lower()+"_hand"]
+			if optical: target=rig.tracking_transform()*body[side.to_lower()+"_hand"]
 			else: target.origin+=target.basis.y*.06 # Grip is at the palm, IK ends at the wrist.
 			var elbow: Vector3=rig.to_global(Vector3(sign_x*.65,.85,.05))
-			if body.has(side.to_lower()+"_elbow"): elbow=(rig.get_parent().global_transform*body[side.to_lower()+"_elbow"]).origin
+			if body.has(side.to_lower()+"_elbow"): elbow=(rig.tracking_transform()*body[side.to_lower()+"_elbow"]).origin
 			solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",target.origin,elbow)
 			var parent:=sk.get_bone_parent(hand)
 			# OpenXR grip -Z runs little-finger to thumb; it is not the aim/finger axis.
@@ -116,7 +116,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 		var q := sk.get_bone_rest(head).basis.get_rotation_quaternion()
 		if rig.xr_pose.is_empty(): sk.set_bone_pose_rotation(head,q*Quaternion(Vector3.RIGHT,rig.aim_pitch*.55))
 		else:
-			var target: Basis=rig.get_parent().global_basis*rig.xr_pose.head.basis*Basis(Vector3.UP,PI)
+			var target: Basis=rig.tracking_transform().basis*rig.xr_pose.head.basis*Basis(Vector3.UP,PI)
 			var parent:=sk.get_bone_parent(head)
 			sk.set_bone_pose_rotation(head,(sk.get_bone_global_pose(parent).basis.orthonormalized().inverse()*sk.global_basis.orthonormalized().inverse()*target).get_rotation_quaternion())
 
@@ -165,7 +165,7 @@ func orient(sk: Skeleton3D,index: int,world_basis: Basis) -> void:
 
 func reference_basis(sk: Skeleton3D,index: int) -> Basis:
 	# Preserve each retargeted bone's authored axis convention (feet differ from hips).
-	return rig.get_parent().global_basis.orthonormalized().inverse()*sk.global_basis.orthonormalized()*sk.get_bone_global_rest(index).basis.orthonormalized()
+	return rig.tracking_transform().basis.orthonormalized().inverse()*sk.global_basis.orthonormalized()*sk.get_bone_global_rest(index).basis.orthonormalized()
 
 static func controller_hand_basis(left_hand: bool) -> Basis:
 	var sign_side:=1.0 if left_hand else -1.0

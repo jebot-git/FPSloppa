@@ -1,8 +1,10 @@
-# FPSloppa 0.8v
+# FPSloppa 0.10v
 
-[0.8v build notes](docs/RELEASE-0.8v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-**New in 0.8v:** Metal music for every game mode, an optional server-controlled announcer, improved water and arm-stroke swimming, automatic T-pose calibration, clear frozen-player visuals, BFG splash and chainsaw parries, smoother VR movement, faster texture-filter switching and threaded asset transfers.
+[0.10v build notes](docs/RELEASE-0.10v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+
+**New in 0.10v:** Frigate Assault map, expanded HiSlop interiors, corrected client movement prediction and local avatar alignment, physical VR crouching and objective interactions, improved swimming and weapon-wall clearance, TF Spy disguise/cell-powered cloak, lobby voting and cleanup fixes, forgiving T-pose calibration with recentering, door/teleporter sounds and a new SloP icon.
 
 **Archived extras:** the original forty-map Arena Collection 1 and the ThreeWave, TeamFortress and Arcane Dimensions conversion tools are available only from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They will not be revised or developed further, or bundled with subsequent releases. These static assets/tools do not need repeated releases unless the map loader or format changes. See [the archive policy](docs/ARCHIVED-EXTRAS.md).
 
@@ -12,7 +14,7 @@ See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.8v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.10v clients and servers; the protocol changed from earlier releases.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Standalone users should open **ASSETS…** and download the base assets, or extract the Base-Assets ZIP into the app’s external files directory. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Freeze Tag and Chainsaw Circus are available.
 
@@ -111,7 +113,7 @@ Core files: `arena.gd` (networking/combat/match), `fighter.gd` (movement and mar
 
 Behavior references: [id Software's original weapon routines](https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/p_pspr.c). Networking references: [Godot high-level multiplayer](https://docs.godotengine.org/en/4.7/tutorials/networking/high_level_multiplayer.html) and [ENet peer statistics](https://docs.godotengine.org/en/stable/classes/class_enetpacketpeer.html). This implementation is independently written. Original Doom music, sound samples, sprites and source code are not bundled. See [asset credits](ASSET_CREDITS.md).
 
-Optional [body tracking](TRACKING.md), [recorded spatial audio and speech-driven VRM mouths](AUDIO.md) are included in protocol `entryway-13-team-modes`. Update the server and every client together.
+Optional [body tracking](TRACKING.md), [recorded spatial audio and speech-driven VRM mouths](AUDIO.md) are included in protocol `fpsloppa-29-acknowledged-movement`. Update the server and every client together.
 
 Eye-tracked VRM gaze and measured blinking are automatic on supported OpenXR runtimes/models; see [EYES.md](EYES.md). See [PERFORMANCE.md](PERFORMANCE.md) for rendering changes, profiling commands and hardware-validation limits. The generated launcher artwork is documented in [ICON.md](ICON.md).
 
@@ -146,7 +148,9 @@ Hit registration, latency simulation and test limitations: [network testing](NET
 
 The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Freeze Tag, Chainsaw Circus and Team Fortress (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns use trigger-held dragging instead of scrollbars, including the TF class selector. Flag captures produce a short fanfare and a team/player banner.
 
-Lobby voting is available on the waiting-room wall (controller pointer in VR; aim and click on desktop). Select a mode first, then a map from that mode's server maplist. In-game match votes use the same selection order. The themed selectors stay open until an option is selected, including while lobby votes refresh. Active in-game votes display their target, vote counts, time remaining and menu instructions on both desktop and VR HUDs.
+Lobby voting is available on the waiting-room wall (controller pointer in VR; aim and click on desktop). Select a mode first, then a map from that mode's server maplist. The wall shows the active proposal, Yes/No counts, remaining vote time, your recorded response and the approved next match. Use YES or NO to respond. A majority-approved proposal selects the match that starts when the lobby countdown finishes; a rejected proposal leaves the current selection unchanged. In-game match votes use the same selection order. The themed selectors stay open until an option is selected, including while lobby votes refresh. Active in-game votes display their target, vote counts, time remaining and menu instructions on both desktop and VR HUDs.
 
-Assault (AS) is available with the bundled **HiSlop** train map. Enable it through
+Assault (AS) includes the **HiSlop** train map and the new **Frigate** harbor
+adaptation in the source build. Frigate has a destructible aft compressor,
+underwater approach and locked gun-control bridge. Enable Assault through
 `sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).

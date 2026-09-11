@@ -52,9 +52,9 @@ func run() -> void:
 	check(g.players[-1].hp<1000 and g.players[1].ammo[0]==199,"Pistol hitscan and one-bullet cost")
 	reset_combat()
 	g.players[1].weapon = 1
-	g.fighters[-1].position = g.fighters[1].position+Vector3(0,0,-1.8)
+	g.fighters[-1].position = g.fighters[1].position+Vector3(0,0,-.9)
 	g._fire(1)
-	check(g.players[-1].hp<1000 and g.players[1].ammo[0]==200,"Chainsaw melee damages without ammo")
+	check(g.players[-1].hp<1000 and g.players[1].ammo[0]==200,"Chainsaw close contact damages without ammo")
 	reset_combat()
 	g.players[1].weapon = 5
 	g.players[1].fire = true

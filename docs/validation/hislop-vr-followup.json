@@ -1,0 +1,132 @@
+{
+  "date": "2026-09-11",
+  "baseline": "5105fb8 (0.9v)",
+  "map": {
+    "id": "as_hislop",
+    "format": 29,
+    "bytes": 2066896,
+    "sha256": "e477afa51ba190979722a7eacaedd0814387446de0b448f1f8ac105b5269d67c",
+    "brushes": 346,
+    "entities": 111,
+    "textures": 15,
+    "recommended_players": [
+      4,
+      10
+    ],
+    "concept": true,
+    "modes": [
+      "as",
+      "tf"
+    ],
+    "objective_adapter": "native paired AS; optional TF flag-and-capture concept",
+    "scenery_motion": true,
+    "full_vis": true
+  },
+  "navigation_polygons": 2077,
+  "checks": 318,
+  "passed": true,
+  "suites": {
+    "assault": {
+      "checks": 73,
+      "passed": true,
+      "errors": []
+    },
+    "interior": {
+      "checks": 8,
+      "passed": true,
+      "errors": []
+    },
+    "arm": {
+      "checks": 21,
+      "passed": true,
+      "errors": []
+    },
+    "route": {
+      "checks": 5,
+      "passed": true,
+      "errors": []
+    },
+    "sludge-escape": {
+      "checks": 4,
+      "passed": true,
+      "errors": []
+    },
+    "vr_crouch_water": {
+      "checks": 36,
+      "passed": true,
+      "errors": []
+    },
+    "water": {
+      "checks": 26,
+      "passed": true,
+      "errors": []
+    },
+    "filter_variants": {
+      "checks": 12,
+      "passed": true,
+      "errors": []
+    },
+    "pad_telefrag": {
+      "checks": 23,
+      "passed": true,
+      "errors": []
+    },
+    "vr_interactions": {
+      "checks": 68,
+      "passed": true,
+      "errors": []
+    },
+    "lobby-network-server": {
+      "passed": true,
+      "checks": 8,
+      "errors": []
+    },
+    "lobby-network-early": {
+      "passed": true,
+      "checks": 5,
+      "errors": []
+    },
+    "lobby-network-late": {
+      "passed": true,
+      "checks": 5,
+      "errors": []
+    },
+    "wall-network-server": {
+      "role": "server",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 17
+    },
+    "wall-network-client": {
+      "role": "client",
+      "exit_code": 0,
+      "passed": true,
+      "checks": 7
+    }
+  },
+  "limits": [
+    "Local functional tests; no WAN latency or load benchmark.",
+    "One ObjectDB shutdown warning remains in headless game fixtures; two in graphical traversal.",
+    "First live session exited with Godot OpenXR shutdown errors."
+  ],
+  "live_retest": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Meta Quest Pro",
+    "per_eye": [
+      2520,
+      2772
+    ],
+    "samples": 3361,
+    "median_fps": 72.0,
+    "map_objectives_completed": true,
+    "swimming_samples": 9,
+    "lobby": true,
+    "lobby_sentries": 0,
+    "lobby_sentry_visuals": 0,
+    "lobby_spawn_inside": true,
+    "runtime_errors": [],
+    "wearer_confirmation": "2026-09-11: swimming, jitter, map layout, lobby system and gun-to-wall collisions appear to work; last.mp4 supplied. Minor moving-wall visual artifact reported.",
+    "session": "Left running in lobby for wearer",
+    "recorded_review": "docs/LAST_VR_REVIEW.md"
+  }
+}

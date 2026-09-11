@@ -23,7 +23,7 @@ func run() -> void:
  await physics_frame;await physics_frame
  # Follow actual collision using production movement. No teleport between route waypoints.
  actor.position=q(-2528,0);actor.velocity=Vector3.ZERO
- var route: Array=[q(-2400,0),q(-1800,0),q(-1744,128),q(-1592,128),q(-1592,-128),q(-1448,-128),q(-1448,128),q(-1304,128),q(-1304,-128),q(-1152,-128),q(-1120,0),q(-480,0),q(-464,224),q(128,224),q(128,0),q(856,0),q(856,-120),q(1072,-120,144),q(1200,0,144),q(1376,0,0),q(1496,0),q(1496,-120),q(1696,-120,144),q(1872,-32,144)]
+ var route: Array=[q(-2400,0),q(-1800,0),q(-1744,128),q(-1592,128),q(-1592,-128),q(-1448,-128),q(-1448,128),q(-1304,128),q(-1304,-128),q(-1152,-128),q(-1120,0),q(-480,0),q(-464,224),q(128,224),q(128,0),q(480,-56),q(552,-56),q(552,0),q(856,0),q(856,-120),q(1072,-120,144),q(1184,56,144),q(1280,56,144),q(1376,56,0),q(1376,0,0),q(1496,0),q(1496,-120),q(1728,-120,144),q(1760,-56,144),q(1848,-56,144),q(1856,112,144)]
  var reached:=true
  for target in route:
   var ok:=false
@@ -54,8 +54,8 @@ func run() -> void:
    ["freight",q(-2050,0,52),q(-1250,0,64)],
    ["tanker",q(-620,260,220),q(-40,0,120)],
    ["interior",q(352,60,52),q(752,0,70)],
-   ["upper",q(1744,60,196),q(1968,-64,184)],
-   ["cabin",q(1872,96,52),q(2016,-96,64)],
+   ["upper",q(1968,-112,196),q(1856,128,176)],
+   ["cabin",q(1944,104,52),q(2032,-112,48)],
    ["roof",q(1072,0,372),q(2080,0,280)]]:
    camera.position=view[1];camera.look_at(view[2])
    await process_frame;await process_frame;await RenderingServer.frame_post_draw

@@ -30,11 +30,13 @@ func run() -> void:
 	await shot("tf-class-badges")
 	camera.position=Vector3(9.6,2.2,6);camera.fov=55;camera.look_at(Vector3(9.6,1.2,0));await shot("tf-class-badges-close")
 	var spy: int=ids[7];var target: int=ids[8];game.players[spy].team=0;game.players[target].team=1;game.avatars.choices[target]={"hash":hash_f,"size":library.entries[hash_f].size}
-	tf.cooldowns[spy]=0;check(tf.action(spy),"Spy cloak enabled")
+	tf.cooldowns[spy]=0;check(tf.action(spy),"Default Spy disguise enabled")
 	for i in 50:tf.draw();await process_frame
 	var actor=game.fighters[spy]
 	check(actor.avatar_hash==hash_f,"Spy display swaps to enemy VRM")
 	check(actor.avatar!=game.fighters[target].avatar,"Disguise uses independent skeleton/animation instance")
+	tf.spy_invisibility=true;tf.cooldowns[spy]=0;game.players[spy].ammo[3]=50;tf.action(spy)
+	for i in 50:tf.draw();await process_frame
 	check(actor.cloak_active and actor.class_badge.visible,"Teammates retain SPY badge and ghost model")
 	check(actor.cloak_meshes.size()>0,"Cloak covers actual VRM and weapon meshes")
 	await shot("tf-spy-friendly-cloak")

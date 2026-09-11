@@ -27,6 +27,6 @@ func open() -> void:
 	choice.choose(state.get("tf_next","soldier"));tool.choose(state.get("tf_tool","sentry"))
 	get_parent().move_child(self,-1);refresh();show()
 func refresh() -> void:
-	var key: String=choice.value;var data: Dictionary=game.match_mode.fortress.CLASSES[key]
+	var key: String=choice.value;var data: Dictionary=game.match_mode.fortress.class_definition(key)
 	details.text="%d HEALTH · %d ARMOR · %.0f%% SPEED\n\n%s"%[data.hp,data.armor,data.speed*100,data.action]
 	tool.visible=key=="engineer"

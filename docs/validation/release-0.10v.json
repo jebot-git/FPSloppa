@@ -1,0 +1,184 @@
+{
+  "version": "0.10v",
+  "date": "2026-09-11",
+  "protocol": "fpsloppa-29-acknowledged-movement",
+  "android_version_code": 15,
+  "engine": "Godot 4.7.2",
+  "source_regressions": {
+    "latest_environment_calibration_and_assault_checks": 192,
+    "passed": true,
+    "reports": [
+      "environment-feedback.json",
+      "motion-spy-lobby.json",
+      "hislop-vr-followup.json",
+      "frigate.json",
+      "vr-physical-interactions.json",
+      "vr-crouch-water-face.json",
+      "live-feedback-fixes.json",
+      "face-lobby.json"
+    ]
+  },
+  "exported_assault": {
+    "staged_assets_verified": true,
+    "maps": [
+      {
+        "map": "as_hislop",
+        "passed": true,
+        "checks": {
+          "client_exit": true,
+          "server_alive": true,
+          "joined": true,
+          "assault_config": true,
+          "rotation_includes_both_maps": true,
+          "client_map": true,
+          "no_runtime_errors": true
+        }
+      },
+      {
+        "map": "as_frigate",
+        "passed": true,
+        "checks": {
+          "client_exit": true,
+          "server_alive": true,
+          "joined": true,
+          "assault_config": true,
+          "rotation_includes_both_maps": true,
+          "client_map": true,
+          "no_runtime_errors": true
+        }
+      }
+    ],
+    "passed": true
+  },
+  "general_network": {
+    "passed": true,
+    "roles": {
+      "server": 0,
+      "shooter": 0,
+      "target": 0,
+      "spectator": 0
+    }
+  },
+  "binary_smoke": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "package_audit": [
+    {
+      "failures": [],
+      "files": 1104,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1104,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1104,
+      "pack": "/home/blux/Documents/Builds/Server/FPSloppaServer.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1224,
+      "failures": []
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Pico.apk",
+      "files": 1224,
+      "failures": []
+    }
+  ],
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 143379154,
+      "sha256": "1f955e239883d33600311c443f12d721e05d26a54f32916c94b394e44a2f523f",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 143378874,
+      "sha256": "66b2f83fbeca538826bcd0d0d969eae7bb03f76e7769e1e7718af21cbef7ce18",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true
+    }
+  ],
+  "base_assets": {
+    "version": "0.10v",
+    "sha256": "6ffd0797b4b674d32860832903acdd825c530be25986ba55bca862b6e919ca7c",
+    "files": 70,
+    "maps": [
+      "lqdm1",
+      "lqdm2",
+      "lqdm4",
+      "lqdm7",
+      "lqdm8",
+      "lqdm3",
+      "lqdm5",
+      "lqdm6",
+      "as_hislop",
+      "as_frigate"
+    ]
+  },
+  "shutdown_fix": {
+    "cause": "Spatial effects could still be playing when request_quit closed the mixer. Verbose Frigate run identified AudioStreamPlaybackWAV and jump_2.wav retained at exit.",
+    "change": "Stop spatial players, stop local pain, deactivate gameplay and reject newly requested spatial cues while quitting.",
+    "exported_retest_passed": true
+  },
+  "limits": [
+    "Frigate route and balance still need wearer testing.",
+    "Windows and standalone Quest/Pico not physically tested in this publication session.",
+    "Latest relaxed calibration and sound changes have automated coverage but no new wearer confirmation.",
+    "Minor HiSlop moving-wall visual inconsistency remains noted.",
+    "Previously observed isolated ObjectDB/OpenXR shutdown warnings remain; final exported Assault runs have no ERROR or SCRIPT ERROR diagnostics."
+  ],
+  "archive_policy": "Original forty-map pack and ThreeWave/TF/AD conversion tools remain archived only in 0.5v. Final archive checksums and commit are in the published BUILD-MANIFEST.json and SHA256SUMS."
+}

@@ -43,6 +43,9 @@ var capture_team:=0
 func update_capture(data: Dictionary) -> void:
 	var next: String="" if data.is_empty() else data.text+"  "+data.detail
 	if next!=capture_text:capture_text=next;capture_team=data.get("team",0);queue_redraw()
+var burning:=false
+func update_burning(value: bool) -> void:
+	if value!=burning:burning=value;queue_redraw()
 var water_text:=""
 func update_water(submerged: bool,air: float) -> void:
 	var next:=("AIR %ds"%ceili(air) if air>0 else "DROWNING · SURFACE!") if submerged else ""
@@ -79,6 +82,7 @@ func _draw() -> void:
 		if network.show:label(Vector2(16,205),"↓ ASSETS %d%%"%network.percent,18,Color("d8bc8b"))
 		label(Vector2(832,205),"HOST" if network.host else "%d ms"%network.ping if network.ping>0 else "— ms",18,Color("b9a98e"))
 	if not water_text.is_empty():label(Vector2(335,205),water_text,21,Color("83c9ec"))
+	elif burning:label(Vector2(390,205),"BURNING",21,Color("ff9b47"))
 	if values.is_empty():return
 	var style:=StyleBoxFlat.new();style.bg_color=Color(.10,.075,.05,.80);style.border_color=Color("a88550");style.set_border_width_all(2)
 	draw_style_box(style,Rect2(4,4,952,172))

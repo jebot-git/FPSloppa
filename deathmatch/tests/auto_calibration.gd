@@ -21,8 +21,11 @@ func run():
 		native.set_joint_transform(pair[0],Transform3D(Basis.IDENTITY,pair[1]));native.set_joint_flags(pair[0],XRBodyTracker.JOINT_FLAG_POSITION_VALID|XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID)
 	XRServer.add_tracker(native)
 	check(rig.tracking.full_body_available(),"Native hip and two foot poses satisfy full-body availability")
+	rig.head.position.x=.3;rig.head.position.z=-.2
+	rig.left.position+=Vector3(.3,0,-.2);rig.right.position+=Vector3(.3,0,-.2)
 	for i in 100:rig._process(.02)
 	check(completions==1 and rig.tracking.calibrated,"Full rig T-pose invokes native calibration automatically")
+	check(rig.origin_offset.is_equal_approx(Vector3(-.3,0,.2)) and not rig.tracking.native_corrections.is_empty(),"T-pose recenters room-scale offset before installing fresh body corrections")
 	check(is_instance_valid(rig.calibration_sound) and rig.calibration_sound.playing and rig.calibration_sound.stream.get_length()<.6,"Successful calibration plays the short local completion jingle")
 	for i in 300:rig._process(.02)
 	check(completions==1,"Holding the same pose never loops the jingle")

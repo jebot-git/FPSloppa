@@ -48,7 +48,7 @@ func configure(player: AudioStreamPlayer3D, voice: bool=false) -> void:
 	player.attenuation_filter_cutoff_hz=18000
 	player.max_db=0
 func play(kind: String,where: Vector3,volume: float=-8) -> void:
-	if game.headless: return
+	if game.headless or game.quitting: return
 	active=active.filter(is_instance_valid)
 	if active.size()>=32:
 		active.pop_front().queue_free()
@@ -97,7 +97,7 @@ func _physics_process(delta: float) -> void:
 		reverb.wet=lerpf(reverb.wet,.04+count*.032,.35)
 func clear() -> void:
 	for player in active:
-		if is_instance_valid(player): player.queue_free()
+		if is_instance_valid(player): player.stop();player.queue_free()
 	active.clear()
 func _exit_tree() -> void:
 	if effects_bus_owned:

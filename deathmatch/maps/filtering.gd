@@ -11,10 +11,12 @@ var textures: Dictionary={}
 var materials: Dictionary={}
 class Warmup extends Node3D:
 	var sources: Array=[]
-	func _ready() -> void:
+	var frames_left:=3
+	func _process(_delta: float) -> void:
 		# Hidden instances allow Mobile/Forward+ surface pipeline precompilation.
 		# Material variants remain alive after these temporary instances are gone.
-		for frame in 3:await get_tree().process_frame
+		frames_left-=1
+		if frames_left>0:return
 		for source in sources:source.set_meta("fpsloppa_filter_warmed",true)
 		queue_free()
 func texture(source: Texture2D) -> Texture2D:

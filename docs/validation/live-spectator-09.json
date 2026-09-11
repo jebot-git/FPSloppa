@@ -1,0 +1,202 @@
+{
+  "arrival_interval_ms": {
+    "count": 3572,
+    "max": 1450.534,
+    "mean": 50.3906643337067,
+    "median": 49.999,
+    "min": 0.074,
+    "p95": 58.6
+  },
+  "commit": "5105fb8",
+  "endpoint": "45.147.228.101:7777",
+  "events": [],
+  "join_seconds": 5.514,
+  "local_gap_over_100ms": 2,
+  "local_gap_over_250ms": 2,
+  "observation_seconds": 180.054,
+  "ping_ms": {
+    "count": 6,
+    "max": 34,
+    "mean": 26.5,
+    "median": 25,
+    "min": 25,
+    "p95": 34
+  },
+  "protocol": "fpsloppa-26-fortress-effects",
+  "release": "0.9v",
+  "role": "spectator",
+  "samples": [
+    {
+      "active": false,
+      "loading": {
+        "blocking": true,
+        "count": 0,
+        "done": 0,
+        "eta": "Verifying / preparing\u2026",
+        "fraction": 0.0,
+        "phase": "Connecting to server\u2026",
+        "total": 0,
+        "visible": true
+      },
+      "map": "lqdm1",
+      "memory_bytes": 46240472.0,
+      "mode": "dm",
+      "orphans": 0.0,
+      "ping_ms": 0,
+      "players": 0,
+      "seconds": 0.0,
+      "snapshots": 0,
+      "spectators": 0
+    },
+    {
+      "active": true,
+      "loading": {
+        "blocking": false,
+        "count": 0,
+        "done": 8813963,
+        "eta": "Download complete",
+        "fraction": 1.0,
+        "phase": "Ready \u00b7 entering match\u2026",
+        "total": 8813963,
+        "visible": false
+      },
+      "map": "custom_1a919f6948f31af0d6e00357f4e256a8d4d067e48d9d43d212ad2adbf7c5bef7",
+      "memory_bytes": 108544491.0,
+      "mode": "tf",
+      "orphans": 0.0,
+      "ping_ms": 25,
+      "players": 4,
+      "seconds": 30.013,
+      "snapshots": 490,
+      "spectators": 1
+    },
+    {
+      "active": true,
+      "loading": {
+        "blocking": false,
+        "count": 0,
+        "done": 8813963,
+        "eta": "Download complete",
+        "fraction": 1.0,
+        "phase": "Ready \u00b7 entering match\u2026",
+        "total": 8813963,
+        "visible": false
+      },
+      "map": "custom_1a919f6948f31af0d6e00357f4e256a8d4d067e48d9d43d212ad2adbf7c5bef7",
+      "memory_bytes": 108588491.0,
+      "mode": "tf",
+      "orphans": 0.0,
+      "ping_ms": 34,
+      "players": 4,
+      "seconds": 60.054,
+      "snapshots": 1091,
+      "spectators": 1
+    },
+    {
+      "active": true,
+      "loading": {
+        "blocking": false,
+        "count": 0,
+        "done": 8813963,
+        "eta": "Download complete",
+        "fraction": 1.0,
+        "phase": "Ready \u00b7 entering match\u2026",
+        "total": 8813963,
+        "visible": false
+      },
+      "map": "custom_1a919f6948f31af0d6e00357f4e256a8d4d067e48d9d43d212ad2adbf7c5bef7",
+      "memory_bytes": 108630951.0,
+      "mode": "tf",
+      "orphans": 0.0,
+      "ping_ms": 25,
+      "players": 4,
+      "seconds": 90.095,
+      "snapshots": 1692,
+      "spectators": 1
+    },
+    {
+      "active": true,
+      "loading": {
+        "blocking": false,
+        "count": 0,
+        "done": 2027788,
+        "eta": "Download complete",
+        "fraction": 1.0,
+        "phase": "Ready \u00b7 entering match\u2026",
+        "total": 2027788,
+        "visible": false
+      },
+      "map": "custom_3359abe0c2161dd1080bf31e6afa45d5ed764a84e9678a1c28f85a06ca764008",
+      "memory_bytes": 62596867.0,
+      "mode": "as",
+      "orphans": 0.0,
+      "ping_ms": 25,
+      "players": 4,
+      "seconds": 120.127,
+      "snapshots": 2264,
+      "spectators": 1
+    },
+    {
+      "active": true,
+      "loading": {
+        "blocking": false,
+        "count": 0,
+        "done": 2027788,
+        "eta": "Download complete",
+        "fraction": 1.0,
+        "phase": "Ready \u00b7 entering match\u2026",
+        "total": 2027788,
+        "visible": false
+      },
+      "map": "custom_3359abe0c2161dd1080bf31e6afa45d5ed764a84e9678a1c28f85a06ca764008",
+      "memory_bytes": 62621691.0,
+      "mode": "as",
+      "orphans": 0.0,
+      "ping_ms": 25,
+      "players": 4,
+      "seconds": 150.167,
+      "snapshots": 2865,
+      "spectators": 1
+    },
+    {
+      "active": true,
+      "loading": {
+        "blocking": false,
+        "count": 0,
+        "done": 2027788,
+        "eta": "Download complete",
+        "fraction": 1.0,
+        "phase": "Ready \u00b7 entering match\u2026",
+        "total": 2027788,
+        "visible": false
+      },
+      "map": "custom_3359abe0c2161dd1080bf31e6afa45d5ed764a84e9678a1c28f85a06ca764008",
+      "memory_bytes": 62621947.0,
+      "mode": "as",
+      "orphans": 0.0,
+      "ping_ms": 25,
+      "players": 4,
+      "seconds": 180.202,
+      "snapshots": 3466,
+      "spectators": 1
+    }
+  ],
+  "server_time_step_ms": {
+    "count": 3572,
+    "max": 1449.9999999789,
+    "mean": 50.3919372893003,
+    "median": 49.9999999992724,
+    "min": 49.9999999992724,
+    "p95": 49.9999999992724
+  },
+  "snapshot_count": 3573,
+  "spectator_confirmed": true,
+  "utc_end": "2026-09-11T14:50:21",
+  "utc_start": "2026-09-11T14:47:15",
+  "limitations": [
+    "Isolated release source with a diagnostic callback; no gameplay mutations on the server.",
+    "Headless spectator, microphone disabled; snapshots measured on arrival after application filtering.",
+    "Intervals include map loading; gaps cannot be uniquely attributed to network loss or server stalls.",
+    "No server CPU/memory access; short client memory samples do not prove leak freedom."
+  ]
+}

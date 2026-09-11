@@ -33,6 +33,7 @@ var talkingtimestart = 0
 
 var frametimesecs = 0.02
 var opusframedurationms = 20
+var configured_input_mix_rate = 0
 var input_mix_rate = 44100
 var audio_chunk_size = 882
 var opussamplerate = 48000
@@ -42,7 +43,7 @@ var denoiser_mode = TwovoipOpusEncoder.DENOISER_DISABLED
 
 func set_opus_values(p_opussamplerate, p_opusframedurationms, p_channels, p_opusbitrate, p_opuscomplexity, p_opusoptimizeforvoice, p_denoiser_mode, p_agc_mode):
 	input_mix_rate = AudioServer.get_input_mix_rate()
-	if opusencoder == null or opussamplerate != p_opussamplerate or opuschannels != p_channels or denoiser_mode != p_denoiser_mode or agc_mode != p_agc_mode or opusframedurationms != p_opusframedurationms:
+	if opusencoder == null or input_mix_rate != configured_input_mix_rate or opussamplerate != p_opussamplerate or opuschannels != p_channels or denoiser_mode != p_denoiser_mode or agc_mode != p_agc_mode or opusframedurationms != p_opusframedurationms:
 		opusencoder = TwovoipOpusEncoder.new()
 		opusframedurationms = p_opusframedurationms
 		opussamplerate = p_opussamplerate
@@ -54,7 +55,8 @@ func set_opus_values(p_opussamplerate, p_opusframedurationms, p_channels, p_opus
 		if sampler_error != OK:
 			push_error("TwoVoIP sampler configuration failed: %s" % error_string(sampler_error))
 			return false
-	opusencoder.create_opus_encoder(p_opusbitrate, p_opuscomplexity, p_opusoptimizeforvoice)
+		configured_input_mix_rate = input_mix_rate
+	if not opusencoder.create_opus_encoder(p_opusbitrate, p_opuscomplexity, p_opusoptimizeforvoice):return false
 	audio_chunk_size = opusencoder.get_required_input_chunk_size()
 	assert(audio_chunk_size == int(input_mix_rate*p_opusframedurationms/1000.0))
 	frametimesecs = p_opusframedurationms/1000.0

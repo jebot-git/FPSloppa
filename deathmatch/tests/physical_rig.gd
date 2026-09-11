@@ -1,0 +1,67 @@
+extends SceneTree
+const Fixture=preload("res://deathmatch/tests/fixture.gd")
+class TestBindings extends "res://deathmatch/settings/bindings.gd":
+	var inputs: Dictionary={}
+	func vr_pressed(_rig: Node,action: String) -> bool:return inputs.get(action,false)
+var failures: Array=[]
+func check(ok: bool,label: String) -> void:
+	print("PASS " if ok else "FAIL ",label)
+	if not ok:failures.append(label)
+func _initialize():call_deferred("run")
+func run() -> void:
+	var game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);Fixture.setup(game)
+	game.set_process(false);game.set_physics_process(false)
+	game.hud=load("res://deathmatch/interface.gd").new();game.add_child(game.hud);game.hud.setup(game)
+	game.xr_rig=load("res://deathmatch/vr/rig.gd").new();game.add_child(game.xr_rig);game.xr_rig.setup(game,true)
+	var rig=game.xr_rig;rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false
+	game._add_player(1,"Physical rig");game.active=true;game.menu_open=false;game.local_yaw=0;game.match_mode.kind="tf"
+	var tf=game.match_mode.fortress;game.players[1].tf_next="soldier";game._spawn(1);tf.cooldowns[1]=0
+	game.fighters[1].position=Fixture.point();game.fighters[1].velocity=Vector3.ZERO;rig.origin_offset=Vector3.ZERO;rig.head.position=Vector3(0,1.65,0)
+	var bindings:=TestBindings.new();game.bindings=bindings;bindings.inputs={};rig._process(.02);await physics_frame
+	rig._process(.02)
+	bindings.inputs={"support":true,"offhand_fire":true,"ptt":true};rig._process(.02)
+	check(rig.physical_actions.gesture.held and tf.physical.armed.has(1),"Controller chord reaches authoritative arm through rig")
+	check(is_instance_valid(rig.physical_actions.grenade) and rig.physical_actions.grenade.visible,"Armed grenade and release hint render in support hand")
+	check(not rig.command(1).offhand_fire and bindings.vr_pressed(rig,"ptt"),"Ability chord suppresses offhand fire while preserving PTT")
+	bindings.inputs={"offhand_fire":true};rig._process(.02)
+	check(tf.charges.has(1) and tf.charges[1].velocity==Vector3.ZERO,"Rig grip release drops one grenade")
+	check(not rig.physical_actions.grenade.visible,"Released grenade preview disappears")
+	tf.charges.clear();tf.cooldowns[1]=0;tf.physical.next_arm.clear();bindings.inputs={};rig._process(.02)
+	bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
+	game.menu_open=true;rig._process(.02)
+	check(not tf.physical.armed.has(1) and not rig.physical_actions.gesture.held,"Opening menu cancels server and local held grenade")
+	game.menu_open=false;rig._process(.02)
+	check(not tf.physical.armed.has(1),"Closing menu with chord held does not arm")
+	bindings.inputs={};rig._process(.02);tf.physical.next_arm.clear()
+	bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
+	rig.focused=false;rig._process(.02)
+	check(not tf.physical.armed.has(1),"Headset focus loss cancels grenade")
+	rig.focused=true;bindings.inputs={};rig._process(.02);tf.physical.next_arm.clear()
+	game.players[1].ammo[2]=0;bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
+	check(not rig.physical_actions.gesture.held and not rig.physical_actions.grenade.visible,"Rejected arm immediately removes predicted grenade")
+	game.players[1].weapon=2;game.desired_weapon=2;bindings.inputs={};rig._process(.02)
+	bindings.inputs={"offhand_fire":true};rig._process(.02)
+	check(rig.command(2).offhand_fire and rig.offhand_gun.visible,"Trigger alone retains dual pistol fire and model")
+	bindings.physical_interactions=false;bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
+	check(rig.command(3).offhand_fire and not rig.command(3).physical,"Disabling interaction restores original controls")
+	bindings.physical_interactions=true;game.match_mode.kind="as";rig._process(.02)
+	check(rig.command(4).offhand_fire and rig.command(4).physical,"AS button interaction does not steal offhand pistol trigger")
+	check(bindings.save()==OK,"Physical interaction preference saves")
+	var loaded=load("res://deathmatch/settings/bindings.gd").new();loaded.load_settings();check(loaded.physical_interactions,"Physical preference reloads from config")
+	bindings.physical_interactions=false;bindings.save();loaded.load_settings();check(not loaded.physical_interactions,"Disabled physical preference persists")
+	# Crouch uses headset-local height and sends it with the normal pose command.
+	bindings.inputs={};bindings.physical_crouch=true;rig.seated=false;rig.crouch_detector.reset();rig.head.position.y=1.65;rig._process(.02)
+	rig.head.position.y=.85;rig._process(.02)
+	var command: Dictionary=rig.command(10)
+	game._accept_input(1,command);game._update_crouch(1,game.players[1].xr)
+	check(is_equal_approx(command.xr.height,.95) and is_equal_approx(game.fighters[1].collision_height,.95),"Physical headset crouch reaches server collision without a button")
+	rig.head.position.y=1.65;rig._process(.02);game._accept_input(1,rig.command(11));game._update_crouch(1,game.players[1].xr)
+	check(game.fighters[1].collision_height==1.65,"Standing headset restores player collision")
+	rig.seated=true;rig.head.position.y=.85;rig._process(.02)
+	check(rig.command(12).xr.height==1.65,"Seated play does not accidentally crouch")
+	bindings.physical_crouch=false;bindings.face_expressions=false;bindings.save();loaded.load_settings()
+	check(not loaded.physical_crouch and not loaded.face_expressions,"Crouch and experimental expression options persist")
+	bindings.inputs={"fire":true};game.desired_weapon=0
+	check(not rig.command(99).fire,"VR fist trigger sends no shooting command")
+	game.desired_weapon=2;check(rig.command(100).fire,"VR pistol trigger remains enabled")
+	game.disconnect_game();game.free();print("PHYSICAL_RIG_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

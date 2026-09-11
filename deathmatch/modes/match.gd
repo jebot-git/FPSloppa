@@ -1,6 +1,6 @@
 extends RefCounted
 ## All rules run on the server. Clients receive a read-only objective snapshot.
-const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","as":"AS — ASSAULT"}
+const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","as":"Assault"}
 const COLORS=[Color("ed6558"),Color("65a9ef")]
 const TEAMS=["RED","BLUE"]
 var game
@@ -26,6 +26,7 @@ var visual_key:=""
 func setup(arena: Node) -> void: game=arena;special.setup(self);assault.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self)
 func configure(settings: Dictionary) -> void:
 	kind=settings.get("sv_gametype","dm")
+	fortress.spy_invisibility=settings.get("sv_tf_spy_invisibility",0)==1
 	friendly_fire=settings.get("sv_friendlyfire",0)==1
 	capture_limit=settings.get("capturelimit",5)
 	hill_limit=settings.get("hilllimit",120)
@@ -66,6 +67,7 @@ func reset() -> void:
 	clear_visuals()
 func vector(value: Array) -> Vector3:return Vector3(value[0],value[1],value[2])
 func spawns(team: int) -> Array:
+	if game.lobby.active():return game.spawn_points
 	if kind=="as" and team in [0,1]:return assault.spawns(team)
 	if kind in ["ctf","tf"] and team in [0,1] and not game.ctf_spawns[team].is_empty():return game.ctf_spawns[team]
 	if not kind in ["ctf","tf"] or team<0 or bases.size()!=2:return game.spawn_points
@@ -183,7 +185,8 @@ func draw_objectives() -> void:
 		elif kind=="as":
 			for i in assault.objectives.size():
 				var objective: Dictionary=assault.objectives[i]
-				marker(objective.position,Color("67dba8") if i<assault.stage else COLORS[assault.attacking],("DONE · " if i<assault.stage else "LOCKED · " if i>assault.stage else "ACTIVATE · ")+str(objective.get("title","OBJECTIVE")),1.2)
+				assault.draw_button(visuals,i)
+				marker(objective.position,Color("67dba8") if i<assault.stage else COLORS[assault.attacking],("DONE · " if i<assault.stage else "LOCKED · " if i>assault.stage else "TARGET · " if int(objective.get("health",0))>0 else "ACTIVATE · ")+str(objective.get("title","OBJECTIVE")),1.2)
 	if kind in ["ctf","tf"] and flags.size()==2:
 		for i in range(2):
 			var flag: Node3D=visuals.get_node("Flag"+str(i))

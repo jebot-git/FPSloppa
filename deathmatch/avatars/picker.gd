@@ -7,7 +7,7 @@ var feedback: Label
 var stage: Node3D
 var preview: Node3D
 var viewport: SubViewport
-var chooser: FileDialog
+var chooser: PanelContainer
 var apply_button: Button
 var hashes: Array = []
 var current := ""
@@ -52,7 +52,7 @@ func setup(network: Node) -> void:
 	detail.custom_minimum_size = Vector2(250,130)
 	left.add_child(detail)
 	preview_button=add_button(left,"LOAD SELECTED PREVIEW",func():show_model(current))
-	add_button(left,"IMPORT .VRM…",func(): chooser.popup_centered_ratio(.8))
+	add_button(left,"IMPORT .VRM…",func(): chooser.open())
 	var right := VBoxContainer.new()
 	right.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(right)
@@ -144,12 +144,9 @@ func setup(network: Node) -> void:
 		hide()
 	)
 	add_button(actions,"BACK",hide)
-	chooser = FileDialog.new()
-	chooser.access = FileDialog.ACCESS_FILESYSTEM
-	chooser.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	chooser.filters = PackedStringArray(["*.vrm ; VRM humanoid avatar"])
-	chooser.title = "Import VRM · maximum 25 MB"
+	chooser = preload("res://deathmatch/ui/file_browser.gd").new()
 	add_child(chooser)
+	chooser.setup("vrm","IMPORT VRM · MAXIMUM 25 MB")
 	chooser.file_selected.connect(import_model)
 	visibility_changed.connect(func():
 		if not visible:preview_request+=1;preview_button.disabled=false

@@ -16,6 +16,8 @@ func sample() -> Dictionary:
 	if face:
 		result.blink=Vector2(face.get_blend_shape(XRFaceTracker.FT_EYE_CLOSED_LEFT),face.get_blend_shape(XRFaceTracker.FT_EYE_CLOSED_RIGHT))
 		result.lids=true
+		if "game" in rig and rig.game and rig.game.bindings.face_expressions:
+			result.expression=preload("res://deathmatch/vr/face_expressions.gd").sample(face)
 		if not result.gaze:
 			var horizontal: float=(face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_OUT_LEFT)-face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_IN_LEFT)+face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_IN_RIGHT)-face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_OUT_RIGHT))*.5
 			var vertical: float=(face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_UP_LEFT)+face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_UP_RIGHT)-face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_DOWN_LEFT)-face.get_blend_shape(XRFaceTracker.FT_EYE_LOOK_DOWN_RIGHT))*.5

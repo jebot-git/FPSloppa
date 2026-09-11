@@ -162,7 +162,7 @@ func apply_frame(frame: Dictionary,play_events: bool=true) -> void:
 		var state: Dictionary=game.players[row[0]];var actor=game.fighters[row[0]]
 		state.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"xr":row[18],"spectator":row[20]},true)
 		if not play_events or actor.spawn_serial!=row[14]:actor.position=row[1];actor.rotation.y=row[3]
-		actor.spawn_serial=row[14];actor.target=row[1];actor.target_yaw=row[3];actor.visual_velocity=row[2];actor.visual_pitch=row[4];actor.visual_weapon=row[8];actor.xr_pose=row[18];actor.spectator=row[20];actor.show_alive(not row[7],false)
+		actor.spawn_serial=row[14];actor.target=row[1];actor.target_yaw=row[3];actor.visual_velocity=row[2];actor.visual_pitch=row[4];actor.visual_weapon=row[8];actor.xr_pose=row[18];actor.update_height(float(actor.xr_pose.get("height",1.65)),true);actor.spectator=row[20];actor.show_alive(not row[7],false)
 	for i in mini(snap[1].size(),game.pickups.size()):
 		game.pickups[i].available=snap[1][i]==1
 		if is_instance_valid(game.pickups[i].node):game.pickups[i].node.visible=snap[1][i]==1 and not game.match_mode.kind in ["ig","cc"]

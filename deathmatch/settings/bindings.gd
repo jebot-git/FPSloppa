@@ -8,6 +8,9 @@ var axes: Dictionary={"move":"move","turn":"turn"}
 var vr:=VR.duplicate()
 var two_handed:=true
 var physical_jump:=false
+var physical_crouch:=true
+var face_expressions:=true
+var physical_interactions:=true
 func load_settings() -> void:
 	var c:=ConfigFile.new();c.load(Profile.config_path())
 	for action in KEYS:
@@ -19,7 +22,7 @@ func load_settings() -> void:
 	for action in VR:
 		var value=c.get_value("vr_bindings",action,VR[action])
 		if valid_vr(value):vr[action]=value
-	for option in ["two_handed","physical_jump"]:
+	for option in ["two_handed","physical_jump","physical_crouch","physical_interactions","face_expressions"]:
 		var value=c.get_value("control_options",option,get(option))
 		if value is bool:set(option,value)
 func save() -> Error:
@@ -27,7 +30,7 @@ func save() -> Error:
 	for action in keys:c.set_value("bindings",action,keys[action])
 	for action in axes:c.set_value("vr_axes",action,axes[action])
 	for action in vr:c.set_value("vr_bindings",action,vr[action])
-	for option in ["two_handed","physical_jump"]:c.set_value("control_options",option,get(option))
+	for option in ["two_handed","physical_jump","physical_crouch","physical_interactions","face_expressions"]:c.set_value("control_options",option,get(option))
 	return c.save(Profile.config_path())
 static func valid_vr(value: Variant) -> bool:
 	if not value is String:return false

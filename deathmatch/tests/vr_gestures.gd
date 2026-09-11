@@ -19,7 +19,7 @@ func run() -> void:
 	var a:=stroke(72);var b:=stroke(144)
 	check(a.z<-.5 and a.length()<=1,"A short single-arm pull creates bounded forward propulsion")
 	check(a.distance_to(b)<.035,"Swimming response is consistent at 72 and 144 Hz")
-	check(stroke(90,true).y>.5,"A small downward hand stroke swims upward")
+	check(stroke(90,true).z<-.5 and absf(stroke(90,true).y)<.001,"A downward stroke follows the view direction without upward lift")
 	var swim:=Swim.new();var head:=Transform3D(Basis.IDENTITY,Vector3(0,1.65,0));var l:=Vector3(-.6,1.4,0);var r:=Vector3(.6,1.4,0)
 	swim.sample(head,l,r,.02,true)
 	var shifted:=head;shifted.origin+=Vector3(.1,0,.1)
@@ -48,6 +48,21 @@ func run() -> void:
 	for i in 100:
 		if pose.sample(head,l+Vector3(0,0,-.6),r+Vector3(0,0,-.6),.02,true):rejected+=1
 	check(rejected==0,"Arms reaching forward do not accidentally trigger T-pose calibration")
+	for hz in [60,72,90,120,144]:
+		pose=TPose.new();var triggers:=0
+		var tilted:=head;tilted.basis=Basis(Vector3.FORWARD,deg_to_rad(24))
+		for i in hz*2:
+			var wobble:=sin(float(i)*1.7)*.007
+			var a_hand:=Vector3(-.55,1.19+wobble,-.32);var b_hand:=Vector3(.65,1.43-wobble,.20)
+			# One brief reach excursion must not discard the whole deliberate hold.
+			if i>=hz/2 and i<hz/2+int(hz*.1):a_hand.z=-.48
+			if pose.sample(tilted,a_hand,b_hand,1.0/hz,true):triggers+=1
+		check(triggers==1,"Relaxed asymmetric T-pose tolerates jitter, head tilt and a brief excursion at %d Hz"%hz)
+	pose=TPose.new();var moving:=0
+	for i in 200:
+		var reach:=.65+sin(i*.3)*.25
+		if pose.sample(head,Vector3(-reach,1.4,0),Vector3(reach,1.4,0),.02,true):moving+=1
+	check(moving==0,"Repeated fast arm movement is not a held calibration gesture")
 	var actor:=Fighter.new();root.add_child(actor);actor.set_process(false);actor.setup(3,"Swimmer",Color.WHITE);actor.quake_movement=true;actor.position=Vector3(1000,100,1000);actor.in_water=true
 	for i in 60:actor.simulate(Vector2.ZERO,0,false,1.0/60,false,Vector3(0,.5,-.8))
 	check(actor.velocity.y>0 and actor.velocity.z<-3,"Arm thrust drives the actual water movement simulation upward and forward")

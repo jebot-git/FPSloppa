@@ -241,15 +241,13 @@ func _build_menu(root: Control) -> void:
 	map_row.add_child(map_choice)
 	map_choice.selected.connect(func(id):game.selected_map=id)
 	refresh_maps()
-	var bsp_dialog:=FileDialog.new()
-	bsp_dialog.access=FileDialog.ACCESS_FILESYSTEM
-	bsp_dialog.file_mode=FileDialog.FILE_MODE_OPEN_FILE
-	bsp_dialog.filters=PackedStringArray(["*.bsp ; Quake I BSP map"])
-	add_child(bsp_dialog)
+	var bsp_dialog=preload("res://deathmatch/ui/file_browser.gd").new()
+	get_child(0).add_child(bsp_dialog)
+	bsp_dialog.setup("bsp","IMPORT QUAKE BSP MAP")
 	bsp_dialog.file_selected.connect(_import_bsp)
 	var assets_panel=preload("res://deathmatch/assets/panel.gd").new();get_child(0).add_child(assets_panel);assets_panel.setup(game)
 	button(map_row,"ASSETS…",assets_panel.open)
-	map_import=button(map_row,"IMPORT BSP…",func(): bsp_dialog.popup_centered_ratio(.8))
+	map_import=button(map_row,"IMPORT BSP…",bsp_dialog.open)
 	var rules := HBoxContainer.new()
 	rules.add_theme_constant_override("separation",10)
 	host_column.add_child(rules)
@@ -404,7 +402,8 @@ func _process(_delta: float) -> void:
 		if entry.until>game.clock: lines.append(entry.text)
 	kill_feed.text = "\n".join(lines)
 	hit.visible = game.hit_flash>0
-	damage.color.a = game.hurt_flash*.28
+	var burning: bool=game.match_mode.fortress.burning(viewed_id)
+	damage.color=Color(1,.22,.025,.055+.015*sin(game.clock*4)) if burning and game.hurt_flash<.1 else Color(.55,.025,.018,game.hurt_flash*.28)
 	var actor=game.fighters.get(viewed_id)
 	water_tint.visible=actor!=null and actor.underwater and not state.dead and not game.menu_open
 	if water_tint.visible:match_status.text+="   ·   "+("AIR %ds"%ceili(actor.air_left) if actor.air_left>0 else "DROWNING · SURFACE!")
