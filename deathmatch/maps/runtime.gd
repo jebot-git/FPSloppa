@@ -8,9 +8,14 @@ var destinations: Dictionary = {}
 var teleport_until: Dictionary = {}
 var hurt_until: Dictionary = {}
 var bounds := AABB()
+var contents=preload("res://deathmatch/maps/contents.gd").new()
+var has_contents:=false
+var breath: Dictionary={}
 
-func configure(arena: Node, root: Node3D) -> void:
+func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	game = arena
+	process_physics_priority=-50
+	if not bsp_path.is_empty():has_contents=contents.open(bsp_path)
 	var stack: Array = [root]
 	var entities: Array = []
 	var fixtures: Array=[]
@@ -81,6 +86,7 @@ func configure(arena: Node, root: Node3D) -> void:
 			node.collision_mask=2
 			regions.append({"area":node,"kind":kind,"data":e})
 	if not game.headless and not fixtures.is_empty():preload("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
+	if not game.headless:preload("res://deathmatch/maps/filtering.gd").new().apply(root,int(game.presentation.get("texture_filter",2)))
 	if game.spawn_points.is_empty():
 		for node in entities:
 			if node.attributes.get("classname","")=="info_player_start":
@@ -136,19 +142,46 @@ func add_light(e: Dictionary, pos: Vector3) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not game or not game.active: return
-	for actor in game.fighters.values(): actor.in_water=false
+	for id in game.fighters:
+		var actor=game.fighters[id]
+		actor.in_water=false;actor.underwater=false
+		if not game.players.has(id):continue
+		var state: Dictionary=game.players[id]
+		if state.dead or state.spectator:breath.erase(id);actor.air_left=12.0;continue
+		if has_contents:
+			var kind:int=contents.at(actor.global_position+Vector3.UP*.75)
+			actor.in_water=contents.liquid(kind)
+			var pose:Dictionary=actor.xr_pose if id==multiplayer.get_unique_id() and game.is_vr() else state.get("xr",{})
+			var eye:Vector3=pose.get("head",Transform3D(Basis.IDENTITY,Vector3.UP*1.48)).origin
+			actor.underwater=contents.liquid(contents.at(actor.global_transform*eye))
+			if multiplayer.is_server() and kind in [-4,-5] and game.clock>=hurt_until.get(id,0):
+				hurt_until[id]=game.clock+.6;game._damage(id,id,20,"environment",true)
+		var air:Dictionary=breath.get(id,{"left":12.0,"next":0.0,"damage":2,"serial":state.serial})
+		if not actor.underwater or air.serial!=state.serial:air={"left":12.0,"next":game.clock,"damage":2,"serial":state.serial}
+		else:air.left=maxf(0,air.left-_delta)
+		actor.air_left=air.left;breath[id]=air
+		if actor.underwater and air.left<=0 and multiplayer.is_server() and game.clock>=air.next:
+			air.next=game.clock+1.0
+			game._damage(id,id,air.damage,"DROWNING",true)
+			air.damage=mini(10,air.damage+2)
+	for id in breath.keys():
+		if not game.fighters.has(id):breath.erase(id)
 	for region in regions:
 		for actor in region.area.get_overlapping_bodies():
 			if not "peer_id" in actor or not game.players.has(actor.peer_id): continue
 			var id: int=actor.peer_id
 			if game.players[id].dead or game.match_mode.special.blocked(id): continue
-			if region.kind=="water": actor.in_water=true
+			if region.kind in ["water","slime","lava"]:
+				# Authoritative BSP queries supersede imprecise imported liquid boxes.
+				if not has_contents:actor.in_water=true
+				if has_contents:continue
 			if not multiplayer.is_server(): continue
 			if region.kind=="trigger_teleport" and game.clock>=teleport_until.get(id,0):
 				var target: String=region.data.get("target","")
 				if not destinations.has(target): continue
 				var dest: Dictionary=destinations[target]
 				actor.position=dest.position
+				actor.reset_view()
 				actor.velocity=Vector3.ZERO
 				game.players[id].yaw=dest.yaw
 				if id==multiplayer.get_unique_id(): game.local_yaw=dest.yaw

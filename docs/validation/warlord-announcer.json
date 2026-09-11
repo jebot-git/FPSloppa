@@ -1,0 +1,43 @@
+{
+  "feature": "WARLORD announcer and authoritative server policy",
+  "server_config": {
+    "sv_announcer": 1,
+    "disabled_value": 0,
+    "client_hosted_default": true
+  },
+  "protocol": "fpsloppa-21-announcer",
+  "selected_clips": 13,
+  "audio_bytes": 426100,
+  "license": "CC-BY-SA-4.0",
+  "checks": {
+    "announcer_and_network": 32,
+    "presentation": 23,
+    "vr_ui": 57,
+    "post07": 17,
+    "team_modes": 33,
+    "special_modes": 22,
+    "new_features": 27
+  },
+  "passed": true,
+  "total_checks": 211,
+  "validation": [
+    "Headless server allocates no announcer streams or player",
+    "Real ENet policy replication, enabled announcement, disabled announcement rejection and map rotation",
+    "Real PulseAudio mixer on muted test bus; stopped playback and owned bus cleanup",
+    "Settings persistence, VR menu bounds, priority queue, expiry, winner/tie logic, friendly-fire/suicide exclusion",
+    "Godot import and git diff --check"
+  ],
+  "limits": [
+    "Integrated cues have not yet been confirmed by a wearer in live VR; user approved the standalone WiVRn audition.",
+    "Existing baseline one ObjectDB instance warning remains; no announcer audio resources retained in the real-mixer test.",
+    "No release build, commit or push performed."
+  ],
+  "logs": [
+    "test-results/announcer-results.json",
+    "test-results/announcer-mixer.log",
+    "test-results/post07-presentation.log",
+    "test-results/post07-vr_ui.log",
+    "test-results/post07-post07.log",
+    "test-results/announcer-mode-tests.log"
+  ]
+}

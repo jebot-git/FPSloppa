@@ -25,6 +25,16 @@ func run():
  check(max_view_jump<.2,"Stair camera transitions are smaller than physical risers")
  for i in range(57): await physics_frame;actor.simulate(Vector2(0,1),0,true,1.0/60)
  check(actor.position.z>0 and actor.position.y<.08 and actor.is_on_floor(),"Descending stairs stays grounded and returns to floor")
+ for spec in [Vector2(.18,.3),Vector2(.3,.4),Vector2(.4,.5)]:
+  var base:=Vector3(30+spec.x*100,0,0)
+  Fixture.box(world,base+Vector3(0,-.5,0),Vector3(8,1,12))
+  for i in 8:Fixture.box(world,base+Vector3(0,(i+1)*spec.x*.5,-1.0-i*spec.y),Vector3(3,(i+1)*spec.x,spec.y))
+  actor.position=base+Vector3(0,.02,.2);actor.velocity=Vector3.ZERO;actor.reset_view()
+  for i in 12:await physics_frame;actor.simulate(Vector2.ZERO,0,false,1.0/60)
+  for i in 42:await physics_frame;actor.simulate(Vector2(.12,-1),0,true,1.0/60)
+  check(actor.position.z<-1.8 and actor.position.y>spec.x*3,"Oblique ascent clears risers %.2f / treads %.2f"%[spec.x,spec.y])
+  for i in 60:await physics_frame;actor.simulate(Vector2(-.12,1),0,true,1.0/60)
+  check(actor.position.z>0 and actor.position.y<.08,"Descent clears risers %.2f without sticking"%spec.x)
  # A wall above maximum step height cannot be climbed.
  Fixture.box(world,Vector3(2,.8,-1.5),Vector3(1,1.6,1))
  actor.position=Vector3(2,.02,0);actor.velocity=Vector3.ZERO;actor.reset_view()

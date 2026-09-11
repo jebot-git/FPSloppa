@@ -1,10 +1,12 @@
 extends RefCounted
+const BFG_SPLASH_RADIUS:=9.0
+const BFG_SPLASH_DAMAGE:=200
 
 # Independent implementation of Doom-like weapon rules; units are meters/seconds.
 # Keys: fist, saw, pistol, shotgun, super shotgun, chaingun, rocket, plasma, BFG.
 const DATA = [
 	{"name":"FIST", "ammo":-1, "cost":0, "cycle":0.57, "pellets":1, "spread":5.6, "vertical":0.0, "range":2.88, "damage":2, "dice":10},
-	{"name":"CHAINSAW", "ammo":-1, "cost":0, "cycle":0.114, "pellets":1, "spread":5.6, "vertical":0.0, "range":2.92, "damage":2, "dice":10},
+	{"name":"CHAINSAW", "ammo":-1, "cost":0, "cycle":0.114, "pellets":1, "spread":5.6, "vertical":0.0, "range":1.2, "damage":2, "dice":10},
 	{"name":"DUAL PISTOLS", "ammo":0, "cost":1, "cycle":0.4, "pellets":1, "spread":4.2, "vertical":0.0, "range":100.0, "damage":6, "dice":3},
 	{"name":"SHOTGUN", "ammo":1, "cost":1, "cycle":1.0, "pellets":7, "spread":5.6, "vertical":0.0, "range":100.0, "damage":5, "dice":3},
 	{"name":"SUPER SHOTGUN", "ammo":1, "cost":2, "cycle":1.63, "pellets":20, "spread":11.2, "vertical":7.1, "range":100.0, "damage":5, "dice":3},

@@ -1,11 +1,15 @@
 extends PanelContainer
 const Paths=preload("res://deathmatch/assets/paths.gd")
+const IO=preload("res://deathmatch/network/disk_worker.gd")
+var disk=IO.new()
+signal installed
 var game
 var notice: Label
 var download: Button
 var request: HTTPRequest
 var busy:=false
 func setup(arena: Node) -> void:
+	add_child(disk)
 	game=arena;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",18);add_child(column)
@@ -36,26 +40,36 @@ func _process(_delta: float) -> void:
 		notice.text="Downloading base assets: %.1f MB"%(request.get_downloaded_bytes()/1000000.0)
 func completed(result: int,code: int,_headers: PackedStringArray,_body: PackedByteArray) -> void:
 	if result!=HTTPRequest.RESULT_SUCCESS or code!=200:finish("Download failed (%d / %d). Retry or copy the release asset folders."%[result,code]);return
-	var data:=manifest();var archive:=request.download_file
-	if FileAccess.get_sha256(archive)!=data.sha256:finish("Asset archive checksum mismatch.");return
+	busy=true;download.disabled=true;notice.text="Verifying and installing base assets…"
+	if not disk.submit(install_archive.bind(manifest(),request.download_file,Paths.root()),func(message):
+		finish(message)
+		if message=="Base assets installed.":rescan()
+		installed.emit()):
+		finish("Asset installation queue is full.");return
+	await installed
+
+static func install_archive(data: Dictionary,archive: String,directory: String) -> String:
+	if FileAccess.get_sha256(archive)!=data.sha256:return "Asset archive checksum mismatch."
 	var zip:=ZIPReader.new()
-	if zip.open(archive)!=OK:finish("Cannot open asset archive.");return
+	if zip.open(archive)!=OK:return "Cannot open asset archive."
 	for row in data.files:
-		var dest:=Paths.root().path_join(row.path)
+		var relative: String=row.path
+		if relative.is_absolute_path() or relative.contains("..") or relative.contains("\\"):zip.close();return "Invalid asset path."
+		var dest:=directory.path_join(relative)
 		# Preserve existing player/admin edits. Only install missing base files.
 		if FileAccess.file_exists(dest):continue
-		var bytes:=zip.read_file(row.path)
+		var bytes:=zip.read_file(relative)
 		var hash:=HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(bytes)
-		if bytes.size()!=row.size or hash.finish().hex_encode()!=row.sha256:zip.close();finish("Invalid asset: "+row.path);return
+		if bytes.size()!=row.size or hash.finish().hex_encode()!=row.sha256:zip.close();return "Invalid asset: "+relative
 		DirAccess.make_dir_recursive_absolute(dest.get_base_dir())
 		var file:=FileAccess.open(dest,FileAccess.WRITE)
-		if not file:zip.close();finish("Cannot write to "+dest);return
-		file.store_buffer(bytes);file.close();notice.text="Installed "+row.path
-		await get_tree().process_frame
-	zip.close();finish("Base assets installed.");rescan()
+		if not file:zip.close();return "Cannot write to "+dest
+		file.store_buffer(bytes);file.close()
+	zip.close()
+	return "Base assets installed."
 func finish(message: String) -> void:
 	busy=false;download.disabled=false;notice.text=message
-	if FileAccess.file_exists(request.download_file):DirAccess.remove_absolute(request.download_file)
+	if not request.download_file.is_empty():disk.discard(request.download_file)
 func rescan() -> void:
 	if busy or game.active:notice.text="Leave the match before rescanning assets.";return
 	game.map_catalog=game.Maps.catalog();game.hud.map_choice.clear()

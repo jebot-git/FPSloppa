@@ -150,9 +150,10 @@ func status(id: int=0) -> String:
 	if kind=="ft":text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
 	return text+fortress.status(id)
 func snapshot() -> Dictionary:
-	return {"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot()}
+	return {"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot()}
 func receive(data: Dictionary) -> void:
 	if data.is_empty():return
+	game.announcer.policy(bool(data.get("announcer",true)))
 	special.frozen=data.get("frozen",{});special.reset_at=data.get("freeze_reset",0.0)
 	kind=data.kind;fortress.receive(data.get("fortress",{}));scores=data.scores;bases=data.bases;captures=data.get("captures",bases);flags=data.flags;hill=data.hill;hill_owner=data.owner;friendly_fire=data.friendly_fire
 	if kind in ["ctf","tf"]:capture_limit=data.limit

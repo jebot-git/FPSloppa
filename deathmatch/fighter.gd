@@ -3,6 +3,9 @@ const Art = preload("res://deathmatch/art.gd")
 const QuakeMovement = preload("res://deathmatch/movement/quake.gd")
 var frozen:=false
 var ice: MeshInstance3D
+var frozen_label: Label3D
+var frost_material: ShaderMaterial
+var frost_originals: Array=[]
 var gibbed:=false
 var spectator:=false
 var xr_pose: Dictionary={}
@@ -14,6 +17,8 @@ var visual_weapon := 2
 var alive_state := true
 var quake_movement := false
 var in_water := false
+var underwater:=false
+var air_left:=12.0
 var jump_held := false
 var jump_queued := false
 var peer_id := 0
@@ -25,6 +30,8 @@ var local_player := false
 var local_body_visible := false
 var spawn_serial := -1
 var view_offset := 0.0
+var floor_grace:=0.0
+var visual_reset_until:=-1
 
 func setup(id: int, nickname: String, color: Color) -> void:
 	peer_id = id
@@ -54,10 +61,14 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	add_child(label)
 
 var speed_multiplier:=1.0
-func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false) -> void:
+func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false, swim: Vector3=Vector3.ZERO) -> void:
 	rotation.y = yaw
 	var direction := (basis * Vector3(input.x,0,input.y)).limit_length(1.0)
 	var speed := (5.2 if slow else 9.4)*speed_multiplier
+	var stroke: Vector3=(basis*swim.limit_length(1.0)) if in_water and swim.is_finite() else Vector3.ZERO
+	if in_water:
+		speed*=.65
+		direction=(direction+stroke).limit_length(1.0)
 	if jump and not jump_held:jump_queued=true
 	elif not jump:jump_queued=false
 	var grounded:=is_on_floor() and velocity.y<=0
@@ -76,15 +87,19 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	# Consume each press once; another takeoff requires release and a fresh press.
 	if jumping:velocity.y=7.4;jump_queued=false
 	elif quake_movement and jump and in_water:velocity.y=maxf(velocity.y,5.5)
-	if in_water: velocity.y = maxf(velocity.y,-2.0);jump_queued=false
+	if in_water:
+		if stroke.length()>.05 and not jump:velocity.y=move_toward(velocity.y,direction.y*speed,24.0*delta)
+		velocity.y=maxf(velocity.y,-speed if stroke.length()>.05 else -2.0);jump_queued=false
 	jump_held = jump
-	var was_grounded:=is_on_floor()
+	floor_grace=.1 if is_on_floor() else maxf(0,floor_grace-delta)
+	var was_grounded:=is_on_floor() or floor_grace>0
 	var previous_y:=position.y
 	var stepping:=was_grounded and velocity.y<=0 and not in_water
 	var step := .55 if quake_movement else .43
 	var travel := Vector3(velocity.x,0,velocity.z)*delta
 	if stepping: step_up(travel,step)
 	move_and_slide()
+	if stepping and not is_on_floor() and velocity.y<=0:apply_floor_snap()
 	if stepping and is_on_floor() and absf(position.y-previous_y)<=step+.05:
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
 
@@ -117,7 +132,13 @@ func step_up(travel: Vector3,height: float) -> void:
 		velocity.y=0
 
 func reset_view() -> void:
-	view_offset=0
+	view_offset=0;floor_grace=0
+	reset_physics_interpolation()
+	visual_reset_until=Engine.get_physics_frames()+1
+
+func render_position() -> Vector3:
+	var rendered:=get_global_transform_interpolated().origin
+	return global_position if Engine.get_physics_frames()<=visual_reset_until else rendered
 
 func show_alive(alive: bool, is_local: bool) -> void:
 	alive=alive and not spectator
@@ -134,10 +155,12 @@ func show_alive(alive: bool, is_local: bool) -> void:
 	if label: label.visible = alive and not is_local
 
 func set_avatar(model: Node3D, hash: String) -> void:
+	_restore_frost()
 	if is_instance_valid(avatar): avatar.free()
 	avatar = model
 	avatar_hash = hash
 	add_child(avatar)
+	if frozen:_apply_frost()
 	show_alive(alive_state,local_player)
 
 func animate_fire(offhand: bool=false) -> void:
@@ -169,16 +192,38 @@ func _process(_delta: float) -> void:
 	avatar.set_weapon(visual_weapon)
 	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<2.5)
 
+func _restore_frost() -> void:
+	for entry in frost_originals:
+		var mesh=entry.node.get_ref()
+		if is_instance_valid(mesh):
+			mesh.material_overlay=entry.overlay;mesh.material_override=entry.material
+	frost_originals.clear()
+func _apply_frost() -> void:
+	if not is_instance_valid(avatar):return
+	if not frost_material:
+		frost_material=ShaderMaterial.new();frost_material.shader=preload("res://deathmatch/effects/frozen.gdshader")
+	var meshes: Array=avatar.find_children("*","MeshInstance3D",true,false)
+	if avatar is MeshInstance3D:meshes.append(avatar)
+	for mesh in meshes:
+		frost_originals.append({"node":weakref(mesh),"material":mesh.material_override,"overlay":mesh.material_overlay})
+		mesh.material_overlay=null;mesh.material_override=frost_material
 func set_frozen(value: bool, progress: float=0.0) -> void:
 	if frozen!=value:
 		frozen=value
+		if value:_apply_frost()
+		else:_restore_frost()
 		show_alive(alive_state,local_player)
+	if DisplayServer.get_name()=="headless":return
 	if value and not is_instance_valid(ice):
-		ice=MeshInstance3D.new();var shape:=CapsuleMesh.new();shape.radius=.4;shape.height=1.85;ice.mesh=shape;ice.position.y=.9
-		var mat:=Art.material(Color(.35,.8,1,.35),.2,.3);mat.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;ice.material_override=mat
+		ice=MeshInstance3D.new();var shape:=TorusMesh.new();shape.inner_radius=.38;shape.outer_radius=.43;ice.mesh=shape;ice.position.y=.04
+		ice.material_override=Art.material(Color("83dbff"),.1,1)
 		ice.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(ice)
-	if is_instance_valid(ice):ice.visible=value and not local_player
-	if is_instance_valid(ice):ice.scale=Vector3.ONE*(1.0-.04*progress/3.0)
+		frozen_label=Label3D.new();frozen_label.position.y=2.3;frozen_label.font_size=36;frozen_label.pixel_size=.005
+		frozen_label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;frozen_label.modulate=Color("b9efff");frozen_label.no_depth_test=false;add_child(frozen_label)
+	if is_instance_valid(ice):ice.visible=value and not local_player and not spectator
+	if is_instance_valid(frozen_label):
+		frozen_label.visible=value and not local_player and not spectator
+		frozen_label.text="FROZEN" if progress<=0 else "THAWING %d%%"%int(clampf(progress/3.0,0,1)*100)
 
 var class_badge: Label3D
 func set_class_badge(title: String,color: Color) -> void:

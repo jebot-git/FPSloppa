@@ -46,7 +46,7 @@ The twenty WAV files in `deathmatch/audio/`, their generator `tools/generate_sou
 
 ## Exported runtime and voice
 
-PC/server binaries use the official Godot 4.7.2 export templates. Godot’s MIT license and bundled dependency notices are supplied as GODOT-LICENSE.txt and GODOT-COPYRIGHT.txt. Voice capture/relay/UI and the independent-block IMA ADPCM implementation were authored for this project; no third-party voice SDK, voice recordings or hosted voice service is bundled.
+PC/server binaries use the official Godot 4.7.2 export templates. Godot’s MIT license and bundled dependency notices are supplied as GODOT-LICENSE.txt and GODOT-COPYRIGHT.txt. Voice capture/relay/UI and the independent-block IMA ADPCM implementation were authored for this project; no hosted voice service is bundled. Announcer recordings are credited separately below.
 
 Release compatibility patches in Godot-VRM use ordinary Arrays for spring/collider and node-constraint resource collections, with an explicit spring-runtime local type. The authored `addons/entryway_export` plugin preserves raw avatar/map bytes in exported packs. See AVATARS.md for details.
 
@@ -60,7 +60,7 @@ Godot-VRM secondary physics has a small runtime guard to skip signal-driven spri
 
 The bevelled ammo racks, rocket carrier, cell pack, medkit, armour vests and bonus supplies in `deathmatch/pickups/models.gd` were authored for this project. The meshes use a muted industrial vertex-colour palette, without external textures or downloaded models. These authored pickup meshes are offered under CC0 1.0.
 
-**Iron Circuit**, **Pressure Lock**, **Foundry Run** and **Dark Relay** are original four-channel tracker scores using edited CC0 Karoryfer instrument recordings, offered under CC0 1.0. Editable MODs, compact Ogg playback and provenance are in [deathmatch/audio/music/SOURCES.md](deathmatch/audio/music/SOURCES.md). No existing game score or game recording is included.
+Eight original recorded-sample metal scores and two title/lobby tracker scores use edited CC0 Karoryfer and VSCO 2 Community Edition recordings, offered under CC0 1.0. VSCO recordings are by Sam Gossner and Simon Dalzell, with sample cutting by Elan Hickler. Editable sample arrangements / title-lobby MODs, compact Ogg playback and provenance are in [deathmatch/audio/music/SOURCES.md](deathmatch/audio/music/SOURCES.md). No existing game score or game recording is included.
 
 
 ## 0.3v additions
@@ -97,3 +97,25 @@ The forty-map Arena Collection 1 and ThreeWave, TeamFortress and Arcane Dimensio
 TwoVoIP v6.5 (MIT) and bundled Opus/RNNoise/SpeexDSP/godot-cpp notices: see `addons/twovoip/` and its integration notes.
 
 Quake-style player movement is adapted from Raymond Hulha’s MIT-licensed [quake3-movement-godot](https://github.com/rhulha/quake3-movement-godot), commit `13f7ffcafe7e30666468ac00391ae0387f9b3f37` (Godot port credited to dead_lucky_32, based on WiggleWizard’s implementation). License and Godot 4 adaptation notes: `deathmatch/movement/LICENSE.txt` and `SOURCES.md`.
+
+## WARLORD announcer
+
+Voice recordings and production by **VoiceBosch**, [WARLORD](https://opengameart.org/content/warlord-video-game-announcer), CC BY-SA 4.0. Selected recordings are attenuated and encoded as Ogg; modified recordings retain CC BY-SA 4.0. [Provenance, hashes and licence](deathmatch/audio/announcer/SOURCES.md).
+
+## Gesture and freeze-tag feedback
+
+The icy frozen-player shader, ground marker, and original 480 ms calibration
+bell jingle are project-authored CC0 1.0 assets. Sources:
+`deathmatch/effects/frozen.gdshader`, `deathmatch/fighter.gd`, and
+`tools/generate_calibration_sound.py`. Frozen appearance is a temporary runtime
+material effect; it does not modify or relicense avatar assets.
+
+## Alternate metal soundtrack audition
+
+**Iron Teeth**, **Chain Drive**, **Cold Anvil**, **Breach Formation**, **Redline
+Relay**, **Crowned in Rust**, **Razor Current** and **Siege Engine** are original
+CC0 scores using recorded CC0 Karoryfer guitars, bass and drums. Additional guitar
+takes are by Brian Wood. Sources, hashes, processing notes and listening links
+are in [the audition folder](docs/audio/metal-alternates/README.md). The metal direction was selected for all eight gameplay modes. Comparison
+assets and source recordings under docs/ are excluded from game exports; the
+selected Ogg renders are installed in the active soundtrack.

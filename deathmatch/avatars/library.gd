@@ -190,6 +190,7 @@ func create_avatar(hash: String) -> Node3D:
 		rig.free()
 		last_error = "Humanoid skeleton could not be normalized."
 		return null
+	if DisplayServer.get_name()!="headless":preload("res://deathmatch/maps/filtering.gd").new().apply(rig)
 	return rig
 
 static func validate_structure(doc: Dictionary) -> String:

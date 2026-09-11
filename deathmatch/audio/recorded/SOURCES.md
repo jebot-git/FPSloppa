@@ -17,3 +17,12 @@ Selected files: `yelling sounds/3grunt3.wav`, `3grunt4.wav`, `3grunt5.wav`; conv
 Regenerate using `python3 tools/generate_feedback_sounds.py /path/to/extracted/grunts`. The same tool authors pickup, respawn and powerful-item spawn cues, layering original tonal/percussive envelopes with the existing Kenney CC0 `impactMetal_light_000.ogg` recording. These new cues are also dedicated under CC0 1.0. No weapon recording or weapon-level calibration is changed.
 
 Archive SHA-256: `e9100a4e3b9dcd146993089970dc6097dcf9935fa4683b196040012bad65d67a`.
+
+## Chainsaw contact
+
+`../saw_grind.wav` is an original 220 ms grinding cue, dedicated under CC0 1.0.
+`tools/generate_saw_grind.py` layers the existing Kenney CC0
+`impactMetal_light_000.ogg` transient with seeded filtered noise and mechanical
+pulses, producing mono 32 kHz PCM at −8 dBFS peak. It uses the normal effects bus,
+spatial attenuation and a per-player 180 ms contact-feedback limit. It does not
+change the weapon-report loudness calibration.

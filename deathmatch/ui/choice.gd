@@ -31,6 +31,17 @@ func open_popup() -> void:
 	drag_pressed=false;dragging=false
 	scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_SHOW_NEVER if using_vr() else ScrollContainer.SCROLL_MODE_AUTO
 	popup.show()
+func _input(event: InputEvent) -> void:
+	# Continue a gesture when the ray leaves the pressed row or the popup bounds.
+	if not popup.visible or not drag_pressed:return
+	if event is InputEventMouseMotion:
+		drag_input(event)
+		if dragging:get_viewport().set_input_as_handled()
+	elif event is InputEventMouseButton and event.button_index==MOUSE_BUTTON_LEFT and not event.pressed:
+		drag_pressed=false
+		if dragging:
+			for button in entries.get_children():button.set_pressed_no_signal(false)
+			get_viewport().set_input_as_handled()
 func _process(_delta: float) -> void:
 	if not is_visible_in_tree():popup.hide()
 func configure(options: Array,label: String) -> void:

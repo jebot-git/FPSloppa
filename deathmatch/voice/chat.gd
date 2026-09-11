@@ -2,6 +2,8 @@ extends Node
 const Speaker=preload("res://addons/twovoip/voiphelper/two_voip_speaker.gd")
 const Microphone=preload("res://deathmatch/voice/microphone.gd")
 const Visemes=preload("res://deathmatch/voice/visemes.gd")
+const Preferences=preload("res://deathmatch/voice/preferences.gd")
+var input_device:="Default"
 const Permissions=preload("res://deathmatch/vr/permissions.gd")
 var game
 var mode:=1 # 0 listen only, 1 push-to-talk (startup default), 2 voice activation.
@@ -28,7 +30,9 @@ var test_receive:=false
 
 func setup(arena: Node) -> void:
 	game=arena
+	load_preferences()
 	if not game.headless:
+		apply_input_device()
 		panel=preload("res://deathmatch/voice/panel.gd").new()
 		add_child(panel)
 		panel.setup(self)
@@ -43,8 +47,24 @@ func _permission_result(permission: String,allowed: bool) -> void:
 	if allowed: start_capture()
 	else: message="Microphone access denied · listening only. Use RETRY ACCESS or headset app permissions."
 
-func set_mode(value: int) -> void:
+func load_preferences(path: String="") -> void:
+	var saved:=Preferences.read_settings(path)
+	mode=saved.mode;muted_all=saved.mute_all;threshold=saved.threshold;input_device=saved.input_device
+
+func save_preferences(path: String="") -> void:
+	var error:=Preferences.save_settings({"mode":mode,"mute_all":muted_all,"threshold":threshold,"input_device":input_device},path)
+	if error!=OK:push_warning("Cannot save voice settings: "+error_string(error))
+
+func apply_input_device() -> void:
+	var available:=AudioServer.get_input_device_list()
+	AudioServer.input_device=input_device if input_device in available else "Default"
+
+func select_input_device(value: String) -> void:
+	input_device=value;apply_input_device();save_preferences();set_mode(mode)
+
+func set_mode(value: int,persist: bool=false) -> void:
 	mode=clampi(value,0,2)
+	if persist:save_preferences()
 	stop_capture()
 	if mode==0: message="Microphone off"; return
 	if game.headless: return

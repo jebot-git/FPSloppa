@@ -51,6 +51,8 @@ Or supply a launch override: `./run-vr.sh -- --name "YourCallsign"`. The same op
 
 The default config is under `~/.local/share/godot/app_userdata/FPSloppa/` on Linux, or `%APPDATA%\Godot\app_userdata\FPSloppa\` on Windows. Close the game before editing the file externally.
 
+Text chat also appears above the in-game VR notifications, including the sender's name. The two latest messages remain for eight seconds, wrap across lines, and do not replace active vote or flag-capture notices. They scale and move with the HUD; opening the menu shows the existing chat feed there.
+
 ## Combat feedback
 
 Recorded CC0 gunfire, impact and footstep variants supplement the original synthesized effects. Combat and voice audio use spatial attenuation, wall occlusion and room reverb; see [AUDIO.md](AUDIO.md). Hits produce directional avatar flinches, blood bursts and surface stains. Heavy kills produce low-poly head/meat/bone gibs. These effects are cosmetic and bounded: 12 blood bursts, 48 stains, 32 gibs and 32 simultaneous combat sound voices. Local damage adds a brief red edge tint and a quiet, unoccluded pain sound, including small hits. The tint fades quickly and is hidden over VR menus or on focus loss. VR hit and shot feedback includes controller haptics; hit animation never kicks or rolls the headset camera.
@@ -100,3 +102,37 @@ Dual pistols have independent aim, trigger input and shot haptics for each hand,
 Settings → Graphics provides **VR HUD size** (70–140%) and **VR HUD height** (−65 to +55 cm relative to eye level). Changes apply immediately and persist in the presentation section of the client config (`hud_scale`, `hud_y`). The HUD remains 1.5 metres in front of the headset and does not intercept menu pointers. Default: 100%, −46 cm.
 
 With full body tracking, deliberately swing a raised foot to kick for 10 damage before armour. Either foot shares the 0.8-second cooldown with weapon whipping. Stationary feet, ground sliding and stale/discontinuous tracking do not count as kicks; the server checks reach and walls. Kicks follow the existing physical-melee restrictions in IG and CC.
+
+## Movement and tracking follow-up fixes
+
+Locomotion is interpolated between physics ticks for headset and desktop presentation; headset/controller poses and turning remain updated every rendered frame. Teleports snap the camera immediately. Stair contact briefly tolerates tread-edge separation and reapplies downward floor snapping. Ground jumps still require release and press; holding jump swims upward. Physical jumps trigger after a 5.5 cm rise with upward speed above 0.65 m/s, rearm after returning near standing height, and use a 0.25-second minimum cooldown. Short jump pulses are retained until the next client input transmission.
+
+Controller-only VR shows the avatar's first-person arms even when body tracking is disabled or unavailable. The avatar's untracked lower body uses its existing procedural pose; measured hips/feet take priority. With hips and feet but no knee trackers, knee bend directions follow pelvis yaw with bounded toe influence. Headset validation allows heights up to 3.2 m for tall users and physical jumps while retaining horizontal playspace limits.
+
+Ranged weapons have a 24 cm direction guide at the muzzle, clipped by nearby walls. It does not steer shots or select targets. The extra fist mesh is hidden. VR chainsaw contact follows the visible blade, with a 4 cm tip allowance in CC and 9 cm in other modes. The model retracts at walls without moving the tracked hand; blocked reach cannot damage or parry through geometry. Blade contacts produce sparks, a short grinding sound and haptic feedback.
+
+Settings → Bindings supports trigger-drag scrolling on both the outer page and its dropdowns. Dragging outside a dropdown continues the scroll without selecting a row, and Back remains above the scrolling page. Desktop key capture is disabled in VR to prevent a trigger click from accidentally rebinding the mouse.
+
+Movement integrates using Godot’s supplied physics delta, with per-render-frame interpolation for the headset view. The simulation tick rate is independent of headset FPS. Movement validation measured the same 9.4 m/s run speed at 30, 60, 72, 90, 120 and 144 render FPS, and at 60, 90 and 120 physics ticks per second. Network input/snapshot timers retain fractional elapsed time instead of discarding it.
+
+## Arm swimming and automatic body calibration
+
+While in water, short backward hand pulls propel you in the direction you look;
+downward strokes lift you toward the surface. One arm or alternating arms work,
+and a stroke of roughly 3.5 cm is enough to begin producing thrust. Point your
+view downward while pulling to dive. Stroke strength is bounded and shares the
+normal water movement speed budget with the stick. Holding jump still swims
+upward and takes priority over arm strokes. Menus, lost tracking/focus, death,
+spectating and frozen state stop gesture thrust; it cannot propel you on land.
+
+With hip and both foot (or lower-leg) trackers available, stand upright and hold
+your arms out at shoulder height in a T-pose for about **1.4 seconds**. A short
+local bell jingle and haptic pulse confirm successful calibration. This works
+with native body/Vive-role tracking and fresh SlimeVR OSC poses, including before
+the external trackers have been calibrated. T-pose calibration also places
+external elbow targets at shoulder height. Controller-only and upper-body-only
+tracking do not trigger full-body calibration. Seated mode, swimming, airborne
+movement, loss of focus and unstable poses prevent accidental calibration.
+Lower your arms for at least 0.7 seconds before repeating; there is a five-second
+cooldown. The existing manual calibration button remains available and also
+plays the completion cue on success. The cue follows the sound-effects volume.

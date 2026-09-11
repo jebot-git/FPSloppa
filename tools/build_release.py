@@ -9,7 +9,7 @@ godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
 if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
 (root/'test-results').mkdir(exist_ok=True)
 targets=[('Linux PC','Linux','FPSloppa.x86_64'),('Windows PC','Windows','FPSloppa.exe'),('Linux Dedicated Server','Server','FPSloppaServer.x86_64')]
-if '--package-only' not in sys.argv:
+if '--package-only' not in sys.argv and '--stage-only' not in sys.argv:
     for preset,folder,binary in targets:
         dest=builds/folder;dest.mkdir(parents=True,exist_ok=True)
         log=root/'test-results'/('export_'+folder.lower()+'.log')
@@ -29,7 +29,7 @@ for _,folder,_ in targets:
         out=dest/'docs'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
     for name in ['NETWORK_TESTING.md','SESSION_FEATURES.md','AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','LIVE_VR_TEST.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         shutil.copy2(root/name,dest/name)
-    for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio/recorded').rglob('*'))+list((root/'deathmatch/audio/music').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
+    for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio/recorded').rglob('*'))+list((root/'deathmatch/audio/announcer').rglob('*'))+list((root/'deathmatch/audio/music').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
         if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt'}):
             out=dest/'licenses'/source.relative_to(root);out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
     for source in (root/'deathmatch/maps').glob('LibreQuake-*.txt'):
@@ -48,6 +48,10 @@ for _,folder,_ in targets:
     else:
         for label,mode in [('VR','on'),('Desktop','off')]:
             (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --xr-mode '+mode+' %*\r\n').encode())
+
+if '--stage-only' in sys.argv:
+    print('STAGED binary folders, assets, launchers and license notices',flush=True)
+    raise SystemExit(0)
 
 archives=[]
 for folder,name in [('Linux','FPSloppa-Linux.zip'),('Windows','FPSloppa-Windows.zip'),('Server','FPSloppa-Dedicated-Server-Linux.zip')]:

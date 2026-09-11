@@ -14,10 +14,10 @@ func sample(height: float,dt: float,allowed: bool,grounded: bool) -> void:
 	var velocity: float=(height-previous)/dt
 	previous=height
 	if absf(velocity)>5:reset();return # tracking discontinuity
-	if height<baseline+.045 and absf(velocity)<.35:
+	if grounded and height<baseline+.035 and absf(velocity)<.5:
 		baseline=lerpf(baseline,height,minf(dt*2,1));armed=true
-	if armed and grounded and cooldown<=0 and height-baseline>.10 and velocity>.85:
-		pending=.15;armed=false;cooldown=.8
+	if armed and grounded and cooldown<=0 and height-baseline>.055 and velocity>.65:
+		pending=.2;armed=false;cooldown=.25
 func consume() -> bool:
 	if pending<=0:return false
 	pending=0;return true

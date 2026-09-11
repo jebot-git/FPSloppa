@@ -1,0 +1,157 @@
+{
+  "date": "2026-09-10",
+  "base_release": "0.7v",
+  "status": "Source fixes complete; automated regressions passed; user confirmed the updated live WiVRn view looks correct",
+  "tests": [
+    {
+      "test": "post07",
+      "passed": true,
+      "checks": 17
+    },
+    {
+      "test": "water",
+      "passed": true,
+      "checks": 23
+    },
+    {
+      "test": "stairs",
+      "passed": true,
+      "checks": 12
+    },
+    {
+      "test": "quake_movement",
+      "passed": true,
+      "checks": 22
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "checks": 49
+    },
+    {
+      "test": "vr_ik",
+      "passed": true,
+      "checks": 60
+    },
+    {
+      "test": "new_features",
+      "passed": true,
+      "checks": 27
+    },
+    {
+      "test": "local_body",
+      "passed": true,
+      "checks": 35
+    },
+    {
+      "test": "room_scale",
+      "passed": true,
+      "checks": 16
+    },
+    {
+      "test": "vr",
+      "passed": true,
+      "checks": 14
+    },
+    {
+      "test": "controller_tracking",
+      "passed": true,
+      "checks": 20
+    },
+    {
+      "test": "render_motion",
+      "passed": true,
+      "checks": 2
+    },
+    {
+      "test": "network",
+      "passed": true,
+      "checks": 72
+    }
+  ],
+  "total_checks": 369,
+  "godot_import_passed": true,
+  "recorded_demo": {
+    "source": "Local compiled Linux VR recording",
+    "frames_validated": 1292,
+    "rewritten": false
+  },
+  "server_load": [
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.804,
+        "tick_max_ms": 7.432,
+        "tick_p50_ms": 3.846,
+        "tick_p95_ms": 4.695,
+        "ticks": 600,
+        "version": "0.7v"
+      },
+      "memory": [
+        {
+          "nodes": 382,
+          "objects": 2489,
+          "orphans": 0,
+          "projectiles": 0,
+          "resources": 403,
+          "static_bytes": 50323892,
+          "tick": 0
+        },
+        {
+          "nodes": 382,
+          "objects": 2489,
+          "orphans": 0,
+          "projectiles": 523,
+          "resources": 403,
+          "static_bytes": 51147364,
+          "tick": 300
+        },
+        {
+          "nodes": 382,
+          "objects": 2489,
+          "orphans": 0,
+          "projectiles": 523,
+          "resources": 403,
+          "static_bytes": 51152444,
+          "tick": 600
+        }
+      ],
+      "memory_final": {
+        "nodes": 3,
+        "objects": 1776,
+        "orphans": 0,
+        "resources": 119,
+        "static_bytes": 44088143
+      }
+    }
+  ],
+  "live": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Quest Pro",
+    "latest_fps": 72.0,
+    "pose_valid": true,
+    "avatar_visible": true,
+    "wearer_confirmation": false,
+    "test_running": true
+  },
+  "references": [
+    "https://docs.godotengine.org/en/4.7/tutorials/physics/interpolation/advanced_physics_interpolation.html",
+    "https://github.com/id-Software/Quake/blob/master/WinQuake/bspfile.h"
+  ],
+  "limitations": [
+    "Windows and standalone Android not run for these fixes",
+    "16-player load measurement ran alongside live VR; not a controlled comparison or long soak",
+    "Existing Steam Audio shutdown singleton/thread warnings remain",
+    "Live swimming, stair feel, knee presentation and bindings still await wearer confirmation"
+  ],
+  "latest_live_feedback": {
+    "text": "All looks correct",
+    "scope": "General visual confirmation after restarting the updated source client; not a separate measurement of every earlier issue.",
+    "known_issue": "Brief freeze when switching texture filtering; reported by user as non-critical."
+  }
+}

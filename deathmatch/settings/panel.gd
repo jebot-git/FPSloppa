@@ -43,7 +43,7 @@ func setup(arena: Node) -> void:
 	tracking_status=Label.new();tracking_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;tracking_page.add_child(tracking_status)
 	audio_page=VBoxContainer.new();audio_page.add_theme_constant_override("separation",8);column.add_child(audio_page)
 	graphics_page=VBoxContainer.new();graphics_page.add_theme_constant_override("separation",8);column.add_child(graphics_page)
-	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.1)
+	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.1)
 	controls.spatial_audio=button(audio_page,"",func():
 		values.spatial_audio="stereo" if values.spatial_audio=="steam_audio" else "steam_audio";game.spatial.apply_backend();save())
 	controls.output=button(audio_page,"",func():
@@ -52,6 +52,7 @@ func setup(arena: Node) -> void:
 	button(audio_page,"VOICE CHAT & MICROPHONE…",func():
 		if game.voice and game.voice.panel:game.voice.panel.open())
 	stepper(graphics_page,"render_scale","Render resolution",.05)
+	controls.texture_filter=button(graphics_page,"",func():values.texture_filter=(int(values.texture_filter)+1)%3;save())
 	controls.msaa=button(graphics_page,"",func():values.msaa=(int(values.msaa)+1)%4;save())
 	controls.shadows=button(graphics_page,"",func():values.shadows=not values.shadows;save())
 	controls.fullscreen=button(graphics_page,"",func():values.fullscreen=not values.fullscreen;save())
@@ -87,10 +88,11 @@ func refresh() -> void:
 		controls.body.text="BODY TRACKING: "+("ON" if game.xr_rig.tracking.enabled else "OFF")
 		controls.osc.text="SLIMEVR OSC: "+("ON" if game.xr_rig.tracking.udp!=null else "OFF")
 	values.voice=game.voice.volume
-	for key in ["master","effects","voice","music","render_scale"]:controls[key].text="%d%%"%roundi(values[key]*100)
+	for key in ["master","effects","voice","music","announcer","render_scale"]:controls[key].text="%d%%"%roundi(values[key]*100)
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()
 	controls.hud_scale.text="%d%%"%roundi(values.hud_scale*100)
 	controls.hud_y.text="%+.0f cm"%(values.hud_y*100)
+	controls.texture_filter.text="TEXTURES: "+["PIXELATED + MIPMAPS","TRILINEAR","ANISOTROPIC"][int(values.texture_filter)]
 	controls.msaa.text="ANTI-ALIASING: "+["OFF","2× MSAA","4× MSAA","8× MSAA"][int(values.msaa)]
 	controls.shadows.text="SHADOWS: "+("ON" if values.shadows else "OFF")
 	controls.fullscreen.text="DISPLAY: "+("FULLSCREEN" if values.fullscreen else "WINDOWED");controls.fullscreen.visible=not game.is_vr() and not OS.has_feature("android")

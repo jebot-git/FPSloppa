@@ -3,7 +3,7 @@ import shutil, subprocess,time,tempfile,os,hashlib,json
 
 def main():
  root=Path(__file__).resolve().parents[2]
- godot='/home/blux/.local/bin/Godot_v4.7.2-stable_linux.x86_64'
+ godot=shutil.which('godot') or 'godot'
  logs=root/'test-results';logs.mkdir(exist_ok=True)
  processes=[];handles=[]
  with tempfile.TemporaryDirectory(prefix='arena-map-download-') as temp:
@@ -37,3 +37,5 @@ def main():
    for _,process in processes:
     if process.poll() is None:process.terminate();process.wait(timeout=3)
    for h in handles:h.close()
+
+if __name__=='__main__': raise SystemExit(main())

@@ -1,0 +1,75 @@
+{
+  "tracks": [
+    {
+      "track": "Iron Teeth",
+      "duration": 111.3043537414966,
+      "lufs": -19.07,
+      "true_peak_dbtp": -3.69,
+      "loop_step": 0.003891521831974387,
+      "passed": true
+    },
+    {
+      "track": "Chain Drive",
+      "duration": 101.05263038548753,
+      "lufs": -19.07,
+      "true_peak_dbtp": -3.87,
+      "loop_step": 0.002569323405623436,
+      "passed": true
+    },
+    {
+      "track": "Cold Anvil",
+      "duration": 147.69231292517006,
+      "lufs": -19.05,
+      "true_peak_dbtp": -6.03,
+      "loop_step": 0.0005306219100020826,
+      "passed": true
+    }
+  ],
+  "timeline": [
+    {
+      "start": 0,
+      "mode": "dm",
+      "version": "A current",
+      "music_start": 1.9,
+      "excerpt_lufs": -19.0
+    },
+    {
+      "start": 14.5,
+      "mode": "dm",
+      "version": "B metal",
+      "music_start": 17.04,
+      "excerpt_lufs": -18.99
+    },
+    {
+      "start": 29.65,
+      "mode": "cc",
+      "version": "A current",
+      "music_start": 31.63,
+      "excerpt_lufs": -19.0
+    },
+    {
+      "start": 44.23,
+      "mode": "cc",
+      "version": "B metal",
+      "music_start": 46.86,
+      "excerpt_lufs": -19.0
+    },
+    {
+      "start": 59.47,
+      "mode": "ft",
+      "version": "A current",
+      "music_start": 61.41,
+      "excerpt_lufs": -19.01
+    },
+    {
+      "start": 74.01,
+      "mode": "ft",
+      "version": "B metal",
+      "music_start": 76.6,
+      "excerpt_lufs": -19.0
+    }
+  ],
+  "preview_duration": 89.1969387755102,
+  "existing_soundtrack_unchanged": true,
+  "sample_checksums_verified": true
+}

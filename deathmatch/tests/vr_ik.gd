@@ -46,6 +46,15 @@ func run() -> void:
 		avatar.xr_pose=pose;avatar.solver._process_modification_with_delta(.016)
 		var optical:Basis=avatar.skeleton.global_basis.orthonormalized()*avatar.skeleton.get_bone_global_pose(avatar.skeleton.find_bone("LeftHand")).basis.orthonormalized()
 		check(optical.is_equal_approx(pose.body.left_hand.basis),"Native optical wrist keeps humanoid bone axes")
+		for angle in [0.0,PI/2,-PI/2]:
+			var yaw:=Basis(Vector3.UP,angle)
+			pose.body={"hips":Transform3D(yaw,Vector3(0,.72,0)),"left_foot":Transform3D(yaw,yaw*Vector3(-.15,.08,0)),"right_foot":Transform3D(yaw,yaw*Vector3(.15,.08,0))}
+			avatar.xr_pose=pose;avatar.solver._process_modification_with_delta(.016)
+			for side in ["Left","Right"]:
+				var sk:Skeleton3D=avatar.skeleton
+				var hip:Vector3=sk.to_global(sk.get_bone_global_pose(sk.find_bone(side+"UpperLeg")).origin)
+				var knee:Vector3=sk.to_global(sk.get_bone_global_pose(sk.find_bone(side+"LowerLeg")).origin)
+				check((knee-hip).dot(-yaw.z)>-.015,library.entries[hash].title+" "+side+" knee bends toward pelvis forward at yaw "+str(angle))
 		avatar.free()
 	body.free()
 	library.free()

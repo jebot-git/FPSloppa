@@ -1,0 +1,467 @@
+[
+  {
+    "key": "title",
+    "stem": "dead_air",
+    "title": "Dead Air",
+    "root": 0,
+    "bpm": 68,
+    "bars": 32,
+    "style": "ambient",
+    "chords": [
+      0,
+      1,
+      0,
+      6
+    ],
+    "motif": [
+      7,
+      1,
+      0,
+      10,
+      8,
+      5,
+      1,
+      0
+    ],
+    "duration": 112.941,
+    "mod_bytes": 267634,
+    "ogg_bytes": 729805,
+    "sha256": "20a17c5fdad2027c982d42a6bc6e564941d2d4802e20b54667c131dc2d205de8",
+    "target_lufs": -22,
+    "render_measurement": {
+      "input_i": "-46.62",
+      "input_tp": "-29.67",
+      "input_lra": "5.80",
+      "input_thresh": "-56.89",
+      "output_i": "-21.95",
+      "output_tp": "-5.27",
+      "output_lra": "5.50",
+      "output_thresh": "-32.22",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.05"
+    }
+  },
+  {
+    "key": "lobby",
+    "stem": "please_hold",
+    "title": "Please Hold",
+    "root": 0,
+    "bpm": 112,
+    "bars": 48,
+    "style": "lounge",
+    "chords": [
+      0,
+      9,
+      2,
+      7,
+      4,
+      9,
+      2,
+      7
+    ],
+    "motif": [
+      1,
+      2,
+      1,
+      0,
+      1,
+      2
+    ],
+    "scale": [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9,
+      11
+    ],
+    "duration": 102.857,
+    "mod_bytes": 226110,
+    "ogg_bytes": 990176,
+    "sha256": "acefabfc5d0d99272487f5047256192f112299ae423af69321e85b2c80440e5c",
+    "target_lufs": -21,
+    "render_measurement": {
+      "input_i": "-36.98",
+      "input_tp": "-22.05",
+      "input_lra": "1.90",
+      "input_thresh": "-46.98",
+      "output_i": "-21.25",
+      "output_tp": "-6.01",
+      "output_lra": "1.80",
+      "output_thresh": "-31.25",
+      "normalization_type": "dynamic",
+      "target_offset": "0.25"
+    }
+  },
+  {
+    "key": "dm",
+    "stem": "iron_circuit",
+    "title": "Iron Circuit II",
+    "root": 4,
+    "bpm": 138,
+    "bars": 64,
+    "style": "industrial",
+    "chords": [
+      0,
+      1,
+      0,
+      -1
+    ],
+    "motif": [
+      0,
+      0,
+      1,
+      0,
+      0,
+      6
+    ],
+    "rhythm": [
+      0,
+      3,
+      6,
+      8,
+      10,
+      14
+    ],
+    "duration": 111.304,
+    "mod_bytes": 284018,
+    "ogg_bytes": 828584,
+    "sha256": "bf94fb38de7cde6d1bb5595d63cc0071bf6aa8968493ebc7341eadf92853b8f3",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-29.60",
+      "input_tp": "-14.08",
+      "input_lra": "9.60",
+      "input_thresh": "-39.94",
+      "output_i": "-18.41",
+      "output_tp": "-3.00",
+      "output_lra": "6.80",
+      "output_thresh": "-28.51",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.59"
+    }
+  },
+  {
+    "key": "tdm",
+    "stem": "pressure_lock",
+    "title": "Pressure Lock II",
+    "root": 2,
+    "bpm": 128,
+    "bars": 64,
+    "style": "march",
+    "chords": [
+      0,
+      -1,
+      0,
+      1
+    ],
+    "motif": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      -1
+    ],
+    "rhythm": [
+      0,
+      2,
+      6,
+      8,
+      10,
+      14
+    ],
+    "duration": 120.0,
+    "mod_bytes": 284018,
+    "ogg_bytes": 845058,
+    "sha256": "2e50e5e63a92f4ee17f2dea94e621ad89a415b96d0a1b179b9c560ffb946b3e6",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-29.52",
+      "input_tp": "-13.63",
+      "input_lra": "9.90",
+      "input_thresh": "-39.86",
+      "output_i": "-18.43",
+      "output_tp": "-3.00",
+      "output_lra": "6.60",
+      "output_thresh": "-28.53",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.57"
+    }
+  },
+  {
+    "key": "ctf",
+    "stem": "dark_relay",
+    "title": "Signal Runner",
+    "root": 2,
+    "bpm": 146,
+    "bars": 64,
+    "style": "breaks",
+    "chords": [
+      0,
+      1,
+      0,
+      6
+    ],
+    "motif": [
+      0,
+      1,
+      0,
+      6,
+      1
+    ],
+    "rhythm": [
+      0,
+      3,
+      7,
+      10,
+      14
+    ],
+    "duration": 105.205,
+    "mod_bytes": 284018,
+    "ogg_bytes": 800501,
+    "sha256": "cef99a04459753e5b1b8005ce64fb64500e31f049e59daa739f20c724f08ce22",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-29.91",
+      "input_tp": "-14.81",
+      "input_lra": "9.30",
+      "input_thresh": "-40.22",
+      "output_i": "-18.44",
+      "output_tp": "-3.00",
+      "output_lra": "6.90",
+      "output_thresh": "-28.58",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.56"
+    }
+  },
+  {
+    "key": "koth",
+    "stem": "high_ground",
+    "title": "High Ground",
+    "root": 7,
+    "bpm": 116,
+    "bars": 64,
+    "style": "halftime",
+    "chords": [
+      0,
+      -2,
+      0,
+      1
+    ],
+    "motif": [
+      0,
+      0,
+      6,
+      1
+    ],
+    "rhythm": [
+      0,
+      3,
+      8,
+      11
+    ],
+    "duration": 132.414,
+    "mod_bytes": 284018,
+    "ogg_bytes": 1094528,
+    "sha256": "55cdb8a2092a2bda7c90b01fa25d54abfd8580ec2bac31c38d0d92aa4c9990de",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-32.32",
+      "input_tp": "-14.59",
+      "input_lra": "8.10",
+      "input_thresh": "-42.46",
+      "output_i": "-18.59",
+      "output_tp": "-3.00",
+      "output_lra": "6.10",
+      "output_thresh": "-28.67",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.41"
+    }
+  },
+  {
+    "key": "ig",
+    "stem": "foundry_run",
+    "title": "Needlepoint",
+    "root": 6,
+    "bpm": 166,
+    "bars": 64,
+    "style": "jungle",
+    "chords": [
+      0,
+      1,
+      0,
+      -1
+    ],
+    "motif": [
+      0,
+      1,
+      0,
+      0,
+      6,
+      1
+    ],
+    "rhythm": [
+      0,
+      2,
+      7,
+      8,
+      11,
+      14
+    ],
+    "duration": 92.53,
+    "mod_bytes": 284018,
+    "ogg_bytes": 732829,
+    "sha256": "c983c92552ddedf46b5984aa7354a8e702aeb2a558c6590c0ff2f90fb5046584",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-29.19",
+      "input_tp": "-14.19",
+      "input_lra": "9.90",
+      "input_thresh": "-39.49",
+      "output_i": "-18.38",
+      "output_tp": "-3.00",
+      "output_lra": "6.60",
+      "output_thresh": "-28.50",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.62"
+    }
+  },
+  {
+    "key": "ft",
+    "stem": "cryostasis",
+    "title": "Cryostasis",
+    "root": 0,
+    "bpm": 104,
+    "bars": 64,
+    "style": "ice",
+    "chords": [
+      0,
+      1,
+      0,
+      6
+    ],
+    "motif": [
+      0,
+      1
+    ],
+    "rhythm": [
+      0,
+      10
+    ],
+    "duration": 147.692,
+    "mod_bytes": 284018,
+    "ogg_bytes": 1020955,
+    "sha256": "ea1b8e824b8ff474f10b5f0e27b4505631f7f7092fb5a5cb8a782abbaa69f00e",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-35.46",
+      "input_tp": "-16.15",
+      "input_lra": "4.80",
+      "input_thresh": "-45.64",
+      "output_i": "-18.89",
+      "output_tp": "-3.00",
+      "output_lra": "4.40",
+      "output_thresh": "-28.97",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.11"
+    }
+  },
+  {
+    "key": "cc",
+    "stem": "carousel_of_teeth",
+    "title": "Carousel of Teeth",
+    "root": 11,
+    "bpm": 152,
+    "bars": 64,
+    "style": "machine",
+    "chords": [
+      0,
+      1,
+      -1,
+      6
+    ],
+    "motif": [
+      0,
+      0,
+      1,
+      0,
+      6,
+      1,
+      -1
+    ],
+    "rhythm": [
+      0,
+      2,
+      3,
+      6,
+      8,
+      11,
+      14
+    ],
+    "duration": 101.053,
+    "mod_bytes": 284018,
+    "ogg_bytes": 902395,
+    "sha256": "287fac5819cd4895c68f73484bf49838993f048d6c389289fb9c4284e23fa013",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-29.62",
+      "input_tp": "-13.49",
+      "input_lra": "10.00",
+      "input_thresh": "-39.99",
+      "output_i": "-18.52",
+      "output_tp": "-3.00",
+      "output_lra": "7.00",
+      "output_thresh": "-28.63",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.48"
+    }
+  },
+  {
+    "key": "tf",
+    "stem": "breach_protocol",
+    "title": "Breach Protocol",
+    "root": 0,
+    "bpm": 124,
+    "bars": 64,
+    "style": "siege",
+    "chords": [
+      0,
+      1,
+      0,
+      6
+    ],
+    "motif": [
+      0,
+      0,
+      1,
+      0,
+      6
+    ],
+    "rhythm": [
+      0,
+      6,
+      8,
+      10,
+      14
+    ],
+    "duration": 123.871,
+    "mod_bytes": 284018,
+    "ogg_bytes": 902691,
+    "sha256": "e8456a96d99b86d12fc0cac8977951ef653a4df334295f52ac1ff83af2e55385",
+    "target_lufs": -19,
+    "render_measurement": {
+      "input_i": "-30.42",
+      "input_tp": "-13.64",
+      "input_lra": "9.90",
+      "input_thresh": "-40.76",
+      "output_i": "-18.54",
+      "output_tp": "-3.00",
+      "output_lra": "6.30",
+      "output_thresh": "-28.64",
+      "normalization_type": "dynamic",
+      "target_offset": "-0.46"
+    }
+  }
+]

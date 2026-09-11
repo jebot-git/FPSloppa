@@ -1,0 +1,320 @@
+{
+  "version": "0.8v",
+  "date": "2026-09-11",
+  "protocol": "fpsloppa-22-saw-contacts",
+  "android_version_code": 13,
+  "source_commit_before_changes": "9a5028b8e8a1ae1f3aaa46796822f8a63b81943c",
+  "feature_regressions": {
+    "gestures_and_timing": 27,
+    "freeze_tag": 22,
+    "water": 23,
+    "tracking_orientation": 28,
+    "local_body": 35,
+    "quake_movement": 22,
+    "automatic_calibration": 8,
+    "multiplayer": 72
+  },
+  "music_runtime_checks": 39,
+  "additional_validation": [
+    "post-0.7v-vr-fixes.json",
+    "post-0.7v-network-settings.json",
+    "filter-switch-optimisation.json",
+    "warlord-announcer.json",
+    "recomposed-score-combat.json",
+    "metal-alternates.json"
+  ],
+  "announcer": [
+    {
+      "test": "server",
+      "passed": true,
+      "checks": 4
+    },
+    {
+      "test": "client",
+      "passed": true,
+      "checks": 5
+    },
+    {
+      "test": "mixer",
+      "passed": true,
+      "checks": 23
+    }
+  ],
+  "exported_linux_smoke": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true
+  },
+  "exported_server_voice": {
+    "passed": true,
+    "exported_server": "/home/blux/Documents/Builds/Server/FPSloppaServer.x86_64"
+  },
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 142269107,
+      "sha256": "04be8b26f1614f79c45c5795a477a7ddc972b2c9f9287b5449b2f8dcca13f4c0",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 142268827,
+      "sha256": "e399e781dd487e15f1436990fc264d105659b697c320316a177f99d755b9adba",
+      "assets_verified": [
+        "maps/lqdm1.bsp",
+        "maps/lqdm2.bsp",
+        "maps/lqdm4.bsp",
+        "maps/lqdm7.bsp",
+        "maps/lqdm8.bsp",
+        "maps/lqdm3.bsp",
+        "maps/lqdm5.bsp",
+        "maps/lqdm6.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true
+    }
+  ],
+  "package_content_audit": [
+    {
+      "failures": [],
+      "files": 1037,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1037,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1037,
+      "pack": "/home/blux/Documents/Builds/Server/FPSloppaServer.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1157,
+      "failures": []
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Pico.apk",
+      "files": 1157,
+      "failures": []
+    }
+  ],
+  "desktop_artifacts": [
+    {
+      "target": "Linux",
+      "file": "FPSloppa.x86_64",
+      "bytes": 73519416,
+      "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+    },
+    {
+      "target": "Linux",
+      "file": "FPSloppa.pck",
+      "bytes": 46394940,
+      "sha256": "1976a44ecca772ee8f1e9ff929a9b6f2fed5501ebdaa1c6a2c148db57e8ed2f7"
+    },
+    {
+      "target": "Windows",
+      "file": "FPSloppa.exe",
+      "bytes": 109234688,
+      "sha256": "57ef2b3005be237c792bf2be5af4c5a972f16ef69ebb516217807d22f622949b"
+    },
+    {
+      "target": "Windows",
+      "file": "FPSloppa.pck",
+      "bytes": 46394940,
+      "sha256": "1976a44ecca772ee8f1e9ff929a9b6f2fed5501ebdaa1c6a2c148db57e8ed2f7"
+    },
+    {
+      "target": "Server",
+      "file": "FPSloppaServer.x86_64",
+      "bytes": 73519416,
+      "sha256": "d9f79ab89b5ae369aeed11c6052d402e8218cd503bf85b4a235f9c30c46a7c63"
+    },
+    {
+      "target": "Server",
+      "file": "FPSloppaServer.pck",
+      "bytes": 46395004,
+      "sha256": "09e3ea92d03d1bee6f2c5249e5025df2a2c3fd3562add98c5e06d572318d8ebf"
+    }
+  ],
+  "server_load": [
+    {
+      "name": "cpu16",
+      "passed": true,
+      "exit_code": 0,
+      "load": {
+        "history_entries": 22,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 0.962,
+        "tick_max_ms": 7.972,
+        "tick_p50_ms": 4.109,
+        "tick_p95_ms": 5.26,
+        "ticks": 480,
+        "version": "0.8v"
+      },
+      "memory": [
+        {
+          "nodes": 386,
+          "objects": 2506,
+          "orphans": 0,
+          "projectiles": 0,
+          "resources": 401,
+          "static_bytes": 46640273,
+          "tick": 0
+        },
+        {
+          "nodes": 386,
+          "objects": 2506,
+          "orphans": 0,
+          "projectiles": 523,
+          "resources": 401,
+          "static_bytes": 47463745,
+          "tick": 300
+        }
+      ],
+      "memory_final": {
+        "nodes": 3,
+        "objects": 1776,
+        "orphans": 0,
+        "resources": 117,
+        "static_bytes": 40370360
+      }
+    }
+  ],
+  "soundtrack": {
+    "scores": [
+      {
+        "mode": "title",
+        "seconds": 112.9411875,
+        "lufs": -22.03,
+        "true_peak_dbtp": -5.05,
+        "loop_step": 0.002201,
+        "bytes": 729805,
+        "passed": true
+      },
+      {
+        "mode": "lobby",
+        "seconds": 102.85715625,
+        "lufs": -21.02,
+        "true_peak_dbtp": -6.29,
+        "loop_step": 0.001914,
+        "bytes": 990176,
+        "passed": true
+      },
+      {
+        "mode": "dm",
+        "seconds": 111.304375,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.69,
+        "loop_step": 0.004119,
+        "bytes": 1610662,
+        "passed": true
+      },
+      {
+        "mode": "tdm",
+        "seconds": 120.0,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.49,
+        "loop_step": 0.000541,
+        "bytes": 1699484,
+        "passed": true
+      },
+      {
+        "mode": "ctf",
+        "seconds": 105.2055,
+        "lufs": -19.08,
+        "true_peak_dbtp": -4.31,
+        "loop_step": 0.000737,
+        "bytes": 1563643,
+        "passed": true
+      },
+      {
+        "mode": "koth",
+        "seconds": 132.4138125,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.74,
+        "loop_step": 0.009354,
+        "bytes": 1832638,
+        "passed": true
+      },
+      {
+        "mode": "ig",
+        "seconds": 92.530125,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.56,
+        "loop_step": 0.001868,
+        "bytes": 1429692,
+        "passed": true
+      },
+      {
+        "mode": "ft",
+        "seconds": 147.69234375,
+        "lufs": -19.05,
+        "true_peak_dbtp": -6.03,
+        "loop_step": 0.000373,
+        "bytes": 1969551,
+        "passed": true
+      },
+      {
+        "mode": "cc",
+        "seconds": 101.05265625,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.87,
+        "loop_step": 0.002602,
+        "bytes": 1462327,
+        "passed": true
+      },
+      {
+        "mode": "tf",
+        "seconds": 123.871,
+        "lufs": -19.08,
+        "true_peak_dbtp": -3.31,
+        "loop_step": 0.003109,
+        "bytes": 1751873,
+        "passed": true
+      }
+    ],
+    "runtime_bytes": 15039851,
+    "failures": []
+  },
+  "license_staging": "WARLORD announcer CC BY-SA 4.0 license and source notices included in runtime packs and desktop/server license directories.",
+  "legacy_extras": "Original 40-map pack and ThreeWave, TeamFortress and Arcane Dimensions conversion tools remain exclusive to 0.5v.",
+  "limitations": [
+    "Windows and standalone Android builds were not tested on physical target devices.",
+    "New swimming-stroke and automatic T-pose calibration gestures still need wearer verification.",
+    "Graphical Linux shutdown reports two baseline ObjectDB instances, including SteamAudioThread; headless export/import may report the known baseline warning.",
+    "The 16-player server load and memory check is a short regression check, not a long-duration leak certification.",
+    "Voice relay checks used synthetic audio. Private microphone captures and local test assets are excluded from release artifacts."
+  ],
+  "passed": true
+}

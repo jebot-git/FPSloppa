@@ -4,7 +4,7 @@ import shutil, subprocess, time, json, os, tempfile, struct, hashlib
 
 def main():
     root = Path(__file__).resolve().parents[2]
-    godot = '/home/blux/.local/bin/Godot_v4.7.2-stable_linux.x86_64'
+    godot = shutil.which('godot') or 'godot'
     logs = root / 'test-results'
     processes, handles = [], []
     with tempfile.TemporaryDirectory(prefix='entryway-avatar-test-') as temp:

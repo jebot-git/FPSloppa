@@ -1,6 +1,41 @@
 extends Control
 ## Transparent, noninteractive HUD drawn into a head-relative stereo surface.
 const W=preload("res://deathmatch/weapons.gd")
+const CHAT_HEIGHT=132
+const VIEW_SIZE=Vector2i(960,292+CHAT_HEIGHT)
+var chat_labels: Array[Label]=[]
+var chat_messages:=PackedStringArray()
+
+func _ready() -> void:
+	for i in 2:
+		var line:=Label.new()
+		line.position=Vector2(20,4+i*64)
+		line.size=Vector2(920,60)
+		line.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
+		line.max_lines_visible=3
+		line.text_overrun_behavior=TextServer.OVERRUN_TRIM_ELLIPSIS
+		line.add_theme_font_size_override("font_size",18)
+		line.add_theme_color_override("font_color",INK)
+		line.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		add_child(line);chat_labels.append(line)
+	_refresh_chat()
+
+func update_chat(entries: Array,now: float) -> void:
+	var next:=PackedStringArray()
+	for entry in entries:
+		if entry.until>now:next.append(entry.text)
+	while next.size()>2:next.remove_at(0)
+	if next==chat_messages:return
+	chat_messages=next
+	_refresh_chat()
+	queue_redraw()
+
+func _refresh_chat() -> void:
+	for i in chat_labels.size():
+		# Keep a lone message adjacent to the other notifications.
+		var index:=i-(2-chat_messages.size())
+		chat_labels[i].text=chat_messages[index] if index>=0 else ""
+
 var values: Dictionary={}
 var network:Dictionary={}
 var capture_text:=""
@@ -8,6 +43,10 @@ var capture_team:=0
 func update_capture(data: Dictionary) -> void:
 	var next: String="" if data.is_empty() else data.text+"  "+data.detail
 	if next!=capture_text:capture_text=next;capture_team=data.get("team",0);queue_redraw()
+var water_text:=""
+func update_water(submerged: bool,air: float) -> void:
+	var next:=("AIR %ds"%ceili(air) if air>0 else "DROWNING · SURFACE!") if submerged else ""
+	if next!=water_text:water_text=next;queue_redraw()
 var vote_text:=""
 func update_vote(data: Dictionary) -> void:
 	var next: String="" if data.is_empty() else "%s · YES %d/%d · NO %d · %ds\nMENU → TEAMS & VOTES TO RESPOND"%[data.title,data.yes,data.needed,data.no,data.seconds]
@@ -23,6 +62,9 @@ func update_status(state: Dictionary,remaining: float,limit: int,leader: int,int
 func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
 	draw_string(ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
 func _draw() -> void:
+	for i in chat_labels.size():
+		if not chat_labels[i].text.is_empty():draw_rect(Rect2(4,2+i*64,952,62),Color(.10,.075,.05,.88))
+	draw_set_transform(Vector2(0,CHAT_HEIGHT))
 	if not capture_text.is_empty():
 		draw_rect(Rect2(4,0,952,70),Color(.23,.06,.04,.94) if capture_team==0 else Color(.035,.10,.23,.94))
 		label(Vector2(20,28),capture_text.left(82),22,Color("fff0bf"))
@@ -32,10 +74,11 @@ func _draw() -> void:
 		var lines:=vote_text.split("\n")
 		label(Vector2(20,25),lines[0].left(86),20,Color("ffcf80"))
 		label(Vector2(20,53),lines[1],21,Color("ffcf80"))
-	draw_set_transform(Vector2(0,72))
+	draw_set_transform(Vector2(0,CHAT_HEIGHT+72))
 	if not network.is_empty():
 		if network.show:label(Vector2(16,205),"↓ ASSETS %d%%"%network.percent,18,Color("d8bc8b"))
 		label(Vector2(832,205),"HOST" if network.host else "%d ms"%network.ping if network.ping>0 else "— ms",18,Color("b9a98e"))
+	if not water_text.is_empty():label(Vector2(335,205),water_text,21,Color("83c9ec"))
 	if values.is_empty():return
 	var style:=StyleBoxFlat.new();style.bg_color=Color(.10,.075,.05,.80);style.border_color=Color("a88550");style.set_border_width_all(2)
 	draw_style_box(style,Rect2(4,4,952,172))

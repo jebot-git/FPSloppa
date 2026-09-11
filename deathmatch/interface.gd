@@ -18,6 +18,7 @@ var match_status: Label
 var kill_feed: Label
 var center_message: Label
 var toast_label: Label
+var water_tint: ColorRect
 var damage: ColorRect
 var hit: Label
 var scoreboard: PanelContainer
@@ -113,6 +114,8 @@ func setup(arena: Node) -> void:
 	toast_label.offset_right = 400
 	toast_label.offset_top = -140
 	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	water_tint=ColorRect.new();water_tint.color=Color(.035,.20,.28,.14);hud.add_child(water_tint)
+	water_tint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);water_tint.mouse_filter=Control.MOUSE_FILTER_IGNORE;water_tint.hide()
 	damage = ColorRect.new()
 	damage.color = Color(1,.02,0,0)
 	hud.add_child(damage)
@@ -404,6 +407,9 @@ func _process(_delta: float) -> void:
 	kill_feed.text = "\n".join(lines)
 	hit.visible = game.hit_flash>0
 	damage.color.a = game.hurt_flash*.28
+	var actor=game.fighters.get(game.multiplayer.get_unique_id())
+	water_tint.visible=actor!=null and actor.underwater and not state.dead and not game.menu_open
+	if water_tint.visible:match_status.text+="   ·   "+("AIR %ds"%ceili(actor.air_left) if actor.air_left>0 else "DROWNING · SURFACE!")
 	toast_label.visible = game.clock<toast_until
 	center_message.text = ""
 	if game.intermission>0:

@@ -1,0 +1,135 @@
+{
+  "feature": "Alternate metal soundtrack audition",
+  "date": "2026-09-11",
+  "passed": true,
+  "full_tracks": 8,
+  "directions": {
+    "dm": "thrash",
+    "tdm": "marching metal",
+    "ctf": "galloping metal",
+    "koth": "sludge",
+    "ig": "speed metal",
+    "ft": "doom",
+    "cc": "groove",
+    "tf": "battle metal"
+  },
+  "preview_seconds": 89.1969387755102,
+  "audio_checks": [
+    {
+      "mode": "title",
+      "seconds": 112.9411875,
+      "lufs": -22.03,
+      "true_peak_dbtp": -5.05,
+      "loop_step": 0.002201,
+      "bytes": 729805,
+      "passed": true
+    },
+    {
+      "mode": "lobby",
+      "seconds": 102.85715625,
+      "lufs": -21.02,
+      "true_peak_dbtp": -6.29,
+      "loop_step": 0.001914,
+      "bytes": 990176,
+      "passed": true
+    },
+    {
+      "mode": "dm",
+      "seconds": 111.304375,
+      "lufs": -19.07,
+      "true_peak_dbtp": -3.69,
+      "loop_step": 0.004119,
+      "bytes": 1610662,
+      "passed": true
+    },
+    {
+      "mode": "tdm",
+      "seconds": 120.0,
+      "lufs": -19.07,
+      "true_peak_dbtp": -3.49,
+      "loop_step": 0.000541,
+      "bytes": 1699484,
+      "passed": true
+    },
+    {
+      "mode": "ctf",
+      "seconds": 105.2055,
+      "lufs": -19.08,
+      "true_peak_dbtp": -4.31,
+      "loop_step": 0.000737,
+      "bytes": 1563643,
+      "passed": true
+    },
+    {
+      "mode": "koth",
+      "seconds": 132.4138125,
+      "lufs": -19.07,
+      "true_peak_dbtp": -3.74,
+      "loop_step": 0.009354,
+      "bytes": 1832638,
+      "passed": true
+    },
+    {
+      "mode": "ig",
+      "seconds": 92.530125,
+      "lufs": -19.07,
+      "true_peak_dbtp": -3.56,
+      "loop_step": 0.001868,
+      "bytes": 1429692,
+      "passed": true
+    },
+    {
+      "mode": "ft",
+      "seconds": 147.69234375,
+      "lufs": -19.05,
+      "true_peak_dbtp": -6.03,
+      "loop_step": 0.000373,
+      "bytes": 1969551,
+      "passed": true
+    },
+    {
+      "mode": "cc",
+      "seconds": 101.05265625,
+      "lufs": -19.07,
+      "true_peak_dbtp": -3.87,
+      "loop_step": 0.002602,
+      "bytes": 1462327,
+      "passed": true
+    },
+    {
+      "mode": "tf",
+      "seconds": 123.871,
+      "lufs": -19.08,
+      "true_peak_dbtp": -3.31,
+      "loop_step": 0.003109,
+      "bytes": 1751873,
+      "passed": true
+    }
+  ],
+  "comparison": "Spoken A/B labels; current first, metal second; all six excerpts measured between -19.01 and -18.99 LUFS",
+  "sources": "Pinned CC0 Karoryfer recorded instruments, prepared hashes verified",
+  "current_soundtrack": "Eight distinct metal tracks installed; the three auditioned files are byte-identical to their accepted renders; title/lobby unchanged",
+  "exports": "Selected active audio and sample-arrangement JSON sources are included; docs/audio sources, alternatives and industrial archive are excluded",
+  "listening": "User heard the A/B preview through WiVRn and selected metal instrumentation; the five additional mode arrangements use the same recorded-instrument rendering approach.",
+  "files": [
+    "docs/audio/metal-alternates/README.md",
+    "docs/audio/metal-alternates/comparison.ogg",
+    "docs/audio/metal-alternates/scores.json",
+    "tools/generate_metal_alternates.py",
+    "tools/compare_metal_alternates.py"
+  ],
+  "user_preference": "Metal fits better",
+  "installed": true,
+  "active_runtime_bytes": 15039851,
+  "music_runtime_checks": 39,
+  "industrial_archive": "docs/audio/industrial-originals; baseline hashes preserved",
+  "validation_logs": [
+    "test-results/metal-gameplay-runtime.log",
+    "test-results/metal-gameplay-audio.log",
+    "test-results/metal-gameplay-import.log"
+  ],
+  "limits": [
+    "No release build, commit or push performed.",
+    "Existing baseline single ObjectDB instance shutdown warning remains."
+  ]
+}

@@ -47,6 +47,19 @@ func local_hit() -> void:
 	local_pain.stream=game.spatial.choose("pain")
 	local_pain.play()
 
+func sparks(pos: Vector3,normal: Vector3) -> void:
+	if game.headless or not enabled:return
+	particles=particles.filter(is_instance_valid)
+	if particles.size()>=12:return
+	var p:=CPUParticles3D.new()
+	p.position=pos+normal*.025;p.amount=10;p.lifetime=.32;p.one_shot=true;p.explosiveness=1
+	p.direction=normal.normalized();p.spread=65;p.initial_velocity_min=1.5;p.initial_velocity_max=4.0
+	p.gravity=Vector3(0,-8,0);p.scale_amount_min=.012;p.scale_amount_max=.028
+	var mesh:=BoxMesh.new();mesh.size=Vector3(.35,.35,2.5);p.mesh=mesh
+	p.material_override=Art.material(Color("ffcb69"),0,3)
+	add_child(p);particles.append(p)
+	get_tree().create_timer(.5).timeout.connect(p.queue_free)
+
 func blood(pos: Vector3,direction: Vector3,seed_value: int) -> void:
 	particles=particles.filter(is_instance_valid)
 	if particles.size()>=12: return

@@ -29,7 +29,7 @@ func run() -> void:
 		if game.active:
 			game.set_physics_process(false)
 			var cmd: Dictionary=game._local_command()
-			cmd.seq=100000
+			cmd.seq=100000;cmd.map_epoch=game.map_epoch
 			cmd.xr=preload("res://deathmatch/vr/poses.gd").neutral()
 			game._input_command.rpc_id(1,cmd)
 			check(await wait_for(func(): return game.fighters.values().any(func(f): return not f.xr_pose.is_empty()),5),"Tracked head and hand poses replicate through snapshots")

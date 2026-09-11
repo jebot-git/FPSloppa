@@ -1,4 +1,5 @@
 extends Node
+signal calibration_completed
 const OSC=preload("res://deathmatch/vr/osc.gd")
 const JOINTS={"hips":XRBodyTracker.JOINT_HIPS,"chest":XRBodyTracker.JOINT_CHEST,"left_foot":XRBodyTracker.JOINT_LEFT_FOOT,"right_foot":XRBodyTracker.JOINT_RIGHT_FOOT,"left_knee":XRBodyTracker.JOINT_LEFT_LOWER_LEG,"right_knee":XRBodyTracker.JOINT_RIGHT_LOWER_LEG,"left_elbow":XRBodyTracker.JOINT_LEFT_LOWER_ARM,"right_elbow":XRBodyTracker.JOINT_RIGHT_LOWER_ARM}
 const VIVE={"hips":"waist","chest":"chest","left_foot":"left_foot","right_foot":"right_foot","left_knee":"left_knee","right_knee":"right_knee","left_elbow":"left_elbow","right_elbow":"right_elbow"}
@@ -71,8 +72,19 @@ func external() -> Dictionary:
 			pose.origin*=XRServer.world_scale
 			result[key]=rig.origin.transform*osc_alignment*pose
 	return result
-func calibrate() -> void:
+func full_body_available() -> bool:
+	if not enabled:return false
+	var roles:=external()
+	for tracker in XRServer.get_trackers(XRServer.TRACKER_BODY).values():
+		if not tracker is XRBodyTracker or not tracker.has_tracking_data:continue
+		for key in JOINTS:
+			var flags: int=tracker.get_joint_flags(JOINTS[key])
+			if flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID and flags&XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID:roles[key]=true
+	return roles.has("hips") and (roles.has("left_foot") or roles.has("left_knee")) and (roles.has("right_foot") or roles.has("right_knee"))
+func calibrate(t_pose: bool=false) -> void:
 	var targets:={"hips":Vector3(0,.92,0),"chest":Vector3(0,1.35,0),"left_foot":Vector3(-.13,.08,0),"right_foot":Vector3(.13,.08,0),"left_knee":Vector3(-.13,.5,-.03),"right_knee":Vector3(.13,.5,-.03),"left_elbow":Vector3(-.4,1.05,0),"right_elbow":Vector3(.4,1.05,0)}
+	if t_pose:
+		targets.left_elbow=Vector3(-.42,1.35,0);targets.right_elbow=Vector3(.42,1.35,0)
 	corrections.clear()
 	var head: Transform3D=rig.origin.transform*rig.head.transform if rig.get("head") else Transform3D.IDENTITY
 	var facing:=Transform3D(Basis(Vector3.UP,head.basis.get_euler().y),Vector3(head.origin.x,0,head.origin.z))
@@ -115,7 +127,8 @@ func calibrate() -> void:
 		native_corrections[tracker.name]=adjustments
 	calibrated=not corrections.is_empty() or native_count>0
 	status="Calibrated %d external / %d native targets"%[corrections.size(),native_count] if calibrated else "No body tracking data available to calibrate"
-	if rig.get("game") and rig.game.permissions: rig.game.permissions.request_tracking(true)
+	if calibrated:calibration_completed.emit()
+	if not t_pose and rig.get("game") and rig.game.permissions: rig.game.permissions.request_tracking(true)
 
 func _permission_result(permission: String,allowed: bool) -> void:
 	if permission in preload("res://deathmatch/vr/permissions.gd").QUEST_TRACKING and allowed:

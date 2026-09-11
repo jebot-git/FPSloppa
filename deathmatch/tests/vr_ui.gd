@@ -183,6 +183,35 @@ func run() -> void:
 	point_at(pointer,rig.panel,class_item.get_global_transform_with_canvas()*(class_item.size*.5));click(pointer)
 	check(fortress.choice.value=="scout" and not fortress.choice.popup.visible,"Releasing a stationary trigger selects the TF class")
 	fortress.hide();fortress.queue_free()
+	g.hud.open_bindings()
+	await process_frame;await process_frame
+	var bindings=g.hud.bindings_panel
+	var bindings_scroll=bindings.find_child("BindingsScroll",true,false)
+	bindings_scroll.vr_mode_override=true
+	var start_drag:Vector2=bindings_scroll.get_global_transform_with_canvas()*Vector2(120,bindings_scroll.size.y-65)
+	point_at(pointer,rig.panel,start_drag);pointer._button_pressed()
+	point_at(pointer,rig.panel,start_drag-Vector2(0,300));pointer._button_released()
+	await process_frame
+	check(bindings_scroll.scroll_vertical>=190 and bindings.capture.is_empty(),"Bindings page trigger-drag scrolls without capturing a desktop binding")
+	var selectors:Array=bindings.find_children("*","VBoxContainer",true,false).filter(func(n):return n.get_script()==preload("res://deathmatch/ui/choice.gd"))
+	var binding_choice=selectors.back();binding_choice.vr_mode_override=true
+	bindings_scroll.ensure_control_visible(binding_choice.trigger)
+	await process_frame;await process_frame
+	point_at(pointer,rig.panel,binding_choice.trigger.get_global_transform_with_canvas()*(binding_choice.trigger.size*.5));click(pointer)
+	await process_frame;await process_frame
+	check(binding_choice.popup.visible,"Binding selector opens after scrolling the outer bindings page")
+	var binding_before:String=binding_choice.value
+	var row=binding_choice.entries.get_child(1)
+	var at:Vector2=row.get_global_transform_with_canvas()*(row.size*.5)
+	point_at(pointer,rig.panel,at);pointer._button_pressed()
+	point_at(pointer,rig.panel,at-Vector2(0,190));pointer._button_released()
+	await process_frame
+	check(binding_choice.popup.visible and binding_choice.value==binding_before and binding_choice.scroll.scroll_vertical>100,"Bindings dropdown drag continues outside the popup without selecting or closing")
+	binding_choice.scroll.scroll_vertical=0;await process_frame
+	row=binding_choice.entries.get_child(0)
+	point_at(pointer,rig.panel,row.get_global_transform_with_canvas()*(row.size*.5));click(pointer)
+	check(not binding_choice.popup.visible and binding_choice.value==binding_choice.items[0].id,"Bindings dropdown accepts a deliberate selection after dragging")
+	bindings.hide()
 	# Exercise the persistent selector through the same controller-to-viewport route on a wall.
 	g.set_physics_process(false);g.headless=false
 	g.lobby.offered=[{"mode":"dm","map":"lqdm1"},{"mode":"ctf","map":"lqdm2"}]
@@ -210,6 +239,29 @@ func run() -> void:
 	selector.maps.choose("dummy_map");wall.panel.refresh()
 	check(wall.panel.vote.disabled and wall.panel.status.text.contains("TEST ENTRY"),"Dummy drag-test entries cannot be submitted as lobby votes")
 	check(g.lobby.offered==offered_before,"Drag-test entries leave the real server maplist unchanged")
+	# Text chat takes the same authoritative RPC path for desktop and VR recipients.
+	g.clock=100;g.players[2].chat_at=0
+	g._chat_for(2,"Hello\nVR [b]friends[/b]")
+	rig._process(0)
+	check(rig.status_hud.chat_messages==PackedStringArray(["Test speaker: Hello VR [b]friends[/b]"]),"Authoritative text chat reaches the VR notification HUD with sender and literal markup")
+	for i in 6:g._announcement("Combat event %d"%i)
+	rig._process(0)
+	check(rig.status_hud.chat_messages.size()==1,"Combat feed bursts do not evict VR chat")
+	g._announcement("Second speaker: "+"Hello everyone! ".repeat(9).left(140),true)
+	g._announcement("Third speaker: Last message",true)
+	rig._process(0)
+	check(g.chat_feed.size()==2 and rig.status_hud.chat_messages[1]=="Third speaker: Last message","VR chat keeps the two most recent messages in order")
+	rig.status_hud.update_capture({"text":"FLAG CAPTURED","detail":"RED +1","team":0})
+	rig.status_hud.update_vote({"title":"CHANGE MAP","yes":1,"needed":2,"no":0,"seconds":20})
+	await process_frame
+	check(not rig.status_hud.capture_text.is_empty() and not rig.status_hud.vote_text.is_empty() and rig.status_hud.chat_labels[1].text=="Third speaker: Last message","Chat coexists with capture and vote notifications")
+	check(rig.status_hud.chat_labels[0].get_line_count()>1 and rig.status_hud.chat_labels[0].get_line_count()<=3,"Long chat wraps within its notification slot")
+	check(is_equal_approx(rig.status_surface.mesh.size.y*.5-rig.status_surface.mesh.center_offset.y,.146),"Chat space preserves the existing HUD position and pixel scale")
+	g.clock=108;rig._process(0)
+	check(rig.status_hud.chat_messages.is_empty() and rig.status_hud.chat_labels[1].text.is_empty(),"Chat notifications expire after eight seconds")
+	g._announcement("Old session: goodbye",true)
+	g.disconnect_game();rig._process(0)
+	check(g.chat_feed.is_empty() and rig.status_hud.chat_messages.is_empty(),"Disconnect clears chat before joining another server")
 	g.free()
 	if had_config:
 		var config_file:=FileAccess.open(config_path,FileAccess.WRITE)

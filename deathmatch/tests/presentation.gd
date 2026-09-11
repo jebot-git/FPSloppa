@@ -13,12 +13,13 @@ func run():
 	check(values.render_scale==.5 and values.msaa==3 and values.master==1,"Invalid presentation settings are bounded with safe defaults")
 	check(values.hud_scale==1.4 and values.hud_y==-.65,"HUD scale and height stay within comfortable bounds")
 	values.hud_scale=.8;values.hud_y=.3
-	values.effects=.3;values.voice=.6;values.render_scale=.9
+	values.effects=.3;values.voice=.6;values.announcer=.4;values.render_scale=.9
 	check(Settings.save_settings(values,path)==OK,"Presentation preferences save")
 	cfg.load(path)
 	check(cfg.get_value("profile","name")=="Keep this" and cfg.get_value("vr","turn_speed")==150,"Saving audio and graphics preserves identity and turn settings")
 	check(Settings.read_settings(path).hud_scale==.8 and Settings.read_settings(path).hud_y==.3,"HUD layout survives restart")
 	check(Settings.read_settings(path).effects==.3 and Settings.read_settings(path).voice==.6,"Audio preferences survive restart")
+	check(Settings.read_settings(path).announcer==.4,"Announcer volume survives restart independently")
 	AudioServer.add_bus();var bus:=AudioServer.bus_count-1;AudioServer.set_bus_name(bus,"SettingsTest")
 	Settings.bus_volume("SettingsTest",.5)
 	check(is_equal_approx(AudioServer.get_bus_volume_db(bus),linear_to_db(.5)),"Volume uses perceptually meaningful bus gain")
@@ -48,6 +49,7 @@ func run():
 	panel.config_path=path;panel.adjust("master",-.1)
 	check(is_equal_approx(Settings.read_settings(path).master,panel.values.master),"Menu adjustment applies and persists")
 	check(panel.get_rect().size.y<=g.hud.get_child(0).size.y+1,"Settings panel fits the VR canvas")
+	check(panel.controls.announcer.get_global_rect().end.y<=640,"Announcer controls fit the VR audio page")
 	panel.section="graphics";panel.refresh()
 	await process_frame;await process_frame
 	check(panel.get_rect().size.y<=640 and panel.controls.hud_y.get_global_rect().end.y<=640,"Graphics and HUD controls fit the VR canvas")

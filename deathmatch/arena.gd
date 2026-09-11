@@ -7,7 +7,7 @@ const Interface = preload("res://deathmatch/interface.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-20-quake-movement"
+const PROTOCOL := "fpsloppa-22-saw-contacts"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -48,6 +48,7 @@ var gates: Array = []
 var lifts: Array = []
 var clock := 0.0
 var snapshot_accumulator := 0.0
+var join_generation:=0
 var input_accumulator := 0.0
 var ping_accumulator := 0.0
 var sequence := 0
@@ -59,6 +60,8 @@ var max_clients := MAX_PLAYERS
 var voice_backend:="builtin"
 var mumble_url:=""
 var voice_enabled := true
+var announcer
+var chainsaw=preload("res://deathmatch/chainsaw.gd").new()
 var voice
 var permissions
 var practice := false
@@ -90,6 +93,7 @@ var last_local_hp := 100
 var hud
 var menu_open := true
 var feed: Array = []
+var chat_feed: Array = []
 var spatial
 var sounds: Array = []
 const LagCompensation=preload("res://deathmatch/lag_compensation.gd")
@@ -114,6 +118,7 @@ var connect_deadline := 0.0
 var local_ping := 0
 var last_event := ""
 var headless := false
+var pending_network_jump:=false
 var predicted_shot_clock := -10.0
 
 var lobby
@@ -131,6 +136,7 @@ func _ready() -> void:
 	votes=preload("res://deathmatch/modes/votes.gd").new();votes.name="PlayerVotes";add_child(votes);votes.setup(self)
 	nickname = Profile.load_name()
 	presentation=Presentation.read_settings()
+	announcer=preload("res://deathmatch/audio/announcer.gd").new();announcer.name="Announcer";add_child(announcer);announcer.setup(self)
 	permissions=preload("res://deathmatch/vr/permissions.gd").new()
 	add_child(permissions)
 	spatial=preload("res://deathmatch/audio/spatial.gd").new()
@@ -214,6 +220,7 @@ func _notification(what: int) -> void:
 func request_quit() -> void:
 	if quitting:return
 	quitting=true
+	if is_instance_valid(announcer):announcer.set_process(false);announcer.clear_audio()
 	if is_instance_valid(music):music.stop()
 	if is_instance_valid(voice):voice.set_mode(0)
 	# Let the audio mixer release stopped playback before engine teardown.
@@ -239,6 +246,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	if max_clients>16:push_warning(preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
 	voice_backend=settings.sv_voice_backend if settings.sv_voice==1 else "builtin";mumble_url=settings.sv_mumble_url if settings.sv_voice==1 else ""
 	voice_enabled=settings.sv_voice==1 and voice_backend=="builtin"
+	announcer.policy(settings.sv_announcer==1)
 	map_uploads=settings.sv_map_uploads==1
 	match_mode.configure(settings)
 	votes.enabled=settings.sv_votes==1;votes.allowed_modes=settings.gametypes
@@ -297,7 +305,7 @@ func _pickup_art(p: Dictionary) -> Node3D:
 		halo.material_override=Art.material(color,0,1.2);halo.position.y=.40
 		halo.scale=Vector3(.85,.4,.85);root.add_child(halo)
 	var model: Node3D
-	if p.kind=="weapon": model = Art.weapon(p.item)
+	if p.kind=="weapon": model = Art.weapon(p.item,int(presentation.get("texture_filter",2)))
 	else: model=preload("res://deathmatch/pickups/models.gd").create(p.kind,p.item)
 	root.add_child(model)
 	model.name = "Display"
@@ -317,6 +325,8 @@ func _pickup_art(p: Dictionary) -> Node3D:
 func start_host(player_name: String,port: int,frags: int,minutes: int,training: bool, mode: String="dm") -> void:
 	if loading.blocking:return
 	if active: return
+	announcer.reset()
+	if not dedicated:announcer.policy(true)
 	if not dedicated: match_mode.configure({"sv_gametype":mode if match_mode.NAMES.has(mode) else "dm","capturelimit":clampi(frags,1,100),"hilllimit":clampi(frags,1,100)});votes.enabled=true;votes.allowed_modes=match_mode.NAMES.keys();voice_backend="builtin";mumble_url="";voice_enabled=true
 	max_clients=clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else MAX_PLAYERS
 	if not _load_map(selected_map):
@@ -361,22 +371,39 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 
 func start_join(player_name: String,address: String,port: int,spectator: bool=false) -> void:
 	if active or loading.blocking: return
+	announcer.reset();announcer.policy(false)
 	local_ping=0
 	nickname = clean_name(player_name)
 	joining_as_spectator=spectator
 	if address.strip_edges().is_empty():
 		status("Enter the host's IP address or hostname.")
 		return
-	var peer := ENetMultiplayerPeer.new()
-	var err := peer.create_client(address.strip_edges(),clampi(port,1024,65535))
-	if err != OK:
-		status("Could not create connection: "+error_string(err))
-		return
-	multiplayer.multiplayer_peer = peer
 	loading.begin();menu_open=true
 	if hud:hud.show_menu(true)
-	connect_deadline = clock+10
+	join_generation+=1
+	var attempt:=join_generation
+	var host:=address.strip_edges()
+	connect_deadline=clock+15
 	status("Connecting to %s:%d…" % [address,port])
+	if not host.is_valid_ip_address():
+		# ENet resolves hostnames synchronously; use Godot's resolver worker first.
+		var query:=IP.resolve_hostname_queue_item(host,IP.TYPE_ANY)
+		if query==IP.RESOLVER_INVALID_ID:disconnect_game("Could not start hostname lookup.");return
+		while IP.get_resolve_item_status(query) in [IP.RESOLVER_STATUS_WAITING,IP.RESOLVER_STATUS_NONE]:
+			await get_tree().process_frame
+			if attempt!=join_generation or not loading.blocking:
+				IP.erase_resolve_item(query);return
+		if IP.get_resolve_item_status(query)==IP.RESOLVER_STATUS_DONE:host=IP.get_resolve_item_address(query)
+		else:host=""
+		IP.erase_resolve_item(query)
+		if host.is_empty():disconnect_game("Could not resolve server hostname.");return
+	var peer := ENetMultiplayerPeer.new()
+	var err := peer.create_client(host,clampi(port,1024,65535))
+	if err != OK:
+		disconnect_game("Could not create connection: "+error_string(err))
+		return
+	multiplayer.multiplayer_peer = peer
+	connect_deadline = clock+10
 
 func clean_name(value: String) -> String:
 	return Profile.clean(value)
@@ -424,6 +451,7 @@ func _finish_join(id: int) -> void:
 	server_log.record("player_joined",{"peer":id,"name":player_name,"spectator":spectator,"team":players[id].team})
 	avatars.sync_peer(id)
 	voice.policy.rpc_id(id,voice_enabled,server_name,voice_backend,mumble_url)
+	announcer.policy.rpc_id(id,announcer.allowed)
 	votes.offer(id)
 	if dedicated and max_clients>16:_announcement.rpc_id(id,preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
 	_announcement.rpc(player_name+(" joined as spectator." if spectator else " joined the arena."))
@@ -433,7 +461,7 @@ func _rejected(reason: String) -> void:
 	disconnect_game(reason)
 
 func _new_state(player_name: String,id: int) -> Dictionary:
-	return {"name":clean_name(player_name),"spectator":false,"team":-1,"fly":0.0,"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"offhand_cooldown":0.0,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"xr":{},"vr_device":false,"room":Vector3.ZERO}
+	return {"name":clean_name(player_name),"spectator":false,"team":-1,"fly":0.0,"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"offhand_cooldown":0.0,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"xr":{},"vr_device":false,"room":Vector3.ZERO,"swim":Vector3.ZERO}
 
 func _create_fighter(id: int) -> void:
 	var actor = Fighter.new()
@@ -442,6 +470,7 @@ func _create_fighter(id: int) -> void:
 	actor.quake_movement = true
 	actor.spectator=players[id].spectator
 	add_child(actor)
+	if not headless:preload("res://deathmatch/maps/filtering.gd").new().apply(actor,int(presentation.get("texture_filter",2)),false)
 	fighters[id] = actor
 
 func _add_player(id: int,player_name: String,spectator: bool=false) -> void:
@@ -498,6 +527,8 @@ func _roster(data: Array) -> void:
 		camera.near = .04
 		camera.fov = presentation.fov
 		fighters[mine].add_child(camera)
+		camera.top_level=true
+		camera.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 		camera.make_current()
 		menu_open = false
 		if hud: hud.show_menu(false)
@@ -517,6 +548,8 @@ func _roster(data: Array) -> void:
 		if avatars.choices.has(id): avatars.queue_avatar(id)
 
 func _peer_left(id: int) -> void:
+	chainsaw.contact_at.erase(id)
+	announcer.forget(id)
 	match_mode.fortress.departed(id)
 	server_log.record("peer_disconnected",{"peer":id})
 	avatars.remove_peer(id)
@@ -539,6 +572,9 @@ func _finish_departure(player_name: String) -> void:
 	_announcement.rpc(player_name+" left the arena.")
 
 func disconnect_game(reason: String = "Disconnected.") -> void:
+	chainsaw.reset()
+	announcer.reset();announcer.policy(false)
+	join_generation+=1
 	if demos.recording:demos.stop_record()
 	if demos.playing:demos.stop_playback()
 	server_log.record("session_closed",{"reason":reason.left(256)})
@@ -576,6 +612,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	hurt_flash=0
 	camera_eye_height=1.48
 	feed.clear()
+	chat_feed.clear()
 	if not headless:
 		if is_vr():
 			camera=xr_rig.head
@@ -614,7 +651,7 @@ func _spawn(id: int) -> void:
 	fighters[id].blast_velocity=Vector2.ZERO
 	fighters[id].reset_view()
 	fighters[id].gibbed=false
-	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":clock+1.5,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
+	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"charge":0.0,"invulnerable":clock+1.5,"swim":Vector3.ZERO,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false},true)
 	match_mode.special.spawn(id);match_mode.fortress.spawn(id)
 	if not spawn_yaws.is_empty(): state.yaw = spawn_yaws[spawn_points.find(best)]
 	if id==multiplayer.get_unique_id():
@@ -689,7 +726,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	var view=command.get("view_time",-1.0)
 	s.view_time=float(view) if (view is float or view is int) and is_finite(float(view)) else -1.0
 	if match_mode.special.blocked(id):
-		s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.fire=false;s.offhand_fire=false;s.melee=false;s.jump=false
+		s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.fire=false;s.offhand_fire=false;s.melee=false;s.jump=false;s.swim=Vector3.ZERO
 		return
 	s.move = command.move.limit_length(1.0)
 	s.fly=preload("res://deathmatch/vr/preferences.gd").bounded(command.get("fly",0.0),-1,1,0)
@@ -704,6 +741,9 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	s.vr_device=command.has("xr")
 	s.xr=VRPoses.validate(command.get("xr",{}))
 	s.room=RoomScale.validate(command.get("room"),s.xr)
+	s.swim=Vector3.ZERO
+	var swim=command.get("swim",Vector3.ZERO)
+	if not s.xr.is_empty() and not s.spectator and swim is Vector3 and swim.is_finite():s.swim=swim.limit_length(1.0)
 	if command.has("xr") and s.xr.is_empty(): s.fire=false;s.melee=false
 	if s.spectator:s.fire=false;s.offhand_fire=false;s.melee=false;s.want_respawn=false
 	if s.vr_device and not s.xr.has("offhand_weapon"): s.offhand_fire=false
@@ -715,6 +755,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 		s.held = false
 
 func _physics_process(delta: float) -> void:
+	# Simulation uses the engine physics delta; _process interpolates to the current display frame.
 	if demos.playing:demos.tick(delta);return
 	clock += delta
 	if connect_deadline>0 and clock>connect_deadline: disconnect_game("Connection timed out. Check host, firewall and UDP port forwarding.")
@@ -727,17 +768,21 @@ func _physics_process(delta: float) -> void:
 		command.view_time=remote_view_time
 		if multiplayer.is_server(): _accept_input(mine,command)
 		else:
+			pending_network_jump=pending_network_jump or command.get("jump",false)
+			if menu_open:pending_network_jump=false
 			input_accumulator += delta
 			if input_accumulator>=1.0/30:
-				input_accumulator = 0
-				_input_command.rpc_id(1,command)
+				input_accumulator = fmod(input_accumulator,1.0/30)
+				var wire:=command.duplicate()
+				wire.jump=pending_network_jump;pending_network_jump=false
+				_input_command.rpc_id(1,wire)
 			if players[mine].spectator and intermission<=0:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
 			if not players[mine].dead and not match_mode.special.blocked(mine) and intermission<=0:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
-				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false))
+				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
 					xr_rig.compensate_room_move(actual)
@@ -759,7 +804,7 @@ func _physics_process(delta: float) -> void:
 		_record_history()
 		snapshot_accumulator += delta
 		if snapshot_accumulator>=.05:
-			snapshot_accumulator = 0
+			snapshot_accumulator = fmod(snapshot_accumulator,.05)
 			_send_snapshot()
 	else:
 		_interpolate_remote_players(delta)
@@ -799,6 +844,9 @@ func _server_tick(delta: float) -> void:
 		if not pending_names.is_empty(): return
 		map_loading=false
 		_announcement.rpc("New map · "+map_title)
+	# Keep the match fresh while the dedicated server has no ready clients.
+	# Pending downloads and connection timeouts still run above this gate.
+	if dedicated and players.is_empty():return
 	if lobby.active():
 		lobby.tick(delta)
 		return
@@ -828,13 +876,13 @@ func _server_tick(delta: float) -> void:
 			continue
 		if clock-s.last_input>.35:
 			s.move = Vector2.ZERO
-			s.room=Vector3.ZERO
+			s.room=Vector3.ZERO;s.swim=Vector3.ZERO
 			s.jump=false
 			s.fire = false
 			s.offhand_fire=false
 			s.melee = false
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
-		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,s.jump)
+		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,s.jump,s.get("swim",Vector3.ZERO))
 		if not s.xr.is_empty():
 			var shift:=RoomScale.move_capsule(fighters[id],s.room,s.yaw,delta)
 			s.room-=shift
@@ -1035,7 +1083,7 @@ func _fire(id: int, offhand: bool=false) -> void:
 	if match_mode.special.blocked(id):return
 	if not multiplayer.is_server() or not players.has(id) or players[id].dead or intermission>0: return
 	if offhand and (players[id].weapon!=2 or (players[id].vr_device and not players[id].xr.has("offhand_weapon"))): return
-	if _weapon_blocked(id,offhand): return
+	if players[id].weapon!=1 and _weapon_blocked(id,offhand): return
 	var s: Dictionary = players[id]
 	var w: int = s.weapon
 	if (s.offhand_cooldown if offhand else s.cooldown)>0: return
@@ -1054,6 +1102,8 @@ func _fire(id: int, offhand: bool=false) -> void:
 	s.invulnerable = 0
 	s.shots += 1
 	_shot_fx.rpc(id,w,offhand)
+	if w==1:
+		chainsaw.fire(self,id);s.held=true;return
 	if w==8:
 		s.charge = d.charge
 	elif w>=6 and w<=8 and not (match_mode.kind=="tf" and s.get("tf_class","")=="pyro" and w==7):
@@ -1172,6 +1222,7 @@ func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 			if hit.id!=0: _damage(hit.id,p.owner,d.damage*randi_range(1,d.dice),d.name,false,hit.position,p.direction)
 			if hit.has("building"):match_mode.fortress.damage_building(hit.building,p.owner,d.damage*randi_range(1,d.dice))
 			if p.weapon==6: _blast(hit.position,p.owner,128,5.76)
+			if p.weapon==8:_blast(hit.position,p.owner,W.BFG_SPLASH_DAMAGE,W.BFG_SPLASH_RADIUS,"BFG 9000")
 			if p.weapon==8 and players.has(p.owner):
 				var origin: Vector3 = fighters[p.owner].position+Vector3.UP*1.45
 				for ray in range(40):
@@ -1184,12 +1235,13 @@ func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 			_projectile_end.rpc(id,hit.position,p.weapon)
 		else: p.position = end
 
-func _blast(pos: Vector3,owner_id: int,damage: int,radius: float) -> void:
+func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: String="ROCKET LAUNCHER") -> void:
 	if lobby.active():return
 	if not multiplayer.is_server() or intermission>0:return
 	match_mode.fortress.blast(pos,owner_id,damage,radius)
 	for id in players:
 		if players[id].dead or players[id].spectator or players[id].invulnerable>clock: continue
+		if id==owner_id and weapon_name=="BFG 9000":continue
 		if id!=owner_id and match_mode.same_team(id,owner_id) and not match_mode.friendly_fire:continue
 		var target: Vector3 = fighters[id].position+Vector3.UP*.85
 		var distance := maxf(0,pos.distance_to(target)-.3)
@@ -1201,7 +1253,7 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float) -> void:
 		if push.length_squared()<.01:push=Vector3.UP
 		fighters[id].apply_blast(push*15.0*falloff)
 		# Self splash costs health but permits a healthy player to rocket jump.
-		_damage(id,owner_id,maxi(1,int(damage*falloff*(.5 if id==owner_id else 1.0))),"ROCKET LAUNCHER",false,target,push)
+		_damage(id,owner_id,maxi(1,int(damage*falloff*(.5 if id==owner_id else 1.0))),weapon_name,false,target,push)
 
 func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: bool = false,impact: Vector3=Vector3.INF,direction: Vector3=Vector3.ZERO) -> void:
 	if lobby.active():return
@@ -1236,6 +1288,7 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	var killer: String = s.name
 	if players.has(attacker):
 		killer = players[attacker].name
+	announcer.killed(victim,attacker)
 	match_mode.killed(victim,attacker)
 	_announcement.rpc("%s  →  %s   ·   %s" % [killer,s.name,weapon_name])
 
@@ -1255,6 +1308,7 @@ func _end_round() -> void:
 	_announcement.rpc(round_message)
 
 func _restart_round() -> void:
+	announcer.reset_scores()
 	intermission=0
 	if map_rotation.size()>1:
 		var next_index: int=(rotation_index+1)%map_rotation.size()
@@ -1354,7 +1408,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			if id==mine and actor.spawn_serial==row[14]:
 				var error: Vector3 = row[1]-actor.position
 				if error.length()>2.5:
-					actor.position = row[1];actor.velocity=row[2]
+					actor.position = row[1];actor.velocity=row[2];actor.reset_view()
 				else:
 					if error.length()>.12: actor.position += error*.18
 					# Air momentum persists now, so correct velocity drift as well as position.
@@ -1363,11 +1417,11 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 				actor.velocity.y = row[2].y
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
-			actor.reset_view()
 			actor.gibbed=false
 			if not headless and not s.spectator: effects.play("spawn",row[1],-6)
 			actor.position = row[1]
 			actor.velocity = row[2]
+			actor.reset_view()
 			if id==mine:
 				local_yaw = row[3]
 				local_pitch = 0
@@ -1462,6 +1516,9 @@ func _announcement(message: String,is_chat: bool=false) -> void:
 	else:server_log.record("match_event",{"message":message.left(512)})
 	feed.append({"text":message,"until":clock+8})
 	while feed.size()>5: feed.pop_front()
+	if is_chat:
+		chat_feed.append({"text":message,"until":clock+8})
+		while chat_feed.size()>2:chat_feed.pop_front()
 	last_event = message
 	print("DM_EVENT ","[chat activity]" if is_chat and dedicated else message)
 
@@ -1542,7 +1599,7 @@ func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
 	if weapon==6 or weapon==8: effects.play("explosion",pos,-3)
 	var burst := Art.box(self,pos,Vector3.ONE*.12,Art.material(W.COLORS[weapon],0,3))
 	var tween := create_tween()
-	tween.tween_property(burst,"scale",Vector3.ONE*(14 if weapon==6 or weapon==8 else 3),.18)
+	tween.tween_property(burst,"scale",Vector3.ONE*(40 if weapon==8 else 14 if weapon==6 else 3),.18)
 	tween.tween_callback(burst.queue_free)
 
 func _process(delta: float) -> void:
@@ -1573,18 +1630,19 @@ func _process(delta: float) -> void:
 		if is_instance_valid(offhand_viewmodel): offhand_viewmodel.queue_free()
 		offhand_viewmodel=null
 		if s.weapon==2:
-			offhand_viewmodel=Art.weapon(2);offhand_viewmodel.scale=Vector3.ONE*.72;camera.add_child(offhand_viewmodel)
-		viewmodel = Art.weapon(s.weapon)
+			offhand_viewmodel=Art.weapon(2,int(presentation.get("texture_filter",2)));offhand_viewmodel.scale=Vector3.ONE*.72;camera.add_child(offhand_viewmodel)
+		viewmodel = Art.weapon(s.weapon,int(presentation.get("texture_filter",2)))
 		viewmodel.scale = Vector3.ONE*.72
 		camera.add_child(viewmodel)
 		model_weapon = s.weapon
-	camera.rotation.x = local_pitch
+	camera.rotation = Vector3(local_pitch,local_yaw,0)
 	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead and not s.spectator else 1.48,minf(1,delta*8))
-	camera.position.y = camera_eye_height+fighters[multiplayer.get_unique_id()].view_offset
+	camera.global_position = fighters[multiplayer.get_unique_id()].render_position()+Vector3.UP*(camera_eye_height+fighters[multiplayer.get_unique_id()].view_offset)
 	fighters[multiplayer.get_unique_id()].rotation.y = local_yaw
 	viewmodel.visible = not s.dead and not menu_open and not lobby.active()
 	var speed: float = fighters[multiplayer.get_unique_id()].velocity.length()
 	viewmodel.position = Vector3(.18+sin(clock*10)*minf(speed*.003,.025),-.24+absf(cos(clock*10))*minf(speed*.003,.025)-recoil*.035,-.48+recoil*.075)
+	if s.weapon==1:Art.clip_saw(viewmodel)
 	viewmodel.rotation = Vector3(recoil*.10,.10,0)
 	if melee_animation>0:
 		var swing:=sin((1.0-melee_animation/.3)*PI)
@@ -1622,7 +1680,7 @@ func _load_map(map_id: String) -> bool:
 	var runtime := preload("res://deathmatch/maps/runtime.gd").new()
 	runtime.name = "MapRuntime"
 	$Map.add_child(runtime)
-	runtime.configure(self,level)
+	runtime.configure(self,level,info.path)
 	if spawn_points.is_empty(): return false
 	if not headless:
 		$Overview.projection=Camera3D.PROJECTION_PERSPECTIVE
@@ -1678,6 +1736,8 @@ func _teleport_fx(pos: Vector3) -> void:
 	effects.play("teleport",pos)
 
 func _clear_map_players() -> void:
+	chainsaw.reset()
+	announcer.reset()
 	votes.reset()
 	# Preserve the ENet connection; every peer goes through map readiness again.
 	active=false
@@ -1736,3 +1796,16 @@ func _rotate_map(map_id: String) -> bool:
 @rpc("authority","call_local","reliable",0)
 func _capture_feedback(team: int,scorer: String,score: int) -> void:
 	match_mode.capture_feedback(team,scorer,score)
+	announcer.enqueue("objective_completed",2)
+
+func _announcer_cue(cue: String,target: int=0) -> void:
+	var listener: int=demos.selected_player if demos.playing else multiplayer.get_unique_id()
+	if target==0 or target==listener:announcer.enqueue(cue)
+
+@rpc("authority","call_local","unreliable",3)
+func _saw_contact(pos: Vector3,normal: Vector3,id: int,other: int=0) -> void:
+	demos.event("_saw_contact",[pos,normal,id,other])
+	if headless:return
+	effects.sparks(pos,normal)
+	effects.play("saw_grind",pos,-12)
+	if is_vr() and multiplayer.get_unique_id() in [id,other]:xr_rig.feedback(.45,.08)

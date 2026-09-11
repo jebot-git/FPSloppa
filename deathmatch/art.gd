@@ -50,15 +50,24 @@ static func muzzle(id: int) -> Vector3:
 static func held_transform(pose: Transform3D, id: int, size: float = VR_SCALE) -> Transform3D:
 	return Transform3D(pose.basis.scaled(Vector3.ONE*size),pose.origin-pose.basis*(GRIPS[id]*size))
 
+static func clip_saw(model: Node3D) -> void:
+	# Retract the rendered saw at walls, preserving the controller/hand pose.
+	var grip: Vector3=model.to_global(GRIPS[1])
+	var tip: Vector3=model.to_global(muzzle(1))
+	var hit:=model.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(grip,tip,1))
+	if not hit.is_empty():model.global_position+=(grip-tip).normalized()*(tip.distance_to(hit.position)+.025)
+
 static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: bool=false) -> Vector3:
 	var grip := Vector3(.10 if left else .13,1.15,-.46 if left else -.30)
 	if left and dual_pistols: grip=Vector3(-.13,1.15,-.30)
 	var pivot := Vector3(0,1.3,0)
 	return pivot+Basis(Vector3.RIGHT,pitch)*(grip-pivot)+Vector3(0,0,recoil*.035)
 
-static func weapon(id: int) -> Node3D:
+static func weapon(id: int,filter_mode: int=2) -> Node3D:
 	var root := Node3D.new()
 	root.name = "WeaponModel"
+	root.set_meta("muzzle",muzzle(id))
+	if id==0:return root
 	var asset: String = WEAPON_ASSETS[clampi(id,0,W.DATA.size()-1)]
 	if not weapon_scenes.has(asset): weapon_scenes[asset] = load("res://deathmatch/weapons/"+asset+".glb")
 	var model: Node3D = weapon_scenes[asset].instantiate()
@@ -79,6 +88,7 @@ static func weapon(id: int) -> Node3D:
 		for x in [-.16,.16]:
 			barrel(root,Vector3(x,.05,-.57),.045,.25,material(Color("6cdf58"),.25,1.8))
 	root.set_meta("muzzle",muzzle(id))
+	if DisplayServer.get_name()!="headless":preload("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
 	return root
 
 static func marine(color: Color) -> Node3D:

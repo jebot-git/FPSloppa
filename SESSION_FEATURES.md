@@ -38,3 +38,33 @@ The default is `sv_lobby "0"`, preserving regular menu voting and rotation. Offl
 Dedicated servers accept `sv_maxclients "32"`; the default remains eight. **More than 16 players is unsupported. Performance, gameplay and maps are not balanced for player limits above 16.** A startup warning and joining-player announcement repeat this limitation. Menu hosting still allows eight players.
 
 The VRM browser lists model metadata without loading previews. Select a model and press **USE THIS MODEL**, or explicitly press **LOAD SELECTED PREVIEW** to inspect it. The first explicit preview may still pause while Godot decodes the VRM; opening or browsing the menu avoids this work.
+
+Demo playback accepts both the original seven-argument damage events and the eight-argument screen-only damage events recorded by 0.7v. This repairs otherwise complete VR recordings without changing the demo file format. Malformed/truncated frames remain rejected.
+
+## Chainsaw contact and BFG splash
+
+CC chainsaw reach on desktop is reduced from 1.2 m to 0.95 m; VR contact follows
+the actual held blade with a 4 cm allowance at its tip. Other modes retain the
+1.2 m desktop reach and use a 9 cm VR tip allowance. World geometry blocks cuts,
+with a retracting local weapon model, sparks and spatial grinding sound. Bringing
+two live players' chainsaw blades together before a body hit parries the attack,
+deals no damage and imposes a 300 ms recovery on both players. Sparks and grinding
+are throttled to one contact cue per player per 180 ms; demos retain the cue.
+
+BFG detonations add a 9 m radial blast (200 damage at the centre, falling off with
+distance) alongside the existing direct impact and 40-ray forward spray. Walls,
+team damage policy and spawn protection still apply; the radial BFG component
+excludes its owner. Rocket self-damage and rocket jumping are unchanged. This
+is an arena-game adaptation, not an exact recreation of Doom II's BFG algorithm.
+Clients and servers must use matching protocol `fpsloppa-22-saw-contacts` builds.
+
+## Freeze-tag visibility
+
+Frozen players become bright cyan ice statues, with a small ground ring and a
+**FROZEN** marker above their heads. Teammate thawing changes the marker to a
+percentage. The material replacement works across the bundled VRM shaders and
+custom model materials; thawing restores the original override/overlay materials.
+Changing avatars while frozen keeps the ice appearance. The effect is cosmetic
+and does not alter collision, thaw range or team scoring. Frozen first-person
+body parts also receive the ice material; the local ring and overhead label stay
+hidden to avoid obstructing the headset view.

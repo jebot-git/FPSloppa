@@ -114,3 +114,17 @@ Files rotate at `sv_log_max_mb` (1–512 MiB, default 8), retaining `sv_log_back
 ## Between-match waiting lobby
 
 Set `sv_lobby "1"` to enable the unarmed voting room and `sv_lobby_seconds "45"` to choose its duration (15–180 seconds). The default is disabled. See [controls, demos and lobby documentation](SESSION_FEATURES.md) for voting and rotation behavior.
+
+### Announcer policy
+
+`set sv_announcer "1"` enables WARLORD announcer calls (default). Set it to `"0"` to disable all announcer calls for every player; restart the dedicated server after editing the config. This leaves combat sounds and capture fanfares enabled. Players may lower or mute their own announcer volume in Settings → Audio. The server policy is authoritative and persists across map rotation; client volume cannot override a disabled server policy.
+
+## Empty-server timing
+
+A dedicated server keeps the full match duration until its first client has
+finished downloading required assets and joined. A ready spectator also counts
+as a connected client. Pending connections/downloads alone do not start the
+clock. When the last ready client disconnects, the remaining match time pauses;
+lobby and intermission countdowns pause as well. Connection timeouts and asset
+transfer work continue. A new client resumes the existing countdown; normal
+client-hosted and practice-game timing is unchanged.

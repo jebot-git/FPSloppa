@@ -3,6 +3,11 @@ extends Node
 const Library = preload("res://deathmatch/avatars/library.gd")
 const CHUNK := 32_768
 const WINDOW := CHUNK*8
+const IO=preload("res://deathmatch/network/disk_worker.gd")
+const Jobs=preload("res://deathmatch/network/asset_jobs.gd")
+var disk=IO.new()
+var generation:=0
+var checking: Dictionary={}
 var library
 var game
 var choices: Dictionary = {}
@@ -20,12 +25,14 @@ var transfer_budget := 0.0
 
 func setup(arena: Node) -> void:
 	game = arena
+	add_child(disk)
 	name = "AvatarNetwork"
 	library = Library.new()
 	library.name = "Library"
 	add_child(library)
 
 func reset() -> void:
+	generation+=1;checking.clear()
 	for key in incoming.keys(): drop_incoming(key)
 	incoming.clear()
 	outgoing.clear()
@@ -63,12 +70,18 @@ func _process(delta: float) -> void:
 		if not multiplayer.get_peers().has(peer): outgoing.erase(peer); continue
 		var transfer: Dictionary = outgoing[peer]
 		if Time.get_ticks_msec()-transfer.time>30000: outgoing.erase(peer); continue
-		while transfer.sent-transfer.ack<WINDOW and transfer.sent<transfer.size and transfer_budget>=CHUNK:
-			var data: PackedByteArray = transfer.file.get_buffer(mini(CHUNK,transfer.size-transfer.sent))
-			if data.is_empty(): outgoing.erase(peer); break
-			_chunk.rpc_id(peer,transfer.hash,transfer.sent,data)
-			transfer.sent += data.size()
-			transfer_budget -= data.size()
+		if not transfer.get("reading",false) and transfer.sent-transfer.ack<WINDOW and transfer.sent<transfer.size and transfer_budget>=CHUNK:
+			var count:=mini(mini(WINDOW-(transfer.sent-transfer.ack),transfer.size-transfer.sent),int(transfer_budget/CHUNK)*CHUNK)
+			transfer.reading=true;transfer_budget-=count
+			if not disk.submit(IO.read.bind(transfer.path,transfer.sent,count,transfer.size),func(data):
+				if not is_same(outgoing.get(peer),transfer):return
+				transfer.reading=false
+				if data.size()!=count:outgoing.erase(peer);return
+				for offset in range(0,data.size(),CHUNK):
+					var part: PackedByteArray=data.slice(offset,offset+CHUNK)
+					_chunk.rpc_id(peer,transfer.hash,transfer.sent,part);transfer.sent+=part.size()):
+				transfer.reading=false;transfer_budget+=count
+
 	for hash in incoming.keys():
 		if not incoming.has(hash):continue
 		if Time.get_ticks_msec()-incoming[hash].time>30000:
@@ -91,6 +104,7 @@ func _process(delta: float) -> void:
 				avatar_attempts[id]=hash+":"+str(game.fighters[id].get_instance_id())
 				var avatar: Node3D = library.create_avatar(hash)
 				if avatar:
+					preload("res://deathmatch/maps/filtering.gd").new().apply(avatar,int(game.presentation.get("texture_filter",2)),false)
 					game.fighters[id].set_avatar(avatar,hash)
 
 @rpc("any_peer","call_remote","reliable",4)
@@ -131,13 +145,22 @@ func _catalog(data: Dictionary) -> void:
 		var hash: String = choices[id].hash
 		var size: int = choices[id].size
 		if not Library.valid_hash(hash) or size<=0 or size>Library.MAX_BYTES: continue
-		if not library.entries.has(hash) and FileAccess.file_exists(Library.CACHE+hash+".vrm"):
-			if FileAccess.get_sha256(Library.CACHE+hash+".vrm")==hash: library.register_file(Library.CACHE+hash+".vrm",false)
-		if library.entries.has(hash): queue_avatar(id)
-		elif not multiplayer.is_server() and not expected.has(hash) and not incoming.has(hash):
+		if library.entries.has(hash):queue_avatar(id)
+		elif not multiplayer.is_server() and not expected.has(hash) and not incoming.has(hash) and not checking.has(hash):
+			# Cache hashing/metadata inspection can be large; never do it in an RPC.
+			checking[hash]=true
 			game.loading.begin_item("model:"+hash,size,"Player model")
-			expected[hash] = {"peer":1,"size":size,"time":Time.get_ticks_msec()}
-			_request.rpc_id(1,hash)
+			var epoch:=generation
+			if not disk.submit(Jobs.model_file.bind(Library.CACHE+hash+".vrm",hash,Library.CACHE,false),func(info):
+				if epoch!=generation:return
+				checking.erase(hash)
+				if not info.has("error") and info.size==size:
+					library.entries[hash]=info;game.loading.complete("model:"+hash)
+					for player_id in choices:queue_avatar(player_id)
+				else:
+					expected[hash]={"peer":1,"size":size,"time":Time.get_ticks_msec()}
+					_request.rpc_id(1,hash)):
+				checking.erase(hash);game.loading.fail("model:"+hash,"Model disk queue is full.")
 
 func queue_avatar(id: int) -> void:
 	if not game.fighters.has(id) or not choices.has(id):return
@@ -166,9 +189,8 @@ func _request(hash: String) -> void:
 		_busy.rpc_id(peer,hash)
 		return
 	var entry: Dictionary = library.entries[hash]
-	var file := FileAccess.open(entry.path,FileAccess.READ)
-	if not file or file.get_length()!=entry.size or entry.size>Library.MAX_BYTES: return
-	outgoing[peer] = {"hash":hash,"size":entry.size,"file":file,"sent":0,"ack":0,"time":Time.get_ticks_msec()}
+	if entry.size<=0 or entry.size>Library.MAX_BYTES:return
+	outgoing[peer] = {"hash":hash,"size":entry.size,"path":entry.path,"sent":0,"ack":0,"time":Time.get_ticks_msec()}
 	_begin.rpc_id(peer,hash,entry.size)
 
 @rpc("any_peer","call_remote","reliable",4)
@@ -184,12 +206,9 @@ func _begin(hash: String, size: int) -> void:
 	var peer := multiplayer.get_remote_sender_id()
 	if not expected.has(hash) or expected[hash].peer!=peer or expected[hash].size!=size or size>Library.MAX_BYTES or size<=0: return
 	if incoming.has(hash): return
-	var path: String = Library.CACHE+hash+".%d.part"%multiplayer.get_unique_id()
-	var file := FileAccess.open(path,FileAccess.WRITE)
-	if not file:
-		if game:game.loading.fail("model:"+hash,"Cannot write required model download.")
-		return
-	incoming[hash] = {"peer":peer,"size":size,"offset":0,"file":file,"path":path,"time":Time.get_ticks_msec()}
+	var path: String = Library.CACHE+hash+".%d.%d.part"%[get_instance_id(),Time.get_ticks_usec()]
+	disk.track(path)
+	incoming[hash] = {"peer":peer,"size":size,"offset":0,"written":0,"path":path,"time":Time.get_ticks_msec()}
 	expected.erase(hash)
 
 @rpc("any_peer","call_remote","reliable",4)
@@ -201,40 +220,39 @@ func _chunk(hash: String, offset: int, bytes: PackedByteArray) -> void:
 		drop_incoming(hash)
 		if game:game.loading.fail("model:"+hash,"Invalid model download chunk.")
 		return
-	transfer.file.store_buffer(bytes)
-	transfer.offset += bytes.size()
-	if game and not multiplayer.is_server():game.loading.advance("model:"+hash,transfer.offset)
-	transfer.time = Time.get_ticks_msec()
-	message = "Downloading avatar · %d%%" % int(100.0*transfer.offset/transfer.size)
-	_ack.rpc_id(transfer.peer,hash,transfer.offset)
-	if transfer.offset==transfer.size:
-		transfer.file.close()
-		var path: String = transfer.path
-		incoming.erase(hash)
-		if FileAccess.get_sha256(path)!=hash:
-			DirAccess.remove_absolute(path)
-			pending.erase(transfer.peer)
-			message = "Avatar checksum failed; using fallback marine."
-			if game:game.loading.fail("model:"+hash,"Required model checksum failed.")
-			return
-		var result: String = library.register_file(path)
-		DirAccess.remove_absolute(path)
-		if result!=hash:
-			pending.erase(transfer.peer)
-			message = library.last_error
-			if game:game.loading.fail("model:"+hash,"Required model is invalid: "+message)
-			return
-		if game:game.loading.complete("model:"+hash)
-		message = "Avatar downloaded and verified."
+	var end:=offset+bytes.size()
+	if end-transfer.written>WINDOW:
+		drop_incoming(hash);game.loading.fail("model:"+hash,"Model transfer exceeded window.");return
+	transfer.offset=end;transfer.time=Time.get_ticks_msec()
+	if not disk.submit(IO.write.bind(transfer.path,offset,bytes),func(error):
+		if not is_same(incoming.get(hash),transfer):return
+		if error!=OK:
+			drop_incoming(hash);game.loading.fail("model:"+hash,"Cannot write required model.");return
+		transfer.written=end;transfer.time=Time.get_ticks_msec()
+		if not multiplayer.is_server():game.loading.advance("model:"+hash,end)
+		message="Downloading avatar · %d%%"%int(100.0*end/transfer.size)
+		_ack.rpc_id(transfer.peer,hash,end)
+		if end==transfer.size:finish_model(hash,transfer)):
+		drop_incoming(hash);game.loading.fail("model:"+hash,"Model disk queue is full.")
+
+func finish_model(hash: String,transfer: Dictionary) -> void:
+	if not disk.submit(Jobs.model_file.bind(transfer.path,hash,Library.CACHE),func(info):
+		if not is_same(incoming.get(hash),transfer):return
+		disk.discard(transfer.path);incoming.erase(hash)
+		if info.has("error"):
+			pending.erase(transfer.peer);message=info.error
+			game.loading.fail("model:"+hash,"Required model is invalid: "+message);return
+		library.entries[hash]=info
+		game.loading.complete("model:"+hash);message="Avatar downloaded and verified."
 		if multiplayer.is_server():
 			for id in pending.keys():
 				if pending[id].hash==hash and game.players.has(id):
-					choices[id] = pending[id]
-					pending.erase(id)
+					choices[id]=pending[id];pending.erase(id)
 			publish()
 		else:
 			for id in choices:
-				if choices[id].hash==hash: queue_avatar(id)
+				if choices[id].hash==hash:queue_avatar(id)):
+		drop_incoming(hash);game.loading.fail("model:"+hash,"Model disk queue is full.")
 
 @rpc("any_peer","call_remote","reliable",4)
 func _ack(hash: String, offset: int) -> void:
@@ -249,6 +267,5 @@ func _ack(hash: String, offset: int) -> void:
 func drop_incoming(hash: String) -> void:
 	if not incoming.has(hash): return
 	pending.erase(incoming[hash].peer)
-	incoming[hash].file.close()
-	DirAccess.remove_absolute(incoming[hash].path)
+	disk.discard(incoming[hash].path)
 	incoming.erase(hash)

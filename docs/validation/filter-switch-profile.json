@@ -1,0 +1,343 @@
+{
+  "date": "2026-09-10",
+  "scope": "Diagnosis only; production filtering code unchanged",
+  "environment": {
+    "engine": "Godot 4.7.2 Fedora",
+    "renderer": "Vulkan Forward Mobile",
+    "gpu": "Intel Arc A770",
+    "map": "lqdm1",
+    "xr": false,
+    "note": "Rendered desktop reproduction on the same machine, not a measurement of headset frame latency. Driver cache was not cleared."
+  },
+  "findings": [
+    "Every switch walks the whole game tree and reapplies filtering to 146 unique materials in this scene",
+    "Each measured switch triggers 5 draw-time, 7 surface and 12 specialization pipeline compilations; specialization is background work, not evidence of a blocking compile",
+    "26 textures are read back to CPU memory on each normal switch, even when their mipmaps already exist",
+    "The helper caches textures/shaders only for a single apply call; settings create a new helper each time",
+    "Omitting pixel processing reduces direct CPU work to about 2 ms but leaves roughly 78\u201380 ms to draw completion, confirming a larger renderer cost",
+    "The lqdm1 test changes zero ShaderMaterial shader resources explicitly; StandardMaterial3D filtering changes alone reproduce the pipeline churn. Baked-map shader replacement is an additional code path, not the demonstrated cause here"
+  ],
+  "median_ms": {
+    "normal_apply_cpu": 13.5345,
+    "normal_pixel_processing": 11.447,
+    "without_pixels_apply_cpu": 1.9089999999999998,
+    "without_pixels_to_draw": 78.80600000000001,
+    "no_change_to_draw": 4.063000000000001
+  },
+  "initial_run_largest_switch_to_draw_ms": 3226.359,
+  "samples": [
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 0.0,
+      "following_frame_max_ms": 7.918,
+      "image_reads": 0,
+      "materials": 0,
+      "mode": -1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 0.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 0.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": true,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 4.2
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 14.631,
+      "following_frame_max_ms": 9.167,
+      "image_reads": 26,
+      "materials": 146,
+      "mode": 0,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 12.471,
+      "pixels": true,
+      "rebuilt_textures": 1,
+      "to_draw_ms": 95.705
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 13.322,
+      "following_frame_max_ms": 8.12,
+      "image_reads": 26,
+      "materials": 146,
+      "mode": 1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 11.147,
+      "pixels": true,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 89.807
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 13.338,
+      "following_frame_max_ms": 7.768,
+      "image_reads": 26,
+      "materials": 146,
+      "mode": 2,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 11.248,
+      "pixels": true,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 91.266
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 0.0,
+      "following_frame_max_ms": 8.135,
+      "image_reads": 0,
+      "materials": 0,
+      "mode": -1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 0.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 0.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 3.872
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 2.342,
+      "following_frame_max_ms": 7.865,
+      "image_reads": 0,
+      "materials": 146,
+      "mode": 0,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 78.724
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 1.955,
+      "following_frame_max_ms": 7.818,
+      "image_reads": 0,
+      "materials": 146,
+      "mode": 1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 80.41
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 1.834,
+      "following_frame_max_ms": 8.129,
+      "image_reads": 0,
+      "materials": 146,
+      "mode": 2,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 78.689
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 0.001,
+      "following_frame_max_ms": 8.106,
+      "image_reads": 0,
+      "materials": 0,
+      "mode": -1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 0.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 0.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": true,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 4.362
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 11.628,
+      "following_frame_max_ms": 7.788,
+      "image_reads": 26,
+      "materials": 146,
+      "mode": 0,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 9.412,
+      "pixels": true,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 89.372
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 15.399,
+      "following_frame_max_ms": 7.668,
+      "image_reads": 26,
+      "materials": 146,
+      "mode": 1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 12.997,
+      "pixels": true,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 92.078
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 13.731,
+      "following_frame_max_ms": 7.855,
+      "image_reads": 26,
+      "materials": 146,
+      "mode": 2,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 11.646,
+      "pixels": true,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 90.524
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 0.0,
+      "following_frame_max_ms": 8.282,
+      "image_reads": 0,
+      "materials": 0,
+      "mode": -1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 0.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 0.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 3.926
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 1.926,
+      "following_frame_max_ms": 8.029,
+      "image_reads": 0,
+      "materials": 146,
+      "mode": 0,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 78.888
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 1.884,
+      "following_frame_max_ms": 7.697,
+      "image_reads": 0,
+      "materials": 146,
+      "mode": 1,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 79.002
+    },
+    {
+      "changed_shaders": 0,
+      "cpu_ms": 1.892,
+      "following_frame_max_ms": 7.779,
+      "image_reads": 0,
+      "materials": 146,
+      "mode": 2,
+      "pipelines": {
+        "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+        "PIPELINE_COMPILATIONS_DRAW": 5.0,
+        "PIPELINE_COMPILATIONS_MESH": 0.0,
+        "PIPELINE_COMPILATIONS_SPECIALIZATION": 12.0,
+        "PIPELINE_COMPILATIONS_SURFACE": 7.0
+      },
+      "pixel_ms": 0.0,
+      "pixels": false,
+      "rebuilt_textures": 0,
+      "to_draw_ms": 78.073
+    }
+  ],
+  "recommended_followup": [
+    "Separate texture/mipmap preparation at asset load from changing sampler settings; do not call get_image on every toggle",
+    "Avoid touching untextured and unchanged materials",
+    "Prepare and retain per-filter material/shader variants, including the required rendering pipelines, during loading; verify reuse with the pipeline counters"
+  ],
+  "references": [
+    "https://docs.godotengine.org/en/stable/classes/class_texture2d.html#class-texture2d-method-get-image",
+    "https://docs.godotengine.org/en/stable/tutorials/performance/pipeline_compilations.html"
+  ]
+}

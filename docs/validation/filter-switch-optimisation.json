@@ -1,0 +1,1038 @@
+{
+  "date": "2026-09-10",
+  "status": "Implemented in source; not built or published",
+  "environment": {
+    "engine": "Godot 4.7.2 Fedora",
+    "renderer": "Vulkan Forward Mobile",
+    "gpu": "Intel Arc A770",
+    "xr": false,
+    "driver_cache_cleared": false
+  },
+  "changes": [
+    "Settings apply changes sampler selection only; mipmap preparation occurs at asset load",
+    "Skip untextured materials and dynamic viewport textures",
+    "Retain three material/shader variants on each source material; variants share textures and retain shader cache entries",
+    "Use temporary hidden mesh instances for pipeline precompilation and remove them after three frames",
+    "Keep existing live material objects, preserving colour changes and shader uniforms",
+    "Prepare weapons and avatar materials as they load and apply the saved filtering preference",
+    "Baked-light shaders select among sampler bindings through one uniform; older cached shaders upgrade without losing their textures, lighting or tint"
+  ],
+  "baseline_median_to_draw_ms": 90.89500000000001,
+  "profiles": {
+    "lqdm1": {
+      "first_cycle_max_to_draw_ms": 9.603,
+      "repeat_median_to_draw_ms": 7.07,
+      "repeat_max_to_draw_ms": 8.636,
+      "median_cpu_ms": 1.6909999999999998,
+      "image_readbacks": 0,
+      "repeat_draw_pipeline_compilations": 0.0,
+      "samples": [
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.001,
+          "following_frame_max_ms": 7.828,
+          "image_reads": 0,
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.548
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 2.315,
+          "following_frame_max_ms": 7.832,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 2.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 6.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 9.603
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.674,
+          "following_frame_max_ms": 8.213,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 2.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 6.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 8.633
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 2.35,
+          "following_frame_max_ms": 7.846,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.572
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 7.766,
+          "image_reads": 0,
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 4.275
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.694,
+          "following_frame_max_ms": 7.868,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.997
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.611,
+          "following_frame_max_ms": 7.82,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.663
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.688,
+          "following_frame_max_ms": 7.83,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.864
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 7.939,
+          "image_reads": 0,
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 4.342
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.698,
+          "following_frame_max_ms": 7.846,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.653
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.677,
+          "following_frame_max_ms": 8.118,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.075
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.618,
+          "following_frame_max_ms": 8.023,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.769
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 7.817,
+          "image_reads": 0,
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 4.152
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.737,
+          "following_frame_max_ms": 7.888,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.446
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.684,
+          "following_frame_max_ms": 8.197,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.07
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 2.582,
+          "following_frame_max_ms": 8.024,
+          "image_reads": 0,
+          "materials": 146,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 8.636
+        }
+      ]
+    },
+    "lqdm2": {
+      "first_cycle_max_to_draw_ms": 7.672,
+      "repeat_median_to_draw_ms": 5.497,
+      "repeat_max_to_draw_ms": 6.522,
+      "median_cpu_ms": 1.3305,
+      "image_readbacks": 0,
+      "repeat_draw_pipeline_compilations": 0.0,
+      "samples": [
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 7.836,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 4.418
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.558,
+          "following_frame_max_ms": 7.895,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 1.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 1.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.672
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.316,
+          "following_frame_max_ms": 7.733,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 1.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 1.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.271
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.232,
+          "following_frame_max_ms": 7.691,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.314
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 7.904,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 3.71
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.455,
+          "following_frame_max_ms": 8.19,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.106
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.319,
+          "following_frame_max_ms": 7.902,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.497
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.342,
+          "following_frame_max_ms": 7.872,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.365
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.001,
+          "following_frame_max_ms": 7.697,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 3.47
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.255,
+          "following_frame_max_ms": 7.74,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.064
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.308,
+          "following_frame_max_ms": 7.761,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.518
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.268,
+          "following_frame_max_ms": 8.251,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.483
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 7.885,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 3.513
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.348,
+          "following_frame_max_ms": 8.523,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.43
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.739,
+          "following_frame_max_ms": 8.456,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.522
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.382,
+          "following_frame_max_ms": 7.759,
+          "image_reads": 0,
+          "map": "lqdm2",
+          "materials": 148,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 5.652
+        }
+      ]
+    },
+    "baked_shader_fixture": {
+      "first_cycle_max_to_draw_ms": 10.067,
+      "repeat_median_to_draw_ms": 6.462,
+      "repeat_max_to_draw_ms": 7.942,
+      "median_cpu_ms": 1.7075,
+      "image_readbacks": 0,
+      "repeat_draw_pipeline_compilations": 0.0,
+      "samples": [
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.001,
+          "following_frame_max_ms": 8.28,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 3.626
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.812,
+          "following_frame_max_ms": 8.527,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 2.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 3.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 8.939
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 2.131,
+          "following_frame_max_ms": 7.847,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 2.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 3.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 10.067
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.812,
+          "following_frame_max_ms": 7.969,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.22
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 7.784,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 3.877
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.804,
+          "following_frame_max_ms": 8.282,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.312
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.625,
+          "following_frame_max_ms": 8.0,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.193
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.645,
+          "following_frame_max_ms": 7.858,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.378
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.001,
+          "following_frame_max_ms": 8.015,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 3.641
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.657,
+          "following_frame_max_ms": 7.781,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.956
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.688,
+          "following_frame_max_ms": 7.853,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.304
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.727,
+          "following_frame_max_ms": 7.761,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": true,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.462
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 0.0,
+          "following_frame_max_ms": 8.023,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 0,
+          "mode": -1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 3.727
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.661,
+          "following_frame_max_ms": 7.828,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 0,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.942
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.658,
+          "following_frame_max_ms": 7.834,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 1,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 6.981
+        },
+        {
+          "changed_shaders": 0,
+          "cpu_ms": 1.732,
+          "following_frame_max_ms": 7.858,
+          "image_reads": 0,
+          "map": "lqdm1",
+          "materials": 147,
+          "mode": 2,
+          "pipelines": {
+            "PIPELINE_COMPILATIONS_CANVAS": 0.0,
+            "PIPELINE_COMPILATIONS_DRAW": 0.0,
+            "PIPELINE_COMPILATIONS_MESH": 0.0,
+            "PIPELINE_COMPILATIONS_SPECIALIZATION": 0.0,
+            "PIPELINE_COMPILATIONS_SURFACE": 0.0
+          },
+          "pixel_ms": 0.0,
+          "pixels": false,
+          "rebuilt_textures": 0,
+          "to_draw_ms": 7.156
+        }
+      ]
+    }
+  },
+  "tests": [
+    {
+      "test": "filter_variants",
+      "passed": true,
+      "checks": 12
+    },
+    {
+      "test": "client_preferences",
+      "passed": true,
+      "checks": 9
+    },
+    {
+      "test": "post07",
+      "passed": true,
+      "checks": 17
+    },
+    {
+      "test": "presentation",
+      "passed": true,
+      "checks": 21
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "checks": 49
+    }
+  ],
+  "checks": 108,
+  "all_passed": true,
+  "import_passed": true,
+  "temporary_warmup_nodes_after_profile": 0,
+  "limitations": [
+    "Measurements use a rendered desktop reproduction; the optimized path has not yet been confirmed by the VR wearer",
+    "First-use pipeline work may still occur for a new driver, render configuration or geometry variant; no universal zero-hitch guarantee",
+    "Variant preparation shifts work to asset loading and retains extra material/shader objects, sharing existing texture data",
+    "Existing ObjectDB shutdown warnings remain; explicit variant-cache lifetime test passes"
+  ],
+  "references": [
+    "https://docs.godotengine.org/en/stable/tutorials/performance/pipeline_compilations.html",
+    "https://docs.godotengine.org/en/stable/classes/class_texture2d.html#class-texture2d-method-get-image"
+  ]
+}

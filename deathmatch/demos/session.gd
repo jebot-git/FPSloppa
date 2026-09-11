@@ -3,7 +3,7 @@ const MAX_PLAYERS:=preload("res://deathmatch/server/config.gd").MAX_CLIENTS
 const MAGIC:="FPSDEMO1"
 const MAX_FILE:=1_073_741_824
 const MAX_FRAME:=2_097_152
-const EVENTS=["_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
+const EVENTS=["_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
 var game
 var auto_record:=false
 var auto_path:=""
@@ -90,8 +90,10 @@ static func valid_frame(frame: Variant) -> bool:
 	if not frame.get("events") is Array or frame.events.size()>256:return false
 	for e in frame.events:
 		if not e is Array or e.size()!=2 or not e[0] in EVENTS or not e[1] is Array:return false
-		var schemas={"_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_melee_fx":[TYPE_INT,TYPE_BOOL],"_impacts":[TYPE_VECTOR3,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT],"_hurt_fx":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_BOOL,TYPE_BOOL,TYPE_INT],"_projectile_end":[TYPE_INT,TYPE_VECTOR3,TYPE_INT],"_teleport_fx":[TYPE_VECTOR3]}
+		var schemas={"_saw_contact":[TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_INT],"_announcer_cue":[TYPE_STRING,TYPE_INT],"_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_melee_fx":[TYPE_INT,TYPE_BOOL],"_impacts":[TYPE_VECTOR3,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT],"_hurt_fx":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_BOOL,TYPE_BOOL,TYPE_INT],"_projectile_end":[TYPE_INT,TYPE_VECTOR3,TYPE_INT],"_teleport_fx":[TYPE_VECTOR3]}
+		if e[0]=="_hurt_fx" and e[1].size()==8:schemas["_hurt_fx"].append(TYPE_BOOL)
 		if not typed_values(e[1],schemas[e[0]]):return false
+		if e[0]=="_announcer_cue" and not e[1][0] in preload("res://deathmatch/audio/announcer.gd").CLIPS:return false
 		if e[0]=="_shot_fx" and not game_weapon(e[1][1]):return false
 		if e[0] in ["_impacts","_projectile_end"] and not game_weapon(e[1][2]):return false
 	return true
@@ -127,6 +129,7 @@ func seek(time: float) -> void:
 	if not playing:return
 	position_seconds=clampf(time,0,duration);cursor=maxi(0,times.bsearch(position_seconds,false)-1)
 	game.effects.clear()
+	game.announcer.clear_audio()
 	input.seek(offsets[cursor]);apply_frame(read_frame(),false);cursor+=1
 func next_player() -> void:
 	var ids: Array=game.players.keys().filter(func(id):return not game.players[id].spectator);ids.sort()

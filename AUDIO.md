@@ -14,7 +14,7 @@ Validation: tests load and animate all five expression bindings on all three def
 
 ## Mixer and soundtrack
 
-**SETTINGS… → AUDIO** provides persistent master, sound-effects, music and voice levels plus output-device selection. Sound effects use `ArenaEffects`, music uses `ArenaMusic`, and voice retains its independent playback gain; voice plays independently of the effects bus. Muting music does not affect incoming voice or microphone capture. Four original ProTracker compositions loop with map-dependent selection and short crossfades. Their Ogg files total about 2.67 MiB; [editable tracker sources and provenance](deathmatch/audio/music/SOURCES.md) are included in the source project.
+**SETTINGS… → AUDIO** provides persistent master, sound-effects, music and voice levels plus output-device selection. Sound effects use `ArenaEffects`, music uses `ArenaMusic`, and voice retains its independent playback gain; voice plays independently of the effects bus. Muting music does not affect incoming voice or microphone capture. Ten original scores cover each game mode, the lobby and title screen. All eight gameplay modes use distinct metal arrangements with double-tracked recorded guitars, bass and acoustic drums. The title remains slow and ambient; the lobby keeps its corrected elevator-jazz harmony. Selection loads asynchronously and crossfades over 2.5 seconds without restarting on same-mode map changes. The active Ogg files total about 14.34 MiB; [source arrangements and provenance](deathmatch/audio/music/SOURCES.md) are included in the source project. The [industrial-versus-metal audition](docs/audio/metal-alternates/README.md) remains available outside game exports.
 
 
 ## Steam Audio spatialisation (0.3v)
@@ -33,4 +33,22 @@ Licenses, upstream archive checksum and runtime notices are under `addons/godot-
 
 Recorded pain grunts rotate between three short takes; local feedback is limited to one cue per 300 ms. Player respawns have a stronger teleport cue. Megahealth, mega armour and BFG availability transitions play a positional powerful-item cue once, replicated reliably to clients. Ordinary item respawns stay quiet. Health, armour, ammunition, weapons and mega pickups have distinct short cues with recorded metallic transients. All use the effects bus and its volume control.
 
-The two earlier music compositions retain their notes with new recorded instruments, alongside Foundry Run and Dark Relay. Guitar, bass and acoustic drum snippets are CC0 Karoryfer recordings; tracker instruments remain compact 8-bit samples. Full source links and regeneration instructions accompany the music.
+Gameplay music uses CC0 Karoryfer guitar, bass and acoustic drums at 44.1 kHz. The title/lobby tracker arrangements also use VSCO piano, flute, strings and anvil. Full source links, editable arrangements and regeneration instructions accompany the music. Chainsaw contact adds a short spatial grinding cue derived from the existing CC0 Kenney metal impact, with throttled sparks and VR haptics on world contact or a successful blade parry.
+
+## Announcer
+
+WARLORD by VoiceBosch supplies match introductions, personal match victory, game over, CTF/TF capture confirmation ("Objective completed"), first blood, double/triple kills within three seconds, and streaks of 5/10/15 enemy kills without dying. First blood is global; combo/streak calls are personal. Suicides and team kills do not earn awards. The existing capture fanfare remains alongside the visual notice.
+
+Dedicated servers control calls with `set sv_announcer "1"` (default) or `"0"` in `server.cfg`; policy is sent after each player finishes joining, including map rotations. Client-hosted games enable calls. Settings → Audio → Announcer controls a persistent local volume (default 80%, 0 mutes), independently of effects, music and voice. Calls use a non-positional stereo bus directly to Master, so world occlusion and Steam Audio distance attenuation cannot suppress them. Playback is sequential, with at most four queued calls, six-second expiry and capture/result priority. No announcer audio is loaded or played on headless servers.
+
+The selected Ogg recordings total about 416 KiB. Credits and CC BY-SA 4.0 terms are in [the source notice](deathmatch/audio/announcer/SOURCES.md). Announcer and chainsaw-contact RPCs use protocol `fpsloppa-22-saw-contacts`; clients and servers must use matching builds.
+
+## Body calibration confirmation
+
+Successful manual or automatic T-pose body calibration plays a local 480 ms
+three-note bell cue through `ArenaEffects`, with a short haptic pulse. Holding a
+T-pose cannot repeatedly trigger playback. `calibration_complete.wav` and its
+standard-library generator `tools/generate_calibration_sound.py` are original
+project assets under CC0 1.0. The cue is peak-normalized to −9 dBFS and played at
+−10 dB before the user's effects/master volume controls; it is not spatialized
+or sent over the network.

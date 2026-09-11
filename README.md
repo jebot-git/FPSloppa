@@ -1,8 +1,8 @@
-# FPSloppa 0.7v
+# FPSloppa 0.8v
 
-[0.7v build notes](docs/RELEASE-0.7v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.8v build notes](docs/RELEASE-0.8v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.7v:** TwoVoIP/Opus voice, Quake-style movement, persistent VR dropdowns with trigger dragging, wall-mounted lobby voting, compact menus, a tracking mirror, capture feedback and repaired WiVRn blinking.
+**New in 0.8v:** Metal music for every game mode, an optional server-controlled announcer, improved water and arm-stroke swimming, automatic T-pose calibration, clear frozen-player visuals, BFG splash and chainsaw parries, smoother VR movement, faster texture-filter switching and threaded asset transfers.
 
 **Archived extras:** the original forty-map Arena Collection 1 and the ThreeWave, TeamFortress and Arcane Dimensions conversion tools are available only from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They will not be revised or developed further, or bundled with subsequent releases. These static assets/tools do not need repeated releases unless the map loader or format changes. See [the archive policy](docs/ARCHIVED-EXTRAS.md).
 
@@ -12,7 +12,7 @@ See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.7v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.8v clients and servers; the protocol changed from earlier releases.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Standalone users should open **ASSETS…** and download the base assets, or extract the Base-Assets ZIP into the app’s external files directory. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Freeze Tag and Chainsaw Circus are available.
 

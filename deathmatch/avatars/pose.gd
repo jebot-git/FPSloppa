@@ -66,8 +66,11 @@ func _process_modification_with_delta(_delta: float) -> void:
 			floor_heights[side]=rig.to_local(hit.position).y+neutral.y if not hit.is_empty() else neutral.y
 		if floor_heights.has(side): foot.y=maxf(foot.y,floor_heights[side])
 		var foot_world: Vector3=rig.to_global(foot)
-		var knee_world: Vector3=rig.to_global(Vector3(sign_x*.16,.7,-.65))
+		var hip_world:Vector3=sk.to_global(sk.get_bone_global_pose(bone(sk,side+"UpperLeg")).origin)
+		var knee_world: Vector3=hip_world+rig.get_parent().global_basis*Vector3(sign_x*.08,0,-.65)
 		if body.has(side.to_lower()+"_foot"): foot_world=(rig.get_parent().global_transform*body[side.to_lower()+"_foot"]).origin
+		if body.has("hips") and not body.has(side.to_lower()+"_knee"):
+			knee_world=leg_pole(body,side.to_lower(),hip_world,rig.get_parent().global_transform)
 		if body.has(side.to_lower()+"_knee"): knee_world=(rig.get_parent().global_transform*body[side.to_lower()+"_knee"]).origin
 		solve(sk,side+"UpperLeg",side+"LowerLeg",side+"Foot",foot_world,knee_world)
 		var foot_parent := sk.get_bone_parent(foot_idx)
@@ -167,3 +170,16 @@ func reference_basis(sk: Skeleton3D,index: int) -> Basis:
 static func controller_hand_basis(left_hand: bool) -> Basis:
 	var sign_side:=1.0 if left_hand else -1.0
 	return Basis(Vector3.BACK*sign_side,Vector3.DOWN,Vector3.RIGHT*sign_side)
+
+static func leg_pole(body: Dictionary,side: String,hip: Vector3,frame: Transform3D) -> Vector3:
+	var pelvis:Basis=frame.basis*body.hips.basis
+	var forward:Vector3=-pelvis.z;forward.y=0
+	if forward.length()<.1:forward=-frame.basis.z;forward.y=0
+	forward=forward.normalized()
+	var foot=body.get(side+"_foot")
+	if foot is Transform3D:
+		var toe:Vector3=-(frame.basis*foot.basis).z;toe.y=0
+		if toe.length()>.1:
+			var angle:=forward.signed_angle_to(toe.normalized(),Vector3.UP)
+			forward=forward.rotated(Vector3.UP,clampf(angle,-PI/6,PI/6)*.5)
+	return hip+forward*.65+forward.cross(Vector3.UP)*(-.06 if side=="left" else .06)

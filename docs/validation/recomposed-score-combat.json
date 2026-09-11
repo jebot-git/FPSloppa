@@ -1,0 +1,151 @@
+{
+  "feature": "Industrial mode soundtrack, lobby harmony, BFG splash and chainsaw contacts",
+  "engine": "Godot 4.7.2",
+  "protocol": "fpsloppa-22-saw-contacts",
+  "music": {
+    "tracks": 10,
+    "runtime_bytes": 8847522,
+    "editable_channels": 8,
+    "module_reproduction": "All ten source modules reproduce byte for byte",
+    "selection": "Title, lobby or active game mode; threaded loads and 2.5 second crossfades",
+    "revisions": [
+      "Replaced non-lobby flute/piano leads with distorted guitar, low drones, metallic resonance and heavy drums",
+      "Preserved slow ambient title; kept elevator lobby character and corrected chord sevenths, voicings and chord-following flute melody",
+      "Added 8 ms loop-edge fades after decoded-PCM audit found discontinuities"
+    ],
+    "audio_measurements": [
+      {
+        "mode": "title",
+        "seconds": 112.9411875,
+        "lufs": -22.03,
+        "true_peak_dbtp": -5.05,
+        "loop_step": 0.002201,
+        "bytes": 729805,
+        "passed": true
+      },
+      {
+        "mode": "lobby",
+        "seconds": 102.85715625,
+        "lufs": -21.02,
+        "true_peak_dbtp": -6.29,
+        "loop_step": 0.001914,
+        "bytes": 990176,
+        "passed": true
+      },
+      {
+        "mode": "dm",
+        "seconds": 111.30434375,
+        "lufs": -19.09,
+        "true_peak_dbtp": -3.31,
+        "loop_step": 0.000512,
+        "bytes": 828584,
+        "passed": true
+      },
+      {
+        "mode": "tdm",
+        "seconds": 120.0,
+        "lufs": -19.07,
+        "true_peak_dbtp": -2.84,
+        "loop_step": 0.000338,
+        "bytes": 845058,
+        "passed": true
+      },
+      {
+        "mode": "ctf",
+        "seconds": 105.2055,
+        "lufs": -19.06,
+        "true_peak_dbtp": -3.58,
+        "loop_step": 0.000165,
+        "bytes": 800501,
+        "passed": true
+      },
+      {
+        "mode": "koth",
+        "seconds": 132.4138125,
+        "lufs": -18.97,
+        "true_peak_dbtp": -2.48,
+        "loop_step": 0.001098,
+        "bytes": 1094528,
+        "passed": true
+      },
+      {
+        "mode": "ig",
+        "seconds": 92.530125,
+        "lufs": -19.07,
+        "true_peak_dbtp": -4.1,
+        "loop_step": 0.001882,
+        "bytes": 732829,
+        "passed": true
+      },
+      {
+        "mode": "ft",
+        "seconds": 147.6923125,
+        "lufs": -19.04,
+        "true_peak_dbtp": -2.41,
+        "loop_step": 0.000822,
+        "bytes": 1020955,
+        "passed": true
+      },
+      {
+        "mode": "cc",
+        "seconds": 101.05265625,
+        "lufs": -19.18,
+        "true_peak_dbtp": -2.8,
+        "loop_step": 0.000378,
+        "bytes": 902395,
+        "passed": true
+      },
+      {
+        "mode": "tf",
+        "seconds": 123.871,
+        "lufs": -19.17,
+        "true_peak_dbtp": -2.63,
+        "loop_step": 9.7e-05,
+        "bytes": 902691,
+        "passed": true
+      }
+    ],
+    "instrument_sources": "CC0 Karoryfer and VSCO recordings with pinned source provenance"
+  },
+  "combat": {
+    "bfg_splash_radius_m": 9,
+    "bfg_centre_damage": 200,
+    "bfg_existing_forward_rays": 40,
+    "bfg_owner_radial_immunity": true,
+    "desktop_cc_saw_range_m": 0.95,
+    "vr_cc_tip_allowance_m": 0.04,
+    "parry_recovery_seconds": 0.3,
+    "contact_feedback_seconds": 0.18,
+    "spark_bursts_cap": 12,
+    "sparks_per_burst": 10
+  },
+  "checks": {
+    "music_runtime": 39,
+    "combat": 25,
+    "presentation": 23,
+    "vr_ui": 57,
+    "network": 72
+  },
+  "passed": true,
+  "validation": [
+    "Real physics fixture: wall blocking, VR hand through wall, visible blade reach, parries and recovery, BFG detonation outside the forward spray, splash limits, team policy, rocket self damage",
+    "Real ENet server, shooter, target and spectator regression",
+    "Real PulseAudio mixer on muted test bus: all mode transitions, loop playback and cleanup",
+    "All ten Vorbis tracks decoded, loudness / true peaks / boundaries / duration / hashes verified",
+    "All four prepared VSCO source checksums verified",
+    "Godot import, Python syntax and git diff --check"
+  ],
+  "limits": [
+    "Revised 68.5 second preview played successfully through wivrn.sink; final subjective approval has not been received.",
+    "New chainsaw parry feel and sparks have not been confirmed by a wearer in a live match.",
+    "Existing baseline one ObjectDB instance shutdown warning remains.",
+    "No release build, commit or push performed in this task."
+  ],
+  "logs": [
+    "test-results/recomposed-music-tests.log",
+    "test-results/soundtrack-analysis.json",
+    "test-results/score-combat-final-tests.log",
+    "test-results/score-combat-network.log",
+    "test-results/dark-score-import.log"
+  ]
+}

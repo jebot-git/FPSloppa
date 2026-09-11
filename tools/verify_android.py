@@ -33,6 +33,8 @@ for target in ['Quest', 'Pico']:
         assert marker in manifest, (target, marker)
     assert 'debuggable(0x0101000f)=true' not in manifest
     assert 'versionName(0x0101021c)="' + version + '"' in manifest
+    expected_code=re.search(r'version/code=(\d+)',(root/'export_presets.cfg').read_text()).group(1)
+    assert 'versionCode(0x0101021b)='+expected_code in manifest
     with zipfile.ZipFile(apk) as z:
         assert {n.split('/')[1] for n in z.namelist() if n.startswith('lib/')} == {'arm64-v8a'}
         for name in ['libgodot_android.so', 'libopenxr_loader.so', 'libgodotopenxrvendors.so']:
@@ -57,12 +59,16 @@ for target in ['Quest', 'Pico']:
             assert not any(n.startswith('assets/maps/') or n.startswith('assets/vrm/') for n in z.namelist())
         assert 'assets/deathmatch/avatars/eyes.gd' in z.namelist()
         assert protocol.encode() in z.read('assets/deathmatch/arena.gd')
-        for script in ['movement/quake.gd', 'voice/microphone.gd', 'voice/visemes.gd', 'modes/lobby_mirror.gd', 'modes/lobby_wall.gd', 'modes/match_selector.gd', 'ui/choice.gd', 'network/loading.gd', 'network/loading_overlay.gd', 'projectile_targets.gd', 'maps/network.gd', 'interface.gd', 'arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
+        for script in ['chainsaw.gd', 'vr/swim_strokes.gd', 'vr/t_pose.gd', 'audio/announcer.gd', 'network/disk_worker.gd', 'network/asset_jobs.gd', 'maps/contents.gd', 'maps/filtering.gd', 'ui/drag_scroll.gd', 'voice/preferences.gd', 'movement/quake.gd', 'voice/microphone.gd', 'voice/visemes.gd', 'modes/lobby_mirror.gd', 'modes/lobby_wall.gd', 'modes/match_selector.gd', 'ui/choice.gd', 'network/loading.gd', 'network/loading_overlay.gd', 'projectile_targets.gd', 'maps/network.gd', 'interface.gd', 'arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
             path = 'deathmatch/' + script
             assert z.read('assets/' + path) == (root / path).read_bytes(), ('Outdated APK script', target, path)
         audio_files=list((root/'deathmatch/audio/music').glob('*.ogg'))
-        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
+        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['calibration_complete','saw_grind','flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
         audio_files += list((root/'deathmatch/audio/recorded').glob('pain_*.wav'))
+        audio_files += list((root/'deathmatch/audio/announcer').glob('*.ogg'))
+        for notice in ['LICENSE.txt','SOURCES.md']:
+            assert z.read('assets/deathmatch/audio/announcer/'+notice)==(root/'deathmatch/audio/announcer'/notice).read_bytes()
+        assert not any(n.startswith('assets/docs/audio/') for n in z.namelist()), 'Audition archives must not inflate APKs'
         for source in audio_files:
             remap=re.search(r'^path="res://([^"]+)"',Path(str(source)+'.import').read_text(),re.M).group(1)
             assert z.read('assets/'+remap)==(root/remap).read_bytes(), ('Outdated APK audio',target,source.name)

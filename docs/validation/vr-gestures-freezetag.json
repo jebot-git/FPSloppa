@@ -1,0 +1,49 @@
+{
+  "feature": "Freeze-tag visibility, empty dedicated-server timer, VR arm swimming and automatic T-pose calibration",
+  "date": "2026-09-11",
+  "engine": "Godot 4.7.2",
+  "passed": true,
+  "checks": {
+    "gestures_and_timing": 27,
+    "freeze_tag": 22,
+    "water": 23,
+    "tracking_orientation": 28,
+    "local_body": 35,
+    "quake_movement": 22,
+    "automatic_calibration": 8,
+    "multiplayer": 72
+  },
+  "total_checks": 237,
+  "behavior": {
+    "frozen": "Opaque icy material, ground ring and frozen/thaw percentage label; exact original material restoration",
+    "dedicated_timer": "Paused until at least one fully joined client, including spectators; pauses again when empty; downloads and connection maintenance continue",
+    "swimming": "Tracking-space backward/downward pulls; 3.5 cm onset, one or both arms, bounded input; frame-rate-independent response, no land thrust; jump swim remains available",
+    "calibration": "Stable standing T-pose for 1.4 seconds, hips plus both feet/lower legs required; lower arms 0.7 seconds to rearm, five-second cooldown; native/Vive-role/OSC sources; local 480 ms bell and haptics"
+  },
+  "validation": [
+    "Detector trajectories at 72 and 144 Hz, tracking jumps, focus/water reset, standing/forward-arm rejection and rearming",
+    "Actual CharacterBody3D water motion, dry-land rejection and jump-priority checks",
+    "Authoritative command validation, non-finite and non-VR rejection, input timeout",
+    "Dedicated empty/download/ready-spectator/last-client-left timing; client-hosted timing unchanged",
+    "Frozen shader rendered and visually inspected on all three bundled VRM models; initial overlay issue fixed using material replacement",
+    "Full simulated VR rig with native body tracker automatically invokes calibration and real PulseAudio jingle playback on a muted bus; OSC elbow calibration and source availability checked",
+    "Real local ENet server, shooter, target and spectator regression",
+    "Godot import, Python syntax and git diff --check"
+  ],
+  "limits": [
+    "Arm stroke comfort and automatic calibration pose tolerances still need wearer verification on the active WiVRn hardware.",
+    "Existing baseline single ObjectDB instance shutdown warning and XR Tools UID fallback warnings remain.",
+    "No release build, commit or push requested or performed."
+  ],
+  "logs": {
+    "gestures_and_timing": "test-results/post07-vr_gestures.log",
+    "freeze_tag": "test-results/post07-special_modes.log",
+    "water": "test-results/post07-water.log",
+    "tracking_orientation": "test-results/post07-tracking_orientation.log",
+    "local_body": "test-results/post07-local_body.log",
+    "quake_movement": "test-results/post07-quake_movement.log",
+    "automatic_calibration": "test-results/auto-calibration.log",
+    "multiplayer": "test-results/vr-gestures-network.log"
+  },
+  "visual_preview": "test-results/frozen-avatars.png"
+}

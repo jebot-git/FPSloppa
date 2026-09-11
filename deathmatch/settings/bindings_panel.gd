@@ -5,17 +5,20 @@ var notice: Label
 var buttons: Dictionary={}
 func setup(arena: Node) -> void:
 	game=arena;theme=preload("res://deathmatch/ui/iron_theme.gd").theme();hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var scroll:=ScrollContainer.new();add_child(scroll)
+	var layout:=VBoxContainer.new();add_child(layout)
+	var close:=Button.new();close.text="BACK";close.custom_minimum_size.y=48;layout.add_child(close);close.pressed.connect(func():capture="";hide())
+	var scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();scroll.name="BindingsScroll";scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;layout.add_child(scroll)
 	var column:=VBoxContainer.new();column.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(column)
 	var title:=Label.new();title.text="CONTROL BINDINGS";column.add_child(title)
-	var close:=Button.new();close.text="BACK";close.custom_minimum_size.y=52;column.add_child(close);close.pressed.connect(func():capture="";hide())
 	for option in ["two_handed","physical_jump"]:
 		var check:=CheckButton.new();check.text="Support-hand aim (hold grip near fore-end)" if option=="two_handed" else "Physical playspace jump (standing only)";check.button_pressed=game.bindings.get(option);check.custom_minimum_size.y=48;column.add_child(check)
 		check.toggled.connect(func(value):game.bindings.set(option,value);save())
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Select a desktop action, then press a key or mouse button. Escape cancels. VR roles follow your hand settings. Shared bindings trigger both actions.";column.add_child(notice)
 	for action in game.bindings.KEYS:
 		var button:=Button.new();button.custom_minimum_size.y=48;column.add_child(button);buttons[action]=button
-		button.pressed.connect(func():capture=action;notice.text="Press a key / mouse button for "+action+"; Escape cancels.")
+		button.pressed.connect(func():
+			if game.is_vr():notice.text="Desktop bindings require a keyboard or mouse. VR bindings are below.";return
+			capture=action;notice.text="Press a key / mouse button for "+action+"; Escape cancels.")
 	for action in ["move","turn"]:
 		var label:=Label.new();label.text="VR "+action+" stick";column.add_child(label)
 		var axis:=preload("res://deathmatch/ui/choice.gd").new();column.add_child(axis)

@@ -68,6 +68,14 @@ func server_run() -> void:
 	await pause(.2)
 	for id in [shooter,target]:
 		game.fighters[id].velocity=Vector3.ZERO;game.fighters[id].blast_velocity=Vector2.ZERO
+	game.fighters[shooter].position=Fixture.point(0,6)
+	game.players[shooter].serial+=1
+	await pause(.3)
+	game._announcement.rpc("TEST_JUMP_PULSE")
+	check(await wait_for(func():return game.fighters[shooter].position.y>Fixture.ORIGIN.y+.5,2),"One-physics-frame jump survives the gap between client network sends")
+	game._announcement.rpc("TEST_TRACKING_END")
+	await pause(.2)
+	game.fighters[shooter].velocity=Vector3.ZERO
 	game.fighters[shooter].position=Fixture.point()
 	game.fighters[target].position=Fixture.point(0,-1)
 	for id in [shooter,target]:
@@ -195,6 +203,7 @@ func client_run() -> void:
 	var saw_eyes:=false
 	var kick_started:=-1
 	var saw_kick:=false
+	var pulse_sent:=false
 	var movement_started:=-1
 	var saw_movement:=false
 	var prediction_samples:=0
@@ -233,6 +242,12 @@ func client_run() -> void:
 				for keycode in [KEY_W,KEY_SPACE]:
 					var key:=InputEventKey.new();key.physical_keycode=keycode;key.pressed=false;Input.parse_input_event(key)
 				movement_started=-1
+			if game.last_event=="TEST_JUMP_PULSE" and is_shooter and not pulse_sent:
+				pulse_sent=true;game.set_physics_process(false);game.input_accumulator=0;game.menu_open=false
+				var key:=InputEventKey.new();key.physical_keycode=KEY_SPACE;key.pressed=true;Input.parse_input_event(key);Input.flush_buffered_events()
+				game._physics_process(1.0/60)
+				key=InputEventKey.new();key.physical_keycode=KEY_SPACE;key.pressed=false;Input.parse_input_event(key);Input.flush_buffered_events()
+				game._physics_process(1.0/60);game.set_physics_process(true)
 			if game.last_event=="TEST_MELEE":
 				for state in game.players.values():
 					if state.name=="Target" and state.hp==90:saw_melee=true

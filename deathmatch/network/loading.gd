@@ -1,6 +1,8 @@
 extends Node
 ## Server-authorized join barrier plus byte-based download telemetry.
 const Library=preload("res://deathmatch/avatars/library.gd")
+var validating:=false
+var validation_serial:=0
 var game
 var blocking:=false
 var phase:=""
@@ -16,6 +18,7 @@ var pending: Dictionary={}
 var serial:=0
 func setup(arena: Node) -> void: game=arena
 func reset() -> void:
+	validation_serial+=1;validating=false
 	blocking=false;phase="";items.clear();required.clear();prepared.clear();pending.clear()
 	started=0;changed_at=0;ticket=-1;sent_ready=false;heartbeat=0
 func begin() -> void:
@@ -77,13 +80,21 @@ func _manifest(epoch: int,value: int,data: Dictionary) -> void:
 		needed[row.hash]=row.size
 	game.connect_deadline=game.clock+240
 	ticket=value;sent_ready=false;required=needed;phase="Downloading player models…"
-	# Revalidate cached bytes before declaring a model ready for this connection.
+	# Revalidate cached bytes off-thread before admitting this connection.
+	validation_serial+=1
+	var serial_id:=validation_serial
+	var entries: Array=[]
 	for hash in required:
 		if game.avatars.library.entries.has(hash):
-			var entry:Dictionary=game.avatars.library.entries[hash]
-			if entry.size!=required[hash] or FileAccess.get_sha256(entry.path)!=hash:
-				game.avatars.library.entries.erase(hash);game.avatars.library.scenes.erase(hash);prepared.erase(hash)
-	game.avatars._catalog(data)
+			entries.append({"hash":hash,"path":game.avatars.library.entries[hash].path,"size":required[hash]})
+	validating=true
+	if not game.avatars.disk.submit(preload("res://deathmatch/network/asset_jobs.gd").verify_models.bind(entries),func(invalid):
+		if serial_id!=validation_serial or not blocking:return
+		validating=false
+		for hash in invalid:
+			game.avatars.library.entries.erase(hash);game.avatars.library.scenes.erase(hash);prepared.erase(hash)
+		game.avatars._catalog(data)):
+		validating=false;game.disconnect_game("Model verification queue is full.")
 @rpc("any_peer","call_remote","reliable",4)
 func _ready_assets(epoch: int,value: int) -> void:
 	if not multiplayer.is_server():return
@@ -106,7 +117,7 @@ func _process(delta: float) -> void:
 	if heartbeat>=2:
 		game.connect_deadline=game.clock+120
 		heartbeat=0;_keepalive.rpc_id(1,game.map_epoch,ticket)
-	if sent_ready or game.map_loading:return
+	if sent_ready or game.map_loading or validating:return
 	for hash in required:
 		if not game.avatars.library.entries.has(hash):return
 	phase="Preparing player models…"

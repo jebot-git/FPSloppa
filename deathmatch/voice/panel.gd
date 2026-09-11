@@ -39,7 +39,7 @@ func setup(service: Node) -> void:
 		var mode:=Button.new()
 		mode.text=label;mode.toggle_mode=true;mode.button_group=group
 		mode.custom_minimum_size.y=48;mode.size_flags_horizontal=Control.SIZE_EXPAND_FILL
-		mode.pressed.connect(voice.set_mode.bind(modes.size()))
+		mode.pressed.connect(voice.set_mode.bind(modes.size(),true))
 		mode_row.add_child(mode);modes.append(mode)
 	var devices:=Button.new()
 	devices.custom_minimum_size.y=44
@@ -47,7 +47,7 @@ func setup(service: Node) -> void:
 	devices.pressed.connect(func():
 		var available:=AudioServer.get_input_device_list()
 		if available.is_empty(): return
-		AudioServer.input_device=available[(available.find(AudioServer.input_device)+1)%available.size()]
+		voice.select_input_device(available[(available.find(AudioServer.input_device)+1)%available.size()])
 		devices.text="Microphone: "+(AudioServer.input_device if not AudioServer.input_device.is_empty() else "System default")+" (select to cycle)"
 		voice.set_mode(voice.mode))
 	column.add_child(devices)
@@ -55,6 +55,7 @@ func setup(service: Node) -> void:
 	mute.text="Mute all incoming voice";mute.custom_minimum_size.y=44
 	mute.toggled.connect(func(value):
 		voice.muted_all=value
+		voice.save_preferences()
 		if value:
 			for id in voice.streams.keys(): voice.remove_stream(id))
 	column.add_child(mute)

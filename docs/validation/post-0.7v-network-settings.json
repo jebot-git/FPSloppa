@@ -1,0 +1,118 @@
+{
+  "date": "2026-09-10",
+  "base_release": "0.7v",
+  "status": "Source changes validated; not packaged or published",
+  "changes": [
+    "Physics delta verified independently of rendering FPS; network send timers preserve fractional elapsed time",
+    "Voice mode, input preference, mute-all and VOX threshold persist in client config; volume remains in presentation config",
+    "Bounded worker queues handle map/model transfer I/O, verification, cache writes and server upload metadata; callbacks remain on main thread",
+    "Asynchronous hostname resolution and base archive verification/extraction",
+    "Anisotropic texture filtering by default, with persisted trilinear and pixelated options"
+  ],
+  "tests": [
+    {
+      "test": "threaded_io",
+      "passed": true,
+      "checks": 8
+    },
+    {
+      "test": "client_preferences",
+      "passed": true,
+      "checks": 9
+    },
+    {
+      "test": "movement_timing",
+      "passed": true,
+      "checks": 8
+    },
+    {
+      "test": "presentation",
+      "passed": true,
+      "checks": 21
+    },
+    {
+      "test": "post07",
+      "passed": true,
+      "checks": 17
+    },
+    {
+      "test": "vr_ui",
+      "passed": true,
+      "checks": 49
+    },
+    {
+      "test": "network_workers",
+      "passed": true,
+      "checks": 5
+    },
+    {
+      "test": "map_download",
+      "passed": true,
+      "checks": 17
+    },
+    {
+      "test": "avatar_transfer",
+      "passed": true,
+      "checks": 17
+    },
+    {
+      "test": "map_upload",
+      "passed": true,
+      "checks": 15
+    },
+    {
+      "test": "join_readiness",
+      "passed": true,
+      "checks": 13
+    },
+    {
+      "test": "network",
+      "passed": true,
+      "checks": 72
+    },
+    {
+      "test": "voice",
+      "passed": true,
+      "checks": 11
+    }
+  ],
+  "checks": 262,
+  "all_passed": true,
+  "server_load": {
+    "SERVER_LOAD_RESULT": {
+      "history_entries": 22,
+      "max_projectiles": 523,
+      "players": 16,
+      "snapshot_p95_ms": 0.693,
+      "tick_max_ms": 8.414,
+      "tick_p50_ms": 3.712,
+      "tick_p95_ms": 4.485,
+      "ticks": 600,
+      "version": "0.7v"
+    },
+    "SERVER_MEMORY_FINAL": {
+      "nodes": 3,
+      "objects": 1780,
+      "orphans": 0,
+      "resources": 122,
+      "static_bytes": 44322923
+    }
+  },
+  "live_vr": {
+    "runtime": "WiVRn 26.6.2",
+    "headset": "Quest Pro",
+    "observed_fps": 72,
+    "pose_valid": true,
+    "filtering": "anisotropic",
+    "feedback": "All looks correct",
+    "known_issue": "User reports a brief freeze when switching filtering settings; non-critical."
+  },
+  "limitations": [
+    "Scene import/instantiation and GPU resource creation remain on the main thread and can cause preparation hitches",
+    "Per-player mutes are session-specific because peer IDs are transient",
+    "Short server benchmark, not a long soak or a controlled before/after comparison",
+    "Existing Godot/voice plugin ObjectDB shutdown warnings remain; disk worker teardown test passes and server final orphan-node count is zero",
+    "Windows and standalone Android execution not tested in this pass"
+  ],
+  "filtering_followup": "Optimized subsequently; see filter-switch-optimisation.json for measurements and limitations."
+}

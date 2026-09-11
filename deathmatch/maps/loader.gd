@@ -17,6 +17,7 @@ static func catalog() -> Array:
 		if not FileAccess.file_exists(row.path):continue
 		var hash:=FileAccess.get_sha256(row.path)
 		if hash!=row.sha256:row.scene=Paths.folder("maps")+"cache/"+hash+".scn";row.sha256=hash
+		row.size=preload("res://deathmatch/network/disk_worker.gd").size(row.path)
 		result.append(row);known[row.path]=true
 	for filename in DirAccess.get_files_at(Paths.folder("maps")):
 		if filename.get_extension().to_lower()!="bsp":continue
@@ -27,7 +28,7 @@ static func catalog() -> Array:
 		var error:=validate(path)
 		if not error.is_empty():push_warning(filename+": "+error);continue
 		var hash:=FileAccess.get_sha256(path)
-		result.append({"id":id,"title":map_title(path,id),"path":path,"scene":Paths.folder("maps")+"cache/"+hash+".scn","sha256":hash})
+		result.append({"id":id,"title":map_title(path,id),"path":path,"scene":Paths.folder("maps")+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(path)})
 	return result
 static func map_title(path: String,fallback: String) -> String:
 	var file:=FileAccess.open(path,FileAccess.READ)
@@ -166,7 +167,7 @@ static func import_custom(path: String,title_override: String="") -> Dictionary:
 	if ResourceSaver.save(packed,scene_path)!=OK:return {"error":"Could not cache the imported scene."}
 	var raw_path:=directory+id+".bsp"
 	if path!=raw_path and DirAccess.copy_absolute(path,raw_path)!=OK:return {"error":"Could not copy BSP to maps folder."}
-	return {"id":id,"title":title_override.left(60) if not title_override.is_empty() else path.get_file().get_basename().left(60),"path":raw_path,"scene":scene_path,"sha256":checksum}
+	return {"id":id,"title":title_override.left(60) if not title_override.is_empty() else path.get_file().get_basename().left(60),"path":raw_path,"scene":scene_path,"sha256":checksum,"size":preload("res://deathmatch/network/disk_worker.gd").size(raw_path)}
 
 static func validate_geometry(path: String) -> String:
 	var bytes:=FileAccess.get_file_as_bytes(path)
