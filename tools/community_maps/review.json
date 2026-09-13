@@ -1,0 +1,732 @@
+{
+  "date": "2026-09-12",
+  "slipseer_minimum_rating": 3,
+  "scope": "Selected review of 103 map/archive candidates, including the dedicated tf/ directory, adjacent ctf/ candidates, and Slipseer maps rated at least 3/5. Not an exhaustive review of 3,020 main-index ZIP entries. System unzip is used for ZIP inspection/extraction.",
+  "maps": [
+    {
+      "id": "ztndm3",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ztndm3.zip",
+      "archive_sha256": "d86c601ccc212ac17eede2bef30340260b0449e6b154183abcdeff515b3430a5",
+      "decision": "not bundled",
+      "reason": "Distribution requires author notification; no outbound contact authorized. Original textures not cleared."
+    },
+    {
+      "id": "aerowalk",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/aerowalk.zip",
+      "archive_sha256": "03d4440e895f7be2c33931acd5b67ddf57203d44616610878546163ff07b743a",
+      "decision": "not bundled",
+      "reason": "No explicit adaptation/redistribution grant in the included readme."
+    },
+    {
+      "id": "dm4ish",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/dm4ish.zip",
+      "archive_sha256": "01d2b000d9aa3858043722de14a63a16ef16050db1c98369bcc36725d7c036c1",
+      "decision": "not bundled",
+      "reason": "Distribution only without tampering with archive or contents; unsuitable for standalone retexturing."
+    },
+    {
+      "id": "dm6ish",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/dm6ish.zip",
+      "archive_sha256": "ddd027f3374020fb71aeebeb56fc39f8a0dd1927fd3b56bccad94a66e820837e",
+      "decision": "not bundled",
+      "reason": "Distribution only without tampering with archive or contents; unsuitable for standalone retexturing."
+    },
+    {
+      "id": "ultrav",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ultrav.zip",
+      "archive_sha256": "7a74ebe3923aca334d1debf072b328e93c741c83eb9573cfc1225a08803ce56a",
+      "decision": "not bundled",
+      "reason": "Forbids derivative levels; redistribution of unmodified BSP only."
+    },
+    {
+      "id": "blizz2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/blizz2.zip",
+      "archive_sha256": "5de08a5c8fb59df6162ce87c2d96c91b19b17cb1bc1a99a9c8ddf7302222d8e9",
+      "decision": "not bundled",
+      "reason": "Forbids derivative levels; unmodified non-commercial BSP distribution only."
+    },
+    {
+      "id": "aggressr",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/aggressr.zip",
+      "archive_sha256": "8cea2b1759aaac7b3835f43c9f8bdf8234d61fe1f432c85e85ce67456d95d93f",
+      "decision": "not bundled",
+      "reason": "Forbids derivative levels; unmodified distribution only."
+    },
+    {
+      "id": "efdm8",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/efdm8.zip",
+      "archive_sha256": "83c33c20e6da9a77a98de4bffa7f534a936cdfa17507d3164e28b6d2a5c796d4",
+      "decision": "not bundled",
+      "reason": "Forbids derivative levels; intact original archive required."
+    },
+    {
+      "id": "rapture1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/rapture1.zip",
+      "archive_sha256": "b444fd2f098a2a54850b4585ed9d5c90785228f8a412bbd4c28650a0edfd4064",
+      "decision": "not bundled",
+      "reason": "Free distribution statement found, but no clear adaptation grant for a retextured standalone edition."
+    },
+    {
+      "id": "skull",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/skull.zip",
+      "archive_sha256": "6e01dbb080729becce1b4ca8805dbb9dbb23f005136a655408a72141a3239da7",
+      "decision": "not bundled",
+      "reason": "No licence text identified during archive review; not cleared."
+    },
+    {
+      "id": "fragtwn1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/fragtwn1.zip",
+      "archive_sha256": "a67808dcadd4814412794641084b149f4515470ea3d4230e44f8068d50909398",
+      "decision": "not bundled",
+      "reason": "Forbids derivative levels and concatenations."
+    },
+    {
+      "id": "baldm1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/baldm1.zip",
+      "archive_sha256": "4b66cada6a99b99839219df306e27f180a2eef098a723b229ab3986a43b1c417",
+      "decision": "not bundled",
+      "reason": "Prior author contact required; forbids derivative levels."
+    },
+    {
+      "id": "baldm7",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/baldm7.zip",
+      "archive_sha256": "c827e2b1be8fc591804e1efb3f638591e0455d0f4392f9e6c124be8890ab30ac",
+      "decision": "not bundled",
+      "reason": "Adaptation requires author permission."
+    },
+    {
+      "id": "auhdm1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/auhdm1.zip",
+      "archive_sha256": "2cdc403e0ca35b8c5a6af1d55277b73d5a1741bc2e77d78383975fe2499fc4ce",
+      "decision": "not bundled",
+      "reason": "Adaptation grant present, but readme attributes arch geometry to Hellhole. Prefer author-original auhdm2 for this batch."
+    },
+    {
+      "id": "auhdm2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/auhdm2.zip",
+      "archive_sha256": "efb3999a6d1ca9883fa484395633aedef9c956d717a54883ab5b3506c059c25f",
+      "decision": "approved",
+      "reason": "Approved adaptation; all original textures replaced and readme preserved."
+    },
+    {
+      "id": "the-complex",
+      "source": "https://www.slipseer.com/resources/the-complex.498/",
+      "rating": 4.0,
+      "archive_sha256": "6926169c93bff7b030b91821b7a403e06909733ead49fb132f072db68148a03c",
+      "decision": "not bundled",
+      "reason": "No redistribution/adaptation grant in downloaded readme."
+    },
+    {
+      "id": "the-block",
+      "source": "https://www.slipseer.com/resources/the-block.493/",
+      "rating": 5.0,
+      "archive_sha256": "9d323db18c98555b8a14723e364b0e1c412566f5c12a8c0e77049cfa782eaf9f",
+      "decision": "not bundled",
+      "reason": "No redistribution/adaptation grant; mixed third-party texture origins."
+    },
+    {
+      "id": "experimental-rc",
+      "source": "https://www.slipseer.com/resources/experimental-rc.269/",
+      "rating": 4.5,
+      "archive_sha256": "1f25e7a4b92ea1e823674a9a4d69e1bbfbc6008875bc50b68f35eaad8923062e",
+      "decision": "not bundled",
+      "reason": "No readme/licence in downloaded archive."
+    },
+    {
+      "id": "dm-lasercade",
+      "source": "https://www.slipseer.com/resources/dm-lasercade.415/",
+      "rating": 4.67,
+      "archive_sha256": "45307af30d09fcac67b7111b962f4a9e18d6fc41f3b5222c1d29f6c0eba821cc",
+      "decision": "approved",
+      "reason": "Explicit adaptation and distribution grants; original images replaced and readme preserved."
+    },
+    {
+      "id": "3floors",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/3floors.zip",
+      "archive_sha256": "f03a6fdc3671c1eabac2bb042f8acd7f158c8c3433864415c4df1b2a17c74d64",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "4archs",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/4archs.zip",
+      "archive_sha256": "aef2bb3d3e55d307701ae3029f25bc92ae5e51f779e36034a08caded1879a510",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "4rooms",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/4rooms.zip",
+      "archive_sha256": "4342c22c6c942fc84970e8abbab7bc33bb4a9d87b6f7be48e4b0d4fb87c7754c",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "5rooms",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/5rooms.zip",
+      "archive_sha256": "9c205b9cc4e2894fec1558866e9422dac65aa9d69517dcc1995848ef06c27dda",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "8ways",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/8ways.zip",
+      "archive_sha256": "0d6788c17977572c62efd2ca9b00665ed3885a25879d9ef34e5e5372fd598ff3",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "ac1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ac1.zip",
+      "archive_sha256": "a8062bb07097cebbed9d0385990ffe39fff172aa04d1fca9053a9387d0869887",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "ac2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ac2.zip",
+      "archive_sha256": "c5f5ccc4587ba04a9c7dde8063f1a186c8e5098a6038dfae68e920257873347e",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "acid",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/acid.zip",
+      "archive_sha256": "4ba312d5f4505fe58aefd8f10b9479b3ec53a6d841f0f867e39a9482f3502f13",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "acid2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/acid2.zip",
+      "archive_sha256": "d9604d8c2210de1ef33d975b782feed0031761a877d300acdb44dc6d555de4e4",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "alcyone",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/alcyone.zip",
+      "archive_sha256": "7862a695c0c568c85828859a62c6aa5ac57ea749d070be6bfe90510836b4abec",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "anarchy",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/anarchy.zip",
+      "archive_sha256": "e532d46710b1db0e473b95e6023c6b543750fe40c2ee56dd00aa534fc86dab78",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "anchall",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/anchall.zip",
+      "archive_sha256": "942bc11c44dd9667801945adbaad4ea54f60fc7a828c72525f12b2d8e5ebd1cc",
+      "decision": "approved",
+      "reason": "Explicit adaptation and free Internet distribution grants; original readme retained, all original images replaced."
+    },
+    {
+      "id": "anctomb",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/anctomb.zip",
+      "archive_sha256": "78e14c9d2313dac6e887c178cd86a2e49eea4ca6f8910470244d8cef95f3a41b",
+      "decision": "approved",
+      "reason": "Explicit adaptation and free Internet distribution grants; original readme retained, all original images replaced."
+    },
+    {
+      "id": "androm9",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/androm9.zip",
+      "archive_sha256": "db01c651d4586ea99129334eee380196f77578594fb70b03e8547d8a6fc7c23e",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "arch1196",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/arch1196.zip",
+      "archive_sha256": "c50c3e5b79b56dc6541b60ccbd80213df72f1d6afb7ced56cd6fcf51d1e3615b",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "archaic1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/archaic1.zip",
+      "archive_sha256": "f4ba487c70c29dfaa39730b3493f9facd3c6576abbae864d153051f47ab6b020",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "archaic2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/archaic2.zip",
+      "archive_sha256": "b88a2e861b5964f48f2092c2123dc6674d88c98a31c828134d67d045f2f6b7cd",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "arena01",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/arena01.zip",
+      "archive_sha256": "e6230e4a0c9cd006bfc313d43008a0be38f719ef09319d347e3680d6284daadf",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "arena02",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/arena02.zip",
+      "archive_sha256": "6224a10557f8af294f071f1f836eb08a5452a65febd3c333ed7559649e9514f2",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "argonaut",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/argonaut.zip",
+      "archive_sha256": "03cf7afe516f83977cef9974dc9e4dc8273241e0bb9c5bd3e2d586282810f8ee",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "argument",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/argument.zip",
+      "archive_sha256": "c4ce4a54479d10b3b0721789c08ced36f7bf8945da82ff55d9c321937bb21ccf",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "armory",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/armory.zip",
+      "archive_sha256": "77f30eeb018d30f0a9cc05ff806ec8538732e17d469e639f9aa3f173c155f208",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "armory2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/armory2.zip",
+      "archive_sha256": "6bfd7348a052d32aa2dfeacf3444f7e20ccec64540bde7c5e1a2ec688857e506",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "asylum",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/asylum.zip",
+      "archive_sha256": "76608c206c93f6477d355fe1db1c52502cedb2612623b9c6cfadcef128939407",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "atlantis",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/atlantis.zip",
+      "archive_sha256": "413e8e25eb0e8d8bb1cf694ab8c4302780adfb56847f8fcc54bffebb083755be",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "atrena1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/atrena1.zip",
+      "archive_sha256": "4f643a9248f0bb9e8590cfb5e377578a038ffeaf593889bba611a85bd7e660dc",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "azhalls",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/azhalls.zip",
+      "archive_sha256": "158d1b39ab67b18cd910481078e7df92e302e697e9a840c706487daa180e3e80",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "baraddur",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/baraddur.zip",
+      "archive_sha256": "a30592b178b9e527f0cd6a1d608b23104b40a65618bc301191f7433d6de57fca",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "base24",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/base24.zip",
+      "archive_sha256": "60b94d44b329a58938ce4a31328e763f29ad354f4502a5da0eaa88cb430768ac",
+      "decision": "not bundled",
+      "reason": "Explicitly forbids use in total/partial conversions."
+    },
+    {
+      "id": "base42",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/base42.zip",
+      "archive_sha256": "556433a6e596d7bb43cca4d9d2b53bbe36b65c626512e9e6a794b417e810d95b",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "battlef",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/battlef.zip",
+      "archive_sha256": "98ef4b234b44afb187f7e51f725c0ddc009eb8b393fc8fe94bd303f1614c68ed",
+      "decision": "approved",
+      "reason": "Explicit adaptation and free Internet distribution grants; original readme retained, all original images replaced."
+    },
+    {
+      "id": "bbath",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bbath.zip",
+      "archive_sha256": "a218f3270eb0932aad9a275877bc79094366bf8876239dfa70956ab34397199b",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "bcdm1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bcdm1.zip",
+      "archive_sha256": "4a9d1daf80225f3c674ff8e91dc3ae844f152bf7263d57647e2d5dde3a7fa443",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "bcdm2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bcdm2.zip",
+      "archive_sha256": "6291afc4ddd86d5d90dd5240a05fec7c294bd72300bd3408ffef4e42a5d3745e",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "bcdm4",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bcdm4.zip",
+      "archive_sha256": "66e909ded64785812d09be9c69a747c5abf1732bada04b72188011905e028482",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "bdeath",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bdeath.zip",
+      "archive_sha256": "5191215aaa47d2bad112e98f2b2a18758b9ec8fbaa1e8c1e56feabf15be60ae0",
+      "decision": "not bundled",
+      "reason": "Conflicting Italian/English permissions; English readme explicitly forbids derivatives."
+    },
+    {
+      "id": "below",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/below.zip",
+      "archive_sha256": "bf3a84259bd8f3d2889bac89123b41d167644dad2eb676874d307272cec5d99e",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "bfield",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bfield.zip",
+      "archive_sha256": "6eae076276257af2be37c11ba0e6424e9df1cbae365b15e57bf730a4d1e13c8a",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "bhalls",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bhalls.zip",
+      "archive_sha256": "49b0d453a271992d77af0ffd58af0a8d0ec6a1c08150f7f614eaa9693a2e270c",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "bless",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bless.zip",
+      "archive_sha256": "8b4d239596182892004a294a52033384c6c533f31235be1946d96f2a733e574d",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "bovine",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/bovine.zip",
+      "archive_sha256": "75bf821bf4a01ce279a4ab167f8c54cb5dbd90277f54de4bf62dc4d4ba95443d",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "castle",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/castle.zip",
+      "archive_sha256": "7e9b38cf9df4edf823dcb8a42fb6a116c4351db3b0e7246ab4f0984bee6f19ed",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "castle2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/castle2.zip",
+      "archive_sha256": "0079002b1ae40395e4911dd85361ebb755588601fd126d6226237694fdbee33a",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "castles",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/castles.zip",
+      "archive_sha256": "aeb3263029e55b8b47671cd4674560e810b8859a4ba778d89bacc9dd7e875d2d",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "cmt1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/cmt1.zip",
+      "archive_sha256": "c5a0499500b3f29da1b2dd528fbdd4afba6937bf4b01b317fef0059765bb5ac6",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "cmt5",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/cmt5.zip",
+      "archive_sha256": "ccf0c019b6922e4644ef2cbe1be9bf7bca8e6d61b134334417613464006e6bfa",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "dazdm11",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/dazdm11.zip",
+      "archive_sha256": "00397c0cede0e929cfb2b43b5e72128a289ed137ce822538fa996f0167ba2ccd",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "dazdm12",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/dazdm12.zip",
+      "archive_sha256": "3a3a61b81f0a011643b2ab333e346e8ff0eba4bc73f32eede067ee22e683a94e",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "efdm1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/efdm1.zip",
+      "archive_sha256": "949afcdbc0c8739e6311320e841246ff2cac4cdbf85e2efdfee254355c481183",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "efdm2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/efdm2.zip",
+      "archive_sha256": "33df649a307fe88f0528fce5cb6ba30a7c07c3737308335c4ef42e99088886ea",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "factory",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/factory.zip",
+      "archive_sha256": "dbbccb9267f2aa3990969cf3fb3f04da1b74427ea9df017b37ff3a5055c7b6ff",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "ferrum",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ferrum.zip",
+      "archive_sha256": "d30b9814928cf2c335c2ec12c7149876aeb1eec99cef8c54c3ab9cf43d82798f",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "misdm4",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/misdm4.zip",
+      "archive_sha256": "32b010f17bada91223e1ed00f590c84d9d35df1a1cce540c468b3b194a77b51a",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "misdm5",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/misdm5.zip",
+      "archive_sha256": "647673572c0d96e9c2300fdab017e32ad90f749069e35318c8ee9a822acc4b88",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "pdm1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/pdm1.zip",
+      "archive_sha256": "f7c2538b010bdb52d28956ba8febd72ba77697fffc9d21437a51ceebe550e690",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "pdm2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/pdm2.zip",
+      "archive_sha256": "1845021af3dc1d60c0b1cdbd00867c0d47daae1ca9d416ee7688bca64f8b885a",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "pdm3",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/pdm3.zip",
+      "archive_sha256": "d88186763ec77c55e7b47036e461d839ac9244b17e3a3e3522ac220b1018aff7",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "spine",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/spine.zip",
+      "archive_sha256": "a791a126e0c526cd22fcade61c492785e64248fe961adbe57a79d48a77d50638",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "trdm1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/trdm1.zip",
+      "archive_sha256": "143d3ab4ffab0047a8acd501d40e6f10e91d6ca8668dc985f2eca9f837c9dd3e",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "trdm2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/trdm2.zip",
+      "archive_sha256": "a237a7331b1a0a7aa5ebc28e639f66984dbd4bd5dd357a748bd4dc1e506b5758",
+      "decision": "not bundled",
+      "reason": "Readme prohibits derivative levels or requires prior author permission."
+    },
+    {
+      "id": "utahdm",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/utahdm.zip",
+      "archive_sha256": "567d3a23e413a9b9fa9d4d39cba2137e259c41d8a9b4a95832231f531eabf214",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "utahdm2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/utahdm2.zip",
+      "archive_sha256": "5af707e319c297e720e663db8536092cbc5d4ed4da41fa58b4d78b74e40defa0",
+      "decision": "not bundled",
+      "reason": "No clear grant for a retextured standalone adaptation; original archive retained for review only."
+    },
+    {
+      "id": "ctf-bfield",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctf/bfield.zip",
+      "archive_sha256": "82d1d5f8a27af6f6715d8627a7666f42174c13f2e3fd9646b05c80413240e7a4",
+      "decision": "not bundled",
+      "reason": "Readme prohibits modifications."
+    },
+    {
+      "id": "ctf-forrest_ctf_maps",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctf/forrest_ctf_maps.zip",
+      "archive_sha256": "bbb5221287d4edadfe0f6894d62dbebe3158d64139bb4c114f188eb489cdbe44",
+      "decision": "not bundled",
+      "reason": "No readme or explicit redistribution/adaptation grant found."
+    },
+    {
+      "id": "ctf-munyctf2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctf/munyctf2.zip",
+      "archive_sha256": "f7afeed5325a385e37d948d97ced8db8b8ccea74bd0ffa3ef6e802a8f375cd0d",
+      "decision": "not bundled",
+      "reason": "Readme prohibits additional levels based on this map."
+    },
+    {
+      "id": "ctf-munyctf3",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctf/munyctf3.zip",
+      "archive_sha256": "cf77bd53b9d33be243428aa166708cefe6612dc65ab61feee7f8970b915ea9e6",
+      "decision": "not bundled",
+      "reason": "Readme prohibits additional levels based on this map."
+    },
+    {
+      "id": "ctf-myctf",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctf/myctf.zip",
+      "archive_sha256": "c1006e465902253af5e825e3b610fb24481a3109ae3c373803557eb986a51065",
+      "decision": "not bundled",
+      "reason": "No readme or explicit redistribution/adaptation grant found."
+    },
+    {
+      "id": "ctf-tonyctf7",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctf/tonyctf7.zip",
+      "archive_sha256": "e2eb00b655195ac06e185abbd5c256554e56bb7bd79eda05ce7a3e3fb35629b1",
+      "decision": "not bundled",
+      "reason": "Readme prohibits additional levels based on this map."
+    },
+    {
+      "id": "ctf-tonyctf8",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctf/tonyctf8.zip",
+      "archive_sha256": "39120a9df4657a519f352dd579e5dc32918d0a1cb1c6f319a936c6f26d6ec309",
+      "decision": "not bundled",
+      "reason": "Distribution restricted to intact unmodified contents."
+    },
+    {
+      "id": "ctfirewt",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ctfirewt.zip",
+      "archive_sha256": "cee9221246ee2c70ef03dc60d6abd7b12d32ff07327601d2399177f84a0ead07",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "dmmp4ctf",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/dmmp4ctf.zip",
+      "archive_sha256": "4ad99ee14d128fc0e7b18caa1d8f48d5aced34b2c5220ba53b3de30936a5f838",
+      "decision": "not bundled",
+      "reason": "Conflicting English/Czech conditions concerning modification and author contact; held out pending clarification."
+    },
+    {
+      "id": "fortres2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/fortres2.zip",
+      "archive_sha256": "bd7dbe446c34c5883ae670845a0356f3bb917c2df50b17ccfa6fa720d53af87d",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "fortress",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/fortress.zip",
+      "archive_sha256": "11877088d56e8870882df15090fa3ad79821576e3de049b9c6450125c874945c",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "fortsge",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/fortsge.zip",
+      "archive_sha256": "f127af3ef26d372d53836181543fe4928cd3da6a916a2db3827fd51f35df60a7",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "ironfort",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/ironfort.zip",
+      "archive_sha256": "49ef07ced8f356f2e2d845af4d1cee4fc32dad270d1639e039cbdbdc9a9ae77f",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "pnfort",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/pnfort.zip",
+      "archive_sha256": "452364e6b568459cad8757e1c6148149575bd151a5de4c0cf8d8f1069cfec4ae",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "qflag",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/qflag.zip",
+      "archive_sha256": "4bca5409f4586546ea61643f2e05852abac352ec668e7ff94d63d8e0eea5c0cb",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "tf-amth1",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/tf/amth1.zip",
+      "archive_sha256": "ce139e0cbd454d8200de0f3af26ca80e73b417802b52e4dd1105b6287fb9e1b4",
+      "decision": "not bundled",
+      "reason": "Original readme permits redistribution when retained. Four-team class-specific duel/sniper/CTF arenas use teams 3/4 for flag play, outside current two-team TF rules. No explicit adaptation grant; kept as intact local source."
+    },
+    {
+      "id": "tf-deathx",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/tf/deathx.zip",
+      "archive_sha256": "8ad4e6ee4c66d88ada2105cb0d139d656a5fe698af0b2ad01f744084f5235fa8",
+      "decision": "not bundled",
+      "reason": "Readme has no explicit redistribution/adaptation grant. Central neutral key, speed penalty and goal chains require rules absent from current two-flag TF."
+    },
+    {
+      "id": "tf-fastflag",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/tf/fastflag.zip",
+      "archive_sha256": "334b1ad8649a8dc7dffe71c763533673f4cdec41050ffe1ce2f20816b7f989f9",
+      "decision": "not bundled",
+      "reason": "Readme has no explicit redistribution/adaptation grant. Six keys worth 1/3/1 and timed resupply need multi-objective TF logic; not faithfully playable as two flags."
+    },
+    {
+      "id": "trukctf2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/trukctf2.zip",
+      "archive_sha256": "b9f26a08fec6a18104634e7992c274b13b8597e9491d8cc032e8261343a227ec",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "v4forts",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/v4forts.zip",
+      "archive_sha256": "8d4fd337a1d712969b066f13b2ce1e1040b64a3d77751ff1a2142cbed5f8513b",
+      "decision": "not bundled",
+      "reason": "Additional TF/CTF-name candidate retained for review; filename alone does not establish TF entities or redistribution/adaptation permission."
+    },
+    {
+      "id": "well6",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/well6.zip",
+      "archive_sha256": "860a4ad6f65b3316e1daf151c02d35dc92e8caae7511b2c692fdf7913f1185eb",
+      "decision": "not bundled",
+      "reason": "Archive contains BSP only; runtime compatibility regression tested against separately retained local source, not added to bundled assets."
+    },
+    {
+      "id": "tf-muskrat2",
+      "source": "https://www.quaddicted.com/files/maps/multiplayer/tf/muskrat2.bsp",
+      "archive_sha256": "703ae77e15782a8cce70720e8f0b6c1c93ef702e28ec0aa97a7231b042d0359e",
+      "decision": "not bundled",
+      "reason": "BSP only, no readme or explicit redistribution/adaptation grant; TF goals require further compatibility work."
+    }
+  ]
+}

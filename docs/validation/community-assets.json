@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-12",
+  "maps": [
+    {
+      "id": "as_hislop",
+      "sha256": "3f2d28110fadad9c4054f93ddc318b0a623046008fe844483dd5755201732847",
+      "bytes": 4633844,
+      "makkon_texture_records": 4
+    },
+    {
+      "id": "as_frigate",
+      "sha256": "b74978b24f4497573370c74d5216e81588cad2b15d8793758d039c0736b23ba7",
+      "bytes": 3871580,
+      "makkon_texture_records": 4
+    },
+    {
+      "id": "as_hislop_tiny",
+      "sha256": "beb6e27d7726cddd05cc26c93f5c11234b50d69cd748212cd09e1cb525a050c6",
+      "bytes": 2066916,
+      "makkon_texture_records": 0
+    },
+    {
+      "id": "as_frigate_tiny",
+      "sha256": "8e10a5ffa3252e254efad3826ad85accd80bb191a789faea7feca1439b71d884",
+      "bytes": 1579368,
+      "makkon_texture_records": 0
+    },
+    {
+      "id": "dm_lasercade_slop",
+      "sha256": "ea64a35a58c63a95e3252687388ff63f90903ca8e457aa788f16ef50a0a926e8",
+      "bytes": 7730340,
+      "makkon_texture_records": 16,
+      "geometry_collision_vis_lightmap_data_unchanged": true
+    },
+    {
+      "id": "dm_auhdm2_slop",
+      "sha256": "959cc198e584801584e069a0765ff39815965994cbf840cadb650362b7bd0e7e",
+      "bytes": 6069408,
+      "makkon_texture_records": 16,
+      "geometry_collision_vis_lightmap_data_unchanged": true
+    }
+  ],
+  "editor_wad_textures": 67,
+  "makkon_records_byte_identical": true,
+  "base_assets": {
+    "sha256": "8463734c7686218ba1e0f18a9ce80802cd745cb2240eaf188a90dc1dfe2c27af",
+    "bytes": 100117653,
+    "files": 115,
+    "zip_integrity": "passed"
+  },
+  "validation": {
+    "assault_checks": 106,
+    "network_checks": 15,
+    "community_checks": 12,
+    "serialized_lightmap_checks": 6,
+    "desktop_preview_images": 12,
+    "known_warning": "Existing Godot ObjectDB warning (1 instance) at test/preview shutdown; no script or resource errors in final checks."
+  }
+}

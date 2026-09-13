@@ -1,0 +1,24 @@
+{
+  "id": "dm_anchall_slop",
+  "archive": "quaddicted-anchall.zip",
+  "source": "https://www.quaddicted.com/files/maps/multiplayer/anchall.zip",
+  "download": "https://www.quaddicted.com/files/maps/multiplayer/anchall.zip",
+  "sha256": "942bc11c44dd9667801945adbaad4ea54f60fc7a828c72525f12b2d8e5ebd1cc",
+  "title": "Ancient\u2019s Hall",
+  "author": "Andrew \"HamsterDeath\" Le Galle",
+  "rating": null,
+  "rating_votes": null,
+  "recommended_players": [
+    4,
+    8
+  ],
+  "reviewed": "2026-09-12",
+  "permission": "Author explicitly permits derivative levels and free distribution; original readme retained verbatim. Original image assets replaced with separately licensed textures.",
+  "bsp_member": "QUAKE/ID1/Maps/anchall.bsp",
+  "readme_member": "QUAKE/stone/Anchall.txt",
+  "installed_sha256": "bb8cba628e69e39b900969374bce863f2a66ed12e70643f15f3ea16b6b238fd6",
+  "bytes": 1466384,
+  "original_bsp_sha256": "2f391fa85ea6ba9db63571962a956d708345b3dfaf82acc93a5cca8ab91dc5fc",
+  "changes": "All embedded images replaced with licensed original Makkon/LibreQuake textures. Title identifies adaptation; baked lighting enabled, original .lit embedded as BSPX RGBLIGHTING where supplied. Geometry, collision, VIS, lightmap data, gameplay entities and item placement unchanged. Quake-specific player skin, music and bot data omitted.",
+  "limitations": "Full Quake button/relay/counter logic is not emulated. Direct touch triggers can activate doors; other doors use proximity and platforms use timed cycles. Animated arcade, waterfall and shootable-button frames become static counterparts. Multiplayer balance needs playtesting."
+}

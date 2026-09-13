@@ -1,0 +1,24 @@
+{
+  "id": "dm_anctomb_slop",
+  "archive": "quaddicted-anctomb.zip",
+  "source": "https://www.quaddicted.com/files/maps/multiplayer/anctomb.zip",
+  "download": "https://www.quaddicted.com/files/maps/multiplayer/anctomb.zip",
+  "sha256": "78e14c9d2313dac6e887c178cd86a2e49eea4ca6f8910470244d8cef95f3a41b",
+  "title": "Ancient Tomb",
+  "author": "Randy G",
+  "rating": null,
+  "rating_votes": null,
+  "recommended_players": [
+    3,
+    6
+  ],
+  "reviewed": "2026-09-12",
+  "permission": "Author explicitly permits derivative levels and free distribution; original readme retained verbatim. Original image assets replaced with separately licensed textures.",
+  "bsp_member": "ANCTOMB.BSP",
+  "readme_member": "ANCTOMB.TXT",
+  "installed_sha256": "7b5191355565cec907e9164910a93431c1acc3d5e0aece4fcbb1b55e6cc95788",
+  "bytes": 824756,
+  "original_bsp_sha256": "ee1cdf28882298d2ee4f04d88e6fc5719c91e96483b19239449e280f1a01934c",
+  "changes": "All embedded images replaced with licensed original Makkon/LibreQuake textures. Title identifies adaptation; baked lighting enabled, original .lit embedded as BSPX RGBLIGHTING where supplied. Geometry, collision, VIS, lightmap data, gameplay entities and item placement unchanged. Quake-specific player skin, music and bot data omitted.",
+  "limitations": "Full Quake button/relay/counter logic is not emulated. Direct touch triggers can activate doors; other doors use proximity and platforms use timed cycles. Animated arcade, waterfall and shootable-button frames become static counterparts. Multiplayer balance needs playtesting."
+}

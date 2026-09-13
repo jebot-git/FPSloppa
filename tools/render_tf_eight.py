@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,os,subprocess,tempfile
 ROOT=Path(__file__).resolve().parents[1]
-p=argparse.ArgumentParser();p.add_argument('demo',type=Path);p.add_argument('bsp',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--renderer',default='gl_compatibility',choices=['gl_compatibility','mobile']);p.add_argument('--views',nargs='+',default=['chase'],choices=['first','chase']);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('demo',type=Path);p.add_argument('bsp',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--renderer',default='mobile',choices=['mobile']);p.add_argument('--views',nargs='+',default=['chase'],choices=['first','chase']);a=p.parse_args()
 a.output.mkdir(parents=True,exist_ok=True)
 godot=os.environ.get('GODOT_BIN',str(Path.home()/'.local/bin/Godot_v4.7.2-stable_linux.x86_64'))
 for view in a.views:

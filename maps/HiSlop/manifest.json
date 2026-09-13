@@ -1,21 +1,39 @@
 {
   "id": "as_hislop",
+  "title": "HiSlop",
   "format": 29,
-  "bytes": 2066896,
-  "sha256": "e477afa51ba190979722a7eacaedd0814387446de0b448f1f8ac105b5269d67c",
-  "brushes": 346,
-  "entities": 111,
+  "bytes": 4638180,
+  "sha256": "f3e408c1715cd51633e896cdb914deafbcd9c50f9a59ad663122fb94318c1da0",
+  "brushes": 396,
+  "entities": 154,
   "textures": 15,
   "recommended_players": [
     4,
     10
   ],
+  "small_groups_only": false,
+  "layout": "expanded",
   "concept": true,
   "modes": [
-    "as",
-    "tf"
+    "as"
   ],
-  "objective_adapter": "native paired AS; optional TF flag-and-capture concept",
   "scenery_motion": true,
-  "full_vis": true
+  "full_vis": true,
+  "horizontal_scale": [
+    1.75,
+    1.25
+  ],
+  "vertical_scale": 1.0,
+  "texture_theme": "Makkon industrial (original miptextures)",
+  "texture_replacements": {
+    "hs_wall": "ind_w02_blu1",
+    "met_blu_tile": "ind_w02_blk1",
+    "aqpanl10": "ind_w04_grey1",
+    "met_grn_panel1": "ind_w08_grn1"
+  },
+  "lighting_rebake": {
+    "original_sha256": "3f2d28110fadad9c4054f93ddc318b0a623046008fe844483dd5755201732847",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  },
+  "pickup_revision": "ut99-reference-1"
 }

@@ -1,0 +1,250 @@
+{
+  "id": "ctf_confluence",
+  "title": "Confluence | DySpHoRiA study",
+  "original_reference": "ctf3",
+  "sha256": "46e1912035b0631b1cdf67ea712c872b12e101ca1fbe2ffc589272d2932d4ae1",
+  "source_sha256": "b73169e105b5aa47373af763c7721cc7fadf0d46b6bcf9ddc7e683e877c0bdfd",
+  "brushes": 106,
+  "rooms": 29,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "flags": [
+    [
+      -1984,
+      0,
+      24
+    ],
+    [
+      1984,
+      0,
+      24
+    ]
+  ],
+  "spawns": [
+    [
+      [
+        -1024,
+        224,
+        24
+      ],
+      [
+        -1024,
+        -224,
+        24
+      ],
+      [
+        -1120,
+        224,
+        24
+      ],
+      [
+        -1120,
+        -224,
+        24
+      ],
+      [
+        -1600,
+        224,
+        24
+      ],
+      [
+        -1600,
+        -224,
+        24
+      ],
+      [
+        -1728,
+        224,
+        24
+      ],
+      [
+        -1728,
+        -224,
+        24
+      ]
+    ],
+    [
+      [
+        1024,
+        -224,
+        24
+      ],
+      [
+        1024,
+        224,
+        24
+      ],
+      [
+        1120,
+        -224,
+        24
+      ],
+      [
+        1120,
+        224,
+        24
+      ],
+      [
+        1600,
+        -224,
+        24
+      ],
+      [
+        1600,
+        224,
+        24
+      ],
+      [
+        1728,
+        -224,
+        24
+      ],
+      [
+        1728,
+        224,
+        24
+      ]
+    ]
+  ],
+  "views": [
+    [
+      [
+        -640,
+        384,
+        400
+      ],
+      [
+        256,
+        0,
+        0
+      ],
+      "layered crossing"
+    ],
+    [
+      [
+        1120,
+        0,
+        400
+      ],
+      [
+        1984,
+        0,
+        80
+      ],
+      "ring atrium"
+    ]
+  ],
+  "landmarks": [
+    {
+      "name": "Layered central crossing",
+      "center": [
+        0.0,
+        0.0,
+        160.0
+      ]
+    },
+    {
+      "name": "Ring atrium",
+      "center": [
+        -1376.0,
+        0.0,
+        320.0
+      ]
+    },
+    {
+      "name": "Inner flag vault",
+      "center": [
+        -1952.0,
+        0.0,
+        160.0
+      ]
+    },
+    {
+      "name": "Lower conduit",
+      "center": [
+        -992.0,
+        0.0,
+        -160.0
+      ]
+    },
+    {
+      "name": "Ring atrium",
+      "center": [
+        1376.0,
+        0.0,
+        320.0
+      ]
+    },
+    {
+      "name": "Inner flag vault",
+      "center": [
+        1952.0,
+        0.0,
+        160.0
+      ]
+    },
+    {
+      "name": "Lower conduit",
+      "center": [
+        992.0,
+        0.0,
+        -160.0
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "name": "upper atrium crossing",
+      "points": [
+        [
+          1728,
+          0,
+          256
+        ],
+        [
+          1728,
+          608,
+          256
+        ],
+        [
+          512,
+          608,
+          256
+        ],
+        [
+          0,
+          512,
+          256
+        ],
+        [
+          0,
+          -512,
+          256
+        ],
+        [
+          -512,
+          -608,
+          256
+        ],
+        [
+          -1728,
+          -608,
+          256
+        ],
+        [
+          -1728,
+          0,
+          256
+        ]
+      ]
+    }
+  ],
+  "geometry": "newly authored; no original BSP geometry used as build input",
+  "textures": "../texture-sources.json",
+  "lighting_rebake": {
+    "original_sha256": "4a936d7048e430148e915270a86a53db32379220ab16f7f069b7eed1972529a6",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  }
+}

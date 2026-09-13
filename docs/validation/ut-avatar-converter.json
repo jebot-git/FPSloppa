@@ -1,0 +1,330 @@
+{
+  "date": "2026-09-12",
+  "tool": "tools/ut_avatar_converter",
+  "version": "0.1.0",
+  "status": "experimental; completed standalone tool and stock model tests",
+  "platforms": {
+    "linux": "native x86_64; UI and CLI tested",
+    "windows": "x86_64 release executable; UI and CLI tested under Wine, not on a separate Windows machine"
+  },
+  "source_assets": {
+    "skins": [
+      {
+        "file": "asialatex.zip",
+        "bytes": 286845,
+        "sha1": "5b8d7b5ba0c6263718d2c640fa2a30f655e54e34",
+        "sha256": "c1c799ca07f3fb4bc9594662ea8072f6997967bb73628ee975ce24cfa44505f7",
+        "page": "https://unrealarchive.org/unreal-tournament/skins/S/smile_5b8d7b5b.html",
+        "author": "Asia Carrera"
+      },
+      {
+        "file": "asialatexnew.zip",
+        "bytes": 575164,
+        "sha1": "f8b7e790826d134bb6d2fbfe5593b01744bd7934",
+        "sha256": "452fd1e7194c1bcc5f155fa240c0d50a3199e16bf2a8afb49aaa32c97fea2932",
+        "page": "https://unrealarchive.org/unreal-tournament/skins/A/asialatex2_f8b7e790.html",
+        "author": "Asia Carrera"
+      },
+      {
+        "file": "asia-bots-version2.zip",
+        "bytes": 971530,
+        "sha1": "ae70967723166b6f432c64a72ba1cef800b1b215",
+        "sha256": "5e1bbac4ff9b303e063baa7973089b7e1ed4026c55a3d08d28f772dcea21b1c5",
+        "page": "https://unrealarchive.org/unreal-tournament/skins/A/asiabots_ae709677.html",
+        "author": "Asia Carrera"
+      },
+      {
+        "file": "rumikoasia.zip",
+        "bytes": 915736,
+        "sha1": "e79555aecaa9fff4d6ba1d1cb3f403171ae52eb8",
+        "sha256": "9b3fdf3613320586746aeb22232ca9cd1cced2ac90b5f4568f3cd7380e781958",
+        "page": "https://unrealarchive.org/unreal-tournament/skins/A/asiarumiko_e79555ae.html",
+        "author": "Asia Carrera"
+      },
+      {
+        "file": "6Rumiko.umod.zip",
+        "bytes": 1470827,
+        "sha1": "9fae894e24141f5d59cb08d2c835fd09ad045331",
+        "sha256": "49437b05d2bd12646714838ed62766d17e076192c7a0ae320996bd13d5c7e83f",
+        "page": "https://unrealarchive.org/unreal-tournament/models/R/rumiko_9fae894e.html",
+        "author": "Roger [666] Bacon"
+      }
+    ],
+    "stock_mesh": {
+      "file": "test-results/ut-converter/utgoty/System/BotPack.u",
+      "sha256": "101127c7025bdbfd1a0d6fc5856ed93784e7f1da653b9b108c7ed3638acd20c7",
+      "source": "https://files.oldunreal.net/UT_GOTY_CD1.ISO",
+      "disc_sha256": "e184984ca88f001c5ddd52035d76cd64e266e26c74975161b5ed72366c74704f",
+      "provenance": "https://github.com/OldUnreal/FullGameInstallers/blob/master/Linux/install-ut99.sh",
+      "extraction": "7z, no installer executed"
+    }
+  },
+  "linux": {
+    "checks": [
+      "ZIP traversal rejected",
+      "Malformed UMOD rejected",
+      "soldier: existing output preserved",
+      "soldier: invalid frame rejected",
+      "soldier: empty avatar rejected",
+      "soldier-original: existing output preserved",
+      "soldier-original: invalid frame rejected",
+      "soldier-original: empty avatar rejected",
+      "commando: existing output preserved",
+      "commando: invalid frame rejected",
+      "commando: empty avatar rejected",
+      "rumiko: existing output preserved",
+      "rumiko: invalid frame rejected",
+      "rumiko: empty avatar rejected",
+      "FPSloppa importer, animation and IK passed"
+    ],
+    "conversions": [
+      {
+        "name": "soldier",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-d5u6_k8a/soldier.vrm",
+        "bytes": 331032,
+        "sha256": "7233f166851858ababb1c8f1b37b6673a0854dca4f2badffd138bbafe626b0ab",
+        "bones": 19,
+        "triangles": 599
+      },
+      {
+        "name": "soldier-original",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-d5u6_k8a/soldier-original.vrm",
+        "bytes": 331036,
+        "sha256": "a0f2743144621246dc8ad4e5efea6264de864cfcc07e7978626d94656660d32b",
+        "bones": 19,
+        "triangles": 599
+      },
+      {
+        "name": "commando",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-d5u6_k8a/commando.vrm",
+        "bytes": 302236,
+        "sha256": "de0c1800dbf08f2ab103e29ddf8cb7d8a787140b93f54c3bd458404e22589baa",
+        "bones": 19,
+        "triangles": 674
+      },
+      {
+        "name": "rumiko",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-d5u6_k8a/rumiko.vrm",
+        "bytes": 289636,
+        "sha256": "8878f1675fa339a50a6393eb02ca51078b42ea4033ce79c1c681de77c887cfd7",
+        "bones": 19,
+        "triangles": 698
+      }
+    ],
+    "output": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-d5u6_k8a"
+  },
+  "windows": {
+    "checks": [
+      "ZIP traversal rejected",
+      "Malformed UMOD rejected",
+      "soldier: existing output preserved",
+      "soldier: invalid frame rejected",
+      "soldier: empty avatar rejected",
+      "soldier-original: existing output preserved",
+      "soldier-original: invalid frame rejected",
+      "soldier-original: empty avatar rejected",
+      "commando: existing output preserved",
+      "commando: invalid frame rejected",
+      "commando: empty avatar rejected",
+      "rumiko: existing output preserved",
+      "rumiko: invalid frame rejected",
+      "rumiko: empty avatar rejected"
+    ],
+    "conversions": [
+      {
+        "name": "soldier",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-4lcz_ecz/soldier.vrm",
+        "bytes": 331032,
+        "sha256": "7233f166851858ababb1c8f1b37b6673a0854dca4f2badffd138bbafe626b0ab",
+        "bones": 19,
+        "triangles": 599
+      },
+      {
+        "name": "soldier-original",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-4lcz_ecz/soldier-original.vrm",
+        "bytes": 331036,
+        "sha256": "a0f2743144621246dc8ad4e5efea6264de864cfcc07e7978626d94656660d32b",
+        "bones": 19,
+        "triangles": 599
+      },
+      {
+        "name": "commando",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-4lcz_ecz/commando.vrm",
+        "bytes": 302236,
+        "sha256": "de0c1800dbf08f2ab103e29ddf8cb7d8a787140b93f54c3bd458404e22589baa",
+        "bones": 19,
+        "triangles": 674
+      },
+      {
+        "name": "rumiko",
+        "file": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-4lcz_ecz/rumiko.vrm",
+        "bytes": 289636,
+        "sha256": "8878f1675fa339a50a6393eb02ca51078b42ea4033ce79c1c681de77c887cfd7",
+        "bones": 19,
+        "triangles": 698
+      }
+    ],
+    "output": "/home/blux/Documents/FPSloppa/test-results/ut-converter/run-4lcz_ecz"
+  },
+  "identical_outputs_across_platforms": true,
+  "independent_validation": [
+    {
+      "case": "soldier",
+      "vrmSchemaErrors": [],
+      "gltf": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNSUPPORTED_EXTENSION",
+            "message": "Cannot validate an extension as it is not supported by the validator: 'VRMC_vrm'.",
+            "severity": 2,
+            "pointer": "/extensionsUsed/1"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "case": "soldier-original",
+      "vrmSchemaErrors": [],
+      "gltf": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNSUPPORTED_EXTENSION",
+            "message": "Cannot validate an extension as it is not supported by the validator: 'VRMC_vrm'.",
+            "severity": 2,
+            "pointer": "/extensionsUsed/1"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "case": "commando",
+      "vrmSchemaErrors": [],
+      "gltf": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNSUPPORTED_EXTENSION",
+            "message": "Cannot validate an extension as it is not supported by the validator: 'VRMC_vrm'.",
+            "severity": 2,
+            "pointer": "/extensionsUsed/1"
+          }
+        ],
+        "truncated": false
+      }
+    },
+    {
+      "case": "rumiko",
+      "vrmSchemaErrors": [],
+      "gltf": {
+        "numErrors": 0,
+        "numWarnings": 0,
+        "numInfos": 1,
+        "numHints": 0,
+        "messages": [
+          {
+            "code": "UNSUPPORTED_EXTENSION",
+            "message": "Cannot validate an extension as it is not supported by the validator: 'VRMC_vrm'.",
+            "severity": 2,
+            "pointer": "/extensionsUsed/1"
+          }
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "validation_tools": {
+    "gltf": "Khronos glTF Validator npm 2.0.0-dev.3.10",
+    "vrm": "vrm-c VRMC_vrm-1.0 schemas, jsonschema npm 1.5.0",
+    "schema_source": "https://github.com/vrm-c/vrm-specification/tree/master/specification/VRMC_vrm-1.0/schema",
+    "gltf_note": "One informational unsupported-VRMC_vrm notice; VRM extension separately schema-checked."
+  },
+  "ui_workflow": {
+    "checks": [
+      "catalogue/extraction worker",
+      "material suggestions",
+      "source preview",
+      "rig settings and texture round-trip",
+      "VRM export",
+      "stale preview blocks export",
+      "cancel/retry",
+      "controls lock while busy"
+    ],
+    "linux_log": "test-results/ut-converter/run-0duz7b3v/ui.log",
+    "windows_log": "test-results/ut-converter/run-jxq970y5/ui.log",
+    "failures": 0
+  },
+  "builds": [
+    {
+      "platform": "Linux",
+      "helper_sha256": "be97a230853f6dc1e8ffb4b2b65c2692ce13a07026a1b70933ec894838ad2901",
+      "binary": "/home/blux/Documents/FPSloppa/Builds/UTAvatarConverter/Linux/FPSloppa-UT-Avatar-Converter.x86_64",
+      "sha256": "223170428002def00a0b12db4ab25a0faf031f0336056839118d76ed4c33106a",
+      "archive": "/home/blux/Documents/FPSloppa/Builds/UTAvatarConverter/FPSloppa-UT-Avatar-Converter-Linux-portable.zip",
+      "archive_sha256": "e4be651cb0c38c181bfb43834da5cc4620ad4d405f07012b1894fc626f76952b"
+    },
+    {
+      "platform": "Windows",
+      "helper_sha256": "d94d7adf3fb31b264a96a36bb88fb238328f14ea9d42eadfb491f74dc8e6a601",
+      "binary": "/home/blux/Documents/FPSloppa/Builds/UTAvatarConverter/Windows/FPSloppa-UT-Avatar-Converter.exe",
+      "sha256": "65e1ba7d3ed6e702b9813d47c63d40cf5d63408534e79b1d7d2356918c8e2d51",
+      "archive": "/home/blux/Documents/FPSloppa/Builds/UTAvatarConverter/FPSloppa-UT-Avatar-Converter-Windows-portable.zip",
+      "archive_sha256": "f8c7bc661474eee7d6dbcc9d2a58060fc0ac9c3b9634c4ad4c87554b6813dc30"
+    }
+  ],
+  "helper_rebuild": "tools/ut_avatar_converter/build_helpers.py verified from fresh pinned source in test-results/ut-converter/helper-repro",
+  "preview_evidence": "test-results/ut-converter/run-c8ehyx6i/ (palette alpha issue seen in original Smile preview corrected to opaque default in final build)",
+  "installed_avatars": [
+    {
+      "file": "vrm/AsiaCarrera-FemaleSoldier-AsiaLatex2-experimental.vrm",
+      "sha256": "7233f166851858ababb1c8f1b37b6673a0854dca4f2badffd138bbafe626b0ab",
+      "bytes": 331032,
+      "triangles": 599
+    },
+    {
+      "file": "vrm/AsiaCarrera-FemaleSoldier-Smile-experimental.vrm",
+      "sha256": "a0f2743144621246dc8ad4e5efea6264de864cfcc07e7978626d94656660d32b",
+      "bytes": 331036,
+      "triangles": 599
+    },
+    {
+      "file": "vrm/AsiaCarrera-FemaleCommando-AsiaBots-experimental.vrm",
+      "sha256": "de0c1800dbf08f2ab103e29ddf8cb7d8a787140b93f54c3bd458404e22589baa",
+      "bytes": 302236,
+      "triangles": 674
+    }
+  ],
+  "prototype_archive": "test-results/ut-converter/AsiaCarrera-Stock-UT-VRM-prototypes.zip",
+  "limitations": [
+    "Estimated weights need manual refinement; retained stock head tilt and coarse hands.",
+    "No finger rig, facial expressions, gaze or secondary physics.",
+    "No transfer of original vertex animations.",
+    "No live headset or multiplayer test.",
+    "One existing ObjectDB instance leak warning at game importer test shutdown."
+  ],
+  "excluded_from_utility_packages": [
+    "original model packages",
+    "skin archives/textures",
+    "generated avatars",
+    "test assets",
+    "gameplay assets"
+  ],
+  "package_checks": [
+    "ZIP members byte-match tested release directory",
+    "No original assets or generated avatars in utility ZIPs",
+    "Linux executable permissions preserved",
+    "Helper binaries and archive SHA-256 match build receipts"
+  ]
+}

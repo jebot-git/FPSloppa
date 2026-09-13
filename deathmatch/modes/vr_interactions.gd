@@ -15,7 +15,7 @@ func setup(value) -> void:owner_ref=weakref(value)
 func reset() -> void:history.clear();armed.clear();sequences.clear();next_arm.clear()
 func departed(id: int) -> void:history.erase(id);armed.erase(id);sequences.erase(id);next_arm.erase(id)
 func eligible(id: int) -> bool:
-	return multiplayer.is_server() and game.active and not game.map_loading and not game.lobby.active() and game.intermission<=0 and tf.mode.kind in ["tf","as"] and game.players.has(id) and not game.players[id].dead and not game.players[id].spectator and not tf.mode.special.blocked(id)
+	return multiplayer.is_server() and game.active and not game.map_loading and not game.lobby.active() and game.intermission<=0 and tf.mode.kind in ["tf","tb","as"] and game.players.has(id) and not game.players[id].dead and not game.players[id].spectator and not tf.mode.special.blocked(id)
 func clear_path(start: Vector3,end: Vector3) -> bool:
 	var query:=PhysicsRayQueryParameters3D.create(start,end,1);query.hit_from_inside=true
 	return game.get_world_3d().direct_space_state.intersect_ray(query).is_empty()
@@ -26,7 +26,7 @@ func sample(id: int) -> void:
 	var pose: Dictionary=game.players[id].xr
 	if armed.has(id) and (armed[id].until<game.clock or armed[id].role!=game.players[id].get("tf_class","") or armed[id].left_handed!=pose.left_handed):armed.erase(id)
 	# Only contact abilities need per-pose sweeps. Throw validation runs at release.
-	if tf.mode.kind=="tf" and not game.players[id].get("tf_class","") in ["engineer","medic"]:history.erase(id);return
+	if tf.enabled() and not game.players[id].get("tf_class","") in ["engineer","medic"]:history.erase(id);return
 	var previous: Dictionary=history.get(id,{})
 	var elapsed: float=game.clock-previous.get("time",game.clock)
 	var fresh: bool=elapsed>=.005 and elapsed<=.2 and previous.get("left_handed",pose.left_handed)==pose.left_handed
@@ -83,6 +83,8 @@ func request_for(id: int,epoch: int,life: int,seq: int,kind: String,raw_pose: Di
 	var pose:=Poses.validate(raw_pose)
 	var accepted:=false
 	if not pose.is_empty() and velocity.is_finite():
+		# A seated pilot is inside the robot collider; Use must not fail its own hull LOS.
+		if kind=="ability" and tf.walkers.mounted(id):return tf.walkers.leave(id)
 		var hand: String="right" if pose.left_handed else "left"
 		var body:=body_transform(id)
 		var position: Vector3=body*pose[hand].origin
@@ -102,8 +104,8 @@ func request_for(id: int,epoch: int,life: int,seq: int,kind: String,raw_pose: Di
 					if held.get("until",0)>game.clock and held.get("role","")==role and held.get("left_handed",false)==pose.left_handed:
 						var solution:=Clearance.solve(game.get_world_3d().direct_space_state,chest,position,position,.12)
 						if not solution.blocked:
-							# Controller speed is bounded like the replicated poses. No fixed forward launch.
-							accepted=tf.throw_charge(id,solution.origin,body.basis*velocity.limit_length(12))
+							# Apply the same bounded arm-stroke boost as the client guide; zero speed still drops.
+							accepted=tf.throw_charge(id,solution.origin,body.basis*preload("res://deathmatch/vr/throw_ballistics.gd").launch(velocity))
 	if kind in ["arm","throw"] and not accepted:armed.erase(id)
 	if id==multiplayer.get_unique_id():reply(epoch,life,seq,kind,accepted)
 	else:reply.rpc_id(id,epoch,life,seq,kind,accepted)

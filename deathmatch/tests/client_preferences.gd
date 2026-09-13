@@ -17,7 +17,7 @@ func run() -> void:
 	voice.load_preferences(path)
 	check(voice.mode==1 and not voice.muted_all,"Fresh config enables push-to-talk by default")
 	voice.set_mode(2);voice.muted_all=true;voice.threshold=.04;voice.input_device="Unavailable headset microphone";voice.save_preferences(path)
-	var settings:=Presentation.defaults();settings.voice=.35;settings.texture_filter=1
+	var settings:=Presentation.defaults();settings.voice=.35;settings.texture_filter=1;settings.contrast_lighting=true
 	Presentation.save_settings(settings,path)
 	voice.reset()
 	check(voice.mode==2 and voice.muted_all and voice.threshold==.04,"Reconnect resets transport without resetting voice preferences")
@@ -25,6 +25,7 @@ func run() -> void:
 	voice.free();voice=Voice.new();voice.game=game;voice.load_preferences(path)
 	check(voice.mode==2 and voice.muted_all and voice.input_device=="Unavailable headset microphone","Restart restores mode, mute and preferred microphone; shutdown does not overwrite them")
 	check(Presentation.read_settings(path).voice==.35 and Presentation.read_settings(path).texture_filter==1,"Voice volume and texture filtering survive config reload")
+	check(Presentation.read_settings(path).contrast_lighting and not Presentation.defaults().contrast_lighting,"Experimental lighting survives reload and remains opt-in")
 	original.load(path)
 	check(original.get_value("player","name")=="Config Marine","Voice and graphics writes preserve other config sections")
 	original.set_value("voice","mode","bad");original.set_value("voice","threshold",NAN);original.save(path)

@@ -1,0 +1,216 @@
+{
+  "date": "2026-09-13",
+  "map": "tb_ashfall",
+  "map_sha256": "503e90346cee8f582e6cc535a83e9224aed94630c3d1e5a3ebf41ab29b951f3e",
+  "renderer": "Vulkan Mobile, Intel Arc A770, 1280x800",
+  "engine": "Godot 4.7.2 Fedora",
+  "playback_requested": 4,
+  "simulation_step_seconds": 0.016666666666666666,
+  "seed": 7129,
+  "rounds": 3,
+  "players_per_round": 12,
+  "objective_regressions": {
+    "passed": 10,
+    "total": 10
+  },
+  "existing_gameplay_regressions": {
+    "passed": 60,
+    "total": 60
+  },
+  "match_integrity_checks": {
+    "passed": 42,
+    "total": 42
+  },
+  "identical_classless_pickup_positions": true,
+  "pickup_positions_per_classless_round": 48,
+  "results": [
+    {
+      "file": "test-results/titanball/simulation/live-tf-7129.json",
+      "profile": "tf",
+      "seed": 7129,
+      "winner": "Defenders",
+      "active_seconds": 960.02,
+      "distance_m": 287.14,
+      "checkpoints": {
+        "1": 167.0,
+        "2": 520.0
+      },
+      "pilot_duty_percent": 38.9,
+      "moving_percent": 66.4,
+      "manned_stopped_seconds": 5.6,
+      "boardings": 143,
+      "mean_active_pilot_episode_seconds": 2.61,
+      "deaths_attack_defend": [
+        256,
+        141
+      ],
+      "weapon_pickups_attack_defend": [
+        0,
+        0
+      ],
+      "starter_only_nonpilot_alive_percent": [
+        0.0,
+        0.0
+      ],
+      "idle_goal_alive_percent": [
+        0.5,
+        0.3
+      ],
+      "damage_by_weapon": {
+        "AXE": 30,
+        "GRENADE LAUNCHER": 9406,
+        "NAILGUN": 3039,
+        "ROCKET LAUNCHER": 12495,
+        "SENTRY": 4535,
+        "SHOTGUN": 20703,
+        "SUPER NAILGUN": 5739,
+        "SUPER SHOTGUN": 99,
+        "TITAN CANNON": 907
+      },
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "round_finished": true
+      }
+    },
+    {
+      "file": "test-results/titanball/simulation/live-ut99-7129.json",
+      "profile": "ut99",
+      "seed": 7129,
+      "winner": "Defenders",
+      "active_seconds": 780.02,
+      "distance_m": 155.32,
+      "checkpoints": {
+        "1": 161.0
+      },
+      "pilot_duty_percent": 27.4,
+      "moving_percent": 48.8,
+      "manned_stopped_seconds": 3.4,
+      "boardings": 92,
+      "mean_active_pilot_episode_seconds": 2.32,
+      "deaths_attack_defend": [
+        286,
+        75
+      ],
+      "weapon_pickups_attack_defend": [
+        162,
+        113
+      ],
+      "starter_only_nonpilot_alive_percent": [
+        56.8,
+        12.8
+      ],
+      "idle_goal_alive_percent": [
+        0.6,
+        0.1
+      ],
+      "damage_by_weapon": {
+        "ENFORCER": 11896,
+        "MINIGUN": 328,
+        "PULSE GUN": 655,
+        "RIPPER": 2038,
+        "ROCKET LAUNCHER": 395,
+        "SENTRY": 726,
+        "SHOCK RIFLE": 4807,
+        "SNIPER RIFLE": 25694,
+        "TITAN CANNON": 196
+      },
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "all_classless": true,
+        "both_teams_acquire_weapons": true,
+        "starter_loadouts": true,
+        "no_superweapons": true,
+        "round_finished": true
+      }
+    },
+    {
+      "file": "test-results/titanball/simulation/live-doom-7129.json",
+      "profile": "doom",
+      "seed": 7129,
+      "winner": "Attackers",
+      "active_seconds": 740.62,
+      "distance_m": 299.99,
+      "checkpoints": {
+        "1": 153.0,
+        "2": 390.0
+      },
+      "pilot_duty_percent": 53.7,
+      "moving_percent": 90.5,
+      "manned_stopped_seconds": 5.1,
+      "boardings": 149,
+      "mean_active_pilot_episode_seconds": 2.67,
+      "deaths_attack_defend": [
+        195,
+        147
+      ],
+      "weapon_pickups_attack_defend": [
+        150,
+        92
+      ],
+      "starter_only_nonpilot_alive_percent": [
+        45.9,
+        62.9
+      ],
+      "idle_goal_alive_percent": [
+        0.3,
+        0.3
+      ],
+      "damage_by_weapon": {
+        "CHAINGUN": 6933,
+        "DUAL PISTOLS": 22493,
+        "FIST": 157,
+        "PLASMA RIFLE": 1377,
+        "ROCKET LAUNCHER": 1834,
+        "SENTRY": 2675,
+        "SHOTGUN": 1612,
+        "SUPER SHOTGUN": 110,
+        "TITAN CANNON": 900
+      },
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "all_classless": true,
+        "both_teams_acquire_weapons": true,
+        "starter_loadouts": true,
+        "no_superweapons": true,
+        "round_finished": true
+      }
+    }
+  ],
+  "limitations": [
+    "One complete exploratory round per profile; no human or Quest performance test.",
+    "Classless weapon control and spawn loadouts are part of the comparison; not a pure weapon-DPS comparison.",
+    "TF support coordination is limited: only three one-second live samples had a heal goal.",
+    "Runtime MultiMesh interpolation warnings occurred in native runs; no final-run script exceptions.",
+    "Shutdown cleanup warnings: TF/Doom two ObjectDB objects each; UT22 objects and four resources."
+  ],
+  "raw_directory": "test-results/titanball/simulation",
+  "report": "docs/TITANBALL-BOT-BALANCE.md"
+}

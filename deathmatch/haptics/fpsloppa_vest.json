@@ -1,0 +1,483 @@
+{
+  "schema": 1,
+  "id": "fpsloppa-vest-v1",
+  "name": "FPSloppa \u00b7 Vest v1",
+  "description": "Weapon-specific recoil, directional hit zones, blast decay, environment and rising healing wave. Global strength multiplies 0\u201315 motor levels.",
+  "groups": {
+    "upper_front": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "upper_back": [
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "chest": [
+      5,
+      6,
+      9,
+      10
+    ],
+    "belt": [
+      12,
+      13,
+      14,
+      15,
+      32,
+      33,
+      34,
+      35
+    ],
+    "lower": [
+      16,
+      17,
+      18,
+      19,
+      36,
+      37,
+      38,
+      39
+    ],
+    "core": [
+      5,
+      6,
+      9,
+      10,
+      25,
+      26,
+      29,
+      30
+    ],
+    "heal_0": [
+      17,
+      18
+    ],
+    "heal_1": [
+      13,
+      14
+    ],
+    "heal_2": [
+      9,
+      10
+    ],
+    "heal_3": [
+      5,
+      6
+    ]
+  },
+  "weapon_families": {
+    "pistol": [
+      "PISTOL",
+      "DUAL PISTOLS",
+      "ENFORCER"
+    ],
+    "shotgun": [
+      "SHOTGUN",
+      "FLAK CANNON"
+    ],
+    "heavy_shotgun": [
+      "SUPER SHOTGUN"
+    ],
+    "automatic": [
+      "CHAINGUN",
+      "MINIGUN",
+      "NAILGUN",
+      "SUPER NAILGUN",
+      "SENTRY",
+      "RIPPER"
+    ],
+    "energy": [
+      "PLASMA RIFLE",
+      "PULSE GUN",
+      "LIGHTNING GUN",
+      "SHOCK RIFLE",
+      "BIO RIFLE"
+    ],
+    "rocket": [
+      "ROCKET LAUNCHER",
+      "GRENADE LAUNCHER",
+      "GRENADE",
+      "PIPEBOMB",
+      "NAPALM"
+    ],
+    "heavy_energy": [
+      "BFG 9000",
+      "REDEEMER",
+      "SHOCK COMBO"
+    ],
+    "sniper": [
+      "RAILGUN",
+      "SNIPER RIFLE"
+    ],
+    "melee": [
+      "FIST",
+      "AXE",
+      "IMPACT HAMMER",
+      "WEAPON WHIP",
+      "KICK"
+    ],
+    "saw": [
+      "CHAINSAW"
+    ]
+  },
+  "effects": {
+    "recoil_pistol": [
+      {
+        "delay": 0,
+        "duration": 0.08,
+        "level": 8,
+        "zone": "target"
+      }
+    ],
+    "recoil_shotgun": [
+      {
+        "delay": 0,
+        "duration": 0.12,
+        "level": 12,
+        "zone": "target"
+      },
+      {
+        "delay": 0.2,
+        "duration": 0.08,
+        "level": 5,
+        "zone": "target"
+      }
+    ],
+    "recoil_heavy_shotgun": [
+      {
+        "delay": 0,
+        "duration": 0.15,
+        "level": 15,
+        "zone": "target"
+      },
+      {
+        "delay": 0.24,
+        "duration": 0.1,
+        "level": 8,
+        "zone": "target"
+      }
+    ],
+    "recoil_automatic": [
+      {
+        "delay": 0,
+        "duration": 0.07,
+        "level": 7,
+        "zone": "target"
+      }
+    ],
+    "recoil_energy": [
+      {
+        "delay": 0,
+        "duration": 0.07,
+        "level": 6,
+        "zone": "target"
+      },
+      {
+        "delay": 0.12,
+        "duration": 0.07,
+        "level": 4,
+        "zone": "target"
+      }
+    ],
+    "recoil_rocket": [
+      {
+        "delay": 0,
+        "duration": 0.12,
+        "level": 12,
+        "zone": "target"
+      },
+      {
+        "delay": 0.17,
+        "duration": 0.12,
+        "level": 7,
+        "zone": "upper_back"
+      }
+    ],
+    "recoil_heavy_energy": [
+      {
+        "delay": 0,
+        "duration": 0.16,
+        "level": 14,
+        "zone": "target"
+      },
+      {
+        "delay": 0.24,
+        "duration": 0.12,
+        "level": 10,
+        "zone": "core"
+      },
+      {
+        "delay": 0.44,
+        "duration": 0.1,
+        "level": 5,
+        "zone": "belt"
+      }
+    ],
+    "recoil_sniper": [
+      {
+        "delay": 0,
+        "duration": 0.1,
+        "level": 13,
+        "zone": "target"
+      },
+      {
+        "delay": 0.2,
+        "duration": 0.08,
+        "level": 5,
+        "zone": "target"
+      }
+    ],
+    "recoil_melee": [
+      {
+        "delay": 0,
+        "duration": 0.13,
+        "level": 9,
+        "zone": "target"
+      }
+    ],
+    "recoil_saw": [
+      {
+        "delay": 0,
+        "duration": 0.065,
+        "level": 6,
+        "zone": "target"
+      }
+    ],
+    "hit_bullet": [
+      {
+        "delay": 0,
+        "duration": 0.1,
+        "level": 11,
+        "zone": "target"
+      }
+    ],
+    "hit_shotgun": [
+      {
+        "delay": 0,
+        "duration": 0.12,
+        "level": 12,
+        "zone": "target_wide"
+      },
+      {
+        "delay": 0.2,
+        "duration": 0.08,
+        "level": 6,
+        "zone": "target"
+      }
+    ],
+    "hit_energy": [
+      {
+        "delay": 0,
+        "duration": 0.08,
+        "level": 9,
+        "zone": "target"
+      },
+      {
+        "delay": 0.16,
+        "duration": 0.08,
+        "level": 7,
+        "zone": "target"
+      },
+      {
+        "delay": 0.32,
+        "duration": 0.08,
+        "level": 5,
+        "zone": "target"
+      }
+    ],
+    "hit_sniper": [
+      {
+        "delay": 0,
+        "duration": 0.16,
+        "level": 15,
+        "zone": "target"
+      },
+      {
+        "delay": 0.26,
+        "duration": 0.09,
+        "level": 6,
+        "zone": "target_wide"
+      }
+    ],
+    "hit_melee": [
+      {
+        "delay": 0,
+        "duration": 0.16,
+        "level": 11,
+        "zone": "target_wide"
+      }
+    ],
+    "hit_blast": [
+      {
+        "delay": 0,
+        "duration": 0.14,
+        "level": 15,
+        "zone": "target_wide"
+      },
+      {
+        "delay": 0.18,
+        "duration": 0.16,
+        "level": 10,
+        "zone": "core"
+      },
+      {
+        "delay": 0.4,
+        "duration": 0.15,
+        "level": 6,
+        "zone": "belt"
+      }
+    ],
+    "environment_fire": [
+      {
+        "delay": 0,
+        "duration": 0.09,
+        "level": 8,
+        "zone": "belt"
+      },
+      {
+        "delay": 0.18,
+        "duration": 0.09,
+        "level": 6,
+        "zone": "lower"
+      }
+    ],
+    "environment_acid": [
+      {
+        "delay": 0,
+        "duration": 0.12,
+        "level": 7,
+        "zone": "lower"
+      },
+      {
+        "delay": 0.22,
+        "duration": 0.14,
+        "level": 5,
+        "zone": "belt"
+      }
+    ],
+    "environment_drowning": [
+      {
+        "delay": 0,
+        "duration": 0.13,
+        "level": 8,
+        "zone": "chest"
+      },
+      {
+        "delay": 0.28,
+        "duration": 0.13,
+        "level": 6,
+        "zone": "chest"
+      }
+    ],
+    "environment_fall": [
+      {
+        "delay": 0,
+        "duration": 0.15,
+        "level": 12,
+        "zone": "lower"
+      },
+      {
+        "delay": 0.22,
+        "duration": 0.1,
+        "level": 5,
+        "zone": "belt"
+      }
+    ],
+    "environment_generic": [
+      {
+        "delay": 0,
+        "duration": 0.16,
+        "level": 8,
+        "zone": "belt"
+      }
+    ],
+    "healing": [
+      {
+        "delay": 0.0,
+        "duration": 0.14,
+        "level": 6,
+        "zone": "heal_0"
+      },
+      {
+        "delay": 0.17,
+        "duration": 0.14,
+        "level": 6,
+        "zone": "heal_1"
+      },
+      {
+        "delay": 0.34,
+        "duration": 0.14,
+        "level": 6,
+        "zone": "heal_2"
+      },
+      {
+        "delay": 0.51,
+        "duration": 0.14,
+        "level": 6,
+        "zone": "heal_3"
+      }
+    ],
+    "armor": [
+      {
+        "delay": 0,
+        "duration": 0.1,
+        "level": 6,
+        "zone": "core"
+      },
+      {
+        "delay": 0.24,
+        "duration": 0.1,
+        "level": 6,
+        "zone": "core"
+      }
+    ],
+    "power": [
+      {
+        "delay": 0,
+        "duration": 0.14,
+        "level": 7,
+        "zone": "belt"
+      },
+      {
+        "delay": 0.22,
+        "duration": 0.14,
+        "level": 7,
+        "zone": "core"
+      }
+    ],
+    "death": [
+      {
+        "delay": 0,
+        "duration": 0.2,
+        "level": 12,
+        "zone": "core"
+      },
+      {
+        "delay": 0.3,
+        "duration": 0.2,
+        "level": 6,
+        "zone": "belt"
+      }
+    ],
+    "test": [
+      {
+        "delay": 0,
+        "duration": 0.15,
+        "level": 15,
+        "zone": "chest"
+      }
+    ]
+  }
+}

@@ -19,9 +19,11 @@ Pinned inputs, download URLs and SHA-256 hashes are retained in `tools/audio-sou
 | pickup_armor | Kenney metal/footstep, dsdbcls |
 | pickup_health | Kenney footstep, dsdbopn |
 | pickup_mega | Kenney metal, dsdbload, dsdbcls |
-| jump_0–2 | Kenney footsteps, edited HaelDB grunts |
+| jump_0–2 | Kenney footsteps, separate HaelDB exertion takes 3grunt1/2/6 |
 | land_0–2 | Kenney footsteps |
 
-Freedoom inputs are band-limited, resampled, trimmed, faded and layered, with levels normalized before runtime weapon attenuation. Outputs are mono 22.05 kHz PCM. Reload layers are cosmetic and do not alter weapon cadence. Jump grunts are shortened and sped up, with a preceding boot push-off; landing layers combine two boot contacts. Pickup cues use mechanical/foley layers without musical oscillators.
+Freedoom inputs are band-limited, resampled, trimmed, faded and layered, with levels normalized before runtime weapon attenuation. Outputs are mono 22.05 kHz PCM. Reload layers are cosmetic and do not alter weapon cadence. Jump grunts use separate source takes from pain (pain keeps 3grunt3/4/5). The jump takes are shortened to a 160 ms exertion burst and raised in pitch, with a preceding boot push-off; landing layers combine two boot contacts. Pickup cues use mechanical/foley layers without musical oscillators.
 
 Kenney Impact Sounds and HaelDB Male Grunt/Yelling Sounds are CC0 1.0. Their source links, original notices and selected recording names are in `../recorded/SOURCES.md`. Mixed Freedoom/CC0 derivatives retain the Freedoom BSD notice. Jump and landing edits containing only CC0 sources are dedicated to CC0 1.0.
+
+The jump-only source recordings and their pinned SHA-256 hashes are retained in `tools/audio-sources/movement/`. Regenerate only jump cues with `python3 tools/prepare_arena_sfx.py --jumps-only`; this preserves weapon, pickup, landing and pain assets.

@@ -14,6 +14,8 @@ func run() -> void:
 	rig.setup(g,true);rig.set_process(false)
 	var actor=load("res://deathmatch/fighter.gd").new();actor.setup(1,"Local",Color.WHITE);g.add_child(actor)
 	actor.position=Vector3(1000,10,1000)
+	# Live XR rendering follows the actor; this fixture disables that update loop.
+	rig.global_transform=actor.global_transform
 	g.fighters[1]=actor;g.players[1]=g._new_state("Local",1)
 	g.active=true;g.menu_open=false
 	actor.show_alive(true,true)
@@ -33,7 +35,8 @@ func run() -> void:
 		actor._process(.016);avatar._process(.016);avatar.solver._process_modification_with_delta(.016)
 		check(not avatar.gun.visible and avatar.process_mode==Node.PROCESS_MODE_INHERIT,"Local IK runs without duplicate weapon")
 		var foot: Vector3=avatar.skeleton.to_global(avatar.skeleton.get_bone_global_pose(avatar.skeleton.find_bone("LeftFoot")).origin)
-		check(foot.distance_to(actor.to_global(Vector3(-.15,.2,-.2)))<.08,"First-person foot follows body tracking")
+		var expected_foot:=Vector3(-.15,float(avatar.neutral_foot_heights.left)+.12,-.2)
+		check(foot.distance_to(actor.to_global(expected_foot))<.08,"First-person foot follows tracking displacement from the model's neutral ankle height")
 		actor.xr_pose.body.left_foot.origin.z=-.35
 		actor._process(.016);avatar._process(.016)
 		check(avatar.xr_pose.body.left_foot==actor.xr_pose.body.left_foot,"Local body uses current pose without network smoothing")

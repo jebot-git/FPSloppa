@@ -1,0 +1,308 @@
+{
+  "status": "complete",
+  "bsp_sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+  "gameplay_checks": 303,
+  "gameplay_pass": true,
+  "bsp_checks": 39,
+  "bsp_pass": true,
+  "network_checks": 80,
+  "network_pass": true,
+  "native_render": {
+    "bones": 18,
+    "failures": [],
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "renderer": "mobile",
+    "resolution": [
+      1280,
+      800
+    ]
+  },
+  "assets": {
+    "failures": [],
+    "records": [
+      {
+        "codec": "bc7",
+        "compressed_materials": 10,
+        "filtering_retains_compression": true,
+        "full_resolution_mips": true,
+        "lightmaps_glow_unchanged": true,
+        "materials": 12
+      },
+      {
+        "codec": "astc4",
+        "compressed_materials": 10,
+        "filtering_retains_compression": true,
+        "full_resolution_mips": true,
+        "lightmaps_glow_unchanged": true,
+        "materials": 12
+      }
+    ]
+  },
+  "source_hashes": {
+    "deathmatch/arena.gd": "86e626b9a099a49c99c8b53030c2cc8472da4c86664b2811ba812c3d2d329eaf",
+    "deathmatch/bots.gd": "72cb447ab995c8a5febe6e651f773d0e841b30f33d871a268501a00784444f7e",
+    "deathmatch/vehicles/ba2/controller.gd": "fe92253469c1e50642dec7cc8ae6c02980f44ddaa23a984c279811cd07a24216",
+    "deathmatch/vehicles/ba2/view.gd": "8a962ea702b83abe2d3d66ae0b09a96d9d6fee55dd37968521c8d22c52e020f0",
+    "deathmatch/vehicles/ba2/tuning.gd": "e2cada1e2502b5dc8c749dfbf1f357dde5f2c12e76dfbdeb36dcb2ddf5e7dd9a",
+    "deathmatch/vehicles/ba2/cockpit.gd": "1e2173a40f4eecfb9b319f1bafd320d08fb25e84be7eafcf70cebb67b0ae4819",
+    "maps/tb_ashfall.bsp": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+    "maps/navigation/tb_ashfall.res": "53de312a3219429e3d8e0eaaf91a49639f6cbbed8d7e8324c2575a19cbd0420c",
+    "maps/Ashfall/tb_ashfall.map": "f4df148594e0cde87a5cb46b35b59eff556e3acb8e52483251b52dfab17a2d9f",
+    "tools/titanball/build.py": "9472ae1f28c6e802ff8f8dae246f8ed3148dbcae352a0308358ee32e47a2ca5c",
+    "tools/titanball/simulation/match.gd": "77f048aecbff9419dab33833fa3c6e7d3fc4907d6abee8be111155c9a2ccd51c",
+    "tools/titanball/simulation/recorder.gd": "5a76d71bd873f0f0a280eae1250ca56365df2380ef36ad3153d83b9d52a7ef09",
+    "deathmatch/modes/fortress.gd": "d3535d1ec894e30e4d23053aca7253845ec764f4d1663d23dc11065d31fc74c7",
+    "deathmatch/bot_ai/navigation.gd": "1123ab9ba0f7ac7c24cab420435eed92abbcd02522b2cf64680333daf5a106a0",
+    "tools/titanball/navigation_bake.gd": "46a6c9e765295aec89167ac98a8b1174752fef2cf856517a278f2c498778f95f",
+    "tools/titanball/acceptance.gd": "8ef5c59e1aa1a6110c66e38c492ee0c332f89b29e6b6ae7f43378da25c50d691"
+  },
+  "source_drift": [
+    "deathmatch/vehicles/ba2/cockpit.gd"
+  ],
+  "runs": [
+    {
+      "file": "test-results/titanball/simulation/boarding-r5-tf-7129.json",
+      "seed": 7129,
+      "revision": "boarding-r5",
+      "renderer": "Vulkan Mobile recording",
+      "winner": "Attackers",
+      "active_seconds": 875.183333332811,
+      "remaining_seconds": 84.816666667189,
+      "distance_m": 300.000396728516,
+      "checkpoints": {
+        "1": 151.00000000006,
+        "2": 348.016666666624
+      },
+      "boardings": 95,
+      "pilot_seconds": 385.199999999978,
+      "pilot_duty_percent": 44.01363523835477,
+      "mean_pilot_seconds": 4.054912280700324,
+      "median_pilot_seconds": 2.550000000002001,
+      "under_one_second_percent": 2.1052631578947367,
+      "death_ended_episodes": 95,
+      "censored_episodes": 0,
+      "deaths_during_exit_lock": 59,
+      "deaths_attack_defend": [
+        183,
+        127
+      ],
+      "cannon_kills": 29,
+      "cannon_logged_health_damage": 4049,
+      "cannon_damage_per_piloted_second": 10.511422637591462,
+      "cannon_kills_per_piloted_minute": 4.517133956386551,
+      "cannon_kills_per_pilot_death": 0.30526315789473685,
+      "cannon_share_of_defender_deaths_percent": 22.834645669291337,
+      "fired_rounds": 642,
+      "direct_events_per_round_percent": 65.26479750778816,
+      "peak_pair_heat": 88.3333333333334,
+      "overheat_volleys": 0,
+      "crush_kills": 0,
+      "gibbed_crush_kills": 0,
+      "destroyed_blue_deployables": {},
+      "pilot_noncontact_hits": 0,
+      "max_abs_body_yaw_degrees": null
+    },
+    {
+      "file": "test-results/titanball/simulation/coverage-r6-tf-7129.json",
+      "seed": 7129,
+      "revision": "coverage-r6",
+      "renderer": "Vulkan Mobile recording",
+      "winner": "Defenders",
+      "active_seconds": 960.01666666607,
+      "remaining_seconds": 0,
+      "distance_m": 299.680812548828,
+      "checkpoints": {
+        "1": 179.000000000082,
+        "2": 389.016666666587
+      },
+      "boardings": 100,
+      "pilot_seconds": 379.333333333317,
+      "pilot_duty_percent": 39.51320289580591,
+      "mean_pilot_seconds": 3.7934999999981516,
+      "median_pilot_seconds": 2.3999999999979593,
+      "under_one_second_percent": 3.0,
+      "death_ended_episodes": 100,
+      "censored_episodes": 0,
+      "deaths_during_exit_lock": 63,
+      "deaths_attack_defend": [
+        207,
+        147
+      ],
+      "cannon_kills": 43,
+      "cannon_logged_health_damage": 5805,
+      "cannon_damage_per_piloted_second": 15.303163444640377,
+      "cannon_kills_per_piloted_minute": 6.801405975395723,
+      "cannon_kills_per_pilot_death": 0.43,
+      "cannon_share_of_defender_deaths_percent": 29.25170068027211,
+      "fired_rounds": 897,
+      "direct_events_per_round_percent": 73.8015607580825,
+      "peak_pair_heat": 100.0,
+      "overheat_volleys": 2,
+      "crush_kills": 0,
+      "gibbed_crush_kills": 0,
+      "destroyed_blue_deployables": {
+        "pipe": 3
+      },
+      "pilot_noncontact_hits": 0,
+      "max_abs_body_yaw_degrees": 7.500000000000018
+    },
+    {
+      "file": "test-results/titanball/simulation/coverage-r6-tf-7130.json",
+      "seed": 7130,
+      "revision": "coverage-r6",
+      "renderer": "headless",
+      "winner": "Defenders",
+      "active_seconds": 960.01666666607,
+      "remaining_seconds": 0,
+      "distance_m": 297.721472669697,
+      "checkpoints": {
+        "1": 157.000000000065,
+        "2": 341.016666666631
+      },
+      "boardings": 88,
+      "pilot_seconds": 375.616666666654,
+      "pilot_duty_percent": 39.12605683931398,
+      "mean_pilot_seconds": 4.268560606059031,
+      "median_pilot_seconds": 2.5666666666644744,
+      "under_one_second_percent": 0.0,
+      "death_ended_episodes": 88,
+      "censored_episodes": 0,
+      "deaths_during_exit_lock": 52,
+      "deaths_attack_defend": [
+        209,
+        149
+      ],
+      "cannon_kills": 41,
+      "cannon_logged_health_damage": 5175,
+      "cannon_damage_per_piloted_second": 13.777343923326551,
+      "cannon_kills_per_piloted_minute": 6.549230154856679,
+      "cannon_kills_per_pilot_death": 0.4659090909090909,
+      "cannon_share_of_defender_deaths_percent": 27.516778523489933,
+      "fired_rounds": 776,
+      "direct_events_per_round_percent": 74.74226804123711,
+      "peak_pair_heat": 100.0,
+      "overheat_volleys": 1,
+      "crush_kills": 0,
+      "gibbed_crush_kills": 0,
+      "destroyed_blue_deployables": {
+        "pipe": 1
+      },
+      "pilot_noncontact_hits": 0,
+      "max_abs_body_yaw_degrees": 7.500000000000018
+    },
+    {
+      "file": "test-results/titanball/simulation/coverage-r6-tf-7131.json",
+      "seed": 7131,
+      "revision": "coverage-r6",
+      "renderer": "headless",
+      "winner": "Defenders",
+      "active_seconds": 960.01666666607,
+      "remaining_seconds": 0,
+      "distance_m": 286.414819866552,
+      "checkpoints": {
+        "1": 170.000000000075,
+        "2": 386.01666666659
+      },
+      "boardings": 98,
+      "pilot_seconds": 363.416666666665,
+      "pilot_duty_percent": 37.85524556867667,
+      "mean_pilot_seconds": 3.7085034013589824,
+      "median_pilot_seconds": 2.6499999999989114,
+      "under_one_second_percent": 1.0204081632653061,
+      "death_ended_episodes": 98,
+      "censored_episodes": 0,
+      "deaths_during_exit_lock": 58,
+      "deaths_attack_defend": [
+        214,
+        145
+      ],
+      "cannon_kills": 45,
+      "cannon_logged_health_damage": 5266,
+      "cannon_damage_per_piloted_second": 14.49025452877787,
+      "cannon_kills_per_piloted_minute": 7.4294886493923755,
+      "cannon_kills_per_pilot_death": 0.45918367346938777,
+      "cannon_share_of_defender_deaths_percent": 31.03448275862069,
+      "fired_rounds": 818,
+      "direct_events_per_round_percent": 76.16136919315403,
+      "peak_pair_heat": 87.0833333333335,
+      "overheat_volleys": 0,
+      "crush_kills": 0,
+      "gibbed_crush_kills": 0,
+      "destroyed_blue_deployables": {
+        "pipe": 1
+      },
+      "pilot_noncontact_hits": 0,
+      "max_abs_body_yaw_degrees": 7.500000000000018
+    }
+  ],
+  "known_warnings": [
+    "Native MultiMesh interpolation outside physics process",
+    "ObjectDB/resource cleanup at fixture shutdown"
+  ],
+  "excluded_attempts": "test-results/titanball/simulation/coverage-r6-aborted-navigation",
+  "report": "docs/TITANBALL-COVERAGE-R6.md",
+  "navigation_component": {
+    "components": 209,
+    "original_polygons": 4454,
+    "retained_polygons": 2865
+  },
+  "match_checks": [
+    {
+      "file": "test-results/titanball/simulation/boarding-r5-tf-7129.json",
+      "checks": 23,
+      "pass": true
+    },
+    {
+      "file": "test-results/titanball/simulation/coverage-r6-tf-7129.json",
+      "checks": 26,
+      "pass": true
+    },
+    {
+      "file": "test-results/titanball/simulation/coverage-r6-tf-7130.json",
+      "checks": 26,
+      "pass": true
+    },
+    {
+      "file": "test-results/titanball/simulation/coverage-r6-tf-7131.json",
+      "checks": 26,
+      "pass": true
+    }
+  ],
+  "video": {
+    "file": "test-results/titanball/simulation/coverage-r6-tf-7129.mp4",
+    "sha256": "78dc18ffdcebf3ffde8abe0ac7afdb39ba6a4bb88da68a2645e19fbc000acfb2",
+    "bytes": 591633287,
+    "duration_seconds": 512.133333,
+    "resolution": [
+      1440,
+      900
+    ],
+    "fps": "30/1",
+    "video_codec": "h264",
+    "audio_codec": "aac",
+    "playback_speed": 2
+  },
+  "post_match_changes": {
+    "reason": "User requested remaining route distance on cockpit monitor after recorded combat completed; native HUD checks rerun. Gameplay balance sources unchanged.",
+    "files": {
+      "deathmatch/vehicles/ba2/cockpit.gd": "704ef573f9496818c52c24ffab05289e29ef87756e6cc2ecccb4497dc6293511",
+      "deathmatch/vehicles/ba2/cockpit_hud.gd": "615f4d6b43f8e87182546d06e341b5dbe32a3b11119fdb6051ab5c03a6185cc6",
+      "tools/ba2/gameplay/render.gd": "edd04b5f7f9c88117b1719e2ba28d3025cc89cda1cdfaf7f3ebe1c1df1d7ad0e"
+    }
+  },
+  "runtime_errors": {
+    "coverage-r6-tf-7129": {
+      "script_errors": 0,
+      "pre_result_engine_errors": 0
+    },
+    "coverage-r6-tf-7130": {
+      "script_errors": 0,
+      "pre_result_engine_errors": 0
+    },
+    "coverage-r6-tf-7131": {
+      "script_errors": 0,
+      "pre_result_engine_errors": 0
+    }
+  },
+  "evidence_manifest": "test-results/titanball/coverage-r6-evidence/manifest.json"
+}

@@ -6,7 +6,7 @@ p=argparse.ArgumentParser();p.add_argument('directory',type=Path);p.add_argument
 for path in sorted(a.directory.resolve().glob('*.bsp')):
  if a.match not in path.stem:continue
  with (out/(path.stem+'.log')).open('w') as log:
-  r=subprocess.run([os.environ.get('GODOT_BIN',str(Path.home()/'.local/bin/Godot_v4.7.2-stable_linux.x86_64')),'--path',str(ROOT),'--xr-mode','off','--rendering-method','gl_compatibility','--script','res://deathmatch/tests/quake_source_preview.gd','--',str(path),str(out/path.stem)],stdout=log,stderr=subprocess.STDOUT,timeout=180)
+  r=subprocess.run([os.environ.get('GODOT_BIN',str(Path.home()/'.local/bin/Godot_v4.7.2-stable_linux.x86_64')),'--path',str(ROOT),'--xr-mode','off','--rendering-method','mobile','--script','res://deathmatch/tests/quake_source_preview.gd','--',str(path),str(out/path.stem)],stdout=log,stderr=subprocess.STDOUT,timeout=180)
  print(path.stem,r.returncode,flush=True)
  if r.returncode:raise SystemExit(r.returncode)
  text=(out/(path.stem+'.log')).read_text()

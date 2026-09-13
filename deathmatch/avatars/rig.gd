@@ -3,6 +3,7 @@ var unarmed:=false
 ## Shared humanoid locomotion and aiming, retargeted by the VRM plugin.
 const Pose = preload("res://deathmatch/avatars/pose.gd")
 const Art = preload("res://deathmatch/art.gd")
+const RestBounds = preload("res://deathmatch/avatars/rest_bounds.gd")
 var target_xr_pose: Dictionary={}
 var xr_pose: Dictionary={}
 var pain:=0.0
@@ -15,18 +16,35 @@ var mouth
 var eyes
 var speed := 0.0
 var movement := Vector3.ZERO
+var stance:="stand"
+var collider_height:=1.65
+var grounded:=true
+var tracked_leg_animation:=false
+var gait=preload("res://deathmatch/avatars/locomotion.gd").new()
 var aim_pitch := 0.0
 var phase := 0.0
 var recoil := 0.0
 var offhand_recoil := 0.0
-var dead := false
+var dead := false:
+	set(value):
+		if dead==value:return
+		dead=value
+		death_time=0.0
+		if dead and is_inside_tree():death_basis=get_parent().global_basis.orthonormalized()
+		if solver:solver.reset_death()
+		if not dead:
+			gait=preload("res://deathmatch/avatars/locomotion.gd").new()
+			pain=0.0;recoil=0.0;offhand_recoil=0.0
 var death_time := 0.0
+var death_basis:=Basis.IDENTITY
 var preview_mode := -1
 var weapon_id := -1
 var gun: Node3D
 var offhand_gun: Node3D
 var body_height := 1.70
 var scale_factor := 1.0
+var neutral_hip_height:=.92
+var neutral_foot_heights:Dictionary={"left":.08,"right":.08}
 var first_person := false
 var secondary_nodes: Array[Node]=[]
 var visual_meshes: Array[MeshInstance3D]=[]
@@ -39,11 +57,19 @@ func configure(root: Node3D) -> bool:
 	if not skeleton: return false
 	for bone in ["Hips","Head","LeftUpperArm","LeftLowerArm","LeftHand","RightUpperArm","RightLowerArm","RightHand","LeftUpperLeg","LeftLowerLeg","LeftFoot","RightUpperLeg","RightLowerLeg","RightFoot"]:
 		if skeleton.find_bone(bone)<0: return false
-	var bounds := mesh_bounds(root,Transform3D.IDENTITY)
+	var local_bounds:AABB=root.get_meta(RestBounds.CACHE_KEY) if root.has_meta(RestBounds.CACHE_KEY) else RestBounds.measure(root)
+	var bounds:AABB=root.transform*local_bounds
 	if bounds.size.y<.05 or bounds.size.y>1000 or not bounds.size.is_finite(): return false
 	scale_factor = body_height/bounds.size.y
 	model.scale *= scale_factor
+	model.position *= scale_factor
 	model.position.y -= bounds.position.y*scale_factor
+	var transforms:Dictionary={}
+	RestBounds.collect(model,model.transform,transforms)
+	var skeleton_transform:Transform3D=transforms[skeleton]
+	neutral_hip_height=(skeleton_transform*skeleton.get_bone_global_rest(skeleton.find_bone("Hips")).origin).y
+	for side in ["Left","Right"]:
+		neutral_foot_heights[side.to_lower()]=(skeleton_transform*skeleton.get_bone_global_rest(skeleton.find_bone(side+"Foot")).origin).y
 	# All meshes are cosmetic: no imported physics, lights, cameras or audio.
 	strip_nonvisual(root)
 	solver = Pose.new()
@@ -69,14 +95,18 @@ func find_skeleton(node: Node) -> Skeleton3D:
 	return null
 
 func mesh_bounds(node: Node3D, parent_transform: Transform3D) -> AABB:
-	var transform_here := parent_transform*node.transform
-	var result := AABB()
-	if node is MeshInstance3D and node.mesh: result = transform_here*node.get_aabb()
-	for child in node.get_children():
-		if child is Node3D:
-			var b := mesh_bounds(child,transform_here)
-			if b.size.length()>0: result = b if result.size.length()==0 else result.merge(b)
-	return result
+	return parent_transform*node.transform*RestBounds.measure(node)
+
+func fit_tracked_hips(pose: Transform3D) -> Transform3D:
+	# Tracking calibration uses a .92 m pelvis and .08 m ankle reference.
+	# Retarget the neutral stance to this uniformly scaled model's proportions;
+	# preserve the tracked displacement, including crouches and lifted feet.
+	pose.origin.y+=neutral_hip_height-.92
+	return pose
+
+func fit_tracked_foot(side: String,pose: Transform3D) -> Transform3D:
+	pose.origin.y+=float(neutral_foot_heights.get(side,.08))-.08
+	return pose
 
 func strip_nonvisual(node: Node) -> void:
 	if node is VRMSecondary:secondary_nodes.append(node)
@@ -135,15 +165,19 @@ func build_animations() -> void:
 	motion.add_animation_library("",library)
 	motion.play("idle")
 
+var weapon_rules:="doom"
 func set_weapon(value: int) -> void:
-	if value==weapon_id: return
+	var arena=get_parent().get_parent() if get_parent() else null
+	var rules: String=arena.match_mode.fortress.art_rules(get_parent().peer_id,value) if arena and "armory" in arena else "doom"
+	if value==weapon_id and rules==weapon_rules:return
+	weapon_rules=rules
 	weapon_id = value
 	if is_instance_valid(gun): gun.free()
 	if is_instance_valid(offhand_gun): offhand_gun.free()
 	offhand_gun=null
-	if value==2:
+	if value==2 and weapon_rules=="doom":
 		offhand_gun=Art.weapon(2);add_child(offhand_gun)
-	gun = Art.weapon(value)
+	gun = Art.weapon(value,2,weapon_rules)
 	gun.scale = Vector3.ONE*.48
 	add_child(gun)
 
@@ -165,6 +199,15 @@ func tracking_transform() -> Transform3D:
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(skeleton): return
+	if dead:
+		death_time=minf(death_time+delta,preload("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
+		# Death owns the skeleton: live trackers, breathing and weapon IK stop here.
+		motion.pause()
+		xr_pose.clear()
+		if not first_person:transform=Transform3D(get_parent().global_basis.inverse()*death_basis,Vector3.ZERO)
+		if gun:gun.hide()
+		if offhand_gun:offhand_gun.hide()
+		return
 	if first_person:
 		global_transform=tracking_transform()
 	else:
@@ -189,22 +232,19 @@ func _process(delta: float) -> void:
 		movement = Vector3.FORWARD*speed
 		if preview_mode==3 and fmod(phase,1.0)<delta: fire()
 	var clip := "idle" if speed<.2 else "walk" if speed<6.0 else "run"
-	if motion.current_animation!=clip: motion.play(clip,.18)
-	phase += delta*(1.0 if speed<.2 else 1.25 if speed<6.0 else 1.92)
+	if motion.current_animation!=clip or not motion.is_playing(): motion.play(clip,.18)
+	gait.update(delta,movement,stance,grounded,target_xr_pose.get("body",{}),tracked_leg_animation)
+	# Preview firing has its own clock, including when standing still.
+	phase+=delta
 	recoil = move_toward(recoil,0.0,delta*7)
 	offhand_recoil=move_toward(offhand_recoil,0.0,delta*7)
 	pain=move_toward(pain,0.0,delta*3.5)
-	if dead:
-		death_time += delta
-		rotation.x = lerpf(rotation.x,-PI*.47,delta*8)
-		position.y = lerpf(position.y,.22,delta*8)
-	else:
-		death_time = 0
-		rotation.x = 0.0 if first_person else pain*pain_direction.z*.12
-		rotation.z = 0.0 if first_person else -pain*pain_direction.x*.12
-		if not first_person:position.y = 0
+	death_time = 0
+	rotation.x = 0.0 if first_person else pain*pain_direction.z*.12
+	rotation.z = 0.0 if first_person else -pain*pain_direction.x*.12
+	if not first_person:position.y = 0
 	if gun and not xr_pose.is_empty() and not dead:
-		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id)
+		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id,Art.VR_SCALE,weapon_rules)
 		gun.visible=not unarmed and not first_person
 		if offhand_gun:
 			offhand_gun.visible=not unarmed and not first_person and xr_pose.has("offhand_weapon")
@@ -212,10 +252,12 @@ func _process(delta: float) -> void:
 		return
 	if gun:
 		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+recoil*.12),Art.desktop_hand(false,aim_pitch,recoil))
-		gun.transform=Art.held_transform(grip,weapon_id,.48)
+		grip.origin.y-=1.65-collider_height
+		gun.transform=Art.held_transform(grip,weapon_id,.48,weapon_rules)
 		gun.visible = not unarmed and not dead and not first_person
 
 	if offhand_gun:
 		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+offhand_recoil*.12),Art.desktop_hand(true,aim_pitch,offhand_recoil,true))
+		grip.origin.y-=1.65-collider_height
 		offhand_gun.transform=Art.held_transform(grip,2,.48)
 		offhand_gun.visible=not unarmed and not dead and not first_person

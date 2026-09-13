@@ -1,7 +1,7 @@
 extends RefCounted
 const Profile=preload("res://deathmatch/profile.gd")
-const KEYS={"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"jump":KEY_SPACE,"slow":KEY_SHIFT,"use":KEY_E,"melee":KEY_F,"scores":KEY_TAB,"chat":KEY_ENTER,"ptt":KEY_V,"down":KEY_CTRL,"fire":-MOUSE_BUTTON_LEFT,"offhand_fire":-MOUSE_BUTTON_RIGHT,"next_weapon":-MOUSE_BUTTON_WHEEL_UP,"previous_weapon":-MOUSE_BUTTON_WHEEL_DOWN}
-const VR={"fire":"weapon:trigger","offhand_fire":"support:trigger","support":"support:grip","jump":"turn:ax_button","slow":"move:primary_click","use":"move:ax_button","scores":"move:by_button","menu":"turn:by_button","ptt":"support:grip"}
+const KEYS={"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"jump":KEY_SPACE,"slow":KEY_SHIFT,"use":KEY_E,"melee":KEY_F,"scores":KEY_TAB,"chat":KEY_ENTER,"team_chat":KEY_Y,"team_ptt":KEY_B,"ptt":KEY_V,"crouch":KEY_CTRL,"prone":KEY_Z,"down":KEY_CTRL,"fire":-MOUSE_BUTTON_LEFT,"alt_fire":-MOUSE_BUTTON_RIGHT,"offhand_fire":-MOUSE_BUTTON_RIGHT,"next_weapon":-MOUSE_BUTTON_WHEEL_UP,"previous_weapon":-MOUSE_BUTTON_WHEEL_DOWN}
+const VR={"fire":"weapon:trigger","alt_fire":"support:trigger","offhand_fire":"support:trigger","support":"support:grip","jump":"turn:ax_button","slow":"move:primary_click","use":"move:ax_button","scores":"move:by_button","menu":"turn:by_button","ptt":"support:grip"}
 const INPUTS=["trigger","grip","ax_button","by_button","primary_click"]
 var keys:=KEYS.duplicate()
 var axes: Dictionary={"move":"move","turn":"turn"}
@@ -9,6 +9,8 @@ var vr:=VR.duplicate()
 var two_handed:=true
 var physical_jump:=false
 var physical_crouch:=true
+var physical_prone:=true
+var tracked_leg_animation:=false
 var face_expressions:=true
 var physical_interactions:=true
 func load_settings() -> void:
@@ -22,7 +24,7 @@ func load_settings() -> void:
 	for action in VR:
 		var value=c.get_value("vr_bindings",action,VR[action])
 		if valid_vr(value):vr[action]=value
-	for option in ["two_handed","physical_jump","physical_crouch","physical_interactions","face_expressions"]:
+	for option in ["two_handed","physical_jump","physical_crouch","physical_prone","tracked_leg_animation","physical_interactions","face_expressions"]:
 		var value=c.get_value("control_options",option,get(option))
 		if value is bool:set(option,value)
 func save() -> Error:
@@ -30,7 +32,7 @@ func save() -> Error:
 	for action in keys:c.set_value("bindings",action,keys[action])
 	for action in axes:c.set_value("vr_axes",action,axes[action])
 	for action in vr:c.set_value("vr_bindings",action,vr[action])
-	for option in ["two_handed","physical_jump","physical_crouch","physical_interactions","face_expressions"]:c.set_value("control_options",option,get(option))
+	for option in ["two_handed","physical_jump","physical_crouch","physical_prone","tracked_leg_animation","physical_interactions","face_expressions"]:c.set_value("control_options",option,get(option))
 	return c.save(Profile.config_path())
 static func valid_vr(value: Variant) -> bool:
 	if not value is String:return false

@@ -1,0 +1,26 @@
+[
+  {
+    "case": "global",
+    "cc_rotation": [
+      "qsrc_dm7",
+      "qsrc_dm2"
+    ],
+    "dm_rotation": [
+      "qsrc_dm7",
+      "qsrc_dm2"
+    ],
+    "passed": true
+  },
+  {
+    "case": "specific",
+    "cc_rotation": [
+      "cc_basement",
+      "cc_hyperborea"
+    ],
+    "dm_rotation": [
+      "qsrc_dm7",
+      "qsrc_dm2"
+    ],
+    "passed": true
+  }
+]

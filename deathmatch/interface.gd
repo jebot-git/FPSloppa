@@ -5,16 +5,23 @@ var game
 var fortress_button: Button
 var map_import: Button
 var map_choice
+var weapon_choice
+var preferred_host_weapons:="doom"
 var avatar_picker: Window
 var avatar_status: Label
 var menu: Control
 var status: Label
 var chat: LineEdit
+var team_chat:=false
+var team_chat_button: Button
 var hud: Control
 var vitals: Label
 var ammo: Label
 var weapon: Label
 var match_status: Label
+var team_badge: Label
+var ability_notice: Label
+var carrier_notice: Label
 var kill_feed: Label
 var center_message: Label
 var toast_label: Label
@@ -75,10 +82,16 @@ func setup(arena: Node) -> void:
 	match_status.position = Vector2(24,18)
 	avatar_status = text(hud,"",13,Color("ae9571"))
 	avatar_status.position = Vector2(24,72)
+	team_badge=text(hud,"",20)
+	ability_notice=text(hud,"",18)
+	carrier_notice=text(hud,"",18,Color("ffdf86"))
+	for index in 3:
+		var line: Label=[team_badge,ability_notice,carrier_notice][index]
+		line.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);line.offset_left=-720;line.offset_right=-24;line.offset_top=18+index*27;line.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
 	kill_feed = text(hud,"",15,Color("c3b499"))
 	kill_feed.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	kill_feed.offset_left = -580
-	kill_feed.offset_top = 50
+	kill_feed.offset_top = 108
 	kill_feed.offset_right = -24
 	kill_feed.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var bottom := PanelContainer.new()
@@ -146,7 +159,7 @@ func setup(arena: Node) -> void:
 			get_viewport().set_input_as_handled()
 	)
 	chat.text_submitted.connect(func(value):
-		game.chat_send(value)
+		game.chat_send(value,team_chat)
 		chat.text = ""
 		chat.release_focus()
 		chat.hide()
@@ -253,8 +266,16 @@ func _build_menu(root: Control) -> void:
 	host_column.add_child(rules)
 	host_mode=preload("res://deathmatch/ui/choice.gd").new();host_column.add_child(host_mode)
 	var host_modes: Array=[]
-	for kind in game.match_mode.NAMES:host_modes.append({"id":kind,"title":game.match_mode.NAMES[kind]})
-	host_mode.configure(host_modes,"SELECT GAME MODE");host_mode.choose("dm")
+	for kind in game.match_mode.NAMES:
+		# Every shipped mode now has a native BSP map.
+		host_modes.append({"id":kind,"title":game.match_mode.NAMES[kind]})
+	host_mode.configure(host_modes,"SELECT GAME MODE");host_mode.choose("dm");host_mode.selected.connect(func(_id):refresh_maps())
+	weapon_choice=preload("res://deathmatch/ui/choice.gd").new();host_column.add_child(weapon_choice)
+	var weapon_options: Array=[]
+	for rule in game.armory.IDS:weapon_options.append({"id":rule,"title":game.armory.NAMES[rule]})
+	weapon_choice.configure(weapon_options,"WEAPON RULES");weapon_choice.choose("doom")
+	weapon_choice.selected.connect(func(value):
+		if not game.armory.MODE_RULES.has(host_mode.value):preferred_host_weapons=value)
 	frags = SpinBox.new()
 	frags.min_value = 1
 	frags.max_value = 100
@@ -269,9 +290,9 @@ func _build_menu(root: Control) -> void:
 	text(rules,"minutes",14)
 	var host_space:=Control.new();host_space.size_flags_vertical=Control.SIZE_EXPAND_FILL;host_column.add_child(host_space)
 	var host_actions:=HBoxContainer.new();host_column.add_child(host_actions)
-	var start_host:=button(host_actions,"START HOST",func():game.start_host(name_field.text,int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value))
+	var start_host:=button(host_actions,"START HOST",func():game.start_host(name_field.text,int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value,weapon_choice.value))
 	start_host.custom_minimum_size.y=48
-	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,host_mode.value))
+	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,host_mode.value,weapon_choice.value))
 	start_practice.custom_minimum_size.y=48
 	button(host_column,"BACK",host_panel.hide).custom_minimum_size.y=44
 	spectator_choice=CheckButton.new();spectator_choice.text="Join as spectator";spectator_choice.custom_minimum_size.y=36
@@ -306,6 +327,8 @@ func _build_menu(root: Control) -> void:
 		if game.active:
 			show_menu(false)
 			open_chat())
+	team_chat_button=button(vr_actions,"TEAM CHAT",func():
+		show_menu(false);open_chat(true))
 	var feature_actions:=HBoxContainer.new();column.add_child(feature_actions)
 	button(feature_actions,"DEMOS…",open_demos)
 	status = text(column,"LAN / direct IP · Internet hosts must forward the selected UDP port.",14,Color("ae9571"))
@@ -342,6 +365,7 @@ func button(parent: Node,title: String,action: Callable) -> Button:
 
 func show_menu(open: bool) -> void:
 	menu.visible = open
+	if open:scoreboard.hide()
 	resume.visible = game.active
 	spectator_choice.visible=not game.active
 	leave.visible = game.active
@@ -355,7 +379,9 @@ func show_menu(open: bool) -> void:
 		if game.voice and game.voice.panel: game.voice.panel.hide()
 		save_preferences()
 
-func open_chat() -> void:
+func open_chat(team_only: bool=false) -> void:
+	team_chat=team_only and game.voice.team_available()
+	chat.placeholder_text=("TEAM ONLY" if team_chat else "EVERYONE")+" · Enter sends · Esc cancels"
 	chat.show()
 	chat.grab_focus()
 	game.fire_down = false
@@ -366,10 +392,11 @@ func toast(message: String) -> void:
 
 func _process(_delta: float) -> void:
 	if game==null: return
-	fortress_button.visible=game.active and not game.demos.playing and game.match_mode.kind=="tf" and not game.local_state().get("spectator",false)
+	fortress_button.visible=game.active and not game.demos.playing and game.match_mode.fortress.enabled() and not game.local_state().get("spectator",false)
 	map_choice.trigger.disabled=game.active
 	map_import.disabled=game.active and multiplayer.is_server()
 	vr_actions.visible=game.is_vr()
+	team_chat_button.visible=game.voice.team_available()
 	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · HOLD LEFT Y/B Scores"
 	hud.visible = game.active
 	avatar_status.text = ""
@@ -383,10 +410,13 @@ func _process(_delta: float) -> void:
 	var d: Dictionary = game.match_mode.fortress.weapon_data(viewed_id,state.weapon)
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
-	ammo.text = ("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else W.AMMO_NAMES[d.ammo])
+	ammo.text = game.variant_combat.charge_label(game.multiplayer.get_unique_id())+("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else game.armory.ammo_names()[d.ammo])
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size()]
 	if game.match_mode.kind!="dm":
 		match_status.text=game.match_mode.status(viewed_id).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
+	var tactical: Dictionary=preload("res://deathmatch/ui/player_status.gd").read(game,viewed_id)
+	team_badge.text=tactical.team_text;team_badge.add_theme_color_override("font_color",Color("ff9c88") if tactical.team==0 else Color("91caff") if tactical.team==1 else Color("e5d5ad"))
+	ability_notice.text=tactical.ability;carrier_notice.text=tactical.carrier
 	var capture: Dictionary=game.match_mode.capture_status()
 	capture_alert.visible=not capture.is_empty() and (not game.is_vr() or game.menu_open or game.intermission>0)
 	if not capture.is_empty():
@@ -440,8 +470,24 @@ func _import_bsp(path: String) -> void:
 	else:status.text="Map imported. Joining clients will download it from the host."
 
 func refresh_maps() -> void:
+	if is_instance_valid(minutes) and is_instance_valid(host_mode):
+		minutes.editable=host_mode.value!="tb"
+		if host_mode.value=="tb":minutes.value=10
+	if is_instance_valid(weapon_choice):
+		var required: String=game.armory.MODE_RULES.get(host_mode.value,"")
+		var options: Array=[]
+		for rule in game.armory.IDS:
+			if required.is_empty() or required==rule:options.append({"id":rule,"title":game.armory.NAMES[rule]})
+		weapon_choice.configure(options,"WEAPON RULES")
+		weapon_choice.choose(required if not required.is_empty() else preferred_host_weapons)
+		weapon_choice.trigger.disabled=not required.is_empty()
+		if not required.is_empty():weapon_choice.trigger.text=game.armory.NAMES[required]+" · REQUIRED"
 	var rows: Array=[]
-	for row in game.map_catalog:rows.append({"id":row.id,"title":row.title})
+	var mode: String=host_mode.value if is_instance_valid(host_mode) else "dm"
+	for row in game.map_catalog:
+		if not game.Maps.available_for_mode(row,mode):continue
+		rows.append({"id":row.id,"title":row.title})
+	if not rows.is_empty() and not rows.any(func(row):return row.id==game.selected_map):game.selected_map=rows[0].id
 	map_choice.configure(rows,"SELECT ARENA");map_choice.choose(game.selected_map)
 
 func open_host() -> void:

@@ -1,6 +1,6 @@
 extends Node3D
 ## Bounded cosmetic effects shared by live network play and demo playback.
-const KINDS=["jump_pad","sentry_fire","explosion","napalm","heal","repair","build","scout","sniper","heavy","spy","flame","bounce"]
+const KINDS=["jump_pad","sentry_fire","ba2_cannon","explosion","napalm","heal","repair","build","scout","sniper","heavy","spy","flame","bounce"]
 var game
 var bursts: Array[Node3D]=[]
 func material(color: Color) -> StandardMaterial3D:
@@ -27,9 +27,12 @@ func emit(kind: String,start: Vector3,end: Vector3,team: int) -> void:
 				var base:=start+Vector3(cos(i*TAU/6)*.25,.1,sin(i*TAU/6)*.25)
 				line(root,base,base+(end-start).normalized()*.7,.025,Color("a1f5ff"))
 			game.spatial.play("jump_pad",start,-6);life=.32
-		"sentry_fire":
+		"sentry_fire","ba2_cannon":
 			line(root,start,end,.018,Color("ffe590"));ball(root,start,.22,Color("fff2bc"));life=.075
 			game.spatial.play("weapon_5",start,-4) # Match the normalized player chaingun level.
+			if kind=="ba2_cannon":
+				var burst:=ball(root,end,.16,Color("ffb459"));var tween:=root.create_tween()
+				tween.tween_property(burst,"scale",Vector3.ONE*5,.07);tween.tween_property(burst,"scale",Vector3.ONE*.05,.09);life=.17
 		"flame":
 			for i in 7:
 				var t:=float(i)/7;var puff=ball(root,start.lerp(end,t),.12+t*.42,Color("ff6418").lerp(Color("ffd978"),1-t))

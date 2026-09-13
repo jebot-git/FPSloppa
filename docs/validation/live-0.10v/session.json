@@ -1,0 +1,2690 @@
+{
+  "source": "serverup.log",
+  "sessions": 2,
+  "event_counts": {
+    "server_started": 2,
+    "health": 1110,
+    "peer_connected": 13,
+    "spawn": 401,
+    "player_joined": 87,
+    "match_event": 488,
+    "pickup": 788,
+    "map_rotated": 18,
+    "peer_disconnected": 13,
+    "damage": 8190,
+    "round_ended": 7,
+    "vote_cast": 14,
+    "suicide": 13,
+    "chat_activity": 5
+  },
+  "overall": {
+    "health_samples": 1110,
+    "peak_players": 5,
+    "physics_ms": {
+      "count": 1110,
+      "median": 6.014,
+      "p95": 11.218,
+      "p99": 15.952,
+      "max": 326.46
+    },
+    "process_ms": {
+      "count": 1110,
+      "median": 1.535,
+      "p95": 5.542,
+      "p99": 9.504,
+      "max": 65.987
+    },
+    "physics_samples_over_16_67ms": 11,
+    "ping_ms": {
+      "count": 3678,
+      "median": 29.0,
+      "p95": 245,
+      "p99": 264,
+      "max": 382
+    },
+    "input_age_ms": {
+      "count": 3678,
+      "median": 17.0,
+      "p95": 33,
+      "p99": 50,
+      "max": 15483
+    },
+    "player_samples_over_100ms_ping": 685,
+    "player_samples": 3678,
+    "weapons": {
+      "BFG 9000": {
+        "damage_events": 4,
+        "fatal_events": 0,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 4,
+          "median": 43.0,
+          "p95": 95,
+          "p99": 95,
+          "max": 95
+        }
+      },
+      "BURN": {
+        "damage_events": 31,
+        "fatal_events": 0,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 31,
+          "median": 2,
+          "p95": 4,
+          "p99": 4,
+          "max": 4
+        }
+      },
+      "CHAINGUN": {
+        "damage_events": 90,
+        "fatal_events": 2,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 88,
+          "median": 8.0,
+          "p95": 15,
+          "p99": 15,
+          "max": 15
+        }
+      },
+      "CHAINSAW": {
+        "damage_events": 361,
+        "fatal_events": 31,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 330,
+          "median": 10.0,
+          "p95": 20,
+          "p99": 20,
+          "max": 20
+        }
+      },
+      "CIRCUS HUNGER": {
+        "damage_events": 6212,
+        "fatal_events": 32,
+        "self_damage_events": 6212,
+        "median_nonfatal_postarmor_damage": {
+          "count": 6180,
+          "median": 1.0,
+          "p95": 1,
+          "p99": 1,
+          "max": 1
+        }
+      },
+      "DROWNING": {
+        "damage_events": 24,
+        "fatal_events": 1,
+        "self_damage_events": 24,
+        "median_nonfatal_postarmor_damage": {
+          "count": 23,
+          "median": 2,
+          "p95": 5,
+          "p99": 5,
+          "max": 5
+        }
+      },
+      "DUAL PISTOLS": {
+        "damage_events": 201,
+        "fatal_events": 6,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 195,
+          "median": 9,
+          "p95": 18,
+          "p99": 18,
+          "max": 18
+        }
+      },
+      "FLAMETHROWER": {
+        "damage_events": 20,
+        "fatal_events": 1,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 19,
+          "median": 4,
+          "p95": 8,
+          "p99": 8,
+          "max": 8
+        }
+      },
+      "KICK": {
+        "damage_events": 2,
+        "fatal_events": 0,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 2,
+          "median": 7.5,
+          "p95": 10,
+          "p99": 10,
+          "max": 10
+        }
+      },
+      "PLASMA RIFLE": {
+        "damage_events": 108,
+        "fatal_events": 8,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 100,
+          "median": 15.0,
+          "p95": 40,
+          "p99": 40,
+          "max": 40
+        }
+      },
+      "RAILGUN": {
+        "damage_events": 117,
+        "fatal_events": 108,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 9,
+          "median": 45,
+          "p95": 70,
+          "p99": 70,
+          "max": 70
+        }
+      },
+      "ROCKET LAUNCHER": {
+        "damage_events": 183,
+        "fatal_events": 26,
+        "self_damage_events": 69,
+        "median_nonfatal_postarmor_damage": {
+          "count": 157,
+          "median": 24,
+          "p95": 67,
+          "p99": 91,
+          "max": 140
+        }
+      },
+      "SENTRY": {
+        "damage_events": 75,
+        "fatal_events": 5,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 70,
+          "median": 12.0,
+          "p95": 12,
+          "p99": 12,
+          "max": 12
+        }
+      },
+      "SHOTGUN": {
+        "damage_events": 222,
+        "fatal_events": 4,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 218,
+          "median": 7.0,
+          "p95": 15,
+          "p99": 15,
+          "max": 15
+        }
+      },
+      "SUICIDE": {
+        "damage_events": 13,
+        "fatal_events": 13,
+        "self_damage_events": 13,
+        "median_nonfatal_postarmor_damage": {
+          "count": 0
+        }
+      },
+      "SUPER SHOTGUN": {
+        "damage_events": 440,
+        "fatal_events": 13,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 427,
+          "median": 7,
+          "p95": 15,
+          "p99": 15,
+          "max": 15
+        }
+      },
+      "TELEFRAG": {
+        "damage_events": 1,
+        "fatal_events": 1,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 0
+        }
+      },
+      "WEAPON WHIP": {
+        "damage_events": 19,
+        "fatal_events": 2,
+        "self_damage_events": 0,
+        "median_nonfatal_postarmor_damage": {
+          "count": 17,
+          "median": 10,
+          "p95": 10,
+          "p99": 10,
+          "max": 10
+        }
+      },
+      "environment": {
+        "damage_events": 67,
+        "fatal_events": 22,
+        "self_damage_events": 67,
+        "median_nonfatal_postarmor_damage": {
+          "count": 45,
+          "median": 10,
+          "p95": 20,
+          "p99": 20,
+          "max": 20
+        }
+      }
+    },
+    "suicides": 13,
+    "team_sizes": {
+      "0v0": 633,
+      "1v1": 8,
+      "2v1": 32,
+      "2v2": 127,
+      "3v2": 309,
+      "1v2": 1
+    },
+    "outcomes": [
+      {
+        "result": "Player wins \u00b7 1 frags",
+        "team_scores": [
+          0,
+          0
+        ]
+      },
+      {
+        "result": "RED WINS \u00b7 120 : 51",
+        "team_scores": [
+          120,
+          51
+        ]
+      },
+      {
+        "result": "RED WINS \u00b7 1 : 0",
+        "team_scores": [
+          1,
+          0
+        ]
+      },
+      {
+        "result": "RED WINS THE ASSAULT",
+        "team_scores": [
+          1,
+          0
+        ]
+      },
+      {
+        "result": "BLUE WINS THE ASSAULT",
+        "team_scores": [
+          0,
+          1
+        ]
+      },
+      {
+        "result": "Player wins \u00b7 20 frags",
+        "team_scores": [
+          0,
+          0
+        ]
+      },
+      {
+        "result": "Player wins \u00b7 20 frags",
+        "team_scores": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "per_mode": {
+    "as": {
+      "health_samples": 61,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 61,
+        "median": 8.57,
+        "p95": 12.836,
+        "p99": 23.197,
+        "max": 23.197
+      },
+      "process_ms": {
+        "count": 61,
+        "median": 2.531,
+        "p95": 6.597,
+        "p99": 30.392,
+        "max": 30.392
+      },
+      "physics_samples_over_16_67ms": 1,
+      "ping_ms": {
+        "count": 305,
+        "median": 29,
+        "p95": 253,
+        "p99": 265,
+        "max": 274
+      },
+      "input_age_ms": {
+        "count": 305,
+        "median": 17,
+        "p95": 33,
+        "p99": 50,
+        "max": 50
+      },
+      "player_samples_over_100ms_ping": 61,
+      "player_samples": 305,
+      "weapons": {
+        "CHAINGUN": {
+          "damage_events": 24,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 22,
+            "median": 10.0,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "DUAL PISTOLS": {
+          "damage_events": 64,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 62,
+            "median": 12.0,
+            "p95": 18,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "PLASMA RIFLE": {
+          "damage_events": 20,
+          "fatal_events": 3,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 17,
+            "median": 20,
+            "p95": 40,
+            "p99": 40,
+            "max": 40
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 19,
+          "fatal_events": 5,
+          "self_damage_events": 7,
+          "median_nonfatal_postarmor_damage": {
+            "count": 14,
+            "median": 39.5,
+            "p95": 91,
+            "p99": 91,
+            "max": 91
+          }
+        },
+        "SENTRY": {
+          "damage_events": 68,
+          "fatal_events": 5,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 63,
+            "median": 12,
+            "p95": 12,
+            "p99": 12,
+            "max": 12
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 2,
+          "fatal_events": 2,
+          "self_damage_events": 2,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 55,
+          "fatal_events": 4,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 51,
+            "median": 10,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 4,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 4,
+            "median": 10.0,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "environment": {
+          "damage_events": 28,
+          "fatal_events": 15,
+          "self_damage_events": 28,
+          "median_nonfatal_postarmor_damage": {
+            "count": 13,
+            "median": 20,
+            "p95": 20,
+            "p99": 20,
+            "max": 20
+          }
+        }
+      },
+      "suicides": 2,
+      "team_sizes": {
+        "3v2": 61
+      },
+      "outcomes": [
+        {
+          "result": "RED WINS THE ASSAULT",
+          "team_scores": [
+            1,
+            0
+          ]
+        },
+        {
+          "result": "BLUE WINS THE ASSAULT",
+          "team_scores": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "cc": {
+      "health_samples": 97,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 97,
+        "median": 8.105,
+        "p95": 13.788,
+        "p99": 20.748,
+        "max": 20.748
+      },
+      "process_ms": {
+        "count": 97,
+        "median": 1.936,
+        "p95": 5.811,
+        "p99": 19.249,
+        "max": 19.249
+      },
+      "physics_samples_over_16_67ms": 2,
+      "ping_ms": {
+        "count": 484,
+        "median": 28.0,
+        "p95": 244,
+        "p99": 255,
+        "max": 264
+      },
+      "input_age_ms": {
+        "count": 484,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 50,
+        "max": 7817
+      },
+      "player_samples_over_100ms_ping": 96,
+      "player_samples": 484,
+      "weapons": {
+        "CHAINSAW": {
+          "damage_events": 361,
+          "fatal_events": 31,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 330,
+            "median": 10.0,
+            "p95": 20,
+            "p99": 20,
+            "max": 20
+          }
+        },
+        "CIRCUS HUNGER": {
+          "damage_events": 6212,
+          "fatal_events": 32,
+          "self_damage_events": 6212,
+          "median_nonfatal_postarmor_damage": {
+            "count": 6180,
+            "median": 1.0,
+            "p95": 1,
+            "p99": 1,
+            "max": 1
+          }
+        },
+        "environment": {
+          "damage_events": 1,
+          "fatal_events": 1,
+          "self_damage_events": 1,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 97
+      },
+      "outcomes": []
+    },
+    "dm": {
+      "health_samples": 261,
+      "peak_players": 2,
+      "physics_ms": {
+        "count": 261,
+        "median": 1.864,
+        "p95": 6.74,
+        "p99": 7.591,
+        "max": 7.735
+      },
+      "process_ms": {
+        "count": 261,
+        "median": 0.719,
+        "p95": 4.092,
+        "p99": 5.72,
+        "max": 30.913
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 220,
+        "median": 33.5,
+        "p95": 41,
+        "p99": 64,
+        "max": 204
+      },
+      "input_age_ms": {
+        "count": 220,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 100,
+        "max": 5117
+      },
+      "player_samples_over_100ms_ping": 1,
+      "player_samples": 220,
+      "weapons": {
+        "KICK": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 8,
+          "fatal_events": 0,
+          "self_damage_events": 3,
+          "median_nonfatal_postarmor_damage": {
+            "count": 8,
+            "median": 15.0,
+            "p95": 38,
+            "p99": 38,
+            "max": 38
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 26,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 25,
+            "median": 5,
+            "p95": 8,
+            "p99": 8,
+            "max": 8
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 261
+      },
+      "outcomes": [
+        {
+          "result": "Player wins \u00b7 1 frags",
+          "team_scores": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "ft": {
+      "health_samples": 115,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 115,
+        "median": 7.9,
+        "p95": 11.177,
+        "p99": 15.383,
+        "max": 15.952
+      },
+      "process_ms": {
+        "count": 115,
+        "median": 1.483,
+        "p95": 5.238,
+        "p99": 6.287,
+        "max": 65.987
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 571,
+        "median": 28,
+        "p95": 252,
+        "p99": 272,
+        "max": 382
+      },
+      "input_age_ms": {
+        "count": 571,
+        "median": 17,
+        "p95": 33,
+        "p99": 50,
+        "max": 267
+      },
+      "player_samples_over_100ms_ping": 113,
+      "player_samples": 571,
+      "weapons": {
+        "BFG 9000": {
+          "damage_events": 4,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 4,
+            "median": 43.0,
+            "p95": 95,
+            "p99": 95,
+            "max": 95
+          }
+        },
+        "CHAINGUN": {
+          "damage_events": 66,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 66,
+            "median": 7.0,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "DUAL PISTOLS": {
+          "damage_events": 45,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 45,
+            "median": 9,
+            "p95": 18,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "PLASMA RIFLE": {
+          "damage_events": 64,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 64,
+            "median": 14.0,
+            "p95": 40,
+            "p99": 40,
+            "max": 40
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 38,
+          "fatal_events": 0,
+          "self_damage_events": 8,
+          "median_nonfatal_postarmor_damage": {
+            "count": 38,
+            "median": 32.5,
+            "p95": 80,
+            "p99": 80,
+            "max": 80
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 87,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 87,
+            "median": 8,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 1,
+          "fatal_events": 1,
+          "self_damage_events": 1,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 174,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 174,
+            "median": 5.0,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.0,
+            "p95": 7,
+            "p99": 7,
+            "max": 7
+          }
+        },
+        "environment": {
+          "damage_events": 36,
+          "fatal_events": 4,
+          "self_damage_events": 36,
+          "median_nonfatal_postarmor_damage": {
+            "count": 32,
+            "median": 10.0,
+            "p95": 20,
+            "p99": 20,
+            "max": 20
+          }
+        }
+      },
+      "suicides": 1,
+      "team_sizes": {
+        "1v1": 1,
+        "3v2": 113,
+        "2v2": 1
+      },
+      "outcomes": []
+    },
+    "ig": {
+      "health_samples": 238,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 238,
+        "median": 4.505,
+        "p95": 10.701,
+        "p99": 20.765,
+        "max": 326.46
+      },
+      "process_ms": {
+        "count": 238,
+        "median": 1.461,
+        "p95": 5.678,
+        "p99": 7.895,
+        "max": 28.048
+      },
+      "physics_samples_over_16_67ms": 4,
+      "ping_ms": {
+        "count": 701,
+        "median": 28,
+        "p95": 250,
+        "p99": 262,
+        "max": 311
+      },
+      "input_age_ms": {
+        "count": 701,
+        "median": 17,
+        "p95": 33,
+        "p99": 4800,
+        "max": 15483
+      },
+      "player_samples_over_100ms_ping": 150,
+      "player_samples": 701,
+      "weapons": {
+        "RAILGUN": {
+          "damage_events": 101,
+          "fatal_events": 101,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "TELEFRAG": {
+          "damage_events": 1,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 238
+      },
+      "outcomes": [
+        {
+          "result": "Player wins \u00b7 20 frags",
+          "team_scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "result": "Player wins \u00b7 20 frags",
+          "team_scores": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "koth": {
+      "health_samples": 100,
+      "peak_players": 4,
+      "physics_ms": {
+        "count": 100,
+        "median": 7.538,
+        "p95": 11.601,
+        "p99": 132.227,
+        "max": 132.227
+      },
+      "process_ms": {
+        "count": 100,
+        "median": 1.611,
+        "p95": 5.177,
+        "p99": 5.969,
+        "max": 5.969
+      },
+      "physics_samples_over_16_67ms": 1,
+      "ping_ms": {
+        "count": 355,
+        "median": 29,
+        "p95": 241,
+        "p99": 254,
+        "max": 276
+      },
+      "input_age_ms": {
+        "count": 355,
+        "median": 17,
+        "p95": 33,
+        "p99": 50,
+        "max": 83
+      },
+      "player_samples_over_100ms_ping": 65,
+      "player_samples": 355,
+      "weapons": {
+        "DUAL PISTOLS": {
+          "damage_events": 86,
+          "fatal_events": 3,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 83,
+            "median": 8,
+            "p95": 12,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "PLASMA RIFLE": {
+          "damage_events": 24,
+          "fatal_events": 5,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 19,
+            "median": 10,
+            "p95": 35,
+            "p99": 35,
+            "max": 35
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 33,
+          "fatal_events": 7,
+          "self_damage_events": 8,
+          "median_nonfatal_postarmor_damage": {
+            "count": 26,
+            "median": 24.5,
+            "p95": 66,
+            "p99": 140,
+            "max": 140
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 17,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 17,
+            "median": 5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 3,
+          "fatal_events": 3,
+          "self_damage_events": 3,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 190,
+          "fatal_events": 9,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 181,
+            "median": 7,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 5,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 5,
+            "median": 7,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        }
+      },
+      "suicides": 3,
+      "team_sizes": {
+        "0v0": 1,
+        "1v1": 5,
+        "2v1": 31,
+        "2v2": 63
+      },
+      "outcomes": [
+        {
+          "result": "RED WINS \u00b7 120 : 51",
+          "team_scores": [
+            120,
+            51
+          ]
+        }
+      ]
+    },
+    "tf": {
+      "health_samples": 175,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 175,
+        "median": 7.859,
+        "p95": 11.455,
+        "p99": 12.194,
+        "max": 13.343
+      },
+      "process_ms": {
+        "count": 175,
+        "median": 2.025,
+        "p95": 5.923,
+        "p99": 23.726,
+        "max": 25.096
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 768,
+        "median": 29.0,
+        "p95": 242,
+        "p99": 252,
+        "max": 278
+      },
+      "input_age_ms": {
+        "count": 768,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 50,
+        "max": 67
+      },
+      "player_samples_over_100ms_ping": 146,
+      "player_samples": 768,
+      "weapons": {
+        "BURN": {
+          "damage_events": 31,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 31,
+            "median": 2,
+            "p95": 4,
+            "p99": 4,
+            "max": 4
+          }
+        },
+        "DROWNING": {
+          "damage_events": 24,
+          "fatal_events": 1,
+          "self_damage_events": 24,
+          "median_nonfatal_postarmor_damage": {
+            "count": 23,
+            "median": 2,
+            "p95": 5,
+            "p99": 5,
+            "max": 5
+          }
+        },
+        "DUAL PISTOLS": {
+          "damage_events": 6,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 5,
+            "median": 9,
+            "p95": 18,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "FLAMETHROWER": {
+          "damage_events": 20,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 19,
+            "median": 4,
+            "p95": 8,
+            "p99": 8,
+            "max": 8
+          }
+        },
+        "RAILGUN": {
+          "damage_events": 16,
+          "fatal_events": 7,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 9,
+            "median": 45,
+            "p95": 70,
+            "p99": 70,
+            "max": 70
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 85,
+          "fatal_events": 14,
+          "self_damage_events": 43,
+          "median_nonfatal_postarmor_damage": {
+            "count": 71,
+            "median": 24,
+            "p95": 52,
+            "p99": 67,
+            "max": 67
+          }
+        },
+        "SENTRY": {
+          "damage_events": 7,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 7,
+            "median": 6,
+            "p95": 6,
+            "p99": 6,
+            "max": 6
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 92,
+          "fatal_events": 3,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 89,
+            "median": 5,
+            "p95": 10,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 7,
+          "fatal_events": 7,
+          "self_damage_events": 7,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 21,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 21,
+            "median": 5,
+            "p95": 8,
+            "p99": 8,
+            "max": 8
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 6,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 4,
+            "median": 7.5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "environment": {
+          "damage_events": 2,
+          "fatal_events": 2,
+          "self_damage_events": 2,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        }
+      },
+      "suicides": 7,
+      "team_sizes": {
+        "0v0": 9,
+        "1v1": 2,
+        "2v2": 54,
+        "3v2": 109,
+        "2v1": 1
+      },
+      "outcomes": [
+        {
+          "result": "RED WINS \u00b7 1 : 0",
+          "team_scores": [
+            1,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  "per_map": {
+    "as_frigate": {
+      "health_samples": 33,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 33,
+        "median": 8.651,
+        "p95": 13.591,
+        "p99": 23.197,
+        "max": 23.197
+      },
+      "process_ms": {
+        "count": 33,
+        "median": 2.397,
+        "p95": 5.926,
+        "p99": 6.597,
+        "max": 6.597
+      },
+      "physics_samples_over_16_67ms": 1,
+      "ping_ms": {
+        "count": 165,
+        "median": 29,
+        "p95": 235,
+        "p99": 259,
+        "max": 260
+      },
+      "input_age_ms": {
+        "count": 165,
+        "median": 17,
+        "p95": 33,
+        "p99": 50,
+        "max": 50
+      },
+      "player_samples_over_100ms_ping": 33,
+      "player_samples": 165,
+      "weapons": {
+        "CHAINGUN": {
+          "damage_events": 24,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 22,
+            "median": 10.0,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "DUAL PISTOLS": {
+          "damage_events": 51,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 49,
+            "median": 12,
+            "p95": 18,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "PLASMA RIFLE": {
+          "damage_events": 10,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 9,
+            "median": 25,
+            "p95": 40,
+            "p99": 40,
+            "max": 40
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 12,
+          "fatal_events": 4,
+          "self_damage_events": 6,
+          "median_nonfatal_postarmor_damage": {
+            "count": 8,
+            "median": 51.0,
+            "p95": 90,
+            "p99": 90,
+            "max": 90
+          }
+        },
+        "SENTRY": {
+          "damage_events": 21,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 19,
+            "median": 12,
+            "p95": 12,
+            "p99": 12,
+            "max": 12
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 2,
+          "fatal_events": 2,
+          "self_damage_events": 2,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 37,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 35,
+            "median": 10,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 3,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 3,
+            "median": 10,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        }
+      },
+      "suicides": 2,
+      "team_sizes": {
+        "3v2": 33
+      },
+      "outcomes": [
+        {
+          "result": "RED WINS THE ASSAULT",
+          "team_scores": [
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    "as_hislop": {
+      "health_samples": 28,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 28,
+        "median": 8.402,
+        "p95": 11.292,
+        "p99": 11.448,
+        "max": 11.448
+      },
+      "process_ms": {
+        "count": 28,
+        "median": 3.325,
+        "p95": 6.795,
+        "p99": 30.392,
+        "max": 30.392
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 140,
+        "median": 29.0,
+        "p95": 263,
+        "p99": 271,
+        "max": 274
+      },
+      "input_age_ms": {
+        "count": 140,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 50,
+        "max": 50
+      },
+      "player_samples_over_100ms_ping": 28,
+      "player_samples": 140,
+      "weapons": {
+        "DUAL PISTOLS": {
+          "damage_events": 13,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 13,
+            "median": 12,
+            "p95": 18,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "PLASMA RIFLE": {
+          "damage_events": 10,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 8,
+            "median": 16.5,
+            "p95": 40,
+            "p99": 40,
+            "max": 40
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 7,
+          "fatal_events": 1,
+          "self_damage_events": 1,
+          "median_nonfatal_postarmor_damage": {
+            "count": 6,
+            "median": 23.5,
+            "p95": 91,
+            "p99": 91,
+            "max": 91
+          }
+        },
+        "SENTRY": {
+          "damage_events": 47,
+          "fatal_events": 3,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 44,
+            "median": 12.0,
+            "p95": 12,
+            "p99": 12,
+            "max": 12
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 18,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 16,
+            "median": 10.0,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 1,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 1,
+            "median": 10,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "environment": {
+          "damage_events": 28,
+          "fatal_events": 15,
+          "self_damage_events": 28,
+          "median_nonfatal_postarmor_damage": {
+            "count": 13,
+            "median": 20,
+            "p95": 20,
+            "p99": 20,
+            "max": 20
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "3v2": 28
+      },
+      "outcomes": [
+        {
+          "result": "BLUE WINS THE ASSAULT",
+          "team_scores": [
+            0,
+            1
+          ]
+        }
+      ]
+    },
+    "lqdm1": {
+      "health_samples": 295,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 295,
+        "median": 2.278,
+        "p95": 7.324,
+        "p99": 9.861,
+        "max": 12.364
+      },
+      "process_ms": {
+        "count": 295,
+        "median": 0.787,
+        "p95": 4.513,
+        "p99": 5.938,
+        "max": 30.913
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 390,
+        "median": 32.0,
+        "p95": 249,
+        "p99": 260,
+        "max": 281
+      },
+      "input_age_ms": {
+        "count": 390,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 50,
+        "max": 5117
+      },
+      "player_samples_over_100ms_ping": 36,
+      "player_samples": 390,
+      "weapons": {
+        "KICK": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "RAILGUN": {
+          "damage_events": 52,
+          "fatal_events": 52,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 8,
+          "fatal_events": 0,
+          "self_damage_events": 3,
+          "median_nonfatal_postarmor_damage": {
+            "count": 8,
+            "median": 15.0,
+            "p95": 38,
+            "p99": 38,
+            "max": 38
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 26,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 25,
+            "median": 5,
+            "p95": 8,
+            "p99": 8,
+            "max": 8
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 295
+      },
+      "outcomes": [
+        {
+          "result": "Player wins \u00b7 1 frags",
+          "team_scores": [
+            0,
+            0
+          ]
+        },
+        {
+          "result": "Player wins \u00b7 20 frags",
+          "team_scores": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "lqdm2": {
+      "health_samples": 141,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 141,
+        "median": 0.558,
+        "p95": 7.714,
+        "p99": 10.731,
+        "max": 34.643
+      },
+      "process_ms": {
+        "count": 141,
+        "median": 0.342,
+        "p95": 5.338,
+        "p99": 7.754,
+        "max": 28.048
+      },
+      "physics_samples_over_16_67ms": 1,
+      "ping_ms": {
+        "count": 222,
+        "median": 27.0,
+        "p95": 245,
+        "p99": 283,
+        "max": 311
+      },
+      "input_age_ms": {
+        "count": 222,
+        "median": 17.0,
+        "p95": 267,
+        "p99": 7933,
+        "max": 15483
+      },
+      "player_samples_over_100ms_ping": 51,
+      "player_samples": 222,
+      "weapons": {
+        "RAILGUN": {
+          "damage_events": 2,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 141
+      },
+      "outcomes": []
+    },
+    "lqdm3": {
+      "health_samples": 97,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 97,
+        "median": 8.105,
+        "p95": 13.788,
+        "p99": 20.748,
+        "max": 20.748
+      },
+      "process_ms": {
+        "count": 97,
+        "median": 1.936,
+        "p95": 5.811,
+        "p99": 19.249,
+        "max": 19.249
+      },
+      "physics_samples_over_16_67ms": 2,
+      "ping_ms": {
+        "count": 484,
+        "median": 28.0,
+        "p95": 244,
+        "p99": 255,
+        "max": 264
+      },
+      "input_age_ms": {
+        "count": 484,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 50,
+        "max": 7817
+      },
+      "player_samples_over_100ms_ping": 96,
+      "player_samples": 484,
+      "weapons": {
+        "CHAINSAW": {
+          "damage_events": 361,
+          "fatal_events": 31,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 330,
+            "median": 10.0,
+            "p95": 20,
+            "p99": 20,
+            "max": 20
+          }
+        },
+        "CIRCUS HUNGER": {
+          "damage_events": 6212,
+          "fatal_events": 32,
+          "self_damage_events": 6212,
+          "median_nonfatal_postarmor_damage": {
+            "count": 6180,
+            "median": 1.0,
+            "p95": 1,
+            "p99": 1,
+            "max": 1
+          }
+        },
+        "environment": {
+          "damage_events": 1,
+          "fatal_events": 1,
+          "self_damage_events": 1,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 97
+      },
+      "outcomes": []
+    },
+    "lqdm5": {
+      "health_samples": 100,
+      "peak_players": 4,
+      "physics_ms": {
+        "count": 100,
+        "median": 7.538,
+        "p95": 11.601,
+        "p99": 132.227,
+        "max": 132.227
+      },
+      "process_ms": {
+        "count": 100,
+        "median": 1.611,
+        "p95": 5.177,
+        "p99": 5.969,
+        "max": 5.969
+      },
+      "physics_samples_over_16_67ms": 1,
+      "ping_ms": {
+        "count": 355,
+        "median": 29,
+        "p95": 241,
+        "p99": 254,
+        "max": 276
+      },
+      "input_age_ms": {
+        "count": 355,
+        "median": 17,
+        "p95": 33,
+        "p99": 50,
+        "max": 83
+      },
+      "player_samples_over_100ms_ping": 65,
+      "player_samples": 355,
+      "weapons": {
+        "DUAL PISTOLS": {
+          "damage_events": 86,
+          "fatal_events": 3,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 83,
+            "median": 8,
+            "p95": 12,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "PLASMA RIFLE": {
+          "damage_events": 24,
+          "fatal_events": 5,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 19,
+            "median": 10,
+            "p95": 35,
+            "p99": 35,
+            "max": 35
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 33,
+          "fatal_events": 7,
+          "self_damage_events": 8,
+          "median_nonfatal_postarmor_damage": {
+            "count": 26,
+            "median": 24.5,
+            "p95": 66,
+            "p99": 140,
+            "max": 140
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 17,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 17,
+            "median": 5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 3,
+          "fatal_events": 3,
+          "self_damage_events": 3,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 190,
+          "fatal_events": 9,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 181,
+            "median": 7,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 5,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 5,
+            "median": 7,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        }
+      },
+      "suicides": 3,
+      "team_sizes": {
+        "0v0": 1,
+        "1v1": 5,
+        "2v1": 31,
+        "2v2": 63
+      },
+      "outcomes": [
+        {
+          "result": "RED WINS \u00b7 120 : 51",
+          "team_scores": [
+            120,
+            51
+          ]
+        }
+      ]
+    },
+    "lqdm7": {
+      "health_samples": 115,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 115,
+        "median": 7.9,
+        "p95": 11.177,
+        "p99": 15.383,
+        "max": 15.952
+      },
+      "process_ms": {
+        "count": 115,
+        "median": 1.483,
+        "p95": 5.238,
+        "p99": 6.287,
+        "max": 65.987
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 571,
+        "median": 28,
+        "p95": 252,
+        "p99": 272,
+        "max": 382
+      },
+      "input_age_ms": {
+        "count": 571,
+        "median": 17,
+        "p95": 33,
+        "p99": 50,
+        "max": 267
+      },
+      "player_samples_over_100ms_ping": 113,
+      "player_samples": 571,
+      "weapons": {
+        "BFG 9000": {
+          "damage_events": 4,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 4,
+            "median": 43.0,
+            "p95": 95,
+            "p99": 95,
+            "max": 95
+          }
+        },
+        "CHAINGUN": {
+          "damage_events": 66,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 66,
+            "median": 7.0,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "DUAL PISTOLS": {
+          "damage_events": 45,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 45,
+            "median": 9,
+            "p95": 18,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "PLASMA RIFLE": {
+          "damage_events": 64,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 64,
+            "median": 14.0,
+            "p95": 40,
+            "p99": 40,
+            "max": 40
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 38,
+          "fatal_events": 0,
+          "self_damage_events": 8,
+          "median_nonfatal_postarmor_damage": {
+            "count": 38,
+            "median": 32.5,
+            "p95": 80,
+            "p99": 80,
+            "max": 80
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 87,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 87,
+            "median": 8,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 1,
+          "fatal_events": 1,
+          "self_damage_events": 1,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 174,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 174,
+            "median": 5.0,
+            "p95": 15,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.0,
+            "p95": 7,
+            "p99": 7,
+            "max": 7
+          }
+        },
+        "environment": {
+          "damage_events": 36,
+          "fatal_events": 4,
+          "self_damage_events": 36,
+          "median_nonfatal_postarmor_damage": {
+            "count": 32,
+            "median": 10.0,
+            "p95": 20,
+            "p99": 20,
+            "max": 20
+          }
+        }
+      },
+      "suicides": 1,
+      "team_sizes": {
+        "1v1": 1,
+        "3v2": 113,
+        "2v2": 1
+      },
+      "outcomes": []
+    },
+    "qsrc_dm6": {
+      "health_samples": 63,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 63,
+        "median": 7.113,
+        "p95": 11.775,
+        "p99": 326.46,
+        "max": 326.46
+      },
+      "process_ms": {
+        "count": 63,
+        "median": 1.728,
+        "p95": 5.498,
+        "p99": 22.544,
+        "max": 22.544
+      },
+      "physics_samples_over_16_67ms": 3,
+      "ping_ms": {
+        "count": 309,
+        "median": 29,
+        "p95": 246,
+        "p99": 260,
+        "max": 265
+      },
+      "input_age_ms": {
+        "count": 309,
+        "median": 17,
+        "p95": 33,
+        "p99": 50,
+        "max": 9800
+      },
+      "player_samples_over_100ms_ping": 64,
+      "player_samples": 309,
+      "weapons": {
+        "RAILGUN": {
+          "damage_events": 47,
+          "fatal_events": 47,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "TELEFRAG": {
+          "damage_events": 1,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        }
+      },
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 63
+      },
+      "outcomes": [
+        {
+          "result": "Player wins \u00b7 20 frags",
+          "team_scores": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "tf_fo_turtler": {
+      "health_samples": 9,
+      "peak_players": 0,
+      "physics_ms": {
+        "count": 9,
+        "median": 0.613,
+        "p95": 9.072,
+        "p99": 9.072,
+        "max": 9.072
+      },
+      "process_ms": {
+        "count": 9,
+        "median": 0.316,
+        "p95": 1.545,
+        "p99": 1.545,
+        "max": 1.545
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 0
+      },
+      "input_age_ms": {
+        "count": 0
+      },
+      "player_samples_over_100ms_ping": 0,
+      "player_samples": 0,
+      "weapons": {},
+      "suicides": 0,
+      "team_sizes": {
+        "0v0": 9
+      },
+      "outcomes": []
+    },
+    "tf_original_2fort5": {
+      "health_samples": 123,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 123,
+        "median": 7.996,
+        "p95": 11.494,
+        "p99": 12.194,
+        "max": 13.343
+      },
+      "process_ms": {
+        "count": 123,
+        "median": 2.074,
+        "p95": 5.862,
+        "p99": 6.67,
+        "max": 7.112
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 576,
+        "median": 29.0,
+        "p95": 243,
+        "p99": 252,
+        "max": 278
+      },
+      "input_age_ms": {
+        "count": 576,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 50,
+        "max": 67
+      },
+      "player_samples_over_100ms_ping": 123,
+      "player_samples": 576,
+      "weapons": {
+        "BURN": {
+          "damage_events": 31,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 31,
+            "median": 2,
+            "p95": 4,
+            "p99": 4,
+            "max": 4
+          }
+        },
+        "DROWNING": {
+          "damage_events": 23,
+          "fatal_events": 1,
+          "self_damage_events": 23,
+          "median_nonfatal_postarmor_damage": {
+            "count": 22,
+            "median": 2.5,
+            "p95": 5,
+            "p99": 5,
+            "max": 5
+          }
+        },
+        "DUAL PISTOLS": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.5,
+            "p95": 9,
+            "p99": 9,
+            "max": 9
+          }
+        },
+        "FLAMETHROWER": {
+          "damage_events": 20,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 19,
+            "median": 4,
+            "p95": 8,
+            "p99": 8,
+            "max": 8
+          }
+        },
+        "RAILGUN": {
+          "damage_events": 16,
+          "fatal_events": 7,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 9,
+            "median": 45,
+            "p95": 70,
+            "p99": 70,
+            "max": 70
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 54,
+          "fatal_events": 10,
+          "self_damage_events": 24,
+          "median_nonfatal_postarmor_damage": {
+            "count": 44,
+            "median": 22.5,
+            "p95": 52,
+            "p99": 67,
+            "max": 67
+          }
+        },
+        "SENTRY": {
+          "damage_events": 7,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 7,
+            "median": 6,
+            "p95": 6,
+            "p99": 6,
+            "max": 6
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 35,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 35,
+            "median": 5,
+            "p95": 8,
+            "p99": 8,
+            "max": 8
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 6,
+          "fatal_events": 6,
+          "self_damage_events": 6,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "SUPER SHOTGUN": {
+          "damage_events": 21,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 21,
+            "median": 5,
+            "p95": 8,
+            "p99": 8,
+            "max": 8
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 4,
+          "fatal_events": 2,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        },
+        "environment": {
+          "damage_events": 2,
+          "fatal_events": 2,
+          "self_damage_events": 2,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        }
+      },
+      "suicides": 6,
+      "team_sizes": {
+        "1v1": 1,
+        "2v2": 36,
+        "3v2": 86
+      },
+      "outcomes": [
+        {
+          "result": "RED WINS \u00b7 1 : 0",
+          "team_scores": [
+            1,
+            0
+          ]
+        }
+      ]
+    },
+    "tf_original_well6": {
+      "health_samples": 43,
+      "peak_players": 5,
+      "physics_ms": {
+        "count": 43,
+        "median": 7.859,
+        "p95": 10.031,
+        "p99": 11.846,
+        "max": 11.846
+      },
+      "process_ms": {
+        "count": 43,
+        "median": 2.152,
+        "p95": 6.148,
+        "p99": 25.096,
+        "max": 25.096
+      },
+      "physics_samples_over_16_67ms": 0,
+      "ping_ms": {
+        "count": 192,
+        "median": 28.0,
+        "p95": 236,
+        "p99": 256,
+        "max": 257
+      },
+      "input_age_ms": {
+        "count": 192,
+        "median": 17.0,
+        "p95": 33,
+        "p99": 33,
+        "max": 50
+      },
+      "player_samples_over_100ms_ping": 23,
+      "player_samples": 192,
+      "weapons": {
+        "DROWNING": {
+          "damage_events": 1,
+          "fatal_events": 0,
+          "self_damage_events": 1,
+          "median_nonfatal_postarmor_damage": {
+            "count": 1,
+            "median": 2,
+            "p95": 2,
+            "p99": 2,
+            "max": 2
+          }
+        },
+        "DUAL PISTOLS": {
+          "damage_events": 4,
+          "fatal_events": 1,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 3,
+            "median": 9,
+            "p95": 18,
+            "p99": 18,
+            "max": 18
+          }
+        },
+        "ROCKET LAUNCHER": {
+          "damage_events": 31,
+          "fatal_events": 4,
+          "self_damage_events": 19,
+          "median_nonfatal_postarmor_damage": {
+            "count": 27,
+            "median": 26,
+            "p95": 48,
+            "p99": 61,
+            "max": 61
+          }
+        },
+        "SHOTGUN": {
+          "damage_events": 57,
+          "fatal_events": 3,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 54,
+            "median": 5.0,
+            "p95": 10,
+            "p99": 15,
+            "max": 15
+          }
+        },
+        "SUICIDE": {
+          "damage_events": 1,
+          "fatal_events": 1,
+          "self_damage_events": 1,
+          "median_nonfatal_postarmor_damage": {
+            "count": 0
+          }
+        },
+        "WEAPON WHIP": {
+          "damage_events": 2,
+          "fatal_events": 0,
+          "self_damage_events": 0,
+          "median_nonfatal_postarmor_damage": {
+            "count": 2,
+            "median": 7.5,
+            "p95": 10,
+            "p99": 10,
+            "max": 10
+          }
+        }
+      },
+      "suicides": 1,
+      "team_sizes": {
+        "1v1": 1,
+        "2v1": 1,
+        "2v2": 18,
+        "3v2": 23
+      },
+      "outcomes": []
+    }
+  },
+  "largest_physics_samples": [
+    {
+      "utc": "2026-09-11T18:51:04Z",
+      "map": "qsrc_dm6",
+      "mode": "ig",
+      "physics_ms": 326.46,
+      "process_ms": 2.603,
+      "players": 0,
+      "nearby_events": {
+        "map_rotated": 1,
+        "spawn": 4,
+        "player_joined": 4
+      }
+    },
+    {
+      "utc": "2026-09-11T18:03:04Z",
+      "map": "lqdm5",
+      "mode": "koth",
+      "physics_ms": 132.227,
+      "process_ms": 1.746,
+      "players": 0,
+      "nearby_events": {
+        "map_rotated": 1,
+        "spawn": 2,
+        "player_joined": 2
+      }
+    },
+    {
+      "utc": "2026-09-11T19:00:41Z",
+      "map": "lqdm2",
+      "mode": "ig",
+      "physics_ms": 34.643,
+      "process_ms": 28.048,
+      "players": 4,
+      "nearby_events": {
+        "map_rotated": 1,
+        "spawn": 5,
+        "player_joined": 5
+      }
+    },
+    {
+      "utc": "2026-09-11T18:45:49Z",
+      "map": "as_frigate",
+      "mode": "as",
+      "physics_ms": 23.197,
+      "process_ms": 1.932,
+      "players": 5,
+      "nearby_events": {
+        "spawn": 5
+      }
+    },
+    {
+      "utc": "2026-09-11T18:59:56Z",
+      "map": "__waiting_lobby__",
+      "mode": "ig",
+      "physics_ms": 20.974,
+      "process_ms": 22.943,
+      "players": 3,
+      "nearby_events": {
+        "map_rotated": 1,
+        "spawn": 5,
+        "player_joined": 5
+      }
+    },
+    {
+      "utc": "2026-09-11T18:53:49Z",
+      "map": "qsrc_dm6",
+      "mode": "ig",
+      "physics_ms": 20.765,
+      "process_ms": 2.868,
+      "players": 5,
+      "nearby_events": {
+        "spawn": 2
+      }
+    },
+    {
+      "utc": "2026-09-11T18:33:19Z",
+      "map": "lqdm3",
+      "mode": "cc",
+      "physics_ms": 20.748,
+      "process_ms": 1.273,
+      "players": 5,
+      "nearby_events": {
+        "spawn": 1
+      }
+    },
+    {
+      "utc": "2026-09-11T18:50:19Z",
+      "map": "__waiting_lobby__",
+      "mode": "as",
+      "physics_ms": 20.125,
+      "process_ms": 32.715,
+      "players": 3,
+      "nearby_events": {
+        "map_rotated": 1,
+        "spawn": 5,
+        "player_joined": 5
+      }
+    },
+    {
+      "utc": "2026-09-11T18:02:19Z",
+      "map": "__waiting_lobby__",
+      "mode": "dm",
+      "physics_ms": 19.959,
+      "process_ms": 0.804,
+      "players": 1,
+      "nearby_events": {
+        "map_rotated": 1,
+        "spawn": 2,
+        "player_joined": 2
+      }
+    },
+    {
+      "utc": "2026-09-11T18:55:50Z",
+      "map": "qsrc_dm6",
+      "mode": "ig",
+      "physics_ms": 18.953,
+      "process_ms": 1.645,
+      "players": 5,
+      "nearby_events": {}
+    },
+    {
+      "utc": "2026-09-11T18:34:24Z",
+      "map": "lqdm3",
+      "mode": "cc",
+      "physics_ms": 18.771,
+      "process_ms": 5.428,
+      "players": 5,
+      "nearby_events": {
+        "spawn": 1
+      }
+    },
+    {
+      "utc": "2026-09-11T18:40:09Z",
+      "map": "lqdm7",
+      "mode": "ft",
+      "physics_ms": 15.952,
+      "process_ms": 1.077,
+      "players": 5,
+      "nearby_events": {
+        "spawn": 5
+      }
+    }
+  ],
+  "assault_objectives": [
+    {
+      "utc": "2026-09-11T18:44:38Z",
+      "time_ms": 3519513,
+      "map": "as_frigate",
+      "message": "Attackers secured forward spawn 1"
+    },
+    {
+      "utc": "2026-09-11T18:44:47Z",
+      "time_ms": 3527997,
+      "map": "as_frigate",
+      "message": "AS objective 1 / 2: Destroy the aft compressor"
+    },
+    {
+      "utc": "2026-09-11T18:45:40Z",
+      "time_ms": 3580980,
+      "map": "as_frigate",
+      "message": "AS objective 2 / 2: Activate the naval guns"
+    },
+    {
+      "utc": "2026-09-11T18:45:40Z",
+      "time_ms": 3580980,
+      "map": "as_frigate",
+      "message": "RED completed the assault in 72.62s \u00b7 switching attack/defend"
+    },
+    {
+      "utc": "2026-09-11T18:45:48Z",
+      "time_ms": 3589006,
+      "map": "as_frigate",
+      "message": "BLUE attacks \u00b7 RED defends \u00b7 beat 72.62s"
+    },
+    {
+      "utc": "2026-09-11T18:46:19Z",
+      "time_ms": 3620379,
+      "map": "as_frigate",
+      "message": "Attackers secured forward spawn 1"
+    },
+    {
+      "utc": "2026-09-11T18:46:59Z",
+      "time_ms": 3659790,
+      "map": "as_frigate",
+      "message": "AS objective 1 / 2: Destroy the aft compressor"
+    },
+    {
+      "utc": "2026-09-11T18:47:00Z",
+      "time_ms": 3661610,
+      "map": "as_frigate",
+      "message": "RED WINS THE ASSAULT"
+    },
+    {
+      "utc": "2026-09-11T18:48:47Z",
+      "time_ms": 3767778,
+      "map": "as_hislop",
+      "message": "Attackers secured forward spawn 1"
+    },
+    {
+      "utc": "2026-09-11T18:48:51Z",
+      "time_ms": 3772517,
+      "map": "as_hislop",
+      "message": "Attackers secured forward spawn 2"
+    },
+    {
+      "utc": "2026-09-11T18:49:18Z",
+      "time_ms": 3798732,
+      "map": "as_hislop",
+      "message": "AS objective 1 / 2: Unlock control cabin"
+    },
+    {
+      "utc": "2026-09-11T18:49:23Z",
+      "time_ms": 3803952,
+      "map": "as_hislop",
+      "message": "AS objective 2 / 2: Override train controls"
+    },
+    {
+      "utc": "2026-09-11T18:49:23Z",
+      "time_ms": 3803953,
+      "map": "as_hislop",
+      "message": "RED completed the assault in 84.82s \u00b7 switching attack/defend"
+    },
+    {
+      "utc": "2026-09-11T18:49:31Z",
+      "time_ms": 3811966,
+      "map": "as_hislop",
+      "message": "BLUE attacks \u00b7 RED defends \u00b7 beat 84.82s"
+    },
+    {
+      "utc": "2026-09-11T18:49:59Z",
+      "time_ms": 3840404,
+      "map": "as_hislop",
+      "message": "AS objective 1 / 2: Unlock control cabin"
+    },
+    {
+      "utc": "2026-09-11T18:50:03Z",
+      "time_ms": 3844297,
+      "map": "as_hislop",
+      "message": "Attackers secured forward spawn 2"
+    },
+    {
+      "utc": "2026-09-11T18:50:08Z",
+      "time_ms": 3849370,
+      "map": "as_hislop",
+      "message": "AS objective 2 / 2: Override train controls"
+    },
+    {
+      "utc": "2026-09-11T18:50:08Z",
+      "time_ms": 3849371,
+      "map": "as_hislop",
+      "message": "BLUE WINS THE ASSAULT"
+    }
+  ]
+}

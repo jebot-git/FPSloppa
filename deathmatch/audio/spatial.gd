@@ -29,13 +29,17 @@ func setup(arena: Node) -> void:
 		AudioServer.set_bus_name(idx,"ArenaEffects");AudioServer.set_bus_send(idx,"ArenaSpatial")
 func choose(kind: String) -> AudioStream:
 	var file:="res://deathmatch/audio/"+kind+".wav"
-	if kind in ["jump","land"]:file="res://deathmatch/audio/doom-style/"+kind+"_%d.wav"%randi_range(0,2)
+	if kind=="ba2_stomp":file="res://deathmatch/audio/ba2/stomp_%d.res"%randi_range(0,2)
+	elif kind.begins_with("quake_") or kind.begins_with("ut99_"):
+		if kind.contains("/") or kind.contains(".") or kind.length()>32:return null
+		file="res://deathmatch/audio/experimental/"+kind+".wav"
+	elif kind in ["jump","land"]:file="res://deathmatch/audio/doom-style/"+kind+"_%d.wav"%randi_range(0,2)
 	elif kind in ["weapon_1","weapon_2","weapon_3","weapon_4","weapon_5","weapon_6","weapon_7","weapon_8","explosion","pickup_ammo","pickup_weapon","pickup_armor","pickup_health","pickup_mega"]:file="res://deathmatch/audio/doom-style/"+kind+".wav"
 	elif kind=="pain":file="res://deathmatch/audio/recorded/pain_%d.wav"%randi_range(0,2)
 	elif kind in ["step","flesh","weapon_0","impact"]:
 		var stem:="footstep_concrete" if kind=="step" else "impactMetal_light" if kind=="impact" else "impactPunch_heavy"
 		file="res://deathmatch/audio/recorded/%s_%03d.ogg"%[stem,randi_range(0,4)]
-	if not cache.has(file): cache[file]=load(file)
+	if not cache.has(file):cache[file]=AudioStreamWAV.load_from_file(file) if "/experimental/" in file else load(file)
 	return cache[file]
 func configure(player: AudioStreamPlayer3D, voice: bool=false) -> void:
 	player.bus="ArenaSpatial" if voice else "ArenaEffects"
@@ -62,6 +66,9 @@ func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	player.set_meta("dry_db",volume)
 	player.set_meta("expires",game.clock+source.get_length()/.97+.15)
 	player.pitch_scale=randf_range(.985,1.015) if kind.begins_with("weapon_") else randf_range(.97,1.03)
+	if kind=="ba2_stomp":
+		player.max_distance=100;player.unit_size=8
+		if player.has_method("play_stream"):player.set("min_attenuation_distance",player.unit_size)
 	if kind in ["jump","land"]:
 		player.max_distance=28;player.unit_size=3.5
 		if player.has_method("play_stream"):player.set("min_attenuation_distance",player.unit_size)

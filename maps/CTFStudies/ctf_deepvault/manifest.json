@@ -1,0 +1,278 @@
+{
+  "id": "ctf_deepvault",
+  "title": "Deepvault | Forgotten Mines study",
+  "original_reference": "ctf4",
+  "sha256": "b90bda1a949d516cefb429143d0278868542c7a6ba748da7d60f72514e91bf2c",
+  "source_sha256": "e4c824b0467ed881f7adfa22b467b0d83bd784e84b85b674d20ce69bcaa8e982",
+  "brushes": 131,
+  "rooms": 24,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "flags": [
+    [
+      -2464,
+      -144,
+      24
+    ],
+    [
+      2464,
+      144,
+      24
+    ]
+  ],
+  "spawns": [
+    [
+      [
+        -1728,
+        -112,
+        24
+      ],
+      [
+        -1728,
+        -192,
+        24
+      ],
+      [
+        -1856,
+        -112,
+        24
+      ],
+      [
+        -1856,
+        -192,
+        24
+      ],
+      [
+        -2240,
+        -112,
+        24
+      ],
+      [
+        -2240,
+        -192,
+        24
+      ],
+      [
+        -2400,
+        -112,
+        24
+      ],
+      [
+        -2400,
+        -192,
+        24
+      ]
+    ],
+    [
+      [
+        1728,
+        112,
+        24
+      ],
+      [
+        1728,
+        192,
+        24
+      ],
+      [
+        1856,
+        112,
+        24
+      ],
+      [
+        1856,
+        192,
+        24
+      ],
+      [
+        2240,
+        112,
+        24
+      ],
+      [
+        2240,
+        192,
+        24
+      ],
+      [
+        2400,
+        112,
+        24
+      ],
+      [
+        2400,
+        192,
+        24
+      ]
+    ]
+  ],
+  "views": [
+    [
+      [
+        640,
+        320,
+        160
+      ],
+      [
+        1056,
+        0,
+        0
+      ],
+      "excavation"
+    ],
+    [
+      [
+        1824,
+        0,
+        128
+      ],
+      [
+        2464,
+        144,
+        64
+      ],
+      "gate"
+    ]
+  ],
+  "landmarks": [
+    {
+      "name": "Central mine choke",
+      "center": [
+        0.0,
+        0.0,
+        -32.0
+      ]
+    },
+    {
+      "name": "Excavation chamber",
+      "center": [
+        -800.0,
+        0.0,
+        128.0
+      ]
+    },
+    {
+      "name": "Choke descent",
+      "center": [
+        -416.0,
+        -288.0,
+        -32.0
+      ]
+    },
+    {
+      "name": "Three mining galleries",
+      "center": [
+        -1376.0,
+        0.0,
+        192.0
+      ]
+    },
+    {
+      "name": "Gate approach",
+      "center": [
+        -1872.0,
+        0.0,
+        192.0
+      ]
+    },
+    {
+      "name": "Flag chamber",
+      "center": [
+        -2304.0,
+        0.0,
+        176.0
+      ]
+    },
+    {
+      "name": "High bypass",
+      "center": [
+        -1920.0,
+        640.0,
+        240.0
+      ]
+    },
+    {
+      "name": "Excavation chamber",
+      "center": [
+        800.0,
+        0.0,
+        128.0
+      ]
+    },
+    {
+      "name": "Choke descent",
+      "center": [
+        416.0,
+        288.0,
+        -32.0
+      ]
+    },
+    {
+      "name": "Three mining galleries",
+      "center": [
+        1376.0,
+        0.0,
+        192.0
+      ]
+    },
+    {
+      "name": "Gate approach",
+      "center": [
+        1872.0,
+        0.0,
+        192.0
+      ]
+    },
+    {
+      "name": "Flag chamber",
+      "center": [
+        2304.0,
+        0.0,
+        176.0
+      ]
+    },
+    {
+      "name": "High bypass",
+      "center": [
+        1920.0,
+        -640.0,
+        240.0
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "name": "gate bypass",
+      "points": [
+        [
+          1344,
+          -640,
+          0
+        ],
+        [
+          2112,
+          -640,
+          256
+        ],
+        [
+          2400,
+          -320,
+          256
+        ],
+        [
+          2464,
+          144,
+          0
+        ]
+      ]
+    }
+  ],
+  "geometry": "newly authored; no original BSP geometry used as build input",
+  "textures": "../texture-sources.json",
+  "lighting_rebake": {
+    "original_sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  }
+}

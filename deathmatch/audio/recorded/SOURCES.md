@@ -29,4 +29,4 @@ change the weapon-report loudness calibration.
 
 ## Current selection
 
-Weapon reports, explosions and pickups now select the edited effects described in `../doom-style/SOURCES.md`. The field-recorded gunshots and generated tonal pickups above remain legacy assets. Footsteps, impacts and pain grunts remain active; their CC0 recordings also supply the new pickup and jump/landing layers.
+Weapon reports, explosions and pickups now select the edited effects described in `../doom-style/SOURCES.md`. The field-recorded gunshots and generated tonal pickups above remain legacy assets. Footsteps, impacts and pain grunts remain active. Footsteps also supply pickup and jump/landing layers; jumping uses the separate CC0 3grunt1/2/6 recordings, while pain retains 3grunt3/4/5.

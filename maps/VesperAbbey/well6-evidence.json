@@ -1,0 +1,64 @@
+{
+  "source": "https://www.quaddicted.com/files/maps/multiplayer/well6.zip",
+  "archive_sha256": "860a4ad6f65b3316e1daf151c02d35dc92e8caae7511b2c692fdf7913f1185eb",
+  "bsp_sha256": "7a0231411e73e6bd7dca3abd2ef82659c67dbe95120c35d6a20ab1a3dc732b26",
+  "examined": "Original BSP lift entities and existing FPSloppa Well6 runtime validation. No Well6 geometry or textures copied.",
+  "lifts": [
+    {
+      "model": "*13",
+      "dmg": "0",
+      "lip": "200",
+      "sounds": "1",
+      "speed": "170",
+      "wait": "4",
+      "targetname": "liftb2",
+      "netname": "func_door 6",
+      "angle": "-1",
+      "classname": "func_door"
+    },
+    {
+      "model": "*14",
+      "dmg": "0",
+      "lip": "200",
+      "sounds": "1",
+      "speed": "170",
+      "wait": "4",
+      "targetname": "liftb1",
+      "netname": "func_door 7",
+      "angle": "-1",
+      "classname": "func_door"
+    },
+    {
+      "model": "*37",
+      "dmg": "0",
+      "lip": "200",
+      "sounds": "1",
+      "speed": "170",
+      "wait": "4",
+      "targetname": "liftr2",
+      "netname": "func_door 10",
+      "angle": "-1",
+      "classname": "func_door"
+    },
+    {
+      "model": "*38",
+      "dmg": "0",
+      "lip": "200",
+      "sounds": "1",
+      "speed": "170",
+      "wait": "4",
+      "targetname": "liftr1",
+      "netname": "func_door 11",
+      "angle": "-1",
+      "classname": "func_door"
+    }
+  ],
+  "vesper_adaptation": {
+    "count": 4,
+    "type": "trigger-operated func_door elevator",
+    "rise_metres": 8,
+    "move_seconds": 2,
+    "top_dwell_seconds": 3,
+    "alternate_route": "walkable ramp per base"
+  }
+}

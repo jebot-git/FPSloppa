@@ -23,7 +23,7 @@ def main():
             for role in ['server','uploader','receiver']:
                 handle = (logs/('avatar_'+role+'.log')).open('w'); handles.append(handle)
                 env = os.environ.copy(); env['XDG_DATA_HOME'] = str(Path(temp)/role)
-                asset_root=Path(temp)/('assets-'+role);shutil.copytree(root/'maps',asset_root/'maps');shutil.copytree(root/'vrm',asset_root/'vrm')
+                asset_root=Path(temp)/('assets-'+role);shutil.copytree(root/'maps',asset_root/'maps',ignore=lambda folder,names:[name for name in names if (Path(folder)/name).is_dir() or Path(name).suffix not in {'.bsp','.txt','.json'}]);shutil.copytree(root/'vrm',asset_root/'vrm')
                 cmd = [godot,'--headless','--xr-mode','off','--path',str(root),'--script','res://deathmatch/tests/avatar_network_runner.gd','--',role,str(model),sha,"--asset-root",str(asset_root)]
                 processes.append((role,subprocess.Popen(cmd,env=env,stdout=handle,stderr=subprocess.STDOUT)))
                 if role=='server':

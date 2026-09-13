@@ -1,5 +1,12 @@
 # Frigate Assault adaptation
 
+Current builds use the expanded layout by default. `--tiny` builds the original
+compact variant under the `_tiny` map ID, labelled **Tiny (2-4 players)** and
+intended only for small groups. Rebuild/install all four variants with
+`python3 tools/assault_layout_tests/build.py --compiler-dir /path/to/ericw-tools/bin --install`.
+See [current layout notes](../../maps/AssaultLayoutTests/README.md).
+
+
 `as_frigate` is an independently authored BSP29 interpretation of the UT99
 AS-Frigate scenario. Like HiSlop, it uses reference research, original convex
 brush construction, embedded LibreQuake mipmaps, ericw-tools compilation, Godot

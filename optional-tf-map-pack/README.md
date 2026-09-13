@@ -14,3 +14,5 @@ All layout geometry, MAP sources and generator are authored for FPSloppa and ded
 Rebuild from the repository with `python3 tools/generate_tf_maps.py --compiler-dir /path/to/ericw-tools/bin --wad /path/to/librequake.wad` (tested with official ericw-tools v0.18.1, https://github.com/ericwa/ericw-tools/releases/tag/v0.18.1). The sources reference `librequake.wad`, available from the archived 0.5v TF tools download. The compiler is a separate GPL tool and is not bundled in this asset pack.
 
 This is a playable initial layout, not a claim of competitive balance or headset performance certification. Report spawn camping, route balance and visibility issues during playtesting.
+
+September 2026 theme: selected original Makkon textures now supplement LibreQuake. The separate Makkon_License.txt applies to those textures; texture-theme.json verifies current BSP hashes and unchanged geometry. Earlier texture-validation.json and source WAD references document the original LibreQuake build, before this texture-only pass. Reproduce the theme with tools/makkon/maintained.py after rebuilding the original source.

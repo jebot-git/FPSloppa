@@ -33,7 +33,7 @@ static func direction(yaw: float, pitch: float) -> Vector3:
 	return Basis(Vector3.UP,yaw) * Basis(Vector3.RIGHT,pitch) * Vector3.FORWARD
 
 static func next_owned(current: int, step: int, owned: Array) -> int:
-	for i in range(1,DATA.size()+1):
-		var w := posmod(current+i*step,DATA.size())
+	for i in range(1,maxi(DATA.size(),owned.max()+1 if not owned.is_empty() else 0)+1):
+		var w := posmod(current+i*step,maxi(DATA.size(),owned.max()+1 if not owned.is_empty() else 0))
 		if owned.has(w): return w
 	return current

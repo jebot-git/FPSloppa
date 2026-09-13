@@ -4,6 +4,7 @@ import os, subprocess, secrets, json, zipfile, hashlib, argparse, re, shutil
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
+parser.add_argument('--thin', action='store_true', help='Omit offline base assets (default: unified APK)')
 parser.add_argument('--target', choices=['Quest', 'Pico', 'both'], default='both')
 args = parser.parse_args()
 sdk = Path(os.environ.get('ANDROID_SDK_ROOT', str(Path.home() / 'Android/Sdk')))
@@ -32,6 +33,16 @@ if not (root / 'android/build/gradlew').exists():
     (root / 'android/.build_version').write_text('4.7.2.stable')
     (root / 'android/.gdignore').touch()
     (root / 'android/build/gradlew').chmod(0o755)
+# ZIPReader seeks within the included base archive. Deflating that ZIP again
+# inside the APK makes Android asset seeks repeatedly decompress its prefix.
+# Store ZIP assets directly; their contents are already compressed.
+gradle = root / 'android/build/build.gradle'
+gradle_text = gradle.read_text()
+if "noCompress 'zip'" not in gradle_text:
+    marker = 'aaptOptions {'
+    if marker not in gradle_text:
+        raise SystemExit('Android template has no aaptOptions block; cannot configure seekable ZIP assets')
+    gradle.write_text(gradle_text.replace(marker, marker+"\n            noCompress 'zip'", 1))
 settings = Path.home() / '.config/godot/editor_settings-4.7.tres'
 if settings.exists():
     contents = settings.read_text()
@@ -44,16 +55,48 @@ logs = root / 'test-results'
 logs.mkdir(exist_ok=True)
 out = root.parent / 'Builds/Android'
 out.mkdir(parents=True, exist_ok=True)
-for target in (['Quest', 'Pico'] if args.target == 'both' else [args.target]):
-    apk = out / f'FPSloppa-{target}.apk'
-    log = logs / f'export_android_{target.lower()}.log'
-    with log.open('w') as f:
-        result = subprocess.run([godot, '--headless', '--path', str(root), '--xr-mode', 'off', '--export-release', f'{target} (experimental)', str(apk)], env=env, stdout=f, stderr=subprocess.STDOUT)
-    if result.returncode or not apk.exists() or any(s in log.read_text() for s in ['SCRIPT ERROR:', 'Cannot export project', 'Export failed']):
-        raise SystemExit(f'{target} export failed; inspect {log}')
-    check = subprocess.run([str(sdk / 'build-tools/36.1.0/apksigner'), 'verify', '--verbose', '--print-certs', str(apk)], env=env, text=True, capture_output=True, check=True)
-    (logs / f'android_{target.lower()}_signature.txt').write_text(check.stdout + check.stderr)
-    subprocess.run([str(sdk / 'build-tools/36.1.0/zipalign'), '-c', '-P', '16', '4', str(apk)], check=True)
-    digest = hashlib.sha256(apk.read_bytes()).hexdigest()
-    apk.with_suffix('.apk.sha256').write_text(f'{digest}  {apk.name}\n')
-    print(f'BUILT {apk} ({apk.stat().st_size} bytes) SHA256 {digest}', flush=True)
+embedded = root / 'deathmatch/assets/offline-base.zip'
+if embedded.exists():
+    raise SystemExit(f'Remove or relocate unexpected build input first: {embedded}')
+ignore_markers = []
+try:
+    # Export filters do not stop the editor's pre-export import scan. These
+    # directories are excluded by both Android presets and contain generated
+    # engine/build trees or authoring sources, not APK resources.
+    for name in ['Builds', 'dist', 'tools', 'docs', 'materials', 'textures']:
+        folder = root/name
+        marker = folder/'.gdignore'
+        if folder.is_dir() and not marker.exists():
+            marker.touch()
+            ignore_markers.append(marker)
+    if not args.thin:
+        manifest = json.loads((root / 'deathmatch/assets/base_manifest.json').read_text())
+        archive = root.parent / 'Builds' / f"FPSloppa-{manifest['version']}-Base-Assets.zip"
+        if hashlib.sha256(archive.read_bytes()).hexdigest() != manifest['sha256']:
+            raise SystemExit('Base assets are stale; run tools/build_base_assets.py')
+        with zipfile.ZipFile(archive) as bundle:
+            for row in manifest['files']:
+                data = bundle.read(row['path'])
+                assert len(data) == row['size'] and hashlib.sha256(data).hexdigest() == row['sha256'], row['path']
+        shutil.copyfile(archive, embedded)
+    for target in (['Quest', 'Pico'] if args.target == 'both' else [args.target]):
+        apk = out / f'FPSloppa-{target}.apk'
+        log = logs / f'export_android_{target.lower()}.log'
+        with log.open('w') as f:
+            result = subprocess.run([godot, '--headless', '--path', str(root), '--xr-mode', 'off', '--export-release', f'{target} (experimental)', str(apk)], env=env, stdout=f, stderr=subprocess.STDOUT)
+        if result.returncode or not apk.exists() or any(s in log.read_text() for s in ['SCRIPT ERROR:', 'Cannot export project', 'Export failed']):
+            raise SystemExit(f'{target} export failed; inspect {log}')
+        if not args.thin:
+            with zipfile.ZipFile(apk) as package:
+                if package.getinfo('assets/deathmatch/assets/offline-base.zip').compress_type != zipfile.ZIP_STORED:
+                    raise SystemExit(f'{target}: base ZIP must be stored uncompressed for Android random access')
+        check = subprocess.run([str(sdk / 'build-tools/36.1.0/apksigner'), 'verify', '--verbose', '--print-certs', str(apk)], env=env, text=True, capture_output=True, check=True)
+        (logs / f'android_{target.lower()}_signature.txt').write_text(check.stdout + check.stderr)
+        subprocess.run([str(sdk / 'build-tools/36.1.0/zipalign'), '-c', '-P', '16', '4', str(apk)], check=True)
+        digest = hashlib.sha256(apk.read_bytes()).hexdigest()
+        apk.with_suffix('.apk.sha256').write_text(f'{digest}  {apk.name}\n')
+        print(f'BUILT {apk} ({apk.stat().st_size} bytes) SHA256 {digest}', flush=True)
+finally:
+    if embedded.exists(): embedded.unlink()
+    for marker in ignore_markers:
+        marker.unlink(missing_ok=True)

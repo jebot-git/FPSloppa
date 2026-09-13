@@ -4,11 +4,14 @@ const FILTERS=[BaseMaterial3D.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS,BaseMaterial3D
 const HINTS=["filter_nearest_mipmap","filter_linear_mipmap","filter_linear_mipmap_anisotropic"]
 const BANK="fpsloppa_filter_variants"
 const BAKED=preload("res://deathmatch/maps/baked_light.gdshader")
+const ColourMips=preload("res://deathmatch/maps/colour_mips.gd")
 var mode:=2
 var prepare_assets:=true
+var lighting_mode:=-1
 var shaders: Dictionary={}
 var textures: Dictionary={}
 var materials: Dictionary={}
+var map_textures: Dictionary={}
 class Warmup extends Node3D:
 	var sources: Array=[]
 	var frames_left:=3
@@ -34,12 +37,22 @@ func textured(source: BaseMaterial3D) -> bool:
 		var value:=source.get_texture(slot)
 		if value and not value is ViewportTexture:return true
 	return false
+func map_texture(source: Texture2D,cutout: bool=false) -> Texture2D:
+	if not source:return source
+	var key:=[source,cutout]
+	if not map_textures.has(key):map_textures[key]=ColourMips.prepare(source,cutout)
+	return map_textures[key]
 func material(source: Material) -> void:
 	if not source or materials.has(source):return
 	materials[source]=true
 	if source is BaseMaterial3D:
 		if not textured(source):return
 		if prepare_assets:
+			if source.has_meta("bsp_texture_name"):
+				var previous: Texture2D=source.albedo_texture
+				source.albedo_texture=map_texture(source.albedo_texture,source.transparency==BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR)
+				source.emission_texture=map_texture(source.emission_texture)
+				if previous!=source.albedo_texture and source.has_meta(BANK):source.remove_meta(BANK)
 			for slot in BaseMaterial3D.TEXTURE_MAX:
 				var original: Texture2D=source.get_texture(slot)
 				var prepared:=texture(original)
@@ -60,10 +73,11 @@ func material(source: Material) -> void:
 				for key in ["base","glow"]:
 					var image_texture=source.get_shader_parameter(key+"_texture")
 					if image_texture is Texture2D:
-						var prepared:=texture(image_texture)
+						var prepared:=map_texture(image_texture,key=="base" and source.get_shader_parameter("alpha_cutout")==true)
 						if image_texture!=prepared:source.set_shader_parameter(key+"_texture",prepared)
 						for suffix in ["_nearest","_linear"]:source.set_shader_parameter(key+suffix,prepared)
 			source.set_shader_parameter("texture_filter_mode",mode)
+			if lighting_mode>=0:source.set_shader_parameter("contrast_lighting",lighting_mode==1)
 			return
 		if prepare_assets:
 			for key in ["base_texture","glow_texture","_MainTex","_ShadeTexture","_EmissionMap","_SphereAdd","_RimTexture","_ShadingGradeTexture","_ReceiveShadowTexture","_UvAnimMaskTexture","_OutlineWidthTexture"]:
@@ -86,8 +100,8 @@ func material(source: Material) -> void:
 		if source.has_meta(BANK):
 			var shader: Shader=source.get_meta(BANK)[mode].shader
 			if source.shader!=shader:source.shader=shader
-func apply(root: Node,filter_mode: int=2,prepare: bool=true) -> void:
-	mode=clampi(filter_mode,0,2);prepare_assets=prepare
+func apply(root: Node,filter_mode: int=2,prepare: bool=true,lighting: int=-1) -> void:
+	mode=clampi(filter_mode,0,2);prepare_assets=prepare;lighting_mode=lighting
 	var warmup: Warmup
 	var warmed: Dictionary={}
 	var nodes:=root.find_children("*","GeometryInstance3D",true,false)

@@ -1,0 +1,1544 @@
+{
+  "status": "implemented; tested; caches installed; local base-assets bundle verified",
+  "renderer": "mobile",
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "engine": "4.7.2-stable (fedora)",
+  "resolution": [
+    1280,
+    800
+  ],
+  "msaa": 4,
+  "measured_frames": 11340,
+  "maps": [
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "93a65a6f34287b1ac41adc02287455c8fd230e61c201ad3dc4b8191058b7c967",
+      "cache_sha256": "a79da2c88d742c7635748aef303ba85a1793e93d12bac38f93b8e5b18a0045dd",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "as_hislop",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "5b6caf9f76c9a75d734e13919b57e3c6312ff24f874b4c214d807eb3625207a5",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 13.0,
+        "cutouts": 0.0,
+        "faces": 7958.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 29.0,
+        "unlit": 858.0
+      },
+      "navigation_sha256": "a37bdea7ca922d4e556f40ef339e77aeccac2d42a038614b28c16521b8658bf2",
+      "prepare_ms": 945.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "555c0b1b012f6791dabcf3c488613e6c6d7da58be0d3597629800b67e9706c9e",
+      "cache_sha256": "6e4b70533f946218e9baf2dd5d73ebbd342985fae9238c7e3e7834e79bf79122",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "as_frigate",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "af55d8603c9688dde927cbd7fdcb96d8351708869cc76403674330e568569361",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 12.0,
+        "cutouts": 0.0,
+        "faces": 4390.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 152.0,
+        "unlit": 140.0
+      },
+      "navigation_sha256": "73c08692f831751dea7f6ebd8db3772ecf493fdc0aabf3bba2d8cd9c9d83d786",
+      "prepare_ms": 804.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "a28630971716f49eb744e8b850fd704e70cf04820eb088499b46957dca2bc08d",
+      "cache_sha256": "9ee17c74b1c9efee710aed7f08091f61c9030368acfc3f39b0744f0d07ffeeb7",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "tf_pressureworks",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "f0214c082e5a42c8ce01b25fcb05b5a87fb0a0bdfaa0fc8d2f573f17514f1994",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 29.0,
+        "cutouts": 0.0,
+        "faces": 6350.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 29.0,
+        "unlit": 0.0
+      },
+      "navigation_sha256": "4641ac6bd117f0978ddcd8ea8bfe8e00864a72f727fa1956ed5cfc2ab5a66cb7",
+      "prepare_ms": 2821.0,
+      "tinted_vertices": 11514.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "c19759d9a7ac2984b20fb0716923763c6c7ff6700201427f78698ba6cbdaf9e3",
+      "cache_sha256": "ca85718327e0bc89a77b2efd7ac04377b51f359e7c78f4756243b76d645b48a9",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "tf_vesper",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "4c064c7276f8f52e9b92179b3fa7e832e81e02755a1966aa5da031a2b5f0f998",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 16.0,
+        "cutouts": 0.0,
+        "faces": 4031.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 26.0,
+        "unlit": 0.0
+      },
+      "navigation_sha256": "c3e1c8009580415408bf711ca5ba51e67c809bb7a81ab923716268499923d2e2",
+      "prepare_ms": 1811.0,
+      "tinted_vertices": 26247.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "4df4297cbe9d860a3c93e3636863ca4f096f74de72fc3c7926cba99f3b792488",
+      "cache_sha256": "e62a52ce53224f07c43c60febfee6308e2cf9e2b286cdee965d05f5fd7b7da8c",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "koth_torture",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "c0d97e93bdff3b1aa7adbb5a75662f2661a0095a8aa1b2ea2a3b5596264e18a2",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 18.0,
+        "cutouts": 0.0,
+        "faces": 3494.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 25.0,
+        "unlit": 18.0
+      },
+      "navigation_sha256": "8ab597e2423395dd27d4b95959b4d4f2756149cd92249e435b9b7882bbe8d6d1",
+      "prepare_ms": 651.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "95333fcdc2e19e1c038dd99949b51af8e66712298cdf08247e2cc5886ed311ac",
+      "cache_sha256": "cd0948763007326b50898dea6f937d91dfd4e67a397c0643e17b329a391299d6",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "koth_alichar",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "c9853b5a0740b7d243d0e31d576bedb1b3a1d3fd7b8ded79c269cf64194e5831",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 56.0,
+        "cutouts": 0.0,
+        "faces": 6686.0,
+        "glow": 3.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 87.0,
+        "unlit": 98.0
+      },
+      "navigation_sha256": "14ed3616a062adc2e73998a293412f2945d1c6f9ce62e20eaecd4fd53c1c15cd",
+      "prepare_ms": 1426.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "bf944df41bc9fa6fbe9339d518e41117eba0cdd93b686168f33a77a42a98d752",
+      "cache_sha256": "9c6494262a789880af5374777c599091b804b022706d02c39209e6c50a88e26d",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "cc_hyperborea",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "68ad69009a27c048fad27a6fb1f30a1a4ab7dd24cdfb057af6a88b576cd2f164",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 25.0,
+        "cutouts": 0.0,
+        "faces": 2177.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 26.0,
+        "unlit": 108.0
+      },
+      "navigation_sha256": "08b4b5b9a8a8f6b0250605b261cf55a34d9a79e5755cc186a3823fe272fcfb1d",
+      "prepare_ms": 316.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "1370377682d7fd12aa98f03691ab15ea87046db62e9ebe631c48b90a62c254bb",
+      "cache_sha256": "89bedfae1b8436891e5634a51385415c8d9aebfbd32be97d2684acee16933b2f",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "cc_psychofuge",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "c663a53e839aa0ff1671ff9e6a6d49af21f74787f65b8b1643c3d54086d19936",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 19.0,
+        "cutouts": 0.0,
+        "faces": 6134.0,
+        "glow": 2.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 303.0,
+        "unlit": 292.0
+      },
+      "navigation_sha256": "781fb8125e22df9aca75fd5758af1e379aa4321cf43f81717ef6d8cfadbd0ad9",
+      "prepare_ms": 623.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "74ceab19b31d75c3315dd775f08ad24e6859e65e982def10ffdc3168ceb2e327",
+      "cache_sha256": "6a564e4a56b66ab8f5a4c4c6d06e1dcdb02f8617d143b0ada94ac2d3995758c9",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "cc_ghostquarter",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "1581cf25c695418ab2de4d456115ddebfe27f3bc009fd03e4277d252402c9205",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 27.0,
+        "cutouts": 0.0,
+        "faces": 8362.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 54.0,
+        "unlit": 694.0
+      },
+      "navigation_sha256": "c0a8b43c7054678162d5fc40159d997edc00430c13756795c0ee39008bf084bc",
+      "prepare_ms": 599.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "4735ae86ba3685d6ce39f96a7344373431ded23f0f87618fb142da6b8613ad01",
+      "cache_sha256": "fadbde96745a9170833f91a86b5f4175e28664f202a8181fc10cbd3aa1b4d010",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "cc_basement",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "406b49ce576f624029674ea63336d6dad9658f574a518c1cb21104c7cecf3dff",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 40.0,
+        "cutouts": 0.0,
+        "faces": 6046.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 59.0,
+        "unlit": 50.0
+      },
+      "navigation_sha256": "24b56d138e5c0ead53c5ea5a753e336772f9927c36d81f65823640ee220439d5",
+      "prepare_ms": 696.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 4.0,
+      "animation_sequences": 1.0,
+      "bsp_sha256": "8418cffc2f7346bcda110eb07e10108b7d6f77f7532111921e95eee425443ce8",
+      "cache_sha256": "379e040e0fb137802965ffc6e4da6204d2a44db632f3bfca01a7dad06e867f93",
+      "frame_pixel_bytes": 36840.0,
+      "geometry_preserved": true,
+      "id": "qsrc_dm1",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "8939d69edd7acf213a73115fd0ca10209c93f111a070afe5504fafcff26f6ee6",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 27.0,
+        "cutouts": 0.0,
+        "faces": 2315.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 36.0,
+        "unlit": 12.0
+      },
+      "navigation_sha256": "74a1b7546a73ce3a10be35a5ff3283d6ec844f21bb0d23c7dd56a24284a69a2b",
+      "prepare_ms": 667.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "1c97f4fdc22e3708ef81d849b8a0c5f76e5dfb17b628889df2d3746bea8a78bb",
+      "cache_sha256": "751260c38daeebda028cc998e10a5d1ed353e73ca6c4d4c7cfc5d930884c093e",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "qsrc_dm2",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "8f154f15bcdd0a18bf55c98c95dc9056f509079fa2dc805e2b66eee40e9636fb",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 29.0,
+        "cutouts": 0.0,
+        "faces": 5043.0,
+        "glow": 6.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 133.0,
+        "unlit": 86.0
+      },
+      "navigation_sha256": "69e03d4b1f7e195a3d19101b6e65bbe306f9bc8e21290e803c54938cc6969c0b",
+      "prepare_ms": 904.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "4e825f90f369f69edd68d99b1d73cc3cf522bd438377914cd49fb94b6cc6542f",
+      "cache_sha256": "caf25256cc4ee6ebfedea3e0688ba2d5bd96211942e99df895509f064437572f",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "qsrc_dm4",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "276d6f07a2eb47ab389adff5bd6d2435b6681e8f443d05f32dda04f201e23dcb",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 12.0,
+        "cutouts": 0.0,
+        "faces": 1802.0,
+        "glow": 2.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 73.0,
+        "unlit": 88.0
+      },
+      "navigation_sha256": "6fc74e63d904d6be140d714c746a381c449ddab9ac0c07c5ca2665f862e50ce1",
+      "prepare_ms": 600.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 4.0,
+      "animation_sequences": 1.0,
+      "bsp_sha256": "dc7563efb64534aeba905044e9d1bb52578abc593a6402a5791910ae736cfcf9",
+      "cache_sha256": "5e3ad15f941487204b68b6b1a854ff5a73dfc06e6da39f3f6790ddc7b7b425f6",
+      "frame_pixel_bytes": 36840.0,
+      "geometry_preserved": true,
+      "id": "qsrc_dm5",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "bf6bf49c347c6c652034ee446c408ee7877e923f19e1630811ea401c297b97de",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 18.0,
+        "cutouts": 0.0,
+        "faces": 1964.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 94.0,
+        "unlit": 86.0
+      },
+      "navigation_sha256": "248419c5c1132a59c5104a5d33e8a287d0c31a7639d569f102f0b8260279686d",
+      "prepare_ms": 430.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "590d329070774467f924a42bfee9dea53435f59421940ff99c5c29651add6af5",
+      "cache_sha256": "fec3b44b3738025ac23dd908c749556a22d2df6c3137a29a34898dd2be10260a",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "qsrc_dm6",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "b9bac90a58510f6a92186b8c912113bbfe233d17bd253ff08e34ba4e27fbdc42",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 10.0,
+        "cutouts": 0.0,
+        "faces": 2375.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 38.0,
+        "unlit": 48.0
+      },
+      "navigation_sha256": "e0eb946637d2744377f8e1b7fa6ca4136a3f9175cee583e76c2d19e46d3cee8e",
+      "prepare_ms": 326.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "65f121cf37a284cabb4e17d34aecc8272cbe167171a966dd0549874963facd5e",
+      "cache_sha256": "5ca85f00053337d4a5eb301f0ecbd5f9a53b3d74ca0e8c8b3b73e2c132ec8d92",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "qsrc_dm7",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "6549cbe811314c6a6321eac2a446fb3681c9fd9314e26c015a79c55225c1a3ae",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 14.0,
+        "cutouts": 0.0,
+        "faces": 1883.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 115.0,
+        "unlit": 146.0
+      },
+      "navigation_sha256": "40f6e76422187413850926339770cc59bae88383b49b61a498e072924c2835d6",
+      "prepare_ms": 724.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "6fcba14ad1c5834eeecc1cf622da403a3a0647a20268d21cb2841eedaef8ff0e",
+      "cache_sha256": "4b821591ff0040b1a2e815dfa88fd74b1482c136c07b3dfa6f3275eaba0bc203",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "ctf_tideworks",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "2f5a4e1e4962500193e3af51a1347c3c72f43f01d73c982f6bc53ad869eb56d9",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 9.0,
+        "cutouts": 0.0,
+        "faces": 2288.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 20.0,
+        "unlit": 12.0
+      },
+      "navigation_sha256": "8e117ed1df6c198ae702c5446d4bb347bde2203f9231d4af5e51fd40903ffd99",
+      "prepare_ms": 898.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "9953b1517ece867d1f1123252f8f9ab9d9b99b7be9dcd114d061fb6dedbe18d0",
+      "cache_sha256": "1f9817f8020b05a9c51d6430d1318a0ae70d406d51713c6494b21b757551c2e0",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "ctf_crucible",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "31d61823e868d045a232a1ff87bf1fa05752f56d697225304244f47fb2d3f507",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 7.0,
+        "cutouts": 0.0,
+        "faces": 764.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 7.0,
+        "unlit": 0.0
+      },
+      "navigation_sha256": "f1791c8a4a0eae96c210dfae31a58bc8cfea06811b0b5659338ec6a43a7ca7e3",
+      "prepare_ms": 602.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "46e1912035b0631b1cdf67ea712c872b12e101ca1fbe2ffc589272d2932d4ae1",
+      "cache_sha256": "3ad12bcc51de566ed136ec563a04cc088d2583d755b99f7b4a0b867e8e20fd92",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "ctf_confluence",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "c5adf78c8cbcd6b0ee3b9180e726a32eba4aded77f43aa106dc7ed6d1df95736",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 11.0,
+        "cutouts": 0.0,
+        "faces": 1974.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 79.0,
+        "unlit": 80.0
+      },
+      "navigation_sha256": "b97c64b9957b011d3be2b5c345fcac5f3524a405889b50f2f34218b1be748ace",
+      "prepare_ms": 802.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "b90bda1a949d516cefb429143d0278868542c7a6ba748da7d60f72514e91bf2c",
+      "cache_sha256": "4ccc0eacfc1c49c587d9b15757a3599ef2d370a93d301ec7792cc699195cf82d",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "ctf_deepvault",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "6d940147f2af6782c83120707d6e447c11b5f665f2f1d04278dd4ce9b7e49666",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 9.0,
+        "cutouts": 0.0,
+        "faces": 1295.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 48.0,
+        "unlit": 40.0
+      },
+      "navigation_sha256": "d34e3368e5e471b1b0330c5bb34dcc1434586db29e73f2fa66876299a2eefe22",
+      "prepare_ms": 763.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba",
+      "cache_sha256": "f7c049da621be9b82e4de31b1cfee4ffe9440ab567ff9eaa3f25590e6c109574",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "ctf_crownreach",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "8b6cd6fafa3e89931fb332af1c569f0515e0b366651d56e5137867b8dc25a2c4",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 8.0,
+        "cutouts": 0.0,
+        "faces": 2127.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 99.0,
+        "unlit": 92.0
+      },
+      "navigation_sha256": "12faac8b411e99b33af344de274d9a07e9733e078fcc660f5af5f6d313a86a1e",
+      "prepare_ms": 701.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "0d918f6ac943a2dcfd21682f733c34830f228f53fc0bd8dc65e7b4eca73326ba",
+      "cache_sha256": "009da375ebbbb16f5806f44a7ff3560efec3f368a89b00b9f81286cd63a02cc7",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "ctf_skyfracture",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 4096.0,
+            "sha256": "13661633b6357af62783249749573dbe88ef4cceed3c4574962b16834d8737bc",
+            "width": 4096.0
+          }
+        ],
+        "baked_materials": 7.0,
+        "cutouts": 0.0,
+        "faces": 3279.0,
+        "glow": 1.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 9.0,
+        "unlit": 12.0
+      },
+      "navigation_sha256": "9cbc2b31cdc4ed9127c68805212b6f3f05f57c1e3f1e64871d10c87f7e4b5361",
+      "prepare_ms": 956.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0.0,
+      "animation_sequences": 0.0,
+      "bsp_sha256": "7759afbec42170e828c3feecc25254365265029de3f728966ab0eb0c9e0abab2",
+      "cache_sha256": "d6b1610eaa430eb596877c56560aafea21e3b422e4d3fe54c1b1a8a3e2e27a5b",
+      "frame_pixel_bytes": 0.0,
+      "geometry_preserved": true,
+      "id": "koth_solstice",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "061bc44ade121816d00600150ddeddf2f7d6f9505f4372eb8577fd73c215bb5f",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 22.0,
+        "cutouts": 0.0,
+        "faces": 4025.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 157.0,
+        "unlit": 148.0
+      },
+      "navigation_sha256": "f15f17d3d5f40c62d92820e24c26fc530d5f05bcec4307dd99329e2212c933da",
+      "prepare_ms": 553.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 9.0,
+      "animation_sequences": 2.0,
+      "bsp_sha256": "e4a73507d55ddd38f972de94daa944b94afaf33d262838acd57e58953dd336d0",
+      "cache_sha256": "64393e6cf502db0cd631441f18623abede501dd185059cdfc47c8d1d5e5518e0",
+      "frame_pixel_bytes": 212979.0,
+      "geometry_preserved": true,
+      "id": "koth_hyperborea",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048.0,
+            "sha256": "794665b9e2f1ad3e55a51922e44ee0ba399b0d071bb7b623b1904141f3d705b6",
+            "width": 2048.0
+          }
+        ],
+        "baked_materials": 49.0,
+        "cutouts": 0.0,
+        "faces": 14476.0,
+        "glow": 0.0,
+        "invalid": 0.0,
+        "overflow": 0.0,
+        "rgb": true,
+        "surfaces": 191.0,
+        "unlit": 394.0
+      },
+      "navigation_sha256": "6bfc8f267241056ef68840993acc594eed2ee9cd85384b06788d2f4cdcfb523b",
+      "prepare_ms": 1186.0,
+      "tinted_vertices": 0.0
+    },
+    {
+      "animation_frames": 0,
+      "animation_sequences": 0,
+      "bsp_sha256": "9b521040bd9800b42cbdd97979dcbf2823dd4067688bf5be12fdffdc70224ba2",
+      "cache_sha256": "3b55b8d329628d12820cf1cd44c0f31070f0a141544a1deb8c5ec2327e33872b",
+      "frame_pixel_bytes": 0,
+      "geometry_preserved": true,
+      "id": "qsrc_dm3",
+      "metrics": {
+        "atlases": [
+          {
+            "height": 2048,
+            "sha256": "ab33e0bfbdae6c9cfa1c711fcf0d6ba88964fd09bdab14278f5de9cce16953c4",
+            "width": 2048
+          }
+        ],
+        "baked_materials": 56,
+        "cutouts": 0,
+        "faces": 3163,
+        "glow": 6,
+        "invalid": 0,
+        "overflow": 0,
+        "rgb": true,
+        "surfaces": 113,
+        "unlit": 52
+      },
+      "navigation_sha256": "c0e67cbf746319607cfe527748f0f775d24d8b35888b2e6c3224379bafa2dfd2",
+      "prepare_ms": 1030,
+      "tinted_vertices": 0
+    }
+  ],
+  "integration": {
+    "failures": [],
+    "maps": [
+      {
+        "animated_materials": 0,
+        "id": "as_hislop",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "as_frigate",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "tf_pressureworks",
+        "liquid_materials": 0
+      },
+      {
+        "animated_materials": 0,
+        "id": "tf_vesper",
+        "liquid_materials": 0
+      },
+      {
+        "animated_materials": 0,
+        "id": "koth_solstice",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "koth_torture",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 2,
+        "id": "koth_hyperborea",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "koth_alichar",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "cc_hyperborea",
+        "liquid_materials": 0
+      },
+      {
+        "animated_materials": 0,
+        "id": "cc_psychofuge",
+        "liquid_materials": 2
+      },
+      {
+        "animated_materials": 0,
+        "id": "cc_ghostquarter",
+        "liquid_materials": 0
+      },
+      {
+        "animated_materials": 0,
+        "id": "cc_basement",
+        "liquid_materials": 2
+      },
+      {
+        "animated_materials": 1,
+        "id": "qsrc_dm1",
+        "liquid_materials": 2
+      },
+      {
+        "animated_materials": 0,
+        "id": "qsrc_dm2",
+        "liquid_materials": 3
+      },
+      {
+        "animated_materials": 0,
+        "id": "qsrc_dm3",
+        "liquid_materials": 2
+      },
+      {
+        "animated_materials": 0,
+        "id": "qsrc_dm4",
+        "liquid_materials": 2
+      },
+      {
+        "animated_materials": 1,
+        "id": "qsrc_dm5",
+        "liquid_materials": 2
+      },
+      {
+        "animated_materials": 0,
+        "id": "qsrc_dm6",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "qsrc_dm7",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "ctf_tideworks",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "ctf_crucible",
+        "liquid_materials": 0
+      },
+      {
+        "animated_materials": 0,
+        "id": "ctf_confluence",
+        "liquid_materials": 2
+      },
+      {
+        "animated_materials": 0,
+        "id": "ctf_deepvault",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "ctf_crownreach",
+        "liquid_materials": 1
+      },
+      {
+        "animated_materials": 0,
+        "id": "ctf_skyfracture",
+        "liquid_materials": 0
+      },
+      {
+        "id": "external-original",
+        "liquid_materials": 0,
+        "sha256": "6cb8573fba426a3e5494b88817491784fe1dbf1f6605bff7c1ebeecc933d0eca",
+        "unbaked_drifting_materials": 0
+      },
+      {
+        "animated_materials": 1,
+        "id": "unbaked-dm1-control",
+        "liquid_materials": 2
+      }
+    ]
+  },
+  "focused_surfaces": {
+    "failures": [],
+    "samples": [
+      {
+        "animated": true,
+        "map": "koth_hyperborea",
+        "restored": true,
+        "source_glow": false,
+        "texture": "+0grk_jumppad"
+      },
+      {
+        "animated": true,
+        "map": "qsrc_dm1",
+        "restored": true,
+        "source_glow": false,
+        "texture": "*teleport"
+      },
+      {
+        "animated": true,
+        "map": "qsrc_dm2",
+        "restored": true,
+        "source_glow": true,
+        "texture": "*lava1"
+      }
+    ]
+  },
+  "ui": {
+    "failures": [],
+    "scroll": 234,
+    "window": [
+      960,
+      600
+    ]
+  },
+  "summary": {
+    "atmosphere": {
+      "median_paired_gpu_delta_ms": 0.023499995470047275,
+      "gpu_delta_range_ms": [
+        -0.07550004124641407,
+        0.049499988555908536
+      ],
+      "median_paired_p95_delta_ms": 0.02524995803833263,
+      "p95_delta_range_ms": [
+        -0.2779999971389745,
+        0.06100004911423018
+      ],
+      "draw_delta_range": [
+        0.0,
+        0.0
+      ],
+      "toggle_texture_allocation_delta_range": [
+        0.0,
+        0.0
+      ]
+    },
+    "animation": {
+      "median_paired_gpu_delta_ms": -0.0002500265836738458,
+      "gpu_delta_range_ms": [
+        -0.092500001192093,
+        0.02750003337860152
+      ],
+      "median_paired_p95_delta_ms": -0.0027500241994857233,
+      "p95_delta_range_ms": [
+        -0.2620000243186925,
+        0.023999989032740032
+      ],
+      "draw_delta_range": [
+        0.0,
+        0.0
+      ],
+      "toggle_texture_allocation_delta_range": [
+        0.0,
+        0.0
+      ]
+    },
+    "variation": {
+      "median_paired_gpu_delta_ms": 0.0014999657869327887,
+      "gpu_delta_range_ms": [
+        -0.09350004792213407,
+        0.02750003337860152
+      ],
+      "median_paired_p95_delta_ms": 0.0012499839067440788,
+      "p95_delta_range_ms": [
+        -0.27200001478194946,
+        0.03750005364417941
+      ],
+      "draw_delta_range": [
+        0.0,
+        0.0
+      ],
+      "toggle_texture_allocation_delta_range": [
+        0.0,
+        0.0
+      ]
+    },
+    "combined": {
+      "median_paired_gpu_delta_ms": 0.02550002932548545,
+      "gpu_delta_range_ms": [
+        -0.06500002741813649,
+        0.03749999403953552
+      ],
+      "median_paired_p95_delta_ms": 0.01924997568130271,
+      "p95_delta_range_ms": [
+        -0.2454999983310675,
+        0.05000007152557506
+      ],
+      "draw_delta_range": [
+        0.0,
+        0.0
+      ],
+      "toggle_texture_allocation_delta_range": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "cache_changes": [
+    {
+      "path": "maps/cache/as_hislop.scn",
+      "previous_sha256": "f482eb2ad03b4bd5805581da1afcdcfd296c8b53dd76789486ed4f70ffa251c5",
+      "sha256": "a79da2c88d742c7635748aef303ba85a1793e93d12bac38f93b8e5b18a0045dd",
+      "previous_bytes": 3297155,
+      "bytes": 3297835
+    },
+    {
+      "path": "maps/cache/as_hislop-lightmap1.scn",
+      "previous_sha256": "f482eb2ad03b4bd5805581da1afcdcfd296c8b53dd76789486ed4f70ffa251c5",
+      "sha256": "a79da2c88d742c7635748aef303ba85a1793e93d12bac38f93b8e5b18a0045dd",
+      "previous_bytes": 3297155,
+      "bytes": 3297835
+    },
+    {
+      "path": "maps/cache/as_frigate.scn",
+      "previous_sha256": "506f68e69aec3e50da86563ba0d7ca2ea05a053a9a501b7d1b5827b7be836d14",
+      "sha256": "6e4b70533f946218e9baf2dd5d73ebbd342985fae9238c7e3e7834e79bf79122",
+      "previous_bytes": 2972484,
+      "bytes": 2972323
+    },
+    {
+      "path": "maps/cache/as_frigate-lightmap1.scn",
+      "previous_sha256": "ef82892980b1ee0bed37b6a16e14628f99148bdf5c01dc64632d617b6f457b52",
+      "sha256": "6e4b70533f946218e9baf2dd5d73ebbd342985fae9238c7e3e7834e79bf79122",
+      "previous_bytes": 19229945,
+      "bytes": 2972323
+    },
+    {
+      "path": "maps/cache/tf_pressureworks.scn",
+      "previous_sha256": "04d20fc9364f09f5785d4886b14ae8f23c9de029be47d4f1ea752c6c8826b7f2",
+      "sha256": "9ee17c74b1c9efee710aed7f08091f61c9030368acfc3f39b0744f0d07ffeeb7",
+      "previous_bytes": 11167533,
+      "bytes": 11175959
+    },
+    {
+      "path": "maps/cache/tf_pressureworks-lightmap1.scn",
+      "previous_sha256": "04d20fc9364f09f5785d4886b14ae8f23c9de029be47d4f1ea752c6c8826b7f2",
+      "sha256": "9ee17c74b1c9efee710aed7f08091f61c9030368acfc3f39b0744f0d07ffeeb7",
+      "previous_bytes": 11167533,
+      "bytes": 11175959
+    },
+    {
+      "path": "maps/cache/tf_vesper.scn",
+      "previous_sha256": "51584017152cebebebd3d9c6701c83cc7675a2f8ead8a7d1616495f927f159a6",
+      "sha256": "ca85718327e0bc89a77b2efd7ac04377b51f359e7c78f4756243b76d645b48a9",
+      "previous_bytes": 7189665,
+      "bytes": 7205405
+    },
+    {
+      "path": "maps/cache/tf_vesper-lightmap1.scn",
+      "previous_sha256": "51584017152cebebebd3d9c6701c83cc7675a2f8ead8a7d1616495f927f159a6",
+      "sha256": "ca85718327e0bc89a77b2efd7ac04377b51f359e7c78f4756243b76d645b48a9",
+      "previous_bytes": 7189665,
+      "bytes": 7205405
+    },
+    {
+      "path": "maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "previous_sha256": "51584017152cebebebd3d9c6701c83cc7675a2f8ead8a7d1616495f927f159a6",
+      "sha256": "ca85718327e0bc89a77b2efd7ac04377b51f359e7c78f4756243b76d645b48a9",
+      "previous_bytes": 7189665,
+      "bytes": 7205405
+    },
+    {
+      "path": "maps/cache/koth_torture.scn",
+      "previous_sha256": "e60e504a807bf5f58ee807536a33c9d87ac8f2009cec7dc33cddd35d895314de",
+      "sha256": "e62a52ce53224f07c43c60febfee6308e2cf9e2b286cdee965d05f5fd7b7da8c",
+      "previous_bytes": 2285434,
+      "bytes": 2285449
+    },
+    {
+      "path": "maps/cache/koth_torture-lightmap1.scn",
+      "previous_sha256": "e60e504a807bf5f58ee807536a33c9d87ac8f2009cec7dc33cddd35d895314de",
+      "sha256": "e62a52ce53224f07c43c60febfee6308e2cf9e2b286cdee965d05f5fd7b7da8c",
+      "previous_bytes": 2285434,
+      "bytes": 2285449
+    },
+    {
+      "path": "maps/cache/koth_alichar.scn",
+      "previous_sha256": "f7809e74dcd485013c5fa45cf6a43d20548b8de21e72c08fb90e5857369ee5a9",
+      "sha256": "cd0948763007326b50898dea6f937d91dfd4e67a397c0643e17b329a391299d6",
+      "previous_bytes": 5392223,
+      "bytes": 5393890
+    },
+    {
+      "path": "maps/cache/koth_alichar-lightmap1.scn",
+      "previous_sha256": "f7809e74dcd485013c5fa45cf6a43d20548b8de21e72c08fb90e5857369ee5a9",
+      "sha256": "cd0948763007326b50898dea6f937d91dfd4e67a397c0643e17b329a391299d6",
+      "previous_bytes": 5392223,
+      "bytes": 5393890
+    },
+    {
+      "path": "maps/cache/cc_hyperborea.scn",
+      "previous_sha256": "850a5be4758c3440f700c0aa8216ff46a2ea60c5db7fb315aba82fa87166db44",
+      "sha256": "9c6494262a789880af5374777c599091b804b022706d02c39209e6c50a88e26d",
+      "previous_bytes": 959177,
+      "bytes": 959181
+    },
+    {
+      "path": "maps/cache/cc_hyperborea-lightmap1.scn",
+      "previous_sha256": "850a5be4758c3440f700c0aa8216ff46a2ea60c5db7fb315aba82fa87166db44",
+      "sha256": "9c6494262a789880af5374777c599091b804b022706d02c39209e6c50a88e26d",
+      "previous_bytes": 959177,
+      "bytes": 959181
+    },
+    {
+      "path": "maps/cache/cc_psychofuge.scn",
+      "previous_sha256": "9c400aa0b0068e276e82f082191b41ba51021d6986a81e222232f79bcbd20602",
+      "sha256": "89bedfae1b8436891e5634a51385415c8d9aebfbd32be97d2684acee16933b2f",
+      "previous_bytes": 2323134,
+      "bytes": 2322026
+    },
+    {
+      "path": "maps/cache/cc_psychofuge-lightmap1.scn",
+      "previous_sha256": "9c400aa0b0068e276e82f082191b41ba51021d6986a81e222232f79bcbd20602",
+      "sha256": "89bedfae1b8436891e5634a51385415c8d9aebfbd32be97d2684acee16933b2f",
+      "previous_bytes": 2323134,
+      "bytes": 2322026
+    },
+    {
+      "path": "maps/cache/cc_ghostquarter.scn",
+      "previous_sha256": "eb3c808d7d5bf3a0d5596e08ff37759726378b6ba65ca57b0b8f960219a72c48",
+      "sha256": "6a564e4a56b66ab8f5a4c4c6d06e1dcdb02f8617d143b0ada94ac2d3995758c9",
+      "previous_bytes": 1993150,
+      "bytes": 1993747
+    },
+    {
+      "path": "maps/cache/cc_ghostquarter-lightmap1.scn",
+      "previous_sha256": "eb3c808d7d5bf3a0d5596e08ff37759726378b6ba65ca57b0b8f960219a72c48",
+      "sha256": "6a564e4a56b66ab8f5a4c4c6d06e1dcdb02f8617d143b0ada94ac2d3995758c9",
+      "previous_bytes": 1993150,
+      "bytes": 1993747
+    },
+    {
+      "path": "maps/cache/cc_basement.scn",
+      "previous_sha256": "e9c5f1ae6fe6b706ba038ca76ff53c292922f88c28f11e0a926be6342359e32b",
+      "sha256": "fadbde96745a9170833f91a86b5f4175e28664f202a8181fc10cbd3aa1b4d010",
+      "previous_bytes": 2209661,
+      "bytes": 2210454
+    },
+    {
+      "path": "maps/cache/cc_basement-lightmap1.scn",
+      "previous_sha256": "e9c5f1ae6fe6b706ba038ca76ff53c292922f88c28f11e0a926be6342359e32b",
+      "sha256": "fadbde96745a9170833f91a86b5f4175e28664f202a8181fc10cbd3aa1b4d010",
+      "previous_bytes": 2209661,
+      "bytes": 2210454
+    },
+    {
+      "path": "maps/cache/qsrc_dm1.scn",
+      "previous_sha256": "06a8e90baeb90249657363817eb36b75ab58c0aa8eead264fb19f528f825cf24",
+      "sha256": "379e040e0fb137802965ffc6e4da6204d2a44db632f3bfca01a7dad06e867f93",
+      "previous_bytes": 2419628,
+      "bytes": 2438755
+    },
+    {
+      "path": "maps/cache/qsrc_dm1-lightmap1.scn",
+      "previous_sha256": "e1bf247babf40628ecd21511e34380b28815fe342cbeee7e158af437a99e51c6",
+      "sha256": "379e040e0fb137802965ffc6e4da6204d2a44db632f3bfca01a7dad06e867f93",
+      "previous_bytes": 18567067,
+      "bytes": 2438755
+    },
+    {
+      "path": "maps/cache/qsrc_dm2.scn",
+      "previous_sha256": "1271cb7190e19418ec25de8393bb07ea76786f135f5e40220c69009a4628e923",
+      "sha256": "751260c38daeebda028cc998e10a5d1ed353e73ca6c4d4c7cfc5d930884c093e",
+      "previous_bytes": 3264896,
+      "bytes": 3265169
+    },
+    {
+      "path": "maps/cache/qsrc_dm2-lightmap1.scn",
+      "previous_sha256": "1271cb7190e19418ec25de8393bb07ea76786f135f5e40220c69009a4628e923",
+      "sha256": "751260c38daeebda028cc998e10a5d1ed353e73ca6c4d4c7cfc5d930884c093e",
+      "previous_bytes": 3264896,
+      "bytes": 3265169
+    },
+    {
+      "path": "maps/cache/qsrc_dm4.scn",
+      "previous_sha256": "0d54235775f0274ce547a8e9e594ebe46681081b07b6e83abfcda264145bade6",
+      "sha256": "caf25256cc4ee6ebfedea3e0688ba2d5bd96211942e99df895509f064437572f",
+      "previous_bytes": 2094818,
+      "bytes": 2094816
+    },
+    {
+      "path": "maps/cache/qsrc_dm4-lightmap1.scn",
+      "previous_sha256": "0d54235775f0274ce547a8e9e594ebe46681081b07b6e83abfcda264145bade6",
+      "sha256": "caf25256cc4ee6ebfedea3e0688ba2d5bd96211942e99df895509f064437572f",
+      "previous_bytes": 2094818,
+      "bytes": 2094816
+    },
+    {
+      "path": "maps/cache/qsrc_dm5.scn",
+      "previous_sha256": "ac56572ae2a8798261486801a321aeb3047d231ef5d03666892e8ff065343efb",
+      "sha256": "5e3ad15f941487204b68b6b1a854ff5a73dfc06e6da39f3f6790ddc7b7b425f6",
+      "previous_bytes": 1366027,
+      "bytes": 1383972
+    },
+    {
+      "path": "maps/cache/qsrc_dm5-lightmap1.scn",
+      "previous_sha256": "ac56572ae2a8798261486801a321aeb3047d231ef5d03666892e8ff065343efb",
+      "sha256": "5e3ad15f941487204b68b6b1a854ff5a73dfc06e6da39f3f6790ddc7b7b425f6",
+      "previous_bytes": 1366027,
+      "bytes": 1383972
+    },
+    {
+      "path": "maps/cache/qsrc_dm6.scn",
+      "previous_sha256": "4aefcaf817dbf1526729a6402c5ce2ee4cf137fd7486455548b0d7ced1859189",
+      "sha256": "fec3b44b3738025ac23dd908c749556a22d2df6c3137a29a34898dd2be10260a",
+      "previous_bytes": 1141489,
+      "bytes": 1140810
+    },
+    {
+      "path": "maps/cache/qsrc_dm6-lightmap1.scn",
+      "previous_sha256": "4aefcaf817dbf1526729a6402c5ce2ee4cf137fd7486455548b0d7ced1859189",
+      "sha256": "fec3b44b3738025ac23dd908c749556a22d2df6c3137a29a34898dd2be10260a",
+      "previous_bytes": 1141489,
+      "bytes": 1140810
+    },
+    {
+      "path": "maps/cache/qsrc_dm7.scn",
+      "previous_sha256": "f8cd7f66b576b827f84432c7d105cfbeab42b101c3718beb105814c45a1f4762",
+      "sha256": "5ca85f00053337d4a5eb301f0ecbd5f9a53b3d74ca0e8c8b3b73e2c132ec8d92",
+      "previous_bytes": 2545023,
+      "bytes": 2545306
+    },
+    {
+      "path": "maps/cache/qsrc_dm7-lightmap1.scn",
+      "previous_sha256": "f8cd7f66b576b827f84432c7d105cfbeab42b101c3718beb105814c45a1f4762",
+      "sha256": "5ca85f00053337d4a5eb301f0ecbd5f9a53b3d74ca0e8c8b3b73e2c132ec8d92",
+      "previous_bytes": 2545023,
+      "bytes": 2545306
+    },
+    {
+      "path": "maps/cache/ctf_tideworks.scn",
+      "previous_sha256": "d45a80ac3161a94e0755658a6aaf94f7be6898dcee7148c10b46e72e1f8ecc0d",
+      "sha256": "4b821591ff0040b1a2e815dfa88fd74b1482c136c07b3dfa6f3275eaba0bc203",
+      "previous_bytes": 2892409,
+      "bytes": 2892732
+    },
+    {
+      "path": "maps/cache/ctf_tideworks-lightmap1.scn",
+      "previous_sha256": "d45a80ac3161a94e0755658a6aaf94f7be6898dcee7148c10b46e72e1f8ecc0d",
+      "sha256": "4b821591ff0040b1a2e815dfa88fd74b1482c136c07b3dfa6f3275eaba0bc203",
+      "previous_bytes": 2892409,
+      "bytes": 2892732
+    },
+    {
+      "path": "maps/cache/ctf_crucible.scn",
+      "previous_sha256": "4e1c2d14738c68909f0c85684763c193372e07deda2c5eb5ab52d573b9bb31c2",
+      "sha256": "1f9817f8020b05a9c51d6430d1318a0ae70d406d51713c6494b21b757551c2e0",
+      "previous_bytes": 1648209,
+      "bytes": 1647897
+    },
+    {
+      "path": "maps/cache/ctf_crucible-lightmap1.scn",
+      "previous_sha256": "4e1c2d14738c68909f0c85684763c193372e07deda2c5eb5ab52d573b9bb31c2",
+      "sha256": "1f9817f8020b05a9c51d6430d1318a0ae70d406d51713c6494b21b757551c2e0",
+      "previous_bytes": 1648209,
+      "bytes": 1647897
+    },
+    {
+      "path": "maps/cache/ctf_confluence.scn",
+      "previous_sha256": "b76d778fd59aa46023b4cecca4278043bdc54c935e502d10507d80a20a7dd662",
+      "sha256": "3ad12bcc51de566ed136ec563a04cc088d2583d755b99f7b4a0b867e8e20fd92",
+      "previous_bytes": 2454578,
+      "bytes": 2454805
+    },
+    {
+      "path": "maps/cache/ctf_confluence-lightmap1.scn",
+      "previous_sha256": "b76d778fd59aa46023b4cecca4278043bdc54c935e502d10507d80a20a7dd662",
+      "sha256": "3ad12bcc51de566ed136ec563a04cc088d2583d755b99f7b4a0b867e8e20fd92",
+      "previous_bytes": 2454578,
+      "bytes": 2454805
+    },
+    {
+      "path": "maps/cache/ctf_confluence-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "previous_sha256": "b76d778fd59aa46023b4cecca4278043bdc54c935e502d10507d80a20a7dd662",
+      "sha256": "3ad12bcc51de566ed136ec563a04cc088d2583d755b99f7b4a0b867e8e20fd92",
+      "previous_bytes": 2454578,
+      "bytes": 2454805
+    },
+    {
+      "path": "maps/cache/ctf_deepvault.scn",
+      "previous_sha256": "10353b9831809c4293043de5c194723bc1172f2ca14416b257048db0f4f50fa9",
+      "sha256": "4ccc0eacfc1c49c587d9b15757a3599ef2d370a93d301ec7792cc699195cf82d",
+      "previous_bytes": 2290300,
+      "bytes": 2290058
+    },
+    {
+      "path": "maps/cache/ctf_deepvault-lightmap1.scn",
+      "previous_sha256": "10353b9831809c4293043de5c194723bc1172f2ca14416b257048db0f4f50fa9",
+      "sha256": "4ccc0eacfc1c49c587d9b15757a3599ef2d370a93d301ec7792cc699195cf82d",
+      "previous_bytes": 2290300,
+      "bytes": 2290058
+    },
+    {
+      "path": "maps/cache/ctf_crownreach.scn",
+      "previous_sha256": "422b54627aebd879e4875af5d7443144c15b79cd2de18feecfd9d0dfbdd42173",
+      "sha256": "f7c049da621be9b82e4de31b1cfee4ffe9440ab567ff9eaa3f25590e6c109574",
+      "previous_bytes": 2184175,
+      "bytes": 2184933
+    },
+    {
+      "path": "maps/cache/ctf_crownreach-lightmap1.scn",
+      "previous_sha256": "422b54627aebd879e4875af5d7443144c15b79cd2de18feecfd9d0dfbdd42173",
+      "sha256": "f7c049da621be9b82e4de31b1cfee4ffe9440ab567ff9eaa3f25590e6c109574",
+      "previous_bytes": 2184175,
+      "bytes": 2184933
+    },
+    {
+      "path": "maps/cache/ctf_skyfracture.scn",
+      "previous_sha256": "e61b94ba84a9061987b5cac7e35f97055bdf35c7d1d471b725dc9e85fb5fd867",
+      "sha256": "009da375ebbbb16f5806f44a7ff3560efec3f368a89b00b9f81286cd63a02cc7",
+      "previous_bytes": 3031859,
+      "bytes": 3031406
+    },
+    {
+      "path": "maps/cache/ctf_skyfracture-lightmap1.scn",
+      "previous_sha256": "e61b94ba84a9061987b5cac7e35f97055bdf35c7d1d471b725dc9e85fb5fd867",
+      "sha256": "009da375ebbbb16f5806f44a7ff3560efec3f368a89b00b9f81286cd63a02cc7",
+      "previous_bytes": 3031859,
+      "bytes": 3031406
+    },
+    {
+      "path": "maps/cache/ctf_skyfracture-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "previous_sha256": "e61b94ba84a9061987b5cac7e35f97055bdf35c7d1d471b725dc9e85fb5fd867",
+      "sha256": "009da375ebbbb16f5806f44a7ff3560efec3f368a89b00b9f81286cd63a02cc7",
+      "previous_bytes": 3031859,
+      "bytes": 3031406
+    },
+    {
+      "path": "maps/cache/koth_solstice.scn",
+      "previous_sha256": "9d80fc1256a9cdbdaf712b55fcef27522935a94c6cf4b3ba67755d59c009ffc2",
+      "sha256": "d6b1610eaa430eb596877c56560aafea21e3b422e4d3fe54c1b1a8a3e2e27a5b",
+      "previous_bytes": 16893851,
+      "bytes": 1751217
+    },
+    {
+      "path": "maps/cache/koth_solstice-lightmap1.scn",
+      "previous_sha256": "9d80fc1256a9cdbdaf712b55fcef27522935a94c6cf4b3ba67755d59c009ffc2",
+      "sha256": "d6b1610eaa430eb596877c56560aafea21e3b422e4d3fe54c1b1a8a3e2e27a5b",
+      "previous_bytes": 16893851,
+      "bytes": 1751217
+    },
+    {
+      "path": "maps/cache/koth_hyperborea.scn",
+      "previous_sha256": "417f27a13fd763411f787f21cf33989076d6d051527c985b203a2e5b59630e3e",
+      "sha256": "64393e6cf502db0cd631441f18623abede501dd185059cdfc47c8d1d5e5518e0",
+      "previous_bytes": 21426214,
+      "bytes": 4146467
+    },
+    {
+      "path": "maps/cache/koth_hyperborea-lightmap1.scn",
+      "previous_sha256": "417f27a13fd763411f787f21cf33989076d6d051527c985b203a2e5b59630e3e",
+      "sha256": "64393e6cf502db0cd631441f18623abede501dd185059cdfc47c8d1d5e5518e0",
+      "previous_bytes": 21426214,
+      "bytes": 4146467
+    },
+    {
+      "path": "maps/cache/qsrc_dm3.scn",
+      "previous_sha256": "55c3a6f8dbe2eb93cf3940cce0831741e6dfadf152237a3f7ba36236920fb2af",
+      "sha256": "3b55b8d329628d12820cf1cd44c0f31070f0a141544a1deb8c5ec2327e33872b",
+      "previous_bytes": 3785896,
+      "bytes": 3787267
+    },
+    {
+      "path": "maps/cache/qsrc_dm3-lightmap1.scn",
+      "previous_sha256": "55c3a6f8dbe2eb93cf3940cce0831741e6dfadf152237a3f7ba36236920fb2af",
+      "sha256": "3b55b8d329628d12820cf1cd44c0f31070f0a141544a1deb8c5ec2327e33872b",
+      "previous_bytes": 3785896,
+      "bytes": 3787267
+    }
+  ],
+  "shader_sha256": "15d1af7cdf14d540e6eb26ce49649c8b1b83dc48425eb5a4b23ee701f319189c",
+  "failures": [],
+  "vesper_camera": {
+    "old": [
+      18,
+      2.2,
+      24
+    ],
+    "old_contents": "solid",
+    "corrected": [
+      15,
+      2.2,
+      24
+    ],
+    "corrected_contents": "empty",
+    "geometry_changed": false
+  },
+  "retained_frame_pixel_bytes": 286659.0,
+  "tinted_vertices": 37761.0,
+  "limits": [
+    "Desktop static-view A/B measurements on Arc A770, not Quest timing certification.",
+    "Quest tests deferred by user; no ADB attempt after deferral.",
+    "Toggle memory deltas exclude frame resources and vertex colour streams already loaded in both variants.",
+    "No extra realtime lights, screen textures, refraction, fog volumes or material passes.",
+    "Weathering applies to allowlisted neutral masonry on the two original TF maps; imported artwork stays unchanged.",
+    "Unbaked imported liquids use bounded UV drift; baked materials use per-fragment warp.",
+    "Existing BSPs, lightmaps, source artwork and navigation files unchanged.",
+    "No executable/APK rebuild or publication performed."
+  ],
+  "active_cache_validation": {
+    "failures": [],
+    "maps": [
+      {
+        "id": "as_hislop",
+        "path": "res://maps/cache/as_hislop-lightmap1.scn"
+      },
+      {
+        "id": "as_frigate",
+        "path": "res://maps/cache/as_frigate-lightmap1.scn"
+      },
+      {
+        "id": "tf_pressureworks",
+        "path": "res://maps/cache/tf_pressureworks-lightmap1.scn"
+      },
+      {
+        "id": "tf_vesper",
+        "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3.scn"
+      },
+      {
+        "id": "koth_solstice",
+        "path": "res://maps/cache/koth_solstice-lightmap1.scn"
+      },
+      {
+        "id": "koth_torture",
+        "path": "res://maps/cache/koth_torture-lightmap1.scn"
+      },
+      {
+        "id": "koth_hyperborea",
+        "path": "res://maps/cache/koth_hyperborea-lightmap1.scn"
+      },
+      {
+        "id": "koth_alichar",
+        "path": "res://maps/cache/koth_alichar-lightmap1.scn"
+      },
+      {
+        "id": "cc_hyperborea",
+        "path": "res://maps/cache/cc_hyperborea-lightmap1.scn"
+      },
+      {
+        "id": "cc_psychofuge",
+        "path": "res://maps/cache/cc_psychofuge-lightmap1.scn"
+      },
+      {
+        "id": "cc_ghostquarter",
+        "path": "res://maps/cache/cc_ghostquarter-lightmap1.scn"
+      },
+      {
+        "id": "cc_basement",
+        "path": "res://maps/cache/cc_basement-lightmap1.scn"
+      },
+      {
+        "id": "qsrc_dm1",
+        "path": "res://maps/cache/qsrc_dm1-lightmap1.scn"
+      },
+      {
+        "id": "qsrc_dm2",
+        "path": "res://maps/cache/qsrc_dm2-lightmap1.scn"
+      },
+      {
+        "id": "qsrc_dm3",
+        "path": "res://maps/cache/qsrc_dm3-lightmap1.scn"
+      },
+      {
+        "id": "qsrc_dm4",
+        "path": "res://maps/cache/qsrc_dm4-lightmap1.scn"
+      },
+      {
+        "id": "qsrc_dm5",
+        "path": "res://maps/cache/qsrc_dm5-lightmap1.scn"
+      },
+      {
+        "id": "qsrc_dm6",
+        "path": "res://maps/cache/qsrc_dm6-lightmap1.scn"
+      },
+      {
+        "id": "qsrc_dm7",
+        "path": "res://maps/cache/qsrc_dm7-lightmap1.scn"
+      },
+      {
+        "id": "ctf_tideworks",
+        "path": "res://maps/cache/ctf_tideworks-lightmap1.scn"
+      },
+      {
+        "id": "ctf_crucible",
+        "path": "res://maps/cache/ctf_crucible-lightmap1.scn"
+      },
+      {
+        "id": "ctf_confluence",
+        "path": "res://maps/cache/ctf_confluence-lightmap1.scn"
+      },
+      {
+        "id": "ctf_deepvault",
+        "path": "res://maps/cache/ctf_deepvault-lightmap1.scn"
+      },
+      {
+        "id": "ctf_crownreach",
+        "path": "res://maps/cache/ctf_crownreach-lightmap1.scn"
+      },
+      {
+        "id": "ctf_skyfracture",
+        "path": "res://maps/cache/ctf_skyfracture-lightmap1.scn"
+      }
+    ]
+  },
+  "package": {
+    "path": "/home/blux/Documents/Builds/FPSloppa-0.10v-Base-Assets.zip",
+    "sha256": "21d840659627688301bd20d66c5b69e36ebc39f30e7d4246e436b3c321e86701",
+    "bytes": 261627778,
+    "verified_files": 297,
+    "verified_presentation_caches": 53
+  },
+  "implementation_hashes": {
+    "deathmatch/maps/atmosphere.gd": "3bcd2e720d6f18973763fc8ed86c4bd43f45519304d325d44cc0c7f989852835",
+    "deathmatch/maps/surface_assets.gd": "0ffcf403fa02101e0ac84891d1dc23e623a40a8ed0af0fe6b53b852c0d559e5d",
+    "deathmatch/maps/surface_motion.gd": "65614ca027c25716abfa9340e7e359826e13430c79916a8ab1931733ee2a898b",
+    "deathmatch/maps/baked_light.gdshader": "15d1af7cdf14d540e6eb26ce49649c8b1b83dc48425eb5a4b23ee701f319189c",
+    "deathmatch/maps/loader.gd": "85e293bceff60d0c292877b128fec6657ac4e83b0a722a775dbe5fbe02991018",
+    "deathmatch/settings/preferences.gd": "d94b012648838cc472742dea8fd791127ad82031310c35c75005c48843b0aa58",
+    "deathmatch/settings/panel.gd": "2e9e93949c98e9324a5d6b013dde08aaa7664f455415ef1aed4fe2a7e210a8c5"
+  }
+}

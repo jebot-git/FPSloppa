@@ -4,18 +4,19 @@ Optional TF now adds nine classes, distinct badges, VRM disguises, engineering a
 
 ## 0.4v modes
 
-IG, FT and CC rules are documented in [0.4v release notes](docs/RELEASE-0.4v.md). CC disables every pickup through the gamemode, without editing map files. Each mode uses its own `<tag>_maplist`.
+IG, FT and CC rules are documented in [0.4v release notes](docs/RELEASE-0.4v.md). CC disables every pickup through the gamemode, without editing map files. Each mode uses its own `<tag>_maplist`, except INSTAFREEZE, which shares the Instagib list.
 
 # Arena modes and player votes
 
-In-game hosting and offline practice always use **DM** and allow at most eight players. Dedicated servers can use DM, TDM, CTF or KOTH and opt into up to 16 connections (including spectators).
+In-game hosting and offline practice offer all supported modes and allow at most eight players. Dedicated servers select their initial mode and allowed mode votes through configuration.
 
 | Mode | Rules | Score limit |
 |---|---|---|
 | `dm` | Individual deathmatch | `fraglimit`, default 20 |
 | `tdm` | Red vs blue team frags; suicides and teamkills subtract a team frag | `fraglimit` |
 | `ctf` | Steal the enemy flag and bring it to your base while your flag is home | `capturelimit`, default 5 |
-| `koth` | Hold the marked hill for one point per second; both teams present pauses scoring | `hilllimit`, default 120 |
+| `if` | INSTAFREEZE: Instagib railgun combat with Freeze Tag freezing, teammate thawing and team elimination rounds | `fraglimit` (team rounds won) |
+| `koth` | Hold the fixed marked hill for one point per second; both teams present pauses scoring | `hilllimit`, default 120 |
 
 All modes also obey `timelimit` in minutes. Team modes end with the team result on the scoreboard; tied team scores at timeout are a draw. Flag carriers drop their flag on death, disconnect or team change. Touch your dropped flag to return it; unattended flags return after 30 seconds. Flag interaction and hill occupancy check distance, height and walls. Spectators cannot participate in objectives or combat.
 
@@ -48,9 +49,31 @@ Proposals last 25 seconds and require a strict majority of the active human play
 
 ## Maps
 
-The eight bundled [LibreQuake arenas](MAPS.md) have authored red-base, blue-base and hill coordinates in `deathmatch/maps/manifest.json`. These are adaptations of freely licensed deathmatch layouts, not original symmetrical CTF maps. Connected walkable routes, objective floors and multiple home-side spawns are checked automatically; competitive balance still benefits from playtesting. Hyperborea, Transport Tubes and Ghost Quarter were added for this update.
+Base DM/IG/FT/TDM offer the seven Quake source ports; IF shares IG. CC offers four [dedicated remodels](maps/CC/README.md), KOTH four fixed-hill remodels and CTF six CTF Studies maps. Original LibreQuake maps have moved to an optional expansion tested with the standard arena modes. These defaults do not restrict user imports or explicit server maplists.
 
 Custom BSP maps use separated deathmatch spawn locations as fallback flag bases and a central spawn as the hill. Server operators should test custom objective layouts before putting them in a team rotation. Objective coordinates are supplied by the server, so downloaded BSPs retain the host's placements even if cached under a different ID. `tools/place_objectives.gd` regenerates bundled coordinates from baked navigation and world collision; `deathmatch/tests/team_objectives.gd` verifies them.
 
 Assault (AS) is available with the bundled **HiSlop** train map. Enable it through
 `sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).
+
+## IF — INSTAFREEZE
+
+Instafreeze combines standard Instagib combat with Freeze Tag's red/blue teams. Everyone starts with the penetrating one-hit railgun, unlimited ammunition and its normal 1.5-second firing interval. Pickups and physical melee are disabled. Selecting Quake or UT99 weapon variants does not change these rules.
+
+A lethal rail hit freezes the opponent in place instead of killing and respawning them. Frozen players cannot move or attack, and use the existing frozen-avatar effect and HUD thaw indicator. An unfrozen teammate must stay within 1.5 metres for three uninterrupted seconds, with no wall between them. Moving away resets thaw progress. Thawing restores health and the railgun in place, with normal spawn protection. Friendly fire follows `sv_friendlyfire`.
+
+Freezing the entire opposing team awards one team point, followed by the existing three-second Freeze Tag round reset. `fraglimit` counts team rounds won; `timelimit` remains the overall match time limit. Environment deaths and telefrags retain Freeze Tag's existing behaviour.
+
+```cfg
+set sv_gametype "if"
+set sv_gametypes "ig if ft"
+set ig_maplist "qsrc_dm1 qsrc_dm2"
+set fraglimit "10"
+set timelimit "15"
+```
+
+IF uses **exactly the Instagib maplist**: `ig_maplist`, or `maps/ig_maplist.txt` when the setting is empty, with the usual server rotation fallback. There is no separate `if_maplist` or map conversion. Every Instagib arena can be used. Both lobby and in-game votes use this same list. In-game hosts can select **INSTAFREEZE** in Host Match. The mode currently reuses Freeze Tag's Cryostasis music.
+
+Validation: `python3 deathmatch/tests/run_instafreeze_tests.py` covers rules, hosting, maplist selection and three-process ENet replication.
+
+**TB — TITANBALL:** TF classes and Quake loadouts. Red pilots the BA-2 to Blue’s base; Blue stops it. Ashfall Boulevard is the native BSP playtest map. Preparation lasts 60 seconds, then a fixed 10:00 clock with two +3:00 checkpoint extensions. See [rules and validation](docs/TITANBALL.md).

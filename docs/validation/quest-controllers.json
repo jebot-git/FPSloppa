@@ -1,0 +1,52 @@
+{
+  "date": "2026-09-12",
+  "status": "Resolved by headset restart; ADB retest and manual controller check passed",
+  "user_report": "Controllers connect at first but then start losing tracking and eventually disconnect",
+  "evidence": {
+    "imu_corrupt_events": 131,
+    "imu_event_first": "09-12 21:53:58.190",
+    "imu_event_last": "09-12 21:58:03.515",
+    "controller_battery_percentages": [
+      60,
+      60
+    ],
+    "battery_note": "Both paired controller IDs reported 60% on reconnect. The initial 0% is a reconnect state, not proof of an empty battery. Battery contact or voltage under load remains untested.",
+    "os_disconnect_events": true,
+    "os_switch_to_hands_after_no_controllers": true,
+    "app_pid_unchanged": "12484",
+    "app_log": "Practice bot combat continued; no errors in the retained follow-up app log"
+  },
+  "interpretation": "Restart resolved the observed problem and the same app passed the repeat test. A transient headset OS/runtime fault is consistent with the evidence; exact root cause is unproven.",
+  "checks": {
+    "headless_controller_tracking": "passed: late tracker registration, grip/aim mapping and pose updates, tracker removal; one ObjectDB instance leaked at test exit",
+    "headset_visuals": "Previously passed rendering/no shimmer; intermittent tracking reliability is now an open issue",
+    "quest_home_usb_connected": "fails, reported by user",
+    "quest_home_usb_unplugged": "fails, reported by user"
+  },
+  "changes": "Read-only device inspection; no app restart, device setting changes, firmware updates or production code modifications",
+  "log_sha256": {
+    "test-results/quest-vulkan/controller-events.log": "03c530a7d9e56643cb845e74649026a785ffa9203c5b0924be7c8b6ed6f30a01",
+    "test-results/quest-vulkan/controller-driver.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "post_restart_retest": {
+    "status": "Passed after headset restart",
+    "user_report": "There was no issue during this test, it was likely unrelated OS bug",
+    "startup": {
+      "package": "org.entryway.arena.quest",
+      "pid": "7676",
+      "launch": "Starting: Intent { cmp=org.entryway.arena.quest/com.godot.game.GodotAppLauncher }\nStatus: ok\nLaunchState: COLD\nActivity: org.entryway.arena.quest/com.godot.game.GodotApp\nTotalTime: 386\nWaitTime: 418\nComplete\n",
+      "capture_seconds": 45.0,
+      "vulkan_reported": true,
+      "xr_ready": true,
+      "missing_viewport_messages": 0,
+      "log_sha256": "bbc53fc22fa642dcc6a6428e7c10003bac197160df17434826f6438df4104e21"
+    },
+    "controller_log": "test-results/quest-vulkan/post-restart-controllers.log",
+    "controller_log_sha256": "422223be74cd1090e8f5fe1735f2e3ce70139fb3694f40caf913e37d0083d18e",
+    "imu_corrupt_events": 0,
+    "os_connected_both_observed": true,
+    "engine_errors": 0,
+    "interpretation": "Restart resolved the observed problem and the same app passed the repeat test. A transient headset OS/runtime fault is consistent with the evidence; exact root cause is unproven.",
+    "scope": "45-second app startup capture plus user manual check; no sustained reliability certification"
+  }
+}

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="FPSloppa"
-config/version="0.10v"
+config/version="0.11v"
 run/main_scene="res://deathmatch/arena.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://deathmatch/icon-final.png"
@@ -51,6 +51,7 @@ common/physics_interpolation=true
 
 [rendering]
 
+rendering_device/fallback_to_opengl3=false
 renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 occlusion_culling/use_occlusion_culling=true

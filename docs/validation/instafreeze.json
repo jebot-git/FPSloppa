@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-12",
+  "feature": "IF - INSTAFREEZE",
+  "passed": true,
+  "gameplay_hosting_network": {
+    "passed": true,
+    "checks": 86,
+    "results": [
+      {
+        "test": "instafreeze",
+        "exit": 0,
+        "checks": 27,
+        "passed": true,
+        "errors": []
+      },
+      {
+        "test": "special_modes",
+        "exit": 0,
+        "checks": 22,
+        "passed": true,
+        "errors": []
+      },
+      {
+        "test": "host_modes",
+        "exit": 0,
+        "checks": 20,
+        "passed": true,
+        "errors": []
+      },
+      {
+        "test": "network-server",
+        "exit": 0,
+        "checks": 3,
+        "passed": true,
+        "errors": []
+      },
+      {
+        "test": "network-red",
+        "exit": 0,
+        "checks": 7,
+        "passed": true,
+        "errors": []
+      },
+      {
+        "test": "network-blue",
+        "exit": 0,
+        "checks": 7,
+        "passed": true,
+        "errors": []
+      }
+    ]
+  },
+  "console_weapon_regression": {
+    "checks": 71,
+    "failures": [],
+    "passed": true,
+    "errors": [],
+    "exit_code": 0
+  },
+  "dedicated_maplist_config": {
+    "passed": true,
+    "results": [
+      {
+        "source": "ig_maplist setting",
+        "passed": true,
+        "rotation": [
+          "lqdm2",
+          "lqdm1"
+        ],
+        "mode_switches": [
+          "ig",
+          "if"
+        ]
+      },
+      {
+        "source": "maps/ig_maplist.txt",
+        "passed": true,
+        "rotation": [
+          "lqdm1",
+          "lqdm2",
+          "lqdm3",
+          "lqdm4",
+          "lqdm5",
+          "lqdm6",
+          "lqdm7",
+          "lqdm8"
+        ],
+        "mode_switches": [
+          "ig",
+          "if"
+        ]
+      }
+    ]
+  },
+  "automated_checks": 157,
+  "shared_maplist": "ig_maplist / maps/ig_maplist.txt",
+  "live_headset_test": false,
+  "notes": [
+    "Existing ObjectDB shutdown and map navigation warnings remain; final test logs contain no script or engine errors.",
+    "Server and both real ENet clients were stopped after testing.",
+    "Console maplist checks cover explicit settings, file fallback, and switching IG -> IF.",
+    "Music reuses Freeze Tag Cryostasis. No additional map pack is needed."
+  ]
+}

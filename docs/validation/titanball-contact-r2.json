@@ -1,0 +1,429 @@
+{
+  "date": "2026-09-13",
+  "report": "docs/TITANBALL-COMBAT-R2.md",
+  "seed": 7129,
+  "revision": "contact-r2",
+  "runtime_hashes": {
+    "deathmatch/arena.gd": "a19fab84f797fbf32f4303ffe0f9edeaf9a829bfe748317848b916999f13c638",
+    "deathmatch/bots.gd": "72cb447ab995c8a5febe6e651f773d0e841b30f33d871a268501a00784444f7e",
+    "deathmatch/bot_ai/titanball.gd": "df0f74e8402849a6af90683cb143f1eff40871273aa4c40e8af6bb8b10193498",
+    "deathmatch/experimental/combat.gd": "c79ea06e7f08220552758e91aa2d850d184509c0560ca9e6d8c04322e006bd6a",
+    "deathmatch/modes/fortress.gd": "d3535d1ec894e30e4d23053aca7253845ec764f4d1663d23dc11065d31fc74c7",
+    "deathmatch/vehicles/ba2/controller.gd": "c2a9d0e678bfdd8fe1cbe81d03d5f58a39deea031e4c484e235fb9931b3c2e5b",
+    "deathmatch/vehicles/ba2/cockpit_hud.gd": "f7be043ce3f8b1e1854c0dbddd9242c00e5c975fb3cdb55cc0e706a5def15f1d",
+    "tools/titanball/simulation/match.gd": "0615e3a09fabc6229ef34031c27cc878409394922dd2f050d95b0beb16bb024d",
+    "tools/titanball/simulation/recorder.gd": "dfa2a1d15332a05848bb37892809219ecf508a8d545cde696c1372a87ec7f6c4",
+    "tools/titanball/simulation/classless.gd": "9959c2c7910d350db61f9a636762fa57d16550defccd44505373daa9a25293c8",
+    "tools/titanball/simulation/rules.gd": "9129f5802731389b9c890ff1f3688c8c3e0edbd548351252b1aad1e6d22498b5",
+    "tools/titanball/simulation/run.py": "bfbec4afe5e3f44383db788989d623955ed4005394dfdbeb3dbf62ebc00be98c",
+    "maps/tb_ashfall.bsp": "503e90346cee8f582e6cc535a83e9224aed94630c3d1e5a3ebf41ab29b951f3e"
+  },
+  "matches": [
+    {
+      "file": "test-results/titanball/simulation/contact-r2-tf-7129.json",
+      "profile": "tf",
+      "seed": 7129,
+      "winner": "Defenders",
+      "active_seconds": 960.02,
+      "distance_m": 299.26,
+      "checkpoints": {
+        "1": 171.0,
+        "2": 430.0
+      },
+      "pilot_duty_percent": 40.7,
+      "moving_percent": 65.6,
+      "manned_stopped_seconds": 5.6,
+      "boardings": 130,
+      "mean_active_pilot_episode_seconds": 3.01,
+      "deaths_attack_defend": [
+        232,
+        168
+      ],
+      "weapon_pickups_attack_defend": [
+        0,
+        0
+      ],
+      "starter_only_nonpilot_alive_percent": [
+        0.0,
+        0.0
+      ],
+      "idle_goal_alive_percent": [
+        0.4,
+        0.2
+      ],
+      "damage_by_weapon": {
+        "AXE": 140,
+        "GRENADE LAUNCHER": 7507,
+        "NAILGUN": 3611,
+        "ROCKET LAUNCHER": 13630,
+        "SENTRY": 822,
+        "SHOTGUN": 20766,
+        "SUPER NAILGUN": 6314,
+        "SUPER SHOTGUN": 132,
+        "TITAN CANNON": 5260
+      },
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "round_finished": true
+      }
+    },
+    {
+      "file": "test-results/titanball/simulation/contact-r2-ut99-7129.json",
+      "profile": "ut99",
+      "seed": 7129,
+      "winner": "Defenders",
+      "active_seconds": 960.02,
+      "distance_m": 232.32,
+      "checkpoints": {
+        "1": 139.0,
+        "2": 664.0
+      },
+      "pilot_duty_percent": 34.8,
+      "moving_percent": 68.9,
+      "manned_stopped_seconds": 6.6,
+      "boardings": 184,
+      "mean_active_pilot_episode_seconds": 1.82,
+      "deaths_attack_defend": [
+        371,
+        254
+      ],
+      "weapon_pickups_attack_defend": [
+        401,
+        310
+      ],
+      "starter_only_nonpilot_alive_percent": [
+        0.1,
+        0.1
+      ],
+      "idle_goal_alive_percent": [
+        0.5,
+        0.2
+      ],
+      "damage_by_weapon": {
+        "ENFORCER": 270,
+        "MINIGUN": 143,
+        "SHOCK COMBO": 599,
+        "SHOCK RIFLE": 61264,
+        "SNIPER RIFLE": 142,
+        "TITAN CANNON": 2879
+      },
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "all_classless": true,
+        "both_teams_acquire_weapons": true,
+        "starter_loadouts": true,
+        "all_twelve_armed_before_gate": true,
+        "advanced_guns_unavailable_in_preparation": true,
+        "preparation_pickups_only_basic_guns": true,
+        "sixteen_basic_plus_fortyeight_advanced": true,
+        "no_superweapons": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "round_finished": true
+      }
+    },
+    {
+      "file": "test-results/titanball/simulation/contact-r2-doom-7129.json",
+      "profile": "doom",
+      "seed": 7129,
+      "winner": "Defenders",
+      "active_seconds": 960.02,
+      "distance_m": 261.66,
+      "checkpoints": {
+        "1": 148.0,
+        "2": 508.0
+      },
+      "pilot_duty_percent": 39.8,
+      "moving_percent": 86.9,
+      "manned_stopped_seconds": 8.2,
+      "boardings": 247,
+      "mean_active_pilot_episode_seconds": 1.55,
+      "deaths_attack_defend": [
+        336,
+        251
+      ],
+      "weapon_pickups_attack_defend": [
+        365,
+        303
+      ],
+      "starter_only_nonpilot_alive_percent": [
+        0.1,
+        0.1
+      ],
+      "idle_goal_alive_percent": [
+        0.5,
+        0.2
+      ],
+      "damage_by_weapon": {
+        "CHAINGUN": 53930,
+        "DUAL PISTOLS": 2346,
+        "FIST": 11,
+        "PLASMA RIFLE": 45,
+        "ROCKET LAUNCHER": 210,
+        "SHOTGUN": 250,
+        "TITAN CANNON": 4778
+      },
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "all_classless": true,
+        "both_teams_acquire_weapons": true,
+        "starter_loadouts": true,
+        "all_twelve_armed_before_gate": true,
+        "advanced_guns_unavailable_in_preparation": true,
+        "preparation_pickups_only_basic_guns": true,
+        "sixteen_basic_plus_fortyeight_advanced": true,
+        "no_superweapons": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "round_finished": true
+      }
+    }
+  ],
+  "combat": [
+    {
+      "file": "test-results/titanball/simulation/contact-r2-tf-7129.json",
+      "profile": "tf",
+      "winner": 1,
+      "distance": 299.263667273832,
+      "active_seconds": 960.01666666607,
+      "mean_pilot_seconds": 3.0074358974346262,
+      "median_pilot_seconds": 2.049999999998022,
+      "pilot_p25_seconds": 1.5666666666645028,
+      "pilot_p75_seconds": 2.833333333330984,
+      "pilot_p90_seconds": 6.016666666660967,
+      "pilot_episodes": 130,
+      "pilot_under_one_second_percent": 6.923076923076923,
+      "pilot_duty_percent": 40.72325133246464,
+      "pilot_death_weapons": {
+        "SUPER NAILGUN": 32,
+        "NAILGUN": 16,
+        "SHOTGUN": 56,
+        "ROCKET LAUNCHER": 25,
+        "GRENADE LAUNCHER": 1
+      },
+      "cannon_kills_min": 35,
+      "cannon_kills_max": 35,
+      "defender_deaths": 168,
+      "cannon_kill_share_min_percent": 20.833333333333332,
+      "cannon_kill_share_max_percent": 20.833333333333332,
+      "cannon_logged_damage": 5260,
+      "damage_is_upper_bound": false,
+      "logged_damage_per_piloted_second": 13.454405934263622,
+      "notes": [],
+      "fired_rounds": 842,
+      "pair_volleys": 421,
+      "direct_damage_events": 543,
+      "splash_damage_events": 279,
+      "overheat_entries": 0,
+      "direct_damage_events_per_fired_round_percent": 64.4893111638955,
+      "attacker_logged_damage": 25314,
+      "pilot_logged_damage": 14752,
+      "pilot_surface_blast_damage": 60,
+      "pilot_noncontact_damage_events": 0,
+      "peak_pair_heat": 87.0833333333334,
+      "death_ended_pilot_episodes": 130,
+      "censored_pilot_episodes": 0,
+      "tenures_by_boarding_distance": {
+        "first_90m": {
+          "episodes": 22,
+          "mean_seconds": 5.581818181820688,
+          "median_seconds": 2.3416666666685018
+        },
+        "90_to_190m": {
+          "episodes": 44,
+          "mean_seconds": 2.8503787878767257,
+          "median_seconds": 2.1083333333319842
+        },
+        "final_110m": {
+          "episodes": 64,
+          "mean_seconds": 2.230468749997974,
+          "median_seconds": 1.9083333333319388
+        },
+        "first_155m": {
+          "episodes": 45,
+          "mean_seconds": 4.448148148148334,
+          "median_seconds": 2.4500000000020066
+        }
+      }
+    },
+    {
+      "file": "test-results/titanball/simulation/contact-r2-ut99-7129.json",
+      "profile": "ut99",
+      "winner": 1,
+      "distance": 232.321923907784,
+      "active_seconds": 960.01666666607,
+      "mean_pilot_seconds": 1.8164855072457857,
+      "median_pilot_seconds": 0.674999999999045,
+      "pilot_p25_seconds": 0.3833333333329847,
+      "pilot_p75_seconds": 1.3166666666649576,
+      "pilot_p90_seconds": 3.283333333330006,
+      "pilot_episodes": 184,
+      "pilot_under_one_second_percent": 65.76086956521739,
+      "pilot_duty_percent": 34.813631707807026,
+      "pilot_death_weapons": {
+        "SHOCK RIFLE": 181,
+        "ENFORCER": 3
+      },
+      "cannon_kills_min": 18,
+      "cannon_kills_max": 18,
+      "defender_deaths": 254,
+      "cannon_kill_share_min_percent": 7.086614173228346,
+      "cannon_kill_share_max_percent": 7.086614173228346,
+      "cannon_logged_damage": 2879,
+      "damage_is_upper_bound": false,
+      "logged_damage_per_piloted_second": 8.614172443025353,
+      "notes": [],
+      "fired_rounds": 548,
+      "pair_volleys": 274,
+      "direct_damage_events": 393,
+      "splash_damage_events": 145,
+      "overheat_entries": 0,
+      "direct_damage_events_per_fired_round_percent": 71.71532846715328,
+      "attacker_logged_damage": 27597,
+      "pilot_logged_damage": 11430,
+      "pilot_surface_blast_damage": 0,
+      "pilot_noncontact_damage_events": 0,
+      "peak_pair_heat": 65.0000000000001,
+      "death_ended_pilot_episodes": 184,
+      "censored_pilot_episodes": 0,
+      "tenures_by_boarding_distance": {
+        "first_90m": {
+          "episodes": 13,
+          "mean_seconds": 9.0512820512855,
+          "median_seconds": 6.366666666665992
+        },
+        "90_to_190m": {
+          "episodes": 84,
+          "mean_seconds": 1.6736111111104626,
+          "median_seconds": 0.8166666666659523
+        },
+        "final_110m": {
+          "episodes": 87,
+          "mean_seconds": 0.8733716475084392,
+          "median_seconds": 0.5833333333329165
+        },
+        "first_155m": {
+          "episodes": 38,
+          "mean_seconds": 5.208333333334516,
+          "median_seconds": 2.0333333333319956
+        }
+      }
+    },
+    {
+      "file": "test-results/titanball/simulation/contact-r2-doom-7129.json",
+      "profile": "doom",
+      "winner": 1,
+      "distance": 261.663368704861,
+      "active_seconds": 960.01666666607,
+      "mean_pilot_seconds": 1.5464912280695955,
+      "median_pilot_seconds": 0.7333333333340022,
+      "pilot_p25_seconds": 0.4166666666660035,
+      "pilot_p75_seconds": 1.333333333332007,
+      "pilot_p90_seconds": 2.566666666669022,
+      "pilot_episodes": 247,
+      "pilot_under_one_second_percent": 62.75303643724696,
+      "pilot_duty_percent": 39.78750368919485,
+      "pilot_death_weapons": {
+        "CHAINGUN": 232,
+        "DUAL PISTOLS": 14,
+        "PLASMA RIFLE": 1
+      },
+      "cannon_kills_min": 36,
+      "cannon_kills_max": 36,
+      "defender_deaths": 251,
+      "cannon_kill_share_min_percent": 14.342629482071713,
+      "cannon_kill_share_max_percent": 14.342629482071713,
+      "cannon_logged_damage": 4778,
+      "damage_is_upper_bound": false,
+      "logged_damage_per_piloted_second": 12.508944934113536,
+      "notes": [],
+      "fired_rounds": 922,
+      "pair_volleys": 461,
+      "direct_damage_events": 660,
+      "splash_damage_events": 247,
+      "overheat_entries": 0,
+      "direct_damage_events_per_fired_round_percent": 71.58351409978307,
+      "attacker_logged_damage": 26788,
+      "pilot_logged_damage": 15236,
+      "pilot_surface_blast_damage": 0,
+      "pilot_noncontact_damage_events": 0,
+      "peak_pair_heat": 62.5,
+      "death_ended_pilot_episodes": 247,
+      "censored_pilot_episodes": 0,
+      "tenures_by_boarding_distance": {
+        "first_90m": {
+          "episodes": 17,
+          "mean_seconds": 6.846078431374897,
+          "median_seconds": 2.566666666669022
+        },
+        "90_to_190m": {
+          "episodes": 88,
+          "mean_seconds": 1.6496212121204246,
+          "median_seconds": 0.7833333333330188
+        },
+        "final_110m": {
+          "episodes": 142,
+          "mean_seconds": 0.8481220657268977,
+          "median_seconds": 0.5999999999995111
+        },
+        "first_155m": {
+          "episodes": 48,
+          "mean_seconds": 4.272916666667113,
+          "median_seconds": 1.783333333331484
+        }
+      }
+    }
+  ],
+  "checks": {
+    "pilot": 37,
+    "cross_loadout_contact": 25,
+    "linked_heat": 11,
+    "robot_gameplay": 60,
+    "cannon_crush": 21,
+    "ordinary_combat": 13,
+    "hit_detection": 18,
+    "weapon_variants": 71,
+    "enet": 65,
+    "match_integrity": 56
+  },
+  "limitations": [
+    "One round per profile; simultaneous changes are not causally isolated.",
+    "No Quest/frame-time test.",
+    "Native MultiMesh interpolation and exit ObjectDB warnings remain."
+  ],
+  "artifacts_sha256": {
+    "contact-r2-tf-7129.json": "55f69c7b28939db78515b7499297b3f1bfb4a8609f914e6e447dca32a9f473d0",
+    "contact-r2-ut99-7129.json": "d6d3a7b95a2e22fae6692f2020c0f0ee68662e21e757fc357105b63c80079cb2",
+    "contact-r2-doom-7129.json": "953b41c1947b68813d84d1b207b1c5055c11b697b659d5d38a9d958c81e59863"
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "compatibility": {
+    "author": "[\"Epic Games; Asia Carrera; Husch\"]",
+    "license": "https://vrm.dev/licenses/1.0/",
+    "size": 331032,
+    "title": "AsiaLatex2 / Female Soldier",
+    "version": "1.0"
+  },
+  "missing_features": [
+    "finger rig",
+    "facial expressions",
+    "eye bones",
+    "original vertex animations"
+  ],
+  "output": "/home/blux/Documents/FPSloppa/vrm/AsiaCarrera-FemaleSoldier-AsiaLatex2-experimental.vrm",
+  "rig": "Experimental, newly estimated weights; review joint deformation in VR.",
+  "settings": {
+    "experimentalRig": true,
+    "frame": 609.0,
+    "height": 1.7,
+    "humanBones": {
+      "chest": {
+        "node": 3.0
+      },
+      "head": {
+        "node": 5.0
+      },
+      "hips": {
+        "node": 1.0
+      },
+      "leftFoot": {
+        "node": 12.0
+      },
+      "leftHand": {
+        "node": 9.0
+      },
+      "leftLowerArm": {
+        "node": 8.0
+      },
+      "leftLowerLeg": {
+        "node": 11.0
+      },
+      "leftShoulder": {
+        "node": 6.0
+      },
+      "leftUpperArm": {
+        "node": 7.0
+      },
+      "leftUpperLeg": {
+        "node": 10.0
+      },
+      "neck": {
+        "node": 4.0
+      },
+      "rightFoot": {
+        "node": 19.0
+      },
+      "rightHand": {
+        "node": 16.0
+      },
+      "rightLowerArm": {
+        "node": 15.0
+      },
+      "rightLowerLeg": {
+        "node": 18.0
+      },
+      "rightShoulder": {
+        "node": 13.0
+      },
+      "rightUpperArm": {
+        "node": 14.0
+      },
+      "rightUpperLeg": {
+        "node": 17.0
+      },
+      "spine": {
+        "node": 2.0
+      }
+    },
+    "landmarks": {
+      "chest": [
+        0.0,
+        1.27,
+        -0.08
+      ],
+      "head": [
+        -0.05,
+        1.51,
+        -0.06
+      ],
+      "hips": [
+        0.0,
+        0.94,
+        -0.06
+      ],
+      "leftFoot": [
+        0.24,
+        0.12,
+        0.1
+      ],
+      "leftHand": [
+        0.52,
+        1.17,
+        0.09
+      ],
+      "leftLowerArm": [
+        0.34,
+        1.17,
+        -0.17
+      ],
+      "leftLowerLeg": [
+        0.2,
+        0.49,
+        0.14
+      ],
+      "leftShoulder": [
+        0.08,
+        1.37,
+        -0.04
+      ],
+      "leftUpperArm": [
+        0.2,
+        1.37,
+        -0.01
+      ],
+      "leftUpperLeg": [
+        0.12,
+        0.94,
+        -0.01
+      ],
+      "neck": [
+        -0.025,
+        1.43,
+        -0.09
+      ],
+      "rightFoot": [
+        -0.16,
+        0.12,
+        -0.15
+      ],
+      "rightHand": [
+        -0.52,
+        1.25,
+        -0.07
+      ],
+      "rightLowerArm": [
+        -0.32,
+        1.23,
+        -0.23
+      ],
+      "rightLowerLeg": [
+        -0.15,
+        0.48,
+        -0.16
+      ],
+      "rightShoulder": [
+        -0.075,
+        1.37,
+        -0.08
+      ],
+      "rightUpperArm": [
+        -0.18,
+        1.36,
+        -0.1
+      ],
+      "rightUpperLeg": [
+        -0.115,
+        0.94,
+        -0.08
+      ],
+      "spine": [
+        0.0,
+        1.08,
+        -0.08
+      ]
+    },
+    "sourceModel": {
+      "name": "SGirl",
+      "package": "BotPack.u"
+    }
+  },
+  "sha256": "7233f166851858ababb1c8f1b37b6673a0854dca4f2badffd138bbafe626b0ab",
+  "size": 331032
+}

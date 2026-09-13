@@ -1,0 +1,972 @@
+{
+  "status": "Audit complete; filtering defects and deliberate material limitations identified",
+  "scope": {
+    "base_maps": 25,
+    "avatars": 3,
+    "renderer": "mobile",
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)"
+  },
+  "runtime": {
+    "avatars": [
+      {
+        "id": "sample_d",
+        "materials": [
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceMouth_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeWhite_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceEyeline_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceEyelash_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceBrow_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeIris_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeHighlight_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_Face_00_SKIN",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              1024,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeExtra_01_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_001_01_Body_00_SKIN",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              2048,
+              2048
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_001_01_Tops_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_001_01_Accessory_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_001_01_Bottoms_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_001_01_Shoes_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_HairBack_00_HAIR",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              1024,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_01",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_02",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          }
+        ],
+        "normal_on_off_difference": 5.92915392093698e-05,
+        "surfaces": 72,
+        "surfaces_with_tangents": 72
+      },
+      {
+        "id": "sample_f",
+        "materials": [
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceMouth_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeWhite_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceEyeline_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceEyelash_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceBrow_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeIris_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeHighlight_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_Face_00_SKIN",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              1024,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeExtra_01_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_002_02_Body_00_SKIN",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              2048,
+              2048
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_002_01_Onepice_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_002_01_Shoes_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_HairBack_00_HAIR",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              1024,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_01",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_02",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_03",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          }
+        ],
+        "normal_on_off_difference": 0.000147793115837952,
+        "surfaces": 87,
+        "surfaces_with_tangents": 87
+      },
+      {
+        "id": "sample_g",
+        "materials": [
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceMouth_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeWhite_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceEyeline_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceEyelash_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_FaceBrow_00_FACE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeIris_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeHighlight_00_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_Face_00_SKIN",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              1024,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_00_EyeExtra_01_EYE",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_002_02_Body_00_SKIN",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              2048,
+              2048
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_002_01_Onepice_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_002_01_Shoes_01_CLOTH",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              8,
+              8
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_HairBack_00_HAIR",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              1024,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_01",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_02",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          },
+          {
+            "arena_policy": true,
+            "has_filter_variants": false,
+            "name": "F00_000_Hair_00_HAIR_03",
+            "normal_mipmaps": false,
+            "normal_scale": 1.0,
+            "normal_size": [
+              512,
+              1024
+            ],
+            "shader_uses_include": true
+          }
+        ],
+        "normal_on_off_difference": 0.000180269524222048,
+        "surfaces": 82,
+        "surfaces_with_tangents": 82
+      }
+    ],
+    "failures": [],
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "maps": [
+      {
+        "baked": 13,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "as_hislop",
+        "materials": 14,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 12,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "as_frigate",
+        "materials": 12,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 29,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "tf_pressureworks",
+        "materials": 29,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 16,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "tf_vesper",
+        "materials": 16,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 22,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "koth_solstice",
+        "materials": 23,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 18,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "koth_torture",
+        "materials": 19,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 49,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "koth_hyperborea",
+        "materials": 50,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 56,
+        "cutout": 0,
+        "glow": 3,
+        "height": 0,
+        "id": "koth_alichar",
+        "materials": 57,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 25,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "cc_hyperborea",
+        "materials": 26,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 19,
+        "cutout": 0,
+        "glow": 2,
+        "height": 0,
+        "id": "cc_psychofuge",
+        "materials": 20,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 27,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "cc_ghostquarter",
+        "materials": 28,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 40,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "cc_basement",
+        "materials": 41,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 27,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "qsrc_dm1",
+        "materials": 28,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 29,
+        "cutout": 0,
+        "glow": 6,
+        "height": 0,
+        "id": "qsrc_dm2",
+        "materials": 30,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 56,
+        "cutout": 0,
+        "glow": 6,
+        "height": 0,
+        "id": "qsrc_dm3",
+        "materials": 56,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 12,
+        "cutout": 0,
+        "glow": 2,
+        "height": 0,
+        "id": "qsrc_dm4",
+        "materials": 13,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 18,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "qsrc_dm5",
+        "materials": 19,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 10,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "qsrc_dm6",
+        "materials": 11,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 14,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "qsrc_dm7",
+        "materials": 15,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 9,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "ctf_tideworks",
+        "materials": 9,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 7,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "ctf_crucible",
+        "materials": 7,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 11,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "ctf_confluence",
+        "materials": 12,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 9,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "ctf_deepvault",
+        "materials": 9,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 8,
+        "cutout": 0,
+        "glow": 0,
+        "height": 0,
+        "id": "ctf_crownreach",
+        "materials": 8,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      },
+      {
+        "baked": 7,
+        "cutout": 0,
+        "glow": 1,
+        "height": 0,
+        "id": "ctf_skyfracture",
+        "materials": 8,
+        "metallic_texture": 0,
+        "normal": 0,
+        "roughness_texture": 0
+      }
+    ],
+    "normal_size_probe": [
+      {
+        "normal_difference": 0.0,
+        "size": 1
+      },
+      {
+        "normal_difference": 0.00886987117308157,
+        "size": 32
+      }
+    ],
+    "renderer": "mobile"
+  },
+  "summary": {
+    "map_baked_materials": 543,
+    "map_glow_materials": 27,
+    "map_normal_materials": 0,
+    "map_height_materials": 0,
+    "map_roughness_textures": 0,
+    "map_metallic_textures": 0,
+    "mtoon_materials": 49,
+    "mtoon_filter_variant_banks": 0,
+    "normal_materials_with_mipmaps": 0,
+    "nonplaceholder_normal_materials": 17,
+    "runtime_tangent_surfaces": 241
+  },
+  "findings": [
+    {
+      "severity": "medium",
+      "title": "Runtime avatar normal textures have no mipmaps",
+      "evidence": "All 49 MToon normal bindings lack mipmaps, including 17 bindings to 512\u20132048-pixel detail textures. _BumpMap is omitted from preparation and has no mipmapped sampler hint.",
+      "impact": "Distant and oblique normal detail lacks suitable prefiltered levels; potential aliasing, not proof of the previous OpenGL shimmer cause."
+    },
+    {
+      "severity": "medium",
+      "title": "Texture-filter selection does not reach MToon includes",
+      "evidence": "All 49 runtime shaders use #include and have no filter-variant bank. Filtering only rewrites source.shader.code, where the sampler declarations are absent.",
+      "impact": "MToon uses its hardcoded/default sampler settings instead of following the graphics selection."
+    },
+    {
+      "severity": "low",
+      "title": "Valid normal maps eight pixels wide or smaller are ignored",
+      "evidence": "A 1x1 tilted normal produced zero difference; the same constant normal at 32x32 produced 0.00886987 mean RGB difference.",
+      "impact": "Custom tiny normal maps silently lose their effect. Bundled 8x8 textures are flat placeholders, so their omission loses no intended detail."
+    }
+  ],
+  "intentional_limits": [
+    "Baked BSP shader has no normal/height/roughness/metallic texture slots; specular is disabled and roughness is 1.",
+    "MToon arena policy suppresses specular/rim/matcap while retaining normal-based diffuse response and bounded authored emission.",
+    "Regular PBR avatar materials retain texture slots, but arena policy caps metallic, raises roughness and clamps emission; KHR_materials_unlit appearance is overridden.",
+    "RGB baked lighting/AO is non-directional and applied through emission. Adding a normal-map lookup alone would not relight its static detail."
+  ],
+  "changes": "Audit tools and documentation only; no production materials, shaders or packages changed.",
+  "source_sha256": {
+    "deathmatch/maps/baked_light.gdshader": "ba0131658ea1b6211c59a3f0999b33a6fa12ba3ab69793dae5ee9810346287b1",
+    "deathmatch/maps/baked_light.gd": "3ee38ca15bb8a5f59531d435ae7eef18d44ff8334d2284bc567910f917472359",
+    "deathmatch/maps/filtering.gd": "f2b43e6d3a103d9ef9888e859b020f4df4f8270894f9a6d07339bce6e7cd3064",
+    "deathmatch/avatars/lighting.gd": "aadb31e40fd8d728962ea2ea88e87c2582529937e6bac037ca8afddefe7bfcc0",
+    "addons/Godot-MToon-Shader/mtoon_common.gdshaderinc": "b7061f463e9e511caae5aa7991ba3caacaddd3bb256025b7488df3d4e4b3babd",
+    "tools/lighting_experiment/material_audit.gd": "9e392e8dc31ec2309ec806280350a7abb8171f0ebfa8205943392beb5ec36855"
+  },
+  "emission_regression": {
+    "authored_emission_delta": 0.00337268475558103,
+    "failures": [],
+    "rim_delta": 0.0
+  },
+  "log_sha256": {
+    "test-results/material-audit/material-audit-mobile.log": "04baae57e5921cb616807119c52c5ecab1d9946d33d90bcea5528663d213a8f1",
+    "test-results/lighting-coverage/emission-mobile.log": "38504224fe13ef4831e139eb1c190d28d7748945d8c4aaaf244847f5d2956411"
+  }
+}

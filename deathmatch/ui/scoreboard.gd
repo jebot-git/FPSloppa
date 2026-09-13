@@ -42,17 +42,13 @@ func setup() -> void:
 		rows.append({"panel":line,"style":style,"cells":cells(line)})
 	observers=label(column,0,17);footer=label(column,0,16)
 	hide()
-func refresh(game) -> void:
-	var team_game: bool=game.match_mode.team_game()
-	var tf: bool=game.match_mode.kind=="tf"
-	title.text="ROUND COMPLETE · "+game.round_message if game.intermission>0 else "FPSLOPPA · "+game.match_mode.NAMES[game.match_mode.kind]
-	summary.text="RED %d  /  BLUE %d   ·   %s"%[game.match_mode.scores[0],game.match_mode.scores[1],game.map_title] if team_game else game.map_title
-	var ranked: Array=game.players.values().filter(func(p):return not p.spectator)
-	ranked.sort_custom(func(a,b):
-		if team_game and a.team!=b.team:return a.team<b.team
-		if a.kills!=b.kills:return a.kills>b.kills
-		if a.deaths!=b.deaths:return a.deaths<b.deaths
-		return a.name.naturalnocasecmp_to(b.name)<0)
+static func capture(game) -> Dictionary:return preload("res://deathmatch/modes/scoreboard_data.gd").capture(game)
+func refresh(game) -> void:refresh_data(capture(game))
+func refresh_data(data: Dictionary,wall: bool=false) -> void:
+	var team_game: bool=data.team_game
+	var tf: bool=data.tf
+	title.text=data.title;summary.text=data.summary
+	var ranked: Array=data.ranked
 	headers[2].visible=tf
 	for i in range(16):
 		var row: Dictionary=rows[i];row.panel.visible=i<ranked.size()
@@ -60,15 +56,12 @@ func refresh(game) -> void:
 		var player: Dictionary=ranked[i]
 		var colour: Color=(RED if player.team==0 else BLUE if player.team==1 else Color("e9dfca")) if team_game else Color("e9dfca")
 		row.style.bg_color=Color(colour.r*.12,colour.g*.12,colour.b*.12,.98) if team_game else Color("202630") if i%2==0 else Color("181e27")
-		var role: String=player.get("tf_class","soldier")
-		var values: Array=[str(i+1),player.name,game.match_mode.fortress.CLASSES.get(role,{}).get("name","UNKNOWN"),str(player.kills),str(player.deaths),str(player.ping)]
+		var values: Array=[str(i+1),player.name,player.class_name,str(player.kills),str(player.deaths),str(player.ping)]
 		for j in range(6):
 			row.cells[j].text=values[j];row.cells[j].add_theme_color_override("font_color",colour)
 		row.cells[2].visible=tf
-	var spectators: Array=game.players.values().filter(func(p):return p.spectator)
-	var names:=PackedStringArray()
-	for player in spectators:names.append(player.name)
-	observers.text="SPECTATORS (%d): "%spectators.size()+", ".join(names)
-	observers.visible=not spectators.is_empty()
-	footer.text="HOLD SCORES TO VIEW   ·   %d PLAYERS"%ranked.size()
+	var names:=PackedStringArray(data.spectators)
+	observers.text="SPECTATORS (%d): "%names.size()+", ".join(names)
+	observers.visible=not names.is_empty()
+	footer.text=("LAST ROUND   ·   " if wall else "HOLD SCORES TO VIEW   ·   ")+"%d PLAYERS"%ranked.size()
 	if ranked.size()>16:footer.text+="   ·   SHOWING FIRST 16 (HIGHER LIMITS UNSUPPORTED)"

@@ -3,17 +3,21 @@ from pathlib import Path
 import json
 import subprocess
 import time
+import sys
 
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'test-results/frigate'
 
 def main():
+    global OUT
+    extra=['--tiny'] if '--tiny' in sys.argv else []
+    if not extra:OUT=ROOT/'test-results/assault-layouts/frigate'
     OUT.mkdir(parents=True,exist_ok=True)
     children=[];handles=[];results=[]
     try:
         for role in ['server','client']:
             log=OUT/f'network-{role}.log';handle=log.open('w');handles.append(handle)
-            child=subprocess.Popen(['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://deathmatch/tests/frigate_network.gd','--',role,'--client-config',str(OUT/f'network-{role}.cfg')],stdout=handle,stderr=subprocess.STDOUT)
+            child=subprocess.Popen(['godot','--headless','--xr-mode','off','--path',str(ROOT),'--log-file',str(OUT/f'network-{role}-engine.log'),'--script','res://deathmatch/tests/frigate_network.gd','--',role,'--client-config',str(OUT/f'network-{role}.cfg'),*extra],stdout=handle,stderr=subprocess.STDOUT)
             children.append((role,child))
             if role=='server':
                 deadline=time.monotonic()+10

@@ -10,4 +10,12 @@ Run `python3 tools/generate_sounds.py` from any directory to regenerate the twen
 
 Use the official matching Godot executable via `GODOT_BIN` for release exports. The source ZIP honors Git exclusions, omitting private live-device captures, build caches, signing files and generated release archives.
 
-`python3 tools/prepare_release.py` stages a fixed artifact allowlist and checksums after exports and packaging. Arena Collection 1 and the ThreeWave/TF/AD converters are permanently excluded from subsequent releases; obtain them from 0.5v. See [the archive policy](../docs/ARCHIVED-EXTRAS.md).
+`python3 tools/prepare_release.py` stages a fixed artifact allowlist and checksums after exports and packaging. Run `python3 tools/package_optional_release.py` to build the combined 62-map optional/community pack in `dist/`; [its builder and checks](optional_maps/README.md) retain mode categories and original notices. ThreeWave/TF/AD conversion tools remain archived with 0.5v. See [the archive policy](../docs/ARCHIVED-EXTRAS.md).
+
+The [UT Avatar Converter](ut_avatar_converter/README.md) is a separate portable Linux/Windows utility for original UT99 `.u` models and `.utx` skins (including ZIP/UMOD archives). It generates an editable experimental humanoid rig and VRM output. Its source and [Linux/Windows releases](https://github.com/jebot-git/UTAvatarConverter/releases/tag/v0.1.0) now live in the independent [UTAvatarConverter repository](https://github.com/jebot-git/UTAvatarConverter). The general [AvatarConverter](https://github.com/jebot-git/AvatarConverter) is independent too. Local build/test wrappers accept `--checkout`; see each tool README.
+
+The [MDL Avatar Converter](mdl_avatar_converter/README.md) provides a separate experimental Quake MDL/PAK to VRM workflow. Its [Linux/Windows release](https://github.com/jebot-git/MDLAvatarConverter/releases/tag/v0.1.0) requires no external editor or extraction helper. Local build/test wrappers accept `--checkout`. GoldSrc MDL is unsupported.
+
+## Optional bHaptics native prototype
+
+`python3 tools/build_bhaptics_native.py` builds the Linux/Windows x86_64 Godot GDExtension for direct Bluetooth vest feedback. Linux requires Rust/Cargo, pkg-config and libdbus development headers; Windows requires the Rust MSVC toolchain and C++ build tools (Windows build unvalidated here); `--offline` uses cached dependencies and `--release` builds an optimized library. See [BHAPTICS.md](../BHAPTICS.md) for setup and opt-in hardware tests.

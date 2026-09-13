@@ -5,6 +5,7 @@ The target is native 72 FPS or better: 13.89 ms per frame at 72 Hz, 11.11 ms at 
 ## Changes
 
 - Vulkan Mobile renderer on PC and Android, following Godot's current XR recommendation. OpenXR handles stereo/multiview and headset frame pacing; desktop VSync is disabled in XR. PC retains the runtime's refresh selection. Standalone requests the lowest advertised refresh rate at or above 72 Hz when the session starts.
+- OpenGL/GLES fallback is disabled. Preview tools use Mobile, and Compatibility-specific avatar/decal workarounds have been removed; see [renderer support](docs/RENDERER-SUPPORT.md).
 - OpenXR VRS on the main viewport; medium dynamic foveation for compatible runtimes. Unsupported runtime extensions are optional. This is not a guarantee of eye-tracked foveation on every device.
 - 4× MSAA on PC, 2× on Android; no SSAO, glow or dynamic sun shadows. No second full-scene spectator render is added.
 - BSP occlusion culling and bounded nearby unshadowed lights: eight on PC, four on Android, selected at 5 Hz. Ambient illumination remains available throughout the maps.

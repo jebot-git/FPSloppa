@@ -80,6 +80,10 @@ func check_spawns() -> void:
   if not actors[i].position.is_finite():fail("Nonfinite directional movement")
   actors[i].free()
 func check_water(boxes: Array) -> void:
+ # Water movement is measured in place. A submerged teleporter can move a
+ # probe into another probe and telefrag it; teleport behavior is audited separately.
+ var saved_regions: Array=runtime.regions.duplicate()
+ runtime.regions=runtime.regions.filter(func(region):return region.kind!="trigger_teleport")
  var positions: Array=[]
  for box in boxes:
   var lo:=vec(box.lo);var hi:=vec(box.hi)
@@ -158,6 +162,8 @@ func check_water(boxes: Array) -> void:
    report.water[i].exit_peak_y=peak_y;report.water[i].exit_contacts=contacts
    if not emerged:fail("Clear water surface cannot be exited: "+str(i))
   game.players.erase(a.peer_id);game.fighters.erase(a.peer_id);a.free()
+ runtime.regions=saved_regions
+
 func check_doors() -> void:
  if game.gates.is_empty():return
  # Earlier swimming probes can legitimately open a nearby door. Establish
@@ -190,19 +196,24 @@ func check_doors() -> void:
   markers.append(marker);report.doors.append({"entity":gate.node.attributes,"closed":xyz(closed),"travel":xyz(gate.travel),"closed_probe_hits_door":hit})
   var a=actor_at(gate.center);game.players[a.peer_id]=game._new_state("door probe",a.peer_id);game.fighters[a.peer_id]=a
  runtime._physics_process(1.0/60)
+ var travel_frames:=44
  for i in game.gates.size():
-  report.doors[i].proximity_opens=game.gates[i].open
-  if not game.gates[i].open:fail("Door proximity activation failed: "+str(i))
+  var gate: Dictionary=game.gates[i]
+  if gate.get("touch_target",false):runtime.activate_gate_target(gate.node.attributes.targetname)
+  report.doors[i].activation="target" if gate.get("touch_target",false) else "proximity"
+  report.doors[i].activation_opens=gate.open
+  travel_frames=maxi(travel_frames,ceili(float(gate.get("move_seconds",.6))*60)+5)
+  if not gate.open:fail("Door activation failed: "+str(i))
  for a in game.fighters.values():a.free()
  game.fighters.clear();game.players.clear()
- for frame in 44:await physics_frame
+ for frame in travel_frames:await physics_frame
  for i in game.gates.size():
   var gate=game.gates[i];var row=report.doors[i];row.reached_open=gate.node.position.distance_to(gate.base_position+gate.travel)<.02
   row.old_probe_clear_of_door=not probe(markers[i]).any(func(h):return h.collider==gate.node)
   if not row.reached_open:fail("Door did not reach open endpoint: "+str(i))
   if row.closed_probe_hits_door and not row.old_probe_clear_of_door:fail("Open door still blocks its closed-position probe: "+str(i))
   game._gate_state(i,false)
- for frame in 44:await physics_frame
+ for frame in travel_frames:await physics_frame
  for i in game.gates.size():
   var gate=game.gates[i];report.doors[i].returned_closed=gate.node.position.distance_to(gate.base_position)<.02
   if not report.doors[i].returned_closed:fail("Door did not close: "+str(i))

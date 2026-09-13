@@ -1,0 +1,201 @@
+{
+  "date": "2026-09-12",
+  "host": "45.147.228.101",
+  "test_port": 27777,
+  "production_port": 7777,
+  "production_untouched": true,
+  "test_stopped_when_empty": true,
+  "map": "qsrc_dm7",
+  "bsp_sha256": "47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+  "server_pck_sha256": "5cefad8798139d5e133711938c7b82e2204b2e0238e21755f6022a00d72d9729",
+  "cold": {
+    "host": "45.147.228.101",
+    "port": 27777,
+    "count": 1,
+    "cold": true,
+    "spectator": false,
+    "peak_admitted": 1,
+    "held_seconds": 15.17,
+    "exit_codes": [
+      0
+    ],
+    "states": [
+      {
+        "active": true,
+        "clock": 28.4166666666663,
+        "count": 5,
+        "deaths": 0,
+        "epoch": 0,
+        "event": "SUPER SHOTGUN acquired",
+        "hp": 100,
+        "join_ms": 13690,
+        "loading": {
+          "blocking": false,
+          "count": 0,
+          "done": 25889072,
+          "eta": "Download complete",
+          "fraction": 1.0,
+          "phase": "Ready \u00b7 entering match\u2026",
+          "total": 25889072,
+          "visible": false
+        },
+        "map": "custom_47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+        "mode": "dm",
+        "models": 2,
+        "ping": 26,
+        "position": "(31.19506, -7.639938, -28.94615)",
+        "spectator": false,
+        "tag": "01",
+        "travel": 106.256587982178
+      }
+    ],
+    "passed": true
+  },
+  "active": {
+    "host": "45.147.228.101",
+    "port": 27777,
+    "count": 4,
+    "cold": false,
+    "spectator": false,
+    "peak_admitted": 4,
+    "held_seconds": 120.46,
+    "exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "states": [
+      {
+        "active": true,
+        "clock": 126.416666666661,
+        "count": 4,
+        "deaths": 3,
+        "epoch": 0,
+        "event": "RemoteTest 03  \u2192  RemoteTest 03   \u00b7   DROWNING",
+        "hp": 30,
+        "join_ms": 4842,
+        "loading": {
+          "blocking": false,
+          "count": 0,
+          "done": 2464016,
+          "eta": "Download complete",
+          "fraction": 1.0,
+          "phase": "Ready \u00b7 entering match\u2026",
+          "total": 2464016,
+          "visible": false
+        },
+        "map": "custom_47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+        "mode": "dm",
+        "models": 4,
+        "ping": 26,
+        "position": "(29.30092, -8.004169, -24.47551)",
+        "spectator": false,
+        "tag": "01",
+        "travel": 593.725055217743
+      },
+      {
+        "active": true,
+        "clock": 126.699999999994,
+        "count": 4,
+        "deaths": 1,
+        "epoch": 0,
+        "event": "RemoteTest 03  \u2192  RemoteTest 03   \u00b7   DROWNING",
+        "hp": 186,
+        "join_ms": 5438,
+        "loading": {
+          "blocking": false,
+          "count": 0,
+          "done": 2464016,
+          "eta": "Download complete",
+          "fraction": 1.0,
+          "phase": "Ready \u00b7 entering match\u2026",
+          "total": 2464016,
+          "visible": false
+        },
+        "map": "custom_47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+        "mode": "dm",
+        "models": 4,
+        "ping": 25,
+        "position": "(31.02741, -8.004195, -9.238132)",
+        "spectator": false,
+        "tag": "02",
+        "travel": 522.717984629795
+      },
+      {
+        "active": true,
+        "clock": 126.716666666661,
+        "count": 4,
+        "deaths": 4,
+        "epoch": 0,
+        "event": "RemoteTest 03  \u2192  RemoteTest 03   \u00b7   DROWNING",
+        "hp": 0,
+        "join_ms": 5735,
+        "loading": {
+          "blocking": false,
+          "count": 0,
+          "done": 2464016,
+          "eta": "Download complete",
+          "fraction": 1.0,
+          "phase": "Ready \u00b7 entering match\u2026",
+          "total": 2464016,
+          "visible": false
+        },
+        "map": "custom_47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+        "mode": "dm",
+        "models": 4,
+        "ping": 22,
+        "position": "(24.77434, -8.004089, -12.30092)",
+        "spectator": false,
+        "tag": "03",
+        "travel": 493.476233875146
+      },
+      {
+        "active": true,
+        "clock": 126.699999999994,
+        "count": 4,
+        "deaths": 2,
+        "epoch": 0,
+        "event": "RemoteTest 03  \u2192  RemoteTest 03   \u00b7   DROWNING",
+        "hp": 100,
+        "join_ms": 5236,
+        "loading": {
+          "blocking": false,
+          "count": 0,
+          "done": 2464016,
+          "eta": "Download complete",
+          "fraction": 1.0,
+          "phase": "Ready \u00b7 entering match\u2026",
+          "total": 2464016,
+          "visible": false
+        },
+        "map": "custom_47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+        "mode": "dm",
+        "models": 4,
+        "ping": 25,
+        "position": "(31.69908, -7.222511, -39.69909)",
+        "spectator": false,
+        "tag": "04",
+        "travel": 560.49391078949
+      }
+    ],
+    "passed": true
+  },
+  "health_samples_four_or_more": 25,
+  "physics_ms": {
+    "min": 3.034,
+    "median": 6.393,
+    "max": 19.007
+  },
+  "peak_orphan_nodes": 0.0,
+  "damage_events": 137,
+  "spawn_events": 14,
+  "pickup_events": 2,
+  "round_paused_empty": true,
+  "limitations": [
+    "Automated clients, not a human VR match",
+    "Not a full-capacity performance benchmark",
+    "This remote PCK predates the final Well6 fixes"
+  ],
+  "passed": true
+}

@@ -2,7 +2,11 @@ extends Control
 ## Transparent, noninteractive HUD drawn into a head-relative stereo surface.
 const W=preload("res://deathmatch/weapons.gd")
 const CHAT_HEIGHT=132
-const VIEW_SIZE=Vector2i(960,292+CHAT_HEIGHT)
+const NOTIFY_HEIGHT=56
+const VIEW_SIZE=Vector2i(960,292+CHAT_HEIGHT+NOTIFY_HEIGHT)
+var player_status: Dictionary={}
+func update_player_status(data: Dictionary) -> void:
+	if data!=player_status:player_status=data;queue_redraw()
 var chat_labels: Array[Label]=[]
 var chat_messages:=PackedStringArray()
 
@@ -58,9 +62,10 @@ func update_network(progress: Dictionary,ping: int,host: bool) -> void:
 	var next:={"show":progress.visible,"percent":int(progress.fraction*100),"ping":ping,"host":host}
 	if next!=network:network=next;queue_redraw()
 const INK=Color("e5d5ad")
-func update_status(state: Dictionary,remaining: float,limit: int,leader: int,intermission: bool,mic: bool,objective: String="") -> void:
-	var ammo_type:int=W.DATA[state.weapon].ammo
-	var next:={"objective":objective,"spectator":state.get("spectator",false),"hp":maxi(0,state.hp),"armor":state.armor,"ammo":state.ammo[ammo_type] if ammo_type>=0 else -1,"capacity":W.MAX_AMMO[ammo_type] if ammo_type>=0 else 1,"weapon":W.DATA[state.weapon].name,"seconds":maxi(0,ceili(remaining)),"frags":maxi(0,limit-leader),"dead":state.dead,"pause":intermission,"mic":mic}
+func update_status(state: Dictionary,remaining: float,limit: int,leader: int,intermission: bool,mic: bool,objective: String="",radio: bool=false,weapon_data: Dictionary={},capacities: Array=W.MAX_AMMO) -> void:
+	if weapon_data.is_empty():weapon_data=W.DATA[clampi(state.weapon,0,9)]
+	var ammo_type:int=weapon_data.ammo
+	var next:={"objective":objective,"spectator":state.get("spectator",false),"hp":maxi(0,state.hp),"armor":state.armor,"ammo":state.ammo[ammo_type] if ammo_type>=0 else -1,"capacity":capacities[ammo_type] if ammo_type>=0 else 1,"weapon":weapon_data.name,"seconds":maxi(0,ceili(remaining)),"frags":maxi(0,limit-leader),"dead":state.dead,"pause":intermission,"mic":mic,"radio":radio}
 	if next!=values:values=next;queue_redraw()
 func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
 	draw_string(ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
@@ -68,6 +73,16 @@ func _draw() -> void:
 	for i in chat_labels.size():
 		if not chat_labels[i].text.is_empty():draw_rect(Rect2(4,2+i*64,952,62),Color(.10,.075,.05,.88))
 	draw_set_transform(Vector2(0,CHAT_HEIGHT))
+	if not player_status.is_empty():
+		var team: int=player_status.team
+		var color: Color=Color("ff9c88") if team==0 else Color("91caff") if team==1 else INK
+		if not player_status.ability.is_empty():
+			draw_rect(Rect2(4,0,720,27),Color(.10,.075,.05,.88));label(Vector2(20,22),player_status.ability,20)
+		if not player_status.team_text.is_empty():
+			draw_rect(Rect2(748,0,208,27),Color(.10,.075,.05,.90));label(Vector2(762,22),player_status.team_text,20,color)
+		if not player_status.carrier.is_empty():
+			draw_rect(Rect2(4,28,952,27),Color(.10,.075,.05,.94));label(Vector2(20,50),player_status.carrier,21,Color("ffdf86"))
+	draw_set_transform(Vector2(0,CHAT_HEIGHT+NOTIFY_HEIGHT))
 	if not capture_text.is_empty():
 		draw_rect(Rect2(4,0,952,70),Color(.23,.06,.04,.94) if capture_team==0 else Color(.035,.10,.23,.94))
 		label(Vector2(20,28),capture_text.left(82),22,Color("fff0bf"))
@@ -77,7 +92,7 @@ func _draw() -> void:
 		var lines:=vote_text.split("\n")
 		label(Vector2(20,25),lines[0].left(86),20,Color("ffcf80"))
 		label(Vector2(20,53),lines[1],21,Color("ffcf80"))
-	draw_set_transform(Vector2(0,CHAT_HEIGHT+72))
+	draw_set_transform(Vector2(0,CHAT_HEIGHT+NOTIFY_HEIGHT+72))
 	if not network.is_empty():
 		if network.show:label(Vector2(16,205),"↓ ASSETS %d%%"%network.percent,18,Color("d8bc8b"))
 		label(Vector2(832,205),"HOST" if network.host else "%d ms"%network.ping if network.ping>0 else "— ms",18,Color("b9a98e"))
@@ -85,10 +100,11 @@ func _draw() -> void:
 	elif burning:label(Vector2(390,205),"BURNING",21,Color("ff9b47"))
 	if values.is_empty():return
 	var style:=StyleBoxFlat.new();style.bg_color=Color(.10,.075,.05,.80);style.border_color=Color("a88550");style.set_border_width_all(2)
+	if player_status.get("team",-1) in [0,1]:style.border_color=Color("ff9c88") if player_status.team==0 else Color("91caff")
 	draw_style_box(style,Rect2(4,4,952,172))
 	label(Vector2(30,34),"ROUND OVER" if values.pause else values.objective if not values.objective.is_empty() else "%d FRAGS LEFT"%values.frags,21,Color("d8bc8b"))
 	label(Vector2(615,34),"%02d:%02d"%[values.seconds/60,values.seconds%60],23)
-	label(Vector2(810,34),"MIC LIVE" if values.mic else "",21,Color("86dfb0"))
+	label(Vector2(810,34),"RADIO" if values.radio else "MIC LIVE" if values.mic else "",21,Color("86dfb0"))
 	if values.spectator:
 		label(Vector2(30,96),"SPECTATING",36)
 		label(Vector2(30,140),"LEFT STICK MOVE · RIGHT STICK UP / DOWN TO FLY",20)

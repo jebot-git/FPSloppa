@@ -58,14 +58,14 @@ func run() -> void:
 		role(name);var ammo: int=g.players[1].ammo[3 if name=="pyro" else 2]
 		check(request("arm") and physical.armed.has(1),name+" arms in offhand")
 		check(request("throw",Vector3(0,2,-4)) and tf.charges.has(1),name+" releases server projectile")
-		check(tf.charges[1].velocity.distance_to(Vector3(0,2,-4))<.001 and tf.charges[1].position.distance_to(Fixture.point()+Poses.neutral().left.origin)<.02,name+" inherits hand origin and throw motion")
+		check(tf.charges[1].velocity.distance_to(Vector3(0,4.8,-9.6))<.001 and tf.charges[1].position.distance_to(Fixture.point()+Poses.neutral().left.origin)<.02,name+" inherits hand origin and throw motion")
 		check(g.players[1].ammo[3 if name=="pyro" else 2]==ammo-(20 if name=="pyro" else 1),name+" consumes exactly one charge cost")
 		check(not request("throw",Vector3(0,2,-4)),name+" duplicate release cannot spawn another charge")
 		if name=="demoman":
 			check(not request("ability"),"Pipe respects arming delay");g.clock+=.71
 			check(request("ability") and not tf.charges.has(1),"Offhand action detonates an armed pipe")
 	role("soldier");request("arm");check(request("throw") and tf.charges[1].velocity==Vector3.ZERO,"Stationary grip release drops instead of shooting forward")
-	role("soldier");request("arm");check(request("throw",Vector3(1000,0,0)) and tf.charges[1].velocity.length()<=12.001,"Throw speed is bounded")
+	role("soldier");request("arm");check(request("throw",Vector3(1000,0,0)) and tf.charges[1].velocity.length()<=26.001,"Throw speed is bounded")
 	role("soldier");request("arm");check(request("cancel") and not request("throw") and g.players[1].ammo[2]==12,"Cancellation removes armed state without consuming ammo")
 	role("soldier");request("arm");check(not request("throw",Vector3(NAN,0,0)) and not physical.armed.has(1),"Nonfinite throw rejected and disarmed")
 	role("soldier");var life: int=g.players[1].serial;var epoch: int=g.map_epoch

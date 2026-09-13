@@ -420,8 +420,8 @@ class BSPXModelBrushes:
 
 
 func read_bsp(source_file : String) -> Node:
-	arena_bake = preload("res://deathmatch/maps/baked_light.gd").new()
-	arena_bake.open(source_file)
+	arena_bake = (null if OS.has_feature("dedicated_server") else load("res://deathmatch/maps/baked_light.gd").new())
+	if not OS.has_feature("dedicated_server"):arena_bake.open(source_file)
 	clear_data() # Probably not necessary, but just in case somebody reads a bsp file with the same instance
 	print("Attempting to import %s" % source_file)
 	#import_singleton = Engine.get_singleton(
@@ -983,13 +983,13 @@ func read_bsp(source_file : String) -> Node:
 					if edge_a.cross(edge_b).length_squared() > maxf(1e-10,edge_a.length_squared()*edge_b.length_squared()*1e-12):
 						triangle_indices.append_array([0,corner,corner+1])
 				if triangle_indices.is_empty(): continue
-				var baked_uvs: PackedVector2Array = arena_bake.face_uvs(face_uvs, Vector2(tex_width, tex_height), bsp_face.lightmap)
+				var baked_uvs: PackedVector2Array = arena_bake.face_uvs(face_uvs, Vector2(tex_width, tex_height), bsp_face.lightmap, bsp_model.face_index+face_index) if arena_bake else PackedVector2Array()
 				var surf_tool : SurfaceTool
 				if (texture.is_transparent):
 					# Transparent meshes need to be sorted, so make each face its own mesh for now.
 					surf_tool = SurfaceTool.new()
 					surf_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-					surf_tool.set_material(arena_bake.material(texture.material))
+					surf_tool.set_material(arena_bake.material(texture.material) if arena_bake else null)
 				else:
 					var grid_index
 					if (separate_mesh_on_grid):
@@ -1003,7 +1003,7 @@ func read_bsp(source_file : String) -> Node:
 					else:
 						surf_tool = SurfaceTool.new()
 						surf_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-						surf_tool.set_material(arena_bake.material(texture.material))
+						surf_tool.set_material(arena_bake.material(texture.material) if arena_bake else null)
 						surface_tools[texture.name] = surf_tool
 					mesh_grid[grid_index] = surface_tools
 				for corner in triangle_indices:
@@ -1170,7 +1170,8 @@ func read_bsp(source_file : String) -> Node:
 	file.close()
 	file = null
 	print("BSP read complete.")
-	arena_bake.finish(root_node)
+	if arena_bake:arena_bake.finish(root_node)
+	if generate_texture_materials:load("res://deathmatch/maps/surface_assets.gd").capture(root_node,textures)
 	return root_node
 
 ## Check for things like alpha test in the texture.
@@ -1715,6 +1716,11 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 	if (bsp_texture):
 		width = bsp_texture.width
 		height = bsp_texture.height
+	if OS.has_feature("dedicated_server"):
+		# Collision uses names, dimensions and face geometry; no pixels or materials.
+		var info:=MaterialInfo.new()
+		info.width=maxi(width,1);info.height=maxi(height,1)
+		return info
 	var material_path : String
 	if (texture_material_rename.has(name)):
 		material_path = texture_material_rename[name]
@@ -1858,13 +1864,17 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 				else:
 					print("No texture data in BSP file.")
 					if use_named_texture_replacements:
-						var replacement:=preload("res://deathmatch/maps/texture_replacements/dictionary.gd").resolve(bsp_texture.source_name if not bsp_texture.source_name.is_empty() else str(name))
+						var replacement: Dictionary=load("res://deathmatch/maps/texture_replacements/dictionary.gd").resolve(bsp_texture.source_name if not bsp_texture.source_name.is_empty() else str(name))
 						texture=replacement.get("texture")
 						texture_emission=replacement.get("emission")
+						# Original Makkon records keep their native dimensions, matching
+						# offline BSP conversion without resampling their artwork.
+						if replacement.has("native_size"):
+							width=replacement.native_size.x;height=replacement.native_size.y
 		if (texture && generate_texture_materials):
 			print("Creating material with texture.")
 			material = StandardMaterial3D.new()
-			material.set_meta("bsp_texture_name",str(name))
+			material.set_meta("bsp_texture_name",bsp_texture.source_name if bsp_texture and not bsp_texture.source_name.is_empty() else str(name))
 			material.albedo_texture = texture
 			#print("albedo_texture set to ", material.albedo_texture)
 			if (image_emission):

@@ -1,0 +1,1910 @@
+{
+  "recording": "video-output/remote-all-modes-2026-09-12.mp4",
+  "recorded_log_analysis": {
+    "dm": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "health": 15,
+        "peer_connected": 9,
+        "join_stage": 36,
+        "spawn": 19,
+        "player_joined": 9,
+        "match_event": 14,
+        "pickup": 38,
+        "damage": 167,
+        "rcon_command": 2,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "SHOTGUN": 628,
+        "fell out of the arena": 1000,
+        "ROCKET LAUNCHER": 41,
+        "NAILGUN": 43
+      },
+      "objective_messages": []
+    },
+    "tdm": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "join_stage": 18,
+        "spawn": 26,
+        "player_joined": 9,
+        "match_event": 22,
+        "damage": 102,
+        "rcon_command": 2,
+        "health": 13,
+        "pickup": 31,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "DUAL PISTOLS": 404,
+        "ROCKET LAUNCHER": 535,
+        "PLASMA RIFLE": 185,
+        "SHOTGUN": 220,
+        "CHAINGUN": 136,
+        "SUPER SHOTGUN": 41
+      },
+      "objective_messages": []
+    },
+    "ctf": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "join_stage": 18,
+        "spawn": 35,
+        "player_joined": 9,
+        "match_event": 32,
+        "rcon_command": 2,
+        "health": 13,
+        "damage": 133,
+        "pickup": 2,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "ENFORCER": 2261
+      },
+      "objective_messages": [
+        "New round \u00b7 CTF \u00b7 RED 0  BLUE 0 / 3 \u00b7 RED FLAG HOME \u00b7 BLUE FLAG HOME"
+      ]
+    },
+    "koth": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "join_stage": 18,
+        "spawn": 55,
+        "player_joined": 9,
+        "match_event": 52,
+        "rcon_command": 2,
+        "damage": 362,
+        "health": 12,
+        "pickup": 1,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "DUAL PISTOLS": 4326
+      },
+      "objective_messages": []
+    },
+    "ig": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "health": 14,
+        "join_stage": 18,
+        "spawn": 37,
+        "player_joined": 9,
+        "match_event": 34,
+        "damage": 22,
+        "rcon_command": 2,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "RAILGUN": 220000
+      },
+      "objective_messages": []
+    },
+    "if": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "join_stage": 18,
+        "spawn": 16,
+        "player_joined": 9,
+        "match_event": 13,
+        "rcon_command": 2,
+        "health": 12,
+        "round_ended": 1
+      },
+      "damage_by_source": {},
+      "objective_messages": [
+        "New round \u00b7 IF \u00b7 RED 0  BLUE 0 / 30 \u00b7 STAY NEAR FROZEN TEAMMATES TO THAW",
+        "NetBot 05 is frozen \u00b7 teammates stay nearby for 3 seconds to thaw"
+      ]
+    },
+    "ft": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "join_stage": 18,
+        "spawn": 24,
+        "player_joined": 9,
+        "match_event": 17,
+        "health": 13,
+        "pickup": 25,
+        "rcon_command": 2,
+        "damage": 53,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "ROCKET LAUNCHER": 179,
+        "DUAL PISTOLS": 258,
+        "CHAINGUN": 160,
+        "SUPER SHOTGUN": 75
+      },
+      "objective_messages": [
+        "New round \u00b7 FT \u00b7 RED 0  BLUE 0 / 30 \u00b7 STAY NEAR FROZEN TEAMMATES TO THAW",
+        "NetBot 08 is frozen \u00b7 teammates stay nearby for 3 seconds to thaw",
+        "NetBot 04 is frozen \u00b7 teammates stay nearby for 3 seconds to thaw",
+        "NetBot 01 is frozen \u00b7 teammates stay nearby for 3 seconds to thaw",
+        "NetBot 03 is frozen \u00b7 teammates stay nearby for 3 seconds to thaw"
+      ]
+    },
+    "cc": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "join_stage": 18,
+        "spawn": 27,
+        "player_joined": 9,
+        "match_event": 24,
+        "health": 13,
+        "damage": 1349,
+        "rcon_command": 2,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "CIRCUS HUNGER": 1290,
+        "CHAINSAW": 658,
+        "LAVA": 80
+      },
+      "objective_messages": []
+    },
+    "tf": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "health": 14,
+        "join_stage": 18,
+        "spawn": 24,
+        "player_joined": 9,
+        "match_event": 27,
+        "damage": 125,
+        "suicide": 2,
+        "rcon_command": 2,
+        "pickup": 4,
+        "round_ended": 1
+      },
+      "damage_by_source": {
+        "SUICIDE": 199800,
+        "ROCKET LAUNCHER": 614,
+        "RAILGUN": 475,
+        "SUPER NAILGUN": 117,
+        "NAILGUN": 23,
+        "SHOTGUN": 168,
+        "AXE": 30,
+        "FLAMETHROWER": 20,
+        "BURN": 4
+      },
+      "objective_messages": [
+        "New round \u00b7 TF \u00b7 RED 0  BLUE 0 / 3 \u00b7 RED FLAG HOME \u00b7 BLUE FLAG HOME",
+        "NetBot 05 took the RED flag",
+        "RED flag dropped",
+        "NetBot 06 took the RED flag",
+        "BLUE captured the flag!",
+        "NetBot 07 took the RED flag"
+      ]
+    },
+    "as": {
+      "events": {
+        "map_rotated": 1,
+        "admin_match": 1,
+        "join_stage": 18,
+        "spawn": 79,
+        "player_joined": 9,
+        "match_event": 84,
+        "rcon_command": 1,
+        "health": 26,
+        "damage": 382,
+        "pickup": 1,
+        "round_ended": 1,
+        "peer_departure_stage": 9,
+        "peer_disconnected": 9
+      },
+      "damage_by_source": {
+        "SENTRY": 240,
+        "ENFORCER": 6154
+      },
+      "objective_messages": []
+    }
+  },
+  "practice": {
+    "baseline": [
+      {
+        "mode": "dm",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 26.76,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.54,
+        "physics_p95_ms": 3.891,
+        "behaviour": {
+          "active_samples": 1355,
+          "close_pair_samples": 0,
+          "goal_changes": 562,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 230,
+          "target_changes": 495,
+          "team_pair_samples": 0,
+          "yaw_degrees": 79485.4943813993
+        },
+        "counts": {
+          "damage": 1284,
+          "match_event": 36,
+          "pickup": 78,
+          "spawn": 36
+        },
+        "shots": 853
+      },
+      {
+        "mode": "ctf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 21.45,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.109,
+        "physics_p95_ms": 3.43,
+        "behaviour": {
+          "active_samples": 1280,
+          "close_pair_samples": 11,
+          "goal_changes": 220,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 401,
+          "team_pair_samples": 1715,
+          "yaw_degrees": 64504.4364808497
+        },
+        "counts": {
+          "damage": 464,
+          "match_event": 72,
+          "pickup": 7,
+          "spawn": 71,
+          "team_chat_activity": 12
+        },
+        "shots": 889
+      },
+      {
+        "mode": "koth",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 34.14,
+        "score": [
+          11,
+          20
+        ],
+        "physics_p50_ms": 1.607,
+        "physics_p95_ms": 6.579,
+        "behaviour": {
+          "active_samples": 1159,
+          "close_pair_samples": 397,
+          "goal_changes": 91,
+          "hill_occupied_samples": 176,
+          "hill_samples": 178,
+          "idle_samples": 1,
+          "target_changes": 675,
+          "team_pair_samples": 1404,
+          "yaw_degrees": 55382.3257188211
+        },
+        "counts": {
+          "damage": 1191,
+          "match_event": 134,
+          "pickup": 2,
+          "spawn": 133,
+          "team_chat_activity": 12
+        },
+        "shots": 1672
+      },
+      {
+        "mode": "if",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 17.5,
+        "score": [
+          1,
+          1
+        ],
+        "physics_p50_ms": 0.828,
+        "physics_p95_ms": 2.18,
+        "behaviour": {
+          "active_samples": 857,
+          "close_pair_samples": 123,
+          "goal_changes": 363,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 95,
+          "target_changes": 77,
+          "team_pair_samples": 1204,
+          "yaw_degrees": 63015.7267372251
+        },
+        "counts": {
+          "damage": 1,
+          "match_event": 37,
+          "spawn": 27,
+          "team_chat_activity": 6
+        },
+        "shots": 74
+      }
+    ],
+    "baseline-other": [
+      {
+        "mode": "tdm",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 25.86,
+        "score": [
+          22,
+          31
+        ],
+        "physics_p50_ms": 1.537,
+        "physics_p95_ms": 3.483,
+        "behaviour": {
+          "active_samples": 1314,
+          "close_pair_samples": 19,
+          "goal_changes": 790,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 8,
+          "target_changes": 551,
+          "team_pair_samples": 1819,
+          "yaw_degrees": 77441.289606325
+        },
+        "counts": {
+          "damage": 606,
+          "match_event": 55,
+          "pickup": 109,
+          "spawn": 55,
+          "team_chat_activity": 12
+        },
+        "shots": 1366
+      },
+      {
+        "mode": "ig",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 23.61,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.24,
+        "physics_p95_ms": 2.901,
+        "behaviour": {
+          "active_samples": 1191,
+          "close_pair_samples": 0,
+          "goal_changes": 678,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 7,
+          "target_changes": 288,
+          "team_pair_samples": 0,
+          "yaw_degrees": 103290.76602898
+        },
+        "counts": {
+          "damage": 117,
+          "match_event": 117,
+          "spawn": 115
+        },
+        "shots": 254
+      },
+      {
+        "mode": "ft",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 21.65,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.141,
+        "physics_p95_ms": 3.265,
+        "behaviour": {
+          "active_samples": 1090,
+          "close_pair_samples": 21,
+          "goal_changes": 239,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 361,
+          "target_changes": 199,
+          "team_pair_samples": 1812,
+          "yaw_degrees": 68211.4637329811
+        },
+        "counts": {
+          "damage": 41,
+          "match_event": 4,
+          "pickup": 47,
+          "spawn": 1,
+          "team_chat_activity": 6
+        },
+        "shots": 183
+      },
+      {
+        "mode": "cc",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 27.42,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.79,
+        "physics_p95_ms": 3.167,
+        "behaviour": {
+          "active_samples": 1334,
+          "close_pair_samples": 0,
+          "goal_changes": 714,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 506,
+          "team_pair_samples": 0,
+          "yaw_degrees": 98443.9901551401
+        },
+        "counts": {
+          "damage": 4471,
+          "match_event": 45,
+          "spawn": 45
+        },
+        "shots": 901
+      },
+      {
+        "mode": "tf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 26.76,
+        "score": [
+          2,
+          3
+        ],
+        "physics_p50_ms": 1.562,
+        "physics_p95_ms": 4.103,
+        "behaviour": {
+          "active_samples": 1373,
+          "close_pair_samples": 50,
+          "goal_changes": 191,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 5,
+          "target_changes": 417,
+          "team_pair_samples": 1988,
+          "yaw_degrees": 77960.1922552698
+        },
+        "counts": {
+          "damage": 389,
+          "engine_diagnostic": 1,
+          "match_event": 40,
+          "pickup": 11,
+          "spawn": 26,
+          "team_chat_activity": 12
+        },
+        "shots": 1280
+      },
+      {
+        "mode": "as",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 24.71,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.364,
+        "physics_p95_ms": 4.436,
+        "behaviour": {
+          "active_samples": 1241,
+          "close_pair_samples": 56,
+          "goal_changes": 255,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 384,
+          "team_pair_samples": 1700,
+          "yaw_degrees": 45089.2531829584
+        },
+        "counts": {
+          "damage": 450,
+          "match_event": 68,
+          "pickup": 43,
+          "spawn": 67,
+          "team_chat_activity": 10
+        },
+        "shots": 757
+      }
+    ],
+    "candidate": [
+      {
+        "mode": "dm",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 26.21,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.517,
+        "physics_p95_ms": 3.948,
+        "behaviour": {
+          "active_samples": 1338,
+          "close_pair_samples": 0,
+          "goal_changes": 580,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 226,
+          "target_changes": 425,
+          "team_pair_samples": 0,
+          "yaw_degrees": 78025.3846879028
+        },
+        "counts": {
+          "damage": 1420,
+          "match_event": 43,
+          "pickup": 77,
+          "spawn": 43
+        },
+        "shots": 960
+      },
+      {
+        "mode": "ctf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 21.11,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.061,
+        "physics_p95_ms": 3.368,
+        "behaviour": {
+          "active_samples": 1272,
+          "close_pair_samples": 8,
+          "goal_changes": 80,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 405,
+          "team_pair_samples": 1693,
+          "yaw_degrees": 48590.3086178532
+        },
+        "counts": {
+          "damage": 482,
+          "match_event": 79,
+          "pickup": 6,
+          "spawn": 76,
+          "team_chat_activity": 11
+        },
+        "shots": 993
+      },
+      {
+        "mode": "koth",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 28.07,
+        "score": [
+          5,
+          25
+        ],
+        "physics_p50_ms": 1.382,
+        "physics_p95_ms": 4.531,
+        "behaviour": {
+          "active_samples": 1146,
+          "close_pair_samples": 112,
+          "goal_changes": 205,
+          "hill_occupied_samples": 175,
+          "hill_samples": 178,
+          "idle_samples": 1,
+          "target_changes": 670,
+          "team_pair_samples": 1350,
+          "yaw_degrees": 63716.2873176134
+        },
+        "counts": {
+          "damage": 1247,
+          "match_event": 141,
+          "pickup": 4,
+          "spawn": 139,
+          "team_chat_activity": 12
+        },
+        "shots": 1780
+      },
+      {
+        "mode": "if",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 17.0,
+        "score": [
+          1,
+          2
+        ],
+        "physics_p50_ms": 0.85,
+        "physics_p95_ms": 1.989,
+        "behaviour": {
+          "active_samples": 1014,
+          "close_pair_samples": 227,
+          "goal_changes": 272,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 269,
+          "target_changes": 58,
+          "team_pair_samples": 1588,
+          "yaw_degrees": 51513.4637597506
+        },
+        "counts": {
+          "damage": 2,
+          "match_event": 26,
+          "spawn": 29,
+          "team_chat_activity": 4
+        },
+        "shots": 55
+      }
+    ],
+    "recovery": [
+      {
+        "mode": "dm",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 26.76,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.491,
+        "physics_p95_ms": 3.99,
+        "behaviour": {
+          "active_samples": 1373,
+          "close_pair_samples": 0,
+          "goal_changes": 585,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 207,
+          "target_changes": 285,
+          "team_pair_samples": 0,
+          "yaw_degrees": 88812.0339442806
+        },
+        "counts": {
+          "damage": 744,
+          "match_event": 26,
+          "pickup": 92,
+          "spawn": 26
+        },
+        "shots": 608
+      },
+      {
+        "mode": "if",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 18.7,
+        "score": [
+          2,
+          2
+        ],
+        "physics_p50_ms": 1.034,
+        "physics_p95_ms": 2.419,
+        "behaviour": {
+          "active_samples": 934,
+          "close_pair_samples": 120,
+          "goal_changes": 389,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 12,
+          "target_changes": 158,
+          "team_pair_samples": 1266,
+          "yaw_degrees": 62138.1943290854
+        },
+        "counts": {
+          "damage": 1,
+          "match_event": 56,
+          "spawn": 48,
+          "team_chat_activity": 10
+        },
+        "shots": 103
+      }
+    ],
+    "final": [
+      {
+        "mode": "dm",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 26.31,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.506,
+        "physics_p95_ms": 4.013,
+        "behaviour": {
+          "active_samples": 1366,
+          "close_pair_samples": 0,
+          "goal_changes": 568,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 219,
+          "target_changes": 315,
+          "team_pair_samples": 0,
+          "yaw_degrees": 85793.870989402
+        },
+        "counts": {
+          "damage": 903,
+          "match_event": 29,
+          "pickup": 92,
+          "spawn": 29
+        },
+        "shots": 571
+      },
+      {
+        "mode": "tdm",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 26.61,
+        "score": [
+          19,
+          30
+        ],
+        "physics_p50_ms": 1.583,
+        "physics_p95_ms": 3.598,
+        "behaviour": {
+          "active_samples": 1324,
+          "close_pair_samples": 23,
+          "goal_changes": 792,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 9,
+          "target_changes": 568,
+          "team_pair_samples": 1845,
+          "yaw_degrees": 79048.2073056251
+        },
+        "counts": {
+          "damage": 534,
+          "match_event": 51,
+          "pickup": 111,
+          "spawn": 50,
+          "team_chat_activity": 12
+        },
+        "shots": 1372
+      },
+      {
+        "mode": "ctf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 20.75,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.043,
+        "physics_p95_ms": 3.301,
+        "behaviour": {
+          "active_samples": 1272,
+          "close_pair_samples": 8,
+          "goal_changes": 80,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 405,
+          "team_pair_samples": 1693,
+          "yaw_degrees": 48562.9305064733
+        },
+        "counts": {
+          "damage": 482,
+          "match_event": 79,
+          "pickup": 6,
+          "spawn": 76,
+          "team_chat_activity": 11
+        },
+        "shots": 993
+      },
+      {
+        "mode": "koth",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 27.72,
+        "score": [
+          10,
+          26
+        ],
+        "physics_p50_ms": 1.357,
+        "physics_p95_ms": 4.596,
+        "behaviour": {
+          "active_samples": 1142,
+          "close_pair_samples": 104,
+          "goal_changes": 258,
+          "hill_occupied_samples": 176,
+          "hill_samples": 178,
+          "idle_samples": 0,
+          "target_changes": 688,
+          "team_pair_samples": 1353,
+          "yaw_degrees": 65195.2280927715
+        },
+        "counts": {
+          "damage": 1275,
+          "match_event": 142,
+          "pickup": 2,
+          "spawn": 142,
+          "team_chat_activity": 12
+        },
+        "shots": 1802
+      },
+      {
+        "mode": "ig",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 21.2,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.199,
+        "physics_p95_ms": 2.68,
+        "behaviour": {
+          "active_samples": 1176,
+          "close_pair_samples": 0,
+          "goal_changes": 615,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 9,
+          "target_changes": 419,
+          "team_pair_samples": 0,
+          "yaw_degrees": 88539.5327625785
+        },
+        "counts": {
+          "damage": 125,
+          "match_event": 125,
+          "spawn": 124
+        },
+        "shots": 322
+      },
+      {
+        "mode": "if",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 17.1,
+        "score": [
+          2,
+          2
+        ],
+        "physics_p50_ms": 0.932,
+        "physics_p95_ms": 2.24,
+        "behaviour": {
+          "active_samples": 916,
+          "close_pair_samples": 107,
+          "goal_changes": 314,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 94,
+          "target_changes": 126,
+          "team_pair_samples": 1380,
+          "yaw_degrees": 56306.4251791962
+        },
+        "counts": {
+          "damage": 1,
+          "match_event": 53,
+          "spawn": 44,
+          "team_chat_activity": 8
+        },
+        "shots": 82
+      },
+      {
+        "mode": "ft",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 20.8,
+        "score": [
+          0,
+          1
+        ],
+        "physics_p50_ms": 1.034,
+        "physics_p95_ms": 3.483,
+        "behaviour": {
+          "active_samples": 1039,
+          "close_pair_samples": 50,
+          "goal_changes": 315,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 155,
+          "target_changes": 162,
+          "team_pair_samples": 1642,
+          "yaw_degrees": 62888.2513822211
+        },
+        "counts": {
+          "damage": 290,
+          "match_event": 32,
+          "pickup": 73,
+          "spawn": 20,
+          "team_chat_activity": 9
+        },
+        "shots": 469
+      },
+      {
+        "mode": "cc",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 25.76,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.685,
+        "physics_p95_ms": 2.903,
+        "behaviour": {
+          "active_samples": 1328,
+          "close_pair_samples": 0,
+          "goal_changes": 637,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 491,
+          "team_pair_samples": 0,
+          "yaw_degrees": 105436.120430975
+        },
+        "counts": {
+          "damage": 4526,
+          "match_event": 48,
+          "spawn": 48
+        },
+        "shots": 992
+      },
+      {
+        "mode": "tf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 23.91,
+        "score": [
+          1,
+          3
+        ],
+        "physics_p50_ms": 1.35,
+        "physics_p95_ms": 3.736,
+        "behaviour": {
+          "active_samples": 1369,
+          "close_pair_samples": 25,
+          "goal_changes": 177,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 310,
+          "team_pair_samples": 1974,
+          "yaw_degrees": 72633.1328712708
+        },
+        "counts": {
+          "damage": 385,
+          "engine_diagnostic": 1,
+          "match_event": 54,
+          "pickup": 12,
+          "spawn": 28,
+          "team_chat_activity": 11
+        },
+        "shots": 1009
+      },
+      {
+        "mode": "as",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 22.51,
+        "score": [
+          0,
+          1
+        ],
+        "physics_p50_ms": 1.291,
+        "physics_p95_ms": 4.337,
+        "behaviour": {
+          "active_samples": 1196,
+          "close_pair_samples": 47,
+          "goal_changes": 209,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 365,
+          "team_pair_samples": 1665,
+          "yaw_degrees": 47683.0095721599
+        },
+        "counts": {
+          "damage": 373,
+          "match_event": 58,
+          "pickup": 43,
+          "round_ended": 1,
+          "spawn": 60,
+          "team_chat_activity": 9
+        },
+        "shots": 644
+      }
+    ],
+    "final-confirm": [
+      {
+        "mode": "ctf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 19.5,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 0.993,
+        "physics_p95_ms": 3.151,
+        "behaviour": {
+          "active_samples": 1272,
+          "close_pair_samples": 8,
+          "goal_changes": 80,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 405,
+          "team_pair_samples": 1693,
+          "yaw_degrees": 48562.9305064733
+        },
+        "counts": {
+          "damage": 482,
+          "match_event": 79,
+          "pickup": 6,
+          "spawn": 76,
+          "team_chat_activity": 11
+        },
+        "shots": 993
+      },
+      {
+        "mode": "koth",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 26.51,
+        "score": [
+          10,
+          26
+        ],
+        "physics_p50_ms": 1.304,
+        "physics_p95_ms": 4.349,
+        "behaviour": {
+          "active_samples": 1142,
+          "close_pair_samples": 104,
+          "goal_changes": 258,
+          "hill_occupied_samples": 176,
+          "hill_samples": 178,
+          "idle_samples": 0,
+          "target_changes": 688,
+          "team_pair_samples": 1353,
+          "yaw_degrees": 65195.2280927715
+        },
+        "counts": {
+          "damage": 1275,
+          "match_event": 142,
+          "pickup": 2,
+          "spawn": 142,
+          "team_chat_activity": 12
+        },
+        "shots": 1802
+      },
+      {
+        "mode": "if",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 16.89,
+        "score": [
+          2,
+          2
+        ],
+        "physics_p50_ms": 0.929,
+        "physics_p95_ms": 2.251,
+        "behaviour": {
+          "active_samples": 916,
+          "close_pair_samples": 107,
+          "goal_changes": 314,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 94,
+          "target_changes": 126,
+          "team_pair_samples": 1380,
+          "yaw_degrees": 56306.4251791962
+        },
+        "counts": {
+          "damage": 1,
+          "match_event": 53,
+          "spawn": 44,
+          "team_chat_activity": 8
+        },
+        "shots": 82
+      }
+    ],
+    "second-seed": [
+      {
+        "mode": "dm",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 25.76,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 1.498,
+        "physics_p95_ms": 3.95,
+        "behaviour": {
+          "active_samples": 1364,
+          "close_pair_samples": 0,
+          "goal_changes": 571,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 105,
+          "target_changes": 352,
+          "team_pair_samples": 0,
+          "yaw_degrees": 88291.0060599357
+        },
+        "counts": {
+          "damage": 1141,
+          "match_event": 30,
+          "pickup": 106,
+          "spawn": 30
+        },
+        "shots": 929
+      },
+      {
+        "mode": "ctf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 19.15,
+        "score": [
+          0,
+          0
+        ],
+        "physics_p50_ms": 0.979,
+        "physics_p95_ms": 3.05,
+        "behaviour": {
+          "active_samples": 1264,
+          "close_pair_samples": 15,
+          "goal_changes": 89,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 407,
+          "team_pair_samples": 1675,
+          "yaw_degrees": 48548.9857912487
+        },
+        "counts": {
+          "damage": 495,
+          "match_event": 83,
+          "pickup": 4,
+          "spawn": 78,
+          "team_chat_activity": 11
+        },
+        "shots": 930
+      },
+      {
+        "mode": "koth",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 25.91,
+        "score": [
+          9,
+          25
+        ],
+        "physics_p50_ms": 1.275,
+        "physics_p95_ms": 4.369,
+        "behaviour": {
+          "active_samples": 1135,
+          "close_pair_samples": 129,
+          "goal_changes": 230,
+          "hill_occupied_samples": 176,
+          "hill_samples": 178,
+          "idle_samples": 0,
+          "target_changes": 678,
+          "team_pair_samples": 1344,
+          "yaw_degrees": 64182.6897706657
+        },
+        "counts": {
+          "damage": 1275,
+          "match_event": 145,
+          "pickup": 1,
+          "spawn": 143,
+          "team_chat_activity": 12
+        },
+        "shots": 1821
+      },
+      {
+        "mode": "if",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 15.44,
+        "score": [
+          4,
+          3
+        ],
+        "physics_p50_ms": 0.825,
+        "physics_p95_ms": 2.026,
+        "behaviour": {
+          "active_samples": 831,
+          "close_pair_samples": 96,
+          "goal_changes": 307,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 147,
+          "target_changes": 147,
+          "team_pair_samples": 1190,
+          "yaw_degrees": 54733.8977887633
+        },
+        "counts": {
+          "damage": 2,
+          "match_event": 67,
+          "spawn": 68,
+          "team_chat_activity": 10
+        },
+        "shots": 121
+      },
+      {
+        "mode": "tf",
+        "exit_code": 0,
+        "errors": [],
+        "wall_seconds": 24.71,
+        "score": [
+          2,
+          3
+        ],
+        "physics_p50_ms": 1.435,
+        "physics_p95_ms": 3.848,
+        "behaviour": {
+          "active_samples": 1368,
+          "close_pair_samples": 25,
+          "goal_changes": 196,
+          "hill_occupied_samples": 0,
+          "hill_samples": 0,
+          "idle_samples": 0,
+          "target_changes": 342,
+          "team_pair_samples": 1977,
+          "yaw_degrees": 76448.1507848995
+        },
+        "counts": {
+          "damage": 461,
+          "engine_diagnostic": 1,
+          "match_event": 49,
+          "pickup": 6,
+          "spawn": 28,
+          "team_chat_activity": 11
+        },
+        "shots": 1241
+      }
+    ]
+  },
+  "network": {
+    "network-before": {
+      "rounds": [
+        {
+          "mode": "ctf",
+          "seconds": 60.44999999999787,
+          "shots": 302,
+          "yaw_degrees_per_active_second": 189.1975245002851,
+          "stationary_fraction": 0.20542986425335596,
+          "close_pair_fraction": 0.004374742055303116
+        },
+        {
+          "mode": "koth",
+          "seconds": 60.14999999999661,
+          "shots": 559,
+          "yaw_degrees_per_active_second": 138.72767345712293,
+          "stationary_fraction": 0.4272265576612895,
+          "close_pair_fraction": 0.2227441769426036
+        }
+      ],
+      "processes": {
+        "rounds": [
+          {
+            "active": true,
+            "assault_finished": false,
+            "assault_leg": 0,
+            "clock": 60.7499999999978,
+            "intermission": 0.0,
+            "lobby": false,
+            "map": "ctf_crownreach",
+            "mode": "ctf",
+            "pending": 0,
+            "players": [
+              {
+                "id": 1640764200,
+                "name": "NetBot 01",
+                "spectator": false
+              },
+              {
+                "id": 450083192,
+                "name": "NetBot 02",
+                "spectator": false
+              },
+              {
+                "id": 2033410540,
+                "name": "NetBot 03",
+                "spectator": false
+              },
+              {
+                "id": 442044543,
+                "name": "NetBot 04",
+                "spectator": false
+              },
+              {
+                "id": 817376647,
+                "name": "NetBot 05",
+                "spectator": false
+              },
+              {
+                "id": 1646885238,
+                "name": "NetBot 07",
+                "spectator": false
+              },
+              {
+                "id": 1658863496,
+                "name": "NetBot 06",
+                "spectator": false
+              },
+              {
+                "id": 949164916,
+                "name": "Observer",
+                "spectator": true
+              },
+              {
+                "id": 1969932010,
+                "name": "NetBot 08",
+                "spectator": false
+              }
+            ],
+            "recording": true,
+            "result": "",
+            "scores": [
+              0,
+              0
+            ],
+            "time_remaining": 1740.18333333339,
+            "weapon_rules": "ut99"
+          },
+          {
+            "active": true,
+            "assault_finished": false,
+            "assault_leg": 0,
+            "clock": 122.449999999994,
+            "intermission": 0.0,
+            "lobby": false,
+            "map": "koth_alichar",
+            "mode": "koth",
+            "pending": 0,
+            "players": [
+              {
+                "id": 1969932010,
+                "name": "NetBot 08",
+                "spectator": false
+              },
+              {
+                "id": 1646885238,
+                "name": "NetBot 07",
+                "spectator": false
+              },
+              {
+                "id": 1640764200,
+                "name": "NetBot 01",
+                "spectator": false
+              },
+              {
+                "id": 442044543,
+                "name": "NetBot 04",
+                "spectator": false
+              },
+              {
+                "id": 817376647,
+                "name": "NetBot 05",
+                "spectator": false
+              },
+              {
+                "id": 2033410540,
+                "name": "NetBot 03",
+                "spectator": false
+              },
+              {
+                "id": 450083192,
+                "name": "NetBot 02",
+                "spectator": false
+              },
+              {
+                "id": 1658863496,
+                "name": "NetBot 06",
+                "spectator": false
+              },
+              {
+                "id": 949164916,
+                "name": "Observer",
+                "spectator": true
+              }
+            ],
+            "recording": true,
+            "result": "",
+            "scores": [
+              3,
+              8
+            ],
+            "time_remaining": 1740.21666666672,
+            "weapon_rules": "doom"
+          }
+        ],
+        "exits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "errors": {
+          "server.log": [],
+          "bot-0.log": [],
+          "bot-1.log": [],
+          "bot-2.log": [],
+          "bot-3.log": [],
+          "bot-4.log": [],
+          "bot-5.log": [],
+          "bot-6.log": [],
+          "bot-7.log": [],
+          "observer.log": []
+        }
+      }
+    },
+    "network-after": {
+      "rounds": [
+        {
+          "mode": "ctf",
+          "seconds": 60.183333333331134,
+          "shots": 288,
+          "yaw_degrees_per_active_second": 90.68487734826152,
+          "stationary_fraction": 0.26221108960486766,
+          "close_pair_fraction": 0.01119537739256094
+        },
+        {
+          "mode": "koth",
+          "seconds": 60.4833333333296,
+          "shots": 608,
+          "yaw_degrees_per_active_second": 90.918092836492,
+          "stationary_fraction": 0.3561999567192658,
+          "close_pair_fraction": 0.07181175774167038
+        }
+      ],
+      "processes": {
+        "rounds": [
+          {
+            "active": true,
+            "assault_finished": false,
+            "assault_leg": 0,
+            "clock": 60.7499999999978,
+            "intermission": 0.0,
+            "lobby": false,
+            "map": "ctf_crownreach",
+            "mode": "ctf",
+            "pending": 0,
+            "players": [
+              {
+                "id": 975060027,
+                "name": "NetBot 01",
+                "spectator": false
+              },
+              {
+                "id": 2033444500,
+                "name": "NetBot 03",
+                "spectator": false
+              },
+              {
+                "id": 331280705,
+                "name": "NetBot 04",
+                "spectator": false
+              },
+              {
+                "id": 1930700906,
+                "name": "NetBot 02",
+                "spectator": false
+              },
+              {
+                "id": 1678673387,
+                "name": "NetBot 05",
+                "spectator": false
+              },
+              {
+                "id": 1638479118,
+                "name": "NetBot 06",
+                "spectator": false
+              },
+              {
+                "id": 280068657,
+                "name": "NetBot 07",
+                "spectator": false
+              },
+              {
+                "id": 1233778098,
+                "name": "NetBot 08",
+                "spectator": false
+              },
+              {
+                "id": 526058713,
+                "name": "Observer",
+                "spectator": true
+              }
+            ],
+            "recording": true,
+            "result": "",
+            "scores": [
+              0,
+              0
+            ],
+            "time_remaining": 1740.25000000005,
+            "weapon_rules": "ut99"
+          },
+          {
+            "active": true,
+            "assault_finished": false,
+            "assault_leg": 0,
+            "clock": 122.333333333328,
+            "intermission": 0.0,
+            "lobby": false,
+            "map": "koth_alichar",
+            "mode": "koth",
+            "pending": 0,
+            "players": [
+              {
+                "id": 331280705,
+                "name": "NetBot 04",
+                "spectator": false
+              },
+              {
+                "id": 1233778098,
+                "name": "NetBot 08",
+                "spectator": false
+              },
+              {
+                "id": 975060027,
+                "name": "NetBot 01",
+                "spectator": false
+              },
+              {
+                "id": 1638479118,
+                "name": "NetBot 06",
+                "spectator": false
+              },
+              {
+                "id": 280068657,
+                "name": "NetBot 07",
+                "spectator": false
+              },
+              {
+                "id": 2033444500,
+                "name": "NetBot 03",
+                "spectator": false
+              },
+              {
+                "id": 526058713,
+                "name": "Observer",
+                "spectator": true
+              },
+              {
+                "id": 1678673387,
+                "name": "NetBot 05",
+                "spectator": false
+              },
+              {
+                "id": 1930700906,
+                "name": "NetBot 02",
+                "spectator": false
+              }
+            ],
+            "recording": true,
+            "result": "",
+            "scores": [
+              4,
+              1
+            ],
+            "time_remaining": 1740.16666666672,
+            "weapon_rules": "doom"
+          }
+        ],
+        "exits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "errors": {
+          "server.log": [],
+          "bot-0.log": [],
+          "bot-1.log": [],
+          "bot-2.log": [],
+          "bot-3.log": [],
+          "bot-4.log": [],
+          "bot-5.log": [],
+          "bot-6.log": [],
+          "bot-7.log": [],
+          "observer.log": []
+        }
+      }
+    },
+    "network-final": {
+      "rounds": [
+        {
+          "mode": "ctf",
+          "seconds": 60.249999999997804,
+          "shots": 271,
+          "yaw_degrees_per_active_second": 93.55431522356872,
+          "stationary_fraction": 0.24622373651329868,
+          "close_pair_fraction": 0.010729613733905847
+        },
+        {
+          "mode": "koth",
+          "seconds": 60.4166666666629,
+          "shots": 628,
+          "yaw_degrees_per_active_second": 80.20768421752757,
+          "stationary_fraction": 0.40608805469663084,
+          "close_pair_fraction": 0.09750222353985569
+        }
+      ],
+      "processes": {
+        "rounds": [
+          {
+            "active": true,
+            "assault_finished": false,
+            "assault_leg": 0,
+            "clock": 60.5999999999978,
+            "intermission": 0.0,
+            "lobby": false,
+            "map": "ctf_crownreach",
+            "mode": "ctf",
+            "pending": 0,
+            "players": [
+              {
+                "id": 1101240908,
+                "name": "NetBot 01",
+                "spectator": false
+              },
+              {
+                "id": 729842439,
+                "name": "NetBot 02",
+                "spectator": false
+              },
+              {
+                "id": 1260541163,
+                "name": "NetBot 03",
+                "spectator": false
+              },
+              {
+                "id": 255727116,
+                "name": "NetBot 05",
+                "spectator": false
+              },
+              {
+                "id": 612307690,
+                "name": "NetBot 04",
+                "spectator": false
+              },
+              {
+                "id": 1373265302,
+                "name": "NetBot 06",
+                "spectator": false
+              },
+              {
+                "id": 444753216,
+                "name": "NetBot 08",
+                "spectator": false
+              },
+              {
+                "id": 175327921,
+                "name": "Observer",
+                "spectator": true
+              },
+              {
+                "id": 788130722,
+                "name": "NetBot 07",
+                "spectator": false
+              }
+            ],
+            "recording": true,
+            "result": "",
+            "scores": [
+              0,
+              0
+            ],
+            "time_remaining": 1740.28333333339,
+            "weapon_rules": "ut99"
+          },
+          {
+            "active": true,
+            "assault_finished": false,
+            "assault_leg": 0,
+            "clock": 122.316666666661,
+            "intermission": 0.0,
+            "lobby": false,
+            "map": "koth_alichar",
+            "mode": "koth",
+            "pending": 0,
+            "players": [
+              {
+                "id": 1260541163,
+                "name": "NetBot 03",
+                "spectator": false
+              },
+              {
+                "id": 729842439,
+                "name": "NetBot 02",
+                "spectator": false
+              },
+              {
+                "id": 444753216,
+                "name": "NetBot 08",
+                "spectator": false
+              },
+              {
+                "id": 255727116,
+                "name": "NetBot 05",
+                "spectator": false
+              },
+              {
+                "id": 612307690,
+                "name": "NetBot 04",
+                "spectator": false
+              },
+              {
+                "id": 1101240908,
+                "name": "NetBot 01",
+                "spectator": false
+              },
+              {
+                "id": 788130722,
+                "name": "NetBot 07",
+                "spectator": false
+              },
+              {
+                "id": 175327921,
+                "name": "Observer",
+                "spectator": true
+              },
+              {
+                "id": 1373265302,
+                "name": "NetBot 06",
+                "spectator": false
+              }
+            ],
+            "recording": true,
+            "result": "",
+            "scores": [
+              3,
+              6
+            ],
+            "time_remaining": 1740.31666666672,
+            "weapon_rules": "doom"
+          }
+        ],
+        "exits": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "errors": {
+          "server.log": [],
+          "bot-0.log": [],
+          "bot-1.log": [],
+          "bot-2.log": [],
+          "bot-3.log": [],
+          "bot-4.log": [],
+          "bot-5.log": [],
+          "bot-6.log": [],
+          "bot-7.log": [],
+          "observer.log": []
+        }
+      }
+    }
+  },
+  "regressions": {
+    "regressions": [
+      {
+        "test": "bot_teamplay",
+        "exit_code": 0,
+        "errors": []
+      },
+      {
+        "test": "bot_tactics",
+        "exit_code": 0,
+        "errors": []
+      },
+      {
+        "test": "bot_weapons",
+        "exit_code": 124,
+        "errors": []
+      },
+      {
+        "test": "bot_humanization",
+        "exit_code": 1,
+        "errors": [
+          "FAIL CTF retains the friendly touch-return goal"
+        ]
+      },
+      {
+        "test": "bot_navigation",
+        "exit_code": 0,
+        "errors": []
+      },
+      {
+        "test": "bot_traversal",
+        "exit_code": 1,
+        "errors": []
+      },
+      {
+        "test": "bot_movement",
+        "exit_code": 0,
+        "errors": []
+      },
+      {
+        "test": "bot_assault",
+        "exit_code": 0,
+        "errors": []
+      }
+    ],
+    "regressions-final": [
+      {
+        "test": "bot_objective_roles",
+        "exit_code": 0,
+        "errors": []
+      },
+      {
+        "test": "bot_weapons",
+        "exit_code": 0,
+        "errors": []
+      },
+      {
+        "test": "bot_humanization",
+        "exit_code": 0,
+        "errors": []
+      },
+      {
+        "test": "bot_traversal",
+        "exit_code": 0,
+        "errors": []
+      }
+    ],
+    "roles-current": {
+      "passed": true,
+      "checks": 13
+    }
+  },
+  "source_sha256": {
+    "deathmatch/bots.gd": "3fcd3aa914abcfe7e58bd657f5a107c25e9445306e08b34ece360016492900c2",
+    "deathmatch/bot_ai/navigation.gd": "949b1db93f150efc95d07d48403170e618d098c42a8bea94936cbb51dfb43751",
+    "deathmatch/bot_ai/objectives.gd": "55839fd141bb5054308c7159f25fb29f8d5223e4767a89ad69cf65e1a3f64dea",
+    "deathmatch/bot_ai/teamplay.gd": "3e56b807c6bb40131d85a5f9e2d6c479f8605a78c84ea15d9b4ce69d7048594c",
+    "tools/remote_match/client_ai.gd": "92e976b818beac407fb0bb3d11d8cd818634ec1619c96f4bbabb0ac09e98ddae",
+    "tools/remote_match/client_arena.gd": "730eb74086139c493734446ec7fbddd50cf177211f73496111a26ed5b36561f0"
+  }
+}

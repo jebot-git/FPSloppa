@@ -1,0 +1,514 @@
+{
+  "date": "2026-09-12",
+  "recommendation": "retain_enet_improve_replication",
+  "production_changes": false,
+  "snapshot_audit": {
+    "frames": 13835,
+    "groups": {
+      "input:full_body_vr": {
+        "compressed": {
+          "count": 120,
+          "max": 1305,
+          "mean": 1289.13333333333,
+          "p50": 1290,
+          "p95": 1298
+        },
+        "encode_us": {
+          "count": 120,
+          "max": 0,
+          "mean": 0.0,
+          "p50": 0,
+          "p95": 0
+        },
+        "raw": {
+          "count": 120,
+          "max": 1624,
+          "mean": 1623.2,
+          "p50": 1624,
+          "p95": 1624
+        }
+      },
+      "recorded:as": {
+        "compressed": {
+          "count": 2585,
+          "max": 2589,
+          "mean": 2374.20154738878,
+          "p50": 2417,
+          "p95": 2521
+        },
+        "encode_us": {
+          "count": 2585,
+          "max": 128,
+          "mean": 28.8765957446809,
+          "p50": 29,
+          "p95": 32
+        },
+        "raw": {
+          "count": 2585,
+          "max": 5836,
+          "mean": 5752.64835589942,
+          "p50": 5748,
+          "p95": 5832
+        }
+      },
+      "recorded:cc": {
+        "compressed": {
+          "count": 1217,
+          "max": 1838,
+          "mean": 1727.11175020542,
+          "p50": 1743,
+          "p95": 1800
+        },
+        "encode_us": {
+          "count": 1217,
+          "max": 55,
+          "mean": 21.8783894823336,
+          "p50": 21,
+          "p95": 26
+        },
+        "raw": {
+          "count": 1217,
+          "max": 4544,
+          "mean": 4484.52588331964,
+          "p50": 4484,
+          "p95": 4496
+        }
+      },
+      "recorded:ctf": {
+        "compressed": {
+          "count": 1247,
+          "max": 2193,
+          "mean": 1929.40577385726,
+          "p50": 1955,
+          "p95": 2131
+        },
+        "encode_us": {
+          "count": 1247,
+          "max": 31,
+          "mean": 22.3311948676824,
+          "p50": 22,
+          "p95": 25
+        },
+        "raw": {
+          "count": 1247,
+          "max": 4936,
+          "mean": 4726.62389735365,
+          "p50": 4656,
+          "p95": 4924
+        }
+      },
+      "recorded:dm": {
+        "compressed": {
+          "count": 1266,
+          "max": 2899,
+          "mean": 2133.24091627172,
+          "p50": 2034,
+          "p95": 2552
+        },
+        "encode_us": {
+          "count": 1266,
+          "max": 79,
+          "mean": 23.9281200631912,
+          "p50": 22,
+          "p95": 30
+        },
+        "raw": {
+          "count": 1266,
+          "max": 6984,
+          "mean": 4939.3112164297,
+          "p50": 4644,
+          "p95": 5948
+        }
+      },
+      "recorded:ft": {
+        "compressed": {
+          "count": 1259,
+          "max": 2168,
+          "mean": 1933.84432088959,
+          "p50": 1963,
+          "p95": 2067
+        },
+        "encode_us": {
+          "count": 1259,
+          "max": 28,
+          "mean": 21.5123113582208,
+          "p50": 21,
+          "p95": 23
+        },
+        "raw": {
+          "count": 1259,
+          "max": 4740,
+          "mean": 4601.23272438443,
+          "p50": 4592,
+          "p95": 4672
+        }
+      },
+      "recorded:if": {
+        "compressed": {
+          "count": 1236,
+          "max": 1697,
+          "mean": 1629.0784789644,
+          "p50": 1629,
+          "p95": 1672
+        },
+        "encode_us": {
+          "count": 1236,
+          "max": 34,
+          "mean": 21.0906148867314,
+          "p50": 21,
+          "p95": 23
+        },
+        "raw": {
+          "count": 1236,
+          "max": 4560,
+          "mean": 4526.26537216828,
+          "p50": 4532,
+          "p95": 4532
+        }
+      },
+      "recorded:ig": {
+        "compressed": {
+          "count": 1293,
+          "max": 1823,
+          "mean": 1733.36272235112,
+          "p50": 1748,
+          "p95": 1796
+        },
+        "encode_us": {
+          "count": 1293,
+          "max": 33,
+          "mean": 21.2095901005414,
+          "p50": 21,
+          "p95": 23
+        },
+        "raw": {
+          "count": 1293,
+          "max": 4572,
+          "mean": 4533.03325599381,
+          "p50": 4540,
+          "p95": 4552
+        }
+      },
+      "recorded:koth": {
+        "compressed": {
+          "count": 1208,
+          "max": 1995,
+          "mean": 1889.8261589404,
+          "p50": 1895,
+          "p95": 1946
+        },
+        "encode_us": {
+          "count": 1208,
+          "max": 30,
+          "mean": 21.8104304635762,
+          "p50": 22,
+          "p95": 23
+        },
+        "raw": {
+          "count": 1208,
+          "max": 4560,
+          "mean": 4538.16887417219,
+          "p50": 4540,
+          "p95": 4556
+        }
+      },
+      "recorded:tdm": {
+        "compressed": {
+          "count": 1276,
+          "max": 2355,
+          "mean": 1996.73902821317,
+          "p50": 1996,
+          "p95": 2222
+        },
+        "encode_us": {
+          "count": 1276,
+          "max": 68,
+          "mean": 22.2029780564263,
+          "p50": 22,
+          "p95": 24
+        },
+        "raw": {
+          "count": 1276,
+          "max": 5176,
+          "mean": 4613.11598746081,
+          "p50": 4564,
+          "p95": 4896
+        }
+      },
+      "recorded:tf": {
+        "compressed": {
+          "count": 1248,
+          "max": 4659,
+          "mean": 2938.18669871795,
+          "p50": 2758,
+          "p95": 3947
+        },
+        "encode_us": {
+          "count": 1248,
+          "max": 69,
+          "mean": 40.1947115384615,
+          "p50": 38,
+          "p95": 55
+        },
+        "raw": {
+          "count": 1248,
+          "max": 12988,
+          "mean": 7488.46474358974,
+          "p50": 6784,
+          "p95": 10420
+        }
+      },
+      "synthetic:16:desktop": {
+        "compressed": {
+          "count": 60,
+          "max": 2574,
+          "mean": 2548.51666666667,
+          "p50": 2548,
+          "p95": 2565
+        },
+        "encode_us": {
+          "count": 60,
+          "max": 42,
+          "mean": 34.3166666666667,
+          "p50": 34,
+          "p95": 38
+        },
+        "raw": {
+          "count": 60,
+          "max": 9688,
+          "mean": 9687.93333333333,
+          "p50": 9688,
+          "p95": 9688
+        }
+      },
+      "synthetic:16:full_body_vr": {
+        "compressed": {
+          "count": 60,
+          "max": 10758,
+          "mean": 10465.05,
+          "p50": 10424,
+          "p95": 10670
+        },
+        "encode_us": {
+          "count": 60,
+          "max": 148,
+          "mean": 116.183333333333,
+          "p50": 115,
+          "p95": 122
+        },
+        "raw": {
+          "count": 60,
+          "max": 30104,
+          "mean": 30103.9333333333,
+          "p50": 30104,
+          "p95": 30104
+        }
+      },
+      "synthetic:8:desktop": {
+        "compressed": {
+          "count": 60,
+          "max": 2105,
+          "mean": 2081.96666666667,
+          "p50": 2080,
+          "p95": 2100
+        },
+        "encode_us": {
+          "count": 60,
+          "max": 32,
+          "mean": 24.9666666666667,
+          "p50": 25,
+          "p95": 29
+        },
+        "raw": {
+          "count": 60,
+          "max": 6776,
+          "mean": 6775.93333333333,
+          "p50": 6776,
+          "p95": 6776
+        }
+      },
+      "synthetic:8:full_body_vr": {
+        "compressed": {
+          "count": 60,
+          "max": 6518,
+          "mean": 6256.65,
+          "p50": 6242,
+          "p95": 6489
+        },
+        "encode_us": {
+          "count": 60,
+          "max": 80,
+          "mean": 66.45,
+          "p50": 66,
+          "p95": 71
+        },
+        "raw": {
+          "count": 60,
+          "max": 16984,
+          "mean": 16983.9333333333,
+          "p50": 16984,
+          "p95": 16984
+        }
+      }
+    }
+  },
+  "transport_probe": [
+    {
+      "name": "clean",
+      "rtt_ms": 0,
+      "jitter_each_direction_ms": 0,
+      "datagram_loss": 0,
+      "seed": 4817,
+      "results": {
+        "16vr": {
+          "bytes": 10381,
+          "delay_ms": {
+            "max": 6.27493858337402,
+            "p95": 6.26397132873535
+          },
+          "gap_ms": {
+            "max": 55.2690029144287,
+            "p95": 55.2399158477783
+          },
+          "received": 240,
+          "sent": 240,
+          "missed_percent": 0.0
+        },
+        "8desktop": {
+          "bytes": 2098,
+          "delay_ms": {
+            "max": 6.27899169921875,
+            "p95": 6.25991821289062
+          },
+          "gap_ms": {
+            "max": 55.260181427002,
+            "p95": 55.2330017089844
+          },
+          "received": 240,
+          "sent": 240,
+          "missed_percent": 0.0
+        },
+        "8vr": {
+          "bytes": 6255,
+          "delay_ms": {
+            "max": 6.40082359313965,
+            "p95": 6.26492500305176
+          },
+          "gap_ms": {
+            "max": 55.2680492401123,
+            "p95": 55.2339553833008
+          },
+          "received": 240,
+          "sent": 240,
+          "missed_percent": 0.0
+        },
+        "bounded_1100": {
+          "bytes": 1100,
+          "delay_ms": {
+            "max": 6.29901885986328,
+            "p95": 6.26301765441895
+          },
+          "gap_ms": {
+            "max": 55.2520751953125,
+            "p95": 55.2229881286621
+          },
+          "received": 240,
+          "sent": 240,
+          "missed_percent": 0.0
+        }
+      },
+      "proxy": {
+        "received": 4230,
+        "dropped": 0,
+        "delivered": 4230,
+        "duplicated": 0
+      }
+    },
+    {
+      "name": "impaired",
+      "rtt_ms": 100,
+      "jitter_each_direction_ms": 10,
+      "datagram_loss": 0.02,
+      "seed": 4817,
+      "results": {
+        "16vr": {
+          "bytes": 10381,
+          "delay_ms": {
+            "max": 64.8930072784424,
+            "p95": 64.8329257965088
+          },
+          "gap_ms": {
+            "max": 151.780843734741,
+            "p95": 103.528022766113
+          },
+          "received": 202,
+          "sent": 240,
+          "missed_percent": 15.833
+        },
+        "8desktop": {
+          "bytes": 2098,
+          "delay_ms": {
+            "max": 64.8579597473145,
+            "p95": 64.8179054260254
+          },
+          "gap_ms": {
+            "max": 117.259979248047,
+            "p95": 69.0250396728516
+          },
+          "received": 229,
+          "sent": 240,
+          "missed_percent": 4.583
+        },
+        "8vr": {
+          "bytes": 6255,
+          "delay_ms": {
+            "max": 64.885139465332,
+            "p95": 64.8269653320312
+          },
+          "gap_ms": {
+            "max": 158.764123916626,
+            "p95": 103.447914123535
+          },
+          "received": 217,
+          "sent": 240,
+          "missed_percent": 9.583
+        },
+        "bounded_1100": {
+          "bytes": 1100,
+          "delay_ms": {
+            "max": 64.8269653320312,
+            "p95": 64.8000240325928
+          },
+          "gap_ms": {
+            "max": 110.418081283569,
+            "p95": 75.8340358734131
+          },
+          "received": 233,
+          "sent": 240,
+          "missed_percent": 2.917
+        }
+      },
+      "proxy": {
+        "received": 4178,
+        "dropped": 93,
+        "delivered": 4101,
+        "duplicated": 16
+      }
+    }
+  ],
+  "limitations": [
+    "Demo payloads reconstructed, not wire capture; live timestamp/watermark approximated.",
+    "Sixteen-player VR state is synthetic; transport probe has one client.",
+    "One deterministic seed, 240 updates per size per condition; random loss, no bandwidth cap or burst-loss model.",
+    "One ObjectDB instance warning at exit in each probe role; no runtime/script errors, all four role processes exited zero.",
+    "No new remote deployment, headset session, voice-under-download test or Android interoperability test."
+  ],
+  "evidence": [
+    "test-results/network-study/sizes.log",
+    "test-results/network-study/transport-clean-server.log",
+    "test-results/network-study/transport-clean-client.log",
+    "test-results/network-study/transport-impaired-server.log",
+    "test-results/network-study/transport-impaired-client.log",
+    "docs/REMOTE-ALL-MODES-TEST.md"
+  ]
+}

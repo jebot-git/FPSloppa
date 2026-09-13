@@ -1,0 +1,73 @@
+{
+  "source": "https://qwtflive-demos.s3.amazonaws.com/va/staging/2026-09-08-01-22-10_[ff-phantomr]_blue_vs_red.mvd.gz",
+  "sha256": "141361b7a9474eab5b85007399b86f3e5926ddd5c0a5de05cf10b49c61ea62ac",
+  "duration_seconds": 1226.021,
+  "packets": 153770,
+  "capture_announcements": [
+    {
+      "seconds": 57.129,
+      "flag": "Red"
+    },
+    {
+      "seconds": 109.868,
+      "flag": "Red"
+    },
+    {
+      "seconds": 203.813,
+      "flag": "Red"
+    },
+    {
+      "seconds": 248.15,
+      "flag": "Red"
+    },
+    {
+      "seconds": 356.965,
+      "flag": "Red"
+    },
+    {
+      "seconds": 396.124,
+      "flag": "Red"
+    },
+    {
+      "seconds": 455.324,
+      "flag": "Red"
+    },
+    {
+      "seconds": 479.708,
+      "flag": "Red"
+    },
+    {
+      "seconds": 549.476,
+      "flag": "Red"
+    },
+    {
+      "seconds": 687.141,
+      "flag": "Blue"
+    },
+    {
+      "seconds": 721.503,
+      "flag": "Blue"
+    },
+    {
+      "seconds": 770.724,
+      "flag": "Blue"
+    },
+    {
+      "seconds": 826.052,
+      "flag": "Blue"
+    },
+    {
+      "seconds": 940.327,
+      "flag": "Blue"
+    },
+    {
+      "seconds": 1121.176,
+      "flag": "Blue"
+    },
+    {
+      "seconds": 1207.144,
+      "flag": "Blue"
+    }
+  ],
+  "note": "MVD framing validated to EOF. Embedded capture announcements deduplicated within 0.2s; not a complete protocol decoder or spatial replay."
+}

@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "checks": 20,
+      "failures": [],
+      "measurements": {
+        "charged_apex": 9.36693382263184,
+        "no_jump_apex": 3.49582672119141,
+        "normal_apex": 1.42693519592285,
+        "partial_apex": 6.3336067199707
+      },
+      "passed": true,
+      "log": "/home/blux/Documents/FPSloppa/test-results/impact-jump/impact_jump-local.log",
+      "exit_code": 0,
+      "errors": []
+    },
+    {
+      "checks": 71,
+      "failures": [],
+      "passed": true,
+      "log": "/home/blux/Documents/FPSloppa/test-results/impact-jump/weapon_variants-local.log",
+      "exit_code": 0,
+      "errors": []
+    },
+    {
+      "failures": [],
+      "passed": true,
+      "role": "server",
+      "log": "/home/blux/Documents/FPSloppa/test-results/impact-jump/impact_jump_network-server.log",
+      "exit_code": 0,
+      "errors": []
+    },
+    {
+      "failures": [],
+      "passed": true,
+      "role": "client",
+      "log": "/home/blux/Documents/FPSloppa/test-results/impact-jump/impact_jump_network-client.log",
+      "exit_code": 0,
+      "errors": []
+    }
+  ],
+  "network_checks": 15,
+  "total_checks": 106,
+  "source_sha256": {
+    "deathmatch/experimental/combat.gd": "abb864b977c86d64a1c2439a444ca0c4740a0019eb394878ff9b020c40be53a6",
+    "deathmatch/experimental/weapon_rules.gd": "e9d276b76d87196922e32b802396fd0753399a602ef31a6fcf4f1525a8768a22",
+    "deathmatch/tests/impact_jump.gd": "9b030a8b94a8a703e8986bb803869c088d263fca92e0095be8e225030e853877",
+    "deathmatch/tests/impact_jump_network.gd": "032db4a79819de511b537f007fdb769898982a9b0db436e363d7f2437aa6b841",
+    "deathmatch/tests/run_impact_jump_tests.py": "2ff05c4b3c5ef830f5a8b701277c4e4c834e18d4d506d7a01def3656ce945609"
+  },
+  "scope": "Local headless physics and real ENet desktop/synthetic tracked-hand tests; no headset or remote deployment"
+}

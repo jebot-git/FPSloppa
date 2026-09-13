@@ -1,0 +1,1509 @@
+{
+  "date": "2026-09-12",
+  "base_modes": [
+    "dm",
+    "ig",
+    "ft",
+    "tdm"
+  ],
+  "quake_maps": [
+    "qsrc_dm1",
+    "qsrc_dm2",
+    "qsrc_dm3",
+    "qsrc_dm4",
+    "qsrc_dm5",
+    "qsrc_dm6",
+    "qsrc_dm7"
+  ],
+  "cc_before": [
+    {
+      "id": "lqdm3",
+      "seconds": 180.000000000035,
+      "wall_seconds": 29.17,
+      "chainsaw_kills": 17,
+      "hunger_deaths": 19,
+      "first_combat_kill": 29.5833333333329,
+      "damage": {
+        "CHAINSAW": 3556,
+        "CIRCUS HUNGER": 3895
+      },
+      "max_stall": 2.03333333333333,
+      "stationary_pct": 3.837161158333373,
+      "tick_p50_ms": 1.778,
+      "tick_p95_ms": 4.076
+    },
+    {
+      "id": "lqdm4",
+      "seconds": 180.000000000035,
+      "wall_seconds": 30.02,
+      "chainsaw_kills": 21,
+      "hunger_deaths": 13,
+      "first_combat_kill": 18.4666666666669,
+      "damage": {
+        "CHAINSAW": 4436,
+        "CIRCUS HUNGER": 3807,
+        "LAVA": 560
+      },
+      "max_stall": 3.04999999999983,
+      "stationary_pct": 4.412762231293784,
+      "tick_p50_ms": 2.074,
+      "tick_p95_ms": 3.754
+    },
+    {
+      "id": "lqdm6",
+      "seconds": 180.000000000035,
+      "wall_seconds": 29.57,
+      "chainsaw_kills": 20,
+      "hunger_deaths": 17,
+      "first_combat_kill": 11.0500000000001,
+      "damage": {
+        "CHAINSAW": 4036,
+        "CIRCUS HUNGER": 3881
+      },
+      "max_stall": 3.04999999999983,
+      "stationary_pct": 4.073133198173002,
+      "tick_p50_ms": 1.738,
+      "tick_p95_ms": 4.33
+    },
+    {
+      "id": "lqdm7",
+      "seconds": 180.000000000035,
+      "wall_seconds": 25.01,
+      "chainsaw_kills": 13,
+      "hunger_deaths": 25,
+      "first_combat_kill": 15.3833333333337,
+      "damage": {
+        "CHAINSAW": 3614,
+        "CIRCUS HUNGER": 3888
+      },
+      "max_stall": 2.03333333333322,
+      "stationary_pct": 3.705786012857662,
+      "tick_p50_ms": 1.498,
+      "tick_p95_ms": 3.033
+    }
+  ],
+  "cc_after": [
+    {
+      "id": "cc_hyperborea",
+      "seconds": 180.000000000035,
+      "wall_seconds": 32.37,
+      "chainsaw_kills": 23,
+      "hunger_deaths": 19,
+      "first_combat_kill": 11.7666666666668,
+      "damage": {
+        "CHAINSAW": 5646,
+        "CIRCUS HUNGER": 3823
+      },
+      "max_stall": 2.00000000000159,
+      "stationary_pct": 4.017495147062663,
+      "tick_p50_ms": 2.243,
+      "tick_p95_ms": 3.967
+    },
+    {
+      "id": "cc_psychofuge",
+      "seconds": 180.000000000035,
+      "wall_seconds": 33.03,
+      "chainsaw_kills": 27,
+      "hunger_deaths": 17,
+      "first_combat_kill": 11.1000000000001,
+      "damage": {
+        "CHAINSAW": 7726,
+        "CIRCUS HUNGER": 3724,
+        "LAVA": 740
+      },
+      "max_stall": 2.03333333333322,
+      "stationary_pct": 6.3548366951856,
+      "tick_p50_ms": 2.282,
+      "tick_p95_ms": 4.012
+    },
+    {
+      "id": "cc_ghostquarter",
+      "seconds": 180.000000000035,
+      "wall_seconds": 36.98,
+      "chainsaw_kills": 30,
+      "hunger_deaths": 17,
+      "first_combat_kill": 26.3666666666665,
+      "damage": {
+        "CHAINSAW": 8878,
+        "CIRCUS HUNGER": 3782
+      },
+      "max_stall": 2.03333333333322,
+      "stationary_pct": 4.356658862586265,
+      "tick_p50_ms": 2.274,
+      "tick_p95_ms": 4.436
+    },
+    {
+      "id": "cc_basement",
+      "seconds": 180.000000000035,
+      "wall_seconds": 28.07,
+      "chainsaw_kills": 33,
+      "hunger_deaths": 15,
+      "first_combat_kill": 4.63333333333332,
+      "damage": {
+        "CHAINSAW": 8066,
+        "CIRCUS HUNGER": 3754,
+        "LAVA": 40
+      },
+      "max_stall": 2.03333333333322,
+      "stationary_pct": 4.4448858980406944,
+      "tick_p50_ms": 1.862,
+      "tick_p95_ms": 3.154
+    }
+  ],
+  "geometry": {
+    "failures": [],
+    "maps": [
+      {
+        "after": {
+          "meshes": 2,
+          "nodes": 27,
+          "triangles": 5361
+        },
+        "before": {
+          "meshes": 161,
+          "nodes": 278,
+          "triangles": 26006
+        },
+        "id": "cc_hyperborea",
+        "longest_spawn_path": 29.8153196536005,
+        "spawns": 16
+      },
+      {
+        "after": {
+          "meshes": 285,
+          "nodes": 370,
+          "triangles": 15033
+        },
+        "before": {
+          "meshes": 612,
+          "nodes": 735,
+          "triangles": 14920
+        },
+        "id": "cc_psychofuge",
+        "longest_spawn_path": 33.1404775679111,
+        "spawns": 16
+      },
+      {
+        "after": {
+          "meshes": 17,
+          "nodes": 122,
+          "triangles": 22205
+        },
+        "before": {
+          "meshes": 29,
+          "nodes": 161,
+          "triangles": 23139
+        },
+        "id": "cc_ghostquarter",
+        "longest_spawn_path": 29.1498455628753,
+        "spawns": 16
+      },
+      {
+        "after": {
+          "meshes": 22,
+          "nodes": 159,
+          "triangles": 15382
+        },
+        "before": {
+          "meshes": 26,
+          "nodes": 233,
+          "triangles": 15078
+        },
+        "id": "cc_basement",
+        "longest_spawn_path": 31.7809630483389,
+        "spawns": 16
+      }
+    ]
+  },
+  "compatibility": [
+    {
+      "id": "qsrc_dm1",
+      "mode": "dm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 471,
+        "DUAL PISTOLS": 1055,
+        "SHOTGUN": 304
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm1",
+      "mode": "ig",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "LAVA": 100,
+        "RAILGUN": 360000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm1",
+      "mode": "ft",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 200,
+        "DUAL PISTOLS": 326,
+        "SHOTGUN": 283
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm1",
+      "mode": "tdm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 394,
+        "DUAL PISTOLS": 529,
+        "SHOTGUN": 385
+      },
+      "score": [
+        5,
+        1
+      ]
+    },
+    {
+      "id": "qsrc_dm2",
+      "mode": "dm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 91,
+        "DUAL PISTOLS": 585,
+        "LAVA": 300,
+        "ROCKET LAUNCHER": 158
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm2",
+      "mode": "ig",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "LAVA": 20,
+        "RAILGUN": 180000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm2",
+      "mode": "ft",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 109,
+        "DUAL PISTOLS": 75
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm2",
+      "mode": "tdm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 202,
+        "DUAL PISTOLS": 171
+      },
+      "score": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "qsrc_dm3",
+      "mode": "dm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 180,
+        "DUAL PISTOLS": 795
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm3",
+      "mode": "ig",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 190000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm3",
+      "mode": "ft",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 105,
+        "DUAL PISTOLS": 375
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm3",
+      "mode": "tdm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 480,
+        "ROCKET LAUNCHER": 131
+      },
+      "score": [
+        2,
+        1
+      ]
+    },
+    {
+      "id": "qsrc_dm4",
+      "mode": "dm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "BFG 9000": 93,
+        "CHAINGUN": 15,
+        "DUAL PISTOLS": 1392,
+        "LAVA": 200,
+        "ROCKET LAUNCHER": 55,
+        "SHOTGUN": 198,
+        "SUPER SHOTGUN": 70
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm4",
+      "mode": "ig",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 450000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm4",
+      "mode": "ft",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 336,
+        "LAVA": 80,
+        "ROCKET LAUNCHER": 80,
+        "SHOTGUN": 175
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm4",
+      "mode": "tdm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 105,
+        "DUAL PISTOLS": 710,
+        "LAVA": 420,
+        "SHOTGUN": 100
+      },
+      "score": [
+        1,
+        1
+      ]
+    },
+    {
+      "id": "qsrc_dm5",
+      "mode": "dm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 100,
+        "DUAL PISTOLS": 1470,
+        "PLASMA RIFLE": 580,
+        "ROCKET LAUNCHER": 179,
+        "SHOTGUN": 125
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm5",
+      "mode": "ig",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 460000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm5",
+      "mode": "ft",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 144,
+        "DUAL PISTOLS": 318,
+        "PLASMA RIFLE": 255,
+        "ROCKET LAUNCHER": 58,
+        "SHOTGUN": 186
+      },
+      "score": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "qsrc_dm5",
+      "mode": "tdm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 208,
+        "DUAL PISTOLS": 507,
+        "PLASMA RIFLE": 345,
+        "ROCKET LAUNCHER": 76,
+        "SHOTGUN": 333
+      },
+      "score": [
+        6,
+        4
+      ]
+    },
+    {
+      "id": "qsrc_dm6",
+      "mode": "dm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 117,
+        "DUAL PISTOLS": 984,
+        "PLASMA RIFLE": 130,
+        "ROCKET LAUNCHER": 371,
+        "SHOTGUN": 184
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm6",
+      "mode": "ig",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 280000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm6",
+      "mode": "ft",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 16,
+        "DUAL PISTOLS": 183,
+        "PLASMA RIFLE": 10,
+        "ROCKET LAUNCHER": 121,
+        "SHOTGUN": 15,
+        "SUPER SHOTGUN": 300
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm6",
+      "mode": "tdm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 180,
+        "DUAL PISTOLS": 347,
+        "PLASMA RIFLE": 156,
+        "ROCKET LAUNCHER": 278,
+        "SHOTGUN": 30,
+        "SUPER SHOTGUN": 302
+      },
+      "score": [
+        4,
+        5
+      ]
+    },
+    {
+      "id": "qsrc_dm7",
+      "mode": "dm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 90,
+        "DROWNING": 130,
+        "DUAL PISTOLS": 1008,
+        "PLASMA RIFLE": 310,
+        "ROCKET LAUNCHER": 171,
+        "SHOTGUN": 190,
+        "fell out of the arena": 1000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm7",
+      "mode": "ig",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 360000,
+        "fell out of the arena": 1000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm7",
+      "mode": "ft",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 480,
+        "PLASMA RIFLE": 110,
+        "SUPER SHOTGUN": 75,
+        "fell out of the arena": 1000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "qsrc_dm7",
+      "mode": "tdm",
+      "optional": false,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 1533,
+        "PLASMA RIFLE": 120,
+        "SHOTGUN": 55,
+        "fell out of the arena": 1000
+      },
+      "score": [
+        5,
+        6
+      ]
+    },
+    {
+      "id": "lqdm1",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 1213,
+        "PLASMA RIFLE": 154,
+        "ROCKET LAUNCHER": 525,
+        "SHOTGUN": 383,
+        "SUPER SHOTGUN": 90
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm1",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 390000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm1",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 1421,
+        "PLASMA RIFLE": 120,
+        "ROCKET LAUNCHER": 24,
+        "SHOTGUN": 141,
+        "SUPER SHOTGUN": 50
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "lqdm1",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 847,
+        "PLASMA RIFLE": 120,
+        "ROCKET LAUNCHER": 461,
+        "SHOTGUN": 461,
+        "SUPER SHOTGUN": 35
+      },
+      "score": [
+        9,
+        5
+      ]
+    },
+    {
+      "id": "lqdm2",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 400,
+        "DUAL PISTOLS": 1083,
+        "PLASMA RIFLE": 94,
+        "SHOTGUN": 60,
+        "SUPER SHOTGUN": 125
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm2",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 290000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm2",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 221,
+        "DUAL PISTOLS": 584,
+        "PLASMA RIFLE": 254,
+        "SHOTGUN": 63
+      },
+      "score": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "lqdm2",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 153,
+        "DUAL PISTOLS": 687,
+        "PLASMA RIFLE": 198,
+        "SUPER SHOTGUN": 17
+      },
+      "score": [
+        1,
+        6
+      ]
+    },
+    {
+      "id": "lqdm3",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "BFG 9000": 536,
+        "DUAL PISTOLS": 1221,
+        "PLASMA RIFLE": 104,
+        "ROCKET LAUNCHER": 121,
+        "SUPER SHOTGUN": 125,
+        "environment": 1998000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm3",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "RAILGUN": 310000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm3",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "DUAL PISTOLS": 499,
+        "PLASMA RIFLE": 145,
+        "SUPER SHOTGUN": 80,
+        "environment": 665812
+      },
+      "score": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "lqdm3",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "BFG 9000": 67,
+        "DUAL PISTOLS": 802,
+        "PLASMA RIFLE": 13,
+        "SUPER SHOTGUN": 133
+      },
+      "score": [
+        3,
+        1
+      ]
+    },
+    {
+      "id": "lqdm4",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "CHAINGUN": 199,
+        "DUAL PISTOLS": 979,
+        "LAVA": 700,
+        "PLASMA RIFLE": 395,
+        "SHOTGUN": 290,
+        "SUPER SHOTGUN": 10
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm4",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "LAVA": 300,
+        "RAILGUN": 270000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm4",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "CHAINGUN": 45,
+        "DUAL PISTOLS": 206,
+        "LAVA": 526,
+        "PLASMA RIFLE": 230,
+        "SHOTGUN": 235
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm4",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666653,
+      "damage": {
+        "CHAINGUN": 283,
+        "DUAL PISTOLS": 691,
+        "LAVA": 440,
+        "PLASMA RIFLE": 589,
+        "SHOTGUN": 152
+      },
+      "score": [
+        4,
+        3
+      ]
+    },
+    {
+      "id": "lqdm5",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 794,
+        "PLASMA RIFLE": 121,
+        "ROCKET LAUNCHER": 601,
+        "SHOTGUN": 317,
+        "SLIME": 20,
+        "SUPER SHOTGUN": 50
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm5",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 350000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm5",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 350,
+        "PLASMA RIFLE": 150,
+        "ROCKET LAUNCHER": 194,
+        "SHOTGUN": 156,
+        "SUPER SHOTGUN": 141
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "lqdm5",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "DUAL PISTOLS": 755,
+        "PLASMA RIFLE": 289,
+        "ROCKET LAUNCHER": 719,
+        "SHOTGUN": 52,
+        "SUPER SHOTGUN": 40
+      },
+      "score": [
+        3,
+        6
+      ]
+    },
+    {
+      "id": "lqdm6",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 526,
+        "DUAL PISTOLS": 1012,
+        "SUPER SHOTGUN": 30
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm6",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 310000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm6",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 378,
+        "DUAL PISTOLS": 766,
+        "SUPER SHOTGUN": 64
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm6",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 622,
+        "DUAL PISTOLS": 842,
+        "SUPER SHOTGUN": 264
+      },
+      "score": [
+        4,
+        5
+      ]
+    },
+    {
+      "id": "lqdm7",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 216,
+        "DUAL PISTOLS": 667,
+        "LAVA": 100,
+        "PLASMA RIFLE": 568,
+        "ROCKET LAUNCHER": 909,
+        "SHOTGUN": 21
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm7",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "LAVA": 100,
+        "RAILGUN": 220000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm7",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 208,
+        "DUAL PISTOLS": 372,
+        "PLASMA RIFLE": 344,
+        "ROCKET LAUNCHER": 2,
+        "SHOTGUN": 210
+      },
+      "score": [
+        1,
+        0
+      ]
+    },
+    {
+      "id": "lqdm7",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 331,
+        "DUAL PISTOLS": 352,
+        "PLASMA RIFLE": 553,
+        "ROCKET LAUNCHER": 614
+      },
+      "score": [
+        5,
+        5
+      ]
+    },
+    {
+      "id": "lqdm8",
+      "mode": "dm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "BFG 9000": 609,
+        "CHAINGUN": 57,
+        "DUAL PISTOLS": 1161,
+        "PLASMA RIFLE": 161,
+        "ROCKET LAUNCHER": 810,
+        "SHOTGUN": 275,
+        "SUPER SHOTGUN": 38
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm8",
+      "mode": "ig",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "RAILGUN": 410000
+      },
+      "score": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": "lqdm8",
+      "mode": "ft",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "CHAINGUN": 106,
+        "DUAL PISTOLS": 763,
+        "PLASMA RIFLE": 60,
+        "ROCKET LAUNCHER": 31,
+        "SHOTGUN": 206,
+        "SUPER SHOTGUN": 178
+      },
+      "score": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": "lqdm8",
+      "mode": "tdm",
+      "optional": true,
+      "exit_code": 0,
+      "errors": [],
+      "seconds": 45.0166666666654,
+      "damage": {
+        "BFG 9000": 708,
+        "CHAINGUN": 86,
+        "DUAL PISTOLS": 982,
+        "PLASMA RIFLE": 108,
+        "ROCKET LAUNCHER": 179,
+        "SHOTGUN": 110,
+        "SUPER SHOTGUN": 73
+      },
+      "score": [
+        6,
+        7
+      ]
+    }
+  ],
+  "ctf": [
+    {
+      "id": "ctf_tideworks",
+      "exit_code": 0,
+      "errors": [],
+      "failures": [],
+      "bot_match": {
+        "bots_displaced": 8,
+        "maximum_displacements": {
+          "-8": 74.7112274169922,
+          "-7": 61.5353393554688,
+          "-6": 20.7517127990723,
+          "-5": 21.5688610076904,
+          "-4": 78.1648101806641,
+          "-3": 59.0149993896484,
+          "-2": 71.9589767456055,
+          "-1": 64.1630325317383,
+          "1": 0.0
+        },
+        "players": 8,
+        "scores": [
+          0,
+          0
+        ],
+        "seconds": 60,
+        "seconds_with_flag_carried": [
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "ctf_crucible",
+      "exit_code": 0,
+      "errors": [],
+      "failures": [],
+      "bot_match": {
+        "bots_displaced": 7,
+        "maximum_displacements": {
+          "-8": 77.9926376342773,
+          "-7": 57.9005508422852,
+          "-6": 19.8494338989258,
+          "-5": 21.368408203125,
+          "-4": 0.0540589280426502,
+          "-3": 50.408317565918,
+          "-2": 78.711296081543,
+          "-1": 65.366943359375,
+          "1": 0.0
+        },
+        "players": 8,
+        "scores": [
+          0,
+          0
+        ],
+        "seconds": 60,
+        "seconds_with_flag_carried": [
+          4,
+          12
+        ]
+      }
+    },
+    {
+      "id": "ctf_confluence",
+      "exit_code": 0,
+      "errors": [],
+      "failures": [],
+      "bot_match": {
+        "bots_displaced": 8,
+        "maximum_displacements": {
+          "-8": 97.1616516113281,
+          "-7": 115.796264648438,
+          "-6": 13.7339677810669,
+          "-5": 29.4011077880859,
+          "-4": 85.6538238525391,
+          "-3": 98.5778884887695,
+          "-2": 111.178070068359,
+          "-1": 95.9953994750977,
+          "1": 0.0
+        },
+        "players": 8,
+        "scores": [
+          0,
+          0
+        ],
+        "seconds": 60,
+        "seconds_with_flag_carried": [
+          5,
+          3
+        ]
+      }
+    },
+    {
+      "id": "ctf_deepvault",
+      "exit_code": 0,
+      "errors": [],
+      "failures": [],
+      "bot_match": {
+        "bots_displaced": 8,
+        "maximum_displacements": {
+          "-8": 128.84114074707,
+          "-7": 46.9563407897949,
+          "-6": 29.3103542327881,
+          "-5": 15.264744758606,
+          "-4": 82.4227294921875,
+          "-3": 62.9850845336914,
+          "-2": 146.428085327148,
+          "-1": 67.6732025146484,
+          "1": 0.0
+        },
+        "players": 8,
+        "scores": [
+          0,
+          0
+        ],
+        "seconds": 60,
+        "seconds_with_flag_carried": [
+          0,
+          8
+        ]
+      }
+    },
+    {
+      "id": "ctf_crownreach",
+      "exit_code": 0,
+      "errors": [],
+      "failures": [],
+      "bot_match": {
+        "bots_displaced": 8,
+        "maximum_displacements": {
+          "-8": 132.989837646484,
+          "-7": 95.0937423706055,
+          "-6": 22.6971015930176,
+          "-5": 23.8781204223633,
+          "-4": 67.2957229614258,
+          "-3": 98.4703750610352,
+          "-2": 145.3291015625,
+          "-1": 118.197509765625,
+          "1": 0.0
+        },
+        "players": 8,
+        "scores": [
+          0,
+          0
+        ],
+        "seconds": 60,
+        "seconds_with_flag_carried": [
+          0,
+          2
+        ]
+      }
+    },
+    {
+      "id": "ctf_skyfracture",
+      "exit_code": 0,
+      "errors": [],
+      "failures": [],
+      "bot_match": {
+        "bots_displaced": 8,
+        "maximum_displacements": {
+          "-8": 101.787757873535,
+          "-7": 116.234466552734,
+          "-6": 121.826835632324,
+          "-5": 115.812049865723,
+          "-4": 101.324493408203,
+          "-3": 101.987014770508,
+          "-2": 120.223808288574,
+          "-1": 102.788749694824,
+          "1": 0.0
+        },
+        "players": 8,
+        "scores": [
+          3,
+          0
+        ],
+        "seconds": 60,
+        "seconds_with_flag_carried": [
+          24,
+          39
+        ]
+      }
+    }
+  ],
+  "quake_traversal": [
+    {
+      "id": "qsrc_dm1",
+      "sha256": "e875b0ab8672dd5b4c6ac2c668f19bbf59d2d29bdc41bde3b634c4cad9d3ff1d",
+      "failures": []
+    },
+    {
+      "id": "qsrc_dm2",
+      "sha256": "9cfd7589c971efd3ac5ea1ce91f12bd529acd9ecd309639d31e7b45e4fb603f2",
+      "failures": []
+    },
+    {
+      "id": "qsrc_dm3",
+      "sha256": "97a8f31d6c5547417e030af5e1ac033699e09743e9a2a3d19fb01aa8e8101df3",
+      "failures": []
+    },
+    {
+      "id": "qsrc_dm4",
+      "sha256": "d31989c64734ecd3402909e71ef29b2fd20da04d132eee63e004d6f80f3faccd",
+      "failures": []
+    },
+    {
+      "id": "qsrc_dm5",
+      "sha256": "8ce53e0ab444262ff79c3895ae41637c74eba78f107c03dfcef2babf9c3f19ff",
+      "failures": []
+    },
+    {
+      "id": "qsrc_dm6",
+      "sha256": "c1ef23b032dc27de902fd4355c7d7ca177b4ba916967dba32067666e7964573c",
+      "failures": []
+    },
+    {
+      "id": "qsrc_dm7",
+      "sha256": "47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+      "failures": []
+    }
+  ],
+  "cc_hashes": {
+    "cc_hyperborea": "2dd888d4f6526eafcdaecff905339be36702ca301ba5daa297bf40fa96d645ed",
+    "cc_psychofuge": "b736b0403c20867ca108c39d84db2ed9a8f1cfc8a2c52552d4f3d635ed7e1231",
+    "cc_ghostquarter": "963ccebe8fbf6599ccebd7a3b5a6c7fbd9ae5c898a34250e53222460f124d79e",
+    "cc_basement": "b63ce47097140ec26db9bd2179d29b420e5f22eacc510b186c4618c62ce2c839"
+  },
+  "caveat": "Seeded functional comparisons, not competitive balance or controlled CPU benchmarks."
+}

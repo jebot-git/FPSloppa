@@ -14,7 +14,7 @@ files={
     'Base-Assets.zip':BUILDS/f'FPSloppa-{VERSION}-Base-Assets.zip',
     'Quest.apk':BUILDS/'Android/FPSloppa-Quest.apk',
     'Pico.apk':BUILDS/'Android/FPSloppa-Pico.apk',
-    'LibreQuake-Extra-Maps.zip':BUILDS/f'FPSloppa-{VERSION}-LibreQuake-Extra-Maps.zip',
+    'Optional-Community-Maps.zip':ROOT/'dist'/f'FPSloppa-{VERSION}-Optional-Community-Maps.zip',
     'Original-TF-Arenas.zip':BUILDS/f'FPSloppa-{VERSION}-Original-TF-Arenas.zip',
 }
 expected={f'FPSloppa-{VERSION}-{label}' for label in files}|{'BUILD-MANIFEST.json','SHA256SUMS','RELEASE-NOTES.md'}
@@ -24,6 +24,10 @@ if unexpected:raise SystemExit('Unexpected staged release assets: '+str(sorted(u
 rows=[]
 for label,source in files.items():
     assert source.is_file(),source
+    if label=='Optional-Community-Maps.zip':
+        validation=json.loads((ROOT/'docs/validation/optional-map-pack.json').read_text())
+        assert validation['passed'] and len(validation['maps'])==53,'Optional map verification incomplete'
+        assert validation['archive_sha256']==hashlib.sha256(source.read_bytes()).hexdigest(),'Optional map verification is stale'
     with zipfile.ZipFile(source) as archive:
         assert archive.testzip() is None,source
         for name in archive.namelist():

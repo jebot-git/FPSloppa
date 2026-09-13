@@ -1,0 +1,44 @@
+[
+  {
+    "test": "hislop-default",
+    "exit_code": 0,
+    "checks": 33,
+    "passed": true,
+    "log": "test-results/assault-defaults/hislop-default.log"
+  },
+  {
+    "test": "water-default",
+    "exit_code": 0,
+    "checks": 4,
+    "passed": true,
+    "log": "test-results/assault-defaults/water-default.log"
+  },
+  {
+    "test": "frigate-default",
+    "exit_code": 0,
+    "checks": 29,
+    "passed": true,
+    "log": "test-results/assault-defaults/frigate-default.log"
+  },
+  {
+    "test": "hislop-tiny",
+    "exit_code": 0,
+    "checks": 8,
+    "passed": true,
+    "log": "test-results/assault-defaults/hislop-tiny.log"
+  },
+  {
+    "test": "water-tiny",
+    "exit_code": 0,
+    "checks": 4,
+    "passed": true,
+    "log": "test-results/assault-defaults/water-tiny.log"
+  },
+  {
+    "test": "frigate-tiny",
+    "exit_code": 0,
+    "checks": 28,
+    "passed": true,
+    "log": "test-results/assault-defaults/frigate-tiny.log"
+  }
+]

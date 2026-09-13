@@ -56,5 +56,10 @@ def main(a):
     for name in ['COPYING','CREDITS','README-IMPORTANT-LICENCE-INFO']:
         shutil.copy2(a.librequake.parent/'docs'/name,DEST/('LibreQuake-'+name+'.txt'))
     print(len(entries),'named replacements;',len(out),'bytes;',sha(out))
+    if not a.without_makkon:
+        import sys
+        sys.path.insert(0,str(ROOT/'tools'))
+        from makkon.build_shared import build
+        build()
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--librequake',required=True,type=Path);main(p.parse_args())
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--librequake',required=True,type=Path);p.add_argument('--without-makkon',action='store_true');main(p.parse_args())

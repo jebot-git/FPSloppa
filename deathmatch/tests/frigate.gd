@@ -3,8 +3,9 @@ var game
 var failures: Array=[]
 var checks:=0
 var routes: Array=[]
+var layout_test:=false
 func _initialize() -> void:run.call_deferred()
-func q(x: float,y: float,z: float=0) -> Vector3:return Vector3(-y,z,-x)/32.0+Vector3.UP*.05
+func q(x: float,y: float,z: float=0) -> Vector3:return Vector3(-y*(1.3 if layout_test else 1.0),z,-x*(1.6 if layout_test else 1.0))/32.0+Vector3.UP*.05
 func check(ok: bool,label: String) -> void:
 	checks+=1;print("PASS " if ok else "FAIL ",label)
 	if not ok:failures.append(label)
@@ -12,22 +13,26 @@ func route(points: Array,swim: bool=false,dive: bool=false) -> bool:
 	var actor=game.fighters[1];var runtime=game.get_node("Map/MapRuntime")
 	for target in points:
 		var reached:=false
-		for frame in 600:
+		var seconds:=0.0
+		for frame in (1200 if layout_test else 600):
 			await physics_frame
 			var delta: Vector3=target-actor.position
 			if Vector2(delta.x,delta.z).length()<.22 and (swim or absf(delta.y)<.65):reached=true;break
 			if swim:runtime._physics_process(1.0/60)
 			actor.simulate(Vector2(delta.x,delta.z).normalized(),0,true,1.0/60,swim and not dive,Vector3(0,clampf(delta.y,-1,1),0) if dive else Vector3.ZERO)
-		var row:={"target":str(target),"end":str(actor.position),"pass":reached}
+			seconds+=1.0/60
+		var row:={"target":str(target),"end":str(actor.position),"pass":reached,"seconds":seconds}
 		routes.append(row);print("ROUTE ",row)
 		if not reached:return false
 	return true
 func blocked(a: Vector3,b: Vector3) -> bool:
 	return not game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(a,b,1)).is_empty()
 func run() -> void:
+	layout_test=not "--tiny" in OS.get_cmdline_user_args()
+	var map_id:="as_frigate" if layout_test else "as_frigate_tiny"
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);game.set_process(false);game.set_physics_process(false)
-	game.selected_map="as_frigate";game.start_host("Frigate audit",0,100,6,true,"as")
-	check(game.active and game.current_map=="as_frigate","Catalog Frigate starts in Assault")
+	game.selected_map=map_id;game.start_host("Frigate audit",0,100,6,true,"as")
+	check(game.active and game.current_map==map_id,"Catalog Frigate starts in Assault")
 	if not game.active:finish();return
 	game.get_node("Map/MapRuntime").set_physics_process(false)
 	for id in game.players:game.players[id].spectator=true
@@ -35,7 +40,7 @@ func run() -> void:
 	var actor=game.fighters[1];var rules=game.match_mode.assault;var tf=game.match_mode.fortress
 	await physics_frame;await physics_frame
 	if "--views" in OS.get_cmdline_user_args():await views();finish();return
-	check(game.Maps.supports_assault("res://maps/as_frigate.bsp") and rules.objectives.size()==2,"BSP advertises ordered Assault objectives and both teams")
+	check(game.Maps.supports_assault("res://maps/"+map_id+".bsp") and rules.objectives.size()==2,"BSP advertises ordered Assault objectives and both teams")
 	check(tf.buildings.size()==2 and tf.buildings[100100].hp==240,"Defending sentry and 240 HP compressor are installed")
 	check(game.bots.ready_to_walk,"Prebaked navigation loads")
 	var space=game.get_world_3d().direct_space_state
@@ -64,6 +69,9 @@ func run() -> void:
 	check(await route([q(-1008,-64),q(-1008,-200),q(-672,-200,160)]),"Alternate aft staircase reaches the mess deck with full capsule clearance")
 	actor.position=q(-1120,-960);actor.velocity=Vector3.ZERO
 	check(await route([q(-1024,-768),q(352,-768),q(352,-256),q(224,-128),q(96,-128),q(0,0),q(-304,0),q(-544,-128),q(-688,-128),q(-800,0)]),"Continuous warehouse, gangway and compartment route reaches the aft compressor")
+	if layout_test:
+		actor.position=q(96,0);actor.velocity=Vector3.ZERO
+		check(await route([q(-128,0),q(-128,112),q(-672,112),q(-672,0),q(-800,0)]),"Separate starboard compartment route reaches aft compressor")
 	actor.position=rules.objectives[0].position;rules.tick(.02)
 	check(rules.stage==0 and not rules.activate(1),"Walking, Use and VR activation cannot bypass compressor damage")
 	actor.position=rules.objectives[1].position
@@ -94,7 +102,8 @@ func run() -> void:
 	# Door movement is normally in arena process; put it at its fully open endpoint.
 	game.gates[0].node.position=game.gates[0].base_position+game.gates[0].travel
 	actor.position=q(-800,0);actor.velocity=Vector3.ZERO
-	check(await route([q(-688,-128),q(-544,-128),q(-432,0),q(-432,112),q(-560,112),q(-560,208),q(-224,208,160),q(-224,0,160),q(-320,0,160),q(-304,-128,176),q(32,-128,320),q(96,-128,320),q(192,0,320)]),"Continuous aft-to-mess-deck stairs and bridge stairs reach the unlocked final console")
+	var junction:= -384 if layout_test else -432
+	check(await route([q(-688,-128),q(-544,-128),q(junction,0),q(junction,112),q(-560,112),q(-560,208),q(-224,208,160),q(-224,0,160),q(-320,0,160),q(-304,-128,176),q(32,-128,320),q(96,-128,320),q(224 if layout_test else 192,0,320)]),"Continuous aft-to-mess-deck stairs and bridge stairs reach the unlocked final console")
 	s.vr_device=true;check(rules.activate(1) and rules.switching and rules.first_finished,"VR Use at the gun console completes first attack")
 	rules.next_leg();check(rules.stage==0 and rules.attacking==1 and tf.buildings[100100].hp==240 and tf.buildings[100100].team==0 and not game.gates[0].open,"Role swap restores compressor, defender ownership and locked door")
 	s.team=1;s.dead=false;s.spectator=false;game.intermission=0
@@ -121,11 +130,11 @@ func views() -> void:
 	root.size=Vector2i(1440,900);root.content_scale_size=Vector2i(1440,900)
 	var camera: Camera3D=game.get_node("Overview");camera.make_current();camera.fov=78
 	game.match_mode.draw_objectives();game.match_mode.fortress.draw()
-	for view in [["harbor",q(1472,-1232,704),q(-160,0,176)],["dock",q(832,-784,64),q(-128,0,208)],["compressor",q(-704,-64,56),q(-896,32,48)],["mess",q(-960,224,216),q(-384,0,208)],["bridge",q(64,-160,376),q(304,0,376)],["intake",q(896,576,-32),q(608,224,-128)]]:
+	for view in [["harbor",q(1472,-1232,704),q(-160,0,176)],["dock",q(832,-784,64),q(-128,0,208)],["compressor",q(-704,-64,56),q(-896,32,48)],["mess",q(-960,224,216),q(-384,0,208)],["bridge",q(64,-160,376),q(304,0,376)],["intake",q(896,576,-32),q(608,224,-128)],["service-passage",q(-160,112,56),q(-560,112,56)]]:
 		camera.position=view[1];camera.look_at(view[2]);await process_frame;await process_frame;await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("res://test-results/frigate/"+view[0]+".png")
+		root.get_texture().get_image().save_png(("res://test-results/assault-layouts/frigate/" if layout_test else "res://test-results/frigate/")+view[0]+".png")
 func finish() -> void:
 	var report:={"checks":checks,"failures":failures,"routes":routes}
 	print("FRIGATE_RESULT ",JSON.stringify(report))
-	if not "--views" in OS.get_cmdline_user_args():FileAccess.open("res://test-results/frigate/result.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	if not "--views" in OS.get_cmdline_user_args():FileAccess.open("res://test-results/assault-layouts/frigate/result.json" if layout_test else "res://test-results/frigate/result.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
 	game.free();quit(0 if failures.is_empty() else 1)

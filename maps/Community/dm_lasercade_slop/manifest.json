@@ -1,0 +1,22 @@
+{
+  "id": "dm_lasercade_slop",
+  "archive": "dm-lasercade.zip",
+  "source": "https://www.slipseer.com/resources/dm-lasercade.415/",
+  "download": "https://www.slipseer.com/resources/dm-lasercade.415/download",
+  "sha256": "45307af30d09fcac67b7111b962f4a9e18d6fc41f3b5222c1d29f6c0eba821cc",
+  "title": "Lasercade",
+  "author": "shysaur",
+  "rating": 4.67,
+  "rating_votes": 3,
+  "recommended_players": [
+    4,
+    8
+  ],
+  "reviewed": "2026-09-12",
+  "permission": "Author permits derivative levels and free BSP distribution; original readme included verbatim. Original image assets replaced with separately licensed textures.",
+  "installed_sha256": "ea64a35a58c63a95e3252687388ff63f90903ca8e457aa788f16ef50a0a926e8",
+  "bytes": 7730340,
+  "original_bsp_sha256": "9dc439ed3fa683a08220f43bfc1e93d5faacf4e5f7e144510f1f30a1fe12ad9c",
+  "changes": "All embedded images replaced with licensed original Makkon/LibreQuake textures. Title identifies adaptation; baked lighting enabled, original .lit embedded as BSPX RGBLIGHTING where supplied. Geometry, collision, VIS, lightmap data, gameplay entities and item placement unchanged. Quake-specific player skin, music and bot data omitted.",
+  "limitations": "Full Quake button/relay/counter logic is not emulated. Direct touch triggers can activate doors; other doors use proximity and platforms use timed cycles. Animated arcade, waterfall and shootable-button frames become static counterparts. Multiplayer balance needs playtesting."
+}

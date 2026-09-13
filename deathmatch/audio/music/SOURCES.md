@@ -1,6 +1,6 @@
 # FPSloppa soundtrack
 
-Metal instrumentation was selected after an A/B audition. The eight original gameplay scores
+Metal instrumentation was selected after an A/B audition. The nine original gameplay scores
 use their own electric-guitar, bass and acoustic-drum arrangement.
 Title and lobby keep their previously approved compositions and renders.
 
@@ -16,6 +16,7 @@ Title and lobby keep their previously approved compositions and renders.
 | Freeze tag | Cold Anvil | 104 | 148 s | Low C doom riffs and ringing power chords |
 | Chainsaw carousel | Chain Drive | 152 | 101 s | Low D groove, chugs and heavy half-time snare |
 | Team Fortress | Siege Engine | 124 | 124 s | C-sharp battle rhythm and open chord accents |
+| Titanball | Escape Velocity | 136 | 113 s | Looping sci-fi rock with breakbeats and paired guitar riffs |
 | Assault | Mega Destruction — Zilly Mike | Tracker tempo | 157 s | Public-domain XM metal arrangement |
 
 Metal tracks use independent left/right guitar recordings, open and palm-muted
@@ -24,7 +25,7 @@ and acoustic drums with short room tails. They retain 44.1 kHz stereo detail in
 compact Vorbis files. Title/lobby use 32 kHz stereo Vorbis and retain editable
 eight-channel MODs. No existing game soundtrack recording or melody is used.
 
-The eleven active Ogg files total **17,252,904 bytes (16.45 MiB)**. Gameplay is mastered
+The twelve active Ogg files total **19,233,245 bytes (18.34 MiB)**. Gameplay is mastered
 to −19 LUFS, title −22 and lobby −21, with a −3 dBTP target before Vorbis encoding.
 Loop-edge fades prevent sample-boundary clicks. Selection remains asynchronous,
 with 2.5-second crossfades, a separate persistent music volume, and no restart
@@ -107,3 +108,19 @@ assets, not the whole game.
 ## Assault — Mega Destruction
 
 AS uses **Mega Destruction** by **Zilly Mike**, an external XM module listed as **Public Domain** by [Mod Archive](https://modarchive.org/index.php?request=view_by_moduleid&query=50252). Its original instrumentation is retained, converted and mastered to match the gameplay music. The original XM, source/license links and regeneration instructions are in [docs/audio/assault/README.md](../../../docs/audio/assault/README.md). This track is separate from the original compositions and their CC0 dedication above.
+
+## Titanball — Escape Velocity
+
+TB uses the original **Escape Velocity** sci-fi rock/breakbeat arrangement, adapted
+into a **64-bar loop at 136 BPM (112.941 seconds)**. The last B chord resolves
+back into the opening E groove; the audition intro/outro fades are removed.
+Instrument releases and stereo delays carry across the loop. Filter/compressor
+state is warmed from the previous cycle; short 3 ms edge ramps and an 8 ms
+Vorbis entry ramp suppress codec-boundary clicks without a musical pause.
+
+The same recorded CC0 guitar, bass, drums and VSCO viola sources are used.
+`python3 tools/generate_tb_music.py --install` regenerates the loop, validates
+the decoded Ogg and updates its manifest entry. The original finite audition
+remains in [the comparison folder](../../../docs/audio/escape-velocity/README.md).
+The runtime version is mastered to −19 LUFS; only its Ogg and score metadata
+are added to the normal music assets. Existing music volume and crossfades apply.

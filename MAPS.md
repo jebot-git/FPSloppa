@@ -1,33 +1,14 @@
 ## 0.4v map storage
 
-Maps now live in external `maps/`, not inside the Godot package. Five extra LibreQuake arenas are available as an optional pack. ThreeWave is tools-only on GitHub; converted BSPs remain local for non-commercial testing/server use. See [setup and compatibility](docs/EXTERNAL-ASSETS.md).
+Maps now live in external `maps/`, not inside the Godot package. The original LibreQuake arenas are included in the Optional Community Map Pack. ThreeWave is tools-only on GitHub; converted BSPs remain local for non-commercial testing/server use. See [setup and compatibility](docs/EXTERNAL-ASSETS.md).
 
 # Quake BSP arenas
 
-Choose **ARENA** before hosting. Eight free deathmatch maps from [LibreQuake v0.09-beta](https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta) are bundled:
+Choose the game mode before selecting **ARENA**. The base game contains seven Quake source ports (`qsrc_dm1`–`qsrc_dm7`) for DM, IG, FT and TDM. Instafreeze shares the IG list. It also includes four [CC rebuilds](maps/CC/README.md), four [KOTH rebuilds](maps/KOTH/README.md), six [CTF Studies](maps/CTFStudies/README.md), two current TF arenas and two full-size Assault layouts.
 
-| ID | Arena | Deathmatch spawn points |
-|---|---|---:|
-| lqdm1 | Solstice | 8 |
-| lqdm2 | Torture Pit | 8 |
-| lqdm4 | Psychofuge | 9 |
-| lqdm7 | Boomstick Basement | 12 |
-| lqdm8 | Alichar Sector | 8 |
-| lqdm3 | Hyperborea | 10 |
-| lqdm5 | Transport Tubes | 8 |
-| lqdm6 | Ghost Quarter | 9 |
+The **Optional Community Map Pack** contains 53 maps sorted into seven game-mode categories, excluded from base downloads and default installation: 35 non-TF maps from Arena Collection 1, all thirteen LibreQuake arenas and five reviewed community adaptations. Optional TF maps and Tiny Assault layouts are excluded. See [categorized contents](tools/optional_maps/CATALOG.md), [installation](tools/optional_maps/PACK-README.md), and [current import/installer validation](docs/validation/optional-map-pack.json). LibreQuake compatibility coverage is detailed in [the expansion notes](docs/LIBREQUAKE-EXPANSION.md). User imports and personalised server maplists remain available.
 
-**PRACTICE VS BOTS** starts a fully offline match with three bots on the selected BSP arena, using the same pistol-only inventory, pickups, damage, respawns and frag/time limits as multiplayer. No listening network socket is opened. The original Entryway map and its assets have been removed; `--debug-entryway` is no longer supported.
-
-Bots navigate a baked navigation mesh, search for pickups, acquire visible opponents, aim with a reaction delay, and fire through the normal weapon logic. They are simple practice opponents: they do not reason about teleporter destinations, timed platform rides, or advanced Quake movement routes. Custom BSP navigation is baked asynchronously when practice starts. Bots are offline only. Launch directly with `-- --practice --map lqdm1`.
-
-A dedicated server can select an arena with:
-
-```bash
-./run-desktop.sh --headless -- --server --map lqdm8 --port 7777
-```
-
-All eight support dedicated TDM, CTF and KOTH through the objective adaptations described in [GAMEMODES.md](GAMEMODES.md). The new maps are original LibreQuake v0.09-beta BSP/LIT files with the same BSD-3-Clause notices as the existing pack. No original id Software texture data is bundled.
+The seven Quake geometry sources are GPL-2.0; their original/adapted sources and notices are distributed in `maps/Quake/`. Texture artwork retains its separate licences. No commercial id Software texture data is included. See [distribution and CC validation](docs/CC-BASE-DISTRIBUTION.md).
 
 ## Custom maps
 
@@ -84,7 +65,7 @@ Brush triangle collision now uses the same inverse entity rotation as the visibl
 
 FortressOne TF candidates were converted and reviewed locally; none passed base-map acceptance. See [the review](docs/FORTRESSONE_MAP_REVIEW.md) and [reproducible tools](tools/fortressone/README.md). Their BSPs stay outside the repository and default TF rotation.
 
-## Optional original Quake deathmatch source ports
+## Base Quake deathmatch source ports
 
 DM1–DM6 plus bonus DM7 can be compiled from the GPL source release with the shared LibreQuake/generated counterpart dictionary. Singleplayer maps and DM8 are excluded. See `tools/quake_source/README.md`. Missing named textures in all imported BSPs use the same dictionary; embedded art stays intact. See `tools/texture_replacements/README.md` for conversion and preview tools. ThreeWave and original TF conversions remain local only.
 
@@ -112,3 +93,5 @@ playtest configuration. The source build installs it in the AS maplist; the next
 base asset package includes its BSP, scene caches and navigation. Construction,
 reference attribution and tests are in [Frigate notes](tools/frigate_concept/README.md);
 texture provenance and notices are in `maps/Frigate/`.
+
+Ashfall Boulevard (`tb_ashfall`) is the experimental TITANBALL BSP map: a sealed 300 m ruined-city route, attacker hangar, high overpasses and fortified defender base. Source, WAD and licenses: [maps/Ashfall](maps/Ashfall/README.md). It is selected only by TB; the two-map TF distribution is unchanged.

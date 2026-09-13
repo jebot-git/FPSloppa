@@ -16,7 +16,7 @@ for path in paths:
   if previous.get('audit_fingerprint')==fingerprint and previous.get('sha256')==hashlib.sha256(path.read_bytes()).hexdigest():results.append(previous);continue
  print('PLAYTEST',path.stem,flush=True)
  with target.with_suffix('.log').open('w') as log:
-  try:r=subprocess.run([os.environ.get('GODOT_BIN',str(Path.home()/'.local/bin/Godot_v4.7.2-stable_linux.x86_64')),'--path',str(ROOT),'--xr-mode','off','--rendering-method','gl_compatibility','--script','res://deathmatch/tests/fortressone_preview.gd' if args.preview_only else 'res://deathmatch/tests/fortressone_playtest.gd','--',str(path),str(target)],stdout=log,stderr=subprocess.STDOUT,timeout=360);code=r.returncode
+  try:r=subprocess.run([os.environ.get('GODOT_BIN',str(Path.home()/'.local/bin/Godot_v4.7.2-stable_linux.x86_64')),'--path',str(ROOT),'--xr-mode','off','--rendering-method','mobile','--script','res://deathmatch/tests/fortressone_preview.gd' if args.preview_only else 'res://deathmatch/tests/fortressone_playtest.gd','--',str(path),str(target)],stdout=log,stderr=subprocess.STDOUT,timeout=360);code=r.returncode
   except subprocess.TimeoutExpired:code=124
  if args.preview_only:
   results.append({'failures':[],'exit_code':code,'engine_errors':[line for line in target.with_suffix('.log').read_text().splitlines() if 'ERROR:' in line]});continue

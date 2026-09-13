@@ -1,0 +1,75 @@
+{
+  "date": "2026-09-12",
+  "platform": "Linux x86_64 / BlueZ",
+  "godot": "4.7.2.stable.fedora.ed1daf0bf",
+  "extension_api": "4.5",
+  "native_build": "debug; local development artifact",
+  "native_sha256": "5fdc43acc2cfa73185e69b5eb3f4eab91ed94dbb4b80f0bc30fc8bcfd2a97f45",
+  "dependencies": {
+    "godot": "0.5.5",
+    "freehaptics": "0.3.1",
+    "btleplug": "0.11.8",
+    "lockfile": "addons/bhaptics_native/native/Cargo.lock"
+  },
+  "hardware": {
+    "model": "TactSuitX40",
+    "path": "Godot GDExtension \u2192 freehaptics / btleplug \u2192 BlueZ \u2192 BLE",
+    "proprietary_player_required": false,
+    "test": "one front-chest frame, intensity 0.25, 200 ms host watchdog; explicit stop and disconnect",
+    "host_diagnostics": {
+      "active_writes": 3,
+      "writes_at_watchdog_check": 12,
+      "last_active_motors": 0
+    },
+    "wearer_confirmation": "Yes, felt it and it stopped",
+    "reconnect_observation": "Connection failed while unavailable; passed after user powered vest on. No automatic reconnect."
+  },
+  "rust_unit_tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "godot_checks": {
+    "bhaptics": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.563,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics-native": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.251,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics-live": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 6.867,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics-presentation": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 1.754,
+      "children_left_at_exit": [],
+      "forced_cleanup": [],
+      "survivors": []
+    }
+  },
+  "osc_loopback_packets": 140,
+  "limitations": [
+    "BLE writes use write-without-response; host counters are not device acknowledgements",
+    "Physical left/right/back mapping and tracked-torso orientation not validated",
+    "Sustained gameplay comfort/latency not validated",
+    "Air hardware not tested",
+    "Vendor OSC receiver hardware interoperability not tested",
+    "Linux exports and native release packaging not validated",
+    "Windows/Android native backends not implemented"
+  ]
+}

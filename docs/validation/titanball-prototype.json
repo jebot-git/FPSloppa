@@ -1,0 +1,462 @@
+{
+  "status": "experimental_bsp_playtest",
+  "mode": "tb",
+  "title": "TITANBALL",
+  "classes": "TF",
+  "weapon_rules": "quake",
+  "robot_height_m": 10,
+  "speed_mps": 0.8,
+  "first_minute_distance_m": 47.2,
+  "cruise_metres_per_minute": 48,
+  "route_m": 300.0,
+  "ladder": "belly-mounted, 8 cm ground gap, no additional platforms",
+  "turret_hp": null,
+  "turrets_invulnerable": true,
+  "gameplay_checks": 60,
+  "network_checks": 60,
+  "network_clients": 2,
+  "existing_weapon_policy_checks": 38,
+  "render": {
+    "bones": 18,
+    "failures": [],
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "renderer": "mobile",
+    "resolution": [
+      1280,
+      800
+    ]
+  },
+  "exterior_body_visibility": "Complete shell retained; cabin private to local pilot camera",
+  "quest_tested": false,
+  "release_built": false,
+  "cleanup_notes": "Final headless checks report one ObjectDB shutdown leak. Native HUD renders pass but report six ObjectDB instances and one resource still in use at shutdown. No runtime script errors. QBSP has clipped-portal/detail and generated skip-texture warnings; no leak file.",
+  "files": {
+    "deathmatch/arena.gd": "304e4faffe271c3bff5814fc812f19c6bb78cf9572107ec72e8ccc03eb17c4a7",
+    "deathmatch/bots.gd": "f4d09052a4248082b31023d9d71392523cdd8367217782c89f1d400afa9c6104",
+    "deathmatch/experimental/combat.gd": "cc6e8dc7b6b9ea3ee88300e4f7511b9a975cedb2efa5ab98a0d37a6af6329ede",
+    "deathmatch/interface.gd": "700e5451001a3fbd4958468d63d7ee4728f6cde55945477ceedf58c356757002",
+    "deathmatch/modes/fortress.gd": "df2374b3156deffc14cfb8acf0a9bf0950a754f66ccde6919aa6514056216611",
+    "deathmatch/modes/match.gd": "67a5c8f147a3fb4e43d6e978786cf9a398835ed5be7be932f7794f7fdf7c2bad",
+    "deathmatch/modes/titanball.gd": "4d6a5f7071fa891b2925cdd51e309e8227ff7dd9b36c473c30eedbd1683d77cd",
+    "deathmatch/server/config.gd": "5f9236296a23f0bb5d3321d779d8c8b82cc6073b58f33a9c8e9e3a097f60c401",
+    "deathmatch/vehicles/ba2/controller.gd": "13699d56e064a5a6a69158557e466346b97ecb7eaf289c7e9e72bdc5fde02408",
+    "deathmatch/vehicles/ba2/model.scn": "3bfded3983fb256ebbf2703edbaf7ff86590785cf3bdd61d6f2cb6b059f3b933",
+    "deathmatch/vehicles/ba2/route.gd": "d5a06693c4327b6efb9ac10bcc63c41377670b24f3fb7c6919837b0cbe83470f",
+    "deathmatch/vehicles/ba2/tuning.gd": "8e3ca8ec81d7f04332d8a17528872db9c174f8c1120fb865a7ae713783969884",
+    "deathmatch/vehicles/ba2/view.gd": "86ce13c0924695e7f6f781370e6fb5b1775d26cbfd464aaf59e305f25f26523e",
+    "deathmatch/vr/rig.gd": "f1bd4178d092fd1b72770d912521f8909a6759a78f7569162afec90018e77b02",
+    "tools/ba2/gameplay/fixture.gd": "97fda65b36dd2c80b592356e9aaa6523552b9bc3e45a9a2cee223ce3d6c9016a",
+    "tools/ba2/gameplay/network.gd": "3f2a0834953a58fe6c2e0da1ce36d11e29fd58c181544fc01bc1fa9627a9e402",
+    "tools/ba2/gameplay/payload_tests.gd": "9dbefdaf4c010828d4f481d558d7da7753405f197996aaf5615fcd92201d849f",
+    "tools/ba2/gameplay/pilot_tests.gd": "8c46787ced5e3f176afe197ba9bdc4a175d1c58c3fc0a3d0045bb8dcdfd316e8",
+    "tools/ba2/gameplay/playground.gd": "1cca3792c82d4c962f0799c9490d75c74a6868cf5fcfae41919f56147fe65b1d",
+    "tools/ba2/gameplay/prepare_asset.gd": "9c26e512f0d4a24f833fc94d0385790b6f54eefcfb3cd4a52a4fac6b14949d4a",
+    "tools/ba2/gameplay/render.gd": "35b75d00191e783569171a7ac38c81cc1e9293292c2de497eddf4c256d090418",
+    "tools/ba2/gameplay/tests.gd": "9c4d93fbbd9a470a4a51a553d6d760c7c089947f381f7b346cb0ecc547b2e311",
+    "tools/ba2/gameplay/timing_tests.gd": "d90feac45b1a20ead27be73440d03ce8a576d02d077f6e1dbc47ce3596862e7e",
+    "deathmatch/vehicles/ba2/cockpit.gd": "9e0eb808671440d8dc5b0afda089b020f296861e7362e0d0f4a67f4f1939c997",
+    "deathmatch/vehicles/ba2/map.gd": "e22d77103a3637e09ce7640193ee91ac35f8a294ab9365ea464a5af55f2c6625",
+    "deathmatch/vehicles/ba2/cockpit_room.gd": "8eafe7621b5a60847cbbd2052937ac2b369ffd9fd41b4b39b628d4834abb3f98",
+    "deathmatch/vehicles/ba2/cockpit_hud.gd": "2a71bd70bbdaa69bcddf50699b4def849e55ee26656b7dbf9aa12e728db32807",
+    "tools/titanball/export_route.gd": "064e6bb9b91dc553da1f10d6ed5987467539f6cc8bad12980d2a2453e8e94bd1",
+    "tools/titanball/acceptance.gd": "f7f26b5512bf83eec5d12c08eae3c9b7240b4bca5d665424a012a4883cea39ca",
+    "tools/titanball/verify_assets.gd": "faac00727016c143f6563f4ecea42c787df4f2a5fc2edc79e6f62ab1d2b1a1a4",
+    "tools/ba2/cockpit/main.gd": "199bc4194fcac33ca4feb262a2b06643f9746cb978a03476e6a62fbfa976caea",
+    "maps/tb_ashfall.bsp": "503e90346cee8f582e6cc535a83e9224aed94630c3d1e5a3ebf41ab29b951f3e"
+  },
+  "pilot_controls": {
+    "exit": "fresh jump edge or Use",
+    "weapon": "FIST, slot 0, no weapon switching",
+    "armour": 200,
+    "armour_tier": 2,
+    "armour_persistent": true,
+    "restored_on_exit": [
+      "weapon",
+      "armour",
+      "armour tier"
+    ],
+    "body_hits_damage_pilot": true,
+    "death_forces_physical_ejection": true
+  },
+  "pilot_checks": 34,
+  "hit_detection_regression_checks": 18,
+  "timing": {
+    "starting_seconds": 600,
+    "configurable": false,
+    "extension_seconds": 180,
+    "checkpoints_m": [
+      80,
+      180
+    ],
+    "rear_clearance_m": 10,
+    "trigger_route_origin_m": [
+      90,
+      190
+    ],
+    "maximum_total_seconds": 960,
+    "once_per_round": true,
+    "checks": 27,
+    "failures": [],
+    "simulations": [
+      {
+        "checkpoint_seconds": [
+          113.499999999995,
+          238.516666666749
+        ],
+        "distance_m": 300.000396728516,
+        "manned_seconds": 377.016666666652,
+        "name": "continuous piloting",
+        "remaining_seconds": 582.983333333676,
+        "seconds": 377.016666666652,
+        "speed": 0.0
+      },
+      {
+        "checkpoint_seconds": [
+          206.500000000056,
+          486.516666666553
+        ],
+        "distance_m": 300.000396728516,
+        "manned_seconds": 389.016666666642,
+        "name": "30 seconds on / 30 off",
+        "remaining_seconds": 210.983333333938,
+        "seconds": 749.016666666314,
+        "speed": 0.0
+      },
+      {
+        "checkpoint_seconds": [
+          223.466666666737,
+          473.483333333231
+        ],
+        "distance_m": 300.000396728516,
+        "manned_seconds": 375.049999999988,
+        "name": "5 seconds on / 5 off",
+        "remaining_seconds": 213.016666667273,
+        "seconds": 746.983333332983,
+        "speed": 0.0
+      },
+      {
+        "checkpoint_seconds": [
+          593.516666666456,
+          718.533333333008
+        ],
+        "distance_m": 300.000396728516,
+        "manned_seconds": 377.016666666652,
+        "name": "eight minutes idle then continuous",
+        "remaining_seconds": 102.966666666752,
+        "seconds": 857.033333332883,
+        "speed": 0.0
+      },
+      {
+        "checkpoint_seconds": [],
+        "distance_m": 47.2000000000009,
+        "manned_seconds": 59.9999999999979,
+        "name": "nine minutes idle then continuous",
+        "remaining_seconds": 0.0,
+        "seconds": 600.01666666645,
+        "speed": 0.8
+      }
+    ],
+    "notes": "Measured full controller and collision simulations. Arrival includes final braking. Obstacles consume match time; checkpoints cannot revive an expired round.",
+    "preparation_seconds": 60,
+    "preparation_excluded_from_match_time": true
+  },
+  "payload_checks": 20,
+  "production_map_implemented": true,
+  "payload": {
+    "attackers": "red",
+    "defenders": "blue",
+    "attacker_win": "robot reaches and halts at 300 m base",
+    "defender_win": "round timer expires",
+    "defender_boarding": false,
+    "spawn_groups_route_m": [
+      0,
+      72,
+      172
+    ],
+    "defender_spawn_route_m": 300,
+    "spawn_points_per_group": 4,
+    "live_players_teleported_at_checkpoint": false,
+    "balconies": [
+      {
+        "route_m": 236,
+        "height_m": 4.2,
+        "count": 2
+      },
+      {
+        "route_m": 278,
+        "height_m": 4.2,
+        "count": 2
+      }
+    ],
+    "ramp_approaches": 8,
+    "lane_width_m": 26,
+    "combat_corridor_width_m": 36,
+    "human_balance_tested": false,
+    "payload_bot_tactics": false,
+    "failures": [],
+    "overpasses": [
+      {
+        "route_m": 88,
+        "height_m": 13.2,
+        "access_towers": 2
+      },
+      {
+        "route_m": 198,
+        "height_m": 13.2,
+        "access_towers": 2
+      }
+    ],
+    "universal_resupply_stations": 16,
+    "natural_pickups": 0,
+    "closed_sides": true
+  },
+  "map": {
+    "id": "tb_ashfall",
+    "title": "Ashfall Boulevard | TITANBALL",
+    "sha256": "503e90346cee8f582e6cc535a83e9224aed94630c3d1e5a3ebf41ab29b951f3e",
+    "source_sha256": "a7ad0bc3c1acae079e98377eb84cccac32103962e6949c81c839e621e2236b62",
+    "bytes": 17875888,
+    "structural_brushes": 939,
+    "detail_brushes": 624,
+    "route_m": 300,
+    "team_spawns": [
+      12,
+      4
+    ],
+    "natural_pickups": 0,
+    "universal_resupply": 16,
+    "geometry_license": "CC0-1.0",
+    "textures": "texture-sources.json",
+    "lighting_complete": true
+  },
+  "map_available_in_host": true,
+  "production_map_status": "playtest; human balance and Quest unverified",
+  "test_suites": {
+    "gameplay": {
+      "checks": 60,
+      "failures": [],
+      "result": "test-results/ba2/gameplay/results.json"
+    },
+    "pilot": {
+      "checks": 34,
+      "failures": [],
+      "result": "test-results/ba2/gameplay/pilot-results.json"
+    },
+    "timing": {
+      "checks": 27,
+      "failures": [],
+      "result": "test-results/ba2/gameplay/timing.json"
+    },
+    "payload": {
+      "checks": 20,
+      "failures": [],
+      "result": "test-results/ba2/gameplay/payload.json"
+    },
+    "preparation": {
+      "checks": 17,
+      "failures": [],
+      "result": "test-results/ba2/gameplay/city.json"
+    }
+  },
+  "network": [
+    {
+      "role": "server",
+      "passed": true,
+      "checks": 14
+    },
+    {
+      "role": "client_a",
+      "passed": true,
+      "checks": 23
+    },
+    {
+      "role": "client_b",
+      "passed": true,
+      "checks": 23
+    }
+  ],
+  "bsp_acceptance": {
+    "checks": [
+      {
+        "name": "Compiled BSP supplies route and all forward/team spawn groups",
+        "pass": true
+      },
+      {
+        "name": "No natural pickups; BSP defines sixteen universal dispensers",
+        "pass": true
+      },
+      {
+        "name": "BSP match begins with preparation and untouched ten-minute clock",
+        "pass": true
+      },
+      {
+        "name": "BSP hangar gate blocks passage during preparation",
+        "pass": true
+      },
+      {
+        "name": "BSP firing slit permits bidirectional harassment",
+        "pass": true
+      },
+      {
+        "name": "BSP slit excludes prone player capsule",
+        "pass": true
+      },
+      {
+        "name": "After sixty preparation seconds the BSP gate opens without spending match time",
+        "pass": true
+      },
+      {
+        "name": "Every BSP spawn has floor and standing clearance",
+        "pass": true
+      },
+      {
+        "name": "Robot clears all 300 metres of compiled BSP geometry",
+        "pass": true
+      },
+      {
+        "name": "Buildings or ruins close both street edges along the entire city route",
+        "pass": true
+      },
+      {
+        "name": "At least eight street-level ambush room probes are accessible standing spaces",
+        "pass": true
+      },
+      {
+        "name": "Both high overpasses have standing clearance at their four access towers",
+        "pass": true
+      },
+      {
+        "name": "BSP produces reusable navigation geometry",
+        "pass": true
+      },
+      {
+        "name": "Navigation reaches overpass tower (14.51147, 13.25, 84.14989)",
+        "pass": true
+      },
+      {
+        "name": "Navigation reaches overpass tower (41.0681, 13.25, 71.53619)",
+        "pass": true
+      },
+      {
+        "name": "Navigation reaches overpass tower (-34.58834, 13.25, 150.2445)",
+        "pass": true
+      },
+      {
+        "name": "Navigation reaches overpass tower (-13.9189, 13.25, 171.1523)",
+        "pass": true
+      }
+    ],
+    "failures": [],
+    "routes": [
+      {
+        "kind": "overpass",
+        "pass": true,
+        "points": 54
+      },
+      {
+        "kind": "overpass",
+        "pass": true,
+        "points": 34
+      },
+      {
+        "kind": "overpass",
+        "pass": true,
+        "points": 27
+      },
+      {
+        "kind": "overpass",
+        "pass": true,
+        "points": 34
+      }
+    ],
+    "sha256": "503e90346cee8f582e6cc535a83e9224aed94630c3d1e5a3ebf41ab29b951f3e"
+  },
+  "static_assets": {
+    "bsp_sha256": "503e90346cee8f582e6cc535a83e9224aed94630c3d1e5a3ebf41ab29b951f3e",
+    "codecs": [
+      {
+        "encoded_bytes": 3495520,
+        "format": "bc7",
+        "images": 10,
+        "path": "res://maps/cache/tb_ashfall-lightmap1-bc7.scn",
+        "raw_bytes": 10485750,
+        "sha256": "c6f7edbb61a0644bc3229f8d2143ae9aa9c75d1945901cb4aa0151128297531b"
+      },
+      {
+        "encoded_bytes": 3495520,
+        "format": "astc4",
+        "images": 10,
+        "path": "res://maps/cache/tb_ashfall-lightmap1-astc4.scn",
+        "raw_bytes": 10485750,
+        "sha256": "aea75c99017689678abefb21e04f123de67f49d839a4ac2e89344691ac603929"
+      }
+    ],
+    "fine_faces": 0,
+    "geometry_preserved": true,
+    "map": "tb_ashfall",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.957034111022949,
+      "occupancy_before": 0.239258527755737,
+      "padded_luxels": 4014092,
+      "patches": 29061,
+      "raw_bytes_after": 12582912,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 208149,
+      "to": [
+        2048,
+        2048
+      ]
+    }
+  },
+  "static_verification": {
+    "failures": [],
+    "records": [
+      {
+        "codec": "bc7",
+        "compressed_materials": 10,
+        "filtering_retains_compression": true,
+        "full_resolution_mips": true,
+        "lightmaps_glow_unchanged": true,
+        "materials": 12
+      },
+      {
+        "codec": "astc4",
+        "compressed_materials": 10,
+        "filtering_retains_compression": true,
+        "full_resolution_mips": true,
+        "lightmaps_glow_unchanged": true,
+        "materials": 12
+      }
+    ]
+  },
+  "prototype_cockpit_checks": 25,
+  "cockpit": {
+    "presentation": "shared original prototype room and HUD components",
+    "feed_resolution": [
+      768,
+      432
+    ],
+    "feed_max_hz": 30,
+    "active_only_local_pilot": true,
+    "monitor_hud": [
+      "health",
+      "armour",
+      "preparation/match timer",
+      "distance",
+      "checkpoints",
+      "speed",
+      "four independent heat/venting bars",
+      "exit prompt"
+    ],
+    "outside_view": "monitor only",
+    "quest_tested": false
+  },
+  "combat_update": "docs/validation/titanball-combat.json",
+  "cannon_range_m": 60,
+  "cannon_splash_radius_m": 1.25,
+  "defender_crush_radius_m": 5
+}

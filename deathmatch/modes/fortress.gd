@@ -11,7 +11,12 @@ const CLASSES={
 	"spy":{"name":"SPY","hp":90,"armor":25,"speed":1.05,"owned":[0,2,4],"weapon":4,"ammo":[80,25,0,0],"action":"Disguise as nearest enemy; gunfire, damaging melee, damage and flags reveal"},
 	"engineer":{"name":"ENGINEER","hp":100,"armor":75,"speed":1.0,"owned":[0,2,3],"weapon":3,"ammo":[100,30,0,120],"action":"Aim at friendly building to repair; otherwise build selected tool"}
 }
+const SENTRY_RANGE=18.0
+const SENTRY_DAMAGE=12
+const SENTRY_INTERVAL=.5
+const SENTRY_SCAN_INTERVAL=.1
 const CLASS_COLORS={"scout":Color("f7dc6f"),"sniper":Color("a4df80"),"soldier":Color("ff9c54"),"demoman":Color("d3a0ed"),"medic":Color("65edcb"),"heavy":Color("c7cdd4"),"pyro":Color("ff6c9b"),"spy":Color("a9b9ff"),"engineer":Color("80d5f4")}
+var walkers=preload("res://deathmatch/vehicles/ba2/controller.gd").new()
 var mode_ref: WeakRef
 var mode:
 	get:return mode_ref.get_ref()
@@ -32,9 +37,10 @@ var request_times: Dictionary={}
 var physical=preload("res://deathmatch/modes/vr_interactions.gd").new()
 func _init() -> void:
 	physical.name="PhysicalInteractions";add_child(physical)
+	walkers.name="Walkers";add_child(walkers)
 func setup(value) -> void:
-	mode_ref=weakref(value);physical.setup(self)
-func enabled() -> bool:return mode.kind=="tf"
+	mode_ref=weakref(value);physical.setup(self);walkers.setup(self)
+func enabled() -> bool:return mode.kind in ["tf","tb"]
 func structures_enabled() -> bool:return not game.lobby.active() and (enabled() or mode.kind=="as")
 func definition(id: int) -> Dictionary:
 	return class_definition(game.players.get(id,{}).get("tf_class","soldier"))
@@ -56,7 +62,7 @@ func speed(id: int) -> float:
 			"sniper","heavy":scale*=.5
 	return scale
 func reset() -> void:
-	physical.reset();spy_cell_credit.clear()
+	walkers.reset();physical.reset();spy_cell_credit.clear()
 	buildings.clear();charges.clear();burns.clear();cooldowns.clear();effects.clear();request_times.clear();tick_credit=0.0
 	for node in visuals.values():if is_instance_valid(node):node.queue_free()
 	visuals.clear()
@@ -71,12 +77,14 @@ func spawn(id: int) -> void:
 	s.tf_class=s.get("tf_next",s.get("tf_class",fallback));s.tf_next=s.tf_class
 	var data:=definition(id)
 	s.hp=data.hp;s.armor=data.armor;s.tier=2;s.owned=data.owned.duplicate();s.weapon=data.weapon;s.ammo=data.ammo.duplicate()
+	game.armory.tf_loadout(s)
 	# Class changes remove prior engineer assets; normal engineer deaths retain them.
 	if s.tf_class!="engineer":remove_owned(id)
 	charges.erase(id);s.tf_regen=0.0
 func remove_owned(id: int) -> void:
 	for key in buildings.keys():if buildings[key].owner==id:buildings.erase(key)
 func departed(id: int) -> void:
+	walkers.departed(id)
 	physical.departed(id);spy_cell_credit.erase(id)
 	for other in game.players:
 		if game.players[other].get("tf_disguise",{}).get("peer",0)==id:revealed(other)
@@ -94,7 +102,8 @@ func select_class(id: int,class_id: String,tool: String="sentry") -> bool:
 	game.players[id].tf_next=class_id;game.players[id].tf_tool=tool
 	return true
 func weapon_data(id: int,weapon: int) -> Dictionary:
-	var data: Dictionary=game.W.DATA[weapon]
+	if weapon==0 and walkers.mounted(id):return game.W.DATA[0]
+	var data: Dictionary=game.armory.data(weapon)
 	if not enabled():return data
 	data=data.duplicate()
 	var role: String=game.players.get(id,{}).get("tf_class","soldier")
@@ -102,8 +111,8 @@ func weapon_data(id: int,weapon: int) -> Dictionary:
 		data.damage=150 if effects.get(id,{}).get("until",0)>game.clock else 90
 		data.cycle=1.5;data.ammo=0;data.cost=2
 	if role=="pyro" and weapon==7:
-		data.merge({"name":"FLAMETHROWER","damage":8,"dice":1,"cycle":.12,"range":8.0,"pellets":1,"spread":3.0,"vertical":3.0},true)
-	if role=="medic" and weapon==7:data.cycle=.15
+		data.merge({"name":"FLAMETHROWER","ammo":3,"cost":1,"kind":"hitscan","speed":0.0,"damage":8,"dice":1,"cycle":.12,"range":8.0,"pellets":1,"spread":3.0,"vertical":3.0},true)
+	if role=="medic" and weapon==7 and not game.armory.experimental():data.cycle=.15
 	return data
 func revealed(id: int) -> void:
 	if game.players.has(id):game.players[id].tf_disguise={}
@@ -121,6 +130,7 @@ func incoming_damage(id: int,amount: int,weapon: String,bypass: bool) -> int:
 	if game.players[id].get("tf_class","")=="pyro" and weapon in ["FLAMETHROWER","BURN","NAPALM"]:amount=roundi(amount*.5)
 	return maxi(1,amount)
 func ignite(victim: int,attacker: int) -> void:
+	if walkers.mounted(victim):return
 	if not enabled() or not game.players.has(victim) or game.players[victim].dead or game.players[victim].invulnerable>game.clock:return
 	if mode.same_team(victim,attacker) and not mode.friendly_fire:return
 	burns[victim]={"owner":attacker,"until":game.clock+3,"next":game.clock+.5}
@@ -131,6 +141,7 @@ func action(id: int) -> bool:
 	if not enabled() or not multiplayer.is_server() or not game.active or game.intermission>0 or game.map_loading or not game.players.has(id):return false
 	var s: Dictionary=game.players[id]
 	if s.dead or s.spectator:return false
+	if walkers.mounted(id):return walkers.leave(id)
 	var role: String=s.get("tf_class","soldier")
 	if role=="demoman" and charges.has(id) and charges[id].kind=="pipe":
 		if game.clock<charges[id].armed:return false
@@ -172,6 +183,7 @@ func action(id: int) -> bool:
 	if used:s.invulnerable=0
 	return used
 func can_act(id: int) -> bool:
+	if walkers.mounted(id):return false
 	return multiplayer.is_server() and enabled() and game.active and not game.lobby.active() and game.intermission<=0 and not game.map_loading and game.players.has(id) and not game.players[id].dead and not game.players[id].spectator and not mode.special.blocked(id) and game.clock>=cooldowns.get(id,0)
 func repair_building(id: int,key: int,origin: Vector3) -> bool:
 	if not can_act(id) or game.players[id].tf_class!="engineer" or not buildings.has(key):return false
@@ -193,7 +205,7 @@ func throw_charge(id: int,pos: Vector3,velocity: Vector3) -> bool:
 	var ammo:=3 if role=="pyro" else 2;var cost:=20 if role=="pyro" else 1
 	if s.ammo[ammo]<cost:return false
 	if game.HitDetection.world_fraction(game.get_world_3d().direct_space_state,pos,pos,.12)==0:return false
-	charges[id]={"owner":id,"team":s.team,"position":pos,"velocity":velocity.limit_length(18),"kind":"pipe" if role=="demoman" else "napalm" if role=="pyro" else "grenade","armed":game.clock+.7,"until":game.clock+(30 if role=="demoman" else 1.2),"bounce_fx":0.0}
+	charges[id]={"owner":id,"team":s.team,"position":pos,"velocity":velocity.limit_length(preload("res://deathmatch/vr/throw_ballistics.gd").MAX_SPEED),"kind":"pipe" if role=="demoman" else "napalm" if role=="pyro" else "grenade","armed":game.clock+.7,"until":game.clock+(30 if role=="demoman" else 1.2),"bounce_fx":0.0}
 	s.ammo[ammo]-=cost;cooldowns[id]=game.clock+(10 if role=="pyro" else 8);s.invulnerable=0;return true
 func engineer(id: int) -> bool:
 	var s: Dictionary=game.players[id];var origin: Vector3=game._shot_origin(id)
@@ -223,6 +235,7 @@ func engineer(id: int) -> bool:
 func damage_building(key: int,attacker: int,amount: int) -> void:
 	if not multiplayer.is_server() or not structures_enabled() or not buildings.has(key):return
 	var b: Dictionary=buildings[key]
+	if b.get("invulnerable",false):return
 	if b.has("objective") and not mode.assault.can_damage_objective(attacker,int(b.objective)):return
 	if game.players.has(attacker) and game.players[attacker].team==b.team and not mode.friendly_fire:return
 	if amount>0 and b.hp>0:revealed(attacker)
@@ -268,6 +281,7 @@ func tick_spy_cells(delta: float) -> void:
 		else:s.ammo[3]=mini(50,s.ammo[3]+amount)
 
 func tick(delta: float) -> void:
+	walkers.tick(delta)
 	if mode.kind=="as":
 		if multiplayer.is_server():tick_sentries()
 		return
@@ -292,8 +306,8 @@ func tick(delta: float) -> void:
 			s.tf_regen=s.get("tf_regen",0.0)+elapsed*3
 			if s.tf_regen>=1:var amount:=int(s.tf_regen);s.tf_regen-=amount;s.hp=mini(max_health(id),s.hp+amount)
 		# Team resupply zones are class-safe; ordinary maps fall back to team spawns.
-		var stations: Array=game.tf_resupply[s.team] if s.team in [0,1] else []
-		if stations.is_empty() and s.team in [0,1]:stations=mode.spawns(s.team)
+		var stations: Array=game.tf_resupply[s.team] if s.team in [0,1] and mode.kind!="tb" else []
+		if stations.is_empty() and s.team in [0,1] and mode.kind!="tb":stations=mode.spawns(s.team)
 		for point in stations:
 			if mode.nearby(id,point,1.8):resupply(id,elapsed);break
 	tick_sentries()
@@ -307,38 +321,50 @@ func tick_sentries() -> void:
 			if game.clock<b.next:continue
 			b.next=game.clock+1.0
 			for id in game.players:
-				if game.players[id].team==b.team and not game.players[id].dead and not game.players[id].spectator and mode.nearby(id,b.position,3):resupply(id,.5)
+				if (b.get("universal",false) or game.players[id].team==b.team) and not game.players[id].dead and not game.players[id].spectator and mode.nearby(id,b.position,3):resupply(id,.5)
 		else:
 			# Track between shots without running a target/occlusion scan every physics tick.
 			if game.clock<b.get("scan_at",0.0):continue
-			b.scan_at=game.clock+.1
+			b.scan_at=game.clock+SENTRY_SCAN_INTERVAL
 			var origin: Vector3=b.position+Vector3.UP*1.1
-			var nearest:=18.0;var victim:=0
-			for id in game.players:
-				var s: Dictionary=game.players[id]
-				if s.dead or s.spectator or s.team==b.team or cloaked(id) or s.get("tf_disguise",{}).get("team",-1)==b.team or s.invulnerable>game.clock:continue
-				var target: Vector3=game.fighters[id].position+Vector3.UP*minf(.9,game.fighters[id].collision_height*.5)
-				var distance:=origin.distance_to(target)
-				if distance<nearest and game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin,target,1)).is_empty():nearest=distance;victim=id
+			var victim:=sentry_target(origin,b.team,SENTRY_RANGE)
 			if victim!=0:
 				var target: Vector3=game.fighters[victim].position+Vector3.UP*minf(.9,game.fighters[victim].collision_height*.5)
 				b["aim"]=target
 				if game.clock<b.next:continue
-				b.next=game.clock+.5
+				b.next=game.clock+SENTRY_INTERVAL
 				var direction: Vector3=(target-origin).normalized()
-				var muzzle: Vector3=origin+direction*(-game.Art.muzzle(5).z*.7)
-				game._damage(victim,b.owner,12,"SENTRY",false,target,direction);game._ability_fx.rpc("sentry_fire",muzzle,target,b.team)
+				var muzzle: Vector3=origin+direction*(-game.Art.muzzle(5,"sentry").z*.7)
+				game._damage(victim,b.owner,SENTRY_DAMAGE,"SENTRY",false,target,direction,false,walkers.mounted(victim));game._ability_fx.rpc("sentry_fire",muzzle,target,b.team)
+func sentry_enemy(id: int,team: int) -> bool:
+	if not game.players.has(id) or not game.fighters.has(id):return false
+	var s: Dictionary=game.players[id]
+	return not s.dead and not s.spectator and s.team!=team and not cloaked(id) and s.get("tf_disguise",{}).get("team",-1)!=team and s.invulnerable<=game.clock
+func sentry_target_point(id: int) -> Vector3:
+	return game.fighters[id].position+Vector3.UP*minf(.9,game.fighters[id].collision_height*.5)
+func sentry_target(origin: Vector3,team: int,reach: float,exclude: Array=[],accept: Callable=Callable()) -> int:
+	var nearest:=reach;var victim:=0
+	for id in game.players:
+		if not sentry_enemy(id,team):continue
+		var target:=sentry_target_point(id)
+		if accept.is_valid() and not accept.call(target):continue
+		var distance:=origin.distance_to(target)
+		if distance>=nearest:continue
+		var ray:=PhysicsRayQueryParameters3D.create(origin,target,1)
+		var omitted: Array[RID]=[];omitted.assign(exclude);ray.exclude=omitted
+		if walkers.blast_reaches(id,game.get_world_3d().direct_space_state.intersect_ray(ray)):nearest=distance;victim=id
+	return victim
 func resupply(id: int,delta: float) -> void:
 	var s: Dictionary=game.players[id];var data:=definition(id)
 	if s.hp<data.hp:s.hp=mini(data.hp,s.hp+maxi(1,int(20*delta)))
 	if s.armor<data.armor:s.armor=mini(data.armor,s.armor+maxi(1,int(15*delta)))
 	for i in range(4):
-		var maximum: int=maxi(data.ammo[i],120 if i==3 and s.tf_class=="engineer" else 0)
+		var maximum: int=maxi(game.armory.max_ammo()[i] if game.armory.experimental() else data.ammo[i],120 if i==3 and s.tf_class=="engineer" else 0)
 		if s.ammo[i]<maximum:s.ammo[i]=mini(maximum,s.ammo[i]+maxi(1,int([40,10,4,40][i]*delta)))
 	burns.erase(id)
 func snapshot() -> Dictionary:
 	if game.lobby.active():return {}
-	if mode.kind=="as":return {"buildings":buildings.duplicate(true)}
+	if mode.kind=="as":return {"buildings":buildings.duplicate(true),"walkers":walkers.snapshot()}
 	if not enabled():return {}
 	var people: Dictionary={}
 	for id in game.players:
@@ -352,10 +378,11 @@ func snapshot() -> Dictionary:
 	var burning_players: Dictionary={}
 	for id in burns:
 		if burning(id):burning_players[id]=maxf(0,burns[id].until-game.clock)
-	return {"spy_invisibility":spy_invisibility,"players":people,"buildings":buildings.duplicate(true),"charges":state_charges,"effects":state_effects,"burning":burning_players}
+	return {"walkers":walkers.snapshot(),"spy_invisibility":spy_invisibility,"players":people,"buildings":buildings.duplicate(true),"charges":state_charges,"effects":state_effects,"burning":burning_players}
 func receive(data: Dictionary) -> void:
 	if game.lobby.active():reset();return
 	spy_invisibility=bool(data.get("spy_invisibility",false))
+	walkers.receive(data.get("walkers",[]))
 	buildings=data.get("buildings",{});charges=data.get("charges",{});effects=data.get("effects",{})
 	burns.clear()
 	for id in data.get("burning",{}):
@@ -367,6 +394,7 @@ func receive(data: Dictionary) -> void:
 		var row: Dictionary=data.players[id];var s: Dictionary=game.players[id]
 		s.tf_class=row["class"];s.tf_next=row.next;s.tf_tool=row.tool;s.tf_disguise=row.get("disguise",{});cooldowns[id]=game.clock+row.cooldown
 func status(id: int) -> String:
+	if walkers.mounted(id):return walkers.status(id)
 	if not enabled() or not game.players.has(id):return ""
 	var s: Dictionary=game.players[id]
 	var ability:=ability_state(id)
@@ -402,7 +430,7 @@ func draw() -> void:
 			if row.has("objective"):visuals[key].get_node("ObjectiveHealth").text="SHOOT COMPRESSOR\n%d / %d"%[row.hp,row.max_hp]
 			continue
 		var node:=Node3D.new();game.add_child(node);node.position=row.position;visuals[key]=node
-		var material=game.Art.material(mode.COLORS[row.team],.5,.1)
+		var material=game.Art.material(Color("73a69b") if row.get("universal",false) else mode.COLORS[row.team],.5,.1)
 		var dark=game.Art.material(Color("343d43"),.7,0)
 		if key.begins_with("b"):
 			game.Art.box(node,Vector3(0,.3,0),Vector3(1,.6,.8),material)
@@ -414,15 +442,15 @@ func draw() -> void:
 			elif row.kind=="sentry":
 				game.Art.box(node,Vector3(0,.8,0),Vector3(.35,.65,.35),dark)
 				var gun:=Node3D.new();node.add_child(gun);gun.name="SentryGun";gun.position=Vector3(0,1.1,0)
-				var model: Node3D=game.Art.weapon(5);gun.add_child(model);model.scale*=.7
+				var model: Node3D=game.Art.weapon(5,2,"sentry");gun.add_child(model);model.scale*=.7
 				# Center the actual barrel on the aiming pivot; the mesh origin is below it.
-				model.position.y=-game.Art.muzzle(5).y*.7
+				model.position.y=-game.Art.muzzle(5,"sentry").y*.7
 				aim_sentry(node,row)
 			else:
 				game.Art.box(node,Vector3(0,.8,0),Vector3(.75,.6,.6),dark)
 				game.Art.box(node,Vector3(0,.8,-.31),Vector3(.12,.4,.02),game.Art.material(Color.WHITE))
 				game.Art.box(node,Vector3(0,.8,-.32),Vector3(.4,.12,.02),game.Art.material(Color.WHITE))
-			var label:=Label3D.new();node.add_child(label);label.text=row.kind.to_upper();label.position.y=1.7;label.font_size=28;label.pixel_size=.006;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
+			var label:=Label3D.new();node.add_child(label);label.text="UNIVERSAL RESUPPLY" if row.get("universal",false) else row.kind.to_upper();label.position.y=1.7;label.font_size=28;label.pixel_size=.006;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
 			if row.has("objective"):label.name="ObjectiveHealth";label.text="SHOOT COMPRESSOR\n%d / %d"%[row.hp,row.max_hp];label.pixel_size=.004
 		else:
 			var ball:=MeshInstance3D.new();var sphere:=SphereMesh.new();sphere.radius=.12;sphere.height=.24;sphere.radial_segments=8;sphere.rings=4;ball.mesh=sphere;ball.material_override=material;node.add_child(ball)
@@ -452,13 +480,14 @@ func display_avatar(id: int,original: String) -> String:
 	return hash if game.avatars.library.entries.has(hash) else original
 
 func outgoing_damage(attacker: int,victim: int,amount: int,weapon: String) -> int:
-	if not enabled() or weapon!="FIST" or not game.players.has(attacker) or game.players[attacker].get("tf_class","")!="spy" or attacker==victim:return amount
+	if not enabled() or not weapon in ["FIST","AXE"] or not game.players.has(attacker) or game.players[attacker].get("tf_class","")!="spy" or attacker==victim:return amount
 	var direction: Vector3=(game.fighters[attacker].position-game.fighters[victim].position).normalized()
 	var facing: Vector3=game.W.direction(game.players[victim].yaw,0)
 	return maxi(amount,120) if facing.dot(direction)<-.5 else amount
 
 func can_fire(id: int,weapon: int) -> bool:
-	if not game.players.has(id) or weapon<0 or weapon>=game.W.DATA.size():return false
+	if walkers.mounted(id):return false
+	if not game.players.has(id) or not game.armory.valid(weapon):return false
 	var data:=weapon_data(id,weapon)
 	return data.ammo<0 or game.players[id].ammo[data.ammo]>=data.cost
 
@@ -502,3 +531,9 @@ func ability_state(id: int) -> Dictionary:
 	if role=="demoman" and charges.has(id):
 		remaining=maxf(0,charges[id].armed-game.clock);total=.7;labels[role]="DETONATE PIPE"
 	return {"label":labels[role],"remaining":remaining,"fraction":1-clampf(remaining/total,0,1),"active":active_left,"ready":remaining<=0}
+
+func art_rules(id: int,weapon: int) -> String:
+	if weapon==0 and walkers.mounted(id):return "doom"
+	if enabled() and weapon==9 and game.players.get(id,{}).get("tf_class","")=="sniper":return "tf_sniper"
+	if enabled() and weapon==7 and game.players.get(id,{}).get("tf_class","")=="pyro":return "tf_flame"
+	return game.armory.effective()

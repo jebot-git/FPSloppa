@@ -22,4 +22,15 @@ func _initialize():
 	assert(bake.material(fence).get_shader_parameter("alpha_cutout")==true)
 	var opaque:=StandardMaterial3D.new()
 	assert(bake.material(opaque).get_shader_parameter("alpha_cutout")==false)
+	var fine=preload("res://deathmatch/maps/baked_light.gd").new()
+	fine.enabled=true;fine.image=Image.create(1024,1024,false,Image.FORMAT_RGB8)
+	fine.scales=PackedByteArray([3]);fine.lighting=PackedByteArray([0,16,32,48,64,80,96,112,128])
+	var points:=PackedVector2Array([Vector2.ZERO,Vector2.RIGHT,Vector2.ONE,Vector2.DOWN])
+	var fine_uv: PackedVector2Array=fine.face_uvs(points,Vector2(16,16),0,0)
+	assert(fine_uv[0]==Vector2(3.5,1.5)/1024 and fine_uv[2]==Vector2(5.5,3.5)/1024)
+	assert(fine.image.get_pixel(4,2)==Color8(64,64,64) and fine.faces==1)
+	# Missing per-face metadata uses the ordinary 16-unit layout safely.
+	var fallback=preload("res://deathmatch/maps/baked_light.gd").new()
+	fallback.enabled=true;fallback.image=Image.create(1024,1024,false,Image.FORMAT_RGB8);fallback.lighting=fine.lighting
+	assert(fallback.face_uvs(points,Vector2(16,16),0,99)[2]==Vector2(4.5,2.5)/1024)
 	print("BAKED_LIGHT_TEST PASS");quit()

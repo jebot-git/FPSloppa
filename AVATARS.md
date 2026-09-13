@@ -17,15 +17,82 @@ The preview uses the same rig and scale rules as multiplayer. Practice targets a
 
 ## Fairness and motion
 
-- Rest-pose visual bounds are normalized to 1.70 metres high; feet are aligned with the ground.
-- Every player retains the same 1.65 m tall, 0.30 m radius movement capsule and existing fixed damage volumes. No imported mesh, bone, clothing, height, or accessory changes collision, damage, movement speed, or validated reach. In VR the camera follows the headset, independently of the fixed damage volumes. Cosmetic geometry outside the standard damage volume is not hittable.
-- Godot-VRM retargets humanoid bones to GeneralSkeleton / SkeletonProfileHumanoid. Three authored AnimationPlayer clips provide idle breathing, walking, and running hip motion. A custom SkeletonModifier3D performs analytical two-bone IK for both legs and both arms, with knee/elbow poles, terrain foot raycasts, aimed weapon grips, wrist alignment and finger curl.
+- The fully skinned rest pose is uniformly scaled to 1.70 metres high and grounded before IK. Tiny or giant authored units, skeleton transforms and inverse skin binds are included in the measurement. The result is cached once per decoded VRM and shared by its instances; crouching or jumping never changes model scale.
+- Full-body tracking preserves displacement from the model's own neutral hip and ankle heights. This avoids pulling short legs up onto their toes or forcing long legs into a squat simply to match a generic calibration skeleton. Real crouches and foot lifts still animate normally.
+- Every player shares a 1.65 m standing height and 0.30 m radius movement capsule. Crouch/prone shorten collision and damage heights together, with clearance checks before standing. Imported mesh size never changes collision, damage, speed or validated reach. Cosmetic geometry outside the standard damage volume is not hittable.
+- Godot-VRM retargets humanoid bones to GeneralSkeleton / SkeletonProfileHumanoid. Procedural gait feeds analytical two-bone IK for both legs, with knee poles and terrain foot raycasts. Arm IK retains aimed weapon grips, wrist alignment and finger curl. See the stance controls below.
 - Movement direction, speed, weapon, and pitch come from the existing authoritative snapshots. Recoil follows replicated shot effects. Death immediately disables the hitbox, plays a short cosmetic fall, then hides the avatar until respawn.
 - Hair and secondary motion use the VRM plugin's spring-bone implementation. Unusual proportions, extreme accessories, custom shaders, and nonstandard rigs can still need author-side adjustment. The preview lets you inspect these before selecting a model.
 
 VR snapshots also carry validated head, grip and weapon transforms. Smoothed head orientation, crouching hip motion and two-bone arm IK follow the tracked poses. Gun-hand selection is replicated. Pain adds a short directional body flinch; heavy kills can produce cosmetic gibs. Headset motion is never driven by hit animations.
 
 Motion is authored procedurally in this project; no third-party animation clips are redistributed.
+
+## Leg animation and stances
+
+Untracked legs blend between walking and running in eight body-relative directions,
+including backwards and diagonal movement. Crouching shortens the stride; prone
+uses an extended crawling pose. Jumping has a distinct knee tuck on ascent,
+extended legs while falling, and brief landing compression. The walking cycle
+pauses in the air. The fallback marine also has articulated leg animation.
+
+Desktop controls default to **hold Ctrl to crouch** and **Z to toggle prone**;
+both can be rebound in Settings → Bindings. VR keeps physical crouching and adds
+physical prone: while standing play and physical crouching are enabled, a headset
+below 55 cm enters prone and rising above 68 cm leaves it. Physical prone can be
+disabled separately. The server checks actual headset height and ceiling clearance.
+
+| Stance | Movement speed | Bullet spread |
+| --- | --- | --- |
+| Standing | 100% | 100% |
+| Crouching | 55% | 75% |
+| Prone | 18% | 45% |
+
+Spread bonuses require ground support and do not apply in water. They tighten both
+axes of spread weapons; melee reach and already perfectly accurate shots are
+unchanged. Prone blocks jumping, including a held jump request, and is suspended
+in water so swimming remains usable. These rules run in both server simulation
+and client prediction.
+
+Tracked feet remain authoritative by default. **Settings → Bindings → Animate
+tracked legs while still (optional)** adds a restrained gait only during grounded
+locomotion after both feet stay within 5 cm and 12 degrees for 0.55 seconds.
+Intentional foot/knee movement, raised feet and low hip poses immediately restore
+fully tracked legs. This cosmetic assistance never generates physical melee kicks.
+The preference and stance bindings persist in the client config.
+
+Stance, grounded state and the assistance preference replicate to other clients
+and new demos. Old demos remain readable. Multiplayer uses protocol
+`fpsloppa-31-team-radio`, so clients and servers need matching updates.
+
+Run `python3 deathmatch/tests/run_stance_tests.py` for movement, tracking,
+prediction, actual weapon spread, demo/config and independent server/client
+checks. `deathmatch/tests/avatar_stances.gd` renders a six-pose comparison.
+
+## Death animation
+
+Deaths use a short authored bone animation: knees buckle, the body falls backward,
+and the head, arms and uneven legs settle into a loose face-up pose. This replaces
+the whole-avatar forward tilt that resembled live prone movement. The same sequence
+is available on the download/error fallback marine. Low or prone deaths begin at
+the current hip height, without standing the avatar up first.
+
+Death stops locomotion, aiming, eye tracking and full-body tracking; later look/yaw
+updates cannot rotate the corpse. Weapons disappear and supported eyelids close.
+The pose settles in 0.9 seconds, then reuses cached bone transforms until the
+existing 2.5-second corpse visibility limit or respawn. There are no ragdoll bodies,
+joints or extra floor probes. Respawn clears the pose cache and stance blend.
+Freeze Tag, gib hiding, spectator hiding and the local death-camera body policy
+retain their separate behavior. Multiplayer continues using the existing dead
+state; no additional pose packets or protocol change are required.
+
+This is a cosmetic animation, without per-limb collisions or adaptation to uneven
+floors/walls. Validate with `python3 tools/validate_death_animation.py`; add
+`--preview` for the rendered comparison. The [validation receipt](docs/validation/death-animation.json)
+covers all three bundled VRMs, standing/prone/tracked entry, tracking/yaw isolation,
+respawn, fallback and fighter visibility states, plus stance/scaling regressions.
+Script timing measurements exclude GPU skinning, hair and rendering; headset
+performance has not been newly measured.
 
 ## Sharing and limits
 
@@ -73,3 +140,7 @@ The avatar network test starts an independent server, uploader, and receiver wit
 The project ZIP contains source and original VRM files. When creating an executable export, preserve the raw `.vrm` files and `models/manifest.json` in the package: runtime loading reads the original GLB bytes, not only Godot's editor-imported PackedScene files.
 
 The Entryway raw asset export plugin explicitly adds original VRM/BSP bytes to the PCK; an include filter alone does not retain editor-imported VRM source files. Keep this plugin enabled when exporting.
+
+Original UT99 humanoid model/skin packages can be prepared with the separate [UT Avatar Converter](https://github.com/jebot-git/UTAvatarConverter/releases/tag/v0.1.0). Female Soldier (`SGirl`), Female Commando (`FCommando`) and Rumiko have tested starting presets. Export the VRM into `vrm/`, then use the normal picker. The generated skeleton and weights are approximate; inspect the pose preview and test movement before using the avatar in VR.
+
+Quake humanoid MDL models can be prepared using the experimental [MDL Avatar Converter](https://github.com/jebot-git/MDLAvatarConverter/releases/tag/v0.1.0). Supply the matching game palette or a PAK containing it, review the source frame and landmarks, then export a VRM. Its estimated rig can distort arms and attached equipment; GoldSrc/Source MDL is unsupported.

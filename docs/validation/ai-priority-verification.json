@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "match_trials": 24,
+  "navigation_trials_performed": 9,
+  "navigation_trials_skipped": 3,
+  "runtime_files_unchanged": 941,
+  "simulated_match_minutes": 149.87499999998298,
+  "balance_receipt_sha256": "a5b3bfc6cd7fc5f0404f0bd7de7937d9840cdb2a22807512cb3171cc0df1f0e1",
+  "checks": [
+    "Declared trial matrix and duration",
+    "Normal completion of both Assault legs",
+    "Observed captures and freeze-round events agree with scores",
+    "Navigation trial durations and explicit skips",
+    "Raw result hashes and unchanged isolated runtime inputs"
+  ]
+}

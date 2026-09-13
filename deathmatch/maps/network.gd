@@ -12,7 +12,6 @@ var game
 var outgoing: Dictionary={}
 var expected: Dictionary={}
 var incoming: Dictionary={}
-var budget:=0.0
 var cursor:=0
 var message:=""
 func setup(arena: Node) -> void:
@@ -27,15 +26,16 @@ func offer(peer: int) -> void:
 		if row.id==game.current_map: 
 			size=int(row.get("size",0))
 			break
-	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title,game.map_epoch,game.match_mode.kind)
+	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title,game.map_epoch,game.match_mode.kind,game.armory.kind)
 @rpc("authority","call_remote","reliable",5)
-func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0,mode: String="dm") -> void:
+func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0,mode: String="dm",weapon_rules: String="doom") -> void:
 	if epoch<game.map_epoch: return
 	if epoch>game.map_epoch or game.active: game._prepare_client_map(epoch)
 	if not expected.is_empty() or not incoming.is_empty(): return
 	if not game.match_mode.NAMES.has(mode):game.disconnect_game("Host selected an unknown game mode.");return
 	# Mode must arrive before loading: an AS client must accept a voted DM/IG map.
 	game.match_mode.kind=mode
+	if not game.armory.select(weapon_rules):game.disconnect_game("Unknown weapon ruleset.");return
 	if map_id==game.lobby.ID and hash==game.lobby.HASH.sha256_text() and size==0:
 		game.lobby.build();game.map_loading=false;game._map_ready.rpc_id(1,hash);return
 	for row in game.map_catalog:
@@ -122,8 +122,7 @@ func _ack(hash: String,offset: int) -> void:
 	row.time=Time.get_ticks_msec()
 	game.pending_joins[peer]=game.clock+120
 	if row.ack==row.size: outgoing.erase(peer)
-func _process(delta: float) -> void:
-	budget=minf(budget+delta*2_097_152,WINDOW)
+func _process(_delta: float) -> void:
 	var peers:=outgoing.keys()
 	if not peers.is_empty(): cursor=(cursor+1)%peers.size()
 	for i in range(peers.size()):
@@ -131,17 +130,18 @@ func _process(delta: float) -> void:
 		var row: Dictionary=outgoing[peer]
 		if not multiplayer.get_peers().has(peer) or Time.get_ticks_msec()-row.time>30000:
 			outgoing.erase(peer); continue
-		if not row.reading and row.sent<row.size and row.sent-row.ack<WINDOW and budget>=CHUNK:
-			var count:=mini(mini(WINDOW-(row.sent-row.ack),row.size-row.sent),int(budget/CHUNK)*CHUNK)
-			row.reading=true;budget-=count
+		if not row.reading and row.sent<row.size and row.sent-row.ack<WINDOW:
+			var count: int=game.asset_allowance(peer,mini(CHUNK,row.size-row.sent))
+			if count<=0:continue
+			row.reading=true;row.reading_bytes=count
 			if not disk.submit(IO.read.bind(row.path,row.sent,count,row.size),func(bytes):
 				if not is_same(outgoing.get(peer),row):return
-				row.reading=false
+				row.reading=false;row.reading_bytes=0
 				if bytes.size()!=count:outgoing.erase(peer);return
 				for offset in range(0,bytes.size(),CHUNK):
 					var part: PackedByteArray=bytes.slice(offset,offset+CHUNK)
 					_chunk.rpc_id(peer,row.hash,row.sent,part);row.sent+=part.size()):
-				row.reading=false;budget+=count
+				row.reading=false;row.reading_bytes=0
 
 	var timestamp: int=incoming.get("time",expected.get("time",Time.get_ticks_msec()))
 	if Time.get_ticks_msec()-timestamp>30000: game.disconnect_game("Map download timed out.")

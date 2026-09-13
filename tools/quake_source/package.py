@@ -13,15 +13,15 @@ def package(build):
     prefix='addons/quake-multiplayer/'
     with zipfile.ZipFile(dest,'w',compression=zipfile.ZIP_DEFLATED,compresslevel=9) as z:
         for row in checked:z.write(build/'maps'/(row['id']+'.bsp'),'maps/'+row['id']+'.bsp')
-        for filename in ['BUILD.json','COPYING-GPL-2.0.txt','ORIGINAL-README.txt','LibreQuake-COPYING.txt','LibreQuake-CREDITS.txt','LibreQuake-README-IMPORTANT-LICENCE-INFO.txt']:
+        for filename in ['BUILD.json','COPYING-GPL-2.0.txt','ORIGINAL-README.txt','LibreQuake-COPYING.txt','LibreQuake-CREDITS.txt','LibreQuake-README-IMPORTANT-LICENCE-INFO.txt','Makkon_License.txt']:
             z.write(build/filename,prefix+filename)
         for sub in ['sources/original','sources/adapted','texture-dictionary']:
             for p in sorted((build/sub).glob('*')):
                 if p.is_file() and p.suffix.lower() in ['.map','.wad','.txt','.json','.lmp','.md']:z.write(p,prefix+str(p.relative_to(build)))
         z.write(build/'sources/TEXTURE-SOURCES.json',prefix+'sources/TEXTURE-SOURCES.json')
-        for sub in ['tools/quake_source','tools/texture_replacements','deathmatch/maps/texture_replacements']:
+        for sub in ['tools/quake_source','tools/texture_replacements','tools/makkon','deathmatch/maps/texture_replacements']:
             for p in sorted((ROOT/sub).glob('*')):
-                if p.is_file() and p.suffix in ['.py','.json','.md','.txt','.png','.lmp','.gd']:
+                if p.is_file() and p.suffix in ['.py','.json','.md','.txt','.png','.lmp','.gd','.wad']:
                     z.write(p,prefix+str(p.relative_to(ROOT)))
         z.write(ROOT/'deathmatch/maps/palette.lmp',prefix+'deathmatch/maps/palette.lmp')
         z.write(ROOT/'tools/quake_source/README.md',prefix+'README.md')

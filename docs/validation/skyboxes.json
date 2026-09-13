@@ -1,0 +1,753 @@
+{
+  "date": "2026-09-13",
+  "sources": {
+    "author": "Screaming Brain Studios",
+    "license": "CC0-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source_url": "https://opengameart.org/content/cloudy-skyboxes-0",
+    "download_url": "https://opengameart.org/sites/default/files/sbs_-_cloudy_skyboxes_-_panorama_0.zip",
+    "archive_sha256": "06700ea569f0d6d429386446248d0156738ad80b4a1baa8c910d9d995f1dd400",
+    "modifications": "None: selected PNG files renamed, original pixels retained. Runtime brightness and texture compression only.",
+    "assets": [
+      {
+        "id": "overcast",
+        "file": "overcast.png",
+        "original": "Panorama_Sky_10-512x512.png",
+        "dimensions": [
+          2048,
+          1024
+        ],
+        "bytes": 1158148,
+        "sha256": "01cc91dd4b072f5d3c1a5be2f1c0751c80f98bd5e4f82226fd6cd8d5e60d91f1"
+      },
+      {
+        "id": "night",
+        "file": "night.png",
+        "original": "Panorama_Sky_12-512x512.png",
+        "dimensions": [
+          2048,
+          1024
+        ],
+        "bytes": 933701,
+        "sha256": "248c7fcfdb833b5648e03a28db54997cc6679ad6f5b3763050feb06f07a1a48f"
+      },
+      {
+        "id": "storm",
+        "file": "storm.png",
+        "original": "Panorama_Sky_18-512x512.png",
+        "dimensions": [
+          2048,
+          1024
+        ],
+        "bytes": 1072600,
+        "sha256": "ab0c5762d0db6e15882f1ca302b9c857870a2561db7f6289849667aef5b72e05"
+      },
+      {
+        "id": "winter",
+        "file": "winter.png",
+        "original": "Panorama_Sky_20-512x512.png",
+        "dimensions": [
+          2048,
+          1024
+        ],
+        "bytes": 919751,
+        "sha256": "a6623a0ad77b26ee6d8051f47eed2505e19c583a840eb3611011f45c96322156"
+      },
+      {
+        "id": "ember",
+        "file": "ember.png",
+        "original": "Panorama_Sky_22-512x512.png",
+        "dimensions": [
+          2048,
+          1024
+        ],
+        "bytes": 1038806,
+        "sha256": "740102f341c362f0c77dea8ad31ce76e138f7adf062505f6a0ce4bd5773616b7"
+      }
+    ],
+    "map_sources": {
+      "93a65a6f34287b1ac41adc02287455c8fd230e61c201ad3dc4b8191058b7c967": "as_hislop",
+      "555c0b1b012f6791dabcf3c488613e6c6d7da58be0d3597629800b67e9706c9e": "as_frigate",
+      "a28630971716f49eb744e8b850fd704e70cf04820eb088499b46957dca2bc08d": "tf_pressureworks",
+      "c19759d9a7ac2984b20fb0716923763c6c7ff6700201427f78698ba6cbdaf9e3": "tf_vesper",
+      "7759afbec42170e828c3feecc25254365265029de3f728966ab0eb0c9e0abab2": "koth_solstice",
+      "4df4297cbe9d860a3c93e3636863ca4f096f74de72fc3c7926cba99f3b792488": "koth_torture",
+      "e4a73507d55ddd38f972de94daa944b94afaf33d262838acd57e58953dd336d0": "koth_hyperborea",
+      "bf944df41bc9fa6fbe9339d518e41117eba0cdd93b686168f33a77a42a98d752": "cc_hyperborea",
+      "1370377682d7fd12aa98f03691ab15ea87046db62e9ebe631c48b90a62c254bb": "cc_psychofuge",
+      "74ceab19b31d75c3315dd775f08ad24e6859e65e982def10ffdc3168ceb2e327": "cc_ghostquarter",
+      "1c97f4fdc22e3708ef81d849b8a0c5f76e5dfb17b628889df2d3746bea8a78bb": "qsrc_dm2",
+      "9b521040bd9800b42cbdd97979dcbf2823dd4067688bf5be12fdffdc70224ba2": "qsrc_dm3",
+      "4e825f90f369f69edd68d99b1d73cc3cf522bd438377914cd49fb94b6cc6542f": "qsrc_dm4",
+      "dc7563efb64534aeba905044e9d1bb52578abc593a6402a5791910ae736cfcf9": "qsrc_dm5",
+      "590d329070774467f924a42bfee9dea53435f59421940ff99c5c29651add6af5": "qsrc_dm6",
+      "65f121cf37a284cabb4e17d34aecc8272cbe167171a966dd0549874963facd5e": "qsrc_dm7",
+      "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba": "ctf_crownreach"
+    }
+  },
+  "map_audit": "skybox-map-audit.json",
+  "render": {
+    "failures": [],
+    "records": [
+      {
+        "draws": {
+          "median": 58.0,
+          "p95": 58.0
+        },
+        "eye": [
+          5.1875,
+          8.375,
+          44.25
+        ],
+        "gpu_ms": {
+          "median": 1.38999998569489,
+          "p95": 1.875
+        },
+        "map": "as_hislop",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 58.0,
+          "p95": 58.0
+        },
+        "eye": [
+          5.1875,
+          8.375,
+          44.25
+        ],
+        "gpu_ms": {
+          "median": 1.38999998569489,
+          "p95": 1.9559999704361
+        },
+        "map": "as_hislop",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 84.0,
+          "p95": 84.0
+        },
+        "eye": [
+          3.1,
+          2.125,
+          -12.3
+        ],
+        "gpu_ms": {
+          "median": 1.66999995708466,
+          "p95": 2.16499996185303
+        },
+        "map": "as_frigate",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 84.0,
+          "p95": 84.0
+        },
+        "eye": [
+          3.1,
+          2.125,
+          -12.3
+        ],
+        "gpu_ms": {
+          "median": 1.66499996185303,
+          "p95": 1.69599997997284
+        },
+        "map": "as_frigate",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 2.0,
+          "p95": 2.0
+        },
+        "eye": [
+          -22.5,
+          2.25,
+          -21.0
+        ],
+        "gpu_ms": {
+          "median": 1.47899997234344,
+          "p95": 1.97200000286102
+        },
+        "map": "tf_pressureworks",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 2.0,
+          "p95": 2.0
+        },
+        "eye": [
+          -22.5,
+          2.25,
+          -21.0
+        ],
+        "gpu_ms": {
+          "median": 1.47599995136261,
+          "p95": 2.41199994087219
+        },
+        "map": "tf_pressureworks",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 2.0,
+          "p95": 2.0
+        },
+        "eye": [
+          -32.5,
+          2.25,
+          -22.0
+        ],
+        "gpu_ms": {
+          "median": 1.22000002861023,
+          "p95": 1.74600005149841
+        },
+        "map": "tf_vesper",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 2.0,
+          "p95": 2.0
+        },
+        "eye": [
+          -32.5,
+          2.25,
+          -22.0
+        ],
+        "gpu_ms": {
+          "median": 1.21700000762939,
+          "p95": 1.24399995803833
+        },
+        "map": "tf_vesper",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 74.0,
+          "p95": 74.0
+        },
+        "eye": [
+          36.02195,
+          2.25,
+          -6.49453
+        ],
+        "gpu_ms": {
+          "median": 1.48099994659424,
+          "p95": 2.49399995803833
+        },
+        "map": "koth_solstice",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 74.0,
+          "p95": 74.0
+        },
+        "eye": [
+          36.02195,
+          2.25,
+          -6.49453
+        ],
+        "gpu_ms": {
+          "median": 1.47000002861023,
+          "p95": 2.01399993896484
+        },
+        "map": "koth_solstice",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          4.5,
+          7.5,
+          25.5
+        ],
+        "gpu_ms": {
+          "median": 1.14800000190735,
+          "p95": 1.19200003147125
+        },
+        "map": "koth_torture",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          4.5,
+          7.5,
+          25.5
+        ],
+        "gpu_ms": {
+          "median": 1.1360000371933,
+          "p95": 1.77199995517731
+        },
+        "map": "koth_torture",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 21.0,
+          "p95": 21.0
+        },
+        "eye": [
+          -12.75,
+          -0.5,
+          86.25
+        ],
+        "gpu_ms": {
+          "median": 1.807000041008,
+          "p95": 2.40400004386902
+        },
+        "map": "koth_hyperborea",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 21.0,
+          "p95": 21.0
+        },
+        "eye": [
+          -12.75,
+          -0.5,
+          86.25
+        ],
+        "gpu_ms": {
+          "median": 1.80099999904633,
+          "p95": 2.34200000762939
+        },
+        "map": "koth_hyperborea",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          -19.7333125,
+          0.25,
+          48.3490625
+        ],
+        "gpu_ms": {
+          "median": 1.3289999961853,
+          "p95": 2.35999989509583
+        },
+        "map": "cc_hyperborea",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          -19.7333125,
+          0.25,
+          48.3490625
+        ],
+        "gpu_ms": {
+          "median": 1.31099998950958,
+          "p95": 1.35099995136261
+        },
+        "map": "cc_hyperborea",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 4.0,
+          "p95": 4.0
+        },
+        "eye": [
+          -5.05,
+          -3.75,
+          -23.15
+        ],
+        "gpu_ms": {
+          "median": 1.24699997901917,
+          "p95": 1.77400004863739
+        },
+        "map": "cc_psychofuge",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 4.0,
+          "p95": 4.0
+        },
+        "eye": [
+          -5.05,
+          -3.75,
+          -23.15
+        ],
+        "gpu_ms": {
+          "median": 1.20299994945526,
+          "p95": 1.75699996948242
+        },
+        "map": "cc_psychofuge",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          4.01665625,
+          14.25,
+          -29.4
+        ],
+        "gpu_ms": {
+          "median": 1.29499995708466,
+          "p95": 1.32700002193451
+        },
+        "map": "cc_ghostquarter",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          4.01665625,
+          14.25,
+          -29.4
+        ],
+        "gpu_ms": {
+          "median": 1.307000041008,
+          "p95": 1.81599998474121
+        },
+        "map": "cc_ghostquarter",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          1.25,
+          1.5,
+          -60.75
+        ],
+        "gpu_ms": {
+          "median": 1.07099997997284,
+          "p95": 2.0699999332428
+        },
+        "map": "qsrc_dm2",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          1.25,
+          1.5,
+          -60.75
+        ],
+        "gpu_ms": {
+          "median": 1.04700005054474,
+          "p95": 1.06700003147125
+        },
+        "map": "qsrc_dm2",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 12.0,
+          "p95": 12.0
+        },
+        "eye": [
+          -25.0,
+          -7.75,
+          -31.5
+        ],
+        "gpu_ms": {
+          "median": 1.30499994754791,
+          "p95": 1.3309999704361
+        },
+        "map": "qsrc_dm3",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 12.0,
+          "p95": 12.0
+        },
+        "eye": [
+          -25.0,
+          -7.75,
+          -31.5
+        ],
+        "gpu_ms": {
+          "median": 1.31099998950958,
+          "p95": 1.85000002384186
+        },
+        "map": "qsrc_dm3",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          18.25,
+          1.5,
+          -26.25
+        ],
+        "gpu_ms": {
+          "median": 1.05799996852875,
+          "p95": 1.70899999141693
+        },
+        "map": "qsrc_dm4",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          18.25,
+          1.5,
+          -26.25
+        ],
+        "gpu_ms": {
+          "median": 1.04100000858307,
+          "p95": 2.01200008392334
+        },
+        "map": "qsrc_dm4",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          7.0,
+          8.75,
+          -5.0
+        ],
+        "gpu_ms": {
+          "median": 0.992999970912933,
+          "p95": 1.00399994850159
+        },
+        "map": "qsrc_dm5",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          7.0,
+          8.75,
+          -5.0
+        ],
+        "gpu_ms": {
+          "median": 0.964999973773956,
+          "p95": 1.93599998950958
+        },
+        "map": "qsrc_dm5",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          13.5,
+          2.625,
+          -47.25
+        ],
+        "gpu_ms": {
+          "median": 0.99099999666214,
+          "p95": 1.01800000667572
+        },
+        "map": "qsrc_dm6",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          13.5,
+          2.625,
+          -47.25
+        ],
+        "gpu_ms": {
+          "median": 0.992999970912933,
+          "p95": 1.51300001144409
+        },
+        "map": "qsrc_dm6",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          21.0,
+          22.25,
+          -29.25
+        ],
+        "gpu_ms": {
+          "median": 1.14699995517731,
+          "p95": 1.16999995708466
+        },
+        "map": "qsrc_dm7",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 1.0,
+          "p95": 1.0
+        },
+        "eye": [
+          21.0,
+          22.25,
+          -29.25
+        ],
+        "gpu_ms": {
+          "median": 1.13399994373322,
+          "p95": 1.14800000190735
+        },
+        "map": "qsrc_dm7",
+        "variant": "after"
+      },
+      {
+        "draws": {
+          "median": 49.0,
+          "p95": 49.0
+        },
+        "eye": [
+          17.0,
+          10.25,
+          67.0
+        ],
+        "gpu_ms": {
+          "median": 1.29299998283386,
+          "p95": 1.29999995231628
+        },
+        "map": "ctf_crownreach",
+        "variant": "before"
+      },
+      {
+        "draws": {
+          "median": 49.0,
+          "p95": 49.0
+        },
+        "eye": [
+          17.0,
+          10.25,
+          67.0
+        ],
+        "gpu_ms": {
+          "median": 1.28799998760223,
+          "p95": 1.75800001621246
+        },
+        "map": "ctf_crownreach",
+        "variant": "after"
+      }
+    ],
+    "renderer": "mobile"
+  },
+  "stereo": {
+    "failures": [],
+    "method": "Same projection at left/right 64 mm IPD, room-scale translation, and head rotation; native renderer, not an OpenXR device test.",
+    "records": [
+      {
+        "head_rotation_changes_view": true,
+        "no_room_scale_parallax": true,
+        "same_64mm_stereo_background": true,
+        "sky": "storm"
+      },
+      {
+        "head_rotation_changes_view": true,
+        "no_room_scale_parallax": true,
+        "same_64mm_stereo_background": true,
+        "sky": "overcast"
+      },
+      {
+        "head_rotation_changes_view": true,
+        "no_room_scale_parallax": true,
+        "same_64mm_stereo_background": true,
+        "sky": "night"
+      },
+      {
+        "head_rotation_changes_view": true,
+        "no_room_scale_parallax": true,
+        "same_64mm_stereo_background": true,
+        "sky": "winter"
+      },
+      {
+        "head_rotation_changes_view": true,
+        "no_room_scale_parallax": true,
+        "same_64mm_stereo_background": true,
+        "sky": "ember"
+      }
+    ],
+    "renderer": "mobile"
+  },
+  "comparison": {
+    "gpu_median_difference_ms": -0.006000041961670144,
+    "gpu_median_difference_range_ms": [
+      -0.044000029563910026,
+      0.012000083923340066
+    ],
+    "draw_call_differences": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "measurement_limit": "Bounded 960x600 desktop Mobile/Vulkan previews; small differences are timing noise, not a headset benchmark."
+  },
+  "unit_passed": true,
+  "map_presentation_passed": true,
+  "console_package_no_sky_resources": true,
+  "raw_sky_asset_bytes": 5123006,
+  "live_openxr_test": false,
+  "standalone_quest_test": false,
+  "published": false,
+  "shutdown_diagnostics": {
+    "full_map_preview": [
+      "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ],
+    "isolated_sky_test": [
+      "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+    ]
+  }
+}

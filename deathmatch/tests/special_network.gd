@@ -28,6 +28,11 @@ func run():
 				g.match_mode.configure({"sv_gametype":mode});g.match_mode.reset()
 				for id in g.players:g.players[id].team=-1;g._spawn(id)
 				g._send_snapshot();await create_timer(1.5).timeout
+			g.match_mode.configure({"sv_gametype":"if"});g.match_mode.reset()
+			for id in g.players:g._spawn(id)
+			g.players[red].team=0;g.players[blue].team=1;g.players[blue].invulnerable=0
+			g._damage(blue,red,10000,"RAILGUN");g.match_mode.tick(.01);g._send_snapshot();await create_timer(1.5).timeout
+			check(g.match_mode.special.frozen.has(blue) and not g.players[blue].dead,"IF network victim stays frozen without respawning")
 	else:
 		g.start_join(role,"127.0.0.1",28773)
 		check(await wait_for(func():return g.active and not g.local_state().is_empty()),"Client joins")
@@ -35,4 +40,7 @@ func run():
 		check(g.match_mode.special.blocked(g.multiplayer.get_unique_id()),"Client observes freeze-round movement block")
 		check(await wait_for(func():return g.match_mode.kind=="cc" and g.local_state().owned==[1]),"Chainsaw-only loadout replicates")
 		check(await wait_for(func():return g.match_mode.kind=="ig" and g.local_state().owned==[9]),"Railgun-only loadout replicates")
+		check(await wait_for(func():return g.match_mode.kind=="if" and g.match_mode.special.frozen.size()==1 and g.match_mode.scores==[1,0] and g.local_state().owned==[9]),"IF rail loadout, freeze and team score replicate")
+		check(g.match_mode.special.blocked(g.multiplayer.get_unique_id()),"IF client observes freeze-round input block")
+		await create_timer(2.0).timeout # Keep peers connected for the authority input-lock assertion.
 	print("SPECIAL_NETWORK_RESULT ",role," ",JSON.stringify(failures));g.disconnect_game();g.free();quit(0 if failures.is_empty() else 1)

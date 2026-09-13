@@ -1,0 +1,108 @@
+{
+  "tests": [
+    {
+      "test": "death_animation",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "test": "avatar_stances",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "test": "avatar_stances-fallback",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "test": "avatar_scaling",
+      "exit_code": 0,
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "sources": {
+    "deathmatch/avatars/death_pose.gd": "cea0c1b100595f8f6baae05038ca9573e04e219a0f205f226559b12389f5b166",
+    "deathmatch/avatars/pose.gd": "e80b5115bb212f8118e226ab799aff255146fe47a641938e794943ed293a8d20",
+    "deathmatch/avatars/rig.gd": "c6632c2cb5639d630dadf3694f49cc47c0d17656da46f49801119e36af44b367",
+    "deathmatch/avatars/fallback.gd": "89bc02a854fa25e4a94faefdb8a9e9748fafc4eaab8fe56f1d1c11d688433449",
+    "deathmatch/avatars/eyes.gd": "7d014279841ba6434a4d103d03138779008cc3f6e7d10f9dbcebd40fa6319cde",
+    "deathmatch/art.gd": "a85704ba600aeeeccc00b30de06fd98c9677c52a478ddd109678f8b39019e32b",
+    "deathmatch/fighter.gd": "96368c65fcb98cd90ba8f742fd2c6aefc9c2d2496d0e0ba58ab212084c5ef9c3",
+    "deathmatch/tests/death_animation.gd": "b942e5bf3d3e3e8a0bd7a445d3a4684e0e250c6981ace4243400b281b7e4e2be"
+  },
+  "poses": {
+    "failures": [],
+    "models": [
+      {
+        "entry": "stand",
+        "head": "(0.257964, 0.205548, 0.597225)",
+        "live_head": "(0.000105, 1.459922, 0.008379)",
+        "model": "VRoid Sample D",
+        "settled_update_us": 22.1833333333333
+      },
+      {
+        "entry": "prone",
+        "head": "(0.257964, 0.205548, 0.597225)",
+        "live_head": "(0.000105, 0.423762, -0.143503)",
+        "model": "VRoid Sample D",
+        "settled_update_us": 21.8833333333333
+      },
+      {
+        "entry": "tracked",
+        "head": "(0.257964, 0.205548, 0.597225)",
+        "live_head": "(-0.000174, 1.459922, 0.014452)",
+        "model": "VRoid Sample D",
+        "settled_update_us": 22.0416666666667
+      },
+      {
+        "entry": "stand",
+        "head": "(0.25073, 0.206062, 0.575378)",
+        "live_head": "(0.000258, 1.455292, 0.006591)",
+        "model": "VRoid Sample F",
+        "settled_update_us": 24.1916666666667
+      },
+      {
+        "entry": "prone",
+        "head": "(0.25073, 0.206062, 0.575378)",
+        "live_head": "(0.000258, 0.41824, -0.12243)",
+        "model": "VRoid Sample F",
+        "settled_update_us": 24.2083333333333
+      },
+      {
+        "entry": "tracked",
+        "head": "(0.25073, 0.206062, 0.575378)",
+        "live_head": "(-0.000169, 1.455292, 0.013938)",
+        "model": "VRoid Sample F",
+        "settled_update_us": 24.225
+      },
+      {
+        "entry": "stand",
+        "head": "(0.249797, 0.206052, 0.572568)",
+        "live_head": "(0.000307, 1.464901, 0.00566)",
+        "model": "VRoid Sample G",
+        "settled_update_us": 25.4166666666667
+      },
+      {
+        "entry": "prone",
+        "head": "(0.249797, 0.206052, 0.572568)",
+        "live_head": "(0.000307, 0.417604, -0.120479)",
+        "model": "VRoid Sample G",
+        "settled_update_us": 26.4666666666667
+      },
+      {
+        "entry": "tracked",
+        "head": "(0.249797, 0.206052, 0.572568)",
+        "live_head": "(-0.00017, 1.464901, 0.013948)",
+        "model": "VRoid Sample G",
+        "settled_update_us": 25.4333333333333
+      }
+    ]
+  },
+  "limits": "Scripted collapse, without per-limb collision or slope conformance. Timings measure settled rig/pose script updates only, excluding GPU skinning, hair and rendering. No headset performance claim."
+}

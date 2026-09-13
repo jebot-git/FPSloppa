@@ -7,6 +7,7 @@ func check(condition: bool, label: String) -> void:
 func _initialize() -> void:
 	call_deferred("run")
 func run() -> void:
+	var world:=Node3D.new();root.add_child(world)
 	var library := Library.new()
 	root.add_child(library)
 	check(library.entries.size()>=3,"three bundled VRMs")
@@ -22,7 +23,7 @@ func run() -> void:
 		var avatar := library.create_avatar(hash)
 		check(avatar!=null,"runtime import "+entry.title)
 		if avatar:
-			root.add_child(avatar)
+			world.add_child(avatar)
 			avatar.preview_mode=2
 			await process_frame
 			await process_frame
@@ -55,5 +56,6 @@ func run() -> void:
 	check(not Library.validate_structure({"extensions":{"VRM":[]}}).is_empty(),"reject malformed VRM extension types")
 	check(not Library.validate_structure({"nodes":[{"children":[99.0]}]}).is_empty(),"reject out-of-range joints")
 	library.free()
+	world.free()
 	print("AVATAR_TESTS_DONE failures=",failures)
 	quit(1 if failures else 0)

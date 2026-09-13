@@ -1,0 +1,272 @@
+{
+  "id": "ctf_tideworks",
+  "title": "Tideworks | McKinley Base study",
+  "original_reference": "ctf1",
+  "sha256": "6fcba14ad1c5834eeecc1cf622da403a3a0647a20268d21cb2841eedaef8ff0e",
+  "source_sha256": "0ebdb1a3a8e31690287e08172d8802b54ae6246ea896900ef8686b76526eb96a",
+  "brushes": 81,
+  "rooms": 27,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "flags": [
+    [
+      -1728,
+      224,
+      280
+    ],
+    [
+      1728,
+      -224,
+      280
+    ]
+  ],
+  "spawns": [
+    [
+      [
+        -896,
+        544,
+        24
+      ],
+      [
+        -992,
+        544,
+        24
+      ],
+      [
+        -1088,
+        544,
+        24
+      ],
+      [
+        -1184,
+        544,
+        24
+      ],
+      [
+        -1280,
+        544,
+        24
+      ],
+      [
+        -1376,
+        544,
+        24
+      ],
+      [
+        -1472,
+        544,
+        24
+      ],
+      [
+        -1568,
+        544,
+        24
+      ]
+    ],
+    [
+      [
+        896,
+        -544,
+        24
+      ],
+      [
+        992,
+        -544,
+        24
+      ],
+      [
+        1088,
+        -544,
+        24
+      ],
+      [
+        1184,
+        -544,
+        24
+      ],
+      [
+        1280,
+        -544,
+        24
+      ],
+      [
+        1376,
+        -544,
+        24
+      ],
+      [
+        1472,
+        -544,
+        24
+      ],
+      [
+        1568,
+        -544,
+        24
+      ]
+    ]
+  ],
+  "views": [
+    [
+      [
+        -600,
+        480,
+        360
+      ],
+      [
+        400,
+        -300,
+        64
+      ],
+      "court"
+    ],
+    [
+      [
+        1300,
+        -100,
+        400
+      ],
+      [
+        1728,
+        -224,
+        280
+      ],
+      "flag"
+    ]
+  ],
+  "landmarks": [
+    {
+      "name": "Flood court",
+      "center": [
+        0.0,
+        0.0,
+        256.0
+      ]
+    },
+    {
+      "name": "Base concourse",
+      "center": [
+        -1184.0,
+        192.0,
+        288.0
+      ]
+    },
+    {
+      "name": "Raised flag room",
+      "center": [
+        -1664.0,
+        224.0,
+        416.0
+      ]
+    },
+    {
+      "name": "Main entry",
+      "center": [
+        -656.0,
+        272.0,
+        128.0
+      ]
+    },
+    {
+      "name": "Window approach",
+      "center": [
+        -512.0,
+        512.0,
+        144.0
+      ]
+    },
+    {
+      "name": "Service water route",
+      "center": [
+        -1136.0,
+        -256.0,
+        -96.0
+      ]
+    },
+    {
+      "name": "Base concourse",
+      "center": [
+        1184.0,
+        -192.0,
+        288.0
+      ]
+    },
+    {
+      "name": "Raised flag room",
+      "center": [
+        1664.0,
+        -224.0,
+        416.0
+      ]
+    },
+    {
+      "name": "Main entry",
+      "center": [
+        656.0,
+        -272.0,
+        128.0
+      ]
+    },
+    {
+      "name": "Window approach",
+      "center": [
+        512.0,
+        -512.0,
+        144.0
+      ]
+    },
+    {
+      "name": "Service water route",
+      "center": [
+        1136.0,
+        256.0,
+        -96.0
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "name": "high gallery",
+      "points": [
+        [
+          -896,
+          512,
+          0
+        ],
+        [
+          -224,
+          512,
+          256
+        ],
+        [
+          0,
+          512,
+          256
+        ],
+        [
+          0,
+          -512,
+          256
+        ],
+        [
+          224,
+          -512,
+          256
+        ],
+        [
+          896,
+          -512,
+          0
+        ]
+      ]
+    }
+  ],
+  "geometry": "newly authored; no original BSP geometry used as build input",
+  "textures": "../texture-sources.json",
+  "lighting_rebake": {
+    "original_sha256": "f6c28b0168893e479a497dea6a601d1ad6cceb6b181c34c8a9f66b4f394da2a0",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  }
+}

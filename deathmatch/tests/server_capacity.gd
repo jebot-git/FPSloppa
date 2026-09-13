@@ -22,7 +22,7 @@ func run():
 			joined=true;print("CAPACITY_JOINED ",role)
 		if rejected:
 			if joined:quit(1);return
-			if game.last_event.contains("server full") or game.last_event.contains("Connection failed") or game.last_event.contains("Connection timed out"):
+			if game.last_event.to_lower().contains("server full") or game.last_event.contains("Connection failed") or game.last_event.contains("Connection timed out"):
 				print("CAPACITY_REJECTED");quit(0);return
 		elif game.players.size()==count and game.avatars.choices.size()==count and not full_roster:
 			full_roster=true;print("CAPACITY_FULL_ROSTER ",count)

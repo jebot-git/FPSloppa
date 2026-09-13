@@ -1,13 +1,20 @@
 extends RefCounted
 ## All rules run on the server. Clients receive a read-only objective snapshot.
-const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","as":"Assault"}
+const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","if":"INSTAFREEZE","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","tb":"TITANBALL","as":"ASSAULT"}
 const COLORS=[Color("ed6558"),Color("65a9ef")]
 const TEAMS=["RED","BLUE"]
 var game
 var fortress=preload("res://deathmatch/modes/fortress.gd").new()
+var titanball=preload("res://deathmatch/modes/titanball.gd").new()
 var special=preload("res://deathmatch/modes/special.gd").new()
 var assault=preload("res://deathmatch/modes/assault.gd").new()
-var kind:="dm"
+var kind:="dm":
+	set(value):
+		if kind==value:return
+		kind=value
+		if game:
+			game.armory.apply_mode()
+			game.time_limit=game.normal_time_limit
 var friendly_fire:=false
 var capture_limit:=5
 var hill_limit:=120
@@ -23,14 +30,18 @@ var hill_credit:=0.0
 var visuals: Node3D
 var visual_key:=""
 
-func setup(arena: Node) -> void: game=arena;special.setup(self);assault.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self)
+func setup(arena: Node) -> void: game=arena;titanball.setup(self);special.setup(self);assault.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self)
 func configure(settings: Dictionary) -> void:
 	kind=settings.get("sv_gametype","dm")
 	fortress.spy_invisibility=settings.get("sv_tf_spy_invisibility",0)==1
 	friendly_fire=settings.get("sv_friendlyfire",0)==1
 	capture_limit=settings.get("capturelimit",5)
 	hill_limit=settings.get("hilllimit",120)
-func team_game() -> bool: return kind in ["tdm","ctf","koth","ft","tf","as"]
+func instagib() -> bool:return kind in ["ig","if"]
+func freeze_tag() -> bool:return kind in ["ft","if"]
+func fixed_loadout() -> bool:return instagib() or kind=="cc"
+static func maplist_kind(value: String) -> String:return "ig" if value=="if" else value
+func team_game() -> bool: return kind in ["tdm","ctf","koth","ft","if","tf","tb","as"]
 func assign_team(spectator: bool) -> int:
 	if spectator or not team_game():return -1
 	var count: Array=[0,0]
@@ -41,7 +52,7 @@ func same_team(a: int,b: int) -> bool:
 	return team_game() and game.players.has(a) and game.players.has(b) and game.players[a].team>=0 and game.players[a].team==game.players[b].team
 func reset() -> void:
 	capture_notice.clear()
-	special.reset();fortress.reset();assault.reset()
+	special.reset();fortress.reset();assault.reset();titanball.reset()
 	scores=[0,0];hill_owner=-1;hill_credit=0.0;flags.clear();bases.clear();captures.clear()
 	if game.spawn_points.is_empty():return
 	# BSP spawn origins are known playable locations; custom maps get a conservative fallback.
@@ -59,7 +70,8 @@ func reset() -> void:
 	for row in game.map_catalog:
 		if row.id!=game.current_map or not row.has("objectives"):continue
 		var data: Dictionary=row.objectives
-		bases=[vector(data.red),vector(data.blue)];hill=vector(data.hill)
+		if data.has("red") and data.has("blue"):bases=[vector(data.red),vector(data.blue)]
+		if data.has("hill"):hill=vector(data.hill)
 	if game.map_objectives.has("red") and game.map_objectives.has("blue"):bases=[game.map_objectives.red,game.map_objectives.blue]
 	if game.map_objectives.has("hill"):hill=game.map_objectives.hill
 	for i in range(2):captures.append(game.tf_capture.get(i,bases[i]) if kind=="tf" else bases[i])
@@ -69,13 +81,15 @@ func vector(value: Array) -> Vector3:return Vector3(value[0],value[1],value[2])
 func spawns(team: int) -> Array:
 	if game.lobby.active():return game.spawn_points
 	if kind=="as" and team in [0,1]:return assault.spawns(team)
-	if kind in ["ctf","tf"] and team in [0,1] and not game.ctf_spawns[team].is_empty():return game.ctf_spawns[team]
+	if kind=="tb" and team in [0,1]:return titanball.spawns(team)
+	if kind in ["ctf","tf","tb","koth"] and team in [0,1] and not game.ctf_spawns[team].is_empty():return game.ctf_spawns[team]
 	if not kind in ["ctf","tf"] or team<0 or bases.size()!=2:return game.spawn_points
 	var result: Array=[]
 	for point in game.spawn_points:
 		if point.distance_squared_to(bases[team])<=point.distance_squared_to(bases[1-team]):result.append(point)
 	return result if not result.is_empty() else game.spawn_points
 func killed(victim: int,attacker: int) -> void:
+	fortress.walkers.departed(victim)
 	drop(victim)
 	if not game.players.has(attacker):return
 	var penalty: bool=attacker==victim or same_team(victim,attacker)
@@ -144,25 +158,27 @@ func check_limit() -> void:
 	if maxi(scores[0],scores[1])>=limit():game._end_round()
 func result() -> String:
 	if kind=="as":return assault.message
+	if kind=="tb":return titanball.result()
 	return ("DRAW" if scores[0]==scores[1] else TEAMS[0 if scores[0]>scores[1] else 1]+" WINS")+" · %d : %d"%[scores[0],scores[1]]
 func status(id: int=0) -> String:
 	if kind=="as":return assault.status()
+	if kind=="tb":return titanball.status(id)+fortress.status(id)
 	if not team_game():return kind.to_upper()+" · %d FRAGS"%game.frag_limit
 	var text: String=kind.to_upper()+" · RED %d  BLUE %d / %d"%[scores[0],scores[1],limit()]
 	if game.players.has(id) and game.players[id].team>=0:text+=" · YOU: "+TEAMS[game.players[id].team]
 	if kind in ["ctf","tf"] and flags.size()==2:
 		for i in range(2):text+=" · "+TEAMS[i]+" FLAG "+("TAKEN" if flags[i].carrier!=0 else "DROPPED" if flags[i].dropped else "HOME")
 	elif kind=="koth":text+=" · HILL "+("CONTESTED" if hill_owner==-2 else "OPEN" if hill_owner==-1 else TEAMS[hill_owner])
-	if kind=="ft":text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
+	if freeze_tag():text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
 	return text+fortress.status(id)
 func snapshot() -> Dictionary:
-	return {"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot()}
+	return {"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
 func receive(data: Dictionary) -> void:
 	if data.is_empty():return
 	game.announcer.policy(bool(data.get("announcer",true)))
 	special.frozen=data.get("frozen",{});special.reset_at=data.get("freeze_reset",0.0)
 	kind=data.kind;fortress.receive(data.get("fortress",{}));scores=data.scores;bases=data.bases;captures=data.get("captures",bases);flags=data.flags;hill=data.hill;hill_owner=data.owner;friendly_fire=data.friendly_fire
-	assault.receive(data.get("assault",{}))
+	assault.receive(data.get("assault",{}));titanball.receive(data.get("titanball",{}))
 	if kind in ["ctf","tf"]:capture_limit=data.limit
 	elif kind=="koth":hill_limit=data.limit
 func clear_visuals() -> void:
@@ -171,6 +187,7 @@ func clear_visuals() -> void:
 func draw_objectives() -> void:
 	if game.headless:return
 	fortress.draw()
+	fortress.walkers.draw(game.get_process_delta_time())
 	for id in game.fighters:game.fighters[id].set_frozen(special.frozen.has(id),float(special.frozen.get(id,0.0)))
 	var key: String=kind+str(bases)+str(hill)+(str(assault.stage)+str(assault.attacking) if kind=="as" else "")
 	if visual_key!=key or not is_instance_valid(visuals):

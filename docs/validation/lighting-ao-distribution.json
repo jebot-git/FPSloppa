@@ -1,0 +1,1916 @@
+{
+  "status": "All 25 base-distribution maps installed with validated low AO",
+  "maps": [
+    {
+      "id": "as_hislop",
+      "original_sha256": "3f2d28110fadad9c4054f93ddc318b0a623046008fe844483dd5755201732847",
+      "sha256": "93a65a6f34287b1ac41adc02287455c8fd230e61c201ad3dc4b8191058b7c967",
+      "cache_sha256": "6cd375d519f5ef2ecee8d3c76d52380240b43675e7d722f6d755a3088fc4e2cf",
+      "navigation_sha256": "a37bdea7ca922d4e556f40ef339e77aeccac2d42a038614b28c16521b8658bf2",
+      "original_bytes": 4633844,
+      "bytes": 4633844,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 8966,
+      "light_bytes": 516620,
+      "rgb_bytes": 1549860
+    },
+    {
+      "id": "as_frigate",
+      "original_sha256": "b74978b24f4497573370c74d5216e81588cad2b15d8793758d039c0736b23ba7",
+      "sha256": "555c0b1b012f6791dabcf3c488613e6c6d7da58be0d3597629800b67e9706c9e",
+      "cache_sha256": "9db40bc0f1840962e5e044f63b897686c4c36608889a80d45db0b1dd05cf9c81",
+      "navigation_sha256": "73c08692f831751dea7f6ebd8db3772ecf493fdc0aabf3bba2d8cd9c9d83d786",
+      "original_bytes": 3871580,
+      "bytes": 3871580,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 4646,
+      "light_bytes": 462368,
+      "rgb_bytes": 1387104
+    },
+    {
+      "id": "tf_pressureworks",
+      "original_sha256": "e8e8ef29fc96f48ae3f772ee1972803897e841f95af687aa6baad030a9b34003",
+      "sha256": "d792357cfa76e19640886ae129ddec4da2843bf71fe4a8188bce80839b1ad25c",
+      "cache_sha256": "f3df16423e537004f6ce277ae6031a37c5313dfc612bd23a2d9f72819aed926f",
+      "navigation_sha256": "4641ac6bd117f0978ddcd8ea8bfe8e00864a72f727fa1956ed5cfc2ab5a66cb7",
+      "original_bytes": 10314912,
+      "bytes": 10314909,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 6514,
+      "light_bytes": 598811,
+      "rgb_bytes": 1796433
+    },
+    {
+      "id": "tf_vesper",
+      "original_sha256": "cd05a1b26e81db1d0b7d386e0eb374acc670e2bb430f1ecfd40f12c90ed3be94",
+      "sha256": "d484a34f3ac6ad668db9c864b29c245aa8d5df4234bd4fcdf679c02012d2b195",
+      "cache_sha256": "0c6c4d9ef75fee95068e93181bae915fe8e9fb378aedbf352f827580a7d5343b",
+      "navigation_sha256": "c3e1c8009580415408bf711ca5ba51e67c809bb7a81ab923716268499923d2e2",
+      "original_bytes": 5912088,
+      "bytes": 5913978,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 4415,
+      "light_bytes": 288214,
+      "rgb_bytes": 864642
+    },
+    {
+      "id": "koth_solstice",
+      "original_sha256": "b7ffa7c97cad3d0a5df9a6b86c822fcd2b205d2a44eae70ddcd937191ad170eb",
+      "sha256": "c905627f90453f32640fff969892e7d0e1a5142a67051886c87b30600fe49121",
+      "cache_sha256": "177820ceec89f8919e6cb2a510a9fe98206cf7549c4ce7672b1e7858b59a9306",
+      "navigation_sha256": "f15f17d3d5f40c62d92820e24c26fc530d5f05bcec4307dd99329e2212c933da",
+      "original_bytes": 2133012,
+      "bytes": 2133009,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 4564,
+      "light_bytes": 180607,
+      "rgb_bytes": 541821
+    },
+    {
+      "id": "koth_torture",
+      "original_sha256": "dcb84bfea9752aad724b600fc0d0534dc8d77378f4114deefd1f7bf2e07f16e2",
+      "sha256": "4df4297cbe9d860a3c93e3636863ca4f096f74de72fc3c7926cba99f3b792488",
+      "cache_sha256": "d69c8420bff787291f661474737eaa7aa9a9f64664bb2de9f938320278abf5b7",
+      "navigation_sha256": "8ab597e2423395dd27d4b95959b4d4f2756149cd92249e435b9b7882bbe8d6d1",
+      "original_bytes": 2485752,
+      "bytes": 2485976,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 3530,
+      "light_bytes": 156132,
+      "rgb_bytes": 468396
+    },
+    {
+      "id": "koth_hyperborea",
+      "original_sha256": "c6f84cda59b9f1a0a544f8758d4bcc7a4dc6531c0436b7ab5f6d2e37c51c49ba",
+      "sha256": "28c67c739b19b1cf9760596e883076ae29e7e85d0d15bd4e60c8042fdfcc7a51",
+      "cache_sha256": "c01b990e37028d8c1e36e62ced9588c4e63cfa0ca6ddcc18fb6957a3fcda08d5",
+      "navigation_sha256": "6bfc8f267241056ef68840993acc594eed2ee9cd85384b06788d2f4cdcfb523b",
+      "original_bytes": 7716412,
+      "bytes": 7717249,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 39,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 16252,
+      "light_bytes": 1013351,
+      "rgb_bytes": 3040053
+    },
+    {
+      "id": "koth_alichar",
+      "original_sha256": "ad841db6ea0e7453248ab6484beabf720b209604857625ea5f5c625eeefd108c",
+      "sha256": "95333fcdc2e19e1c038dd99949b51af8e66712298cdf08247e2cc5886ed311ac",
+      "cache_sha256": "ecd71d6935e7a4ccaa94ed6945db7d18f166a75d3cdfbf87f65991d859121130",
+      "navigation_sha256": "14ed3616a062adc2e73998a293412f2945d1c6f9ce62e20eaecd4fd53c1c15cd",
+      "original_bytes": 5769032,
+      "bytes": 5769144,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 52,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 6941,
+      "light_bytes": 286892,
+      "rgb_bytes": 860676
+    },
+    {
+      "id": "cc_hyperborea",
+      "original_sha256": "2dd888d4f6526eafcdaecff905339be36702ca301ba5daa297bf40fa96d645ed",
+      "sha256": "bf944df41bc9fa6fbe9339d518e41117eba0cdd93b686168f33a77a42a98d752",
+      "cache_sha256": "dd13dcee2301af8320def2ecaf867b5c65e3919f322194719b63c13cfb0136f9",
+      "navigation_sha256": "08b4b5b9a8a8f6b0250605b261cf55a34d9a79e5755cc186a3823fe272fcfb1d",
+      "original_bytes": 1319912,
+      "bytes": 1319912,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2531,
+      "light_bytes": 87884,
+      "rgb_bytes": 263652
+    },
+    {
+      "id": "cc_psychofuge",
+      "original_sha256": "b736b0403c20867ca108c39d84db2ed9a8f1cfc8a2c52552d4f3d635ed7e1231",
+      "sha256": "1370377682d7fd12aa98f03691ab15ea87046db62e9ebe631c48b90a62c254bb",
+      "cache_sha256": "c88c463a546d551b4840ddc55fbbbc57d5af6c0c1b41fa51c2c321cde847c070",
+      "navigation_sha256": "781fb8125e22df9aca75fd5758af1e379aa4321cf43f81717ef6d8cfadbd0ad9",
+      "original_bytes": 3350956,
+      "bytes": 3352140,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 7031,
+      "light_bytes": 454692,
+      "rgb_bytes": 1364076
+    },
+    {
+      "id": "cc_ghostquarter",
+      "original_sha256": "963ccebe8fbf6599ccebd7a3b5a6c7fbd9ae5c898a34250e53222460f124d79e",
+      "sha256": "74ceab19b31d75c3315dd775f08ad24e6859e65e982def10ffdc3168ceb2e327",
+      "cache_sha256": "4f665e175a8d5a2c912f81b35a5cf0876463a442a94b1ad5ffac635aedd10370",
+      "navigation_sha256": "c0a8b43c7054678162d5fc40159d997edc00430c13756795c0ee39008bf084bc",
+      "original_bytes": 2900164,
+      "bytes": 2900546,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 9444,
+      "light_bytes": 192774,
+      "rgb_bytes": 578322
+    },
+    {
+      "id": "cc_basement",
+      "original_sha256": "b63ce47097140ec26db9bd2179d29b420e5f22eacc510b186c4618c62ce2c839",
+      "sha256": "4735ae86ba3685d6ce39f96a7344373431ded23f0f87618fb142da6b8613ad01",
+      "cache_sha256": "b259e0d0fa80980fb932bb3cb88026e305e7057debdf1947d12398dbdd93b4d4",
+      "navigation_sha256": "24b56d138e5c0ead53c5ea5a753e336772f9927c36d81f65823640ee220439d5",
+      "original_bytes": 3234268,
+      "bytes": 3235690,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 6284,
+      "light_bytes": 179118,
+      "rgb_bytes": 537354
+    },
+    {
+      "id": "qsrc_dm1",
+      "original_sha256": "e875b0ab8672dd5b4c6ac2c668f19bbf59d2d29bdc41bde3b634c4cad9d3ff1d",
+      "sha256": "8418cffc2f7346bcda110eb07e10108b7d6f77f7532111921e95eee425443ce8",
+      "cache_sha256": "8e93177392fb9c41fb42754863ea487bc26e9315dc0d3d790315f10194860e58",
+      "navigation_sha256": "74a1b7546a73ce3a10be35a5ff3283d6ec844f21bb0d23c7dd56a24284a69a2b",
+      "original_bytes": 2109680,
+      "bytes": 2109677,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2327,
+      "light_bytes": 68499,
+      "rgb_bytes": 205497
+    },
+    {
+      "id": "qsrc_dm2",
+      "original_sha256": "9cfd7589c971efd3ac5ea1ce91f12bd529acd9ecd309639d31e7b45e4fb603f2",
+      "sha256": "1c97f4fdc22e3708ef81d849b8a0c5f76e5dfb17b628889df2d3746bea8a78bb",
+      "cache_sha256": "b2ea02b7a07c64e33a8d119c1528e72b746fecf013d1d6c563a17b4eb6171f1f",
+      "navigation_sha256": "69e03d4b1f7e195a3d19101b6e65bbe306f9bc8e21290e803c54938cc6969c0b",
+      "original_bytes": 3040164,
+      "bytes": 3040162,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 5344,
+      "light_bytes": 128482,
+      "rgb_bytes": 385446
+    },
+    {
+      "id": "qsrc_dm3",
+      "original_sha256": "97a8f31d6c5547417e030af5e1ac033699e09743e9a2a3d19fb01aa8e8101df3",
+      "sha256": "9b521040bd9800b42cbdd97979dcbf2823dd4067688bf5be12fdffdc70224ba2",
+      "cache_sha256": "f28ec7e343958bb062db95e86078ff57cb9fb6c39cef7c5ec11c66077dd74e0a",
+      "navigation_sha256": "803eec51f1b6fb1d065a019cb115041656a82010405a92115676d1cc8e58cd20",
+      "original_bytes": 3409664,
+      "bytes": 3409663,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 3318,
+      "light_bytes": 139357,
+      "rgb_bytes": 418071
+    },
+    {
+      "id": "qsrc_dm4",
+      "original_sha256": "d31989c64734ecd3402909e71ef29b2fd20da04d132eee63e004d6f80f3faccd",
+      "sha256": "4e825f90f369f69edd68d99b1d73cc3cf522bd438377914cd49fb94b6cc6542f",
+      "cache_sha256": "532444054084e3ceabfbc8aaec9e1c1d15bac50ccb535ba5815123fb80d26f8e",
+      "navigation_sha256": "6fc74e63d904d6be140d714c746a381c449ddab9ac0c07c5ca2665f862e50ce1",
+      "original_bytes": 1874880,
+      "bytes": 1874879,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 1904,
+      "light_bytes": 47233,
+      "rgb_bytes": 141699
+    },
+    {
+      "id": "qsrc_dm5",
+      "original_sha256": "8ce53e0ab444262ff79c3895ae41637c74eba78f107c03dfcef2babf9c3f19ff",
+      "sha256": "dc7563efb64534aeba905044e9d1bb52578abc593a6402a5791910ae736cfcf9",
+      "cache_sha256": "e0ee41c75b69a3e5001413d8b7d472910c65877ce4751f39130f92cc6e9be602",
+      "navigation_sha256": "248419c5c1132a59c5104a5d33e8a287d0c31a7639d569f102f0b8260279686d",
+      "original_bytes": 1349012,
+      "bytes": 1349009,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2096,
+      "light_bytes": 62055,
+      "rgb_bytes": 186165
+    },
+    {
+      "id": "qsrc_dm6",
+      "original_sha256": "c1ef23b032dc27de902fd4355c7d7ca177b4ba916967dba32067666e7964573c",
+      "sha256": "590d329070774467f924a42bfee9dea53435f59421940ff99c5c29651add6af5",
+      "cache_sha256": "c79bdb3bb9784893eb14be3c6bc7c967aab5b080722e62c6f7c9b5d1470f854a",
+      "navigation_sha256": "e0eb946637d2744377f8e1b7fa6ca4136a3f9175cee583e76c2d19e46d3cee8e",
+      "original_bytes": 1051832,
+      "bytes": 1051823,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2447,
+      "light_bytes": 77961,
+      "rgb_bytes": 233883
+    },
+    {
+      "id": "qsrc_dm7",
+      "original_sha256": "47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
+      "sha256": "65f121cf37a284cabb4e17d34aecc8272cbe167171a966dd0549874963facd5e",
+      "cache_sha256": "10dbaf1da03d3e046a176bd9142e1a37e4e2523d7802743cf76f425bc8c76506",
+      "navigation_sha256": "40f6e76422187413850926339770cc59bae88383b49b61a498e072924c2835d6",
+      "original_bytes": 2464016,
+      "bytes": 2464015,
+      "atlas_dimensions": [
+        2048,
+        2048
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2057,
+      "light_bytes": 99905,
+      "rgb_bytes": 299715
+    },
+    {
+      "id": "ctf_tideworks",
+      "original_sha256": "f6c28b0168893e479a497dea6a601d1ad6cceb6b181c34c8a9f66b4f394da2a0",
+      "sha256": "6fcba14ad1c5834eeecc1cf622da403a3a0647a20268d21cb2841eedaef8ff0e",
+      "cache_sha256": "dd2f97565e2aa115602008a8328a978cae89cc425649281257560f6d8fb5e1a2",
+      "navigation_sha256": "8e117ed1df6c198ae702c5446d4bb347bde2203f9231d4af5e51fd40903ffd99",
+      "original_bytes": 2955916,
+      "bytes": 2955913,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2300,
+      "light_bytes": 336883,
+      "rgb_bytes": 1010649
+    },
+    {
+      "id": "ctf_crucible",
+      "original_sha256": "2c650931ea3f379e8ad9b359f23ff158401c684df01230557376f10e5daf5af9",
+      "sha256": "9953b1517ece867d1f1123252f8f9ab9d9b99b7be9dcd114d061fb6dedbe18d0",
+      "cache_sha256": "85e7db975eaaab6450fe6fbb13d323f8e55b3ffd2ec4cfd647d2d389873dda8d",
+      "navigation_sha256": "f1791c8a4a0eae96c210dfae31a58bc8cfea06811b0b5659338ec6a43a7ca7e3",
+      "original_bytes": 1148096,
+      "bytes": 1148093,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 764,
+      "light_bytes": 69275,
+      "rgb_bytes": 207825
+    },
+    {
+      "id": "ctf_confluence",
+      "original_sha256": "4a936d7048e430148e915270a86a53db32379220ab16f7f069b7eed1972529a6",
+      "sha256": "46e1912035b0631b1cdf67ea712c872b12e101ca1fbe2ffc589272d2932d4ae1",
+      "cache_sha256": "6559f5aec0d182d8f0e412e045eff56e2fbd66fee10ac14da3de18982504d230",
+      "navigation_sha256": "b97c64b9957b011d3be2b5c345fcac5f3524a405889b50f2f34218b1be748ace",
+      "original_bytes": 2241620,
+      "bytes": 2241619,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2054,
+      "light_bytes": 217885,
+      "rgb_bytes": 653655
+    },
+    {
+      "id": "ctf_deepvault",
+      "original_sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+      "sha256": "b90bda1a949d516cefb429143d0278868542c7a6ba748da7d60f72514e91bf2c",
+      "cache_sha256": "c6f919ec3d64fe4d06d7e65315320b217a5735273640c2da0662cbcc07e7c827",
+      "navigation_sha256": "d34e3368e5e471b1b0330c5bb34dcc1434586db29e73f2fa66876299a2eefe22",
+      "original_bytes": 1721620,
+      "bytes": 1721628,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 1335,
+      "light_bytes": 87356,
+      "rgb_bytes": 262068
+    },
+    {
+      "id": "ctf_crownreach",
+      "original_sha256": "c2ae178eeb4d5ccb42975f86ef3f1830995dd48582fd1f8889b4d4c5a5a3d5f1",
+      "sha256": "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba",
+      "cache_sha256": "f13947f70a2d8a59fe8535b508d0fb365042a53a4c808357d247b91283a559f3",
+      "navigation_sha256": "12faac8b411e99b33af344de274d9a07e9733e078fcc660f5af5f6d313a86a1e",
+      "original_bytes": 1821644,
+      "bytes": 1821643,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 2432,
+      "light_bytes": 178173,
+      "rgb_bytes": 534519
+    },
+    {
+      "id": "ctf_skyfracture",
+      "original_sha256": "2a59d8e6b1fc0f087145db0f3d6857a2cb63abbe4f93239fdf1f65b5dbf5903f",
+      "sha256": "0d918f6ac943a2dcfd21682f733c34830f228f53fc0bd8dc65e7b4eca73326ba",
+      "cache_sha256": "835bd36f0a9b19010644f6f40c19172a4ff9216dd8635b70f081370a24e73cf9",
+      "navigation_sha256": "9cbc2b31cdc4ed9127c68805212b6f3f05f57c1e3f1e64871d10c87f7e4b5361",
+      "original_bytes": 3625112,
+      "bytes": 3625111,
+      "atlas_dimensions": [
+        4096,
+        4096
+      ],
+      "preserved_pruned_style_blocks": 0,
+      "geometry_vis_collision_textures_entities_unchanged": true,
+      "faces": 3291,
+      "light_bytes": 489121,
+      "rgb_bytes": 1467363
+    }
+  ],
+  "compiler": "/tmp/hislop-ericw/ericw-tools-v0.18-Linux/bin/light",
+  "compiler_sha256": "b16843b822f324f880e39b4ec0f8ee2297c3fc96d8763a1ffbebe9be74852118",
+  "flags": [
+    "-threads",
+    "8",
+    "-extra4",
+    "-bspxlit",
+    "-bounce",
+    "1",
+    "-bouncecolorscale",
+    "0.25",
+    "-sunlight_penumbra",
+    "4",
+    "-dirt",
+    "1",
+    "-dirtdepth",
+    "32",
+    "-dirtscale",
+    "0.5",
+    "-minlight_dirt",
+    "1"
+  ],
+  "layout_policy": "Original face/style order; retain authored samples for styles pruned by compiler. Repack sample offsets only, with identical off/low allocation.",
+  "validation": {
+    "import_failures": [],
+    "render_failures": [],
+    "render_summary": {
+      "groups": 100,
+      "measured_frames": 24000,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "renderer": "mobile",
+      "failures": [],
+      "extra_draws": 0,
+      "extra_texture_memory_in_paired_test": 0,
+      "median_gpu_delta_ms": 0.0,
+      "gpu_delta_range_ms": [
+        -0.07049998641014099,
+        0.28000003099442017
+      ],
+      "pairs": [
+        {
+          "id": "as_hislop",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.010500013828276034
+        },
+        {
+          "id": "as_hislop",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0020000040531159557
+        },
+        {
+          "id": "as_hislop",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.004999995231628529
+        },
+        {
+          "id": "as_hislop",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.002499997615813987
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.01749998331069902
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0009999871253965065
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.0014999806880949818
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.016499996185302956
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": false,
+          "gpu_delta_ms": -0.01699998974800143
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": true,
+          "gpu_delta_ms": -0.012499988079071045
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "flag",
+          "contrast": false,
+          "gpu_delta_ms": 0.01350000500679005
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "flag",
+          "contrast": true,
+          "gpu_delta_ms": -0.0005000233650205299
+        },
+        {
+          "id": "tf_vesper",
+          "view": "nave",
+          "contrast": false,
+          "gpu_delta_ms": -0.023499995470046997
+        },
+        {
+          "id": "tf_vesper",
+          "view": "nave",
+          "contrast": true,
+          "gpu_delta_ms": 0.0
+        },
+        {
+          "id": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": false,
+          "gpu_delta_ms": -0.0029999911785125732
+        },
+        {
+          "id": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": true,
+          "gpu_delta_ms": 0.0
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.017499983310699463
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0010000169277191162
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.001000046730042059
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.004500031471252441
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.016499996185302512
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.0004999637603759766
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.0035000145435335472
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.0065000057220461205
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.012500017881392989
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.013000011444091908
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.004499971866607555
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.006499975919723511
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.0004999637603748663
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0074999928474401845
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.01250004768372004
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.052500009536740055
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": 0.04399999976158153
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.0004999935626985863
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.002500012516975514
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.00749999284744246
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.009000003337860552
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0009999871253969506
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.007500022649765015
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.013500034809112549
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.029999971389769953
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.0004999935626984753
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.0014999508857749255
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.016999959945684928
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": 0.28000003099442017
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0015000104904175915
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.0010000169277195603
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.0004999935626980312
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.0009999871254000592
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.07049998641014099
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.0044999718666050015
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.005499958992004839
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.010499984025955422
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.000500023365020974
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.01400005817412997
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.019999980926515004
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.0004999935626984753
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.007499992847442516
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.0004999637603765317
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.008500009775162076
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": 0.0
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.012499988079071045
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.00749999284744296
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.002499997615814098
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.030000001192093007
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.008499979972839466
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.010500013828277921
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.0029999911785125732
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": 0.002499997615814875
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.0005000233650200858
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.1624999940395354
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.0025000274181364857
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": 0.001500010490415038
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.006999969482424984
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.004999995231628418
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.0009999871253966175
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.0169999897480011
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.007499992847442405
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.0004999935626979202
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.005500018596649059
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": 0.0624999701976785
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": -0.004999995231627974
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": -0.006000012159346979
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.0015000104904180356
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.003000020980834961
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.00499999523162864
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.0015000104904174805
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.0009999871253965065
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.012500017881393433
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0014999806880945377
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.005499988794326449
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.008500009775161965
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.027999967336655107
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.002499997615813987
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.011500030755996482
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": 0.013500005006790494
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn0",
+          "contrast": false,
+          "gpu_delta_ms": -0.018000006675719993
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn0",
+          "contrast": true,
+          "gpu_delta_ms": 0.0004999935626979202
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn1",
+          "contrast": false,
+          "gpu_delta_ms": 0.0
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn1",
+          "contrast": true,
+          "gpu_delta_ms": -0.0020000040531155117
+        }
+      ],
+      "image_metrics": [
+        {
+          "id": "as_hislop",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007946102896955214,
+          "darkened_fraction": 0.0207578125
+        },
+        {
+          "id": "as_hislop",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0008679457723590342,
+          "darkened_fraction": 0.0278359375
+        },
+        {
+          "id": "as_hislop",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0006456914206386924,
+          "darkened_fraction": 0.02398828125
+        },
+        {
+          "id": "as_hislop",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0006413286227045551,
+          "darkened_fraction": 0.03015625
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0002486815277294547,
+          "darkened_fraction": 0.009953125
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00022108943074502745,
+          "darkened_fraction": 0.00904296875
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00034488087078715906,
+          "darkened_fraction": 0.01426171875
+        },
+        {
+          "id": "as_frigate",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0003587020931386884,
+          "darkened_fraction": 0.01655859375
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0004215521844562463,
+          "darkened_fraction": 0.01658203125
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00041811547039246656,
+          "darkened_fraction": 0.0186640625
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "flag",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0012673114114745722,
+          "darkened_fraction": 0.0470625
+        },
+        {
+          "id": "tf_pressureworks",
+          "view": "flag",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0011397453914811543,
+          "darkened_fraction": 0.0549765625
+        },
+        {
+          "id": "tf_vesper",
+          "view": "nave",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0013505732089132215,
+          "darkened_fraction": 0.051390625
+        },
+        {
+          "id": "tf_vesper",
+          "view": "nave",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0013038982638560702,
+          "darkened_fraction": 0.05315234375
+        },
+        {
+          "id": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007349163429025386,
+          "darkened_fraction": 0.0287734375
+        },
+        {
+          "id": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007282223120691808,
+          "darkened_fraction": 0.02933984375
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007979949604181688,
+          "darkened_fraction": 0.03396875
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007979628654994478,
+          "darkened_fraction": 0.0404296875
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.000983332550833607,
+          "darkened_fraction": 0.0302734375
+        },
+        {
+          "id": "koth_solstice",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0012609101738108204,
+          "darkened_fraction": 0.047140625
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0014954222409664535,
+          "darkened_fraction": 0.04521484375
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0015112456988078922,
+          "darkened_fraction": 0.057390625
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007651804047838785,
+          "darkened_fraction": 0.03383984375
+        },
+        {
+          "id": "koth_torture",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007951988417010871,
+          "darkened_fraction": 0.03544140625
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.002585004176432849,
+          "darkened_fraction": 0.123234375
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0027630379529489696,
+          "darkened_fraction": 0.1404140625
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0008841908059822744,
+          "darkened_fraction": 0.02955859375
+        },
+        {
+          "id": "koth_hyperborea",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0011972612073010125,
+          "darkened_fraction": 0.04123046875
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0022677146745914475,
+          "darkened_fraction": 0.07502734375
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0023295455568970876,
+          "darkened_fraction": 0.11033203125
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0012472348344757047,
+          "darkened_fraction": 0.0532734375
+        },
+        {
+          "id": "koth_alichar",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0012988568093645822,
+          "darkened_fraction": 0.0605390625
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0012045874861221033,
+          "darkened_fraction": 0.03904296875
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0015684781852641084,
+          "darkened_fraction": 0.056265625
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0015152486033726048,
+          "darkened_fraction": 0.04618359375
+        },
+        {
+          "id": "cc_hyperborea",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0018835483753812643,
+          "darkened_fraction": 0.0636171875
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.000459796248888498,
+          "darkened_fraction": 0.01839453125
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0009948884814972028,
+          "darkened_fraction": 0.0302734375
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00014718853390913283,
+          "darkened_fraction": 0.0053828125
+        },
+        {
+          "id": "cc_psychofuge",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00016684761003839667,
+          "darkened_fraction": 0.0079140625
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0009547564289570495,
+          "darkened_fraction": 0.040265625
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0009671437034397763,
+          "darkened_fraction": 0.0421328125
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007363402282241877,
+          "darkened_fraction": 0.03553515625
+        },
+        {
+          "id": "cc_ghostquarter",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007859488772198411,
+          "darkened_fraction": 0.03498828125
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0010944833490797259,
+          "darkened_fraction": 0.0507578125
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.001223332210861228,
+          "darkened_fraction": 0.05910546875
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0008949782438369729,
+          "darkened_fraction": 0.042140625
+        },
+        {
+          "id": "cc_basement",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0013427309948694194,
+          "darkened_fraction": 0.0624765625
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0013306727839585103,
+          "darkened_fraction": 0.06103515625
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.001920570828103667,
+          "darkened_fraction": 0.09270703125
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0025374783978487133,
+          "darkened_fraction": 0.10649609375
+        },
+        {
+          "id": "qsrc_dm1",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0029098592852127795,
+          "darkened_fraction": 0.13526171875
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0009844728670440816,
+          "darkened_fraction": 0.04438671875
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0034603907222287723,
+          "darkened_fraction": 0.14495703125
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.002064590601180133,
+          "darkened_fraction": 0.0748359375
+        },
+        {
+          "id": "qsrc_dm2",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0026805959688434495,
+          "darkened_fraction": 0.10538671875
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0028599666432192724,
+          "darkened_fraction": 0.10839453125
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.003352271123516961,
+          "darkened_fraction": 0.134703125
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0011011047815582336,
+          "darkened_fraction": 0.04101953125
+        },
+        {
+          "id": "qsrc_dm3",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0012444736407161226,
+          "darkened_fraction": 0.053140625
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0013084756320634885,
+          "darkened_fraction": 0.04969140625
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0015202520655579282,
+          "darkened_fraction": 0.06025390625
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0018402385314915616,
+          "darkened_fraction": 0.05864453125
+        },
+        {
+          "id": "qsrc_dm4",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0022949318595587363,
+          "darkened_fraction": 0.08971875
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0013507162440703163,
+          "darkened_fraction": 0.051921875
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0016833187766916553,
+          "darkened_fraction": 0.0676328125
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0018406576965275569,
+          "darkened_fraction": 0.058359375
+        },
+        {
+          "id": "qsrc_dm5",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.002238367164338639,
+          "darkened_fraction": 0.09521484375
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0023923767548532375,
+          "darkened_fraction": 0.08988671875
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0027275080340833516,
+          "darkened_fraction": 0.13445703125
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0024198750881594083,
+          "darkened_fraction": 0.09521875
+        },
+        {
+          "id": "qsrc_dm6",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0027334501154194528,
+          "darkened_fraction": 0.13973046875
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0005004648442770326,
+          "darkened_fraction": 0.0185625
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0005501017181652686,
+          "darkened_fraction": 0.02610546875
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00030014962990049964,
+          "darkened_fraction": 0.0101640625
+        },
+        {
+          "id": "qsrc_dm7",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0004510232828142267,
+          "darkened_fraction": 0.0196328125
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0009262655699583497,
+          "darkened_fraction": 0.03780859375
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0009372796068945929,
+          "darkened_fraction": 0.03542578125
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007831068401172903,
+          "darkened_fraction": 0.0323125
+        },
+        {
+          "id": "ctf_tideworks",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007451919331379322,
+          "darkened_fraction": 0.0279921875
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0003474438212165638,
+          "darkened_fraction": 0.01410546875
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00025160861348098553,
+          "darkened_fraction": 0.007546875
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0003388267647289409,
+          "darkened_fraction": 0.012984375
+        },
+        {
+          "id": "ctf_crucible",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.000267749263277094,
+          "darkened_fraction": 0.00759375
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.000342261898514544,
+          "darkened_fraction": 0.01544921875
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00031009694270996266,
+          "darkened_fraction": 0.01477734375
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0003513422740598151,
+          "darkened_fraction": 0.0151796875
+        },
+        {
+          "id": "ctf_confluence",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.00033187110956459657,
+          "darkened_fraction": 0.01542578125
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0005638009363904159,
+          "darkened_fraction": 0.0259765625
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0005553962605707929,
+          "darkened_fraction": 0.0234296875
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0006358256972875503,
+          "darkened_fraction": 0.0294140625
+        },
+        {
+          "id": "ctf_deepvault",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0006671481426085345,
+          "darkened_fraction": 0.02843359375
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0004244171043119014,
+          "darkened_fraction": 0.01500390625
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0004904296644276852,
+          "darkened_fraction": 0.019671875
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0006696478152047434,
+          "darkened_fraction": 0.0236640625
+        },
+        {
+          "id": "ctf_crownreach",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0007385453532344459,
+          "darkened_fraction": 0.0293671875
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn0",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0005890691737653513,
+          "darkened_fraction": 0.02440625
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn0",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0005110116675005847,
+          "darkened_fraction": 0.02455859375
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn1",
+          "contrast": false,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.0006620934906140698,
+          "darkened_fraction": 0.0243984375
+        },
+        {
+          "id": "ctf_skyfracture",
+          "view": "spawn1",
+          "contrast": true,
+          "stable_fraction": 1.0,
+          "mean_darkening": 0.000562933221969736,
+          "darkened_fraction": 0.027578125
+        }
+      ]
+    },
+    "atlas_uvs_dimensions_and_material_counts_preserved": true
+  },
+  "limitations": [
+    "Static scenery AO merged into existing RGB; Classic/Contrast does not disable AO.",
+    "No dynamic avatar/elevator contact occlusion.",
+    "Single Linux Vulkan GPU sweep; no new headset match benchmark.",
+    "Original gameplay/art receipts retain their tested hashes; this receipt establishes lighting-only lineage."
+  ],
+  "source_sha256": {
+    "tools/lighting_experiment/distribution_bake.py": "3ffa1ea76a39b5804c8ca7bb1b93d8d2201472fada12305ba1c18da995e61d36",
+    "tools/lighting_experiment/distribution_import.gd": "436c7f10f4b92d66b07db99e5975f7e3b1d3b2f588d7a25e17332d38c1842707",
+    "tools/lighting_experiment/distribution_install.py": "a3ab8b68c65a48d3e956f054aae7cfd573b433d8e8248f69e9867edf2efae9f2",
+    "tools/lighting_experiment/distribution_normalize.py": "8e0ae4ab8fb2937ff72458a43847d1b4d221c4ad8be369c2dce0b72912e6bc6c",
+    "tools/lighting_experiment/distribution_render.gd": "f5cd6eea83e8f83d3b3a9445475342c51bdb9f24e2ac3467547e12b0d0938407",
+    "tools/lighting_experiment/distribution_report.py": "98b2934d251cbf38d2bb619061fa024ed29ef43567c225f1e4a2ef8f8937182f",
+    "tools/lighting_experiment/preserve_layout.py": "a993d04fa57076d50b735673350a15a17a369e2d0764af92cfdcf0e41bbe8f97"
+  }
+}

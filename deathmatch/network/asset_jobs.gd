@@ -2,6 +2,15 @@ extends RefCounted
 ## Pure disk/metadata work: never accesses the scene tree or shared resources.
 const Maps=preload("res://deathmatch/maps/loader.gd")
 const Models=preload("res://deathmatch/avatars/library.gd")
+static func publish(path: String,destination: String,hash: String) -> Error:
+	if path==destination or FileAccess.file_exists(destination) and FileAccess.get_sha256(destination)==hash:return OK
+	# Multiple local clients can share a cache. Never expose a truncated canonical
+	# file while another process is copying an already verified download into it.
+	var temporary:=destination+".%d.%d.%d.tmp"%[OS.get_process_id(),Time.get_ticks_usec(),randi()]
+	var error:=DirAccess.copy_absolute(path,temporary)
+	if error==OK:error=DirAccess.rename_absolute(temporary,destination)
+	if FileAccess.file_exists(temporary):DirAccess.remove_absolute(temporary)
+	return error
 static func map_file(path: String,hash: String,title: String,directory: String) -> Dictionary:
 	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=hash:return {"error":"Map checksum failed."}
 	var error:=Maps.validate(path)
@@ -13,7 +22,7 @@ static func map_file(path: String,hash: String,title: String,directory: String) 
 	var id:="custom_"+hash
 	var destination:=directory+id+".bsp"
 	DirAccess.make_dir_recursive_absolute(directory+"cache")
-	if path!=destination and DirAccess.copy_absolute(path,destination)!=OK:return {"error":"Cannot save map."}
+	if publish(path,destination,hash)!=OK:return {"error":"Cannot save map."}
 	return {"id":id,"title":title,"path":destination,"scene":directory+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(destination)}
 
 static func model_file(path: String,hash: String,directory: String,copy: bool=true) -> Dictionary:
@@ -23,7 +32,7 @@ static func model_file(path: String,hash: String,directory: String,copy: bool=tr
 	var destination:=directory+hash+".vrm" if copy else path
 	if copy and not FileAccess.file_exists(destination) and not room(directory,"vrm",info.size,Models.CACHE_BUDGET):return {"error":"Avatar cache is full (1 GB)."}
 	DirAccess.make_dir_recursive_absolute(directory)
-	if path!=destination and DirAccess.copy_absolute(path,destination)!=OK:return {"error":"Cannot save model."}
+	if publish(path,destination,hash)!=OK:return {"error":"Cannot save model."}
 	info.hash=hash;info.path=destination
 	return info
 

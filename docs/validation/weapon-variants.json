@@ -1,0 +1,172 @@
+{
+  "date": "2026-09-12",
+  "godot": "4.7.2 stable Fedora",
+  "experimental": true,
+  "network": {
+    "passed": true,
+    "runs": [
+      {
+        "checks": 70,
+        "failures": [],
+        "passed": true,
+        "role": "combat",
+        "errors": [],
+        "exit_code": 0
+      },
+      {
+        "failures": [],
+        "passed": true,
+        "role": "server",
+        "rule": "quake",
+        "errors": [],
+        "exit_code": 0
+      },
+      {
+        "failures": [],
+        "passed": true,
+        "role": "client",
+        "rule": "quake",
+        "errors": [],
+        "exit_code": 0
+      },
+      {
+        "failures": [],
+        "passed": true,
+        "role": "server",
+        "rule": "ut99",
+        "errors": [],
+        "exit_code": 0
+      },
+      {
+        "failures": [],
+        "passed": true,
+        "role": "client",
+        "rule": "ut99",
+        "errors": [],
+        "exit_code": 0
+      }
+    ]
+  },
+  "console": {
+    "checks": 70,
+    "failures": [],
+    "passed": true,
+    "errors": [],
+    "exit_code": 0
+  },
+  "optics_fx": {
+    "camera_comparison": {
+      "dual_pass": {
+        "mean_cpu_ms": 0.0827500003700455,
+        "mean_gpu_ms": 0.148416665382683,
+        "pixels": 524288
+      },
+      "head_following_error_pixels_at_3_degrees": 132.363967895508,
+      "resolution": [
+        512,
+        512
+      ],
+      "selected": "one weapon-axis camera",
+      "single_pass": {
+        "mean_cpu_ms": 0.0671666668107112,
+        "mean_gpu_ms": 0.0730833324293296,
+        "pixels": 262144
+      },
+      "weapon_axis_error_pixels": 0.0
+    },
+    "checks": 18,
+    "failures": [],
+    "passed": true
+  },
+  "live_vr_test": false,
+  "notes": [
+    "Graphical weapon/effect/menu checks completed without script or shader errors.",
+    "Godot graphical/headless test processes retain existing 1\u20132 ObjectDB exit warnings; console runtime has no errors.",
+    "An initial Quake network probe relied on one unreliable snapshot while simulation was paused. Fixture now sends periodic snapshots and waits for the test input sequence; full rerun passes."
+  ],
+  "assets": [
+    {
+      "asset": "axe.scn",
+      "author": "JamesWhite",
+      "title": "Axe",
+      "url": "https://opengameart.org/content/axe-0",
+      "download": "https://opengameart.org/sites/default/files/axe_model_0.zip",
+      "source": "tools/weapon_sources/oga/axe_model.zip",
+      "modifications": "Triangulated OBJ with original diffuse and mipmaps. Rotated -90 degrees around Y before forward lean so the -X cutting edge faces weapon -Z; grip recentered; embedded compressed Godot scene.",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "retrieved": "2026-09-12",
+      "source_sha256": "df5e76e522626572dc00f859c76d29698a62a7012a4c9961205f8661c3568e60",
+      "sha256": "a3ca7b5817411c5b9e65b869607a7271faf78fad7c4080d2e7d8e3e9c6783b50"
+    },
+    {
+      "asset": "impact_hammer.scn",
+      "author": "Drummyfish / tastyfish",
+      "title": "Oldschool AFPS Weapons \u2014 saw sword / FPSloppa chainsaw",
+      "url": "https://opengameart.org/content/oldschool-afps-weapons",
+      "download": "https://opengameart.org/sites/default/files/afps_weapons.zip",
+      "source": "deathmatch/weapons/afps_1.glb",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "modifications": "Existing textured chainsaw receiver retained. Blade cut and capped in Blender, forward pneumatic piston, impact plate, mounting lugs, guide rods and ribbed pistol grip added. Local -Z is the strike direction; grip is below the receiver. No old hammer shaft remains.",
+      "source_sha256": "aa8fce0880bccea494d1cbac513199654a2b660efb7c756a3598cc3538f0585a",
+      "sha256": "c290d9c2a72b654d81a1b771fb5fdd54f1fe648a691dbe30f32d509666b9dbde"
+    },
+    {
+      "asset": "barrel_sleeve.scn",
+      "author": "FPSloppa project",
+      "source": "tools/weapon_sources/refine_blender.py",
+      "license": "Project asset terms",
+      "modifications": "Original revolved, bevelled fittings; flared collars and open bores. Material overridden with per-weapon palette at runtime.",
+      "sha256": "1632035623caa175bef41d8ed8315acf9efc815071b2df6d7bd2da59558c1a79"
+    },
+    {
+      "asset": "scope_housing.scn",
+      "author": "FPSloppa project",
+      "source": "tools/weapon_sources/refine_blender.py",
+      "license": "Project asset terms",
+      "modifications": "Original revolved, bevelled fittings; flared collars and open bores. Material overridden with per-weapon palette at runtime.",
+      "sha256": "7a0baf8f04e7c7a0d450f745451064065b1fe5824d6103d19f46175114e05683"
+    }
+  ],
+  "physical_axe": {
+    "melee": {
+      "passed": true,
+      "checks": 29
+    },
+    "controller_rig": {
+      "passed": true,
+      "checks": 35
+    }
+  },
+  "axes_orientation": {
+    "source_plane": "XY",
+    "upright_rotation_degrees": -90,
+    "cutting_edge_model_position": [
+      0,
+      0.28888,
+      -0.384701
+    ],
+    "grip_model_position": [
+      0,
+      0,
+      0
+    ],
+    "render": "test-results/weapon-variants/axe.png"
+  },
+  "artifacts": [
+    "test-results/weapon-variants/weapons.png",
+    "test-results/weapon-variants/impact-hammer.png",
+    "test-results/weapon-variants/axe.png",
+    "test-results/weapon-variants/scope-through-lens.png",
+    "test-results/weapon-variants/weapon-effects.png"
+  ],
+  "source_sha256": {
+    "deathmatch/experimental/weapon_rules.gd": "3cb27dffd4bdf22ad969e50ebe57baee410a1591b5b17da02be7bcc45291d2b5",
+    "deathmatch/experimental/combat.gd": "b4717895cae66091da5c8554d3c787b12a0914514b65a4408d9065b91a531a9d",
+    "deathmatch/experimental/visuals.gd": "52eb8fd15e2ca8a32d48507df4eb3a8d47ab700b2e1a92dd97ae89ff6bd3fe1b",
+    "deathmatch/vr/sniper_scope.gd": "5942aa6e2909f34b5e7111cff5d7cef7eec0d3e655f33b592f1cfb017d45ef68",
+    "deathmatch/vr/sniper_scope.gdshader": "589f14493b3c5bb0934cab7b4891ec41bea95c21db24434961b4e317f4ef96aa",
+    "deathmatch/melee.gd": "6140d415388e81d994ca1d209e2f6ae29f5463355f1511d482521d61144c4fd8"
+  }
+}

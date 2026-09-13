@@ -1,0 +1,2604 @@
+{
+  "id": "ctf_deepvault",
+  "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+  "tests": {
+    "static": {
+      "checks": [
+        {
+          "check": "Offline CTF match starts",
+          "pass": true
+        },
+        {
+          "check": "Eight native spawns per team",
+          "pass": true
+        },
+        {
+          "check": "Two native flag objectives",
+          "pass": true
+        },
+        {
+          "check": "Embedded RGB lightmaps load",
+          "pass": true
+        },
+        {
+          "check": "Lightmap atlas has no invalid or overflowing faces",
+          "pass": true
+        },
+        {
+          "check": "Baked navigation loads",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Every spawn has a complete navigation path to both flags",
+          "pass": true
+        },
+        {
+          "check": "Team 0 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 captures at its own flag",
+          "pass": true
+        }
+      ],
+      "failures": [],
+      "map": "ctf_deepvault",
+      "paths": [
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.475629037246,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.23606772720814,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.286376392469,
+          "pass": true,
+          "points": 53,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.673629229888,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.299592676573,
+          "pass": true,
+          "points": 55,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.3579039275646,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 143.931850647554,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.0279075801373,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 145.243177151307,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.2046260535717,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 140.575655257329,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.0219033951871,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 142.528332447633,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.719775870442,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.534229829907,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.2360680103302,
+          "pass": true,
+          "points": 2,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.906901881099,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.546224914491,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 143.160898402333,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.3720390200615,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 144.432160928845,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.0262974202633,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 139.751101568341,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.2087818980217,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 141.66991238296,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.0217288499698,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        }
+      ],
+      "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+      "walks": []
+    },
+    "walk": {
+      "checks": [
+        {
+          "check": "Offline CTF match starts",
+          "pass": true
+        },
+        {
+          "check": "Eight native spawns per team",
+          "pass": true
+        },
+        {
+          "check": "Two native flag objectives",
+          "pass": true
+        },
+        {
+          "check": "Baked navigation loads",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Every spawn has a complete navigation path to both flags",
+          "pass": true
+        },
+        {
+          "check": "Team 0 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "Player capsule walks flag 0 to 1 without jumps or teleports",
+          "pass": true
+        },
+        {
+          "check": "Player capsule walks flag 1 to 0 without jumps or teleports",
+          "pass": true
+        }
+      ],
+      "failures": [],
+      "map": "ctf_deepvault",
+      "paths": [
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.475629037246,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.23606772720814,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.286376392469,
+          "pass": true,
+          "points": 53,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.673629229888,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.299592676573,
+          "pass": true,
+          "points": 55,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.3579039275646,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 143.931850647554,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.0279075801373,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 145.243177151307,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.2046260535717,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 140.575655257329,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.0219033951871,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 142.528332447633,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.719775870442,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.534229829907,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.2360680103302,
+          "pass": true,
+          "points": 2,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.906901881099,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.546224914491,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 143.160898402333,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.3720390200615,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 144.432160928845,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.0262974202633,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 139.751101568341,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.2087818980217,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 141.66991238296,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.0217288499698,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        }
+      ],
+      "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+      "walks": [
+        {
+          "end": "(-4.485614, -0.00419, -76.78338)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "name": "flag 0 to 1",
+          "next": "(-4.5, 0.2, -77.0)",
+          "pass": true,
+          "points": 54,
+          "seconds": 17.1333333333333,
+          "step": 54
+        },
+        {
+          "end": "(4.482321, -0.005948, 76.69494)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "name": "flag 1 to 0",
+          "next": "(4.5, 0.2, 77.0)",
+          "pass": true,
+          "points": 50,
+          "seconds": 17.1166666666667,
+          "step": 50
+        }
+      ]
+    },
+    "routes": {
+      "checks": [
+        {
+          "check": "Offline CTF match starts",
+          "pass": true
+        },
+        {
+          "check": "Eight native spawns per team",
+          "pass": true
+        },
+        {
+          "check": "Two native flag objectives",
+          "pass": true
+        },
+        {
+          "check": "Baked navigation loads",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Every spawn has a complete navigation path to both flags",
+          "pass": true
+        },
+        {
+          "check": "Team 0 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "Player capsule walks gate bypass without jumps or teleports",
+          "pass": true
+        }
+      ],
+      "failures": [],
+      "map": "ctf_deepvault",
+      "paths": [
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.475629037246,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.23606772720814,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.286376392469,
+          "pass": true,
+          "points": 53,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.673629229888,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.299592676573,
+          "pass": true,
+          "points": 55,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.3579039275646,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 143.931850647554,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.0279075801373,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 145.243177151307,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.2046260535717,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 140.575655257329,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.0219033951871,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 142.528332447633,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.719775870442,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.534229829907,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.2360680103302,
+          "pass": true,
+          "points": 2,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.906901881099,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.546224914491,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 143.160898402333,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.3720390200615,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 144.432160928845,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.0262974202633,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 139.751101568341,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.2087818980217,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 141.66991238296,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.0217288499698,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        }
+      ],
+      "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+      "walks": [
+        {
+          "end": "(-4.295352, -0.004169, -76.72874)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "name": "gate bypass",
+          "next": "(-4.5, 0.2, -77.0)",
+          "pass": true,
+          "points": 29,
+          "seconds": 7.48333333333333,
+          "step": 29
+        }
+      ]
+    },
+    "bots": {
+      "bot_match": {
+        "bots_displaced": 8,
+        "maximum_displacements": {
+          "-8": 127.862091064453,
+          "-7": 102.131393432617,
+          "-6": 7.34943246841431,
+          "-5": 43.8481941223145,
+          "-4": 139.636764526367,
+          "-3": 94.1938323974609,
+          "-2": 120.81364440918,
+          "-1": 84.5131912231445,
+          "1": 0.0
+        },
+        "players": 8,
+        "scores": [
+          0,
+          0
+        ],
+        "seconds": 60,
+        "seconds_with_flag_carried": [
+          0,
+          0
+        ]
+      },
+      "checks": [
+        {
+          "check": "Offline CTF match starts",
+          "pass": true
+        },
+        {
+          "check": "Eight native spawns per team",
+          "pass": true
+        },
+        {
+          "check": "Two native flag objectives",
+          "pass": true
+        },
+        {
+          "check": "Embedded RGB lightmaps load",
+          "pass": true
+        },
+        {
+          "check": "Lightmap atlas has no invalid or overflowing faces",
+          "pass": true
+        },
+        {
+          "check": "Baked navigation loads",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Every spawn has a complete navigation path to both flags",
+          "pass": true
+        },
+        {
+          "check": "Team 0 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "At least six of eight production bots leave their initial spawn",
+          "pass": true
+        }
+      ],
+      "failures": [],
+      "map": "ctf_deepvault",
+      "paths": [
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.475629037246,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.23606772720814,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.286376392469,
+          "pass": true,
+          "points": 53,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.673629229888,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.299592676573,
+          "pass": true,
+          "points": 55,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.3579039275646,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 143.931850647554,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.0279075801373,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 145.243177151307,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.2046260535717,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 140.575655257329,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.0219033951871,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 142.528332447633,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.719775870442,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.534229829907,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.2360680103302,
+          "pass": true,
+          "points": 2,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.906901881099,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.546224914491,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 143.160898402333,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.3720390200615,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 144.432160928845,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.0262974202633,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 139.751101568341,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.2087818980217,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 141.66991238296,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.0217288499698,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        }
+      ],
+      "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+      "walks": []
+    },
+    "views": {
+      "checks": [
+        {
+          "check": "Offline CTF match starts",
+          "pass": true
+        },
+        {
+          "check": "Eight native spawns per team",
+          "pass": true
+        },
+        {
+          "check": "Two native flag objectives",
+          "pass": true
+        },
+        {
+          "check": "Baked navigation loads",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (6.0, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (3.5, 0.05, 54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -75.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -70.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -58.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-6.0, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn capsule clear (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Spawn has nearby ground (-3.5, 0.05, -54.0)",
+          "pass": true
+        },
+        {
+          "check": "Every spawn has a complete navigation path to both flags",
+          "pass": true
+        },
+        {
+          "check": "Team 0 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 0 captures at its own flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 takes enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 drops enemy flag",
+          "pass": true
+        },
+        {
+          "check": "Team 1 captures at its own flag",
+          "pass": true
+        }
+      ],
+      "failures": [],
+      "map": "ctf_deepvault",
+      "paths": [
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.475629037246,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 2.23606772720814,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 161.286376392469,
+          "pass": true,
+          "points": 53,
+          "start": "(3.5, 0.05, 75.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.673629229888,
+          "pass": true,
+          "points": 54,
+          "start": "(6.0, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 156.299592676573,
+          "pass": true,
+          "points": 55,
+          "start": "(3.5, 0.05, 70.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.3579039275646,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(5.999998, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 143.931850647554,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 19.0279075801373,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 145.243177151307,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 58.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.2046260535717,
+          "pass": true,
+          "points": 8,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(6.0, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 140.575655257329,
+          "pass": true,
+          "points": 49,
+          "start": "(6.0, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 23.0219033951871,
+          "pass": true,
+          "points": 12,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(3.5, 0.2, 54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 142.528332447633,
+          "pass": true,
+          "points": 50,
+          "start": "(3.5, 0.05, 54.0)",
+          "team": 0
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.719775870442,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.5,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 160.534229829907,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -75.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 2.2360680103302,
+          "pass": true,
+          "points": 2,
+          "start": "(-3.5, 0.05, -75.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.906901881099,
+          "pass": true,
+          "points": 50,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.15891075134277,
+          "pass": true,
+          "points": 2,
+          "start": "(-6.0, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 155.546224914491,
+          "pass": true,
+          "points": 50,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -70.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 7.07106781005859,
+          "pass": true,
+          "points": 3,
+          "start": "(-3.5, 0.05, -70.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 143.160898402333,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.3720390200615,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 144.432160928845,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -58.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 19.0262974202633,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -58.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 139.751101568341,
+          "pass": true,
+          "points": 45,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-6.0, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.2087818980217,
+          "pass": true,
+          "points": 8,
+          "start": "(-6.0, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(4.5, 0.05, 77.0)",
+          "last": "(4.5, 0.2, 77.0)",
+          "metres": 141.66991238296,
+          "pass": true,
+          "points": 46,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        },
+        {
+          "first": "(-3.5, 0.2, -54.0)",
+          "goal": "(-4.5, 0.05, -77.0)",
+          "last": "(-4.5, 0.2, -77.0)",
+          "metres": 23.0217288499698,
+          "pass": true,
+          "points": 10,
+          "start": "(-3.5, 0.05, -54.0)",
+          "team": 1
+        }
+      ],
+      "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e",
+      "walks": []
+    }
+  }
+}

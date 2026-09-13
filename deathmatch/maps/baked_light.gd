@@ -10,6 +10,8 @@ var texture: ImageTexture
 var materials := {}
 var cursor := Vector2i(2, 0)
 var shelf := 0
+var layout: Array=[]
+var scales:=PackedByteArray()
 var faces := 0
 var unlit_faces := 0
 var invalid_faces := 0
@@ -17,6 +19,7 @@ var overflow_faces := 0
 func open(path: String) -> void:
 	var f := FileAccess.open(path, FileAccess.READ)
 	if not f or f.get_length()<124 or not f.get_32() in [29,0x32505342]:return
+	f.seek(0);var version:=f.get_32()
 	var lumps: Array[Vector2i]=[]
 	var end:=124
 	for i in 15:
@@ -34,18 +37,22 @@ func open(path: String) -> void:
 		for i in count:
 			if f.get_position()+32>f.get_length():break
 			var name:=f.get_buffer(24).get_string_from_ascii();var offset:=f.get_32();var length:=f.get_32()
+			if name=="LMSHIFT" and length==lumps[7].y/(20 if version==29 else 28) and offset+length<=f.get_length():
+				var saved:=f.get_position();f.seek(offset);var values:=f.get_buffer(length);f.seek(saved)
+				if Array(values).all(func(value):return value>=3 and value<=4):scales=values
 			if name=="RGBLIGHTING" and length==lighting.size()*3 and offset+length<=f.get_length():
 				var saved:=f.get_position();f.seek(offset);rgb=f.get_buffer(length);f.seek(saved)
 	atlas_size=4096 if world.contains('"_fpsloppa_atlas" "4096"') else 2048 if world.contains('"_fpsloppa_atlas" "2048"') else SIZE
 	enabled=true
 	image=Image.create(atlas_size,atlas_size,false,Image.FORMAT_RGB8);image.fill(Color(.5,.5,.5))
 	texture=ImageTexture.create_from_image(image)
-func face_uvs(uvs: PackedVector2Array, dimensions: Vector2, offset: int) -> PackedVector2Array:
+func face_uvs(uvs: PackedVector2Array, dimensions: Vector2, offset: int,face_id: int=-1) -> PackedVector2Array:
 	var result:=PackedVector2Array()
 	if not enabled:return result
+	var spacing: float=float(1<<scales[face_id]) if face_id>=0 and face_id<scales.size() else 16.0
 	var lo:=Vector2(INF,INF);var hi:=Vector2(-INF,-INF)
 	for uv in uvs:
-		var texel:=uv*dimensions/16.0;lo=lo.min(texel);hi=hi.max(texel)
+		var texel:=uv*dimensions/spacing;lo=lo.min(texel);hi=hi.max(texel)
 	lo=lo.floor();hi=hi.ceil()
 	var size:=Vector2i(hi-lo)+Vector2i.ONE
 	if offset<0 or offset==0xffffffff or size.x<1 or size.y<1 or offset+size.x*size.y>lighting.size():
@@ -59,6 +66,7 @@ func face_uvs(uvs: PackedVector2Array, dimensions: Vector2, offset: int) -> Pack
 		push_error("Arena baked-light atlas exceeds budget")
 		for uv in uvs:result.append(Vector2(.5,.5)/atlas_size)
 		return result
+	layout.append({"rect":Rect2i(cursor,size+Vector2i(2,2))})
 	# Replicated one-luxel gutters prevent filtering across unrelated faces.
 	for y in range(-1,size.y+1):
 		for x in range(-1,size.x+1):
@@ -66,13 +74,13 @@ func face_uvs(uvs: PackedVector2Array, dimensions: Vector2, offset: int) -> Pack
 			var c:=Color8(lighting[at],lighting[at],lighting[at])
 			if not rgb.is_empty():c=Color8(rgb[at*3],rgb[at*3+1],rgb[at*3+2])
 			image.set_pixel(cursor.x+x+1,cursor.y+y+1,c)
-	for uv in uvs:result.append((uv*dimensions/16.0-lo+Vector2(cursor)+Vector2(1.5,1.5))/atlas_size)
+	for uv in uvs:result.append((uv*dimensions/spacing-lo+Vector2(cursor)+Vector2(1.5,1.5))/atlas_size)
 	cursor.x+=size.x+2;shelf=maxi(shelf,size.y+2);faces+=1
 	return result
 func material(original: Material) -> Material:
 	if not enabled or not original is StandardMaterial3D:return original
 	if materials.has(original):return materials[original]
-	var result:=ShaderMaterial.new();result.shader=preload("res://deathmatch/maps/baked_light.gdshader")
+	var result:=ShaderMaterial.new();result.shader=load("res://deathmatch/maps/baked_light.gdshader")
 	result.set_meta("bsp_texture_name",original.get_meta("bsp_texture_name",""))
 	result.set_shader_parameter("base_texture",original.albedo_texture)
 	result.set_shader_parameter("base_colour",original.albedo_color)
@@ -85,9 +93,16 @@ func material(original: Material) -> Material:
 	return result
 func finish(root: Node) -> void:
 	if not enabled:return
-	texture.update(image)
+	# The headless renderer does not retain ImageTexture.update() pixel changes
+	# for ResourceSaver. Publish a texture created from the finished atlas so
+	# console-generated scene caches contain the actual lightmap, not its grey fill.
+	texture=ImageTexture.create_from_image(image)
+	for material in materials.values():material.set_shader_parameter("bake_texture",texture)
 	root.set_meta("baked_light_faces",faces)
 	root.set_meta("baked_light_unlit_faces",unlit_faces)
 	root.set_meta("baked_light_invalid_faces",invalid_faces)
 	root.set_meta("baked_light_overflow_faces",overflow_faces)
 	root.set_meta("baked_light_rgb",not rgb.is_empty())
+	root.set_meta("lightmap_packing",preload("res://deathmatch/maps/lightmap_packing.gd").pack(root,layout))
+	root.set_meta("lightmap_fine_faces",Array(scales).count(3))
+	layout.clear()

@@ -1,0 +1,65 @@
+{
+  "release": {
+    "repository": "https://github.com/jebot-git/MDLAvatarConverter",
+    "commit": "8d58caa769f017e9b1e5d61c6261d2cbe7c10c81",
+    "release": "https://github.com/jebot-git/MDLAvatarConverter/releases/tag/v0.1.0",
+    "prerelease": true,
+    "assets": [
+      {
+        "name": "FPSloppa-MDL-Avatar-Converter-Linux-portable.zip",
+        "sha256": "8b050803c41d72d51521bba41f5f3c375f1e218d2995b2a9132f1295d1df433a",
+        "url": "https://github.com/jebot-git/MDLAvatarConverter/releases/download/v0.1.0/FPSloppa-MDL-Avatar-Converter-Linux-portable.zip"
+      },
+      {
+        "name": "FPSloppa-MDL-Avatar-Converter-Windows-portable.zip",
+        "sha256": "776785dc7eb5d342029e136879e554338cc8b678dcab7e6fcd73bd09d826102f",
+        "url": "https://github.com/jebot-git/MDLAvatarConverter/releases/download/v0.1.0/FPSloppa-MDL-Avatar-Converter-Windows-portable.zip"
+      },
+      {
+        "name": "SHA256SUMS",
+        "sha256": "0725dacbb0f9b56565df8158952749d7a30ce211b49366eab825dcf486377a9e",
+        "url": "https://github.com/jebot-git/MDLAvatarConverter/releases/download/v0.1.0/SHA256SUMS"
+      }
+    ]
+  },
+  "validation": {
+    "date": "2026-09-12",
+    "linux_checks": 28,
+    "windows_wine_checks": 28,
+    "cross_platform_outputs_identical": true,
+    "gltf_errors": 0,
+    "gltf_warnings": 0,
+    "vrm_schema_errors": 0,
+    "fpsloppa_import_animation_ik": "passed; 20 runtime bones",
+    "rig_regression": "passed",
+    "conversions": [
+      {
+        "name": "grouped",
+        "bytes": 7700,
+        "sha256": "8216975b0399a33e7fd456c54da2657f9f9041f409ed4bcfebb822d0d5394031",
+        "bones": 19,
+        "triangles": 4
+      },
+      {
+        "name": "pak",
+        "bytes": 7712,
+        "sha256": "10ca94a5fc893f8e8cb3ce8fb6d5034aba7d098622280c151c63ac4472823645",
+        "bones": 19,
+        "triangles": 4
+      },
+      {
+        "name": "real-player",
+        "bytes": 217740,
+        "sha256": "19ddc4abc611fa3d60d64d22c22b18e3f4feee7b5faab6f5653dd25da3d4bf9c",
+        "bones": 19,
+        "triangles": 1060
+      }
+    ],
+    "limits": [
+      "Visible arm and equipment deformation remains",
+      "No headset or multiplayer test",
+      "GoldSrc and Source unsupported",
+      "One ObjectDB leak warning at game test exit"
+    ]
+  }
+}

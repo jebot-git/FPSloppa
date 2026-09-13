@@ -1,0 +1,293 @@
+{
+  "date": "2026-09-12",
+  "result": "functional checks passed with performance and initial voice-loss findings",
+  "endpoint": "45.147.228.101:27777",
+  "production_endpoint_unchanged": "45.147.228.101:7777",
+  "protocol": "fpsloppa-31-team-radio",
+  "pack_sha256": "5cefad8798139d5e133711938c7b82e2204b2e0238e21755f6022a00d72d9729",
+  "host": {
+    "vcpus": 2,
+    "ram_mib": 1967
+  },
+  "physics_budget_ms": 16.666666666666668,
+  "runs": {
+    "baseline-logs": {
+      "physics_samples": [
+        {
+          "mode": "dm",
+          "map": "dm_lasercade_slop",
+          "players": 16,
+          "samples": 20,
+          "median_ms": 26.749,
+          "p95_ms": 32.966,
+          "max_ms": 34.378
+        },
+        {
+          "mode": "as",
+          "map": "as_hislop",
+          "players": 16,
+          "samples": 27,
+          "median_ms": 17.889,
+          "p95_ms": 20.634,
+          "max_ms": 23.158
+        },
+        {
+          "mode": "tf",
+          "map": "lqdm1",
+          "players": 16,
+          "samples": 20,
+          "median_ms": 19.093,
+          "p95_ms": 23.501,
+          "max_ms": 25.633
+        }
+      ],
+      "process_samples": 325,
+      "monitor_seconds": 325.2,
+      "rss_kib": {
+        "first": 131528,
+        "last": 131656,
+        "min": 131528,
+        "max": 131656
+      },
+      "fd_range": [
+        7,
+        9
+      ],
+      "udp_drops_first": 207,
+      "udp_drops_last": 401,
+      "max_orphan_nodes": 0.0,
+      "engine_diagnostics": 0
+    },
+    "patched-logs": {
+      "physics_samples": [
+        {
+          "mode": "dm",
+          "map": "dm_auhdm2_slop",
+          "players": 8,
+          "samples": 17,
+          "median_ms": 16.499,
+          "p95_ms": 19.572,
+          "max_ms": 19.572
+        },
+        {
+          "mode": "as",
+          "map": "as_frigate",
+          "players": 8,
+          "samples": 6,
+          "median_ms": 13.033,
+          "p95_ms": 13.999,
+          "max_ms": 13.999
+        },
+        {
+          "mode": "dm",
+          "map": "dm_lasercade_slop",
+          "players": 8,
+          "samples": 11,
+          "median_ms": 20.969,
+          "p95_ms": 22.787,
+          "max_ms": 22.787
+        }
+      ],
+      "process_samples": 599,
+      "monitor_seconds": 599.4,
+      "rss_kib": {
+        "first": 127252,
+        "last": 130220,
+        "min": 116268,
+        "max": 130220
+      },
+      "fd_range": [
+        7,
+        9
+      ],
+      "udp_drops_first": 0,
+      "udp_drops_last": 6,
+      "max_orphan_nodes": 0.0,
+      "engine_diagnostics": 0
+    },
+    "cold-connect": {
+      "host": "45.147.228.101",
+      "port": 27777,
+      "count": 1,
+      "cold": true,
+      "spectator": true,
+      "peak_admitted": 1,
+      "held_seconds": 15.18,
+      "exit_codes": [
+        0
+      ],
+      "passed": true
+    },
+    "capacity-active": {
+      "host": "45.147.228.101",
+      "port": 27777,
+      "count": 16,
+      "cold": false,
+      "spectator": false,
+      "peak_admitted": 16,
+      "held_seconds": 360.31,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    },
+    "capacity-extra": {
+      "host": "45.147.228.101",
+      "port": 27777,
+      "count": 1,
+      "cold": false,
+      "spectator": true,
+      "peak_admitted": 0,
+      "held_seconds": 0,
+      "exit_codes": [
+        0
+      ],
+      "passed": true
+    },
+    "patched-eight": {
+      "host": "45.147.228.101",
+      "port": 27777,
+      "count": 8,
+      "cold": false,
+      "spectator": false,
+      "peak_admitted": 8,
+      "held_seconds": 180.62,
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "passed": true
+    }
+  },
+  "downloads": [
+    {
+      "path": "maps/custom_ea64a35a58c63a95e3252687388ff63f90903ca8e457aa788f16ef50a0a926e8.bsp",
+      "bytes": 7730340,
+      "sha256": "ea64a35a58c63a95e3252687388ff63f90903ca8e457aa788f16ef50a0a926e8"
+    },
+    {
+      "path": "vrm/9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7.vrm",
+      "bytes": 16851352,
+      "sha256": "9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7"
+    }
+  ],
+  "voice": {
+    "voice": [
+      {
+        "decoded": 0,
+        "passed": true,
+        "peak": 0.0,
+        "public_packets": 0,
+        "tag": "01",
+        "team_packets": 0,
+        "teammate": true,
+        "exit_code": 0
+      },
+      {
+        "decoded": 100,
+        "passed": true,
+        "peak": 0.303547471761703,
+        "public_packets": 100,
+        "tag": "02",
+        "team_packets": 0,
+        "teammate": false,
+        "exit_code": 0
+      },
+      {
+        "decoded": 197,
+        "passed": false,
+        "peak": 0.313292771577835,
+        "public_packets": 77,
+        "tag": "03",
+        "team_packets": 76,
+        "teammate": true,
+        "exit_code": 1
+      }
+    ],
+    "voice-settled": [
+      {
+        "decoded": 0,
+        "passed": true,
+        "peak": 0.0,
+        "public_packets": 0,
+        "tag": "01",
+        "team_packets": 0,
+        "teammate": true,
+        "exit_code": 0
+      },
+      {
+        "decoded": 100,
+        "passed": true,
+        "peak": 0.303547471761703,
+        "public_packets": 100,
+        "tag": "02",
+        "team_packets": 0,
+        "teammate": false,
+        "exit_code": 0
+      },
+      {
+        "decoded": 200,
+        "passed": true,
+        "peak": 0.305328369140625,
+        "public_packets": 100,
+        "tag": "03",
+        "team_packets": 100,
+        "teammate": true,
+        "exit_code": 0
+      }
+    ]
+  },
+  "rcon_regression": {
+    "configured_status": {
+      "allowed_modes": [
+        "koth",
+        "dm"
+      ],
+      "capacity": 16,
+      "map": "lqdm1",
+      "mode": "koth",
+      "pending": 0,
+      "players": [],
+      "protocol": "fpsloppa-31-team-radio",
+      "rotation": [
+        "lqdm1",
+        "lqdm2"
+      ],
+      "time_remaining": 1020.0,
+      "version": "0.10v"
+    },
+    "wrong_password_rejected": true,
+    "replay_rejected": true,
+    "allowed_mode_change": true,
+    "allowed_map_change": true,
+    "secret_absent_from_log": true
+  },
+  "limits": [
+    "Synthetic moving/firing clients; no headset or microphone audition.",
+    "Short bounded runs, not proof of no long-term leaks.",
+    "One network route; no geographical or hosting-provider conclusion.",
+    "No identical active-player old-build baseline; not proof of a regression relative to 0.10v.",
+    "Five-second health snapshots are not a complete frame-time distribution."
+  ]
+}

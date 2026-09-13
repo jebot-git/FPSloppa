@@ -1,0 +1,146 @@
+{
+  "validation": "Headless source tests with Godot 4.7.2",
+  "suites": [
+    {
+      "suite": "bot_navigation",
+      "passed": true,
+      "assertions": 4,
+      "log": "test-results/bot-ai/bot_navigation.log"
+    },
+    {
+      "suite": "bot_tactics",
+      "passed": true,
+      "assertions": 27,
+      "log": "test-results/bot-ai/bot_tactics.log"
+    },
+    {
+      "suite": "bot_movement",
+      "passed": true,
+      "assertions": 6,
+      "log": "test-results/bot-ai/bot_movement.log"
+    },
+    {
+      "suite": "bot_traversal",
+      "passed": true,
+      "assertions": 0,
+      "log": "test-results/bot-ai/bot_traversal.log"
+    },
+    {
+      "suite": "bot_assault",
+      "passed": true,
+      "assertions": 0,
+      "log": "test-results/bot-ai/bot_assault.log"
+    },
+    {
+      "suite": "quake_movement",
+      "passed": true,
+      "assertions": 22,
+      "log": "test-results/bot-ai/quake_movement.log"
+    },
+    {
+      "suite": "fortress",
+      "passed": true,
+      "assertions": 79,
+      "log": "test-results/bot-ai/fortress.log"
+    },
+    {
+      "suite": "assault",
+      "passed": true,
+      "assertions": 73,
+      "log": "test-results/bot-ai/assault.log"
+    }
+  ],
+  "movement": {
+    "landed": true,
+    "max_speed": 9.39999771118164,
+    "position": "(1000.06, 12.99582, 995.7682)",
+    "rocket_peak": 9.75834846496582,
+    "takeoffs": 2
+  },
+  "traversal": {
+    "failures": [],
+    "results": [
+      {
+        "fire_inputs": 786,
+        "goals": [
+          "roam",
+          "item",
+          "enemy",
+          "cover"
+        ],
+        "jump_inputs": 6,
+        "links": 48,
+        "map": "lqdm1",
+        "metres": {
+          "-3": 87.394740153919,
+          "-2": 98.3047600508435,
+          "-1": 93.7441295369063
+        },
+        "mode": "dm",
+        "sample_tick_us": 481
+      },
+      {
+        "fire_inputs": 52,
+        "goals": [
+          "roam",
+          "item",
+          "search"
+        ],
+        "jump_inputs": 16,
+        "links": 44,
+        "map": "lqdm2",
+        "metres": {
+          "-3": 103.028005420929,
+          "-2": 98.9863324745093,
+          "-1": 103.179663061164
+        },
+        "mode": "tdm",
+        "sample_tick_us": 397
+      },
+      {
+        "fire_inputs": 516,
+        "goals": [
+          "roam",
+          "objective",
+          "defend",
+          "cover"
+        ],
+        "jump_inputs": 21,
+        "links": 7,
+        "map": "tf_ironspan",
+        "metres": {
+          "-3": 109.77983049117,
+          "-2": 90.7401605952764,
+          "-1": 34.7205822956748
+        },
+        "mode": "tf",
+        "sample_tick_us": 339
+      },
+      {
+        "fire_inputs": 0,
+        "goals": [
+          "roam",
+          "idle",
+          "item",
+          "defend",
+          "checkpoint"
+        ],
+        "jump_inputs": 12,
+        "links": 11,
+        "map": "as_hislop",
+        "metres": {
+          "-3": 33.9675800786354,
+          "-2": 116.559462212957,
+          "-1": 98.1396302250214
+        },
+        "mode": "as",
+        "sample_tick_us": 616
+      }
+    ]
+  },
+  "limits": [
+    "Practice bots only; no binary packaging or deployment performed.",
+    "Custom BSP route discovery is bounded and cannot guarantee a globally optimal path.",
+    "Experimental alternate-fire combinations and translocator route planning are not implemented."
+  ]
+}

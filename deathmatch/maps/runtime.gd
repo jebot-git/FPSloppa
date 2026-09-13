@@ -13,6 +13,8 @@ var has_contents:=false
 var breath: Dictionary={}
 var push_contacts: Dictionary={}
 var legacy_train_push:=false
+var gate_targets: Dictionary={}
+var trigger_until: Dictionary={}
 
 func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	game = arena
@@ -27,6 +29,9 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 		if node is MeshInstance3D and node.mesh:
 			var b: AABB = node.global_transform*node.get_aabb()
 			bounds = b if bounds.size.length()==0 else bounds.merge(b)
+		elif node is Node3D and node.has_meta("server_geometry_bounds"):
+			var b: AABB=node.global_transform*node.get_meta("server_geometry_bounds")
+			bounds=b if bounds.size.length()==0 else bounds.merge(b)
 		if node.get_script()==preload("res://deathmatch/maps/entity.gd"): entities.append(node)
 		elif node is Area3D:
 			node.collision_mask = 2
@@ -35,6 +40,14 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			elif "slime" in node.name.to_lower(): kind="slime"
 			regions.append({"area":node,"kind":kind,"data":{}})
 	legacy_train_push=entities.any(func(node):return node.attributes.get("classname","")=="info_train_motion")
+	var capture_items: Dictionary={}
+	var touch_targets: Dictionary={}
+	for node in entities:
+		var e: Dictionary=node.attributes
+		if e.get("classname","")=="info_tfgoal" and int(e.get("items_allowed",0))>0:
+			capture_items[int(e.items_allowed)]=true
+		if e.get("classname","") in ["trigger_multiple","trigger_once"] and not str(e.get("target","")).is_empty():
+			touch_targets[str(e.target)]=true
 	game.fall_limit = bounds.position.y-12.0
 	for node in entities:
 		var e: Dictionary = node.attributes
@@ -59,14 +72,14 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			if kind!="info_player_deathmatch":game.ctf_spawns[0 if kind=="info_player_team1" else 1].append(game.spawn_points.back())
 		elif kind=="info_player_teamspawn" and int(e.get("team_no",0)) in [1,2]:
 			var team:=0 if int(e.team_no)==2 else 1
-			game.spawn_points.append(node.global_position-Vector3.UP*.70);game.spawn_yaws.append(deg_to_rad(float(e.get("angle",0))))
+			game.spawn_points.append(tf_floor_position(node.global_position));game.spawn_yaws.append(deg_to_rad(float(e.get("angle",0))))
 			game.ctf_spawns[team].append(game.spawn_points.back())
-		elif kind=="item_tfgoal" and int(e.get("owned_by",0)) in [1,2] and str(e.get("mdl","")).contains("flag"):
-			game.map_objectives["red" if int(e.owned_by)==2 else "blue"]=node.global_position-Vector3.UP*.70
+		elif is_tf_flag(e,capture_items):
+			game.map_objectives["red" if int(e.owned_by)==2 else "blue"]=tf_floor_position(node.global_position)
 		elif kind=="info_tfgoal" and int(e.get("team_no",0)) in [1,2]:
 			var team:=0 if int(e.team_no)==2 else 1
-			if int(e.get("items_allowed",0))>0:game.tf_capture[team]=node.global_position-Vector3.UP*.70
-			elif int(e.get("ammo_shells",0))>0 or int(e.get("ammo_medikit",0))>0:game.tf_resupply[team].append(node.global_position-Vector3.UP*.70)
+			if int(e.get("items_allowed",0))>0:game.tf_capture[team]=tf_floor_position(node.global_position)
+			elif int(e.get("ammo_shells",0))>0 or int(e.get("ammo_medikit",0))>0:game.tf_resupply[team].append(tf_floor_position(node.global_position))
 		elif kind in ["info_tf_capture_red","info_tf_capture_blue"]:
 			game.tf_capture[0 if kind.ends_with("red") else 1]=node.global_position-Vector3.UP*.70
 		elif kind in ["info_tf_resupply_red","info_tf_resupply_blue"]:
@@ -86,6 +99,18 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			var direction := Vector3.UP if angle==-1 else Vector3.DOWN if angle==-2 else Vector3(-sin(deg_to_rad(angle)),0,-cos(deg_to_rad(angle)))
 			var distance := absf(direction.dot(b.size))-float(e.get("lip",8))*Loader.SCALE
 			game.gates.append({"node":node,"base":node.position.y,"base_position":node.position,"travel":direction*maxf(distance,.5),"center":b.get_center(),"open":false,"until":0.0,"bsp":true,"as_unlock":int(e.get("as_unlock",0))})
+			var target: String=e.get("targetname","")
+			if not target.is_empty():
+				if not gate_targets.has(target):gate_targets[target]=[]
+				gate_targets[target].append(game.gates.size()-1)
+			var gate: Dictionary=game.gates.back()
+			gate.touch_target=touch_targets.has(target)
+			# Tall, trigger-operated doors are elevators in classic TF maps.
+			# Preserve their authored travel speed and dwell instead of a .6s teleport.
+			gate.elevator=gate.touch_target and absf(direction.y)>.9 and distance>4.0
+			if gate.elevator:
+				gate.move_seconds=maxf(.1,maxf(distance,.5)/(maxf(1,float(e.get("speed",100)))*Loader.SCALE))
+			gate.wait_seconds=float(e.get("wait",4))
 		elif kind=="func_plat":
 			var b := node_bounds(node)
 			var travel := float(e.get("height",maxf((b.size.y-.25)/Loader.SCALE,48)))*Loader.SCALE
@@ -98,16 +123,57 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			node.collision_layer=0
 			node.collision_mask=2
 			regions.append({"area":node,"kind":kind,"data":e})
+	preload("res://deathmatch/vehicles/ba2/map.gd").configure(game,entities)
 	remove_sentry_pickups()
-	if not game.headless and not fixtures.is_empty():preload("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
-	if not game.headless:preload("res://deathmatch/maps/filtering.gd").new().apply(root,int(game.presentation.get("texture_filter",2)))
+	if not game.headless and not fixtures.is_empty():load("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
+	if not game.headless:load("res://deathmatch/maps/filtering.gd").new().apply(root,int(game.presentation.get("texture_filter",2)),true,int(game.presentation.get("contrast_lighting",false)))
+	if not game.headless:
+		var surfaces=load("res://deathmatch/maps/surface_motion.gd").new();surfaces.name="SurfaceMotion";add_child(surfaces);surfaces.configure(game,root)
 	if not game.headless and entities.any(func(node):return node.attributes.get("classname","")=="info_train_motion"):
-		var motion:=preload("res://deathmatch/maps/train_motion.gd").new();motion.name="TrainMotion";add_child(motion);motion.configure(game,root,entities)
+		var motion=load("res://deathmatch/maps/train_motion.gd").new();motion.name="TrainMotion";add_child(motion);motion.configure(game,root,entities)
 	if game.spawn_points.is_empty():
 		for node in entities:
 			if node.attributes.get("classname","")=="info_player_start":
 				game.spawn_points.append(node.global_position-Vector3.UP*.70)
 				game.spawn_yaws.append(0.0)
+
+static func is_tf_flag(e: Dictionary,capture_items: Dictionary) -> bool:
+	if e.get("classname","")!="item_tfgoal" or not int(e.get("owned_by",0)) in [1,2]:return false
+	var model:=str(e.get("mdl","")).to_lower()
+	return model.contains("flag") or (model.get_file() in ["w_s_key.mdl","w_g_key.mdl"] and capture_items.has(int(e.get("goal_no",0))))
+
+func tf_floor_position(origin: Vector3) -> Vector3:
+	var fallback:=origin-Vector3.UP*.70
+	if not has_contents:return fallback
+	# TF point entities are dropped by Quake on startup. Query the BSP directly:
+	# the physics broadphase is not ready while a downloaded map is configuring.
+	# Do not drop through water or move a marker already embedded in geometry.
+	var high:=origin+Vector3.UP*.05
+	if contents.at(high)!=-1:return fallback
+	for step in 128:
+		var low:=high-Vector3.UP*.0625
+		var kind: int=contents.at(low)
+		if kind==-2:
+			for iteration in 10:
+				var middle:=high.lerp(low,.5)
+				if contents.at(middle)==-2:low=middle
+				else:high=middle
+			return high+Vector3.UP*.03
+		if kind!=-1:return fallback
+		high=low
+	return fallback
+
+func activate_gate_target(target: String) -> bool:
+	var activated:=false
+	for index in gate_targets.get(target,[]):
+		var gate: Dictionary=game.gates[index]
+		if game.match_mode.kind=="as" and game.match_mode.assault.stage<int(gate.get("as_unlock",0)):continue
+		if gate.open:continue
+		var wait: float=gate.get("wait_seconds",4.0)
+		gate.until=INF if wait<0 else game.clock+float(gate.get("move_seconds",.6))+wait
+		game._gate_state.rpc(index,true)
+		activated=true
+	return activated
 
 func remove_sentry_pickups() -> void:
 	# Older HiSlop BSPs include a rotating chaingun on each authored turret mount.
@@ -127,6 +193,10 @@ func node_bounds(node: Node3D) -> AABB:
 	for child in node.find_children("*","MeshInstance3D",true,false):
 		var b: AABB = child.global_transform*child.get_aabb()
 		result = b if result.size.length()==0 else result.merge(b)
+	for child in node.find_children("*","Node3D",true,false):
+		if child.has_meta("server_geometry_bounds"):
+			var b: AABB=child.global_transform*child.get_meta("server_geometry_bounds")
+			result=b if result.size.length()==0 else result.merge(b)
 	return result
 
 func add_pickup(e: Dictionary, origin: Vector3) -> void:
@@ -135,7 +205,11 @@ func add_pickup(e: Dictionary, origin: Vector3) -> void:
 	var ammo := {"item_shells":1,"item_spikes":0,"item_rockets":2,"item_cells":3}
 	var item_kind := ""
 	var item := 0
-	if weapons.has(kind): item_kind="weapon"; item=weapons[kind]
+	if weapons.has(kind):
+		item_kind="weapon"; item=game.armory.pickup_weapon(kind,weapons[kind])
+		if game.armory.effective()=="ut99" and e.has("fpsloppa_ut_weapon"):
+			var slot:=int(e.fpsloppa_ut_weapon)
+			if slot in [1,3,4,5,6,7,8,9,10]:item=slot
 	elif ammo.has(kind): item_kind="ammo"; item=ammo[kind]
 	elif kind=="item_health":
 		item_kind="health"
@@ -146,8 +220,27 @@ func add_pickup(e: Dictionary, origin: Vector3) -> void:
 		# Map Quake-only powerups onto existing authoritative Doom pickups.
 		item_kind="health"; item=100
 	if item_kind.is_empty(): return
+	var amount:=0
+	if game.match_mode.fortress.enabled():
+		# TF classes cannot acquire map weapons: show usable Quake ammunition instead.
+		if item_kind=="weapon":
+			item_kind="ammo";item=int(game.armory.data(item).ammo)
+			if item<0:return
+			amount=[30,10,5,15][item]
+		elif item_kind=="ammo":amount=([50,40,10,12] if int(e.get("spawnflags",0))&1 else [25,20,5,6])[item]
+	elif game.armory.effective()=="ut99":
+		if item_kind=="ammo":amount=[50,10,6,25][item]
+		if item_kind=="weapon":amount={1:25,3:20,4:10,5:100,6:6,7:60,8:10,9:8,10:15}.get(item,1)
+		if e.has("fpsloppa_amount"):amount=clampi(int(e.fpsloppa_amount),1,200)
 	# Quake pickups occupy a 32-unit box extending positive X/Y from origin.
 	var p := {"kind":item_kind,"item":item,"position":origin+Vector3(-.5,.05,-.5),"available":true,"respawn":0.0,"node":null}
+	if amount>0:p["amount"]=amount
+	if game.armory.effective()=="ut99":
+		if item_kind=="health" and item==100:p["title"]="KEG O’ HEALTH"
+		if item_kind=="armor":p["title"]="SHIELD BELT" if amount==150 else "THIGHPADS" if amount==50 else "BODY ARMOUR"
+		if item_kind=="ammo" and e.has("fpsloppa_ut_ammo"):
+			var slot:=int(e.fpsloppa_ut_ammo)
+			if game.armory.valid(slot):p["title"]=game.armory.data(slot).name+" AMMO"
 	if not game.headless: p.node = game._pickup_art(p)
 	game.pickups.append(p)
 
@@ -186,7 +279,7 @@ func _physics_process(_delta: float) -> void:
 			var eye:Vector3=pose.get("head",Transform3D(Basis.IDENTITY,Vector3.UP*1.48)).origin
 			actor.underwater=contents.liquid(contents.at(actor.global_transform*eye))
 			if multiplayer.is_server() and kind in [-4,-5] and game.clock>=hurt_until.get(id,0):
-				hurt_until[id]=game.clock+.6;game._damage(id,id,20,"environment",true)
+				hurt_until[id]=game.clock+.6;game._damage(id,id,20,"LAVA" if kind==-5 else "SLIME",true)
 		var air:Dictionary=breath.get(id,{"left":12.0,"next":0.0,"damage":2,"serial":state.serial})
 		if not actor.underwater or air.serial!=state.serial:air={"left":12.0,"next":game.clock,"damage":2,"serial":state.serial}
 		else:air.left=maxf(0,air.left-_delta)
@@ -218,6 +311,14 @@ func _physics_process(_delta: float) -> void:
 				if multiplayer.is_server() and not push_contacts.has(key):game._ability_fx.rpc("jump_pad",actor.position,actor.position+push.normalized(),0)
 				continue
 			if not multiplayer.is_server(): continue
+			if region.kind in ["trigger_multiple","trigger_once"]:
+				var team: int=int(region.data.get("team_no",0))
+				if team in [1,2] and int(game.players[id].team)!=(0 if team==2 else 1):continue
+				var key: int=region.area.get_instance_id()
+				if game.clock<trigger_until.get(key,0.0):continue
+				if activate_gate_target(str(region.data.get("target",""))):
+					trigger_until[key]=INF if region.kind=="trigger_once" else game.clock+maxf(.2,float(region.data.get("wait",.2)))
+				continue
 			if region.kind=="trigger_teleport" and game.clock>=teleport_until.get(id,0):
 				var target: String=region.data.get("target","")
 				if not destinations.has(target): continue
@@ -242,7 +343,7 @@ func _physics_process(_delta: float) -> void:
 	if not multiplayer.is_server(): return
 	for i in range(game.gates.size()):
 		var gate: Dictionary=game.gates[i]
-		if not gate.get("bsp",false) or gate.open: continue
+		if not gate.get("bsp",false) or gate.open or gate.get("touch_target",false): continue
 		if game.match_mode.kind=="as" and game.match_mode.assault.stage<int(gate.get("as_unlock",0)):continue
 		for id in game.players:
 			if not game.players[id].dead and game.fighters[id].position.distance_to(gate.center)<3:

@@ -1,0 +1,328 @@
+{
+  "experimental": true,
+  "default_enabled": false,
+  "baked_maps_promoted": false,
+  "methodology": "1280x800, 4x MSAA, vsync off; 45 warmup + 180 measured frames per block; classic/contrast/contrast/classic order; three views per map and bake; no actors; median of paired block medians. GPU clocks and OS scheduling are uncontrolled.",
+  "limitations": [
+    "Desktop Intel Arc A770 only; no Android or headset measurements.",
+    "Static map microbenchmark, not multiplayer frame time.",
+    "Moving actors retain existing dynamic lighting; no baked probes implemented.",
+    "Existing static brush lightmaps do not change as lifts move."
+  ],
+  "bake": {
+    "compiler": "/tmp/hislop-ericw/ericw-tools-v0.18-Linux/bin/light",
+    "compiler_sha256": "b16843b822f324f880e39b4ec0f8ee2297c3fc96d8763a1ffbebe9be74852118",
+    "flags": [
+      "-threads",
+      "8",
+      "-extra4",
+      "-bspxlit",
+      "-dirt",
+      "1",
+      "-dirtdepth",
+      "64",
+      "-dirtscale",
+      "0.65",
+      "-minlight_dirt",
+      "1",
+      "-minlight",
+      "24",
+      "-sunlight_penumbra",
+      "4",
+      "-bounce",
+      "1",
+      "-bouncecolorscale",
+      "0.25"
+    ],
+    "maps": [
+      {
+        "map": "tf_pressureworks",
+        "baseline_sha256": "e8e8ef29fc96f48ae3f772ee1972803897e841f95af687aa6baad030a9b34003",
+        "candidate_sha256": "a158ec709fee9342a7fd9f1cde5ab10cf0a44dfaff24cf1b02a1eb6e0ab78059",
+        "seconds": 9.264935035025701,
+        "baseline_bytes": 10314912,
+        "candidate_bytes": 10314904,
+        "geometry_vis_collision_textures_entities_unchanged": true,
+        "faces": 6514,
+        "light_bytes": 598809,
+        "rgb_bytes": 1796427
+      },
+      {
+        "map": "tf_vesper",
+        "baseline_sha256": "cd05a1b26e81db1d0b7d386e0eb374acc670e2bb430f1ecfd40f12c90ed3be94",
+        "candidate_sha256": "a5d0fc51a788ca66469a8ea3bca60c487d293a84555125c73a74eeb79d4190d2",
+        "seconds": 4.40115945704747,
+        "baseline_bytes": 5912088,
+        "candidate_bytes": 5912088,
+        "geometry_vis_collision_textures_entities_unchanged": true,
+        "faces": 4415,
+        "light_bytes": 287741,
+        "rgb_bytes": 863223
+      }
+    ]
+  },
+  "renderers": [
+    {
+      "renderer": "gl_compatibility",
+      "gpu": "Mesa Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "engine": "4.7.2-stable (fedora)",
+      "frames": 8640,
+      "median_paired_gpu_delta_ms": 0.0035000145435332697,
+      "paired_delta_range_ms": [
+        2.9802321943606103e-08,
+        0.03649997711181652
+      ],
+      "same_draw_counts_and_texture_memory": true,
+      "max_setting_switch_ms": 0.242,
+      "paired": [
+        {
+          "map": "tf_pressureworks",
+          "bake": "baseline",
+          "view": "turbine",
+          "classic_gpu_ms": 0.5729999840259554,
+          "contrast_gpu_ms": 0.599000006914139,
+          "delta_ms": 0.026000022888183594,
+          "draw_calls": 180.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "baseline",
+          "view": "hall",
+          "classic_gpu_ms": 0.6655000150203705,
+          "contrast_gpu_ms": 0.683499991893768,
+          "delta_ms": 0.017999976873397494,
+          "draw_calls": 176.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "baseline",
+          "view": "flag",
+          "classic_gpu_ms": 0.6724999845027926,
+          "contrast_gpu_ms": 0.694000005722046,
+          "delta_ms": 0.02150002121925343,
+          "draw_calls": 193.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "candidate",
+          "view": "turbine",
+          "classic_gpu_ms": 0.7304999828338625,
+          "contrast_gpu_ms": 0.7305000126361845,
+          "delta_ms": 2.9802321943606103e-08,
+          "draw_calls": 180.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "candidate",
+          "view": "hall",
+          "classic_gpu_ms": 0.7215000092983245,
+          "contrast_gpu_ms": 0.757999986410141,
+          "delta_ms": 0.03649997711181652,
+          "draw_calls": 176.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "candidate",
+          "view": "flag",
+          "classic_gpu_ms": 0.677000015974045,
+          "contrast_gpu_ms": 0.713499993085861,
+          "delta_ms": 0.03649997711181596,
+          "draw_calls": 193.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "baseline",
+          "view": "nave",
+          "classic_gpu_ms": 0.688000023365021,
+          "contrast_gpu_ms": 0.689000010490417,
+          "delta_ms": 0.0009999871253960624,
+          "draw_calls": 99.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "baseline",
+          "view": "sanctuary",
+          "classic_gpu_ms": 0.6114999949932095,
+          "contrast_gpu_ms": 0.614000022411346,
+          "delta_ms": 0.0025000274181364857,
+          "draw_calls": 124.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "baseline",
+          "view": "lifts",
+          "classic_gpu_ms": 0.547999978065491,
+          "contrast_gpu_ms": 0.5485000014305115,
+          "delta_ms": 0.0005000233650205299,
+          "draw_calls": 73.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "candidate",
+          "view": "nave",
+          "classic_gpu_ms": 0.62049999833107,
+          "contrast_gpu_ms": 0.621500015258789,
+          "delta_ms": 0.0010000169277190052,
+          "draw_calls": 99.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "candidate",
+          "view": "sanctuary",
+          "classic_gpu_ms": 0.632499992847443,
+          "contrast_gpu_ms": 0.636000007390976,
+          "delta_ms": 0.003500014543532992,
+          "draw_calls": 124.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "candidate",
+          "view": "lifts",
+          "classic_gpu_ms": 0.6814999878406525,
+          "contrast_gpu_ms": 0.685000002384186,
+          "delta_ms": 0.0035000145435335472,
+          "draw_calls": 73.0
+        }
+      ]
+    },
+    {
+      "renderer": "mobile",
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "engine": "4.7.2-stable (fedora)",
+      "frames": 8640,
+      "median_paired_gpu_delta_ms": 0.002749994397163724,
+      "paired_delta_range_ms": [
+        -0.5494999885559095,
+        0.004999965429305919
+      ],
+      "same_draw_counts_and_texture_memory": true,
+      "max_setting_switch_ms": 0.184,
+      "paired": [
+        {
+          "map": "tf_pressureworks",
+          "bake": "baseline",
+          "view": "turbine",
+          "classic_gpu_ms": 0.6305000185966495,
+          "contrast_gpu_ms": 0.6354999840259554,
+          "delta_ms": 0.004999965429305919,
+          "draw_calls": 26.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "baseline",
+          "view": "hall",
+          "classic_gpu_ms": 0.7535000145435335,
+          "contrast_gpu_ms": 0.756500005722046,
+          "delta_ms": 0.0029999911785124622,
+          "draw_calls": 18.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "baseline",
+          "view": "flag",
+          "classic_gpu_ms": 0.6349999904632571,
+          "contrast_gpu_ms": 0.6389999985694885,
+          "delta_ms": 0.004000008106231467,
+          "draw_calls": 16.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "candidate",
+          "view": "turbine",
+          "classic_gpu_ms": 1.176999986171724,
+          "contrast_gpu_ms": 0.6274999976158144,
+          "delta_ms": -0.5494999885559095,
+          "draw_calls": 26.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "candidate",
+          "view": "hall",
+          "classic_gpu_ms": 0.828999996185303,
+          "contrast_gpu_ms": 0.825999975204468,
+          "delta_ms": -0.003000020980834961,
+          "draw_calls": 18.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "bake": "candidate",
+          "view": "flag",
+          "classic_gpu_ms": 0.6935000121593475,
+          "contrast_gpu_ms": 0.6975000202655794,
+          "delta_ms": 0.0040000081062319115,
+          "draw_calls": 16.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "baseline",
+          "view": "nave",
+          "classic_gpu_ms": 0.694999992847443,
+          "contrast_gpu_ms": 0.697000026702881,
+          "delta_ms": 0.0020000338554380104,
+          "draw_calls": 21.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "baseline",
+          "view": "sanctuary",
+          "classic_gpu_ms": 0.6365000009536741,
+          "contrast_gpu_ms": 0.6365000009536745,
+          "delta_ms": 4.440892098500626e-16,
+          "draw_calls": 16.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "baseline",
+          "view": "lifts",
+          "classic_gpu_ms": 0.689999997615814,
+          "contrast_gpu_ms": 0.6924999952316284,
+          "delta_ms": 0.002499997615814431,
+          "draw_calls": 3.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "candidate",
+          "view": "nave",
+          "classic_gpu_ms": 0.62950000166893,
+          "contrast_gpu_ms": 0.632500022649765,
+          "delta_ms": 0.003000020980834961,
+          "draw_calls": 21.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "candidate",
+          "view": "sanctuary",
+          "classic_gpu_ms": 0.66100001335144,
+          "contrast_gpu_ms": 0.663999974727631,
+          "delta_ms": 0.0029999613761909627,
+          "draw_calls": 16.0
+        },
+        {
+          "map": "tf_vesper",
+          "bake": "candidate",
+          "view": "lifts",
+          "classic_gpu_ms": 0.666999995708466,
+          "contrast_gpu_ms": 0.6695000231266025,
+          "delta_ms": 0.0025000274181364857,
+          "draw_calls": 3.0
+        }
+      ]
+    }
+  ],
+  "validated_sources_sha256": {
+    "deathmatch/maps/baked_light.gdshader": "ba0131658ea1b6211c59a3f0999b33a6fa12ba3ab69793dae5ee9810346287b1",
+    "deathmatch/maps/filtering.gd": "f2b43e6d3a103d9ef9888e859b020f4df4f8270894f9a6d07339bce6e7cd3064",
+    "deathmatch/maps/runtime.gd": "c8d04739964908c6f81e866f9d0082e518eb3d0a7a1b12affceeaf99a11176c3",
+    "deathmatch/settings/preferences.gd": "10b66e36b6e438cb017ab03835e28fd3e838f71fcce9176d8b1e15c134c4d254",
+    "deathmatch/settings/panel.gd": "503fc6301794aecb9b5af8d071ce01abad93fbf96fe230a1ad96ff304329853e",
+    "tools/lighting_experiment/bake.py": "607a280c9a7048ce61e3eed00193e0371d525de72f2d225fa0b537f55399b3a1",
+    "tools/lighting_experiment/profile.gd": "6a1953ec359a9cc5c42d8eb6106ab245dc847cd3c9d627ee71aefd44ce901d38"
+  },
+  "tests": {
+    "lighting_profile": "pass",
+    "client_preferences": "pass",
+    "baked_light": "pass",
+    "rendered_imports": "all 4 copies; RGB; zero invalid or overflow faces",
+    "shader_errors": 0
+  }
+}

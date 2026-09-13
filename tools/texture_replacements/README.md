@@ -2,15 +2,18 @@
 
 `rules.json` is the curated name-to-art table. The generated runtime dictionary is
 `deathmatch/maps/texture_replacements/manifest.json` and `replacement-miptex.lmp`.
-It combines LibreQuake v0.09-beta BSD-3-Clause artwork with four original generated
-gothic reliefs. Source dimensions and animation names are retained. Material-family
+It combines LibreQuake v0.09-beta BSD-3-Clause artwork, four original generated
+gothic reliefs, and separately licensed Makkon artwork in `makkon-used.wad`.
+Makkon replacements retain their original names, dimensions and four mip levels;
+LibreQuake fallbacks retain the requesting texture dimensions. Liquid, sky,
+animated and masked texture names are protected from industrial remapping. Material-family
 matches are approximations, not an official or pixel-identical id/LibreQuake crosswalk.
 
 The runtime loader applies this dictionary to **missing named textures** in every
 supported BSP29/BSP2 import, including client downloads. It preserves embedded pixels.
 Unknown names and unnamed `-1` texture slots use neutral stone with a diagnostic;
 their intended appearance cannot be recovered from the BSP. Missing-texture scene
-caches include the dictionary content version. The approximately 4.2 MB dictionary is exported
+caches include the dictionary content version. The approximately 4.2 MB base dictionary and 15.34 MB used-only Makkon WAD are exported
 inside the game, independently of external map folders. Original id/QRP pixels and
 QuadCompati placeholder images are not shipped.
 
@@ -30,13 +33,13 @@ For explicitly authorized conversions of maps that still contain old textures,
 `--replace-known` replaces only names in the dictionary. Unknown embedded assets
 remain intact and are reported: inspect `output.textures.json` and check their
 licenses before sharing. `--use-lightmaps` enables FPSloppa's renderer for the map's
-existing lightmap lump; it does not perform a new bake. Geometry, collision, UV
-dimensions and lightmap bytes remain unchanged. Always write to a separate output.
+existing lightmap lump; it does not perform a new bake. Geometry, collision, world-unit texture coordinates and lightmap bytes remain unchanged.
+Makkon native dimensions control tiling without resampling the artwork. Always write to a separate output.
 
 ThreeWave and original TF test conversions remain **local only**. This tool grants
 no rights to redistribute a map. Supply tools/instructions, not restricted BSPs.
 The FortressOne converter prioritizes the same named dictionary when run in this
-repository; its legacy fallback remains for unreviewed custom texture names.
+repository; unreviewed custom names use a deterministic neutral material-family fallback.
 
 To capture four real game views per map:
 

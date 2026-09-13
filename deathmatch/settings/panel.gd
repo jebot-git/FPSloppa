@@ -8,9 +8,11 @@ var section:="audio"
 var config_path:=""
 var audio_page: VBoxContainer
 var graphics_page: VBoxContainer
+var page_spacer: Control
 var input_page: VBoxContainer
 var tracking_page: VBoxContainer
 var tracking_status: Label
+var haptics_page: VBoxContainer
 func setup(arena: Node) -> void:
 	game=arena;values=game.presentation;name="AudioGraphicsSettings";hide()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -25,6 +27,8 @@ func setup(arena: Node) -> void:
 	button(tabs,"GRAPHICS",func():section="graphics";refresh())
 	button(tabs,"CONTROLS",func():section="controls";refresh())
 	button(tabs,"TRACKING",func():section="tracking";refresh())
+	button(tabs,"HAPTICS",func():section="haptics";refresh())
+	haptics_page=load("res://deathmatch/haptics/panel.gd").new();column.add_child(haptics_page);haptics_page.setup(game)
 	input_page=VBoxContainer.new();input_page.add_theme_constant_override("separation",8);column.add_child(input_page)
 	tracking_page=VBoxContainer.new();tracking_page.add_theme_constant_override("separation",8);column.add_child(tracking_page)
 	button(input_page,"BINDINGS…",func():game.hud.open_bindings())
@@ -43,7 +47,10 @@ func setup(arena: Node) -> void:
 	tracking_status=Label.new();tracking_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;tracking_page.add_child(tracking_status)
 	audio_page=VBoxContainer.new();audio_page.add_theme_constant_override("separation",8);column.add_child(audio_page)
 	graphics_page=VBoxContainer.new();graphics_page.add_theme_constant_override("separation",8);column.add_child(graphics_page)
-	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.1)
+	graphics_page.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	var graphics_scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();graphics_scroll.custom_minimum_size.y=280;graphics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;graphics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;graphics_page.add_child(graphics_scroll)
+	var graphics_options:=VBoxContainer.new();graphics_options.add_theme_constant_override("separation",8);graphics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;graphics_scroll.add_child(graphics_options)
+	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.01 if row[0]=="music" else .1)
 	controls.spatial_audio=button(audio_page,"",func():
 		values.spatial_audio="stereo" if values.spatial_audio=="steam_audio" else "steam_audio";game.spatial.apply_backend();save())
 	controls.output=button(audio_page,"",func():
@@ -51,17 +58,17 @@ func setup(arena: Node) -> void:
 		if not devices.is_empty():values.output=devices[(devices.find(AudioServer.output_device)+1)%devices.size()];save())
 	button(audio_page,"VOICE CHAT & MICROPHONE…",func():
 		if game.voice and game.voice.panel:game.voice.panel.open())
-	stepper(graphics_page,"render_scale","Render resolution",.05)
-	controls.texture_filter=button(graphics_page,"",func():values.texture_filter=(int(values.texture_filter)+1)%3;save())
-	controls.msaa=button(graphics_page,"",func():values.msaa=(int(values.msaa)+1)%4;save())
-	controls.shadows=button(graphics_page,"",func():values.shadows=not values.shadows;save())
-	controls.train_motion=button(input_page,"",func():values.train_motion=not values.train_motion;save())
-	controls.fullscreen=button(graphics_page,"",func():values.fullscreen=not values.fullscreen;save())
-	stepper(graphics_page,"fov","Desktop field of view",5)
-	stepper(graphics_page,"hud_scale","VR HUD size",.1)
-	stepper(graphics_page,"hud_y","VR HUD height",.05)
+	stepper(graphics_options,"render_scale","Render resolution",.05)
+	controls.texture_filter=button(graphics_options,"",func():values.texture_filter=(int(values.texture_filter)+1)%3;save())
+	controls.contrast_lighting=button(graphics_options,"",func():values.contrast_lighting=not values.get("contrast_lighting",false);save())
+	controls.msaa=button(graphics_options,"",func():values.msaa=(int(values.msaa)+1)%4;save())
+	controls.shadows=button(graphics_options,"",func():values.shadows=not values.shadows;save())
+	controls.fullscreen=button(graphics_options,"",func():values.fullscreen=not values.fullscreen;save())
+	stepper(graphics_options,"fov","Desktop field of view",5)
+	stepper(graphics_options,"hud_scale","VR HUD size",.1)
+	stepper(graphics_options,"hud_y","VR HUD height",.05)
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Changes apply immediately and are saved.";column.add_child(notice)
-	var space:=Control.new();space.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(space)
+	page_spacer=Control.new();page_spacer.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(page_spacer)
 	button(column,"BACK",hide)
 	refresh()
 func button(parent: Node,title: String,action: Callable) -> Button:
@@ -81,6 +88,9 @@ func save() -> void:
 	notice.text="Saved. Changes applied." if err==OK else "Settings applied; saving failed: "+error_string(err)
 	refresh()
 func refresh() -> void:
+	page_spacer.visible=section!="graphics"
+	haptics_page.visible=section=="haptics"
+	notice.visible=section!="haptics"
 	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics";input_page.visible=section=="controls";tracking_page.visible=section=="tracking"
 	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
 	tracking_status.text=game.xr_rig.tracking.status if game.is_vr() else "Connect a VR headset to configure tracking."
@@ -94,9 +104,9 @@ func refresh() -> void:
 	controls.hud_scale.text="%d%%"%roundi(values.hud_scale*100)
 	controls.hud_y.text="%+.0f cm"%(values.hud_y*100)
 	controls.texture_filter.text="TEXTURES: "+["PIXELATED + MIPMAPS","TRILINEAR","ANISOTROPIC"][int(values.texture_filter)]
+	controls.contrast_lighting.text="BAKED LIGHTING: "+("CONTRAST (EXPERIMENTAL)" if values.get("contrast_lighting",false) else "CLASSIC")
 	controls.msaa.text="ANTI-ALIASING: "+["OFF","2× MSAA","4× MSAA","8× MSAA"][int(values.msaa)]
 	controls.shadows.text="SHADOWS: "+("ON" if values.shadows else "OFF")
-	controls.train_motion.text="TRAIN SCENERY MOTION: "+("ON" if values.train_motion else "OFF (REDUCED MOTION)")
 	controls.fullscreen.text="DISPLAY: "+("FULLSCREEN" if values.fullscreen else "WINDOWED");controls.fullscreen.visible=not game.is_vr() and not OS.has_feature("android")
 	controls.spatial_audio.text="SPATIAL AUDIO: "+("STEAM AUDIO HRTF (HEADPHONES)" if values.spatial_audio=="steam_audio" else "STANDARD STEREO")
 	controls.output.text="OUTPUT: "+AudioServer.output_device+" (select to cycle)"

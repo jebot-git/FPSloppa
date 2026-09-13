@@ -16,8 +16,8 @@ func blocked(id: int) -> bool: return frozen.has(id) or reset_at>0.0
 func spawn(id: int) -> void:
 	frozen.erase(id);drain.erase(id)
 	var s: Dictionary=mode.game.players[id]
-	if mode.kind in ["ig","cc"]:
-		s.weapon=9 if mode.kind=="ig" else 1;s.owned=[s.weapon];s.ammo=[0,0,0,0]
+	if mode.fixed_loadout():
+		s.weapon=9 if mode.instagib() else 1;s.owned=[s.weapon];s.ammo=[0,0,0,0]
 func freeze(id: int,attacker: int) -> void:
 	var g=mode.game;var s: Dictionary=g.players[id]
 	frozen[id]=0.0;s.fire=false;s.offhand_fire=false;s.melee=false;s.charge=0.0;s.move=Vector2.ZERO;s.room=Vector3.ZERO
@@ -36,7 +36,7 @@ func tick(delta: float) -> void:
 			drain[id]=drain.get(id,0.0)+delta*DRAIN_PER_SECOND
 			var amount:=int(drain[id]);drain[id]-=amount
 			if amount>0:g._damage(id,id,amount,"CIRCUS HUNGER",true)
-	elif mode.kind=="ft":
+	elif mode.freeze_tag():
 		if reset_at>0.0:
 			if g.clock>=reset_at:
 				reset_at=0.0;frozen.clear()
@@ -68,7 +68,7 @@ func tick(delta: float) -> void:
 				if mode.same_team(id,other) and mode.nearby(other,g.fighters[id].position,THAW_RADIUS):helping=true;break
 			frozen[id]=float(frozen[id])+delta if helping else 0.0
 			if frozen[id]>=THAW_SECONDS:
-				# Respawn safely in place: no teleport, fresh pistol, no retained charge.
+				# Respawn safely in place: no teleport, fresh mode loadout, no retained charge.
 				var pos: Vector3=g.fighters[id].position;var yaw: float=g.players[id].yaw
 				g._spawn(id);g.fighters[id].position=pos;g.players[id].yaw=yaw
 				g._announcement.rpc(g.players[id].name+" thawed")

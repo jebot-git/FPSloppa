@@ -2,18 +2,37 @@
   "id": "as_frigate",
   "title": "Frigate",
   "format": 29,
-  "bytes": 1579344,
-  "sha256": "187cc818cc3e5c360f5f9a0d9e661babfbacc48bd322bc4c161a4ae51dd9afe9",
-  "brushes": 246,
-  "entities": 73,
+  "bytes": 3873852,
+  "sha256": "9988634fb175ece87ad5381f0ca9df1f35fdc5f53b12a9167a01b8c846ebc27e",
+  "brushes": 259,
+  "entities": 90,
   "textures": 13,
   "recommended_players": [
     4,
     8
   ],
+  "small_groups_only": false,
+  "layout": "expanded",
   "modes": [
     "as"
   ],
   "full_vis": true,
-  "concept": true
+  "concept": true,
+  "horizontal_scale": [
+    1.6,
+    1.3
+  ],
+  "vertical_scale": 1.0,
+  "texture_theme": "Makkon industrial (original miptextures)",
+  "texture_replacements": {
+    "met_brn_block": "ind_w06_rst2",
+    "met_brn_tile2": "ind_w02_blk1",
+    "aqpanl10": "ind_w04_grey1",
+    "met_grn_panel1": "ind_w08_grn1"
+  },
+  "lighting_rebake": {
+    "original_sha256": "b74978b24f4497573370c74d5216e81588cad2b15d8793758d039c0736b23ba7",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  },
+  "pickup_revision": "ut99-reference-1"
 }

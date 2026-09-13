@@ -1,0 +1,451 @@
+{
+  "status": "pass_for_authored_tf_maps_external_rebake_rejected",
+  "date": "2026-09-12",
+  "bakes": {
+    "compiler": "/tmp/hislop-ericw/ericw-tools-v0.18-Linux/bin/light",
+    "compiler_sha256": "b16843b822f324f880e39b4ec0f8ee2297c3fc96d8763a1ffbebe9be74852118",
+    "common_flags": [
+      "-threads",
+      "8",
+      "-extra4",
+      "-bspxlit",
+      "-bounce",
+      "1",
+      "-bouncecolorscale",
+      "0.25",
+      "-sunlight_penumbra",
+      "4"
+    ],
+    "variants": {
+      "off": [
+        "-dirt",
+        "0",
+        "-minlight_dirt",
+        "0"
+      ],
+      "low": [
+        "-dirt",
+        "1",
+        "-dirtdepth",
+        "32",
+        "-dirtscale",
+        "0.5",
+        "-minlight_dirt",
+        "1"
+      ]
+    },
+    "maps": [
+      {
+        "map": "tf_pressureworks",
+        "source": "maps/tf_pressureworks.bsp",
+        "source_sha256": "e8e8ef29fc96f48ae3f772ee1972803897e841f95af687aa6baad030a9b34003",
+        "bakes": {
+          "off": {
+            "sha256": "89d0bf2a8e8b1ace9666a67cd3f6ef8d8c2776fc555ce4cb8734e76f4745de4a",
+            "seconds": 7.080765137099661,
+            "bytes": 10314904,
+            "geometry_vis_collision_textures_entities_unchanged": true,
+            "faces": 6514,
+            "light_bytes": 598809,
+            "rgb_bytes": 1796427
+          },
+          "low": {
+            "sha256": "86868207430b8a91db819cd0f74e71c13f8d8b5ae2d5f92cfb8cc732875c0834",
+            "seconds": 10.489091417985037,
+            "bytes": 10314904,
+            "geometry_vis_collision_textures_entities_unchanged": true,
+            "faces": 6514,
+            "light_bytes": 598809,
+            "rgb_bytes": 1796427
+          }
+        },
+        "ao_only_changes_light_samples_and_offsets": true
+      },
+      {
+        "map": "tf_vesper",
+        "source": "maps/tf_vesper.bsp",
+        "source_sha256": "cd05a1b26e81db1d0b7d386e0eb374acc670e2bb430f1ecfd40f12c90ed3be94",
+        "bakes": {
+          "off": {
+            "sha256": "09e40fd7bd1e3591e46a11150b481b02b34669cfd83fd0fb680888821a5207ef",
+            "seconds": 3.8972021479858086,
+            "bytes": 5912088,
+            "geometry_vis_collision_textures_entities_unchanged": true,
+            "faces": 4415,
+            "light_bytes": 287741,
+            "rgb_bytes": 863223
+          },
+          "low": {
+            "sha256": "ea6e7626a42580d16d4d99e454ef4b7c7d11fc7e9eca80679ebf4fc383adb498",
+            "seconds": 4.963675331091508,
+            "bytes": 5912088,
+            "geometry_vis_collision_textures_entities_unchanged": true,
+            "faces": 4415,
+            "light_bytes": 287741,
+            "rgb_bytes": 863223
+          }
+        },
+        "ao_only_changes_light_samples_and_offsets": true
+      },
+      {
+        "map": "external-optin",
+        "source": "test-results/lighting-coverage/external-optin.bsp",
+        "source_sha256": "33787217e56146c2e65db4126d5e278b1909468817ed765be34ec87ef55daea1",
+        "bakes": {},
+        "rejected": "Face topology/styles changed"
+      }
+    ]
+  },
+  "renderers": [
+    {
+      "renderer": "mobile",
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "engine": "4.7.2-stable (fedora)",
+      "measured_frames": 5760,
+      "median_paired_gpu_delta_ms": 0.0015000104904174805,
+      "paired_delta_range_ms": [
+        -0.0004999935626980312,
+        0.018500000238419023
+      ],
+      "extra_draws": 0,
+      "extra_texture_samples_per_fragment": 0,
+      "extra_atlas_bytes_in_single_variant": 0,
+      "pairs": [
+        {
+          "map": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": false,
+          "off_gpu_ms": 0.6369999945163725,
+          "low_gpu_ms": 0.641499996185303,
+          "delta_ms": 0.004500001668930498,
+          "draws": 12.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": true,
+          "off_gpu_ms": 0.6389999985694885,
+          "low_gpu_ms": 0.6439999938011169,
+          "delta_ms": 0.004999995231628418,
+          "draws": 12.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "view": "flag",
+          "contrast": false,
+          "off_gpu_ms": 0.6305000185966495,
+          "low_gpu_ms": 0.6315000057220455,
+          "delta_ms": 0.0009999871253959514,
+          "draws": 2.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "view": "flag",
+          "contrast": true,
+          "off_gpu_ms": 0.631999999284744,
+          "low_gpu_ms": 0.631500005722046,
+          "delta_ms": -0.0004999935626980312,
+          "draws": 2.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "nave",
+          "contrast": false,
+          "off_gpu_ms": 0.643999993801117,
+          "low_gpu_ms": 0.644999980926514,
+          "delta_ms": 0.0009999871253969506,
+          "draws": 7.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "nave",
+          "contrast": true,
+          "off_gpu_ms": 0.648499995470047,
+          "low_gpu_ms": 0.6489999890327455,
+          "delta_ms": 0.0004999935626984753,
+          "draws": 7.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": false,
+          "off_gpu_ms": 0.6055000126361845,
+          "low_gpu_ms": 0.6240000128746035,
+          "delta_ms": 0.018500000238419023,
+          "draws": 2.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": true,
+          "off_gpu_ms": 0.6074999868869785,
+          "low_gpu_ms": 0.6095000207424165,
+          "delta_ms": 0.0020000338554380104,
+          "draws": 2.0
+        }
+      ]
+    },
+    {
+      "renderer": "gl_compatibility",
+      "gpu": "Mesa Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "engine": "4.7.2-stable (fedora)",
+      "measured_frames": 5760,
+      "median_paired_gpu_delta_ms": 0.0024999976158140425,
+      "paired_delta_range_ms": [
+        -0.014999985694885476,
+        0.012999981641770075
+      ],
+      "extra_draws": 0,
+      "extra_texture_samples_per_fragment": 0,
+      "extra_atlas_bytes_in_single_variant": 0,
+      "pairs": [
+        {
+          "map": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": false,
+          "off_gpu_ms": 0.7364999949932101,
+          "low_gpu_ms": 0.7425000071525575,
+          "delta_ms": 0.006000012159347423,
+          "draws": 165.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "view": "turbine",
+          "contrast": true,
+          "off_gpu_ms": 0.738999992609024,
+          "low_gpu_ms": 0.7450000047683716,
+          "delta_ms": 0.006000012159347534,
+          "draws": 165.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "view": "flag",
+          "contrast": false,
+          "off_gpu_ms": 0.711499989032745,
+          "low_gpu_ms": 0.710999995470047,
+          "delta_ms": -0.0004999935626980312,
+          "draws": 147.0
+        },
+        {
+          "map": "tf_pressureworks",
+          "view": "flag",
+          "contrast": true,
+          "off_gpu_ms": 0.72350001335144,
+          "low_gpu_ms": 0.7364999949932101,
+          "delta_ms": 0.012999981641770075,
+          "draws": 147.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "nave",
+          "contrast": false,
+          "off_gpu_ms": 0.645999997854233,
+          "low_gpu_ms": 0.6490000188350675,
+          "delta_ms": 0.003000020980834517,
+          "draws": 84.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "nave",
+          "contrast": true,
+          "off_gpu_ms": 0.658499985933304,
+          "low_gpu_ms": 0.6435000002384186,
+          "delta_ms": -0.014999985694885476,
+          "draws": 84.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": false,
+          "off_gpu_ms": 0.637000024318695,
+          "low_gpu_ms": 0.6389999985694885,
+          "delta_ms": 0.001999974250793568,
+          "draws": 70.0
+        },
+        {
+          "map": "tf_vesper",
+          "view": "sanctuary",
+          "contrast": true,
+          "off_gpu_ms": 0.654500007629395,
+          "low_gpu_ms": 0.641000002622604,
+          "delta_ms": -0.013500005006790938,
+          "draws": 70.0
+        }
+      ]
+    }
+  ],
+  "image_metrics": [
+    {
+      "renderer": "mobile",
+      "map": "tf_pressureworks",
+      "view": "turbine",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.00042156965381795014,
+      "stable_darkened_fraction": 0.01658203125,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "mobile",
+      "map": "tf_pressureworks",
+      "view": "turbine",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0004181154704048414,
+      "stable_darkened_fraction": 0.0186640625,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "mobile",
+      "map": "tf_pressureworks",
+      "view": "flag",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.001267350792599676,
+      "stable_darkened_fraction": 0.0470625,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "mobile",
+      "map": "tf_pressureworks",
+      "view": "flag",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0011397356028934242,
+      "stable_darkened_fraction": 0.0549765625,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "mobile",
+      "map": "tf_vesper",
+      "view": "nave",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0013505732089132215,
+      "stable_darkened_fraction": 0.051390625,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "mobile",
+      "map": "tf_vesper",
+      "view": "nave",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0013038982638560702,
+      "stable_darkened_fraction": 0.05315234375,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "mobile",
+      "map": "tf_vesper",
+      "view": "sanctuary",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0007349163429025386,
+      "stable_darkened_fraction": 0.0287734375,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "mobile",
+      "map": "tf_vesper",
+      "view": "sanctuary",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0007282223120691808,
+      "stable_darkened_fraction": 0.02933984375,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_pressureworks",
+      "view": "turbine",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0006513413918062949,
+      "stable_darkened_fraction": 0.021078125,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_pressureworks",
+      "view": "turbine",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0004930342297892806,
+      "stable_darkened_fraction": 0.01258203125,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_pressureworks",
+      "view": "flag",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0017225558326266766,
+      "stable_darkened_fraction": 0.05884765625,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_pressureworks",
+      "view": "flag",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.001055547195996134,
+      "stable_darkened_fraction": 0.02175,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_vesper",
+      "view": "nave",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.002006756539071816,
+      "stable_darkened_fraction": 0.07007421875,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_vesper",
+      "view": "nave",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.001374973950343853,
+      "stable_darkened_fraction": 0.043375,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_vesper",
+      "view": "sanctuary",
+      "contrast": false,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0011461511634333439,
+      "stable_darkened_fraction": 0.0388671875,
+      "restore_difference": 0.0
+    },
+    {
+      "renderer": "gl_compatibility",
+      "map": "tf_vesper",
+      "view": "sanctuary",
+      "contrast": true,
+      "stable_fraction": 1.0,
+      "stable_mean_darkening": 0.0008211037454930559,
+      "stable_darkened_fraction": 0.0245,
+      "restore_difference": 0.0
+    }
+  ],
+  "method": "Same shader, scene and atlas UVs; swap pre-baked off/low atlas in off/low/low/off order. Both textures stay resident during measurement, but only one is sampled.",
+  "limitations": [
+    "Static map occlusion only; no avatar self/contact occlusion or moving-occluder updates.",
+    "AO merged into RGB cannot be independently disabled by the existing Contrast toggle.",
+    "External BSP compiler changed face light styles; candidate rejected and original preserved.",
+    "Single Linux Intel Arc A770 at 1280x800 4xMSAA, no headset/full-match certification."
+  ],
+  "source_sha256": {
+    "deathmatch/maps/baked_light.gdshader": "ba0131658ea1b6211c59a3f0999b33a6fa12ba3ab69793dae5ee9810346287b1",
+    "tools/lighting_experiment/ao.gd": "fee25df8a4fb345ffff0c8b19088c0cdde942ae0c98af4c3d29cdf11fa2c424e",
+    "tools/lighting_experiment/ao_bake.py": "5c829303911e138ffa136d96f364b9a54c859c4cda39a3836277fb10b82592ea"
+  }
+}

@@ -1,5 +1,12 @@
 # HiSlop release map
 
+Current builds use the expanded layout by default. `--tiny` builds the original
+compact variant under the `_tiny` map ID, labelled **Tiny (2-4 players)** and
+intended only for small groups. Rebuild/install all four variants with
+`python3 tools/assault_layout_tests/build.py --compiler-dir /path/to/ericw-tools/bin --install`.
+See [current layout notes](../../maps/AssaultLayoutTests/README.md).
+
+
 The concept is now bundled as **HiSlop** (`as_hislop`) in release 0.9v.
 See [AS.md](../../AS.md) for current server setup. The generator now emits
 `as_hislop.bsp`; historical test recordings below retain their original filename.
@@ -101,7 +108,7 @@ LibreQuake textures without downloading the original WAD collection:
 
 ```sh
 python3 tools/hispeed_concept/build.py \
-  --reuse-textures maps/as_hislop.bsp \
+  --reuse-textures maps/as_hislop_tiny.bsp \
   --compiler-dir /path/to/ericw-tools/bin \
   --output test-results/hislop-interior/build
 ```

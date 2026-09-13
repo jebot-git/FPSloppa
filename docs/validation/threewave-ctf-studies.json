@@ -1,0 +1,591 @@
+{
+  "maps": [
+    {
+      "id": "ctf_confluence",
+      "sha256": "4a936d7048e430148e915270a86a53db32379220ab16f7f069b7eed1972529a6"
+    },
+    {
+      "id": "ctf_crownreach",
+      "sha256": "c2ae178eeb4d5ccb42975f86ef3f1830995dd48582fd1f8889b4d4c5a5a3d5f1"
+    },
+    {
+      "id": "ctf_crucible",
+      "sha256": "2c650931ea3f379e8ad9b359f23ff158401c684df01230557376f10e5daf5af9"
+    },
+    {
+      "id": "ctf_deepvault",
+      "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e"
+    },
+    {
+      "id": "ctf_skyfracture",
+      "sha256": "2a59d8e6b1fc0f087145db0f3d6857a2cb63abbe4f93239fdf1f65b5dbf5903f"
+    },
+    {
+      "id": "ctf_tideworks",
+      "sha256": "f6c28b0168893e479a497dea6a601d1ad6cceb6b181c34c8a9f66b4f394da2a0"
+    }
+  ],
+  "files": [
+    {
+      "path": "maps/CTFStudies/CC0-1.0.txt",
+      "size": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "maps/CTFStudies/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/CTFStudies/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/CTFStudies/Makkon_License.txt",
+      "size": 1274,
+      "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
+    },
+    {
+      "path": "maps/CTFStudies/README.md",
+      "size": 685,
+      "sha256": "d978ec2fc847b063aa6fce24857fcf40e204ee4a2ab21f9630900c51c6b38e00"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_confluence/ctf_confluence.map",
+      "size": 61307,
+      "sha256": "b73169e105b5aa47373af763c7721cc7fadf0d46b6bcf9ddc7e683e877c0bdfd"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_confluence/light.log",
+      "size": 1594,
+      "sha256": "c26c8434e63c6d275b7f6f26ad560a672eef07c707a2683797693a0113434d3f"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_confluence/manifest.json",
+      "size": 3246,
+      "sha256": "bdbfd029872b2d448366c35750f0bf813a7932875edbc8f2e8b5b11a3a332ccc"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_confluence/navigation-sha256.txt",
+      "size": 65,
+      "sha256": "275efb6cc9ce38119f20296dedf87b7998c21e1226ca5d7402c784ab5e75c1f3"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_confluence/texture-audit.json",
+      "size": 1481,
+      "sha256": "b8fba7a3d6c41802cc1342a390669bf8e01c1633fae3e4e0490ec14f3432c1c4"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_confluence/validation.json",
+      "size": 73649,
+      "sha256": "f13728b1857a225a55783d93850c5e6f2c7d021fad9505ebc70b5bb184fc4071"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_confluence/vis.log",
+      "size": 532,
+      "sha256": "5dd10ccb7aebe0be93793bac6e5f5f4d249ea160c231b8a67f082b9f2052c58d"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crownreach/ctf_crownreach.map",
+      "size": 70978,
+      "sha256": "f8cf02959c68250e9d75a54ccb5c2ad73a8ba407bc5aa5184cebd6c6d98b7857"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crownreach/light.log",
+      "size": 1786,
+      "sha256": "96f2d812e39667788fe36398d30a0e38b1d9f2ac7f58c0b0dfdee5cecf3284d3"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crownreach/manifest.json",
+      "size": 2534,
+      "sha256": "56318d8e2da430461bdc06c2549bf9278d98f892cf6a9829945ad74d41ad3469"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crownreach/navigation-sha256.txt",
+      "size": 65,
+      "sha256": "25644c3204c3033e10fdbef5b6380aa727cc700afe4ecee059215700dbbf707c"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crownreach/texture-audit.json",
+      "size": 1231,
+      "sha256": "4a856cd89afd8dc28b9b570aad173e5fbb2ebd1153ad66a6f3dc923c2a4bbea9"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crownreach/validation.json",
+      "size": 72410,
+      "sha256": "089b3c62df16d2a2b71e8b80e96b332dd39c0eb28cf47d25f728b8c59aaf56fa"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crownreach/vis.log",
+      "size": 532,
+      "sha256": "f788c8014e22a34c7247bde16087473afc3c55adda8d193bac1adb81e8197970"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crucible/ctf_crucible.map",
+      "size": 40874,
+      "sha256": "983054a9ecc535eead48a14cdbf3a2b23ef44186d0c282fe07c815c9e28b9ba6"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crucible/light.log",
+      "size": 1805,
+      "sha256": "a6fcc6f2a4080f9441f151c02645b0088a62951f7e5aba37eced50e70e09b312"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crucible/manifest.json",
+      "size": 2998,
+      "sha256": "1696f3e03eec3cd643418a5526b19f76e5118ef95d194654a50f4f3f0335fdb6"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crucible/navigation-sha256.txt",
+      "size": 65,
+      "sha256": "d6f9c75e176fc237ac3b44aa4103b7e15e6af132d9df7c1b19189f555260bed5"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crucible/texture-audit.json",
+      "size": 988,
+      "sha256": "94a6a0d946567b2d9fc723513734b9152b6186747c2a4174121e22d7a7e08bcd"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crucible/validation.json",
+      "size": 73395,
+      "sha256": "0c24dc02ac241b7445773af0a8196e96ad209854f34c85626f310520d324d1e2"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_crucible/vis.log",
+      "size": 525,
+      "sha256": "4b2786108ddf0b0e4b38bc089a192aef150097cd0d0793528c6df62cbf705bbf"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_deepvault/ctf_deepvault.map",
+      "size": 67334,
+      "sha256": "e4c824b0467ed881f7adfa22b467b0d83bd784e84b85b674d20ce69bcaa8e982"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_deepvault/light.log",
+      "size": 1585,
+      "sha256": "f7bf0ac6efd8c06a42f0fe47f7797d30f73e9e475014c45331390b9c86c4cfff"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_deepvault/manifest.json",
+      "size": 3676,
+      "sha256": "08419366cdf5df4478d24cb7d345fae2ccedadd4c72851d00ea144ad431f0e58"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_deepvault/navigation-sha256.txt",
+      "size": 65,
+      "sha256": "bd50579eb305e3d323167d8ac5c4ddadd4027896c726069bedcef746c54da79c"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_deepvault/texture-audit.json",
+      "size": 1229,
+      "sha256": "68ed54fc822e95ca0286734a9f0703d61f6eed5dc5273ffe9ee5ab34102fe8de"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_deepvault/validation.json",
+      "size": 71781,
+      "sha256": "c6251ca281da9354ae94a9f55c20fa6f7225066ec3736e53dd94440d34ead8be"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_deepvault/vis.log",
+      "size": 527,
+      "sha256": "b761653472e7a1d05c374e580a6bcdda3efaa04f9d46b2b9de0586427f80adaa"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_skyfracture/ctf_skyfracture.map",
+      "size": 61091,
+      "sha256": "84f5d6ba799f476a896b11d5b6d797d2cabf78c58e2d430185f63d9d3364ef7f"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_skyfracture/light.log",
+      "size": 2190,
+      "sha256": "ca98daa577ddefef82d453bcadaf0d2cd37a55574ad5e084b5906be15e86c168"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_skyfracture/manifest.json",
+      "size": 2981,
+      "sha256": "ee32e02894ba63c7eec8e3112a6bf0514b489c9ceec8536148a96ee6b723bba3"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_skyfracture/navigation-sha256.txt",
+      "size": 65,
+      "sha256": "b2fba378683e7f1e37fbe47a7f3faec15c1ccd33dcfff43d1a0f2da52d750371"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_skyfracture/texture-audit.json",
+      "size": 989,
+      "sha256": "7e7f168068d837a47fa32ad6a56046b4bc9665771e30186d2b0ed411af44f80f"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_skyfracture/validation.json",
+      "size": 74487,
+      "sha256": "4faa8499d60c9d27cc870c50ffff56fd846443f0c64e33c668ed4aa28e898865"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_skyfracture/vis.log",
+      "size": 531,
+      "sha256": "4bd935c72f89d64e64864d494bb16818f68a243cce3394f7c690113553e001fd"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_tideworks/ctf_tideworks.map",
+      "size": 47091,
+      "sha256": "0ebdb1a3a8e31690287e08172d8802b54ae6246ea896900ef8686b76526eb96a"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_tideworks/light.log",
+      "size": 2255,
+      "sha256": "4bdac1846e5c49b4aa331bfa3549a29d5ac981276fb08aeda3e529df0f58c3c3"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_tideworks/manifest.json",
+      "size": 3577,
+      "sha256": "2b6b884552ee824271e376c54cc55aa74972e2c603f1c422b36f207385ceabdd"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_tideworks/navigation-sha256.txt",
+      "size": 65,
+      "sha256": "61f9daf2c06ccf147c11d1a0df8068c3dc3f5cf585bbabdd8254d24055ccf517"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_tideworks/texture-audit.json",
+      "size": 1236,
+      "sha256": "4d41078a4e7ce84dd4f38d4af01630e5692f6dbaa8376f2d12ad83960b5488f4"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_tideworks/validation.json",
+      "size": 74023,
+      "sha256": "41aacecd10f508c0c30a57ad4124aa9eedcdad5420f863c35b5ea57659542cf7"
+    },
+    {
+      "path": "maps/CTFStudies/ctf_tideworks/vis.log",
+      "size": 527,
+      "sha256": "7ab0fea0e27483dbfeaf0f455712a39977f7c6aba4b99b9986fdf8beca77ac72"
+    },
+    {
+      "path": "maps/CTFStudies/materials.wad",
+      "size": 2041864,
+      "sha256": "cacf95804c5e9be435236e0a86931437aee42073e10754efd8ab5d8dc7ee3cf5"
+    },
+    {
+      "path": "maps/CTFStudies/original-asset-audit.json",
+      "size": 1797,
+      "sha256": "2268262896a6d9be01f5009f4ca718bac53a4475666a77db7c4d4d6365c4661f"
+    },
+    {
+      "path": "maps/CTFStudies/texture-sources.json",
+      "size": 10940,
+      "sha256": "3d4d0b867b59598f1f1dee7fd79109e300f36f16035579931557b5aa139de486"
+    },
+    {
+      "path": "maps/cache/ctf_confluence-lightmap1.scn",
+      "size": 54856273,
+      "sha256": "642f375cfd073c81dad63c184573a10bf404c3a2ef9a4c2eb894bc2520216d94"
+    },
+    {
+      "path": "maps/cache/ctf_confluence.scn",
+      "size": 54856273,
+      "sha256": "642f375cfd073c81dad63c184573a10bf404c3a2ef9a4c2eb894bc2520216d94"
+    },
+    {
+      "path": "maps/cache/ctf_crownreach-lightmap1.scn",
+      "size": 53872174,
+      "sha256": "eb882eabcda596f5f53f743d7fe830b44fd0c07ec3380447f3f2dd1eca4244c4"
+    },
+    {
+      "path": "maps/cache/ctf_crownreach.scn",
+      "size": 53872174,
+      "sha256": "eb882eabcda596f5f53f743d7fe830b44fd0c07ec3380447f3f2dd1eca4244c4"
+    },
+    {
+      "path": "maps/cache/ctf_crucible-lightmap1.scn",
+      "size": 53099951,
+      "sha256": "431af8f65eb936a6fae8590f2fc738ea8f873424b0141ae3e3ece11dd57964c5"
+    },
+    {
+      "path": "maps/cache/ctf_crucible.scn",
+      "size": 53099951,
+      "sha256": "431af8f65eb936a6fae8590f2fc738ea8f873424b0141ae3e3ece11dd57964c5"
+    },
+    {
+      "path": "maps/cache/ctf_deepvault-lightmap1.scn",
+      "size": 54738816,
+      "sha256": "373a4fbd98206621e94463ad3c50e09cc3af04501470803df065f0560758d6bc"
+    },
+    {
+      "path": "maps/cache/ctf_deepvault.scn",
+      "size": 54738816,
+      "sha256": "373a4fbd98206621e94463ad3c50e09cc3af04501470803df065f0560758d6bc"
+    },
+    {
+      "path": "maps/cache/ctf_skyfracture-lightmap1.scn",
+      "size": 56050688,
+      "sha256": "1bfca182a63b1884cfe1761cfc2bd78b0e2cee3c69251c88b544070325288442"
+    },
+    {
+      "path": "maps/cache/ctf_skyfracture.scn",
+      "size": 56050688,
+      "sha256": "1bfca182a63b1884cfe1761cfc2bd78b0e2cee3c69251c88b544070325288442"
+    },
+    {
+      "path": "maps/cache/ctf_tideworks-lightmap1.scn",
+      "size": 55690118,
+      "sha256": "b3c27a854cfb919a009c25c81d84647e23d09b26b862517f3b8bd380ed51a5a1"
+    },
+    {
+      "path": "maps/cache/ctf_tideworks.scn",
+      "size": 55690118,
+      "sha256": "b3c27a854cfb919a009c25c81d84647e23d09b26b862517f3b8bd380ed51a5a1"
+    },
+    {
+      "path": "maps/ctf_confluence.bsp",
+      "size": 2241620,
+      "sha256": "4a936d7048e430148e915270a86a53db32379220ab16f7f069b7eed1972529a6"
+    },
+    {
+      "path": "maps/ctf_crownreach.bsp",
+      "size": 1821644,
+      "sha256": "c2ae178eeb4d5ccb42975f86ef3f1830995dd48582fd1f8889b4d4c5a5a3d5f1"
+    },
+    {
+      "path": "maps/ctf_crucible.bsp",
+      "size": 1148096,
+      "sha256": "2c650931ea3f379e8ad9b359f23ff158401c684df01230557376f10e5daf5af9"
+    },
+    {
+      "path": "maps/ctf_deepvault.bsp",
+      "size": 1721620,
+      "sha256": "0104f82b0e670949c2b99ec960929e6c997d5a34232dade890ff39b830daac4e"
+    },
+    {
+      "path": "maps/ctf_maplist.txt",
+      "size": 137,
+      "sha256": "aa6b7d769a57fd83775c80720db96d77f53fe1e5137e63760986e28da9506647"
+    },
+    {
+      "path": "maps/ctf_skyfracture.bsp",
+      "size": 3625112,
+      "sha256": "2a59d8e6b1fc0f087145db0f3d6857a2cb63abbe4f93239fdf1f65b5dbf5903f"
+    },
+    {
+      "path": "maps/ctf_tideworks.bsp",
+      "size": 2955916,
+      "sha256": "f6c28b0168893e479a497dea6a601d1ad6cceb6b181c34c8a9f66b4f394da2a0"
+    },
+    {
+      "path": "maps/navigation/ctf_confluence.res",
+      "size": 17519,
+      "sha256": "b97c64b9957b011d3be2b5c345fcac5f3524a405889b50f2f34218b1be748ace"
+    },
+    {
+      "path": "maps/navigation/ctf_crownreach.res",
+      "size": 26783,
+      "sha256": "12faac8b411e99b33af344de274d9a07e9733e078fcc660f5af5f6d313a86a1e"
+    },
+    {
+      "path": "maps/navigation/ctf_crucible.res",
+      "size": 8487,
+      "sha256": "f1791c8a4a0eae96c210dfae31a58bc8cfea06811b0b5659338ec6a43a7ca7e3"
+    },
+    {
+      "path": "maps/navigation/ctf_deepvault.res",
+      "size": 10531,
+      "sha256": "d34e3368e5e471b1b0330c5bb34dcc1434586db29e73f2fa66876299a2eefe22"
+    },
+    {
+      "path": "maps/navigation/ctf_skyfracture.res",
+      "size": 10647,
+      "sha256": "9cbc2b31cdc4ed9127c68805212b6f3f05f57c1e3f1e64871d10c87f7e4b5361"
+    },
+    {
+      "path": "maps/navigation/ctf_tideworks.res",
+      "size": 12515,
+      "sha256": "8e117ed1df6c198ae702c5446d4bb347bde2203f9231d4af5e51fd40903ffd99"
+    },
+    {
+      "path": "test-results/threewave/ctf_confluence/views-layered-crossing.png",
+      "size": 1959947,
+      "sha256": "575c50fd8ba425a47b293bebb03549f111a674f936490d3913d08615f9274435"
+    },
+    {
+      "path": "test-results/threewave/ctf_confluence/views-ring-atrium.png",
+      "size": 1657225,
+      "sha256": "9e4d1050e3f267160a97b1a4730f922596af2002b598671a414a8a1126ea9a5a"
+    },
+    {
+      "path": "test-results/threewave/ctf_confluence/views-team0-spawn.png",
+      "size": 1474736,
+      "sha256": "2868da4a37e8afc85c88fa012d7503fbf2ee6f9fac09206b79868616df4b6647"
+    },
+    {
+      "path": "test-results/threewave/ctf_confluence/views-team1-spawn.png",
+      "size": 1396813,
+      "sha256": "aa0595a4f7f06b4a4ca874b4d30d598e35b4ed6c66bcb05f9601b020e2ddb83e"
+    },
+    {
+      "path": "test-results/threewave/ctf_crownreach/views-sanctuary.png",
+      "size": 2081201,
+      "sha256": "1d2884e8fd120bba09a75a7535a1a78d2e52495a7ae5b19b28e5c7fc69c078ae"
+    },
+    {
+      "path": "test-results/threewave/ctf_crownreach/views-siege-field.png",
+      "size": 1381253,
+      "sha256": "5a65d10eb37552fef7ba4ab430c649d6caaf86446b683bc9263189efcd9f810e"
+    },
+    {
+      "path": "test-results/threewave/ctf_crownreach/views-team0-spawn.png",
+      "size": 1557408,
+      "sha256": "fa5a0f365efd388a52360caf5e664e525ff79d029e5c6e46c01c9f1109470da4"
+    },
+    {
+      "path": "test-results/threewave/ctf_crownreach/views-team1-spawn.png",
+      "size": 1566395,
+      "sha256": "e60fb4152a6e3fc2aac2854fa14e4280ad74cf4f8192a06d4d06d178796359cc"
+    },
+    {
+      "path": "test-results/threewave/ctf_crucible/views-shrine.png",
+      "size": 1499950,
+      "sha256": "a00c8880bc4ce5df3477b1ae110e6b39d24b01fe55bc9419a49878397702c871"
+    },
+    {
+      "path": "test-results/threewave/ctf_crucible/views-team0-spawn.png",
+      "size": 979949,
+      "sha256": "ae534ca9614ce41491fd081bb948b7ae2dd600b18b94fabcb87b7f9ae37f0cb5"
+    },
+    {
+      "path": "test-results/threewave/ctf_crucible/views-team1-spawn.png",
+      "size": 902627,
+      "sha256": "5ad417aef9bf2159f163de53b7e56bca198bd436a8ea610d5671eef34a98e7a6"
+    },
+    {
+      "path": "test-results/threewave/ctf_crucible/views-upper-hall.png",
+      "size": 1245870,
+      "sha256": "113912a67b6953e9b3e0115f5289640b7915f408ce4e829e9ea6ce7d9f9e7337"
+    },
+    {
+      "path": "test-results/threewave/ctf_deepvault/views-excavation.png",
+      "size": 1314092,
+      "sha256": "3f96de61d898ac1f1b584149be71aeb5d73e55fb5aa006dcabad6b5df2986a70"
+    },
+    {
+      "path": "test-results/threewave/ctf_deepvault/views-gate.png",
+      "size": 1181915,
+      "sha256": "f91be5cb8f483756d0b072ec0b907325cf4108b4426207e81be3668bcb1e7bef"
+    },
+    {
+      "path": "test-results/threewave/ctf_deepvault/views-team0-spawn.png",
+      "size": 963519,
+      "sha256": "5ec5affef55bc48f603acd3c69371ace58593b8ea88d1bb68e8260353d8ac05f"
+    },
+    {
+      "path": "test-results/threewave/ctf_deepvault/views-team1-spawn.png",
+      "size": 894310,
+      "sha256": "7b829bcff242b80d11e84959b5bb42b9a3ce9ada6fffc71bf5e384c3b6d210a0"
+    },
+    {
+      "path": "test-results/threewave/ctf_skyfracture/views-observatory.png",
+      "size": 1691495,
+      "sha256": "36bd597a24707048a810003e869266a9cf6c3f1a1e3186ffa2ab9a66c7aa1728"
+    },
+    {
+      "path": "test-results/threewave/ctf_skyfracture/views-team0-spawn.png",
+      "size": 1545141,
+      "sha256": "5d496a83a58afcad2f652782a3e1c6d4df48bb58384295f4c6871de5e5aebad7"
+    },
+    {
+      "path": "test-results/threewave/ctf_skyfracture/views-team1-spawn.png",
+      "size": 1450481,
+      "sha256": "8e4c7b1892f56ca67e9b02ccb42f849fae235e0fd59aa23fba75dacf4ead5aa2"
+    },
+    {
+      "path": "test-results/threewave/ctf_skyfracture/views-vertical-nexus.png",
+      "size": 1898508,
+      "sha256": "081df36f4a85e3a34719cef0525524dbf2e1058f61181d06826629bc92093089"
+    },
+    {
+      "path": "test-results/threewave/ctf_tideworks/views-court.png",
+      "size": 1548728,
+      "sha256": "29cbad11f87845635bad6d68e483979317cd83d27dcc29454dc533712858871d"
+    },
+    {
+      "path": "test-results/threewave/ctf_tideworks/views-flag.png",
+      "size": 1992973,
+      "sha256": "b8bd838f358015d44cb0c5ea396635d27632b6950485bb769ec8bf6bd802ee19"
+    },
+    {
+      "path": "test-results/threewave/ctf_tideworks/views-team0-spawn.png",
+      "size": 1711004,
+      "sha256": "42646cd0b62a078501e6ab554eb19033e87f6ec39e9a129ea860b32f04c3bbee"
+    },
+    {
+      "path": "test-results/threewave/ctf_tideworks/views-team1-spawn.png",
+      "size": 1727555,
+      "sha256": "6c2296f97d239027fe7c595f4d3e1a3cdfc1c578afa508b24b33703ea78fa0e5"
+    },
+    {
+      "path": "test-results/threewave/index.html",
+      "size": 4879,
+      "sha256": "fbe39282fb48aed323f2b145087caf315446035cb4ee1c0781af6ae96d7faec7"
+    },
+    {
+      "path": "tools/threewave_rebuild/README.md",
+      "size": 8948,
+      "sha256": "fb5254b99f57627958f8d1317ccdc45ffecd57605ee6d98b6741cbbed27aab1e"
+    },
+    {
+      "path": "tools/threewave_rebuild/acceptance.gd",
+      "size": 8436,
+      "sha256": "ba6565f9c3df98b787787aafd3e3eee4a6195c183081c9d0588f8eaf3b3d434f"
+    },
+    {
+      "path": "tools/threewave_rebuild/bake.gd",
+      "size": 1180,
+      "sha256": "54bc7f604a4cd25f20a81786695baff71051415a5b11e56263d45b75d89112f3"
+    },
+    {
+      "path": "tools/threewave_rebuild/build.py",
+      "size": 5568,
+      "sha256": "c69630f7c445cce6352f6894c9a0e508bb14dee790dae803d66e2406e1ed5c8d"
+    },
+    {
+      "path": "tools/threewave_rebuild/gallery.py",
+      "size": 1715,
+      "sha256": "7ee2919770b7e2739b5c7087b17ca5ea51195b78232d5c443cfb8f61cd288833"
+    },
+    {
+      "path": "tools/threewave_rebuild/install.py",
+      "size": 1340,
+      "sha256": "2bc5cd0798457901fcc2012b8c3fe6be274924a13740e1387e3c1f0654177017"
+    },
+    {
+      "path": "tools/threewave_rebuild/layouts.py",
+      "size": 21720,
+      "sha256": "694e8524815d60404a6c6b6753abed4e9c8c074a0a364c70c69d761c1db4c334"
+    },
+    {
+      "path": "tools/threewave_rebuild/package.py",
+      "size": 3559,
+      "sha256": "cc5c57a6eb3853c1872171ed8f8f6292883070e88577415d8fc89d0973d68caa"
+    },
+    {
+      "path": "tools/threewave_rebuild/reference-hashes.json",
+      "size": 4293,
+      "sha256": "09c1cb5c1525d775f84252bc4d46e44d7137c46ec36993fa8b0578a30f449593"
+    },
+    {
+      "path": "tools/threewave_rebuild/verify.py",
+      "size": 1932,
+      "sha256": "7b30c0589a25c51aa8083c78ce8725a49f40880892ca9da4fd3e480eeb3cbd3e"
+    }
+  ],
+  "limitations": [
+    "Solo reference walkthroughs were sampled, not watched continuously.",
+    "Authored adaptations are not exact original geometry.",
+    "One 60-second 4v4 bot smoke per map does not establish competitive balance.",
+    "No human multiplayer playtest or Quest performance test was performed."
+  ],
+  "archive": {
+    "path": "dist/FPSloppa-CTF-Studies.zip",
+    "sha256": "4384497d16a5f35b24f006a1c416e3163b545c9c8d8aa39b1b81c5b3bea20ef9",
+    "size": 63047161
+  }
+}

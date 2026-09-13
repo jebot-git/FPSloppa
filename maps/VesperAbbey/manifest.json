@@ -1,0 +1,35 @@
+{
+  "id": "tf_vesper",
+  "title": "Vesper Abbey | TF 6v6",
+  "sha256": "350cbf2aa0a301cc6d140734821cf2efe178cd114ae8fb5c831c57f5b93d63b3",
+  "source_sha256": "e4581b38bc7f1938d331912b66b0671e3cacf5b6dbeb2dae84b6574277cd8552",
+  "bytes": 6330171,
+  "structural_brushes": 98,
+  "detail_brushes": 122,
+  "moving_platforms": 4,
+  "lift_rise_metres": 8,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "target_players": 12,
+  "supported_players": [
+    8,
+    16
+  ],
+  "rotational_symmetry": true,
+  "geometry_license": "CC0-1.0",
+  "textures": "texture-sources.json",
+  "lighting_rebake": {
+    "original_sha256": "cd05a1b26e81db1d0b7d386e0eb374acc670e2bb430f1ecfd40f12c90ed3be94",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  },
+  "static_refinement": {
+    "original_sha256": "d484a34f3ac6ad668db9c864b29c245aa8d5df4234bd4fcdf679c02012d2b195",
+    "receipt": "docs/validation/static-rendering.json"
+  },
+  "selective_density": {
+    "original_sha256": "c19759d9a7ac2984b20fb0716923763c6c7ff6700201427f78698ba6cbdaf9e3",
+    "receipt": "docs/validation/static-assets.json"
+  }
+}

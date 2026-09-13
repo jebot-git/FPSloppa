@@ -21,3 +21,5 @@ OpenGameArt was reviewed, including Puffolotti's CC0 gothic wall collection
 Its cartoon style did not fit the intended materials; no OGA files are included.
 The source-name correspondence is a project-maintained approximation, not an
 endorsement by id Software or LibreQuake.
+
+September 2026 texture update: the shared replacement dictionary now includes a used-only Makkon WAD. Makkon records are copied without resizing, renaming or changing mip levels; their separate licence accompanies the maps. Current provenance is recorded in tools/makkon/selection.json, docs/validation/makkon-shared.json and texture-theme.json where present. Older LibreQuake-only receipts describe the pre-theme geometry/source build. See docs/MAKKON_MAP_REVIEW.md for scope and validation limits.

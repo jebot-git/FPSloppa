@@ -1,13 +1,13 @@
 {
   "source": "https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta",
-  "license": "BSD-3-Clause",
+  "license": "BSD-3-Clause (LibreQuake map geometry and retained textures); separately licensed Makkon textures, see Makkon_License.txt and texture-theme.json",
   "maps": [
     {
       "id": "lqdm9",
       "title": "The Outlands",
       "author": "ZungryWare",
       "spawns": 8,
-      "sha256": "a0897b5bf8b6917a978d89784b2a9c4c7f635d2c9faabbf1fd77f5a79a848dce",
+      "sha256": "b9bab9a6fbd7c723f89ef076c8768ab17b084de239b12221614d26eb3263d477",
       "upstream_sha256": "a0897b5bf8b6917a978d89784b2a9c4c7f635d2c9faabbf1fd77f5a79a848dce",
       "textures": [
         {
@@ -789,14 +789,16 @@
         "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
         "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
         "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
-      ]
+      ],
+      "pre_makkon_sha256": "a0897b5bf8b6917a978d89784b2a9c4c7f635d2c9faabbf1fd77f5a79a848dce",
+      "texture_theme": "Original Makkon metal/industrial records; see texture-theme.json. Remaining original LibreQuake art unchanged."
     },
     {
       "id": "lqdm10",
       "title": "Lucifer's Gambit",
       "author": "ZungryWare",
       "spawns": 10,
-      "sha256": "42ed4a96a228b76a7ff14827e09671b9f2577f2c68c2bba43126e0eb18c305e6",
+      "sha256": "da2203660dde5ae85c5b478e3284cf8a578110ed29c6c8963a0935eed98bee4d",
       "upstream_sha256": "42ed4a96a228b76a7ff14827e09671b9f2577f2c68c2bba43126e0eb18c305e6",
       "textures": [
         {
@@ -1075,14 +1077,16 @@
         "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
         "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
         "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
-      ]
+      ],
+      "pre_makkon_sha256": "42ed4a96a228b76a7ff14827e09671b9f2577f2c68c2bba43126e0eb18c305e6",
+      "texture_theme": "Original Makkon metal/industrial records; see texture-theme.json. Remaining original LibreQuake art unchanged."
     },
     {
       "id": "lqdm11",
       "title": "The Wicked Night",
       "author": "ZungryWare",
       "spawns": 8,
-      "sha256": "fefeee9549a780734467d187fe75e7290ad597d55043a4478562f2da971a6f8b",
+      "sha256": "c5ba9fda0779d3d613df42dc4a6220bc6e6587b384cb861dace142e770e0ce54",
       "upstream_sha256": "fefeee9549a780734467d187fe75e7290ad597d55043a4478562f2da971a6f8b",
       "textures": [
         {
@@ -1161,14 +1165,16 @@
       ],
       "adaptations": [
         "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
-      ]
+      ],
+      "pre_makkon_sha256": "fefeee9549a780734467d187fe75e7290ad597d55043a4478562f2da971a6f8b",
+      "texture_theme": "Original Makkon metal/industrial records; see texture-theme.json. Remaining original LibreQuake art unchanged."
     },
     {
       "id": "lqdm12",
       "title": "Javelin",
       "author": "ZungryWare",
       "spawns": 10,
-      "sha256": "7d53379df2ce4783b5cae03e6d304696af47ee43088817e021d94efaa6854551",
+      "sha256": "de712a7642ffc1b73b10a9379a17c6d2ce5c89ec51b896023d0401daa41aaa2c",
       "upstream_sha256": "bfdbe9ff8ff13838b14456254aa69b151ab030fd1736981b64cd36911fadddc0",
       "textures": [
         {
@@ -1271,14 +1277,16 @@
         "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
         "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
         "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
-      ]
+      ],
+      "pre_makkon_sha256": "7d53379df2ce4783b5cae03e6d304696af47ee43088817e021d94efaa6854551",
+      "texture_theme": "Original Makkon metal/industrial records; see texture-theme.json. Remaining original LibreQuake art unchanged."
     },
     {
       "id": "lqdm13",
       "title": "Death Provides No Return",
       "author": "ZungryWare",
       "spawns": 8,
-      "sha256": "1619a212a21f31d483dc4ad5ea12a8e837923eee113e9a2d123cf7145306683f",
+      "sha256": "9d2b3399fd26d73abc5c69aa0a1da9b2897db60ea7d39d95e5b711c107ba2dc3",
       "upstream_sha256": "1619a212a21f31d483dc4ad5ea12a8e837923eee113e9a2d123cf7145306683f",
       "textures": [
         {
@@ -1395,7 +1403,9 @@
         "Doors use FPSloppa proximity activation; Quake key, shooting and relay puzzles are not required.",
         "Quake progression triggers are inert in arena play; teleport/push/hurt volumes remain active.",
         "Quake powerups are mapped to existing arena health pickups; IG and CC suppress all pickups."
-      ]
+      ],
+      "pre_makkon_sha256": "1619a212a21f31d483dc4ad5ea12a8e837923eee113e9a2d123cf7145306683f",
+      "texture_theme": "Original Makkon metal/industrial records; see texture-theme.json. Remaining original LibreQuake art unchanged."
     }
   ]
 }

@@ -36,6 +36,7 @@ func run() -> void:
  check(s.hp==88 and b.has("aim"),"Visible opponent receives one sentry hit and authoritative aim")
  game.headless=false;tf.draw();game.headless=true
  var mount: Node3D=tf.visuals.b100000;var pivot: Node3D=mount.get_node("SentryGun");var model: Node3D=pivot.get_node("WeaponModel")
+ check(model.has_meta("sentry_gatling"),"TF/Assault sentry uses dedicated gatling model")
  verify_barrel(pivot,model,b.aim,"Initial visual frame")
  actor.position=pos+Vector3(-4,2,2);game.clock+=.11;tf.tick_sentries()
  check(s.hp==88 and b.aim.distance_to(actor.position+Vector3.UP*.825)<.01,"Aim follows moving opponent during firing cooldown")
@@ -54,6 +55,6 @@ func run() -> void:
  game.spatial=original;fx.free();sound.free()
  print("SENTRY_FEEDBACK_RESULT ",JSON.stringify(failures));game.free();await process_frame;quit(0 if failures.is_empty() else 1)
 func verify_barrel(pivot: Node3D,model: Node3D,target: Vector3,label: String) -> void:
- var muzzle: Vector3=model.to_global(game.Art.muzzle(5))
+ var muzzle: Vector3=model.to_global(game.Art.muzzle(5,"sentry"))
  var direction: Vector3=(target-pivot.global_position).normalized()
  check((-model.global_basis.z.normalized()).dot(direction)>.9999 and (muzzle-pivot.global_position).normalized().dot(direction)>.9999,label+" points the actual muzzle and barrel axis at target")

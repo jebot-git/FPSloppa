@@ -1,0 +1,55 @@
+[
+  {
+    "map": "tf_fo_2castle1",
+    "sha256": "90ea0f202562d578e6cb70ebe8d97f8da8a5b97be82872bb1898207372bd8d75",
+    "source_sha256": "f173bac3cff8e15dc61d4dac0dfca35ab625661ae2fa5f699cab030de8e26bd6",
+    "geometry_collision_lightmaps_unchanged": true,
+    "makkon_original_records": 0,
+    "traversal_failures": [],
+    "engine_errors": [],
+    "distribution": "local only"
+  },
+  {
+    "map": "tf_fo_2mach1",
+    "sha256": "60d612a13a604ee3eb90062fff7e7f0b41b7a7da41521aa1cc919f84e86e0843",
+    "source_sha256": "440e14cbe105e65bc323d2385b8b9176941070533682b61cd3875be6b4c7ae23",
+    "geometry_collision_lightmaps_unchanged": true,
+    "makkon_original_records": 8,
+    "traversal_failures": [],
+    "engine_errors": [],
+    "distribution": "local only"
+  },
+  {
+    "map": "tf_fo_bam4",
+    "sha256": "055316082f9d0647184714bc1896fa712133eaf5582cb887e773dac7e60767fd",
+    "source_sha256": "1de2e376ce83b4b11a726e267cf261567f38bfeb71eeb3bf7f4e8f4228d59962",
+    "geometry_collision_lightmaps_unchanged": true,
+    "makkon_original_records": 1,
+    "traversal_failures": [],
+    "engine_errors": [],
+    "distribution": "local only"
+  },
+  {
+    "map": "tf_fo_openfire",
+    "sha256": "d1faf5d75297cca78d0eb7efac8b8ba52cc9748405b0a52594ad07fc9330f3f9",
+    "source_sha256": "37a772af01f3b84441ba6938e4af88815d2088f0a99c4537e4e4792cea28cae5",
+    "geometry_collision_lightmaps_unchanged": true,
+    "makkon_original_records": 7,
+    "traversal_failures": [
+      "Door has no collision at its triangle probe: 3",
+      "Door has no collision at its triangle probe: 9"
+    ],
+    "engine_errors": [],
+    "distribution": "local only"
+  },
+  {
+    "map": "tf_fo_turtler",
+    "sha256": "62639eec40659c9ac30e371014e4de937c0714158a3f97de71d5d37c729fed73",
+    "source_sha256": "fdacf9ab8178bc62cf8fadf46168758cd5e48afdc9df8144cb6272a4c9920e83",
+    "geometry_collision_lightmaps_unchanged": true,
+    "makkon_original_records": 3,
+    "traversal_failures": [],
+    "engine_errors": [],
+    "distribution": "local only"
+  }
+]

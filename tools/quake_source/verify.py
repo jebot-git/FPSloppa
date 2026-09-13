@@ -13,7 +13,8 @@ def verify(build):
     for name,tile in donors.items():
         row=proof['textures'][name]
         assert hashlib.sha256(tile).hexdigest()==row['sha256']
-        assert tile==payload[row['offset']:row['offset']+row['size']]
+        data=(pack/'makkon-used.wad').read_bytes() if row.get('pack')=='makkon-used.wad' else payload
+        assert tile==data[row['offset']:row['offset']+row['size']]
         assert row.get('license') and row.get('source_sha256')
     reports=[]
     for row in json.loads((build/'BUILD.json').read_text())['maps']:

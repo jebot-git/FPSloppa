@@ -9,11 +9,11 @@ func _ready() -> void:
 	beam=MeshInstance3D.new();beam.mesh=mesh;beam.rotation.x=PI/2
 	var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=Color(.45,.85,1)
 	beam.material_override=material;beam.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(beam);hide()
-func update(pose: Transform3D,weapon: int,enabled: bool) -> void:
-	visible=enabled and weapon>=2
+func update(pose: Transform3D,weapon: int,enabled: bool,rules: String="doom") -> void:
+	visible=enabled and (weapon>=2 or rules=="ut99" and weapon==1)
 	if not visible:return
 	var art=preload("res://deathmatch/art.gd")
-	var start:Vector3=art.held_transform(pose,weapon)*art.muzzle(weapon)
+	var start:Vector3=art.held_transform(pose,weapon,art.VR_SCALE,rules)*art.muzzle(weapon,rules)
 	var direction:Vector3=-pose.basis.z.normalized()
 	var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,start+direction*(LENGTH+START_OFFSET),1))
 	var length:float=start.distance_to(hit.position) if not hit.is_empty() else LENGTH+START_OFFSET

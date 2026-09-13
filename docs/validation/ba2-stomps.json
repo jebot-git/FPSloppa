@@ -1,0 +1,163 @@
+{
+  "checks": [
+    {
+      "name": "Joining a moving robot does not replay old stomps",
+      "pass": true
+    },
+    {
+      "name": "Large snapshot corrections and round resets stay silent",
+      "pass": true
+    },
+    {
+      "name": "Parked robot and stationary corrections emit no footsteps",
+      "pass": true
+    },
+    {
+      "name": "First stomp coincides with authored 20-percent swing touchdown",
+      "pass": true
+    },
+    {
+      "name": "Repeated render frames cannot duplicate a contact",
+      "pass": true
+    },
+    {
+      "name": "Cruise cadence follows all four feet in authored order",
+      "pass": true
+    },
+    {
+      "name": "Snapshot and render rates do not change contact count/order",
+      "pass": true
+    },
+    {
+      "name": "Braking still emits contacts from actual travel",
+      "pass": true
+    },
+    {
+      "name": "Stomp variant 0 is a bounded mono one-shot",
+      "pass": true
+    },
+    {
+      "name": "Stomp variant 1 is a bounded mono one-shot",
+      "pass": true
+    },
+    {
+      "name": "Stomp variant 2 is a bounded mono one-shot",
+      "pass": true
+    },
+    {
+      "name": "Stomp uses the existing positional effects bus and 100 m distance limit",
+      "pass": true
+    },
+    {
+      "name": "Sound is placed at the contact with conservative source gain",
+      "pass": true
+    },
+    {
+      "name": "Stomp also uses the active Steam Audio backend with matching attenuation",
+      "pass": true
+    },
+    {
+      "name": "Map/audio reset clears in-flight stomps",
+      "pass": true
+    }
+  ],
+  "cruise_contact_interval_seconds": 0.7875,
+  "failures": [],
+  "assets": {
+    "revision": "heavy-asphalt",
+    "license": "CC0-1.0",
+    "source": "Original procedural synthesis; no third-party recordings",
+    "reverb": "short dark reflections baked into mono samples",
+    "variants": [
+      {
+        "file": "stomp_0.wav",
+        "seconds": 1.45,
+        "sample_rate": 44100,
+        "channels": 1,
+        "peak_dbfs": -1.4999999999999993,
+        "rms_dbfs": -16.616557640016342,
+        "sha256": "5a74fe4135cce4b2ff8778edf5e1171d49ef00ea326df57261d0c169cd16ecb9"
+      },
+      {
+        "file": "stomp_1.wav",
+        "seconds": 1.45,
+        "sample_rate": 44100,
+        "channels": 1,
+        "peak_dbfs": -1.4999999999999993,
+        "rms_dbfs": -16.46256028763402,
+        "sha256": "b6ec7c66ac7600415b66b77a3445cd5c9a4d434345f46c8dada0a1a56f1b2507"
+      },
+      {
+        "file": "stomp_2.wav",
+        "seconds": 1.45,
+        "sample_rate": 44100,
+        "channels": 1,
+        "peak_dbfs": -1.4999999999999982,
+        "rms_dbfs": -16.36664374482798,
+        "sha256": "5ca8a4fb38cfcce37a118494d6c9586c656ecae78c886170bc5ecbcd8c85a4bc"
+      }
+    ]
+  },
+  "files": {
+    "deathmatch/audio/spatial.gd": "1cd45e6b33dac0e92cfbbf027ecde90fd29910ece650c84cb9bc0d5b31d24554",
+    "deathmatch/vehicles/ba2/footsteps.gd": "38713c9c9537ab6fbca543a000851b62bd2a26ec282109f182c1fb232f4cf868",
+    "deathmatch/vehicles/ba2/controller.gd": "5f07ddcdbc372efc78be9d4caec933290aa6420c3ee3f7b8d51b16988a0b4c2f",
+    "deathmatch/vehicles/ba2/view.gd": "55273e5ddc79d1b971a3d652389a2ba5e59d86407a95bfca83292f8f7885d9fd",
+    "deathmatch/audio/ba2/stomp_0.res": "60a9acc28d60e2a4273a043efe725189bd778b3f56f04ec65b0c99e2e1965032",
+    "deathmatch/audio/ba2/stomp_1.res": "95f24bc9c56ee92428f91f4f3fabb6a683ae2c2fbe96192452279003f24449e9",
+    "deathmatch/audio/ba2/stomp_2.res": "63ed7b4403c6bed9363a8cd9feef73e27d21d476bc0b9368f4a77c25b6a57112",
+    "tools/ba2/audio/generate.py": "59be401c3fcf27b6b7d01fc1652bea21ffd6175cbb5642db804cf4e26043fcf1",
+    "tools/ba2/audio/prepare.gd": "9964d05e018af30d3bffa040fc58d11e8c9069d7515b05c1b6ebb6c4a8ec639e",
+    "tools/ba2/audio/tests.gd": "0037e0cdc8bc8689c426268db13c8ae9c7b1571aa25573bc36c8d0dd40820261"
+  },
+  "headset_auditioned": false,
+  "weight_comparison": {
+    "order": "original walking preview; one second gap; revised walking preview",
+    "variants": [
+      {
+        "variant": 0,
+        "before": {
+          "first_half_second_rms_dbfs": -16.650501669180997,
+          "low_band_30_300hz_energy": 4882873.546319217,
+          "peak_dbfs": -1.5002633770788842
+        },
+        "after": {
+          "first_half_second_rms_dbfs": -12.157690671441673,
+          "low_band_30_300hz_energy": 13504222.96901544,
+          "peak_dbfs": -1.5002633770788842
+        },
+        "low_band_gain_db": 4.417941226662123
+      },
+      {
+        "variant": 1,
+        "before": {
+          "first_half_second_rms_dbfs": -16.023612725586514,
+          "low_band_30_300hz_energy": 5626267.396313831,
+          "peak_dbfs": -1.5002633770788842
+        },
+        "after": {
+          "first_half_second_rms_dbfs": -12.011933219572757,
+          "low_band_30_300hz_energy": 13932305.669723826,
+          "peak_dbfs": -1.5002633770788842
+        },
+        "low_band_gain_db": 3.938026253747997
+      },
+      {
+        "variant": 2,
+        "before": {
+          "first_half_second_rms_dbfs": -15.203105449203909,
+          "low_band_30_300hz_energy": 6798721.07342698,
+          "peak_dbfs": -1.5002633770788842
+        },
+        "after": {
+          "first_half_second_rms_dbfs": -11.924839991636045,
+          "low_band_30_300hz_energy": 14669890.084078236,
+          "peak_dbfs": -1.5002633770788842
+        },
+        "low_band_gain_db": 3.3399963582071157
+      }
+    ],
+    "revised_preview_peak_dbfs": -3.5914196564975165
+  },
+  "runtime_reverb_added": false
+}

@@ -13,14 +13,15 @@ func setup(arena: Node) -> void:game=arena
 func eligible(id: int) -> bool:return id>0 and game.players.has(id) and not game.players[id].spectator
 func choices() -> Array:
 	var result: Array=[]
+	var maplist: Array=game.maps_for_mode(game.match_mode.kind)
 	for row in game.map_catalog:
 		if game.match_mode.kind=="as" and not game.Maps.supports_assault(row.path):continue
-		if FileAccess.file_exists(row.path) and (game.mode_maplists.is_empty() or row.id in game.map_rotation):result.append({"id":row.id,"title":row.title})
+		if FileAccess.file_exists(row.path) and (maplist.is_empty() or row.id in maplist):result.append({"id":row.id,"title":row.title})
 	return result
 func match_choices() -> Array:
 	var result: Array=[]
 	for mode in allowed_modes:
-		var maplist: Array=game.mode_maplists.get(mode,game.map_rotation)
+		var maplist: Array=game.maps_for_mode(mode)
 		for row in game.map_catalog:
 			if mode=="as" and not game.Maps.supports_assault(row.path):continue
 			if FileAccess.file_exists(row.path) and (maplist.is_empty() or row.id in maplist):result.append({"mode":mode,"map":row.id,"title":row.title})
@@ -124,17 +125,17 @@ func reset() -> void:ballot.clear();view.clear();team_cooldowns.clear()
 func change_mode(value: String) -> void:
 	if not game.active or not multiplayer.is_server() or not allowed_modes.has(value):return
 	var target: String=game.current_map
-	if value=="as":
-		var compatible: Array=match_choices().filter(func(row):return row.mode=="as")
+	if value=="as" or target not in game.maps_for_mode(value):
+		var compatible: Array=match_choices().filter(func(row):return row.mode==value)
 		if compatible.is_empty():return
 		target=compatible[0].map
 	game.match_mode.kind=value
 	# A new game type starts a fresh round on this map, assigning teams again as peers rejoin.
 	for s in game.players.values():s.team=-1
 	game.pending_teams.clear()
-	if game.mode_maplists.has(value):
-		game.map_rotation=game.mode_maplists[value].duplicate();game.rotation_index=0
-		game._rotate_map(target if value=="as" else game.map_rotation[0])
+	if game.mode_maplists.has(game.match_mode.maplist_kind(value)):
+		game.map_rotation=game.maps_for_mode(value).duplicate();game.rotation_index=0
+		game._rotate_map(target if target in game.map_rotation else game.map_rotation[0])
 	else:game._rotate_map(target)
 
 func change_match(value: String) -> void:
@@ -142,7 +143,7 @@ func change_match(value: String) -> void:
 	var pair:=value.split("|")
 	if pair.size()!=2 or not match_choices().any(func(row):return row.mode==pair[0] and row.map==pair[1]):return
 	game.match_mode.kind=pair[0]
-	if game.mode_maplists.has(pair[0]):game.map_rotation=game.mode_maplists[pair[0]].duplicate()
+	if game.mode_maplists.has(game.match_mode.maplist_kind(pair[0])):game.map_rotation=game.maps_for_mode(pair[0]).duplicate()
 	for s in game.players.values():s.team=-1
 	game.pending_teams.clear()
 	game.rotation_index=maxi(0,game.map_rotation.find(pair[1]))

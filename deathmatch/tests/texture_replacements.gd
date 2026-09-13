@@ -22,7 +22,9 @@ func run() -> void:
 	var reader:=Reader.new();reader.save_separate_materials=false;reader.use_named_texture_replacements=true;reader.generate_texture_materials=true;reader.texture_palette_path="res://deathmatch/maps/palette.lmp"
 	var texture:=Reader.BSPTexture.new();texture.name="metal1_3";texture.source_name="metal1_3";texture.width=32;texture.height=128
 	var material_info=reader.load_or_create_material(texture.name,texture)
-	check(material_info.width==32 and material_info.height==128,"external BSP dimensions retained for UVs")
+	if named.has("native_size"):
+		check(Vector2i(material_info.width,material_info.height)==named.native_size,"Makkon fallback uses original native dimensions, matching offline conversion")
+	else:check(material_info.width==32 and material_info.height==128,"external BSP dimensions retained for LibreQuake UVs")
 	check(material_info.material.albedo_texture==named.texture,"named fallback material uses shared dictionary")
 	# Embedded pixels with the SAME name must win over that dictionary.
 	var bytes:=PackedByteArray();bytes.resize(32*128+1);bytes.fill(17)

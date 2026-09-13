@@ -2,8 +2,8 @@
 
 Implemented against 0.9v / `5105fb8`, preserving the pending stair-contact fixes.
 The initial interaction change used protocol `fpsloppa-27-vr-interactions`.
-Current source uses `fpsloppa-29-acknowledged-movement` after the subsequent crouch and
-expression work; older clients and servers cannot mix with it. No release binaries were built or published for this change.
+Current source uses `fpsloppa-31-team-radio` after the subsequent stance and radio
+work; older clients and servers cannot mix with it. No release binaries were built or published for this change.
 
 ## Behavior
 
@@ -13,7 +13,9 @@ expression work; older clients and servers cannot mix with it. No release binari
   recentering or turn velocity to a slap.
 - Support grip + offhand trigger activates TF abilities. Explosive classes get a
   visible held grenade, released by grip release or trigger release during a throw.
-  Recent hand displacement over roughly 100 ms supplies velocity, capped at 12 m/s.
+  Recent hand displacement over roughly 100 ms supplies velocity, bounded to 12 m/s
+  before up to 2.4× assistance and a final 26 m/s cap. A held-ordnance arc previews
+  the current launch through the first world contact. Gentle drops are not boosted.
   Dropping produces zero initial velocity. Holding expires after ten seconds;
   gameplay interruptions cancel it. Existing Use controls remain available.
 - AS consoles use visible caps centered on the same positions tested for hand

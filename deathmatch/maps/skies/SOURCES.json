@@ -1,0 +1,95 @@
+{
+  "author": "Screaming Brain Studios",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "source_url": "https://opengameart.org/content/cloudy-skyboxes-0",
+  "download_url": "https://opengameart.org/sites/default/files/sbs_-_cloudy_skyboxes_-_panorama_0.zip",
+  "archive_sha256": "06700ea569f0d6d429386446248d0156738ad80b4a1baa8c910d9d995f1dd400",
+  "modifications": "None: selected PNG files renamed, original pixels retained. Runtime brightness and texture compression only.",
+  "assets": [
+    {
+      "id": "overcast",
+      "file": "overcast.png",
+      "original": "Panorama_Sky_10-512x512.png",
+      "dimensions": [
+        2048,
+        1024
+      ],
+      "bytes": 1158148,
+      "sha256": "01cc91dd4b072f5d3c1a5be2f1c0751c80f98bd5e4f82226fd6cd8d5e60d91f1"
+    },
+    {
+      "id": "night",
+      "file": "night.png",
+      "original": "Panorama_Sky_12-512x512.png",
+      "dimensions": [
+        2048,
+        1024
+      ],
+      "bytes": 933701,
+      "sha256": "248c7fcfdb833b5648e03a28db54997cc6679ad6f5b3763050feb06f07a1a48f"
+    },
+    {
+      "id": "storm",
+      "file": "storm.png",
+      "original": "Panorama_Sky_18-512x512.png",
+      "dimensions": [
+        2048,
+        1024
+      ],
+      "bytes": 1072600,
+      "sha256": "ab0c5762d0db6e15882f1ca302b9c857870a2561db7f6289849667aef5b72e05"
+    },
+    {
+      "id": "winter",
+      "file": "winter.png",
+      "original": "Panorama_Sky_20-512x512.png",
+      "dimensions": [
+        2048,
+        1024
+      ],
+      "bytes": 919751,
+      "sha256": "a6623a0ad77b26ee6d8051f47eed2505e19c583a840eb3611011f45c96322156"
+    },
+    {
+      "id": "ember",
+      "file": "ember.png",
+      "original": "Panorama_Sky_22-512x512.png",
+      "dimensions": [
+        2048,
+        1024
+      ],
+      "bytes": 1038806,
+      "sha256": "740102f341c362f0c77dea8ad31ce76e138f7adf062505f6a0ce4bd5773616b7"
+    }
+  ],
+  "map_sources": {
+    "93a65a6f34287b1ac41adc02287455c8fd230e61c201ad3dc4b8191058b7c967": "as_hislop",
+    "555c0b1b012f6791dabcf3c488613e6c6d7da58be0d3597629800b67e9706c9e": "as_frigate",
+    "a28630971716f49eb744e8b850fd704e70cf04820eb088499b46957dca2bc08d": "tf_pressureworks",
+    "c19759d9a7ac2984b20fb0716923763c6c7ff6700201427f78698ba6cbdaf9e3": "tf_vesper",
+    "7759afbec42170e828c3feecc25254365265029de3f728966ab0eb0c9e0abab2": "koth_solstice",
+    "4df4297cbe9d860a3c93e3636863ca4f096f74de72fc3c7926cba99f3b792488": "koth_torture",
+    "e4a73507d55ddd38f972de94daa944b94afaf33d262838acd57e58953dd336d0": "koth_hyperborea",
+    "bf944df41bc9fa6fbe9339d518e41117eba0cdd93b686168f33a77a42a98d752": "cc_hyperborea",
+    "1370377682d7fd12aa98f03691ab15ea87046db62e9ebe631c48b90a62c254bb": "cc_psychofuge",
+    "74ceab19b31d75c3315dd775f08ad24e6859e65e982def10ffdc3168ceb2e327": "cc_ghostquarter",
+    "1c97f4fdc22e3708ef81d849b8a0c5f76e5dfb17b628889df2d3746bea8a78bb": "qsrc_dm2",
+    "9b521040bd9800b42cbdd97979dcbf2823dd4067688bf5be12fdffdc70224ba2": "qsrc_dm3",
+    "4e825f90f369f69edd68d99b1d73cc3cf522bd438377914cd49fb94b6cc6542f": "qsrc_dm4",
+    "dc7563efb64534aeba905044e9d1bb52578abc593a6402a5791910ae736cfcf9": "qsrc_dm5",
+    "590d329070774467f924a42bfee9dea53435f59421940ff99c5c29651add6af5": "qsrc_dm6",
+    "65f121cf37a284cabb4e17d34aecc8272cbe167171a966dd0549874963facd5e": "qsrc_dm7",
+    "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba": "ctf_crownreach",
+    "350cbf2aa0a301cc6d140734821cf2efe178cd114ae8fb5c831c57f5b93d63b3": "tf_vesper",
+    "8d7140cb7d69ad220815c38e4dcb26c0b6c43d123b9a6200f32241f6a958479f": "tf_pressureworks",
+    "6229cca3bd495764899614115844f3cc6e8930a49c50818e40dce5988eef4bd4": "as_hislop",
+    "c06a2bde835d1ce29922d2b085dab8c8419674ec27f020832426e4b42d828cb3": "as_frigate",
+    "9988634fb175ece87ad5381f0ca9df1f35fdc5f53b12a9167a01b8c846ebc27e": "as_frigate",
+    "f3e408c1715cd51633e896cdb914deafbcd9c50f9a59ad663122fb94318c1da0": "as_hislop",
+    "f5cdf36e35de6caee2704b45bda5713a83bc46f0f0eaead9771c81ed2cc18f1a": "tb_ashfall",
+    "0beee39eea1da9eff95da90fac42fea09fe0f9616bde748c698da5c0c7993227": "tb_ashfall",
+    "3335c44cdceb1be1ab9d1a4daaab7c84a2fb4e397f06f41f6a9983aff535bf27": "tb_ashfall",
+    "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649": "tb_ashfall"
+  }
+}

@@ -1,0 +1,407 @@
+{
+  "date": "2026-09-12T18:08:58",
+  "diagnostics": {
+    "active_writes": 243.0,
+    "connections": 1.0,
+    "frame_changes": 179.0,
+    "last_active_motors": 0.0,
+    "last_frame": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "max_write_gap_ms": 52.20798,
+    "max_write_ms": 0.994867,
+    "motor_mask": 1099511627775.0,
+    "write_errors": 0.0,
+    "writes": 1307.0
+  },
+  "failures": [],
+  "intensity": 0.25,
+  "profile": "fpsloppa-vest-v1",
+  "results": [
+    {
+      "active_writes": 3.0,
+      "effect": "recoil_melee",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Fire FIST"
+    },
+    {
+      "active_writes": 12.0,
+      "effect": "recoil_saw",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Fire CHAINSAW"
+    },
+    {
+      "active_writes": 2.0,
+      "effect": "recoil_pistol",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Fire DUAL PISTOLS"
+    },
+    {
+      "active_writes": 6.0,
+      "effect": "recoil_shotgun",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire SHOTGUN"
+    },
+    {
+      "active_writes": 6.0,
+      "effect": "recoil_heavy_shotgun",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire SUPER SHOTGUN"
+    },
+    {
+      "active_writes": 13.0,
+      "effect": "recoil_automatic",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire CHAINGUN"
+    },
+    {
+      "active_writes": 5.0,
+      "effect": "recoil_rocket",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire ROCKET LAUNCHER"
+    },
+    {
+      "active_writes": 15.0,
+      "effect": "recoil_energy",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Fire PLASMA RIFLE"
+    },
+    {
+      "active_writes": 8.0,
+      "effect": "recoil_heavy_energy",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Fire BFG 9000"
+    },
+    {
+      "active_writes": 4.0,
+      "effect": "recoil_sniper",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire RAILGUN"
+    },
+    {
+      "active_writes": 6.0,
+      "effect": "recoil_rocket",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire Grenade launcher"
+    },
+    {
+      "active_writes": 2.0,
+      "effect": "recoil_automatic",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Fire Super nailgun"
+    },
+    {
+      "active_writes": 3.0,
+      "effect": "recoil_energy",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire Lightning gun"
+    },
+    {
+      "active_writes": 3.0,
+      "effect": "recoil_energy",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire Shock rifle alt-fire"
+    },
+    {
+      "active_writes": 6.0,
+      "effect": "recoil_shotgun",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire Flak cannon"
+    },
+    {
+      "active_writes": 7.0,
+      "effect": "recoil_heavy_energy",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Fire Redeemer"
+    },
+    {
+      "active_writes": 4.0,
+      "effect": "recoil_sniper",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fire Sniper rifle"
+    },
+    {
+      "active_writes": 13.0,
+      "effect": "recoil_pistol",
+      "frame_changes": 11.0,
+      "passed": true,
+      "scenario": "Dual pistols, alternating hands"
+    },
+    {
+      "active_writes": 2.0,
+      "effect": "hit_bullet",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Pistol to front chest"
+    },
+    {
+      "active_writes": 5.0,
+      "effect": "hit_shotgun",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Shotgun to rear abdomen"
+    },
+    {
+      "active_writes": 5.0,
+      "effect": "hit_shotgun",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Super shotgun to left shoulder"
+    },
+    {
+      "active_writes": 2.0,
+      "effect": "hit_bullet",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Chaingun to right arm"
+    },
+    {
+      "active_writes": 6.0,
+      "effect": "hit_energy",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Plasma to front abdomen"
+    },
+    {
+      "active_writes": 5.0,
+      "effect": "hit_sniper",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Railgun head hit represented at vest top"
+    },
+    {
+      "active_writes": 2.0,
+      "effect": "hit_bullet",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Nailgun to left leg represented at vest bottom"
+    },
+    {
+      "active_writes": 4.0,
+      "effect": "hit_melee",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Axe to rear upper torso"
+    },
+    {
+      "active_writes": 8.0,
+      "effect": "hit_blast",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Rocket explosion from left"
+    },
+    {
+      "active_writes": 9.0,
+      "effect": "hit_blast",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Grenade explosion behind"
+    },
+    {
+      "active_writes": 9.0,
+      "effect": "hit_blast",
+      "frame_changes": 6.0,
+      "passed": true,
+      "scenario": "Rocket jump / blast below"
+    },
+    {
+      "active_writes": 3.0,
+      "effect": "environment_fire",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Environment: LAVA"
+    },
+    {
+      "active_writes": 6.0,
+      "effect": "environment_acid",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Environment: SLIME"
+    },
+    {
+      "active_writes": 4.0,
+      "effect": "environment_fire",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Environment: BURN"
+    },
+    {
+      "active_writes": 6.0,
+      "effect": "environment_drowning",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Environment: DROWNING"
+    },
+    {
+      "active_writes": 5.0,
+      "effect": "environment_fall",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Environment: FALL"
+    },
+    {
+      "active_writes": 3.0,
+      "effect": "environment_generic",
+      "frame_changes": 2.0,
+      "passed": true,
+      "scenario": "Environment: environment"
+    },
+    {
+      "active_writes": 10.0,
+      "effect": "healing",
+      "frame_changes": 8.0,
+      "passed": true,
+      "scenario": "Health pickup +25"
+    },
+    {
+      "active_writes": 9.0,
+      "effect": "healing",
+      "frame_changes": 8.0,
+      "passed": true,
+      "scenario": "Medic treatment +35"
+    },
+    {
+      "active_writes": 9.0,
+      "effect": "healing",
+      "frame_changes": 8.0,
+      "passed": true,
+      "scenario": "Regeneration +5"
+    },
+    {
+      "active_writes": 4.0,
+      "effect": "armor",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Armor pickup"
+    },
+    {
+      "active_writes": 9.0,
+      "effect": "death",
+      "frame_changes": 4.0,
+      "passed": true,
+      "scenario": "Fatal impact"
+    }
+  ],
+  "wearer_confirmation": "Distinct, comfortable, and quiet afterward",
+  "profile_sha256": "cc3a972f557495241f917e2cdaf347e84bbd960dce006078f4aff392414eb648",
+  "native_sha256": "ea6d970608e0dd1401443e259d28a84daf83e11607549245d14b6ba1f88c9e9a",
+  "protocol": "fpsloppa-33-haptic-damage-context",
+  "platforms": {
+    "Linux x86_64": "built and X40 validated",
+    "Windows x86_64": "build recipe and native default supplied; compilation/hardware unvalidated",
+    "Android": "OSC fallback; native Android integration absent"
+  },
+  "checks": {
+    "bhaptics-gameplay": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 73.535,
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.827,
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics-profile": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.502,
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics-profile-network": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 14.539,
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics-presentation": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 2.005,
+      "forced_cleanup": [],
+      "survivors": []
+    },
+    "bhaptics-profile-demo": {
+      "exit_code": 1,
+      "timeout": false,
+      "seconds": 1.253,
+      "forced_cleanup": [],
+      "survivors": [],
+      "note": "New 10-argument and legacy 7/8-argument damage/demo checks pass. The broader script fails its unrelated aim-guide length assertion."
+    },
+    "rust": {
+      "passed": 5,
+      "failed": 0
+    },
+    "bhaptics-native": {
+      "exit_code": 0,
+      "timeout": false,
+      "seconds": 0.502,
+      "forced_cleanup": [],
+      "survivors": []
+    }
+  },
+  "measurement_note": "BLE write-without-response diagnostics are successful host writes, not device acknowledgements or mechanical latency. Simulation invokes the live game haptics service and profile with scripted gameplay inputs; it is not a full VR combat session."
+}

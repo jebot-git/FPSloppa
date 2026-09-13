@@ -1,7 +1,7 @@
 extends Window
 var service
 var library
-var options: ItemList
+var options
 var detail: Label
 var feedback: Label
 var stage: Node3D
@@ -43,7 +43,7 @@ func setup(network: Node) -> void:
 	var left := VBoxContainer.new()
 	left.custom_minimum_size.x = 260
 	row.add_child(left)
-	options = ItemList.new()
+	options = preload("res://deathmatch/ui/drag_list.gd").new()
 	options.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	options.item_selected.connect(func(index): select_model(hashes[index]))
 	left.add_child(options)

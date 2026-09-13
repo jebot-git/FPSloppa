@@ -26,7 +26,7 @@ func setup(service: Node) -> void:
 	theme_resource.default_font_size=18
 	column.theme=theme_resource
 	var intro:=Label.new()
-	intro.text="VOICE CHAT\nPush-to-talk: hold V or the off-hand controller grip"
+	intro.text="VOICE CHAT\nNearby: V / offhand grip\nTeam: B / grab shoulder radio + hold trigger"
 	column.add_child(intro)
 	mumble=Button.new();mumble.text="OPEN EXTERNAL MUMBLE CLIENT";mumble.custom_minimum_size.y=44;column.add_child(mumble)
 	mumble.pressed.connect(func():
@@ -73,7 +73,7 @@ func setup(service: Node) -> void:
 	var retry:=Button.new();retry.text="RETRY ACCESS";retry.custom_minimum_size.y=44
 	retry.visible=OS.has_feature("android")
 	retry.pressed.connect(voice.retry_access);column.add_child(retry)
-	var scroll:=ScrollContainer.new();scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL
+	var scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	column.add_child(scroll)
 	peers=VBoxContainer.new();peers.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	scroll.add_child(peers)
@@ -98,7 +98,7 @@ func refresh(delta: float) -> void:
 		modes[i].set_pressed_no_signal(i==voice.mode)
 		modes[i].disabled=voice.game.active and not voice.game.voice_enabled
 	mute.set_pressed_no_signal(voice.muted_all)
-	status.text=("TRANSMITTING · " if voice.transmitting else "")+voice.message+"\nInput level: %d%%"%mini(100,roundi(voice.meter*500))
+	status.text=(("TEAM RADIO · " if voice.team_channel() else "PROXIMITY · ") if voice.transmitting else "")+voice.message+"\nInput level: %d%%"%mini(100,roundi(voice.meter*500))
 	var key:=str(voice.game.players.keys())+str(voice.muted)
 	if key==roster_key: return
 	roster_key=key

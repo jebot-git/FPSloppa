@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "tf_maps": [
+    "tf_pressureworks",
+    "tf_vesper"
+  ],
+  "as_maps": [
+    "as_hislop",
+    "as_frigate"
+  ],
+  "base_archive": "/home/blux/Documents/Builds/FPSloppa-0.10v-Base-Assets.zip",
+  "tf_archive": "/home/blux/Documents/Builds/FPSloppa-0.10v-Original-TF-Arenas.zip",
+  "base_sha256": "525f03d7df7e91cd961706614b09b049439cc41d4c427d0a13f9a694cb5590df",
+  "tf_sha256": "806cabbf4a1d719496c2660c05e594591e8b765ecfa5d4ff756f88ad94f77a41",
+  "base_files": 220,
+  "checks": [
+    "ZIP CRCs and every Base Assets entry hash",
+    "Exact TF and AS catalog/rotation selection",
+    "No Tiny or retired TF map assets",
+    "TF scene and navigation caches included",
+    "LibreQuake BSPs retained for other modes"
+  ]
+}

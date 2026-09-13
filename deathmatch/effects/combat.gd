@@ -10,16 +10,18 @@ var voices: Array=[]
 var last_hit: Dictionary={}
 var steps: Dictionary={}
 var enabled:=true
+var local_pickup: AudioStreamPlayer
 var local_pain: AudioStreamPlayer
 var local_pain_at:=-10.0
 func setup(arena: Node) -> void: game=arena
 func play(kind: String,position_here: Vector3,volume: float=-8.0) -> void:
+	if game.headless:return
 	game.spatial.play(kind,position_here,volume)
 func clear() -> void:
 	if game.spatial: game.spatial.clear()
 	for child in get_children(): child.queue_free()
 	particles.clear();gibs.clear();stains.clear();voices.clear();steps.clear();last_hit.clear()
-	local_pain=null;local_pain_at=-10
+	local_pickup=null;local_pain=null;local_pain_at=-10
 func hit(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int) -> void:
 	if game.headless: return
 	if game.fighters.has(id):
@@ -36,6 +38,12 @@ func hit(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: 
 		if enabled: blood(pos,direction,seed_value)
 	if enabled and gibbed: burst_gibs(pos,direction,seed_value)
 	if id==multiplayer.get_unique_id() and game.is_vr(): game.xr_rig.feedback(.8,.12)
+func pickup(kind: String) -> void:
+	if game.headless or game.quitting:return
+	if not is_instance_valid(local_pickup):
+		local_pickup=AudioStreamPlayer.new();local_pickup.bus="ArenaEffects"
+		local_pickup.volume_db=-3;local_pickup.max_polyphony=4;add_child(local_pickup)
+	local_pickup.stream=game.spatial.choose(kind);local_pickup.play()
 func local_hit() -> void:
 	if game.headless or game.clock-local_pain_at<.3: return
 	local_pain_at=game.clock
@@ -92,28 +100,6 @@ func blood(pos: Vector3,direction: Vector3,seed_value: int) -> void:
 func stain(pos: Vector3,normal: Vector3,rng: RandomNumberGenerator) -> void:
 	stains=stains.filter(is_instance_valid)
 	if stains.size()>=48: stains.pop_front().queue_free()
-	if RenderingServer.get_current_rendering_method()=="gl_compatibility":
-		var mark:=MeshInstance3D.new()
-		var mesh:=QuadMesh.new()
-		var size_here:=rng.randf_range(.25,.7)
-		mesh.size=Vector2.ONE*size_here
-		mark.mesh=mesh
-		var material:=StandardMaterial3D.new()
-		material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
-		material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
-		material.albedo_texture=load("res://deathmatch/effects/blood.svg")
-		material.albedo_color=Color("681018")
-		material.cull_mode=BaseMaterial3D.CULL_DISABLED
-		mark.material_override=material
-		mark.position=pos+normal*.012
-		mark.basis=Basis(Quaternion(Vector3.BACK,normal))*Basis(Vector3.BACK,rng.randf()*TAU)
-		add_child(mark)
-		stains.append(mark)
-		var fade:=mark.create_tween()
-		fade.tween_interval(18)
-		fade.tween_property(material,"albedo_color:a",0.0,3)
-		fade.tween_callback(mark.queue_free)
-		return
 	var decal:=Decal.new()
 	decal.texture_albedo=load("res://deathmatch/effects/blood.svg")
 	var size_here:=rng.randf_range(.25,.7)

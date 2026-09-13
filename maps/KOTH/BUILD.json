@@ -1,0 +1,355 @@
+{
+  "xy_scale": 1.5,
+  "maps": [
+    {
+      "id": "koth_solstice",
+      "source": "lqdm1",
+      "title": "Solstice Crown",
+      "center": [
+        512,
+        -960,
+        128
+      ],
+      "top": 160,
+      "floor": "med_cobstn1_1",
+      "trim": "med_csl_brk14b",
+      "theme": "A raised courtyard crown with four broad approaches and corner cover; the castle and outer garden loop remain.",
+      "source_sha256": "34cc096a1cab438af97bcb4326299cfb0bb7278eaeceb5f93878005bd3e02b37",
+      "added_brushes": 8,
+      "removed_hill_pickups": [
+        "item_health"
+      ],
+      "spawns": 8,
+      "objectives": {
+        "red": [
+          41.595241546630874,
+          0.05000006034970317,
+          -6.265714168548563
+        ],
+        "blue": [
+          42.966670989990234,
+          0.05000006034970317,
+          -43.83333206176758
+        ],
+        "hill": [
+          45.0,
+          5.05,
+          -24.0
+        ]
+      },
+      "texture_mapping": {
+        "med_csl_brk14b": "med_csl_brk14b",
+        "med_cobstn1_1": "med_cobstn1_1",
+        "met_brn_trim32": "met_brn_trim32",
+        "med_csl_flr5_1": "med_csl_flr5_1",
+        "med_tanwall4": "med_tanwall4",
+        "sq_trim1_2_s": "sq_trim1_2_s",
+        "sky5_blu": "sky5_blu",
+        "clip": "clip",
+        "med_csl_brk14_f": "med_csl_brk14_f",
+        "black": "black",
+        "met_brn_trim16": "met_brn_trim16",
+        "med_wood2_plk1": "med_wood2_plk1",
+        "med_roof4": "med_roof4",
+        "med_glass5": "med_glass5",
+        "med_dr3c": "med_dr3c",
+        "med_wood5": "med_wood5",
+        "*water0": "*water0",
+        "snow1": "snow1",
+        "grk_leaf1_1": "grk_leaf1_1",
+        "skip": "skip",
+        "met_brn_flat": "metal_iron1_01",
+        "met_brn_trim64": "met_brn_trim64",
+        "med_wood3_plk1": "med_wood3_plk1",
+        "med_dr1a": "med_dr1a",
+        "trigger": "trigger",
+        "med_wood_riv1b": "med_wood_riv1b"
+      },
+      "sha256": "7759afbec42170e828c3feecc25254365265029de3f728966ab0eb0c9e0abab2",
+      "balance_revision": "2026-09-12 physical approaches",
+      "team_assignment": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "koth_torture",
+      "source": "lqdm2",
+      "title": "Torture Crucible",
+      "center": [
+        -352,
+        -256,
+        -192
+      ],
+      "top": -144,
+      "floor": "met_brn_tile2",
+      "trim": "met_brn_block",
+      "theme": "A dry scoring dais in the lower pit, surrounded by ramp approaches; supply routes run through the existing upper galleries.",
+      "source_sha256": "913829a8b7ee55da4d5e3f3ea30178aa0784dbe4d226c12913730afb33beb972",
+      "added_brushes": 8,
+      "removed_hill_pickups": [],
+      "spawns": 12,
+      "objectives": {
+        "red": [
+          19.46940422058103,
+          -5.949999809265125,
+          2.6681964397430438
+        ],
+        "blue": [
+          26.269401550292955,
+          -5.648429870605469,
+          4.868196964263937
+        ],
+        "hill": [
+          12.0,
+          -4.45,
+          16.5
+        ]
+      },
+      "texture_mapping": {
+        "med_ebrick2": "med_ebrick2",
+        "med_csl_brk10_f": "med_csl_brk10_f",
+        "med_tanwall3": "med_tanwall3",
+        "med_wood4": "med_wood4",
+        "sky_orng": "sky_orng",
+        "med_wood_riv2b": "med_wood_riv2b",
+        "sq_trim1_2": "sq_trim1_2",
+        "clip": "clip",
+        "met_brn_grate2": "met_brn_grate2",
+        "met_brn_grate3": "met_brn_grate3",
+        "med_telepad": "med_telepad",
+        "met_brn_block": "ind_w06_rst2",
+        "met_brn_tile2": "ind_dp01_grey1",
+        "met_brn_trim16": "met_brn_trim16",
+        "met_brn_flat": "metal_iron1_01",
+        "trigger": "trigger",
+        "med_wood2": "med_wood2",
+        "crwds6": "crwds6",
+        "crate4": "crate4",
+        "*tele3": "*tele3",
+        "med_cracks1": "med_cracks1"
+      },
+      "sha256": "dcb84bfea9752aad724b600fc0d0534dc8d77378f4114deefd1f7bf2e07f16e2"
+    },
+    {
+      "id": "koth_hyperborea",
+      "source": "lqdm3",
+      "title": "Hyperborea Tribunal",
+      "center": [
+        -1536,
+        608,
+        64
+      ],
+      "top": 112,
+      "floor": "med_cobstn1_2",
+      "trim": "med_csl_brk7_2",
+      "theme": "A stepped tribunal in the open temple court; columns protect side approaches without enclosing the scoring floor.",
+      "source_sha256": "638b55fac74c87690e2cf02d4417b6ef67c144bad8f019bc9dbdd8af8804555b",
+      "added_brushes": 14,
+      "removed_hill_pickups": [
+        "item_armor2"
+      ],
+      "spawns": 8,
+      "objectives": {
+        "red": [
+          -20.13731384277342,
+          -1.9500000476837156,
+          79.51007843017594
+        ],
+        "blue": [
+          -17.866582870483406,
+          0.05000000074505939,
+          62.97908401489266
+        ],
+        "hill": [
+          -28.5,
+          3.55,
+          72.0
+        ]
+      },
+      "texture_mapping": {
+        "grk_bl_trim1_5": "grk_bl_trim1_5",
+        "grk_ebrick24": "grk_ebrick24",
+        "grk_brk16": "grk_brk16",
+        "grk_flr4_6": "grk_flr4_6",
+        "grk_trim1_5_s": "grk_trim1_5_s",
+        "grk_bl_trim1_3": "grk_bl_trim1_3",
+        "grk_brk15_b": "grk_brk15_b",
+        "grk_brk16_f": "grk_brk16_f",
+        "grk_bl_flt1": "grk_bl_flt1",
+        "grk_flr4_5b": "grk_flr4_5b",
+        "grk_bl_wll1": "grk_bl_wll1",
+        "grk_bl_wll2": "grk_bl_wll2",
+        "grk_wall2": "grk_wall2",
+        "grk_brk15_f": "grk_brk15_f",
+        "grk_flr4_5": "grk_flr4_5",
+        "grk_trim1_6_s": "grk_trim1_6_s",
+        "grk_met1b_trim": "grk_met1b_trim",
+        "+0grk_jumppad": "+0grk_jumppad",
+        "clip": "clip",
+        "grk_flr5_1": "grk_flr5_1",
+        "med_rock10b": "med_rock10b",
+        "gravel1": "gravel1",
+        "grk_flr2": "grk_flr2",
+        "grk_ebrick22": "grk_ebrick22",
+        "grk_arch2_2": "grk_arch2_2",
+        "grk_trim1_5": "grk_trim1_5",
+        "grk_wall1": "grk_wall1",
+        "grk_bl_wll3b": "grk_bl_wll3b",
+        "grk_ebrick23": "grk_ebrick23",
+        "grk_win1_as": "grk_win1_as",
+        "grk_bl_pil1": "grk_bl_pil1",
+        "grk_trim2": "grk_trim2",
+        "grk_flr1": "grk_flr1",
+        "sky_wfog": "sky_wfog",
+        "med_wood5": "med_wood5",
+        "grk_bl_trim1": "grk_bl_trim1",
+        "+0water_f1": "+0water_f1",
+        "grk_wall3b": "grk_wall3b",
+        "black": "black",
+        "*water2": "*water2",
+        "grk_flr3": "grk_flr3",
+        "med_csl_brk7_2": "med_csl_brk7_2",
+        "med_cobstn1_2": "med_cobstn1_2",
+        "sky_star": "sky_star",
+        "grk_brk15_c": "grk_brk15_c",
+        "grk_leaf1_1": "grk_leaf1_1",
+        "med_roof3": "med_roof3",
+        "trigger": "trigger",
+        "grk_door1": "grk_door1",
+        "grk_flr4_1": "grk_flr4_1",
+        "grk_trim1": "grk_trim1",
+        "grk_arch1_a": "grk_arch1_a",
+        "grk_brk15": "grk_brk15",
+        "med_flat16": "med_flat16"
+      },
+      "sha256": "e4a73507d55ddd38f972de94daa944b94afaf33d262838acd57e58953dd336d0",
+      "balance_revision": "2026-09-12 physical approaches",
+      "team_assignment": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        1,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "koth_alichar",
+      "source": "lqdm8",
+      "title": "Alichar Overload",
+      "center": [
+        128,
+        0,
+        576
+      ],
+      "top": 600,
+      "floor": "met_brn_slat",
+      "trim": "met_brn_block",
+      "theme": "An expanded upper control deck with short entry ramps and corner baffles; the lower industrial loop remains a flanking route.",
+      "source_sha256": "8491a5607109c0c341ff2d140d388b2067862462400977d116bb8c414bedc5b1",
+      "added_brushes": 13,
+      "removed_hill_pickups": [
+        "item_shells",
+        "item_shells"
+      ],
+      "spawns": 9,
+      "objectives": {
+        "red": [
+          16.500001907348626,
+          18.049999237060533,
+          -4.99999952316286
+        ],
+        "blue": [
+          -5.366666316986063,
+          18.049999237060533,
+          11.000000953674329
+        ],
+        "hill": [
+          0.0,
+          18.8,
+          -6.0
+        ]
+      },
+      "texture_mapping": {
+        "t_flor1b": "ind_dp01_grey1",
+        "aqpipe13": "aqpipe13",
+        "t_trim1d": "t_trim1d",
+        "t_flor1c": "ind_dp01_rst1",
+        "t_trim2e": "t_trim2e",
+        "t_metalsheeta": "ind_w04_grey1",
+        "t_trim2d": "t_trim2d",
+        "t_blok05": "ind_w04_grey1",
+        "treadplatemetal": "ind_dp01_grey1",
+        "t_band1b": "t_band1b",
+        "t_blok08": "ind_w06_rst2",
+        "t_blok04": "ind_w02_grey1",
+        "t_blok06": "ind_w02_blk1",
+        "t_tech04": "t_tech04",
+        "t_wall6e": "t_wall6e",
+        "aqpipe12": "aqpipe12",
+        "aqconc03": "aqconc03",
+        "clip": "clip",
+        "aqrust02": "ind_w06_rst1",
+        "t_tris02": "t_tris02",
+        "t_flat02": "t_flat02",
+        "aqsupp04": "aqsupp04",
+        "aqrust01": "ind_w06_rst2",
+        "aqpipe14": "aqpipe14",
+        "t_wall05": "t_wall05",
+        "comp1_3b": "comp1_3b",
+        "comp1_1": "comp1_1",
+        "comp1_2": "comp1_2",
+        "t_blok06h": "t_blok06h",
+        "t_flor2a": "t_flor2a",
+        "aqsupp01": "aqsupp01",
+        "t_blok09": "ind_w08_grn1",
+        "t_wall6d": "t_wall6d",
+        "t_trim1e": "t_trim1e",
+        "rw33_flat": "rw33_flat",
+        "t_blok04h": "t_blok04h",
+        "metalstrip_1": "metalstrip_1",
+        "tek_grate": "tek_grate",
+        "met_brn_block": "ind_w06_rst2",
+        "met_brn_slat": "ind_w04_grey1",
+        "sky_star": "sky_star",
+        "aqrust03": "ind_w06_rst2",
+        "aqrust04": "aqrust04",
+        "fddoor01": "fddoor01",
+        "t_blok12c": "t_blok12c",
+        "crate0_side": "crate0_side",
+        "crate0_top": "crate0_top",
+        "comp1_4": "comp1_4",
+        "comp1_6": "comp1_6",
+        "compbase": "compbase",
+        "comp1_3": "comp1_3",
+        "lit8sfb": "lit8sfb",
+        "aqmetl33": "aqmetl33",
+        "aqtrim02": "aqtrim02",
+        "+atlight3": "+atlight3",
+        "t_metalsheetb": "ind_w04_blk1",
+        "crate0_s_tside": "crate0_s_tside",
+        "crate0_s_sside": "crate0_s_sside",
+        "crate0_s_bottom": "crate0_s_bottom",
+        "crate0_s_top": "crate0_s_top",
+        "trigger": "trigger",
+        "crate1_side": "crate1_side",
+        "crate1_top": "crate1_top",
+        "tele_frame2": "tele_frame2",
+        "*tele3": "*tele3",
+        "+atlight1": "+atlight1"
+      },
+      "sha256": "ad841db6ea0e7453248ab6484beabf720b209604857625ea5f5c625eeefd108c"
+    }
+  ],
+  "wad_bytes": 5339312,
+  "textures": 155
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-12",
+  "status": "experimental prototypes; no live VR test",
+  "archives_verified": 7,
+  "umod_packages_verified": 3,
+  "source_manifest": "tools/ut_to_vrm/sources.json",
+  "ueviewer_source_sha256": "ad2801267190b637d9ec053fd0d10f215ccc718de3f9a0318c3ce1b1ac38fa69",
+  "ueviewer_executable_sha256": "941b8551c65599809a35e712b4c4b8a6172878d0c82073118c272ac4f8c51f06",
+  "mapped_humanoid_bones": 19,
+  "runtime_bones": 20,
+  "triangles": 698,
+  "vertices": 2094,
+  "images": 2,
+  "outputs": [
+    {
+      "file": "vrm/AsiaCarrera-Rumiko-purple-experimental.vrm",
+      "bytes": 349844,
+      "sha256": "f2a00cbfe10a01e511281c83dc401608561a3b0cd83550079fcb013e92591721",
+      "bind_matrix_max_error": 5.7220459037665705e-08,
+      "byte_identical_rebuild": true
+    },
+    {
+      "file": "vrm/AsiaCarrera-Rumiko-black-experimental.vrm",
+      "bytes": 328988,
+      "sha256": "51d9574a185440f013c6c9919c07769fc44203421f7443784461869e06b9921c",
+      "bind_matrix_max_error": 5.7220459037665705e-08,
+      "byte_identical_rebuild": true
+    },
+    {
+      "file": "vrm/AsiaCarrera-Rumiko-fur-experimental.vrm",
+      "bytes": 327424,
+      "sha256": "907e3e15a013fd725f7e205b75ba54d6f6f3cfc1badae50bad2fd80f7d9417df",
+      "bind_matrix_max_error": 5.7220459037665705e-08,
+      "byte_identical_rebuild": true
+    }
+  ],
+  "game_import": {
+    "tested": 3,
+    "failures": 0,
+    "log": "test-results/ut-to-vrm/original-game-import.log",
+    "shutdown_warning": "1 ObjectDB instance leaked"
+  },
+  "visual_checks": [
+    "source textured frame-0 mesh front/three-quarter/back",
+    "T-pose preview from exported VRM",
+    "bent elbows and knee, turned head using final skin weights and bind matrices"
+  ],
+  "limitations": [
+    "approximate landmark-based skin weights",
+    "no finger bones",
+    "no facial expressions or eye bones",
+    "original vertex animations not retargeted",
+    "no headset test"
+  ],
+  "notes": "Original Asia Carrera Rumiko archive used for final deliverables; earlier Unknown-author alternate kept only as an initial experiment."
+}

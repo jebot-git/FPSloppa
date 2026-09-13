@@ -30,8 +30,11 @@ def build(a):
     shutil.copy2(original/'gnu.txt',out/'COPYING-GPL-2.0.txt');shutil.copy2(original/'release_readme.txt',out/'ORIGINAL-README.txt')
     pack=ROOT/'deathmatch/maps/texture_replacements'
     packed=(pack/'replacement-miptex.lmp').read_bytes()
+    makkon=(pack/'makkon-used.wad').read_bytes() if (pack/'makkon-used.wad').exists() else b''
     provenance=json.loads((pack/'manifest.json').read_text())['textures']
-    textures={n:packed[r['offset']:r['offset']+r['size']] for n,r in provenance.items()}
+    if a.without_makkon:
+        provenance={key:row.get('base_entry',row) for key,row in provenance.items() if row.get('pack')!='makkon-used.wad' or 'base_entry' in row}
+    textures={n:(makkon if r.get('pack')=='makkon-used.wad' else packed)[r['offset']:r['offset']+r['size']] for n,r in provenance.items()}
     selected=sorted(p for p in original.glob('*.MAP') if re.fullmatch(r'DM[1-7]',p.stem))
     rows=[];used=set()
     for p in selected:
@@ -52,7 +55,12 @@ def build(a):
                 block=setkey(block,'classname','func_wall');changes['buttons static; progression removed']+=1
             result.append(block)
         def texture(m):
-            old=m[2];new=old.lower();assert new in textures,"Missing reviewed counterpart: "+new;mapping[old]=provenance[new].get("librequake",provenance[new].get("generated"));used.add(new);return m[1]+new
+            old=m[2];key=old.lower();assert key in textures,"Missing reviewed counterpart: "+key
+            # Use the original donor name in source/WAD/BSP, preserving the whole
+            # Makkon record instead of renaming or resampling its pixels.
+            new=provenance[key].get('makkon',key)
+            mapping[old]=provenance[key].get('makkon',provenance[key].get('librequake',provenance[key].get('generated')))
+            used.add(new);return m[1]+new
         text=re.sub(r'(^\s*\([^\n]+?\)\s*\([^\n]+?\)\s*\([^\n]+?\)\s+)(\S+)',texture,'\n'.join(result)+'\n',flags=re.M)
         dest=adapted/('qsrc_'+p.stem.lower()+'.map');dest.write_text('// Modified for FPSloppa, 2026-09-11. GPL v2; see COPYING-GPL-2.0.txt.\n'+text)
         spawns=sum(fields(b).get('classname')=='info_player_deathmatch' for b in result)
@@ -65,6 +73,11 @@ def build(a):
     (src/'TEXTURE-SOURCES.json').write_text(json.dumps({n:provenance[n] for n in sorted(used)},indent=2)+'\n')
     for n in ['COPYING','CREDITS','README-IMPORTANT-LICENCE-INFO']:shutil.copy2(a.librequake.parent/'docs'/n,out/('LibreQuake-'+n+'.txt'))
     shutil.copytree(pack,out/'texture-dictionary',dirs_exist_ok=True)
+    if a.without_makkon:
+        dictionary=json.loads((out/'texture-dictionary/manifest.json').read_text())
+        dictionary['textures']=provenance
+        (out/'texture-dictionary/manifest.json').write_text(json.dumps(dictionary,indent=2)+'\n')
+    shutil.copy2(pack/'Makkon_License.txt',out/'Makkon_License.txt')
     def compile_map(row):
         name=row['id'];path=adapted/(name+'.map');dest=maps/(name+'.bsp');print('COMPILE',name,flush=True)
         commands=[[str(a.compiler/'qbsp'),str(path),str(dest)],[str(a.compiler/'vis'),'-threads','2',str(dest)],[str(a.compiler/'light'),'-threads','2','-extra','-bspxlit',str(dest)]]
@@ -77,7 +90,7 @@ def build(a):
         except Exception as e:row.update(status='failed',error=str(e))
         print('RESULT',name,row['status'],row.get('error',''),flush=True);return row
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:rows=list(pool.map(compile_map,rows))
-    manifest={'source_url':URL,'archive_sha256':sha(archive),'license':'GPL-2.0 (maps), BSD-3-Clause (LibreQuake textures), generated original reliefs','compiler':'ericw-tools v0.18.1','maps':rows}
+    manifest={'source_url':URL,'archive_sha256':sha(archive),'license':'GPL-2.0 (maps), BSD-3-Clause (LibreQuake textures), generated original reliefs, separately licensed Makkon textures (see Makkon_License.txt)','compiler':'ericw-tools','maps':rows}
     (out/'BUILD.json').write_text(json.dumps(manifest,indent=2)+'\n')
 if __name__=='__main__':
-    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--archive',required=True,type=Path);p.add_argument('--librequake',required=True,type=Path);p.add_argument('--compiler',required=True,type=Path);p.add_argument('--output',required=True,type=Path);p.add_argument('--match',default='');build(p.parse_args())
+    p=argparse.ArgumentParser(description=__doc__);p.add_argument('--archive',required=True,type=Path);p.add_argument('--librequake',required=True,type=Path);p.add_argument('--compiler',required=True,type=Path);p.add_argument('--output',required=True,type=Path);p.add_argument('--match',default='');p.add_argument('--without-makkon',action='store_true',help='Use the original LibreQuake dictionary for comparison builds');build(p.parse_args())

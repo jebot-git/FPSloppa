@@ -1,0 +1,275 @@
+[
+  {
+    "duration_seconds": 341.09999999969,
+    "events": {
+      "_ability_fx": 19,
+      "_announcer_cue": 2,
+      "_hurt_fx": 335,
+      "_impacts": 629,
+      "_melee_fx": 601,
+      "_movement_sound": 636,
+      "_projectile_end": 341,
+      "_shot_fx": 970
+    },
+    "file": "2026-09-11T20-05-54.fpsdemo",
+    "frame_interval_ms": {
+      "count": 6799,
+      "max": 999.999999999091,
+      "median": 49.9999999999545,
+      "p95": 66.666666666606,
+      "p99": 66.666666666606
+    },
+    "frames": 6803,
+    "horizontal_speed_mps": {
+      "count": 24415,
+      "max": 29.3653945922852,
+      "median": 9.19869041442871,
+      "p95": 12.4214267730713,
+      "p99": 16.8776893615723
+    },
+    "map_modes": {
+      "__waiting_lobby__ / koth": 218,
+      "lqdm5 / koth": 6585
+    },
+    "movement_outliers": 285,
+    "offhand_shots": 276,
+    "peak_players": 4,
+    "ping_ms": {
+      "count": 24415,
+      "max": 328,
+      "median": 30,
+      "p95": 243,
+      "p99": 274
+    },
+    "position_velocity_residual_m": {
+      "count": 24389,
+      "max": 2.45645117759705,
+      "median": 0.0115621834993362,
+      "p95": 0.303106278181076,
+      "p99": 0.500401616096497
+    },
+    "shots_by_weapon": {
+      "DUAL PISTOLS": 570,
+      "PLASMA RIFLE": 307,
+      "ROCKET LAUNCHER": 34,
+      "SHOTGUN": 7,
+      "SUPER SHOTGUN": 52
+    },
+    "snapshot_gaps_over_100ms": 1,
+    "teleport_events": 0,
+    "valid": true,
+    "yaw_step_rad": {
+      "count": 24389,
+      "max": 2.9834739635426,
+      "median": 0.0,
+      "p95": 0.169136704429218,
+      "p99": 0.355672672810437
+    }
+  },
+  {
+    "duration_seconds": 310.816666670624,
+    "events": {
+      "_ability_fx": 11,
+      "_hurt_fx": 3898,
+      "_impacts": 74,
+      "_melee_fx": 40,
+      "_movement_sound": 726,
+      "_projectile_end": 17,
+      "_saw_contact": 52,
+      "_shot_fx": 3471
+    },
+    "file": "2026-09-11T20-30-08.fpsdemo",
+    "frame_interval_ms": {
+      "count": 6182,
+      "max": 1550.00000001974,
+      "median": 50.0000000006366,
+      "p95": 66.6666666675155,
+      "p99": 66.6666666675155
+    },
+    "frames": 6193,
+    "horizontal_speed_mps": {
+      "count": 28023,
+      "max": 23.3945407867432,
+      "median": 7.82658004760742,
+      "p95": 12.9393472671509,
+      "p99": 17.6291332244873
+    },
+    "map_modes": {
+      "lqdm3 / cc": 5700,
+      "lqdm7 / ft": 493
+    },
+    "movement_outliers": 152,
+    "offhand_shots": 10,
+    "peak_players": 5,
+    "ping_ms": {
+      "count": 28023,
+      "max": 308,
+      "median": 28,
+      "p95": 244,
+      "p99": 250
+    },
+    "position_velocity_residual_m": {
+      "count": 27926,
+      "max": 5.50685691833496,
+      "median": 0.018713990226388,
+      "p95": 0.231410041451454,
+      "p99": 0.446271508932114
+    },
+    "shots_by_weapon": {
+      "CHAINGUN": 48,
+      "CHAINSAW": 3380,
+      "DUAL PISTOLS": 20,
+      "PLASMA RIFLE": 17,
+      "SHOTGUN": 5,
+      "SUPER SHOTGUN": 1
+    },
+    "snapshot_gaps_over_100ms": 3,
+    "teleport_events": 0,
+    "valid": true,
+    "yaw_step_rad": {
+      "count": 27926,
+      "max": 3.05786477445191,
+      "median": 0.0,
+      "p95": 0.203689883184114,
+      "p99": 0.349332494252394
+    }
+  },
+  {
+    "duration_seconds": 223.000000002839,
+    "events": {
+      "_ability_fx": 66,
+      "_announcer_cue": 6,
+      "_hurt_fx": 127,
+      "_impacts": 159,
+      "_melee_fx": 248,
+      "_movement_sound": 446,
+      "_projectile_end": 117,
+      "_shot_fx": 275,
+      "_teleport_fx": 2
+    },
+    "expected_bytes": 8700,
+    "failure": "Truncated or invalid payload",
+    "file": "2026-09-11T20-47-38.fpsdemo",
+    "frame_interval_ms": {
+      "count": 4286,
+      "max": 2650.00000003374,
+      "median": 50.0000000006366,
+      "p95": 66.6666666675155,
+      "p99": 100.000000001273
+    },
+    "frames": 4340,
+    "horizontal_speed_mps": {
+      "count": 14537,
+      "max": 20.6549415588379,
+      "median": 8.85843563079834,
+      "p95": 13.8964834213257,
+      "p99": 16.5064182281494
+    },
+    "map_modes": {
+      "__waiting_lobby__ / as": 1130,
+      "as_hislop / as": 2837,
+      "custom_66d5f139f5a7fa0512cf20f1132458c5d6265d7aef7b510d7601ac4b6df88f9c / ig": 373
+    },
+    "movement_outliers": 440,
+    "offhand_shots": 62,
+    "peak_players": 5,
+    "ping_ms": {
+      "count": 14537,
+      "max": 284,
+      "median": 29,
+      "p95": 261,
+      "p99": 268
+    },
+    "position_velocity_residual_m": {
+      "count": 14359,
+      "max": 1.00715208053589,
+      "median": 0.0313307903707027,
+      "p95": 0.474280834197998,
+      "p99": 0.747448265552521
+    },
+    "remaining_bytes": 6528,
+    "shots_by_weapon": {
+      "DUAL PISTOLS": 135,
+      "PLASMA RIFLE": 108,
+      "RAILGUN": 16,
+      "ROCKET LAUNCHER": 9,
+      "SUPER SHOTGUN": 7
+    },
+    "snapshot_gaps_over_100ms": 47,
+    "teleport_events": 2,
+    "valid": false,
+    "yaw_step_rad": {
+      "count": 14359,
+      "max": 2.84082109855337,
+      "median": 0.0,
+      "p95": 0.174514595039902,
+      "p99": 0.348239889908017
+    }
+  },
+  {
+    "duration_seconds": 562.683333333065,
+    "events": {
+      "_announcer_cue": 14,
+      "_hurt_fx": 82,
+      "_impacts": 287,
+      "_movement_sound": 1695,
+      "_shot_fx": 287,
+      "_teleport_fx": 90
+    },
+    "expected_bytes": 8628,
+    "failure": "Truncated or invalid payload",
+    "file": "2026-09-11T20-53-17.fpsdemo",
+    "frame_interval_ms": {
+      "count": 11056,
+      "max": 1316.66666666547,
+      "median": 49.9999999999545,
+      "p95": 66.666666666606,
+      "p99": 66.6666666667197
+    },
+    "frames": 11102,
+    "horizontal_speed_mps": {
+      "count": 41503,
+      "max": 22.8063011169434,
+      "median": 7.64233875274658,
+      "p95": 14.0538730621338,
+      "p99": 17.6279945373535
+    },
+    "map_modes": {
+      "__waiting_lobby__ / ig": 1675,
+      "custom_66d5f139f5a7fa0512cf20f1132458c5d6265d7aef7b510d7601ac4b6df88f9c / ig": 3567,
+      "lqdm1 / ig": 3426,
+      "lqdm2 / ig": 2434
+    },
+    "movement_outliers": 647,
+    "offhand_shots": 0,
+    "peak_players": 5,
+    "ping_ms": {
+      "count": 41503,
+      "max": 400,
+      "median": 27,
+      "p95": 249,
+      "p99": 268
+    },
+    "position_velocity_residual_m": {
+      "count": 41048,
+      "max": 1.05674719810486,
+      "median": 0.0111610954627395,
+      "p95": 0.27682626247406,
+      "p99": 0.63442587852478
+    },
+    "remaining_bytes": 6012,
+    "shots_by_weapon": {
+      "RAILGUN": 287
+    },
+    "snapshot_gaps_over_100ms": 34,
+    "teleport_events": 90,
+    "valid": false,
+    "yaw_step_rad": {
+      "count": 41048,
+      "max": 3.11931687443249,
+      "median": 0.0,
+      "p95": 0.183765828482952,
+      "p99": 0.354968025580213
+    }
+  }
+]

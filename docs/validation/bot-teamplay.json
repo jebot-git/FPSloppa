@@ -1,0 +1,389 @@
+{
+  "date": "2026-09-12",
+  "engine": "Godot 4.7.2",
+  "simulated_minutes": 43.0,
+  "assertions": 127,
+  "tests": [
+    {
+      "test": "bot_tactics",
+      "exit_code": 0,
+      "passes": 27,
+      "errors": []
+    },
+    {
+      "test": "bot_humanization",
+      "exit_code": 0,
+      "passes": 12,
+      "errors": []
+    },
+    {
+      "test": "bot_weapons",
+      "exit_code": 0,
+      "passes": 36,
+      "errors": []
+    },
+    {
+      "test": "bot_movement",
+      "exit_code": 0,
+      "passes": 6,
+      "errors": []
+    },
+    {
+      "test": "bot_navigation",
+      "exit_code": 0,
+      "passes": 4,
+      "errors": []
+    },
+    {
+      "test": "bot_traversal",
+      "exit_code": 0,
+      "passes": 0,
+      "errors": []
+    },
+    {
+      "test": "bot_assault",
+      "exit_code": 0,
+      "passes": 0,
+      "errors": []
+    },
+    {
+      "test": "bot_teamplay",
+      "exit_code": 0,
+      "passes": 41,
+      "errors": []
+    },
+    {
+      "test": "bot_underpass",
+      "exit_code": 0,
+      "passes": 1,
+      "errors": []
+    }
+  ],
+  "runs": [
+    {
+      "path": "test-results/bot-soak/teamplay/as_frigate-as-ut99.json",
+      "map": "as_frigate",
+      "mode": "as",
+      "rules": "ut99",
+      "seconds": 180.000000000035,
+      "score": [
+        0,
+        1
+      ],
+      "stage": 2,
+      "teamplay": {
+        "ambushes": 1,
+        "assist_assignments": 29,
+        "focus_choices": 176,
+        "guard_assignments": 9,
+        "pickups_offered": 22,
+        "reports_delivered": 314,
+        "reports_sent": 408
+      },
+      "max_stall": 1.01666666666661,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay/as_hislop-as-doom.json",
+      "map": "as_hislop",
+      "mode": "as",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        0,
+        1
+      ],
+      "stage": 2,
+      "teamplay": {
+        "ambushes": 5,
+        "assist_assignments": 6,
+        "focus_choices": 48,
+        "guard_assignments": 5,
+        "pickups_offered": 2,
+        "reports_delivered": 184,
+        "reports_sent": 210
+      },
+      "max_stall": 5.03333333333343,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay/lqdm2-tdm-doom.json",
+      "map": "lqdm2",
+      "mode": "tdm",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        22,
+        20
+      ],
+      "stage": 0,
+      "teamplay": {
+        "ambushes": 8,
+        "assist_assignments": 156,
+        "focus_choices": 279,
+        "guard_assignments": 23,
+        "pickups_offered": 16,
+        "reports_delivered": 585,
+        "reports_sent": 674
+      },
+      "max_stall": 2.03333333333322,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay/lqdm3-ctf-doom.json",
+      "map": "lqdm3",
+      "mode": "ctf",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        0,
+        3
+      ],
+      "stage": 0,
+      "teamplay": {
+        "assist_assignments": 3,
+        "escort_assignments": 36,
+        "focus_choices": 110,
+        "guard_assignments": 5,
+        "pickups_offered": 2,
+        "reports_delivered": 365,
+        "reports_sent": 426
+      },
+      "max_stall": 2.03333333333322,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay/lqdm4-koth-doom.json",
+      "map": "lqdm4",
+      "mode": "koth",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        42,
+        38
+      ],
+      "stage": 0,
+      "teamplay": {
+        "assist_assignments": 21,
+        "focus_choices": 246,
+        "guard_assignments": 8,
+        "pickups_offered": 11,
+        "reports_delivered": 506,
+        "reports_sent": 666
+      },
+      "max_stall": 2.03333333333322,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay/lqdm6-ft-doom.json",
+      "map": "lqdm6",
+      "mode": "ft",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "teamplay": {
+        "assist_assignments": 16,
+        "focus_choices": 16,
+        "pickups_offered": 14,
+        "reports_delivered": 77,
+        "reports_sent": 84
+      },
+      "max_stall": 2.03333333333322,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay/lqdm8-if-doom.json",
+      "map": "lqdm8",
+      "mode": "if",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        5,
+        3
+      ],
+      "stage": 0,
+      "teamplay": {
+        "assist_assignments": 40,
+        "focus_choices": 22,
+        "guard_assignments": 25,
+        "reports_delivered": 157,
+        "reports_sent": 234
+      },
+      "max_stall": 2.03333333333333,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay/tf_ironspan-tf-quake.json",
+      "map": "tf_ironspan",
+      "mode": "tf",
+      "rules": "quake",
+      "seconds": 180.000000000035,
+      "score": [
+        0,
+        1
+      ],
+      "stage": 0,
+      "teamplay": {
+        "ambushes": 4,
+        "assist_assignments": 12,
+        "escort_assignments": 33,
+        "focus_choices": 365,
+        "guard_assignments": 20,
+        "pickups_offered": 5,
+        "reports_delivered": 650,
+        "reports_sent": 808
+      },
+      "max_stall": 129.266666666704,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay-final/as_frigate-as-ut99.json",
+      "map": "as_frigate",
+      "mode": "as",
+      "rules": "ut99",
+      "seconds": 180.000000000035,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 2,
+      "teamplay": {
+        "assist_assignments": 29,
+        "focus_choices": 177,
+        "guard_assignments": 10,
+        "pickups_offered": 25,
+        "reports_delivered": 364,
+        "reports_sent": 486
+      },
+      "max_stall": 1.01666666666661,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay-final/as_hislop-as-doom.json",
+      "map": "as_hislop",
+      "mode": "as",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        0,
+        1
+      ],
+      "stage": 2,
+      "teamplay": {
+        "assist_assignments": 7,
+        "focus_choices": 55,
+        "guard_assignments": 2,
+        "pickups_offered": 3,
+        "reports_delivered": 210,
+        "reports_sent": 238
+      },
+      "max_stall": 2.03333333333333,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay-final/lqdm3-ctf-doom.json",
+      "map": "lqdm3",
+      "mode": "ctf",
+      "rules": "doom",
+      "seconds": 180.000000000035,
+      "score": [
+        1,
+        6
+      ],
+      "stage": 0,
+      "teamplay": {
+        "assist_assignments": 1,
+        "escort_assignments": 34,
+        "focus_choices": 111,
+        "guard_assignments": 7,
+        "pickups_offered": 7,
+        "reports_delivered": 328,
+        "reports_sent": 398
+      },
+      "max_stall": 1.01666666666661,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay-final/tf_ironspan-tf-quake.json",
+      "map": "tf_ironspan",
+      "mode": "tf",
+      "rules": "quake",
+      "seconds": 180.000000000035,
+      "score": [
+        2,
+        0
+      ],
+      "stage": 0,
+      "teamplay": {
+        "ambushes": 2,
+        "assist_assignments": 2,
+        "escort_assignments": 36,
+        "focus_choices": 416,
+        "guard_assignments": 14,
+        "pickups_offered": 4,
+        "reports_delivered": 698,
+        "reports_sent": 846
+      },
+      "max_stall": 2.03333333333322,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay-profile/lqdm2.json",
+      "map": "lqdm2",
+      "mode": "tdm",
+      "rules": "doom",
+      "seconds": 120.016666666661,
+      "score": [
+        14,
+        13
+      ],
+      "stage": 0,
+      "teamplay": {
+        "ambushes": 4,
+        "assist_assignments": 108,
+        "focus_choices": 195,
+        "guard_assignments": 11,
+        "pickups_offered": 6,
+        "reports_delivered": 400,
+        "reports_sent": 465
+      },
+      "max_stall": 2.03333333333322,
+      "errors": []
+    },
+    {
+      "path": "test-results/bot-soak/teamplay-profile/tf_ironspan.json",
+      "map": "tf_ironspan",
+      "mode": "tf",
+      "rules": "quake",
+      "seconds": 300.000000000056,
+      "score": [
+        1,
+        1
+      ],
+      "stage": 0,
+      "teamplay": {
+        "ambushes": 1,
+        "assist_assignments": 3,
+        "escort_assignments": 53,
+        "focus_choices": 612,
+        "guard_assignments": 34,
+        "pickups_offered": 9,
+        "reports_delivered": 1137,
+        "reports_sent": 1354
+      },
+      "max_stall": 2.03333333333148,
+      "errors": []
+    }
+  ],
+  "source_sha256": {
+    "deathmatch/bots.gd": "02b91e17a587f6caea658d5ab7c867102e34b12efbdc6cc670b027641c3755b6",
+    "deathmatch/bot_ai/teamplay.gd": "3e56b807c6bb40131d85a5f9e2d6c479f8605a78c84ea15d9b4ce69d7048594c",
+    "deathmatch/arena.gd": "6dbfdc2403de40fab4bd6b45e2e6875de501f508f352df5eb66a956b450c6136",
+    "deathmatch/tests/bot_teamplay.gd": "c41d8567252fc9d0fa72df3ab91d2c0fe5346e12d8075a686943ca9a0dff717e",
+    "deathmatch/tests/bot_underpass.gd": "f956c76b4afebf99355864e20a996bc805c72604b6be4858331c8b0dc49e3a28"
+  }
+}

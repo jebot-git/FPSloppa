@@ -1,0 +1,3 @@
+-keep class org.fpsloppa.bhaptics.** { *; }
+-keep class com.nonpolynomial.btleplug.** { *; }
+-keep class io.github.gedgygedgy.rust.** { *; }

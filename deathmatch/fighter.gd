@@ -18,6 +18,11 @@ var visual_weapon := 2
 var alive_state := true
 var quake_movement := false
 var collision_height:=1.65
+var stance:="stand"
+var visual_grounded:=true
+var tracked_leg_animation:=false
+const CROUCH_SPEED:=.55
+const PRONE_SPEED:=.18
 var body_shape: CollisionShape3D
 var water_surface:=false
 var water_jump_used:=false
@@ -81,11 +86,24 @@ var speed_multiplier:=1.0
 func is_supported() -> bool:
 	return is_on_floor() or stepped_last_frame
 
-func torso_height() -> float:return minf(1.25,collision_height-.40)
+func torso_height() -> float:return maxf(.25,minf(1.25,collision_height-.40))
 func damage_top() -> float:return minf(1.40,collision_height-.25)
+func eye_height() -> float:return minf(1.48,collision_height-.17)
+func stance_speed() -> float:return PRONE_SPEED if stance=="prone" else CROUCH_SPEED if stance=="crouch" else 1.0
+func accuracy_scale() -> float:
+	if not is_supported() or in_water:return 1.0
+	return .45 if stance=="prone" else .75 if stance=="crouch" else 1.0
+func locomotion_state() -> Dictionary:
+	return {"height":collision_height,"grounded":is_supported(),"assist":tracked_leg_animation}
+func receive_locomotion(state: Dictionary) -> void:
+	update_height(float(state.get("height",xr_pose.get("height",1.65))),true)
+	visual_grounded=state.get("grounded",absf(visual_velocity.y)<.5)==true
+	tracked_leg_animation=state.get("assist",false)==true
 func update_height(requested: float,force: bool=false) -> void:
 	if not is_instance_valid(body_shape) or not is_finite(requested):return
-	requested=clampf(requested,.80,1.65)
+	requested=clampf(requested,.65,1.65)
+	# Derive posture from the actual collider, including blocked stand-up requests.
+	stance="prone" if collision_height<.80 else "crouch" if collision_height<1.60 else "stand"
 	if is_equal_approx(requested,collision_height):return
 	if requested>collision_height and not force:
 		var query:=PhysicsShapeQueryParameters3D.new();var capsule:=CapsuleShape3D.new();capsule.radius=.30;capsule.height=requested-collision_height+.60
@@ -93,6 +111,7 @@ func update_height(requested: float,force: bool=false) -> void:
 		query.shape=capsule;query.transform=global_transform*Transform3D(Basis.IDENTITY,Vector3.UP*((collision_height+requested)*.5-.30+.005));query.collision_mask=3;query.exclude=[get_rid()];query.margin=.001
 		if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return
 	collision_height=requested;body_shape.shape.height=requested;body_shape.position.y=requested*.5+.005
+	stance="prone" if collision_height<.80 else "crouch" if collision_height<1.60 else "stand"
 func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false, swim: Vector3=Vector3.ZERO) -> void:
 	rotation.y = yaw
 	water_boost=maxf(0,water_boost-delta)
@@ -102,15 +121,17 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	water_deep_time=water_deep_time+delta if underwater else 0.0
 	if water_deep_time>.25 or is_supported() and not in_water:water_jump_used=false
 	var direction := (basis * Vector3(input.x,0,input.y)).limit_length(1.0)
-	var speed := (5.2 if slow else 9.4)*speed_multiplier
+	var speed := (5.2 if slow else 9.4)*speed_multiplier*stance_speed()
 	var stroke: Vector3=(basis*swim.limit_length(1.0)) if in_water and swim.is_finite() else Vector3.ZERO
 	if in_water:
 		speed*=.65
 		direction=(direction+stroke).limit_length(1.0)
+	var raw_jump:=jump
+	if stance=="prone":jump=false;jump_queued=false
 	if jump and not jump_held:jump_queued=true
 	elif not jump:jump_queued=false
 	var grounded:=is_supported() and velocity.y<=0
-	var surface_jump:=quake_movement and not water_jump_used and (in_water and water_surface or water_exit_grace>0) and (jump or stroke.y>.15) and velocity.y>-.5
+	var surface_jump:=stance!="prone" and quake_movement and not water_jump_used and (in_water and water_surface or water_exit_grace>0) and (jump or stroke.y>.15) and velocity.y>-.5
 	var jumping:=quake_movement and jump_queued and grounded and not in_water or surface_jump
 	if surface_jump:water_jump_used=true;water_exit_grace=0;water_boost=.25
 	velocity.x-=blast_velocity.x;velocity.z-=blast_velocity.y
@@ -118,6 +139,11 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	if quake_movement and not in_water:
 		var horizontal:=QuakeMovement.horizontal(Vector2(velocity.x,velocity.z),Vector2(direction.x,direction.z),speed,grounded,jumping,delta)
 		velocity.x=horizontal.x;velocity.z=horizontal.y
+		# Stance changes also brake carried ground momentum; blast impulses are
+		# added separately below so rockets still push crouching/prone players.
+		if grounded and stance!="stand":
+			var capped:=Vector2(velocity.x,velocity.z).limit_length(speed)
+			velocity.x=capped.x;velocity.z=capped.y
 	else:
 		var acceleration := 65.0 if input.length()>.01 else 45.0
 		velocity.x = move_toward(velocity.x,direction.x*speed,acceleration*delta)
@@ -133,12 +159,12 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 		# Level strokes must not hold the swimmer at zero vertical velocity.
 		if absf(stroke.y)>.05 and not jump and water_boost<=0:velocity.y=move_toward(velocity.y,stroke.y*speed,24.0*delta)
 		velocity.y=maxf(velocity.y,-speed if stroke.y<-.05 else -2.0);jump_queued=false
-	jump_held = jump
+	jump_held = raw_jump
 	floor_grace=.1 if is_supported() else maxf(0,floor_grace-delta)
 	var was_grounded:=is_on_floor() or floor_grace>0
 	var previous_y:=position.y
 	var stepping:=was_grounded and velocity.y<=0 and not in_water
-	var step := .55 if quake_movement else .43
+	var step := .20 if stance=="prone" else .55 if quake_movement else .43
 	var travel := Vector3(velocity.x,0,velocity.z)*delta
 	stepped_last_frame=stepping and step_up(travel,step)
 	var impact_speed:=velocity.y
@@ -215,8 +241,8 @@ func show_alive(alive: bool, is_local: bool) -> void:
 	collision_layer = 2 if alive else 0
 	collision_mask=0 if spectator else 3
 	if avatar:
+		avatar.dead = not alive
 		if not avatar_hash.is_empty():
-			avatar.dead = not alive
 			avatar.process_mode = Node.PROCESS_MODE_DISABLED if frozen or is_local and not local_body_visible else Node.PROCESS_MODE_INHERIT
 			avatar.set_first_person(is_local and local_body_visible)
 		avatar.visible = alive and (not is_local or local_body_visible)
@@ -247,20 +273,27 @@ func _process(_delta: float) -> void:
 	var unarmed: bool=get_parent().lobby.active()
 	if avatar:
 		if avatar_hash.is_empty():
-			for weapon in avatar.find_children("WeaponModel","Node3D",true,false):weapon.visible=not unarmed
+			for weapon in avatar.find_children("WeaponModel","Node3D",true,false):weapon.visible=not unarmed and alive_state
 		else:
 			avatar.unarmed=unarmed
 			if unarmed:
 				if is_instance_valid(avatar.gun):avatar.gun.hide()
 				if is_instance_valid(avatar.offhand_gun):avatar.offhand_gun.hide()
-	if frozen or not avatar or avatar_hash.is_empty(): return
-	avatar.target_xr_pose=xr_pose
+	if frozen or not avatar: return
+	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<load("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
 	var displayed_velocity: Vector3=velocity if local_player else visual_velocity
+	if avatar_hash.is_empty():
+		avatar.animate(_delta,basis.inverse()*displayed_velocity,stance,collision_height,is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded,xr_pose.get("body",{}),tracked_leg_animation)
+		return
+	avatar.target_xr_pose=xr_pose
 	avatar.speed = Vector2(displayed_velocity.x,displayed_velocity.z).length()
 	avatar.movement = basis.inverse()*displayed_velocity
+	avatar.stance=stance
+	avatar.collider_height=collision_height
+	avatar.grounded=is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded
+	avatar.tracked_leg_animation=tracked_leg_animation
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)
-	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<2.5)
 
 func _restore_frost() -> void:
 	for entry in frost_originals:
@@ -271,7 +304,7 @@ func _restore_frost() -> void:
 func _apply_frost() -> void:
 	if not is_instance_valid(avatar):return
 	if not frost_material:
-		frost_material=ShaderMaterial.new();frost_material.shader=preload("res://deathmatch/effects/frozen.gdshader")
+		frost_material=ShaderMaterial.new();frost_material.shader=load("res://deathmatch/effects/frozen.gdshader")
 	var meshes: Array=avatar.find_children("*","MeshInstance3D",true,false)
 	if avatar is MeshInstance3D:meshes.append(avatar)
 	for mesh in meshes:
@@ -321,7 +354,7 @@ func set_cloak_visual(active: bool,friendly: bool,tint: Color,delta: float) -> v
 		return
 	if not cloak_active or cloak_avatar!=avatar:
 		cloak_meshes.clear();cloak_avatar=avatar;cloak_active=true
-		cloak_material=ShaderMaterial.new();cloak_material.shader=preload("res://deathmatch/avatars/cloak.gdshader")
+		cloak_material=ShaderMaterial.new();cloak_material.shader=load("res://deathmatch/avatars/cloak.gdshader")
 		for mesh in avatar.find_children("*","MeshInstance3D",true,false):
 			cloak_meshes.append({"node":mesh,"material":mesh.material_override,"shadow":mesh.cast_shadow})
 			mesh.material_override=cloak_material;mesh.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -352,7 +385,7 @@ func set_burning_visual(active: bool) -> void:
 		var mesh:=QuadMesh.new();mesh.size=Vector2(.9,1.8);fire_particles.mesh=mesh
 		var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
 		material.vertex_color_use_as_albedo=true;material.billboard_mode=BaseMaterial3D.BILLBOARD_PARTICLES;material.cull_mode=BaseMaterial3D.CULL_DISABLED
-		material.albedo_texture=preload("res://deathmatch/effects/flame.svg")
+		material.albedo_texture=load("res://deathmatch/effects/flame.svg")
 		fire_particles.material_override=material;fire_particles.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(fire_particles)
 	fire_particles.position.y=minf(.6,collision_height*.35)

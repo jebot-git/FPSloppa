@@ -1,0 +1,1560 @@
+{
+  "date": "2026-09-12",
+  "engine": "Godot 4.7.2 Linux headless",
+  "bots": 8,
+  "observer": "spectator",
+  "modes": [
+    "dm",
+    "tdm",
+    "ctf",
+    "koth",
+    "ig",
+    "ft",
+    "cc",
+    "if",
+    "tf",
+    "as"
+  ],
+  "maps": 18,
+  "bundled_maps": 17,
+  "five_minute_matrix_cases": 20,
+  "final_one_minute_cases": [
+    {
+      "case": "lqdm1-dm-doom",
+      "exit_code": 0,
+      "wall_seconds": 11.54,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 640,
+      "distance": 2998,
+      "stationary_percent": 1.61,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 7.265,
+      "physics_p95_ms": 1008.454
+    },
+    {
+      "case": "lqdm2-tdm-doom",
+      "exit_code": 0,
+      "wall_seconds": 10.13,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 573,
+      "distance": 2796,
+      "stationary_percent": 2.72,
+      "max_stall": 2.0,
+      "score": [
+        7,
+        8
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 6.715,
+      "physics_p95_ms": 1014.589
+    },
+    {
+      "case": "lqdm3-ctf-doom",
+      "exit_code": 0,
+      "wall_seconds": 9.58,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 255,
+      "distance": 2468,
+      "stationary_percent": 0.66,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        1
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 6.887,
+      "physics_p95_ms": 1051.072
+    },
+    {
+      "case": "lqdm4-koth-doom",
+      "exit_code": 0,
+      "wall_seconds": 9.93,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 329,
+      "distance": 1761,
+      "stationary_percent": 1.96,
+      "max_stall": 1.0,
+      "score": [
+        15,
+        14
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 7.85,
+      "physics_p95_ms": 1012.838
+    },
+    {
+      "case": "lqdm5-ig-doom",
+      "exit_code": 0,
+      "wall_seconds": 10.23,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 127,
+      "distance": 2854,
+      "stationary_percent": 4.2,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 7.524,
+      "physics_p95_ms": 1072.44
+    },
+    {
+      "case": "lqdm6-ft-doom",
+      "exit_code": 0,
+      "wall_seconds": 10.23,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 455,
+      "distance": 1825,
+      "stationary_percent": 2.95,
+      "max_stall": 3.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 7.165,
+      "physics_p95_ms": 1021.994
+    },
+    {
+      "case": "lqdm7-cc-doom",
+      "exit_code": 0,
+      "wall_seconds": 9.93,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 182,
+      "distance": 2948,
+      "stationary_percent": 5.08,
+      "max_stall": 2.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 5.358,
+      "physics_p95_ms": 1014.336
+    },
+    {
+      "case": "lqdm8-if-doom",
+      "exit_code": 0,
+      "wall_seconds": 7.08,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 71,
+      "distance": 1691,
+      "stationary_percent": 5.43,
+      "max_stall": 2.0,
+      "score": [
+        1,
+        1
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 4.532,
+      "physics_p95_ms": 1039.38
+    },
+    {
+      "case": "tf_ironspan-tf-doom",
+      "exit_code": 0,
+      "wall_seconds": 8.63,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 458,
+      "distance": 2349,
+      "stationary_percent": 0.92,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        1
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 5.477,
+      "physics_p95_ms": 995.338
+    },
+    {
+      "case": "as_hislop-as-doom",
+      "exit_code": 0,
+      "wall_seconds": 10.13,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 177,
+      "distance": 2576,
+      "stationary_percent": 5.94,
+      "max_stall": 5.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 2,
+      "checkpoint": 2,
+      "physics_p50_ms": 8.855,
+      "physics_p95_ms": 1052.87
+    },
+    {
+      "case": "as_frigate-as-ut99",
+      "exit_code": 0,
+      "wall_seconds": 10.03,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 221,
+      "distance": 2356,
+      "stationary_percent": 1.15,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 1,
+      "physics_p50_ms": 7.928,
+      "physics_p95_ms": 1008.324
+    },
+    {
+      "case": "dm_lasercade_slop-dm-quake",
+      "exit_code": 0,
+      "wall_seconds": 13.29,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 463,
+      "distance": 2762,
+      "stationary_percent": 1.56,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 8.621,
+      "physics_p95_ms": 1034.513
+    },
+    {
+      "case": "dm_auhdm2_slop-dm-ut99",
+      "exit_code": 0,
+      "wall_seconds": 10.43,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 382,
+      "distance": 2569,
+      "stationary_percent": 7.06,
+      "max_stall": 2.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 5.771,
+      "physics_p95_ms": 1038.732
+    },
+    {
+      "case": "dm_anctomb_slop-dm-doom",
+      "exit_code": 0,
+      "wall_seconds": 9.48,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 390,
+      "distance": 3355,
+      "stationary_percent": 8.27,
+      "max_stall": 2.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 4.755,
+      "physics_p95_ms": 1012.953
+    },
+    {
+      "case": "dm_anchall_slop-dm-quake",
+      "exit_code": 0,
+      "wall_seconds": 10.33,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 379,
+      "distance": 2031,
+      "stationary_percent": 10.74,
+      "max_stall": 3.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 4.91,
+      "physics_p95_ms": 1046.235
+    },
+    {
+      "case": "dm_battlef_slop-dm-ut99",
+      "exit_code": 0,
+      "wall_seconds": 10.03,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 266,
+      "distance": 2072,
+      "stationary_percent": 6.21,
+      "max_stall": 12.2,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 6.248,
+      "physics_p95_ms": 1010.66
+    },
+    {
+      "case": "as_hislop_tiny-as-ut99",
+      "exit_code": 0,
+      "wall_seconds": 9.93,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 209,
+      "distance": 2178,
+      "stationary_percent": 3.22,
+      "max_stall": 2.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 2,
+      "checkpoint": 2,
+      "physics_p50_ms": 7.343,
+      "physics_p95_ms": 1034.101
+    },
+    {
+      "case": "as_frigate_tiny-as-quake",
+      "exit_code": 0,
+      "wall_seconds": 9.03,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 149,
+      "distance": 2030,
+      "stationary_percent": 1.59,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 2,
+      "checkpoint": 1,
+      "physics_p50_ms": 7.62,
+      "physics_p95_ms": 1006.678
+    },
+    {
+      "case": "tf_ironspan-tf-quake",
+      "exit_code": 0,
+      "wall_seconds": 10.23,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 726,
+      "distance": 2418,
+      "stationary_percent": 3.42,
+      "max_stall": 2.0,
+      "score": [
+        0,
+        0
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 5.841,
+      "physics_p95_ms": 1000.473
+    },
+    {
+      "case": "tf_ironspan-tf-ut99",
+      "exit_code": 0,
+      "wall_seconds": 9.28,
+      "runtime_errors": [],
+      "seconds": 60.0,
+      "shots": 491,
+      "distance": 2536,
+      "stationary_percent": 2.31,
+      "max_stall": 1.0,
+      "score": [
+        0,
+        1
+      ],
+      "stage": 0,
+      "checkpoint": 0,
+      "physics_p50_ms": 5.596,
+      "physics_p95_ms": 1010.427
+    }
+  ],
+  "completed_simulated_minutes": 367.50888888895025,
+  "comparisons": [
+    {
+      "case": "lqdm1-dm-doom",
+      "baseline": {
+        "case": "lqdm1-dm-doom",
+        "exit_code": 0,
+        "wall_seconds": 46.85,
+        "seconds": 300.0,
+        "shots": 2981,
+        "distance": 14518,
+        "stationary_percent": 3.47,
+        "max_stall": 17.3,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.46,
+        "physics_p95_ms": 8.338
+      },
+      "after": {
+        "case": "lqdm1-dm-doom",
+        "exit_code": 0,
+        "wall_seconds": 53.16,
+        "seconds": 300.0,
+        "shots": 3082,
+        "distance": 14758,
+        "stationary_percent": 2.23,
+        "max_stall": 3.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.719,
+        "physics_p95_ms": 8.476,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm1-dm-doom.json"
+    },
+    {
+      "case": "lqdm2-tdm-doom",
+      "baseline": {
+        "case": "lqdm2-tdm-doom",
+        "exit_code": 0,
+        "wall_seconds": 43.24,
+        "seconds": 300.0,
+        "shots": 2603,
+        "distance": 14636,
+        "stationary_percent": 4.98,
+        "max_stall": 4.1,
+        "score": [
+          41,
+          33
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.682,
+        "physics_p95_ms": 8.305
+      },
+      "after": {
+        "case": "lqdm2-tdm-doom",
+        "exit_code": 0,
+        "wall_seconds": 50.31,
+        "seconds": 300.0,
+        "shots": 2469,
+        "distance": 14706,
+        "stationary_percent": 3.59,
+        "max_stall": 5.0,
+        "score": [
+          37,
+          39
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.068,
+        "physics_p95_ms": 8.567,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm2-tdm-doom.json"
+    },
+    {
+      "case": "lqdm3-ctf-doom",
+      "baseline": {
+        "case": "lqdm3-ctf-doom",
+        "exit_code": 0,
+        "wall_seconds": 39.04,
+        "seconds": 300.0,
+        "shots": 951,
+        "distance": 8430,
+        "stationary_percent": 3.55,
+        "max_stall": 5.0,
+        "score": [
+          0,
+          6
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.439,
+        "physics_p95_ms": 10.623
+      },
+      "after": {
+        "case": "lqdm3-ctf-doom",
+        "exit_code": 0,
+        "wall_seconds": 50.56,
+        "seconds": 300.0,
+        "shots": 885,
+        "distance": 8578,
+        "stationary_percent": 2.48,
+        "max_stall": 1.0,
+        "score": [
+          1,
+          6
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 7.7,
+        "physics_p95_ms": 12.107,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm3-ctf-doom.json"
+    },
+    {
+      "case": "lqdm4-koth-doom",
+      "baseline": {
+        "case": "lqdm4-koth-doom",
+        "exit_code": 0,
+        "wall_seconds": 43.59,
+        "seconds": 300.0,
+        "shots": 1808,
+        "distance": 8701,
+        "stationary_percent": 3.47,
+        "max_stall": 3.0,
+        "score": [
+          39,
+          81
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.759,
+        "physics_p95_ms": 9.866
+      },
+      "after": {
+        "case": "lqdm4-koth-doom",
+        "exit_code": 0,
+        "wall_seconds": 58.28,
+        "seconds": 300.0,
+        "shots": 1730,
+        "distance": 9157,
+        "stationary_percent": 3.15,
+        "max_stall": 2.0,
+        "score": [
+          91,
+          69
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 7.03,
+        "physics_p95_ms": 9.615,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm4-koth-doom.json"
+    },
+    {
+      "case": "lqdm5-ig-doom",
+      "baseline": {
+        "case": "lqdm5-ig-doom",
+        "exit_code": 0,
+        "wall_seconds": 42.49,
+        "seconds": 300.0,
+        "shots": 635,
+        "distance": 13768,
+        "stationary_percent": 4.5,
+        "max_stall": 2.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.675,
+        "physics_p95_ms": 11.447
+      },
+      "after": {
+        "case": "lqdm5-ig-doom",
+        "exit_code": 0,
+        "wall_seconds": 53.92,
+        "seconds": 300.0,
+        "shots": 617,
+        "distance": 13351,
+        "stationary_percent": 5.67,
+        "max_stall": 2.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.702,
+        "physics_p95_ms": 14.106,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm5-ig-doom.json"
+    },
+    {
+      "case": "lqdm6-ft-doom",
+      "baseline": {
+        "case": "lqdm6-ft-doom",
+        "exit_code": 0,
+        "wall_seconds": 37.08,
+        "seconds": 300.0,
+        "shots": 1113,
+        "distance": 6599,
+        "stationary_percent": 3.49,
+        "max_stall": 4.0,
+        "score": [
+          1,
+          4
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.569,
+        "physics_p95_ms": 17.873
+      },
+      "after": {
+        "case": "lqdm6-ft-doom",
+        "exit_code": 0,
+        "wall_seconds": 42.59,
+        "seconds": 300.0,
+        "shots": 1483,
+        "distance": 8009,
+        "stationary_percent": 2.35,
+        "max_stall": 3.0,
+        "score": [
+          0,
+          1
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.813,
+        "physics_p95_ms": 12.989,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm6-ft-doom.json"
+    },
+    {
+      "case": "lqdm7-cc-doom",
+      "baseline": {
+        "case": "lqdm7-cc-doom",
+        "exit_code": 0,
+        "wall_seconds": 44.55,
+        "seconds": 300.0,
+        "shots": 427,
+        "distance": 15159,
+        "stationary_percent": 4.76,
+        "max_stall": 4.1,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.633,
+        "physics_p95_ms": 8.732
+      },
+      "after": {
+        "case": "lqdm7-cc-doom",
+        "exit_code": 0,
+        "wall_seconds": 47.2,
+        "seconds": 300.0,
+        "shots": 880,
+        "distance": 14251,
+        "stationary_percent": 4.5,
+        "max_stall": 2.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.155,
+        "physics_p95_ms": 9.806,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm7-cc-doom.json"
+    },
+    {
+      "case": "lqdm8-if-doom",
+      "baseline": {
+        "case": "lqdm8-if-doom",
+        "exit_code": 0,
+        "wall_seconds": 29.02,
+        "seconds": 300.0,
+        "shots": 277,
+        "distance": 8418,
+        "stationary_percent": 6.78,
+        "max_stall": 3.0,
+        "score": [
+          12,
+          2
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.01,
+        "physics_p95_ms": 33.746
+      },
+      "after": {
+        "case": "lqdm8-if-doom",
+        "exit_code": 0,
+        "wall_seconds": 31.32,
+        "seconds": 300.0,
+        "shots": 313,
+        "distance": 7259,
+        "stationary_percent": 6.81,
+        "max_stall": 3.0,
+        "score": [
+          7,
+          10
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.677,
+        "physics_p95_ms": 13.368,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/lqdm8-if-doom.json"
+    },
+    {
+      "case": "tf_ironspan-tf-doom",
+      "baseline": {
+        "case": "tf_ironspan-tf-doom",
+        "exit_code": 0,
+        "wall_seconds": 33.58,
+        "seconds": 300.0,
+        "shots": 1980,
+        "distance": 10870,
+        "stationary_percent": 7.93,
+        "max_stall": 16.3,
+        "score": [
+          0,
+          3
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 4.271,
+        "physics_p95_ms": 33.818
+      },
+      "after": {
+        "case": "tf_ironspan-tf-doom",
+        "exit_code": 0,
+        "wall_seconds": 40.34,
+        "runtime_errors": [],
+        "seconds": 300.0,
+        "shots": 2002,
+        "distance": 10817,
+        "stationary_percent": 1.75,
+        "max_stall": 3.0,
+        "score": [
+          0,
+          4
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.453,
+        "physics_p95_ms": 7.295,
+        "label": "isolated-final"
+      },
+      "raw": "test-results/bot-soak/isolated-final/tf_ironspan-tf-doom.json"
+    },
+    {
+      "case": "as_hislop-as-doom",
+      "baseline": {
+        "case": "as_hislop-as-doom",
+        "exit_code": 0,
+        "wall_seconds": 40.24,
+        "seconds": 300.0,
+        "shots": 900,
+        "distance": 11829,
+        "stationary_percent": 6.7,
+        "max_stall": 15.2,
+        "score": [
+          1,
+          1
+        ],
+        "stage": 2,
+        "checkpoint": 2,
+        "physics_p50_ms": 8.409,
+        "physics_p95_ms": 23.035
+      },
+      "after": {
+        "case": "as_hislop-as-doom",
+        "exit_code": 0,
+        "wall_seconds": 63.44,
+        "seconds": 300.0,
+        "shots": 753,
+        "distance": 12916,
+        "stationary_percent": 4.35,
+        "max_stall": 5.0,
+        "score": [
+          1,
+          1
+        ],
+        "stage": 2,
+        "checkpoint": 2,
+        "physics_p50_ms": 14.048,
+        "physics_p95_ms": 21.515,
+        "label": "final-navigation"
+      },
+      "raw": "test-results/bot-soak/final-navigation/as_hislop-as-doom.json"
+    },
+    {
+      "case": "as_frigate-as-ut99",
+      "baseline": {
+        "case": "as_frigate-as-ut99",
+        "exit_code": 0,
+        "wall_seconds": 37.18,
+        "seconds": 300.0,
+        "shots": 1219,
+        "distance": 11439,
+        "stationary_percent": 2.66,
+        "max_stall": 2.0,
+        "score": [
+          0,
+          1
+        ],
+        "stage": 2,
+        "checkpoint": 1,
+        "physics_p50_ms": 6.94,
+        "physics_p95_ms": 20.47
+      },
+      "after": {
+        "case": "as_frigate-as-ut99",
+        "exit_code": 0,
+        "wall_seconds": 49.96,
+        "seconds": 300.0,
+        "shots": 1183,
+        "distance": 10882,
+        "stationary_percent": 2.0,
+        "max_stall": 2.0,
+        "score": [
+          1,
+          1
+        ],
+        "stage": 2,
+        "checkpoint": 1,
+        "physics_p50_ms": 9.279,
+        "physics_p95_ms": 13.233,
+        "label": "final-navigation"
+      },
+      "raw": "test-results/bot-soak/final-navigation/as_frigate-as-ut99.json"
+    },
+    {
+      "case": "dm_lasercade_slop-dm-quake",
+      "baseline": {
+        "case": "dm_lasercade_slop-dm-quake",
+        "exit_code": 0,
+        "wall_seconds": 57.27,
+        "seconds": 300.0,
+        "shots": 2491,
+        "distance": 12430,
+        "stationary_percent": 2.31,
+        "max_stall": 7.1,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 8.26,
+        "physics_p95_ms": 12.488
+      },
+      "after": {
+        "case": "dm_lasercade_slop-dm-quake",
+        "exit_code": 0,
+        "wall_seconds": 64.64,
+        "seconds": 300.0,
+        "shots": 2274,
+        "distance": 12173,
+        "stationary_percent": 2.7,
+        "max_stall": 3.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 8.545,
+        "physics_p95_ms": 15.806,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/dm_lasercade_slop-dm-quake.json"
+    },
+    {
+      "case": "dm_auhdm2_slop-dm-ut99",
+      "baseline": {
+        "case": "dm_auhdm2_slop-dm-ut99",
+        "exit_code": 0,
+        "wall_seconds": 48.05,
+        "seconds": 300.0,
+        "shots": 1612,
+        "distance": 12038,
+        "stationary_percent": 5.8,
+        "max_stall": 4.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.971,
+        "physics_p95_ms": 10.402
+      },
+      "after": {
+        "case": "dm_auhdm2_slop-dm-ut99",
+        "exit_code": 0,
+        "wall_seconds": 53.33,
+        "runtime_errors": [],
+        "seconds": 300.0,
+        "shots": 1931,
+        "distance": 13634,
+        "stationary_percent": 5.47,
+        "max_stall": 2.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.855,
+        "physics_p95_ms": 13.086,
+        "label": "isolated-final"
+      },
+      "raw": "test-results/bot-soak/isolated-final/dm_auhdm2_slop-dm-ut99.json"
+    },
+    {
+      "case": "dm_anctomb_slop-dm-doom",
+      "baseline": {
+        "case": "dm_anctomb_slop-dm-doom",
+        "exit_code": 0,
+        "wall_seconds": 49.26,
+        "seconds": 300.0,
+        "shots": 1627,
+        "distance": 13323,
+        "stationary_percent": 9.01,
+        "max_stall": 3.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.68,
+        "physics_p95_ms": 8.73
+      },
+      "after": {
+        "case": "dm_anctomb_slop-dm-doom",
+        "exit_code": 0,
+        "wall_seconds": 52.67,
+        "seconds": 300.0,
+        "shots": 1789,
+        "distance": 12710,
+        "stationary_percent": 9.97,
+        "max_stall": 3.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.727,
+        "physics_p95_ms": 7.933,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/dm_anctomb_slop-dm-doom.json"
+    },
+    {
+      "case": "dm_anchall_slop-dm-quake",
+      "baseline": {
+        "case": "dm_anchall_slop-dm-quake",
+        "exit_code": 0,
+        "wall_seconds": 58.13,
+        "seconds": 300.0,
+        "shots": 2193,
+        "distance": 12077,
+        "stationary_percent": 8.21,
+        "max_stall": 5.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.628,
+        "physics_p95_ms": 20.068
+      },
+      "after": {
+        "case": "dm_anchall_slop-dm-quake",
+        "exit_code": 0,
+        "wall_seconds": 58.18,
+        "seconds": 300.0,
+        "shots": 2157,
+        "distance": 11239,
+        "stationary_percent": 7.21,
+        "max_stall": 8.0,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.793,
+        "physics_p95_ms": 11.542,
+        "label": "current"
+      },
+      "raw": "test-results/bot-soak/current/dm_anchall_slop-dm-quake.json"
+    },
+    {
+      "case": "dm_battlef_slop-dm-ut99",
+      "baseline": {
+        "case": "dm_battlef_slop-dm-ut99",
+        "exit_code": 0,
+        "wall_seconds": 48.36,
+        "seconds": 300.0,
+        "shots": 1995,
+        "distance": 10463,
+        "stationary_percent": 5.28,
+        "max_stall": 4.1,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.965,
+        "physics_p95_ms": 8.653
+      },
+      "after": {
+        "case": "dm_battlef_slop-dm-ut99",
+        "exit_code": 0,
+        "wall_seconds": 36.33,
+        "runtime_errors": [],
+        "seconds": 300.0,
+        "shots": 1522,
+        "distance": 9338,
+        "stationary_percent": 5.46,
+        "max_stall": 12.2,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.024,
+        "physics_p95_ms": 6.882,
+        "label": "recovery-final"
+      },
+      "raw": "test-results/bot-soak/recovery-final/dm_battlef_slop-dm-ut99.json"
+    },
+    {
+      "case": "as_hislop_tiny-as-ut99",
+      "baseline": {
+        "case": "as_hislop_tiny-as-ut99",
+        "exit_code": 0,
+        "wall_seconds": 58.57,
+        "seconds": 300.0,
+        "shots": 203,
+        "distance": 8331,
+        "stationary_percent": 12.29,
+        "max_stall": 205.3,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 1,
+        "physics_p50_ms": 6.963,
+        "physics_p95_ms": 9.934
+      },
+      "after": {
+        "case": "as_hislop_tiny-as-ut99",
+        "exit_code": 0,
+        "wall_seconds": 47.35,
+        "seconds": 300.0,
+        "shots": 847,
+        "distance": 9682,
+        "stationary_percent": 3.15,
+        "max_stall": 2.0,
+        "score": [
+          1,
+          1
+        ],
+        "stage": 2,
+        "checkpoint": 2,
+        "physics_p50_ms": 9.42,
+        "physics_p95_ms": 20.596,
+        "label": "final-navigation"
+      },
+      "raw": "test-results/bot-soak/final-navigation/as_hislop_tiny-as-ut99.json"
+    },
+    {
+      "case": "as_frigate_tiny-as-quake",
+      "baseline": {
+        "case": "as_frigate_tiny-as-quake",
+        "exit_code": 0,
+        "wall_seconds": 39.59,
+        "seconds": 300.0,
+        "shots": 965,
+        "distance": 9090,
+        "stationary_percent": 4.46,
+        "max_stall": 6.0,
+        "score": [
+          1,
+          0
+        ],
+        "stage": 2,
+        "checkpoint": 1,
+        "physics_p50_ms": 7.289,
+        "physics_p95_ms": 21.101
+      },
+      "after": {
+        "case": "as_frigate_tiny-as-quake",
+        "exit_code": 0,
+        "wall_seconds": 41.29,
+        "seconds": 300.0,
+        "shots": 859,
+        "distance": 9397,
+        "stationary_percent": 2.66,
+        "max_stall": 1.0,
+        "score": [
+          1,
+          1
+        ],
+        "stage": 2,
+        "checkpoint": 1,
+        "physics_p50_ms": 7.538,
+        "physics_p95_ms": 18.898,
+        "label": "final-navigation"
+      },
+      "raw": "test-results/bot-soak/final-navigation/as_frigate_tiny-as-quake.json"
+    },
+    {
+      "case": "tf_ironspan-tf-quake",
+      "baseline": {
+        "case": "tf_ironspan-tf-quake",
+        "exit_code": 0,
+        "wall_seconds": 42.94,
+        "seconds": 300.0,
+        "shots": 2403,
+        "distance": 10280,
+        "stationary_percent": 16.77,
+        "max_stall": 151.7,
+        "score": [
+          1,
+          2
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 5.247,
+        "physics_p95_ms": 6.811
+      },
+      "after": {
+        "case": "tf_ironspan-tf-quake",
+        "exit_code": 0,
+        "wall_seconds": 51.1,
+        "runtime_errors": [],
+        "seconds": 300.0,
+        "shots": 3480,
+        "distance": 11538,
+        "stationary_percent": 2.14,
+        "max_stall": 3.0,
+        "score": [
+          1,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.045,
+        "physics_p95_ms": 8.411,
+        "label": "isolated-final"
+      },
+      "raw": "test-results/bot-soak/isolated-final/tf_ironspan-tf-quake.json"
+    },
+    {
+      "case": "tf_ironspan-tf-ut99",
+      "baseline": {
+        "case": "tf_ironspan-tf-ut99",
+        "exit_code": 0,
+        "wall_seconds": 37.28,
+        "seconds": 300.0,
+        "shots": 1261,
+        "distance": 8862,
+        "stationary_percent": 28.47,
+        "max_stall": 28.5,
+        "score": [
+          0,
+          0
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 4.59,
+        "physics_p95_ms": 6.474
+      },
+      "after": {
+        "case": "tf_ironspan-tf-ut99",
+        "exit_code": 0,
+        "wall_seconds": 50.11,
+        "runtime_errors": [],
+        "seconds": 300.0,
+        "shots": 2452,
+        "distance": 11572,
+        "stationary_percent": 2.3,
+        "max_stall": 2.0,
+        "score": [
+          0,
+          2
+        ],
+        "stage": 0,
+        "checkpoint": 0,
+        "physics_p50_ms": 6.549,
+        "physics_p95_ms": 8.988,
+        "label": "isolated-final"
+      },
+      "raw": "test-results/bot-soak/isolated-final/tf_ironspan-tf-ut99.json"
+    }
+  ],
+  "regressions": [
+    {
+      "test": "bot_tactics",
+      "exit_code": 0,
+      "passes": 27,
+      "errors": []
+    },
+    {
+      "test": "bot_navigation",
+      "exit_code": 0,
+      "passes": 4,
+      "errors": []
+    },
+    {
+      "test": "bot_movement",
+      "exit_code": 0,
+      "passes": 6,
+      "errors": []
+    },
+    {
+      "test": "bot_traversal",
+      "exit_code": 0,
+      "passes": 0,
+      "errors": []
+    },
+    {
+      "test": "bot_assault",
+      "exit_code": 0,
+      "passes": 0,
+      "errors": []
+    },
+    {
+      "test": "bot_humanization",
+      "exit_code": 0,
+      "passes": 12,
+      "errors": []
+    },
+    {
+      "test": "bot_weapons",
+      "exit_code": 0,
+      "passes": 36,
+      "errors": []
+    }
+  ],
+  "combat_slot_trials": [
+    {
+      "alt_ticks": 0,
+      "damage": 158,
+      "name": "FIST",
+      "rules": "doom",
+      "shots": 14,
+      "weapon": 0
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 796,
+      "name": "CHAINSAW",
+      "rules": "doom",
+      "shots": 68,
+      "weapon": 1
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 138,
+      "name": "DUAL PISTOLS",
+      "rules": "doom",
+      "shots": 20,
+      "weapon": 2
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 280,
+      "name": "SHOTGUN",
+      "rules": "doom",
+      "shots": 8,
+      "weapon": 3
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 220,
+      "name": "SUPER SHOTGUN",
+      "rules": "doom",
+      "shots": 5,
+      "weapon": 4
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 360,
+      "name": "CHAINGUN",
+      "rules": "doom",
+      "shots": 69,
+      "weapon": 5
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 2764,
+      "name": "ROCKET LAUNCHER",
+      "rules": "doom",
+      "shots": 14,
+      "weapon": 6
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 1725,
+      "name": "PLASMA RIFLE",
+      "rules": "doom",
+      "shots": 80,
+      "weapon": 7
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 2619,
+      "name": "BFG 9000",
+      "rules": "doom",
+      "shots": 5,
+      "weapon": 8
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 60000,
+      "name": "RAILGUN",
+      "rules": "doom",
+      "shots": 6,
+      "weapon": 9
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 320,
+      "name": "AXE",
+      "rules": "quake",
+      "shots": 16,
+      "weapon": 0
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 320,
+      "name": "AXE",
+      "rules": "quake",
+      "shots": 16,
+      "weapon": 1
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 292,
+      "name": "SHOTGUN",
+      "rules": "quake",
+      "shots": 16,
+      "weapon": 2
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 92,
+      "name": "SUPER SHOTGUN",
+      "rules": "quake",
+      "shots": 12,
+      "weapon": 3
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 1508,
+      "name": "GRENADE LAUNCHER",
+      "rules": "quake",
+      "shots": 14,
+      "weapon": 4
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 594,
+      "name": "NAILGUN",
+      "rules": "quake",
+      "shots": 69,
+      "weapon": 5
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 1109,
+      "name": "ROCKET LAUNCHER",
+      "rules": "quake",
+      "shots": 10,
+      "weapon": 6
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 1188,
+      "name": "SUPER NAILGUN",
+      "rules": "quake",
+      "shots": 69,
+      "weapon": 7
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 2070,
+      "name": "LIGHTNING GUN",
+      "rules": "quake",
+      "shots": 69,
+      "weapon": 8
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 60000,
+      "name": "RAILGUN",
+      "rules": "quake",
+      "shots": 6,
+      "weapon": 9
+    },
+    {
+      "alt_ticks": 477,
+      "damage": 480,
+      "name": "IMPACT HAMMER",
+      "rules": "ut99",
+      "shots": 16,
+      "weapon": 0
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 323,
+      "name": "BIO RIFLE",
+      "rules": "ut99",
+      "shots": 22,
+      "weapon": 1
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 340,
+      "name": "ENFORCER",
+      "rules": "ut99",
+      "shots": 20,
+      "weapon": 2
+    },
+    {
+      "alt_ticks": 239,
+      "damage": 420,
+      "name": "SHOCK RIFLE",
+      "rules": "ut99",
+      "shots": 12,
+      "weapon": 3
+    },
+    {
+      "alt_ticks": 480,
+      "damage": 835,
+      "name": "FLAK CANNON",
+      "rules": "ut99",
+      "shots": 9,
+      "weapon": 4
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 621,
+      "name": "MINIGUN",
+      "rules": "ut99",
+      "shots": 69,
+      "weapon": 5
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 920,
+      "name": "ROCKET LAUNCHER",
+      "rules": "ut99",
+      "shots": 6,
+      "weapon": 6
+    },
+    {
+      "alt_ticks": 480,
+      "damage": 828,
+      "name": "PULSE GUN",
+      "rules": "ut99",
+      "shots": 69,
+      "weapon": 7
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 2945,
+      "name": "REDEEMER",
+      "rules": "ut99",
+      "shots": 4,
+      "weapon": 8
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 595,
+      "name": "SNIPER RIFLE",
+      "rules": "ut99",
+      "shots": 12,
+      "weapon": 9
+    },
+    {
+      "alt_ticks": 0,
+      "damage": 750,
+      "name": "RIPPER",
+      "rules": "ut99",
+      "shots": 22,
+      "weapon": 10
+    }
+  ],
+  "steady_arena_tick_ms": {
+    "baseline": {
+      "p50": 1.68,
+      "p95": 3.636
+    },
+    "current": {
+      "p50": 2.399,
+      "p95": 4.94
+    }
+  },
+  "stationary_percent": {
+    "baseline": 7.406160102227615,
+    "after": 3.9518237641360705
+  },
+  "static_memory_change_after_first_minute_mib": {
+    "min": 0.25365447998046875,
+    "max": 0.3814849853515625
+  },
+  "peak_sampled_projectiles": 38,
+  "sources": {
+    "deathmatch/bots.gd": "43a6d9f82ae6b93168b5786eb6500339f0a015e91f5359fee4b5552f49b63662",
+    "deathmatch/bot_ai/navigation.gd": "949b1db93f150efc95d07d48403170e618d098c42a8bea94936cbb51dfb43751",
+    "deathmatch/tests/bot_soak.gd": "e3d1b05432f0914a27ba8c3be413b19cdb9a29f8e63a9f51cb4882a4351a4801",
+    "deathmatch/tests/run_bot_soak.py": "3ece15b9379fb7aaf8fe441080b9fe508d2bf6ca478e0568cff20385e64abeae"
+  },
+  "interruptions": [
+    "One candidate run started during an intermediate script edit and timed out after a parse error; fixed and repeated.",
+    "Two shared-runtime tests exited with SIGBUS at 18:37:28 while the bHaptics Linux library was replaced at 18:37:28.696. Both repeated successfully with copied scripts and native libraries."
+  ],
+  "scope": [
+    "Practice authority with real movement, collision, ammo, damage, abilities and objectives; no network/VR clients.",
+    "Weapon scoring received a complete 20-case one-minute sweep; the subsequent low-step recovery refinement received a dedicated five-minute BattleF rerun and a new regression assertion. Longer comparisons precede the scoring scheduling change.",
+    "No guarantee of all custom BSP routes; no subjective human or VR playtest; planned shock combos and guided Redeemer tactics remain future work."
+  ],
+  "remaining_navigation_issue": "BattleF still recorded a 12.2-second low-ledge pause in the final focused rerun; Anchall had an 8-second pause in its longer trial."
+}

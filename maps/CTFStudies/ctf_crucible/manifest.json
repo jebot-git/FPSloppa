@@ -1,0 +1,235 @@
+{
+  "id": "ctf_crucible",
+  "title": "Crucible | The Kiln study",
+  "original_reference": "ctf2",
+  "sha256": "9953b1517ece867d1f1123252f8f9ab9d9b99b7be9dcd114d061fb6dedbe18d0",
+  "source_sha256": "983054a9ecc535eead48a14cdbf3a2b23ef44186d0c282fe07c815c9e28b9ba6",
+  "brushes": 75,
+  "rooms": 21,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "flags": [
+    [
+      -1312,
+      0,
+      88
+    ],
+    [
+      1312,
+      0,
+      88
+    ]
+  ],
+  "spawns": [
+    [
+      [
+        -768,
+        240,
+        24
+      ],
+      [
+        -768,
+        -240,
+        24
+      ],
+      [
+        -896,
+        240,
+        24
+      ],
+      [
+        -896,
+        -240,
+        24
+      ],
+      [
+        -1056,
+        240,
+        24
+      ],
+      [
+        -1056,
+        -240,
+        24
+      ],
+      [
+        -1184,
+        240,
+        24
+      ],
+      [
+        -1184,
+        -240,
+        24
+      ]
+    ],
+    [
+      [
+        768,
+        -240,
+        24
+      ],
+      [
+        768,
+        240,
+        24
+      ],
+      [
+        896,
+        -240,
+        24
+      ],
+      [
+        896,
+        240,
+        24
+      ],
+      [
+        1056,
+        -240,
+        24
+      ],
+      [
+        1056,
+        240,
+        24
+      ],
+      [
+        1184,
+        -240,
+        24
+      ],
+      [
+        1184,
+        240,
+        24
+      ]
+    ]
+  ],
+  "views": [
+    [
+      [
+        520,
+        320,
+        170
+      ],
+      [
+        -400,
+        -160,
+        40
+      ],
+      "upper hall"
+    ],
+    [
+      [
+        1184,
+        128,
+        160
+      ],
+      [
+        1312,
+        0,
+        88
+      ],
+      "shrine"
+    ]
+  ],
+  "landmarks": [
+    {
+      "name": "Divided furnace hall",
+      "center": [
+        0.0,
+        0.0,
+        96.0
+      ]
+    },
+    {
+      "name": "Lower flank",
+      "center": [
+        0.0,
+        -544.0,
+        -64.0
+      ]
+    },
+    {
+      "name": "Lower flank",
+      "center": [
+        0.0,
+        544.0,
+        -64.0
+      ]
+    },
+    {
+      "name": "Base shrine",
+      "center": [
+        -960.0,
+        0.0,
+        176.0
+      ]
+    },
+    {
+      "name": "Flag alcove",
+      "center": [
+        -1296.0,
+        0.0,
+        208.0
+      ]
+    },
+    {
+      "name": "Base shrine",
+      "center": [
+        960.0,
+        0.0,
+        176.0
+      ]
+    },
+    {
+      "name": "Flag alcove",
+      "center": [
+        1296.0,
+        0.0,
+        208.0
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "name": "lower flank",
+      "points": [
+        [
+          1024,
+          544,
+          0
+        ],
+        [
+          640,
+          544,
+          -132
+        ],
+        [
+          0,
+          544,
+          -192
+        ],
+        [
+          -640,
+          544,
+          -132
+        ],
+        [
+          -1024,
+          544,
+          0
+        ]
+      ]
+    }
+  ],
+  "geometry": "newly authored; no original BSP geometry used as build input",
+  "textures": "../texture-sources.json",
+  "lighting_rebake": {
+    "original_sha256": "2c650931ea3f379e8ad9b359f23ff158401c684df01230557376f10e5daf5af9",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  }
+}

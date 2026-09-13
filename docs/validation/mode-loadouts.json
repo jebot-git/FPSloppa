@@ -1,0 +1,553 @@
+{
+  "passed": true,
+  "date": "2026-09-13",
+  "protocol": "fpsloppa-35-mode-loadouts",
+  "maps": [
+    {
+      "id": "as_hislop",
+      "old_sha256": "93a65a6f34287b1ac41adc02287455c8fd230e61c201ad3dc4b8191058b7c967",
+      "sha256": "f3e408c1715cd51633e896cdb914deafbcd9c50f9a59ad663122fb94318c1da0",
+      "geometry_lighting_unchanged": true,
+      "roof_guards": 2,
+      "total": 62,
+      "weapons": {
+        "3": 3,
+        "7": 2,
+        "10": 4,
+        "5": 2,
+        "4": 2,
+        "6": 4,
+        "9": 1
+      },
+      "ammo": {
+        "3": 7,
+        "7": 5,
+        "10": 3,
+        "5": 4,
+        "4": 4,
+        "6": 5,
+        "9": 1
+      }
+    },
+    {
+      "id": "as_frigate",
+      "old_sha256": "555c0b1b012f6791dabcf3c488613e6c6d7da58be0d3597629800b67e9706c9e",
+      "sha256": "9988634fb175ece87ad5381f0ca9df1f35fdc5f53b12a9167a01b8c846ebc27e",
+      "geometry_lighting_unchanged": true,
+      "roof_guards": 0,
+      "total": 40,
+      "weapons": {
+        "1": 1,
+        "3": 2,
+        "10": 1,
+        "5": 2,
+        "4": 2,
+        "6": 1,
+        "9": 1
+      },
+      "ammo": {
+        "1": 2,
+        "3": 3,
+        "10": 2,
+        "5": 4,
+        "4": 4,
+        "6": 2,
+        "9": 2
+      }
+    },
+    {
+      "id": "as_frigate_tiny",
+      "old_sha256": "8e10a5ffa3252e254efad3826ad85accd80bb191a789faea7feca1439b71d884",
+      "sha256": "b4b0bde6043869369a5a1e2cb847c7b46d543d0f023b461f18e6515cbec113ba",
+      "geometry_lighting_unchanged": true,
+      "roof_guards": 0,
+      "total": 40,
+      "weapons": {
+        "1": 1,
+        "3": 2,
+        "10": 1,
+        "5": 2,
+        "4": 2,
+        "6": 1,
+        "9": 1
+      },
+      "ammo": {
+        "1": 2,
+        "3": 3,
+        "10": 2,
+        "5": 4,
+        "4": 4,
+        "6": 2,
+        "9": 2
+      }
+    },
+    {
+      "id": "as_hislop_tiny",
+      "old_sha256": "beb6e27d7726cddd05cc26c93f5c11234b50d69cd748212cd09e1cb525a050c6",
+      "sha256": "5780e4dfda5d6d18c014fda31a39992f877fd998014a35dbb098e37d841a096a",
+      "geometry_lighting_unchanged": true,
+      "roof_guards": 2,
+      "total": 62,
+      "weapons": {
+        "3": 3,
+        "7": 2,
+        "10": 4,
+        "5": 2,
+        "4": 2,
+        "6": 4,
+        "9": 1
+      },
+      "ammo": {
+        "3": 7,
+        "7": 5,
+        "10": 3,
+        "5": 4,
+        "4": 4,
+        "6": 5,
+        "9": 1
+      }
+    }
+  ],
+  "tests": {
+    "policy": {
+      "result": {
+        "checks": 38,
+        "failures": [],
+        "passed": true
+      },
+      "checks": 38,
+      "errors": [],
+      "warnings": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ],
+      "log": "test-results/assault-pickups/policy.log"
+    },
+    "combat": {
+      "result": {
+        "checks": 71,
+        "failures": [],
+        "passed": true
+      },
+      "checks": 71,
+      "errors": [],
+      "warnings": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ],
+      "log": "test-results/assault-pickups/combat.log"
+    },
+    "menu": {
+      "result": {
+        "failures": [],
+        "passed": true
+      },
+      "checks": 9,
+      "errors": [],
+      "warnings": [
+        "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+      ],
+      "log": "test-results/assault-pickups/menu.log"
+    },
+    "roof_guards": {
+      "result": {
+        "failures": [],
+        "measurements": [
+          {
+            "approach": "straight",
+            "armor": 0,
+            "damage": 0,
+            "exposure_seconds": 2.19,
+            "extra_turrets": 0,
+            "remaining_hp": 100,
+            "tiny": false
+          },
+          {
+            "approach": "left",
+            "armor": 0,
+            "damage": 12,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 0,
+            "remaining_hp": 88,
+            "tiny": false
+          },
+          {
+            "approach": "right",
+            "armor": 0,
+            "damage": 12,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 0,
+            "remaining_hp": 88,
+            "tiny": false
+          },
+          {
+            "approach": "straight",
+            "armor": 150,
+            "damage": 0,
+            "exposure_seconds": 2.19,
+            "extra_turrets": 0,
+            "remaining_hp": 100,
+            "tiny": false
+          },
+          {
+            "approach": "left",
+            "armor": 150,
+            "damage": 12,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 0,
+            "remaining_hp": 94,
+            "tiny": false
+          },
+          {
+            "approach": "right",
+            "armor": 150,
+            "damage": 12,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 0,
+            "remaining_hp": 94,
+            "tiny": false
+          },
+          {
+            "approach": "straight",
+            "armor": 0,
+            "damage": 60,
+            "exposure_seconds": 2.19,
+            "extra_turrets": 1,
+            "remaining_hp": 40,
+            "tiny": false
+          },
+          {
+            "approach": "left",
+            "armor": 0,
+            "damage": 48,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 1,
+            "remaining_hp": 52,
+            "tiny": false
+          },
+          {
+            "approach": "right",
+            "armor": 0,
+            "damage": 48,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 1,
+            "remaining_hp": 52,
+            "tiny": false
+          },
+          {
+            "approach": "straight",
+            "armor": 150,
+            "damage": 48,
+            "exposure_seconds": 2.19,
+            "extra_turrets": 1,
+            "remaining_hp": 76,
+            "tiny": false
+          },
+          {
+            "approach": "left",
+            "armor": 150,
+            "damage": 36,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 1,
+            "remaining_hp": 82,
+            "tiny": false
+          },
+          {
+            "approach": "right",
+            "armor": 150,
+            "damage": 36,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 1,
+            "remaining_hp": 82,
+            "tiny": false
+          },
+          {
+            "approach": "straight",
+            "armor": 0,
+            "damage": 84,
+            "exposure_seconds": 2.19,
+            "extra_turrets": 2,
+            "remaining_hp": 16,
+            "tiny": false
+          },
+          {
+            "approach": "left",
+            "armor": 0,
+            "damage": 60,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 2,
+            "remaining_hp": 40,
+            "tiny": false
+          },
+          {
+            "approach": "right",
+            "armor": 0,
+            "damage": 60,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 2,
+            "remaining_hp": 40,
+            "tiny": false
+          },
+          {
+            "approach": "straight",
+            "armor": 150,
+            "damage": 84,
+            "exposure_seconds": 2.19,
+            "extra_turrets": 2,
+            "remaining_hp": 58,
+            "tiny": false
+          },
+          {
+            "approach": "left",
+            "armor": 150,
+            "damage": 60,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 2,
+            "remaining_hp": 70,
+            "tiny": false
+          },
+          {
+            "approach": "right",
+            "armor": 150,
+            "damage": 48,
+            "exposure_seconds": 1.12,
+            "extra_turrets": 2,
+            "remaining_hp": 76,
+            "tiny": false
+          },
+          {
+            "approach": "straight",
+            "armor": 0,
+            "damage": 0,
+            "exposure_seconds": 1.25,
+            "extra_turrets": 0,
+            "remaining_hp": 100,
+            "tiny": true
+          },
+          {
+            "approach": "left",
+            "armor": 0,
+            "damage": 12,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 0,
+            "remaining_hp": 88,
+            "tiny": true
+          },
+          {
+            "approach": "right",
+            "armor": 0,
+            "damage": 12,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 0,
+            "remaining_hp": 88,
+            "tiny": true
+          },
+          {
+            "approach": "straight",
+            "armor": 150,
+            "damage": 0,
+            "exposure_seconds": 1.25,
+            "extra_turrets": 0,
+            "remaining_hp": 100,
+            "tiny": true
+          },
+          {
+            "approach": "left",
+            "armor": 150,
+            "damage": 12,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 0,
+            "remaining_hp": 94,
+            "tiny": true
+          },
+          {
+            "approach": "right",
+            "armor": 150,
+            "damage": 12,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 0,
+            "remaining_hp": 94,
+            "tiny": true
+          },
+          {
+            "approach": "straight",
+            "armor": 0,
+            "damage": 36,
+            "exposure_seconds": 1.25,
+            "extra_turrets": 1,
+            "remaining_hp": 64,
+            "tiny": true
+          },
+          {
+            "approach": "left",
+            "armor": 0,
+            "damage": 36,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 1,
+            "remaining_hp": 64,
+            "tiny": true
+          },
+          {
+            "approach": "right",
+            "armor": 0,
+            "damage": 36,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 1,
+            "remaining_hp": 64,
+            "tiny": true
+          },
+          {
+            "approach": "straight",
+            "armor": 150,
+            "damage": 36,
+            "exposure_seconds": 1.25,
+            "extra_turrets": 1,
+            "remaining_hp": 82,
+            "tiny": true
+          },
+          {
+            "approach": "left",
+            "armor": 150,
+            "damage": 36,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 1,
+            "remaining_hp": 82,
+            "tiny": true
+          },
+          {
+            "approach": "right",
+            "armor": 150,
+            "damage": 36,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 1,
+            "remaining_hp": 82,
+            "tiny": true
+          },
+          {
+            "approach": "straight",
+            "armor": 0,
+            "damage": 72,
+            "exposure_seconds": 1.25,
+            "extra_turrets": 2,
+            "remaining_hp": 28,
+            "tiny": true
+          },
+          {
+            "approach": "left",
+            "armor": 0,
+            "damage": 60,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 2,
+            "remaining_hp": 40,
+            "tiny": true
+          },
+          {
+            "approach": "right",
+            "armor": 0,
+            "damage": 60,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 2,
+            "remaining_hp": 40,
+            "tiny": true
+          },
+          {
+            "approach": "straight",
+            "armor": 150,
+            "damage": 72,
+            "exposure_seconds": 1.25,
+            "extra_turrets": 2,
+            "remaining_hp": 64,
+            "tiny": true
+          },
+          {
+            "approach": "left",
+            "armor": 150,
+            "damage": 60,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 2,
+            "remaining_hp": 70,
+            "tiny": true
+          },
+          {
+            "approach": "right",
+            "armor": 150,
+            "damage": 60,
+            "exposure_seconds": 0.75,
+            "extra_turrets": 2,
+            "remaining_hp": 70,
+            "tiny": true
+          }
+        ],
+        "passed": true
+      },
+      "checks": 17,
+      "errors": [],
+      "warnings": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ],
+      "log": "test-results/assault-pickups/roof-guards.log"
+    },
+    "bot_navigation": {
+      "result": [],
+      "checks": 0,
+      "errors": [],
+      "warnings": [
+        "WARNING: Navigation region synchronization had 4 edge error(s).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ],
+      "log": "test-results/assault-pickups/bot-assault.log"
+    }
+  },
+  "network": {
+    "quake": [
+      {
+        "case": "weapon_variants_network",
+        "passed": true,
+        "roles": [
+          {
+            "log": "weapon_variants_network-quake-server.log",
+            "exit": 0,
+            "errors": [],
+            "checks": 10
+          },
+          {
+            "log": "weapon_variants_network-quake-client.log",
+            "exit": 0,
+            "errors": [],
+            "checks": 9
+          }
+        ]
+      }
+    ],
+    "ut99": [
+      {
+        "case": "weapon_variants_network",
+        "passed": true,
+        "roles": [
+          {
+            "log": "weapon_variants_network-ut99-server.log",
+            "exit": 0,
+            "errors": [],
+            "checks": 11
+          },
+          {
+            "log": "weapon_variants_network-ut99-client.log",
+            "exit": 0,
+            "errors": [],
+            "checks": 10
+          }
+        ]
+      }
+    ]
+  },
+  "limitations": [
+    "Scripted roof exposure at 8 m/s, not human multiplayer balance data.",
+    "Bot check ends at the first objective; it is not a full two-leg match.",
+    "No live headset or remote server test in this change.",
+    "Headless fixtures retain their common one-ObjectDB shutdown warning; graphical fixture reports two.",
+    "The bot fixture reports four navigation edge synchronization warnings; it nevertheless reaches both forward checkpoints and the first objective. BSP geometry and existing navigation meshes were not changed."
+  ],
+  "previews": [
+    "test-results/assault-pickups/host-as.png",
+    "test-results/assault-pickups/frigate-armory.png",
+    "test-results/assault-pickups/hislop-roof.png"
+  ]
+}

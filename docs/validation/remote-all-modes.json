@@ -1,0 +1,1173 @@
+{
+  "date": "2026-09-12",
+  "host": "45.147.228.101",
+  "port": 7777,
+  "seed": 1001658562,
+  "rounds": [
+    {
+      "case": {
+        "mode": "dm",
+        "map": "qsrc_dm3",
+        "rules": "quake"
+      },
+      "elapsed": 60.55253634008113,
+      "result": "NetBot 03 wins \u00b7 1 frags",
+      "scores": [
+        0,
+        0
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "tdm",
+        "map": "qsrc_dm6",
+        "rules": "doom"
+      },
+      "elapsed": 60.55327610601671,
+      "result": "RED WINS \u00b7 6 : 4",
+      "scores": [
+        6,
+        4
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "ctf",
+        "map": "ctf_crownreach",
+        "rules": "ut99"
+      },
+      "elapsed": 60.56244822195731,
+      "result": "DRAW \u00b7 0 : 0",
+      "scores": [
+        0,
+        0
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "koth",
+        "map": "koth_alichar",
+        "rules": "doom"
+      },
+      "elapsed": 60.55988392804284,
+      "result": "BLUE WINS \u00b7 1 : 6",
+      "scores": [
+        1,
+        6
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "ig",
+        "map": "qsrc_dm6",
+        "rules": "doom"
+      },
+      "elapsed": 60.56466018303763,
+      "result": "NetBot 04 wins \u00b7 7 frags",
+      "scores": [
+        0,
+        0
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "if",
+        "map": "qsrc_dm6",
+        "rules": "doom"
+      },
+      "elapsed": 60.07625160901807,
+      "result": "DRAW \u00b7 0 : 0",
+      "scores": [
+        0,
+        0
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "ft",
+        "map": "qsrc_dm3",
+        "rules": "doom"
+      },
+      "elapsed": 60.57462954707444,
+      "result": "RED WINS \u00b7 1 : 0",
+      "scores": [
+        1,
+        0
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "cc",
+        "map": "cc_basement",
+        "rules": "doom"
+      },
+      "elapsed": 60.58161755290348,
+      "result": "NetBot 06 wins \u00b7 1 frags",
+      "scores": [
+        0,
+        0
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "tf",
+        "map": "tf_vesper",
+        "rules": "quake"
+      },
+      "elapsed": 60.58763172500767,
+      "result": "BLUE WINS \u00b7 0 : 1",
+      "scores": [
+        0,
+        1
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    },
+    {
+      "case": {
+        "mode": "as",
+        "map": "as_frigate",
+        "rules": "ut99"
+      },
+      "elapsed": 128.20048248104285,
+      "result": "DRAW \u00b7 neither team completed the assault",
+      "scores": [
+        0,
+        0
+      ],
+      "peak_players": 9,
+      "lobby_seen": false
+    }
+  ],
+  "demo": {
+    "duration": 715.999999999677,
+    "events": {
+      "_ability_fx": 59,
+      "_announcer_cue": 34,
+      "_hurt_fx": 2696,
+      "_impacts": 2989,
+      "_movement_sound": 2817,
+      "_pickup_event": 96,
+      "_projectile_end": 468,
+      "_saw_contact": 21,
+      "_shot_fx": 1349,
+      "_teleport_fx": 12,
+      "_variant_bounce_fx": 28,
+      "_variant_shot_fx": 1453
+    },
+    "frames": 13835,
+    "gaps_over_100ms": 70,
+    "peak_players": 9,
+    "segments": [
+      {
+        "avatars": 9,
+        "end": 62.9666666666643,
+        "frames": 1266,
+        "map": "qsrc_dm3",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "dm",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 0,
+            "distance": 443.56631929474,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "0"
+            ]
+          },
+          "898019517": {
+            "deaths": 1,
+            "distance": 411.392273107311,
+            "kills": -1,
+            "ping_max": 35,
+            "weapons": [
+              "6",
+              "2",
+              "0"
+            ]
+          },
+          "1036354425": {
+            "deaths": 0,
+            "distance": 395.946305093584,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "0",
+              "5"
+            ]
+          },
+          "1228168753": {
+            "deaths": 0,
+            "distance": 0.0,
+            "kills": 0,
+            "ping_max": 34,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1255041131": {
+            "deaths": 0,
+            "distance": 321.276556429453,
+            "kills": 0,
+            "ping_max": 34,
+            "weapons": [
+              "0",
+              "2",
+              "6"
+            ]
+          },
+          "1262180866": {
+            "deaths": 1,
+            "distance": 385.49194300361,
+            "kills": 0,
+            "ping_max": 38,
+            "weapons": [
+              "2",
+              "0",
+              "5"
+            ]
+          },
+          "1745919233": {
+            "deaths": 1,
+            "distance": 372.13188869536,
+            "kills": 1,
+            "ping_max": 34,
+            "weapons": [
+              "2",
+              "5",
+              "0"
+            ]
+          },
+          "1831069791": {
+            "deaths": 0,
+            "distance": 447.393884190358,
+            "kills": 1,
+            "ping_max": 34,
+            "weapons": [
+              "2",
+              "0"
+            ]
+          }
+        },
+        "rules": "quake",
+        "shots": 301,
+        "start": 0.0833333333333336,
+        "teleports": 0
+      },
+      {
+        "avatars": 9,
+        "end": 128.183333333328,
+        "frames": 1276,
+        "map": "qsrc_dm6",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "tdm",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 1,
+            "distance": 384.833942962112,
+            "kills": 3,
+            "ping_max": 38,
+            "weapons": [
+              "2",
+              "3"
+            ]
+          },
+          "898019517": {
+            "deaths": 1,
+            "distance": 397.485854143626,
+            "kills": 1,
+            "ping_max": 37,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1036354425": {
+            "deaths": 2,
+            "distance": 363.706838408834,
+            "kills": 0,
+            "ping_max": 40,
+            "weapons": [
+              "2",
+              "5"
+            ]
+          },
+          "1228168753": {
+            "deaths": 0,
+            "distance": 407.074312828016,
+            "kills": 2,
+            "ping_max": 40,
+            "weapons": [
+              "2",
+              "7"
+            ]
+          },
+          "1255041131": {
+            "deaths": 2,
+            "distance": 361.75791332731,
+            "kills": 0,
+            "ping_max": 38,
+            "weapons": [
+              "2",
+              "7",
+              "6"
+            ]
+          },
+          "1262180866": {
+            "deaths": 2,
+            "distance": 373.385514866561,
+            "kills": 1,
+            "ping_max": 37,
+            "weapons": [
+              "2",
+              "6",
+              "5"
+            ]
+          },
+          "1745919233": {
+            "deaths": 2,
+            "distance": 352.244319983991,
+            "kills": 1,
+            "ping_max": 40,
+            "weapons": [
+              "2",
+              "4",
+              "6"
+            ]
+          },
+          "1831069791": {
+            "deaths": 0,
+            "distance": 317.678119117278,
+            "kills": 2,
+            "ping_max": 36,
+            "weapons": [
+              "2",
+              "6"
+            ]
+          }
+        },
+        "rules": "doom",
+        "shots": 376,
+        "start": 64.4333333333309,
+        "teleports": 4
+      },
+      {
+        "avatars": 9,
+        "end": 192.78333333338,
+        "frames": 1247,
+        "map": "ctf_crownreach",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "ctf",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 5,
+            "distance": 360.271144127706,
+            "kills": 2,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "11"
+            ]
+          },
+          "898019517": {
+            "deaths": 4,
+            "distance": 386.167795987334,
+            "kills": 2,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "0"
+            ]
+          },
+          "1036354425": {
+            "deaths": 0,
+            "distance": 167.167396901175,
+            "kills": 3,
+            "ping_max": 31,
+            "weapons": [
+              "2",
+              "11"
+            ]
+          },
+          "1228168753": {
+            "deaths": 0,
+            "distance": 129.080357506406,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1255041131": {
+            "deaths": 2,
+            "distance": 405.366106320638,
+            "kills": 1,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "11"
+            ]
+          },
+          "1262180866": {
+            "deaths": 2,
+            "distance": 402.9228453096,
+            "kills": 6,
+            "ping_max": 32,
+            "weapons": [
+              "2",
+              "6"
+            ]
+          },
+          "1745919233": {
+            "deaths": 3,
+            "distance": 405.339122807607,
+            "kills": 3,
+            "ping_max": 31,
+            "weapons": [
+              "2",
+              "0"
+            ]
+          },
+          "1831069791": {
+            "deaths": 4,
+            "distance": 387.471032973088,
+            "kills": 3,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "0"
+            ]
+          }
+        },
+        "rules": "ut99",
+        "shots": 334,
+        "start": 129.88333333333,
+        "teleports": 0
+      },
+      {
+        "avatars": 8,
+        "end": 257.56666666676,
+        "frames": 1208,
+        "map": "koth_alichar",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "koth",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 5,
+            "distance": 115.884418865666,
+            "kills": 6,
+            "ping_max": 31,
+            "weapons": [
+              "2"
+            ]
+          },
+          "898019517": {
+            "deaths": 6,
+            "distance": 128.871304763714,
+            "kills": 6,
+            "ping_max": 32,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1036354425": {
+            "deaths": 3,
+            "distance": 296.196490059607,
+            "kills": 2,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1228168753": {
+            "deaths": 7,
+            "distance": 191.550410206197,
+            "kills": 4,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1255041131": {
+            "deaths": 6,
+            "distance": 179.014480222017,
+            "kills": 7,
+            "ping_max": 31,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1262180866": {
+            "deaths": 5,
+            "distance": 133.202707677614,
+            "kills": 4,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1745919233": {
+            "deaths": 5,
+            "distance": 199.079867098015,
+            "kills": 6,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1831069791": {
+            "deaths": 3,
+            "distance": 142.730815678835,
+            "kills": 5,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          }
+        },
+        "rules": "doom",
+        "shots": 553,
+        "start": 194.533333333381,
+        "teleports": 0
+      },
+      {
+        "avatars": 7,
+        "end": 323.533333333367,
+        "frames": 1293,
+        "map": "qsrc_dm6",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "ig",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 4,
+            "distance": 308.134731177679,
+            "kills": 2,
+            "ping_max": 33,
+            "weapons": [
+              "9"
+            ]
+          },
+          "898019517": {
+            "deaths": 0,
+            "distance": 409.273685735185,
+            "kills": 7,
+            "ping_max": 33,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1036354425": {
+            "deaths": 6,
+            "distance": 311.447919255123,
+            "kills": 2,
+            "ping_max": 35,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1228168753": {
+            "deaths": 2,
+            "distance": 254.909882414155,
+            "kills": 0,
+            "ping_max": 34,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1255041131": {
+            "deaths": 1,
+            "distance": 386.108817335218,
+            "kills": 4,
+            "ping_max": 33,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1262180866": {
+            "deaths": 3,
+            "distance": 373.159146308899,
+            "kills": 2,
+            "ping_max": 34,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1745919233": {
+            "deaths": 3,
+            "distance": 354.369957343966,
+            "kills": 2,
+            "ping_max": 32,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1831069791": {
+            "deaths": 2,
+            "distance": 349.854638516905,
+            "kills": 2,
+            "ping_max": 32,
+            "weapons": [
+              "9"
+            ]
+          }
+        },
+        "rules": "doom",
+        "shots": 121,
+        "start": 259.000000000092,
+        "teleports": 8
+      },
+      {
+        "avatars": 7,
+        "end": 387.549999999975,
+        "frames": 1236,
+        "map": "qsrc_dm6",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "if",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 0,
+            "distance": 407.561573731247,
+            "kills": 0,
+            "ping_max": 34,
+            "weapons": [
+              "9"
+            ]
+          },
+          "898019517": {
+            "deaths": 0,
+            "distance": 423.83540637861,
+            "kills": 0,
+            "ping_max": 38,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1036354425": {
+            "deaths": 0,
+            "distance": 430.316378625343,
+            "kills": 0,
+            "ping_max": 35,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1228168753": {
+            "deaths": 0,
+            "distance": 285.650125688408,
+            "kills": 0,
+            "ping_max": 36,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1255041131": {
+            "deaths": 0,
+            "distance": 401.510438521393,
+            "kills": 1,
+            "ping_max": 37,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1262180866": {
+            "deaths": 1,
+            "distance": 2.18117650598288,
+            "kills": 0,
+            "ping_max": 37,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1745919233": {
+            "deaths": 0,
+            "distance": 412.225275026285,
+            "kills": 0,
+            "ping_max": 38,
+            "weapons": [
+              "9"
+            ]
+          },
+          "1831069791": {
+            "deaths": 0,
+            "distance": 419.371763234725,
+            "kills": 0,
+            "ping_max": 37,
+            "weapons": [
+              "9"
+            ]
+          }
+        },
+        "rules": "doom",
+        "shots": 2,
+        "start": 324.866666666699,
+        "teleports": 0
+      },
+      {
+        "avatars": 9,
+        "end": 452.199999999917,
+        "frames": 1259,
+        "map": "qsrc_dm3",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "ft",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 0,
+            "distance": 26.1236420795321,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "898019517": {
+            "deaths": 1,
+            "distance": 209.771810661063,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1036354425": {
+            "deaths": 1,
+            "distance": 11.8597041608009,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "6"
+            ]
+          },
+          "1228168753": {
+            "deaths": 1,
+            "distance": 239.509580919286,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1255041131": {
+            "deaths": 0,
+            "distance": 385.601576106739,
+            "kills": 3,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "4",
+              "6"
+            ]
+          },
+          "1262180866": {
+            "deaths": 0,
+            "distance": 425.109671050683,
+            "kills": 1,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "6"
+            ]
+          },
+          "1745919233": {
+            "deaths": 1,
+            "distance": 420.771910371259,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "5"
+            ]
+          },
+          "1831069791": {
+            "deaths": 0,
+            "distance": 389.714409637963,
+            "kills": 0,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          }
+        },
+        "rules": "doom",
+        "shots": 173,
+        "start": 389.31666666664,
+        "teleports": 0
+      },
+      {
+        "avatars": 9,
+        "end": 518.166666666523,
+        "frames": 1217,
+        "map": "cc_basement",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "cc",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 1,
+            "distance": 366.702904270496,
+            "kills": 1,
+            "ping_max": 34,
+            "weapons": [
+              "1"
+            ]
+          },
+          "898019517": {
+            "deaths": 1,
+            "distance": 354.984898016497,
+            "kills": 0,
+            "ping_max": 35,
+            "weapons": [
+              "1"
+            ]
+          },
+          "1036354425": {
+            "deaths": 2,
+            "distance": 360.81263219635,
+            "kills": -1,
+            "ping_max": 37,
+            "weapons": [
+              "1"
+            ]
+          },
+          "1228168753": {
+            "deaths": 2,
+            "distance": 357.8871329705,
+            "kills": -2,
+            "ping_max": 35,
+            "weapons": [
+              "1"
+            ]
+          },
+          "1255041131": {
+            "deaths": 1,
+            "distance": 368.181547441054,
+            "kills": -1,
+            "ping_max": 36,
+            "weapons": [
+              "1"
+            ]
+          },
+          "1262180866": {
+            "deaths": 2,
+            "distance": 378.506714712828,
+            "kills": -2,
+            "ping_max": 34,
+            "weapons": [
+              "1"
+            ]
+          },
+          "1745919233": {
+            "deaths": 2,
+            "distance": 366.971023254562,
+            "kills": -2,
+            "ping_max": 38,
+            "weapons": [
+              "1"
+            ]
+          },
+          "1831069791": {
+            "deaths": 1,
+            "distance": 359.511248537805,
+            "kills": -1,
+            "ping_max": 37,
+            "weapons": [
+              "1"
+            ]
+          }
+        },
+        "rules": "doom",
+        "shots": 124,
+        "start": 455.083333333247,
+        "teleports": 0
+      },
+      {
+        "avatars": 8,
+        "end": 582.649999999798,
+        "frames": 1248,
+        "map": "tf_vesper",
+        "maximum_as_leg": 0,
+        "maximum_as_stage": 0,
+        "mode": "tf",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 0,
+            "distance": 279.047143524047,
+            "kills": 1,
+            "ping_max": 32,
+            "weapons": [
+              "7",
+              "2"
+            ]
+          },
+          "898019517": {
+            "deaths": 1,
+            "distance": 415.469819968101,
+            "kills": 0,
+            "ping_max": 38,
+            "weapons": [
+              "6",
+              "4",
+              "2",
+              "0"
+            ]
+          },
+          "1036354425": {
+            "deaths": 1,
+            "distance": 358.088866998907,
+            "kills": 0,
+            "ping_max": 35,
+            "weapons": [
+              "6",
+              "5",
+              "0"
+            ]
+          },
+          "1228168753": {
+            "deaths": 0,
+            "distance": 122.871691823937,
+            "kills": 0,
+            "ping_max": 37,
+            "weapons": [
+              "6",
+              "5"
+            ]
+          },
+          "1255041131": {
+            "deaths": 3,
+            "distance": 320.751720216125,
+            "kills": 1,
+            "ping_max": 34,
+            "weapons": [
+              "6",
+              "9"
+            ]
+          },
+          "1262180866": {
+            "deaths": 1,
+            "distance": 404.359389385208,
+            "kills": 1,
+            "ping_max": 34,
+            "weapons": [
+              "2",
+              "7",
+              "0"
+            ]
+          },
+          "1745919233": {
+            "deaths": 1,
+            "distance": 378.353525956627,
+            "kills": 1,
+            "ping_max": 40,
+            "weapons": [
+              "2",
+              "6",
+              "0",
+              "3"
+            ]
+          },
+          "1831069791": {
+            "deaths": 1,
+            "distance": 451.790437915362,
+            "kills": 4,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "6",
+              "7",
+              "0"
+            ]
+          }
+        },
+        "rules": "quake",
+        "shots": 254,
+        "start": 519.699999999855,
+        "teleports": 0
+      },
+      {
+        "avatars": 9,
+        "end": 715.999999999677,
+        "frames": 2585,
+        "map": "as_frigate",
+        "maximum_as_leg": 1,
+        "maximum_as_stage": 0,
+        "mode": "as",
+        "peak_players": 9,
+        "players": {
+          "579109712": {
+            "deaths": 6,
+            "distance": 421.858986683888,
+            "kills": 12,
+            "ping_max": 34,
+            "weapons": [
+              "2"
+            ]
+          },
+          "898019517": {
+            "deaths": 6,
+            "distance": 449.202349967789,
+            "kills": 6,
+            "ping_max": 34,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1036354425": {
+            "deaths": 10,
+            "distance": 501.09971761104,
+            "kills": 5,
+            "ping_max": 34,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1228168753": {
+            "deaths": 9,
+            "distance": 465.810141381342,
+            "kills": 5,
+            "ping_max": 34,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1255041131": {
+            "deaths": 5,
+            "distance": 395.127632062242,
+            "kills": 5,
+            "ping_max": 33,
+            "weapons": [
+              "2",
+              "0"
+            ]
+          },
+          "1262180866": {
+            "deaths": 6,
+            "distance": 450.805893818149,
+            "kills": 13,
+            "ping_max": 32,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1745919233": {
+            "deaths": 9,
+            "distance": 438.314920273609,
+            "kills": 5,
+            "ping_max": 33,
+            "weapons": [
+              "2"
+            ]
+          },
+          "1831069791": {
+            "deaths": 8,
+            "distance": 468.144570492441,
+            "kills": 8,
+            "ping_max": 32,
+            "weapons": [
+              "2"
+            ]
+          }
+        },
+        "rules": "ut99",
+        "shots": 564,
+        "start": 584.749999999796,
+        "teleports": 0
+      }
+    ],
+    "valid": true
+  },
+  "process": {
+    "samples": 265,
+    "rss_min_mib": 125.78125,
+    "rss_max_mib": 125.90625,
+    "cpu_median_percent": 29.908991803641324,
+    "cpu_p95_percent": 39.8882820966507,
+    "udp_drops": 0,
+    "thread_counts": [
+      5
+    ],
+    "fd_counts": [
+      7,
+      9
+    ]
+  },
+  "cleanup": {
+    "old_server_pid": 76043,
+    "test_server_pid": 90076,
+    "test_server_stopped": true,
+    "remote_game_servers_remaining": 0,
+    "udp_7777_listening": false,
+    "client_exit_codes": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "ssh_control_and_rcon_tunnel_closed": true
+  },
+  "server_errors": [],
+  "server_orphan_counts": [
+    0.0
+  ],
+  "build": {
+    "FPSloppaServer.x86_64": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+    "FPSloppaServer.pck": "ae2874bec8a3e8d70aab5a9c117a79607581379fd7cbbaf52a1a034b405e8d2d"
+  },
+  "local_replay_fix": {
+    "optional_objective_fields": true,
+    "focused_test": "OPTIONAL_OBJECTIVES_PASS",
+    "applied_after_remote_run": true
+  },
+  "video_camera_fix": {
+    "render_frame_interpolation_disabled": true,
+    "centered_preview_verified": true
+  },
+  "video": {
+    "path": "/home/blux/Documents/FPSloppa/video-output/remote-all-modes-2026-09-12.mp4",
+    "bytes": 851150274,
+    "sha256": "2a9367f439acf231adafb531dc0ee7b1b4776c23694e59db803eec1782dbf37c",
+    "duration": 716.820688,
+    "full_decode_exit_code": 0,
+    "full_decode_error_bytes": 0,
+    "chapters": 10,
+    "format": "H.264 / AAC, 1440x900, 30 FPS, 48 kHz stereo"
+  }
+}

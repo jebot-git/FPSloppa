@@ -1,0 +1,2436 @@
+{
+  "date": "2026-09-12",
+  "desktop": {
+    "console_engine": false,
+    "elevators": [
+      {
+        "model": "*38",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.1836743354797,
+        "travel": 17.21875,
+        "triggered": true
+      },
+      {
+        "model": "*37",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.183828830719,
+        "travel": 17.21875,
+        "triggered": true
+      },
+      {
+        "model": "*14",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.1838459968567,
+        "travel": 17.21875,
+        "triggered": true
+      },
+      {
+        "model": "*13",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.183828830719,
+        "travel": 17.21875,
+        "triggered": true
+      }
+    ],
+    "failures": [],
+    "flags": [
+      {
+        "floor_gap": 0.0300121307373047,
+        "position": [
+          107.5,
+          9.5300121307373,
+          0.0
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300121307373047,
+        "position": [
+          -107.125,
+          9.5300121307373,
+          0.0625
+        ],
+        "team": 1
+      }
+    ],
+    "late_join": true,
+    "map_sha256": "77d8d09a6c2e36a32518b86d28c5e459258a42fcaa6533e7253797242f2a8a36",
+    "passed": true,
+    "spawns": [
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          64.9375,
+          -7.96998739242554,
+          -39.625
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          65.0625,
+          -7.96998739242554,
+          -46.1875
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          64.875,
+          -7.96998739242554,
+          36.6875
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          64.9375,
+          -7.96998739242554,
+          -36.5
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.6875,
+          -7.96998739242554,
+          -36.75
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.6875,
+          -7.96998739242554,
+          -39.6875
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.5625,
+          -7.96998739242554,
+          36.5
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.75,
+          -7.96998739242554,
+          -46.25
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.0,
+          -7.96998739242554,
+          40.0
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.125,
+          -7.96998739242554,
+          46.125
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.21875,
+          -7.96998739242554,
+          -35.8125
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.125,
+          -7.96998739242554,
+          36.625
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.625,
+          -7.96998739242554,
+          36.5
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.75,
+          -7.96998739242554,
+          39.375
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.96875,
+          -7.96998739242554,
+          -36.6875
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.625,
+          -7.96998739242554,
+          45.625
+        ],
+        "team": 1
+      }
+    ]
+  },
+  "console": {
+    "console_engine": true,
+    "elevators": [
+      {
+        "model": "*38",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.1836743354797,
+        "travel": 17.21875,
+        "triggered": true
+      },
+      {
+        "model": "*37",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.183828830719,
+        "travel": 17.21875,
+        "triggered": true
+      },
+      {
+        "model": "*14",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.1838459968567,
+        "travel": 17.21875,
+        "triggered": true
+      },
+      {
+        "model": "*13",
+        "move_seconds": 3.24117647058824,
+        "returned": true,
+        "rider_rise": 17.183828830719,
+        "travel": 17.21875,
+        "triggered": true
+      }
+    ],
+    "failures": [],
+    "flags": [
+      {
+        "floor_gap": 0.0300121307373047,
+        "position": [
+          107.5,
+          9.5300121307373,
+          0.0
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300121307373047,
+        "position": [
+          -107.125,
+          9.5300121307373,
+          0.0625
+        ],
+        "team": 1
+      }
+    ],
+    "late_join": true,
+    "map_sha256": "77d8d09a6c2e36a32518b86d28c5e459258a42fcaa6533e7253797242f2a8a36",
+    "passed": true,
+    "spawns": [
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          64.9375,
+          -7.96998739242554,
+          -39.625
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          65.0625,
+          -7.96998739242554,
+          -46.1875
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          64.875,
+          -7.96998739242554,
+          36.6875
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          64.9375,
+          -7.96998739242554,
+          -36.5
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.6875,
+          -7.96998739242554,
+          -36.75
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.6875,
+          -7.96998739242554,
+          -39.6875
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.5625,
+          -7.96998739242554,
+          36.5
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          51.75,
+          -7.96998739242554,
+          -46.25
+        ],
+        "team": 0
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.0,
+          -7.96998739242554,
+          40.0
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.125,
+          -7.96998739242554,
+          46.125
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.21875,
+          -7.96998739242554,
+          -35.8125
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -65.125,
+          -7.96998739242554,
+          36.625
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.625,
+          -7.96998739242554,
+          36.5
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.75,
+          -7.96998739242554,
+          39.375
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.96875,
+          -7.96998739242554,
+          -36.6875
+        ],
+        "team": 1
+      },
+      {
+        "floor_gap": 0.0300126075744629,
+        "position": [
+          -51.625,
+          -7.96998739242554,
+          45.625
+        ],
+        "team": 1
+      }
+    ],
+    "engine_errors": []
+  },
+  "traversal": {
+    "contents_loaded": true,
+    "doors": [
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "90",
+          "classname": "func_door",
+          "dmg": "500",
+          "lip": "0",
+          "model": "*48",
+          "netname": "redspawn",
+          "sounds": "2",
+          "speed": "600",
+          "team_no": "2",
+          "wait": "1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          -2.1875,
+          0.0,
+          -1.33945753637406e-16
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "270",
+          "classname": "func_door",
+          "dmg": "500",
+          "lip": "0",
+          "model": "*47",
+          "netname": "redspawn",
+          "sounds": "2",
+          "speed": "600",
+          "team_no": "2",
+          "wait": "1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          2.1875,
+          0.0,
+          4.01837221207548e-16
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "classname": "func_door",
+          "dmg": "500",
+          "lip": "25",
+          "model": "*43",
+          "netname": "func_door 2",
+          "sounds": "4",
+          "spawnflags": "1",
+          "speed": "600",
+          "targetname": "rspike",
+          "wait": "2"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          0.0,
+          -3.59379577636719
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "180",
+          "classname": "func_door",
+          "dmg": "500",
+          "lip": "25",
+          "model": "*42",
+          "netname": "func_door 1",
+          "sounds": "4",
+          "spawnflags": "1",
+          "speed": "600",
+          "targetname": "rspike",
+          "wait": "2"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          -4.40113078376973e-16,
+          0.0,
+          3.59379577636719
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "500",
+          "lip": "10",
+          "model": "*41",
+          "netname": "redammo",
+          "sounds": "2",
+          "speed": "600",
+          "team_no": "2",
+          "wait": "1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          3.65625,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "5",
+          "model": "*39",
+          "netname": "func_door 14",
+          "sounds": "4",
+          "speed": "100",
+          "targetname": "reds_bars1",
+          "wait": "2"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          2.84375,
+          0.0
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "200",
+          "model": "*38",
+          "netname": "func_door 11",
+          "sounds": "1",
+          "speed": "170",
+          "targetname": "liftr1",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          17.21875,
+          0.0
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "200",
+          "model": "*37",
+          "netname": "func_door 10",
+          "sounds": "1",
+          "speed": "170",
+          "targetname": "liftr2",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          17.21875,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "15",
+          "model": "*34",
+          "netname": "tower_door_red",
+          "sounds": "1",
+          "speed": "200",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          4.25,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "-162",
+          "model": "*33",
+          "netname": "grate12",
+          "sounds": "1",
+          "speed": "900",
+          "targetname": "red_grate",
+          "wait": "-1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          5.1875,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "90",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "-100",
+          "model": "*32",
+          "netname": "grate13",
+          "sounds": "1",
+          "speed": "200",
+          "targetname": "red_grate",
+          "wait": "-1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          -6.875,
+          0.0,
+          -4.20972357230513e-16
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "180",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "0",
+          "model": "*28",
+          "netname": "func_door 4",
+          "sounds": "1",
+          "speed": "100",
+          "targetname": "main_door2",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          -7.34788111551101e-16,
+          0.0,
+          6.0
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "0",
+          "model": "*27",
+          "netname": "func_door 3",
+          "sounds": "1",
+          "speed": "100",
+          "targetname": "main_door2",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          0.0,
+          -6.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "270",
+          "classname": "func_door",
+          "dmg": "500",
+          "health": "0",
+          "lip": "0",
+          "model": "*24",
+          "netname": "bluespawn",
+          "sounds": "2",
+          "speed": "600",
+          "team_no": "1",
+          "wait": "1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          2.1875,
+          0.0,
+          4.01837221207548e-16
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "90",
+          "classname": "func_door",
+          "dmg": "500",
+          "health": "0",
+          "lip": "0",
+          "model": "*23",
+          "netname": "bluespawn",
+          "sounds": "2",
+          "speed": "600",
+          "team_no": "1",
+          "wait": "1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          -2.1875,
+          0.0,
+          -1.33945753637406e-16
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "180",
+          "classname": "func_door",
+          "dmg": "500",
+          "lip": "25",
+          "model": "*19",
+          "netname": "func_door 2",
+          "sounds": "4",
+          "spawnflags": "1",
+          "speed": "600",
+          "targetname": "bspike",
+          "wait": "2"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          -4.40113078376973e-16,
+          0.0,
+          3.59379577636719
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "classname": "func_door",
+          "dmg": "500",
+          "lip": "25",
+          "model": "*18",
+          "netname": "func_door 1",
+          "sounds": "4",
+          "spawnflags": "1",
+          "speed": "600",
+          "targetname": "bspike",
+          "wait": "2"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          0.0,
+          -3.59379577636719
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "500",
+          "health": "0",
+          "lip": "10",
+          "model": "*17",
+          "netname": "blueammo",
+          "sounds": "2",
+          "speed": "600",
+          "team_no": "1",
+          "wait": "1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          3.65625,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "5",
+          "model": "*15",
+          "netname": "func_door 3",
+          "sounds": "4",
+          "speed": "100",
+          "targetname": "blues_bars1",
+          "wait": "2"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          2.84375,
+          0.0
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "200",
+          "model": "*14",
+          "netname": "func_door 7",
+          "sounds": "1",
+          "speed": "170",
+          "targetname": "liftb1",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          17.21875,
+          0.0
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "200",
+          "model": "*13",
+          "netname": "func_door 6",
+          "sounds": "1",
+          "speed": "170",
+          "targetname": "liftb2",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          17.21875,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "15",
+          "model": "*10",
+          "netname": "tower_door_blue",
+          "sounds": "1",
+          "speed": "200",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          4.25,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "-1",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "-162",
+          "model": "*9",
+          "netname": "grate11",
+          "sounds": "1",
+          "speed": "900",
+          "targetname": "blue_grate",
+          "wait": "-1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          5.1875,
+          0.0
+        ]
+      },
+      {
+        "activation": "proximity",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "270",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "-100",
+          "model": "*8",
+          "netname": "grate1",
+          "sounds": "1",
+          "speed": "200",
+          "targetname": "blue_grate",
+          "wait": "-1"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          6.875,
+          0.0,
+          1.26291701875198e-15
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "0",
+          "model": "*4",
+          "netname": "func_door 1",
+          "sounds": "1",
+          "speed": "100",
+          "targetname": "main_door1",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          0.0,
+          0.0,
+          -6.0
+        ]
+      },
+      {
+        "activation": "target",
+        "activation_opens": true,
+        "closed": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "closed_collision_restored": true,
+        "closed_probe_hits_door": true,
+        "entity": {
+          "angle": "180",
+          "classname": "func_door",
+          "dmg": "0",
+          "lip": "0",
+          "model": "*3",
+          "netname": "func_door 2",
+          "sounds": "1",
+          "speed": "100",
+          "targetname": "main_door1",
+          "wait": "4"
+        },
+        "old_probe_clear_of_door": true,
+        "reached_open": true,
+        "returned_closed": true,
+        "travel": [
+          -7.34788111551101e-16,
+          0.0,
+          6.0
+        ]
+      }
+    ],
+    "engine": "4.7.2-stable (fedora)",
+    "entity_counts": {
+      "func_button": 6.0,
+      "func_door": 26.0,
+      "func_plat": 6.0,
+      "info_intermission": 4.0,
+      "info_player_deathmatch": 1.0,
+      "info_player_start": 1.0,
+      "info_player_teamspawn": 16.0,
+      "info_tfdetect": 1.0,
+      "info_tfgoal": 22.0,
+      "item_tfgoal": 2.0,
+      "light": 215.0,
+      "light_flame_small_yellow": 4.0,
+      "trigger_multiple": 12.0,
+      "worldspawn": 1.0
+    },
+    "failures": [],
+    "import_collision_alignment": true,
+    "legacy_shapes_exercised": 28,
+    "lifts": [
+      {
+        "base": -11.5625,
+        "boarded": true,
+        "capsule_clear": true,
+        "carried": true,
+        "collision_shapes": 1,
+        "entity": {
+          "classname": "func_plat",
+          "dmg": "0",
+          "height": "370",
+          "lip": "0",
+          "model": "*50",
+          "sounds": "1",
+          "speed": "100",
+          "wait": "4"
+        },
+        "other_supports": [],
+        "overhead_clear_fraction": 1.0,
+        "reached_top": true,
+        "returned_bottom": true,
+        "rider_returned": true,
+        "rider_rise": 11.5625007152557,
+        "sampled_lift_support": true,
+        "start": [
+          40.0,
+          -7.53249979019165,
+          -33.5
+        ],
+        "start_y": -7.56735277175903,
+        "travel": 11.5625
+      },
+      {
+        "base": -11.5625,
+        "boarded": true,
+        "capsule_clear": true,
+        "carried": true,
+        "collision_shapes": 1,
+        "entity": {
+          "classname": "func_plat",
+          "dmg": "0",
+          "height": "370",
+          "lip": "0",
+          "model": "*49",
+          "sounds": "1",
+          "speed": "100",
+          "wait": "4"
+        },
+        "other_supports": [],
+        "overhead_clear_fraction": 1.0,
+        "reached_top": true,
+        "returned_bottom": true,
+        "rider_returned": true,
+        "rider_rise": 11.5625007152557,
+        "sampled_lift_support": true,
+        "start": [
+          -40.0,
+          -7.53249979019165,
+          33.5
+        ],
+        "start_y": -7.56735277175903,
+        "travel": 11.5625
+      },
+      {
+        "base": -4.0,
+        "boarded": true,
+        "capsule_clear": true,
+        "carried": true,
+        "collision_shapes": 1,
+        "entity": {
+          "classname": "func_plat",
+          "dmg": "0",
+          "height": "128",
+          "lip": "0",
+          "model": "*46",
+          "sounds": "1",
+          "speed": "100",
+          "wait": "1"
+        },
+        "other_supports": [],
+        "overhead_clear_fraction": 1.0,
+        "reached_top": true,
+        "returned_bottom": true,
+        "rider_returned": true,
+        "rider_rise": 4.00001382827759,
+        "sampled_lift_support": true,
+        "start": [
+          67.1875,
+          5.53000020980835,
+          0.0
+        ],
+        "start_y": 5.49514722824097,
+        "travel": 4.0
+      },
+      {
+        "base": -5.4375,
+        "boarded": true,
+        "capsule_clear": true,
+        "carried": true,
+        "collision_shapes": 1,
+        "entity": {
+          "classname": "func_plat",
+          "dmg": "0",
+          "height": "174",
+          "lip": "0",
+          "model": "*45",
+          "sounds": "1",
+          "speed": "100",
+          "wait": "1"
+        },
+        "other_supports": [],
+        "overhead_clear_fraction": 1.0,
+        "reached_top": true,
+        "returned_bottom": true,
+        "rider_returned": true,
+        "rider_rise": 5.43749585747719,
+        "sampled_lift_support": true,
+        "start": [
+          51.125,
+          -0.344999998807907,
+          0.0
+        ],
+        "start_y": -0.379852443933487,
+        "travel": 5.4375
+      },
+      {
+        "base": -4.0,
+        "boarded": true,
+        "capsule_clear": true,
+        "carried": true,
+        "collision_shapes": 1,
+        "entity": {
+          "classname": "func_plat",
+          "dmg": "0",
+          "height": "128",
+          "lip": "0",
+          "model": "*22",
+          "sounds": "1",
+          "speed": "100",
+          "wait": "1"
+        },
+        "other_supports": [],
+        "overhead_clear_fraction": 1.0,
+        "reached_top": true,
+        "returned_bottom": true,
+        "rider_returned": true,
+        "rider_rise": 4.00001382827759,
+        "sampled_lift_support": true,
+        "start": [
+          -67.1875,
+          5.53000020980835,
+          0.0
+        ],
+        "start_y": 5.49514722824097,
+        "travel": 4.0
+      },
+      {
+        "base": -5.4375,
+        "boarded": true,
+        "capsule_clear": true,
+        "carried": true,
+        "collision_shapes": 1,
+        "entity": {
+          "classname": "func_plat",
+          "dmg": "0",
+          "height": "174",
+          "lip": "0",
+          "model": "*21",
+          "sounds": "1",
+          "speed": "100",
+          "wait": "1"
+        },
+        "other_supports": [],
+        "overhead_clear_fraction": 1.0,
+        "reached_top": true,
+        "returned_bottom": true,
+        "rider_returned": true,
+        "rider_rise": 5.43749585747719,
+        "sampled_lift_support": true,
+        "start": [
+          -51.125,
+          -0.344999998807907,
+          0.0
+        ],
+        "start_y": -0.379852443933487,
+        "travel": 5.4375
+      }
+    ],
+    "liquid_leaves": {
+      "-3": 430.0
+    },
+    "logic_note": "Buttons/trigger target chains are not executed by current runtime; secret doors use one-stage proximity sliding. Lifts run timed cycles, not Quake trigger scheduling.",
+    "name": "tf_original_well6",
+    "path": "/home/blux/Documents/FPSloppa/test-results/map-texture-audit/converted/tf_original_well6.bsp",
+    "push_triggers": [],
+    "sha256": "77d8d09a6c2e36a32518b86d28c5e459258a42fcaa6533e7253797242f2a8a36",
+    "spawns": [
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41138315200806,
+        "movement_finite": true,
+        "position": [
+          57.125,
+          -4.57499980926514,
+          10.875
+        ],
+        "settled": [
+          57.125,
+          -8.00436210632324,
+          10.875
+        ],
+        "walk_end": [
+          61.1513595581055,
+          -8.00418281555176,
+          10.8750028610229
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41259241104126,
+        "movement_finite": true,
+        "position": [
+          64.9375,
+          -7.96998739242554,
+          -39.625
+        ],
+        "settled": [
+          64.9375,
+          -8.00575160980225,
+          -39.625
+        ],
+        "walk_end": [
+          68.4490585327148,
+          -8.00493812561035,
+          -39.625
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41179895401001,
+        "movement_finite": true,
+        "position": [
+          65.0625,
+          -7.96998739242554,
+          -46.1875
+        ],
+        "settled": [
+          65.0625,
+          -8.00483989715576,
+          -46.1875
+        ],
+        "walk_end": [
+          68.449592590332,
+          -8.00415897369385,
+          -46.1874847412109
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41179895401001,
+        "movement_finite": true,
+        "position": [
+          64.875,
+          -7.96998739242554,
+          36.6875
+        ],
+        "settled": [
+          64.875,
+          -8.00483989715576,
+          36.6875
+        ],
+        "walk_end": [
+          68.9012908935547,
+          -8.00417709350586,
+          36.6874961853027
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41184091567993,
+        "movement_finite": true,
+        "position": [
+          64.9375,
+          -7.96998739242554,
+          -36.5
+        ],
+        "settled": [
+          64.9375,
+          -8.00483989715576,
+          -36.5
+        ],
+        "walk_end": [
+          68.4496231079102,
+          -8.00415992736816,
+          -36.4999961853027
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41191148757935,
+        "movement_finite": true,
+        "position": [
+          51.6875,
+          -7.96998739242554,
+          -36.75
+        ],
+        "settled": [
+          51.6875,
+          -8.00496959686279,
+          -36.75
+        ],
+        "walk_end": [
+          55.7138442993164,
+          -8.00415992736816,
+          -36.75
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41191148757935,
+        "movement_finite": true,
+        "position": [
+          51.6875,
+          -7.96998739242554,
+          -39.6875
+        ],
+        "settled": [
+          51.6875,
+          -8.00496959686279,
+          -39.6875
+        ],
+        "walk_end": [
+          55.7138404846191,
+          -8.00409984588623,
+          -39.6875
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41191148757935,
+        "movement_finite": true,
+        "position": [
+          51.5625,
+          -7.96998739242554,
+          36.5
+        ],
+        "settled": [
+          51.5625,
+          -8.00496959686279,
+          36.5
+        ],
+        "walk_end": [
+          55.5888519287109,
+          -8.00415897369385,
+          36.5
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41179895401001,
+        "movement_finite": true,
+        "position": [
+          51.75,
+          -7.96998739242554,
+          -46.25
+        ],
+        "settled": [
+          51.75,
+          -8.00483989715576,
+          -46.25
+        ],
+        "walk_end": [
+          55.7763748168945,
+          -8.00415897369385,
+          -46.2500152587891
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41179895401001,
+        "movement_finite": true,
+        "position": [
+          -65.0,
+          -7.96998739242554,
+          40.0
+        ],
+        "settled": [
+          -65.0,
+          -8.00483989715576,
+          40.0
+        ],
+        "walk_end": [
+          -60.9736824035645,
+          -8.00415992736816,
+          39.9999923706055
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41191148757935,
+        "movement_finite": true,
+        "position": [
+          -65.125,
+          -7.96998739242554,
+          46.125
+        ],
+        "settled": [
+          -65.125,
+          -8.00496959686279,
+          46.125
+        ],
+        "walk_end": [
+          -61.0986938476562,
+          -8.00650596618652,
+          46.125
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41213846206665,
+        "movement_finite": true,
+        "position": [
+          -65.21875,
+          -7.96998739242554,
+          -35.8125
+        ],
+        "settled": [
+          -65.21875,
+          -8.00522994995117,
+          -35.8125
+        ],
+        "walk_end": [
+          -61.1924438476562,
+          -8.00417709350586,
+          -35.8125
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41179895401001,
+        "movement_finite": true,
+        "position": [
+          -65.125,
+          -7.96998739242554,
+          36.625
+        ],
+        "settled": [
+          -65.125,
+          -8.00483989715576,
+          36.625
+        ],
+        "walk_end": [
+          -61.0987014770508,
+          -8.00421047210693,
+          36.625
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41213846206665,
+        "movement_finite": true,
+        "position": [
+          -51.625,
+          -7.96998739242554,
+          36.5
+        ],
+        "settled": [
+          -51.625,
+          -8.00522994995117,
+          36.5
+        ],
+        "walk_end": [
+          -48.0527267456055,
+          -8.00438594818115,
+          36.5
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41191148757935,
+        "movement_finite": true,
+        "position": [
+          -51.75,
+          -7.96998739242554,
+          39.375
+        ],
+        "settled": [
+          -51.75,
+          -8.00496959686279,
+          39.375
+        ],
+        "walk_end": [
+          -48.0504417419434,
+          -8.00417327880859,
+          39.3750190734863
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41179895401001,
+        "movement_finite": true,
+        "position": [
+          -51.96875,
+          -7.96998739242554,
+          -36.6875
+        ],
+        "settled": [
+          -51.96875,
+          -8.00483989715576,
+          -36.6875
+        ],
+        "walk_end": [
+          -47.9424018859863,
+          -8.00418281555176,
+          -36.6875
+        ]
+      },
+      {
+        "capsule_clear": true,
+        "finite": true,
+        "grounded": true,
+        "jump_rise": 1.41202592849731,
+        "movement_finite": true,
+        "position": [
+          -51.625,
+          -7.96998739242554,
+          45.625
+        ],
+        "settled": [
+          -51.625,
+          -8.00510025024414,
+          45.625
+        ],
+        "walk_end": [
+          -48.051197052002,
+          -8.00416946411133,
+          45.625
+        ]
+      }
+    ],
+    "teleports": [],
+    "unresolved_targets": [],
+    "unsupported_logic": [
+      {
+        "angle": "90",
+        "classname": "func_button",
+        "delay": "0",
+        "health": "1",
+        "model": "*1",
+        "netname": "func_button 2",
+        "sounds": "2",
+        "speed": "20",
+        "style": "32",
+        "target": "main_door1",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*2",
+        "netname": "trigger_multiple 3",
+        "sounds": "3",
+        "speed": "100",
+        "style": "32",
+        "target": "main_door1",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*5",
+        "netname": "trigger_multiple 2",
+        "sounds": "3",
+        "speed": "100",
+        "style": "32",
+        "target": "main_door1",
+        "wait": "3"
+      },
+      {
+        "angle": "90",
+        "classname": "func_button",
+        "delay": "0",
+        "health": "1",
+        "model": "*6",
+        "netname": "func_button 1",
+        "sounds": "2",
+        "speed": "20",
+        "target": "main_door1",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*7",
+        "netname": "trigger_multiple 1",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "main_door1",
+        "wait": "4"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*11",
+        "netname": "trigger_multiple 4",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "liftb1",
+        "wait": "11"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*12",
+        "netname": "trigger_multiple 5",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "liftb2",
+        "wait": "11"
+      },
+      {
+        "angle": "270",
+        "classname": "func_button",
+        "delay": "0",
+        "health": "1",
+        "model": "*16",
+        "netname": "func_button 5",
+        "sounds": "3",
+        "speed": "20",
+        "target": "blues_bars1",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*20",
+        "netname": "trigger_multiple 1",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "bspike",
+        "team_no": "2",
+        "wait": "5"
+      },
+      {
+        "angle": "270",
+        "classname": "func_button",
+        "delay": "0",
+        "health": "1",
+        "model": "*25",
+        "netname": "func_button 2",
+        "sounds": "2",
+        "speed": "20",
+        "style": "32",
+        "target": "main_door2",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*26",
+        "netname": "trigger_multiple 3",
+        "sounds": "3",
+        "speed": "100",
+        "style": "32",
+        "target": "main_door2",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*29",
+        "netname": "trigger_multiple 2",
+        "sounds": "3",
+        "speed": "100",
+        "style": "32",
+        "target": "main_door2",
+        "wait": "3"
+      },
+      {
+        "angle": "270",
+        "classname": "func_button",
+        "delay": "0",
+        "health": "1",
+        "model": "*30",
+        "netname": "func_button 1",
+        "sounds": "2",
+        "speed": "20",
+        "target": "main_door2",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*31",
+        "netname": "trigger_multiple 1",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "main_door2",
+        "wait": "4"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*35",
+        "netname": "trigger_multiple 11",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "liftr1",
+        "wait": "11"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*36",
+        "netname": "trigger_multiple 10",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "liftr2",
+        "wait": "11"
+      },
+      {
+        "angle": "90",
+        "classname": "func_button",
+        "delay": "0",
+        "health": "1",
+        "model": "*40",
+        "netname": "func_button 5",
+        "sounds": "3",
+        "speed": "20",
+        "target": "reds_bars1",
+        "wait": "3"
+      },
+      {
+        "classname": "trigger_multiple",
+        "delay": "0",
+        "dmg": "0",
+        "lip": "0",
+        "model": "*44",
+        "netname": "trigger_multiple 1",
+        "sounds": "4",
+        "speed": "100",
+        "style": "32",
+        "target": "rspike",
+        "team_no": "1",
+        "wait": "5"
+      }
+    ],
+    "water": [
+      {
+        "dry_exit": true,
+        "position": [
+          -26.5,
+          -9.625,
+          -0.25
+        ],
+        "rise": 0.469924926757812,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface_exit_tested": false,
+        "underwater": false,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 0.46875
+      },
+      {
+        "dry_exit": true,
+        "exit_contacts": [],
+        "exit_peak_y": -9.28055858612061,
+        "exit_start": [
+          0.0,
+          -10.7250003814697,
+          38.25
+        ],
+        "exit_start_contents": -3,
+        "physical_surface_exit": true,
+        "position": [
+          0.0,
+          -10.125,
+          38.25
+        ],
+        "rise": 2.22666597366333,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface": [
+          0.0,
+          -9.125,
+          38.25
+        ],
+        "surface_blocked_by_geometry": false,
+        "surface_exit_tested": true,
+        "surface_sweep_fraction": 1.0,
+        "underwater": false,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "position": [
+          -91.0625,
+          -12.75,
+          0.0
+        ],
+        "rise": 2.19998931884766,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface_exit_tested": false,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "exit_contacts": [],
+        "exit_peak_y": -8.07889366149902,
+        "exit_start": [
+          -86.875,
+          -11.1000003814697,
+          -45.5625
+        ],
+        "exit_start_contents": -3,
+        "physical_surface_exit": true,
+        "position": [
+          -86.875,
+          -12.75,
+          -45.5625
+        ],
+        "rise": 2.19998931884766,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface": [
+          -86.875,
+          -9.5,
+          -45.5625
+        ],
+        "surface_blocked_by_geometry": false,
+        "surface_exit_tested": true,
+        "surface_sweep_fraction": 1.0,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "position": [
+          -75.21875,
+          -12.90625,
+          -45.40625
+        ],
+        "rise": 1.43867492675781,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface_exit_tested": false,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "position": [
+          -66.1875,
+          -12.75,
+          -50.1875
+        ],
+        "rise": 1.59509658813477,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface_exit_tested": false,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "exit_contacts": [],
+        "exit_peak_y": -8.07889366149902,
+        "exit_start": [
+          -90.09375,
+          -11.1000003814697,
+          -14.0
+        ],
+        "exit_start_contents": -3,
+        "physical_surface_exit": true,
+        "position": [
+          -90.09375,
+          -12.75,
+          -14.0
+        ],
+        "rise": 2.19998931884766,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface": [
+          -90.09375,
+          -9.5,
+          -14.0
+        ],
+        "surface_blocked_by_geometry": false,
+        "surface_exit_tested": true,
+        "surface_sweep_fraction": 1.0,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "position": [
+          -87.03125,
+          -12.25,
+          -28.78125
+        ],
+        "rise": 1.7824239730835,
+        "sinking": -2.0,
+        "stroke_down": -0.942803382873535,
+        "surface_exit_tested": false,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "position": [
+          -85.78125,
+          -13.015625,
+          -20.890625
+        ],
+        "rise": 2.19998931884766,
+        "sinking": 0.0,
+        "stroke_down": -0.176650047302246,
+        "surface_exit_tested": false,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "position": [
+          -86.8125,
+          -12.75,
+          0.0
+        ],
+        "rise": 2.19998931884766,
+        "sinking": -2.0,
+        "stroke_down": -1.15283489227295,
+        "surface_exit_tested": false,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "exit_contacts": [],
+        "exit_peak_y": -8.07889366149902,
+        "exit_start": [
+          -81.609375,
+          -11.1000003814697,
+          5.8125
+        ],
+        "exit_start_contents": -3,
+        "physical_surface_exit": true,
+        "position": [
+          -81.609375,
+          -11.5,
+          5.8125
+        ],
+        "rise": 2.6133279800415,
+        "sinking": -2.0,
+        "stroke_down": -0.954721450805664,
+        "surface": [
+          -81.609375,
+          -9.5,
+          5.8125
+        ],
+        "surface_blocked_by_geometry": false,
+        "surface_exit_tested": true,
+        "surface_sweep_fraction": 1.0,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      },
+      {
+        "dry_exit": true,
+        "position": [
+          -87.09375,
+          -12.25,
+          25.5
+        ],
+        "rise": 1.78256225585938,
+        "sinking": -2.0,
+        "stroke_down": -0.942207336425781,
+        "surface_exit_tested": false,
+        "underwater": true,
+        "upward_blocked_by_geometry": false,
+        "upward_headroom": 1.0
+      }
+    ],
+    "water_sample_count": 12,
+    "audit_fingerprint": "783befc0ba60ef18cf3cb8f1d0cd07582e2208b88cb3bbc9243d029e7ac57831",
+    "exit_code": 0,
+    "seconds": 19.15,
+    "engine_errors": []
+  },
+  "passed": true,
+  "bundled_console_maps": {
+    "failures": [],
+    "maps": [
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 6,
+        "map": "lqdm1",
+        "shapes": 10
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "lqdm2",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 3,
+        "map": "lqdm4",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 9,
+        "map": "lqdm7",
+        "shapes": 17
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 4,
+        "map": "lqdm8",
+        "shapes": 13
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 1,
+        "map": "lqdm3",
+        "shapes": 9
+      },
+      {
+        "doors": 6,
+        "lifts": 0,
+        "liquids": 13,
+        "map": "lqdm5",
+        "shapes": 46
+      },
+      {
+        "doors": 11,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "lqdm6",
+        "shapes": 17
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_hislop",
+        "shapes": 9
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_frigate",
+        "shapes": 2
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_hislop_tiny",
+        "shapes": 9
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_frigate_tiny",
+        "shapes": 2
+      },
+      {
+        "doors": 6,
+        "lifts": 2,
+        "liquids": 0,
+        "map": "dm_lasercade_slop",
+        "shapes": 16
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "dm_auhdm2_slop",
+        "shapes": 5
+      },
+      {
+        "doors": 6,
+        "lifts": 1,
+        "liquids": 0,
+        "map": "dm_anctomb_slop",
+        "shapes": 13
+      },
+      {
+        "doors": 4,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "dm_anchall_slop",
+        "shapes": 7
+      },
+      {
+        "doors": 9,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "dm_battlef_slop",
+        "shapes": 17
+      }
+    ],
+    "passed": true,
+    "exit_code": 0
+  }
+}

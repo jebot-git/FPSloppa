@@ -1,0 +1,1196 @@
+{
+  "date": "2026-09-12",
+  "protocol": "fpsloppa-34-partitioned-state",
+  "transport": "Godot ENet retained",
+  "published": false,
+  "remote_test_stopped": true,
+  "remote_port_7777_closed": true,
+  "build": {
+    "path": "Builds/NetworkTestServer",
+    "pck_sha256": "2865a16406acb0a9dd6df3e631125fbfdb0787c505f9dd02be74f63644248816",
+    "full_capacity_pck_sha256": "d9a5d6c75ac2817b5319d2c74cf2ddf28b1cdb3590b46dec26c6fba4d75ba7a7",
+    "cold_pck_sha256": "4a130f8449677233e6d0c8a2c0ef45ca630a130e6ce41d33b103e1287bff24d5"
+  },
+  "units": [
+    {
+      "case": "replication_protocol",
+      "passed": true,
+      "roles": [
+        {
+          "log": "replication_protocol-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 0
+        }
+      ]
+    },
+    {
+      "case": "network_delivery",
+      "passed": true,
+      "roles": [
+        {
+          "log": "network_delivery-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 18
+        }
+      ]
+    },
+    {
+      "case": "local_prediction",
+      "passed": true,
+      "roles": [
+        {
+          "log": "local_prediction-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 12
+        }
+      ]
+    },
+    {
+      "case": "quake_movement",
+      "passed": true,
+      "roles": [
+        {
+          "log": "quake_movement-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 22
+        }
+      ]
+    },
+    {
+      "case": "water",
+      "passed": true,
+      "roles": [
+        {
+          "log": "water-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 60
+        }
+      ]
+    },
+    {
+      "case": "stairs",
+      "passed": true,
+      "roles": [
+        {
+          "log": "stairs-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 12
+        }
+      ]
+    },
+    {
+      "case": "vr_crouch_water",
+      "passed": true,
+      "roles": [
+        {
+          "log": "vr_crouch_water-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 36
+        }
+      ]
+    },
+    {
+      "case": "movement_timing",
+      "passed": true,
+      "roles": [
+        {
+          "log": "movement_timing-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 8
+        }
+      ]
+    },
+    {
+      "case": "melee",
+      "passed": true,
+      "roles": [
+        {
+          "log": "melee-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 29
+        }
+      ]
+    },
+    {
+      "case": "network_workers",
+      "passed": true,
+      "roles": [
+        {
+          "log": "network_workers-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 5
+        }
+      ]
+    },
+    {
+      "case": "asset_publication",
+      "passed": true,
+      "roles": [
+        {
+          "log": "asset_publication-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 1
+        }
+      ]
+    }
+  ],
+  "network": [
+    {
+      "case": "network_runner",
+      "passed": true,
+      "roles": [
+        {
+          "log": "network_runner-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 29
+        },
+        {
+          "log": "network_runner-shooter.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 14
+        },
+        {
+          "log": "network_runner-target.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 15
+        },
+        {
+          "log": "network_runner-spectator.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 14
+        }
+      ]
+    },
+    {
+      "case": "team_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "team_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 2
+        },
+        {
+          "log": "team_network-red.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 7
+        },
+        {
+          "log": "team_network-blue.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 7
+        },
+        {
+          "log": "team_network-observer.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 7
+        }
+      ]
+    },
+    {
+      "case": "physical_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "physical_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 8
+        },
+        {
+          "log": "physical_network-client.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 8
+        }
+      ]
+    },
+    {
+      "case": "stance_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "stance_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 10
+        },
+        {
+          "log": "stance_network-client.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 8
+        }
+      ]
+    },
+    {
+      "case": "frigate_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "frigate_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 7
+        },
+        {
+          "log": "frigate_network-client.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 8
+        }
+      ]
+    },
+    {
+      "case": "voice_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "voice_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 2
+        },
+        {
+          "log": "voice_network-sender.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 3
+        },
+        {
+          "log": "voice_network-receiver.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 6
+        }
+      ]
+    },
+    {
+      "case": "team_radio_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "team_radio_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 2
+        },
+        {
+          "log": "team_radio_network-sender.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 4
+        },
+        {
+          "log": "team_radio_network-teammate.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 6
+        },
+        {
+          "log": "team_radio_network-enemy.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 6
+        }
+      ]
+    },
+    {
+      "case": "weapon_clearance_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "weapon_clearance_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 17
+        },
+        {
+          "log": "weapon_clearance_network-client.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 7
+        }
+      ]
+    },
+    {
+      "case": "weapon_variants_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "weapon_variants_network-ut99-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 11
+        },
+        {
+          "log": "weapon_variants_network-ut99-client.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 10
+        }
+      ]
+    }
+  ],
+  "quake_tf_weapons": [
+    {
+      "case": "weapon_variants_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "weapon_variants_network-quake-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 10
+        },
+        {
+          "log": "weapon_variants_network-quake-client.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 9
+        }
+      ]
+    }
+  ],
+  "address_fallback": [
+    {
+      "case": "address_fallback_network",
+      "passed": true,
+      "roles": [
+        {
+          "log": "address_fallback_network-server.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 1
+        },
+        {
+          "log": "address_fallback_network-client.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 3
+        }
+      ]
+    }
+  ],
+  "asset_publication": [
+    {
+      "case": "asset_publication",
+      "passed": true,
+      "roles": [
+        {
+          "log": "asset_publication-unit.log",
+          "exit": 0,
+          "errors": [],
+          "checks": 1
+        }
+      ]
+    }
+  ],
+  "map_download": {
+    "passed": true,
+    "bytes": 3409759,
+    "sha256": "5a5109d1593abffca58a862f44c8231841ed5318bf1d6ae300d34e4dfa996919"
+  },
+  "avatar_transfer": {
+    "passed": true,
+    "sha256": "73935309345241945517d3f18b5bf35807c13bf97d0b59eebbae67dc2619db26",
+    "bytes": 14198748
+  },
+  "cold_remote": {
+    "host": "45.147.228.101",
+    "port": 7777,
+    "count": 2,
+    "cold": true,
+    "spectator": false,
+    "peak_admitted": 2,
+    "held_seconds": 5.15,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "states": [
+      {
+        "active": true,
+        "clock": 43.7333333333321,
+        "count": 2,
+        "deaths": 0,
+        "epoch": 1,
+        "event": "RemoteTest 01 joined the arena.",
+        "hp": 93,
+        "join_ms": 41507,
+        "loading": {
+          "blocking": false,
+          "count": 0,
+          "done": 38087262,
+          "eta": "Download complete",
+          "fraction": 1.0,
+          "phase": "Ready \u00b7 entering match\u2026",
+          "total": 38087262,
+          "visible": false
+        },
+        "map": "custom_c19759d9a7ac2984b20fb0716923763c6c7ff6700201427f78698ba6cbdaf9e3",
+        "mode": "tf",
+        "models": 2,
+        "ping": 23,
+        "position": "(-19.28077, -0.00418, -62.78523)",
+        "spectator": false,
+        "tag": "01",
+        "travel": 15.7339968681335
+      },
+      {
+        "active": true,
+        "clock": 43.7166666666655,
+        "count": 2,
+        "deaths": 1,
+        "epoch": 1,
+        "event": "RemoteTest 01 joined the arena.",
+        "hp": 122,
+        "join_ms": 24193,
+        "loading": {
+          "blocking": false,
+          "count": 0,
+          "done": 21235910,
+          "eta": "Download complete",
+          "fraction": 1.0,
+          "phase": "Ready \u00b7 entering match\u2026",
+          "total": 21235910,
+          "visible": false
+        },
+        "map": "custom_c19759d9a7ac2984b20fb0716923763c6c7ff6700201427f78698ba6cbdaf9e3",
+        "mode": "tf",
+        "models": 1,
+        "ping": 25,
+        "position": "(-1.818262, -0.004164, 57.0905)",
+        "spectator": false,
+        "tag": "02",
+        "travel": 119.800413370132
+      }
+    ],
+    "passed": true
+  },
+  "lag": [
+    {
+      "rtt_ms": 100,
+      "jitter_ms": 10.0,
+      "loss": 0.02,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 7,
+              "ping_ms": 110,
+              "shots": 7,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 111,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 12,
+              "ping_ms": 105,
+              "shots": 12,
+              "weapon": 7
+            },
+            {
+              "hits": 7,
+              "ping_ms": 110,
+              "shots": 7,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3810,
+        "dropped": 83,
+        "delivered": 3741,
+        "duplicated": 14
+      }
+    }
+  ],
+  "sizes": {
+    "16desktop": {
+      "encode_us": {
+        "max": 1043,
+        "p50": 883,
+        "p95": 1020
+      },
+      "large_records": 0,
+      "max_packet": 1098,
+      "total_bytes": {
+        "max": 3469,
+        "p50": 1988,
+        "p95": 3463
+      }
+    },
+    "16vr": {
+      "encode_us": {
+        "max": 2108,
+        "p50": 1889,
+        "p95": 2035
+      },
+      "large_records": 0,
+      "max_packet": 1098,
+      "total_bytes": {
+        "max": 10409,
+        "p50": 9090,
+        "p95": 10403
+      }
+    },
+    "8desktop": {
+      "encode_us": {
+        "max": 844,
+        "p50": 588,
+        "p95": 785
+      },
+      "large_records": 0,
+      "max_packet": 1100,
+      "total_bytes": {
+        "max": 2977,
+        "p50": 1616,
+        "p95": 2974
+      }
+    },
+    "8vr": {
+      "encode_us": {
+        "max": 1278,
+        "p50": 1095,
+        "p95": 1253
+      },
+      "large_records": 0,
+      "max_packet": 1100,
+      "total_bytes": {
+        "max": 6402,
+        "p50": 5093,
+        "p95": 6396
+      }
+    },
+    "recorded": {
+      "failures": [],
+      "modes": [
+        "dm",
+        "tdm",
+        "ctf",
+        "koth",
+        "ig",
+        "if",
+        "ft",
+        "cc",
+        "tf",
+        "as"
+      ],
+      "sampled": 139
+    }
+  },
+  "remote": {
+    "exits": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "errors": {
+      "client-00.log": [],
+      "client-01.log": [],
+      "client-02.log": [],
+      "client-03.log": [],
+      "client-04.log": [],
+      "client-05.log": [],
+      "client-06.log": [],
+      "client-07.log": [],
+      "client-08.log": [],
+      "client-09.log": [],
+      "client-10.log": [],
+      "client-11.log": [],
+      "client-12.log": [],
+      "client-13.log": [],
+      "client-14.log": [],
+      "client-15.log": []
+    },
+    "completed": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth",
+      "ig",
+      "if",
+      "ft",
+      "cc",
+      "tf",
+      "as"
+    ]
+  },
+  "remote_performance": {
+    "full_capacity_health_samples": 54,
+    "process_window_seconds": 266.0,
+    "process": {
+      "cpu_percent": {
+        "samples": 266,
+        "min": 3.988986873900388,
+        "median": 62.82420825397098,
+        "p95": 72.71247277987295,
+        "max": 86.76511295509589
+      },
+      "rss_kib": {
+        "samples": 266,
+        "min": 119400,
+        "median": 122904.0,
+        "p95": 131992,
+        "max": 131992
+      },
+      "udp_drops": {
+        "samples": 266,
+        "min": 0,
+        "median": 0.0,
+        "p95": 0,
+        "max": 0
+      },
+      "threads": {
+        "samples": 266,
+        "min": 5,
+        "median": 5.0,
+        "p95": 5,
+        "max": 5
+      },
+      "fds": {
+        "samples": 266,
+        "min": 7,
+        "median": 7.0,
+        "p95": 7,
+        "max": 9
+      }
+    },
+    "engine": {
+      "physics_ms": {
+        "samples": 54,
+        "min": 1.598,
+        "median": 16.383000000000003,
+        "p95": 21.469,
+        "max": 30.087
+      },
+      "process_ms": {
+        "samples": 54,
+        "min": 0.359,
+        "median": 5.7835,
+        "p95": 15.638,
+        "max": 148.107
+      },
+      "orphan_nodes": {
+        "samples": 54,
+        "min": 0.0,
+        "median": 0.0,
+        "p95": 0.0,
+        "max": 0.0
+      }
+    },
+    "replication_final": {
+      "large_records": 80,
+      "max_packet": 1439,
+      "player_update_gaps": 0,
+      "player_updates": 0,
+      "received_packets": 0,
+      "sent_bytes": 26933089,
+      "sent_packets": 29185,
+      "stale_records": 0
+    },
+    "mode_health": {
+      "as": 8,
+      "cc": 5,
+      "ctf": 5,
+      "dm": 4,
+      "ft": 4,
+      "if": 5,
+      "ig": 5,
+      "koth": 5,
+      "tdm": 5,
+      "tf": 8
+    },
+    "skipped_invalid_lines": {
+      "journals_before_session_filter": 1,
+      "server": 0,
+      "process": 0
+    },
+    "clients": [
+      {
+        "client": 0,
+        "samples": 52,
+        "interpolation_ms": {
+          "samples": 52,
+          "min": 75.0,
+          "median": 83.7493215448758,
+          "p95": 94.5017809664715,
+          "max": 97.5094117106477
+        },
+        "sample_age_ms": {
+          "samples": 52,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 33.3333333333599,
+          "max": 266.666666666879
+        },
+        "received_packets": 28696,
+        "player_updates": 77386,
+        "player_update_gaps": 654,
+        "prediction_final": {
+          "corrections": 57,
+          "max_error": 1.04838216304779,
+          "resets": 0
+        }
+      },
+      {
+        "client": 1,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 85.871365891646,
+          "p95": 93.4749393799625,
+          "max": 94.0907126799247
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 50.0000000000398,
+          "max": 583.333333333333
+        },
+        "received_packets": 28688,
+        "player_updates": 77339,
+        "player_update_gaps": 934,
+        "prediction_final": {
+          "corrections": 91,
+          "max_error": 1.19668519496918,
+          "resets": 0
+        }
+      },
+      {
+        "client": 2,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 84.8188824090529,
+          "p95": 92.1652956206012,
+          "max": 93.9667259829097
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 49.9999999999972,
+          "max": 366.666666666958
+        },
+        "received_packets": 28848,
+        "player_updates": 77828,
+        "player_update_gaps": 853,
+        "prediction_final": {
+          "corrections": 80,
+          "max_error": 1.04988884925842,
+          "resets": 0
+        }
+      },
+      {
+        "client": 3,
+        "samples": 52,
+        "interpolation_ms": {
+          "samples": 52,
+          "min": 75.0,
+          "median": 81.8652817943842,
+          "p95": 93.6695788715468,
+          "max": 94.7095920039815
+        },
+        "sample_age_ms": {
+          "samples": 52,
+          "min": 0.0,
+          "median": 16.6666666666586,
+          "p95": 50.0000000000398,
+          "max": 100.00000000008
+        },
+        "received_packets": 29049,
+        "player_updates": 78226,
+        "player_update_gaps": 1065,
+        "prediction_final": {
+          "corrections": 27,
+          "max_error": 0.588867664337158,
+          "resets": 0
+        }
+      },
+      {
+        "client": 4,
+        "samples": 52,
+        "interpolation_ms": {
+          "samples": 52,
+          "min": 75.0,
+          "median": 82.46111970501495,
+          "p95": 94.6385673717242,
+          "max": 95.8914869618932
+        },
+        "sample_age_ms": {
+          "samples": 52,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 50.0000000000398,
+          "max": 266.666666666879
+        },
+        "received_packets": 28726,
+        "player_updates": 77715,
+        "player_update_gaps": 1502,
+        "prediction_final": {
+          "corrections": 105,
+          "max_error": 0.782185971736908,
+          "resets": 0
+        }
+      },
+      {
+        "client": 5,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 86.6955720807213,
+          "p95": 94.3056483246398,
+          "max": 97.9192089489393
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 33.3333333333599,
+          "max": 50.0000000000398
+        },
+        "received_packets": 28856,
+        "player_updates": 77754,
+        "player_update_gaps": 1028,
+        "prediction_final": {
+          "corrections": 75,
+          "max_error": 0.833750069141388,
+          "resets": 0
+        }
+      },
+      {
+        "client": 6,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 83.2408402137731,
+          "p95": 93.0905656581667,
+          "max": 95.4477014321676
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666657,
+          "p95": 49.9999999999972,
+          "max": 50.0000000000398
+        },
+        "received_packets": 28634,
+        "player_updates": 77299,
+        "player_update_gaps": 1606,
+        "prediction_final": {
+          "corrections": 125,
+          "max_error": 1.04139029979706,
+          "resets": 0
+        }
+      },
+      {
+        "client": 7,
+        "samples": 52,
+        "interpolation_ms": {
+          "samples": 52,
+          "min": 75.0,
+          "median": 82.83521411834334,
+          "p95": 95.6066372639904,
+          "max": 97.5698033083696
+        },
+        "sample_age_ms": {
+          "samples": 52,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 49.9999999999972,
+          "max": 50.0000000000398
+        },
+        "received_packets": 29097,
+        "player_updates": 78488,
+        "player_update_gaps": 580,
+        "prediction_final": {
+          "corrections": 98,
+          "max_error": 0.80282187461853,
+          "resets": 0
+        }
+      },
+      {
+        "client": 8,
+        "samples": 52,
+        "interpolation_ms": {
+          "samples": 52,
+          "min": 75.0,
+          "median": 84.48320336761086,
+          "p95": 94.4742466026761,
+          "max": 101.852435135
+        },
+        "sample_age_ms": {
+          "samples": 52,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 33.3333333333599,
+          "max": 33.3333333333599
+        },
+        "received_packets": 28707,
+        "player_updates": 77584,
+        "player_update_gaps": 723,
+        "prediction_final": {
+          "corrections": 171,
+          "max_error": 1.55208742618561,
+          "resets": 0
+        }
+      },
+      {
+        "client": 9,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 83.7131964474028,
+          "p95": 94.2148174542977,
+          "max": 99.2065916215253
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666657,
+          "p95": 33.3333333333599,
+          "max": 50.0000000000398
+        },
+        "received_packets": 28934,
+        "player_updates": 78170,
+        "player_update_gaps": 622,
+        "prediction_final": {
+          "corrections": 115,
+          "max_error": 1.10450375080109,
+          "resets": 0
+        }
+      },
+      {
+        "client": 10,
+        "samples": 51,
+        "interpolation_ms": {
+          "samples": 51,
+          "min": 75.0,
+          "median": 86.7752550769094,
+          "p95": 97.1081133113011,
+          "max": 98.1757507335114
+        },
+        "sample_age_ms": {
+          "samples": 51,
+          "min": 0.0,
+          "median": 16.6666666666657,
+          "p95": 33.3333333333599,
+          "max": 49.9999999999972
+        },
+        "received_packets": 28582,
+        "player_updates": 77291,
+        "player_update_gaps": 719,
+        "prediction_final": {
+          "corrections": 74,
+          "max_error": 0.467716932296753,
+          "resets": 0
+        }
+      },
+      {
+        "client": 11,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 85.4043662468349,
+          "p95": 94.3749185591715,
+          "max": 98.281512954777
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666657,
+          "p95": 33.3333333333599,
+          "max": 50.0000000000398
+        },
+        "received_packets": 29037,
+        "player_updates": 78577,
+        "player_update_gaps": 761,
+        "prediction_final": {
+          "corrections": 48,
+          "max_error": 0.633624374866486,
+          "resets": 0
+        }
+      },
+      {
+        "client": 12,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 82.6170000000754,
+          "p95": 95.0078326914119,
+          "max": 97.4283404878732
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666799,
+          "p95": 33.3333333333599,
+          "max": 166.666666666799
+        },
+        "received_packets": 28924,
+        "player_updates": 78175,
+        "player_update_gaps": 794,
+        "prediction_final": {
+          "corrections": 75,
+          "max_error": 0.845661759376526,
+          "resets": 0
+        }
+      },
+      {
+        "client": 13,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 84.8495644496478,
+          "p95": 91.8758879226101,
+          "max": 93.0111380345601
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 16.6666666666657,
+          "p95": 33.3333333333599,
+          "max": 50.0000000000398
+        },
+        "received_packets": 28930,
+        "player_updates": 78214,
+        "player_update_gaps": 896,
+        "prediction_final": {
+          "corrections": 124,
+          "max_error": 0.771233439445496,
+          "resets": 0
+        }
+      },
+      {
+        "client": 14,
+        "samples": 52,
+        "interpolation_ms": {
+          "samples": 52,
+          "min": 75.0,
+          "median": 85.76329646313636,
+          "p95": 92.8605032936647,
+          "max": 95.9146360619492
+        },
+        "sample_age_ms": {
+          "samples": 52,
+          "min": 0.0,
+          "median": 0.0,
+          "p95": 49.9999999999545,
+          "max": 163366.666666689
+        },
+        "received_packets": 28493,
+        "player_updates": 77013,
+        "player_update_gaps": 1122,
+        "prediction_final": {
+          "corrections": 22,
+          "max_error": 0.656442999839783,
+          "resets": 0
+        }
+      },
+      {
+        "client": 15,
+        "samples": 53,
+        "interpolation_ms": {
+          "samples": 53,
+          "min": 75.0,
+          "median": 84.7430881330418,
+          "p95": 93.2095324309765,
+          "max": 95.1025097288237
+        },
+        "sample_age_ms": {
+          "samples": 53,
+          "min": 0.0,
+          "median": 0.0,
+          "p95": 33.3333333333599,
+          "max": 83.3333333333286
+        },
+        "received_packets": 29050,
+        "player_updates": 78465,
+        "player_update_gaps": 674,
+        "prediction_final": {
+          "corrections": 0,
+          "max_error": 0.0,
+          "resets": 0
+        }
+      }
+    ]
+  },
+  "demo": {
+    "valid": true,
+    "frames": 5582,
+    "duration": 262.00000000009,
+    "peak_players": 16,
+    "gaps_over_100ms": 11
+  },
+  "limitations": [
+    "Synthetic full-body input from seven clients; no new real-headset or Android run.",
+    "No deterministic input replay or acknowledged delta baselines.",
+    "Partitioning increases encode CPU relative to one native compressed snapshot.",
+    "Large mode records still use separate reliable channel; live maximum 1439 bytes.",
+    "Client fallback and render-time clamp landed after the 16-client run; validated separately.",
+    "Strict in-flight download window accounting landed after cold remote run; unit and local end-to-end transfers repeated.",
+    "Existing one-instance headless ObjectDB shutdown warning remains.",
+    "One malformed line from an earlier client journal excluded before selecting final session."
+  ]
+}

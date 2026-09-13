@@ -1,5 +1,44 @@
 # Voice chat
 
+## Team radio and team text
+
+In TDM, CTF, KOTH, Freeze Tag, TF and ASSAULT, the built-in voice system provides
+a radio on the **offhand shoulder**: left shoulder for a right-handed gun, right
+shoulder for a left-handed gun. Changing the gun-hand setting moves it and releases
+any held radio. Reach to that shoulder, grab with the offhand grip, then **hold
+the offhand trigger** to speak to the team. Release the trigger to leave team voice;
+release the grip to return the radio to the shoulder. The radio and HUD indicate
+the active channel, with short activation/release clicks. Radio use takes priority
+over grenade arming, offhand firing and two-handed weapon support. Menu entry,
+focus/tracking loss and death release it.
+
+On desktop, **B** is team push-to-talk; **V** remains proximity push-to-talk.
+**Y** opens team text chat; **Enter** opens public text chat. VR menus include a
+**TEAM CHAT** button beside CHAT. These keyboard actions can be rebound in Settings
+→ Bindings. Team messages carry a `[TEAM]` prefix, including VR notifications.
+
+The server sends private voice/text only to current teammates, excluding
+spectators. Team text also echoes to its sender; voice never echoes. Invalid team
+requests are rejected rather than broadcast publicly. Team voice ignores distance,
+uses a 320–3500 Hz radio band and gentle, level-compensated
+[waveshaping](https://docs.godotengine.org/en/stable/classes/class_audioeffectdistortion.html).
+Proximity voice retains positional attenuation. Both channels respect voice volume
+and player mutes. Team changes flush queued private audio; reordered packets cannot
+restore an older channel. The dedicated server performs routing only, with no audio
+effects or decoding.
+
+This radio controls **built-in TwoVoIP**. External Mumble remains independently
+configured and controlled by its client. Multiplayer protocol is now
+`fpsloppa-31-team-radio`; clients and servers need matching updates.
+
+Tests: `python3 deathmatch/tests/run_radio_tests.py` starts a dedicated server,
+sender, teammate and opponent to verify routing, decoding and private/public text.
+`radio_guards.gd` checks membership changes, spectators and packet ordering;
+`physical_rig.gd` checks both shoulder placements and input conflicts. The graphical
+`radio_audio.gd` test captures dry and filtered speech for a level comparison.
+
+## Settings and transport
+
 Open **VOICE…** in the main menu or **Settings → Audio → Voice Chat & Microphone**. On a fresh config, voice starts enabled in **PUSH TO TALK**. Hold **V** on desktop or the **off-hand grip** in VR. Listen-only stops microphone capture; voice activation uses a level threshold and a short release delay. The menu offers input-device selection, playback volume, global mute and individual player mutes. Android requests microphone permission, with a retry button after denial. No voice is sent before admission, during offline practice, or while the VR session is unfocused.
 
 Voice mode, preferred microphone, mute-all and activation threshold are saved in the `[voice]` section of `deathmatch.cfg` (or the file selected with `--client-config`). Playback volume remains in `[presentation] voice`. Reconnecting, server voice policy and quitting do not overwrite these preferences. If the preferred microphone is unavailable, capture falls back to the system default while retaining the preference. Per-player mutes are session-specific because peer IDs change when players reconnect. See [client.example.cfg](client.example.cfg).

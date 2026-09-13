@@ -1,0 +1,173 @@
+{
+  "complete": true,
+  "engine": {
+    "build": "fedora",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (fedora)",
+    "timestamp": 0
+  },
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "renderer": "mobile",
+  "size": [
+    1280,
+    800
+  ],
+  "msaa": 4,
+  "measured_frames": 5400,
+  "summary": [
+    {
+      "condition": "dim",
+      "effects": 0,
+      "gpu_p50_ms": 0.423000007867813,
+      "delta_from_condition_baseline_ms": 0.0,
+      "median_block_gpu_p95_ms": 0.6150000095367429,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": false
+    },
+    {
+      "condition": "dim",
+      "effects": 2,
+      "gpu_p50_ms": 0.589999973773956,
+      "delta_from_condition_baseline_ms": 0.16699996590614297,
+      "median_block_gpu_p95_ms": 0.800000011920929,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": false
+    },
+    {
+      "condition": "dim",
+      "effects": 4,
+      "gpu_p50_ms": 0.723999977111816,
+      "delta_from_condition_baseline_ms": 0.30099996924400296,
+      "median_block_gpu_p95_ms": 0.935999989509583,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": false
+    },
+    {
+      "condition": "dim",
+      "effects": 8,
+      "gpu_p50_ms": 1.03600001335144,
+      "delta_from_condition_baseline_ms": 0.613000005483627,
+      "median_block_gpu_p95_ms": 1.27400004863739,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": false
+    },
+    {
+      "condition": "lit",
+      "effects": 0,
+      "gpu_p50_ms": 0.743499994277954,
+      "delta_from_condition_baseline_ms": 0.0,
+      "median_block_gpu_p95_ms": 0.9905000030994415,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": false
+    },
+    {
+      "condition": "lit",
+      "effects": 2,
+      "gpu_p50_ms": 0.889999985694885,
+      "delta_from_condition_baseline_ms": 0.14649999141693104,
+      "median_block_gpu_p95_ms": 1.14300000667572,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": false
+    },
+    {
+      "condition": "lit",
+      "effects": 4,
+      "gpu_p50_ms": 1.03299999237061,
+      "delta_from_condition_baseline_ms": 0.2894999980926559,
+      "median_block_gpu_p95_ms": 1.29900002479553,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": false
+    },
+    {
+      "condition": "lit",
+      "effects": 8,
+      "gpu_p50_ms": 1.04700005054474,
+      "delta_from_condition_baseline_ms": 0.3035000562667861,
+      "median_block_gpu_p95_ms": 1.29900002479553,
+      "draw_counts": [
+        28.0
+      ],
+      "oversubscribed": true
+    }
+  ],
+  "source_inputs": {
+    "addons/Godot-MToon-Shader/mtoon_common.gdshaderinc": "b7061f463e9e511caae5aa7991ba3caacaddd3bb256025b7488df3d4e4b3babd",
+    "deathmatch/avatars/lighting.gd": "aadb31e40fd8d728962ea2ea88e87c2582529937e6bac037ca8afddefe7bfcc0",
+    "deathmatch/maps/baked_light.gdshader": "15d1af7cdf14d540e6eb26ce49649c8b1b83dc48425eb5a4b23ee701f319189c",
+    "project.godot": "45d9e582d8af550ff29b08fab01d23f313d55c25ca75b7d002f9818a4e1f4768",
+    "tools/effect_lighting/render.gd": "15d439a1739f5bb1a0a5f152ed63e5adda0016a6debe52ba0f0a58ea2e939830"
+  },
+  "models": [
+    {
+      "sample": "sample_d",
+      "sha256": "9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7"
+    },
+    {
+      "sample": "sample_f",
+      "sha256": "d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb"
+    },
+    {
+      "sample": "sample_g",
+      "sha256": "ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0"
+    },
+    {
+      "sample": "sample_d",
+      "sha256": "9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7"
+    },
+    {
+      "sample": "sample_f",
+      "sha256": "d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb"
+    },
+    {
+      "sample": "sample_g",
+      "sha256": "ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0"
+    },
+    {
+      "sample": "sample_d",
+      "sha256": "9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7"
+    },
+    {
+      "sample": "sample_f",
+      "sha256": "d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb"
+    }
+  ],
+  "raw_files": {
+    "test-results/effect-lighting/result.json": "7f3863215fff25e26441a10652b426a26d2639d36e320b3db8dc9f4d058de85c",
+    "test-results/effect-lighting/render.log": "eb1fbf211ee7f5ad0c0e346e22f14ab708d38ba05e3eda07dfe7470932877359",
+    "test-results/effect-lighting/dim-0.png": "734763fc479fa3ab2aa761d2b30cdc38ad99d4cb24d63a377e8362893a3bc02c",
+    "test-results/effect-lighting/dim-2.png": "7820ca3300c99656837e94b2f58c8a6377f89a3af45f5c844a78e38d06749c12",
+    "test-results/effect-lighting/dim-4.png": "bcfc20745420002809f13b0e59dfb9e3c3e488d1d0e11050acdabfa5f20a1cf9",
+    "test-results/effect-lighting/dim-8.png": "d36cc4949f10013df50c838499ab5340f21d8d5c48d4b5e30600c5d244e1b4c0",
+    "test-results/effect-lighting/lit-0.png": "18042fa454307e4035ce9e76d516b7113c5fda3374cc13ece99b5b230492db3b",
+    "test-results/effect-lighting/lit-2.png": "dafb32f715931b8a6db3a8933f80c43a37c2c3659d12e8de1493fa0bcacd74c8",
+    "test-results/effect-lighting/lit-4.png": "eb9d3c809a88ebdbdc116d6ad289f467198000f7056ed4ca36d038ab8989c986",
+    "test-results/effect-lighting/lit-8.png": "59a4d20d715f16d8e0c82013e9d925dd17dd5841ac3054d2d5ac4669b06918d3"
+  },
+  "limitations": [
+    "Controlled room with current baked-map shader and eight real VRMs. Static models; no gameplay, particles, map occlusion or stereo. Eight effect lights with four map lights deliberately exceeds Mobile's per-mesh omni limit.",
+    "Medians across three blocks, with two baseline samples per block. All raw samples retained.",
+    "The first dim baseline block was unusually slow (1.177 ms); other dim baselines were 0.422\u20130.423 ms. The aggregate median includes it.",
+    "No assertion that the oversubscribed 12-light case renders all 12 lights on each mesh.",
+    "This study adds diagnostic files only; game lighting behavior and defaults were not changed.",
+    "No standalone VR, Windows, thermal, animated-avatar, crowded BSP or full-match measurements."
+  ]
+}

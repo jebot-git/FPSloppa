@@ -1,0 +1,144 @@
+{
+  "status": "All 25 base maps baked, installed, packaged and Android artifacts verified",
+  "artifacts": [
+    {
+      "path": "/home/blux/Documents/Builds/FPSloppa-0.10v-Base-Assets.zip",
+      "bytes": 249058715,
+      "sha256": "9f5552362bdeaf0aca95a74069c8523118e55db495d5194d98ffd95d230f660f"
+    },
+    {
+      "path": "/home/blux/Documents/Builds/FPSloppa-0.10v-Original-TF-Arenas.zip",
+      "bytes": 25490899,
+      "sha256": "89bc0735ca3532e3b3a19dbe68029b2dd56f7661d80c67ec08bceae55b346529"
+    },
+    {
+      "path": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "bytes": 412032017,
+      "sha256": "7a55494e5dd14ab07b1941a127ad1fad2e92cc65add5aefa6c2e389a04937378"
+    },
+    {
+      "path": "/home/blux/Documents/Builds/Android/FPSloppa-Pico.apk",
+      "bytes": 412031825,
+      "sha256": "1ce115b0bc756d7659544f13b313a3635fe7d3982fde3292a044857c4722d28d"
+    }
+  ],
+  "map_count": 25,
+  "cache_files_updated": 50,
+  "base_asset_files": 293,
+  "base_zip_all_file_hashes_verified": true,
+  "android_verification": [
+    {
+      "target": "Quest",
+      "bytes": 412032017,
+      "sha256": "7a55494e5dd14ab07b1941a127ad1fad2e92cc65add5aefa6c2e389a04937378",
+      "assets_verified": [
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "maps/tf_pressureworks.bsp",
+        "maps/tf_vesper.bsp",
+        "maps/koth_solstice.bsp",
+        "maps/koth_torture.bsp",
+        "maps/koth_hyperborea.bsp",
+        "maps/koth_alichar.bsp",
+        "maps/cc_hyperborea.bsp",
+        "maps/cc_psychofuge.bsp",
+        "maps/cc_ghostquarter.bsp",
+        "maps/cc_basement.bsp",
+        "maps/qsrc_dm1.bsp",
+        "maps/qsrc_dm2.bsp",
+        "maps/qsrc_dm3.bsp",
+        "maps/qsrc_dm4.bsp",
+        "maps/qsrc_dm5.bsp",
+        "maps/qsrc_dm6.bsp",
+        "maps/qsrc_dm7.bsp",
+        "maps/ctf_tideworks.bsp",
+        "maps/ctf_crucible.bsp",
+        "maps/ctf_confluence.bsp",
+        "maps/ctf_deepvault.bsp",
+        "maps/ctf_crownreach.bsp",
+        "maps/ctf_skyfracture.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "unified_base_assets": 293,
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true,
+      "renderer": {
+        "method": "mobile",
+        "android_driver": "vulkan",
+        "opengl_fallback": false
+      },
+      "vulkan_required": true,
+      "seekable_embedded_zip": true
+    },
+    {
+      "target": "Pico",
+      "bytes": 412031825,
+      "sha256": "1ce115b0bc756d7659544f13b313a3635fe7d3982fde3292a044857c4722d28d",
+      "assets_verified": [
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "maps/tf_pressureworks.bsp",
+        "maps/tf_vesper.bsp",
+        "maps/koth_solstice.bsp",
+        "maps/koth_torture.bsp",
+        "maps/koth_hyperborea.bsp",
+        "maps/koth_alichar.bsp",
+        "maps/cc_hyperborea.bsp",
+        "maps/cc_psychofuge.bsp",
+        "maps/cc_ghostquarter.bsp",
+        "maps/cc_basement.bsp",
+        "maps/qsrc_dm1.bsp",
+        "maps/qsrc_dm2.bsp",
+        "maps/qsrc_dm3.bsp",
+        "maps/qsrc_dm4.bsp",
+        "maps/qsrc_dm5.bsp",
+        "maps/qsrc_dm6.bsp",
+        "maps/qsrc_dm7.bsp",
+        "maps/ctf_tideworks.bsp",
+        "maps/ctf_crucible.bsp",
+        "maps/ctf_confluence.bsp",
+        "maps/ctf_deepvault.bsp",
+        "maps/ctf_crownreach.bsp",
+        "maps/ctf_skyfracture.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "unified_base_assets": 293,
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true,
+      "renderer": {
+        "method": "mobile",
+        "android_driver": "vulkan",
+        "opengl_fallback": false
+      },
+      "vulkan_required": true,
+      "seekable_embedded_zip": true
+    }
+  ],
+  "visual_review": "Reviewed all 25-map Classic and Contrast contact sheets; geometry/routes remain visible. Full off/low screenshots retained for both views per map.",
+  "raw_comparison_gallery": "test-results/lighting-ao-distribution/review.html",
+  "validation_receipt": "docs/validation/lighting-ao-distribution.json",
+  "deployment": "Local base/TF bundles and Quest/Pico APKs rebuilt. No GitHub publishing or headset installation performed. Existing desktop executable ZIPs were not rebuilt.",
+  "limitations": [
+    "Short static Linux Vulkan sweep, not sustained headset gameplay certification.",
+    "Static AO remains baked into RGB in both Classic and Contrast.",
+    "Headless cache test reports one ObjectDB instance leaked at process exit; no import/atlas validation failures."
+  ]
+}

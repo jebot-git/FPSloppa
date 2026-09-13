@@ -37,6 +37,7 @@ func _process_modification_with_delta(delta: float) -> void:
 	var data: Dictionary=rig.xr_pose.get("face",{}) if not rig.dead else {}
 	var desired: Vector2=data.get("look",Vector2.ZERO) if data.get("gaze",false) else Vector2.ZERO
 	var lids: Vector2=data.get("blink",Vector2.ZERO) if data.get("lids",false) else Vector2.ZERO
+	if rig.dead:lids=Vector2(.9,.9)
 	look=look.lerp(desired.clamp(Vector2(-.20944,-.139626),Vector2(.20944,.139626)),1-exp(-delta*24))
 	blink=blink.lerp(lids.clamp(Vector2.ZERO,Vector2(.9,.9)),1-exp(-delta*40))
 	# Eyelid closure reduces eye deflection to avoid clipping at extreme poses.
@@ -79,7 +80,7 @@ func apply_morphs() -> void:
 			totals[bind[0]][bind[1]]=float(totals[bind[0]].get(bind[1],0))+morph_weights[i]*bind[2]
 	# One writer composes expressions, measured eyelids/gaze and speech. This avoids
 	# an expression track overwriting a shared mouth or blink morph every frame.
-	if rig.mouth:
+	if rig.mouth and not rig.dead:
 		for i in 5:
 			for bind in rig.mouth.binds[i]:
 				if not is_instance_valid(bind[0]):continue

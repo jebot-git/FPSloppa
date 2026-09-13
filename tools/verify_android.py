@@ -1,6 +1,7 @@
 """Inspect built APK manifests, native ABIs and transferable asset checksums."""
 from pathlib import Path
-import hashlib, json, os, re, struct, subprocess, zipfile
+import io, hashlib, json, os, re, struct, subprocess, zipfile
+from renderer_policy import verify_android_renderer
 root = Path(__file__).resolve().parents[1]
 sdk = Path(os.environ.get('ANDROID_SDK_ROOT', str(Path.home() / 'Android/Sdk')))
 reports = []
@@ -31,11 +32,14 @@ for target in ['Quest', 'Pico']:
         required += ['org.entryway.arena.pico', 'pvr.app.type', 'com.picovr.permission.EYE_TRACKING']
     for marker in required:
         assert marker in manifest, (target, marker)
+    vulkan_feature = re.search(r'android\.hardware\.vulkan\.version[^\n]*\n((?:\s+A:[^\n]*\n)+)', manifest)
+    assert vulkan_feature and 'required(0x0101028e)=true' in vulkan_feature.group(1), (target, 'Vulkan must be required')
     assert 'debuggable(0x0101000f)=true' not in manifest
     assert 'versionName(0x0101021c)="' + version + '"' in manifest
     expected_code=re.search(r'version/code=(\d+)',(root/'export_presets.cfg').read_text()).group(1)
     assert 'versionCode(0x0101021b)='+expected_code in manifest
     with zipfile.ZipFile(apk) as z:
+        renderer = verify_android_renderer(z)
         assert {n.split('/')[1] for n in z.namelist() if n.startswith('lib/')} == {'arm64-v8a'}
         for name in ['libgodot_android.so', 'libopenxr_loader.so', 'libgodotopenxrvendors.so']:
             assert 'lib/arm64-v8a/' + name in z.namelist()
@@ -47,23 +51,38 @@ for target in ['Quest', 'Pico']:
             size,count=struct.unpack_from('<HH',binary,54)
             loads=[struct.unpack_from('<IIQQQQQQ',binary,offset+i*size) for i in range(count)]
             assert all(row[7]>=16384 for row in loads if row[0]==1), (target,name,'16 KiB page alignment')
+        assert z.getinfo('assets/deathmatch/assets/offline-base.zip').compress_type == zipfile.ZIP_STORED, 'Nested compression makes Android ZIP seeks expensive'
+        embedded = z.read('assets/deathmatch/assets/offline-base.zip')
+        base = json.loads((root/'deathmatch/assets/base_manifest.json').read_text())
+        assert hashlib.sha256(embedded).hexdigest() == base['sha256'], 'Stale unified base archive'
+        with zipfile.ZipFile(io.BytesIO(embedded)) as bundle:
+            bundled_hashes = {}
+            assert set(bundle.namelist()) == {row['path'] for row in base['files']}
+            for row in base['files']:
+                payload = bundle.read(row['path'])
+                assert len(payload) == row['size'] and hashlib.sha256(payload).hexdigest() == row['sha256'], row['path']
+                bundled_hashes[row['path']] = row['sha256']
         checked = []
         for group, key in [('deathmatch/maps/manifest.json', 'sha256'), ('deathmatch/avatars/models/manifest.json', 'hash')]:
+            assert z.read('assets/'+group) == (root/group).read_bytes(), ('Outdated APK catalog', target, group)
             for entry in json.loads((root / group).read_text()):
                 path = entry['path'].removeprefix('res://')
                 assert 'assets/'+path not in z.namelist(), ('Map/VRM unexpectedly bundled',path)
-                assert hashlib.sha256((root/path).read_bytes()).hexdigest()==entry[key],path
-                checked.append(path)
+                # Catalogs also describe optional/retired assets. Verify the
+                # actual embedded distribution, not absent workspace extras.
+                if path in bundled_hashes:
+                    assert bundled_hashes[path] == entry[key], path
+                    checked.append(path)
         assert not any(n.startswith('assets/entryway/') or n=='assets/deathmatch/arena.glb' for n in z.namelist())
         for entry in json.loads((root/'deathmatch/maps/manifest.json').read_text()):
             assert not any(n.startswith('assets/maps/') or n.startswith('assets/vrm/') for n in z.namelist())
         assert 'assets/deathmatch/avatars/eyes.gd' in z.namelist()
         assert protocol.encode() in z.read('assets/deathmatch/arena.gd')
-        for script in ['movement/prediction.gd', 'vr/physical_crouch.gd', 'vr/physical_actions.gd', 'vr/weapon_clearance.gd', 'vr/face_expressions.gd', 'vr/ability_gesture.gd', 'modes/vr_interactions.gd', 'ui/file_browser.gd', 'settings/bindings_panel.gd', 'voice/chat.gd', 'voice/panel.gd', 'modes/assault.gd', 'modes/fortress_fx.gd', 'maps/train_motion.gd', 'chainsaw.gd', 'vr/swim_strokes.gd', 'vr/t_pose.gd', 'audio/announcer.gd', 'network/disk_worker.gd', 'network/asset_jobs.gd', 'maps/contents.gd', 'maps/filtering.gd', 'ui/drag_scroll.gd', 'voice/preferences.gd', 'movement/quake.gd', 'voice/microphone.gd', 'voice/visemes.gd', 'modes/lobby_mirror.gd', 'modes/lobby_wall.gd', 'modes/match_selector.gd', 'ui/choice.gd', 'network/loading.gd', 'network/loading_overlay.gd', 'projectile_targets.gd', 'maps/network.gd', 'interface.gd', 'arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
+        for script in ['ui/player_status.gd', 'audio/round_clock.gd', 'assets/bootstrap.gd', 'assets/base_install.gd', 'ui/drag_list.gd', 'ui/scoreboard.gd', 'modes/lobby_results.gd', 'avatars/picker.gd', 'movement/prediction.gd', 'vr/physical_crouch.gd', 'vr/physical_actions.gd', 'vr/weapon_clearance.gd', 'vr/face_expressions.gd', 'vr/ability_gesture.gd', 'modes/vr_interactions.gd', 'ui/file_browser.gd', 'settings/bindings_panel.gd', 'voice/chat.gd', 'voice/panel.gd', 'modes/assault.gd', 'modes/fortress_fx.gd', 'maps/train_motion.gd', 'chainsaw.gd', 'vr/swim_strokes.gd', 'vr/t_pose.gd', 'audio/announcer.gd', 'network/disk_worker.gd', 'network/asset_jobs.gd', 'maps/contents.gd', 'maps/filtering.gd', 'ui/drag_scroll.gd', 'voice/preferences.gd', 'movement/quake.gd', 'voice/microphone.gd', 'voice/visemes.gd', 'modes/lobby_mirror.gd', 'modes/lobby_wall.gd', 'modes/match_selector.gd', 'ui/choice.gd', 'network/loading.gd', 'network/loading_overlay.gd', 'projectile_targets.gd', 'maps/network.gd', 'interface.gd', 'arena.gd', 'assets/paths.gd', 'assets/panel.gd', 'maps/uploads.gd', 'modes/special.gd', 'melee.gd', 'server/config.gd', 'server/log.gd', 'modes/match.gd', 'modes/votes.gd', 'audio/steam_backend.gd', 'avatars/network.gd', 'vr/preferences.gd', 'vr/tracking.gd', 'vr/status_hud.gd', 'vr/permissions.gd', 'vr/rig.gd', 'voice/chat.gd', 'voice/panel.gd', 'avatars/library.gd', 'avatars/rig.gd', 'avatars/pose.gd', 'fighter.gd', 'effects/combat.gd', 'audio/spatial.gd', 'audio/music/player.gd', 'pickups/models.gd', 'settings/preferences.gd', 'settings/panel.gd']:
             path = 'deathmatch/' + script
             assert z.read('assets/' + path) == (root / path).read_bytes(), ('Outdated APK script', target, path)
         audio_files=[root/'deathmatch/icon-final.png']+list((root/'deathmatch/audio/music').glob('*.ogg'))
-        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['door_open','door_close','teleport','jump_pad','calibration_complete','saw_grind','flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
+        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['round_tick','door_open','door_close','teleport','jump_pad','calibration_complete','saw_grind','flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
         audio_files += list((root/'deathmatch/audio/recorded').glob('pain_*.wav'))
         audio_files += list((root/'deathmatch/audio/announcer').glob('*.ogg'))
         for notice in ['LICENSE.txt','SOURCES.md']:
@@ -73,6 +92,9 @@ for target in ['Quest', 'Pico']:
             remap=re.search(r'^path="res://([^"]+)"',Path(str(source)+'.import').read_text(),re.M).group(1)
             assert z.read('assets/'+remap)==(root/remap).read_bytes(), ('Outdated APK audio',target,source.name)
         assert not any(n.startswith('assets/deathmatch/audio/music/samples/') for n in z.namelist()), 'Source sample bank should not inflate APKs'
-    reports.append({'target': target, 'bytes': apk.stat().st_size, 'sha256': hashlib.sha256(apk.read_bytes()).hexdigest(), 'assets_verified': checked, 'arm64_only': True, 'vendor_manifest': True, 'twovoip_current':True,'twovoip_16k_pages':True,'steam_audio_current':True, 'steam_audio_16k_pages':True,'current_feedback_and_music':True,'current_icon':True,'current_vr_interactions':True})
+    reports.append({'target': target, 'bytes': apk.stat().st_size, 'sha256': hashlib.sha256(apk.read_bytes()).hexdigest(), 'assets_verified': checked, 'unified_base_assets': len(base['files']), 'arm64_only': True, 'vendor_manifest': True, 'twovoip_current':True,'twovoip_16k_pages':True,'steam_audio_current':True, 'steam_audio_16k_pages':True,'current_feedback_and_music':True,'current_icon':True,'current_vr_interactions':True})
+    reports[-1]['renderer'] = renderer
+    reports[-1]['vulkan_required'] = True
+    reports[-1]['seekable_embedded_zip'] = True
 (root / 'test-results/android_artifacts.json').write_text(json.dumps(reports, indent=2) + '\n')
 print('Verified both ARM64 APKs, vendor manifests, protocol, current scripts/assets and 16 KiB-aligned Steam Audio and TwoVoIP libraries.')

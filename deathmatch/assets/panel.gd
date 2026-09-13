@@ -15,7 +15,7 @@ func setup(arena: Node) -> void:
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",18);add_child(column)
 	var title:=Label.new();title.text="MAPS AND PLAYER MODELS";column.add_child(title)
 	var paths:=Label.new();paths.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;paths.text="Drop BSP maps and VRM models into these folders, then rescan:\n\n"+Paths.folder("maps")+"\n"+Paths.folder("vrm");column.add_child(paths)
-	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Models must be at most 25 MB. Host maps download automatically when joining. Base files are separate from the game package.";column.add_child(notice)
+	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Models must be at most 25 MB. Host maps download automatically when joining. Standalone APKs include the base files automatically.";column.add_child(notice)
 	download=button(column,"DOWNLOAD BASE MAPS AND MODELS",install)
 	button(column,"RESCAN FOLDERS",rescan)
 	button(column,"BACK",func():if not busy:hide())
@@ -49,31 +49,13 @@ func completed(result: int,code: int,_headers: PackedStringArray,_body: PackedBy
 	await installed
 
 static func install_archive(data: Dictionary,archive: String,directory: String) -> String:
-	if FileAccess.get_sha256(archive)!=data.sha256:return "Asset archive checksum mismatch."
-	var zip:=ZIPReader.new()
-	if zip.open(archive)!=OK:return "Cannot open asset archive."
-	for row in data.files:
-		var relative: String=row.path
-		if relative.is_absolute_path() or relative.contains("..") or relative.contains("\\"):zip.close();return "Invalid asset path."
-		var dest:=directory.path_join(relative)
-		# Preserve existing player/admin edits. Only install missing base files.
-		if FileAccess.file_exists(dest):continue
-		var bytes:=zip.read_file(relative)
-		var hash:=HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(bytes)
-		if bytes.size()!=row.size or hash.finish().hex_encode()!=row.sha256:zip.close();return "Invalid asset: "+relative
-		DirAccess.make_dir_recursive_absolute(dest.get_base_dir())
-		var file:=FileAccess.open(dest,FileAccess.WRITE)
-		if not file:zip.close();return "Cannot write to "+dest
-		file.store_buffer(bytes);file.close()
-	zip.close()
-	return "Base assets installed."
+	return preload("res://deathmatch/assets/base_install.gd").install(data,archive,directory)
 func finish(message: String) -> void:
 	busy=false;download.disabled=false;notice.text=message
 	if not request.download_file.is_empty():disk.discard(request.download_file)
 func rescan() -> void:
 	if busy or game.active:notice.text="Leave the match before rescanning assets.";return
-	game.map_catalog=game.Maps.catalog();game.hud.map_choice.clear()
-	for row in game.map_catalog:game.hud.map_choice.add_item(row.title)
+	game.map_catalog=game.Maps.catalog();game.hud.refresh_maps()
 	if not game.map_catalog.is_empty():game.selected_map=game.map_catalog[0].id
 	game.avatars.library.reload()
 	notice.text="Found %d maps and %d models."%[game.map_catalog.size(),game.avatars.library.entries.size()]

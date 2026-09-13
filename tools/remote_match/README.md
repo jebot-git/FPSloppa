@@ -1,0 +1,11 @@
+# Remote all-mode observation test
+
+`run.py` connects eight separate ENet clients driven by an adapter around the existing bot planner, plus one graphical spectator. The adapter sends normal player input/RPCs; it does not grant health, weapons, damage, movement or objective progress. It treats unavailable pickups as having unknown respawn times because server respawn deadlines are not replicated. TF abilities use the regular Use RPC. Client-local team planning does not share the server practice bots' internal information bus.
+
+The session in `test-results/remote-all-modes/schedule.json` records the random seed, map choices and rulesets. TF uses Quake, Assault uses UT99, and fixed-loadout modes retain their required weapons. Other modes randomly choose Doom, Quake or UT99 rules. This tests weapon rulesets, not every possible inventory combination. Each round has a one-minute time limit, 30 frags, three captures or 60 hill points; Assault runs both legs. The initial full-roster restart and per-round settings are recorded in the telemetry.
+
+`client.gd` records the entire spectator session and publishes local telemetry. `director.gd` changes angle every 12 seconds and player every 24 seconds. `run.py` uses authenticated RCON only for round controls, respecting its connection rate limit, and never enables the lobby. Its finalizer reaps all clients and stops the explicitly named remote test-server screen session. A preflight leaves the staged server running for the full test.
+
+`audit.gd` validates every demo frame and summarizes per-mode participation, movement, shots and Assault legs. `render.py` replays the demo through Godot Movie Maker, renders minute-long temporary AVI chunks, encodes H.264/AAC segments, and concatenates them to MP4. It retains segment logs and preview images. This is a replay render, not a desktop screen recording. Its camera director uses the same pacing as the live observer.
+
+`check_rcon.py` validates the actual console build's atomic match command, invalid parameter rejection, same-map weapon changes and fixed-loadout preservation. Deployment is deliberately explicit rather than hidden inside this runner; credentials and the remote configuration are not committed.

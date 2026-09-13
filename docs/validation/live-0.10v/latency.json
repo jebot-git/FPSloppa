@@ -1,0 +1,453 @@
+[
+  {
+    "profile": "baseline",
+    "added_rtt_ms": 0,
+    "one_way_jitter_ms": 0,
+    "packet_loss_each_direction": 0,
+    "result": {
+      "disconnected": false,
+      "elapsed_ms": 8261,
+      "event": "Latency test joined as spectator.",
+      "join_ms": 257,
+      "joined": true
+    },
+    "packets": {
+      "up": 298,
+      "down": 238,
+      "dropped_up": 0,
+      "dropped_down": 0,
+      "overflow": 0,
+      "max_queue": 1,
+      "errors": 0
+    },
+    "samples": [
+      {
+        "admitted": false,
+        "elapsed_ms": 0,
+        "enet_rtt_ms": -1.0,
+        "event": "Connecting to 127.0.0.1:41107\u2026",
+        "phase": "Connecting to server\u2026",
+        "ping": -1,
+        "transport_connected": false
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 1030,
+        "enet_rtt_ms": 30.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 0,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 2079,
+        "enet_rtt_ms": 28.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 27,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 3127,
+        "enet_rtt_ms": 28.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 27,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 4176,
+        "enet_rtt_ms": 28.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 27,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 5225,
+        "enet_rtt_ms": 28.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 27,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 6274,
+        "enet_rtt_ms": 28.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 27,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 7322,
+        "enet_rtt_ms": 27.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 27,
+        "transport_connected": true
+      }
+    ],
+    "exit_code": 0
+  },
+  {
+    "profile": "100ms-added-RTT",
+    "added_rtt_ms": 100,
+    "one_way_jitter_ms": 0,
+    "packet_loss_each_direction": 0,
+    "result": {
+      "disconnected": false,
+      "elapsed_ms": 8681,
+      "event": "Latency test joined as spectator.",
+      "join_ms": 677,
+      "joined": true
+    },
+    "packets": {
+      "up": 293,
+      "down": 240,
+      "dropped_up": 0,
+      "dropped_down": 0,
+      "overflow": 0,
+      "max_queue": 20,
+      "errors": 0
+    },
+    "samples": [
+      {
+        "admitted": false,
+        "elapsed_ms": 0,
+        "enet_rtt_ms": -1.0,
+        "event": "Connecting to 127.0.0.1:40856\u2026",
+        "phase": "Connecting to server\u2026",
+        "ping": -1,
+        "transport_connected": false
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 1008,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 0,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 2057,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 130,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 3106,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 130,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 4155,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 130,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 5203,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 130,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 6252,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 130,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 7301,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 130,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 8350,
+        "enet_rtt_ms": 130.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 130,
+        "transport_connected": true
+      }
+    ],
+    "exit_code": 0
+  },
+  {
+    "profile": "300ms-jitter-1pct-loss",
+    "added_rtt_ms": 300,
+    "one_way_jitter_ms": 30,
+    "packet_loss_each_direction": 0.01,
+    "result": {
+      "disconnected": false,
+      "elapsed_ms": 9524,
+      "event": "Latency test joined as spectator.",
+      "join_ms": 1521,
+      "joined": true
+    },
+    "packets": {
+      "up": 301,
+      "down": 250,
+      "dropped_up": 5,
+      "dropped_down": 2,
+      "overflow": 0,
+      "max_queue": 25,
+      "errors": 0
+    },
+    "samples": [
+      {
+        "admitted": false,
+        "elapsed_ms": 0,
+        "enet_rtt_ms": -1.0,
+        "event": "Connecting to 127.0.0.1:39203\u2026",
+        "phase": "Connecting to server\u2026",
+        "ping": -1,
+        "transport_connected": false
+      },
+      {
+        "admitted": false,
+        "elapsed_ms": 1023,
+        "enet_rtt_ms": 324.0,
+        "event": "Connecting to 127.0.0.1:39203\u2026",
+        "phase": "Preparing server map\u2026",
+        "ping": -1,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 2073,
+        "enet_rtt_ms": 333.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 0,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 3121,
+        "enet_rtt_ms": 331.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 327,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 4170,
+        "enet_rtt_ms": 333.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 326,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 5219,
+        "enet_rtt_ms": 330.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 331,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 6267,
+        "enet_rtt_ms": 329.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 325,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 7316,
+        "enet_rtt_ms": 325.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 326,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 8365,
+        "enet_rtt_ms": 325.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 329,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 9414,
+        "enet_rtt_ms": 327.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 330,
+        "transport_connected": true
+      }
+    ],
+    "exit_code": 0
+  },
+  {
+    "profile": "600ms-jitter-3pct-loss",
+    "added_rtt_ms": 600,
+    "one_way_jitter_ms": 50,
+    "packet_loss_each_direction": 0.03,
+    "result": {
+      "disconnected": false,
+      "elapsed_ms": 11594,
+      "event": "Latency test joined as spectator.",
+      "join_ms": 3591,
+      "joined": true
+    },
+    "packets": {
+      "up": 302,
+      "down": 284,
+      "dropped_up": 7,
+      "dropped_down": 6,
+      "overflow": 0,
+      "max_queue": 26,
+      "errors": 0
+    },
+    "samples": [
+      {
+        "admitted": false,
+        "elapsed_ms": 0,
+        "enet_rtt_ms": -1.0,
+        "event": "Connecting to 127.0.0.1:43754\u2026",
+        "phase": "Connecting to server\u2026",
+        "ping": -1,
+        "transport_connected": false
+      },
+      {
+        "admitted": false,
+        "elapsed_ms": 1050,
+        "enet_rtt_ms": 500.0,
+        "event": "Connecting to 127.0.0.1:43754\u2026",
+        "phase": "Connecting to server\u2026",
+        "ping": -1,
+        "transport_connected": true
+      },
+      {
+        "admitted": false,
+        "elapsed_ms": 2099,
+        "enet_rtt_ms": 640.0,
+        "event": "Connecting to 127.0.0.1:43754\u2026",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": -1,
+        "transport_connected": true
+      },
+      {
+        "admitted": false,
+        "elapsed_ms": 3148,
+        "enet_rtt_ms": 628.0,
+        "event": "Connecting to 127.0.0.1:43754\u2026",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": -1,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 4197,
+        "enet_rtt_ms": 614.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 0,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 5246,
+        "enet_rtt_ms": 621.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 400,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 6295,
+        "enet_rtt_ms": 614.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 400,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 7344,
+        "enet_rtt_ms": 622.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 400,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 8392,
+        "enet_rtt_ms": 622.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 400,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 9442,
+        "enet_rtt_ms": 626.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 400,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 10492,
+        "enet_rtt_ms": 630.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 400,
+        "transport_connected": true
+      },
+      {
+        "admitted": true,
+        "elapsed_ms": 11543,
+        "enet_rtt_ms": 623.0,
+        "event": "Latency test joined as spectator.",
+        "phase": "Ready \u00b7 entering match\u2026",
+        "ping": 400,
+        "transport_connected": true
+      }
+    ],
+    "exit_code": 0
+  }
+]

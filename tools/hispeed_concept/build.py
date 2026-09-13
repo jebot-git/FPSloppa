@@ -20,7 +20,7 @@ TRIM = 'met_blu_trim16'
 HAZARD = 'aqpanl10'
 
 
-def generate():
+def generate(layout_test=True):
     a = Arena(NAME, 'HiSlop', 2880, 704, 768)
     brush_entities = []
     def volume(kind, lo, hi, texture='trigger', **fields):
@@ -192,7 +192,7 @@ def generate():
         a.box((x,left,z0+top),(x+16,right,z1),TRIM)
         for y in [left-8,right]:
             a.box((x-2,y,z0),(x+18,y+8,z0+top),HAZARD)
-    bulkhead(512,0,128,(-112,0))           # CAR 3 supply compartment.
+    if not layout_test:bulkhead(512,0,128,(-112,0)) # Replaced by four spawn rooms in the test layout.
     bulkhead(1216,144,304,(0,112))         # CAR 2 upper passenger compartment.
     bulkhead(1704,0,128,(-32,80))          # CAR 1 lower entrance vestibule.
     a.box((1744,16,0),(1840,32,128),METAL) # Equipment room off the service passage.
@@ -210,7 +210,7 @@ def generate():
     light((1832,96,240),210,'0.4 0.85 1')
     light((1984,-96,88),190,'1 0.65 0.25')
     # Supply/defensive alcoves in CAR 3; CAR 1's objective console and guard pads.
-    crate(640,120,w=80,h=80)
+    if not layout_test:crate(640,120,w=80,h=80)
     light((1968,-96,224),180,'1 0.65 0.25')
     mount(640,-120,144)
     mount(1632,120,0)
@@ -247,6 +247,8 @@ def generate():
     # The cabin door slides sideways into the bulkhead, clear of the upper room.
     # The AS switch unlocks it; in TF it is proximity-operated.
     volume('func_door',(1904,-128,0),(1920,-16,112),TRIM,angle='90',as_unlock='1',lip='-8')
+    from assault_layout_tests.pickups import apply as apply_pickups
+    apply_pickups(a,"hislop",tiny=not layout_test)
     return a,brush_entities
 
 
@@ -258,9 +260,18 @@ def main():
     p.add_argument('--compiler-dir',type=Path,required=True)
     p.add_argument('--output',type=Path,default=ROOT.parent/'Builds/HiSpeed-Concept')
     p.add_argument('--fast-vis',action='store_true',help='Iteration only: conservative visibility, more rendered faces')
+    variants=p.add_mutually_exclusive_group()
+    variants.add_argument('--layout-test',action='store_true',help='Legacy alias for the expanded default layout')
+    variants.add_argument('--tiny',action='store_true',help='Build the compact 2-4 player variant as as_hislop_tiny')
     args=p.parse_args(); out=args.output.resolve()
+    global NAME
+    if args.tiny:NAME='as_hislop_tiny'
     for sub in ['maps','source','licenses','logs']:(out/sub).mkdir(parents=True,exist_ok=True)
-    a,brush_entities=generate()
+    a,brush_entities=generate(not args.tiny)
+    if not args.tiny:
+        from assault_layout_tests.layouts import refine
+        refine(a,brush_entities,'hislop')
+    else:a.name=NAME;a.title='HiSlop Tiny (2-4 players)'
     used={line.split(')')[-1].strip().split()[0] for brush in a.brushes+[b for _,b in brush_entities] for line in brush.splitlines() if line.startswith('(')}
     # Compiler trigger texture need not be shipped, but give it a real licensed miptex.
     donors={};sources={}
@@ -270,6 +281,7 @@ def main():
         offset,length=struct.unpack_from('<ii',data,4+2*8)
         lump=data[offset:offset+length];count=struct.unpack_from('<i',lump)[0]
         metadata=args.reuse_textures.parent/'HiSlop'
+        if args.reuse_textures.stem.endswith('_tiny'):metadata=metadata/'Tiny'
         sources=json.loads((metadata/'texture-sources.json').read_text())
         for index in range(count):
             at=struct.unpack_from('<i',lump,4+4*index)[0]
@@ -326,7 +338,7 @@ def main():
     (out/'as_maplist.txt').write_text(NAME+'\n')
     (out/'hispeed-as.cfg').write_text('set sv_hostname \"FPSloppa Experimental Assault\"\nset sv_gametype \"as\"\nset sv_maxclients \"10\"\nset timelimit \"7\"\nset map \"'+NAME+'\"\nset as_maplist \"'+NAME+'\"\n')
     (out/'hispeed.cfg').write_text('set sv_hostname "FPSloppa HiSpeed concept"\nset sv_gametype "tf"\nset sv_maxclients "10"\nset timelimit "7"\nset capturelimit "1"\nset map "'+NAME+'"\nset tf_maplist "'+NAME+'"\n')
-    (out/'manifest.json').write_text(json.dumps({'id':NAME,'format':29,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'brushes':len(a.brushes)+len(brush_entities),'entities':len(a.entities)+len(brush_entities),'textures':len(used),'recommended_players':[4,10],'concept':True,'modes':['as','tf'],'objective_adapter':'native paired AS; optional TF flag-and-capture concept','scenery_motion':True,'full_vis':not args.fast_vis},indent=2)+'\n')
+    (out/'manifest.json').write_text(json.dumps({'id':NAME,'title':a.title,'format':29,'bytes':len(data),'sha256':hashlib.sha256(data).hexdigest(),'brushes':len(a.brushes)+len(brush_entities),'entities':len(a.entities)+len(brush_entities),'textures':len(used),'recommended_players':[2,4] if args.tiny else [4,10],'small_groups_only':args.tiny,'layout':'tiny' if args.tiny else 'expanded','concept':True,'modes':['as'],'scenery_motion':True,'full_vis':not args.fast_vis},indent=2)+'\n')
     print(bsp,len(data),'bytes',flush=True)
 
 if __name__=='__main__':main()

@@ -1,0 +1,227 @@
+{
+  "passed": true,
+  "engine": "4.7.2-stable",
+  "platform_policy": "console-only-alerts-and-shell-v1",
+  "artifact": "Builds/ConsoleServer/FPSloppaServer.x86_64",
+  "executable_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+  "pack_sha256": "a4e7095319886da8674e390e1def1342adfdeb22c8e4bd7b1bcf90f7b36de922",
+  "executable_bytes": 56033536,
+  "pack_bytes": 527156,
+  "pack_resource_count": 65,
+  "required_abi": [
+    "CXXABI_1.3",
+    "CXXABI_1.3.7",
+    "CXXABI_1.3.9",
+    "GLIBCXX_3.4",
+    "GLIBCXX_3.4.11",
+    "GLIBCXX_3.4.14",
+    "GLIBCXX_3.4.17",
+    "GLIBCXX_3.4.22",
+    "GLIBCXX_3.4.29",
+    "GLIBCXX_3.4.30",
+    "GLIBC_2.11",
+    "GLIBC_2.14",
+    "GLIBC_2.17",
+    "GLIBC_2.2.5",
+    "GLIBC_2.25",
+    "GLIBC_2.27",
+    "GLIBC_2.28",
+    "GLIBC_2.29",
+    "GLIBC_2.3",
+    "GLIBC_2.3.4",
+    "GLIBC_2.33",
+    "GLIBC_2.34",
+    "GLIBC_2.4",
+    "GLIBC_2.7"
+  ],
+  "runtime_dependencies": [
+    "libstdc++.so.6",
+    "libm.so.6",
+    "libgcc_s.so.1",
+    "libc.so.6",
+    "/lib64/ld-linux-x86-64.so.2"
+  ],
+  "driver_audit": {
+    "display": [
+      "headless"
+    ],
+    "rendering": [
+      "dummy"
+    ],
+    "audio": [
+      "Dummy"
+    ],
+    "forced_graphics_and_audio_rejected": true,
+    "missing_pack_uses_no_desktop_helper": true
+  },
+  "runtime_maps": {
+    "failures": [],
+    "maps": [
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 6,
+        "map": "lqdm1",
+        "shapes": 10
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "lqdm2",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 3,
+        "map": "lqdm4",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 9,
+        "map": "lqdm7",
+        "shapes": 17
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 4,
+        "map": "lqdm8",
+        "shapes": 13
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 1,
+        "map": "lqdm3",
+        "shapes": 9
+      },
+      {
+        "doors": 6,
+        "lifts": 0,
+        "liquids": 13,
+        "map": "lqdm5",
+        "shapes": 46
+      },
+      {
+        "doors": 11,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "lqdm6",
+        "shapes": 17
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_hislop",
+        "shapes": 9
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_frigate",
+        "shapes": 2
+      }
+    ],
+    "passed": true,
+    "exit_code": 0
+  },
+  "capacity": [
+    {
+      "mode": "dedicated",
+      "players": 16,
+      "avatars": 16,
+      "extra_rejected": true
+    },
+    {
+      "mode": "host",
+      "players": 8,
+      "avatars": 8,
+      "extra_rejected": true
+    }
+  ],
+  "voice": {
+    "passed": true,
+    "exported_server": "/home/blux/Documents/FPSloppa/Builds/ConsoleServer/FPSloppaServer.x86_64"
+  },
+  "rcon": {
+    "configured_status": {
+      "allowed_modes": [
+        "koth",
+        "dm"
+      ],
+      "capacity": 16,
+      "map": "lqdm1",
+      "mode": "koth",
+      "pending": 0,
+      "players": [],
+      "protocol": "fpsloppa-31-team-radio",
+      "rotation": [
+        "lqdm1",
+        "lqdm2"
+      ],
+      "time_remaining": 1020.0,
+      "version": "0.10v"
+    },
+    "wrong_password_rejected": true,
+    "replay_rejected": true,
+    "allowed_mode_change": true,
+    "secret_absent_from_log": true
+  },
+  "client_radio": [
+    {
+      "test": "server",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "sender",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "teammate",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "enemy",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "client_avatar_and_movement": [
+    {
+      "test": "local_body",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "avatar_scaling",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "network-server",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "network-client",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "ubuntu_22_04_smoke": {
+    "passed": true,
+    "isolated_network": true
+  },
+  "client_baked_lighting": {
+    "passed": true
+  }
+}

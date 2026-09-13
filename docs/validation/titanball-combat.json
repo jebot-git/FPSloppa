@@ -1,0 +1,176 @@
+{
+  "status": "implemented; local tests passed",
+  "turrets": {
+    "range_m": 60,
+    "previous_range_m": 36,
+    "direct_damage": 12,
+    "interval_s": 0.5,
+    "splash_radius_m": 1.25,
+    "falloff": "linear; shared capsule-aware splash distance",
+    "direct_victim_excluded_from_splash": true,
+    "hinge_limits_unchanged": true,
+    "heat_unchanged": true,
+    "cover_and_friendly_fire_rules": true
+  },
+  "crush": {
+    "radius_m": 5,
+    "centre_robot_local": [
+      0,
+      0,
+      -1.2
+    ],
+    "ground_height_bounds_m": [
+      -0.25,
+      1.8
+    ],
+    "team": "defenders only; actual team including disguised/cloaked spies",
+    "bypasses_armour_and_spawn_invulnerability": true,
+    "requires_actual_unblocked_motion": true,
+    "active_during_braking": true,
+    "inactive_during_preparation_or_standstill": true,
+    "respects_walls": true,
+    "network_authority": "server"
+  },
+  "focused": {
+    "checks": [
+      {
+        "name": "Direct cannon hit stays at 12 damage without double splash",
+        "pass": true
+      },
+      {
+        "name": "Nearby defender receives smaller splash damage",
+        "pass": true
+      },
+      {
+        "name": "Cannon splash respects disabled friendly fire",
+        "pass": true
+      },
+      {
+        "name": "Player beyond the small splash radius is unaffected",
+        "pass": true
+      },
+      {
+        "name": "Splash retains normal spawn invulnerability",
+        "pass": true
+      },
+      {
+        "name": "Thin cover blocks cannon splash",
+        "pass": true
+      },
+      {
+        "name": "Small splash reaches a defender just outside the old aiming cone",
+        "pass": true
+      },
+      {
+        "name": "Splash assistance retains the X hinge limit",
+        "pass": true
+      },
+      {
+        "name": "Preparation keeps defender underfoot safe while robot is parked",
+        "pass": true
+      },
+      {
+        "name": "Moving robot kills ladder camper despite armour and temporary protection",
+        "pass": true
+      },
+      {
+        "name": "Crush zone leaves nearby attacker and pilot unharmed",
+        "pass": true
+      },
+      {
+        "name": "Defender touching a leg is crushed instead of blocking advancement",
+        "pass": true
+      },
+      {
+        "name": "Crush radius excludes distant, elevated and below-floor defenders",
+        "pass": true
+      },
+      {
+        "name": "Crush zone does not reach through a wall",
+        "pass": true
+      },
+      {
+        "name": "A blocked robot does not activate crushing",
+        "pass": true
+      },
+      {
+        "name": "Crushing uses real defender team, including disguised cloaked campers",
+        "pass": true
+      },
+      {
+        "name": "Unmanned braking continues crushing only while still advancing",
+        "pass": true
+      },
+      {
+        "name": "Stopped unmanned robot leaves the ladder zone safe",
+        "pass": true
+      },
+      {
+        "name": "Turrets engage distant targets beyond the previous 36-metre range",
+        "pass": true
+      },
+      {
+        "name": "Targets beyond 60 metres are not acquired or damaged",
+        "pass": true
+      },
+      {
+        "name": "Distant suppression still respects intervening cover",
+        "pass": true
+      }
+    ],
+    "crush_radius_m": 5.0,
+    "failures": [],
+    "splash_radius_m": 1.25
+  },
+  "regressions": {
+    "gameplay": {
+      "checks": 60,
+      "failures": []
+    },
+    "pilot": {
+      "checks": 34,
+      "failures": []
+    },
+    "payload": {
+      "checks": 20,
+      "failures": []
+    }
+  },
+  "network": [
+    {
+      "role": "server",
+      "passed": true,
+      "checks": 15
+    },
+    {
+      "role": "client_a",
+      "passed": true,
+      "checks": 24
+    },
+    {
+      "role": "client_b",
+      "passed": true,
+      "checks": 24
+    }
+  ],
+  "render": {
+    "bones": 18,
+    "failures": [],
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "renderer": "mobile",
+    "resolution": [
+      1280,
+      800
+    ]
+  },
+  "quest_tested": false,
+  "cleanup_notes": "Native renderer retains ObjectDB/resource-use shutdown warnings; no runtime script errors in passing runs.",
+  "files": {
+    "deathmatch/vehicles/ba2/controller.gd": "9bc68af29807db7d515db02c00b19dfde18894fc7d38dadfd7615d852f493618",
+    "deathmatch/modes/fortress_fx.gd": "89ab59cc0dc7ba03c0e1b0edeaaa6e78af7017e96cc0c447473736d0fb954713",
+    "tools/ba2/gameplay/cannon_crush_tests.gd": "ef2eaec25c63287ca8daad1eee7dcb792c0c3ff65bde93dc68634a6421fdb733",
+    "tools/ba2/gameplay/network.gd": "df2db3ba130c3ef04bb8731252850371281f195e1cbef6e11558a9a356dcf3cf",
+    "tools/ba2/gameplay/tests.gd": "d9405baf29edefbe2ffbc29252105889a477084aa4b042b74efa87aa2a428ba6",
+    "tools/ba2/gameplay/render.gd": "9b41474e2b00a53887cf42c00a0feb06c5ca53a2017e62b319d8f7f182ac0302"
+  }
+}

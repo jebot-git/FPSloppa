@@ -1,0 +1,235 @@
+{
+  "version": "0.1.0",
+  "date": "2026-09-12",
+  "platforms": [
+    {
+      "platform": "Linux native",
+      "tests": [
+        {
+          "test": "inspect-vrm",
+          "passed": true
+        },
+        {
+          "test": "vrm-0",
+          "passed": true
+        },
+        {
+          "test": "vrm-512",
+          "passed": true
+        },
+        {
+          "test": "inspect-glb",
+          "passed": true
+        },
+        {
+          "test": "glb-to-vrm",
+          "passed": true
+        },
+        {
+          "test": "refuse-overwrite",
+          "passed": true
+        },
+        {
+          "test": "missing-bone",
+          "passed": true
+        },
+        {
+          "test": "duplicate-bone",
+          "passed": true
+        },
+        {
+          "test": "invalid-glb",
+          "passed": true
+        },
+        {
+          "test": "invalid-array",
+          "passed": true
+        },
+        {
+          "test": "texture-same-directory-unicode",
+          "passed": true
+        },
+        {
+          "test": "texture-recursive-unicode-casefold",
+          "passed": true
+        },
+        {
+          "test": "texture-ambiguous",
+          "passed": true
+        },
+        {
+          "test": "package-unicode-textures",
+          "passed": true
+        },
+        {
+          "test": "texture-whole-package",
+          "passed": true
+        },
+        {
+          "test": "gltf-external-unicode",
+          "passed": true
+        },
+        {
+          "test": "gltf-to-vrm",
+          "passed": true
+        },
+        {
+          "test": "invalid-bind-count",
+          "passed": true
+        },
+        {
+          "test": "fbx-inspect",
+          "passed": true
+        },
+        {
+          "test": "fbx-to-vrm",
+          "passed": true
+        },
+        {
+          "test": "unity-source-package",
+          "passed": true
+        },
+        {
+          "test": "traversal",
+          "passed": true
+        },
+        {
+          "test": "link",
+          "passed": true
+        },
+        {
+          "test": "prefab-only",
+          "passed": true
+        }
+      ],
+      "binary_sha256": "f1193a9682ae1c9a7dc713ed43df341fda14320ed52a73a39b4a3df5c2d73774",
+      "archive": "FPSloppa-Avatar-Converter-Linux-portable.zip",
+      "archive_sha256": "9a622b6611f96e4bb605074a4ff4cc68e71dfb86cd15befcbcc9106f0c3a6a20",
+      "archive_bytes": 29124247
+    },
+    {
+      "platform": "Windows under Wine",
+      "tests": [
+        {
+          "test": "inspect-vrm",
+          "passed": true
+        },
+        {
+          "test": "vrm-0",
+          "passed": true
+        },
+        {
+          "test": "vrm-512",
+          "passed": true
+        },
+        {
+          "test": "inspect-glb",
+          "passed": true
+        },
+        {
+          "test": "glb-to-vrm",
+          "passed": true
+        },
+        {
+          "test": "refuse-overwrite",
+          "passed": true
+        },
+        {
+          "test": "missing-bone",
+          "passed": true
+        },
+        {
+          "test": "duplicate-bone",
+          "passed": true
+        },
+        {
+          "test": "invalid-glb",
+          "passed": true
+        },
+        {
+          "test": "invalid-array",
+          "passed": true
+        },
+        {
+          "test": "texture-same-directory-unicode",
+          "passed": true
+        },
+        {
+          "test": "texture-recursive-unicode-casefold",
+          "passed": true
+        },
+        {
+          "test": "texture-ambiguous",
+          "passed": true
+        },
+        {
+          "test": "package-unicode-textures",
+          "passed": true
+        },
+        {
+          "test": "texture-whole-package",
+          "passed": true
+        },
+        {
+          "test": "gltf-external-unicode",
+          "passed": true
+        },
+        {
+          "test": "gltf-to-vrm",
+          "passed": true
+        },
+        {
+          "test": "invalid-bind-count",
+          "passed": true
+        },
+        {
+          "test": "fbx-inspect",
+          "passed": true
+        },
+        {
+          "test": "fbx-to-vrm",
+          "passed": true
+        },
+        {
+          "test": "unity-source-package",
+          "passed": true
+        },
+        {
+          "test": "traversal",
+          "passed": true
+        },
+        {
+          "test": "link",
+          "passed": true
+        },
+        {
+          "test": "prefab-only",
+          "passed": true
+        }
+      ],
+      "binary_sha256": "4fb1c086450f32f5bca29b974d44bc7bb6eea12fde40d7ecbeb0ca4623492dec",
+      "archive": "FPSloppa-Avatar-Converter-Windows-portable.zip",
+      "archive_sha256": "72a965cd6772e6c11f01887aa18e28662299780677eed5b80a91333aad8bd373",
+      "archive_bytes": 39014779
+    }
+  ],
+  "ui": "Preview, mapping choices, unmapped choices, expression choices and retry after failed export verified.",
+  "game_import": {
+    "tested": 4,
+    "failures": 0,
+    "formats": [
+      "GLB to VRM1",
+      "glTF to VRM1",
+      "prepared FBX to VRM1",
+      "existing VRM resized"
+    ],
+    "note": "Game test exits with one ObjectDB-instance warning; no script/import errors. Converter worker tests completed without script errors."
+  },
+  "texture_lookup": "Direct, recursive, package-wide, Unicode and unique case-insensitive matches; ambiguous names rejected.",
+  "geometry": "Non-image buffer views byte-compared for GLB/VRM; geometry, skin and morph counts retained through prepared FBX conversion.",
+  "limitations": [
+    "Windows tested under Wine, not on a native Windows installation.",
+    "Unity shaders, prefab changes, controllers and PhysBones require source-editor preparation.",
+    "No private avatar fixtures are distributed."
+  ]
+}

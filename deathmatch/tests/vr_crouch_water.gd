@@ -31,7 +31,8 @@ func run() -> void:
 	check(actor.position.z>Fixture.ORIGIN.z-1,"Standing capsule cannot enter low tunnel")
 	pose=Poses.neutral();pose.head.origin.y=.8;pose.height=.9;game._update_crouch(1,pose)
 	check(is_equal_approx(actor.collision_height,.9) and is_equal_approx(actor.body_shape.position.y,.455),"Crouch shrinks collision from the feet upward")
-	for i in 10:await physics_frame;actor.simulate(Vector2(0,-1),0,true,1.0/60)
+	# Crouching now has a deliberate speed penalty; allow traversal time for it.
+	for i in 24:await physics_frame;actor.simulate(Vector2(0,-1),0,true,1.0/60)
 	check(actor.position.z<Fixture.ORIGIN.z-1.2,"Physical crouch permits walking into low tunnel")
 	var crouched_height: float=actor.collision_height;actor.update_height(1.65)
 	check(actor.collision_height==crouched_height,"Standing cannot expand capsule through a ceiling")
@@ -66,7 +67,7 @@ func run() -> void:
 	game._spawn(1);check(actor.collision_height==1.65,"Respawn restores full collision height")
 	test_stroke_directions()
 	await test_shore()
-	check(game.match_mode.NAMES.as=="Assault","AS display name is simply Assault")
+	check(game.match_mode.NAMES.as=="ASSAULT","AS display name matches the current uppercase menu style")
 	game.disconnect_game();game.free();print("VR_CROUCH_WATER_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)
 func test_stroke_directions() -> void:
 	for pitch in [0.0,PI/4,-PI/4]:

@@ -1,0 +1,35 @@
+{
+  "revision": "heavy-asphalt",
+  "license": "CC0-1.0",
+  "source": "Original procedural synthesis; no third-party recordings",
+  "reverb": "short dark reflections baked into mono samples",
+  "variants": [
+    {
+      "file": "stomp_0.wav",
+      "seconds": 1.45,
+      "sample_rate": 44100,
+      "channels": 1,
+      "peak_dbfs": -1.4999999999999993,
+      "rms_dbfs": -16.616557640016342,
+      "sha256": "5a74fe4135cce4b2ff8778edf5e1171d49ef00ea326df57261d0c169cd16ecb9"
+    },
+    {
+      "file": "stomp_1.wav",
+      "seconds": 1.45,
+      "sample_rate": 44100,
+      "channels": 1,
+      "peak_dbfs": -1.4999999999999993,
+      "rms_dbfs": -16.46256028763402,
+      "sha256": "b6ec7c66ac7600415b66b77a3445cd5c9a4d434345f46c8dada0a1a56f1b2507"
+    },
+    {
+      "file": "stomp_2.wav",
+      "seconds": 1.45,
+      "sample_rate": 44100,
+      "channels": 1,
+      "peak_dbfs": -1.4999999999999982,
+      "rms_dbfs": -16.36664374482798,
+      "sha256": "5ca8a4fb38cfcce37a118494d6c9586c656ecae78c886170bc5ecbcd8c85a4bc"
+    }
+  ]
+}

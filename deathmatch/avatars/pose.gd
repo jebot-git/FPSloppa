@@ -7,16 +7,69 @@ var floor_tick:=0.0
 var solve_tick:=0.0
 var cached_poses: Dictionary={}
 var floor_heights: Dictionary={}
+const Death = preload("res://deathmatch/avatars/death_pose.gd")
+var death_start: Dictionary={}
+var death_cache: Dictionary={}
+var death_hip_height:=.92
+func reset_death() -> void:
+	death_start.clear();death_cache.clear();solve_tick=0.0
+	# Retain the last live pose for entry; discard a corpse pose on respawn.
+	if rig and not rig.dead:cached_poses.clear();floor_heights.clear()
+
+func collapse(sk: Skeleton3D) -> void:
+	if not death_cache.is_empty():
+		for index in death_cache:
+			sk.set_bone_pose_rotation(index,death_cache[index][0])
+			sk.set_bone_pose_position(index,death_cache[index][1])
+		return
+	if death_start.is_empty():
+		for i in sk.get_bone_count():
+			death_start[i]=cached_poses.get(i,[sk.get_bone_pose_rotation(i),sk.get_bone_pose_position(i)])
+			sk.set_bone_pose_rotation(i,death_start[i][0]);sk.set_bone_pose_position(i,death_start[i][1])
+		death_hip_height=clampf(rig.to_local(sk.to_global(sk.get_bone_global_pose(bone(sk,"Hips")).origin)).y,.22,rig.neutral_hip_height)
+	for i in sk.get_bone_count():sk.reset_bone_pose(i)
+	var pose := Death.sample(rig.death_time,death_hip_height)
+	var hips := bone(sk,"Hips")
+	var parent := sk.get_bone_parent(hips)
+	var target: Vector3=sk.to_local(rig.to_global(pose.pelvis))
+	if parent>=0:target=sk.get_bone_global_pose(parent).affine_inverse()*target
+	sk.set_bone_pose_position(hips,target)
+	orient(sk,hips,rig.global_basis*pose.basis*reference_basis(sk,hips))
+	for side in ["Left","Right"]:
+		var key: String = side.to_lower()
+		var sign_side := -1.0 if side=="Left" else 1.0
+		var release: float=pose.release
+		var foot := Vector3(sign_side*.13,.12,0).lerp(pose[key+"_foot"],release)
+		var hand := Vector3(sign_side*.38,.82,-.22).lerp(pose[key+"_hand"],release)
+		solve(sk,side+"UpperLeg",side+"LowerLeg",side+"Foot",rig.to_global(foot),rig.to_global(pose[key+"_knee"]))
+		solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",rig.to_global(hand),rig.to_global(pose[key+"_elbow"]))
+		for ending in ["Foot","Hand"]:
+			var index := bone(sk,side+ending)
+			orient(sk,index,rig.global_basis*Basis(Vector3.FORWARD,sign_side*.32)*reference_basis(sk,index))
+		for finger in ["Thumb","Index","Middle","Ring","Little"]:
+			for joint in ["Proximal","Intermediate","Distal"]:
+				var index := bone(sk,side+finger+joint)
+				if index>=0:sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion()*Quaternion(Vector3.RIGHT,.18))
+	var head := bone(sk,"Head")
+	orient(sk,head,rig.global_basis*pose.basis*Basis.from_euler(Vector3(.15,.30,-.22))*reference_basis(sk,head))
+	var blend := smoothstep(0.0,.30,rig.death_time)
+	for i in sk.get_bone_count():
+		sk.set_bone_pose_rotation(i,death_start[i][0].slerp(sk.get_bone_pose_rotation(i),blend))
+		sk.set_bone_pose_position(i,death_start[i][1].lerp(sk.get_bone_pose_position(i),blend))
+		if rig.death_time>=Death.SETTLE_TIME:death_cache[i]=[sk.get_bone_pose_rotation(i),sk.get_bone_pose_position(i)]
 func bone(sk: Skeleton3D, name_here: String) -> int:
 	if not bone_ids.has(name_here): bone_ids[name_here]=sk.find_bone(name_here)
 	return bone_ids[name_here]
 
 func _process_modification_with_delta(_delta: float) -> void:
+	var sk := get_skeleton()
+	if not sk or not rig:return
+	if rig.dead:
+		collapse(sk)
+		return
 	floor_tick-=_delta
 	var sample_floor:=floor_tick<=0
 	if sample_floor: floor_tick=.08
-	var sk := get_skeleton()
-	if not sk or not rig: return
 	var camera:=get_viewport().get_camera_3d()
 	var distance: float=rig.global_position.distance_to(camera.global_position) if camera else 0.0
 	solve_tick-=_delta
@@ -32,16 +85,24 @@ func _process_modification_with_delta(_delta: float) -> void:
 	for name in ["Hips","LeftUpperLeg","LeftLowerLeg","LeftFoot","RightUpperLeg","RightLowerLeg","RightFoot","LeftUpperArm","LeftLowerArm","RightUpperArm","RightLowerArm","LeftHand","RightHand","Head","Chest"]:
 		var index := bone(sk,name)
 		if index>=0: sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion())
-	if not rig.xr_pose.is_empty():
-		var hips:=bone(sk,"Hips")
-		var offset: Vector3=rig.xr_pose.head.origin-Vector3(0,1.65,0)
-		offset=Vector3(offset.x*.45,clampf(offset.y,-.55,.1),offset.z*.45)
-		var local_offset: Vector3=sk.global_basis.inverse()*rig.tracking_transform().basis*offset
-		sk.set_bone_pose_position(hips,sk.get_bone_rest(hips).origin+local_offset)
 	var body: Dictionary=rig.xr_pose.get("body",{}) if not rig.dead else {}
+	var hips:=bone(sk,"Hips")
+	var offset:=Vector3.ZERO
+	if not rig.xr_pose.is_empty():
+		offset=rig.xr_pose.head.origin-Vector3(0,1.65,0)
+		offset=Vector3(offset.x*.45,clampf(offset.y,-.90,.1),offset.z*.45)
+	else:
+		offset.y=rig.collider_height-1.65
+	if rig.gait.prone_blend>0:
+		offset=offset.lerp(Vector3(0,.30-rig.neutral_hip_height,.35),rig.gait.prone_blend)
+	if not body.has("hips"):
+		offset.y+=rig.gait.bob-rig.gait.landing*.5
+		var local_offset: Vector3=sk.global_basis.inverse()*rig.global_basis*offset
+		sk.set_bone_pose_position(hips,sk.get_bone_rest(hips).origin+local_offset)
+		if rig.gait.prone_blend>0:
+			orient(sk,hips,rig.global_basis*Basis(Vector3.RIGHT,-PI*.43*rig.gait.prone_blend)*reference_basis(sk,hips))
 	if body.has("hips"):
-		var hips:=bone(sk,"Hips")
-		var target: Transform3D=rig.tracking_transform()*body.hips
+		var target: Transform3D=rig.tracking_transform()*rig.fit_tracked_hips(body.hips)
 		var parent:=sk.get_bone_parent(hips)
 		var local: Vector3=sk.to_local(target.origin)
 		if parent>=0: local=sk.get_bone_global_pose(parent).affine_inverse()*local
@@ -49,35 +110,38 @@ func _process_modification_with_delta(_delta: float) -> void:
 		orient(sk,hips,target.basis*reference_basis(sk,hips))
 	if body.has("chest"):
 		orient(sk,bone(sk,"Chest"),rig.tracking_transform().basis*body.chest.basis*reference_basis(sk,bone(sk,"Chest")))
-	var direction: Vector3 = rig.movement.normalized()
-	if direction.length()<.1: direction = Vector3.FORWARD
-	var stride := clampf(rig.speed/9.4,0.0,1.0)*.30
 	for side in ["Left","Right"]:
 		var sign_x := -1.0 if side=="Left" else 1.0
-		var theta: float = (rig.phase+(0.5 if side=="Right" else 0.0))*TAU
 		var foot_idx := bone(sk,side+"Foot")
+		if foot_idx<0 or bone(sk,side+"UpperLeg")<0:continue
 		var neutral: Vector3 = rig.to_local(sk.to_global(rest[foot_idx].origin))
-		var foot := Vector3(sign_x*.13,neutral.y,neutral.z)+direction*cos(theta)*stride
-		foot.y += maxf(0,sin(theta))*.15*minf(rig.speed/4.0,1.0)
-		if rig.preview_mode<0 and rig.is_inside_tree() and sample_floor:
+		var foot: Vector3=Vector3(sign_x*.13,neutral.y,neutral.z)+rig.gait.offsets[side.to_lower()]
+		if rig.preview_mode<0 and rig.is_inside_tree() and sample_floor and rig.grounded:
 			var world_foot: Vector3 = rig.to_global(foot)
 			var query := PhysicsRayQueryParameters3D.create(world_foot+Vector3.UP*.4,world_foot-Vector3.UP*.5,1)
 			var hit: Dictionary = rig.get_world_3d().direct_space_state.intersect_ray(query)
 			floor_heights[side]=rig.to_local(hit.position).y+neutral.y if not hit.is_empty() else neutral.y
-		if floor_heights.has(side): foot.y=maxf(foot.y,floor_heights[side])
+		if rig.grounded and floor_heights.has(side): foot.y=maxf(foot.y,floor_heights[side])
 		var foot_world: Vector3=rig.to_global(foot)
 		var hip_world:Vector3=sk.to_global(sk.get_bone_global_pose(bone(sk,side+"UpperLeg")).origin)
 		var knee_world: Vector3=hip_world+rig.tracking_transform().basis*Vector3(sign_x*.08,0,-.65)
-		if body.has(side.to_lower()+"_foot"): foot_world=(rig.tracking_transform()*body[side.to_lower()+"_foot"]).origin
+		if body.has(side.to_lower()+"_foot"):
+			foot_world=(rig.tracking_transform()*rig.fit_tracked_foot(side.to_lower(),body[side.to_lower()+"_foot"])).origin
+			foot_world+=rig.global_basis*rig.gait.offsets[side.to_lower()]*rig.gait.assist_weight*.6
+		elif rig.gait.prone_blend>.5:
+			knee_world=hip_world+rig.global_basis*Vector3(sign_x*.25,-.3,.45)
 		if body.has("hips") and not body.has(side.to_lower()+"_knee"):
 			knee_world=leg_pole(body,side.to_lower(),hip_world,rig.tracking_transform())
-		if body.has(side.to_lower()+"_knee"): knee_world=(rig.tracking_transform()*body[side.to_lower()+"_knee"]).origin
+		if body.has(side.to_lower()+"_knee"):
+			knee_world=(rig.tracking_transform()*body[side.to_lower()+"_knee"]).origin
+			knee_world+=rig.global_basis*rig.gait.offsets[side.to_lower()]*rig.gait.assist_weight*.5
 		solve(sk,side+"UpperLeg",side+"LowerLeg",side+"Foot",foot_world,knee_world)
 		var foot_parent := sk.get_bone_parent(foot_idx)
-		sk.set_bone_pose_rotation(foot_idx,(sk.get_bone_global_pose(foot_parent).basis.inverse()*rest[foot_idx].basis).get_rotation_quaternion())
+		sk.set_bone_pose_rotation(foot_idx,((sk.get_bone_global_pose(foot_parent).basis.inverse() if foot_parent>=0 else Basis.IDENTITY)*rest[foot_idx].basis).get_rotation_quaternion())
 		if body.has(side.to_lower()+"_foot"):
 			orient(sk,foot_idx,rig.tracking_transform().basis*body[side.to_lower()+"_foot"].basis*reference_basis(sk,foot_idx))
 		var hand := bone(sk,side+"Hand")
+		if hand<0:continue
 		if not rig.xr_pose.is_empty():
 			var target: Transform3D=rig.tracking_transform()*rig.xr_pose[side.to_lower()]
 			var optical:=body.has(side.to_lower()+"_hand")
@@ -91,11 +155,12 @@ func _process_modification_with_delta(_delta: float) -> void:
 			# Humanoid hands use +Y along fingers and +Z toward the palm.
 			var palm_basis: Basis=target.basis if optical else target.basis*controller_hand_basis(side=="Left")
 			var desired: Basis=sk.global_basis.orthonormalized().inverse()*palm_basis
-			sk.set_bone_pose_rotation(hand,(sk.get_bone_global_pose(parent).basis.orthonormalized().inverse()*desired).get_rotation_quaternion())
+			sk.set_bone_pose_rotation(hand,((sk.get_bone_global_pose(parent).basis.orthonormalized().inverse() if parent>=0 else Basis.IDENTITY)*desired).get_rotation_quaternion())
 		else:
 			# Pistols use separate grips; other weapons retain the supporting hand.
 			var grip: Vector3=preload("res://deathmatch/art.gd").desktop_hand(side=="Left",rig.aim_pitch,rig.offhand_recoil if side=="Left" and rig.weapon_id==2 else rig.recoil,rig.weapon_id==2)
-			solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",rig.to_global(grip),rig.to_global(Vector3(sign_x*.65,.8,-.1)))
+			grip.y-=1.65-rig.collider_height
+			solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",rig.to_global(grip),rig.to_global(Vector3(sign_x*.65,.8-(1.65-rig.collider_height)*.65,-.1)))
 			var middle := bone(sk,side+"MiddleProximal")
 			if middle>=0:
 				var finger_direction := sk.get_bone_global_pose(middle).origin-sk.get_bone_global_pose(hand).origin
@@ -114,11 +179,13 @@ func _process_modification_with_delta(_delta: float) -> void:
 	var head := bone(sk,"Head")
 	if head>=0:
 		var q := sk.get_bone_rest(head).basis.get_rotation_quaternion()
-		if rig.xr_pose.is_empty(): sk.set_bone_pose_rotation(head,q*Quaternion(Vector3.RIGHT,rig.aim_pitch*.55))
+		if rig.xr_pose.is_empty():
+			if rig.gait.prone_blend>.01:orient(sk,head,rig.global_basis*Basis(Vector3.RIGHT,rig.aim_pitch*.55)*reference_basis(sk,head))
+			else:sk.set_bone_pose_rotation(head,q*Quaternion(Vector3.RIGHT,rig.aim_pitch*.55))
 		else:
 			var target: Basis=rig.tracking_transform().basis*rig.xr_pose.head.basis*Basis(Vector3.UP,PI)
 			var parent:=sk.get_bone_parent(head)
-			sk.set_bone_pose_rotation(head,(sk.get_bone_global_pose(parent).basis.orthonormalized().inverse()*sk.global_basis.orthonormalized().inverse()*target).get_rotation_quaternion())
+			sk.set_bone_pose_rotation(head,((sk.get_bone_global_pose(parent).basis.orthonormalized().inverse() if parent>=0 else Basis.IDENTITY)*sk.global_basis.orthonormalized().inverse()*target).get_rotation_quaternion())
 
 	for index in bone_ids.values():
 		if index>=0: cached_poses[index]=[sk.get_bone_pose_rotation(index),sk.get_bone_pose_position(index)]
@@ -165,7 +232,10 @@ func orient(sk: Skeleton3D,index: int,world_basis: Basis) -> void:
 
 func reference_basis(sk: Skeleton3D,index: int) -> Basis:
 	# Preserve each retargeted bone's authored axis convention (feet differ from hips).
-	return rig.tracking_transform().basis.orthonormalized().inverse()*sk.global_basis.orthonormalized()*sk.get_bone_global_rest(index).basis.orthonormalized()
+	# Optional humanoid bones (notably Chest) can be absent from a valid VRM.
+	if index<0 or index>=sk.get_bone_count():return Basis.IDENTITY
+	var frame:Basis=rig.global_basis if rig.dead else rig.tracking_transform().basis
+	return frame.orthonormalized().inverse()*sk.global_basis.orthonormalized()*sk.get_bone_global_rest(index).basis.orthonormalized()
 
 static func controller_hand_basis(left_hand: bool) -> Basis:
 	var sign_side:=1.0 if left_hand else -1.0

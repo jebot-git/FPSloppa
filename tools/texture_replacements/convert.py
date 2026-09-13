@@ -10,6 +10,8 @@ PACK=ROOT/'deathmatch/maps/texture_replacements'
 def convert(raw, replace_known=False, use_lightmaps=False):
     assert 124<=len(raw)<=25_000_000 and raw[:4] in [struct.pack('<i',29),b'BSP2',b'2PSB']
     manifest=json.loads((PACK/'manifest.json').read_text()); entries=manifest['textures']; pack=(PACK/'replacement-miptex.lmp').read_bytes()
+    makkon=(PACK/'makkon-used.wad').read_bytes() if manifest.get('makkon_pack_sha256') else b''
+    if makkon:assert hashlib.sha256(makkon).hexdigest()==manifest['makkon_pack_sha256']
     lumps=[struct.unpack_from('<II',raw,4+8*i) for i in range(15)];assert all(o+n<=len(raw) for o,n in lumps)
     offset,length=lumps[2];count=struct.unpack_from('<I',raw,offset)[0];assert count<=2048 and 4+4*count<=length
     table=bytearray(struct.pack('<I',count)+bytes(4*count));report=[]
@@ -23,6 +25,14 @@ def convert(raw, replace_known=False, use_lightmaps=False):
         starts=struct.unpack_from('<4I',raw,at+24);embedded=starts[0]>0
         known=name in entries
         replace=(not embedded) or (replace_known and known)
+        if replace and known and entries[name].get('pack')=='makkon-used.wad':
+            row=entries[name];tile=makkon[row['offset']:row['offset']+row['size']]
+            assert hashlib.sha256(tile).hexdigest()==row['sha256']
+            struct.pack_into('<I',table,4+4*i,len(table));table.extend(tile)
+            report.append({'name':name,'status':'named replacement','donor':row['makkon'],
+                'original_width':w,'original_height':h,'width':row['width'],'height':row['height'],
+                'source_sha256':row['sha256'],'original_miptex_unchanged':True})
+            continue
         tile=bytearray(raw[at:at+40]);tile[24:40]=bytes(16)
         for mip in range(4):
             width,height=max(1,w>>mip),max(1,h>>mip)

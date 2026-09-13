@@ -1,0 +1,104 @@
+{
+  "date": "2026-09-12",
+  "decision": "Both models accepted and integrated",
+  "assets": {
+    "axe": {
+      "textures": [
+        {
+          "height": 1024,
+          "mipmaps": true,
+          "width": 1024
+        }
+      ],
+      "triangles": 266
+    },
+    "tf_flamethrower": {
+      "textures": [
+        {
+          "height": 1024,
+          "mipmaps": true,
+          "width": 1024
+        }
+      ],
+      "triangles": 2932
+    }
+  },
+  "sources": [
+    {
+      "asset": "axe.scn",
+      "title": "Stylized Woodcutting Axe",
+      "author": "Price",
+      "url": "https://opengameart.org/content/stylized-woodcutting-axe",
+      "download": "https://opengameart.org/sites/default/files/Woodcutting%20Axe.zip",
+      "source": "tools/weapon_sources/oga/woodcutting_axe.zip",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "retrieved": "2026-09-12",
+      "triangles": 266,
+      "modifications": "Original geometry/UVs and 1024px diffuse retained; uniform scale, grip centered, +X cutting edge reoriented towards weapon -Z, 30 degree forward lean, mipmaps. Replaces the earlier JamesWhite axe; physical-only VR controls are retained.",
+      "sha256": "eb0c09156265ac76f651eaa1f1d516088cce8889a11b48a7224b4b45a1598499",
+      "source_sha256": "16894aed626b1b2c1be584f6011654e5a329748fc9348506570a91bff9702518"
+    },
+    {
+      "asset": "tf_flamethrower.scn",
+      "title": "Flamethrower",
+      "author": "TheJosh",
+      "url": "https://opengameart.org/content/flamethrower-0",
+      "download": "https://opengameart.org/sites/default/files/flamethrower.blend",
+      "texture_download": "https://opengameart.org/sites/default/files/flamethrower_0.png",
+      "source": "tools/weapon_sources/oga/flamethrower/flamethrower.blend",
+      "texture_source": "tools/weapon_sources/oga/flamethrower/flamethrower.png",
+      "license": "CC0-1.0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "retrieved": "2026-09-12",
+      "triangles": 2932,
+      "modifications": "Original geometry and UVs retained. Uniform scale, -Y source front reoriented to weapon -Z, upright grip and muzzle anchors, original baked diffuse reduced from 2048 to 1024 pixels with mipmaps; assigned only to TF Pyro slot 7 across all weapon rules.",
+      "sha256": "8fb474792eb2398cf97aba5e52ad3f2afb0170863438b4f43d55454489a5c83e",
+      "source_sha256": "70c590a1208e80de1168762bcc30ee9f32679592a04c4fa529806f3ff7ce5750",
+      "texture_sha256": "05b58d1f7fe20aa1148defc8f1e108a7f04944149b9cfc82220566aa9e849133"
+    }
+  ],
+  "comparison": {
+    "previous_axe_triangles": 290,
+    "replacement_axe_triangles": 266,
+    "flamethrower_triangles": 2932,
+    "existing_tf_slot7_triangles": {
+      "doom": 168,
+      "quake": 2892,
+      "ut99": 8256
+    },
+    "assessment": "Flamethrower has more geometry than the original Doom proxy, but matches the current Quake TF gun and is below the UT variant. Angular receiver, visible fuel cylinder and worn diffuse suit the current industrial weapon set. Axe is simpler and lower-poly than the previous model."
+  },
+  "integration": {
+    "checks": 25,
+    "failures": [],
+    "passed": true
+  },
+  "console": {
+    "checks": 70,
+    "failures": [],
+    "passed": true,
+    "errors": [],
+    "exit_code": 0
+  },
+  "physical_tests": {
+    "melee": {
+      "passed": true,
+      "checks": 29
+    },
+    "vr_controls": {
+      "passed": true,
+      "checks": 35
+    }
+  },
+  "live_headset_test": false,
+  "previews": [
+    "test-results/weapon-variants/axe.png",
+    "test-results/weapon-variants/tf-flamethrower.png"
+  ],
+  "notes": [
+    "No gameplay statistics or ammunition rules changed. Axe sweep follows the new visible cutting edge.",
+    "Source geometry is preserved; only model alignment, uniform scale, materials and texture mipmaps/resolution changed.",
+    "Existing Godot ObjectDB exit and XR-tools UID fallback warnings remain; no script/shader failures."
+  ]
+}

@@ -1,7 +1,6 @@
 extends RefCounted
 const MAX_BYTES:=25_000_000
 const Reader = preload("res://addons/bsp_importer/bsp_reader.gd")
-const Replacements=preload("res://deathmatch/maps/texture_replacements/dictionary.gd")
 const SCALE := 1.0/32.0
 const Paths=preload("res://deathmatch/assets/paths.gd")
 static func supports_assault(path: String) -> bool:
@@ -11,6 +10,14 @@ static func supports_assault(path: String) -> bool:
 	if offset+length>file.get_length() or length>1048576:return false
 	file.seek(offset);var entities:=file.get_buffer(length).get_string_from_ascii()
 	return entities.count('"info_as_objective"')==2 and entities.contains('"info_player_team1"') and entities.contains('"info_player_team2"')
+static func available_for_mode(row: Dictionary,mode: String) -> bool:
+	# Curated tags constrain shipped maps only. Imports and server lists remain open.
+	if row.get("custom",false) or not row.has("modes"):return true
+	var kind: String="ig" if mode=="if" else mode
+	return kind in row.modes
+static func choices_for_mode(rows: Array,mode: String,configured: Array=[]) -> Array:
+	if not configured.is_empty():return configured.duplicate()
+	return rows.filter(func(row):return available_for_mode(row,mode)).map(func(row):return row.id)
 static func catalog() -> Array:
 	if DirAccess.dir_exists_absolute("user://maps"):
 		for filename in DirAccess.get_files_at("user://maps"):
@@ -24,7 +31,7 @@ static func catalog() -> Array:
 		row=row.duplicate(true);row.path=Paths.resolve(row.path);row.scene=Paths.resolve(row.scene)
 		if not FileAccess.file_exists(row.path):continue
 		var hash:=FileAccess.get_sha256(row.path)
-		if hash!=row.sha256:row.scene=Paths.folder("maps")+"cache/"+hash+".scn";row.sha256=hash
+		if hash!=row.sha256:row.custom=true;row.scene=Paths.folder("maps")+"cache/"+hash+".scn";row.sha256=hash
 		row.size=preload("res://deathmatch/network/disk_worker.gd").size(row.path)
 		result.append(row);known[row.path]=true
 	for filename in DirAccess.get_files_at(Paths.folder("maps")):
@@ -47,6 +54,13 @@ static func map_title(path: String,fallback: String) -> String:
 	var found:=regex.search(world)
 	return found.get_string(1).left(60) if found else fallback
 static func scene(row: Dictionary) -> PackedScene:
+	if OS.has_feature("dedicated_server"):
+		# Never deserialize a client's graphical scene cache in a server process.
+		var node:=read(row.path)
+		if not node:return null
+		preload("res://deathmatch/server/geometry.gd").strip(node)
+		var packed:=PackedScene.new();var error:=packed.pack(node);node.free()
+		return packed if error==OK else null
 	# Generated bakes use a renderer-versioned cache, including palette policy.
 	# Existing third-party/prebuilt maps retain their original cache paths.
 	var file:=FileAccess.open(row.path,FileAccess.READ)
@@ -57,16 +71,45 @@ static func scene(row: Dictionary) -> PackedScene:
 			var world:=file.get_buffer(mini(length,65536)).get_string_from_ascii().split("}")[0]
 			if world.contains('"_fpsloppa_bake" "1"'):
 				row=row.duplicate();row.scene=str(row.scene).get_basename()+("-ad-cutout3-lightmap1.scn" if world.contains('"_fpsloppa_ad" "1"') else "-lightmap1.scn")
-	if Replacements.has_missing(row.path):
-		row=row.duplicate();row.scene=str(row.scene).get_basename()+"-textures-"+Replacements.version()+".scn"
-	if FileAccess.file_exists(row.scene):return load(row.scene)
+	var replacements=load("res://deathmatch/maps/texture_replacements/dictionary.gd")
+	if replacements.has_missing(row.path):
+		row=row.duplicate();row.scene=str(row.scene).get_basename()+"-textures-"+replacements.version()+".scn"
+	# Offline caches contain only the format this GPU can sample. Imports retain
+	# the uncompressed fallback; no compression or decode runs on the game thread.
+	var codec:="astc4" if RenderingServer.has_os_feature("astc") else "bc7" if RenderingServer.has_os_feature("bptc") else ""
+	var compressed:=compressed_scene_path(row.scene,codec)
+	if not codec.is_empty() and FileAccess.file_exists(compressed):
+		var prepared: PackedScene=load(compressed)
+		if cache_matches(prepared,FileAccess.get_sha256(row.path),codec):return prepared
+	if FileAccess.file_exists(row.scene):
+		var cached: PackedScene=load(row.scene)
+		if cache_matches(cached,FileAccess.get_sha256(row.path)):return cached
 	var node:=read(row.path)
 	if not node:return null
+	# Persist prepared colour mips for imports too; later loads only select filters.
+	load("res://deathmatch/maps/filtering.gd").new().apply(node,2,true)
 	var packed:=PackedScene.new();var error:=packed.pack(node);node.free()
 	if error!=OK:return null
 	DirAccess.make_dir_recursive_absolute(row.scene.get_base_dir())
-	ResourceSaver.save(packed,row.scene)
+	var temporary:=str(row.scene).get_basename()+".%d.%d.scn"%[OS.get_process_id(),Time.get_ticks_usec()]
+	if ResourceSaver.save(packed,temporary)==OK:
+		if DirAccess.rename_absolute(temporary,row.scene)==OK:packed.take_over_path(row.scene)
+		else:DirAccess.remove_absolute(temporary)
 	return packed
+static func compressed_scene_path(path: String,codec: String) -> String:
+	return path.get_basename()+"-"+codec+".scn"
+static func cache_matches(cached: PackedScene,source_hash: String,codec: String="") -> bool:
+	if not cached or source_hash.is_empty():return false
+	# Inspect root metadata without instantiating collision/scene nodes twice.
+	var state:=cached.get_state()
+	if state.get_node_count()==0:return false
+	var hash_ok:=false;var presentation_ok:=false;var codec_ok:=codec.is_empty()
+	for i in state.get_node_property_count(0):
+		var key:=state.get_node_property_name(0,i)
+		if key=="metadata/static_texture_format":codec_ok=state.get_node_property_value(0,i)==codec
+		if key=="metadata/bsp_source_sha256":hash_ok=state.get_node_property_value(0,i)==source_hash
+		if key=="metadata/map_presentation_version":presentation_ok=state.get_node_property_value(0,i)==preload("res://deathmatch/maps/surface_assets.gd").VERSION
+	return hash_ok and presentation_ok and codec_ok
 static func point(value: String) -> Vector3:
 	var v := value.split_floats(" ",false)
 	return Vector3(-v[1],v[2],-v[0])*SCALE if v.size()==3 else Vector3.ZERO
@@ -84,8 +127,8 @@ static func read(path: String) -> Node3D:
 	if not validate(path).is_empty(): return null
 	var reader := Reader.new()
 	reader.unit_scale = SCALE
-	reader.generate_texture_materials = true
-	reader.use_named_texture_replacements = true
+	reader.generate_texture_materials = not OS.has_feature("dedicated_server")
+	reader.use_named_texture_replacements = not OS.has_feature("dedicated_server")
 	reader.transparent_texture_prefix = "{"
 	reader.save_separate_materials = false
 	reader.material_path_pattern = "res://deathmatch/maps/materials/{texture_name}.tres"
@@ -93,7 +136,7 @@ static func read(path: String) -> Node3D:
 	reader.texture_emission_path_pattern = "res://deathmatch/maps/textures/{texture_name}_emission.png"
 	reader.texture_palette_path = "res://deathmatch/maps/palette.lmp"
 	reader.generate_lightmap_uv2 = false
-	reader.generate_occlusion_culling = true
+	reader.generate_occlusion_culling = not OS.has_feature("dedicated_server")
 	reader.generate_shadow_mesh = false
 	reader.use_triangle_collision = true
 	reader.ignore_missing_entities = true
@@ -104,11 +147,20 @@ static func read(path: String) -> Node3D:
 		reader.entity_remap[name] = "res://deathmatch/maps/brush.tscn"
 	for name in ["trigger_teleport","trigger_hurt","trigger_push","trigger_multiple","trigger_once"]:
 		reader.entity_remap[name] = "res://deathmatch/maps/trigger.tscn"
-	reader.water_template = load("res://addons/bsp_importer/examples/water_example_template.tscn")
-	reader.slime_template = load("res://addons/bsp_importer/examples/slime_example_template.tscn")
-	reader.lava_template = load("res://addons/bsp_importer/examples/lava_example_template.tscn")
+	if not OS.has_feature("dedicated_server"):
+		reader.water_template = load("res://addons/bsp_importer/examples/water_example_template.tscn")
+		reader.slime_template = load("res://addons/bsp_importer/examples/slime_example_template.tscn")
+		reader.lava_template = load("res://addons/bsp_importer/examples/lava_example_template.tscn")
+	else:
+		# Liquids remain real gameplay volumes, without water materials or scripts.
+		var templates: Array=[]
+		for name in ["Water","Slime","Lava"]:
+			var area:=Area3D.new();area.name=name;area.collision_layer=0;area.collision_mask=2
+			var scene:=PackedScene.new();scene.pack(area);area.free();templates.append(scene)
+		reader.water_template=templates[0];reader.slime_template=templates[1];reader.lava_template=templates[2]
 	var result: Node3D = reader.read_bsp(path)
 	if result:
+		result.set_meta("bsp_source_sha256",FileAccess.get_sha256(path))
 		# Preserve trigger volumes even where their faces use invisible textures.
 		var file := FileAccess.open(path,FileAccess.READ)
 		file.seek(116)
@@ -142,7 +194,11 @@ static func read(path: String) -> Node3D:
 	if result:
 		var source:=FileAccess.open(path,FileAccess.READ);source.seek(4);var offset:=source.get_32();var length:=source.get_32();source.seek(offset)
 		var world:=source.get_buffer(mini(length,65536)).get_string_from_ascii().split("}")[0]
-		if world.contains('"_fpsloppa_ad" "1"'):preload("res://deathmatch/maps/static_batch.gd").apply(result)
+		if not OS.has_feature("dedicated_server") and world.contains('"_fpsloppa_ad" "1"'):load("res://deathmatch/maps/static_batch.gd").apply(result)
+	if result and not OS.has_feature("dedicated_server"):
+		load("res://deathmatch/maps/surface_assets.gd").vary(result,path.get_file().get_basename())
+		load("res://deathmatch/maps/glow_masks.gd").apply(result,path.get_file().get_basename())
+		result.set_meta("map_presentation_version",preload("res://deathmatch/maps/surface_assets.gd").VERSION)
 	reader.free()
 	return result
 

@@ -17,7 +17,7 @@ METAL, FLOOR, TRIM = 'met_brn_block', 'met_brn_tile2', 'met_blu_trim16'
 WOOD, STONE, WATER = 'med_wood2_plk1', 'med_csl_brk14b', '*water2'
 
 
-def generate():
+def generate(layout_test=True):
     a = Arena(NAME, 'Frigate', 1600, 1440, 1024)
     entities = []
 
@@ -37,6 +37,13 @@ def generate():
             a.box((x-w/2-1,y-w/2-1,z+dz), (x+w/2+1,y+w/2+1,z+dz+8), TRIM)
 
     def wall_x(x, y0, y1, z, height, opening):
+        if layout_test and x in [-224,-608]:
+            # Separate starboard route through the lower rooms, alongside the main hall.
+            left,right=opening
+            for lo,hi in [(y0,left),(right,88),(136,y1)]:
+                if hi>lo:a.box((x,lo,z),(x+16,hi,z+height),METAL)
+            for lo,hi in [opening,(88,136)]:a.box((x,lo,z+112),(x+16,hi,z+height),TRIM)
+            return
         left, right = opening
         for lo, hi in [(y0,left),(right,y1)]:
             if hi>lo:a.box((x,lo,z),(x+16,hi,z+height),METAL)
@@ -196,6 +203,8 @@ def generate():
     pickup('item_rockets',-48,-1008);pickup('item_rockets',-800,160)
     pickup('item_armor2',-64,-1232,144);pickup('item_armor2',768,-64,-224)
     pickup('item_health',-976,-64,0,spawnflags=2)
+    from assault_layout_tests.pickups import apply as apply_pickups
+    apply_pickups(a,"frigate",tiny=not layout_test)
     return a, entities
 
 
@@ -217,19 +226,28 @@ def main():
     p.add_argument('--output',type=Path,default=ROOT/'test-results/frigate/build')
     p.add_argument('--fast-vis',action='store_true')
     p.add_argument('--install',action='store_true',help='Install BSP and provenance, update local map catalog; then run bake_base.gd')
+    variants=p.add_mutually_exclusive_group()
+    variants.add_argument('--layout-test',action='store_true',help='Legacy alias for the expanded default layout')
+    variants.add_argument('--tiny',action='store_true',help='Build the compact 2-4 player variant as as_frigate_tiny')
     args=p.parse_args();out=args.output.resolve()
+    global NAME
+    if args.tiny:NAME='as_frigate_tiny'
     for folder in ['maps','source','logs','licenses']:(out/folder).mkdir(parents=True,exist_ok=True)
-    a,entities=generate()
+    a,entities=generate(not args.tiny)
+    if not args.tiny:
+        from assault_layout_tests.layouts import refine
+        refine(a,entities,'frigate')
+    else:a.name=NAME;a.title='Frigate Tiny (2-4 players)'
     used={line.split(')')[-1].strip().split()[0] for brush in a.brushes+[b for _,b in entities] for line in brush.splitlines() if line.startswith('(')}
-    donors={};sources={};old=json.loads((ROOT/'maps/HiSlop/texture-sources.json').read_text())
-    for filename in ['as_hislop.bsp','lqdm1.bsp','lqdm3.bsp']:
+    donors={};sources={};old=json.loads((ROOT/'maps/HiSlop/Tiny/texture-sources.json').read_text())
+    for filename in ['as_hislop_tiny.bsp','lqdm1.bsp','lqdm3.bsp']:
         path=ROOT/'maps'/filename
         for name,raw in textures(path).items():
             if name not in used:continue
-            if filename=='as_hislop.bsp':
+            if filename=='as_hislop_tiny.bsp':
                 assert hashlib.sha256(raw).hexdigest()==old[name]['sha256']
             donors[name]=raw
-            sources[name]=dict(source_bsp=filename,source_bsp_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),license='BSD-3-Clause',**({'original':old[name]} if filename=='as_hislop.bsp' else {}))
+            sources[name]=dict(source_bsp=filename,source_bsp_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),license='BSD-3-Clause',**({'original':old[name]} if filename=='as_hislop_tiny.bsp' else {}))
     wad_path=ROOT/'tools/fortressone/librequake.wad';raw_wad=wad_path.read_bytes();count,offset=struct.unpack_from('<ii',raw_wad,4)
     for i in range(count):
         at,size,_,_,_,_,name=struct.unpack_from('<iiiBBH16s',raw_wad,offset+32*i);name=name.split(b'\0')[0].decode('ascii')
@@ -254,10 +272,10 @@ def main():
     data=bsp.read_bytes();assert struct.unpack_from('<i',data)[0]==29 and len(data)<25_000_000
     (out/'texture-sources.json').write_text(json.dumps(sources,indent=2)+'\n')
     for path in (ROOT/'maps/HiSlop').glob('LibreQuake-*.txt'):shutil.copy2(path,out/'licenses'/path.name)
-    (out/'manifest.json').write_text(json.dumps(dict(id=NAME,title=a.title,format=29,bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),brushes=len(a.brushes)+len(entities),entities=len(a.entities)+len(entities),textures=len(used),recommended_players=[4,8],modes=['as'],full_vis=not args.fast_vis,concept=True),indent=2)+'\n')
+    (out/'manifest.json').write_text(json.dumps(dict(id=NAME,title=a.title,format=29,bytes=len(data),sha256=hashlib.sha256(data).hexdigest(),brushes=len(a.brushes)+len(entities),entities=len(a.entities)+len(entities),textures=len(used),recommended_players=[2,4] if args.tiny else [4,8],small_groups_only=args.tiny,layout='tiny' if args.tiny else 'expanded',modes=['as'],full_vis=not args.fast_vis,concept=True),indent=2)+'\n')
     print(bsp,len(data),'bytes',flush=True)
     if args.install:
-        metadata=ROOT/'maps/Frigate';metadata.mkdir(exist_ok=True)
+        metadata=ROOT/'maps/Frigate'/('Tiny' if args.tiny else '');metadata.mkdir(parents=True,exist_ok=True)
         shutil.copy2(bsp,ROOT/'maps'/bsp.name)
         for name in ['manifest.json','texture-sources.json']:shutil.copy2(out/name,metadata/name)
         for path in (out/'licenses').glob('*'):shutil.copy2(path,metadata/path.name)

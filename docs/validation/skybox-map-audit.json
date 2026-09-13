@@ -1,0 +1,537 @@
+{
+  "date": "2026-09-13",
+  "method": "Exact world-BSP leaf traces from spawn/item eyes and sampled upward floor centers; 96 upper-hemisphere rays per point. World sky content (-6) must precede a solid leaf. Static geometry only; doors may affect practical visibility.",
+  "maps": [
+    {
+      "id": "as_hislop",
+      "title": "HiSlop",
+      "sha256": "93a65a6f34287b1ac41adc02287455c8fd230e61c201ad3dc4b8191058b7c967",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 209,
+      "sky_visible_positions": 152,
+      "visible_spawn_item_positions": 4,
+      "selection": [
+        "storm",
+        0.75
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "as_frigate",
+      "title": "Frigate",
+      "sha256": "555c0b1b012f6791dabcf3c488613e6c6d7da58be0d3597629800b67e9706c9e",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 233,
+      "sky_visible_positions": 139,
+      "visible_spawn_item_positions": 1,
+      "selection": [
+        "overcast",
+        0.85
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "tf_pressureworks",
+      "title": "Pressureworks | TF 6v6",
+      "sha256": "a28630971716f49eb744e8b850fd704e70cf04820eb088499b46957dca2bc08d",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 228,
+      "sky_visible_positions": 191,
+      "visible_spawn_item_positions": 2,
+      "selection": [
+        "storm",
+        0.75
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "tf_vesper",
+      "title": "Vesper Abbey | TF 6v6",
+      "sha256": "c19759d9a7ac2984b20fb0716923763c6c7ff6700201427f78698ba6cbdaf9e3",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 204,
+      "sky_visible_positions": 199,
+      "visible_spawn_item_positions": 5,
+      "selection": [
+        "night",
+        0.9
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "koth_solstice",
+      "title": "Solstice Crown",
+      "sha256": "7759afbec42170e828c3feecc25254365265029de3f728966ab0eb0c9e0abab2",
+      "embedded_sky_textures": [
+        {
+          "name": "sky5_blu",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 197,
+      "sky_visible_positions": 161,
+      "visible_spawn_item_positions": 7,
+      "selection": [
+        "winter",
+        0.85
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "koth_torture",
+      "title": "Torture Crucible",
+      "sha256": "4df4297cbe9d860a3c93e3636863ca4f096f74de72fc3c7926cba99f3b792488",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_orng",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 173,
+      "sky_visible_positions": 30,
+      "visible_spawn_item_positions": 1,
+      "selection": [
+        "ember",
+        0.7
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "koth_hyperborea",
+      "title": "Hyperborea Tribunal",
+      "sha256": "e4a73507d55ddd38f972de94daa944b94afaf33d262838acd57e58953dd336d0",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_wfog",
+          "size": [
+            256,
+            128
+          ]
+        },
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 236,
+      "sky_visible_positions": 206,
+      "visible_spawn_item_positions": 4,
+      "selection": [
+        "winter",
+        0.85
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "koth_alichar",
+      "title": "Alichar Overload",
+      "sha256": "95333fcdc2e19e1c038dd99949b51af8e66712298cdf08247e2cc5886ed311ac",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 164,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    },
+    {
+      "id": "cc_hyperborea",
+      "title": "Hyperborea \u00b7 Blood Court",
+      "sha256": "bf944df41bc9fa6fbe9339d518e41117eba0cdd93b686168f33a77a42a98d752",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_wfog",
+          "size": [
+            256,
+            128
+          ]
+        },
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 166,
+      "sky_visible_positions": 158,
+      "visible_spawn_item_positions": 16,
+      "selection": [
+        "winter",
+        0.85
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "cc_psychofuge",
+      "title": "Psychofuge \u00b7 Saw Pit",
+      "sha256": "1370377682d7fd12aa98f03691ab15ea87046db62e9ebe631c48b90a62c254bb",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        },
+        {
+          "name": "sky_orng",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 196,
+      "sky_visible_positions": 187,
+      "visible_spawn_item_positions": 4,
+      "selection": [
+        "ember",
+        0.7
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "cc_ghostquarter",
+      "title": "Ghost Quarter \u00b7 Butcher's Walk",
+      "sha256": "74ceab19b31d75c3315dd775f08ad24e6859e65e982def10ffdc3168ceb2e327",
+      "embedded_sky_textures": [
+        {
+          "name": "sky5_blu",
+          "size": [
+            256,
+            128
+          ]
+        },
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 192,
+      "sky_visible_positions": 156,
+      "visible_spawn_item_positions": 6,
+      "selection": [
+        "night",
+        0.9
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "cc_basement",
+      "title": "Boomstick Basement \u00b7 Meat Grinder",
+      "sha256": "4735ae86ba3685d6ce39f96a7344373431ded23f0f87618fb142da6b8613ad01",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 151,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    },
+    {
+      "id": "qsrc_dm1",
+      "title": "Quake: Place of Two Deaths",
+      "sha256": "8418cffc2f7346bcda110eb07e10108b7d6f77f7532111921e95eee425443ce8",
+      "embedded_sky_textures": [],
+      "named_skybox": {},
+      "sampled_positions": 166,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    },
+    {
+      "id": "qsrc_dm2",
+      "title": "Quake: Claustrophobopolis",
+      "sha256": "1c97f4fdc22e3708ef81d849b8a0c5f76e5dfb17b628889df2d3746bea8a78bb",
+      "embedded_sky_textures": [
+        {
+          "name": "sky4",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 131,
+      "sky_visible_positions": 84,
+      "visible_spawn_item_positions": 8,
+      "selection": [
+        "ember",
+        0.7
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "qsrc_dm3",
+      "title": "Quake: The Abandoned Base",
+      "sha256": "9b521040bd9800b42cbdd97979dcbf2823dd4067688bf5be12fdffdc70224ba2",
+      "embedded_sky_textures": [
+        {
+          "name": "sky4",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 166,
+      "sky_visible_positions": 46,
+      "visible_spawn_item_positions": 3,
+      "selection": [
+        "storm",
+        0.75
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "qsrc_dm4",
+      "title": "Quake: The Bad Place",
+      "sha256": "4e825f90f369f69edd68d99b1d73cc3cf522bd438377914cd49fb94b6cc6542f",
+      "embedded_sky_textures": [
+        {
+          "name": "sky4",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 123,
+      "sky_visible_positions": 30,
+      "visible_spawn_item_positions": 4,
+      "selection": [
+        "night",
+        0.9
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "qsrc_dm5",
+      "title": "Quake: The Cistern",
+      "sha256": "dc7563efb64534aeba905044e9d1bb52578abc593a6402a5791910ae736cfcf9",
+      "embedded_sky_textures": [
+        {
+          "name": "sky4",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 129,
+      "sky_visible_positions": 33,
+      "visible_spawn_item_positions": 7,
+      "selection": [
+        "night",
+        0.9
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "qsrc_dm6",
+      "title": "Quake: The Dark Zone",
+      "sha256": "590d329070774467f924a42bfee9dea53435f59421940ff99c5c29651add6af5",
+      "embedded_sky_textures": [
+        {
+          "name": "sky4",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 196,
+      "sky_visible_positions": 55,
+      "visible_spawn_item_positions": 10,
+      "selection": [
+        "night",
+        0.9
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "qsrc_dm7",
+      "title": "Quake: DM7",
+      "sha256": "65f121cf37a284cabb4e17d34aecc8272cbe167171a966dd0549874963facd5e",
+      "embedded_sky_textures": [
+        {
+          "name": "sky4",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 140,
+      "sky_visible_positions": 105,
+      "visible_spawn_item_positions": 28,
+      "selection": [
+        "winter",
+        0.85
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "ctf_tideworks",
+      "title": "Tideworks | McKinley Base study",
+      "sha256": "6fcba14ad1c5834eeecc1cf622da403a3a0647a20268d21cb2841eedaef8ff0e",
+      "embedded_sky_textures": [],
+      "named_skybox": {},
+      "sampled_positions": 226,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    },
+    {
+      "id": "ctf_crucible",
+      "title": "Crucible | The Kiln study",
+      "sha256": "9953b1517ece867d1f1123252f8f9ab9d9b99b7be9dcd114d061fb6dedbe18d0",
+      "embedded_sky_textures": [],
+      "named_skybox": {},
+      "sampled_positions": 166,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    },
+    {
+      "id": "ctf_confluence",
+      "title": "Confluence | DySpHoRiA study",
+      "sha256": "46e1912035b0631b1cdf67ea712c872b12e101ca1fbe2ffc589272d2932d4ae1",
+      "embedded_sky_textures": [],
+      "named_skybox": {},
+      "sampled_positions": 188,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    },
+    {
+      "id": "ctf_deepvault",
+      "title": "Deepvault | Forgotten Mines study",
+      "sha256": "b90bda1a949d516cefb429143d0278868542c7a6ba748da7d60f72514e91bf2c",
+      "embedded_sky_textures": [],
+      "named_skybox": {},
+      "sampled_positions": 130,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    },
+    {
+      "id": "ctf_crownreach",
+      "title": "Crownreach | Ancient War Grounds study",
+      "sha256": "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba",
+      "embedded_sky_textures": [
+        {
+          "name": "sky_star",
+          "size": [
+            256,
+            128
+          ]
+        }
+      ],
+      "named_skybox": {},
+      "sampled_positions": 181,
+      "sky_visible_positions": 178,
+      "visible_spawn_item_positions": 14,
+      "selection": [
+        "night",
+        0.9
+      ],
+      "decision": "Assigned panorama: verified opening at spawn/item eye height, no supplied panorama/cubemap."
+    },
+    {
+      "id": "ctf_skyfracture",
+      "title": "Skyfracture | Vertigo study",
+      "sha256": "0d918f6ac943a2dcfd21682f733c34830f228f53fc0bd8dc65e7b4eca73326ba",
+      "embedded_sky_textures": [],
+      "named_skybox": {},
+      "sampled_positions": 224,
+      "sky_visible_positions": 0,
+      "visible_spawn_item_positions": 0,
+      "selection": null,
+      "decision": "Retain existing background: no sky reached in sampled sightlines."
+    }
+  ]
+}

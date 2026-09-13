@@ -1,4 +1,4 @@
-"""Indexed LibreQuake texture substitution (CC0); no original TF assets."""
+"""Shared Makkon/LibreQuake substitution with a deterministic neutral fallback."""
 import hashlib,struct,json
 from pathlib import Path
 def digest(data):return hashlib.sha256(data).hexdigest()
@@ -21,8 +21,12 @@ def donor(name):
  if 'ceil' in n:return 'met_brn_pan1'
  if 'floor' in n or 'flr' in n:return 'met_brn_tile2'
  if 'comp' in n or n.startswith('+'):return 'compbase'
- return ['med_csl_brk7_2','met_brn_block','met_brn_slat','t_wall1aa'][int(digest(n.encode())[:8],16)%4]
+ return 'med_csl_brk7_2'
 def convert(raw,donors):
+ import sys
+ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+ from texture_replacements.convert import convert as shared_convert
+ raw,shared_report=shared_convert(raw,replace_known=True)
  pack=Path(__file__).resolve().parents[2]/'deathmatch/maps/texture_replacements'
  shared=json.loads((pack/'manifest.json').read_text())['textures'] if (pack/'manifest.json').exists() else {}
  payload=(pack/'replacement-miptex.lmp').read_bytes() if shared else b''
@@ -36,6 +40,11 @@ def convert(raw,donors):
    report.append({'unused_slot':i});continue
   assert rel>=0
   at=offset+rel;name=data[at:at+16].split(b'\0')[0].decode();source_name=donor(name);source=donors[source_name]
+  if name.lower() in shared and shared[name.lower()].get('pack')=='makkon-used.wad':
+   entry=shared[name.lower()]
+   assert digest(data[at:at+entry['size']])==entry['sha256']
+   report.append({'original_name':shared_report['textures'][i].get('name',name),'makkon_texture':name,'source_sha256':entry['sha256'],'original_miptex_unchanged':True})
+   continue
   if name.lower() in shared:
    entry=shared[name.lower()];source=payload[entry['offset']:entry['offset']+entry['size']];source_name='shared:'+name.lower()
   width,height=struct.unpack_from('<II',data,at+16);sw,sh=struct.unpack_from('<II',source,16)

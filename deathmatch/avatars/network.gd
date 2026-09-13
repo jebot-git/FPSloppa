@@ -21,7 +21,6 @@ var message := ""
 var offer_times: Dictionary = {}
 var load_queue: Array = []
 var avatar_attempts: Dictionary={}
-var transfer_budget := 0.0
 
 func setup(arena: Node) -> void:
 	game = arena
@@ -54,7 +53,7 @@ func remove_peer(id: int) -> void:
 	for hash in expected.keys():
 		if expected[hash].peer==id: expected.erase(hash)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not game: return
 	if game.active:
 		var mine := multiplayer.get_unique_id()
@@ -64,23 +63,23 @@ func _process(delta: float) -> void:
 			if library.entries.has(offered):
 				if multiplayer.is_server(): accept_offer(mine,offered,library.entries[offered].size)
 				else: _offer.rpc_id(1,offered,library.entries[offered].size)
-	# Limit aggregate upload to 2 MiB/s and eight unacknowledged chunks per peer.
-	transfer_budget = minf(transfer_budget+delta*2_097_152,WINDOW)
+	# Map and avatar uploads share the arena bandwidth scheduler.
 	for peer in outgoing.keys():
 		if not multiplayer.get_peers().has(peer): outgoing.erase(peer); continue
 		var transfer: Dictionary = outgoing[peer]
 		if Time.get_ticks_msec()-transfer.time>30000: outgoing.erase(peer); continue
-		if not transfer.get("reading",false) and transfer.sent-transfer.ack<WINDOW and transfer.sent<transfer.size and transfer_budget>=CHUNK:
-			var count:=mini(mini(WINDOW-(transfer.sent-transfer.ack),transfer.size-transfer.sent),int(transfer_budget/CHUNK)*CHUNK)
-			transfer.reading=true;transfer_budget-=count
+		if not transfer.get("reading",false) and transfer.sent-transfer.ack<WINDOW and transfer.sent<transfer.size:
+			var count: int=game.asset_allowance(peer,mini(CHUNK,transfer.size-transfer.sent))
+			if count<=0:continue
+			transfer.reading=true;transfer.reading_bytes=count
 			if not disk.submit(IO.read.bind(transfer.path,transfer.sent,count,transfer.size),func(data):
 				if not is_same(outgoing.get(peer),transfer):return
-				transfer.reading=false
+				transfer.reading=false;transfer.reading_bytes=0
 				if data.size()!=count:outgoing.erase(peer);return
 				for offset in range(0,data.size(),CHUNK):
 					var part: PackedByteArray=data.slice(offset,offset+CHUNK)
 					_chunk.rpc_id(peer,transfer.hash,transfer.sent,part);transfer.sent+=part.size()):
-				transfer.reading=false;transfer_budget+=count
+				transfer.reading=false;transfer.reading_bytes=0
 
 	for hash in incoming.keys():
 		if not incoming.has(hash):continue
@@ -104,7 +103,7 @@ func _process(delta: float) -> void:
 				avatar_attempts[id]=hash+":"+str(game.fighters[id].get_instance_id())
 				var avatar: Node3D = library.create_avatar(hash)
 				if avatar:
-					preload("res://deathmatch/maps/filtering.gd").new().apply(avatar,int(game.presentation.get("texture_filter",2)),false)
+					load("res://deathmatch/maps/filtering.gd").new().apply(avatar,int(game.presentation.get("texture_filter",2)),false)
 					game.fighters[id].set_avatar(avatar,hash)
 
 @rpc("any_peer","call_remote","reliable",4)

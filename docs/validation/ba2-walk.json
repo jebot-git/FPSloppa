@@ -1,0 +1,173 @@
+{
+  "status": "authored_animation_prototype",
+  "integrated_into_game": false,
+  "assets": {
+    "tools/ba2/animated/BA2-10m-walk.blend": {
+      "bytes": 28385843,
+      "sha256": "7ee51512819ca95b56238ef252e68dc9b063cdd9f140d5adafa19bb7e440b72e"
+    },
+    "tools/ba2/animated/BA2-10m-walk.glb": {
+      "bytes": 5115304,
+      "sha256": "9c41eb11662a186f2cea73ae9ea857f465f3f766cff8637e9288fc741d88ede0"
+    },
+    "test-results/ba2/walk/BA2-10m-walk-preview.mp4": {
+      "bytes": 1367380,
+      "sha256": "e2ce1fc0cc1aabf19bf363fbc7db03604b9308b4ee7973883254156f2132eb3e"
+    }
+  },
+  "animation": {
+    "height_target_m": 10,
+    "start_dimensions_m": [
+      11.058489322662354,
+      9.059942960739136,
+      10.000000953674316
+    ],
+    "scale": 2.7851299832164256,
+    "speed_mps": 0.45,
+    "acceleration_s": 2.0,
+    "cycle_s": 5.6,
+    "stride_m": 2.52,
+    "foot_lift_m": 0.38,
+    "clips": {
+      "WalkStart": {
+        "duration_s": 6.6,
+        "frames": 199,
+        "root_motion": false
+      },
+      "WalkLoop": {
+        "duration_s": 5.6,
+        "frames": 169,
+        "root_motion": false
+      },
+      "TurretSweep": {
+        "duration_s": 16,
+        "frames": 481,
+        "root_motion": false
+      },
+      "RoutePreview": {
+        "duration_s": 17.8,
+        "frames": 535,
+        "root_motion": true
+      }
+    },
+    "metrics": {
+      "max_stance_slip_m": 3.932099938981686e-06,
+      "max_floor_penetration_m": 3.337860107421875e-06,
+      "max_toe_target_error_m": 2.9102696456274276e-06,
+      "max_reach_excess_m": 0.0,
+      "max_airborne_feet": 1,
+      "max_cannon_speed_deg_s": 2.0558412499435503,
+      "max_cannon_non_x_degrees": 0.0,
+      "max_cannon_pitch_degrees": 3.9999995421277097,
+      "max_body_yaw_degrees": 3.0000000834826057,
+      "max_body_non_yaw_degrees": 8.948877860635619e-07
+    },
+    "boundary_max_matrix_error": {
+      "WalkLoop": 0.0,
+      "TurretSweep": 1.7096513007380798e-17,
+      "start_to_loop": 0.0
+    },
+    "pass": true
+  },
+  "godot": {
+    "body_non_yaw_degrees": 1.42924377076539e-05,
+    "body_yaw_degrees": 3.00000029692602,
+    "bones": 18,
+    "cannon_non_x_degrees": 1.30377878326503e-11,
+    "clips": {
+      "RoutePreview": {
+        "length": 17.7999992370605,
+        "tracks": [
+          "BA2_10m/Bot_Armature/Skeleton3D:Root",
+          "BA2_10m/Bot_Armature/Skeleton3D:Body",
+          "BA2_10m/Bot_Armature/Skeleton3D:Body",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Rear.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Rear.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Rear.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Cannon.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Cannon.R"
+        ]
+      },
+      "TurretSweep": {
+        "length": 16.0,
+        "tracks": [
+          "BA2_10m/Bot_Armature/Skeleton3D:Cannon.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Cannon.R"
+        ]
+      },
+      "WalkLoop": {
+        "length": 5.59999990463257,
+        "tracks": [
+          "BA2_10m/Bot_Armature/Skeleton3D:Body",
+          "BA2_10m/Bot_Armature/Skeleton3D:Body",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Rear.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Rear.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Rear.FK.L"
+        ]
+      },
+      "WalkStart": {
+        "length": 6.59999990463257,
+        "tracks": [
+          "BA2_10m/Bot_Armature/Skeleton3D:Body",
+          "BA2_10m/Bot_Armature/Skeleton3D:Body",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Front.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Rear.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Front.FK.R",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.1.Rear.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.2.Rear.FK.L",
+          "BA2_10m/Bot_Armature/Skeleton3D:Leg.3.Rear.FK.L"
+        ]
+      }
+    },
+    "engine": "4.7.2-stable (fedora)",
+    "exported_toe_max_error_m": 5.03509318150464e-06,
+    "failures": [],
+    "root_displacement_m": 7.5600004196167
+  },
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 640,
+        "height": 400,
+        "r_frame_rate": "20/1",
+        "nb_frames": "357"
+      }
+    ],
+    "format": {
+      "duration": "17.850000"
+    }
+  },
+  "limitations": [
+    "Authored level floor; no terrain adaptation, physical balance simulation or gameplay collision.",
+    "Blender preview; no headset performance test.",
+    "Blender workers require interruption after successful completion due to sandbox audio shutdown stall.",
+    "Original texture provenance discussion remains recorded in tools/ba2/SOURCES.md."
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "date": "2026-09-12",
+  "protocol": "fpsloppa-31-team-radio",
+  "tests": [
+    {
+      "test": "physical_rig",
+      "checks": 32,
+      "passed": true
+    },
+    {
+      "test": "vr_interactions",
+      "checks": 68,
+      "passed": true
+    },
+    {
+      "test": "radio_guards",
+      "checks": 13,
+      "passed": true
+    },
+    {
+      "test": "audio",
+      "checks": 4,
+      "passed": true
+    },
+    {
+      "test": "proximity-network",
+      "checks": 11,
+      "passed": true
+    },
+    {
+      "test": "physical-network",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "test": "server",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "sender",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "teammate",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "enemy",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "radio_audio": {
+    "dry_rms": 0.0443437789982383,
+    "radio_rms": 0.0361923111853082,
+    "ratio": 0.816175617029528
+  },
+  "evidence_directory": "test-results/team-radio",
+  "behavior": {
+    "radio_shoulder": "Opposite the gun hand; live setting changes release and move it",
+    "controls": "Offhand grip at shoulder, hold offhand trigger to transmit; desktop B team PTT, Y team text",
+    "throw_gain": 2.4,
+    "maximum_throw_meters_per_second": 26,
+    "trajectory_preview_hz": 10
+  },
+  "limitations": [
+    "No live headset wearer test of radio reach or throw feel",
+    "Shoulder radio controls built-in TwoVoIP; external Mumble remains independent",
+    "Guide stops at first world contact and does not predict bounces/player impact",
+    "Existing single ObjectDB shutdown warning remains"
+  ]
+}

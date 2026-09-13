@@ -1,6 +1,8 @@
 # Godot's generated imports and editor state
 .godot/
 *.import
+# Authored sky import policy: retain full-resolution BC7 / ASTC 4x4 on fresh checkouts.
+!/deathmatch/maps/skies/*.png.import
 # Generated Gradle project and local signing configuration
 /android/
 .env
@@ -14,6 +16,9 @@
 __pycache__/
 *.pyc
 *.log
+/addons/bhaptics_native/native/target/
+/addons/bhaptics_native/bin/
+/addons/bhaptics_native/bhaptics.gdextension
 .DS_Store
 
 # External libraries may contain private player/server downloads. Base files are tracked explicitly.
@@ -68,3 +73,29 @@ __pycache__/
 /materials/
 /textures/
 /optional-arena-pack/
+
+/deathmatch/assets/offline-base.zip
+
+# Downloaded third-party source archives and licence-review working files.
+/tools/makkon/local/
+/tools/community_maps/local/
+
+# Blender backup files; editable weapon sources remain tracked.
+/tools/weapon_sources/refined/*.blend1
+
+# Independent converter checkouts; source lives in separate GitHub repositories.
+/external-tools/
+
+# ThreeWave references are study inputs only; never distributed.
+/tools/threewave_rebuild/local/
+
+/tools/koth/local/
+
+/optional-librequake/
+/optional-community/
+
+# Generated distribution archives and compiler scratch output.
+/dist/
+/maps/*.prt
+/maps/*.texinfo
+/maps/*.vis

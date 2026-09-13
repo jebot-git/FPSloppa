@@ -1,0 +1,365 @@
+{
+  "date": "2026-09-12",
+  "scope": "Downloaded source packs referenced by FPSloppa map texture provenance, plus local Makkon CTF pack; source assets only, no avatar work.",
+  "archives": [
+    {
+      "path": "tools/makkon/local/makkon_metal.zip",
+      "sha256": "c0eca6be6984e29a8ac1615c05bbc98409b3bed52a230dc43fc91a4bb3698a85",
+      "files": [
+        "makkon_metal documentation/makkon_metal_example1.png",
+        "makkon_metal documentation/makkon_metal_example2.png",
+        "makkon_metal documentation/makkon_metal_example3.png",
+        "makkon_metal.wad"
+      ],
+      "wads": [
+        {
+          "path": "makkon_metal.wad",
+          "sha256": "e64b1bb928b7e28e5949c425619888440ed5c87d0db3dcce1f4b515589e61972",
+          "textures": 463,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        }
+      ],
+      "texture_count": 463
+    },
+    {
+      "path": "tools/makkon/local/makkon_industrial.zip",
+      "sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+      "files": [
+        "makkon_industrial documentation/gfx/env/mak_sunset2_bk.tga",
+        "makkon_industrial documentation/gfx/env/mak_sunset2_dn.tga",
+        "makkon_industrial documentation/gfx/env/mak_sunset2_ft.tga",
+        "makkon_industrial documentation/gfx/env/mak_sunset2_lf.tga",
+        "makkon_industrial documentation/gfx/env/mak_sunset2_rt.tga",
+        "makkon_industrial documentation/gfx/env/mak_sunset2_up.tga",
+        "makkon_industrial documentation/makkon_industrial_example1.png",
+        "makkon_industrial documentation/makkon_industrial_example2.png",
+        "makkon_industrial documentation/makkon_industrial_example3.png",
+        "makkon_industrial documentation/makkon_industrial_example4.png",
+        "makkon_industrial documentation/makkon_industrial_example5.png",
+        "makkon_industrial documentation/makkon_industrial_example6.png",
+        "makkon_industrial documentation/makkon_industrial_example7.png",
+        "makkon_industrial documentation/maps/makkon_urbind_testmap_01.bsp",
+        "makkon_industrial documentation/maps/makkon_urbind_testmap_01.lit",
+        "makkon_industrial documentation/maps/makkon_urbind_testmap_01.map",
+        "makkon_industrial.wad"
+      ],
+      "wads": [
+        {
+          "path": "makkon_industrial.wad",
+          "sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+          "textures": 1632,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        }
+      ],
+      "texture_count": 1632
+    },
+    {
+      "path": "tools/makkon/local/makkon_CTF.zip",
+      "sha256": "a645cb156fb2ae669cf719db647196ed754a9e615d6ed6602fff6b8b35e4fa8e",
+      "files": [
+        "makkon_CTF.wad",
+        "Makkon_License.txt"
+      ],
+      "wads": [
+        {
+          "path": "makkon_CTF.wad",
+          "sha256": "8944e668b87e071b0f1070a36b88e89e2de1ebcffe5325677ed354e757d87dfd",
+          "textures": 32,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        }
+      ],
+      "texture_count": 32
+    },
+    {
+      "path": "tools/vesper/local/makkon_gothic_stone.zip",
+      "sha256": "2ab3bd9b505f87862c03453894a6ac529be7e5db1ca8fc79d6d64cc21df92789",
+      "files": [
+        "makkon_gothic_stone documentation/gfx/env/mak_bluesky1_bk.tga",
+        "makkon_gothic_stone documentation/gfx/env/mak_bluesky1_dn.tga",
+        "makkon_gothic_stone documentation/gfx/env/mak_bluesky1_ft.tga",
+        "makkon_gothic_stone documentation/gfx/env/mak_bluesky1_lf.tga",
+        "makkon_gothic_stone documentation/gfx/env/mak_bluesky1_rt.tga",
+        "makkon_gothic_stone documentation/gfx/env/mak_bluesky1_up.tga",
+        "makkon_gothic_stone documentation/HowToUseTrimsheets_standard_trim_tutorial.png",
+        "makkon_gothic_stone documentation/HowToUseTrimsheets_WEB.png",
+        "makkon_gothic_stone documentation/HowToUseTrimsheets2_ConvexAndConcave_WEB.png",
+        "makkon_gothic_stone documentation/makkon_gotchic_stone_example_01.png",
+        "makkon_gothic_stone documentation/makkon_gotchic_stone_example_02.png",
+        "makkon_gothic_stone documentation/makkon_gotchic_stone_example_03.png",
+        "makkon_gothic_stone documentation/Makkon_License.txt",
+        "makkon_gothic_stone documentation/maps/makkon_stone_testmap01.bsp",
+        "makkon_gothic_stone documentation/maps/makkon_stone_testmap01.lit",
+        "makkon_gothic_stone documentation/maps/makkon_stone_testmap01.map",
+        "makkon_gothic_stone documentation/readme.txt",
+        "makkon_gothic_stone.wad"
+      ],
+      "wads": [
+        {
+          "path": "makkon_gothic_stone.wad",
+          "sha256": "341ce9040657a6835969b0f5c37c9f12b18aa99b50855702e24bd2c25387b754",
+          "textures": 2089,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        }
+      ],
+      "texture_count": 2089
+    },
+    {
+      "path": "tools/pressureworks/local/librequake-dev.zip",
+      "sha256": "8b6cd467a73976e8ed6ee52eecc0cafc7d3a0c289058b1ccebcf05583a88f288",
+      "files": [
+        "dev/docs/COPYING",
+        "dev/docs/CREDITS",
+        "dev/docs/README-IMPORTANT-LICENCE-INFO",
+        "dev/docs/README.md",
+        "dev/docs/branding/button.png",
+        "dev/docs/branding/header.png",
+        "dev/docs/branding/icon.ico",
+        "dev/docs/branding/icon.pixel.ico",
+        "dev/docs/branding/icon.svg",
+        "dev/docs/branding/steam/capsule-tall.png",
+        "dev/docs/branding/steam/capsule-wide.png",
+        "dev/docs/branding/steam/hero.png",
+        "dev/docs/branding/steam/icon.pixel.png",
+        "dev/docs/branding/steam/icon.png",
+        "dev/docs/branding/steam/logo.png",
+        "dev/docs/deathmatch-setup-guide.txt",
+        "dev/docs/freedoom-docs/COPYING.adoc",
+        "dev/docs/freedoom-docs/CREDITS",
+        "dev/docs/freedoom-docs/README.adoc",
+        "dev/docs/misc-docs/COPYING",
+        "dev/docs/misc-docs/LibreProgsDeluxe.md",
+        "dev/docs/misc-docs/pop.lmp.md",
+        "dev/maps/src/dm/lqdm1.map",
+        "dev/maps/src/dm/lqdm10.map",
+        "dev/maps/src/dm/lqdm11.map",
+        "dev/maps/src/dm/lqdm12.map",
+        "dev/maps/src/dm/lqdm13.map",
+        "dev/maps/src/dm/lqdm2.map",
+        "dev/maps/src/dm/lqdm3.map",
+        "dev/maps/src/dm/lqdm4.map",
+        "dev/maps/src/dm/lqdm5.map",
+        "dev/maps/src/dm/lqdm6.map",
+        "dev/maps/src/dm/lqdm7.map",
+        "dev/maps/src/dm/lqdm8.map",
+        "dev/maps/src/dm/lqdm9.map",
+        "dev/maps/src/e0/lq_e0m1.map",
+        "dev/maps/src/e0/lq_e0m2.map",
+        "dev/maps/src/e0/lq_e0m3.map",
+        "dev/maps/src/e0/lq_e0m4.map",
+        "dev/maps/src/e0/lq_e0m5.map",
+        "dev/maps/src/e0/lq_e0m6.map",
+        "dev/maps/src/e0/lq_e0m7.map",
+        "dev/maps/src/e0/lq_e0m8.map",
+        "dev/maps/src/e1/lq_e1m1.map",
+        "dev/maps/src/e1/lq_e1m2.map",
+        "dev/maps/src/e1/lq_e1m3.map",
+        "dev/maps/src/e1/lq_e1m4.map",
+        "dev/maps/src/e1/lq_e1m5.map",
+        "dev/maps/src/e1/lq_e1m6.map",
+        "dev/maps/src/e1/lq_e1m7.map",
+        "dev/maps/src/e1/lq_e1m8.map",
+        "dev/maps/src/e2/lq_e2m1.map",
+        "dev/maps/src/e2/lq_e2m2.map",
+        "dev/maps/src/e2/lq_e2m3.map",
+        "dev/maps/src/e2/lq_e2m4.map",
+        "dev/maps/src/e2/lq_e2m5.map",
+        "dev/maps/src/e2/lq_e2m6.map",
+        "dev/maps/src/e2/lq_e2m7.map",
+        "dev/maps/src/e3/lq_e3m1.map",
+        "dev/maps/src/e3/lq_e3m2.map",
+        "dev/maps/src/e3/lq_e3m3.map",
+        "dev/maps/src/e3/lq_e3m4.map",
+        "dev/maps/src/e3/lq_e3m5.map",
+        "dev/maps/src/e3/lq_e3m6.map",
+        "dev/maps/src/e3/lq_e3m7.map",
+        "dev/maps/src/e4/lq_e4m1.map",
+        "dev/maps/src/e4/lq_e4m2.map",
+        "dev/maps/src/e4/lq_e4m3.map",
+        "dev/maps/src/e4/lq_e4m4.map",
+        "dev/maps/src/e4/lq_e4m5.map",
+        "dev/maps/src/e4/lq_e4m6.map",
+        "dev/maps/src/e4/lq_e4m7.map",
+        "dev/maps/src/e4/lq_e4m8.map",
+        "dev/maps/src/misc/dev.map",
+        "dev/maps/src/misc/lq_end.map",
+        "dev/maps/src/misc/start.map",
+        "dev/texture-wads/lq_dev.wad",
+        "dev/texture-wads/lq_flesh.wad",
+        "dev/texture-wads/lq_greek.wad",
+        "dev/texture-wads/lq_health_ammo.wad",
+        "dev/texture-wads/lq_legacy.wad",
+        "dev/texture-wads/lq_liquidsky.wad",
+        "dev/texture-wads/lq_mayan.wad",
+        "dev/texture-wads/lq_medieval.wad",
+        "dev/texture-wads/lq_metal.wad",
+        "dev/texture-wads/lq_props.wad",
+        "dev/texture-wads/lq_tech.wad",
+        "dev/texture-wads/lq_terra.wad",
+        "dev/texture-wads/lq_utility.wad",
+        "dev/texture-wads/lq_wood.wad"
+      ],
+      "wads": [
+        {
+          "path": "dev/texture-wads/lq_dev.wad",
+          "sha256": "ec2f3f65ae966b26fb7e902f347cc1787899f348f4f5560e89c84c22454b58ed",
+          "textures": 228,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_flesh.wad",
+          "sha256": "d5d48c236be770f2e8348742098321e84788284fee05a36af843f7496924eb68",
+          "textures": 86,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_greek.wad",
+          "sha256": "9aafdd43ccc94f4b2b096956d6ddddf6a97c22e3bfd5382ea957cbd1df0eb8e9",
+          "textures": 128,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_health_ammo.wad",
+          "sha256": "da8887d93fcc10ca1086443861ceec5413c24cda02c62e6a652907761d988eba",
+          "textures": 80,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_legacy.wad",
+          "sha256": "99961bf3dbf7c5e4317810a90494a2991c5474ac3093fffd6a10a58d921ae447",
+          "textures": 93,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_liquidsky.wad",
+          "sha256": "27199ffb0f4d36fd4923bc3e3cac0da4f5618d0fe03a42352e31e6dcd7b32c73",
+          "textures": 80,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_mayan.wad",
+          "sha256": "eb87d5684525be181df8df7a9a7ede9949adaa005de1263380c393c3fb83d46c",
+          "textures": 104,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_medieval.wad",
+          "sha256": "f6a75374430814a72ad92606d3ab77735a60028fa3644cbceac8f61ec1337acc",
+          "textures": 244,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_metal.wad",
+          "sha256": "4abd453e197ad6ea41948dd8145819c180707c2126954874c4ea7f767251a9ff",
+          "textures": 344,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_props.wad",
+          "sha256": "1df8a6dc0528c5a9895f3ede603b2e01bd2ad498cd6d7d4fe63a969bb37113cd",
+          "textures": 52,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_tech.wad",
+          "sha256": "72e27797044cabdf1335aba66f13ce5d34ec7c555edbc2b8cd3adf760888d1cd",
+          "textures": 377,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_terra.wad",
+          "sha256": "ad08be9cc25c1050adc8ecb23c459e903312ee3b0f237b4d0f495197b64c6cd4",
+          "textures": 69,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": [
+            "med_rock3_bump"
+          ]
+        },
+        {
+          "path": "dev/texture-wads/lq_utility.wad",
+          "sha256": "9ebe6da7784c3c60813020b58ddc2551bde4a46fcd6f67cc8f229015a4f696ea",
+          "textures": 11,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        },
+        {
+          "path": "dev/texture-wads/lq_wood.wad",
+          "sha256": "e78e6d537d3be9cece27ed7c7966796845789e6301b02058f2161c7734943f84",
+          "textures": 50,
+          "all_uncompressed_type_68_miptex": true,
+          "all_exactly_header_and_four_indexed_colour_mips": true,
+          "extra_channel_bytes": 0,
+          "channel_name_candidates": []
+        }
+      ],
+      "texture_count": 1946
+    }
+  ],
+  "total_wads": 18,
+  "total_texture_records": 6162,
+  "result": "No supplied companion normal, height, specular, roughness, metallic or texture AO set found. WAD fullbright palette indices supply glow. Example .lit files are map lighting, not material channels.",
+  "librequake_upstream_check": {
+    "url": "https://github.com/lavenderdotpet/LibreQuake",
+    "commit": "615969bd63ea6360b6ad35998ce14074b05b701b",
+    "tree_truncated": false,
+    "tree_blob_count": 3956,
+    "candidate": "texture-wads/lq_terra/med_rock3_bump.png",
+    "candidate_sha256": "041d067703c815db291c53c09bfbb1eccdb04693ff77715636dd170a7b8a35df",
+    "candidate_review": "Viewed 256x256 RGBA PNG: coloured rock surface with shaded relief, not a separately encoded height or tangent-space normal map. Also distributed as an ordinary WAD colour texture.",
+    "authoring_file_review": "med_rock3tilefix.xcf has two layers named Pasted Layer and Background; no material channel labels. Other layered authoring files were not exhaustively inspected."
+  },
+  "generated_art": "tools/texture_replacements/gothic-reliefs-source.png and build.py provide colour artwork/palette conversion, no companion material channels.",
+  "limitations": [
+    "This audits the downloaded versions used by the project; it does not establish that authors never made other PBR assets.",
+    "Filename searches of the current upstream tree are supplemental evidence, not a complete semantic audit of all layered authoring files."
+  ],
+  "production_changes": false
+}

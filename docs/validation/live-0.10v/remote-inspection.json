@@ -1,0 +1,45 @@
+{
+  "date_utc": "2026-09-11",
+  "server": "45.147.228.101:7777",
+  "version": "0.10v",
+  "configured_capacity": 16,
+  "process_pid": 76043,
+  "vcpus": 2,
+  "memory_rss_kib": 149248,
+  "threads": 8,
+  "game_socket_receive_buffer_bytes": 212992,
+  "game_socket_drops": 351,
+  "drops_unchanged_during_inspection": true,
+  "host_udp_receive_buffer_errors": 1343,
+  "full_capacity_health": [
+    {
+      "utc": "2026-09-11T19:40:14Z",
+      "players": 16,
+      "physics_ms": 4.327,
+      "process_ms": 4.237
+    },
+    {
+      "utc": "2026-09-11T19:40:19Z",
+      "players": 16,
+      "physics_ms": 2.005,
+      "process_ms": 1.102
+    },
+    {
+      "utc": "2026-09-11T19:40:24Z",
+      "players": 16,
+      "physics_ms": 5.38,
+      "process_ms": 1.503
+    },
+    {
+      "utc": "2026-09-11T19:40:29Z",
+      "players": 16,
+      "physics_ms": 2.603,
+      "process_ms": 1.456
+    }
+  ],
+  "test_connection_events": 18,
+  "test_disconnect_events": 18,
+  "pending_joins_after_test": 0,
+  "players_after_test": 0,
+  "server_process_and_configuration_unchanged": true
+}

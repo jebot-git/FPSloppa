@@ -1,0 +1,127 @@
+{
+  "date": "2026-09-12",
+  "status": "Local experimental maps; human balance testing outstanding",
+  "build": {
+    "protected_assets": {
+      "maps/as_hislop.bsp": "e477afa51ba190979722a7eacaedd0814387446de0b448f1f8ac105b5269d67c",
+      "maps/as_frigate.bsp": "187cc818cc3e5c360f5f9a0d9e661babfbacc48bd322bc4c161a4ae51dd9afe9",
+      "maps/as_maplist.txt": "cf8834d4a374a28b8382f1c422888564ddcb9cdf4b993248ec452f3010f0fb9a",
+      "deathmatch/maps/manifest.json": "2c0975058cc3fb955fde4a903628556d8fe516d375a2cfa726a63fab6767094a"
+    },
+    "variants": [
+      {
+        "id": "as_hislop_layout_test",
+        "format": 29,
+        "bytes": 3282016,
+        "sha256": "3598cea1291dccc429a14acf1153705a0761b30284bfab1ceac9eb8a5a292a42",
+        "brushes": 396,
+        "entities": 116,
+        "textures": 15,
+        "recommended_players": [
+          4,
+          10
+        ],
+        "concept": true,
+        "modes": [
+          "as"
+        ],
+        "scenery_motion": true,
+        "full_vis": true,
+        "title": "HiSlop - Layout Test",
+        "experimental": true,
+        "horizontal_scale": [
+          1.75,
+          1.25
+        ],
+        "vertical_scale": 1.0
+      },
+      {
+        "id": "as_frigate_layout_test",
+        "title": "Frigate - Layout Test",
+        "format": 29,
+        "bytes": 2503436,
+        "sha256": "21f1d84ecff8af3b8ad5993606520502f0816b3b88c4c8607c2593ab03fae412",
+        "brushes": 259,
+        "entities": 75,
+        "textures": 13,
+        "recommended_players": [
+          4,
+          8
+        ],
+        "modes": [
+          "as"
+        ],
+        "full_vis": true,
+        "concept": true,
+        "experimental": true,
+        "horizontal_scale": [
+          1.6,
+          1.3
+        ],
+        "vertical_scale": 1.0
+      }
+    ],
+    "installed": true
+  },
+  "navigation_polygons": {
+    "as_hislop_layout_test": 2734,
+    "as_frigate_layout_test": 965
+  },
+  "checks": {
+    "hislop": 33,
+    "frigate": 29,
+    "sludge_escape": 4,
+    "network": 15,
+    "original_hislop": 8,
+    "original_frigate": 28
+  },
+  "failures": [],
+  "timing": {
+    "walking_speed_m_s": 5.2,
+    "combat": false,
+    "hislop_original": {
+      "combat": false,
+      "expanded": false,
+      "speed": 5.2,
+      "stair_to_switch": 4.09999999999999,
+      "switch_to_controls": 8.08333333333331
+    },
+    "hislop_layout_test": {
+      "combat": false,
+      "expanded": true,
+      "speed": 5.2,
+      "stair_to_switch": 7.64999999999998,
+      "switch_to_controls": 14.166666666667
+    },
+    "frigate_spawn_to_compressor_approach_seconds": {
+      "original": 20.767,
+      "layout_test": 31.417
+    },
+    "frigate_compressor_to_controls_seconds": {
+      "original": 12.883,
+      "layout_test": 20.233
+    }
+  },
+  "network": [
+    {
+      "role": "server",
+      "exit_code": 0,
+      "checks": 7,
+      "passed": true
+    },
+    {
+      "role": "client",
+      "exit_code": 0,
+      "checks": 8,
+      "passed": true
+    }
+  ],
+  "production_generator_output_unchanged": true,
+  "limitations": [
+    "Scale is inferred from reference descriptions, not measured from retail geometry.",
+    "Solo route timings are not contested match times.",
+    "No wearer-confirmed VR or human team balance session was run.",
+    "Existing one-instance ObjectDB exit warning also appears in both baseline map tests; no new engine errors."
+  ],
+  "excluded_from_base_assets": true
+}

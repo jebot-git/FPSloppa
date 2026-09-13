@@ -1,0 +1,160 @@
+[
+  {
+    "name": "koth_solstice-m0",
+    "map": "koth_solstice",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 0
+  },
+  {
+    "name": "koth_solstice-m1",
+    "map": "koth_solstice",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 1
+  },
+  {
+    "name": "koth_torture-m0",
+    "map": "koth_torture",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 0
+  },
+  {
+    "name": "koth_torture-m1",
+    "map": "koth_torture",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 1
+  },
+  {
+    "name": "koth_hyperborea-m0",
+    "map": "koth_hyperborea",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 0
+  },
+  {
+    "name": "koth_hyperborea-m1",
+    "map": "koth_hyperborea",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 1
+  },
+  {
+    "name": "koth_alichar-m0",
+    "map": "koth_alichar",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 0
+  },
+  {
+    "name": "koth_alichar-m1",
+    "map": "koth_alichar",
+    "mode": "koth",
+    "rules": "doom",
+    "seconds": 300,
+    "mirror": 1
+  },
+  {
+    "name": "ctf-7129-m0",
+    "map": "ctf_crownreach",
+    "mode": "ctf",
+    "rules": "ut99",
+    "seconds": 600,
+    "seed": 7129,
+    "mirror": 0
+  },
+  {
+    "name": "ctf-7129-m1",
+    "map": "ctf_crownreach",
+    "mode": "ctf",
+    "rules": "ut99",
+    "seconds": 600,
+    "seed": 7129,
+    "mirror": 1
+  },
+  {
+    "name": "ctf-9137-m0",
+    "map": "ctf_crownreach",
+    "mode": "ctf",
+    "rules": "ut99",
+    "seconds": 600,
+    "seed": 9137,
+    "mirror": 0
+  },
+  {
+    "name": "ctf-9137-m1",
+    "map": "ctf_crownreach",
+    "mode": "ctf",
+    "rules": "ut99",
+    "seconds": 600,
+    "seed": 9137,
+    "mirror": 1
+  },
+  {
+    "name": "if-7129-m0",
+    "map": "qsrc_dm6",
+    "mode": "if",
+    "rules": "doom",
+    "seconds": 300,
+    "seed": 7129,
+    "mirror": 0
+  },
+  {
+    "name": "if-7129-m1",
+    "map": "qsrc_dm6",
+    "mode": "if",
+    "rules": "doom",
+    "seconds": 300,
+    "seed": 7129,
+    "mirror": 1
+  },
+  {
+    "name": "if-9137-m0",
+    "map": "qsrc_dm6",
+    "mode": "if",
+    "rules": "doom",
+    "seconds": 300,
+    "seed": 9137,
+    "mirror": 0
+  },
+  {
+    "name": "if-9137-m1",
+    "map": "qsrc_dm6",
+    "mode": "if",
+    "rules": "doom",
+    "seconds": 300,
+    "seed": 9137,
+    "mirror": 1
+  },
+  {
+    "name": "as-m0",
+    "map": "as_frigate",
+    "mode": "as",
+    "rules": "ut99",
+    "minutes": 6,
+    "seconds": 735,
+    "mirror": 0
+  },
+  {
+    "name": "as-m1",
+    "map": "as_frigate",
+    "mode": "as",
+    "rules": "ut99",
+    "minutes": 6,
+    "seconds": 735,
+    "mirror": 1
+  },
+  {
+    "name": "water",
+    "script": "water"
+  }
+]

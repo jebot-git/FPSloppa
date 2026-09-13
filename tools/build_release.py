@@ -2,21 +2,38 @@
 from pathlib import Path
 import subprocess, shutil, zipfile, json, os, sys
 
+from map_distribution import distributable
 root=Path(__file__).resolve().parents[1]
-RETIRED={'optional-arena-pack','optional-threewave-tools','optional-tf-tools','optional-ad-tools'}
+RETIRED={'optional-arena-pack','optional-threewave-tools','optional-tf-tools','optional-ad-tools','optional-tf-map-pack'}
 builds=root.parent/'Builds'
 godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
 if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
 (root/'test-results').mkdir(exist_ok=True)
-targets=[('Linux PC','Linux','FPSloppa.x86_64'),('Windows PC','Windows','FPSloppa.exe'),('Linux Dedicated Server','Server','FPSloppaServer.x86_64')]
+targets=[('Linux PC','Linux','FPSloppa.x86_64'),('Windows PC','Windows','FPSloppa.exe')]
 if '--package-only' not in sys.argv and '--stage-only' not in sys.argv:
-    for preset,folder,binary in targets:
-        dest=builds/folder;dest.mkdir(parents=True,exist_ok=True)
-        log=root/'test-results'/('export_'+folder.lower()+'.log')
-        with log.open('w') as output:
-            result=subprocess.run([godot,'--headless','--xr-mode','off','--path',str(root),'--export-release',preset,str(dest/binary)],stdout=output,stderr=subprocess.STDOUT)
-        if result.returncode or not (dest/binary).is_file() or any(marker in log.read_text() for marker in ['SCRIPT ERROR:', 'Cannot export project']):raise SystemExit(f'Export failed: {preset}; see {log}')
-        print('EXPORTED',preset,flush=True)
+    markers=[]
+    try:
+        for name in ['Builds','dist','external-tools','tools','docs','materials','textures']:
+            marker=root/name/'.gdignore'
+            if marker.parent.is_dir() and not marker.exists():marker.touch();markers.append(marker)
+        for preset,folder,binary in targets:
+            dest=builds/folder;dest.mkdir(parents=True,exist_ok=True)
+            log=root/'test-results'/('export_'+folder.lower()+'.log')
+            with log.open('w') as output:
+                result=subprocess.run([godot,'--headless','--xr-mode','off','--path',str(root),'--export-release',preset,str(dest/binary)],stdout=output,stderr=subprocess.STDOUT)
+            if result.returncode or not (dest/binary).is_file() or any(marker in log.read_text() for marker in ['SCRIPT ERROR:', 'Cannot export project']):raise SystemExit(f'Export failed: {preset}; see {log}')
+            print('EXPORTED',preset,flush=True)
+    finally:
+        for marker in markers:marker.unlink(missing_ok=True)
+
+# Server uses a distinct directory: never mix in plugins from legacy exports.
+server_dest=root/'Builds/ConsoleServer'
+server_command=[sys.executable,str(root/'tools/build_console_server.py'),'--output',str(server_dest)]
+if '--package-only' in sys.argv:
+    server_command.append('--verify-only')
+elif os.environ.get('FPSLOPPA_SERVER_TEMPLATE'):
+    server_command += ['--template',os.environ['FPSLOPPA_SERVER_TEMPLATE']]
+subprocess.run(server_command,check=True)
 
 if '--exports-only' in sys.argv:raise SystemExit(0)
 
@@ -37,11 +54,7 @@ for _,folder,_ in targets:
     for source in (root/'deathmatch/maps/librequake-props').glob('*'):
         if source.name not in {'LICENCE.txt','CREDITS.txt','SOURCES.json'}:continue
         out=dest/'licenses/librequake-props'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
-    if folder=='Server':
-        shutil.copy2(root/'server.cfg',dest/'server.cfg')
-        (dest/'start-server.sh').write_text('#!/usr/bin/env bash\nset -euo pipefail\nserver_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$server_dir/FPSloppaServer.x86_64" -- --config "$server_dir/server.cfg" "$@"\n')
-        (dest/'start-server.sh').chmod(0o755)
-    elif folder=='Linux':
+    if folder=='Linux':
         for label,mode in [('VR','on'),('Desktop','off')]:
             f=dest/f'Play-{label}.sh'
             f.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$game_dir/FPSloppa.x86_64" --xr-mode '+mode+' "$@"\n');f.chmod(0o755)
@@ -54,16 +67,19 @@ if '--stage-only' in sys.argv:
     print('STAGED binary folders, assets, launchers and license notices',flush=True)
     raise SystemExit(0)
 
+server_files=set(json.loads((server_dest/'server-build.json').read_text())['package_files'])
 archives=[]
 for folder,name in [('Linux','FPSloppa-Linux.zip'),('Windows','FPSloppa-Windows.zip'),('Server','FPSloppa-Dedicated-Server-Linux.zip')]:
     archive=root.parent/name
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
-        for f in sorted((builds/folder).rglob('*')):
-            rel=f.relative_to(builds/folder)
-            if rel.parts[0] in {'demos','video-output'}:continue
+        package_dir=server_dest if folder=='Server' else builds/folder
+        for f in sorted(package_dir.rglob('*')):
+            rel=f.relative_to(package_dir)
+            if folder=='Server' and rel.as_posix() not in server_files:continue
+            if rel.parts[0] in {'demos','video-output'} or f.suffix=='.log':continue
             if rel.name in {'Entryway.x86_64','Entryway.exe','Entryway.pck','EntrywayServer.x86_64','EntrywayServer.pck'}:continue
             if rel.parts[0] in {'maps','vrm'} and rel.as_posix() not in {row['path'] for row in asset_manifest['files']}:continue
-            if f.is_file():z.write(f,Path('FPSloppa-'+folder)/rel)
+            if f.is_file():z.write(root/'server.cfg' if folder=='Server' and rel.as_posix()=='server.cfg' else f,Path('FPSloppa-'+folder)/rel)
     archives.append(archive)
 archive=root.parent/'FPSloppa-Deathmatch.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
@@ -75,13 +91,15 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         files=[str(f.relative_to(root)) for f in root.rglob('*') if f.is_file()]
     for name in sorted(set(files)-{''}):
         rel=Path(name);f=root/rel
+        if not distributable(rel):continue
         # Local AD derivatives are excluded even when packaging a non-Git checkout.
         if rel.name.startswith('tf_fo_') or rel.parts[:3]==('tools','fortressone','local'):continue
         if 'AD-NOTICES' in rel.parts or rel.name.startswith('ad_arena_') or rel.name.endswith('_ad_maplist.txt') or rel.name=='ad-maplists.cfg':continue
         if len(rel.parts)>1 and rel.parts[:2]==('optional-ad-tools','local'):continue
         if not f.is_file() or rel.parts[0] in RETIRED | {'materials','textures','android','test-results','release-assets','.agents','.codex'}:continue
         if any(part in {'.godot','.git','__pycache__'} for part in rel.parts):continue
-        if f.suffix in {'.import','.pyc','.log','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
+        if f.suffix=='.import' and rel.parent!=Path('deathmatch/maps/skies'):continue
+        if f.suffix in {'.pyc','.log','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
         z.write(f,Path('Godot')/rel)
 archives.append(archive)
 for archive in archives:

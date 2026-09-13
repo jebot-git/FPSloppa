@@ -20,14 +20,14 @@ static func reset_motion(state: Dictionary) -> void:
 	state.armed=true
 	state.swing_until=0.0
 
-static func sample(state: Dictionary, pose: Dictionary, now: float, weapon: int) -> Dictionary:
+static func sample(state: Dictionary, pose: Dictionary, now: float, weapon: int,tip: Vector3=Vector3(0,0,-WEAPON_LENGTH),cooldown: float=COOLDOWN) -> Dictionary:
 	var current: Transform3D=pose.weapon
 	current.origin-=pose.head.origin
 	var previous: Transform3D=state.get("pose",current)
 	var dt: float=now-float(state.get("time",now))
 	var changed: bool=state.get("weapon",weapon)!=weapon or state.get("left_handed",pose.left_handed)!=pose.left_handed
 	state.pose=current;state.time=now;state.weapon=weapon;state.left_handed=pose.left_handed
-	var distance:=maxf(previous.origin.distance_to(current.origin),(previous*(Vector3.FORWARD*WEAPON_LENGTH)).distance_to(current*(Vector3.FORWARD*WEAPON_LENGTH)))
+	var distance:=maxf(previous.origin.distance_to(current.origin),(previous*tip).distance_to(current*tip))
 	if dt<.005 or dt>.15 or changed or distance>.65:
 		state.armed=true;state.swing_until=0.0
 		return {}
@@ -35,7 +35,7 @@ static func sample(state: Dictionary, pose: Dictionary, now: float, weapon: int)
 	if speed<RESET_SPEED: state.armed=true
 	var started:=false
 	if speed>=SWING_SPEED and distance>=.025 and state.get("armed",true) and now>=state.get("ready_at",0.0):
-		state.armed=false;state.ready_at=now+COOLDOWN;state.swing_until=now+SWING_WINDOW;state.hit=false
+		state.armed=false;state.ready_at=now+cooldown;state.swing_until=now+SWING_WINDOW;state.hit=false
 		started=true
 	if state.get("hit",false) or now>=state.get("swing_until",0.0) or speed<RESET_SPEED: return {}
 	# Sweep the whole short weapon volume, including rotational arcs between packets.
@@ -43,9 +43,9 @@ static func sample(state: Dictionary, pose: Dictionary, now: float, weapon: int)
 	for step in range(4):
 		var a:=previous.interpolate_with(current,float(step)/4)
 		var b:=previous.interpolate_with(current,float(step+1)/4)
-		for reach in [0.0,WEAPON_LENGTH*.5,WEAPON_LENGTH]:
-			segments.append([a*Vector3(0,0,-reach),b*Vector3(0,0,-reach)])
-		segments.append([b.origin,b*Vector3(0,0,-WEAPON_LENGTH)])
+		for reach in [0.0,.5,1.0]:
+			segments.append([a*(tip*reach),b*(tip*reach)])
+		segments.append([b.origin,b*tip])
 	return {"started":started,"segments":segments}
 
 static func sample_foot(state: Dictionary,pose: Dictionary,now: float,side: String) -> Dictionary:

@@ -1,0 +1,57 @@
+{
+  "version": "0.11v",
+  "date": "2026-09-13",
+  "engine": "Godot 4.7.2",
+  "passed": true,
+  "builds": [
+    "Linux",
+    "Windows",
+    "Linux console server",
+    "Quest",
+    "Pico"
+  ],
+  "checks": {
+    "linux_client_server": {
+      "passed": true,
+      "client_exit": 0,
+      "graphical_linux_client": true
+    },
+    "pc_and_apk_payloads": [
+      {
+        "failures": [],
+        "files": 1314,
+        "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+      },
+      {
+        "failures": [],
+        "files": 1314,
+        "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+      },
+      {
+        "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+        "files": 1436,
+        "failures": []
+      },
+      {
+        "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Pico.apk",
+        "files": 1436,
+        "failures": []
+      }
+    ],
+    "android_manifest_renderer_alignment": true,
+    "optional_maps": 53,
+    "optional_installer_checks": 374,
+    "base_maps": 26
+  },
+  "prior_evidence": [
+    "impact-jump.json",
+    "remote-live-20260913.json",
+    "titanball-coverage-r6.json"
+  ],
+  "limitations": [
+    "Some remote peers showed 300\u2013400 ms latency; eight UDP drops recorded during TITANBALL.",
+    "No fresh physical Windows/Quest/Pico test of final binaries.",
+    "TITANBALL human balance unverified; three latest bot matches favoured defenders.",
+    "Isolated Godot shutdown resource warnings."
+  ]
+}

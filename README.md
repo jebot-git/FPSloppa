@@ -1,22 +1,26 @@
-# FPSloppa 0.10v
+# FPSloppa 0.11v
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.10v build notes](docs/RELEASE-0.10v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.11v build notes](docs/RELEASE-0.11v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.10v:** Frigate Assault map, expanded HiSlop interiors, corrected client movement prediction and local avatar alignment, physical VR crouching and objective interactions, improved swimming and weapon-wall clearance, TF Spy disguise/cell-powered cloak, lobby voting and cleanup fixes, forgiving T-pose calibration with recentering, door/teleporter sounds and a new SloP icon.
+**New in 0.11v:** TITANBALL robot escort mode and Ashfall city map, new objective arenas, Vulkan rendering with baked ambient occlusion and detailed compressed textures, Quake/UT weapon loadouts, Impact Hammer jumps, improved bot objectives and network transport, and quieter music.
 
-**Archived extras:** the original forty-map Arena Collection 1 and the ThreeWave, TeamFortress and Arcane Dimensions conversion tools are available only from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). They will not be revised or developed further, or bundled with subsequent releases. These static assets/tools do not need repeated releases unless the map loader or format changes. See [the archive policy](docs/ARCHIVED-EXTRAS.md).
+**Optional maps:** the curated 53-map community pack covers seven modes. TF distribution contains only Pressureworks and Vesper Abbey; Assault contains only full-sized maps. Historical conversion tools remain available from [0.5v](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). See [the archive policy](docs/ARCHIVED-EXTRAS.md).
 
-FPSloppa is a PC OpenXR and desktop online arena shooter with eight external LibreQuake arenas, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
+FPSloppa is a PC OpenXR and desktop online arena shooter with seven base Quake deathmatch arenas, dedicated objective/CC maps and an optional 53-map community pack, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
-See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
+See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG, IF and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
+
+The separate [portable avatar converter](tools/avatar_converter/README.md) prepares FBX/glTF source avatars as VRM on Windows and Linux, with manual humanoid mapping and optional texture resizing. It can extract source models from Unity packages; assembled Unity prefabs and VRChat-specific shaders/components require preparation in their source editor. [Download Linux/Windows releases](https://github.com/jebot-git/AvatarConverter/releases/tag/v0.1.0) or build from its [independent repository](https://github.com/jebot-git/AvatarConverter).
+
+The additional [UT Avatar Converter](tools/ut_avatar_converter/README.md) turns original UT99 model and skin packages into experimental VRM avatars on Linux and Windows. It includes archive extraction, material selection, editable rig landmarks and a pose preview, with tested Female Soldier, Female Commando and Rumiko presets. [Download Linux/Windows releases](https://github.com/jebot-git/UTAvatarConverter/releases/tag/v0.1.0) or build from its [independent repository](https://github.com/jebot-git/UTAvatarConverter). The separate [experimental MDL Avatar Converter](https://github.com/jebot-git/MDLAvatarConverter/releases/tag/v0.1.0) now supports Quake MDL/PAK input, palette and frame/skin selection, editable rigging and VRM export. GoldSrc MDL is unsupported.
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.10v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.11v clients and servers; the protocol changed from earlier releases.
 
-Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Standalone users should open **ASSETS…** and download the base assets, or extract the Base-Assets ZIP into the app’s external files directory. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Freeze Tag and Chainsaw Circus are available.
+Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Current standalone APKs include the base maps and models and install them automatically on first launch. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Instafreeze, Freeze Tag and Chainsaw Circus are available.
 
 ## Play online
 
@@ -24,9 +28,9 @@ Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside t
 2. Other players enter that host's IP address or hostname and the same port, then select **Join Match**. Use `127.0.0.1` only for clients on the host's own computer; use the host's LAN address for other computers on the same network.
 3. For Internet play, allow the selected UDP port through the host firewall and forward it on the router to the hosting computer, or use a publicly reachable dedicated server. Join using the host's public address.
 
-All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and allow **up to 32 players (above 16 is unsupported; performance, gameplay and maps are not balanced for these counts)** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. There is no account service, automatic matchmaking, NAT relay, public server browser, or host migration. Dedicated servers support configured map rotation. WAN latency and router traversal have not been tested from this workspace; real ENet loopback sessions with independent processes have been tested.
+All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and allow **up to 32 players (above 16 is unsupported; performance, gameplay and maps are not balanced for these counts)** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. There is no account service, automatic matchmaking, NAT relay, public server browser, or host migration. Dedicated servers support configured map rotation. A remote Linux server passed live client tests across all eleven modes and a sixteen-player capacity hold. Some peers experienced elevated latency; see [the remote test report](docs/REMOTE-LIVE-20260913.md).
 
-**PRACTICE VS BOTS** starts an offline match on the selected BSP map with three simple AI opponents. The selected gamemode determines weapons and pickups.
+**PRACTICE VS BOTS** starts an offline match on the selected BSP map with three AI opponents. Bots use movement shortcuts, useful supplies, cover, team roles, TF abilities, and Assault objectives; see [BOTS.md](BOTS.md). The selected gamemode determines weapons and pickups.
 
 ## Desktop controls
 
@@ -83,7 +87,7 @@ These are approximations, not an emulation of Doom's 35 Hz state machine or rand
 A separate Linux executable is available with Q3-style configuration. See [SERVER.md](SERVER.md).
 
 ```bash
-./run-desktop.sh --headless -- --server --map lqdm1 --port 7777 --frags 20 --minutes 10
+./run-desktop.sh --headless -- --server --map qsrc_dm1 --port 7777 --frags 20 --minutes 10
 ```
 
 Or use Godot directly:
@@ -113,6 +117,8 @@ Core files: `arena.gd` (networking/combat/match), `fighter.gd` (movement and mar
 
 Behavior references: [id Software's original weapon routines](https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/p_pspr.c). Networking references: [Godot high-level multiplayer](https://docs.godotengine.org/en/4.7/tutorials/networking/high_level_multiplayer.html) and [ENet peer statistics](https://docs.godotengine.org/en/stable/classes/class_enetpacketpeer.html). This implementation is independently written. Original Doom music, sound samples, sprites and source code are not bundled. See [asset credits](ASSET_CREDITS.md).
 
+Optional [bHaptics vest feedback](BHAPTICS.md) includes the FPSloppa Vest v1 weapon/hit/hazard/healing profile. Native Bluetooth is preferred on Linux/Windows x86_64 (Linux X40 tested; Windows build unvalidated); OSC remains available. Enable it in Settings → Haptics. This revision uses protocol `fpsloppa-33-haptic-damage-context`; update clients and servers together.
+
 Optional [body tracking](TRACKING.md), [recorded spatial audio and speech-driven VRM mouths](AUDIO.md) are included in protocol `fpsloppa-29-acknowledged-movement`. Update the server and every client together.
 
 Eye-tracked VRM gaze and measured blinking are automatic on supported OpenXR runtimes/models; see [EYES.md](EYES.md). See [PERFORMANCE.md](PERFORMANCE.md) for rendering changes, profiling commands and hardware-validation limits. The generated launcher artwork is documented in [ICON.md](ICON.md).
@@ -134,7 +140,7 @@ Four original tracker compositions provide a looping industrial action score wit
 
 Dedicated servers support DM, TDM, CTF and KOTH, with configurable limits, team switching and majority votes for balance, available maps and allowed game types. In-game hosting remains DM-only with eight slots. See [GAMEMODES.md](GAMEMODES.md) and [server.cfg](server.cfg).
 
-Eight freely licensed LibreQuake arenas are bundled. Menus use an original iron/brass theme with large VR controls; CTF flags use cloth banners with distinct team emblems. Steam Audio provides headphone HRTF spatialisation for effects on Linux, Windows and Android; TwoVoIP supplies native Opus positional voice. Sound settings include a standard spatial-audio fallback. Dedicated servers may advertise an external Mumble client handoff; built-in voice remains the default.
+The [Optional Community Map Pack](tools/optional_maps/PACK-README.md) provides 53 maps in seven game-mode categories; see the [sorted catalog](tools/optional_maps/CATALOG.md). Seven Quake source ports form the base DM/IG/FT/TDM rotation. CC has four dedicated LibreQuake remodels; original LibreQuake maps are an optional expansion. Menus use an original iron/brass theme with large VR controls; CTF flags use cloth banners with distinct team emblems. Steam Audio provides headphone HRTF spatialisation for effects on Linux, Windows and Android; TwoVoIP supplies native Opus positional voice. Sound settings include a standard spatial-audio fallback. Dedicated servers may advertise an external Mumble client handoff; built-in voice remains the default.
 
 This build also includes the previously developed dual pistols, controller finger gestures/tracker fixes, spectator mode, end-of-match scoreboard, audio/graphics settings, new pickup models, restored CC0 super shotgun and four original tracker soundtracks.
 
@@ -146,7 +152,7 @@ Hit registration, latency simulation and test limitations: [network testing](NET
 
 ## VR menus and voting
 
-The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Freeze Tag, Chainsaw Circus and Team Fortress (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns use trigger-held dragging instead of scrollbars, including the TF class selector. Flag captures produce a short fanfare and a team/player banner.
+The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Instafreeze, Freeze Tag, Chainsaw Circus, Team Fortress and Assault (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns use trigger-held dragging instead of scrollbars, including the TF class selector. Flag captures produce a short fanfare and a team/player banner.
 
 Lobby voting is available on the waiting-room wall (controller pointer in VR; aim and click on desktop). Select a mode first, then a map from that mode's server maplist. The wall shows the active proposal, Yes/No counts, remaining vote time, your recorded response and the approved next match. Use YES or NO to respond. A majority-approved proposal selects the match that starts when the lobby countdown finishes; a rejected proposal leaves the current selection unchanged. In-game match votes use the same selection order. The themed selectors stay open until an option is selected, including while lobby votes refresh. Active in-game votes display their target, vote counts, time remaining and menu instructions on both desktop and VR HUDs.
 
@@ -154,3 +160,5 @@ Assault (AS) includes the **HiSlop** train map and the new **Frigate** harbor
 adaptation in the source build. Frigate has a destructible aft compressor,
 underwater approach and locked gun-control bridge. Enable Assault through
 `sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).
+
+Experimental Doom / Quake I / UT99 weapon selection and controls: [Weapon variants](docs/WEAPON_VARIANTS.md). Doom remains the default.

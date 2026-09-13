@@ -1,0 +1,184 @@
+{
+  "compatibility": {
+    "author": "[\"Epic Games; Asia Carrera\"]",
+    "license": "https://vrm.dev/licenses/1.0/",
+    "size": 302236,
+    "title": "AsiaBots Black / Female Commando",
+    "version": "1.0"
+  },
+  "missing_features": [
+    "finger rig",
+    "facial expressions",
+    "eye bones",
+    "original vertex animations"
+  ],
+  "output": "/home/blux/Documents/FPSloppa/vrm/AsiaCarrera-FemaleCommando-AsiaBots-experimental.vrm",
+  "rig": "Experimental, newly estimated weights; review joint deformation in VR.",
+  "settings": {
+    "experimentalRig": true,
+    "frame": 609.0,
+    "height": 1.7,
+    "humanBones": {
+      "chest": {
+        "node": 3.0
+      },
+      "head": {
+        "node": 5.0
+      },
+      "hips": {
+        "node": 1.0
+      },
+      "leftFoot": {
+        "node": 12.0
+      },
+      "leftHand": {
+        "node": 9.0
+      },
+      "leftLowerArm": {
+        "node": 8.0
+      },
+      "leftLowerLeg": {
+        "node": 11.0
+      },
+      "leftShoulder": {
+        "node": 6.0
+      },
+      "leftUpperArm": {
+        "node": 7.0
+      },
+      "leftUpperLeg": {
+        "node": 10.0
+      },
+      "neck": {
+        "node": 4.0
+      },
+      "rightFoot": {
+        "node": 19.0
+      },
+      "rightHand": {
+        "node": 16.0
+      },
+      "rightLowerArm": {
+        "node": 15.0
+      },
+      "rightLowerLeg": {
+        "node": 18.0
+      },
+      "rightShoulder": {
+        "node": 13.0
+      },
+      "rightUpperArm": {
+        "node": 14.0
+      },
+      "rightUpperLeg": {
+        "node": 17.0
+      },
+      "spine": {
+        "node": 2.0
+      }
+    },
+    "landmarks": {
+      "chest": [
+        0.0,
+        1.27,
+        -0.08
+      ],
+      "head": [
+        -0.05,
+        1.51,
+        -0.06
+      ],
+      "hips": [
+        0.0,
+        0.94,
+        -0.06
+      ],
+      "leftFoot": [
+        0.23,
+        0.11,
+        0.12
+      ],
+      "leftHand": [
+        0.49,
+        1.12,
+        0.08
+      ],
+      "leftLowerArm": [
+        0.33,
+        1.14,
+        -0.18
+      ],
+      "leftLowerLeg": [
+        0.18,
+        0.49,
+        0.11
+      ],
+      "leftShoulder": [
+        0.08,
+        1.37,
+        -0.04
+      ],
+      "leftUpperArm": [
+        0.2,
+        1.37,
+        0.0
+      ],
+      "leftUpperLeg": [
+        0.12,
+        0.94,
+        -0.01
+      ],
+      "neck": [
+        -0.025,
+        1.43,
+        -0.09
+      ],
+      "rightFoot": [
+        -0.18,
+        0.11,
+        -0.15
+      ],
+      "rightHand": [
+        -0.51,
+        1.21,
+        -0.1
+      ],
+      "rightLowerArm": [
+        -0.32,
+        1.2,
+        -0.25
+      ],
+      "rightLowerLeg": [
+        -0.18,
+        0.49,
+        -0.16
+      ],
+      "rightShoulder": [
+        -0.075,
+        1.37,
+        -0.08
+      ],
+      "rightUpperArm": [
+        -0.19,
+        1.36,
+        -0.1
+      ],
+      "rightUpperLeg": [
+        -0.115,
+        0.94,
+        -0.08
+      ],
+      "spine": [
+        0.0,
+        1.08,
+        -0.08
+      ]
+    },
+    "sourceModel": {
+      "name": "FCommando",
+      "package": "BotPack.u"
+    }
+  },
+  "sha256": "de0c1800dbf08f2ab103e29ddf8cb7d8a787140b93f54c3bd458404e22589baa",
+  "size": 302236
+}

@@ -1,0 +1,59 @@
+{
+  "date": "2026-09-12",
+  "repositories": [
+    {
+      "repository": "https://github.com/jebot-git/AvatarConverter",
+      "commit": "20d85e7e3ffca6bdfbe99476ab22c2cc7f6f5ea2",
+      "release": "https://github.com/jebot-git/AvatarConverter/releases/tag/v0.1.0",
+      "prerelease": false,
+      "assets": [
+        {
+          "name": "FPSloppa-Avatar-Converter-Linux-portable.zip",
+          "sha256": "197f4917abeb01bcf220ae1d966dfd99b0ec7d35c15773db59d08c671fc8dcd8",
+          "url": "https://github.com/jebot-git/AvatarConverter/releases/download/v0.1.0/FPSloppa-Avatar-Converter-Linux-portable.zip"
+        },
+        {
+          "name": "FPSloppa-Avatar-Converter-Windows-portable.zip",
+          "sha256": "a9e96aacb1bc0de36728ff042b0d37983059b545a03d49f7e857bc119d0384a3",
+          "url": "https://github.com/jebot-git/AvatarConverter/releases/download/v0.1.0/FPSloppa-Avatar-Converter-Windows-portable.zip"
+        },
+        {
+          "name": "SHA256SUMS",
+          "sha256": "b1f948bcd346b9deda87bc5347a73803bf7059b6a3ae11f169906b8eee278b96",
+          "url": "https://github.com/jebot-git/AvatarConverter/releases/download/v0.1.0/SHA256SUMS"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/jebot-git/UTAvatarConverter",
+      "commit": "4fa51d8348e69518bb29a0889fa2d7b2282f50d5",
+      "release": "https://github.com/jebot-git/UTAvatarConverter/releases/tag/v0.1.0",
+      "prerelease": true,
+      "assets": [
+        {
+          "name": "FPSloppa-UT-Avatar-Converter-Linux-portable.zip",
+          "sha256": "89b96f4ceea02732cb2c222edaab5503c93e9d88b9c04209a053b58ba9e348c6",
+          "url": "https://github.com/jebot-git/UTAvatarConverter/releases/download/v0.1.0/FPSloppa-UT-Avatar-Converter-Linux-portable.zip"
+        },
+        {
+          "name": "FPSloppa-UT-Avatar-Converter-Windows-portable.zip",
+          "sha256": "b944e2f6e8f86765372e48bbb23b2db54004bd3fee59e108ef9b827c017a2eee",
+          "url": "https://github.com/jebot-git/UTAvatarConverter/releases/download/v0.1.0/FPSloppa-UT-Avatar-Converter-Windows-portable.zip"
+        },
+        {
+          "name": "SHA256SUMS",
+          "sha256": "fe90f7f93130ecfa17916d09e54ef43e6e9a4989f5afdca2a3986a8eb5096326",
+          "url": "https://github.com/jebot-git/UTAvatarConverter/releases/download/v0.1.0/SHA256SUMS"
+        }
+      ]
+    }
+  ],
+  "tests": {
+    "linux": "native integration suites passed",
+    "windows": "integration suites under Wine passed",
+    "ut_outputs": "all four Linux/Windows outputs byte-identical; glTF zero errors/warnings and VRM schema zero errors",
+    "ut_ui": "packaged UI workflow and cancellation passed both platforms",
+    "quake": "LibreQuake IDPO v6: VRM glTF/schema and FPSloppa importer/animation/IK passed; generic unfitted rig",
+    "goldsrc": "Assimp man.mdl IDST v10: PNG-embedded skinned GLB imports; incomplete humanoid skeleton prevents VRM export"
+  }
+}

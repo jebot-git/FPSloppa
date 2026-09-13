@@ -1,0 +1,75 @@
+{
+  "date": "2026-09-12",
+  "status": "three_platform_release_libraries_built",
+  "artifacts": {
+    "addons/bhaptics_native/bin/LLVM-MinGW-LICENSE.txt": {
+      "bytes": 15141,
+      "sha256": "8d85c1057d742e597985c7d4e6320b015a9139385cff4cbae06ffc0ebe89afee"
+    },
+    "addons/bhaptics_native/bin/fpsloppa-bhaptics-android.aar": {
+      "bytes": 6322625,
+      "sha256": "54e1445b67d7003097c95509477a3a7303826814370fa8eaa20b76fc72e22a85"
+    },
+    "addons/bhaptics_native/bin/fpsloppa_bhaptics_native.dll": {
+      "bytes": 5708288,
+      "sha256": "d3430bac5083225f5469ced0a3c43fbdc48763f5dd5f9f39a4c80851be6718be"
+    },
+    "addons/bhaptics_native/bin/libfpsloppa_bhaptics_native.android.so": {
+      "bytes": 6283568,
+      "sha256": "62d0fd6ac8e983b92b9dab94ca349e12c1832756c548871f1dde72e5bab745f3"
+    },
+    "addons/bhaptics_native/bin/libfpsloppa_bhaptics_native.so": {
+      "bytes": 6665248,
+      "sha256": "37c6a7f7a744544d03bed444a1f5b39ab1b86eb7e8064d49b6fe76a88a6eb884"
+    },
+    "addons/bhaptics_native/bin/libunwind.dll": {
+      "bytes": 190464,
+      "sha256": "aa282fa47bb2c4e210cea5e470cdbdca58568f0be0bc73e404d86ab9cd95ef6a"
+    },
+    "test-results/bhaptics-build-smoke/android/output/smoke.apk": {
+      "bytes": 86628153,
+      "sha256": "d3e438c16a7c5c166d7be5ce164a7775669a3662cbad1ae37b5ad43c164f20c5"
+    },
+    "test-results/bhaptics-build-smoke/android/runtime.log": {
+      "bytes": 1597,
+      "sha256": "42aa89366fa2f18472d6d45e039d7b69de6e351f866e313f3191ddcfbb60e30d"
+    },
+    "test-results/bhaptics-build-smoke/windows/runtime.log": {
+      "bytes": 230,
+      "sha256": "b0175eb4f7f751761055ba4c3744fcee306f0c8cbd798b0e7da8b7b3892c5a2a"
+    }
+  },
+  "toolchains": {
+    "cross_rust": "official 1.98.0",
+    "windows_target": "x86_64-pc-windows-gnullvm",
+    "llvm_mingw": "20260908, LLVM 23.1.1, UCRT",
+    "android_target": "aarch64-linux-android",
+    "android_ndk": "29.0.14206865",
+    "android_native_api": 26,
+    "android_java_sdk": 36,
+    "java": 17,
+    "godot": "4.7.2; GDExtension API 4.5"
+  },
+  "checks": {
+    "rust_unit_tests": {
+      "passed": 5,
+      "failed": 0
+    },
+    "linux_native_regression": "passed against final release binary, no real bus or actuation",
+    "game_profile_regression": "passed, including Android ARM64 native default",
+    "windows_exported_smoke": "passed under Wine; class registration, invalid/disconnected commands, clean close",
+    "windows_bluetooth_hardware": "not tested",
+    "android_aar": "compiled Java/JNI plus ARM64 library and AAR assets descriptor",
+    "android_elf_load_alignment": 16384,
+    "android_apk_zip_alignment": "passed, 16 KB",
+    "android_apk_library_copies": 1,
+    "android_quest_install": "passed; separate org.fpsloppa.bhaptics.smoke package",
+    "android_runtime": "passed on Quest 3: native class, Java singleton, JNI initialization, completed BLE scan, clean worker shutdown",
+    "android_vest_actuation": "not run",
+    "full_quest_game_export": "failed before Gradle during BSP import: double free or corruption (!prev)",
+    "android_scan_result": "No supported vest found; no connection or motor actuation attempted",
+    "fresh_smoke_export": "passed with GDExtension pre-registered before editor initialization"
+  },
+  "player_required": false,
+  "player_fallback_implemented": false
+}

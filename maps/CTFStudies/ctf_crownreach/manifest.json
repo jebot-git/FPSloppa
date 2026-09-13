@@ -1,0 +1,198 @@
+{
+  "id": "ctf_crownreach",
+  "title": "Crownreach | Ancient War Grounds study",
+  "original_reference": "ctf5",
+  "sha256": "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba",
+  "source_sha256": "f8cf02959c68250e9d75a54ccb5c2ad73a8ba407bc5aa5184cebd6c6d98b7857",
+  "brushes": 119,
+  "rooms": 13,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "flags": [
+    [
+      -2672,
+      0,
+      88
+    ],
+    [
+      2672,
+      0,
+      88
+    ]
+  ],
+  "spawns": [
+    [
+      [
+        -1456,
+        128,
+        24
+      ],
+      [
+        -1456,
+        -128,
+        24
+      ],
+      [
+        -1648,
+        128,
+        24
+      ],
+      [
+        -1648,
+        -128,
+        24
+      ],
+      [
+        -1840,
+        128,
+        24
+      ],
+      [
+        -1840,
+        -128,
+        24
+      ],
+      [
+        -2096,
+        128,
+        24
+      ],
+      [
+        -2096,
+        -128,
+        24
+      ]
+    ],
+    [
+      [
+        1456,
+        -128,
+        24
+      ],
+      [
+        1456,
+        128,
+        24
+      ],
+      [
+        1648,
+        -128,
+        24
+      ],
+      [
+        1648,
+        128,
+        24
+      ],
+      [
+        1840,
+        -128,
+        24
+      ],
+      [
+        1840,
+        128,
+        24
+      ],
+      [
+        2096,
+        -128,
+        24
+      ],
+      [
+        2096,
+        128,
+        24
+      ]
+    ]
+  ],
+  "views": [
+    [
+      [
+        -1088,
+        -512,
+        240
+      ],
+      [
+        1408,
+        0,
+        128
+      ],
+      "siege field"
+    ],
+    [
+      [
+        2416,
+        256,
+        192
+      ],
+      [
+        2672,
+        0,
+        88
+      ],
+      "sanctuary"
+    ]
+  ],
+  "landmarks": [
+    {
+      "name": "Moats and siege field",
+      "center": [
+        0.0,
+        0.0,
+        432.0
+      ]
+    },
+    {
+      "name": "Throne sanctuary",
+      "center": [
+        -2560.0,
+        0.0,
+        256.0
+      ]
+    },
+    {
+      "name": "Throne sanctuary",
+      "center": [
+        2560.0,
+        0.0,
+        256.0
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "name": "battlements",
+      "points": [
+        [
+          1456,
+          -128,
+          0
+        ],
+        [
+          2048,
+          -352,
+          244
+        ],
+        [
+          2144,
+          -544,
+          256
+        ],
+        [
+          2240,
+          0,
+          256
+        ]
+      ]
+    }
+  ],
+  "geometry": "newly authored; no original BSP geometry used as build input",
+  "textures": "../texture-sources.json",
+  "lighting_rebake": {
+    "original_sha256": "c2ae178eeb4d5ccb42975f86ef3f1830995dd48582fd1f8889b4d4c5a5a3d5f1",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  }
+}

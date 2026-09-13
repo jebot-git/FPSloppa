@@ -1,0 +1,85 @@
+{
+  "date": "2026-09-12",
+  "passed": true,
+  "assets": [
+    {
+      "asset": "deathmatch/weapons/experimental/sniper.scn",
+      "triangles": 890,
+      "runtime_bytes": 18547,
+      "sha256": "e605f8a5e7aeeea1c0a9d14da4b6f280af9031705a69ca669caa9f70ea3ebffa",
+      "license": "CC0-1.0",
+      "source": "https://opengameart.org/content/low-poly-stylized-sniper"
+    },
+    {
+      "asset": "deathmatch/weapons/experimental/sentry_gatling.scn",
+      "triangles": 2198,
+      "runtime_bytes": 35886,
+      "sha256": "83c5c3e3727ec10851cd147a2d793de731e0a2367a4f73e9255d545d8ce2eba3",
+      "license": "CC0-1.0",
+      "source": "https://opengameart.org/content/gatlingmini-gun"
+    }
+  ],
+  "tests": {
+    "tf_art": {
+      "checks": 37,
+      "failures": [],
+      "passed": true
+    },
+    "scope": {
+      "camera_comparison": {
+        "dual_pass": {
+          "mean_cpu_ms": 0.111999999731779,
+          "mean_gpu_ms": 0.121500000047187,
+          "pixels": 524288
+        },
+        "head_following_error_pixels_at_3_degrees": 127.936958312988,
+        "resolution": [
+          512,
+          512
+        ],
+        "selected": "one weapon-axis camera",
+        "single_pass": {
+          "mean_cpu_ms": 0.092999999721845,
+          "mean_gpu_ms": 0.0619166661053896,
+          "pixels": 262144
+        },
+        "weapon_axis_error_pixels": 0.0
+      },
+      "checks": 18,
+      "failures": [],
+      "passed": true
+    },
+    "sentry": {
+      "checks": 13,
+      "passed": true,
+      "scenarios": [
+        "HiSlop sentry pickup separation",
+        "moving/vertical barrel alignment",
+        "damage and cooldown",
+        "wall occlusion",
+        "network snapshot aim",
+        "firing sound gain"
+      ]
+    },
+    "console": {
+      "checks": 70,
+      "failures": [],
+      "passed": true,
+      "errors": [],
+      "exit_code": 0
+    }
+  },
+  "live_xr_test": false,
+  "previews": [
+    "test-results/weapon-variants/sniper-turret.png",
+    "test-results/weapon-variants/scope-through-lens.png"
+  ],
+  "notes": [
+    "Source-to-game transforms are rotations with uniform scale, preserving handedness and face winding.",
+    "Sniper source 910 triangles becomes 890 by removing two opaque lens caps; the original scope tube is hollow. Runtime optic adds its existing lens quad.",
+    "Turret original Diffuse BSDF colours retained instead of obsolete viewport material defaults.",
+    "Tests retain existing one/two ObjectDB shutdown warnings; HiSlop navigation reports its existing edge-merge warning. First TF graphics run also reported a PulseAudio input shutdown error; final simulated model run used the Dummy audio driver and had no errors.",
+    "Console test required unsandboxed local ENet sockets; its final 70 checks passed without errors.",
+    "No gameplay balance or release publishing changes."
+  ]
+}

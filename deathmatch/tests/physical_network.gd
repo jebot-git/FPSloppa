@@ -19,7 +19,7 @@ func run() -> void:
 			game._announcement.rpc("THROW_READY")
 			check(await wait_for(func():return game.match_mode.fortress.charges.has(id),8),"Reliable grip release launches grenade")
 			if game.match_mode.fortress.charges.has(id):
-				check(s.ammo[2]==14 and game.match_mode.fortress.charges[id].velocity==Vector3(0,2,-4),"Network release preserves velocity and charges ammo once")
+				check(s.ammo[2]==14 and game.match_mode.fortress.charges[id].velocity.is_equal_approx(Vector3(0,4.8,-9.6)),"Network release boosts deliberate throw and charges ammo once")
 				await pause(.3)
 				check(s.ammo[2]==14 and game.match_mode.fortress.charges.size()==1,"Duplicate and stale network releases are ignored")
 				game._send_snapshot();await pause(.3)
@@ -31,6 +31,8 @@ func run() -> void:
 		game.start_join("Physical client","127.0.0.1",27889)
 		check(await wait_for(func():return game.active and game.local_state().get("tf_class","")=="demoman",15),"Client receives authoritative class")
 		game.set_physics_process(false)
+		# This harness sends a manual input sequence, so discard older automatic predictions.
+		game.fighters[game.multiplayer.get_unique_id()].prediction.clear()
 		var s: Dictionary=game.local_state();var pose:=Poses.neutral()
 		pose.head.origin.y=.8;pose.height=.9;pose.face={"look":Vector2.ZERO,"blink":Vector2.ZERO,"gaze":false,"lids":true,"expression":PackedFloat32Array([.7,0,0,0,0])}
 		game._input_command.rpc_id(1,{"map_epoch":game.map_epoch,"seq":100000,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":6,"slow":false,"respawn":false,"physical":true,"xr":pose})

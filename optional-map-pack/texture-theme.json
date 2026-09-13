@@ -1,0 +1,236 @@
+[
+  {
+    "id": "lqdm10",
+    "path": "optional-map-pack/lqdm10.bsp",
+    "source_sha256": "42ed4a96a228b76a7ff14827e09671b9f2577f2c68c2bba43126e0eb18c305e6",
+    "sha256": "da2203660dde5ae85c5b478e3284cf8a578110ed29c6c8963a0935eed98bee4d",
+    "bytes": 1344360,
+    "replacements": {},
+    "all_records_verified": true,
+    "nontexture_lumps_unchanged": true,
+    "textures": {}
+  },
+  {
+    "id": "lqdm11",
+    "path": "optional-map-pack/lqdm11.bsp",
+    "source_sha256": "fefeee9549a780734467d187fe75e7290ad597d55043a4478562f2da971a6f8b",
+    "sha256": "c5ba9fda0779d3d613df42dc4a6220bc6e6587b384cb861dace142e770e0ce54",
+    "bytes": 1416780,
+    "replacements": {
+      "wall_grey_b": "ind_w02_grey1",
+      "floor_yellow_c": "ind_dp01_ylw1",
+      "floor_blue_c": "ind_dp01_blu1"
+    },
+    "all_records_verified": true,
+    "nontexture_lumps_unchanged": true,
+    "textures": {
+      "ind_dp01_blu1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "8a2261bcc3ba1229ab1debbf5819b5314e9b9615da945213af7bfb4b7bcc1c48",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_dp01_ylw1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "db5ca9ef4d28bd9dec2999fd98e301cb38eda09a12782ba1c7206b74a2f5d65c",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_w02_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "52e63d12e412a2a8edb3c859a44c2715c9522395e23ebe233584725958703789",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      }
+    }
+  },
+  {
+    "id": "lqdm12",
+    "path": "optional-map-pack/lqdm12.bsp",
+    "source_sha256": "7d53379df2ce4783b5cae03e6d304696af47ee43088817e021d94efaa6854551",
+    "sha256": "de712a7642ffc1b73b10a9379a17c6d2ce5c89ec51b896023d0401daa41aaa2c",
+    "bytes": 1471976,
+    "replacements": {
+      "floor_grey_c": "ind_dp01_grey1",
+      "floor_green_b": "ind_dp01_grn1",
+      "wall_green_c": "ind_w02_grn1"
+    },
+    "all_records_verified": true,
+    "nontexture_lumps_unchanged": true,
+    "textures": {
+      "ind_dp01_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "bff68fed6566f90c8d0e823a3f6ea7a091d28a25d70795aea8d3712aa62755e1",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_dp01_grn1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "5417b79d2b3df4976cd7b73aa697dee5a9dda82a90eb64586a021abc3a779c71",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_w02_grn1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "2d860e4bcf8dcc145b4a8cfe8f3248ac0ebf52edf00c003f1f4ed2b47d6849c5",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      }
+    }
+  },
+  {
+    "id": "lqdm13",
+    "path": "optional-map-pack/lqdm13.bsp",
+    "source_sha256": "1619a212a21f31d483dc4ad5ea12a8e837923eee113e9a2d123cf7145306683f",
+    "sha256": "9d2b3399fd26d73abc5c69aa0a1da9b2897db60ea7d39d95e5b711c107ba2dc3",
+    "bytes": 2870132,
+    "replacements": {
+      "wall_grey_c": "ind_w04_grey1",
+      "floor_red_c": "ind_dp01_red1",
+      "wall_grey_b": "ind_w02_grey1",
+      "floor_grey_c": "ind_dp01_grey1",
+      "floor_red_a": "ind_dp01_red1"
+    },
+    "all_records_verified": true,
+    "nontexture_lumps_unchanged": true,
+    "textures": {
+      "ind_dp01_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "bff68fed6566f90c8d0e823a3f6ea7a091d28a25d70795aea8d3712aa62755e1",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_dp01_red1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "5e42b1cd5ae0a53f40a4d7eaacd01e24ca4e46309a66f3cc9c4458e7145f0891",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_w02_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "52e63d12e412a2a8edb3c859a44c2715c9522395e23ebe233584725958703789",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_w04_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "21199574dcaeb3fadbd30d42b93210605d9f106f997cf694193e1f0738fb7e5b",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      }
+    }
+  },
+  {
+    "id": "lqdm9",
+    "path": "optional-map-pack/lqdm9.bsp",
+    "source_sha256": "a0897b5bf8b6917a978d89784b2a9c4c7f635d2c9faabbf1fd77f5a79a848dce",
+    "sha256": "b9bab9a6fbd7c723f89ef076c8768ab17b084de239b12221614d26eb3263d477",
+    "bytes": 4248184,
+    "replacements": {
+      "t_blok04": "ind_w02_grey1",
+      "treadplatemetal": "ind_dp01_grey1",
+      "t_blok09": "ind_w08_grn1",
+      "t_flor1b": "ind_dp01_grey1",
+      "t_blok05": "ind_w04_grey1",
+      "t_metalsheeta": "ind_w04_grey1"
+    },
+    "all_records_verified": true,
+    "nontexture_lumps_unchanged": true,
+    "textures": {
+      "ind_dp01_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "bff68fed6566f90c8d0e823a3f6ea7a091d28a25d70795aea8d3712aa62755e1",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_w02_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "52e63d12e412a2a8edb3c859a44c2715c9522395e23ebe233584725958703789",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_w04_grey1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "21199574dcaeb3fadbd30d42b93210605d9f106f997cf694193e1f0738fb7e5b",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      },
+      "ind_w08_grn1": {
+        "author": "Ben \"Makkon\" Hale",
+        "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+        "archive": "makkon_industrial.zip",
+        "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+        "wad": "makkon_industrial.wad",
+        "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+        "sha256": "2d94f99cf8e167f04e22616ed734df89c41abe4b41b33fcf0799cfafd3ae1684",
+        "format": "original WAD2 miptex; all four mip levels unchanged",
+        "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+      }
+    }
+  }
+]

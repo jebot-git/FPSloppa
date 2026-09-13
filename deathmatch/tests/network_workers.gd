@@ -19,20 +19,20 @@ func run() -> void:
 	var directory:="/tmp/fpsloppa-install-%d"%OS.get_process_id()
 	DirAccess.make_dir_recursive_absolute(directory)
 	var archive:=directory+"/assets.zip"
-	var zip:=ZIPPacker.new();zip.open(archive);zip.start_file("maps/test.txt");zip.write_file("asset fixture".to_utf8_buffer());zip.close_file();zip.close()
-	var manifest:={"sha256":FileAccess.get_sha256(archive),"files":[{"path":"maps/test.txt","size":13,"sha256":"asset fixture".sha256_text()}]}
+	var zip:=ZIPPacker.new();zip.open(archive);zip.start_file("maps/test_maplist.txt");zip.write_file("asset fixture".to_utf8_buffer());zip.close_file();zip.close()
+	var manifest:={"sha256":FileAccess.get_sha256(archive),"files":[{"path":"maps/test_maplist.txt","size":13,"sha256":"asset fixture".sha256_text()}]}
 	var disk:=IO.new();root.add_child(disk)
 	disk.submit(Assets.install_archive.bind(manifest,archive,directory),func(result):results.append(result))
 	while results.is_empty():await process_frame
-	check(results[0]=="Base assets installed." and FileAccess.get_file_as_string(directory+"/maps/test.txt")=="asset fixture","Worker verifies and extracts a base-asset archive")
-	IO.text_file(directory+"/maps/test.txt","local edit")
+	check(results[0]=="Base assets installed." and FileAccess.get_file_as_string(directory+"/maps/test_maplist.txt")=="asset fixture","Worker verifies and extracts a base-asset archive")
+	IO.text_file(directory+"/maps/test_maplist.txt","local edit")
 	results.clear();disk.submit(Assets.install_archive.bind(manifest,archive,directory),func(result):results.append(result))
 	while results.is_empty():await process_frame
-	check(FileAccess.get_file_as_string(directory+"/maps/test.txt")=="local edit","Background installation preserves existing local edits")
+	check(FileAccess.get_file_as_string(directory+"/maps/test_maplist.txt")=="local edit","Background installation preserves existing local edits")
 	manifest.sha256="0".repeat(64)
 	results.clear();disk.submit(Assets.install_archive.bind(manifest,archive,directory),func(result):results.append(result))
 	while results.is_empty():await process_frame
 	check(results[0]=="Asset archive checksum mismatch.","Corrupt archive is rejected before extraction")
-	disk.track(archive);disk.track(directory+"/maps/test.txt");disk.free()
+	disk.track(archive);disk.track(directory+"/maps/test_maplist.txt");disk.free()
 	DirAccess.remove_absolute(directory+"/maps");DirAccess.remove_absolute(directory)
 	print("NETWORK_WORKERS_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

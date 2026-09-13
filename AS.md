@@ -1,10 +1,11 @@
 # Assault (AS)
 
-HiSlop (`as_hislop`) is bundled in the external base maps package. This experimental
+HiSlop (`as_hislop`) is bundled in the external base maps package. This expanded
 train assault has two ordered objectives, defensive sentries, checkpoints and
 animated passing scenery. Both teams attack once: the return attack must beat the
-first team's time. If neither finishes, the match is a draw. Players use the normal
-arena weapons and start with a pistol; TF classes are unavailable.
+first team's time. If neither finishes, the match is a draw. Players use the required UT99 arsenal and start with an Enforcer and impact hammer; TF classes are unavailable. The Host selector locks to UT99, and server settings or votes cannot select another arsenal.
+
+HiSlop and Frigate, including Tiny variants, use independently positioned pickups based on the original UT99 inventories. See [pickup matching and limitations](docs/ASSAULT-PICKUPS.md).
 
 Enable AS exactly like TF in `server.cfg`:
 
@@ -59,3 +60,19 @@ Select **Host → Assault → Frigate**, or set `map "as_frigate"` and
 `as_maplist "as_hislop as_frigate"` on a dedicated server. Start with six minutes
 and 4–8 players. Use matching updated clients/server. See the
 [build and playtest notes](tools/frigate_concept/README.md).
+
+## Distributed layouts
+
+The AS distribution includes only full-size **HiSlop** (`as_hislop`) and **Frigate** (`as_frigate`). These use the expanded room layouts previously labelled Layout Test. HiSlop includes full-width guarded inter-car crossings; Frigate has longer approaches and more separated compartments.
+
+The Tiny variants are excluded from the distributed catalog, asset bundles and default rotation.
+
+```cfg
+set sv_gametype "as"
+map "as_hislop"
+set as_maplist "as_hislop as_frigate"
+```
+
+See [layout and validation notes](maps/AssaultLayoutTests/README.md).
+
+Experimental Doom / Quake I / UT99 weapon selection and controls: [Weapon variants](docs/WEAPON_VARIANTS.md). Doom remains the default.

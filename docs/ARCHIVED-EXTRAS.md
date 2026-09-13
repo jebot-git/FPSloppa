@@ -1,14 +1,20 @@
-# Extras archived with 0.5v
+# Optional maps and archived conversion tools
 
-These downloads are available only from the [FPSloppa 0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v):
+The **53-map Optional Community Map Pack** includes redistributable maps
+organized into seven game-mode categories: 35 non-TF Arena Collection maps,
+13 LibreQuake maps and five reviewed community adaptations. TF maps and Tiny
+Assault variants are excluded. Current TF distribution contains only Pressureworks
+and Vesper Abbey, and Assault distribution contains only full-sized variants.
+See [installation and contents](../tools/optional_maps/PACK-README.md) and the
+[categorized catalog](../tools/optional_maps/CATALOG.md).
 
-- Arena Collection 1: the original forty generated maps, including all-mode, per-mode and source packages.
-- ThreeWave conversion tools.
-- TeamFortress conversion tools.
-- Arcane Dimensions conversion tools.
+This distribution update supersedes the earlier policy that kept Arena Collection
+1 exclusive to 0.5v. Its BSPs are recovered unchanged from that release's Git
+commit, with notices and historical validation reports. Existing 0.5v downloads
+are not modified. These maps remain optional; current base rotations are retained.
 
-They are excluded from 0.6v and all subsequent binary, source and optional release packages. Their source remains in Git history and the 0.5v Source ZIP. Existing 0.5v downloads are preserved unchanged.
-
-These packs and tools will not be further revised or worked on. By their nature they do not need to accompany every game release; revisiting distribution would only be relevant if the map loader or supported format changes. Download and keep the 0.5v packages when needed, following their original instructions and notices.
-
-This policy does not remove the game's base maps, its BSP loader, the optional LibreQuake extra maps or the two original TF arenas. Existing locally installed maps remain usable subject to normal loader compatibility.
+ThreeWave, original TeamFortress and Arcane Dimensions conversion tools remain
+available from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v).
+Their local converted BSPs were never redistributed and are not part of the new
+pack. FortressOne conversions and unreviewed community downloads are also excluded.
+Follow each tool's original rights and compatibility notes for local use.

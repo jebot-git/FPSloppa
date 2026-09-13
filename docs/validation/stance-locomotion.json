@@ -1,0 +1,69 @@
+{
+  "date": "2026-09-12",
+  "engine": "Godot 4.7.2",
+  "scope": "Eight-direction procedural legs, distinct jump/fall/landing, crouch/prone movement and spread, opt-in still-tracker animation",
+  "tests": [
+    {
+      "test": "stances",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "vr_crouch_water",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "quake_movement",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "physical_rig",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "local_body",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "avatar_scaling",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "network-server",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "network-client",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "local_prediction",
+      "exit_code": 0,
+      "passed": true
+    },
+    {
+      "test": "vr_alignment",
+      "exit_code": 0,
+      "passed": true
+    }
+  ],
+  "stance_checks": 72,
+  "visual_checks": [
+    "VRM walk/run/crouch/prone/jump/fall poses rendered and inspected",
+    "Fallback marine articulated poses rendered and inspected"
+  ],
+  "evidence_directory": "test-results/stance-locomotion",
+  "protocol": "fpsloppa-30-stance-locomotion",
+  "limitations": [
+    "No live headset wearer test performed for this change",
+    "Existing one ObjectDB exit warning remains in Godot test runs",
+    "Prone uses a shortened standard vertical capsule; cosmetic limbs outside it are not separate hit volumes"
+  ]
+}

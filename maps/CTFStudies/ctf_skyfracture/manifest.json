@@ -1,0 +1,233 @@
+{
+  "id": "ctf_skyfracture",
+  "title": "Skyfracture | Vertigo study",
+  "original_reference": "ctf6",
+  "sha256": "0d918f6ac943a2dcfd21682f733c34830f228f53fc0bd8dc65e7b4eca73326ba",
+  "source_sha256": "84f5d6ba799f476a896b11d5b6d797d2cabf78c58e2d430185f63d9d3364ef7f",
+  "brushes": 109,
+  "rooms": 21,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "flags": [
+    [
+      -1920,
+      0,
+      24
+    ],
+    [
+      1920,
+      0,
+      536
+    ]
+  ],
+  "spawns": [
+    [
+      [
+        -1856,
+        -320,
+        24
+      ],
+      [
+        -1856,
+        320,
+        24
+      ],
+      [
+        -1696,
+        -320,
+        24
+      ],
+      [
+        -1696,
+        320,
+        24
+      ],
+      [
+        -1376,
+        -320,
+        24
+      ],
+      [
+        -1376,
+        320,
+        24
+      ],
+      [
+        -1216,
+        -320,
+        24
+      ],
+      [
+        -1216,
+        320,
+        24
+      ]
+    ],
+    [
+      [
+        1216,
+        -320,
+        536
+      ],
+      [
+        1216,
+        320,
+        536
+      ],
+      [
+        1376,
+        -320,
+        536
+      ],
+      [
+        1376,
+        320,
+        536
+      ],
+      [
+        1696,
+        -320,
+        536
+      ],
+      [
+        1696,
+        320,
+        536
+      ],
+      [
+        1856,
+        -320,
+        536
+      ],
+      [
+        1856,
+        320,
+        536
+      ]
+    ]
+  ],
+  "views": [
+    [
+      [
+        -576,
+        256,
+        480
+      ],
+      [
+        512,
+        -128,
+        384
+      ],
+      "vertical nexus"
+    ],
+    [
+      [
+        1152,
+        352,
+        720
+      ],
+      [
+        1920,
+        0,
+        560
+      ],
+      "observatory"
+    ]
+  ],
+  "landmarks": [
+    {
+      "name": "Lower foundry",
+      "center": [
+        -1536.0,
+        0.0,
+        320.0
+      ]
+    },
+    {
+      "name": "Upper observatory",
+      "center": [
+        1536.0,
+        0.0,
+        832.0
+      ]
+    },
+    {
+      "name": "Vertical nexus",
+      "center": [
+        0.0,
+        0.0,
+        512.0
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "name": "north ascent",
+      "points": [
+        [
+          -1088,
+          0,
+          0
+        ],
+        [
+          -1008,
+          736,
+          0
+        ],
+        [
+          0,
+          736,
+          256
+        ],
+        [
+          1008,
+          736,
+          512
+        ],
+        [
+          1152,
+          0,
+          512
+        ]
+      ]
+    },
+    {
+      "name": "south ascent",
+      "points": [
+        [
+          -1088,
+          0,
+          0
+        ],
+        [
+          -1008,
+          -736,
+          0
+        ],
+        [
+          0,
+          -736,
+          256
+        ],
+        [
+          1008,
+          -736,
+          512
+        ],
+        [
+          1152,
+          0,
+          512
+        ]
+      ]
+    }
+  ],
+  "geometry": "newly authored; no original BSP geometry used as build input",
+  "textures": "../texture-sources.json",
+  "lighting_rebake": {
+    "original_sha256": "2a59d8e6b1fc0f087145db0f3d6857a2cb63abbe4f93239fdf1f65b5dbf5903f",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  }
+}

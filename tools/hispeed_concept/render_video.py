@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,json,os,shutil,subprocess,tempfile
 ROOT=Path(__file__).resolve().parents[2]
-p=argparse.ArgumentParser();p.add_argument('demo',type=Path);p.add_argument('bsp',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--end',type=float);p.add_argument('--renderer',default='gl_compatibility',choices=['gl_compatibility','mobile']);p.add_argument('--views',nargs='+',default=['first','chase','trackside'],choices=['first','chase','trackside','vrm-chase']);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('demo',type=Path);p.add_argument('bsp',type=Path);p.add_argument('--output',type=Path,required=True);p.add_argument('--end',type=float);p.add_argument('--renderer',default='mobile',choices=['mobile']);p.add_argument('--views',nargs='+',default=['first','chase','trackside'],choices=['first','chase','trackside','vrm-chase']);a=p.parse_args()
 a.output.mkdir(parents=True,exist_ok=True)
 godot=os.environ.get('GODOT_BIN',str(Path.home()/'.local/bin/Godot_v4.7.2-stable_linux.x86_64'))
 for view in a.views:

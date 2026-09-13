@@ -39,9 +39,11 @@ func run():
  var g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.set_physics_process(false);g.start_host("Demo test",0,100,30,true,"dm")
  var path="res://test-results/post07.fpsdemo"
  if FileAccess.file_exists(path):DirAccess.remove_absolute(path)
- g.demos.start_record(path);g.demos.event("_hurt_fx",[1,Vector3.ZERO,Vector3.UP,10,false,false,123,true]);g._send_snapshot();g.demos.stop_record()
+ g.demos.start_record(path);g.demos.event("_hurt_fx",[1,Vector3.ZERO,Vector3.UP,10,false,false,123,true,"LAVA",false]);g._send_snapshot();g.demos.stop_record()
  check(g.demos.open_demo(path),"New damage events round-trip through demo record and playback")
  var file=FileAccess.open(path,FileAccess.READ);file.seek(8);var frame=bytes_to_var(file.get_buffer(file.get_32()));file.close()
+ frame.events[0][1].resize(8)
+ check(g.demos.valid_frame(frame),"Legacy eight-argument damage events remain compatible")
  frame.events[0][1].resize(7)
  check(g.demos.valid_frame(frame),"Legacy seven-argument damage events remain compatible")
  frame.events[0][1].append("invalid")

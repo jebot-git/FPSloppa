@@ -6,11 +6,12 @@ class Probe extends Node:
 		if multiplayer.is_server():seen[stage_name]=true
 func run() -> void:
 	role=OS.get_cmdline_user_args()[0]
+	var map_id:="as_frigate_tiny" if "--tiny" in OS.get_cmdline_user_args() else "as_frigate"
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
 	var observation:=Probe.new();observation.name="FrigateProbe";root.add_child(observation)
 	var tf=game.match_mode.fortress;var rules=game.match_mode.assault
 	if role=="server":
-		game.dedicated=true;game.selected_map="as_frigate";game.match_mode.configure({"sv_gametype":"as"});game.start_host("Frigate network",27893,100,6,false,"as")
+		game.dedicated=true;game.selected_map=map_id;game.match_mode.configure({"sv_gametype":"as"});game.start_host("Frigate network",27893,100,6,false,"as")
 		check(await wait_for(func():return game.players.size()==1,15),"Client joins Frigate dedicated server")
 		if game.players.size()==1:
 			game.set_physics_process(false);game.set_process(false)
@@ -30,7 +31,7 @@ func run() -> void:
 			game._announcement.rpc("FRIGATE_DONE");await pause(.4)
 	else:
 		game.start_join("Frigate client","127.0.0.1",27893)
-		check(await wait_for(func():return game.active and game.current_map=="as_frigate" and tf.buildings.has(100100),15),"Joining client receives Frigate and mission structure")
+		check(await wait_for(func():return game.active and game.current_map==map_id and tf.buildings.has(100100),15),"Joining client receives Frigate and mission structure")
 		game.set_physics_process(false);game.set_process(false)
 		check(tf.buildings.get(100100,{}).get("hp",0)==240,"Initial compressor health is 240")
 		observation.observed.rpc_id(1,"initial")

@@ -40,6 +40,15 @@ func run():
 	g.start_host("Melee test",0,100,60,true);g.bots.free();g.bots=null;g.set_physics_process(false)
 	await physics_frame
 	await physics_frame
+	g.armory.select("quake");reset();g.players[1].weapon=0;g.players[1].vr_device=true
+	check(not g.variant_combat.fire(1) and not g.variant_combat.fire(1,true),"VR axe rejects trigger attacks at server authority")
+	strike();swing(-.3)
+	check(g.players[-1].hp==80 and not g.players[1].fire,"Physical axe blade swing deals 20 damage without trigger")
+	for x in [-.15,0.0,.15]:swing(x)
+	check(g.players[-1].hp==80,"Axe cannot register repeated damage in one swing")
+	swing(-.8,.6);swing(-.8);strike();swing(-.3)
+	check(g.players[-1].hp==60,"A deliberate axe swing can hit again after its cooldown")
+	g.armory.select("doom")
 	reset();swing(-.8);swing(-.65)
 	check(g.players[-1].hp==100,"Swing can start before the weapon reaches its target")
 	swing(-.45)

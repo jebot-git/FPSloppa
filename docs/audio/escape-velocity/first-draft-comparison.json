@@ -1,0 +1,36 @@
+{
+  "method": "Whole-track spectral energy, onset-autocorrelation tempo candidates and half-second RMS distribution; not a perceptual listening test. Tempo can be ambiguous at half/double time.",
+  "reference_url": "https://www.youtube.com/watch?v=wQJlyQykD38",
+  "reference": {
+    "seconds": 205.57333333333332,
+    "estimated_tempo_candidates_bpm": [
+      103.7,
+      154.2,
+      124.0
+    ],
+    "spectral_energy_fractions": {
+      "sub_and_kick": 0.46504972536943606,
+      "bass_and_low_mid": 0.2645608063328182,
+      "presence": 0.1144101117578498,
+      "treble": 0.15131366965825438
+    },
+    "rms_spread_p90_p10_db": 5.976949691772461,
+    "stereo_correlation": 0.9212427869023136
+  },
+  "original_composition": {
+    "seconds": 115.941179138322,
+    "estimated_tempo_candidates_bpm": [
+      136.6,
+      91.1,
+      133.6
+    ],
+    "spectral_energy_fractions": {
+      "sub_and_kick": 0.6187208769480738,
+      "bass_and_low_mid": 0.2665487261560378,
+      "presence": 0.04685235220683108,
+      "treble": 0.009826018095408718
+    },
+    "rms_spread_p90_p10_db": 10.236493110656738,
+    "stereo_correlation": 0.926670711729313
+  }
+}

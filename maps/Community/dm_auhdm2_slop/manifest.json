@@ -1,0 +1,22 @@
+{
+  "id": "dm_auhdm2_slop",
+  "archive": "quaddicted-auhdm2.zip",
+  "source": "https://www.quaddicted.com/files/maps/multiplayer/auhdm2.zip",
+  "download": "https://www.quaddicted.com/files/maps/multiplayer/auhdm2.zip",
+  "sha256": "efb3999a6d1ca9883fa484395633aedef9c956d717a54883ab5b3506c059c25f",
+  "title": "Painful Memories",
+  "author": "Toni Jaume (Auhsan)",
+  "rating": null,
+  "rating_votes": null,
+  "recommended_players": [
+    2,
+    4
+  ],
+  "reviewed": "2026-09-12",
+  "permission": "Author permits derivative levels and free BSP distribution; original readme included verbatim. Original image assets replaced with separately licensed textures.",
+  "installed_sha256": "959cc198e584801584e069a0765ff39815965994cbf840cadb650362b7bd0e7e",
+  "bytes": 6069408,
+  "original_bsp_sha256": "5cea193dea2c4d9b492ee02d11cf9c5828de20e8699162dbc689a61874db529f",
+  "changes": "All embedded images replaced with licensed original Makkon/LibreQuake textures. Title identifies adaptation; baked lighting enabled, original .lit embedded as BSPX RGBLIGHTING where supplied. Geometry, collision, VIS, lightmap data, gameplay entities and item placement unchanged. Quake-specific player skin, music and bot data omitted.",
+  "limitations": "Full Quake button/relay/counter logic is not emulated. Direct touch triggers can activate doors; other doors use proximity and platforms use timed cycles. Animated arcade, waterfall and shootable-button frames become static counterparts. Multiplayer balance needs playtesting."
+}

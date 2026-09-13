@@ -268,5 +268,28 @@
     "license": "Public Domain",
     "source_url": "https://modarchive.org/index.php?request=view_by_moduleid&query=50252",
     "processing": "Original instrumentation; 45 Hz high-pass, 14 kHz low-pass, short loop-edge fades, two-pass loudness master, 44.1 kHz stereo Vorbis quality 5"
+  },
+  {
+    "key": "tb",
+    "stem": "escape_velocity",
+    "title": "Escape Velocity",
+    "name": "Escape Velocity",
+    "bpm": 136,
+    "bars": 64,
+    "duration": 112.941179138322,
+    "bytes": 1980341,
+    "ogg_bytes": 1980341,
+    "sha256": "40f0acd38775a8f546129d55ce5b5eee62f9944cd23b3c782a9777b197e6277a",
+    "target_lufs": -19,
+    "source_format": "recorded-sample-arrangement",
+    "source_file": "escape_velocity.score.json",
+    "sample_rate": 44100,
+    "generator": "tools/generate_tb_music.py --install",
+    "loop": true,
+    "loop_offset": 0,
+    "loop_step": 0.001006053644232452,
+    "measured_lufs": -19.14,
+    "true_peak_dbtp": -2.64,
+    "license": "CC0-1.0"
   }
 ]

@@ -1,0 +1,32 @@
+{
+  "id": "tf_pressureworks",
+  "title": "Pressureworks | TF 6v6",
+  "sha256": "8d7140cb7d69ad220815c38e4dcb26c0b6c43d123b9a6200f32241f6a958479f",
+  "source_sha256": "d8b7fbafeca84cdfda66d5e14e41acb2213395251dd604c886318988ca811fd3",
+  "bytes": 10691346,
+  "brushes": 239,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "target_players": 12,
+  "supported_players": [
+    8,
+    16
+  ],
+  "geometry_license": "CC0-1.0",
+  "textures": "texture-sources.json",
+  "rotational_symmetry": true,
+  "lighting_rebake": {
+    "original_sha256": "e8e8ef29fc96f48ae3f772ee1972803897e841f95af687aa6baad030a9b34003",
+    "receipt": "docs/validation/lighting-ao-distribution.json"
+  },
+  "static_refinement": {
+    "original_sha256": "d792357cfa76e19640886ae129ddec4da2843bf71fe4a8188bce80839b1ad25c",
+    "receipt": "docs/validation/static-rendering.json"
+  },
+  "selective_density": {
+    "original_sha256": "a28630971716f49eb744e8b850fd704e70cf04820eb088499b46957dca2bc08d",
+    "receipt": "docs/validation/static-assets.json"
+  }
+}

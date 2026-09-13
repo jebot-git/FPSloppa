@@ -22,6 +22,10 @@ Use `--player ID` to follow a particular player, `--godot PATH` to select Godot,
 
 ## Optional waiting lobby
 
+The scoreboard has its own binding; opening the menu does not open it. The waiting lobby displays the completed round's saved scoreboard on a wall, independently of the next round's live scores. Filled mute lists and the model browser support trigger drag in VR.
+
+The HUD identifies the player's actual team with text and colour. TF ability readiness, remaining cooldown and active duration appear beside notifications. CTF and TF flag carriers receive a persistent return-to-capture-point reminder, cleared on capture, drop or death. The VR notification band keeps these indicators separate from health, armour and ammunition.
+
 In dedicated-server configuration:
 
 ```cfg

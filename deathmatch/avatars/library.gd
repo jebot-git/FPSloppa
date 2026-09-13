@@ -4,8 +4,6 @@ const MAX_BYTES := 25_000_000
 const Paths=preload("res://deathmatch/assets/paths.gd")
 static var CACHE: String:
 	get: return Paths.folder("vrm")
-const Extension = preload("res://addons/vrm/vrm_extension.gd")
-const Rig = preload("res://deathmatch/avatars/rig.gd")
 var entries: Dictionary = {}
 var scenes: Dictionary = {}
 var selected := ""
@@ -159,39 +157,8 @@ func choose(hash: String) -> void:
 	config.save("user://avatars.cfg")
 
 func create_avatar(hash: String) -> Node3D:
-	if not entries.has(hash): return null
-	if not scenes.has(hash):
-		var gltf := GLTFDocument.new()
-		var extensions: Array = [Extension.new(),preload("res://addons/vrm/1.0/VRMC_node_constraint.gd").new(),preload("res://addons/vrm/1.0/VRMC_springBone.gd").new(),preload("res://addons/vrm/1.0/VRMC_materials_mtoon.gd").new(),preload("res://addons/vrm/1.0/VRMC_materials_hdr_emissiveMultiplier.gd").new(),preload("res://addons/vrm/1.0/VRMC_vrm.gd").new()]
-		for extension in extensions: GLTFDocument.register_gltf_document_extension(extension,true)
-		var state := GLTFState.new()
-		state.handle_binary_image = GLTFState.HANDLE_BINARY_EMBED_AS_UNCOMPRESSED
-		# Keep separate full and head-hidden mesh variants for remote/local views.
-		state.set_additional_data("vrm/head_hiding_method",3)
-		state.set_additional_data("vrm/first_person_layers",1<<19)
-		state.set_additional_data("vrm/third_person_layers",1)
-		var error := gltf.append_from_file(entries[hash].path,state,8)
-		var model: Node3D = gltf.generate_scene(state) if error==OK else null
-		for extension in extensions: GLTFDocument.unregister_gltf_document_extension(extension)
-		if not model:
-			last_error = "The VRM plugin could not load this model."
-			return null
-		var packed := PackedScene.new()
-		packed.pack(model)
-		model.free()
-		# Keep only a few decoded models; original files remain available on disk.
-		if scenes.size()>=4: scenes.erase(scenes.keys()[0])
-		scenes[hash] = packed
-	var rig := Rig.new()
-	rig.name = "VRMAvatar"
-	var model: Node3D = scenes[hash].instantiate()
-	rig.add_child(model)
-	if not rig.configure(model):
-		rig.free()
-		last_error = "Humanoid skeleton could not be normalized."
-		return null
-	if DisplayServer.get_name()!="headless":preload("res://deathmatch/maps/filtering.gd").new().apply(rig)
-	return rig
+	if OS.has_feature("dedicated_server"):return null
+	return load("res://deathmatch/avatars/visual_loader.gd").create_avatar(self,hash)
 
 static func validate_structure(doc: Dictionary) -> String:
 	for key in ["nodes","buffers","bufferViews","accessors","images","meshes","skins","textures","materials","animations","scenes"]:

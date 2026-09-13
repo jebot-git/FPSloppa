@@ -1,0 +1,24 @@
+{
+  "id": "dm_battlef_slop",
+  "archive": "quaddicted-battlef.zip",
+  "source": "https://www.quaddicted.com/files/maps/multiplayer/battlef.zip",
+  "download": "https://www.quaddicted.com/files/maps/multiplayer/battlef.zip",
+  "sha256": "98ef4b234b44afb187f7e51f725c0ddc009eb8b393fc8fe94bd303f1614c68ed",
+  "title": "Battle Field",
+  "author": "Adam Boyle",
+  "rating": null,
+  "rating_votes": null,
+  "recommended_players": [
+    4,
+    8
+  ],
+  "reviewed": "2026-09-12",
+  "permission": "Author explicitly permits derivative levels and free distribution; original readme retained verbatim. Original image assets replaced with separately licensed textures.",
+  "bsp_member": "BattleF.bsp",
+  "readme_member": "BattleF.txt",
+  "installed_sha256": "3103f36a1565c8172ae891c112b1b5d9e7869292fabb5ce134a77188074022cb",
+  "bytes": 1503828,
+  "original_bsp_sha256": "209d8e753b3bbf341393aa58a4ef01b729f3139f43c8b0880bdceda5b2217fed",
+  "changes": "All embedded images replaced with licensed original Makkon/LibreQuake textures. Title identifies adaptation; baked lighting enabled, original .lit embedded as BSPX RGBLIGHTING where supplied. Geometry, collision, VIS, lightmap data, gameplay entities and item placement unchanged. Quake-specific player skin, music and bot data omitted.",
+  "limitations": "Full Quake button/relay/counter logic is not emulated. Direct touch triggers can activate doors; other doors use proximity and platforms use timed cycles. Animated arcade, waterfall and shootable-button frames become static counterparts. Multiplayer balance needs playtesting."
+}

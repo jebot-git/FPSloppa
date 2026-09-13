@@ -8,6 +8,7 @@ const UI_LAYER := 1<<22
 var control_edges: Dictionary={}
 var aim_guides: Array=[]
 var physical_actions=preload("res://deathmatch/vr/physical_actions.gd").new()
+var shoulder_radio=preload("res://deathmatch/vr/shoulder_radio.gd").new()
 var support_aim=preload("res://deathmatch/vr/aim_support.gd").new()
 var swim_detector=preload("res://deathmatch/vr/swim_strokes.gd").new()
 var t_pose_detector=preload("res://deathmatch/vr/t_pose.gd").new()
@@ -41,6 +42,8 @@ var blackout: MeshInstance3D
 var gun: Node3D
 var offhand_gun: Node3D
 var gun_id:=-1
+var gun_rules:=""
+var sniper_scope
 var origin_offset:=Vector3.ZERO
 var turn_latched:=false
 var cycle_latched:=false
@@ -57,7 +60,7 @@ var last_panel:=false
 var focused:=true
 var calibration_pending:=true
 func setup(arena: Node, test_mode: bool=false) -> bool:
-	physical_actions.setup(self)
+	physical_actions.setup(self);shoulder_radio.setup(self)
 	game=arena
 	simulated=test_mode
 	var xr:=XRServer.find_interface("OpenXR")
@@ -183,7 +186,7 @@ func build_ui() -> void:
 	status_surface=MeshInstance3D.new()
 	var status_quad:=QuadMesh.new();status_quad.size=Vector2(status_viewport.size)*.001
 	# Extend upwards for chat without moving or shrinking the existing HUD.
-	status_quad.center_offset.y=status_hud.CHAT_HEIGHT*.0005
+	status_quad.center_offset.y=(status_hud.CHAT_HEIGHT+status_hud.NOTIFY_HEIGHT)*.0005
 	status_surface.mesh=status_quad;status_surface.position=Vector3(0,-.46,-1.5)
 	status_surface.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var status_material:=StandardMaterial3D.new()
@@ -250,7 +253,7 @@ func recenter() -> void:
 	if tracking: tracking.corrections.clear();tracking.native_corrections.clear()
 	place_menu()
 func on_spawn() -> void:
-	physical_actions.reset()
+	physical_actions.reset();shoulder_radio.reset()
 	swim_detector.reset();swim_input=Vector3.ZERO;t_pose_detector.reset()
 	origin_offset=Vector3(-head.position.x,0,-head.position.z)
 	scores=false
@@ -279,7 +282,7 @@ func weapon_pose() -> Transform3D:
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var other: XRController3D=right if left_handed else left
 	var held:=Poses.held_weapon(hand.transform,aim.transform)
-	var valid: bool=game.bindings.two_handed and not physical_actions.busy() and not game.menu_open and not scores and focused and (simulated or (hand.get_has_tracking_data() and aim.get_has_tracking_data() and other.get_has_tracking_data()))
+	var valid: bool=game.bindings.two_handed and not physical_actions.busy() and not shoulder_radio.held and not game.menu_open and not scores and focused and (simulated or (hand.get_has_tracking_data() and aim.get_has_tracking_data() and other.get_has_tracking_data()))
 	return support_aim.solve(held,other.transform,game.local_state().get("weapon",game.desired_weapon),game.bindings.vr_pressed(self,"support"),valid)
 func update_seated(body: Dictionary) -> void:
 	seated_active=seated and not (tracking and tracking.has_body_pose(body))
@@ -306,8 +309,8 @@ func _process(delta: float) -> void:
 	elif not game.spawn_points.is_empty():
 		global_transform=Transform3D(Basis(Vector3.UP,game.spawn_yaws[0] if not game.spawn_yaws.is_empty() else 0.0),game.spawn_points[0])
 	update_seated(fingers)
-	crouch_height=crouch_detector.sample(head.position.y,game.bindings.physical_crouch and not seated_active and focused and head_tracked() and not calibration_pending)
-	jump_detector.sample(head.position.y,delta,(crouch_detector.baseline<=0 or head.position.y>=crouch_detector.baseline-.035) and game.bindings.physical_jump and not seated_active and not calibration_pending and focused and not game.menu_open and head_tracked() and actor!=null and not game.local_state().get("dead",true),actor!=null and actor.is_supported())
+	crouch_height=crouch_detector.sample(head.position.y,game.bindings.physical_crouch and not seated_active and focused and head_tracked() and not calibration_pending,game.bindings.physical_prone)
+	jump_detector.sample(head.position.y,delta,game.bindings.physical_jump and not seated_active and not calibration_pending and focused and not game.menu_open and head_tracked() and actor!=null and not game.local_state().get("dead",true),actor!=null and actor.is_supported())
 	var tracked_hands: bool=head_tracked() and (simulated or left.get_has_tracking_data() and right.get_has_tracking_data())
 	var living: bool=actor!=null and not game.local_state().get("dead",true) and not game.local_state().get("spectator",false)
 	var swimming: bool=living and actor.in_water and focused and tracked_hands and not game.menu_open and not scores and game.intermission<=0 and not game.match_mode.special.blocked(mine)
@@ -333,7 +336,8 @@ func _process(delta: float) -> void:
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
 			cycle_latched=true
 		if absf(stick.y)<.3: cycle_latched=false
-	physical_actions.update(delta,living and tracked_hands and focused and not game.menu_open and not scores)
+	shoulder_radio.update(living and tracked_hands and focused and not game.menu_open and not scores and not blackout.visible)
+	physical_actions.update(delta,not shoulder_radio.held and living and tracked_hands and focused and not game.menu_open and not scores)
 	var menu_visible: bool=game.menu_open or scores or (focused and game.bindings.pressed("scores")) or not game.active
 	var burning: bool=actor!=null and game.match_mode.fortress.burning(actor.peer_id)
 	damage_material.set_shader_parameter("burning",1.0 if burning else 0.0)
@@ -358,37 +362,39 @@ func _process(delta: float) -> void:
 		var s: Dictionary=game.local_state()
 		var leader:=0
 		for player in game.players.values():leader=maxi(leader,player.kills)
+		status_hud.update_player_status(preload("res://deathmatch/ui/player_status.gd").read(game,game.multiplayer.get_unique_id()))
 		status_hud.update_water(actor.underwater,actor.air_left)
 		status_hud.update_burning(burning)
 		status_hud.update_capture(game.match_mode.capture_status())
 		status_hud.update_vote(game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view)
 		status_hud.update_network(game.loading.snapshot(),game.local_ping,game.multiplayer.is_server())
-		status_hud.update_status(s,game.round_left,game.frag_limit,leader,game.intermission>0,game.voice and game.voice.transmitting,_objective_hud(s))
-		if s.weapon!=gun_id:
+		status_hud.update_status(s,game.round_left,game.frag_limit,leader,game.intermission>0,game.voice and game.voice.transmitting,game.variant_combat.charge_label(game.multiplayer.get_unique_id())+_objective_hud(s),game.voice and game.voice.team_channel(),game.match_mode.fortress.weapon_data(game.multiplayer.get_unique_id(),s.weapon),game.armory.max_ammo())
+		var art_rules: String=game.match_mode.fortress.art_rules(mine,s.weapon)
+		if s.weapon!=gun_id or gun_rules!=art_rules:
 			if is_instance_valid(gun): gun.free()
 			if is_instance_valid(offhand_gun): offhand_gun.free()
 			offhand_gun=null
-			if s.weapon==2:
+			if s.weapon==2 and game.armory.dual():
 				offhand_gun=Art.weapon(2,int(game.presentation.get("texture_filter",2)));add_child(offhand_gun)
-			gun=Art.weapon(s.weapon,int(game.presentation.get("texture_filter",2)))
+			gun=Art.weapon(s.weapon,int(game.presentation.get("texture_filter",2)),art_rules)
 			(left_aim if left_handed else right_aim).add_child(gun)
-			gun_id=s.weapon
+			gun_id=s.weapon;gun_rules=art_rules
 		if gun.get_parent()!=(left_aim if left_handed else right_aim): gun.reparent(left_aim if left_handed else right_aim,false)
 		gun.visible=not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
 		var grip: XRController3D=left if left_handed else right
 		var aim: XRController3D=left_aim if left_handed else right_aim
 		var visible_pose:=clear_weapon_pose(origin.global_transform*weapon_pose(),s.weapon)
-		gun.global_transform=Art.held_transform(visible_pose,s.weapon)
-		if s.weapon==1:Art.clip_saw(gun)
+		gun.global_transform=Art.held_transform(visible_pose,s.weapon,Art.VR_SCALE,art_rules)
+		if s.weapon==1 and not game.armory.experimental():Art.clip_saw(gun)
 		if is_instance_valid(offhand_gun):
 			var other_grip: XRController3D=right if left_handed else left
 			var other_aim: XRController3D=right_aim if left_handed else left_aim
-			offhand_gun.visible=not physical_actions.busy() and not game.lobby.active() and not s.dead and not menu_visible and focused and (simulated or (other_grip.get_has_tracking_data() and other_aim.get_has_tracking_data()))
+			offhand_gun.visible=not game.match_mode.fortress.walkers.mounted(multiplayer.get_unique_id()) and not physical_actions.busy() and not shoulder_radio.held and not game.lobby.active() and not s.dead and not menu_visible and focused and (simulated or (other_grip.get_has_tracking_data() and other_aim.get_has_tracking_data()))
 			offhand_gun.global_transform=Art.held_transform(clear_weapon_pose(Poses.held_weapon(other_grip.global_transform,other_aim.global_transform),2),2)
 		if aim_guides.is_empty():
 			for i in 2:
 				var guide=preload("res://deathmatch/vr/aim_guide.gd").new();add_child(guide);aim_guides.append(guide)
-		aim_guides[0].update(visible_pose,s.weapon,gun.visible)
+		aim_guides[0].update(visible_pose,s.weapon,gun.visible,art_rules)
 		if is_instance_valid(offhand_gun):
 			var other_grip:XRController3D=right if left_handed else left
 			var other_aim:XRController3D=right_aim if left_handed else left_aim
@@ -408,12 +414,16 @@ func _process(delta: float) -> void:
 		if gun: gun.visible=false
 		if offhand_gun: offhand_gun.visible=false
 		blackout.visible=false
+	if not sniper_scope and is_instance_valid(gun) and gun.has_meta("scope_rear"):
+		sniper_scope=preload("res://deathmatch/vr/sniper_scope.gd").new();add_child(sniper_scope);sniper_scope.setup(self)
+	if sniper_scope:sniper_scope.update_rig()
 func clear_weapon_pose(pose: Transform3D,weapon: int) -> Transform3D:
 	if weapon<2:return pose
 	var actor=game.fighters.get(multiplayer.get_unique_id())
 	if not actor:return pose
-	var muzzle: Vector3=Art.held_transform(pose,weapon)*Art.muzzle(weapon)
-	var radius: float=W.DATA[weapon].radius if weapon in [6,7,8] else .025
+	var art_rules: String=game.match_mode.fortress.art_rules(multiplayer.get_unique_id(),weapon)
+	var muzzle: Vector3=Art.held_transform(pose,weapon,Art.VR_SCALE,art_rules)*Art.muzzle(weapon,art_rules)
+	var radius: float=float(game.armory.data(weapon).get("radius",.025)) if game.armory.experimental() else W.DATA[weapon].radius if weapon in [6,7,8] else .025
 	var solution=preload("res://deathmatch/vr/weapon_clearance.gd").solve(game.get_world_3d().direct_space_state,actor.render_position()+Vector3.UP*actor.torso_height(),pose.origin,muzzle,radius)
 	if not solution.blocked:pose.origin+=solution.origin-muzzle
 	return pose
@@ -455,6 +465,7 @@ func command(sequence: int) -> Dictionary:
 	var movement:=Basis(Vector3.UP,head.rotation.y)*Vector3(stick.x,0,-stick.y)
 	var pose:=sample_pose()
 	var trigger: bool=game.bindings.vr_pressed(self,"fire")
+	var physical_weapon: bool=game.armory.vr_physical_only(game.desired_weapon)
 	var other_hand: XRController3D=right if left_handed else left
 	var other_trigger: bool=game.bindings.vr_pressed(self,"offhand_fire")
 	var room:=Vector3.ZERO
@@ -462,7 +473,7 @@ func command(sequence: int) -> Dictionary:
 		var horizontal:=Vector3(pose.head.origin.x,0,pose.head.origin.z)
 		room=RoomScale.request(horizontal)
 	var jump: bool=game.bindings.vr_pressed(self,"jump") or jump_detector.consume()
-	return {"seq":sequence,"fly":game.bindings.axis(self,"turn").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not blocked and tracked and not pose.is_empty() and not blackout.visible,"physical":physical_actions.available,"offhand_fire":other_trigger and not physical_actions.busy() and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and game.desired_weapon!=0 and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":game.bindings.vr_pressed(self,"slow"),"jump":not blocked and jump,"respawn":not blocked and (trigger or game.bindings.vr_pressed(self,"jump")),"xr":pose,"room":room,"swim":swim_input if not blocked and not pose.is_empty() else Vector3.ZERO}
+	return {"seq":sequence,"fly":game.bindings.axis(self,"turn").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not shoulder_radio.held and not blocked and tracked and not pose.is_empty() and not blackout.visible,"physical":physical_actions.available and not shoulder_radio.held,"input_blocked":blocked or not tracked or blackout.visible,"alt_fire":not physical_weapon and game.bindings.vr_pressed(self,"alt_fire") and not physical_actions.busy() and not shoulder_radio.held and not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and not physical_actions.busy() and not shoulder_radio.held and game.armory.dual() and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not physical_weapon and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":game.bindings.vr_pressed(self,"slow"),"prone":crouch_detector.prone,"leg_assist":game.bindings.tracked_leg_animation,"jump":not blocked and jump,"respawn":not blocked and (trigger or game.bindings.vr_pressed(self,"jump")),"xr":pose,"room":room,"swim":swim_input if not blocked and not pose.is_empty() else Vector3.ZERO}
 func _body_calibrated() -> void:
 	if not is_instance_valid(calibration_sound):
 		calibration_sound=AudioStreamPlayer.new();calibration_sound.bus="ArenaEffects";calibration_sound.volume_db=-10
@@ -502,10 +513,10 @@ func _objective_hud(s: Dictionary) -> String:
 	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
 	if not vote.is_empty():return "VOTE: "+vote.title+" · OPEN MENU"
 	if not mode.team_game():return mode.kind.to_upper() if mode.kind!="dm" else ""
-	if mode.kind=="ft" and mode.special.frozen.has(game.multiplayer.get_unique_id()):return "FROZEN · THAW %.1f / 3s"%mode.special.frozen[game.multiplayer.get_unique_id()]
+	if mode.freeze_tag() and mode.special.frozen.has(game.multiplayer.get_unique_id()):return "FROZEN · THAW %.1f / 3s"%mode.special.frozen[game.multiplayer.get_unique_id()]
 	var extra: String=" [R]" if s.team==0 else " [B]" if s.team==1 else ""
 	if mode.kind=="koth":extra+=" CONTESTED" if mode.hill_owner==-2 else " HOLD" if mode.hill_owner==s.team and s.team>=0 else ""
-	if mode.kind=="ctf" and mode.flags.size()==2:
+	if mode.kind in ["ctf","tf"] and mode.flags.size()==2:
 		for flag in mode.flags:
 			if flag.carrier==game.multiplayer.get_unique_id():extra+=" CARRYING FLAG"
 	return "%s R%d B%d / %d"%[mode.kind.to_upper(),mode.scores[0],mode.scores[1],mode.limit()]+extra

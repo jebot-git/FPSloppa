@@ -1,0 +1,27 @@
+[
+  {
+    "test": "bot_balance",
+    "passed": true,
+    "errors": [],
+    "arena_sha256": "2b47e865960952acb96b4fc6e1ffa8514ce9ae01cc600e5ab82501b4b83d0b14",
+    "script_sha256": "770a42b1d124555cfae0d90a692c952a7fef9b9fa0e502a4c2a0c71c873de2b8",
+    "log_sha256": "3eb5c0045fa647e0a40d5a7e8ca3ed9306db751874245434ad6b58a6355a246e"
+  },
+  {
+    "test": "bot_objective_roles",
+    "passed": true,
+    "errors": [],
+    "arena_sha256": "2b47e865960952acb96b4fc6e1ffa8514ce9ae01cc600e5ab82501b4b83d0b14",
+    "script_sha256": "058b20c6cd648ab0eb0afaf2bc6a8a533a24b87cfa9ea34a557938a633653d64",
+    "log_sha256": "4ffd118cac3ebf42053090c42cc7665c57ee32296138bb551cefb6e361e29bff",
+    "checks": 19
+  },
+  {
+    "test": "player_platform",
+    "passed": true,
+    "errors": [],
+    "arena_sha256": "2b47e865960952acb96b4fc6e1ffa8514ce9ae01cc600e5ab82501b4b83d0b14",
+    "script_sha256": "6b63bc8eccf957de996a989e442ac43d5c0cb564432ad2449948e846202a76a3",
+    "log_sha256": "ed51539022abeb306e233a9ae772196708849df6310ec7759ba7cd60d202c211"
+  }
+]

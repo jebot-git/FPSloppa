@@ -26,6 +26,8 @@ Bundled `deathmatch/avatars/models/sample_d.vrm`, `sample_f.vrm`, and `sample_g.
 
 ## Quake maps
 
+**Cloudy Skyboxes — Screaming Brain Studios**, **CC0 1.0**: [original asset page](https://opengameart.org/content/cloudy-skyboxes-0). Five unmodified 2048×1024 panorama PNGs (original numbers 10, 12, 18, 20 and 22) provide backgrounds for audited sky-visible base maps. Files are renamed; brightness is adjusted at runtime. Original licence and source/archive hashes are preserved in `deathmatch/maps/skies/`. See [skybox selection and validation](docs/SKYBOXES.md).
+
 Five BSP maps (lqdm1, lqdm2, lqdm4, lqdm7, lqdm8), embedded textures and the palette come from LibreQuake v0.09-beta, BSD-3-Clause: https://github.com/lavenderdotpet/LibreQuake/releases/tag/v0.09-beta . The full attribution and license files are preserved in `deathmatch/maps/`. See MAPS.md for titles and adaptations.
 
 Godot BSP importer by jitspoe, MIT: https://github.com/jitspoe/godot_bsp_importer . The vendored copy guards missing collision shapes and degenerate convex hulls, and aligns brush triangle collision with inverse entity rotation. This project uses triangle collision plus separate trigger volumes and its own entity adapter.
@@ -131,3 +133,37 @@ LibreQuake BSD-3-Clause material and four original generated gothic reliefs repl
 AS theme: **Mega Destruction** (`mega_destruction.xm`) by **Zilly Mike**, listed as **Public Domain** by [Mod Archive](https://modarchive.org/index.php?request=view_by_moduleid&query=50252). Original module and conversion provenance: [Assault music](docs/audio/assault/README.md).
 
 HiSlop is an authored train Assault concept with LibreQuake textures. The generator is CC0-1.0; embedded art remains BSD-3-Clause. Notices and exact texture provenance accompany the external map in `maps/HiSlop/`. No Unreal Tournament packages or extracted art are included.
+
+## Makkon textures and community maps
+
+Original Industrial/Metal/CTF WAD2 textures by **Ben “Makkon” Hale**, palette LUT credit **ptoing**. [Source](https://www.slipseer.com/resources/makkon-textures.28/). See [asset terms and project permission](tools/makkon/README.md) and the verbatim [Makkon licence](tools/makkon/Makkon_License.txt). Selected miptextures are unchanged; these are not CC0/BSD assets.
+
+Lasercade by **shysaur** and Painful Memories by **Toni Jaume (Auhsan)** are adapted with their explicit derivative-level grants. Original readmes accompany the maps; original embedded images are replaced with licensed Makkon/LibreQuake textures. [Sources, ratings and limitations](tools/community_maps/README.md).
+
+Additional reviewed Quaddicted adaptations: Ancient Tomb by RandyG, Ancient’s Hall by Andrew “HamsterDeath” LeGalle, and Battle Field by Adam Boyle. Original readmes and per-texture credits are retained in maps/Community. Makkon Industrial/Metal textures by Ben “Makkon” Hale (palette/LUT: ptoing) also theme the maintained LibreQuake maps and Ironspan/Relayworks; see maps/Makkon and the separate Makkon licence. Only used original texture records are packaged.
+
+## Experimental melee weapons
+
+[Stylized Woodcutting Axe by Price](https://opengameart.org/content/stylized-woodcutting-axe), CC0 1.0, is aligned and adapted for Quake. TF Pyro uses [Flamethrower by TheJosh](https://opengameart.org/content/flamethrower-0), also CC0 1.0, with the original baked texture resized to 1024 pixels and mipmapped. The UT impact hammer is a Blender derivative of Drummyfish’s CC0 AFPS chainsaw receiver, with its blade replaced by a pneumatic ram. Detailed changes and source hashes: `deathmatch/weapons/experimental/CREDITS.md` and `sources.json`.
+
+The UT99/TF sniper uses [Low Poly Stylized Sniper by FFMStudios / Fernando Ferreira](https://opengameart.org/content/low-poly-stylized-sniper). TF/Assault sentries use [Gatling/Mini Gun by Tech Knight](https://opengameart.org/content/gatlingmini-gun). Both are CC0 1.0; source archives, licences and modifications are recorded in `deathmatch/weapons/experimental/CREDITS.md` and `sources.json`.
+
+## Optional native bHaptics component
+
+The Linux direct Bluetooth prototype uses freehaptics 0.3.1 by Orion Moonclaw (LGPL-3.0-or-later), godot-rust and btleplug. See [component notices](addons/bhaptics_native/README.md), [LGPLv3](addons/bhaptics_native/COPYING.LESSER), [GPLv3 base terms](addons/bhaptics_native/COPYING) and the locked native dependency manifest. No proprietary bHaptics Player or SDK binary is bundled.
+
+## Authored original-series CTF studies
+
+Tideworks, Crucible, Confluence, Deepvault, Crownreach and Skyfracture use newly
+authored geometry after studying the original ThreeWave CTF1–CTF6 maps. No original
+ThreeWave BSP geometry, textures, logos, models, audio or music are packaged.
+Original design credits, reference sources, adaptations and test limitations are
+recorded in `tools/threewave_rebuild/README.md`. New geometry is CC0-1.0; Makkon
+(project permission) and LibreQuake material licences are bundled under
+`maps/CTFStudies/`, with per-texture source hashes and compiled BSP audits.
+
+## BA-2 / TITANBALL prototype
+
+The experimental robot uses Quandtum’s BA-2 v1.1 with an authored slow walk and procedural belly ladder. See [runtime asset credits and texture provenance](deathmatch/vehicles/ba2/SOURCES.md) and the [TB test guide](docs/TITANBALL.md).
+
+Ashfall Boulevard / TITANBALL: original CC0 geometry; Makkon Industrial/Metal textures by Ben “Makkon” Hale, ptoing palette/LUT credit, and LibreQuake BSD textures. Original miptex records and separate licenses are retained in [maps/Ashfall](maps/Ashfall/README.md).
