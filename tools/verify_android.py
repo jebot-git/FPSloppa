@@ -51,6 +51,9 @@ for target in ['Quest', 'Pico']:
             size,count=struct.unpack_from('<HH',binary,54)
             loads=[struct.unpack_from('<IIQQQQQQ',binary,offset+i*size) for i in range(count)]
             assert all(row[7]>=16384 for row in loads if row[0]==1), (target,name,'16 KiB page alignment')
+        assert z.read('assets/deathmatch/maps/texture_replacements/makkon-used.wad') == (root/'deathmatch/maps/texture_replacements/makkon-used.wad').read_bytes()
+        assert not any('makkon-used.wad-' in name for name in z.namelist()), 'Unused dictionary scene'
+        assert not any(name in z.namelist() for name in ['assets/export_presets.cfg','assets/LIVE_VR_TEST.md','assets/NETWORK_TESTING.md']), 'Development payload'
         assert z.getinfo('assets/deathmatch/assets/offline-base.zip').compress_type == zipfile.ZIP_STORED, 'Nested compression makes Android ZIP seeks expensive'
         embedded = z.read('assets/deathmatch/assets/offline-base.zip')
         base = json.loads((root/'deathmatch/assets/base_manifest.json').read_text())

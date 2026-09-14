@@ -38,7 +38,6 @@ func build(parent: Node3D, automatic: bool=false) -> void:
 	box(room,Vector3(0,.88,.4),Vector3(.65,.82,.13),Color("1c303d"))
 	box(console,Vector3(0,1.49,-2.26),Vector3(3.36,2.00,.14),Color("071018"))
 	label3(console,"BA-2  /  REMOTE PILOT STATION",Vector3(0,2.62,-2.25),37)
-	label3(console,"AUTOMATIC SENTRIES   /   JUMP OR USE TO EXIT" if automatic else "GRIP TO HOLD   /   TRIGGER TO FIRE   /   B OR Y TO RECENTER",Vector3(0,.38,-2.23),23)
+	label3(console,"GRIP: MANUAL   /   TRIGGER: FIRE   /   RELEASE: AUTO   /   JUMP: EXIT" if automatic else "GRIP TO HOLD   /   TRIGGER TO FIRE   /   B OR Y TO RECENTER",Vector3(0,.38,-2.23),23)
 	if automatic:return
 	var lamp:=OmniLight3D.new();console.add_child(lamp);lamp.position=Vector3(0,2,-.5);lamp.omni_range=5;lamp.light_energy=1.6;lamp.light_color=Color("9fc9df")
-

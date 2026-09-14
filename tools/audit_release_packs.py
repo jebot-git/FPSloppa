@@ -7,7 +7,7 @@ with tempfile.TemporaryDirectory(prefix='fpsloppa-pack-audit-') as tmp:
  project=Path(tmp);(project/'project.godot').write_text('config_version=5\n')
  shutil.copy2(root/'deathmatch/tests/package_contents.gd',project/'audit.gd')
  for folder,name in [('Linux','FPSloppa.pck'),('Windows','FPSloppa.pck')]:
-  result=subprocess.run([godot,'--headless','--xr-mode','off','--path',tmp,'--script',str(project/'audit.gd'),'--',str(builds/folder/name)],capture_output=True,text=True,timeout=90)
+  result=subprocess.run([godot,'--headless','--xr-mode','off','--log-file',str(root/'test-results'/('audit-'+folder+'-engine.log')),'--path',tmp,'--script',str(project/'audit.gd'),'--',str(builds/folder/name)],capture_output=True,text=True,timeout=90)
   (root/'test-results'/('release-pack-'+folder+'.log')).write_text(result.stdout+result.stderr)
   lines=[s for s in result.stdout.splitlines() if s.startswith('PACKAGE_AUDIT ')]
   assert result.returncode==0 and lines and 'SCRIPT ERROR' not in result.stderr and 'ERROR:' not in result.stderr,result.stdout+result.stderr

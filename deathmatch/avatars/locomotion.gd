@@ -3,7 +3,7 @@ extends RefCounted
 const DIRECTIONS=["forward","forward_right","right","back_right","back","back_left","left","forward_left"]
 const STILL_DISTANCE:=.05
 const STILL_ANGLE:=deg_to_rad(12.0)
-const STILL_TIME:=.55
+const STILL_TIME:=.20
 var phase:=0.0
 var direction:=Vector3.FORWARD
 var direction_name:="forward"
@@ -45,7 +45,9 @@ func update(delta: float,movement: Vector3,stance: String,grounded: bool,body: D
 	elif stance=="crouch":rate=1.15*clampf(speed/3.0,.3,1)
 	if moving and grounded:phase=fmod(phase+delta*rate,1.0)
 	gait_name=("jump" if movement.y>0 else "fall") if not grounded else stance if stance!="stand" else "idle" if not moving else "run" if run>.25 else "walk"
-	update_assist(delta,body,assist and moving and grounded)
+	# Detect planted feet before locomotion starts; gait amount already fades
+	# offsets to zero at rest. Starting the stick must not start a long idle timer.
+	update_assist(delta,body,assist and grounded)
 	bob=(absf(sin(phase*TAU))*lerpf(.018,.030,run)-run*.08)*amount*(1-prone_blend)
 	for side in ["left","right"]:
 		var t:=fmod(phase+(.5 if side=="right" else 0),1.0)
@@ -89,4 +91,4 @@ func update_assist(delta: float,body: Dictionary,enabled: bool) -> void:
 	if changed:
 		anchors=samples;still_time=0;assist_weight=0;return
 	still_time+=delta
-	assist_weight=move_toward(assist_weight,1.0 if still_time>=STILL_TIME else 0.0,delta*4)
+	assist_weight=move_toward(assist_weight,1.0 if still_time>=STILL_TIME else 0.0,delta*8)

@@ -19,7 +19,7 @@ func attach(model: Node3D) -> void:
 		viewport=SubViewport.new();viewport.name="SniperOptic";viewport.size=Vector2i(384,384) if OS.has_feature("android") else Vector2i(512,512)
 		viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;viewport.msaa_3d=Viewport.MSAA_DISABLED;viewport.audio_listener_enable_3d=false
 		add_child(viewport);viewport.world_3d=get_world_3d()
-		camera=Camera3D.new();camera.fov=FOV;camera.near=.025;camera.far=220;camera.cull_mask=((1<<20)-1)&~SCOPE_LAYER
+		camera=Camera3D.new();camera.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF;camera.fov=FOV;camera.near=.025;camera.far=220;camera.cull_mask=((1<<20)-1)&~SCOPE_LAYER
 		viewport.add_child(camera);camera.make_current()
 	var mesh:=QuadMesh.new();mesh.size=Vector2.ONE*float(model.get_meta("scope_radius")) *2
 	lens=MeshInstance3D.new();lens.name="ScopeLens";lens.mesh=mesh;lens.layers=SCOPE_LAYER
@@ -34,7 +34,7 @@ static func eye_quality(optic: Transform3D,eye: Transform3D) -> float:
 	var p:=optic.affine_inverse()*eye.origin
 	if p.z<.025 or p.z>.34:return 0
 	if (-eye.basis.z).dot(-optic.basis.z.normalized())<.90:return 0
-	return 1.0-smoothstep(.012,.034,Vector2(p.x,p.y).length())
+	return 1.0-smoothstep(.015,.040,Vector2(p.x,p.y).length())
 func disable() -> void:
 	active=false
 	if viewport:viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED

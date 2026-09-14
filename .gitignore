@@ -3,6 +3,8 @@
 *.import
 # Authored sky import policy: retain full-resolution BC7 / ASTC 4x4 on fresh checkouts.
 !/deathmatch/maps/skies/*.png.import
+# Runtime dictionary reads original WAD bytes; do not import an unused scene.
+!/deathmatch/maps/texture_replacements/makkon-used.wad.import
 # Generated Gradle project and local signing configuration
 /android/
 .env

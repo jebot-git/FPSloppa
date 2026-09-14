@@ -60,6 +60,17 @@ func run():
  native_tracker.set_joint_flags(XRBodyTracker.JOINT_LEFT_FOOT,XRBodyTracker.JOINT_FLAG_POSITION_VALID|XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID)
  native_tracker.set_joint_transform(XRBodyTracker.JOINT_LEFT_FOOT,Transform3D(Basis.IDENTITY,Vector3(-.2,.4,-.3)))
  check(tracking.sample().left_foot.origin.is_equal_approx(Vector3(-.2,.4,-.3)),"An actual native foot joint takes priority over the inferred ankle")
+ # A bridge's neutral calf axes can be rolled 90 degrees even when standing.
+ native_tracker.set_joint_flags(XRBodyTracker.JOINT_LEFT_FOOT,0)
+ for roll in [-PI/2,PI/2]:
+  tracking.native_corrections.clear();tracking.native_foot_offsets.clear()
+  var bridge_basis:Basis=Basis(Vector3.BACK,roll)*lower_basis
+  native_tracker.set_joint_transform(XRBodyTracker.JOINT_LEFT_LOWER_LEG,Transform3D(bridge_basis,Vector3(-.13,.50,0)))
+  var ankle:Transform3D=tracking.sample().left_foot
+  check(ankle.origin.distance_to(Vector3(-.13,.08,0))<.001 and ankle.basis.is_equal_approx(Basis.IDENTITY),"Uncalibrated bridge calf axes produce a planted, forward-facing foot: "+str(roll))
+  native_tracker.set_joint_transform(XRBodyTracker.JOINT_LEFT_LOWER_LEG,Transform3D(Basis(Vector3.RIGHT,-PI/2)*bridge_basis,Vector3(-.13,.70,0)))
+  var raised:Transform3D=tracking.sample().left_foot
+  check(raised.origin.y>.69 and raised.origin.z>.4,"Bridge inferred foot follows physical leg lift after neutral measurement: "+str(roll))
  XRServer.remove_tracker(native_tracker)
  rig.free()
  var world:=Node3D.new();root.add_child(world)

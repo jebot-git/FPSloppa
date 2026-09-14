@@ -119,11 +119,6 @@ func calibrate(t_pose: bool=false) -> void:
 			var basis_here:Basis=preload("res://deathmatch/vr/body_basis.gd").native_to_facing(key,tracker.get_joint_transform(JOINTS[key]).basis)
 			adjustments[key]=basis_here.inverse()*rig.origin.basis.inverse()*facing.basis
 			native_count+=1
-			if key in ["left_knee","right_knee"] and flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID:
-				# Some bridges expose calf-mounted trackers as lower-leg joints,
-				# without an ankle/foot joint. Calibrate the tracker-to-ankle length.
-				var height:float=tracker.get_joint_transform(JOINTS[key]).origin.y*XRServer.world_scale
-				native_foot_offsets[str(tracker.name)+key]=clampf(height-.08*XRServer.world_scale,.05*XRServer.world_scale,.65*XRServer.world_scale)
 		native_corrections[tracker.name]=adjustments
 	calibrated=not corrections.is_empty() or native_count>0
 	status="Calibrated %d external / %d native targets"%[corrections.size(),native_count] if calibrated else "No body tracking data available to calibrate"
@@ -162,8 +157,11 @@ func sample() -> Dictionary:
 				if result.has(knee) and not result.has(foot) and leg_flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID and leg_flags&XRBodyTracker.JOINT_FLAG_ORIENTATION_VALID:
 					var offset_key:String=str(tracker.name)+knee
 					if not native_foot_offsets.has(offset_key):
-						var height:float=tracker.get_joint_transform(JOINTS[knee]).origin.y*XRServer.world_scale
-						native_foot_offsets[offset_key]=clampf(height-.08*XRServer.world_scale,.05*XRServer.world_scale,.65*XRServer.world_scale)
+						# Bridges can supply tracker axes rather than Humanoid bone axes.
+						# Measure the entire ankle offset in this calf's local frame, so a
+						# sideways neutral axis cannot put a planted foot at knee height.
+						var facing:Basis=rig.origin.basis*Basis(Vector3.UP,rig.head.rotation.y)
+						native_foot_offsets[offset_key]=calibrate_foot(result[knee],rig.origin.position.y,XRServer.world_scale,facing)
 					var inferred:Transform3D=estimated_foot(result[knee],native_foot_offsets[offset_key])
 					inferred.origin.y=maxf(inferred.origin.y,rig.origin.position.y+.03*XRServer.world_scale)
 					result[foot]=inferred
@@ -193,7 +191,10 @@ func sample() -> Dictionary:
 		var access_status: String=rig.game.permissions.tracking_status()
 		if not access_status.is_empty(): status=access_status
 	return result
-static func estimated_foot(lower_leg: Transform3D,ankle_offset: float) -> Transform3D:
-	return lower_leg*Transform3D(Basis.IDENTITY,Vector3.DOWN*ankle_offset)
+static func calibrate_foot(lower_leg: Transform3D,floor_height: float,scale: float,facing: Basis) -> Transform3D:
+	var length:=clampf(lower_leg.origin.y-floor_height-.08*scale,.05*scale,.65*scale)
+	return lower_leg.affine_inverse()*Transform3D(facing,lower_leg.origin+Vector3.DOWN*length)
+static func estimated_foot(lower_leg: Transform3D,ankle_offset: Transform3D) -> Transform3D:
+	return lower_leg*ankle_offset
 func _exit_tree() -> void:
 	if udp: udp.close()

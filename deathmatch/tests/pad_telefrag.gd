@@ -13,7 +13,7 @@ func run() -> void:
 	check(Runtime.push_velocity({"angles":"0 90 0","speed":"100"}).is_equal_approx(Vector3.LEFT*31.25),"Horizontal accelerators do not invent upward force")
 	check(Runtime.push_velocity({"angles":"broken"}).is_zero_approx(),"Malformed launch angles are rejected")
 	var game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
-	game.selected_map="lqdm3";game.start_host("Pad test",0,100,10,true)
+	game.start_host("Pad test",0,100,10,true);game._rotate_map("koth_hyperborea")
 	game.set_process(false);game.set_physics_process(false);game.bots.free();game.bots=null
 	var runtime=game.get_node("Map/MapRuntime");runtime.set_physics_process(false)
 	var actor=game.fighters[1]
@@ -36,6 +36,7 @@ func run() -> void:
 		for tick in 8:actor.simulate(Vector2.ZERO,0,false,1.0/60)
 		check(actor.position.y>start.y+.25,"Hyperborea ramp %d lifts player in real map collision"%i)
 	Fixture.setup(game);actor.position=Fixture.point();actor.update_height(1.65,true)
+	if not game.players.has(-1):game._add_player(-1,"Telefrag target")
 	var target=game.fighters[-1];target.position=actor.position+Vector3(.4,0,0)
 	var state: Dictionary=game.players[-1];state.dead=false;state.spectator=false;state.hp=100;state.armor=200;state.invulnerable=game.clock+30
 	game.players[1].team=0;state.team=0;game.match_mode.kind="tdm";game.match_mode.friendly_fire=false

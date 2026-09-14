@@ -21,12 +21,12 @@ func run() -> void:
 	await physics_frame;await physics_frame
 	game.fighters[1].position=Vector3(0,9.5,0);game.lobby.tick(.016)
 	check(game.fighters[1].position.y<.1,"Existing roof spawn recovers inside without suicide")
-	game.votes.allowed_modes=["dm","ctf"];game.mode_maplists={"dm":["lqdm1"],"ctf":["lqdm2"]};game.lobby.offered=game.lobby.choices();game.lobby.fallback={"mode":"dm","map":"lqdm1"}
+	game.votes.allowed_modes=["dm","ctf"];game.mode_maplists={"dm":["qsrc_dm1"],"ctf":["qsrc_dm6"]};game.lobby.offered=game.lobby.choices();game.lobby.fallback={"mode":"dm","map":"qsrc_dm1"}
 	var panel=load("res://deathmatch/modes/lobby_panel.gd").new();panel.wall=true;root.add_child(panel);panel.setup(game)
-	check(not game.lobby.cast(1,"ctf","lqdm1"),"Lobby proposal rejects map outside selected mode list")
-	check(game.lobby.cast(2,"ctf","lqdm2"),"Another player starts visible next-match proposal")
+	check(not game.lobby.cast(1,"ctf","qsrc_dm1"),"Lobby proposal rejects map outside selected mode list")
+	check(game.lobby.cast(2,"ctf","qsrc_dm6"),"Another player starts visible next-match proposal")
 	panel.refresh();await process_frame;await process_frame
-	check(panel.active_vote.text.contains("ctf / lqdm2") and panel.active_vote.text.contains("YES 1 / 5"),"Wall shows proposal and majority counts independently of local selection")
+	check(panel.active_vote.text.contains("ctf / qsrc_dm6") and panel.active_vote.text.contains("YES 1 / 5"),"Wall shows proposal and majority counts independently of local selection")
 	if DisplayServer.get_name()!="headless":
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://test-results/motion-spy/lobby-board.png")
@@ -35,14 +35,14 @@ func run() -> void:
 	check(game.votes.ballot.votes.get(1,true)==false and panel.response.text=="You voted NO." and panel.yes.disabled and panel.no.disabled,"Wall No button submits vote and shows recorded response")
 	game.votes.cast(3,false);game.votes.cast(4,false);game.votes.cast(5,false);panel.refresh()
 	check(game.votes.ballot.is_empty() and panel.next_match.text.contains("VOTE FAILED") and game.lobby.result().mode=="dm","Rejected proposal leaves next-match fallback unchanged and displays outcome")
-	game.clock+=6;game.lobby.cast(2,"ctf","lqdm2");panel.refresh();panel.yes.pressed.emit()
+	game.clock+=6;game.lobby.cast(2,"ctf","qsrc_dm6");panel.refresh();panel.yes.pressed.emit()
 	for id in [3,4,5]:game.votes.cast(id,true)
 	panel.refresh()
-	check(game.lobby.confirmed and game.lobby.result()=={"mode":"ctf","map":"lqdm2"} and game.lobby.active(),"Majority approves next match without ending lobby immediately")
+	check(game.lobby.confirmed and game.lobby.result()=={"mode":"ctf","map":"qsrc_dm6","rules":game.armory.preferred} and game.lobby.active(),"Majority approves next match without ending lobby immediately")
 	check(panel.next_match.text.contains("VOTE APPROVED") and panel.next_match.text.contains("ctf".to_upper()),"Board displays confirmed next mode and map")
 	await process_frame;await process_frame
 	check(panel.get_combined_minimum_size().y<=720 and panel.no.get_global_rect().end.y<720,"Expanded wall fits proposal and response controls without scrolling")
-	game.clock+=6;game.lobby.cast(2,"dm","lqdm1");game.players[1].spectator=true;panel.refresh()
+	game.clock+=6;game.lobby.cast(2,"dm","qsrc_dm1");game.players[1].spectator=true;panel.refresh()
 	check(panel.yes.disabled and panel.no.disabled and panel.response.text.contains("Spectators"),"Spectator response controls are disabled with explanation")
 	game.votes.ballot.clear();game.active=false;panel.free();game.free();await process_frame
 	print("LOBBY_TRANSITION_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

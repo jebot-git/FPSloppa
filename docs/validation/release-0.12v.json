@@ -1,0 +1,56 @@
+{
+  "version": "0.12v",
+  "base_files": 234,
+  "base_maps": 26,
+  "offline_install_and_repair": true,
+  "pack_audit": [
+    {
+      "failures": [],
+      "files": 1300,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1300,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1422,
+      "failures": []
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Pico.apk",
+      "files": 1422,
+      "failures": []
+    }
+  ],
+  "native_linux": [
+    {
+      "mode": "dm",
+      "map": "qsrc_dm7",
+      "exit_code": 0,
+      "host_ready": true,
+      "errors": []
+    },
+    {
+      "mode": "as",
+      "map": "as_hislop",
+      "exit_code": 0,
+      "host_ready": true,
+      "errors": []
+    },
+    {
+      "mode": "tb",
+      "map": "tb_ashfall",
+      "exit_code": 0,
+      "host_ready": true,
+      "errors": []
+    }
+  ],
+  "console_passed": true,
+  "rocket_suite_passed": true,
+  "cockpit_controls_checks": 29,
+  "flame_render_checks": 10,
+  "final_native_windows_quest_pico_tested": false
+}

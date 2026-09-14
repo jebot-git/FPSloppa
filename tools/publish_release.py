@@ -9,8 +9,19 @@ assets_dir=root/'release-assets'/version
 commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=root,text=True).strip()
 assert subprocess.check_output(['git','describe','--exact-match','--tags','HEAD'],cwd=root,text=True).strip()==version
 assert not subprocess.check_output(['git','status','--porcelain'],cwd=root), 'Working tree is not clean'
-assert json.loads((assets_dir/'BUILD-MANIFEST.json').read_text())['commit']==commit
-assert not any('Conversion-Tools' in p.name or 'Arena-Collection' in p.name for p in assets_dir.iterdir())
+manifest=json.loads((assets_dir/'BUILD-MANIFEST.json').read_text())
+assert manifest['commit']==commit
+expected_names={row['file'] for row in manifest['artifacts']}|{'BUILD-MANIFEST.json','SHA256SUMS','RELEASE-NOTES.md'}
+assert {p.name for p in assets_dir.iterdir()}==expected_names, 'Unexpected staged files'
+for row in manifest['artifacts']:
+    path=assets_dir/row['file']
+    with path.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
+    assert path.stat().st_size==row['bytes'] and digest==row['sha256'], ('Staged file changed',path.name)
+for line in (assets_dir/'SHA256SUMS').read_text().splitlines():
+    digest,name=line.split('  ',1)
+    assert name in expected_names and name!='SHA256SUMS'
+    with (assets_dir/name).open('rb') as stream:assert hashlib.file_digest(stream,'sha256').hexdigest()==digest, name
+assert not any(any(retired in p.name for retired in ['Conversion-Tools','Arena-Collection','Base-Assets','Optional-Community-Maps','Original-TF-Arenas']) for p in assets_dir.iterdir())
 gh=shutil.which('gh') or '/tmp/fpsloppa-gh/gh_2.100.0_linux_amd64/bin/gh'
 token=subprocess.run([gh,'auth','token','--hostname','github.com'],capture_output=True,text=True,check=True,timeout=30).stdout.strip()
 headers={'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','User-Agent':'FPSloppa-release-builder'}
@@ -27,7 +38,7 @@ def api(method,path,data=None,allow_missing=False):
 base='/repos/'+repo+'/releases'
 release=api('GET',base+'/tags/'+version,allow_missing=True)
 if release is None:
-    release=api('POST',base,{'tag_name':version,'target_commitish':commit,'name':'FPSloppa '+version+' — TITANBALL, new arenas and Vulkan lighting','body':(assets_dir/'RELEASE-NOTES.md').read_text(),'draft':True,'prerelease':False})
+    release=api('POST',base,{'tag_name':version,'target_commitish':commit,'name':'FPSloppa '+version+' — VR combat, movement and cockpit fixes','body':(assets_dir/'RELEASE-NOTES.md').read_text(),'draft':True,'prerelease':False})
 assert release['draft'], 'Release already published; refusing to modify it'
 expected=[]
 for name in sorted(p.name for p in assets_dir.iterdir() if p.is_file()):

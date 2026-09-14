@@ -1,12 +1,12 @@
 ## 0.4v map storage
 
-Maps now live in external `maps/`, not inside the Godot package. The original LibreQuake arenas are included in the Optional Community Map Pack. ThreeWave is tools-only on GitHub; converted BSPs remain local for non-commercial testing/server use. See [setup and compatibility](docs/EXTERNAL-ASSETS.md).
+Maps now live in external `maps/`, not inside the Godot package. The retired community map collection is no longer distributed. ThreeWave is tools-only on GitHub; converted BSPs remain local for non-commercial testing/server use. See [setup and compatibility](docs/EXTERNAL-ASSETS.md).
 
 # Quake BSP arenas
 
 Choose the game mode before selecting **ARENA**. The base game contains seven Quake source ports (`qsrc_dm1`–`qsrc_dm7`) for DM, IG, FT and TDM. Instafreeze shares the IG list. It also includes four [CC rebuilds](maps/CC/README.md), four [KOTH rebuilds](maps/KOTH/README.md), six [CTF Studies](maps/CTFStudies/README.md), two current TF arenas and two full-size Assault layouts.
 
-The **Optional Community Map Pack** contains 53 maps sorted into seven game-mode categories, excluded from base downloads and default installation: 35 non-TF maps from Arena Collection 1, all thirteen LibreQuake arenas and five reviewed community adaptations. Optional TF maps and Tiny Assault layouts are excluded. See [categorized contents](tools/optional_maps/CATALOG.md), [installation](tools/optional_maps/PACK-README.md), and [current import/installer validation](docs/validation/optional-map-pack.json). LibreQuake compatibility coverage is detailed in [the expansion notes](docs/LIBREQUAKE-EXPANSION.md). User imports and personalised server maplists remain available.
+The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
 The seven Quake geometry sources are GPL-2.0; their original/adapted sources and notices are distributed in `maps/Quake/`. Texture artwork retains its separate licences. No commercial id Software texture data is included. See [distribution and CC validation](docs/CC-BASE-DISTRIBUTION.md).
 

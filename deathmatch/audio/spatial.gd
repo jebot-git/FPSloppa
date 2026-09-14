@@ -29,7 +29,8 @@ func setup(arena: Node) -> void:
 		AudioServer.set_bus_name(idx,"ArenaEffects");AudioServer.set_bus_send(idx,"ArenaSpatial")
 func choose(kind: String) -> AudioStream:
 	var file:="res://deathmatch/audio/"+kind+".wav"
-	if kind=="ba2_stomp":file="res://deathmatch/audio/ba2/stomp_%d.res"%randi_range(0,2)
+	if kind=="flamethrower":file="res://deathmatch/audio/flamethrower.res"
+	elif kind=="ba2_stomp":file="res://deathmatch/audio/ba2/stomp_%d.res"%randi_range(0,2)
 	elif kind.begins_with("quake_") or kind.begins_with("ut99_"):
 		if kind.contains("/") or kind.contains(".") or kind.length()>32:return null
 		file="res://deathmatch/audio/experimental/"+kind+".wav"
@@ -39,7 +40,8 @@ func choose(kind: String) -> AudioStream:
 	elif kind in ["step","flesh","weapon_0","impact"]:
 		var stem:="footstep_concrete" if kind=="step" else "impactMetal_light" if kind=="impact" else "impactPunch_heavy"
 		file="res://deathmatch/audio/recorded/%s_%03d.ogg"%[stem,randi_range(0,4)]
-	if not cache.has(file):cache[file]=AudioStreamWAV.load_from_file(file) if "/experimental/" in file else load(file)
+	# Exported WAVs live behind Godot's import remaps, not as loose source files.
+	if not cache.has(file):cache[file]=load(file) if ResourceLoader.exists(file) else null
 	return cache[file]
 func configure(player: AudioStreamPlayer3D, voice: bool=false) -> void:
 	player.bus="ArenaSpatial" if voice else "ArenaEffects"
@@ -53,12 +55,13 @@ func configure(player: AudioStreamPlayer3D, voice: bool=false) -> void:
 	player.max_db=0
 func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	if game.headless or game.quitting: return
+	var source:=choose(kind)
+	if source==null:return
 	active=active.filter(is_instance_valid)
 	if active.size()>=32:
 		active.pop_front().queue_free()
 	var player: AudioStreamPlayer3D=create_player()
 	configure(player)
-	var source:=choose(kind)
 	player.stream=source
 	if kind.begins_with("weapon_"):
 		volume += float(WeaponLevels.TRIM_DB.get(player.stream.resource_path.get_file(),0.0))

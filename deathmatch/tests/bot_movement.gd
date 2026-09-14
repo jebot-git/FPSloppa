@@ -44,21 +44,62 @@ func run() -> void:
 	# Health/ammo limits gate a real rocket takeoff toward a raised platform.
 	await settle(Fixture.point())
 	var platform=Fixture.box(game,Fixture.point(0,-4)+Vector3.UP*1.5,Vector3(6,3,4))
-	brain=bots.new_brain(-1);brain.goal=Fixture.point(0,-4)+Vector3.UP*3;brain.goal_kind="objective";brain.rocket_route=true
-	state.owned=[2,6];state.weapon=6;state.ammo=[50,0,5,0];state.hp=150;state.armor=100;state.tier=2;state.invulnerable=0;state.cooldown=0
-	await physics_frame
-	check(bots.can_rocket_jump(-1,brain,brain.goal),"Healthy armed bot recognizes a clear raised rocket route")
-	state.hp=30;check(not bots.can_rocket_jump(-1,brain,brain.goal),"Low health prevents a suicidal rocket route");state.hp=150
-	var peak: float=actor.position.y;var landed:=false
-	for frame in 240:
-		await physics_frame;step()
-		state.cooldown=maxf(0,state.cooldown-DT)
-		if state.fire and state.cooldown<=0:game._fire(-1)
-		game._update_projectiles(DT)
-		peak=maxf(peak,actor.position.y)
-		if actor.is_supported() and actor.position.y>Fixture.ORIGIN.y+2.5:landed=true
-	check(state.ammo[2]==4 and state.hp<150,"Rocket jump spends one real rocket and normal self-damage")
-	check(peak>Fixture.ORIGIN.y+4 and landed,"Rocket impulse and air control reach the raised platform")
-	print("BOT_MOVEMENT_METRICS ",JSON.stringify({"takeoffs":takeoffs,"max_speed":max_speed,"rocket_peak":peak-Fixture.ORIGIN.y,"landed":landed,"position":str(actor.position)}))
+	var launches:Array=[]
+	for rules in ["doom","quake","ut99"]:
+		game.armory.select(rules);game.variant_combat.reset()
+		await settle(Fixture.point())
+		actor.blast_velocity=Vector2.ZERO;actor.jump_held=false;actor.jump_queued=false
+		brain=bots.new_brain(-1);brain.goal=Fixture.point(0,-4)+Vector3.UP*3;brain.goal_kind="objective";brain.rocket_route=true
+		state.owned=[0,2,6];state.weapon=2;state.ammo=[50,0,5,0];state.hp=150;state.armor=100;state.tier=2;state.invulnerable=0;state.cooldown=0;state.charge=0;state.input_blocked=false;state.shots=0
+		await physics_frame
+		var expected:="hammer" if rules=="ut99" else "rocket"
+		check(bots.boost_route(-1,brain,brain.goal)==expected,rules+": healthy bot recognizes a raised weapon-jump route")
+		state.hp=30;check(bots.boost_route(-1,brain,brain.goal).is_empty(),rules+": low health prevents a suicidal route");state.hp=150
+		var roof=Fixture.box(game,Fixture.point()+Vector3.UP*3,Vector3(2,.5,2))
+		await physics_frame
+		check(bots.boost_route(-1,brain,brain.goal).is_empty(),rules+": low ceiling blocks takeoff")
+		roof.free();await physics_frame
+		# With no ordinary route to this isolated platform, the real planner
+		# must retain the chosen weapon boost rather than avoiding the goal.
+		var saved_pickups:Array=game.pickups;var saved_spawns:Array=game.spawn_points
+		game.pickups=[];game.spawn_points=[brain.goal]
+		bots.plan(-1,brain)
+		check(brain.rocket_route and brain.boost_kind==expected,rules+": planner selects an otherwise unreachable high-ground route")
+		game.pickups=saved_pickups;game.spawn_points=saved_spawns
+		state.ammo[2]=1
+		if rules!="ut99":check(bots.boost_route(-1,brain,brain.goal).is_empty(),rules+": preserves a rocket for combat")
+		state.ammo[2]=5
+		actor.in_water=true;check(bots.boost_route(-1,brain,brain.goal).is_empty(),rules+": water prevents boost setup");actor.in_water=false
+		game.match_mode.kind="ig";check(bots.boost_route(-1,brain,brain.goal).is_empty(),rules+": fixed loadout cannot weapon jump");game.match_mode.kind="dm"
+		var peak:float=actor.position.y;var landed:=false;var shot_at:=-1.0;var began:float=game.clock
+		for frame in 270:
+			await physics_frame
+			state.input_blocked=false;state.last_input=game.clock+DT
+			bots.combat(-1,brain,DT);step()
+			state.cooldown=maxf(0,state.cooldown-DT)
+			if rules=="doom":
+				if state.fire and state.cooldown<=0:game._fire(-1)
+			else:game.variant_combat.tick_input(-1,DT)
+			game._update_projectiles(DT)
+			if state.shots>0 and shot_at<0:shot_at=game.clock-began
+			peak=maxf(peak,actor.position.y)
+			if actor.is_supported() and actor.position.y>Fixture.ORIGIN.y+2.5:landed=true
+		check(state.shots==1 and state.hp<150,rules+": one real shot and ordinary self-damage")
+		check(state.ammo[2]==(5 if rules=="ut99" else 4),rules+": normal ammunition cost")
+		check(peak>Fixture.ORIGIN.y+4 and landed,rules+": real impulse and air control reach the raised platform")
+		if rules=="ut99":check(shot_at>=1.5,rules+": bot holds piston charge before jump/release")
+		launches.append({"rules":rules,"peak":peak-Fixture.ORIGIN.y,"landed":landed,"shot_at":shot_at,"hp":state.hp,"shots":state.shots,"position":str(actor.position)})
+	# A threat arriving during the long charge cancels through normal input.
+	await settle(Fixture.point());actor.blast_velocity=Vector2.ZERO;actor.jump_held=false;actor.jump_queued=false
+	game.variant_combat.reset();state.hp=150;state.cooldown=0;state.shots=0;state.input_blocked=false
+	brain=bots.new_brain(-1);brain.goal=Fixture.point(0,-4)+Vector3.UP*3;brain.rocket_route=true
+	for frame in 25:
+		await physics_frame;state.input_blocked=false;state.last_input=game.clock+DT
+		bots.combat(-1,brain,DT);step();game.variant_combat.tick_input(-1,DT)
+	check(game.variant_combat.charging.has(-1),"Piston setup is a real held weapon charge")
+	brain.enemy=-2
+	await physics_frame;state.last_input=game.clock+DT;bots.combat(-1,brain,DT);step();game.variant_combat.tick_input(-1,DT)
+	check(state.input_blocked and state.shots==0 and state.hp==150 and not game.variant_combat.charging.has(-1),"New enemy cancels a piston setup without firing into the floor")
+	print("BOT_MOVEMENT_METRICS ",JSON.stringify({"takeoffs":takeoffs,"max_speed":max_speed,"launches":launches}))
 	platform.free();game.disconnect_game();game.free()
 	print("BOT_MOVEMENT_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

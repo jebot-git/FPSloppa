@@ -189,7 +189,8 @@ script=ExtResource("1")
     cache.write_text('list=Array[Dictionary](['+',\n'.join(classes)+'])\n')
     selected['.godot/global_script_class_cache.cfg'] = cache
     binary = dest / 'FPSloppaServer.x86_64'
-    shutil.copy2(template, binary);binary.chmod(0o755)
+    if template.resolve()!=binary.resolve():shutil.copy2(template, binary)
+    binary.chmod(0o755)
     pack = binary.with_suffix('.pck')
     rows = [dict(path='res://'+path, source=str(source)) for path, source in sorted(selected.items())]
     manifest = work / 'pack.json';manifest.write_text(json.dumps(dict(output=str(pack), files=rows), indent=2))

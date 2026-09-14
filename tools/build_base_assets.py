@@ -1,4 +1,4 @@
-"""Package external maps and VRMs; pin their download for standalone installs."""
+"""Build the internal offline asset installer; not a separate release download."""
 from pathlib import Path
 import hashlib,json,zipfile
 from map_distribution import tf_files, distributable, check_selection
@@ -27,18 +27,24 @@ for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
  if (ROOT/lit).is_file():paths.append(lit)
 for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
 paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','cc','tf','tb','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
+# Validate TF bake/navigation lineage without shipping development receipts.
+tf_files()
+# Runtime assets retain notices and provenance. Editable map/WAD sources live
+# in the separately published source archive, not every installed game.
+for folder in ['Ashfall','CC','CTFStudies','Frigate','HiSlop','KOTH','Quake','Makkon','Pressureworks','VesperAbbey']:
+ for p in (ROOT/'maps'/folder).rglob('*'):
+  name=p.name.lower()
+  if p.is_file() and (p.suffix.lower()=='.txt' and any(token in name for token in ['license','licence','copying','credits','cc0','gnu']) or name in {'texture-sources.json','sources.md','sources.json'}):
+   paths.append(str(p.relative_to(ROOT)))
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('LibreQuake-*.txt'))
-paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps/HiSlop').rglob('*') if p.is_file())
-paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps/Frigate').rglob('*') if p.is_file())
-paths.extend(str(p.relative_to(ROOT)) for folder in ['Community','Makkon','CTFStudies'] for p in (ROOT/'maps'/folder).rglob('*') if p.is_file())
-paths.extend(str(p.relative_to(ROOT)) for folder in ['KOTH','CC','Quake','CTFStudies','Ashfall'] for p in (ROOT/'maps'/folder).rglob('*') if p.is_file() and p.suffix.lower() in ['.map','.wad','.json','.md','.txt','.lmp'])
 paths.extend(['maps/README.txt','vrm/README.txt'])
-paths.extend(str(p) for p in tf_files())
 paths=[p for p in paths if distributable(p)]
+assert all(Path(p).parts[0] in {'maps','vrm'} for p in paths)
+assert all(Path(p).suffix.lower() not in {'.log','.mp4','.png','.map','.wad'} for p in paths)
 check_selection(paths)
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
  for path in sorted(set(paths)):
   data=(ROOT/path).read_bytes();archive.writestr(path,data);files.append({'path':path,'size':len(data),'sha256':sha(data)})
-manifest={'version':version,'url':f'https://github.com/jebot-git/FPSloppa/releases/download/{version}/{out.name}','sha256':sha(out.read_bytes()),'files':files}
+manifest={'version':version,'delivery':'bundled','sha256':sha(out.read_bytes()),'files':files}
 (ROOT/'deathmatch/assets/base_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print(out,out.stat().st_size,manifest['sha256'])

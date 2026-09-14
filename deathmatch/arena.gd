@@ -144,6 +144,7 @@ var bandwidth = preload("res://deathmatch/network/bandwidth.gd").new()
 var replication = preload("res://deathmatch/network/replication.gd").new()
 var remote_interpolation = preload("res://deathmatch/network/interpolation.gd").new()
 var input_delivery = preload("res://deathmatch/network/input_delivery.gd").new()
+var fire_delivery = preload("res://deathmatch/network/fire_delivery.gd").new()
 const NetCodec = preload("res://deathmatch/network/codec.gd")
 var predicted_shot_clock := -10.0
 
@@ -684,7 +685,7 @@ func _finish_departure(player_name: String) -> void:
 	_announcement.rpc(player_name+" left the arena.")
 
 func disconnect_game(reason: String = "Disconnected.") -> void:
-	replication.reset(); input_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
+	replication.reset(); input_delivery.reset(); fire_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
 	if haptics:haptics.stop()
 	ConnectionLog.record("disconnected",{"message":reason,"phase":loading.phase if loading else ""})
 	chainsaw.reset();variant_combat.reset()
@@ -853,7 +854,13 @@ func _suicide_for(id: int) -> bool:
 
 func _local_command() -> Dictionary:
 	if match_mode.fortress.walkers.mounted(multiplayer.get_unique_id()):desired_weapon=0
-	if is_vr(): return xr_rig.command(sequence)
+	if is_vr():
+		var command: Dictionary=xr_rig.command(sequence)
+		var walkers=match_mode.fortress.walkers
+		if walkers.mounted(multiplayer.get_unique_id()):
+			command.fire=false;command.alt_fire=false;command.offhand_fire=false;command.melee=false
+			if is_instance_valid(walkers.cockpit):command["pilot_controls"]=walkers.cockpit.sample_controls()
+		return command
 	var blocked: bool = menu_open or (hud != null and hud.chat.has_focus())
 	var move := Vector2.ZERO if blocked else Vector2(float(bindings.pressed("right"))-float(bindings.pressed("left")),float(bindings.pressed("back"))-float(bindings.pressed("forward"))).limit_length(1)
 	return {"seq":sequence,"move":move,"fly":0.0 if blocked else float(bindings.pressed("jump"))-float(bindings.pressed("down")),"yaw":local_yaw,"pitch":local_pitch,"fire":bindings.pressed("fire") and not blocked,"input_blocked":blocked,"alt_fire":not blocked and bindings.pressed("alt_fire"),"offhand_fire":armory.dual() and not blocked and bindings.pressed("offhand_fire") and desired_weapon==2,"melee":not blocked and bindings.pressed("melee"),"weapon":desired_weapon,"slow":bindings.pressed("slow"),"crouch":not blocked and bindings.pressed("crouch"),"prone":prone_toggle,"leg_assist":bindings.tracked_leg_animation,"jump":not blocked and bindings.pressed("jump"),"respawn":not blocked and (bindings.pressed("fire") or bindings.pressed("jump"))}
@@ -890,6 +897,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	input_delivery.accept(s,command)
 	if match_mode.special.blocked(id):
 		s.jump_pending=false;s.jump_ack=s.get("jump_received",0)
+		s.fire_pending=[];s.input_blocked=true;fire_delivery.accept(s,command,clock)
 		s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.fire=false;s.offhand_fire=false;s.melee=false;s.jump=false;s.swim=Vector3.ZERO
 		return
 	s.move = command.move.limit_length(1.0)
@@ -910,11 +918,13 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	s.physical=command.get("physical",false)==true
 	s.vr_device=command.has("xr")
 	s.xr=VRPoses.validate(command.get("xr",{}))
+	match_mode.fortress.walkers.accept_controls(id,command.get("pilot_controls",[]))
 	s.room=RoomScale.validate(command.get("room"),s.xr)
 	s.swim=Vector3.ZERO
 	var swim=command.get("swim",Vector3.ZERO)
 	if not s.xr.is_empty() and not s.spectator and swim is Vector3 and swim.is_finite():s.swim=swim.limit_length(1.0)
 	if command.has("xr") and s.xr.is_empty(): s.fire=false;s.alt_fire=false;s.melee=false;s.input_blocked=true
+	fire_delivery.accept(s,command,clock)
 	if s.spectator:s.fire=false;s.offhand_fire=false;s.melee=false;s.want_respawn=false
 	if s.vr_device and not s.xr.has("offhand_weapon"): s.offhand_fire=false
 	if not match_mode.fortress.walkers.mounted(id) and armory.valid(command.weapon) and s.owned.has(command.weapon) and command.weapon!=s.weapon and s.charge<=0:
@@ -940,7 +950,12 @@ func _physics_process(delta: float) -> void:
 		var command := _local_command()
 		command.map_epoch=map_epoch
 		command.view_time=remote_view_time
-		if multiplayer.is_server(): _accept_input(mine,command)
+		fire_delivery.sample(command,players[mine].serial,clock)
+		if multiplayer.is_server():
+			command.input_life=players[mine].serial
+			fire_delivery.annotate(command,clock)
+			_accept_input(mine,command)
+			fire_delivery.acknowledge(players[mine].serial,int(players[mine].get("fire_ack",0)))
 		else:
 			input_delivery.sample(command,players[mine].serial,clock)
 			input_accumulator += delta
@@ -948,6 +963,7 @@ func _physics_process(delta: float) -> void:
 				input_accumulator = fmod(input_accumulator,1.0/30)
 				var wire:=command.duplicate()
 				input_delivery.annotate(wire,clock)
+				fire_delivery.annotate(wire,clock)
 				_input_packet.rpc_id(1,NetCodec.pack(wire))
 			if players[mine].spectator and intermission<=0:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
@@ -981,6 +997,7 @@ func _physics_process(delta: float) -> void:
 		lift.node.position.y = lift.base + clampf((phase-2)/2,0,1)*float(lift.get("travel",1.65)) if phase<6 else lift.base+clampf((10-phase)/2,0,1)*float(lift.get("travel",1.65))
 
 func _predict_shots(id: int,command: Dictionary) -> void:
+	if match_mode.fortress.walkers.mounted(id):return
 	if armory.experimental():variant_combat.predict(id,command);return
 	# Match the authority before predicting audio, flash or recoil.
 	var predicted_bullets: int=players[id].ammo[0]
@@ -1092,12 +1109,14 @@ func _server_tick(delta: float) -> void:
 			s.charge -= delta
 			if s.charge<=0: _launch(id,8)
 		_update_melee(id)
+		var trigger_state: Array=fire_delivery.begin_attempt(s,clock,s.weapon==6 and armory.kind in ["doom","quake"])
 		if armory.experimental():variant_combat.tick_input(id,delta)
 		else:
 			if s.fire and s.cooldown<=0: _fire(id)
 			if s.weapon==2 and s.offhand_fire and s.offhand_cooldown<=0: _fire(id,true)
 		if not s.offhand_fire: s.offhand_held=false
 		if not s.fire: s.held = false
+		fire_delivery.end_attempt(s,trigger_state)
 		_collect(id)
 	_update_projectiles(delta,movement_start)
 	match_mode.tick(delta)
@@ -1207,13 +1226,14 @@ func _update_melee(id: int) -> void:
 	_update_melee_foot(id,"left")
 	_update_melee_foot(id,"right")
 
-func _begin_melee(id: int,state: Dictionary,delay: float=Melee.COOLDOWN) -> void:
+func _begin_melee(id: int,state: Dictionary,delay: float=Melee.COOLDOWN,block_fire: bool=true) -> void:
 	var s: Dictionary=players[id]
 	s.melee_ready_at=clock+delay
 	for other in [s.melee_state,s.offhand_melee_state,s.get("left_kick",{}),s.get("right_kick",{})]:
 		if not is_same(other,state):other.swing_until=0.0
 	s.invulnerable=0
-	s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
+	if block_fire:
+		s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
 
 func _update_melee_foot(id: int,side: String) -> void:
 	var s: Dictionary=players[id]
@@ -1228,7 +1248,7 @@ func _update_melee_foot(id: int,side: String) -> void:
 	state.seq=s.last_seq
 	var swing:=Melee.sample_foot(state,s.xr,clock,side)
 	if swing.is_empty():return
-	if swing.started:_begin_melee(id,state)
+	if swing.started:_begin_melee(id,state,Melee.COOLDOWN,false)
 	var frame:=Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*Transform3D(Basis.IDENTITY,s.xr.head.origin)
 	var body: Vector3=fighters[id].position+Vector3.UP*fighters[id].torso_height()
 	for segment in swing.segments:
@@ -1238,6 +1258,7 @@ func _update_melee_foot(id: int,side: String) -> void:
 		if hit.id==0:continue
 		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,hit.position,1)).is_empty():continue
 		state.hit=true
+		s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
 		_damage(hit.id,id,Melee.DAMAGE,"KICK",false,hit.position,(end-start).normalized())
 		return
 
@@ -1276,7 +1297,10 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 		var weapon:=_weapon_transform(id)
 		segments.append([weapon.origin,weapon*Vector3(0,0,-Melee.DESKTOP_REACH)])
 	if started:
-		_begin_melee(id,state,delay)
+		# Re-aiming a tracked gun can resemble a weapon whip. Only actual
+		# contact should interrupt shooting; explicit melee and axes keep
+		# their normal wind-up lock even when the swing misses.
+		_begin_melee(id,state,delay,not s.vr_device or axe or s.weapon<2)
 		_melee_fx.rpc(id,offhand)
 	var body: Vector3=fighters[id].position+Vector3.UP*fighters[id].torso_height()
 	for segment in segments:
@@ -1287,6 +1311,7 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 		if hit.id==0 and not (axe and hit.has("building")): continue
 		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,hit.position,1)).is_empty(): continue
 		state.hit=true
+		s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
 		var damage: int=armory.data(s.weapon).damage if axe else Melee.DAMAGE
 		if hit.has("building"):match_mode.fortress.damage_building(hit.building,id,damage)
 		else:_damage(hit.id,id,damage,"AXE" if axe else "WEAPON WHIP",false,hit.position,(end-start).normalized())
@@ -1431,9 +1456,18 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 			node=Node3D.new()
 			var ball:=SphereMesh.new();ball.radius=W.DATA[weapon].radius;ball.height=ball.radius*2
 			var mesh:=MeshInstance3D.new();mesh.mesh=ball;mesh.material_override=Art.material(armory.color(weapon),0,3);node.add_child(mesh)
+		# This node is positioned in the render loop. Mixing that with engine
+		# physics interpolation adds another delay and can interpolate its spawn
+		# from the scene origin. Interpolate the authoritative samples explicitly.
+		node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 		add_child(node);node.position=pos
 		if absf(direction.dot(Vector3.UP))<.99:node.look_at(pos+direction)
 	projectiles[id] = {"owner":owner_id,"weapon":weapon,"position":pos,"direction":direction,"life":4.0,"node":node,"yaw":yaw,"pitch":pitch,"fresh":true,"visual_error":Vector3.ZERO,"visual_age":0.0}
+	projectiles[id].previous_position=pos
+	if multiplayer.is_server() and owner_id==multiplayer.get_unique_id() and is_vr() and xr_rig.gun_id==weapon:
+		var visible_start: Vector3=xr_rig.gun.global_transform*Art.muzzle(weapon,match_mode.fortress.art_rules(owner_id,weapon))
+		if visible_start.distance_to(pos)<.75 and get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(visible_start,pos,1)).is_empty():
+			projectiles[id].previous_position=visible_start
 	if not definition.is_empty():projectiles[id].merge({"definition":definition,"extra":extra,"velocity":direction*definition.speed,"life":definition.fuse,"stuck":false},true)
 
 func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
@@ -1443,6 +1477,7 @@ func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 	for id in projectiles.keys():
 		if not projectiles.has(id):continue
 		var p: Dictionary = projectiles[id]
+		if not p.fresh:p.previous_position=p.position
 		if p.has("definition"):variant_combat.tick_projectile(id,delta,movement_start,targets);continue
 		p.life -= delta
 		var end: Vector3 = p.position+p.direction*W.DATA[p.weapon].speed*delta
@@ -1638,8 +1673,10 @@ func _send_snapshot() -> void:
 	mode_state["locomotion"]={}
 	for id in fighters:
 		input_delivery.sync_life(players[id])
+		fire_delivery.sync_life(players[id])
 		mode_state.locomotion[id]=fighters[id].locomotion_state()
 		mode_state.locomotion[id]["jump_ack"]=players[id].get("jump_ack",0)
+		mode_state.locomotion[id]["fire_ack"]=players[id].get("fire_ack",0)
 	mode_state["movement_ack"]={}
 	for id in players:mode_state.movement_ack[id]=players[id].last_seq
 	var state: Array=[data,items,round_left,intermission,round_message,frag_limit,time_limit,shots,gate_states,map_epoch,mode_state,votes.snapshot(),clock,projectile_id]
@@ -1713,7 +1750,8 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			if id!=mine:
 				remote_interpolation.push(id,float(mode_state.get("sample_time",{}).get(id,server_time)),row[1],row[2],row[3],row[14],clock)
 			if id==mine and actor.spawn_serial==row[14]:
-				actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(mode_state.get("locomotion",{}).get(id,{}).get("height",-1.0)))
+				var locomotion: Dictionary=mode_state.get("locomotion",{}).get(id,{})
+				actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(locomotion.get("height",-1.0)),locomotion.get("grounded",false))
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
 			actor.gibbed=false
@@ -1741,6 +1779,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		actor.show_alive(not s.dead,id==mine and not dedicated)
 		if id==mine:
 			input_delivery.acknowledge(row[14],int(mode_state.get("locomotion",{}).get(id,{}).get("jump_ack",0)))
+			fire_delivery.acknowledge(row[14],int(mode_state.get("locomotion",{}).get(id,{}).get("fire_ack",0)))
 			last_local_hp = s.hp
 	for i in range(mini(items.size(),pickups.size())):
 		if not multiplayer.is_server(): pickups[i].available = items[i]==1
@@ -1894,6 +1933,7 @@ func _shot_fx(id: int,weapon: int,offhand: bool=false) -> void:
 func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false) -> void:
 	if fighters.has(id): fighters[id].animate_fire(offhand)
 	if headless: return
+	var flame:bool=match_mode.fortress.art_rules(id,weapon)=="tf_flame"
 	if id==multiplayer.get_unique_id():
 		if haptics:haptics.shot(id,weapon,offhand,alternate)
 		if offhand:
@@ -1901,7 +1941,7 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false
 		else:
 			recoil=1;visual_cooldown=match_mode.fortress.weapon_data(id,weapon).cycle
 		if is_vr(): xr_rig.feedback(.25 if weapon<3 else .65,.08,offhand)
-		if camera and weapon>=2 and weapon!=8:
+		if camera and weapon>=2 and weapon!=8 and not flame:
 			var flash := OmniLight3D.new()
 			flash.light_color = armory.color(weapon)
 			flash.light_energy = 2.4
@@ -1910,12 +1950,15 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false
 			var model: Node3D=offhand_viewmodel if offhand else viewmodel
 			if is_vr(): model=xr_rig.offhand_gun if offhand else xr_rig.gun
 			flash.position=Vector3(-.18 if offhand else .18,-.18,-.8)
-			if is_instance_valid(model): flash.global_position=model.to_global(model.get_meta("muzzle",Vector3(0,0,-.6)))
-			var spark := Art.box(flash,Vector3.ZERO,Vector3(.08,.07,.10),Art.material(armory.color(weapon),0,5))
+			if is_instance_valid(model):
+				flash.global_position=model.to_global(model.get_meta("muzzle",Vector3(0,0,-.6)))
+				flash.global_basis=model.global_basis.orthonormalized()
+			var spark := Art.box(flash,Vector3(0,0,-.05),Vector3(.08,.07,.10),Art.material(armory.color(weapon),0,5))
 			spark.rotation.z = randf()*PI
 			get_tree().create_timer(.055).timeout.connect(flash.queue_free)
 	if fighters.has(id):
-		if not armory.experimental():spatial.play("weapon_"+str(weapon),_weapon_transform(id,offhand).origin,-4)
+		if flame:spatial.play("flamethrower",_weapon_transform(id,offhand).origin,-10)
+		elif not armory.experimental():spatial.play("weapon_"+str(weapon),_weapon_transform(id,offhand).origin,-4)
 
 @rpc("authority","call_local","unreliable",3)
 func _ability_fx(kind: String,start: Vector3,end: Vector3,team: int) -> void:
@@ -2080,7 +2123,9 @@ func _update_projectile_visuals(delta: float) -> void:
 			p.position=p.position.lerp(end,minf(1.0,wall));p.visual_age+=delta
 			p.visual_error*=exp(-20*delta)
 		if is_instance_valid(p.node):
-			p.node.position=p.position+p.visual_error
+			var rendered: Vector3=p.position
+			if multiplayer.is_server() and not demos.playing:rendered=p.get("previous_position",p.position).lerp(p.position,Engine.get_physics_interpolation_fraction())
+			p.node.position=rendered+p.visual_error
 			if armory.experimental():_weapon_visuals().travel(p.node,p.get("velocity",Vector3.ZERO),delta,p.get("stuck",false))
 
 func is_vr() -> bool:
@@ -2169,7 +2214,7 @@ func _clear_map_players() -> void:
 	if not headless and not is_vr(): $Overview.make_current()
 
 func _prepare_client_map(epoch: int) -> void:
-	replication.reset(); input_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
+	replication.reset(); input_delivery.reset(); fire_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
 	loading.begin();loading.phase="Preparing server map…"
 	map_network.reset()
 	if uploads:uploads.reset()
@@ -2261,7 +2306,7 @@ func _play_variant_shot_fx(id: int,weapon: int,alternate: bool) -> void:
 	_play_shot_fx(id,weapon,false,alternate)
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
-	if fighters.has(id):spatial.play(armory.kind+"_weapon_"+str(weapon)+("_alt" if alternate else ""),_weapon_transform(id).origin,-4)
+	if fighters.has(id) and match_mode.fortress.art_rules(id,weapon)!="tf_flame":spatial.play(armory.kind+"_weapon_"+str(weapon)+("_alt" if alternate else ""),_weapon_transform(id).origin,-4)
 
 @rpc("authority","call_local","unreliable",3)
 func _variant_bounce_fx(pos: Vector3,weapon: int) -> void:

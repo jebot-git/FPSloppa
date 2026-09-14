@@ -1,4 +1,5 @@
 extends RefCounted
+const MIN_HEAD_HEIGHT:=.05 # A prone headset can sit only a few centimetres above the floor.
 static func held_weapon(grip: Transform3D, aim: Transform3D) -> Transform3D:
 	# Position at the palm, but preserve the runtime's independent aim direction.
 	return Transform3D(aim.basis,grip.origin)
@@ -18,7 +19,7 @@ static func validate(data: Variant) -> Dictionary:
 	for key in ["head","left","right","weapon"]:
 		if not valid_transform(data.get(key)): return {}
 	var head: Vector3=data.head.origin
-	if Vector2(head.x,head.z).length()>preload("res://deathmatch/vr/room_scale.gd").MAX_OFFSET or head.y<.18 or head.y>3.2: return {}
+	if Vector2(head.x,head.z).length()>preload("res://deathmatch/vr/room_scale.gd").MAX_OFFSET or head.y<MIN_HEAD_HEIGHT or head.y>3.2: return {}
 	for key in ["left","right"]:
 		if data[key].origin.distance_to(Vector3(head.x,clampf(head.y-.45,.25,2.7),head.z))>1.55: return {}
 	var hand: Transform3D=data.left if data.left_handed else data.right

@@ -4,9 +4,10 @@ import os, subprocess, secrets, json, zipfile, hashlib, argparse, re, shutil
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
-parser.add_argument('--thin', action='store_true', help='Omit offline base assets (default: unified APK)')
+parser.add_argument('--thin', action='store_true', help=argparse.SUPPRESS)
 parser.add_argument('--target', choices=['Quest', 'Pico', 'both'], default='both')
 args = parser.parse_args()
+if args.thin:parser.error('Thin APKs are retired; all builds include offline assets.')
 sdk = Path(os.environ.get('ANDROID_SDK_ROOT', str(Path.home() / 'Android/Sdk')))
 jdk = Path(os.environ.get('JAVA_HOME', str(Path.home() / '.local/share/entryway-toolchains/jdk-17.0.20.1+1')))
 godot = os.environ.get('GODOT_BIN') or shutil.which('godot')

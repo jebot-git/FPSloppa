@@ -26,8 +26,8 @@ func begin() -> void:
 	if not enabled or active():return
 	offered=choices();confirmed=false;vote_result=""
 	var next: String=game.map_rotation[(game.rotation_index+1)%game.map_rotation.size()] if not game.map_rotation.is_empty() else game.current_map
-	fallback={"mode":game.match_mode.kind,"map":next}
-	if not fallback in offered and not offered.is_empty():fallback=offered[0]
+	fallback=game.votes.match_spec(game.match_mode.kind+"|"+next,offered)
+	if fallback.is_empty() and not offered.is_empty():fallback=game.votes.match_spec(offered[0].mode+"|"+offered[0].map,offered)
 	if offered.is_empty():game._restart_round();return
 	game._rotate_map(ID);game.votes.cooldown=0;until=game.clock+seconds;game.round_left=seconds
 	game._announcement.rpc("Waiting room · choose the next match on the voting wall")
@@ -55,23 +55,24 @@ func build() -> bool:
 		var results=load("res://deathmatch/modes/lobby_results.gd").new();results.name="LastRoundResults";root.add_child(results);results.position=Vector3(0,3.1,11.35);results.rotation.y=PI;results.setup(game)
 		mirror.position=Vector3(6.5,1.25,-11.3);mirror.setup(game)
 	return true
-func submit(mode: String,map: String) -> void:
-	if multiplayer.is_server():cast(multiplayer.get_unique_id(),mode,map)
-	else:vote_request.rpc_id(1,mode,map)
+func submit(mode: String,map: String,rules:String="") -> void:
+	game.votes.propose("match",mode+"|"+map+("|"+rules if not rules.is_empty() else ""))
 @rpc("any_peer","call_remote","reliable",0)
 func vote_request(mode: String,map: String) -> void:
 	if multiplayer.is_server():cast(multiplayer.get_remote_sender_id(),mode,map)
 func cast(id: int,mode: String,map: String) -> bool:
+	return cast_value(id,mode+"|"+map)
+func cast_value(id:int,value:String) -> bool:
 	if not active():return false
-	var value:=mode+"|"+map
+	var spec:Dictionary=game.votes.match_spec(value,offered)
+	if spec.is_empty():return false
+	value=game.votes.match_value(spec)
 	if not game.votes.ballot.is_empty() and game.votes.ballot.kind=="match" and game.votes.ballot.value==value:return game.votes.cast(id,true)
 	return game.votes.start(id,"match",value)
 func accept_match(value: String) -> void:
-	var pair:=value.split("|")
-	if pair.size()!=2:return
-	var choice: Dictionary={"mode":pair[0],"map":pair[1]}
-	if not choice in offered:return
-	fallback=choice;confirmed=true;vote_result="VOTE PASSED · "+pair[0].to_upper()+" / "+pair[1];next_publish=0
+	var choice:Dictionary=game.votes.match_spec(value,offered)
+	if choice.is_empty():return
+	fallback=choice;confirmed=true;vote_result="VOTE PASSED · "+value.replace("|"," / ");next_publish=0
 func result() -> Dictionary:return fallback.duplicate()
 func snapshot() -> Dictionary:
 	if not active():return {}
@@ -99,7 +100,7 @@ func tick(delta: float) -> void:
 		if actor.position.y<game.fall_limit or actor.position.y>8 or absf(actor.position.x)>11.6 or absf(actor.position.z)>11.6:game._spawn(id)
 	if game.clock<until or game.map_loading:return
 	var selected:=result();view.clear()
-	game.match_mode.kind=selected.mode
+	game.votes.apply_rules(selected.mode,selected.get("rules",game.armory.preferred))
 	if game.mode_maplists.has(game.match_mode.maplist_kind(selected.mode)):game.map_rotation=game.maps_for_mode(selected.mode).duplicate()
 	game.rotation_index=maxi(0,game.map_rotation.find(selected.map));game.pending_teams.clear()
 	for s in game.players.values():s.team=-1

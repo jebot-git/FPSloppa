@@ -5,7 +5,7 @@ var crouched:=false
 var prone:=false
 func reset() -> void:baseline=0.0;crouched=false;prone=false
 func sample(height: float,allowed: bool,allow_prone: bool=false) -> float:
-	if not allowed or not is_finite(height) or height<.18 or height>3.2:crouched=false;prone=false;return 1.65
+	if not allowed or not is_finite(height) or height<preload("res://deathmatch/vr/poses.gd").MIN_HEAD_HEIGHT or height>3.2:crouched=false;prone=false;return 1.65
 	if not allow_prone:prone=false
 	elif not prone and height<.55:prone=true
 	elif prone and height>.68:prone=false

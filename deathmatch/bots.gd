@@ -49,13 +49,14 @@ static func new_mesh(map_id:String="") -> NavigationMesh:
 
 func new_brain(id: int) -> Dictionary:
 	var position: Vector3=game.fighters[id].position
+	var aiming=preload("res://deathmatch/bot_ai/aim.gd").new(randi(),game.clock)
 	return {
 		"next":game.clock+posmod(-id,5)*.04,"plan_at":0.0,"goal":position,"goal_key":"","goal_kind":"roam",
 		"last":position,"stuck":0.0,"path":PackedVector3Array(),"step":0,"route_at":0.0,
 		"remembered_enemy":0,"last_seen_at":-10.0,"enemy":0,"seen_at":0.0,"seen_position":position,"memory_until":0.0,"serial":game.players[id].serial,
 		"watch":position,"ambush_until":0.0,"ambush_at":0.0,"visible":[],"avoid":{},"support":0,"role":"attack","hold":false,
-		"boost_until":0.0,"boost_shots":0,"boost_at":0.0,"rocket_route":false,"dodge":Vector3.ZERO,"dodge_until":0.0,
-		"reaction":randf_range(.24,.44),"weapon_at":0.0,"observed_velocity":Vector3.ZERO,"aim_error":Vector3.ZERO,"error_at":0.0,
+		"boost_until":0.0,"boost_shots":0,"boost_at":0.0,"rocket_route":false,"boost_kind":"","boost_release_at":0.0,"dodge":Vector3.ZERO,"dodge_until":0.0,
+		"reaction":aiming.reaction(),"weapon_at":0.0,"observed_velocity":Vector3.ZERO,"aiming":aiming,
 		"strafe_at":0.0,"strafe":1.0,"progress_at":game.clock,"progress_position":position,
 		"explore_until":0.0,"recover_until":0.0,"recover_direction":Vector3.ZERO,"recover_jump":false,"recover_prone":false,"action_at":0.0,
 		"translocate_at":game.clock+3,"disc_until":0.0,"disc_goal":position,"pad_until":0.0,"pad_end":position,"drop_until":0.0,"drop_end":position,
@@ -121,15 +122,13 @@ func perceive(id: int,brain: Dictionary) -> void:
 	brain.enemy=best
 	if best!=0:
 		if previous!=best:
-			if brain.remembered_enemy!=best or game.clock-brain.last_seen_at>.6:brain.seen_at=game.clock
+			if brain.remembered_enemy!=best or game.clock-brain.last_seen_at>.6:
+				brain.seen_at=game.clock;brain.reaction=brain.aiming.reaction()
 			brain.weapon_at=0
 			if teamplay.focus_bonus(id,best)>0:teamplay.count("focus_choices")
 		brain.remembered_enemy=best;brain.last_seen_at=game.clock
 		brain.seen_position=game.fighters[best].position;brain.memory_until=game.clock+3
 		brain.observed_velocity=game.fighters[best].velocity
-		if game.clock>=brain.error_at:
-			brain.error_at=game.clock+randf_range(.3,.55)
-			brain.aim_error=Vector3(randf_range(-1,1),randf_range(-.65,.65),randf_range(-1,1))*.009
 	elif previous!=0:brain.plan_at=0
 	teamplay.observe(id,brain)
 	perceive_projectiles(id,brain)
@@ -279,6 +278,7 @@ func travel_weight(kind: String,distance: float) -> float:
 	return 1+distance*.07
 
 func plan(id: int,brain: Dictionary) -> void:
+	if game.clock<brain.boost_until or (game.clock<brain.boost_at-2 and not game.fighters[id].is_supported()):return
 	teamplay.count("plans")
 	var rows: Array=[]
 	var origin: Vector3=game.fighters[id].position
@@ -329,9 +329,11 @@ func plan(id: int,brain: Dictionary) -> void:
 		teamplay.count("route_queries")
 		var trial: PackedVector3Array=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6)
 		var distance: float=navigation.cost(origin,row.position,trial)
-		row.rocket=false
-		if can_rocket_jump(id,brain,row.position) and (not is_finite(distance) or distance>25):
-			trial=PackedVector3Array([origin,row.position]);distance=origin.distance_to(row.position)+10;row.rocket=true
+		row.boost=""
+		if not is_finite(distance) or distance>25:
+			row.boost=boost_route(id,brain,row.position)
+			if not row.boost.is_empty():
+				trial=PackedVector3Array([origin,row.position]);distance=origin.distance_to(row.position)+10
 		if not is_finite(distance):
 			teamplay.count("unreachable_goals");brain.avoid[row.key]=game.clock+1.6;continue
 		var value: float=row.score*travel_weight(row.kind,origin.distance_to(row.position))/travel_weight(row.kind,distance)
@@ -369,7 +371,7 @@ func plan(id: int,brain: Dictionary) -> void:
 		return
 	teamplay.selected(id,brain,chosen)
 	brain.goal=chosen.position;brain.goal_key=chosen.key;brain.goal_kind=chosen.kind;brain.hold=chosen.hold;brain.support=chosen.support
-	brain.path=route;brain.step=0;brain.route_at=game.clock+.8;brain.rocket_route=chosen.get("rocket",false)
+	brain.path=route;brain.step=0;brain.route_at=game.clock+.8;brain.boost_kind=chosen.get("boost","");brain.rocket_route=not brain.boost_kind.is_empty()
 
 func melee_weapon(id: int,weapon: int) -> bool:
 	var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
@@ -441,6 +443,10 @@ func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 				return
 	if brain.enemy!=0 and alive(brain.enemy):
 		var point:=target_position(brain.enemy)
+		# Track the last observation between perception ticks instead of reading
+		# the opponent's exact live position at every physics frame.
+		if brain.last_seen_at>=0:
+			point=brain.seen_position+Vector3.UP*game.fighters[brain.enemy].torso_height()+brain.observed_velocity*clampf(game.clock-brain.last_seen_at,0,.2)*.85
 		var distance: float=eye(id).distance_to(point)
 		if game.clock>=brain.weapon_at or not game.match_mode.fortress.can_fire(id,s.weapon):
 			s.weapon=choose_weapon(id,distance);brain.weapon_at=game.clock+.2
@@ -449,11 +455,12 @@ func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 		if alternate:data=data.duplicate();data.merge(data.get("alt",{}),true)
 		if float(data.get("speed",0))>0:
 			var flight: float=minf(.8,distance/data.speed)
-			var predicted: Vector3=point+brain.observed_velocity*flight*.85
+			var predicted: Vector3=point+brain.observed_velocity*flight*brain.aiming.lead
 			predicted.y+=.5*float(data.get("gravity",0))*flight*flight
 			if navigation.ray(eye(id),predicted).is_empty():point=predicted
-		point+=brain.aim_error*minf(distance,40)
-		var aligned:=aim(id,point,1-exp(-10*delta))
+		var motion:float=maxf(brain.observed_velocity.length(),game.fighters[id].velocity.length())
+		if not melee_weapon(id,s.weapon):point=brain.aiming.point(eye(id),point,game.clock,motion)
+		var aligned:=aim(id,point,1-exp(-brain.aiming.response*delta))
 		var safe: bool=safe_shot(id,point,explosive_weapon(id,s.weapon) or float(data.get("splash",0))>0)
 		if game.armory.effective()=="quake" and s.weapon==8 and game.fighters[id].in_water:safe=false
 		s.fire=aligned and game.clock-brain.seen_at>brain.reaction and distance<=data.get("range",100.0) and safe
@@ -686,15 +693,29 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 	if at_goal and brain.goal_kind=="defend" and brain.enemy!=0:
 		s.crouch=true
 		if s.get("tf_class","")=="sniper" and actor.position.distance_to(brain.seen_position)>20:s.prone=true;s.crouch=false
-	if brain.rocket_route and can_rocket_jump(id,brain,brain.goal) and actor.is_supported() and s.cooldown<=0:
-		brain.boost_until=game.clock+.35;brain.boost_at=game.clock+5;brain.boost_shots=s.shots
-		brain.plan_at=game.clock+2;brain.rocket_route=false
-		s.jump=not actor.jump_held
+	if brain.rocket_route and actor.is_supported() and s.cooldown<=0:
+		var kind:=boost_route(id,brain,brain.goal)
+		if not kind.is_empty():
+			brain.boost_kind=kind;brain.boost_release_at=game.clock+(1.55 if kind=="hammer" else 0.0)
+			brain.boost_until=brain.boost_release_at+.35;brain.boost_at=game.clock+6;brain.boost_shots=s.shots
+			brain.plan_at=game.clock+3;brain.rocket_route=false
 	if game.clock<brain.boost_until:
-		s.weapon=6;s.pitch=-1.45;s.fire=s.shots==brain.boost_shots
-		# Leave the muzzle over solid ground for the takeoff shot.
-		desired*=.2
-	elif game.clock<brain.boost_at-3 and not actor.is_supported():
+		s.alt_fire=false;s.crouch=false;s.prone=false
+		if brain.boost_kind=="hammer":
+			s.weapon=0;s.pitch=-PI/2;desired=Vector3.ZERO;s.jump=false
+			# Hold primary through the normal charge path, then jump/release.
+			# Menus' blocked-input cancellation avoids an unsafe partial discharge.
+			if not boost_safe(id,brain,"hammer") or (s.shots==brain.boost_shots and game.clock<brain.boost_release_at and not actor.is_supported()):
+				s.input_blocked=true;s.fire=false;brain.boost_until=0;brain.plan_at=0
+			else:
+				s.fire=game.clock<brain.boost_release_at and s.shots==brain.boost_shots
+				if not s.fire and s.shots==brain.boost_shots:s.jump=actor.is_supported() and not actor.jump_held
+		else:
+			s.weapon=6;s.pitch=-1.45;s.fire=s.shots==brain.boost_shots
+			s.jump=s.fire and actor.is_supported() and not actor.jump_held
+			# Leave the muzzle over solid ground for the takeoff shot.
+			desired*=.2
+	elif game.clock<brain.boost_at-2 and not actor.is_supported():
 		# Brake above the landing rather than sailing over it with blast momentum.
 		var horizontal:=Vector3(actor.velocity.x,0,actor.velocity.z)
 		var offset:=Vector3(brain.goal.x-actor.position.x,0,brain.goal.z-actor.position.z)
@@ -728,7 +749,7 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 	if not at_goal and not riding_lift and travel.length()>.1 and actor.position.distance_to(brain.last)<delta*.5:brain.stuck+=delta
 	elif actor.position.distance_to(brain.last)>delta:brain.stuck=maxf(0,brain.stuck-delta*2)
 	else:brain.stuck=0
-	if riding_lift:brain.stuck=0;brain.plan_at=game.clock+.8
+	if riding_lift or game.clock<brain.boost_until:brain.stuck=0;brain.plan_at=game.clock+.8
 	if brain.stuck>1.5:
 		brain.avoid[brain.goal_key]=game.clock+6;brain.plan_at=0;brain.stuck=0
 		brain.path=PackedVector3Array()
@@ -752,25 +773,43 @@ func recovery_direction(position: Vector3,travel: Vector3,id: int,brain: Diction
 			return direction
 	return Vector3.ZERO
 
-func can_rocket_jump(id: int,brain: Dictionary,goal: Vector3) -> bool:
+func boost_safe(id: int,brain: Dictionary,kind: String) -> bool:
 	var s: Dictionary=game.players[id];var actor=game.fighters[id]
-	if game.armory.effective()!="doom" or game.clock<brain.boost_at or brain.enemy!=0 or actor.in_water or s.invulnerable>game.clock or s.charge>0:return false
-	if not 6 in s.owned or s.ammo[2]<2 or s.hp<90 or s.armor<25 or game.match_mode.fortress.carrying(id):return false
-	var rise: float=goal.y-actor.position.y
-	var distance:=Vector2(goal.x-actor.position.x,goal.z-actor.position.z).length()
-	if rise<1.5 or rise>4 or distance>5 or distance<1:return false
+	if brain.enemy!=0 or actor.in_water or s.invulnerable>game.clock or game.match_mode.fixed_loadout() or game.match_mode.fortress.carrying(id):return false
+	if game.match_mode.fortress.walkers.mounted(id):return false
+	if kind=="hammer":
+		if game.armory.effective()!="ut99" or not 0 in s.owned or s.hp<75:return false
+	else:
+		if game.armory.effective() not in ["doom","quake"] or not 6 in s.owned or s.ammo[2]<2 or s.hp<90 or s.armor<25:return false
+		if not game.match_mode.fortress.can_fire(id,6):return false
 	for friend in game.players:
 		if friend!=id and alive(friend) and game.match_mode.same_team(id,friend) and actor.position.distance_to(game.fighters[friend].position)<6:return false
-	if navigation.hazardous(goal):return false
-	var floor_hit: Dictionary=navigation.ray(goal+Vector3.UP*.2,goal-Vector3.UP*.5)
-	if floor_hit.is_empty() or floor_hit.normal.y<.8:return false
-	# Require a clear overhead corridor for the full blast arc (vertical speed is
-	# capped at 20 by Fighter). The actual takeoff spends a rocket and health.
+	return true
+
+func boost_route(id: int,brain: Dictionary,goal: Vector3) -> String:
+	var kind:="hammer" if game.armory.effective()=="ut99" else "rocket"
+	if game.clock<brain.boost_at or game.players[id].charge>0 or game.variant_combat.charging.has(id) or not boost_safe(id,brain,kind):return ""
+	var actor=game.fighters[id]
+	var rise: float=goal.y-actor.position.y
+	var distance:=Vector2(goal.x-actor.position.x,goal.z-actor.position.z).length()
+	if rise<1.5 or rise>4 or distance>5 or distance<1:return ""
+	if navigation.hazardous(goal) or not navigation.landing_clear(goal):return ""
+	for point in [actor.position,goal]:
+		var floor_hit: Dictionary=navigation.ray(point+Vector3.UP*.2,point-Vector3.UP*.5)
+		if floor_hit.is_empty() or floor_hit.normal.y<.8:return ""
+	# Conservative headroom for a full impulse; the actual takeoff spends the
+	# normal health/ammo and uses the shared authoritative weapon implementation.
 	for index in range(6):
 		var point: Vector3=actor.position.lerp(goal,index/5.0)
-		var bottom: Vector3=actor.position+Vector3.UP*1.7 if index==0 else point+Vector3.UP*1.7
-		if not navigation.ray(bottom,Vector3(point.x,actor.position.y+12,point.z)).is_empty():return false
-	return true
+		if not navigation.ray(point+Vector3.UP*1.7,Vector3(point.x,actor.position.y+12,point.z)).is_empty():return ""
+	if not navigation.pad_arc_clear(actor.position,goal,19.4) or not navigation.pad_arc_clear(actor.position,goal,20.0):return ""
+	return kind
+
+func can_rocket_jump(id: int,brain: Dictionary,goal: Vector3) -> bool:
+	return boost_route(id,brain,goal)=="rocket"
+
+func can_piston_jump(id: int,brain: Dictionary,goal: Vector3) -> bool:
+	return boost_route(id,brain,goal)=="hammer"
 
 func perceive_projectiles(id: int,brain: Dictionary) -> void:
 	var origin:=target_position(id)

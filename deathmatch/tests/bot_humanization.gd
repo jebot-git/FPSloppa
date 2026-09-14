@@ -24,7 +24,9 @@ func run() -> void:
  game.clock=brain.seen_at+.1;bots.combat(-1,brain,1.0/60)
  check(not s.fire,"Newly spotted opponent allows a reaction interval before firing")
  var angles: Array=[]
+ var aim_start:float=game.clock
  for hz in [60,120]:
+  seed(7129);game.clock=aim_start
   s.yaw=.8;s.pitch=.3
   brain=bots.new_brain(-1);brain.enemy=1;brain.seen_at=game.clock-1
   var maximum_step:=0.0

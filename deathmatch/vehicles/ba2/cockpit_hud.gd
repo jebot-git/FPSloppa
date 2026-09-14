@@ -12,10 +12,16 @@ func draw_live() -> void:
 	draw_string(font,Vector2(890,51),("PREPARE " if prep else "TIME ")+"%02d:%02d"%[seconds/60,seconds%60],HORIZONTAL_ALIGNMENT_LEFT,-1,25,CYAN)
 	draw_string(font,Vector2(38,88),"PILOT HP %03d  /  ARMOUR %03d"%[t.hp,t.armor],HORIZONTAL_ALIGNMENT_LEFT,-1,25,CYAN)
 	draw_string(font,Vector2(680,88),"TO GOAL %.1f m  /  CHECKPOINTS %d / 2"%[t.remaining,t.checkpoints],HORIZONTAL_ALIGNMENT_LEFT,-1,23,CYAN)
-	var centre:=Vector2(640,360)
-	for sign in [-1,1]:
-		draw_line(centre+Vector2(sign*9,0),centre+Vector2(sign*25,0),CYAN,2)
-		draw_line(centre+Vector2(0,sign*9),centre+Vector2(0,sign*20),CYAN,2)
+	# Project the same barrel axes used by authoritative manual firing. Keep
+	# an edge marker visible when elevation puts the aim outside the monitor.
+	var points:Array=t.get("aim_points",[Vector2(640,360),Vector2(640,360)])
+	for pair in points.size():
+		var raw:Vector2=points[pair];var centre:=raw.clamp(Vector2(42,130),Vector2(1238,508))
+		var color:=CYAN if pair==0 else Color("ffd295")
+		for sign in [-1,1]:
+			draw_line(centre+Vector2(sign*8,0),centre+Vector2(sign*19,0),color,2)
+			draw_line(centre+Vector2(0,sign*8),centre+Vector2(0,sign*19),color,2)
+		draw_string(font,centre+Vector2(23,-8 if pair==0 else 16),("L" if pair==0 else "R")+(" / ABOVE" if raw.y<130 else " / BELOW" if raw.y>508 else ""),HORIZONTAL_ALIGNMENT_LEFT,-1,17,color)
 	# One authoritative heat reservoir per linked upper/lower cannon pair.
 	for side in 2:
 		var x:=38+side*870;var heat: float=t.heat[side];var locked: bool=t.locked[side]
@@ -24,9 +30,13 @@ func draw_live() -> void:
 		draw_string(font,Vector2(x,580),("LEFT" if side==0 else "RIGHT")+" / LINKED CANNONS",HORIZONTAL_ALIGNMENT_LEFT,-1,22,CYAN)
 		draw_string(font,Vector2(x,620),"PAIR HEAT %03d%%"%roundi(heat),HORIZONTAL_ALIGNMENT_LEFT,-1,23,color)
 		for segment in 20:draw_rect(Rect2(x+segment*16,634,12,15),color if heat>segment*5 else Color("24444f"))
-		draw_string(font,Vector2(x,682),"VENTING / BOTH LOCKED" if locked else "READY / TWO BARRELS",HORIZONTAL_ALIGNMENT_LEFT,-1,21,color)
+		var manual: bool=t.get("manual",[false,false])[side]
+		draw_string(font,Vector2(x,682),"VENTING / BOTH LOCKED" if locked else "MANUAL / TRIGGER FIRE" if manual else "AUTO / TWO BARRELS",HORIZONTAL_ALIGNMENT_LEFT,-1,21,color)
+	draw_string(font,Vector2(38,536),"LEFT STICK / LATERAL",HORIZONTAL_ALIGNMENT_LEFT,-1,20,CYAN)
+	draw_string(font,Vector2(908,536),"RIGHT STICK / ELEVATION",HORIZONTAL_ALIGNMENT_LEFT,-1,20,CYAN)
+	draw_string(font,Vector2(448,552),"AIM  H %+04.1f° / V %+04.1f°"%[t.get("yaw",0.),t.get("pitch",0.)],HORIZONTAL_ALIGNMENT_LEFT,-1,21,CYAN)
 	draw_string(font,Vector2(453,595),"%s / %.2f m/s"%[str(t.state).to_upper(),t.speed],HORIZONTAL_ALIGNMENT_LEFT,-1,23,CYAN)
-	draw_string(font,Vector2(474,632),"AMMUNITION UNLIMITED",HORIZONTAL_ALIGNMENT_LEFT,-1,21,CYAN)
+	draw_string(font,Vector2(474,632),"CENTER STICKS / HOLD AIM",HORIZONTAL_ALIGNMENT_LEFT,-1,21,CYAN)
 	var lock: float=t.get("exit_lock",0.)
 	draw_string(font,Vector2(470,674),"EXIT LOCK %.1f s"%lock if lock>0 else "JUMP / USE TO EXIT",HORIZONTAL_ALIGNMENT_LEFT,-1,23,CYAN)
 func _draw() -> void:

@@ -123,6 +123,13 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			node.collision_layer=0
 			node.collision_mask=2
 			regions.append({"area":node,"kind":kind,"data":e})
+	# The scene walk above is reversed. Restore BSP order for overlapping push
+	# brushes so a later bend/lift volume can override its approach conveyor.
+	var pushes:Array=regions.filter(func(region):return region.kind=="trigger_push")
+	pushes.sort_custom(func(a,b):return int(str(a.data.get("model","*0")).substr(1))<int(str(b.data.get("model","*0")).substr(1)))
+	var push_index:=0
+	for i in regions.size():
+		if regions[i].kind=="trigger_push":regions[i]=pushes[push_index];push_index+=1
 	preload("res://deathmatch/vehicles/ba2/map.gd").configure(game,entities)
 	remove_sentry_pickups()
 	if not game.headless and not fixtures.is_empty():load("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
@@ -367,7 +374,14 @@ static func push_velocity(data: Dictionary,legacy_scale: float=10.0) -> Vector3:
 	if speed==0:speed=1000
 	var scale:=float(data.get("fpsloppa_push_scale",legacy_scale))
 	var velocity:=direction*speed*scale*Loader.SCALE
-	return velocity.limit_length(320) if velocity.is_finite() else Vector3.ZERO
+	if not velocity.is_finite():return Vector3.ZERO
+	# Stock Quake bounds each velocity component at 2000 units/s. Without this,
+	# default push brushes skip narrow downstream triggers in one physics step.
+	# Explicitly calibrated native pads retain their existing force convention.
+	if legacy_scale==10.0 and not data.has("fpsloppa_push_scale"):
+		var limit:=2000.0*Loader.SCALE
+		return velocity.clamp(Vector3.ONE*-limit,Vector3.ONE*limit)
+	return velocity.limit_length(320)
 
 func telefrag(arriving: int) -> void:
 	if not multiplayer.is_server() or not game.fighters.has(arriving):return

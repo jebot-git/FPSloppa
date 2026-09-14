@@ -29,6 +29,14 @@ func run() -> void:
 	check(actor.velocity==Vector3(9,10,0),"Unpredicted server impulse is added without removing pending jump")
 	actor.prediction.reconcile(actor,1,Vector3.ZERO,Vector3(9,4,0))
 	check(actor.velocity.y==10,"Repeated acknowledgement cannot apply impulse twice")
+	for pending_jump in [false,true]:
+		actor.prediction.clear()
+		actor.position=Vector3.ZERO;actor.velocity=Vector3(0,7.4 if pending_jump else 0.,0)
+		actor.prediction.remember(1,Vector3.ZERO,Vector3(0,-7.2,0))
+		var expected_velocity:=actor.velocity
+		actor.prediction.reconcile(actor,1,Vector3.ZERO,Vector3.ZERO,-1.,true)
+		check(actor.velocity==expected_velocity,"Landing acknowledgement neither bounces nor boosts a newer jump (%s)"%pending_jump)
+	actor.prediction.clear()
 	actor.prediction.remember(2,Vector3.ZERO,Vector3.ZERO)
 	var before:=actor.position
 	actor.prediction.reconcile(actor,2,Vector3(.6,0,0),Vector3.ZERO)

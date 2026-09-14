@@ -10,6 +10,20 @@ var allowed_matches: Array=[]
 var allowed_modes: Array=["dm"]
 var view: Dictionary={}
 func setup(arena: Node) -> void:game=arena
+func match_spec(value:String,options:Array) -> Dictionary:
+	var parts:=value.split("|")
+	if parts.size() not in [2,3] or not options.any(func(row):return row.mode==parts[0] and row.map==parts[1]):return {}
+	var required:String=game.armory.required(parts[0])
+	var rules:String=parts[2] if parts.size()==3 else required if not required.is_empty() else game.armory.preferred
+	if not rules in game.armory.IDS or (not required.is_empty() and rules!=required):return {}
+	return {"mode":parts[0],"map":parts[1],"rules":rules}
+func match_value(spec:Dictionary) -> String:return spec.mode+"|"+spec.map+"|"+spec.rules
+func action_title(kind:String,value:String) -> String:
+	if kind=="balance":return "balance teams"
+	if kind=="mode":return "change mode to "+value
+	if kind=="match":return "change match to "+value.replace("|"," / ")
+	if kind=="loadout":return "restart with "+value.to_upper()+" loadout"
+	return "change map to "+value
 func eligible(id: int) -> bool:return id>0 and game.players.has(id) and not game.players[id].spectator
 func choices() -> Array:
 	var result: Array=[]
@@ -30,11 +44,15 @@ func offer(id: int) -> void:policy.rpc_id(id,enabled,choices(),allowed_modes,mat
 @rpc("authority","call_remote","reliable",0)
 func policy(allowed: bool,maps: Array,modes: Array=["dm"],matches: Array=[]) -> void:enabled=allowed;allowed_maps=maps;allowed_modes=modes;allowed_matches=matches
 func propose(kind: String,value: String="") -> void:
-	if multiplayer.is_server():start(multiplayer.get_unique_id(),kind,value)
+	if multiplayer.is_server():
+		if game.lobby.active() and kind=="match":game.lobby.cast_value(multiplayer.get_unique_id(),value)
+		else:start(multiplayer.get_unique_id(),kind,value)
 	else:request.rpc_id(1,kind,value)
 @rpc("any_peer","call_remote","reliable",0)
 func request(kind: String,value: String) -> void:
-	if multiplayer.is_server():start(multiplayer.get_remote_sender_id(),kind,value)
+	if multiplayer.is_server():
+		if game.lobby.active() and kind=="match":game.lobby.cast_value(multiplayer.get_remote_sender_id(),value)
+		else:start(multiplayer.get_remote_sender_id(),kind,value)
 func start(id: int,kind: String,value: String) -> bool:
 	if not enabled or not game.active or (game.practice and not game.lobby.active()) or game.map_loading or game.intermission>0 or not eligible(id) or not ballot.is_empty() or game.clock<cooldown:return false
 	if game.lobby.active() and kind!="match":return false
@@ -44,10 +62,13 @@ func start(id: int,kind: String,value: String) -> bool:
 		if allowed_modes.size()<2 or not allowed_modes.has(value) or value==game.match_mode.kind:return false
 		if value=="as" and not match_choices().any(func(row):return row.mode=="as"):return false
 	elif kind=="match":
-		var pair:=value.split("|")
 		var options: Array=game.lobby.offered if game.lobby.active() else match_choices()
-		if pair.size()!=2 or not options.any(func(row):return row.mode==pair[0] and row.map==pair[1]):return false
-		if pair[0]==game.match_mode.kind and pair[1]==game.current_map:return false
+		var spec:=match_spec(value,options)
+		if spec.is_empty():return false
+		if spec.mode==game.match_mode.kind and spec.map==game.current_map and spec.rules==game.armory.effective():return false
+		value=match_value(spec)
+	elif kind=="loadout":
+		if not game.armory.selectable(game.match_mode.kind) or not value in game.armory.IDS or value==game.armory.effective():return false
 	elif kind=="map":
 		if value==game.current_map or not choices().any(func(row):return row.id==value):return false
 	else:return false
@@ -55,7 +76,7 @@ func start(id: int,kind: String,value: String) -> bool:
 	ballot={"kind":kind,"value":value,"eligible":electorate,"votes":{id:true},"needed":electorate.size()/2+1,"until":game.clock+25.0}
 	if game.lobby.active():ballot.until=minf(ballot.until,game.lobby.until);game.lobby.vote_result="";game.lobby.next_publish=0
 	cooldown=game.clock+(5.0 if game.lobby.active() else 60.0)
-	game._announcement.rpc(game.players[id].name+" called vote: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change match to "+value.replace("|"," / ") if kind=="match" else "change map to "+value))
+	game._announcement.rpc(game.players[id].name+" called vote: "+action_title(kind,value))
 	evaluate();return true
 func vote(yes: bool) -> void:
 	if multiplayer.is_server():cast(multiplayer.get_unique_id(),yes)
@@ -74,11 +95,12 @@ func evaluate() -> void:
 	var yes: int=ballot.votes.values().count(true);var no: int=ballot.votes.values().count(false)
 	if yes>=ballot.needed:
 		var kind: String=ballot.kind;var value: String=ballot.value;ballot.clear()
-		game._announcement.rpc("Vote passed: "+("balance teams" if kind=="balance" else "change mode to "+value if kind=="mode" else "change match to "+value.replace("|"," / ") if kind=="match" else "change map to "+value))
+		game._announcement.rpc("Vote passed: "+action_title(kind,value))
 		if game.lobby.active() and kind=="match":game.lobby.accept_match(value)
 		elif kind=="balance":balance()
 		elif kind=="mode":change_mode.call_deferred(value)
 		elif kind=="match":change_match.call_deferred(value)
+		elif kind=="loadout":change_loadout.call_deferred(value)
 		else:change_map.call_deferred(value)
 	elif no>ballot.eligible.size()-ballot.needed or game.clock>=ballot.until:
 		ballot.clear();game._announcement.rpc("Vote failed")
@@ -88,7 +110,7 @@ func tick() -> void:
 	else:evaluate()
 func snapshot() -> Dictionary:
 	if ballot.is_empty():return {}
-	return {"title":"BALANCE TEAMS" if ballot.kind=="balance" else "MODE: "+ballot.value.to_upper() if ballot.kind=="mode" else "MATCH: "+ballot.value.replace("|"," / ") if ballot.kind=="match" else "MAP: "+ballot.value,"yes":ballot.votes.values().count(true),"no":ballot.votes.values().count(false),"needed":ballot.needed,"seconds":maxi(0,ceili(ballot.until-game.clock)),"voted":ballot.votes.keys(),"responses":ballot.votes.duplicate(),"eligible":ballot.eligible.duplicate()}
+	return {"title":"BALANCE TEAMS" if ballot.kind=="balance" else "MODE: "+ballot.value.to_upper() if ballot.kind=="mode" else "MATCH: "+ballot.value.replace("|"," / ") if ballot.kind=="match" else "LOADOUT: "+ballot.value.to_upper()+" (RESTART)" if ballot.kind=="loadout" else "MAP: "+ballot.value,"yes":ballot.votes.values().count(true),"no":ballot.votes.values().count(false),"needed":ballot.needed,"seconds":maxi(0,ceili(ballot.until-game.clock)),"voted":ballot.votes.keys(),"responses":ballot.votes.duplicate(),"eligible":ballot.eligible.duplicate()}
 func switch_team(team: int) -> void:
 	if multiplayer.is_server():change_team(multiplayer.get_unique_id(),team)
 	else:team_request.rpc_id(1,team)
@@ -140,11 +162,21 @@ func change_mode(value: String) -> void:
 
 func change_match(value: String) -> void:
 	if not game.active or not multiplayer.is_server():return
-	var pair:=value.split("|")
-	if pair.size()!=2 or not match_choices().any(func(row):return row.mode==pair[0] and row.map==pair[1]):return
-	game.match_mode.kind=pair[0]
-	if game.mode_maplists.has(game.match_mode.maplist_kind(pair[0])):game.map_rotation=game.maps_for_mode(pair[0]).duplicate()
+	var spec:=match_spec(value,match_choices())
+	if spec.is_empty():return
+	apply_rules(spec.mode,spec.rules)
+	if game.mode_maplists.has(game.match_mode.maplist_kind(spec.mode)):game.map_rotation=game.maps_for_mode(spec.mode).duplicate()
 	for s in game.players.values():s.team=-1
 	game.pending_teams.clear()
-	game.rotation_index=maxi(0,game.map_rotation.find(pair[1]))
-	game._rotate_map(pair[1])
+	game.rotation_index=maxi(0,game.map_rotation.find(spec.map))
+	game._rotate_map(spec.map)
+func apply_rules(mode:String,rules:String) -> void:
+	var previous:String=game.armory.effective()
+	game.match_mode.kind=mode;game.armory.select(rules,game.armory.selectable(mode))
+	# Remap pickup entities as well as player inventories on the same BSP.
+	if previous!=game.armory.effective():game.current_map=""
+func change_loadout(value:String) -> void:
+	if not game.active or not multiplayer.is_server() or not game.armory.selectable(game.match_mode.kind) or not value in game.armory.IDS:return
+	var map:String=game.current_map
+	apply_rules(game.match_mode.kind,value)
+	game._rotate_map(map)

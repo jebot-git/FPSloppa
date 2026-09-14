@@ -56,6 +56,9 @@ static func muzzle(id: int,rules: String="doom") -> Vector3:
 	if rules=="tf_flame":return Vector3(0,.035,-.785)
 	if rules=="ut99" and id==0:return Vector3(0,0,-.65)
 	if rules=="quake" and id in [0,1]:return Vector3(0,.411368,-.521071)
+	# Just beyond the mesh's z=-.83 front face, on the bore centreline.
+	if rules=="quake" and id==2:return Vector3(.0003,.00825,-.855)
+	if rules=="quake" and id==3:return Vector3(0,.07,-.855)
 	if rules=="ut99" and id==11:return Vector3(0,.08,-.45)
 	id=model_id(id,rules)
 	return Vector3(0,.05,.22-WEAPON_LENGTHS[id])

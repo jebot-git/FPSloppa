@@ -1,20 +1,9 @@
-# Optional maps and archived conversion tools
+# Retired optional downloads
 
-The **53-map Optional Community Map Pack** includes redistributable maps
-organized into seven game-mode categories: 35 non-TF Arena Collection maps,
-13 LibreQuake maps and five reviewed community adaptations. TF maps and Tiny
-Assault variants are excluded. Current TF distribution contains only Pressureworks
-and Vesper Abbey, and Assault distribution contains only full-sized variants.
-See [installation and contents](../tools/optional_maps/PACK-README.md) and the
-[categorized catalog](../tools/optional_maps/CATALOG.md).
+Starting with 0.12v, Community Maps and Original TF Arenas are no longer built or published as separate release downloads. They will not be expanded. Historical releases remain available unchanged.
 
-This distribution update supersedes the earlier policy that kept Arena Collection
-1 exclusive to 0.5v. Its BSPs are recovered unchanged from that release's Git
-commit, with notices and historical validation reports. Existing 0.5v downloads
-are not modified. These maps remain optional; current base rotations are retained.
+The two original TF maps, Pressureworks and Vesper Abbey, remain part of the base game. Assault includes only its full-sized variants. Custom BSP imports and server maplists remain supported.
 
-ThreeWave, original TeamFortress and Arcane Dimensions conversion tools remain
-available from the [0.5v release](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v).
-Their local converted BSPs were never redistributed and are not part of the new
-pack. FortressOne conversions and unreviewed community downloads are also excluded.
-Follow each tool's original rights and compatibility notes for local use.
+Base Assets is now an internal installer input for unified Quest/Pico APKs. PC and source archives include their maps and models directly. No separate asset download is required or published.
+
+ThreeWave, original TeamFortress and Arcane Dimensions conversion tools remain archived in [0.5v](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). Converted third-party BSPs retain their original rights restrictions.

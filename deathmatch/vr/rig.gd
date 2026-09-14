@@ -250,7 +250,7 @@ func recenter() -> void:
 	origin_offset=Vector3(-head.position.x,0,-head.position.z)
 	origin.position.x=origin_offset.x;origin.position.z=origin_offset.z
 	calibration_pending=false
-	if tracking: tracking.corrections.clear();tracking.native_corrections.clear()
+	if tracking: tracking.corrections.clear();tracking.native_corrections.clear();tracking.native_foot_offsets.clear()
 	place_menu()
 func on_spawn() -> void:
 	physical_actions.reset();shoulder_radio.reset()
@@ -295,7 +295,7 @@ func toggle_menu() -> void:
 func _process(delta: float) -> void:
 	process_priority=-30
 	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
-	if not enabled: return
+	if not enabled or game.quitting: return
 	poll_controls()
 	left.visible=simulated or left.get_has_tracking_data()
 	right.visible=simulated or right.get_has_tracking_data()
@@ -303,7 +303,9 @@ func _process(delta: float) -> void:
 	for i in range(hand_animators.size()):
 		hand_animators[i].curls=fingers.get("left_curls" if i==0 else "right_curls",PackedFloat32Array([0,0,0,0,0]))
 	var mine:=multiplayer.get_unique_id()
-	var actor=game.fighters.get(mine)
+	# During departure/shutdown a fighter can outlive the active player state.
+	# Do not build weapon/avatar visuals from an empty local-state dictionary.
+	var actor=game.fighters.get(mine) if game.active and not game.local_state().is_empty() else null
 	if actor:
 		global_transform=Transform3D(Basis(Vector3.UP,game.local_yaw),actor.render_position())
 	elif not game.spawn_points.is_empty():
@@ -336,8 +338,9 @@ func _process(delta: float) -> void:
 			game.desired_weapon=W.next_owned(game.desired_weapon,1 if stick.y>0 else -1,game.local_state().get("owned",[2]))
 			cycle_latched=true
 		if absf(stick.y)<.3: cycle_latched=false
-	shoulder_radio.update(living and tracked_hands and focused and not game.menu_open and not scores and not blackout.visible)
-	physical_actions.update(delta,not shoulder_radio.held and living and tracked_hands and focused and not game.menu_open and not scores)
+	var mounted: bool=game.match_mode.fortress.walkers.mounted(mine)
+	shoulder_radio.update(not mounted and living and tracked_hands and focused and not game.menu_open and not scores and not blackout.visible)
+	physical_actions.update(delta,not mounted and not shoulder_radio.held and living and tracked_hands and focused and not game.menu_open and not scores)
 	var menu_visible: bool=game.menu_open or scores or (focused and game.bindings.pressed("scores")) or not game.active
 	var burning: bool=actor!=null and game.match_mode.fortress.burning(actor.peer_id)
 	damage_material.set_shader_parameter("burning",1.0 if burning else 0.0)

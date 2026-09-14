@@ -101,10 +101,11 @@ static func valid_frame(frame: Variant) -> bool:
 		if not states is Dictionary or states.size()>MAX_PLAYERS:return false
 		for id in states:
 			var state=states[id]
-			if not id is int or not state is Dictionary or state.size()<3 or state.size()>4:return false
+			if not id is int or not state is Dictionary or state.size()<3 or state.size()>5:return false
 			for key in state:
-				if key not in ["height","grounded","assist","jump_ack"]:return false
+				if key not in ["height","grounded","assist","jump_ack","fire_ack"]:return false
 			if state.has("jump_ack") and (not state.jump_ack is int or state.jump_ack<0):return false
+			if state.has("fire_ack") and (not state.fire_ack is int or state.fire_ack<0):return false
 			if not (state.get("height") is float or state.get("height") is int) or not is_finite(float(state.height)) or state.height<.65 or state.height>1.65:return false
 			if not state.get("grounded") is bool or not state.get("assist") is bool:return false
 	for gate in s[8]:

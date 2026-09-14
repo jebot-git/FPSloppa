@@ -28,6 +28,13 @@ func run() -> void:
 	var target:=Art.box(stage,Vector3(0,shot_y,-20),Vector3(.35,.35,.05),Art.material(Color("ed3827")))
 	for i in [-2,-1,1,2]:Art.box(stage,Vector3(i*.55,shot_y,-20),Vector3(.2,.5,.1),Art.material(Color("8fc17e")))
 	Art.box(stage,Vector3(0,shot_y,-20.2),Vector3(5,4,.1),Art.material(Color("a0afba")))
+	var guide=preload("res://deathmatch/vr/aim_guide.gd").new();stage.add_child(guide)
+	for profile in ["ut99","tf_sniper"]:
+		guide.update(Transform3D.IDENTITY,9,true,profile)
+		check(not guide.visible,profile+": sniper helper beam is removed")
+	guide.update(Transform3D.IDENTITY,2,true,"doom")
+	check(guide.visible,"Other weapons retain their aim guide")
+	guide.free()
 	scope=Scope.new();stage.add_child(scope)
 	var shot:=Transform3D(Basis.IDENTITY,rifle.to_global(Art.muzzle(9,"ut99")))
 	scope.update_view(rifle,[cam.global_transform],shot,true)
@@ -37,6 +44,14 @@ func run() -> void:
 	check(not scope.viewport.use_xr,"Optic uses a separate non-XR render target")
 	check((scope.camera.cull_mask&Scope.SCOPE_LAYER)==0,"Optic excludes its lens and weapon to prevent recursion")
 	await frames(8);save_view(root,"scope-through-lens");save_view(scope.viewport,"scope-axis")
+	# Compare a neutral patch in the rendered lens to the source viewport.
+	var patch:Vector3=scope.lens.to_global(Vector3(scope.lens.mesh.size.x*.15,scope.lens.mesh.size.y*.15,0))
+	var rendered:Image=root.get_texture().get_image()
+	var screen_patch:Vector2i=Vector2i(cam.unproject_position(patch)*Vector2(rendered.get_size())/root.get_visible_rect().size)
+	var shown:Color=rendered.get_pixelv(screen_patch)
+	var source:Color=scope.viewport.get_texture().get_image().get_pixel(333,179)
+	check(shown.get_luminance()<=source.get_luminance()+.03 and shown.get_luminance()>source.get_luminance()*.5,"Scope avoids gamma-brightening while keeping the scene readable")
+	report.lens_luminance={"source":source.get_luminance(),"displayed":shown.get_luminance()}
 	var pixel: Color=scope.viewport.get_texture().get_image().get_pixel(256,256)
 	check(pixel.r>pixel.g*1.3,"Rendered optic center agrees with bullet axis")
 	var world_target: Vector3=target.global_position

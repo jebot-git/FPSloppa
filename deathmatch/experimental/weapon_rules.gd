@@ -5,6 +5,8 @@ const IDS=["doom","quake","ut99"]
 const NAMES={"doom":"DOOM · classic","quake":"QUAKE I · experimental","ut99":"UT99 · experimental"}
 const SLOT_COUNT:=12
 const MODE_RULES={"tf":"quake","tb":"quake","as":"ut99"}
+static func selectable(mode:String) -> bool:return mode in ["dm","tdm","ctf","koth","ft"]
+static func required(mode:String) -> String:return "doom" if mode in ["ig","if","cc"] else MODE_RULES.get(mode,"")
 var preferred:="doom"
 var kind:="doom"
 var game

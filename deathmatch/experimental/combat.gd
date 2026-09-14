@@ -91,7 +91,8 @@ func fire(id: int,alternate: bool=false,charge: float=0.0) -> bool:
 			if hit.has("building") and melee_reaches:game.match_mode.fortress.damage_building(hit.building,id,damage)
 			if kind=="hammer" and hit.hit and hit.id==0 and not hit.has("building"):
 				hammer_surface(id,d,alternate,charge,start,hit.position,direction)
-			game._impacts.rpc(start,PackedVector3Array([hit.position]),w)
+			if d.name=="FLAMETHROWER":game._ability_fx.rpc("flame",start,hit.position,s.team)
+			else:game._impacts.rpc(start,PackedVector3Array([hit.position]),w)
 		return true
 	for shot in (1 if kind=="bio" else count):
 		for pellet in int(d.pellets):

@@ -2,11 +2,9 @@ extends PanelContainer
 const Paths=preload("res://deathmatch/assets/paths.gd")
 const IO=preload("res://deathmatch/network/disk_worker.gd")
 var disk=IO.new()
-signal installed
 var game
 var notice: Label
 var download: Button
-var request: HTTPRequest
 var busy:=false
 func setup(arena: Node) -> void:
 	add_child(disk)
@@ -16,10 +14,10 @@ func setup(arena: Node) -> void:
 	var title:=Label.new();title.text="MAPS AND PLAYER MODELS";column.add_child(title)
 	var paths:=Label.new();paths.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;paths.text="Drop BSP maps and VRM models into these folders, then rescan:\n\n"+Paths.folder("maps")+"\n"+Paths.folder("vrm");column.add_child(paths)
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Models must be at most 25 MB. Host maps download automatically when joining. Standalone APKs include the base files automatically.";column.add_child(notice)
-	download=button(column,"DOWNLOAD BASE MAPS AND MODELS",install)
+	download=button(column,"REPAIR INCLUDED MAPS AND MODELS",install)
+	download.visible=FileAccess.file_exists("res://deathmatch/assets/offline-base.zip")
 	button(column,"RESCAN FOLDERS",rescan)
 	button(column,"BACK",func():if not busy:hide())
-	request=HTTPRequest.new();request.use_threads=true;request.body_size_limit=150_000_000;add_child(request);request.request_completed.connect(completed)
 func button(parent: Node,label: String,action: Callable) -> Button:
 	var b:=Button.new();b.text=label;b.custom_minimum_size.y=52;b.pressed.connect(action);parent.add_child(b);return b
 func open() -> void:
@@ -29,30 +27,18 @@ func manifest() -> Dictionary:
 	return data if data is Dictionary else {}
 func install() -> void:
 	if busy or game.active:notice.text="Leave the match before installing or rescanning assets.";return
-	var data:=manifest()
-	if data.is_empty():notice.text="Base download is not configured. Copy maps/ and vrm/ from the release archive.";return
-	request.download_file=Paths.root().path_join(".base-assets.download")
-	busy=true;download.disabled=true;notice.text="Downloading base assets…"
-	var error:=request.request(data.url)
-	if error!=OK:finish("Download could not start: "+error_string(error))
-func _process(_delta: float) -> void:
-	if busy and request.get_http_client_status()!=HTTPClient.STATUS_DISCONNECTED:
-		notice.text="Downloading base assets: %.1f MB"%(request.get_downloaded_bytes()/1000000.0)
-func completed(result: int,code: int,_headers: PackedStringArray,_body: PackedByteArray) -> void:
-	if result!=HTTPRequest.RESULT_SUCCESS or code!=200:finish("Download failed (%d / %d). Retry or copy the release asset folders."%[result,code]);return
-	busy=true;download.disabled=true;notice.text="Verifying and installing base assets…"
-	if not disk.submit(install_archive.bind(manifest(),request.download_file,Paths.root()),func(message):
+	var archive:="res://deathmatch/assets/offline-base.zip"
+	if not FileAccess.file_exists(archive):notice.text="Restore maps/ and vrm/ from your FPSloppa release archive.";return
+	busy=true;download.disabled=true;notice.text="Verifying and installing included assets…"
+	if not disk.submit(install_archive.bind(manifest(),archive,Paths.root()),func(message):
 		finish(message)
-		if message=="Base assets installed.":rescan()
-		installed.emit()):
-		finish("Asset installation queue is full.");return
-	await installed
+		if message=="Base assets installed.":rescan()):
+		finish("Asset installation queue is full.")
 
 static func install_archive(data: Dictionary,archive: String,directory: String) -> String:
 	return preload("res://deathmatch/assets/base_install.gd").install(data,archive,directory)
 func finish(message: String) -> void:
 	busy=false;download.disabled=false;notice.text=message
-	if not request.download_file.is_empty():disk.discard(request.download_file)
 func rescan() -> void:
 	if busy or game.active:notice.text="Leave the match before rescanning assets.";return
 	game.map_catalog=game.Maps.catalog();game.hud.refresh_maps()

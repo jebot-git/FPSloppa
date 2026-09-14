@@ -20,6 +20,11 @@ func run() -> void:
 	check(is_equal_approx(crouch.baseline,1.65),"Physical jumps cannot raise standing calibration")
 	check(crouch.sample(1.0,false)==1.65 and not crouch.crouched,"Disabled/seated/untracked crouch requests standing")
 	check(crouch.sample(NAN,true)==1.65,"Invalid headset height is rejected")
+	check(crouch.sample(.15,true,true)==.65 and crouch.prone,"Floor-level prone headset retains prone stance")
+	var low_pose:=Poses.neutral();low_pose.head.origin.y=.15;low_pose.left.origin.y=.15;low_pose.right.origin.y=.15;low_pose.weapon=low_pose.right
+	check(not Poses.validate(low_pose).is_empty(),"Floor-level prone pose survives network validation")
+	low_pose.head.origin.y=-.1
+	check(Poses.validate(low_pose).is_empty(),"Below-floor headset is still rejected")
 	var pose:=Poses.neutral();pose.height=-5;check(Poses.validate(pose).height==.8,"Network height is bounded")
 	pose.height=NAN;check(Poses.validate(pose).is_empty(),"Nonfinite crouch height invalidates pose")
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);Fixture.setup(game);await physics_frame

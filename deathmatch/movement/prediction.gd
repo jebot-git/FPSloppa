@@ -13,7 +13,7 @@ func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1
 	samples[sequence]={"position":position,"velocity":velocity,"height":height}
 	while samples.size()>CAPACITY:samples.erase(samples.keys()[0])
 
-func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0) -> void:
+func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false) -> void:
 	if sequence<=acknowledged:return
 	acknowledged=sequence
 	if not samples.has(sequence):
@@ -38,6 +38,11 @@ func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: f
 	var impulse:=Vector3.ZERO
 	for axis in 3:
 		if absf(velocity_error[axis])>.8:impulse[axis]=velocity_error[axis]
+	# A ground collision removes downward velocity; it is not an upward force.
+	# One tick of input/snapshot phase difference can otherwise re-launch a
+	# client that has already landed (or add a second boost to its next jump).
+	if grounded and absf(velocity.y)<.8 and reference.velocity.y<0:
+		impulse.y=0
 	actor.position+=correction;actor.velocity+=impulse
 	actor.prediction_view_offset-=correction
 	for key in samples.keys():

@@ -1,5 +1,2 @@
-"""Build the combined optional/community map pack; conversion tools stay archived."""
-from optional_maps.package import build
-
-if __name__ == '__main__':
-    build()
+"""Retired release entrypoint; see docs/ARCHIVED-EXTRAS.md."""
+raise SystemExit("This separate map download is retired from 0.12v onward.")

@@ -68,7 +68,15 @@ func streak(points: PackedVector3Array,color: Color,width: float,life: float) ->
 func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
 	for end in ends:
 		if start.distance_to(end)<.01:continue
-		if rules=="quake" and weapon==8:
+		if rules=="quake" and weapon==9:
+			streak(PackedVector3Array([start,end]),Color(.35,.65,1,.65),.032,.24)
+			streak(PackedVector3Array([start,end]),Color("d5ecff"),.009,.18)
+		elif rules=="quake" and weapon in [2,3]:
+			var direction:Vector3=(end-start).normalized()
+			# A short-lived nearby pellet streak; the railgun owns the long trail.
+			streak(PackedVector3Array([start,start+direction*minf(start.distance_to(end),7.)]),Color(1,.8,.5,.45),.005,.055)
+			particle(end-direction*.015,-direction*.35+Vector3.UP*.3,Color(.5,.46,.4,.65),.10,.25,true)
+		elif rules=="quake" and weapon==8:
 			var points:=PackedVector3Array([start]);var steps:=clampi(int(start.distance_to(end)*3),3,48)
 			for i in range(1,steps):points.append(start.lerp(end,float(i)/steps)+Vector3(randf_range(-.11,.11),randf_range(-.11,.11),randf_range(-.11,.11)))
 			points.append(end);streak(points,Color("789bf0"),.037,.12);streak(points,Color("e3edff"),.012,.10)

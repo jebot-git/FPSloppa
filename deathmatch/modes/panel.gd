@@ -8,6 +8,7 @@ var red: Button
 var blue: Button
 var balance: Button
 var call_map: Button
+var call_loadout:Button
 var notice: Label
 func setup(arena: Node) -> void:
 	game=arena;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
@@ -19,8 +20,11 @@ func setup(arena: Node) -> void:
 	red=button(teams,"JOIN RED",func():game.votes.switch_team(0));blue=button(teams,"JOIN BLUE",func():game.votes.switch_team(1))
 	balance=button(teams,"VOTE TO BALANCE",func():game.votes.propose("balance"))
 	column.add_child(selector)
-	call_map=button(column,"CALL MATCH VOTE",func():
-		if selector.ready_to_vote():game.votes.propose("match",selector.modes.value+"|"+selector.maps.value))
+	var proposals:=HBoxContainer.new();column.add_child(proposals)
+	call_map=button(proposals,"CALL MATCH VOTE",func():
+		if selector.ready_to_vote():game.votes.propose("match",selector.value()))
+	call_loadout=button(proposals,"VOTE LOADOUT ONLY",func():game.votes.propose("loadout",selector.loadouts.value))
+	call_loadout.tooltip_text="Select the current mode and a different loadout. A passed vote restarts this map."
 
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.custom_minimum_size.y=44;column.add_child(notice)
 	var row:=HBoxContainer.new();column.add_child(row);yes=button(row,"VOTE YES",func():game.votes.vote(true));no=button(row,"VOTE NO",func():game.votes.vote(false))
@@ -29,7 +33,7 @@ func setup(arena: Node) -> void:
 func button(parent: Node,title: String,action: Callable) -> Button:
 	var b:=Button.new();b.text=title;b.custom_minimum_size=Vector2(100,44);b.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(b);b.pressed.connect(action);return b
 func open() -> void:
-	selector.configure(game.votes.match_choices() if game.multiplayer.is_server() else game.votes.allowed_matches,game.match_mode.NAMES)
+	selector.configure(game.votes.match_choices() if game.multiplayer.is_server() else game.votes.allowed_matches,game.match_mode.NAMES,game.armory.preferred)
 	get_parent().move_child(self,-1);show();refresh()
 func _process(_delta: float) -> void:
 	if visible:refresh()
@@ -44,8 +48,11 @@ func refresh() -> void:
 	red.disabled=not allowed or s.get("team",-1)==0 or counts[0]>=counts[1]
 	blue.disabled=not allowed or s.get("team",-1)==1 or counts[1]>=counts[0]
 	balance.disabled=not allowed or not game.votes.enabled
-	call_map.disabled=not allowed or not game.votes.enabled or not selector.ready_to_vote() or selector.modes.value==game.match_mode.kind and selector.maps.value==game.current_map
+	call_map.disabled=not allowed or not game.votes.enabled or not selector.ready_to_vote() or selector.modes.value==game.match_mode.kind and selector.maps.value==game.current_map and selector.loadouts.value==game.armory.effective()
+	call_loadout.visible=game.armory.selectable(game.match_mode.kind)
+	call_loadout.disabled=not allowed or not game.votes.enabled or selector.modes.value!=game.match_mode.kind or selector.loadouts.value.is_empty() or selector.loadouts.value==game.armory.effective()
 	var vote: Dictionary=game.votes.snapshot() if game.multiplayer.is_server() else game.votes.view
+	if not vote.is_empty():call_map.disabled=true;call_loadout.disabled=true;balance.disabled=true
 	var voted: bool=not vote.is_empty() and vote.voted.has(game.multiplayer.get_unique_id())
 	yes.disabled=not allowed or vote.is_empty() or voted;no.disabled=yes.disabled
 	notice.text="No active vote." if vote.is_empty() else "%s\nYES %d / %d required · NO %d · %ds"%[vote.title,vote.yes,vote.needed,vote.no,vote.seconds]

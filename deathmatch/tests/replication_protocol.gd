@@ -21,6 +21,10 @@ func _initialize() -> void:
 	var input := {"seq":123,"map_epoch":1,"move":Vector2(.4,.8),"yaw":.5,"pitch":.2,"fire":true,"slow":false,"weapon":6,"respawn":false,"xr":pose}
 	var input_bytes := Codec.pack(input).size()
 	check(input_bytes <= 1100,"Full-body command fits datagram budget")
+	input["input_life"]=1;input["jump_event"]=1;input["fire_event"]=[1,6,1]
+	input["pilot_controls"]=[[true,Vector2(.6,-.8),true],[true,Vector2(-.4,.5),false]]
+	var pilot_packet:=Codec.pack(input)
+	check(pilot_packet.size()<=1100 and Codec.unpack(pilot_packet).pilot_controls==input.pilot_controls,"Manual cockpit controls round trip within full-body input budget")
 	var mode: Dictionary={"kind":"dm","scores":[0,0],"bases":[],"flags":[],"hill":Vector3.ZERO,"owner":-1,"friendly_fire":false,"limit":20,"locomotion":{},"movement_ack":{}}
 	var snapshot: Array=[[],PackedByteArray(),600.0,0.0,"",20,600.0,[],[],1,mode,{},1.0,0]
 	var template: Array=[1,Vector3.ZERO,Vector3.ZERO,0.0,0.0,100,0,false,2,{"bullets":50},[0,2],0,0,30,1,0.0,false,0.0,{},0.0,false,Vector3.ZERO]

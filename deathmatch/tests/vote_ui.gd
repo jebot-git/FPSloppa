@@ -28,7 +28,7 @@ func run():
 	check(demos.size.y<=640,"Demo menu and Back fit without overflow")
 	demos.hide()
 	game.active=true;game._add_player(1,"Test");game._add_player(2,"Other")
-	game.votes.allowed_modes=["dm","ctf"];game.mode_maplists={"dm":["lqdm1","lqdm2"],"ctf":["lqdm1"]}
+	game.votes.allowed_modes=["dm","ctf"];game.mode_maplists={"dm":["qsrc_dm1","qsrc_dm6"],"ctf":["qsrc_dm1"]}
 	var panel=game.hud.votes_panel;panel.open();await process_frame;await process_frame
 	var selector=panel.selector
 	check(selector.maps.trigger.disabled,"Map selection is disabled until mode is selected")
@@ -38,13 +38,13 @@ func run():
 	check(selector.modes.popup.visible,"Mode popup stays open across live vote refreshes")
 	click(selector.modes.entries.get_child(1));await process_frame;await process_frame
 	check(selector.modes.value=="ctf" and not selector.modes.popup.visible,"Selecting a mode closes only its popup")
-	check(selector.maps.items.size()==1 and selector.maps.items[0].id=="lqdm1","Map choices follow selected mode's server maplist")
+	check(selector.maps.items.size()==1 and selector.maps.items[0].id=="qsrc_dm1","Map choices follow selected mode's server maplist")
 	click(selector.maps.trigger);await process_frame
 	click(selector.maps.entries.get_child(0));await process_frame
 	check(selector.ready_to_vote(),"Map entry remains clickable in the same VR canvas")
-	check(not game.votes.start(1,"match","ctf|lqdm2"),"Server rejects maps outside the requested mode maplist")
-	check(game.votes.start(1,"match","ctf|lqdm1"),"Server accepts valid combined mode and map ballot")
-	check(game.votes.snapshot().title.contains("ctf / lqdm1"),"Vote notification identifies both mode and map")
+	check(not game.votes.start(1,"match","ctf|qsrc_dm6"),"Server rejects maps outside the requested mode maplist")
+	check(game.votes.start(1,"match","ctf|qsrc_dm1"),"Server accepts valid combined mode and map ballot")
+	check(game.votes.snapshot().title.contains("ctf / qsrc_dm1"),"Vote notification identifies both mode and map")
 	game.menu_open=false;game.hud.show_menu(false);await process_frame
 	check(game.hud.vote_alert.visible and game.hud.vote_alert.text.contains("YES 1/2"),"Active vote has a persistent visible HUD alert and counts")
 	game.active=false;game.queue_free();await process_frame;await process_frame

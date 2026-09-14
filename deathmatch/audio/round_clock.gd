@@ -22,7 +22,10 @@ func _process(_delta: float) -> void:
 	if not game:return
 	var enabled: bool=game.active and not game.quitting and not game.map_loading and not game.lobby.active() and game.intermission<=0
 	var key:=str(game.map_epoch)+":"+str(game.match_mode.assault.leg)
-	if advance(game.round_left,enabled,key) and is_instance_valid(player):player.play()
+	var preparing:bool=game.match_mode.titanball.preparing()
+	var remaining:float=game.match_mode.titanball.preparation_left if preparing else game.round_left
+	key+=":preparation" if preparing else ":match"
+	if advance(remaining,enabled,key) and is_instance_valid(player):player.play()
 func clear() -> void:
 	if is_instance_valid(player):player.stop();player.stream=null
 	played.clear()

@@ -10,6 +10,9 @@ static func read(game,id: int) -> Dictionary:
 		if not ability.is_empty():
 			result.ability=ability.label+" · "+("READY" if ability.ready else "READY IN %.1fs"%ability.remaining)
 			if ability.active>0:result.ability+=" · ACTIVE %.1fs"%ability.active
+	if game.match_mode.titanball.preparing() and game.intermission<=0:
+		var seconds:=ceili(game.match_mode.titanball.preparation_left)
+		result.carrier="HANGAR OPENS IN %d:%02d"%[seconds/60,seconds%60]
 	if game.match_mode.kind in ["ctf","tf"]:
 		for index in game.match_mode.flags.size():
 			if game.match_mode.flags[index].carrier==id:

@@ -4,6 +4,7 @@ const Route=preload("res://deathmatch/vehicles/ba2/route.gd")
 const View=preload("res://deathmatch/vehicles/ba2/view.gd")
 const Tuning=preload("res://deathmatch/vehicles/ba2/tuning.gd")
 const Hit=preload("res://deathmatch/hit_detection.gd")
+const PilotControls=preload("res://deathmatch/vehicles/ba2/pilot_controls.gd")
 const SPEED=Tuning.SPEED
 const TRANSITION=Tuning.TRANSITION
 const STRIDE=Tuning.STRIDE
@@ -132,6 +133,24 @@ func enforce_pilot(id: int) -> void:
 	if not multiplayer.is_server() or not mounted(id) or not game.players.has(id):return
 	var s: Dictionary=game.players[id];s.weapon=0;s.armor=PILOT_ARMOR;s.tier=2
 	if id==multiplayer.get_unique_id():game.desired_weapon=0
+func accept_controls(id: int,value: Variant) -> void:
+	if not game.players.has(id):return
+	var s: Dictionary=game.players[id];s.erase("pilot_controls")
+	if not mounted(id) or s.dead or s.spectator or s.get("input_blocked",false) or s.xr.is_empty():return
+	var rows: Array=PilotControls.validated(value)
+	if rows.is_empty():return
+	var r: Dictionary=robots[vehicle_for(id)]
+	var room:=transform(r)*Transform3D(Basis(Vector3.UP,PI),SEAT)
+	var actor_pose:=Transform3D(Basis(Vector3.UP,s.yaw),game.fighters[id].position)
+	for side in 2:
+		var hand: Vector3=room.affine_inverse()*(actor_pose*s.xr["left" if side==0 else "right"].origin)
+		var centre:=Vector3(-.42 if side==0 else .42,1.29,-.43)
+		if hand.distance_to(centre)>.75:rows[side]=[false,Vector2.ZERO,false]
+	s["pilot_controls"]=rows
+func manual_controls(r: Dictionary) -> Array:
+	var s: Dictionary=game.players.get(int(r.pilot),{})
+	if s.is_empty() or s.get("input_blocked",false) or game.clock-float(s.get("last_input",-100))>.35:return []
+	return s.get("pilot_controls",[])
 func leave(id: int,forced: bool=false) -> bool:
 	if not multiplayer.is_server():return false
 	var key:=vehicle_for(id)
@@ -146,6 +165,7 @@ func leave(id: int,forced: bool=false) -> bool:
 	# Death/disconnect always release the reservation, even if the ground is blocked.
 	r.pilot=0;r.pilot_life=-1;r.targets=[0,0];reboard_until[id]=game.clock+1.0
 	r.exit_lock=0.
+	if game.players.has(id):game.players[id].erase("pilot_controls")
 	if game.fighters.has(id):bodies[key].remove_collision_exception_with(game.fighters[id])
 	_unlock(id)
 	if not alive and game.fighters.has(id):game.fighters[id].collision_layer=0
@@ -275,9 +295,18 @@ func cannon_origin(r: Dictionary,index: int) -> Vector3:
 	var offset:=Vector3(0,-.4399755 if index%2==0 else .4399755,2.335103)
 	var point: Vector3=body_pose*(pivot+Basis(Vector3.RIGHT,r.pitches[index/2])*offset)
 	return transform(r)*point
+func cannon_direction(r: Dictionary,pair: int) -> Vector3:
+	return transform(r).basis*_body_pose(r).basis*Basis(Vector3.RIGHT,r.pitches[pair])*Vector3.BACK
+
 func _tick_cannons(r: Dictionary,delta: float,body_rid: RID) -> void:
+	var manual:=manual_controls(r)
+	var gripped: Array=[manual.size()==2 and manual[0][0],manual.size()==2 and manual[1][0]]
+	# One shared aim: left stick yaw, right stick elevation. Triggers retain
+	# independent linked pairs; automatic targeting returns when both release.
+	var held: Array=[gripped[0] or gripped[1],gripped[0] or gripped[1]]
+	r["manual"]=held
 	for i in 2:
-		if r.pilot==0 or r.overheated[i] or int(r.targets[i])==0 or game.clock-r.last_fire[i]>tf.SENTRY_INTERVAL+tf.SENTRY_SCAN_INTERVAL:
+		if r.pilot==0 or r.overheated[i] or (not manual[i][2] if held[i] else int(r.targets[i])==0) or game.clock-r.last_fire[i]>tf.SENTRY_INTERVAL+tf.SENTRY_SCAN_INTERVAL:
 			r.heat[i]=maxf(0.,r.heat[i]-COOL_RATE*delta)
 		if r.overheated[i] and r.heat[i]<=RESTART_HEAT:r.overheated[i]=false
 	if r.pilot==0:
@@ -290,6 +319,7 @@ func _tick_cannons(r: Dictionary,delta: float,body_rid: RID) -> void:
 	if game.clock>=r.scan_at:
 		r.scan_at=game.clock+tf.SENTRY_SCAN_INTERVAL
 		for pair in 2:
+			if held[pair]:r.targets[pair]=0;continue
 			var origin:=cannon_origin(r,pair*2)
 			var filter:=func(target: Vector3):
 				var local: Vector3=route_basis.inverse()*(target-anchor)
@@ -305,9 +335,21 @@ func _tick_cannons(r: Dictionary,delta: float,body_rid: RID) -> void:
 	if not headings.is_empty():
 		desired_yaw=0.
 		for angle in headings:desired_yaw+=float(angle)/headings.size()
+	if held[0] or held[1]:
+		desired_yaw=clampf(Tuning.body_yaw(r)-manual[0][1].x*AIM_SPEED*delta,-CANNON_CONE,CANNON_CONE) if gripped[0] else Tuning.body_yaw(r)
 	r.body_yaw=move_toward(Tuning.body_yaw(r),desired_yaw,AIM_SPEED*delta)
 	var aim_basis: Basis=route_basis*_body_pose(r).basis
 	for pair in 2:
+		if held[pair]:
+			if gripped[1]:r.pitches[pair]=clampf(r.pitches[pair]+manual[1][1].y*AIM_SPEED*delta,-PITCH_LIMIT,PITCH_LIMIT)
+			if manual[pair][2] and game.clock>=r.ready and game.clock>=r.next[pair] and not r.overheated[pair]:
+				for index in [pair*2,pair*2+1]:
+					var origin:=cannon_origin(r,index)
+					var direction: Vector3=cannon_direction(r,pair)
+					var target: Vector3=origin+direction*CANNON_RANGE
+					cannon_impact(r,index,manual_target(r,origin,target),target,body_rid)
+				volley_fired(r,pair,2,0)
+			continue
 		var id: int=r.targets[pair]
 		if id==0 or not game.players.has(id) or not tf.sentry_enemy(id,r.team):continue
 		var target: Vector3=tf.sentry_target_point(id)
@@ -326,9 +368,19 @@ func _tick_cannons(r: Dictionary,delta: float,body_rid: RID) -> void:
 			if not blast_reaches(id,game.get_world_3d().direct_space_state.intersect_ray(ray)):continue
 			cannon_impact(r,index,id,target,body_rid);fired+=1
 		if fired>0:
-			r.next[pair]=game.clock+tf.SENTRY_INTERVAL;r.last_fire[pair]=game.clock
-			r.heat[pair]=minf(100.,r.heat[pair]+HEAT_PER_VOLLEY);r.overheated[pair]=r.heat[pair]>=100.
-			game.server_log.record("titan_cannon_volley",{"robot":r.id,"pilot":r.pilot,"pair":pair,"barrels":fired,"heat":r.heat[pair],"target":id},2)
+			volley_fired(r,pair,fired,id)
+func volley_fired(r: Dictionary,pair: int,barrels: int,target: int) -> void:
+	r.next[pair]=game.clock+tf.SENTRY_INTERVAL;r.last_fire[pair]=game.clock
+	r.heat[pair]=minf(100.,r.heat[pair]+HEAT_PER_VOLLEY);r.overheated[pair]=r.heat[pair]>=100.
+	game.server_log.record("titan_cannon_volley",{"robot":r.id,"pilot":r.pilot,"pair":pair,"barrels":barrels,"heat":r.heat[pair],"target":target},2)
+func manual_target(r: Dictionary,origin: Vector3,target: Vector3) -> int:
+	var nearest:=INF;var result:=0
+	for id in game.fighters:
+		if id==r.pilot or game.players[id].dead or game.players[id].spectator:continue
+		var actor=game.fighters[id]
+		var fraction:=Hit.capsule_fraction(origin-actor.position,target-actor.position,Hit.PLAYER_RADIUS,minf(1.4,actor.collision_height-.25))
+		if fraction<nearest:nearest=fraction;result=id
+	return result
 func cannon_impact(r: Dictionary,index: int,id: int,target: Vector3,body_rid: RID) -> void:
 	if not multiplayer.is_server():return
 	var origin:=cannon_origin(r,index)
@@ -344,10 +396,11 @@ func cannon_impact(r: Dictionary,index: int,id: int,target: Vector3,body_rid: RI
 	var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(ray)
 	var impact: Vector3=hit.position+hit.normal*.04 if not hit.is_empty() else endpoint
 	var direct:=contact_pilot(hit)
-	if hit.is_empty() and game.fighters.has(id):
+	if game.fighters.has(id):
 		var actor=game.fighters[id]
 		var fraction:=Hit.capsule_fraction(origin-actor.position,endpoint-actor.position,Hit.PLAYER_RADIUS,minf(1.4,actor.collision_height-.25))
-		if is_finite(fraction):direct=id;impact=origin.lerp(endpoint,fraction)
+		var wall_fraction: float=origin.distance_to(hit.position)/maxf(.001,origin.distance_to(endpoint)) if not hit.is_empty() else INF
+		if is_finite(fraction) and fraction<wall_fraction:direct=id;impact=origin.lerp(endpoint,fraction)
 	if direct!=0:game._damage(direct,r.pilot,tf.SENTRY_DAMAGE,"TITAN CANNON",false,impact,(impact-origin).normalized(),false,mounted(direct))
 	# Exclude the direct victim: the splash must not double the original 12 damage.
 	game.variant_combat.blast(impact,r.pilot,tf.SENTRY_DAMAGE,SPLASH_RADIUS,"TITAN CANNON",direct)

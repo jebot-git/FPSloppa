@@ -1,23 +1,8 @@
 {
-  "version": "0.11v",
-  "url": "https://github.com/jebot-git/FPSloppa/releases/download/0.11v/FPSloppa-0.11v-Base-Assets.zip",
-  "sha256": "eeffdb7d9038589a2dd9afbae247d68b8408d0d8b9fc3bc3d62268d0bc71206c",
+  "version": "0.12v",
+  "delivery": "bundled",
+  "sha256": "026fad3575634f9203d94419fcdfc62a3d1913e39968aa9fc49bc43f4c341d7e",
   "files": [
-    {
-      "path": "docs/validation/lighting-ao-distribution.json",
-      "size": 59600,
-      "sha256": "d74da4d246d9d9a5a804dd634cdf05adfef8bda3dffb9ed81c0291664840137d"
-    },
-    {
-      "path": "docs/validation/static-assets.json",
-      "size": 405827,
-      "sha256": "f95c8248434dee0089e83e67c2b8e8c821d6190b9fe59af5a8b845abec1f4a33"
-    },
-    {
-      "path": "docs/validation/static-rendering.json",
-      "size": 35656,
-      "sha256": "a7bec20d324d69a35e8e7a63d65ab9721064a70928df25e2c939654116a3b873"
-    },
     {
       "path": "maps/Ashfall/CC0-1.0.txt",
       "size": 7048,
@@ -39,54 +24,9 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/Ashfall/README.md",
-      "size": 5104,
-      "sha256": "1720517e504cd86f21a2dfd99f37fdb05d24d83e860ebb3841a4781d4d3736ef"
-    },
-    {
-      "path": "maps/Ashfall/ashfall.wad",
-      "size": 3569588,
-      "sha256": "065c9e1bc7ae0be15c512115ef047555336050ecffeaf13de93c10b981ae2602"
-    },
-    {
-      "path": "maps/Ashfall/manifest.json",
-      "size": 635,
-      "sha256": "1f6f6f1b52f261c07a147c1d943b16340bdf46116547bd369303b31e9599f369"
-    },
-    {
-      "path": "maps/Ashfall/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "71fa22fccb0f98a6ed3719503efb2baae543f6bea1485d821eb33a3fc0af26fb"
-    },
-    {
-      "path": "maps/Ashfall/probes.json",
-      "size": 12096,
-      "sha256": "ece129afc536ab5f408ae76b8ad68635bf724925fc716ba63e592305acfa81aa"
-    },
-    {
-      "path": "maps/Ashfall/route.json",
-      "size": 95307,
-      "sha256": "4d38eb75ee3aa51478d39f170e63331030434a6d8a8b28dbf5c7e412b5dc8d79"
-    },
-    {
-      "path": "maps/Ashfall/tb_ashfall.map",
-      "size": 1021406,
-      "sha256": "f4df148594e0cde87a5cb46b35b59eff556e3acb8e52483251b52dfab17a2d9f"
-    },
-    {
-      "path": "maps/Ashfall/texture-audit.json",
-      "size": 2120,
-      "sha256": "089da7137db61edb1134bd255381343ac1f576d5bf3df5f4f7faa38e30b33118"
-    },
-    {
       "path": "maps/Ashfall/texture-sources.json",
       "size": 7752,
       "sha256": "3bc3ffef4c741d022c10ef668c9607fa50e880e8df41e4406e481005013481d3"
-    },
-    {
-      "path": "maps/CC/BUILD.json",
-      "size": 10066,
-      "sha256": "84e9afafccc45c3f1ad68c21f32c3f5fbe8fe334997b1c0c0447c6c758630462"
     },
     {
       "path": "maps/CC/LibreQuake-COPYING.txt",
@@ -109,56 +49,6 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/CC/README.md",
-      "size": 2571,
-      "sha256": "75ee10b5efcb2cb0050bfb9d7ff39b2d3a6db17593bfb6e5ff914e4b0fc20ac6"
-    },
-    {
-      "path": "maps/CC/original/lqdm3.map",
-      "size": 1828783,
-      "sha256": "638b55fac74c87690e2cf02d4417b6ef67c144bad8f019bc9dbdd8af8804555b"
-    },
-    {
-      "path": "maps/CC/original/lqdm4.map",
-      "size": 1007305,
-      "sha256": "6b7aaac0c56baf4bb5755a42e454df526725bec0fe90281195e47975d7bf2f3d"
-    },
-    {
-      "path": "maps/CC/original/lqdm6.map",
-      "size": 1141683,
-      "sha256": "a5e8e1baa4346afee6c752177ac12ff5dd9a71c74338c35b8ea496a2509e6815"
-    },
-    {
-      "path": "maps/CC/original/lqdm7.map",
-      "size": 1079562,
-      "sha256": "9ad9e1a9fe646b6756b8fabb0031d10a98cdf5b12e3232643a3b2e5d61919b59"
-    },
-    {
-      "path": "maps/CC/source/cc-used.wad",
-      "size": 2775900,
-      "sha256": "501853bd2c1ac7c99db7c3566b90b997f10d17fb8a21f84ab7b728991f17bf29"
-    },
-    {
-      "path": "maps/CC/source/cc_basement.map",
-      "size": 1048174,
-      "sha256": "52e77a4091f7ed608ca70277c4c8a737791f31315d43a9952afe7a45f7c9651d"
-    },
-    {
-      "path": "maps/CC/source/cc_ghostquarter.map",
-      "size": 1086408,
-      "sha256": "98bff80c3fd24cc122460bb665333555953ef55131d2a067c69ff8cc76df6b17"
-    },
-    {
-      "path": "maps/CC/source/cc_hyperborea.map",
-      "size": 612545,
-      "sha256": "875ea4d113bdd6213a95a58f068be81b06f2fc6cf007b4cc09dc652e169adaf3"
-    },
-    {
-      "path": "maps/CC/source/cc_psychofuge.map",
-      "size": 995019,
-      "sha256": "63271b4815bceb7b6615b3acd641a015db0980bf709d8550feef0006575fe305"
-    },
-    {
       "path": "maps/CTFStudies/CC0-1.0.txt",
       "size": 7048,
       "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
@@ -177,231 +67,6 @@
       "path": "maps/CTFStudies/Makkon_License.txt",
       "size": 1274,
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
-    },
-    {
-      "path": "maps/CTFStudies/README.md",
-      "size": 685,
-      "sha256": "d978ec2fc847b063aa6fce24857fcf40e204ee4a2ab21f9630900c51c6b38e00"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_confluence/ctf_confluence.map",
-      "size": 61307,
-      "sha256": "b73169e105b5aa47373af763c7721cc7fadf0d46b6bcf9ddc7e683e877c0bdfd"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_confluence/light.log",
-      "size": 1594,
-      "sha256": "c26c8434e63c6d275b7f6f26ad560a672eef07c707a2683797693a0113434d3f"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_confluence/manifest.json",
-      "size": 3428,
-      "sha256": "4a5a6ef60d824ba1cfccdc8908b5f243e68270d3baa4e5fd33d9f949645d507d"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_confluence/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "275efb6cc9ce38119f20296dedf87b7998c21e1226ca5d7402c784ab5e75c1f3"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_confluence/texture-audit.json",
-      "size": 1481,
-      "sha256": "b8fba7a3d6c41802cc1342a390669bf8e01c1633fae3e4e0490ec14f3432c1c4"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_confluence/validation.json",
-      "size": 73649,
-      "sha256": "f13728b1857a225a55783d93850c5e6f2c7d021fad9505ebc70b5bb184fc4071"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_confluence/vis.log",
-      "size": 532,
-      "sha256": "5dd10ccb7aebe0be93793bac6e5f5f4d249ea160c231b8a67f082b9f2052c58d"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crownreach/ctf_crownreach.map",
-      "size": 70978,
-      "sha256": "f8cf02959c68250e9d75a54ccb5c2ad73a8ba407bc5aa5184cebd6c6d98b7857"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crownreach/light.log",
-      "size": 1786,
-      "sha256": "96f2d812e39667788fe36398d30a0e38b1d9f2ac7f58c0b0dfdee5cecf3284d3"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crownreach/manifest.json",
-      "size": 2716,
-      "sha256": "297e5ccee569fea43136818d39d295363ae7f84380fa017b903003b49f3ce676"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crownreach/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "25644c3204c3033e10fdbef5b6380aa727cc700afe4ecee059215700dbbf707c"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crownreach/texture-audit.json",
-      "size": 1231,
-      "sha256": "4a856cd89afd8dc28b9b570aad173e5fbb2ebd1153ad66a6f3dc923c2a4bbea9"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crownreach/validation.json",
-      "size": 72410,
-      "sha256": "089b3c62df16d2a2b71e8b80e96b332dd39c0eb28cf47d25f728b8c59aaf56fa"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crownreach/vis.log",
-      "size": 532,
-      "sha256": "f788c8014e22a34c7247bde16087473afc3c55adda8d193bac1adb81e8197970"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crucible/ctf_crucible.map",
-      "size": 40874,
-      "sha256": "983054a9ecc535eead48a14cdbf3a2b23ef44186d0c282fe07c815c9e28b9ba6"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crucible/light.log",
-      "size": 1805,
-      "sha256": "a6fcc6f2a4080f9441f151c02645b0088a62951f7e5aba37eced50e70e09b312"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crucible/manifest.json",
-      "size": 3180,
-      "sha256": "43409d5f8d145459e44f739cecca365f29f62153644466ce7c021f864174af34"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crucible/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "d6f9c75e176fc237ac3b44aa4103b7e15e6af132d9df7c1b19189f555260bed5"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crucible/texture-audit.json",
-      "size": 988,
-      "sha256": "94a6a0d946567b2d9fc723513734b9152b6186747c2a4174121e22d7a7e08bcd"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crucible/validation.json",
-      "size": 73395,
-      "sha256": "0c24dc02ac241b7445773af0a8196e96ad209854f34c85626f310520d324d1e2"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_crucible/vis.log",
-      "size": 525,
-      "sha256": "4b2786108ddf0b0e4b38bc089a192aef150097cd0d0793528c6df62cbf705bbf"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_deepvault/ctf_deepvault.map",
-      "size": 67334,
-      "sha256": "e4c824b0467ed881f7adfa22b467b0d83bd784e84b85b674d20ce69bcaa8e982"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_deepvault/light.log",
-      "size": 1585,
-      "sha256": "f7bf0ac6efd8c06a42f0fe47f7797d30f73e9e475014c45331390b9c86c4cfff"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_deepvault/manifest.json",
-      "size": 3858,
-      "sha256": "f2a7a8839dbcc361bc7c4a8c11a9a179023b9aa84e51f3f1c7bd83f425c079e5"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_deepvault/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "bd50579eb305e3d323167d8ac5c4ddadd4027896c726069bedcef746c54da79c"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_deepvault/texture-audit.json",
-      "size": 1229,
-      "sha256": "68ed54fc822e95ca0286734a9f0703d61f6eed5dc5273ffe9ee5ab34102fe8de"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_deepvault/validation.json",
-      "size": 71781,
-      "sha256": "c6251ca281da9354ae94a9f55c20fa6f7225066ec3736e53dd94440d34ead8be"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_deepvault/vis.log",
-      "size": 527,
-      "sha256": "b761653472e7a1d05c374e580a6bcdda3efaa04f9d46b2b9de0586427f80adaa"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_skyfracture/ctf_skyfracture.map",
-      "size": 61091,
-      "sha256": "84f5d6ba799f476a896b11d5b6d797d2cabf78c58e2d430185f63d9d3364ef7f"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_skyfracture/light.log",
-      "size": 2190,
-      "sha256": "ca98daa577ddefef82d453bcadaf0d2cd37a55574ad5e084b5906be15e86c168"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_skyfracture/manifest.json",
-      "size": 3163,
-      "sha256": "e0acc57af92995da8beb636a2c37947b1633b8dbb6e2f500f5819d23de50229d"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_skyfracture/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "b2fba378683e7f1e37fbe47a7f3faec15c1ccd33dcfff43d1a0f2da52d750371"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_skyfracture/texture-audit.json",
-      "size": 989,
-      "sha256": "7e7f168068d837a47fa32ad6a56046b4bc9665771e30186d2b0ed411af44f80f"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_skyfracture/validation.json",
-      "size": 74487,
-      "sha256": "4faa8499d60c9d27cc870c50ffff56fd846443f0c64e33c668ed4aa28e898865"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_skyfracture/vis.log",
-      "size": 531,
-      "sha256": "4bd935c72f89d64e64864d494bb16818f68a243cce3394f7c690113553e001fd"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_tideworks/ctf_tideworks.map",
-      "size": 47091,
-      "sha256": "0ebdb1a3a8e31690287e08172d8802b54ae6246ea896900ef8686b76526eb96a"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_tideworks/light.log",
-      "size": 2255,
-      "sha256": "4bdac1846e5c49b4aa331bfa3549a29d5ac981276fb08aeda3e529df0f58c3c3"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_tideworks/manifest.json",
-      "size": 3759,
-      "sha256": "626f9c4f680a090d089bbc382e91b748efa855d027b59afac6582238673d94ea"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_tideworks/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "61f9daf2c06ccf147c11d1a0df8068c3dc3f5cf585bbabdd8254d24055ccf517"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_tideworks/texture-audit.json",
-      "size": 1236,
-      "sha256": "4d41078a4e7ce84dd4f38d4af01630e5692f6dbaa8376f2d12ad83960b5488f4"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_tideworks/validation.json",
-      "size": 74023,
-      "sha256": "41aacecd10f508c0c30a57ad4124aa9eedcdad5420f863c35b5ea57659542cf7"
-    },
-    {
-      "path": "maps/CTFStudies/ctf_tideworks/vis.log",
-      "size": 527,
-      "sha256": "7ab0fea0e27483dbfeaf0f455712a39977f7c6aba4b99b9986fdf8beca77ac72"
-    },
-    {
-      "path": "maps/CTFStudies/materials.wad",
-      "size": 2041864,
-      "sha256": "cacf95804c5e9be435236e0a86931437aee42073e10754efd8ab5d8dc7ee3cf5"
-    },
-    {
-      "path": "maps/CTFStudies/original-asset-audit.json",
-      "size": 1797,
-      "sha256": "2268262896a6d9be01f5009f4ca718bac53a4475666a77db7c4d4d6365c4661f"
     },
     {
       "path": "maps/CTFStudies/texture-sources.json",
@@ -434,21 +99,6 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/Frigate/README.md",
-      "size": 1051,
-      "sha256": "a14dacacd803208d2c68759048c8383d94e9476857fc7d19ddb40135e9b85807"
-    },
-    {
-      "path": "maps/Frigate/frigate.cfg",
-      "size": 182,
-      "sha256": "c7e68f316520b867b091ca52741b2736651a44e763ace5b0fa246069bd1f87e3"
-    },
-    {
-      "path": "maps/Frigate/manifest.json",
-      "size": 916,
-      "sha256": "a2df9e356a64bc047ee597ce6fc4168503b29c0393b0831ce1e36c96cd882eab"
-    },
-    {
       "path": "maps/Frigate/texture-sources.json",
       "size": 6047,
       "sha256": "392c75cb50bbe616557166610c223e50370fba34abc379f2870ea75ded602fd2"
@@ -474,24 +124,9 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/HiSlop/README.md",
-      "size": 9044,
-      "sha256": "9a3a5e36e37f1f11d87fe9bc0d6987a2cbe950cf1b0bb37620a99ec5a826b1b0"
-    },
-    {
-      "path": "maps/HiSlop/manifest.json",
-      "size": 937,
-      "sha256": "83a991ff2c509b27fd48490ed064ea29d09d0fdb77db06813e8a8ab5c7081800"
-    },
-    {
       "path": "maps/HiSlop/texture-sources.json",
       "size": 5120,
       "sha256": "13ee7defc4ab55fcc172411f2fd437aa4977348ee018791d8ad0f954109e761f"
-    },
-    {
-      "path": "maps/KOTH/BUILD.json",
-      "size": 10606,
-      "sha256": "4ed5c48163f52d43836cba50239cb744138df04d65159013b73c048e7db80a47"
     },
     {
       "path": "maps/KOTH/LibreQuake-COPYING.txt",
@@ -514,61 +149,6 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/KOTH/README.md",
-      "size": 2561,
-      "sha256": "e6133c7ab425db04c76c911f729f8875e530f69649e0c9738140fc4f28f68d01"
-    },
-    {
-      "path": "maps/KOTH/VALIDATION.md",
-      "size": 2320,
-      "sha256": "4f69eeaa2ec90c42e45298ea0380ddd98158c3cdfccfe295416f112a2db9dbac"
-    },
-    {
-      "path": "maps/KOTH/original/lqdm1.map",
-      "size": 633909,
-      "sha256": "34cc096a1cab438af97bcb4326299cfb0bb7278eaeceb5f93878005bd3e02b37"
-    },
-    {
-      "path": "maps/KOTH/original/lqdm2.map",
-      "size": 474425,
-      "sha256": "913829a8b7ee55da4d5e3f3ea30178aa0784dbe4d226c12913730afb33beb972"
-    },
-    {
-      "path": "maps/KOTH/original/lqdm3.map",
-      "size": 1828783,
-      "sha256": "638b55fac74c87690e2cf02d4417b6ef67c144bad8f019bc9dbdd8af8804555b"
-    },
-    {
-      "path": "maps/KOTH/original/lqdm8.map",
-      "size": 892377,
-      "sha256": "8491a5607109c0c341ff2d140d388b2067862462400977d116bb8c414bedc5b1"
-    },
-    {
-      "path": "maps/KOTH/source/koth-used.wad",
-      "size": 5339312,
-      "sha256": "4f83444cbd12310332c77562e21876b900b1aaf99549d7359e6472eab92ffadd"
-    },
-    {
-      "path": "maps/KOTH/source/koth_alichar.map",
-      "size": 892064,
-      "sha256": "a9fff5e896d6bf91962cfa0653c2de457f8a5dcc61b3c0f556aa43b99a151808"
-    },
-    {
-      "path": "maps/KOTH/source/koth_hyperborea.map",
-      "size": 1836442,
-      "sha256": "94d6c9b17563861c610b5992664a442f242a0dc2b36343fb6c870565078a5283"
-    },
-    {
-      "path": "maps/KOTH/source/koth_solstice.map",
-      "size": 634500,
-      "sha256": "3469fa68fbe587a9bf142eb122825cb895b31d2067ecd81c25bf5664dce98107"
-    },
-    {
-      "path": "maps/KOTH/source/koth_torture.map",
-      "size": 477877,
-      "sha256": "ac74f45417d7d31b584630c865db8a011e189aaf64f75057863ce3e88f5cc68b"
-    },
-    {
       "path": "maps/LibreQuake-COPYING.txt",
       "size": 1697,
       "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
@@ -587,16 +167,6 @@
       "path": "maps/Makkon/Makkon_License.txt",
       "size": 1274,
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
-    },
-    {
-      "path": "maps/Makkon/README.txt",
-      "size": 1081,
-      "sha256": "0901b792fecce8f1337ad9aaf2235a48ecb886e42e802c66aa571bc2bfdd0233"
-    },
-    {
-      "path": "maps/Makkon/texture-theme.json",
-      "size": 18834,
-      "sha256": "edbdaf522416f8b2bd74fb8fffbe48726e3e590e4a9d861d5b21b5a9da696bd5"
     },
     {
       "path": "maps/Pressureworks/CC0-1.0.txt",
@@ -619,89 +189,9 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/Pressureworks/README.md",
-      "size": 3485,
-      "sha256": "e5d70c01dbee6ce7acdf2092d504af6129ce3da6f702b7bb172f450b6f8a3480"
-    },
-    {
-      "path": "maps/Pressureworks/RESEARCH.md",
-      "size": 8025,
-      "sha256": "b36385e1970907d5d0f740fb9dc5416d639d00b19c79f3a13e28348953c2d949"
-    },
-    {
-      "path": "maps/Pressureworks/STYLE.md",
-      "size": 1815,
-      "sha256": "bf3f492094bdffd609f3406fb8665e7e5b2bca5ec0e8a8e4c0e0313dfa2b0a88"
-    },
-    {
-      "path": "maps/Pressureworks/demo-evidence.json",
-      "size": 1390,
-      "sha256": "90badac3bd612e55e9169ced4c9c3d3d92a12fed7ed14677a62f2575b01e213b"
-    },
-    {
-      "path": "maps/Pressureworks/flag-vault.png",
-      "size": 1666469,
-      "sha256": "fd0c5031ea3ad21ff11645e7445e8bab77fca377d13b6af0c96f71393929dd13"
-    },
-    {
-      "path": "maps/Pressureworks/layout.png",
-      "size": 208730,
-      "sha256": "7a3b0f8609adf5927f123037b91d71e650afa65a0f9731da80c832315af42356"
-    },
-    {
-      "path": "maps/Pressureworks/manifest.json",
-      "size": 1012,
-      "sha256": "04b9b124ff3dcf54032ea0b7037066dc15279b03e7ee79daad2abccf65d53185"
-    },
-    {
-      "path": "maps/Pressureworks/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "f6c7fc32f35d95665669f330c039545b7df163cfb4ef22beee4d7befec3e8393"
-    },
-    {
-      "path": "maps/Pressureworks/pressureworks.wad",
-      "size": 7188412,
-      "sha256": "2f8f030fd80eee464cf783edb7ba583c300068bf935009d0b5829c7af2138872"
-    },
-    {
-      "path": "maps/Pressureworks/pump-hall.png",
-      "size": 1514970,
-      "sha256": "00b1d886e81ff231a79e940c1377e8bdce0677c1b11e967e8f9adc52040a8f3f"
-    },
-    {
-      "path": "maps/Pressureworks/texture-audit.json",
-      "size": 4733,
-      "sha256": "9f1573545d039c5997826e60d04ebdb9938d028ba9f5295aa0f3c7ff10e95c18"
-    },
-    {
       "path": "maps/Pressureworks/texture-sources.json",
       "size": 17583,
       "sha256": "42b2b6d5d0e4c328b6ac1d0f5f409176e9da9020321588e80816d3d9e675b7ed"
-    },
-    {
-      "path": "maps/Pressureworks/tf_maplist.example.txt",
-      "size": 17,
-      "sha256": "3229c32548641cd9f0f9b0d52b718f616b7cef91eb81787b517116c1ed7dcf32"
-    },
-    {
-      "path": "maps/Pressureworks/tf_pressureworks.map",
-      "size": 125691,
-      "sha256": "d8b7fbafeca84cdfda66d5e14e41acb2213395251dd604c886318988ca811fd3"
-    },
-    {
-      "path": "maps/Pressureworks/turbine.png",
-      "size": 1522867,
-      "sha256": "56334492071a93f51e3e310153c9f247b1ad04c327ec0e4501e946eefebe1390"
-    },
-    {
-      "path": "maps/Pressureworks/validation.json",
-      "size": 22561,
-      "sha256": "6ec33c0db6b0b2ad51a4099fa9cb3e9ebe0a626dcab0784c1713735d3ce0c0c6"
-    },
-    {
-      "path": "maps/Quake/BUILD.json",
-      "size": 10888,
-      "sha256": "ec4ca63b86281d6a1a532b51e9e42657b0502ff6b8affedb2a64cb3856060923"
     },
     {
       "path": "maps/Quake/COPYING-GPL-2.0.txt",
@@ -729,104 +219,14 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/Quake/ORIGINAL-README.txt",
-      "size": 1201,
-      "sha256": "6bcd8b3b21c2b7692632563af5519cd281dce016afd1c047484b7fe2071d85a1"
-    },
-    {
-      "path": "maps/Quake/README.md",
-      "size": 1346,
-      "sha256": "f5157e469e144e4ab2d5ba0d5f8a28fc7597539d680f9083992413ab37f5d1b7"
-    },
-    {
       "path": "maps/Quake/sources/TEXTURE-SOURCES.json",
       "size": 74953,
       "sha256": "75f31ceff402ce86383c5734748ea89fccc67a806160a4c97beb287354bf3b04"
     },
     {
-      "path": "maps/Quake/sources/adapted/librequake.wad",
-      "size": 4005072,
-      "sha256": "f71016e76503ec2b09e1efa5c77cc9c8cb9ad7a9a075b41b7264d9c79729c7e8"
-    },
-    {
-      "path": "maps/Quake/sources/adapted/qsrc_dm1.map",
-      "size": 275179,
-      "sha256": "4cdc5eae3b395906c23cfd181ddacd33cb9b9ddbd1844a249da6b5128b7b88b3"
-    },
-    {
-      "path": "maps/Quake/sources/adapted/qsrc_dm2.map",
-      "size": 685734,
-      "sha256": "d8ffae72927e26297a0fc50fabc29d7c9a18559eccb6bbfdc0fa02aebbeba450"
-    },
-    {
-      "path": "maps/Quake/sources/adapted/qsrc_dm3.map",
-      "size": 377079,
-      "sha256": "c9433dacec16ace41b60875b52e5fa921e4ad5026993ebf78f758dc9cac20c11"
-    },
-    {
-      "path": "maps/Quake/sources/adapted/qsrc_dm4.map",
-      "size": 374781,
-      "sha256": "8f8a1528982dc64e362b13dbde1cc30ac16d15d05ed4428193561999c6550b7f"
-    },
-    {
-      "path": "maps/Quake/sources/adapted/qsrc_dm5.map",
-      "size": 215261,
-      "sha256": "2d64bbd6ba317e86028d41577caf5ed6221d33c702bf341de42059d36843cfe3"
-    },
-    {
-      "path": "maps/Quake/sources/adapted/qsrc_dm6.map",
-      "size": 257300,
-      "sha256": "c767ac29db47787633097891a38f45e5888f593f9c2bba03668d94e7db6b95f7"
-    },
-    {
-      "path": "maps/Quake/sources/adapted/qsrc_dm7.map",
-      "size": 218980,
-      "sha256": "d6483e412c2052f4e6e57988bf268b067e1002feb98e3813a4e685183ecdab5f"
-    },
-    {
-      "path": "maps/Quake/sources/original/DM1.MAP",
-      "size": 270971,
-      "sha256": "7ec18fbc670c4a61c2c3125e6ea54bbad8b33740be2a597d8fb33821bef0f99c"
-    },
-    {
-      "path": "maps/Quake/sources/original/DM2.MAP",
-      "size": 668496,
-      "sha256": "609174437d78c7d11d9449c499958fa59b3f54138465d4a1e574408db422deb9"
-    },
-    {
-      "path": "maps/Quake/sources/original/DM3.MAP",
-      "size": 376408,
-      "sha256": "666b7414818b0339a2da59d8a232d0a8226b340ce2ec9e0fd6e23dd7975d5ea1"
-    },
-    {
-      "path": "maps/Quake/sources/original/DM4.MAP",
-      "size": 364922,
-      "sha256": "9a53a5d340602fc5e10cf5a483d87cd2b46b0571a19383fc988d21ecdacb27a9"
-    },
-    {
-      "path": "maps/Quake/sources/original/DM5.MAP",
-      "size": 215038,
-      "sha256": "d4b5369b63f9671bd845e97a48f09adb3dea26cd757525ba1faed961b0ec6cdf"
-    },
-    {
-      "path": "maps/Quake/sources/original/DM6.MAP",
-      "size": 250581,
-      "sha256": "29f8a5fa04f92d8177f1a3083d30b8f70ece862af8d969510a124f1718f8028a"
-    },
-    {
-      "path": "maps/Quake/sources/original/DM7.MAP",
-      "size": 212798,
-      "sha256": "c12809cab0e9749514feeac5eb6115c2da8352378bbe5047759e8eba44db67f1"
-    },
-    {
       "path": "maps/Quake/sources/original/gnu.txt",
       "size": 14969,
       "sha256": "2f4d8811d21f8a6e1ba2353644e93a973cf3ef326776a06ff755b9357f4ca248"
-    },
-    {
-      "path": "maps/Quake/sources/original/release_readme.txt",
-      "size": 1201,
-      "sha256": "6bcd8b3b21c2b7692632563af5519cd281dce016afd1c047484b7fe2071d85a1"
     },
     {
       "path": "maps/Quake/texture-dictionary/LibreQuake-COPYING.txt",
@@ -854,21 +254,6 @@
       "sha256": "253ded97112f41d77f3918482e372466df82a909802d73db17875748d19171e8"
     },
     {
-      "path": "maps/Quake/texture-dictionary/makkon-used.wad",
-      "size": 15344124,
-      "sha256": "3e8e17d6704b1c3759676833aedee5e00764fd3b5b8de70f22b081ba43f72a44"
-    },
-    {
-      "path": "maps/Quake/texture-dictionary/manifest.json",
-      "size": 409324,
-      "sha256": "0f454565b3487efc23cc5e3e105f84c09b6469dc02e973c3a99a03972283e0a0"
-    },
-    {
-      "path": "maps/Quake/texture-dictionary/replacement-miptex.lmp",
-      "size": 4187596,
-      "sha256": "f019452215e12b7db3afd4c1c523fbb83021690fe9a5fd73a99a6b51b7d5e280"
-    },
-    {
       "path": "maps/README.txt",
       "size": 2773,
       "sha256": "7178d5593ed505f5b1ea17ea234ea28d064301a4feba9cb9a749d1cfbeec34cc"
@@ -894,89 +279,9 @@
       "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
     },
     {
-      "path": "maps/VesperAbbey/README.md",
-      "size": 3795,
-      "sha256": "aff10da6d471e01996c9a440b48ec539da5bc8a98f2849480af0ccd6de7de66d"
-    },
-    {
-      "path": "maps/VesperAbbey/RESEARCH.md",
-      "size": 5872,
-      "sha256": "0ca144a9b9086b5e5d65bb139bce91289bac60c29494c6902693f3ac7448b7e4"
-    },
-    {
-      "path": "maps/VesperAbbey/bell-lifts.png",
-      "size": 1728201,
-      "sha256": "1468c10c166e2f7a32f47eb1f6ff225178a6b39ab6a8220b8c71a6250235d036"
-    },
-    {
-      "path": "maps/VesperAbbey/layout.png",
-      "size": 184084,
-      "sha256": "d681eec3773eed946c008d6b3cc216cefd9d8154f69019e1499b0f28ba3ed92a"
-    },
-    {
-      "path": "maps/VesperAbbey/lift-demo.mp4",
-      "size": 315107,
-      "sha256": "1122b36b05d4c7c86427f1ab122ea5d95b9cfdae26a433df0b55f1cea66cf1c3"
-    },
-    {
-      "path": "maps/VesperAbbey/manifest.json",
-      "size": 1088,
-      "sha256": "b65e499a2d2320e3410ae74eac698af935b9134207f84cae6ec39616ffe1bbe3"
-    },
-    {
-      "path": "maps/VesperAbbey/nave.png",
-      "size": 1536171,
-      "sha256": "737eb9a7cd2551bd09a1f908b8fea5c8b17523d366120cc98916d9a07f5f9b99"
-    },
-    {
-      "path": "maps/VesperAbbey/navigation-sha256.txt",
-      "size": 65,
-      "sha256": "3bee6b670bd65863317fd43f81bc021a424c27345b1cf7796c218e4791666658"
-    },
-    {
-      "path": "maps/VesperAbbey/overview.png",
-      "size": 1608261,
-      "sha256": "d18c076c2e8e623d4355ece5db767a44b37bc1d239c761b5e00bec68a1272827"
-    },
-    {
-      "path": "maps/VesperAbbey/sanctuary.png",
-      "size": 1762740,
-      "sha256": "3b61d78f2c0e225dc852951e28d99247a49ebe0b0d4d949284d7962f8eb13d3a"
-    },
-    {
-      "path": "maps/VesperAbbey/texture-audit.json",
-      "size": 2581,
-      "sha256": "8af3ff0f6246874b84031190d13af0782a77d4f2f91542fe8965d8d5099a4086"
-    },
-    {
       "path": "maps/VesperAbbey/texture-sources.json",
       "size": 9009,
       "sha256": "e5af9a87586ed8db143084f085a2136b79ee89869eae4955dc564301586ec82b"
-    },
-    {
-      "path": "maps/VesperAbbey/tf_maplist.example.txt",
-      "size": 10,
-      "sha256": "61972909411e4186dee3b3b8a86f7a0581c1422b39a2a23efd8c04f66d1d88bb"
-    },
-    {
-      "path": "maps/VesperAbbey/tf_vesper.map",
-      "size": 123384,
-      "sha256": "e4581b38bc7f1938d331912b66b0671e3cacf5b6dbeb2dae84b6574277cd8552"
-    },
-    {
-      "path": "maps/VesperAbbey/validation.json",
-      "size": 30962,
-      "sha256": "a623b576b3d45ee24a94dd5b9b38a7cacf929ce63fff4785ee0ef4d3d3314dd0"
-    },
-    {
-      "path": "maps/VesperAbbey/vesper.wad",
-      "size": 4287884,
-      "sha256": "4b45c59f6294d236e27bfde0b4d5dfa5b6d180b4b3dfce05004b5e25622a466f"
-    },
-    {
-      "path": "maps/VesperAbbey/well6-evidence.json",
-      "size": 1613,
-      "sha256": "5cdae95fc408be864f2d4e04aa28684210582e1bbdc3aa42bda3592e9b9396e5"
     },
     {
       "path": "maps/as_frigate.bsp",

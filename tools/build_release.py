@@ -4,7 +4,7 @@ import subprocess, shutil, zipfile, json, os, sys
 
 from map_distribution import distributable
 root=Path(__file__).resolve().parents[1]
-RETIRED={'optional-arena-pack','optional-threewave-tools','optional-tf-tools','optional-ad-tools','optional-tf-map-pack'}
+RETIRED={'optional-map-pack','optional-arena-pack','optional-threewave-tools','optional-tf-tools','optional-ad-tools','optional-tf-map-pack'}
 builds=root.parent/'Builds'
 godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
 if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
@@ -37,30 +37,37 @@ subprocess.run(server_command,check=True)
 
 if '--exports-only' in sys.argv:raise SystemExit(0)
 
-for _,folder,_ in targets:
+package_files={}
+for _,folder,binary in targets:
     dest=builds/folder
+    native={'Linux':['libfpsloppa_bhaptics_native.so','libgodot-steam-audio.linux.template_release.x86_64.so','libgodotopenxrvendors.so','libphonon.so','libtwovoip.linux.template_release.x86_64.so'], 'Windows':['fpsloppa_bhaptics_native.dll','libgodot-steam-audio.windows.template_release.x86_64.dll','libgodotopenxrvendors.dll','libtwovoip.windows.template_release.x86_64.dll','libunwind.dll','phonon.dll']}
+    selected={binary,'FPSloppa.pck',*native[folder]}
+    package_files[folder]=selected
+    def stage(source,out):
+        out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out);selected.add(out.relative_to(dest).as_posix())
     asset_manifest=json.loads((root/"deathmatch/assets/base_manifest.json").read_text())
     for row in asset_manifest["files"]:
-        source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,destination)
-    for source in (root/'docs').glob('*.md'):
-        out=dest/'docs'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
-    for name in ['NETWORK_TESTING.md','SESSION_FEATURES.md','AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','EYES.md','PERFORMANCE.md','ICON.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','LIVE_VR_TEST.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
-        shutil.copy2(root/name,dest/name)
+        source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);stage(source,destination)
+    for name in ['EXTERNAL-ASSETS.md','ARCHIVED-EXTRAS.md','RENDERER-SUPPORT.md']:
+        stage(root/'docs'/name,dest/'docs'/name)
+    for name in ['AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','EYES.md','PERFORMANCE.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
+        stage(root/name,dest/name)
     for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
         if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt','CREDITS.txt'}):
-            out=dest/'licenses'/source.relative_to(root);out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
+            out=dest/'licenses'/source.relative_to(root);out.parent.mkdir(parents=True,exist_ok=True);stage(source,out)
     for source in (root/'deathmatch/maps').glob('LibreQuake-*.txt'):
-        out=dest/'licenses'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
+        out=dest/'licenses'/source.name;out.parent.mkdir(parents=True,exist_ok=True);stage(source,out)
     for source in (root/'deathmatch/maps/librequake-props').glob('*'):
         if source.name not in {'LICENCE.txt','CREDITS.txt','SOURCES.json'}:continue
-        out=dest/'licenses/librequake-props'/source.name;out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out)
+        out=dest/'licenses/librequake-props'/source.name;out.parent.mkdir(parents=True,exist_ok=True);stage(source,out)
     if folder=='Linux':
         for label,mode in [('VR','on'),('Desktop','off')]:
-            f=dest/f'Play-{label}.sh'
+            selected.add(f'Play-{label}.sh');f=dest/f'Play-{label}.sh'
             f.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$game_dir/FPSloppa.x86_64" --xr-mode '+mode+' "$@"\n');f.chmod(0o755)
     else:
-        shutil.copy2(root/"tools"/"Diagnose-VR.cmd",dest/"Diagnose-VR.cmd")
+        stage(root/"tools"/"Diagnose-VR.cmd",dest/"Diagnose-VR.cmd")
         for label,mode in [('VR','on'),('Desktop','off')]:
+            selected.add(f'Play-{label}.cmd')
             (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --xr-mode '+mode+' %*\r\n').encode())
 
 if '--stage-only' in sys.argv:
@@ -73,8 +80,10 @@ for folder,name in [('Linux','FPSloppa-Linux.zip'),('Windows','FPSloppa-Windows.
     archive=root.parent/name
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         package_dir=server_dest if folder=='Server' else builds/folder
-        for f in sorted(package_dir.rglob('*')):
-            rel=f.relative_to(package_dir)
+        allowed=server_files if folder=='Server' else package_files[folder]
+        for name in sorted(allowed):
+            rel=Path(name);f=package_dir/rel
+            assert f.is_file(),f
             if folder=='Server' and rel.as_posix() not in server_files:continue
             if rel.parts[0] in {'demos','video-output'} or f.suffix=='.log':continue
             if rel.name in {'Entryway.x86_64','Entryway.exe','Entryway.pck','EntrywayServer.x86_64','EntrywayServer.pck'}:continue
@@ -83,12 +92,14 @@ for folder,name in [('Linux','FPSloppa-Linux.zip'),('Windows','FPSloppa-Windows.
     archives.append(archive)
 archive=root.parent/'FPSloppa-Deathmatch.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
-    # Honor Git exclusions: never ship local tracking captures, build caches,
+    # Include versioned sources only: never ship temporary export markers, captures,
     # signing files or release archives recursively inside the source archive.
     if (root/'.git').exists():
-        files=subprocess.check_output(['git','ls-files','--cached','--others','--exclude-standard','-z'],cwd=root).decode().split('\0')
+        files=subprocess.check_output(['git','ls-files','--cached','-z'],cwd=root).decode().split('\0')
     else:
         files=[str(f.relative_to(root)) for f in root.rglob('*') if f.is_file()]
+    # Make the source download self-contained now the asset-only download is retired.
+    files += [row['path'] for row in asset_manifest['files']]
     for name in sorted(set(files)-{''}):
         rel=Path(name);f=root/rel
         if not distributable(rel):continue
@@ -98,8 +109,8 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         if len(rel.parts)>1 and rel.parts[:2]==('optional-ad-tools','local'):continue
         if not f.is_file() or rel.parts[0] in RETIRED | {'materials','textures','android','test-results','release-assets','.agents','.codex'}:continue
         if any(part in {'.godot','.git','__pycache__'} for part in rel.parts):continue
-        if f.suffix=='.import' and rel.parent!=Path('deathmatch/maps/skies'):continue
-        if f.suffix in {'.pyc','.log','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
+        if f.suffix=='.import' and rel.parent!=Path('deathmatch/maps/skies') and rel.as_posix()!='deathmatch/maps/texture_replacements/makkon-used.wad.import':continue
+        if f.suffix in {'.pyc','.log','.mp4','.bak','.tmp','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
         z.write(f,Path('Godot')/rel)
 archives.append(archive)
 for archive in archives:

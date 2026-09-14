@@ -1,12 +1,12 @@
-# FPSloppa 0.11v
+# FPSloppa 0.12v
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.11v build notes](docs/RELEASE-0.11v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.12v build notes](docs/RELEASE-0.12v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.11v:** TITANBALL robot escort mode and Ashfall city map, new objective arenas, Vulkan rendering with baked ambient occlusion and detailed compressed textures, Quake/UT weapon loadouts, Impact Hammer jumps, improved bot objectives and network transport, and quieter music.
+**New in 0.12v:** fixes for exported weapon-audio crashes, VR trigger delivery and rocket jumping, tracked movement and DM7 pipes; refined TITANBALL cockpit controls, bot aim and advanced movement, eligible-mode loadout voting, and smaller self-contained release packages.
 
-**Optional maps:** the curated 53-map community pack covers seven modes. TF distribution contains only Pressureworks and Vesper Abbey; Assault contains only full-sized maps. Historical conversion tools remain available from [0.5v](https://github.com/jebot-git/FPSloppa/releases/tag/0.5v). See [the archive policy](docs/ARCHIVED-EXTRAS.md).
+The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
 FPSloppa is a PC OpenXR and desktop online arena shooter with seven base Quake deathmatch arenas, dedicated objective/CC maps and an optional 53-map community pack, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
@@ -18,7 +18,7 @@ The additional [UT Avatar Converter](tools/ut_avatar_converter/README.md) turns 
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching 0.11v clients and servers; the protocol changed from earlier releases.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use 0.12v clients and servers together to receive all fixes. The protocol remains `fpsloppa-35-mode-loadouts`.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Current standalone APKs include the base maps and models and install them automatically on first launch. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Instafreeze, Freeze Tag and Chainsaw Circus are available.
 
@@ -140,7 +140,7 @@ Four original tracker compositions provide a looping industrial action score wit
 
 Dedicated servers support DM, TDM, CTF and KOTH, with configurable limits, team switching and majority votes for balance, available maps and allowed game types. In-game hosting remains DM-only with eight slots. See [GAMEMODES.md](GAMEMODES.md) and [server.cfg](server.cfg).
 
-The [Optional Community Map Pack](tools/optional_maps/PACK-README.md) provides 53 maps in seven game-mode categories; see the [sorted catalog](tools/optional_maps/CATALOG.md). Seven Quake source ports form the base DM/IG/FT/TDM rotation. CC has four dedicated LibreQuake remodels; original LibreQuake maps are an optional expansion. Menus use an original iron/brass theme with large VR controls; CTF flags use cloth banners with distinct team emblems. Steam Audio provides headphone HRTF spatialisation for effects on Linux, Windows and Android; TwoVoIP supplies native Opus positional voice. Sound settings include a standard spatial-audio fallback. Dedicated servers may advertise an external Mumble client handoff; built-in voice remains the default.
+Seven Quake source ports form the base DM/IG/FT/TDM rotation. CC has four dedicated LibreQuake remodels. Menus use an original iron/brass theme with large VR controls; CTF flags use cloth banners with distinct team emblems. Steam Audio provides headphone HRTF spatialisation for effects on Linux, Windows and Android; TwoVoIP supplies native Opus positional voice. Sound settings include a standard spatial-audio fallback. Dedicated servers may advertise an external Mumble client handoff; built-in voice remains the default.
 
 This build also includes the previously developed dual pistols, controller finger gestures/tracker fixes, spectator mode, end-of-match scoreboard, audio/graphics settings, new pickup models, restored CC0 super shotgun and four original tracker soundtracks.
 
