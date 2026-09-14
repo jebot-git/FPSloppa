@@ -59,7 +59,7 @@ def main():
    x,y,z=[min(p[i] for p in points)-64 for i in range(3)];X,Y,Z=[max(p[i] for p in points)+64 for i in range(3)]
    for lo,hi in [((x-32,y-32,z-32),(X+32,Y+32,z)),((x-32,y-32,Z),(X+32,Y+32,Z+32)),((x-32,y-32,z),(x,Y+32,Z)),((X,y-32,z),(X+32,Y+32,Z)),((x,y-32,z),(X,y,Z)),((x,Y,z),(X,Y+32,Z))]:a.box(lo,hi,'sky_star')
   world=world.rstrip()[:-1]+'\n'+'\n'.join(a.brushes)+'\n}'
-  for key,value in {'wad':'koth-used.wad','message':row['title'],'_fpsloppa_bake':'1','_fpsloppa_atlas':'2048','_minlight':'48'}.items():world=setkey(world,key,value)
+  for key,value in {'wad':'koth-used.wad','message':row['title'],'_fpsloppa_bake':'1','_fpsloppa_atlas':'2048','_fpsloppa_light_response':'quake'}.items():world=setkey(world,key,value)
   result=[world];removed=[];spawns=[]
   for ent in ents:
    f=fields(ent);kind=f.get('classname','');p=list(map(float,f.get('origin','0 0 0').split()))
@@ -111,7 +111,7 @@ def main():
  compiler=Path('/tmp/hislop-ericw/ericw-tools-v0.18-Linux/bin')
  def compile(row):
   id=row['id'];dest=ROOT/'maps'/(id+'.bsp')
-  for exe,flags in [('qbsp',['-nodetail',str(OUT/'source'/(id+'.map')),str(dest)]),('vis',['-threads','2','-fast',str(dest)]),('light',['-threads','2','-extra','-bspxlit',str(dest)])]:
+  for exe,flags in [('qbsp',['-nodetail',str(OUT/'source'/(id+'.map')),str(dest)]),('vis',['-threads','2','-fast',str(dest)]),('light',['-threads','2','-extra4','-bspxlit','-bounce','0',str(dest)])]:
    with (ROOT/'test-results/koth'/(id+'-'+exe+'.log')).open('w') as log:subprocess.run([str(compiler/exe),*flags],cwd=OUT/'source',stdout=log,stderr=subprocess.STDOUT,check=True,timeout=300)
   row['sha256']=theme.sha(dest.read_bytes());print('COMPILED',id,flush=True)
   for suffix in ['.prt','.pts','.texinfo','.log']:(ROOT/'maps'/(id+suffix)).unlink(missing_ok=True)

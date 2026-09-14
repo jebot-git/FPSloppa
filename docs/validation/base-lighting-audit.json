@@ -1,0 +1,537 @@
+{
+  "map_count": 26,
+  "maps": [
+    {
+      "id": "as_hislop",
+      "sha256": "5fbb4ffe3b3df4335796424d3136c4574dacec63a4ae9a208476ce940c34e321",
+      "light_bytes": 516620,
+      "rgb_bytes": 1549860,
+      "normal_faces": 8808,
+      "ordinary_faces_without_samples": 850,
+      "median_sample": 33.0,
+      "authored_response": false,
+      "black_missing": true,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "32",
+        "_sun_mangle": "0 -70 0",
+        "_sunlight": "90",
+        "_sunlight2": "25"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Missing-sample rendering and caches corrected; existing light samples preserved."
+    },
+    {
+      "id": "as_frigate",
+      "sha256": "9988634fb175ece87ad5381f0ca9df1f35fdc5f53b12a9167a01b8c846ebc27e",
+      "light_bytes": 462368,
+      "rgb_bytes": 1387104,
+      "normal_faces": 4390,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 33.0,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28",
+        "_sun_mangle": "120 -65 0",
+        "_sunlight": "100",
+        "_sunlight2": "30"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    },
+    {
+      "id": "tf_pressureworks",
+      "sha256": "8d7140cb7d69ad220815c38e4dcb26c0b6c43d123b9a6200f32241f6a958479f",
+      "light_bytes": 691283,
+      "rgb_bytes": 2073849,
+      "normal_faces": 6350,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 29,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28",
+        "_sun_mangle": "45 -65 0",
+        "_sunlight": "115",
+        "_sunlight2": "35"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    },
+    {
+      "id": "tf_vesper",
+      "sha256": "350cbf2aa0a301cc6d140734821cf2efe178cd114ae8fb5c831c57f5b93d63b3",
+      "light_bytes": 391150,
+      "rgb_bytes": 1173450,
+      "normal_faces": 4031,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 27.0,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "32",
+        "_sun_mangle": "35 -65 0",
+        "_sunlight": "100",
+        "_sunlight2": "32"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    },
+    {
+      "id": "koth_solstice",
+      "sha256": "b303cfbc05bc6647063076e3f0eb5189a15d5d19f902f47631a3dfd34a459376",
+      "light_bytes": 152207,
+      "rgb_bytes": 456621,
+      "normal_faces": 4046,
+      "ordinary_faces_without_samples": 919,
+      "median_sample": 34,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake",
+        "_sun_mangle": "136  -73 0",
+        "_sunlight": "120",
+        "_sunlight2": "50"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/KOTH/original/lqdm1.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {
+        "_sun_mangle": "136  -73 0",
+        "_sunlight": "120",
+        "_sunlight2": "50"
+      },
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "koth_torture",
+      "sha256": "11393b918d107ce8460913abc6ffd85f550040f95de9996c0c495fdf9d0d61f0",
+      "light_bytes": 136266,
+      "rgb_bytes": 408798,
+      "normal_faces": 3507,
+      "ordinary_faces_without_samples": 801,
+      "median_sample": 5.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake",
+        "_sun_mangle": "30 -60 0",
+        "_sunlight": "120",
+        "_sunlight2": "90",
+        "_sunlight2_color": "255 255 243",
+        "_sunlight_color": "255 255 210"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/KOTH/original/lqdm2.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {
+        "_sunlight": "120",
+        "_sunlight2": "90",
+        "_sunlight2_color": "255 255 243",
+        "_sunlight_color": "255 255 210",
+        "_sun_mangle": "30 -60 0"
+      },
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "koth_hyperborea",
+      "sha256": "b4efa0b6d4e53ce7eca8a5460957c82094f6199911173a82294529b3e0e5f614",
+      "light_bytes": 679381,
+      "rgb_bytes": 2038143,
+      "normal_faces": 14736,
+      "ordinary_faces_without_samples": 3868,
+      "median_sample": 103,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake",
+        "_sunlight2": "666"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/KOTH/original/lqdm3.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {
+        "_sunlight2": "666"
+      },
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "koth_alichar",
+      "sha256": "035f8d20a1dac9f4e869d589b64c57ed9862fe2a3c83f30c4e9cbeaeb42f7bc6",
+      "light_bytes": 133116,
+      "rgb_bytes": 399348,
+      "normal_faces": 6779,
+      "ordinary_faces_without_samples": 3555,
+      "median_sample": 10.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/KOTH/original/lqdm8.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {},
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "cc_hyperborea",
+      "sha256": "5dca01530f1095daf162a364ba314ebb5bbaf9b51a840bab6912900ae09b2be6",
+      "light_bytes": 64514,
+      "rgb_bytes": 193542,
+      "normal_faces": 2285,
+      "ordinary_faces_without_samples": 519,
+      "median_sample": 57.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake",
+        "_sunlight2": "666"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/CC/original/lqdm3.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {
+        "_sunlight2": "666"
+      },
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "cc_psychofuge",
+      "sha256": "a511dfaeec9461904b99e073927d516e1407351c8873f6ff1fc7febe108c154e",
+      "light_bytes": 326828,
+      "rgb_bytes": 980484,
+      "normal_faces": 6161,
+      "ordinary_faces_without_samples": 1029,
+      "median_sample": 52.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake",
+        "_sun_mangle": "80 -90 0",
+        "_sunlight": "90",
+        "_sunlight2": "100"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/CC/original/lqdm4.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {
+        "_sunlight": "90",
+        "_sunlight2": "100",
+        "_sun_mangle": "80 -90 0"
+      },
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "cc_ghostquarter",
+      "sha256": "40cb78eabee16c7bd2b0c73b10d10f488422dc009cdb512bfb108ee7c1a86f91",
+      "light_bytes": 174226,
+      "rgb_bytes": 522678,
+      "normal_faces": 9073,
+      "ordinary_faces_without_samples": 1833,
+      "median_sample": 12.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake",
+        "_sun_mangle": "30 -60 0",
+        "_sunlight": "150",
+        "_sunlight2": "60"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/CC/original/lqdm6.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {
+        "_sun_mangle": "30 -60 0",
+        "_sunlight": "150",
+        "_sunlight2": "60"
+      },
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "cc_basement",
+      "sha256": "6a3ab7ec4f3aedcf15b266be49d1168e142418a3526bc2c00b700732b3489a6d",
+      "light_bytes": 148402,
+      "rgb_bytes": 445206,
+      "normal_faces": 6101,
+      "ordinary_faces_without_samples": 1629,
+      "median_sample": 16.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_bouncestyled": "1",
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "converted LibreQuake",
+      "original_source": "maps/CC/original/lqdm7.map",
+      "conversion_added_minlight": false,
+      "original_minlight": "0 (compiler default)",
+      "preserve_authored_sun": {},
+      "recommendation": "Authored sunlight preserved; conversion-added minimum light removed; rebake and black-face cache correction completed."
+    },
+    {
+      "id": "qsrc_dm1",
+      "sha256": "e2b6c613aa2561fe83337d581889b148c27d067f7490d1394688eb332c4187fc",
+      "light_bytes": 65955,
+      "rgb_bytes": 197865,
+      "normal_faces": 2321,
+      "ordinary_faces_without_samples": 148,
+      "median_sample": 62,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "Quake source",
+      "recommendation": "Corrected in this task: authored bake, response and black-face handling."
+    },
+    {
+      "id": "qsrc_dm2",
+      "sha256": "1ead245774e8ec318916ceca108108c551a49206fa7070e08a470092d2623eb7",
+      "light_bytes": 113570,
+      "rgb_bytes": 340710,
+      "normal_faces": 5073,
+      "ordinary_faces_without_samples": 731,
+      "median_sample": 56.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "Quake source",
+      "recommendation": "Corrected in this task: authored bake, response and black-face handling."
+    },
+    {
+      "id": "qsrc_dm3",
+      "sha256": "b6f10ea9f25dd06c3b3b678af8d086a01d4bed17a7a9d0eaab2a82b488559efe",
+      "light_bytes": 132409,
+      "rgb_bytes": 397227,
+      "normal_faces": 3163,
+      "ordinary_faces_without_samples": 282,
+      "median_sample": 55,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "Quake source",
+      "recommendation": "Corrected in this task: authored bake, response and black-face handling."
+    },
+    {
+      "id": "qsrc_dm4",
+      "sha256": "183bf7bc3d98785e8954aeba67cbc29052d2373eeaadac786c9e0b1d177a232d",
+      "light_bytes": 45065,
+      "rgb_bytes": 135195,
+      "normal_faces": 1832,
+      "ordinary_faces_without_samples": 166,
+      "median_sample": 54,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "Quake source",
+      "recommendation": "Corrected in this task: authored bake, response and black-face handling."
+    },
+    {
+      "id": "qsrc_dm5",
+      "sha256": "46fc1804bb8c31bb1e2a623bcd24bd8f298b88b7fe1adb82ce35d53a3990d802",
+      "light_bytes": 62055,
+      "rgb_bytes": 186165,
+      "normal_faces": 1982,
+      "ordinary_faces_without_samples": 18,
+      "median_sample": 75,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake",
+        "light": "150"
+      },
+      "category": "Quake source",
+      "recommendation": "Corrected in this task: authored bake, response and black-face handling."
+    },
+    {
+      "id": "qsrc_dm6",
+      "sha256": "169ab15e6016744c17e5175b32dc5209923e6cc76f747078962d52cc8c077c7f",
+      "light_bytes": 71528,
+      "rgb_bytes": 214584,
+      "normal_faces": 2399,
+      "ordinary_faces_without_samples": 340,
+      "median_sample": 44.0,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "Quake source",
+      "recommendation": "Corrected in this task: authored bake, response and black-face handling."
+    },
+    {
+      "id": "qsrc_dm7",
+      "sha256": "ed091c7cab780ff4d70b27492474848614a42988655e22c7e3b8701fdf665350",
+      "light_bytes": 90809,
+      "rgb_bytes": 272427,
+      "normal_faces": 1935,
+      "ordinary_faces_without_samples": 254,
+      "median_sample": 55,
+      "authored_response": true,
+      "black_missing": true,
+      "lighting_keys": {
+        "_fpsloppa_light_response": "quake"
+      },
+      "category": "Quake source",
+      "recommendation": "Corrected in this task: authored bake, response and black-face handling."
+    },
+    {
+      "id": "ctf_tideworks",
+      "sha256": "6fcba14ad1c5834eeecc1cf622da403a3a0647a20268d21cb2841eedaef8ff0e",
+      "light_bytes": 336883,
+      "rgb_bytes": 1010649,
+      "normal_faces": 2288,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 14,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    },
+    {
+      "id": "ctf_crucible",
+      "sha256": "9953b1517ece867d1f1123252f8f9ab9d9b99b7be9dcd114d061fb6dedbe18d0",
+      "light_bytes": 69275,
+      "rgb_bytes": 207825,
+      "normal_faces": 764,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 19,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    },
+    {
+      "id": "ctf_confluence",
+      "sha256": "45181914617d9f0908d59ef18677677f018361d4420104d936c23b7976b3f775",
+      "light_bytes": 217885,
+      "rgb_bytes": 653655,
+      "normal_faces": 1986,
+      "ordinary_faces_without_samples": 12,
+      "median_sample": 14,
+      "authored_response": false,
+      "black_missing": true,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Missing-sample rendering and caches corrected; existing light samples preserved."
+    },
+    {
+      "id": "ctf_deepvault",
+      "sha256": "b90bda1a949d516cefb429143d0278868542c7a6ba748da7d60f72514e91bf2c",
+      "light_bytes": 87356,
+      "rgb_bytes": 262068,
+      "normal_faces": 1295,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 14.0,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    },
+    {
+      "id": "ctf_crownreach",
+      "sha256": "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba",
+      "light_bytes": 178173,
+      "rgb_bytes": 534519,
+      "normal_faces": 2127,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 75,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28",
+        "_sun_mangle": "35 -65 0",
+        "_sunlight": "160",
+        "_sunlight2": "48"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    },
+    {
+      "id": "ctf_skyfracture",
+      "sha256": "295aac85894654eb22eeb760d73bf4e6c16f2a2ddae5681ae4d8d9e1f6f31bfa",
+      "light_bytes": 489121,
+      "rgb_bytes": 1467363,
+      "normal_faces": 3291,
+      "ordinary_faces_without_samples": 12,
+      "median_sample": 14,
+      "authored_response": false,
+      "black_missing": true,
+      "lighting_keys": {
+        "_bounce": "1",
+        "_minlight": "28"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Missing-sample rendering and caches corrected; existing light samples preserved."
+    },
+    {
+      "id": "tb_ashfall",
+      "sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+      "light_bytes": 2933853,
+      "rgb_bytes": 8801559,
+      "normal_faces": 33543,
+      "ordinary_faces_without_samples": 0,
+      "median_sample": 4,
+      "authored_response": false,
+      "black_missing": false,
+      "lighting_keys": {
+        "_minlight": "16",
+        "_sun_mangle": "35 -65 0",
+        "_sunlight": "110",
+        "_sunlight2": "48"
+      },
+      "category": "FPSloppa-authored layout",
+      "recommendation": "No evidence for stripping authored minimum light/sun/bounce. Existing complete light data do not require the Q1 source-restoration rebake."
+    }
+  ],
+  "source_restoration_rebake_candidates": [],
+  "remaining_black_face_rendering_candidates": [],
+  "shared_brightening_response_maps": [
+    "as_hislop",
+    "as_frigate",
+    "tf_pressureworks",
+    "tf_vesper",
+    "ctf_tideworks",
+    "ctf_crucible",
+    "ctf_confluence",
+    "ctf_deepvault",
+    "ctf_crownreach",
+    "ctf_skyfracture",
+    "tb_ashfall"
+  ],
+  "scope": "Final audit after 15 authored-map rebakes and three native-map missing-sample cache corrections."
+}

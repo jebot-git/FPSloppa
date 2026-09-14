@@ -165,13 +165,17 @@ func check_water(boxes: Array) -> void:
  runtime.regions=saved_regions
 
 func check_doors() -> void:
- if game.gates.is_empty():return
+ var indices: Array=range(game.gates.size()).filter(func(i):return game.gates[i].node.attributes.get("classname","") in ["func_door","func_door_secret"])
+ if indices.is_empty():return
+ var door_reports: Dictionary={}
+ var baseline_frames:=44
+ for i in indices:baseline_frames=maxi(baseline_frames,ceili(float(game.gates[i].get("move_seconds",.6))*60)+5)
  # Earlier swimming probes can legitimately open a nearby door. Establish
  # a closed baseline through the production animation before collision tests.
- for i in game.gates.size():game._gate_state(i,false)
- for frame in 44:await physics_frame
- var markers: Array=[]
- for i in game.gates.size():
+ for i in indices:game._gate_state(i,false)
+ for frame in baseline_frames:await physics_frame
+ var markers: Dictionary={}
+ for i in indices:
   var gate=game.gates[i];var closed: Vector3=gate.node.position;var b: AABB=runtime.node_bounds(gate.node);var marker=b.get_center()
   # A brush can have a hollow center. Probe a real collision triangle near
   # the visual bounds center rather than assuming its AABB center is solid.
@@ -193,32 +197,33 @@ func check_doors() -> void:
    marker-=marker_normal*.04
    hit=probe(marker).any(func(row):return row.collider==gate.node)
   if not hit:fail("Door has no collision at its triangle probe: "+str(i))
-  markers.append(marker);report.doors.append({"entity":gate.node.attributes,"closed":xyz(closed),"travel":xyz(gate.travel),"closed_probe_hits_door":hit})
+  markers[i]=marker;report.doors.append({"entity":gate.node.attributes,"closed":xyz(closed),"travel":xyz(gate.travel),"closed_probe_hits_door":hit})
+  door_reports[i]=report.doors.back()
   var a=actor_at(gate.center);game.players[a.peer_id]=game._new_state("door probe",a.peer_id);game.fighters[a.peer_id]=a
  runtime._physics_process(1.0/60)
  var travel_frames:=44
- for i in game.gates.size():
+ for i in indices:
   var gate: Dictionary=game.gates[i]
-  if gate.get("touch_target",false):runtime.activate_gate_target(gate.node.attributes.targetname)
-  report.doors[i].activation="target" if gate.get("touch_target",false) else "proximity"
-  report.doors[i].activation_opens=gate.open
+  if gate.get("touch_target",false):runtime.triggers.activate(gate.node,0)
+  door_reports[i].activation="target" if gate.get("touch_target",false) else "proximity"
+  door_reports[i].activation_opens=gate.open
   travel_frames=maxi(travel_frames,ceili(float(gate.get("move_seconds",.6))*60)+5)
   if not gate.open:fail("Door activation failed: "+str(i))
  for a in game.fighters.values():a.free()
  game.fighters.clear();game.players.clear()
  for frame in travel_frames:await physics_frame
- for i in game.gates.size():
-  var gate=game.gates[i];var row=report.doors[i];row.reached_open=gate.node.position.distance_to(gate.base_position+gate.travel)<.02
+ for i in indices:
+  var gate=game.gates[i];var row=door_reports[i];row.reached_open=gate.node.position.distance_to(gate.base_position+gate.travel)<.02
   row.old_probe_clear_of_door=not probe(markers[i]).any(func(h):return h.collider==gate.node)
   if not row.reached_open:fail("Door did not reach open endpoint: "+str(i))
   if row.closed_probe_hits_door and not row.old_probe_clear_of_door:fail("Open door still blocks its closed-position probe: "+str(i))
   game._gate_state(i,false)
  for frame in travel_frames:await physics_frame
- for i in game.gates.size():
-  var gate=game.gates[i];report.doors[i].returned_closed=gate.node.position.distance_to(gate.base_position)<.02
-  if not report.doors[i].returned_closed:fail("Door did not close: "+str(i))
-  report.doors[i].closed_collision_restored=probe(markers[i]).any(func(h):return h.collider==gate.node)
-  if report.doors[i].closed_probe_hits_door and not report.doors[i].closed_collision_restored:fail("Door collision did not return: "+str(i))
+ for i in indices:
+  var gate=game.gates[i];door_reports[i].returned_closed=gate.node.position.distance_to(gate.base_position)<.02
+  if not door_reports[i].returned_closed:fail("Door did not close: "+str(i))
+  door_reports[i].closed_collision_restored=probe(markers[i]).any(func(h):return h.collider==gate.node)
+  if door_reports[i].closed_probe_hits_door and not door_reports[i].closed_collision_restored:fail("Door collision did not return: "+str(i))
 func check_lifts() -> void:
  if game.lifts.is_empty():return
  var riders: Array=[]

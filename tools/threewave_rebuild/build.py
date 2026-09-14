@@ -12,6 +12,7 @@ def build(a,compiler,threads):
     target=OUT/a.name;target.mkdir(parents=True,exist_ok=True)
     logs=ROOT/'test-results/threewave'/a.name;logs.mkdir(parents=True,exist_ok=True)
     world={'classname':'worldspawn','message':a.title,'wad':'../materials.wad','_fpsloppa_bake':'1','_fpsloppa_atlas':'4096','_minlight':'28','_bounce':'1','worldtype':'0'}
+    if a.name in ['ctf_confluence','ctf_skyfracture']:world['_fpsloppa_black_missing']='1'
     if a.sky:world.update(_sunlight='160',_sunlight2='48',_sun_mangle='35 -65 0')
     source='{\n'+entity(world)+'\n'+'\n'.join(a.brushes)+'\n}\n'
     if a.detail:source+='{\n"classname" "func_detail"\n'+'\n'.join(a.detail)+'\n}\n'

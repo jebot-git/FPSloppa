@@ -1,10 +1,6 @@
 // Modified for FPSloppa, 2026-09-11. GPL v2; see COPYING-GPL-2.0.txt.
 {
-"_bounce" "1"
-"_sun_mangle" "0 -70 0"
-"_sunlight2" "30"
-"_sunlight" "110"
-"_minlight" "36"
+"_fpsloppa_light_response" "quake"
 "_fpsloppa_atlas" "2048"
 "_fpsloppa_bake" "1"
 "sounds"	"5"
@@ -3556,7 +3552,7 @@
 "wait"	"2"
 "spawnflags"	"1"
 "target"	"t4"
-"classname" "func_wall"
+"classname"	"func_button"
 "angle"	"270"
 {
 ( 264 196 144 ) ( 264 188 144 ) ( 264 188 136 ) adoor03_6 0 0 0 1.000000 1.000000
@@ -3674,9 +3670,9 @@
 "classname"	"item_rockets"
 }
 {
-"spawnflags" "0"
 "classname"	"func_door"
 "angle"	"180"
+"targetname"	"t4"
 {
 ( 224 824 152 ) ( 224 808 152 ) ( 224 808 136 ) door04_1 32 96 0 1.000000 1.000000
 ( 352 824 152 ) ( 224 824 152 ) ( 224 824 136 ) door04_1 32 96 0 1.000000 1.000000
@@ -3684,6 +3680,18 @@
 ( 224 808 152 ) ( 352 808 152 ) ( 352 808 136 ) door04_1 32 96 0 1.000000 1.000000
 ( 224 808 248 ) ( 224 824 248 ) ( 352 824 248 ) door04_1 32 96 0 1.000000 1.000000
 ( 352 824 96 ) ( 224 824 96 ) ( 224 808 96 ) door04_1 32 96 0 1.000000 1.000000
+}
+}
+{
+"classname"	"trigger_multiple"
+"target"	"t4"
+{
+( 208 848 248 ) ( 208 832 248 ) ( 208 832 96 ) trigger 0 0 0 1.000000 1.000000
+( 368 848 248 ) ( 208 848 248 ) ( 208 848 96 ) trigger 0 0 0 1.000000 1.000000
+( 368 832 248 ) ( 368 848 248 ) ( 368 848 96 ) trigger 0 0 0 1.000000 1.000000
+( 208 832 248 ) ( 368 832 248 ) ( 368 832 96 ) trigger 0 0 0 1.000000 1.000000
+( 208 832 136 ) ( 208 848 136 ) ( 368 848 136 ) trigger 0 0 0 1.000000 1.000000
+( 368 848 128 ) ( 208 848 128 ) ( 208 832 128 ) trigger 0 0 0 1.000000 1.000000
 }
 }
 {
@@ -3716,7 +3724,6 @@
 "classname"	"item_armor2"
 }
 {
-"spawnflags" "0"
 "sounds"	"1"
 "angle"	"0"
 "classname"	"func_door"

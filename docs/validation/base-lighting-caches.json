@@ -1,0 +1,446 @@
+[
+  {
+    "id": "as_hislop",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 850,
+      "metadata/baked_light_faces": 7958,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 858,
+      "metadata/quake_authored_light": false,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/as_hislop-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "as_frigate",
+    "metadata": {
+      "metadata/baked_light_faces": 4390,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 140
+    },
+    "path": "res://maps/cache/as_frigate-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "tf_pressureworks",
+    "metadata": {
+      "metadata/baked_light_faces": 6350,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 0
+    },
+    "path": "res://maps/cache/tf_pressureworks-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "tf_vesper",
+    "metadata": {
+      "metadata/baked_light_faces": 4031,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 0
+    },
+    "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "koth_solstice",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 914,
+      "metadata/baked_light_faces": 3127,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 1046,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/koth_solstice-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "koth_torture",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 800,
+      "metadata/baked_light_faces": 2706,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 806,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/koth_torture-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "koth_hyperborea",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 3868,
+      "metadata/baked_light_faces": 10868,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 4002,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/koth_hyperborea-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "koth_alichar",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 3538,
+      "metadata/baked_light_faces": 3224,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 3560,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/koth_alichar-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "cc_hyperborea",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 519,
+      "metadata/baked_light_faces": 1766,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 519,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/cc_hyperborea-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "cc_psychofuge",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 1014,
+      "metadata/baked_light_faces": 5132,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 1294,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/cc_psychofuge-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "cc_ghostquarter",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 1816,
+      "metadata/baked_light_faces": 7240,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 1816,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/cc_ghostquarter-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "cc_basement",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 1610,
+      "metadata/baked_light_faces": 4472,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 1624,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/cc_basement-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "qsrc_dm1",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 148,
+      "metadata/baked_light_faces": 2173,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 154,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/qsrc_dm1-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "qsrc_dm2",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 731,
+      "metadata/baked_light_faces": 4342,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 793,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/qsrc_dm2-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "qsrc_dm3",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 282,
+      "metadata/baked_light_faces": 2881,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 334,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/qsrc_dm3-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "qsrc_dm4",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 166,
+      "metadata/baked_light_faces": 1666,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 224,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/qsrc_dm4-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "qsrc_dm5",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 18,
+      "metadata/baked_light_faces": 1964,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 92,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/qsrc_dm5-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "qsrc_dm6",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 340,
+      "metadata/baked_light_faces": 2059,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 364,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/qsrc_dm6-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "qsrc_dm7",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 254,
+      "metadata/baked_light_faces": 1681,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 348,
+      "metadata/quake_authored_light": true,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/qsrc_dm7-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/quake_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "ctf_tideworks",
+    "metadata": {
+      "metadata/baked_light_faces": 2288,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 12
+    },
+    "path": "res://maps/cache/ctf_tideworks-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "ctf_crucible",
+    "metadata": {
+      "metadata/baked_light_faces": 764,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 0
+    },
+    "path": "res://maps/cache/ctf_crucible-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "ctf_confluence",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 12,
+      "metadata/baked_light_faces": 1974,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 80,
+      "metadata/quake_authored_light": false,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/ctf_confluence-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "ctf_deepvault",
+    "metadata": {
+      "metadata/baked_light_faces": 1295,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 40
+    },
+    "path": "res://maps/cache/ctf_deepvault-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "ctf_crownreach",
+    "metadata": {
+      "metadata/baked_light_faces": 2127,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 92
+    },
+    "path": "res://maps/cache/ctf_crownreach-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "ctf_skyfracture",
+    "metadata": {
+      "metadata/baked_light_dark_faces": 12,
+      "metadata/baked_light_faces": 3279,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 12,
+      "metadata/quake_authored_light": false,
+      "metadata/quake_light_version": 1
+    },
+    "path": "res://maps/cache/ctf_skyfracture-lightmap1.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  },
+  {
+    "id": "tb_ashfall",
+    "metadata": {
+      "metadata/baked_light_faces": 33505,
+      "metadata/baked_light_invalid_faces": 0,
+      "metadata/baked_light_overflow_faces": 0,
+      "metadata/baked_light_rgb": true,
+      "metadata/baked_light_unlit_faces": 0
+    },
+    "path": "res://maps/cache/tb_ashfall-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+    "shader_paths": [
+      "res://deathmatch/maps/baked_light.gdshader"
+    ],
+    "source_matches": true
+  }
+]

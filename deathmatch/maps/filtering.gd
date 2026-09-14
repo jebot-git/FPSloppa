@@ -4,6 +4,7 @@ const FILTERS=[BaseMaterial3D.TEXTURE_FILTER_NEAREST_WITH_MIPMAPS,BaseMaterial3D
 const HINTS=["filter_nearest_mipmap","filter_linear_mipmap","filter_linear_mipmap_anisotropic"]
 const BANK="fpsloppa_filter_variants"
 const BAKED=preload("res://deathmatch/maps/baked_light.gdshader")
+const QUAKE=preload("res://deathmatch/maps/quake_light.gdshader")
 const ColourMips=preload("res://deathmatch/maps/colour_mips.gd")
 var mode:=2
 var prepare_assets:=true
@@ -67,9 +68,10 @@ func material(source: Material) -> void:
 		if source.texture_filter!=FILTERS[mode]:source.texture_filter=FILTERS[mode]
 	elif source is ShaderMaterial:
 		# Upgrade our older cached baked shader once, retaining its named uniforms.
-		if source.shader==BAKED or (prepare_assets and source.shader and source.shader.code.contains("EMISSION = base * clamp(sqrt(baked) * 2.0")):
+		if source.shader in [BAKED,QUAKE] or (prepare_assets and source.shader and source.shader.code.contains("EMISSION = base * clamp(sqrt(baked) * 2.0")):
 			if prepare_assets:
-				if source.shader!=BAKED:source.shader=BAKED
+				var desired: Shader=QUAKE if source.get_meta("quake_authored_light",false) else BAKED
+				if source.shader!=desired:source.shader=desired
 				for key in ["base","glow"]:
 					var image_texture=source.get_shader_parameter(key+"_texture")
 					if image_texture is Texture2D:

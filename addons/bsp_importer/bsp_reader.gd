@@ -983,7 +983,7 @@ func read_bsp(source_file : String) -> Node:
 					if edge_a.cross(edge_b).length_squared() > maxf(1e-10,edge_a.length_squared()*edge_b.length_squared()*1e-12):
 						triangle_indices.append_array([0,corner,corner+1])
 				if triangle_indices.is_empty(): continue
-				var baked_uvs: PackedVector2Array = arena_bake.face_uvs(face_uvs, Vector2(tex_width, tex_height), bsp_face.lightmap, bsp_model.face_index+face_index) if arena_bake else PackedVector2Array()
+				var baked_uvs: PackedVector2Array = arena_bake.face_uvs(face_uvs, Vector2(tex_width, tex_height), bsp_face.lightmap, bsp_model.face_index+face_index,tex_info.flags&1!=0) if arena_bake else PackedVector2Array()
 				var surf_tool : SurfaceTool
 				if (texture.is_transparent):
 					# Transparent meshes need to be sorted, so make each face its own mesh for now.

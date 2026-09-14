@@ -24,7 +24,7 @@ static func pack(level: Node,layout: Array) -> Dictionary:
   if fits:break
   size*=2
   assert(size<=8192)
- var image:=Image.create(size,size,false,old.get_format());image.fill(Color(.5,.5,.5))
+ var image:=Image.create(size,size,false,old.get_format());image.fill(Color(.5,.5,.5));image.set_pixel(1,0,old.get_pixel(1,0))
  var lookup:=PackedInt32Array();lookup.resize(old.get_width()*old.get_height());lookup.fill(-1)
  for i in rects.size():
   var r: Rect2i=rects[i].rect;image.blit_rect(old,r,rects[i].target)
@@ -44,7 +44,7 @@ static func pack(level: Node,layout: Array) -> Dictionary:
      var pixel:=uvs[i]*old.get_width();var point:=Vector2i(pixel.floor())
      var id: int=lookup[point.y*old.get_width()+point.x] if point.x>=0 and point.y>=0 and point.x<old.get_width() and point.y<old.get_height() else -1
      if id>=0:uvs[i]=(pixel-Vector2(rects[id].rect.position)+Vector2(rects[id].target))/size
-     else:uvs[i]=Vector2(.5,.5)/size
+     else:uvs[i]=Vector2(1.5 if point==Vector2i(1,0) else .5,.5)/size
      count+=1
     arrays[Mesh.ARRAY_TEX_UV2]=uvs
    result.add_surface_from_arrays(mesh.surface_get_primitive_type(surface),arrays)

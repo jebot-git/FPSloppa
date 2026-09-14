@@ -1,6 +1,6 @@
 // LibreQuake derivative for FPSloppa; see ../README.md and licence files.
 {
-"_minlight" "48"
+
 "_fpsloppa_atlas" "2048"
 "_fpsloppa_bake" "1"
 "mapversion" "220"
@@ -22,6 +22,7 @@
 ( -192 1344 -128 ) ( -768 1536 -128 ) ( -192 1536 -128 ) grk_ebrick24 [ -1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
 ( -192 1536 -64 ) ( -192 1536 0 ) ( -768 1536 144 ) grk_ebrick24 [ -1 0 0 0 ] [ -0 0 -1 0 ] 0 1 1
 ( -192 1344 0 ) ( -192 1536 0 ) ( -192 1536 -64 ) grk_ebrick24 [ 0 1 -0 0 ] [ 0 -0 -1 0 ] 0 1 1
+"_fpsloppa_light_response" "quake"
 }
 // brush 1
 {

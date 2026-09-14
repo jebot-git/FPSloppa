@@ -85,6 +85,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0) -> bool:
 			var melee_reaches: bool=kind!="hammer" or start.distance_to(hit.position)<=float(d.range)
 			var damage: int=d.damage
 			if kind=="sniper" and hit.id!=0 and not hit.get("vehicle",false) and headshot(hit.id,hit.position):damage=int(d.get("head_damage",100))
+			if melee_reaches:game._damage_map_hit(hit,id,damage)
 			if hit.id!=0 and melee_reaches:
 				game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false) and d.range>3 and d.name!="FLAMETHROWER")
 				if d.name=="FLAMETHROWER":game.match_mode.fortress.ignite(hit.id,id)
@@ -158,6 +159,7 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) ->
 		var hit: Dictionary=game._trace(p.position,end,p.owner,0.0,d.radius,{} if p.fresh else movement_start,targets.candidates(p.position,end,d.radius))
 		p.fresh=false
 		if hit.hit:
+			if float(d.get("splash",0))==0 or d.kind=="rocket":game._damage_map_hit(hit,p.owner,float(d.damage))
 			if hit.id!=0 or hit.has("building"):
 				var damage: int=int(d.damage)+randi_range(0,int(d.get("direct_random",0)))
 				if hit.id!=0 and not hit.get("vehicle",false) and d.has("head_damage") and headshot(hit.id,hit.position):damage=d.head_damage
@@ -193,6 +195,8 @@ func explode(id: int,where: Vector3,ignore: int=0,hull_impact: int=0) -> void:
 func blast(where: Vector3,owner_id: int,damage: int,radius: float,title: String,ignore: int=0,quake_falloff: bool=false,hull_impact: int=0) -> void:
 	if not game.multiplayer.is_server() or game.intermission>0 or game.lobby.active():return
 	game.match_mode.fortress.blast(where,owner_id,damage,radius)
+	var map_runtime=game.get_node_or_null("Map/MapRuntime")
+	if map_runtime:map_runtime.triggers.blast(where,owner_id,damage,radius)
 	for id in game.players:
 		var s: Dictionary=game.players[id]
 		if id==ignore or s.dead or s.spectator or s.invulnerable>game.clock:continue

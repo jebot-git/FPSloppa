@@ -77,7 +77,7 @@ def main():
   X,Y,Z=[min(p[i] for p in points)-64 for i in range(3)];XX,YY,ZZ=[max(p[i] for p in points)+64 for i in range(3)]
   for lo,hi in [((X-32,Y-32,Z-32),(XX+32,YY+32,Z)),((X-32,Y-32,ZZ),(XX+32,YY+32,ZZ+32)),((X-32,Y-32,Z),(X,YY+32,ZZ)),((XX,Y-32,Z),(XX+32,YY+32,ZZ)),((X,Y-32,Z),(XX,Y,ZZ)),((X,YY,Z),(XX,YY+32,ZZ))]:a.box(lo,hi,'sky_star')
   world=world.rstrip()[:-1]+'\n'+'\n'.join(a.brushes)+'\n}'
-  for key,value in {'wad':'cc-used.wad','message':r['title'],'_fpsloppa_bake':'1','_fpsloppa_atlas':'2048','_minlight':'52'}.items():world=k.setkey(world,key,value)
+  for key,value in {'wad':'cc-used.wad','message':r['title'],'_fpsloppa_bake':'1','_fpsloppa_atlas':'2048','_fpsloppa_light_response':'quake'}.items():world=k.setkey(world,key,value)
   if id in spawns:
    for p in spawns[id]:retained.append(k.entity({'classname':'info_player_deathmatch','origin':k.point(p)}))
    retained.append(k.entity({'classname':'info_player_start','origin':k.point(spawns[id][0])}))
@@ -104,7 +104,7 @@ def main():
  compiler=Path('/tmp/hislop-ericw/ericw-tools-v0.18-Linux/bin')
  def compile(row):
   id=row['id'];dest=ROOT/'maps'/(id+'.bsp')
-  for exe,flags in [('qbsp',['-nodetail',str(OUT/'source'/(id+'.map')),str(dest)]),('vis',['-threads','2','-fast',str(dest)]),('light',['-threads','2','-extra','-bspxlit',str(dest)])]:
+  for exe,flags in [('qbsp',['-nodetail',str(OUT/'source'/(id+'.map')),str(dest)]),('vis',['-threads','2','-fast',str(dest)]),('light',['-threads','2','-extra4','-bspxlit','-bounce','0',str(dest)])]:
    with (LOG/(id+'-'+exe+'.log')).open('w') as log:subprocess.run([str(compiler/exe),*flags],cwd=OUT/'source',stdout=log,stderr=subprocess.STDOUT,check=True,timeout=300)
   row['sha256']=k.theme.sha(dest.read_bytes());print('CC_BUILT',id,flush=True)
   for ext in ['.prt','.pts','.texinfo','.log']:(ROOT/'maps'/(id+ext)).unlink(missing_ok=True)

@@ -65,7 +65,7 @@
         "trigger": "trigger",
         "med_wood_riv1b": "med_wood_riv1b"
       },
-      "sha256": "7759afbec42170e828c3feecc25254365265029de3f728966ab0eb0c9e0abab2",
+      "sha256": "b303cfbc05bc6647063076e3f0eb5189a15d5d19f902f47631a3dfd34a459376",
       "balance_revision": "2026-09-12 physical approaches",
       "team_assignment": [
         0,
@@ -76,7 +76,23 @@
         1,
         0,
         0
-      ]
+      ],
+      "authored_light_rebake": {
+        "id": "koth_solstice",
+        "before_sha256": "7759afbec42170e828c3feecc25254365265029de3f728966ab0eb0c9e0abab2",
+        "sha256": "b303cfbc05bc6647063076e3f0eb5189a15d5d19f902f47631a3dfd34a459376",
+        "light_bytes": 152207,
+        "rgb_bytes": 456621,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     },
     {
       "id": "koth_torture",
@@ -135,7 +151,23 @@
         "*tele3": "*tele3",
         "med_cracks1": "med_cracks1"
       },
-      "sha256": "dcb84bfea9752aad724b600fc0d0534dc8d77378f4114deefd1f7bf2e07f16e2"
+      "sha256": "11393b918d107ce8460913abc6ffd85f550040f95de9996c0c495fdf9d0d61f0",
+      "authored_light_rebake": {
+        "id": "koth_torture",
+        "before_sha256": "4df4297cbe9d860a3c93e3636863ca4f096f74de72fc3c7926cba99f3b792488",
+        "sha256": "11393b918d107ce8460913abc6ffd85f550040f95de9996c0c495fdf9d0d61f0",
+        "light_bytes": 136266,
+        "rgb_bytes": 408798,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     },
     {
       "id": "koth_hyperborea",
@@ -229,7 +261,7 @@
         "grk_brk15": "grk_brk15",
         "med_flat16": "med_flat16"
       },
-      "sha256": "e4a73507d55ddd38f972de94daa944b94afaf33d262838acd57e58953dd336d0",
+      "sha256": "b4efa0b6d4e53ce7eca8a5460957c82094f6199911173a82294529b3e0e5f614",
       "balance_revision": "2026-09-12 physical approaches",
       "team_assignment": [
         0,
@@ -240,7 +272,23 @@
         1,
         1,
         0
-      ]
+      ],
+      "authored_light_rebake": {
+        "id": "koth_hyperborea",
+        "before_sha256": "e4a73507d55ddd38f972de94daa944b94afaf33d262838acd57e58953dd336d0",
+        "sha256": "b4efa0b6d4e53ce7eca8a5460957c82094f6199911173a82294529b3e0e5f614",
+        "light_bytes": 679381,
+        "rgb_bytes": 2038143,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     },
     {
       "id": "koth_alichar",
@@ -347,9 +395,26 @@
         "*tele3": "*tele3",
         "+atlight1": "+atlight1"
       },
-      "sha256": "ad841db6ea0e7453248ab6484beabf720b209604857625ea5f5c625eeefd108c"
+      "sha256": "035f8d20a1dac9f4e869d589b64c57ed9862fe2a3c83f30c4e9cbeaeb42f7bc6",
+      "authored_light_rebake": {
+        "id": "koth_alichar",
+        "before_sha256": "95333fcdc2e19e1c038dd99949b51af8e66712298cdf08247e2cc5886ed311ac",
+        "sha256": "035f8d20a1dac9f4e869d589b64c57ed9862fe2a3c83f30c4e9cbeaeb42f7bc6",
+        "light_bytes": 133116,
+        "rgb_bytes": 399348,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     }
   ],
   "wad_bytes": 5339312,
-  "textures": 155
+  "textures": 155,
+  "lighting_validation": "docs/validation/base-authored-rebake.json"
 }

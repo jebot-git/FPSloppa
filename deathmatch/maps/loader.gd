@@ -104,12 +104,15 @@ static func cache_matches(cached: PackedScene,source_hash: String,codec: String=
 	var state:=cached.get_state()
 	if state.get_node_count()==0:return false
 	var hash_ok:=false;var presentation_ok:=false;var codec_ok:=codec.is_empty()
+	var quake_authored:=false;var quake_version:=0
 	for i in state.get_node_property_count(0):
 		var key:=state.get_node_property_name(0,i)
+		if key=="metadata/quake_authored_light":quake_authored=state.get_node_property_value(0,i)==true
+		if key=="metadata/quake_light_version":quake_version=int(state.get_node_property_value(0,i))
 		if key=="metadata/static_texture_format":codec_ok=state.get_node_property_value(0,i)==codec
 		if key=="metadata/bsp_source_sha256":hash_ok=state.get_node_property_value(0,i)==source_hash
 		if key=="metadata/map_presentation_version":presentation_ok=state.get_node_property_value(0,i)==preload("res://deathmatch/maps/surface_assets.gd").VERSION
-	return hash_ok and presentation_ok and codec_ok
+	return hash_ok and presentation_ok and codec_ok and (not quake_authored or quake_version==1)
 static func point(value: String) -> Vector3:
 	var v := value.split_floats(" ",false)
 	return Vector3(-v[1],v[2],-v[0])*SCALE if v.size()==3 else Vector3.ZERO
@@ -145,7 +148,7 @@ static func read(path: String) -> Node3D:
 	reader.entity_path_pattern = "res://deathmatch/maps/point.tscn"
 	for name in ["func_door","func_door_secret","func_plat","func_wall","func_button","func_train","func_illusionary"]:
 		reader.entity_remap[name] = "res://deathmatch/maps/brush.tscn"
-	for name in ["trigger_teleport","trigger_hurt","trigger_push","trigger_multiple","trigger_once"]:
+	for name in ["trigger_teleport","trigger_hurt","trigger_push","trigger_multiple","trigger_once","trigger_secret"]:
 		reader.entity_remap[name] = "res://deathmatch/maps/trigger.tscn"
 	if not OS.has_feature("dedicated_server"):
 		reader.water_template = load("res://addons/bsp_importer/examples/water_example_template.tscn")

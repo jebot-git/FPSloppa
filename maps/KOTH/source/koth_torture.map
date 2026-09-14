@@ -1,6 +1,6 @@
 // LibreQuake derivative for FPSloppa; see ../README.md and licence files.
 {
-"_minlight" "48"
+
 "_fpsloppa_atlas" "2048"
 "_fpsloppa_bake" "1"
 "classname" "worldspawn"
@@ -26,6 +26,7 @@
 ( 0 96 0 ) ( 0 -384 0 ) ( -192 -384 0 ) med_csl_brk10_f [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
 ( 0 0 -64 ) ( 0 0 0 ) ( -192 0 0 ) med_ebrick2 [ 1 -2.22045e-16 0 0 ] [ 0 0 -1 0 ] 0 1 1
 ( 0 96 -64 ) ( 0 -432 -64 ) ( 0 -384 0 ) med_ebrick2 [ -2.22045e-16 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+"_fpsloppa_light_response" "quake"
 }
 // brush 1
 {

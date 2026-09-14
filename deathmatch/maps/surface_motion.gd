@@ -20,7 +20,7 @@ func configure(arena: Node,level: Node) -> void:
    var mat: Material=node.get_active_material(i)
    if not mat or seen.has(mat):continue
    seen[mat]=true
-   var baked: bool=mat is ShaderMaterial and mat.shader==BAKED
+   var baked: bool=mat is ShaderMaterial and mat.shader in [BAKED,preload("res://deathmatch/maps/quake_light.gdshader")]
    if not baked and not mat is BaseMaterial3D:continue
    var name:=str(mat.get_meta("bsp_texture_name",""))
    if baked:shaded.append(mat)

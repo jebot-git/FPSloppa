@@ -89,7 +89,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 	var hips:=bone(sk,"Hips")
 	var offset:=Vector3.ZERO
 	if not rig.xr_pose.is_empty():
-		offset=rig.xr_pose.head.origin-Vector3(0,1.65,0)
+		offset=rig.global_basis.inverse()*rig.tracking_transform().basis*(rig.xr_pose.head.origin-Vector3(0,1.65,0))
 		offset=Vector3(offset.x*.45,clampf(offset.y,-.90,.1),offset.z*.45)
 	else:
 		offset.y=rig.collider_height-1.65
@@ -124,7 +124,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 		if rig.grounded and floor_heights.has(side): foot.y=maxf(foot.y,floor_heights[side])
 		var foot_world: Vector3=rig.to_global(foot)
 		var hip_world:Vector3=sk.to_global(sk.get_bone_global_pose(bone(sk,side+"UpperLeg")).origin)
-		var knee_world: Vector3=hip_world+rig.tracking_transform().basis*Vector3(sign_x*.08,0,-.65)
+		var knee_world: Vector3=hip_world+rig.global_basis*Vector3(sign_x*.08,0,-.65)
 		if body.has(side.to_lower()+"_foot"):
 			foot_world=(rig.tracking_transform()*rig.fit_tracked_foot(side.to_lower(),body[side.to_lower()+"_foot"])).origin
 			foot_world+=rig.global_basis*rig.gait.offsets[side.to_lower()]*rig.gait.assist_weight*.6

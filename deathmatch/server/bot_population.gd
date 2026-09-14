@@ -2,6 +2,8 @@ extends RefCounted
 ## Bots use ordinary player lifecycle and inputs, but consume no ENet peers.
 var game
 var target:=0
+# -1 uses the configured total-population fill; RCON can request a bot count.
+var count_target:=-1
 var next_id:=-1000
 const CLASSES=["scout","soldier","demoman","medic","heavy","engineer","sniper","pyro","spy"]
 func _init(arena) -> void:game=arena
@@ -38,13 +40,14 @@ func make_room(incoming: int) -> bool:
 		game._peer_left(id)
 	return true
 func refresh_navigation() -> void:
-	if not (game.dedicated and target>0) and not is_instance_valid(game.bots):return
+	if not (game.dedicated and (target>0 or count_target>0)) and not is_instance_valid(game.bots):return
 	if is_instance_valid(game.bots):game.bots.free()
 	game.bots=preload("res://deathmatch/bots.gd").new()
 	game.add_child(game.bots);game.bots.setup(game)
 func maintain() -> void:
 	if not game.dedicated or not game.active or not game.multiplayer.is_server() or game.map_loading:return
-	var desired:=clampi(target,0,game.max_clients)
+	var humans: int=game.players.keys().filter(func(id):return id>0).size()
+	var desired:=clampi(humans+count_target if count_target>=0 else target,0,game.max_clients)
 	while game.players.size()>desired:
 		var id:=candidate()
 		if id==0:break

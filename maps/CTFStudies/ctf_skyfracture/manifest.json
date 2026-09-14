@@ -2,8 +2,8 @@
   "id": "ctf_skyfracture",
   "title": "Skyfracture | Vertigo study",
   "original_reference": "ctf6",
-  "sha256": "0d918f6ac943a2dcfd21682f733c34830f228f53fc0bd8dc65e7b4eca73326ba",
-  "source_sha256": "84f5d6ba799f476a896b11d5b6d797d2cabf78c58e2d430185f63d9d3364ef7f",
+  "sha256": "295aac85894654eb22eeb760d73bf4e6c16f2a2ddae5681ae4d8d9e1f6f31bfa",
+  "source_sha256": "1eed12112bc9716a910bf481932bf098cbb326a5e82a02c505eb2379223a7f77",
   "brushes": 109,
   "rooms": 21,
   "team_spawns": [
@@ -229,5 +229,8 @@
   "lighting_rebake": {
     "original_sha256": "2a59d8e6b1fc0f087145db0f3d6857a2cb63abbe4f93239fdf1f65b5dbf5903f",
     "receipt": "docs/validation/lighting-ao-distribution.json"
-  }
+  },
+  "previous_bsp_sha256": "0d918f6ac943a2dcfd21682f733c34830f228f53fc0bd8dc65e7b4eca73326ba",
+  "lighting_correction": "Black fallback for sample-less ordinary faces; samples and geometry preserved.",
+  "missing_sample_correction": "docs/validation/base-cache-corrections.json"
 }

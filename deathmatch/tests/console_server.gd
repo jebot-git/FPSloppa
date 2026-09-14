@@ -35,7 +35,11 @@ func run() -> void:
 			if region.kind in ["water","slime","lava"]:liquid_count+=1
 		if row.id=="lqdm1":check(liquid_count>0,row.id+" keeps liquid volumes")
 		if row.id=="as_hislop":check(runtime.has_contents and runtime.contents.at(Vector3(-3,3.05,0))==-4,"HiSlop sludge remains detectable from BSP contents")
-		for gate in game.gates:check(gate.travel.length()>0 and gate.travel.length()<100,row.id+" keeps door travel")
+		for gate in game.gates:
+			if gate.get("train",false):
+				var train: Dictionary=game.get_node("Map/MapRuntime").triggers.rows[gate.node]
+				check(train.route.size()>1 and train.route_time>0,row.id+" keeps train route")
+			else:check(gate.travel.length()>0 and gate.travel.length()<100,row.id+" keeps door travel")
 		maps.append({"map":row.id,"shapes":shapes,"liquids":liquid_count,"doors":game.gates.size(),"lifts":game.lifts.size()})
 		game.match_mode.kind="as" if row.id.begins_with("as_") else "tf"
 		game.match_mode.reset()

@@ -1,0 +1,500 @@
+{
+  "maps": [
+    {
+      "id": "qsrc_dm1",
+      "sha256": "e2b6c613aa2561fe83337d581889b148c27d067f7490d1394688eb332c4187fc",
+      "vis_bytes": 16431,
+      "light_bytes": 65955,
+      "rgb_bytes": 197865,
+      "faces": 2327,
+      "light_flags": [
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "0"
+      ],
+      "cache": {
+        "bsp_sha256": "e2b6c613aa2561fe83337d581889b148c27d067f7490d1394688eb332c4187fc",
+        "codecs": [
+          {
+            "encoded_bytes": 1398208,
+            "format": "bc7",
+            "images": 4,
+            "path": "res://maps/cache/qsrc_dm1-lightmap1-bc7.scn",
+            "raw_bytes": 4194300,
+            "sha256": "3407e2c2bcbc9226e6f43cb4abcdda093636e98f1ed7a4f63c9c678e7af5b302"
+          },
+          {
+            "encoded_bytes": 1398208,
+            "format": "astc4",
+            "images": 4,
+            "path": "res://maps/cache/qsrc_dm1-lightmap1-astc4.scn",
+            "raw_bytes": 4194300,
+            "sha256": "284e0cf7e027709ae5768d6d42492dfebf6281850538cc2ab83846f43cbc8c45"
+          }
+        ],
+        "dark_faces": 148,
+        "fine_faces": 0,
+        "geometry_preserved": true,
+        "map": "qsrc_dm1",
+        "navigation_polygons": 357,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.451614379882812,
+          "occupancy_before": 0.0282258987426758,
+          "padded_luxels": 118388,
+          "patches": 2173,
+          "raw_bytes_after": 786432,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 18675,
+          "to": [
+            512,
+            512
+          ]
+        },
+        "quake_light_version": 1
+      },
+      "traversal": {
+        "exit_code": 0,
+        "failures": [],
+        "engine_errors": [],
+        "audit_fingerprint": "c9e0124281bc776a4812354c0f0b0df19bf8c7cc97454c68895edd4e8a206c9a"
+      }
+    },
+    {
+      "id": "qsrc_dm2",
+      "sha256": "1ead245774e8ec318916ceca108108c551a49206fa7070e08a470092d2623eb7",
+      "vis_bytes": 34654,
+      "light_bytes": 113570,
+      "rgb_bytes": 340710,
+      "faces": 5350,
+      "light_flags": [
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "0"
+      ],
+      "cache": {
+        "bsp_sha256": "1ead245774e8ec318916ceca108108c551a49206fa7070e08a470092d2623eb7",
+        "codecs": [
+          {
+            "encoded_bytes": 1829760,
+            "format": "bc7",
+            "images": 6,
+            "path": "res://maps/cache/qsrc_dm2-lightmap1-bc7.scn",
+            "raw_bytes": 5488629,
+            "sha256": "b4aa43e3bd9bfe6f0eb604bfe25ca91b4f716a606f20690f0c64bfd582f746dd"
+          },
+          {
+            "encoded_bytes": 1829760,
+            "format": "astc4",
+            "images": 6,
+            "path": "res://maps/cache/qsrc_dm2-lightmap1-astc4.scn",
+            "raw_bytes": 5488629,
+            "sha256": "99fa23a0860cd8d3433ba374f7086eb18fdf31f09b75778049e3cdf6732cc1b2"
+          }
+        ],
+        "dark_faces": 731,
+        "fine_faces": 0,
+        "geometry_preserved": true,
+        "map": "qsrc_dm2",
+        "navigation_polygons": 647,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.794315338134766,
+          "occupancy_before": 0.0496447086334229,
+          "padded_luxels": 208225,
+          "patches": 4342,
+          "raw_bytes_after": 786432,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 40119,
+          "to": [
+            512,
+            512
+          ]
+        },
+        "quake_light_version": 1
+      },
+      "traversal": {
+        "exit_code": 0,
+        "failures": [],
+        "engine_errors": [],
+        "audit_fingerprint": "c9e0124281bc776a4812354c0f0b0df19bf8c7cc97454c68895edd4e8a206c9a"
+      }
+    },
+    {
+      "id": "qsrc_dm3",
+      "sha256": "b6f10ea9f25dd06c3b3b678af8d086a01d4bed17a7a9d0eaab2a82b488559efe",
+      "vis_bytes": 21359,
+      "light_bytes": 132409,
+      "rgb_bytes": 397227,
+      "faces": 3318,
+      "light_flags": [
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "0"
+      ],
+      "cache": {
+        "bsp_sha256": "b6f10ea9f25dd06c3b3b678af8d086a01d4bed17a7a9d0eaab2a82b488559efe",
+        "codecs": [
+          {
+            "encoded_bytes": 2097312,
+            "format": "bc7",
+            "images": 6,
+            "path": "res://maps/cache/qsrc_dm3-lightmap1-bc7.scn",
+            "raw_bytes": 6291450,
+            "sha256": "a654b3d0fa3f0f601e1eff3a85994f46ff4da5a688f8d65b79d5170ca0a0c9c7"
+          },
+          {
+            "encoded_bytes": 2097312,
+            "format": "astc4",
+            "images": 6,
+            "path": "res://maps/cache/qsrc_dm3-lightmap1-astc4.scn",
+            "raw_bytes": 6291450,
+            "sha256": "b24effab29c1dbb9f90d93b3b431af9f19b40bc17b683d006ea20727bbb563cd"
+          }
+        ],
+        "dark_faces": 282,
+        "fine_faces": 0,
+        "geometry_preserved": true,
+        "map": "qsrc_dm3",
+        "navigation_polygons": 978,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.83013916015625,
+          "occupancy_before": 0.0518836975097656,
+          "padded_luxels": 217616,
+          "patches": 2881,
+          "raw_bytes_after": 786432,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 25662,
+          "to": [
+            512,
+            512
+          ]
+        },
+        "quake_light_version": 1
+      },
+      "traversal": {
+        "exit_code": 0,
+        "failures": [],
+        "engine_errors": [],
+        "audit_fingerprint": "c9e0124281bc776a4812354c0f0b0df19bf8c7cc97454c68895edd4e8a206c9a"
+      }
+    },
+    {
+      "id": "qsrc_dm4",
+      "sha256": "183bf7bc3d98785e8954aeba67cbc29052d2373eeaadac786c9e0b1d177a232d",
+      "vis_bytes": 11043,
+      "light_bytes": 45065,
+      "rgb_bytes": 135195,
+      "faces": 1904,
+      "light_flags": [
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "0"
+      ],
+      "cache": {
+        "bsp_sha256": "183bf7bc3d98785e8954aeba67cbc29052d2373eeaadac786c9e0b1d177a232d",
+        "codecs": [
+          {
+            "encoded_bytes": 1398208,
+            "format": "bc7",
+            "images": 4,
+            "path": "res://maps/cache/qsrc_dm4-lightmap1-bc7.scn",
+            "raw_bytes": 4194300,
+            "sha256": "5ea11917490d77ba2cb4459677492cfec95e39cd09ac533debf14163dbb4fe46"
+          },
+          {
+            "encoded_bytes": 1398208,
+            "format": "astc4",
+            "images": 4,
+            "path": "res://maps/cache/qsrc_dm4-lightmap1-astc4.scn",
+            "raw_bytes": 4194300,
+            "sha256": "cefd67749ff76d1ec5e512381ce4535a3f0ec8e1cd3ed4078ebdf305293a2fbb"
+          }
+        ],
+        "dark_faces": 166,
+        "fine_faces": 0,
+        "geometry_preserved": true,
+        "map": "qsrc_dm4",
+        "navigation_polygons": 320,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.312942504882812,
+          "occupancy_before": 0.0195589065551758,
+          "padded_luxels": 82036,
+          "patches": 1666,
+          "raw_bytes_after": 786432,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 14874,
+          "to": [
+            512,
+            512
+          ]
+        },
+        "quake_light_version": 1
+      },
+      "traversal": {
+        "exit_code": 0,
+        "failures": [],
+        "engine_errors": [],
+        "audit_fingerprint": "c9e0124281bc776a4812354c0f0b0df19bf8c7cc97454c68895edd4e8a206c9a"
+      }
+    },
+    {
+      "id": "qsrc_dm5",
+      "sha256": "46fc1804bb8c31bb1e2a623bcd24bd8f298b88b7fe1adb82ce35d53a3990d802",
+      "vis_bytes": 17226,
+      "light_bytes": 62055,
+      "rgb_bytes": 186165,
+      "faces": 2102,
+      "light_flags": [
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "0"
+      ],
+      "cache": {
+        "bsp_sha256": "46fc1804bb8c31bb1e2a623bcd24bd8f298b88b7fe1adb82ce35d53a3990d802",
+        "codecs": [
+          {
+            "encoded_bytes": 731904,
+            "format": "bc7",
+            "images": 3,
+            "path": "res://maps/cache/qsrc_dm5-lightmap1-bc7.scn",
+            "raw_bytes": 2195451,
+            "sha256": "1929228828e5191f74cebef9d1155b438043a3eddbbcb7fc27eedd34306428cb"
+          },
+          {
+            "encoded_bytes": 731904,
+            "format": "astc4",
+            "images": 3,
+            "path": "res://maps/cache/qsrc_dm5-lightmap1-astc4.scn",
+            "raw_bytes": 2195451,
+            "sha256": "8c6e9fefd773c858bfe482b1fc8e349d97c2cf2dfc00879ee50dc380ed0369bb"
+          }
+        ],
+        "dark_faces": 18,
+        "fine_faces": 0,
+        "geometry_preserved": true,
+        "map": "qsrc_dm5",
+        "navigation_polygons": 474,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.421539306640625,
+          "occupancy_before": 0.0263462066650391,
+          "padded_luxels": 110504,
+          "patches": 1964,
+          "raw_bytes_after": 786432,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 16323,
+          "to": [
+            512,
+            512
+          ]
+        },
+        "quake_light_version": 1
+      },
+      "traversal": {
+        "exit_code": 0,
+        "failures": [],
+        "engine_errors": [],
+        "audit_fingerprint": "c9e0124281bc776a4812354c0f0b0df19bf8c7cc97454c68895edd4e8a206c9a"
+      }
+    },
+    {
+      "id": "qsrc_dm6",
+      "sha256": "169ab15e6016744c17e5175b32dc5209923e6cc76f747078962d52cc8c077c7f",
+      "vis_bytes": 21664,
+      "light_bytes": 71528,
+      "rgb_bytes": 214584,
+      "faces": 2447,
+      "light_flags": [
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "0"
+      ],
+      "cache": {
+        "bsp_sha256": "169ab15e6016744c17e5175b32dc5209923e6cc76f747078962d52cc8c077c7f",
+        "codecs": [
+          {
+            "encoded_bytes": 349552,
+            "format": "bc7",
+            "images": 1,
+            "path": "res://maps/cache/qsrc_dm6-lightmap1-bc7.scn",
+            "raw_bytes": 1048575,
+            "sha256": "b88d5b4791b9df0c07fb03efbd157ab738bc50c25e7bb95dc081c33c1f85c047"
+          },
+          {
+            "encoded_bytes": 349552,
+            "format": "astc4",
+            "images": 1,
+            "path": "res://maps/cache/qsrc_dm6-lightmap1-astc4.scn",
+            "raw_bytes": 1048575,
+            "sha256": "4461eab298dcb019cb6f760c302d070baf2909b417cb3531f803e742ee99aa49"
+          }
+        ],
+        "dark_faces": 340,
+        "fine_faces": 0,
+        "geometry_preserved": true,
+        "map": "qsrc_dm6",
+        "navigation_polygons": 703,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.478118896484375,
+          "occupancy_before": 0.0298824310302734,
+          "padded_luxels": 125336,
+          "patches": 2059,
+          "raw_bytes_after": 786432,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 19239,
+          "to": [
+            512,
+            512
+          ]
+        },
+        "quake_light_version": 1
+      },
+      "traversal": {
+        "exit_code": 0,
+        "failures": [],
+        "engine_errors": [],
+        "audit_fingerprint": "c9e0124281bc776a4812354c0f0b0df19bf8c7cc97454c68895edd4e8a206c9a"
+      }
+    },
+    {
+      "id": "qsrc_dm7",
+      "sha256": "ed091c7cab780ff4d70b27492474848614a42988655e22c7e3b8701fdf665350",
+      "vis_bytes": 22947,
+      "light_bytes": 90809,
+      "rgb_bytes": 272427,
+      "faces": 2057,
+      "light_flags": [
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "0"
+      ],
+      "cache": {
+        "bsp_sha256": "ed091c7cab780ff4d70b27492474848614a42988655e22c7e3b8701fdf665350",
+        "codecs": [
+          {
+            "encoded_bytes": 1747760,
+            "format": "bc7",
+            "images": 5,
+            "path": "res://maps/cache/qsrc_dm7-lightmap1-bc7.scn",
+            "raw_bytes": 5242875,
+            "sha256": "109c28e66e9de6cf2cab1e24e920916fbf1b105aba9070d3e594e582cc5134c1"
+          },
+          {
+            "encoded_bytes": 1747760,
+            "format": "astc4",
+            "images": 5,
+            "path": "res://maps/cache/qsrc_dm7-lightmap1-astc4.scn",
+            "raw_bytes": 5242875,
+            "sha256": "59b41c15896c4062ec6ad88029b955e8ffbdf004de1ac84b63636c37f0b1a55a"
+          }
+        ],
+        "dark_faces": 254,
+        "fine_faces": 0,
+        "geometry_preserved": true,
+        "map": "qsrc_dm7",
+        "navigation_polygons": 286,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.542839050292969,
+          "occupancy_before": 0.0339274406433105,
+          "padded_luxels": 142302,
+          "patches": 1681,
+          "raw_bytes_after": 786432,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 15402,
+          "to": [
+            512,
+            512
+          ]
+        },
+        "quake_light_version": 1
+      },
+      "traversal": {
+        "exit_code": 0,
+        "failures": [],
+        "engine_errors": [],
+        "audit_fingerprint": "c9e0124281bc776a4812354c0f0b0df19bf8c7cc97454c68895edd4e8a206c9a"
+      }
+    }
+  ],
+  "validation": {
+    "bots_titans_avatar": {
+      "passed": true,
+      "log": "test-results/requested-changes.log",
+      "sha256": "ae31ade53cc7eff9a21d6a77a6a8a3bede66689ca1e9a3fa1a58a3b8768eceea"
+    },
+    "bsp_triggers": {
+      "passed": true,
+      "log": "test-results/quake-triggers.log",
+      "sha256": "91d0f3e276fa3d34960940d0279c7dd47b2757e1c51ead24d6c08c098d6cef57"
+    },
+    "tracking_orientation": {
+      "passed": true,
+      "log": "test-results/task-tracking.log",
+      "sha256": "58ddaedb3099b55673b8174e04870d662899e52e7c5b83deae0c8394f78992b1"
+    },
+    "rendered_quake_light": {
+      "passed": true,
+      "log": "test-results/quake-light-test.log",
+      "sha256": "952765cbe9d5f5223fa660a7e9f63b9189c2357e6a43a3ceffefd3634de61072"
+    },
+    "mover_network": [
+      {
+        "role": "server",
+        "exit": 0,
+        "pass": true
+      },
+      {
+        "role": "client1",
+        "exit": 0,
+        "pass": true
+      },
+      {
+        "role": "client2",
+        "exit": 0,
+        "pass": true
+      }
+    ]
+  },
+  "lighting": {
+    "added_minlight": false,
+    "added_sunlight": false,
+    "bounce": 0,
+    "response": "Quake display-space modulation",
+    "ordinary_missing_samples": "black",
+    "cache_version": 1
+  },
+  "protocol": "fpsloppa-36-bsp-triggers"
+}

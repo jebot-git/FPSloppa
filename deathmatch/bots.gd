@@ -8,6 +8,7 @@ var ready_to_walk:=false
 var teamplay=preload("res://deathmatch/bot_ai/teamplay.gd").new()
 var objectives=preload("res://deathmatch/bot_ai/objectives.gd").new()
 var navigation=preload("res://deathmatch/bot_ai/navigation.gd").new()
+var map_triggers=preload("res://deathmatch/bot_ai/map_triggers.gd").new()
 var titanball=preload("res://deathmatch/bot_ai/titanball.gd").new()
 func setup(arena: Node) -> void:
 	game=arena;teamplay.ai=self;objectives.ai=self;titanball.ai=self
@@ -33,6 +34,7 @@ func setup(arena: Node) -> void:
 	NavigationServer3D.map_set_use_edge_connections(nav_map,not ad_map)
 	if NavigationServer3D.has_method("map_set_merge_rasterizer_cell_scale"):NavigationServer3D.call("map_set_merge_rasterizer_cell_scale",nav_map,region.navigation_mesh.get_meta("merge_rasterizer_cell_scale",.1 if ad_map or game.current_map in ["as_hislop","as_hislop_tiny","as_hislop_layout_test"] or game.current_map.ends_with("hispeed_concept") else 1.0))
 	navigation.setup(game,region)
+	map_triggers.setup(self)
 	for id in game.players:
 		if id<0:brains[id]=new_brain(id)
 static func new_mesh(map_id:String="") -> NavigationMesh:
@@ -83,6 +85,7 @@ func tick(delta: float) -> void:
 			perceive(id,brain)
 			if game.clock>=brain.plan_at:
 				plan(id,brain);brain.plan_at=game.clock+.8
+		if map_triggers.tick(id,brain,delta):continue
 		combat(id,brain,delta)
 		steer(id,brain,delta)
 
@@ -97,6 +100,15 @@ func target_position(id: int) -> Vector3:
 func visible(id: int,other: int) -> bool:
 	var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(eye(id),target_position(other),3,[game.fighters[id].get_rid()]))
 	return hit.is_empty() or hit.collider==game.fighters[other] or game.match_mode.fortress.walkers.contact_pilot(hit)==other
+func can_harm_target(id: int,other: int,weapon: int) -> bool:
+	var walkers=game.match_mode.fortress.walkers
+	if not walkers.mounted(other):return true
+	var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
+	return walkers.accepts_pilot_weapon(str(data.name),bool(data.get("heavy_automatic",false)))
+func can_engage(id: int,other: int) -> bool:
+	for weapon in game.players[id].owned:
+		if game.match_mode.fortress.can_fire(id,weapon) and can_harm_target(id,other,weapon):return true
+	return false
 func perceive(id: int,brain: Dictionary) -> void:
 	var s: Dictionary=game.players[id]
 	var previous: int=brain.enemy
@@ -105,6 +117,7 @@ func perceive(id: int,brain: Dictionary) -> void:
 	for other in game.players:
 		if other==id or not alive(other) or game.match_mode.same_team(id,other) or game.match_mode.special.frozen.has(other) or game.match_mode.fortress.cloaked(other):continue
 		if game.match_mode.fortress.enabled() and game.players[other].get("tf_disguise",{}).get("team",-1)==s.team:continue
+		if not can_engage(id,other):continue
 		var distance: float=eye(id).distance_to(target_position(other))
 		if distance>60:continue
 		# Nearby opponents can be heard; distant enemies must enter the field of
@@ -382,11 +395,11 @@ func ideal_range(id: int,weapon: int) -> float:
 	if float(data.get("range",100))<20:return float(data.range)*.7
 	if int(data.get("pellets",1))>1:return clampf(55/maxf(1,float(data.get("spread",1))),5,18)
 	return 18.0 if float(data.get("speed",0))>0 else 24.0
-func choose_weapon(id: int,distance: float) -> int:
+func choose_weapon(id: int,distance: float,enemy: int=0) -> int:
 	var s: Dictionary=game.players[id]
 	var best: int=s.weapon;var value:=-INF
 	for weapon in s.owned:
-		if not game.match_mode.fortress.can_fire(id,weapon):continue
+		if not game.match_mode.fortress.can_fire(id,weapon) or enemy!=0 and not can_harm_target(id,enemy,weapon):continue
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
 		if data.get("kind","")=="translocator":continue
 		# Estimate useful damage from the actual class/profile data, not Doom's
@@ -442,14 +455,17 @@ func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 				s.alt_fire=false;s.weapon=choose_weapon(id,eye(id).distance_to(point));s.fire=aim(id,point,1-exp(-10*delta)) and safe_shot(id,point,explosive_weapon(id,s.weapon))
 				return
 	if brain.enemy!=0 and alive(brain.enemy):
+		if not can_engage(id,brain.enemy):
+			brain.enemy=0;brain.remembered_enemy=0;brain.memory_until=0;brain.plan_at=0
+			return
 		var point:=target_position(brain.enemy)
 		# Track the last observation between perception ticks instead of reading
 		# the opponent's exact live position at every physics frame.
 		if brain.last_seen_at>=0:
 			point=brain.seen_position+Vector3.UP*game.fighters[brain.enemy].torso_height()+brain.observed_velocity*clampf(game.clock-brain.last_seen_at,0,.2)*.85
 		var distance: float=eye(id).distance_to(point)
-		if game.clock>=brain.weapon_at or not game.match_mode.fortress.can_fire(id,s.weapon):
-			s.weapon=choose_weapon(id,distance);brain.weapon_at=game.clock+.2
+		if game.clock>=brain.weapon_at or not game.match_mode.fortress.can_fire(id,s.weapon) or not can_harm_target(id,brain.enemy,s.weapon):
+			s.weapon=choose_weapon(id,distance,brain.enemy);brain.weapon_at=game.clock+.2
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,s.weapon)
 		var alternate:=alternate_fire(id,distance,brain)
 		if alternate:data=data.duplicate();data.merge(data.get("alt",{}),true)
@@ -569,6 +585,7 @@ func safe_blast(id: int,point: Vector3) -> bool:
 
 func stop_radius(brain: Dictionary) -> float:
 	match brain.goal_kind:
+		"map_control":return .04
 		"heal":return 3.5
 		"repair":return 2.4
 		"escort":return 3.0

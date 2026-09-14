@@ -1,10 +1,10 @@
-# FPSloppa 0.13v
+# FPSloppa 0.14v
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.13v build notes](docs/RELEASE-0.13v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.14v build notes](docs/RELEASE-0.14v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.13v:** fixed TITANBALL cockpit protection (200 HP, heavy ordnance only, no cockpit regeneration), configurable dedicated-server bot fill with human priority, and improved bot navigation through elevators and connected jump pads.
+**New in 0.14v:** live RCON bot counts, Titan-aware bot weapon selection, physical-turn avatar alignment, upright handheld team radio, restored Q1/KOTH/CC lighting and functional BSP buttons, doors, traps and trains that bots can operate.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
@@ -18,7 +18,7 @@ The additional [UT Avatar Converter](tools/ut_avatar_converter/README.md) turns 
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use 0.13v clients and servers together to receive all fixes. The protocol remains `fpsloppa-35-mode-loadouts`.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use 0.14v clients and servers together to receive all fixes. The protocol is `fpsloppa-36-bsp-triggers`.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Current standalone APKs include the base maps and models and install them automatically on first launch. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Instafreeze, Freeze Tag and Chainsaw Circus are available.
 

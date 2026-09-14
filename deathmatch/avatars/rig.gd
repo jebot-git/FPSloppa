@@ -42,6 +42,7 @@ var weapon_id := -1
 var gun: Node3D
 var offhand_gun: Node3D
 var body_height := 1.70
+var body_heading:=0.0
 var scale_factor := 1.0
 var neutral_hip_height:=.92
 var neutral_foot_heights:Dictionary={"left":.08,"right":.08}
@@ -227,13 +228,17 @@ func _process(delta: float) -> void:
 		for key in next_body:
 			body[key]=previous[key].interpolate_with(next_body[key],minf(1,delta*18)) if previous.has(key) and next_body[key] is Transform3D else next_body[key]
 		xr_pose.body=body
+	# Rotate only the rendered body; controller/head poses retain their tracking frame.
+	body_heading=preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,body_heading)
+	var physical_yaw:=body_heading
+	global_basis=tracking_transform().basis*Basis(Vector3.UP,physical_yaw)
 	if preview_mode>=0:
 		speed = [0.0,4.0,9.4,0.0][preview_mode]
 		movement = Vector3.FORWARD*speed
 		if preview_mode==3 and fmod(phase,1.0)<delta: fire()
 	var clip := "idle" if speed<.2 else "walk" if speed<6.0 else "run"
 	if motion.current_animation!=clip or not motion.is_playing(): motion.play(clip,.18)
-	gait.update(delta,movement,stance,grounded,target_xr_pose.get("body",{}),tracked_leg_animation)
+	gait.update(delta,Basis(Vector3.UP,-physical_yaw)*movement,stance,grounded,target_xr_pose.get("body",{}),tracked_leg_animation)
 	# Preview firing has its own clock, including when standing still.
 	phase+=delta
 	recoil = move_toward(recoil,0.0,delta*7)

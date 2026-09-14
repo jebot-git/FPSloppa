@@ -9,7 +9,7 @@ const Fighter = preload("res://deathmatch/fighter.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-35-mode-loadouts"
+const PROTOCOL := "fpsloppa-36-bsp-triggers"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -300,7 +300,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	server_name=settings.sv_hostname
 	bind_address=settings.net_ip
 	max_clients=settings.sv_maxclients
-	bot_population.target=settings.sv_bot_fill
+	bot_population.target=settings.sv_bot_fill;bot_population.count_target=-1
 	if max_clients>16:push_warning(preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
 	voice_backend=settings.sv_voice_backend if settings.sv_voice==1 else "builtin";mumble_url=settings.sv_mumble_url if settings.sv_voice==1 else ""
 	voice_enabled=settings.sv_voice==1 and voice_backend=="builtin"
@@ -734,7 +734,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	model_weapon = -1
 	if is_instance_valid(bots): bots.free()
 	bots=null
-	bot_population.target=0
+	bot_population.target=0;bot_population.count_target=-1
 	practice = false
 	menu_open = true
 	intermission = 0
@@ -1137,7 +1137,7 @@ func _server_tick(delta: float) -> void:
 		if gate.open and clock>gate.until:
 			var clear := true
 			for actor in fighters.values():
-				if gate.get("elevator",false):break # Elevators return with their passengers.
+				if gate.get("elevator",false) or gate.get("bsp",false):break # Authored movers return with passengers.
 				if actor.spectator:continue
 				var offset: Vector3 = actor.position-gate.get("center",gate.node.position)
 				offset.y = 0
@@ -1401,6 +1401,7 @@ func _fire(id: int, offhand: bool=false) -> void:
 			var hit := _trace(start,start+direction*d.range,id,_shot_rewind(id))
 			endpoints.append(hit.position)
 			var amount: int=d.damage*randi_range(1,d.dice)
+			_damage_map_hit(hit,id,amount)
 			if hit.id!=0:
 				_damage(hit.id,id,amount,d.name,false,hit.position,direction,false,hit.get("vehicle",false) and d.range>3 and d.name!="FLAMETHROWER")
 				if d.name=="FLAMETHROWER":match_mode.fortress.ignite(hit.id,id)
@@ -1441,7 +1442,22 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 			target=id
 	var structure: Dictionary=match_mode.fortress.trace(start,end,nearest,radius)
 	if not structure.is_empty():return {"id":0,"building":structure.key,"position":start.lerp(end,structure.fraction),"hit":true}
-	return {"id":target,"position":point,"hit":target!=0 or is_finite(wall_fraction),"vehicle":target!=0 and target==hull_pilot}
+	var result:={"id":target,"position":point,"hit":target!=0 or is_finite(wall_fraction),"vehicle":target!=0 and target==hull_pilot}
+	# Shootable trigger volumes participate in damage traces, without blocking movement.
+	var query:=PhysicsRayQueryParameters3D.create(start,point+(end-start).normalized()*.04,1)
+	query.collide_with_areas=true
+	var contact:=space.intersect_ray(query)
+	if not contact.is_empty() and (target==0 or start.distance_to(contact.position)<start.distance_to(point)):
+		var runtime=get_node_or_null("Map/MapRuntime")
+		if runtime and runtime.triggers.rows.has(contact.collider):
+			result["map_node"]=contact.collider
+			if contact.collider is Area3D:result.id=0;result.vehicle=false;result.hit=true;result.position=contact.position
+	return result
+
+func _damage_map_hit(hit: Dictionary,id: int,amount: float) -> void:
+	if not multiplayer.is_server() or not hit.has("map_node"):return
+	var runtime=get_node_or_null("Map/MapRuntime")
+	if runtime:runtime.triggers.damage(hit.map_node,id,amount)
 
 func _launch(id: int,weapon: int,solution: Dictionary={}) -> void:
 	if not players.has(id) or players[id].dead: return
@@ -1499,6 +1515,7 @@ func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 		p.fresh=false
 		if hit.hit or p.life<=0:
 			var d: Dictionary = W.DATA[p.weapon]
+			_damage_map_hit(hit,p.owner,d.damage)
 			if hit.id!=0: _damage(hit.id,p.owner,d.damage*randi_range(1,d.dice),d.name,false,hit.position,p.direction,false,hit.get("vehicle",false))
 			if hit.has("building"):match_mode.fortress.damage_building(hit.building,p.owner,d.damage*randi_range(1,d.dice))
 			if p.weapon==6: _blast(hit.position,p.owner,128,5.76,"ROCKET LAUNCHER",hit.id if hit.get("vehicle",false) else 0)
@@ -1519,6 +1536,8 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: St
 	if lobby.active():return
 	if not multiplayer.is_server() or intermission>0:return
 	match_mode.fortress.blast(pos,owner_id,damage,radius)
+	var map_runtime=get_node_or_null("Map/MapRuntime")
+	if map_runtime:map_runtime.triggers.blast(pos,owner_id,damage,radius)
 	for id in players:
 		if players[id].dead or players[id].spectator or players[id].invulnerable>clock: continue
 		if not match_mode.fortress.walkers.accepts_explosion(id,pos,hull_impact):continue
@@ -1682,6 +1701,11 @@ func _send_snapshot() -> void:
 	for id in projectiles:
 		var p: Dictionary=projectiles[id]
 		if p.has("definition"):mode_state.ordnance[id]={"extra":p.extra,"velocity":p.velocity,"life":p.life,"stuck":p.stuck}
+	var bsp_runtime=get_node_or_null("Map/MapRuntime")
+	if bsp_runtime and not bsp_runtime.triggers.killed_targets.is_empty():mode_state["bsp_killed"]=bsp_runtime.triggers.killed_targets
+	mode_state["map_movers"]=[]
+	for i in gates.size():
+		if gates[i].get("bsp",false):mode_state.map_movers.append([i,gates[i].node.position])
 	mode_state["elevators"]=[]
 	for i in gates.size():
 		if gates[i].get("elevator",false):mode_state.elevators.append([i,gates[i].node.position])
@@ -1817,6 +1841,15 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		for i in range(mini(gate_states.size(),gates.size())):
 			if gates[i].open!=gate_states[i]: _gate_state(i,gate_states[i])
 		_sync_elevators(mode_state.get("elevators",[]))
+		var bsp_runtime=get_node_or_null("Map/MapRuntime")
+		if bsp_runtime:bsp_runtime.triggers.receive_killed(mode_state.get("bsp_killed",[]))
+		for row in mode_state.get("map_movers",[]):
+			if row.size()!=2 or not row[0] in range(gates.size()):continue
+			var gate: Dictionary=gates[row[0]]
+			if not gate.get("bsp",false):continue
+			# Authoritative positions include trains and both legs of secret doors.
+			if gate.has("motion_tween") and is_instance_valid(gate.motion_tween):gate.motion_tween.kill()
+			gate.node.position=row[1]
 
 func _sync_elevators(rows: Array) -> void:
 	# A joining client may arrive halfway through a long elevator journey.
@@ -1883,7 +1916,13 @@ func _gate_state(index: int,opened: bool) -> void:
 		var hit:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(camera.global_position,sound_position,1))
 		if not hit.is_empty() and hit.collider==gate.node:sound_position=hit.position+hit.normal*.08
 	effects.play("door_open" if opened else "door_close",sound_position,-7)
-	if gate.has("base_position"):
+	if gate.has("secret_first"):
+		var middle: Vector3=gate.base_position+gate.secret_first
+		var finish: Vector3=gate.base_position+(gate.travel if opened else Vector3.ZERO)
+		motion.tween_property(gate.node,"position",middle,gate.node.position.distance_to(middle)/gate.secret_speed)
+		motion.tween_interval(1.0)
+		motion.tween_property(gate.node,"position",finish,middle.distance_to(finish)/gate.secret_speed)
+	elif gate.has("base_position"):
 		motion.tween_property(gate.node,"position",gate.base_position+(gate.travel if opened else Vector3.ZERO),float(gate.get("move_seconds",.6)))
 	else:
 		motion.tween_property(gate.node,"position:y",gate.base+(3.5 if opened else 0),.6)

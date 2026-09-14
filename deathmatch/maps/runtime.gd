@@ -15,6 +15,7 @@ var push_contacts: Dictionary={}
 var legacy_train_push:=false
 var gate_targets: Dictionary={}
 var trigger_until: Dictionary={}
+var triggers=preload("res://deathmatch/maps/triggers.gd").new()
 
 func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	game = arena
@@ -130,6 +131,7 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	var push_index:=0
 	for i in regions.size():
 		if regions[i].kind=="trigger_push":regions[i]=pushes[push_index];push_index+=1
+	triggers.setup(self,entities)
 	preload("res://deathmatch/vehicles/ba2/map.gd").configure(game,entities)
 	remove_sentry_pickups()
 	if not game.headless and not fixtures.is_empty():load("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
@@ -171,16 +173,7 @@ func tf_floor_position(origin: Vector3) -> Vector3:
 	return fallback
 
 func activate_gate_target(target: String) -> bool:
-	var activated:=false
-	for index in gate_targets.get(target,[]):
-		var gate: Dictionary=game.gates[index]
-		if game.match_mode.kind=="as" and game.match_mode.assault.stage<int(gate.get("as_unlock",0)):continue
-		if gate.open:continue
-		var wait: float=gate.get("wait_seconds",4.0)
-		gate.until=INF if wait<0 else game.clock+float(gate.get("move_seconds",.6))+wait
-		game._gate_state.rpc(index,true)
-		activated=true
-	return activated
+	return triggers.use_target(target,0)
 
 func remove_sentry_pickups() -> void:
 	# Older HiSlop BSPs include a rotating chaingun on each authored turret mount.
@@ -271,6 +264,7 @@ func add_light(e: Dictionary, pos: Vector3) -> void:
 
 func _physics_process(_delta: float) -> void:
 	if not game or not game.active: return
+	triggers.tick()
 	for id in game.fighters:
 		var actor=game.fighters[id]
 		actor.in_water=false;actor.underwater=false;actor.water_surface=false
@@ -318,12 +312,13 @@ func _physics_process(_delta: float) -> void:
 				if multiplayer.is_server() and not push_contacts.has(key):game._ability_fx.rpc("jump_pad",actor.position,actor.position+push.normalized(),0)
 				continue
 			if not multiplayer.is_server(): continue
-			if region.kind in ["trigger_multiple","trigger_once"]:
+			if region.kind in ["trigger_multiple","trigger_once","trigger_secret"]:
+				if float(region.data.get("health",0))>0:continue
 				var team: int=int(region.data.get("team_no",0))
 				if team in [1,2] and int(game.players[id].team)!=(0 if team==2 else 1):continue
 				var key: int=region.area.get_instance_id()
 				if game.clock<trigger_until.get(key,0.0):continue
-				if activate_gate_target(str(region.data.get("target",""))):
+				if triggers.activate(region.area,id):
 					trigger_until[key]=INF if region.kind=="trigger_once" else game.clock+maxf(.2,float(region.data.get("wait",.2)))
 				continue
 			if region.kind=="trigger_teleport" and game.clock>=teleport_until.get(id,0):
@@ -354,8 +349,7 @@ func _physics_process(_delta: float) -> void:
 		if game.match_mode.kind=="as" and game.match_mode.assault.stage<int(gate.get("as_unlock",0)):continue
 		for id in game.players:
 			if not game.players[id].dead and game.fighters[id].position.distance_to(gate.center)<3:
-				gate.until=game.clock+4
-				game._gate_state.rpc(i,true)
+				triggers.activate(gate.node,id)
 				break
 
 static func push_velocity(data: Dictionary,legacy_scale: float=10.0) -> Vector3:

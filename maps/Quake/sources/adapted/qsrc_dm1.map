@@ -1,10 +1,6 @@
 // Modified for FPSloppa, 2026-09-11. GPL v2; see COPYING-GPL-2.0.txt.
 {
-"_bounce" "1"
-"_sun_mangle" "0 -70 0"
-"_sunlight2" "30"
-"_sunlight" "110"
-"_minlight" "36"
+"_fpsloppa_light_response" "quake"
 "_fpsloppa_atlas" "2048"
 "_fpsloppa_bake" "1"
 "message" "Quake: Place of Two Deaths"
@@ -4252,7 +4248,7 @@
 "lip" "4"
 "angle" "-2"
 "target" "t3"
-"classname" "func_wall"
+"classname" "func_button"
 {
 ( -336 1612 -4 ) ( -400 1612 -4 ) ( -400 1568 -4 ) door05_3 0 0 0 1.000000 1.000000
 ( -400 1568 4 ) ( -400 1612 4 ) ( -336 1612 4 ) +0floorsw 16 24 0 1.000000 1.000000
@@ -4265,6 +4261,7 @@
 {
 "wait" "8"
 "speed" "175"
+"targetname" "t3"
 "spawnflags" "1"
 "angle" "180"
 "classname" "func_door"
@@ -4533,7 +4530,7 @@
 }
 {
 "target" "t2"
-"classname" "func_wall"
+"classname" "func_button"
 {
 ( 512 1256 -128 ) ( 496 1256 -128 ) ( 496 1240 -128 ) door05_3 0 0 0 1.000000 1.000000
 ( 496 1240 -80 ) ( 496 1256 -80 ) ( 512 1256 -80 ) door05_3 0 0 0 1.000000 1.000000
@@ -4544,7 +4541,6 @@
 }
 }
 {
-"spawnflags" "0"
 "angle" "180"
 "classname" "func_door_secret"
 {
@@ -4594,7 +4590,7 @@
 "classname" "light"
 }
 {
-"spawnflags" "0"
+"targetname" "t2"
 "classname" "func_door"
 "angle" "-2"
 "sounds" "4"
@@ -4608,7 +4604,7 @@
 }
 }
 {
-"spawnflags" "0"
+"targetname" "t2"
 "classname" "func_door"
 "angle" "-2"
 {

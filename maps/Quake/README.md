@@ -7,3 +7,5 @@ These are the existing reviewed ports from John Romero's Quake map-source releas
 All seven passed current spawn/collision, mover, teleporter and water traversal checks. DM6's previous swimming failure was caused by concurrent water probes entering a submerged teleporter and telefragging; the water test now isolates hydrodynamics from teleport triggers, which retain their separate traversal test. No map geometry or swimming behavior was changed to obtain that result.
 
 Each map was also exercised with eight production bots in DM, IG, FT and TDM for 45 simulated seconds per combination. These are compatibility checks, not a balance certification. Rebuild/source instructions remain in `tools/quake_source/README.md` in the repository.
+
+Current trigger and lighting implementation and verification: see `docs/Q1-TRIGGERS-LIGHTING.md`.

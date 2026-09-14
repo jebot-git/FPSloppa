@@ -12,7 +12,7 @@ paths=sorted((ROOT/'maps').glob('ad_arena_*.bsp'))+sorted((ROOT.parent/'Builds/T
 if args.directory:paths=sorted(args.directory.resolve().glob("*.bsp"))
 results=[]
 if not paths:raise SystemExit("No BSP maps found")
-fingerprint=hashlib.sha256(b''.join((ROOT/name).read_bytes() for name in ['deathmatch/tests/converted_traversal.gd','deathmatch/maps/runtime.gd','deathmatch/maps/loader.gd','addons/bsp_importer/bsp_reader.gd','deathmatch/fighter.gd'])).hexdigest()
+fingerprint=hashlib.sha256(b''.join((ROOT/name).read_bytes() for name in ['deathmatch/tests/converted_traversal.gd','deathmatch/maps/runtime.gd','deathmatch/maps/triggers.gd','deathmatch/maps/loader.gd','addons/bsp_importer/bsp_reader.gd','deathmatch/fighter.gd'])).hexdigest()
 for path in paths:
  if args.match not in path.stem:continue
  data=path.read_bytes();version=struct.unpack_from('<I',data)[0];lumps=[struct.unpack_from('<II',data,4+i*8) for i in range(15)]
@@ -28,7 +28,7 @@ for path in paths:
   if content==-3:water.append({'lo':lo,'hi':hi})
  if len(water)>160:water=[water[int(i*(len(water)-1)/159)] for i in range(160)]
  targets={e.get('targetname') for e in entities if e.get('targetname')}
- unsupported=[e for e in entities if e['classname'] in ['func_train','func_button','trigger_multiple','trigger_once','trigger_changelevel','trigger_secret']]
+ unsupported=[e for e in entities if e['classname'] in ['trigger_changelevel']]
  request={'path':str(path),'name':path.stem,'sha256':hashlib.sha256(data).hexdigest(),'entities':entities,'counts':counts,'liquid_leaves':liquids,'water_bounds':water,'unsupported_logic':unsupported,'unresolved_targets':[e for e in entities if e.get('target') and e['target'] not in targets]}
  req=OUT/(path.stem+'-input.json');req.write_text(json.dumps(request))
  report=OUT/(path.stem+'.json');log=OUT/(path.stem+'.log')

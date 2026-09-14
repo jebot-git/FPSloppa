@@ -315,7 +315,7 @@ def main():
     at=len(wad);wad.extend(b''.join(directory));struct.pack_into('<ii',wad,4,len(directory),at)
     (out/'source/hispeed.wad').write_bytes(wad)
     def fields(d):return '\n'.join('"%s" "%s"'%(k,v) for k,v in d.items())
-    world={'classname':'worldspawn','message':a.title,'wad':'hispeed.wad','_fpsloppa_bake':'1','_fpsloppa_atlas':'2048','_minlight':'32','_sunlight':'90','_sun_mangle':'0 -70 0','_sunlight2':'25','_bounce':'1'}
+    world={'classname':'worldspawn','message':a.title,'wad':'hispeed.wad','_fpsloppa_bake':'1','_fpsloppa_black_missing':'1','_fpsloppa_atlas':'2048','_minlight':'32','_sunlight':'90','_sun_mangle':'0 -70 0','_sunlight2':'25','_bounce':'1'}
     text='{\n'+fields(world)+'\n'+'\n'.join(a.brushes)+'\n}\n'
     text+='\n'.join('{\n'+fields(e)+'\n}' for e in a.entities)+'\n'
     text+='\n'.join('{\n'+fields(e)+'\n'+brush+'\n}' for e,brush in brush_entities)+'\n'

@@ -38,6 +38,8 @@ func update(valid: bool) -> void:
 		label=Label3D.new();label.font_size=24;label.pixel_size=.0012;label.position.y=.15;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;model.add_child(label)
 	model.visible=true
 	model.global_transform=hand.global_transform if held else Transform3D(rig.head.global_basis.orthonormalized(),rig.origin.to_global(shoulder()))
+	# The grip's forward axis runs toward the fingertips; align the antenna to it.
+	if held:model.rotate_object_local(Vector3.RIGHT,-PI/2)
 	label.visible=held or near
 	label.text="TEAM RADIO" if active else "HOLD TRIGGER · TEAM" if held else "GRAB RADIO"
 	label.modulate=Color("87e8ae") if active else Color("e5d5ad")

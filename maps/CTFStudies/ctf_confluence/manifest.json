@@ -2,8 +2,8 @@
   "id": "ctf_confluence",
   "title": "Confluence | DySpHoRiA study",
   "original_reference": "ctf3",
-  "sha256": "46e1912035b0631b1cdf67ea712c872b12e101ca1fbe2ffc589272d2932d4ae1",
-  "source_sha256": "b73169e105b5aa47373af763c7721cc7fadf0d46b6bcf9ddc7e683e877c0bdfd",
+  "sha256": "45181914617d9f0908d59ef18677677f018361d4420104d936c23b7976b3f775",
+  "source_sha256": "8f605c6c445858dbf303670726084094d412c80c9e6c40b681a57cd71c24e3b0",
   "brushes": 106,
   "rooms": 29,
   "team_spawns": [
@@ -246,5 +246,8 @@
   "lighting_rebake": {
     "original_sha256": "4a936d7048e430148e915270a86a53db32379220ab16f7f069b7eed1972529a6",
     "receipt": "docs/validation/lighting-ao-distribution.json"
-  }
+  },
+  "previous_bsp_sha256": "46e1912035b0631b1cdf67ea712c872b12e101ca1fbe2ffc589272d2932d4ae1",
+  "lighting_correction": "Black fallback for sample-less ordinary faces; samples and geometry preserved.",
+  "missing_sample_correction": "docs/validation/base-cache-corrections.json"
 }

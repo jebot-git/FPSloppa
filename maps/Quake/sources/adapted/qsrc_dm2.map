@@ -1,10 +1,6 @@
 // Modified for FPSloppa, 2026-09-11. GPL v2; see COPYING-GPL-2.0.txt.
 {
-"_bounce" "1"
-"_sun_mangle" "0 -70 0"
-"_sunlight2" "30"
-"_sunlight" "110"
-"_minlight" "36"
+"_fpsloppa_light_response" "quake"
 "_fpsloppa_atlas" "2048"
 "_fpsloppa_bake" "1"
 "sounds"	"5"
@@ -9686,9 +9682,9 @@
 "angle"	"90"
 }
 {
-"spawnflags" "0"
 "classname"	"func_door"
 "angle"	"180"
+"targetname"	"t1"
 {
 ( 1392 -832 -4 ) ( 1392 -1280 -4 ) ( 1392 -1280 -16 ) mmetal1_2 0 0 0 1.000000 1.000000
 ( 1744 -840 -4 ) ( 1456 -840 -4 ) ( 1456 -840 -16 ) mmetal1_2 0 0 0 1.000000 1.000000
@@ -9699,7 +9695,6 @@
 }
 }
 {
-"spawnflags" "0"
 "classname"	"func_door"
 "angle"	"0"
 {
@@ -9712,7 +9707,7 @@
 }
 }
 {
-"classname" "func_wall"
+"classname"	"func_button"
 "angle"	"90"
 "target"	"t1"
 {
@@ -9725,7 +9720,8 @@
 }
 }
 {
-"spawnflags" "4"
+"spawnflags"	"4"
+"targetname"	"t1"
 "classname"	"func_door"
 "angle"	"270"
 "wait"	"4"
@@ -9740,8 +9736,9 @@
 }
 {
 "classname"	"func_door"
-"spawnflags" "4"
+"spawnflags"	"4"
 "angle"	"90"
+"targetname"	"t1"
 "lip"	"0"
 "wait"	"4"
 {
@@ -9894,7 +9891,8 @@
 "speed"	"200"
 "classname"	"func_door"
 "angle"	"0"
-"spawnflags" "4"
+"targetname"	"t3"
+"spawnflags"	"4"
 "dmg"	"1000"
 {
 ( 1112 -768 0 ) ( 1112 -1008 0 ) ( 1112 -1008 -144 ) metalt2_1 0 0 0 1.000000 1.000000
@@ -9918,7 +9916,7 @@
 {
 "target"	"t1"
 "angle"	"90"
-"classname" "func_wall"
+"classname"	"func_button"
 {
 ( 2032 -824 64 ) ( 2032 -848 64 ) ( 2032 -848 32 ) metal_iron1_04 0 0 0 1.000000 1.000000
 ( 2064 -816 64 ) ( 2032 -816 64 ) ( 2032 -816 32 ) metal_iron1_04 0 0 0 1.000000 1.000000
@@ -9931,8 +9929,9 @@
 {
 "speed"	"200"
 "dmg"	"1000"
+"targetname"	"t3"
 "angle"	"180"
-"spawnflags" "4"
+"spawnflags"	"4"
 "classname"	"func_door"
 {
 ( 2120 -832 256 ) ( 2120 -1056 256 ) ( 2120 -1056 0 ) metalt2_1 0 0 0 1.000000 1.000000
@@ -10137,7 +10136,7 @@
 "classname"	"light"
 }
 {
-"spawnflags" "0"
+"targetname"	"t6"
 "wait"	"6"
 "speed"	"200"
 "angle"	"-1"
@@ -10152,7 +10151,7 @@
 }
 }
 {
-"spawnflags" "0"
+"targetname"	"t6"
 "wait"	"6"
 "angle"	"-1"
 "speed"	"200"
@@ -10193,7 +10192,7 @@
 "target"	"t6"
 "angle"	"270"
 "spawnflags"	"1"
-"classname" "func_wall"
+"classname"	"func_button"
 {
 ( 2240 -232 -104 ) ( 2240 -240 -104 ) ( 2240 -240 -144 ) metal_iron1_04 0 0 0 1.000000 1.000000
 ( 2288 -224 -104 ) ( 2224 -224 -104 ) ( 2224 -224 -144 ) met5_3 0 0 0 0.500000 0.500000
@@ -10307,8 +10306,9 @@
 "classname"	"light"
 }
 {
+"targetname"	"t10"
 "classname"	"func_door"
-"spawnflags" "1"
+"spawnflags"	"1"
 "angle"	"270"
 "wait"	"20"
 "speed"	"200"
@@ -10323,7 +10323,7 @@
 }
 {
 "target"	"t10"
-"classname" "func_wall"
+"classname"	"func_button"
 "spawnflags"	"1"
 "angle"	"270"
 {
@@ -10479,7 +10479,7 @@
 "classname"	"item_health"
 }
 {
-"spawnflags" "0"
+"targetname"	"t11"
 "lip"	"64"
 "wait"	"5"
 "speed"	"300"
@@ -10497,7 +10497,7 @@
 {
 "target"	"t11"
 "angle"	"180"
-"classname" "func_wall"
+"classname"	"func_button"
 {
 ( 2632 -2008 104 ) ( 2632 -2008 216 ) ( 2632 -1968 216 ) metal_iron1_04 0 0 0 1.000000 1.000000
 ( 2632 -1968 104 ) ( 2632 -1968 216 ) ( 2616 -1968 216 ) metal_iron1_04 0 0 0 1.000000 1.000000
@@ -10537,9 +10537,10 @@
 "classname"	"info_player_deathmatch"
 }
 {
+"targetname"	"t9"
 "speed"	"200"
 "lip"	"-8"
-"spawnflags" "1"
+"spawnflags"	"1"
 "angle"	"90"
 "classname"	"func_door"
 {
@@ -10554,7 +10555,7 @@
 {
 "speed"	"200"
 "lip"	"-8"
-"spawnflags" "1"
+"spawnflags"	"1"
 "angle"	"270"
 "classname"	"func_door"
 {
@@ -10569,7 +10570,7 @@
 {
 "target"	"t9"
 "angle"	"270"
-"classname" "func_wall"
+"classname"	"func_button"
 {
 ( 2720 -1936 128 ) ( 2720 -1936 144 ) ( 2720 -1920 144 ) metal_iron1_04 0 0 0 1.000000 1.000000
 ( 2720 -1920 128 ) ( 2720 -1920 144 ) ( 2688 -1920 144 ) met5_3 0 0 0 0.500000 0.500000
@@ -10693,7 +10694,7 @@
 }
 }
 {
-"spawnflags" "0"
+"targetname"	"t15"
 "angle"	"180"
 "classname"	"func_door"
 {
@@ -10706,7 +10707,6 @@
 }
 }
 {
-"spawnflags" "0"
 "classname"	"func_door"
 {
 ( 2400 -552 96 ) ( 2400 -568 96 ) ( 2400 -568 -32 ) metal4_4 0 0 0 1.000000 1.000000
@@ -10715,6 +10715,18 @@
 ( 2400 -568 96 ) ( 2464 -568 96 ) ( 2464 -568 -32 ) metal4_4 0 0 0 1.000000 1.000000
 ( 2400 -568 96 ) ( 2400 -552 96 ) ( 2464 -552 96 ) metal4_4 0 0 0 1.000000 1.000000
 ( 2464 -552 32 ) ( 2400 -552 32 ) ( 2400 -568 32 ) metal4_4 0 0 0 1.000000 1.000000
+}
+}
+{
+"target"	"t15"
+"classname"	"trigger_multiple"
+{
+( 2336 -584 96 ) ( 2336 -616 96 ) ( 2336 -616 32 ) trigger 0 0 0 1.000000 1.000000
+( 2472 -560 96 ) ( 2344 -560 96 ) ( 2344 -560 32 ) trigger 0 0 0 1.000000 1.000000
+( 2464 -616 96 ) ( 2464 -584 96 ) ( 2464 -584 32 ) trigger 0 0 0 1.000000 1.000000
+( 2336 -616 96 ) ( 2464 -616 96 ) ( 2464 -616 32 ) trigger 0 0 0 1.000000 1.000000
+( 2336 -616 64 ) ( 2336 -584 64 ) ( 2464 -584 64 ) trigger 0 0 0 1.000000 1.000000
+( 2464 -584 56 ) ( 2336 -584 56 ) ( 2336 -616 56 ) trigger 0 0 0 1.000000 1.000000
 }
 }
 {
@@ -10771,8 +10783,8 @@
 "classname"	"light"
 }
 {
-"spawnflags" "0"
 "lip"	"-8"
+"targetname"	"t18"
 "angle"	"270"
 "classname"	"func_door"
 {
@@ -10787,7 +10799,7 @@
 {
 "angle"	"270"
 "target"	"t18"
-"classname" "func_wall"
+"classname"	"func_button"
 "health"	"1"
 {
 ( 2480 -1224 168 ) ( 2480 -1256 168 ) ( 2480 -1256 152 ) metal_iron1_04 0 0 0 1.000000 1.000000
@@ -10899,7 +10911,7 @@
 "wait"	"5"
 "target"	"t3"
 "angle"	"0"
-"classname" "func_wall"
+"classname"	"func_button"
 {
 ( 1808 -720 56 ) ( 1808 -752 56 ) ( 1808 -752 40 ) met5_3 32 64 0 0.500000 0.500000
 ( 1832 -720 56 ) ( 1816 -720 56 ) ( 1816 -720 40 ) metal_iron1_04 0 0 0 1.000000 1.000000
@@ -10912,7 +10924,7 @@
 {
 "wait"	"5"
 "target"	"t3"
-"classname" "func_wall"
+"classname"	"func_button"
 "angle"	"0"
 {
 ( 1808 -1488 56 ) ( 1808 -1520 56 ) ( 1808 -1520 40 ) met5_3 32 64 0 0.500000 0.500000

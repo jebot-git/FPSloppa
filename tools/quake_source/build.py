@@ -42,17 +42,15 @@ def build(a):
         text=p.read_text(encoding='latin1');result=[];changes=collections.Counter();mapping={}
         for block in blocks(text):
             e=fields(block);kind=e.get('classname','');flags=int(e.get('spawnflags','0'))
-            if flags&2048 or kind.startswith('monster_') or kind in ['info_intermission','info_player_coop','item_key1','item_key2','item_sigil','trigger_changelevel','trigger_setskill','trigger_once','trigger_multiple','trigger_relay','trigger_counter','trigger_secret','info_null','event_lightning']:
+            if flags&2048 or kind.startswith('monster_') or kind in ['info_intermission','info_player_coop','item_key1','item_key2','item_sigil','trigger_changelevel','trigger_setskill','info_null','event_lightning']:
                 changes['removed '+kind]+=1;continue
             if kind=='worldspawn':
-                for key,value in {'wad':'librequake.wad','_fpsloppa_bake':'1','_fpsloppa_atlas':'2048','_minlight':'36','_sunlight':'110','_sunlight2':'30','_sun_mangle':'0 -70 0','_bounce':'1','message':'Quake: '+e.get('message',p.stem)}.items():block=setkey(block,key,value)
+                for key,value in {'wad':'librequake.wad','_fpsloppa_bake':'1','_fpsloppa_atlas':'2048','_fpsloppa_light_response':'quake','message':'Quake: '+e.get('message',p.stem)}.items():block=setkey(block,key,value)
             if kind.startswith('light'):
                 # Bake switched lights on; FPSloppa does not execute Quake light-style programs.
                 block=re.sub(r'^"(?:targetname|style)"[^\n]*\n?','',block,flags=re.M)
-            if kind in ['func_door','func_door_secret']:
-                block=setkey(block,'spawnflags',str(flags&~(8|16)));block=re.sub(r'^"(?:targetname|target|health)"[^\n]*\n?','',block,flags=re.M);changes['doors use proximity, unlocked']+=1
-            if kind=='func_button':
-                block=setkey(block,'classname','func_wall');changes['buttons static; progression removed']+=1
+            if kind=='func_door' and flags&(8|16):
+                block=setkey(block,'spawnflags',str(flags&~(8|16)));changes['key doors unlocked for multiplayer']+=1
             result.append(block)
         def texture(m):
             old=m[2];key=old.lower();assert key in textures,"Missing reviewed counterpart: "+key
@@ -80,10 +78,10 @@ def build(a):
     shutil.copy2(pack/'Makkon_License.txt',out/'Makkon_License.txt')
     def compile_map(row):
         name=row['id'];path=adapted/(name+'.map');dest=maps/(name+'.bsp');print('COMPILE',name,flush=True)
-        commands=[[str(a.compiler/'qbsp'),str(path),str(dest)],[str(a.compiler/'vis'),'-threads','2',str(dest)],[str(a.compiler/'light'),'-threads','2','-extra','-bspxlit',str(dest)]]
+        commands=[[str(a.compiler/'qbsp'),str(path),str(dest)],[str(a.compiler/'vis'),'-threads','2',str(dest)],[str(a.compiler/'light'),'-threads','2','-extra4','-bspxlit','-bounce','0',str(dest)]]
         try:
             for i,cmd in enumerate(commands):
-                with (logs/(name+'-'+str(i)+'.log')).open('w') as log:r=subprocess.run(cmd,cwd=adapted,stdout=log,stderr=subprocess.STDOUT,timeout=180)
+                with (logs/(name+'-'+str(i)+'.log')).open('w') as log:r=subprocess.run(cmd,cwd=adapted,stdout=log,stderr=subprocess.STDOUT,timeout=1800)
                 if r.returncode:raise ValueError('Compiler stage '+str(i)+' exit '+str(r.returncode))
             data=dest.read_bytes();assert len(data)<=25_000_000;assert struct.unpack_from('<i',data)[0]==29
             row.update(status='compiled',sha256=sha(data),size=len(data))

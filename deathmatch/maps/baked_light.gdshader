@@ -40,6 +40,9 @@ void fragment() {
         float peak = max(baked.r, max(baked.g, baked.b));
         EMISSION = base * (vec3(0.08) + baked * (2.6 / (0.65 + peak)));
     }
+    // Pixel (1,0) is reserved for ordinary surfaces without light samples.
+    vec2 light_pixel = UV2 * vec2(textureSize(bake_texture, 0));
+    if (all(lessThan(abs(light_pixel - vec2(1.5, 0.5)), vec2(0.01)))) EMISSION = vec3(0.0);
     if (has_glow) {
         vec3 glow;
         if (texture_filter_mode == 0) glow = texture(glow_nearest, surface_uv).rgb;

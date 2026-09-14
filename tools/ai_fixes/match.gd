@@ -18,7 +18,7 @@ func run() -> void:
  game.selected_map=options.map;game.start_host("Bot soak observer",0,100,int(options.get("minutes",60)),true,options.mode,options.get("rules","doom"))
  game.set_physics_process(false)
  if not game.active or game.current_map!=options.map:push_error("SOAK_START_FAILED "+str(options));quit(1);return
- game.players[1].spectator=true;game._spawn(1);game.set_process(false);game.dedicated=true
+ game.players[1].spectator=true;game._spawn(1);game.set_process(false);game.max_clients=16;game.dedicated=true;game.bot_population.count_target=8
  for id in [-4,-5,-6,-7,-8]:game._add_player(id,"Bot "+str(-id))
  var classes: Array=game.match_mode.fortress.CLASSES.keys()
  for id in game.players:

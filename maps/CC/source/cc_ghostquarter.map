@@ -1,6 +1,6 @@
 // CC derivative of LibreQuake; retain ../LibreQuake-COPYING.txt and credits.
 {
-"_minlight" "52"
+
 "_fpsloppa_atlas" "2048"
 "_fpsloppa_bake" "1"
 "classname" "worldspawn"
@@ -22,6 +22,7 @@
 ( -480 448 192 ) ( -480.1 448 192 ) ( -480 458 192 ) med_csl_flr4_4 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1
 ( -480 448 96 ) ( -480 448 97 ) ( -480.1 448 96 ) med_csl_brk1_3 [ -1 0 0 0 ] [ -0 0 -1 0 ] 0 1 1
 ( -608 448 96 ) ( -608 448 97 ) ( -608 458 96 ) med_csl_brk1_3 [ 0 -1 0 0 ] [ 0 0 -1 0 ] 0 1 1
+"_fpsloppa_light_response" "quake"
 }
 // brush 1
 {

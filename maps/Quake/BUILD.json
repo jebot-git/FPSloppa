@@ -8,13 +8,11 @@
       "id": "qsrc_dm1",
       "original": "DM1.MAP",
       "source_sha256": "7ec18fbc670c4a61c2c3125e6ea54bbad8b33740be2a597d8fb33821bef0f99c",
-      "adapted_sha256": "4cdc5eae3b395906c23cfd181ddacd33cb9b9ddbd1844a249da6b5128b7b88b3",
+      "adapted_sha256": "daa2a640ea1ebc50de3bb05d778888c54c39486674929d6a6b228ba8c50802c3",
       "spawns": 7,
       "changes": {
         "removed info_intermission": 2,
-        "removed trigger_changelevel": 1,
-        "buttons static; progression removed": 2,
-        "doors use proximity, unlocked": 4
+        "removed trigger_changelevel": 1
       },
       "texture_mapping": {
         "METAL1_3": "metal_iron1_01",
@@ -47,19 +45,16 @@
         "TRIGGER": "trigger"
       },
       "status": "compiled",
-      "sha256": "e875b0ab8672dd5b4c6ac2c668f19bbf59d2d29bdc41bde3b634c4cad9d3ff1d",
-      "size": 2109680
+      "sha256": "e2b6c613aa2561fe83337d581889b148c27d067f7490d1394688eb332c4187fc",
+      "size": 2099256
     },
     {
       "id": "qsrc_dm2",
       "original": "DM2.MAP",
       "source_sha256": "609174437d78c7d11d9449c499958fa59b3f54138465d4a1e574408db422deb9",
-      "adapted_sha256": "d8ffae72927e26297a0fc50fabc29d7c9a18559eccb6bbfdc0fa02aebbeba450",
+      "adapted_sha256": "3c5f6c62cd8c28a0bd2e73eac0cf616f6ddef9b19e0f28c70c362a157853ff2a",
       "spawns": 9,
       "changes": {
-        "doors use proximity, unlocked": 15,
-        "buttons static; progression removed": 9,
-        "removed trigger_multiple": 1,
         "removed info_null": 8,
         "removed trigger_changelevel": 1,
         "removed info_intermission": 1
@@ -103,14 +98,14 @@
         "PLAT_TOP2": "plat_top2"
       },
       "status": "compiled",
-      "sha256": "9cfd7589c971efd3ac5ea1ce91f12bd529acd9ecd309639d31e7b45e4fb603f2",
-      "size": 3040164
+      "sha256": "1ead245774e8ec318916ceca108108c551a49206fa7070e08a470092d2623eb7",
+      "size": 2980892
     },
     {
       "id": "qsrc_dm3",
       "original": "DM3.MAP",
       "source_sha256": "666b7414818b0339a2da59d8a232d0a8226b340ce2ec9e0fd6e23dd7975d5ea1",
-      "adapted_sha256": "c9433dacec16ace41b60875b52e5fa921e4ad5026993ebf78f758dc9cac20c11",
+      "adapted_sha256": "9a290dd3401153fed28e64d47b87aa69d4738fa0cdf883882a04a5ab325dedfc",
       "spawns": 6,
       "changes": {
         "removed trigger_changelevel": 1,
@@ -177,14 +172,14 @@
         "PLAT_STEM": "plat_stem"
       },
       "status": "compiled",
-      "sha256": "97a8f31d6c5547417e030af5e1ac033699e09743e9a2a3d19fb01aa8e8101df3",
-      "size": 3409664
+      "sha256": "b6f10ea9f25dd06c3b3b678af8d086a01d4bed17a7a9d0eaab2a82b488559efe",
+      "size": 3381456
     },
     {
       "id": "qsrc_dm4",
       "original": "DM4.MAP",
       "source_sha256": "9a53a5d340602fc5e10cf5a483d87cd2b46b0571a19383fc988d21ecdacb27a9",
-      "adapted_sha256": "8f8a1528982dc64e362b13dbde1cc30ac16d15d05ed4428193561999c6550b7f",
+      "adapted_sha256": "dbd0d87f86dd19f22bedbfba3cc66afad008baf7f52b1fb58f844d4db377b2f4",
       "spawns": 6,
       "changes": {
         "removed trigger_changelevel": 1,
@@ -208,19 +203,16 @@
         "TRIGGER": "trigger"
       },
       "status": "compiled",
-      "sha256": "d31989c64734ecd3402909e71ef29b2fd20da04d132eee63e004d6f80f3faccd",
-      "size": 1874880
+      "sha256": "183bf7bc3d98785e8954aeba67cbc29052d2373eeaadac786c9e0b1d177a232d",
+      "size": 1866152
     },
     {
       "id": "qsrc_dm5",
       "original": "DM5.MAP",
       "source_sha256": "d4b5369b63f9671bd845e97a48f09adb3dea26cd757525ba1faed961b0ec6cdf",
-      "adapted_sha256": "2d64bbd6ba317e86028d41577caf5ed6221d33c702bf341de42059d36843cfe3",
+      "adapted_sha256": "9d30a78dba88fdc8c16b731684ddc8ecedf6e6a19bf1b6be936d6895680f32bc",
       "spawns": 6,
       "changes": {
-        "buttons static; progression removed": 1,
-        "doors use proximity, unlocked": 2,
-        "removed trigger_multiple": 1,
         "removed trigger_changelevel": 1,
         "removed info_intermission": 2
       },
@@ -247,17 +239,16 @@
         "DOOR05_3": "med_wood6"
       },
       "status": "compiled",
-      "sha256": "8ce53e0ab444262ff79c3895ae41637c74eba78f107c03dfcef2babf9c3f19ff",
-      "size": 1349012
+      "sha256": "46fc1804bb8c31bb1e2a623bcd24bd8f298b88b7fe1adb82ce35d53a3990d802",
+      "size": 1349888
     },
     {
       "id": "qsrc_dm6",
       "original": "DM6.MAP",
       "source_sha256": "29f8a5fa04f92d8177f1a3083d30b8f70ece862af8d969510a124f1718f8028a",
-      "adapted_sha256": "c767ac29db47787633097891a38f45e5888f593f9c2bba03668d94e7db6b95f7",
+      "adapted_sha256": "623a6a2403dfd2e56939b014b212d5fb4df53733b85c59cd39ceea7c62a7d3b2",
       "spawns": 7,
       "changes": {
-        "doors use proximity, unlocked": 1,
         "removed info_intermission": 1,
         "removed trigger_changelevel": 1
       },
@@ -276,14 +267,14 @@
         "TRIGGER": "trigger"
       },
       "status": "compiled",
-      "sha256": "c1ef23b032dc27de902fd4355c7d7ca177b4ba916967dba32067666e7964573c",
-      "size": 1051832
+      "sha256": "169ab15e6016744c17e5175b32dc5209923e6cc76f747078962d52cc8c077c7f",
+      "size": 1025912
     },
     {
       "id": "qsrc_dm7",
       "original": "DM7.MAP",
       "source_sha256": "c12809cab0e9749514feeac5eb6115c2da8352378bbe5047759e8eba44db67f1",
-      "adapted_sha256": "d6483e412c2052f4e6e57988bf268b067e1002feb98e3813a4e685183ecdab5f",
+      "adapted_sha256": "782235b3a2be2142a383c7bd7e79f50507a909d744db0906120bfd123d1ca4a6",
       "spawns": 4,
       "changes": {
         "removed info_null": 10,
@@ -310,8 +301,8 @@
         "TRIGGER": "trigger"
       },
       "status": "compiled",
-      "sha256": "47d9f291ac36591ceca009d56e682c002010a4f486708ee96cc24229814c1376",
-      "size": 2464016
+      "sha256": "ed091c7cab780ff4d70b27492474848614a42988655e22c7e3b8701fdf665350",
+      "size": 2427416
     }
   ]
 }

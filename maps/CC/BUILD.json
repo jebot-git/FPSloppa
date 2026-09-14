@@ -75,7 +75,23 @@
         "trigger": "trigger",
         "grk_bl_trim1_3": "grk_bl_trim1_3"
       },
-      "sha256": "2dd888d4f6526eafcdaecff905339be36702ca301ba5daa297bf40fa96d645ed"
+      "sha256": "5dca01530f1095daf162a364ba314ebb5bbaf9b51a840bab6912900ae09b2be6",
+      "authored_light_rebake": {
+        "id": "cc_hyperborea",
+        "before_sha256": "bf944df41bc9fa6fbe9339d518e41117eba0cdd93b686168f33a77a42a98d752",
+        "sha256": "5dca01530f1095daf162a364ba314ebb5bbaf9b51a840bab6912900ae09b2be6",
+        "light_bytes": 64514,
+        "rgb_bytes": 193542,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     },
     {
       "id": "cc_psychofuge",
@@ -139,7 +155,23 @@
         "sky_orng": "sky_orng",
         "*lava3": "*lava3"
       },
-      "sha256": "b736b0403c20867ca108c39d84db2ed9a8f1cfc8a2c52552d4f3d635ed7e1231"
+      "sha256": "a511dfaeec9461904b99e073927d516e1407351c8873f6ff1fc7febe108c154e",
+      "authored_light_rebake": {
+        "id": "cc_psychofuge",
+        "before_sha256": "1370377682d7fd12aa98f03691ab15ea87046db62e9ebe631c48b90a62c254bb",
+        "sha256": "a511dfaeec9461904b99e073927d516e1407351c8873f6ff1fc7febe108c154e",
+        "light_bytes": 326828,
+        "rgb_bytes": 980484,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     },
     {
       "id": "cc_ghostquarter",
@@ -208,7 +240,23 @@
         "altar1_4": "altar1_4",
         "med_metw2b": "med_metw2b"
       },
-      "sha256": "963ccebe8fbf6599ccebd7a3b5a6c7fbd9ae5c898a34250e53222460f124d79e"
+      "sha256": "40cb78eabee16c7bd2b0c73b10d10f488422dc009cdb512bfb108ee7c1a86f91",
+      "authored_light_rebake": {
+        "id": "cc_ghostquarter",
+        "before_sha256": "74ceab19b31d75c3315dd775f08ad24e6859e65e982def10ffdc3168ceb2e327",
+        "sha256": "40cb78eabee16c7bd2b0c73b10d10f488422dc009cdb512bfb108ee7c1a86f91",
+        "light_bytes": 174226,
+        "rgb_bytes": 522678,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     },
     {
       "id": "cc_basement",
@@ -303,9 +351,26 @@
         "tek_pipe2": "tek_pipe2",
         "rw33_lit": "rw33_lit"
       },
-      "sha256": "b63ce47097140ec26db9bd2179d29b420e5f22eacc510b186c4618c62ce2c839"
+      "sha256": "6a3ab7ec4f3aedcf15b266be49d1168e142418a3526bc2c00b700732b3489a6d",
+      "authored_light_rebake": {
+        "id": "cc_basement",
+        "before_sha256": "4735ae86ba3685d6ce39f96a7344373431ded23f0f87618fb142da6b8613ad01",
+        "sha256": "6a3ab7ec4f3aedcf15b266be49d1168e142418a3526bc2c00b700732b3489a6d",
+        "light_bytes": 148402,
+        "rgb_bytes": 445206,
+        "geometry_vis_collision_textures_gameplay_preserved": true,
+        "flags": [
+          "-threads",
+          "2",
+          "-extra4",
+          "-bspxlit",
+          "-bounce",
+          "0"
+        ]
+      }
     }
   ],
   "textures": 134,
-  "wad_bytes": 2775900
+  "wad_bytes": 2775900,
+  "lighting_validation": "docs/validation/base-authored-rebake.json"
 }

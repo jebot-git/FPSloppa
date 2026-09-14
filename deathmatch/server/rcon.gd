@@ -70,12 +70,20 @@ func execute(command: String) -> Dictionary:
 	var words: Array=parsed.words
 	if words.is_empty():return {"error":"Empty command"}
 	match words[0]:
-		"help":return {"commands":["status","map <configured-map>","mode <allowed-mode>","match <allowed-mode> <configured-map> <doom|quake|ut99>","kick <peer-id>","say <message>","restart","loglevel <off|normal|verbose>"]}
+		"help":return {"commands":["status","bots <count>","map <configured-map>","mode <allowed-mode>","match <allowed-mode> <configured-map> <doom|quake|ut99>","kick <peer-id>","say <message>","restart","loglevel <off|normal|verbose>"]}
 		"status":
 			var players: Array=[]
 			for id in game.players:
 				var s: Dictionary=game.players[id];players.append({"id":id,"name":s.name,"spectator":s.spectator,"ping_ms":s.ping,"bot":id<0,"team":s.team,"class":s.tf_class})
-			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.PROTOCOL,"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"bot_fill":game.bot_population.target,"tb_heavy_ordnance":game.match_mode.fortress.walkers.heavy_ordnance_only,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
+			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.PROTOCOL,"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"bot_fill":game.bot_population.target,"bot_count":game.bot_population.count_target,"tb_heavy_ordnance":game.match_mode.fortress.walkers.heavy_ordnance_only,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
+		"bots":
+			if words.size()!=2 or not str(words[1]).is_valid_int():return {"error":"Expected bots <count> (0 disables bots)"}
+			var amount:=int(words[1])
+			if amount<0 or amount>game.max_clients:return {"error":"Bot count must be between 0 and "+str(game.max_clients)}
+			game.bot_population.count_target=amount
+			game.bot_population.maintain()
+			game.server_log.record("bot_count_changed",{"target":amount})
+			return {"ok":true,"bot_count":amount}
 		"match":
 			if words.size()!=4 or not words[3] in game.armory.IDS:return {"error":"Expected mode, configured map and doom, quake or ut99"}
 			if not game.votes.match_choices().any(func(row):return row.mode==words[1] and row.map==words[2]):return {"error":"Match must be in the enabled mode maplists"}

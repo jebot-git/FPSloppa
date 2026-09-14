@@ -1,0 +1,54 @@
+shader_type spatial;
+render_mode diffuse_lambert, specular_disabled, ambient_light_disabled;
+uniform sampler2D base_texture : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
+uniform sampler2D bake_texture : filter_linear, repeat_disable;
+uniform sampler2D glow_texture : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
+// All filter choices share one shader/pipeline. The aliases use the same image.
+uniform sampler2D base_nearest : source_color, filter_nearest_mipmap, repeat_enable;
+uniform sampler2D base_linear : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D glow_nearest : source_color, filter_nearest_mipmap, repeat_enable;
+uniform sampler2D glow_linear : source_color, filter_linear_mipmap, repeat_enable;
+uniform int texture_filter_mode = 2;
+// FPSloppa baked lighting: cached scenes are upgraded by filtering.gd.
+uniform bool contrast_lighting = false;
+uniform bool has_glow = false;
+uniform bool alpha_cutout = false;
+uniform vec4 base_colour : source_color = vec4(1.0);
+// Opt-in cosmetic conveyor textures; all ordinary maps retain the zero offset.
+uniform vec2 map_uv_offset = vec2(0.0);
+uniform bool liquid_warp = false;
+uniform bool surface_variation = false;
+void fragment() {
+    vec2 surface_uv = UV + map_uv_offset;
+    if (liquid_warp) surface_uv += sin(UV.yx * 6.2831853 + vec2(TIME * 0.8, TIME * 0.7)) * 0.025;
+    vec4 texel;
+    if (texture_filter_mode == 0) texel = texture(base_nearest, surface_uv);
+    else if (texture_filter_mode == 1) texel = texture(base_linear, surface_uv);
+    else texel = texture(base_texture, surface_uv);
+    if (alpha_cutout && texel.a < 0.5) discard;
+    vec3 base = texel.rgb * base_colour.rgb;
+    if (surface_variation) base *= COLOR.rgb;
+    vec3 baked = texture(bake_texture, UV2).rgb;
+    // Quake multiplies palette colour by twice the byte light sample. Perform
+    // that multiplication in display space, then return to Godot's linear space.
+    // No artificial minimum, square-root lift, sunlight, or ambient fill.
+    vec3 display_base = mix(base * 12.92, 1.055 * pow(max(base, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055, step(vec3(0.0031308), base));
+    vec3 lit = display_base * clamp(baked * 2.0, vec3(0.0), vec3(1.0));
+    EMISSION = mix(lit / 12.92, pow((lit + 0.055) / 1.055, vec3(2.4)), step(vec3(0.04045), lit));
+    ALBEDO = base * 0.10;
+    if (has_glow) {
+        vec3 glow;
+        if (texture_filter_mode == 0) glow = texture(glow_nearest, surface_uv).rgb;
+        else if (texture_filter_mode == 1) glow = texture(glow_linear, surface_uv).rgb;
+        else glow = texture(glow_texture, surface_uv).rgb;
+        EMISSION += glow * 0.65;
+    }
+    ROUGHNESS = 1.0;
+}
+
+void light() {
+    // Map sunlight is already in the authored bake; retain local weapon lights.
+    if (!LIGHT_IS_DIRECTIONAL) {
+        DIFFUSE_LIGHT += LIGHT_COLOR * ATTENUATION * max(dot(NORMAL, LIGHT), 0.0) / 3.14159265;
+    }
+}

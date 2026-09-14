@@ -2,8 +2,8 @@
   "id": "as_hislop",
   "title": "HiSlop",
   "format": 29,
-  "bytes": 4638180,
-  "sha256": "f3e408c1715cd51633e896cdb914deafbcd9c50f9a59ad663122fb94318c1da0",
+  "bytes": 4638212,
+  "sha256": "5fbb4ffe3b3df4335796424d3136c4574dacec63a4ae9a208476ce940c34e321",
   "brushes": 396,
   "entities": 154,
   "textures": 15,
@@ -35,5 +35,6 @@
     "original_sha256": "3f2d28110fadad9c4054f93ddc318b0a623046008fe844483dd5755201732847",
     "receipt": "docs/validation/lighting-ao-distribution.json"
   },
-  "pickup_revision": "ut99-reference-1"
+  "pickup_revision": "ut99-reference-1",
+  "missing_sample_correction": "docs/validation/base-cache-corrections.json"
 }
