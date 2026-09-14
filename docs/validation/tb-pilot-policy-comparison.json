@@ -1,0 +1,430 @@
+{
+  "passed": true,
+  "matches": 24,
+  "source_sha256": {
+    "deathmatch/vehicles/ba2/controller.gd": "ad5fae6a4ed9d00a82a3b3ebb3158ee22dd64f1f775f1833b164e337d79d0f8d",
+    "deathmatch/modes/fortress.gd": "01dd254606818f1282c56573914a01cba9a11dfee280fe27f808cfad59295225",
+    "deathmatch/modes/match.gd": "281d69f5049dca5fce5f6d25f556106c7c9d7cf72969faf3c962956f3643804a",
+    "deathmatch/bot_ai/navigation.gd": "66f463699548bae7b89caeea1b894b0ae17d3fb8a4366cb86007c0c2d3d123b6",
+    "tools/titanball/simulation/class_health_baseline.gd": "2ba7df207225ac75e1e148fdad3f23791564c17a68916c59f2869d2d5ff68011",
+    "tools/titanball/simulation/run.py": "eb3568e467f80e5152a494d00ad4cb349e6ae5fdc108a1cdaee5c861b53db426",
+    "tools/titanball/simulation/match.gd": "c327521a39071c9555e6f1275de604103b7ba4523f34b9454bc0bd901a392eef",
+    "tools/titanball/simulation/recorder.gd": "aeb747d1bf1d0f2bc0bf9424a760d96ef0a38d90dab503bd50e3c02d77565c2f"
+  },
+  "same_source_and_map_verified": true,
+  "inputs": [
+    "docs/validation/tb-pilot-healing-only.json",
+    "docs/validation/tb-pilot-unrestricted.json"
+  ],
+  "integrity_checks": 272,
+  "groups": [
+    {
+      "policy": "heavy",
+      "health": "previous",
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 752.716666666256,
+      "pooled_mean_tenure_s": 9.70692090395229,
+      "pooled_median_tenure_s": 4.324999999996521,
+      "pilot_deaths_per_manned_minute": 6.076479832373267,
+      "pilot_hp_damage_per_manned_second": 14.773878121181097,
+      "cockpit_healing_per_manned_second": 0.0,
+      "total_cockpit_healing": 0,
+      "pilot_duty_percent": 50.722936917413314,
+      "mean_seconds_to_290m": 673.0166666663287,
+      "mean_cannon_kills": 37,
+      "censored_tenures": 2,
+      "min_active_seconds": 641.84999999969,
+      "max_active_seconds": 862.899999999489,
+      "sample_sd_active_seconds": 110.5265842831991,
+      "pilot_deaths_within_lock": 43,
+      "pilot_deaths": 116,
+      "death_within_lock_percent": 37.06896551724138,
+      "mean_200m_arrival_seconds": 294.00555555556235,
+      "mean_final_100m_seconds": 458.71111111069365,
+      "worst_run_headroom_seconds": 97.10000000051105,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 862.899999999489,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 773.016666666238
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 753.399999999589,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 657.016666666343
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": true,
+          "active_seconds": 641.84999999969,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 589.016666666405
+        }
+      ]
+    },
+    {
+      "policy": "heavy",
+      "health": "class_hp_healing",
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 646.8388888885744,
+      "pooled_mean_tenure_s": 10.68146417445228,
+      "pooled_median_tenure_s": 3.933333333329074,
+      "pilot_deaths_per_manned_minute": 5.564872471672784,
+      "pilot_hp_damage_per_manned_second": 17.00348533679516,
+      "cockpit_healing_per_manned_second": 3.38529742026761,
+      "total_cockpit_healing": 3869,
+      "pilot_duty_percent": 58.895826712842926,
+      "mean_seconds_to_290m": 534.349999999788,
+      "mean_cannon_kills": 39.333333333333336,
+      "censored_tenures": 1,
+      "min_active_seconds": 566.949999999758,
+      "max_active_seconds": 718.183333332954,
+      "sample_sd_active_seconds": 75.97786471016043,
+      "pilot_deaths_within_lock": 32,
+      "pilot_deaths": 106,
+      "death_within_lock_percent": 30.18867924528302,
+      "mean_200m_arrival_seconds": 281.00000000001864,
+      "mean_final_100m_seconds": 365.8388888885557,
+      "worst_run_headroom_seconds": 241.81666666704598,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 655.383333333011,
+          "distance_m": 300.000394720442,
+          "seconds_to_290m": 547.016666666443
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 566.949999999758,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 494.016666666491
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": true,
+          "active_seconds": 718.183333332954,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 562.01666666643
+        }
+      ]
+    },
+    {
+      "policy": "heavy",
+      "health": "200_hp",
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 573.9055555553077,
+      "pooled_mean_tenure_s": 11.54781144780861,
+      "pooled_median_tenure_s": 4.69999999999601,
+      "pilot_deaths_per_manned_minute": 5.090898488184164,
+      "pilot_hp_damage_per_manned_second": 18.607146501830506,
+      "cockpit_healing_per_manned_second": 0.0,
+      "total_cockpit_healing": 0,
+      "pilot_duty_percent": 66.39981413901475,
+      "mean_seconds_to_290m": 515.3499999998053,
+      "mean_cannon_kills": 35.333333333333336,
+      "censored_tenures": 2,
+      "min_active_seconds": 529.449999999793,
+      "max_active_seconds": 639.266666666359,
+      "sample_sd_active_seconds": 57.81614618126271,
+      "pilot_deaths_within_lock": 7,
+      "pilot_deaths": 97,
+      "death_within_lock_percent": 7.216494845360825,
+      "mean_200m_arrival_seconds": 282.0000000000177,
+      "mean_final_100m_seconds": 291.90555555529005,
+      "worst_run_headroom_seconds": 320.733333333641,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 552.999999999771,
+          "distance_m": 300.000396474218,
+          "seconds_to_290m": 506.016666666481
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 639.266666666359,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 535.016666666454
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": true,
+          "active_seconds": 529.449999999793,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 505.016666666481
+        }
+      ]
+    },
+    {
+      "policy": "heavy",
+      "health": "200_hp_healing",
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 512.633333333141,
+      "pooled_mean_tenure_s": 17.29166666666307,
+      "pooled_median_tenure_s": 6.299999999994043,
+      "pilot_deaths_per_manned_minute": 3.3647807927097957,
+      "pilot_hp_damage_per_manned_second": 16.461138534334953,
+      "cockpit_healing_per_manned_second": 4.274323100739163,
+      "total_cockpit_healing": 4878,
+      "pilot_duty_percent": 74.20725231378563,
+      "mean_seconds_to_290m": 472.0166666665113,
+      "mean_cannon_kills": 36,
+      "censored_tenures": 2,
+      "min_active_seconds": 460.333333333189,
+      "max_active_seconds": 539.06666666645,
+      "sample_sd_active_seconds": 45.294014811827104,
+      "pilot_deaths_within_lock": 5,
+      "pilot_deaths": 64,
+      "death_within_lock_percent": 7.8125,
+      "mean_200m_arrival_seconds": 273.000000000026,
+      "mean_final_100m_seconds": 239.63333333311502,
+      "worst_run_headroom_seconds": 420.93333333354997,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 460.333333333189,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 439.016666666541
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 538.499999999784,
+          "distance_m": 300.00039623643,
+          "seconds_to_290m": 512.016666666475
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": true,
+          "active_seconds": 539.06666666645,
+          "distance_m": 300.000395377704,
+          "seconds_to_290m": 465.01666666651795
+        }
+      ]
+    },
+    {
+      "policy": "contact",
+      "health": "previous",
+      "matches": 3,
+      "attacker_wins": 2,
+      "mean_active_seconds": 882.4611111105834,
+      "pooled_mean_tenure_s": 3.771677559911065,
+      "pooled_median_tenure_s": 2.4999999999975273,
+      "pilot_deaths_per_manned_minute": 15.90872987219381,
+      "pilot_hp_damage_per_manned_second": 35.43764892772236,
+      "cockpit_healing_per_manned_second": 0.0,
+      "total_cockpit_healing": 0,
+      "pilot_duty_percent": 43.59335948076882,
+      "mean_seconds_to_290m": 765.016666666245,
+      "mean_cannon_kills": 45.666666666666664,
+      "censored_tenures": 0,
+      "min_active_seconds": 777.216666666234,
+      "max_active_seconds": 960.01666666607,
+      "sample_sd_active_seconds": 94.4932057129498,
+      "pilot_deaths_within_lock": 182,
+      "pilot_deaths": 306,
+      "death_within_lock_percent": 59.47712418300654,
+      "mean_200m_arrival_seconds": 418.68333333322664,
+      "mean_final_100m_seconds": 463.7777777773567,
+      "worst_run_headroom_seconds": -0.016666666070022984,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 910.149999999446,
+          "distance_m": 299.983251208843,
+          "seconds_to_290m": 764.016666666246
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 777.216666666234,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 709.016666666296
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": false,
+          "active_seconds": 960.01666666607,
+          "distance_m": 299.816227630308,
+          "seconds_to_290m": 822.016666666193
+        }
+      ]
+    },
+    {
+      "policy": "contact",
+      "health": "class_hp_healing",
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 890.0444444439077,
+      "pooled_mean_tenure_s": 4.322932330825386,
+      "pooled_median_tenure_s": 2.458333333330984,
+      "pilot_deaths_per_manned_minute": 13.880071313650319,
+      "pilot_hp_damage_per_manned_second": 39.1381484541482,
+      "cockpit_healing_per_manned_second": 7.672305083272125,
+      "total_cockpit_healing": 8822,
+      "pilot_duty_percent": 43.06339258965724,
+      "mean_seconds_to_290m": 780.0166666662313,
+      "mean_cannon_kills": 40.333333333333336,
+      "censored_tenures": 0,
+      "min_active_seconds": 830.749999999519,
+      "max_active_seconds": 956.2499999994,
+      "sample_sd_active_seconds": 63.03479271469881,
+      "pilot_deaths_within_lock": 174,
+      "pilot_deaths": 266,
+      "death_within_lock_percent": 65.41353383458646,
+      "mean_200m_arrival_seconds": 399.349999999911,
+      "mean_final_100m_seconds": 490.69444444399664,
+      "worst_run_headroom_seconds": 3.750000000600039,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 883.133333332804,
+          "distance_m": 300.000396002069,
+          "seconds_to_290m": 770.01666666624
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 956.2499999994,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 810.016666666204
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": true,
+          "active_seconds": 830.749999999519,
+          "distance_m": 300.000395092556,
+          "seconds_to_290m": 760.01666666625
+        }
+      ]
+    },
+    {
+      "policy": "contact",
+      "health": "200_hp",
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 791.3555555551084,
+      "pooled_mean_tenure_s": 5.1671191553526326,
+      "pooled_median_tenure_s": 3.3666666666629226,
+      "pilot_deaths_per_manned_minute": 11.612394728008356,
+      "pilot_hp_damage_per_manned_second": 40.610103192096794,
+      "cockpit_healing_per_manned_second": 0.0,
+      "total_cockpit_healing": 0,
+      "pilot_duty_percent": 48.09819999440873,
+      "mean_seconds_to_290m": 671.0166666663304,
+      "mean_cannon_kills": 46.333333333333336,
+      "censored_tenures": 0,
+      "min_active_seconds": 626.299999999704,
+      "max_active_seconds": 941.16666666608,
+      "sample_sd_active_seconds": 157.98591474942702,
+      "pilot_deaths_within_lock": 91,
+      "pilot_deaths": 221,
+      "death_within_lock_percent": 41.1764705882353,
+      "mean_200m_arrival_seconds": 357.016666666616,
+      "mean_final_100m_seconds": 434.3388888884923,
+      "worst_run_headroom_seconds": 18.833333333919995,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 806.599999999541,
+          "distance_m": 300.000395130946,
+          "seconds_to_290m": 668.016666666333
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 941.16666666608,
+          "distance_m": 300.000396728516,
+          "seconds_to_290m": 765.016666666245
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": true,
+          "active_seconds": 626.299999999704,
+          "distance_m": 300.000396136506,
+          "seconds_to_290m": 580.016666666413
+        }
+      ]
+    },
+    {
+      "policy": "contact",
+      "health": "200_hp_healing",
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 739.4888888884904,
+      "pooled_mean_tenure_s": 6.2858195211763865,
+      "pooled_median_tenure_s": 3.699999999996976,
+      "pilot_deaths_per_manned_minute": 9.545714243858539,
+      "pilot_hp_damage_per_manned_second": 41.80688826709426,
+      "cockpit_healing_per_manned_second": 8.212302779039625,
+      "total_cockpit_healing": 9343,
+      "pilot_duty_percent": 51.282417285237464,
+      "mean_seconds_to_290m": 590.0166666664043,
+      "mean_cannon_kills": 38,
+      "censored_tenures": 0,
+      "min_active_seconds": 683.133333332986,
+      "max_active_seconds": 850.8499999995,
+      "sample_sd_active_seconds": 96.44391336890567,
+      "pilot_deaths_within_lock": 63,
+      "pilot_deaths": 181,
+      "death_within_lock_percent": 34.806629834254146,
+      "mean_200m_arrival_seconds": 328.01666666664266,
+      "mean_final_100m_seconds": 411.4722222218477,
+      "worst_run_headroom_seconds": 109.15000000049997,
+      "runs": [
+        {
+          "seed": 7129.0,
+          "attacker_win": true,
+          "active_seconds": 684.483333332985,
+          "distance_m": 300.000396267089,
+          "seconds_to_290m": 616.016666666381
+        },
+        {
+          "seed": 7130.0,
+          "attacker_win": true,
+          "active_seconds": 850.8499999995,
+          "distance_m": 299.995244806289,
+          "seconds_to_290m": 581.016666666412
+        },
+        {
+          "seed": 7131.0,
+          "attacker_win": true,
+          "active_seconds": 683.133333332986,
+          "distance_m": 299.99036440934,
+          "seconds_to_290m": 573.01666666642
+        }
+      ]
+    }
+  ],
+  "recommendation": {
+    "policy": "heavy",
+    "health": "200_hp",
+    "status": "Provisional human-playtest candidate; no estimate of human win probability",
+    "reason": "Far fewer immediate boarding deaths, retained cumulative damage, uniform class health, and observed progression that becomes harder near the finish."
+  },
+  "limits": [
+    "Three seeds per combination; ranges and sample standard deviations are descriptive, not confidence bounds.",
+    "23 of 24 attacker wins; the single defender win was only 18.4 cm short. The trials do not establish fair win odds.",
+    "Bots do not adapt class composition or coordinate human pilot rotations and burst fire.",
+    "Fixed-200 arms also restore full class health on living exit; class-health arms retain previous exit behavior.",
+    "Observed pilot tenures include surviving exits and round endings; death percentages use actual boarding time.",
+    "Same seeds do not force identical combat trajectories or asynchronous scheduling.",
+    "All policies still exclude nearby splash and require direct hull contact.",
+    "Earlier heavy-ordnance experiments with different navigation code were excluded."
+  ]
+}

@@ -5,13 +5,30 @@ var game
 var region: NavigationRegion3D
 var links: Array[Dictionary]=[]
 var installed:=false
+var synchronized:=false
+var readiness_point:=Vector3.INF
 var jump_candidates: Array[Vector3]=[]
 var jump_cursor:=0
 var jump_links:=0
 func setup(arena,nav_region: NavigationRegion3D) -> void:
 	game=arena;region=nav_region
 func ready() -> bool:
-	return region.navigation_mesh!=null and NavigationServer3D.region_get_iteration_id(region.get_rid())>0
+	if synchronized:return true
+	if region.navigation_mesh==null or NavigationServer3D.region_get_iteration_id(region.get_rid())==0:return false
+	if readiness_point==Vector3.INF:
+		var vertices:=region.navigation_mesh.get_vertices()
+		if vertices.is_empty() or region.navigation_mesh.get_polygon_count()==0:return false
+		# Imported meshes may retain unused vertices above inaccessible scenery.
+		# Probe the interior of an actual navigable polygon instead.
+		var polygon:=region.navigation_mesh.get_polygon(0)
+		if polygon.is_empty():return false
+		var center:=Vector3.ZERO
+		for index in polygon:center+=vertices[index]
+		readiness_point=region.to_global(center/polygon.size())
+	# Region creation can synchronize before its cached/baked mesh. Do not mark
+	# links installed while closest-point queries still return an empty map.
+	synchronized=NavigationServer3D.map_get_closest_point(region.get_navigation_map(),readiness_point).distance_to(readiness_point)<.5
+	return synchronized
 func project_local(point: Vector3) -> Vector3:
 	if not ready():return point
 	var projected:=NavigationServer3D.map_get_closest_point(region.get_navigation_map(),point)
@@ -56,23 +73,15 @@ func install_links() -> void:
 			end=destination.position
 		else:
 			var velocity: Vector3=runtime.push_velocity(volume.data,1.0 if runtime.legacy_train_push else 10.0)
-			if velocity.y>10 and Vector2(velocity.x,velocity.z).length()<1:
-				vertical_pad_links(start,velocity.y)
+			var destination:=push_landing(runtime,start,velocity)
+			if destination==Vector3.INF:
+				if velocity.y>10 and Vector2(velocity.x,velocity.z).length()<1:vertical_pad_links(start,velocity.y)
 				continue
-			var previous:=start+Vector3.UP*.5
-			var landed:=false
-			for step in range(1,81):
-				var t:=step*.05
-				var point:=start+Vector3.UP*.5+velocity*t+Vector3.DOWN*10*t*t
-				var hit:=ray(previous,point)
-				if not hit.is_empty():
-					if hit.normal.y>.7 and velocity.y-20*t<0:end=hit.position;landed=true
-					break
-				previous=point
-			if not landed:continue
+			end=destination;kind="push_chain"
 		var map:=region.get_navigation_map()
 		var entry:=NavigationServer3D.map_get_closest_point(map,start)
-		var exit_point:=NavigationServer3D.map_get_closest_point(map,end)
+		var exit_point:=push_exit(end) if kind=="push_chain" else NavigationServer3D.map_get_closest_point(map,end)
+		if exit_point==Vector3.INF:continue
 		if entry.distance_to(start)>2 or exit_point.distance_to(end)>2:continue
 		var link:=NavigationLink3D.new()
 		link.bidirectional=false;link.start_position=entry;link.end_position=exit_point
@@ -80,17 +89,71 @@ func install_links() -> void:
 		region.add_child(link)
 		links.append({"start":entry,"end":exit_point,"entry":start,"kind":kind,"cost":1.0 if kind=="trigger_teleport" else entry.distance_to(exit_point)*.5+1})
 	for lift in game.lifts:
-		var bounds: AABB=runtime.node_bounds(lift.node)
-		if bounds.size.is_zero_approx():continue
-		var start:=bounds.get_center();start.y=bounds.end.y-(lift.node.position.y-lift.base)
-		var end:=start+Vector3.UP*float(lift.get("travel",1.65))
-		var map:=region.get_navigation_map()
-		var entry:=NavigationServer3D.map_get_closest_point(map,start)
-		var exit_point:=NavigationServer3D.map_get_closest_point(map,end)
-		if entry.distance_to(start)>2.0 or exit_point.distance_to(end)>2.0 or exit_point.y-entry.y<.8:continue
-		var link:=NavigationLink3D.new();link.bidirectional=false
-		link.start_position=entry;link.end_position=exit_point;link.enter_cost=18;region.add_child(link)
-		links.append({"start":entry,"end":exit_point,"entry":start,"kind":"lift","lift":lift,"cost":18+start.distance_to(end)})
+		install_lift(runtime,lift)
+	for gate in game.gates:
+		if gate.get("elevator",false) and gate.travel.y>0:
+			install_lift(runtime,{"node":gate.node,"base":gate.base_position.y,"travel":gate.travel.y})
+func push_exit(point: Vector3) -> Vector3:
+	var map:=region.get_navigation_map()
+	# A point trajectory can stop flush against a wall. Find room for the whole
+	# player capsule on the landing before advertising that endpoint to AI.
+	for radius in [0.0,.6,1.2]:
+		for index in (1 if radius==0 else 8):
+			var angle:=TAU*index/8.0
+			var candidate:=NavigationServer3D.map_get_closest_point(map,point+Vector3(cos(angle)*radius,0,sin(angle)*radius))
+			if candidate.distance_to(point)>2 or absf(candidate.y-point.y)>.6 or hazardous(candidate):continue
+			var floor_hit:=ray(candidate+Vector3.UP*.2,candidate-Vector3.UP*.6)
+			if floor_hit.is_empty() or floor_hit.normal.y<.7:continue
+			if landing_clear(floor_hit.position+Vector3.UP*.03):return candidate
+	return Vector3.INF
+func push_landing(runtime,start: Vector3,initial: Vector3) -> Vector3:
+	# Trace the ordered push volumes together. Quake pipes redirect a vertical
+	# launch at the top; an isolated parabola incorrectly lands on their roof.
+	var pushes: Array=[]
+	for volume in runtime.regions:
+		if volume.kind!="trigger_push":continue
+		var bounds: AABB=runtime.node_bounds(volume.area)
+		bounds.position.y-=1.5;bounds.size.y+=1.5
+		pushes.append({"bounds":bounds.grow(.2),"velocity":runtime.push_velocity(volume.data,1.0 if runtime.legacy_train_push else 10.0)})
+	var point:=start;var velocity:=initial;var touched:=false
+	for step in 480:
+		for push in pushes:
+			if push.bounds.has_point(point):velocity=push.velocity;touched=true
+		velocity.y-=20.0/60
+		var next:=point+velocity/60
+		var hit:=ray(point+Vector3.UP*.8,next+Vector3.UP*.8)
+		if not hit.is_empty():
+			if hit.normal.y>.7 and velocity.y<0:
+				return hit.position if touched and hit.position.distance_to(start)>2 else Vector3.INF
+			point=hit.position-Vector3.UP*.8+hit.normal*.03;velocity=velocity.slide(hit.normal)
+		else:point=next
+		if point.y<game.fall_limit:return Vector3.INF
+	return Vector3.INF
+func install_lift(runtime,lift: Dictionary) -> void:
+	var bounds: AABB=runtime.node_bounds(lift.node)
+	if bounds.size.is_zero_approx():return
+	var start:=bounds.get_center();start.y=bounds.end.y-(lift.node.position.y-lift.base)
+	var end:=start+Vector3.UP*float(lift.travel)
+	var map:=region.get_navigation_map()
+	var entry:=NavigationServer3D.map_get_closest_point(map,start)
+	var exit_point:=Vector3.INF
+	var reach:=Vector2(bounds.size.x,bounds.size.z).length()*.5+1.5
+	# Pick fixed ground beyond the deck, so completing a link includes stepping
+	# off instead of waiting on the moving platform for its return journey.
+	for index in 8:
+		var angle:=TAU*index/8.0
+		var offset:=Vector3(cos(angle)*(bounds.size.x*.5+.9),0,sin(angle)*(bounds.size.z*.5+.9))
+		var candidate:=NavigationServer3D.map_get_closest_point(map,end+offset)
+		if absf(candidate.y-end.y)>.6 or candidate.distance_to(end)>reach:continue
+		if absf(candidate.x-end.x)<bounds.size.x*.5+.4 and absf(candidate.z-end.z)<bounds.size.z*.5+.4:continue
+		if not ray(end+Vector3.UP,candidate+Vector3.UP).is_empty() or not landing_clear(candidate):continue
+		var floor_hit:=ray(candidate+Vector3.UP*.15,candidate-Vector3.UP*.6)
+		if floor_hit.is_empty() or floor_hit.collider==lift.node:continue
+		if exit_point==Vector3.INF or candidate.distance_to(end)<exit_point.distance_to(end):exit_point=candidate
+	if exit_point==Vector3.INF or entry.distance_to(start)>reach or absf(entry.y-start.y)>.6 or exit_point.y-entry.y<.8:return
+	var link:=NavigationLink3D.new();link.bidirectional=false
+	link.start_position=entry;link.end_position=exit_point;link.enter_cost=18;region.add_child(link)
+	links.append({"start":entry,"end":exit_point,"entry":start,"deck_end":end,"approach_radius":reach,"kind":"lift","lift":lift,"cost":18+start.distance_to(end)})
 func vertical_pad_links(start: Vector3,up_speed: float) -> void:
 	# Vertical pads need air steering onto nearby roofs. A straight ballistic ray
 	# otherwise lands back on the pad and leaves the upper nav island unreachable.
@@ -130,9 +193,9 @@ func pad_arc_clear(start: Vector3,end: Vector3,up_speed: float) -> bool:
 
 func active_link(position: Vector3,next: Vector3) -> Dictionary:
 	for link in links:
-		if next.distance_to(link.end)>=1.0:continue
+		if next.distance_to(link.end)>=1.0 and not (link.kind=="lift" and next.distance_to(link.start)<.65):continue
 		if position.distance_to(link.start)<2.0:return link
-		if link.kind=="lift" and Vector2(position.x-link.start.x,position.z-link.start.z).length()<2 and position.y>=link.start.y-.5 and position.y<link.end.y+.1:return link
+		if link.kind=="lift" and Vector2(position.x-link.start.x,position.z-link.start.z).length()<link.get("approach_radius",2.0) and position.y>=link.start.y-.5 and position.y<link.end.y+.1:return link
 	return {}
 func hazardous(point: Vector3) -> bool:
 	if point.y<game.fall_limit+1:return true

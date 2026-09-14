@@ -1,5 +1,5 @@
 extends Node
-## Authority-only practice AI. Decisions produce ordinary player inputs;
+## Authority-only practice and dedicated-server AI. Decisions produce ordinary player inputs;
 ## movement, pickups, abilities, damage and objectives remain server-owned.
 var game
 var region: NavigationRegion3D
@@ -59,7 +59,7 @@ func new_brain(id: int) -> Dictionary:
 		"reaction":aiming.reaction(),"weapon_at":0.0,"observed_velocity":Vector3.ZERO,"aiming":aiming,
 		"strafe_at":0.0,"strafe":1.0,"progress_at":game.clock,"progress_position":position,
 		"explore_until":0.0,"recover_until":0.0,"recover_direction":Vector3.ZERO,"recover_jump":false,"recover_prone":false,"action_at":0.0,
-		"translocate_at":game.clock+3,"disc_until":0.0,"disc_goal":position,"pad_until":0.0,"pad_end":position,"drop_until":0.0,"drop_end":position,
+		"translocate_at":game.clock+3,"disc_until":0.0,"disc_goal":position,"lift_link":{},"pad_chain":false,"pad_until":0.0,"pad_end":position,"drop_until":0.0,"drop_end":position,
 	}
 
 func tick(delta: float) -> void:
@@ -601,18 +601,34 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 			brain.step+=1
 		travel=brain.path[brain.step]-actor.position
 		var link: Dictionary=navigation.active_link(actor.position,brain.path[brain.step])
+		if link.is_empty():
+			# A raised platform blocks the approach before its centre waypoint.
+			# Recognize the upcoming lift before wall recovery abandons the route.
+			for index in range(brain.step+1,mini(brain.path.size(),brain.step+5)):
+				var upcoming: Dictionary=navigation.active_link(actor.position,brain.path[index])
+				if upcoming.get("kind","")=="lift":link=upcoming;break
 		if not link.is_empty():
 			travel=(link.end if link.kind in ["jump","drop"] else link.entry)-actor.position
 			if link.kind=="drop":
 				brain.drop_end=link.end;brain.drop_until=game.clock+1.5;brain.plan_at=game.clock+1.5
-			if link.kind=="pad" and actor.velocity.y>10:
-				brain.pad_end=link.end;brain.pad_until=game.clock+4;brain.plan_at=game.clock+3
+			if link.kind in ["pad","push_chain"] and actor.velocity.length()>10:
+				brain.pad_chain=link.kind=="push_chain"
+				brain.pad_end=link.end;brain.pad_until=game.clock+8;brain.plan_at=game.clock+8
 			if link.kind=="jump" and actor.is_supported() and not actor.jump_held:s.jump=true
-			if link.kind=="lift" and actor.position.y<link.end.y-.45:
-				var platform: Vector3=link.entry+Vector3.UP*(link.lift.node.position.y-link.lift.base)
-				if Vector2(actor.position.x-platform.x,actor.position.z-platform.z).length()<.45:
-					travel=Vector3.ZERO;riding_lift=true
-				elif platform.y>actor.position.y+.55:travel=Vector3.ZERO;riding_lift=true
+			if link.kind=="lift":brain.lift_link=link
+	if not brain.lift_link.is_empty():
+		var link: Dictionary=brain.lift_link
+		var platform: Vector3=link.entry+Vector3.UP*(link.lift.node.position.y-link.lift.base)
+		if actor.position.y<link.deck_end.y-.35:
+			travel=platform-actor.position
+			if Vector2(travel.x,travel.z).length()<.35 or platform.y>actor.position.y+.55:
+				travel=Vector3.ZERO
+			riding_lift=true
+		else:
+			travel=link.end-actor.position
+			if actor.position.distance_to(link.end)<.5:
+				brain.lift_link={};brain.plan_at=0
+			else:riding_lift=true
 	if at_goal:travel=Vector3.ZERO
 	if at_goal or riding_lift:
 		brain.progress_at=game.clock;brain.progress_position=actor.position
@@ -642,10 +658,10 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 	if at_goal and brain.enemy==0 and brain.goal_kind in ["guard","ambush"]:
 		aim(id,brain.watch+Vector3.UP,1-exp(-6*delta))
 		s.crouch=brain.goal_kind=="ambush"
-	if game.clock<brain.dodge_until:desired=brain.dodge;at_goal=false
-	if game.clock<brain.recover_until:desired=brain.recover_direction;at_goal=false
+	if not riding_lift and game.clock<brain.dodge_until:desired=brain.dodge;at_goal=false
+	if not riding_lift and game.clock<brain.recover_until:desired=brain.recover_direction;at_goal=false
 	# Separate teammates locally while retaining the chosen route.
-	if not at_goal:
+	if not at_goal and not riding_lift:
 		for friend in game.fighters:
 			if friend==id or not alive(friend) or not game.match_mode.same_team(id,friend):continue
 			var offset: Vector3=actor.position-game.fighters[friend].position;offset.y=0
@@ -658,7 +674,7 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 		s.jump=travel.y>.25 and not actor.jump_held
 	elif desired.length()>.1:
 		var forward:=desired.normalized()
-		var look: Vector3=actor.position+forward*1.0
+		var look: Vector3=actor.position+forward*clampf(Vector2(travel.x,travel.z).length(),.35,1.0)
 		var low:=not navigation.ray(actor.position+Vector3.UP*.4,look+Vector3.UP*.4).is_empty()
 		var middle:=not navigation.ray(actor.position+Vector3.UP*.9,look+Vector3.UP*.9).is_empty()
 		var high:=not navigation.ray(actor.position+Vector3.UP*1.55,look+Vector3.UP*1.55).is_empty()
@@ -674,7 +690,7 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 					s.jump=not actor.jump_held
 				else:desired=Vector3.ZERO;brain.stuck+=delta
 			elif low and not middle and navigation.jump_clear(actor.position,actor.position+forward*2.5,9.4*actor.speed_multiplier):s.jump=not actor.jump_held
-			elif not high and not middle and not low and remaining>7 and travel.length()>5 and not s.crouch and not s.prone and brain.goal_kind not in ["cover","defend","heal","repair","guard","ambush"]:
+			elif not high and not middle and not low and not riding_lift and remaining>7 and travel.length()>5 and not s.crouch and not s.prone and brain.goal_kind not in ["cover","defend","heal","repair","guard","ambush"]:
 				# Release every airborne frame; a fresh press on landing preserves
 				# Quake momentum without bypassing the jump edge/queue rules.
 				var ahead: Vector3=actor.position+forward*4.0
@@ -741,8 +757,8 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 		var horizontal:=Vector3(actor.velocity.x,0,actor.velocity.z)
 		var offset:=Vector3(brain.pad_end.x-actor.position.x,0,brain.pad_end.z-actor.position.z)
 		# Rise clear of the roof edge, then steer and brake over the landing.
-		desired=Vector3.ZERO if actor.velocity.y>0 and actor.position.y<brain.pad_end.y+.35 else (offset*.9-horizontal*.2).limit_length(1)
-		if actor.is_supported() and actor.position.y>brain.pad_end.y-.5:brain.pad_until=0;brain.plan_at=0
+		desired=Vector3.ZERO if actor.velocity.y>0 and (brain.pad_chain or actor.position.y<brain.pad_end.y+.35) else (offset*.9-horizontal*.2).limit_length(1)
+		if actor.is_supported() and actor.position.distance_to(brain.pad_end)<1.0:brain.pad_until=0;brain.plan_at=0
 	desired=titanball.steering(id,brain,desired)
 	var local: Vector3=Basis(Vector3.UP,-s.yaw)*desired
 	s.move=Vector2(local.x,local.z).limit_length(1)

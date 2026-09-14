@@ -74,8 +74,8 @@ func execute(command: String) -> Dictionary:
 		"status":
 			var players: Array=[]
 			for id in game.players:
-				var s: Dictionary=game.players[id];players.append({"id":id,"name":s.name,"spectator":s.spectator,"ping_ms":s.ping})
-			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.PROTOCOL,"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
+				var s: Dictionary=game.players[id];players.append({"id":id,"name":s.name,"spectator":s.spectator,"ping_ms":s.ping,"bot":id<0,"team":s.team,"class":s.tf_class})
+			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.PROTOCOL,"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"bot_fill":game.bot_population.target,"tb_heavy_ordnance":game.match_mode.fortress.walkers.heavy_ordnance_only,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
 		"match":
 			if words.size()!=4 or not words[3] in game.armory.IDS:return {"error":"Expected mode, configured map and doom, quake or ut99"}
 			if not game.votes.match_choices().any(func(row):return row.mode==words[1] and row.map==words[2]):return {"error":"Match must be in the enabled mode maplists"}
@@ -89,7 +89,8 @@ func execute(command: String) -> Dictionary:
 			game.votes.change_mode.call_deferred(words[1])
 		"kick":
 			if words.size()!=2 or not str(words[1]).is_valid_int() or not game.players.has(int(words[1])):return {"error":"Unknown peer ID"}
-			game.multiplayer.multiplayer_peer.disconnect_peer(int(words[1]))
+			if int(words[1])<0:game._peer_left(int(words[1]))
+			else:game.multiplayer.multiplayer_peer.disconnect_peer(int(words[1]))
 		"say":
 			if words.size()<2:return {"error":"Message required"}
 			game._announcement.rpc("ADMIN: "+" ".join(words.slice(1)).left(140))

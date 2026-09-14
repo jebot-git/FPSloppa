@@ -13,7 +13,7 @@ func board() -> void:
 	g.players[1].dead=false;g.players[1].hp=1000;g.players[1].input_blocked=false;g.players[1].invulnerable=0
 	g.fighters[1].position=w.transform(w.robots.test)*w.LADDER;g.fighters[1].jump_held=false
 	check(w.handle_player(1,true),"Jump boards parked robot")
-	check(g.players[1].hp==g.match_mode.fortress.max_health(1),"Boarding restores class maximum health")
+	check(g.players[1].hp==g.match_mode.fortress.max_health(1),"Boarding restores the occupied cockpit health maximum")
 	# This damage-routing fixture needs enough HP to exercise every weapon path.
 	g.players[1].hp=1000
 func _initialize():run.call_deferred()
@@ -42,10 +42,10 @@ func run() -> void:
 	check(hit.id==1 and hit.get("vehicle",false),"Round hull hits resolve to the seated pilot")
 	var sweep: Dictionary=g._trace(front,back,-1,0.,.1,{},[])
 	check(sweep.id==1 and sweep.vehicle,"Projectile sweeps hit hull even when player broadphase has no cockpit candidate")
-	g._damage(hit.id,-1,40,"SHOTGUN",false,hit.position,Vector3.FORWARD,false,hit.vehicle)
+	g._damage(hit.id,-1,40,"ASSAULT CANNON",false,hit.position,Vector3.FORWARD,false,hit.vehicle)
 	check(s.hp==980 and s.armor==200,"Hull damage reduces pilot health with 200 armour protection")
-	g._damage(1,-1,40,"SHOTGUN",false,hit.position,Vector3.FORWARD,false,hit.vehicle);check(s.hp==960 and s.armor==200,"Consecutive hits each use full armour without depleting it")
-	var friendly_hp: int=s.hp;g.players[-1].team=0;g._damage(1,-1,40,"SHOTGUN",false,hit.position,Vector3.FORWARD,false,hit.vehicle);g.players[-1].team=1
+	g._damage(1,-1,40,"ASSAULT CANNON",false,hit.position,Vector3.FORWARD,false,hit.vehicle);check(s.hp==960 and s.armor==200,"Consecutive hits each use full armour without depleting it")
+	var friendly_hp: int=s.hp;g.players[-1].team=0;g._damage(1,-1,40,"ASSAULT CANNON",false,hit.position,Vector3.FORWARD,false,hit.vehicle);g.players[-1].team=1
 	check(s.hp==friendly_hp,"Body damage still obeys friendly-fire rules")
 	var tf=g.match_mode.fortress
 	check(tf.sentry_target(front,1,18)==1,"Enemy sentries can acquire the occupied round body")
@@ -66,19 +66,19 @@ func run() -> void:
 	var wall:=StaticBody3D.new();var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Vector3(12,12,.25);shape.shape=box;wall.add_child(shape);wall.position=center+Vector3(0,0,5);g.get_node("Map").add_child(wall)
 	await physics_frame;await physics_frame
 	check(g._trace(front,back,-1).id==0 and g._trace(front,back,-1,0.,.1).id==0,"Walls occlude hull hits for both rays and projectile sweeps")
-	var blocked_hp: int=s.hp;g.variant_combat.blast(front,-1,100,15,"GRENADE",0,true)
+	var blocked_hp: int=s.hp;g.variant_combat.blast(front,-1,100,15,"GRENADE LAUNCHER",0,true)
 	check(s.hp==blocked_hp,"Wall blocks splash against robot hull")
 	wall.free();await physics_frame;await physics_frame
 	var nail_hp: int=s.hp
 	g.variant_combat.launch(-1,5,front,Vector3.FORWARD);g._update_projectiles(.5,{})
-	check(s.hp<nail_hp and s.armor==200,"Actual Quake nail projectile damages protected pilot through hull")
-	var splash_hp: int=s.hp;g.variant_combat.blast(center+Vector3(0,0,3),-1,100,5,"GRENADE",0,true)
+	check(s.hp==nail_hp and s.armor==200,"Actual ordinary Quake nail projectile cannot penetrate pilot hull")
+	var splash_hp: int=s.hp;g.variant_combat.blast(center+Vector3(0,0,3),-1,100,5,"GRENADE LAUNCHER",0,true)
 	check(s.hp==splash_hp and s.armor==200,"Nearby Quake splash cannot damage the pilot")
 	var legacy_hp: int=s.hp;g._blast(center+Vector3(0,0,3),-1,100,5)
 	check(s.hp==legacy_hp and s.armor==200,"Nearby legacy splash cannot damage the pilot")
 	var surface: Vector3=g._trace(front,back,-1).position
 	check(w.surface_explosion(1,surface),"Contact probe recognizes the actual convex hull surface")
-	g.variant_combat.blast(surface,-1,100,5,"GRENADE",0,true)
+	g.variant_combat.blast(surface,-1,100,5,"GRENADE LAUNCHER",0,true)
 	check(s.hp<legacy_hp,"Explosion on the actual hull surface still damages pilot")
 	var indirect_hp: int=s.hp;g._damage(1,-1,40,"BURN");g._damage(1,-1,40,"FALL");g._damage(1,-1,40,"AXE")
 	check(s.hp==indirect_hp,"Indirect burn, environment and melee damage do not reach seated pilot")

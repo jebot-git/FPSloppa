@@ -11,6 +11,14 @@ const STRIDE=Tuning.STRIDE
 const LADDER=Vector3(0,.08,0)
 const SEAT=Vector3(0,6.2,0)
 const PILOT_ARMOR=200
+const PILOT_MAX_HEALTH=200
+# Fixed TB policy. Heavy automatic shots carry their trusted
+# firing-time classification; other classes' nailguns do not penetrate.
+const HEAVY_PILOT_WEAPONS=["ROCKET LAUNCHER","GRENADE LAUNCHER","PIPEBOMB","DETPACK","ASSAULT CANNON","SENTRY","TITAN CANNON"]
+# Alternate policies are only selected explicitly by the simulation runner.
+var heavy_ordnance_only:=true
+# Opt-in balance experiment; defaults off outside the simulation runner.
+var pilot_regeneration:=false
 const BOARDING_EXIT_LOCK=3.0
 const HULL_RADII=Vector3(1.97,2.637,2.51)
 const HEAT_PER_VOLLEY=12.5
@@ -51,7 +59,7 @@ func reset() -> void:
 		var path:=Route.curve(definition.points,definition.get("loop",false))
 		if path.get_baked_length()<1:continue
 		var pose:=Route.sample(path,0)
-		robots[key]={"id":key,"points":definition.points,"loop":definition.get("loop",false),"fixed_team":definition.get("team",-1),"team":definition.get("team",-1),"path":path,"pilot":0,"pilot_life":-1,"exit_lock":0.,"distance":0.,"speed":0.,"from_speed":0.,"to_speed":0.,"transition":0.,"position":pose.origin,"yaw":pose.basis.get_euler().y,"heat":[0.,0.],"overheated":[false,false],"next":[0.,0.],"last_fire":[-100.,-100.],"pitches":[0.,0.],"body_yaw":0.,"targets":[0,0],"scan_at":0.,"state":"parked","ready":game.clock+3.0}
+		robots[key]={"id":key,"points":definition.points,"loop":definition.get("loop",false),"fixed_team":definition.get("team",-1),"team":definition.get("team",-1),"path":path,"pilot":0,"pilot_life":-1,"exit_lock":0.,"heal_credit":0.,"distance":0.,"speed":0.,"from_speed":0.,"to_speed":0.,"transition":0.,"position":pose.origin,"yaw":pose.basis.get_euler().y,"heat":[0.,0.],"overheated":[false,false],"next":[0.,0.],"last_fire":[-100.,-100.],"pitches":[0.,0.],"body_yaw":0.,"targets":[0,0],"scan_at":0.,"state":"parked","ready":game.clock+3.0}
 		_make_body(key)
 func _make_body(key: String) -> void:
 	var body:=AnimatableBody3D.new();body.name="BA2_"+key;body.sync_to_physics=false;body.collision_layer=1;body.collision_mask=3
@@ -76,6 +84,10 @@ func _add_box(body: Node3D,at: Vector3,size: Vector3) -> CollisionShape3D:
 	return shape
 func transform(row: Dictionary) -> Transform3D:return Transform3D(Basis(Vector3.UP,float(row.yaw)),row.position)
 func mounted(id: int) -> bool:return not vehicle_for(id).is_empty()
+func pilot_max_health(_id: int) -> int:return PILOT_MAX_HEALTH
+func restore_pilot_health(id: int) -> void:game.players[id].hp=tf.definition(id).hp
+func accepts_pilot_weapon(weapon: String,heavy_automatic: bool=false) -> bool:
+	return not heavy_ordnance_only or game.match_mode.kind!="tb" or weapon in HEAVY_PILOT_WEAPONS or (weapon=="SUPER NAILGUN" and heavy_automatic)
 func vehicle_for(id: int) -> String:
 	if id==0:return ""
 	for key in robots:if int(robots[key].pilot)==id:return key
@@ -106,14 +118,14 @@ func try_board(id: int,key: String) -> bool:
 	# Reserve before teleporting. This path never yields, including simultaneous inputs.
 	var previous_hp: int=s.hp
 	r.pilot=id;r.team=s.team;r.targets=[0,0];s["ba2_saved_mask"]=game.fighters[id].collision_mask
-	r.exit_lock=BOARDING_EXIT_LOCK;s.hp=tf.max_health(id)
-	s["ba2_loadout"]={"weapon":s.weapon,"armor":s.armor,"tier":s.tier}
+	r.exit_lock=BOARDING_EXIT_LOCK;r.heal_credit=0.;s.hp=tf.max_health(id)
+	s["ba2_loadout"]={"weapon":s.weapon,"armor":s.armor,"tier":s.tier,"tb_health":game.match_mode.kind=="tb"}
 	enforce_pilot(id)
 	game.fighters[id].collision_mask=0;bodies[key].add_collision_exception_with(game.fighters[id])
 	tf.revealed(id);s.invulnerable=0;s.fire=false;s.offhand_fire=false;s.melee=false;s.charge=0;s.room=Vector3.ZERO;s.move=Vector2.ZERO;s.swim=Vector3.ZERO
 	game.variant_combat.cancel_player(id)
 	_teleport(id,transform(r)*SEAT,float(r.yaw)+PI)
-	r.pilot_life=s.serial;game.fighters[id].jump_held=true
+	r.pilot_life=s.serial;s.ba2_loadout.pilot_life=s.serial;game.fighters[id].jump_held=true
 	game.server_log.record("titan_boarded",{"pilot":id,"robot":key,"class":s.get("tf_class",""),"hp_before":previous_hp,"hp":s.hp,"max_hp":tf.max_health(id),"exit_lock":r.exit_lock,"distance":r.distance},2)
 	return true
 func _teleport(id: int,at: Vector3,yaw: float) -> void:
@@ -127,6 +139,7 @@ func _unlock(id: int) -> void:
 	game.fighters[id].velocity=Vector3.ZERO;game.fighters[id].blast_velocity=Vector2.ZERO
 	var s: Dictionary=game.players[id]
 	if s.has("ba2_loadout"):
+		if s.ba2_loadout.get("tb_health",false) and not s.dead and s.serial==s.ba2_loadout.get("pilot_life",s.serial):restore_pilot_health(id)
 		s.weapon=s.ba2_loadout.weapon;s.armor=s.ba2_loadout.armor;s.tier=s.ba2_loadout.tier;s.erase("ba2_loadout")
 		if id==multiplayer.get_unique_id():game.desired_weapon=s.weapon
 func enforce_pilot(id: int) -> void:
@@ -164,7 +177,7 @@ func leave(id: int,forced: bool=false) -> bool:
 		exit_point=transform(r)*(LADDER+Vector3.UP*.1)
 	# Death/disconnect always release the reservation, even if the ground is blocked.
 	r.pilot=0;r.pilot_life=-1;r.targets=[0,0];reboard_until[id]=game.clock+1.0
-	r.exit_lock=0.
+	r.exit_lock=0.;r.heal_credit=0.
 	if game.players.has(id):game.players[id].erase("pilot_controls")
 	if game.fighters.has(id):bodies[key].remove_collision_exception_with(game.fighters[id])
 	_unlock(id)
@@ -191,6 +204,21 @@ func pin(id: int,visual: bool=false) -> void:
 	var actor=game.fighters[id];actor.position=pose*SEAT;actor.target=actor.position;actor.velocity=pose.basis.z*float(r.speed);actor.blast_velocity=Vector2.ZERO;actor.visual_velocity=Vector3.ZERO;actor.collision_mask=0
 	game.players[id].room=Vector3.ZERO
 	enforce_pilot(id)
+func heal_pilot(row: Dictionary,delta: float) -> void:
+	var pilot: int=row.pilot
+	if not pilot_regeneration or not multiplayer.is_server() or not game.active or game.map_loading or game.intermission>0 or game.lobby.active() or game.match_mode.kind!="tb" or pilot==0 or not game.players.has(pilot):
+		row.heal_credit=0.;return
+	var state: Dictionary=game.players[pilot]
+	var maximum: int=tf.max_health(pilot)
+	if state.dead or state.spectator or state.serial!=row.pilot_life or state.hp>=maximum:
+		row.heal_credit=0.;return
+	row.heal_credit=float(row.get("heal_credit",0.))+maxf(0.,delta)*tf.DISPENSER_HEALTH_RATE
+	var whole:=int(row.heal_credit+.000001)
+	if whole<=0:return
+	row.heal_credit=maxf(0.,row.heal_credit-whole)
+	var restored:=mini(whole,maximum-int(state.hp));state.hp+=restored
+	if state.hp>=maximum:row.heal_credit=0.
+	game.server_log.record("titan_pilot_healed",{"pilot":pilot,"robot":row.id,"amount":restored,"hp":state.hp,"max_hp":maximum},2)
 func tick(delta: float) -> void:
 	if not multiplayer.is_server():return
 	for key in robots:
@@ -198,6 +226,7 @@ func tick(delta: float) -> void:
 		r.exit_lock=maxf(0.,float(r.get("exit_lock",0.))-delta)
 		if r.exit_lock<.00001:r.exit_lock=0.
 		if pilot!=0 and (not game.players.has(pilot) or game.players[pilot].dead or game.players[pilot].spectator or game.players[pilot].serial!=r.pilot_life or game.match_mode.special.blocked(pilot) or (game.match_mode.kind=="tb" and game.players[pilot].team!=game.match_mode.titanball.ATTACKERS)):leave(pilot,true)
+		heal_pilot(r,delta)
 		var remaining: float=r.path.get_baked_length()-r.distance
 		# A new pilot may board after a death stops us inside the final braking
 		# zone. Plan a smaller acceleration/braking profile from that standstill;

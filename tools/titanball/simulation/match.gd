@@ -25,8 +25,13 @@ func run() -> void:
  if profile!="tf":
   g.match_mode.fortress.free();g.match_mode.fortress=preload("res://tools/titanball/simulation/classless.gd").new()
   g.armory=preload("res://tools/titanball/simulation/rules.gd").new()
+ if options.get("pilot_health","fixed200")=="class":
+  g.match_mode.fortress.walkers.free();g.match_mode.fortress.walkers=preload("res://tools/titanball/simulation/class_health_baseline.gd").new()
+  g.match_mode.fortress.walkers.name="Walkers";g.match_mode.fortress.add_child(g.match_mode.fortress.walkers)
  root.add_child(g);g.selected_map="tb_ashfall"
  g.start_host("TITANBALL 6v6 balance observer",0,100,10,true,"tb","quake" if profile=="tf" else profile)
+ g.match_mode.fortress.walkers.heavy_ordnance_only=options.get("pilot_damage","heavy")=="heavy"
+ g.match_mode.fortress.walkers.pilot_regeneration=options.get("pilot_healing","off")=="station"
  g.set_physics_process(false);g.set_process(false)
  if not g.active or g.current_map!="tb_ashfall":push_error("Wrong map or inactive arena");quit(1);return
  g.players[1].spectator=true;g._spawn(1)
@@ -36,8 +41,10 @@ func run() -> void:
   g.players[id].team=(-id-1)%2
   g.players[id].tf_next=Classes[(-id-1)/2] if profile=="tf" else "none"
   g._spawn(id)
- for i in 120:await physics_frame
- if not g.bots.ready_to_walk or not g.bots.navigation.ready():push_error("Navigation unavailable");quit(1);return
+ var nav_deadline:=Time.get_ticks_msec()+30000
+ while not g.bots.ready_to_walk or not g.bots.navigation.ready():
+  if Time.get_ticks_msec()>nav_deadline:push_error("Navigation unavailable");quit(1);return
+  await physics_frame;OS.delay_msec(1)
  g.bots.navigation.install_links()
  seed(int(options.get("seed",7129)));g.match_mode.reset()
  for id in g.players:g._spawn(id)
@@ -72,6 +79,8 @@ func run() -> void:
    root.get_texture().get_image().save_png(options.output.get_basename()+"-%04d.png"%int(g.clock-origin))
  running=false
  var result: Dictionary={"options":options,"profile":profile,"effective_rules":g.armory.effective(),"classes":g.match_mode.fortress.enabled(),"map":g.current_map,"stations":g.match_mode.titanball.stations,"vantages":g.match_mode.titanball.vantages,"map_sha256":FileAccess.get_sha256("res://maps/tb_ashfall.bsp"),"seconds":g.clock-origin,"winner":g.match_mode.titanball.winner,"progress":g.match_mode.titanball.progress,"checkpoints":g.match_mode.titanball.cleared,"pilot_seconds":pilot_seconds,"moving_seconds":moving_seconds,"manned_stopped_seconds":blocked_seconds,"pilot_changes":pilot_changes,"samples":samples,"deaths":metrics.deaths,"damage":metrics.damage,"pickups":metrics.pickups,"placements":placements,"damage_events":metrics.damage_events,"cannon_volleys":metrics.cannon_volleys,"boardings":metrics.boardings,"deployable_crushes":metrics.deployable_crushes,"events":metrics.events,"teamplay":g.bots.teamplay.stats}
+ result["pilot_healing"]=metrics.pilot_healing
+ result["blocked_hull_hits"]=metrics.blocked_hull_hits
  FileAccess.open(options.output,FileAccess.WRITE).store_string(JSON.stringify(result,"  "));print("TB_SIM_RESULT ",options.output," progress=",result.progress," winner=",result.winner)
  g.disconnect_game();g.queue_free();await process_frame;await process_frame;quit()
 func sample() -> void:

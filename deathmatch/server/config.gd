@@ -2,8 +2,8 @@ extends RefCounted
 const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as"]
 const MAX_CLIENTS := 32
 const CAPACITY_WARNING := "UNSUPPORTED PLAYER COUNT: more than 16 players is unsupported. Performance, gameplay and maps are not balanced for player limits higher than 16."
-const DEFAULTS={"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
-const RANGES={"rcon_port":Vector2i(1024,65535),"sv_lobby":Vector2i(0,1),"sv_lobby_seconds":Vector2i(15,180),"sv_map_uploads":Vector2i(0,1),"sv_log_max_mb":Vector2i(1,512),"sv_log_backups":Vector2i(1,9),"sv_friendlyfire":Vector2i(0,1),"capturelimit":Vector2i(1,100),"hilllimit":Vector2i(1,3600),"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_votes":Vector2i(0,1),"sv_tf_spy_invisibility":Vector2i(0,1),"sv_announcer":Vector2i(0,1),"sv_voice":Vector2i(0,1)}
+const DEFAULTS={"sv_bot_fill":0,"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
+const RANGES={"sv_bot_fill":Vector2i(0,MAX_CLIENTS),"rcon_port":Vector2i(1024,65535),"sv_lobby":Vector2i(0,1),"sv_lobby_seconds":Vector2i(15,180),"sv_map_uploads":Vector2i(0,1),"sv_log_max_mb":Vector2i(1,512),"sv_log_backups":Vector2i(1,9),"sv_friendlyfire":Vector2i(0,1),"capturelimit":Vector2i(1,100),"hilllimit":Vector2i(1,3600),"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_votes":Vector2i(0,1),"sv_tf_spy_invisibility":Vector2i(0,1),"sv_announcer":Vector2i(0,1),"sv_voice":Vector2i(0,1)}
 
 static func parse(source: String) -> Dictionary:
 	var values:=DEFAULTS.duplicate()
@@ -21,8 +21,8 @@ static func parse(source: String) -> Dictionary:
 		elif words[0]=="map" and words.size()==2:
 			key="map"; value=words[1]
 		else: return {"error":"Line %d: expected set/seta/sets <name> <value>, or map <id>."%line_number}
-		# Retired option: keep old server.cfg files loadable, with a fixed hill.
-		if key=="koth_move_points":continue
+		# Retired options: load older configs without restoring configurable rules.
+		if key in ["koth_move_points","sv_tb_heavy_ordnance"]:continue
 		if not DEFAULTS.has(key): return {"error":"Line %d: unsupported setting %s."%[line_number,key]}
 		if RANGES.has(key):
 			if not value.is_valid_int(): return {"error":"Line %d: %s requires an integer."%[line_number,key]}
@@ -32,6 +32,7 @@ static func parse(source: String) -> Dictionary:
 		else:
 			if (value.is_empty() and not key.ends_with("_maplist") and not key in ["sv_maplist","sv_mumble_url","sv_gametypes","sv_log_file","rcon_password"]) or value.length()>(2048 if key.ends_with("_maplist") else 512 if key in ["sv_mumble_url","sv_log_file"] else 80): return {"error":"Line %d: empty or excessive value."%line_number}
 			values[key]=value
+	if values.sv_bot_fill>values.sv_maxclients:return {"error":"sv_bot_fill cannot exceed sv_maxclients."}
 	if not values.sv_weapon_rules in ["doom","quake","ut99"]:return {"error":"sv_weapon_rules must be doom, quake or ut99."}
 	values.sv_gametype=str(values.sv_gametype).to_lower()
 	if values.sv_gametype=="tb":values.timelimit=10

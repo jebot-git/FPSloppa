@@ -100,3 +100,111 @@ The coverage-r6 study records seed 7129 natively and runs seeds 7130/7131 headle
 Weapon placement, class composition and bot tactics are part of the experiment;
 results do not establish human-team balance. Match additional seeds and alternate
 class rosters before changing the map, timer or damage around these results.
+
+## Heavy-ordnance cockpit rule and historical comparison
+
+`--pilot-damage heavy` is the current default heavy-weapon restriction;
+`--pilot-damage contact` selects the historical unrestricted-contact experiment. Use separate `--name`
+values to keep matched runs. Example:
+
+```sh
+python3 tools/titanball/simulation/run.py --headless --speed 4 --seed 7129 --name heavy-baseline --pilot-damage contact
+python3 tools/titanball/simulation/run.py --headless --speed 4 --seed 7129 --name heavy-filter --pilot-damage heavy
+```
+
+Only rockets, grenades/pipe explosions, Heavy primary fire, engineer sentries
+and Titan cannons damage the seated pilot, and they still require hull contact.
+The current Heavy primary shares the Super Nailgun implementation with the Medic;
+a trusted firing-time marker distinguishes the Heavy's shots without changing
+weapon stats or granting penetration to the Medic. That marker remains attached
+to in-flight projectiles when the owner changes class. Shotguns, sniper/rail,
+regular nailguns, Medic super nails, flames and melee cannot penetrate.
+Administrative suicide/death still ejects the pilot normally. The filter has no
+effect on on-foot players or other modes. It is always enabled in normal TB;
+the alternate policy is available only through this test runner.
+
+The allowlist also reserves the approved names PIPEBOMB, DETPACK and ASSAULT
+CANNON. Current TF thrown grenades and pipe charges use the common explosive
+path labelled ROCKET LAUNCHER; there is no separate playable detpack weapon in
+the present class implementation. Tests distinguish name-policy checks from
+actual projectile/charge integration checks.
+
+`blocked_hull_hits` records rejected contacts without awarding damage or hit
+confirmation. Bot targeting, weapon choice, armour, healing, turret heat/damage
+and objective timings are held constant. Thus these experiments measure the
+filter against existing AI, not bots retrained to avoid shooting the hull with
+ineffective weapons. The six-class roster does not contain a Sniper or Pyro;
+their damage exclusion is covered by focused tests instead.
+
+Run `tools/ba2/gameplay/heavy_ordnance_tests.gd` with Godot for the focused
+integration checks. `compare_pilot_policy.py <matched JSON files> --output <path>`
+validates and summarizes completed pairs, including contact filtering, pilot
+mortality per manned minute, observed cockpit tenures, rejected hits and wins.
+
+### Cockpit health and regeneration trial
+
+Current TB pilots board with 200 HP and a 200 HP maximum, regardless of class.
+A living exit restores full class health and the saved weapon/armour. Death
+still ejects without reviving the pilot. The three-second exit lock remains.
+
+`--pilot-healing station` opts a test host into gradual cockpit healing at the
+TB dispenser's nominal rate: 10 HP/s (the station applies 20 × 0.5 HP once per
+second). Healing caps at the selected maximum (200 by default), restores no ammunition or armour, cannot bank
+credit at full health, and stops on exit/death. Medic's existing 3 HP/s remains
+additive. The default `--pilot-healing off` leaves regeneration disabled.
+
+For a comparison that separates the cap increase from gradual healing:
+
+```bash
+python3 tools/titanball/simulation/run.py --headless --speed 4 --seed 7129 --pilot-damage heavy --pilot-health class --pilot-healing off --name pilot-heal-previous
+python3 tools/titanball/simulation/run.py --headless --speed 4 --seed 7129 --pilot-damage heavy --pilot-health fixed200 --pilot-healing off --name pilot-heal-cap
+python3 tools/titanball/simulation/run.py --headless --speed 4 --seed 7129 --pilot-damage heavy --pilot-health fixed200 --pilot-healing station --name pilot-heal-station
+```
+
+Repeat with seeds 7130 and 7131. `--pilot-health class` loads a test-only
+historical controller with class-based cockpit health and the previous exit
+behavior. Normal game/server code never loads that controller. All arms share
+the same current map, navigation, bots, weapons, heavy-ordnance filter, armour,
+turrets and timers. The runner waits for navigation readiness before starting
+instead of assuming a fixed number of frames completes asynchronous setup.
+
+`compare_pilot_healing.py <nine JSON files> --output <report.json>` validates the
+rosters, boarding health, hull contacts, healing amounts and matched groups,
+then compares observed cockpit tenures, mortality, healed HP and route times.
+Focused checks: `tools/ba2/gameplay/pilot_healing_tests.gd`. Healing events are
+recorded in each match JSON's `pilot_healing` array. The cap/exit policy defaults
+to `fixed200`; regeneration remains an opt-in experiment.
+
+To test healing alone with the historical class caps and exit behavior:
+
+```bash
+python3 tools/titanball/simulation/run.py --headless --speed 4 --seed 7129 --pilot-damage heavy --pilot-health class --pilot-healing station --name pilot-heal-only
+```
+
+Repeat with seeds 7130 and 7131. Pass all twelve result JSON files to
+`compare_pilot_healing.py --include-healing-only --output <report.json>` to
+require all four treatments for each seed and validate healing against each
+pilot's class cap. This does not change the normal game's health policy.
+Run `tools/ba2/gameplay/pilot_healing_only_tests.gd` with Godot for focused
+class-cap healing, unchanged exit health, dispenser-rate and lifecycle checks.
+
+### Health comparison without the heavy-ordnance restriction
+
+Use the same four health/healing combinations above with `--pilot-damage contact`.
+For example:
+
+```bash
+python3 tools/titanball/simulation/run.py --headless --speed 4 --seed 7129 --pilot-damage contact --pilot-health fixed200 --pilot-healing station --name pilot-unrestricted-both
+```
+
+Run all four arms for seeds 7129, 7130 and 7131, using separate output names.
+Analyze the twelve files with
+`compare_pilot_healing.py --pilot-damage contact --include-healing-only --output <report.json>`.
+The analyzer requires ordinary-weapon pilot damage and no heavy-policy blocked
+contacts in every unrestricted match, while still requiring hull contact for
+all pilot damage. It also records 100/200/290 m arrival times, final approach
+duration, per-class tenures and deaths during the three-second exit lock.
+Use `plot_pilot_healing.py <report.json> --output <plot.png>` for progress curves;
+the caption identifies the tested damage policy. Do not combine damage policies
+in one health comparison or reuse older class-health controls with different
+navigation code. This experiment does not alter server defaults.

@@ -11,18 +11,21 @@ p.add_argument('--speed',type=int,default=4,choices=[1,2,4])
 p.add_argument('--headless',action='store_true')
 p.add_argument('--record',action='store_true',help='Record the game viewport at 30 fps and encode an MP4 after the round')
 p.add_argument('--name',default='live')
+p.add_argument('--pilot-damage',choices=['contact','heavy'],default='heavy',help='Current heavy-ordnance rule or historical unrestricted-contact experiment')
+p.add_argument('--pilot-healing',choices=['off','station'],default='off',help='Opt-in gradual pilot healing at the TB resupply-station rate')
+p.add_argument("--pilot-health",choices=["class","fixed200"],default="fixed200",help="Historical class-health baseline or current 200-HP cockpit")
 a=p.parse_args()
 if a.record and a.headless:p.error('--record requires a visible renderer')
 out=root/'test-results/titanball/simulation';out.mkdir(parents=True,exist_ok=True)
 for profile in a.profiles:
  name=f'{a.name}-{profile}-{a.seed}'
- options={'profile':profile,'revision':a.name,'seconds':a.seconds,'seed':a.seed,'speed':a.speed,'record':a.record,'output':str(out/(name+'.json'))}
- cmd=['godot','--path',str(root),'--xr-mode','off','--audio-driver','Dummy','--script','res://tools/titanball/simulation/match.gd']
+ options={'profile':profile,'revision':a.name,'pilot_damage':a.pilot_damage,'pilot_healing':a.pilot_healing,'pilot_health':a.pilot_health,'seconds':a.seconds,'seed':a.seed,'speed':a.speed,'record':a.record,'output':str(out/(name+'.json'))}
+ cmd=['godot','--path',str(root),'--log-file',str(out/(name+'-engine.log')),'--xr-mode','off','--audio-driver','Dummy','--script','res://tools/titanball/simulation/match.gd']
  cmd+=['--headless','--fixed-fps','60'] if a.headless else ['--rendering-method','mobile','--rendering-driver','vulkan','--max-fps','60']
  if a.record:cmd+=['--write-movie',str(out/(name+'.avi')),'--fixed-fps','30','--disable-vsync']
  print('START',name,flush=True)
  with (out/(name+'.log')).open('w') as log:
-  with subprocess.Popen(cmd+['--',json.dumps(options)],cwd=root,env=dict(os.environ,XDG_DATA_HOME='/tmp/fpsloppa-ba2-data'),stdout=log,stderr=subprocess.STDOUT) as child:
+  with subprocess.Popen(cmd+['--',json.dumps(options)],cwd=root,env=dict(os.environ,XDG_DATA_HOME=str(out/'user-data')),stdout=log,stderr=subprocess.STDOUT) as child:
    deadline=time.monotonic()+1800
    while child.poll() is None:
     time.sleep(1)

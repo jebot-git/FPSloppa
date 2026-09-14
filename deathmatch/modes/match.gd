@@ -33,6 +33,8 @@ var visual_key:=""
 func setup(arena: Node) -> void: game=arena;titanball.setup(self);special.setup(self);assault.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self)
 func configure(settings: Dictionary) -> void:
 	kind=settings.get("sv_gametype","dm")
+	fortress.walkers.heavy_ordnance_only=true
+	fortress.walkers.pilot_regeneration=false
 	fortress.spy_invisibility=settings.get("sv_tf_spy_invisibility",0)==1
 	friendly_fire=settings.get("sv_friendlyfire",0)==1
 	capture_limit=settings.get("capturelimit",5)

@@ -1,0 +1,149 @@
+{
+  "version": "0.13v",
+  "passed": true,
+  "fixed_tb_rules": {
+    "max_hp": 200,
+    "heavy_ordnance": true,
+    "cockpit_regeneration": false,
+    "server_option_removed": true,
+    "legacy_setting_ignored": true
+  },
+  "focused_checks": [
+    {
+      "name": "heavy",
+      "returncode": 0,
+      "checks": 47,
+      "passed": true
+    },
+    {
+      "name": "pilot",
+      "returncode": 0,
+      "checks": 40,
+      "passed": true
+    },
+    {
+      "name": "health",
+      "returncode": 0,
+      "checks": 56,
+      "passed": true
+    },
+    {
+      "name": "server",
+      "returncode": 0,
+      "checks": 25,
+      "passed": true
+    },
+    {
+      "name": "ladder",
+      "returncode": 0,
+      "checks": 28,
+      "passed": true
+    }
+  ],
+  "network_checks": {
+    "checks": [
+      "Startup config populates four bots; TB protection needs no setting",
+      "Real human replaces one bot at capacity",
+      "Remote client observes moving dedicated bots",
+      "Three concurrent joins replace remaining bots without overflow",
+      "Human-only full server explicitly rejects fifth client",
+      "Bot refills after human departure",
+      "Map rotation accepted",
+      "Rotation restores connected humans and bot fill",
+      "Heavy policy persists through rotation",
+      "Population returns to four bots after all humans leave",
+      "Dedicated TF-class TB switch accepted",
+      "TB bots receive balanced teams and varied TF classes",
+      "TB bot teams split evenly",
+      "Live server and clients produce no engine/script errors"
+    ],
+    "passed": true
+  },
+  "console_maps": 34,
+  "console_passed": true,
+  "fresh_linux_smoke": [
+    {
+      "mode": "dm",
+      "map": "qsrc_dm7",
+      "exit_code": 0,
+      "host_ready": true,
+      "errors": []
+    },
+    {
+      "mode": "as",
+      "map": "as_hislop",
+      "exit_code": 0,
+      "host_ready": true,
+      "errors": []
+    },
+    {
+      "mode": "tb",
+      "map": "tb_ashfall",
+      "exit_code": 0,
+      "host_ready": true,
+      "errors": []
+    }
+  ],
+  "bundle_audit_before_final_source_refresh": [
+    {
+      "archive": "FPSloppa-Linux.zip",
+      "bytes": 560514974,
+      "files": 314,
+      "verified_assets": 234,
+      "maps": 26,
+      "passed": true
+    },
+    {
+      "archive": "FPSloppa-Windows.zip",
+      "bytes": 572175078,
+      "files": 316,
+      "verified_assets": 234,
+      "maps": 26,
+      "passed": true
+    },
+    {
+      "archive": "FPSloppa-Dedicated-Server-Linux.zip",
+      "bytes": 99275947,
+      "files": 136,
+      "verified_assets": 122,
+      "maps": 26,
+      "passed": true
+    },
+    {
+      "archive": "FPSloppa-Deathmatch.zip",
+      "bytes": 949426972,
+      "files": 3229,
+      "verified_assets": 234,
+      "maps": 26,
+      "passed": true
+    }
+  ],
+  "android": [
+    {
+      "target": "Quest",
+      "sha256": "34cef3ac2c86d4aa34dfb58926c44f3cb4346e67bc0e58ad2d6556bf701886d3",
+      "bytes": 609528054,
+      "embedded_assets": 234,
+      "vulkan_required": true
+    },
+    {
+      "target": "Pico",
+      "sha256": "d8238f7cf661c3d1b82923d2e70a39489d0aec5ef36d240795002c860c9f8e90",
+      "bytes": 609527778,
+      "embedded_assets": 234,
+      "vulkan_required": true
+    }
+  ],
+  "source_sha256": {
+    "deathmatch/vehicles/ba2/controller.gd": "b776c4b87051633d4accac3baa6c19a719e7a4ecff15120de2a880806a4308d8",
+    "deathmatch/modes/fortress.gd": "01dd254606818f1282c56573914a01cba9a11dfee280fe27f808cfad59295225",
+    "deathmatch/modes/match.gd": "72d7a0d13acf626259373ceb7f2aa07f0fe7a03d632b6b2d17d3691f32e06ded",
+    "deathmatch/server/config.gd": "fe925995726b55a48763ece492dbd953de6599641a0899a894b51ecac85153cb",
+    "deathmatch/server/bot_population.gd": "a102965eb33551bafa36e91dc8ea8ca940966115fb9dfa91d14f1cab2d728cde",
+    "deathmatch/bot_ai/navigation.gd": "66f463699548bae7b89caeea1b894b0ae17d3fb8a4366cb86007c0c2d3d123b6",
+    "deathmatch/arena.gd": "31b2fbc0c6d1d6094d679aa55639f9c6a21e5e84d4164b8728c4c12b04135edc",
+    "project.godot": "749cfd39058d34e6a3f8bf40dc4bc837695e3a0a149b7cba5264cf4d3b906bfa",
+    "server.cfg": "f32faa9ac00361bf97e6dc32dbe4d35eb2281a538b24e9423bd6189732f759fb"
+  },
+  "hardware_limits": "Fresh Linux graphical desktop tests only; no new wearer, native Windows, Quest or Pico hardware test."
+}

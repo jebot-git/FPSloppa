@@ -1,0 +1,392 @@
+{
+  "date": "2026-09-14",
+  "passed": true,
+  "unit_checks": {
+    "lifecycle": {
+      "passed": true,
+      "checks": 21
+    },
+    "movement": {
+      "passed": true,
+      "checks": 34
+    },
+    "navigation": {
+      "passed": true,
+      "checks": 4
+    },
+    "heavy_ordnance": {
+      "passed": true,
+      "checks": 46
+    }
+  },
+  "network": {
+    "checks": [
+      "Startup config populates four bots and enables TB policy",
+      "Real human replaces one bot at capacity",
+      "Remote client observes moving dedicated bots",
+      "Three concurrent joins replace remaining bots without overflow",
+      "Human-only full server explicitly rejects fifth client",
+      "Bot refills after human departure",
+      "Map rotation accepted",
+      "Rotation restores connected humans and bot fill",
+      "Heavy policy persists through rotation",
+      "Population returns to four bots after all humans leave",
+      "Dedicated TF-class TB switch accepted",
+      "TB bots receive balanced teams and varied TF classes",
+      "TB bot teams split evenly",
+      "Live server and clients produce no engine/script errors"
+    ],
+    "passed": true
+  },
+  "transport": {
+    "checks": [
+      {
+        "name": "tf_vesper has all elevator route links",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper planner routes lift to (-7.1, 8.1625, -59.0)",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper bot completes lift and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper planner routes lift to (14.0, 8.1625, -46.4)",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper bot completes lift and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper planner routes lift to (7.1, 8.1625, 59.0)",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper bot completes lift and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper planner routes lift to (-14.0, 8.1625, 46.4)",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper bot completes lift and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper planner routes lift to (-7.1, 8.1625, -59.0)",
+        "pass": true
+      },
+      {
+        "name": "tf_vesper bot waits for and completes lift and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 has all elevator route links",
+        "pass": true
+      },
+      {
+        "name": "DM7 vertical and directional push routes are recognized",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 planner routes push_chain to (21.0, 4.200001, -23.52757)",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 bot completes push_chain and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 planner routes push_chain to (21.0, 4.200001, -23.51951)",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 bot completes push_chain and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 planner routes push_chain to (21.0, 4.200001, -20.6)",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 bot completes push_chain and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 planner routes push_chain to (21.0, 20.2, -12.52197)",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 bot completes push_chain and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 planner routes push_chain to (21.0, 20.2, -12.27391)",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 bot completes push_chain and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 planner routes lift to (33.1, 10.2, -20.0)",
+        "pass": true
+      },
+      {
+        "name": "qsrc_dm7 bot completes lift and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "Hyperborea has all three directional jump-pad routes",
+        "pass": true
+      },
+      {
+        "name": "koth_hyperborea planner routes push_chain to (-3.0, 4.700003, 29.97)",
+        "pass": true
+      },
+      {
+        "name": "koth_hyperborea bot completes push_chain and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "koth_hyperborea planner routes push_chain to (-58.0, 0.200001, -27.0)",
+        "pass": true
+      },
+      {
+        "name": "koth_hyperborea bot completes push_chain and lands at destination",
+        "pass": true
+      },
+      {
+        "name": "koth_hyperborea planner routes push_chain to (-67.5, 3.700001, -36.61702)",
+        "pass": true
+      },
+      {
+        "name": "koth_hyperborea bot completes push_chain and lands at destination",
+        "pass": true
+      }
+    ],
+    "passed": true,
+    "traversals": [
+      {
+        "end": "(-7.1, 8.1625, -59.0)",
+        "final": "(-7.484375, 7.995828, -58.99999)",
+        "kind": "lift",
+        "launched": false,
+        "lift_state": "{ \"start\": (-11.0, 0.262501, -59.0), \"end\": (-7.1, 8.1625, -59.0), \"entry\": (-11.0, 0.0625, -59.0), \"deck_end\": (-11.0, 8.0625, -59.0), \"approach_radius\": 5.74264049530029, \"kind\": \"lift\", \"lift\": { \"node\": Entity10:<AnimatableBody3D#90798294919>, \"base\": 0.0, \"travel\": 8.0 }, \"cost\": 26.0 }",
+        "map": "tf_vesper",
+        "path": "[(-11.0, 0.262501, -59.0), (-7.1, 8.1625, -59.0)]",
+        "peak": 8.05838775634766,
+        "reached": true,
+        "start": "(-11.0, 0.322501, -59.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(14.0, 8.1625, -46.4)",
+        "final": "(14.0, 8.035078, -46.11609)",
+        "kind": "lift",
+        "launched": false,
+        "lift_state": "{  }",
+        "map": "tf_vesper",
+        "path": "[(14.0, 0.262501, -43.0), (14.0, 8.1625, -46.4)]",
+        "peak": 8.05834007263184,
+        "reached": true,
+        "start": "(14.0, 0.322501, -43.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(7.1, 8.1625, 59.0)",
+        "final": "(7.484388, 7.995836, 59.0)",
+        "kind": "lift",
+        "launched": false,
+        "lift_state": "{ \"start\": (11.0, 0.262501, 59.0), \"end\": (7.1, 8.1625, 59.0), \"entry\": (11.0, 0.0625, 59.0), \"deck_end\": (11.0, 8.0625, 59.0), \"approach_radius\": 5.74264049530029, \"kind\": \"lift\", \"lift\": { \"node\": Entity4:<AnimatableBody3D#90496304922>, \"base\": 0.0, \"travel\": 8.0 }, \"cost\": 26.0 }",
+        "map": "tf_vesper",
+        "path": "[(11.0, 0.262501, 59.0), (7.1, 8.1625, 59.0)]",
+        "peak": 8.05834102630615,
+        "reached": true,
+        "start": "(11.0, 0.322501, 59.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(-14.0, 8.1625, 46.4)",
+        "final": "(-14.0, 8.035056, 46.11609)",
+        "kind": "lift",
+        "launched": false,
+        "lift_state": "{  }",
+        "map": "tf_vesper",
+        "path": "[(-14.0, 0.262501, 43.0), (-14.0, 8.1625, 46.4)]",
+        "peak": 8.05834102630615,
+        "reached": true,
+        "start": "(-14.0, 0.322501, 43.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(-7.1, 8.1625, -59.0)",
+        "final": "(-7.406137, 7.995821, -59.0)",
+        "kind": "lift",
+        "launched": false,
+        "lift_state": "{  }",
+        "map": "tf_vesper",
+        "path": "[(-7.1, 0.1625, -58.99999), (-7.199999, 0.1625, -58.99999), (-7.600002, 0.1625, -58.99999), (-8.016003, 0.214501, -58.99999), (-8.49231, 0.262501, -58.99999), (-11.0, 0.262501, -59.0), (-7.1, 8.1625, -59.0)]",
+        "peak": 8.05834102630615,
+        "reached": true,
+        "start": "(-7.1, 0.322501, -59.0)",
+        "step": 3,
+        "wait_for_lift": true
+      },
+      {
+        "end": "(21.0, 4.200001, -23.52757)",
+        "final": "(20.99998, 3.995823, -23.17611)",
+        "kind": "push_chain",
+        "launched": true,
+        "lift_state": "{  }",
+        "map": "qsrc_dm7",
+        "path": "[(21.0, -3.4, -43.0), (21.0, 4.200001, -23.52757)]",
+        "peak": 6.8442964553833,
+        "reached": true,
+        "start": "(21.0, -3.34, -43.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(21.0, 4.200001, -23.51951)",
+        "final": "(20.99998, 3.995816, -23.17074)",
+        "kind": "push_chain",
+        "launched": true,
+        "lift_state": "{  }",
+        "map": "qsrc_dm7",
+        "path": "[(21.0, -3.4, -44.0), (21.0, 4.200001, -23.51951)]",
+        "peak": 6.84505558013916,
+        "reached": true,
+        "start": "(21.0, -3.34, -44.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(21.0, 4.200001, -20.6)",
+        "final": "(20.99999, 3.995839, -20.9771)",
+        "kind": "push_chain",
+        "launched": false,
+        "lift_state": "{  }",
+        "map": "qsrc_dm7",
+        "path": "[(21.0, 5.600191, -42.19543), (21.0, 5.600087, -42.19792), (21.0, 4.200001, -20.6)]",
+        "peak": 5.66008710861206,
+        "reached": true,
+        "start": "(21.0, 5.660087, -42.19792)",
+        "step": 2,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(21.0, 20.2, -12.52197)",
+        "final": "(21.0, 19.99584, -12.89137)",
+        "kind": "push_chain",
+        "launched": true,
+        "lift_state": "{  }",
+        "map": "qsrc_dm7",
+        "path": "[(21.0, -13.8, 4.000002), (21.0, 20.2, -12.52197)]",
+        "peak": 22.3437900543213,
+        "reached": true,
+        "start": "(21.0, -13.74, 4.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(21.0, 20.2, -12.27391)",
+        "final": "(21.0, 19.99584, -12.58705)",
+        "kind": "push_chain",
+        "launched": true,
+        "lift_state": "{  }",
+        "map": "qsrc_dm7",
+        "path": "[(21.0, -13.8, 1.750002), (21.0, 20.2, -12.27391)]",
+        "peak": 22.3423004150391,
+        "reached": true,
+        "start": "(21.0, -13.74, 1.75)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(33.1, 10.2, -20.0)",
+        "final": "(33.43067, 9.995825, -19.99999)",
+        "kind": "lift",
+        "launched": false,
+        "lift_state": "{ \"start\": (36.0, 3.700001, -20.0), \"end\": (33.1, 10.2, -20.0), \"entry\": (36.0, 4.00001, -20.0), \"deck_end\": (36.0, 10.00001, -20.0), \"approach_radius\": 4.32843041419983, \"kind\": \"lift\", \"lift\": { \"node\": Entity18:<AnimatableBody3D#207970371388>, \"base\": -6.0, \"travel\": 6.0 }, \"cost\": 24.0 }",
+        "map": "qsrc_dm7",
+        "path": "[(36.0, 3.700001, -20.0), (33.10001, 10.2, -20.0)]",
+        "peak": 9.99589824676514,
+        "reached": true,
+        "start": "(36.0, 3.760001, -20.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(-3.0, 4.700003, 29.97)",
+        "final": "(-3.0, 4.495834, 29.77719)",
+        "kind": "push_chain",
+        "launched": true,
+        "lift_state": "{  }",
+        "map": "koth_hyperborea",
+        "path": "[(-3.0, -4.5, 20.25), (-3.0, 4.700003, 29.97)]",
+        "peak": 9.2773904800415,
+        "reached": true,
+        "start": "(-3.0, -4.44, 20.25)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(-58.0, 0.200001, -27.0)",
+        "final": "(-57.6362, -0.005884, -26.99999)",
+        "kind": "push_chain",
+        "launched": true,
+        "lift_state": "{  }",
+        "map": "koth_hyperborea",
+        "path": "[(-47.25, -4.5, -27.0), (-58.0, 0.200001, -27.0)]",
+        "peak": 4.03875112533569,
+        "reached": true,
+        "start": "(-47.25, -4.44, -27.0)",
+        "step": 1,
+        "wait_for_lift": false
+      },
+      {
+        "end": "(-67.5, 3.700001, -36.61702)",
+        "final": "(-67.49881, 3.495848, -36.29266)",
+        "kind": "push_chain",
+        "launched": true,
+        "lift_state": "{  }",
+        "map": "koth_hyperborea",
+        "path": "[(-67.49564, -1.435801, -21.7437), (-67.49835, -1.436183, -21.74762), (-67.5, 3.700001, -36.61702)]",
+        "peak": 7.10256910324097,
+        "reached": true,
+        "start": "(-67.49835, -1.376183, -21.74762)",
+        "step": 2,
+        "wait_for_lift": false
+      }
+    ]
+  },
+  "console": {
+    "passed": true,
+    "maps": 34,
+    "exit_code": 0
+  },
+  "sources": {
+    "deathmatch/arena.gd": "31b2fbc0c6d1d6094d679aa55639f9c6a21e5e84d4164b8728c4c12b04135edc",
+    "deathmatch/bots.gd": "e52ff2f92ad7830d342a19319a55c51b37c8b45c1e4727e359142f5cb90b8e19",
+    "deathmatch/bot_ai/navigation.gd": "2a33db2c1553f058c20d7ce9c60757aaad6f77007873f1ba8044d5cdbb8c4544",
+    "deathmatch/server/bot_population.gd": "a102965eb33551bafa36e91dc8ea8ca940966115fb9dfa91d14f1cab2d728cde",
+    "deathmatch/server/config.gd": "3f6641ee9474dc37883fff96bd77a4ecd805b8e51b9441c48cedc945ac9c3d93",
+    "deathmatch/server/rcon.gd": "9d00c466df530858ccaac2bfddff6d256bae74dec6991ddc96ca0bf1978dce9d",
+    "deathmatch/modes/match.gd": "ee8b73880644c41d8770e920a90f4b469168d8ec58369f33ed0d1986c2adbe13"
+  },
+  "limits": [
+    "Local loopback ENet clients, not an Internet latency or VR headset test.",
+    "Mechanic traversals use fixed goals with ordinary bot steering, BSP triggers and player physics; this is not a full-match balance study.",
+    "Elevator links cover upward travel; normal walk/drop routes remain available for returning downstairs.",
+    "Existing Vesper navmesh edge-merge and Godot exit-time ObjectDB warnings remain; no script/engine errors in final suites."
+  ]
+}

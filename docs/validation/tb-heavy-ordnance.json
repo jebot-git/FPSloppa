@@ -1,0 +1,769 @@
+{
+  "matches": [
+    {
+      "file": "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7129.json",
+      "policy": "contact",
+      "seed": 7129.0,
+      "map_sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+      "winner": "Defenders",
+      "distance_m": 299.195464340361,
+      "seconds_to_290m": 794.016666666219,
+      "active_seconds": 960.01666666607,
+      "pilot_seconds": 382.249999999981,
+      "pilot_duty_percent": 39.817017065698714,
+      "tenures": 104,
+      "mean_tenure_seconds": 3.675641025639103,
+      "median_tenure_seconds": 2.6833333333310065,
+      "pilot_deaths": 104,
+      "pilot_deaths_per_manned_minute": 16.324395029431813,
+      "pilot_hp_damage_per_manned_second": 36.37933289732032,
+      "pilot_hp_damage": 13906,
+      "pilot_damage_by_weapon": {
+        "SHOTGUN": 5464,
+        "SUPER NAILGUN": 3366,
+        "NAILGUN": 2199,
+        "ROCKET LAUNCHER": 2409,
+        "GRENADE LAUNCHER": 420,
+        "SENTRY": 48
+      },
+      "blocked_hits": {},
+      "blocked_hit_count": 0,
+      "cannon_kills": 44,
+      "attacker_deaths": 203,
+      "defender_deaths": 148
+    },
+    {
+      "file": "test-results/titanball/simulation/heavy-ordnance-filter-tf-7129.json",
+      "policy": "heavy",
+      "seed": 7129.0,
+      "map_sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+      "winner": "Attackers",
+      "distance_m": 300.000396728516,
+      "seconds_to_290m": 645.016666666354,
+      "active_seconds": 733.599999999607,
+      "pilot_seconds": 381.299999999982,
+      "pilot_duty_percent": 51.97655398039616,
+      "tenures": 37,
+      "mean_tenure_seconds": 10.305855855853624,
+      "median_tenure_seconds": 3.7666666666642996,
+      "pilot_deaths": 37,
+      "pilot_deaths_per_manned_minute": 5.822187254130881,
+      "pilot_hp_damage_per_manned_second": 13.530028848676222,
+      "pilot_hp_damage": 5159,
+      "pilot_damage_by_weapon": {
+        "SUPER NAILGUN": 2331,
+        "ROCKET LAUNCHER": 2462,
+        "SENTRY": 186,
+        "GRENADE LAUNCHER": 180
+      },
+      "blocked_hits": {
+        "SHOTGUN": 3297,
+        "SUPER NAILGUN": 206,
+        "NAILGUN": 543
+      },
+      "blocked_hit_count": 4046,
+      "cannon_kills": 37,
+      "attacker_deaths": 122,
+      "defender_deaths": 107
+    },
+    {
+      "file": "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7130.json",
+      "policy": "contact",
+      "seed": 7130.0,
+      "map_sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+      "winner": "Defenders",
+      "distance_m": 299.974074883433,
+      "seconds_to_290m": 729.016666666278,
+      "active_seconds": 960.01666666607,
+      "pilot_seconds": 382.183333333314,
+      "pilot_duty_percent": 39.810072741815404,
+      "tenures": 97,
+      "mean_tenure_seconds": 3.940206185565256,
+      "median_tenure_seconds": 2.7666666666640367,
+      "pilot_deaths": 97,
+      "pilot_deaths_per_manned_minute": 15.228293576382088,
+      "pilot_hp_damage_per_manned_second": 35.802189176226136,
+      "pilot_hp_damage": 13683,
+      "pilot_damage_by_weapon": {
+        "SHOTGUN": 5454,
+        "SUPER NAILGUN": 3138,
+        "NAILGUN": 1948,
+        "ROCKET LAUNCHER": 2771,
+        "SENTRY": 132,
+        "GRENADE LAUNCHER": 240
+      },
+      "blocked_hits": {},
+      "blocked_hit_count": 0,
+      "cannon_kills": 42,
+      "attacker_deaths": 206,
+      "defender_deaths": 146
+    },
+    {
+      "file": "test-results/titanball/simulation/heavy-ordnance-filter-tf-7130.json",
+      "policy": "heavy",
+      "seed": 7130.0,
+      "map_sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+      "winner": "Attackers",
+      "distance_m": 300.000396728516,
+      "seconds_to_290m": 567.016666666425,
+      "active_seconds": 625.283333333039,
+      "pilot_seconds": 382.833333333314,
+      "pilot_duty_percent": 61.2255777381178,
+      "tenures": 36,
+      "mean_tenure_seconds": 10.634722222219944,
+      "median_tenure_seconds": 3.9833333333299947,
+      "pilot_deaths": 36,
+      "pilot_deaths_per_manned_minute": 5.642141924249305,
+      "pilot_hp_damage_per_manned_second": 13.878101872007667,
+      "pilot_hp_damage": 5313,
+      "pilot_damage_by_weapon": {
+        "SUPER NAILGUN": 2340,
+        "ROCKET LAUNCHER": 2709,
+        "SENTRY": 204,
+        "GRENADE LAUNCHER": 60
+      },
+      "blocked_hits": {
+        "SHOTGUN": 3490,
+        "SUPER NAILGUN": 178,
+        "NAILGUN": 536
+      },
+      "blocked_hit_count": 4204,
+      "cannon_kills": 40,
+      "attacker_deaths": 95,
+      "defender_deaths": 102
+    },
+    {
+      "file": "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7131.json",
+      "policy": "contact",
+      "seed": 7131.0,
+      "map_sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+      "winner": "Defenders",
+      "distance_m": 299.969576138886,
+      "seconds_to_290m": 830.016666666186,
+      "active_seconds": 960.01666666607,
+      "pilot_seconds": 384.816666666645,
+      "pilot_duty_percent": 40.08437353520434,
+      "tenures": 107,
+      "mean_tenure_seconds": 3.596573208720983,
+      "median_tenure_seconds": 2.4999999999980105,
+      "pilot_deaths": 107,
+      "pilot_deaths_per_manned_minute": 16.683269089177603,
+      "pilot_hp_damage_per_manned_second": 36.24063406817303,
+      "pilot_hp_damage": 13946,
+      "pilot_damage_by_weapon": {
+        "SHOTGUN": 5030,
+        "SUPER NAILGUN": 3456,
+        "NAILGUN": 1679,
+        "ROCKET LAUNCHER": 3332,
+        "GRENADE LAUNCHER": 279,
+        "SENTRY": 170
+      },
+      "blocked_hits": {},
+      "blocked_hit_count": 0,
+      "cannon_kills": 48,
+      "attacker_deaths": 192,
+      "defender_deaths": 146
+    },
+    {
+      "file": "test-results/titanball/simulation/heavy-ordnance-filter-tf-7131.json",
+      "policy": "heavy",
+      "seed": 7131.0,
+      "map_sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+      "winner": "Attackers",
+      "distance_m": 300.000396728516,
+      "seconds_to_290m": 632.016666666366,
+      "active_seconds": 679.266666666323,
+      "pilot_seconds": 383.133333333314,
+      "pilot_duty_percent": 56.403965060384905,
+      "tenures": 47,
+      "mean_tenure_seconds": 8.151773049643435,
+      "median_tenure_seconds": 4.26666666666641,
+      "pilot_deaths": 46,
+      "pilot_deaths_per_manned_minute": 7.2037584826869825,
+      "pilot_hp_damage_per_manned_second": 17.21332869323212,
+      "pilot_hp_damage": 6595,
+      "pilot_damage_by_weapon": {
+        "SUPER NAILGUN": 2034,
+        "ROCKET LAUNCHER": 4081,
+        "GRENADE LAUNCHER": 240,
+        "SENTRY": 240
+      },
+      "blocked_hits": {
+        "SHOTGUN": 3649,
+        "SUPER NAILGUN": 261,
+        "NAILGUN": 596
+      },
+      "blocked_hit_count": 4506,
+      "cannon_kills": 42,
+      "attacker_deaths": 119,
+      "defender_deaths": 109
+    }
+  ],
+  "pairs": [
+    {
+      "seed": 7129.0,
+      "baseline_winner": "Defenders",
+      "heavy_winner": "Attackers",
+      "active_seconds_delta": -226.41666666646302,
+      "mean_tenure_delta": 6.630214830214521,
+      "pilot_duty_delta_points": 12.159536914697448
+    },
+    {
+      "seed": 7130.0,
+      "baseline_winner": "Defenders",
+      "heavy_winner": "Attackers",
+      "active_seconds_delta": -334.73333333303106,
+      "mean_tenure_delta": 6.694516036654688,
+      "pilot_duty_delta_points": 21.415504996302396
+    },
+    {
+      "seed": 7131.0,
+      "baseline_winner": "Defenders",
+      "heavy_winner": "Attackers",
+      "active_seconds_delta": -280.74999999974705,
+      "mean_tenure_delta": 4.555199840922452,
+      "pilot_duty_delta_points": 16.319591525180563
+    }
+  ],
+  "groups": {
+    "contact": {
+      "matches": 3,
+      "attacker_wins": 0,
+      "mean_active_seconds": 960.01666666607,
+      "mean_seconds_to_290m": 784.349999999561,
+      "pooled_mean_tenure_seconds": 3.731493506491694,
+      "pooled_median_tenure_seconds": 2.624999999999986,
+      "pilot_deaths": 308,
+      "pilot_deaths_per_manned_minute": 16.080052207962552,
+      "pilot_hp_damage_per_manned_second": 36.140961496630126,
+      "pilot_duty_percent": 39.903821114239484,
+      "blocked_hit_count": 0,
+      "mean_cannon_kills": 44.666666666666664,
+      "censored_tenures": 0
+    },
+    "heavy": {
+      "matches": 3,
+      "attacker_wins": 3,
+      "mean_active_seconds": 679.3833333329897,
+      "mean_seconds_to_290m": 614.6833333330483,
+      "pooled_mean_tenure_seconds": 9.560833333331196,
+      "pooled_median_tenure_seconds": 3.9833333333299947,
+      "pilot_deaths": 119,
+      "pilot_deaths_per_manned_minute": 6.223487709919535,
+      "pilot_hp_damage_per_manned_second": 14.87622755534968,
+      "pilot_duty_percent": 56.289609040904274,
+      "blocked_hit_count": 12756,
+      "mean_cannon_kills": 39.666666666666664,
+      "censored_tenures": 1
+    }
+  },
+  "limitations": [
+    "Small bot-only sample, not a human balance certification.",
+    "Strict delivery requires stopping at or beyond 299.98 m. Near-finish baseline losses are sensitive to this existing rule; compare 290 m arrival times as well.",
+    "Bots keep their existing targeting and weapon-selection policy, including ineffective small-arms attacks.",
+    "Observed cockpit tenures include round-end censoring; they are not estimates of uncensored life expectancy.",
+    "Matched seeds start comparable rosters but physics/navigation scheduling and changed combat outcomes can diverge."
+  ],
+  "checks": {
+    "checks": [
+      {
+        "name": "Normal exclusive boarding",
+        "pass": true
+      },
+      {
+        "name": "Default contact policy still permits shotguns",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks SHOTGUN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks SUPER SHOTGUN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks NAILGUN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks SUPER NAILGUN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks RAILGUN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks FLAMETHROWER without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks BURN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks NAPALM without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks AXE without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks FIST without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks KICK without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks LIGHTNING GUN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Heavy filter blocks UNKNOWN without consuming armour",
+        "pass": true
+      },
+      {
+        "name": "Verified contact permits ROCKET LAUNCHER",
+        "pass": true
+      },
+      {
+        "name": "Verified contact permits GRENADE LAUNCHER",
+        "pass": true
+      },
+      {
+        "name": "Verified contact permits PIPEBOMB",
+        "pass": true
+      },
+      {
+        "name": "Verified contact permits DETPACK",
+        "pass": true
+      },
+      {
+        "name": "Verified contact permits ASSAULT CANNON",
+        "pass": true
+      },
+      {
+        "name": "Verified contact permits SENTRY",
+        "pass": true
+      },
+      {
+        "name": "Verified contact permits TITAN CANNON",
+        "pass": true
+      },
+      {
+        "name": "Eligible weapon still requires hull contact",
+        "pass": true
+      },
+      {
+        "name": "Trace identifies hull for slot 2",
+        "pass": true
+      },
+      {
+        "name": "Small-arm contact blocked through routing, slot 2",
+        "pass": true
+      },
+      {
+        "name": "Trace identifies hull for slot 3",
+        "pass": true
+      },
+      {
+        "name": "Small-arm contact blocked through routing, slot 3",
+        "pass": true
+      },
+      {
+        "name": "Small-arm contact blocked through routing, slot 5",
+        "pass": true
+      },
+      {
+        "name": "Small-arm contact blocked through routing, slot 7",
+        "pass": true
+      },
+      {
+        "name": "Trace identifies hull for slot 9",
+        "pass": true
+      },
+      {
+        "name": "Small-arm contact blocked through routing, slot 9",
+        "pass": true
+      },
+      {
+        "name": "Actual explosive projectile penetrates hull, slot 4",
+        "pass": true
+      },
+      {
+        "name": "Actual explosive projectile penetrates hull, slot 6",
+        "pass": true
+      },
+      {
+        "name": "Heavy primary is classified at firing time",
+        "pass": true
+      },
+      {
+        "name": "Heavy shot still penetrates after owner changes class",
+        "pass": true
+      },
+      {
+        "name": "Projectile extras cannot give Medic Heavy classification",
+        "pass": true
+      },
+      {
+        "name": "Medic shot stays blocked after owner changes to Heavy",
+        "pass": true
+      },
+      {
+        "name": "Explosion on hull penetrates, modern=false",
+        "pass": true
+      },
+      {
+        "name": "Explosion 25 cm off hull remains blocked, modern=false",
+        "pass": true
+      },
+      {
+        "name": "Explosion on hull penetrates, modern=true",
+        "pass": true
+      },
+      {
+        "name": "Explosion 25 cm off hull remains blocked, modern=true",
+        "pass": true
+      },
+      {
+        "name": "TF grenade detonation on hull penetrates",
+        "pass": true
+      },
+      {
+        "name": "TF pipe detonation on hull penetrates",
+        "pass": true
+      },
+      {
+        "name": "Experimental restriction is scoped to TB",
+        "pass": true
+      },
+      {
+        "name": "Administrative suicide still kills and ejects",
+        "pass": true
+      },
+      {
+        "name": "On-foot damage remains unchanged with experiment enabled",
+        "pass": true
+      }
+    ],
+    "passed": true
+  },
+  "baseline_contact_regressions": [
+    {
+      "name": "quake: normal boarding",
+      "pass": true
+    },
+    {
+      "name": "quake: actual direct rocket/hull impact survives the filter",
+      "pass": true
+    },
+    {
+      "name": "quake: non-explosive projectile hull impact damages pilot",
+      "pass": true
+    },
+    {
+      "name": "quake: legacy explosion on convex hull surface damages pilot",
+      "pass": true
+    },
+    {
+      "name": "quake: both splash paths reject an explosion 25 cm off the hull",
+      "pass": true
+    },
+    {
+      "name": "quake: the same nearby explosion still hurts ordinary players",
+      "pass": true
+    },
+    {
+      "name": "quake: both players can collect a shared basic weapon rack",
+      "pass": true
+    },
+    {
+      "name": "quake: owned weapon-stay rack does not refill ammunition repeatedly",
+      "pass": true
+    },
+    {
+      "name": "ut99: normal boarding",
+      "pass": true
+    },
+    {
+      "name": "ut99: actual direct rocket/hull impact survives the filter",
+      "pass": true
+    },
+    {
+      "name": "ut99: non-explosive projectile hull impact damages pilot",
+      "pass": true
+    },
+    {
+      "name": "ut99: legacy explosion on convex hull surface damages pilot",
+      "pass": true
+    },
+    {
+      "name": "ut99: both splash paths reject an explosion 25 cm off the hull",
+      "pass": true
+    },
+    {
+      "name": "ut99: the same nearby explosion still hurts ordinary players",
+      "pass": true
+    },
+    {
+      "name": "ut99: both players can collect a shared basic weapon rack",
+      "pass": true
+    },
+    {
+      "name": "ut99: owned weapon-stay rack does not refill ammunition repeatedly",
+      "pass": true
+    },
+    {
+      "name": "doom: normal boarding",
+      "pass": true
+    },
+    {
+      "name": "doom: actual direct rocket/hull impact survives the filter",
+      "pass": true
+    },
+    {
+      "name": "doom: non-explosive projectile hull impact damages pilot",
+      "pass": true
+    },
+    {
+      "name": "doom: legacy explosion on convex hull surface damages pilot",
+      "pass": true
+    },
+    {
+      "name": "doom: both splash paths reject an explosion 25 cm off the hull",
+      "pass": true
+    },
+    {
+      "name": "doom: the same nearby explosion still hurts ordinary players",
+      "pass": true
+    },
+    {
+      "name": "doom: both players can collect a shared basic weapon rack",
+      "pass": true
+    },
+    {
+      "name": "doom: owned weapon-stay rack does not refill ammunition repeatedly",
+      "pass": true
+    },
+    {
+      "name": "200 versus 400 tier-two armour gives identical health damage for hits up to 400",
+      "pass": true
+    }
+  ],
+  "final_source_sha256": {
+    "deathmatch/arena.gd": "1f98b4bf6e911c4025f478f2e87f228ddae4a671b9e0272d6ba3222b3d1d958f",
+    "deathmatch/experimental/combat.gd": "3a4cc40e6bb7754bac328a2fdd16bffb5891250e48a515839bca48b2748fa977",
+    "deathmatch/modes/fortress.gd": "09a6b67a54d2663a0fe19b4c461b1cf620f82cae19683c5906c7c9839f23eaf6",
+    "deathmatch/vehicles/ba2/controller.gd": "6d67756d7d0dcca2403c9e176a67b74754abcae49509d46eba8d6e866e9676a4",
+    "tools/titanball/simulation/match.gd": "e25bcc9b3677f453ab6919abe4773277dee03a6bcb3e5eabe65035701227c1bb",
+    "tools/titanball/simulation/recorder.gd": "feb2fa82dcfa019e8a46c80f42d4b493db2449cf3c2a385ca798fde10cc56b08"
+  },
+  "raw_sha256": {
+    "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7129.json": "7b7fbeeabf6821701f36ac05c522d40c53f3dccb6c322b070940bae53a5f39e5",
+    "test-results/titanball/simulation/heavy-ordnance-filter-tf-7129.json": "3ece0d84583fb183396c595bd7aefc4b54aade963fe30e83107b845226e21d93",
+    "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7130.json": "c2f7fda038e09e37f9195cd9747ea0e63d017fd29fbfc9f33ceef175c9f81b02",
+    "test-results/titanball/simulation/heavy-ordnance-filter-tf-7130.json": "fa1a80446a8ebdd1c47ce84c0c3643688fa602ca0f920438fef7c1f352a69037",
+    "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7131.json": "469930d0fd7970bf093d6c4e93ea00829d5803b72508eed57fcb459ce3881c79",
+    "test-results/titanball/simulation/heavy-ordnance-filter-tf-7131.json": "1b4c002ae8c0c2729eba838d0afe335602099a9d7826a3790cf14c739291f587"
+  },
+  "simulation_integrity": [
+    {
+      "seed": 7129,
+      "file": "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7129.json",
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "boarding_events_recorded": true,
+        "every_boarding_restores_class_maximum": true,
+        "every_boarding_starts_three_second_lock": true,
+        "no_occupied_endpoint_restart_deadlock": true,
+        "torso_stays_within_7_5_degrees": true,
+        "no_ladder_while_moving_or_manned": true,
+        "recorded_crush_deaths_are_gibbed": true,
+        "round_finished": true,
+        "six_shared_stations": true,
+        "twelve_authored_vantages": true,
+        "team_0_physically_occupies_high_ground": true,
+        "team_1_physically_occupies_high_ground": true,
+        "combat_from_high_ground": true
+      }
+    },
+    {
+      "seed": 7129,
+      "file": "test-results/titanball/simulation/heavy-ordnance-filter-tf-7129.json",
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "boarding_events_recorded": true,
+        "every_boarding_restores_class_maximum": true,
+        "every_boarding_starts_three_second_lock": true,
+        "no_occupied_endpoint_restart_deadlock": true,
+        "torso_stays_within_7_5_degrees": true,
+        "no_ladder_while_moving_or_manned": true,
+        "recorded_crush_deaths_are_gibbed": true,
+        "round_finished": true,
+        "six_shared_stations": true,
+        "twelve_authored_vantages": true,
+        "team_0_physically_occupies_high_ground": true,
+        "team_1_physically_occupies_high_ground": true,
+        "combat_from_high_ground": true
+      }
+    },
+    {
+      "seed": 7130,
+      "file": "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7130.json",
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "boarding_events_recorded": true,
+        "every_boarding_restores_class_maximum": true,
+        "every_boarding_starts_three_second_lock": true,
+        "no_occupied_endpoint_restart_deadlock": true,
+        "torso_stays_within_7_5_degrees": true,
+        "no_ladder_while_moving_or_manned": true,
+        "recorded_crush_deaths_are_gibbed": true,
+        "round_finished": true,
+        "six_shared_stations": true,
+        "twelve_authored_vantages": true,
+        "team_0_physically_occupies_high_ground": true,
+        "team_1_physically_occupies_high_ground": true,
+        "combat_from_high_ground": true
+      }
+    },
+    {
+      "seed": 7130,
+      "file": "test-results/titanball/simulation/heavy-ordnance-filter-tf-7130.json",
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "boarding_events_recorded": true,
+        "every_boarding_restores_class_maximum": true,
+        "every_boarding_starts_three_second_lock": true,
+        "no_occupied_endpoint_restart_deadlock": true,
+        "torso_stays_within_7_5_degrees": true,
+        "no_ladder_while_moving_or_manned": true,
+        "recorded_crush_deaths_are_gibbed": true,
+        "round_finished": true,
+        "six_shared_stations": true,
+        "twelve_authored_vantages": true,
+        "team_0_physically_occupies_high_ground": true,
+        "team_1_physically_occupies_high_ground": true,
+        "combat_from_high_ground": true
+      }
+    },
+    {
+      "seed": 7131,
+      "file": "test-results/titanball/simulation/heavy-ordnance-baseline-tf-7131.json",
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "boarding_events_recorded": true,
+        "every_boarding_restores_class_maximum": true,
+        "every_boarding_starts_three_second_lock": true,
+        "no_occupied_endpoint_restart_deadlock": true,
+        "torso_stays_within_7_5_degrees": true,
+        "no_ladder_while_moving_or_manned": true,
+        "recorded_crush_deaths_are_gibbed": true,
+        "round_finished": true,
+        "six_shared_stations": true,
+        "twelve_authored_vantages": true,
+        "team_0_physically_occupies_high_ground": true,
+        "team_1_physically_occupies_high_ground": true,
+        "combat_from_high_ground": true
+      }
+    },
+    {
+      "seed": 7131,
+      "file": "test-results/titanball/simulation/heavy-ordnance-filter-tf-7131.json",
+      "checks": {
+        "six_per_team": true,
+        "correct_rules": true,
+        "class_policy": true,
+        "prep_keeps_robot_stationary": true,
+        "bots_boarded": true,
+        "only_attackers_pilot": true,
+        "pilot_replaced": true,
+        "pilot_departures_match_deaths": true,
+        "both_teams_fought": true,
+        "no_motion_before_gate": true,
+        "symmetric_classes": true,
+        "pilot_damage_requires_hull_contact": true,
+        "cannon_pair_ids_valid": true,
+        "boarding_events_recorded": true,
+        "every_boarding_restores_class_maximum": true,
+        "every_boarding_starts_three_second_lock": true,
+        "no_occupied_endpoint_restart_deadlock": true,
+        "torso_stays_within_7_5_degrees": true,
+        "no_ladder_while_moving_or_manned": true,
+        "recorded_crush_deaths_are_gibbed": true,
+        "round_finished": true,
+        "six_shared_stations": true,
+        "twelve_authored_vantages": true,
+        "team_0_physically_occupies_high_ground": true,
+        "team_1_physically_occupies_high_ground": true,
+        "combat_from_high_ground": true
+      }
+    }
+  ],
+  "simulation_integrity_checks": 156
+}

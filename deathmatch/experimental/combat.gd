@@ -162,7 +162,7 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) ->
 				var damage: int=int(d.damage)+randi_range(0,int(d.get("direct_random",0)))
 				if hit.id!=0 and not hit.get("vehicle",false) and d.has("head_damage") and headshot(hit.id,hit.position):damage=d.head_damage
 				if float(d.get("splash",0))==0 or (game.armory.kind=="quake" and d.kind=="rocket"):
-					if hit.id!=0:game._damage(hit.id,p.owner,damage,d.name,false,hit.position,p.velocity.normalized(),false,hit.get("vehicle",false))
+					if hit.id!=0:game._damage(hit.id,p.owner,damage,d.name,false,hit.position,p.velocity.normalized(),false,hit.get("vehicle",false),d.get("heavy_automatic",false))
 					if hit.has("building") and float(d.get("splash",0))==0:game.match_mode.fortress.damage_building(hit.building,p.owner,damage)
 				explode(id,hit.position,hit.id if game.armory.kind=="quake" and d.kind=="rocket" else 0,hit.id if hit.get("vehicle",false) else 0);return
 			var ray: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(p.position,end+p.velocity.normalized()*(d.radius+.2),1))

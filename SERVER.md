@@ -54,8 +54,9 @@ set sv_maplist "lqdm1 lqdm2 lqdm4 lqdm7 lqdm8"
 | net_ip | Local bind address, or `*` for all interfaces |
 | net_port | UDP port, 1024–65535 |
 | sv_maxclients | 1–32 players (default 8); counts above 16 are unsupported; dedicated host consumes no player slot |
+| sv_bot_fill | Target total occupancy (humans + bots), 0 disables; must not exceed sv_maxclients |
 | fraglimit | 1–100 individual frags, team TDM frags, or FT/IF team rounds |
-| sv_gametype | Initial `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf` or `as`; default `dm` |
+| sv_gametype | Initial `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf`, `tb` or `as`; default `dm` |
 | sv_gametypes | Optional space-separated allowlist for mode votes; includes initial mode |
 | capturelimit | CTF captures to win, 1–100, default 5 |
 | hilllimit | KOTH points to win, 1–3600, default 120 |
@@ -69,6 +70,10 @@ set sv_maplist "lqdm1 lqdm2 lqdm4 lqdm7 lqdm8"
 | sv_maplist | Optional quoted, space-separated rotation of up to 32 map IDs |
 
 Set `sv_maxclients "32"` to allow up to 32 connections. **Player limits above 16 are unsupported: performance, gameplay and maps are not balanced for more than 16 players.** The server prints this warning at startup and shows it to joining players. In-game hosting remains capped at eight total players.
+
+For a ten-player match populated automatically, use `set sv_maxclients "10"` and `set sv_bot_fill "10"`. The target includes spectators because they consume server slots. Human players take priority: an accepted join reserves a human seat, and a bot yields its place once the incoming player's assets are ready. Multiple simultaneous downloads cannot overbook human seats. Bots refill vacant slots after disconnects and rebuild their navigation on map rotation. They use normal server physics, objectives and TF classes, and cannot vote. A full server containing only humans still rejects extra joins. Bot AI adds server CPU work; choose the population for your hardware. RCON `status` identifies bots and reports both settings. Kicking a bot removes it through the usual departure cleanup; automatic fill will create a replacement.
+
+TITANBALL uses fixed cockpit rules: boarding grants 200 HP with a 200 HP maximum, and cockpit regeneration is disabled. A living exit restores the normal class maximum and full class health; death ejection does not revive the pilot. Rockets, grenades, pipebombs, detpacks, the Heavy's assault cannon, engineer sentries and Titan cannons can damage an occupied hull. Only direct impacts and explosions on the hull qualify; nearby splash remains blocked. Heavy primary projectiles retain their firing-time classification. Other classes' small arms, on-foot players and other modes follow the established rules. The retired `sv_tb_heavy_ordnance` line is ignored when loading older configs and cannot disable protection. RCON status reports the fixed rule read-only.
 
 See [GAMEMODES.md](GAMEMODES.md) for team rules, objective scoring and player votes. In-game hosts can select all supported modes, with an eight-player limit. See [VOICE.md](VOICE.md) for the external Mumble option.
 

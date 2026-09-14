@@ -11,6 +11,10 @@ const CLASSES={
 	"spy":{"name":"SPY","hp":90,"armor":25,"speed":1.05,"owned":[0,2,4],"weapon":4,"ammo":[80,25,0,0],"action":"Disguise as nearest enemy; gunfire, damaging melee, damage and flags reveal"},
 	"engineer":{"name":"ENGINEER","hp":100,"armor":75,"speed":1.0,"owned":[0,2,3],"weapon":3,"ammo":[100,30,0,120],"action":"Aim at friendly building to repair; otherwise build selected tool"}
 }
+const RESUPPLY_HEALTH_RATE=20.0
+const DISPENSER_INTERVAL=1.0
+const DISPENSER_SUPPLY_SECONDS=.5
+const DISPENSER_HEALTH_RATE=RESUPPLY_HEALTH_RATE*DISPENSER_SUPPLY_SECONDS/DISPENSER_INTERVAL
 const SENTRY_RANGE=18.0
 const SENTRY_DAMAGE=12
 const SENTRY_INTERVAL=.5
@@ -51,7 +55,9 @@ func class_definition(role: String) -> Dictionary:
 			invisible_spy=data.duplicate(true);invisible_spy.ammo[3]=50;invisible_spy.action="Toggle invisibility: 1 cell/second; regenerate cells while visible"
 		return invisible_spy
 	return data
-func max_health(id: int) -> int:return definition(id).hp if enabled() else 100
+func max_health(id: int) -> int:
+	if not enabled():return 100
+	return walkers.pilot_max_health(id) if mode.kind=="tb" and walkers.mounted(id) else int(definition(id).hp)
 func speed(id: int) -> float:
 	if not enabled():return 1.0
 	var scale: float=definition(id).speed
@@ -107,6 +113,9 @@ func weapon_data(id: int,weapon: int) -> Dictionary:
 	if not enabled():return data
 	data=data.duplicate()
 	var role: String=game.players.get(id,{}).get("tf_class","soldier")
+	# Retained in the projectile definition at spawn, never inferred from the
+	# owner's class later when an in-flight projectile hits the hull.
+	if game.armory.kind=="quake" and role=="heavy" and weapon==7:data["heavy_automatic"]=true
 	if weapon==9:
 		data.damage=150 if effects.get(id,{}).get("until",0)>game.clock else 90
 		data.cycle=1.5;data.ammo=0;data.cost=2
@@ -319,9 +328,9 @@ func tick_sentries() -> void:
 		if game.clock<b.ready:continue
 		if b.kind=="dispenser":
 			if game.clock<b.next:continue
-			b.next=game.clock+1.0
+			b.next=game.clock+DISPENSER_INTERVAL
 			for id in game.players:
-				if (b.get("universal",false) or game.players[id].team==b.team) and not game.players[id].dead and not game.players[id].spectator and mode.nearby(id,b.position,3):resupply(id,.5)
+				if (b.get("universal",false) or game.players[id].team==b.team) and not game.players[id].dead and not game.players[id].spectator and mode.nearby(id,b.position,3):resupply(id,DISPENSER_SUPPLY_SECONDS)
 		else:
 			# Track between shots without running a target/occlusion scan every physics tick.
 			if game.clock<b.get("scan_at",0.0):continue
@@ -356,7 +365,8 @@ func sentry_target(origin: Vector3,team: int,reach: float,exclude: Array=[],acce
 	return victim
 func resupply(id: int,delta: float) -> void:
 	var s: Dictionary=game.players[id];var data:=definition(id)
-	if s.hp<data.hp:s.hp=mini(data.hp,s.hp+maxi(1,int(20*delta)))
+	var maximum_hp:=max_health(id)
+	if s.hp<maximum_hp:s.hp=mini(maximum_hp,s.hp+maxi(1,int(RESUPPLY_HEALTH_RATE*delta)))
 	if s.armor<data.armor:s.armor=mini(data.armor,s.armor+maxi(1,int(15*delta)))
 	for i in range(4):
 		var maximum: int=maxi(game.armory.max_ammo()[i] if game.armory.experimental() else data.ammo[i],120 if i==3 and s.tf_class=="engineer" else 0)

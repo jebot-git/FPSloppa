@@ -76,4 +76,4 @@ IF uses **exactly the Instagib maplist**: `ig_maplist`, or `maps/ig_maplist.txt`
 
 Validation: `python3 deathmatch/tests/run_instafreeze_tests.py` covers rules, hosting, maplist selection and three-process ENet replication.
 
-**TB — TITANBALL:** TF classes and Quake loadouts. Red pilots the BA-2 to Blue’s base; Blue stops it. Ashfall Boulevard is the native BSP playtest map. Preparation lasts 60 seconds, then a fixed 10:00 clock with two +3:00 checkpoint extensions. See [rules and validation](docs/TITANBALL.md).
+**TB — TITANBALL:** TF classes and Quake loadouts. Red pilots the BA-2 to Blue’s base; Blue stops it. Ashfall Boulevard is the native BSP playtest map. Preparation lasts 60 seconds, then a fixed 10:00 clock with two +3:00 checkpoint extensions. Pilots board with 200 HP, fixed heavy-ordnance hull protection and no cockpit regeneration. See [rules and validation](docs/TITANBALL.md).

@@ -3,8 +3,14 @@ var damage_events: Array=[]
 var cannon_volleys: Array=[]
 var boardings: Array=[]
 var deployable_crushes: Array=[]
+var blocked_hull_hits: Array=[]
+var pilot_healing: Array=[]
 func record(event: String,data: Dictionary={},detail: int=1) -> void:
  super.record(event,data,detail)
+ if event=="titan_pilot_healed":
+  var row:=data.duplicate(true);row.time=game.clock-origin;pilot_healing.append(row)
+ if event=="titan_hull_blocked":
+  var row:=data.duplicate(true);row.time=game.clock-origin;blocked_hull_hits.append(row)
  if event=="titan_deployable_crushed":
   var row:=data.duplicate(true);row.time=game.clock-origin;deployable_crushes.append(row)
  if event=="titan_boarded":

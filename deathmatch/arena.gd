@@ -71,6 +71,7 @@ var voice
 var permissions
 var practice := false
 var bots
+var bot_population=preload("res://deathmatch/server/bot_population.gd").new(self)
 var round_left := 600.0
 var frag_limit := 20
 var normal_time_limit := 600.0
@@ -299,6 +300,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	server_name=settings.sv_hostname
 	bind_address=settings.net_ip
 	max_clients=settings.sv_maxclients
+	bot_population.target=settings.sv_bot_fill
 	if max_clients>16:push_warning(preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
 	voice_backend=settings.sv_voice_backend if settings.sv_voice==1 else "builtin";mumble_url=settings.sv_mumble_url if settings.sv_voice==1 else ""
 	voice_enabled=settings.sv_voice==1 and voice_backend=="builtin"
@@ -439,6 +441,8 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 		bots=preload("res://deathmatch/bots.gd").new()
 		add_child(bots)
 		bots.setup(self)
+	if dedicated:bot_population.refresh_navigation()
+	bot_population.maintain()
 	menu_open = dedicated
 	if hud: hud.show_menu(menu_open)
 	if not dedicated and not headless: Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -517,11 +521,11 @@ func _peer_connected(id: int) -> void:
 func _hello(player_name: String,version: String,spectator: bool=false) -> void:
 	if not multiplayer.is_server() or not active: return
 	var id := multiplayer.get_remote_sender_id()
-	if id<=1 or players.has(id) or not pending_joins.has(id): return
+	if id<=1 or players.has(id) or pending_names.has(id) or not pending_joins.has(id): return
 	var rejection:=""
 	if version!=PROTOCOL:rejection="Version mismatch: client %s, server %s. Install matching clients and server."%[version.left(80),PROTOCOL]
 	elif practice:rejection="This is a private practice server."
-	elif players.size()>=max_clients:rejection="Server full (%d/%d players)."%[players.size(),max_clients]
+	elif bot_population.human_slots()>=max_clients:rejection="Server full (%d/%d players)."%[players.size(),max_clients]
 	if not rejection.is_empty():
 		server_log.record("join_rejected",{"peer":id,"reason":rejection,"players":players.size(),"capacity":max_clients})
 		_rejected.rpc_id(id,rejection)
@@ -544,8 +548,10 @@ func _map_ready(checksum: String) -> void:
 func _finish_join(id: int) -> void:
 	replication.cached.clear()
 	if not pending_names.has(id):return
-	if players.size()>=max_clients:
+	if not bot_population.make_room(id):
 		_rejected.rpc_id(id,"Server filled while downloading assets.")
+		pending_names.erase(id);pending_spectators.erase(id);pending_teams.erase(id)
+		pending_joins[id]=clock+2
 		return
 	server_log.phase(id,"ready")
 	server_log.join_stages.erase(id)
@@ -555,6 +561,7 @@ func _finish_join(id: int) -> void:
 	var spectator: bool=pending_spectators.get(id,false)
 	pending_spectators.erase(id)
 	_add_player(id,player_name,spectator)
+	bot_population.maintain()
 	server_log.record("player_joined",{"peer":id,"name":player_name,"spectator":spectator,"team":players[id].team})
 	avatars.sync_peer(id)
 	voice.policy.rpc_id(id,voice_enabled,server_name,voice_backend,mumble_url)
@@ -581,8 +588,9 @@ func _create_fighter(id: int) -> void:
 	if not headless:load("res://deathmatch/maps/filtering.gd").new().apply(actor,int(presentation.get("texture_filter",2)),false)
 	fighters[id] = actor
 
-func _add_player(id: int,player_name: String,spectator: bool=false) -> void:
+func _add_player(id: int,player_name: String,spectator: bool=false,bot_class: String="soldier") -> void:
 	players[id] = _new_state(player_name,id)
+	if id<0:players[id].tf_class=bot_class;players[id].tf_next=bot_class
 	players[id].spectator=spectator
 	var previous_team: int=pending_teams.get(id,-1)
 	players[id].team=previous_team if previous_team>=0 and match_mode.team_game() and not spectator else match_mode.assign_team(spectator)
@@ -658,6 +666,8 @@ func _roster(data: Array) -> void:
 		if avatars.choices.has(id): avatars.queue_avatar(id)
 
 func _peer_left(id: int) -> void:
+	if id<0 and is_instance_valid(bots):bots.brains.erase(id)
+	replication.cached.clear()
 	input_delivery.guards.erase(id); remote_interpolation.tracks.erase(id); bandwidth.peers.erase(id)
 	server_log.record("peer_departure_stage",{"peer":id,"stage":server_log.join_stages.get(id,{}),"admitted":players.has(id)})
 	server_log.join_stages.erase(id)
@@ -724,6 +734,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	model_weapon = -1
 	if is_instance_valid(bots): bots.free()
 	bots=null
+	bot_population.target=0
 	practice = false
 	menu_open = true
 	intermission = 0
@@ -1049,6 +1060,7 @@ func _server_tick(delta: float) -> void:
 		if not pending_names.is_empty(): return
 		map_loading=false
 		_announcement.rpc("New map · "+map_title)
+	bot_population.maintain()
 	# Keep the match fresh while the dedicated server has no ready clients.
 	# Pending downloads and connection timeouts still run above this gate.
 	if dedicated and players.is_empty():return
@@ -1069,7 +1081,7 @@ func _server_tick(delta: float) -> void:
 		elif match_mode.kind=="tb":match_mode.titanball.timeout()
 		else:_end_round()
 		return
-	if practice and is_instance_valid(bots): bots.tick(delta)
+	if is_instance_valid(bots): bots.tick(delta)
 	var movement_start: Dictionary = {}
 	for id in fighters:
 		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height}
@@ -1525,7 +1537,7 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: St
 		# Self splash costs health but permits a healthy player to rocket jump.
 		_damage(id,owner_id,maxi(1,int(damage*falloff*(.5 if id==owner_id else 1.0))),weapon_name,false,target,push,true,match_mode.fortress.walkers.mounted(id))
 
-func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: bool = false,impact: Vector3=Vector3.INF,direction: Vector3=Vector3.ZERO,blast: bool=false,hull_contact: bool=false) -> void:
+func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: bool = false,impact: Vector3=Vector3.INF,direction: Vector3=Vector3.ZERO,blast: bool=false,hull_contact: bool=false,heavy_automatic: bool=false) -> void:
 	if lobby.active():return
 	if not multiplayer.is_server() or not players.has(victim): return
 	var s: Dictionary = players[victim]
@@ -1535,6 +1547,9 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	var telefrag:=weapon_name=="TELEFRAG" and bypass
 	if s.spectator or s.dead or (match_mode.special.blocked(victim) and not (telefrag and match_mode.special.frozen.has(victim))) or intermission>0 or (s.invulnerable>clock and not bypass): return
 	if attacker!=victim and match_mode.same_team(victim,attacker) and not match_mode.friendly_fire and not telefrag: return
+	if not bypass and match_mode.fortress.walkers.heavy_ordnance_only and match_mode.fortress.walkers.mounted(victim) and not match_mode.fortress.walkers.accepts_pilot_weapon(weapon_name,heavy_automatic):
+		server_log.record("titan_hull_blocked",{"victim":victim,"attacker":attacker,"weapon":weapon_name,"raw_damage":amount,"blast":blast},2)
+		return
 	amount=match_mode.fortress.outgoing_damage(attacker,victim,amount,weapon_name)
 	amount=match_mode.fortress.incoming_damage(victim,amount,weapon_name,bypass)
 	match_mode.fortress.walkers.enforce_pilot(victim)
@@ -2258,6 +2273,8 @@ func _rotate_map(map_id: String) -> bool:
 		pending_joins[id]=clock+240
 		map_network.offer(id)
 	if not dedicated: _add_player(1,nickname)
+	bot_population.refresh_navigation()
+	bot_population.maintain()
 	server_log.record("map_rotated",{"map":current_map,"waiting_peers":pending_names.size()})
 	print("MAP_ROTATED ",current_map," epoch=",map_epoch)
 	return true
