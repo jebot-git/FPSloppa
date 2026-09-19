@@ -1,11 +1,11 @@
-"""Build locally signed release-runtime Quest/Pico sideload APKs (Godot 4.7.2)."""
+"""Build locally signed release-runtime Quest sideload APKs (Godot 4.7.2)."""
 from pathlib import Path
 import os, subprocess, secrets, json, zipfile, hashlib, argparse, re, shutil
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--thin', action='store_true', help=argparse.SUPPRESS)
-parser.add_argument('--target', choices=['Quest', 'Pico', 'both'], default='both')
+parser.add_argument('--target', choices=['Quest'], default='Quest')
 args = parser.parse_args()
 if args.thin:parser.error('Thin APKs are retired; all builds include offline assets.')
 sdk = Path(os.environ.get('ANDROID_SDK_ROOT', str(Path.home() / 'Android/Sdk')))
@@ -80,7 +80,7 @@ try:
                 data = bundle.read(row['path'])
                 assert len(data) == row['size'] and hashlib.sha256(data).hexdigest() == row['sha256'], row['path']
         shutil.copyfile(archive, embedded)
-    for target in (['Quest', 'Pico'] if args.target == 'both' else [args.target]):
+    for target in [args.target]:
         apk = out / f'FPSloppa-{target}.apk'
         log = logs / f'export_android_{target.lower()}.log'
         with log.open('w') as f:

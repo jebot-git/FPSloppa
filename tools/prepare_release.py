@@ -1,7 +1,10 @@
 """Stage an explicit release allowlist, verify archives and write publication checksums."""
 from pathlib import Path
-import hashlib,json,shutil,subprocess,zipfile,sys
+import hashlib,json,shutil,subprocess,zipfile,sys,argparse
 ROOT=Path(__file__).resolve().parents[1]
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--desktop-only', action='store_true', help='Stage PC/server/source assets without the Quest APK')
+args=parser.parse_args()
 VERSION=(ROOT/'VERSION').read_text().strip()
 subprocess.run([sys.executable,str(ROOT/'tools/validate_release_bundle.py')],check=True)
 OUT=ROOT/'release-assets'/VERSION
@@ -12,9 +15,8 @@ files={
     'Windows.zip':ROOT.parent/'FPSloppa-Windows.zip',
     'Dedicated-Server-Linux.zip':ROOT.parent/'FPSloppa-Dedicated-Server-Linux.zip',
     'Source.zip':ROOT.parent/'FPSloppa-Deathmatch.zip',
-    'Quest.apk':BUILDS/'Android/FPSloppa-Quest.apk',
-    'Pico.apk':BUILDS/'Android/FPSloppa-Pico.apk',
 }
+if not args.desktop_only:files['Quest.apk']=BUILDS/'Android/FPSloppa-Quest.apk'
 expected={f'FPSloppa-{VERSION}-{label}' for label in files}|{'BUILD-MANIFEST.json','SHA256SUMS','RELEASE-NOTES.md'}
 OUT.mkdir(parents=True,exist_ok=True)
 unexpected={p.name for p in OUT.iterdir()}-expected

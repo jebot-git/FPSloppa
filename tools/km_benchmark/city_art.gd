@@ -1,6 +1,6 @@
 extends RefCounted
 ## Static meshes are merged per district/material. All movement is vertex shading.
-const Presentation=preload("res://tools/km_benchmark/presentation.gd")
+const Presentation=preload("res://deathmatch/conquest/presentation.gd")
 static func v(a: Array) -> Vector3:return Vector3(a[0],a[1],a[2])
 static func material(color: Color,glow: bool=true) -> StandardMaterial3D:
 	var m:=StandardMaterial3D.new();m.albedo_color=color;m.roughness=.8
@@ -20,9 +20,9 @@ static func label(parent: Node,owner_: Node,text: String,pos: Vector3,yaw: float
 static func district(parent: Node3D,owner_: Node,layout: Dictionary,zone: int) -> void:
 	var art:=Node3D.new();art.name="CityArt";add(parent,art,owner_)
 	var tint:=Color.html(layout.zones[zone].color);var batches: Dictionary={};var mats: Dictionary={"glow":material(tint*.8),"dark":material(Color(.06,.09,.13)),"foliage":material(Color(.12,.25,.21)),"steam":ShaderMaterial.new()}
-	mats.steam.shader=preload("res://tools/km_benchmark/steam.gdshader")
+	mats.steam.shader=preload("res://deathmatch/conquest/steam.gdshader")
 	for kind in ["window","gothic"]:
-		var m:=ShaderMaterial.new();m.shader=preload("res://tools/km_benchmark/window.gdshader");m.set_shader_parameter("tint",tint);m.set_shader_parameter("gothic",kind=="gothic");mats[kind]=m
+		var m:=ShaderMaterial.new();m.shader=preload("res://deathmatch/conquest/window.gdshader");m.set_shader_parameter("tint",tint);m.set_shader_parameter("gothic",kind=="gothic");mats[kind]=m
 	var steam_count:=0
 	for row in layout.art:
 		if int(row.zone)!=zone:continue
@@ -62,7 +62,7 @@ static func district(parent: Node3D,owner_: Node,layout: Dictionary,zone: int) -
 		if int(row.zone)!=zone:continue
 		var p:=v(row.position);var n:=v(row.normal);var yaw:=atan2(n.x,n.z)
 		var gate:=MeshInstance3D.new();gate.name="OpaqueGate_%02d"%int(row.neighbor);var quad:=QuadMesh.new();quad.size=Vector2(24,16);gate.mesh=quad
-		var m:=ShaderMaterial.new();m.shader=preload("res://tools/km_benchmark/gate.gdshader");m.set_shader_parameter("tint",tint);gate.material_override=m;gate.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;gate.position=p;gate.rotation.y=yaw;add(art,gate,owner_)
+		var m:=ShaderMaterial.new();m.shader=preload("res://deathmatch/conquest/gate.gdshader");m.set_shader_parameter("tint",tint);gate.material_override=m;gate.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;gate.position=p;gate.rotation.y=yaw;add(art,gate,owner_)
 		gate.set_meta("walkthrough",true);gate.set_meta("destination",int(row.neighbor))
 		var occluder:=OccluderInstance3D.new();var bounds:=BoxOccluder3D.new();bounds.size=Vector3(23.96,15.96,.02);occluder.occluder=bounds;occluder.name="GateOccluder";add(gate,occluder,owner_)
 		label(art,owner_,"%02d  /  %s"%[int(row.neighbor)+1,str(row.name).to_upper()],p+Vector3.UP*2+n*.035,yaw,tint,.7)

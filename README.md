@@ -1,8 +1,11 @@
-# FPSloppa 0.14v
+# FPSloppa 0.15v CQ experimental
+
+This checkout is the isolated CQ experiment. Use `Play-Conquest-Desktop` or `Play-Conquest-VR` in the Windows/Linux package, passing a CQ server address. The temporary public testing server has been shut down. Windows, Linux and Quest remain project release targets; this CQ prerelease ships PC builds only. Pico releases are discontinued.
+
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.14v build notes](docs/RELEASE-0.14v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[CQ prerelease notes](docs/RELEASE-0.15v-cq-experimental.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
 **New in 0.14v:** live RCON bot counts, Titan-aware bot weapon selection, physical-turn avatar alignment, upright handheld team radio, restored Q1/KOTH/CC lighting and functional BSP buttons, doors, traps and trains that bots can operate.
 

@@ -15,6 +15,8 @@ func check(ok: bool,label: String) -> void:
 	if not ok:failures.append(label)
 func _initialize():run.call_deferred()
 func run() -> void:
+	if not OS.get_cmdline_user_args().has("--asset-root"):
+		push_error("Import test requires --asset-root pointing to a temporary directory");quit(1);return
 	for mode in ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as"]:
 		check(Policy.modes(mode+"_arena.bsp")==[mode],mode+" prefix selects only its own mode")
 	check(Policy.modes("C:\\Downloads\\TF_Arena.BSP")==["tf"],"Prefix classification ignores directories and letter case")

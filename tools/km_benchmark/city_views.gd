@@ -6,7 +6,7 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(OUT)
 	var world:=WorldEnvironment.new();world.environment=Environment.new();root.add_child(world)
 	var level: Node3D=load(BASE+"zones-lightmap1.scn").instantiate();root.add_child(level)
-	preload("res://tools/km_benchmark/presentation.gd").apply(root)
+	preload("res://deathmatch/conquest/presentation.gd").apply(root)
 	var camera:=Camera3D.new();camera.far=1500;camera.fov=75;root.add_child(camera);camera.make_current()
 	root.use_occlusion_culling=true;DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED);Engine.max_fps=60
 	var layout: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(BASE+"layout.json"))

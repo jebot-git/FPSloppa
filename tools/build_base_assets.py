@@ -27,7 +27,9 @@ for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
  lit='maps/'+row['id']+'.lit'
  if (ROOT/lit).is_file():paths.append(lit)
 for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
-paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','cc','tf','tb','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
+paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','if','cc','tf','tb','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
+# CQ assets are explicit, so exports never scoop up compiler logs or local maps.
+paths.extend(['maps/Benchmark1km/prototype_km1.bsp','maps/Benchmark1km/zones-lightmap1.scn','maps/Benchmark1km/zones-lightmap1-textures-'+str(texture_version)+'.scn','maps/navigation/prototype_km1.res','maps/Benchmark1km/texture-sources.json','maps/Benchmark1km/README.md'])
 # Validate TF bake/navigation lineage without shipping development receipts.
 tf_files()
 # Runtime assets retain notices and provenance. Editable map/WAD sources live

@@ -1,7 +1,7 @@
 {
-  "version": "0.14v",
+  "version": "0.15v-cq-experimental",
   "delivery": "bundled",
-  "sha256": "afacf22d19cdea721494440b6a23d2e61fb5860451ed80e9fe6cffabfe3a6f5b",
+  "sha256": "eb64da7904173243b81887402e6e63455f0b33a5b1cf75ede782f1b7765a4888",
   "files": [
     {
       "path": "maps/Ashfall/CC0-1.0.txt",
@@ -27,6 +27,31 @@
       "path": "maps/Ashfall/texture-sources.json",
       "size": 7752,
       "sha256": "3bc3ffef4c741d022c10ef668c9607fa50e880e8df41e4406e481005013481d3"
+    },
+    {
+      "path": "maps/Benchmark1km/README.md",
+      "size": 5447,
+      "sha256": "024882bbc1dee3cff387e245438985ddde7bb7dff0123b65af950ed9b9ad7d96"
+    },
+    {
+      "path": "maps/Benchmark1km/prototype_km1.bsp",
+      "size": 24197612,
+      "sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3"
+    },
+    {
+      "path": "maps/Benchmark1km/texture-sources.json",
+      "size": 34415,
+      "sha256": "be4bb9e082a5629a25038bec3e343e8996554db5364e66cc7109121fc8ecb164"
+    },
+    {
+      "path": "maps/Benchmark1km/zones-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "size": 57292594,
+      "sha256": "d69c84ccfa7316ee4103911f065d8697650c046f08022db647b337d94a43cfc1"
+    },
+    {
+      "path": "maps/Benchmark1km/zones-lightmap1.scn",
+      "size": 57292568,
+      "sha256": "3c28b4f8c7678e272b4bc660f5a64086b11685825df01fa8d2e15238ad672a3f"
     },
     {
       "path": "maps/CC/LibreQuake-COPYING.txt",
@@ -929,6 +954,11 @@
       "sha256": "7b8a845d2550aa6f37011d7b4354fdd17e06286cd686e0a25199f1f10c961dba"
     },
     {
+      "path": "maps/if_maplist.txt",
+      "size": 63,
+      "sha256": "7b8a845d2550aa6f37011d7b4354fdd17e06286cd686e0a25199f1f10c961dba"
+    },
+    {
       "path": "maps/ig_maplist.txt",
       "size": 63,
       "sha256": "7b8a845d2550aa6f37011d7b4354fdd17e06286cd686e0a25199f1f10c961dba"
@@ -1037,6 +1067,11 @@
       "path": "maps/navigation/koth_torture.res",
       "size": 26503,
       "sha256": "10e6f0ce5d4188acea2bfa50e62840ebdcb46dde8b1b2a3c00ac98900d54418f"
+    },
+    {
+      "path": "maps/navigation/prototype_km1.res",
+      "size": 269603,
+      "sha256": "cd1130be46e9f519a1d70a0f348ed7bfce5c8efd43baf51064d2fff8a5568832"
     },
     {
       "path": "maps/navigation/qsrc_dm1.res",

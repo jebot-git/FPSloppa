@@ -38,7 +38,7 @@ func run() -> void:
 	for row in game.pickups:row.available=false
 	p.available=true;game.fighters[1].position=p.position;game._collect(1)
 	check(s.owned.has(9) and not s.owned.has(5) and s.ammo[0]==8,"Sniper pickup grants only sniper and its initial ammo")
-	check(not p.available and is_equal_approx(p.respawn,game.clock+30),"AS weapon disappears until its normal respawn")
+	check(not p.available and is_equal_approx(p.respawn,game.clock+15),"AS weapon disappears until its halved respawn")
 	s.ammo[0]=0;game._collect(1)
 	check(s.ammo[0]==0,"Collected AS weapon cannot be collected again before respawn")
 	game.clock=p.respawn;game._respawn_pickups();game._collect(1)

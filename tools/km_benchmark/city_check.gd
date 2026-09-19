@@ -21,7 +21,7 @@ func run() -> void:
 			if m and str(m.get_meta("bsp_texture_name",""))=="_bad_texture_":bad_vertices+=node.mesh.surface_get_array_len(surface)
 	assert(bad_vertices==0 and night_materials>0 and scene.get_meta("night_lighting",false))
 	var world:=WorldEnvironment.new();world.environment=Environment.new();root.add_child(world)
-	preload("res://tools/km_benchmark/presentation.gd").apply(root)
+	preload("res://deathmatch/conquest/presentation.gd").apply(root)
 	assert(world.environment.sky.sky_material.panorama.resource_path.ends_with("night.png"))
 	assert(world.environment.fog_sky_affect<.2)
 	var report:={"opaque_walkthrough_gate_faces":gates,"gate_openings":24,"decoration_collision_bodies":0,"decoration_realtime_lights":0,"unreviewed_texture_vertices":bad_vertices,"night_sky":true,"night_surface_batches":night_materials,"bsp_sha256":FileAccess.get_sha256(BASE+"prototype_km1.bsp")}

@@ -28,7 +28,7 @@ if '--package-only' not in sys.argv and '--stage-only' not in sys.argv:
 
 # Server uses a distinct directory: never mix in plugins from legacy exports.
 server_dest=root/'Builds/ConsoleServer'
-server_command=[sys.executable,str(root/'tools/build_console_server.py'),'--output',str(server_dest)]
+server_command=[sys.executable,str(root/'tools/build_console_server.py'),'--cq-assets','--output',str(server_dest)]
 if '--package-only' in sys.argv:
     server_command.append('--verify-only')
 elif os.environ.get('FPSLOPPA_SERVER_TEMPLATE'):
@@ -60,6 +60,19 @@ for _,folder,binary in targets:
     for source in (root/'deathmatch/maps/librequake-props').glob('*'):
         if source.name not in {'LICENCE.txt','CREDITS.txt','SOURCES.json'}:continue
         out=dest/'licenses/librequake-props'/source.name;out.parent.mkdir(parents=True,exist_ok=True);stage(source,out)
+    for name in ['CONQUEST.md','DISTRICT-SERVER-INTEGRATION.md']:
+        stage(root/'docs'/name,dest/'docs'/name)
+    stage(root/'conquest.cfg',dest/'conquest.cfg')
+    for label,mode in [('Desktop','off'),('VR','on')]:
+        if folder=='Linux':
+            name=f'Play-Conquest-{label}.sh'
+            launcher=dest/name
+            launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\naddress="${1:-127.0.0.1}"\nif (( $# )); then shift; fi\nexec "$game_dir/FPSloppa.x86_64" --xr-mode '+mode+' -- --experimental-cq --connect "$address" --port 7787 "$@"\n')
+            launcher.chmod(0o755)
+        else:
+            name=f'Play-Conquest-{label}.cmd'
+            (dest/name).write_bytes(('@echo off\r\nset "address=%~1"\r\nif "%address%"=="" set "address=127.0.0.1"\r\n"%~dp0FPSloppa.exe" --xr-mode '+mode+' -- --experimental-cq --connect "%address%" --port 7787\r\n').encode())
+        selected.add(name)
     if folder=='Linux':
         for label,mode in [('VR','on'),('Desktop','off')]:
             selected.add(f'Play-{label}.sh');f=dest/f'Play-{label}.sh'
@@ -75,6 +88,11 @@ if '--stage-only' in sys.argv:
     raise SystemExit(0)
 
 server_files=set(json.loads((server_dest/'server-build.json').read_text())['package_files'])
+server_launcher=server_dest/'start-conquest-server.sh'
+server_launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\nserver_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$server_dir/FPSloppaServer.x86_64" --log-file "$server_dir/conquest-engine.log" -- --experimental-cq --config "$server_dir/conquest.cfg" "$@"\n')
+server_launcher.chmod(0o755)
+server_files.add('start-conquest-server.sh')
+
 archives=[]
 for folder,name in [('Linux','FPSloppa-Linux.zip'),('Windows','FPSloppa-Windows.zip'),('Server','FPSloppa-Dedicated-Server-Linux.zip')]:
     archive=root.parent/name

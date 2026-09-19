@@ -1,0 +1,192 @@
+{
+  "version": "0.15v-cq-experimental",
+  "targets": [
+    "Windows",
+    "Linux"
+  ],
+  "pico_retired": true,
+  "quest_build_this_prerelease": false,
+  "runtime_packaging": {
+    "passed": true,
+    "exit_code": 0,
+    "errors": []
+  },
+  "gateway": {
+    "before_restart": {
+      "actors": [
+        {
+          "generation": 3,
+          "id": 1890566200,
+          "input_sequence": 1254,
+          "phase": "active",
+          "position": "(-262.1383, 0.045813, -374.9998)",
+          "zone": 0
+        },
+        {
+          "generation": 3,
+          "id": 2119695945,
+          "input_sequence": 1240,
+          "phase": "active",
+          "position": "(238.0152, 0.045835, -375.0)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "epoch": 1,
+      "limit": 4,
+      "stats": {
+        "baselines": 6,
+        "events": 16,
+        "inputs": 1245,
+        "max_workers": 4,
+        "stale_inputs": 4,
+        "transfers": 4
+      },
+      "worker_pids": {
+        "0": 1294278,
+        "1": 1294642,
+        "2": 1294321,
+        "3": 1294667
+      },
+      "workers": 4
+    },
+    "capacity": 64,
+    "restart": {
+      "ok": true
+    },
+    "after_restart": {
+      "actors": [
+        {
+          "generation": 4,
+          "id": 1890566200,
+          "input_sequence": 1430,
+          "phase": "active",
+          "position": "(-395.0, -0.004818, -395.0)",
+          "zone": 0
+        },
+        {
+          "generation": 4,
+          "id": 2119695945,
+          "input_sequence": 1418,
+          "phase": "active",
+          "position": "(145.0, -0.004818, -355.0)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "epoch": 2,
+      "limit": 4,
+      "stats": {
+        "baselines": 8,
+        "events": 16,
+        "inputs": 1421,
+        "max_workers": 4,
+        "stale_inputs": 5,
+        "transfers": 4
+      },
+      "worker_pids": {
+        "0": 1294278,
+        "1": 1294642,
+        "2": 1294321,
+        "3": 1294667
+      },
+      "workers": 4
+    },
+    "clients": [
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 0
+        },
+        "route": {
+          "ack": 1230,
+          "ammo": [
+            47,
+            0,
+            10,
+            0
+          ],
+          "events": 8,
+          "legs": [
+            0.588464438915253,
+            0.653301298618317,
+            0.405944854021072
+          ],
+          "pauses_ms": [
+            1534,
+            135
+          ],
+          "position": "(-262.1541, 0.045814, -374.9999)",
+          "prediction": {
+            "corrections": 9,
+            "max_error": 0.316834688186646,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            1890566200
+          ]
+        }
+      },
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 2
+        },
+        "route": {
+          "ack": 1224,
+          "ammo": [
+            147,
+            0,
+            0,
+            0
+          ],
+          "events": 8,
+          "legs": [
+            0.564614057540894,
+            0.418694257736206,
+            0.675201416015625
+          ],
+          "pauses_ms": [
+            1601,
+            68
+          ],
+          "position": "(238.0152, 0.045835, -375.0001)",
+          "prediction": {
+            "corrections": 0,
+            "max_error": 0.18399216234684,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            2119695945
+          ]
+        }
+      }
+    ],
+    "ok": true
+  },
+  "packages": [
+    {
+      "failures": [],
+      "files": 1330,
+      "pack": "/home/blux/Documents/FPSloppa/.worktrees/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1330,
+      "pack": "/home/blux/Documents/FPSloppa/.worktrees/Builds/Windows/FPSloppa.pck"
+    }
+  ],
+  "baked_city_dependencies": "Moved presentation script and window/gate/steam shaders into deathmatch/conquest; updated existing baked scene resource references without changing BSP geometry or lighting.",
+  "remote_test_server": "Stopped and temporary deployment removed; ordinary server unchanged.",
+  "limits": [
+    "Native Windows and physical VR hardware not tested.",
+    "64-human performance and a complete CQ balance match are not certified.",
+    "Cold workers can freeze client handoff for seconds; worker loss stops the match."
+  ]
+}

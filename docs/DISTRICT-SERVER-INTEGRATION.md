@@ -32,7 +32,7 @@ Clients launch from this branch:
 ./launch-conquest.sh 45.147.228.101
 ```
 
-The test endpoint is UDP **45.147.228.101:7787**. The ordinary server continues on 7777. The test deployment lives under `~/FPSloppa-CQ-Experimental/20260920-gateway`, supervised by the user service `fpsloppa-cq-experimental.service`. It is capped at four workers, 1 GiB and one CPU core's worth of time on a two-core/2-GB host. User lingering keeps it alive after SSH disconnect. It is a transient testing service, not a boot-enabled production installation. Stop it with `systemctl --user stop fpsloppa-cq-experimental`. RCON listens only on loopback and was accessed through SSH; credentials are absent from the repository and validation receipts.
+The live test used UDP **45.147.228.101:7787**. The CQ test service was shut down at the owner’s request after validation; it is no longer a public test endpoint. The ordinary server continues on 7777. The temporary test deployment was removed from `~/FPSloppa-CQ-Experimental/20260920-gateway`, after stopping its user service `fpsloppa-cq-experimental.service`. It is capped at four workers, 1 GiB and one CPU core's worth of time on a two-core/2-GB host. User lingering keeps it alive after SSH disconnect. It is a transient testing service, not a boot-enabled production installation. Stop it with `systemctl --user stop fpsloppa-cq-experimental`. RCON listens only on loopback and was accessed through SSH; credentials are absent from the repository and validation receipts.
 
 The configured CQ admission ceiling is 64, but this small test host and its four-worker cap are **not** a 64-player deployment. The ordinary server and its configuration were not replaced.
 

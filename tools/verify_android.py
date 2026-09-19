@@ -20,16 +20,13 @@ def allocated_sections(binary):
 (root / 'test-results').mkdir(exist_ok=True)
 version = re.search(r'config/version="([^"]+)"', (root / 'project.godot').read_text()).group(1)
 protocol = re.search(r'const PROTOCOL := "([^"]+)"', (root / 'deathmatch/arena.gd').read_text()).group(1)
-for target in ['Quest', 'Pico']:
+for target in ['Quest']:
     apk = root.parent / 'Builds/Android' / f'FPSloppa-{target}.apk'
     manifest = subprocess.check_output([str(sdk / 'build-tools/36.1.0/aapt2'), 'dump', 'xmltree', str(apk), '--file', 'AndroidManifest.xml'], text=True)
     (root / 'test-results' / f'android_{target.lower()}_manifest.txt').write_text(manifest)
     required = ['android.permission.INTERNET', 'android.permission.RECORD_AUDIO', 'org.khronos.openxr.intent.category.IMMERSIVE_HMD', 'org.godotengine.openxr.vendors.GodotOpenXR']
-    if target == 'Quest':
-        required += ['com.oculus.intent.category.VR', 'com.oculus.supportedDevices']
-        required += ['com.oculus.permission.' + name for name in ['BODY_TRACKING', 'HAND_TRACKING', 'EYE_TRACKING', 'FACE_TRACKING']]
-    else:
-        required += ['org.entryway.arena.pico', 'pvr.app.type', 'com.picovr.permission.EYE_TRACKING']
+    required += ['com.oculus.intent.category.VR', 'com.oculus.supportedDevices']
+    required += ['com.oculus.permission.' + name for name in ['BODY_TRACKING', 'HAND_TRACKING', 'EYE_TRACKING', 'FACE_TRACKING']]
     for marker in required:
         assert marker in manifest, (target, marker)
     vulkan_feature = re.search(r'android\.hardware\.vulkan\.version[^\n]*\n((?:\s+A:[^\n]*\n)+)', manifest)
@@ -85,7 +82,7 @@ for target in ['Quest', 'Pico']:
             path = 'deathmatch/' + script
             assert z.read('assets/' + path) == (root / path).read_bytes(), ('Outdated APK script', target, path)
         audio_files=[root/'deathmatch/icon-final.png']+list((root/'deathmatch/audio/music').glob('*.ogg'))
-        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['round_tick','door_open','door_close','teleport','jump_pad','calibration_complete','saw_grind','flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
+        audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['round_gong','round_tick','door_open','door_close','teleport','jump_pad','calibration_complete','saw_grind','flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
         audio_files += list((root/'deathmatch/audio/recorded').glob('pain_*.wav'))
         audio_files += list((root/'deathmatch/audio/announcer').glob('*.ogg'))
         for notice in ['LICENSE.txt','SOURCES.md']:
@@ -100,4 +97,4 @@ for target in ['Quest', 'Pico']:
     reports[-1]['vulkan_required'] = True
     reports[-1]['seekable_embedded_zip'] = True
 (root / 'test-results/android_artifacts.json').write_text(json.dumps(reports, indent=2) + '\n')
-print('Verified both ARM64 APKs, vendor manifests, protocol, current scripts/assets and 16 KiB-aligned Steam Audio and TwoVoIP libraries.')
+print('Verified Quest ARM64 APK, vendor manifest, protocol, current scripts/assets and 16 KiB-aligned Steam Audio and TwoVoIP libraries.')

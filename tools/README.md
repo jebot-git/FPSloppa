@@ -6,7 +6,7 @@ Run `python3 tools/generate_sounds.py` from any directory to regenerate the twen
 
 `python3 tools/build_release.py` exports Linux/Windows PC clients and a Linux dedicated server, then packages them and the source ZIP. Install matching Godot 4.7.2 export templates first; set GODOT_BIN to choose the executable. `--package-only` refreshes archives from existing binaries. Android presets are experimental and excluded from this release script.
 
-`python3 tools/build_android.py` builds separate Quest/Pico release APKs and validates signing and alignment. See STANDALONE.md for toolchain setup and local signing details. Generated Android templates and caches are excluded from source archives.
+`python3 tools/build_android.py` builds the Quest release APK and validates signing and alignment. See STANDALONE.md for toolchain setup and local signing details. Generated Android templates and caches are excluded from source archives.
 
 Use the official matching Godot executable via `GODOT_BIN` for release exports. The source ZIP honors Git exclusions, omitting private live-device captures, build caches, signing files and generated release archives.
 

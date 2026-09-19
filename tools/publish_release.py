@@ -1,7 +1,10 @@
 """Publish the validated current release through a draft, checking upload hashes."""
 from pathlib import Path
-import hashlib, http.client, json, os, shutil, subprocess, urllib.parse
+import argparse, hashlib, http.client, json, os, shutil, subprocess, urllib.parse
 
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--prerelease', action='store_true', help='Publish an experimental release without replacing latest stable')
+args=parser.parse_args()
 root=Path(__file__).resolve().parents[1]
 version=(root/'VERSION').read_text().strip()
 repo='jebot-git/FPSloppa'
@@ -38,7 +41,8 @@ def api(method,path,data=None,allow_missing=False):
 base='/repos/'+repo+'/releases'
 release=api('GET',base+'/tags/'+version,allow_missing=True)
 if release is None:
-    release=api('POST',base,{'tag_name':version,'target_commitish':commit,'name':(assets_dir/'RELEASE-NOTES.md').read_text().splitlines()[0].removeprefix('# ').strip(),'body':(assets_dir/'RELEASE-NOTES.md').read_text(),'draft':True,'prerelease':False})
+    release=api('POST',base,{'tag_name':version,'target_commitish':commit,'name':(assets_dir/'RELEASE-NOTES.md').read_text().splitlines()[0].removeprefix('# ').strip(),'body':(assets_dir/'RELEASE-NOTES.md').read_text(),'draft':True,'prerelease':args.prerelease})
+assert release['prerelease']==args.prerelease, 'Release channel differs'
 assert release['draft'], 'Release already published; refusing to modify it'
 expected=[]
 for name in sorted(p.name for p in assets_dir.iterdir() if p.is_file()):
@@ -65,7 +69,7 @@ for name in sorted(p.name for p in assets_dir.iterdir() if p.is_file()):
 release=api('GET',base+'/'+str(release['id']))
 actual={(a['name'],a.get('digest'),a['size']) for a in release['assets']}
 assert actual==set(expected), 'Release asset list differs from local manifest'
-release=api('PATCH',base+'/'+str(release['id']),{'draft':False,'make_latest':'true'})
+release=api('PATCH',base+'/'+str(release['id']),{'draft':False,'make_latest':'false' if args.prerelease else 'true'})
 report={'url':release['html_url'],'version':version,'commit':commit,'assets':[{'name':a['name'],'sha256':a.get('digest'),'bytes':a['size']} for a in release['assets']]}
 (root/'test-results/release-published.json').write_text(json.dumps(report,indent=2)+'\n')
 print('PUBLISHED',release['html_url'],flush=True)
