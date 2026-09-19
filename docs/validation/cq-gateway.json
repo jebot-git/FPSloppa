@@ -1,0 +1,468 @@
+{
+  "date": "2026-09-20",
+  "branch": "experimental/cq-districts",
+  "main_head_unchanged": "b0fc725467e50e5f07fb335d0ca61f8e94e18f6d",
+  "deployment": {
+    "endpoint": "45.147.228.101:7787",
+    "ordinary_server_preserved_port": 7777,
+    "service": "fpsloppa-cq-experimental.service",
+    "host_cpu_cores": 2,
+    "host_memory_mib": 1967,
+    "worker_limit": 4,
+    "memory_limit_bytes": 1073741824,
+    "measured_peak_bytes": 569245696,
+    "cpu_quota_percent": 100,
+    "pack_sha256": "59d06a8082c79fb1be40e66d721a8b3a1d8c6bf618a7b457d4d2c8b57e753067",
+    "native_client_plugins": false,
+    "ssh_credentials_stored_in_repository": false,
+    "measured_current_bytes": 544800768,
+    "ordinary_server_original_pid_preserved": true
+  },
+  "rules": {
+    "assertions": 221,
+    "district_population": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "failures": [],
+    "teams": [
+      32,
+      32
+    ]
+  },
+  "profile_isolation": {
+    "own_capacity": true,
+    "ordinary_rejected": true,
+    "full_rejected": true,
+    "first_accepted": true,
+    "second_accepted": true,
+    "normal_capacity_unchanged": true,
+    "cq_cannot_join_normal": true,
+    "server_requires_launcher": true,
+    "64_actor_real_client_admission": true,
+    "no_script_errors": true
+  },
+  "private_workers": {
+    "checks": 47,
+    "failures": [],
+    "runtime": "console-only dedicated executable",
+    "scope": "Private coordinator and routed production inputs; no public ENet gateway or client prediction test.",
+    "workers": 2
+  },
+  "local_pool": {
+    "before_restart": {
+      "actors": [
+        {
+          "generation": 5,
+          "id": 1844387428,
+          "input_sequence": 4376,
+          "phase": "active",
+          "position": "(-255.6602, 0.045837, -375.0003)",
+          "zone": 0
+        }
+      ],
+      "backend": "districts",
+      "epoch": 1,
+      "limit": 2,
+      "stats": {
+        "baselines": 5,
+        "events": 11,
+        "inputs": 2187,
+        "max_workers": 2,
+        "stale_inputs": 2,
+        "transfers": 4
+      },
+      "workers": 2
+    },
+    "capacity": 64,
+    "restart": {
+      "ok": true
+    },
+    "after_restart": {
+      "actors": [
+        {
+          "generation": 6,
+          "id": 1844387428,
+          "input_sequence": 4552,
+          "phase": "active",
+          "position": "(-355.0, -0.004818, -355.0)",
+          "zone": 0
+        }
+      ],
+      "backend": "districts",
+      "epoch": 2,
+      "limit": 2,
+      "stats": {
+        "baselines": 6,
+        "events": 11,
+        "inputs": 2275,
+        "max_workers": 2,
+        "stale_inputs": 2,
+        "transfers": 4
+      },
+      "workers": 2
+    },
+    "clients": [
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 6,
+          "stale_rejected": 2,
+          "zone": 0
+        },
+        "route": {
+          "ack": 4364,
+          "ammo": [
+            147,
+            0,
+            10,
+            65
+          ],
+          "events": 11,
+          "legs": [
+            0.821908056735992,
+            0.694620132446289,
+            0.698403418064117,
+            0.744717657566071,
+            0.992919981479645
+          ],
+          "pauses_ms": [
+            1133,
+            1199,
+            134,
+            1135
+          ],
+          "position": "(-255.6671, 0.045811, -375.0003)",
+          "prediction": {
+            "corrections": 13,
+            "max_error": 0.414237767457962,
+            "resets": 0
+          },
+          "roster": 1,
+          "visible": [
+            1844387428
+          ]
+        }
+      }
+    ],
+    "ok": true
+  },
+  "bots_and_worker_loss": {
+    "population": 8,
+    "moved": 8,
+    "seconds": 35,
+    "workers": 4,
+    "transfers": 11,
+    "worker_loss_exit_code": 3,
+    "ok": true
+  },
+  "internet_cold": {
+    "before_restart": {
+      "actors": [
+        {
+          "generation": 3,
+          "id": 1208553923,
+          "input_sequence": 1246,
+          "phase": "active",
+          "position": "(-261.8043, 0.045811, -374.9997)",
+          "zone": 0
+        },
+        {
+          "generation": 3,
+          "id": 1759681601,
+          "input_sequence": 1392,
+          "phase": "active",
+          "position": "(237.5971, 0.045834, -374.9998)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "epoch": 1,
+      "limit": 4,
+      "stats": {
+        "baselines": 6,
+        "events": 16,
+        "inputs": 1315,
+        "max_workers": 4,
+        "stale_inputs": 6,
+        "transfers": 4
+      },
+      "workers": 4
+    },
+    "capacity": 64,
+    "restart": {
+      "ok": true
+    },
+    "after_restart": {
+      "actors": [
+        {
+          "generation": 4,
+          "id": 1208553923,
+          "input_sequence": 1430,
+          "phase": "active",
+          "position": "(-395.0, -0.004818, -355.0)",
+          "zone": 0
+        },
+        {
+          "generation": 4,
+          "id": 1759681601,
+          "input_sequence": 1574,
+          "phase": "active",
+          "position": "(105.0, -0.004818, -355.0)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "epoch": 2,
+      "limit": 4,
+      "stats": {
+        "baselines": 8,
+        "events": 16,
+        "inputs": 1496,
+        "max_workers": 4,
+        "stale_inputs": 8,
+        "transfers": 4
+      },
+      "workers": 4
+    },
+    "clients": [
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 0
+        },
+        "route": {
+          "ack": 1228,
+          "ammo": [
+            47,
+            0,
+            10,
+            0
+          ],
+          "events": 8,
+          "legs": [
+            0.613237321376801,
+            0.472282946109772,
+            0.84402471780777
+          ],
+          "pauses_ms": [
+            9334,
+            133
+          ],
+          "position": "(-261.816, 0.045811, -374.9998)",
+          "prediction": {
+            "corrections": 15,
+            "max_error": 0.473416030406952,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            1208553923
+          ]
+        }
+      },
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 2
+        },
+        "route": {
+          "ack": 1230,
+          "ammo": [
+            147,
+            0,
+            0,
+            0
+          ],
+          "events": 8,
+          "legs": [
+            0.40950283408165,
+            0.469047248363495,
+            0.703155517578125
+          ],
+          "pauses_ms": [
+            5667,
+            401
+          ],
+          "position": "(237.6842, 0.045833, -374.9999)",
+          "prediction": {
+            "corrections": 19,
+            "max_error": 1.00090038776398,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            1759681601
+          ]
+        }
+      }
+    ],
+    "ok": true
+  },
+  "internet_warm": {
+    "before_restart": {
+      "actors": [
+        {
+          "generation": 3,
+          "id": 294465043,
+          "input_sequence": 1258,
+          "phase": "active",
+          "position": "(-262.1918, 0.045811, -375.0)",
+          "zone": 0
+        },
+        {
+          "generation": 3,
+          "id": 964384734,
+          "input_sequence": 1234,
+          "phase": "active",
+          "position": "(237.8549, 0.045835, -374.9998)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "epoch": 2,
+      "limit": 4,
+      "stats": {
+        "baselines": 14,
+        "events": 32,
+        "inputs": 3662,
+        "max_workers": 4,
+        "stale_inputs": 14,
+        "transfers": 8
+      },
+      "workers": 4
+    },
+    "capacity": 64,
+    "restart": {
+      "ok": true
+    },
+    "after_restart": {
+      "actors": [
+        {
+          "generation": 4,
+          "id": 294465043,
+          "input_sequence": 1442,
+          "phase": "active",
+          "position": "(-395.0, -0.004818, -395.0)",
+          "zone": 0
+        },
+        {
+          "generation": 4,
+          "id": 964384734,
+          "input_sequence": 1418,
+          "phase": "active",
+          "position": "(145.0, -0.004818, -355.0)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "epoch": 3,
+      "limit": 4,
+      "stats": {
+        "baselines": 16,
+        "events": 32,
+        "inputs": 3843,
+        "max_workers": 4,
+        "stale_inputs": 17,
+        "transfers": 8
+      },
+      "workers": 4
+    },
+    "clients": [
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 0
+        },
+        "route": {
+          "ack": 1230,
+          "ammo": [
+            47,
+            0,
+            10,
+            25
+          ],
+          "events": 8,
+          "legs": [
+            0.478885293006897,
+            0.731067717075348,
+            0.48455810546875
+          ],
+          "pauses_ms": [
+            134,
+            133
+          ],
+          "position": "(-262.1755, 0.045811, -375.0)",
+          "prediction": {
+            "corrections": 48,
+            "max_error": 0.645145118236542,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            294465043
+          ]
+        }
+      },
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 2
+        },
+        "route": {
+          "ack": 1224,
+          "ammo": [
+            147,
+            0,
+            0,
+            25
+          ],
+          "events": 8,
+          "legs": [
+            0.99485445022583,
+            0.930770933628082,
+            0.640365600585938
+          ],
+          "pauses_ms": [
+            133,
+            133
+          ],
+          "position": "(237.9803, 0.045834, -374.9998)",
+          "prediction": {
+            "corrections": 46,
+            "max_error": 0.560836851596832,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            964384734
+          ]
+        }
+      }
+    ],
+    "ok": true
+  },
+  "scope": "Real headless ENet clients with production input/prediction and internet transport. Not a rendered desktop/VR comfort test, full match, or 64-human capacity certification. Cold worker startup still freezes handoff for seconds."
+}

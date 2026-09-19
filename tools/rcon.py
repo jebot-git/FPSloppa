@@ -18,7 +18,7 @@ def command(host, port, password, text):
         sign = lambda text: hmac.new(password.encode(), text.encode(), hashlib.sha256).hexdigest()
         request = {'command': text, 'mac': sign(nonce + '\n' + text)}
         sock.sendall((json.dumps(request) + '\n').encode())
-        response = json.loads(stream.readline(16385))
+        response = json.loads(stream.readline(65537))
         payload = response['result']
         if not hmac.compare_digest(sign(nonce + '\nresponse\n' + payload), response['mac']):
             raise ValueError('Response authentication failed (wrong password or modified response)')

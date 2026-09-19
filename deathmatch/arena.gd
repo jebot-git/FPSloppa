@@ -62,6 +62,8 @@ var active := false
 var dedicated := false
 var server_name := "FPSloppa"
 var bind_address := "*"
+var district_gateway
+var cq_client=preload("res://deathmatch/conquest/client.gd").new(self)
 var district_worker # Private experimental worker; never a public ENet endpoint.
 var cq_profile:=false # Separate launcher/protocol, fixed for the process lifetime.
 var max_clients := MAX_PLAYERS
@@ -283,6 +285,7 @@ func _notification(what: int) -> void:
 func request_quit() -> void:
 	if quitting:return
 	quitting=true
+	if is_instance_valid(district_gateway):district_gateway.stop()
 	if haptics:haptics.shutdown()
 	active=false
 	if is_instance_valid(round_clock):round_clock.clear()
@@ -357,6 +360,8 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	rotation_index=0
 	if map_rotation.is_empty():push_error("No maps available for "+match_mode.kind);get_tree().quit(2);return
 	selected_map=map_rotation[0]
+	if cq_profile and settings.sv_cq_backend=="districts":
+		district_gateway=preload("res://deathmatch/server/districts/gateway.gd").new();add_child(district_gateway);district_gateway.setup(self,settings.sv_cq_worker_limit)
 	start_host("Server",_arg_int(args,"--port",settings.net_port),_arg_int(args,"--frags",settings.fraglimit),_arg_int(args,"--minutes",settings.timelimit),false)
 	if not active:
 		get_tree().quit(2)
@@ -468,7 +473,7 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 		gate.node.position = gate.base_position if gate.has("base_position") else Vector3(gate.node.position.x,gate.base,gate.node.position.z)
 	active = true
 	if not dedicated: _add_player(1,nickname)
-	if training:
+	if training and not is_instance_valid(district_worker):
 		for id in [-1,-2,-3]: _add_player(id,"Bot "+str(-id))
 		bots=preload("res://deathmatch/bots.gd").new()
 		add_child(bots)
@@ -636,6 +641,7 @@ func _add_player(id: int,player_name: String,spectator: bool=false,bot_class: St
 		var hash: String = defaults[posmod(id,mini(3,defaults.size()))]
 		avatars.choices[id] = {"hash":hash,"size":avatars.library.entries[hash].size}
 	_broadcast_roster()
+	if is_instance_valid(district_gateway):district_gateway.admit(id)
 
 func _broadcast_roster() -> void:
 	var data: Array = []
@@ -697,8 +703,10 @@ func _roster(data: Array) -> void:
 	for id in fighters:
 		fighters[id].show_alive(not players[id].dead,id==mine and not dedicated)
 		if avatars.choices.has(id): avatars.queue_avatar(id)
+	if not multiplayer.is_server() and cq_client.enabled:cq_client.membership(cq_client.visible.map(func(id):return [id]))
 
 func _peer_left(id: int) -> void:
+	if is_instance_valid(district_gateway):district_gateway.remove(id)
 	lobby.remove_peer(id)
 	if id<0 and is_instance_valid(bots):bots.brains.erase(id)
 	replication.cached.clear()
@@ -729,6 +737,8 @@ func _finish_departure(player_name: String) -> void:
 	_announcement.rpc(player_name+" left the arena.")
 
 func disconnect_game(reason: String = "Disconnected.") -> void:
+	if is_instance_valid(district_gateway):district_gateway.stop();district_gateway.queue_free();district_gateway=null
+	cq_client.reset()
 	lobby.reset_ballot()
 	replication.reset(); input_delivery.reset(); fire_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
 	if haptics:haptics.stop()
@@ -891,6 +901,7 @@ func _suicide_request(epoch: int,life: int) -> void:
 		_suicide_for(sender)
 
 func _suicide_for(id: int) -> bool:
+	if is_instance_valid(district_gateway):district_gateway.action(id,"suicide");return true
 	if not multiplayer.is_server() or not active or intermission>0 or lobby.active() or not players.has(id):return false
 	var state: Dictionary=players[id]
 	# Frozen players must still be thawed by their team; this cannot bypass FT rules.
@@ -917,6 +928,7 @@ func _local_command() -> Dictionary:
 
 @rpc("any_peer","call_remote","unreliable_ordered",2)
 func _input_command(command: Dictionary) -> void:
+	if var_to_bytes(command).size()>8192:return
 	if multiplayer.is_server() and command.get("map_epoch",-1)==map_epoch and input_delivery.allow(multiplayer.get_remote_sender_id(),clock): _accept_input(multiplayer.get_remote_sender_id(),command)
 
 @rpc("any_peer","call_remote","unreliable_ordered",2)
@@ -944,6 +956,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 		if command.get("input_life",-1)!=s.serial:return
 		s.erase("teleport_input_life")
 	if command.seq<=s.last_seq or command.seq>2147483647: return
+	if is_instance_valid(district_gateway):district_gateway.input(id,command);return
 	server_log.count("input_accepted")
 	s.last_seq = command.seq
 	s.last_input = clock
@@ -998,12 +1011,13 @@ func _physics_process(delta: float) -> void:
 	if connect_address_deadline>0 and clock>connect_address_deadline and connect_address_index<connect_addresses.size():_next_connect_address()
 	if connect_deadline>0 and clock>connect_deadline: disconnect_game("Connection timed out. Check host, firewall and UDP port forwarding.")
 	if not active: return
-	if not multiplayer.is_server() and clock<input_paused_until:return
+	if not multiplayer.is_server() and (clock<input_paused_until or cq_client.frozen):return
 	var mine := multiplayer.get_unique_id()
 	if players.has(mine) and not dedicated:
 		sequence += 1
 		var command := _local_command()
 		command.map_epoch=map_epoch
+		if cq_client.enabled:command.cq_generation=cq_client.generation
 		command.view_time=remote_view_time
 		fire_delivery.sample(command,players[mine].serial,clock)
 		if multiplayer.is_server():
@@ -1038,7 +1052,7 @@ func _physics_process(delta: float) -> void:
 
 	if multiplayer.is_server():
 		_server_tick(delta)
-		_record_history()
+		if not is_instance_valid(district_gateway):_record_history()
 		snapshot_accumulator += delta
 		if snapshot_accumulator>=.05:
 			snapshot_accumulator = fmod(snapshot_accumulator,.05)
@@ -1110,6 +1124,7 @@ func _server_tick(delta: float) -> void:
 		map_loading=false
 		_announcement.rpc("New map · "+map_title)
 	bot_population.maintain()
+	if is_instance_valid(district_gateway):district_gateway.advance(delta);return
 	# Keep the match fresh while the dedicated server has no ready clients.
 	# Pending downloads and connection timeouts still run above this gate.
 	if dedicated and players.is_empty():return
@@ -1131,12 +1146,13 @@ func _server_tick(delta: float) -> void:
 		elif match_mode.kind=="tb":match_mode.titanball.timeout()
 		else:_end_round()
 		return
-	if is_instance_valid(bots): bots.tick(delta)
+	if is_instance_valid(bots) and (not is_instance_valid(district_worker) or players.keys().any(func(id):return id<0)): bots.tick(delta)
 	var movement_start: Dictionary = {}
 	for id in fighters:
 		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height,"yaw":fighters[id].damage_yaw()}
 	for id in players:
 		var s: Dictionary = players[id]
+		if is_instance_valid(district_worker) and s.get("cq_wait_input",false):continue
 		if s.spectator:
 			if clock-s.last_input>.35:s.move=Vector2.ZERO;s.fly=0.0
 			_move_spectator(id,s.move,s.fly,s.yaw,s.slow,delta)
@@ -1268,10 +1284,12 @@ static func pickup_sound(kind: String,item: int) -> String:
 
 @rpc("authority","call_local","reliable",0)
 func _power_spawn(where: Vector3) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_power_spawn",[where])
 	if not headless:effects.play("power_spawn",where,-5)
 
 @rpc("authority","call_local","reliable",0)
 func _pickup_event(id: int,kind: String,item: int,weapon: int) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_pickup_event",[id,kind,item,weapon])
 	if weapon<0 or weapon>=armory.SLOT_COUNT or (kind=="weapon" and (item<0 or item>=armory.SLOT_COUNT)):return
 	demos.event("_pickup_event",[id,kind,item,weapon])
 	if haptics:haptics.pickup(id,kind)
@@ -1531,6 +1549,7 @@ func _launch(id: int,weapon: int,solution: Dictionary={}) -> void:
 
 @rpc("authority","call_local","reliable",0)
 func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction: Vector3,yaw: float,pitch: float,extra: Dictionary={}) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_projectile_spawn",[id,owner_id,weapon,pos,direction,yaw,pitch,extra])
 	if not armory.valid(weapon):return
 	if projectiles.has(id):return
 	if not multiplayer.is_server() and (ended_projectiles.has(id) or (id<=projectile_watermark and not id in snapshot_projectiles)):return
@@ -1710,6 +1729,7 @@ func _restart_round() -> void:
 	for id in projectiles.keys(): _projectile_end.rpc(id,projectiles[id].position,7)
 	history.clear()
 	remote_view_time=-1.0;snapshot_view_time=-1.0;projectile_watermark=-1;snapshot_projectiles.clear();ended_projectiles.clear()
+	if is_instance_valid(district_gateway):district_gateway.reset_round()
 	_announcement.rpc("New round · "+match_mode.status())
 
 func _history_positions() -> Dictionary:
@@ -1787,6 +1807,7 @@ func _send_snapshot() -> void:
 	mode_state["movement_ack"]={}
 	for id in players:mode_state.movement_ack[id]=players[id].last_seq
 	var state: Array=[data,items,round_left,intermission,round_message,frag_limit,time_limit,shots,gate_states,map_epoch,mode_state,votes.snapshot(),clock,projectile_id]
+	if is_instance_valid(district_gateway):district_gateway.replicate(state);return
 	callv("_snapshot",state)
 	if not multiplayer.get_peers().is_empty():
 		var packets: Dictionary = replication.packets(state)
@@ -1822,6 +1843,7 @@ func _snapshot_packet(bytes: PackedByteArray,size: int) -> void:
 @rpc("authority","call_local","unreliable_ordered",1)
 func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,message: String,limit: int,duration: float,shots: Array,gate_states: Array,epoch: int=0,mode_state: Dictionary={},vote_state: Dictionary={},server_time: float=-1.0,shot_watermark: int=-1) -> void:
 	if epoch!=map_epoch or (not multiplayer.is_server() and (map_loading or not active)): return
+	if not multiplayer.is_server():cq_client.membership(data)
 	var was_frozen: bool=match_mode.special.frozen.has(multiplayer.get_unique_id())
 	if not multiplayer.is_server():
 		snapshot_view_time=server_time
@@ -1959,6 +1981,7 @@ func _use_request() -> void:
 	if multiplayer.is_server(): _use_for(multiplayer.get_remote_sender_id())
 
 func _use_for(id: int) -> void:
+	if is_instance_valid(district_gateway):district_gateway.action(id,"use");return
 	if lobby.active():return
 	if match_mode.special.blocked(id):return
 	if not players.has(id) or players[id].dead or clock<players[id].use_at: return
@@ -2027,6 +2050,7 @@ func _chat_for(id: int,message: String,team_only: bool=false) -> void:
 
 @rpc("authority","call_local","reliable",0)
 func _announcement(message: String,is_chat: bool=false) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_announcement",[message,is_chat])
 	if is_chat:server_log.record("chat_activity",{"characters":message.length()},2)
 	else:server_log.record("match_event",{"message":message.left(512)})
 	feed.append({"text":message,"until":clock+8})
@@ -2039,10 +2063,12 @@ func _announcement(message: String,is_chat: bool=false) -> void:
 
 @rpc("authority","call_local","unreliable",3)
 func _hit_confirm(id: int) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_hit_confirm",[id])
 	if id==multiplayer.get_unique_id(): hit_flash = .14
 
 @rpc("authority","call_local","unreliable",3)
 func _melee_fx(id: int,offhand: bool=false) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_melee_fx",[id,offhand])
 	demos.event("_melee_fx",[id,offhand])
 	if fighters.has(id): fighters[id].animate_fire(offhand)
 	if headless: return
@@ -2055,6 +2081,7 @@ func _melee_fx(id: int,offhand: bool=false) -> void:
 
 @rpc("authority","call_local","unreliable",3)
 func _shot_fx(id: int,weapon: int,offhand: bool=false) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_shot_fx",[id,weapon,offhand])
 	demos.event("_shot_fx",[id,weapon,offhand])
 	var predicted:=predicted_offhand_shot_clock if offhand else predicted_shot_clock
 	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and clock-predicted<.5: return
@@ -2090,6 +2117,7 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false
 
 @rpc("authority","call_local","unreliable",3)
 func _ability_fx(kind: String,start: Vector3,end: Vector3,team: int) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_ability_fx",[kind,start,end,team])
 	if not kind in preload("res://deathmatch/modes/fortress_fx.gd").KINDS or not start.is_finite() or not end.is_finite() or team not in [0,1]:return
 	demos.event("_ability_fx",[kind,start,end,team])
 	if headless:return
@@ -2099,6 +2127,7 @@ func _ability_fx(kind: String,start: Vector3,end: Vector3,team: int) -> void:
 
 @rpc("authority","call_local","unreliable",3)
 func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_impacts",[start,ends,weapon])
 	demos.event("_impacts",[start,ends,weapon])
 	if headless or weapon<2: return
 	var definition: Dictionary=armory.data(weapon).duplicate()
@@ -2115,6 +2144,7 @@ func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
 				impact_budget-=1
 @rpc("authority","call_local","reliable",0)
 func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_projectile_end",[id,pos,weapon])
 	if not multiplayer.is_server():
 		if ended_projectiles.has(id):return
 		ended_projectiles[id]=true
@@ -2303,6 +2333,7 @@ func _weapon_blocked(id: int, offhand: bool=false) -> bool:
 
 @rpc("authority","call_local","reliable",0)
 func _hurt_fx(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int,screen_only: bool=false,weapon_name: String="",blast: bool=false) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_hurt_fx",[id,pos,direction,amount,dead,gibbed,seed_value,screen_only,weapon_name,blast])
 	demos.event("_hurt_fx",[id,pos,direction,amount,dead,gibbed,seed_value,screen_only,weapon_name,blast])
 	if fighters.has(id):fighters[id].gibbed=gibbed
 	if haptics:haptics.hurt(id,direction,amount,dead,screen_only,pos,weapon_name,blast)
@@ -2314,6 +2345,7 @@ func _hurt_fx(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gib
 
 @rpc("authority","call_local","reliable",0)
 func _teleport_fx(pos: Vector3) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_teleport_fx",[pos])
 	demos.event("_teleport_fx",[pos])
 	effects.play("teleport",pos)
 
@@ -2405,6 +2437,7 @@ func _announcer_cue(cue: String,target: int=0) -> void:
 
 @rpc("authority","call_local","unreliable",3)
 func _saw_contact(pos: Vector3,normal: Vector3,id: int,other: int=0) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_saw_contact",[pos,normal,id,other])
 	demos.event("_saw_contact",[pos,normal,id,other])
 	if headless:return
 	effects.sparks(pos,normal)
@@ -2419,6 +2452,7 @@ func _fighter_movement_sound(kind: String,where: Vector3,id: int) -> void:
 
 @rpc("authority","call_local","reliable",3)
 func _movement_sound(epoch: int,id: int,serial: int,kind: String,where: Vector3) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_movement_sound",[epoch,id,serial,kind,where])
 	if not kind in ["jump","land"] or not where.is_finite():return
 	if not demos.playing:
 		if epoch!=map_epoch or not players.has(id) or serial<int(players[id].serial):return
@@ -2430,6 +2464,7 @@ func _movement_sound(epoch: int,id: int,serial: int,kind: String,where: Vector3)
 
 @rpc("authority","call_local","unreliable",3)
 func _variant_shot_fx(id: int,weapon: int,alternate: bool) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_variant_shot_fx",[id,weapon,alternate])
 	if not armory.experimental() or not armory.valid(weapon):return
 	demos.event("_variant_shot_fx",[id,weapon,alternate])
 	if variant_combat.consume_prediction(id,weapon,alternate):return
@@ -2443,6 +2478,7 @@ func _play_variant_shot_fx(id: int,weapon: int,alternate: bool) -> void:
 
 @rpc("authority","call_local","unreliable",3)
 func _variant_bounce_fx(pos: Vector3,weapon: int) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_variant_bounce_fx",[pos,weapon])
 	if not armory.experimental():return
 	demos.event("_variant_bounce_fx",[pos,weapon])
 	if headless:return
@@ -2450,6 +2486,7 @@ func _variant_bounce_fx(pos: Vector3,weapon: int) -> void:
 
 @rpc("authority","call_local","unreliable",3)
 func _variant_combo_fx(pos: Vector3) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_variant_combo_fx",[pos])
 	demos.event("_variant_combo_fx",[pos])
 	if headless:return
 	spatial.play("ut99_combo",pos,-3)
@@ -2471,3 +2508,18 @@ func maps_for_mode(mode: String) -> Array:
 	if mode=="if" and not mode_maplists.has(list_kind) and mode_maplists.has("ig"):
 		return Maps.inherited_maplist(map_catalog,mode,Maps.choices_for_mode(map_catalog,mode,mode_maplists.ig))
 	return Maps.choices_for_mode(map_catalog,mode,mode_maplists.get(list_kind,[]))
+
+# CQ uses the same public ENet connection, with a generation per district visit.
+@rpc("authority","call_remote","reliable",0)
+func _cq_transition(epoch: int,generation: int,zone: int) -> void:cq_client.transition(epoch,generation,zone)
+@rpc("any_peer","call_remote","reliable",0)
+func _cq_ready(epoch: int,generation: int) -> void:
+	if multiplayer.is_server() and is_instance_valid(district_gateway) and epoch==map_epoch:district_gateway.ready(multiplayer.get_remote_sender_id(),generation)
+@rpc("authority","call_remote","reliable",0)
+func _cq_baseline(epoch: int,generation: int,bytes: PackedByteArray) -> void:cq_client.baseline(epoch,generation,bytes)
+@rpc("authority","call_remote","unreliable",1)
+func _cq_state(epoch: int,generation: int,bytes: PackedByteArray) -> void:cq_client.packet(epoch,generation,bytes)
+@rpc("authority","call_remote","reliable",7)
+func _cq_large(epoch: int,generation: int,bytes: PackedByteArray) -> void:cq_client.packet(epoch,generation,bytes)
+@rpc("authority","call_remote","reliable",0)
+func _cq_event(epoch: int,generation: int,method: String,args: Array) -> void:cq_client.event(epoch,generation,method,args)

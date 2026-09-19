@@ -1,56 +1,88 @@
-# District workers in the dedicated server
+# CQ gateway and district workers
 
-The prototype is isolated on `experimental/cq-districts`. The original checkout remains on `main`, with its ordinary game changes retained. This branch includes those ordinary changes as a preservation baseline, followed by a separate prototype commit; do not merge the whole experimental branch into main to take a single backend fix.
+The experimental branch now has an optional playable ENet gateway in the existing dedicated executable. `main` remains the ordinary working branch. CQ still requires its separate launcher and protocol (`fpsloppa-cq-experimental-2`); normal clients and normal game capacity settings remain separate.
 
-**The existing console-only dedicated executable can run a district worker.** A two-process private coordinator test now exercises real movement input, a physical boundary crossing, state transfer and replay protection. This establishes server-runtime reuse, not a playable public district backend. Normal server startup remains monolithic. `set sv_simulation districts` is still rejected.
+## Configuration and launch
 
-CQ clients still require the separate launcher and protocol. The ordinary client cannot join CQ, and the CQ client cannot join an ordinary server. No shared client profile, capacity increase for normal modes, or public worker ports were introduced.
+Add these to a CQ-only server configuration:
 
-## Implemented on the experimental branch
+```cfg
+set sv_cq_backend districts
+set sv_cq_worker_limit 16
+```
 
-- `deathmatch/server/districts/state.gd` is the shared schema-2 actor transfer implementation. The original prototype imports it as well.
-- Actor transfer rebases buffered-fire expiry, valid view timestamps, nested melee timestamps and the existing top-level deadlines between clocks. An absent view timestamp stays absent; expired actions stay expired. Weapon charge duration is preserved as a duration.
-- Removal/restoration no longer uses ordinary player departure/admission. This avoids departure announcements, team reassignment and spawn side effects during migration. Positive human IDs do not acquire bot AI; source lag history is cleared.
-- `deathmatch/server/districts/wire.gd` shares the private framed Variant transport. It bounds frames to 1 MiB, receive accumulation to one frame plus header, queued output to 2 MiB, and decoded messages to 256 per poll. Object decoding remains disabled. A failed transport stops processing.
-- `--experimental-cq --cq-worker <0..15>` selects a private worker entry point before ordinary dedicated startup. It requires headless operation, a loopback coordinator port and a 256-bit token. The worker opens an outgoing loopback connection, never an ENet listener. Both sides verify the token in the probe; the coordinator also verifies PID, district, map hash and schema.
-- Workers use production movement, combat, bots and input validation, with local pickups. Inputs require the current map epoch, actor ownership and district generation. The coordinator supplies global CQ ownership; workers do not advance capture rules independently.
-- Transfers remove source authority into escrow before preparing the destination. Prepare is inactive; commit activates once. Replayed commits return the original receipt even after the actor subsequently departs. Destination lag-compensation history is invalidated. Source-owned and boundary-crossing projectiles are terminated. Transactions are bounded; generation metadata is released with escrow.
-- Round reset requires a newer epoch and clears actors, projectiles and transactions. Coordinator disconnection or silence for 15 seconds stops the worker. This is fail-closed behavior, not durable crash recovery.
-- Console packaging has an opt-in `--cq-assets` flag for the Vesper BSP, navigation mesh and CQ configuration. The dedicated runtime resolves external assets and does not require graphical scene caches. The source/client launcher still requires its prepared scenes.
+`sv_cq_backend` defaults to `monolithic`; `districts` is rejected outside CQ. Worker limits range from 2 to 16 and are independent of `sv_cq_maxclients`. Workers start on demand. Empty workers can be replaced while retaining pickup cooldowns. An actor in transit reserves both its source and destination; a limit must leave room for that overlap. Exceeding the limit when no worker can be evicted stops the experimental session rather than allowing two authorities or unowned actors. The limit is a resource guard, not a guarantee that any population fits that many workers.
 
-The worker's snapshots are private state records. They are deliberately not passed directly to the public replication receiver. The raw schema is rejected by that receiver.
-
-## Validation
-
-The [local clock/codec probe](validation/district-integration.json) now passes the previously failing clock checks: transfer from clock 100 to 800 preserves 0.25 seconds of buffered-fire life and a view timestamp age of 0.08 seconds. It also checks sentinel/expired timestamps, health, armour, invulnerability, respawn, production input acknowledgement and codec round-trip.
-
-The [console-worker probe](validation/district-server-probe.json) passes 45 checks using two actual packaged console server processes. It checks authenticated startup, shared map/schema, routed positive-ID human input, wrong-owner/stale-generation rejection, nested deadlines and charge, physical crossing, no active owner during escrow, prepare/commit replay, exactly one destination authority, late commit replay without resurrection, epoch reset and worker exit on coordinator loss. This uses a private test coordinator, not human ENet clients or VR prediction.
-
-The existing two-district/eight-bot prototype also passes a deliberately rejected transfer with rollback followed by a successful crossing. All eight actors remain accounted for, state is preserved, and duplicate acknowledgements do not duplicate ownership. CQ's rule suite passes 215 assertions. The separate ENet admission suite checks the existing monolithic CQ session and both directions of client-profile isolation; it does not test a public district gateway.
-
-Reproduce from this branch (Godot 4.7.2 and the existing audited console template required):
+Package the server with the pinned map, navigation and trusted collision cache:
 
 ```sh
 python3 tools/build_console_server.py --cq-assets \
   --template /path/to/console-only/FPSloppaServer.x86_64 \
-  --output Builds/CQWorkerServer
-python3 tools/build_console_server.py --verify-only --output Builds/CQWorkerServer
-godot --headless --xr-mode off --path . --script tools/district_sim/server_probe.gd
-godot --headless --xr-mode off --path . --script tools/district_sim/integration_probe.gd
-godot --headless --xr-mode off --path . --script tools/district_sim/run.gd -- \
-  '{"zones":2,"seconds":14,"name":"server-shared-state","reject_once":true,"port":29473}'
+  --output Builds/CQGatewayFinal
+python3 tools/build_console_server.py --verify-only --output Builds/CQGatewayFinal
+Builds/CQGatewayFinal/FPSloppaServer.x86_64 -- \
+  --experimental-cq --config /path/to/cq-server.cfg
+```
+
+The packager generates a server-only collision scene from the verified BSP and embeds it in the PCK. Clients cannot upload or replace that resource. Public BSP/model admission still uses the existing asset protocol. Full-city static collision remains available in every worker for spawning and traces; dynamic actors, pickups and projectiles belong to one district. Bot navigation is created only for districts containing bots, and empty districts skip actor/AI simulation while their clocks continue.
+
+Clients launch from this branch:
+
+```sh
+./launch-conquest.sh 45.147.228.101
+```
+
+The test endpoint is UDP **45.147.228.101:7787**. The ordinary server continues on 7777. The test deployment lives under `~/FPSloppa-CQ-Experimental/20260920-gateway`, supervised by the user service `fpsloppa-cq-experimental.service`. It is capped at four workers, 1 GiB and one CPU core's worth of time on a two-core/2-GB host. User lingering keeps it alive after SSH disconnect. It is a transient testing service, not a boot-enabled production installation. Stop it with `systemctl --user stop fpsloppa-cq-experimental`. RCON listens only on loopback and was accessed through SSH; credentials are absent from the repository and validation receipts.
+
+The configured CQ admission ceiling is 64, but this small test host and its four-worker cap are **not** a 64-player deployment. The ordinary server and its configuration were not replaced.
+
+## Authority and replication
+
+The gateway owns the public ENet connection, admission, model choices, transport RTT, team directory, capture rules, match clock, radio and RCON. Its fighters are proxies populated by worker snapshots; it never runs their movement/combat or bot AI. Pending actors cannot capture circles. Global capture/time can continue while another actor transfers.
+
+Private loopback workers authenticate with an ephemeral per-process token, expected PID, district, map hash and transfer schema. Input goes through the public size/rate/sender/map checks, then the gateway's ownership, sequence and district-generation checks, then production validation in the owning worker. Friendly-fire policy comes from the gateway. Workers cannot advance CQ capture independently.
+
+Each client has its own replication cache and receives current-district actors, pickups and projectiles, plus global CQ objectives and roster identity. Actors outside its interest set are hidden and excluded from local actor collision. The graphical map remains the existing full-city map with its existing occlusion; this change does not introduce streaming of static district geometry.
+
+Whitelisted worker audiovisual events—including shots, impacts, pickups, damage, hit confirmation, projectiles and kill announcements—cross an authority-only RPC wrapper carrying the recipient's generation. Global gateway announcements remain global. RCON status reports worker counts, ownership phases, generations and input/transfer statistics.
+
+## Handoff and prediction
+
+1. The source removes the actor into escrow before offering it. Owned projectiles are ended; cross-boundary projectiles are also terminated. Cross-district ballistics are not supported.
+2. The gateway advances the actor's generation and sends a reliable transition. The client freezes movement prediction, clears its prediction/interpolation/projectile history and pending input edges, and acknowledges the new generation.
+3. The destination stages the complete actor state. It activates only after prepare and client readiness. Duplicate commits return the original receipt, including after a later departure.
+4. A committed human waits for fresh generation input before movement/combat resumes, preventing held actions during baseline application. On commit, the gateway releases source escrow and sends a reliable, district-scoped baseline. The client applies position/velocity, seeds the replication receiver and resumes prediction. A same-life transfer preserves the player's view orientation; a real respawn still follows normal spawn handling.
+5. Delayed old-generation snapshots, effects and inputs are rejected. Fire/jump event counters remain monotonic, while old pending local edges are cleared. Valid view timestamps and buffered/nested action deadlines are rebased between worker clocks; destination lag history is invalidated at commit.
+
+Round reset pauses workers, advances their private epoch, clears actors/projectiles/transactions/pickup state and waits for reset acknowledgements before redeploying actors through new client baselines. Public map identity does not need to change. Disconnected actors are retired from every possible owner and staged transaction.
+
+Workers exit on coordinator loss. Worker loss, stale authority, transport overflow, ambiguous transfer failure or exhausted active-worker capacity closes the gateway. This is deliberately fail-closed; there is no durable failover or automatic recovery of a match.
+
+## Validation and limits
+
+[Consolidated receipt](validation/cq-gateway.json) contains the final local and internet results and the deployed package hash. The final code was tested with:
+
+- Two real ENet clients crossing out and back through separate districts, firing, rejecting delayed generations, and receiving fresh baselines after RCON round restart. Each retained the global two-player roster while seeing only its local actor.
+- A single predicted client visiting three districts with a two-worker pool, exercising eviction and re-entry, four physical crossings and a round reset; no hard prediction resets.
+- Eight bots for 35 seconds: all eight moved, 11 transfers completed, and forcibly terminating a worker caused gateway exit code 3 instead of continuing with uncertain authority.
+- 47 private-worker assertions covering transfer/clock/replay/epoch behavior, friendly-fire policy and coordinator loss; 221 CQ rule/configuration assertions; both directions of client-profile rejection, unchanged ordinary capacity and monolithic 64-entry CQ admission.
+- An audited console package with no client native plugins, using the same dedicated executable for gateway and workers.
+
+On the remote host, final loaded-worker handoffs measured **133–134 ms**. Both final internet clients reported zero hard prediction resets. Maximum recorded prediction error before correction was approximately 0.65 m in that run; this does not mean visually perfect movement. Final cold starts still required **5.7–9.3 seconds** of deliberate handoff freeze. Peak service memory was approximately **543 MiB** under the 1-GiB cap. An earlier build hit that cap while repeatedly importing the BSP; the embedded collision cache and lazy AI initialization resolved the observed test failure.
+
+These are headless clients executing real input, physics prediction and internet ENet transport. They do not certify rendered desktop/VR comfort, voice quality, a complete balanced CQ match, 64-human performance, every possible failure interleaving, or pickup persistence under arbitrary long-running overload. Known Godot/GDExtension shutdown resource diagnostics remain in the test-driver logs; runtime script/physics errors and gameplay assertions fail the harness.
+
+Reproduce local tests:
+
+```sh
+python3 tools/cq_gateway/run.py --server-binary Builds/CQGatewayFinal/FPSloppaServer.x86_64
+python3 tools/cq_gateway/run.py --server-binary Builds/CQGatewayFinal/FPSloppaServer.x86_64 \
+  --name local-pool --clients 1 --worker-limit 2 --pool-route
+python3 tools/cq_gateway/bots_and_failure.py
+godot --headless --xr-mode off --path . --script tools/district_sim/server_probe.gd -- \
+  "$PWD/Builds/CQGatewayFinal/FPSloppaServer.x86_64"
 godot --headless --xr-mode off --path . --script deathmatch/tests/conquest.gd
 python3 tools/test_conquest_network.py
 ```
 
-The probe's loopback port is 29471. Its watchdog closes connections and stops its child processes. Worker tokens are ephemeral and excluded from validation receipts. The worker entry point is an internal development interface; run the probe rather than treating it as a public server command.
-
-## Remaining public-backend work
-
-An optional backend in the ordinary dedicated executable is feasible without merging the clients. The CQ profile should continue to select a separate admission protocol and its own capacity settings. A future `sv_cq_backend` option can select the implementation within that profile, with the current monolithic implementation as the default.
-
-The public gateway must retain one stable ENet connection per player and own assets, identity, teams, capture state, round time, RCON, voice and the ownership directory. It must stop simulating actor proxies when workers own them. It also needs worker supervision, freshness checks and coordinated round resets.
-
-Playable district clients require scoped replication caches/baselines, authority event forwarding, a generation-bound transition acknowledgement, clearing old prediction and interpolation, and rejecting delayed old-district state/events. The current observer is not a substitute. Disconnect/reconnect during transfer, destination failure during commit, loss of the coordinator, overloaded districts, crowded-district performance and a full CQ match need explicit tests before enabling the public option. Durable failover and cross-district ballistics remain undefined.
-
-No 64-human performance, desktop/VR handoff quality or public gateway readiness is claimed by these worker tests. Main remains the working branch; cherry-pick only reviewed independent fixes if they later become useful to the ordinary server.
+The live harness uses `--remote --host <host> --port <CQ-port> --rcon-port <local-SSH-forward> --config <private-config>`. Test outputs/configuration are ignored under `test-results/cq-gateway`; RCON secrets are generated separately from SSH authentication. All implementation and deployment work belongs to `experimental/cq-districts`; no main-branch merge was performed.

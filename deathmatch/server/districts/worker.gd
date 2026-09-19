@@ -17,6 +17,7 @@ var last_snapshot:=0
 var last_contact:=0
 var booted:=false
 var authenticated:=false
+var events: Array=[]
 func setup(arena,args: PackedStringArray) -> void:
 	game=arena;game.district_worker=self;game.dedicated=true;game.set_process(false);game.set_physics_process(false)
 	zone=game._arg_int(args,"--cq-worker",-1);token=game._arg_value(args,"--worker-token","")
@@ -30,12 +31,8 @@ func boot(port: int) -> void:
 	for id in game.players.keys():State.remove(game,id)
 	game.dedicated=false
 	game.pickups=game.pickups.filter(func(p):return State.district(p.position)==zone)
-	if is_instance_valid(game.bots):game.bots.free()
-	game.bots=preload("res://deathmatch/bots.gd").new();game.add_child(game.bots);game.bots.setup(game)
-	var deadline:=Time.get_ticks_msec()+60000
-	while not game.bots.navigation.ready():
-		await get_tree().physics_frame
-		if Time.get_ticks_msec()>deadline:get_tree().quit(2);return
+	if is_instance_valid(game.bots):game.bots.free();game.bots=null
+	var deadline: int
 	# Every projectile id belongs to exactly one district namespace for this process.
 	game.projectile_id=zone*100000000
 	var socket:=StreamPeerTCP.new();socket.connect_to_host("127.0.0.1",port);wire=Wire.new(socket)
@@ -45,6 +42,13 @@ func boot(port: int) -> void:
 		if Time.get_ticks_msec()>deadline:get_tree().quit(2);return
 	wire.send({"kind":"hello","zone":zone,"token":token,"pid":OS.get_process_id(),"map":game.map_sha,"schema":State.SCHEMA})
 	last_contact=Time.get_ticks_msec();booted=true
+func ensure_bots(id: int) -> void:
+	if id>=0 or is_instance_valid(game.bots):return
+	game.bots=preload("res://deathmatch/bots.gd").new();game.add_child(game.bots);game.bots.setup(game)
+func event(method: String,args: Array) -> void:
+	if running:
+		if events.size()>=512:get_tree().quit(3);return
+		events.append([method,args])
 func _physics_process(delta: float) -> void:
 	if not booted:return
 	for message in wire.poll():
@@ -53,7 +57,9 @@ func _physics_process(delta: float) -> void:
 		get_tree().quit(3);return
 	if not running:return
 	game.round_left=1000000;game.intermission=0
-	game._physics_process(delta)
+	# Empty districts retain timers, but have no AI or actors to simulate.
+	if game.players.is_empty() and game.projectiles.is_empty():game.clock+=delta
+	else:game._physics_process(delta)
 	for id in game.players.keys():
 		var target:=State.district(game.fighters[id].position)
 		if target!=zone:offer(id,target)
@@ -64,8 +70,14 @@ func command(message: Dictionary) -> void:
 	if not authenticated:
 		if message.get("kind","")!="welcome" or message.get("token","")!=token:get_tree().quit(3);return
 		authenticated=true;token="";return
-	if message.kind=="start" and epoch==0:running=true;epoch=message.epoch;game.map_epoch=epoch;send_snapshot();return
+	if message.kind=="start" and epoch==0:
+		game.match_mode.friendly_fire=message.get("friendly_fire",false);running=true;epoch=message.epoch;game.map_epoch=message.get("map_epoch",epoch)
+		for stored in message.get("pickups",[]):
+			for item in game.pickups:
+				if item.position==stored.position:item.available=stored.available;item.respawn=game.clock+float(stored.respawn);break
+		send_snapshot();return
 	if int(message.get("epoch",-1))!=epoch:return
+	game.match_mode.friendly_fire=message.get("friendly_fire",game.match_mode.friendly_fire)
 	match message.kind:
 		"heartbeat":
 			game.match_mode.conquest.rules.receive(message.rules)
@@ -75,7 +87,15 @@ func command(message: Dictionary) -> void:
 			var row: Dictionary=message.actor
 			if not State.valid(row) or State.district(row.position)!=zone:return
 			if game.players.has(row.id):return
-			State.restore(game,row);generation[row.id]=int(message.generation);send_snapshot()
+			ensure_bots(row.id);State.restore(game,row);game.players[row.id].cq_wait_input=row.id>0;generation[row.id]=int(message.generation);send_snapshot()
+		"retire":
+			var id: int=message.id
+			if game.players.has(id):clear_projectiles(id);State.remove(game,id)
+			for tx in prepared.keys():
+				if prepared[tx].actor.id==id:prepared.erase(tx)
+			for tx in escrow.keys():
+				if escrow[tx].id==id:escrow.erase(tx)
+			generation.erase(id)
 		"remove":
 			var id: int=message.id
 			if game.players.has(id):clear_projectiles(id);State.remove(game,id)
@@ -83,9 +103,11 @@ func command(message: Dictionary) -> void:
 		"input":
 			var id: int=message.id
 			if not game.players.has(id) or int(message.generation)!=int(generation.get(id,-1)):return
+			game.players[id].ping=clampi(int(message.get("ping",0)),0,400)
 			var input: Dictionary=message.command.duplicate(true)
 			if float(input.get("view_time",-1))>=0:input.view_time+=game.clock-float(message.gateway_clock)
 			game._accept_input(id,input)
+			if game.players[id].last_seq==input.get("seq",-2):game.players[id].cq_wait_input=false
 		"action":
 			if game.players.has(message.id) and int(message.generation)==int(generation.get(message.id,-1)):
 				if message.action=="suicide":game._suicide_for(message.id)
@@ -102,7 +124,7 @@ func command(message: Dictionary) -> void:
 			if not prepared.has(message.tx):return
 			var tx: Dictionary=prepared[message.tx];var id: int=tx.actor.id
 			if not tx.committed:
-				State.restore(game,tx.actor);generation[id]=int(tx.generation);tx.committed=true
+				ensure_bots(id);State.restore(game,tx.actor);game.players[id].cq_wait_input=id>0;generation[id]=int(tx.generation);tx.committed=true
 				# Destination history must never rewind into a previous visit.
 				for frame in game.history:frame.positions.erase(id)
 				game.players[id].view_time=-1.0
@@ -126,9 +148,9 @@ func command(message: Dictionary) -> void:
 			if int(message.next_epoch)<=epoch:return
 			running=false
 			for id in game.players.keys():clear_projectiles(id);State.remove(game,id)
-			generation.clear();prepared.clear();escrow.clear();game.history.clear()
+			generation.clear();prepared.clear();escrow.clear();events.clear();game.history.clear()
 			for item in game.pickups:item.available=true;item.respawn=0.0
-			epoch=int(message.next_epoch);game.map_epoch=epoch
+			epoch=int(message.next_epoch);game.map_epoch=message.get("map_epoch",epoch)
 			wire.send({"kind":"reset","zone":zone,"epoch":epoch})
 		"stop":wire.peer.disconnect_from_host();get_tree().quit()
 func clear_projectiles(owner: int) -> void:
@@ -137,10 +159,13 @@ func clear_projectiles(owner: int) -> void:
 func offer(id: int,target: int) -> void:
 	if escrow.size()>=256:get_tree().quit(3);return
 	var tx:="%d:%d:%d:%d"%[epoch,zone,id,sequence];var row:=State.actor(game,id)
+	row.state.move=Vector2.ZERO;row.state.fire=false;row.state.alt_fire=false;row.state.offhand_fire=false;row.state.jump=false;row.state.room=Vector3.ZERO
 	clear_projectiles(id);escrow[tx]=row;State.remove(game,id)
 	wire.send({"kind":"offer","zone":zone,"target":target,"tx":tx,"actor":row,"generation":generation[id],"epoch":epoch})
 func send_snapshot() -> void:
 	if game.projectile_id>=(zone+1)*100000000:get_tree().quit(3);return
 	sequence+=1
 	var snapshot:=State.snapshot(game,zone,sequence)
-	wire.send({"kind":"snapshot","zone":zone,"epoch":epoch,"snapshot":snapshot,"generations":generation.duplicate()})
+	snapshot.watermark=game.projectile_id
+	snapshot.friendly_fire=game.match_mode.friendly_fire
+	wire.send({"kind":"snapshot","zone":zone,"epoch":epoch,"snapshot":snapshot,"generations":generation.duplicate(),"events":events});events=[]

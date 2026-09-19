@@ -37,6 +37,11 @@ func run() -> void:
 	check(not a.has("error") and a.values.sv_maxclients==8 and a.values.sv_cq_maxclients==64 and a.values.sv_weapon_rules=="ut99","Independent CQ capacity and default loadout")
 	for source in ['set sv_maxclients 64','set sv_cq_maxclients 65','set sv_cq_bot_fill 65','set sv_gametype cq\nset sv_gametypes "cq dm"','set sv_gametype cq\nset sv_lobby 1','set sv_gametype cq\nset sv_cq_maxclients 32\nset sv_cq_bot_fill 64']:
 		check(Config.parse(source).has("error"),"Reject unsafe config: "+source)
+	var backend:=Config.parse('set sv_gametype cq\nset sv_cq_backend districts\nset sv_cq_worker_limit 2\nset sv_cq_maxclients 64\nset sv_maxclients 8')
+	check(not backend.has("error") and backend.values.sv_cq_worker_limit==2 and backend.values.sv_cq_maxclients==64 and backend.values.sv_maxclients==8,"Worker budget is independent of CQ and ordinary capacity")
+	check(Config.parse('').values.sv_cq_backend=="monolithic","Normal startup keeps monolithic backend")
+	for source in ['set sv_cq_backend districts','set sv_gametype cq\nset sv_cq_backend unknown','set sv_gametype cq\nset sv_cq_worker_limit 1','set sv_gametype cq\nset sv_cq_worker_limit 17']:
+		check(Config.parse(source).has("error"),"Reject unsafe worker config: "+source)
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g)
 	g.set_physics_process(false);g.set_process(false)
 	g.cq_profile=true;check(g.match_mode.conquest.install().is_empty(),"Baked map installed")

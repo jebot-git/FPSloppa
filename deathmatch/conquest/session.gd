@@ -3,7 +3,7 @@ const Rules=preload("res://deathmatch/conquest/rules.gd")
 const MAP_ID="prototype_km1"
 const MAP_PATH="res://maps/Benchmark1km/prototype_km1.bsp"
 const MAP_HASH="727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3"
-const PROTOCOL="fpsloppa-cq-experimental-1"
+const PROTOCOL="fpsloppa-cq-experimental-2"
 var game
 var rules=Rules.new()
 var labels: Array=[]
@@ -66,6 +66,7 @@ func tick(delta: float) -> void:
 	var present: Array=[]
 	for zone in 16:present.append([false,false])
 	for id in game.players:
+		if is_instance_valid(game.district_gateway) and game.district_gateway.owners.get(id,{}).get("phase","")!="active":continue
 		var state: Dictionary=game.players[id]
 		if state.dead or state.spectator or not state.team in [0,1]:continue
 		var zone:=Rules.district(game.fighters[id].position)

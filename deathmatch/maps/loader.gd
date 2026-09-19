@@ -64,6 +64,8 @@ static func map_title(path: String,fallback: String) -> String:
 	return found.get_string(1).left(60) if found else fallback
 static func scene(row: Dictionary) -> PackedScene:
 	if OS.has_feature("dedicated_server"):
+		var trusted:=preload("res://deathmatch/server/districts/geometry_cache.gd").scene(row)
+		if trusted:return trusted
 		# Never deserialize a client's graphical scene cache in a server process.
 		var node:=read(row.path)
 		if not node:return null
@@ -135,12 +137,12 @@ static func validate(path: String) -> String:
 		var length := f.get_32()
 		if offset<0 or length<0 or offset+length>f.get_length(): return "BSP lump extends beyond file."
 	return validate_geometry(path)
-static func read(path: String) -> Node3D:
+static func read(path: String,server_geometry: bool=false) -> Node3D:
 	if not validate(path).is_empty(): return null
 	var reader := Reader.new()
 	reader.unit_scale = SCALE
-	reader.generate_texture_materials = not OS.has_feature("dedicated_server")
-	reader.use_named_texture_replacements = not OS.has_feature("dedicated_server")
+	reader.generate_texture_materials = not (OS.has_feature("dedicated_server") or server_geometry)
+	reader.use_named_texture_replacements = not (OS.has_feature("dedicated_server") or server_geometry)
 	reader.transparent_texture_prefix = "{"
 	reader.save_separate_materials = false
 	reader.material_path_pattern = "res://deathmatch/maps/materials/{texture_name}.tres"
@@ -148,7 +150,7 @@ static func read(path: String) -> Node3D:
 	reader.texture_emission_path_pattern = "res://deathmatch/maps/textures/{texture_name}_emission.png"
 	reader.texture_palette_path = "res://deathmatch/maps/palette.lmp"
 	reader.generate_lightmap_uv2 = false
-	reader.generate_occlusion_culling = not OS.has_feature("dedicated_server")
+	reader.generate_occlusion_culling = not (OS.has_feature("dedicated_server") or server_geometry)
 	reader.generate_shadow_mesh = false
 	reader.use_triangle_collision = true
 	reader.ignore_missing_entities = true
@@ -159,7 +161,7 @@ static func read(path: String) -> Node3D:
 		reader.entity_remap[name] = "res://deathmatch/maps/brush.tscn"
 	for name in ["trigger_teleport","trigger_hurt","trigger_push","trigger_multiple","trigger_once","trigger_secret"]:
 		reader.entity_remap[name] = "res://deathmatch/maps/trigger.tscn"
-	if not OS.has_feature("dedicated_server"):
+	if not (OS.has_feature("dedicated_server") or server_geometry):
 		reader.water_template = load("res://addons/bsp_importer/examples/water_example_template.tscn")
 		reader.slime_template = load("res://addons/bsp_importer/examples/slime_example_template.tscn")
 		reader.lava_template = load("res://addons/bsp_importer/examples/lava_example_template.tscn")
@@ -206,8 +208,8 @@ static func read(path: String) -> Node3D:
 	if result:
 		var source:=FileAccess.open(path,FileAccess.READ);source.seek(4);var offset:=source.get_32();var length:=source.get_32();source.seek(offset)
 		var world:=source.get_buffer(mini(length,65536)).get_string_from_ascii().split("}")[0]
-		if not OS.has_feature("dedicated_server") and world.contains('"_fpsloppa_ad" "1"'):load("res://deathmatch/maps/static_batch.gd").apply(result)
-	if result and not OS.has_feature("dedicated_server"):
+		if not (OS.has_feature("dedicated_server") or server_geometry) and world.contains('"_fpsloppa_ad" "1"'):load("res://deathmatch/maps/static_batch.gd").apply(result)
+	if result and not (OS.has_feature("dedicated_server") or server_geometry):
 		load("res://deathmatch/maps/surface_assets.gd").vary(result,path.get_file().get_basename())
 		load("res://deathmatch/maps/glow_masks.gd").apply(result,path.get_file().get_basename())
 		result.set_meta("map_presentation_version",preload("res://deathmatch/maps/surface_assets.gd").VERSION)

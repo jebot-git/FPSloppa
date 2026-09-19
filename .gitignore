@@ -103,3 +103,6 @@ __pycache__/
 /maps/*.prt
 /maps/*.texinfo
 /maps/*.vis
+
+# Generated, validated collision cache embedded by the CQ server packager.
+/deathmatch/server/districts/cache/

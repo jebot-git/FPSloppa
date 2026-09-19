@@ -81,8 +81,9 @@ func run() -> void:
 		var worker_args:=PackedStringArray(["--log-file",ProjectSettings.globalize_path("res://test-results/district-sim/server-worker-%d.log"%zone),"--","--experimental-cq","--cq-worker",str(zone),"--worker-port",str(port),"--worker-token",tokens[zone]])
 		pids[zone]=OS.create_process(binary,worker_args);check(pids[zone]>0,"Console worker launched")
 	if not await wait_for(func():return workers.size()==2,60):finish();return
-	for zone in 2:send(zone,{"kind":"start"});heartbeat(zone)
-	await snap(0);await snap(1)
+	for zone in 2:send(zone,{"kind":"start","friendly_fire":true});heartbeat(zone)
+	var settings:=await snap(0);await snap(1)
+	check(settings.friendly_fire,"Workers receive authoritative friendly-fire policy")
 	send(0,{"kind":"admit","actor":fixture,"generation":1})
 	var row:=actor(await snap(0),42)
 	if row.is_empty():check(false,"Actor admitted");finish();return
@@ -109,10 +110,11 @@ func run() -> void:
 	send(0,{"kind":"release","tx":offer.tx})
 	var destination:=await snap(1)
 	check(destination.actors.size()==1 and destination.actors[0].id==42 and actor(await snap(0),42).is_empty(),"Duplicate commit leaves exactly one authority")
+	check(committed.actor.state.cq_wait_input,"Committed human waits for fresh generation input")
 	check(committed.actor.state.view_time==-1 and committed.actor.state.hp==73,"Commit invalidates source lag timestamp, preserves health")
 	input(1,row,1,999);send(1,{"kind":"input","epoch":0,"id":42,"generation":2,"command":{}})
 	row=actor(await snap(1),42);check(row.state.last_seq==17,"Old generation and epoch rejected after migration")
-	input(1,row,2,18);row=actor(await snap(1),42);check(row.state.last_seq==18,"Destination accepts new generation")
+	input(1,row,2,18);row=actor(await snap(1),42);check(row.state.last_seq==18 and not row.state.cq_wait_input,"Destination resumes only with fresh generation input")
 	# Replayed commit must acknowledge its original receipt even after departure.
 	send(1,{"kind":"remove","id":42})
 	send(1,{"kind":"commit","tx":offer.tx})

@@ -40,6 +40,7 @@ func make_room(incoming: int) -> bool:
 		game._peer_left(id)
 	return true
 func refresh_navigation() -> void:
+	if is_instance_valid(game.district_gateway):return
 	if not (game.dedicated and (target>0 or count_target>0)) and not is_instance_valid(game.bots):return
 	if is_instance_valid(game.bots):game.bots.free()
 	game.bots=preload("res://deathmatch/bots.gd").new()

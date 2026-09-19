@@ -55,6 +55,7 @@ def allowed(path):
         return False
     if path.startswith('deathmatch/audio/') and path != 'deathmatch/audio/announcer.gd':
         return False
+    if path == 'deathmatch/server/districts/cache/vesper.scn':return True
     return Path(path).suffix in {'.gd', '.json', '.tscn', '.lmp'}
 
 
@@ -160,7 +161,10 @@ openxr/enabled=false
 script=ExtResource("1")
 [node name="Map" type="Node3D" parent="."]
 ''')
+    if cq_assets:
+        subprocess.run([godot, '--headless', '--xr-mode', 'off', '--log-file', str(work/'cq-cache.log'), '--path', str(ROOT), '--script', 'res://tools/cq_gateway/cache.gd'],check=True,stdout=subprocess.DEVNULL)
     selected = {'project.godot': work / 'project.godot', 'deathmatch/arena.tscn': work / 'arena.tscn'}
+    if cq_assets:selected['deathmatch/server/districts/cache/vesper.scn'] = ROOT/'deathmatch/server/districts/cache/vesper.scn'
     pending = ['deathmatch/arena.gd', 'deathmatch/voice/relay.gd', 'addons/bsp_importer/gsrc_wad_reader.gd', 'addons/bsp_importer/collision_surface_info.gd',
                'deathmatch/maps/manifest.json', 'deathmatch/avatars/models/manifest.json', 'deathmatch/assets/base_manifest.json']
     while pending:
