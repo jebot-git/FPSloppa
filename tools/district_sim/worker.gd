@@ -114,7 +114,7 @@ func command(message: Dictionary) -> void:
 func offer(id: int,target: int) -> void:
 	var key: String="%d:%d:%d"%[zone,id,tick];var row:=State.actor(game,id);escrow[key]=row
 	# Remove authority before sending. Escrow can restore state until commit.
-	game._peer_left(id);game.bots.crossing.erase(id)
+	State.remove(game,id);game.bots.crossing.erase(id)
 	wire.send({"kind":"offer","zone":zone,"target":target,"tx":key,"actor":row})
 func send_snapshot() -> void:
 	sequence+=1;snapshot_count+=1;wire.send({"kind":"snapshot","zone":zone,"snapshot":State.snapshot(game,zone,sequence)})

@@ -127,7 +127,7 @@ def compile_runtime(source, scons, jobs, native=False):
     return source / 'bin/godot.linuxbsd.template_release.x86_64'
 
 
-def package(godot, template, dest):
+def package(godot, template, dest, cq_assets=False):
     dependencies = runtime_audit(template)
     dest.mkdir(parents=True, exist_ok=True)
     # A fresh directory prevents an earlier generic export leaving native plugins behind.
@@ -206,6 +206,10 @@ script=ExtResource("1")
             continue
         package_files.add(path.as_posix())
         target = dest / path;target.parent.mkdir(parents=True, exist_ok=True);shutil.copy2(ROOT / path, target)
+    if cq_assets:
+        for name in ['maps/Benchmark1km/prototype_km1.bsp', 'maps/navigation/prototype_km1.res', 'conquest.cfg', 'docs/CONQUEST.md']:
+            target = dest / name;target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(ROOT / name, target);package_files.add(name)
     if not (dest / 'server.cfg').exists():shutil.copy2(ROOT / 'server.cfg', dest / 'server.cfg')
     for name in ['SERVER.md', 'VOICE.md', 'TF.md', 'AS.md', 'GAMEMODES.md', 'ASSET_CREDITS.md', 'GODOT-LICENSE.txt', 'GODOT-COPYRIGHT.txt']:
         shutil.copy2(ROOT / name, dest / name);package_files.add(name)
@@ -243,6 +247,7 @@ def verify_package(dest):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--cq-assets', action='store_true', help='Include experimental CQ collision/navigation assets and configuration')
     parser.add_argument('--verify-only', action='store_true', help='Audit existing package without rebuilding')
     parser.add_argument('--native-toolchain', action='store_true', help='Use host compiler instead of the Ubuntu 22.04 container')
     parser.add_argument('--source', type=Path, default=ROOT / 'Builds/ServerRuntime/godot-4.7.2-stable')
@@ -256,7 +261,7 @@ def main():
     template = args.template or compile_runtime(args.source, args.scons, args.jobs,args.native_toolchain)
     godot = os.environ.get('GODOT_BIN') or shutil.which('godot')
     if not godot:parser.error('Godot is needed only as a packaging tool')
-    package(godot, template.resolve(), args.output.resolve())
+    package(godot, template.resolve(), args.output.resolve(), args.cq_assets)
 
 
 if __name__ == '__main__':main()

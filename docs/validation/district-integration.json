@@ -1,8 +1,9 @@
 {
   "actor_identity_preserved": true,
-  "buffered_fire_deadline_preserved": false,
-  "buffered_fire_remaining_seconds": -699.75,
+  "buffered_fire_deadline_preserved": true,
+  "buffered_fire_remaining_seconds": 0.25,
   "current_config_accepts_district_option": false,
+  "human_has_no_bot_brain": true,
   "inventory_and_hp_preserved": true,
   "production_codec_roundtrip_hp": 73,
   "production_codec_roundtrip_input_ack": 17,
@@ -10,7 +11,8 @@
   "raw_district_snapshot_accepted_by_production": false,
   "relative_invulnerability_seconds": 2.0,
   "relative_respawn_seconds": 3.0,
-  "scope": "Local API/codec/clock probes; not a network playable-client test. False deadline/capability values are integration gaps.",
-  "view_time_preserved": false,
-  "view_timestamp_age_seconds": 700.08
+  "scope": "Local API/codec/clock probes; not a network playable-client test. Clock fixes pass; unsupported public integration remains explicit.",
+  "sentinel_and_expired_deadline_preserved": true,
+  "view_time_preserved": true,
+  "view_timestamp_age_seconds": 0.0800000000000409
 }

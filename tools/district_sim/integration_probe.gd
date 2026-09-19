@@ -42,7 +42,7 @@ func run() -> void:
 	report.production_codec_roundtrip_input_ack=decoded[10].movement_ack[42]
 	assert(report.production_codec_roundtrip_hp==73 and report.production_codec_roundtrip_input_ack==17)
 	s.fire_pending=[s.weapon,1,100.25]
-	var transfer:=State.actor(game,42);game._peer_left(42);game.clock=800.0;State.restore(game,transfer)
+	var transfer:=State.actor(game,42);State.remove(game,42);game.clock=800.0;State.restore(game,transfer)
 	report.actor_identity_preserved=game.players.has(42)
 	report.inventory_and_hp_preserved=game.players[42].hp==73 and game.players[42].armor==41
 	report.relative_invulnerability_seconds=game.players[42].invulnerable-game.clock
@@ -53,7 +53,14 @@ func run() -> void:
 	report.view_time_preserved=is_equal_approx(report.view_timestamp_age_seconds,.08)
 	assert(report.actor_identity_preserved and report.inventory_and_hp_preserved)
 	assert(is_equal_approx(report.relative_invulnerability_seconds,2) and is_equal_approx(report.relative_respawn_seconds,3))
-	report.scope="Local API/codec/clock probes; not a network playable-client test. False deadline/capability values are integration gaps."
+	assert(report.buffered_fire_deadline_preserved and report.view_time_preserved)
+	assert(not game.bots.brains.has(42))
+	report.human_has_no_bot_brain=true
+	var no_view:={"view_time":-1.0,"fire_pending":[2,1,99.75],"district_view_valid":false}
+	State.shift(no_view,-100);State.shift(no_view,800)
+	assert(no_view.view_time==-1 and is_equal_approx(no_view.fire_pending[2]-800,-.25))
+	report.sentinel_and_expired_deadline_preserved=true
+	report.scope="Local API/codec/clock probes; not a network playable-client test. Clock fixes pass; unsupported public integration remains explicit."
 	DirAccess.make_dir_recursive_absolute("res://test-results/district-sim")
 	FileAccess.open("res://test-results/district-sim/integration-probe.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
 	print("DISTRICT_INTEGRATION_PROBE ",JSON.stringify(report))

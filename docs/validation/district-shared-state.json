@@ -1,0 +1,32 @@
+{
+  "options": {
+    "name": "server-shared-state",
+    "port": 29473.0,
+    "reject_once": true,
+    "seconds": 14.0,
+    "speed": 1,
+    "zones": 2.0
+  },
+  "population": 8,
+  "transfers": [
+    {
+      "commit_sequence": 2,
+      "id": -1,
+      "latency_ms": 68,
+      "prepared_sequence": 1,
+      "snapshot_bytes": 58404,
+      "source": 0,
+      "state_preserved": true,
+      "target": 1
+    }
+  ],
+  "rollbacks": [
+    {
+      "id": -1,
+      "latency_ms": 75,
+      "source": 0
+    }
+  ],
+  "duplicate_acknowledgements": 3,
+  "failures": []
+}

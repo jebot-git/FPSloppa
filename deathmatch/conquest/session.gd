@@ -9,9 +9,10 @@ var rules=Rules.new()
 var labels: Array=[]
 func setup(arena) -> void:game=arena
 func install() -> String:
-	if not FileAccess.file_exists(MAP_PATH) or FileAccess.get_sha256(MAP_PATH)!=MAP_HASH:return "CQ requires the matching baked Vesper map; see docs/CONQUEST.md."
-	if not FileAccess.file_exists("res://maps/Benchmark1km/zones-lightmap1.scn"):return "CQ requires the prepared Vesper scene cache."
-	game.map_catalog.append({"id":MAP_ID,"title":"Vesper Megalopolis · CONQUEST","path":MAP_PATH,"scene":"res://maps/Benchmark1km/zones.scn","sha256":MAP_HASH,"size":24197612,"modes":["cq"]})
+	var path: String=game.Maps.Paths.resolve(MAP_PATH)
+	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=MAP_HASH:return "CQ requires the matching baked Vesper map; see docs/CONQUEST.md."
+	if not OS.has_feature("dedicated_server") and not FileAccess.file_exists(game.Maps.Paths.resolve("res://maps/Benchmark1km/zones-lightmap1.scn")):return "CQ requires the prepared Vesper scene cache."
+	game.map_catalog.append({"id":MAP_ID,"title":"Vesper Megalopolis · CONQUEST","path":path,"scene":game.Maps.Paths.resolve("res://maps/Benchmark1km/zones.scn"),"sha256":MAP_HASH,"size":24197612,"modes":["cq"]})
 	game.selected_map=MAP_ID
 	return ""
 func reset() -> void:
@@ -60,6 +61,8 @@ func configure_pickups() -> void:
 			if not game.headless:pickup.node=game._pickup_art(pickup)
 			game.pickups.append(pickup)
 func tick(delta: float) -> void:
+	# The coordinator owns capture and match time, never individual workers.
+	if is_instance_valid(game.district_worker):return
 	var present: Array=[]
 	for zone in 16:present.append([false,false])
 	for id in game.players:
