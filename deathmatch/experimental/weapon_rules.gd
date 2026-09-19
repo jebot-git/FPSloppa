@@ -40,7 +40,7 @@ func select(value: String,remember: bool=true) -> bool:
 		set_weapon(6,"ROCKET LAUNCHER",2,1,.9,100,{"kind":"rocket","speed":18.0,"radius":.12,"splash":100,"blast_radius":4.4,"charge_max":3.0,"alt":{"kind":"grenade","speed":15.0,"gravity":19.0,"fuse":2.5,"bounce":.6}})
 		set_weapon(7,"PULSE GUN",3,1,.12,20,{"kind":"pulse","speed":40.0,"radius":.10,"alt":{"kind":"beam","cycle":.1,"damage":12,"range":18.0,"beam_radius":.10}})
 		set_weapon(8,"REDEEMER",2,10,2.0,1000,{"kind":"warhead","speed":16.0,"radius":.30,"splash":1000,"blast_radius":30.0,"fuse":12.0,"alt":{"guided":true}})
-		set_weapon(9,"SNIPER RIFLE",0,1,.7,45,{"kind":"sniper","range":200.0,"head_damage":100,"alt":{"zoom":true}})
+		set_weapon(9,"SNIPER RIFLE",0,1,.7,45,{"kind":"sniper","range":200.0,"head_damage":100,"scope":true,"alt":{"zoom":true}})
 		set_weapon(10,"RIPPER",0,1,.35,30,{"kind":"razor","speed":32.0,"radius":.10,"bounce":1.0,"fuse":3.0,"head_damage":90,"alt":{"kind":"razor_blast","splash":34,"blast_radius":2.6,"bounce":0.0}})
 		set_weapon(11,"TRANSLOCATOR",-1,0,.5,0,{"kind":"translocator","speed":18.0,"gravity":19.0,"radius":.12,"fuse":30.0,"bounce":.4})
 	return true
@@ -71,10 +71,8 @@ func tf_loadout(state: Dictionary) -> void:
 	if not experimental():return
 	if kind=="ut99":
 		state.ammo=[100,30,20,150];return
-	var role: String=state.tf_class
-	var loadouts={"scout":[0,2,5],"sniper":[0,2,9],"soldier":[0,2,3,6],"demoman":[0,2,4],"medic":[0,2,3,7],"heavy":[0,2,3,7],"pyro":[0,2,6,7],"spy":[0,2,3,5],"engineer":[0,2,3]}
-	state.owned=loadouts.get(role,[0,2,6]).duplicate();state.weapon=state.owned.back()
-	state.ammo=[100,40,20,100]
+	var definition: Dictionary=game.match_mode.fortress.class_definition(state.tf_class)
+	state.owned=definition.owned.duplicate();state.weapon=definition.weapon;state.ammo=definition.ammo.duplicate()
 func pickup_bundle(index: int) -> Array:
 	# Existing BSPs have seven weapon entity types. These paired caches expose the
 	# two extra UT weapons without changing geometry or network pickup ordering.

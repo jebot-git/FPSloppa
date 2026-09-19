@@ -45,12 +45,14 @@ Tiny variants retain the same inventory with placements fitted to compact geomet
 Neither map includes a Redeemer or translocator.
 
 Weapons are separate pickups: Assault no longer bundles sniper with shock or
-Ripper with minigun. They stay available for teammates, but an owned weapon cannot
-be collected repeatedly for ammo, following UT's weapon-stay behavior.
-The relevant original implementation is
-[TournamentWeapon](https://github.com/Slipyx/UT99/blob/master/Botpack/TournamentWeapon.uc)
-and [Weapon](https://github.com/Slipyx/UT99/blob/master/Engine/Weapon.uc).
-Bots account for weapon-stay and actual armour quantities when choosing supplies.
+Ripper with minigun. Assault uses normal shared pickup availability: a collected
+weapon disappears for every player and respawns after 15 seconds. A respawned
+weapon can replenish ammunition even when already owned; a full player leaves it
+available. The Redeemer, if present on a custom map, respawns after 30 seconds.
+Assault halves weapon timers only; other modes retain their normal 30/60-second
+weapon timers. Bots account for ammunition needs, respawn times and actual
+armour quantities when choosing supplies. Swapping attack/defend roles restores
+all pickups and clears their timers.
 
 ## Deliberate approximations
 

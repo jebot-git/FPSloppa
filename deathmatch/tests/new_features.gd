@@ -31,7 +31,7 @@ func run() -> void:
 	check(preload("res://deathmatch/server/config.gd").parse('set sv_maxclients "33"').has("error"),"Dedicated server rejects more than 32 slots")
 	check(preload("res://deathmatch/server/config.gd").parse('set sv_lobby_seconds "1"').has("error"),"Lobby duration bounded")
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.set_physics_process(false)
-	g.start_host("Recorder",0,100,30,true,"dm");g.map_rotation=["lqdm1","lqdm2"];g.mode_maplists={"dm":["lqdm1","lqdm2"],"ig":["lqdm2"]};g.votes.allowed_modes=["dm","ig"]
+	g.start_host("Recorder",0,100,30,true,"dm");g.map_rotation=["qsrc_dm1","qsrc_dm6"];g.mode_maplists={"dm":["qsrc_dm1","qsrc_dm6"],"ig":["qsrc_dm6"]};g.votes.allowed_modes=["dm","ig"]
 	var path: String=ProjectSettings.globalize_path("res://test-results/features.fpsdemo")
 	if FileAccess.file_exists(path):DirAccess.remove_absolute(path)
 	check(g.demos.start_record(path),"Start demo recording")
@@ -45,17 +45,17 @@ func run() -> void:
 	var initial: Vector3=g.fighters[1].position
 	for i in 10:g.clock+=.02;g.lobby.tick(.02);await physics_frame
 	check(g.fighters[1].position.distance_to(initial)>.1,"Players can move in the lobby")
-	check(not g.lobby.cast(1,"ig","lqdm1"),"Lobby rejects map outside mode maplist")
-	check(g.lobby.cast(1,"ig","lqdm2"),"Player can vote for valid map and mode")
+	check(not g.lobby.cast(1,"ig","qsrc_dm1"),"Lobby rejects map outside mode maplist")
+	check(g.lobby.cast(1,"ig","qsrc_dm6"),"Player can vote for valid map and mode")
 	g._send_snapshot();g.clock+=6
-	check(g.lobby.cast(1,"dm","lqdm2") and g.lobby.result()=={"mode":"dm","map":"lqdm2"},"A subsequent approved proposal replaces the next match")
+	check(g.lobby.cast_value(1,"dm|qsrc_dm6|doom") and g.lobby.result()=={"mode":"dm","map":"qsrc_dm6","rules":"doom"},"Changing the direct vote replaces the leading match")
 	g._send_snapshot();g.lobby.until=g.clock;g.lobby.tick(.02);g._send_snapshot()
-	check(g.current_map=="lqdm2" and not g.lobby.active(),"Vote winner starts a normal match")
+	check(g.current_map=="qsrc_dm6" and not g.lobby.active(),"Vote winner starts a normal match")
 	g.demos.stop_record()
 	check(FileAccess.file_exists(path),"Demo saved outside the game package")
 	check(g.demos.open_demo(path),"Recorded demo opens with map changes")
 	if g.demos.playing:
-		g.demos.seek(g.demos.duration);check(g.current_map=="lqdm2","Demo seeking loads the recorded map")
+		g.demos.seek(g.demos.duration);check(g.current_map=="qsrc_dm6","Demo seeking loads the recorded map")
 		g.demos.next_player();g.demos.viewpoint="chase";g.demos.tick(.016)
 		check(is_instance_valid(g.demos.camera) and g.demos.camera.global_position.is_finite(),"Demo chase camera and player switching")
 		g.demos.stop_playback()

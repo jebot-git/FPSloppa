@@ -74,7 +74,7 @@ def check_selection(paths):
     cc={'cc_hyperborea','cc_psychofuge','cc_ghostquarter','cc_basement'}
     assert {Path(p).stem for p in names if p.startswith('maps/qsrc_dm') and p.endswith('.bsp')}==quake
     assert {Path(p).stem for p in names if p.startswith('maps/cc_') and p.endswith('.bsp')}==cc
-    for mode in ['dm','tdm','ig','ft']:assert rotation(mode)==['qsrc_dm'+str(i) for i in range(1,8)]
+    for mode in ['dm','tdm','ig','ft','if']:assert rotation(mode)==['qsrc_dm'+str(i) for i in range(1,8)]
     assert set(rotation('cc'))==cc
     ctf={'ctf_tideworks','ctf_crucible','ctf_confluence','ctf_deepvault','ctf_crownreach','ctf_skyfracture'}
     assert {Path(p).stem for p in names if p.startswith('maps/ctf_') and p.endswith('.bsp')}==ctf

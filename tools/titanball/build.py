@@ -6,16 +6,26 @@ sys.path.insert(0,str(ROOT/'tools'))
 from generate_tf_maps import Arena
 from pressureworks.build import materials
 ID='tb_ashfall';OUT=ROOT/'maps/Ashfall'
+ROUTE_METRES=350
+BALCONIES=[46.,116.,146.,170.]
+MIDDLE_OVERPASS=146. # Actual route distance 179 m, joining both existing balconies.
+VANTAGES=16+2*len(BALCONIES)
+CHECKPOINTS=[80.,230.]
+# Distances are actual route metres, independent of the legacy authoring scale.
+STATIONS=[(0.,14,-1),(CHECKPOINTS[0]-10,16,0),(CHECKPOINTS[0]+24,-9.5,0),
+          (CHECKPOINTS[1]-15,16,0),(CHECKPOINTS[1]+16,-9.5,0),(348.,-15,0)]
 BRICK='ind_brk01_brwn';GREY='ind_brk02_gry1';RED='ind_brk02_red1';IRON='metal_iron1_01';GRATE='metal_iron1_07';FLOOR='med_flat5a';STONE='med_cobstn1_2';SKY='sky_star'
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def q(v):return (-v[2]*32,-v[0]*32,v[1]*32)
+def route_distance(d):return d if d<=80 else 80+(d-80)*1.5 if d<180 else d+50
+def legacy_distance(d):return d if d<=80 else 80+(d-80)/1.5 if d<230 else d-50
 class City(Arena):
  def __init__(self):super().__init__(ID,'Ashfall Boulevard | TITANBALL');self.models=[];self.detail=[];self.route=json.loads((OUT/'route.json').read_text());self.probes={'rooms':[],'bridges':[],'spawns':[]}
  def face(self,points,texture):
   scale=.5 if texture.startswith(('ind_','metal_')) else 1
-  return super().face(points,texture).rsplit(' ',2)[0]+f' {scale} {scale}'
+  return ' '.join('( %.9f %.9f %.9f )'%p for p in reversed(points))+f' {texture} 0 0 0 {scale} {scale}'
  def local(self,d,p):
-  f=self.route['samples'][max(0,min(300,round(d)))];o=f['position'];x=f['right'];z=f['forward']
+  f=self.route['samples'][max(0,min(ROUTE_METRES,round(route_distance(d))))];o=f['position'];x=f['right'];z=f['forward']
   return tuple(o[i]+x[i]*p[0]+(p[1] if i==1 else 0)+z[i]*p[2] for i in range(3))
  def box(self,lo,hi,t=BRICK,d=None,detail=False):
   x,y,z=lo;X,Y,Z=hi
@@ -81,12 +91,14 @@ class City(Arena):
  def build(self):
   # Rasterise structural masses onto a 64-unit grid, merging identical cells.
   # This gives continuous, editable orthogonal facades along the curved street.
-  cell=2.;xmin,xmax=-64,64;zmin,zmax=-10,270
+  cell=2.
   samples=self.route['samples']
+  xmin=math.floor((min(r['position'][0] for r in samples)-30)/2)*2;xmax=math.ceil((max(r['position'][0] for r in samples)+30)/2)*2
+  zmin=-10;zmax=math.ceil((max(r['position'][2] for r in samples)+24)/2)*2
   def nearest(x,z):
    row=min(samples,key=lambda r:(r['position'][0]-x)**2+(r['position'][2]-z)**2)
    dx=x-row['position'][0];dz=z-row['position'][2]
-   return math.hypot(dx,dz),row['distance'],dx*row['right'][0]+dz*row['right'][2]
+   return math.hypot(dx,dz),legacy_distance(row['distance']),dx*row['right'][0]+dz*row['right'][2]
   grids={}
   for iz,z in enumerate(range(zmin,zmax,2)):
    for ix,x in enumerate(range(xmin,xmax,2)):
@@ -105,6 +117,13 @@ class City(Arena):
      # Side-room partitions retain a door along the interior connecting street.
      if 20<=distance<24 and int(along)%16<2 and abs(distance-22)>1.1:records.append((0,4,texture))
      records += [(4,height,texture),(height,48,SKY)]
+    # Clear interior tower/gallery volumes through raster facades on bends.
+    # Without this, rotated access ramps can enter a solid upper storey.
+    for d,reach,roof in [(88,10,17),(198,10,17),(MIDDLE_OVERPASS,20,17)]+[(d,19,9) for d in BALCONIES]:
+     frame=samples[round(route_distance(d))];dx=x+1-frame['position'][0];dz=z+1-frame['position'][2]
+     local_x=dx*frame['right'][0]+dz*frame['right'][2];local_z=dx*frame['forward'][0]+dz*frame['forward'][2]
+     if 12<abs(local_x)<20 and abs(local_z)<reach:
+      records=[(max(bottom,roof),top,texture) for bottom,top,texture in records if top>roof]
     if abs(x+1)<24 and 20<=z<26:records=[record for record in records if record[0]>=4]
     for record in records:grids.setdefault(record,set()).add((ix,iz))
   for (bottom,top,texture),cells in grids.items():
@@ -140,21 +159,21 @@ class City(Arena):
    for z in [-3.,2.7]:self.box((-13,13.2,z),(13,14.2,z+.3),GRATE,d)
    for side in [-1,1]:
     # Access tower takes sidewalk space; the centre 26 m remains unobstructed.
-    x=side*15.5
+    x=side*14.3
     for flight in range(4):
-     forward=flight%2==0;lane=x+side*(-.95 if forward else .95)
-     self.ramp(d,lane,-6 if forward else 6,6 if forward else -6,flight*3.3,(flight+1)*3.3,1.7)
+     forward=flight%2==0;lane=x+side*(-1.5 if forward else 1.5)
+     self.ramp(d,lane,-6 if forward else 6,6 if forward else -6,flight*3.3,(flight+1)*3.3,2.4)
      zend=6 if forward else -8
-     self.box((x-2,(flight+1)*3.3-.25,zend),(x+2,(flight+1)*3.3,zend+2),STONE,d,True)
-    self.box((min(side*13,x),12.95,-6),(max(side*13,x),13.2,3),STONE,d,True)
-    self.probes['bridges'].append({'bottom':self.local(d,(x-side*.95,.05,-6)),'top':self.local(d,(x-side*.8,13.25,0))})
-  self.hangar();self.street_cover()
-  for stage,d in enumerate([0,72,172]):self.spawn_group(d,0,stage)
+     self.box((x-2.9,(flight+1)*3.3-.25,zend),(x+2.9,(flight+1)*3.3,zend+2),STONE,d,True)
+    self.box((min(side*12.5,x),12.95,-6),(max(side*12.5,x),13.2,3),STONE,d,True)
+    self.probes['bridges'].append({'bottom':self.local(d,(x-side*1.5,.05,-6.4)),'top':self.local(d,(x-side*.8,13.25,0))})
+  self.hangar();self.street_cover();self.balconies();self.middle_overpass()
+  for stage,d in enumerate([0,72,legacy_distance(230-8)]):self.spawn_group(d,0,stage)
   self.spawn_group(300,1,0)
   self.gameplay_markers()
   for i,p in enumerate(self.route['points']):self.point('info_tb_route',p,order=i)
   for i,d in enumerate([80,180]):
-   self.point('info_tb_checkpoint',self.local(d,(0,0,0)),stage=i+1,distance=d)
+   self.point('info_tb_checkpoint',self.local(d,(0,0,0)),stage=i+1,distance=route_distance(d))
    for side in [-1,1]:self.box((side*12.4-.2,0,-.2),(side*12.4+.2,12.8,.2),'ind_cont1_ylw1',d)
    self.box((-12.6,12.8,-.2),(12.6,13.2,.2),'ind_cont1_ylw1',d)
   # Last block: pillbox frontage, protected firing positions and a heavy base arch.
@@ -173,18 +192,54 @@ class City(Arena):
  def spawn_group(self,d,team,stage):
   for side in [-1,1]:
    for z in [-1.,1.]:
-    p=self.local(d,(side*17,.05,z));self.point('info_tb_spawn',p,team=team,stage=stage,angle=180 if team==0 else 0)
+    p=self.local(d,(side*(15 if stage==2 else 17),.05,z));self.point('info_tb_spawn',p,team=team,stage=stage,angle=180 if team==0 else 0)
     self.probes['spawns'].append({'position':p,'team':team,'stage':stage})
   for side in [-1,1]:self.box((side*17-1.8,0,3),(side*17+1.8,2.6,3.4),'ind_dp01_red1' if team==0 else 'ind_dp01_blu1',d)
  def gameplay_markers(self):
   # One per base, two flanking each checkpoint along the route. All are shared.
-  for d,x,z in [(0,14,-1),(70,16,0),(96,-11,0),(170,16,0),(196,-11,0),(298,-15,0)]:
-   self.point('info_tb_resupply',self.local(d,(x,.05,z)),distance=d)
-  for d in [88,198]:
+  self.probes["stations"]=[]
+  for distance,x,z in STATIONS:
+   position=self.local(legacy_distance(distance),(x,.05,z))
+   self.point("info_tb_resupply",position,distance=distance)
+   self.probes["stations"].append({"distance":distance,"position":position})
+  for d in [88,MIDDLE_OVERPASS,198]:
    for side in [-1,1]:
-    for z in [-2.,2.]:self.point('info_tb_vantage',self.local(d,(side*8.5,13.25,z)),distance=d,side=side)
+    for z in [-2.,2.]:self.point('info_tb_vantage',self.local(d,(side*8.5,13.25,z)),distance=route_distance(d),side=side)
   for d in [236,278]:
-   for side in [-1,1]:self.point('info_tb_vantage',self.local(d,(side*15.5,4.25,-4.6)),distance=d,side=side)
+   for side in [-1,1]:self.point('info_tb_vantage',self.local(d,(side*15.5,4.25,-4.6)),distance=route_distance(d),side=side)
+  for d in BALCONIES:
+   for side in [-1,1]:self.point('info_tb_vantage',self.local(d,(side*15.4,6.05,0)),distance=route_distance(d),side=side)
+ def middle_overpass(self):
+  # Both 6 m galleries connect to this 13.2 m crossing. Two switchback
+  # flights per side preserve headroom over the ground-access ramps.
+  d=MIDDLE_OVERPASS
+  self.box((-13,12.5,-3),(13,13.2,3),IRON,d)
+  for z in [-3.,2.7]:self.box((-12.3,13.2,z),(12.3,14.2,z+.3),GRATE,d)
+  for side in [-1,1]:
+   x=side*14.3
+   self.box((x-2.9,5.75,4.5),(x+2.9,6.,5.5),STONE,d,True)
+   self.ramp(d,x-side*1.5,5,17,6.,9.6,2.4)
+   self.box((x-2.9,9.35,17),(x+2.9,9.6,19),STONE,d,True)
+   self.ramp(d,x+side*1.5,17,5,9.6,13.2,2.4)
+   self.box((x-2.9,12.95,3),(x+2.9,13.2,5),STONE,d,True)
+   self.box((min(side*12.5,x+side*2.9),12.95,-3),(max(side*12.5,x+side*2.9),13.2,3),STONE,d,True)
+   self.probes['bridges'].append({'bottom':self.local(d,(side*15.4,6.05,0)),'top':self.local(d,(side*8.5,13.25,0)),'kind':'balcony_connection'})
+ def balconies(self):
+  # Paired side galleries before and after both checkpoint approaches. Two
+  # sloped exits avoid trapping defenders on a single staircase.
+  self.probes['balconies']=[]
+  for d in BALCONIES:
+   for side in [-1,1]:
+    x=side*15.4
+    self.box((x-1.8,5.7,-4),(x+1.8,6.,5),IRON,d,True)
+    self.ramp(d,x,-16,-4,0,6.,2.8)
+    self.ramp(d,x,5,17,6.,0,2.8)
+    # Cover at each end, with an open central firing window toward the street.
+    for z in [-4.,3.]:
+     for offset in [-1.3,1.3]:self.box((x+offset-.5,6.,z),(x+offset+.5,7.1,z+1.5),GREY,d,True)
+    back=x+side*1.65
+    self.box((back-.15,6.,-4),(back+.15,7.25,5),GREY,d,True)
+    self.probes['balconies'].append({'bottom':self.local(d,(x,.05,-16.4)),'top':self.local(d,(x,6.05,0)),'distance':route_distance(d)})
  def hangar(self):
   for lo,hi in [((-24,0,-8),(-23,16,20)),((23,0,-8),(24,16,20)),((-24,0,-8),(24,16,-7)),((-24,16,-8),(24,17,20))]:self.box(lo,hi,IRON)
   self.box((-24,13,18),(24,16,20),GREY)
@@ -236,6 +291,6 @@ def main():
   assert data[at:at+len(donors[name])]==donors[name],name
   audit.append({'texture':name,'unchanged':True,'sha256':hashlib.sha256(donors[name]).hexdigest()})
  (OUT/'texture-audit.json').write_text(json.dumps({'bsp_sha256':sha(bsp),'textures':audit},indent=2)+'\n')
- report={'id':ID,'title':a.title,'sha256':sha(bsp),'source_sha256':sha(sourcepath),'bytes':len(data),'structural_brushes':len(a.brushes),'detail_brushes':len(a.detail),'route_m':300,'team_spawns':[12,4],'natural_pickups':0,'universal_resupply':6,'tactical_vantages':12,'street_cover_groups':len(a.probes['cover']),'gate_thickness_m':1.2,'gate_pocket_thickness_m':2.0,'geometry_license':'CC0-1.0','textures':'texture-sources.json','lighting_complete':not args.geometry_only}
+ report={'id':ID,'title':a.title,'sha256':sha(bsp),'source_sha256':sha(sourcepath),'bytes':len(data),'structural_brushes':len(a.brushes),'detail_brushes':len(a.detail),'route_m':ROUTE_METRES,'team_spawns':[12,4],'natural_pickups':0,'universal_resupply':6,'tactical_vantages':VANTAGES,'middle_overpass_m':route_distance(MIDDLE_OVERPASS),'side_balconies':len(a.probes['balconies']),'street_cover_groups':len(a.probes['cover']),'gate_thickness_m':1.2,'gate_pocket_thickness_m':2.0,'geometry_license':'CC0-1.0','textures':'texture-sources.json','lighting_complete':not args.geometry_only}
  (OUT/'manifest.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report,indent=2))
 if __name__=='__main__':main()

@@ -171,6 +171,13 @@ func run() -> void:
 	await process_frame;await process_frame
 	check(fortress.choice.popup.visible,"TF class popup opens inside the VR viewport")
 	check(not fortress.choice.scroll.get_v_scroll_bar().visible,"VR dropdown hides its scrollbar")
+	var stick_tracker:=XRControllerTracker.new();stick_tracker.name="left_hand";XRServer.add_tracker(stick_tracker)
+	stick_tracker.set_input("primary",Vector2(0,-1));await process_frame
+	rig.scroll_dropdowns(.3,true)
+	check(fortress.choice.scroll.scroll_vertical>80,"VR joystick scrolls an open dropdown through the HUD viewport")
+	stick_tracker.set_input("primary",Vector2(0,1));rig.scroll_dropdowns(.3,true)
+	check(fortress.choice.scroll.scroll_vertical==0,"VR joystick scrolls back upward")
+	stick_tracker.set_input("primary",Vector2.ZERO);XRServer.remove_tracker(stick_tracker)
 	var previous_class: String=fortress.choice.value
 	var drag_at: Vector2=fortress.choice.entries.get_child(2).get_global_transform_with_canvas()*(fortress.choice.entries.get_child(2).size*.5)
 	point_at(pointer,rig.panel,drag_at);pointer._button_pressed()
@@ -182,6 +189,9 @@ func run() -> void:
 	var class_item=fortress.choice.entries.get_child(0)
 	point_at(pointer,rig.panel,class_item.get_global_transform_with_canvas()*(class_item.size*.5));click(pointer)
 	check(fortress.choice.value=="scout" and not fortress.choice.popup.visible,"Releasing a stationary trigger selects the TF class")
+	fortress.choice.open_popup();g.hud.show_menu(false)
+	check(not fortress.choice.popup.visible and not fortress.choice.drag_pressed,"Closing the menu immediately closes dropdowns and drag state")
+	g.hud.show_menu(true)
 	fortress.hide();fortress.queue_free()
 	g.hud.open_bindings()
 	await process_frame;await process_frame
@@ -212,33 +222,19 @@ func run() -> void:
 	point_at(pointer,rig.panel,row.get_global_transform_with_canvas()*(row.size*.5));click(pointer)
 	check(not binding_choice.popup.visible and binding_choice.value==binding_choice.items[0].id,"Bindings dropdown accepts a deliberate selection after dragging")
 	bindings.hide()
-	# Exercise the persistent selector through the same controller-to-viewport route on a wall.
-	g.set_physics_process(false);g.headless=false
-	g.lobby.offered=[{"mode":"dm","map":"lqdm1"},{"mode":"ctf","map":"lqdm2"}]
+	# The same world-space pointer casts a complete vote directly on the wall.
+	g.set_physics_process(false);g.headless=false;g.active=true
+	if not g.players.has(1):g.players[1]=g._new_state("Local voter",1)
+	g.lobby.offered=[{"mode":"dm","map":"qsrc_dm1","rules":"doom"},{"mode":"ctf","map":"qsrc_dm6","rules":"quake"}]
 	g.lobby.until=g.clock+60;g.lobby.build()
 	var wall=g.get_node("Map/WaitingRoom/VoteWall")
 	await process_frame;await process_frame;await physics_frame
-	var selector=wall.panel.selector
 	pointer.enabled=true;pointer.visible=true
-	point_at(pointer,wall.surface,selector.modes.trigger.get_global_transform_with_canvas()*(selector.modes.trigger.size*.5));click(pointer)
-	await process_frame;await process_frame
-	check(selector.modes.popup.visible,"Controller opens wall-mounted mode popup")
+	var card: Button=wall.panel.cards[1].button
+	point_at(pointer,wall.surface,card.get_global_transform_with_canvas()*(card.size*.5));click(pointer);wall.panel.refresh()
+	check(g.lobby.selections.get(1)==1 and wall.panel.cards[1].count.text.contains("YOUR VOTE"),"Controller casts a complete match vote through the wall viewport")
 	for i in 4:wall.panel.refresh();await process_frame
-	check(selector.modes.popup.visible,"Wall mode popup survives live lobby refresh")
-	var option=selector.modes.entries.get_child(1)
-	point_at(pointer,wall.surface,option.get_global_transform_with_canvas()*(option.size*.5));click(pointer)
-	await process_frame;await process_frame
-	check(selector.modes.value=="ctf" and selector.maps.items.size()==1,"Controller selects mode and filters the wall maplist")
-	point_at(pointer,wall.surface,selector.maps.trigger.get_global_transform_with_canvas()*(selector.maps.trigger.size*.5));click(pointer)
-	await process_frame;await process_frame
-	option=selector.maps.entries.get_child(0)
-	point_at(pointer,wall.surface,option.get_global_transform_with_canvas()*(option.size*.5));click(pointer)
-	check(selector.maps.value=="lqdm2","Controller selects map through wall viewport popup")
-	var offered_before: Array=g.lobby.offered.duplicate(true)
-	wall.panel.set_meta("drag_test_options",[{"mode":"ctf","map":"dummy_map","title":"DRAG TEST MAP"}]);wall.panel.refresh()
-	selector.maps.choose("dummy_map");wall.panel.refresh()
-	check(wall.panel.vote.disabled and wall.panel.status.text.contains("TEST ENTRY"),"Dummy drag-test entries cannot be submitted as lobby votes")
-	check(g.lobby.offered==offered_before,"Drag-test entries leave the real server maplist unchanged")
+	check(card.button_pressed and wall.panel.cards[1].details.text.contains("QUAKE"),"Selected wall card survives refresh with its full loadout")
 	# Text chat takes the same authoritative RPC path for desktop and VR recipients.
 	g.clock=100;g.players[2].chat_at=0
 	g._chat_for(2,"Hello\nVR [b]friends[/b]")

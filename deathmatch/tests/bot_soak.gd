@@ -21,7 +21,7 @@ func run() -> void:
   game.map_catalog.append(options.map_entry)
  game.selected_map=options.map;game.start_host("Bot soak observer",0,100,60,true,options.mode,options.get("rules","doom"))
  if not game.active or game.current_map!=options.map:push_error("SOAK_START_FAILED "+str(options));quit(1);return
- game.players[1].spectator=true;game._spawn(1);game.set_process(false);game.dedicated=true
+ game.players[1].spectator=true;game._spawn(1);game.set_process(false);game.dedicated=true;game.max_clients=9;game.bot_population.count_target=8
  for id in [-4,-5,-6,-7,-8]:game._add_player(id,"Bot "+str(-id))
  var classes: Array=game.match_mode.fortress.CLASSES.keys()
  for id in game.players:
@@ -47,6 +47,7 @@ func run() -> void:
   before[id]=game.fighters[id].position;window[id]=before[id];serial[id]=game.players[id].serial;shots[id]=game.players[id].shots;still[id]=0.0
   by_bot[id]={"distance":0.0,"stationary_seconds":0.0,"active_seconds":0.0,"max_stall":0.0,"shots":0,"weapon_switches":0,"last_weapon":game.players[id].weapon,"cells":{},"stalls":[]}
  var stage:=0;var checkpoint:=0;var score: Array=[0,0];var initial_bytes:=Performance.get_monitor(Performance.MEMORY_STATIC)
+ var hill_samples: Array=[]
  var profile_tick: bool=options.get("profile_tick",false)
  if profile_tick:game.set_physics_process(false)
  while game.clock-start<float(options.get("seconds",300)):
@@ -82,10 +83,11 @@ func run() -> void:
     else:still[id]=0.0
     window[id]=point
    if samples.size()%30==0:print("BOT_SOAK_PROGRESS ",options.map," ",options.mode," ",options.get("rules","doom")," time=",round(game.clock-start)," shots=",weapons," scores=",score," stage=",stage," checkpoint=",checkpoint)
+   if options.mode=="koth":hill_samples.append({"time":game.clock-start,"index":game.match_mode.hill_index,"remaining":game.match_mode.hill_remaining,"owner":game.match_mode.hill_owner,"score":game.match_mode.scores.duplicate()})
    samples.append({"time":game.clock-start,"static_bytes":Performance.get_monitor(Performance.MEMORY_STATIC),"objects":Performance.get_monitor(Performance.OBJECT_COUNT),"projectiles":game.projectiles.size()})
  ticks.sort()
  for row in by_bot.values():row.cells=row.cells.size();row.erase("last_weapon")
- var result: Dictionary={"actual_map":game.current_map,"effective_rules":game.armory.effective(),"case":options,"simulated_seconds":game.clock-start,"bots":by_bot,"weapons":weapons,"damage":metrics.damage,"events":metrics.events,"counts":metrics.totals,"goals":goals,"teamplay":game.bots.teamplay.stats,"score":score,"as_stage":stage,"as_checkpoint":checkpoint,"links":game.bots.navigation.links.size(),"jump_links":game.bots.navigation.jump_links,"physics_p50_ms":ticks[ticks.size()/2] if not ticks.is_empty() else 0,"physics_p95_ms":ticks[int(ticks.size()*.95)] if not ticks.is_empty() else 0,"memory_start":initial_bytes,"samples":samples}
+ var result: Dictionary={"hill_samples":hill_samples,"actual_map":game.current_map,"effective_rules":game.armory.effective(),"case":options,"simulated_seconds":game.clock-start,"bots":by_bot,"weapons":weapons,"damage":metrics.damage,"events":metrics.events,"counts":metrics.totals,"goals":goals,"teamplay":game.bots.teamplay.stats,"score":score,"as_stage":stage,"as_checkpoint":checkpoint,"links":game.bots.navigation.links.size(),"jump_links":game.bots.navigation.jump_links,"physics_p50_ms":ticks[ticks.size()/2] if not ticks.is_empty() else 0,"physics_p95_ms":ticks[int(ticks.size()*.95)] if not ticks.is_empty() else 0,"memory_start":initial_bytes,"samples":samples}
  FileAccess.open(options.output,FileAccess.WRITE).store_string(JSON.stringify(result,"  "))
  print("BOT_SOAK_RESULT ",options.output)
  game.disconnect_game();game.queue_free();await process_frame;await process_frame;quit()

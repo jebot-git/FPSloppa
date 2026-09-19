@@ -9,28 +9,56 @@ var view: Dictionary={}
 var last_results: Dictionary={}
 var fallback: Dictionary={}
 var offered: Array=[]
-var confirmed:=false
-var vote_result:=""
-var next_publish:=0.0
+var ballot_id:=0
+var selections: Dictionary={}
+const OPTION_COUNT:=9
 func setup(arena: Node) -> void:game=arena
 func active() -> bool:return game.current_map==ID
 func choices() -> Array:
 	var result: Array=[]
 	for mode in game.votes.allowed_modes:
 		var maps: Array=game.maps_for_mode(mode)
-		if maps.is_empty():maps=[game.selected_map]
 		for map in maps:
 			if game.map_catalog.any(func(row):return row.id==map and (mode!="as" or game.Maps.supports_assault(row.path))):result.append({"mode":mode,"map":map})
 	return result
+func ballot_open() -> bool:
+	return not offered.is_empty() and (active() or game.intermission>0)
+func reset_ballot() -> void:
+	offered.clear();selections.clear();fallback.clear();view.clear()
+func prepare() -> void:
+	reset_ballot();ballot_id+=1
+	var candidates: Array=[]
+	var seen: Dictionary={}
+	for option in choices():
+		var required: String=game.armory.required(option.mode)
+		var rules: Array=[required] if not required.is_empty() else game.armory.IDS
+		for rule in rules:
+			var key: String=option.mode+"|"+option.map+"|"+rule
+			if seen.has(key):continue
+			seen[key]=true
+			var title: String=option.map
+			var hash: String=""
+			for row in game.map_catalog:
+				if row.id==option.map:title=row.title;hash=row.sha256;break
+			candidates.append({"mode":option.mode,"map":option.map,"rules":rule,"title":title,"sha256":hash})
+	if not game.votes.enabled:
+		var next: String=game.map_rotation[(game.rotation_index+1)%game.map_rotation.size()] if not game.map_rotation.is_empty() else game.current_map
+		var defaults: Array=candidates.filter(func(row):return row.mode==game.match_mode.kind and row.map==next and row.rules==(game.armory.required(row.mode) if not game.armory.required(row.mode).is_empty() else game.armory.preferred))
+		offered=(defaults if not defaults.is_empty() else candidates).slice(0,1)
+		if not offered.is_empty():fallback=spec(offered[0])
+		return
+	candidates.shuffle()
+	offered=candidates.slice(0,OPTION_COUNT)
+	# The shuffled order is also the fixed tie breaker, shared by every client.
+	if not offered.is_empty():fallback=spec(offered[0])
+func spec(option: Dictionary) -> Dictionary:
+	return {"mode":option.mode,"map":option.map,"rules":option.rules}
 func begin() -> void:
 	if not enabled or active():return
-	offered=choices();confirmed=false;vote_result=""
-	var next: String=game.map_rotation[(game.rotation_index+1)%game.map_rotation.size()] if not game.map_rotation.is_empty() else game.current_map
-	fallback=game.votes.match_spec(game.match_mode.kind+"|"+next,offered)
-	if fallback.is_empty() and not offered.is_empty():fallback=game.votes.match_spec(offered[0].mode+"|"+offered[0].map,offered)
+	if offered.is_empty():prepare()
 	if offered.is_empty():game._restart_round();return
-	game._rotate_map(ID);game.votes.cooldown=0;until=game.clock+seconds;game.round_left=seconds
-	game._announcement.rpc("Waiting room · choose the next match on the voting wall")
+	game._rotate_map(ID);until=game.clock+seconds;game.round_left=seconds
+	game._announcement.rpc("Waiting room · vote for the next match on the wall")
 func build() -> bool:
 	if not game.headless:load("res://deathmatch/maps/atmosphere.gd").apply(game,ID)
 	game.match_mode.fortress.reset()
@@ -55,35 +83,64 @@ func build() -> bool:
 		var results=load("res://deathmatch/modes/lobby_results.gd").new();results.name="LastRoundResults";root.add_child(results);results.position=Vector3(0,3.1,11.35);results.rotation.y=PI;results.setup(game)
 		mirror.position=Vector3(6.5,1.25,-11.3);mirror.setup(game)
 	return true
-func submit(mode: String,map: String,rules:String="") -> void:
-	game.votes.propose("match",mode+"|"+map+("|"+rules if not rules.is_empty() else ""))
+func select_option(index: int) -> void:
+	var data: Dictionary=snapshot() if multiplayer.is_server() else view
+	if multiplayer.is_server():cast_option(multiplayer.get_unique_id(),int(data.get("id",-1)),index)
+	else:selection_request.rpc_id(1,int(data.get("id",-1)),index)
 @rpc("any_peer","call_remote","reliable",0)
-func vote_request(mode: String,map: String) -> void:
-	if multiplayer.is_server():cast(multiplayer.get_remote_sender_id(),mode,map)
-func cast(id: int,mode: String,map: String) -> bool:
-	return cast_value(id,mode+"|"+map)
-func cast_value(id:int,value:String) -> bool:
-	if not active():return false
-	var spec:Dictionary=game.votes.match_spec(value,offered)
-	if spec.is_empty():return false
-	value=game.votes.match_value(spec)
-	if not game.votes.ballot.is_empty() and game.votes.ballot.kind=="match" and game.votes.ballot.value==value:return game.votes.cast(id,true)
-	return game.votes.start(id,"match",value)
-func accept_match(value: String) -> void:
-	var choice:Dictionary=game.votes.match_spec(value,offered)
-	if choice.is_empty():return
-	fallback=choice;confirmed=true;vote_result="VOTE PASSED · "+value.replace("|"," / ");next_publish=0
-func result() -> Dictionary:return fallback.duplicate()
+func selection_request(generation: int,index: int) -> void:
+	if multiplayer.is_server():cast_option(multiplayer.get_remote_sender_id(),generation,index)
+func cast_option(id: int,generation: int,index: int) -> bool:
+	if not ballot_open() or not game.active or not game.votes.enabled or generation!=ballot_id or index<0 or index>=offered.size() or not game.votes.eligible(id):return false
+	if active() and game.clock>=until:return false
+	if selections.get(id,-1)==index:return true
+	selections[id]=index
+	return true
+func submit(mode: String,map: String,rules:String="") -> void:
+	var data: Dictionary=snapshot() if multiplayer.is_server() else view
+	var options: Array=data.get("options",[])
+	for index in options.size():
+		var option: Dictionary=options[index]
+		if option.mode==mode and option.map==map and (rules.is_empty() or option.rules==rules):select_option(index);return
+func cast(id: int,mode: String,map: String) -> bool:return cast_value(id,mode+"|"+map)
+func cast_value(id: int,value: String) -> bool:
+	var parts:=value.split("|")
+	if parts.size() not in [2,3]:return false
+	for index in offered.size():
+		var option: Dictionary=offered[index]
+		if option.mode==parts[0] and option.map==parts[1] and (parts.size()==2 or option.rules==parts[2]):return cast_option(id,ballot_id,index)
+	return false
+func remove_peer(id: int) -> void:
+	selections.erase(id)
+func tally() -> Array:
+	var counts: Array=[];counts.resize(offered.size());counts.fill(0)
+	for id in selections:
+		# Preserve votes through the lobby's per-peer map admission transition.
+		if game.players.has(id):
+			if game.players[id].spectator:continue
+		elif not game.pending_names.has(id):continue
+		var index: int=selections[id]
+		if index>=0 and index<counts.size():counts[index]+=1
+	return counts
+func result() -> Dictionary:
+	if offered.is_empty():return fallback.duplicate()
+	var counts:=tally();var winner:=0
+	for index in counts.size():
+		if counts[index]>counts[winner]:winner=index
+	return spec(offered[winner])
 func snapshot() -> Dictionary:
-	if not active():return {}
-	return {"results":last_results,"seconds":maxi(0,ceili(until-game.clock)),"options":offered.duplicate(true),"next":fallback.duplicate(),"confirmed":confirmed,"result":vote_result,"vote":game.votes.snapshot(),"proposal_wait":maxf(0,game.votes.cooldown-game.clock)}
-@rpc("authority","call_remote","reliable",0)
-func receive_state(data: Dictionary) -> void:
-	if active():view=data
-func publish() -> void:
-	if multiplayer.is_server() and not game.practice:receive_state.rpc(snapshot())
+	if not ballot_open():return {}
+	return {"id":ballot_id,"epoch":game.map_epoch,"stage":"lobby" if active() else "intermission","results":last_results,"seconds":maxi(0,ceili(until-game.clock if active() else game.intermission)),"options":offered.duplicate(true),"counts":tally(),"selections":selections.duplicate(),"next":result(),"enabled":game.votes.enabled}
+func launch() -> void:
+	var selected:=result()
+	if selected.is_empty():reset_ballot();game._restart_round();return
+	reset_ballot()
+	game.votes.apply_rules(selected.mode,selected.rules)
+	if game.mode_maplists.has(game.match_mode.maplist_kind(selected.mode)):game.map_rotation=game.maps_for_mode(selected.mode).duplicate()
+	game.rotation_index=maxi(0,game.map_rotation.find(selected.map));game.pending_teams.clear()
+	for s in game.players.values():s.team=-1
+	game._rotate_map(selected.map)
 func tick(delta: float) -> void:
-	if game.clock>=next_publish:publish();next_publish=game.clock+1
 	game.round_left=maxf(0,until-game.clock)
 	for id in game.players:
 		var s: Dictionary=game.players[id];var actor=game.fighters[id]
@@ -99,9 +156,4 @@ func tick(delta: float) -> void:
 			if id==multiplayer.get_unique_id() and game.is_vr():game.xr_rig.compensate_room_move(shift)
 		if actor.position.y<game.fall_limit or actor.position.y>8 or absf(actor.position.x)>11.6 or absf(actor.position.z)>11.6:game._spawn(id)
 	if game.clock<until or game.map_loading:return
-	var selected:=result();view.clear()
-	game.votes.apply_rules(selected.mode,selected.get("rules",game.armory.preferred))
-	if game.mode_maplists.has(game.match_mode.maplist_kind(selected.mode)):game.map_rotation=game.maps_for_mode(selected.mode).duplicate()
-	game.rotation_index=maxi(0,game.map_rotation.find(selected.map));game.pending_teams.clear()
-	for s in game.players.values():s.team=-1
-	game._rotate_map(selected.map)
+	launch()

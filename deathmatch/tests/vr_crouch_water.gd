@@ -90,6 +90,7 @@ func test_shore() -> void:
 	var actor=game.fighters[1]
 	var shore:=Fixture.box(game,Fixture.point(0,-11)+Vector3.UP*1.1,Vector3(3,2.2,20));await physics_frame
 	var runtime=preload("res://deathmatch/maps/runtime.gd").new();game.add_child(runtime);runtime.game=game;runtime.set_physics_process(false);runtime.has_contents=true
+	runtime.triggers.setup(runtime,[]) # This synthetic runtime has no imported entity setup.
 	runtime.contents.planes.assign([Plane(Vector3.UP,Fixture.ORIGIN.y+2)]);runtime.contents.nodes.assign([Vector3i(0,-1,-2)]);runtime.contents.leaves=PackedInt32Array([-1,-3])
 	var results: Array=[]
 	for enabled in [false,true]:

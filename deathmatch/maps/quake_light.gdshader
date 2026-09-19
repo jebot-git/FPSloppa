@@ -18,6 +18,7 @@ uniform vec4 base_colour : source_color = vec4(1.0);
 uniform vec2 map_uv_offset = vec2(0.0);
 uniform bool liquid_warp = false;
 uniform bool surface_variation = false;
+#include "res://deathmatch/lighting/weapon_light.gdshaderinc"
 void fragment() {
     vec2 surface_uv = UV + map_uv_offset;
     if (liquid_warp) surface_uv += sin(UV.yx * 6.2831853 + vec2(TIME * 0.8, TIME * 0.7)) * 0.025;
@@ -43,6 +44,7 @@ void fragment() {
         else glow = texture(glow_texture, surface_uv).rgb;
         EMISSION += glow * 0.65;
     }
+    EMISSION += base * weapon_illumination((INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz, normalize(mat3(INV_VIEW_MATRIX) * NORMAL));
     ROUGHNESS = 1.0;
 }
 

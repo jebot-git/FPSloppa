@@ -354,6 +354,7 @@ func _process(delta: float) -> void:
 	if not menu_visible:turn_panel.hide()
 	panel.visible=menu_visible
 	panel.enabled=menu_visible
+	scroll_dropdowns(delta,menu_visible)
 	var focused_control=focused_edit()
 	keyboard.visible=menu_visible and (focused_control is LineEdit or focused_control is TextEdit)
 	keyboard.enabled=keyboard.visible
@@ -530,3 +531,19 @@ func head_tracked() -> bool:
 	if tracker==null:return false
 	var pose=tracker.get_pose("default")
 	return pose!=null and pose.has_tracking_data
+
+func scroll_dropdowns(delta: float,menu_visible: bool) -> void:
+	if not focused:return
+	var targets: Dictionary={}
+	for index in pointers.size():
+		var hand: XRController3D=left if index==0 else right
+		if not simulated and not hand.get_has_tracking_data():continue
+		# OpenXR stick Y is positive up; canvas scrolling is positive down.
+		var axis: float=-hand.get_vector2("primary").y
+		var viewport: Viewport=game.hud.get_viewport() if menu_visible else null
+		var target=pointers[index].target
+		if not menu_visible and is_instance_valid(target) and target.has_method("global_to_viewport"):
+			viewport=target.get_parent().get_node_or_null("Viewport")
+		if viewport and absf(axis)>absf(float(targets.get(viewport,0.0))):targets[viewport]=axis
+	for viewport in targets:
+		preload("res://deathmatch/ui/choice.gd").scroll_active(viewport,targets[viewport],delta)

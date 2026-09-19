@@ -21,12 +21,13 @@ func run() -> void:
 	check(g.pickups.is_empty(),"Ruined city has no natural pickups")
 	var tf=g.match_mode.fortress
 	check(tb.stations.size()==6 and tf.buildings.size()==6 and tf.buildings.values().all(func(b):return b.kind=="dispenser" and b.universal and b.map_owned),"Six permanent universal dispensers serve bases and both sides of each checkpoint")
-	var station: Vector3=tb.stations[0]
-	for id in [1,-1]:
-		g.fighters[id].position=station+Vector3(.7,0,0);var state: Dictionary=g.players[id];state.hp=1;state.armor=0;state.ammo=[0,0,0,0]
-		g.clock+=1.1;tf.tick_sentries()
-		check(state.hp>1 and state.armor>0 and state.ammo[0]>0,"Shared dispenser restores health armour and ammunition for team "+str(state.team))
-		g.fighters[id].position=Vector3(90,0,0)
+	for index in tb.stations.size():
+		var station: Vector3=tb.stations[index]
+		for id in [1,-1]:
+			g.fighters[id].position=station+Vector3(.7,0,0);var state: Dictionary=g.players[id];state.hp=1;state.armor=0;state.ammo=[0,0,0,0]
+			g.clock+=1.1;tf.tick_sentries()
+			check(state.hp>1 and state.armor>0 and state.ammo[0]>0,"Station %d restores health armour and ammunition for team %d"%[index,state.team])
+			g.fighters[id].position=Vector3(90,0,0)
 	tf.damage_building(-9000,-1,9999);check(tf.buildings.has(-9000),"Map resupply cannot be permanently destroyed")
 	var space=g.get_world_3d().direct_space_state
 	var slit: Dictionary=space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(18,1.45,16),Vector3(18,1.45,20),1))
@@ -48,8 +49,8 @@ func run() -> void:
 	g.clock+=.1;g._server_tick(.1);await physics_frame;await physics_frame
 	check(not tb.preparing() and absf(g.round_left-599.9166667)<.01,"Only time after the exact preparation boundary consumes the match timer")
 	check(space.intersect_ray(PhysicsRayQueryParameters3D.create(Vector3(0,1,16),Vector3(0,1,20),1)).is_empty(),"Gate physically opens at the end of preparation")
-	for i in 120:g.clock+=1./60.;w.tick(1./60.)
-	check(r.speed>.799 and r.distance>.7,"Piloted robot starts only after hangar opens")
+	for i in 300:g.clock+=1./60.;w.tick(1./60.)
+	check(r.speed>.799 and r.distance>1.9,"Piloted robot reaches full speed after the five-second start with the hangar open")
 	g._restart_round();await physics_frame
 	check(tb.preparing() and tb.preparation_left==60 and g.round_left==600 and tf.buildings.size()==6,"Round restart restores preparation closed gate and universal stations")
 	check(tb.snapshot().preparation==60 and tb.snapshot().stations.size()==6,"Preparation and resupply positions are included in authoritative snapshots")

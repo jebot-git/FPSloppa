@@ -15,6 +15,12 @@ func emit(kind: String,start: Vector3,end: Vector3,team: int) -> void:
 	if game.headless or not kind in KINDS:return
 	while bursts.size()>=64:
 		var oldest=bursts.pop_front();if is_instance_valid(oldest):oldest.queue_free()
+	var emission=preload("res://deathmatch/lighting/weapon_emission.gd")
+	if kind in ["sentry_fire","ba2_cannon"]:game._weapon_illumination(start,start,emission.recipe("muzzle"),hash(start))
+	if kind in ["explosion","napalm","ba2_cannon"]:
+		var point:=end if kind=="ba2_cannon" else start
+		game._weapon_illumination(point,point,emission.recipe("explosion"))
+	if kind=="flame":game._weapon_illumination(start,end,emission.recipe("flame"),hash(start))
 	var root:=Node3D.new();add_child(root);bursts.append(root)
 	var color: Color=game.match_mode.COLORS[clampi(team,0,1)]
 	var life:=.5
@@ -36,7 +42,7 @@ func emit(kind: String,start: Vector3,end: Vector3,team: int) -> void:
 		"flame":
 			for i in 7:
 				var t:=float(i)/7;var puff=ball(root,start.lerp(end,t),.12+t*.42,Color("ff6418").lerp(Color("ffd978"),1-t))
-				var tween:=root.create_tween();tween.tween_property(puff,"position",puff.position+(end-start).normalized()*.6,.16)
+				var tween:=root.create_tween();tween.tween_property(puff,"position",puff.position.move_toward(end,minf(.6,puff.position.distance_to(end))),.16)
 			life=.18
 		"explosion","napalm":
 			var burst=ball(root,start,.25,Color("ff7025"));var tween:=root.create_tween();tween.tween_property(burst,"scale",Vector3.ONE*12,.18);tween.tween_property(burst,"scale",Vector3.ONE*.1,.32)

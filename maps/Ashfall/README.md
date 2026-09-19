@@ -2,12 +2,12 @@
 
 Original sealed ruined-city payload map for FPSloppa, `tb_ashfall`. Select TITANBALL in Host, then Ashfall Boulevard. The game reads the native TB route, spawn, checkpoint, resupply and hangar-gate entities directly from the BSP. The previous procedural testing corridor is no longer used.
 
-- 300 m winding course, nominal 26 m street with shoulder cover and a clear central robot route; buildings/ruins and solid back walls run along both sides, with ground-floor ambush passages.
+- 350 m winding course (80 / 150 / 120 m legs; only the middle leg extended), nominal 26 m street with shoulder cover and a clear central robot route; buildings/ruins and solid back walls run along both sides, with ground-floor ambush passages.
 - 42 cover groups: 8 brush-built wrecks, 28 irregular rubble piles and 6 broken walls, placed outside the robot collision envelope.
 - Closed attacker hangar; 60-second preparation, firing slits and automatic gate opening. The 1.2 m door sits inside a 2 m wall pocket, with 0.4 m recess on either face.
-- Two 13.2 m overpasses with switchback ramp towers, followed by paired 4.2 m firing positions and fortified defender base.
-- Attacker groups at 0/72/172 m; defender group at 300 m; four positions per group. Six universal engineer dispensers (one at each base, two per checkpoint), no natural pickups.
-- Checkpoints at 80/180 m; rear clearance triggers at 90/190 m. Fixed 10:00 active timer plus two once-only 3:00 extensions.
+- Eight 6 m side balconies and three 13.2 m overpasses with switchback ramp towers, followed by paired 4.2 m firing positions and fortified defender base.
+- Attacker groups at 0/72/222 m; defender group at 350 m; four positions per group. Six universal engineer dispensers (one at each base, two per checkpoint), no natural pickups.
+- Checkpoints at 80/230 m; rear clearance triggers at 90/240 m. Fixed 10:00 active timer plus two once-only 3:00 extensions.
 
 ## Editing and rebuilding
 
@@ -21,22 +21,22 @@ python3 tools/titanball/build.py --compiler /path/to/ericw-tools/bin
 
 The tool runs QBSP, full VIS, and extra4 coloured light with one bounce and baked dirt/AO. No real-time map lights or fog are added. It verifies BSP29, the import size limit and absence of a leak file. Compiler logs are in `test-results/titanball/`; this build retains clipped-portal/detail warnings, so it is not a warning-free compile.
 
-After geometry changes, update the map catalog SHA, regenerate importer caches and run `tools/titanball/acceptance.gd` to rebake `maps/navigation/tb_ashfall.res`. `navigation-sha256.txt` identifies the BSP used for the current navigation. Run `tools/titanball/prepare_assets.gd` to rebuild raw, BC7 and ASTC4 scene caches plus texture-dictionary aliases; do not use ASTC8. Register the new BSP SHA in `deathmatch/maps/skies/SOURCES.json` to preserve its default sky. The acceptance bake retains the connected street/ramp navigation component and excludes disconnected scenery tops; it verifies all sixteen spawns, six stations and twelve vantages remain reachable. Keep the uncompressed fallback cache and BSP for imports.
+After geometry changes, update the map catalog SHA, regenerate importer caches and run `tools/titanball/acceptance.gd` to rebake `maps/navigation/tb_ashfall.res`. `navigation-sha256.txt` identifies the BSP used for the current navigation. Run `tools/titanball/prepare_assets.gd` to rebuild raw, BC7 and ASTC4 scene caches plus texture-dictionary aliases; do not use ASTC8. Register the new BSP SHA in `deathmatch/maps/skies/SOURCES.json` to preserve its default sky. The acceptance bake retains the connected street/ramp navigation component and excludes disconnected scenery tops; it verifies all sixteen spawns, six stations and twenty-four vantages remain reachable. Keep the uncompressed fallback cache and BSP for imports.
 
 ## Files and validation
 
 `../tb_ashfall.bsp` is the playable BSP. `tb_ashfall.map` and `ashfall.wad` are the editing sources. `manifest.json`, `texture-sources.json`, and `texture-audit.json` record build hashes and original texture provenance. The embedded source miptex records are unchanged.
 
-BSP tests check all spawn clearances, robot clearance every half metre at torso yaw −7.5°, 0° and +7.5°, both closed street edges throughout the route, hangar/slit collision and navigation to both overpasses. Separate mode and network tests cover preparation, dispensers, boarding, damage, checkpoints and results. See [TITANBALL documentation](../../docs/TITANBALL.md) and [BSP results](../../test-results/titanball/acceptance.json).
+BSP tests check all spawn clearances, robot clearance every half metre at torso yaw −7.5°, 0° and +7.5°, both closed street edges throughout the route, hangar/slit collision and navigation to all three overpasses. Separate mode and network tests cover preparation, dispensers, boarding, damage, checkpoints and results. See [TITANBALL documentation](../../docs/TITANBALL.md) and [BSP results](../../test-results/titanball/acceptance.json).
 
-Autonomous 6v6 bot trials are documented in `docs/TITANBALL-COVERAGE-R6.md`. Human combat balance and live Quest performance remain unverified. The map is a playtest candidate, not a claim of competitive balance.
+Autonomous 6v6 bot trials are documented in `docs/TITANBALL-BALANCE-2026-09.md`. Human combat balance and live Quest performance remain unverified. The map is a playtest candidate, not a claim of competitive balance.
 
 ## Credits
 
 Geometry and new map entity layout: original FPSloppa work, CC0-1.0. Industrial/Metal textures: Ben “Makkon” Hale, with palette/LUT credit to ptoing, under the included Makkon license and the project owner's previously confirmed permission. LibreQuake textures are BSD-3-Clause. Licenses and source credits are included separately; the texture collection is not collectively CC0. The BA-2 robot uses its own existing model attribution in `deathmatch/vehicles/ba2/SOURCES.md`.
 
 The current gameplay markers define six shared resupply stations (one per base,
-two around each checkpoint) and twelve tactical high-ground positions.
+two around each checkpoint) and twenty-four tactical high-ground positions.
 `python3 tools/titanball/update_markers.py` updates these markers in the BSP and
 editable source while verifying that geometry, lighting and BSPX lumps are
 unchanged. Run `tools/titanball/update_cache_markers.gd` afterwards to update

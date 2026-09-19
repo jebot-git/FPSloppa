@@ -31,7 +31,7 @@ FLAGS = dict(platform='linuxbsd', target='template_release', arch='x86_64',
              disable_overrides='yes', disable_path_overrides='yes')
 CLIENT_PREFIXES = ('deathmatch/ui/', 'deathmatch/tests/', 'deathmatch/pickups/', 'deathmatch/haptics/',
                    'deathmatch/audio/music/', 'deathmatch/performance/', 'deathmatch/maps/texture_replacements/')
-CLIENT_FILES = {'deathmatch/experimental/visuals.gd', 'deathmatch/maps/baked_light.gd', 'deathmatch/maps/palette.lmp', 'deathmatch/interface.gd', 'deathmatch/assets/bootstrap.gd',
+CLIENT_FILES = {'deathmatch/lighting/weapon_pool.gd', 'deathmatch/experimental/visuals.gd', 'deathmatch/maps/baked_light.gd', 'deathmatch/maps/palette.lmp', 'deathmatch/interface.gd', 'deathmatch/assets/bootstrap.gd',
                 'deathmatch/assets/base_install.gd', 'deathmatch/assets/panel.gd',
                 'deathmatch/demos/panel.gd', 'deathmatch/diagnostics.gd',
                 'deathmatch/maps/filtering.gd', 'deathmatch/maps/librequake_props.gd',
@@ -39,7 +39,7 @@ CLIENT_FILES = {'deathmatch/experimental/visuals.gd', 'deathmatch/maps/baked_lig
                 'deathmatch/maps/surface_motion.gd', 'deathmatch/maps/atmosphere.gd',
                 'deathmatch/modes/lobby_wall.gd', 'deathmatch/modes/lobby_mirror.gd',
                 'deathmatch/modes/lobby_results.gd'}
-VR_SHARED = {'poses.gd', 'preferences.gd', 'room_scale.gd', 'weapon_clearance.gd', 'throw_ballistics.gd'}
+VR_SHARED = {'body_basis.gd', 'poses.gd', 'preferences.gd', 'room_scale.gd', 'weapon_clearance.gd', 'throw_ballistics.gd'}
 
 
 def allowed(path):
@@ -47,7 +47,7 @@ def allowed(path):
         return False
     if path.startswith('addons/') and path not in {'addons/bsp_importer/bsp_reader.gd', 'addons/bsp_importer/gsrc_wad_reader.gd', 'addons/bsp_importer/collision_surface_info.gd', 'addons/bsp_importer/clipper.gd'}:
         return False
-    if path.startswith('deathmatch/avatars/') and path not in {'deathmatch/avatars/library.gd', 'deathmatch/avatars/network.gd', 'deathmatch/avatars/models/manifest.json'}:
+    if path.startswith('deathmatch/avatars/') and path not in {'deathmatch/avatars/library.gd', 'deathmatch/avatars/network.gd', 'deathmatch/avatars/hit_body.gd', 'deathmatch/avatars/models/manifest.json'}:
         return False
     if path.startswith('deathmatch/voice/') and Path(path).name not in {'relay.gd', 'external.gd'}:
         return False

@@ -26,7 +26,7 @@ func server_test():
 	check(game.current_map=="qsrc_dm1" and game.players.values().all(func(s):return s.owned==[0,2] and s.ammo[1]==25),"Quake inventory replaces Doom inventory")
 	check(await wait_for(func():return stage_probe.stages.get("quake",{}).size()==2,15),"Both clients acknowledge Quake restart before entering lobby")
 	game.lobby.begin()
-	check(await wait_for(func():return game.lobby.confirmed,30),"Lobby majority approves combined map/mode/loadout")
+	check(await wait_for(func():return game.lobby.selections.size()==2,30),"Lobby direct votes select combined map/mode/loadout")
 	check(game.lobby.result()=={"mode":"ctf","map":"qsrc_dm6","rules":"ut99"},"Server retains the approved UT99 loadout")
 	game.lobby.until=game.clock
 	check(await wait_for(func():return game.current_map=="qsrc_dm6" and game.players.size()==2 and not game.map_loading,30),"Lobby timer moves both clients to chosen match")

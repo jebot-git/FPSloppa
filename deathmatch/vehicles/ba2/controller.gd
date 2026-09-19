@@ -19,7 +19,8 @@ const HEAVY_PILOT_WEAPONS=["ROCKET LAUNCHER","GRENADE LAUNCHER","PIPEBOMB","DETP
 var heavy_ordnance_only:=true
 # Opt-in balance experiment; defaults off outside the simulation runner.
 var pilot_regeneration:=false
-const BOARDING_EXIT_LOCK=3.0
+const BOARDING_EXIT_LOCK=10.0
+const BOARDING_SETTLE=3.0 # Ladder redeploys only after three seconds fully stopped.
 const HULL_RADII=Vector3(1.97,2.637,2.51)
 const HEAT_PER_VOLLEY=12.5
 const COOL_RATE=25.0
@@ -29,7 +30,7 @@ const AIM_SPEED=PI/30 # Six degrees/second, X hinge only.
 const SPLASH_RADIUS=1.25
 const CANNON_RANGE=60.0
 const CANNON_CONE=Tuning.LATERAL_LIMIT
-const CRUSH_RADIUS=5.0
+const CRUSH_RADIUS=5.5
 const CRUSH_HEIGHT=1.8
 const CRUSH_OFFSET=Vector3(0,0,-1.2) # Centre of the four-foot footprint, includes belly ladder.
 var fortress_ref: WeakRef
@@ -87,12 +88,12 @@ func mounted(id: int) -> bool:return not vehicle_for(id).is_empty()
 func pilot_max_health(_id: int) -> int:return PILOT_MAX_HEALTH
 func restore_pilot_health(id: int) -> void:game.players[id].hp=tf.definition(id).hp
 func accepts_pilot_weapon(weapon: String,heavy_automatic: bool=false) -> bool:
-	return not heavy_ordnance_only or game.match_mode.kind!="tb" or weapon in HEAVY_PILOT_WEAPONS or (weapon=="SUPER NAILGUN" and heavy_automatic)
+	return not heavy_ordnance_only or game.match_mode.kind!="tb" or weapon in HEAVY_PILOT_WEAPONS or (weapon in ["SUPER NAILGUN","ASSAULT CANNON"] and heavy_automatic)
 func vehicle_for(id: int) -> String:
 	if id==0:return ""
 	for key in robots:if int(robots[key].pilot)==id:return key
 	return ""
-func ladder_visible(row: Dictionary) -> bool:return int(row.pilot)==0 and float(row.speed)<=.0001
+func ladder_visible(row: Dictionary) -> bool:return int(row.pilot)==0 and float(row.speed)<=.0001 and float(row.get("boarding_wait",0.))<=0.
 func handle_player(id: int,jump: bool) -> bool:
 	if mounted(id):
 		var actor=game.fighters[id]
@@ -178,6 +179,7 @@ func leave(id: int,forced: bool=false) -> bool:
 	# Death/disconnect always release the reservation, even if the ground is blocked.
 	r.pilot=0;r.pilot_life=-1;r.targets=[0,0];reboard_until[id]=game.clock+1.0
 	r.exit_lock=0.;r.heal_credit=0.
+	r["boarding_wait"]=BOARDING_SETTLE
 	if game.players.has(id):game.players[id].erase("pilot_controls")
 	if game.fighters.has(id):bodies[key].remove_collision_exception_with(game.fighters[id])
 	_unlock(id)
@@ -223,6 +225,8 @@ func tick(delta: float) -> void:
 	if not multiplayer.is_server():return
 	for key in robots:
 		var r: Dictionary=robots[key];var pilot: int=r.pilot
+		if pilot==0:
+			r["boarding_wait"]=BOARDING_SETTLE if r.speed>.0001 else maxf(0.,float(r.get("boarding_wait",0.))-delta)
 		r.exit_lock=maxf(0.,float(r.get("exit_lock",0.))-delta)
 		if r.exit_lock<.00001:r.exit_lock=0.
 		if pilot!=0 and (not game.players.has(pilot) or game.players[pilot].dead or game.players[pilot].spectator or game.players[pilot].serial!=r.pilot_life or game.match_mode.special.blocked(pilot) or (game.match_mode.kind=="tb" and game.players[pilot].team!=game.match_mode.titanball.ATTACKERS)):leave(pilot,true)
@@ -407,7 +411,7 @@ func manual_target(r: Dictionary,origin: Vector3,target: Vector3) -> int:
 	for id in game.fighters:
 		if id==r.pilot or game.players[id].dead or game.players[id].spectator:continue
 		var actor=game.fighters[id]
-		var fraction:=Hit.capsule_fraction(origin-actor.position,target-actor.position,Hit.PLAYER_RADIUS,minf(1.4,actor.collision_height-.25))
+		var fraction:=Hit.player_fraction(origin-actor.position,target-actor.position,actor.collision_height,actor.damage_yaw())
 		if fraction<nearest:nearest=fraction;result=id
 	return result
 func cannon_impact(r: Dictionary,index: int,id: int,target: Vector3,body_rid: RID) -> void:
@@ -427,7 +431,7 @@ func cannon_impact(r: Dictionary,index: int,id: int,target: Vector3,body_rid: RI
 	var direct:=contact_pilot(hit)
 	if game.fighters.has(id):
 		var actor=game.fighters[id]
-		var fraction:=Hit.capsule_fraction(origin-actor.position,endpoint-actor.position,Hit.PLAYER_RADIUS,minf(1.4,actor.collision_height-.25))
+		var fraction:=Hit.player_fraction(origin-actor.position,endpoint-actor.position,actor.collision_height,actor.damage_yaw())
 		var wall_fraction: float=origin.distance_to(hit.position)/maxf(.001,origin.distance_to(endpoint)) if not hit.is_empty() else INF
 		if is_finite(fraction) and fraction<wall_fraction:direct=id;impact=origin.lerp(endpoint,fraction)
 	if direct!=0:game._damage(direct,r.pilot,tf.SENTRY_DAMAGE,"TITAN CANNON",false,impact,(impact-origin).normalized(),false,mounted(direct))

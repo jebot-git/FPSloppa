@@ -12,9 +12,11 @@ The seven Quake geometry sources are GPL-2.0; their original/adapted sources and
 
 ## Custom maps
 
-Select **IMPORT BSP…** beside ARENA and choose a standalone Quake I BSP29 or BSP2 file. Imports require at least two deathmatch spawn entities and a file no larger than 25,000,000 bytes. The game saves a source copy and compiled Godot scene in its user-data `maps/` directory. Reimporting identical content selects the existing entry. Imported maps appear in the arena selector after restarting, too.
+Select **IMPORT BSP…** beside ARENA, or from the pause menu while connected to a server, and choose a standalone Quake I BSP29 or BSP2 file. Imports require at least two supported multiplayer spawn entities (deathmatch or team spawns) and a file no larger than 25,000,000 bytes. The game saves the source in the asset root’s `maps/` directory and compiled scenes in `maps/cache/`. Reimporting identical content selects the existing entry. Imported maps appear in the arena selector after restarting, too.
 
-Clients automatically download the host’s current BSP when their local map checksum does not match. The host sends the original BSP, never a Godot scene or script. The client checks the size, SHA-256 and BSP structure, compiles it locally, caches it under `user://maps/`, and then joins. Cached matching content avoids downloading again.
+The importer renders a small preview for the 3×3 voting cards and preserves the original filename for mode classification. Leading tags such as `dm_`, `tf_` and `koth_` add the map only to the corresponding server maplist. Names without a recognized tag enter only DM, TDM, IG, FT and IF. Connected clients can upload imports without leaving the server when `sv_map_uploads` is enabled. See [external assets](docs/EXTERNAL-ASSETS.md) for all tags, persistence and headless-server preview preparation.
+
+Clients automatically download the host’s current BSP when their local map checksum does not match. The host sends the original BSP, never a Godot scene or script. The client checks the size, SHA-256 and BSP structure, compiles it locally, caches it under the asset root’s `maps/` directory, and then joins. Cached matching content avoids downloading again.
 
 Transfers use reliable ENet channel 5, 32 KiB chunks, a 256 KiB acknowledgement window and a 2 MiB/s aggregate host budget shared across downloading clients. The 25,000,000-byte map limit is the same byte cap as the 25 MB VRM limit. Transfers with invalid sizes, checksums or chunk order fail; 30 seconds without progress cancels the transfer and removes its partial file. Map compilation may briefly stall a client. There is no interrupted-download resume or map-cache eviction. Hosts should select maps they have permission to redistribute.
 

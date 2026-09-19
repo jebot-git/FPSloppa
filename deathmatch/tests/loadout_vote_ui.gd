@@ -34,13 +34,13 @@ func run():
 	selector.modes.choose("ig");check(selector.loadouts.value=="doom" and selector.loadouts.trigger.disabled,"Instagib keeps its fixed Doom arsenal")
 	g.match_mode.kind="tf";panel.refresh();check(not panel.call_loadout.visible,"Loadout-only action is hidden in a fixed-loadout match")
 	panel.hide();g.hud.hide();root.size=Vector2i(1200,720);root.content_scale_size=root.size
-	g.lobby.build();g.lobby.offered=g.lobby.choices();g.lobby.fallback={"mode":"dm","map":"qsrc_dm1","rules":"doom"};g.lobby.until=g.clock+45
+	g.lobby.build();g.lobby.prepare();g.lobby.until=g.clock+45
 	var lobby=load("res://deathmatch/modes/lobby_panel.gd").new();lobby.wall=true;root.add_child(lobby);lobby.setup(g)
-	lobby.selector.modes.choose("dm");lobby.selector.maps.choose("qsrc_dm1");lobby.selector.loadouts.choose("ut99");lobby.refresh()
-	g.votes.cooldown=0;lobby.vote.pressed.emit();lobby.refresh()
-	check(g.votes.ballot.get("value","")=="dm|qsrc_dm1|ut99" and lobby.active_vote.text.contains("ut99"),"Lobby proposal includes the selected loadout")
-	g.votes.cast(2,true);lobby.refresh()
-	check(g.lobby.result().rules=="ut99" and lobby.next_match.text.contains("UT99"),"Lobby displays approved loadout alongside next mode and map")
+	var index: int=g.lobby.offered.find(g.lobby.offered.filter(func(row):return row.mode=="dm" and row.rules=="ut99")[0])
+	lobby.cards[index].button.pressed.emit();lobby.refresh()
+	check(g.lobby.selections.get(1)==index and lobby.cards[index].count.text.contains("YOUR VOTE"),"Lobby card casts a complete loadout vote in one click")
+	g.lobby.cast_option(2,g.lobby.ballot_id,index);lobby.refresh()
+	check(g.lobby.result().rules=="ut99" and lobby.next_match.text.contains("UT99"),"Lobby displays leading loadout alongside next mode and map")
 	await draw("lobby-ut99")
 	check(lobby.get_combined_minimum_size().y<=720 and lobby.get_global_rect().end.y<=720,"Lobby voting wall fits its 720-pixel canvas")
 	g.active=false;lobby.free();g.free();await process_frame

@@ -1,10 +1,10 @@
-# FPSloppa 0.14v
+# FPSloppa 0.15v
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.14v build notes](docs/RELEASE-0.14v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.15v build notes](docs/RELEASE-0.15v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.14v:** live RCON bot counts, Titan-aware bot weapon selection, physical-turn avatar alignment, upright handheld team radio, restored Q1/KOTH/CC lighting and functional BSP buttons, doors, traps and trains that bots can operate.
+**New in 0.15v:** smoother map transitions and collision prediction, preview voting grids, rotating KOTH hills, rebalanced Titanball with expanded Ashfall, corrected pickups and hitboxes, and bounded emissive weapon trails. Windows, Linux and Quest remain release targets; Pico APK releases are discontinued. CQ remains on its separate experimental branch.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
@@ -16,9 +16,9 @@ The separate [portable avatar converter](tools/avatar_converter/README.md) prepa
 
 The additional [UT Avatar Converter](tools/ut_avatar_converter/README.md) turns original UT99 model and skin packages into experimental VRM avatars on Linux and Windows. It includes archive extraction, material selection, editable rig landmarks and a pose preview, with tested Female Soldier, Female Commando and Rumiko presets. [Download Linux/Windows releases](https://github.com/jebot-git/UTAvatarConverter/releases/tag/v0.1.0) or build from its [independent repository](https://github.com/jebot-git/UTAvatarConverter). The separate [experimental MDL Avatar Converter](https://github.com/jebot-git/MDLAvatarConverter/releases/tag/v0.1.0) now supports Quake MDL/PAK input, palette and frame/skin selection, editable rigging and VRM export. GoldSrc MDL is unsupported.
 
-PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
+PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use 0.14v clients and servers together to receive all fixes. The protocol is `fpsloppa-36-bsp-triggers`.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use 0.15v clients and servers together to receive all fixes. The protocol is `fpsloppa-39-rotating-koth`.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Current standalone APKs include the base maps and models and install them automatically on first launch. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Instafreeze, Freeze Tag and Chainsaw Circus are available.
 
@@ -152,9 +152,9 @@ Hit registration, latency simulation and test limitations: [network testing](NET
 
 ## VR menus and voting
 
-The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Instafreeze, Freeze Tag, Chainsaw Circus, Team Fortress and Assault (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns use trigger-held dragging instead of scrollbars, including the TF class selector. Flag captures produce a short fanfare and a team/player banner.
+The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Instafreeze, Freeze Tag, Chainsaw Circus, Team Fortress and Assault (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns support joystick scrolling and trigger-held dragging, including the TF class selector. Closing the menu closes every open dropdown. Flag captures produce a short fanfare and a team/player banner.
 
-Lobby voting is available on the waiting-room wall (controller pointer in VR; aim and click on desktop). Select a mode first, then a map from that mode's server maplist. The wall shows the active proposal, Yes/No counts, remaining vote time, your recorded response and the approved next match. Use YES or NO to respond. A majority-approved proposal selects the match that starts when the lobby countdown finishes; a rejected proposal leaves the current selection unchanged. In-game match votes use the same selection order. The themed selectors stay open until an option is selected, including while lobby votes refresh. Active in-game votes display their target, vote counts, time remaining and menu instructions on both desktop and VR HUDs.
+Round-end voting presents a shared 3×3 grid of nine random, valid map/mode/loadout combinations. Click a card to cast or change your vote. The same choices and votes carry into the waiting-room wall when the lobby is enabled (controller pointer in VR; aim and click on desktop). The highest tally wins at the end of the countdown; ties and no-vote results use the first tied card in grid order. If the server permits fewer than nine combinations, unused slots are disabled. Normal in-match proposals still use mode/map/loadout selectors and majority Yes/No votes. Active in-game votes display their target, counts and remaining time on desktop and VR HUDs. Matching clients and server are required (`fpsloppa-37-match-ballot`).
 
 Assault (AS) includes the **HiSlop** train map and the new **Frigate** harbor
 adaptation in the source build. Frigate has a destructible aft compressor,

@@ -6,7 +6,7 @@ from pathlib import Path
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-TESTS = ["capsule_equivalence", "projectile_targets", "hit_detection",
+TESTS = ["player_hitbox", "capsule_equivalence", "projectile_targets", "hit_detection",
          "lag_reliability", "projectile_ordering", "rocket_jump", "combat", "fortress"]
 
 

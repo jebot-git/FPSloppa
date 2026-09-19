@@ -87,7 +87,8 @@ func is_supported() -> bool:
 	return is_on_floor() or stepped_last_frame
 
 func torso_height() -> float:return maxf(.25,minf(1.25,collision_height-.40))
-func damage_top() -> float:return minf(1.40,collision_height-.25)
+func damage_yaw() -> float:
+	return rotation.y+preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose)
 func eye_height() -> float:return minf(1.48,collision_height-.17)
 func stance_speed() -> float:return PRONE_SPEED if stance=="prone" else CROUCH_SPEED if stance=="crouch" else 1.0
 func accuracy_scale() -> float:
@@ -176,6 +177,13 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	if stepping and is_supported() and absf(position.y-previous_y)<=step+.05:
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
 
+func simulate_frozen(delta: float) -> void:
+	# Statues still obey gravity, but cannot retain a jump, swim or blast impulse.
+	blast_velocity=Vector2.ZERO;jump_held=false;jump_queued=false
+	stepped_last_frame=false;floor_grace=0
+	velocity=Vector3(0,maxf(minf(velocity.y,0.0)-20.0*delta,-30.0),0)
+	move_and_slide()
+
 func apply_blast(impulse: Vector3) -> void:
 	if not impulse.is_finite() or spectator:return
 	var previous:=blast_velocity
@@ -233,6 +241,26 @@ func reset_view() -> void:
 func render_position() -> Vector3:
 	var rendered:=get_global_transform_interpolated().origin
 	return global_position if Engine.get_physics_frames()<=visual_reset_until else rendered+prediction_view_offset
+
+func correct_prediction(requested: Vector3) -> Vector3:
+	if requested.is_zero_approx():return Vector3.ZERO
+	var before:=position
+	var view_before:=render_position()
+	# A newer predicted position can already be against an obstacle. Sweep the
+	# correction instead of embedding the capsule and recovering next frame.
+	var remaining:=requested
+	for attempt in 3:
+		var hit:=move_and_collide(remaining)
+		if not hit:break
+		remaining=hit.get_remainder().slide(hit.get_normal())
+		if remaining.length_squared()<.000001:break
+	var applied:=position-before
+	if not applied.is_zero_approx():
+		# Network updates arrive between physics frames. The render transform
+		# has not yet interpolated the correction, so preserve that exact view.
+		reset_physics_interpolation()
+		prediction_view_offset=view_before-global_position
+	return applied
 
 func show_alive(alive: bool, is_local: bool) -> void:
 	alive=alive and not spectator
@@ -330,6 +358,11 @@ func set_frozen(value: bool, progress: float=0.0) -> void:
 		frozen_label.text="FROZEN" if progress<=0 else "THAWING %d%%"%int(clampf(progress/3.0,0,1)*100)
 
 var class_badge: Label3D
+func set_nametag(nickname: String,team: int,color: Color) -> void:
+	if not label:return
+	# Shape supplements colour without another floating panel or through-wall marker.
+	label.text=("◆ " if team==0 else "● " if team==1 else "")+nickname
+	label.modulate=color.lightened(.2 if team in [0,1] else .4)
 func set_class_badge(title: String,color: Color) -> void:
 	if title.is_empty():
 		if is_instance_valid(class_badge):class_badge.hide()

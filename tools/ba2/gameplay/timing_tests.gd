@@ -18,7 +18,7 @@ func simulate(label: String,on_seconds: float,off_seconds: float,initial_idle: f
 	var r: Dictionary=w.robots.test
 	var elapsed:=0.;var manned:=0.;var checkpoint_times: Array=[];var old_cleared:=0
 	var dt:=1./60.;var length: float=r.path.get_baked_length()
-	while elapsed<960 and g.round_left>0 and not (r.distance>=length-.02 and r.speed<.0001):
+	while elapsed<960 and g.round_left>0 and not (r.distance>=length-.02 and r.speed==0):
 		var want: bool=elapsed>=initial_idle and (off_seconds==0 or fposmod(elapsed-initial_idle,on_seconds+off_seconds)<on_seconds)
 		if want and r.pilot==0 and w.ladder_visible(r):
 			g.fighters[1].position=w.transform(r)*w.LADDER
@@ -33,7 +33,7 @@ func simulate(label: String,on_seconds: float,off_seconds: float,initial_idle: f
 	var result={"name":label,"seconds":elapsed,"manned_seconds":manned,"checkpoint_seconds":checkpoint_times,"remaining_seconds":g.round_left,"distance_m":r.distance,"speed":r.speed}
 	runs.append(result);print("TIMING_RUN ",JSON.stringify(result))
 	if expect_finish:
-		check(r.distance>=length-.02 and r.speed==0 and tb.cleared==2 and g.round_left>0,label+" reaches 300 m and halts before deadline")
+		check(r.distance>=length-.02 and r.speed==0 and tb.cleared==2 and g.round_left>0,label+" reaches 350 m and halts before deadline")
 		check(absf(g.round_left-(960.-elapsed))<.02,label+" earns exactly six additional minutes")
 	else:check(r.distance<length-.02 and g.round_left<=0 and tb.cleared==0,label+" expires without earning a late extension")
 func run() -> void:
@@ -53,7 +53,7 @@ func run() -> void:
 	g.match_mode.kind="dm";check(g.time_limit==1500,"Leaving TB restores the other mode's time setting")
 	g.match_mode.kind="tb";g.match_mode.reset();g.match_mode.titanball.advance_time(60.)
 	var r: Dictionary=w.robots.test
-	check(absf(r.path.get_baked_length()-300)<.01,"Baked winding route is 300 metres")
+	check(absf(r.path.get_baked_length()-350)<.01,"Baked winding route is 350 metres")
 	r.distance=89.99;tb.observe("test",r)
 	check(tb.cleared==0 and g.round_left==600,"Nose and centre crossing do not award before rear clearance")
 	r.distance=90;tb.observe("test",r)
@@ -62,13 +62,13 @@ func run() -> void:
 	check(tb.cleared==1 and g.round_left==780,"Repeated observation and recrossing cannot farm first extension")
 	w.reset();r=w.robots.test;r.distance=90;tb.observe("test",r)
 	check(tb.cleared==1 and g.round_left==780,"Replacing or resetting robot does not reset checkpoint awards")
-	r.distance=190;tb.observe("other",r)
+	r.distance=240;tb.observe("other",r)
 	check(tb.cleared==1,"A second robot cannot award the active route's checkpoint")
 	tb.observe("test",r);tb.observe("test",r)
 	check(tb.cleared==2 and g.round_left==960 and g.time_limit==600,"Second rear clearance adds three minutes once, base timer stays fixed")
 	g._restart_round();g.match_mode.titanball.advance_time(60.)
 	check(tb.cleared==0 and tb.progress==0 and g.round_left==600,"Round restart clears awards and returns to ten minutes")
-	r=w.robots.test;r.distance=190;g.round_left=0;tb.observe("test",r)
+	r=w.robots.test;r.distance=240;g.round_left=0;tb.observe("test",r)
 	check(tb.cleared==0 and g.round_left==0,"Expired round cannot be revived by a checkpoint")
 	g.round_left=10;g.intermission=1;tb.observe("test",r)
 	check(tb.cleared==0 and g.round_left==10,"Intermission cannot award extensions")
@@ -76,8 +76,8 @@ func run() -> void:
 	check(g.intermission>0 and tb.cleared==0,"Authoritative timer expiration ends TB before any late extension")
 	await simulate("continuous piloting",999,0)
 	await simulate("30 seconds on / 30 off",30,30)
-	await simulate("5 seconds on / 5 off",5,5)
-	await simulate("eight minutes idle then continuous",999,0,480)
+	await simulate("15 seconds on / 15 off",15,15)
+	await simulate("six minutes idle then continuous",999,0,360)
 	await simulate("nine minutes idle then continuous",999,0,540,false)
 	check(g._rotate_map("qsrc_dm1") and tb.cleared==0 and tb.progress==0 and g.round_left==600 and g.time_limit==600,"Map rotation resets checkpoint awards and the fixed timer")
 	FileAccess.open("res://test-results/ba2/gameplay/timing.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"runs":runs},"  "))

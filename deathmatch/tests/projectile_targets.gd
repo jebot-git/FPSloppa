@@ -22,7 +22,7 @@ func run():
 		var start:=Vector3(rng.randf_range(-45,45),rng.randf_range(-5,5),rng.randf_range(-45,45))
 		var end:=start+Vector3(rng.randf_range(-15,15),rng.randf_range(-2,2),rng.randf_range(-15,15))
 		var radius:float=[0,.14,.16,.30][trial%4]
-		# Include deliberate capsule crossings as well as mostly empty space.
+		# Include deliberate body crossings as well as mostly empty space.
 		if trial%3==0:
 			var aim:Vector3=fighters[grid.all_ids[trial%grid.all_ids.size()]].position+Vector3.UP
 			start=aim+Vector3(0,0,3);end=aim-Vector3(0,0,3)
@@ -36,7 +36,7 @@ func run():
 			if players[id].dead or players[id].spectator:continue
 			var current:Vector3=fighters[id].position
 			var old:Vector3=previous[id].position if previous[id].serial==players[id].serial and trial%2==0 else current
-			if is_finite(Hits.capsule_fraction(start-old,end-current,Hits.PLAYER_RADIUS+radius)):
+			if is_finite(Hits.player_fraction(start-old,end-current,[1.65,1.05,.65][trial%3],trial*.17,radius)):
 				hits+=1
 				if not id in candidates:missed+=1
 	check(hits>100 and missed==0,"12,000 swept queries retain every exact hit, including fresh shots and spawn changes")
@@ -44,13 +44,13 @@ func run():
 	check(order_errors==0,"Candidate lists preserve original hit tie order without duplicates")
 	var edge_grid:=Grid.new();var boundary_misses:=0;var boundary_hits:=0
 	for cell in [-250,-1,0,1,250]:
-		var center:=Vector3(float(cell)*Grid.CELL_SIZE+Hits.PLAYER_RADIUS,0,0)
+		var center:=Vector3(float(cell)*Grid.CELL_SIZE+.49,0,0)
 		edge_grid.build({1:{"dead":false,"spectator":false,"serial":1}},{1:{"position":center}},{})
 		for radius in [0.0,.14,.16,.30]:
 			for offset in [-.00001,0.0,.00001]:
-				var start:=Vector3(float(cell)*Grid.CELL_SIZE-radius+offset,1,-2)
+				var start:=Vector3(float(cell)*Grid.CELL_SIZE-radius+offset,1.1,-2)
 				var end:=start+Vector3(0,0,4)
-				if is_finite(Hits.capsule_fraction(start-center,end-center,Hits.PLAYER_RADIUS+radius)):
+				if is_finite(Hits.player_fraction(start-center,end-center,1.65,0,radius)):
 					boundary_hits+=1
 					if not 1 in edge_grid.candidates(start,end,radius):boundary_misses+=1
 	check(boundary_hits>10 and boundary_misses==0,"Tangent hits survive positive and negative grid boundaries")

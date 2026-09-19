@@ -1,0 +1,3519 @@
+{
+  "checks": [
+    {
+      "label": "sample_d: real VRM loaded",
+      "pass": true
+    },
+    {
+      "label": "sample_d: receiver materials prepared",
+      "pass": true
+    },
+    {
+      "label": "sample_d: original appearance preserved with effect off",
+      "pass": true
+    },
+    {
+      "label": "sample_d: trail illuminates avatar",
+      "pass": true
+    },
+    {
+      "label": "sample_d: bounded brightness",
+      "pass": true
+    },
+    {
+      "label": "sample_d: warm/cool response",
+      "pass": true
+    },
+    {
+      "label": "sample_d: BSP wall blocks light on avatar",
+      "pass": true
+    },
+    {
+      "label": "sample_d: posed mesh receives illumination",
+      "pass": true
+    },
+    {
+      "label": "sample_d: pose actually changes rendered mesh",
+      "pass": true
+    },
+    {
+      "label": "sample_d: translation preserves illumination",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_d: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_d: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_d: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: real VRM loaded",
+      "pass": true
+    },
+    {
+      "label": "sample_f: receiver materials prepared",
+      "pass": true
+    },
+    {
+      "label": "sample_f: original appearance preserved with effect off",
+      "pass": true
+    },
+    {
+      "label": "sample_f: trail illuminates avatar",
+      "pass": true
+    },
+    {
+      "label": "sample_f: bounded brightness",
+      "pass": true
+    },
+    {
+      "label": "sample_f: warm/cool response",
+      "pass": true
+    },
+    {
+      "label": "sample_f: BSP wall blocks light on avatar",
+      "pass": true
+    },
+    {
+      "label": "sample_f: posed mesh receives illumination",
+      "pass": true
+    },
+    {
+      "label": "sample_f: pose actually changes rendered mesh",
+      "pass": true
+    },
+    {
+      "label": "sample_f: translation preserves illumination",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_f: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_f: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_f: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: real VRM loaded",
+      "pass": true
+    },
+    {
+      "label": "sample_g: receiver materials prepared",
+      "pass": true
+    },
+    {
+      "label": "sample_g: original appearance preserved with effect off",
+      "pass": true
+    },
+    {
+      "label": "sample_g: trail illuminates avatar",
+      "pass": true
+    },
+    {
+      "label": "sample_g: bounded brightness",
+      "pass": true
+    },
+    {
+      "label": "sample_g: warm/cool response",
+      "pass": true
+    },
+    {
+      "label": "sample_g: BSP wall blocks light on avatar",
+      "pass": true
+    },
+    {
+      "label": "sample_g: posed mesh receives illumination",
+      "pass": true
+    },
+    {
+      "label": "sample_g: pose actually changes rendered mesh",
+      "pass": true
+    },
+    {
+      "label": "sample_g: translation preserves illumination",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "sample_g: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "sample_g: shared source shader unchanged",
+      "pass": true
+    },
+    {
+      "label": "sample_g: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: receiver materials prepared",
+      "pass": true
+    },
+    {
+      "label": "placeholder: original appearance preserved with effect off",
+      "pass": true
+    },
+    {
+      "label": "placeholder: trail illuminates avatar",
+      "pass": true
+    },
+    {
+      "label": "placeholder: bounded brightness",
+      "pass": true
+    },
+    {
+      "label": "placeholder: warm/cool response",
+      "pass": true
+    },
+    {
+      "label": "placeholder: BSP wall blocks light on avatar",
+      "pass": true
+    },
+    {
+      "label": "placeholder: posed mesh receives illumination",
+      "pass": true
+    },
+    {
+      "label": "placeholder: pose actually changes rendered mesh",
+      "pass": true
+    },
+    {
+      "label": "placeholder: translation preserves illumination",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "placeholder: private receiver material",
+      "pass": true
+    },
+    {
+      "label": "placeholder: outline/extra pass preserved",
+      "pass": true
+    },
+    {
+      "label": "DM6 example has a valid floor",
+      "pass": true
+    },
+    {
+      "label": "DM6 avatar uses actual BSP occlusion",
+      "pass": true
+    },
+    {
+      "label": "Avatar is illuminated in actual dark BSP scene",
+      "pass": true
+    },
+    {
+      "label": "No realtime light nodes",
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "frames_per_block": 300,
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "records": [
+    {
+      "cool": {
+        "changed": 7722,
+        "max_error": 0.364705890417099,
+        "mean_delta": [
+          0.00472310972056261,
+          0.0186862797436199,
+          0.0727829501148548
+        ],
+        "pixels": 11203,
+        "white_fraction": 0.0
+      },
+      "materials": 17,
+      "model": "sample_d",
+      "skinned": true,
+      "translation": {
+        "changed": 0,
+        "max_error": 0.00392156839370728,
+        "mean_delta": [
+          -3.43154392168995e-07,
+          0.0,
+          0.0
+        ],
+        "pixels": 11428,
+        "white_fraction": 0.0
+      },
+      "warm": {
+        "changed": 7281,
+        "max_error": 0.388235300779343,
+        "mean_delta": [
+          0.0785322787771691,
+          0.0186862797436199,
+          0.00298655587499146
+        ],
+        "pixels": 11203,
+        "white_fraction": 0.0
+      }
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.273000001907349,
+        "p95": 0.30799999833107
+      },
+      "materials": 17,
+      "model": "sample_d"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.256999999284744,
+        "p95": 0.423000007867813
+      },
+      "materials": 17,
+      "model": "sample_d"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.284999996423721,
+        "p95": 0.472000002861023
+      },
+      "materials": 17,
+      "model": "sample_d"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.264999985694885,
+        "p95": 0.451999992132187
+      },
+      "materials": 17,
+      "model": "sample_d"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.197999998927116,
+        "p95": 0.368999987840652
+      },
+      "materials": 17,
+      "model": "sample_d"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.178000003099442,
+        "p95": 0.30799999833107
+      },
+      "materials": 17,
+      "model": "sample_d"
+    },
+    {
+      "cool": {
+        "changed": 6869,
+        "max_error": 0.396078437566757,
+        "mean_delta": [
+          0.00465379499950292,
+          0.0308790528701127,
+          0.118317492900451
+        ],
+        "pixels": 10432,
+        "white_fraction": 0.0
+      },
+      "materials": 16,
+      "model": "sample_f",
+      "skinned": true,
+      "translation": {
+        "changed": 0,
+        "max_error": 0.00784313678741455,
+        "mean_delta": [
+          7.44766573679095e-07,
+          0.0,
+          7.44766573679095e-07
+        ],
+        "pixels": 10531,
+        "white_fraction": 0.0
+      },
+      "warm": {
+        "changed": 6810,
+        "max_error": 0.396078437566757,
+        "mean_delta": [
+          0.0928506617165782,
+          0.0308790528701127,
+          0.00611872285421641
+        ],
+        "pixels": 10432,
+        "white_fraction": 0.0
+      }
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.248999997973442,
+        "p95": 0.446999996900558
+      },
+      "materials": 16,
+      "model": "sample_f"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.277999997138977,
+        "p95": 0.595000028610229
+      },
+      "materials": 16,
+      "model": "sample_f"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.368999987840652,
+        "p95": 0.656000018119812
+      },
+      "materials": 16,
+      "model": "sample_f"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.368999987840652,
+        "p95": 0.638000011444092
+      },
+      "materials": 16,
+      "model": "sample_f"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.27700001001358,
+        "p95": 0.523999989032745
+      },
+      "materials": 16,
+      "model": "sample_f"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.225999996066093,
+        "p95": 0.277999997138977
+      },
+      "materials": 16,
+      "model": "sample_f"
+    },
+    {
+      "cool": {
+        "changed": 8857,
+        "max_error": 0.39215686917305,
+        "mean_delta": [
+          0.00872214185959523,
+          0.0457667219122301,
+          0.15059760468715
+        ],
+        "pixels": 13409,
+        "white_fraction": 0.0
+      },
+      "materials": 16,
+      "model": "sample_g",
+      "skinned": true,
+      "translation": {
+        "changed": 0,
+        "max_error": 0.00784315168857574,
+        "mean_delta": [
+          8.69591631393438e-07,
+          1.73918436421057e-06,
+          2.89863877131146e-07
+        ],
+        "pixels": 13529,
+        "white_fraction": 0.0
+      },
+      "warm": {
+        "changed": 8865,
+        "max_error": 0.400000005960464,
+        "mean_delta": [
+          0.165417918352413,
+          0.0457667219122301,
+          0.00789479094869526
+        ],
+        "pixels": 13409,
+        "white_fraction": 0.0
+      }
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.25,
+        "p95": 0.49099999666214
+      },
+      "materials": 16,
+      "model": "sample_g"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.279000014066696,
+        "p95": 0.323000013828278
+      },
+      "materials": 16,
+      "model": "sample_g"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.377999991178513,
+        "p95": 0.630999982357025
+      },
+      "materials": 16,
+      "model": "sample_g"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.377000004053116,
+        "p95": 0.620000004768372
+      },
+      "materials": 16,
+      "model": "sample_g"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.277999997138977,
+        "p95": 0.319999992847443
+      },
+      "materials": 16,
+      "model": "sample_g"
+    },
+    {
+      "draws": {
+        "median": 3.0,
+        "p95": 3.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.158000007271767,
+        "p95": 0.250999987125397
+      },
+      "materials": 16,
+      "model": "sample_g"
+    },
+    {
+      "cool": {
+        "changed": 950,
+        "max_error": 0.266666680574417,
+        "mean_delta": [
+          0.00383071096319901,
+          0.0236860716970343,
+          0.0575433389764083
+        ],
+        "pixels": 950,
+        "white_fraction": 0.0
+      },
+      "materials": 3,
+      "model": "placeholder",
+      "skinned": false,
+      "translation": {
+        "changed": 0,
+        "max_error": 0.0,
+        "mean_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "pixels": 20269,
+        "white_fraction": 0.0
+      },
+      "warm": {
+        "changed": 950,
+        "max_error": 0.164705872535706,
+        "mean_delta": [
+          0.125303521407278,
+          0.0236860716970343,
+          0.00405362104114733
+        ],
+        "pixels": 950,
+        "white_fraction": 0.0
+      }
+    },
+    {
+      "draws": {
+        "median": 13.0,
+        "p95": 13.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.0689999982714653,
+        "p95": 0.104000002145767
+      },
+      "materials": 3,
+      "model": "placeholder"
+    },
+    {
+      "draws": {
+        "median": 13.0,
+        "p95": 13.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.0719999969005585,
+        "p95": 0.112000003457069
+      },
+      "materials": 3,
+      "model": "placeholder"
+    },
+    {
+      "draws": {
+        "median": 13.0,
+        "p95": 13.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.0810000002384186,
+        "p95": 0.116999998688698
+      },
+      "materials": 3,
+      "model": "placeholder"
+    },
+    {
+      "draws": {
+        "median": 13.0,
+        "p95": 13.0
+      },
+      "emitters": 4,
+      "gpu_ms": {
+        "median": 0.0810000002384186,
+        "p95": 0.116999998688698
+      },
+      "materials": 3,
+      "model": "placeholder"
+    },
+    {
+      "draws": {
+        "median": 13.0,
+        "p95": 13.0
+      },
+      "emitters": 1,
+      "gpu_ms": {
+        "median": 0.0719999969005585,
+        "p95": 0.108000002801418
+      },
+      "materials": 3,
+      "model": "placeholder"
+    },
+    {
+      "draws": {
+        "median": 13.0,
+        "p95": 13.0
+      },
+      "emitters": 0,
+      "gpu_ms": {
+        "median": 0.0710000023245811,
+        "p95": 0.090999998152256
+      },
+      "materials": 3,
+      "model": "placeholder"
+    },
+    {
+      "difference": {
+        "changed": 9439,
+        "max_error": 0.396078437566757,
+        "mean_delta": [
+          0.00992249721918741,
+          0.00335492846767825,
+          0.000638485516565009
+        ],
+        "pixels": 157890,
+        "white_fraction": 0.0
+      },
+      "map": "qsrc_dm6",
+      "model": "sample_d"
+    }
+  ],
+  "renderer": "mobile",
+  "resolution": [
+    800,
+    800
+  ],
+  "summary": {
+    "sample_d": {
+      "gpu_ms": {
+        "0": 0.22550000250339552,
+        "1": 0.22749999910593,
+        "4": 0.27499999105930295
+      },
+      "extra_1_ms": 0.0019999966025344706,
+      "extra_4_ms": 0.049499988555907426,
+      "draws": 3.0
+    },
+    "sample_f": {
+      "gpu_ms": {
+        "0": 0.23749999701976748,
+        "1": 0.27750000357627846,
+        "4": 0.368999987840652
+      },
+      "extra_1_ms": 0.04000000655651098,
+      "extra_4_ms": 0.13149999082088454,
+      "draws": 3.0
+    },
+    "sample_g": {
+      "gpu_ms": {
+        "0": 0.2040000036358835,
+        "1": 0.2785000056028365,
+        "4": 0.37749999761581454
+      },
+      "extra_1_ms": 0.074500001966953,
+      "extra_4_ms": 0.17349999397993104,
+      "draws": 3.0
+    },
+    "placeholder": {
+      "gpu_ms": {
+        "0": 0.0700000002980232,
+        "1": 0.0719999969005585,
+        "4": 0.0810000002384186
+      },
+      "extra_1_ms": 0.0019999966025353033,
+      "extra_4_ms": 0.01099999994039541,
+      "draws": 13.0
+    }
+  },
+  "full_image_parity": [
+    {
+      "model": "sample_d",
+      "off_and_blocked_byte_identical": true
+    },
+    {
+      "model": "sample_f",
+      "off_and_blocked_byte_identical": true
+    },
+    {
+      "model": "sample_g",
+      "off_and_blocked_byte_identical": true
+    },
+    {
+      "model": "placeholder",
+      "off_and_blocked_byte_identical": true
+    }
+  ],
+  "date": "2026-09-19",
+  "scope": "Private shader prototypes; three MToon VRMs and opaque placeholder; no game integration."
+}

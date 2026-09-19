@@ -26,9 +26,13 @@ func offer(peer: int) -> void:
 		if row.id==game.current_map: 
 			size=int(row.get("size",0))
 			break
-	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title,game.map_epoch,game.match_mode.kind,game.armory.kind)
+	_offer.rpc_id(peer,game.current_map,game.map_sha,size,game.map_title,game.map_epoch,game.match_mode.kind,game.armory.kind,source_name())
+func source_name() -> String:
+	for row in game.map_catalog:
+		if row.id==game.current_map:return row.get("source_name",row.id)
+	return ""
 @rpc("authority","call_remote","reliable",5)
-func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0,mode: String="dm",weapon_rules: String="doom") -> void:
+func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0,mode: String="dm",weapon_rules: String="doom",source: String="") -> void:
 	if epoch<game.map_epoch: return
 	if epoch>game.map_epoch or game.active: game._prepare_client_map(epoch)
 	if not expected.is_empty() or not incoming.is_empty(): return
@@ -48,7 +52,7 @@ func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0,mod
 		return
 	game.loading.phase="Downloading map · "+title.left(60)
 	game.loading.begin_item("map:"+hash,size,title)
-	expected={"hash":hash,"size":size,"title":title.left(60),"time":Time.get_ticks_msec()}
+	expected={"hash":hash,"size":size,"title":title.left(60),"source_name":source.left(80),"time":Time.get_ticks_msec()}
 	game.connect_deadline=game.clock+240
 	game.status("Downloading host map · "+title.left(60))
 	_request.rpc_id(1,hash)
@@ -95,9 +99,10 @@ func finish() -> void:
 	if incoming.is_empty():return
 	var row:=incoming
 	var title: String=expected.title
+	var source: String=expected.get("source_name","")
 	game.loading.phase="Verifying and preparing map…"
 	game.status("Preparing downloaded arena…")
-	if not disk.submit(Jobs.map_file.bind(row.path,row.hash,title,Loader.Paths.folder("maps")),func(result):
+	if not disk.submit(Jobs.map_file.bind(row.path,row.hash,title,Loader.Paths.folder("maps"),source),func(result):
 		if not is_same(incoming,row):return
 		disk.discard(row.path)
 		incoming={};expected.clear()

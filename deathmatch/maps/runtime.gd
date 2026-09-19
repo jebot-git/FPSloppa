@@ -1,5 +1,6 @@
 extends Node
 const Loader = preload("res://deathmatch/maps/loader.gd")
+const TeleportExit = preload("res://deathmatch/maps/teleport_exit.gd")
 var game
 var lights: Array[OmniLight3D]=[]
 var light_tick:=0.0
@@ -86,10 +87,14 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 		elif kind in ["info_tf_resupply_red","info_tf_resupply_blue"]:
 			game.tf_resupply[0 if kind.ends_with("red") else 1].append(node.global_position-Vector3.UP*.70)
 		elif kind=="misc_librequake_fixture":fixtures.append(e)
-		elif kind=="info_koth_control":game.map_objectives["hill"]=node.global_position-Vector3.UP*.70
+		elif kind=="info_koth_control":
+			var point: Vector3=node.global_position-Vector3.UP*.70
+			if not game.map_objectives.has("hill_markers"):game.map_objectives.hill_markers=[]
+			game.map_objectives.hill_markers.append({"position":point,"order":int(e.get("hill_index",0))})
+			game.map_objectives["hill"]=point
 		elif kind=="info_teleport_destination":
 			# Quake raises info_teleport_destination by 27 units before use.
-			destinations[e.get("targetname","")] = {"position":node.global_position+Vector3.UP*(27.0*Loader.SCALE-.70),"yaw":deg_to_rad(float(e.get("angle",0)))}
+			destinations[e.get("targetname","")] = {"position":node.global_position+Vector3.UP*(27.0*Loader.SCALE-.70),"yaw":TeleportExit.yaw(e)}
 		elif kind in ["item_flag_team1","item_flag_team2"]:
 			game.map_objectives["red" if kind=="item_flag_team1" else "blue"]=node.global_position-Vector3.UP*.70
 		elif kind.begins_with("weapon_") or kind.begins_with("item_"): add_pickup(e,node.global_position)
@@ -136,6 +141,9 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	remove_sentry_pickups()
 	if not game.headless and not fixtures.is_empty():load("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)
 	if not game.headless:load("res://deathmatch/maps/filtering.gd").new().apply(root,int(game.presentation.get("texture_filter",2)),true,int(game.presentation.get("contrast_lighting",false)))
+	if not game.headless and has_contents:
+		var weapon_lighting=load("res://deathmatch/lighting/weapon_pool.gd").new()
+		weapon_lighting.name="WeaponLighting";add_child(weapon_lighting);weapon_lighting.configure(root,bsp_path)
 	if not game.headless:
 		var surfaces=load("res://deathmatch/maps/surface_motion.gd").new();surfaces.name="SurfaceMotion";add_child(surfaces);surfaces.configure(game,root)
 	if not game.headless and entities.any(func(node):return node.attributes.get("classname","")=="info_train_motion"):
@@ -324,15 +332,21 @@ func _physics_process(_delta: float) -> void:
 			if region.kind=="trigger_teleport" and game.clock>=teleport_until.get(id,0):
 				var target: String=region.data.get("target","")
 				if not destinations.has(target): continue
-				var dest: Dictionary=destinations[target]
+				var dest: Dictionary=TeleportExit.resolve(self,destinations[target],actor.collision_height)
+				if dest.is_empty():continue
 				var departure: Vector3=actor.position
-				actor.position=dest.position
+				var state: Dictionary=game.players[id]
+				var exit_yaw:=TeleportExit.rig_yaw(dest.yaw,state.get("xr",{}))
+				actor.position=dest.position;actor.target=dest.position
+				actor.rotation.y=exit_yaw;actor.target_yaw=exit_yaw
 				telefrag(id)
 				actor.reset_view()
-				actor.velocity=Vector3.ZERO
-				game.players[id].yaw=dest.yaw
-				if id==multiplayer.get_unique_id(): game.local_yaw=dest.yaw
-				game.players[id].serial+=1
+				actor.velocity=Vector3.ZERO;actor.blast_velocity=Vector2.ZERO
+				state.yaw=exit_yaw;state.pitch=0.;state.move=Vector2.ZERO;state.room=Vector3.ZERO;state.swim=Vector3.ZERO;state.jump=false;state.jump_pending=false
+				state.serial+=1;state.teleport_input_life=state.serial
+				if id==multiplayer.get_unique_id():
+					game.local_yaw=exit_yaw;game.local_pitch=0.
+					if game.is_vr():game.xr_rig.on_spawn()
 				# Both ends are audible to nearby players, with one cue for adjacent pads.
 				if departure.distance_to(dest.position)>2.0:game._teleport_fx.rpc(departure)
 				game._teleport_fx.rpc(dest.position)

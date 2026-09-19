@@ -49,20 +49,20 @@ func run() -> void:
 		if not occupied.is_empty():print("SPAWN_BLOCKED ",point," ",occupied[0].collider.name);clear=false
 	check(clear,"All sixteen initial, forward and defender spawn positions have floor and standing clearance")
 	var lane_clear:=true
-	for i in range(0,301):
+	for i in range(0,int(tb.ROUTE_METRES)+1):
 		var pose: Transform3D=w.Route.sample(r.path,float(i))
 		if w.bodies.test.test_move(pose,Vector3.ZERO):lane_clear=false;break
 	check(lane_clear,"Defensive structures leave the complete robot collision route clear")
-	r.distance=299.;r.speed=.8;tb.observe("test",r)
+	r.distance=tb.ROUTE_METRES-1.;r.speed=.8;tb.observe("test",r)
 	check(tb.winner==-1 and g.intermission==0,"Final approach is not an early attacker victory")
-	r.distance=300.;r.speed=0;tb.observe("test",r)
+	r.distance=tb.ROUTE_METRES;r.speed=0;tb.observe("test",r)
 	check(tb.winner==0 and g.intermission>0 and g.match_mode.scores==[1,0] and g.round_message.contains("ATTACKERS WIN"),"Delivery awards attacker victory and ends the round")
 	tb.timeout();check(tb.winner==0 and g.match_mode.scores==[1,0],"Timeout cannot overwrite a delivered payload's result")
 	g._restart_round();g.match_mode.titanball.advance_time(60.);r=w.robots.test
 	check(tb.winner==-1 and tb.cleared==0 and tb.spawns(0)==tb.attacker_spawns[0],"New round restores initial attacker spawns and clears winner")
 	g.round_left=.005;g._server_tick(.01)
 	check(tb.winner==1 and g.match_mode.scores==[0,1] and g.round_message.contains("DEFENDERS WIN"),"Timer expiration awards defender victory")
-	r.distance=300;r.speed=0;tb.observe("test",r)
+	r.distance=tb.ROUTE_METRES;r.speed=0;tb.observe("test",r)
 	check(tb.winner==1,"Late delivery cannot overwrite defender victory")
 	check(tb.snapshot().winner==1 and tb.snapshot().attack_spawns.size()==3,"Objective snapshot contains result and all forward spawn groups")
 	FileAccess.open("res://test-results/ba2/gameplay/payload.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"  "))

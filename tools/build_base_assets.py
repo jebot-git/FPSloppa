@@ -1,12 +1,13 @@
 """Build the internal offline asset installer; not a separate release download."""
 from pathlib import Path
-import hashlib,json,zipfile
+import argparse,hashlib,json,zipfile
 from map_distribution import tf_files, distributable, check_selection
 ROOT=Path(__file__).resolve().parents[1]
 def sha(data):return hashlib.sha256(data).hexdigest()
 version=(ROOT/'VERSION').read_text().strip()
 texture_version=json.loads((ROOT/'deathmatch/maps/texture_replacements/manifest.json').read_text())['version']
-out=ROOT.parent/'Builds'/f'FPSloppa-{version}-Base-Assets.zip';out.parent.mkdir(exist_ok=True)
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path);args=parser.parse_args()
+out=args.output or ROOT.parent/'Builds'/f'FPSloppa-{version}-Base-Assets.zip';out.parent.mkdir(parents=True,exist_ok=True)
 files=[]
 # Select known base assets only. Never package players' downloaded/imported files.
 paths=[]
@@ -26,7 +27,7 @@ for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
  lit='maps/'+row['id']+'.lit'
  if (ROOT/lit).is_file():paths.append(lit)
 for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
-paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','cc','tf','tb','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
+paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','if','cc','tf','tb','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
 # Validate TF bake/navigation lineage without shipping development receipts.
 tf_files()
 # Runtime assets retain notices and provenance. Editable map/WAD sources live

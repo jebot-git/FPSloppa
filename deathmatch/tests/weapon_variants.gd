@@ -104,7 +104,7 @@ func tf_checks() -> void:
 	for role in g.match_mode.fortress.CLASSES:
 		g.players[1].tf_next=role;g.match_mode.fortress.spawn(1)
 		var s: Dictionary=g.players[1]
-		check(s.owned.has(0) and s.owned.has(2) and s.owned.all(func(w):return g.armory.valid(w) and g.match_mode.fortress.can_fire(1,w)),"Quake TF "+role+" has usable class loadout")
+		check(s.owned.has(0) and s.owned==g.match_mode.fortress.definition(1).owned and s.owned.all(func(w):return g.armory.valid(w) and g.match_mode.fortress.can_fire(1,w)),"Quake TF "+role+" has usable class loadout")
 		var before: Array=s.ammo.duplicate();s.ammo=[0,0,0,0];g.match_mode.fortress.resupply(1,1)
 		check(s.ammo[0]>0 and s.ammo[1]>0 and s.ammo[3]>0,"Quake TF "+role+" resupplies correct ammo pools")
 		if role=="pyro":check(g.match_mode.fortress.weapon_data(1,7).kind=="hitscan","TF pyro keeps flame and burn mechanics")

@@ -21,7 +21,7 @@ func run() -> void:
 		check(await wait_for(func():return g.players.size()==1),"Initial client joins match")
 		g.lobby.begin()
 		check(await wait_for(func():return g.players.size()==2 and not g.map_loading),"Existing and late client enter built-in lobby")
-		check(await wait_for(func():return g.lobby.confirmed),"Authenticated majority approves next match")
+		check(await wait_for(func():return g.lobby.selections.size()==2),"Both authenticated players select the next match")
 		check(g.fighters.values().all(func(actor):return actor.position.y<8 and absf(actor.position.x)<11.6 and absf(actor.position.z)<11.6),"AS clients spawn inside lobby after network transition")
 		check(g.match_mode.fortress.buildings.is_empty() and g.match_mode.fortress.snapshot().is_empty(),"Server lobby carries no sentries")
 		check(g.players.values().all(func(s):return s.hp==100),"Clients remain undamaged in lobby")

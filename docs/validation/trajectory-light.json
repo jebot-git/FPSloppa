@@ -1,0 +1,613 @@
+{
+  "checks": [
+    {
+      "label": "qsrc_dm6: spawn exists",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: baked shader receivers",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: no realtime lights while map is loaded",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: nearby surfaces brighten beyond emissive core",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: light fades completely when disabled",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: zero-length bullet illuminates surfaces",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: spawn exists",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: baked shader receivers",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: no realtime lights while map is loaded",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: nearby surfaces brighten beyond emissive core",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: light fades completely when disabled",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: zero-length bullet illuminates surfaces",
+      "pass": true
+    },
+    {
+      "label": "Known limitation reproduced: capsule illumination leaks through divider onto hidden floor",
+      "pass": true
+    },
+    {
+      "label": "No realtime light nodes in test scene",
+      "pass": true
+    }
+  ],
+  "engine": "4.7.2-stable (fedora)",
+  "failures": [],
+  "frames_per_block": 600,
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "msaa": 4,
+  "records": [
+    {
+      "camera": "(47.25, 2.03, -7.25)",
+      "direction": "(0.194305, -0.089638, 0.976837)",
+      "emission_only_delta": {
+        "changed_pixels": 356,
+        "mean_positive_channel_gain": 0.00136875340670587,
+        "sampled_pixels": 230400
+      },
+      "map": "qsrc_dm6",
+      "origin": "(47.52351, 1.103826, -5.875)",
+      "visual_delta": {
+        "changed_pixels": 129706,
+        "mean_positive_channel_gain": 0.0505449268923119,
+        "sampled_pixels": 230098
+      }
+    },
+    {
+      "bullet_delta": {
+        "changed_pixels": 7691,
+        "mean_positive_channel_gain": 0.00344674027145401,
+        "sampled_pixels": 230399
+      },
+      "map": "qsrc_dm6"
+    },
+    {
+      "cpu_ms": {
+        "median": 0.241999998688698,
+        "p95": 0.319999992847443
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.150999993085861,
+        "p95": 0.194999992847443
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 0,
+      "segments": -1,
+      "update_ms": {
+        "median": 0.015,
+        "p95": 0.026
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.247999995946884,
+        "p95": 0.384999990463257
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.141000002622604,
+        "p95": 0.187000006437302
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 1,
+      "segments": 0,
+      "update_ms": {
+        "median": 0.022,
+        "p95": 0.038
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.245000004768372,
+        "p95": 0.372000008821487
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.166999995708466,
+        "p95": 0.216999992728233
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 2,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.022,
+        "p95": 0.039
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.246999993920326,
+        "p95": 0.337000012397766
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.203999996185303,
+        "p95": 0.263999998569489
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 3,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.022,
+        "p95": 0.038
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.244000002741814,
+        "p95": 0.326999992132187
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.203999996185303,
+        "p95": 0.275000005960464
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 4,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.021,
+        "p95": 0.037
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.24600000679493,
+        "p95": 0.33500000834465
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.208000004291534,
+        "p95": 0.418000012636185
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 5,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.022,
+        "p95": 0.038
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.24600000679493,
+        "p95": 0.363999992609024
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.179000005125999,
+        "p95": 0.261000007390976
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 6,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.022,
+        "p95": 0.038
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.24600000679493,
+        "p95": 0.377000004053116
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.158999994397163,
+        "p95": 0.226999998092651
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 7,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.022,
+        "p95": 0.039
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.24600000679493,
+        "p95": 0.375
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.13400000333786,
+        "p95": 0.189999997615814
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 8,
+      "segments": 0,
+      "update_ms": {
+        "median": 0.021,
+        "p95": 0.038
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.24099999666214,
+        "p95": 0.331999987363815
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.144999995827675,
+        "p95": 0.190999999642372
+      },
+      "map": "qsrc_dm6",
+      "materials": 10,
+      "pass": 9,
+      "segments": -1,
+      "update_ms": {
+        "median": 0.015,
+        "p95": 0.026
+      }
+    },
+    {
+      "camera": "(23.0, 1.53, 52.0)",
+      "direction": "(0.976837, -0.089638, 0.194305)",
+      "emission_only_delta": {
+        "changed_pixels": 83,
+        "mean_positive_channel_gain": 0.000263853859444742,
+        "sampled_pixels": 230386
+      },
+      "map": "tf_vesper",
+      "origin": "(25.93051, 0.461087, 52.58292)",
+      "visual_delta": {
+        "changed_pixels": 30876,
+        "mean_positive_channel_gain": 0.00994628798549689,
+        "sampled_pixels": 230323
+      }
+    },
+    {
+      "bullet_delta": {
+        "changed_pixels": 251,
+        "mean_positive_channel_gain": 0.000187835630448967,
+        "sampled_pixels": 230385
+      },
+      "map": "tf_vesper"
+    },
+    {
+      "cpu_ms": {
+        "median": 0.250999987125397,
+        "p95": 0.356000006198883
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.186000004410744,
+        "p95": 0.305999994277954
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 0,
+      "segments": -1,
+      "update_ms": {
+        "median": 0.016,
+        "p95": 0.028
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.25,
+        "p95": 0.400000005960464
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.185000002384186,
+        "p95": 0.277999997138977
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 1,
+      "segments": 0,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.046
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.248999997973442,
+        "p95": 0.337000012397766
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.202999994158745,
+        "p95": 0.407999992370605
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 2,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.044
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.248999997973442,
+        "p95": 0.33899998664856
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.238000005483627,
+        "p95": 0.449999988079071
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 3,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.045
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.25,
+        "p95": 0.324999988079071
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.282999992370605,
+        "p95": 0.493000000715256
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 4,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.045
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.24600000679493,
+        "p95": 0.324999988079071
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.282999992370605,
+        "p95": 0.493000000715256
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 5,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.044
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.246999993920326,
+        "p95": 0.324000000953674
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.239999994635582,
+        "p95": 0.45100000500679
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 6,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.045
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.25,
+        "p95": 0.349000006914139
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.211999997496605,
+        "p95": 0.421000003814697
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 7,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.044
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.256000012159348,
+        "p95": 0.372999995946884
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.199000000953674,
+        "p95": 0.303999990224838
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 8,
+      "segments": 0,
+      "update_ms": {
+        "median": 0.026,
+        "p95": 0.046
+      }
+    },
+    {
+      "cpu_ms": {
+        "median": 0.246999993920326,
+        "p95": 0.344999998807907
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.202000007033348,
+        "p95": 0.284999996423721
+      },
+      "map": "tf_vesper",
+      "materials": 16,
+      "pass": 9,
+      "segments": -1,
+      "update_ms": {
+        "median": 0.017,
+        "p95": 0.028
+      }
+    },
+    {
+      "fixture": "occlusion",
+      "pixel": "(637, 382)",
+      "red_gain_behind_wall": 0.294117659330368
+    }
+  ],
+  "renderer": "mobile",
+  "resolution": [
+    1280,
+    720
+  ],
+  "summary": {
+    "qsrc_dm6": {
+      "gpu_ms_by_segments": {
+        "-1": 0.147999994456768,
+        "0": 0.13750000298023202,
+        "1": 0.16299999505281448,
+        "4": 0.191500000655651,
+        "8": 0.20600000023841852
+      },
+      "gpu_delta_from_stock_ms": {
+        "0": -0.010499991476535991,
+        "1": 0.015000000596046476,
+        "4": 0.043500006198883,
+        "8": 0.058000005781650515
+      },
+      "draw_call_medians": [
+        9.0
+      ],
+      "update_ms_median_range": [
+        0.015,
+        0.022
+      ]
+    },
+    "tf_vesper": {
+      "gpu_ms_by_segments": {
+        "-1": 0.194000005722046,
+        "0": 0.19200000166893,
+        "1": 0.207499995827675,
+        "4": 0.23900000005960448,
+        "8": 0.282999992370605
+      },
+      "gpu_delta_from_stock_ms": {
+        "0": -0.0020000040531160113,
+        "1": 0.013499990105628995,
+        "4": 0.04499999433755847,
+        "8": 0.08899998664855902
+      },
+      "draw_call_medians": [
+        9.0
+      ],
+      "update_ms_median_range": [
+        0.016,
+        0.026
+      ]
+    }
+  },
+  "date": "2026-09-19",
+  "scope": "Isolated prototype; no production shader changes; desktop Mobile/Vulkan only; no occlusion."
+}

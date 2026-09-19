@@ -1,6 +1,8 @@
 extends Node3D
 ## Independently recreated, profile-specific FX. Cosmetic only; no collision/network state.
 const Art=preload("res://deathmatch/art.gd")
+const Emission=preload("res://deathmatch/lighting/weapon_emission.gd")
+signal illumination(a: Vector3,b: Vector3,recipe: Dictionary,key: int)
 const MAX_PARTICLES:=512
 const MAX_SHAPES:=64
 var particles: Array=[]
@@ -65,74 +67,96 @@ func streak(points: PackedVector3Array,color: Color,width: float,life: float) ->
 		for axis in [side,forward.cross(side)]:
 			for v in [a-axis,b-axis,b+axis,a-axis,b+axis,a+axis]:mesh.surface_add_vertex(v)
 	mesh.surface_end();shape(mesh,Vector3.ZERO,color,life)
-func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
+func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int,definition: Dictionary={}) -> void:
+	var kind:=Emission.kind(rules,weapon,definition)
+	if kind=="melee" or kind=="hammer":return
+	if rules=="ut99" and weapon==7:kind="pulse_beam"
+	var recipe:=Emission.recipe(kind)
+	if recipe.is_empty():recipe=Emission.recipe("hitscan")
 	for end in ends:
-		if start.distance_to(end)<.01:continue
-		if rules=="quake" and weapon==9:
-			streak(PackedVector3Array([start,end]),Color(.35,.65,1,.65),.032,.24)
-			streak(PackedVector3Array([start,end]),Color("d5ecff"),.009,.18)
-		elif rules=="quake" and weapon in [2,3]:
-			var direction:Vector3=(end-start).normalized()
-			# A short-lived nearby pellet streak; the railgun owns the long trail.
-			streak(PackedVector3Array([start,start+direction*minf(start.distance_to(end),7.)]),Color(1,.8,.5,.45),.005,.055)
-			particle(end-direction*.015,-direction*.35+Vector3.UP*.3,Color(.5,.46,.4,.65),.10,.25,true)
-		elif rules=="quake" and weapon==8:
-			var points:=PackedVector3Array([start]);var steps:=clampi(int(start.distance_to(end)*3),3,48)
-			for i in range(1,steps):points.append(start.lerp(end,float(i)/steps)+Vector3(randf_range(-.11,.11),randf_range(-.11,.11),randf_range(-.11,.11)))
-			points.append(end);streak(points,Color("789bf0"),.037,.12);streak(points,Color("e3edff"),.012,.10)
-		elif rules=="ut99" and weapon in [3,7]:
-			var c:=Color("b75eff") if weapon==3 else Color("4bfa65")
-			streak(PackedVector3Array([start,end]),c,.045,.16 if weapon==3 else .11)
-			streak(PackedVector3Array([start,end]),Color("f1eaff"),.009,.10)
-			globe(end,c,.20,.15)
-		elif rules=="ut99" and weapon in [2,5]:
-			# Brief warm bullet streaks, not a persistent rail beam.
-			if randf()<.45:streak(PackedVector3Array([start,end]),Color(1,.72,.3,.65),.008,.04)
-		for i in (3 if weapon in [3,8] else 2):particle(end,Vector3(randf_range(-1,1),randf_range(.2,1.5),randf_range(-1,1)),Color("ceac74") if rules=="quake" else Color("ffc675"),.035,.25)
+		var distance:=start.distance_to(end)
+		if distance<.01:continue
+		var direction: Vector3=(end-start)/distance
+		var tail: Vector3=start+direction*minf(distance,recipe.length)
+		if kind in ["beam","pulse_beam"]:
+			var points:=PackedVector3Array([start]);var steps:=clampi(int(distance*3),3,48)
+			for i in range(1,steps):points.append(start.lerp(end,float(i)/steps)+Vector3(randf_range(-.045,.045),randf_range(-.045,.045),randf_range(-.045,.045)))
+			points.append(end);streak(points,recipe.color,recipe.width,recipe.life)
+		else:streak(PackedVector3Array([start,tail]),recipe.color,recipe.width,recipe.life)
+		if kind in ["rail","shock_beam","beam","pulse_beam"]:
+			streak(PackedVector3Array([start,end]),Color("e7f1ff"),.007,minf(recipe.life,.10))
+			illumination.emit(start,end,recipe,0)
+		else:
+			# Bullet pellets do not become room-length area lights. One shared
+			# muzzle key coalesces shotgun pellets and rapid-fire bursts.
+			illumination.emit(start,start,Emission.recipe("muzzle"),hash(start))
+		for i in 2:particle(end-direction*.02,Vector3(randf_range(-1,1),randf_range(.2,1.5),randf_range(-1,1)),recipe.color,.025,.18)
 func projectile(rules: String,definition: Dictionary) -> Node3D:
-	var root:=Node3D.new();var kind: String=definition.kind;root.set_meta("kind",kind);root.set_meta("trail_time",0.0)
+	var root:=Node3D.new();var kind: String=definition.kind;var visual_kind:=Emission.kind(rules,-1,definition)
+	root.set_meta("kind",kind);root.set_meta("emission",Emission.projectile_recipe(visual_kind,definition));root.set_meta("visual_kind",visual_kind);root.set_meta("trail_time",0.0)
 	var color:=Color("776f58") if rules=="quake" else Color("b7a077")
 	match kind:
-		"nail":Art.barrel(root,Vector3.ZERO,.016,.24,Art.material(Color("a29a81"),.8))
+		"nail":
+			Art.barrel(root,Vector3.ZERO,.020,.26,material(Emission.recipe(visual_kind).color))
 		"rocket","warhead":
 			Art.barrel(root,Vector3.ZERO,.075 if kind=="rocket" else .18,.36 if kind=="rocket" else .7,Art.material(color,.7))
 			Art.barrel(root,Vector3(0,0,.20),.046,.07,material(Color("ffb64b")))
 		"grenade","flak_shell":
 			Art.barrel(root,Vector3.ZERO,.10,.19,Art.material(color,.7))
-			Art.barrel(root,Vector3(0,0,-.1),.065,.04,Art.material(Color("b69539"),.6))
+			Art.barrel(root,Vector3(0,0,-.1),.065,.04,material(Color("b69539")))
 		"razor","razor_blast","translocator":
 			var blade:=Art.barrel(root,Vector3.ZERO,.19,.024,Art.material(Color("a5b9bf"),.85));blade.rotation.x=0;blade.name="Spin"
+			if kind=="translocator":Art.box(root,Vector3(0,.025,0),Vector3(.10,.02,.10),material(Color("85aaff")))
 			for i in 8:
-				var angle:=i*TAU/8;var tooth:=Art.box(blade,Vector3(cos(angle)*.17,0,sin(angle)*.17),Vector3(.06,.018,.05),Art.material(Color("c4d1d4"),.8));tooth.rotation.y=-angle
+				var angle:=i*TAU/8;var tooth:=Art.box(blade,Vector3(cos(angle)*.17,0,sin(angle)*.17),Vector3(.06,.018,.05),material(Color("718e97")));tooth.rotation.y=-angle
 		"flak":Art.box(root,Vector3.ZERO,Vector3(.055,.035,.11),material(Color("ffe08a")))
 		_:
-			var ball:=SphereMesh.new();ball.radius=.22 if kind=="shock_orb" else .14 if kind=="bio" else .09;ball.height=ball.radius*2;ball.radial_segments=12;ball.rings=6
+			var ball:=SphereMesh.new();ball.radius=float(definition.get("radius",.22 if kind=="shock_orb" else .14 if kind=="bio" else .09));ball.height=ball.radius*2;ball.radial_segments=12;ball.rings=6
 			var node:=MeshInstance3D.new();node.mesh=ball
-			node.material_override=material(Color("ac61ef") if kind=="shock_orb" else Color("7ce63b") if kind=="bio" else Color("5eff64"));root.add_child(node)
+			node.material_override=material(Emission.recipe(visual_kind).get("color",Color("5eff64")));root.add_child(node)
 			if kind=="pulse":node.scale=Vector3(.7,.7,2.2)
-			if kind=="bio":node.scale*=pow(maxf(1,definition.get("splash",20)/20.0),.33)
 			if kind=="shock_orb":
 				var halo:=MeshInstance3D.new();var torus:=TorusMesh.new();torus.inner_radius=.22;torus.outer_radius=.28;torus.rings=16;torus.ring_segments=6;halo.mesh=torus;halo.material_override=material(Color("dab4ff"));root.add_child(halo)
 	return root
 func travel(node: Node3D,velocity: Vector3,delta: float,stuck: bool) -> void:
 	var kind: String=node.get_meta("kind","")
+	var recipe: Dictionary=node.get_meta("emission",{})
+	var pos:=node.global_position
+	var previous: Vector3=node.get_meta("trail_position",pos)
+	node.set_meta("trail_position",pos)
 	if velocity.length_squared()>.01 and not stuck:node.basis=Basis.looking_at(velocity.normalized(),Vector3.RIGHT if absf(velocity.normalized().y)>.99 else Vector3.UP)
 	var spin:=node.get_node_or_null("Spin")
 	if spin:spin.rotate_y(delta*24)
 	if stuck:
 		if kind=="bio":node.scale=Vector3(1.6,.4,1.6)
-		return
-	var age: float=node.get_meta("trail_time",0.0)+delta;node.set_meta("trail_time",age)
-	if age<.035:return
+		return # No persistent illumination from resting goo/discs.
+	if recipe.is_empty():return
+	var distance:=pos.distance_to(previous)
+	# Never draw a long bridge across a correction, teleport, or first frame.
+	var tail:=pos
+	if delta<=.1 and distance>.001 and distance<=maxf(.5,velocity.length()*.15):
+		tail=pos.move_toward(previous,minf(distance,recipe.length))
+		var wall:=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(pos,tail,1))
+		if not wall.is_empty():tail=wall.position
+	illumination.emit(tail,pos,recipe,node.get_instance_id())
+	var age: float=node.get_meta("trail_time",0.0)+delta
+	node.set_meta("trail_time",age)
+	if age<.025:return
 	node.set_meta("trail_time",0.0)
+	if pos.distance_squared_to(tail)>.00001 and recipe.width>0:streak(PackedVector3Array([tail,pos]),recipe.color,recipe.width,recipe.life)
 	if kind in ["rocket","warhead","grenade","flak_shell"]:
-		for i in mini(4,maxi(1,int(velocity.length()*minf(age,.1)/.25))):
-			var pos:=node.global_position-velocity*minf(age,.1)*(i/4.0)
-			particle(pos,Vector3.UP*.15,Color(.25,.23,.20,.6),.16 if kind=="rocket" else .12,.65,true)
-			if kind in ["rocket","warhead"]:particle(pos,Vector3.ZERO,Color("ff9c38"),.075,.14)
-	elif kind=="flak":particle(node.global_position,Vector3.ZERO,Color("ffb234"),.045,.17)
-	elif kind in ["shock_orb","pulse"]:particle(node.global_position,Vector3.ZERO,Color("a767df") if kind=="shock_orb" else Color("59de54"),.07,.15)
-func burst(rules: String,pos: Vector3,weapon: int,kind: String="") -> void:
+		particle(pos,Vector3.UP*.15,Color(.25,.23,.20,.45),.14 if kind=="rocket" else .10,.5,true)
+		if kind in ["rocket","warhead"]:particle(pos,Vector3.ZERO,recipe.color,.065,.10)
+	elif kind in ["shock_orb","pulse","plasma","bfg"]:particle(pos,Vector3.ZERO,recipe.color,.055,.12)
+func burst(rules: String,pos: Vector3,weapon: int,kind: String="",definition: Dictionary={}) -> void:
+	if rules=="doom" and kind.is_empty():kind=Emission.kind(rules,weapon)
+	var light_kind: String="explosion" if kind in ["rocket","grenade","flak_shell","warhead","razor_blast"] else kind
+	var light:=Emission.projectile_recipe(light_kind,definition)
+	if kind=="bfg":light=light.duplicate();light.life=.32;light.radius=4.5
+	illumination.emit(pos,pos,light,0)
+	if rules=="doom" and kind in ["plasma","bfg"]:
+		globe(pos,light.color,.4 if kind=="plasma" else 2.5,.18 if kind=="plasma" else .32)
+		return
 	var explosive: bool=weapon in [4,6] if rules=="quake" else kind in ["rocket","grenade","flak_shell","warhead","razor_blast"]
 	if rules=="ut99" and kind.is_empty():explosive=weapon in [6,8]
 	if rules=="ut99" and weapon==3:
@@ -152,6 +176,7 @@ func burst(rules: String,pos: Vector3,weapon: int,kind: String="") -> void:
 	else:
 		for i in 5:particle(pos,Vector3(randf_range(-1,1),randf_range(.2,2),randf_range(-1,1)),Color("ffc774"),.035,.25)
 func combo(pos: Vector3) -> void:
+	illumination.emit(pos,pos,Emission.recipe("combo"),0)
 	globe(pos,Color(.86,.65,1,.85),2.7,.32)
 	for i in 3:
 		ring(pos+Vector3.UP*(i-1)*.2,Color(.63,.22,1,.8),4.5-i*.4,.45+i*.07)

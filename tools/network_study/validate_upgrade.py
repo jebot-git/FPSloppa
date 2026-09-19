@@ -8,9 +8,9 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "test-results/network-upgrade"
-UNITS = ["replication_protocol", "network_delivery", "local_prediction", "quake_movement", "water", "stairs",
+UNITS = ["replication_protocol", "network_delivery", "local_prediction", "prediction_obstacles", "pickup_lifecycle", "quake_movement", "water", "stairs",
          "vr_crouch_water", "movement_timing", "melee", "network_workers", "asset_publication"]
-NETWORK = [("address_fallback_network", ["server", "client"]), ("network_runner", ["server", "shooter", "target", "spectator"]),
+NETWORK = [("pickup_network", ["server", "collector", "observer"]), ("address_fallback_network", ["server", "client"]), ("network_runner", ["server", "shooter", "target", "spectator"]),
            ("team_network", ["server", "red", "blue", "observer"]), ("physical_network", ["server", "client"]),
            ("stance_network", ["server", "client"]), ("frigate_network", ["server", "client"]),
            ("voice_network", ["server", "sender", "receiver"]),

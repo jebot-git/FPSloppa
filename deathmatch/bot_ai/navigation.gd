@@ -70,6 +70,8 @@ func install_links() -> void:
 		if kind=="trigger_teleport":
 			var destination: Dictionary=runtime.destinations.get(volume.data.get("target",""),{})
 			if destination.is_empty():continue
+			destination=runtime.TeleportExit.resolve(runtime,destination)
+			if destination.is_empty():continue
 			end=destination.position
 		else:
 			var velocity: Vector3=runtime.push_velocity(volume.data,1.0 if runtime.legacy_train_push else 10.0)

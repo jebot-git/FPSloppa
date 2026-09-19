@@ -1,0 +1,267 @@
+{
+  "version": "0.15v",
+  "targets": [
+    "Windows",
+    "Linux",
+    "Quest"
+  ],
+  "pico_retired": true,
+  "protocol": "fpsloppa-39-rotating-koth",
+  "rules": [
+    {
+      "name": "audio_doppler",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "freeze_gravity",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "pickup_lifecycle",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "player_hitbox",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "prediction_obstacles",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "tf_arsenal",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "team_nametags",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "teleport_exits",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "tb_balance",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "weapon_variants",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "weapon_optics_fx",
+      "passed": true,
+      "exit_code": 0,
+      "final_log": "weapon-optics-graphical.log"
+    },
+    {
+      "name": "requested_changes",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "imported_map_policy",
+      "passed": true,
+      "exit_code": 0,
+      "final_log": "imported-map-isolated.log"
+    },
+    {
+      "name": "hit_detection",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "projectile_targets",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "fortress",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "name": "mode_weapon_policy",
+      "passed": true,
+      "exit_code": 0,
+      "final_log": "mode-weapon-policy-final.log"
+    }
+  ],
+  "linux_graphical_runtime": [
+    {
+      "map": "qsrc_dm6",
+      "mode": "dm",
+      "passed": true,
+      "exit_code": 0,
+      "errors": []
+    },
+    {
+      "map": "koth_solstice",
+      "mode": "koth",
+      "passed": true,
+      "exit_code": 0,
+      "errors": []
+    },
+    {
+      "map": "tb_ashfall",
+      "mode": "tb",
+      "passed": true,
+      "exit_code": 0,
+      "errors": []
+    }
+  ],
+  "packages": [
+    {
+      "failures": [],
+      "files": 1315,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1315,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1437,
+      "failures": []
+    }
+  ],
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 607319593,
+      "sha256": "a4bfc910f4246648ec09ef417058ea3cb16279b96de097886e53e48e4cc68e01",
+      "assets_verified": [
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "maps/tf_pressureworks.bsp",
+        "maps/tf_vesper.bsp",
+        "maps/koth_solstice.bsp",
+        "maps/koth_torture.bsp",
+        "maps/koth_hyperborea.bsp",
+        "maps/koth_alichar.bsp",
+        "maps/cc_hyperborea.bsp",
+        "maps/cc_psychofuge.bsp",
+        "maps/cc_ghostquarter.bsp",
+        "maps/cc_basement.bsp",
+        "maps/qsrc_dm1.bsp",
+        "maps/qsrc_dm2.bsp",
+        "maps/qsrc_dm3.bsp",
+        "maps/qsrc_dm4.bsp",
+        "maps/qsrc_dm5.bsp",
+        "maps/qsrc_dm6.bsp",
+        "maps/qsrc_dm7.bsp",
+        "maps/ctf_tideworks.bsp",
+        "maps/ctf_crucible.bsp",
+        "maps/ctf_confluence.bsp",
+        "maps/ctf_deepvault.bsp",
+        "maps/ctf_crownreach.bsp",
+        "maps/ctf_skyfracture.bsp",
+        "maps/tb_ashfall.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "unified_base_assets": 235,
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true,
+      "renderer": {
+        "method": "mobile",
+        "android_driver": "vulkan",
+        "opengl_fallback": false
+      },
+      "vulkan_required": true,
+      "seekable_embedded_zip": true
+    }
+  ],
+  "map_previews": [
+    {
+      "case": "tf_network_arena",
+      "role": "server",
+      "passed": true
+    },
+    {
+      "case": "tf_network_arena",
+      "role": "uploader",
+      "passed": true
+    },
+    {
+      "case": "tf_network_arena",
+      "role": "receiver",
+      "passed": true
+    },
+    {
+      "case": "untagged_arena",
+      "role": "server",
+      "passed": true
+    },
+    {
+      "case": "untagged_arena",
+      "role": "uploader",
+      "passed": true
+    },
+    {
+      "case": "untagged_arena",
+      "role": "receiver",
+      "passed": true
+    },
+    {
+      "case": "ig_restart",
+      "role": "server",
+      "passed": true
+    }
+  ],
+  "network": {
+    "eight_client_map_transition": true,
+    "voting_and_lobby": true,
+    "koth_rotation_late_join": true,
+    "teleport_exits": true
+  },
+  "cleanup": {
+    "removed_generated_directories": [
+      "/home/blux/Documents/Builds/Linux",
+      "/home/blux/Documents/Builds/Windows",
+      "/home/blux/Documents/Builds/Android",
+      "/home/blux/Documents/FPSloppa/Builds/ConsoleServer",
+      "/home/blux/Documents/FPSloppa/.godot/exported",
+      "/home/blux/Documents/FPSloppa/android/build/build"
+    ],
+    "retained_template": "/home/blux/Documents/FPSloppa/test-results/release015/console-template.x86_64",
+    "historical_releases_preserved": true,
+    "generated_import_fixture_removed_from_all_exports": true
+  },
+  "remote_cq": {
+    "stopped": true,
+    "temporary_deployment_removed": true,
+    "ordinary_server_preserved": true
+  },
+  "test_notes": [
+    "Initial eight-client run missed intermission-vote deadlines under concurrent load; isolated rerun passed all roles.",
+    "Optics test requires graphics; final Vulkan run passed 23 assertions. Import persistence requires an isolated asset root.",
+    "Corrected an outdated Assault test expectation from 30 to 15 seconds.",
+    "Import test now requires a temporary asset root; removed its accidental root fixture and rebuilt all three exports."
+  ],
+  "limits": [
+    "No fresh native Windows or physical Quest/VR test.",
+    "Existing engine exit-only resource diagnostics remain.",
+    "Automated checks do not certify live eight-player comfort or balance."
+  ]
+}

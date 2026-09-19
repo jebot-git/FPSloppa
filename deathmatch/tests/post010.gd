@@ -81,7 +81,7 @@ func run() -> void:
 	g.match_mode.kind="koth"
 	g.match_mode.hill=Vector3(0,100,0);g.match_mode.scores=[0,0];g.match_mode.hill_credit=0;g.match_mode.hill_limit=100
 	g.fighters[1].position=g.match_mode.hill;g.fighters[2].position=Vector3(30,100,0)
-	g.match_mode.tick(25);check(g.match_mode.scores[0]==25 and g.match_mode.hill==Vector3(0,100,0),"Hill stays fixed beyond the former movement threshold")
+	g.match_mode.tick(25);check(g.match_mode.scores[0]==25 and g.match_mode.hill==Vector3(0,100,0),"Hill remains at the same site before its 30-second deadline")
 	g.fighters[2].position=g.match_mode.hill;g.match_mode.tick(2);check(g.match_mode.scores[0]==25,"Contested hill pauses scoring")
 	g.fighters[2].position=Vector3(30,100,0);g.match_mode.tick(1)
 	check(g.match_mode.hill==Vector3(0,100,0) and g.match_mode.scores[0]==26,"Uncontested scoring resumes at the same hill")

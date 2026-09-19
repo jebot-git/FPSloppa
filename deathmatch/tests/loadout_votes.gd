@@ -27,9 +27,9 @@ func run():
 	check(g.votes.match_spec("dm|"+g.current_map+"|quake",options).rules=="quake","Combined match proposal carries selected loadout")
 	check(g.votes.match_spec("tf|tf_ironspan|doom",options).is_empty() and g.votes.match_spec("ig|"+g.current_map+"|ut99",options).is_empty(),"Combined proposals cannot override fixed loadouts")
 	check(g.votes.match_spec("tf|tf_ironspan",options).rules=="quake","Legacy mode/map proposals resolve the mode's required loadout")
-	g.lobby.build();g.lobby.offered=options;g.lobby.until=g.clock+45;g.votes.ballot.clear();g.votes.cooldown=0
+	g.lobby.build();g.lobby.offered=[{"mode":"dm","map":options[0].map,"rules":"ut99"}];g.lobby.until=g.clock+45;g.votes.ballot.clear();g.votes.cooldown=0
 	check(not g.votes.start(1,"loadout","quake"),"Lobby uses a combined next-match vote instead of changing the waiting room")
-	g.lobby.accept_match("dm|"+options[0].map+"|ut99")
-	check(g.lobby.result().rules=="ut99" and g.lobby.snapshot().next.rules=="ut99" and g.lobby.active(),"Approved lobby loadout is visible and waits for lobby expiry")
+	g.lobby.cast_option(1,g.lobby.ballot_id,0)
+	check(g.lobby.result().rules=="ut99" and g.lobby.snapshot().next.rules=="ut99" and g.lobby.active(),"Selected lobby loadout is visible and waits for lobby expiry")
 	g.disconnect_game();g.free();await process_frame
 	print("LOADOUT_VOTES_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

@@ -1,4 +1,5 @@
 extends RefCounted
+const ImportPolicy=preload("res://deathmatch/maps/import_policy.gd")
 const MAX_BYTES:=25_000_000
 const Reader = preload("res://addons/bsp_importer/bsp_reader.gd")
 const SCALE := 1.0/32.0
@@ -11,13 +12,19 @@ static func supports_assault(path: String) -> bool:
 	file.seek(offset);var entities:=file.get_buffer(length).get_string_from_ascii()
 	return entities.count('"info_as_objective"')==2 and entities.contains('"info_player_team1"') and entities.contains('"info_player_team2"')
 static func available_for_mode(row: Dictionary,mode: String) -> bool:
-	# Curated tags constrain shipped maps only. Imports and server lists remain open.
-	if row.get("custom",false) or not row.has("modes"):return true
-	var kind: String="ig" if mode=="if" else mode
+	# Imported tags are exact; shipped IG arenas remain usable by IF.
+	if not row.has("modes"):return mode in ImportPolicy.DEFAULT_MODES
+	var kind: String="ig" if mode=="if" and not row.get("imported",false) else mode
 	return kind in row.modes
 static func choices_for_mode(rows: Array,mode: String,configured: Array=[]) -> Array:
 	if not configured.is_empty():return configured.duplicate()
 	return rows.filter(func(row):return available_for_mode(row,mode)).map(func(row):return row.id)
+static func inherited_maplist(rows: Array,mode: String,configured: Array) -> Array:
+	# Legacy fallback may share curated arenas, but must retain exact import tags.
+	return configured.filter(func(id):
+		for row in rows:
+			if row.id==id:return not row.get("imported",false) or available_for_mode(row,mode)
+		return true)
 static func catalog() -> Array:
 	if DirAccess.dir_exists_absolute("user://maps"):
 		for filename in DirAccess.get_files_at("user://maps"):
@@ -43,7 +50,9 @@ static func catalog() -> Array:
 		var error:=validate(path)
 		if not error.is_empty():push_warning(filename+": "+error);continue
 		var hash:=FileAccess.get_sha256(path)
-		result.append({"id":id,"title":map_title(path,id),"path":path,"scene":Paths.folder("maps")+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(path)})
+		var entry:={"id":id,"path":path,"scene":Paths.folder("maps")+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(path)}
+		entry.merge(ImportPolicy.read(Paths.folder("maps"),hash,filename,map_title(path,id)))
+		result.append(entry)
 	return result
 static func map_title(path: String,fallback: String) -> String:
 	var file:=FileAccess.open(path,FileAccess.READ)
@@ -223,12 +232,8 @@ static func import_custom(path: String,title_override: String="") -> Dictionary:
 		if row.sha256==checksum: return row
 	var root:=read(path)
 	if not root: return {"error":"BSP importer could not build this map."}
-	var spawns:=0
-	for node in root.get_children():
-		if "attributes" in node and node.attributes.get("classname","")=="info_player_deathmatch": spawns+=1
-	if spawns<2:
-		root.free()
-		return {"error":"A deathmatch BSP needs at least two info_player_deathmatch entities."}
+	var spawn_error:=ImportPolicy.spawn_error(path)
+	if not spawn_error.is_empty():root.free();return {"error":spawn_error}
 	var directory:=Paths.folder("maps")
 	DirAccess.make_dir_recursive_absolute(directory+"cache")
 	var packed:=PackedScene.new()
@@ -237,7 +242,10 @@ static func import_custom(path: String,title_override: String="") -> Dictionary:
 	if ResourceSaver.save(packed,scene_path)!=OK:return {"error":"Could not cache the imported scene."}
 	var raw_path:=directory+id+".bsp"
 	if path!=raw_path and DirAccess.copy_absolute(path,raw_path)!=OK:return {"error":"Could not copy BSP to maps folder."}
-	return {"id":id,"title":title_override.left(60) if not title_override.is_empty() else path.get_file().get_basename().left(60),"path":raw_path,"scene":scene_path,"sha256":checksum,"size":preload("res://deathmatch/network/disk_worker.gd").size(raw_path)}
+	var metadata:=ImportPolicy.save(directory,checksum,path,title_override if not title_override.is_empty() else map_title(path,path.get_file().get_basename()))
+	if metadata.has("error"):return metadata
+	var entry:={"id":id,"path":raw_path,"scene":scene_path,"sha256":checksum,"size":preload("res://deathmatch/network/disk_worker.gd").size(raw_path)}
+	entry.merge(metadata);return entry
 
 static func validate_geometry(path: String) -> String:
 	var bytes:=FileAccess.get_file_as_bytes(path)

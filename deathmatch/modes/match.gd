@@ -27,6 +27,11 @@ signal capture_announced(team: int,scorer: String,score: int)
 var hill:=Vector3.ZERO
 var hill_owner:=-1 # -1 empty, -2 contested.
 var hill_credit:=0.0
+const HILL_SECONDS:=30.0
+var hills: Array=[]
+var hill_index:=0
+var hill_remaining:=HILL_SECONDS
+var hill_label: Label3D
 var visuals: Node3D
 var visual_key:=""
 
@@ -42,7 +47,7 @@ func configure(settings: Dictionary) -> void:
 func instagib() -> bool:return kind in ["ig","if"]
 func freeze_tag() -> bool:return kind in ["ft","if"]
 func fixed_loadout() -> bool:return instagib() or kind=="cc"
-static func maplist_kind(value: String) -> String:return "ig" if value=="if" else value
+static func maplist_kind(value: String) -> String:return value
 func team_game() -> bool: return kind in ["tdm","ctf","koth","ft","if","tf","tb","as"]
 func assign_team(spectator: bool) -> int:
 	if spectator or not team_game():return -1
@@ -56,6 +61,7 @@ func reset() -> void:
 	capture_notice.clear()
 	special.reset();fortress.reset();assault.reset();titanball.reset()
 	scores=[0,0];hill_owner=-1;hill_credit=0.0;flags.clear();bases.clear();captures.clear()
+	hills.clear();hill_index=0;hill_remaining=HILL_SECONDS
 	if game.spawn_points.is_empty():return
 	# BSP spawn origins are known playable locations; custom maps get a conservative fallback.
 	var first: Vector3=game.spawn_points[0]
@@ -74,12 +80,70 @@ func reset() -> void:
 		var data: Dictionary=row.objectives
 		if data.has("red") and data.has("blue"):bases=[vector(data.red),vector(data.blue)]
 		if data.has("hill"):hill=vector(data.hill)
+		for point in data.get("hills",[]):hills.append(vector(point))
 	if game.map_objectives.has("red") and game.map_objectives.has("blue"):bases=[game.map_objectives.red,game.map_objectives.blue]
 	if game.map_objectives.has("hill"):hill=game.map_objectives.hill
+	if game.map_objectives.has("hill_markers"):
+		var markers: Array=game.map_objectives.hill_markers.duplicate()
+		markers.sort_custom(func(a,b):return a.order<b.order)
+		hills=markers.map(func(row):return row.position)
+	if kind=="koth":prepare_hills()
 	for i in range(2):captures.append(game.tf_capture.get(i,bases[i]) if kind=="tf" else bases[i])
 	for i in range(2):flags.append({"carrier":0,"dropped":false,"position":bases[i],"return_at":0.0})
 	clear_visuals()
 func vector(value: Array) -> Vector3:return Vector3(value[0],value[1],value[2])
+func prepare_hills() -> void:
+	if hills.is_empty():hills.append(hill)
+	# Older/imported maps use distinct playable spawn floors as fallback sites.
+	var candidates: Array=game.spawn_points.duplicate()
+	while hills.size()<3:
+		var best:=Vector3.ZERO;var distance:=1.0
+		for point in candidates:
+			var nearest:=INF
+			for existing in hills:nearest=minf(nearest,point.distance_squared_to(existing))
+			if nearest>distance:best=point;distance=nearest
+		if distance<=1.0:break
+		hills.append(best)
+	# Two-start BSPs can still use a third clear floor beside a start.
+	if hills.size()<3:
+		var space=game.get_world_3d().direct_space_state
+		for spawn in candidates:
+			for step in 8:
+				var point: Vector3=spawn+Vector3(3,0,0).rotated(Vector3.UP,step*TAU/8)
+				var floor=space.intersect_ray(PhysicsRayQueryParameters3D.create(point+Vector3.UP,point-Vector3.UP*2,1))
+				if floor.is_empty() or floor.normal.y<.9:continue
+				point=floor.position+Vector3.UP*.05
+				if hills.any(func(existing):return existing.distance_to(point)<2):continue
+				var query:=PhysicsShapeQueryParameters3D.new();var shape:=BoxShape3D.new();shape.size=Vector3(.8,1.8,.8)
+				query.shape=shape;query.collision_mask=1;query.transform.origin=point+Vector3.UP*.9
+				if space.intersect_shape(query,1).is_empty():hills.append(point);break
+			if hills.size()>=3:break
+	hill_index=0;hill=hills[0];hill_remaining=HILL_SECONDS
+func hill_timer_text() -> String:
+	return "HILL %d/%d · MOVES IN %ds"%[hill_index+1,maxi(1,hills.size()),ceili(maxf(0,hill_remaining))]
+func tick_hill(delta: float) -> void:
+	# Split a long simulation step at the boundary: old-floor occupants never
+	# receive credit for time spent after the hill moved.
+	while delta>0 and game.intermission<=0:
+		var step:=minf(delta,hill_remaining)
+		var present: Array=[false,false]
+		for id in game.players:
+			var state: Dictionary=game.players[id]
+			if not state.spectator and not state.dead and state.team in [0,1] and nearby(id,hill,3.0):present[state.team]=true
+		var owner: int=-2 if present[0] and present[1] else 0 if present[0] else 1 if present[1] else -1
+		if owner!=hill_owner:hill_credit=0.0
+		hill_owner=owner
+		if owner>=0:
+			hill_credit+=step
+			while hill_credit>=1.0:
+				scores[owner]+=1;hill_credit-=1.0;check_limit()
+				if game.intermission>0:return
+		hill_remaining-=step;delta-=step
+		if hill_remaining<=.00001:
+			if not hills.is_empty():hill_index=(hill_index+1)%hills.size();hill=hills[hill_index]
+			hill_remaining=HILL_SECONDS;hill_owner=-1;hill_credit=0.0
+			clear_visuals()
+			game._announcement.rpc("Hill moved · position %d/%d"%[hill_index+1,hills.size()])
 func spawns(team: int) -> Array:
 	if game.lobby.active():return game.spawn_points
 	if kind=="as" and team in [0,1]:return assault.spawns(team)
@@ -142,19 +206,7 @@ func tick(delta: float) -> void:
 			if flags[enemy].carrier==id and (kind=="tf" or flags[own].carrier==0 and not flags[own].dropped) and nearby(id,captures[own] if kind=="tf" else bases[own],1.4):
 				return_flag(enemy);scores[own]+=1;game._announcement.rpc(TEAMS[own]+" captured the flag!");game._capture_feedback.rpc(own,s.name,scores[own]);game.announcer.objective_completed();check_limit()
 				if game.intermission>0:return
-	elif kind=="koth":
-		var present: Array=[false,false]
-		for id in game.players:
-			var s: Dictionary=game.players[id]
-			if not s.spectator and not s.dead and s.team>=0 and nearby(id,hill,3.0):present[s.team]=true
-		var owner: int=-2 if present[0] and present[1] else 0 if present[0] else 1 if present[1] else -1
-		if owner!=hill_owner:hill_credit=0.0
-		hill_owner=owner
-		if owner>=0:
-			hill_credit+=delta
-			while hill_credit>=1.0:
-				scores[owner]+=1;hill_credit-=1.0;check_limit()
-				if game.intermission>0:return
+	elif kind=="koth":tick_hill(delta)
 func limit() -> int:return capture_limit if kind in ["ctf","tf"] else hill_limit if kind=="koth" else game.frag_limit
 func check_limit() -> void:
 	if maxi(scores[0],scores[1])>=limit():game._end_round()
@@ -170,22 +222,23 @@ func status(id: int=0) -> String:
 	if game.players.has(id) and game.players[id].team>=0:text+=" · YOU: "+TEAMS[game.players[id].team]
 	if kind in ["ctf","tf"] and flags.size()==2:
 		for i in range(2):text+=" · "+TEAMS[i]+" FLAG "+("TAKEN" if flags[i].carrier!=0 else "DROPPED" if flags[i].dropped else "HOME")
-	elif kind=="koth":text+=" · HILL "+("CONTESTED" if hill_owner==-2 else "OPEN" if hill_owner==-1 else TEAMS[hill_owner])
+	elif kind=="koth":text+=" · HILL "+("CONTESTED" if hill_owner==-2 else "OPEN" if hill_owner==-1 else TEAMS[hill_owner])+" · %ds"%ceili(maxf(0,hill_remaining))
 	if freeze_tag():text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
 	return text+fortress.status(id)
 func snapshot() -> Dictionary:
-	return {"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
+	return {"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
 func receive(data: Dictionary) -> void:
 	if data.is_empty():return
 	game.announcer.policy(bool(data.get("announcer",true)))
 	special.frozen=data.get("frozen",{});special.reset_at=data.get("freeze_reset",0.0)
 	kind=data.kind;fortress.receive(data.get("fortress",{}));scores=data.scores;bases=data.bases;captures=data.get("captures",bases);flags=data.flags;hill=data.hill;hill_owner=data.owner;friendly_fire=data.friendly_fire
+	hills=data.get("hills",[hill]);hill_index=int(data.get("hill_index",0));hill_remaining=float(data.get("hill_remaining",HILL_SECONDS))
 	assault.receive(data.get("assault",{}));titanball.receive(data.get("titanball",{}))
 	if kind in ["ctf","tf"]:capture_limit=data.limit
 	elif kind=="koth":hill_limit=data.limit
 func clear_visuals() -> void:
 	if is_instance_valid(visuals):visuals.free()
-	visuals=null;visual_key=""
+	visuals=null;visual_key="";hill_label=null
 func draw_objectives() -> void:
 	if game.headless:return
 	fortress.draw()
@@ -200,22 +253,24 @@ func draw_objectives() -> void:
 				marker(bases[i],COLORS[i],TEAMS[i]+" FLAG",1.4)
 				if captures.size()==2 and captures[i].distance_to(bases[i])>2:marker(captures[i],COLORS[i],TEAMS[i]+" CAPTURE",1.4)
 				var flag:=preload("res://deathmatch/modes/flag.gd").create(i);flag.name="Flag"+str(i);visuals.add_child(flag)
-		elif kind=="koth":marker(hill,Color("dbb66c"),"HILL · HOLD TO SCORE",3.0)
+		elif kind=="koth":hill_label=marker(hill,Color("dbb66c"),hill_timer_text(),3.0)
 		elif kind=="as":
 			for i in assault.objectives.size():
 				var objective: Dictionary=assault.objectives[i]
 				assault.draw_button(visuals,i)
 				marker(objective.position,Color("67dba8") if i<assault.stage else COLORS[assault.attacking],("DONE · " if i<assault.stage else "LOCKED · " if i>assault.stage else "TARGET · " if int(objective.get("health",0))>0 else "ACTIVATE · ")+str(objective.get("title","OBJECTIVE")),1.2)
+	if kind=="koth" and is_instance_valid(hill_label):hill_label.text=hill_timer_text()
 	if kind in ["ctf","tf"] and flags.size()==2:
 		for i in range(2):
 			var flag: Node3D=visuals.get_node("Flag"+str(i))
 			flag.position=flags[i].position+Vector3.UP*(1.1 if flags[i].carrier!=0 else 0.0)
 			flag.visible=flags[i].carrier!=game.multiplayer.get_unique_id()
-func marker(pos: Vector3,color: Color,title: String,radius: float) -> void:
+func marker(pos: Vector3,color: Color,title: String,radius: float) -> Label3D:
 	var root:=Node3D.new();root.position=pos;visuals.add_child(root)
 	var mesh:=MeshInstance3D.new();var ring:=TorusMesh.new();ring.inner_radius=radius-.06;ring.outer_radius=radius
 	mesh.mesh=ring;mesh.position.y=.10;mesh.material_override=preload("res://deathmatch/art.gd").material(color,0,.5);root.add_child(mesh)
 	var label:=Label3D.new();label.text=title;label.position.y=2.6;label.font_size=40;label.pixel_size=.006;label.modulate=color;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;root.add_child(label)
+	return label
 
 func capture_feedback(team: int,scorer: String,score: int) -> void:
 	if not team in [0,1]:return
