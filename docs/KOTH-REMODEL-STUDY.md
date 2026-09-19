@@ -1,5 +1,7 @@
 # Fixed-hill KOTH remodel study
 
+Historical design study, reviewed 12 September 2026. The fixed-hill decision below was superseded on 19 September by [30-second rotating hills](KOTH-ROTATION.md).
+
 Reviewed 12 September 2026. This is a map-design adaptation of the original Quake II OSP hill-holding idea to FPSloppa's existing two-team rules, not a port of OSP code or a claim to reproduce its exact scoring rules.
 
 ## Sources and limits

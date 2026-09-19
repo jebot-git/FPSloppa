@@ -11,19 +11,20 @@ static func publish(path: String,destination: String,hash: String) -> Error:
 	if error==OK:error=DirAccess.rename_absolute(temporary,destination)
 	if FileAccess.file_exists(temporary):DirAccess.remove_absolute(temporary)
 	return error
-static func map_file(path: String,hash: String,title: String,directory: String) -> Dictionary:
+static func map_file(path: String,hash: String,title: String,directory: String,source_name: String="") -> Dictionary:
 	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=hash:return {"error":"Map checksum failed."}
 	var error:=Maps.validate(path)
 	if not error.is_empty():return {"error":error}
-	var file:=FileAccess.open(path,FileAccess.READ)
-	file.seek(4);var start:=file.get_32();var length:=file.get_32();file.seek(start)
-	var entities:=file.get_buffer(length).get_string_from_utf8();file.close()
-	if entities.count('"info_player_deathmatch"')<2:return {"error":"Map requires at least two deathmatch spawns."}
+	var spawn_error:=Maps.ImportPolicy.spawn_error(path)
+	if not spawn_error.is_empty():return {"error":spawn_error}
 	var id:="custom_"+hash
 	var destination:=directory+id+".bsp"
 	DirAccess.make_dir_recursive_absolute(directory+"cache")
 	if publish(path,destination,hash)!=OK:return {"error":"Cannot save map."}
-	return {"id":id,"title":title,"path":destination,"scene":directory+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(destination)}
+	var metadata:=Maps.ImportPolicy.save(directory,hash,source_name,title)
+	if metadata.has("error"):return metadata
+	var entry:={"id":id,"path":destination,"scene":directory+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(destination)}
+	entry.merge(metadata);return entry
 
 static func model_file(path: String,hash: String,directory: String,copy: bool=true) -> Dictionary:
 	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=hash:return {"error":"Model checksum failed."}

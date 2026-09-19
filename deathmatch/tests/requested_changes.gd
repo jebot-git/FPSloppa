@@ -38,7 +38,7 @@ func run() -> void:
  var s: Dictionary=game.players[-1];s.team=1;s.owned=[0,2,7];s.ammo=[100,100,100,100];s.tf_class="scout"
  check(not game.bots.can_engage(-1,1),"Scout ignores immune Titan even with ordinary super nailgun")
  s.tf_class="heavy"
- check(game.bots.can_engage(-1,1) and game.bots.choose_weapon(-1,20,1)==7,"Heavy selects its hull-damaging super nailgun")
+ check(game.bots.can_engage(-1,1) and game.bots.choose_weapon(-1,20,1)==7,"Heavy selects its hull-damaging assault cannon")
  s.tf_class="pyro"
  check(not game.bots.can_engage(-1,1),"Pyro flamethrower cannot engage Titan")
  s.tf_class="soldier";s.owned=[0,2,6];s.weapon=2

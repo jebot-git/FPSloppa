@@ -39,18 +39,18 @@ for path in a.files:
  if 'boardings' in d:
   checks['boarding_events_recorded']=len(d['boardings'])>0
   checks['every_boarding_restores_class_maximum']=all(b['hp']==b['max_hp'] and b['hp']>0 for b in d['boardings'])
-  checks['every_boarding_starts_three_second_lock']=all(b['exit_lock']==3 for b in d['boardings'])
+  checks['every_boarding_starts_configured_lock']=all(b['exit_lock']==d.get('boarding_exit_lock',3) for b in d['boardings'])
  if 'robot_state' in samples[0]:
-  checks['no_occupied_endpoint_restart_deadlock']=not any(s['pilot'] and s['pilot']==prev['pilot'] and s['robot_state']=='parked' and s['speed']==0 and 299.2<s['distance']<299.98 and s['distance']==prev['distance'] for prev,s in zip(samples,samples[1:]))
+  checks['no_occupied_endpoint_restart_deadlock']=not any(s['pilot'] and s['pilot']==prev['pilot'] and s['robot_state']=='parked' and s['speed']==0 and d.get('route_metres',300)-(2.0 if d.get('route_metres',300)==350 else .8)<s['distance']<d.get('route_metres',300)-.02 and s['distance']==prev['distance'] for prev,s in zip(samples,samples[1:]))
  if 'body_yaw' in samples[0]:
   checks['torso_stays_within_7_5_degrees']=all(abs(s['body_yaw'])<=math.pi/24+1e-6 for s in samples)
-  checks['no_ladder_while_moving_or_manned']=all(not s['ladder_deployed'] or (s['pilot']==0 and s['speed']<=.0001) for s in samples)
+  checks['no_ladder_while_moving_or_manned']=all(not s['ladder_deployed'] or (s['pilot']==0 and s['speed']<=.0001 and s.get('boarding_wait',0)<=0) for s in samples)
   crush=[e for e in d.get('damage_events',[]) if e['weapon']=='TITAN CRUSH']
   checks['recorded_crush_deaths_are_gibbed']=all(e['fatal'] and e.get('gibbed',False) and e['victim_team']==1 for e in crush)
  if d['options'].get('seconds',0)>=1030:checks['round_finished']=d['winner'] in [0,1]
  if d.get('vantages') and d['options'].get('seconds',0)>=1030:
   checks['six_shared_stations']=len(d['stations'])==6
-  checks['twelve_authored_vantages']=len(d['vantages'])==12
+  checks['authored_vantages']=len(d['vantages'])==(24 if d.get("layout_revision",1)>=2 else 20 if d.get("route_metres",300)==350 else 12)
   for team in [0,1]:checks[f'team_{team}_physically_occupies_high_ground']=any(b['team']==team and not b['dead'] and b.get('vantage',-1)>=0 for s in samples for b in s['bots'])
   checks['combat_from_high_ground']=any(e.get('attacker_vantage',-1)>=0 and e['attacker_team']!=e['victim_team'] for e in d.get('damage_events',[]))
  deaths=collections.Counter(x['team'] for x in d['deaths'])
@@ -84,9 +84,9 @@ try:
  import matplotlib.pyplot as plt
  fig,ax=plt.subplots(figsize=(10,5))
  for path,r in zip(a.files,results):
-  d=json.loads(Path(path).read_text());ss=d['samples'];ax.plot([s['time']-60 for s in ss],[s['distance'] for s in ss],label=f"{d['options'].get('revision',r['profile']).upper()} — {r['winner']}")
- for y in [90,190]:ax.axhline(y,color='#999999',linestyle=':',linewidth=1)
- ax.set(xlabel='Active round time (seconds; preparation is −60 to 0)',ylabel='Titan route distance (m)',ylim=(0,305),title='TITANBALL • Ashfall Boulevard • 6v6 exploratory comparison')
+  d=json.loads(Path(path).read_text());ss=d['samples'];ax.plot([s['time']-60 for s in ss],[s['distance'] for s in ss],label=f"{d['options'].get('revision',r['profile'])} · {r['seed']} — {r['winner']}")
+ for y in sorted({cp+10 for path in a.files for cp in ([80,230] if json.loads(Path(path).read_text()).get('route_metres',300)==350 else [80,180])}):ax.axhline(y,color='#999999',linestyle=':',linewidth=1)
+ ax.set(xlabel='Active round time (seconds; preparation is −60 to 0)',ylabel='Titan route distance (m)',ylim=(0,max(json.loads(Path(path).read_text()).get("route_metres",300) for path in a.files)+5),title='TITANBALL • Ashfall Boulevard • 6v6 exploratory comparison')
  ax.grid(alpha=.2);ax.legend();fig.tight_layout();fig.savefig(out.with_suffix('.png'),dpi=150)
 except ImportError:pass
 raise SystemExit(0 if all(all(r['checks'].values()) for r in results) else 1)

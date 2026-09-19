@@ -1,6 +1,6 @@
 extends RefCounted
 const SPEED=0.8 # metres/second; 48 metres/minute at cruise.
-const TRANSITION=2.0
+const TRANSITION=5.0 # Smooth five-second acceleration and braking.
 const STRIDE=2.52
 const AUTHORED_SPEED=0.45 # Source clip: 2.52 metres over 5.6 seconds.
 const LATERAL_LIMIT=PI/24 # +/-7.5 degrees, a total fifteen-degree route-facing arc.

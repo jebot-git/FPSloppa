@@ -1,12 +1,13 @@
 """Build the internal offline asset installer; not a separate release download."""
 from pathlib import Path
-import hashlib,json,zipfile
+import argparse,hashlib,json,zipfile
 from map_distribution import tf_files, distributable, check_selection
 ROOT=Path(__file__).resolve().parents[1]
 def sha(data):return hashlib.sha256(data).hexdigest()
 version=(ROOT/'VERSION').read_text().strip()
 texture_version=json.loads((ROOT/'deathmatch/maps/texture_replacements/manifest.json').read_text())['version']
-out=ROOT.parent/'Builds'/f'FPSloppa-{version}-Base-Assets.zip';out.parent.mkdir(exist_ok=True)
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path);args=parser.parse_args()
+out=args.output or ROOT.parent/'Builds'/f'FPSloppa-{version}-Base-Assets.zip';out.parent.mkdir(parents=True,exist_ok=True)
 files=[]
 # Select known base assets only. Never package players' downloaded/imported files.
 paths=[]

@@ -46,6 +46,7 @@ func run() -> void:
 func server_run() -> void:
 	game.dedicated = true
 	game.start_host("Test",27777,20,10,false)
+	game.votes.enabled=false # This fixture exercises same-map restart, not the random intermission ballot.
 	check(await wait_for(func(): return game.players.size()==3),"Two players and a spectator joined through ENet")
 	if game.players.size()!=3: return
 	var shooter := 0
@@ -265,6 +266,8 @@ func client_run() -> void:
 				command.fire=false;command.offhand_fire=true;command.melee=false
 				command.xr=preload("res://deathmatch/vr/poses.gd").neutral()
 				command.xr.offhand_weapon=command.xr.left
+				# Aim at the visible torso instead of relying on the old oversized capsule.
+				command.xr.offhand_weapon.basis=Basis.looking_at(Vector3(0,1.1,-1)-command.xr.left.origin)
 				command.xr.weapon.basis=Basis(Vector3.UP,PI/2)
 				game._input_command.rpc_id(1,command)
 			if game.last_event=="TEST_KICK":

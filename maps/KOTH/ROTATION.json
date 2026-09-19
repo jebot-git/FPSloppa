@@ -1,0 +1,232 @@
+{
+  "hill_seconds": 30,
+  "compiler": "/tmp/fpsloppa-ericw/ericw-tools-v0.18.1-Linux/bin",
+  "maps": [
+    {
+      "id": "koth_solstice",
+      "hills": [
+        [
+          45.0,
+          5.05,
+          -24.0
+        ],
+        [
+          26.0,
+          0.48750000000000004,
+          4.75
+        ],
+        [
+          32.75,
+          0.17500000000000004,
+          -44.375
+        ]
+      ],
+      "sha256": "bf8e5b80c94048ce1957662f6e076144c288e8577087c60589bf380225dd73f6",
+      "size": 2127684,
+      "source_sha256": "c7775106fec2a38adace1f14270f19a893ce7b452876173e4f7361e674923f48",
+      "added_brushes": 12,
+      "qbsp_flags": [
+        "-nodetail"
+      ],
+      "vis_flags": [
+        "-threads",
+        "4"
+      ],
+      "visibility_log": "test-results/koth-rotation/koth_solstice/vis.log",
+      "visibility_complete": true,
+      "light_flags": [
+        "-novisapprox",
+        "-threads",
+        "4",
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "1",
+        "-bouncecolorscale",
+        "0.25",
+        "-sunlight_penumbra",
+        "4",
+        "-dirt",
+        "1",
+        "-dirtdepth",
+        "32",
+        "-dirtscale",
+        "0.5",
+        "-minlight_dirt",
+        "1"
+      ],
+      "objective_fill_lights": 3,
+      "geometry_visibility_preserved": true
+    },
+    {
+      "id": "koth_torture",
+      "hills": [
+        [
+          12.0,
+          -4.45,
+          16.5
+        ],
+        [
+          -5.125,
+          0.17500000000000004,
+          -7.125
+        ],
+        [
+          25.5,
+          5.175,
+          23.875
+        ]
+      ],
+      "sha256": "827a5a2d18aaa2aee5d864983bc512d32ee5c0fd207754328635d3c901653a3b",
+      "size": 2474784,
+      "source_sha256": "55ddcd0c378d506087c5e09aa8f76126f79ecc8644acf097861738db3d88c4ff",
+      "added_brushes": 12,
+      "qbsp_flags": [
+        "-nodetail"
+      ],
+      "vis_flags": [
+        "-threads",
+        "4"
+      ],
+      "visibility_log": "test-results/koth-rotation/koth_torture/vis.log",
+      "visibility_complete": true,
+      "light_flags": [
+        "-novisapprox",
+        "-threads",
+        "4",
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "1",
+        "-bouncecolorscale",
+        "0.25",
+        "-sunlight_penumbra",
+        "4",
+        "-dirt",
+        "1",
+        "-dirtdepth",
+        "32",
+        "-dirtscale",
+        "0.5",
+        "-minlight_dirt",
+        "1"
+      ],
+      "objective_fill_lights": 3,
+      "geometry_visibility_preserved": true
+    },
+    {
+      "id": "koth_hyperborea",
+      "hills": [
+        [
+          -28.5,
+          3.55,
+          72.0
+        ],
+        [
+          -47.5,
+          1.175,
+          60.25
+        ],
+        [
+          -5.0,
+          0.17500000000000004,
+          63.25
+        ]
+      ],
+      "sha256": "1a7746deb921c419f7992bc2c4e8e24b6e66cd3a202b141035eb549a9e85b3f1",
+      "size": 6693392,
+      "source_sha256": "8a3e4c20e014a4b529d2b5d97fbf4585ee4bffe3156df305eba2366834a32b0a",
+      "added_brushes": 12,
+      "qbsp_flags": [
+        "-nodetail"
+      ],
+      "vis_flags": [
+        "-threads",
+        "16",
+        "-fast"
+      ],
+      "visibility_log": "test-results/koth-rotation/koth_hyperborea/vis-resume.log",
+      "visibility_complete": true,
+      "light_flags": [
+        "-novisapprox",
+        "-threads",
+        "4",
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "1",
+        "-bouncecolorscale",
+        "0.25",
+        "-sunlight_penumbra",
+        "4",
+        "-dirt",
+        "1",
+        "-dirtdepth",
+        "32",
+        "-dirtscale",
+        "0.5",
+        "-minlight_dirt",
+        "1"
+      ],
+      "objective_fill_lights": 3,
+      "geometry_visibility_preserved": true
+    },
+    {
+      "id": "koth_alichar",
+      "hills": [
+        [
+          0,
+          18.8,
+          -6.75
+        ],
+        [
+          -32.5,
+          6.175,
+          7.625
+        ],
+        [
+          31.375,
+          6.175,
+          8.75
+        ]
+      ],
+      "sha256": "8c0524709b90a48ab34edea1fdd02c5838c9a01132ff3353e00949e05946a58b",
+      "size": 5365212,
+      "source_sha256": "100ea158c79a6dfde39f1ae7113b0c5d628b3936fd2c8db924f6e29e3aa6730d",
+      "added_brushes": 12,
+      "qbsp_flags": [
+        "-nodetail"
+      ],
+      "vis_flags": [
+        "-threads",
+        "4"
+      ],
+      "visibility_log": "test-results/koth-rotation/koth_alichar/vis.log",
+      "visibility_complete": true,
+      "light_flags": [
+        "-novisapprox",
+        "-threads",
+        "4",
+        "-extra4",
+        "-bspxlit",
+        "-bounce",
+        "1",
+        "-bouncecolorscale",
+        "0.25",
+        "-sunlight_penumbra",
+        "4",
+        "-dirt",
+        "1",
+        "-dirtdepth",
+        "32",
+        "-dirtscale",
+        "0.5",
+        "-minlight_dirt",
+        "1"
+      ],
+      "marker_adjustment": "First hill shifted 0.75 m within baked deck; all geometry, visibility and lighting lumps verified identical.",
+      "objective_fill_lights": 3,
+      "geometry_visibility_preserved": true
+    }
+  ]
+}

@@ -26,6 +26,8 @@ __pycache__/
 # External libraries may contain private player/server downloads. Base files are tracked explicitly.
 /maps/*.bsp
 /maps/cache/*.scn
+/maps/cache/*-import.json
+/maps/previews/
 /maps/*.download
 /maps/*.upload
 /vrm/*.vrm

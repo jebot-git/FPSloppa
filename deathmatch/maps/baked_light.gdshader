@@ -11,6 +11,8 @@ uniform sampler2D glow_linear : source_color, filter_linear_mipmap, repeat_enabl
 uniform int texture_filter_mode = 2;
 // FPSloppa baked lighting: cached scenes are upgraded by filtering.gd.
 uniform bool contrast_lighting = false;
+// Authored nighttime maps opt in; existing map response remains unchanged.
+uniform bool night_lighting = false;
 uniform bool has_glow = false;
 uniform bool alpha_cutout = false;
 uniform vec4 base_colour : source_color = vec4(1.0);
@@ -18,6 +20,7 @@ uniform vec4 base_colour : source_color = vec4(1.0);
 uniform vec2 map_uv_offset = vec2(0.0);
 uniform bool liquid_warp = false;
 uniform bool surface_variation = false;
+#include "res://deathmatch/lighting/weapon_light.gdshaderinc"
 void fragment() {
     vec2 surface_uv = UV + map_uv_offset;
     if (liquid_warp) surface_uv += sin(UV.yx * 6.2831853 + vec2(TIME * 0.8, TIME * 0.7)) * 0.025;
@@ -40,6 +43,11 @@ void fragment() {
         float peak = max(baked.r, max(baked.g, baked.b));
         EMISSION = base * (vec3(0.08) + baked * (2.6 / (0.65 + peak)));
     }
+    if (night_lighting) {
+        float peak = max(baked.r, max(baked.g, baked.b));
+        ALBEDO = base * 0.035;
+        EMISSION = base * (vec3(0.012) + baked * (1.9 / (0.8 + peak)));
+    }
     // Pixel (1,0) is reserved for ordinary surfaces without light samples.
     vec2 light_pixel = UV2 * vec2(textureSize(bake_texture, 0));
     if (all(lessThan(abs(light_pixel - vec2(1.5, 0.5)), vec2(0.01)))) EMISSION = vec3(0.0);
@@ -50,5 +58,6 @@ void fragment() {
         else glow = texture(glow_texture, surface_uv).rgb;
         EMISSION += glow * 0.65;
     }
+    EMISSION += base * weapon_illumination((INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz, normalize(mat3(INV_VIEW_MATRIX) * NORMAL));
     ROUGHNESS = 1.0;
 }

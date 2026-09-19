@@ -38,9 +38,11 @@ func run() -> void:
 	for row in game.pickups:row.available=false
 	p.available=true;game.fighters[1].position=p.position;game._collect(1)
 	check(s.owned.has(9) and not s.owned.has(5) and s.ammo[0]==8,"Sniper pickup grants only sniper and its initial ammo")
-	check(p.available,"AS weapon remains for the next teammate")
+	check(not p.available and is_equal_approx(p.respawn,game.clock+30),"AS weapon disappears until its normal respawn")
 	s.ammo[0]=0;game._collect(1)
-	check(s.ammo[0]==0,"Owned AS weapon cannot be farmed for ammunition")
+	check(s.ammo[0]==0,"Collected AS weapon cannot be collected again before respawn")
+	game.clock=p.respawn;game._respawn_pickups();game._collect(1)
+	check(s.ammo[0]==8 and not p.available,"Respawned AS weapon replenishes ammunition for an owned gun")
 	p=game.pickups.filter(func(row):return row.kind=="armor" and row.get("amount",0)==150)[0]
 	p.available=true;game.fighters[1].position=p.position;game._collect(1)
 	check(s.armor==150,"Shield pickup grants 150 armour")

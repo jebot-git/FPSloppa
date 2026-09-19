@@ -6,9 +6,21 @@ Quest and Pico unified APKs include the base maps/models. First launch verifies 
 
 Copy Quake I BSP files into `maps/`, VRM files into `vrm/`, then rescan while disconnected. VRMs remain limited to 25 MiB. Legacy `user://maps` and `user://avatars` assets are copied on discovery; originals are preserved. Generated scenes go in `maps/cache/`. Changing BSP content changes its cache key. Do not copy cached scenes between unrelated importer versions.
 
-Connected clients may import a BSP through **Import BSP**. A dedicated server accepts authenticated player uploads when `sv_map_uploads` is 1, verifies size, hash and BSP structure, and retains them in its own `maps/` folder. Missing VRMs are also retained in its `vrm/` folder and rediscovered after restart. Uploads have transfer limits and hashed filenames; the VRM store stops accepting new data at 1 GiB rather than evicting reusable models. BSP uploads are limited to 128 MiB each and a 2 GiB raw-map store. Administrators can remove unused files manually while the server is stopped.
+Connected players and spectators may import a BSP through **IMPORT BSP…** in the pause menu without disconnecting. A dedicated server accepts authenticated client uploads when `sv_map_uploads` is 1, verifies size, hash and BSP structure, and retains them in its own `maps/` folder. Missing VRMs are also retained in its `vrm/` folder and rediscovered after restart. Uploads have transfer limits and hashed filenames; the VRM store stops accepting new data at 1 GiB rather than evicting reusable models. BSP uploads are limited to 25,000,000 bytes each and a 2 GiB raw-map store. Administrators can remove unused files manually while the server is stopped.
 
-Each gamemode has its own `maps/<tag>_maplist.txt`: `dm`, `tdm`, `ctf`, `koth`, `ig`, `ft`, `cc`. Put whitespace-separated map IDs there, up to 32. A nonempty `<tag>_maplist` in `server.cfg` overrides that file; the old `sv_maplist` is the fallback. Uploaded BSPs are added only to the current mode’s list. Mode changes select from the destination mode’s rotation.
+Each gamemode has its own `maps/<tag>_maplist.txt`: `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf`, `tb`, `as`. Put whitespace-separated map IDs there, up to 32. Rotation precedence is a nonempty `<tag>_maplist` in `server.cfg`, then `sv_maplist`, then the mode’s file, then the configured map. IF falls back to IG when it has no separate list. Mode changes select from the destination mode’s rotation.
+
+Imports use a case-insensitive leading filename tag followed by `_`: `tf_factory.bsp` enters only TF, `koth_tower.bsp` only KOTH, and `dm_arena.bsp` only DM. An untagged name or an unknown prefix enters **only DM, TDM, IG, FT and IF**. Classification uses the original filename, survives hash-based storage in `maps/cache/<sha256>-import.json`, and is preserved during downloads. Accepted imports are appended to the appropriate server lists and written to disk; startup restores their membership. Reimporting identical content keeps the existing entry and classification. Full lists retain the 32-map limit.
+
+The importer renders a 320×180 PNG preview for each new map. Both the lobby wall and intermission ballot display these behind the map, mode and loadout text. Previews are cached by BSP checksum in `maps/previews/`, uploaded with client imports, and sent separately so voters can see maps they have not downloaded. PNG dimensions and size are validated, and server thumbnail transfers share the existing asset bandwidth budget.
+
+A headless server stores and serves previews supplied by graphical clients. For maps copied directly into a server asset folder, generate previews on a graphical machine before copying the folder to the server:
+
+```sh
+godot --path . --script res://tools/generate_map_previews.gd -- --asset-root /absolute/path/to/assets
+```
+
+Add `--map <map-id>` to generate one map. The utility needs a graphical renderer. A card remains votable while its preview is unavailable or still being generated. Clients and server need matching `fpsloppa-39-rotating-koth` builds.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](ARCHIVED-EXTRAS.md).
 

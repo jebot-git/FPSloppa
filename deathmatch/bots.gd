@@ -166,7 +166,7 @@ func item_value(id: int,pickup: Dictionary) -> float:
 		"weapon":
 			if game.match_mode.fortress.enabled():return 0
 			if not pickup.item in s.owned:return 55.0 if combat_upgrade(id,int(pickup.item)) else 12.0
-			if game.match_mode.kind=="as" or pickup.get("weapon_stay",false):return 0 # Weapon-stay cannot refill an owned gun.
+			if pickup.get("weapon_stay",false):return 0 # Weapon-stay cannot refill an owned gun.
 			var ammo: int=game.armory.data(pickup.item).ammo
 			return ammo_value(id,ammo)*.5 if ammo>=0 else 0.0
 		"ammo":return ammo_value(id,pickup.item)

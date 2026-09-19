@@ -90,7 +90,7 @@ static func valid_frame(frame: Variant) -> bool:
 		if not id is int or not p is Dictionary or not p.get("extra") is Dictionary or not p.get("velocity") is Vector3 or not p.velocity.is_finite() or not p.get("stuck") is bool:return false
 		if not (p.get("life") is float or p.get("life") is int) or not is_finite(float(p.life)) or p.life>30:return false
 		for key in p.extra:
-			if key in ["alternate","fragment"]:
+			if key in ["alternate","fragment","nail_fallback"]:
 				if not p.extra[key] is bool:return false
 			elif key=="scale":
 				if not (p.extra[key] is float or p.extra[key] is int) or not is_finite(float(p.extra[key])) or p.extra[key]<1 or p.extra[key]>8:return false

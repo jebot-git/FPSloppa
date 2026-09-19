@@ -36,4 +36,5 @@ func _physics_process(_delta: float) -> void:sync_listener()
 func sync_listener() -> void:
 	if not available:return
 	var camera: Camera3D=game.camera if is_instance_valid(game.camera) else game.get_node("Overview")
+	if camera.doppler_tracking!=Camera3D.DOPPLER_TRACKING_IDLE_STEP:camera.doppler_tracking=Camera3D.DOPPLER_TRACKING_IDLE_STEP
 	listener.global_transform=camera.global_transform

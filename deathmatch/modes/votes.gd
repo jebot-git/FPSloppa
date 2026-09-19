@@ -30,7 +30,7 @@ func choices() -> Array:
 	var maplist: Array=game.maps_for_mode(game.match_mode.kind)
 	for row in game.map_catalog:
 		if game.match_mode.kind=="as" and not game.Maps.supports_assault(row.path):continue
-		if FileAccess.file_exists(row.path) and (maplist.is_empty() or row.id in maplist):result.append({"id":row.id,"title":row.title})
+		if FileAccess.file_exists(row.path) and row.id in maplist:result.append({"id":row.id,"title":row.title})
 	return result
 func match_choices() -> Array:
 	var result: Array=[]
@@ -38,31 +38,27 @@ func match_choices() -> Array:
 		var maplist: Array=game.maps_for_mode(mode)
 		for row in game.map_catalog:
 			if mode=="as" and not game.Maps.supports_assault(row.path):continue
-			if FileAccess.file_exists(row.path) and (maplist.is_empty() or row.id in maplist):result.append({"mode":mode,"map":row.id,"title":row.title})
+			if FileAccess.file_exists(row.path) and row.id in maplist:result.append({"mode":mode,"map":row.id,"title":row.title})
 	return result
 func offer(id: int) -> void:policy.rpc_id(id,enabled,choices(),allowed_modes,match_choices())
 @rpc("authority","call_remote","reliable",0)
 func policy(allowed: bool,maps: Array,modes: Array=["dm"],matches: Array=[]) -> void:enabled=allowed;allowed_maps=maps;allowed_modes=modes;allowed_matches=matches
 func propose(kind: String,value: String="") -> void:
-	if multiplayer.is_server():
-		if game.lobby.active() and kind=="match":game.lobby.cast_value(multiplayer.get_unique_id(),value)
-		else:start(multiplayer.get_unique_id(),kind,value)
+	if multiplayer.is_server():start(multiplayer.get_unique_id(),kind,value)
 	else:request.rpc_id(1,kind,value)
 @rpc("any_peer","call_remote","reliable",0)
 func request(kind: String,value: String) -> void:
-	if multiplayer.is_server():
-		if game.lobby.active() and kind=="match":game.lobby.cast_value(multiplayer.get_remote_sender_id(),value)
-		else:start(multiplayer.get_remote_sender_id(),kind,value)
+	if multiplayer.is_server():start(multiplayer.get_remote_sender_id(),kind,value)
 func start(id: int,kind: String,value: String) -> bool:
 	if not enabled or not game.active or (game.practice and not game.lobby.active()) or game.map_loading or game.intermission>0 or not eligible(id) or not ballot.is_empty() or game.clock<cooldown:return false
-	if game.lobby.active() and kind!="match":return false
+	if game.lobby.active():return false
 	if kind=="balance":
 		if not game.match_mode.team_game():return false
 	elif kind=="mode":
 		if allowed_modes.size()<2 or not allowed_modes.has(value) or value==game.match_mode.kind:return false
 		if value=="as" and not match_choices().any(func(row):return row.mode=="as"):return false
 	elif kind=="match":
-		var options: Array=game.lobby.offered if game.lobby.active() else match_choices()
+		var options: Array=match_choices()
 		var spec:=match_spec(value,options)
 		if spec.is_empty():return false
 		if spec.mode==game.match_mode.kind and spec.map==game.current_map and spec.rules==game.armory.effective():return false
@@ -74,8 +70,7 @@ func start(id: int,kind: String,value: String) -> bool:
 	else:return false
 	var electorate: Array=game.players.keys().filter(eligible)
 	ballot={"kind":kind,"value":value,"eligible":electorate,"votes":{id:true},"needed":electorate.size()/2+1,"until":game.clock+25.0}
-	if game.lobby.active():ballot.until=minf(ballot.until,game.lobby.until);game.lobby.vote_result="";game.lobby.next_publish=0
-	cooldown=game.clock+(5.0 if game.lobby.active() else 60.0)
+	cooldown=game.clock+60.0
 	game._announcement.rpc(game.players[id].name+" called vote: "+action_title(kind,value))
 	evaluate();return true
 func vote(yes: bool) -> void:
@@ -88,7 +83,6 @@ func cast(id: int,yes: bool) -> bool:
 	if ballot.is_empty() or not eligible(id) or not ballot.eligible.has(id) or ballot.votes.has(id):return false
 	game.server_log.record("vote_cast",{"peer":id,"yes":yes,"kind":ballot.kind},2)
 	ballot.votes[id]=yes
-	if game.lobby.active():game.lobby.next_publish=0
 	evaluate();return true
 func evaluate() -> void:
 	if ballot.is_empty():return
@@ -96,15 +90,13 @@ func evaluate() -> void:
 	if yes>=ballot.needed:
 		var kind: String=ballot.kind;var value: String=ballot.value;ballot.clear()
 		game._announcement.rpc("Vote passed: "+action_title(kind,value))
-		if game.lobby.active() and kind=="match":game.lobby.accept_match(value)
-		elif kind=="balance":balance()
+		if kind=="balance":balance()
 		elif kind=="mode":change_mode.call_deferred(value)
 		elif kind=="match":change_match.call_deferred(value)
 		elif kind=="loadout":change_loadout.call_deferred(value)
 		else:change_map.call_deferred(value)
 	elif no>ballot.eligible.size()-ballot.needed or game.clock>=ballot.until:
 		ballot.clear();game._announcement.rpc("Vote failed")
-		if game.lobby.active():game.lobby.vote_result="VOTE FAILED · next match unchanged";game.lobby.next_publish=0
 func tick() -> void:
 	if game.intermission>0 or game.map_loading:ballot.clear()
 	else:evaluate()

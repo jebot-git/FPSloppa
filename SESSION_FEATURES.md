@@ -2,6 +2,8 @@
 
 Open **BINDINGS…** in the main/pause menu to reassign keyboard, mouse and VR controller actions, choose movement/turning stick roles, or reset bindings. Escape and the controller menu button remain recovery controls. Shared bindings activate both actions; the default support grip also serves push-to-talk.
 
+Dropdown lists support vertical joystick scrolling (either VR stick or either gamepad stick), with a deadzone to prevent drift. Trigger dragging still works. Closing the menu immediately closes all dropdowns and clears pending drag/scroll input.
+
 **Two-handed aim** is enabled by default. Hold the support-hand grip near a non-pistol weapon's fore-end to align the weapon between your hands. Release to return to one-handed aiming. This changes orientation only: damage, spread, firing rate, ammunition and firing origin remain identical. Pistols and fists do not use this assistance.
 
 **Physical jumping** is opt-in in **Settings → Controls → Bindings**. A quick upward headset movement while grounded requests the same jump as the jump button. It is disabled in seated mode, menus and when tracking is unavailable. Recenter after changing your standing height. Headset motion detection and controller comfort still need hardware testing.
@@ -33,9 +35,15 @@ set sv_lobby "1"
 set sv_lobby_seconds "45"
 ```
 
-After a match's results screen, everyone enters an empty room with movement and voice chat, without weapons, pickups or damage. Use the wall-mounted ballot to select a mode first, then a map from that mode’s server maplist. A camera-based tracking mirror beside it shows your full avatar between matches. Each player has one changeable vote. The highest tally wins; ties favor the next rotation entry when available. With no votes, rotation supplies the next match. Late joiners can vote. The duration accepts 15–180 seconds.
+Round end plays an original synthesized gong through the effects bus. The server sends this once, independently of the announcer setting; late joiners do not replay an already-ended round.
 
-The default is `sv_lobby "0"`, preserving regular menu voting and rotation. Offline practice does not use this lobby. Clients and server must share the updated network protocol.
+At round end, a 3×3 ballot opens with nine randomly selected map, mode and loadout combinations. The server chooses one shared set from its enabled modes and mode-specific maplists, respecting fixed-loadout modes. If fewer than nine unique combinations exist, the remaining slots are disabled. Click a card once to vote; each active human player can change their selection until time expires. Late joiners can vote; spectators and bots cannot. The highest tally wins. Ties, including no votes, use the first tied card in the shuffled grid order.
+
+Each card displays a cached 320×180 map preview behind its text. The BSP importer generates previews automatically; connected clients upload them with the map, and a dedicated server can send thumbnails before clients download the BSP. See [external assets](docs/EXTERNAL-ASSETS.md) for classification and batch generation.
+
+With the waiting lobby enabled, the same cards and votes continue from intermission onto the lobby wall. Players can move and use voice chat there, without weapons, pickups or damage. A camera-based tracking mirror beside the wall shows your avatar between matches. The lobby duration accepts 15–180 seconds. Without the lobby, the selected match starts as intermission ends. Closing the ballot leaves it available through **Teams & Votes**.
+
+The default is `sv_lobby "0"`, which uses the intermission ballot without a waiting room. `sv_votes "0"` disables the ballot and preserves configured rotation. Offline practice does not use between-match voting. Clients and server must both use protocol `fpsloppa-39-rotating-koth`.
 
 ## Server capacity and avatar browser
 

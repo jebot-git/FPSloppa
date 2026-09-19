@@ -1,12 +1,14 @@
 from pathlib import Path
-import os,subprocess,time
-ROOT=Path(__file__).resolve().parents[1];GODOT=os.environ.get('GODOT_BIN','/home/blux/.local/bin/Godot_v4.7.2-stable_linux.x86_64');LOGS=ROOT/'test-results'
+import os,subprocess,time,shutil
+ROOT=Path(__file__).resolve().parents[1];GODOT=os.environ.get('GODOT_BIN') or shutil.which('godot');LOGS=ROOT/'test-results'
 def run(script,name):
  with (LOGS/name).open('w') as log:
   result=subprocess.run([GODOT,'--headless','--xr-mode','off','--path',str(ROOT),'--script','res://deathmatch/tests/'+script+'.gd'],stdout=log,stderr=subprocess.STDOUT,timeout=120)
  text=(LOGS/name).read_text();assert result.returncode==0 and 'SCRIPT ERROR' not in text and 'ERROR:' not in text,(name,text[-4000:]);print('PASS',name,flush=True)
 run('new_features','new-features.log')
 run('votes','new-features-votes.log')
+for script in ['match_ballot','match_ballot_ui','lobby_transition','loadout_votes','vr_ui']:
+ run(script,script.replace('_','-')+'.log')
 processes=[];handles=[]
 try:
  for role in ['server','early','late']:

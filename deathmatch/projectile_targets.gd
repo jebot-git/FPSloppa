@@ -1,6 +1,6 @@
 extends RefCounted
 ## Conservative X/Z broad phase, rebuilt from this tick's authoritative poses.
-## World collision, exact capsule sweeps, cover and damage stay in Arena._trace.
+## World collision, exact body sweeps, cover and damage stay in Arena._trace.
 const Hits=preload("res://deathmatch/hit_detection.gd")
 const CELL_SIZE:=4.0
 const MAX_CELLS:=64
@@ -19,8 +19,8 @@ func build(players: Dictionary,fighters: Dictionary,movement_start: Dictionary) 
 		var previous: Vector3=current
 		if movement_start.has(id) and movement_start[id].serial==state.serial:previous=movement_start[id].position
 		if not grid_safe(current) or not grid_safe(previous):overflow.append(id);continue
-		var low:=Vector2i(floori((minf(current.x,previous.x)-Hits.PLAYER_RADIUS-.000001)/CELL_SIZE),floori((minf(current.z,previous.z)-Hits.PLAYER_RADIUS-.000001)/CELL_SIZE))
-		var high:=Vector2i(floori((maxf(current.x,previous.x)+Hits.PLAYER_RADIUS+.000001)/CELL_SIZE),floori((maxf(current.z,previous.z)+Hits.PLAYER_RADIUS+.000001)/CELL_SIZE))
+		var low:=Vector2i(floori((minf(current.x,previous.x)-Hits.PLAYER_REACH-.000001)/CELL_SIZE),floori((minf(current.z,previous.z)-Hits.PLAYER_REACH-.000001)/CELL_SIZE))
+		var high:=Vector2i(floori((maxf(current.x,previous.x)+Hits.PLAYER_REACH+.000001)/CELL_SIZE),floori((maxf(current.z,previous.z)+Hits.PLAYER_REACH+.000001)/CELL_SIZE))
 		if large_range(low,high):overflow.append(id);continue
 		for x in range(low.x,high.x+1):
 			for z in range(low.y,high.y+1):
@@ -46,6 +46,6 @@ func candidates(start: Vector3,end: Vector3,radius: float) -> Array:
 		for z in range(low.y,high.y+1):
 			for id in cells.get(Vector2i(x,z),[]):unique[id]=true
 	var result: Array=unique.keys()
-	# Preserve the old full scan's tie-breaking for overlapping damage capsules.
+	# Preserve the old full scan's tie-breaking for overlapping damage bodies.
 	if result.size()>1:result.sort_custom(func(a,b):return order[a]<order[b])
 	return result

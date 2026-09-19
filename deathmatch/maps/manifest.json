@@ -452,16 +452,33 @@
         45.0,
         5.05,
         -24.0
+      ],
+      "hills": [
+        [
+          45.0,
+          5.05,
+          -24.0
+        ],
+        [
+          26.0,
+          0.48750000000000004,
+          4.75
+        ],
+        [
+          32.75,
+          0.17500000000000004,
+          -44.375
+        ]
       ]
     },
-    "sha256": "b303cfbc05bc6647063076e3f0eb5189a15d5d19f902f47631a3dfd34a459376",
+    "sha256": "bf8e5b80c94048ce1957662f6e076144c288e8577087c60589bf380225dd73f6",
     "modes": [
       "koth"
     ],
     "path": "res://maps/koth_solstice.bsp",
     "scene": "res://maps/cache/koth_solstice.scn",
     "distribution": "base",
-    "size": 2019140
+    "size": 2127684
   },
   {
     "id": "koth_torture",
@@ -481,16 +498,33 @@
         12.0,
         -4.45,
         16.5
+      ],
+      "hills": [
+        [
+          12.0,
+          -4.45,
+          16.5
+        ],
+        [
+          -5.125,
+          0.17500000000000004,
+          -7.125
+        ],
+        [
+          25.5,
+          5.175,
+          23.875
+        ]
       ]
     },
-    "sha256": "11393b918d107ce8460913abc6ffd85f550040f95de9996c0c495fdf9d0d61f0",
+    "sha256": "827a5a2d18aaa2aee5d864983bc512d32ee5c0fd207754328635d3c901653a3b",
     "modes": [
       "koth"
     ],
     "path": "res://maps/koth_torture.bsp",
     "scene": "res://maps/cache/koth_torture.scn",
     "distribution": "base",
-    "size": 2406536
+    "size": 2474784
   },
   {
     "id": "koth_hyperborea",
@@ -510,16 +544,33 @@
         -28.5,
         3.55,
         72.0
+      ],
+      "hills": [
+        [
+          -28.5,
+          3.55,
+          72.0
+        ],
+        [
+          -47.5,
+          1.175,
+          60.25
+        ],
+        [
+          -5.0,
+          0.17500000000000004,
+          63.25
+        ]
       ]
     },
-    "sha256": "b4efa0b6d4e53ce7eca8a5460957c82094f6199911173a82294529b3e0e5f614",
+    "sha256": "1a7746deb921c419f7992bc2c4e8e24b6e66cd3a202b141035eb549a9e85b3f1",
     "modes": [
       "koth"
     ],
     "path": "res://maps/koth_hyperborea.bsp",
     "scene": "res://maps/cache/koth_hyperborea.scn",
     "distribution": "base",
-    "size": 6381080
+    "size": 6693392
   },
   {
     "id": "koth_alichar",
@@ -536,19 +587,36 @@
         11.000000953674329
       ],
       "hill": [
-        0.0,
+        0,
         18.8,
-        -6.0
+        -6.75
+      ],
+      "hills": [
+        [
+          0,
+          18.8,
+          -6.75
+        ],
+        [
+          -32.5,
+          6.175,
+          7.625
+        ],
+        [
+          31.375,
+          6.175,
+          8.75
+        ]
       ]
     },
-    "sha256": "035f8d20a1dac9f4e869d589b64c57ed9862fe2a3c83f30c4e9cbeaeb42f7bc6",
+    "sha256": "8c0524709b90a48ab34edea1fdd02c5838c9a01132ff3353e00949e05946a58b",
     "modes": [
       "koth"
     ],
     "path": "res://maps/koth_alichar.bsp",
     "scene": "res://maps/cache/koth_alichar.scn",
     "distribution": "base",
-    "size": 5154056
+    "size": 5365212
   },
   {
     "id": "cc_hyperborea",
@@ -1731,11 +1799,11 @@
     "title": "Ashfall Boulevard | TITANBALL",
     "path": "res://maps/tb_ashfall.bsp",
     "scene": "res://maps/cache/tb_ashfall.scn",
-    "sha256": "f770cb803e46fb5bff353d4f31d8b1a08a73d712109c44675c06000fd6bf8649",
+    "sha256": "8363abb19e2a591e84134db0f3eecd504d423481ed689d35eec73009c89409e3",
     "modes": [
       "tb"
     ],
     "distribution": "base",
-    "size": 19027696
+    "size": 19476972
   }
 ]

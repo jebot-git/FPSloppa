@@ -3,8 +3,8 @@ extends RefCounted
 const PREPARATION_SECONDS=60.0
 const BASE_SECONDS=600.0
 const EXTENSION_SECONDS=180.0
-const ROUTE_METRES=300.0
-const CHECKPOINTS=[80.0,180.0]
+const ROUTE_METRES=350.0
+const CHECKPOINTS=[80.0,230.0]
 # Conservative full animated footprint radius, including the rear legs on bends.
 const CLEARANCE_METRES=10.0
 var mode_ref: WeakRef
@@ -83,4 +83,4 @@ func receive(data: Dictionary) -> void:
 func status(id: int=0) -> String:
 	var team: int=game.players.get(id,{}).get("team",-1)
 	var role: String="ATTACK · PILOT TO BLUE BASE" if team==ATTACKERS else "DEFEND · STOP THE TITAN" if team==DEFENDERS else "RED ATTACKS · BLUE DEFENDS"
-	return ("TB · PREPARE %d:%02d · "%[int(ceil(preparation_left))/60,int(ceil(preparation_left))%60] if preparing() else "TB · ")+role+" · CHECKPOINTS %d / 2 · %d / 300 m"%[cleared,mini(300,int(progress))]
+	return ("TB · PREPARE %d:%02d · "%[int(ceil(preparation_left))/60,int(ceil(preparation_left))%60] if preparing() else "TB · ")+role+" · CHECKPOINTS %d / 2 · %d / %d m"%[cleared,mini(int(ROUTE_METRES),int(progress)),int(ROUTE_METRES)]

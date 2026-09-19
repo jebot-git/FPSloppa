@@ -13,6 +13,8 @@ var vr_mode_override:=false
 var value:=""
 var items: Array=[]
 var prompt:="SELECT"
+var stick_remainder:=0.0
+var joy_axes: Dictionary={}
 func _init() -> void:
 	trigger=Button.new();trigger.custom_minimum_size.y=48;trigger.text=prompt;add_child(trigger)
 	popup=PanelContainer.new();popup.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(8));var layer:=CanvasLayer.new();layer.layer=50;add_child(layer);layer.add_child(popup);popup.hide()
@@ -23,15 +25,34 @@ func _init() -> void:
 func _ready() -> void:add_to_group("arena_selectors")
 func open_popup() -> void:
 	for other in get_tree().get_nodes_in_group("arena_selectors"):
-		if other!=self and other.get_viewport()==get_viewport():other.popup.hide()
+		if other!=self and other.get_viewport()==get_viewport():other.close_popup()
 	popup.scale=trigger.get_global_transform_with_canvas().get_scale()
 	popup.size=Vector2(trigger.size.x,156)
 	popup.position=trigger.get_global_transform_with_canvas()*Vector2(0,trigger.size.y)
 	popup.position.y=minf(popup.position.y,get_viewport_rect().size.y-popup.size.y*popup.scale.y-8)
-	drag_pressed=false;dragging=false
+	drag_pressed=false;dragging=false;stick_remainder=0;joy_axes.clear()
 	scroll.vertical_scroll_mode=ScrollContainer.SCROLL_MODE_SHOW_NEVER if using_vr() else ScrollContainer.SCROLL_MODE_AUTO
 	popup.show()
+func close_popup() -> void:
+	popup.hide();drag_pressed=false;dragging=false;stick_remainder=0;joy_axes.clear()
+	for button in entries.get_children():button.set_pressed_no_signal(false)
+static func close_all(tree: SceneTree) -> void:
+	for choice in tree.get_nodes_in_group("arena_selectors"):choice.close_popup()
+static func scroll_active(viewport: Viewport,axis: float,delta: float) -> bool:
+	for choice in viewport.get_tree().get_nodes_in_group("arena_selectors"):
+		if choice.get_viewport()==viewport and choice.is_visible_in_tree() and choice.popup.visible:
+			choice.scroll_with_stick(axis,delta);return true
+	return false
+func scroll_with_stick(axis: float,delta: float) -> void:
+	if not popup.visible or not is_visible_in_tree() or absf(axis)<=.25:return
+	# Positive is down, just like mouse-wheel scrolling. Preserve fractional
+	# pixels so the speed stays consistent across different display rates.
+	stick_remainder+=signf(axis)*(absf(axis)-.25)/.75*600.0*delta
+	var pixels:=int(stick_remainder);stick_remainder-=pixels
+	scroll.scroll_vertical+=pixels
 func _input(event: InputEvent) -> void:
+	if popup.visible and event is InputEventJoypadMotion and event.axis in [JOY_AXIS_LEFT_Y,JOY_AXIS_RIGHT_Y]:
+		joy_axes[event.axis]=event.axis_value;get_viewport().set_input_as_handled();return
 	# Continue a gesture when the ray leaves the pressed row or the popup bounds.
 	if not popup.visible or not drag_pressed:return
 	if event is InputEventMouseMotion:
@@ -42,8 +63,15 @@ func _input(event: InputEvent) -> void:
 		if dragging:
 			for button in entries.get_children():button.set_pressed_no_signal(false)
 			get_viewport().set_input_as_handled()
-func _process(_delta: float) -> void:
-	if not is_visible_in_tree():popup.hide()
+func _process(delta: float) -> void:
+	if not is_visible_in_tree():
+		if popup.visible or drag_pressed or not joy_axes.is_empty():close_popup()
+		return
+	if not popup.visible:return
+	var axis:=0.0
+	for value in joy_axes.values():
+		if absf(value)>absf(axis):axis=value
+	scroll_with_stick(axis,delta)
 func configure(options: Array,label: String) -> void:
 	prompt=label
 	if items==options:update_label();return
@@ -58,14 +86,14 @@ func configure(options: Array,label: String) -> void:
 	update_label()
 func choose(id: String) -> void:
 	if not items.any(func(row):return row.id==id):return
-	value=id;popup.hide();update_label();selected.emit(id)
+	value=id;close_popup();update_label();selected.emit(id)
 func update_label() -> void:
 	trigger.text=prompt+"  ▾"
 	for item in items:
 		if item.id==value:trigger.text=item.title+"  ▾"
 	trigger.disabled=items.is_empty()
 func clear_selection() -> void:
-	value="";popup.hide();update_label()
+	value="";close_popup();update_label()
 
 func using_vr() -> bool:
 	return vr_mode_override or XRServer.primary_interface!=null and XRServer.primary_interface.is_initialized()

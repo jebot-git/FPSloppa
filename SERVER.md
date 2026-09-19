@@ -61,7 +61,7 @@ set sv_maplist "lqdm1 lqdm2 lqdm4 lqdm7 lqdm8"
 | capturelimit | CTF captures to win, 1–100, default 5 |
 | hilllimit | KOTH points to win, 1–3600, default 120 |
 | sv_friendlyfire | Team damage, 0 or 1; default 0 |
-| sv_votes | Enable majority map/team/mode votes, default 1 |
+| sv_votes | Enable in-match majority votes and between-match grid ballots, default 1 |
 | timelimit | 1–60 minutes |
 | sv_voice | 1 enables configured voice; 0 disables voice |
 | sv_voice_backend | `builtin` (default) or external `mumble` handoff |
@@ -79,9 +79,9 @@ See [GAMEMODES.md](GAMEMODES.md) for team rules, objective scoring and player vo
 
 Restart the server to apply configuration changes. `--port`, `--map`, `--frags` and `--minutes` override file values. A nonempty `sv_maplist` starts with its first map and advances after each intermission, wrapping at the end. An empty list repeats `map`; `--map` selects a single arena and overrides the rotation. Every map must be bundled or already cached on the server; unknown IDs stop startup.
 
-Clients stay connected during rotation and download a missing map automatically. Scores, inventory, projectiles and map entities reset. The new round waits for map transfers or their timeout. Packets from the previous map are rejected. This is a small Q3-style configuration subset, not a Quake console: no command chaining, nested exec, arbitrary script execution or master-server registration. Password-protected RCON is documented below.
+Clients stay connected during rotation and download a missing map automatically. Scores, inventory, projectiles and map entities reset. The new round starts when the first player is admitted; other players enter after their own map and model checks finish. Slow or stalled downloads do not freeze ready players or block lobby voting and countdowns. Packets from the previous map are rejected. This is a small Q3-style configuration subset, not a Quake console: no command chaining, nested exec, arbitrary script execution or master-server registration. Password-protected RCON is documented below.
 
-Clients need this protocol version (`entryway-13-team-modes`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
+Clients need this protocol version (`fpsloppa-39-rotating-koth`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
 
 ## Running as a service
 
@@ -174,9 +174,9 @@ KOTH uses one fixed, map-authored hill throughout the round. Contested time does
 
 Experimental Doom / Quake I / UT99 weapon selection and controls: [Weapon variants](docs/WEAPON_VARIANTS.md). Doom remains the default.
 
-INSTAFREEZE (`if`) uses Instagib combat with Freeze Tag thawing and team scoring. It shares `ig_maplist` / `maps/ig_maplist.txt`; no separate IF maplist is required or accepted. Include `if` in `sv_gametypes` to offer it in votes. See [GAMEMODES.md](GAMEMODES.md#if--instafreeze).
+INSTAFREEZE (`if`) uses Instagib combat with Freeze Tag thawing and team scoring. It falls back to `ig_maplist` / `maps/ig_maplist.txt` unless a separate `if_maplist` or `maps/if_maplist.txt` is supplied. Imports populate the separate IF list when eligible. Include `if` in `sv_gametypes` to offer it in votes. See [GAMEMODES.md](GAMEMODES.md#if--instafreeze).
 
-Base rotations now use Quake DM1–DM7 for DM/IG/FT/TDM, four rebuilt CC arenas, six CTF Studies and four fixed KOTH arenas. Original LibreQuake arenas are optional. Explicit `*_maplist` entries keep their order and may select imported, optional or cross-mode maps; the base selection is not an operator allowlist. Installing base assets preserves existing personalised maplist files.
+Base rotations now use Quake DM1–DM7 for DM/IG/FT/TDM, four rebuilt CC arenas, six CTF Studies and four rotating KOTH arenas. Original LibreQuake arenas are optional. Explicit `*_maplist` entries keep their order and may select imported, optional or cross-mode maps; the base selection is not an operator allowlist. Installing base assets preserves existing personalised maplist files.
 
 Rotation precedence is an explicit mode-specific config list, then a nonempty `sv_maplist`, then the mode's maplist file, then the configured `map`. A global personal rotation therefore overrides bundled files; a mode-specific config list can override that global rotation.
 

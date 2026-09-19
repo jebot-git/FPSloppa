@@ -12,7 +12,7 @@ def assets(dest):
   out=dest/row['path'];out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(root/row['path'],out)
 with tempfile.TemporaryDirectory(prefix='fpsloppa-tf-test-') as temp:
  tmp=Path(temp);base=tmp/'assets';assets(base)
- for script,marker in [('fortress','FORTRESS_RESULT []'),('fortress_maps','TF_MAPS_RESULT []')]:
+ for script,marker in [('fortress','FORTRESS_RESULT []'),('tf_arsenal','TF_ARSENAL_RESULT []'),('fortress_maps','TF_MAPS_RESULT []')]:
   path=logs/f'tf-{script}.log'
   with path.open('w') as out:p=subprocess.run([godot,'--headless','--xr-mode','off','--path',str(root),'--script',f'res://deathmatch/tests/{script}.gd','--','--asset-root',str(base)],env=dict(os.environ,XDG_DATA_HOME=str(tmp/'rules-profile')),stdout=out,stderr=subprocess.STDOUT,timeout=120)
   check(script,p,path,marker)

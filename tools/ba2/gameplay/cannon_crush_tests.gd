@@ -64,6 +64,13 @@ func run() -> void:
 	await physics_frame;await physics_frame
 	w.tick(.1)
 	check(g.players[-1].dead and r.distance>0,"Defender touching a leg is crushed instead of blocking advancement")
+	for side in [-1.,1.]:
+		r=arrange()
+		person(-1,w.transform(r)*(w.CRUSH_OFFSET+Vector3(side*5.25,0,0)))
+		person(-2,w.transform(r)*(w.CRUSH_OFFSET+Vector3(side*5.75,0,0)))
+		await physics_frame;await physics_frame;w.tick(.1)
+		check(g.players[-1].dead,"Expanded footprint crushes defender 5.25 m from centre on side "+str(side))
+		check(not g.players[-2].dead,"Defender 5.75 m from footprint centre remains outside on side "+str(side))
 	r=arrange();person(-1,Vector3(0,0,-7));person(-2,Vector3(0,3,0));person(-3,Vector3(0,-3,0))
 	await physics_frame;await physics_frame
 	w.tick(.1)
@@ -82,7 +89,7 @@ func run() -> void:
 	g.match_mode.fortress.effects.erase(-1)
 	r=arrange();await physics_frame;await physics_frame;w.tick(1.0);w.leave(1,true);person(-1,w.transform(r)*Vector3(.7,0,0));await physics_frame;await physics_frame;w.tick(.1)
 	check(g.players[-1].dead and r.speed>0,"Unmanned braking continues crushing only while still advancing")
-	for i in 30:w.tick(.1)
+	for i in 60:w.tick(.1)
 	person(-1,w.transform(r)*Vector3(.7,0,0));w.tick(.1)
 	check(not g.players[-1].dead and r.speed==0,"Stopped unmanned robot leaves the ladder zone safe")
 	# Isolated open firing lane, so the range test measures the cannons rather than a city bend.

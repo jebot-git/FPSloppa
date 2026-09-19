@@ -4,6 +4,7 @@ const SIZE := 1024
 var atlas_size:=SIZE
 var enabled := false
 var quake_response:=false
+var night_response:=false
 var black_missing:=false
 var lighting := PackedByteArray()
 var rgb := PackedByteArray()
@@ -14,6 +15,7 @@ var cursor := Vector2i(2, 0)
 var shelf := 0
 var layout: Array=[]
 var scales:=PackedByteArray()
+var default_spacing:=16.0
 var faces := 0
 var unlit_faces := 0
 var dark_faces:=0
@@ -42,19 +44,22 @@ func open(path: String) -> void:
 			var name:=f.get_buffer(24).get_string_from_ascii();var offset:=f.get_32();var length:=f.get_32()
 			if name=="LMSHIFT" and length==lumps[7].y/(20 if version==29 else 28) and offset+length<=f.get_length():
 				var saved:=f.get_position();f.seek(offset);var values:=f.get_buffer(length);f.seek(saved)
-				if Array(values).all(func(value):return value>=3 and value<=4):scales=values
+				if Array(values).all(func(value):return value>=3 and value<=5):scales=values
 			if name=="RGBLIGHTING" and length==lighting.size()*3 and offset+length<=f.get_length():
 				var saved:=f.get_position();f.seek(offset);rgb=f.get_buffer(length);f.seek(saved)
+	# Large authored BSP cities may trade baked-light density for bounded file size.
+	default_spacing=32.0 if world.contains('"_lightmap_scale" "32"') else 16.0
 	atlas_size=4096 if world.contains('"_fpsloppa_atlas" "4096"') else 2048 if world.contains('"_fpsloppa_atlas" "2048"') else SIZE
 	quake_response=world.contains('"_fpsloppa_light_response" "quake"')
-	black_missing=quake_response or world.contains('"_fpsloppa_black_missing" "1"')
+	night_response=world.contains('"_fpsloppa_light_response" "night"')
+	black_missing=quake_response or night_response or world.contains('"_fpsloppa_black_missing" "1"')
 	enabled=true
 	image=Image.create(atlas_size,atlas_size,false,Image.FORMAT_RGB8);image.fill(Color(.5,.5,.5));image.set_pixel(1,0,Color.BLACK)
 	texture=ImageTexture.create_from_image(image)
 func face_uvs(uvs: PackedVector2Array, dimensions: Vector2, offset: int,face_id: int=-1,special: bool=false) -> PackedVector2Array:
 	var result:=PackedVector2Array()
 	if not enabled:return result
-	var spacing: float=float(1<<scales[face_id]) if face_id>=0 and face_id<scales.size() else 16.0
+	var spacing: float=float(1<<scales[face_id]) if face_id>=0 and face_id<scales.size() else default_spacing
 	var lo:=Vector2(INF,INF);var hi:=Vector2(-INF,-INF)
 	for uv in uvs:
 		var texel:=uv*dimensions/spacing;lo=lo.min(texel);hi=hi.max(texel)
@@ -97,6 +102,7 @@ func material(original: Material) -> Material:
 	result.set_shader_parameter("base_colour",original.albedo_color)
 	result.set_shader_parameter("alpha_cutout",original.transparency==BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR)
 	result.set_shader_parameter("bake_texture",texture)
+	if not quake_response:result.set_shader_parameter("night_lighting",night_response)
 	if original.emission_enabled and original.emission_texture:
 		result.set_shader_parameter("glow_texture",original.emission_texture)
 		result.set_shader_parameter("has_glow",true)
@@ -109,6 +115,7 @@ func finish(root: Node) -> void:
 	# console-generated scene caches contain the actual lightmap, not its grey fill.
 	texture=ImageTexture.create_from_image(image)
 	for material in materials.values():material.set_shader_parameter("bake_texture",texture)
+	root.set_meta("night_lighting",night_response)
 	root.set_meta("quake_authored_light",quake_response)
 	root.set_meta("quake_light_version",1)
 	root.set_meta("baked_light_dark_faces",dark_faces)

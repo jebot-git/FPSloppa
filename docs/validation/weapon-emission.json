@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "weapon_cases": 78,
+  "checks": 490,
+  "effect_limit": {
+    "desktop": 2,
+    "vr": 2
+  },
+  "failures": [],
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "renderer": "mobile",
+  "resolution": [
+    800,
+    600
+  ],
+  "msaa": 4,
+  "performance": [
+    {
+      "count": 0,
+      "draws": 1.0,
+      "gpu_median_ms": 0.221000000834465,
+      "update_median_ms": 0.006
+    },
+    {
+      "count": 2,
+      "draws": 1.0,
+      "gpu_median_ms": 0.372000008821487,
+      "update_median_ms": 0.09
+    },
+    {
+      "count": 2,
+      "draws": 1.0,
+      "gpu_median_ms": 0.386000007390976,
+      "update_median_ms": 0.089
+    },
+    {
+      "count": 0,
+      "draws": 1.0,
+      "gpu_median_ms": 0.0860000029206276,
+      "update_median_ms": 0.006
+    }
+  ],
+  "regression": {
+    "weapon_rules_and_demos": 71,
+    "optics_fx": 23,
+    "simulated_vr_projectile_presentation": 28
+  },
+  "artifacts": "test-results/weapon-emission/"
+}

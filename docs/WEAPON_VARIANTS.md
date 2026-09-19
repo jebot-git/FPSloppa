@@ -25,10 +25,11 @@ Instagib, Instafreeze and Circus of Carnage retain their dedicated original weap
 | Lightning | 30 damage per cell, 0.1-second cycle, 18.75 m reach; submerged firing discharges the remaining cells |
 
 TF keeps its nine classes, speed/health/armor, abilities, building repair, grenades,
-flags and resupply. Loadouts use Quake shotgun/nail/grenade/rocket slots. Heavy uses
-the super nailgun; pyro retains the existing short-range flamethrower and ignition;
-sniper retains the TF sniper override. Engineer cells still power construction.
-This is a weapon experiment, not a complete historical Team Fortress port.
+flags and resupply. Its class arsenal includes Heavy's shell-fed assault cannon,
+Pyro's incendiary cannon and flamethrower, Engineer's piercing rail projectile,
+and Spy's tranquilizer. TF nails deal 18 / 26 damage; ordinary Quake retains 9 / 18.
+See the [class and weapon audit](TF-ARSENAL-AUDIT.md) for inventories, collision
+checks and deliberate adaptations. Engineer cells still power construction.
 
 ## UT99
 
@@ -88,11 +89,13 @@ wait for the server to confirm release.
 ## Physical VR sniper optic
 
 Bring either eye behind the UT sniper scope; no button is required. The optic
-uses a separate 12-degree camera aligned to the actual firing line, showing a
+uses a separate 6-degree camera aligned to the actual firing line, showing a
 reticle inside the rear lens. The headset projection stays unchanged. The eye
 window allows 2.5–34 cm of relief, fading towards 3.4 cm of lateral offset.
 Per-eye shading keeps the other eye from seeing the magnified image sideways.
 World rays between the eye, optical housing and shot origin reject wall peeking.
+The lens has approximately twice its previous magnification. Desktop TF and UT
+snipers use an 18-degree field of view while alternate fire is held.
 
 Only the local held sniper creates this view: 512² pixels on PC, 384² on Android,
 with updates disabled outside the eye window, in menus, with lost tracking or a

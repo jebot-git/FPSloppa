@@ -4,6 +4,8 @@ const Profile = preload("res://deathmatch/profile.gd")
 var game
 var fortress_button: Button
 var map_import: Button
+var session_map_import: Button
+var importing_bsp:=false
 var map_choice
 var weapon_choice
 var preferred_host_weapons:="doom"
@@ -45,6 +47,8 @@ var leave: Button
 var launch_buttons: Array = []
 var voice_button: Button
 var votes_panel: PanelContainer
+var next_match_panel: PanelContainer
+var shown_ballot:=-1
 var capture_alert: Label
 var vote_alert: Button
 var votes_button: Button
@@ -177,6 +181,7 @@ func setup(arena: Node) -> void:
 	vote_alert.offset_left=-370;vote_alert.offset_right=370;vote_alert.offset_top=64;vote_alert.offset_bottom=132;vote_alert.hide()
 	vote_alert.pressed.connect(func():game.menu_open=true;show_menu(true);votes_panel.open())
 	votes_panel=preload("res://deathmatch/modes/panel.gd").new();root.add_child(votes_panel);votes_panel.setup(game)
+	next_match_panel=preload("res://deathmatch/modes/lobby_panel.gd").new();root.add_child(next_match_panel);next_match_panel.setup(game)
 	show_menu(true)
 
 func _build_menu(root: Control) -> void:
@@ -320,7 +325,8 @@ func _build_menu(root: Control) -> void:
 	)
 	var fortress_panel=preload("res://deathmatch/modes/fortress_panel.gd").new();get_child(0).add_child(fortress_panel);fortress_panel.setup(game)
 	fortress_button=button(session_actions,"TF CLASS…",fortress_panel.open)
-	votes_button=button(session_actions,"TEAMS & VOTES…",func():votes_panel.open())
+	votes_button=button(session_actions,"TEAMS & VOTES…",func():open_votes())
+	session_map_import=button(column,"IMPORT BSP…",bsp_dialog.open)
 	vr_actions=HBoxContainer.new()
 	column.add_child(vr_actions)
 	button(vr_actions,"CHAT",func():
@@ -372,8 +378,10 @@ func show_menu(open: bool) -> void:
 	suicide.visible = game.active
 	votes_button.visible=game.active
 	if votes_panel and not open:votes_panel.hide()
+	if next_match_panel and not open:next_match_panel.hide()
 	for b in launch_buttons: b.visible = not game.active
 	if not open:
+		preload("res://deathmatch/ui/choice.gd").close_all(get_tree())
 		if settings_panel:settings_panel.hide()
 		if host_panel:host_panel.hide()
 		if game.voice and game.voice.panel: game.voice.panel.hide()
@@ -394,7 +402,9 @@ func _process(_delta: float) -> void:
 	if game==null: return
 	fortress_button.visible=game.active and not game.demos.playing and game.match_mode.fortress.enabled() and not game.local_state().get("spectator",false)
 	map_choice.trigger.disabled=game.active
-	map_import.disabled=game.active and multiplayer.is_server()
+	map_import.disabled=importing_bsp or not game.uploads.offered.is_empty()
+	session_map_import.visible=game.active
+	session_map_import.disabled=map_import.disabled
 	vr_actions.visible=game.is_vr()
 	team_chat_button.visible=game.voice.team_available()
 	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · HOLD LEFT Y/B Scores"
@@ -402,7 +412,12 @@ func _process(_delta: float) -> void:
 	avatar_status.text = ""
 	vote_alert.visible=false;capture_alert.visible=false
 	if not game.active:
+		shown_ballot=-1
 		return
+	var ballot: Dictionary=game.lobby.snapshot() if game.multiplayer.is_server() else game.lobby.view
+	if not game.demos.playing and ballot.get("stage","")=="intermission" and int(ballot.get("id",-1))!=shown_ballot:
+		shown_ballot=int(ballot.id);game.menu_open=true;show_menu(true);next_match_panel.open()
+		Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
 	var state: Dictionary = game.local_state()
 	var viewed_id: int=game.demos.selected_player if game.demos.playing else multiplayer.get_unique_id()
 	suicide.disabled=game.demos.playing or state.is_empty() or state.get("dead",true) or state.get("spectator",false) or game.intermission>0 or game.lobby.active() or game.match_mode.special.blocked(viewed_id)
@@ -456,18 +471,27 @@ func _process(_delta: float) -> void:
 		center_message.text=""
 
 func _import_bsp(path: String) -> void:
+	if importing_bsp:return
+	importing_bsp=true
 	status.text="Importing Quake BSP geometry and textures…"
 	await get_tree().process_frame
 	var row: Dictionary=game.Maps.import_custom(path)
 	if row.has("error"):
-		status.text=row.error
+		status.text=row.error;importing_bsp=false
 		return
 	game.map_catalog=game.Maps.catalog()
 	if not game.active:game.selected_map=row.id
 	refresh_maps()
+	status.text="Preparing map preview…"
+	await game.map_previews.ensure(row)
+	importing_bsp=false
 	if game.active and not multiplayer.is_server():
 		game.uploads.upload(row);status.text="Map imported. Offering it to the server for reuse…"
-	else:status.text="Map imported. Joining clients will download it from the host."
+	else:
+		game.uploads.register_map(row)
+		status.text="Map imported · "+", ".join(row.get("modes",game.Maps.ImportPolicy.DEFAULT_MODES)).to_upper()
+		if game.active:
+			for peer in multiplayer.get_peers():game.votes.offer(peer)
 
 func refresh_maps() -> void:
 	if is_instance_valid(minutes) and is_instance_valid(host_mode):
@@ -504,3 +528,8 @@ func open_demos() -> void:
 	if not is_instance_valid(demos_panel):
 		demos_panel=preload("res://deathmatch/demos/panel.gd").new();get_child(0).add_child(demos_panel);demos_panel.setup(game)
 	demos_panel.open()
+
+func open_votes() -> void:
+	var data: Dictionary=game.lobby.snapshot() if game.multiplayer.is_server() else game.lobby.view
+	if not data.is_empty():next_match_panel.open()
+	else:votes_panel.open()

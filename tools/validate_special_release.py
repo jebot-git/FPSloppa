@@ -11,7 +11,7 @@ with tempfile.TemporaryDirectory(prefix='fpsloppa-special-') as profile:
  for row in json.loads((root/"deathmatch/assets/base_manifest.json").read_text())["files"]:
   dest=asset_root/row["path"];dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(root/row["path"],dest)
  env=dict(os.environ,XDG_DATA_HOME=profile)
- for script in ['special_modes','controls_seated','controller_tracking','vr','combat','melee','dual_pistols','team_modes','votes','vr_ui','map_import','optional_maps']:
+ for script in ['special_modes','instafreeze','freeze_gravity','controls_seated','controller_tracking','vr','combat','melee','dual_pistols','team_modes','votes','vr_ui','map_import','optional_maps']:
   path=logs/f'special-{script}.log'
   with path.open('w') as out:p=subprocess.run([godot,'--headless','--xr-mode','off','--path',str(root),'--script',f'res://deathmatch/tests/{script}.gd','--','--asset-root',str(asset_root)],env=env,stdout=out,stderr=subprocess.STDOUT,timeout=120)
   verify(script,p,path)

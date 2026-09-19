@@ -1,0 +1,124 @@
+{
+  "date": "2026-09-19",
+  "bake": {
+    "compiler": "/tmp/fpsloppa-ericw/ericw-tools-v0.18.1-Linux/bin/light",
+    "flags": [
+      "-novisapprox",
+      "-threads",
+      "4",
+      "-extra4",
+      "-bspxlit",
+      "-bounce",
+      "1",
+      "-bouncecolorscale",
+      "0.25",
+      "-dirt",
+      "1",
+      "-dirtdepth",
+      "32",
+      "-dirtscale",
+      "0.5"
+    ],
+    "maps": [
+      {
+        "name": "external-original",
+        "source": "test-results/lighting-coverage/external-original.bsp",
+        "sha256": "6cb8573fba426a3e5494b88817491784fe1dbf1f6605bff7c1ebeecc933d0eca",
+        "source_bytes": 981808,
+        "output_bytes": 1363416,
+        "light_entities": 165,
+        "native_light_bytes": 120762,
+        "bake_seconds": 3.9215428340248764,
+        "native_nonentity_lumps_unchanged": true,
+        "geometry_vis_collision_textures_entities_unchanged": true,
+        "face_style_records_changed": 227,
+        "faces": 2950,
+        "light_bytes": 125572,
+        "rgb_bytes": 376716
+      },
+      {
+        "name": "tf_pressureworks",
+        "source": "maps/tf_pressureworks.bsp",
+        "sha256": "8d7140cb7d69ad220815c38e4dcb26c0b6c43d123b9a6200f32241f6a958479f",
+        "source_bytes": 10691346,
+        "output_bytes": 10892148,
+        "light_entities": 21,
+        "native_light_bytes": 691283,
+        "bake_seconds": 17.548434410011396,
+        "native_nonentity_lumps_unchanged": true,
+        "geometry_vis_collision_textures_entities_unchanged": true,
+        "face_style_records_changed": 0,
+        "faces": 6514,
+        "light_bytes": 728439,
+        "rgb_bytes": 2185317
+      }
+    ],
+    "compiler_sha256": "bb150b6a105eff3adf843280676efb8b6341fc743dd8f2ca97656fb9064c3350"
+  },
+  "import": {
+    "failures": [],
+    "maps": [
+      {
+        "faces": 0,
+        "invalid_faces": 0,
+        "map": "external-original",
+        "overflow_faces": 0,
+        "rgb": 0,
+        "seconds": 0.182261,
+        "unlit_faces": 0,
+        "variant": "original"
+      },
+      {
+        "faces": 2699,
+        "invalid_faces": 0,
+        "map": "external-original",
+        "overflow_faces": 0,
+        "rgb": false,
+        "seconds": 0.257497,
+        "unlit_faces": 251,
+        "variant": "native"
+      },
+      {
+        "faces": 2926,
+        "invalid_faces": 0,
+        "map": "external-original",
+        "overflow_faces": 0,
+        "rgb": true,
+        "seconds": 0.256544,
+        "unlit_faces": 24,
+        "variant": "rebaked"
+      },
+      {
+        "faces": 6350,
+        "invalid_faces": 0,
+        "map": "tf_pressureworks",
+        "overflow_faces": 0,
+        "rgb": true,
+        "seconds": 1.52477,
+        "unlit_faces": 0,
+        "variant": "original"
+      },
+      {
+        "faces": 6350,
+        "invalid_faces": 0,
+        "map": "tf_pressureworks",
+        "overflow_faces": 0,
+        "rgb": true,
+        "seconds": 1.544119,
+        "unlit_faces": 0,
+        "variant": "native"
+      },
+      {
+        "faces": 6350,
+        "invalid_faces": 0,
+        "map": "tf_pressureworks",
+        "overflow_faces": 0,
+        "rgb": true,
+        "seconds": 1.511222,
+        "unlit_faces": 0,
+        "variant": "rebaked"
+      }
+    ]
+  },
+  "scope": "Isolated feasibility probe; production importer unchanged; BSP29 only; no visual quality signoff."
+}

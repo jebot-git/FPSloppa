@@ -27,7 +27,7 @@ func run() -> void:
 	check(not pending.is_valid(),"Removing a door also cancels its animation")
 	game.gates.clear();capture.calls.clear()
 	# Exercise a real trigger overlap, using the production teleport path.
-	var runtime=preload("res://deathmatch/maps/runtime.gd").new();game.add_child(runtime);runtime.game=game;runtime.set_physics_process(false)
+	var runtime=preload("res://deathmatch/maps/runtime.gd").new();game.add_child(runtime);runtime.game=game;runtime.triggers.setup(runtime,[]);runtime.set_physics_process(false)
 	game.players[1]=game._new_state("Traveler",1);game._create_fighter(1);game.players[1].dead=false;game.players[1].spectator=false
 	var actor=game.fighters[1];actor.position=Vector3(200,100,200)
 	var area:=Area3D.new();game.add_child(area);area.position=actor.position+Vector3.UP*.8;area.collision_layer=0;area.collision_mask=2

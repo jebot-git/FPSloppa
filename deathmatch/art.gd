@@ -1,4 +1,5 @@
 extends RefCounted
+const Body = preload("res://deathmatch/avatars/hit_body.gd")
 const W = preload("res://deathmatch/weapons.gd")
 
 static func material(color: Color, metal: float = 0.0, glow: float = 0.0) -> StandardMaterial3D:
@@ -139,18 +140,18 @@ static func marine(color: Color) -> Node3D:
 	var armor := material(color,0.35)
 	var dark := material(Color("1d2529"))
 	var visor := material(Color("f2bc61"),0.7,0.3)
-	box(upper,Vector3(0,.24,0),Vector3(.55,.58,.32),armor)
-	var head:=Node3D.new();head.name="Head";head.position.y=.70;upper.add_child(head)
-	box(head,Vector3.ZERO,Vector3(.35,.34,.34),armor)
+	box(upper,Body.TORSO_CENTER,Body.TORSO_SIZE,armor)
+	var head:=Node3D.new();head.name="Head";head.position=Body.HEAD_CENTER;upper.add_child(head)
+	box(head,Vector3.ZERO,Body.HEAD_SIZE,armor)
 	box(head,Vector3(0,.01,-.18),Vector3(.29,.11,.03),visor)
 	for x in [-.18,.18]:
 		var side:="Left" if x<0 else "Right"
-		for part in ["Thigh","Shin"]:box(root,Vector3.ZERO,Vector3(.21,1,.24),dark).name=side+part
-		box(root,Vector3(x,.09,-.05),Vector3(.24,.18,.37),dark).name=side+"Boot"
+		for part in ["Thigh","Shin"]:box(root,Vector3.ZERO,Body.LEG_SIZE,dark).name=side+part
+		box(root,Vector3(x,.09,-.05),Body.BOOT_SIZE,dark).name=side+"Boot"
 	for x in [-.38,.38]:
 		var side:="Left" if x<0 else "Right"
-		var arm:=box(upper,Vector3(x,.32,0),Vector3(.22,1,.30),armor);arm.name=side+"Arm";arm.scale.y=.36
-		var forearm:=box(upper,Vector3(x,.12,-.16),Vector3(.16,1,.37),dark);forearm.name=side+"Forearm";forearm.scale.y=.23
+		var arm:=box(upper,Vector3(x,.32,0),Body.ARM_SIZE/Vector3(1,.36,1),armor);arm.name=side+"Arm";arm.scale.y=.36
+		var forearm:=box(upper,Vector3(x,.12,-.16),Body.FOREARM_SIZE/Vector3(1,.23,1),dark);forearm.name=side+"Forearm";forearm.scale.y=.23
 	var gun := weapon(3)
 	gun.position = Vector3(.20,.13,-.22)
 	gun.scale = Vector3.ONE*.65

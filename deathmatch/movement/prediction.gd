@@ -43,8 +43,16 @@ func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: f
 	# client that has already landed (or add a second boost to its next jump).
 	if grounded and absf(velocity.y)<.8 and reference.velocity.y<0:
 		impulse.y=0
-	actor.position+=correction;actor.velocity+=impulse
-	actor.prediction_view_offset-=correction
+	# A wall/ceiling stopping an older movement is not a force in the opposite
+	# direction. Keep newer motion (including moving away from the contact).
+	for index in actor.get_slide_collision_count():
+		var collision=actor.get_slide_collision(index)
+		for contact in collision.get_collision_count():
+			var normal: Vector3=collision.get_normal(contact)
+			if reference.velocity.dot(normal)<-.8 and absf(velocity.dot(normal))<.8 and impulse.dot(normal)>0:
+				impulse-=normal*impulse.dot(normal)
+	correction=actor.correct_prediction(correction)
+	actor.velocity+=impulse
 	for key in samples.keys():
 		if key<=sequence:samples.erase(key)
 		else:

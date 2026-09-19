@@ -21,6 +21,9 @@ func run() -> void:
 	check(not tf.charges.has(-1),"Settled Blue pipe charge is destroyed without detonation")
 	check(tf.charges.has(-2) and tf.charges.has(-3),"Red charges and airborne Blue projectiles retain normal behavior")
 	check(g.players[1].hp==tf.max_health(1),"Destroyed charge causes no secondary damage to the pilot")
+	r=arrange();building(10012,w.transform(r)*(w.CRUSH_OFFSET+Vector3(5.25,0,0)));building(10013,w.transform(r)*(w.CRUSH_OFFSET+Vector3(5.75,0,0)))
+	await physics_frame;await physics_frame;w.tick(.1)
+	check(not tf.buildings.has(10012) and tf.buildings.has(10013),"Deployables share the expanded 5.5 m crush boundary")
 	r=arrange();building(10005,Vector3(0,0,-7));building(10006,Vector3(0,3,0));building(10007,Vector3(0,-3,0));await physics_frame;await physics_frame;w.tick(.1)
 	check(tf.buildings.has(10005) and tf.buildings.has(10006) and tf.buildings.has(10007),"Distant, elevated and below-floor deployables survive")
 	r=arrange();building(10008,Vector3(2,0,0));var cover:=wall(Vector3(1,1.2,0),Vector3(.1,2.4,2));await physics_frame;await physics_frame;w.tick(.1)
@@ -31,7 +34,7 @@ func run() -> void:
 	cover.free();await physics_frame
 	r=arrange();await physics_frame;await physics_frame;w.tick(1.);w.leave(1,true);building(10010,w.transform(r)*Vector3(.7,0,0));await physics_frame;await physics_frame;w.tick(.1)
 	check(r.speed>0. and not tf.buildings.has(10010),"Unmanned braking still crushes Blue deployables")
-	for i in 30:w.tick(.1)
+	for i in 60:w.tick(.1)
 	building(10011,w.transform(r)*Vector3(.7,0,0));charge(-1,w.transform(r)*Vector3(0,.15,1));w.tick(.1)
 	check(r.speed==0. and tf.buildings.has(10011) and tf.charges.has(-1),"Stopped robot leaves Blue deployables intact")
 	FileAccess.open("res://test-results/titanball/deployable-crush.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"  "))

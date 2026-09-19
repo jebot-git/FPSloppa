@@ -44,6 +44,9 @@ func choose(kind: String) -> AudioStream:
 	if not cache.has(file):cache[file]=load(file) if ResourceLoader.exists(file) else null
 	return cache[file]
 func configure(player: AudioStreamPlayer3D, voice: bool=false) -> void:
+	# SteamAudioPlayer inherits Godot's Doppler pitch calculation; its stream
+	# wrapper forwards that playback rate into the HRTF mixer.
+	player.doppler_tracking=AudioStreamPlayer3D.DOPPLER_TRACKING_IDLE_STEP
 	player.bus="ArenaSpatial" if voice else "ArenaEffects"
 	player.panning_strength=0.0 if player.has_method("play_stream") else 1.4
 	player.unit_size=3 if voice else 5
@@ -89,6 +92,10 @@ func update_source(player: AudioStreamPlayer3D,dry_db: float) -> void:
 	var blocked:=occluded(game.camera.global_position,player.global_position)
 	player.volume_db=dry_db-10 if blocked else dry_db
 	player.attenuation_filter_cutoff_hz=1800 if blocked else 18000
+func _process(_delta: float) -> void:
+	# Also track the camera when the native plugin is unavailable or disabled.
+	if game and is_instance_valid(game.camera) and game.camera.doppler_tracking!=Camera3D.DOPPLER_TRACKING_IDLE_STEP:
+		game.camera.doppler_tracking=Camera3D.DOPPLER_TRACKING_IDLE_STEP
 func _physics_process(delta: float) -> void:
 	if not game or game.headless or not is_instance_valid(game.camera): return
 	tick+=delta; room_tick+=delta

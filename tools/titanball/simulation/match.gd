@@ -14,6 +14,7 @@ var previous_pilot:=0
 var camera: Camera3D
 var label: Label
 var running:=false
+var loaded_map_hash: String
 var capture_at:=0.
 func _initialize():run.call_deferred()
 func run() -> void:
@@ -29,6 +30,7 @@ func run() -> void:
   g.match_mode.fortress.walkers.free();g.match_mode.fortress.walkers=preload("res://tools/titanball/simulation/class_health_baseline.gd").new()
   g.match_mode.fortress.walkers.name="Walkers";g.match_mode.fortress.add_child(g.match_mode.fortress.walkers)
  root.add_child(g);g.selected_map="tb_ashfall"
+ loaded_map_hash=FileAccess.get_sha256("res://maps/tb_ashfall.bsp")
  g.start_host("TITANBALL 6v6 balance observer",0,100,10,true,"tb","quake" if profile=="tf" else profile)
  g.match_mode.fortress.walkers.heavy_ordnance_only=options.get("pilot_damage","heavy")=="heavy"
  g.match_mode.fortress.walkers.pilot_regeneration=options.get("pilot_healing","off")=="station"
@@ -75,13 +77,19 @@ func run() -> void:
    next_sample+=1.;sample()
   if not g.headless:g._process(1./60.);draw_view(r)
   if not g.headless and g.clock-origin>=capture_at:
-   capture_at+=60.;await RenderingServer.frame_post_draw
+   # Read the last completed frame without pausing the physics coroutine;
+   # waiting for a draw here can skip simulation ticks or stall movie capture.
+   capture_at+=60.
    root.get_texture().get_image().save_png(options.output.get_basename()+"-%04d.png"%int(g.clock-origin))
  running=false
- var result: Dictionary={"options":options,"profile":profile,"effective_rules":g.armory.effective(),"classes":g.match_mode.fortress.enabled(),"map":g.current_map,"stations":g.match_mode.titanball.stations,"vantages":g.match_mode.titanball.vantages,"map_sha256":FileAccess.get_sha256("res://maps/tb_ashfall.bsp"),"seconds":g.clock-origin,"winner":g.match_mode.titanball.winner,"progress":g.match_mode.titanball.progress,"checkpoints":g.match_mode.titanball.cleared,"pilot_seconds":pilot_seconds,"moving_seconds":moving_seconds,"manned_stopped_seconds":blocked_seconds,"pilot_changes":pilot_changes,"samples":samples,"deaths":metrics.deaths,"damage":metrics.damage,"pickups":metrics.pickups,"placements":placements,"damage_events":metrics.damage_events,"cannon_volleys":metrics.cannon_volleys,"boardings":metrics.boardings,"deployable_crushes":metrics.deployable_crushes,"events":metrics.events,"teamplay":g.bots.teamplay.stats}
+ var result: Dictionary={"options":options,"profile":profile,"effective_rules":g.armory.effective(),"classes":g.match_mode.fortress.enabled(),"map":g.current_map,"stations":g.match_mode.titanball.stations,"vantages":g.match_mode.titanball.vantages,"layout_revision":2,"map_sha256":loaded_map_hash,"seconds":g.clock-origin,"winner":g.match_mode.titanball.winner,"progress":g.match_mode.titanball.progress,"checkpoints":g.match_mode.titanball.cleared,"pilot_seconds":pilot_seconds,"moving_seconds":moving_seconds,"manned_stopped_seconds":blocked_seconds,"route_metres":g.match_mode.titanball.ROUTE_METRES,"crush_radius_m":g.match_mode.fortress.walkers.CRUSH_RADIUS,"boarding_exit_lock":g.match_mode.fortress.walkers.BOARDING_EXIT_LOCK,"pilot_changes":pilot_changes,"samples":samples,"deaths":metrics.deaths,"damage":metrics.damage,"pickups":metrics.pickups,"placements":placements,"damage_events":metrics.damage_events,"cannon_volleys":metrics.cannon_volleys,"boardings":metrics.boardings,"deployable_crushes":metrics.deployable_crushes,"events":metrics.events,"teamplay":g.bots.teamplay.stats}
  result["pilot_healing"]=metrics.pilot_healing
  result["blocked_hull_hits"]=metrics.blocked_hull_hits
  FileAccess.open(options.output,FileAccess.WRITE).store_string(JSON.stringify(result,"  "));print("TB_SIM_RESULT ",options.output," progress=",result.progress," winner=",result.winner)
+ if not g.headless and options.get("record",false):
+  label.text+="\nROUND COMPLETE · "+("RED ATTACKERS WIN" if result.winner==0 else "BLUE DEFENDERS WIN" if result.winner==1 else "TIME CAP REACHED")
+  # Retain a readable result at the end of the recording.
+  await create_timer(3.,true,false,true).timeout
  g.disconnect_game();g.queue_free();await process_frame;await process_frame;quit()
 func sample() -> void:
  var rows: Array=[]
@@ -90,7 +98,7 @@ func sample() -> void:
   var s: Dictionary=g.players[id];var b: Dictionary=g.bots.brains.get(id,{})
   rows.append({"id":id,"team":s.team,"class":s.tf_class,"hp":s.hp,"dead":s.dead,"kills":s.kills,"deaths":s.deaths,"shots":s.shots,"owned":s.owned.duplicate(),"weapon":s.weapon,"position":g.fighters[id].position,"vantage":vantage_at(g.fighters[id].position),"goal":b.get("goal_key",""),"goal_position":b.get("goal",Vector3.ZERO),"path":b.get("path",[]).size(),"enemy":b.get("enemy",0)})
  var tb=g.match_mode.titanball;var r: Dictionary=g.match_mode.fortress.walkers.robots.values()[0]
- samples.append({"time":g.clock-origin,"left":g.round_left,"preparation":tb.preparation_left,"distance":r.distance,"speed":r.speed,"body_yaw":r.get("body_yaw",0.),"robot_state":r.state,"ladder_deployed":g.match_mode.fortress.walkers.ladder_visible(r),"exit_lock":r.get("exit_lock",0.),"pilot":r.pilot,"checkpoint":tb.cleared,"bots":rows})
+ samples.append({"time":g.clock-origin,"left":g.round_left,"preparation":tb.preparation_left,"distance":r.distance,"speed":r.speed,"body_yaw":r.get("body_yaw",0.),"robot_state":r.state,"ladder_deployed":g.match_mode.fortress.walkers.ladder_visible(r),"exit_lock":r.get("exit_lock",0.),"boarding_wait":r.get("boarding_wait",0.),"pilot":r.pilot,"checkpoint":tb.cleared,"bots":rows})
  if samples.size()%30==1:print("TB_SIM_PROGRESS ",options.profile," t=",roundi(g.clock-origin)," distance=",snappedf(r.distance,.1)," pilot=",r.pilot," deaths=",metrics.deaths.size()," pickups=",metrics.pickups.size()," goals=",rows.map(func(b):return b.goal))
 func vantage_at(position: Vector3) -> int:
  for i in g.match_mode.titanball.vantages.size():
@@ -108,7 +116,10 @@ func draw_view(r: Dictionary) -> void:
  if g.clock-origin<.02:print("TB_OBSERVER_CAMERA ",JSON.stringify({"focus":focus,"wanted":wanted,"hit":wall}))
  camera.position=wanted if wall.is_empty() else wall.position+(focus-wall.position).normalized()*.6
  camera.look_at(focus);camera.make_current()
- label.text="TITANBALL · 6v6 · %s · %sx speed · %s\n%s\nTime %.0fs · %.1f / 300 m · Pilot %s · Deaths %s"%[options.profile.to_upper(),options.get("speed",1),options.get("revision","test"),"PREPARATION" if g.match_mode.titanball.preparing() else "RED ATTACKS / BLUE DEFENDS",g.round_left,r.distance,r.pilot,metrics.deaths.size()]
+ # Spatial audio uses the arena camera for its listener and occlusion tests.
+ # Keep it at the observer rather than the stationary spectator spawn.
+ g.camera.global_transform=camera.global_transform
+ label.text="TITANBALL · 6v6 · %s · %sx speed · %s\n%s\nTime %.0fs · %.1f / 350 m · Pilot %s · Deaths %s"%[options.profile.to_upper(),options.get("speed",1),options.get("revision","test"),"PREPARATION" if g.match_mode.titanball.preparing() else "RED ATTACKS / BLUE DEFENDS",g.round_left,r.distance,r.pilot,metrics.deaths.size()]
  var high: Array=[0,0]
  if not samples.is_empty():
   for b in samples.back().bots:

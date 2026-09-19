@@ -21,8 +21,10 @@ func run() -> void:
 	var tb=g.match_mode.titanball;var w=g.match_mode.fortress.walkers;var r: Dictionary=w.robots.test
 	check(g.current_map=="tb_ashfall" and tb.attacker_spawns.size()==3 and g.spawn_points.size()==16,"Compiled BSP supplies route and all forward/team spawn groups")
 	check(g.pickups.is_empty() and tb.stations.size()==6 and g.match_mode.fortress.buildings.size()==6,"No natural pickups; BSP defines six universal dispensers")
+	for point in tb.stations:
+		if not standing(point):print("BAD_STATION ",point)
 	check(tb.stations.all(func(p):return standing(p)),"All six resupply stations have floor and player clearance")
-	check(tb.vantages.size()==12 and tb.vantages.all(func(p):return standing(p.position)),"Twelve authored overpass and defensive-platform positions have standing clearance")
+	check(tb.vantages.size()==24 and tb.vantages.all(func(p):return standing(p.position)),"Twenty-four authored overpass, balcony and defensive-platform positions have standing clearance")
 	check(tb.preparing() and g.round_left==600,"BSP match begins with preparation and untouched ten-minute clock")
 	check(not ray(Vector3(0,1,16),Vector3(0,1,22)).is_empty(),"BSP hangar gate blocks passage during preparation")
 	check(ray(Vector3(18,1.45,16),Vector3(18,1.45,22)).is_empty() and ray(Vector3(18,1.45,22),Vector3(18,1.45,16)).is_empty(),"BSP firing slit permits bidirectional harassment")
@@ -35,7 +37,7 @@ func run() -> void:
 		if not standing(point):print("BAD_SPAWN ",point);spawns_clear=false
 	check(spawns_clear,"Every BSP spawn has floor and standing clearance")
 	var closed:=true;var route_clear:=true
-	for i in range(601):
+	for i in range(int(tb.ROUTE_METRES*2)+1):
 		var distance: float=i*.5
 		var pose: Transform3D=w.Route.sample(r.path,distance)
 		r.distance=distance;r.position=pose.origin;r.yaw=pose.basis.get_euler().y;r.speed=w.SPEED
@@ -49,6 +51,15 @@ func run() -> void:
 	check(route_clear,"Robot clears full BSP route at half-metre intervals and both 7.5-degree torso limits")
 	check(closed,"Buildings or ruins close both street edges along the entire city route")
 	var probes: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://maps/Ashfall/probes.json"))
+	check(absf(r.path.get_baked_length()-350.)<.05 and tb.CHECKPOINTS==[80.,230.],"Route remains 350 m with checkpoints at 80 m and 230 m")
+	var stations_match: bool=tb.stations.size()==probes.stations.size()
+	for i in probes.stations.size():
+		stations_match=stations_match and tb.stations.any(func(p):return p.distance_to(v(probes.stations[i].position))<.05)
+	check(stations_match,"Runtime resupply positions match current-route authored stations")
+	check(probes.stations[1].distance<80 and probes.stations[2].distance>80 and probes.stations[2].distance-80<=24 and probes.stations[3].distance<230 and 230-probes.stations[3].distance<=15 and probes.stations[4].distance>230 and probes.stations[4].distance-230<=16,"Resupply flanks both current checkpoints within 24 m")
+	var approach: Transform3D=w.Route.sample(r.path,230.)
+	var base: Transform3D=w.Route.sample(r.path,350.)
+	check(not ray(approach.origin+Vector3.UP*1.6,base.origin+Vector3.UP*1.6).is_empty(),"Curved final approach blocks the ground-level checkpoint-to-base sightline")
 	var cover_ok:=true
 	for item in probes.get("cover",[]):
 		var p:=v(item.centre)
@@ -60,9 +71,9 @@ func run() -> void:
 		else:print("BAD_ROOM ",room.centre)
 	check(rooms_ok>=8,"At least eight street-level ambush room probes are accessible standing spaces")
 	var bridges_clear:=true
-	for bridge in probes.bridges:
-		if not standing(v(bridge.top)) or not standing(v(bridge.bottom)):print("BAD_BRIDGE ",bridge);bridges_clear=false
-	check(bridges_clear,"Both high overpasses have standing clearance at their four access towers")
+	for bridge in probes.bridges+probes.get("balconies",[]):
+		if not standing(v(bridge.top)) or not standing(v(bridge.bottom)):print("BAD_BRIDGE ",bridge," bottom=",standing(v(bridge.bottom))," top=",standing(v(bridge.top)));bridges_clear=false
+	check(bridges_clear,"Overpass and balcony access points have standing clearance")
 	# Bake reusable navigation from this BSP after opening the preparation gate.
 	w.configure([])
 	var mesh=preload("res://deathmatch/bots.gd").new_mesh()
@@ -71,6 +82,7 @@ func run() -> void:
 	print("TB_NAV_WALKABLE_COMPONENT ",JSON.stringify(pruning))
 	check(mesh.get_polygon_count()>0,"BSP produces reusable navigation geometry")
 	ResourceSaver.save(mesh,"res://maps/navigation/tb_ashfall.res")
+	FileAccess.open("res://maps/Ashfall/navigation-sha256.txt",FileAccess.WRITE).store_string(FileAccess.get_sha256("res://maps/tb_ashfall.bsp")+"\n")
 	var nav:=NavigationServer3D.map_create();NavigationServer3D.map_set_active(nav,true);NavigationServer3D.map_set_cell_size(nav,mesh.cell_size);NavigationServer3D.map_set_cell_height(nav,mesh.cell_height)
 	var region:=NavigationRegion3D.new();g.add_child(region);region.set_navigation_map(nav);region.navigation_mesh=mesh
 	for frame in 120:
@@ -89,12 +101,14 @@ func run() -> void:
 	for point in tb.vantages:
 		var path:=NavigationServer3D.map_get_path(nav,g.spawn_points[0],point.position,true)
 		check(path.size()>1 and path[-1].distance_to(point.position)<1.5,"Navigation reaches tactical high ground "+str(point.position))
-	for bridge in probes.bridges:
+	for bridge in probes.bridges+probes.get("balconies",[]):
 		var path:=NavigationServer3D.map_get_path(nav,v(bridge.bottom),v(bridge.top),true)
 		print("CLOSEST ",NavigationServer3D.map_get_closest_point(nav,v(bridge.bottom))," -> ",NavigationServer3D.map_get_closest_point(nav,v(bridge.top)))
 		print("NAV ",v(bridge.bottom)," to ",v(bridge.top)," path ",path)
 		var ok:=path.size()>1 and path[-1].distance_to(v(bridge.top))<1.5
-		routes.append({"kind":"overpass","pass":ok,"points":path.size()});check(ok,"Navigation reaches overpass tower "+str(v(bridge.top)))
+		if bridge.get("kind","")=="balcony_connection":
+			check(ok and Array(path).all(func(p):return p.y>=5.8),"Middle overpass connects directly from the 6 m balcony without returning to street level")
+		routes.append({"kind":"elevated_access","pass":ok,"points":path.size()});check(ok,"Navigation reaches elevated access "+str(v(bridge.top)))
 	region.free();NavigationServer3D.free_rid(nav)
 	FileAccess.open("res://test-results/titanball/acceptance.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"routes":routes,"sha256":FileAccess.get_sha256("res://maps/tb_ashfall.bsp")},"  "))
 	print("TB_BSP_RESULT ",JSON.stringify(failures));g.free();quit(0 if failures.is_empty() else 1)

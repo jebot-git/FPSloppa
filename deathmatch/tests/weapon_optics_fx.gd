@@ -16,7 +16,7 @@ func check(ok: bool,label: String) -> void:
 	print("PASS " if ok else "FAIL ",label)
 func frames(count: int=4) -> void:
 	for i in count:await process_frame
-	await RenderingServer.frame_post_draw
+	RenderingServer.force_draw(false) # Render even when the test window is unfocused.
 func save_view(view: Viewport,name: String) -> void:view.get_texture().get_image().save_png("res://test-results/weapon-variants/"+name+".png")
 func run() -> void:
 	root.size=Vector2i(1000,800);stage=Node3D.new();root.add_child(stage)
@@ -40,6 +40,7 @@ func run() -> void:
 	scope.update_view(rifle,[cam.global_transform],shot,true)
 	check(scope.active,"Scope activates simply by looking through rear lens")
 	check(scope.viewport.world_3d==stage.get_world_3d(),"Scope shares game world")
+	check(scope.camera.fov==6.0,"Scope uses twice the former angular magnification")
 	check(cam.fov==75,"Main camera FOV is untouched")
 	check(not scope.viewport.use_xr,"Optic uses a separate non-XR render target")
 	check((scope.camera.cull_mask&Scope.SCOPE_LAYER)==0,"Optic excludes its lens and weapon to prevent recursion")

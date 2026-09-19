@@ -25,18 +25,18 @@ func run() -> void:
 	Fixture.build(g);w=g.match_mode.fortress.walkers
 	for id in g.players:
 		g.players[id].spectator=id!=1;g.fighters[id].position=Vector3(1000,0,0)
-	for distance in [298.8,299.21,299.477243765379,299.8,299.95]:
+	for distance in [348.8,349.21,349.477243765379,349.8,349.95]:
 		place(distance);await physics_frame;await physics_frame
 		check(w.try_board(1,"test"),"Board stationary payload at %.3f m"%distance)
-		step(480);var r: Dictionary=w.robots.test
-		check(r.distance>=299.98 and r.distance<=r.path.get_baked_length() and r.speed==0. and g.match_mode.titanball.winner==0,"Restart at %.3f m reaches delivery and stops without overshoot"%distance)
-	place(299.0);await physics_frame;await physics_frame;w.try_board(1,"test");step(60)
-	g._damage(1,1,5000,"TEST",true);step(120)
+		step(900);var r: Dictionary=w.robots.test
+		check(r.distance>=349.98 and r.distance<=r.path.get_baked_length() and r.speed==0. and g.match_mode.titanball.winner==0,"Restart at %.3f m reaches delivery and stops without overshoot"%distance)
+	place(349.0);await physics_frame;await physics_frame;w.try_board(1,"test");step(60)
+	g._damage(1,1,5000,"TEST",true);step(481)
 	var r: Dictionary=w.robots.test
-	check(w.ladder_visible(r) and r.pilot==0 and r.distance<299.98,"Interrupted final approach stops short with an available ladder")
+	check(w.ladder_visible(r) and r.pilot==0 and r.distance<349.98,"Interrupted final approach stops short with an available ladder")
 	g.players[1].dead=false;g.players[1].input_blocked=false;g.fighters[1].position=w.transform(r)*w.LADDER
 	check(w.try_board(1,"test"),"Replacement pilot boards after final-approach death")
-	step(480)
-	check(r.distance>=299.98 and r.speed==0. and g.match_mode.titanball.winner==0,"Replacement pilot completes interrupted final approach")
+	step(900)
+	check(r.distance>=349.98 and r.speed==0. and g.match_mode.titanball.winner==0,"Replacement pilot completes interrupted final approach")
 	FileAccess.open("res://test-results/ba2/gameplay/endpoint-results.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"  "))
 	print("BA2_ENDPOINT_RESULT ",JSON.stringify(failures));g.free();quit(0 if failures.is_empty() else 1)

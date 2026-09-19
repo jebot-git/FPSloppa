@@ -1,15 +1,15 @@
 extends Node
 ## Independent, server-authoritative TF adaptation; shares FPSloppa movement and combat.
 const CLASSES={
-	"scout":{"name":"SCOUT","hp":75,"armor":25,"speed":1.25,"owned":[0,2,3],"weapon":3,"ammo":[100,25,0,0],"action":"Sprint for 3 seconds · 10s cooldown"},
-	"sniper":{"name":"SNIPER","hp":90,"armor":25,"speed":.9,"owned":[0,2,9],"weapon":9,"ammo":[80,0,0,0],"action":"Focus for 4 seconds: slow movement, stronger rail · 12s cooldown"},
-	"soldier":{"name":"SOLDIER","hp":150,"armor":100,"speed":.85,"owned":[0,3,6],"weapon":6,"ammo":[0,25,12,0],"action":"Launch explosive grenade · 8s cooldown"},
-	"demoman":{"name":"DEMOMAN","hp":120,"armor":75,"speed":.95,"owned":[0,3,6],"weapon":6,"ammo":[0,25,15,0],"action":"Throw a pipe grenade; use again to detonate · 8s cooldown"},
-	"medic":{"name":"MEDIC","hp":110,"armor":50,"speed":1.1,"owned":[0,2,7],"weapon":7,"ammo":[80,0,0,100],"action":"Aim at a teammate: heal 35 HP and extinguish · 2s cooldown"},
-	"heavy":{"name":"HEAVY","hp":200,"armor":150,"speed":.65,"owned":[0,3,5],"weapon":5,"ammo":[200,25,0,0],"action":"Brace for 4 seconds: 35% less damage, slower movement · 12s cooldown"},
-	"pyro":{"name":"PYRO","hp":125,"armor":75,"speed":1.0,"owned":[0,3,7],"weapon":7,"ammo":[0,25,0,150],"action":"Launch a napalm grenade · 10s cooldown"},
-	"spy":{"name":"SPY","hp":90,"armor":25,"speed":1.05,"owned":[0,2,4],"weapon":4,"ammo":[80,25,0,0],"action":"Disguise as nearest enemy; gunfire, damaging melee, damage and flags reveal"},
-	"engineer":{"name":"ENGINEER","hp":100,"armor":75,"speed":1.0,"owned":[0,2,3],"weapon":3,"ammo":[100,30,0,120],"action":"Aim at friendly building to repair; otherwise build selected tool"}
+	"scout":{"name":"SCOUT","hp":75,"armor":25,"speed":1.25,"owned":[0,2,5],"weapon":5,"ammo":[100,25,0,0],"action":"Sprint for 3 seconds · 10s cooldown"},
+	"sniper":{"name":"SNIPER","hp":90,"armor":25,"speed":.9,"owned":[0,5,9],"weapon":9,"ammo":[50,30,0,0],"action":"Focus for 4 seconds: slow movement, stronger rifle shot · 12s cooldown"},
+	"soldier":{"name":"SOLDIER","hp":150,"armor":100,"speed":.85,"owned":[0,2,3,6],"weapon":6,"ammo":[0,50,20,0],"action":"Launch explosive grenade · 8s cooldown"},
+	"demoman":{"name":"DEMOMAN","hp":120,"armor":75,"speed":.95,"owned":[0,2,4],"weapon":4,"ammo":[0,30,20,0],"action":"Throw a pipe grenade; use again to detonate · 8s cooldown"},
+	"medic":{"name":"MEDIC","hp":110,"armor":50,"speed":1.1,"owned":[0,2,3,7],"weapon":7,"ammo":[100,40,0,0],"action":"Aim at a teammate: heal 35 HP and extinguish · 2s cooldown"},
+	"heavy":{"name":"HEAVY","hp":200,"armor":150,"speed":.65,"owned":[0,2,3,7],"weapon":7,"ammo":[0,100,0,30],"action":"Brace for 4 seconds: 35% less damage, slower movement · 12s cooldown"},
+	"pyro":{"name":"PYRO","hp":125,"armor":75,"speed":1.0,"owned":[0,2,6,7],"weapon":7,"ammo":[0,40,20,100],"action":"Launch a napalm grenade · 10s cooldown"},
+	"spy":{"name":"SPY","hp":90,"armor":25,"speed":1.05,"owned":[0,2,3,5],"weapon":5,"ammo":[100,40,0,0],"action":"Disguise as nearest enemy; gunfire, damaging melee, damage and flags reveal"},
+	"engineer":{"name":"ENGINEER","hp":100,"armor":75,"speed":1.0,"owned":[0,2,3],"weapon":3,"ammo":[50,40,0,120],"action":"Aim at friendly building to repair; otherwise build selected tool"}
 }
 const RESUPPLY_HEALTH_RATE=20.0
 const DISPENSER_INTERVAL=1.0
@@ -31,6 +31,7 @@ var charges: Dictionary={}
 var burns: Dictionary={}
 var cooldowns: Dictionary={}
 var effects: Dictionary={}
+var tranquilized: Dictionary={}
 var spy_invisibility:=false
 var invisible_spy: Dictionary={}
 var spy_cell_credit: Dictionary={}
@@ -61,6 +62,7 @@ func max_health(id: int) -> int:
 func speed(id: int) -> float:
 	if not enabled():return 1.0
 	var scale: float=definition(id).speed
+	if tranquilized.get(id,0.0)>game.clock:scale*=.5
 	var effect: Dictionary=effects.get(id,{})
 	if effect.get("until",0.0)>game.clock:
 		match effect.get("kind",""):
@@ -69,13 +71,13 @@ func speed(id: int) -> float:
 	return scale
 func reset() -> void:
 	walkers.reset();physical.reset();spy_cell_credit.clear()
-	buildings.clear();charges.clear();burns.clear();cooldowns.clear();effects.clear();request_times.clear();tick_credit=0.0
+	buildings.clear();charges.clear();burns.clear();cooldowns.clear();effects.clear();tranquilized.clear();request_times.clear();tick_credit=0.0
 	for node in visuals.values():if is_instance_valid(node):node.queue_free()
 	visuals.clear()
 	for fighter in game.fighters.values():fighter.visible=true
 func spawn(id: int) -> void:
 	physical.departed(id);spy_cell_credit.erase(id)
-	burns.erase(id);effects.erase(id);cooldowns[id]=game.clock+2
+	burns.erase(id);effects.erase(id);tranquilized.erase(id);cooldowns[id]=game.clock+2
 	if not enabled():return
 	var s: Dictionary=game.players[id]
 	var fallback: String=CLASSES.keys()[posmod(-id,CLASSES.size())] if id<0 else "soldier"
@@ -94,7 +96,7 @@ func departed(id: int) -> void:
 	physical.departed(id);spy_cell_credit.erase(id)
 	for other in game.players:
 		if game.players[other].get("tf_disguise",{}).get("peer",0)==id:revealed(other)
-	remove_owned(id);charges.erase(id);burns.erase(id);effects.erase(id);cooldowns.erase(id);request_times.erase(id)
+	remove_owned(id);charges.erase(id);burns.erase(id);effects.erase(id);tranquilized.erase(id);cooldowns.erase(id);request_times.erase(id)
 func choose(class_id: String,tool: String="sentry") -> void:
 	if multiplayer.is_server():select_class(multiplayer.get_unique_id(),class_id,tool)
 	else:class_request.rpc_id(1,class_id,tool)
@@ -118,11 +120,29 @@ func weapon_data(id: int,weapon: int) -> Dictionary:
 	if game.armory.kind=="quake" and role=="heavy" and weapon==7:data["heavy_automatic"]=true
 	if weapon==9:
 		data.damage=150 if effects.get(id,{}).get("until",0)>game.clock else 90
-		data.cycle=1.5;data.ammo=0;data.cost=2
+		data.cycle=1.5;data.ammo=1;data.cost=1;data.name="SNIPER RIFLE"
+		data["scope"]=role=="sniper"
+	if game.armory.kind=="quake":
+		# TF has its own nail damage; ordinary Quake deathmatch retains 9/18.
+		if weapon==5:data.damage=18
+		if role=="medic" and weapon==7:data.damage=26
+		if role=="heavy" and weapon==7:
+			data.merge({"name":"ASSAULT CANNON","kind":"hitscan","ammo":1,"cost":1,"damage":8,"cycle":.1,"pellets":5,"spread":5.71,"vertical":5.71,"range":64.0},true)
+		if role=="pyro" and weapon==6:
+			data.merge({"name":"INCENDIARY CANNON","cost":3,"cycle":1.2,"damage":30,"direct_random":20,"speed":18.75,"splash":10,"blast_radius":5.625,"incendiary":true},true)
+		if role=="engineer" and weapon==2:
+			data.merge({"name":"RAILGUN","kind":"nail","ammo":0,"cost":1,"cycle":.4,"damage":25,"pellets":1,"spread":0.0,"vertical":0.0,"speed":46.875,"radius":.035,"pierce_players":true},true)
+		if role=="spy" and weapon==2:
+			data.merge({"name":"TRANQUILIZER","kind":"nail","ammo":1,"cost":1,"cycle":1.5,"damage":20,"pellets":1,"spread":0.0,"vertical":0.0,"speed":46.875,"radius":.035,"tranquilize":true},true)
+		if weapon==0 and role in ["spy","engineer"]:data.name="KNIFE" if role=="spy" else "SPANNER"
 	if role=="pyro" and weapon==7:
 		data.merge({"name":"FLAMETHROWER","ammo":3,"cost":1,"kind":"hitscan","speed":0.0,"damage":8,"dice":1,"cycle":.12,"range":8.0,"pellets":1,"spread":3.0,"vertical":3.0},true)
 	if role=="medic" and weapon==7 and not game.armory.experimental():data.cycle=.15
 	return data
+func tranquilize(victim: int,attacker: int) -> void:
+	if not enabled() or not game.players.has(victim) or game.players[victim].dead or game.players[victim].invulnerable>game.clock:return
+	if mode.same_team(victim,attacker) and not mode.friendly_fire:return
+	tranquilized[victim]=game.clock+5.0
 func revealed(id: int) -> void:
 	if game.players.has(id):game.players[id].tf_disguise={}
 	if effects.get(id,{}).get("kind","")=="spy":effects.erase(id)
@@ -136,7 +156,7 @@ func incoming_damage(id: int,amount: int,weapon: String,bypass: bool) -> int:
 	if game.players[id].get("tf_class","")=="spy":revealed(id)
 	if bypass:return amount
 	if effects.get(id,{}).get("kind","")=="heavy" and effects[id].until>game.clock:amount=roundi(amount*.65)
-	if game.players[id].get("tf_class","")=="pyro" and weapon in ["FLAMETHROWER","BURN","NAPALM"]:amount=roundi(amount*.5)
+	if game.players[id].get("tf_class","")=="pyro" and weapon in ["FLAMETHROWER","INCENDIARY CANNON","BURN","NAPALM"]:amount=roundi(amount*.5)
 	return maxi(1,amount)
 func ignite(victim: int,attacker: int) -> void:
 	if walkers.mounted(victim):return
@@ -388,12 +408,17 @@ func snapshot() -> Dictionary:
 	var burning_players: Dictionary={}
 	for id in burns:
 		if burning(id):burning_players[id]=maxf(0,burns[id].until-game.clock)
-	return {"walkers":walkers.snapshot(),"spy_invisibility":spy_invisibility,"players":people,"buildings":buildings.duplicate(true),"charges":state_charges,"effects":state_effects,"burning":burning_players}
+	var slowed: Dictionary={}
+	for id in tranquilized:
+		if tranquilized[id]>game.clock:slowed[id]=tranquilized[id]-game.clock
+	return {"walkers":walkers.snapshot(),"spy_invisibility":spy_invisibility,"players":people,"buildings":buildings.duplicate(true),"charges":state_charges,"effects":state_effects,"burning":burning_players,"tranquilized":slowed}
 func receive(data: Dictionary) -> void:
 	if game.lobby.active():reset();return
 	spy_invisibility=bool(data.get("spy_invisibility",false))
 	walkers.receive(data.get("walkers",[]))
 	buildings=data.get("buildings",{});charges=data.get("charges",{});effects=data.get("effects",{})
+	tranquilized.clear()
+	for id in data.get("tranquilized",{}):tranquilized[id]=game.clock+clampf(float(data.tranquilized[id]),0,5)
 	burns.clear()
 	for id in data.get("burning",{}):
 		burns[id]={"owner":0,"until":game.clock+clampf(float(data.burning[id]),0,3),"next":game.clock+.5}
@@ -422,9 +447,9 @@ func draw() -> void:
 		game.fighters[id].set_class_badge(CLASSES.get(role,CLASSES.soldier).name if enabled() else "",CLASS_COLORS.get(role,Color.WHITE))
 		var label: Label3D=game.fighters[id].label
 		if label:
-			label.text=disguise.get("name",game.players[id].name) if not friendly and not disguise.is_empty() else game.players[id].name
+			var nickname: String=disguise.get("name",game.players[id].name) if not friendly and not disguise.is_empty() else game.players[id].name
 			var team: int=disguise.get("team",game.players[id].team) if not friendly and not disguise.is_empty() else game.players[id].team
-			if team in [0,1] and enabled():label.modulate=mode.COLORS[team].lightened(.4)
+			game.fighters[id].set_nametag(nickname,team,mode.COLORS[team] if team in [0,1] else game.COLORS[game.players[id].color])
 		game.fighters[id].set_cloak_visual(cloaked(id),friendly,mode.COLORS[maxi(0,game.players[id].team)],get_process_delta_time())
 	var desired: Dictionary={}
 	if structures_enabled():
@@ -517,7 +542,7 @@ func tick_charges(delta: float) -> void:
 			for other in game.players:
 				if other==id or game.players[other].dead or game.players[other].spectator:continue
 				var pos: Vector3=game.fighters[other].position
-				var at: float=game.HitDetection.capsule_fraction(start-pos,end-pos,.42,game.fighters[other].damage_top())
+				var at: float=game.HitDetection.player_fraction(start-pos,end-pos,game.fighters[other].collision_height,game.fighters[other].damage_yaw(),.12)
 				if at<=1.0 and at<fraction:fraction=at;victim=other
 			if fraction<=1.0:
 				charge.position=start.lerp(end,maxf(0,fraction-.005))

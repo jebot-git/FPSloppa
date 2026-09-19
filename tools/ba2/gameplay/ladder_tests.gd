@@ -24,7 +24,7 @@ func run() -> void:
 		for id in g.players:g.players[id].spectator=true;g.fighters[id].position=Vector3(10,0,-10)
 		ready(1);await physics_frame;await physics_frame
 		check(w.try_board(1,"test"),cause+": original pilot boards")
-		step(180);var r: Dictionary=w.robots.test
+		step(600);var r: Dictionary=w.robots.test
 		if cause=="exit":check(w.leave(1),"Original pilot exits after boarding lock")
 		elif cause=="death":g._damage(1,1,5000,"TEST",true)
 		else:w.departed(1)
@@ -34,10 +34,10 @@ func run() -> void:
 		check(r.pilot==0 and r.speed>0. and not w.ladder_visible(r),cause+": empty moving robot keeps ladder retracted")
 		check(not w.try_board(-1,"test") and g.players[-1].hp==1,cause+": direct replacement claim cannot bypass retracted ladder or heal")
 		check(not w.handle_player(-1,true) and r.pilot==0,cause+": replacement jump cannot board during braking")
-		step(60);ready(-1)
+		step(150);ready(-1)
 		check(not w.try_board(-1,"test") and not w.ladder_visible(r),cause+": boarding remains blocked halfway through braking")
-		step(60);ready(-1)
-		check(r.speed==0. and w.ladder_visible(r),cause+": stopped empty robot redeploys ladder")
+		step(331);ready(-1)
+		check(r.speed==0. and w.ladder_visible(r),cause+": stopped empty robot redeploys ladder after the settling delay")
 		check(w.handle_player(-1,true) and r.pilot==-1 and g.players[-1].hp==g.match_mode.fortress.max_health(-1),cause+": new pilot boards through deployed ladder and receives normal heal")
 		check(not w.ladder_visible(r),cause+": new reservation retracts ladder immediately")
 	FileAccess.open("res://test-results/ba2/gameplay/ladder-results.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures},"  "))

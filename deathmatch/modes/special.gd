@@ -1,5 +1,5 @@
 extends RefCounted
-## Server-owned state. Clients only use the replicated freeze timers for presentation.
+## Server-owned freeze/thaw state; clients predict passive falling while frozen.
 const THAW_SECONDS:=3.0
 const THAW_RADIUS:=1.5
 const DRAIN_PER_SECOND:=3.0
@@ -13,6 +13,13 @@ func setup(value) -> void: mode_ref=weakref(value)
 func reset() -> void:
 	frozen.clear();drain.clear();reset_at=0.0
 func blocked(id: int) -> bool: return frozen.has(id) or reset_at>0.0
+func fall(id: int,delta: float) -> void:
+	var g=mode.game
+	g.fighters[id].simulate_frozen(delta)
+	if g.fighters[id].position.y<g.fall_limit:
+		# A statue falling into the void must remain reachable without a free thaw
+		# or another death/frag. Spawning also replicates the relocation to clients.
+		g._spawn(id);frozen[id]=0.0;g.players[id].hp=0
 func spawn(id: int) -> void:
 	frozen.erase(id);drain.erase(id)
 	var s: Dictionary=mode.game.players[id]

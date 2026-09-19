@@ -1,7 +1,7 @@
 extends Node3D
 ## A monocular optic. The headset keeps its runtime projection; only the lens magnifies.
 const SCOPE_LAYER:=1<<19
-const FOV:=12.0
+const FOV:=6.0 # Twice the previous angular magnification; never zoom the XR headset.
 var viewport: SubViewport
 var camera: Camera3D
 var lens: MeshInstance3D

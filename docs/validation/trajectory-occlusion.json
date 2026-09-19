@@ -1,0 +1,948 @@
+{
+  "checks": [
+    {
+      "label": "wall: optimized static/moving brush result matches full tree",
+      "pass": true
+    },
+    {
+      "label": "wall: unoccluded control illuminates test point",
+      "pass": true
+    },
+    {
+      "label": "wall: expected visibility across wall",
+      "pass": true
+    },
+    {
+      "label": "wall: unblocked floor remains illuminated",
+      "pass": true
+    },
+    {
+      "label": "wall: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "wall: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "thin-wall: optimized static/moving brush result matches full tree",
+      "pass": true
+    },
+    {
+      "label": "thin-wall: unoccluded control illuminates test point",
+      "pass": true
+    },
+    {
+      "label": "thin-wall: expected visibility across wall",
+      "pass": true
+    },
+    {
+      "label": "thin-wall: unblocked floor remains illuminated",
+      "pass": true
+    },
+    {
+      "label": "thin-wall: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "thin-wall: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "door-closed: optimized static/moving brush result matches full tree",
+      "pass": true
+    },
+    {
+      "label": "door-closed: unoccluded control illuminates test point",
+      "pass": true
+    },
+    {
+      "label": "door-closed: expected visibility across wall",
+      "pass": true
+    },
+    {
+      "label": "door-closed: unblocked floor remains illuminated",
+      "pass": true
+    },
+    {
+      "label": "door-closed: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "door-closed: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "door-open: optimized static/moving brush result matches full tree",
+      "pass": true
+    },
+    {
+      "label": "door-open: unoccluded control illuminates test point",
+      "pass": true
+    },
+    {
+      "label": "door-open: expected visibility across wall",
+      "pass": true
+    },
+    {
+      "label": "door-open: unblocked floor remains illuminated",
+      "pass": true
+    },
+    {
+      "label": "door-open: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "door-open: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "door-rotated: optimized static/moving brush result matches full tree",
+      "pass": true
+    },
+    {
+      "label": "door-rotated: unoccluded control illuminates test point",
+      "pass": true
+    },
+    {
+      "label": "door-rotated: expected visibility across wall",
+      "pass": true
+    },
+    {
+      "label": "door-rotated: unblocked floor remains illuminated",
+      "pass": true
+    },
+    {
+      "label": "door-rotated: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "door-rotated: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "thin-ceiling: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "thin-ceiling: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: BSP tree uploaded",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: local tree produces pixel-identical occlusion",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: visible illumination survives occlusion",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: no realtime light nodes",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6-pruned: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6-pruned: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6-cells: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "qsrc_dm6-cells: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: BSP tree uploaded",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: local tree produces pixel-identical occlusion",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: visible illumination survives occlusion",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: no realtime light nodes",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper-pruned: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper-pruned: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper-cells: 256 independent GPU/physics visibility queries",
+      "pass": true
+    },
+    {
+      "label": "tf_vesper-cells: GPU visibility agrees with physics (0 leaks, 0 dark)",
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "frames_per_block": 400,
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "records": [
+    {
+      "clear_gain": 0.164705894887447,
+      "corrected_gain": 0.0,
+      "fixture": "wall",
+      "raw_gain": 0.172549031674862
+    },
+    {
+      "blocked": 91,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "wall"
+    },
+    {
+      "clear_gain": 0.164705894887447,
+      "corrected_gain": 0.0,
+      "fixture": "thin-wall",
+      "raw_gain": 0.172549031674862
+    },
+    {
+      "blocked": 94,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "thin-wall"
+    },
+    {
+      "clear_gain": 0.164705894887447,
+      "corrected_gain": 0.0,
+      "fixture": "door-closed",
+      "raw_gain": 0.172549031674862
+    },
+    {
+      "blocked": 91,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "door-closed"
+    },
+    {
+      "clear_gain": 0.164705894887447,
+      "corrected_gain": 0.172549031674862,
+      "fixture": "door-open",
+      "raw_gain": 0.172549031674862
+    },
+    {
+      "blocked": 18,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "door-open"
+    },
+    {
+      "clear_gain": 0.164705894887447,
+      "corrected_gain": 0.0,
+      "fixture": "door-rotated",
+      "raw_gain": 0.172549031674862
+    },
+    {
+      "blocked": 96,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "door-rotated"
+    },
+    {
+      "blocked": 76,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "thin-ceiling"
+    },
+    {
+      "changed_by_occlusion": {
+        "changed_pixels": 1638,
+        "mean_positive_channel_gain": 0.000663228504886825,
+        "sampled_pixels": 230400
+      },
+      "map": "qsrc_dm6",
+      "nodes": 1322,
+      "tree_bytes": 45056
+    },
+    {
+      "blocked": 171,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "qsrc_dm6"
+    },
+    {
+      "blocked": 171,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "qsrc_dm6-pruned"
+    },
+    {
+      "blocked": 171,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "qsrc_dm6-cells"
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.246999993920326,
+        "p95": 0.363999992609024
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.143999993801117,
+        "p95": 0.237000003457069
+      },
+      "local": false,
+      "local_nodes": 9,
+      "map": "qsrc_dm6",
+      "occlusion": false,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.023,
+        "p95": 0.04
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.293000012636185,
+        "p95": 0.472000002861023
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.41499999165535,
+        "p95": 0.626999974250793
+      },
+      "local": true,
+      "local_nodes": 12,
+      "map": "qsrc_dm6",
+      "occlusion": true,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.074,
+        "p95": 0.133
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.250999987125397,
+        "p95": 0.449999988079071
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.23199999332428,
+        "p95": 0.418999999761581
+      },
+      "local": false,
+      "local_nodes": 12,
+      "map": "qsrc_dm6",
+      "occlusion": false,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.023,
+        "p95": 0.042
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.308999985456467,
+        "p95": 0.456999987363815
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 1.40299999713898,
+        "p95": 1.93099999427795
+      },
+      "local": true,
+      "local_nodes": 48,
+      "map": "qsrc_dm6",
+      "occlusion": true,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.128,
+        "p95": 0.214
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.245000004768372,
+        "p95": 0.344999998807907
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.349999994039536,
+        "p95": 0.546000003814697
+      },
+      "local": false,
+      "local_nodes": 48,
+      "map": "qsrc_dm6",
+      "occlusion": false,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.023,
+        "p95": 0.04
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.33899998664856,
+        "p95": 0.435999989509583
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 2.68799996376038,
+        "p95": 3.25500011444092
+      },
+      "local": true,
+      "local_nodes": 96,
+      "map": "qsrc_dm6",
+      "occlusion": true,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.207,
+        "p95": 0.321
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.305000007152557,
+        "p95": 0.428000003099442
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 3.97900009155273,
+        "p95": 4.51999998092651
+      },
+      "local": false,
+      "local_nodes": 96,
+      "map": "qsrc_dm6",
+      "occlusion": true,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.043,
+        "p95": 0.064
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.328999996185303,
+        "p95": 0.423000007867813
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 2.69199991226196,
+        "p95": 3.23600006103516
+      },
+      "local": true,
+      "local_nodes": 96,
+      "map": "qsrc_dm6",
+      "occlusion": true,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.201,
+        "p95": 0.32
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.247999995946884,
+        "p95": 0.340999990701675
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.349999994039536,
+        "p95": 0.544000029563904
+      },
+      "local": false,
+      "local_nodes": 96,
+      "map": "qsrc_dm6",
+      "occlusion": false,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.024,
+        "p95": 0.043
+      }
+    },
+    {
+      "cell_counts": [
+        7
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.296999990940094,
+        "p95": 0.621999979019165
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.41499999165535,
+        "p95": 0.624000012874603
+      },
+      "local": true,
+      "local_nodes": 12,
+      "map": "qsrc_dm6",
+      "occlusion": true,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.074,
+        "p95": 0.129
+      }
+    },
+    {
+      "changed_by_occlusion": {
+        "changed_pixels": 9,
+        "mean_positive_channel_gain": 4.20411288764121e-06,
+        "sampled_pixels": 230400
+      },
+      "map": "tf_vesper",
+      "nodes": 1545,
+      "tree_bytes": 53248
+    },
+    {
+      "blocked": 37,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "tf_vesper"
+    },
+    {
+      "blocked": 37,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "tf_vesper-pruned"
+    },
+    {
+      "blocked": 37,
+      "false_dark": 0,
+      "leaks": 0,
+      "queries": 256,
+      "ray_case": "tf_vesper-cells"
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.244000002741814,
+        "p95": 0.314999997615814
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.206000000238419,
+        "p95": 0.324999988079071
+      },
+      "local": false,
+      "local_nodes": 7,
+      "map": "tf_vesper",
+      "occlusion": false,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.027,
+        "p95": 0.045
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.28999999165535,
+        "p95": 0.414000004529953
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.254999995231628,
+        "p95": 0.419999986886978
+      },
+      "local": true,
+      "local_nodes": 4,
+      "map": "tf_vesper",
+      "occlusion": true,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.079,
+        "p95": 0.142
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.248999997973442,
+        "p95": 0.354999989271164
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.294999986886978,
+        "p95": 0.504000008106232
+      },
+      "local": false,
+      "local_nodes": 4,
+      "map": "tf_vesper",
+      "occlusion": false,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.027,
+        "p95": 0.045
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.28999999165535,
+        "p95": 0.570999979972839
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.38400000333786,
+        "p95": 0.600000023841858
+      },
+      "local": true,
+      "local_nodes": 10,
+      "map": "tf_vesper",
+      "occlusion": true,
+      "segments": 4,
+      "update_ms": {
+        "median": 0.095,
+        "p95": 0.167
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.243000000715256,
+        "p95": 0.328999996185303
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.395000010728836,
+        "p95": 0.637000024318695
+      },
+      "local": false,
+      "local_nodes": 10,
+      "map": "tf_vesper",
+      "occlusion": false,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.027,
+        "p95": 0.045
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.28600001335144,
+        "p95": 0.368000000715256
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.558000028133392,
+        "p95": 0.778999984264374
+      },
+      "local": true,
+      "local_nodes": 23,
+      "map": "tf_vesper",
+      "occlusion": true,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.118,
+        "p95": 0.203
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.268999993801117,
+        "p95": 0.47299998998642
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 1.58899998664856,
+        "p95": 2.12299990653992
+      },
+      "local": false,
+      "local_nodes": 23,
+      "map": "tf_vesper",
+      "occlusion": true,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.033,
+        "p95": 0.061
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.291000008583069,
+        "p95": 0.40200001001358
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.559000015258789,
+        "p95": 0.787000000476837
+      },
+      "local": true,
+      "local_nodes": 23,
+      "map": "tf_vesper",
+      "occlusion": true,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.12,
+        "p95": 0.207
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.25,
+        "p95": 0.333000004291534
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.367000013589859,
+        "p95": 0.586000025272369
+      },
+      "local": false,
+      "local_nodes": 23,
+      "map": "tf_vesper",
+      "occlusion": false,
+      "segments": 8,
+      "update_ms": {
+        "median": 0.027,
+        "p95": 0.048
+      }
+    },
+    {
+      "cell_counts": [
+        2
+      ],
+      "cells": false,
+      "cpu_ms": {
+        "median": 0.284000009298325,
+        "p95": 0.389999985694885
+      },
+      "draws": {
+        "median": 9.0,
+        "p95": 9.0
+      },
+      "gpu_ms": {
+        "median": 0.25900000333786,
+        "p95": 0.421999990940094
+      },
+      "local": true,
+      "local_nodes": 4,
+      "map": "tf_vesper",
+      "occlusion": true,
+      "segments": 1,
+      "update_ms": {
+        "median": 0.078,
+        "p95": 0.143
+      }
+    }
+  ],
+  "renderer": "mobile",
+  "date": "2026-09-19",
+  "resolution": [
+    1280,
+    720
+  ],
+  "msaa": 4,
+  "scope": "Isolated prototype; no production integration; desktop GPU only.",
+  "summary": {
+    "qsrc_dm6": [
+      {
+        "emitters": 1,
+        "unoccluded_gpu_ms": 0.143999993801117,
+        "occluded_gpu_ms": 0.41499999165535,
+        "added_gpu_ms": 0.270999997854233,
+        "script_update_ms": 0.074
+      },
+      {
+        "emitters": 4,
+        "unoccluded_gpu_ms": 0.23199999332428,
+        "occluded_gpu_ms": 1.40299999713898,
+        "added_gpu_ms": 1.1710000038147,
+        "script_update_ms": 0.128
+      },
+      {
+        "emitters": 8,
+        "unoccluded_gpu_ms": 0.349999994039536,
+        "occluded_gpu_ms": 2.68999993801117,
+        "added_gpu_ms": 2.339999943971634,
+        "script_update_ms": 0.20400000000000001
+      }
+    ],
+    "tf_vesper": [
+      {
+        "emitters": 1,
+        "unoccluded_gpu_ms": 0.206000000238419,
+        "occluded_gpu_ms": 0.256999999284744,
+        "added_gpu_ms": 0.05099999904632499,
+        "script_update_ms": 0.0785
+      },
+      {
+        "emitters": 4,
+        "unoccluded_gpu_ms": 0.294999986886978,
+        "occluded_gpu_ms": 0.38400000333786,
+        "added_gpu_ms": 0.08900001645088201,
+        "script_update_ms": 0.095
+      },
+      {
+        "emitters": 8,
+        "unoccluded_gpu_ms": 0.38100001215934753,
+        "occluded_gpu_ms": 0.5585000216960905,
+        "added_gpu_ms": 0.17750000953674294,
+        "script_update_ms": 0.119
+      }
+    ]
+  },
+  "visibility_queries": 3072
+}
