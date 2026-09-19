@@ -1,0 +1,206 @@
+{
+  "build": {
+    "sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+    "bytes": 24197612,
+    "format": "BSP29",
+    "revision": "gothic-city-night-2",
+    "vertices": 63507,
+    "faces": 45164,
+    "nodes": 31624,
+    "lightmap_spacing": 32,
+    "commands": [
+      {
+        "tool": "qbsp",
+        "seconds": 1.8678810209967196,
+        "args": [
+          "-leaktest",
+          "-noclip",
+          "-subdivide",
+          "1024",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.map",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      },
+      {
+        "tool": "vis",
+        "seconds": 26.263346075022127,
+        "args": [
+          "-threads",
+          "8",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      },
+      {
+        "tool": "light",
+        "seconds": 61.282886991044506,
+        "args": [
+          "-threads",
+          "8",
+          "-extra",
+          "-bspxlit",
+          "-bounce",
+          "1",
+          "-bouncecolorscale",
+          "0.35",
+          "-dirt",
+          "1",
+          "-dirtdepth",
+          "64",
+          "-dirtscale",
+          "0.6",
+          "-minlight_dirt",
+          "1",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      }
+    ]
+  },
+  "lighting_profile": {
+    "moon": 9,
+    "sky": 4,
+    "minlight": 1,
+    "response": "night"
+  },
+  "emitter_counts": {
+    "window": 512,
+    "canopy": 64,
+    "streetlamp": 128,
+    "beacon": 16,
+    "emissive_ring": 184,
+    "plaza_ring": 64,
+    "roof_band": 160,
+    "orbital": 36,
+    "data_pylon": 4,
+    "gate": 192,
+    "brazier": 64
+  },
+  "coverage": {
+    "baked_light_dark_faces": 805,
+    "baked_light_faces": 43738,
+    "baked_light_invalid_faces": 0,
+    "baked_light_overflow_faces": 0,
+    "baked_light_rgb": true,
+    "baked_light_unlit_faces": 805,
+    "batches": 330,
+    "cell_height": 0.25,
+    "cell_size": 1.0,
+    "connected_spawns": 64,
+    "cross_map_path_points": 127,
+    "decorated_cache_resolved": true,
+    "floor_rays": 64,
+    "gate_clearance_rays": 144,
+    "nav_ms": 314.482,
+    "nav_polygons": 8579,
+    "night_lighting": true,
+    "occluders": 122,
+    "original_meshes": 1,
+    "perimeter_rays": 16,
+    "prepare_ms": 6217.322,
+    "spawn_nav_distances": [
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464
+    ],
+    "triangles": 105296,
+    "zones": 16
+  },
+  "presentation": {
+    "bsp_sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+    "decoration_collision_bodies": 0,
+    "decoration_realtime_lights": 0,
+    "gate_openings": 24,
+    "night_sky": true,
+    "night_surface_batches": 330,
+    "opaque_walkthrough_gate_faces": 48,
+    "unreviewed_texture_vertices": 0
+  },
+  "comparison": {
+    "geometry_unchanged": true,
+    "before_bsp_sha256": "5af0d86f654ff08701de3af88f429a491e85d76f504a560b45de24b891658cc7",
+    "night_bsp_sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+    "fixed_foreground_srgb_comparisons": {
+      "district_00": {
+        "before_mean_srgb_luma": 0.1765564663376686,
+        "night_mean_srgb_luma": 0.07647615874870711,
+        "ratio": 0.4331541083431324
+      },
+      "district_02": {
+        "before_mean_srgb_luma": 0.17992889785986224,
+        "night_mean_srgb_luma": 0.08401168286459365,
+        "ratio": 0.46691600884492834
+      },
+      "district_05": {
+        "before_mean_srgb_luma": 0.20448614931889703,
+        "night_mean_srgb_luma": 0.10615279227569815,
+        "ratio": 0.5191197185201645
+      },
+      "gate": {
+        "before_mean_srgb_luma": 0.19832173427961527,
+        "night_mean_srgb_luma": 0.1774682792775247,
+        "ratio": 0.8948503799755546
+      }
+    }
+  },
+  "compiler_warnings": 0
+}

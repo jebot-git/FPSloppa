@@ -69,13 +69,14 @@ func execute(command: String) -> Dictionary:
 	if parsed.has("error"):return {"error":parsed.error}
 	var words: Array=parsed.words
 	if words.is_empty():return {"error":"Empty command"}
+	if game.cq_profile and words[0] in ["match","map","mode"]:return {"error":"CQ sessions cannot change mode, map or loadout; use restart."}
 	match words[0]:
 		"help":return {"commands":["status","bots <count>","map <configured-map>","mode <allowed-mode>","match <allowed-mode> <configured-map> <doom|quake|ut99>","kick <peer-id>","say <message>","restart","loglevel <off|normal|verbose>"]}
 		"status":
 			var players: Array=[]
 			for id in game.players:
 				var s: Dictionary=game.players[id];players.append({"id":id,"name":s.name,"spectator":s.spectator,"ping_ms":s.ping,"bot":id<0,"team":s.team,"class":s.tf_class})
-			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.PROTOCOL,"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"bot_fill":game.bot_population.target,"bot_count":game.bot_population.count_target,"tb_heavy_ordnance":game.match_mode.fortress.walkers.heavy_ordnance_only,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
+			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.connection_protocol(),"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"bot_fill":game.bot_population.target,"bot_count":game.bot_population.count_target,"tb_heavy_ordnance":game.match_mode.fortress.walkers.heavy_ordnance_only,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
 		"bots":
 			if words.size()!=2 or not str(words[1]).is_valid_int():return {"error":"Expected bots <count> (0 disables bots)"}
 			var amount:=int(words[1])

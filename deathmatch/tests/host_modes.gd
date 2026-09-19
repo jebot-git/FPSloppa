@@ -7,6 +7,9 @@ func check(ok: bool,label: String):
 func run():
 	var game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
 	for mode in game.match_mode.NAMES:
+		if mode=="cq":
+			game.start_host("CQ forbidden",0,20,10,true,mode)
+			check(not game.active,"CQ is excluded from ordinary host flow");continue
 		game.selected_map="as_hislop" if mode=="as" else "lqdm1"
 		game.start_host("Mode test",0,20,10,true,mode)
 		check(game.active and game.match_mode.kind==mode,"In-game host starts "+game.match_mode.NAMES[mode])

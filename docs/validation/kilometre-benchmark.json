@@ -1,0 +1,1680 @@
+{
+  "map_build": {
+    "sha256": "3a9ca43ca0bf2eb3ec22532c1210d0f7d61ba229b34ca7406c339b1ee58810a3",
+    "bytes": 2387232,
+    "format": "BSP29",
+    "commands": [
+      {
+        "tool": "qbsp",
+        "seconds": 0.36461072898237035,
+        "args": [
+          "-leaktest",
+          "-subdivide",
+          "2048",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.map",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      },
+      {
+        "tool": "vis",
+        "seconds": 0.5150626199902035,
+        "args": [
+          "-threads",
+          "8",
+          "-fast",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      },
+      {
+        "tool": "light",
+        "seconds": 0.164227141009178,
+        "args": [
+          "-threads",
+          "4",
+          "-bspxlit",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      }
+    ]
+  },
+  "preparation": {
+    "batches": 80,
+    "cell_height": 0.25,
+    "cell_size": 1.0,
+    "connected_spawns": 64,
+    "cross_map_path_points": 105,
+    "floor_rays": 64,
+    "nav_ms": 186.358,
+    "nav_polygons": 4126,
+    "occluders": 114,
+    "original_meshes": 1,
+    "prepare_ms": 326.622,
+    "spawn_nav_distances": [
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464
+    ],
+    "triangles": 11448,
+    "zones": 16
+  },
+  "simulations": {
+    "headless64": {
+      "bots": {
+        "-1060": {
+          "deaths": 7,
+          "distance_m": 979.933403556468,
+          "shots": 171
+        },
+        "-1059": {
+          "deaths": 5,
+          "distance_m": 945.301346698136,
+          "shots": 168
+        },
+        "-1058": {
+          "deaths": 4,
+          "distance_m": 1004.33232908102,
+          "shots": 287
+        },
+        "-1057": {
+          "deaths": 5,
+          "distance_m": 968.513006156834,
+          "shots": 170
+        },
+        "-1056": {
+          "deaths": 7,
+          "distance_m": 901.421380157612,
+          "shots": 167
+        },
+        "-1055": {
+          "deaths": 6,
+          "distance_m": 1008.09657248191,
+          "shots": 177
+        },
+        "-1054": {
+          "deaths": 4,
+          "distance_m": 953.319642099785,
+          "shots": 219
+        },
+        "-1053": {
+          "deaths": 4,
+          "distance_m": 1017.54103446122,
+          "shots": 258
+        },
+        "-1052": {
+          "deaths": 3,
+          "distance_m": 959.172116238173,
+          "shots": 263
+        },
+        "-1051": {
+          "deaths": 3,
+          "distance_m": 1001.2280094811,
+          "shots": 173
+        },
+        "-1050": {
+          "deaths": 4,
+          "distance_m": 974.308168919248,
+          "shots": 146
+        },
+        "-1049": {
+          "deaths": 5,
+          "distance_m": 915.919723776402,
+          "shots": 197
+        },
+        "-1048": {
+          "deaths": 4,
+          "distance_m": 952.804648892023,
+          "shots": 148
+        },
+        "-1047": {
+          "deaths": 5,
+          "distance_m": 902.847266297351,
+          "shots": 187
+        },
+        "-1046": {
+          "deaths": 3,
+          "distance_m": 911.848349330125,
+          "shots": 359
+        },
+        "-1045": {
+          "deaths": 5,
+          "distance_m": 964.390209450881,
+          "shots": 185
+        },
+        "-1044": {
+          "deaths": 3,
+          "distance_m": 985.215939618647,
+          "shots": 271
+        },
+        "-1043": {
+          "deaths": 5,
+          "distance_m": 887.156354831852,
+          "shots": 272
+        },
+        "-1042": {
+          "deaths": 5,
+          "distance_m": 973.492599738995,
+          "shots": 215
+        },
+        "-1041": {
+          "deaths": 3,
+          "distance_m": 884.680359094316,
+          "shots": 208
+        },
+        "-1040": {
+          "deaths": 5,
+          "distance_m": 936.053903622349,
+          "shots": 223
+        },
+        "-1039": {
+          "deaths": 4,
+          "distance_m": 968.752024246642,
+          "shots": 169
+        },
+        "-1038": {
+          "deaths": 5,
+          "distance_m": 1034.56567993341,
+          "shots": 200
+        },
+        "-1037": {
+          "deaths": 4,
+          "distance_m": 969.953120989019,
+          "shots": 287
+        },
+        "-1036": {
+          "deaths": 6,
+          "distance_m": 950.151536126708,
+          "shots": 267
+        },
+        "-1035": {
+          "deaths": 6,
+          "distance_m": 958.838841235589,
+          "shots": 213
+        },
+        "-1034": {
+          "deaths": 4,
+          "distance_m": 1043.80807951692,
+          "shots": 185
+        },
+        "-1033": {
+          "deaths": 6,
+          "distance_m": 906.183838573925,
+          "shots": 216
+        },
+        "-1032": {
+          "deaths": 5,
+          "distance_m": 938.739846228156,
+          "shots": 224
+        },
+        "-1031": {
+          "deaths": 4,
+          "distance_m": 976.831209304713,
+          "shots": 325
+        },
+        "-1030": {
+          "deaths": 5,
+          "distance_m": 958.183654492255,
+          "shots": 139
+        },
+        "-1029": {
+          "deaths": 4,
+          "distance_m": 1061.92345563766,
+          "shots": 200
+        },
+        "-1028": {
+          "deaths": 3,
+          "distance_m": 1003.7614336697,
+          "shots": 151
+        },
+        "-1027": {
+          "deaths": 5,
+          "distance_m": 999.759914429509,
+          "shots": 231
+        },
+        "-1026": {
+          "deaths": 4,
+          "distance_m": 995.082143999927,
+          "shots": 163
+        },
+        "-1025": {
+          "deaths": 5,
+          "distance_m": 946.026754732084,
+          "shots": 181
+        },
+        "-1024": {
+          "deaths": 5,
+          "distance_m": 1004.88011078717,
+          "shots": 170
+        },
+        "-1023": {
+          "deaths": 5,
+          "distance_m": 1053.66456639871,
+          "shots": 192
+        },
+        "-1022": {
+          "deaths": 4,
+          "distance_m": 1091.01189621422,
+          "shots": 302
+        },
+        "-1021": {
+          "deaths": 5,
+          "distance_m": 952.520369162412,
+          "shots": 223
+        },
+        "-1020": {
+          "deaths": 5,
+          "distance_m": 934.222448401077,
+          "shots": 163
+        },
+        "-1019": {
+          "deaths": 4,
+          "distance_m": 989.206145545235,
+          "shots": 125
+        },
+        "-1018": {
+          "deaths": 3,
+          "distance_m": 889.775360567961,
+          "shots": 214
+        },
+        "-1017": {
+          "deaths": 4,
+          "distance_m": 1038.89263377897,
+          "shots": 247
+        },
+        "-1016": {
+          "deaths": 6,
+          "distance_m": 1044.01845734357,
+          "shots": 170
+        },
+        "-1015": {
+          "deaths": 6,
+          "distance_m": 925.049544005997,
+          "shots": 172
+        },
+        "-1014": {
+          "deaths": 7,
+          "distance_m": 937.794385493326,
+          "shots": 202
+        },
+        "-1013": {
+          "deaths": 4,
+          "distance_m": 937.883092104574,
+          "shots": 168
+        },
+        "-1012": {
+          "deaths": 5,
+          "distance_m": 990.544106642235,
+          "shots": 160
+        },
+        "-1011": {
+          "deaths": 3,
+          "distance_m": 932.86589310813,
+          "shots": 322
+        },
+        "-1010": {
+          "deaths": 5,
+          "distance_m": 1023.58854173974,
+          "shots": 194
+        },
+        "-1009": {
+          "deaths": 5,
+          "distance_m": 984.136949352454,
+          "shots": 161
+        },
+        "-1008": {
+          "deaths": 6,
+          "distance_m": 924.232820577105,
+          "shots": 174
+        },
+        "-1007": {
+          "deaths": 5,
+          "distance_m": 1002.62044053752,
+          "shots": 152
+        },
+        "-1006": {
+          "deaths": 5,
+          "distance_m": 999.143055899534,
+          "shots": 294
+        },
+        "-1005": {
+          "deaths": 7,
+          "distance_m": 958.234163613757,
+          "shots": 167
+        },
+        "-1004": {
+          "deaths": 7,
+          "distance_m": 959.249092185288,
+          "shots": 175
+        },
+        "-1003": {
+          "deaths": 6,
+          "distance_m": 1028.71613028487,
+          "shots": 202
+        },
+        "-1002": {
+          "deaths": 5,
+          "distance_m": 1004.49997418377,
+          "shots": 234
+        },
+        "-1001": {
+          "deaths": 7,
+          "distance_m": 931.769674603653,
+          "shots": 230
+        },
+        "-1000": {
+          "deaths": 6,
+          "distance_m": 1003.76300113001,
+          "shots": 162
+        },
+        "-3": {
+          "deaths": 4,
+          "distance_m": 977.671726318717,
+          "shots": 287
+        },
+        "-2": {
+          "deaths": 4,
+          "distance_m": 931.883754196329,
+          "shots": 228
+        },
+        "-1": {
+          "deaths": 2,
+          "distance_m": 1014.08613838458,
+          "shots": 329
+        }
+      },
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "engine_physics_ms": {
+        "max": 113.392,
+        "mean": 59.1676437443201,
+        "p50": 56.58,
+        "p95": 80.639,
+        "p99": 102.025,
+        "samples": 6602
+      },
+      "events": {
+        "damage": 5770,
+        "match_event": 305,
+        "pickup": 375,
+        "spawn": 298
+      },
+      "game_tick_ms": {
+        "max": 103.239,
+        "mean": 28.6329651620721,
+        "p50": 26.541,
+        "p95": 50.716,
+        "p99": 64.936,
+        "samples": 6602
+      },
+      "gpu": "",
+      "headless": true,
+      "map_sha256": "3a9ca43ca0bf2eb3ec22532c1210d0f7d61ba229b34ca7406c339b1ee58810a3",
+      "nav_polygons": 4126,
+      "options": {
+        "name": "headless64",
+        "seconds": 120.0
+      },
+      "peak_projectiles": 256,
+      "physics_interval_ms": {
+        "max": 104.225,
+        "mean": 29.6041008785217,
+        "p50": 27.509,
+        "p95": 51.734,
+        "p99": 65.86,
+        "samples": 6602
+      },
+      "population": 64,
+      "renderer": "mobile",
+      "samples": [
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63965642.0,
+          "primitives": 0.0,
+          "projectiles": 253,
+          "time": 10.0000000000001
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 64038550.0,
+          "primitives": 0.0,
+          "projectiles": 240,
+          "time": 20.0000000000001
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63694214.0,
+          "primitives": 0.0,
+          "projectiles": 123,
+          "time": 30.0166666666662
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63458778.0,
+          "primitives": 0.0,
+          "projectiles": 21,
+          "time": 40.0333333333323
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63546690.0,
+          "primitives": 0.0,
+          "projectiles": 34,
+          "time": 50.0499999999984
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63594186.0,
+          "primitives": 0.0,
+          "projectiles": 30,
+          "time": 60.0666666666645
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63620054.0,
+          "primitives": 0.0,
+          "projectiles": 16,
+          "time": 70.0833333333306
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63646710.0,
+          "primitives": 0.0,
+          "projectiles": 17,
+          "time": 80.0999999999967
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63658282.0,
+          "primitives": 0.0,
+          "projectiles": 9,
+          "time": 90.1166666666628
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63823466.0,
+          "primitives": 0.0,
+          "projectiles": 12,
+          "time": 100.133333333329
+        },
+        {
+          "draw_calls": 0.0,
+          "memory_bytes": 63815622.0,
+          "primitives": 0.0,
+          "projectiles": 13,
+          "time": 110.149999999995
+        }
+      ],
+      "simulated_seconds": 120.016666666661,
+      "wall_seconds": 216.574728,
+      "achieved_speed": 0.5541582241611357,
+      "bots_moved": 64,
+      "bots_fired": 64,
+      "total_shots": 13434,
+      "total_deaths": 305
+    },
+    "desktop64": {
+      "bots": {
+        "-1060": {
+          "deaths": 1,
+          "distance_m": 250.253674300388,
+          "shots": 84
+        },
+        "-1059": {
+          "deaths": 1,
+          "distance_m": 240.897922824137,
+          "shots": 107
+        },
+        "-1058": {
+          "deaths": 2,
+          "distance_m": 212.679453721968,
+          "shots": 82
+        },
+        "-1057": {
+          "deaths": 1,
+          "distance_m": 244.090284511098,
+          "shots": 75
+        },
+        "-1056": {
+          "deaths": 2,
+          "distance_m": 234.216910550836,
+          "shots": 64
+        },
+        "-1055": {
+          "deaths": 0,
+          "distance_m": 229.531901924172,
+          "shots": 122
+        },
+        "-1054": {
+          "deaths": 0,
+          "distance_m": 271.055045870482,
+          "shots": 131
+        },
+        "-1053": {
+          "deaths": 2,
+          "distance_m": 215.785936084343,
+          "shots": 68
+        },
+        "-1052": {
+          "deaths": 2,
+          "distance_m": 228.600112799089,
+          "shots": 55
+        },
+        "-1051": {
+          "deaths": 1,
+          "distance_m": 231.149078768445,
+          "shots": 116
+        },
+        "-1050": {
+          "deaths": 1,
+          "distance_m": 228.165425145533,
+          "shots": 85
+        },
+        "-1049": {
+          "deaths": 4,
+          "distance_m": 186.946257451549,
+          "shots": 38
+        },
+        "-1048": {
+          "deaths": 1,
+          "distance_m": 235.32033014117,
+          "shots": 74
+        },
+        "-1047": {
+          "deaths": 1,
+          "distance_m": 261.468801125884,
+          "shots": 112
+        },
+        "-1046": {
+          "deaths": 1,
+          "distance_m": 241.735020281048,
+          "shots": 125
+        },
+        "-1045": {
+          "deaths": 1,
+          "distance_m": 233.65436392682,
+          "shots": 128
+        },
+        "-1044": {
+          "deaths": 1,
+          "distance_m": 231.950692168437,
+          "shots": 74
+        },
+        "-1043": {
+          "deaths": 2,
+          "distance_m": 261.467610779451,
+          "shots": 62
+        },
+        "-1042": {
+          "deaths": 3,
+          "distance_m": 213.451254882501,
+          "shots": 56
+        },
+        "-1041": {
+          "deaths": 0,
+          "distance_m": 260.904191693407,
+          "shots": 169
+        },
+        "-1040": {
+          "deaths": 1,
+          "distance_m": 250.208401886746,
+          "shots": 64
+        },
+        "-1039": {
+          "deaths": 1,
+          "distance_m": 242.887076432118,
+          "shots": 112
+        },
+        "-1038": {
+          "deaths": 2,
+          "distance_m": 207.15651478857,
+          "shots": 64
+        },
+        "-1037": {
+          "deaths": 0,
+          "distance_m": 238.101784442319,
+          "shots": 164
+        },
+        "-1036": {
+          "deaths": 1,
+          "distance_m": 192.346001102007,
+          "shots": 86
+        },
+        "-1035": {
+          "deaths": 1,
+          "distance_m": 241.992077902891,
+          "shots": 125
+        },
+        "-1034": {
+          "deaths": 2,
+          "distance_m": 239.845561493887,
+          "shots": 62
+        },
+        "-1033": {
+          "deaths": 2,
+          "distance_m": 246.288332128781,
+          "shots": 73
+        },
+        "-1032": {
+          "deaths": 1,
+          "distance_m": 276.776281102182,
+          "shots": 92
+        },
+        "-1031": {
+          "deaths": 2,
+          "distance_m": 263.146008870099,
+          "shots": 66
+        },
+        "-1030": {
+          "deaths": 2,
+          "distance_m": 264.192051377147,
+          "shots": 71
+        },
+        "-1029": {
+          "deaths": 1,
+          "distance_m": 253.390088672182,
+          "shots": 87
+        },
+        "-1028": {
+          "deaths": 3,
+          "distance_m": 217.650414187461,
+          "shots": 65
+        },
+        "-1027": {
+          "deaths": 1,
+          "distance_m": 268.630685682874,
+          "shots": 89
+        },
+        "-1026": {
+          "deaths": 1,
+          "distance_m": 243.58301892993,
+          "shots": 93
+        },
+        "-1025": {
+          "deaths": 2,
+          "distance_m": 217.009848708811,
+          "shots": 61
+        },
+        "-1024": {
+          "deaths": 2,
+          "distance_m": 216.342367976045,
+          "shots": 85
+        },
+        "-1023": {
+          "deaths": 2,
+          "distance_m": 215.989376967074,
+          "shots": 67
+        },
+        "-1022": {
+          "deaths": 0,
+          "distance_m": 273.092929742066,
+          "shots": 142
+        },
+        "-1021": {
+          "deaths": 0,
+          "distance_m": 202.792837576242,
+          "shots": 142
+        },
+        "-1020": {
+          "deaths": 1,
+          "distance_m": 274.22177852341,
+          "shots": 101
+        },
+        "-1019": {
+          "deaths": 2,
+          "distance_m": 249.977099257056,
+          "shots": 64
+        },
+        "-1018": {
+          "deaths": 3,
+          "distance_m": 193.10464347247,
+          "shots": 66
+        },
+        "-1017": {
+          "deaths": 0,
+          "distance_m": 249.787686800642,
+          "shots": 191
+        },
+        "-1016": {
+          "deaths": 0,
+          "distance_m": 225.327088117949,
+          "shots": 140
+        },
+        "-1015": {
+          "deaths": 1,
+          "distance_m": 261.846870466135,
+          "shots": 86
+        },
+        "-1014": {
+          "deaths": 1,
+          "distance_m": 236.916676924564,
+          "shots": 93
+        },
+        "-1013": {
+          "deaths": 0,
+          "distance_m": 274.057588837051,
+          "shots": 156
+        },
+        "-1012": {
+          "deaths": 2,
+          "distance_m": 216.891891910695,
+          "shots": 63
+        },
+        "-1011": {
+          "deaths": 0,
+          "distance_m": 245.33464484979,
+          "shots": 158
+        },
+        "-1010": {
+          "deaths": 2,
+          "distance_m": 242.44855145039,
+          "shots": 63
+        },
+        "-1009": {
+          "deaths": 2,
+          "distance_m": 203.241122693289,
+          "shots": 55
+        },
+        "-1008": {
+          "deaths": 1,
+          "distance_m": 245.288160348311,
+          "shots": 132
+        },
+        "-1007": {
+          "deaths": 3,
+          "distance_m": 202.457235590613,
+          "shots": 75
+        },
+        "-1006": {
+          "deaths": 2,
+          "distance_m": 220.333605854074,
+          "shots": 62
+        },
+        "-1005": {
+          "deaths": 2,
+          "distance_m": 225.078339358093,
+          "shots": 103
+        },
+        "-1004": {
+          "deaths": 1,
+          "distance_m": 214.096697523011,
+          "shots": 57
+        },
+        "-1003": {
+          "deaths": 2,
+          "distance_m": 222.638516878244,
+          "shots": 77
+        },
+        "-1002": {
+          "deaths": 2,
+          "distance_m": 219.812846759334,
+          "shots": 110
+        },
+        "-1001": {
+          "deaths": 1,
+          "distance_m": 180.545157820685,
+          "shots": 136
+        },
+        "-1000": {
+          "deaths": 2,
+          "distance_m": 231.105992151774,
+          "shots": 58
+        },
+        "-3": {
+          "deaths": 1,
+          "distance_m": 249.728473084746,
+          "shots": 80
+        },
+        "-2": {
+          "deaths": 2,
+          "distance_m": 277.526507909497,
+          "shots": 59
+        },
+        "-1": {
+          "deaths": 0,
+          "distance_m": 282.012332432612,
+          "shots": 194
+        }
+      },
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "engine_physics_ms": {
+        "max": 140.203,
+        "mean": 77.6011547420965,
+        "p50": 72.203,
+        "p95": 114.348,
+        "p99": 140.203,
+        "samples": 1202
+      },
+      "events": {
+        "damage": 1193,
+        "engine_diagnostic": 6,
+        "match_event": 87,
+        "pickup": 106,
+        "spawn": 81
+      },
+      "game_tick_ms": {
+        "max": 133.664,
+        "mean": 41.6230257903494,
+        "p50": 38.424,
+        "p95": 66.925,
+        "p99": 95.884,
+        "samples": 1202
+      },
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "headless": false,
+      "map_sha256": "3a9ca43ca0bf2eb3ec22532c1210d0f7d61ba229b34ca7406c339b1ee58810a3",
+      "nav_polygons": 4126,
+      "options": {
+        "compare": true,
+        "name": "desktop64",
+        "occlusion": true,
+        "seconds": 30.0
+      },
+      "peak_projectiles": 256,
+      "physics_interval_ms": {
+        "max": 164.274,
+        "mean": 59.0783760399335,
+        "p50": 48.962,
+        "p95": 126.504,
+        "p99": 147.509,
+        "samples": 1202
+      },
+      "population": 64,
+      "renderer": "mobile",
+      "samples": [
+        {
+          "draw_calls": 728.0,
+          "memory_bytes": 367520479.0,
+          "primitives": 642407.0,
+          "projectiles": 253,
+          "time": 10.0000000000001
+        },
+        {
+          "draw_calls": 490.0,
+          "memory_bytes": 365402441.0,
+          "primitives": 379297.0,
+          "projectiles": 253,
+          "time": 20.0000000000001
+        },
+        {
+          "draw_calls": 305.0,
+          "memory_bytes": 361698197.0,
+          "primitives": 137089.0,
+          "projectiles": 125,
+          "time": 30.0166666666662
+        }
+      ],
+      "scene_meshes": 80,
+      "scene_occluders": 114,
+      "simulated_seconds": 30.0166666666662,
+      "wall_seconds": 107.198251,
+      "achieved_speed": 0.2800107873650495,
+      "bots_moved": 64,
+      "bots_fired": 64,
+      "total_shots": 6016,
+      "total_deaths": 87
+    },
+    "live4x64": {
+      "bots": {
+        "-1060": {
+          "deaths": 2,
+          "distance_m": 238.649777255952,
+          "shots": 58
+        },
+        "-1059": {
+          "deaths": 3,
+          "distance_m": 218.689474580577,
+          "shots": 48
+        },
+        "-1058": {
+          "deaths": 2,
+          "distance_m": 253.64613561891,
+          "shots": 52
+        },
+        "-1057": {
+          "deaths": 1,
+          "distance_m": 242.424781103036,
+          "shots": 98
+        },
+        "-1056": {
+          "deaths": 2,
+          "distance_m": 230.654878343455,
+          "shots": 62
+        },
+        "-1055": {
+          "deaths": 1,
+          "distance_m": 230.240838819751,
+          "shots": 92
+        },
+        "-1054": {
+          "deaths": 1,
+          "distance_m": 219.653138637077,
+          "shots": 107
+        },
+        "-1053": {
+          "deaths": 2,
+          "distance_m": 227.743488033302,
+          "shots": 52
+        },
+        "-1052": {
+          "deaths": 2,
+          "distance_m": 217.68732227385,
+          "shots": 52
+        },
+        "-1051": {
+          "deaths": 1,
+          "distance_m": 266.429268221604,
+          "shots": 138
+        },
+        "-1050": {
+          "deaths": 2,
+          "distance_m": 244.561328256037,
+          "shots": 70
+        },
+        "-1049": {
+          "deaths": 2,
+          "distance_m": 230.09151135385,
+          "shots": 64
+        },
+        "-1048": {
+          "deaths": 1,
+          "distance_m": 225.30371956504,
+          "shots": 81
+        },
+        "-1047": {
+          "deaths": 1,
+          "distance_m": 244.340968145523,
+          "shots": 112
+        },
+        "-1046": {
+          "deaths": 0,
+          "distance_m": 284.739910311066,
+          "shots": 113
+        },
+        "-1045": {
+          "deaths": 2,
+          "distance_m": 235.072749337647,
+          "shots": 76
+        },
+        "-1044": {
+          "deaths": 0,
+          "distance_m": 271.900994430995,
+          "shots": 160
+        },
+        "-1043": {
+          "deaths": 2,
+          "distance_m": 238.33880956471,
+          "shots": 71
+        },
+        "-1042": {
+          "deaths": 3,
+          "distance_m": 223.366624630406,
+          "shots": 61
+        },
+        "-1041": {
+          "deaths": 2,
+          "distance_m": 235.004926298279,
+          "shots": 94
+        },
+        "-1040": {
+          "deaths": 2,
+          "distance_m": 206.740705213742,
+          "shots": 63
+        },
+        "-1039": {
+          "deaths": 2,
+          "distance_m": 247.874687385745,
+          "shots": 67
+        },
+        "-1038": {
+          "deaths": 3,
+          "distance_m": 199.93362643919,
+          "shots": 59
+        },
+        "-1037": {
+          "deaths": 0,
+          "distance_m": 258.478245076723,
+          "shots": 157
+        },
+        "-1036": {
+          "deaths": 1,
+          "distance_m": 235.374002040771,
+          "shots": 90
+        },
+        "-1035": {
+          "deaths": 2,
+          "distance_m": 215.318310911302,
+          "shots": 58
+        },
+        "-1034": {
+          "deaths": 3,
+          "distance_m": 196.243507916806,
+          "shots": 45
+        },
+        "-1033": {
+          "deaths": 1,
+          "distance_m": 248.778121951385,
+          "shots": 99
+        },
+        "-1032": {
+          "deaths": 1,
+          "distance_m": 248.388720418094,
+          "shots": 105
+        },
+        "-1031": {
+          "deaths": 0,
+          "distance_m": 275.083391998895,
+          "shots": 141
+        },
+        "-1030": {
+          "deaths": 1,
+          "distance_m": 237.143509383663,
+          "shots": 68
+        },
+        "-1029": {
+          "deaths": 0,
+          "distance_m": 236.030725052246,
+          "shots": 146
+        },
+        "-1028": {
+          "deaths": 1,
+          "distance_m": 277.370724053588,
+          "shots": 70
+        },
+        "-1027": {
+          "deaths": 2,
+          "distance_m": 218.784091312438,
+          "shots": 55
+        },
+        "-1026": {
+          "deaths": 2,
+          "distance_m": 223.927662590751,
+          "shots": 48
+        },
+        "-1025": {
+          "deaths": 2,
+          "distance_m": 219.486552368442,
+          "shots": 95
+        },
+        "-1024": {
+          "deaths": 2,
+          "distance_m": 225.548668015748,
+          "shots": 86
+        },
+        "-1023": {
+          "deaths": 2,
+          "distance_m": 228.062635858776,
+          "shots": 81
+        },
+        "-1022": {
+          "deaths": 1,
+          "distance_m": 256.460703372024,
+          "shots": 55
+        },
+        "-1021": {
+          "deaths": 0,
+          "distance_m": 248.532496917062,
+          "shots": 148
+        },
+        "-1020": {
+          "deaths": 2,
+          "distance_m": 239.549656319316,
+          "shots": 74
+        },
+        "-1019": {
+          "deaths": 2,
+          "distance_m": 235.522876732633,
+          "shots": 68
+        },
+        "-1018": {
+          "deaths": 2,
+          "distance_m": 273.30298123695,
+          "shots": 88
+        },
+        "-1017": {
+          "deaths": 1,
+          "distance_m": 244.184147208929,
+          "shots": 157
+        },
+        "-1016": {
+          "deaths": 1,
+          "distance_m": 256.897546132095,
+          "shots": 120
+        },
+        "-1015": {
+          "deaths": 2,
+          "distance_m": 247.487683843414,
+          "shots": 55
+        },
+        "-1014": {
+          "deaths": 2,
+          "distance_m": 206.165212721615,
+          "shots": 72
+        },
+        "-1013": {
+          "deaths": 0,
+          "distance_m": 269.321058579662,
+          "shots": 182
+        },
+        "-1012": {
+          "deaths": 1,
+          "distance_m": 199.898467071587,
+          "shots": 66
+        },
+        "-1011": {
+          "deaths": 1,
+          "distance_m": 260.307721936173,
+          "shots": 108
+        },
+        "-1010": {
+          "deaths": 2,
+          "distance_m": 230.72965244751,
+          "shots": 62
+        },
+        "-1009": {
+          "deaths": 2,
+          "distance_m": 242.99037334614,
+          "shots": 54
+        },
+        "-1008": {
+          "deaths": 1,
+          "distance_m": 243.338659374742,
+          "shots": 137
+        },
+        "-1007": {
+          "deaths": 2,
+          "distance_m": 265.784813703038,
+          "shots": 83
+        },
+        "-1006": {
+          "deaths": 2,
+          "distance_m": 243.283929627622,
+          "shots": 61
+        },
+        "-1005": {
+          "deaths": 1,
+          "distance_m": 230.484871044056,
+          "shots": 135
+        },
+        "-1004": {
+          "deaths": 2,
+          "distance_m": 218.008250927553,
+          "shots": 81
+        },
+        "-1003": {
+          "deaths": 1,
+          "distance_m": 253.888725955272,
+          "shots": 122
+        },
+        "-1002": {
+          "deaths": 1,
+          "distance_m": 232.77293247031,
+          "shots": 145
+        },
+        "-1001": {
+          "deaths": 0,
+          "distance_m": 257.690741900617,
+          "shots": 124
+        },
+        "-1000": {
+          "deaths": 2,
+          "distance_m": 218.860367576592,
+          "shots": 71
+        },
+        "-3": {
+          "deaths": 1,
+          "distance_m": 256.076238241978,
+          "shots": 93
+        },
+        "-2": {
+          "deaths": 2,
+          "distance_m": 248.190105474787,
+          "shots": 47
+        },
+        "-1": {
+          "deaths": 0,
+          "distance_m": 276.294824964774,
+          "shots": 201
+        }
+      },
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "engine_physics_ms": {
+        "max": 109.585,
+        "mean": 78.9287554076544,
+        "p50": 75.421,
+        "p95": 100.287,
+        "p99": 109.585,
+        "samples": 1202
+      },
+      "events": {
+        "damage": 1228,
+        "engine_diagnostic": 6,
+        "match_event": 93,
+        "pickup": 108,
+        "spawn": 87
+      },
+      "game_tick_ms": {
+        "max": 98.332,
+        "mean": 41.2956389351082,
+        "p50": 38.681,
+        "p95": 65.774,
+        "p99": 82.411,
+        "samples": 1202
+      },
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "headless": false,
+      "map_sha256": "3a9ca43ca0bf2eb3ec22532c1210d0f7d61ba229b34ca7406c339b1ee58810a3",
+      "nav_polygons": 4126,
+      "options": {
+        "live": true,
+        "name": "live4x64",
+        "occlusion": true,
+        "seconds": 30.0,
+        "speed": 4.0
+      },
+      "peak_projectiles": 256,
+      "physics_interval_ms": {
+        "max": 161.305,
+        "mean": 58.4554550748752,
+        "p50": 49.685,
+        "p95": 121.44,
+        "p99": 139.906,
+        "samples": 1202
+      },
+      "population": 64,
+      "render_frame_ms": {
+        "max": 613.272,
+        "mean": 467.994006666667,
+        "p50": 462.695,
+        "p95": 561.987,
+        "p99": 604.022,
+        "samples": 150
+      },
+      "renderer": "mobile",
+      "requested_speed": 4.0,
+      "samples": [
+        {
+          "draw_calls": 468.0,
+          "memory_bytes": 368162025.0,
+          "primitives": 481903.0,
+          "projectiles": 253,
+          "time": 10.0000000000001
+        },
+        {
+          "draw_calls": 133.0,
+          "memory_bytes": 367238563.0,
+          "primitives": 84475.0,
+          "projectiles": 255,
+          "time": 20.0000000000001
+        },
+        {
+          "draw_calls": 152.0,
+          "memory_bytes": 361549725.0,
+          "primitives": 98010.0,
+          "projectiles": 101,
+          "time": 30.0166666666662
+        }
+      ],
+      "scene_meshes": 80,
+      "scene_occluders": 114,
+      "simulated_seconds": 30.0166666666662,
+      "wall_seconds": 105.712464,
+      "achieved_speed": 0.2839463345274612,
+      "bots_moved": 64,
+      "bots_fired": 64,
+      "total_shots": 5803,
+      "total_deaths": 93
+    }
+  },
+  "render_comparison": {
+    "bots": 64,
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "method": "Frozen identical actors and camera; 90 warmup and 240 measured frames per view/mode; no AI or physics tick in this comparison.",
+    "renderer": "mobile",
+    "resolution": [
+      1280,
+      720
+    ],
+    "results": [
+      {
+        "draw_calls": {
+          "mean": 628.820833333333,
+          "p50": 628.0,
+          "p95": 632.0
+        },
+        "frame_ms": {
+          "mean": 1.41604166666667,
+          "p50": 1.371,
+          "p95": 1.803
+        },
+        "mode": "original",
+        "primitives": {
+          "mean": 378971.9,
+          "p50": 378834.0,
+          "p95": 379506.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.517887500301004,
+          "p50": 0.500999987125397,
+          "p95": 0.658999979496002
+        },
+        "render_gpu_ms": {
+          "mean": 0.762508333971103,
+          "p50": 0.711000025272369,
+          "p95": 0.971000015735626
+        },
+        "view": "district"
+      },
+      {
+        "draw_calls": {
+          "mean": 718.0,
+          "p50": 718.0,
+          "p95": 718.0
+        },
+        "frame_ms": {
+          "mean": 1.55300416666667,
+          "p50": 1.504,
+          "p95": 1.879
+        },
+        "mode": "zones_off",
+        "primitives": {
+          "mean": 338571.0,
+          "p50": 338571.0,
+          "p95": 338571.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.579804168393215,
+          "p50": 0.554000020027161,
+          "p95": 0.75900000333786
+        },
+        "render_gpu_ms": {
+          "mean": 0.68414166594545,
+          "p50": 0.640999972820282,
+          "p95": 0.889999985694885
+        },
+        "view": "district"
+      },
+      {
+        "draw_calls": {
+          "mean": 685.0,
+          "p50": 685.0,
+          "p95": 685.0
+        },
+        "frame_ms": {
+          "mean": 2.1739125,
+          "p50": 2.095,
+          "p95": 2.702
+        },
+        "mode": "zones_on",
+        "primitives": {
+          "mean": 335219.0,
+          "p50": 335219.0,
+          "p95": 335219.0
+        },
+        "render_cpu_ms": {
+          "mean": 1.02189999868472,
+          "p50": 0.955999970436096,
+          "p95": 1.43799996376038
+        },
+        "render_gpu_ms": {
+          "mean": 0.692379169166088,
+          "p50": 0.651000022888184,
+          "p95": 0.892000019550323
+        },
+        "view": "district"
+      },
+      {
+        "draw_calls": {
+          "mean": 414.0,
+          "p50": 414.0,
+          "p95": 414.0
+        },
+        "frame_ms": {
+          "mean": 1.1007875,
+          "p50": 1.056,
+          "p95": 1.386
+        },
+        "mode": "original",
+        "primitives": {
+          "mean": 320624.0,
+          "p50": 320624.0,
+          "p95": 320624.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.360150000328819,
+          "p50": 0.342999994754791,
+          "p95": 0.469999998807907
+        },
+        "render_gpu_ms": {
+          "mean": 0.716008331626654,
+          "p50": 0.675999999046326,
+          "p95": 0.931999981403351
+        },
+        "view": "gate"
+      },
+      {
+        "draw_calls": {
+          "mean": 483.0,
+          "p50": 483.0,
+          "p95": 483.0
+        },
+        "frame_ms": {
+          "mean": 1.118575,
+          "p50": 1.064,
+          "p95": 1.522
+        },
+        "mode": "zones_off",
+        "primitives": {
+          "mean": 277558.0,
+          "p50": 277558.0,
+          "p95": 277558.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.370383333787322,
+          "p50": 0.351000010967255,
+          "p95": 0.483000010251999
+        },
+        "render_gpu_ms": {
+          "mean": 0.674862499286731,
+          "p50": 0.626999974250793,
+          "p95": 0.873000025749207
+        },
+        "view": "gate"
+      },
+      {
+        "draw_calls": {
+          "mean": 304.0,
+          "p50": 304.0,
+          "p95": 304.0
+        },
+        "frame_ms": {
+          "mean": 1.34586666666667,
+          "p50": 1.241,
+          "p95": 2.024
+        },
+        "mode": "zones_on",
+        "primitives": {
+          "mean": 203736.0,
+          "p50": 203736.0,
+          "p95": 203736.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.614583333581686,
+          "p50": 0.550000011920929,
+          "p95": 0.982999980449677
+        },
+        "render_gpu_ms": {
+          "mean": 0.639637499799331,
+          "p50": 0.592999994754791,
+          "p95": 0.841000020503998
+        },
+        "view": "gate"
+      },
+      {
+        "draw_calls": {
+          "mean": 184.0,
+          "p50": 184.0,
+          "p95": 184.0
+        },
+        "frame_ms": {
+          "mean": 0.842325,
+          "p50": 0.735,
+          "p95": 1.552
+        },
+        "mode": "original",
+        "primitives": {
+          "mean": 138804.0,
+          "p50": 138804.0,
+          "p95": 138804.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.234600000331799,
+          "p50": 0.203999996185303,
+          "p95": 0.472000002861023
+        },
+        "render_gpu_ms": {
+          "mean": 0.511229168375333,
+          "p50": 0.476000010967255,
+          "p95": 0.707000017166138
+        },
+        "view": "overview"
+      },
+      {
+        "draw_calls": {
+          "mean": 238.0,
+          "p50": 238.0,
+          "p95": 238.0
+        },
+        "frame_ms": {
+          "mean": 0.773529166666666,
+          "p50": 0.718,
+          "p95": 1.058
+        },
+        "mode": "zones_off",
+        "primitives": {
+          "mean": 94435.0,
+          "p50": 94435.0,
+          "p95": 94435.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.227649999782443,
+          "p50": 0.216999992728233,
+          "p95": 0.293999999761581
+        },
+        "render_gpu_ms": {
+          "mean": 0.468041665231188,
+          "p50": 0.428000003099442,
+          "p95": 0.663999974727631
+        },
+        "view": "overview"
+      },
+      {
+        "draw_calls": {
+          "mean": 204.0,
+          "p50": 204.0,
+          "p95": 204.0
+        },
+        "frame_ms": {
+          "mean": 1.09255416666667,
+          "p50": 0.987,
+          "p95": 1.624
+        },
+        "mode": "zones_on",
+        "primitives": {
+          "mean": 84413.0,
+          "p50": 84413.0,
+          "p95": 84413.0
+        },
+        "render_cpu_ms": {
+          "mean": 0.495574998607238,
+          "p50": 0.437000006437302,
+          "p95": 0.726000010967255
+        },
+        "render_gpu_ms": {
+          "mean": 0.464750000213583,
+          "p50": 0.421999990940094,
+          "p95": 0.670000016689301
+        },
+        "view": "overview"
+      }
+    ]
+  },
+  "image_checks": [
+    {
+      "view": "district",
+      "different_pixels": 0,
+      "pixels_over_5_levels": 0,
+      "max_channel_difference": 0
+    },
+    {
+      "view": "gate",
+      "different_pixels": 0,
+      "pixels_over_5_levels": 0,
+      "max_channel_difference": 0
+    },
+    {
+      "view": "overview",
+      "different_pixels": 0,
+      "pixels_over_5_levels": 0,
+      "max_channel_difference": 0
+    }
+  ]
+}

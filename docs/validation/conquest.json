@@ -1,0 +1,97 @@
+{
+  "rules": {
+    "assertions": 215,
+    "district_population": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "failures": [],
+    "teams": [
+      32,
+      32
+    ]
+  },
+  "network": {
+    "own_capacity": true,
+    "ordinary_rejected": true,
+    "full_rejected": true,
+    "first_accepted": true,
+    "second_accepted": true,
+    "normal_capacity_unchanged": true,
+    "cq_cannot_join_normal": true,
+    "server_requires_launcher": true,
+    "64_actor_real_client_admission": true,
+    "no_script_errors": true
+  },
+  "soak": {
+    "backend": "single_authority",
+    "bot_plan_count": 907,
+    "bot_plan_total_ms": 4997.119,
+    "bot_tick_mean_ms": 21.4684727011495,
+    "failures": [],
+    "kills": 0,
+    "moved": 64,
+    "owners": [
+      0,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "physics_p95_ms": 1727.641,
+    "population": 64,
+    "shots": 321,
+    "sim_seconds": 11.6000000000002,
+    "wall_seconds": 20.085,
+    "real_time_ratio": 0.5775454319143739
+  },
+  "map_sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+  "regressions": {
+    "team_modes": true,
+    "normal_host_modes": true,
+    "radio_guards": true
+  },
+  "visuals": {
+    "captures": [
+      "district-00.png",
+      "district-03.png",
+      "district-01.png"
+    ],
+    "script_errors": false,
+    "static_flags": true,
+    "additional_realtime_lights": 0
+  },
+  "console_dependency_audit": {
+    "passed": true,
+    "cq_scripts_included": [
+      "deathmatch/conquest/rules.gd",
+      "deathmatch/conquest/session.gd"
+    ],
+    "export_built": false
+  }
+}

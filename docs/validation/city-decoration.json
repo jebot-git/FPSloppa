@@ -1,0 +1,507 @@
+{
+  "build": {
+    "sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+    "bytes": 24197612,
+    "format": "BSP29",
+    "revision": "gothic-city-night-2",
+    "vertices": 63507,
+    "faces": 45164,
+    "nodes": 31624,
+    "lightmap_spacing": 32,
+    "commands": [
+      {
+        "tool": "qbsp",
+        "seconds": 1.8678810209967196,
+        "args": [
+          "-leaktest",
+          "-noclip",
+          "-subdivide",
+          "1024",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.map",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      },
+      {
+        "tool": "vis",
+        "seconds": 26.263346075022127,
+        "args": [
+          "-threads",
+          "8",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      },
+      {
+        "tool": "light",
+        "seconds": 61.282886991044506,
+        "args": [
+          "-threads",
+          "8",
+          "-extra",
+          "-bspxlit",
+          "-bounce",
+          "1",
+          "-bouncecolorscale",
+          "0.35",
+          "-dirt",
+          "1",
+          "-dirtdepth",
+          "64",
+          "-dirtscale",
+          "0.6",
+          "-minlight_dirt",
+          "1",
+          "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+        ]
+      }
+    ]
+  },
+  "geometry": {
+    "source_sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+    "triangles_per_district": [
+      6639,
+      6586,
+      6859,
+      6463,
+      6670,
+      6580,
+      6104,
+      6592,
+      6925,
+      6076,
+      6505,
+      7001,
+      6742,
+      6890,
+      6472,
+      6750
+    ]
+  },
+  "preparation": {
+    "baked_light_dark_faces": 805,
+    "baked_light_faces": 43738,
+    "baked_light_invalid_faces": 0,
+    "baked_light_overflow_faces": 0,
+    "baked_light_rgb": true,
+    "baked_light_unlit_faces": 805,
+    "batches": 330,
+    "cell_height": 0.25,
+    "cell_size": 1.0,
+    "connected_spawns": 64,
+    "cross_map_path_points": 127,
+    "decorated_cache_resolved": true,
+    "floor_rays": 64,
+    "gate_clearance_rays": 144,
+    "nav_ms": 314.482,
+    "nav_polygons": 8579,
+    "night_lighting": true,
+    "occluders": 122,
+    "original_meshes": 1,
+    "perimeter_rays": 16,
+    "prepare_ms": 6217.322,
+    "spawn_nav_distances": [
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464,
+      0.400000005960464
+    ],
+    "triangles": 105296,
+    "zones": 16
+  },
+  "presentation": {
+    "bsp_sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+    "decoration_collision_bodies": 0,
+    "decoration_realtime_lights": 0,
+    "gate_openings": 24,
+    "night_sky": true,
+    "night_surface_batches": 330,
+    "opaque_walkthrough_gate_faces": 48,
+    "unreviewed_texture_vertices": 0
+  },
+  "districts": [
+    {
+      "id": 0,
+      "name": "Cathedral Exchange",
+      "style": "cathedral",
+      "color": "60d9e8",
+      "center": [
+        -375,
+        0,
+        -375
+      ],
+      "bounds": [
+        -500,
+        -500,
+        -250,
+        -250
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Helix Arcology",
+      "style": "arcology",
+      "color": "6ee6b1",
+      "center": [
+        -125,
+        0,
+        -375
+      ],
+      "bounds": [
+        -250,
+        -500,
+        0,
+        -250
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Crucible Works",
+      "style": "foundry",
+      "color": "ffad58",
+      "center": [
+        125,
+        0,
+        -375
+      ],
+      "bounds": [
+        0,
+        -500,
+        250,
+        -250
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Astral Observatory",
+      "style": "observatory",
+      "color": "af9fff",
+      "center": [
+        375,
+        0,
+        -375
+      ],
+      "bounds": [
+        250,
+        -500,
+        500,
+        -250
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Reliquary Archives",
+      "style": "cathedral",
+      "color": "e9c36b",
+      "center": [
+        -375,
+        0,
+        -125
+      ],
+      "bounds": [
+        -500,
+        -250,
+        -250,
+        0
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Synapse Data Vault",
+      "style": "data",
+      "color": "64afff",
+      "center": [
+        -125,
+        0,
+        -125
+      ],
+      "bounds": [
+        -250,
+        -250,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Pilgrim Transit",
+      "style": "transit",
+      "color": "ffc369",
+      "center": [
+        125,
+        0,
+        -125
+      ],
+      "bounds": [
+        0,
+        -250,
+        250,
+        0
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Sanctum Medica",
+      "style": "arcology",
+      "color": "b4ecdf",
+      "center": [
+        375,
+        0,
+        -125
+      ],
+      "bounds": [
+        250,
+        -250,
+        500,
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Blackwater Condensers",
+      "style": "foundry",
+      "color": "5dc5ce",
+      "center": [
+        -375,
+        0,
+        125
+      ],
+      "bounds": [
+        -500,
+        0,
+        -250,
+        250
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Ember Market",
+      "style": "market",
+      "color": "fa8b80",
+      "center": [
+        -125,
+        0,
+        125
+      ],
+      "bounds": [
+        -250,
+        0,
+        0,
+        250
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Cipher Court",
+      "style": "observatory",
+      "color": "a899e7",
+      "center": [
+        125,
+        0,
+        125
+      ],
+      "bounds": [
+        0,
+        0,
+        250,
+        250
+      ]
+    },
+    {
+      "id": 11,
+      "name": "Aegis Bastion",
+      "style": "bastion",
+      "color": "f17e79",
+      "center": [
+        375,
+        0,
+        125
+      ],
+      "bounds": [
+        250,
+        0,
+        500,
+        250
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Verdant Cloister",
+      "style": "garden",
+      "color": "92cf92",
+      "center": [
+        -375,
+        0,
+        375
+      ],
+      "bounds": [
+        -500,
+        250,
+        -250,
+        500
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Meridian Reactor",
+      "style": "reactor",
+      "color": "d4ef78",
+      "center": [
+        -125,
+        0,
+        375
+      ],
+      "bounds": [
+        -250,
+        250,
+        0,
+        500
+      ]
+    },
+    {
+      "id": 14,
+      "name": "Iron Docks",
+      "style": "docks",
+      "color": "77aadd",
+      "center": [
+        125,
+        0,
+        375
+      ],
+      "bounds": [
+        0,
+        250,
+        250,
+        500
+      ]
+    },
+    {
+      "id": 15,
+      "name": "Crown Necropolis",
+      "style": "cathedral",
+      "color": "d692df",
+      "center": [
+        375,
+        0,
+        375
+      ],
+      "bounds": [
+        250,
+        250,
+        500,
+        500
+      ]
+    }
+  ],
+  "textures": 49,
+  "brushes": 2775,
+  "baked_point_lights": 1424,
+  "lighting_profile": {
+    "moon": 9,
+    "sky": 4,
+    "minlight": 1,
+    "response": "night"
+  },
+  "runs": [
+    {
+      "name": "city1x",
+      "target_speed": 1.0,
+      "wall_seconds": 32.0,
+      "average_fps": 96.20507962820473,
+      "p95_frame_ms": 15.425,
+      "slowest_speed": 0.9989583333333344,
+      "fastest_speed": 1.0005208333333344,
+      "transfers": 4,
+      "events": {
+        "damage": 1344,
+        "match_event": 108,
+        "peer_departure_stage": 4,
+        "peer_disconnected": 4,
+        "pickup": 112,
+        "spawn": 101
+      },
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "failures": []
+    },
+    {
+      "name": "city4x",
+      "target_speed": 4.0,
+      "wall_seconds": 32.0,
+      "average_fps": 46.85601662613796,
+      "p95_frame_ms": 33.789,
+      "slowest_speed": 2.3880208333333344,
+      "fastest_speed": 2.7223958333333345,
+      "transfers": 4,
+      "events": {
+        "damage": 3966,
+        "match_event": 230,
+        "peer_departure_stage": 4,
+        "peer_disconnected": 4,
+        "pickup": 256,
+        "spawn": 226
+      },
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "failures": []
+    }
+  ]
+}

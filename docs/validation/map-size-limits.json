@@ -1,0 +1,251 @@
+{
+  "checks": 37,
+  "engine": {
+    "build": "fedora",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "hex": 263938,
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "status": "stable",
+    "string": "4.7.2-stable (fedora)",
+    "timestamp": 0
+  },
+  "failures": [],
+  "fixtures": [
+    {
+      "actual_1cm_step_m": 0.010009765625,
+      "actual_1mm_step_m": 0.0009765625,
+      "actual_2mm_bias_m": 0.00201416015625,
+      "area_km2": 4.19417600097656,
+      "bytes": 1876.0,
+      "contents_center": -1,
+      "contents_loaded": true,
+      "faces": 6.0,
+      "float32_spacing_m": 6.103515625e-05,
+      "floor_queries": [
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 0.0
+        },
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 1021.96875
+        }
+      ],
+      "imported_horizontal_m": [
+        2047.96875,
+        2047.96875
+      ],
+      "load_ms": 11.035,
+      "loaded": true,
+      "maximum_units": 32767.0,
+      "minimum_units": -32768.0,
+      "name": "bsp29_bounds",
+      "side_m": 2047.96875,
+      "validation": "",
+      "vector_serialized_bytes": 16,
+      "version": 29.0
+    },
+    {
+      "actual_1cm_step_m": 0.010009765625,
+      "actual_1mm_step_m": 0.0009765625,
+      "actual_2mm_bias_m": 0.001953125,
+      "area_km2": 4.194304,
+      "bytes": 2184.0,
+      "contents_center": -1,
+      "contents_loaded": true,
+      "faces": 6.0,
+      "float32_spacing_m": 0.0001220703125,
+      "floor_queries": [
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 0.0
+        },
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 1022.0
+        }
+      ],
+      "imported_horizontal_m": [
+        2048.0,
+        2048.0
+      ],
+      "load_ms": 1.396,
+      "loaded": true,
+      "maximum_units": 32768.0,
+      "minimum_units": -32768.0,
+      "name": "bsp2_32768",
+      "side_m": 2048.0,
+      "validation": "",
+      "vector_serialized_bytes": 16,
+      "version": 844124994.0
+    },
+    {
+      "actual_1cm_step_m": 0.009765625,
+      "actual_1mm_step_m": 0.0009765625,
+      "actual_2mm_bias_m": 0.001953125,
+      "area_km2": 67.108864,
+      "bytes": 2184.0,
+      "contents_center": -1,
+      "contents_loaded": true,
+      "faces": 6.0,
+      "float32_spacing_m": 0.00048828125,
+      "floor_queries": [
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 0.0
+        },
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 4094.0
+        }
+      ],
+      "imported_horizontal_m": [
+        8192.0,
+        8192.0
+      ],
+      "load_ms": 1.326,
+      "loaded": true,
+      "maximum_units": 131072.0,
+      "minimum_units": -131072.0,
+      "name": "bsp2_131072",
+      "side_m": 8192.0,
+      "validation": "",
+      "vector_serialized_bytes": 16,
+      "version": 844124994.0
+    },
+    {
+      "actual_1cm_step_m": 0.01171875,
+      "actual_1mm_step_m": 0.0,
+      "actual_2mm_bias_m": 0.00390625,
+      "area_km2": 4294.967296,
+      "bytes": 2184.0,
+      "contents_center": -1,
+      "contents_loaded": true,
+      "faces": 6.0,
+      "float32_spacing_m": 0.00390625,
+      "floor_queries": [
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 0.0
+        },
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 32766.0
+        }
+      ],
+      "imported_horizontal_m": [
+        65536.0,
+        65536.0
+      ],
+      "load_ms": 1.695,
+      "loaded": true,
+      "maximum_units": 1048576.0,
+      "minimum_units": -1048576.0,
+      "name": "bsp2_1048576",
+      "side_m": 65536.0,
+      "validation": "",
+      "vector_serialized_bytes": 16,
+      "version": 844124994.0
+    },
+    {
+      "actual_1cm_step_m": 0.0,
+      "actual_1mm_step_m": 0.0,
+      "actual_2mm_bias_m": 0.0,
+      "area_km2": 274877.906944,
+      "bytes": 2184.0,
+      "contents_center": -1,
+      "contents_loaded": true,
+      "faces": 6.0,
+      "float32_spacing_m": 0.03125,
+      "floor_queries": [
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 0.0
+        },
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 262142.0
+        }
+      ],
+      "imported_horizontal_m": [
+        524288.0,
+        524288.0
+      ],
+      "load_ms": 1.862,
+      "loaded": true,
+      "maximum_units": 8388608.0,
+      "minimum_units": -8388608.0,
+      "name": "bsp2_8388608",
+      "side_m": 524288.0,
+      "validation": "",
+      "vector_serialized_bytes": 16,
+      "version": 844124994.0
+    },
+    {
+      "actual_1cm_step_m": 0.0,
+      "actual_1mm_step_m": 0.0,
+      "actual_2mm_bias_m": 0.0,
+      "area_km2": 390625.0,
+      "bytes": 2184.0,
+      "contents_center": -1,
+      "contents_loaded": true,
+      "faces": 6.0,
+      "float32_spacing_m": 0.03125,
+      "floor_queries": [
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 0.0
+        },
+        {
+          "floor_hit": true,
+          "hit_y": 0.0,
+          "offset_m": 312498.0
+        }
+      ],
+      "imported_horizontal_m": [
+        625000.0,
+        625000.0
+      ],
+      "load_ms": 2.549,
+      "loaded": true,
+      "maximum_units": 10000000.0,
+      "minimum_units": -10000000.0,
+      "name": "bsp2_10000000",
+      "side_m": 625000.0,
+      "validation": "",
+      "vector_serialized_bytes": 16,
+      "version": 844124994.0
+    },
+    {
+      "area_km2": 390625.078125004,
+      "bytes": 2184.0,
+      "faces": 6.0,
+      "loaded": false,
+      "maximum_units": 10000001.0,
+      "minimum_units": -10000001.0,
+      "name": "bsp2_10000001",
+      "side_m": 625000.0625,
+      "validation": "Invalid BSP vertex coordinate.",
+      "version": 844124994.0
+    }
+  ],
+  "legacy_2psb": {
+    "loaded": false,
+    "validation": ""
+  },
+  "max_file_bytes": 25000000,
+  "unit_scale_m": 0.03125
+}

@@ -110,6 +110,7 @@ func switch_team(team: int) -> void:
 func team_request(team: int) -> void:
 	if multiplayer.is_server():change_team(multiplayer.get_remote_sender_id(),team)
 func change_team(id: int,team: int,force: bool=false) -> bool:
+	if game.cq_profile:return false
 	if game.match_mode.special.blocked(id):return false
 	if not game.active or not game.match_mode.team_game() or not eligible(id) or not team in [0,1] or game.players[id].team==team or game.intermission>0 or game.map_loading:return false
 	if not force:
@@ -137,6 +138,7 @@ func change_map(value: String) -> void:
 func reset() -> void:ballot.clear();view.clear();team_cooldowns.clear()
 
 func change_mode(value: String) -> void:
+	if game.cq_profile or value=="cq":return
 	if not game.active or not multiplayer.is_server() or not allowed_modes.has(value):return
 	var target: String=game.current_map
 	if value=="as" or target not in game.maps_for_mode(value):
@@ -153,6 +155,7 @@ func change_mode(value: String) -> void:
 	else:game._rotate_map(target)
 
 func change_match(value: String) -> void:
+	if game.cq_profile or value.begins_with("cq|"):return
 	if not game.active or not multiplayer.is_server():return
 	var spec:=match_spec(value,match_choices())
 	if spec.is_empty():return
@@ -168,6 +171,7 @@ func apply_rules(mode:String,rules:String) -> void:
 	# Remap pickup entities as well as player inventories on the same BSP.
 	if previous!=game.armory.effective():game.current_map=""
 func change_loadout(value:String) -> void:
+	if game.cq_profile:return
 	if not game.active or not multiplayer.is_server() or not game.armory.selectable(game.match_mode.kind) or not value in game.armory.IDS:return
 	var map:String=game.current_map
 	apply_rules(game.match_mode.kind,value)

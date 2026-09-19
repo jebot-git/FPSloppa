@@ -183,3 +183,5 @@ Rotation precedence is an explicit mode-specific config list, then a nonempty `s
 TF always uses Quake weapons; Assault always uses UT99. Host settings, `sv_weapon_rules`, CLI overrides and mode votes cannot override these requirements. The configured preference resumes in unrestricted modes.
 
 RCON `match` selects the mode, map and weapon rules in one transition. It rejects a contradictory TF/AS rules argument. It accepts only enabled mode/map pairs, rebuilds pickup mappings when rules change, and preserves fixed loadouts in IG, IF and CC. `status` also reports effective weapon rules, lobby state, intermission and round result.
+
+Experimental **CQ — CONQUEST** has a separate source-tree launcher and protocol, and its own `sv_cq_maxclients` (up to 64) and `sv_cq_bot_fill` settings. These do not raise `sv_maxclients` or the ordinary host limit. CQ cannot rotate into other modes or the lobby. See [CQ setup, rules and current backend limits](docs/CONQUEST.md) before launching `./launch-conquest.sh --server`.

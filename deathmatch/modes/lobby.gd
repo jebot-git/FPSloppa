@@ -54,7 +54,7 @@ func prepare() -> void:
 func spec(option: Dictionary) -> Dictionary:
 	return {"mode":option.mode,"map":option.map,"rules":option.rules}
 func begin() -> void:
-	if not enabled or active():return
+	if game.cq_profile or not enabled or active():return
 	if offered.is_empty():prepare()
 	if offered.is_empty():game._restart_round();return
 	game._rotate_map(ID);until=game.clock+seconds;game.round_left=seconds

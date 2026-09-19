@@ -196,6 +196,17 @@ func mode_goals(id: int,brain: Dictionary,rows: Array) -> void:
 	var mode=game.match_mode;var s: Dictionary=game.players[id]
 	var rank:=team_rank(id)
 	brain.role="defend" if rank%3==1 or s.get("tf_class","") in ["engineer","sniper"] else "attack"
+	if mode.kind=="cq":
+		var cq=mode.conquest
+		var team: int=game.players[id].team
+		var origin: Vector3=game.fighters[id].position
+		var best:=-1;var distance:=INF
+		for zone in 16:
+			if cq.rules.owners[zone]==team or not cq.rules.unlocked(zone,team):continue
+			var d: float=origin.distance_squared_to(cq.Rules.center(zone))
+			if d<distance:best=zone;distance=d
+		if best>=0:candidate(rows,"cq:%d"%best,"objective",cq.Rules.center(best),180,true)
+		return
 	if mode.freeze_tag():objectives.thaw_goals(id,rows)
 	if mode.kind=="tb":titanball.goals(id,brain,rows)
 	elif objectives.goals(id,brain,rows):return
@@ -306,6 +317,9 @@ func plan(id: int,brain: Dictionary) -> void:
 	if game.match_mode.kind=="koth" and brain.role=="hold" and game.match_mode.nearby(id,game.match_mode.hill,2.5):equip=false
 	for index in game.pickups.size():
 		var pickup: Dictionary=game.pickups[index]
+		# CQ bots scavenge their current district; strategic objectives still
+		# route through the city. Avoid evaluating all 128 distant item routes.
+		if game.match_mode.kind=="cq" and game.match_mode.conquest.Rules.district(pickup.position)!=game.match_mode.conquest.Rules.district(origin):continue
 		# Arrive near a known respawn, but never wait a full pickup cycle.
 		var wait_time: float=maxf(0,pickup.get("respawn",INF)-game.clock) if not pickup.available else 0.0
 		if wait_time>3 or game.match_mode.fixed_loadout():continue
@@ -323,6 +337,7 @@ func plan(id: int,brain: Dictionary) -> void:
 	elif game.clock<brain.memory_until:candidate(rows,"search","search",brain.seen_position,45)
 	for index in game.spawn_points.size():
 		var point: Vector3=game.spawn_points[index]
+		if game.match_mode.kind=="cq" and game.match_mode.conquest.Rules.district(point)!=game.match_mode.conquest.Rules.district(origin):continue
 		if origin.distance_to(point)>2:candidate(rows,"roam:%s"%index,"roam",point,8.0+posmod(index-id,3))
 	# Usually evaluate six routes. If all fail, try a bounded fallback and
 	# temporarily avoid failed goals so the next plan can reach later choices.

@@ -62,6 +62,7 @@ var active := false
 var dedicated := false
 var server_name := "FPSloppa"
 var bind_address := "*"
+var cq_profile:=false # Separate launcher/protocol, fixed for the process lifetime.
 var max_clients := MAX_PLAYERS
 var voice_backend:="builtin"
 var mumble_url:=""
@@ -154,6 +155,7 @@ var lobby
 var demos
 var bindings=preload("res://deathmatch/settings/bindings.gd").new()
 func _ready() -> void:
+	cq_profile=OS.get_cmdline_user_args().has("--experimental-cq")
 	get_tree().auto_accept_quit=false
 	if OS.has_feature("android") and FileAccess.file_exists("res://deathmatch/assets/offline-base.zip"):
 		set_process(false);set_physics_process(false)
@@ -171,6 +173,10 @@ func _ready() -> void:
 	server_log=preload("res://deathmatch/server/log.gd").new();add_child(server_log)
 	match_mode.setup(self)
 	armory.setup(self);variant_combat.setup(self)
+	if cq_profile:
+		var cq_error: String=match_mode.conquest.install()
+		if not cq_error.is_empty():push_error(cq_error);get_tree().quit(2);return
+		match_mode.configure({"sv_gametype":"cq"})
 	votes=preload("res://deathmatch/modes/votes.gd").new();votes.name="PlayerVotes";add_child(votes);votes.setup(self)
 	if not OS.has_feature("dedicated_server"):
 		nickname=Profile.load_name()
@@ -296,21 +302,24 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		get_tree().quit(2)
 		return
 	var settings: Dictionary=result.values
+	if (settings.sv_gametype=="cq")!=cq_profile:
+		push_error("CQ requires its separate launch script and a CQ-only config.");get_tree().quit(2);return
 	if not armory.select(_arg_value(args,"--weapons",settings.sv_weapon_rules)):push_error("Unknown weapon ruleset");get_tree().quit(2);return
 	lobby.enabled=settings.sv_lobby==1;lobby.seconds=settings.sv_lobby_seconds
 	if not server_log.setup(self,settings):push_error(server_log.last_error);get_tree().quit(2);return
 	server_name=settings.sv_hostname
 	bind_address=settings.net_ip
-	max_clients=settings.sv_maxclients
-	bot_population.target=settings.sv_bot_fill;bot_population.count_target=-1
-	if max_clients>16:push_warning(preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
+	max_clients=settings.sv_cq_maxclients if cq_profile else settings.sv_maxclients
+	bot_population.target=settings.sv_cq_bot_fill if cq_profile else settings.sv_bot_fill;bot_population.count_target=-1
+	if not cq_profile and max_clients>16:push_warning(preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
 	voice_backend=settings.sv_voice_backend if settings.sv_voice==1 else "builtin";mumble_url=settings.sv_mumble_url if settings.sv_voice==1 else ""
 	voice_enabled=settings.sv_voice==1 and voice_backend=="builtin"
 	announcer.policy(settings.sv_announcer==1)
-	map_uploads=settings.sv_map_uploads==1
+	map_uploads=settings.sv_map_uploads==1 and not cq_profile
 	match_mode.configure(settings)
-	votes.enabled=settings.sv_votes==1;votes.allowed_modes=settings.gametypes
+	votes.enabled=settings.sv_votes==1 and not cq_profile;votes.allowed_modes=settings.gametypes
 	mode_maplists=settings.mode_maps.duplicate(true)
+	if cq_profile:mode_maplists["cq"]=[match_mode.conquest.MAP_ID]
 	for kind in match_mode.NAMES:
 		var list_kind: String=match_mode.maplist_kind(kind)
 		if kind=="if" and str(settings.if_maplist).is_empty():
@@ -335,7 +344,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	for row in map_catalog:
 		if row.get("imported",false):uploads.register_map(row)
 	map_rotation=mode_maplists[match_mode.kind].duplicate()
-	if args.has("--map"): map_rotation=[_arg_value(args,"--map",settings.map)]
+	if args.has("--map") and not cq_profile: map_rotation=[_arg_value(args,"--map",settings.map)]
 	for map_id in map_rotation:
 		if not map_catalog.any(func(row): return row.id==map_id and FileAccess.file_exists(row.path)):
 			push_error("Unknown or unavailable map in rotation: "+str(map_id));get_tree().quit(2);return
@@ -348,8 +357,12 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		return
 	rcon=preload("res://deathmatch/server/rcon.gd").new();add_child(rcon)
 	if not rcon.setup(self,settings):push_error(rcon.last_error);get_tree().quit(2);return
-	server_log.record("server_started",{"hostname":server_name,"bind":bind_address,"max_clients":max_clients,"protocol":PROTOCOL,"weapon_rules":armory.kind,"version":ProjectSettings.get_setting("application/config/version"),"rotation":map_rotation,"allowed_modes":votes.allowed_modes,"voice_backend":voice_backend,"friendly_fire":match_mode.friendly_fire,"score_limit":match_mode.limit()})
+	server_log.record("server_started",{"hostname":server_name,"bind":bind_address,"max_clients":max_clients,"protocol":connection_protocol(),"weapon_rules":armory.kind,"version":ProjectSettings.get_setting("application/config/version"),"rotation":map_rotation,"allowed_modes":votes.allowed_modes,"voice_backend":voice_backend,"friendly_fire":match_mode.friendly_fire,"score_limit":match_mode.limit()})
 	print("SERVER_CONFIG name=",server_name," bind=",bind_address," maxclients=",max_clients," voice=",voice_enabled," map=",current_map," rotation=",map_rotation," weapons=",armory.kind," gametype=",match_mode.kind," limit=",match_mode.limit()," friendlyfire=",match_mode.friendly_fire)
+
+func network_player_limit() -> int:return 64 if cq_profile else SERVER_MAX_PLAYERS
+
+func connection_protocol() -> String:return match_mode.conquest.PROTOCOL if cq_profile else PROTOCOL
 
 func _arg_value(args: PackedStringArray,key: String,fallback: String) -> String:
 	var i := args.find(key)
@@ -400,6 +413,8 @@ func _pickup_art(p: Dictionary) -> Node3D:
 
 func start_host(player_name: String,port: int,frags: int,minutes: int,training: bool, mode: String="dm",weapon_rules: String="doom") -> void:
 	if loading.blocking:return
+	if cq_profile and (not dedicated or match_mode.kind!="cq"):status("CQ uses its dedicated experimental server launcher.");return
+	if not cq_profile and mode=="cq":status("Use the separate CQ launcher.");return
 	if active: return
 	if not dedicated:
 		var changed: bool=armory.kind!=weapon_rules
@@ -408,12 +423,12 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 	variant_combat.reset()
 	announcer.reset()
 	if not dedicated:announcer.policy(true)
-	if not dedicated: match_mode.configure({"sv_gametype":mode if match_mode.NAMES.has(mode) else "dm","capturelimit":clampi(frags,1,100),"hilllimit":clampi(frags,1,100)});votes.enabled=true;votes.allowed_modes=match_mode.NAMES.keys();voice_backend="builtin";mumble_url="";voice_enabled=true
+	if not dedicated: match_mode.configure({"sv_gametype":mode if match_mode.NAMES.has(mode) else "dm","capturelimit":clampi(frags,1,100),"hilllimit":clampi(frags,1,100)});votes.enabled=true;votes.allowed_modes=match_mode.NAMES.keys().filter(func(value):return value!="cq");voice_backend="builtin";mumble_url="";voice_enabled=true
 	if not dedicated and selected_map not in maps_for_mode(match_mode.kind):
 		var hills: Array=maps_for_mode(match_mode.kind)
 		if hills.is_empty():status("No compatible arenas installed.");return
 		selected_map=hills[0]
-	max_clients=clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else MAX_PLAYERS
+	max_clients=clampi(max_clients,2,64) if cq_profile else clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else MAX_PLAYERS
 	if not _load_map(selected_map):
 		status("Could not load the selected map.")
 		return
@@ -476,7 +491,7 @@ func start_join(player_name: String,address: String,port: int,spectator: bool=fa
 	connect_addresses.clear();connect_address_index=0;connect_address_deadline=0
 	connect_port=clampi(port,1024,65535)
 	connect_deadline=clock+15
-	ConnectionLog.record("connect_start",{"address":host,"port":port,"protocol":PROTOCOL})
+	ConnectionLog.record("connect_start",{"address":host,"port":port,"protocol":connection_protocol()})
 	status("Connecting to %s:%d…" % [address,port])
 	if not host.is_valid_ip_address():
 		# ENet resolves hostnames synchronously; use Godot's resolver worker first.
@@ -519,8 +534,8 @@ func clean_name(value: String) -> String:
 
 func _connected() -> void:
 	connect_addresses.clear();connect_address_deadline=0
-	ConnectionLog.record("transport_connected",{"protocol":PROTOCOL})
-	_hello.rpc_id(1,nickname,PROTOCOL,joining_as_spectator)
+	ConnectionLog.record("transport_connected",{"protocol":connection_protocol()})
+	_hello.rpc_id(1,nickname,connection_protocol(),joining_as_spectator)
 
 func _peer_connected(id: int) -> void:
 	if multiplayer.is_server():
@@ -534,7 +549,8 @@ func _hello(player_name: String,version: String,spectator: bool=false) -> void:
 	var id := multiplayer.get_remote_sender_id()
 	if id<=1 or players.has(id) or pending_names.has(id) or not pending_joins.has(id): return
 	var rejection:=""
-	if version!=PROTOCOL:rejection="Version mismatch: client %s, server %s. Install matching clients and server."%[version.left(80),PROTOCOL]
+	if version!=connection_protocol():rejection="CQ requires the separate CQ launcher; normal clients and servers cannot join CQ sessions." if cq_profile or version.begins_with("fpsloppa-cq-") else "Version mismatch: install matching clients and server."
+	elif cq_profile and spectator:rejection="CQ reserves its 64 seats for two teams; spectators are disabled."
 	elif practice:rejection="This is a private practice server."
 	elif bot_population.human_slots()>=max_clients:rejection="Server full (%d/%d players)."%[players.size(),max_clients]
 	if not rejection.is_empty():
@@ -578,7 +594,7 @@ func _finish_join(id: int) -> void:
 	voice.policy.rpc_id(id,voice_enabled,server_name,voice_backend,mumble_url)
 	announcer.policy.rpc_id(id,announcer.allowed)
 	votes.offer(id)
-	if dedicated and max_clients>16:_announcement.rpc_id(id,preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
+	if dedicated and not cq_profile and max_clients>16:_announcement.rpc_id(id,preload("res://deathmatch/server/config.gd").CAPACITY_WARNING)
 	_announcement.rpc(player_name+(" joined as spectator." if spectator else " joined the arena."))
 
 @rpc("authority","call_remote","reliable",0)
@@ -783,9 +799,11 @@ func _spawn(id: int) -> void:
 		state.serial+=1
 		return
 	state.suicide_respawn=false
-	var best: Vector3 = spawn_points[0]
+	var candidates: Array=match_mode.conquest.spawn_points(id) if match_mode.kind=="cq" else match_mode.spawns(state.team)
+	if candidates.is_empty():state.dead=true;state.hp=0;state.respawn_at=clock+1;return
+	var best: Vector3 = candidates[0]
 	var best_score := -1.0
-	for point in match_mode.spawns(state.team):
+	for point in candidates:
 		var distance := 100.0
 		for other in fighters:
 			if other != id and not players[other].dead: distance = minf(distance,point.distance_to(fighters[other].position))
@@ -2174,6 +2192,7 @@ func _process(delta: float) -> void:
 
 var loaded_pickup_rules:=""
 func _load_map(map_id: String) -> bool:
+	if cq_profile and map_id!=match_mode.conquest.MAP_ID:return false
 	if map_id==lobby.ID:return lobby.build()
 	var pickup_rules: String=match_mode.kind+":"+armory.effective()
 	if current_map==map_id and loaded_pickup_rules==pickup_rules and $Map.get_child_count()>0: return true
@@ -2203,6 +2222,7 @@ func _load_map(map_id: String) -> bool:
 	match_mode.fortress.walkers.configure([])
 	match_mode.titanball.configure([],[])
 	runtime.configure(self,level,info.path)
+	if cq_profile:match_mode.conquest.configure_pickups()
 	loaded_pickup_rules=pickup_rules
 	if spawn_points.is_empty(): return false
 	if not headless:
@@ -2439,6 +2459,8 @@ func _weapon_illumination(a: Vector3,b: Vector3,recipe: Dictionary,key: int=0) -
 	if pool:pool.emit_source(a,b,recipe,key)
 
 func maps_for_mode(mode: String) -> Array:
+	if cq_profile:return [match_mode.conquest.MAP_ID] if mode=="cq" else []
+	if mode=="cq":return []
 	var list_kind: String=match_mode.maplist_kind(mode)
 	if mode=="if" and not mode_maplists.has(list_kind) and mode_maplists.has("ig"):
 		return Maps.inherited_maplist(map_catalog,mode,Maps.choices_for_mode(map_catalog,mode,mode_maplists.ig))

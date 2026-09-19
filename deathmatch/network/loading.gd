@@ -56,6 +56,10 @@ func snapshot() -> Dictionary:
 	return {"visible":blocking or count>0 or (changed_at>0 and Time.get_ticks_msec()-changed_at<3000),"blocking":blocking,"phase":phase,"total":total,"done":done,"count":count,"fraction":float(done)/total if total>0 else 0.0,"eta":eta}
 func manifest(peer: int) -> Dictionary:
 	var data:Dictionary=game.avatars.choices.duplicate(true)
+	# A CQ human replacing a bot must not create a 65-entry admission manifest.
+	if game.cq_profile and data.size()>=64 and not data.has(peer):
+		var departing: int=game.bot_population.candidate()
+		if departing!=0:data.erase(departing)
 	var defaults:Array=game.avatars.library.entries.keys()
 	if not defaults.is_empty():
 		var hash:String=defaults[posmod(peer,mini(3,defaults.size()))]
@@ -69,7 +73,7 @@ func offer(peer: int) -> void:
 	_manifest.rpc_id(peer,game.map_epoch,serial,data)
 @rpc("authority","call_remote","reliable",4)
 func _manifest(epoch: int,value: int,data: Dictionary) -> void:
-	if epoch!=game.map_epoch or not blocking or value<ticket or data.size()>game.SERVER_MAX_PLAYERS:return
+	if epoch!=game.map_epoch or not blocking or value<ticket or data.size()>game.network_player_limit():return
 	var needed:Dictionary={}
 	for id in data:
 		var row=data[id]

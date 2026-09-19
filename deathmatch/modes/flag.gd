@@ -1,7 +1,7 @@
 extends RefCounted
 ## Original low-poly arena banners. Cloth and emblem share the same gentle wind deformation.
 const COLORS=[Color("b83d32"),Color("3c70b0")]
-static func create(team: int) -> Node3D:
+static func create(team: int,animated: bool=true) -> Node3D:
 	var root:=Node3D.new();root.name="Banner"
 	var art=preload("res://deathmatch/art.gd")
 	var iron:=art.material(Color("393a36"),.65)
@@ -37,6 +37,7 @@ void vertex() {
 }
 void fragment() { ALBEDO = COLOR.rgb; ROUGHNESS = 0.94; }
 """
+	if not animated:shader.code=shader.code.replace("TIME * 2.1", "0.0").replace("ALBEDO = COLOR.rgb;", "ALBEDO = COLOR.rgb; EMISSION = COLOR.rgb * 0.3;")
 	var material:=ShaderMaterial.new();material.shader=shader;mesh.material_override=material;root.add_child(mesh)
 	return root
 static func cloth_point(x: int,y: int) -> Vector3:

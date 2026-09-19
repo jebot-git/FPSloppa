@@ -26,6 +26,7 @@ func recipients(id: int,team_only: bool) -> Array:
 	var result: Array=[]
 	if team_only and not team_available(id):return result
 	for peer in game.players:
+		if game.match_mode.kind=="cq" and not game.match_mode.conquest.radio_allowed(id,peer):continue
 		if peer!=id and (not team_only or team_available(peer) and game.match_mode.same_team(id,peer)):result.append(peer)
 	return result
 

@@ -272,6 +272,7 @@ func _build_menu(root: Control) -> void:
 	host_mode=preload("res://deathmatch/ui/choice.gd").new();host_column.add_child(host_mode)
 	var host_modes: Array=[]
 	for kind in game.match_mode.NAMES:
+		if kind=="cq" or game.cq_profile:continue
 		# Every shipped mode now has a native BSP map.
 		host_modes.append({"id":kind,"title":game.match_mode.NAMES[kind]})
 	host_mode.configure(host_modes,"SELECT GAME MODE");host_mode.choose("dm");host_mode.selected.connect(func(_id):refresh_maps())
@@ -345,6 +346,7 @@ func _build_menu(root: Control) -> void:
 	quit_button.name="QuitFooter"
 	quit_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	quit_button.offset_top=-52;quit_button.offset_bottom=-4;quit_button.offset_left=8;quit_button.offset_right=-8
+	if game.cq_profile:port_field.value=7787
 	var config := ConfigFile.new()
 	if config.load(Profile.config_path())==OK:
 		address_field.text = str(config.get_value("network","address","127.0.0.1"))
@@ -373,13 +375,13 @@ func show_menu(open: bool) -> void:
 	menu.visible = open
 	if open:scoreboard.hide()
 	resume.visible = game.active
-	spectator_choice.visible=not game.active
+	spectator_choice.visible=not game.active and not game.cq_profile
 	leave.visible = game.active
 	suicide.visible = game.active
-	votes_button.visible=game.active
+	votes_button.visible=game.active and not game.cq_profile
 	if votes_panel and not open:votes_panel.hide()
 	if next_match_panel and not open:next_match_panel.hide()
-	for b in launch_buttons: b.visible = not game.active
+	for b in launch_buttons: b.visible = not game.active and (not game.cq_profile or b==launch_buttons[1])
 	if not open:
 		preload("res://deathmatch/ui/choice.gd").close_all(get_tree())
 		if settings_panel:settings_panel.hide()
@@ -403,7 +405,7 @@ func _process(_delta: float) -> void:
 	fortress_button.visible=game.active and not game.demos.playing and game.match_mode.fortress.enabled() and not game.local_state().get("spectator",false)
 	map_choice.trigger.disabled=game.active
 	map_import.disabled=importing_bsp or not game.uploads.offered.is_empty()
-	session_map_import.visible=game.active
+	session_map_import.visible=game.active and not game.cq_profile
 	session_map_import.disabled=map_import.disabled
 	vr_actions.visible=game.is_vr()
 	team_chat_button.visible=game.voice.team_available()
@@ -494,6 +496,10 @@ func _import_bsp(path: String) -> void:
 			for peer in multiplayer.get_peers():game.votes.offer(peer)
 
 func refresh_maps() -> void:
+	if game.cq_profile:
+		game.selected_map=game.match_mode.conquest.MAP_ID
+		map_choice.configure([{"id":game.selected_map,"title":"Vesper Megalopolis · CONQUEST"}],"CQ MAP")
+		map_choice.choose(game.selected_map);return
 	if is_instance_valid(minutes) and is_instance_valid(host_mode):
 		minutes.editable=host_mode.value!="tb"
 		if host_mode.value=="tb":minutes.value=10
@@ -515,6 +521,7 @@ func refresh_maps() -> void:
 	map_choice.configure(rows,"SELECT ARENA");map_choice.choose(game.selected_map)
 
 func open_host() -> void:
+	if game.cq_profile:return
 	refresh_maps();host_panel.get_parent().move_child(host_panel,-1);host_panel.show()
 
 var bindings_panel

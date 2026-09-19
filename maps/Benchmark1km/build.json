@@ -1,0 +1,56 @@
+{
+  "sha256": "727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3",
+  "bytes": 24197612,
+  "format": "BSP29",
+  "revision": "gothic-city-night-2",
+  "vertices": 63507,
+  "faces": 45164,
+  "nodes": 31624,
+  "lightmap_spacing": 32,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 1.8678810209967196,
+      "args": [
+        "-leaktest",
+        "-noclip",
+        "-subdivide",
+        "1024",
+        "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.map",
+        "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+      ]
+    },
+    {
+      "tool": "vis",
+      "seconds": 26.263346075022127,
+      "args": [
+        "-threads",
+        "8",
+        "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+      ]
+    },
+    {
+      "tool": "light",
+      "seconds": 61.282886991044506,
+      "args": [
+        "-threads",
+        "8",
+        "-extra",
+        "-bspxlit",
+        "-bounce",
+        "1",
+        "-bouncecolorscale",
+        "0.35",
+        "-dirt",
+        "1",
+        "-dirtdepth",
+        "64",
+        "-dirtscale",
+        "0.6",
+        "-minlight_dirt",
+        "1",
+        "/home/blux/Documents/FPSloppa/maps/Benchmark1km/prototype_km1.bsp"
+      ]
+    }
+  ]
+}
