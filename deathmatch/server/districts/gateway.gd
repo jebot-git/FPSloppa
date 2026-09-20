@@ -1,5 +1,6 @@
 extends Node
 ## CQ-only public ENet gateway. Workers alone simulate actors and combat.
+const External=preload("res://deathmatch/server/districts/external.gd")
 const State=preload("res://deathmatch/server/districts/state.gd")
 const Wire=preload("res://deathmatch/server/districts/wire.gd")
 const Rules=preload("res://deathmatch/conquest/rules.gd")
@@ -7,6 +8,8 @@ const Replication=preload("res://deathmatch/network/replication.gd")
 const Codec=preload("res://deathmatch/network/snapshot_codec.gd")
 const Events=preload("res://deathmatch/server/districts/events.gd")
 var game
+var external_session:=""
+var connection_started: Dictionary={}
 var listener:=TCPServer.new()
 var port:=0
 var limit:=16
@@ -22,6 +25,15 @@ var epoch:=1
 var stats: Dictionary={"transfers":0,"inputs":0,"stale_inputs":0,"baselines":0,"events":0,"max_workers":0}
 func setup(arena,worker_limit: int) -> void:
 	game=arena;limit=worker_limit
+	var path: String=game._arg_value(OS.get_cmdline_user_args(),"--cq-external-workers","")
+	if not path.is_empty():
+		var inventory:=External.gateway(path,limit)
+		if inventory.has("error"):fail(inventory.error);return
+		port=int(inventory.port);external_session=inventory.session
+		if listener.listen(port,"127.0.0.1")!=OK:fail("Cannot bind external worker tunnel listener");return
+		for row in inventory.workers:
+			workers[int(row.zone)]={"external":true,"instance":row.instance,"pid":0,"token":row.token,"wire":null,"ready":false,"last":Time.get_ticks_msec(),"sequence":-1,"snapshot":{}}
+		stats.max_workers=workers.size();print("CQ_EXTERNAL_LISTEN port=",port," workers=",workers.size());return
 	for attempt in 20:
 		port=randi_range(30000,39999)
 		if listener.listen(port,"127.0.0.1")==OK:return
@@ -36,11 +48,12 @@ func stop() -> void:
 	closing=true;listener.stop()
 	for wire in connections:wire.peer.disconnect_from_host()
 	for worker in workers.values():
-		if OS.is_process_running(worker.pid):OS.kill(worker.pid)
-	workers.clear();connections.clear()
+		if not worker.get("external",false) and OS.is_process_running(worker.pid):OS.kill(worker.pid)
+	workers.clear();connections.clear();connection_started.clear()
 func _exit_tree() -> void:stop()
 func need(zone: int) -> bool:
 	if workers.has(zone):return true
+	if not external_session.is_empty():fail("District %d has no provisioned external worker"%zone);return false
 	# Empty workers can be replaced; no actor or pending transaction may reference them.
 	if workers.size()>=limit:
 		for other in workers.keys():
@@ -48,7 +61,7 @@ func need(zone: int) -> bool:
 			if reset_pending.has(other) or owners.values().any(func(o):return o.zone==other or o.get("source",-1)==other):continue
 			if not w.get("snapshot",{}).get("projectiles",[]).is_empty():continue
 			sleeping[other]={"pickups":w.snapshot.get("pickups",[]).duplicate(true),"at":w.get("snapshot_at",game.clock)}
-			if w.wire:w.wire.peer.disconnect_from_host();connections.erase(w.wire)
+			if w.wire:reject(w.wire)
 			if OS.is_process_running(w.pid):OS.kill(w.pid)
 			workers.erase(other);break
 	if workers.size()>=limit:fail("Active districts exceed configured worker limit");return false
@@ -105,15 +118,20 @@ func _process(_delta: float) -> void:
 	while listener.is_connection_available():
 		var peer:=listener.take_connection()
 		if connections.size()>=limit+2:peer.disconnect_from_host();continue
-		connections.append(Wire.new(peer))
+		var accepted=Wire.new(peer);connections.append(accepted);connection_started[accepted]=Time.get_ticks_msec()
 	for wire in connections.duplicate():
-		for message in wire.poll():handle(wire,message)
+		for message in wire.poll():
+			handle(wire,message)
+			if closing or not connections.has(wire):break
 		if closing:return
-		if wire.failed:fail("Worker transport exceeded bounds");return
+		if wire.failed:
+			if workers.values().any(func(w):return w.wire==wire):fail("Worker transport exceeded bounds");return
+			reject(wire);continue
+		if not workers.values().any(func(w):return w.wire==wire) and (wire.peer.get_status()!=StreamPeerTCP.STATUS_CONNECTED or Time.get_ticks_msec()-int(connection_started.get(wire,0))>5000):reject(wire)
 	var now:=Time.get_ticks_msec()
 	for zone in workers:
 		var w: Dictionary=workers[zone]
-		if not OS.is_process_running(w.pid) or now-w.last>(5000 if w.ready else 60000):fail("District %d unavailable"%zone);return
+		if (not w.get("external",false) and not OS.is_process_running(w.pid)) or now-w.last>(5000 if w.ready else 60000):fail("District %d unavailable"%zone);return
 		if w.ready and w.wire.peer.get_status()!=StreamPeerTCP.STATUS_CONNECTED:fail("District %d disconnected"%zone);return
 	for id in owners.keys():
 		progress(id)
@@ -121,13 +139,24 @@ func _process(_delta: float) -> void:
 	if now-heartbeat_at>=250:
 		heartbeat_at=now
 		for zone in workers:send(zone,{"kind":"heartbeat","rules":game.match_mode.conquest.rules.snapshot(),"running":game.intermission<=0 and reset_pending.is_empty()})
+func reject(wire) -> void:
+	wire.peer.disconnect_from_host();connections.erase(wire);connection_started.erase(wire)
 func handle(wire,message: Dictionary) -> void:
-	var zone: int=message.get("zone",-1)
-	if not workers.has(zone):wire.peer.disconnect_from_host();return
+	if not message.get("kind") is String:reject(wire);return
+	var candidate=message.get("zone")
+	if not candidate is int or candidate not in range(16):reject(wire);return
+	var zone: int=candidate
+	if not workers.has(zone):reject(wire);return
 	var w: Dictionary=workers[zone]
 	if message.get("kind","")=="hello":
-		if w.ready or message.get("token")!=w.token or message.get("pid")!=w.pid or message.get("map")!=game.map_sha or message.get("schema")!=State.SCHEMA:wire.peer.disconnect_from_host();return
-		w.wire=wire;w.ready=true;w.last=Time.get_ticks_msec();wire.send({"kind":"welcome","token":w.token});w.erase("token")
+		if w.ready:reject(wire);return
+		if not message.get("pid") is int or not message.get("schema") is int or not message.get("token") is String or not message.get("map") is String:reject(wire);return
+		if w.get("external",false) and not ["session","instance","link","version"].all(func(key):return message.get(key) is String):reject(wire);return
+		var identity: bool=message.get("pid")==w.pid
+		if w.get("external",false):identity=message.get("pid") is int and message.pid>0 and message.get("session")==external_session and message.get("instance")==w.instance and message.get("link")==External.PROTOCOL and message.get("version")==ProjectSettings.get_setting("application/config/version")
+		if not identity or message.get("token")!=w.token or message.get("map")!=game.map_sha or message.get("schema")!=State.SCHEMA:reject(wire);return
+		if w.get("external",false):w.pid=int(message.get("pid",0)) # Diagnostic only, never a local process handle.
+		w.wire=wire;w.ready=true;w.last=Time.get_ticks_msec();wire.send({"kind":"welcome","token":w.token,"session":external_session,"instance":w.get("instance","")});w.erase("token")
 		var parked: Dictionary=sleeping.get(zone,{})
 		var items: Array=parked.get("pickups",[]).duplicate(true)
 		for item in items:
@@ -233,7 +262,8 @@ func diagnostics() -> Dictionary:
 	for id in owners:
 		var o: Dictionary=owners[id]
 		actors.append({"id":id,"zone":o.zone,"generation":o.generation,"phase":o.phase,"input_sequence":o.last_seq,"position":str(game.fighters[id].position) if game.fighters.has(id) else ""})
-	return {"backend":"districts","workers":workers.size(),"limit":limit,"worker_pids":workers.keys().reduce(func(result,z):result[z]=workers[z].pid;return result,{}),"stats":stats.duplicate(),"actors":actors,"epoch":epoch}
+	return {"backend":"districts","placement":"external" if not external_session.is_empty() else "local","transport":workers.keys().reduce(func(result,z):
+		var w: Dictionary=workers[z];result[z]={"ready":w.ready,"sent":w.wire.sent if w.wire else 0,"received":w.wire.received if w.wire else 0,"snapshot_age_ms":Time.get_ticks_msec()-w.last};return result,{}),"workers":workers.size(),"limit":limit,"worker_pids":workers.keys().reduce(func(result,z):result[z]=workers[z].pid;return result,{}),"stats":stats.duplicate(),"actors":actors,"epoch":epoch}
 
 func apply(row: Dictionary) -> void:
 	# Admission, model choice and transport RTT remain owned by the gateway.

@@ -311,6 +311,8 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		get_tree().quit(2)
 		return
 	var settings: Dictionary=result.values
+	if args.has("--cq-external-workers") and (not cq_profile or settings.sv_cq_backend!="districts"):
+		push_error("External workers require CQ with sv_cq_backend districts.");get_tree().quit(2);return
 	if (settings.sv_gametype=="cq")!=cq_profile:
 		push_error("CQ requires its separate launch script and a CQ-only config.");get_tree().quit(2);return
 	if not armory.select(_arg_value(args,"--weapons",settings.sv_weapon_rules)):push_error("Unknown weapon ruleset");get_tree().quit(2);return
@@ -362,6 +364,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	selected_map=map_rotation[0]
 	if cq_profile and settings.sv_cq_backend=="districts":
 		district_gateway=preload("res://deathmatch/server/districts/gateway.gd").new();add_child(district_gateway);district_gateway.setup(self,settings.sv_cq_worker_limit)
+		if district_gateway.closing:return
 	start_host("Server",_arg_int(args,"--port",settings.net_port),_arg_int(args,"--frags",settings.fraglimit),_arg_int(args,"--minutes",settings.timelimit),false)
 	if not active:
 		get_tree().quit(2)

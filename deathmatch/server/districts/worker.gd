@@ -1,5 +1,6 @@
 extends Node
 ## Launched by the dedicated server, using the same executable and arena code.
+const External=preload("res://deathmatch/server/districts/external.gd")
 const State=preload("res://deathmatch/server/districts/state.gd")
 const Wire=preload("res://deathmatch/server/districts/wire.gd")
 const Rules=preload("res://deathmatch/conquest/rules.gd")
@@ -7,6 +8,7 @@ var game
 var zone:=0
 var wire
 var token:=""
+var external: Dictionary={}
 var generation: Dictionary={}
 var prepared: Dictionary={}
 var escrow: Dictionary={}
@@ -21,8 +23,13 @@ var events: Array=[]
 func setup(arena,args: PackedStringArray) -> void:
 	game=arena;game.district_worker=self;game.dedicated=true;game.set_process(false);game.set_physics_process(false)
 	zone=game._arg_int(args,"--cq-worker",-1);token=game._arg_value(args,"--worker-token","")
+	var provision: String=game._arg_value(args,"--worker-session-file","")
+	if not provision.is_empty():
+		external=External.worker(provision,zone)
+		if external.has("error"):push_error(external.error);get_tree().quit(2);return
+		token=external.token
 	if zone not in range(16) or token.length()!=64 or not token.is_valid_hex_number(false):get_tree().quit(2);return
-	boot.call_deferred(game._arg_int(args,"--worker-port",0))
+	boot.call_deferred(int(external.port) if not external.is_empty() else game._arg_int(args,"--worker-port",0))
 func boot(port: int) -> void:
 	if port<1024 or port>65535:get_tree().quit(2);return
 	Engine.max_fps=60;Engine.physics_ticks_per_second=60
@@ -40,7 +47,7 @@ func boot(port: int) -> void:
 	while socket.get_status()!=StreamPeerTCP.STATUS_CONNECTED:
 		socket.poll();await get_tree().process_frame
 		if Time.get_ticks_msec()>deadline:get_tree().quit(2);return
-	wire.send({"kind":"hello","zone":zone,"token":token,"pid":OS.get_process_id(),"map":game.map_sha,"schema":State.SCHEMA})
+	wire.send({"kind":"hello","zone":zone,"token":token,"pid":OS.get_process_id(),"map":game.map_sha,"schema":State.SCHEMA,"session":external.get("session",""),"instance":external.get("instance",""),"link":External.PROTOCOL,"version":ProjectSettings.get_setting("application/config/version")})
 	last_contact=Time.get_ticks_msec();booted=true
 func ensure_bots(id: int) -> void:
 	if id>=0 or is_instance_valid(game.bots):return
@@ -68,7 +75,7 @@ func _physics_process(delta: float) -> void:
 	if Time.get_ticks_msec()-last_snapshot>=50:send_snapshot();last_snapshot=Time.get_ticks_msec()
 func command(message: Dictionary) -> void:
 	if not authenticated:
-		if message.get("kind","")!="welcome" or message.get("token","")!=token:get_tree().quit(3);return
+		if message.get("kind","")!="welcome" or message.get("token","")!=token or (not external.is_empty() and (message.get("session")!=external.session or message.get("instance")!=external.instance)):get_tree().quit(3);return
 		authenticated=true;token="";return
 	if message.kind=="start" and epoch==0:
 		game.match_mode.friendly_fire=message.get("friendly_fire",false);running=true;epoch=message.epoch;game.map_epoch=message.get("map_epoch",epoch)

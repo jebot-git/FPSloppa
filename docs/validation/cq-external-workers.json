@@ -1,0 +1,512 @@
+{
+  "date": "2026-09-20",
+  "branch": "experimental/cq-districts",
+  "base_commit": "30dcdaf397daca8d93bd57a9c8ae389c9875e66e",
+  "scope": "One local master, four independently launched workers, two real prediction clients; per-worker bounded TCP delay proxies. No physical multi-host or 64-player benchmark.",
+  "master_authority": [
+    "admission",
+    "actor ownership and generations",
+    "transfer coordination",
+    "captures",
+    "match clock",
+    "scores and victory",
+    "round reset",
+    "radio routing",
+    "client replication"
+  ],
+  "runs": [
+    {
+      "name": "external-final0",
+      "added_worker_rtt_ms": 0,
+      "ok": true,
+      "clients": [
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 0
+          },
+          "route": {
+            "ack": 1224,
+            "ammo": [
+              47,
+              0,
+              10,
+              0
+            ],
+            "events": 8,
+            "legs": [
+              0.616754770278931,
+              0.641666293144226,
+              0.68966680765152
+            ],
+            "pauses_ms": [
+              134,
+              68
+            ],
+            "position": "(-261.9703, 0.045811, -374.9998)",
+            "prediction": {
+              "corrections": 1,
+              "max_error": 0.224235847592354,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              1148407389
+            ]
+          }
+        },
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 2
+          },
+          "route": {
+            "ack": 1220,
+            "ammo": [
+              147,
+              0,
+              0,
+              0
+            ],
+            "events": 8,
+            "legs": [
+              0.977116346359253,
+              0.852243185043335,
+              0.610870361328125
+            ],
+            "pauses_ms": [
+              68,
+              134
+            ],
+            "position": "(237.9108, 0.045834, -374.9999)",
+            "prediction": {
+              "corrections": 4,
+              "max_error": 0.313324004411697,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              567099151
+            ]
+          }
+        }
+      ],
+      "master_clock_advanced": true,
+      "transfers": 4,
+      "stale_inputs_rejected": 4,
+      "epoch_before": 1,
+      "epoch_after": 2,
+      "sample_seconds": 43.667910023010336,
+      "bytes_by_link": {
+        "2:to_master": 3555344,
+        "3:to_master": 1397340,
+        "2:to_worker": 907268,
+        "1:to_master": 1403064,
+        "3:to_worker": 184072,
+        "0:to_master": 3534284,
+        "1:to_worker": 185336,
+        "0:to_worker": 906736
+      },
+      "private_link_mbit_per_second": 2.2118656915136135,
+      "handoff_pause_ms_range": [
+        68,
+        134
+      ],
+      "max_prediction_error_m": 0.313324004411697,
+      "hard_prediction_resets": 0,
+      "worker_loss_master_exit": 3,
+      "other_workers_exit_on_master_loss": true
+    },
+    {
+      "name": "external-final30",
+      "added_worker_rtt_ms": 30,
+      "ok": true,
+      "clients": [
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 0
+          },
+          "route": {
+            "ack": 1232,
+            "ammo": [
+              47,
+              0,
+              10,
+              25
+            ],
+            "events": 8,
+            "legs": [
+              0.610477864742279,
+              0.450836658477783,
+              0.721618711948395
+            ],
+            "pauses_ms": [
+              134,
+              199
+            ],
+            "position": "(-261.9384, 0.045811, -374.9998)",
+            "prediction": {
+              "corrections": 5,
+              "max_error": 0.313347607851028,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              538160494
+            ]
+          }
+        },
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 2
+          },
+          "route": {
+            "ack": 1218,
+            "ammo": [
+              147,
+              0,
+              0,
+              0
+            ],
+            "events": 7,
+            "legs": [
+              0.977348327636719,
+              0.81546825170517,
+              0.985122680664062
+            ],
+            "pauses_ms": [
+              199,
+              200
+            ],
+            "position": "(238.2851, 0.045835, -375.0002)",
+            "prediction": {
+              "corrections": 2,
+              "max_error": 0.297842919826508,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              1379420150
+            ]
+          }
+        }
+      ],
+      "master_clock_advanced": true,
+      "transfers": 4,
+      "stale_inputs_rejected": 6,
+      "epoch_before": 1,
+      "epoch_after": 2,
+      "sample_seconds": 43.8450010259985,
+      "bytes_by_link": {
+        "0:to_master": 3549024,
+        "3:to_master": 1413948,
+        "2:to_master": 3540292,
+        "0:to_worker": 906336,
+        "3:to_worker": 184988,
+        "2:to_worker": 904392,
+        "1:to_master": 1422736,
+        "1:to_worker": 187516
+      },
+      "private_link_mbit_per_second": 2.2094618253642486,
+      "handoff_pause_ms_range": [
+        134,
+        200
+      ],
+      "max_prediction_error_m": 0.313347607851028,
+      "hard_prediction_resets": 0,
+      "worker_loss_master_exit": null,
+      "other_workers_exit_on_master_loss": null
+    },
+    {
+      "name": "external-final100",
+      "added_worker_rtt_ms": 100,
+      "ok": true,
+      "clients": [
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 0
+          },
+          "route": {
+            "ack": 1228,
+            "ammo": [
+              47,
+              0,
+              10,
+              0
+            ],
+            "events": 8,
+            "legs": [
+              0.552189826965332,
+              0.798508167266846,
+              0.393158227205276
+            ],
+            "pauses_ms": [
+              267,
+              333
+            ],
+            "position": "(-262.1269, 0.045811, -375.0001)",
+            "prediction": {
+              "corrections": 2,
+              "max_error": 0.280446767807007,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              1323506932
+            ]
+          }
+        },
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 2
+          },
+          "route": {
+            "ack": 1232,
+            "ammo": [
+              147,
+              0,
+              0,
+              0
+            ],
+            "events": 7,
+            "legs": [
+              0.664040088653564,
+              0.566879689693451,
+              0.60662841796875
+            ],
+            "pauses_ms": [
+              334,
+              268
+            ],
+            "position": "(237.9466, 0.045835, -375.0001)",
+            "prediction": {
+              "corrections": 1,
+              "max_error": 0.205906614661217,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              1606393500
+            ]
+          }
+        }
+      ],
+      "master_clock_advanced": true,
+      "transfers": 4,
+      "stale_inputs_rejected": 4,
+      "epoch_before": 1,
+      "epoch_after": 2,
+      "sample_seconds": 44.48818102595396,
+      "bytes_by_link": {
+        "1:to_master": 1423060,
+        "2:to_master": 3561152,
+        "3:to_master": 1425976,
+        "0:to_master": 3557008,
+        "1:to_worker": 189632,
+        "2:to_worker": 908612,
+        "3:to_worker": 190896,
+        "0:to_worker": 908608
+      },
+      "private_link_mbit_per_second": 2.1875372234981856,
+      "handoff_pause_ms_range": [
+        267,
+        334
+      ],
+      "max_prediction_error_m": 0.280446767807007,
+      "hard_prediction_resets": 0,
+      "worker_loss_master_exit": null,
+      "other_workers_exit_on_master_loss": null
+    },
+    {
+      "name": "external-final250",
+      "added_worker_rtt_ms": 250,
+      "ok": true,
+      "clients": [
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 0
+          },
+          "route": {
+            "ack": 1238,
+            "ammo": [
+              47,
+              0,
+              10,
+              0
+            ],
+            "events": 8,
+            "legs": [
+              0.604519307613373,
+              0.947146475315094,
+              0.56521612405777
+            ],
+            "pauses_ms": [
+              602,
+              600
+            ],
+            "position": "(-262.0948, 0.045811, -375.0002)",
+            "prediction": {
+              "corrections": 4,
+              "max_error": 0.31333926320076,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              1366235434
+            ]
+          }
+        },
+        {
+          "result": {
+            "failures": [],
+            "handoffs": 4,
+            "stale_rejected": 2,
+            "zone": 2
+          },
+          "route": {
+            "ack": 1240,
+            "ammo": [
+              147,
+              0,
+              0,
+              25
+            ],
+            "events": 8,
+            "legs": [
+              0.616770923137665,
+              0.639043509960175,
+              0.535140991210938
+            ],
+            "pauses_ms": [
+              600,
+              601
+            ],
+            "position": "(237.8751, 0.045835, -375.0)",
+            "prediction": {
+              "corrections": 1,
+              "max_error": 0.224154248833656,
+              "resets": 0
+            },
+            "roster": 2,
+            "visible": [
+              331785682
+            ]
+          }
+        }
+      ],
+      "master_clock_advanced": true,
+      "transfers": 4,
+      "stale_inputs_rejected": 4,
+      "epoch_before": 1,
+      "epoch_after": 2,
+      "sample_seconds": 45.51302888902137,
+      "bytes_by_link": {
+        "1:to_master": 1461080,
+        "3:to_master": 1468612,
+        "2:to_master": 3620820,
+        "0:to_master": 3632612,
+        "1:to_worker": 195824,
+        "3:to_worker": 197088,
+        "2:to_worker": 911064,
+        "0:to_worker": 911060
+      },
+      "private_link_mbit_per_second": 2.179272230856194,
+      "handoff_pause_ms_range": [
+        600,
+        602
+      ],
+      "max_prediction_error_m": 0.31333926320076,
+      "hard_prediction_resets": 0,
+      "worker_loss_master_exit": null,
+      "other_workers_exit_on_master_loss": null
+    }
+  ],
+  "checks": {
+    "external_identity_and_configuration": {
+      "passed": 23
+    },
+    "private_worker_protocol": {
+      "passed": 47
+    },
+    "conquest_rules": {
+      "passed": 221
+    },
+    "local_worker_pool_regression": {
+      "ok": true,
+      "worker_limit": 2,
+      "transfers": 4,
+      "max_workers": 2,
+      "epoch_before": 1,
+      "epoch_after": 2,
+      "client": {
+        "result": {
+          "failures": [],
+          "handoffs": 6,
+          "stale_rejected": 2,
+          "zone": 0
+        },
+        "route": {
+          "ack": 4386,
+          "ammo": [
+            147,
+            0,
+            16,
+            40
+          ],
+          "events": 11,
+          "legs": [
+            0.617337346076965,
+            0.562385201454163,
+            0.475797235965729,
+            0.604532301425934,
+            0.56506359577179
+          ],
+          "pauses_ms": [
+            1200,
+            1200,
+            67,
+            1134
+          ],
+          "position": "(-256.1449, 0.045811, -375.0003)",
+          "prediction": {
+            "corrections": 5,
+            "max_error": 0.313333302736282,
+            "resets": 0
+          },
+          "roster": 1,
+          "visible": [
+            965286621
+          ]
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Same-machine synthetic fixed delay; no packet loss, jitter, congestion, tunnel overhead or multi-host CPU measurements.",
+    "Handoff pauses measure client transition to baseline, excluding time before the transition notice arrives.",
+    "Movement routes do not establish remote combat rewind or capture timing accuracy.",
+    "Global rules remain on a single master; no master failover or worker recovery.",
+    "External worker inventory is fixed; full city needs all 16 districts.",
+    "Current private snapshots contain full actor state; measured throughput is for only two clients and four workers."
+  ],
+  "known_test_warning": "Godot reported ObjectDB/resource-in-use warnings during fixture/client shutdown; gameplay and protocol assertions passed, and child processes were reaped."
+}

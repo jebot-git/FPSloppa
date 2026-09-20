@@ -2,6 +2,8 @@
 
 The experimental branch now has an optional playable ENet gateway in the existing dedicated executable. `main` remains the ordinary working branch. CQ still requires its separate launcher and protocol (`fpsloppa-cq-experimental-2`); normal clients and normal game capacity settings remain separate.
 
+See [multi-server exploration](CQ-MULTI-SERVER.md) for the newer optional single-master/external-worker prototype. Published 0.15v CQ binaries contain the earlier local-worker backend.
+
 ## Configuration and launch
 
 Add these to a CQ-only server configuration:
