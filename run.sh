@@ -12,4 +12,4 @@ if ! command -v "$godot_bin" >/dev/null 2>&1; then
         exit 1
     fi
 fi
-exec "$godot_bin" --path "$project_dir" "$@"
+exec "$godot_bin" --rendering-method mobile --rendering-driver vulkan --path "$project_dir" "$@"

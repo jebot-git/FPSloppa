@@ -1,0 +1,36 @@
+{
+  "policy": "Vulkan Mobile only; OpenGL and Direct3D fallback disabled",
+  "startup": [
+    {
+      "method": "gl_compatibility",
+      "driver": "opengl3",
+      "exit": 2,
+      "passed": true
+    },
+    {
+      "method": "mobile",
+      "driver": "vulkan",
+      "exit": 0,
+      "passed": true
+    }
+  ],
+  "exports": [
+    {
+      "driver": "vulkan",
+      "method": "mobile",
+      "passed": true,
+      "target": "linux",
+      "pck_sha256": "fb00a9fa3366fa8bd52df1a1f98c024a6ee9ebaff9978350a523b6749be6afdf"
+    },
+    {
+      "driver": "vulkan",
+      "method": "mobile",
+      "passed": true,
+      "target": "windows",
+      "pck_sha256": "fb00a9fa3366fa8bd52df1a1f98c024a6ee9ebaff9978350a523b6749be6afdf"
+    }
+  ],
+  "dedicated_server_resource_audit": true,
+  "windows_native_runtime_tested": false,
+  "stock_engine_backends_compiled_out": false
+}

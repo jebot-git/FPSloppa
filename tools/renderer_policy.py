@@ -28,4 +28,5 @@ def verify_android_renderer(archive):
     assert values.get('rendering/renderer/rendering_method.mobile', 'mobile') == 'mobile'
     assert values.get('rendering/rendering_device/driver.android', 'vulkan') == 'vulkan'
     assert values.get('rendering/rendering_device/fallback_to_opengl3', True) is False
-    return {'method': 'mobile', 'android_driver': 'vulkan', 'opengl_fallback': False}
+    assert values.get('rendering/rendering_device/fallback_to_d3d12', True) is False
+    return {'method': 'mobile', 'android_driver': 'vulkan', 'opengl_fallback': False, 'd3d12_fallback': False}

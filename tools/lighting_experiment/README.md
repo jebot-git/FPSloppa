@@ -1,6 +1,6 @@
 # Low-cost lighting experiment
 
-**Current renderer policy:** Mobile/Vulkan is maintained; OpenGL fallback and its runtime workarounds have since been removed. The OpenGL results below are historical comparisons. New render runs default to Mobile. See [renderer support](../../docs/RENDERER-SUPPORT.md).
+**Current renderer policy:** Mobile/Vulkan is maintained; OpenGL fallback and its runtime workarounds have since been removed. The OpenGL results below are historical comparisons. New render runs use only Vulkan Mobile; the runner no longer accepts the historical OpenGL options below. See [renderer support](../../docs/RENDERER-SUPPORT.md).
 
 The follow-up [ambient occlusion assessment](AO.md) isolates a short-range AO bake from other lighting changes, measures both renderers, and compares options for an independent graphics toggle and moving avatars.
 

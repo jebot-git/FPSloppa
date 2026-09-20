@@ -26,6 +26,10 @@ if '--package-only' not in sys.argv and '--stage-only' not in sys.argv:
     finally:
         for marker in markers:marker.unlink(missing_ok=True)
 
+# Require the policy when repackaging existing exports too.
+for _,folder,_ in targets:
+    subprocess.run([godot,'--headless','--xr-mode','off','--path',str(root),'--script','res://deathmatch/tests/renderer_export.gd','--',str(builds/folder/'FPSloppa.pck')],check=True)
+
 # Server uses a distinct directory: never mix in plugins from legacy exports.
 server_dest=root/'Builds/ConsoleServer'
 server_command=[sys.executable,str(root/'tools/build_console_server.py'),'--cq-assets','--output',str(server_dest)]
@@ -67,21 +71,21 @@ for _,folder,binary in targets:
         if folder=='Linux':
             name=f'Play-Conquest-{label}.sh'
             launcher=dest/name
-            launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\naddress="${1:-127.0.0.1}"\nif (( $# )); then shift; fi\nexec "$game_dir/FPSloppa.x86_64" --xr-mode '+mode+' -- --experimental-cq --connect "$address" --port 7787 "$@"\n')
+            launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\naddress="${1:-127.0.0.1}"\nif (( $# )); then shift; fi\nexec "$game_dir/FPSloppa.x86_64" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' -- --experimental-cq --connect "$address" --port 7787 "$@"\n')
             launcher.chmod(0o755)
         else:
             name=f'Play-Conquest-{label}.cmd'
-            (dest/name).write_bytes(('@echo off\r\nset "address=%~1"\r\nif "%address%"=="" set "address=127.0.0.1"\r\n"%~dp0FPSloppa.exe" --xr-mode '+mode+' -- --experimental-cq --connect "%address%" --port 7787\r\n').encode())
+            (dest/name).write_bytes(('@echo off\r\nset "address=%~1"\r\nif "%address%"=="" set "address=127.0.0.1"\r\n"%~dp0FPSloppa.exe" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' -- --experimental-cq --connect "%address%" --port 7787\r\n').encode())
         selected.add(name)
     if folder=='Linux':
         for label,mode in [('VR','on'),('Desktop','off')]:
             selected.add(f'Play-{label}.sh');f=dest/f'Play-{label}.sh'
-            f.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$game_dir/FPSloppa.x86_64" --xr-mode '+mode+' "$@"\n');f.chmod(0o755)
+            f.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$game_dir/FPSloppa.x86_64" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' "$@"\n');f.chmod(0o755)
     else:
         stage(root/"tools"/"Diagnose-VR.cmd",dest/"Diagnose-VR.cmd")
         for label,mode in [('VR','on'),('Desktop','off')]:
             selected.add(f'Play-{label}.cmd')
-            (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --xr-mode '+mode+' %*\r\n').encode())
+            (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' %*\r\n').encode())
 
 if '--stage-only' in sys.argv:
     print('STAGED binary folders, assets, launchers and license notices',flush=True)

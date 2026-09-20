@@ -8,5 +8,5 @@ if [[ "${1:-}" == "--server" ]]; then
 else
   address="${1:-127.0.0.1}"
   if (( $# )); then shift; fi
-  exec "$engine" --path . -- --experimental-cq --cq-district-maps --connect "$address" --port 7787 "$@"
+  exec "$engine" --rendering-method mobile --rendering-driver vulkan --path . -- --experimental-cq --cq-district-maps --connect "$address" --port 7787 "$@"
 fi

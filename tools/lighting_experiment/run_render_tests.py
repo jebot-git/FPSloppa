@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('suite', choices=['coverage', 'mtoon', 'shimmer', 'emission', 'ao', 'distribution-ao', 'material-audit', 'static', 'presentation', 'vesper-hole', 'surfaces', 'presentation-ui', 'candidates789', 'static-assets'])
-    parser.add_argument('--renderer', choices=['mobile', 'gl_compatibility', 'both'], default='mobile', help='OpenGL options are historical diagnostics, not supported game configurations')
+    parser.add_argument('--renderer', choices=['mobile'], default='mobile', help='Vulkan Mobile is the only supported renderer')
     parser.add_argument('--only-map', help='Coverage only: comma-separated maps to repeat, preserving other existing results')
     parser.add_argument('--depth-prepass', choices=['on', 'off'], help='Diagnostic isolated project override (shimmer/coverage)')
     parser.add_argument('--contrast', action='store_true', help='Static-assets suite: repeat with Contrast lighting')
@@ -65,12 +65,12 @@ def main():
         (project/'project.godot').write_text((ROOT/'project.godot').read_text())
         enabled = 'true' if args.depth_prepass == 'on' else 'false'
         (project/'override.cfg').write_text(f'[rendering]\ndriver/depth_prepass/enable={enabled}\n')
-    for renderer in ['mobile', 'gl_compatibility'] if args.renderer == 'both' else [args.renderer]:
+    for renderer in [args.renderer]:
         label = f'{args.suite}-{renderer}' + ('-contrast' if args.contrast else '') + (f'-prepass-{args.depth_prepass}' if args.depth_prepass else '')
         output = folder/f'{label}.log'
         with output.open('w') as log:
             command = ['godot', '--xr-mode', 'off', '--path', str(project),
-                '--rendering-method', renderer, '--log-file', str(folder/f'engine-{label}.log'),
+                '--rendering-method', renderer, '--rendering-driver', 'vulkan', '--log-file', str(folder/f'engine-{label}.log'),
                 '--script', script_path]
             user_args = ['--contrast'] if args.contrast else []
             if args.only_map:

@@ -159,6 +159,10 @@ var lobby
 var demos
 var bindings=preload("res://deathmatch/settings/bindings.gd").new()
 func _ready() -> void:
+	var renderer_error:=preload("res://deathmatch/rendering_policy.gd").startup_error()
+	if not renderer_error.is_empty():
+		set_process(false);set_physics_process(false);set_process_unhandled_input(false)
+		push_error(renderer_error);get_tree().quit(2);return
 	cq_profile=OS.get_cmdline_user_args().has("--experimental-cq")
 	if cq_maps.enabled and not cq_profile:push_error("District maps require the experimental CQ profile.");get_tree().quit(2);return
 	get_tree().auto_accept_quit=false
