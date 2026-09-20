@@ -2,8 +2,8 @@ extends RefCounted
 const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as"]
 const MAX_CLIENTS := 32
 const CAPACITY_WARNING := "UNSUPPORTED PLAYER COUNT: more than 16 players is unsupported. Performance, gameplay and maps are not balanced for player limits higher than 16."
-const DEFAULTS={"sv_bot_fill":0,"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","if_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
-const RANGES={"sv_bot_fill":Vector2i(0,MAX_CLIENTS),"rcon_port":Vector2i(1024,65535),"sv_lobby":Vector2i(0,1),"sv_lobby_seconds":Vector2i(15,180),"sv_map_uploads":Vector2i(0,1),"sv_log_max_mb":Vector2i(1,512),"sv_log_backups":Vector2i(1,9),"sv_friendlyfire":Vector2i(0,1),"capturelimit":Vector2i(1,100),"hilllimit":Vector2i(1,3600),"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_votes":Vector2i(0,1),"sv_tf_spy_invisibility":Vector2i(0,1),"sv_announcer":Vector2i(0,1),"sv_voice":Vector2i(0,1)}
+const DEFAULTS={"sv_master_test":0,"sv_master_test_port":8080,"sv_public":0,"sv_query_port":0,"sv_master_url":"","sv_bot_fill":0,"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","if_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
+const RANGES={"sv_master_test":Vector2i(0,1),"sv_master_test_port":Vector2i(1024,65535),"sv_public":Vector2i(0,1),"sv_query_port":Vector2i(0,65535),"sv_bot_fill":Vector2i(0,MAX_CLIENTS),"rcon_port":Vector2i(1024,65535),"sv_lobby":Vector2i(0,1),"sv_lobby_seconds":Vector2i(15,180),"sv_map_uploads":Vector2i(0,1),"sv_log_max_mb":Vector2i(1,512),"sv_log_backups":Vector2i(1,9),"sv_friendlyfire":Vector2i(0,1),"capturelimit":Vector2i(1,100),"hilllimit":Vector2i(1,3600),"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_votes":Vector2i(0,1),"sv_tf_spy_invisibility":Vector2i(0,1),"sv_announcer":Vector2i(0,1),"sv_voice":Vector2i(0,1)}
 
 static func parse(source: String) -> Dictionary:
 	var values:=DEFAULTS.duplicate()
@@ -30,8 +30,18 @@ static func parse(source: String) -> Dictionary:
 			if number<RANGES[key].x or number>RANGES[key].y: return {"error":"Line %d: %s is out of range."%[line_number,key]}
 			values[key]=number
 		else:
-			if (value.is_empty() and not key.ends_with("_maplist") and not key in ["sv_maplist","sv_mumble_url","sv_gametypes","sv_log_file","rcon_password"]) or value.length()>(2048 if key.ends_with("_maplist") else 512 if key in ["sv_mumble_url","sv_log_file"] else 80): return {"error":"Line %d: empty or excessive value."%line_number}
+			if (value.is_empty() and not key.ends_with("_maplist") and not key in ["sv_maplist","sv_mumble_url","sv_gametypes","sv_log_file","rcon_password","sv_master_url"]) or value.length()>(2048 if key.ends_with("_maplist") else 512 if key in ["sv_mumble_url","sv_log_file","sv_master_url"] else 80): return {"error":"Line %d: empty or excessive value."%line_number}
 			values[key]=value
+	if values.sv_master_test==1:
+		if not str(values.sv_master_url).is_empty():return {"error":"sv_master_test manages its own URL; leave sv_master_url empty."}
+		if not values.net_ip in ["*","0.0.0.0","127.0.0.1"]:return {"error":"Local master testing requires gameplay binding on IPv4 loopback or all interfaces."}
+		values.sv_public=1
+		values.sv_master_url="http://127.0.0.1:"+str(values.sv_master_test_port)
+		if values.sv_query_port==0:values.sv_query_port=7779
+	if values.sv_query_port!=0 and values.sv_query_port<1024:return {"error":"sv_query_port must be 0 (disabled) or 1024–65535."}
+	if values.sv_query_port!=0 and values.sv_query_port==values.net_port:return {"error":"sv_query_port must differ from net_port."}
+	if not str(values.sv_master_url).is_empty() and not preload("res://deathmatch/server/discovery_protocol.gd").valid_url(values.sv_master_url):return {"error":"sv_master_url requires HTTPS (numeric loopback HTTP is allowed for local testing)."}
+	if values.sv_public==1 and (values.sv_query_port==0 or str(values.sv_master_url).is_empty()):return {"error":"sv_public requires sv_query_port and sv_master_url."}
 	if values.sv_bot_fill>values.sv_maxclients:return {"error":"sv_bot_fill cannot exceed sv_maxclients."}
 	if not values.sv_weapon_rules in ["doom","quake","ut99"]:return {"error":"sv_weapon_rules must be doom, quake or ut99."}
 	values.sv_gametype=str(values.sv_gametype).to_lower()

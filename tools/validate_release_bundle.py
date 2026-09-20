@@ -29,6 +29,18 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
         else:
             for source in ['maps/Pressureworks/tf_pressureworks.map','maps/VesperAbbey/tf_vesper.map','maps/Quake/sources/adapted/qsrc_dm7.map','deathmatch/maps/texture_replacements/makkon-used.wad.import']:
                 assert prefix+source in names,source
+            for source in ['tools/master_server/server.py','tools/master_server/issue_token.py','deathmatch/ui/server_browser.gd','deathmatch/ui/server_directory.gd','deathmatch/server/discovery.gd','deathmatch/server/discovery_protocol.gd']:
+                assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale discovery source',source)
+        assert z.read(prefix+'docs/SERVER-BROWSER.md')==(ROOT/'docs/SERVER-BROWSER.md').read_bytes(),('Missing or stale browser guide',label)
         rows.append({'archive':filename,'bytes':archive.stat().st_size,'files':len(names),'verified_assets':len(assets),'maps':sum(row['path'].endswith('.bsp') for row in assets),'passed':True})
         print(label,'passed',len(names),'files',flush=True)
+archive=ROOT.parent/'FPSloppa-Master-Server.zip'
+with zipfile.ZipFile(archive) as z:
+    expected={name:ROOT/'tools/master_server'/name for name in ['server.py','issue_token.py','README.md']}
+    expected.update({'VERSION':ROOT/'VERSION','docs/SERVER-BROWSER.md':ROOT/'docs/SERVER-BROWSER.md'})
+    assert z.testzip() is None
+    assert len(z.infolist())==len(expected) and set(z.namelist())=={'FPSloppa-Master-Server/'+name for name in expected}
+    for name,source in expected.items():assert z.read('FPSloppa-Master-Server/'+name)==source.read_bytes(),name
+    rows.append({'archive':archive.name,'bytes':archive.stat().st_size,'files':len(expected),'passed':True})
+    print('Master service passed',len(expected),'files',flush=True)
 (ROOT/'test-results/release-bundle-audit.json').write_text(json.dumps(rows,indent=2)+'\n')

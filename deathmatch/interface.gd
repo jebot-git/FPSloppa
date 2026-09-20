@@ -57,6 +57,7 @@ var host_panel: PanelContainer
 var host_mode
 var host_port: SpinBox
 var spectator_choice: CheckButton
+var server_browser: PanelContainer
 
 func panel_style(color: Color) -> StyleBoxFlat:
 	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
@@ -306,7 +307,9 @@ func _build_menu(root: Control) -> void:
 	column.add_child(actions)
 	var host := button(actions,"HOST MATCH…",open_host)
 	var join := button(actions,"JOIN MATCH",func(): game.start_join(name_field.text,address_field.text,int(port_field.value),spectator_choice.button_pressed))
-	launch_buttons = [host,join]
+	server_browser=preload("res://deathmatch/ui/server_browser.gd").new();root.add_child(server_browser);server_browser.setup(game,self)
+	var browse := button(actions,"BROWSE SERVERS…",server_browser.open)
+	launch_buttons = [host,join,browse]
 	resume = button(column,"RESUME",func():
 		game.menu_open = false
 		show_menu(false)
@@ -379,6 +382,7 @@ func show_menu(open: bool) -> void:
 	votes_button.visible=game.active
 	if votes_panel and not open:votes_panel.hide()
 	if next_match_panel and not open:next_match_panel.hide()
+	if server_browser and (not open or game.active):server_browser.close()
 	for b in launch_buttons: b.visible = not game.active
 	if not open:
 		preload("res://deathmatch/ui/choice.gd").close_all(get_tree())

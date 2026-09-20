@@ -1,0 +1,385 @@
+{
+  "version": "0.16v",
+  "protocol": "fpsloppa-39-rotating-koth",
+  "targets": [
+    "Linux",
+    "Windows",
+    "Linux dedicated server",
+    "Quest",
+    "Master service",
+    "Source"
+  ],
+  "official_exporter": "4.7.2.stable.official.ed1daf0bf",
+  "android_version_code": 21,
+  "master_unit_tests": {
+    "tests": 9,
+    "passed": true
+  },
+  "browser_integration": {
+    "status": {
+      "name": "Browser Integration",
+      "map": "qsrc_dm1",
+      "map_title": "Quake: Place of Two Deaths",
+      "protocol": "fpsloppa-39-rotating-koth",
+      "version": "0.16v",
+      "humans": 0,
+      "spectators": 0,
+      "bots": 2,
+      "reserved": 0,
+      "open_slots": 2,
+      "capacity": 2,
+      "game_port": 57545,
+      "mode": "dm",
+      "weapon_rules": "doom",
+      "state": "match"
+    },
+    "invalid_queries_silent": true,
+    "cookie_endpoint_binding": true,
+    "passed": true,
+    "packaged_server": true,
+    "browser_join": true,
+    "browser_spectate": true,
+    "master_outage_join": true,
+    "favorites_persist": true
+  },
+  "dedicated_test_master": [
+    {
+      "case": "graceful",
+      "registered": true,
+      "master_stopped": true,
+      "temporary_state_removed": true
+    },
+    {
+      "case": "forced",
+      "registered": true,
+      "master_stopped": true,
+      "temporary_state_removed": true
+    }
+  ],
+  "console_tls": {
+    "failures": [],
+    "hostname_result": 5,
+    "trusted_result": 0,
+    "untrusted_result": 5
+  },
+  "console_runtime": {
+    "failures": [],
+    "maps": [
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_hislop",
+        "shapes": 9
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_frigate",
+        "shapes": 2
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tf_pressureworks",
+        "shapes": 1
+      },
+      {
+        "doors": 4,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tf_vesper",
+        "shapes": 13
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_solstice",
+        "shapes": 4
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_torture",
+        "shapes": 3
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_hyperborea",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 0,
+        "map": "koth_alichar",
+        "shapes": 9
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_hyperborea",
+        "shapes": 2
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_psychofuge",
+        "shapes": 5
+      },
+      {
+        "doors": 11,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_ghostquarter",
+        "shapes": 17
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_basement",
+        "shapes": 8
+      },
+      {
+        "doors": 6,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm1",
+        "shapes": 8
+      },
+      {
+        "doors": 27,
+        "lifts": 2,
+        "liquids": 0,
+        "map": "qsrc_dm2",
+        "shapes": 35
+      },
+      {
+        "doors": 0,
+        "lifts": 3,
+        "liquids": 0,
+        "map": "qsrc_dm3",
+        "shapes": 6
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm4",
+        "shapes": 6
+      },
+      {
+        "doors": 3,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm5",
+        "shapes": 7
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm6",
+        "shapes": 6
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 0,
+        "map": "qsrc_dm7",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_tideworks",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_crucible",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_confluence",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_deepvault",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_crownreach",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_skyfracture",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tb_ashfall",
+        "shapes": 9
+      }
+    ],
+    "passed": true,
+    "exit_code": 0
+  },
+  "linux_runtime": [
+    {
+      "case": "menu",
+      "passed": true,
+      "exit_code": 0,
+      "errors": []
+    },
+    {
+      "case": "practice",
+      "passed": true,
+      "exit_code": 0,
+      "errors": []
+    }
+  ],
+  "pack_audit": [
+    {
+      "failures": [],
+      "files": 1320,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1320,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1442,
+      "failures": []
+    }
+  ],
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 607332131,
+      "sha256": "4161b09191272778e7b7874ffeb567d962aacb84735d555cc33af007e847afad",
+      "assets_verified": [
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "maps/tf_pressureworks.bsp",
+        "maps/tf_vesper.bsp",
+        "maps/koth_solstice.bsp",
+        "maps/koth_torture.bsp",
+        "maps/koth_hyperborea.bsp",
+        "maps/koth_alichar.bsp",
+        "maps/cc_hyperborea.bsp",
+        "maps/cc_psychofuge.bsp",
+        "maps/cc_ghostquarter.bsp",
+        "maps/cc_basement.bsp",
+        "maps/qsrc_dm1.bsp",
+        "maps/qsrc_dm2.bsp",
+        "maps/qsrc_dm3.bsp",
+        "maps/qsrc_dm4.bsp",
+        "maps/qsrc_dm5.bsp",
+        "maps/qsrc_dm6.bsp",
+        "maps/qsrc_dm7.bsp",
+        "maps/ctf_tideworks.bsp",
+        "maps/ctf_crucible.bsp",
+        "maps/ctf_confluence.bsp",
+        "maps/ctf_deepvault.bsp",
+        "maps/ctf_crownreach.bsp",
+        "maps/ctf_skyfracture.bsp",
+        "maps/tb_ashfall.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm"
+      ],
+      "unified_base_assets": 235,
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true,
+      "renderer": {
+        "method": "mobile",
+        "android_driver": "vulkan",
+        "opengl_fallback": false
+      },
+      "vulkan_required": true,
+      "seekable_embedded_zip": true
+    }
+  ],
+  "simulated_vr": {
+    "passed": true,
+    "result": "VR_UI_RESULT []",
+    "coverage": [
+      "browser button via controller pointer",
+      "embedded mode filter",
+      "joystick scrolling",
+      "browser cancellation",
+      "existing menu, keyboard, settings and voting regression suite"
+    ]
+  },
+  "cleanup": {
+    "previous_builds": [
+      {
+        "source": "/home/blux/Documents/Builds/Linux",
+        "preserved_at": "/home/blux/Documents/FPSloppa/test-results/release016/previous-builds/Linux"
+      },
+      {
+        "source": "/home/blux/Documents/Builds/Windows",
+        "preserved_at": "/home/blux/Documents/FPSloppa/test-results/release016/previous-builds/Windows"
+      },
+      {
+        "source": "/home/blux/Documents/Builds/Android",
+        "preserved_at": "/home/blux/Documents/FPSloppa/test-results/release016/previous-builds/Android"
+      },
+      {
+        "source": "/home/blux/Documents/FPSloppa/Builds/ConsoleServer",
+        "preserved_at": "/home/blux/Documents/FPSloppa/test-results/release016/previous-builds/ConsoleServer"
+      }
+    ],
+    "removed_generated_caches": [
+      "/home/blux/Documents/FPSloppa/.godot/exported",
+      "/home/blux/Documents/FPSloppa/android/build/build"
+    ],
+    "retained_template": "/home/blux/Documents/FPSloppa/test-results/release016/console-template.x86_64",
+    "historical_releases_preserved": true,
+    "player_content_preserved": true
+  },
+  "publication_checks": "prepare_release.py validates ZIP integrity, explicit payload lists, and installed asset hashes before staging. publish_release.py checks local and uploaded SHA-256 hashes before publishing. Final artifact sizes and hashes are in the published BUILD-MANIFEST.json and SHA256SUMS.",
+  "limits": [
+    "No fresh native Windows, physical headset or public WAN playtest.",
+    "No public master endpoint is deployed or preconfigured.",
+    "Dedicated-hosted master mode is local IPv4-loopback testing and requires Python 3.10+.",
+    "The Linux export emitted pre-existing exit-only resource diagnostics; packaged menu and practice checks had no engine/script errors."
+  ]
+}

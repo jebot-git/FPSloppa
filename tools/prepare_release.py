@@ -14,6 +14,7 @@ files={
     'Linux.zip':ROOT.parent/'FPSloppa-Linux.zip',
     'Windows.zip':ROOT.parent/'FPSloppa-Windows.zip',
     'Dedicated-Server-Linux.zip':ROOT.parent/'FPSloppa-Dedicated-Server-Linux.zip',
+    'Master-Server.zip':ROOT.parent/'FPSloppa-Master-Server.zip',
     'Source.zip':ROOT.parent/'FPSloppa-Deathmatch.zip',
 }
 if not args.desktop_only:files['Quest.apk']=BUILDS/'Android/FPSloppa-Quest.apk'

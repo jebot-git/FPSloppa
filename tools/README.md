@@ -19,3 +19,5 @@ The [MDL Avatar Converter](mdl_avatar_converter/README.md) provides a separate e
 ## Optional bHaptics native prototype
 
 `python3 tools/build_bhaptics_native.py` builds the Linux/Windows x86_64 Godot GDExtension for direct Bluetooth vest feedback. Linux requires Rust/Cargo, pkg-config and libdbus development headers; Windows requires the Rust MSVC toolchain and C++ build tools (Windows build unvalidated here); `--offline` uses cached dependencies and `--release` builds an optimized library. See [BHAPTICS.md](../BHAPTICS.md) for setup and opt-in hardware tests.
+
+The [master directory](master_server/README.md) is a standalone Python service for public server discovery. Release packaging includes its own small ZIP and the [browser setup guide](../docs/SERVER-BROWSER.md) in all desktop/server downloads.

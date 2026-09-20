@@ -2,9 +2,9 @@
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.15v build notes](docs/RELEASE-0.15v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.16v build notes](docs/RELEASE-0.16v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.15v:** smoother map transitions and collision prediction, preview voting grids, rotating KOTH hills, rebalanced Titanball with expanded Ashfall, corrected pickups and hitboxes, and bounded emissive weapon trails. Windows, Linux and Quest remain release targets; Pico APK releases are discontinued. CQ remains on its separate experimental branch.
+**New in 0.16v:** desktop/VR server browsing, live status, favorites, Join/Spectate, and an optional standalone master directory with authenticated dedicated-server registration. Public listing is opt-in; operators supply the master URL. Dedicated servers can also run a local test master with `sv_master_test 1`. Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
@@ -28,7 +28,7 @@ Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside t
 2. Other players enter that host's IP address or hostname and the same port, then select **Join Match**. Use `127.0.0.1` only for clients on the host's own computer; use the host's LAN address for other computers on the same network.
 3. For Internet play, allow the selected UDP port through the host firewall and forward it on the router to the hosting computer, or use a publicly reachable dedicated server. Join using the host's public address.
 
-All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and allow **up to 32 players (above 16 is unsupported; performance, gameplay and maps are not balanced for these counts)** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. There is no account service, automatic matchmaking, NAT relay, public server browser, or host migration. Dedicated servers support configured map rotation. A remote Linux server passed live client tests across all eleven modes and a sixteen-player capacity hold. Some peers experienced elevated latency; see [the remote test report](docs/REMOTE-LIVE-20260913.md).
+All participants need the same project version. In-game hosting supports **eight players total**, including the playing host. Dedicated servers default to eight and allow **up to 32 players (above 16 is unsupported; performance, gameplay and maps are not balanced for these counts)** through `sv_maxclients` in `server.cfg`. Joining an ongoing match is supported. **Browse Servers…** supports live dedicated-server status, favorites, filtering, joining and spectating through an optional operator-hosted master directory. See [server browser setup](docs/SERVER-BROWSER.md). There is no account service, automatic matchmaking, NAT relay, or host migration. Dedicated servers support configured map rotation. A remote Linux server passed live client tests across all eleven modes and a sixteen-player capacity hold. Some peers experienced elevated latency; see [the remote test report](docs/REMOTE-LIVE-20260913.md).
 
 **PRACTICE VS BOTS** starts an offline match on the selected BSP map with three AI opponents. Bots use movement shortcuts, useful supplies, cover, team roles, TF abilities, and Assault objectives; see [BOTS.md](BOTS.md). The selected gamemode determines weapons and pickups.
 

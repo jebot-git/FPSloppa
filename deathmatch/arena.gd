@@ -60,6 +60,8 @@ var ping_accumulator := 0.0
 var sequence := 0
 var active := false
 var dedicated := false
+var discovery: Node
+var test_master: Node
 var server_name := "FPSloppa"
 var bind_address := "*"
 var max_clients := MAX_PLAYERS
@@ -348,6 +350,12 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		return
 	rcon=preload("res://deathmatch/server/rcon.gd").new();add_child(rcon)
 	if not rcon.setup(self,settings):push_error(rcon.last_error);get_tree().quit(2);return
+	if settings.sv_master_test==1:
+		test_master=preload("res://deathmatch/server/test_master.gd").new();add_child(test_master)
+		if not test_master.setup(self,settings.sv_master_test_port):push_error(test_master.last_error);get_tree().quit(2);return
+	discovery=preload("res://deathmatch/server/discovery.gd").new();add_child(discovery)
+	if not discovery.setup(self,settings,_arg_int(args,"--port",settings.net_port),test_master.token if test_master else ""):
+		push_error(discovery.last_error);get_tree().quit(2);return
 	server_log.record("server_started",{"hostname":server_name,"bind":bind_address,"max_clients":max_clients,"protocol":PROTOCOL,"weapon_rules":armory.kind,"version":ProjectSettings.get_setting("application/config/version"),"rotation":map_rotation,"allowed_modes":votes.allowed_modes,"voice_backend":voice_backend,"friendly_fire":match_mode.friendly_fire,"score_limit":match_mode.limit()})
 	print("SERVER_CONFIG name=",server_name," bind=",bind_address," maxclients=",max_clients," voice=",voice_enabled," map=",current_map," rotation=",map_rotation," weapons=",armory.kind," gametype=",match_mode.kind," limit=",match_mode.limit()," friendlyfire=",match_mode.friendly_fire)
 
@@ -707,6 +715,8 @@ func _finish_departure(player_name: String) -> void:
 	_announcement.rpc(player_name+" left the arena.")
 
 func disconnect_game(reason: String = "Disconnected.") -> void:
+	if is_instance_valid(discovery):discovery.queue_free();discovery=null
+	if is_instance_valid(test_master):test_master.queue_free();test_master=null
 	lobby.reset_ballot()
 	replication.reset(); input_delivery.reset(); fire_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
 	if haptics:haptics.stop()

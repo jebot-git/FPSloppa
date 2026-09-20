@@ -4,6 +4,8 @@ See [external assets](docs/EXTERNAL-ASSETS.md) for persistent map/VRM directorie
 
 # Dedicated server
 
+Optional public listing and live server browsing: [server browser and master setup](docs/SERVER-BROWSER.md).
+
 The optional **FPSloppa-Dedicated-Server-Linux.zip** contains a Linux x86-64 executable and its PCK. Godot installation, a display, GPU and audio hardware are not required. Keep the executable and PCK together. Unzip, edit `server.cfg`, then run:
 
 ```sh
@@ -79,7 +81,7 @@ See [GAMEMODES.md](GAMEMODES.md) for team rules, objective scoring and player vo
 
 Restart the server to apply configuration changes. `--port`, `--map`, `--frags` and `--minutes` override file values. A nonempty `sv_maplist` starts with its first map and advances after each intermission, wrapping at the end. An empty list repeats `map`; `--map` selects a single arena and overrides the rotation. Every map must be bundled or already cached on the server; unknown IDs stop startup.
 
-Clients stay connected during rotation and download a missing map automatically. Scores, inventory, projectiles and map entities reset. The new round starts when the first player is admitted; other players enter after their own map and model checks finish. Slow or stalled downloads do not freeze ready players or block lobby voting and countdowns. Packets from the previous map are rejected. This is a small Q3-style configuration subset, not a Quake console: no command chaining, nested exec, arbitrary script execution or master-server registration. Password-protected RCON is documented below.
+Clients stay connected during rotation and download a missing map automatically. Scores, inventory, projectiles and map entities reset. The new round starts when the first player is admitted; other players enter after their own map and model checks finish. Slow or stalled downloads do not freeze ready players or block lobby voting and countdowns. Packets from the previous map are rejected. This is a small Q3-style configuration subset, not a Quake console: no command chaining, nested exec, or arbitrary script execution. Optional authenticated master registration and the public query port are documented in [server browser setup](docs/SERVER-BROWSER.md). Password-protected RCON is documented below.
 
 Clients need this protocol version (`fpsloppa-39-rotating-koth`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
 

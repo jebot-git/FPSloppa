@@ -45,6 +45,22 @@ func run() -> void:
 	print("MENU_METRICS ",menu_scroll.size," max=",menu_scroll.get_v_scroll_bar().max_value)
 	check(menu_scroll.get_v_scroll_bar().max_value<=menu_scroll.size.y,"Main VR menu fits without scrolling")
 	check(g.hud.get_parent() is SubViewport and rig.pointers.size()==2,"Both controller pointers and viewport UI exist")
+	# Open discovery through the real menu button and controller pointer.
+	g.hud.server_browser.master.text=""
+	var browse_button: Button=g.hud.launch_buttons.back()
+	var browse_pointer=rig.pointers[1]
+	point_at(browse_pointer,rig.panel,browse_button.get_global_transform_with_canvas()*(browse_button.size*.5));click(browse_pointer)
+	await process_frame;await process_frame
+	var browser=g.hud.server_browser
+	check(browser.visible and browser.size.y<=640,"Controller opens the server browser inside the VR canvas")
+	browser.mode.vr_mode_override=true
+	point_at(browse_pointer,rig.panel,browser.mode.trigger.get_global_transform_with_canvas()*(browser.mode.trigger.size*.5));click(browse_pointer)
+	await process_frame
+	check(browser.mode.popup.visible,"Controller opens the browser's embedded mode filter")
+	browser.mode.scroll_with_stick(1,.5);await process_frame
+	check(browser.mode.scroll.scroll_vertical>0,"Browser mode filter supports VR joystick scrolling")
+	browser.close();await process_frame
+	check(not browser.mode.popup.visible and browser.directory.probes.is_empty(),"Closing browser cancels requests and closes its dropdown")
 	var field: LineEdit=g.hud.name_field
 	var pixel: Vector2=field.get_global_transform_with_canvas()*(field.size*.5)
 	for pointer in rig.pointers:
