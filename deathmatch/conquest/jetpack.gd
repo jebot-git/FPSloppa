@@ -8,6 +8,9 @@ const SPEED:=16.0
 const LIFT:=12.0
 const GRAVITY:=12.0
 const BURN_TIME:=2.0
+const HOVER_SPEED:=2.0
+const HOVER_ACCEL:=3.0
+const HOVER_BRAKE:=6.0
 const TURN_RATE:=PI/10.0 # 18 degrees/second; no instant reversal.
 static func fresh() -> Dictionary:
 	return {"mode":0,"age":0.0,"cooldown":0.0,"tap":0.0,"distance":0.0,"heading":Vector2.ZERO,"activation":0,"time":0.0}
@@ -41,7 +44,10 @@ static func tick(actor,direction: Vector3,delta: float,jump: bool) -> bool:
 		actor.velocity.x=s.heading.x*speed;actor.velocity.z=s.heading.y*speed
 		actor.velocity.y=maxf(-30,actor.velocity.y-(GRAVITY if old_age<BURN_TIME else 20.0)*delta)
 	else:
-		actor.velocity.x=0;actor.velocity.z=0
+		var wish:=Vector2(direction.x,direction.z).limit_length(1.0) if not actor.jetpack_blocked else Vector2.ZERO
+		var horizontal:=Vector2(actor.velocity.x,actor.velocity.z).move_toward(wish*HOVER_SPEED,(HOVER_ACCEL if wish.length()>.05 else HOVER_BRAKE)*delta)
+		horizontal=horizontal.limit_length(minf(HOVER_SPEED,maxf(0,RANGE-s.distance)/delta))
+		actor.velocity.x=horizontal.x;actor.velocity.z=horizontal.y
 		if s.age<.7:actor.velocity.y=maxf(0,8.0*(1.0-s.age/.7))
 		elif s.age<1.5:actor.velocity.y=0
 		else:actor.velocity.y=maxf(-30,actor.velocity.y-20.0*delta)

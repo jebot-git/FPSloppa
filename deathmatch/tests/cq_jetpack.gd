@@ -50,10 +50,30 @@ func run() -> void:
 	reset();press(Vector2.ZERO,1.0/60);var start: Vector3=actor.position
 	var heights: Array=[]
 	for i in 100:
-		actor.simulate(Vector2.RIGHT,0,false,1.0/60,false)
+		actor.simulate(Vector2.ZERO,0,false,1.0/60,false)
 		if actor.jetpack_state.age>.8 and actor.jetpack_state.age<1.4:heights.append(actor.position.y)
 	check(heights.size()>20 and heights.max()-heights.min()<.01 and heights[0]>2,"Stationary boost lifts and briefly hovers")
-	check(Vector2(actor.position.x-start.x,actor.position.z-start.z).length()<.01,"Hover remains in place even with later movement input")
+	check(Vector2(actor.position.x-start.x,actor.position.z-start.z).length()<.01,"Hover remains in place without movement input")
+	reset();press(Vector2.ZERO,1.0/60)
+	for i in 48:actor.simulate(Vector2.ZERO,0,false,1.0/60,false)
+	start=actor.position
+	for i in 24:actor.simulate(Vector2(1,1),0,false,1.0/60,false)
+	var hover_shift:=Vector2(actor.position.x-start.x,actor.position.z-start.z).length()
+	check(hover_shift>.15 and hover_shift<.5 and absf(actor.position.y-start.y)<.01,"Hover allows gentle diagonal movement without losing altitude")
+	var prior:=Vector2(actor.velocity.x,actor.velocity.z)
+	actor.simulate(Vector2(-1,-1),0,false,1.0/60,false)
+	check(Vector2(actor.velocity.x,actor.velocity.z).dot(prior)>0,"Hover steering accelerates smoothly instead of reversing instantly")
+	for i in 30:actor.simulate(Vector2.ZERO,0,false,1.0/60,false)
+	check(Vector2(actor.velocity.x,actor.velocity.z).length()<.01,"Releasing hover steering brakes drift")
+	reset(Vector3(0,100,0));press(Vector2.ZERO,1.0/60)
+	for i in 90:actor.simulate(Vector2(1,1),0,false,1.0/60,false)
+	check(Vector2(actor.velocity.x,actor.velocity.z).length()<=Jet.HOVER_SPEED+.001 and actor.jetpack_state.mode==2,"Diagonal hover and descent stay capped at 2 m/s")
+	actor.jetpack_blocked=true
+	for i in 30:actor.simulate(Vector2.RIGHT,0,false,1.0/60,false)
+	check(Vector2(actor.velocity.x,actor.velocity.z).length()<.01,"Opening a menu brakes hover steering")
+	actor.jetpack_blocked=false;actor.jetpack_state.distance=47.95;start=actor.position
+	for i in 90:actor.simulate(Vector2.RIGHT,0,false,1.0/60,false)
+	check(actor.position.distance_to(start)>1 and actor.position.x-start.x<.06 and actor.jetpack_state.distance<=48.001,"Hover descent respects the shared horizontal range budget")
 	reset();press(Vector2.RIGHT,1.0/60)
 	for i in 30:actor.simulate(Vector2.LEFT,0,false,1.0/60,false)
 	check(absf(Vector2.RIGHT.angle_to(actor.jetpack_state.heading))<=deg_to_rad(9.1),"Air control cannot instantly reverse the launch direction")

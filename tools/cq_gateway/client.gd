@@ -42,6 +42,14 @@ func run() -> void:
 		await create_timer(.25).timeout
 		jetpack_checks.hover_drift=actor.position.distance_to(sample)
 		if jetpack_checks.hover_mode!=2 or jetpack_checks.hover_drift>.2:failures.append("Network hover unstable or rejected")
+		sample=actor.position;game.target=sample+Vector3(10,0,0);game.driving=true
+		await create_timer(.2).timeout;game.driving=false
+		jetpack_checks.hover_control_metres=Vector2(actor.position.x-sample.x,actor.position.z-sample.z).length()
+		jetpack_checks.hover_control_height_delta=absf(actor.position.y-sample.y)
+		if jetpack_checks.hover_control_metres<.01 or jetpack_checks.hover_control_metres>.3 or jetpack_checks.hover_control_height_delta>.15:failures.append("Gentle network hover steering failed")
+		await create_timer(.4).timeout
+		jetpack_checks.hover_release_speed=Vector2(actor.velocity.x,actor.velocity.z).length()
+		if jetpack_checks.hover_release_speed>.4:failures.append("Hover drift did not brake after releasing movement")
 		var ready:=Time.get_ticks_msec()+12000
 		while actor.jetpack_state.cooldown>0 and Time.get_ticks_msec()<ready:await create_timer(.05).timeout
 		# Launch in the straight gate access corridor, beyond the upper bridge.

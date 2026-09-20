@@ -9,15 +9,15 @@
         "map_instances": 1,
         "map_transitions": [
           {
-            "load_ms": 71,
+            "load_ms": 96,
             "zone": 0
           },
           {
-            "load_ms": 22,
+            "load_ms": 26,
             "zone": 1
           },
           {
-            "load_ms": 19,
+            "load_ms": 21,
             "zone": 0
           }
         ],
@@ -26,69 +26,72 @@
         "zone": 0
       },
       "route": {
-        "ack": -1,
+        "ack": 2050,
         "ammo": [
           50,
           0,
           0,
           0
         ],
-        "events": 11,
+        "events": 12,
         "jetpack": {
           "after_transfer": {
             "activation": 2,
-            "age": 2.14999999999999,
-            "cooldown": 3.95000000000002,
-            "distance": 33.0330308973789,
-            "heading": "(0.961941, -0.273256)",
+            "age": 2.01666666666666,
+            "cooldown": 4.01666666666669,
+            "distance": 33.0331131517887,
+            "heading": "(0.963643, -0.267194)",
             "mode": 0,
             "tap": 0.0,
-            "time": 28.6999999999997
+            "time": 28.5666666666663
           },
+          "hover_control_height_delta": 0.0,
+          "hover_control_metres": 0.075836181640625,
           "hover_drift": 0.0,
           "hover_mode": 2,
+          "hover_release_speed": 0.0,
           "launch": {
             "activation": 2,
             "age": 0.0666666666666667,
             "cooldown": 7.95,
-            "distance": 1.06665086746216,
-            "heading": "(1.0, -0.000993)",
+            "distance": 1.06665074825287,
+            "heading": "(1.0, -0.000812)",
             "mode": 1,
             "tap": 0.0,
-            "time": 24.6166666666665
+            "time": 24.5499999999999
           },
           "transferred": {
             "activation": 2,
-            "age": 0.766666666666667,
-            "cooldown": 7.25,
-            "distance": 12.2664825320244,
-            "heading": "(1.0, -0.000628)",
+            "age": 0.783333333333334,
+            "cooldown": 7.23333333333334,
+            "distance": 12.5331462919712,
+            "heading": "(1.0, -0.000833)",
             "mode": 1,
             "tap": 0.0,
-            "time": 25.3999999999998
+            "time": 25.3333333333332
           }
         },
         "legs": [
-          0.659071505069733,
-          0.619110465049744,
-          0.477676779031754,
-          0.603794574737549,
-          0.077860064804554,
-          0.975467026233673
+          0.583460867404938,
+          0.932479381561279,
+          0.565778613090515,
+          0.683157563209534,
+          0.0969257727265358,
+          0.453341096639633
         ],
         "pauses_ms": [
-          128,
-          134
+          124,
+          129
         ],
-        "position": "(-395.0, -0.004922, -395.0)",
+        "position": "(-355.0, -0.004935, -395.0)",
         "prediction": {
-          "corrections": 16,
-          "max_error": 0.497973680496216,
+          "corrections": 5,
+          "max_error": 0.267681956291199,
           "resets": 0
         },
         "roster": 2,
         "visible": [
-          159136836
+          1232799504
         ]
       }
     },
@@ -99,15 +102,15 @@
         "map_instances": 1,
         "map_transitions": [
           {
-            "load_ms": 89,
+            "load_ms": 90,
             "zone": 2
           },
           {
-            "load_ms": 22,
+            "load_ms": 23,
             "zone": 3
           },
           {
-            "load_ms": 20,
+            "load_ms": 22,
             "zone": 2
           }
         ],
@@ -127,73 +130,76 @@
         "jetpack": {
           "after_transfer": {
             "activation": 2,
-            "age": 2.01666666666666,
-            "cooldown": 3.96666666666669,
-            "distance": 33.0331280231476,
-            "heading": "(0.96282, 0.270145)",
+            "age": 1.98333333333333,
+            "cooldown": 4.00000000000002,
+            "distance": 33.0332458615303,
+            "heading": "(0.967876, 0.251428)",
             "mode": 0,
             "tap": 0.0,
-            "time": 27.2333333333331
+            "time": 27.2999999999997
           },
+          "hover_control_height_delta": 0.0,
+          "hover_control_metres": 0.0649948120117188,
           "hover_drift": 0.0,
           "hover_mode": 2,
+          "hover_release_speed": 0.0,
           "launch": {
             "activation": 2,
             "age": 0.0666666666666667,
             "cooldown": 7.95,
-            "distance": 1.06665045022964,
-            "heading": "(1.0, -0.000737)",
+            "distance": 1.06665244698524,
+            "heading": "(0.999997, -0.002262)",
             "mode": 1,
             "tap": 0.0,
-            "time": 23.1666666666666
+            "time": 23.2833333333333
           },
           "transferred": {
             "activation": 2,
-            "age": 0.800000000000001,
-            "cooldown": 7.21666666666667,
-            "distance": 12.7998149991035,
-            "heading": "(0.999992, -0.003952)",
+            "age": 0.850000000000001,
+            "cooldown": 7.16666666666667,
+            "distance": 13.5999001562595,
+            "heading": "(0.99992, -0.012685)",
             "mode": 1,
             "tap": 0.0,
-            "time": 23.9999999999999
+            "time": 24.1333333333332
           }
         },
         "legs": [
-          0.995114684104919,
-          0.732087850570679,
-          0.402114927768707,
-          0.988967895507812,
-          0.109196744859219,
-          0.929383158683777
+          0.432561337947845,
+          0.634059965610504,
+          0.914184629917145,
+          0.874298095703125,
+          0.116180568933487,
+          0.728472530841827
         ],
         "pauses_ms": [
-          134,
-          135
+          180,
+          179
         ],
-        "position": "(105.0, 0.03651, -355.0)",
+        "position": "(145.0, 0.082284, -395.0)",
         "prediction": {
-          "corrections": 18,
-          "max_error": 0.691359639167786,
+          "corrections": 10,
+          "max_error": 0.365040421485901,
           "resets": 0
         },
         "roster": 2,
         "visible": [
-          1690787973
+          2051847313
         ]
       }
     }
   ],
   "master_clock_advanced": true,
+  "worker_loss_master_exit": 3,
+  "other_workers_exit_on_master_loss": true,
+  "sample_seconds": 58.132804969965946,
   "before_restart_stats": {
     "baselines": 6,
-    "events": 24,
-    "inputs": 2049,
+    "events": 25,
+    "inputs": 2047,
     "max_workers": 4,
     "stale_inputs": 4,
     "transfers": 4
   },
-  "after_restart_epoch": 2,
-  "worker_loss_master_exit": 3,
-  "other_workers_exit_on_master_loss": true,
-  "sample_seconds": 57.73836797400145
+  "after_restart_epoch": 2
 }
