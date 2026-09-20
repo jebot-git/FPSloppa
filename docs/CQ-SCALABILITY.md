@@ -1,5 +1,7 @@
 # CQ district capacity and master scalability
 
+See the newer [distributed-master study](CQ-DISTRIBUTED-MASTER.md) for fresh full-district measurements at `78bd56a`, larger-world constraints and a proposed distributed coordinator. Performance tables below retain the earlier `69d225d` baseline.
+
 Measured 2026-09-20 on the experimental branch. The implemented limits are **16 districts, 64 connected players globally, and 16 reserved player slots per district**. Distribution does not automatically raise the global limit. Waiting players still count toward the server's 64-player maximum.
 
 ## Capacity, gates and reinforcement waiting rooms

@@ -1,5 +1,7 @@
 # CQ districts on separate server instances
 
+For scaling beyond the current topology and distributing the master itself, see the [distributed-master study](CQ-DISTRIBUTED-MASTER.md). That architecture is proposed; the implementation described here still uses one master.
+
 The experimental branch now includes an opt-in external-worker prototype. One public master owns the match; each district runs in a separate dedicated-server process, which can be placed on another host. The client connection and CQ client protocol stay unchanged.
 
 This is a feasibility prototype, not a production cluster or a new published release. The measurements below use independent local processes and a bounded TCP delay bridge. No remote testing service was restarted, and `main` was not modified.
