@@ -1,37 +1,37 @@
 {
-  "planes": 663,
-  "vertices": 15568,
-  "nodes": 7620,
-  "texinfo": 82,
-  "faces": 10988,
+  "planes": 1655,
+  "vertices": 11245,
+  "nodes": 5301,
+  "texinfo": 67,
+  "faces": 8014,
   "clipnodes": 0,
-  "leaves": 4553,
-  "marksurfaces": 16159,
-  "edges": 27619,
-  "surfedges": 52023,
+  "leaves": 3323,
+  "marksurfaces": 11129,
+  "edges": 19842,
+  "surfedges": 37772,
   "models": 1,
-  "bytes": 11799400,
-  "sha256": "53c972ed225e2f43f962a5f03191d7274ff0f3a52b0b329be1eaccd796c115ee",
+  "bytes": 9478700,
+  "sha256": "426350936a57494c12888dfc8c2eb20bf057e2102ba1df046f5e153bfe5e9bad",
   "zone": 13,
   "name": "Meridian Reactor",
-  "brushes": 938,
-  "textures": 24,
-  "lights": 200,
+  "brushes": 642,
+  "textures": 19,
+  "lights": 209,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.4647067419718951
+      "seconds": 0.2643926340388134
     },
     {
       "tool": "vis",
-      "seconds": 1.0658886539749801
+      "seconds": 0.9657749449834228
     },
     {
       "tool": "light",
-      "seconds": 15.543862785038073
+      "seconds": 10.033498876960948
     }
   ]
 }

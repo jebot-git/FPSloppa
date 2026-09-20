@@ -11,6 +11,6 @@ for zone in range(16):
  rows.append(dict(id=zone,name=layout['name'],theme=layout['style'],origin=layout['origin'],spawns=layout['spawns'],pickup_positions=layout['pickup_positions'],neighbors=[g['neighbor'] for g in layout['gates']],files=files))
 for row in rows:
  for neighbor in row['neighbors']:assert row['id'] in rows[neighbor]['neighbors']
-manifest=dict(profile='cq-district-bsp-1',revision=1,format='BSP29',grid=[4,4],district_width_metres=250,gate_width_metres=24,gate_height_metres=16,local_bounds_metres=[[-137,-3,-137],[137,112,137]],districts=rows)
+manifest=dict(profile='cq-district-bsp-1',revision=2,format='BSP29',grid=[4,4],district_width_metres=250,gate_width_metres=24,gate_height_metres=16,local_bounds_metres=[[-137,-3,-137],[137,112,137]],districts=rows)
 (BASE/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print('CQ_ATLAS_MANIFEST',hashlib.sha256((BASE/'manifest.json').read_bytes()).hexdigest())

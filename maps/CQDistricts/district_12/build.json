@@ -1,37 +1,37 @@
 {
-  "planes": 566,
-  "vertices": 15909,
-  "nodes": 7869,
-  "texinfo": 88,
-  "faces": 11284,
+  "planes": 1850,
+  "vertices": 11974,
+  "nodes": 5913,
+  "texinfo": 61,
+  "faces": 8641,
   "clipnodes": 0,
-  "leaves": 4690,
-  "marksurfaces": 16985,
-  "edges": 28341,
-  "surfedges": 53492,
+  "leaves": 3706,
+  "marksurfaces": 11879,
+  "edges": 21204,
+  "surfedges": 40457,
   "models": 1,
-  "bytes": 8346376,
-  "sha256": "14c42e2ec38145f3db3ef9d2e1f88b1dca78bf2e159a00d6057d268e5abc43fe",
+  "bytes": 6329460,
+  "sha256": "191e6f471705b14e0ee066bf97a19177b0ed2fb9be0eca14abb9c2584fe4e333",
   "zone": 12,
   "name": "Verdant Cloister",
-  "brushes": 955,
-  "textures": 24,
-  "lights": 156,
+  "brushes": 711,
+  "textures": 18,
+  "lights": 192,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.4647285889950581
+      "seconds": 0.31449753599008545
     },
     {
       "tool": "vis",
-      "seconds": 1.166154911974445
+      "seconds": 1.0157347790081985
     },
     {
       "tool": "light",
-      "seconds": 9.081290350004565
+      "seconds": 5.024318723997567
     }
   ]
 }

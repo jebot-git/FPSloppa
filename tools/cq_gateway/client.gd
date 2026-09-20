@@ -16,6 +16,15 @@ func run() -> void:
 	var zone: int=game.cq_client.zone
 	var center:=preload("res://deathmatch/conquest/rules.gd").center(zone)
 	var path: Array=[center,center+Vector3(131,0,0),center+Vector3(113,0,0)]
+	if game.cq_maps.enabled:
+		# Follow the authored eastbound street; the old straight line can now
+		# pass through buildings. Movement and collision remain fully live.
+		var layout: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://maps/CQDistricts/district_%02d/layout.json"%zone))
+		path=[center];var eastbound:=false
+		for point in layout.streets[0]:
+			if int(point[0])==0 and int(point[1])==0:eastbound=true;continue
+			if eastbound and point[0]<125:path.append(center+Vector3(point[0],0,point[1]))
+		path.append(center+Vector3(131,0,0));path.append(center+Vector3(113,0,0))
 	if args.has("--pool-route"):path=[center,center+Vector3(131,0,0),center+Vector3(381,0,0),center+Vector3(369,0,0),center+Vector3(119,0,0)]
 	var legs: Array=[]
 	for point in path:

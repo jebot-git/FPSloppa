@@ -1,19 +1,4 @@
 {
-  "altar1_3": {
-    "librequake": "altar1_3",
-    "width": 64,
-    "height": 64,
-    "rotation": 0,
-    "match": "exact LibreQuake name",
-    "wad": "lq_medieval.wad",
-    "wad_sha256": "f6a75374430814a72ad92606d3ab77735a60028fa3644cbceac8f61ec1337acc",
-    "source_sha256": "27d4f33957dd188f13d4b7e01004995604b2b3b2476ce9ef8d50d469deb8c735",
-    "license": "BSD-3-Clause",
-    "donor": "altar1_3",
-    "offset": 316812,
-    "size": 5480,
-    "sha256": "ec12f907709e75386b85ca09fd1e03de1f013d11bb3e2d9cf25c8974ee8c3f46"
-  },
   "comp1_1": {
     "librequake": "comp1_1",
     "width": 64,
@@ -572,21 +557,6 @@
     "size": 21800,
     "sha256": "cb65bc0ec4aa0d4c8b1d4dc7dba62917bd23861fffd71399f72171604b220a2e"
   },
-  "med_dr3a": {
-    "librequake": "med_dr3a",
-    "width": 128,
-    "height": 128,
-    "rotation": 0,
-    "match": "exact LibreQuake name",
-    "wad": "lq_medieval.wad",
-    "wad_sha256": "f6a75374430814a72ad92606d3ab77735a60028fa3644cbceac8f61ec1337acc",
-    "source_sha256": "8f851bfc38cabe8d486c2094018eb383e675841a3cca861da57ee8b9387a376f",
-    "license": "BSD-3-Clause",
-    "donor": "med_dr3a",
-    "offset": 2232112,
-    "size": 21800,
-    "sha256": "dd2890b34d3acf81d50218abdf3dccf4f6d4cccc66565533e76c0da06617fb49"
-  },
   "med_ebrick18": {
     "librequake": "med_ebrick18",
     "width": 128,
@@ -617,21 +587,6 @@
     "size": 5480,
     "sha256": "10ef7e3d60189e6e9c2a3ef3fd9f2ae84d89db136e4275c28681e2fa1ac74321"
   },
-  "med_flat9": {
-    "librequake": "med_flat9",
-    "width": 64,
-    "height": 64,
-    "rotation": 0,
-    "match": "exact LibreQuake name",
-    "wad": "lq_metal.wad",
-    "wad_sha256": "4abd453e197ad6ea41948dd8145819c180707c2126954874c4ea7f767251a9ff",
-    "source_sha256": "1ffd29d8c9fd9bc4d7665995ed11348f08a16b26df8cd7910533d79f80c5a413",
-    "license": "BSD-3-Clause",
-    "donor": "med_flat9",
-    "offset": 2324792,
-    "size": 5480,
-    "sha256": "eeda12d66089da091ea56de260989d6cfc4c4993b44831830421068e6323f600"
-  },
   "med_wood6": {
     "librequake": "med_wood6",
     "width": 128,
@@ -646,21 +601,6 @@
     "offset": 2406592,
     "size": 21800,
     "sha256": "00ef56cf0cad1a605dc2a21f3560230429d9876087aecf0a2a6bb05e538f042d"
-  },
-  "met_brn_signs": {
-    "librequake": "met_brn_signs",
-    "width": 64,
-    "height": 64,
-    "rotation": 0,
-    "match": "exact LibreQuake name",
-    "wad": "lq_metal.wad",
-    "wad_sha256": "4abd453e197ad6ea41948dd8145819c180707c2126954874c4ea7f767251a9ff",
-    "source_sha256": "95a20580c417bff5e16d729b9924674381f74de0560de4c69b46b705a6966ed3",
-    "license": "BSD-3-Clause",
-    "donor": "met_brn_signs",
-    "offset": 2529672,
-    "size": 5480,
-    "sha256": "663492cb31fdeeb8feb9e8d2cf4ba6fba044710fa8710b2aeaa21ba7c8c5bb6d"
   },
   "metal_copp_01": {
     "author": "Ben \"Makkon\" Hale",
@@ -734,21 +674,6 @@
     "size": 348200,
     "pack": "makkon-used.wad"
   },
-  "rune2_1": {
-    "librequake": "met_rune1",
-    "width": 32,
-    "height": 32,
-    "match": "reviewed material/pattern counterpart",
-    "rotation": 0,
-    "wad": "lq_metal.wad",
-    "wad_sha256": "4abd453e197ad6ea41948dd8145819c180707c2126954874c4ea7f767251a9ff",
-    "source_sha256": "ca11013b5155e53ecf1cc04aaf5fac66568f3c3da8679d387beea5b35f7cadb9",
-    "license": "BSD-3-Clause",
-    "donor": "met_rune1",
-    "offset": 3017872,
-    "size": 1400,
-    "sha256": "9b1c2a8c8236efa8e2c2e821b64dc3308c86662317b98121602e39a59c55204d"
-  },
   "sky1": {
     "librequake": "sky4",
     "width": 256,
@@ -778,20 +703,5 @@
     "offset": 3356632,
     "size": 5480,
     "sha256": "d3abb284ec3d8d92b7c6fd938a08ed1d323ddb3c75427cba66a939db492362f7"
-  },
-  "tech05_1": {
-    "librequake": "t_wall2aa",
-    "width": 128,
-    "height": 128,
-    "match": "reviewed material/pattern counterpart",
-    "rotation": 0,
-    "wad": "lq_tech.wad",
-    "wad_sha256": "72e27797044cabdf1335aba66f13ce5d34ec7c555edbc2b8cd3adf760888d1cd",
-    "source_sha256": "9d529ea5f40774a0439cb4b13e91c38f741b52d2c60e6caa517a35442460b71b",
-    "license": "BSD-3-Clause",
-    "donor": "t_wall2aa",
-    "offset": 3427792,
-    "size": 21800,
-    "sha256": "dc59452e28c6824990bc5000e28be26534e7bfb8222731c41329e7f9bd2cdf3c"
   }
 }

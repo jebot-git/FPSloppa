@@ -54,10 +54,13 @@ static func district(parent: Node3D,owner_: Node,layout: Dictionary,zone: int) -
 	var c:=v(layout.zones[zone].center)
 	for i in 4:multi.set_instance_transform(i,Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*2.5),c+Vector3(-29 if i%2==0 else 29,1.1,-26 if i<2 else 26)))
 	var fixtures:=MultiMeshInstance3D.new();fixtures.multimesh=multi;fixtures.name="Braziers";add(art,fixtures,owner_)
-	for quadrant in 4:
-		var side:=1.0 if quadrant<2 else -1.0
-		var p:=c+Vector3(-72 if quadrant%2==0 else 72,7.8,(-70 if quadrant<2 else 70)+side*27.1)
-		label(art,owner_,str(layout.zones[zone].name).to_upper(),p,0 if side>0 else PI,tint,.7)
+	if layout.has("signs"):
+		for row in layout.signs:label(art,owner_,row.text,v(row.position),row.yaw,tint,.35)
+	else:
+		for quadrant in 4:
+			var side:=1.0 if quadrant<2 else -1.0
+			var p:=c+Vector3(-72 if quadrant%2==0 else 72,7.8,(-70 if quadrant<2 else 70)+side*27.1)
+			label(art,owner_,str(layout.zones[zone].name).to_upper(),p,0 if side>0 else PI,tint,.7)
 	for row in layout.gates:
 		if int(row.zone)!=zone:continue
 		var p:=v(row.position);var n:=v(row.normal);var yaw:=atan2(n.x,n.z)

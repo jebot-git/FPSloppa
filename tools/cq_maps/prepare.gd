@@ -29,10 +29,10 @@ func run():
 	var points: Array=[]
 	for p in layout.spawns:points.append(Vector3(p[0],p[1],p[2]))
 	for room in layout.rooms:
-		for y in room.levels:points.append(Vector3(room.center[0],float(y)+.1,room.center[2]-17))
+		for p in room.points:points.append(Vector3(p[0],p[1],p[2]))
 	for row in layout.routes:
 		for key in ["from","to"]:var p: Array=row[key];points.append(Vector3(p[0],p[1],p[2]))
-	for p in layout.pickup_positions:points.append(Vector3(p[0],p[1],p[2]))
+	for p in layout.pickup_positions+layout.street_points:points.append(Vector3(p[0],p[1],p[2]))
 	for gate in layout.gates:
 		var p:=Vector3(gate.position[0],.1,gate.position[2]);var n:=Vector3(gate.normal[0],0,gate.normal[2]);points.append(p-n*.6)
 		for off in [-10,0,10]:

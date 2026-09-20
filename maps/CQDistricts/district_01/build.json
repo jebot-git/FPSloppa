@@ -1,37 +1,37 @@
 {
-  "planes": 540,
-  "vertices": 15318,
-  "nodes": 7432,
-  "texinfo": 82,
-  "faces": 10806,
+  "planes": 1613,
+  "vertices": 10739,
+  "nodes": 5012,
+  "texinfo": 61,
+  "faces": 7653,
   "clipnodes": 0,
-  "leaves": 4374,
-  "marksurfaces": 15969,
-  "edges": 27215,
-  "surfedges": 51231,
+  "leaves": 3101,
+  "marksurfaces": 10509,
+  "edges": 18976,
+  "surfedges": 36219,
   "models": 1,
-  "bytes": 11715528,
-  "sha256": "458b5f8e5a938b833ec61e6918a0b8d1aeb1b38cfed8bf84f8cf9f41bf9b20dd",
+  "bytes": 8935288,
+  "sha256": "42217444ffae44d208a881eb740515cae59c53915c4b568acef6d7dc531d9fed",
   "zone": 1,
   "name": "Helix Arcology",
-  "brushes": 930,
-  "textures": 24,
-  "lights": 148,
+  "brushes": 616,
+  "textures": 18,
+  "lights": 168,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.4145724329864606
+      "seconds": 0.2645642739953473
     },
     {
       "tool": "vis",
-      "seconds": 1.015787618001923
+      "seconds": 0.7652939149993472
     },
     {
       "tool": "light",
-      "seconds": 12.387404861976393
+      "seconds": 7.22799548401963
     }
   ]
 }
