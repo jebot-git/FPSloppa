@@ -1,0 +1,34 @@
+{
+  "planes": 2106,
+  "vertices": 13282,
+  "nodes": 6762,
+  "texinfo": 58,
+  "faces": 9971,
+  "clipnodes": 0,
+  "leaves": 4023,
+  "marksurfaces": 13850,
+  "edges": 23806,
+  "surfedges": 45945,
+  "models": 1,
+  "bytes": 7926872,
+  "sha256": "4695ceb6a89aeb5a66d91100804411504ba97262ada2e390e3beee3c46d0dd8d",
+  "zone": 73,
+  "name": "Iron Armoury",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6194205100182444
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.376912433945108
+    },
+    {
+      "tool": "light",
+      "seconds": 30.908947113028262
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

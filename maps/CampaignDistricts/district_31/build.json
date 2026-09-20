@@ -1,0 +1,34 @@
+{
+  "planes": 2425,
+  "vertices": 15153,
+  "nodes": 7494,
+  "texinfo": 65,
+  "faces": 11491,
+  "clipnodes": 0,
+  "leaves": 4446,
+  "marksurfaces": 15740,
+  "edges": 27249,
+  "surfedges": 52896,
+  "models": 1,
+  "bytes": 10216964,
+  "sha256": "02647c0fb0f71e089c58566a59d8bcb4aa48ed2f905fc1c14a783b36719dea49",
+  "zone": 31,
+  "name": "Vesper Drainage Slums",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6152744269929826
+    },
+    {
+      "tool": "vis",
+      "seconds": 9.046872341015842
+    },
+    {
+      "tool": "light",
+      "seconds": 47.61902767297579
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

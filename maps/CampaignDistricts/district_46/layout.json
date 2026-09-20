@@ -1,0 +1,12684 @@
+{
+  "id": 46,
+  "render_zone": 14,
+  "name": "Helix Shanty Market",
+  "style": "docks",
+  "profile": "mixed",
+  "campaign": {
+    "gateway": "g11",
+    "map_slot": 14,
+    "asset_id": 46,
+    "links": {
+      "d45": {
+        "exit": [
+          -124,
+          1,
+          0
+        ],
+        "entry": [
+          120,
+          1,
+          0
+        ],
+        "yaw": 0
+      },
+      "d47": {
+        "exit": [
+          124,
+          1,
+          0
+        ],
+        "entry": [
+          -120,
+          1,
+          0
+        ],
+        "yaw": 0
+      },
+      "d37": {
+        "exit": [
+          0,
+          1,
+          -124
+        ],
+        "entry": [
+          0,
+          1,
+          120
+        ],
+        "yaw": 0
+      },
+      "d55": {
+        "exit": [
+          0,
+          1,
+          124
+        ],
+        "entry": [
+          0,
+          1,
+          -120
+        ],
+        "yaw": 0
+      }
+    },
+    "terminals": {},
+    "draining": false,
+    "campaign_role": "outskirts",
+    "name": "Helix Shanty Market",
+    "profile": "mixed",
+    "initial_owner": -1,
+    "homebase": null,
+    "perimeter": [],
+    "threshold": 0,
+    "capture": [
+      0,
+      0.3,
+      0
+    ],
+    "capture_radius": 8,
+    "grid": [
+      1,
+      5
+    ]
+  },
+  "origin": [
+    0,
+    0,
+    0
+  ],
+  "zones": [
+    {
+      "name": "Cathedral Exchange",
+      "color": "60d9e8",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Helix Arcology",
+      "color": "6ee6b1",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Crucible Works",
+      "color": "ffad58",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Astral Observatory",
+      "color": "af9fff",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Reliquary Archives",
+      "color": "e9c36b",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Synapse Data Vault",
+      "color": "64afff",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Pilgrim Transit",
+      "color": "ffc369",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Sanctum Medica",
+      "color": "b4ecdf",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Blackwater Condensers",
+      "color": "5dc5ce",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Ember Market",
+      "color": "fa8b80",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Cipher Court",
+      "color": "a899e7",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Aegis Bastion",
+      "color": "f17e79",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Verdant Cloister",
+      "color": "92cf92",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Meridian Reactor",
+      "color": "d4ef78",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Helix Shanty Market",
+      "color": "77aadd",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Crown Necropolis",
+      "color": "d692df",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "revision": "campaign-city-1",
+  "street_plan": "Helix Shanty Market",
+  "art": [
+    {
+      "zone": 14,
+      "position": [
+        -80.39959990174965,
+        7.48,
+        6.513771302249553
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -56.686908885574894,
+        7.48,
+        15.453460089477826
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -51.65887480530766,
+        0.95,
+        26.92522426451521
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -51.599656148491846,
+        0.95,
+        28.52412799854204
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        35.88557159992217,
+        7.48,
+        -11.17377514302391
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        57.65099942158105,
+        7.48,
+        -26.29902949936646
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        83.34900057841895,
+        7.48,
+        -16.70097050063354
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        86.28863161483908,
+        0.95,
+        -30.011157177375367
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        86.31999813473418,
+        0.95,
+        -28.411464662724605
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        106.8476789674823,
+        7.48,
+        -13.569083026239536
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        98.44581871259076,
+        0.95,
+        -4.887421649678359
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        97.06833626744786,
+        0.95,
+        -4.073454750275733
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -10.23639071693735,
+        7.48,
+        -86.2733034494336
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -20.95,
+        7.48,
+        -61.0
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -32.6,
+        0.95,
+        -57.8
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -34.199999999999996,
+        0.95,
+        -57.8
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        21.075673498764207,
+        7.48,
+        29.714364986879463
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        32.91147431052432,
+        0.95,
+        22.952980576543155
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        31.747331260627828,
+        0.95,
+        24.05060116644556
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        38.05,
+        7.48,
+        48.25
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        26.400000000000002,
+        0.95,
+        52.85
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        24.8,
+        0.95,
+        52.85
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        27.95,
+        7.48,
+        74.75
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        41.199999999999996,
+        0.95,
+        77.95
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        39.6,
+        0.95,
+        77.95
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        18.58970486872098,
+        7.48,
+        100.09735071118615
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -66.73517205760909,
+        7.48,
+        36.344979586385364
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -78.68104932598283,
+        0.95,
+        38.15011567237772
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -80.26990570377004,
+        0.95,
+        37.961607288572466
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -80.26482794239091,
+        7.48,
+        64.65502041361464
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -62.883694736316954,
+        7.48,
+        75.96330262435809
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -60.53716497787208,
+        0.95,
+        87.81472861842028
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -60.653222091118195,
+        0.95,
+        89.41051392555434
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -36.116305263683046,
+        7.48,
+        88.03669737564191
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -7.8836947363169525,
+        7.48,
+        79.96330262435809
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -5.537164977872081,
+        0.95,
+        91.81472861842028
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -5.653222091118195,
+        0.95,
+        93.41051392555434
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        41.220009588161965,
+        7.48,
+        -35.449106286771254
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        53.779990411838035,
+        7.48,
+        -62.550893713228746
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        37.001813168455335,
+        7.48,
+        -72.7942268271877
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        34.573510020170716,
+        0.95,
+        -84.62916847554537
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        34.67854611201325,
+        0.95,
+        -86.2257170715519
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        12.331520164878002,
+        7.48,
+        -84.53910650614563
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        8.26859283729393,
+        0.95,
+        -71.52776062915157
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        8.373628929136466,
+        0.95,
+        -73.1243092251581
+      ],
+      "size": [
+        0.24,
+        0.3,
+        0.24
+      ],
+      "color": "d4efff",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -13.664853498211338,
+        7.48,
+        -76.12756016052104
+      ],
+      "size": [
+        2.5,
+        0.12,
+        0.8
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        0,
+        0.23,
+        0
+      ],
+      "size": [
+        18,
+        0.02,
+        18
+      ],
+      "color": "77aadd",
+      "kind": "plaza"
+    },
+    {
+      "zone": 14,
+      "position": [
+        60,
+        3.8,
+        21
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        60,
+        9.8,
+        21
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        60,
+        15.8,
+        21
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        50,
+        3.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        55,
+        3.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        60,
+        3.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        65,
+        3.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        70,
+        3.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        50,
+        3.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        55,
+        3.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        60,
+        3.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        65,
+        3.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        70,
+        3.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        50,
+        9.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        55,
+        9.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        60,
+        9.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        65,
+        9.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        70,
+        9.2,
+        5.539999999999999
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        50,
+        9.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        55,
+        9.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        60,
+        9.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        65,
+        9.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        70,
+        9.2,
+        36.46
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -98,
+        3.8,
+        -55
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -98,
+        9.8,
+        -55
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -98,
+        15.8,
+        -55
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -98,
+        21.8,
+        -55
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -112,
+        3.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -107,
+        3.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -102,
+        3.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -97,
+        3.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -92,
+        3.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -87,
+        3.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -112,
+        3.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -107,
+        3.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -102,
+        3.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -97,
+        3.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -92,
+        3.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -87,
+        3.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -112,
+        9.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -107,
+        9.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -102,
+        9.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -97,
+        9.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -92,
+        9.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -87,
+        9.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -112,
+        9.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -107,
+        9.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -102,
+        9.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -97,
+        9.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -92,
+        9.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -87,
+        9.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -112,
+        15.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -107,
+        15.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -102,
+        15.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -97,
+        15.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -92,
+        15.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -87,
+        15.2,
+        -72.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -112,
+        15.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -107,
+        15.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -102,
+        15.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -97,
+        15.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -92,
+        15.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -87,
+        15.2,
+        -37.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        89,
+        3.8,
+        78
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        89,
+        9.8,
+        78
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        89,
+        15.8,
+        78
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        76,
+        3.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        81,
+        3.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        86,
+        3.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        91,
+        3.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        96,
+        3.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        101,
+        3.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        76,
+        3.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        81,
+        3.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        86,
+        3.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        91,
+        3.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        96,
+        3.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        101,
+        3.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        76,
+        9.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        81,
+        9.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        86,
+        9.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        91,
+        9.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        96,
+        9.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        101,
+        9.2,
+        62.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        76,
+        9.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        81,
+        9.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        86,
+        9.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        91,
+        9.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        96,
+        9.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        101,
+        9.2,
+        93.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -55,
+        3.8,
+        -75
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -55,
+        9.8,
+        -75
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -55,
+        15.8,
+        -75
+      ],
+      "size": [
+        6,
+        0.15,
+        0.4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -66,
+        3.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -61,
+        3.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -56,
+        3.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -51,
+        3.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -46,
+        3.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -66,
+        3.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -61,
+        3.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -56,
+        3.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -51,
+        3.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -46,
+        3.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -66,
+        9.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -61,
+        9.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -56,
+        9.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -51,
+        9.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -46,
+        9.2,
+        -90.46000000000001
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -66,
+        9.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -61,
+        9.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -56,
+        9.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -51,
+        9.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        -46,
+        9.2,
+        -59.54
+      ],
+      "size": [
+        2,
+        2.6,
+        0.08
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 14,
+      "position": [
+        112,
+        3.1,
+        105.49
+      ],
+      "size": [
+        4,
+        0.18,
+        0.1
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -38,
+        3.1,
+        108.49
+      ],
+      "size": [
+        4,
+        0.18,
+        0.1
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -112,
+        3.1,
+        -25.509999999999998
+      ],
+      "size": [
+        4,
+        0.18,
+        0.1
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -48,
+        3.1,
+        98.49
+      ],
+      "size": [
+        4,
+        0.18,
+        0.1
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        64,
+        3.1,
+        97.49
+      ],
+      "size": [
+        4,
+        0.18,
+        0.1
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -85.47194939422842,
+        2.7,
+        1.4664410082813522
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.6610431688506868
+    },
+    {
+      "zone": 14,
+      "position": [
+        -92.74100625824506,
+        2.7,
+        10.812371262017054
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.6610431688506868
+    },
+    {
+      "zone": 14,
+      "position": [
+        -72.84231391620719,
+        2.7,
+        11.289490824520078
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.6610431688506868
+    },
+    {
+      "zone": 14,
+      "position": [
+        -80.11137078022384,
+        2.7,
+        20.63542107825578
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.6610431688506868
+    },
+    {
+      "zone": 14,
+      "position": [
+        -36.429434919431195,
+        2.7,
+        10.41490352046419
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.4353532751523024
+    },
+    {
+      "zone": 14,
+      "position": [
+        -31.43614284279867,
+        2.7,
+        21.150481485224116
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.4353532751523024
+    },
+    {
+      "zone": 14,
+      "position": [
+        26.064243594637155,
+        2.7,
+        -5.6304179098372495
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.43662715981354133
+    },
+    {
+      "zone": 14,
+      "position": [
+        35.556209925040896,
+        2.7,
+        -23.125793732679174
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.43662715981354133
+    },
+    {
+      "zone": 14,
+      "position": [
+        40.563173834561404,
+        2.7,
+        -12.396585355135233
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.43662715981354133
+    },
+    {
+      "zone": 14,
+      "position": [
+        54.882022092955324,
+        2.7,
+        -27.114903053552265
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.01960533085720469
+    },
+    {
+      "zone": 14,
+      "position": [
+        55.11413434017916,
+        2.7,
+        -15.277178445136645
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.01960533085720469
+    },
+    {
+      "zone": 14,
+      "position": [
+        70.87894723946292,
+        2.7,
+        -27.428568252503396
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.01960533085720469
+    },
+    {
+      "zone": 14,
+      "position": [
+        71.11105948668674,
+        2.7,
+        -15.590843644087776
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 0.01960533085720469
+    },
+    {
+      "zone": 14,
+      "position": [
+        -5.129979910877855,
+        2.7,
+        -88.57264625544958
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -2.5625183842220625
+    },
+    {
+      "zone": 14,
+      "position": [
+        -11.609412368593057,
+        2.7,
+        -98.48236648489636
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -2.5625183842220625
+    },
+    {
+      "zone": 14,
+      "position": [
+        -20.08,
+        2.7,
+        -72.0
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "zone": 14,
+      "position": [
+        -31.92,
+        2.7,
+        -72.0
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "zone": 14,
+      "position": [
+        -15.586530285546088,
+        2.7,
+        -34.84189487251848
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.9944211062037129
+    },
+    {
+      "zone": 14,
+      "position": [
+        -25.51370270254563,
+        2.7,
+        -28.38923280146878
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.9944211062037129
+    },
+    {
+      "zone": 14,
+      "position": [
+        27.08,
+        2.7,
+        61.0
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "zone": 14,
+      "position": [
+        26.346048655636963,
+        2.7,
+        97.52739898959047
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -2.714965160462917
+    },
+    {
+      "zone": 14,
+      "position": [
+        11.78018501623529,
+        2.7,
+        104.1482460984094
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -2.714965160462917
+    },
+    {
+      "zone": 14,
+      "position": [
+        6.8807581557092705,
+        2.7,
+        93.36950700525216
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -2.714965160462917
+    },
+    {
+      "zone": 14,
+      "position": [
+        -67.1844926390228,
+        2.7,
+        47.51639715912181
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -1.6888883552139906
+    },
+    {
+      "zone": 14,
+      "position": [
+        -78.94202983464825,
+        2.7,
+        46.121435118962864
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -1.6888883552139906
+    },
+    {
+      "zone": 14,
+      "position": [
+        -69.06957647707544,
+        2.7,
+        63.404960936994016
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -1.6888883552139906
+    },
+    {
+      "zone": 14,
+      "position": [
+        -80.82711367270089,
+        2.7,
+        62.00999889683507
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -1.6888883552139906
+    },
+    {
+      "zone": 14,
+      "position": [
+        -50.63907744006073,
+        2.7,
+        75.98152245385329
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.07259945373049462
+    },
+    {
+      "zone": 14,
+      "position": [
+        -51.49790007808198,
+        2.7,
+        87.79033372664541
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.07259945373049462
+    },
+    {
+      "zone": 14,
+      "position": [
+        -34.68122436872004,
+        2.7,
+        77.14209358631443
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.07259945373049462
+    },
+    {
+      "zone": 14,
+      "position": [
+        -18.72337129737934,
+        2.7,
+        78.30266471877557
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.07259945373049462
+    },
+    {
+      "zone": 14,
+      "position": [
+        -19.582193935400586,
+        2.7,
+        90.1114759915677
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.07259945373049462
+    },
+    {
+      "zone": 14,
+      "position": [
+        13.192334845302067,
+        2.7,
+        80.62380698369786
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": -0.07259945373049462
+    },
+    {
+      "zone": 14,
+      "position": [
+        39.99277616428344,
+        2.7,
+        -31.48685412595369
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 1.4817467441603989
+    },
+    {
+      "zone": 14,
+      "position": [
+        51.785862595206666,
+        2.7,
+        -30.433899980335546
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 1.4817467441603989
+    },
+    {
+      "zone": 14,
+      "position": [
+        41.41568717187553,
+        2.7,
+        -47.42345741098508
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 1.4817467441603989
+    },
+    {
+      "zone": 14,
+      "position": [
+        53.20877360279876,
+        2.7,
+        -46.370503265366935
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 1.4817467441603989
+    },
+    {
+      "zone": 14,
+      "position": [
+        42.83859817946762,
+        2.7,
+        -63.360060696016475
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 1.4817467441603989
+    },
+    {
+      "zone": 14,
+      "position": [
+        54.63168461039084,
+        2.7,
+        -62.30710655039833
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 1.4817467441603989
+    },
+    {
+      "zone": 14,
+      "position": [
+        23.66745177507638,
+        2.7,
+        -72.79960668721701
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 3.0758978520373286
+    },
+    {
+      "zone": 14,
+      "position": [
+        24.44471885471114,
+        2.7,
+        -84.61406629766539
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 3.0758978520373286
+    },
+    {
+      "zone": 14,
+      "position": [
+        -8.263520145054375,
+        2.7,
+        -74.90032852406772
+      ],
+      "size": [
+        3.4,
+        2.5,
+        0.22
+      ],
+      "color": "77aadd",
+      "kind": "window",
+      "gothic": false,
+      "yaw": 3.0758978520373286
+    },
+    {
+      "zone": 14,
+      "position": [
+        -19,
+        10.9,
+        -19
+      ],
+      "size": [
+        4,
+        0.25,
+        4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        19,
+        10.9,
+        -19
+      ],
+      "size": [
+        4,
+        0.25,
+        4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        -19,
+        10.9,
+        19
+      ],
+      "size": [
+        4,
+        0.25,
+        4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    },
+    {
+      "zone": 14,
+      "position": [
+        19,
+        10.9,
+        19
+      ],
+      "size": [
+        4,
+        0.25,
+        4
+      ],
+      "color": "77aadd",
+      "kind": "box"
+    }
+  ],
+  "gates": [
+    {
+      "zone": 14,
+      "neighbor": 45,
+      "position": [
+        -124.94,
+        8,
+        0.0
+      ],
+      "normal": [
+        1.0,
+        0,
+        0.0
+      ],
+      "color": "77aadd",
+      "name": "Helix Freight Ruins"
+    },
+    {
+      "zone": 14,
+      "neighbor": 47,
+      "position": [
+        124.94,
+        8,
+        0.0
+      ],
+      "normal": [
+        -1.0,
+        0,
+        0.0
+      ],
+      "color": "77aadd",
+      "name": "Helix Cooling Fields"
+    },
+    {
+      "zone": 14,
+      "neighbor": 37,
+      "position": [
+        0.0,
+        8,
+        -124.94
+      ],
+      "normal": [
+        0.0,
+        0,
+        1.0
+      ],
+      "color": "77aadd",
+      "name": "Helix Relay Station"
+    },
+    {
+      "zone": 14,
+      "neighbor": 55,
+      "position": [
+        0.0,
+        8,
+        124.94
+      ],
+      "normal": [
+        0.0,
+        0,
+        -1.0
+      ],
+      "color": "77aadd",
+      "name": "Iron Barracks"
+    }
+  ],
+  "spawns": [
+    [
+      -20,
+      0.3,
+      -20
+    ],
+    [
+      20,
+      0.3,
+      -20
+    ],
+    [
+      -20,
+      0.3,
+      20
+    ],
+    [
+      20,
+      0.3,
+      20
+    ]
+  ],
+  "occluder_boxes": [
+    {
+      "minimum": [
+        -126,
+        0,
+        -125
+      ],
+      "maximum": [
+        -124,
+        36,
+        -12
+      ]
+    },
+    {
+      "minimum": [
+        -126,
+        0,
+        12
+      ],
+      "maximum": [
+        -124,
+        36,
+        125
+      ]
+    },
+    {
+      "minimum": [
+        124,
+        0,
+        -125
+      ],
+      "maximum": [
+        126,
+        36,
+        -12
+      ]
+    },
+    {
+      "minimum": [
+        124,
+        0,
+        12
+      ],
+      "maximum": [
+        126,
+        36,
+        125
+      ]
+    },
+    {
+      "minimum": [
+        -125,
+        0,
+        -126
+      ],
+      "maximum": [
+        -12,
+        36,
+        -124
+      ]
+    },
+    {
+      "minimum": [
+        12,
+        0,
+        -126
+      ],
+      "maximum": [
+        125,
+        36,
+        -124
+      ]
+    },
+    {
+      "minimum": [
+        -125,
+        0,
+        124
+      ],
+      "maximum": [
+        -12,
+        36,
+        126
+      ]
+    },
+    {
+      "minimum": [
+        12,
+        0,
+        124
+      ],
+      "maximum": [
+        125,
+        36,
+        126
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        -121
+      ],
+      "maximum": [
+        -111,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        -109
+      ],
+      "maximum": [
+        -111,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        -97
+      ],
+      "maximum": [
+        -111,
+        30,
+        -87
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        23
+      ],
+      "maximum": [
+        -111,
+        30,
+        33
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        35
+      ],
+      "maximum": [
+        -111,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        47
+      ],
+      "maximum": [
+        -111,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        59
+      ],
+      "maximum": [
+        -111,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        71
+      ],
+      "maximum": [
+        -111,
+        30,
+        81
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        83
+      ],
+      "maximum": [
+        -111,
+        30,
+        93
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        95
+      ],
+      "maximum": [
+        -111,
+        30,
+        105
+      ]
+    },
+    {
+      "minimum": [
+        -121,
+        0,
+        107
+      ],
+      "maximum": [
+        -111,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        -121
+      ],
+      "maximum": [
+        -99,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        -109
+      ],
+      "maximum": [
+        -99,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        -97
+      ],
+      "maximum": [
+        -99,
+        30,
+        -87
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        23
+      ],
+      "maximum": [
+        -99,
+        30,
+        33
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        35
+      ],
+      "maximum": [
+        -99,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        47
+      ],
+      "maximum": [
+        -99,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        59
+      ],
+      "maximum": [
+        -99,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        71
+      ],
+      "maximum": [
+        -99,
+        30,
+        81
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        83
+      ],
+      "maximum": [
+        -99,
+        30,
+        93
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        95
+      ],
+      "maximum": [
+        -99,
+        30,
+        105
+      ]
+    },
+    {
+      "minimum": [
+        -109,
+        0,
+        107
+      ],
+      "maximum": [
+        -99,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        -121
+      ],
+      "maximum": [
+        -87,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        -109
+      ],
+      "maximum": [
+        -87,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        23
+      ],
+      "maximum": [
+        -87,
+        30,
+        33
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        35
+      ],
+      "maximum": [
+        -87,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        47
+      ],
+      "maximum": [
+        -87,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        59
+      ],
+      "maximum": [
+        -87,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        71
+      ],
+      "maximum": [
+        -87,
+        30,
+        81
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        83
+      ],
+      "maximum": [
+        -87,
+        30,
+        93
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        95
+      ],
+      "maximum": [
+        -87,
+        30,
+        105
+      ]
+    },
+    {
+      "minimum": [
+        -97,
+        0,
+        107
+      ],
+      "maximum": [
+        -87,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        -85,
+        0,
+        -121
+      ],
+      "maximum": [
+        -75,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -85,
+        0,
+        -109
+      ],
+      "maximum": [
+        -75,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -85,
+        0,
+        -25
+      ],
+      "maximum": [
+        -75,
+        30,
+        -15
+      ]
+    },
+    {
+      "minimum": [
+        -85,
+        0,
+        -13
+      ],
+      "maximum": [
+        -75,
+        30,
+        -3
+      ]
+    },
+    {
+      "minimum": [
+        -85,
+        0,
+        95
+      ],
+      "maximum": [
+        -75,
+        30,
+        105
+      ]
+    },
+    {
+      "minimum": [
+        -85,
+        0,
+        107
+      ],
+      "maximum": [
+        -75,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        -121
+      ],
+      "maximum": [
+        -63,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        -109
+      ],
+      "maximum": [
+        -63,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        -49
+      ],
+      "maximum": [
+        -63,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        -37
+      ],
+      "maximum": [
+        -63,
+        30,
+        -27
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        -25
+      ],
+      "maximum": [
+        -63,
+        30,
+        -15
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        -13
+      ],
+      "maximum": [
+        -63,
+        30,
+        -3
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        -1
+      ],
+      "maximum": [
+        -63,
+        30,
+        9
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        95
+      ],
+      "maximum": [
+        -63,
+        30,
+        105
+      ]
+    },
+    {
+      "minimum": [
+        -73,
+        0,
+        107
+      ],
+      "maximum": [
+        -63,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        -121
+      ],
+      "maximum": [
+        -51,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        -109
+      ],
+      "maximum": [
+        -51,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        -49
+      ],
+      "maximum": [
+        -51,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        -37
+      ],
+      "maximum": [
+        -51,
+        30,
+        -27
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        -25
+      ],
+      "maximum": [
+        -51,
+        30,
+        -15
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        -13
+      ],
+      "maximum": [
+        -51,
+        30,
+        -3
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        -1
+      ],
+      "maximum": [
+        -51,
+        30,
+        9
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        35
+      ],
+      "maximum": [
+        -51,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        47
+      ],
+      "maximum": [
+        -51,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        59
+      ],
+      "maximum": [
+        -51,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -61,
+        0,
+        107
+      ],
+      "maximum": [
+        -51,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        -121
+      ],
+      "maximum": [
+        -39,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        -109
+      ],
+      "maximum": [
+        -39,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        -49
+      ],
+      "maximum": [
+        -39,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        -37
+      ],
+      "maximum": [
+        -39,
+        30,
+        -27
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        -25
+      ],
+      "maximum": [
+        -39,
+        30,
+        -15
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        -13
+      ],
+      "maximum": [
+        -39,
+        30,
+        -3
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        -1
+      ],
+      "maximum": [
+        -39,
+        30,
+        9
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        35
+      ],
+      "maximum": [
+        -39,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        47
+      ],
+      "maximum": [
+        -39,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -49,
+        0,
+        59
+      ],
+      "maximum": [
+        -39,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -37,
+        0,
+        -121
+      ],
+      "maximum": [
+        -27,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -37,
+        0,
+        -109
+      ],
+      "maximum": [
+        -27,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -37,
+        0,
+        -25
+      ],
+      "maximum": [
+        -27,
+        30,
+        -15
+      ]
+    },
+    {
+      "minimum": [
+        -37,
+        0,
+        -13
+      ],
+      "maximum": [
+        -27,
+        30,
+        -3
+      ]
+    },
+    {
+      "minimum": [
+        -37,
+        0,
+        35
+      ],
+      "maximum": [
+        -27,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -37,
+        0,
+        47
+      ],
+      "maximum": [
+        -27,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -37,
+        0,
+        59
+      ],
+      "maximum": [
+        -27,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -25,
+        0,
+        -121
+      ],
+      "maximum": [
+        -15,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        -25,
+        0,
+        -109
+      ],
+      "maximum": [
+        -15,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        -25,
+        0,
+        35
+      ],
+      "maximum": [
+        -15,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -25,
+        0,
+        47
+      ],
+      "maximum": [
+        -15,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -25,
+        0,
+        59
+      ],
+      "maximum": [
+        -15,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -25,
+        0,
+        95
+      ],
+      "maximum": [
+        -15,
+        30,
+        105
+      ]
+    },
+    {
+      "minimum": [
+        -25,
+        0,
+        107
+      ],
+      "maximum": [
+        -15,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        -13,
+        0,
+        -73
+      ],
+      "maximum": [
+        -3,
+        30,
+        -63
+      ]
+    },
+    {
+      "minimum": [
+        -13,
+        0,
+        -61
+      ],
+      "maximum": [
+        -3,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        -13,
+        0,
+        -49
+      ],
+      "maximum": [
+        -3,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        -13,
+        0,
+        35
+      ],
+      "maximum": [
+        -3,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -13,
+        0,
+        47
+      ],
+      "maximum": [
+        -3,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -13,
+        0,
+        59
+      ],
+      "maximum": [
+        -3,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        -1,
+        0,
+        -61
+      ],
+      "maximum": [
+        9,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        -1,
+        0,
+        -49
+      ],
+      "maximum": [
+        9,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        -1,
+        0,
+        -37
+      ],
+      "maximum": [
+        9,
+        30,
+        -27
+      ]
+    },
+    {
+      "minimum": [
+        -1,
+        0,
+        35
+      ],
+      "maximum": [
+        9,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        -1,
+        0,
+        47
+      ],
+      "maximum": [
+        9,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        -1,
+        0,
+        59
+      ],
+      "maximum": [
+        9,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        11,
+        0,
+        -61
+      ],
+      "maximum": [
+        21,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        11,
+        0,
+        -49
+      ],
+      "maximum": [
+        21,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        11,
+        0,
+        -37
+      ],
+      "maximum": [
+        21,
+        30,
+        -27
+      ]
+    },
+    {
+      "minimum": [
+        11,
+        0,
+        47
+      ],
+      "maximum": [
+        21,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        11,
+        0,
+        59
+      ],
+      "maximum": [
+        21,
+        30,
+        69
+      ]
+    },
+    {
+      "minimum": [
+        23,
+        0,
+        -121
+      ],
+      "maximum": [
+        33,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        23,
+        0,
+        -109
+      ],
+      "maximum": [
+        33,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        23,
+        0,
+        -61
+      ],
+      "maximum": [
+        33,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        23,
+        0,
+        -49
+      ],
+      "maximum": [
+        33,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        23,
+        0,
+        -37
+      ],
+      "maximum": [
+        33,
+        30,
+        -27
+      ]
+    },
+    {
+      "minimum": [
+        23,
+        0,
+        107
+      ],
+      "maximum": [
+        33,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        35,
+        0,
+        -121
+      ],
+      "maximum": [
+        45,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        35,
+        0,
+        -109
+      ],
+      "maximum": [
+        45,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        35,
+        0,
+        95
+      ],
+      "maximum": [
+        45,
+        30,
+        105
+      ]
+    },
+    {
+      "minimum": [
+        35,
+        0,
+        107
+      ],
+      "maximum": [
+        45,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        47,
+        0,
+        -121
+      ],
+      "maximum": [
+        57,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        47,
+        0,
+        -109
+      ],
+      "maximum": [
+        57,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        47,
+        0,
+        71
+      ],
+      "maximum": [
+        57,
+        30,
+        81
+      ]
+    },
+    {
+      "minimum": [
+        47,
+        0,
+        107
+      ],
+      "maximum": [
+        57,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        59,
+        0,
+        -121
+      ],
+      "maximum": [
+        69,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        59,
+        0,
+        -109
+      ],
+      "maximum": [
+        69,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        59,
+        0,
+        -97
+      ],
+      "maximum": [
+        69,
+        30,
+        -87
+      ]
+    },
+    {
+      "minimum": [
+        59,
+        0,
+        -61
+      ],
+      "maximum": [
+        69,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        59,
+        0,
+        -49
+      ],
+      "maximum": [
+        69,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        59,
+        0,
+        71
+      ],
+      "maximum": [
+        69,
+        30,
+        81
+      ]
+    },
+    {
+      "minimum": [
+        59,
+        0,
+        107
+      ],
+      "maximum": [
+        69,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        -121
+      ],
+      "maximum": [
+        81,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        -109
+      ],
+      "maximum": [
+        81,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        -97
+      ],
+      "maximum": [
+        81,
+        30,
+        -87
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        -85
+      ],
+      "maximum": [
+        81,
+        30,
+        -75
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        -73
+      ],
+      "maximum": [
+        81,
+        30,
+        -63
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        -61
+      ],
+      "maximum": [
+        81,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        -49
+      ],
+      "maximum": [
+        81,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        71,
+        0,
+        107
+      ],
+      "maximum": [
+        81,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -121
+      ],
+      "maximum": [
+        93,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -109
+      ],
+      "maximum": [
+        93,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -97
+      ],
+      "maximum": [
+        93,
+        30,
+        -87
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -85
+      ],
+      "maximum": [
+        93,
+        30,
+        -75
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -73
+      ],
+      "maximum": [
+        93,
+        30,
+        -63
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -61
+      ],
+      "maximum": [
+        93,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -49
+      ],
+      "maximum": [
+        93,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        -1
+      ],
+      "maximum": [
+        93,
+        30,
+        9
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        11
+      ],
+      "maximum": [
+        93,
+        30,
+        21
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        23
+      ],
+      "maximum": [
+        93,
+        30,
+        33
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        35
+      ],
+      "maximum": [
+        93,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        83,
+        0,
+        107
+      ],
+      "maximum": [
+        93,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        -121
+      ],
+      "maximum": [
+        105,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        -109
+      ],
+      "maximum": [
+        105,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        -97
+      ],
+      "maximum": [
+        105,
+        30,
+        -87
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        -85
+      ],
+      "maximum": [
+        105,
+        30,
+        -75
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        -73
+      ],
+      "maximum": [
+        105,
+        30,
+        -63
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        -61
+      ],
+      "maximum": [
+        105,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        -49
+      ],
+      "maximum": [
+        105,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        11
+      ],
+      "maximum": [
+        105,
+        30,
+        21
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        23
+      ],
+      "maximum": [
+        105,
+        30,
+        33
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        35
+      ],
+      "maximum": [
+        105,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        47
+      ],
+      "maximum": [
+        105,
+        30,
+        57
+      ]
+    },
+    {
+      "minimum": [
+        95,
+        0,
+        107
+      ],
+      "maximum": [
+        105,
+        30,
+        117
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -121
+      ],
+      "maximum": [
+        117,
+        30,
+        -111
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -109
+      ],
+      "maximum": [
+        117,
+        30,
+        -99
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -97
+      ],
+      "maximum": [
+        117,
+        30,
+        -87
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -85
+      ],
+      "maximum": [
+        117,
+        30,
+        -75
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -73
+      ],
+      "maximum": [
+        117,
+        30,
+        -63
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -61
+      ],
+      "maximum": [
+        117,
+        30,
+        -51
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -49
+      ],
+      "maximum": [
+        117,
+        30,
+        -39
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        -37
+      ],
+      "maximum": [
+        117,
+        30,
+        -27
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        23
+      ],
+      "maximum": [
+        117,
+        30,
+        33
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        35
+      ],
+      "maximum": [
+        117,
+        30,
+        45
+      ]
+    },
+    {
+      "minimum": [
+        107,
+        0,
+        47
+      ],
+      "maximum": [
+        117,
+        30,
+        57
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "center": [
+        60,
+        0,
+        21
+      ],
+      "levels": [
+        0,
+        6,
+        12
+      ],
+      "half_size": [
+        13,
+        15
+      ],
+      "style": "docks",
+      "points": [
+        [
+          60,
+          0.1,
+          8.5
+        ],
+        [
+          60,
+          6.1,
+          8.5
+        ],
+        [
+          60,
+          12.1,
+          8.5
+        ]
+      ]
+    },
+    {
+      "center": [
+        -98,
+        0,
+        -55
+      ],
+      "levels": [
+        0,
+        6,
+        12,
+        18
+      ],
+      "half_size": [
+        17,
+        17
+      ],
+      "style": "docks",
+      "points": [
+        [
+          -98,
+          0.1,
+          -69.5
+        ],
+        [
+          -98,
+          6.1,
+          -69.5
+        ],
+        [
+          -98,
+          12.1,
+          -69.5
+        ],
+        [
+          -98,
+          18.1,
+          -69.5
+        ]
+      ]
+    },
+    {
+      "center": [
+        89,
+        0,
+        78
+      ],
+      "levels": [
+        0,
+        6,
+        12
+      ],
+      "half_size": [
+        16,
+        15
+      ],
+      "style": "docks",
+      "points": [
+        [
+          89,
+          0.1,
+          65.5
+        ],
+        [
+          89,
+          6.1,
+          65.5
+        ],
+        [
+          89,
+          12.1,
+          65.5
+        ]
+      ]
+    },
+    {
+      "center": [
+        -55,
+        0,
+        -75
+      ],
+      "levels": [
+        0,
+        6,
+        12
+      ],
+      "half_size": [
+        14,
+        15
+      ],
+      "style": "docks",
+      "points": [
+        [
+          -55,
+          0.1,
+          -87.5
+        ],
+        [
+          -55,
+          6.1,
+          -87.5
+        ],
+        [
+          -55,
+          12.1,
+          -87.5
+        ]
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        49.5,
+        0.09999999999999964,
+        8.5
+      ],
+      "to": [
+        49.5,
+        6.1,
+        33.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        70.5,
+        6.1,
+        33.5
+      ],
+      "to": [
+        70.5,
+        12.1,
+        8.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        -112.5,
+        0.09999999999999964,
+        -69.5
+      ],
+      "to": [
+        -112.5,
+        6.1,
+        -40.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        -83.5,
+        6.1,
+        -40.5
+      ],
+      "to": [
+        -83.5,
+        12.1,
+        -69.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        -112.5,
+        12.1,
+        -69.5
+      ],
+      "to": [
+        -112.5,
+        18.1,
+        -40.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        75.5,
+        0.09999999999999964,
+        65.5
+      ],
+      "to": [
+        75.5,
+        6.1,
+        90.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        102.5,
+        6.1,
+        90.5
+      ],
+      "to": [
+        102.5,
+        12.1,
+        65.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        -66.5,
+        0.09999999999999964,
+        -87.5
+      ],
+      "to": [
+        -66.5,
+        6.1,
+        -62.5
+      ],
+      "kind": "interior_ramp"
+    },
+    {
+      "from": [
+        -43.5,
+        6.1,
+        -62.5
+      ],
+      "to": [
+        -43.5,
+        12.1,
+        -87.5
+      ],
+      "kind": "interior_ramp"
+    }
+  ],
+  "emitters": [
+    {
+      "position": [
+        -80.39959990174965,
+        7.2,
+        6.513771302249553
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -56.686908885574894,
+        7.2,
+        15.453460089477826
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        35.88557159992217,
+        7.2,
+        -11.17377514302391
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        57.65099942158105,
+        7.2,
+        -26.29902949936646
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        83.34900057841895,
+        7.2,
+        -16.70097050063354
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        106.8476789674823,
+        7.2,
+        -13.569083026239536
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -97,
+        4,
+        0
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        -70,
+        4,
+        21
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        -43,
+        4,
+        20
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        45,
+        4,
+        -21
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        96,
+        4,
+        -22
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        109,
+        4,
+        0
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        -10.23639071693735,
+        7.2,
+        -86.2733034494336
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -20.95,
+        7.2,
+        -61.0
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        21.075673498764207,
+        7.2,
+        29.714364986879463
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        38.05,
+        7.2,
+        48.25
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        27.95,
+        7.2,
+        74.75
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        18.58970486872098,
+        7.2,
+        100.09735071118615
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        0,
+        4,
+        -99
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        -26,
+        4,
+        -82
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        -26,
+        4,
+        -40
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        33,
+        4,
+        35
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        33,
+        4,
+        88
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        0,
+        4,
+        103
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        -66.73517205760909,
+        7.2,
+        36.344979586385364
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -80.26482794239091,
+        7.2,
+        64.65502041361464
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -62.883694736316954,
+        7.2,
+        75.96330262435809
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -36.116305263683046,
+        7.2,
+        88.03669737564191
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -7.8836947363169525,
+        7.2,
+        79.96330262435809
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -77,
+        4,
+        80
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        41.220009588161965,
+        7.2,
+        -35.449106286771254
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        53.779990411838035,
+        7.2,
+        -62.550893713228746
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        37.001813168455335,
+        7.2,
+        -72.7942268271877
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        12.331520164878002,
+        7.2,
+        -84.53910650614563
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -13.664853498211338,
+        7.2,
+        -76.12756016052104
+      ],
+      "power": 8000,
+      "color": [
+        0.75,
+        0.82,
+        1
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        50,
+        4,
+        -77
+      ],
+      "power": 4000,
+      "color": [
+        0.7,
+        0.8,
+        1
+      ],
+      "fixture": "junction_fill"
+    },
+    {
+      "position": [
+        60,
+        3,
+        21
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        60,
+        9,
+        21
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        60,
+        15,
+        21
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        60,
+        4,
+        4
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        60,
+        4,
+        38
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        60,
+        10,
+        4
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        60,
+        10,
+        38
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -98,
+        3,
+        -55
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        -98,
+        9,
+        -55
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        -98,
+        15,
+        -55
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        -98,
+        21,
+        -55
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        -98,
+        4,
+        -74
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -98,
+        4,
+        -36
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -98,
+        10,
+        -74
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -98,
+        10,
+        -36
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -98,
+        16,
+        -74
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -98,
+        16,
+        -36
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        89,
+        3,
+        78
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        89,
+        9,
+        78
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        89,
+        15,
+        78
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        89,
+        4,
+        61
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        89,
+        4,
+        95
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        89,
+        10,
+        61
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        89,
+        10,
+        95
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -55,
+        3,
+        -75
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        -55,
+        9,
+        -75
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        -55,
+        15,
+        -75
+      ],
+      "power": 1150,
+      "color": [
+        0.65,
+        0.75,
+        1
+      ],
+      "fixture": "hall"
+    },
+    {
+      "position": [
+        -55,
+        4,
+        -92
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -55,
+        4,
+        -58
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -55,
+        10,
+        -92
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -55,
+        10,
+        -58
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.66,
+        0.9
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        112,
+        2.8,
+        105
+      ],
+      "power": 450,
+      "color": [
+        1,
+        0.7,
+        0.4
+      ],
+      "fixture": "stall"
+    },
+    {
+      "position": [
+        -38,
+        2.8,
+        108
+      ],
+      "power": 450,
+      "color": [
+        1,
+        0.7,
+        0.4
+      ],
+      "fixture": "stall"
+    },
+    {
+      "position": [
+        -112,
+        2.8,
+        -26
+      ],
+      "power": 450,
+      "color": [
+        1,
+        0.7,
+        0.4
+      ],
+      "fixture": "stall"
+    },
+    {
+      "position": [
+        -48,
+        2.8,
+        98
+      ],
+      "power": 450,
+      "color": [
+        1,
+        0.7,
+        0.4
+      ],
+      "fixture": "stall"
+    },
+    {
+      "position": [
+        64,
+        2.8,
+        97
+      ],
+      "power": 450,
+      "color": [
+        1,
+        0.7,
+        0.4
+      ],
+      "fixture": "stall"
+    },
+    {
+      "position": [
+        9.0,
+        0.65,
+        0.0
+      ],
+      "power": 75,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        -9.0,
+        0.65,
+        0.0
+      ],
+      "power": 75,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        0.0,
+        0.65,
+        9.0
+      ],
+      "power": 75,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        0.0,
+        0.65,
+        -9.0
+      ],
+      "power": 75,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        -121.94,
+        3,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -121.94,
+        11,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -121.94,
+        3,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -121.94,
+        11,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        3,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        11,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        3,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        11,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -8.0,
+        3,
+        -121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -8.0,
+        11,
+        -121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        8.0,
+        3,
+        -121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        8.0,
+        11,
+        -121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        8.0,
+        3,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        8.0,
+        11,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -8.0,
+        3,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -8.0,
+        11,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.4666666666666667,
+        0.6666666666666666,
+        0.8666666666666667
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -29,
+        2.6,
+        -26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    },
+    {
+      "position": [
+        29,
+        2.6,
+        -26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    },
+    {
+      "position": [
+        -29,
+        2.6,
+        26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    },
+    {
+      "position": [
+        29,
+        2.6,
+        26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    },
+    {
+      "position": [
+        -102.5,
+        9.7,
+        0.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -83.5,
+        9.7,
+        10.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -56.5,
+        9.7,
+        20.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -21.5,
+        9.7,
+        18.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        22.5,
+        9.7,
+        -2.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        70.5,
+        9.7,
+        -21.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        102.5,
+        9.7,
+        -11.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        108.5,
+        9.7,
+        0.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        0.0,
+        9.7,
+        -103.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -13.0,
+        9.7,
+        -90.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -26.0,
+        9.7,
+        -61.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -21.5,
+        9.7,
+        -20.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        8.0,
+        9.7,
+        17.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        33.0,
+        9.7,
+        61.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        16.5,
+        9.7,
+        95.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        0.0,
+        9.7,
+        105.5
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        60.0,
+        9.7,
+        3.2
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        59.74721368178324,
+        9.7,
+        -9.692102229054573
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -98.0,
+        9.7,
+        -74.8
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -85.5,
+        9.7,
+        -85.05
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -55.0,
+        9.7,
+        -94.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -31.5,
+        9.7,
+        -83.75
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        89.0,
+        9.7,
+        60.2
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        79.0,
+        9.7,
+        58.95
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        51.0,
+        9.7,
+        60.25
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -55.0,
+        9.7,
+        -92.8
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -46.0,
+        9.7,
+        -94.05
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -31.5,
+        9.7,
+        -88.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -6.5,
+        9.7,
+        -12.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -14.092207019631172,
+        9.7,
+        -10.854253420582985
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        6.5,
+        9.7,
+        -12.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        14.274430671663303,
+        9.7,
+        -5.753963678293456
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -6.5,
+        9.7,
+        12.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -7.496644295302012,
+        9.7,
+        9.852348993288592
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        6.5,
+        9.7,
+        12.0
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        8.359181320265206,
+        9.7,
+        11.24113577399827
+      ],
+      "power": 2500,
+      "color": [
+        0.62,
+        0.73,
+        1
+      ],
+      "fixture": "bridge_ceiling"
+    },
+    {
+      "position": [
+        -86.08589000774334,
+        3.4,
+        2.2557932256576785
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -92.12706564473014,
+        3.4,
+        10.023019044640728
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -73.45625452972212,
+        3.4,
+        12.078843041896404
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -79.49743016670891,
+        3.4,
+        19.846068860879456
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -36.00770416971561,
+        3.4,
+        11.321624632352696
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -31.857873592514256,
+        3.4,
+        20.243760373335608
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        25.64135812930603,
+        3.4,
+        -6.536601049832515
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        35.979095390372024,
+        3.4,
+        -22.21961059268391
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        40.14028836923028,
+        3.4,
+        -13.302768495130499
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        54.90162616788977,
+        3.4,
+        -26.11509523189554
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        55.094530265244714,
+        3.4,
+        -16.27698626679337
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        70.89855131439737,
+        3.4,
+        -26.428760430846673
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        71.09145541175229,
+        3.4,
+        -16.5906514657445
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -5.677229273860558,
+        3.4,
+        -89.40961586942313
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -11.062163005610355,
+        3.4,
+        -97.64539687092281
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -21.08,
+        3.4,
+        -72.0
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -30.92,
+        3.4,
+        -72.0
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -16.424973901846727,
+        3.4,
+        -34.29690652192306
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -24.675259086244992,
+        3.4,
+        -28.934221152064193
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        28.08,
+        3.4,
+        61.0
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        25.932245711335778,
+        3.4,
+        96.61703251212786
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        11.366382071934106,
+        3.4,
+        103.2378796209468
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        7.294561100010455,
+        3.4,
+        94.27987348271476
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -68.17752787513982,
+        3.4,
+        47.39857941924352
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -77.94899459853124,
+        3.4,
+        46.239252858841155
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -70.06261171319245,
+        3.4,
+        63.287143197115725
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -79.83407843658388,
+        3.4,
+        62.12781663671336
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -50.71161313583955,
+        3.4,
+        76.97888827081208
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -51.425364382303165,
+        3.4,
+        86.79296790968662
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -34.753760064498856,
+        3.4,
+        78.13945940327322
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -18.795906993158162,
+        3.4,
+        79.30003053573436
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -19.509658239621764,
+        3.4,
+        89.11411017460891
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        13.119799149523246,
+        3.4,
+        81.62117280065665
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        40.988813869597905,
+        3.4,
+        -31.397922187979187
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        50.7898248898922,
+        3.4,
+        -30.52283191831005
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        42.41172487719,
+        3.4,
+        -47.33452547301057
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        52.21273589748429,
+        3.4,
+        -46.45943520334144
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        43.83463588478208,
+        3.4,
+        -63.27112875804197
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        53.63564690507638,
+        3.4,
+        -62.39603848837284
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        23.733099332477963,
+        3.4,
+        -73.79744955972109
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        24.379071297309558,
+        3.4,
+        -83.61622342516131
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        -8.19787258765279,
+        3.4,
+        -75.8981713965718
+      ],
+      "power": 1800,
+      "color": [
+        0.55,
+        0.7,
+        1
+      ],
+      "fixture": "shop_window"
+    },
+    {
+      "position": [
+        59.77269408147579,
+        3.8,
+        -9.69260184473482
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        46.5,
+        3.8,
+        40.1
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -62.0,
+        3.8,
+        -76.1
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -98.0,
+        3.8,
+        -16.95
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        61.0,
+        3.8,
+        58.9
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        61.0,
+        3.8,
+        92.55
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -40.5,
+        3.8,
+        -88.05
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -40.5,
+        3.8,
+        -55.9
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        72.5,
+        3.8,
+        96.0
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -37.12594541269319,
+        3.8,
+        94.9817494245314
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -112.0,
+        3.8,
+        -13.5
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -47.4613613942782,
+        3.8,
+        89.59371917132522
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        48.5,
+        3.8,
+        92.0
+      ],
+      "power": 2200,
+      "color": [
+        0.66,
+        0.76,
+        1
+      ],
+      "fixture": "access_passage"
+    },
+    {
+      "position": [
+        -19,
+        10.5,
+        -19
+      ],
+      "power": 11000,
+      "color": [
+        0.68,
+        0.75,
+        1
+      ],
+      "fixture": "atrium"
+    },
+    {
+      "position": [
+        19,
+        10.5,
+        -19
+      ],
+      "power": 11000,
+      "color": [
+        0.68,
+        0.75,
+        1
+      ],
+      "fixture": "atrium"
+    },
+    {
+      "position": [
+        -19,
+        10.5,
+        19
+      ],
+      "power": 11000,
+      "color": [
+        0.68,
+        0.75,
+        1
+      ],
+      "fixture": "atrium"
+    },
+    {
+      "position": [
+        19,
+        10.5,
+        19
+      ],
+      "power": 11000,
+      "color": [
+        0.68,
+        0.75,
+        1
+      ],
+      "fixture": "atrium"
+    }
+  ],
+  "pickup_positions": [
+    [
+      -7,
+      0.3,
+      0
+    ],
+    [
+      7,
+      0.3,
+      0
+    ],
+    [
+      60,
+      6.1,
+      8.5
+    ],
+    [
+      -98,
+      6.1,
+      -69.5
+    ],
+    [
+      89,
+      6.1,
+      65.5
+    ],
+    [
+      -55,
+      6.1,
+      -87.5
+    ],
+    [
+      -10,
+      0.3,
+      10
+    ],
+    [
+      10,
+      0.3,
+      -10
+    ]
+  ],
+  "streets": [
+    [
+      [
+        -125,
+        0
+      ],
+      [
+        -97,
+        0
+      ],
+      [
+        -70,
+        21
+      ],
+      [
+        -43,
+        20
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        45,
+        -21
+      ],
+      [
+        96,
+        -22
+      ],
+      [
+        109,
+        0
+      ],
+      [
+        125,
+        0
+      ]
+    ],
+    [
+      [
+        0,
+        -125
+      ],
+      [
+        0,
+        -99
+      ],
+      [
+        -26,
+        -82
+      ],
+      [
+        -26,
+        -40
+      ],
+      [
+        0,
+        0
+      ],
+      [
+        33,
+        35
+      ],
+      [
+        33,
+        88
+      ],
+      [
+        0,
+        103
+      ],
+      [
+        0,
+        125
+      ]
+    ],
+    [
+      [
+        -70,
+        21
+      ],
+      [
+        -77,
+        80
+      ],
+      [
+        33,
+        88
+      ]
+    ],
+    [
+      [
+        45,
+        -21
+      ],
+      [
+        50,
+        -77
+      ],
+      [
+        -26,
+        -82
+      ]
+    ]
+  ],
+  "street_points": [
+    [
+      -121,
+      0.3,
+      0
+    ],
+    [
+      -97,
+      0.3,
+      0
+    ],
+    [
+      -70,
+      0.3,
+      21
+    ],
+    [
+      -43,
+      0.3,
+      20
+    ],
+    [
+      0,
+      0.3,
+      0
+    ],
+    [
+      45,
+      0.3,
+      -21
+    ],
+    [
+      96,
+      0.3,
+      -22
+    ],
+    [
+      109,
+      0.3,
+      0
+    ],
+    [
+      0,
+      0.3,
+      -121
+    ],
+    [
+      0,
+      0.3,
+      -99
+    ],
+    [
+      -26,
+      0.3,
+      -82
+    ],
+    [
+      -26,
+      0.3,
+      -40
+    ],
+    [
+      0,
+      0.3,
+      0
+    ],
+    [
+      33,
+      0.3,
+      35
+    ],
+    [
+      33,
+      0.3,
+      88
+    ],
+    [
+      0,
+      0.3,
+      103
+    ],
+    [
+      -70,
+      0.3,
+      21
+    ],
+    [
+      -77,
+      0.3,
+      80
+    ],
+    [
+      45,
+      0.3,
+      -21
+    ],
+    [
+      50,
+      0.3,
+      -77
+    ],
+    [
+      60,
+      0.3,
+      1.8999999999999986
+    ],
+    [
+      60,
+      0.3,
+      40.1
+    ],
+    [
+      -98,
+      0.3,
+      -76.1
+    ],
+    [
+      -98,
+      0.3,
+      -33.9
+    ],
+    [
+      89,
+      0.3,
+      58.9
+    ],
+    [
+      89,
+      0.3,
+      97.1
+    ],
+    [
+      -55,
+      0.3,
+      -94.1
+    ],
+    [
+      -55,
+      0.3,
+      -55.9
+    ],
+    [
+      112,
+      0.3,
+      104
+    ],
+    [
+      -38,
+      0.3,
+      107
+    ],
+    [
+      -112,
+      0.3,
+      -27
+    ],
+    [
+      -48,
+      0.3,
+      97
+    ],
+    [
+      64,
+      0.3,
+      96
+    ],
+    [
+      -108,
+      6.1,
+      0
+    ],
+    [
+      -97,
+      6.1,
+      0
+    ],
+    [
+      -70,
+      6.1,
+      21
+    ],
+    [
+      -43,
+      6.1,
+      20
+    ],
+    [
+      0,
+      6.1,
+      17
+    ],
+    [
+      45,
+      6.1,
+      -21
+    ],
+    [
+      96,
+      6.1,
+      -22
+    ],
+    [
+      109,
+      6.1,
+      0
+    ],
+    [
+      108,
+      6.1,
+      0
+    ],
+    [
+      0,
+      6.1,
+      -108
+    ],
+    [
+      0,
+      6.1,
+      -99
+    ],
+    [
+      -26,
+      6.1,
+      -82
+    ],
+    [
+      -26,
+      6.1,
+      -40
+    ],
+    [
+      -17,
+      6.1,
+      0
+    ],
+    [
+      33,
+      6.1,
+      35
+    ],
+    [
+      33,
+      6.1,
+      88
+    ],
+    [
+      0,
+      6.1,
+      103
+    ],
+    [
+      0,
+      6.1,
+      108
+    ],
+    [
+      60,
+      6.1,
+      4.5
+    ],
+    [
+      60,
+      6.1,
+      1.9000000000000004
+    ],
+    [
+      59.49442736356649,
+      6.1,
+      -21.284204458109148
+    ],
+    [
+      -98,
+      6.1,
+      -73.5
+    ],
+    [
+      -98,
+      6.1,
+      -76.1
+    ],
+    [
+      -73.0,
+      6.1,
+      -94.0
+    ],
+    [
+      -37.0,
+      6.1,
+      -94.0
+    ],
+    [
+      -26.0,
+      6.1,
+      -73.5
+    ],
+    [
+      89,
+      6.1,
+      61.5
+    ],
+    [
+      89,
+      6.1,
+      58.9
+    ],
+    [
+      69.0,
+      6.1,
+      59.0
+    ],
+    [
+      33.0,
+      6.1,
+      61.5
+    ],
+    [
+      -55,
+      6.1,
+      -91.5
+    ],
+    [
+      -55,
+      6.1,
+      -94.1
+    ],
+    [
+      -37.0,
+      6.1,
+      -94.0
+    ],
+    [
+      -26.0,
+      6.1,
+      -82.0
+    ],
+    [
+      -4,
+      6.1,
+      -12
+    ],
+    [
+      -9,
+      6.1,
+      -12
+    ],
+    [
+      -19.184414039262343,
+      6.1,
+      -9.70850684116597
+    ],
+    [
+      4,
+      6.1,
+      -12
+    ],
+    [
+      9,
+      6.1,
+      -12
+    ],
+    [
+      19.548861343326607,
+      6.1,
+      0.49207264341308843
+    ],
+    [
+      -4,
+      6.1,
+      12
+    ],
+    [
+      -9,
+      6.1,
+      12
+    ],
+    [
+      -5.993288590604024,
+      6.1,
+      7.704697986577183
+    ],
+    [
+      4,
+      6.1,
+      12
+    ],
+    [
+      9,
+      6.1,
+      12
+    ],
+    [
+      7.718362640530413,
+      6.1,
+      10.482271547996541
+    ]
+  ],
+  "lots": [
+    [
+      60,
+      21,
+      13,
+      15,
+      true
+    ],
+    [
+      -98,
+      -55,
+      17,
+      17,
+      true
+    ],
+    [
+      89,
+      78,
+      16,
+      15,
+      true
+    ],
+    [
+      -55,
+      -75,
+      14,
+      15,
+      true
+    ],
+    [
+      -100,
+      -94,
+      6,
+      13,
+      false
+    ],
+    [
+      79,
+      -87,
+      10,
+      12,
+      false
+    ],
+    [
+      102,
+      -86,
+      5,
+      11,
+      false
+    ],
+    [
+      90,
+      -53,
+      8,
+      13,
+      false
+    ],
+    [
+      8,
+      50,
+      10,
+      10,
+      false
+    ],
+    [
+      -55,
+      -40,
+      11,
+      8,
+      false
+    ],
+    [
+      -100,
+      90,
+      6,
+      12,
+      false
+    ],
+    [
+      -32,
+      56,
+      5,
+      11,
+      false
+    ],
+    [
+      9,
+      -56,
+      9,
+      7,
+      false
+    ],
+    [
+      -56,
+      -9,
+      10,
+      13,
+      false
+    ],
+    [
+      -103,
+      33,
+      8,
+      12,
+      false
+    ],
+    [
+      -80,
+      -84,
+      5,
+      7,
+      false
+    ],
+    [
+      100,
+      25,
+      5,
+      9,
+      false
+    ],
+    [
+      69,
+      -57,
+      5,
+      11,
+      false
+    ],
+    [
+      61,
+      64,
+      7,
+      14,
+      false
+    ],
+    [
+      -16,
+      46,
+      6,
+      11,
+      false
+    ]
+  ],
+  "props": [
+    {
+      "kind": "streetlamp",
+      "position": [
+        -80.39959990174965,
+        0,
+        6.513771302249553
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -56.686908885574894,
+        0,
+        15.453460089477826
+      ]
+    },
+    {
+      "kind": "freight_vehicle",
+      "position": [
+        -56.22611371222688,
+        0,
+        27.894929769874075
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        35.88557159992217,
+        0,
+        -11.17377514302391
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        57.65099942158105,
+        0,
+        -26.29902949936646
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        83.34900057841895,
+        0,
+        -16.70097050063354
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        83.1049298454851,
+        0,
+        -29.14857788025976
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        106.8476789674823,
+        0,
+        -13.569083026239536
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        96.12914369121407,
+        0,
+        -7.2354030902628566
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -10.23639071693735,
+        0,
+        -86.2733034494336
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -20.95,
+        0,
+        -61.0
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        -33.4,
+        0,
+        -61.0
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        21.075673498764207,
+        0,
+        29.714364986879463
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        30.13416160577126,
+        0,
+        21.17350477170138
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        38.05,
+        0,
+        48.25
+      ]
+    },
+    {
+      "kind": "freight_vehicle",
+      "position": [
+        25.6,
+        0,
+        48.25
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        27.95,
+        0,
+        74.75
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        40.4,
+        0,
+        74.75
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        18.58970486872098,
+        0,
+        100.09735071118615
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -66.73517205760909,
+        0,
+        36.344979586385364
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        -79.0984607472659,
+        0,
+        34.878148724900655
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -80.26482794239091,
+        0,
+        64.65502041361464
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -62.883694736316954,
+        0,
+        75.96330262435809
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        -63.786764148763275,
+        0,
+        88.38050704549508
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -36.116305263683046,
+        0,
+        88.03669737564191
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -7.8836947363169525,
+        0,
+        79.96330262435809
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        -8.786764148763279,
+        0,
+        92.38050704549508
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        41.220009588161965,
+        0,
+        -35.449106286771254
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        53.779990411838035,
+        0,
+        -62.550893713228746
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        37.001813168455335,
+        0,
+        -72.7942268271877
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        37.81912525810506,
+        0,
+        -85.21737058986356
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        12.331520164878002,
+        0,
+        -84.53910650614563
+      ]
+    },
+    {
+      "kind": "parked_vehicle",
+      "position": [
+        11.514208075228273,
+        0,
+        -72.11596274346977
+      ]
+    },
+    {
+      "kind": "streetlamp",
+      "position": [
+        -13.664853498211338,
+        0,
+        -76.12756016052104
+      ]
+    },
+    {
+      "kind": "market_stall",
+      "position": [
+        112,
+        0,
+        108
+      ]
+    },
+    {
+      "kind": "market_stall",
+      "position": [
+        -38,
+        0,
+        111
+      ]
+    },
+    {
+      "kind": "market_stall",
+      "position": [
+        -112,
+        0,
+        -23
+      ]
+    },
+    {
+      "kind": "market_stall",
+      "position": [
+        -48,
+        0,
+        101
+      ]
+    },
+    {
+      "kind": "market_stall",
+      "position": [
+        64,
+        0,
+        100
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          -108,
+          0
+        ],
+        [
+          -97,
+          0
+        ],
+        [
+          -70,
+          21
+        ],
+        [
+          -43,
+          20
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          45,
+          -21
+        ],
+        [
+          96,
+          -22
+        ],
+        [
+          109,
+          0
+        ],
+        [
+          108,
+          0
+        ]
+      ],
+      "position": [
+        -108,
+        6,
+        0
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          0,
+          -108
+        ],
+        [
+          0,
+          -99
+        ],
+        [
+          -26,
+          -82
+        ],
+        [
+          -26,
+          -40
+        ],
+        [
+          -17,
+          0
+        ],
+        [
+          33,
+          35
+        ],
+        [
+          33,
+          88
+        ],
+        [
+          0,
+          103
+        ],
+        [
+          0,
+          108
+        ]
+      ],
+      "position": [
+        0,
+        6,
+        -108
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          60,
+          4.5
+        ],
+        [
+          60,
+          1.9000000000000004
+        ],
+        [
+          59.49442736356649,
+          -21.284204458109148
+        ]
+      ],
+      "position": [
+        60,
+        6,
+        4.5
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          -98,
+          -73.5
+        ],
+        [
+          -98,
+          -76.1
+        ],
+        [
+          -73.0,
+          -94.0
+        ],
+        [
+          -37.0,
+          -94.0
+        ],
+        [
+          -26.0,
+          -73.5
+        ]
+      ],
+      "position": [
+        -98,
+        6,
+        -73.5
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          89,
+          61.5
+        ],
+        [
+          89,
+          58.9
+        ],
+        [
+          69.0,
+          59.0
+        ],
+        [
+          33.0,
+          61.5
+        ]
+      ],
+      "position": [
+        89,
+        6,
+        61.5
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          -55,
+          -91.5
+        ],
+        [
+          -55,
+          -94.1
+        ],
+        [
+          -37.0,
+          -94.0
+        ],
+        [
+          -26.0,
+          -82.0
+        ]
+      ],
+      "position": [
+        -55,
+        6,
+        -91.5
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          -4,
+          -12
+        ],
+        [
+          -9,
+          -12
+        ],
+        [
+          -19.184414039262343,
+          -9.70850684116597
+        ]
+      ],
+      "position": [
+        -4,
+        6,
+        -12
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          4,
+          -12
+        ],
+        [
+          9,
+          -12
+        ],
+        [
+          19.548861343326607,
+          0.49207264341308843
+        ]
+      ],
+      "position": [
+        4,
+        6,
+        -12
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          -4,
+          12
+        ],
+        [
+          -9,
+          12
+        ],
+        [
+          -5.993288590604024,
+          7.704697986577183
+        ]
+      ],
+      "position": [
+        -4,
+        6,
+        12
+      ]
+    },
+    {
+      "kind": "skyway",
+      "points": [
+        [
+          4,
+          12
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          7.718362640530413,
+          10.482271547996541
+        ]
+      ],
+      "position": [
+        4,
+        6,
+        12
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        -111.0,
+        0,
+        0.0
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        -83.5,
+        0,
+        10.5
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        70.5,
+        0,
+        -21.5
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        0.0,
+        0,
+        -112.0
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        -13.0,
+        0,
+        -90.5
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        -73.5,
+        0,
+        50.5
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        -22.0,
+        0,
+        84.0
+      ]
+    },
+    {
+      "kind": "archway",
+      "position": [
+        47.5,
+        0,
+        -49.0
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -85.47194939422842,
+        0,
+        1.4664410082813522
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -92.74100625824506,
+        0,
+        10.812371262017054
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -72.84231391620719,
+        0,
+        11.289490824520078
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -80.11137078022384,
+        0,
+        20.63542107825578
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -36.429434919431195,
+        0,
+        10.41490352046419
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -31.43614284279867,
+        0,
+        21.150481485224116
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        26.064243594637155,
+        0,
+        -5.6304179098372495
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        35.556209925040896,
+        0,
+        -23.125793732679174
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        40.563173834561404,
+        0,
+        -12.396585355135233
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        54.882022092955324,
+        0,
+        -27.114903053552265
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        55.11413434017916,
+        0,
+        -15.277178445136645
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        70.87894723946292,
+        0,
+        -27.428568252503396
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        71.11105948668674,
+        0,
+        -15.590843644087776
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -5.129979910877855,
+        0,
+        -88.57264625544958
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -11.609412368593057,
+        0,
+        -98.48236648489636
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -20.08,
+        0,
+        -72.0
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -31.92,
+        0,
+        -72.0
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -15.586530285546088,
+        0,
+        -34.84189487251848
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -25.51370270254563,
+        0,
+        -28.38923280146878
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        27.08,
+        0,
+        61.0
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        26.346048655636963,
+        0,
+        97.52739898959047
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        11.78018501623529,
+        0,
+        104.1482460984094
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        6.8807581557092705,
+        0,
+        93.36950700525216
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -67.1844926390228,
+        0,
+        47.51639715912181
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -78.94202983464825,
+        0,
+        46.121435118962864
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -69.06957647707544,
+        0,
+        63.404960936994016
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -80.82711367270089,
+        0,
+        62.00999889683507
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -50.63907744006073,
+        0,
+        75.98152245385329
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -51.49790007808198,
+        0,
+        87.79033372664541
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -34.68122436872004,
+        0,
+        77.14209358631443
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -18.72337129737934,
+        0,
+        78.30266471877557
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -19.582193935400586,
+        0,
+        90.1114759915677
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        13.192334845302067,
+        0,
+        80.62380698369786
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        39.99277616428344,
+        0,
+        -31.48685412595369
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        51.785862595206666,
+        0,
+        -30.433899980335546
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        41.41568717187553,
+        0,
+        -47.42345741098508
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        53.20877360279876,
+        0,
+        -46.370503265366935
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        42.83859817946762,
+        0,
+        -63.360060696016475
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        54.63168461039084,
+        0,
+        -62.30710655039833
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        23.66745177507638,
+        0,
+        -72.79960668721701
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        24.44471885471114,
+        0,
+        -84.61406629766539
+      ]
+    },
+    {
+      "kind": "street_front",
+      "position": [
+        -8.263520145054375,
+        0,
+        -74.90032852406772
+      ]
+    }
+  ],
+  "signs": [
+    {
+      "position": [
+        60,
+        3.7,
+        5.4
+      ],
+      "yaw": 3.141592653589793,
+      "text": "HELIX SHANTY MARKET / 1"
+    },
+    {
+      "position": [
+        -98,
+        3.7,
+        -72.6
+      ],
+      "yaw": 3.141592653589793,
+      "text": "HELIX SHANTY MARKET / 2"
+    },
+    {
+      "position": [
+        89,
+        3.7,
+        62.4
+      ],
+      "yaw": 3.141592653589793,
+      "text": "HELIX SHANTY MARKET / 3"
+    },
+    {
+      "position": [
+        -55,
+        3.7,
+        -90.6
+      ],
+      "yaw": 3.141592653589793,
+      "text": "HELIX SHANTY MARKET / 4"
+    }
+  ],
+  "enclosure": {
+    "road_width_metres": 7,
+    "sidewalk_width_metres": 2,
+    "courtyards": [
+      {
+        "center": [
+          0,
+          0
+        ],
+        "radius": 9
+      },
+      {
+        "center": [
+          50,
+          -77
+        ],
+        "radius": 10
+      },
+      {
+        "center": [
+          -97,
+          0
+        ],
+        "radius": 10
+      }
+    ],
+    "passages": [
+      [
+        [
+          60,
+          1.8999999999999986
+        ],
+        [
+          59.545388162951575,
+          -21.28520368946964
+        ]
+      ],
+      [
+        [
+          60,
+          40.1
+        ],
+        [
+          33.0,
+          40.1
+        ]
+      ],
+      [
+        [
+          -98,
+          -76.1
+        ],
+        [
+          -73.0,
+          -94.0
+        ],
+        [
+          -37.0,
+          -94.0
+        ],
+        [
+          -26.0,
+          -76.1
+        ]
+      ],
+      [
+        [
+          -98,
+          -33.9
+        ],
+        [
+          -98.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          89,
+          58.9
+        ],
+        [
+          33.0,
+          58.9
+        ]
+      ],
+      [
+        [
+          89,
+          97.1
+        ],
+        [
+          69.0,
+          97.0
+        ],
+        [
+          33.0,
+          88.0
+        ]
+      ],
+      [
+        [
+          -55,
+          -94.1
+        ],
+        [
+          -37.0,
+          -94.0
+        ],
+        [
+          -26.0,
+          -82.0
+        ]
+      ],
+      [
+        [
+          -55,
+          -55.9
+        ],
+        [
+          -26.0,
+          -55.9
+        ]
+      ],
+      [
+        [
+          112,
+          104
+        ],
+        [
+          69.0,
+          97.0
+        ],
+        [
+          33.0,
+          88.0
+        ]
+      ],
+      [
+        [
+          -38,
+          107
+        ],
+        [
+          -36.25189082538638,
+          82.9634988490628
+        ]
+      ],
+      [
+        [
+          -112,
+          -27
+        ],
+        [
+          -112.0,
+          0.0
+        ]
+      ],
+      [
+        [
+          -48,
+          97
+        ],
+        [
+          -46.9227227885564,
+          82.18743834265044
+        ]
+      ],
+      [
+        [
+          64,
+          96
+        ],
+        [
+          33.0,
+          88.0
+        ]
+      ]
+    ],
+    "bridges": [
+      [
+        [
+          -108,
+          0
+        ],
+        [
+          -97,
+          0
+        ],
+        [
+          -70,
+          21
+        ],
+        [
+          -43,
+          20
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          45,
+          -21
+        ],
+        [
+          96,
+          -22
+        ],
+        [
+          109,
+          0
+        ],
+        [
+          108,
+          0
+        ]
+      ],
+      [
+        [
+          0,
+          -108
+        ],
+        [
+          0,
+          -99
+        ],
+        [
+          -26,
+          -82
+        ],
+        [
+          -26,
+          -40
+        ],
+        [
+          -17,
+          0
+        ],
+        [
+          33,
+          35
+        ],
+        [
+          33,
+          88
+        ],
+        [
+          0,
+          103
+        ],
+        [
+          0,
+          108
+        ]
+      ],
+      [
+        [
+          60,
+          4.5
+        ],
+        [
+          60,
+          1.9000000000000004
+        ],
+        [
+          59.49442736356649,
+          -21.284204458109148
+        ]
+      ],
+      [
+        [
+          -98,
+          -73.5
+        ],
+        [
+          -98,
+          -76.1
+        ],
+        [
+          -73.0,
+          -94.0
+        ],
+        [
+          -37.0,
+          -94.0
+        ],
+        [
+          -26.0,
+          -73.5
+        ]
+      ],
+      [
+        [
+          89,
+          61.5
+        ],
+        [
+          89,
+          58.9
+        ],
+        [
+          69.0,
+          59.0
+        ],
+        [
+          33.0,
+          61.5
+        ]
+      ],
+      [
+        [
+          -55,
+          -91.5
+        ],
+        [
+          -55,
+          -94.1
+        ],
+        [
+          -37.0,
+          -94.0
+        ],
+        [
+          -26.0,
+          -82.0
+        ]
+      ],
+      [
+        [
+          -4,
+          -12
+        ],
+        [
+          -9,
+          -12
+        ],
+        [
+          -19.184414039262343,
+          -9.70850684116597
+        ]
+      ],
+      [
+        [
+          4,
+          -12
+        ],
+        [
+          9,
+          -12
+        ],
+        [
+          19.548861343326607,
+          0.49207264341308843
+        ]
+      ],
+      [
+        [
+          -4,
+          12
+        ],
+        [
+          -9,
+          12
+        ],
+        [
+          -5.993288590604024,
+          7.704697986577183
+        ]
+      ],
+      [
+        [
+          4,
+          12
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          7.718362640530413,
+          10.482271547996541
+        ]
+      ]
+    ],
+    "jetpack_hops": [
+      {
+        "from": [
+          -2,
+          6,
+          -12
+        ],
+        "to": [
+          2,
+          6,
+          -12
+        ],
+        "gap_metres": 4,
+        "rise_metres": 0,
+        "landing_size": [
+          4,
+          5
+        ],
+        "headroom_metres": 5.5
+      },
+      {
+        "from": [
+          -2,
+          6,
+          12
+        ],
+        "to": [
+          2,
+          6,
+          12
+        ],
+        "gap_metres": 4,
+        "rise_metres": 0,
+        "landing_size": [
+          4,
+          5
+        ],
+        "headroom_metres": 5.5
+      }
+    ],
+    "roof_samples": [
+      [
+        -117.0,
+        1.8,
+        0.0
+      ],
+      [
+        -111.0,
+        1.8,
+        0.0
+      ],
+      [
+        -105.0,
+        1.8,
+        0.0
+      ],
+      [
+        -99.0,
+        1.8,
+        0.0
+      ],
+      [
+        -93.8425911304947,
+        1.8,
+        2.455762454059682
+      ],
+      [
+        -89.10647782623674,
+        1.8,
+        6.139406135149204
+      ],
+      [
+        -84.37036452197879,
+        1.8,
+        9.823049816238727
+      ],
+      [
+        -79.63425121772082,
+        1.8,
+        13.506693497328248
+      ],
+      [
+        -74.89813791346286,
+        1.8,
+        17.19033717841777
+      ],
+      [
+        -70.1620246092049,
+        1.8,
+        20.873980859507295
+      ],
+      [
+        -64.20923311126626,
+        1.8,
+        20.785527152269122
+      ],
+      [
+        -58.21334410866566,
+        1.8,
+        20.56345718920984
+      ],
+      [
+        -52.21745510606506,
+        1.8,
+        20.34138722615056
+      ],
+      [
+        -46.221566103464454,
+        1.8,
+        20.119317263091276
+      ],
+      [
+        -40.48273811331256,
+        1.8,
+        18.829180517819793
+      ],
+      [
+        -35.042411441981514,
+        1.8,
+        16.298796019526286
+      ],
+      [
+        -29.60208477065047,
+        1.8,
+        13.768411521232778
+      ],
+      [
+        -24.161758099319428,
+        1.8,
+        11.238027022939269
+      ],
+      [
+        -18.721431427988385,
+        1.8,
+        8.70764252464576
+      ],
+      [
+        -13.281104756657342,
+        1.8,
+        6.177258026352252
+      ],
+      [
+        -7.840778085326299,
+        1.8,
+        3.646873528058741
+      ],
+      [
+        -2.400451413995256,
+        1.8,
+        1.1164890297652335
+      ],
+      [
+        3.0380716515456956,
+        1.8,
+        -1.4177667707213246
+      ],
+      [
+        8.47517049151729,
+        1.8,
+        -3.955079562708068
+      ],
+      [
+        13.912269331488883,
+        1.8,
+        -6.492392354694812
+      ],
+      [
+        19.349368171460473,
+        1.8,
+        -9.029705146681554
+      ],
+      [
+        24.786467011432062,
+        1.8,
+        -11.567017938668297
+      ],
+      [
+        30.22356585140366,
+        1.8,
+        -14.104330730655041
+      ],
+      [
+        35.66066469137525,
+        1.8,
+        -16.641643522641786
+      ],
+      [
+        41.09776353134684,
+        1.8,
+        -19.178956314628525
+      ],
+      [
+        46.69344069237348,
+        1.8,
+        -21.033204719458304
+      ],
+      [
+        52.69228762231383,
+        1.8,
+        -21.150829169064977
+      ],
+      [
+        58.69113455225417,
+        1.8,
+        -21.26845361867165
+      ],
+      [
+        64.68998148219453,
+        1.8,
+        -21.386078068278323
+      ],
+      [
+        70.68882841213487,
+        1.8,
+        -21.503702517884996
+      ],
+      [
+        76.68767534207521,
+        1.8,
+        -21.621326967491672
+      ],
+      [
+        82.68652227201557,
+        1.8,
+        -21.738951417098345
+      ],
+      [
+        88.68536920195591,
+        1.8,
+        -21.85657586670502
+      ],
+      [
+        94.68421613189625,
+        1.8,
+        -21.97420031631169
+      ],
+      [
+        98.38286938598465,
+        1.8,
+        -17.967451808333667
+      ],
+      [
+        101.4352452587445,
+        1.8,
+        -12.801892639047773
+      ],
+      [
+        104.48762113150434,
+        1.8,
+        -7.636333469761881
+      ],
+      [
+        107.5399970042642,
+        1.8,
+        -2.4707743004759877
+      ],
+      [
+        112.13009853976655,
+        1.8,
+        0.0
+      ],
+      [
+        118.13009853976655,
+        1.8,
+        0.0
+      ],
+      [
+        0.0,
+        1.8,
+        -117.0
+      ],
+      [
+        0.0,
+        1.8,
+        -111.0
+      ],
+      [
+        0.0,
+        1.8,
+        -105.0
+      ],
+      [
+        0.0,
+        1.8,
+        -99.0
+      ],
+      [
+        -5.021817683841274,
+        1.8,
+        -95.71650382210379
+      ],
+      [
+        -10.043635367682548,
+        1.8,
+        -92.43300764420756
+      ],
+      [
+        -15.06545305152382,
+        1.8,
+        -89.14951146631135
+      ],
+      [
+        -20.087270735365095,
+        1.8,
+        -85.86601528841513
+      ],
+      [
+        -25.10908841920637,
+        1.8,
+        -82.58251911051892
+      ],
+      [
+        -26.0,
+        1.8,
+        -77.06444913401813
+      ],
+      [
+        -26.0,
+        1.8,
+        -71.06444913401813
+      ],
+      [
+        -26.0,
+        1.8,
+        -65.06444913401813
+      ],
+      [
+        -26.0,
+        1.8,
+        -59.06444913401813
+      ],
+      [
+        -26.0,
+        1.8,
+        -53.06444913401813
+      ],
+      [
+        -26.0,
+        1.8,
+        -47.06444913401813
+      ],
+      [
+        -26.0,
+        1.8,
+        -41.06444913401813
+      ],
+      [
+        -23.310182274268776,
+        1.8,
+        -35.86181888349042
+      ],
+      [
+        -20.04025217069629,
+        1.8,
+        -30.8311571856866
+      ],
+      [
+        -16.770322067123807,
+        1.8,
+        -25.800495487882777
+      ],
+      [
+        -13.500391963551321,
+        1.8,
+        -20.769833790078955
+      ],
+      [
+        -10.230461859978837,
+        1.8,
+        -15.739172092275133
+      ],
+      [
+        -6.960531756406354,
+        1.8,
+        -10.708510394471311
+      ],
+      [
+        -3.6906016528338697,
+        1.8,
+        -5.677848696667489
+      ],
+      [
+        -0.4206715492613853,
+        1.8,
+        -0.6471869988636669
+      ],
+      [
+        3.5865501204643295,
+        1.8,
+        3.8039167944318644
+      ],
+      [
+        7.702627332598343,
+        1.8,
+        8.169453231543697
+      ],
+      [
+        11.818704544732359,
+        1.8,
+        12.534989668655532
+      ],
+      [
+        15.934781756866371,
+        1.8,
+        16.900526105767366
+      ],
+      [
+        20.050858969000387,
+        1.8,
+        21.2660625428792
+      ],
+      [
+        24.1669361811344,
+        1.8,
+        25.63159897999103
+      ],
+      [
+        28.283013393268416,
+        1.8,
+        29.997135417102864
+      ],
+      [
+        32.39909060540243,
+        1.8,
+        34.362671854214696
+      ],
+      [
+        33.0,
+        1.8,
+        40.12405521525284
+      ],
+      [
+        33.0,
+        1.8,
+        46.12405521525284
+      ],
+      [
+        33.0,
+        1.8,
+        52.12405521525284
+      ],
+      [
+        33.0,
+        1.8,
+        58.12405521525284
+      ],
+      [
+        33.0,
+        1.8,
+        64.12405521525284
+      ],
+      [
+        33.0,
+        1.8,
+        70.12405521525284
+      ],
+      [
+        33.0,
+        1.8,
+        76.12405521525284
+      ],
+      [
+        33.0,
+        1.8,
+        82.12405521525284
+      ],
+      [
+        32.88706429067941,
+        1.8,
+        88.05133441332754
+      ],
+      [
+        27.424865425903782,
+        1.8,
+        90.53415207913464
+      ],
+      [
+        21.962666561128152,
+        1.8,
+        93.01696974494175
+      ],
+      [
+        16.500467696352523,
+        1.8,
+        95.49978741074885
+      ],
+      [
+        11.038268831576897,
+        1.8,
+        97.98260507655596
+      ],
+      [
+        5.576069966801267,
+        1.8,
+        100.46542274236306
+      ],
+      [
+        0.11387110202564088,
+        1.8,
+        102.94824040817016
+      ],
+      [
+        0.0,
+        1.8,
+        108.87491729446913
+      ],
+      [
+        0.0,
+        1.8,
+        114.87491729446913
+      ],
+      [
+        -70.23563547975658,
+        1.8,
+        22.986070472234026
+      ],
+      [
+        -70.94254191902631,
+        1.8,
+        28.944281888936104
+      ],
+      [
+        -71.64944835829606,
+        1.8,
+        34.90249330563818
+      ],
+      [
+        -72.3563547975658,
+        1.8,
+        40.86070472234026
+      ],
+      [
+        -73.06326123683553,
+        1.8,
+        46.81891613904234
+      ],
+      [
+        -73.77016767610527,
+        1.8,
+        52.777127555744414
+      ],
+      [
+        -74.477074115375,
+        1.8,
+        58.735338972446485
+      ],
+      [
+        -75.18398055464475,
+        1.8,
+        64.69355038914857
+      ],
+      [
+        -75.89088699391448,
+        1.8,
+        70.65176180585064
+      ],
+      [
+        -76.59779343318422,
+        1.8,
+        76.60997322255272
+      ],
+      [
+        -74.42061562604052,
+        1.8,
+        80.18759159083342
+      ],
+      [
+        -68.43642072428776,
+        1.8,
+        80.62280576550634
+      ],
+      [
+        -62.45222582253499,
+        1.8,
+        81.05801994017928
+      ],
+      [
+        -56.468030920782226,
+        1.8,
+        81.4932341148522
+      ],
+      [
+        -50.48383601902947,
+        1.8,
+        81.92844828952514
+      ],
+      [
+        -44.4996411172767,
+        1.8,
+        82.36366246419806
+      ],
+      [
+        -38.51544621552394,
+        1.8,
+        82.79887663887098
+      ],
+      [
+        -32.53125131377118,
+        1.8,
+        83.23409081354392
+      ],
+      [
+        -26.547056412018414,
+        1.8,
+        83.66930498821684
+      ],
+      [
+        -20.56286151026565,
+        1.8,
+        84.10451916288977
+      ],
+      [
+        -14.57866660851289,
+        1.8,
+        84.5397333375627
+      ],
+      [
+        -8.594471706760118,
+        1.8,
+        84.97494751223563
+      ],
+      [
+        -2.610276805007345,
+        1.8,
+        85.41016168690855
+      ],
+      [
+        3.373918096745413,
+        1.8,
+        85.84537586158149
+      ],
+      [
+        9.358112998498171,
+        1.8,
+        86.28059003625441
+      ],
+      [
+        15.34230790025093,
+        1.8,
+        86.71580421092735
+      ],
+      [
+        21.326502802003688,
+        1.8,
+        87.15101838560027
+      ],
+      [
+        27.310697703756446,
+        1.8,
+        87.5862325602732
+      ],
+      [
+        45.17786387594901,
+        1.8,
+        -22.992075410628924
+      ],
+      [
+        45.711455503796046,
+        1.8,
+        -28.968301642515694
+      ],
+      [
+        46.24504713164308,
+        1.8,
+        -34.94452787440247
+      ],
+      [
+        46.77863875949011,
+        1.8,
+        -40.92075410628924
+      ],
+      [
+        47.312230387337145,
+        1.8,
+        -46.89698033817601
+      ],
+      [
+        47.845822015184176,
+        1.8,
+        -52.87320657006278
+      ],
+      [
+        48.379413643031214,
+        1.8,
+        -58.849432801949554
+      ],
+      [
+        48.913005270878244,
+        1.8,
+        -64.82565903383633
+      ],
+      [
+        49.446596898725275,
+        1.8,
+        -70.80188526572309
+      ],
+      [
+        49.980188526572306,
+        1.8,
+        -76.77811149760987
+      ],
+      [
+        44.23523340660405,
+        1.8,
+        -77.37926096009184
+      ],
+      [
+        38.24817617157954,
+        1.8,
+        -77.77314630450135
+      ],
+      [
+        32.26111893655502,
+        1.8,
+        -78.16703164891085
+      ],
+      [
+        26.274061701530506,
+        1.8,
+        -78.56091699332036
+      ],
+      [
+        20.287004466505987,
+        1.8,
+        -78.95480233772987
+      ],
+      [
+        14.299947231481475,
+        1.8,
+        -79.34868768213937
+      ],
+      [
+        8.312889996456953,
+        1.8,
+        -79.74257302654888
+      ],
+      [
+        2.3258327614324372,
+        1.8,
+        -80.1364583709584
+      ],
+      [
+        -3.661224473592071,
+        1.8,
+        -80.5303437153679
+      ],
+      [
+        -9.648281708616594,
+        1.8,
+        -80.9242290597774
+      ],
+      [
+        -15.635338943641116,
+        1.8,
+        -81.31811440418691
+      ],
+      [
+        -21.62239617866564,
+        1.8,
+        -81.71199974859643
+      ]
+    ],
+    "ground_walk_area_m2": 20870.04799558559,
+    "sky_open_area_m2": 3604.7479482100025,
+    "ground_outline": [
+      {
+        "outer": [
+          [
+            -43.0,
+            116.0
+          ],
+          [
+            -33.0,
+            116.0
+          ],
+          [
+            -33.0,
+            106.0
+          ],
+          [
+            -35.9219904466964,
+            106.0
+          ],
+          [
+            -34.69237336614172,
+            89.09276514237321
+          ],
+          [
+            -14.669409076425683,
+            90.54898072707982
+          ],
+          [
+            -14.923284011651555,
+            94.03976108643562
+          ],
+          [
+            -2.95489420814603,
+            94.91018943578146
+          ],
+          [
+            -2.701019272920159,
+            91.41940907642568
+          ],
+          [
+            9.090932568864456,
+            92.27700557401002
+          ],
+          [
+            -6.0,
+            99.13652037803932
+          ],
+          [
+            -6.0,
+            106.94
+          ],
+          [
+            -12.0,
+            106.94
+          ],
+          [
+            -12.0,
+            124.0
+          ],
+          [
+            12.0,
+            124.0
+          ],
+          [
+            12.0,
+            106.94
+          ],
+          [
+            6.0,
+            106.94
+          ],
+          [
+            6.0,
+            106.86347962196068
+          ],
+          [
+            35.482817665807104,
+            93.46219886477563
+          ],
+          [
+            34.321508213338994,
+            90.90731806934579
+          ],
+          [
+            59.0,
+            97.07694101601105
+          ],
+          [
+            59.0,
+            105.0
+          ],
+          [
+            69.0,
+            105.0
+          ],
+          [
+            69.0,
+            99.50003124980468
+          ],
+          [
+            72.00210170942273,
+            99.5150417583518
+          ],
+          [
+            107.0,
+            105.2123740382132
+          ],
+          [
+            107.0,
+            113.0
+          ],
+          [
+            117.0,
+            113.0
+          ],
+          [
+            117.0,
+            103.0
+          ],
+          [
+            114.18911822425972,
+            103.0
+          ],
+          [
+            114.29536574402444,
+            102.3473366643024
+          ],
+          [
+            91.49235515649627,
+            98.63521866168153
+          ],
+          [
+            91.50053124980468,
+            97.0
+          ],
+          [
+            108.8,
+            97.0
+          ],
+          [
+            108.8,
+            59.0
+          ],
+          [
+            91.5,
+            59.0
+          ],
+          [
+            91.5,
+            56.4
+          ],
+          [
+            39.0,
+            56.4
+          ],
+          [
+            39.0,
+            54.25
+          ],
+          [
+            42.5,
+            54.25
+          ],
+          [
+            42.5,
+            42.6
+          ],
+          [
+            60.0,
+            42.6
+          ],
+          [
+            62.5,
+            42.6
+          ],
+          [
+            62.5,
+            40.0
+          ],
+          [
+            76.8,
+            40.0
+          ],
+          [
+            76.8,
+            2.0
+          ],
+          [
+            62.50244132252095,
+            2.0
+          ],
+          [
+            62.16253216670006,
+            -15.335366946865408
+          ],
+          [
+            77.36877751966634,
+            -15.633528620452982
+          ],
+          [
+            77.4373917819369,
+            -12.134201244654445
+          ],
+          [
+            89.43508564181758,
+            -12.369450143867791
+          ],
+          [
+            89.36647137954702,
+            -15.868777519666327
+          ],
+          [
+            92.6161075249487,
+            -15.932495875458518
+          ],
+          [
+            94.28206495795426,
+            -13.113183296526042
+          ],
+          [
+            91.26882210920417,
+            -11.33263070408281
+          ],
+          [
+            97.37357385472384,
+            -1.001512365511025
+          ],
+          [
+            100.38681670347394,
+            -2.782064957954262
+          ],
+          [
+            105.57621872408328,
+            6.0
+          ],
+          [
+            106.94,
+            6.0
+          ],
+          [
+            106.94,
+            12.0
+          ],
+          [
+            124.0,
+            12.0
+          ],
+          [
+            124.0,
+            -12.0
+          ],
+          [
+            112.94371429292872,
+            -12.0
+          ],
+          [
+            107.62642614527616,
+            -20.998487634488974
+          ],
+          [
+            104.61318329652606,
+            -19.217935042045738
+          ],
+          [
+            99.3838924750513,
+            -28.067504124541482
+          ],
+          [
+            89.13122248033366,
+            -27.86647137954702
+          ],
+          [
+            89.0626082180631,
+            -31.365798755345555
+          ],
+          [
+            77.06491435818242,
+            -31.13054985613221
+          ],
+          [
+            77.13352862045298,
+            -27.631222480333673
+          ],
+          [
+            51.57118978349787,
+            -27.130000150197297
+          ],
+          [
+            55.14263153139001,
+            -67.13014772658927
+          ],
+          [
+            58.48528137423857,
+            -68.51471862576143
+          ],
+          [
+            62.0,
+            -77.0
+          ],
+          [
+            58.48528137423857,
+            -85.48528137423857
+          ],
+          [
+            50.0,
+            -89.0
+          ],
+          [
+            43.91513520573179,
+            -86.47956647700754
+          ],
+          [
+            43.944042363672914,
+            -86.91895527771264
+          ],
+          [
+            31.96992789362388,
+            -87.70672596653166
+          ],
+          [
+            31.740161442718332,
+            -84.21427591276736
+          ],
+          [
+            18.380942579434027,
+            -85.09317189061501
+          ],
+          [
+            18.610709030339574,
+            -88.58562194437931
+          ],
+          [
+            6.636594560290543,
+            -89.37339263319834
+          ],
+          [
+            6.406828109384994,
+            -85.88094257943402
+          ],
+          [
+            -7.6828277100605,
+            -86.80789362018702
+          ],
+          [
+            6.0,
+            -95.75435789214966
+          ],
+          [
+            6.0,
+            -106.94
+          ],
+          [
+            12.0,
+            -106.94
+          ],
+          [
+            12.0,
+            -124.0
+          ],
+          [
+            -12.0,
+            -124.0
+          ],
+          [
+            -12.0,
+            -106.94
+          ],
+          [
+            -6.0,
+            -106.94
+          ],
+          [
+            -6.0,
+            -102.24564210785034
+          ],
+          [
+            -27.98823708236217,
+            -87.86871786169047
+          ],
+          [
+            -34.995364813223304,
+            -95.51285720444807
+          ],
+          [
+            -35.60198887752896,
+            -96.5
+          ],
+          [
+            -36.99305560913853,
+            -96.5
+          ],
+          [
+            -54.98611132544085,
+            -96.59996142064612
+          ],
+          [
+            -57.486072746086975,
+            -96.61385009520527
+          ],
+          [
+            -57.48670524661589,
+            -96.5
+          ],
+          [
+            -73.80272628843782,
+            -96.5
+          ],
+          [
+            -99.45540192094262,
+            -78.13268424712656
+          ],
+          [
+            -101.48808616806919,
+            -76.67728232618394
+          ],
+          [
+            -101.00315202252149,
+            -76.0
+          ],
+          [
+            -118.8,
+            -76.0
+          ],
+          [
+            -118.8,
+            -34.0
+          ],
+          [
+            -100.5,
+            -34.0
+          ],
+          [
+            -100.5,
+            -10.550252531694166
+          ],
+          [
+            -105.48528137423857,
+            -8.485281374238571
+          ],
+          [
+            -106.51471862576143,
+            -6.0
+          ],
+          [
+            -106.94,
+            -6.0
+          ],
+          [
+            -106.94,
+            -12.0
+          ],
+          [
+            -110.0,
+            -12.0
+          ],
+          [
+            -110.0,
+            -18.0
+          ],
+          [
+            -107.0,
+            -18.0
+          ],
+          [
+            -107.0,
+            -28.0
+          ],
+          [
+            -110.0,
+            -28.0
+          ],
+          [
+            -110.0,
+            -29.0
+          ],
+          [
+            -114.0,
+            -29.0
+          ],
+          [
+            -114.0,
+            -28.0
+          ],
+          [
+            -117.0,
+            -28.0
+          ],
+          [
+            -117.0,
+            -18.0
+          ],
+          [
+            -114.0,
+            -18.0
+          ],
+          [
+            -114.0,
+            -12.0
+          ],
+          [
+            -124.0,
+            -12.0
+          ],
+          [
+            -124.0,
+            12.0
+          ],
+          [
+            -106.94,
+            12.0
+          ],
+          [
+            -106.94,
+            6.0
+          ],
+          [
+            -106.51471862576143,
+            6.0
+          ],
+          [
+            -105.48528137423857,
+            8.48528137423857
+          ],
+          [
+            -97.0,
+            12.0
+          ],
+          [
+            -93.30967914684487,
+            10.471419053114897
+          ],
+          [
+            -76.35727421807661,
+            23.656622886601323
+          ],
+          [
+            -77.00130497743234,
+            29.084882144028178
+          ],
+          [
+            -80.47692830384187,
+            28.67252005445416
+          ],
+          [
+            -81.89074118238136,
+            40.588942887858316
+          ],
+          [
+            -78.41511785597181,
+            41.00130497743233
+          ],
+          [
+            -83.69803118251842,
+            85.52871730118218
+          ],
+          [
+            -69.66940907642568,
+            86.54898072707984
+          ],
+          [
+            -69.92328401165155,
+            90.03976108643562
+          ],
+          [
+            -57.95489420814603,
+            90.91018943578146
+          ],
+          [
+            -57.701019272920156,
+            87.4194090764257
+          ],
+          [
+            -49.352668597146916,
+            88.02656185284556
+          ],
+          [
+            -49.932555007849054,
+            96.0
+          ],
+          [
+            -53.0,
+            96.0
+          ],
+          [
+            -53.0,
+            106.0
+          ],
+          [
+            -43.0,
+            106.0
+          ],
+          [
+            -43.0,
+            116.0
+          ]
+        ],
+        "holes": [
+          [
+            [
+              -43.0,
+              96.0
+            ],
+            [
+              -45.921990446696405,
+              96.0
+            ],
+            [
+              -45.36320532931174,
+              88.31670463596085
+            ],
+            [
+              -38.6818366339769,
+              88.80262235925792
+            ],
+            [
+              -39.932555007849054,
+              106.0
+            ],
+            [
+              -43.0,
+              106.0
+            ],
+            [
+              -43.0,
+              96.0
+            ]
+          ],
+          [
+            [
+              42.5,
+              80.75
+            ],
+            [
+              42.5,
+              68.75
+            ],
+            [
+              39.0,
+              68.75
+            ],
+            [
+              39.0,
+              61.4
+            ],
+            [
+              69.2,
+              61.4
+            ],
+            [
+              69.2,
+              94.47305898398896
+            ],
+            [
+              39.0,
+              86.92305898398895
+            ],
+            [
+              39.0,
+              80.75
+            ],
+            [
+              42.5,
+              80.75
+            ]
+          ],
+          [
+            [
+              33.23161364924585,
+              26.499459224977816
+            ],
+            [
+              35.778176570894416,
+              24.098414184566312
+            ],
+            [
+              27.546022146626385,
+              15.367341310342642
+            ],
+            [
+              24.99945922497782,
+              17.76838635075415
+            ],
+            [
+              24.0,
+              16.708353839414038
+            ],
+            [
+              24.0,
+              -4.578821857101261
+            ],
+            [
+              46.38689769347682,
+              -15.026040780723775
+            ],
+            [
+              57.163493058416435,
+              -15.237346572193179
+            ],
+            [
+              57.50048044585819,
+              1.9490101873361125
+            ],
+            [
+              57.501480246106496,
+              2.0
+            ],
+            [
+              43.2,
+              2.0
+            ],
+            [
+              43.2,
+              37.6
+            ],
+            [
+              39.0,
+              37.6
+            ],
+            [
+              39.0,
+              32.617444748504944
+            ],
+            [
+              33.23161364924585,
+              26.499459224977816
+            ]
+          ],
+          [
+            [
+              42.700912479862154,
+              -68.0233810437893
+            ],
+            [
+              43.15775235247684,
+              -67.8341517727195
+            ],
+            [
+              39.33110429048943,
+              -24.975693478460474
+            ],
+            [
+              24.0,
+              -17.82117814289874
+            ],
+            [
+              24.0,
+              -24.0
+            ],
+            [
+              -8.443883734874062,
+              -24.0
+            ],
+            [
+              -20.0,
+              -41.77864040788606
+            ],
+            [
+              -20.0,
+              -55.0
+            ],
+            [
+              -16.5,
+              -55.0
+            ],
+            [
+              -16.5,
+              -67.0
+            ],
+            [
+              -20.0,
+              -67.0
+            ],
+            [
+              -20.0,
+              -75.59229241336959
+            ],
+            [
+              5.619057420565972,
+              -73.90682810938499
+            ],
+            [
+              5.389290969660424,
+              -70.41437805562069
+            ],
+            [
+              17.363405439709457,
+              -69.62660736680166
+            ],
+            [
+              17.593171890615004,
+              -73.11905742056598
+            ],
+            [
+              30.95239075389931,
+              -72.24016144271832
+            ],
+            [
+              30.72262430299376,
+              -68.74771138895402
+            ],
+            [
+              42.69673877304279,
+              -67.959940700135
+            ],
+            [
+              42.700912479862154,
+              -68.0233810437893
+            ]
+          ],
+          [
+            [
+              -24.0,
+              17.78004039146756
+            ],
+            [
+              -24.0,
+              24.0
+            ],
+            [
+              14.382162191447522,
+              24.0
+            ],
+            [
+              16.26838635075415,
+              26.00054077502218
+            ],
+            [
+              13.721823429105582,
+              28.401585815433688
+            ],
+            [
+              21.953977853373615,
+              37.132658689657355
+            ],
+            [
+              24.50054077502218,
+              34.73161364924585
+            ],
+            [
+              27.0,
+              37.382555251495056
+            ],
+            [
+              27.0,
+              42.25
+            ],
+            [
+              23.5,
+              42.25
+            ],
+            [
+              23.5,
+              54.25
+            ],
+            [
+              27.0,
+              54.25
+            ],
+            [
+              27.0,
+              68.75
+            ],
+            [
+              23.5,
+              68.75
+            ],
+            [
+              23.5,
+              80.75
+            ],
+            [
+              27.0,
+              80.75
+            ],
+            [
+              27.0,
+              81.54778952190739
+            ],
+            [
+              -1.830590923574316,
+              79.45101927292016
+            ],
+            [
+              -1.5767159883484445,
+              75.96023891356438
+            ],
+            [
+              -13.545105791853969,
+              75.08981056421854
+            ],
+            [
+              -13.798980727079838,
+              78.5805909235743
+            ],
+            [
+              -56.83059092357431,
+              75.45101927292016
+            ],
+            [
+              -56.57671598834844,
+              71.96023891356438
+            ],
+            [
+              -68.54510579185397,
+              71.08981056421854
+            ],
+            [
+              -68.79898072707984,
+              74.5805909235743
+            ],
+            [
+              -70.30196881748158,
+              74.47128269881782
+            ],
+            [
+              -66.49869502256766,
+              42.41511785597182
+            ],
+            [
+              -63.02307169615813,
+              42.82747994554584
+            ],
+            [
+              -61.60925881761864,
+              30.911057112141684
+            ],
+            [
+              -65.08488214402819,
+              30.498695022567667
+            ],
+            [
+              -64.64674741954889,
+              26.805845201956462
+            ],
+            [
+              -62.27381903954132,
+              26.717958965659886
+            ],
+            [
+              -62.14427822775674,
+              30.215560883843573
+            ],
+            [
+              -50.15250022255553,
+              29.771420957725006
+            ],
+            [
+              -50.28204103434011,
+              26.273819039541323
+            ],
+            [
+              -41.567704720195195,
+              25.95106584272114
+            ],
+            [
+              -24.0,
+              17.78004039146756
+            ]
+          ],
+          [
+            [
+              -95.5,
+              -11.378679656440356
+            ],
+            [
+              -95.5,
+              -33.9
+            ],
+            [
+              -95.5,
+              -34.0
+            ],
+            [
+              -77.2,
+              -34.0
+            ],
+            [
+              -77.2,
+              -76.0
+            ],
+            [
+              -93.8453184042996,
+              -76.0
+            ],
+            [
+              -72.8,
+              -91.06844797747851
+            ],
+            [
+              -72.8,
+              -56.0
+            ],
+            [
+              -57.5,
+              -56.0
+            ],
+            [
+              -57.5,
+              -53.4
+            ],
+            [
+              -32.0,
+              -53.4
+            ],
+            [
+              -32.0,
+              -38.22135959211394
+            ],
+            [
+              -22.756116265125936,
+              -24.0
+            ],
+            [
+              -24.0,
+              -24.0
+            ],
+            [
+              -24.0,
+              4.545541003881278
+            ],
+            [
+              -44.432295279804805,
+              14.048934157278861
+            ],
+            [
+              -50.72618096045868,
+              14.282041034340116
+            ],
+            [
+              -50.85572177224326,
+              10.78443911615643
+            ],
+            [
+              -62.84749977744447,
+              11.228579042274996
+            ],
+            [
+              -62.71795896565989,
+              14.726180960458679
+            ],
+            [
+              -68.03997711433776,
+              14.923292743743046
+            ],
+            [
+              -85.54265931454268,
+              1.3100954769170057
+            ],
+            [
+              -85.0,
+              0.0
+            ],
+            [
+              -88.51471862576143,
+              -8.48528137423857
+            ],
+            [
+              -95.5,
+              -11.378679656440356
+            ]
+          ],
+          [
+            [
+              -32.0,
+              -81.08869099161532
+            ],
+            [
+              -32.0,
+              -67.0
+            ],
+            [
+              -35.5,
+              -67.0
+            ],
+            [
+              -35.5,
+              -66.7
+            ],
+            [
+              -37.2,
+              -66.7
+            ],
+            [
+              -37.2,
+              -89.55050917343351
+            ],
+            [
+              -32.0,
+              -81.08869099161532
+            ]
+          ]
+        ]
+      }
+    ],
+    "revision": "enclosed-city-3"
+  },
+  "brushes": 1149,
+  "source_texture_names": [
+    "comp1_1",
+    "ind_brk03_red1",
+    "ind_c03_rst1",
+    "ind_cont1_rst1",
+    "ind_dp01_blk1",
+    "ind_dp01_rst1",
+    "ind_w03_rst1",
+    "ind_w05_rst1",
+    "ind_w07_rst1",
+    "med_cobstn2_1",
+    "med_cobstn2_1a",
+    "med_flat8",
+    "med_wood6",
+    "metal_rust_04",
+    "metal_rust_09",
+    "sky1",
+    "tech02_7"
+  ],
+  "textures": 17,
+  "seed_attempt": 0,
+  "material_revision": "makkon-expanded-1",
+  "material_palette": {
+    "wall": "ind_w03_rst1",
+    "upper": "ind_w05_rst1",
+    "detail": "ind_w07_rst1",
+    "brick": "ind_brk03_red1",
+    "trim": "metal_rust_04",
+    "ornament": "metal_rust_09",
+    "floor": "ind_dp01_rst1",
+    "ceiling": "ind_c03_rst1",
+    "door": "ind_door1_rst1",
+    "structure": "metal_iron3_05",
+    "container": "ind_cont1_rst1"
+  },
+  "makkon_faces": {
+    "ind_w03_rst1": 739,
+    "ind_c03_rst1": 846,
+    "ind_w05_rst1": 1069,
+    "ind_brk03_red1": 148,
+    "ind_dp01_rst1": 745,
+    "ind_cont1_rst1": 1454,
+    "metal_rust_04": 514,
+    "metal_rust_09": 499,
+    "ind_w07_rst1": 48
+  }
+}

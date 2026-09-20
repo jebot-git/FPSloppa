@@ -1,0 +1,34 @@
+{
+  "planes": 1853,
+  "vertices": 11912,
+  "nodes": 6041,
+  "texinfo": 60,
+  "faces": 8985,
+  "clipnodes": 0,
+  "leaves": 3602,
+  "marksurfaces": 12669,
+  "edges": 21475,
+  "surfedges": 41471,
+  "models": 1,
+  "bytes": 7904380,
+  "sha256": "41a8628041438e253f5e591001078b78f413a7f13aa42751a5fb640af0f37cc7",
+  "zone": 0,
+  "name": "Ashen Gatehouse",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.4149166779825464
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.5673470329493284
+    },
+    {
+      "tool": "light",
+      "seconds": 23.41835481504677
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

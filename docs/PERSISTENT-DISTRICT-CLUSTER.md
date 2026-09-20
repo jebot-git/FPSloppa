@@ -1,8 +1,8 @@
 # Persistent district cluster prototype
 
-Implemented on `experimental/cq-districts`, independently of the shipping CQ server path. This is a working server foundation with **4–64 configured districts, up to four districts per regional gateway, and sixteen reserved player slots per district**. The separate protocol is `fpsloppa-persistent-cluster-1`.
+Implemented on `experimental/cq-districts`, independently of the shipping CQ server path. This is a working server foundation with **4–81 configured districts, up to four districts per regional gateway, and sixteen reserved player slots per district**. The separate protocol is `fpsloppa-persistent-cluster-1`. The optional [81-district campaign](CAMPAIGN-81.md) adds its own authored atlas, rules and prototype desktop client; the generic profile remains independent of those rules.
 
-District identities, map templates and gateway assignments are separate. The topology is a connected graph with up to four explicitly positioned portals per district; it no longer derives world membership from CQ's 4×4 coordinates. The coordinator has no teams, capture prerequisites, homebases, victory condition or round timer. The Godot adapter retains the existing UT99 combat, movement, jetpack and BSP collision code without advancing CQ capture rules.
+District identities, map templates and gateway assignments are separate. The topology is a connected graph with up to four explicitly positioned portals per district; it no longer derives world membership from CQ's 4×4 coordinates. In the generic profile, the coordinator has no teams, capture prerequisites, homebases, victory condition or round timer. The Godot adapter retains the existing UT99 combat, movement, jetpack and BSP collision code without advancing CQ capture rules.
 
 ## Implemented architecture
 
@@ -24,7 +24,7 @@ The initial data transport uses bounded TCP/JSON on private loopback endpoints. 
 
 ## Capacity and ownership
 
-Maximum active capacity is 16D, reaching 1,024 slots at sixty-four districts. Source rollback reservations and destination preparations both consume slots. Waiting actors consume a separate configurable allowance (default 128), not worker capacity. Full or draining destinations reject incoming transfer reservations. Fully occupied worlds therefore have no open destination gates.
+Maximum active capacity is 16D, reaching 1,296 slots at eighty-one districts. Source rollback reservations and destination preparations both consume slots. New waiting joins consume a separate configurable allowance (default 128), not worker capacity. Already admitted campaign players can always enter reinforcement waiting after death. Full or draining destinations reject incoming transfer reservations. Fully occupied worlds therefore have no open destination gates.
 
 A transfer reserves the destination, freezes the source into escrow, prepares the destination with a SHA-256-identified state payload, records a durable commit decision, explicitly retires the source, and finally activates the destination generation. The source reservation is released only after retirement acknowledgment. Worker source escrow and destination preparations are journaled locally. A lost preparation acknowledgment leaves both reservations held; retrying the same pending handoff finishes it. Committed transfers cannot be rolled back. Clients should generate and retain `identity` and `resume` secrets before their first join, making a retried admission idempotent. Clients reconnect to the destination gateway with their actor identity and resume secret; resume can locate the new gateway if the final redirect response was lost.
 
@@ -38,7 +38,7 @@ Bounds include 1 MiB transport messages, a 512,000-character opaque payload limi
 
 ## Dynamic membership
 
-`init` provisions credentials for sixty-four stable district identities and sixteen gateways, while initially configuring only the requested 4–64 districts. This permits later activation without changing service credentials. A district can reuse one of the existing sixteen map templates; this implementation does not create sixty-four new authored maps.
+`init` provisions credentials for eighty-one stable district identities and twenty-one gateways, while initially configuring only the requested 4–81 districts. This permits later activation without changing service credentials. Generic districts reuse the sixteen map templates. `init --campaign` selects the complete, fixed 81-map campaign atlas; campaign membership cannot be edited into an incomplete layout, but its workers can be stopped or drained independently.
 
 To expand, submit a complete new topology through the administrative endpoint, retaining existing identities and adding reciprocal portal links. Start the newly assigned gateway if necessary, then its worker. The new district becomes eligible for admission after worker authentication and a coordinator heartbeat. Existing clients do not need a global match restart.
 

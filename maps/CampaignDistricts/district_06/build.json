@@ -1,0 +1,34 @@
+{
+  "planes": 2259,
+  "vertices": 13554,
+  "nodes": 6760,
+  "texinfo": 66,
+  "faces": 10098,
+  "clipnodes": 0,
+  "leaves": 4086,
+  "marksurfaces": 14475,
+  "edges": 24149,
+  "surfedges": 46689,
+  "models": 1,
+  "bytes": 8544376,
+  "sha256": "83c5595380af2bbd7f6a75520bc848fffd0bbb41eba6cdb21bc2668203e9a18d",
+  "zone": 6,
+  "name": "Cinder Gatehouse",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5661883790162392
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.6181058160145767
+    },
+    {
+      "tool": "light",
+      "seconds": 33.41296415304532
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

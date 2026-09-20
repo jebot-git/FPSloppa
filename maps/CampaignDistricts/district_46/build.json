@@ -1,0 +1,34 @@
+{
+  "planes": 2104,
+  "vertices": 13104,
+  "nodes": 6388,
+  "texinfo": 68,
+  "faces": 9890,
+  "clipnodes": 0,
+  "leaves": 3829,
+  "marksurfaces": 13637,
+  "edges": 23541,
+  "surfedges": 45620,
+  "models": 1,
+  "bytes": 9671288,
+  "sha256": "76a07019089db13a61a510bc034dc0566db167cebc186a25b25518684c1a8206",
+  "zone": 46,
+  "name": "Helix Shanty Market",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6158546059741639
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.3703175769769587
+    },
+    {
+      "tool": "light",
+      "seconds": 34.89919137302786
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

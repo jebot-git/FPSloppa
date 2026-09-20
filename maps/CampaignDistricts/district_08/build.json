@@ -1,0 +1,34 @@
+{
+  "planes": 2018,
+  "vertices": 12235,
+  "nodes": 6138,
+  "texinfo": 66,
+  "faces": 9157,
+  "clipnodes": 0,
+  "leaves": 3649,
+  "marksurfaces": 12944,
+  "edges": 21926,
+  "surfedges": 42285,
+  "models": 1,
+  "bytes": 8401992,
+  "sha256": "1823a92afe0c6d4cbd4d3a7e9ed037631c59e02075796f076fc55824238a0cf9",
+  "zone": 8,
+  "name": "Cinder Foundry",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5655794459744357
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.3781871239771135
+    },
+    {
+      "tool": "light",
+      "seconds": 27.302170801965985
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

@@ -1,0 +1,34 @@
+{
+  "planes": 2385,
+  "vertices": 14113,
+  "nodes": 7096,
+  "texinfo": 63,
+  "faces": 10538,
+  "clipnodes": 0,
+  "leaves": 4292,
+  "marksurfaces": 14947,
+  "edges": 25208,
+  "surfedges": 48737,
+  "models": 1,
+  "bytes": 8638376,
+  "sha256": "4d0f8233d3890ebe935e63a86c797a21f35c98ef42b67742298ef87e4cfbab1b",
+  "zone": 27,
+  "name": "Helix Scrap Warrens",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6683810679824091
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.125528712000232
+    },
+    {
+      "tool": "light",
+      "seconds": 34.60930515098153
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

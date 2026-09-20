@@ -1,0 +1,34 @@
+{
+  "planes": 1776,
+  "vertices": 10618,
+  "nodes": 5263,
+  "texinfo": 61,
+  "faces": 7539,
+  "clipnodes": 0,
+  "leaves": 3282,
+  "marksurfaces": 10356,
+  "edges": 18631,
+  "surfedges": 35344,
+  "models": 1,
+  "bytes": 6496872,
+  "sha256": "2a59033e6b8446efcb7a1da34c5cb73119b764ca7c68f23b4dbad724eb01f192",
+  "zone": 39,
+  "name": "Vesper Salvage Yards",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.41482897696550936
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.521154683025088
+    },
+    {
+      "tool": "light",
+      "seconds": 20.247574066976085
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

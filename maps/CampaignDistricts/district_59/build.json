@@ -1,0 +1,34 @@
+{
+  "planes": 1388,
+  "vertices": 9698,
+  "nodes": 4810,
+  "texinfo": 66,
+  "faces": 7016,
+  "clipnodes": 0,
+  "leaves": 2977,
+  "marksurfaces": 9508,
+  "edges": 17165,
+  "surfedges": 32583,
+  "models": 1,
+  "bytes": 9416464,
+  "sha256": "0fba1e3442bbf48224fe6016f08c0e0d97aef89eb2259c1c301b5f25e47b84c4",
+  "zone": 59,
+  "name": "Crown Ash Wastes",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.31464270799187943
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.521649719972629
+    },
+    {
+      "tool": "light",
+      "seconds": 32.7319655509782
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

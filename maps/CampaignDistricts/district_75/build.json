@@ -1,0 +1,34 @@
+{
+  "planes": 2227,
+  "vertices": 13976,
+  "nodes": 6841,
+  "texinfo": 73,
+  "faces": 10601,
+  "clipnodes": 0,
+  "leaves": 4066,
+  "marksurfaces": 14789,
+  "edges": 25107,
+  "surfedges": 48700,
+  "models": 1,
+  "bytes": 10588876,
+  "sha256": "b6cbc46f4b59ae45342f3352229a3d08370d5d19a71d52f3167ecb56705d4471",
+  "zone": 75,
+  "name": "Crown Freight Ruins",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6162607059814036
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.9207963100052439
+    },
+    {
+      "tool": "light",
+      "seconds": 36.770922242023516
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

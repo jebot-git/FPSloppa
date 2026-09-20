@@ -1,0 +1,34 @@
+{
+  "planes": 2192,
+  "vertices": 13533,
+  "nodes": 6803,
+  "texinfo": 58,
+  "faces": 10136,
+  "clipnodes": 0,
+  "leaves": 4042,
+  "marksurfaces": 14270,
+  "edges": 24241,
+  "surfedges": 46768,
+  "models": 1,
+  "bytes": 8303344,
+  "sha256": "0e960d0c38a62db35b29fd7b60aa539f691870b387d7deb166a1e0adcd66fbad",
+  "zone": 54,
+  "name": "Iron Gatehouse",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.515574868011754
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.377281815977767
+    },
+    {
+      "tool": "light",
+      "seconds": 26.86167170898989
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

@@ -1,0 +1,12 @@
+{
+  "scope": "Three actual local etcd processes and two coordinator frontends; functional failover, not throughput or geographic certification.",
+  "checks": [
+    "concurrent_CAS_capacity_16",
+    "two_frontends_identical_state",
+    "concurrent_UTC_award_exactly_once",
+    "campaign_reset_survives_leader_loss",
+    "leader_and_frontend_failure_survived",
+    "committed_actors_retained",
+    "quorum_loss_rejects_mutation"
+  ]
+}

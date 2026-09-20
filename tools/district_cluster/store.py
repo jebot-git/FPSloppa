@@ -14,7 +14,10 @@ from . import model
 
 def mutate(state, message, gateway):
     if message['op']=='status':
-        return model.view(state,gateway,time.time()),False
+        now=time.time();model.campaign.advance(state,now)
+        changed='campaign' in state
+        if changed:state['revision']+=1
+        return model.view(state,gateway,now),changed
     result=model.apply(state,message,gateway,time.time())
     state['revision']+=1
     assert max(model.counts(state).values(),default=0)<=model.CAPACITY

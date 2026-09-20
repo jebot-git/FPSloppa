@@ -1,0 +1,34 @@
+{
+  "planes": 1632,
+  "vertices": 10915,
+  "nodes": 5447,
+  "texinfo": 62,
+  "faces": 7910,
+  "clipnodes": 0,
+  "leaves": 3389,
+  "marksurfaces": 10732,
+  "edges": 19290,
+  "surfedges": 36667,
+  "models": 1,
+  "bytes": 9785116,
+  "sha256": "097cf893d92196e99979778d86606f2066249da90d29f83682c43ba2943b1147",
+  "zone": 77,
+  "name": "Crown Cooling Fields",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.46536319999722764
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.6202412649872713
+    },
+    {
+      "tool": "light",
+      "seconds": 38.185565086023416
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

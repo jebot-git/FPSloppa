@@ -70,8 +70,8 @@ class RulesTest(unittest.TestCase):
         with self.assertRaises(model.Rejected):self.call('heartbeat',workers={})
 
     def test_invalid_and_maximum_topologies(self):
-        for n in (4,5,16,63,64):model.topology(grid(n)['districts'])
-        for n in (3,65):
+        for n in (4,5,16,63,64,65,81):model.topology(grid(n)['districts'])
+        for n in (3,82):
             with self.assertRaises(ValueError):grid(n)
         rows=grid(4)['districts'];rows['d00']['links'].clear()
         with self.assertRaises(model.Rejected):model.topology(rows)

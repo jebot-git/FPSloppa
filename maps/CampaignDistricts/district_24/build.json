@@ -1,0 +1,34 @@
+{
+  "planes": 2209,
+  "vertices": 13757,
+  "nodes": 6776,
+  "texinfo": 66,
+  "faces": 10404,
+  "clipnodes": 0,
+  "leaves": 4009,
+  "marksurfaces": 14598,
+  "edges": 24718,
+  "surfedges": 47871,
+  "models": 1,
+  "bytes": 10016844,
+  "sha256": "ac6ff35051d8745f25a0e8da415e161552756173e1207a94a76ec26c235276f1",
+  "zone": 24,
+  "name": "Cinder Transit Works",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.7706383760087192
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.2811143950093538
+    },
+    {
+      "tool": "light",
+      "seconds": 41.20690469699912
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

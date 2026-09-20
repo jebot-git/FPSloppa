@@ -1,0 +1,34 @@
+{
+  "planes": 2238,
+  "vertices": 14390,
+  "nodes": 7073,
+  "texinfo": 73,
+  "faces": 10892,
+  "clipnodes": 0,
+  "leaves": 4158,
+  "marksurfaces": 15108,
+  "edges": 25879,
+  "surfedges": 50208,
+  "models": 1,
+  "bytes": 10436544,
+  "sha256": "24f9c64caad01cbcc9626b149c7be8d3560252df39a0fdc6b58dd2434d27832d",
+  "zone": 37,
+  "name": "Helix Relay Station",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6164089320227504
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.771262920985464
+    },
+    {
+      "tool": "light",
+      "seconds": 37.55184130294947
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

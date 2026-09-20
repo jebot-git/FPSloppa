@@ -1,0 +1,34 @@
+{
+  "planes": 2281,
+  "vertices": 14075,
+  "nodes": 7031,
+  "texinfo": 73,
+  "faces": 10674,
+  "clipnodes": 0,
+  "leaves": 4206,
+  "marksurfaces": 14784,
+  "edges": 25303,
+  "surfedges": 48972,
+  "models": 1,
+  "bytes": 10486356,
+  "sha256": "2b430c14408136cc592fc90a4d0ccfb52b0dbae01029efc8da80ff697f7ce280",
+  "zone": 4,
+  "name": "Pilgrim Drainage Slums",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.46505508897826076
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.4714470129692927
+    },
+    {
+      "tool": "light",
+      "seconds": 36.77136656199582
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

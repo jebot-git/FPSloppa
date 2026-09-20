@@ -1,0 +1,34 @@
+{
+  "planes": 2315,
+  "vertices": 14204,
+  "nodes": 6899,
+  "texinfo": 73,
+  "faces": 10690,
+  "clipnodes": 0,
+  "leaves": 4158,
+  "marksurfaces": 14988,
+  "edges": 25392,
+  "surfedges": 49165,
+  "models": 1,
+  "bytes": 10321908,
+  "sha256": "e4b63cc1d09dd2adda4f6d7ea0c6d72eb9d6ba096e33debfb7b5f9b3cc97a307",
+  "zone": 17,
+  "name": "Cinder Chapel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6662945239804685
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.378290779015515
+    },
+    {
+      "tool": "light",
+      "seconds": 39.185000631958246
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

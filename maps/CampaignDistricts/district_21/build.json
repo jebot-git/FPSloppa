@@ -1,0 +1,34 @@
+{
+  "planes": 2165,
+  "vertices": 13106,
+  "nodes": 6286,
+  "texinfo": 71,
+  "faces": 9882,
+  "clipnodes": 0,
+  "leaves": 3773,
+  "marksurfaces": 13819,
+  "edges": 23526,
+  "surfedges": 45524,
+  "models": 1,
+  "bytes": 9709164,
+  "sha256": "3a8426786c662a1dcf88dffd650343fccee305d59b0500c3a1c134b963de768d",
+  "zone": 21,
+  "name": "Pilgrim Freight Ruins",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5150185090024024
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.368091938958969
+    },
+    {
+      "tool": "light",
+      "seconds": 41.68380951602012
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

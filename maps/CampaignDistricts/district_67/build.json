@@ -1,0 +1,34 @@
+{
+  "planes": 2228,
+  "vertices": 14012,
+  "nodes": 6803,
+  "texinfo": 73,
+  "faces": 10500,
+  "clipnodes": 0,
+  "leaves": 4052,
+  "marksurfaces": 14690,
+  "edges": 25121,
+  "surfedges": 48540,
+  "models": 1,
+  "bytes": 10457712,
+  "sha256": "a55ac0cb8bf2d79d008925211a2e87269db9f918c05f37dc5b67dd767b94123a",
+  "zone": 67,
+  "name": "Crown Relay Station",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.7660579899675213
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.0178415690315887
+    },
+    {
+      "tool": "light",
+      "seconds": 35.3958577439771
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

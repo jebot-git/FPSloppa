@@ -1,0 +1,34 @@
+{
+  "planes": 2245,
+  "vertices": 13895,
+  "nodes": 6839,
+  "texinfo": 73,
+  "faces": 10492,
+  "clipnodes": 0,
+  "leaves": 4114,
+  "marksurfaces": 14718,
+  "edges": 24898,
+  "surfedges": 48177,
+  "models": 1,
+  "bytes": 10249448,
+  "sha256": "5ec5a55effc822aaad6e004e56b56997656fbf7b7066430f2a1a69b69bba3373",
+  "zone": 38,
+  "name": "Helix Outer Tenements",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5655787989962846
+    },
+    {
+      "tool": "vis",
+      "seconds": 4.679485936008859
+    },
+    {
+      "tool": "light",
+      "seconds": 41.3188436430064
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

@@ -1,0 +1,34 @@
+{
+  "planes": 2225,
+  "vertices": 14340,
+  "nodes": 6998,
+  "texinfo": 73,
+  "faces": 10802,
+  "clipnodes": 0,
+  "leaves": 4155,
+  "marksurfaces": 15070,
+  "edges": 25754,
+  "surfedges": 49822,
+  "models": 1,
+  "bytes": 10590008,
+  "sha256": "2cf376983001855a54aa953ac6cc3be7e16fe97c23e737cccb806a736ae225df",
+  "zone": 15,
+  "name": "Cinder Archives",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.7177670510136522
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.221499816980213
+    },
+    {
+      "tool": "light",
+      "seconds": 37.08177815302042
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

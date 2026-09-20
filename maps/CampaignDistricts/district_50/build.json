@@ -1,0 +1,34 @@
+{
+  "planes": 1881,
+  "vertices": 11955,
+  "nodes": 6176,
+  "texinfo": 55,
+  "faces": 8721,
+  "clipnodes": 0,
+  "leaves": 3868,
+  "marksurfaces": 11813,
+  "edges": 21144,
+  "surfedges": 40343,
+  "models": 1,
+  "bytes": 6433732,
+  "sha256": "a636713f6f10af2e6196aeeb30a2bc371fbdebe19323d08072e892c8b0ee35dd",
+  "zone": 50,
+  "name": "Vesper Cooling Fields",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5165986729552969
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.6710608970024623
+    },
+    {
+      "tool": "light",
+      "seconds": 21.59638342598919
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

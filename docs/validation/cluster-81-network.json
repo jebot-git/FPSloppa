@@ -1,0 +1,18 @@
+{
+  "districts": 81,
+  "gateways": 21,
+  "active_slots": 1296,
+  "checks": [
+    "all_workers_registered",
+    "cross_region_handoff_state_and_unique_owner",
+    "stale_generation_and_duplicate_input_rejected",
+    "lost_prepare_ack_holds_reservations_and_retry_recovers",
+    "16_per_district_full_world_gates_closed_waiting",
+    "district_scoped_shared_snapshots",
+    "released_slot_automatically_deploys_waiting_actor",
+    "drain_closes_incoming_gate_without_global_stop",
+    "coordinator_outage_fences_all_authority",
+    "coordinator_restart_preserves_ownership"
+  ],
+  "scope": "Actual loopback TCP services and synthetic worker payloads; no rendered or physics load certification."
+}

@@ -14,9 +14,13 @@ var pending:=-1
 var prepared: Dictionary={}
 var transitions: Array=[]
 var prefetch_at:=0.0
+var cluster_asset:=-1
+var cluster_slot:=-1
 func _init(arena):
 	game=arena;enabled=OS.get_cmdline_user_args().has("--cq-district-maps")
-func file(district: int,name: String) -> String:return Paths.resolve(BASE+"district_%02d/"%district+name)
+func file(district: int,name: String) -> String:
+	if cluster_asset>=0 and district==cluster_slot:return Paths.resolve("res://maps/CampaignDistricts/district_%02d/"%cluster_asset+name)
+	return Paths.resolve(BASE+"district_%02d/"%district+name)
 func origin(district: int) -> Vector3:
 	var row: Array=manifest.districts[district].origin;return Vector3(row[0],row[1],row[2])
 func install() -> String:
@@ -26,6 +30,15 @@ func install() -> String:
 	if not value is Dictionary or value.get("profile","")!=PROFILE or value.get("districts",[]).size()!=16:return "Invalid CQ district atlas."
 	manifest=value;identity=FileAccess.get_sha256(path)
 	var args:=OS.get_cmdline_user_args();var worker: int=game._arg_int(args,"--cq-worker",-1)
+	if args.has("--cluster-worker"):
+		var config=JSON.parse_string(FileAccess.get_file_as_string(game._arg_value(args,"--cluster-worker","")))
+		if config is Dictionary and config.has("asset_id"):
+			cluster_asset=int(config.asset_id);cluster_slot=worker
+			var campaign=JSON.parse_string(FileAccess.get_file_as_string(Paths.resolve("res://maps/CampaignDistricts/manifest.json")))
+			if not campaign is Dictionary or campaign.get("profile")!="vesper-campaign-81" or cluster_asset not in range(81) or worker not in range(16):return "Invalid campaign atlas."
+			var row: Dictionary=campaign.districts[cluster_asset].duplicate(true);row.id=worker
+			var center:=Rules.center(worker);row.origin=[center.x,center.y,center.z]
+			manifest.districts[worker]=row
 	var master: bool=(OS.has_feature("dedicated_server") or args.has("--server")) and worker<0
 	for i in 16:
 		var row: Dictionary=manifest.districts[i]

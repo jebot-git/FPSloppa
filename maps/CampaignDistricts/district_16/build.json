@@ -1,0 +1,34 @@
+{
+  "planes": 2052,
+  "vertices": 13580,
+  "nodes": 6686,
+  "texinfo": 65,
+  "faces": 10272,
+  "clipnodes": 0,
+  "leaves": 3955,
+  "marksurfaces": 14363,
+  "edges": 24447,
+  "surfedges": 47296,
+  "models": 1,
+  "bytes": 9799064,
+  "sha256": "ab665e1c4df9fcf393aa3b0101986348be0a320595c97af9a1064aeff8818580",
+  "zone": 16,
+  "name": "Cinder Citadel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5652367200236768
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.373989909014199
+    },
+    {
+      "tool": "light",
+      "seconds": 35.14502822200302
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

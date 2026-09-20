@@ -218,7 +218,9 @@ class District(City):
   for axis in [0,2]:
    for side in [-1,1]:
     lo=[-137,-3,-137];hi=[137,110,137];lo[axis]=side*136-1;hi[axis]=side*136+1;self.block(lo,hi,'sky1')
-    valid=0<=(zone%4 if axis==0 else zone//4)+side<4
+    custom=getattr(self,'campaign_gates',None)
+    gate=next((g for g in custom if g['normal'][axis]==-side),None) if custom is not None else None
+    valid=gate is not None if custom is not None else 0<=(zone%4 if axis==0 else zone//4)+side<4
     for a,b in ([(-125,-12),(12,125)] if valid else [(-125,125)]):
      lo=[a,0,side*125-1];hi=[b,36,side*125+1]
      if axis==0:lo[0],lo[2]=lo[2],lo[0];hi[0],hi[2]=hi[2],hi[0]
@@ -228,7 +230,7 @@ class District(City):
      if axis==0:lo[0],lo[2]=lo[2],lo[0];hi[0],hi[2]=hi[2],hi[0]
      self.block(lo,hi,STONE)
      dx,dz=(side,0) if axis==0 else (0,side);neighbor=zone+side*(1 if axis==0 else 4)
-     self.gates.append(dict(zone=zone,neighbor=neighbor,position=[dx*124.94,8,dz*124.94],normal=[-dx,0,-dz],color=tint,name=THEMES[neighbor][0]))
+     self.gates.append(gate if custom is not None else dict(zone=zone,neighbor=neighbor,position=[dx*124.94,8,dz*124.94],normal=[-dx,0,-dz],color=tint,name=THEMES[neighbor][0]))
   self.structural=False
   self.choose_lots()
   for road in self.streets:self.street(road)

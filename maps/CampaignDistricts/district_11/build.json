@@ -1,0 +1,34 @@
+{
+  "planes": 2096,
+  "vertices": 13270,
+  "nodes": 6492,
+  "texinfo": 71,
+  "faces": 10055,
+  "clipnodes": 0,
+  "leaves": 3836,
+  "marksurfaces": 14005,
+  "edges": 23905,
+  "surfedges": 46361,
+  "models": 1,
+  "bytes": 9358336,
+  "sha256": "2b62012d766afaefb02240e22379136ae8f706095e64f5de261d6690cabd21b1",
+  "zone": 11,
+  "name": "Ashen Chapel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6156683909939602
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.025524846976623
+    },
+    {
+      "tool": "light",
+      "seconds": 35.17794855800457
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

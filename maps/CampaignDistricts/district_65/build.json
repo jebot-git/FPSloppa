@@ -1,0 +1,34 @@
+{
+  "planes": 2286,
+  "vertices": 13763,
+  "nodes": 6925,
+  "texinfo": 59,
+  "faces": 10335,
+  "clipnodes": 0,
+  "leaves": 4143,
+  "marksurfaces": 14357,
+  "edges": 24630,
+  "surfedges": 47641,
+  "models": 1,
+  "bytes": 8000176,
+  "sha256": "32a40e8fab54c53887522feb4be458557773ba35ad235e0e07a01715dfce2ad5",
+  "zone": 65,
+  "name": "Iron Chapel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.7152928659925237
+    },
+    {
+      "tool": "vis",
+      "seconds": 4.081767390016466
+    },
+    {
+      "tool": "light",
+      "seconds": 33.63160198304104
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

@@ -11,6 +11,9 @@ from .coordinator import Coordinator
 from .store import EtcdStore
 from .model import initial
 from .transport import rpc
+from unittest.mock import patch
+from . import campaign
+from .world import atlas
 
 
 async def run(binary,out):
@@ -44,6 +47,14 @@ async def run(binary,out):
         assert sum(r['phase']=='waiting' for r in results)==8
         left=await call(0,'status');right=await call(1,'status')
         assert left==right
+        # Campaign clock shares the same CAS: concurrent frontends crossing UTC
+        # midnight must publish one result and one reset, never duplicate points.
+        campaign_state=initial(atlas());campaign.advance(campaign_state,86390)
+        campaign_state['campaign']['scores']=[18,8]
+        campaign_stores=[EtcdStore(endpoints,'/test/'+token+'/campaign',campaign_state) for _ in range(2)]
+        with patch('tools.district_cluster.store.time.time',return_value=86400):
+            awards=await asyncio.gather(*(asyncio.to_thread(campaign_stores[i%2].execute,{'op':'status'},None) for i in range(16)))
+        assert all(a['campaign']['epoch']==2 and len(a['campaign']['history'])==1 and a['campaign']['history'][0]['scores']==[20,10] for a in awards)
         status=await asyncio.to_thread(stores[0].post,'/v3/maintenance/status',{})
         leader=status['leader'];leader_index=None
         for i,endpoint in enumerate(endpoints):
@@ -64,13 +75,16 @@ async def run(binary,out):
                 if time.monotonic()>deadline:raise
                 await asyncio.sleep(.2)
         # Lose quorum: no mutation may succeed through the surviving frontend.
+        with patch('tools.district_cluster.store.time.time',return_value=86400):
+            recovered_campaign=await asyncio.to_thread(campaign_stores[1].execute,{'op':'status'},None)
+        assert recovered_campaign['campaign']['history']==awards[0]['campaign']['history']
         other=next(i for i in range(3) if i!=leader_index)
         processes[other].terminate();processes[other].wait(timeout=5)
         rejected=False
         try:await call(1,'join',actor='partition',resume='partition',district='d01',name='No quorum')
         except (OSError,ValueError):rejected=True
         assert rejected
-        return dict(scope='Three actual local etcd processes and two coordinator frontends; functional failover, not throughput or geographic certification.',checks=['concurrent_CAS_capacity_16','two_frontends_identical_state','leader_and_frontend_failure_survived','committed_actors_retained','quorum_loss_rejects_mutation'])
+        return dict(scope='Three actual local etcd processes and two coordinator frontends; functional failover, not throughput or geographic certification.',checks=['concurrent_CAS_capacity_16','two_frontends_identical_state','concurrent_UTC_award_exactly_once','campaign_reset_survives_leader_loss','leader_and_frontend_failure_survived','committed_actors_retained','quorum_loss_rejects_mutation'])
     finally:
         for server in servers:server.close();await server.wait_closed()
         for process in processes:

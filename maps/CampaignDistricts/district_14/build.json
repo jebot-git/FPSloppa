@@ -1,0 +1,34 @@
+{
+  "planes": 2170,
+  "vertices": 13367,
+  "nodes": 6486,
+  "texinfo": 67,
+  "faces": 10067,
+  "clipnodes": 0,
+  "leaves": 3905,
+  "marksurfaces": 13952,
+  "edges": 23988,
+  "surfedges": 46486,
+  "models": 1,
+  "bytes": 10101272,
+  "sha256": "97ef922ee76a7686be0902540737d258291d6aece30b6027261cfb38eb5545fd",
+  "zone": 14,
+  "name": "Pilgrim Outer Tenements",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5151413169805892
+    },
+    {
+      "tool": "vis",
+      "seconds": 5.480167276982684
+    },
+    {
+      "tool": "light",
+      "seconds": 42.26613729499513
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

@@ -1,0 +1,34 @@
+{
+  "planes": 2080,
+  "vertices": 13348,
+  "nodes": 6613,
+  "texinfo": 71,
+  "faces": 10128,
+  "clipnodes": 0,
+  "leaves": 3948,
+  "marksurfaces": 14163,
+  "edges": 24019,
+  "surfedges": 46499,
+  "models": 1,
+  "bytes": 10585604,
+  "sha256": "b19f59f9b7e2802eb1bc894348b5a8e3f5d07f5d3352aa00907aba344175bc0f",
+  "zone": 3,
+  "name": "Pilgrim Scrap Warrens",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.4654966259840876
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.6670518790488131
+    },
+    {
+      "tool": "light",
+      "seconds": 37.21358042798238
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

@@ -1,0 +1,34 @@
+{
+  "planes": 2376,
+  "vertices": 14350,
+  "nodes": 7339,
+  "texinfo": 66,
+  "faces": 10768,
+  "clipnodes": 0,
+  "leaves": 4329,
+  "marksurfaces": 15113,
+  "edges": 25671,
+  "surfedges": 49707,
+  "models": 1,
+  "bytes": 8743820,
+  "sha256": "0dadadcebeb539bf64b060a347639232a165983ac46adf9c8b810279fd5edf3e",
+  "zone": 71,
+  "name": "Obsidian Chapel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6660763130057603
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.07164317794377
+    },
+    {
+      "tool": "light",
+      "seconds": 33.71399941598065
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

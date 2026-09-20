@@ -6,11 +6,11 @@ from .model import topology
 
 
 def grid(count,base_port=41000):
-    if not 4<=count<=64:
-        raise ValueError('Use 4–64 districts')
+    if not 4<=count<=81:
+        raise ValueError('Use 4–81 districts')
     if type(base_port) is not int or not 1024<=base_port<=65300:
         raise ValueError('Base port must leave room for sixteen backends and ENet facades')
-    width=min(8,count)
+    width=min(9 if count>64 else 8,count)
     rows={}
     for i in range(count):
         links={}
@@ -19,7 +19,12 @@ def grid(count,base_port=41000):
                 links[f'd{j:02}']=dict(exit=exit_,entry=entry,yaw=yaw)
         rows[f'd{i:02}']=dict(gateway=f'g{i//4:02}',map_slot=i%16,links=links,draining=False)
     topology(rows)
-    return dict(protocol='fpsloppa-persistent-cluster-1',coordinators=[['127.0.0.1',base_port]],admin_token=secrets.token_hex(32),mesh_token=secrets.token_hex(32),client_token=secrets.token_hex(32),gateways={f'g{i:02}':dict(address=['127.0.0.1',base_port+10+i],token=secrets.token_hex(32)) for i in range(16)},worker_tokens={f'd{i:02}':secrets.token_hex(32) for i in range(64)},districts=rows,waiting_limit=128)
+    return dict(protocol='fpsloppa-persistent-cluster-1',coordinators=[['127.0.0.1',base_port]],admin_token=secrets.token_hex(32),mesh_token=secrets.token_hex(32),client_token=secrets.token_hex(32),gateways={f'g{i:02}':dict(address=['127.0.0.1',base_port+10+i],token=secrets.token_hex(32)) for i in range(21)},worker_tokens={f'd{i:02}':secrets.token_hex(32) for i in range(81)},districts=rows,waiting_limit=128)
+
+
+def campaign(base_port=41000):
+    from .world import atlas
+    config=grid(81,base_port);config['districts']=atlas();topology(config['districts']);return config
 
 
 def write_private(path,value):

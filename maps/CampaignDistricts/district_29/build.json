@@ -1,0 +1,34 @@
+{
+  "planes": 1776,
+  "vertices": 10965,
+  "nodes": 5564,
+  "texinfo": 59,
+  "faces": 7872,
+  "clipnodes": 0,
+  "leaves": 3464,
+  "marksurfaces": 10602,
+  "edges": 19315,
+  "surfedges": 36822,
+  "models": 1,
+  "bytes": 6405688,
+  "sha256": "cb7a24b3c1c113f31643554dbb55d47c3491b8c1fa5c8fdc7d6496d77d1e9c98",
+  "zone": 29,
+  "name": "Helix Ash Wastes",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.4685867140069604
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.4753136950312182
+    },
+    {
+      "tool": "light",
+      "seconds": 20.758706539985724
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

@@ -1,0 +1,34 @@
+{
+  "planes": 2396,
+  "vertices": 14420,
+  "nodes": 7357,
+  "texinfo": 58,
+  "faces": 10899,
+  "clipnodes": 0,
+  "leaves": 4420,
+  "marksurfaces": 15249,
+  "edges": 25827,
+  "surfedges": 50138,
+  "models": 1,
+  "bytes": 8047792,
+  "sha256": "9ffc188c4c46b0314c91b549fe4ff9992ddac81efffbc6693b9498f9d0485d84",
+  "zone": 1,
+  "name": "Ashen Barracks",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5150367899914272
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.421712133975234
+    },
+    {
+      "tool": "light",
+      "seconds": 30.493208215979394
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

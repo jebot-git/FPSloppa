@@ -1,0 +1,34 @@
+{
+  "planes": 1878,
+  "vertices": 11966,
+  "nodes": 5799,
+  "texinfo": 71,
+  "faces": 9096,
+  "clipnodes": 0,
+  "leaves": 3463,
+  "marksurfaces": 12639,
+  "edges": 21572,
+  "surfedges": 41776,
+  "models": 1,
+  "bytes": 9545176,
+  "sha256": "64728a55507cfea464cd576b11e41a6c75e36f125843a76c7e7e94e35ca3ca04",
+  "zone": 68,
+  "name": "Crown Outer Tenements",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.46568228397518396
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.8746405580313876
+    },
+    {
+      "tool": "light",
+      "seconds": 37.09638973296387
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

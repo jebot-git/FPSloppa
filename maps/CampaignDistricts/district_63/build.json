@@ -1,0 +1,34 @@
+{
+  "planes": 2101,
+  "vertices": 12699,
+  "nodes": 6326,
+  "texinfo": 59,
+  "faces": 9456,
+  "clipnodes": 0,
+  "leaves": 3810,
+  "marksurfaces": 13579,
+  "edges": 22663,
+  "surfedges": 43730,
+  "models": 1,
+  "bytes": 7753212,
+  "sha256": "906617529199e9e7a64ab88074a42b5ab9aab157cbdfad4b1ef2f020ae67755e",
+  "zone": 63,
+  "name": "Iron Archives",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5682729099644348
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.4214683199534193
+    },
+    {
+      "tool": "light",
+      "seconds": 29.457384456996806
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

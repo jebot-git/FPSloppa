@@ -206,6 +206,8 @@ class District(Urban):
   self.volume(bounds.difference(walk.union(bridge_space)),5.65,11.7,wall)
   self.volume(bounds.difference(walk),11.7,30,wall)
   sky=unary_union([Point(c['center']).buffer(c['radius'],quad_segs=2) for c in self.courtyards])
+  if getattr(self,'campaign_profile','closed')=='mixed':
+   sky=sky.union(roads.buffer(7).intersection(box(25,-110,105,110)))
   halls=unary_union(room_areas);gates=unary_union(gate_areas)
   low_ceiling=walk.union(bridge_space).intersection(bounds).difference(halls.union(gates).union(sky))
   self.volume(low_ceiling,11.7,12.2,trim)

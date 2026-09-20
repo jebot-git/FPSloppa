@@ -1,0 +1,34 @@
+{
+  "planes": 2294,
+  "vertices": 14059,
+  "nodes": 7097,
+  "texinfo": 64,
+  "faces": 10546,
+  "clipnodes": 0,
+  "leaves": 4217,
+  "marksurfaces": 14798,
+  "edges": 25162,
+  "surfedges": 48710,
+  "models": 1,
+  "bytes": 8481048,
+  "sha256": "e2a11d4bd6f49d2bbdf6e998b34f40d72b36bfb89826162c0428df32a5c58f80",
+  "zone": 7,
+  "name": "Cinder Barracks",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.716298783023376
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.8759632610017434
+    },
+    {
+      "tool": "light",
+      "seconds": 38.485531562007964
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

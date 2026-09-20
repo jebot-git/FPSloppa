@@ -1,0 +1,34 @@
+{
+  "planes": 1417,
+  "vertices": 9386,
+  "nodes": 4528,
+  "texinfo": 64,
+  "faces": 6757,
+  "clipnodes": 0,
+  "leaves": 2799,
+  "marksurfaces": 9180,
+  "edges": 16609,
+  "surfedges": 31549,
+  "models": 1,
+  "bytes": 9249276,
+  "sha256": "06d787aaaa5f99605bd5af2c4d1932fc958b7b323dd5dc9c3fccd292454a7d55",
+  "zone": 5,
+  "name": "Pilgrim Ash Wastes",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.31490139500238
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.3679211999988183
+    },
+    {
+      "tool": "light",
+      "seconds": 37.5649870930356
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

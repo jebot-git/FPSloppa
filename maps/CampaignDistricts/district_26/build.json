@@ -1,0 +1,34 @@
+{
+  "planes": 2335,
+  "vertices": 14281,
+  "nodes": 6983,
+  "texinfo": 68,
+  "faces": 10727,
+  "clipnodes": 0,
+  "leaves": 4171,
+  "marksurfaces": 14966,
+  "edges": 25470,
+  "surfedges": 49443,
+  "models": 1,
+  "bytes": 10029856,
+  "sha256": "5b0a3857c5cc6cd94e96e9d998f72f32a7e9a4138427104f5a729bb83e3833ff",
+  "zone": 26,
+  "name": "Cinder Residential Stack",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6676946420338936
+    },
+    {
+      "tool": "vis",
+      "seconds": 4.486424731032457
+    },
+    {
+      "tool": "light",
+      "seconds": 41.458539095008746
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

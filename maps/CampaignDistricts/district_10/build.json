@@ -1,0 +1,34 @@
+{
+  "planes": 2254,
+  "vertices": 13729,
+  "nodes": 6646,
+  "texinfo": 71,
+  "faces": 10336,
+  "clipnodes": 0,
+  "leaves": 3995,
+  "marksurfaces": 14533,
+  "edges": 24602,
+  "surfedges": 47587,
+  "models": 1,
+  "bytes": 9971484,
+  "sha256": "df142c73fed456fcd5477e666da751d7629752d074c46dae62450144679a1836",
+  "zone": 10,
+  "name": "Ashen Citadel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.665444761980325
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.975660390977282
+    },
+    {
+      "tool": "light",
+      "seconds": 37.08294085704256
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

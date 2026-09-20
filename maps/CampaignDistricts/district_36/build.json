@@ -1,0 +1,34 @@
+{
+  "planes": 1766,
+  "vertices": 10887,
+  "nodes": 5274,
+  "texinfo": 66,
+  "faces": 7826,
+  "clipnodes": 0,
+  "leaves": 3339,
+  "marksurfaces": 10573,
+  "edges": 19157,
+  "surfedges": 36574,
+  "models": 1,
+  "bytes": 9578976,
+  "sha256": "0b569432fad744f0b897412966bbe261eafaa766d28bd392f250576e225283bb",
+  "zone": 36,
+  "name": "Helix Salvage Yards",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.46494683698983863
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.9213488909881562
+    },
+    {
+      "tool": "light",
+      "seconds": 38.17807428899687
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

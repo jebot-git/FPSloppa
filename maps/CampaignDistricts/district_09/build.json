@@ -1,0 +1,34 @@
+{
+  "planes": 2097,
+  "vertices": 13508,
+  "nodes": 6726,
+  "texinfo": 73,
+  "faces": 10263,
+  "clipnodes": 0,
+  "leaves": 3967,
+  "marksurfaces": 14515,
+  "edges": 24381,
+  "surfedges": 47092,
+  "models": 1,
+  "bytes": 10053024,
+  "sha256": "4398a525fffab5c650ed87bfd7d3e52d3fee4339bbe28cb661155a24f504dda5",
+  "zone": 9,
+  "name": "Ashen Archives",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5149305420345627
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.6204343659919687
+    },
+    {
+      "tool": "light",
+      "seconds": 39.36120151396608
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

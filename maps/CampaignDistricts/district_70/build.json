@@ -1,0 +1,34 @@
+{
+  "planes": 2215,
+  "vertices": 14197,
+  "nodes": 7131,
+  "texinfo": 69,
+  "faces": 10799,
+  "clipnodes": 0,
+  "leaves": 4254,
+  "marksurfaces": 15124,
+  "edges": 25610,
+  "surfedges": 49517,
+  "models": 1,
+  "bytes": 10309180,
+  "sha256": "f7b27f94a5ab5cc4d0c687cd2ae413d8727c32f4e570dacfd09e11aa4d9eed4a",
+  "zone": 70,
+  "name": "Obsidian Citadel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.7156984439934604
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.1225085370242596
+    },
+    {
+      "tool": "light",
+      "seconds": 39.30223899602424
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

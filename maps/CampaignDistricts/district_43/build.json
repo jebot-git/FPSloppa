@@ -1,0 +1,34 @@
+{
+  "planes": 2188,
+  "vertices": 13875,
+  "nodes": 6827,
+  "texinfo": 73,
+  "faces": 10492,
+  "clipnodes": 0,
+  "leaves": 4099,
+  "marksurfaces": 14786,
+  "edges": 24956,
+  "surfedges": 48268,
+  "models": 1,
+  "bytes": 10459864,
+  "sha256": "a3dfd2cc035460f9f25cc0cb15813ccf50e113393b5606d9c4e6ae7a96c80e36",
+  "zone": 43,
+  "name": "Cipher Relay Station",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6670637400238775
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.6751007789862342
+    },
+    {
+      "tool": "light",
+      "seconds": 40.695451456995215
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

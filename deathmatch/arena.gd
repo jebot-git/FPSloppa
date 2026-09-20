@@ -1424,6 +1424,7 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 		return
 
 func _fire(id: int, offhand: bool=false) -> void:
+	if is_instance_valid(district_worker) and district_worker.has_method("no_fire") and district_worker.no_fire():return
 	if armory.experimental():variant_combat.fire(id,offhand);return
 	if lobby.active():return
 	if match_mode.special.blocked(id):return
@@ -1554,11 +1555,13 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 	return result
 
 func _damage_map_hit(hit: Dictionary,id: int,amount: float) -> void:
+	if is_instance_valid(district_worker) and district_worker.has_method("no_fire") and district_worker.no_fire():return
 	if not multiplayer.is_server() or not hit.has("map_node"):return
 	var runtime=get_node_or_null("Map/MapRuntime")
 	if runtime:runtime.triggers.damage(hit.map_node,id,amount)
 
 func _launch(id: int,weapon: int,solution: Dictionary={}) -> void:
+	if is_instance_valid(district_worker) and district_worker.has_method("no_fire") and district_worker.no_fire():return
 	if not players.has(id) or players[id].dead: return
 	if solution.is_empty():solution=_shot_solution(id)
 	if solution.blocked or (players[id].vr_device and players[id].xr.is_empty()): return
@@ -1656,6 +1659,7 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: St
 		_damage(id,owner_id,maxi(1,int(damage*falloff*(.5 if id==owner_id else 1.0))),weapon_name,false,target,push,true,match_mode.fortress.walkers.mounted(id))
 
 func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: bool = false,impact: Vector3=Vector3.INF,direction: Vector3=Vector3.ZERO,blast: bool=false,hull_contact: bool=false,heavy_automatic: bool=false) -> void:
+	if is_instance_valid(district_worker) and district_worker.has_method("no_fire") and district_worker.no_fire():return
 	if lobby.active():return
 	if not multiplayer.is_server() or not players.has(victim): return
 	var s: Dictionary = players[victim]

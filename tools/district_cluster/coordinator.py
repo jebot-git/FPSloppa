@@ -38,4 +38,11 @@ class Coordinator:
             await writer.wait_closed()
 
     async def start(self,address):
+        self.clock_task=asyncio.create_task(self.clock()) if any(r.get('campaign_role') for r in self.config['districts'].values()) else None
         return await asyncio.start_server(self.connection,*address,limit=LIMIT)
+
+    async def clock(self):
+        while True:
+            try:await asyncio.to_thread(self.store.execute,{'op':'tick'},None)
+            except (OSError,ValueError,ConnectionError):pass
+            await asyncio.sleep(.25)

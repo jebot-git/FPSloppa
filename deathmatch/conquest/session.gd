@@ -56,6 +56,10 @@ func configure_pickups() -> void:
 	game.pickups.clear()
 	for zone in 16:
 		var home: bool=zone in Rules.HOMEBASES
+		if game.cq_maps.enabled and game.cq_maps.cluster_asset>=0 and zone==game.cq_maps.cluster_slot:
+			var role: String=game.cq_maps.manifest.districts[zone].campaign.campaign_role
+			if role=="hub":continue
+			home=role=="homebase"
 		var equipment: Array=[
 			["weapon",6 if home else 3,Vector3(-7,0,0),6 if home else 20],
 			["weapon",8 if home else 5,Vector3(7,0,0),10 if home else 100],

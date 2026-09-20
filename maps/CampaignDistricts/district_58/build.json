@@ -1,0 +1,34 @@
+{
+  "planes": 2219,
+  "vertices": 14186,
+  "nodes": 6964,
+  "texinfo": 71,
+  "faces": 10682,
+  "clipnodes": 0,
+  "leaves": 4148,
+  "marksurfaces": 14709,
+  "edges": 25504,
+  "surfedges": 49354,
+  "models": 1,
+  "bytes": 10451208,
+  "sha256": "3647cf7b3155963d0ca8a7f9ef9ce93bb9e97a435697354723cc23fbedc03818",
+  "zone": 58,
+  "name": "Crown Drainage Slums",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.666528160974849
+    },
+    {
+      "tool": "vis",
+      "seconds": 6.843295411032159
+    },
+    {
+      "tool": "light",
+      "seconds": 43.12398963200394
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

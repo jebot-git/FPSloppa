@@ -128,7 +128,7 @@ def compile_runtime(source, scons, jobs, native=False):
     return source / 'bin/godot.linuxbsd.template_release.x86_64'
 
 
-def package(godot, template, dest, cq_assets=False, district_maps=False):
+def package(godot, template, dest, cq_assets=False, district_maps=False, campaign_maps=False):
     dependencies = runtime_audit(template)
     dest.mkdir(parents=True, exist_ok=True)
     # A fresh directory prevents an earlier generic export leaving native plugins behind.
@@ -218,6 +218,10 @@ script=ExtResource("1")
         for source in [ROOT/'maps/CQDistricts/manifest.json', ROOT/'conquest-district-maps.cfg', *sorted((ROOT/'maps/CQDistricts').glob('district_*/district.bsp')), *sorted((ROOT/'maps/CQDistricts').glob('district_*/collision.scn')), *sorted((ROOT/'maps/CQDistricts').glob('district_*/navigation.res'))]:
             relative=source.relative_to(ROOT);target=dest/relative;target.parent.mkdir(parents=True,exist_ok=True)
             shutil.copy2(source,target);package_files.add(relative.as_posix())
+    if campaign_maps:
+        for source in [ROOT/'maps/CampaignDistricts/manifest.json', *sorted((ROOT/'maps/CampaignDistricts').glob('district_*/district.bsp')), *sorted((ROOT/'maps/CampaignDistricts').glob('district_*/collision.scn')), *sorted((ROOT/'maps/CampaignDistricts').glob('district_*/navigation.res'))]:
+            relative=source.relative_to(ROOT);target=dest/relative;target.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy2(source,target);package_files.add(relative.as_posix())
     if not (dest / 'server.cfg').exists():shutil.copy2(ROOT / 'server.cfg', dest / 'server.cfg')
     for name in ['SERVER.md', 'VOICE.md', 'TF.md', 'AS.md', 'GAMEMODES.md', 'ASSET_CREDITS.md', 'GODOT-LICENSE.txt', 'GODOT-COPYRIGHT.txt']:
         shutil.copy2(ROOT / name, dest / name);package_files.add(name)
@@ -256,6 +260,7 @@ def verify_package(dest):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cq-district-maps', action='store_true', help='Include independently compiled CQ district BSPs and server caches')
+    parser.add_argument('--campaign-maps', action='store_true', help='Include the validated 81-map campaign pack and CQ worker support')
     parser.add_argument('--cq-assets', action='store_true', help='Include experimental CQ collision/navigation assets and configuration')
     parser.add_argument('--verify-only', action='store_true', help='Audit existing package without rebuilding')
     parser.add_argument('--native-toolchain', action='store_true', help='Use host compiler instead of the Ubuntu 22.04 container')
@@ -270,7 +275,7 @@ def main():
     template = args.template or compile_runtime(args.source, args.scons, args.jobs,args.native_toolchain)
     godot = os.environ.get('GODOT_BIN') or shutil.which('godot')
     if not godot:parser.error('Godot is needed only as a packaging tool')
-    package(godot, template.resolve(), args.output.resolve(), args.cq_assets or args.cq_district_maps, args.cq_district_maps)
+    package(godot, template.resolve(), args.output.resolve(), args.cq_assets or args.cq_district_maps or args.campaign_maps, args.cq_district_maps or args.campaign_maps, args.campaign_maps)
 
 
 if __name__ == '__main__':main()

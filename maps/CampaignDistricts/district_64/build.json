@@ -1,0 +1,34 @@
+{
+  "planes": 2184,
+  "vertices": 13915,
+  "nodes": 6681,
+  "texinfo": 67,
+  "faces": 10493,
+  "clipnodes": 0,
+  "leaves": 3955,
+  "marksurfaces": 14618,
+  "edges": 25004,
+  "surfedges": 48487,
+  "models": 1,
+  "bytes": 10015208,
+  "sha256": "e68d0c9df0468e4a133ecc5de595663d5dcab4b088e98d07f6e3c9076c532dbc",
+  "zone": 64,
+  "name": "Iron Citadel",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.6687180509907193
+    },
+    {
+      "tool": "vis",
+      "seconds": 2.522909860999789
+    },
+    {
+      "tool": "light",
+      "seconds": 39.23258181696292
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

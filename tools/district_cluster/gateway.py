@@ -10,6 +10,7 @@ import math
 import secrets
 import time
 from .transport import LIMIT,read,send,rpc,encode
+from . import campaign
 
 
 class WorkerLink:
@@ -18,6 +19,7 @@ class WorkerLink:
         self.pending={}
         self.last=time.monotonic()
         self.lock=asyncio.Lock()
+        self.capture=None
 
     async def write(self,message):
         async with self.lock:
@@ -73,7 +75,8 @@ class Gateway:
     async def _refresh(self):
         began=time.monotonic()
         live={d:w.instance for d,w in self.workers.items() if began-w.last<2}
-        self.state=await self.control('heartbeat',workers=live)
+        captures={d:w.capture for d,w in self.workers.items() if d in live and w.capture is not None}
+        self.state=await self.control('heartbeat',workers=live,captures=captures)
         self.fresh=began  # Never start a fresh lease from an old delayed reply.
         for key in list(self.clients):
             if key not in self.state['actors']:
@@ -87,13 +90,13 @@ class Gateway:
             if row is None or row['gateway']!=self.name:
                 continue
             actors={k:a for k,a in self.state['actors'].items() if district in (a.get('district'),a.get('target'),a.get('previous'))}
-            await worker.write(dict(op='authority',revision=self.state['revision'],valid_for=max(0,2-(time.monotonic()-began)),expires_at=time.time()+max(0,2-(time.monotonic()-began)),district=district,metadata=row,actors=actors))
+            await worker.write(dict(op='authority',revision=self.state['revision'],valid_for=max(0,2-(time.monotonic()-began)),expires_at=time.time()+max(0,2-(time.monotonic()-began)),district=district,metadata=row,actors=actors,campaign=self.state.get('campaign')))
 
     async def heartbeat(self):
         while True:
             try:
                 await self.refresh()
-                signature=(self.state['deployment_slots'],tuple(k for k,a in self.state['actors'].items() if a['phase']=='waiting'))
+                signature=(self.state['deployment_signature'],tuple(k for k,a in self.state['actors'].items() if a['phase']=='waiting'))
                 if signature!=self.deployment_signature:
                     self.deployment_signature=signature
                     if self.state['deployment_slots']>0:
@@ -161,9 +164,15 @@ class Gateway:
                         continue
                     # Encode once per district frame; recipients receive identical bytes.
                     actors={k:a['generation'] for k,a in self.state['actors'].items() if a.get('district')==district and a['phase']=='active'}
-                    result=dict(district=district,sequence=sequence,payload=payload,actors=actors)
+                    result=dict(district=district,sequence=sequence,payload=payload,actors=actors,campaign=self.state.get('campaign'))
                     self.cache[district]=dict(sequence=sequence,at=time.monotonic(),bytes=encode({'result':result}))
                     self.stats['snapshot_encodes']+=1
+                elif message.get('op')=='capture':
+                    data=message.get('capture')
+                    if not isinstance(data,dict) or not isinstance(data.get('actors'),dict) or len(data['actors'])>16:raise ValueError('Invalid worker capture frame')
+                    if type(data.get('sequence')) is not int:raise ValueError('Invalid capture sequence')
+                    if link.capture is None or data['sequence']>link.capture['sequence']:
+                        link.capture=dict(data,received_at=time.time())
         finally:
             if self.workers.get(district) is link:
                 del self.workers[district]
@@ -200,9 +209,10 @@ class Gateway:
             self.state['actors'][key]=actor
             if actor['phase']=='moving':
                 source,target=actor['district'],actor['target']
-                edge=self.state['districts'][source]['links'][target]
+                row=self.state['districts'][source]
+                edge=(row['links']|row.get('terminals',{}))[target]
                 try:
-                    frozen=await self.local(source,'freeze',actor=key,id=actor['id'],generation=actor['generation'],tx=tx,exit=edge['exit'])
+                    frozen=await self.local(source,'freeze',actor=key,id=actor['id'],generation=actor['generation'],tx=tx,exit=edge['exit'],terminal=edge.get('terminal',False))
                 except ValueError:
                     # A definite refusal precedes escrow; transport uncertainty must not abort.
                     actor=await self.control('abort',**auth,tx=tx)
@@ -214,7 +224,12 @@ class Gateway:
                 digest=hashlib.sha256(payload.encode()).hexdigest()
                 await self.control('prepared',**auth,tx=tx,digest=digest)
                 await self.remote(target,'stage',actor=key,id=actor['id'],tx=tx,generation=actor['next_generation'],payload=payload,digest=digest,entry=edge['entry'],exit=edge['exit'],yaw=edge.get('yaw',0))
-                actor=await self.control('commit',**auth,tx=tx)
+                try:actor=await self.control('commit',**auth,tx=tx)
+                except ValueError as error:
+                    if 'Campaign gate locked' in str(error):
+                        self.state['actors'][key]=await self.control('abort',**auth,tx=tx)
+                        await self.refresh()
+                    raise
                 self.state['actors'][key]=actor
             # A durable commit is never rolled back. Retry release/finish after interruption.
             await self.local(actor['previous'],'release',actor=key,id=actor['id'],generation=actor['generation']-1,tx=tx)
@@ -239,7 +254,7 @@ class Gateway:
             if not isinstance(message.get('token'),str) or not hmac.compare_digest(message['token'],self.config['client_token']):
                 raise ValueError('Invalid cluster access credential')
             key,resume=message.get('identity',secrets.token_hex(16)),message.get('resume',secrets.token_hex(32))
-            actor=await self.control('join',actor=key,resume=resume,district=message.get('district'),name=message.get('name','Player'))
+            actor=await self.control('join',actor=key,resume=resume,district=message.get('district'),name=message.get('name','Player'),team=message.get('team'))
             self.clients[key]=resume;self.state['actors'][key]=actor
             return dict(identity=key,resume=resume,actor=actor,gateway=self.config['gateways'][actor['gateway']]['address'])
         if op=='resume':
@@ -252,8 +267,8 @@ class Gateway:
         if op=='status':
             district=actor.get('district')
             row=self.state['districts'].get(district,{})
-            links={k:dict(open=self.state['districts'][k]['open'],gateway=self.config['gateways'][self.state['districts'][k]['gateway']]['address']) for k in row.get('links',{})}
-            return dict(actor=actor,links=links,stats=self.stats)
+            links={k:dict(open=self.state['districts'][k]['open'] and (not self.state.get('campaign') or campaign.can_enter(self.state,actor,k,district)),gateway=self.config['gateways'][self.state['districts'][k]['gateway']]['address'],terminal=edge.get('terminal',False),owner=(self.state.get('campaign') or {}).get('owners',{}).get(k,-1)) for k,edge in (row.get('links',{})|row.get('terminals',{})).items()}
+            return dict(actor=actor,links=links,stats=self.stats,campaign=self.state.get('campaign'),metadata=row)
         if op=='transfer':
             return await self.transfer(message)
         if op=='deploy':
@@ -270,6 +285,14 @@ class Gateway:
             return result
         if op=='respawn':
             if actor['phase']!='active':raise ValueError('Actor is not resident')
+            if self.state.get('campaign'):
+                await self.local(actor['district'],'check_dead',id=actor['id'],generation=actor['generation'])
+                actor=await self.control('wait',actor=message['actor'],resume=message['resume'])
+                self.state['actors'][message['actor']]=actor
+                await self.refresh()
+                actor=await self.control('deploy',actor=message['actor'],resume=message['resume'])
+                self.state['actors'][message['actor']]=actor
+                return dict(actor=actor,gateway=self.config['gateways'][actor['gateway']]['address'])
             # Worker validates death; same-district respawn reuses its existing slot.
             return await self.local(actor['district'],'respawn',id=actor['id'],generation=actor['generation'])
         if op=='input':

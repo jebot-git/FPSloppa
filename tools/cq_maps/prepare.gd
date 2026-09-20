@@ -6,7 +6,8 @@ func _initialize():
 func save(node: Node,path: String):
 	var packed:=PackedScene.new();assert(packed.pack(node)==OK);assert(ResourceSaver.save(packed,path,ResourceSaver.FLAG_COMPRESS)==OK)
 func run():
-	var zone:=int(OS.get_cmdline_user_args()[0]);var folder:="res://maps/CQDistricts/district_%02d/"%zone
+	var zone:=int(OS.get_cmdline_user_args()[0]);var campaign:=OS.get_cmdline_user_args().has("--campaign")
+	var folder:=("res://maps/CampaignDistricts/" if campaign else "res://maps/CQDistricts/")+"district_%02d/"%zone
 	var layout: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(folder+"layout.json"))
 	var level:=Loader.read(folder+"district.bsp");assert(level!=null);root.add_child(level)
 	assert(level.get_meta("baked_light_invalid_faces",0)==0)
@@ -58,7 +59,7 @@ func run():
 			var at:=Vector3(sample[0],sample[1],sample[2])
 			if not space.intersect_ray(PhysicsRayQueryParameters3D.create(at,at+Vector3.UP*80,1)).is_empty():enclosed+=1
 		report.roof_samples=layout.enclosure.roof_samples.size();report.covered_samples=enclosed
-		assert(float(enclosed)/report.roof_samples>=.85,"Less than 85% of street samples enclosed")
+		assert(float(enclosed)/report.roof_samples>=(.5 if layout.get("profile","")=="mixed" else .85),"Insufficient street enclosure")
 		report.carriageway_rays=0
 		for road in layout.streets:
 			for i in road.size()-1:
@@ -90,7 +91,10 @@ func run():
 				report.jetpack_clearance_samples+=1
 	var server:=Loader.read(folder+"district.bsp",true);preload("res://deathmatch/server/geometry.gd").strip(server);save(server,folder+"collision.scn");server.free()
 	var art:=Node3D.new();art.name="CityPresentation";art.set_script(preload("res://deathmatch/conquest/presentation.gd"));level.add_child(art);art.owner=level
-	preload("res://tools/km_benchmark/city_art.gd").district(art,level,layout,zone)
+	preload("res://tools/km_benchmark/city_art.gd").district(art,level,layout,int(layout.get("render_zone",zone)))
+	if campaign:
+		var overlay:=preload("res://deathmatch/server/cluster/campaign_visuals.gd").new();overlay.name="CampaignVisuals";overlay.metadata=layout.campaign;level.add_child(overlay);overlay.owner=level
+		for child in overlay.get_children():child.owner=level
 	for row in layout.occluder_boxes:
 		var low:=Vector3(row.minimum[0],row.minimum[1],row.minimum[2]);var high:=Vector3(row.maximum[0],row.maximum[1],row.maximum[2]);var occluder:=OccluderInstance3D.new();var box:=BoxOccluder3D.new();box.size=(high-low-Vector3.ONE*.1).max(Vector3.ONE*.01);occluder.occluder=box;occluder.position=(high+low)*.5;level.add_child(occluder);occluder.owner=level
 	save(level,folder+"presentation.scn");level.free()

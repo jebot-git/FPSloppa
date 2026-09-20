@@ -1,0 +1,34 @@
+{
+  "planes": 1671,
+  "vertices": 10120,
+  "nodes": 4980,
+  "texinfo": 52,
+  "faces": 7207,
+  "clipnodes": 0,
+  "leaves": 3123,
+  "marksurfaces": 9896,
+  "edges": 17771,
+  "surfedges": 33787,
+  "models": 1,
+  "bytes": 5889868,
+  "sha256": "28880911c564efd45f04a11f884c6d7415ef23c34605490b1b587f0d538f683a",
+  "zone": 42,
+  "name": "Cipher Salvage Yards",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.41479616303695366
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.7687746720039286
+    },
+    {
+      "tool": "light",
+      "seconds": 19.49030019697966
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

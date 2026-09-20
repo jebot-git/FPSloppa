@@ -1,0 +1,34 @@
+{
+  "planes": 2423,
+  "vertices": 14794,
+  "nodes": 7520,
+  "texinfo": 58,
+  "faces": 11129,
+  "clipnodes": 0,
+  "leaves": 4517,
+  "marksurfaces": 15635,
+  "edges": 26488,
+  "surfedges": 51405,
+  "models": 1,
+  "bytes": 8436328,
+  "sha256": "f2837b7156cf189eeee6f60f59a622931beade86ff33998c9a694e5f5dd85ef5",
+  "zone": 40,
+  "name": "Concord Inner City",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.7677530419896357
+    },
+    {
+      "tool": "vis",
+      "seconds": 3.1870748689980246
+    },
+    {
+      "tool": "light",
+      "seconds": 36.91462803300237
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

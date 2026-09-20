@@ -1,0 +1,34 @@
+{
+  "planes": 2103,
+  "vertices": 12994,
+  "nodes": 6582,
+  "texinfo": 55,
+  "faces": 9783,
+  "clipnodes": 0,
+  "leaves": 3951,
+  "marksurfaces": 13840,
+  "edges": 23352,
+  "surfedges": 45048,
+  "models": 1,
+  "bytes": 7869560,
+  "sha256": "b5233bbf7655f46dbe67a40bf71fcccea6809baade6d95e36d05926931967ea5",
+  "zone": 48,
+  "name": "Vesper Freight Ruins",
+  "format": "BSP29",
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.5652951670344919
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.9682512710569426
+    },
+    {
+      "tool": "light",
+      "seconds": 29.923006989993155
+    }
+  ],
+  "material_revision": "makkon-expanded-1"
+}

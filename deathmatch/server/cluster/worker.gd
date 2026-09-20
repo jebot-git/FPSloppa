@@ -26,6 +26,10 @@ var connected:=false
 var next_connect:=0
 var booted:=false
 var journal:=""
+var campaign: Dictionary={}
+var last_capture:=0
+var capture_sequence:=0
+func no_fire() -> bool:return metadata.get("campaign_role","")=="hub"
 func setup(arena,args: PackedStringArray) -> void:
 	game=arena;game.district_worker=self;game.set_process(false);game.set_physics_process(false)
 	var value=JSON.parse_string(FileAccess.get_file_as_string(game._arg_value(args,"--cluster-worker","")))
@@ -75,6 +79,7 @@ func reconcile() -> void:
 		if a.get("district")!=config.district or a.phase!="active":continue
 		keep[id]=true
 		if int(retired.get(id,-1))>=int(a.generation):continue
+		if game.players.has(id) and generations.get(id,-1)!=int(a.generation):clear_actor(id)
 		if not game.players.has(id):
 			var row: Dictionary={}
 			for tx in escrow.keys():
@@ -97,6 +102,8 @@ func reconcile() -> void:
 				if game.players.size()>=16:continue
 				State.restore(game,row)
 		generations[id]=int(a.generation);game.players[id].cq_wait_input=false
+		if a.has("team"):game.players[id].team=int(a.team)
+		if no_fire():game.players[id].fire=false;game.players[id].offhand_fire=false;game.players[id].melee=false
 	for id in game.players.keys():
 		if not keep.has(id):
 			# Keep a moving source frozen in memory until the explicit escrow RPC.
@@ -122,7 +129,7 @@ func command(m: Dictionary) -> void:
 	if m.get("op")=="authority":
 		if int(m.revision)<revision:return
 		revision=int(m.revision);until=Time.get_ticks_msec()+int(clampf(minf(float(m.valid_for),float(m.get("expires_at",0))-Time.get_unix_time_from_system()),0,2)*1000)
-		grants=m.actors;metadata=m.metadata;reconcile();prune_journal();return
+		grants=m.actors;metadata=m.metadata;campaign=m.campaign if m.get("campaign") is Dictionary else {};reconcile();prune_journal();return
 	if Time.get_ticks_msec()>=until:reject(m,"Worker authority expired");return
 	var op: String=m.get("op","")
 	var id:=int(m.get("id",-1))
@@ -139,7 +146,7 @@ func command(m: Dictionary) -> void:
 		if escrow.has(m.tx):reply(m,{"payload":escrow[m.tx].payload});return
 		if not game.players.has(id) or generations.get(id,-1)!=int(m.generation):reject(m,"Actor generation not resident");return
 		var exit_point:=Rules.center(zone)+Vector3(m.exit[0],m.exit[1],m.exit[2])
-		if game.fighters[id].position.distance_to(exit_point)>8:reject(m,"Actor is not at the gate");return
+		if game.fighters[id].position.distance_to(exit_point)>(3 if m.get("terminal",false) else 8):reject(m,"Actor is not at the gate");return
 		var transfer:=State.actor(game,id);transfer.cluster_origin=Rules.center(zone)
 		var payload:=Marshalls.raw_to_base64(var_to_bytes(transfer))
 		escrow[m.tx]={"id":id,"payload":payload,"generation":m.generation}
@@ -152,12 +159,16 @@ func command(m: Dictionary) -> void:
 		if not persist():reject(m,"Cannot persist retirement");return
 		reply(m,{"released":true});return
 	if not game.players.has(id) or generations.get(id,-1)!=int(m.get("generation",-2)):reject(m,"Actor generation not active");return
+	if op=="check_dead":
+		if not game.players[id].dead:reject(m,"Living actor cannot respawn");return
+		reply(m,{"dead":true});return
 	if op=="respawn":
 		if not game.players[id].dead:reject(m,"Living actor cannot respawn");return
 		game.players[id].dead=false;game._spawn(id);reply(m,{"respawned":true});return
 	if op=="input":
 		if game.players[id].get("cq_wait_input",false):reject(m,"Actor is transferring");return
 		var c: Dictionary=m.command.duplicate(true);c.seq=int(c.seq);c.weapon=int(c.get("weapon",2));var move: Array=c.get("move",[0,0]);c.move=Vector2(move[0],move[1]);c.yaw=float(c.get("yaw",0));c.pitch=float(c.get("pitch",0));c.view_time=-1.0;c.fire=c.get("fire",false);c.slow=false;c.respawn=false;c.input_life=game.players[id].serial
+		if no_fire():c.fire=false
 		var old: int=game.players[id].last_seq;game._accept_input(id,c)
 		reply(m,{"accepted":game.players[id].last_seq>old});return
 	reject(m,"Unknown worker operation")
@@ -199,3 +210,12 @@ func _physics_process(delta: float) -> void:
 		var snapshot:=State.snapshot(game,zone,sequence)
 		snapshot.events=events;events=[]
 		send({"op":"snapshot","sequence":sequence,"payload":Marshalls.raw_to_base64(var_to_bytes(snapshot))})
+	if now<until and now-last_capture>=200 and int(metadata.get("threshold",0))>0:
+		last_capture=now;capture_sequence+=1
+		var occupants: Dictionary={};var center: Array=metadata.capture
+		for key in grants:
+			var actor: Dictionary=grants[key];var id:=int(actor.id)
+			if actor.get("district")!=config.district or actor.phase!="active" or not game.players.has(id) or game.players[id].dead:continue
+			var p: Vector3=game.fighters[id].position-Rules.center(zone)-Vector3(center[0],center[1],center[2])
+			if absf(p.y)<2.5 and Vector2(p.x,p.z).length()<=float(metadata.capture_radius):occupants[key]=int(actor.generation)
+		send({"op":"capture","capture":{"epoch":campaign.get("epoch",0),"sequence":capture_sequence,"actors":occupants}})
