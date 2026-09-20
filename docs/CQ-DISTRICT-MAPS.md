@@ -1,6 +1,6 @@
 # Independent BSP29 districts
 
-This describes the legacy 16-map prototype. The default CQ layout is now the [81-district campaign](CAMPAIGN-81.md), with 128 players globally and 16 per district.
+This is a historical record of the retired 16-map prototype; its legacy launch commands no longer apply. Use the [CQ-only live deployment](CQ-LIVE-DEPLOYMENT.md). The default CQ layout is now the [81-district campaign](CAMPAIGN-81.md), with 128 players globally and 16 per district.
 
 This opt-in CQ experiment replaces the single Vesper city BSP with sixteen independently compiled, sealed BSP29 maps. Each remains a 250 × 250 metre district of the same 1 km², 4 × 4 city. It is implemented on `experimental/cq-districts`; main and the default whole-city CQ profile are unchanged.
 

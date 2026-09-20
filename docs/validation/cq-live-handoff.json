@@ -1,0 +1,13 @@
+{
+  "scope": "Two real Godot BSP workers, regional gateways, durable coordinator and Vulkan desktop over loopback.",
+  "checks": [
+    "distinct_campaign_BSP_boot",
+    "hub_no_fire",
+    "controlled_terminal_handoff",
+    "contested_capture_pauses",
+    "worker_measured_30_point_capture",
+    "lost_relay_locks_terminal",
+    "live_Vulkan_hub_scoreboard"
+  ],
+  "captured_owner": 1
+}

@@ -1,5 +1,7 @@
 # Persistent district cluster prototype
 
+Current CQ live deployment uses private WireGuard endpoints, persistent player profiles, compact CQ snapshots and the console ENet facade. See [CQ live deployment](CQ-LIVE-DEPLOYMENT.md) for current configs, limits and measured sizing. Generic topology experiments below are internal protocol tests.
+
 Implemented on `experimental/cq-districts`, independently of the shipping CQ server path. This is a working server foundation with **4–81 configured districts, up to four districts per regional gateway, and sixteen reserved player slots per district**. The separate protocol is `fpsloppa-persistent-cluster-1`. The optional [81-district campaign](CAMPAIGN-81.md) adds its own authored atlas, rules and prototype desktop client; the generic profile remains independent of those rules.
 
 District identities, map templates and gateway assignments are separate. The topology is a connected graph with up to four explicitly positioned portals per district; it no longer derives world membership from CQ's 4×4 coordinates. In the generic profile, the coordinator has no teams, capture prerequisites, homebases, victory condition or round timer. The Godot adapter retains the existing UT99 combat, movement, jetpack and BSP collision code without advancing CQ capture rules.

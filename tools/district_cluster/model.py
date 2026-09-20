@@ -119,6 +119,14 @@ def apply(state, message, gateway, now):
     if op=='tick':
         require(gateway is None,'Administrative clock only')
         return {'at':now}
+    if op in ('profile','set_avatar'):
+        require(gateway is None,'Master content service only')
+        actor=authenticate_actor(state,message)
+        if op=='set_avatar':
+            digest=message.get('avatar')
+            require(isinstance(digest,str) and len(digest)==64 and all(c in '0123456789abcdef' for c in digest),'Invalid VRM hash')
+            actor['avatar']=digest
+        return public_actor(actor)
     if op == 'register_gateway':
         require(gateway is not None, 'Gateway credential required')
         require(identifier(message.get('session')), 'Invalid gateway incarnation')
@@ -133,6 +141,11 @@ def apply(state, message, gateway, now):
         require(gateway is not None, 'Gateway credential required')
         state['gateways'][gateway]['until'] = now+LEASE
         live = message.get('workers', {})
+        presence=message.get('presence',[])
+        require(isinstance(presence,list) and len(presence)<=128,'Invalid presence roster')
+        for key in presence:
+            actor=state['actors'].get(key)
+            if actor and actor['gateway']==gateway:actor['seen_at']=now
         require(isinstance(live, dict) and len(live) <= 4, 'Invalid regional heartbeat')
         for district, incarnation in live.items():
             owned_gateway(state, district, gateway)
@@ -141,6 +154,14 @@ def apply(state, message, gateway, now):
             require(old.get('until', 0) <= now or (old.get('instance') == incarnation and old.get('gateway_session') == message['session']), 'Previous worker lease is still valid')
             state['workers'][district] = dict(instance=incarnation, gateway_session=message['session'], until=now+LEASE)
             if district in message.get('captures',{}):campaign.report(state,district,message['captures'][district],incarnation,now)
+            stats=message.get('stats',{}).get(district,{})
+            require(isinstance(stats,dict) and len(stats)<=16,'Invalid worker statistics')
+            for key,values in stats.items():
+                require(isinstance(values,dict),'Invalid worker statistics')
+                actor=state['actors'].get(key)
+                if not actor or actor.get('district')!=district or actor['phase'] not in ('active','moving') or values.get('generation')!=actor['generation']:continue
+                require(integer(values.get('kills'),-1000000000,1000000000) and integer(values.get('deaths'),0,1000000000),'Invalid worker statistics')
+                actor['stats']={k:values[k] for k in ('kills','deaths')}
         campaign.advance(state,now)
         # Missing workers are not immediately reassigned: let old authority expire.
         return view(state, gateway, now)
@@ -170,11 +191,16 @@ def apply(state, message, gateway, now):
         key = message.get('actor')
         require(identifier(key) and identifier(message.get('resume')), 'Invalid new actor identity')
         if key in state['actors']:
-            return public_actor(authenticate_actor(state, message))
+            actor=authenticate_actor(state,message);actor['seen_at']=now
+            return public_actor(actor)
+        returning=state.get('_returning_profile')
+        if returning:
+            require(hashlib.sha256(message['resume'].encode()).hexdigest()==returning['resume_hash'],'Invalid persistent identity secret')
         require(len(state['actors']) < player_limit(state), 'Global player limit reached')
         district = message.get('district')
         owned_gateway(state, district, gateway)
         team=message.get('team')
+        if returning:team=returning['team']
         if team is None:team=min((0,1),key=lambda t:sum(a.get('team')==t for a in state['actors'].values()))
         require(integer(team,0,1),'Invalid team')
         free = online(state, district, now) and counts(state)[district] < CAPACITY
@@ -183,8 +209,13 @@ def apply(state, message, gateway, now):
             require(sum(a['phase']=='waiting' for a in state['actors'].values()) < state['waiting_limit'], 'Waiting budget full')
         require(state['next_id']<=2147483647, 'Actor identity namespace exhausted')
         actor = dict(id=state['next_id'], name=str(message.get('name','Player'))[:48], resume_hash=hashlib.sha256(message['resume'].encode()).hexdigest(), district=district if free else None, preferred=district, phase='active' if free else 'waiting', generation=1, arrival=None, gateway=gateway)
+        actor.update(seen_at=now,created=now,joins=1,avatar='',stats=dict(kills=0,deaths=0))
+        if returning:
+            actor.update(id=returning['id'],name=returning['name'],generation=returning['generation']+1,
+                         created=returning['created'],joins=returning['joins']+1,avatar=returning.get('avatar',''),stats=returning.get('stats',dict(kills=0,deaths=0)),
+                         preferred=returning['preferred'],district=None,phase='waiting')
         if 'campaign' in state:actor['team']=team
-        state['next_id'] += 1
+        if not returning:state['next_id'] += 1
         state['actors'][key] = actor
         return public_actor(actor)
     actor = authenticate_actor(state, message)
@@ -192,6 +223,7 @@ def apply(state, message, gateway, now):
         return public_actor(actor)
     if op == 'resume':
         require(actor['gateway'] == gateway, 'Reconnect to the owning regional gateway')
+        actor['seen_at']=now
         return public_actor(actor)
     if op == 'finish' and actor['phase']=='active' and actor.get('arrival')==message.get('tx'):
         return public_actor(actor)

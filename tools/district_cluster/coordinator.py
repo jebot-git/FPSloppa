@@ -1,5 +1,7 @@
 import asyncio
 import hmac
+import time
+from . import status_page
 from .transport import LIMIT,read,send
 
 
@@ -7,6 +9,7 @@ class Coordinator:
     def __init__(self,config,store):
         self.config,self.store=config,store
         self.connections=0
+        self.last_page=0
 
     async def connection(self,reader,writer):
         self.connections+=1
@@ -43,6 +46,11 @@ class Coordinator:
 
     async def clock(self):
         while True:
-            try:await asyncio.to_thread(self.store.execute,{'op':'tick'},None)
+            try:
+                await asyncio.to_thread(self.store.execute,{'op':'tick'},None)
+                if self.config.get('status_file') and time.monotonic()-self.last_page>=5:
+                    state=await asyncio.to_thread(self.store.execute,{'op':'status'},None)
+                    await asyncio.to_thread(status_page.write,self.config['status_file'],state,time.time())
+                    self.last_page=time.monotonic()
             except (OSError,ValueError,ConnectionError):pass
             await asyncio.sleep(.25)

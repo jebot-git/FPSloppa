@@ -164,9 +164,13 @@ script=ExtResource("1")
     if cq_assets:
         subprocess.run([godot, '--headless', '--xr-mode', 'off', '--log-file', str(work/'cq-cache.log'), '--path', str(ROOT), '--script', 'res://tools/cq_gateway/cache.gd'],check=True,stdout=subprocess.DEVNULL)
     selected = {'project.godot': work / 'project.godot', 'deathmatch/arena.tscn': work / 'arena.tscn'}
+    if campaign_maps:
+        project=work/'project.godot'
+        project.write_text(project.read_text().replace('run/main_scene="res://deathmatch/arena.tscn"','run/main_scene="res://deathmatch/server/cluster/entry.tscn"')+'\n[threading]\nworker_pool/max_threads=2\n')
     if cq_assets:selected['deathmatch/server/districts/cache/vesper.scn'] = ROOT/'deathmatch/server/districts/cache/vesper.scn'
     pending = ['deathmatch/arena.gd', 'deathmatch/voice/relay.gd', 'addons/bsp_importer/gsrc_wad_reader.gd', 'addons/bsp_importer/collision_surface_info.gd',
                'deathmatch/maps/manifest.json', 'deathmatch/avatars/models/manifest.json', 'deathmatch/assets/base_manifest.json']
+    if campaign_maps:pending += ['deathmatch/server/cluster/entry.tscn']
     while pending:
         path = pending.pop()
         if path in selected or not allowed(path) or not (ROOT / path).is_file():
@@ -230,7 +234,8 @@ script=ExtResource("1")
         target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)
         package_files.add(target.relative_to(dest).as_posix())
     launcher = dest / 'start-server.sh'
-    launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\nserver_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$server_dir/FPSloppaServer.x86_64" --log-file "$server_dir/server-engine.log" -- --config "$server_dir/server.cfg" "$@"\n')
+    default_config='' if campaign_maps else '--config "$server_dir/server.cfg" '
+    launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\nserver_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$server_dir/FPSloppaServer.x86_64" --log-file "$server_dir/server-engine.log" -- '+default_config+'"$@"\n')
     launcher.chmod(0o755)
     symbols=subprocess.check_output(['objdump','-T',str(binary)],text=True)
     abi=sorted(set(re.findall(r'\b(?:GLIBC|GLIBCXX|CXXABI)_[0-9.]+',symbols)))

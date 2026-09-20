@@ -1,0 +1,84 @@
+{
+  "scope": "One cfg master, one regional gateway, console ENet facade, four actual campaign BSP workers; 16 external protocol actors at ~20 input/snapshot cycles per second in one district, no server bots. Local desktop CPU, not a VPS certification.",
+  "elapsed_seconds": 20.04710544500267,
+  "actors": 16,
+  "resources": [
+    {
+      "service": "master",
+      "idle_core_fraction": 0.012,
+      "active_core_fraction": 0.014,
+      "rss_mib": 31.1,
+      "threads": 4,
+      "enet_core_fraction": 0.022
+    },
+    {
+      "service": "regional gateway",
+      "idle_core_fraction": 0.018,
+      "active_core_fraction": 0.109,
+      "rss_mib": 27.9,
+      "threads": 1,
+      "enet_core_fraction": 0.112
+    },
+    {
+      "service": "ENet facade",
+      "idle_core_fraction": 0.004,
+      "active_core_fraction": 0.006,
+      "rss_mib": 68.1,
+      "threads": 5,
+      "enet_core_fraction": 0.06
+    },
+    {
+      "service": "worker d40.json",
+      "idle_core_fraction": 0.014,
+      "active_core_fraction": 0.015,
+      "rss_mib": 141.9,
+      "threads": 5,
+      "enet_core_fraction": 0.143
+    },
+    {
+      "service": "worker d41.json",
+      "idle_core_fraction": 0.014,
+      "active_core_fraction": 0.26,
+      "rss_mib": 142.1,
+      "threads": 5,
+      "enet_core_fraction": 0.148
+    },
+    {
+      "service": "worker d42.json",
+      "idle_core_fraction": 0.014,
+      "active_core_fraction": 0.014,
+      "rss_mib": 140.4,
+      "threads": 5,
+      "enet_core_fraction": 0.015
+    },
+    {
+      "service": "worker d43.json",
+      "idle_core_fraction": 0.016,
+      "active_core_fraction": 0.016,
+      "rss_mib": 141.7,
+      "threads": 5,
+      "enet_core_fraction": 0.017
+    }
+  ],
+  "enet_probe": {
+    "bytes": 75431139,
+    "clients": 16,
+    "cycles": 4373,
+    "errors": [],
+    "p95_cycle_ms": 69
+  },
+  "request_cycles": 6288,
+  "cycle_p95_ms": 52.29530396172777,
+  "snapshot_mean_bytes": 17901.045801526718,
+  "snapshot_application_mbit_s": 44.91891412804808,
+  "checks": [
+    "cfg_master_and_workers",
+    "bounded_16_player_real_worker_load",
+    "VRM_upload_and_hash_download",
+    "non_VRM_rejected",
+    "static_81_district_page",
+    "persistent_ID_team_avatar_after_logout",
+    "returning_Vulkan_desktop",
+    "all_slots_released"
+  ]
+}

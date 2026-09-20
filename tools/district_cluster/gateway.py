@@ -20,6 +20,7 @@ class WorkerLink:
         self.last=time.monotonic()
         self.lock=asyncio.Lock()
         self.capture=None
+        self.player_stats={}
 
     async def write(self,message):
         async with self.lock:
@@ -43,6 +44,7 @@ class Gateway:
         self.session=secrets.token_hex(16)
         self.workers={}
         self.clients={}
+        self.client_seen={}
         self.locks={}
         self.cache={}
         self.state={'districts':{},'actors':{}}
@@ -76,11 +78,14 @@ class Gateway:
         began=time.monotonic()
         live={d:w.instance for d,w in self.workers.items() if began-w.last<2}
         captures={d:w.capture for d,w in self.workers.items() if d in live and w.capture is not None}
-        self.state=await self.control('heartbeat',workers=live,captures=captures)
+        presence=[k for k in self.clients if began-self.client_seen.get(k,0)<30]
+        self.state=await self.control('heartbeat',workers=live,captures=captures,presence=presence,
+                                      stats={d:w.player_stats for d,w in self.workers.items() if d in live})
         self.fresh=began  # Never start a fresh lease from an old delayed reply.
         for key in list(self.clients):
             if key not in self.state['actors']:
                 self.clients.pop(key,None);self.budgets.pop((key,'input'),None);self.budgets.pop((key,'snapshot'),None)
+                self.client_seen.pop(key,None)
                 if key in self.locks and not self.locks[key].locked():self.locks.pop(key)
         left=2-(time.monotonic()-began)
         if left<=0:
@@ -121,6 +126,7 @@ class Gateway:
         actor=self.state['actors'].get(key)
         if actor is None or actor['gateway']!=self.name:
             raise ValueError('Actor moved; reconnect to its owning gateway')
+        self.client_seen[key]=time.monotonic()
         return actor
 
     def rate_limit(self,key,kind,rate,burst):
@@ -164,7 +170,8 @@ class Gateway:
                         continue
                     # Encode once per district frame; recipients receive identical bytes.
                     actors={k:a['generation'] for k,a in self.state['actors'].items() if a.get('district')==district and a['phase']=='active'}
-                    result=dict(district=district,sequence=sequence,payload=payload,actors=actors,campaign=self.state.get('campaign'))
+                    result=dict(district=district,sequence=sequence,payload=payload,actors=actors)
+                    result['avatars']={str(a['id']):a.get('avatar','') for a in self.state['actors'].values() if a.get('district')==district}
                     self.cache[district]=dict(sequence=sequence,at=time.monotonic(),bytes=encode({'result':result}))
                     self.stats['snapshot_encodes']+=1
                 elif message.get('op')=='capture':
@@ -173,6 +180,10 @@ class Gateway:
                     if type(data.get('sequence')) is not int:raise ValueError('Invalid capture sequence')
                     if link.capture is None or data['sequence']>link.capture['sequence']:
                         link.capture=dict(data,received_at=time.time())
+                elif message.get('op')=='stats':
+                    values=message.get('actors')
+                    if not isinstance(values,dict) or len(values)>16:raise ValueError('Invalid statistics frame')
+                    link.player_stats=values
         finally:
             if self.workers.get(district) is link:
                 del self.workers[district]
@@ -219,6 +230,9 @@ class Gateway:
                     self.state['actors'][key]=actor
                     raise
                 payload=frozen['payload']
+                if self.state.get('campaign') and frozen.get('stats'):
+                    self.workers[source].player_stats[key]=dict(frozen['stats'],generation=actor['generation'])
+                    await self.refresh()
                 if not isinstance(payload,str) or len(payload)>512000:
                     raise ValueError('Invalid migration payload')
                 digest=hashlib.sha256(payload.encode()).hexdigest()
@@ -256,12 +270,14 @@ class Gateway:
             key,resume=message.get('identity',secrets.token_hex(16)),message.get('resume',secrets.token_hex(32))
             actor=await self.control('join',actor=key,resume=resume,district=message.get('district'),name=message.get('name','Player'),team=message.get('team'))
             self.clients[key]=resume;self.state['actors'][key]=actor
+            self.client_seen[key]=time.monotonic()
             return dict(identity=key,resume=resume,actor=actor,gateway=self.config['gateways'][actor['gateway']]['address'])
         if op=='resume':
             actor=await self.control('locate',actor=message.get('actor'),resume=message.get('resume'))
             if actor['gateway']!=self.name:
                 return dict(redirect=self.config['gateways'][actor['gateway']]['address'],actor=actor)
             self.clients[message['actor']]=message['resume'];self.state['actors'][message['actor']]=actor
+            self.client_seen[message['actor']]=time.monotonic()
             return actor
         actor=self.actor(message)
         if op=='status':
@@ -279,14 +295,28 @@ class Gateway:
             if actor['phase'] not in ('active','waiting'):
                 raise ValueError('Resolve transfer first')
             if actor['district'] is not None:
+                if self.state.get('campaign'):
+                    # Commit final worker-owned counters before retirement.
+                    try:
+                        final=await self.local(actor['district'],'player_stats',id=actor['id'],generation=actor['generation'])
+                        self.workers[actor['district']].player_stats[message['actor']]=dict(final,generation=actor['generation'])
+                        await self.refresh()
+                    except ValueError as error:
+                        # Logout may precede the worker's first grant. Retire
+                        # still fences this generation before releasing its slot.
+                        if 'Actor generation not active' not in str(error):raise
                 await self.local(actor['district'],'retire',id=actor['id'],generation=actor['generation'])
             result=await self.control('leave',actor=message['actor'],resume=message['resume'])
             self.clients.pop(message['actor'],None);self.state['actors'].pop(message['actor'],None);self.locks.pop(message['actor'],None)
+            self.client_seen.pop(message['actor'],None)
             return result
         if op=='respawn':
             if actor['phase']!='active':raise ValueError('Actor is not resident')
             if self.state.get('campaign'):
                 await self.local(actor['district'],'check_dead',id=actor['id'],generation=actor['generation'])
+                final=await self.local(actor['district'],'player_stats',id=actor['id'],generation=actor['generation'])
+                self.workers[actor['district']].player_stats[message['actor']]=dict(final,generation=actor['generation'])
+                await self.refresh()
                 actor=await self.control('wait',actor=message['actor'],resume=message['resume'])
                 self.state['actors'][message['actor']]=actor
                 await self.refresh()

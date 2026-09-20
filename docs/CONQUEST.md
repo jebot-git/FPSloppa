@@ -1,6 +1,6 @@
 # CQ — CONQUEST experimental base
 
-**Current default:** [81-district campaign](CAMPAIGN-81.md), 128 players globally and 16 per district. The remaining document describes the explicit legacy 16-district prototype and its historical tests.
+**Current default:** [81-district campaign](CAMPAIGN-81.md), 128 players globally and 16 per district. The remaining document is a historical record of the retired 16-district prototype. Its launch commands no longer apply; use the [CQ-only live deployment](CQ-LIVE-DEPLOYMENT.md).
 
 CQ is a playable, isolated experimental mode on the baked nighttime Vesper city. It uses the existing authoritative server and normal ENet input/prediction, with a separate launch profile and protocol. **The independent district-worker prototype is not the backend of this implementation.** Whole-map simulation and replication still run in one authority; the worker handoff, interest management and recovery work described in [the integration assessment](DISTRICT-SERVER-INTEGRATION.md) remains outstanding. The 64-player setting is an experimental admission ceiling, not a tested claim of 64-human or VR performance.
 

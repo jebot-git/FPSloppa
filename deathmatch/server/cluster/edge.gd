@@ -8,6 +8,8 @@ var inflight: Dictionary={}
 var server:=false
 func host(settings: Dictionary) -> Error:
 	backend=settings.backend;routes=settings.routes
+	# Clients talk only to their gateway; peer relay and roster broadcasts are unused.
+	multiplayer.server_relay=false
 	var peer:=ENetMultiplayerPeer.new();peer.set_bind_ip(settings.listen[0])
 	var error:=peer.create_server(int(settings.listen[1]),192,3)
 	if error!=OK:return error
@@ -32,6 +34,9 @@ func _request(request_id: int,bytes: PackedByteArray) -> void:
 	inflight[sender]=int(inflight.get(sender,1))-1
 	if inflight[sender]==0:inflight.erase(sender)
 	if sender not in multiplayer.get_peers():return
+	# ENet can retire the transport before SceneMultiplayer drops its peer ID.
+	var transport: ENetPacketPeer=multiplayer.multiplayer_peer.get_peer(sender)
+	if not transport or transport.get_state()!=ENetPacketPeer.STATE_CONNECTED or transport.get_channels()==0:return
 	if body.op=="snapshot":_snapshot.rpc_id(sender,request_id,result)
 	else:
 		# Public reconnection addresses must identify the destination ENet facade.

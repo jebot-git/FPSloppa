@@ -29,13 +29,15 @@ var journal:=""
 var campaign: Dictionary={}
 var last_capture:=0
 var capture_sequence:=0
+var last_stats:=0
+const VIEW_STATE=["name","team","hp","armor","dead","weapon","ammo","owned","yaw","pitch","last_seq","fire","kills","deaths","serial"]
 func no_fire() -> bool:return metadata.get("campaign_role","")=="hub"
 func setup(arena,args: PackedStringArray) -> void:
 	game=arena;game.district_worker=self;game.set_process(false);game.set_physics_process(false)
 	var value=JSON.parse_string(FileAccess.get_file_as_string(game._arg_value(args,"--cluster-worker","")))
 	if not value is Dictionary or not value.has_all(["district","map_slot","address","token","state_dir"]):get_tree().quit(2);return
 	config=value;zone=int(config.map_slot)
-	if zone!=game._arg_int(args,"--cq-worker",-1) or zone not in range(16) or config.address[0]!="127.0.0.1" or not game.cq_maps.enabled:get_tree().quit(2);return
+	if zone!=game._arg_int(args,"--cq-worker",-1) or zone not in range(16) or not game.cq_maps.enabled:get_tree().quit(2);return
 	instance=Crypto.new().generate_random_bytes(16).hex_encode()
 	DirAccess.make_dir_recursive_absolute(config.state_dir);journal=config.state_dir+"/transfers.dat"
 	if FileAccess.file_exists(journal):
@@ -44,6 +46,9 @@ func setup(arena,args: PackedStringArray) -> void:
 	boot.call_deferred()
 func boot() -> void:
 	Engine.max_fps=60;Engine.physics_ticks_per_second=60
+	game.lobby.enabled=false;game.votes.enabled=false;game.votes.allowed_modes=["cq"]
+	game.map_uploads=false;game.bot_population.target=0;game.bot_population.count_target=0
+	game.match_mode.configure({"sv_gametype":"cq"})
 	game.armory.select("ut99");game.selected_map=game.match_mode.conquest.MAP_ID
 	game.dedicated=true;game.max_clients=16;game.start_host("Persistent district",0,100,60,true)
 	if not game.active:get_tree().quit(2);return
@@ -60,6 +65,24 @@ func persist() -> bool:
 func event(method: String,args: Array) -> void:
 	if events.size()<256:events.append([method,args])
 func request_respawn(_id: int) -> bool:return true # Explicit worker-validated cluster respawn.
+func frozen_response(row: Dictionary) -> Dictionary:
+	var saved: Dictionary=bytes_to_var(Marshalls.base64_to_raw(row.payload))
+	return {"payload":row.payload,"stats":{"kills":saved.state.kills,"deaths":saved.state.deaths}}
+func client_snapshot() -> Dictionary:
+	# Migration retains complete State.actor data. View replication contains only
+	# presentation/gameplay fields; no TF tools, melee internals or server timers.
+	var actors: Array=[];var items: Array=[];var projectiles: Array=[]
+	for id in game.players:
+		var state: Dictionary={}
+		for field in VIEW_STATE:state[field]=game.players[id][field]
+		actors.append({"id":id,"state":state,"position":game.fighters[id].position,"velocity":game.fighters[id].velocity,"body":{"jetpack_state":game.fighters[id].jetpack_state}})
+	for item in game.pickups:items.append({"available":item.available,"respawn":maxf(0,item.respawn-game.clock)})
+	for id in game.projectiles:
+		var source: Dictionary=game.projectiles[id];var row: Dictionary={"id":id}
+		for key in ["position","velocity","weapon","owner"]:
+			if source.has(key):row[key]=source[key]
+		projectiles.append(row)
+	return {"schema":1,"zone":zone,"sequence":sequence,"clock":game.clock,"actors":actors,"pickups":items,"projectiles":projectiles}
 func send(message: Dictionary) -> void:
 	var bytes:=(JSON.stringify(message)+"\n").to_utf8_buffer()
 	if bytes.size()>1048576 or outgoing.size()+bytes.size()>2097152:socket.disconnect_from_host();return
@@ -97,10 +120,15 @@ func reconcile() -> void:
 			if row.is_empty():
 				if game.players.size()>=16:continue
 				game.players[id]=game._new_state(a.name,id);game._create_fighter(id);game._spawn(id)
+				game.players[id].kills=int(a.get("stats",{}).get("kills",0));game.players[id].deaths=int(a.get("stats",{}).get("deaths",0))
 				if config.has("spawn"):game.fighters[id].position=Rules.center(zone)+Vector3(config.spawn[0],config.spawn[1],config.spawn[2])
 			else:
 				if game.players.size()>=16:continue
 				State.restore(game,row)
+			# Persistent counters take precedence over an old transfer journal on
+			# worker restart. The source flushes its frozen counters before commit.
+			game.players[id].kills=int(a.get("stats",{}).get("kills",game.players[id].kills))
+			game.players[id].deaths=int(a.get("stats",{}).get("deaths",game.players[id].deaths))
 		generations[id]=int(a.generation);game.players[id].cq_wait_input=false
 		if a.has("team"):game.players[id].team=int(a.team)
 		if no_fire():game.players[id].fire=false;game.players[id].offhand_fire=false;game.players[id].melee=false
@@ -143,7 +171,7 @@ func command(m: Dictionary) -> void:
 		if not persist():reject(m,"Cannot persist prepared state");return
 		reply(m,{"prepared":true});return
 	if op=="freeze":
-		if escrow.has(m.tx):reply(m,{"payload":escrow[m.tx].payload});return
+		if escrow.has(m.tx):reply(m,frozen_response(escrow[m.tx]));return
 		if not game.players.has(id) or generations.get(id,-1)!=int(m.generation):reject(m,"Actor generation not resident");return
 		var exit_point:=Rules.center(zone)+Vector3(m.exit[0],m.exit[1],m.exit[2])
 		if game.fighters[id].position.distance_to(exit_point)>(3 if m.get("terminal",false) else 8):reject(m,"Actor is not at the gate");return
@@ -151,7 +179,7 @@ func command(m: Dictionary) -> void:
 		var payload:=Marshalls.raw_to_base64(var_to_bytes(transfer))
 		escrow[m.tx]={"id":id,"payload":payload,"generation":m.generation}
 		if not persist():escrow.erase(m.tx);reject(m,"Cannot persist source escrow");return
-		clear_actor(id);reply(m,{"payload":payload});return
+		clear_actor(id);reply(m,frozen_response(escrow[m.tx]));return
 	if op in ["release","retire"]:
 		if int(generations.get(id,0))>int(m.get("generation",-1)):reject(m,"Stale retirement generation");return
 		retired[id]=int(m.get("generation",0));clear_actor(id)
@@ -159,6 +187,8 @@ func command(m: Dictionary) -> void:
 		if not persist():reject(m,"Cannot persist retirement");return
 		reply(m,{"released":true});return
 	if not game.players.has(id) or generations.get(id,-1)!=int(m.get("generation",-2)):reject(m,"Actor generation not active");return
+	if op=="player_stats":
+		reply(m,{"kills":game.players[id].kills,"deaths":game.players[id].deaths});return
 	if op=="check_dead":
 		if not game.players[id].dead:reject(m,"Living actor cannot respawn");return
 		reply(m,{"dead":true});return
@@ -207,9 +237,16 @@ func _physics_process(delta: float) -> void:
 			p.x=clampf(p.x,-124,124);p.z=clampf(p.z,-124,124);game.fighters[id].position=Rules.center(zone)+p
 	if now-last_snapshot>=50:
 		last_snapshot=now;sequence+=1
-		var snapshot:=State.snapshot(game,zone,sequence)
+		var snapshot:=client_snapshot()
 		snapshot.events=events;events=[]
 		send({"op":"snapshot","sequence":sequence,"payload":Marshalls.raw_to_base64(var_to_bytes(snapshot))})
+	if now<until and now-last_stats>=5000:
+		last_stats=now
+		var stats: Dictionary={}
+		for key in grants:
+			var a: Dictionary=grants[key];var id:=int(a.id)
+			if a.get("district")==config.district and a.phase=="active" and game.players.has(id):stats[key]={"generation":int(a.generation),"kills":game.players[id].kills,"deaths":game.players[id].deaths}
+		send({"op":"stats","actors":stats})
 	if now<until and now-last_capture>=200 and int(metadata.get("threshold",0))>0:
 		last_capture=now;capture_sequence+=1
 		var occupants: Dictionary={};var center: Array=metadata.capture

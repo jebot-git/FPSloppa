@@ -47,6 +47,13 @@ async def run(binary,out):
         assert sum(r['phase']=='waiting' for r in results)==8
         left=await call(0,'status');right=await call(1,'status')
         assert left==right
+        # Profile archive and live admission share the same CAS transaction.
+        await call(0,'leave',actor='a0',resume='s0')
+        try:await call(1,'join',actor='a0',resume='wrong',district='d00')
+        except ValueError:pass
+        else:raise AssertionError('Persistent ID accepted the wrong secret')
+        returned=await call(1,'join',actor='a0',resume='s0',district='d00',name='Changed')
+        assert returned['id']==results[0]['id'] and returned['name']=='HA' and returned['generation']==2
         # Campaign clock shares the same CAS: concurrent frontends crossing UTC
         # midnight must publish one result and one reset, never duplicate points.
         campaign_state=initial(atlas());campaign.advance(campaign_state,86390)
@@ -84,7 +91,7 @@ async def run(binary,out):
         try:await call(1,'join',actor='partition',resume='partition',district='d01',name='No quorum')
         except (OSError,ValueError):rejected=True
         assert rejected
-        return dict(scope='Three actual local etcd processes and two coordinator frontends; functional failover, not throughput or geographic certification.',checks=['concurrent_CAS_capacity_16','two_frontends_identical_state','concurrent_UTC_award_exactly_once','campaign_reset_survives_leader_loss','leader_and_frontend_failure_survived','committed_actors_retained','quorum_loss_rejects_mutation'])
+        return dict(scope='Three actual local etcd processes and two coordinator frontends; functional failover, not throughput or geographic certification.',checks=['concurrent_CAS_capacity_16','persistent_profile_atomic_rejoin_and_secret_check','two_frontends_identical_state','concurrent_UTC_award_exactly_once','campaign_reset_survives_leader_loss','leader_and_frontend_failure_survived','committed_actors_retained','quorum_loss_rejects_mutation'])
     finally:
         for server in servers:server.close();await server.wait_closed()
         for process in processes:

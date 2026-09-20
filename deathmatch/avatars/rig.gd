@@ -167,9 +167,9 @@ func build_animations() -> void:
 	motion.play("idle")
 
 var weapon_rules:="doom"
-func set_weapon(value: int) -> void:
+func set_weapon(value: int, rules_override: String="") -> void:
 	var arena=get_parent().get_parent() if get_parent() else null
-	var rules: String=arena.match_mode.fortress.art_rules(get_parent().peer_id,value) if arena and "armory" in arena else "doom"
+	var rules: String=rules_override if not rules_override.is_empty() else arena.match_mode.fortress.art_rules(get_parent().peer_id,value) if arena and "armory" in arena else "doom"
 	if value==weapon_id and rules==weapon_rules:return
 	weapon_rules=rules
 	weapon_id = value

@@ -2,10 +2,6 @@
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
 case "${1:-}" in
-  --legacy)
-    shift
-    exec ./launch-conquest-legacy.sh "$@"
-    ;;
   --server)
     shift
     exec python3 -m tools.district_cluster.local "$@"
@@ -14,7 +10,6 @@ case "${1:-}" in
     echo 'CQ: 81 districts, 128 players total, 16 per district.'
     echo 'Server: ./launch-conquest.sh --server [--state-dir PATH] [--districts d13 d40]'
     echo 'Client: ./launch-conquest.sh [private-client.json]'
-    echo 'Legacy 16-district prototype: ./launch-conquest.sh --legacy [--district-maps] [--server|ADDRESS]'
     ;;
   *)
     if (( $# == 0 )); then set -- "$PWD/test-results/cq-campaign/client.json"; fi

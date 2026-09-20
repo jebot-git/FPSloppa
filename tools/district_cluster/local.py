@@ -4,7 +4,6 @@ import asyncio
 import json
 import os
 from pathlib import Path
-import shutil
 import signal
 import subprocess
 import sys
@@ -43,8 +42,19 @@ async def ready(settings, districts, processes, timeout=120, markers=()):
             await asyncio.sleep(.25)
             continue
         try:
-            state = await rpc(settings['coordinators'][0], dict(op='status', token=settings['admin_token']))
-            if not campaign.enabled(state) or state['player_limit'] != 128:
+            tokens=([settings['gateways'][g]['token'] for g in settings['local_gateways']]
+                    if settings.get('local_gateways') else [settings['admin_token']])
+            state=None
+            for token in tokens:
+                part=None
+                for address in settings['coordinators']:
+                    try:
+                        part=await rpc(address,dict(op='status',token=token));break
+                    except (OSError,TimeoutError):continue
+                if part is None:raise ConnectionError('No master available')
+                if state is None:state=part
+                else:state['districts'].update(part['districts'])
+            if not state.get('campaign') or state['player_limit'] != 128:
                 raise RuntimeError('Existing coordinator database is not a CQ campaign; use a separate state directory')
             if all(state['districts'][d]['online'] for d in districts):
                 return
@@ -69,26 +79,22 @@ def run(args):
     binary = args.binary.resolve()
     if not binary.is_file():
         raise ValueError('Build the campaign worker package first; see docs/CAMPAIGN-81.md')
-    engine = shutil.which(os.environ.get('GODOT_BIN', 'godot'))
-    if engine is None:
-        raise ValueError('Godot is required for the ENet client gateways')
     gateways = sorted({settings['districts'][d]['gateway'] for d in districts})
     routes = {f"{g['address'][0]}:{g['address'][1]}": [g['address'][0], g['address'][1]+100]
               for g in settings['gateways'].values()}
     client_district = 'd40' if 'd40' in districts else districts[0]
     address = settings['gateways'][settings['districts'][client_district]['gateway']]['address']
     private(root / 'client.json', dict(address=[address[0], address[1]+100],
-            district=client_district, token=settings['client_token'], team=0, name='CQ Explorer'))
+            district=client_district, token=settings['client_token'], campaign_id=settings['campaign_id'], team=0, name='CQ Explorer', content_url=f'http://127.0.0.1:{args.base_port+200}'))
     commands = [('coordinator', [sys.executable, '-m', 'tools.district_cluster', 'coordinator',
-        '--config', str(path), '--database', str(root / 'control.sqlite')])]
+        '--config', str(path), '--database', str(root / 'control.sqlite'), '--status-file', str(root/'www/index.html'), '--content-listen', f'127.0.0.1:{args.base_port+200}', '--content-root',str(root/'vrm'),'--worker-binary',str(binary)])]
     for gateway in gateways:
         commands.append((gateway, [sys.executable, '-m', 'tools.district_cluster', 'gateway',
             '--config', str(path), '--name', gateway, '--wait-lease']))
         address = settings['gateways'][gateway]['address']
         edge = root / (gateway + '-edge.json')
         private(edge, dict(backend=address, listen=[address[0], address[1]+100], routes=routes))
-        commands.append((gateway+'-edge', [engine, '--headless', '--xr-mode', 'off', '--path', str(ROOT),
-            '--script', 'tools/district_cluster/edge_main.gd', '--', str(edge)]))
+        commands.append((gateway+'-edge', [str(binary), '--', '--cq-service', 'edge', '--config', str(edge)]))
     for district in districts:
         row = settings['districts'][district]
         worker = root / (district + '.json')
@@ -140,7 +146,7 @@ def run(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--state-dir', type=Path, default=ROOT/'test-results/cq-campaign')
-    parser.add_argument('--binary', type=Path, default=ROOT/'Builds/Campaign81/FPSloppaServer.x86_64')
+    parser.add_argument('--binary', type=Path, default=ROOT/'Builds/CQLive/FPSloppaServer.x86_64')
     parser.add_argument('--base-port', type=int, default=41000)
     parser.add_argument('--districts', nargs='+', help='Run only these workers; atlas and campaign remain 81 districts')
     args = parser.parse_args()

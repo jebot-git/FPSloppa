@@ -25,6 +25,9 @@ var bodies: Dictionary={}
 var last_travel:=0
 var health:=100
 var weapon:=2
+var identity: Dictionary={}
+var avatars
+var avatar_hashes: Dictionary={}
 class Controls extends Node:
 	var client
 	func _input(event: InputEvent) -> void:client.handle_input(event)
@@ -65,7 +68,7 @@ func load_district() -> void:
 		var builder:=preload("res://deathmatch/server/cluster/campaign_visuals.gd").new();level.add_child(builder)
 		builder.box_at("Floor",Vector3(0,-.1,0),Vector3(12,.2,12),Color(.09,.12,.18))
 		for p in [Vector3(0,2,-6),Vector3(-6,2,0),Vector3(6,2,0)]:builder.box_at("Wall"+str(p),p,Vector3(12 if p.z!=0 else .2,4,.2 if p.z!=0 else 12),Color(.05,.07,.11))
-		builder.label_at("Waiting","REINFORCEMENT RESERVE\nWaiting for a free slot in a controlled district",Vector3(0,2,-4),32)
+		builder.label_at("Waiting","REINFORCEMENT RESERVE\nWaiting for an allied or neutral district slot",Vector3(0,2,-4),32)
 		camera.position=Vector3(0,1.7,3);camera.rotation=Vector3.ZERO;return
 	label.text="Loading "+district
 	var path:="res://maps/CampaignDistricts/district_%02d/presentation.scn"%int(district.substr(1))
@@ -81,6 +84,19 @@ func run() -> void:
 	var args:=OS.get_cmdline_user_args()
 	if args.is_empty():push_error("Provide a private cluster client JSON file");quit(2);return
 	settings=JSON.parse_string(FileAccess.get_file_as_string(args[0]))
+	if not settings is Dictionary:push_error("Invalid CQ client configuration");quit(2);return
+	var identity_path: String=settings.get("identity_file","user://cq_identity_"+str(settings.get("campaign_id",str(settings.get("token","")).sha256_text().substr(0,16)))+".json")
+	if FileAccess.file_exists(identity_path):
+		var parsed=JSON.parse_string(FileAccess.get_file_as_string(identity_path))
+		if not parsed is Dictionary:push_error("Invalid saved CQ identity");quit(2);return
+		identity=parsed
+	else:
+		identity={"actor":Crypto.new().generate_random_bytes(16).hex_encode(),"resume":Crypto.new().generate_random_bytes(32).hex_encode()}
+		var saved:=FileAccess.open(identity_path,FileAccess.WRITE)
+		if saved==null:push_error("Cannot save persistent CQ identity");quit(2);return
+		saved.store_string(JSON.stringify(identity));saved.close()
+		FileAccess.set_unix_permissions(identity_path,FileAccess.UNIX_READ_OWNER|FileAccess.UNIX_WRITE_OWNER)
+	if not identity is Dictionary or not identity.has_all(["actor","resume"]):push_error("Invalid saved CQ identity");quit(2);return
 	root.add_child(world);world.add_child(camera);camera.current=true;camera.far=400;camera.fov=85
 	var controls:=Controls.new();controls.client=self;root.add_child(controls)
 	auto_accept_quit=false;root.close_requested.connect(close_client)
@@ -88,9 +104,13 @@ func run() -> void:
 	var canvas:=CanvasLayer.new();root.add_child(canvas);canvas.add_child(label);label.position=Vector2(20,16);label.add_theme_color_override("font_shadow_color",Color.BLACK);label.add_theme_constant_override("shadow_offset_x",2);label.add_theme_constant_override("shadow_offset_y",2)
 	edge=preload("res://deathmatch/server/cluster/edge.gd").new();edge.name="ClusterEdge";root.add_child(edge);edge.response.connect(func(id,body):replies[id]=body)
 	if not await connect_region(settings.address):push_error("Cannot connect to campaign gateway");quit(3);return
-	var joined:=await invoke({"op":"join","identity":Crypto.new().generate_random_bytes(16).hex_encode(),"resume":Crypto.new().generate_random_bytes(32).hex_encode(),"token":settings.token,"district":settings.get("district","d40"),"name":settings.get("name","Campaign Explorer"),"team":int(settings.get("team",0))})
+	var joined:=await invoke({"op":"join","identity":identity.actor,"resume":identity.resume,"token":settings.token,"district":settings.get("district","d40"),"name":settings.get("name","Campaign Explorer"),"team":int(settings.get("team",0))})
 	if joined.has("error"):push_error(joined.error);quit(3);return
 	auth={"actor":joined.result.identity,"resume":joined.result.resume};await follow(joined.result)
+	avatars=preload("res://tools/district_cluster/client_avatar.gd").new();root.add_child(avatars);avatars.setup(str(settings.get("content_url","")))
+	if not str(settings.get("vrm","")).is_empty():
+		var error: String=await avatars.upload(settings.vrm,auth)
+		if not error.is_empty():push_warning(error)
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED;Engine.max_fps=120
 	input_loop();status_loop();snapshot_loop()
 	if settings.has("smoke_output"):smoke()
@@ -98,10 +118,16 @@ func smoke() -> void:
 	await create_timer(4).timeout
 	if not have_eye or not status.get("campaign") is Dictionary or not level.has_node("CampaignVisuals"):push_error("Campaign desktop state unavailable");quit(4);return
 	busy=true;have_eye=false;camera.position=Vector3(8,4,4);camera.look_at(Vector3(0,4,-20))
+	var custom_count:=0
+	for body in bodies.values():
+		if body.has_meta("avatar"):
+			custom_count+=1
+			if settings.get("require_avatar",false):camera.position=body.position+Vector3(3,2.2,4);camera.look_at(body.position+Vector3.UP*.9)
+	if settings.get("require_avatar",false) and custom_count==0:push_error("Remote custom VRM was not instantiated");quit(4);return
 	for frame in 5:await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(settings.smoke_output)
-	await request("leave");print("CAMPAIGN_DESKTOP_SMOKE ",JSON.stringify({"district":district,"campaign":status.campaign.epoch,"scoreboard":true}));quit()
+	await request("leave");print("CAMPAIGN_DESKTOP_SMOKE ",JSON.stringify({"district":district,"campaign":status.campaign.epoch,"scoreboard":true,"custom_avatars":custom_count}));quit()
 func close_client() -> void:
 	busy=true
 	if not auth.is_empty():await request("leave")
@@ -146,6 +172,7 @@ func snapshot_loop() -> void:
 		if not busy and actor.get("phase")=="active":
 			var reply:=await request("snapshot")
 			if reply.has("result") and reply.result.district==district:
+				avatar_hashes=reply.result.get("avatars",{})
 				var data=bytes_to_var(Marshalls.base64_to_raw(reply.result.payload))
 				if data is Dictionary:update_snapshot(data)
 		await create_timer(.05).timeout
@@ -154,6 +181,7 @@ func update_snapshot(data: Dictionary) -> void:
 	for row in data.actors:
 		var id:=int(row.id);var p: Vector3=row.position-origin
 		if id==int(actor.id):
+			input_sequence=maxi(input_sequence,int(row.state.get("last_seq",-1)))
 			health=int(row.state.hp);target_eye=p+Vector3.UP*1.55
 			if not have_eye:camera.position=target_eye;yaw=float(row.state.yaw);pitch=float(row.state.pitch);have_eye=true
 			if not row.state.dead and Time.get_ticks_msec()-last_travel>1500:
@@ -164,10 +192,22 @@ func update_snapshot(data: Dictionary) -> void:
 			continue
 		if row.state.dead:continue
 		visible[id]=true
+		var hash: String=avatar_hashes.get(str(id),"")
+		if is_instance_valid(avatars) and not hash.is_empty() and (not bodies.has(id) or bodies[id].get_meta("avatar","")!=hash):
+			var custom: Node3D=avatars.create(hash)
+			if custom:
+				if bodies.has(id):bodies[id].free()
+				var holder:=Node3D.new();world.add_child(holder);holder.add_child(custom);holder.set_meta("avatar",hash);bodies[id]=holder
+				var tag:=Label3D.new();tag.text="●";tag.modulate=Color(1,.2,.25) if int(row.state.team)==0 else Color(.15,.5,1);tag.position=Vector3(0,1.95,0);tag.font_size=24;tag.billboard=BaseMaterial3D.BILLBOARD_ENABLED;holder.add_child(tag)
 		if not bodies.has(id):
 			var mesh:=MeshInstance3D.new();var box:=BoxMesh.new();box.size=Vector3(.7,1.65,.6);mesh.mesh=box
 			var material:=StandardMaterial3D.new();material.albedo_color=Color(1,.15,.2) if int(row.state.team)==0 else Color(.1,.45,1);mesh.material_override=material;world.add_child(mesh);bodies[id]=mesh
-		bodies[id].position=p+Vector3.UP*.825
+		bodies[id].position=p+(Vector3.UP*.825 if bodies[id] is MeshInstance3D else Vector3.ZERO)
+		bodies[id].rotation.y=float(row.state.yaw)
+		if bodies[id].has_meta("avatar"):
+			var rig=bodies[id].get_child(0)
+			rig.set_weapon(int(row.state.weapon),"ut99")
+			rig.aim_pitch=float(row.state.pitch)
 	for id in bodies.keys():
 		if not visible.has(id):bodies[id].free();bodies.erase(id)
 func travel(target: String) -> void:

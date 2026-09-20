@@ -77,6 +77,7 @@ class FixtureWorker:
             self.retired[m['id']]=self.grants.get(m.get('actor',key),{}).get('generation',1);return {'retired':True}
         actor=self.actors.get(key)
         if actor is None or actor['generation']!=m.get('generation'):raise ValueError('Actor generation not active')
+        if op=='player_stats':return dict(kills=actor.get('kills',0),deaths=actor.get('deaths',0))
         if op=='respawn':
             if actor['hp']>0:raise ValueError('Living actor cannot respawn')
             actor['hp']=100;return {'respawned':True}

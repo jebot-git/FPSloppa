@@ -2,6 +2,8 @@
 import argparse
 import asyncio
 import json
+import threading
+from urllib.parse import urlparse
 from pathlib import Path
 from . import config,model
 from .coordinator import Coordinator
@@ -24,7 +26,7 @@ async def run(args):
         config.write_private(args.output,dict(backend=address,listen=[address[0],address[1]+100],routes=routes));return
     if args.role=='client-config':
         row=settings['districts'][args.district];address=settings['gateways'][row['gateway']]['address']
-        config.write_private(args.output,dict(address=[address[0],address[1]+100],district=args.district,token=settings['client_token'],team=args.team,name=args.player_name));return
+        config.write_private(args.output,dict(address=[address[0],address[1]+100],district=args.district,token=settings['client_token'],campaign_id=settings['campaign_id'],team=args.team,name=args.player_name));return
     if args.role=='worker-config':
         district=settings['districts'][args.district]
         value=dict(district=args.district,map_slot=district['map_slot'],address=settings['gateways'][district['gateway']]['address'],token=settings['worker_tokens'][args.district],state_dir=str((Path(args.state_dir)/args.district).resolve()))
@@ -32,15 +34,22 @@ async def run(args):
         config.write_private(args.output,value)
         return
     if args.role=='coordinator':
+        if args.status_file:settings['status_file']=args.status_file
         state=model.initial(settings['districts'],settings['waiting_limit'])
         if args.etcd:
-            if any(not e.startswith('http://127.0.0.1:') for e in args.etcd):raise ValueError('Tunnel etcd endpoints to loopback')
+            if any(urlparse(e).scheme!='http' or not config.private_host(urlparse(e).hostname or '') for e in args.etcd):raise ValueError('etcd must use private WireGuard or loopback endpoints')
             store=EtcdStore(args.etcd,args.key,state)
         else:
             Path(args.database).parent.mkdir(parents=True,exist_ok=True)
             store=SQLiteStore(args.database,state)
         service=Coordinator(settings,store)
         server=await service.start(settings['coordinators'][args.index])
+        if args.content_listen:
+            from .content import server as content_server
+            host,port=args.content_listen.rsplit(':',1)
+            if not config.private_host(host):raise ValueError('Content service must bind a private address; use a TLS proxy for public HTTP')
+            http=content_server([host,int(port)],store,args.content_root,args.worker_binary,args.status_file)
+            threading.Thread(target=http.serve_forever,daemon=True).start()
     else:
         service=Gateway(settings,args.name)
         deadline=asyncio.get_running_loop().time()+model.LEASE+3
@@ -77,6 +86,10 @@ def main():
     parser.add_argument('--state-dir',default='test-results/district-cluster/worker')
     parser.add_argument('--output',default='test-results/district-cluster/worker.json')
     parser.add_argument('--request')
+    parser.add_argument('--status-file')
+    parser.add_argument('--content-listen')
+    parser.add_argument('--content-root',default='test-results/cq-content/vrm')
+    parser.add_argument('--worker-binary',default='Builds/CQLive/FPSloppaServer.x86_64')
     args=parser.parse_args()
     try:asyncio.run(run(args))
     except KeyboardInterrupt:pass

@@ -1,8 +1,17 @@
 import json
 import os
 import secrets
+import ipaddress
+import hashlib
 from pathlib import Path
 from .model import topology
+
+
+def private_host(host):
+    try:
+        address=ipaddress.ip_address(host)
+        return address.is_loopback or any(address in ipaddress.ip_network(net) for net in ('10.0.0.0/8','172.16.0.0/12','192.168.0.0/16'))
+    except ValueError:return False
 
 
 def grid(count,base_port=41000):
@@ -24,7 +33,7 @@ def grid(count,base_port=41000):
 
 def campaign(base_port=41000):
     from .world import atlas
-    config=grid(81,base_port);config['districts']=atlas();topology(config['districts']);return config
+    config=grid(81,base_port);config['districts']=atlas();config['campaign_id']=secrets.token_hex(16);topology(config['districts']);return config
 
 
 def write_private(path,value):
@@ -38,10 +47,11 @@ def write_private(path,value):
 def read(path):
     config=json.loads(Path(path).read_text())
     if config.get('protocol')!='fpsloppa-persistent-cluster-1':raise ValueError('Cluster protocol mismatch')
+    config.setdefault('campaign_id',hashlib.sha256(config['client_token'].encode()).hexdigest()[:32])
     topology(config['districts'])
     for address in config['coordinators']+[g['address'] for g in config['gateways'].values()]:
-        if not isinstance(address,list) or len(address)!=2 or address[0]!='127.0.0.1' or type(address[1]) is not int or not 1024<=address[1]<=65535:
-            raise ValueError('Prototype endpoints must use loopback ports 1024–65535; tunnel between hosts')
+        if not isinstance(address,list) or len(address)!=2 or not private_host(address[0]) or type(address[1]) is not int or not 1024<=address[1]<=65535:
+            raise ValueError('Control endpoints must use loopback or private IPv4 ports 1024–65535; protect inter-host traffic with WireGuard')
     for key in ('admin_token','mesh_token','client_token'):
         if not isinstance(config[key],str) or len(config[key])!=64:raise ValueError('Invalid credential')
     return config
