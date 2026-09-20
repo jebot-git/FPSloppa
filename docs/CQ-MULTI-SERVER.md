@@ -1,5 +1,7 @@
 # CQ districts on separate server instances
 
+The opt-in [persistent cluster implementation](PERSISTENT-DISTRICT-CLUSTER.md) now provides regional gateways, replicated coordination and dynamic 4–64 district membership. Its separate protocol and validation limits are documented there.
+
 For scaling beyond the current topology and distributing the master itself, see the [distributed-master study](CQ-DISTRIBUTED-MASTER.md). That architecture is proposed; the implementation described here still uses one master.
 
 The experimental branch now includes an opt-in external-worker prototype. One public master owns the match; each district runs in a separate dedicated-server process, which can be placed on another host. The client connection and CQ client protocol stay unchanged.

@@ -246,6 +246,11 @@ func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
 	if args.has("--quit-after-seconds"):
 		get_tree().create_timer(maxf(.1,float(_arg_value(args,"--quit-after-seconds","10")))).timeout.connect(request_quit)
+	if args.has("--cluster-worker"):
+		if not cq_profile or not headless or not cq_maps.enabled:
+			push_error("Cluster workers require headless experimental CQ district assets.");get_tree().quit(2);return
+		district_worker=preload("res://deathmatch/server/cluster/worker.gd").new()
+		add_child(district_worker);district_worker.setup(self,args);return
 	if args.has("--cq-worker"):
 		if not cq_profile or not headless:
 			push_error("District workers require headless --experimental-cq.");get_tree().quit(2);return

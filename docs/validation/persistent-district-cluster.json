@@ -1,0 +1,160 @@
+{
+  "date": "2026-09-20",
+  "base_revision": "6a68c37",
+  "protocol": "fpsloppa-persistent-cluster-1",
+  "scope": "Functional local prototype, opt-in and independent of the shipping CQ protocol. Synthetic 64-worker test is not 1024-client combat performance certification. Game test uses two actual BSP worker processes and a headless ENet protocol client. No rendered desktop/VR session or multi-host deployment.",
+  "limits": {
+    "configured_districts": [
+      4,
+      64
+    ],
+    "district_reservations": 16,
+    "regional_workers": 4,
+    "active_slot_ceiling": 1024,
+    "default_waiting_allowance": 128
+  },
+  "source_sha256": {
+    "deathmatch/arena.gd": "fd920426ede51d5d9073d91f0edc5516e6cff08558978b58f81d780c60be5ddc",
+    "deathmatch/server/cluster/edge.gd": "e4c9583e1e7ed11b8ac031ba75eaecc4fccd782bbf68d53447ae212d598722f7",
+    "deathmatch/server/cluster/worker.gd": "fa50e1682ac21df7a62174f170c631750fdd38dea1ca23db4b36e97b24d6e573",
+    "tools/district_cluster/__init__.py": "64ade84b484f716034634f84e501a8b2f42f1cbc0a47874444b035d1479afca9",
+    "tools/district_cluster/__main__.py": "71401cd50b5aa698f25929bbcdb81cf9a0c881c4ac614e5cc019d7d206d574b1",
+    "tools/district_cluster/config.py": "00a8d1250bd4432ef4765cca6c1a34d8353ec43619591445fb8499691d68e593",
+    "tools/district_cluster/coordinator.py": "4de53f395634ae4e859ed3cac82d65e2b977fce6e7e7da95a153d65d8d50352f",
+    "tools/district_cluster/decode_snapshot.gd": "665f3bfcfdc41494f224ef8d85e27d3ba08fb5281b1f000e24d2bbfbc14f9807",
+    "tools/district_cluster/edge_client.gd": "8fe7ca9a59c4a0f743f2ef70f5d15dc78f2dab24f6ada21a175d9757df156384",
+    "tools/district_cluster/edge_main.gd": "d25172ae1428d0fe5596ad67a46beb46a3023fc8ed49201288a92b1839e09d37",
+    "tools/district_cluster/fixture_worker.py": "0d7b8121bf875a3ebe523cdcf6bc75d7bdc9feced4c0e9be0016b51d5be5e50f",
+    "tools/district_cluster/game_test.py": "e2ede789691bd3da59d14c6f5186ac128880aa67e3e951b6795eff47f56f9319",
+    "tools/district_cluster/gateway.py": "61b6eb7d6256f78288b29f9a292c383bfa985572b7f1e9b23c0f9d2a90c724d3",
+    "tools/district_cluster/ha_test.py": "ae114f74cfa519866b2a191076826ac954a17a94597ae913e2744fbc92f17883",
+    "tools/district_cluster/model.py": "6eb0da8ed4f6832b444c95d40811e7c36d12d0bcb603f8753e0804a77e82489c",
+    "tools/district_cluster/network_test.py": "590292959fab507f8fcdce0722c910549dd9048d2a00583f5f21b546679c4072",
+    "tools/district_cluster/store.py": "9783629ab50ae7e4b5332098f69f647d02fd7853fccff33a55dbd4966643abd8",
+    "tools/district_cluster/test_model.py": "c3dccf037315a2377290eb0e7b2a29b65ed318cc8e687002499cdc018f6e4a60",
+    "tools/district_cluster/topology_test.py": "aba22b4b02d73340bc0504b04be3edd3c1c4efb9358d3ff547a99f85d9fa8fa0",
+    "tools/district_cluster/transport.py": "d9e4163cfe1eb287eaa0b0eece5d2faab51bb4e4bd63240400158a38eb042c4d"
+  },
+  "binary_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+  "pack_sha256": "8f04b7e1e7d6a3c499b1e7a80082fccd7e10353d6ee204162013cfee858f2b09",
+  "etcd_version": "3.6.4",
+  "etcd_binary_sha256": "6409d0af883a8a098083c1622c011ee0586e1914c3857d2731c27d0df6933d52",
+  "unit_tests": {
+    "checks": 7,
+    "failures": 0
+  },
+  "existing_cq_capacity_regression": {
+    "checks": 24,
+    "failures": []
+  },
+  "results": {
+    "network_64": {
+      "districts": 64,
+      "gateways": 16,
+      "active_slots": 1024,
+      "checks": [
+        "all_workers_registered",
+        "cross_region_handoff_state_and_unique_owner",
+        "stale_generation_and_duplicate_input_rejected",
+        "lost_prepare_ack_holds_reservations_and_retry_recovers",
+        "16_per_district_full_world_gates_closed_waiting",
+        "district_scoped_shared_snapshots",
+        "released_slot_automatically_deploys_waiting_actor",
+        "drain_closes_incoming_gate_without_global_stop",
+        "coordinator_outage_fences_all_authority",
+        "coordinator_restart_preserves_ownership"
+      ],
+      "scope": "Actual loopback TCP services and synthetic worker payloads; no rendered or physics load certification."
+    },
+    "dynamic_topology": {
+      "scope": "Live loopback services with synthetic workers; no map-authoring or game-load claim.",
+      "checks": [
+        "hot_add_4_to_8",
+        "hot_add_8_to_64",
+        "online_worker_removal_rejected",
+        "drained_remove_64_to_4_preserves_resident",
+        "minimum_four_enforced"
+      ]
+    },
+    "godot_workers_and_enet": {
+      "scope": "Two real Godot workers loading distinct split BSP collision maps, two regional gateways; protocol clients, no desktop rendering.",
+      "checks": [
+        "BSP_worker_boot",
+        "real_input_and_double_jump",
+        "cross_gateway_state_handoff",
+        "destination_input",
+        "return_handoff_same_actor_id",
+        "explicit_logout",
+        "ENet_join_input_snapshot_logout"
+      ],
+      "handoff_seconds": 0.13593957596458495,
+      "source_payload_bytes": 5868,
+      "destination_payload_bytes": 5868,
+      "source_state": [
+        {
+          "hp": 100,
+          "id": 1000,
+          "jetpack": {
+            "activation": 1,
+            "age": 0.183333333333333,
+            "cooldown": 7.83333333333333,
+            "distance": 0.0,
+            "heading": "(0.0, 0.0)",
+            "mode": 2,
+            "tap": 0.0,
+            "time": 0.850000000000001
+          },
+          "position": [
+            -255.0,
+            2.40633749961853,
+            -375.0
+          ],
+          "sequence": 5
+        }
+      ],
+      "destination_state": [
+        {
+          "hp": 100,
+          "id": 1000,
+          "jetpack": {
+            "activation": 1,
+            "age": 0.966666666666668,
+            "cooldown": 7.05,
+            "distance": 0.0,
+            "heading": "(0.0, 0.0)",
+            "mode": 2,
+            "tap": 0,
+            "time": 1.63333333333333
+          },
+          "position": [
+            -249.0,
+            3.88252878189087,
+            -375.0
+          ],
+          "sequence": 5
+        }
+      ]
+    },
+    "replicated_coordinator": {
+      "scope": "Three actual local etcd processes and two coordinator frontends; functional failover, not throughput or geographic certification.",
+      "checks": [
+        "concurrent_CAS_capacity_16",
+        "two_frontends_identical_state",
+        "leader_and_frontend_failure_survived",
+        "committed_actors_retained",
+        "quorum_loss_rejects_mutation"
+      ]
+    }
+  },
+  "limitations": [
+    "Normal desktop/VR menus and prediction do not yet speak the new protocol.",
+    "ENet facade forwards complete reliable baselines; production unreliable delta streaming is not implemented.",
+    "Coordinator metadata is durable; ongoing worker combat, pickup and AI checkpointing is not implemented.",
+    "Etcd uses one metadata CAS key; no production throughput claim.",
+    "Authority leases assume synchronized clocks and bounded skew; only same-host functional failure testing performed.",
+    "Godot transfer journals are flushed/renamed for process recovery; power-loss durability is not certified."
+  ],
+  "warnings": [
+    "Existing Godot ObjectDB instance warning at engine shutdown; no script errors in passing game fixtures."
+  ]
+}

@@ -1,5 +1,7 @@
 # CQ interconnected districts and distributed master study
 
+The opt-in [persistent cluster implementation](PERSISTENT-DISTRICT-CLUSTER.md) now provides regional gateways, replicated coordination and dynamic 4–64 district membership. Its separate protocol and validation limits are documented there.
+
 Study date: 2026-09-20. Experimental source baseline: `78bd56a`. This report adds measurements and a proposed architecture; it does not implement a distributed master or raise game limits. Raw results and binary/pack hashes are in [the receipt](validation/cq-distributed-master-study.json).
 
 ## Conclusions
