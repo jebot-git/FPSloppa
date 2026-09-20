@@ -1,5 +1,7 @@
 # Independent BSP29 districts
 
+This describes the legacy 16-map prototype. The default CQ layout is now the [81-district campaign](CAMPAIGN-81.md), with 128 players globally and 16 per district.
+
 This opt-in CQ experiment replaces the single Vesper city BSP with sixteen independently compiled, sealed BSP29 maps. Each remains a 250 × 250 metre district of the same 1 km², 4 × 4 city. It is implemented on `experimental/cq-districts`; main and the default whole-city CQ profile are unchanged.
 
 Each worker instantiates only its assigned collision map and local navigation mesh. The master loads the atlas metadata, actors and match rules, with **no district geometry**. Clients instantiate one district scene and may retain one prefetched destination scene. This removes the need to fit the sum of all districts into one BSP29 file, without raising any individual file's limits.
@@ -50,8 +52,8 @@ The 64-player global limit, 16 reserved slots per district, gate closures, neare
 From this experimental worktree, with Godot available:
 
 ```sh
-./launch-conquest-district-maps.sh --server
-./launch-conquest-district-maps.sh 127.0.0.1
+./launch-conquest-district-maps.sh --legacy --server
+./launch-conquest-district-maps.sh --legacy 127.0.0.1
 ```
 
 The first command runs a master that launches local worker processes on demand, up to sixteen. The second starts a matching client on port 7787. The supplied configuration keeps ordinary server limits separate.

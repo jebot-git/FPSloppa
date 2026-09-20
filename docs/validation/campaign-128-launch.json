@@ -1,0 +1,18 @@
+{
+  "scope": "Default CQ launcher, two real BSP workers, regional gateways and attached Vulkan desktop over loopback.",
+  "configured_districts": 81,
+  "online_districts": [
+    "d13",
+    "d40"
+  ],
+  "player_limit": 128,
+  "district_capacity": 16,
+  "checks": [
+    "default_launcher_campaign_services_ready",
+    "real_hub_and_relay_workers_online",
+    "Vulkan_desktop_joined_d40",
+    "inner_city_scoreboard_rendered",
+    "desktop_clean_logout",
+    "immediate_durable_restart_waits_for_prior_gateway_lease"
+  ]
+}

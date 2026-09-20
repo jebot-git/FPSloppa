@@ -1,13 +1,23 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd -- "$(dirname -- "${BASH_SOURCE[0]}")"
-# Source-tree experimental launcher. Engine and assets must be installed.
-engine="${GODOT_BIN:-godot}"
-if [[ "${1:-}" == "--server" ]]; then
-  shift
-  exec "$engine" --headless --xr-mode off --path . -- --experimental-cq --server --config "$PWD/conquest.cfg" "$@"
-else
-  address="${1:-127.0.0.1}"
-  if (( $# )); then shift; fi
-  exec "$engine" --rendering-method mobile --rendering-driver vulkan --path . -- --experimental-cq --connect "$address" --port 7787 "$@"
-fi
+case "${1:-}" in
+  --legacy)
+    shift
+    exec ./launch-conquest-legacy.sh "$@"
+    ;;
+  --server)
+    shift
+    exec python3 -m tools.district_cluster.local "$@"
+    ;;
+  --help|-h)
+    echo 'CQ: 81 districts, 128 players total, 16 per district.'
+    echo 'Server: ./launch-conquest.sh --server [--state-dir PATH] [--districts d13 d40]'
+    echo 'Client: ./launch-conquest.sh [private-client.json]'
+    echo 'Legacy 16-district prototype: ./launch-conquest.sh --legacy [--district-maps] [--server|ADDRESS]'
+    ;;
+  *)
+    if (( $# == 0 )); then set -- "$PWD/test-results/cq-campaign/client.json"; fi
+    exec ./start-campaign-client.sh "$@"
+    ;;
+esac

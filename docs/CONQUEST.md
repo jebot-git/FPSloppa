@@ -1,5 +1,7 @@
 # CQ — CONQUEST experimental base
 
+**Current default:** [81-district campaign](CAMPAIGN-81.md), 128 players globally and 16 per district. The remaining document describes the explicit legacy 16-district prototype and its historical tests.
+
 CQ is a playable, isolated experimental mode on the baked nighttime Vesper city. It uses the existing authoritative server and normal ENet input/prediction, with a separate launch profile and protocol. **The independent district-worker prototype is not the backend of this implementation.** Whole-map simulation and replication still run in one authority; the worker handoff, interest management and recovery work described in [the integration assessment](DISTRICT-SERVER-INTEGRATION.md) remains outstanding. The 64-player setting is an experimental admission ceiling, not a tested claim of 64-human or VR performance.
 
 ## Launch and isolation
@@ -7,8 +9,8 @@ CQ is a playable, isolated experimental mode on the baked nighttime Vesper city.
 From this source checkout with Godot 4.7.2, the base assets and prepared Vesper map installed:
 
 ```sh
-./launch-conquest.sh --server
-./launch-conquest.sh 127.0.0.1
+./launch-conquest.sh --legacy --server
+./launch-conquest.sh --legacy 127.0.0.1
 # Remote player: replace 127.0.0.1 with the CQ server's address.
 ```
 
@@ -55,7 +57,7 @@ Team radio and team text are routed authoritatively to teammates in the sender's
 
 [Validation receipt](validation/conquest.json) records deterministic rule/geometry tests, real ENet admission, bot replacement and a 64-actor live smoke test. The admission suite verifies both directions of profile rejection, the CQ seat limit, unchanged ordinary-server capacity, server startup without the profile being rejected, and a real CQ client receiving the full 64-actor roster/model catalog.
 
-The final rule suite passed 215 assertions. The final 20.1-wall-second bot smoke test retained all 64 actors; all moved and fired 321 shots in total. It advanced 11.6 simulated seconds (about 0.58× real time), with mean bot processing about 21.5 ms per physics tick. CQ now limits bot equipment/roaming searches to the current district while retaining cross-city objective routes. This remains too slow to certify 64-player performance. The short bot smoke test is not a complete balanced CQ match. The default CQ backend still uses one authority. The experimental `sv_cq_backend districts` option now provides a public ENet gateway, district-scoped dynamic replication and generation-bound prediction handoffs; see [implementation, live tests and limits](DISTRICT-SERVER-INTEGRATION.md). Static-map rendering remains unchanged. The two-client gateway tests and isolated 64-entry model support do not certify 64-player performance or VR comfort. Shutdown retains the existing Godot/GDExtension ObjectDB/resource diagnostics; validation treats script errors and gameplay assertions as failures.
+The final rule suite passed 215 assertions. The final 20.1-wall-second bot smoke test retained all 64 actors; all moved and fired 321 shots in total. It advanced 11.6 simulated seconds (about 0.58× real time), with mean bot processing about 21.5 ms per physics tick. CQ now limits bot equipment/roaming searches to the current district while retaining cross-city objective routes. This remains too slow to certify 64-player performance. The short bot smoke test is not a complete balanced CQ match. This legacy CQ backend uses one authority. The experimental `sv_cq_backend districts` option now provides a public ENet gateway, district-scoped dynamic replication and generation-bound prediction handoffs; see [implementation, live tests and limits](DISTRICT-SERVER-INTEGRATION.md). Static-map rendering remains unchanged. The two-client gateway tests and isolated 64-entry model support do not certify 64-player performance or VR comfort. Shutdown retains the existing Godot/GDExtension ObjectDB/resource diagnostics; validation treats script errors and gameplay assertions as failures.
 
 Reproduce:
 

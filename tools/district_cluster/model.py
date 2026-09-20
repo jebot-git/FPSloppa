@@ -76,6 +76,12 @@ def counts(state):
     return result
 
 
+def player_limit(state):
+    # Derive from the atlas so existing durable campaign databases also adopt
+    # the cap. Waiting and transferring actors each consume one global slot.
+    return campaign.PLAYER_LIMIT if campaign.enabled(state) else CAPACITY*len(state['districts'])+state['waiting_limit']
+
+
 def online(state, district, now, incoming=True):
     if district not in state['districts']:
         return False
@@ -165,7 +171,7 @@ def apply(state, message, gateway, now):
         require(identifier(key) and identifier(message.get('resume')), 'Invalid new actor identity')
         if key in state['actors']:
             return public_actor(authenticate_actor(state, message))
-        require(len(state['actors']) < 16*len(state['districts'])+state['waiting_limit'], 'Global connection/waiting budget full')
+        require(len(state['actors']) < player_limit(state), 'Global player limit reached')
         district = message.get('district')
         owned_gateway(state, district, gateway)
         team=message.get('team')
@@ -197,18 +203,25 @@ def apply(state, message, gateway, now):
     if op == 'deploy':
         if actor['phase']=='active':return public_actor(actor)
         require(actor['phase'] == 'waiting', 'Actor is not waiting')
-        # Generic graph-nearest deployment; no CQ team/homebase assumptions.
+        # Search the entire graph for allied space before using a neutral
+        # fallback, even when neutral territory is closer to the death site.
         queue, seen = ([actor['preferred']] if actor['preferred'] in state['districts'] else sorted(state['districts'])), set()
         occupancy = counts(state)
+        fallback = None
         while queue:
             district = queue.pop(0)
             if district in seen or district not in state['districts']:
                 continue
             seen.add(district)
-            if online(state, district, now) and occupancy[district] < CAPACITY and campaign.can_spawn(state,actor,district):
-                actor.update(district=district, phase='active', generation=actor['generation']+1, gateway=state['districts'][district]['gateway'], arrival=None)
-                return public_actor(actor)
+            if online(state, district, now) and occupancy[district] < CAPACITY:
+                if campaign.can_spawn(state,actor,district):
+                    fallback = district
+                    break
+                if fallback is None and campaign.neutral_spawn(state,district):
+                    fallback = district
             queue.extend(sorted(state['districts'][district]['links']))
+        if fallback is not None:
+            actor.update(district=fallback, phase='active', generation=actor['generation']+1, gateway=state['districts'][fallback]['gateway'], arrival=None)
         return public_actor(actor)
     if op == 'begin':
         target, tx = message.get('target'), message.get('tx')
@@ -271,4 +284,4 @@ def view(state, gateway, now):
     for row in districts.values():
         visible.update(row['links'])
         visible.update(row.get('terminals',{}))
-    return dict(revision=state['revision'], campaign=campaign.public(state), deployment_signature=deployment_signature, deployment_slots=sum(max(0,CAPACITY-occupancy[d]) for d in state['districts'] if online(state,d,now)), districts={k:dict(**state['districts'][k], online=online(state,k,now,incoming=False), open=online(state,k,now) and occupancy[k]<CAPACITY, reservations=occupancy[k]) for k in sorted(visible)}, actors={k:public_actor(a) for k,a in state['actors'].items() if gateway is None or a['gateway']==gateway or a.get('district') in districts or a.get('target') in districts or a.get('previous') in districts})
+    return dict(revision=state['revision'], player_limit=player_limit(state), player_count=len(state['actors']), district_capacity=CAPACITY, campaign=campaign.public(state), deployment_signature=deployment_signature, deployment_slots=sum(max(0,CAPACITY-occupancy[d]) for d in state['districts'] if online(state,d,now)), districts={k:dict(**state['districts'][k], online=online(state,k,now,incoming=False), open=online(state,k,now) and occupancy[k]<CAPACITY, reservations=occupancy[k]) for k in sorted(visible)}, actors={k:public_actor(a) for k,a in state['actors'].items() if gateway is None or a['gateway']==gateway or a.get('district') in districts or a.get('target') in districts or a.get('previous') in districts})

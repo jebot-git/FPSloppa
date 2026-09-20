@@ -11,6 +11,7 @@ from .world import atlas, HUB
 DAY = 86400
 HOUR = 3600
 REPORT_TTL = 1.0
+PLAYER_LIMIT = 128
 
 
 def new(now, epoch=1, history=None):
@@ -36,6 +37,13 @@ def can_enter(state, actor, target, source=None):
 
 def can_spawn(state, actor, district):
     return 'campaign' not in state or state['campaign']['owners'].get(district)==actor['team']
+
+
+def neutral_spawn(state, district):
+    """Only non-capturable neutral territory is a reinforcement fallback."""
+    return ('campaign' in state
+            and state['districts'][district].get('campaign_role') in ('hub', 'outskirts')
+            and state['campaign']['owners'].get(district) == -1)
 
 
 def wait(actor):

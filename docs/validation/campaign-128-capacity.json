@@ -1,0 +1,16 @@
+{
+  "player_limit": 128,
+  "district_capacity": 16,
+  "configured_districts": 81,
+  "online_districts": 4,
+  "gateways": 3,
+  "checks": [
+    "128_admitted_12_rejected_across_three_gateways",
+    "64_waiting_count_toward_global_cap",
+    "four_districts_at_16_close_incoming_gates",
+    "allied_slot_automatically_redeploys_waiting_player",
+    "neutral_hub_slot_automatically_redeploys_when_allies_full",
+    "logout_frees_global_admission_slot"
+  ],
+  "scope": "Real loopback coordinator and regional gateway TCP; synthetic workers, no combat performance measurement."
+}
