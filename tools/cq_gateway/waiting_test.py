@@ -6,8 +6,11 @@ import argparse, json, secrets, subprocess, time
 from pathlib import Path
 from external_config import create
 ROOT=Path(__file__).resolve().parents[2]
-p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,default=ROOT/'Builds/CQCapacity/FPSloppaServer.x86_64');args=p.parse_args()
-out=ROOT/'test-results/cq-gateway/waiting-room';out.mkdir(parents=True,exist_ok=True)
+p=argparse.ArgumentParser();p.add_argument('--binary',type=Path,default=ROOT/'Builds/CQCapacity/FPSloppaServer.x86_64');p.add_argument('--district-maps',action='store_true');p.add_argument('--direct-respawn',action='store_true');args=p.parse_args()
+profile=['--cq-district-maps'] if args.district_maps else []
+if args.direct_respawn:profile.append('--direct-respawn')
+name=('district-direct-respawn' if args.direct_respawn else 'district-waiting-room') if args.district_maps else 'waiting-room'
+out=ROOT/'test-results/cq-gateway'/name;out.mkdir(parents=True,exist_ok=True)
 children=[];handles=[];report={}
 def spawn(label,argv):
     f=(out/(label+'.log')).open('w');handles.append(f)
@@ -18,14 +21,14 @@ def wait(predicate,seconds=60):
         if predicate():return
         time.sleep(.1)
     raise RuntimeError('Fixture timed out')
-def godot(script):return ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/'+script+'.gd','--','--experimental-cq']
+def godot(script):return ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/'+script+'.gd','--','--experimental-cq',*profile]
 try:
     inventory=create(out/('private-'+secrets.token_hex(4)),[0,1,15],29483,{z:29483 for z in [0,1,15]})
     config=out/'server.cfg'
     config.write_text('set sv_gametype cq\nset sv_gametypes cq\nset sv_cq_backend districts\nset sv_cq_worker_limit 3\nset sv_cq_maxclients 64\nset sv_cq_bot_fill 0\nset sv_voice 0\nset sv_lobby 0\nset sv_votes 0\nset net_ip 127.0.0.1\nset net_port 29482\n')
     master=spawn('master',godot('waiting_master')+['--server','--config',str(config),'--cq-external-workers',str(inventory)])
     wait(lambda:'SERVER_CONFIG' in (out/'master.log').read_text())
-    for z in [0,1,15]:spawn('worker-'+str(z),[str(args.binary.resolve()),'--','--experimental-cq','--cq-worker',str(z),'--worker-session-file',str(inventory.parent/f'worker-{z}.json')])
+    for z in [0,1,15]:spawn('worker-'+str(z),[str(args.binary.resolve()),'--','--experimental-cq',*profile,'--cq-worker',str(z),'--worker-session-file',str(inventory.parent/f'worker-{z}.json')])
     wait(lambda:(out/'master.log').read_text().count('CQ_WORKER_READY')==3)
     client=spawn('client',godot('waiting_client')+['--test-port','29482'])
     wait(lambda:client.poll() is not None,90)

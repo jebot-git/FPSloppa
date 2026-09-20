@@ -16,6 +16,8 @@ func setup(arena: Node) -> void:
 	add_child(region)
 	var nav_map: RID=region.get_navigation_map()
 	var cached: String=preload("res://deathmatch/assets/paths.gd").folder("maps")+"navigation/"+game.current_map+".res"
+	if game.cq_maps.enabled and is_instance_valid(game.district_worker):
+		cached=game.cq_maps.file(game.district_worker.zone,"navigation.res");region.position=game.cq_maps.origin(game.district_worker.zone)
 	if ResourceLoader.exists(cached):
 		var mesh:NavigationMesh=load(cached)
 		NavigationServer3D.map_set_cell_size(nav_map,mesh.cell_size)
@@ -205,7 +207,9 @@ func mode_goals(id: int,brain: Dictionary,rows: Array) -> void:
 			if cq.rules.owners[zone]==team or not cq.rules.unlocked(zone,team):continue
 			var d: float=origin.distance_squared_to(cq.Rules.center(zone))
 			if d<distance:best=zone;distance=d
-		if best>=0:candidate(rows,"cq:%d"%best,"objective",cq.Rules.center(best),180,true)
+		if best>=0:
+			var target: Vector3=game.cq_maps.route_target(game.district_worker.zone,best) if game.cq_maps.enabled and is_instance_valid(game.district_worker) else cq.Rules.center(best)
+			candidate(rows,"cq:%d"%best,"objective",target,180,true)
 		return
 	if mode.freeze_tag():objectives.thaw_goals(id,rows)
 	if mode.kind=="tb":titanball.goals(id,brain,rows)

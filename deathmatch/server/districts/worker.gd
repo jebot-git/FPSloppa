@@ -52,7 +52,7 @@ func boot(port: int) -> void:
 	while socket.get_status()!=StreamPeerTCP.STATUS_CONNECTED:
 		socket.poll();await get_tree().process_frame
 		if Time.get_ticks_msec()>deadline:get_tree().quit(2);return
-	wire.send({"kind":"hello","zone":zone,"token":token,"pid":OS.get_process_id(),"map":game.map_sha,"schema":State.SCHEMA,"session":external.get("session",""),"instance":external.get("instance",""),"link":External.PROTOCOL,"version":ProjectSettings.get_setting("application/config/version")})
+	wire.send({"kind":"hello","zone":zone,"token":token,"pid":OS.get_process_id(),"map":game.map_sha,"schema":State.SCHEMA,"district_map":game.cq_maps.manifest.districts[zone].files["district.bsp"] if game.cq_maps.enabled else "","session":external.get("session",""),"instance":external.get("instance",""),"link":External.PROTOCOL,"version":ProjectSettings.get_setting("application/config/version")})
 	last_contact=Time.get_ticks_msec();booted=true
 func ensure_bots(id: int) -> void:
 	if id>=0 or is_instance_valid(game.bots):return
@@ -196,7 +196,7 @@ func clear_projectiles(owner: int) -> void:
 	for id in game.projectiles.keys():
 		if game.projectiles[id].owner==owner:game._projectile_end.rpc(id,game.projectiles[id].position,game.projectiles[id].weapon)
 func offer(id: int,target: int,respawn_origin: Dictionary={}) -> void:
-	if respawn_origin.is_empty() and occupancy.size()==16 and int(occupancy[target])>=Capacity.LIMIT:
+	if respawn_origin.is_empty() and ((occupancy.size()==16 and int(occupancy[target])>=Capacity.LIMIT) or (game.cq_maps.enabled and not game.cq_maps.portal_allowed(zone,target,game.fighters[id].position))):
 		var center:=Rules.center(zone);var fighter=game.fighters[id]
 		fighter.position.x=clampf(fighter.position.x,center.x-124.5,center.x+124.5);fighter.position.z=clampf(fighter.position.z,center.z-124.5,center.z+124.5);fighter.velocity=Vector3.ZERO
 		return
@@ -208,6 +208,8 @@ func offer(id: int,target: int,respawn_origin: Dictionary={}) -> void:
 func send_snapshot() -> void:
 	if game.projectile_id>=(zone+1)*100000000:get_tree().quit(3);return
 	sequence+=1
+	if game.cq_maps.enabled:
+		for id in game.players:game.players[id].cq_capture_clear=not game.players[id].dead and game.match_mode.nearby(id,Rules.center(zone),Rules.RADIUS)
 	var snapshot:=State.snapshot(game,zone,sequence)
 	snapshot.watermark=game.projectile_id
 	snapshot.friendly_fire=game.match_mode.friendly_fire

@@ -4,6 +4,7 @@ var planes: Array[Plane]=[]
 var nodes: Array[Vector3i]=[]
 var leaves:=PackedInt32Array()
 var head:=0
+var origin:=Vector3.ZERO
 func open(path: String) -> bool:
 	planes.clear();nodes.clear();leaves.clear()
 	var data:=FileAccess.get_file_as_bytes(path)
@@ -35,6 +36,7 @@ func open(path: String) -> bool:
 			if child>=nodes.size() or child<0 and -child-1>=leaves.size():return false
 	return not nodes.is_empty() and head>=0 and head<nodes.size()
 func at(point: Vector3) -> int:
+	point-=origin
 	if nodes.is_empty() or not point.is_finite():return -1
 	var index:=head
 	# Bound corrupt/cyclic input even when a custom map has passed basic validation.

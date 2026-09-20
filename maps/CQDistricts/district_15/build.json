@@ -1,0 +1,37 @@
+{
+  "planes": 568,
+  "vertices": 15721,
+  "nodes": 7414,
+  "texinfo": 80,
+  "faces": 11128,
+  "clipnodes": 0,
+  "leaves": 4599,
+  "marksurfaces": 17280,
+  "edges": 27963,
+  "surfedges": 52737,
+  "models": 1,
+  "bytes": 7997828,
+  "sha256": "d783d02a5b19e31a5e0f2950d55969bdb8b918e6d2cc72d2b27cff58faa28795",
+  "zone": 15,
+  "name": "Crown Necropolis",
+  "brushes": 955,
+  "textures": 23,
+  "lights": 156,
+  "format": "BSP29",
+  "lightmap_spacing": 16,
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.41463954403297976
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.1662382389768027
+    },
+    {
+      "tool": "light",
+      "seconds": 9.08164960402064
+    }
+  ]
+}

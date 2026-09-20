@@ -26,7 +26,7 @@ func offer(id: int,target: int,respawn: bool=false):
 	g.handle(g.workers[zone].wire,{"kind":"offer","zone":zone,"epoch":1,"actor":actor(id,target),"target":target,"tx":str(id),"generation":g.owners[id].generation,"respawn":respawn})
 func _initialize():run.call_deferred()
 func run():
-	g=Gateway.new();g.game={"map_epoch":1,"players":{},"fighters":{},"match_mode":{"conquest":{"rules":Rules.new()}}}
+	g=Gateway.new();g.game={"cq_maps":{"enabled":false},"map_epoch":1,"players":{},"fighters":{},"match_mode":{"conquest":{"rules":Rules.new()}}}
 	for zone in 3:g.workers[zone]={"ready":true,"wire":RefCounted.new(),"last":0,"external":true,"pid":0}
 	for i in 15:member(-i-1,1)
 	member(-100,0);member(-101,0)

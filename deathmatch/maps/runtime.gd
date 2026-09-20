@@ -21,7 +21,7 @@ var triggers=preload("res://deathmatch/maps/triggers.gd").new()
 func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	game = arena
 	process_physics_priority=-50
-	if not bsp_path.is_empty():has_contents=contents.open(bsp_path)
+	if not bsp_path.is_empty():has_contents=contents.open(bsp_path);contents.origin=root.global_position
 	var stack: Array = [root]
 	var entities: Array = []
 	var fixtures: Array=[]

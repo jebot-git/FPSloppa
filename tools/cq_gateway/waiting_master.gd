@@ -15,14 +15,20 @@ func run():
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
 	var g=game.district_gateway
 	if not await until(func():return g.owners.size()==1 and g.owners.values()[0].phase=="active"):finish();return
+	var direct:=OS.get_cmdline_user_args().has("--direct-respawn")
 	var id: int=g.owners.keys()[0];var serial: int=game.players[id].serial
 	if game.players[id].team!=0:failures.append("Fixture expects red initial client");finish();return
 	game.match_mode.conquest.rules.owners.fill(1)
 	for zone in [1,15]:
 		game.match_mode.conquest.rules.owners[zone]=0
-		for i in 16:g.owners[-1000-zone*16-i]={"zone":zone,"generation":1,"phase":"active","ack":true,"last_seq":-1,"baseline":false}
+		for i in (0 if direct else 16):g.owners[-1000-zone*16-i]={"zone":zone,"generation":1,"phase":"active","ack":true,"last_seq":-1,"baseline":false}
 	game.match_mode.conquest.rules.revision+=1
 	await create_timer(1).timeout;game._suicide_for(id)
+	if direct:
+		if not await until(func():return g.owners[id].phase=="active" and g.owners[id].zone==1):finish();return
+		if game.players[id].dead or game.players[id].serial<=serial:failures.append("Remote respawn did not restore actor")
+		print("CQ_WAITING_MASTER ",JSON.stringify({"failures":failures,"direct_respawn":true,"zone":g.owners[id].zone}))
+		await create_timer(8).timeout;finish();return
 	if not await until(func():return g.owners[id].phase=="spawn_wait"):finish();return
 	var inputs: int=g.stats.inputs
 	await create_timer(4).timeout

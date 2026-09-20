@@ -44,6 +44,11 @@ func transition(epoch: int,next: int,district: int) -> void:
 		if is_instance_valid(game.projectiles[id].node):game.projectiles[id].node.queue_free()
 	game.projectiles.clear();game.ended_projectiles.clear();game.projectile_watermark=-1
 	if district<0 and is_instance_valid(transit):transit.queue_free();transit=null
+	if game.cq_maps.enabled and district>=0:
+		var loaded: bool=await game.cq_maps.enter(district,next)
+		if generation!=next or game.map_epoch!=epoch:return
+		if not loaded:game.disconnect_game("Could not load the destination district.");return
+		capacity(occupancy,capacity_revision)
 	game._cq_ready.rpc_id(1,epoch,generation)
 func baseline(epoch: int,gen: int,bytes: PackedByteArray) -> void:
 	if epoch!=game.map_epoch or gen!=generation or not frozen:rejected+=1;return

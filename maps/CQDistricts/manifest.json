@@ -1,0 +1,1386 @@
+{
+  "profile": "cq-district-bsp-1",
+  "revision": 1,
+  "format": "BSP29",
+  "grid": [
+    4,
+    4
+  ],
+  "district_width_metres": 250,
+  "gate_width_metres": 24,
+  "gate_height_metres": 16,
+  "local_bounds_metres": [
+    [
+      -137,
+      -3,
+      -137
+    ],
+    [
+      137,
+      112,
+      137
+    ]
+  ],
+  "districts": [
+    {
+      "id": 0,
+      "name": "Cathedral Exchange",
+      "theme": "cathedral",
+      "origin": [
+        -375,
+        0,
+        -375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        1,
+        4
+      ],
+      "files": {
+        "district.bsp": "fd395e83e1975f38f8556bfedf359cb6d336058511ea6459eba3dde5063c79b1",
+        "presentation.scn": "30c928fe126c04daa5d684bafc370ef1ea9cc3694669ff9ea43a9ee3517b754a",
+        "collision.scn": "b0ee85bd7a6b52fe9a28f181872fea2a6613ee933bf1a68f68707337f094bc4e",
+        "navigation.res": "c297aa2f76e5f6e8266c9de22db08a78500dc57fda3e216e661d0d2993e356b0"
+      }
+    },
+    {
+      "id": 1,
+      "name": "Helix Arcology",
+      "theme": "arcology",
+      "origin": [
+        -125,
+        0,
+        -375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        0,
+        2,
+        5
+      ],
+      "files": {
+        "district.bsp": "458b5f8e5a938b833ec61e6918a0b8d1aeb1b38cfed8bf84f8cf9f41bf9b20dd",
+        "presentation.scn": "62ba97f324ac9dbc8b4c97fb3b4b51b1901af232a7f90c92b252471176ba11cc",
+        "collision.scn": "e5259b15036dda6a448758beb4dea0f4569f4b84baee0c716df717e804141205",
+        "navigation.res": "df99c526e775ee186445a311dd0b735c3754d71a16ceb58e620b118d55240cbd"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Crucible Works",
+      "theme": "foundry",
+      "origin": [
+        125,
+        0,
+        -375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        1,
+        3,
+        6
+      ],
+      "files": {
+        "district.bsp": "1058a65109c951f4b80c93a98e8bd41fa1545a6bd3d4f3449fa213d1f9733194",
+        "presentation.scn": "ec7422a196da828ea34db4a50fd7d50c8089dec7db960088b63ce06dd82f8baf",
+        "collision.scn": "cef6bc9269b211ded07f99aa6d269e5d4a0f416974cdf68954e54c42acd40748",
+        "navigation.res": "448c376f9d7b0f81f8d23633e7ca20a0afa4bbd4b05bd8ec252002034cad8b02"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Astral Observatory",
+      "theme": "observatory",
+      "origin": [
+        375,
+        0,
+        -375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        2,
+        7
+      ],
+      "files": {
+        "district.bsp": "53ed2338eeecb568aabef9fb6846d20191b614a2c6027ef9d9faec7a4057d0b5",
+        "presentation.scn": "7318ba86bc556af0452b31b05634d321b6f0a7cb99b777f32e6108c54218ead6",
+        "collision.scn": "e4fe0384be1474af037c15ad0d01845358c97f4132f5ef7011b03b4fad655cfe",
+        "navigation.res": "d33621131868a054ebcba0874a2a180662fe056e5f29a4621651296f40fbeab8"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Reliquary Archives",
+      "theme": "cathedral",
+      "origin": [
+        -375,
+        0,
+        -125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        5,
+        0,
+        8
+      ],
+      "files": {
+        "district.bsp": "1aef3914b58a958f7aa32656d93a40abc97c07b54a6873e71b4d37195c0eeeac",
+        "presentation.scn": "04e2aae64ce7968e03501e28cee767c95b2821e044ca980ec359e1f12dec3fdc",
+        "collision.scn": "43bbfdc96921ae2d4f8c2db28aa949370d04e0cf53c4391096faff33b4e0aabd",
+        "navigation.res": "04a5e130f745d8ca3d844f5dd22650744f24bc4b79e0c91096d7f404c38d3f7b"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Synapse Data Vault",
+      "theme": "data",
+      "origin": [
+        -125,
+        0,
+        -125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        4,
+        6,
+        1,
+        9
+      ],
+      "files": {
+        "district.bsp": "0e7506424797806e2a58fc9e980ebf3a81290775d4361447122caaf2041bb15c",
+        "presentation.scn": "e14b883971998679529eda1c005dd00f8f6956a566b9d65498f22ab694936f51",
+        "collision.scn": "a55a7a2b07cca7d02d25cd9d52b592a2fc399d347942389ba68c899b5f9bc9bb",
+        "navigation.res": "ac8953ab3bd2972f1e5c7ba0b5a24b339666756db3b552648583e8b61034df7c"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Pilgrim Transit",
+      "theme": "transit",
+      "origin": [
+        125,
+        0,
+        -125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        5,
+        7,
+        2,
+        10
+      ],
+      "files": {
+        "district.bsp": "b88979b8fc25c0bd6a745bad20d474d990230237049b81e43cf70bf5c50f49ac",
+        "presentation.scn": "690379466d37640c7622709a92ee730824fe00e4ea4e40ed984bc9fc8f12b47b",
+        "collision.scn": "4923c923555013287114e2340fae464092dcb80faa2619da9af4dbc63bf52d02",
+        "navigation.res": "af6c20fd65b8313aa4969738684e73bef66948e38a7bed3b1a2ca28d4e84eb3d"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Sanctum Medica",
+      "theme": "arcology",
+      "origin": [
+        375,
+        0,
+        -125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        6,
+        3,
+        11
+      ],
+      "files": {
+        "district.bsp": "3f8906b49b21d90edd25cf69e93946372ae523ddb62043bd95a9d7b0c3302576",
+        "presentation.scn": "e44e92a97c125908220adb4acfcdd9041c7d3063ff056ceec2584e80ca5f11dd",
+        "collision.scn": "c005fa16ea476a7c6e185b99f50f1f858a4e6e65e4234de9a252c6f1ced14c8d",
+        "navigation.res": "b0a80b931b59a2f903f0f3503b5557696d81d854fbdfca87656d997bf825344d"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Blackwater Condensers",
+      "theme": "foundry",
+      "origin": [
+        -375,
+        0,
+        125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        9,
+        4,
+        12
+      ],
+      "files": {
+        "district.bsp": "ee0e698077c6ce8350458b60d8b5921486b3a4755d7d7b04cfed08d51f954593",
+        "presentation.scn": "a1b1643781e7a6ccb4a2b44375289f2b13e8a6369825f0134ceac96e0d272edf",
+        "collision.scn": "87e1c34ae61aaa59cf40950786427d66c105a7992f69cb38b6df3d48b40dc449",
+        "navigation.res": "d67d50229ecb5ba5b04d5c380d9bce1a81c7b32d71ef1ea1205b9935a4022be6"
+      }
+    },
+    {
+      "id": 9,
+      "name": "Ember Market",
+      "theme": "market",
+      "origin": [
+        -125,
+        0,
+        125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        8,
+        10,
+        5,
+        13
+      ],
+      "files": {
+        "district.bsp": "c261c70fe151b6214e5c5ca40830dd78aec2b1589e9f898c774586d56fe911a2",
+        "presentation.scn": "21e2ca6b8731e409b819e931580bea378b8187f40d7197980e7a32c6b0db5229",
+        "collision.scn": "5ce7b0459f00d7962daac38192a554056ec22ebe3d9f58ea8a19fa7f0907a3dd",
+        "navigation.res": "37187f349dc314916180a5d30b26f92e9e36bd8bbdecf51bd26301d90a81cae0"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Cipher Court",
+      "theme": "observatory",
+      "origin": [
+        125,
+        0,
+        125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        9,
+        11,
+        6,
+        14
+      ],
+      "files": {
+        "district.bsp": "7a04461323efeeb2dfda7af5aeb996fd2dc4aba151fe0a1acd0e8411786358ce",
+        "presentation.scn": "f174a2f1d865cfd4eb0c12b3725a64ba43fd6bac8cbde1abb65b2e336e3b3ff8",
+        "collision.scn": "e51ea63931189afa831f55629f32a2c6fe6427058bb905f5cee2dc40fcc998c8",
+        "navigation.res": "f0a5cdade0044010e3fa0a74ae2c7b84b26404a3bc7469de132e1ed724ce56cf"
+      }
+    },
+    {
+      "id": 11,
+      "name": "Aegis Bastion",
+      "theme": "bastion",
+      "origin": [
+        375,
+        0,
+        125
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        10,
+        7,
+        15
+      ],
+      "files": {
+        "district.bsp": "e341103de95b1081a5dd9b5257d83bde4753319a0f3627696151f670f4d19234",
+        "presentation.scn": "187894e559e5b45f90d7a0cfdd1e0e4391d4bf7929660b637f4cbadadba35955",
+        "collision.scn": "0d94d2227e37ee93bcdc2f78264ca3cd06ee726110aa086227f20422f54b573c",
+        "navigation.res": "291259f3ee05bcc8e9d4213daf2ce777a824923a4d33fea442452abe371bb47d"
+      }
+    },
+    {
+      "id": 12,
+      "name": "Verdant Cloister",
+      "theme": "garden",
+      "origin": [
+        -375,
+        0,
+        375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        13,
+        8
+      ],
+      "files": {
+        "district.bsp": "14c42e2ec38145f3db3ef9d2e1f88b1dca78bf2e159a00d6057d268e5abc43fe",
+        "presentation.scn": "13d0bc0ac0994836a862fd2901ba8dd0505f83647a0caed2bded38b5d4b48061",
+        "collision.scn": "c86520d3c35d37cade5e3c188e7d42ca6830e9178376f5a2f4185a65087732bd",
+        "navigation.res": "256c5af78a9d1a1eeeb2e89c9cb96e139d23bd4d0e92f9d1d84850357daf9b62"
+      }
+    },
+    {
+      "id": 13,
+      "name": "Meridian Reactor",
+      "theme": "reactor",
+      "origin": [
+        -125,
+        0,
+        375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        12,
+        14,
+        9
+      ],
+      "files": {
+        "district.bsp": "53c972ed225e2f43f962a5f03191d7274ff0f3a52b0b329be1eaccd796c115ee",
+        "presentation.scn": "e740cc93906a5416b6020892ba7ae17a5235ca8f1646b572ef67b22cfcff1770",
+        "collision.scn": "8406857e435994870b96013b2bc6c65b20288eafe7121a76898e892a0495ae52",
+        "navigation.res": "e973fe784aae071b1dda0a2766b987cbb34b81a3da13a30cd51cd9e08ff11d08"
+      }
+    },
+    {
+      "id": 14,
+      "name": "Iron Docks",
+      "theme": "docks",
+      "origin": [
+        125,
+        0,
+        375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        13,
+        15,
+        10
+      ],
+      "files": {
+        "district.bsp": "89db4c47c97830640444fc1abeea9bed27857a4b213c4d9f3c7d40f5ebee4ed3",
+        "presentation.scn": "ef8956761d3f340056fb9d56499a4ca5b1331af6c840ee91e94d69a2377ad342",
+        "collision.scn": "c3a13ac7b63357707148021a8d205ed46f8b6aa5bcdf76e9f5b8d222992b5f06",
+        "navigation.res": "0b64edc7572cf33b012ab53ac253aff6cbf6519ca52372565032f7e654ec87b1"
+      }
+    },
+    {
+      "id": 15,
+      "name": "Crown Necropolis",
+      "theme": "cathedral",
+      "origin": [
+        375,
+        0,
+        375
+      ],
+      "spawns": [
+        [
+          -20,
+          0.1,
+          -20
+        ],
+        [
+          20,
+          0.1,
+          -20
+        ],
+        [
+          -20,
+          0.1,
+          20
+        ],
+        [
+          20,
+          0.1,
+          20
+        ]
+      ],
+      "pickup_positions": [
+        [
+          -7,
+          0.1,
+          0
+        ],
+        [
+          7,
+          0.1,
+          0
+        ],
+        [
+          -54,
+          8.1,
+          -52
+        ],
+        [
+          54,
+          16.1,
+          -88
+        ],
+        [
+          -54,
+          16.1,
+          88
+        ],
+        [
+          54,
+          8.1,
+          52
+        ],
+        [
+          -10,
+          0.1,
+          10
+        ],
+        [
+          10,
+          0.1,
+          -10
+        ]
+      ],
+      "neighbors": [
+        14,
+        11
+      ],
+      "files": {
+        "district.bsp": "d783d02a5b19e31a5e0f2950d55969bdb8b918e6d2cc72d2b27cff58faa28795",
+        "presentation.scn": "b71188188cab2c06179fe02e8d61a4d3bab059fc1fcd7ed2ec78d76f7f44d7cc",
+        "collision.scn": "6d8b45959a07adb58df60142270fbd3fbb4a5921ba63d43a262b9d2c8f1dcdee",
+        "navigation.res": "a566ec38637fee512c8b6f0c4633bfb591758e788939ed2faa4bad4825d2b917"
+      }
+    }
+  ]
+}

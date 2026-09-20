@@ -62,5 +62,7 @@ func run() -> void:
 	finish()
 func finish() -> void:
 	var result:={"handoffs":game.cq_client.handoffs,"zone":game.cq_client.zone,"failures":failures,"stale_rejected":game.cq_client.rejected}
+	if game.cq_maps.enabled:
+		result.map_transitions=game.cq_maps.transitions;result.map_zone=game.cq_maps.zone;result.map_instances=game.get_node("Map").get_children().filter(func(n):return n.name.begins_with("District_")).size()
 	print("CQ_GATEWAY_CLIENT ",JSON.stringify(result))
 	game.disconnect_game();game.queue_free();await process_frame;quit(0 if failures.is_empty() else 1)

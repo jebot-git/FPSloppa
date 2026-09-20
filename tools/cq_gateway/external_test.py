@@ -16,7 +16,9 @@ p.add_argument('--latency-ms', type=float, default=0, help='Added round-trip del
 p.add_argument('--name', default='external-local')
 p.add_argument('--failure', action='store_true', help='After successful routes, kill a district and check fail-closed behavior')
 p.add_argument('--respawn', action='store_true', help='Require each real client to die and complete master-authorized respawn')
+p.add_argument("--district-maps", action="store_true", help="Exercise separate BSP maps and client scene handoff")
 args = p.parse_args()
+profile = ["--cq-district-maps"] if args.district_maps else []
 if not 0 <= args.latency_ms <= 500:
     p.error('Latency must be 0–500 ms')
 OUT = ROOT / 'test-results/cq-gateway' / args.name
@@ -92,13 +94,13 @@ async def main():
     config.write_text(f'set sv_gametype cq\nset sv_gametypes cq\nset sv_cq_backend districts\nset sv_cq_worker_limit 4\nset sv_cq_maxclients 64\nset sv_cq_bot_fill 0\nset sv_voice 0\nset sv_lobby 0\nset sv_votes 0\nset net_ip 127.0.0.1\nset net_port {port}\nset rcon_port {rcon_port}\nset rcon_password "{password}"\n')
     config.chmod(0o600)
     def ctl(text):return command('127.0.0.1', rcon_port, password, text)
-    master = spawn('master', [str(args.binary.resolve()), '--', '--experimental-cq', '--config', str(config), '--cq-external-workers', str(inventory)])
+    master = spawn('master', [str(args.binary.resolve()), '--', '--experimental-cq', *profile, '--config', str(config), '--cq-external-workers', str(inventory)])
     await until(lambda:'SERVER_CONFIG' in (OUT/'master.log').read_text())
     for z in range(4):
         def connected(reader, writer, zone=z):
             task=asyncio.create_task(bridge(reader,writer,zone,master_port));tasks.add(task);task.add_done_callback(tasks.discard)
         bridges.append(await asyncio.start_server(connected,'127.0.0.1',proxy_ports[z]))
-    workers = [spawn(f'worker-{z}', [str(args.binary.resolve()), '--', '--experimental-cq', '--cq-worker', str(z), '--worker-session-file', str(inventory.parent/f'worker-{z}.json')]) for z in range(4)]
+    workers = [spawn(f'worker-{z}', [str(args.binary.resolve()), '--', '--experimental-cq', *profile, '--cq-worker', str(z), '--worker-session-file', str(inventory.parent/f'worker-{z}.json')]) for z in range(4)]
     await until(lambda:(OUT/'master.log').read_text().count('CQ_WORKER_READY')==4)
     initial = await asyncio.to_thread(ctl,'status')
     assert initial['cq_backend']['placement']=='external'
@@ -107,7 +109,7 @@ async def main():
     start=time.monotonic(); counters_at_start=metrics.copy()
     clients=[]
     for i in range(2):
-        clients.append(spawn(f'client-{i}', ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/client.gd','--','--experimental-cq','--host','127.0.0.1','--test-port',str(port),'--hold-seconds','20',*(['--respawn'] if args.respawn else [])]))
+        clients.append(spawn(f'client-{i}', ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/client.gd','--','--experimental-cq',*profile,'--host','127.0.0.1','--test-port',str(port),'--hold-seconds','20',*(['--respawn'] if args.respawn else [])]))
         await asyncio.sleep(.3)
     await until(lambda:all('CQ_ROUTE ' in (OUT/f'client-{i}.log').read_text() for i in range(2)),120)
     status=await asyncio.to_thread(ctl,'status');report['before_restart']=status['cq_backend']
@@ -131,6 +133,9 @@ async def main():
         result=json.loads(next(x.removeprefix('CQ_GATEWAY_CLIENT ') for x in text.splitlines() if x.startswith('CQ_GATEWAY_CLIENT ')))
         route=json.loads(next(x.removeprefix('CQ_ROUTE ') for x in text.splitlines() if x.startswith('CQ_ROUTE ')))
         assert not result['failures'] and result['handoffs']>=4
+        if args.district_maps:
+            assert len(result['map_transitions'])>=3 and result['map_zone']==result['zone']
+            assert result['map_instances']==1
         assert route['roster']==2 and len(route['visible'])==1
         report['clients'].append(dict(result=result,route=route))
     report['sample_seconds']=time.monotonic()-start

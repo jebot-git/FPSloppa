@@ -63,6 +63,7 @@ var dedicated := false
 var server_name := "FPSloppa"
 var bind_address := "*"
 var district_gateway
+var cq_maps=preload("res://deathmatch/conquest/district_maps.gd").new(self)
 var cq_client=preload("res://deathmatch/conquest/client.gd").new(self)
 var district_worker # Private experimental worker; never a public ENet endpoint.
 var cq_profile:=false # Separate launcher/protocol, fixed for the process lifetime.
@@ -159,6 +160,7 @@ var demos
 var bindings=preload("res://deathmatch/settings/bindings.gd").new()
 func _ready() -> void:
 	cq_profile=OS.get_cmdline_user_args().has("--experimental-cq")
+	if cq_maps.enabled and not cq_profile:push_error("District maps require the experimental CQ profile.");get_tree().quit(2);return
 	get_tree().auto_accept_quit=false
 	if OS.has_feature("android") and FileAccess.file_exists("res://deathmatch/assets/offline-base.zip"):
 		set_process(false);set_physics_process(false)
@@ -311,6 +313,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		get_tree().quit(2)
 		return
 	var settings: Dictionary=result.values
+	if cq_maps.enabled and settings.sv_cq_backend!="districts":push_error("Independent district maps require the districts backend.");get_tree().quit(2);return
 	if args.has("--cq-external-workers") and (not cq_profile or settings.sv_cq_backend!="districts"):
 		push_error("External workers require CQ with sv_cq_backend districts.");get_tree().quit(2);return
 	if (settings.sv_gametype=="cq")!=cq_profile:
@@ -376,7 +379,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 
 func network_player_limit() -> int:return 64 if cq_profile else SERVER_MAX_PLAYERS
 
-func connection_protocol() -> String:return match_mode.conquest.PROTOCOL if cq_profile else PROTOCOL
+func connection_protocol() -> String:return (match_mode.conquest.PROTOCOL+"-"+cq_maps.PROFILE if cq_maps.enabled else match_mode.conquest.PROTOCOL) if cq_profile else PROTOCOL
 
 func _arg_value(args: PackedStringArray,key: String,fallback: String) -> String:
 	var i := args.find(key)
@@ -741,7 +744,7 @@ func _finish_departure(player_name: String) -> void:
 
 func disconnect_game(reason: String = "Disconnected.") -> void:
 	if is_instance_valid(district_gateway):district_gateway.stop();district_gateway.queue_free();district_gateway=null
-	cq_client.reset()
+	cq_client.reset();cq_maps.reset()
 	lobby.reset_ballot()
 	replication.reset(); input_delivery.reset(); fire_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
 	if haptics:haptics.stop()
@@ -1015,6 +1018,7 @@ func _physics_process(delta: float) -> void:
 	if connect_address_deadline>0 and clock>connect_address_deadline and connect_address_index<connect_addresses.size():_next_connect_address()
 	if connect_deadline>0 and clock>connect_deadline: disconnect_game("Connection timed out. Check host, firewall and UDP port forwarding.")
 	if not active: return
+	if cq_maps.enabled:cq_maps.pump()
 	if not multiplayer.is_server() and cq_client.waiting():cq_client.waiting_room.tick(delta);return
 	if not multiplayer.is_server() and (clock<input_paused_until or cq_client.frozen):return
 	var mine := multiplayer.get_unique_id()
@@ -2235,6 +2239,7 @@ func _process(delta: float) -> void:
 var loaded_pickup_rules:=""
 func _load_map(map_id: String) -> bool:
 	if cq_profile and map_id!=match_mode.conquest.MAP_ID:return false
+	if cq_profile and cq_maps.enabled:return cq_maps.load_world()
 	if map_id==lobby.ID:return lobby.build()
 	var pickup_rules: String=match_mode.kind+":"+armory.effective()
 	if current_map==map_id and loaded_pickup_rules==pickup_rules and $Map.get_child_count()>0: return true

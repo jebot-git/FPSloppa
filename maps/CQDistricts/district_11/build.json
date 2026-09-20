@@ -1,0 +1,37 @@
+{
+  "planes": 542,
+  "vertices": 15216,
+  "nodes": 7024,
+  "texinfo": 83,
+  "faces": 10731,
+  "clipnodes": 0,
+  "leaves": 4366,
+  "marksurfaces": 16608,
+  "edges": 27031,
+  "surfedges": 50867,
+  "models": 1,
+  "bytes": 11787740,
+  "sha256": "e341103de95b1081a5dd9b5257d83bde4753319a0f3627696151f670f4d19234",
+  "zone": 11,
+  "name": "Aegis Bastion",
+  "brushes": 930,
+  "textures": 24,
+  "lights": 148,
+  "format": "BSP29",
+  "lightmap_spacing": 16,
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.41483249503653497
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.0657611300121062
+    },
+    {
+      "tool": "light",
+      "seconds": 13.3895495730103
+    }
+  ]
+}

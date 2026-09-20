@@ -13,6 +13,11 @@ func run():
 	Engine.max_fps=60
 	game=load("res://deathmatch/arena.tscn").instantiate();game.set_script(load("res://tools/cq_gateway/driver.gd"));root.add_child(game)
 	game.start_join("Waiting room probe","127.0.0.1",game._arg_int(OS.get_cmdline_user_args(),"--test-port",29482))
+	if OS.get_cmdline_user_args().has("--direct-respawn"):
+		if not await until(func():return game.cq_client.handoffs>=2 and game.cq_client.zone==1):finish();return
+		var mine: int=game.multiplayer.get_unique_id()
+		if game.players[mine].dead or game.cq_maps.zone!=1:failures.append("Remote respawn did not load destination map")
+		finish();return
 	if not await until(func():return game.cq_client.waiting()):finish();return
 	var id: int=game.multiplayer.get_unique_id();var actor=game.fighters[id]
 	if actor.position.distance_to(Room.ORIGIN+Vector3(0,.1,2))>2:failures.append("Waiting client not placed in its private room")

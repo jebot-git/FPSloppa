@@ -91,7 +91,7 @@ OpenSSH documents encrypted TCP forwarding with `-L` and explicit loopback bindi
 
 ## Practical limits and next steps
 
-The sensible initial deployment is one low-latency site: a master plus one or more worker hosts, each running several district instances. One worker per district does not require one physical machine per district. Full-city static collision remains loaded in each worker, and bot navigation is built lazily; district distribution does not yet reduce each instance's static memory footprint.
+The sensible initial deployment is one low-latency site: a master plus one or more worker hosts, each running several district instances. One worker per district does not require one physical machine per district. In the default whole-city profile, full-city static collision remains loaded in each worker and bot navigation is built lazily. The opt-in [independent BSP29 district profile](CQ-DISTRICT-MAPS.md) now gives each worker its own collision map and prepared navigation; the master loads no district geometry. The measurements on this page refer to the earlier whole-city profile.
 
 The master remains a bandwidth/serialization bottleneck and a single point of failure. Worker snapshots currently serialize full actor state at roughly 20 Hz, including fields only required for migration, and use an ordered TCP stream. Snapshot deltas, separating migration state from routine updates, and queue-age limits are worthwhile before scaling the worker fleet. TCP retransmission can delay newer snapshots behind older bytes. The delay test does not model packet loss, jitter, bandwidth caps, congestion or SSH encryption cost.
 

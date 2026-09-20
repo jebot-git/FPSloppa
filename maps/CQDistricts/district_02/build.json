@@ -1,0 +1,37 @@
+{
+  "planes": 663,
+  "vertices": 15037,
+  "nodes": 7611,
+  "texinfo": 83,
+  "faces": 10627,
+  "clipnodes": 0,
+  "leaves": 4540,
+  "marksurfaces": 15675,
+  "edges": 26647,
+  "surfedges": 50168,
+  "models": 1,
+  "bytes": 8149624,
+  "sha256": "1058a65109c951f4b80c93a98e8bd41fa1545a6bd3d4f3449fa213d1f9733194",
+  "zone": 2,
+  "name": "Crucible Works",
+  "brushes": 938,
+  "textures": 23,
+  "lights": 180,
+  "format": "BSP29",
+  "lightmap_spacing": 16,
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.41438561701215804
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.0156677259947173
+    },
+    {
+      "tool": "light",
+      "seconds": 8.830858486995567
+    }
+  ]
+}

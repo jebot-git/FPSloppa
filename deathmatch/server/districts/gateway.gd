@@ -75,6 +75,7 @@ func need(zone: int) -> bool:
 	var log_dir:=ProjectSettings.globalize_path("user://cq-workers")
 	DirAccess.make_dir_recursive_absolute(log_dir)
 	args.append_array(["--log-file",log_dir+"/worker-%d.log"%zone,"--","--experimental-cq","--cq-worker",str(zone),"--worker-port",str(port),"--worker-token",token,"--asset-root",game.Maps.Paths.root()])
+	if game.cq_maps.enabled:args.append("--cq-district-maps")
 	var pid:=OS.create_process(OS.get_executable_path(),args)
 	if pid<0:fail("Worker launch failed");return false
 	workers[zone]={"pid":pid,"token":token,"wire":null,"ready":false,"last":Time.get_ticks_msec(),"sequence":-1,"snapshot":{}}
@@ -195,9 +196,10 @@ func handle(wire,message: Dictionary) -> void:
 		if w.get("external",false) and not ["session","instance","link","version"].all(func(key):return message.get(key) is String):reject(wire);return
 		var identity: bool=message.get("pid")==w.pid
 		if w.get("external",false):identity=message.get("pid") is int and message.pid>0 and message.get("session")==external_session and message.get("instance")==w.instance and message.get("link")==External.PROTOCOL and message.get("version")==ProjectSettings.get_setting("application/config/version")
+		if game.cq_maps.enabled and message.get("district_map","")!=game.cq_maps.manifest.districts[zone].files["district.bsp"]:reject(wire);return
 		if not identity or message.get("token")!=w.token or message.get("map")!=game.map_sha or message.get("schema")!=State.SCHEMA:reject(wire);return
 		if w.get("external",false):w.pid=int(message.get("pid",0)) # Diagnostic only, never a local process handle.
-		w.wire=wire;w.ready=true;w.last=Time.get_ticks_msec();wire.send({"kind":"welcome","token":w.token,"session":external_session,"instance":w.get("instance","")});w.erase("token")
+		w.map_hash=message.get("district_map",message.map);w.wire=wire;w.ready=true;w.last=Time.get_ticks_msec();wire.send({"kind":"welcome","token":w.token,"session":external_session,"instance":w.get("instance","")});w.erase("token")
 		var parked: Dictionary=sleeping.get(zone,{})
 		var items: Array=parked.get("pickups",[]).duplicate(true)
 		for item in items:
@@ -250,6 +252,7 @@ func handle(wire,message: Dictionary) -> void:
 			if not State.valid(message.actor) or State.district(message.actor.position)!=message.target:fail("Invalid transfer destination");return
 			var is_respawn: bool=message.get("respawn",false)
 			var permitted: bool=Capacity.available(owners,int(message.target),id)
+			if game.cq_maps.enabled and not is_respawn:permitted=permitted and game.cq_maps.portal_allowed(zone,int(message.target),message.actor.position)
 			if is_respawn:permitted=permitted and o.get("respawn_zone",-1)==message.target and game.match_mode.conquest.rules.owners[message.target]==game.players[id].team
 			if not permitted:
 				o.phase="rolling_back";o.tx=message.tx;o.started=Time.get_ticks_msec();o.erase("respawn_zone");o.erase("respawn_pending")
@@ -335,7 +338,7 @@ func diagnostics() -> Dictionary:
 	for id in owners:
 		var o: Dictionary=owners[id]
 		actors.append({"id":id,"zone":o.zone,"generation":o.generation,"phase":o.phase,"input_sequence":o.last_seq,"position":str(game.fighters[id].position) if game.fighters.has(id) else ""})
-	return {"backend":"districts","district_capacity":Capacity.LIMIT,"occupancy":Capacity.counts(owners),"respawn_waiting":owners.values().filter(func(o):return o.get("respawn_pending",false) or o.phase=="spawn_wait").size(),"placement":"external" if not external_session.is_empty() else "local","transport":workers.keys().reduce(func(result,z):
+	return {"backend":"districts","map_profile":game.cq_maps.PROFILE if game.cq_maps.enabled else "whole-city","worker_maps":workers.keys().reduce(func(result,z):result[z]=workers[z].get("map_hash","");return result,{}),"district_capacity":Capacity.LIMIT,"occupancy":Capacity.counts(owners),"respawn_waiting":owners.values().filter(func(o):return o.get("respawn_pending",false) or o.phase=="spawn_wait").size(),"placement":"external" if not external_session.is_empty() else "local","transport":workers.keys().reduce(func(result,z):
 		var w: Dictionary=workers[z];result[z]={"ready":w.ready,"sent":w.wire.sent if w.wire else 0,"received":w.wire.received if w.wire else 0,"snapshot_age_ms":Time.get_ticks_msec()-w.last};return result,{}),"workers":workers.size(),"limit":limit,"worker_pids":workers.keys().reduce(func(result,z):result[z]=workers[z].pid;return result,{}),"stats":stats.duplicate(),"actors":actors,"epoch":epoch}
 
 func apply(row: Dictionary) -> void:

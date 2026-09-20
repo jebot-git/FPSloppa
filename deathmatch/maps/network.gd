@@ -33,7 +33,7 @@ func source_name() -> String:
 	return ""
 @rpc("authority","call_remote","reliable",5)
 func _offer(map_id: String,hash: String,size: int,title: String,epoch: int=0,mode: String="dm",weapon_rules: String="doom",source: String="") -> void:
-	if game.cq_profile and (mode!="cq" or map_id!=game.match_mode.conquest.MAP_ID or hash!=game.match_mode.conquest.MAP_HASH):game.disconnect_game("CQ cannot transfer to another mode, map or lobby.");return
+	if game.cq_profile and (mode!="cq" or map_id!=game.match_mode.conquest.MAP_ID or hash!=game.match_mode.conquest.map_hash()):game.disconnect_game("CQ cannot transfer to another mode, map or lobby.");return
 	if not game.cq_profile and mode=="cq":game.disconnect_game("Use the separate CQ launcher.");return
 	if epoch<game.map_epoch: return
 	if epoch>game.map_epoch or game.active: game._prepare_client_map(epoch)

@@ -30,7 +30,7 @@ func run():
 	var worker: Dictionary=data.workers[0].duplicate();worker.session=data.session;worker.port=data.port;write(path,worker)
 	check(not External.worker(path,0).has("error") and External.worker(path,1).has("error"),"Worker file binds exactly one district")
 	var g=Gateway.new();g.external_session=data.session
-	g.game={"map_sha":"m","map_epoch":7,"clock":0.0,"match_mode":{"friendly_fire":false}}
+	g.game={"cq_maps":{"enabled":false},"map_sha":"m","map_epoch":7,"clock":0.0,"match_mode":{"friendly_fire":false}}
 	g.workers[0]={"external":true,"pid":0,"token":data.workers[0].token,"instance":data.workers[0].instance,"wire":null,"ready":false}
 	var hello:={"kind":"hello","zone":0,"pid":123456789,"token":worker.token,"session":worker.session,"instance":worker.instance,"link":External.PROTOCOL,"version":ProjectSettings.get_setting("application/config/version"),"map":"m","schema":State.SCHEMA}
 	for change in [{"session":"d".repeat(64)},{"token":"d".repeat(64)},{"instance":"d".repeat(64)},{"link":"old"},{"version":"other"},{"map":"other"},{"schema":-1},{"pid":"oops"},{"zone":{}},{"zone":15}]:

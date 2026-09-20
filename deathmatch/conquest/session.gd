@@ -8,7 +8,9 @@ var game
 var rules=Rules.new()
 var labels: Array=[]
 func setup(arena) -> void:game=arena
+func map_hash() -> String:return game.cq_maps.identity if game.cq_maps.enabled else MAP_HASH
 func install() -> String:
+	if game.cq_maps.enabled:return game.cq_maps.install()
 	var path: String=game.Maps.Paths.resolve(MAP_PATH)
 	if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=MAP_HASH:return "CQ requires the matching baked Vesper map; see docs/CONQUEST.md."
 	if not OS.has_feature("dedicated_server") and not FileAccess.file_exists(game.Maps.Paths.resolve("res://maps/Benchmark1km/zones-lightmap1.scn")):return "CQ requires the prepared Vesper scene cache."
@@ -63,11 +65,13 @@ func configure_pickups() -> void:
 			["armor",2 if home else 1,Vector3(-10,0,-10),150 if home else 50],
 			["ammo",2 if home else 0,Vector3(-10,0,10),6 if home else 50],
 			["ammo",3,Vector3(10,0,-10),25]]
-		for row in equipment:
+		for item_index in equipment.size():
+			var row: Array=equipment[item_index]
 			var pickup: Dictionary={"kind":row[0],"item":row[1],"position":Rules.center(zone)+row[2],"amount":row[3],"available":true,"respawn":0.0,"node":null}
+			if game.cq_maps.enabled:pickup.position=game.cq_maps.pickup(zone,item_index)
 			if row[0]=="armor":pickup.title="SHIELD BELT" if home else "THIGHPADS"
 			if row[0]=="health" and home:pickup.title="KEG O’ HEALTH"
-			if not game.headless:pickup.node=game._pickup_art(pickup)
+			if not game.headless and (not game.cq_maps.enabled or game.cq_maps.zone==zone):pickup.node=game._pickup_art(pickup)
 			game.pickups.append(pickup)
 func tick(delta: float) -> void:
 	# The coordinator owns capture and match time, never individual workers.
@@ -79,7 +83,8 @@ func tick(delta: float) -> void:
 		var state: Dictionary=game.players[id]
 		if state.dead or state.spectator or not state.team in [0,1]:continue
 		var zone:=Rules.district(game.fighters[id].position)
-		if game.match_mode.nearby(id,Rules.center(zone),Rules.RADIUS):present[zone][state.team]=true
+		var inside: bool=state.get("cq_capture_clear",false) if game.cq_maps.enabled and is_instance_valid(game.district_gateway) else game.match_mode.nearby(id,Rules.center(zone),Rules.RADIUS)
+		if inside:present[zone][state.team]=true
 	var changed:=rules.advance(delta,present)
 	game.match_mode.scores=rules.scores()
 	for zone in changed:game._announcement.rpc("District %02d captured by %s"%[zone+1,game.match_mode.TEAMS[rules.owners[zone]]])
@@ -88,6 +93,7 @@ func result() -> String:
 	var winner:=rules.winner(true);var scores:=rules.scores()
 	return ("DRAW" if winner<0 else game.match_mode.TEAMS[winner]+" WINS")+" · HOMEBASES %d : %d"%scores
 func status(id: int) -> String:
+	if game.cq_maps.enabled and game.cq_maps.loading>=0:return "LOADING DISTRICT %02d · %s"%[game.cq_maps.loading+1,game.cq_maps.manifest.districts[game.cq_maps.loading].name]
 	if game.cq_client.enabled and game.cq_client.zone<0:return "WAITING FOR REINFORCEMENTS · AUTOMATIC DEPLOYMENT"
 	var scores:=rules.scores()
 	var text:="CQ · HOMEBASES RED %d BLUE %d / 4"%scores
@@ -110,6 +116,7 @@ func radio_allowed(sender: int,recipient: int) -> bool:
 func draw(parent: Node3D) -> void:
 	labels.clear()
 	for zone in 16:
+		if game.cq_maps.enabled and zone!=game.cq_maps.zone:labels.append(null);continue
 		var color: Color=game.match_mode.COLORS[rules.owners[zone]]
 		var label: Label3D=game.match_mode.marker(Rules.center(zone),color,"",Rules.RADIUS)
 		labels.append(label)

@@ -1,0 +1,37 @@
+{
+  "planes": 542,
+  "vertices": 15328,
+  "nodes": 7452,
+  "texinfo": 80,
+  "faces": 10831,
+  "clipnodes": 0,
+  "leaves": 4392,
+  "marksurfaces": 15984,
+  "edges": 27277,
+  "surfedges": 51353,
+  "models": 1,
+  "bytes": 11460128,
+  "sha256": "89db4c47c97830640444fc1abeea9bed27857a4b213c4d9f3c7d40f5ebee4ed3",
+  "zone": 14,
+  "name": "Iron Docks",
+  "brushes": 934,
+  "textures": 22,
+  "lights": 148,
+  "format": "BSP29",
+  "lightmap_spacing": 16,
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.4146402169717476
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.0159767069853842
+    },
+    {
+      "tool": "light",
+      "seconds": 13.43997984600719
+    }
+  ]
+}

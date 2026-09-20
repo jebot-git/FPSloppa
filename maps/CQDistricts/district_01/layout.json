@@ -1,0 +1,7621 @@
+{
+  "id": 1,
+  "name": "Helix Arcology",
+  "style": "arcology",
+  "origin": [
+    -125,
+    0,
+    -375
+  ],
+  "zones": [
+    {
+      "name": "Cathedral Exchange",
+      "color": "60d9e8",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Helix Arcology",
+      "color": "6ee6b1",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Crucible Works",
+      "color": "ffad58",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Astral Observatory",
+      "color": "af9fff",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Reliquary Archives",
+      "color": "e9c36b",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Synapse Data Vault",
+      "color": "64afff",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Pilgrim Transit",
+      "color": "ffc369",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Sanctum Medica",
+      "color": "b4ecdf",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Blackwater Condensers",
+      "color": "5dc5ce",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Ember Market",
+      "color": "fa8b80",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Cipher Court",
+      "color": "a899e7",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Aegis Bastion",
+      "color": "f17e79",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Verdant Cloister",
+      "color": "92cf92",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Meridian Reactor",
+      "color": "d4ef78",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Iron Docks",
+      "color": "77aadd",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "Crown Necropolis",
+      "color": "d692df",
+      "center": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "art": [
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        7.85,
+        -98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        7.85,
+        -41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        15.85,
+        -98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        15.85,
+        -41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        23.85,
+        -98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        23.85,
+        -41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        5.7,
+        -92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        13.7,
+        -92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        21.7,
+        -92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        5.7,
+        -48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        13.7,
+        -48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        21.7,
+        -48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        7.85,
+        -98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        7.85,
+        -41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        15.85,
+        -98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        15.85,
+        -41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        23.85,
+        -98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        23.85,
+        -41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        3.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        11.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        19.5,
+        -94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        5.7,
+        -92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        13.7,
+        -92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        21.7,
+        -92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        3.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        11.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        19.5,
+        -45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        5.7,
+        -48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        13.7,
+        -48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        21.7,
+        -48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        1.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        1.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        9.399999999999999,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        9.399999999999999,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        17.4,
+        -90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        17.4,
+        -50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        7.85,
+        41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        7.85,
+        98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        15.85,
+        41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        15.85,
+        98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        23.85,
+        41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        23.85,
+        98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        5.7,
+        48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        13.7,
+        48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        21.7,
+        48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -92,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -82,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        5.7,
+        92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        13.7,
+        92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -72,
+        21.7,
+        92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -87,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -81,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -63,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -57,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        7.85,
+        41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        7.85,
+        98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        15.85,
+        41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        15.85,
+        98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        23.85,
+        41.94
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        23.85,
+        98.06
+      ],
+      "size": [
+        48,
+        0.15,
+        0.1
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        3.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        11.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        19.5,
+        45.44
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        5.7,
+        48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        13.7,
+        48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        21.7,
+        48
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        82,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        3.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        11.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        92,
+        19.5,
+        94.56
+      ],
+      "size": [
+        3,
+        3,
+        0.08
+      ],
+      "color": "6ee6b1",
+      "kind": "window",
+      "gothic": false
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        5.7,
+        92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        13.7,
+        92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        72,
+        21.7,
+        92
+      ],
+      "size": [
+        11,
+        0.2,
+        0.3
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        1.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        1.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        9.399999999999999,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        9.399999999999999,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        17.4,
+        50
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        57,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        63,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        81,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        87,
+        17.4,
+        90
+      ],
+      "size": [
+        1.8,
+        0.1,
+        0.9
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -16,
+        7.7,
+        -52
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        16,
+        7.7,
+        -52
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -16,
+        7.7,
+        52
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        16,
+        7.7,
+        52
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        7.7,
+        -16
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -52,
+        7.7,
+        16
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        7.7,
+        -16
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        52,
+        7.7,
+        16
+      ],
+      "size": [
+        2.4,
+        0.2,
+        0.7
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -29,
+        5.5,
+        -29
+      ],
+      "size": [
+        3.5,
+        0.4,
+        3.5
+      ],
+      "color": "6ee6b1",
+      "kind": "ring"
+    },
+    {
+      "zone": 1,
+      "position": [
+        29,
+        5.5,
+        -29
+      ],
+      "size": [
+        3.5,
+        0.4,
+        3.5
+      ],
+      "color": "6ee6b1",
+      "kind": "ring"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -29,
+        5.5,
+        29
+      ],
+      "size": [
+        3.5,
+        0.4,
+        3.5
+      ],
+      "color": "6ee6b1",
+      "kind": "ring"
+    },
+    {
+      "zone": 1,
+      "position": [
+        29,
+        5.5,
+        29
+      ],
+      "size": [
+        3.5,
+        0.4,
+        3.5
+      ],
+      "color": "6ee6b1",
+      "kind": "ring"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -38,
+        2,
+        0
+      ],
+      "size": [
+        7,
+        4,
+        7
+      ],
+      "color": "6ee6b1",
+      "kind": "garden"
+    },
+    {
+      "zone": 1,
+      "position": [
+        38,
+        2,
+        0
+      ],
+      "size": [
+        7,
+        4,
+        7
+      ],
+      "color": "6ee6b1",
+      "kind": "garden"
+    },
+    {
+      "zone": 1,
+      "position": [
+        0,
+        0.07,
+        0
+      ],
+      "size": [
+        18,
+        0.02,
+        18
+      ],
+      "color": "6ee6b1",
+      "kind": "plaza"
+    },
+    {
+      "zone": 1,
+      "position": [
+        0.0,
+        9.25,
+        -73
+      ],
+      "size": [
+        96,
+        0.12,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        0.0,
+        9.25,
+        -67
+      ],
+      "size": [
+        96,
+        0.12,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        0.0,
+        17.25,
+        67
+      ],
+      "size": [
+        96,
+        0.12,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        0.0,
+        17.25,
+        73
+      ],
+      "size": [
+        96,
+        0.12,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -75,
+        17.25,
+        0.0
+      ],
+      "size": [
+        0.12,
+        0.12,
+        92
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -69,
+        17.25,
+        0.0
+      ],
+      "size": [
+        0.12,
+        0.12,
+        92
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        69,
+        9.25,
+        0.0
+      ],
+      "size": [
+        0.12,
+        0.12,
+        92
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        75,
+        9.25,
+        0.0
+      ],
+      "size": [
+        0.12,
+        0.12,
+        92
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -95,
+        5.5,
+        -103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        5.5,
+        -103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -29,
+        5.5,
+        -103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        29,
+        5.5,
+        -103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        5.5,
+        -103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        95,
+        5.5,
+        -103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -95,
+        5.5,
+        103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -62,
+        5.5,
+        103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        -29,
+        5.5,
+        103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        29,
+        5.5,
+        103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        62,
+        5.5,
+        103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    },
+    {
+      "zone": 1,
+      "position": [
+        95,
+        5.5,
+        103.9
+      ],
+      "size": [
+        10,
+        0.4,
+        0.12
+      ],
+      "color": "6ee6b1",
+      "kind": "box"
+    }
+  ],
+  "gates": [
+    {
+      "zone": 1,
+      "neighbor": 0,
+      "position": [
+        -124.94,
+        8,
+        0.0
+      ],
+      "normal": [
+        1,
+        0,
+        0
+      ],
+      "color": "6ee6b1",
+      "name": "Cathedral Exchange"
+    },
+    {
+      "zone": 1,
+      "neighbor": 2,
+      "position": [
+        124.94,
+        8,
+        0.0
+      ],
+      "normal": [
+        -1,
+        0,
+        0
+      ],
+      "color": "6ee6b1",
+      "name": "Crucible Works"
+    },
+    {
+      "zone": 1,
+      "neighbor": 5,
+      "position": [
+        0.0,
+        8,
+        124.94
+      ],
+      "normal": [
+        0,
+        0,
+        -1
+      ],
+      "color": "6ee6b1",
+      "name": "Synapse Data Vault"
+    }
+  ],
+  "spawns": [
+    [
+      -20,
+      0.1,
+      -20
+    ],
+    [
+      20,
+      0.1,
+      -20
+    ],
+    [
+      -20,
+      0.1,
+      20
+    ],
+    [
+      20,
+      0.1,
+      20
+    ]
+  ],
+  "occluder_boxes": [
+    {
+      "minimum": [
+        -126,
+        -2,
+        -125
+      ],
+      "maximum": [
+        -124,
+        36,
+        -12
+      ]
+    },
+    {
+      "minimum": [
+        -126,
+        -2,
+        12
+      ],
+      "maximum": [
+        -124,
+        36,
+        125
+      ]
+    },
+    {
+      "minimum": [
+        124,
+        -2,
+        -125
+      ],
+      "maximum": [
+        126,
+        36,
+        -12
+      ]
+    },
+    {
+      "minimum": [
+        124,
+        -2,
+        12
+      ],
+      "maximum": [
+        126,
+        36,
+        125
+      ]
+    },
+    {
+      "minimum": [
+        -125,
+        -2,
+        -126
+      ],
+      "maximum": [
+        125,
+        36,
+        -124
+      ]
+    },
+    {
+      "minimum": [
+        -125,
+        -2,
+        124
+      ],
+      "maximum": [
+        -12,
+        36,
+        126
+      ]
+    },
+    {
+      "minimum": [
+        12,
+        -2,
+        124
+      ],
+      "maximum": [
+        125,
+        36,
+        126
+      ]
+    }
+  ],
+  "rooms": [
+    {
+      "center": [
+        -72,
+        0,
+        -70
+      ],
+      "levels": [
+        0,
+        8,
+        16,
+        24
+      ],
+      "style": "arcology",
+      "quadrant": 0
+    },
+    {
+      "center": [
+        72,
+        0,
+        -70
+      ],
+      "levels": [
+        0,
+        8,
+        16,
+        24
+      ],
+      "style": "arcology",
+      "quadrant": 1
+    },
+    {
+      "center": [
+        -72,
+        0,
+        70
+      ],
+      "levels": [
+        0,
+        8,
+        16,
+        24
+      ],
+      "style": "arcology",
+      "quadrant": 2
+    },
+    {
+      "center": [
+        72,
+        0,
+        70
+      ],
+      "levels": [
+        0,
+        8,
+        16,
+        24
+      ],
+      "style": "arcology",
+      "quadrant": 3
+    }
+  ],
+  "routes": [
+    {
+      "from": [
+        -90,
+        0.1,
+        -86
+      ],
+      "to": [
+        -90,
+        8.1,
+        -54
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        -54,
+        8.1,
+        -54
+      ],
+      "to": [
+        -54,
+        16.1,
+        -86
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        -90,
+        16.1,
+        -86
+      ],
+      "to": [
+        -90,
+        24.1,
+        -54
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        54,
+        0.1,
+        -86
+      ],
+      "to": [
+        54,
+        8.1,
+        -54
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        90,
+        8.1,
+        -54
+      ],
+      "to": [
+        90,
+        16.1,
+        -86
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        54,
+        16.1,
+        -86
+      ],
+      "to": [
+        54,
+        24.1,
+        -54
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        -90,
+        0.1,
+        54
+      ],
+      "to": [
+        -90,
+        8.1,
+        86
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        -54,
+        8.1,
+        86
+      ],
+      "to": [
+        -54,
+        16.1,
+        54
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        -90,
+        16.1,
+        54
+      ],
+      "to": [
+        -90,
+        24.1,
+        86
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        54,
+        0.1,
+        54
+      ],
+      "to": [
+        54,
+        8.1,
+        86
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        90,
+        8.1,
+        86
+      ],
+      "to": [
+        90,
+        16.1,
+        54
+      ],
+      "kind": "ramp"
+    },
+    {
+      "from": [
+        54,
+        16.1,
+        54
+      ],
+      "to": [
+        54,
+        24.1,
+        86
+      ],
+      "kind": "ramp"
+    }
+  ],
+  "emitters": [
+    {
+      "position": [
+        -72,
+        5,
+        -89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        13,
+        -89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        21,
+        -89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        5,
+        -51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        13,
+        -51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        21,
+        -51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        4,
+        -80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        4,
+        -60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        12,
+        -80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        12,
+        -60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        20,
+        -80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        20,
+        -60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -99,
+        6,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -99,
+        17,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -45,
+        6,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -45,
+        17,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        6,
+        -97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        17,
+        -97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        6,
+        -43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        17,
+        -43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        29,
+        -70
+      ],
+      "power": 450,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "atrium"
+    },
+    {
+      "position": [
+        72,
+        5,
+        -89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        13,
+        -89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        21,
+        -89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        5,
+        -51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        13,
+        -51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        21,
+        -51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        4,
+        -80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        4,
+        -60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        12,
+        -80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        12,
+        -60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        20,
+        -80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        20,
+        -60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        45,
+        6,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        45,
+        17,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        99,
+        6,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        99,
+        17,
+        -70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        6,
+        -97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        17,
+        -97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        6,
+        -43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        17,
+        -43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        29,
+        -70
+      ],
+      "power": 450,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "atrium"
+    },
+    {
+      "position": [
+        -72,
+        5,
+        51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        13,
+        51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        21,
+        51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        5,
+        89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        13,
+        89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        21,
+        89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        -72,
+        4,
+        60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        4,
+        80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        12,
+        60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        12,
+        80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        20,
+        60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -72,
+        20,
+        80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        -99,
+        6,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -99,
+        17,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -45,
+        6,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -45,
+        17,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        6,
+        43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        17,
+        43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        6,
+        97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        17,
+        97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        -72,
+        29,
+        70
+      ],
+      "power": 450,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "atrium"
+    },
+    {
+      "position": [
+        72,
+        5,
+        51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        13,
+        51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        21,
+        51
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        5,
+        89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        13,
+        89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        21,
+        89
+      ],
+      "power": 800,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "interior_strip"
+    },
+    {
+      "position": [
+        72,
+        4,
+        60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        4,
+        80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        12,
+        60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        12,
+        80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        20,
+        60
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        72,
+        20,
+        80
+      ],
+      "power": 650,
+      "color": [
+        0.65,
+        0.72,
+        0.9
+      ],
+      "fixture": "gallery_fill"
+    },
+    {
+      "position": [
+        45,
+        6,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        45,
+        17,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        99,
+        6,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        99,
+        17,
+        70
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        6,
+        43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        17,
+        43
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        6,
+        97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        17,
+        97
+      ],
+      "power": 1500,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "facade"
+    },
+    {
+      "position": [
+        72,
+        29,
+        70
+      ],
+      "power": 450,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "atrium"
+    },
+    {
+      "position": [
+        -15,
+        7.1,
+        -52
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        17,
+        7.1,
+        -52
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -15,
+        7.1,
+        52
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        17,
+        7.1,
+        52
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -51,
+        7.1,
+        -16
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -51,
+        7.1,
+        16
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        53,
+        7.1,
+        -16
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        53,
+        7.1,
+        16
+      ],
+      "power": 1100,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "streetlamp"
+    },
+    {
+      "position": [
+        -24.0,
+        10.0,
+        -71.5
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        24.0,
+        10.0,
+        -68.5
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        -24.0,
+        18.0,
+        68.5
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        24.0,
+        18.0,
+        71.5
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        -73.5,
+        18.0,
+        -23.0
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        -70.5,
+        18.0,
+        23.0
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        70.5,
+        10.0,
+        -23.0
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        73.5,
+        10.0,
+        23.0
+      ],
+      "power": 700,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "bridge"
+    },
+    {
+      "position": [
+        -95,
+        4,
+        -109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        -62,
+        4,
+        -109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        -29,
+        4,
+        -109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        29,
+        4,
+        -109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        62,
+        4,
+        -109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        95,
+        4,
+        -109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        -95,
+        4,
+        109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        -62,
+        4,
+        109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        -29,
+        4,
+        109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        29,
+        4,
+        109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        62,
+        4,
+        109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        95,
+        4,
+        109
+      ],
+      "power": 380,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "alley_shop"
+    },
+    {
+      "position": [
+        -35,
+        5,
+        0
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        -90,
+        5,
+        0
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        35,
+        5,
+        0
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        90,
+        5,
+        0
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        0,
+        5,
+        -35
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        0,
+        5,
+        -90
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        0,
+        5,
+        35
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        0,
+        5,
+        90
+      ],
+      "power": 1400,
+      "color": [
+        0.6,
+        0.72,
+        1
+      ],
+      "fixture": "street_fill"
+    },
+    {
+      "position": [
+        -31.35,
+        5.5,
+        -29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        -26.65,
+        5.5,
+        -29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        26.65,
+        5.5,
+        -29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        31.35,
+        5.5,
+        -29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        -31.35,
+        5.5,
+        29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        -26.65,
+        5.5,
+        29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        26.65,
+        5.5,
+        29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        31.35,
+        5.5,
+        29
+      ],
+      "power": 160,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "emissive_ring"
+    },
+    {
+      "position": [
+        9.0,
+        0.65,
+        0.0
+      ],
+      "power": 75,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        -9.0,
+        0.65,
+        0.0
+      ],
+      "power": 75,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        0.0,
+        0.65,
+        9.0
+      ],
+      "power": 75,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        0.0,
+        0.65,
+        -9.0
+      ],
+      "power": 75,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "plaza_ring"
+    },
+    {
+      "position": [
+        -121.94,
+        3,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -121.94,
+        11,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -121.94,
+        3,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -121.94,
+        11,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        3,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        11,
+        -8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        3,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        121.94,
+        11,
+        8.0
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        8.0,
+        3,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        8.0,
+        11,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -8.0,
+        3,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -8.0,
+        11,
+        121.94
+      ],
+      "power": 420,
+      "color": [
+        0.43137254901960786,
+        0.9019607843137255,
+        0.6941176470588235
+      ],
+      "fixture": "gate"
+    },
+    {
+      "position": [
+        -29,
+        2.6,
+        -26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    },
+    {
+      "position": [
+        29,
+        2.6,
+        -26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    },
+    {
+      "position": [
+        -29,
+        2.6,
+        26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    },
+    {
+      "position": [
+        29,
+        2.6,
+        26
+      ],
+      "power": 340,
+      "color": [
+        1,
+        0.4,
+        0.12
+      ],
+      "fixture": "brazier"
+    }
+  ],
+  "brushes": 930,
+  "textures": 24,
+  "source_texture_names": [
+    "altar1_3",
+    "comp1_1",
+    "comp1_2",
+    "crate0_side",
+    "grave01_1",
+    "ind_cont1_ylw1",
+    "ind_cont2_blk1",
+    "ind_cont2_prpl1",
+    "ind_dp01_blk1",
+    "ind_dp01_grn1",
+    "ind_w02_grn1",
+    "med_cobstn2_1",
+    "med_cobstn2_1a",
+    "med_dbrick6",
+    "med_dr3a",
+    "med_flat9",
+    "med_wood6",
+    "met_brn_signs",
+    "metal_iron1_01",
+    "metal_iron1_07",
+    "rune2_1",
+    "sky1",
+    "tech02_7",
+    "tech05_1"
+  ],
+  "pickup_positions": [
+    [
+      -7,
+      0.1,
+      0
+    ],
+    [
+      7,
+      0.1,
+      0
+    ],
+    [
+      -54,
+      8.1,
+      -52
+    ],
+    [
+      54,
+      16.1,
+      -88
+    ],
+    [
+      -54,
+      16.1,
+      88
+    ],
+    [
+      54,
+      8.1,
+      52
+    ],
+    [
+      -10,
+      0.1,
+      10
+    ],
+    [
+      10,
+      0.1,
+      -10
+    ]
+  ]
+}

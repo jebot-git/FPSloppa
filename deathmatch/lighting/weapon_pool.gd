@@ -11,9 +11,11 @@ var brushes: Array=[]
 var world=TreeData.new()
 var local_tree=TreeData.new()
 var available:=false
+var map_origin:=Vector3.ZERO
 var selected_count:=0
 func configure(level: Node,path: String) -> void:
 	clear();brushes.clear();receivers.clear()
+	map_origin=level.global_position
 	available=world.open(path)
 	if not available:return
 	var data:=FileAccess.get_file_as_bytes(path);var offset:=data.decode_u32(116);var count:=data.decode_u32(120)/64
@@ -79,7 +81,9 @@ func update_receivers() -> void:
 		starts[i]=Vector4(a.x,a.y,a.z,s.radius);ends[i]=Vector4(b.x,b.y,b.z,s.energy*s.life/s.total);colors[i]=Vector4(c.r,c.g,c.b,1)
 		var bounds:=AABB(a,Vector3.ZERO).expand(b).grow(s.radius+.004)
 		combined=bounds if i==0 else combined.merge(bounds)
-		heads[i]=world.prune_into(local_tree,world.head,bounds)
+		var first_plane: int=local_tree.planes.size()
+		heads[i]=world.prune_into(local_tree,world.head,AABB(bounds.position-map_origin,bounds.size))
+		for index in range(first_plane,local_tree.planes.size()):local_tree.planes[index].d+=local_tree.planes[index].normal.dot(map_origin)
 	var brush_heads:=PackedInt32Array();var transforms: Array[Transform3D]=[]
 	for brush in brushes:
 		if not is_instance_valid(brush.node) or brush.node.collision_layer&1==0:continue

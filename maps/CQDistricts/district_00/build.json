@@ -1,0 +1,37 @@
+{
+  "planes": 568,
+  "vertices": 15796,
+  "nodes": 7466,
+  "texinfo": 85,
+  "faces": 11222,
+  "clipnodes": 0,
+  "leaves": 4689,
+  "marksurfaces": 17410,
+  "edges": 28154,
+  "surfedges": 53119,
+  "models": 1,
+  "bytes": 8324644,
+  "sha256": "fd395e83e1975f38f8556bfedf359cb6d336058511ea6459eba3dde5063c79b1",
+  "zone": 0,
+  "name": "Cathedral Exchange",
+  "brushes": 955,
+  "textures": 23,
+  "lights": 156,
+  "format": "BSP29",
+  "lightmap_spacing": 16,
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.46474463801132515
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.1659759409958497
+    },
+    {
+      "tool": "light",
+      "seconds": 7.478017440007534
+    }
+  ]
+}

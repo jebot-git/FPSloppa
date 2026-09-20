@@ -1,0 +1,37 @@
+{
+  "planes": 580,
+  "vertices": 15182,
+  "nodes": 7029,
+  "texinfo": 83,
+  "faces": 10716,
+  "clipnodes": 0,
+  "leaves": 4385,
+  "marksurfaces": 16455,
+  "edges": 26988,
+  "surfedges": 50773,
+  "models": 1,
+  "bytes": 11711672,
+  "sha256": "0e7506424797806e2a58fc9e980ebf3a81290775d4361447122caaf2041bb15c",
+  "zone": 5,
+  "name": "Synapse Data Vault",
+  "brushes": 929,
+  "textures": 24,
+  "lights": 164,
+  "format": "BSP29",
+  "lightmap_spacing": 16,
+  "baked": true,
+  "commands": [
+    {
+      "tool": "qbsp",
+      "seconds": 0.4145665380056016
+    },
+    {
+      "tool": "vis",
+      "seconds": 1.065912052989006
+    },
+    {
+      "tool": "light",
+      "seconds": 13.690210194967221
+    }
+  ]
+}
