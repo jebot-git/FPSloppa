@@ -628,6 +628,7 @@ func _create_fighter(id: int) -> void:
 	actor.set_nametag(players[id].name,team,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
 	actor.movement_sound.connect(_fighter_movement_sound.bind(id))
 	actor.quake_movement = true
+	actor.configure_jetpack(match_mode.kind=="cq" and not lobby.active())
 	actor.spectator=players[id].spectator
 	add_child(actor)
 	if not headless:load("res://deathmatch/maps/filtering.gd").new().apply(actor,int(presentation.get("texture_filter",2)),false)
@@ -812,6 +813,8 @@ func status(message: String) -> void:
 func _spawn(id: int) -> void:
 	if is_instance_valid(district_worker) and players[id].dead and district_worker.request_respawn(id):return
 	match_mode.fortress.walkers.departed(id)
+	fighters[id].reset_jetpack()
+	players[id].jetpack_ack=0;players[id].jetpack_pending=false
 	players[id].jump_received=0;players[id].jump_ack=0;players[id].jump_pending=false
 	var state: Dictionary = players[id]
 	if state.spectator:
@@ -1052,11 +1055,12 @@ func _physics_process(delta: float) -> void:
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
 				_update_crouch(mine,command.get("xr",{}),command)
+				fighters[mine].configure_jetpack(match_mode.kind=="cq" and not lobby.active(),command.get("input_blocked",false))
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
 					xr_rig.compensate_room_move(actual)
-			fighters[mine].prediction.remember(sequence,fighters[mine].position,fighters[mine].velocity,fighters[mine].collision_height)
+			fighters[mine].prediction.remember(sequence,fighters[mine].position,fighters[mine].velocity,fighters[mine].collision_height,fighters[mine].jetpack_state if fighters[mine].jetpack_enabled else {})
 			_predict_shots(mine,command)
 
 	if multiplayer.is_server():
@@ -1183,6 +1187,7 @@ func _server_tick(delta: float) -> void:
 		if match_mode.fortress.walkers.handle_player(id,jump):continue
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
+		fighters[id].configure_jetpack(match_mode.kind=="cq",s.get("input_blocked",false))
 		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,jump,s.get("swim",Vector3.ZERO))
 		if not s.xr.is_empty():
 			var shift:=RoomScale.move_capsule(fighters[id],s.room,s.yaw,delta)
@@ -1813,6 +1818,7 @@ func _send_snapshot() -> void:
 		fire_delivery.sync_life(players[id])
 		mode_state.locomotion[id]=fighters[id].locomotion_state()
 		mode_state.locomotion[id]["jump_ack"]=players[id].get("jump_ack",0)
+		if match_mode.kind=="cq":mode_state.locomotion[id]["jetpack_ack"]=players[id].get("jetpack_ack",0)
 		mode_state.locomotion[id]["fire_ack"]=players[id].get("fire_ack",0)
 	mode_state["movement_ack"]={}
 	for id in players:mode_state.movement_ack[id]=players[id].last_seq
@@ -1876,6 +1882,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		if not fighters.has(id): continue
 		var s: Dictionary = players[id]
 		var actor = fighters[id]
+		actor.configure_jetpack(match_mode.kind=="cq" and not lobby.active() and not row[7] and not row[20] and pause<=0)
 		if not multiplayer.is_server():
 			s.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"offhand_cooldown":row[19],"spectator":row[20]},true)
 			var old_blast:Vector2=actor.blast_velocity
@@ -1895,10 +1902,11 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 					actor.position=row[1];actor.velocity=row[2];actor.reset_view()
 				else:
 					var locomotion: Dictionary=mode_state.get("locomotion",{}).get(id,{})
-					actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(locomotion.get("height",-1.0)),locomotion.get("grounded",false))
+					actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(locomotion.get("height",-1.0)),locomotion.get("grounded",false),locomotion.get("jetpack",{}))
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
 			actor.gibbed=false
+			actor.reset_jetpack()
 			if not headless and not s.spectator: effects.play("spawn",row[1],-6)
 			actor.position = row[1]
 			actor.velocity = row[2]
@@ -1914,6 +1922,8 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			actor.xr_pose=row[18] if row.size()>18 else {}
 			if not multiplayer.is_server() and (id!=mine or demos.playing or not is_vr() and actor.prediction.samples.is_empty()):actor.receive_locomotion(mode_state.get("locomotion",{}).get(id,{}))
 		if not multiplayer.is_server(): s.xr=actor.xr_pose
+		if not multiplayer.is_server() and (id!=mine or demos.playing or actor.prediction.samples.is_empty()):
+			actor.Jetpack.reconcile(actor,mode_state.get("locomotion",{}).get(id,{}).get("jetpack",{}))
 		actor.visual_velocity = row[2]
 		if id!=mine or demos.playing:actor.visual_grounded=mode_state.get("locomotion",{}).get(id,{}).get("grounded",absf(row[2].y)<.5)
 		if not multiplayer.is_server():actor.tracked_leg_animation=mode_state.get("locomotion",{}).get(id,{}).get("assist",false)
@@ -1922,7 +1932,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		actor.spectator=s.spectator
 		actor.show_alive(not s.dead,id==mine and not dedicated)
 		if id==mine:
-			input_delivery.acknowledge(row[14],int(mode_state.get("locomotion",{}).get(id,{}).get("jump_ack",0)))
+			input_delivery.acknowledge(row[14],int(mode_state.get("locomotion",{}).get(id,{}).get("jump_ack",0)),int(mode_state.get("locomotion",{}).get(id,{}).get("jetpack_ack",0)))
 			fire_delivery.acknowledge(row[14],int(mode_state.get("locomotion",{}).get(id,{}).get("fire_ack",0)))
 			last_local_hp = s.hp
 	for i in range(mini(items.size(),pickups.size())):

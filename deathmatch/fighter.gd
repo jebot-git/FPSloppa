@@ -2,6 +2,12 @@ extends CharacterBody3D
 signal movement_sound(kind: String,where: Vector3)
 const Art = preload("res://deathmatch/art.gd")
 const QuakeMovement = preload("res://deathmatch/movement/quake.gd")
+const Jetpack=preload("res://deathmatch/conquest/jetpack.gd")
+var jetpack_state: Dictionary=Jetpack.fresh()
+var jetpack_enabled:=false
+var jetpack_blocked:=false
+var jetpack_requested:=false
+var jetpack_model: Node3D
 var frozen:=false
 var ice: MeshInstance3D
 var frozen_label: Label3D
@@ -94,8 +100,15 @@ func stance_speed() -> float:return PRONE_SPEED if stance=="prone" else CROUCH_S
 func accuracy_scale() -> float:
 	if not is_supported() or in_water:return 1.0
 	return .45 if stance=="prone" else .75 if stance=="crouch" else 1.0
+func configure_jetpack(enabled: bool,blocked: bool=false) -> void:
+	if jetpack_enabled and not enabled:reset_jetpack()
+	jetpack_enabled=enabled;jetpack_blocked=blocked
+func reset_jetpack() -> void:
+	jetpack_state=Jetpack.fresh();jetpack_requested=false
 func locomotion_state() -> Dictionary:
-	return {"height":collision_height,"grounded":is_supported(),"assist":tracked_leg_animation}
+	var state:={"height":collision_height,"grounded":is_supported(),"assist":tracked_leg_animation}
+	if jetpack_enabled:state.jetpack=jetpack_state.duplicate(true)
+	return state
 func receive_locomotion(state: Dictionary) -> void:
 	update_height(float(state.get("height",xr_pose.get("height",1.65))),true)
 	visual_grounded=state.get("grounded",absf(visual_velocity.y)<.5)==true
@@ -128,6 +141,12 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 		speed*=.65
 		direction=(direction+stroke).limit_length(1.0)
 	var raw_jump:=jump
+	if Jetpack.tick(self,direction,delta,raw_jump):
+		jump_held=raw_jump
+		var before:=position;var impact_speed:=velocity.y
+		move_and_slide();Jetpack.moved(self,before)
+		if is_on_floor() and impact_speed < -3.2:movement_sound.emit("land",global_position+Vector3.UP*.2)
+		return
 	if stance=="prone":jump=false;jump_queued=false
 	if jump and not jump_held:jump_queued=true
 	elif not jump:jump_queued=false
@@ -264,6 +283,7 @@ func correct_prediction(requested: Vector3) -> Vector3:
 
 func show_alive(alive: bool, is_local: bool) -> void:
 	alive=alive and not spectator
+	if alive_state and not alive:reset_jetpack()
 	alive_state = alive
 	local_player = is_local
 	collision_layer = 2 if alive else 0
@@ -297,6 +317,7 @@ func set_local_body(value: bool) -> void:
 func _process(_delta: float) -> void:
 	prediction_view_offset*=exp(-12.0*_delta)
 	view_offset*=exp(-18.0*_delta)
+	_update_jetpack_visual()
 	if not avatar:return
 	var unarmed: bool=get_parent().lobby.active()
 	if avatar:
@@ -423,3 +444,19 @@ func set_burning_visual(active: bool) -> void:
 		fire_particles.material_override=material;fire_particles.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(fire_particles)
 	fire_particles.position.y=minf(.6,collision_height*.35)
+
+func _update_jetpack_visual() -> void:
+	if DisplayServer.get_name()=="headless":return
+	if not jetpack_enabled:
+		if is_instance_valid(jetpack_model):jetpack_model.hide()
+		return
+	if not is_instance_valid(jetpack_model):
+		jetpack_model=preload("res://deathmatch/conquest/jetpack_model.gd").new();add_child(jetpack_model)
+	jetpack_model.visible=alive_state and not spectator and not gibbed and (not local_player or local_body_visible)
+	if not jetpack_model.visible:return
+	# Stable placeholder proportions; do not change the damage/collision body.
+	var pose:=Transform3D(Basis(Vector3.RIGHT,-deg_to_rad(77) if stance=="prone" else 0.0),Vector3(0,maxf(.30,.78-(1.65-collision_height)),0))
+	if avatar_hash.is_empty() and is_instance_valid(avatar):pose=avatar.transform*avatar.get_node("Upper").transform
+	else:pose=Transform3D(Basis(Vector3.UP,preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose)),Vector3.ZERO)*pose
+	jetpack_model.transform=pose*Transform3D(Basis.IDENTITY,Vector3(0,.24,.25))
+	jetpack_model.set_exhaust(jetpack_state.mode!=0 and jetpack_state.age<(1.5 if jetpack_state.mode==2 else Jetpack.BURN_TIME))

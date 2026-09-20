@@ -3,7 +3,7 @@ const Rules=preload("res://deathmatch/conquest/rules.gd")
 const MAP_ID="prototype_km1"
 const MAP_PATH="res://maps/Benchmark1km/prototype_km1.bsp"
 const MAP_HASH="727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3"
-const PROTOCOL="fpsloppa-cq-experimental-3"
+const PROTOCOL="fpsloppa-cq-experimental-4-jetpack"
 var game
 var rules=Rules.new()
 var labels: Array=[]

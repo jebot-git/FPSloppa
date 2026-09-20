@@ -17,6 +17,7 @@ p.add_argument('--name', default='external-local')
 p.add_argument('--failure', action='store_true', help='After successful routes, kill a district and check fail-closed behavior')
 p.add_argument('--respawn', action='store_true', help='Require each real client to die and complete master-authorized respawn')
 p.add_argument("--district-maps", action="store_true", help="Exercise separate BSP maps and client scene handoff")
+p.add_argument("--jetpack", action="store_true", help="Test hover and airborne district transfer")
 args = p.parse_args()
 profile = ["--cq-district-maps"] if args.district_maps else []
 if not 0 <= args.latency_ms <= 500:
@@ -109,7 +110,7 @@ async def main():
     start=time.monotonic(); counters_at_start=metrics.copy()
     clients=[]
     for i in range(2):
-        clients.append(spawn(f'client-{i}', ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/client.gd','--','--experimental-cq',*profile,'--host','127.0.0.1','--test-port',str(port),'--hold-seconds','20',*(['--respawn'] if args.respawn else [])]))
+        clients.append(spawn(f'client-{i}', ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/client.gd','--','--experimental-cq',*profile,'--host','127.0.0.1','--test-port',str(port),'--hold-seconds','20',*(['--respawn'] if args.respawn else []),*(['--jetpack'] if args.jetpack else [])]))
         await asyncio.sleep(.3)
     await until(lambda:all('CQ_ROUTE ' in (OUT/f'client-{i}.log').read_text() for i in range(2)),120)
     status=await asyncio.to_thread(ctl,'status');report['before_restart']=status['cq_backend']

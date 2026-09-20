@@ -14,7 +14,7 @@ If no friendly deployment slot is available, including when the team has no cont
 
 The master keeps checking eligibility. A departure, disconnect or newly captured district can free a slot; the master reserves it and automatically deploys a waiting player there with a fresh actor generation and normal respawn state. The room remains visible until the new baseline arrives. Original four-person deployment groups survive this temporary placement for the next round. Match victory and timeout rules are unchanged: denying deployment can deplete reinforcements without inventing a separate elimination victory rule.
 
-This is implemented for `sv_cq_backend districts`, with either local workers or external workers. Ordinary main-branch servers are unaffected. Matching rebuilt CQ clients, master and workers are required: public CQ protocol `fpsloppa-cq-experimental-3`, private worker protocol `cq-external-worker-2`, actor schema 3.
+This is implemented for `sv_cq_backend districts`, with either local workers or external workers. Ordinary main-branch servers are unaffected. Matching rebuilt CQ clients, master and workers are required: public CQ protocol `fpsloppa-cq-experimental-4-jetpack`, private worker protocol `cq-external-worker-2`, actor schema 4.
 
 ## Reference machine and measurement scope
 

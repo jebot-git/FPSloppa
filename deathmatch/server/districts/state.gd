@@ -1,8 +1,8 @@
 extends RefCounted
 ## Trusted local worker state. Never accepted directly from public clients.
-const SCHEMA:=3
+const SCHEMA:=4
 const DEADLINES=["respawn_at","invulnerable","last_input","melee_ready_at","offhand_melee_ready_at","use_at","chat_at"]
-const BODY=["collision_height","stance","blast_velocity","jump_held","jump_queued","floor_grace","stepped_last_frame","water_boost","water_exit_grace","water_deep_time","was_in_water","in_water","underwater","water_jump_used","air_left"]
+const BODY=["jetpack_state","jetpack_enabled","collision_height","stance","blast_velocity","jump_held","jump_queued","floor_grace","stepped_last_frame","water_boost","water_exit_grace","water_deep_time","was_in_water","in_water","underwater","water_jump_used","air_left"]
 const MELEE=["melee_state","offhand_melee_state","left_kick","right_kick"]
 static func shift(state: Dictionary,offset: float) -> void:
 	for key in DEADLINES:
@@ -17,7 +17,9 @@ static func shift(state: Dictionary,offset: float) -> void:
 			if row.has(key):row[key]=float(row[key])+offset
 static func actor(game,id: int) -> Dictionary:
 	var body: Dictionary={}
-	for key in BODY:body[key]=game.fighters[id].get(key)
+	for key in BODY:
+		body[key]=game.fighters[id].get(key)
+		if body[key] is Dictionary:body[key]=body[key].duplicate(true)
 	var state: Dictionary=game.players[id].duplicate(true)
 	state.district_view_valid=float(state.get("view_time",-1))>=0
 	shift(state,-game.clock)
@@ -31,8 +33,11 @@ static func apply(game,row: Dictionary) -> void:
 	if not game.players.has(id):game.players[id]=state;game._create_fighter(id)
 	else:game.players[id]=state
 	var fighter=game.fighters[id];fighter.position=row.position;fighter.velocity=row.velocity
+	# Restoring an existing life is not a spawn. The first local snapshot must
+	# not reset the transferred boost, view or other life-scoped presentation.
+	fighter.spawn_serial=state.serial
 	for key in BODY:
-		if key!="collision_height":fighter.set(key,row.body[key])
+		if key!="collision_height":fighter.set(key,row.body[key].duplicate(true) if row.body[key] is Dictionary else row.body[key])
 	fighter.update_height(row.body.collision_height,true);fighter.rotation.y=state.yaw;fighter.show_alive(not state.dead,false)
 	if not row.get("avatar",{}).is_empty():game.avatars.choices[id]=row.avatar.duplicate(true)
 	if not row.get("charge",{}).is_empty():game.variant_combat.charging[id]=row.charge.duplicate(true)

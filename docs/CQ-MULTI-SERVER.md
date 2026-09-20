@@ -117,6 +117,6 @@ Each run uses independent process groups and cleans them up. Private session fil
 
 The district backend now reserves at most 16 player slots in each district. Incoming gates close at capacity; source reservations remain until transfers commit, so a contested last slot can safely roll back. Respawns reuse the player's own friendly slot or reserve the nearest controlled district with room. When no such district exists, a private client-local waiting room replaces the battle actor until automatic deployment becomes possible. Waiting players retain their match identity and count toward the global 64-player admission limit.
 
-This requires matching rebuilt CQ clients/master/workers: public protocol `fpsloppa-cq-experimental-3`, private protocol `cq-external-worker-2`, actor schema 3. The older published CQ prerelease is incompatible. Normal main-branch behavior remains unchanged.
+This requires matching rebuilt CQ clients/master/workers: public protocol `fpsloppa-cq-experimental-4-jetpack`, private protocol `cq-external-worker-2`, actor schema 4. The older published CQ prerelease is incompatible. Normal main-branch behavior remains unchanged.
 
 See [CQ scalability measurements](CQ-SCALABILITY.md) for capacity semantics, measured worker and master limits, reproduction commands and the benchmark-only shared-encoding proposal. Sixteen players is a conservative district simulation target; it does not guarantee that the current master can sustain four fully populated, projectile-heavy districts.

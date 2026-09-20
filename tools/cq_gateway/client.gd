@@ -3,6 +3,12 @@ var game
 var failures: Array=[]
 var distances: Array=[]
 var pauses: Array=[]
+var jetpack_checks: Dictionary={}
+func double_jump() -> void:
+	game.jumping=true;await create_timer(.06).timeout
+	game.jumping=false;await create_timer(.08).timeout
+	game.jumping=true;await create_timer(.06).timeout
+	game.jumping=false
 func _initialize():run.call_deferred()
 func run() -> void:
 	Engine.max_fps=60
@@ -26,22 +32,49 @@ func run() -> void:
 			if eastbound and point[0]<125:path.append(center+Vector3(point[0],0,point[1]))
 		path.append(center+Vector3(131,0,0));path.append(center+Vector3(113,0,0))
 	if args.has("--pool-route"):path=[center,center+Vector3(131,0,0),center+Vector3(381,0,0),center+Vector3(369,0,0),center+Vector3(119,0,0)]
+	if args.has("--jetpack"):
+		game.driving=false
+		await double_jump()
+		await create_timer(.85).timeout
+		var actor=game.fighters[id]
+		var sample: Vector3=actor.position
+		jetpack_checks.hover_mode=actor.jetpack_state.mode
+		await create_timer(.25).timeout
+		jetpack_checks.hover_drift=actor.position.distance_to(sample)
+		if jetpack_checks.hover_mode!=2 or jetpack_checks.hover_drift>.2:failures.append("Network hover unstable or rejected")
+		var ready:=Time.get_ticks_msec()+12000
+		while actor.jetpack_state.cooldown>0 and Time.get_ticks_msec()<ready:await create_timer(.05).timeout
+		# Launch in the straight gate access corridor, beyond the upper bridge.
+		path.insert(path.size()-2,center+Vector3(112,0,0))
 	var legs: Array=[]
 	for point in path:
 		game.target=point;game.driving=true
+		var airborne_gate: bool=args.has("--jetpack") and point==center+Vector3(131,0,0)
+		var handoffs: int=game.cq_client.handoffs
+		if airborne_gate:
+			await double_jump()
+			jetpack_checks.launch=game.fighters[id].jetpack_state.duplicate(true)
 		var limit:=Time.get_ticks_msec()+40000
 		var frozen_at:=0
 		while Time.get_ticks_msec()<limit and game.active:
 			await create_timer(.05).timeout
+			if airborne_gate and game.cq_client.handoffs>handoffs and not jetpack_checks.has("transferred"):
+				jetpack_checks.transferred=game.fighters[id].jetpack_state.duplicate(true)
+				if jetpack_checks.transferred.mode!=1 or jetpack_checks.transferred.cooldown<=0 or jetpack_checks.transferred.activation!=jetpack_checks.launch.activation:failures.append("Airborne handoff lost flight or cooldown")
 			if game.cq_client.frozen and frozen_at==0:frozen_at=Time.get_ticks_msec()
 			if not game.cq_client.frozen and frozen_at>0:pauses.append(Time.get_ticks_msec()-frozen_at);frozen_at=0
 			var delta: Vector3=game.fighters[id].position-point;delta.y=0
-			if delta.length()<1 and not game.cq_client.frozen:break
+			if delta.length()<1 and not game.cq_client.frozen and (not airborne_gate or game.fighters[id].jetpack_state.mode==0):break
 		game.driving=false
+		if airborne_gate:
+			await create_timer(.35).timeout
+			jetpack_checks.after_transfer=game.fighters[id].jetpack_state.duplicate(true)
+			if jetpack_checks.after_transfer.activation!=jetpack_checks.launch.activation or jetpack_checks.after_transfer.cooldown<=0:failures.append("Post-handoff snapshot cleared boost state")
 		if not game.active:failures.append("Disconnected during route");break
 		var delta: Vector3=game.fighters[id].position-point;delta.y=0;legs.append(delta.length())
 		if delta.length()>=1:failures.append("Route leg timed out")
 	if not game.active:finish();return
+	if args.has("--jetpack") and not jetpack_checks.has("transferred"):failures.append("No airborne handoff observed")
 	# Exercise server-authoritative shot/event path after the two handoffs.
 	game.trigger=true;await create_timer(1).timeout;game.trigger=false
 	await create_timer(.5).timeout
@@ -64,8 +97,9 @@ func run() -> void:
 			await create_timer(.05).timeout
 			if game.players[id].serial>life and not game.players[id].dead and not game.cq_client.frozen:break
 		if game.players[id].serial<=life or game.players[id].dead:failures.append("Master-authorized respawn did not complete")
+		if args.has("--jetpack") and (game.fighters[id].jetpack_state.mode!=0 or game.fighters[id].jetpack_state.cooldown>0):failures.append("Respawn did not clear jetpack state")
 		if game.cq_client.occupancy.size()!=16 or game.cq_client.occupancy.any(func(n):return n>16):failures.append("Missing or overfilled district capacity")
-	print("CQ_ROUTE ",JSON.stringify({"legs":legs,"position":str(game.fighters[id].position),"prediction":game.fighters[id].prediction.stats,"ack":game.fighters[id].prediction.acknowledged,"pauses_ms":pauses,"ammo":game.players[id].ammo,"events":game.cq_client.events_received,"visible":game.cq_client.visible,"roster":game.players.size()}))
+	print("CQ_ROUTE ",JSON.stringify({"jetpack":jetpack_checks,"legs":legs,"position":str(game.fighters[id].position),"prediction":game.fighters[id].prediction.stats,"ack":game.fighters[id].prediction.acknowledged,"pauses_ms":pauses,"ammo":game.players[id].ammo,"events":game.cq_client.events_received,"visible":game.cq_client.visible,"roster":game.players.size()}))
 	var hold: float=float(game._arg_value(args,"--hold-seconds","0"))
 	if hold>0:await create_timer(hold).timeout
 	finish()

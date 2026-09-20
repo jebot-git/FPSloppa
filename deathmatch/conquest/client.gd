@@ -35,7 +35,7 @@ func transition(epoch: int,next: int,district: int) -> void:
 		waiting_room=preload("res://deathmatch/conquest/waiting_room.gd").new();game.add_child(waiting_room);waiting_room.setup(game)
 	capacity(occupancy,capacity_revision)
 	game.replication.reset();game.remote_interpolation.reset();game.remote_view_time=-1;game.snapshot_view_time=-1
-	game.fire_delivery.pending=[];game.input_delivery.pending=0
+	game.fire_delivery.pending=[];game.input_delivery.pending=0;game.input_delivery.jet_pending=0;game.input_delivery.last_press=-100.0
 	game.variant_combat.predictions.clear()
 	for actor in game.fighters.values():actor.prediction.clear();actor.reset_view()
 	for id in game.fighters:
@@ -70,6 +70,8 @@ func baseline(epoch: int,gen: int,bytes: PackedByteArray) -> void:
 	game.callv("_snapshot",snapshot)
 	game.fighters[mine].prediction.clear();game.fighters[mine].reset_physics_interpolation()
 	var loco: Dictionary=snapshot[10].get("locomotion",{}).get(mine,{})
+	game.fighters[mine].Jetpack.reconcile(game.fighters[mine],loco.get("jetpack",{}))
+	game.input_delivery.jet_event=maxi(game.input_delivery.jet_event,int(loco.get("jetpack_ack",0)))
 	game.input_delivery.event=maxi(game.input_delivery.event,int(loco.get("jump_ack",0)))
 	game.fire_delivery.event=maxi(game.fire_delivery.event,int(loco.get("fire_ack",0)))
 	frozen=false;handoffs+=1

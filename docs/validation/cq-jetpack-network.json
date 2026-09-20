@@ -1,0 +1,199 @@
+{
+  "ok": true,
+  "added_worker_rtt_ms": 30.0,
+  "clients": [
+    {
+      "result": {
+        "failures": [],
+        "handoffs": 4,
+        "map_instances": 1,
+        "map_transitions": [
+          {
+            "load_ms": 71,
+            "zone": 0
+          },
+          {
+            "load_ms": 22,
+            "zone": 1
+          },
+          {
+            "load_ms": 19,
+            "zone": 0
+          }
+        ],
+        "map_zone": 0,
+        "stale_rejected": 2,
+        "zone": 0
+      },
+      "route": {
+        "ack": -1,
+        "ammo": [
+          50,
+          0,
+          0,
+          0
+        ],
+        "events": 11,
+        "jetpack": {
+          "after_transfer": {
+            "activation": 2,
+            "age": 2.14999999999999,
+            "cooldown": 3.95000000000002,
+            "distance": 33.0330308973789,
+            "heading": "(0.961941, -0.273256)",
+            "mode": 0,
+            "tap": 0.0,
+            "time": 28.6999999999997
+          },
+          "hover_drift": 0.0,
+          "hover_mode": 2,
+          "launch": {
+            "activation": 2,
+            "age": 0.0666666666666667,
+            "cooldown": 7.95,
+            "distance": 1.06665086746216,
+            "heading": "(1.0, -0.000993)",
+            "mode": 1,
+            "tap": 0.0,
+            "time": 24.6166666666665
+          },
+          "transferred": {
+            "activation": 2,
+            "age": 0.766666666666667,
+            "cooldown": 7.25,
+            "distance": 12.2664825320244,
+            "heading": "(1.0, -0.000628)",
+            "mode": 1,
+            "tap": 0.0,
+            "time": 25.3999999999998
+          }
+        },
+        "legs": [
+          0.659071505069733,
+          0.619110465049744,
+          0.477676779031754,
+          0.603794574737549,
+          0.077860064804554,
+          0.975467026233673
+        ],
+        "pauses_ms": [
+          128,
+          134
+        ],
+        "position": "(-395.0, -0.004922, -395.0)",
+        "prediction": {
+          "corrections": 16,
+          "max_error": 0.497973680496216,
+          "resets": 0
+        },
+        "roster": 2,
+        "visible": [
+          159136836
+        ]
+      }
+    },
+    {
+      "result": {
+        "failures": [],
+        "handoffs": 4,
+        "map_instances": 1,
+        "map_transitions": [
+          {
+            "load_ms": 89,
+            "zone": 2
+          },
+          {
+            "load_ms": 22,
+            "zone": 3
+          },
+          {
+            "load_ms": 20,
+            "zone": 2
+          }
+        ],
+        "map_zone": 2,
+        "stale_rejected": 2,
+        "zone": 2
+      },
+      "route": {
+        "ack": -1,
+        "ammo": [
+          50,
+          0,
+          0,
+          0
+        ],
+        "events": 13,
+        "jetpack": {
+          "after_transfer": {
+            "activation": 2,
+            "age": 2.01666666666666,
+            "cooldown": 3.96666666666669,
+            "distance": 33.0331280231476,
+            "heading": "(0.96282, 0.270145)",
+            "mode": 0,
+            "tap": 0.0,
+            "time": 27.2333333333331
+          },
+          "hover_drift": 0.0,
+          "hover_mode": 2,
+          "launch": {
+            "activation": 2,
+            "age": 0.0666666666666667,
+            "cooldown": 7.95,
+            "distance": 1.06665045022964,
+            "heading": "(1.0, -0.000737)",
+            "mode": 1,
+            "tap": 0.0,
+            "time": 23.1666666666666
+          },
+          "transferred": {
+            "activation": 2,
+            "age": 0.800000000000001,
+            "cooldown": 7.21666666666667,
+            "distance": 12.7998149991035,
+            "heading": "(0.999992, -0.003952)",
+            "mode": 1,
+            "tap": 0.0,
+            "time": 23.9999999999999
+          }
+        },
+        "legs": [
+          0.995114684104919,
+          0.732087850570679,
+          0.402114927768707,
+          0.988967895507812,
+          0.109196744859219,
+          0.929383158683777
+        ],
+        "pauses_ms": [
+          134,
+          135
+        ],
+        "position": "(105.0, 0.03651, -355.0)",
+        "prediction": {
+          "corrections": 18,
+          "max_error": 0.691359639167786,
+          "resets": 0
+        },
+        "roster": 2,
+        "visible": [
+          1690787973
+        ]
+      }
+    }
+  ],
+  "master_clock_advanced": true,
+  "before_restart_stats": {
+    "baselines": 6,
+    "events": 24,
+    "inputs": 2049,
+    "max_workers": 4,
+    "stale_inputs": 4,
+    "transfers": 4
+  },
+  "after_restart_epoch": 2,
+  "worker_loss_master_exit": 3,
+  "other_workers_exit_on_master_loss": true,
+  "sample_seconds": 57.73836797400145
+}

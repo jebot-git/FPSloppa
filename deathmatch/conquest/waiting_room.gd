@@ -19,7 +19,7 @@ func setup(arena) -> void:
 		var label:=Label3D.new();label.text="REINFORCEMENT HOLDING ROOM\n\nNo friendly deployment slot is available.\nYou will return automatically when one opens."
 		label.font_size=40;label.pixel_size=.006;label.position=Vector3(0,2.6,-5.7);label.modulate=Color(.8,.9,1);add_child(label)
 	if game.fighters.has(mine):
-		var actor=game.fighters[mine];actor.position=ORIGIN+Vector3(0,.1,2);actor.velocity=Vector3.ZERO;actor.blast_velocity=Vector2.ZERO;actor.reset_view();actor.prediction.clear();actor.reset_physics_interpolation();actor.show_alive(false,true)
+		var actor=game.fighters[mine];actor.configure_jetpack(false);actor.position=ORIGIN+Vector3(0,.1,2);actor.velocity=Vector3.ZERO;actor.blast_velocity=Vector2.ZERO;actor.reset_view();actor.prediction.clear();actor.reset_physics_interpolation();actor.show_alive(false,true)
 		game.players[mine].dead=true;game.players[mine].hp=0;game.local_yaw=0;game.local_pitch=0
 		if game.is_vr():game.xr_rig.on_spawn()
 func box(at: Vector3,size: Vector3,color: Color,solid: bool=true) -> void:
@@ -33,7 +33,7 @@ func box(at: Vector3,size: Vector3,color: Color,solid: bool=true) -> void:
 func tick(delta: float) -> void:
 	var mine: int=game.multiplayer.get_unique_id()
 	if not game.fighters.has(mine):return
-	var actor=game.fighters[mine];var command: Dictionary=game._local_command()
+	var actor=game.fighters[mine];actor.configure_jetpack(false);var command: Dictionary=game._local_command()
 	game._update_crouch(mine,command.get("xr",{}),command)
 	actor.simulate(command.get("move",Vector2.ZERO),game.local_yaw,true,delta,command.get("jump",false))
 	if game.is_vr():

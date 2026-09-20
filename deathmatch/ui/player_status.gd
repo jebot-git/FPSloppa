@@ -5,6 +5,8 @@ static func read(game,id: int) -> Dictionary:
 	var team: int=state.get("team",-1) if game.match_mode.team_game() and not state.get("spectator",false) else -1
 	var result: Dictionary={"team":team,"team_text":game.match_mode.TEAMS[team]+" TEAM" if team in [0,1] else "SPECTATOR" if state.get("spectator",false) else "","ability":"","carrier":"","flag_team":-1}
 	if state.is_empty() or state.get("dead",true) or state.get("spectator",false) or game.lobby.active():return result
+	if game.match_mode.kind=="cq" and game.fighters.has(id) and game.intermission<=0:
+		result.ability=preload("res://deathmatch/conquest/jetpack.gd").status(game.fighters[id].jetpack_state)
 	if game.match_mode.fortress.enabled() and game.intermission<=0:
 		var ability: Dictionary=game.match_mode.fortress.ability_state(id)
 		if not ability.is_empty():
