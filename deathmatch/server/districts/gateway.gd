@@ -4,6 +4,7 @@ const External=preload("res://deathmatch/server/districts/external.gd")
 const State=preload("res://deathmatch/server/districts/state.gd")
 const Wire=preload("res://deathmatch/server/districts/wire.gd")
 const Rules=preload("res://deathmatch/conquest/rules.gd")
+const Capacity=preload("res://deathmatch/conquest/capacity.gd")
 const Replication=preload("res://deathmatch/network/replication.gd")
 const Codec=preload("res://deathmatch/network/snapshot_codec.gd")
 const Events=preload("res://deathmatch/server/districts/events.gd")
@@ -22,6 +23,9 @@ var closing:=false
 var heartbeat_at:=0
 var reset_pending: Dictionary={}
 var epoch:=1
+var capacity_counts: Array=[]
+var capacity_revision:=0
+var resetting:=false
 var stats: Dictionary={"transfers":0,"inputs":0,"stale_inputs":0,"baselines":0,"events":0,"max_workers":0}
 func setup(arena,worker_limit: int) -> void:
 	game=arena;limit=worker_limit
@@ -81,6 +85,14 @@ func send(zone: int,message: Dictionary) -> void:
 func admit(id: int) -> void:
 	var zone:=State.district(game.fighters[id].position)
 	var gen: int=owners.get(id,{}).get("generation",0)+1
+	if not Capacity.available(owners,zone,id) or (game.players[id].dead and not game.players[id].spectator):
+		game.players[id].dead=true;game.players[id].hp=0
+		owners[id]={"zone":-1,"generation":gen,"phase":"spawn_wait","ack":id<0,"started":Time.get_ticks_msec(),"last_seq":-1,"baseline":true}
+		streams.erase(id)
+		if id>0:
+			game._cq_transition.rpc_id(id,game.map_epoch,gen,-1)
+			game._announcement.rpc_id(id,"No friendly deployment slot is available. Waiting for reinforcements.")
+		return
 	owners[id]={"zone":zone,"generation":gen,"phase":"waiting","actor":State.actor(game,id),"ack":id<0,"started":Time.get_ticks_msec(),"last_seq":-1,"baseline":true}
 	streams.erase(id)
 	if id>0:game._cq_transition.rpc_id(id,game.map_epoch,gen,zone)
@@ -93,9 +105,36 @@ func remove(id: int) -> void:
 	owners.erase(id);streams.erase(id)
 func ready(id: int,generation: int) -> void:
 	if owners.has(id) and owners[id].generation==generation:owners[id].ack=true;progress(id)
+func publish_capacity() -> void:
+	var counts:=Capacity.counts(owners)
+	if counts==capacity_counts:return
+	capacity_counts=counts;capacity_revision+=1
+	for zone in workers:send(zone,{"kind":"capacity","counts":counts})
+	game._cq_capacity.rpc(game.map_epoch,counts,capacity_revision)
+func respawn(id: int) -> void:
+	var o: Dictionary=owners[id]
+	if o.phase!="active" or not o.get("respawn_pending",false) or o.has("respawn_zone"):return
+	var target:=Capacity.nearest(owners,game.match_mode.conquest.rules.owners,int(game.players[id].team),game.fighters[id].position,id)
+	if target<0:
+		# Retire is ordered before any later admission on this worker's TCP stream.
+		# The master keeps the dead player's state; waiting rooms consume no district slot.
+		send(o.zone,{"kind":"retire","id":id})
+		o.zone=-1;o.phase="spawn_wait";o.generation+=1;o.ack=id<0;o.started=Time.get_ticks_msec();o.erase("respawn_pending")
+		streams.erase(id)
+		if id>0:game._cq_transition.rpc_id(id,game.map_epoch,o.generation,-1)
+		return
+	o.respawn_zone=target
+	send(o.zone,{"kind":"respawn_grant","id":id,"generation":o.generation,"target":target})
 func progress(id: int) -> void:
 	if not owners.has(id) or not reset_pending.is_empty():return
 	var o: Dictionary=owners[id]
+	if o.phase=="spawn_wait":
+		var target:=Capacity.nearest(owners,game.match_mode.conquest.rules.owners,int(game.players[id].team),game.fighters[id].position,id)
+		if target<0:return
+		game.players[id].cq_spawn_zone=target;game._spawn(id);game.players[id].erase("cq_spawn_zone")
+		if game.players[id].dead:return
+		o.zone=target;o.phase="waiting";o.actor=State.actor(game,id);o.baseline=true;o.generation+=1;o.ack=id<0;o.started=Time.get_ticks_msec()
+		if id>0:game._cq_transition.rpc_id(id,game.map_epoch,o.generation,target)
 	if not workers.has(o.zone):need(o.zone);return
 	if not workers[o.zone].ready:return
 	if o.phase=="waiting" and o.ack:
@@ -134,11 +173,13 @@ func _process(_delta: float) -> void:
 		if (not w.get("external",false) and not OS.is_process_running(w.pid)) or now-w.last>(5000 if w.ready else 60000):fail("District %d unavailable"%zone);return
 		if w.ready and w.wire.peer.get_status()!=StreamPeerTCP.STATUS_CONNECTED:fail("District %d disconnected"%zone);return
 	for id in owners.keys():
+		respawn(id)
 		progress(id)
-		if owners[id].phase!="active" and now-owners[id].started>60000:fail("Actor handoff timed out");return
+		if owners[id].phase not in ["active","spawn_wait"] and now-owners[id].started>60000:fail("Actor handoff timed out");return
+	publish_capacity()
 	if now-heartbeat_at>=250:
 		heartbeat_at=now
-		for zone in workers:send(zone,{"kind":"heartbeat","rules":game.match_mode.conquest.rules.snapshot(),"running":game.intermission<=0 and reset_pending.is_empty()})
+		for zone in workers:send(zone,{"kind":"heartbeat","rules":game.match_mode.conquest.rules.snapshot(),"capacity":capacity_counts,"running":game.intermission<=0 and reset_pending.is_empty()})
 func reject(wire) -> void:
 	wire.peer.disconnect_from_host();connections.erase(wire);connection_started.erase(wire)
 func handle(wire,message: Dictionary) -> void:
@@ -162,10 +203,27 @@ func handle(wire,message: Dictionary) -> void:
 		for item in items:
 			item.respawn=maxf(0,item.respawn-(game.clock-float(parked.get("at",game.clock))))
 			if item.respawn<=0:item.available=true
-		send(zone,{"kind":"start","pickups":items});sleeping.erase(zone);print("CQ_WORKER_READY zone=",zone);return
+		send(zone,{"kind":"start","pickups":items,"capacity":Capacity.counts(owners)});sleeping.erase(zone);print("CQ_WORKER_READY zone=",zone);return
 	if not w.ready or w.wire!=wire or message.get("epoch",-1)!=epoch:return
 	w.last=Time.get_ticks_msec()
 	match message.kind:
+		"respawn_request":
+			var id: int=message.id
+			if not owners.has(id) or owners[id].zone!=zone or owners[id].phase!="active" or message.generation!=owners[id].generation:return
+			if not State.valid(message.actor) or not message.actor.state.dead:fail("Invalid respawn request");return
+			apply(message.actor);owners[id].respawn_pending=true;respawn(id)
+		"respawn_done","respawn_failed":
+			var id: int=message.id
+			if not owners.has(id) or owners[id].zone!=zone or not owners[id].has("respawn_zone"):return
+			if message.kind=="respawn_done":
+				if owners[id].respawn_zone!=zone or not State.valid(message.actor):fail("Invalid local respawn completion");return
+				apply(message.actor)
+			owners[id].erase("respawn_zone");owners[id].erase("respawn_pending")
+		"rolled_back":
+			for id in owners:
+				var o: Dictionary=owners[id]
+				if o.phase=="rolling_back" and o.zone==zone and o.get("tx","")==message.tx:
+					apply(message.actor);o.phase="active";o.erase("tx");break
 		"snapshot":
 			var snap: Dictionary=message.snapshot
 			if snap.sequence<=w.sequence:return
@@ -190,7 +248,14 @@ func handle(wire,message: Dictionary) -> void:
 			var o: Dictionary=owners[id]
 			if o.zone!=zone or o.phase!="active" or message.generation!=o.generation:fail("Invalid ownership offer");return
 			if not State.valid(message.actor) or State.district(message.actor.position)!=message.target:fail("Invalid transfer destination");return
+			var is_respawn: bool=message.get("respawn",false)
+			var permitted: bool=Capacity.available(owners,int(message.target),id)
+			if is_respawn:permitted=permitted and o.get("respawn_zone",-1)==message.target and game.match_mode.conquest.rules.owners[message.target]==game.players[id].team
+			if not permitted:
+				o.phase="rolling_back";o.tx=message.tx;o.started=Time.get_ticks_msec();o.erase("respawn_zone");o.erase("respawn_pending")
+				send(zone,{"kind":"rollback","tx":message.tx});return
 			o.source=zone;o.zone=message.target;o.actor=message.actor;o.tx=message.tx;o.generation+=1;o.phase="preparing";o.ack=id<0;o.started=Time.get_ticks_msec();o.baseline=true
+			o.erase("respawn_zone");o.erase("respawn_pending")
 			streams.erase(id)
 			if id>0:game._cq_transition.rpc_id(id,game.map_epoch,o.generation,o.zone)
 			need(o.zone)
@@ -224,7 +289,13 @@ func reset_round() -> void:
 	for zone in workers:
 		if workers[zone].ready:send(zone,{"kind":"reset","next_epoch":next});reset_pending[zone]=true
 	epoch=next
+	# Initial placement has already reset all actors. Retire old reservations first.
+	var generations: Dictionary={}
+	for id in owners:generations[id]=owners[id].generation
+	owners.clear()
+	for id in generations:owners[id]={"generation":generations[id]}
 	for id in game.players:admit(id)
+	resetting=false
 func scoped(state: Array,id: int) -> Array:
 	var zone: int=owners[id].zone
 	var result:=state.duplicate(true)
@@ -237,6 +308,7 @@ func scoped(state: Array,id: int) -> Array:
 		if p.has("definition"):result[10].ordnance[p.id]={"extra":p.extra,"velocity":p.velocity,"life":p.life,"stuck":p.stuck}
 	result[13]=snap.get("watermark",zone*100000000)
 	result[10].cq_district=zone
+	result[10].cq_capacity={"counts":capacity_counts,"revision":capacity_revision}
 	for key in ["locomotion","movement_ack","weapon_charge"]:
 		for other in result[10].get(key,{}).keys():
 			if other not in visible:result[10][key].erase(other)
@@ -244,6 +316,7 @@ func scoped(state: Array,id: int) -> Array:
 		if State.district(game.pickups[index].position)!=zone:result[1][index]=0
 	return result
 func replicate(state: Array) -> void:
+	publish_capacity()
 	for id in owners:
 		var o: Dictionary=owners[id]
 		if id<0 or o.phase!="active" or not workers.has(o.zone):continue
@@ -262,7 +335,7 @@ func diagnostics() -> Dictionary:
 	for id in owners:
 		var o: Dictionary=owners[id]
 		actors.append({"id":id,"zone":o.zone,"generation":o.generation,"phase":o.phase,"input_sequence":o.last_seq,"position":str(game.fighters[id].position) if game.fighters.has(id) else ""})
-	return {"backend":"districts","placement":"external" if not external_session.is_empty() else "local","transport":workers.keys().reduce(func(result,z):
+	return {"backend":"districts","district_capacity":Capacity.LIMIT,"occupancy":Capacity.counts(owners),"respawn_waiting":owners.values().filter(func(o):return o.get("respawn_pending",false) or o.phase=="spawn_wait").size(),"placement":"external" if not external_session.is_empty() else "local","transport":workers.keys().reduce(func(result,z):
 		var w: Dictionary=workers[z];result[z]={"ready":w.ready,"sent":w.wire.sent if w.wire else 0,"received":w.wire.received if w.wire else 0,"snapshot_age_ms":Time.get_ticks_msec()-w.last};return result,{}),"workers":workers.size(),"limit":limit,"worker_pids":workers.keys().reduce(func(result,z):result[z]=workers[z].pid;return result,{}),"stats":stats.duplicate(),"actors":actors,"epoch":epoch}
 
 func apply(row: Dictionary) -> void:

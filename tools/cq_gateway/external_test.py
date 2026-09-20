@@ -15,6 +15,7 @@ p.add_argument('--binary', type=Path, default=ROOT / 'Builds/CQExternal/FPSloppa
 p.add_argument('--latency-ms', type=float, default=0, help='Added round-trip delay on each master/worker connection')
 p.add_argument('--name', default='external-local')
 p.add_argument('--failure', action='store_true', help='After successful routes, kill a district and check fail-closed behavior')
+p.add_argument('--respawn', action='store_true', help='Require each real client to die and complete master-authorized respawn')
 args = p.parse_args()
 if not 0 <= args.latency_ms <= 500:
     p.error('Latency must be 0–500 ms')
@@ -106,7 +107,7 @@ async def main():
     start=time.monotonic(); counters_at_start=metrics.copy()
     clients=[]
     for i in range(2):
-        clients.append(spawn(f'client-{i}', ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/client.gd','--','--experimental-cq','--host','127.0.0.1','--test-port',str(port),'--hold-seconds','20']))
+        clients.append(spawn(f'client-{i}', ['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/cq_gateway/client.gd','--','--experimental-cq','--host','127.0.0.1','--test-port',str(port),'--hold-seconds','20',*(['--respawn'] if args.respawn else [])]))
         await asyncio.sleep(.3)
     await until(lambda:all('CQ_ROUTE ' in (OUT/f'client-{i}.log').read_text() for i in range(2)),120)
     status=await asyncio.to_thread(ctl,'status');report['before_restart']=status['cq_backend']
@@ -114,6 +115,9 @@ async def main():
     report['master_clock_advanced']=True
     assert report['before_restart']['stats']['transfers']>=4
     assert report['before_restart']['stats']['stale_inputs']>=2
+    if args.respawn:
+        assert report['before_restart']['district_capacity']==16
+        assert max(report['before_restart']['occupancy'])<=16
     report['restart']=await asyncio.to_thread(ctl,'restart')
     await asyncio.sleep(3)
     report['after_restart']=(await asyncio.to_thread(ctl,'status'))['cq_backend']

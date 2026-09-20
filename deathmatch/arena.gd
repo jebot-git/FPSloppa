@@ -807,6 +807,7 @@ func status(message: String) -> void:
 	print(message)
 
 func _spawn(id: int) -> void:
+	if is_instance_valid(district_worker) and players[id].dead and district_worker.request_respawn(id):return
 	match_mode.fortress.walkers.departed(id)
 	players[id].jump_received=0;players[id].jump_ack=0;players[id].jump_pending=false
 	var state: Dictionary = players[id]
@@ -1014,6 +1015,7 @@ func _physics_process(delta: float) -> void:
 	if connect_address_deadline>0 and clock>connect_address_deadline and connect_address_index<connect_addresses.size():_next_connect_address()
 	if connect_deadline>0 and clock>connect_deadline: disconnect_game("Connection timed out. Check host, firewall and UDP port forwarding.")
 	if not active: return
+	if not multiplayer.is_server() and cq_client.waiting():cq_client.waiting_room.tick(delta);return
 	if not multiplayer.is_server() and (clock<input_paused_until or cq_client.frozen):return
 	var mine := multiplayer.get_unique_id()
 	if players.has(mine) and not dedicated:
@@ -1721,6 +1723,7 @@ func _restart_round() -> void:
 		if map_rotation[next_index]!=current_map:
 			if _rotate_map(map_rotation[next_index]): rotation_index=next_index;return
 		else: rotation_index=next_index
+	if is_instance_valid(district_gateway):district_gateway.resetting=true
 	match_mode.reset()
 	round_left = time_limit
 	round_message = ""
@@ -2210,7 +2213,7 @@ func _process(delta: float) -> void:
 		camera.add_child(viewmodel)
 		model_weapon = s.weapon;model_art_rules=art_rules
 	camera.rotation = Vector3(local_pitch,local_yaw,0)
-	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead and not s.spectator else fighters[multiplayer.get_unique_id()].eye_height(),minf(1,delta*8))
+	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead and not s.spectator and not cq_client.waiting() else fighters[multiplayer.get_unique_id()].eye_height(),minf(1,delta*8))
 	camera.global_position = fighters[multiplayer.get_unique_id()].render_position()+Vector3.UP*(camera_eye_height+fighters[multiplayer.get_unique_id()].view_offset)
 	fighters[multiplayer.get_unique_id()].rotation.y = local_yaw
 	viewmodel.visible = not s.dead and not menu_open and not lobby.active()
@@ -2526,3 +2529,6 @@ func _cq_state(epoch: int,generation: int,bytes: PackedByteArray) -> void:cq_cli
 func _cq_large(epoch: int,generation: int,bytes: PackedByteArray) -> void:cq_client.packet(epoch,generation,bytes)
 @rpc("authority","call_remote","reliable",0)
 func _cq_event(epoch: int,generation: int,method: String,args: Array) -> void:cq_client.event(epoch,generation,method,args)
+@rpc("authority","call_remote","reliable",0)
+func _cq_capacity(epoch: int,counts: Array,revision: int) -> void:
+	if cq_profile and epoch==map_epoch:cq_client.capacity(counts,revision)

@@ -4,6 +4,7 @@ const External=preload("res://deathmatch/server/districts/external.gd")
 const State=preload("res://deathmatch/server/districts/state.gd")
 const Wire=preload("res://deathmatch/server/districts/wire.gd")
 const Rules=preload("res://deathmatch/conquest/rules.gd")
+const Capacity=preload("res://deathmatch/conquest/capacity.gd")
 var game
 var zone:=0
 var wire
@@ -20,6 +21,10 @@ var last_contact:=0
 var booted:=false
 var authenticated:=false
 var events: Array=[]
+var occupancy: Array=[]
+var transit
+var respawn_requested: Dictionary={}
+var respawn_destination: Dictionary={}
 func setup(arena,args: PackedStringArray) -> void:
 	game=arena;game.district_worker=self;game.dedicated=true;game.set_process(false);game.set_physics_process(false)
 	zone=game._arg_int(args,"--cq-worker",-1);token=game._arg_value(args,"--worker-token","")
@@ -56,6 +61,17 @@ func event(method: String,args: Array) -> void:
 	if running:
 		if events.size()>=512:get_tree().quit(3);return
 		events.append([method,args])
+func capacity(counts: Array) -> void:
+	if counts.size()!=16:return
+	occupancy=counts.duplicate()
+	if not is_instance_valid(transit):transit=preload("res://deathmatch/conquest/transit.gd").new();game.add_child(transit)
+	transit.update(zone,occupancy)
+func request_respawn(id: int) -> bool:
+	if respawn_destination.has(id):return false
+	if not respawn_requested.has(id):
+		respawn_requested[id]=true
+		wire.send({"kind":"respawn_request","zone":zone,"id":id,"generation":generation.get(id,-1),"actor":State.actor(game,id),"epoch":epoch})
+	return true
 func _physics_process(delta: float) -> void:
 	if not booted:return
 	for message in wire.poll():
@@ -79,6 +95,7 @@ func command(message: Dictionary) -> void:
 		authenticated=true;token="";return
 	if message.kind=="start" and epoch==0:
 		game.match_mode.friendly_fire=message.get("friendly_fire",false);running=true;epoch=message.epoch;game.map_epoch=message.get("map_epoch",epoch)
+		capacity(message.get("capacity",[]))
 		for stored in message.get("pickups",[]):
 			for item in game.pickups:
 				if item.position==stored.position:item.available=stored.available;item.respawn=game.clock+float(stored.respawn);break
@@ -86,17 +103,21 @@ func command(message: Dictionary) -> void:
 	if int(message.get("epoch",-1))!=epoch:return
 	game.match_mode.friendly_fire=message.get("friendly_fire",game.match_mode.friendly_fire)
 	match message.kind:
+		"capacity":capacity(message.counts)
 		"heartbeat":
 			game.match_mode.conquest.rules.receive(message.rules)
+			capacity(message.get("capacity",[]))
 			running=message.running
 			if not running:send_snapshot()
 		"admit":
 			var row: Dictionary=message.actor
 			if not State.valid(row) or State.district(row.position)!=zone:return
 			if game.players.has(row.id):return
+			if game.players.size()+escrow.size()+prepared.values().filter(func(p):return not p.committed).size()>=Capacity.LIMIT:get_tree().quit(3);return
 			ensure_bots(row.id);State.restore(game,row);game.players[row.id].cq_wait_input=row.id>0;generation[row.id]=int(message.generation);send_snapshot()
 		"retire":
 			var id: int=message.id
+			respawn_requested.erase(id);respawn_destination.erase(id)
 			if game.players.has(id):clear_projectiles(id);State.remove(game,id)
 			for tx in prepared.keys():
 				if prepared[tx].actor.id==id:prepared.erase(tx)
@@ -124,6 +145,8 @@ func command(message: Dictionary) -> void:
 			if prepared.has(tx):
 				wire.send({"kind":"prepared" if prepared[tx].actor==message.actor and prepared[tx].generation==message.generation else "rejected","zone":zone,"tx":tx,"epoch":epoch});return
 			if prepared.size()>=256:get_tree().quit(3);return
+			var pending: int=prepared.values().filter(func(row):return not row.committed).size()
+			if game.players.size()+pending+escrow.size()>=Capacity.LIMIT:wire.send({"kind":"rejected","zone":zone,"tx":tx,"epoch":epoch});return
 			if not State.valid(message.actor) or State.district(message.actor.position)!=zone or game.players.has(message.actor.id):wire.send({"kind":"rejected","zone":zone,"tx":tx,"epoch":epoch});return
 			prepared[tx]={"actor":message.actor,"generation":message.generation,"committed":false}
 			wire.send({"kind":"prepared","zone":zone,"tx":tx,"epoch":epoch})
@@ -151,11 +174,20 @@ func command(message: Dictionary) -> void:
 			var center:=Rules.center(zone);row.position.x=clampf(row.position.x,center.x-124.5,center.x+124.5);row.position.z=clampf(row.position.z,center.z-124.5,center.z+124.5);row.velocity=Vector3.ZERO
 			State.restore(game,row);game.players[row.id].view_time=-1.0;escrow.erase(message.tx)
 			wire.send({"kind":"rolled_back","zone":zone,"tx":message.tx,"actor":State.actor(game,row.id),"epoch":epoch})
+		"respawn_grant":
+			var id: int=message.id
+			if not respawn_requested.has(id) or not game.players.has(id) or message.generation!=generation.get(id,-1):return
+			var original:=State.actor(game,id)
+			respawn_destination[id]=int(message.target);game._spawn(id);respawn_destination.erase(id);respawn_requested.erase(id)
+			if game.players[id].dead:wire.send({"kind":"respawn_failed","zone":zone,"id":id,"epoch":epoch});return
+			if message.target==zone:
+				wire.send({"kind":"respawn_done","zone":zone,"id":id,"actor":State.actor(game,id),"epoch":epoch});send_snapshot()
+			else:offer(id,int(message.target),original)
 		"reset":
 			if int(message.next_epoch)<=epoch:return
 			running=false
 			for id in game.players.keys():clear_projectiles(id);State.remove(game,id)
-			generation.clear();prepared.clear();escrow.clear();events.clear();game.history.clear()
+			generation.clear();prepared.clear();escrow.clear();events.clear();game.history.clear();respawn_requested.clear();respawn_destination.clear()
 			for item in game.pickups:item.available=true;item.respawn=0.0
 			epoch=int(message.next_epoch);game.map_epoch=message.get("map_epoch",epoch)
 			wire.send({"kind":"reset","zone":zone,"epoch":epoch})
@@ -163,12 +195,16 @@ func command(message: Dictionary) -> void:
 func clear_projectiles(owner: int) -> void:
 	for id in game.projectiles.keys():
 		if game.projectiles[id].owner==owner:game._projectile_end.rpc(id,game.projectiles[id].position,game.projectiles[id].weapon)
-func offer(id: int,target: int) -> void:
+func offer(id: int,target: int,respawn_origin: Dictionary={}) -> void:
+	if respawn_origin.is_empty() and occupancy.size()==16 and int(occupancy[target])>=Capacity.LIMIT:
+		var center:=Rules.center(zone);var fighter=game.fighters[id]
+		fighter.position.x=clampf(fighter.position.x,center.x-124.5,center.x+124.5);fighter.position.z=clampf(fighter.position.z,center.z-124.5,center.z+124.5);fighter.velocity=Vector3.ZERO
+		return
 	if escrow.size()>=256:get_tree().quit(3);return
 	var tx:="%d:%d:%d:%d"%[epoch,zone,id,sequence];var row:=State.actor(game,id)
 	row.state.move=Vector2.ZERO;row.state.fire=false;row.state.alt_fire=false;row.state.offhand_fire=false;row.state.jump=false;row.state.room=Vector3.ZERO
-	clear_projectiles(id);escrow[tx]=row;State.remove(game,id)
-	wire.send({"kind":"offer","zone":zone,"target":target,"tx":tx,"actor":row,"generation":generation[id],"epoch":epoch})
+	clear_projectiles(id);escrow[tx]=row if respawn_origin.is_empty() else respawn_origin;State.remove(game,id)
+	wire.send({"kind":"offer","zone":zone,"target":target,"tx":tx,"actor":row,"generation":generation[id],"respawn":not respawn_origin.is_empty(),"epoch":epoch})
 func send_snapshot() -> void:
 	if game.projectile_id>=(zone+1)*100000000:get_tree().quit(3);return
 	sequence+=1

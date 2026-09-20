@@ -1,6 +1,6 @@
 extends RefCounted
 ## Private provisioning files for externally supervised, tunnel-connected workers.
-const PROTOCOL:="cq-external-worker-1"
+const PROTOCOL:="cq-external-worker-2"
 static func secret(value) -> bool:
 	return value is String and value.length()==64 and value.is_valid_hex_number(false)
 static func number(value,minimum: int,maximum: int) -> bool:

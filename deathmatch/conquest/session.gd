@@ -3,7 +3,7 @@ const Rules=preload("res://deathmatch/conquest/rules.gd")
 const MAP_ID="prototype_km1"
 const MAP_PATH="res://maps/Benchmark1km/prototype_km1.bsp"
 const MAP_HASH="727ebb90f7c4239b1a3a3e6fde4bd713a971ba2b552444afe1a16888d7599ca3"
-const PROTOCOL="fpsloppa-cq-experimental-2"
+const PROTOCOL="fpsloppa-cq-experimental-3"
 var game
 var rules=Rules.new()
 var labels: Array=[]
@@ -21,6 +21,12 @@ func reset() -> void:
 func spawn_points(id: int) -> Array:
 	var state: Dictionary=game.players[id]
 	var zone: int
+	if is_instance_valid(game.district_worker):
+		zone=int(game.district_worker.respawn_destination.get(id,game.district_worker.zone))
+		return game.spawn_points.filter(func(point):return Rules.district(point)==zone)
+	if state.has("cq_spawn_zone"):
+		zone=int(state.cq_spawn_zone)
+		return game.spawn_points.filter(func(point):return Rules.district(point)==zone)
 	if not state.get("cq_started",false):
 		# Eight persistent four-person deployment groups on each team.
 		if not state.has("cq_group_zone"):
@@ -36,6 +42,9 @@ func spawn_points(id: int) -> Array:
 		if rules.owners[zone]!=state.team:zone=rules.nearest(state.team,Rules.center(zone))
 		state.cq_started=true
 	else:zone=rules.nearest(state.team,game.fighters[id].position)
+	if is_instance_valid(game.district_gateway) and not game.district_gateway.resetting:
+		var capacity=preload("res://deathmatch/conquest/capacity.gd")
+		if zone<0 or not capacity.available(game.district_gateway.owners,zone,id):zone=capacity.nearest(game.district_gateway.owners,rules.owners,state.team,game.fighters[id].position,id)
 	if zone<0:return []
 	return game.spawn_points.filter(func(point):return Rules.district(point)==zone)
 func configure_pickups() -> void:
@@ -79,6 +88,7 @@ func result() -> String:
 	var winner:=rules.winner(true);var scores:=rules.scores()
 	return ("DRAW" if winner<0 else game.match_mode.TEAMS[winner]+" WINS")+" · HOMEBASES %d : %d"%scores
 func status(id: int) -> String:
+	if game.cq_client.enabled and game.cq_client.zone<0:return "WAITING FOR REINFORCEMENTS · AUTOMATIC DEPLOYMENT"
 	var scores:=rules.scores()
 	var text:="CQ · HOMEBASES RED %d BLUE %d / 4"%scores
 	if game.players.has(id) and game.fighters.has(id):
@@ -86,8 +96,15 @@ func status(id: int) -> String:
 		text+=" · DISTRICT %02d · %s"%[zone+1,game.match_mode.TEAMS[rules.owners[zone]]]
 		text+=" · R %.0f B %.0f / %d"%[rules.progress[zone][0],rules.progress[zone][1],Rules.threshold(zone)]
 		if rules.contested[zone]:text+=" · CONTESTED"
+		if game.players[id].dead and game.cq_client.enabled and game.cq_client.occupancy.size()==16:
+			var team: int=game.players[id].team
+			var room: bool=range(16).any(func(next):return rules.owners[next]==team and (game.cq_client.occupancy[next]<16 or next==game.cq_client.zone))
+			if not room:text+="\nWAITING FOR A FRIENDLY DISTRICT SLOT"
 	return text
 func radio_allowed(sender: int,recipient: int) -> bool:
+	if is_instance_valid(game.district_gateway):
+		for id in [sender,recipient]:
+			if game.district_gateway.owners.get(id,{}).get("phase","")!="active":return false
 	if not game.fighters.has(sender) or not game.fighters.has(recipient):return false
 	return Rules.radio_connected(Rules.district(game.fighters[sender].position),Rules.district(game.fighters[recipient].position))
 func draw(parent: Node3D) -> void:

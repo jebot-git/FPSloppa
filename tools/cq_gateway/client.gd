@@ -47,6 +47,15 @@ func run() -> void:
 	if game.cq_client.rejected!=stale+2 or game.fighters[id].position!=before:failures.append("Stale generation was not rejected")
 	var stale_input: Dictionary=game._local_command();stale_input.seq=game.sequence+10000;stale_input.map_epoch=game.map_epoch;stale_input.cq_generation=game.cq_client.generation-1
 	game._input_packet.rpc_id(1,game.NetCodec.pack(stale_input))
+	if args.has("--respawn"):
+		var life: int=game.players[id].serial
+		game.request_suicide()
+		var expires:=Time.get_ticks_msec()+12000
+		while Time.get_ticks_msec()<expires and game.active:
+			await create_timer(.05).timeout
+			if game.players[id].serial>life and not game.players[id].dead and not game.cq_client.frozen:break
+		if game.players[id].serial<=life or game.players[id].dead:failures.append("Master-authorized respawn did not complete")
+		if game.cq_client.occupancy.size()!=16 or game.cq_client.occupancy.any(func(n):return n>16):failures.append("Missing or overfilled district capacity")
 	print("CQ_ROUTE ",JSON.stringify({"legs":legs,"position":str(game.fighters[id].position),"prediction":game.fighters[id].prediction.stats,"ack":game.fighters[id].prediction.acknowledged,"pauses_ms":pauses,"ammo":game.players[id].ammo,"events":game.cq_client.events_received,"visible":game.cq_client.visible,"roster":game.players.size()}))
 	var hold: float=float(game._arg_value(args,"--hold-seconds","0"))
 	if hold>0:await create_timer(hold).timeout

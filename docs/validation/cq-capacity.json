@@ -1,0 +1,344 @@
+{
+  "date": "2026-09-20",
+  "branch": "experimental/cq-districts",
+  "base_commit": "69d225d",
+  "scope": "16 reserved actors per district; local fixture tests and real local ENet clients with independent console workers. No remote deployment, full 64-player live match or headset test.",
+  "unit_and_worker_tests": {
+    "capacity_rules": {
+      "checks": 24,
+      "failures": []
+    },
+    "capacity_admission": {
+      "checks": 14,
+      "failures": []
+    },
+    "capacity_workers": {
+      "checks": 47,
+      "failures": [],
+      "workers": 2
+    },
+    "external_rules": {
+      "checks": 23,
+      "failures": []
+    },
+    "conquest": {
+      "assertions": 221,
+      "district_population": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "failures": [],
+      "teams": [
+        32,
+        32
+      ]
+    }
+  },
+  "waiting_room_network": {
+    "master": {
+      "failures": [],
+      "occupancy": [
+        0,
+        16,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        16
+      ],
+      "phase": "active",
+      "zone": 1
+    },
+    "client": {
+      "failures": [],
+      "handoffs": 2,
+      "zone": 1
+    },
+    "ok": true
+  },
+  "external_network": {
+    "ok": true,
+    "added_worker_rtt_ms": 30.0,
+    "clients": [
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 0
+        },
+        "route": {
+          "ack": 1356,
+          "ammo": [
+            50,
+            0,
+            0,
+            0
+          ],
+          "events": 10,
+          "legs": [
+            0.911591172218323,
+            0.662752211093903,
+            0.84945684671402
+          ],
+          "pauses_ms": [
+            200,
+            135
+          ],
+          "position": "(-355.0, -0.004115, -395.0)",
+          "prediction": {
+            "corrections": 2,
+            "max_error": 0.314157098531723,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            603542131
+          ]
+        }
+      },
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "stale_rejected": 2,
+          "zone": 2
+        },
+        "route": {
+          "ack": -1,
+          "ammo": [
+            50,
+            0,
+            0,
+            0
+          ],
+          "events": 9,
+          "legs": [
+            0.507375180721283,
+            0.72415030002594,
+            0.7628173828125
+          ],
+          "pauses_ms": [
+            134,
+            201
+          ],
+          "position": "(145.0, -0.004115, -355.0)",
+          "prediction": {
+            "corrections": 2,
+            "max_error": 0.23492431640625,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            1859247591
+          ]
+        }
+      }
+    ],
+    "before_restart": {
+      "actors": [
+        {
+          "generation": 3,
+          "id": 603542131,
+          "input_sequence": 1384,
+          "phase": "active",
+          "position": "(-355.0, -0.004115, -395.0)",
+          "zone": 0
+        },
+        {
+          "generation": 3,
+          "id": 1859247591,
+          "input_sequence": 1368,
+          "phase": "active",
+          "position": "(145.0, -0.004115, -355.0)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "district_capacity": 16,
+      "epoch": 1,
+      "limit": 4,
+      "occupancy": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "placement": "external",
+      "respawn_waiting": 0,
+      "stats": {
+        "baselines": 6,
+        "events": 19,
+        "inputs": 1374,
+        "max_workers": 4,
+        "stale_inputs": 4,
+        "transfers": 4
+      },
+      "transport": {
+        "0": {
+          "ready": true,
+          "received": 2023676,
+          "sent": 530856,
+          "snapshot_age_ms": 0
+        },
+        "1": {
+          "ready": true,
+          "received": 876564,
+          "sent": 140560,
+          "snapshot_age_ms": 19
+        },
+        "2": {
+          "ready": true,
+          "received": 2021872,
+          "sent": 526328,
+          "snapshot_age_ms": 19
+        },
+        "3": {
+          "ready": true,
+          "received": 878232,
+          "sent": 141192,
+          "snapshot_age_ms": 19
+        }
+      },
+      "worker_pids": {
+        "0": 1395926,
+        "1": 1395927,
+        "2": 1395928,
+        "3": 1395929
+      },
+      "workers": 4
+    },
+    "after_restart": {
+      "actors": [
+        {
+          "generation": 4,
+          "id": 603542131,
+          "input_sequence": 1556,
+          "phase": "active",
+          "position": "(-355.0, -0.004818, -355.0)",
+          "zone": 0
+        },
+        {
+          "generation": 4,
+          "id": 1859247591,
+          "input_sequence": 1540,
+          "phase": "active",
+          "position": "(105.0, -0.005729, -395.0)",
+          "zone": 2
+        }
+      ],
+      "backend": "districts",
+      "district_capacity": 16,
+      "epoch": 2,
+      "limit": 4,
+      "occupancy": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "placement": "external",
+      "respawn_waiting": 0,
+      "stats": {
+        "baselines": 8,
+        "events": 19,
+        "inputs": 1544,
+        "max_workers": 4,
+        "stale_inputs": 6,
+        "transfers": 4
+      },
+      "transport": {
+        "0": {
+          "ready": true,
+          "received": 2273228,
+          "sent": 600520,
+          "snapshot_age_ms": 34
+        },
+        "1": {
+          "ready": true,
+          "received": 960908,
+          "sent": 153528,
+          "snapshot_age_ms": 34
+        },
+        "2": {
+          "ready": true,
+          "received": 2266988,
+          "sent": 595996,
+          "snapshot_age_ms": 53
+        },
+        "3": {
+          "ready": true,
+          "received": 962576,
+          "sent": 154160,
+          "snapshot_age_ms": 40
+        }
+      },
+      "worker_pids": {
+        "0": 1395926,
+        "1": 1395927,
+        "2": 1395928,
+        "3": 1395929
+      },
+      "workers": 4
+    },
+    "master_clock_advanced": true,
+    "other_workers_exit_on_master_loss": true
+  },
+  "visual_checks": {
+    "renderer": "OpenGL compatibility, Intel Arc A770",
+    "gate": "Red gate, full-capacity label and collision checked",
+    "room": "Enclosed room, team-color strips, deployment sign, standing eye height, hidden viewmodel and HUD message checked",
+    "limitations": "Room visual fixture used an ordinary practice map as its surrounding scene; live CQ waiting path was checked headlessly. No hardware VR session."
+  },
+  "build": {
+    "FPSloppaServer.x86_64": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+    "FPSloppaServer.pck": "9a11f4f37e75649922be8ee83094902316594fe7892435375eb9e1e0b66a4b4a"
+  }
+}

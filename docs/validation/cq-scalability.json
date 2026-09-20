@@ -1,0 +1,3153 @@
+{
+  "date": "2026-09-20",
+  "baseline_commit": "69d225d",
+  "scope": "Console CPU/serialization microbenchmarks of pre-capacity external-worker prototype; no real client sockets, multiple hosts, or GPU/VR rendering. Shared encoding exists only inside benchmark.",
+  "hardware": {
+    "cpu": "Intel Core i7-12700",
+    "logical_cpus": 20,
+    "physical_cores": 12,
+    "memory_gib": 62,
+    "affinity": "8,9 (one performance core and its SMT sibling)",
+    "isolation": "Other host applications still running; not an isolated machine."
+  },
+  "budgets": {
+    "worker_hz": 60,
+    "worker_tick_ms": 16.666666666666668,
+    "master_snapshot_model_hz": 20,
+    "master_input_model_hz": 30
+  },
+  "suites": {
+    "master-confirm": {
+      "scope": "Isolated console-runtime CPU/serialization benchmark with synthetic actors, not connected clients or multi-host certification.",
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "affinity": "8,9",
+      "baseline_binary_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+      "baseline_pack_sha256": "423e6d3dfb6aa88255af19e3ce38936ff4b5ec98f336e4256410ebfd8f3f0b70",
+      "benchmark_sha256": "943bbf45075eee730df4077fc8e509129f7da61dc372af7b32e4d75cc6d0c4cf",
+      "runs": [
+        {
+          "actors": 16,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.076,
+            "mean": 0.0688,
+            "p50": 0.068,
+            "p95": 0.076,
+            "p99": 0.076,
+            "samples": 40
+          },
+          "districts": 4,
+          "encode_ms": {
+            "max": 6.809,
+            "mean": 4.4017,
+            "p50": 4.267,
+            "p95": 6.715,
+            "p99": 6.809,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 0.636,
+            "mean": 0.6067,
+            "p50": 0.608,
+            "p95": 0.633,
+            "p99": 0.636,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 41424,
+          "public_bytes_per_snapshot": {
+            "max": 32352,
+            "mean": 7364.4,
+            "p50": 6064,
+            "p95": 32324,
+            "p99": 32352,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 32,
+            "mean": 16.8,
+            "p50": 16,
+            "p95": 32,
+            "p99": 32,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 8.427,
+            "mean": 5.980225,
+            "p50": 5.85,
+            "p95": 8.303,
+            "p99": 8.427,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 1.598,
+            "mean": 1.37055,
+            "p50": 1.364,
+            "p95": 1.415,
+            "p99": 1.598,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 0.929,
+            "mean": 0.82935,
+            "p50": 0.834,
+            "p95": 0.916,
+            "p99": 0.929,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d4-p4-r0",
+          "peak_rss_mib": 160.6640625,
+          "wall_seconds": 2.1064207649906166,
+          "modeled_component_core_percent": 15.852049999999997
+        },
+        {
+          "actors": 32,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.097,
+            "mean": 0.090125,
+            "p50": 0.09,
+            "p95": 0.094,
+            "p99": 0.097,
+            "samples": 40
+          },
+          "districts": 8,
+          "encode_ms": {
+            "max": 13.258,
+            "mean": 8.6121,
+            "p50": 8.371,
+            "p95": 13.173,
+            "p99": 13.258,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.181,
+            "mean": 1.158925,
+            "p50": 1.159,
+            "p95": 1.179,
+            "p99": 1.181,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 82848,
+          "public_bytes_per_snapshot": {
+            "max": 64728,
+            "mean": 14746.4,
+            "p50": 12144,
+            "p95": 64696,
+            "p99": 64728,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 64,
+            "mean": 33.6,
+            "p50": 32,
+            "p95": 64,
+            "p99": 64,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 17.331,
+            "mean": 12.548875,
+            "p50": 12.3,
+            "p95": 17.226,
+            "p99": 17.331,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 3.805,
+            "mean": 3.658125,
+            "p50": 3.652,
+            "p95": 3.774,
+            "p99": 3.805,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 1.436,
+            "mean": 1.3714,
+            "p50": 1.373,
+            "p95": 1.435,
+            "p99": 1.436,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d8-p4-r0",
+          "peak_rss_mib": 160.5859375,
+          "wall_seconds": 2.206362958997488,
+          "modeled_component_core_percent": 31.858075000000003
+        },
+        {
+          "actors": 48,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.129,
+            "mean": 0.114775,
+            "p50": 0.114,
+            "p95": 0.127,
+            "p99": 0.129,
+            "samples": 40
+          },
+          "districts": 12,
+          "encode_ms": {
+            "max": 20.082,
+            "mean": 13.166625,
+            "p50": 12.809,
+            "p95": 20.023,
+            "p99": 20.082,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.691,
+            "mean": 1.65605,
+            "p50": 1.659,
+            "p95": 1.69,
+            "p99": 1.691,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 124272,
+          "public_bytes_per_snapshot": {
+            "max": 97064,
+            "mean": 22129.1,
+            "p50": 18224,
+            "p95": 97020,
+            "p99": 97064,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 96,
+            "mean": 50.4,
+            "p50": 48,
+            "p95": 96,
+            "p99": 96,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 27.694,
+            "mean": 20.52365,
+            "p50": 20.148,
+            "p95": 27.657,
+            "p99": 27.694,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 7.231,
+            "mean": 6.96155,
+            "p50": 6.945,
+            "p95": 7.215,
+            "p99": 7.231,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 2.116,
+            "mean": 2.0449,
+            "p50": 2.047,
+            "p95": 2.1,
+            "p99": 2.116,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d12-p4-r0",
+          "peak_rss_mib": 160.81640625,
+          "wall_seconds": 2.7065901570022106,
+          "modeled_component_core_percent": 50.7939
+        },
+        {
+          "actors": 64,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.16,
+            "mean": 0.142525,
+            "p50": 0.141,
+            "p95": 0.152,
+            "p99": 0.16,
+            "samples": 40
+          },
+          "districts": 16,
+          "encode_ms": {
+            "max": 26.861,
+            "mean": 17.66215,
+            "p50": 17.173,
+            "p95": 26.833,
+            "p99": 26.861,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 2.248,
+            "mean": 2.198625,
+            "p50": 2.2,
+            "p95": 2.239,
+            "p99": 2.248,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 165696,
+          "public_bytes_per_snapshot": {
+            "max": 129436,
+            "mean": 29513.3,
+            "p50": 24308,
+            "p95": 129356,
+            "p99": 129436,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 128,
+            "mean": 67.2,
+            "p50": 64,
+            "p95": 128,
+            "p99": 128,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 39.182,
+            "mean": 29.557275,
+            "p50": 29.059,
+            "p95": 39.121,
+            "p99": 39.182,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 11.809,
+            "mean": 11.37875,
+            "p50": 11.371,
+            "p95": 11.762,
+            "p99": 11.809,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 2.871,
+            "mean": 2.6843,
+            "p50": 2.672,
+            "p95": 2.748,
+            "p99": 2.871,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d16-p4-r0",
+          "peak_rss_mib": 160.375,
+          "wall_seconds": 3.1073190069873817,
+          "modeled_component_core_percent": 71.93417500000001
+        },
+        {
+          "actors": 96,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.26,
+            "mean": 0.170975,
+            "p50": 0.166,
+            "p95": 0.196,
+            "p99": 0.26,
+            "samples": 40
+          },
+          "districts": 24,
+          "encode_ms": {
+            "max": 40.546,
+            "mean": 26.622675,
+            "p50": 25.894,
+            "p95": 40.234,
+            "p99": 40.546,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 3.526,
+            "mean": 3.259725,
+            "p50": 3.261,
+            "p95": 3.301,
+            "p99": 3.526,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 245760,
+          "public_bytes_per_snapshot": {
+            "max": 193988,
+            "mean": 44148.1,
+            "p50": 36308,
+            "p95": 193760,
+            "p99": 193988,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 192,
+            "mean": 100.8,
+            "p50": 96,
+            "p95": 192,
+            "p99": 192,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 65.861,
+            "mean": 50.691075,
+            "p50": 49.934,
+            "p95": 65.002,
+            "p99": 65.861,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 24.263,
+            "mean": 23.3298,
+            "p50": 23.286,
+            "p95": 24.071,
+            "p99": 24.263,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 4.196,
+            "mean": 3.975375,
+            "p50": 3.972,
+            "p95": 4.081,
+            "p99": 4.196,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d24-p4-r0",
+          "peak_rss_mib": 160.296875,
+          "wall_seconds": 4.3101679849787615,
+          "modeled_component_core_percent": 120.137925
+        },
+        {
+          "actors": 128,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.252,
+            "mean": 0.207325,
+            "p50": 0.205,
+            "p95": 0.237,
+            "p99": 0.252,
+            "samples": 40
+          },
+          "districts": 32,
+          "encode_ms": {
+            "max": 54.086,
+            "mean": 35.786025,
+            "p50": 34.84,
+            "p95": 53.753,
+            "p99": 54.086,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 4.424,
+            "mean": 4.351225,
+            "p50": 4.35,
+            "p95": 4.406,
+            "p99": 4.424,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 325824,
+          "public_bytes_per_snapshot": {
+            "max": 258520,
+            "mean": 58833.3,
+            "p50": 48356,
+            "p95": 258160,
+            "p99": 258520,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 256,
+            "mean": 134.4,
+            "p50": 128,
+            "p95": 256,
+            "p99": 256,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 95.918,
+            "mean": 76.1174,
+            "p50": 75.12,
+            "p95": 95.167,
+            "p99": 95.918,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 40.785,
+            "mean": 39.339775,
+            "p50": 39.3,
+            "p95": 40.482,
+            "p99": 40.785,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 5.706,
+            "mean": 5.282125,
+            "p50": 5.273,
+            "p95": 5.469,
+            "p99": 5.706,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d32-p4-r0",
+          "peak_rss_mib": 160.765625,
+          "wall_seconds": 5.713038246962242,
+          "modeled_component_core_percent": 177.09667499999998
+        },
+        {
+          "actors": 16,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.079,
+            "mean": 0.06915,
+            "p50": 0.069,
+            "p95": 0.075,
+            "p99": 0.079,
+            "samples": 40
+          },
+          "districts": 4,
+          "encode_ms": {
+            "max": 6.716,
+            "mean": 4.3685,
+            "p50": 4.239,
+            "p95": 6.691,
+            "p99": 6.716,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 0.623,
+            "mean": 0.604775,
+            "p50": 0.606,
+            "p95": 0.622,
+            "p99": 0.623,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 41424,
+          "public_bytes_per_snapshot": {
+            "max": 32352,
+            "mean": 7364.4,
+            "p50": 6064,
+            "p95": 32324,
+            "p99": 32352,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 32,
+            "mean": 16.8,
+            "p50": 16,
+            "p95": 32,
+            "p99": 32,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 8.328,
+            "mean": 5.93715,
+            "p50": 5.82,
+            "p95": 8.289,
+            "p99": 8.328,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 1.399,
+            "mean": 1.364125,
+            "p50": 1.364,
+            "p95": 1.398,
+            "p99": 1.399,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 0.883,
+            "mean": 0.819375,
+            "p50": 0.827,
+            "p95": 0.868,
+            "p99": 0.883,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d4-p4-r1",
+          "peak_rss_mib": 160.5234375,
+          "wall_seconds": 2.1053788200370036,
+          "modeled_component_core_percent": 15.742274999999998
+        },
+        {
+          "actors": 32,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.102,
+            "mean": 0.091525,
+            "p50": 0.091,
+            "p95": 0.1,
+            "p99": 0.102,
+            "samples": 40
+          },
+          "districts": 8,
+          "encode_ms": {
+            "max": 13.268,
+            "mean": 8.668325,
+            "p50": 8.428,
+            "p95": 13.256,
+            "p99": 13.268,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.168,
+            "mean": 1.1292,
+            "p50": 1.129,
+            "p95": 1.156,
+            "p99": 1.168,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 82848,
+          "public_bytes_per_snapshot": {
+            "max": 64728,
+            "mean": 14746.4,
+            "p50": 12144,
+            "p95": 64696,
+            "p99": 64728,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 64,
+            "mean": 33.6,
+            "p50": 32,
+            "p95": 64,
+            "p99": 64,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 17.35,
+            "mean": 12.615175,
+            "p50": 12.371,
+            "p95": 17.332,
+            "p99": 17.35,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 3.79,
+            "mean": 3.662525,
+            "p50": 3.657,
+            "p95": 3.79,
+            "p99": 3.79,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 1.47,
+            "mean": 1.370275,
+            "p50": 1.362,
+            "p95": 1.453,
+            "p99": 1.47,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d8-p4-r1",
+          "peak_rss_mib": 159.94140625,
+          "wall_seconds": 2.205649549025111,
+          "modeled_component_core_percent": 31.907649999999997
+        },
+        {
+          "actors": 48,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.126,
+            "mean": 0.1149,
+            "p50": 0.115,
+            "p95": 0.125,
+            "p99": 0.126,
+            "samples": 40
+          },
+          "districts": 12,
+          "encode_ms": {
+            "max": 20.054,
+            "mean": 13.19365,
+            "p50": 12.838,
+            "p95": 20.003,
+            "p99": 20.054,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.704,
+            "mean": 1.656675,
+            "p50": 1.655,
+            "p95": 1.682,
+            "p99": 1.704,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 124272,
+          "public_bytes_per_snapshot": {
+            "max": 97064,
+            "mean": 22129.1,
+            "p50": 18224,
+            "p95": 97020,
+            "p99": 97064,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 96,
+            "mean": 50.4,
+            "p50": 48,
+            "p95": 96,
+            "p99": 96,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 27.66,
+            "mean": 20.51965,
+            "p50": 20.163,
+            "p95": 27.583,
+            "p99": 27.66,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 7.213,
+            "mean": 6.9316,
+            "p50": 6.925,
+            "p95": 7.189,
+            "p99": 7.213,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 2.209,
+            "mean": 2.047375,
+            "p50": 2.04,
+            "p95": 2.136,
+            "p99": 2.209,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d12-p4-r1",
+          "peak_rss_mib": 160.69140625,
+          "wall_seconds": 2.706894065020606,
+          "modeled_component_core_percent": 50.793474999999994
+        },
+        {
+          "actors": 64,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.156,
+            "mean": 0.141075,
+            "p50": 0.141,
+            "p95": 0.153,
+            "p99": 0.156,
+            "samples": 40
+          },
+          "districts": 16,
+          "encode_ms": {
+            "max": 26.85,
+            "mean": 17.598,
+            "p50": 17.113,
+            "p95": 26.679,
+            "p99": 26.85,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 2.232,
+            "mean": 2.186675,
+            "p50": 2.186,
+            "p95": 2.222,
+            "p99": 2.232,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 165696,
+          "public_bytes_per_snapshot": {
+            "max": 129436,
+            "mean": 29513.3,
+            "p50": 24308,
+            "p95": 129356,
+            "p99": 129436,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 128,
+            "mean": 67.2,
+            "p50": 64,
+            "p95": 128,
+            "p99": 128,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 39.366,
+            "mean": 29.52555,
+            "p50": 29.022,
+            "p95": 38.957,
+            "p99": 39.366,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 11.945,
+            "mean": 11.42815,
+            "p50": 11.413,
+            "p95": 11.78,
+            "p99": 11.945,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 2.847,
+            "mean": 2.698025,
+            "p50": 2.69,
+            "p95": 2.821,
+            "p99": 2.847,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d16-p4-r1",
+          "peak_rss_mib": 160.8828125,
+          "wall_seconds": 3.107578301045578,
+          "modeled_component_core_percent": 71.853625
+        },
+        {
+          "actors": 96,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.219,
+            "mean": 0.1693,
+            "p50": 0.168,
+            "p95": 0.187,
+            "p99": 0.219,
+            "samples": 40
+          },
+          "districts": 24,
+          "encode_ms": {
+            "max": 40.346,
+            "mean": 26.710025,
+            "p50": 25.995,
+            "p95": 40.345,
+            "p99": 40.346,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 3.305,
+            "mean": 3.266225,
+            "p50": 3.265,
+            "p95": 3.303,
+            "p99": 3.305,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 245760,
+          "public_bytes_per_snapshot": {
+            "max": 193988,
+            "mean": 44148.1,
+            "p50": 36308,
+            "p95": 193760,
+            "p99": 193988,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 192,
+            "mean": 100.8,
+            "p50": 96,
+            "p95": 192,
+            "p99": 192,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 65.021,
+            "mean": 50.6622,
+            "p50": 49.91,
+            "p95": 64.995,
+            "p99": 65.021,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 23.986,
+            "mean": 23.23665,
+            "p50": 23.191,
+            "p95": 23.957,
+            "p99": 23.986,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 4.061,
+            "mean": 3.9221,
+            "p50": 3.922,
+            "p95": 4.045,
+            "p99": 4.061,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d24-p4-r1",
+          "peak_rss_mib": 160.39453125,
+          "wall_seconds": 4.309958593978081,
+          "modeled_component_core_percent": 119.98307499999999
+        },
+        {
+          "actors": 128,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.237,
+            "mean": 0.206825,
+            "p50": 0.207,
+            "p95": 0.225,
+            "p99": 0.237,
+            "samples": 40
+          },
+          "districts": 32,
+          "encode_ms": {
+            "max": 53.838,
+            "mean": 35.796775,
+            "p50": 34.868,
+            "p95": 53.829,
+            "p99": 53.838,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 4.436,
+            "mean": 4.325775,
+            "p50": 4.319,
+            "p95": 4.394,
+            "p99": 4.436,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 325824,
+          "public_bytes_per_snapshot": {
+            "max": 258520,
+            "mean": 58833.3,
+            "p50": 48356,
+            "p95": 258160,
+            "p99": 258520,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 256,
+            "mean": 134.4,
+            "p50": 128,
+            "p95": 256,
+            "p99": 256,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 95.476,
+            "mean": 76.145025,
+            "p50": 75.158,
+            "p95": 95.39,
+            "p99": 95.476,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 40.579,
+            "mean": 39.358275,
+            "p50": 39.288,
+            "p95": 40.547,
+            "p99": 40.579,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 5.793,
+            "mean": 5.303225,
+            "p50": 5.284,
+            "p95": 5.516,
+            "p99": 5.793,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d32-p4-r1",
+          "peak_rss_mib": 160.50390625,
+          "wall_seconds": 5.713823104975745,
+          "modeled_component_core_percent": 177.114775
+        }
+      ]
+    },
+    "worker-confirm": {
+      "scope": "Isolated console-runtime CPU/serialization benchmark with synthetic actors, not connected clients or multi-host certification.",
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "affinity": "8,9",
+      "baseline_binary_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+      "baseline_pack_sha256": "423e6d3dfb6aa88255af19e3ce38936ff4b5ec98f336e4256410ebfd8f3f0b70",
+      "benchmark_sha256": "43187b802fd35e73e43bf53eaa97e94c41a6e8c6eddbdb524b99d7f0aa8d16c9",
+      "runs": [
+        {
+          "actors": 8,
+          "interval_ms": {
+            "max": 17.301,
+            "mean": 16.666,
+            "p50": 16.665,
+            "p95": 16.7,
+            "p99": 16.756,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 25260,
+          "physics_ticks_per_second": 60.0781165502129,
+          "private_bytes_per_second": 429778.680884543,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.001042,
+          "scenario": "movement",
+          "snapshot_messages": 205,
+          "tick_ms": {
+            "max": 5.714,
+            "mean": 1.5662427184466,
+            "p50": 1.497,
+            "p95": 2.289,
+            "p99": 2.96,
+            "samples": 721
+          },
+          "label": "worker-movement-p8-r0",
+          "peak_rss_mib": 182.48046875,
+          "wall_seconds": 16.437966498022433
+        },
+        {
+          "actors": 16,
+          "interval_ms": {
+            "max": 17.078,
+            "mean": 16.6659944521497,
+            "p50": 16.665,
+            "p95": 16.714,
+            "p99": 16.755,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 48996,
+          "physics_ticks_per_second": 60.0637925794808,
+          "private_bytes_per_second": 763908.475109431,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.003904,
+          "scenario": "movement",
+          "snapshot_messages": 188,
+          "tick_ms": {
+            "max": 5.612,
+            "mean": 2.75372954230236,
+            "p50": 2.591,
+            "p95": 3.9,
+            "p99": 5.026,
+            "samples": 721
+          },
+          "label": "worker-movement-p16-r0",
+          "peak_rss_mib": 160.859375,
+          "wall_seconds": 16.43771030200878
+        },
+        {
+          "actors": 24,
+          "interval_ms": {
+            "max": 17.604,
+            "mean": 16.6660263888889,
+            "p50": 16.665,
+            "p95": 16.735,
+            "p99": 16.764,
+            "samples": 720
+          },
+          "kind": "worker",
+          "largest_private_message": 72644,
+          "physics_ticks_per_second": 60.0695555395185,
+          "private_bytes_per_second": 1117336.44916343,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 720
+          },
+          "sample_seconds": 11.986105,
+          "scenario": "movement",
+          "snapshot_messages": 185,
+          "tick_ms": {
+            "max": 7.414,
+            "mean": 3.87374166666667,
+            "p50": 3.591,
+            "p95": 5.571,
+            "p99": 6.682,
+            "samples": 720
+          },
+          "label": "worker-movement-p24-r0",
+          "peak_rss_mib": 161.08984375,
+          "wall_seconds": 16.437156844011042
+        },
+        {
+          "actors": 32,
+          "interval_ms": {
+            "max": 17.047,
+            "mean": 16.6660208044383,
+            "p50": 16.665,
+            "p95": 16.742,
+            "p99": 16.762,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 96292,
+          "physics_ticks_per_second": 60.0659842748753,
+          "private_bytes_per_second": 1471758.90696904,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.003466,
+          "scenario": "movement",
+          "snapshot_messages": 184,
+          "tick_ms": {
+            "max": 9.229,
+            "mean": 4.8632399445215,
+            "p50": 4.605,
+            "p95": 6.595,
+            "p99": 8.184,
+            "samples": 721
+          },
+          "label": "worker-movement-p32-r0",
+          "peak_rss_mib": 160.828125,
+          "wall_seconds": 16.437182385998312
+        },
+        {
+          "actors": 48,
+          "interval_ms": {
+            "max": 17.002,
+            "mean": 16.6660110957004,
+            "p50": 16.666,
+            "p95": 16.74,
+            "p99": 16.761,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 143624,
+          "physics_ticks_per_second": 60.0468548690004,
+          "private_bytes_per_second": 2171203.66044295,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.00729,
+          "scenario": "movement",
+          "snapshot_messages": 182,
+          "tick_ms": {
+            "max": 13.864,
+            "mean": 7.08571012482663,
+            "p50": 6.75,
+            "p95": 9.292,
+            "p99": 12.65,
+            "samples": 721
+          },
+          "label": "worker-movement-p48-r0",
+          "peak_rss_mib": 160.78515625,
+          "wall_seconds": 16.4384462669841
+        },
+        {
+          "actors": 64,
+          "interval_ms": {
+            "max": 21.218,
+            "mean": 16.6661248266297,
+            "p50": 16.663,
+            "p95": 16.761,
+            "p99": 17.855,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 190984,
+          "physics_ticks_per_second": 60.0268730569838,
+          "private_bytes_per_second": 2886170.31630332,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.011287,
+          "scenario": "movement",
+          "snapshot_messages": 182,
+          "tick_ms": {
+            "max": 18.124,
+            "mean": 9.38102496532594,
+            "p50": 8.92,
+            "p95": 12.227,
+            "p99": 15.143,
+            "samples": 721
+          },
+          "label": "worker-movement-p64-r0",
+          "peak_rss_mib": 160.84765625,
+          "wall_seconds": 16.438503223005682
+        },
+        {
+          "actors": 8,
+          "interval_ms": {
+            "max": 17.344,
+            "mean": 16.6660013869626,
+            "p50": 16.665,
+            "p95": 16.729,
+            "p99": 16.76,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 74048,
+          "physics_ticks_per_second": 60.0777310849097,
+          "private_bytes_per_second": 896897.031018524,
+          "projectiles": {
+            "max": 46,
+            "mean": 29.5395284327323,
+            "p50": 30,
+            "p95": 42,
+            "p99": 45,
+            "samples": 721
+          },
+          "sample_seconds": 12.001119,
+          "scenario": "combat",
+          "snapshot_messages": 190,
+          "tick_ms": {
+            "max": 4.722,
+            "mean": 2.26288488210818,
+            "p50": 2.059,
+            "p95": 3.411,
+            "p99": 4.432,
+            "samples": 721
+          },
+          "label": "worker-combat-p8-r0",
+          "peak_rss_mib": 160.61328125,
+          "wall_seconds": 16.43860144499922
+        },
+        {
+          "actors": 16,
+          "interval_ms": {
+            "max": 17.112,
+            "mean": 16.6659694868239,
+            "p50": 16.665,
+            "p95": 16.732,
+            "p99": 16.756,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 132072,
+          "physics_ticks_per_second": 60.0624716348522,
+          "private_bytes_per_second": 1689428.53848763,
+          "projectiles": {
+            "max": 77,
+            "mean": 58.8002773925104,
+            "p50": 59,
+            "p95": 73,
+            "p99": 76,
+            "samples": 721
+          },
+          "sample_seconds": 12.004168,
+          "scenario": "combat",
+          "snapshot_messages": 182,
+          "tick_ms": {
+            "max": 9.18,
+            "mean": 4.08978363384189,
+            "p50": 3.742,
+            "p95": 6.142,
+            "p99": 7.73,
+            "samples": 721
+          },
+          "label": "worker-combat-p16-r0",
+          "peak_rss_mib": 160.7890625,
+          "wall_seconds": 16.43790264503332
+        },
+        {
+          "actors": 24,
+          "interval_ms": {
+            "max": 33.399,
+            "mean": 16.6891891515994,
+            "p50": 16.665,
+            "p95": 16.756,
+            "p99": 25.935,
+            "samples": 719
+          },
+          "kind": "worker",
+          "largest_private_message": 159232,
+          "physics_ticks_per_second": 59.9824474173343,
+          "private_bytes_per_second": 2168252.85062619,
+          "projectiles": {
+            "max": 80,
+            "mean": 62.6968011126565,
+            "p50": 61,
+            "p95": 76,
+            "p99": 79,
+            "samples": 719
+          },
+          "sample_seconds": 11.98684,
+          "scenario": "combat",
+          "snapshot_messages": 186,
+          "tick_ms": {
+            "max": 13.129,
+            "mean": 5.50308901251738,
+            "p50": 5.056,
+            "p95": 8.292,
+            "p99": 9.882,
+            "samples": 719
+          },
+          "label": "worker-combat-p24-r0",
+          "peak_rss_mib": 161.15625,
+          "wall_seconds": 16.436644905013964
+        },
+        {
+          "actors": 32,
+          "interval_ms": {
+            "max": 25.085,
+            "mean": 16.6659764216366,
+            "p50": 16.665,
+            "p95": 16.745,
+            "p99": 16.774,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 208084,
+          "physics_ticks_per_second": 60.0585841917643,
+          "private_bytes_per_second": 2875057.23683032,
+          "projectiles": {
+            "max": 103,
+            "mean": 85.2732316227462,
+            "p50": 86,
+            "p95": 99,
+            "p99": 101,
+            "samples": 721
+          },
+          "sample_seconds": 12.004945,
+          "scenario": "combat",
+          "snapshot_messages": 184,
+          "tick_ms": {
+            "max": 23.606,
+            "mean": 7.27826490984743,
+            "p50": 6.674,
+            "p95": 10.722,
+            "p99": 14.23,
+            "samples": 721
+          },
+          "label": "worker-combat-p32-r0",
+          "peak_rss_mib": 160.92578125,
+          "wall_seconds": 16.437628790037706
+        },
+        {
+          "actors": 48,
+          "interval_ms": {
+            "max": 26.711,
+            "mean": 16.666075,
+            "p50": 16.667,
+            "p95": 18.522,
+            "p99": 22.774,
+            "samples": 720
+          },
+          "kind": "worker",
+          "largest_private_message": 259996,
+          "physics_ticks_per_second": 60.0444629247958,
+          "private_bytes_per_second": 3490401.30883586,
+          "projectiles": {
+            "max": 105,
+            "mean": 73.8763888888889,
+            "p50": 72,
+            "p95": 92,
+            "p99": 102,
+            "samples": 720
+          },
+          "sample_seconds": 11.991114,
+          "scenario": "combat",
+          "snapshot_messages": 186,
+          "tick_ms": {
+            "max": 25.166,
+            "mean": 9.71522083333334,
+            "p50": 8.733,
+            "p95": 16.641,
+            "p99": 21.063,
+            "samples": 720
+          },
+          "label": "worker-combat-p48-r0",
+          "peak_rss_mib": 160.8125,
+          "wall_seconds": 16.438172604015563
+        },
+        {
+          "actors": 64,
+          "interval_ms": {
+            "max": 37.031,
+            "mean": 16.6853171070932,
+            "p50": 16.572,
+            "p95": 29.759,
+            "p99": 33.357,
+            "samples": 719
+          },
+          "kind": "worker",
+          "largest_private_message": 322300,
+          "physics_ticks_per_second": 59.9345121676646,
+          "private_bytes_per_second": 4582477.43265557,
+          "projectiles": {
+            "max": 112,
+            "mean": 88.9221140472879,
+            "p50": 89,
+            "p95": 104,
+            "p99": 110,
+            "samples": 719
+          },
+          "sample_seconds": 11.996427,
+          "scenario": "combat",
+          "snapshot_messages": 190,
+          "tick_ms": {
+            "max": 35.329,
+            "mean": 12.9814408901252,
+            "p50": 11.769,
+            "p95": 24.34,
+            "p99": 31.494,
+            "samples": 719
+          },
+          "label": "worker-combat-p64-r0",
+          "peak_rss_mib": 161.16015625,
+          "wall_seconds": 16.43763379199663
+        },
+        {
+          "actors": 8,
+          "interval_ms": {
+            "max": 16.881,
+            "mean": 16.6659708737864,
+            "p50": 16.666,
+            "p95": 16.698,
+            "p99": 16.747,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 25260,
+          "physics_ticks_per_second": 60.07770104886,
+          "private_bytes_per_second": 448643.606328573,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.001125,
+          "scenario": "movement",
+          "snapshot_messages": 214,
+          "tick_ms": {
+            "max": 3.96,
+            "mean": 1.6072080443828,
+            "p50": 1.526,
+            "p95": 2.418,
+            "p99": 3.038,
+            "samples": 721
+          },
+          "label": "worker-movement-p8-r1",
+          "peak_rss_mib": 160.74609375,
+          "wall_seconds": 16.437729461002164
+        },
+        {
+          "actors": 16,
+          "interval_ms": {
+            "max": 16.952,
+            "mean": 16.6660429958391,
+            "p50": 16.666,
+            "p95": 16.701,
+            "p99": 16.744,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 48996,
+          "physics_ticks_per_second": 60.0726003620686,
+          "private_bytes_per_second": 755892.280579203,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.002144,
+          "scenario": "movement",
+          "snapshot_messages": 186,
+          "tick_ms": {
+            "max": 7.071,
+            "mean": 2.83157836338419,
+            "p50": 2.601,
+            "p95": 4.263,
+            "p99": 5.381,
+            "samples": 721
+          },
+          "label": "worker-movement-p16-r1",
+          "peak_rss_mib": 160.70703125,
+          "wall_seconds": 16.43768034403911
+        },
+        {
+          "actors": 24,
+          "interval_ms": {
+            "max": 16.817,
+            "mean": 16.6660041666667,
+            "p50": 16.665,
+            "p95": 16.701,
+            "p99": 16.753,
+            "samples": 720
+          },
+          "kind": "worker",
+          "largest_private_message": 72644,
+          "physics_ticks_per_second": 60.0527162761044,
+          "private_bytes_per_second": 1110985.59352018,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 720
+          },
+          "sample_seconds": 11.989466,
+          "scenario": "movement",
+          "snapshot_messages": 184,
+          "tick_ms": {
+            "max": 7.661,
+            "mean": 3.79835,
+            "p50": 3.552,
+            "p95": 5.195,
+            "p99": 6.346,
+            "samples": 720
+          },
+          "label": "worker-movement-p24-r1",
+          "peak_rss_mib": 160.74609375,
+          "wall_seconds": 16.43673197494354
+        },
+        {
+          "actors": 32,
+          "interval_ms": {
+            "max": 17.748,
+            "mean": 16.6659944444444,
+            "p50": 16.665,
+            "p95": 16.7,
+            "p99": 16.751,
+            "samples": 720
+          },
+          "kind": "worker",
+          "largest_private_message": 96292,
+          "physics_ticks_per_second": 60.0474224518814,
+          "private_bytes_per_second": 1481354.56643551,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 720
+          },
+          "sample_seconds": 11.990523,
+          "scenario": "movement",
+          "snapshot_messages": 185,
+          "tick_ms": {
+            "max": 9.877,
+            "mean": 5.09153888888889,
+            "p50": 4.728,
+            "p95": 7.337,
+            "p99": 9.34,
+            "samples": 720
+          },
+          "label": "worker-movement-p32-r1",
+          "peak_rss_mib": 161.03515625,
+          "wall_seconds": 16.436759853968397
+        },
+        {
+          "actors": 48,
+          "interval_ms": {
+            "max": 17.593,
+            "mean": 16.6660596393897,
+            "p50": 16.665,
+            "p95": 16.731,
+            "p99": 16.791,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 143624,
+          "physics_ticks_per_second": 60.0519161725224,
+          "private_bytes_per_second": 2195247.51967262,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 721
+          },
+          "sample_seconds": 12.006278,
+          "scenario": "movement",
+          "snapshot_messages": 184,
+          "tick_ms": {
+            "max": 14.132,
+            "mean": 7.19691400832178,
+            "p50": 6.784,
+            "p95": 9.701,
+            "p99": 12.747,
+            "samples": 721
+          },
+          "label": "worker-movement-p48-r1",
+          "peak_rss_mib": 160.8203125,
+          "wall_seconds": 16.438605135015678
+        },
+        {
+          "actors": 64,
+          "interval_ms": {
+            "max": 21.269,
+            "mean": 16.666,
+            "p50": 16.664,
+            "p95": 16.761,
+            "p99": 18.173,
+            "samples": 720
+          },
+          "kind": "worker",
+          "largest_private_message": 190984,
+          "physics_ticks_per_second": 60.0477279357543,
+          "private_bytes_per_second": 2922954.59507732,
+          "projectiles": {
+            "max": 0,
+            "mean": 0.0,
+            "p50": 0,
+            "p95": 0,
+            "p99": 0,
+            "samples": 720
+          },
+          "sample_seconds": 11.990462,
+          "scenario": "movement",
+          "snapshot_messages": 184,
+          "tick_ms": {
+            "max": 18.182,
+            "mean": 9.49141944444445,
+            "p50": 8.972,
+            "p95": 12.423,
+            "p99": 15.559,
+            "samples": 720
+          },
+          "label": "worker-movement-p64-r1",
+          "peak_rss_mib": 161.0390625,
+          "wall_seconds": 16.437556061020587
+        },
+        {
+          "actors": 8,
+          "interval_ms": {
+            "max": 17.917,
+            "mean": 16.6659653259362,
+            "p50": 16.666,
+            "p95": 16.716,
+            "p99": 16.76,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 74052,
+          "physics_ticks_per_second": 60.0777210728898,
+          "private_bytes_per_second": 873521.398542686,
+          "projectiles": {
+            "max": 46,
+            "mean": 29.5436893203883,
+            "p50": 30,
+            "p95": 42,
+            "p99": 45,
+            "samples": 721
+          },
+          "sample_seconds": 12.001121,
+          "scenario": "combat",
+          "snapshot_messages": 185,
+          "tick_ms": {
+            "max": 5.077,
+            "mean": 2.31866851595007,
+            "p50": 2.097,
+            "p95": 3.598,
+            "p99": 4.67,
+            "samples": 721
+          },
+          "label": "worker-combat-p8-r1",
+          "peak_rss_mib": 161.109375,
+          "wall_seconds": 16.437540149025153
+        },
+        {
+          "actors": 16,
+          "interval_ms": {
+            "max": 17.219,
+            "mean": 16.6661345353676,
+            "p50": 16.665,
+            "p95": 16.726,
+            "p99": 16.763,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 133104,
+          "physics_ticks_per_second": 60.0683713031812,
+          "private_bytes_per_second": 1716370.1474691,
+          "projectiles": {
+            "max": 77,
+            "mean": 58.8002773925104,
+            "p50": 59,
+            "p95": 73,
+            "p99": 76,
+            "samples": 721
+          },
+          "sample_seconds": 12.002989,
+          "scenario": "combat",
+          "snapshot_messages": 185,
+          "tick_ms": {
+            "max": 9.011,
+            "mean": 4.14777392510403,
+            "p50": 3.803,
+            "p95": 6.318,
+            "p99": 7.726,
+            "samples": 721
+          },
+          "label": "worker-combat-p16-r1",
+          "peak_rss_mib": 160.984375,
+          "wall_seconds": 16.43864513799781
+        },
+        {
+          "actors": 24,
+          "interval_ms": {
+            "max": 17.405,
+            "mean": 16.6660513888889,
+            "p50": 16.665,
+            "p95": 16.738,
+            "p99": 16.76,
+            "samples": 720
+          },
+          "kind": "worker",
+          "largest_private_message": 159232,
+          "physics_ticks_per_second": 60.0648049191073,
+          "private_bytes_per_second": 2157528.1263877,
+          "projectiles": {
+            "max": 80,
+            "mean": 62.6708333333333,
+            "p50": 61,
+            "p95": 76,
+            "p99": 79,
+            "samples": 720
+          },
+          "sample_seconds": 11.987053,
+          "scenario": "combat",
+          "snapshot_messages": 185,
+          "tick_ms": {
+            "max": 12.333,
+            "mean": 5.5022,
+            "p50": 5.128,
+            "p95": 7.957,
+            "p99": 9.842,
+            "samples": 720
+          },
+          "label": "worker-combat-p24-r1",
+          "peak_rss_mib": 160.76171875,
+          "wall_seconds": 16.43729648401495
+        },
+        {
+          "actors": 32,
+          "interval_ms": {
+            "max": 23.175,
+            "mean": 16.6660110957004,
+            "p50": 16.665,
+            "p95": 16.749,
+            "p99": 16.777,
+            "samples": 721
+          },
+          "kind": "worker",
+          "largest_private_message": 208296,
+          "physics_ticks_per_second": 60.0519711913786,
+          "private_bytes_per_second": 2862035.96838218,
+          "projectiles": {
+            "max": 103,
+            "mean": 85.2260748959778,
+            "p50": 86,
+            "p95": 99,
+            "p99": 101,
+            "samples": 721
+          },
+          "sample_seconds": 12.006267,
+          "scenario": "combat",
+          "snapshot_messages": 183,
+          "tick_ms": {
+            "max": 21.071,
+            "mean": 7.25157281553398,
+            "p50": 6.576,
+            "p95": 10.865,
+            "p99": 13.521,
+            "samples": 721
+          },
+          "label": "worker-combat-p32-r1",
+          "peak_rss_mib": 160.6171875,
+          "wall_seconds": 16.439370582986157
+        },
+        {
+          "actors": 48,
+          "interval_ms": {
+            "max": 35.937,
+            "mean": 16.6766319444444,
+            "p50": 16.666,
+            "p95": 18.756,
+            "p99": 22.988,
+            "samples": 720
+          },
+          "kind": "worker",
+          "largest_private_message": 259996,
+          "physics_ticks_per_second": 59.9885171979997,
+          "private_bytes_per_second": 3505449.99844613,
+          "projectiles": {
+            "max": 105,
+            "mean": 73.8125,
+            "p50": 72,
+            "p95": 92,
+            "p99": 102,
+            "samples": 720
+          },
+          "sample_seconds": 12.002297,
+          "scenario": "combat",
+          "snapshot_messages": 187,
+          "tick_ms": {
+            "max": 33.085,
+            "mean": 9.81527916666667,
+            "p50": 8.898,
+            "p95": 16.699,
+            "p99": 21.312,
+            "samples": 720
+          },
+          "label": "worker-combat-p48-r1",
+          "peak_rss_mib": 161.03515625,
+          "wall_seconds": 16.437469477008563
+        },
+        {
+          "actors": 64,
+          "interval_ms": {
+            "max": 38.698,
+            "mean": 16.352295640327,
+            "p50": 16.43,
+            "p95": 28.475,
+            "p99": 34.159,
+            "samples": 734
+          },
+          "kind": "worker",
+          "largest_private_message": 321976,
+          "physics_ticks_per_second": 61.1674720383818,
+          "private_bytes_per_second": 4689180.74087976,
+          "projectiles": {
+            "max": 112,
+            "mean": 89.2234332425068,
+            "p50": 89,
+            "p95": 105,
+            "p99": 110,
+            "samples": 734
+          },
+          "sample_seconds": 11.999842,
+          "scenario": "combat",
+          "snapshot_messages": 194,
+          "tick_ms": {
+            "max": 36.828,
+            "mean": 13.0383160762943,
+            "p50": 11.873,
+            "p95": 21.317,
+            "p99": 32.27,
+            "samples": 734
+          },
+          "label": "worker-combat-p64-r1",
+          "peak_rss_mib": 160.78515625,
+          "wall_seconds": 16.43908099498367
+        }
+      ]
+    },
+    "master-shared": {
+      "scope": "Isolated console-runtime CPU/serialization benchmark with synthetic actors, not connected clients or multi-host certification.",
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "affinity": "8,9",
+      "baseline_binary_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+      "baseline_pack_sha256": "423e6d3dfb6aa88255af19e3ce38936ff4b5ec98f336e4256410ebfd8f3f0b70",
+      "benchmark_sha256": "43187b802fd35e73e43bf53eaa97e94c41a6e8c6eddbdb524b99d7f0aa8d16c9",
+      "runs": [
+        {
+          "actors": 32,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.103,
+            "mean": 0.09355,
+            "p50": 0.094,
+            "p95": 0.099,
+            "p99": 0.103,
+            "samples": 40
+          },
+          "districts": 8,
+          "encode_ms": {
+            "max": 3.438,
+            "mean": 2.24315,
+            "p50": 2.179,
+            "p95": 3.43,
+            "p99": 3.438,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.185,
+            "mean": 1.14665,
+            "p50": 1.148,
+            "p95": 1.164,
+            "p99": 1.185,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 82816,
+          "public_bytes_per_snapshot": {
+            "max": 64728,
+            "mean": 14746.4,
+            "p50": 12144,
+            "p95": 64696,
+            "p99": 64728,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 64,
+            "mean": 33.6,
+            "p50": 32,
+            "p95": 64,
+            "p99": 64,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 4.781,
+            "mean": 3.53855,
+            "p50": 3.471,
+            "p95": 4.764,
+            "p99": 4.781,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 1.009,
+            "mean": 0.9728,
+            "p50": 0.97,
+            "p95": 1.003,
+            "p99": 1.009,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 1.56,
+            "mean": 1.4556,
+            "p50": 1.462,
+            "p95": 1.533,
+            "p99": 1.56,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d8-p4-r0",
+          "peak_rss_mib": 160.58203125,
+          "wall_seconds": 2.105297969013918,
+          "modeled_component_core_percent": 13.989549999999998
+        },
+        {
+          "actors": 64,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.149,
+            "mean": 0.140775,
+            "p50": 0.14,
+            "p95": 0.148,
+            "p99": 0.149,
+            "samples": 40
+          },
+          "districts": 16,
+          "encode_ms": {
+            "max": 6.784,
+            "mean": 4.406625,
+            "p50": 4.276,
+            "p95": 6.724,
+            "p99": 6.784,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 2.229,
+            "mean": 2.18135,
+            "p50": 2.181,
+            "p95": 2.21,
+            "p99": 2.229,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 165632,
+          "public_bytes_per_snapshot": {
+            "max": 129436,
+            "mean": 29513.3,
+            "p50": 24308,
+            "p95": 129356,
+            "p99": 129436,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 128,
+            "mean": 67.2,
+            "p50": 64,
+            "p95": 128,
+            "p99": 128,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 10.332,
+            "mean": 7.8746,
+            "p50": 7.744,
+            "p95": 10.24,
+            "p99": 10.332,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 3.069,
+            "mean": 2.88905,
+            "p50": 2.886,
+            "p95": 2.959,
+            "p99": 3.069,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 2.75,
+            "mean": 2.59385,
+            "p50": 2.59,
+            "p95": 2.731,
+            "p99": 2.75,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d16-p4-r0",
+          "peak_rss_mib": 160.44921875,
+          "wall_seconds": 2.205803055956494,
+          "modeled_component_core_percent": 28.3256
+        },
+        {
+          "actors": 96,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.221,
+            "mean": 0.1947,
+            "p50": 0.194,
+            "p95": 0.219,
+            "p99": 0.221,
+            "samples": 40
+          },
+          "districts": 24,
+          "encode_ms": {
+            "max": 10.332,
+            "mean": 6.733975,
+            "p50": 6.552,
+            "p95": 10.205,
+            "p99": 10.332,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 3.34,
+            "mean": 3.267125,
+            "p50": 3.26,
+            "p95": 3.324,
+            "p99": 3.34,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 248480,
+          "public_bytes_per_snapshot": {
+            "max": 194012,
+            "mean": 44290.4,
+            "p50": 36492,
+            "p95": 193884,
+            "p99": 194012,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 192,
+            "mean": 100.8,
+            "p50": 96,
+            "p95": 192,
+            "p99": 192,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 17.175,
+            "mean": 13.446525,
+            "p50": 13.239,
+            "p95": 17.059,
+            "p99": 17.175,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 5.907,
+            "mean": 5.7776,
+            "p50": 5.772,
+            "p95": 5.896,
+            "p99": 5.907,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 4.053,
+            "mean": 3.8563,
+            "p50": 3.86,
+            "p95": 4.018,
+            "p99": 4.053,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d24-p4-r0",
+          "peak_rss_mib": 160.73046875,
+          "wall_seconds": 2.606429859995842,
+          "modeled_component_core_percent": 45.575225
+        },
+        {
+          "actors": 128,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.322,
+            "mean": 0.267325,
+            "p50": 0.263,
+            "p95": 0.299,
+            "p99": 0.322,
+            "samples": 40
+          },
+          "districts": 32,
+          "encode_ms": {
+            "max": 13.778,
+            "mean": 9.17255,
+            "p50": 8.923,
+            "p95": 13.729,
+            "p99": 13.778,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 4.451,
+            "mean": 4.3547,
+            "p50": 4.362,
+            "p95": 4.414,
+            "p99": 4.451,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 331328,
+          "public_bytes_per_snapshot": {
+            "max": 258700,
+            "mean": 59244.3,
+            "p50": 48840,
+            "p95": 258544,
+            "p99": 258700,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 256,
+            "mean": 134.4,
+            "p50": 128,
+            "p95": 256,
+            "p99": 256,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 25.16,
+            "mean": 20.453075,
+            "p50": 20.175,
+            "p95": 25.129,
+            "p99": 25.16,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 10.007,
+            "mean": 9.834175,
+            "p50": 9.821,
+            "p95": 10.007,
+            "p99": 10.007,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 5.955,
+            "mean": 5.208025,
+            "p50": 5.186,
+            "p95": 5.501,
+            "p99": 5.955,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d32-p4-r0",
+          "peak_rss_mib": 160.78515625,
+          "wall_seconds": 3.107607159006875,
+          "modeled_component_core_percent": 65.99025
+        },
+        {
+          "actors": 192,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.459,
+            "mean": 0.42005,
+            "p50": 0.424,
+            "p95": 0.453,
+            "p99": 0.459,
+            "samples": 40
+          },
+          "districts": 48,
+          "encode_ms": {
+            "max": 20.94,
+            "mean": 13.9266,
+            "p50": 13.564,
+            "p95": 20.907,
+            "p99": 20.94,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 6.583,
+            "mean": 6.53225,
+            "p50": 6.534,
+            "p95": 6.58,
+            "p99": 6.583,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 497088,
+          "public_bytes_per_snapshot": {
+            "max": 387976,
+            "mean": 88915.5,
+            "p50": 73252,
+            "p95": 387548,
+            "p99": 387976,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 384,
+            "mean": 201.6,
+            "p50": 192,
+            "p95": 384,
+            "p99": 384,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 45.156,
+            "mean": 37.782925,
+            "p50": 37.413,
+            "p95": 45.126,
+            "p99": 45.156,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 21.546,
+            "mean": 21.152075,
+            "p50": 21.128,
+            "p95": 21.428,
+            "p99": 21.546,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 8.495,
+            "mean": 7.862525,
+            "p50": 7.841,
+            "p95": 8.221,
+            "p99": 8.495,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d48-p4-r0",
+          "peak_rss_mib": 160.453125,
+          "wall_seconds": 4.410440284002107,
+          "modeled_component_core_percent": 113.40794999999999
+        },
+        {
+          "actors": 256,
+          "baseline_uncompressed_bytes": 4248,
+          "capture_tick_ms": {
+            "max": 0.741,
+            "mean": 0.615525,
+            "p50": 0.605,
+            "p95": 0.718,
+            "p99": 0.741,
+            "samples": 40
+          },
+          "districts": 64,
+          "encode_ms": {
+            "max": 28.317,
+            "mean": 18.670575,
+            "p50": 18.186,
+            "p95": 28.157,
+            "p99": 28.317,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 8.976,
+            "mean": 8.73415,
+            "p50": 8.724,
+            "p95": 8.861,
+            "p99": 8.976,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 4,
+          "private_snapshot_bytes_total": 662848,
+          "public_bytes_per_snapshot": {
+            "max": 517268,
+            "mean": 118607.3,
+            "p50": 97776,
+            "p95": 516580,
+            "p99": 517268,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 512,
+            "mean": 268.8,
+            "p50": 256,
+            "p95": 512,
+            "p99": 512,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 70.365,
+            "mean": 59.574,
+            "p50": 59.021,
+            "p95": 69.528,
+            "p99": 70.365,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 37.643,
+            "mean": 36.517125,
+            "p50": 36.497,
+            "p95": 36.997,
+            "p99": 37.643,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 11.616,
+            "mean": 10.7336,
+            "p50": 10.711,
+            "p95": 11.299,
+            "p99": 11.616,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d64-p4-r0",
+          "peak_rss_mib": 161.03125,
+          "wall_seconds": 6.214509307988919,
+          "modeled_component_core_percent": 170.51079999999996
+        }
+      ]
+    },
+    "master-xr": {
+      "scope": "Isolated console-runtime CPU/serialization benchmark with synthetic actors, not connected clients or multi-host certification.",
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "affinity": "8,9",
+      "baseline_binary_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+      "baseline_pack_sha256": "423e6d3dfb6aa88255af19e3ce38936ff4b5ec98f336e4256410ebfd8f3f0b70",
+      "benchmark_sha256": "43187b802fd35e73e43bf53eaa97e94c41a6e8c6eddbdb524b99d7f0aa8d16c9",
+      "runs": [
+        {
+          "actors": 8,
+          "baseline_uncompressed_bytes": 8296,
+          "capture_tick_ms": {
+            "max": 0.084,
+            "mean": 0.057975,
+            "p50": 0.057,
+            "p95": 0.065,
+            "p99": 0.084,
+            "samples": 40
+          },
+          "districts": 1,
+          "encode_ms": {
+            "max": 5.677,
+            "mean": 4.368475,
+            "p50": 4.294,
+            "p95": 5.657,
+            "p99": 5.677,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 0.678,
+            "mean": 0.440925,
+            "p50": 0.433,
+            "p95": 0.494,
+            "p99": 0.678,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 8,
+          "private_snapshot_bytes_total": 22808,
+          "public_bytes_per_snapshot": {
+            "max": 18784,
+            "mean": 5248.6,
+            "p50": 4544,
+            "p95": 18784,
+            "p99": 18784,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 24,
+            "mean": 8.8,
+            "p50": 8,
+            "p95": 24,
+            "p99": 24,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 6.474,
+            "mean": 5.160775,
+            "p50": 5.091,
+            "p95": 6.459,
+            "p99": 6.474,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 0.687,
+            "mean": 0.62355,
+            "p50": 0.621,
+            "p95": 0.654,
+            "p99": 0.687,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 1.009,
+            "mean": 0.62535,
+            "p50": 0.608,
+            "p95": 0.86,
+            "p99": 1.009,
+            "samples": 40
+          },
+          "xr": true,
+          "label": "master-d1-p8-r0",
+          "peak_rss_mib": 160.6484375,
+          "wall_seconds": 2.105647101998329,
+          "modeled_component_core_percent": 13.242874999999998
+        },
+        {
+          "actors": 16,
+          "baseline_uncompressed_bytes": 14056,
+          "capture_tick_ms": {
+            "max": 0.072,
+            "mean": 0.065475,
+            "p50": 0.065,
+            "p95": 0.072,
+            "p99": 0.072,
+            "samples": 40
+          },
+          "districts": 1,
+          "encode_ms": {
+            "max": 18.033,
+            "mean": 15.41055,
+            "p50": 15.28,
+            "p95": 17.881,
+            "p99": 18.033,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 0.799,
+            "mean": 0.779125,
+            "p50": 0.779,
+            "p95": 0.798,
+            "p99": 0.799,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 16,
+          "private_snapshot_bytes_total": 45400,
+          "public_bytes_per_snapshot": {
+            "max": 41856,
+            "mean": 14292.8,
+            "p50": 12848,
+            "p95": 41808,
+            "p99": 41856,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 48,
+            "mean": 17.6,
+            "p50": 16,
+            "p95": 48,
+            "p99": 48,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 19.898,
+            "mean": 17.20365,
+            "p50": 17.066,
+            "p95": 19.702,
+            "p99": 19.898,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 1.636,
+            "mean": 1.5667,
+            "p50": 1.566,
+            "p95": 1.605,
+            "p99": 1.636,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 1.002,
+            "mean": 0.923875,
+            "p50": 0.922,
+            "p95": 0.994,
+            "p99": 1.002,
+            "samples": 40
+          },
+          "xr": true,
+          "label": "master-d1-p16-r0",
+          "peak_rss_mib": 160.56640625,
+          "wall_seconds": 2.3060703849769197,
+          "modeled_component_core_percent": 38.98527499999999
+        },
+        {
+          "actors": 24,
+          "baseline_uncompressed_bytes": 19816,
+          "capture_tick_ms": {
+            "max": 0.138,
+            "mean": 0.080925,
+            "p50": 0.079,
+            "p95": 0.096,
+            "p99": 0.138,
+            "samples": 40
+          },
+          "districts": 1,
+          "encode_ms": {
+            "max": 36.811,
+            "mean": 33.5098,
+            "p50": 33.296,
+            "p95": 36.652,
+            "p99": 36.811,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.816,
+            "mean": 1.1643,
+            "p50": 1.147,
+            "p95": 1.195,
+            "p99": 1.816,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 24,
+          "private_snapshot_bytes_total": 67992,
+          "public_bytes_per_snapshot": {
+            "max": 74280,
+            "mean": 27384.6,
+            "p50": 24936,
+            "p95": 74160,
+            "p99": 74280,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 72,
+            "mean": 26.4,
+            "p50": 24,
+            "p95": 72,
+            "p99": 72,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 40.178,
+            "mean": 36.830025,
+            "p50": 36.619,
+            "p95": 40.018,
+            "p99": 40.178,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 3.301,
+            "mean": 3.003275,
+            "p50": 2.974,
+            "p95": 3.236,
+            "p99": 3.301,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 2.034,
+            "mean": 1.431375,
+            "p50": 1.404,
+            "p95": 1.557,
+            "p99": 2.034,
+            "samples": 40
+          },
+          "xr": true,
+          "label": "master-d1-p24-r0",
+          "peak_rss_mib": 160.3203125,
+          "wall_seconds": 3.30823133001104,
+          "modeled_component_core_percent": 80.50125
+        },
+        {
+          "actors": 32,
+          "baseline_uncompressed_bytes": 25576,
+          "capture_tick_ms": {
+            "max": 0.131,
+            "mean": 0.1111,
+            "p50": 0.11,
+            "p95": 0.123,
+            "p99": 0.131,
+            "samples": 40
+          },
+          "districts": 1,
+          "encode_ms": {
+            "max": 63.331,
+            "mean": 58.91485,
+            "p50": 58.72,
+            "p95": 63.108,
+            "p99": 63.331,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.535,
+            "mean": 1.496425,
+            "p50": 1.496,
+            "p95": 1.528,
+            "p99": 1.535,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 32,
+          "private_snapshot_bytes_total": 90584,
+          "public_bytes_per_snapshot": {
+            "max": 109792,
+            "mean": 52272.0,
+            "p50": 49248,
+            "p95": 109696,
+            "p99": 109792,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 128,
+            "mean": 67.2,
+            "p50": 64,
+            "p95": 128,
+            "p99": 128,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 68.635,
+            "mean": 64.134625,
+            "p50": 63.942,
+            "p95": 68.406,
+            "p99": 68.635,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 5.056,
+            "mean": 4.855075,
+            "p50": 4.839,
+            "p95": 5.005,
+            "p99": 5.056,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 2.049,
+            "mean": 1.828075,
+            "p50": 1.822,
+            "p95": 1.921,
+            "p99": 2.049,
+            "samples": 40
+          },
+          "xr": true,
+          "label": "master-d1-p32-r0",
+          "peak_rss_mib": 160.546875,
+          "wall_seconds": 4.711087547999341,
+          "modeled_component_core_percent": 137.08127499999998
+        }
+      ]
+    },
+    "master-projectiles": {
+      "scope": "Isolated console-runtime CPU/serialization benchmark with synthetic actors, not connected clients or multi-host certification.",
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "affinity": "8,9",
+      "baseline_binary_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+      "baseline_pack_sha256": "423e6d3dfb6aa88255af19e3ce38936ff4b5ec98f336e4256410ebfd8f3f0b70",
+      "benchmark_sha256": "43187b802fd35e73e43bf53eaa97e94c41a6e8c6eddbdb524b99d7f0aa8d16c9",
+      "runs": [
+        {
+          "actors": 16,
+          "baseline_uncompressed_bytes": 16552,
+          "capture_tick_ms": {
+            "max": 0.076,
+            "mean": 0.066925,
+            "p50": 0.067,
+            "p95": 0.072,
+            "p99": 0.076,
+            "samples": 40
+          },
+          "districts": 1,
+          "encode_ms": {
+            "max": 18.619,
+            "mean": 16.04405,
+            "p50": 15.918,
+            "p95": 18.609,
+            "p99": 18.619,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 0.62,
+            "mean": 0.6011,
+            "p50": 0.601,
+            "p95": 0.618,
+            "p99": 0.62,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 16,
+          "private_snapshot_bytes_total": 70040,
+          "public_bytes_per_snapshot": {
+            "max": 55024,
+            "mean": 26012.4,
+            "p50": 24560,
+            "p95": 52800,
+            "p99": 55024,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 64,
+            "mean": 33.6,
+            "p50": 32,
+            "p95": 64,
+            "p99": 64,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 21.188,
+            "mean": 18.507,
+            "p50": 18.364,
+            "p95": 21.13,
+            "p99": 21.188,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 2.319,
+            "mean": 2.223475,
+            "p50": 2.218,
+            "p95": 2.289,
+            "p99": 2.319,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 1.165,
+            "mean": 1.10025,
+            "p50": 1.095,
+            "p95": 1.164,
+            "p99": 1.165,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d1-p16-r0",
+          "peak_rss_mib": 160.48046875,
+          "wall_seconds": 2.4062513019889593,
+          "modeled_component_core_percent": 41.419349999999994
+        },
+        {
+          "actors": 64,
+          "baseline_uncompressed_bytes": 16552,
+          "capture_tick_ms": {
+            "max": 0.154,
+            "mean": 0.143,
+            "p50": 0.142,
+            "p95": 0.153,
+            "p99": 0.154,
+            "samples": 40
+          },
+          "districts": 4,
+          "encode_ms": {
+            "max": 74.347,
+            "mean": 64.82465,
+            "p50": 64.329,
+            "p95": 74.332,
+            "p99": 74.347,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 2.248,
+            "mean": 2.210025,
+            "p50": 2.213,
+            "p95": 2.238,
+            "p99": 2.248,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 16,
+          "private_snapshot_bytes_total": 280128,
+          "public_bytes_per_snapshot": {
+            "max": 215744,
+            "mean": 104026.8,
+            "p50": 98272,
+            "p95": 213488,
+            "p99": 215744,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 256,
+            "mean": 134.4,
+            "p50": 128,
+            "p95": 256,
+            "p99": 256,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 91.453,
+            "mean": 81.5319,
+            "p50": 80.942,
+            "p95": 91.381,
+            "p99": 91.453,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 17.014,
+            "mean": 16.155625,
+            "p50": 16.122,
+            "p95": 16.567,
+            "p99": 17.014,
+            "samples": 40
+          },
+          "shared_encoding_proposal": false,
+          "worker_ingress_ms": {
+            "max": 4.434,
+            "mean": 4.1794,
+            "p50": 4.182,
+            "p95": 4.402,
+            "p99": 4.434,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d4-p16-r0",
+          "peak_rss_mib": 160.5078125,
+          "wall_seconds": 5.712733177002519,
+          "modeled_component_core_percent": 178.910675
+        }
+      ]
+    },
+    "master-shared-projectiles": {
+      "scope": "Isolated console-runtime CPU/serialization benchmark with synthetic actors, not connected clients or multi-host certification.",
+      "cpu": "12th Gen Intel(R) Core(TM) i7-12700",
+      "affinity": "8,9",
+      "baseline_binary_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+      "baseline_pack_sha256": "423e6d3dfb6aa88255af19e3ce38936ff4b5ec98f336e4256410ebfd8f3f0b70",
+      "benchmark_sha256": "43187b802fd35e73e43bf53eaa97e94c41a6e8c6eddbdb524b99d7f0aa8d16c9",
+      "runs": [
+        {
+          "actors": 16,
+          "baseline_uncompressed_bytes": 16552,
+          "capture_tick_ms": {
+            "max": 0.115,
+            "mean": 0.070425,
+            "p50": 0.069,
+            "p95": 0.076,
+            "p99": 0.115,
+            "samples": 40
+          },
+          "districts": 1,
+          "encode_ms": {
+            "max": 2.349,
+            "mean": 1.173,
+            "p50": 1.113,
+            "p95": 1.719,
+            "p99": 2.349,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 1.064,
+            "mean": 0.632,
+            "p50": 0.616,
+            "p95": 0.69,
+            "p99": 1.064,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 16,
+          "private_snapshot_bytes_total": 70040,
+          "public_bytes_per_snapshot": {
+            "max": 55024,
+            "mean": 26012.4,
+            "p50": 24560,
+            "p95": 52800,
+            "p99": 55024,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 64,
+            "mean": 33.6,
+            "p50": 32,
+            "p95": 64,
+            "p99": 64,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 2.776,
+            "mean": 1.59435,
+            "p50": 1.526,
+            "p95": 2.413,
+            "p99": 2.776,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 0.272,
+            "mean": 0.1604,
+            "p50": 0.158,
+            "p95": 0.188,
+            "p99": 0.272,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 2.258,
+            "mean": 1.4938,
+            "p50": 1.465,
+            "p95": 1.801,
+            "p99": 2.258,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d1-p16-r0",
+          "peak_rss_mib": 163.1484375,
+          "wall_seconds": 2.2057495359913446,
+          "modeled_component_core_percent": 8.494849999999998
+        },
+        {
+          "actors": 64,
+          "baseline_uncompressed_bytes": 16552,
+          "capture_tick_ms": {
+            "max": 0.172,
+            "mean": 0.151175,
+            "p50": 0.149,
+            "p95": 0.171,
+            "p99": 0.172,
+            "samples": 40
+          },
+          "districts": 4,
+          "encode_ms": {
+            "max": 5.128,
+            "mean": 4.2316,
+            "p50": 4.128,
+            "p95": 4.824,
+            "p99": 5.128,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 2.715,
+            "mean": 2.258825,
+            "p50": 2.212,
+            "p95": 2.697,
+            "p99": 2.715,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 16,
+          "private_snapshot_bytes_total": 280128,
+          "public_bytes_per_snapshot": {
+            "max": 215744,
+            "mean": 104026.8,
+            "p50": 98272,
+            "p95": 213488,
+            "p99": 215744,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 256,
+            "mean": 134.4,
+            "p50": 128,
+            "p95": 256,
+            "p99": 256,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 7.366,
+            "mean": 5.98675,
+            "p50": 5.838,
+            "p95": 6.875,
+            "p99": 7.366,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 1.76,
+            "mean": 1.16595,
+            "p50": 1.132,
+            "p95": 1.402,
+            "p99": 1.76,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 4.471,
+            "mean": 4.07115,
+            "p50": 4.058,
+            "p95": 4.422,
+            "p99": 4.471,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d4-p16-r0",
+          "peak_rss_mib": 160.73046875,
+          "wall_seconds": 2.2052276230533607,
+          "modeled_component_core_percent": 27.799325
+        },
+        {
+          "actors": 128,
+          "baseline_uncompressed_bytes": 16552,
+          "capture_tick_ms": {
+            "max": 0.424,
+            "mean": 0.300575,
+            "p50": 0.294,
+            "p95": 0.352,
+            "p99": 0.424,
+            "samples": 40
+          },
+          "districts": 8,
+          "encode_ms": {
+            "max": 9.864,
+            "mean": 8.597825,
+            "p50": 8.552,
+            "p95": 9.669,
+            "p99": 9.864,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 5.323,
+            "mean": 4.5228,
+            "p50": 4.405,
+            "p95": 5.213,
+            "p99": 5.323,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 16,
+          "private_snapshot_bytes_total": 560320,
+          "public_bytes_per_snapshot": {
+            "max": 436192,
+            "mean": 208265.6,
+            "p50": 196496,
+            "p95": 433872,
+            "p99": 436192,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 512,
+            "mean": 268.8,
+            "p50": 256,
+            "p95": 512,
+            "p99": 512,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 14.49,
+            "mean": 13.237525,
+            "p50": 13.217,
+            "p95": 14.163,
+            "p99": 14.49,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 3.828,
+            "mean": 3.3998,
+            "p50": 3.366,
+            "p95": 3.668,
+            "p99": 3.828,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 9.164,
+            "mean": 8.27495,
+            "p50": 8.199,
+            "p95": 8.864,
+            "p99": 9.164,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d8-p16-r0",
+          "peak_rss_mib": 160.546875,
+          "wall_seconds": 3.0076196680311114,
+          "modeled_component_core_percent": 58.3968
+        },
+        {
+          "actors": 256,
+          "baseline_uncompressed_bytes": 16552,
+          "capture_tick_ms": {
+            "max": 0.741,
+            "mean": 0.674625,
+            "p50": 0.68,
+            "p95": 0.734,
+            "p99": 0.741,
+            "samples": 40
+          },
+          "districts": 16,
+          "encode_ms": {
+            "max": 19.867,
+            "mean": 17.1833,
+            "p50": 17.03,
+            "p95": 19.803,
+            "p99": 19.867,
+            "samples": 40
+          },
+          "input_batch_ms": {
+            "max": 8.971,
+            "mean": 8.80015,
+            "p50": 8.793,
+            "p95": 8.924,
+            "p99": 8.971,
+            "samples": 40
+          },
+          "kind": "master",
+          "players_per_district": 16,
+          "private_snapshot_bytes_total": 1120656,
+          "public_bytes_per_snapshot": {
+            "max": 871776,
+            "mean": 417717.2,
+            "p50": 394400,
+            "p95": 865104,
+            "p99": 871776,
+            "samples": 40
+          },
+          "public_packets_per_snapshot": {
+            "max": 1024,
+            "mean": 537.6,
+            "p50": 512,
+            "p95": 1024,
+            "p99": 1024,
+            "samples": 40
+          },
+          "replication_ms": {
+            "max": 36.46,
+            "mean": 31.691125,
+            "p50": 31.377,
+            "p95": 34.419,
+            "p99": 36.46,
+            "samples": 40
+          },
+          "scope_ms": {
+            "max": 15.089,
+            "mean": 11.4257,
+            "p50": 11.286,
+            "p95": 11.892,
+            "p99": 15.089,
+            "samples": 40
+          },
+          "shared_encoding_proposal": true,
+          "worker_ingress_ms": {
+            "max": 18.076,
+            "mean": 16.9484,
+            "p50": 16.924,
+            "p95": 17.268,
+            "p99": 18.076,
+            "samples": 40
+          },
+          "xr": false,
+          "label": "master-d16-p16-r0",
+          "peak_rss_mib": 164.6484375,
+          "wall_seconds": 5.513093819026835,
+          "modeled_component_core_percent": 127.72725
+        }
+      ]
+    }
+  }
+}

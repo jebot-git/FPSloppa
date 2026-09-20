@@ -458,6 +458,8 @@ func _process(_delta: float) -> void:
 	center_message.text = ""
 	if game.intermission>0:
 		center_message.text = game.round_message+"\nNext round in %d" % ceili(game.intermission)
+	elif game.cq_client.waiting():
+		center_message.text="WAITING FOR REINFORCEMENTS\nDeployment resumes automatically when a friendly district has room."
 	elif state.spectator:
 		center_message.text="SPECTATING · WASD move · SPACE / CTRL fly" if not game.is_vr() else "SPECTATING"
 	elif state.dead:
