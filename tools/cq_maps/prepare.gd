@@ -12,7 +12,7 @@ func run():
 	assert(level.get_meta("baked_light_invalid_faces",0)==0)
 	assert(level.get_meta("baked_light_overflow_faces",0)==0)
 	assert(level.get_meta("baked_light_rgb",false))
-	var report:={"zone":zone,"baked_faces":level.get_meta("baked_light_faces",0),"invalid_faces":level.get_meta("baked_light_invalid_faces",0),"connected_routes":0,"gate_rays":0}
+	var report:={"zone":zone,"bsp_sha256":FileAccess.get_sha256(folder+"district.bsp"),"baked_faces":level.get_meta("baked_light_faces",0),"invalid_faces":level.get_meta("baked_light_invalid_faces",0),"connected_routes":0,"gate_rays":0,"route_failures":[]}
 	preload("res://deathmatch/maps/filtering.gd").new().apply(level,2,true)
 	# Navigation and server collision come from this district only, before cosmetic art.
 	var mesh:=preload("res://deathmatch/bots.gd").new_mesh();mesh.cell_size=.5;mesh.cell_height=.1;mesh.agent_radius=.5;mesh.agent_height=1.75;mesh.edge_max_length=12
@@ -41,12 +41,53 @@ func run():
 			report.gate_rays+=1
 	for point in points:
 		var nearest:=NavigationServer3D.map_get_closest_point(nav,point)
-		assert(nearest.distance_to(point)<1.2,"Point off navigation: %s / %s"%[point,nearest])
+		if nearest.distance_to(point)>=1.2:report.route_failures.append("Point off navigation: %s / %s"%[point,nearest]);continue
 		if point.distance_to(Vector3(-20,.1,-20))<.01:report.connected_routes+=1;continue
 		var route:=NavigationServer3D.map_get_path(nav,Vector3(-20,.1,-20),point,true)
-		if route.is_empty() or route[-1].distance_to(point)>1.2:push_error("Unreachable district %d point %s end %s"%[zone,point,route[-1] if not route.is_empty() else Vector3.INF]);quit(2);return
+		if route.is_empty() or route[-1].distance_to(point)>1.2:report.route_failures.append("Unreachable district %d point %s end %s"%[zone,point,route[-1] if not route.is_empty() else Vector3.INF]);continue
 		report.connected_routes+=1
 	report.nav_polygons=mesh.get_polygon_count();region.free();NavigationServer3D.free_rid(nav)
+	if not report.route_failures.is_empty():
+		for failure in report.route_failures:push_error(failure)
+		level.free();quit(2);return
+	# Test the resulting collision, not merely the generator's roof-area estimate.
+	if layout.has("enclosure"):
+		var space:=level.get_world_3d().direct_space_state
+		var enclosed:=0
+		for sample in layout.enclosure.roof_samples:
+			var at:=Vector3(sample[0],sample[1],sample[2])
+			if not space.intersect_ray(PhysicsRayQueryParameters3D.create(at,at+Vector3.UP*80,1)).is_empty():enclosed+=1
+		report.roof_samples=layout.enclosure.roof_samples.size();report.covered_samples=enclosed
+		assert(float(enclosed)/report.roof_samples>=.85,"Less than 85% of street samples enclosed")
+		report.carriageway_rays=0
+		for road in layout.streets:
+			for i in road.size()-1:
+				var a:=Vector3(road[i][0],1.4,road[i][1]);var b:=Vector3(road[i+1][0],1.4,road[i+1][1]);var sideways:=(b-a).normalized().cross(Vector3.UP)
+				for step in range(3,int(a.distance_to(b))-2,4):
+					var at:=a.move_toward(b,step)
+					if maxf(absf(at.x),absf(at.z))>119:continue
+					assert(space.intersect_ray(PhysicsRayQueryParameters3D.create(at-sideways*3.4,at+sideways*3.4,1)).is_empty(),"Obstructed two-car lane %d %s"%[zone,at])
+					report.carriageway_rays+=1
+		report.open_courtyards=0
+		for court in layout.enclosure.courtyards:
+			var open_rays:=0
+			for offset in [Vector2.ZERO,Vector2.LEFT,Vector2.RIGHT,Vector2.UP,Vector2.DOWN]:
+				var at:=Vector3(court.center[0]+offset.x*court.radius*.6,1.8,court.center[1]+offset.y*court.radius*.6)
+				if space.intersect_ray(PhysicsRayQueryParameters3D.create(at,at+Vector3.UP*80,1)).is_empty():open_rays+=1
+			assert(open_rays>0,"Courtyard has no open sky")
+			report.open_courtyards+=1
+		var capsule:=CapsuleShape3D.new();capsule.radius=.45;capsule.height=1.8
+		var query:=PhysicsShapeQueryParameters3D.new();query.shape=capsule;query.collision_mask=1
+		report.jetpack_clearance_samples=0
+		for hop in layout.enclosure.jetpack_hops:
+			# Geometric design envelope only: a straight 4 m hop with .8 m rise.
+			# Includes the player's volume; this does not certify flight physics.
+			for step in 21:
+				var t:=step/20.0
+				var at:=Vector3(hop.from[0],hop.from[1],hop.from[2]).lerp(Vector3(hop.to[0],hop.to[1],hop.to[2]),t)
+				at.y+=1.05+sin(t*PI)*.8;query.transform=Transform3D(Basis.IDENTITY,at)
+				assert(space.intersect_shape(query,1).is_empty(),"Blocked jetpack design envelope %d %s"%[zone,at])
+				report.jetpack_clearance_samples+=1
 	var server:=Loader.read(folder+"district.bsp",true);preload("res://deathmatch/server/geometry.gd").strip(server);save(server,folder+"collision.scn");server.free()
 	var art:=Node3D.new();art.name="CityPresentation";art.set_script(preload("res://deathmatch/conquest/presentation.gd"));level.add_child(art);art.owner=level
 	preload("res://tools/km_benchmark/city_art.gd").district(art,level,layout,zone)

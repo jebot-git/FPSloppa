@@ -1,37 +1,37 @@
 {
-  "planes": 1647,
-  "vertices": 10220,
-  "nodes": 4962,
+  "planes": 2187,
+  "vertices": 13351,
+  "nodes": 6741,
   "texinfo": 64,
-  "faces": 7284,
+  "faces": 10005,
   "clipnodes": 0,
-  "leaves": 3084,
-  "marksurfaces": 10055,
-  "edges": 18064,
-  "surfedges": 34399,
+  "leaves": 4026,
+  "marksurfaces": 14075,
+  "edges": 23941,
+  "surfedges": 46310,
   "models": 1,
-  "bytes": 5633252,
-  "sha256": "662239ff9bdcc3775c3602c2a23c832e75535f222f7f815cdb6df38bde769a02",
+  "bytes": 7343804,
+  "sha256": "bf7f34b05b14de8180e05260bd8bcba4ad53e15d04d971a202c36b64f35e8ad7",
   "zone": 10,
   "name": "Cipher Court",
-  "brushes": 619,
-  "textures": 18,
-  "lights": 181,
+  "brushes": 1157,
+  "textures": 17,
+  "lights": 223,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.264475000964012
+      "seconds": 0.3646155140013434
     },
     {
       "tool": "vis",
-      "seconds": 0.7654420580365695
+      "seconds": 0.6149548219982535
     },
     {
       "tool": "light",
-      "seconds": 4.272455233032815
+      "seconds": 6.526555911987089
     }
   ]
 }

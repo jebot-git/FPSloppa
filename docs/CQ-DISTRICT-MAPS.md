@@ -6,15 +6,19 @@ Each worker instantiates only its assigned collision map and local navigation me
 
 ## Environment and layout
 
-The original sixteen district themes, origins, team territories, four spawns per district and corner-homebase equipment rules are preserved. Revision 2 replaces the repeated four-hall layout with **sixteen individually authored street networks**. Their offset junctions, switchbacks, service loops, market lanes and processional streets differ even after rotation or reflection. Each has 16–20 buildings with varied footprints and heights, four accessible multilevel halls, covered passages through selected blocks, raised sidewalks, street lamps, stalls, parked cars/freight vehicles and courtyard furniture. Buildings have district-specific placements, setbacks and intervening alleys.
+The original sixteen district themes, origins, team territories, four spawns per district and corner-homebase equipment rules are preserved. **Revision 3 is the enclosed-city experiment.** It retains sixteen individually authored street networks, with offset junctions, switchbacks, service loops, market lanes and processional streets that differ even after rotation or reflection. Solid interblocks now occupy the former open gaps, surrounding a connected network of indoor streets, access passages and multilevel halls.
 
-Accessible halls have ground, 6 m and 12 m galleries, with an additional 18 m level in selected buildings. Interior ramps lead to street-facing balconies. Eight districts also have elevated connections between halls where the surrounding buildings leave a viable route. The other districts use their own ground passages and alley connections. Themed roofs, shrines, machinery, planting and holograms retain the gothic science-fiction identity. Gate positions and the central capture area remain shared gameplay constraints; surrounding streets and cover are asymmetric.
+The carriageway is **7 m wide**, with 2 m sidewalks; parked vehicles occupy separate bays. Windows, shop fronts, stalls, lamps and chamfered gothic arch ribs dress the streets. Ground routes pass below 4.5 m wide elevated pedestrian decks at 6 m height. Every district has an upper network connected to all four halls, whose interior ramps reach 6 m, 12 m and selected 18 m galleries. The street ceilings are around 11.7 m; taller hall alleys and gate vestibules provide changes of scale. Three small octagonal sky courts per district, including the capture court, interrupt the enclosure. Their nominal diameters are 16–20 m. Fixed gate openings remain 24 × 16 m and flare into vestibules before meeting the narrower roads.
+
+The design uses the requested references as spatial inspiration: layered routes and gothic massing from Arcane Dimensions / Quake, arena overlooks from Unreal Tournament, and dense inhabited passages from Night City, Anachronox and Dark Forces II. Reference material consulted includes [Simon O'Callaghan's Arcane Dimensions pages](https://simonoc.co.uk/pages/design/sp/ad.html) and [Benoit Stordeur's Tears of the False God](https://bal.artstation.com/projects/B1yaX6). Geometry is original; the existing reviewed project materials, district colours, night sky, holographic gates and gothic science-fiction styling are retained.
+
+**Jetpack design assumption:** two optional, nominal 4 m level gaps per district have broad 4 × 5 m landing pads. A 0.9 m wide, 1.8 m tall capsule is checked along a straight hop with 0.8 m arc rise. Low step-over deck curbs and generous overhead clearance accommodate limited steering. Both sides remain reachable using ordinary walking routes and ramps. This is a geometric clearance envelope, not an implemented jetpack or a flight-time/control calibration. Equipment and capture progression do not require flight.
 
 All maps receive full VIS and RGB night lighting with 16-unit lightmap spacing, bounce and dirt. Street lamps and junction lighting are baked strongly enough to reveal sidewalks and parked vehicles; those bake emitters are not runtime point lights. Opaque walk-through holographic gates conceal the unloaded districts. The existing weapon/avatar illumination limit remains two effects, including on VR; translated BSP occlusion planes preserve wall blocking.
 
 Maps use local coordinates, bounded by ±137 m horizontally including hidden gate continuations, and −3 to 112 m vertically. Runtime scenes are translated to the original city coordinates. The public play area ends at ±125 m. Gates align at 24 m wide and 16 m high; ordinary transfer is accepted only through the matching neighboring opening. The importer omits sky triangles, so matching client/worker collision caps close the space above the 36 m boundary walls and at the sky ceiling.
 
-[Compare all sixteen layouts](validation/cq-urban-plans.png) · [Street-level render](validation/cq-urban-street.png)
+[Compare all sixteen enclosed layouts](validation/cq-enclosed-plans.png) · [Street-level render](validation/cq-enclosed-street.png) · [Upper routes](validation/cq-enclosed-upper.png)
 
 ## File budgets
 
@@ -22,12 +26,12 @@ The generator asserts format 29, disallows BSP2 promotion and checks engine/impo
 
 | Resource | Smallest district | Largest district | All districts |
 |---|---:|---:|---:|
-| BSP bytes | 5,633,252 | 9,536,976 | 123,675,588 |
-| Vertices | 10,220 | 12,461 | 181,614 |
-| Faces | 7,284 | 8,939 | 129,596 |
-| Nodes | 4,962 | 5,939 | 86,500 |
-| Leaves | 3,084 | 3,756 | 54,127 |
-| Marksurfaces | 10,055 | 12,343 | 178,898 |
+| BSP bytes | 7,193,876 | 9,637,712 | 138,697,284 |
+| Vertices | 11,747 | 14,372 | 210,311 |
+| Faces | 8,767 | 10,815 | 157,181 |
+| Nodes | 5,760 | 7,234 | 103,952 |
+| Leaves | 3,430 | 4,309 | 62,205 |
+| Marksurfaces | 12,408 | 15,398 | 222,412 |
 
 Checks require vertices/faces/marksurfaces below 65,535, nodes/leaves/clipnodes below 32,767 and each BSP below FPSloppa's 25,000,000-byte import limit. Collision uses render triangles, so these builds use `-noclip`. BSPX RGB lighting supplements the version-29 geometry. This is a FPSloppa map pack, not a claim of unmodified Quake-engine gameplay compatibility. See the compiler's [format options](https://ericw-tools.readthedocs.io/en/latest/qbsp.html) and [limit-check history](https://ericw-tools.readthedocs.io/en/latest/changelog.html).
 
@@ -67,13 +71,15 @@ The server package carries the full atlas and server asset pack for convenient a
 ## Rebuild and validation
 
 ```sh
-python3 tools/cq_maps/build.py --compiler /path/to/ericw-tools/bin
+python3 -m venv /tmp/cq-map-tools
+/tmp/cq-map-tools/bin/pip install -r tools/cq_maps/requirements.txt
+/tmp/cq-map-tools/bin/python tools/cq_maps/build.py --compiler /path/to/ericw-tools/bin
 for district in $(seq 0 15); do
   godot --headless --xr-mode off --path . \
     --script tools/cq_maps/prepare.gd -- "$district" || exit
 done
 python3 tools/cq_maps/manifest.py
-python3 tools/cq_maps/layouts.py
+/tmp/cq-map-tools/bin/python tools/cq_maps/layouts.py
 godot --headless --xr-mode off --path . --script tools/cq_maps/verify.gd
 python3 tools/cq_maps/bots.py
 python3 tools/cq_gateway/external_test.py \
@@ -85,8 +91,10 @@ python3 tools/cq_gateway/waiting_test.py \
   --binary Builds/CQDistrictMaps/FPSloppaServer.x86_64 --district-maps
 ```
 
-Preparation checks every spawn, pickup, hall level, ramp endpoint, authored street junction, covered passage, elevated connection and gate route: 1,164 navigation checks and 144 gate-clearance rays. The layout review rejects street networks duplicated by rotation or reflection and generates `test-results/cq-maps/urban-plans.png`. Geometry verification additionally checks translated floors/contents, portal rejection, sky containment, complete light atlases and translated illumination occlusion. Desktop street, interior, plaza and aerial views are rendered with `tools/cq_maps/views.gd`; the revision-2 validation receipt records the inspected districts.
+Preparation checks every spawn, pickup, hall level, ramp endpoint, authored street junction, access passage, elevated connection and gate route. It also casts collision rays across the carriageway and upward along the streets, requires at least 85% covered street samples in each district, checks that every courtyard has open sky, and sweeps capsule samples through both optional jetpack gaps. The current pack passes 2,009 navigation checks, 144 gate rays, 3,358 carriageway rays and 672 capsule-clearance samples. Covered street samples range from 90.2% to 96.3% across districts. All 48 sky courts retain open sky. The manifest requires the preparation receipt to match the exact compiled BSP hash. The layout review rejects street networks duplicated by rotation or reflection and generates `test-results/cq-maps/enclosed-plans.png`.
 
-Two local ENet clients with four independently started console workers passed map transfers, prediction, respawn, stale-generation rejection, round reset and expected whole-session shutdown on worker loss with 30 ms added private-link RTT. Separate live fixtures passed immediate remote respawn and automatic deployment from a full-capacity waiting room. A sixteen-worker smoke run populated all districts with 64 bots, verified movement by every bot, transfers, occupancy limits and one map per worker/zero on the master. Revision-1 results remain in [the original receipt](validation/cq-district-maps.json). Current map, navigation, geometry, bot and handoff checks are recorded in [the urban-layout receipt](validation/cq-urban-districts.json).
+Geometry verification additionally checks translated floors/contents, portal rejection, sky containment, complete light atlases and translated illumination occlusion. Desktop street, interior, plaza, upper-route and sky-court views are rendered with `tools/cq_maps/views.gd`. Current measured results are recorded in [the enclosed-city receipt](validation/cq-enclosed-districts.json); [revision 2](validation/cq-urban-districts.json) and [revision 1](validation/cq-district-maps.json) receipts remain as historical evidence.
 
-This is not a 64-human-client, headset, full-match balance or physical multi-host performance certification. In the revision-2 two-client run, gate pauses were 135–197 ms, with prefetched scene activation around 16–19 ms. Opaque gates conceal the scene swap but do not eliminate the authority-handshake pause. The master remains a serialization/bandwidth bottleneck and a single point of failure; district splitting does not increase the configured player or district counts. Existing ObjectDB/resource-in-use warnings remain during some test shutdowns; standalone desktop view fixtures also reported two small OpenGL texture leaks at shutdown.
+The current two-client ENet run passed bidirectional district handoffs, respawn, stale-generation rejection, restart and expected session shutdown on worker loss with 30 ms added private-link RTT. Gate pauses were 68–182 ms; prefetched scene activation took 19–22 ms, with no prediction resets and maximum measured correction error of 0.314 m. The bot smoke test uses a 90-second observation window because enclosed street travel and scavenging can exceed the old 25-second window. The completed run moved all 64 bots and recorded 808 transfers across sixteen workers, with occupancy at or below 16, one geometry instance per worker and zero on the master. Several bots repeatedly re-crossed gates (one reached generation 329); the handoff count is transport activity, not evidence of satisfactory strategic match flow. Gate goal persistence remains a bot-routing follow-up.
+
+This is not a 64-human-client, headset, full-match balance or physical multi-host performance certification. Opaque gates conceal scene swaps but do not eliminate the authority-handshake pause. The master remains a serialization/bandwidth bottleneck and a single point of failure; district splitting does not increase the configured player or district counts. Existing ObjectDB/resource-in-use warnings remain during some test shutdowns; standalone desktop view fixtures can also report two small OpenGL texture leaks at shutdown.

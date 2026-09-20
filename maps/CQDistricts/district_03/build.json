@@ -1,37 +1,37 @@
 {
-  "planes": 1772,
-  "vertices": 11933,
-  "nodes": 5581,
-  "texinfo": 61,
-  "faces": 8463,
+  "planes": 2093,
+  "vertices": 12880,
+  "nodes": 6279,
+  "texinfo": 64,
+  "faces": 9623,
   "clipnodes": 0,
-  "leaves": 3485,
-  "marksurfaces": 11649,
-  "edges": 21016,
-  "surfedges": 40071,
+  "leaves": 3725,
+  "marksurfaces": 13680,
+  "edges": 23014,
+  "surfedges": 44510,
   "models": 1,
-  "bytes": 8944140,
-  "sha256": "ccb46cd338f91bc5a3ab66a680b08d6403805e60f0225224f2c554a3932fec83",
+  "bytes": 9165440,
+  "sha256": "e3bfb55f88b92459bf04a42a7d0f5efec247aea843e5985f87d3a075f748bb65",
   "zone": 3,
   "name": "Astral Observatory",
-  "brushes": 676,
+  "brushes": 1108,
   "textures": 18,
-  "lights": 198,
+  "lights": 203,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.3145516109652817
+      "seconds": 0.31449063000036404
     },
     {
       "tool": "vis",
-      "seconds": 1.0157591410097666
+      "seconds": 0.41474080696934834
     },
     {
       "tool": "light",
-      "seconds": 9.633164036960807
+      "seconds": 7.3783495830139145
     }
   ]
 }

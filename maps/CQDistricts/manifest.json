@@ -1,6 +1,6 @@
 {
   "profile": "cq-district-bsp-1",
-  "revision": 2,
+  "revision": 3,
   "format": "BSP29",
   "grid": [
     4,
@@ -75,14 +75,14 @@
           56.5
         ],
         [
-          92,
-          6.1,
-          -110.5
-        ],
-        [
           86,
           6.1,
           -54.5
+        ],
+        [
+          -50,
+          6.1,
+          -86.5
         ],
         [
           -10,
@@ -100,10 +100,10 @@
         4
       ],
       "files": {
-        "district.bsp": "3af254710464700b0a0b3e1a8b975292b23ce2676094f791983f018192a32429",
-        "presentation.scn": "67a83a72daecb4b0dff6addfa046b4e9739047bdd0897966aefb56a53af68185",
-        "collision.scn": "de2df8e17f53e82ab1960c152b075cdb9a7c820c9365892779ae1593677f19be",
-        "navigation.res": "47c939e989692a749d7c57520fc3a6d929b1ea1fc7d12c9874b7077ac6a4c6d3"
+        "district.bsp": "af30123c6cd02e46dcc45635983056148664dbc2ac38ca41ff475577d67e27fe",
+        "presentation.scn": "ee74f7e6af1237e9928d9e92f706087adb02ac89aa26fc3cd4b3e16186068443",
+        "collision.scn": "7959898a52a329c7ff35c9fc05ae6ccb32935b5b544ba6f4d0fe9bb70ca44273",
+        "navigation.res": "af2bc575608b590630a14f022492d62139767866b06cf83f1f4dc093ccdf666f"
       }
     },
     {
@@ -185,10 +185,10 @@
         5
       ],
       "files": {
-        "district.bsp": "42217444ffae44d208a881eb740515cae59c53915c4b568acef6d7dc531d9fed",
-        "presentation.scn": "31343e3ad2f9e332d34e0dbb1ecc6704712753b30069f821185e81bac5b4168e",
-        "collision.scn": "4717c8e217d3a83f4ca489088f4b01be063013d6465b1afbf75dac065bd77126",
-        "navigation.res": "d09af0c17e2c6805c02da1721328b6806cf5eafddd3c96526d1aa7e82d3ad90c"
+        "district.bsp": "5d034c07e3620361695cbfb34766ebdb44d3fdb612a00fa0bc9fb4e6e66f0b8e",
+        "presentation.scn": "c88185180f72995e835c6bcf37c87b6d6961d61a394caf6b95f2eea985b99c2b",
+        "collision.scn": "7315a7fbb7c994b5c8f5f4ad384e94b87fd14df8c0bd22ade44c01d5108c35ce",
+        "navigation.res": "1edb96df95d0d13f39ce0f4df8fc0f0b9174f718ec7077a8a4276a0c708fae85"
       }
     },
     {
@@ -270,10 +270,10 @@
         6
       ],
       "files": {
-        "district.bsp": "e77cb872ca1097c5699cb8446b8939fc8e2b9f8084aa70f9b68e1cf8887be0d0",
-        "presentation.scn": "51092f20a1464b6d5c57e65f5958435e7471f797507d552cd21e1321ef06c17c",
-        "collision.scn": "0cf1128402a391b7d9edf57ce650ca92d90f18fc20ed14b207e98b9c1a8e59f6",
-        "navigation.res": "50cb5277189f5d21b437bb5f9e94c88868ef2c5c1db1e48e2a2c1ccc7574ef18"
+        "district.bsp": "64f29fb72e2e78da13b3426c9836766381dbcea25c0736285ed472dc01891430",
+        "presentation.scn": "7a73ec2afd86d07698b5c955d5eefaa06e845cb990e338484e983f1dcb293aa9",
+        "collision.scn": "91afe20885f8f68efe5ca6b03744bf4f1eda1db6d7fc688304f8339e4b6e1a81",
+        "navigation.res": "182f14326d46defa9e30745bb04edcd8c2a40f95c0eff8e03cba18a646737db2"
       }
     },
     {
@@ -354,10 +354,10 @@
         7
       ],
       "files": {
-        "district.bsp": "ccb46cd338f91bc5a3ab66a680b08d6403805e60f0225224f2c554a3932fec83",
-        "presentation.scn": "9fa7d0aa00b850d56f5437788caecac6b3f7941154b6e0bbd1a36d826be2fe7e",
-        "collision.scn": "f2bca329c23e0c83c3e4f95ad9ec8ef6671670705e57796b77a1d1e7d280fe09",
-        "navigation.res": "544eab8ef6a426a355bd80dd8b782de4e32900b7ebb16c14eba5c359533e2f56"
+        "district.bsp": "e3bfb55f88b92459bf04a42a7d0f5efec247aea843e5985f87d3a075f748bb65",
+        "presentation.scn": "cfaa245c349d638da76ab13a93e0a4ae0af8f46038e6a17ddcd20719a521a8e3",
+        "collision.scn": "05845b00cab08d07a8bd0f345b14f60a6369e1ecc557f0cdab09c31f606cfb8e",
+        "navigation.res": "c2df72c29e6856073868bf859489d442e18254ae9f1c7f4bd2480b080760f964"
       }
     },
     {
@@ -439,10 +439,10 @@
         8
       ],
       "files": {
-        "district.bsp": "a2dd8804b5d36cff64cb2eae5a80be4eee9f366a3dabd82ff23c740211248b72",
-        "presentation.scn": "03c5d9398aad6ac50c999da753f5af43e3b3f96493643e068c6ec887e1669759",
-        "collision.scn": "23a2eea5f5916e30ea9acfe25dc8d79b504c8658e84e4fded99737c9dc94a1a8",
-        "navigation.res": "34f3c4ebe0b27fc108f678c30fa5a6525ba9ab94e18fcf8d706338e33d741148"
+        "district.bsp": "4ab63c51de4cfad12595aedb6b0e6774267d7bb8ce5d74ac36c0cd6f08934efe",
+        "presentation.scn": "e78bd7c75544127054fc856c3c905707fe9b90e0b428eb832dac5cf223de83f0",
+        "collision.scn": "0c260e90d2babd818aa7776bda755d2d4db7a64349156b257cdd6f800ca9c578",
+        "navigation.res": "e1c1a9f53a617f490289af9538971fa628a369fbac76d8d54f6bbf4c352d16ce"
       }
     },
     {
@@ -525,10 +525,10 @@
         9
       ],
       "files": {
-        "district.bsp": "0eddf8e08db49b6434cbbc262d50784cac8befcf171715c49950102daef3994d",
-        "presentation.scn": "7e4926879b73ddb1c8efdd78a52afc274580b66538d9068f987c3e71a8e86dee",
-        "collision.scn": "91ae6258f6ad29b7da3a0781cf1c3be37ce1d637d4ccf47366a69649b0cdfb98",
-        "navigation.res": "faa89548c4da805698eafd23bf0f74c1e6aeffb79a1334574a2b0e948e8ca0a5"
+        "district.bsp": "403e18d49352ac7dc856c26ea22ea88ad7305a678e14aff4e570b018f1d5e9d0",
+        "presentation.scn": "cab6a3c7da1d4472e2c590a8f25e9d7b38d31489f6926f1698b32b8628e142f2",
+        "collision.scn": "ecdb6b7384bf0bc6740bc4d9434632d50ee9d1176970429b1bea30f3d5916cf0",
+        "navigation.res": "8de0109cddc41a9d865cf8f289a7ab01c51f5da4762185d7bc0f6d598b54db12"
       }
     },
     {
@@ -611,10 +611,10 @@
         10
       ],
       "files": {
-        "district.bsp": "8f784a5c2c5789cfb996d56f5223d9048ccab2eec7d0ff1f8bffb588eda69bc5",
-        "presentation.scn": "cbd0b3bb71956e6cc84398ad6aea6dfaab6f6479ad0385c922edb2ba133ddcd4",
-        "collision.scn": "55afe48af3e624ad77e103713fa1696d7e07ddebfc14ce294791222ca13cab72",
-        "navigation.res": "42a83a8444eac7f71bde3512265aea1ab79d8eb9dd77a94ce5295478f2538772"
+        "district.bsp": "f4c16117c1565c7ceb7936424b6f37f0126cc9fd5616db7d84b92567dfa1b86e",
+        "presentation.scn": "e48e4b49bf685b948ee58df4e3d7e18ab6584fce9ac9e41ca317aba53c9e6390",
+        "collision.scn": "74a30994e696fac8db74c0c78d391e33ea9b760b5d9ddd4da926a9529e65aa55",
+        "navigation.res": "13fd178045d5f493351dcd340602b497a7d670fe49e2531fa7d3f50291ec5829"
       }
     },
     {
@@ -696,10 +696,10 @@
         11
       ],
       "files": {
-        "district.bsp": "646de9b196cd88bea1c98b78bb9db4a5b86c8065b09bdb31b1bbc267488ae78b",
-        "presentation.scn": "7f2a68d3f5f3eb8389bb376bf4594ec8bafc1c3209fa77b7ad4b7f8c70cbde5e",
-        "collision.scn": "4d992e87725c89236344d173e7fcfab936f287b7dffc57945ecd8586157717c7",
-        "navigation.res": "83e295b52c1583b533d992a503712d20fc581c556bbac454d45b570a871e21ad"
+        "district.bsp": "1922155d64d7e9aeb35f0591a5fc129325090792ee53510c3efed4ff978c2815",
+        "presentation.scn": "da6282239bc82226fab054e0e7b1f08295a1f2db82238dc5eba2cd982054e686",
+        "collision.scn": "612c24ebfa46ba91cba274b7e2be71491bbacbafd7c2b1de9b05b2eed20e8de1",
+        "navigation.res": "a3e927b9b6522889af088eb840f8a739a72f339816afe3ea9e6e50f76d9fb9f3"
       }
     },
     {
@@ -755,9 +755,9 @@
           38.5
         ],
         [
-          86,
+          60,
           6.1,
-          75.5
+          79.5
         ],
         [
           -97,
@@ -781,10 +781,10 @@
         12
       ],
       "files": {
-        "district.bsp": "1929eefe5a5ebd3dc7b0615949317c8fc5a66c0e9565fa67390d88cef358f5de",
-        "presentation.scn": "56ee36c00d451c9b798d7ad426b09785a03649dddb538e5774bdeef17b83c181",
-        "collision.scn": "de109816198b81b3ad3fd27ef83c5b8be944ba6c624519c895df6c47d2cb19c1",
-        "navigation.res": "cb2e18a33ca49ec7e565cb4a159c9ffb1c259c64881addeb8dcdca02689dcb02"
+        "district.bsp": "72d0cf4c9b648dd2a0ad80e806126e0aecac95fa62b3239a3a82f94681dc62f1",
+        "presentation.scn": "a67e875f77ca09493316fce00b50d404890402ab3f738fade8e728c174a5f68b",
+        "collision.scn": "4106074e862f2c692ee1379516564ed461a22c120fc10b01d143c308b379b9f5",
+        "navigation.res": "6fedc4a289bb4ae799fc0e54a86dd191f2b71ebc21300d450ff3c2a6ab659aa6"
       }
     },
     {
@@ -867,10 +867,10 @@
         13
       ],
       "files": {
-        "district.bsp": "6959907e46a49a1c079d9c235bddf1c82fd5356dd3a10e5cd96bdfbf58ef29ab",
-        "presentation.scn": "4461661dfb2a7ffaa6c0d3703fa012a280099738bb9f0c51be6b602113eac7aa",
-        "collision.scn": "e5d759fbc86baa354c8e7fbf30680dc90e29e723b64e1ef1ea69435871b75f96",
-        "navigation.res": "1a71f8bf7f359d22066709b467132617ce6f6c9f5754f463850a4b8a6d23c726"
+        "district.bsp": "6ae31c27c585110eb0f599ed98c4698737a5a40a0b5a4abe3ee2f795101d6f5b",
+        "presentation.scn": "7066a77b87faf57818b69583b289555d89353537b3e18759d02eebaa0521ae3e",
+        "collision.scn": "06f4f4c40d71c212e03f57be4b55cb33c7925865573b65e5dcb24cd13ae5f72f",
+        "navigation.res": "3a86bb601aa4bf9c93986d9232505b0f56f13710ef1bce1de77f68b0a0d6b61c"
       }
     },
     {
@@ -953,10 +953,10 @@
         14
       ],
       "files": {
-        "district.bsp": "662239ff9bdcc3775c3602c2a23c832e75535f222f7f815cdb6df38bde769a02",
-        "presentation.scn": "4131d3996426d0a78e462dace2e017fb1971fa306304d12a834d8bde85b0b5b0",
-        "collision.scn": "039b18376e3484e2689e49b7d44f5b7f187313b803e930309a8d44d663fd9197",
-        "navigation.res": "e9fc34e823ae91d8175fafdbc480191ea2b19cb1d41d3af08ce1766fb035668a"
+        "district.bsp": "bf7f34b05b14de8180e05260bd8bcba4ad53e15d04d971a202c36b64f35e8ad7",
+        "presentation.scn": "0493da03b44f351c85451f3c79b243839328bfc358c5baed6090ca273c9f27f0",
+        "collision.scn": "5a1dace57d437dea028675e60d0e73514bc15d8033f8b68f177ecac245f2c518",
+        "navigation.res": "0c2c1b767aad6d4dbfd7439bb4c115b4678ca1eeca4ffe2264611133332ae82c"
       }
     },
     {
@@ -1017,9 +1017,9 @@
           25.5
         ],
         [
-          -90,
+          -69,
           6.1,
-          71.5
+          81.5
         ],
         [
           -10,
@@ -1038,10 +1038,10 @@
         15
       ],
       "files": {
-        "district.bsp": "e309dd2d1c1517a46bd8cd7439c24e8a7f707e54532332e3c1cd082c14aaa18c",
-        "presentation.scn": "a190b9c23e35991589557309a143f79d36f83fd34cb8c380ffb57e17ecaaab91",
-        "collision.scn": "522eccb0ca9dd2ac5de5a796f39fc7c7a04a30e00c8a2b867d2afa885d2a818e",
-        "navigation.res": "0392665ef0abbc6dfb02c71a6760eb1ae9641d0eca49c9f1a0d3080882d68137"
+        "district.bsp": "1e0b46f3b8168846087dffd45fcd95ff7c4d90da1cec518a3d8a448fefa6604f",
+        "presentation.scn": "209b1132ce90145a56d12842051f7240120f09735918a6f98140d4ddf8a5628d",
+        "collision.scn": "9b7613ad2ad1fdd58b46a6c24d42c7c852f5c51edfdddc136f7f259c567a572b",
+        "navigation.res": "79ef2cd78ed6ecfc006923458b14d20a61d3a434d08922edc7528b424a7a15a0"
       }
     },
     {
@@ -1122,10 +1122,10 @@
         8
       ],
       "files": {
-        "district.bsp": "191e6f471705b14e0ee066bf97a19177b0ed2fb9be0eca14abb9c2584fe4e333",
-        "presentation.scn": "30c59069a9498be24dd110b783d7cdabad80582241700839da9594783cdfb127",
-        "collision.scn": "670abfdf095f0b4489268e85995f913fa935774961c6cca6919aa751a7cb4b32",
-        "navigation.res": "1affd0436345932d9ea1f5612faa5003089e20e29b8b65c736b620b7153f32f2"
+        "district.bsp": "13569e47034f4427643dc7da108eec23d357a60925726e71d90bcdbe16a33da8",
+        "presentation.scn": "42cf83ccf797e3c3b4620ac378210bea2771697f375e06b1af647e7801d45da8",
+        "collision.scn": "975125a591f23ab876927a054b0026eded7a1a03873e88861a6ce0166b3fff4c",
+        "navigation.res": "5009b72baabf993c397159a91195f9492bcb144407931e7deb3d4c1487f51258"
       }
     },
     {
@@ -1207,10 +1207,10 @@
         9
       ],
       "files": {
-        "district.bsp": "426350936a57494c12888dfc8c2eb20bf057e2102ba1df046f5e153bfe5e9bad",
-        "presentation.scn": "23b0e4cc82826557bf65e3c63af6f1e37dbc8bf4b1d34b401ccf6c37092ba5a1",
-        "collision.scn": "9095c8333f7a7d12ab3e700394f481894975bbecfe831211e3330d5ff1729922",
-        "navigation.res": "b523c23837bbde3ba3fb2518e585059e50fa81108f033a553f6d8887a854f62b"
+        "district.bsp": "c8e7c131925d2081bfc608ca839a1a9f498085ed34d9524227a2855ccd772cd6",
+        "presentation.scn": "c2aa3e34ff8acd30ab3e2e2c414246faa3745c70833422f8474611cac54fc45f",
+        "collision.scn": "ec9e52cc391ed2490448d6fae954469ec8dea570869a73672930c2ccf1e97f0e",
+        "navigation.res": "769da540e7220eed0e2e34c68bd8011f4bce8d2b8706cfa64d653c6efc63f06c"
       }
     },
     {
@@ -1292,10 +1292,10 @@
         10
       ],
       "files": {
-        "district.bsp": "914fa9679538dd382328d3ea15dc9f898f35b93a5cb7f9e40d276c77a07e6991",
-        "presentation.scn": "41a2af85a696afb76e9940120bb9a86a060538f6c59898d2b2bce8c3cedc4a12",
-        "collision.scn": "675dd164d556fbfb152babc2add2db312392a360b3a67431ded5e43f9067ae42",
-        "navigation.res": "0224fec08761c108466be656347c8dfa26e1c29994903e14f98403c2c150cd32"
+        "district.bsp": "a0018158236118036f873aaf4739ec4baa009c46c1e8e2a9c1e88ff172def947",
+        "presentation.scn": "70d5ae9d81ef108945e82e9d4c53155d1af06c27e32b9a201984037bbefd45d1",
+        "collision.scn": "8e240f0520243e790f77f93194092d34281da033f0fe077104902fe1808a692b",
+        "navigation.res": "d05607568fe720efdcf6d5aa7a36ae9902248aa7615266ad8220857551988725"
       }
     },
     {
@@ -1376,10 +1376,10 @@
         11
       ],
       "files": {
-        "district.bsp": "6315ab6467181ec273d4a4438a51c812cf3965dac1e725920614538a269bf5af",
-        "presentation.scn": "528b857ed57083cbfcf498d34999b4ed6ed56cc6b41773990f91e779be73d1ee",
-        "collision.scn": "6006cfb9743a796b87da9371bfdc58bb7366bf80b3f8ed042d8e88b22c87d83e",
-        "navigation.res": "10c2c3d056dfc15d01b3b5c8099c2d8df17546a114a51010e5a7d1ecffb5be96"
+        "district.bsp": "ae8e2c4ff3b330858d24da78fe7e720ae7d47666df727c1a4a7f23e7343a178e",
+        "presentation.scn": "e9f9877c539f9e9f06d9b2a21a10516563b171ac56458101a116426a1c4fa5e4",
+        "collision.scn": "79fa1d8e2d4fb96473796925ac338e16d94eb61960aef6d3d626efb0cf8a805e",
+        "navigation.res": "a3b7342f16332845016c8c03f81c2bc6f731ffb1412743419850bff3af1fe874"
       }
     }
   ]

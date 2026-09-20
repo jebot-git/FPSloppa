@@ -26,10 +26,10 @@ static func district(parent: Node3D,owner_: Node,layout: Dictionary,zone: int) -
 	var steam_count:=0
 	for row in layout.art:
 		if int(row.zone)!=zone:continue
-		var p:=v(row.position);var s:=v(row.size)
+		var p:=v(row.position);var s:=v(row.size);var basis:=Basis(Vector3.UP,float(row.get("yaw",0.0)))
 		match row.kind:
-			"window":append(batches,"gothic" if row.get("gothic",false) else "window",box(s),p)
-			"box":append(batches,"glow",box(s),p)
+			"window":append(batches,"gothic" if row.get("gothic",false) else "window",box(s),p,basis)
+			"box":append(batches,"glow",box(s),p,basis)
 			"beacon":
 				append(batches,"glow",box(s),p);append(batches,"glow",box(Vector3(s.y,.35,.35)),p)
 			"ring","plaza":append(batches,"glow",ring(s.x*.5,.12 if row.kind=="plaza" else .18),p)

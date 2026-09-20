@@ -1,37 +1,37 @@
 {
-  "planes": 1902,
-  "vertices": 11713,
-  "nodes": 5580,
-  "texinfo": 66,
-  "faces": 8340,
+  "planes": 2210,
+  "vertices": 13163,
+  "nodes": 6464,
+  "texinfo": 70,
+  "faces": 9810,
   "clipnodes": 0,
-  "leaves": 3518,
-  "marksurfaces": 11568,
-  "edges": 20676,
-  "surfedges": 39499,
+  "leaves": 3905,
+  "marksurfaces": 13851,
+  "edges": 23497,
+  "surfedges": 45567,
   "models": 1,
-  "bytes": 6153940,
-  "sha256": "a2dd8804b5d36cff64cb2eae5a80be4eee9f366a3dabd82ff23c740211248b72",
+  "bytes": 7684832,
+  "sha256": "4ab63c51de4cfad12595aedb6b0e6774267d7bb8ce5d74ac36c0cd6f08934efe",
   "zone": 4,
   "name": "Reliquary Archives",
-  "brushes": 732,
-  "textures": 20,
-  "lights": 210,
+  "brushes": 1235,
+  "textures": 19,
+  "lights": 183,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.31446915899869055
+      "seconds": 0.364749483007472
     },
     {
       "tool": "vis",
-      "seconds": 1.0159953899565153
+      "seconds": 0.5148015519953333
     },
     {
       "tool": "light",
-      "seconds": 4.923528779996559
+      "seconds": 5.674685886013322
     }
   ]
 }

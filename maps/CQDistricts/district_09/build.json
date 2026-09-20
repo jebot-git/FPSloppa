@@ -1,37 +1,37 @@
 {
-  "planes": 1928,
-  "vertices": 12071,
-  "nodes": 5786,
-  "texinfo": 67,
-  "faces": 8527,
+  "planes": 2304,
+  "vertices": 14372,
+  "nodes": 7234,
+  "texinfo": 70,
+  "faces": 10815,
   "clipnodes": 0,
-  "leaves": 3603,
-  "marksurfaces": 11866,
-  "edges": 21253,
-  "surfedges": 40388,
+  "leaves": 4309,
+  "marksurfaces": 15398,
+  "edges": 25832,
+  "surfedges": 49826,
   "models": 1,
-  "bytes": 6402848,
-  "sha256": "6959907e46a49a1c079d9c235bddf1c82fd5356dd3a10e5cd96bdfbf58ef29ab",
+  "bytes": 8295896,
+  "sha256": "6ae31c27c585110eb0f599ed98c4698737a5a40a0b5a4abe3ee2f795101d6f5b",
   "zone": 9,
   "name": "Ember Market",
-  "brushes": 751,
+  "brushes": 1293,
   "textures": 19,
-  "lights": 203,
+  "lights": 222,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.3146131219691597
+      "seconds": 0.41470877203391865
     },
     {
       "tool": "vis",
-      "seconds": 1.1163306499947794
+      "seconds": 0.8153240230167285
     },
     {
       "tool": "light",
-      "seconds": 5.123791855003219
+      "seconds": 6.877292471996043
     }
   ]
 }

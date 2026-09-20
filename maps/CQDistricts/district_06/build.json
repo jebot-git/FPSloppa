@@ -1,37 +1,37 @@
 {
-  "planes": 1639,
-  "vertices": 10798,
-  "nodes": 4995,
-  "texinfo": 64,
-  "faces": 7685,
+  "planes": 1886,
+  "vertices": 12647,
+  "nodes": 6312,
+  "texinfo": 70,
+  "faces": 9433,
   "clipnodes": 0,
-  "leaves": 3128,
-  "marksurfaces": 10597,
-  "edges": 19117,
-  "surfedges": 36522,
+  "leaves": 3788,
+  "marksurfaces": 13354,
+  "edges": 22662,
+  "surfedges": 43741,
   "models": 1,
-  "bytes": 8668636,
-  "sha256": "8f784a5c2c5789cfb996d56f5223d9048ccab2eec7d0ff1f8bffb588eda69bc5",
+  "bytes": 9130648,
+  "sha256": "f4c16117c1565c7ceb7936424b6f37f0126cc9fd5616db7d84b92567dfa1b86e",
   "zone": 6,
   "name": "Pilgrim Transit",
-  "brushes": 656,
-  "textures": 17,
-  "lights": 181,
+  "brushes": 1101,
+  "textures": 18,
+  "lights": 214,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.2644663950195536
+      "seconds": 0.3145977249951102
     },
     {
       "tool": "vis",
-      "seconds": 0.8153798580169678
+      "seconds": 0.6151571089867502
     },
     {
       "tool": "light",
-      "seconds": 8.682636075012852
+      "seconds": 7.278446417010855
     }
   ]
 }

@@ -1,37 +1,37 @@
 {
-  "planes": 1756,
-  "vertices": 11232,
-  "nodes": 5503,
-  "texinfo": 60,
-  "faces": 8079,
+  "planes": 2195,
+  "vertices": 12972,
+  "nodes": 6547,
+  "texinfo": 64,
+  "faces": 9712,
   "clipnodes": 0,
-  "leaves": 3443,
-  "marksurfaces": 11151,
-  "edges": 19854,
-  "surfedges": 37828,
+  "leaves": 3934,
+  "marksurfaces": 13862,
+  "edges": 23186,
+  "surfedges": 44726,
   "models": 1,
-  "bytes": 5829444,
-  "sha256": "6315ab6467181ec273d4a4438a51c812cf3965dac1e725920614538a269bf5af",
+  "bytes": 7569892,
+  "sha256": "ae8e2c4ff3b330858d24da78fe7e720ae7d47666df727c1a4a7f23e7343a178e",
   "zone": 15,
   "name": "Crown Necropolis",
-  "brushes": 676,
-  "textures": 19,
-  "lights": 182,
+  "brushes": 1114,
+  "textures": 18,
+  "lights": 197,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.26449066400527954
+      "seconds": 0.314686088997405
     },
     {
       "tool": "vis",
-      "seconds": 0.9155943440273404
+      "seconds": 0.36470477702096105
     },
     {
       "tool": "light",
-      "seconds": 4.572843496978749
+      "seconds": 6.125665956991725
     }
   ]
 }

@@ -1,37 +1,37 @@
 {
-  "planes": 1619,
-  "vertices": 11611,
-  "nodes": 5555,
-  "texinfo": 58,
-  "faces": 8289,
+  "planes": 2071,
+  "vertices": 12844,
+  "nodes": 6283,
+  "texinfo": 64,
+  "faces": 9596,
   "clipnodes": 0,
-  "leaves": 3467,
-  "marksurfaces": 11421,
-  "edges": 20488,
-  "surfedges": 38936,
+  "leaves": 3751,
+  "marksurfaces": 13571,
+  "edges": 22930,
+  "surfedges": 44403,
   "models": 1,
-  "bytes": 8988236,
-  "sha256": "646de9b196cd88bea1c98b78bb9db4a5b86c8065b09bdb31b1bbc267488ae78b",
+  "bytes": 9145740,
+  "sha256": "1922155d64d7e9aeb35f0591a5fc129325090792ee53510c3efed4ff978c2815",
   "zone": 7,
   "name": "Sanctum Medica",
-  "brushes": 653,
+  "brushes": 1158,
   "textures": 18,
-  "lights": 201,
+  "lights": 200,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.3145732289995067
+      "seconds": 0.31464515399420634
     },
     {
       "tool": "vis",
-      "seconds": 0.8655405530007556
+      "seconds": 0.46489109098911285
     },
     {
       "tool": "light",
-      "seconds": 9.984575487964321
+      "seconds": 7.228682347980794
     }
   ]
 }

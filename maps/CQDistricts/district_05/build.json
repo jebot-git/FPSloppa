@@ -1,37 +1,37 @@
 {
-  "planes": 1720,
-  "vertices": 10656,
-  "nodes": 5045,
-  "texinfo": 67,
-  "faces": 7650,
+  "planes": 2073,
+  "vertices": 13164,
+  "nodes": 6469,
+  "texinfo": 70,
+  "faces": 9829,
   "clipnodes": 0,
-  "leaves": 3168,
-  "marksurfaces": 10545,
-  "edges": 18928,
-  "surfedges": 36274,
+  "leaves": 3834,
+  "marksurfaces": 13707,
+  "edges": 23602,
+  "surfedges": 45568,
   "models": 1,
-  "bytes": 8782212,
-  "sha256": "0eddf8e08db49b6434cbbc262d50784cac8befcf171715c49950102daef3994d",
+  "bytes": 9637712,
+  "sha256": "403e18d49352ac7dc856c26ea22ea88ad7305a678e14aff4e570b018f1d5e9d0",
   "zone": 5,
   "name": "Synapse Data Vault",
-  "brushes": 634,
+  "brushes": 1115,
   "textures": 19,
-  "lights": 160,
+  "lights": 216,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.26430305402027443
+      "seconds": 0.314632712979801
     },
     {
       "tool": "vis",
-      "seconds": 0.8655502760084346
+      "seconds": 0.5148409190005623
     },
     {
       "tool": "light",
-      "seconds": 7.6787631009938195
+      "seconds": 7.378323470999021
     }
   ]
 }

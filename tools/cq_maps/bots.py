@@ -1,10 +1,12 @@
 """Bounded 64-bot smoke test: sixteen independent district-map server processes."""
-import json,os,re,secrets,signal,subprocess,sys,time
+import argparse,json,os,re,secrets,signal,subprocess,sys,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools'));sys.path.insert(0,str(ROOT/'tools/cq_gateway'))
 from rcon import command
 from external_config import create
+parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--seconds',type=int,default=90);args=parser.parse_args()
+if not 25<=args.seconds<=300:parser.error('--seconds must be between 25 and 300')
 OUT=ROOT/'test-results/cq-maps/bots';OUT.mkdir(parents=True,exist_ok=True)
 password=secrets.token_hex(24);config=OUT/'server.cfg'
 config.write_text(f'set sv_gametype cq\nset sv_gametypes cq\nset sv_cq_backend districts\nset sv_cq_worker_limit 16\nset sv_cq_maxclients 64\nset sv_cq_bot_fill 64\nset sv_voice 0\nset sv_lobby 0\nset sv_votes 0\nset net_ip 127.0.0.1\nset net_port 29532\nset rcon_port 29533\nset rcon_password "{password}"\n');config.chmod(0o600)
@@ -30,7 +32,7 @@ try:
   if time.monotonic()>deadline:raise TimeoutError('64 actors did not become active')
   time.sleep(.5)
  initial={a['id']:position(a) for a in actors};start=time.monotonic()
- time.sleep(25)
+ time.sleep(args.seconds)
  last=status();backend=last['cq_backend']
  assert len(backend['actors'])==64 and backend['workers']==16
  assert max(backend['occupancy'])<=16

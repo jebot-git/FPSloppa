@@ -1,0 +1,1526 @@
+{
+  "date": "2026-09-20",
+  "base_commit": "7fc6a6d",
+  "branch": "experimental/cq-districts",
+  "revision": "enclosed-city-3",
+  "scope": "Sixteen enclosed BSP29 districts; full VIS/RGB night bake, collision/navigation/clearance checks, local desktop rendering, two local ENet clients and 64 bots on independent local worker processes. No implemented jetpack, headset test, remote deployment or full-match balance certification.",
+  "atlas_sha256": "aea43c84c995b3cdd9334943c4955f0a2ba5f7feb7aabfb241941563594527ad",
+  "design": {
+    "road_width_metres": 7,
+    "sidewalk_width_metres": 2,
+    "bridge_width_metres": 4.5,
+    "bridge_height_metres": 6,
+    "sky_courts_per_district": 3,
+    "jetpack_geometry_only": {
+      "gap_metres": 4,
+      "rise_metres": 0,
+      "arc_rise_metres": 0.8,
+      "capsule_width_metres": 0.9,
+      "capsule_height_metres": 1.8,
+      "walking_alternatives": true
+    }
+  },
+  "builds": [
+    {
+      "planes": 1879,
+      "vertices": 11747,
+      "nodes": 5760,
+      "texinfo": 61,
+      "faces": 8767,
+      "clipnodes": 0,
+      "leaves": 3430,
+      "marksurfaces": 12408,
+      "edges": 21065,
+      "surfedges": 40569,
+      "models": 1,
+      "bytes": 7193876,
+      "sha256": "af30123c6cd02e46dcc45635983056148664dbc2ac38ca41ff475577d67e27fe",
+      "zone": 0,
+      "name": "Cathedral Exchange",
+      "brushes": 1032,
+      "textures": 16,
+      "lights": 174,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.31471093697473407
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.41466200700961053
+        },
+        {
+          "tool": "light",
+          "seconds": 4.623770405014511
+        }
+      ]
+    },
+    {
+      "planes": 2115,
+      "vertices": 13065,
+      "nodes": 6383,
+      "texinfo": 70,
+      "faces": 9774,
+      "clipnodes": 0,
+      "leaves": 3806,
+      "marksurfaces": 13821,
+      "edges": 23396,
+      "surfedges": 45226,
+      "models": 1,
+      "bytes": 9599604,
+      "sha256": "5d034c07e3620361695cbfb34766ebdb44d3fdb612a00fa0bc9fb4e6e66f0b8e",
+      "zone": 1,
+      "name": "Helix Arcology",
+      "brushes": 1140,
+      "textures": 19,
+      "lights": 200,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.31460150599014014
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.4146585699636489
+        },
+        {
+          "tool": "light",
+          "seconds": 6.376041505020112
+        }
+      ]
+    },
+    {
+      "planes": 1963,
+      "vertices": 12405,
+      "nodes": 6153,
+      "texinfo": 70,
+      "faces": 9260,
+      "clipnodes": 0,
+      "leaves": 3664,
+      "marksurfaces": 13130,
+      "edges": 22204,
+      "surfedges": 42913,
+      "models": 1,
+      "bytes": 7817152,
+      "sha256": "64f29fb72e2e78da13b3426c9836766381dbcea25c0736285ed472dc01891430",
+      "zone": 2,
+      "name": "Crucible Works",
+      "brushes": 1100,
+      "textures": 19,
+      "lights": 202,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.3144257899839431
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.4145768949529156
+        },
+        {
+          "tool": "light",
+          "seconds": 5.625658073986415
+        }
+      ]
+    },
+    {
+      "planes": 2093,
+      "vertices": 12880,
+      "nodes": 6279,
+      "texinfo": 64,
+      "faces": 9623,
+      "clipnodes": 0,
+      "leaves": 3725,
+      "marksurfaces": 13680,
+      "edges": 23014,
+      "surfedges": 44510,
+      "models": 1,
+      "bytes": 9165440,
+      "sha256": "e3bfb55f88b92459bf04a42a7d0f5efec247aea843e5985f87d3a075f748bb65",
+      "zone": 3,
+      "name": "Astral Observatory",
+      "brushes": 1108,
+      "textures": 18,
+      "lights": 203,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.31449063000036404
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.41474080696934834
+        },
+        {
+          "tool": "light",
+          "seconds": 7.3783495830139145
+        }
+      ]
+    },
+    {
+      "planes": 2210,
+      "vertices": 13163,
+      "nodes": 6464,
+      "texinfo": 70,
+      "faces": 9810,
+      "clipnodes": 0,
+      "leaves": 3905,
+      "marksurfaces": 13851,
+      "edges": 23497,
+      "surfedges": 45567,
+      "models": 1,
+      "bytes": 7684832,
+      "sha256": "4ab63c51de4cfad12595aedb6b0e6774267d7bb8ce5d74ac36c0cd6f08934efe",
+      "zone": 4,
+      "name": "Reliquary Archives",
+      "brushes": 1235,
+      "textures": 19,
+      "lights": 183,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.364749483007472
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.5148015519953333
+        },
+        {
+          "tool": "light",
+          "seconds": 5.674685886013322
+        }
+      ]
+    },
+    {
+      "planes": 2073,
+      "vertices": 13164,
+      "nodes": 6469,
+      "texinfo": 70,
+      "faces": 9829,
+      "clipnodes": 0,
+      "leaves": 3834,
+      "marksurfaces": 13707,
+      "edges": 23602,
+      "surfedges": 45568,
+      "models": 1,
+      "bytes": 9637712,
+      "sha256": "403e18d49352ac7dc856c26ea22ea88ad7305a678e14aff4e570b018f1d5e9d0",
+      "zone": 5,
+      "name": "Synapse Data Vault",
+      "brushes": 1115,
+      "textures": 19,
+      "lights": 216,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.314632712979801
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.5148409190005623
+        },
+        {
+          "tool": "light",
+          "seconds": 7.378323470999021
+        }
+      ]
+    },
+    {
+      "planes": 1886,
+      "vertices": 12647,
+      "nodes": 6312,
+      "texinfo": 70,
+      "faces": 9433,
+      "clipnodes": 0,
+      "leaves": 3788,
+      "marksurfaces": 13354,
+      "edges": 22662,
+      "surfedges": 43741,
+      "models": 1,
+      "bytes": 9130648,
+      "sha256": "f4c16117c1565c7ceb7936424b6f37f0126cc9fd5616db7d84b92567dfa1b86e",
+      "zone": 6,
+      "name": "Pilgrim Transit",
+      "brushes": 1101,
+      "textures": 18,
+      "lights": 214,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.3145977249951102
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.6151571089867502
+        },
+        {
+          "tool": "light",
+          "seconds": 7.278446417010855
+        }
+      ]
+    },
+    {
+      "planes": 2071,
+      "vertices": 12844,
+      "nodes": 6283,
+      "texinfo": 64,
+      "faces": 9596,
+      "clipnodes": 0,
+      "leaves": 3751,
+      "marksurfaces": 13571,
+      "edges": 22930,
+      "surfedges": 44403,
+      "models": 1,
+      "bytes": 9145740,
+      "sha256": "1922155d64d7e9aeb35f0591a5fc129325090792ee53510c3efed4ff978c2815",
+      "zone": 7,
+      "name": "Sanctum Medica",
+      "brushes": 1158,
+      "textures": 18,
+      "lights": 200,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.31464515399420634
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.46489109098911285
+        },
+        {
+          "tool": "light",
+          "seconds": 7.228682347980794
+        }
+      ]
+    },
+    {
+      "planes": 2142,
+      "vertices": 13560,
+      "nodes": 6645,
+      "texinfo": 70,
+      "faces": 10154,
+      "clipnodes": 0,
+      "leaves": 3983,
+      "marksurfaces": 14367,
+      "edges": 24273,
+      "surfedges": 46974,
+      "models": 1,
+      "bytes": 9637224,
+      "sha256": "72d0cf4c9b648dd2a0ad80e806126e0aecac95fa62b3239a3a82f94681dc62f1",
+      "zone": 8,
+      "name": "Blackwater Condensers",
+      "brushes": 1132,
+      "textures": 19,
+      "lights": 200,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.3647346190409735
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.5147136359591968
+        },
+        {
+          "tool": "light",
+          "seconds": 7.880246440006886
+        }
+      ]
+    },
+    {
+      "planes": 2304,
+      "vertices": 14372,
+      "nodes": 7234,
+      "texinfo": 70,
+      "faces": 10815,
+      "clipnodes": 0,
+      "leaves": 4309,
+      "marksurfaces": 15398,
+      "edges": 25832,
+      "surfedges": 49826,
+      "models": 1,
+      "bytes": 8295896,
+      "sha256": "6ae31c27c585110eb0f599ed98c4698737a5a40a0b5a4abe3ee2f795101d6f5b",
+      "zone": 9,
+      "name": "Ember Market",
+      "brushes": 1293,
+      "textures": 19,
+      "lights": 222,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.41470877203391865
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.8153240230167285
+        },
+        {
+          "tool": "light",
+          "seconds": 6.877292471996043
+        }
+      ]
+    },
+    {
+      "planes": 2187,
+      "vertices": 13351,
+      "nodes": 6741,
+      "texinfo": 64,
+      "faces": 10005,
+      "clipnodes": 0,
+      "leaves": 4026,
+      "marksurfaces": 14075,
+      "edges": 23941,
+      "surfedges": 46310,
+      "models": 1,
+      "bytes": 7343804,
+      "sha256": "bf7f34b05b14de8180e05260bd8bcba4ad53e15d04d971a202c36b64f35e8ad7",
+      "zone": 10,
+      "name": "Cipher Court",
+      "brushes": 1157,
+      "textures": 17,
+      "lights": 223,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.3646155140013434
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.6149548219982535
+        },
+        {
+          "tool": "light",
+          "seconds": 6.526555911987089
+        }
+      ]
+    },
+    {
+      "planes": 2129,
+      "vertices": 13344,
+      "nodes": 6472,
+      "texinfo": 67,
+      "faces": 9900,
+      "clipnodes": 0,
+      "leaves": 3865,
+      "marksurfaces": 13924,
+      "edges": 23806,
+      "surfedges": 45907,
+      "models": 1,
+      "bytes": 9296160,
+      "sha256": "1e0b46f3b8168846087dffd45fcd95ff7c4d90da1cec518a3d8a448fefa6604f",
+      "zone": 11,
+      "name": "Aegis Bastion",
+      "brushes": 1164,
+      "textures": 18,
+      "lights": 201,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.3645529020577669
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.6151314160088077
+        },
+        {
+          "tool": "light",
+          "seconds": 7.5287271369597875
+        }
+      ]
+    },
+    {
+      "planes": 2302,
+      "vertices": 13978,
+      "nodes": 7055,
+      "texinfo": 70,
+      "faces": 10496,
+      "clipnodes": 0,
+      "leaves": 4263,
+      "marksurfaces": 14938,
+      "edges": 25008,
+      "surfedges": 48329,
+      "models": 1,
+      "bytes": 8076732,
+      "sha256": "13569e47034f4427643dc7da108eec23d357a60925726e71d90bcdbe16a33da8",
+      "zone": 12,
+      "name": "Verdant Cloister",
+      "brushes": 1193,
+      "textures": 19,
+      "lights": 205,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.36458427301840857
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.7655015549971722
+        },
+        {
+          "tool": "light",
+          "seconds": 6.6767279140185565
+        }
+      ]
+    },
+    {
+      "planes": 1963,
+      "vertices": 12626,
+      "nodes": 6103,
+      "texinfo": 67,
+      "faces": 9391,
+      "clipnodes": 0,
+      "leaves": 3668,
+      "marksurfaces": 13404,
+      "edges": 22555,
+      "surfedges": 43536,
+      "models": 1,
+      "bytes": 9598508,
+      "sha256": "c8e7c131925d2081bfc608ca839a1a9f498085ed34d9524227a2855ccd772cd6",
+      "zone": 13,
+      "name": "Meridian Reactor",
+      "brushes": 1081,
+      "textures": 18,
+      "lights": 206,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.3145221809973009
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.5648897289647721
+        },
+        {
+          "tool": "light",
+          "seconds": 7.329168610041961
+        }
+      ]
+    },
+    {
+      "planes": 2336,
+      "vertices": 14193,
+      "nodes": 7052,
+      "texinfo": 64,
+      "faces": 10616,
+      "clipnodes": 0,
+      "leaves": 4254,
+      "marksurfaces": 14922,
+      "edges": 25319,
+      "surfedges": 49048,
+      "models": 1,
+      "bytes": 9504064,
+      "sha256": "a0018158236118036f873aaf4739ec4baa009c46c1e8e2a9c1e88ff172def947",
+      "zone": 14,
+      "name": "Iron Docks",
+      "brushes": 1269,
+      "textures": 17,
+      "lights": 206,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.36457350599812344
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.6150527559802867
+        },
+        {
+          "tool": "light",
+          "seconds": 8.279987865011208
+        }
+      ]
+    },
+    {
+      "planes": 2195,
+      "vertices": 12972,
+      "nodes": 6547,
+      "texinfo": 64,
+      "faces": 9712,
+      "clipnodes": 0,
+      "leaves": 3934,
+      "marksurfaces": 13862,
+      "edges": 23186,
+      "surfedges": 44726,
+      "models": 1,
+      "bytes": 7569892,
+      "sha256": "ae8e2c4ff3b330858d24da78fe7e720ae7d47666df727c1a4a7f23e7343a178e",
+      "zone": 15,
+      "name": "Crown Necropolis",
+      "brushes": 1114,
+      "textures": 18,
+      "lights": 197,
+      "format": "BSP29",
+      "lightmap_spacing": 16,
+      "baked": true,
+      "commands": [
+        {
+          "tool": "qbsp",
+          "seconds": 0.314686088997405
+        },
+        {
+          "tool": "vis",
+          "seconds": 0.36470477702096105
+        },
+        {
+          "tool": "light",
+          "seconds": 6.125665956991725
+        }
+      ]
+    }
+  ],
+  "layouts": {
+    "districts": 16,
+    "distinct_up_to_rotation_and_reflection": 16,
+    "rows": [
+      {
+        "zone": 0,
+        "name": "Cathedral Exchange",
+        "street_plan": "Pilgrim crescent",
+        "street_signature": "f5d05b386bbb2344f27423f326bf4e141ca6c1dd314876cb8be56c3b9c97fed7",
+        "buildings": 16,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 15,
+          "parked_vehicle": 5,
+          "freight_vehicle": 2,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 9,
+          "street_front": 41
+        },
+        "ground_walk_area_m2": 19254.147835110438,
+        "sky_open_area_m2": 591.141269071954,
+        "sky_fraction": 0.030702021929736745,
+        "bridges": 10
+      },
+      {
+        "zone": 1,
+        "name": "Helix Arcology",
+        "street_plan": "Arcology switchback",
+        "street_signature": "b5534350ccc6f93b97f4c58c47cf420723e14c335212ca4f86097d84a2aa6226",
+        "buildings": 17,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 20,
+          "freight_vehicle": 7,
+          "parked_vehicle": 5,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 7,
+          "street_front": 56
+        },
+        "ground_walk_area_m2": 21649.407961096957,
+        "sky_open_area_m2": 687.3077913133241,
+        "sky_fraction": 0.031747186461097976,
+        "bridges": 10
+      },
+      {
+        "zone": 2,
+        "name": "Crucible Works",
+        "street_plan": "Crucible service loop",
+        "street_signature": "6b8ff8a12255852d465ecc4d3f05f568fad085095b6e6626c4487bcdc1110216",
+        "buildings": 18,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 20,
+          "parked_vehicle": 8,
+          "freight_vehicle": 3,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 9,
+          "street_front": 52
+        },
+        "ground_walk_area_m2": 21077.36131618812,
+        "sky_open_area_m2": 794.7880220536795,
+        "sky_fraction": 0.03770813671269447,
+        "bridges": 10
+      },
+      {
+        "zone": 3,
+        "name": "Astral Observatory",
+        "street_plan": "Astral terraces",
+        "street_signature": "20742f870d156431fa280f371ad76878cfc8e2a40227b4568e6b404ea55fe00b",
+        "buildings": 19,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 19,
+          "parked_vehicle": 9,
+          "freight_vehicle": 5,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 6,
+          "street_front": 48
+        },
+        "ground_walk_area_m2": 20870.893079396825,
+        "sky_open_area_m2": 591.141269071954,
+        "sky_fraction": 0.028323716997789253,
+        "bridges": 10
+      },
+      {
+        "zone": 4,
+        "name": "Reliquary Archives",
+        "street_plan": "Archive lanes",
+        "street_signature": "1e80e8c6740e318cfb53759296a4a03159d523aff5c240b2415499d09bc660f5",
+        "buildings": 20,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 21,
+          "parked_vehicle": 13,
+          "freight_vehicle": 4,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 10,
+          "street_front": 40
+        },
+        "ground_walk_area_m2": 21224.9552388337,
+        "sky_open_area_m2": 687.3077913133238,
+        "sky_fraction": 0.03238206081376363,
+        "bridges": 10
+      },
+      {
+        "zone": 5,
+        "name": "Synapse Data Vault",
+        "street_plan": "Data spine",
+        "street_signature": "bcaf77b48d98959f218a87f05a12cd6e91e0b6a539c66a5ccee2bfafea4021b9",
+        "buildings": 16,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 23,
+          "parked_vehicle": 10,
+          "freight_vehicle": 2,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 9,
+          "street_front": 58
+        },
+        "ground_walk_area_m2": 21946.736878895463,
+        "sky_open_area_m2": 794.7880220536795,
+        "sky_fraction": 0.036214405195606446,
+        "bridges": 10
+      },
+      {
+        "zone": 6,
+        "name": "Pilgrim Transit",
+        "street_plan": "Transit interchange",
+        "street_signature": "a78f0c3d355d305074098066588f8374be27e9cba22f4d6e1cef84ab1d4e462a",
+        "buildings": 17,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 21,
+          "parked_vehicle": 9,
+          "freight_vehicle": 1,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 10,
+          "street_front": 64
+        },
+        "ground_walk_area_m2": 21234.102601544208,
+        "sky_open_area_m2": 591.1412690719538,
+        "sky_fraction": 0.027839239555570588,
+        "bridges": 10
+      },
+      {
+        "zone": 7,
+        "name": "Sanctum Medica",
+        "street_plan": "Hospital precinct",
+        "street_signature": "f336c6eb5880984c831b476ed00cfbe38951d2d9ef78764c7b52ca7aecc80e4c",
+        "buildings": 18,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 22,
+          "parked_vehicle": 8,
+          "freight_vehicle": 4,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 10,
+          "street_front": 58
+        },
+        "ground_walk_area_m2": 20743.179690645688,
+        "sky_open_area_m2": 687.3077913133241,
+        "sky_fraction": 0.03313415790459894,
+        "bridges": 10
+      },
+      {
+        "zone": 8,
+        "name": "Blackwater Condensers",
+        "street_plan": "Condenser doglegs",
+        "street_signature": "a266eee6d971be61478e8ba41c19adb8be1c5d78b117a1d1e5120c38d0a68ecd",
+        "buildings": 19,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 23,
+          "parked_vehicle": 10,
+          "freight_vehicle": 3,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 9,
+          "street_front": 46
+        },
+        "ground_walk_area_m2": 21543.803583849534,
+        "sky_open_area_m2": 794.7880220536795,
+        "sky_fraction": 0.036891722437049045,
+        "bridges": 10
+      },
+      {
+        "zone": 9,
+        "name": "Ember Market",
+        "street_plan": "Market web",
+        "street_signature": "f46239ca3ec1293d9bd627438008815443af3e79235a7cf5f7935bc4bd50d1d1",
+        "buildings": 20,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 22,
+          "freight_vehicle": 3,
+          "parked_vehicle": 7,
+          "market_stall": 12,
+          "skyway": 10,
+          "archway": 9,
+          "street_front": 57
+        },
+        "ground_walk_area_m2": 23239.823956173685,
+        "sky_open_area_m2": 591.141269071954,
+        "sky_fraction": 0.02543656398545638,
+        "bridges": 10
+      },
+      {
+        "zone": 10,
+        "name": "Cipher Court",
+        "street_plan": "Cipher diagonal courts",
+        "street_signature": "adba6578b540c3f13f01a63ebf95dd271d801110f1a871238d491c488303bccd",
+        "buildings": 16,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 23,
+          "parked_vehicle": 10,
+          "freight_vehicle": 2,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 11,
+          "street_front": 58
+        },
+        "ground_walk_area_m2": 21501.628142086756,
+        "sky_open_area_m2": 687.3077913133238,
+        "sky_fraction": 0.03196538358730168,
+        "bridges": 10
+      },
+      {
+        "zone": 11,
+        "name": "Aegis Bastion",
+        "street_plan": "Bastion chicanes",
+        "street_signature": "25bbccc895d27c2668d0643d15aba284b2f821f7a85158a27d86f0fd6c3d15b2",
+        "buildings": 17,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 23,
+          "parked_vehicle": 10,
+          "freight_vehicle": 4,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 8,
+          "street_front": 56
+        },
+        "ground_walk_area_m2": 22543.044654091947,
+        "sky_open_area_m2": 794.7880220536795,
+        "sky_fraction": 0.03525646310199771,
+        "bridges": 10
+      },
+      {
+        "zone": 12,
+        "name": "Verdant Cloister",
+        "street_plan": "Cloister garden walk",
+        "street_signature": "ffab8b91391bf193e1951d8ce0f1eca6534c121cddf07b97c08913f05f9394e4",
+        "buildings": 18,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 24,
+          "freight_vehicle": 3,
+          "parked_vehicle": 9,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 9,
+          "street_front": 56
+        },
+        "ground_walk_area_m2": 21205.034917666897,
+        "sky_open_area_m2": 591.1412690719538,
+        "sky_fraction": 0.02787740135148029,
+        "bridges": 10
+      },
+      {
+        "zone": 13,
+        "name": "Meridian Reactor",
+        "street_plan": "Reactor freight circuit",
+        "street_signature": "1c94b4d25dbd5e3bb54e8c8d08a7127a9bd29ebea8f149dfde0d45e30c56ba80",
+        "buildings": 19,
+        "interiors": 4,
+        "props": {
+          "freight_vehicle": 6,
+          "streetlamp": 21,
+          "parked_vehicle": 5,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 6,
+          "street_front": 55
+        },
+        "ground_walk_area_m2": 21713.978768799334,
+        "sky_open_area_m2": 687.3077913133241,
+        "sky_fraction": 0.03165277992722881,
+        "bridges": 10
+      },
+      {
+        "zone": 14,
+        "name": "Iron Docks",
+        "street_plan": "Dockside quays",
+        "street_signature": "91989331a045edc1fde1d21a781c20ae0771bcb3ad11b62916f947eed0255627",
+        "buildings": 18,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 26,
+          "parked_vehicle": 11,
+          "freight_vehicle": 8,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 7,
+          "street_front": 59
+        },
+        "ground_walk_area_m2": 22853.92667938668,
+        "sky_open_area_m2": 794.7880220536795,
+        "sky_fraction": 0.034776869340818625,
+        "bridges": 10
+      },
+      {
+        "zone": 15,
+        "name": "Crown Necropolis",
+        "street_plan": "Necropolis processional",
+        "street_signature": "097ded0570e07d0b6ebcc151c1f453cd900993566bb8f3e7b4fdd6d9a9920ae2",
+        "buildings": 16,
+        "interiors": 4,
+        "props": {
+          "streetlamp": 22,
+          "parked_vehicle": 9,
+          "freight_vehicle": 2,
+          "market_stall": 5,
+          "skyway": 10,
+          "archway": 9,
+          "street_front": 56
+        },
+        "ground_walk_area_m2": 20800.391025390727,
+        "sky_open_area_m2": 591.141269071954,
+        "sky_fraction": 0.028419719050010003,
+        "bridges": 10
+      }
+    ]
+  },
+  "preparation": {
+    "totals": {
+      "connected_routes": 2009,
+      "gate_rays": 144,
+      "carriageway_rays": 3358,
+      "covered_samples": 2262,
+      "roof_samples": 2424,
+      "open_courtyards": 48,
+      "jetpack_clearance_samples": 672
+    },
+    "minimum_street_coverage": 0.9017857142857143,
+    "maximum_street_coverage": 0.9625,
+    "districts": [
+      {
+        "baked_faces": 7733,
+        "bsp_sha256": "af30123c6cd02e46dcc45635983056148664dbc2ac38ca41ff475577d67e27fe",
+        "carriageway_rays": 156,
+        "connected_routes": 123,
+        "covered_samples": 101,
+        "gate_rays": 6,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3936,
+        "open_courtyards": 3,
+        "roof_samples": 112,
+        "route_failures": [],
+        "zone": 0
+      },
+      {
+        "baked_faces": 8597,
+        "bsp_sha256": "5d034c07e3620361695cbfb34766ebdb44d3fdb612a00fa0bc9fb4e6e66f0b8e",
+        "carriageway_rays": 207,
+        "connected_routes": 126,
+        "covered_samples": 139,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3856,
+        "open_courtyards": 3,
+        "roof_samples": 151,
+        "route_failures": [],
+        "zone": 1
+      },
+      {
+        "baked_faces": 8213,
+        "bsp_sha256": "64f29fb72e2e78da13b3426c9836766381dbcea25c0736285ed472dc01891430",
+        "carriageway_rays": 206,
+        "connected_routes": 124,
+        "covered_samples": 137,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3955,
+        "open_courtyards": 3,
+        "roof_samples": 148,
+        "route_failures": [],
+        "zone": 2
+      },
+      {
+        "baked_faces": 8492,
+        "bsp_sha256": "e3bfb55f88b92459bf04a42a7d0f5efec247aea843e5985f87d3a075f748bb65",
+        "carriageway_rays": 209,
+        "connected_routes": 125,
+        "covered_samples": 140,
+        "gate_rays": 6,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3962,
+        "open_courtyards": 3,
+        "roof_samples": 150,
+        "route_failures": [],
+        "zone": 3
+      },
+      {
+        "baked_faces": 8697,
+        "bsp_sha256": "4ab63c51de4cfad12595aedb6b0e6774267d7bb8ce5d74ac36c0cd6f08934efe",
+        "carriageway_rays": 202,
+        "connected_routes": 124,
+        "covered_samples": 134,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 4165,
+        "open_courtyards": 3,
+        "roof_samples": 146,
+        "route_failures": [],
+        "zone": 4
+      },
+      {
+        "baked_faces": 8656,
+        "bsp_sha256": "403e18d49352ac7dc856c26ea22ea88ad7305a678e14aff4e570b018f1d5e9d0",
+        "carriageway_rays": 211,
+        "connected_routes": 126,
+        "covered_samples": 141,
+        "gate_rays": 12,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3883,
+        "open_courtyards": 3,
+        "roof_samples": 152,
+        "route_failures": [],
+        "zone": 5
+      },
+      {
+        "baked_faces": 8343,
+        "bsp_sha256": "f4c16117c1565c7ceb7936424b6f37f0126cc9fd5616db7d84b92567dfa1b86e",
+        "carriageway_rays": 209,
+        "connected_routes": 128,
+        "covered_samples": 144,
+        "gate_rays": 12,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3850,
+        "open_courtyards": 3,
+        "roof_samples": 152,
+        "route_failures": [],
+        "zone": 6
+      },
+      {
+        "baked_faces": 8440,
+        "bsp_sha256": "1922155d64d7e9aeb35f0591a5fc129325090792ee53510c3efed4ff978c2815",
+        "carriageway_rays": 205,
+        "connected_routes": 122,
+        "covered_samples": 141,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3950,
+        "open_courtyards": 3,
+        "roof_samples": 149,
+        "route_failures": [],
+        "zone": 7
+      },
+      {
+        "baked_faces": 8995,
+        "bsp_sha256": "72d0cf4c9b648dd2a0ad80e806126e0aecac95fa62b3239a3a82f94681dc62f1",
+        "carriageway_rays": 207,
+        "connected_routes": 125,
+        "covered_samples": 142,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 4047,
+        "open_courtyards": 3,
+        "roof_samples": 149,
+        "route_failures": [],
+        "zone": 8
+      },
+      {
+        "baked_faces": 9588,
+        "bsp_sha256": "6ae31c27c585110eb0f599ed98c4698737a5a40a0b5a4abe3ee2f795101d6f5b",
+        "carriageway_rays": 228,
+        "connected_routes": 136,
+        "covered_samples": 154,
+        "gate_rays": 12,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 4259,
+        "open_courtyards": 3,
+        "roof_samples": 164,
+        "route_failures": [],
+        "zone": 9
+      },
+      {
+        "baked_faces": 8750,
+        "bsp_sha256": "bf7f34b05b14de8180e05260bd8bcba4ad53e15d04d971a202c36b64f35e8ad7",
+        "carriageway_rays": 213,
+        "connected_routes": 125,
+        "covered_samples": 141,
+        "gate_rays": 12,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3929,
+        "open_courtyards": 3,
+        "roof_samples": 153,
+        "route_failures": [],
+        "zone": 10
+      },
+      {
+        "baked_faces": 8746,
+        "bsp_sha256": "1e0b46f3b8168846087dffd45fcd95ff7c4d90da1cec518a3d8a448fefa6604f",
+        "carriageway_rays": 221,
+        "connected_routes": 124,
+        "covered_samples": 154,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3951,
+        "open_courtyards": 3,
+        "roof_samples": 160,
+        "route_failures": [],
+        "zone": 11
+      },
+      {
+        "baked_faces": 9333,
+        "bsp_sha256": "13569e47034f4427643dc7da108eec23d357a60925726e71d90bcdbe16a33da8",
+        "carriageway_rays": 218,
+        "connected_routes": 130,
+        "covered_samples": 148,
+        "gate_rays": 6,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 4266,
+        "open_courtyards": 3,
+        "roof_samples": 160,
+        "route_failures": [],
+        "zone": 12
+      },
+      {
+        "baked_faces": 8325,
+        "bsp_sha256": "c8e7c131925d2081bfc608ca839a1a9f498085ed34d9524227a2855ccd772cd6",
+        "carriageway_rays": 217,
+        "connected_routes": 124,
+        "covered_samples": 145,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 3935,
+        "open_courtyards": 3,
+        "roof_samples": 157,
+        "route_failures": [],
+        "zone": 13
+      },
+      {
+        "baked_faces": 9462,
+        "bsp_sha256": "a0018158236118036f873aaf4739ec4baa009c46c1e8e2a9c1e88ff172def947",
+        "carriageway_rays": 240,
+        "connected_routes": 123,
+        "covered_samples": 162,
+        "gate_rays": 9,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 4148,
+        "open_courtyards": 3,
+        "roof_samples": 171,
+        "route_failures": [],
+        "zone": 14
+      },
+      {
+        "baked_faces": 8552,
+        "bsp_sha256": "ae8e2c4ff3b330858d24da78fe7e720ae7d47666df727c1a4a7f23e7343a178e",
+        "carriageway_rays": 209,
+        "connected_routes": 124,
+        "covered_samples": 139,
+        "gate_rays": 6,
+        "invalid_faces": 0,
+        "jetpack_clearance_samples": 42,
+        "nav_polygons": 4052,
+        "open_courtyards": 3,
+        "roof_samples": 150,
+        "route_failures": [],
+        "zone": 15
+      }
+    ]
+  },
+  "geometry": {
+    "checks": 531,
+    "districts": 16,
+    "failures": []
+  },
+  "bots": {
+    "ok": true,
+    "population": 64,
+    "moved": 64,
+    "workers": 16,
+    "wall_seconds": 90.02029514999595,
+    "match_seconds_advanced": 90.01666666658502,
+    "transfers": 808,
+    "occupancy": [
+      4,
+      4,
+      4,
+      4,
+      4,
+      7,
+      1,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      1,
+      7,
+      4
+    ],
+    "geometry_instances_per_worker": 1,
+    "master_geometry_instances": 0,
+    "initial_25_second_trial": {
+      "moved": 64,
+      "transfers": 0,
+      "result": "Transfer assertion failed; observation was extended to 90 seconds without changing runtime AI or relaxing the requirement."
+    },
+    "highest_actor_generations": [
+      {
+        "id": -1061,
+        "generation": 329,
+        "zone": 13
+      },
+      {
+        "id": -1059,
+        "generation": 252,
+        "zone": 14
+      },
+      {
+        "id": -1023,
+        "generation": 194,
+        "zone": 5
+      },
+      {
+        "id": -1019,
+        "generation": 18,
+        "zone": 5
+      },
+      {
+        "id": -1063,
+        "generation": 16,
+        "zone": 14
+      },
+      {
+        "id": -1021,
+        "generation": 4,
+        "zone": 5
+      },
+      {
+        "id": -1057,
+        "generation": 2,
+        "zone": 14
+      },
+      {
+        "id": -1000,
+        "generation": 1,
+        "zone": 0
+      }
+    ],
+    "observed_limitation": "Several bots repeatedly re-crossed district gates (highest actor generation 329). The 808 handoffs establish transport activity, not 808 strategic advances or satisfactory full-match bot behavior. Bot routing/goal persistence at gates needs a separate follow-up."
+  },
+  "network": {
+    "ok": true,
+    "added_worker_rtt_ms": 30.0,
+    "clients": [
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "map_instances": 1,
+          "map_transitions": [
+            {
+              "load_ms": 69,
+              "zone": 0
+            },
+            {
+              "load_ms": 22,
+              "zone": 1
+            },
+            {
+              "load_ms": 19,
+              "zone": 0
+            }
+          ],
+          "map_zone": 0,
+          "stale_rejected": 2,
+          "zone": 0
+        },
+        "route": {
+          "ack": -1,
+          "ammo": [
+            50,
+            0,
+            0,
+            0
+          ],
+          "events": 9,
+          "legs": [
+            0.46753466129303,
+            0.977032959461212,
+            0.582279562950134,
+            0.89926153421402,
+            0.40109258890152
+          ],
+          "pauses_ms": [
+            179,
+            182
+          ],
+          "position": "(-395.0, -0.004922, -395.0)",
+          "prediction": {
+            "corrections": 2,
+            "max_error": 0.313344955444336,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            887580645
+          ]
+        }
+      },
+      {
+        "result": {
+          "failures": [],
+          "handoffs": 4,
+          "map_instances": 1,
+          "map_transitions": [
+            {
+              "load_ms": 88,
+              "zone": 2
+            },
+            {
+              "load_ms": 21,
+              "zone": 3
+            },
+            {
+              "load_ms": 20,
+              "zone": 2
+            }
+          ],
+          "map_zone": 2,
+          "stale_rejected": 2,
+          "zone": 2
+        },
+        "route": {
+          "ack": -1,
+          "ammo": [
+            50,
+            0,
+            0,
+            0
+          ],
+          "events": 10,
+          "legs": [
+            0.856881380081177,
+            0.737153768539429,
+            0.415071934461594,
+            0.87217116355896,
+            0.615463495254517
+          ],
+          "pauses_ms": [
+            135,
+            68
+          ],
+          "position": "(105.0, 0.034922, -355.0)",
+          "prediction": {
+            "corrections": 0,
+            "max_error": 0.18575444817543,
+            "resets": 0
+          },
+          "roster": 2,
+          "visible": [
+            1274275479
+          ]
+        }
+      }
+    ],
+    "worker_loss_master_exit": 3,
+    "other_workers_exit_on_master_loss": true
+  },
+  "presentation": {
+    "renderer": "OpenGL compatibility / Intel Arc A770",
+    "rendered_districts": [
+      0,
+      2,
+      9
+    ],
+    "inspected": [
+      "all sixteen plan diagrams",
+      "00-street",
+      "00-upper",
+      "00-skycourt",
+      "00-interior",
+      "02-street",
+      "09-street"
+    ],
+    "limitations": "Existing ObjectDB shutdown warning; standalone graphical fixtures reported two 87,380-byte OpenGL texture leaks at shutdown."
+  },
+  "build_hashes": {
+    "FPSloppaServer.x86_64": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+    "FPSloppaServer.pck": "78f3057fd9d1a93224be5fb40d2c614b22a6e96a7f14db4d1e603f60f50f7942"
+  },
+  "compiler_warnings": {
+    "types": {
+      "05": "Deathmatch spawns supplied; no single-player info_player_start",
+      "08": "Floating-point plane tolerance warnings",
+      "12": "Small clipped compiler portals"
+    },
+    "districts": {
+      "district_00": {
+        "05": 1,
+        "08": 0,
+        "12": 26
+      },
+      "district_01": {
+        "05": 1,
+        "08": 0,
+        "12": 14
+      },
+      "district_02": {
+        "05": 1,
+        "08": 0,
+        "12": 10
+      },
+      "district_03": {
+        "05": 1,
+        "08": 5,
+        "12": 10
+      },
+      "district_04": {
+        "05": 1,
+        "08": 0,
+        "12": 9
+      },
+      "district_05": {
+        "05": 1,
+        "08": 10,
+        "12": 13
+      },
+      "district_06": {
+        "05": 1,
+        "08": 0,
+        "12": 6
+      },
+      "district_07": {
+        "05": 1,
+        "08": 0,
+        "12": 10
+      },
+      "district_08": {
+        "05": 1,
+        "08": 4,
+        "12": 17
+      },
+      "district_09": {
+        "05": 1,
+        "08": 4,
+        "12": 19
+      },
+      "district_10": {
+        "05": 1,
+        "08": 0,
+        "12": 21
+      },
+      "district_11": {
+        "05": 1,
+        "08": 12,
+        "12": 29
+      },
+      "district_12": {
+        "05": 1,
+        "08": 4,
+        "12": 8
+      },
+      "district_13": {
+        "05": 1,
+        "08": 0,
+        "12": 8
+      },
+      "district_14": {
+        "05": 1,
+        "08": 4,
+        "12": 22
+      },
+      "district_15": {
+        "05": 1,
+        "08": 0,
+        "12": 14
+      }
+    },
+    "leaktest": "All qbsp -leaktest invocations exited successfully"
+  }
+}

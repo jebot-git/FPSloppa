@@ -1,37 +1,37 @@
 {
-  "planes": 1835,
-  "vertices": 12236,
-  "nodes": 5650,
-  "texinfo": 67,
-  "faces": 8642,
+  "planes": 2142,
+  "vertices": 13560,
+  "nodes": 6645,
+  "texinfo": 70,
+  "faces": 10154,
   "clipnodes": 0,
-  "leaves": 3581,
-  "marksurfaces": 11980,
-  "edges": 21471,
-  "surfedges": 40936,
+  "leaves": 3983,
+  "marksurfaces": 14367,
+  "edges": 24273,
+  "surfedges": 46974,
   "models": 1,
-  "bytes": 9536976,
-  "sha256": "1929eefe5a5ebd3dc7b0615949317c8fc5a66c0e9565fa67390d88cef358f5de",
+  "bytes": 9637224,
+  "sha256": "72d0cf4c9b648dd2a0ad80e806126e0aecac95fa62b3239a3a82f94681dc62f1",
   "zone": 8,
   "name": "Blackwater Condensers",
-  "brushes": 693,
+  "brushes": 1132,
   "textures": 19,
-  "lights": 208,
+  "lights": 200,
   "format": "BSP29",
   "lightmap_spacing": 16,
   "baked": true,
   "commands": [
     {
       "tool": "qbsp",
-      "seconds": 0.3144786239718087
+      "seconds": 0.3647346190409735
     },
     {
       "tool": "vis",
-      "seconds": 1.1159560300293379
+      "seconds": 0.5147136359591968
     },
     {
       "tool": "light",
-      "seconds": 10.083361031021923
+      "seconds": 7.880246440006886
     }
   ]
 }
