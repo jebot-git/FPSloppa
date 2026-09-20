@@ -49,6 +49,13 @@ var neutral_foot_heights:Dictionary={"left":.08,"right":.08}
 var first_person := false
 var secondary_nodes: Array[Node]=[]
 var visual_meshes: Array[MeshInstance3D]=[]
+var avatar_hash:=""
+var distance_lod
+
+func enable_distance_lod() -> void:
+	if distance_lod!=null:return
+	distance_lod=preload("res://deathmatch/avatars/distance_lod.gd").new()
+	skeleton.add_child(distance_lod);distance_lod.setup(self)
 
 func configure(root: Node3D) -> bool:
 	process_priority=-10
@@ -167,9 +174,9 @@ func build_animations() -> void:
 	motion.play("idle")
 
 var weapon_rules:="doom"
-func set_weapon(value: int) -> void:
+func set_weapon(value: int, rules_override: String="") -> void:
 	var arena=get_parent().get_parent() if get_parent() else null
-	var rules: String=arena.match_mode.fortress.art_rules(get_parent().peer_id,value) if arena and "armory" in arena else "doom"
+	var rules: String=rules_override if not rules_override.is_empty() else arena.match_mode.fortress.art_rules(get_parent().peer_id,value) if arena and "armory" in arena else "doom"
 	if value==weapon_id and rules==weapon_rules:return
 	weapon_rules=rules
 	weapon_id = value
@@ -201,6 +208,7 @@ func tracking_transform() -> Transform3D:
 func _process(delta: float) -> void:
 	if not is_instance_valid(skeleton): return
 	if dead:
+		if distance_lod:distance_lod.full_pose()
 		death_time=minf(death_time+delta,preload("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
 		# Death owns the skeleton: live trackers, breathing and weapon IK stop here.
 		motion.pause()
@@ -237,8 +245,9 @@ func _process(delta: float) -> void:
 		movement = Vector3.FORWARD*speed
 		if preview_mode==3 and fmod(phase,1.0)<delta: fire()
 	var clip := "idle" if speed<.2 else "walk" if speed<6.0 else "run"
-	if motion.current_animation!=clip or not motion.is_playing(): motion.play(clip,.18)
 	gait.update(delta,Basis(Vector3.UP,-physical_yaw)*movement,stance,grounded,target_xr_pose.get("body",{}),tracked_leg_animation)
+	var generic: bool=distance_lod.update(delta) if distance_lod else false
+	if not generic and (motion.current_animation!=clip or not motion.is_playing()): motion.play(clip,.18)
 	# Preview firing has its own clock, including when standing still.
 	phase+=delta
 	recoil = move_toward(recoil,0.0,delta*7)
@@ -248,7 +257,7 @@ func _process(delta: float) -> void:
 	rotation.x = 0.0 if first_person else pain*pain_direction.z*.12
 	rotation.z = 0.0 if first_person else -pain*pain_direction.x*.12
 	if not first_person:position.y = 0
-	if gun and not xr_pose.is_empty() and not dead:
+	if gun and not xr_pose.is_empty() and not dead and not generic:
 		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id,Art.VR_SCALE,weapon_rules)
 		gun.visible=not unarmed and not first_person
 		if offhand_gun:

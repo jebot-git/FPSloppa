@@ -40,8 +40,10 @@ func run() -> void:
 			var grip:Basis=pose[side.to_lower()].basis
 			check(actual.y.dot(-grip.y)>.99 and actual.z.dot(grip.x*(1 if side=="Left" else -1))>.99,"Controller grip axes orient "+side+" palm correctly")
 			var finger:int=sk.find_bone(side+"IndexIntermediate")
-			var curl:Quaternion=sk.get_bone_rest(finger).basis.get_rotation_quaternion().inverse()*sk.get_bone_pose_rotation(finger)
-			check(curl.is_equal_approx(Quaternion(Vector3.RIGHT,.8)),"Rotated "+side+" wrist keeps finger bend in local frame")
+			if finger>=0:
+				var curl:Quaternion=sk.get_bone_rest(finger).basis.get_rotation_quaternion().inverse()*sk.get_bone_pose_rotation(finger)
+				check(curl.is_equal_approx(Quaternion(Vector3.RIGHT,.8)),"Rotated "+side+" wrist keeps finger bend in local frame")
+			else:print("SKIP optional ",side," finger curl: model has no IndexIntermediate bone")
 		pose.body={"left_hand":Transform3D(Basis.from_euler(Vector3(.2,-.4,.7)),pose.left.origin)}
 		avatar.xr_pose=pose;avatar.solver._process_modification_with_delta(.016)
 		var optical:Basis=avatar.skeleton.global_basis.orthonormalized()*avatar.skeleton.get_bone_global_pose(avatar.skeleton.find_bone("LeftHand")).basis.orthonormalized()

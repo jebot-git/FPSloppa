@@ -23,6 +23,7 @@ func run() -> void:
 	for hash in library.entries:
 		var avatar=library.create_avatar(hash)
 		actor.set_avatar(avatar,hash)
+		check(avatar.distance_lod!=null,"Gameplay avatar enables distance LOD")
 		check(not avatar.visible,"Local avatar hidden before body tracking: "+library.entries[hash].title)
 		actor.set_local_body(true)
 		var visible_count:=0;var third_hidden:=0

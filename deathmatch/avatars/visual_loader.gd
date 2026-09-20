@@ -30,6 +30,7 @@ static func create_avatar(library: Node,hash: String) -> Node3D:
 		if library.scenes.size()>=4: library.scenes.erase(library.scenes.keys()[0])
 		library.scenes[hash] = packed
 	var rig := Rig.new()
+	rig.avatar_hash=hash
 	rig.name = "VRMAvatar"
 	var model: Node3D = library.scenes[hash].instantiate()
 	rig.add_child(model)
@@ -39,4 +40,3 @@ static func create_avatar(library: Node,hash: String) -> Node3D:
 		return null
 	if DisplayServer.get_name()!="headless":preload("res://deathmatch/maps/filtering.gd").new().apply(rig)
 	return rig
-

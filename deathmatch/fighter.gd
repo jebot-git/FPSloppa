@@ -282,6 +282,7 @@ func set_avatar(model: Node3D, hash: String) -> void:
 	avatar = model
 	avatar_hash = hash
 	add_child(avatar)
+	if avatar.has_method("enable_distance_lod"):avatar.enable_distance_lod()
 	if frozen:_apply_frost()
 	show_alive(alive_state,local_player)
 

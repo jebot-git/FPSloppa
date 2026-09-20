@@ -1,0 +1,61 @@
+{
+  "actors": 32,
+  "baseline": {
+    "draw_calls": {
+      "mean": 192.0,
+      "p95": 192.0
+    },
+    "gpu_ms": {
+      "mean": 1.95480666855971,
+      "p95": 3.41799998283386
+    },
+    "primitives": {
+      "mean": 975991.0,
+      "p95": 975991.0
+    },
+    "process_window_max_ms": {
+      "mean": 30.1321033333334,
+      "p95": 32.103
+    },
+    "render_cpu_ms": {
+      "mean": 2.35831333637238,
+      "p95": 2.73399996757507
+    },
+    "wall_frame_ms": {
+      "mean": 26.6201133333333,
+      "p95": 29.594
+    }
+  },
+  "engine": "4.7.2-stable (fedora)",
+  "frames": 300,
+  "generic_actors": 32,
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "lod": {
+    "draw_calls": {
+      "mean": 192.0,
+      "p95": 192.0
+    },
+    "gpu_ms": {
+      "mean": 1.21655000050863,
+      "p95": 1.93299996852875
+    },
+    "primitives": {
+      "mean": 249455.0,
+      "p95": 249455.0
+    },
+    "process_window_max_ms": {
+      "mean": 11.5064933333333,
+      "p95": 12.391
+    },
+    "render_cpu_ms": {
+      "mean": 3.13857666571935,
+      "p95": 3.6010000705719
+    },
+    "wall_frame_ms": {
+      "mean": 9.56226333333333,
+      "p95": 10.822
+    }
+  },
+  "renderer": "mobile",
+  "scope": "32 rendered VRMs in eight-column rows starting at 30 m, four metres between rows; three shared models. Same scene/motion, baseline then LOD; no map/network or XR headset. Vsync disabled. Rendering stress only: district admission remains capped at 16. Wall-frame timing includes face/hair and skinning. process_window_max_ms samples Godot's one-second maximum monitor, NOT per-frame CPU durations."
+}

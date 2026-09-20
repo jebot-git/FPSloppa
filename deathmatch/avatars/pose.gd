@@ -79,6 +79,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 			sk.set_bone_pose_position(index,cached_poses[index][1])
 		return
 	solve_tick=0.0 if rig.first_person else 1.0/15.0 if distance>18 else 1.0/30.0 if distance>6 else 0.0
+	if rig.distance_lod and rig.distance_lod.active:solve_tick=1.0/15.0 if rig.distance_lod.tier>=2 else 1.0/30.0 if rig.distance_lod.tier==1 else 0.0
 	if rest.is_empty():
 		for i in range(sk.get_bone_count()): rest[i] = sk.get_bone_global_rest(i)
 	# AnimationPlayer owns hip breathing / gait bob. Reset solved bones each frame.
