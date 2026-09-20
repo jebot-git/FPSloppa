@@ -65,6 +65,12 @@ func persist() -> bool:
 func event(method: String,args: Array) -> void:
 	if events.size()<256:events.append([method,args])
 func request_respawn(_id: int) -> bool:return true # Explicit worker-validated cluster respawn.
+func player_record(id: int) -> Dictionary:
+	var result:={"kills":game.players[id].kills,"deaths":game.players[id].deaths,"location":null}
+	if not game.players[id].dead:
+		var point: Vector3=game.fighters[id].position-Rules.center(zone)
+		result.location={"position":[point.x,point.y,point.z],"yaw":float(game.players[id].yaw)}
+	return result
 func frozen_response(row: Dictionary) -> Dictionary:
 	var saved: Dictionary=bytes_to_var(Marshalls.base64_to_raw(row.payload))
 	return {"payload":row.payload,"stats":{"kills":saved.state.kills,"deaths":saved.state.deaths}}
@@ -117,11 +123,21 @@ func reconcile() -> void:
 				row.body.jetpack_state.heading=row.body.jetpack_state.heading.rotated(-float(stage.yaw))
 				row.body.blast_velocity=row.body.blast_velocity.rotated(-float(stage.yaw))
 				row.velocity=row.velocity.rotated(Vector3.UP,float(stage.yaw))
+				if stage.get("teleport",false):
+					row.position=Rules.center(zone)+Vector3(stage.entry[0],stage.entry[1],stage.entry[2]);row.velocity=Vector3.ZERO
+					row.state.yaw=float(stage.yaw);row.state.pitch=0.0;row.state.fire=false
+					row.body.blast_velocity=Vector2.ZERO
+					row.body.jetpack_state.mode=0;row.body.jetpack_state.age=0.0;row.body.jetpack_state.tap=0.0
 			if row.is_empty():
 				if game.players.size()>=16:continue
 				game.players[id]=game._new_state(a.name,id);game._create_fighter(id);game._spawn(id)
 				game.players[id].kills=int(a.get("stats",{}).get("kills",0));game.players[id].deaths=int(a.get("stats",{}).get("deaths",0))
 				if config.has("spawn"):game.fighters[id].position=Rules.center(zone)+Vector3(config.spawn[0],config.spawn[1],config.spawn[2])
+				if a.get("spawn_location") is Dictionary and a.spawn_location.get("district")==config.district:
+					var p: Array=a.spawn_location.position
+					var restored:=safe_landing([Rules.center(zone)+Vector3(p[0],p[1],p[2])],id)
+					if not restored.is_empty():
+						game.fighters[id].position=Rules.center(zone)+Vector3(restored[0],restored[1],restored[2]);game.players[id].yaw=float(a.spawn_location.yaw)
 			else:
 				if game.players.size()>=16:continue
 				State.restore(game,row)
@@ -152,6 +168,39 @@ func prune_journal() -> void:
 	for id in retired.keys():
 		if not ids.has(id):retired.erase(id);generations.erase(id);changed=true
 	if changed and not persist():until=0
+func moderator_order(m: Dictionary) -> bool:
+	var actor: Dictionary=grants.get(m.get("actor",""),{})
+	return m.get("order") is String and not m.order.is_empty() and actor.get("mod_transfer")==m.get("order") and actor.get("tx")==m.get("tx") and actor.get("phase")=="moving"
+func landing(anchor: int) -> Dictionary:
+	var center:=Rules.center(zone)
+	var base:=center+Vector3(0,1,0);var yaw:=0.0
+	if anchor>=0:
+		if not game.players.has(anchor) or game.players[anchor].dead:return {}
+		base=game.fighters[anchor].position;yaw=float(game.players[anchor].yaw)
+	var candidates: Array[Vector3]=[]
+	if anchor>=0:
+		for distance in [2.0,3.5,5.0]:
+			for angle in [0.0,PI*.5,PI,-PI*.5]:candidates.append(base+Vector3(0,0,distance).rotated(Vector3.UP,yaw+angle))
+	else:
+		for point in game.spawn_points:candidates.append(point)
+		for x in [-20.0,20.0]:
+			for z in [-20.0,20.0]:candidates.append(center+Vector3(x,1,z))
+	var point:=safe_landing(candidates)
+	return {"position":point,"yaw":yaw} if not point.is_empty() else {}
+func safe_landing(candidates: Array,exclude_id: int=-1) -> Array:
+	var center:=Rules.center(zone)
+	var physics=game.get_world_3d().direct_space_state
+	for candidate in candidates:
+		var ray:=PhysicsRayQueryParameters3D.create(candidate+Vector3.UP*2,candidate-Vector3.UP*5,1)
+		var floor_hit: Dictionary=physics.intersect_ray(ray)
+		if floor_hit.is_empty() or floor_hit.normal.y<.7:continue
+		var point: Vector3=floor_hit.position+Vector3.UP*.03
+		var shape:=CapsuleShape3D.new();shape.radius=.34;shape.height=1.70
+		var query:=PhysicsShapeQueryParameters3D.new();query.shape=shape;query.transform=Transform3D(Basis.IDENTITY,point+Vector3.UP*.86);query.collision_mask=3;query.margin=.005
+		if game.fighters.has(exclude_id):query.exclude=[game.fighters[exclude_id].get_rid()]
+		if physics.intersect_shape(query,1).is_empty():
+			point-=center;return [point.x,point.y,point.z]
+	return []
 func command(m: Dictionary) -> void:
 	if m.get("op")=="welcome":return
 	if m.get("op")=="authority":
@@ -161,23 +210,30 @@ func command(m: Dictionary) -> void:
 	if Time.get_ticks_msec()>=until:reject(m,"Worker authority expired");return
 	var op: String=m.get("op","")
 	var id:=int(m.get("id",-1))
+	if op=="landing":
+		if not moderator_order(m):reject(m,"No moderator landing authorization");return
+		var found:=landing(int(m.anchor) if m.get("anchor")!=null else -1)
+		if found.is_empty():reject(m,"No safe landing near player; try a different location");return
+		reply(m,found);return
 	if op=="stage":
 		if str(m.payload).length()>512000 or str(m.payload).sha256_text()!=m.digest:reject(m,"Migration checksum mismatch");return
 		var row=bytes_to_var(Marshalls.base64_to_raw(m.payload))
 		if not row is Dictionary or not State.valid(row) or row.id!=id:reject(m,"Invalid actor payload");return
 		if staged.has(m.tx) and staged[m.tx].digest!=m.digest:reject(m,"Conflicting prepared state");return
 		if staged.size()>=128 and not staged.has(m.tx):reject(m,"Transfer journal full");return
-		staged[m.tx]={"id":id,"payload":m.payload,"digest":m.digest,"entry":m.entry,"exit":m.exit,"yaw":m.yaw,"generation":m.generation}
+		staged[m.tx]={"id":id,"payload":m.payload,"digest":m.digest,"entry":m.entry,"exit":m.exit,"yaw":m.yaw,"generation":m.generation,"teleport":moderator_order(m)}
 		if not persist():reject(m,"Cannot persist prepared state");return
 		reply(m,{"prepared":true});return
 	if op=="freeze":
 		if escrow.has(m.tx):reply(m,frozen_response(escrow[m.tx]));return
 		if not game.players.has(id) or generations.get(id,-1)!=int(m.generation):reject(m,"Actor generation not resident");return
 		var exit_point:=Rules.center(zone)+Vector3(m.exit[0],m.exit[1],m.exit[2])
-		if game.fighters[id].position.distance_to(exit_point)>(3 if m.get("terminal",false) else 8):reject(m,"Actor is not at the gate");return
+		if m.get("order")!=null and not moderator_order(m):reject(m,"Invalid moderator order");return
+		if moderator_order(m) and game.players[id].dead:reject(m,"Player must respawn before teleporting");return
+		if not moderator_order(m) and game.fighters[id].position.distance_to(exit_point)>(3 if m.get("terminal",false) else 8):reject(m,"Actor is not at the gate");return
 		var transfer:=State.actor(game,id);transfer.cluster_origin=Rules.center(zone)
 		var payload:=Marshalls.raw_to_base64(var_to_bytes(transfer))
-		escrow[m.tx]={"id":id,"payload":payload,"generation":m.generation}
+		escrow[m.tx]={"id":id,"payload":payload,"generation":m.generation,"teleport":moderator_order(m)}
 		if not persist():escrow.erase(m.tx);reject(m,"Cannot persist source escrow");return
 		clear_actor(id);reply(m,frozen_response(escrow[m.tx]));return
 	if op in ["release","retire"]:
@@ -188,7 +244,7 @@ func command(m: Dictionary) -> void:
 		reply(m,{"released":true});return
 	if not game.players.has(id) or generations.get(id,-1)!=int(m.get("generation",-2)):reject(m,"Actor generation not active");return
 	if op=="player_stats":
-		reply(m,{"kills":game.players[id].kills,"deaths":game.players[id].deaths});return
+		reply(m,player_record(id));return
 	if op=="check_dead":
 		if not game.players[id].dead:reject(m,"Living actor cannot respawn");return
 		reply(m,{"dead":true});return
@@ -245,7 +301,8 @@ func _physics_process(delta: float) -> void:
 		var stats: Dictionary={}
 		for key in grants:
 			var a: Dictionary=grants[key];var id:=int(a.id)
-			if a.get("district")==config.district and a.phase=="active" and game.players.has(id):stats[key]={"generation":int(a.generation),"kills":game.players[id].kills,"deaths":game.players[id].deaths}
+			if a.get("district")==config.district and a.phase=="active" and game.players.has(id):
+				stats[key]=player_record(id);stats[key].generation=int(a.generation)
 		send({"op":"stats","actors":stats})
 	if now<until and now-last_capture>=200 and int(metadata.get("threshold",0))>0:
 		last_capture=now;capture_sequence+=1

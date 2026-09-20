@@ -1,7 +1,9 @@
 import asyncio
 import hmac
 import time
-from . import status_page
+import hashlib
+import secrets
+from . import status_page,moderation
 from .transport import LIMIT,read,send
 
 
@@ -10,6 +12,7 @@ class Coordinator:
         self.config,self.store=config,store
         self.connections=0
         self.last_page=0
+        self.login_attempts={};self.global_login=[]
 
     async def connection(self,reader,writer):
         self.connections+=1
@@ -25,7 +28,24 @@ class Coordinator:
                 gateway=None
             if gateway is False:
                 raise ValueError('Unauthorized coordinator request')
-            if message.get('op')=='topology' and isinstance(message.get('districts'),dict):
+            # Never accept internal authorization flags from a regional/client request.
+            for key in list(message):
+                if key.startswith('_moderator'):message.pop(key)
+            encoded=self.config.get('moderator_password_hash','')
+            message['_moderator_config']=hashlib.sha256(encoded.encode()).hexdigest() if encoded else ''
+            if message.get('op')=='moderator_login':
+                identity=await asyncio.to_thread(self.store.execute,dict(message,op='locate'),gateway)
+                if identity['gateway']!=gateway:raise ValueError('Reconnect to your owning gateway')
+                now=time.monotonic();key=message.get('actor')
+                attempts=[v for v in self.login_attempts.get(key,[]) if now-v<60]
+                self.global_login=[v for v in self.global_login if now-v<10]
+                if len(attempts)>=5 or len(self.global_login)>=10:raise ValueError('Moderator login rate limit; retry in a minute')
+                self.login_attempts[key]=attempts+[now];self.global_login.append(now)
+                if len(self.login_attempts)>256:self.login_attempts={k:v for k,v in self.login_attempts.items() if v[-1]>now-60}
+                password=message.pop('password',None)
+                if not encoded or not await asyncio.to_thread(moderation.verify,password,encoded):raise ValueError('Moderator password rejected or moderation disabled')
+                message['_moderator_grant']=secrets.token_hex(32)
+            if message.get('op')=='topology'  and isinstance(message.get('districts'),dict):
                 if any(d not in self.config['worker_tokens'] or not isinstance(row,dict) or row.get('gateway') not in self.config['gateways'] for d,row in message['districts'].items()):
                     raise ValueError('Topology uses an unprovisioned district or gateway identity')
             result=await asyncio.to_thread(self.store.execute,message,gateway)

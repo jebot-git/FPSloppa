@@ -65,6 +65,29 @@ class ProfilesTest(unittest.TestCase):
         with self.assertRaisesRegex(model.Rejected,'Master content'):
             self.call('set_avatar',actor='persistent',resume='secret',avatar='b'*64)
 
+    def test_new_identity_always_enters_city_and_cannot_select_spawn(self):
+        actor=self.join(team=0,spawn_location={'district':'d00','position':[0,0,0]})
+        self.assertEqual(actor['district'],'d40');self.assertNotIn('spawn_location',actor)
+
+    def test_saved_location_restored_after_database_restart(self):
+        first=self.join(team=0)
+        location=dict(position=[3.0,.03,7.0],yaw=1.2)
+        self.call('heartbeat',workers={'d40':'worker'},stats={'d40':{'persistent':dict(generation=1,kills=0,deaths=0,location=location)}})
+        self.call('leave',actor='persistent',resume='secret')
+        self.store.db.close();self.store=SQLiteStore(self.path,model.initial(config.campaign()['districts']))
+        self.join(team=1)
+        actor=self.call('deploy',actor='persistent',resume='secret')
+        self.assertEqual(actor['district'],'d40');self.assertEqual(actor['spawn_location'],dict(location,district='d40'))
+        self.assertEqual(actor['id'],first['id'])
+
+    def test_worker_location_generation_and_bounds_are_checked(self):
+        self.join(team=0)
+        for location in [dict(position=[float('nan'),0,0],yaw=0),dict(position=[999,0,0],yaw=0)]:
+            with self.assertRaisesRegex(model.Rejected,'Invalid worker location'):
+                self.call('heartbeat',workers={'d40':'worker'},stats={'d40':{'persistent':dict(generation=1,kills=0,deaths=0,location=location)}})
+        self.call('heartbeat',workers={'d40':'worker'},stats={'d40':{'persistent':dict(generation=99,kills=0,deaths=0,location=dict(position=[1,0,1],yaw=0))}})
+        self.assertNotIn('last_location',self.call('profile',None,actor='persistent',resume='secret'))
+
     def test_status_html_escapes_map_labels_and_excludes_private_data(self):
         self.join(team=0,name='SECRET_PLAYER_NAME')
         state=self.call('status',None)

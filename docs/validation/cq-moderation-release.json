@@ -1,0 +1,26 @@
+{
+  "checks": [
+    "new_identity_redirected_to_inner_city",
+    "master_password_required",
+    "moderator_secret_not_public",
+    "cross_region_goto_and_redirect",
+    "arbitrary_district_teleport",
+    "cross_region_global_voice_and_unauthorized_rejection",
+    "bring_player_cross_region",
+    "same_district_safe_teleport",
+    "Vulkan_moderator_UI_and_voice_playback",
+    "saved_position_restored_in_real_BSP_worker"
+  ],
+  "received_voice_frames": 7,
+  "scope": "Local real master, two regions, eight console BSP workers, Vulkan desktop; simulated PCM announcement, no microphone capture.",
+  "unit_tests": 43,
+  "voice_playback": {
+    "seconds": 0.3947392290249433,
+    "rate": 44100,
+    "channels": 2,
+    "peak": 0.19390869140625,
+    "rms": 0.06900738093171935
+  },
+  "deployment_password_isolation": true,
+  "unavailable_voice_region_isolated": true
+}

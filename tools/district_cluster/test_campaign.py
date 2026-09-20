@@ -106,6 +106,8 @@ class CampaignTest(unittest.TestCase):
             model.apply(s,dict(op='heartbeat',session=g,workers={d:'worker'+d for d,r in s['districts'].items() if r['gateway']==g}),g,now)
         for i in range(17):
             a=model.apply(s,dict(op='join',session='g02',actor=f'r{i}',resume=f'r{i}',district='d10',team=0),'g02',now)
+        # Move admitted residents to the homebase to exercise reinforcement capacity.
+            a=s['actors'][f'r{i}'];a.update(district='d10' if i<16 else None,phase='active' if i<16 else 'waiting',gateway='g02',preferred='d10');a.pop('entry_kind',None)
         self.assertEqual(a['phase'],'waiting');self.assertEqual(model.counts(s)['d10'],16)
         a=model.apply(s,dict(op='deploy',session='g02',actor='r16',resume='r16'),'g02',now)
         self.assertEqual(a['district'],'d01') # BFS tie-break, adjacent owned district.
@@ -121,6 +123,7 @@ class CampaignTest(unittest.TestCase):
             model.apply(s,dict(op='heartbeat',session=g,workers={d:'worker'+d for d,r in s['districts'].items() if r['gateway']==g}),g,now)
         for d in s['districts']['d10']['perimeter']:s['campaign']['owners'][d]=1
         model.apply(s,dict(op='join',session='g00',actor='blue',resume='secret',district='d01',team=1),'g00',now)
+        s['actors']['blue'].update(district='d01',gateway='g00',phase='active') # Existing player at the perimeter gate.
         auth=dict(session='g00',actor='blue',resume='secret',tx='crossing')
         model.apply(s,dict(op='begin',target='d10',**auth),'g00',now)
         model.apply(s,dict(op='prepared',digest='a'*64,**auth),'g00',now)

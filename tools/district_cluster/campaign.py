@@ -49,6 +49,7 @@ def neutral_spawn(state, district):
 def wait(actor):
     actor.update(preferred=actor.get('district') or actor['preferred'], district=None, phase='waiting', generation=actor['generation']+1, arrival=None)
     actor.pop('reset_pending',None)
+    actor.pop('entry_kind',None);actor.pop('spawn_location',None);actor['last_location']=None
 
 
 def reset(state, at, winners):

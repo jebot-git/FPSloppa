@@ -15,6 +15,7 @@ var alive:=true
 var remaining:=0.0
 var music_gain:=0.0
 var music_key:=""
+var voice_duck:=1.0
 var music_volume:=.80
 var ambience_volume:=.70
 var last_sequence:=-1
@@ -89,7 +90,7 @@ func advance(delta: float) -> void:
 	remaining=maxf(0,remaining-delta)
 	var wanted:="menu" if menu else "combat" if remaining>0 and not safe and alive else ""
 	# Fade the old cue completely before changing it; interrupted transitions cannot stack.
-	var target:=music_volume if wanted==music_key and not wanted.is_empty() else 0.0
+	var target:=music_volume*voice_duck if wanted==music_key and not wanted.is_empty() else 0.0
 	music_gain=move_toward(music_gain,target,delta/(1.0 if target>music_gain else 3.0))
 	if music_gain<=.0001 and music_key!=wanted:
 		music.stop();music_key=wanted
@@ -97,7 +98,7 @@ func advance(delta: float) -> void:
 	if wanted.is_empty() and music_gain<=.0001:music.stop();music.stream=null
 	music.volume_db=linear_to_db(maxf(.0001,music_gain))
 	ambient_mix=minf(1,ambient_mix+delta/2.5)
-	var bed:=0.0 if menu else ambience_volume*(.55 if remaining>0 else 1.0)
+	var bed:=0.0 if menu else ambience_volume*voice_duck*(.55 if remaining>0 else 1.0)
 	ambience[ambient_slot].volume_db=linear_to_db(maxf(.0001,bed*sin(ambient_mix*PI*.5)))
 	ambience[1-ambient_slot].volume_db=linear_to_db(maxf(.0001,bed*cos(ambient_mix*PI*.5)))
 	if ambient_mix>=1:ambience[1-ambient_slot].stop();ambience[1-ambient_slot].stream=null

@@ -22,6 +22,10 @@ def commands(path):
     result=[];districts=[]
     if row['role']=='master':
         index=row.getint('index',0)
+        # This private verifier is read only by the master, never worker/client JSON.
+        settings['moderator_password_hash']=row.get('moderator_password_hash','').strip()
+        runtime=root/'master-runtime.json';temporary=root/('master-runtime-'+str(os.getpid())+'.tmp')
+        config.write_private(temporary,settings);temporary.replace(runtime);cluster=runtime
         command=[sys.executable,'-m','tools.district_cluster','coordinator','--config',str(cluster),
                  '--index',str(index),'--database',str(root/'control.sqlite'),
                  '--status-file',str(root/'www/index.html')]

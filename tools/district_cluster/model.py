@@ -105,7 +105,7 @@ def authenticate_actor(state, message):
 
 
 def public_actor(actor):
-    return {k: v for k, v in actor.items() if k != 'resume_hash'}
+    return {k: v for k, v in actor.items() if k not in ('resume_hash','_moderator')}
 
 
 def apply(state, message, gateway, now):
@@ -137,6 +137,7 @@ def apply(state, message, gateway, now):
     if gateway is not None:
         lease = state['gateways'].get(gateway, {})
         require(lease.get('session') == message.get('session') and lease.get('until', 0) > now, 'Gateway fenced or lease expired')
+    if op=='voice_status':return state.get('global_voice',{})
     if op == 'heartbeat':
         require(gateway is not None, 'Gateway credential required')
         state['gateways'][gateway]['until'] = now+LEASE
@@ -162,6 +163,10 @@ def apply(state, message, gateway, now):
                 if not actor or actor.get('district')!=district or actor['phase'] not in ('active','moving') or values.get('generation')!=actor['generation']:continue
                 require(integer(values.get('kills'),-1000000000,1000000000) and integer(values.get('deaths'),0,1000000000),'Invalid worker statistics')
                 actor['stats']={k:values[k] for k in ('kills','deaths')}
+                if 'location' in values:
+                    location=values['location']
+                    require(location is None or (isinstance(location,dict) and isinstance(location.get('position'),list) and len(location['position'])==3 and all(type(v) in (int,float) and math.isfinite(v) and abs(v)<=256 for v in location['position']) and type(location.get('yaw')) in (int,float) and math.isfinite(location['yaw'])),'Invalid worker location')
+                    actor['last_location']=dict(location,district=district) if location else None
         campaign.advance(state,now)
         # Missing workers are not immediately reassigned: let old authority expire.
         return view(state, gateway, now)
@@ -200,6 +205,7 @@ def apply(state, message, gateway, now):
         district = message.get('district')
         owned_gateway(state, district, gateway)
         team=message.get('team')
+        if 'campaign' in state and not returning:district=f'd{campaign.HUB:02}'
         if returning:team=returning['team']
         if team is None:team=min((0,1),key=lambda t:sum(a.get('team')==t for a in state['actors'].values()))
         require(integer(team,0,1),'Invalid team')
@@ -210,10 +216,13 @@ def apply(state, message, gateway, now):
         require(state['next_id']<=2147483647, 'Actor identity namespace exhausted')
         actor = dict(id=state['next_id'], name=str(message.get('name','Player'))[:48], resume_hash=hashlib.sha256(message['resume'].encode()).hexdigest(), district=district if free else None, preferred=district, phase='active' if free else 'waiting', generation=1, arrival=None, gateway=gateway)
         actor.update(seen_at=now,created=now,joins=1,avatar='',stats=dict(kills=0,deaths=0))
+        if 'campaign' in state:
+            actor['gateway']=state['districts'][district]['gateway'] if free else gateway
+            if not free:actor['entry_kind']='new'
         if returning:
             actor.update(id=returning['id'],name=returning['name'],generation=returning['generation']+1,
                          created=returning['created'],joins=returning['joins']+1,avatar=returning.get('avatar',''),stats=returning.get('stats',dict(kills=0,deaths=0)),
-                         preferred=returning['preferred'],district=None,phase='waiting')
+                         preferred=returning['preferred'],district=None,phase='waiting',gateway=gateway,entry_kind='new' if returning.get('first_spawn_pending') else 'return',last_location=returning.get('last_location'))
         if 'campaign' in state:actor['team']=team
         if not returning:state['next_id'] += 1
         state['actors'][key] = actor
@@ -228,6 +237,15 @@ def apply(state, message, gateway, now):
     if op == 'finish' and actor['phase']=='active' and actor.get('arrival')==message.get('tx'):
         return public_actor(actor)
     require(actor['gateway'] == gateway, 'Actor belongs to a different gateway')
+    if op.startswith('moderator_'):
+        from . import moderation
+        return moderation.apply(state,message,actor,now)
+    if op=='mod_cancel':
+        order=actor.get('mod_move',{})
+        require(actor['phase']=='active' and order.get('id')==message.get('order'),'No cancellable moderator move')
+        from .moderation import audit
+        audit(state,now,order['moderator'],order['action'],actor['id'],str(message.get('reason','failed'))[:120])
+        actor.pop('mod_move',None);return public_actor(actor)
     if op == 'leave':
         require(actor['phase'] not in ('moving','committed'), 'Resolve pending transfer before leaving')
         del state['actors'][message['actor']]
@@ -240,6 +258,13 @@ def apply(state, message, gateway, now):
         queue, seen = ([actor['preferred']] if actor['preferred'] in state['districts'] else sorted(state['districts'])), set()
         occupancy = counts(state)
         fallback = None
+        entry=actor.get('entry_kind')
+        preferred=actor['preferred']
+        if entry=='new':
+            queue=[]
+            if online(state,f'd{campaign.HUB:02}',now) and occupancy[f'd{campaign.HUB:02}']<CAPACITY:fallback=f'd{campaign.HUB:02}'
+        elif entry=='return' and preferred in state['districts'] and online(state,preferred,now) and occupancy[preferred]<CAPACITY and campaign.can_enter(state,actor,preferred):
+            fallback=preferred;queue=[]
         while queue:
             district = queue.pop(0)
             if district in seen or district not in state['districts']:
@@ -254,6 +279,9 @@ def apply(state, message, gateway, now):
             queue.extend(sorted(state['districts'][district]['links']))
         if fallback is not None:
             actor.update(district=fallback, phase='active', generation=actor['generation']+1, gateway=state['districts'][fallback]['gateway'], arrival=None)
+            if entry=='return' and actor.get('last_location',{}):
+                if actor['last_location']['district']==fallback:actor['spawn_location']=copy.deepcopy(actor['last_location'])
+            actor.pop('entry_kind',None)
         return public_actor(actor)
     if op == 'begin':
         target, tx = message.get('target'), message.get('tx')
@@ -263,9 +291,16 @@ def apply(state, message, gateway, now):
             return public_actor(actor)
         require(actor['phase'] == 'active' and online(state, actor['district'], now, incoming=False), 'Source authority unavailable')
         row=state['districts'][actor['district']]
-        require(target in row['links'] or target in row.get('terminals',{}), 'Districts are not connected')
-        require(campaign.can_enter(state,actor,target,actor['district']), 'Campaign gate locked')
-        require(online(state, target, now) and counts(state)[target] < CAPACITY, 'Destination gate disabled')
+        order=actor.get('mod_move',{})
+        approved=message.get('order') and message.get('order')==order.get('id')
+        if approved:
+            grant=state['actors'].get(order['issuer'],{}).get('_moderator',{})
+            require(order['until']>now and order['target']==target and grant.get('until',0)>now and grant.get('config')==message.get('_moderator_config'),'Moderator move expired')
+            actor['mod_transfer']=order['id']
+        else:
+            require(target in row['links'] or target in row.get('terminals',{}), 'Districts are not connected')
+            require(campaign.can_enter(state,actor,target,actor['district']), 'Campaign gate locked')
+        require(online(state, target, now) and (counts(state)[target] < CAPACITY or target==actor['district']), 'Destination gate disabled')
         actor.update(phase='moving', target=target, tx=tx, prepared=False, next_generation=actor['generation']+1)
         return public_actor(actor)
     if op == 'prepared':
@@ -280,7 +315,7 @@ def apply(state, message, gateway, now):
             return public_actor(actor)
         require(actor['phase']=='moving' and actor.get('tx')==message.get('tx') and actor.get('prepared'), 'Transfer is not prepared')
         require(online(state, actor['target'], now, incoming=False), 'Destination authority unavailable')
-        require(not actor.get('reset_pending') and campaign.can_enter(state,actor,actor['target'],actor['district']), 'Campaign gate locked; abort uncommitted transfer')
+        require(not actor.get('reset_pending') and (actor.get('mod_transfer') or campaign.can_enter(state,actor,actor['target'],actor['district'])), 'Campaign gate locked; abort uncommitted transfer')
         # Keep source reservation until its worker explicitly acknowledges retirement.
         actor.update(phase='committed', previous=actor['district'], district=actor['target'], generation=actor['next_generation'], arrival=actor['tx'])
         return public_actor(actor)
@@ -289,12 +324,16 @@ def apply(state, message, gateway, now):
         actor.update(phase='active', gateway=state['districts'][actor['district']]['gateway'])
         for field in ('target','previous','next_generation','prepared','tx'):
             actor.pop(field,None)
+        if actor.get('mod_transfer'):
+            from .moderation import audit
+            order=actor['mod_move'];audit(state,now,order['moderator'],order['action'],actor['id'],'completed')
+            actor.pop('mod_move',None);actor.pop('mod_transfer',None)
         if actor.get('reset_pending'):campaign.wait(actor)
         return public_actor(actor)
     if op == 'abort':
         require(actor['phase']=='moving' and actor.get('tx')==message.get('tx'), 'Only an uncommitted transfer can abort')
         actor['phase']='active'
-        for field in ('target','tx','prepared','next_generation','digest'):
+        for field in ('target','tx','prepared','next_generation','digest','mod_transfer'):
             actor.pop(field,None)
         if actor.get('reset_pending'):campaign.wait(actor)
         return public_actor(actor)
@@ -304,6 +343,7 @@ def apply(state, message, gateway, now):
         # district when the allowance for additional queued joins is exhausted.
         require('campaign' in state or sum(a['phase']=='waiting' for a in state['actors'].values()) < state['waiting_limit'], 'Waiting budget full')
         actor.update(preferred=actor['district'], district=None, phase='waiting', generation=actor['generation']+1, arrival=None)
+        actor.pop('entry_kind',None);actor.pop('spawn_location',None);actor['last_location']=None
         return public_actor(actor)
     raise Rejected('Unknown operation')
 
@@ -313,6 +353,9 @@ def view(state, gateway, now):
     deployment_signature=hashlib.sha256(repr([(d,online(state,d,now),occupancy[d],state.get('campaign',{}).get('owners',{}).get(d)) for d in sorted(state['districts'])]).encode()).hexdigest()
     districts = {k:v for k,v in state['districts'].items() if gateway is None or v['gateway']==gateway}
     visible = set(districts)
+    for actor in state['actors'].values():
+        if gateway is None or actor['gateway']==gateway:
+            visible.update(d for d in [actor.get('district'),actor.get('target'),actor.get('previous'),actor.get('mod_move',{}).get('target')] if d in state['districts'])
     for row in districts.values():
         visible.update(row['links'])
         visible.update(row.get('terminals',{}))

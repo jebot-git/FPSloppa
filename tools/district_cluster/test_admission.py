@@ -31,8 +31,8 @@ class AdmissionTest(unittest.TestCase):
 
     def wait_at(self, district):
         self.join('respawn', district)
-        if self.state['actors']['respawn']['phase']=='active':
-            self.request('respawn', 'wait')
+        a=self.state['actors']['respawn'];a.update(phase='active',district=district,gateway=self.state['districts'][district]['gateway'])
+        self.request('respawn','wait')
 
     def no_allies(self):
         for d, row in self.state['districts'].items():
@@ -48,13 +48,13 @@ class AdmissionTest(unittest.TestCase):
         with self.assertRaisesRegex(model.Rejected, 'Global player limit'):
             self.join('overflow', 'd40')
         # A transfer consumes two district reservations but just one identity.
-        self.request('a0', 'begin', target='d01', tx='handoff')
+        self.request('a0', 'begin', target='d41', tx='handoff')
         self.assertEqual(len(self.state['actors']), 128)
         self.assertEqual(self.join('a0', 'd00')['phase'], 'moving')
         self.request('a0', 'prepared', digest='a'*64, tx='handoff')
         self.request('a0', 'commit', tx='handoff')
         self.request('a0', 'finish', tx='handoff')
-        self.assertEqual(self.request('a0', 'resume')['district'], 'd01')
+        self.assertEqual(self.request('a0', 'resume')['district'], 'd41')
         self.request('a0', 'leave')
         self.join('replacement', 'd40')
         view = model.view(self.state, None, self.now)
@@ -99,6 +99,7 @@ class AdmissionTest(unittest.TestCase):
     def test_full_offline_draining_allies_and_neutral_capacity(self):
         for i in range(16):
             self.join(f'full{i}', 'd10')
+            self.state['actors'][f'full{i}'].update(district='d10',phase='active',gateway='g02')
             self.join(f'hub{i}', 'd40')
         self.wait_at('d10')
         self.no_allies()
@@ -129,11 +130,32 @@ class AdmissionTest(unittest.TestCase):
         for i in range(16):
             key = f'waiting{i}'
             self.join(key, 'd40')
+            self.state['actors'][key].update(phase='waiting',district=None,preferred='d12');self.state['actors'][key].pop('entry_kind',None)
             result = self.request(key, 'deploy')
             self.assertEqual(result['phase'], 'active' if i<15 else 'waiting')
         self.assertEqual(model.counts(self.state)['d12'], 16)
         self.request('respawn', 'leave')
         self.assertEqual(self.request('waiting15', 'deploy')['district'], 'd12')
+
+    def test_newcomer_hub_capacity_waits_even_when_allied_space_exists(self):
+        for i in range(16):
+            a=self.join(f'new{i}','d10');self.assertEqual(a['district'],'d40')
+        a=self.join('queued','d10');self.assertEqual(a['phase'],'waiting')
+        self.assertEqual(self.request('queued','deploy')['phase'],'waiting')
+        self.request('new0','leave')
+        self.assertEqual(self.request('queued','deploy')['district'],'d40')
+
+    def test_returning_last_location_then_nearest_friendly_if_full(self):
+        self.join('returning','d40')
+        a=self.state['actors']['returning'];a.update(phase='waiting',district=None,preferred='d41',entry_kind='return',last_location=dict(district='d41',position=[1,.03,1],yaw=0))
+        self.assertEqual(self.request('returning','deploy')['district'],'d41')
+        self.assertIn('spawn_location',a)
+        self.request('returning','wait');a['entry_kind']='return'
+        for i in range(16):
+            key=f'full{i}';self.join(key);self.state['actors'][key].update(district='d41',gateway='g10',phase='active')
+        self.no_allies();self.state['campaign']['owners']['d38']=0
+        self.assertEqual(self.request('returning','deploy')['district'],'d38')
+        self.assertNotIn('spawn_location',a)
 
     def test_cli_defaults_to_campaign_but_generic_is_explicit(self):
         with tempfile.TemporaryDirectory() as tmp:

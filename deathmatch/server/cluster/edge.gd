@@ -26,9 +26,9 @@ func request(request_id: int,body: Dictionary) -> void:
 func _request(request_id: int,bytes: PackedByteArray) -> void:
 	if not server:return
 	var sender:=multiplayer.get_remote_sender_id()
-	if request_id<0 or bytes.size()>8192 or int(inflight.get(sender,0))>=4:return
+	if request_id<0 or bytes.size()>8192 or int(inflight.get(sender,0))>=8:return
 	var body=JSON.parse_string(bytes.get_string_from_utf8())
-	if not body is Dictionary or body.get("op") not in ["join","resume","status","input","snapshot","transfer","deploy","respawn","leave"]:return
+	if not body is Dictionary or body.get("op") not in ["join","resume","status","input","snapshot","transfer","deploy","respawn","leave","moderator_login","moderator_logout","moderator_list","moderator_move","moderator_voice","voice_poll"]:return
 	inflight[sender]=int(inflight.get(sender,0))+1
 	var result:=await forward(bytes)
 	inflight[sender]=int(inflight.get(sender,1))-1

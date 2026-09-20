@@ -98,7 +98,7 @@ systemctl daemon-reload
 systemctl enable cq-firewall
 '''+('''chown -R root:fpsloppa-cq /opt/fpsloppa-cq
 chmod -R g+rX,o-rwx /opt/fpsloppa-cq
-chmod 750 /opt/fpsloppa-cq/server/FPSloppaServer.x86_64
+chmod 750 /opt/fpsloppa-cq/server/FPSloppaServer.x86_64 /opt/fpsloppa-cq/*.sh
 '''+('''install -m 644 config/cq-etcd.service /etc/systemd/system/cq-etcd.service
 systemctl daemon-reload
 systemctl enable --now cq-etcd
@@ -175,6 +175,7 @@ def prepare(inventory,output,binary_dir):
             if row['role']=='workers':cfg+='districts = '+' '.join(row['districts'])+'\n'
             else:
                 cfg+=f"index = {masters.index(name)}\n"
+                cfg+='moderator_password_hash = '+cluster.get('moderator_password_hash','')+'\n'
                 if name==masters[0]:cfg+=f"content_listen = {row['private_ip']}:8080\n"
                 if len(masters)==3:cfg+='etcd = '+' '.join(endpoints)+'\n'
             text(folder/'config/node.cfg',cfg)
@@ -200,8 +201,12 @@ ReadWritePaths={STATE}
 [Install]
 WantedBy=multi-user.target
 ''')
+            for script in ('start-master.sh','start-workers.sh','set-moderator-password.sh'):
+                shutil.copy2(ROOT/script,folder/script)
             destination=folder/'tools/district_cluster';destination.mkdir(parents=True,exist_ok=True)
-            for source in (ROOT/'tools/district_cluster').glob('*.py'):shutil.copy2(source,destination/source.name)
+            for source in (ROOT/'tools/district_cluster').glob('*.py'):
+                if source.name=='fixture_worker.py' or source.name.startswith(('test_','live_')) or source.name.endswith('_test.py'):continue
+                shutil.copy2(source,destination/source.name)
             (folder/'server').mkdir(exist_ok=True)
             for filename in ('FPSloppaServer.x86_64','FPSloppaServer.pck','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt','ASSET_CREDITS.md'):
                 shutil.copy2(binary_dir/filename,folder/'server'/filename)
@@ -209,7 +214,8 @@ WantedBy=multi-user.target
             for filename in ('README.txt','Makkon_License.txt'):
                 target=folder/'server/licenses/Makkon'/filename
                 target.parent.mkdir(parents=True,exist_ok=True)
-                shutil.copy2(ROOT/'maps/Makkon'/filename,target)
+                license_source=binary_dir/'licenses/Makkon'/filename
+                shutil.copy2(license_source if license_source.is_file() else ROOT/'maps/Makkon'/filename,target)
             if row['role']=='workers':
                 files=['maps/CQDistricts/manifest.json','maps/CampaignDistricts/manifest.json']
                 for d in row['districts']:

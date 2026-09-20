@@ -1,3 +1,4 @@
+class_name CQDesktop
 extends SceneTree
 ## Separate experimental desktop client for the regional protocol. Authoritative
 ## movement snapshots; deliberately no claim of shipping-client prediction parity.
@@ -30,6 +31,8 @@ var avatars
 var avatar_hashes: Dictionary={}
 var soundscape
 var main_menu
+var moderator
+var global_voice
 class Controls extends Node:
 	var client
 	func _input(event: InputEvent) -> void:client.handle_input(event)
@@ -49,6 +52,7 @@ func connect_region(next: Array) -> bool:
 	while edge.multiplayer.multiplayer_peer.get_connection_status()!=MultiplayerPeer.CONNECTION_CONNECTED and Time.get_ticks_msec()<deadline:await process_frame
 	return edge.multiplayer.multiplayer_peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED
 func follow(result: Dictionary) -> void:
+	if result.has("actor") and int(result.actor.get("generation",0))!=int(actor.get("generation",0)):have_eye=false
 	if result.has("actor"):actor=result.actor
 	var destination: Array=result.get("gateway",result.get("redirect",address))
 	if destination!=address:
@@ -85,8 +89,13 @@ func load_district() -> void:
 func run() -> void:
 	if RenderingServer.get_current_rendering_method()=="gl_compatibility":push_error("Campaign desktop requires Vulkan");quit(2);return
 	var args:=OS.get_cmdline_user_args()
-	if args.is_empty():push_error("Provide a private cluster client JSON file");quit(2);return
-	settings=JSON.parse_string(FileAccess.get_file_as_string(args[0]))
+	var config_path: String=args[0] if not args.is_empty() else OS.get_executable_path().get_base_dir().path_join("client.json")
+	if not FileAccess.file_exists(config_path):
+		var dialog:=FileDialog.new();dialog.title="Select the CQ client JSON supplied by your server administrator";dialog.access=FileDialog.ACCESS_FILESYSTEM;dialog.file_mode=FileDialog.FILE_MODE_OPEN_FILE;dialog.filters=PackedStringArray(["*.json ; CQ client configuration"]);dialog.use_native_dialog=true;root.add_child(dialog);dialog.canceled.connect(func():quit());dialog.popup_centered_ratio(.65)
+		config_path=await dialog.file_selected;dialog.queue_free()
+	var parsed_settings=JSON.parse_string(FileAccess.get_file_as_string(config_path))
+	if not parsed_settings is Dictionary:push_error("Invalid CQ client configuration");quit(2);return
+	settings=parsed_settings
 	if not settings is Dictionary:push_error("Invalid CQ client configuration");quit(2);return
 	var identity_path: String=settings.get("identity_file","user://cq_identity_"+str(settings.get("campaign_id",str(settings.get("token","")).sha256_text().substr(0,16)))+".json")
 	if FileAccess.file_exists(identity_path):
@@ -133,6 +142,9 @@ func run() -> void:
 	if not str(settings.get("vrm","")).is_empty():
 		var error: String=await avatars.upload(settings.vrm,auth)
 		if not error.is_empty():push_warning(error)
+	moderator=preload("res://tools/district_cluster/moderator_menu.gd").new();canvas.add_child(moderator);moderator.setup(self)
+	global_voice=preload("res://tools/district_cluster/moderator_voice.gd").new();root.add_child(global_voice);global_voice.setup(self,canvas)
+	var mod_button:=Button.new();mod_button.text="Moderator · F8";mod_button.position=Vector2(20,145);canvas.add_child(mod_button);mod_button.pressed.connect(moderator.toggle)
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED;Engine.max_fps=120
 	input_loop();status_loop();snapshot_loop()
 	if settings.has("smoke_output"):smoke()
@@ -155,10 +167,16 @@ func close_client() -> void:
 	if not auth.is_empty():await request("leave")
 	await shutdown()
 func shutdown() -> void:
+	if is_instance_valid(global_voice):global_voice.queue_free()
 	if is_instance_valid(soundscape):soundscape.queue_free()
 	await create_timer(.25).timeout
 	quit()
 func handle_input(event: InputEvent) -> void:
+	if event is InputEventKey and not event.echo and is_instance_valid(moderator):
+		if event.keycode==KEY_F8 and event.pressed:moderator.toggle();return
+		if event.keycode==KEY_F9:global_voice.talk(event.pressed);return
+		if moderator.visible and event.keycode==KEY_ESCAPE and event.pressed:moderator.toggle();return
+		if moderator.visible:return
 	if event is InputEventMouseMotion and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
 		yaw-=event.relative.x*.0025;pitch=clampf(pitch-event.relative.y*.0025,-1.5,1.5)
 	if event is InputEventKey and event.pressed and not event.echo:
@@ -171,7 +189,7 @@ func _process(delta: float) -> bool:
 	return false
 func input_loop() -> void:
 	while true:
-		if not busy and actor.get("phase")=="active" and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
+		if not busy and have_eye and actor.get("phase")=="active" and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
 			input_sequence+=1
 			var move:=Vector2(float(Input.is_physical_key_pressed(KEY_D))-float(Input.is_physical_key_pressed(KEY_A)),float(Input.is_physical_key_pressed(KEY_S))-float(Input.is_physical_key_pressed(KEY_W))).limit_length()
 			await request("input",{"generation":actor.generation,"command":{"seq":input_sequence,"move":[move.x,move.y],"yaw":yaw,"pitch":pitch,"jump":Input.is_physical_key_pressed(KEY_SPACE),"fire":Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT),"weapon":weapon}})
@@ -188,6 +206,8 @@ func status_loop() -> void:
 					busy=false
 			var reply:=await request("status")
 			if reply.has("result") and int(reply.result.actor.generation)>=int(actor.get("generation",0)):
+				if reply.result.has("redirect") or (reply.result.actor.phase=="active" and (reply.result.actor.get("district")!=district or int(reply.result.actor.generation)!=int(actor.get("generation",0)))):
+					busy=true;await follow(reply.result);busy=false;continue
 				status=reply.result;actor=status.actor
 				var overlay:=level.get_node_or_null("CampaignVisuals") if is_instance_valid(level) else null
 				if overlay and status.get("campaign") is Dictionary:overlay.apply_campaign(status.campaign,int(actor.get("team",-1)),status.links)

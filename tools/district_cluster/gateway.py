@@ -11,6 +11,7 @@ import secrets
 import time
 from .transport import LIMIT,read,send,rpc,encode
 from . import campaign
+from .global_voice import GlobalVoice
 
 
 class WorkerLink:
@@ -55,6 +56,7 @@ class Gateway:
         self.deployment_signature=None
         self.budgets={}
         self.stats=dict(snapshot_encodes=0,snapshot_deliveries=0,inputs=0,transfers=0)
+        self.voice=GlobalVoice(self)
 
     async def control(self,op,**fields):
         async with self.control_lock:
@@ -84,7 +86,9 @@ class Gateway:
         self.fresh=began  # Never start a fresh lease from an old delayed reply.
         for key in list(self.clients):
             if key not in self.state['actors']:
-                self.clients.pop(key,None);self.budgets.pop((key,'input'),None);self.budgets.pop((key,'snapshot'),None)
+                self.clients.pop(key,None)
+                for budget in list(self.budgets):
+                    if budget[0]==key:self.budgets.pop(budget,None)
                 self.client_seen.pop(key,None)
                 if key in self.locks and not self.locks[key].locked():self.locks.pop(key)
         left=2-(time.monotonic()-began)
@@ -101,6 +105,17 @@ class Gateway:
         while True:
             try:
                 await self.refresh()
+                for key,actor in list(self.state['actors'].items()):
+                    order=actor.get('mod_move')
+                    if not order or key not in self.clients or actor['gateway']!=self.name:continue
+                    try:
+                        await self.transfer(dict(actor=key,resume=self.clients[key],target=order['target'],order=order['id']))
+                    except ValueError as error:
+                        latest=await self.control('locate',actor=key,resume=self.clients[key])
+                        if latest['phase']=='moving':
+                            latest=await self.control('abort',actor=key,resume=self.clients[key],tx=latest['tx'])
+                        if latest['phase']=='active':
+                            self.state['actors'][key]=await self.control('mod_cancel',actor=key,resume=self.clients[key],order=order['id'],reason=str(error))
                 signature=(self.state['deployment_signature'],tuple(k for k,a in self.state['actors'].items() if a['phase']=='waiting'))
                 if signature!=self.deployment_signature:
                     self.deployment_signature=signature
@@ -212,7 +227,7 @@ class Gateway:
             auth=dict(actor=key,resume=message['resume'])
             if actor['phase']=='active':
                 tx=secrets.token_hex(16)
-                actor=await self.control('begin',**auth,target=message.get('target'),tx=tx)
+                actor=await self.control('begin',**auth,target=message.get('target'),tx=tx,order=message.get('order'))
             else:
                 tx=actor.get('tx')
                 if actor['phase'] not in ('moving','committed') or message.get('target') not in (actor.get('target'),actor.get('district')):
@@ -221,9 +236,14 @@ class Gateway:
             if actor['phase']=='moving':
                 source,target=actor['district'],actor['target']
                 row=self.state['districts'][source]
-                edge=(row['links']|row.get('terminals',{}))[target]
+                moderator=actor.get('mod_transfer')
+                if moderator:
+                    await self.refresh()
+                    landing=await self.remote(target,'landing',actor=key,tx=tx,order=moderator,anchor=actor['mod_move'].get('anchor'))
+                    edge=dict(exit=[0,0,0],entry=landing['position'],yaw=landing['yaw'])
+                else:edge=(row['links']|row.get('terminals',{}))[target]
                 try:
-                    frozen=await self.local(source,'freeze',actor=key,id=actor['id'],generation=actor['generation'],tx=tx,exit=edge['exit'],terminal=edge.get('terminal',False))
+                    frozen=await self.local(source,'freeze',actor=key,id=actor['id'],generation=actor['generation'],tx=tx,exit=edge['exit'],terminal=edge.get('terminal',False),order=moderator)
                 except ValueError:
                     # A definite refusal precedes escrow; transport uncertainty must not abort.
                     actor=await self.control('abort',**auth,tx=tx)
@@ -237,7 +257,7 @@ class Gateway:
                     raise ValueError('Invalid migration payload')
                 digest=hashlib.sha256(payload.encode()).hexdigest()
                 await self.control('prepared',**auth,tx=tx,digest=digest)
-                await self.remote(target,'stage',actor=key,id=actor['id'],tx=tx,generation=actor['next_generation'],payload=payload,digest=digest,entry=edge['entry'],exit=edge['exit'],yaw=edge.get('yaw',0))
+                await self.remote(target,'stage',actor=key,id=actor['id'],tx=tx,generation=actor['next_generation'],payload=payload,digest=digest,entry=edge['entry'],exit=edge['exit'],yaw=edge.get('yaw',0),order=moderator)
                 try:actor=await self.control('commit',**auth,tx=tx)
                 except ValueError as error:
                     if 'Campaign gate locked' in str(error):
@@ -257,13 +277,16 @@ class Gateway:
         if op=='mesh':
             if not isinstance(message.get('token'),str) or not hmac.compare_digest(message['token'],self.config['mesh_token']):
                 raise ValueError('Invalid regional credential')
-            if message.get('action')!='stage':
+            if message.get('action')=='voice':
+                await self.voice.receive(message.get('frame'));return {'relayed':True}
+            if message.get('action') not in ('stage','landing'):
                 raise ValueError('Invalid regional action')
             await self.refresh()
             actor=self.state['actors'].get(message.get('actor'),{})
-            if actor.get('phase')!='moving' or actor.get('target')!=message.get('district') or actor.get('tx')!=message.get('tx') or actor.get('digest')!=message.get('digest'):
+            if actor.get('phase')!='moving' or actor.get('target')!=message.get('district') or actor.get('tx')!=message.get('tx') or (message['action']=='stage' and actor.get('digest')!=message.get('digest')):
                 raise ValueError('Stage has no matching reservation')
-            return await self.local(message['district'],'stage',**{k:v for k,v in message.items() if k not in ('op','action','district','token')})
+            if message['action']=='landing' and actor.get('mod_transfer')!=message.get('order'):raise ValueError('No moderator landing authorization')
+            return await self.local(message['district'],message['action'],**{k:v for k,v in message.items() if k not in ('op','action','district','token')})
         if op=='join':
             if not isinstance(message.get('token'),str) or not hmac.compare_digest(message['token'],self.config['client_token']):
                 raise ValueError('Invalid cluster access credential')
@@ -279,7 +302,16 @@ class Gateway:
             self.clients[message['actor']]=message['resume'];self.state['actors'][message['actor']]=actor
             self.client_seen[message['actor']]=time.monotonic()
             return actor
+        if op=='status' and self.state['actors'].get(message.get('actor'),{}).get('gateway')!=self.name:
+            located=await self.control('locate',actor=message['actor'],resume=message.get('resume'))
+            if located['gateway']!=self.name:return dict(actor=located,redirect=self.config['gateways'][located['gateway']]['address'])
         actor=self.actor(message)
+        if op=='moderator_voice':return await self.voice.push(message)
+        if op=='voice_poll':return self.voice.poll(message)
+        if op in ('moderator_login','moderator_logout','moderator_list','moderator_move'):
+            self.rate_limit(message['actor'],'moderator',2,3)
+            fields={k:message[k] for k in ('actor','resume','password','moderator_token','action','player','district') if k in message}
+            return await self.control(op,**fields)
         if op=='status':
             district=actor.get('district')
             row=self.state['districts'].get(district,{})
@@ -309,6 +341,8 @@ class Gateway:
             result=await self.control('leave',actor=message['actor'],resume=message['resume'])
             self.clients.pop(message['actor'],None);self.state['actors'].pop(message['actor'],None);self.locks.pop(message['actor'],None)
             self.client_seen.pop(message['actor'],None)
+            for budget in list(self.budgets):
+                if budget[0]==message['actor']:self.budgets.pop(budget,None)
             return result
         if op=='respawn':
             if actor['phase']!='active':raise ValueError('Actor is not resident')

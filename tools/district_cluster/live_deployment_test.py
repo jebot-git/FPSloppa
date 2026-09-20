@@ -11,7 +11,8 @@ import sys
 import time
 import urllib.request
 import urllib.error
-from . import config
+from . import config,model,profiles
+from .store import SQLiteStore
 from .network_test import eventually
 from .transport import rpc
 
@@ -35,7 +36,7 @@ def tree(pid):
     return result
 
 
-async def run(out,binary,seconds):
+async def run(out,binary,seconds,client_binary=None):
     out=out.resolve();out.mkdir(parents=True,exist_ok=True);binary=binary.resolve()
     settings=config.campaign(49500)
     config.write_private(out/'cluster.json',settings)
@@ -46,6 +47,13 @@ async def run(out,binary,seconds):
         cfg=f'[cq]\nrole = {role}\ncluster = {out/("cluster.json" if role=="master" else "regional.json")}\nstate = {folder}\nbinary = {binary}\n'
         cfg+=('index = 0\ncontent_listen = 127.0.0.1:49700\n' if role=='master' else 'districts = d40 d41 d42 d43\n')
         (out/(role+'.cfg')).write_text(cfg)
+    # These are returning combat-load fixtures; genuinely new players now enter d40.
+    seed=SQLiteStore(out/'master/control.sqlite',model.initial(settings['districts']))
+    for i in range(16):
+        actor=dict(id=1000+i,name=f'Live probe {i}',team=0,generation=1,preferred='d41',district='d41',resume_hash=hashlib.sha256(f'secret{i}'.encode()).hexdigest())
+        seed.db.execute('INSERT INTO players VALUES (?,?)',(f'live{i}',json.dumps(profiles.record(actor,time.time()))))
+    body=json.loads(seed.db.execute('SELECT body FROM state WHERE id=1').fetchone()[0]);body['next_id']=1016
+    seed.db.execute('UPDATE state SET body=? WHERE id=1',(json.dumps(body),));seed.db.commit();seed.db.close()
     procs=[];logs=[];clients=[]
     try:
         for role in ('master','workers'):
@@ -122,7 +130,8 @@ async def run(out,binary,seconds):
         await asyncio.sleep(.7);await request(0,'resume');await request(0,'leave')
         config.write_private(out/'identity.json',dict(actor='live0',resume='secret0'))
         config.write_private(out/'client.json',dict(address=['127.0.0.1',49620],district='d40',token=settings['client_token'],team=1,name='Returning client',content_url='http://127.0.0.1:49700',identity_file=str(out/'identity.json'),smoke_output=str(out/'desktop.png'),require_avatar=True))
-        desktop=await asyncio.create_subprocess_exec(str(ROOT/'launch-conquest.sh'),str(out/'client.json'),cwd=ROOT,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
+        command=[str(client_binary.resolve()),'--rendering-method','mobile','--rendering-driver','vulkan','--',str(out/'client.json')] if client_binary else [str(ROOT/'launch-conquest.sh'),str(out/'client.json')]
+        desktop=await asyncio.create_subprocess_exec(*command,cwd=ROOT,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
         try:output=await asyncio.wait_for(desktop.communicate(),35)
         except BaseException:desktop.kill();await desktop.wait();raise
         (out/'desktop.log').write_bytes(output[0])
@@ -146,4 +155,5 @@ async def run(out,binary,seconds):
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--binary',type=Path,default=ROOT/'Builds/CQLive/FPSloppaServer.x86_64');parser.add_argument('--seconds',type=int,default=20)
-    args=parser.parse_args();result=asyncio.run(run(args.output,args.binary,args.seconds));(args.output/'result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
+    parser.add_argument('--client-binary',type=Path)
+    args=parser.parse_args();result=asyncio.run(run(args.output,args.binary,args.seconds,args.client_binary));(args.output/'result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

@@ -10,7 +10,7 @@ def record(actor, now):
                 preferred=actor.get('district') or actor['preferred'],
                 avatar=actor.get('avatar',''), stats=copy.deepcopy(actor.get('stats',dict(kills=0,deaths=0))),
                 created=actor.get('created',now), last_seen=actor.get('seen_at',now),
-                joins=actor.get('joins',1))
+                joins=actor.get('joins',1),first_spawn_pending=actor.get('entry_kind')=='new',last_location=copy.deepcopy(actor.get('last_location')))
 
 
 def expire(state, now):
