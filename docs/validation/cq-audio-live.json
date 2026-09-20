@@ -1,0 +1,29 @@
+{
+  "authoritative_shot": true,
+  "combat": {
+    "ambience": "market",
+    "combat": true,
+    "menu": false,
+    "music": "combat",
+    "music_gain": 0.8,
+    "remaining": 9.966769,
+    "safe": false,
+    "voices": 2
+  },
+  "quiet": {
+    "ambience": "market",
+    "combat": false,
+    "menu": false,
+    "music": "",
+    "music_gain": 0.0,
+    "remaining": 0.0,
+    "safe": false,
+    "voices": 1
+  },
+  "recording": {
+    "seconds": 18.123174603174604,
+    "peak_dbfs": -9.898613796975766,
+    "combat_rms_dbfs": -23.216493088459025,
+    "quiet_rms_dbfs": -38.064851454959545
+  }
+}

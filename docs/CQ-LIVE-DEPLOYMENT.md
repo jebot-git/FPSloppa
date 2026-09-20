@@ -101,3 +101,5 @@ python3 -m tools.district_cluster.live_deployment_test --output /tmp/fresh-cq-li
 python3 -m tools.district_cluster.campaign_capacity_test
 python3 -m tools.district_cluster.ha_test --etcd /path/to/etcd --output /tmp/fresh-cq-ha-test
 ```
+
+The CQ desktop now opens on a campaign menu with independent music/ambience controls. Use `"autoconnect": true` in client JSON to join immediately. See [CQ audio](CQ-AUDIO.md) for soundtrack sources, district mapping and combat transitions.

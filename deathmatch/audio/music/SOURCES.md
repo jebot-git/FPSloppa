@@ -124,3 +124,9 @@ the decoded Ogg and updates its manifest entry. The original finite audition
 remains in [the comparison folder](../../../docs/audio/escape-velocity/README.md).
 The runtime version is mastered to −19 LUFS; only its Ogg and score metadata
 are added to the normal music assets. Existing music volume and crossfades apply.
+
+## CQ standalone soundtrack
+
+The experimental CQ client uses its own original orchestral cues and eleven
+procedural district soundscapes under `deathmatch/audio/cq/`. See that directory's
+`SOURCES.md` for composition details, pinned CC0 instrument provenance and controls.

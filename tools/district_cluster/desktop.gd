@@ -28,6 +28,8 @@ var weapon:=2
 var identity: Dictionary={}
 var avatars
 var avatar_hashes: Dictionary={}
+var soundscape
+var main_menu
 class Controls extends Node:
 	var client
 	func _input(event: InputEvent) -> void:client.handle_input(event)
@@ -60,6 +62,7 @@ func load_district() -> void:
 	var next: String=actor.get("district","") if actor.get("district")!=null else ""
 	if next==district and is_instance_valid(level):return
 	district=next;have_eye=false
+	if is_instance_valid(soundscape):soundscape.set_district(district)
 	for body in bodies.values():body.free()
 	bodies.clear()
 	if is_instance_valid(level):level.free()
@@ -103,9 +106,28 @@ func run() -> void:
 	var env:=WorldEnvironment.new();env.environment=Environment.new();world.add_child(env)
 	var canvas:=CanvasLayer.new();root.add_child(canvas);canvas.add_child(label);label.position=Vector2(20,16);label.add_theme_color_override("font_shadow_color",Color.BLACK);label.add_theme_constant_override("shadow_offset_x",2);label.add_theme_constant_override("shadow_offset_y",2)
 	edge=preload("res://deathmatch/server/cluster/edge.gd").new();edge.name="ClusterEdge";root.add_child(edge);edge.response.connect(func(id,body):replies[id]=body)
-	if not await connect_region(settings.address):push_error("Cannot connect to campaign gateway");quit(3);return
-	var joined:=await invoke({"op":"join","identity":identity.actor,"resume":identity.resume,"token":settings.token,"district":settings.get("district","d40"),"name":settings.get("name","Campaign Explorer"),"team":int(settings.get("team",0))})
-	if joined.has("error"):push_error(joined.error);quit(3);return
+	soundscape=preload("res://tools/district_cluster/soundscape.gd").new();root.add_child(soundscape)
+	var preferences:=ConfigFile.new();preferences.load("user://cq_audio.cfg")
+	soundscape.music_volume=clampf(float(settings.get("music_volume",preferences.get_value("audio","music",.8))),0,1)
+	soundscape.ambience_volume=clampf(float(settings.get("ambience_volume",preferences.get_value("audio","ambience",.7))),0,1)
+	main_menu=preload("res://tools/district_cluster/cq_menu.gd").new();canvas.add_child(main_menu);main_menu.setup(soundscape)
+	label.hide()
+	if settings.has("menu_smoke_output"):
+		await create_timer(3).timeout;await RenderingServer.frame_post_draw
+		root.get_texture().get_image().save_png(settings.menu_smoke_output)
+		print("CQ_MENU_SMOKE ",JSON.stringify(soundscape.state()));await shutdown();return
+	var automatic: bool=settings.get("autoconnect",false) or settings.has("smoke_output")
+	var joined: Dictionary={}
+	while true:
+		if not automatic:await main_menu.join_requested
+		if not await connect_region(settings.address):
+			if automatic:push_error("Cannot connect to campaign gateway");quit(3);return
+			main_menu.failed("Gateway unavailable. Try again shortly.");continue
+		joined=await invoke({"op":"join","identity":identity.actor,"resume":identity.resume,"token":settings.token,"district":settings.get("district","d40"),"name":settings.get("name","Campaign Explorer"),"team":int(settings.get("team",0))})
+		if not joined.has("error"):break
+		if automatic:push_error(joined.error);quit(3);return
+		main_menu.failed(str(joined.error))
+	main_menu.queue_free();label.show()
 	auth={"actor":joined.result.identity,"resume":joined.result.resume};await follow(joined.result)
 	avatars=preload("res://tools/district_cluster/client_avatar.gd").new();root.add_child(avatars);avatars.setup(str(settings.get("content_url","")))
 	if not str(settings.get("vrm","")).is_empty():
@@ -127,10 +149,14 @@ func smoke() -> void:
 	for frame in 5:await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(settings.smoke_output)
-	await request("leave");print("CAMPAIGN_DESKTOP_SMOKE ",JSON.stringify({"district":district,"campaign":status.campaign.epoch,"scoreboard":true,"custom_avatars":custom_count}));quit()
+	await request("leave");print("CAMPAIGN_DESKTOP_SMOKE ",JSON.stringify({"district":district,"campaign":status.campaign.epoch,"scoreboard":true,"custom_avatars":custom_count,"audio":soundscape.state()}));await shutdown()
 func close_client() -> void:
 	busy=true
 	if not auth.is_empty():await request("leave")
+	await shutdown()
+func shutdown() -> void:
+	if is_instance_valid(soundscape):soundscape.queue_free()
+	await create_timer(.25).timeout
 	quit()
 func handle_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and Input.mouse_mode==Input.MOUSE_MODE_CAPTURED:
@@ -177,6 +203,7 @@ func snapshot_loop() -> void:
 				if data is Dictionary:update_snapshot(data)
 		await create_timer(.05).timeout
 func update_snapshot(data: Dictionary) -> void:
+	if is_instance_valid(soundscape):soundscape.observe(data,int(actor.id))
 	var visible: Dictionary={};var origin:=Rules.center(int(data.zone))
 	for row in data.actors:
 		var id:=int(row.id);var p: Vector3=row.position-origin

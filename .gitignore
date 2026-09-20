@@ -106,3 +106,6 @@ __pycache__/
 
 # Generated, validated collision cache embedded by the CQ server packager.
 /deathmatch/server/districts/cache/
+
+# Pinned CC0 source recordings can be fetched with tools/cq_audio/fetch_samples.py.
+/tools/cq_audio/samples/

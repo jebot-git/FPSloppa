@@ -167,3 +167,10 @@ recorded in `tools/threewave_rebuild/README.md`. New geometry is CC0-1.0; Makkon
 The experimental robot uses Quandtum’s BA-2 v1.1 with an authored slow walk and procedural belly ladder. See [runtime asset credits and texture provenance](deathmatch/vehicles/ba2/SOURCES.md) and the [TB test guide](docs/TITANBALL.md).
 
 Ashfall Boulevard / TITANBALL: original CC0 geometry; Makkon Industrial/Metal textures by Ben “Makkon” Hale, ptoing palette/LUT credit, and LibreQuake BSD textures. Original miptex records and separate licenses are retained in [maps/Ashfall](maps/Ashfall/README.md).
+
+## Experimental CQ orchestral music and ambience
+
+Original CQ score and eleven procedural district soundscapes: CC0-1.0.
+Recorded orchestral instruments: VSCO 2 Community Edition by Sam Gossner,
+Simon Dalzell and Elan Hickler / Soundemote, CC0-1.0.
+See `deathmatch/audio/cq/SOURCES.md` and `tools/cq_audio/samples.json`.

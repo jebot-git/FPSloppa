@@ -1,0 +1,22 @@
+{
+  "tracks": 13,
+  "districts": 81,
+  "runtime_bytes": 15249283,
+  "max_true_peak_dbtp": -6.59,
+  "max_loop_sample_step": 0.00273739080876112,
+  "checks": [
+    "all_13_Vorbis_assets_decoded_without_clipping",
+    "81_district_theme_assignments",
+    "encoded_hashes_match",
+    "loop_seams_checked",
+    "bounded_3_voices_4_cached_streams",
+    "combat_menu_hub_waiting_death_transitions",
+    "confirmed_events_and_snapshot_deduplication",
+    "independent_saved_volume_controls",
+    "Vulkan_menu_render",
+    "existing_real_worker_VRM_desktop_regression",
+    "live_authoritative_shot_starts_music",
+    "live_inactivity_returns_to_ambience",
+    "captured_mix_has_lower_quiet_level_and_no_clipping"
+  ]
+}
