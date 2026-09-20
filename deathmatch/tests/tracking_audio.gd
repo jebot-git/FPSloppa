@@ -86,12 +86,17 @@ func run() -> void:
 	for hash in library.entries:
 		var avatar=library.create_avatar(hash)
 		var actor:=Node3D.new();root.add_child(actor);actor.add_child(avatar)
-		for i in range(5): check(not avatar.mouth.binds[i].is_empty(),"VRM expression binding %s %d"%[library.entries[hash].title,i])
-		avatar.mouth.speak(weights);avatar.mouth._process(.1)
-		var bind: Array=avatar.mouth.binds[0][0]
-		check(bind[0].get_blend_shape_value(bind[1])>0,"Mouth morph moves")
-		for i in range(60):avatar.mouth._process(.02)
-		check(bind[0].get_blend_shape_value(bind[1])<.001,"Mouth returns to rest after loss/silence")
+		# Full viseme coverage is a bundled-model contract; custom VRMs may omit it.
+		if library.entries[hash].path.begins_with("res://deathmatch/avatars/models/"):
+			for i in range(5):check(not avatar.mouth.binds[i].is_empty(),"VRM expression binding %s %d"%[library.entries[hash].title,i])
+		avatar.mouth.speak(weights);avatar.mouth._process(.1);avatar.eyes._process_modification_with_delta(.1)
+		var bind: Array=avatar.mouth.binds[0][0] if not avatar.mouth.binds[0].is_empty() else []
+		if not bind.is_empty():check(bind[0].get_blend_shape_value(bind[1])>0,"Mouth morph moves")
+		else:check(avatar.mouth.weights[0]>0,"Custom avatar without mouth morph accepts speech weights")
+		for i in range(60):
+			avatar.mouth._process(.02);avatar.eyes._process_modification_with_delta(.02)
+		if not bind.is_empty():check(bind[0].get_blend_shape_value(bind[1])<.001,"Mouth returns to rest after loss/silence")
+		else:check(avatar.mouth.weights==PackedFloat32Array([0,0,0,0,0]),"Speech weights settle without optional morphs")
 		avatar.target_xr_pose=Poses.neutral();avatar.target_xr_pose.body={"hips":Transform3D(Basis.IDENTITY,Vector3(0,.85,0)),"left_foot":Transform3D(Basis.IDENTITY,Vector3(-.15,.2,-.2)),"chest":Transform3D(Basis(Vector3.UP,.3),Vector3(0,1.3,0))}
 		avatar._process(.016);avatar.solver._process_modification_with_delta(.016)
 		var finite:=true

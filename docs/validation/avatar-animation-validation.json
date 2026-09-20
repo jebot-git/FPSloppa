@@ -1,0 +1,187 @@
+{
+  "vulkan": [
+    {
+      "branch": "experimental",
+      "script": "test_animation",
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "branch": "experimental",
+      "script": "test_runtime",
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "branch": "main",
+      "script": "test_animation",
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "branch": "main",
+      "script": "test_runtime",
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "branch": "experimental",
+      "script": "test_animation",
+      "checks": 1245,
+      "failures": []
+    },
+    {
+      "branch": "experimental",
+      "script": "test_runtime",
+      "checks": 1082,
+      "failures": []
+    },
+    {
+      "branch": "main",
+      "script": "test_animation",
+      "checks": 1245,
+      "failures": []
+    },
+    {
+      "branch": "main",
+      "script": "test_runtime",
+      "checks": 1082,
+      "failures": []
+    }
+  ],
+  "headless": {
+    "experimental": [
+      {
+        "test": "test_animation",
+        "errors": [],
+        "pass_lines": 0,
+        "result_lines": [
+          "ANIMATION_TEST_RESULT 1245 []"
+        ]
+      },
+      {
+        "test": "vr_ik",
+        "errors": [],
+        "pass_lines": 45,
+        "result_lines": [
+          "VR_IK_RESULT []"
+        ]
+      },
+      {
+        "test": "local_body",
+        "errors": [],
+        "pass_lines": 32,
+        "result_lines": [
+          "LOCAL_BODY_RESULT []"
+        ]
+      },
+      {
+        "test": "avatar_stances",
+        "errors": [],
+        "pass_lines": 0,
+        "result_lines": [
+          "AVATAR_STANCES_RESULT []"
+        ]
+      },
+      {
+        "test": "death_animation",
+        "errors": [],
+        "pass_lines": 0,
+        "result_lines": [
+          "DEATH_ANIMATION_RESULT {\"failures\":[],\"models\":[{\"entry\":\"stand\",\"head\":\"(0.257964, 0.205548, 0.597225)\",\"live_head\":\"(0.000105, 1.459922, 0.008379)\",\"model\":\"VRoid Sample D\",\"settled_update_us\":27.4416666666667},{\"entry\":\"prone\",\"head\":\"(0.257964, 0.205548, 0.597225)\",\"live_head\":\"(0.000105, 0.423762, -0.143503)\",\"model\":\"VRoid Sample D\",\"settled_update_us\":27.8083333333333},{\"entry\":\"tracked\",\"head\":\"(0.257964, 0.205548, 0.597225)\",\"live_head\":\"(-0.000174, 1.459922, 0.014452)\",\"model\":\"VRoid Sample D\",\"settled_update_us\":29.0583333333333},{\"entry\":\"stand\",\"head\":\"(0.25073, 0.206062, 0.575378)\",\"live_head\":\"(0.000258, 1.455292, 0.006591)\",\"model\":\"VRoid Sample F\",\"settled_update_us\":29.6666666666667},{\"entry\":\"prone\",\"head\":\"(0.25073, 0.206062, 0.575378)\",\"live_head\":\"(0.000258, 0.41824, -0.12243)\",\"model\":\"VRoid Sample F\",\"settled_update_us\":30.225},{\"entry\":\"tracked\",\"head\":\"(0.25073, 0.206062, 0.575378)\",\"live_head\":\"(-0.000169, 1.455292, 0.013938)\",\"model\":\"VRoid Sample F\",\"settled_update_us\":29.075},{\"entry\":\"stand\",\"head\":\"(0.249797, 0.206052, 0.572568)\",\"live_head\":\"(0.000307, 1.464901, 0.00566)\",\"model\":\"VRoid Sample G\",\"settled_update_us\":30.1583333333333},{\"entry\":\"prone\",\"head\":\"(0.249797, 0.206052, 0.572568)\",\"live_head\":\"(0.000307, 0.417604, -0.120479)\",\"model\":\"VRoid Sample G\",\"settled_update_us\":31.3416666666667},{\"entry\":\"tracked\",\"head\":\"(0.249797, 0.206052, 0.572568)\",\"live_head\":\"(-0.00017, 1.464901, 0.013948)\",\"model\":\"VRoid Sample G\",\"settled_update_us\":30.7}]}"
+        ]
+      },
+      {
+        "test": "face_expressions",
+        "errors": [],
+        "pass_lines": 30,
+        "result_lines": [
+          "FACE_EXPRESSIONS_RESULT []"
+        ]
+      },
+      {
+        "test": "eyes_bots",
+        "errors": [],
+        "pass_lines": 149,
+        "result_lines": [
+          "EYES_BOTS_RESULT []"
+        ]
+      },
+      {
+        "test": "tracking_audio",
+        "errors": [],
+        "pass_lines": 57,
+        "result_lines": [
+          "TRACKING_AUDIO_RESULT []"
+        ]
+      }
+    ],
+    "main": [
+      {
+        "test": "test_animation",
+        "errors": [],
+        "pass_lines": 0,
+        "result_lines": [
+          "ANIMATION_TEST_RESULT 1245 []"
+        ]
+      },
+      {
+        "test": "vr_ik",
+        "errors": [],
+        "pass_lines": 138,
+        "result_lines": [
+          "VR_IK_RESULT []"
+        ]
+      },
+      {
+        "test": "local_body",
+        "errors": [],
+        "pass_lines": 81,
+        "result_lines": [
+          "LOCAL_BODY_RESULT []"
+        ]
+      },
+      {
+        "test": "avatar_stances",
+        "errors": [],
+        "pass_lines": 0,
+        "result_lines": [
+          "AVATAR_STANCES_RESULT []"
+        ]
+      },
+      {
+        "test": "death_animation",
+        "errors": [],
+        "pass_lines": 0,
+        "result_lines": [
+          "DEATH_ANIMATION_RESULT {\"failures\":[],\"models\":[{\"entry\":\"stand\",\"head\":\"(0.257964, 0.205548, 0.597225)\",\"live_head\":\"(0.000105, 1.459922, 0.008379)\",\"model\":\"VRoid Sample D\",\"settled_update_us\":24.6833333333333},{\"entry\":\"prone\",\"head\":\"(0.257964, 0.205548, 0.597225)\",\"live_head\":\"(0.000105, 0.423762, -0.143503)\",\"model\":\"VRoid Sample D\",\"settled_update_us\":25.575},{\"entry\":\"tracked\",\"head\":\"(0.257964, 0.205548, 0.597225)\",\"live_head\":\"(-0.000174, 1.459922, 0.014452)\",\"model\":\"VRoid Sample D\",\"settled_update_us\":24.8583333333333},{\"entry\":\"stand\",\"head\":\"(0.25073, 0.206062, 0.575378)\",\"live_head\":\"(0.000258, 1.455292, 0.006591)\",\"model\":\"VRoid Sample F\",\"settled_update_us\":27.15},{\"entry\":\"prone\",\"head\":\"(0.25073, 0.206062, 0.575378)\",\"live_head\":\"(0.000258, 0.41824, -0.12243)\",\"model\":\"VRoid Sample F\",\"settled_update_us\":26.0833333333333},{\"entry\":\"tracked\",\"head\":\"(0.25073, 0.206062, 0.575378)\",\"live_head\":\"(-0.000169, 1.455292, 0.013938)\",\"model\":\"VRoid Sample F\",\"settled_update_us\":26.3666666666667},{\"entry\":\"stand\",\"head\":\"(0.249797, 0.206052, 0.572568)\",\"live_head\":\"(0.000307, 1.464901, 0.00566)\",\"model\":\"VRoid Sample G\",\"settled_update_us\":27.6916666666667},{\"entry\":\"prone\",\"head\":\"(0.249797, 0.206052, 0.572568)\",\"live_head\":\"(0.000307, 0.417604, -0.120479)\",\"model\":\"VRoid Sample G\",\"settled_update_us\":28.2916666666667},{\"entry\":\"tracked\",\"head\":\"(0.249797, 0.206052, 0.572568)\",\"live_head\":\"(-0.00017, 1.464901, 0.013948)\",\"model\":\"VRoid Sample G\",\"settled_update_us\":28.3583333333333}]}"
+        ]
+      },
+      {
+        "test": "face_expressions",
+        "errors": [],
+        "pass_lines": 30,
+        "result_lines": [
+          "FACE_EXPRESSIONS_RESULT []"
+        ]
+      },
+      {
+        "test": "eyes_bots",
+        "errors": [],
+        "pass_lines": 153,
+        "result_lines": [
+          "EYES_BOTS_RESULT []"
+        ]
+      },
+      {
+        "test": "tracking_audio",
+        "errors": [],
+        "pass_lines": 70,
+        "result_lines": [
+          "TRACKING_AUDIO_RESULT []"
+        ]
+      }
+    ]
+  },
+  "note": "All final checks passed. Main tracking_audio originally assumed all custom VRMs have visemes; corrected optional-morph handling in the test and reran it successfully. Existing ObjectDB exit warnings persist (1 in most fixtures, up to 4 in tracking/audio). No headset or full network match was tested."
+}

@@ -1,4 +1,5 @@
 extends SkeletonModifier3D
+const Metrics=preload("res://deathmatch/avatars/animation_metrics.gd")
 ## Analytical two-bone IK. Targets are in arena metres, solved in skeleton space.
 var rig
 var rest: Dictionary = {}
@@ -7,6 +8,13 @@ var floor_tick:=0.0
 var solve_tick:=0.0
 var cached_poses: Dictionary={}
 var floor_heights: Dictionary={}
+var rest_rotations: Dictionary={}
+var last_floor_position:=Vector3.INF
+func rest_rotation(sk: Skeleton3D,index: int) -> Quaternion:
+	if not rig.animation_optimized:return sk.get_bone_rest(index).basis.get_rotation_quaternion()
+	if not rest_rotations.has(index):rest_rotations[index]=sk.get_bone_rest(index).basis.get_rotation_quaternion()
+	return rest_rotations[index]
+
 const Death = preload("res://deathmatch/avatars/death_pose.gd")
 var death_start: Dictionary={}
 var death_cache: Dictionary={}
@@ -49,7 +57,7 @@ func collapse(sk: Skeleton3D) -> void:
 		for finger in ["Thumb","Index","Middle","Ring","Little"]:
 			for joint in ["Proximal","Intermediate","Distal"]:
 				var index := bone(sk,side+finger+joint)
-				if index>=0:sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion()*Quaternion(Vector3.RIGHT,.18))
+				if index>=0:sk.set_bone_pose_rotation(index,rest_rotation(sk,index)*Quaternion(Vector3.RIGHT,.18))
 	var head := bone(sk,"Head")
 	orient(sk,head,rig.global_basis*pose.basis*Basis.from_euler(Vector3(.15,.30,-.22))*reference_basis(sk,head))
 	var blend := smoothstep(0.0,.30,rig.death_time)
@@ -62,11 +70,19 @@ func bone(sk: Skeleton3D, name_here: String) -> int:
 	return bone_ids[name_here]
 
 func _process_modification_with_delta(_delta: float) -> void:
+	var started:=Metrics.begin()
+	update_animation(_delta)
+	Metrics.end("pose",started)
+func update_animation(_delta: float) -> void:
+	if rig and rig.animation_sleeping:return
 	var sk := get_skeleton()
 	if not sk or not rig:return
 	if rig.dead:
 		collapse(sk)
 		return
+	if rig.animation_optimized and rig.global_position.distance_squared_to(last_floor_position)>.25:
+		floor_heights.clear();floor_tick=0
+		last_floor_position=rig.global_position
 	floor_tick-=_delta
 	var sample_floor:=floor_tick<=0
 	if sample_floor: floor_tick=.08
@@ -76,7 +92,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 	if not rig.first_person and solve_tick>0 and not cached_poses.is_empty():
 		for index in cached_poses:
 			sk.set_bone_pose_rotation(index,cached_poses[index][0])
-			sk.set_bone_pose_position(index,cached_poses[index][1])
+			if not rig.animation_optimized or index==bone(sk,"Hips"):sk.set_bone_pose_position(index,cached_poses[index][1])
 		return
 	solve_tick=0.0 if rig.first_person else 1.0/15.0 if distance>18 else 1.0/30.0 if distance>6 else 0.0
 	if rig.distance_lod and rig.distance_lod.active:solve_tick=1.0/15.0 if rig.distance_lod.tier>=2 else 1.0/30.0 if rig.distance_lod.tier==1 else 0.0
@@ -85,7 +101,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 	# AnimationPlayer owns hip breathing / gait bob. Reset solved bones each frame.
 	for name in ["Hips","LeftUpperLeg","LeftLowerLeg","LeftFoot","RightUpperLeg","RightLowerLeg","RightFoot","LeftUpperArm","LeftLowerArm","RightUpperArm","RightLowerArm","LeftHand","RightHand","Head","Chest"]:
 		var index := bone(sk,name)
-		if index>=0: sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion())
+		if index>=0: sk.set_bone_pose_rotation(index,rest_rotation(sk,index))
 	var body: Dictionary=rig.xr_pose.get("body",{}) if not rig.dead else {}
 	var hips:=bone(sk,"Hips")
 	var offset:=Vector3.ZERO
@@ -117,7 +133,7 @@ func _process_modification_with_delta(_delta: float) -> void:
 		if foot_idx<0 or bone(sk,side+"UpperLeg")<0:continue
 		var neutral: Vector3 = rig.to_local(sk.to_global(rest[foot_idx].origin))
 		var foot: Vector3=Vector3(sign_x*.13,neutral.y,neutral.z)+rig.gait.offsets[side.to_lower()]
-		if rig.preview_mode<0 and rig.is_inside_tree() and sample_floor and rig.grounded:
+		if rig.preview_mode<0 and rig.is_inside_tree() and sample_floor and rig.grounded and (not rig.animation_optimized or not body.has(side.to_lower()+"_foot")):
 			var world_foot: Vector3 = rig.to_global(foot)
 			var query := PhysicsRayQueryParameters3D.create(world_foot+Vector3.UP*.4,world_foot-Vector3.UP*.5,1)
 			var hit: Dictionary = rig.get_world_3d().direct_space_state.intersect_ray(query)
@@ -171,15 +187,15 @@ func _process_modification_with_delta(_delta: float) -> void:
 			for joint in ["Proximal","Intermediate","Distal"]:
 				var index := bone(sk,side+finger+joint)
 				if index<0: continue
-				sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion())
+				if not rig.animation_optimized:sk.set_bone_pose_rotation(index,rest_rotation(sk,index))
 				var curl:=.8
 				if body.has(side.to_lower()+"_curls"):
 					curl=body[side.to_lower()+"_curls"][["Thumb","Index","Middle","Ring","Little"].find(finger)]*1.25
 				# Bend in each finger's own rest frame, so rotating the wrist cannot twist the fingers.
-				sk.set_bone_pose_rotation(index,sk.get_bone_rest(index).basis.get_rotation_quaternion()*Quaternion(Vector3.RIGHT,curl))
+				sk.set_bone_pose_rotation(index,rest_rotation(sk,index)*Quaternion(Vector3.RIGHT,curl))
 	var head := bone(sk,"Head")
 	if head>=0:
-		var q := sk.get_bone_rest(head).basis.get_rotation_quaternion()
+		var q := rest_rotation(sk,head)
 		if rig.xr_pose.is_empty():
 			if rig.gait.prone_blend>.01:orient(sk,head,rig.global_basis*Basis(Vector3.RIGHT,rig.aim_pitch*.55)*reference_basis(sk,head))
 			else:sk.set_bone_pose_rotation(head,q*Quaternion(Vector3.RIGHT,rig.aim_pitch*.55))
@@ -189,7 +205,11 @@ func _process_modification_with_delta(_delta: float) -> void:
 			sk.set_bone_pose_rotation(head,((sk.get_bone_global_pose(parent).basis.orthonormalized().inverse() if parent>=0 else Basis.IDENTITY)*sk.global_basis.orthonormalized().inverse()*target).get_rotation_quaternion())
 
 	for index in bone_ids.values():
-		if index>=0: cached_poses[index]=[sk.get_bone_pose_rotation(index),sk.get_bone_pose_position(index)]
+		if index<0:continue
+		if rig.animation_optimized and cached_poses.has(index):
+			cached_poses[index][0]=sk.get_bone_pose_rotation(index)
+			if index==hips:cached_poses[index][1]=sk.get_bone_pose_position(index)
+		else:cached_poses[index]=[sk.get_bone_pose_rotation(index),sk.get_bone_pose_position(index)]
 
 func solve(sk: Skeleton3D, upper: String, lower: String, end: String, target_world: Vector3, pole_world: Vector3) -> void:
 	var a := bone(sk,upper)

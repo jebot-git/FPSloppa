@@ -1,4 +1,5 @@
 extends Node3D
+const Metrics=preload("res://deathmatch/avatars/animation_metrics.gd")
 var unarmed:=false
 ## Shared humanoid locomotion and aiming, retargeted by the VRM plugin.
 const Pose = preload("res://deathmatch/avatars/pose.gd")
@@ -51,6 +52,36 @@ var secondary_nodes: Array[Node]=[]
 var visual_meshes: Array[MeshInstance3D]=[]
 var avatar_hash:=""
 var distance_lod
+# Runtime A/B switch for the close animation benchmark; does not change mesh LOD.
+var animation_optimized:=true
+var secondary_motion_enabled:=true # Diagnostic isolation; normal gameplay keeps cosmetics.
+var animation_sleeping:=false
+var animation_hidden_time:=0.0
+var animation_visibility: VisibleOnScreenNotifier3D
+func update_animation_budget(delta: float) -> void:
+	var camera:=get_viewport().get_camera_3d()
+	var xr:=XRServer.primary_interface
+	var protected_view:=first_person or preview_mode>=0 or camera is XRCamera3D or (xr!=null and xr.is_initialized())
+	if animation_visibility==null and DisplayServer.get_name()!="headless":
+		animation_visibility=VisibleOnScreenNotifier3D.new()
+		# Includes extended hands, crouch/prone and generous body motion. Godot's
+		# notifier sees all active viewport cameras, including mirror/scope views.
+		animation_visibility.aabb=AABB(Vector3(-2,-1,-2),Vector3(4,5,4))
+		add_child(animation_visibility)
+	var hidden:=not is_visible_in_tree() or (animation_visibility!=null and not animation_visibility.is_on_screen())
+	animation_hidden_time=animation_hidden_time+delta if hidden and not protected_view else 0.0
+	var sleeping:=animation_optimized and animation_hidden_time>.5
+	if animation_sleeping and not sleeping:
+		xr_pose=target_xr_pose.duplicate(true)
+		solver.solve_tick=0;solver.floor_tick=0;solver.floor_heights.clear()
+	animation_sleeping=sleeping
+	for secondary in secondary_nodes:
+		secondary.simplify_animation=animation_optimized and not protected_view
+		secondary.optimize_collisions=animation_optimized
+		secondary.animation_rate=45.0 if animation_optimized and not protected_view else 0.0
+		secondary.animation_suspended=sleeping or not secondary_motion_enabled
+		secondary.profile_animation=Metrics.enabled
+
 
 func enable_distance_lod() -> void:
 	if distance_lod!=null:return
@@ -86,6 +117,7 @@ func configure(root: Node3D) -> bool:
 	mouth=preload("res://deathmatch/avatars/mouth.gd").new()
 	add_child(mouth)
 	mouth.setup(model)
+	mouth.rig=self
 	eyes=preload("res://deathmatch/avatars/eyes.gd").new()
 	eyes.rig=self
 	skeleton.add_child(eyes)
@@ -206,7 +238,12 @@ func tracking_transform() -> Transform3D:
 	return actor.global_transform
 
 func _process(delta: float) -> void:
+	var started:=Metrics.begin()
+	update_animation(delta)
+	Metrics.end("rig",started)
+func update_animation(delta: float) -> void:
 	if not is_instance_valid(skeleton): return
+	update_animation_budget(delta)
 	if dead:
 		if distance_lod:distance_lod.full_pose()
 		death_time=minf(death_time+delta,preload("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)

@@ -26,4 +26,58 @@ Repeat the same Q1DM6 scene with 16 and 32 avatars, then add a genuinely near-on
 
 Compare rendered poses, grips, facial expressions and transitions against the baseline, including scopes, death/respawn, first-person, mirrors and XR cameras. A reasonable desktop acceptance target is to bring the current 26 ms scene below a 16.7 ms frame budget, but that is a target, not an estimated or achieved gain. Device-specific VR budgets require measurements on the actual headset.
 
-These are proposals. The branch integration includes the existing mesh/distance animation system and its compatibility safeguards; it does not claim to implement or benchmark these new close-range optimizations.
+## Implemented close-range work (2026-09-20)
+
+The shared runtime now caches rest rotations and eye frames, reuses pose storage, removes overwritten finger writes, and replays only the hip translation (all required bone rotations still restore on modifier frames). Tracked feet no longer cast redundant procedural floor rays. Movement invalidates cached contact heights. Face/eye/viseme bindings compile once into flat channels; the eye modifier composes them once per frame, uploading only changed weights. Runtime bind edits must call `rebuild_bindings()`.
+
+Secondary motion uses conservative sphere/capsule bounds to reject impossible joint/collider pairs. A desktop approximation additionally collapses adjacent eligible cosmetic segments in pairs and retains four nearest colliders per chain, re-ranked every 125 ms with staggered refresh phases. Humanoid body/eye/finger chains are protected, and imported resources/skeleton topology stay unchanged. Skipped joints inherit their parent motion. This trades fine bending and collision accuracy for cost; rapid movement or an omitted collider may allow clipping. Full chains restore when approximation is disabled. Desktop remote cosmetics have a bounded 45 Hz interpolated scheduler, with one catch-up step maximum and resets on teleports, large orientation jumps, suspension and long stalls. Secondary cadence changes are disabled for first-person, preview and initialized XR contexts. The exact collision rejection and redundant-work removal still apply there.
+
+Hidden/off-screen avatars skip body modifier, face and spring work after 0.5 seconds. Generous visibility bounds include extended arms and prone motion; secondary viewport cameras keep actors awake. XR bypasses screen culling. Wake-up takes the latest tracking sample and refreshes pose/floor state. Network state and gait continue updating while cosmetic work sleeps. This is visibility-based culling, not a new wall-occlusion system.
+
+Shared near-range base locomotion is **not enabled**: tracked and head/hands-only bodies retain their existing individual IK and cadence. The profiling priority changed because hair/clothing dominated both mixes. Existing distant shared clips remain intact. The GDScript spring transform-buffer prototype matched poses but regressed frame time, so `buffered_animation` defaults off and allocates no buffer in gameplay. A native replacement is assessed in [the PhysBones study](AVATAR-PHYSBONES-STUDY.md).
+
+## Mixed tracking results
+
+32 rendered avatars, three shared VRMs, 1440×900 Vulkan Mobile on Intel Arc A770 / i7-12700, vsync off. Both phases retain identical mesh/distance LOD. Half the avatars speak independently of tracking ownership. The remainder use head-and-hand tracking, rather than cheaper desktop-only motion. 23/32 fully tracked avatars rounds the 70% case up to 71.875%.
+
+| Scene | Fully tracked | Runtime | Mean | p95 | p99 |
+|---|---:|---|---:|---:|---:|
+| Nearby | 16/32 | Comparison baseline | 36.81 ms | 39.33 ms | 41.43 ms |
+| Nearby | 16/32 | Optimized + simplified springs | 27.70 ms | 36.65 ms | 38.75 ms |
+| Nearby | 16/32 | Optimized + springs disabled | 15.65 ms | 17.09 ms | 17.82 ms |
+| Nearby | 23/32 | Comparison baseline | 38.15 ms | 40.94 ms | 42.38 ms |
+| Nearby | 23/32 | Optimized + simplified springs | 28.45 ms | 37.46 ms | 39.97 ms |
+| Nearby | 23/32 | Optimized + springs disabled | 15.96 ms | 17.14 ms | 19.14 ms |
+| Q1DM6 | 16/32 | Comparison baseline | 29.51 ms | 32.91 ms | 34.60 ms |
+| Q1DM6 | 16/32 | Optimized + simplified springs | 22.17 ms | 30.64 ms | 33.45 ms |
+| Q1DM6 | 16/32 | Optimized + springs disabled | 11.67 ms | 14.73 ms | 16.34 ms |
+| Q1DM6 | 23/32 | Comparison baseline | 29.65 ms | 32.99 ms | 35.66 ms |
+| Q1DM6 | 23/32 | Optimized + simplified springs | 21.19 ms | 29.60 ms | 30.72 ms |
+| Q1DM6 | 23/32 | Optimized + springs disabled | 11.59 ms | 14.85 ms | 15.91 ms |
+
+The near case keeps all 32 at tier 0; no avatar slept. Q1DM6 uses 1 near, 26 medium and 5 generic avatars, with occasional edge-of-view cosmetic suspension. This FOV/workload differs from the older untracked Q1DM6 test above, so its absolute times must not be compared directly to that run. These are render-only synthetic fixtures, not 32 network clients, unique custom models or a headset session. Script metrics are nested (morph composition is included in eyes) and do not separately instrument engine skeleton/skinning work.
+
+Near morph writes fell from 624/frame to about 42 at 50:50 and 54 at 70:30. Nearby simplification reduces resident simulated joints from 2,389 to 1,809 (24%) and potential collider pairs from 38,222 to 6,052 (84%). Far inactive residents retain full structures until their simulation wakes; Q1DM6 resident counts therefore differ.
+
+The final optimization toggle improves mean frame times approximately 25% nearby and 25–28% in Q1DM6. The conservative-only earlier comparison improved means about 11–13%; its artifacts are retained separately. **Simplified springs still do not reach the 16.7 ms desktop target, and p95 remains high.** Approximate collider selection, script simulation and transform application remain candidates for native implementation.
+
+The baseline includes the earlier face and pose paths; only the two optimized rows isolate turning spring physics off. Disabled runs confirm zero spring integration ticks and zero measured spring time. They preserve face/body settings, meshes and LOD, although medium-range 30 Hz IK naturally executes on a smaller fraction of frames when FPS increases. Disabling springs saves roughly another 10–12 ms/frame versus the simplified runtime. At 23/32 fully tracked, the no-spring mean is 15.96 ms nearby (p95 17.14 ms) and 11.59 ms in Q1DM6 (p99 15.91 ms). This is a diagnostic ceiling for savings, not a decision to remove secondary motion in gameplay or proof of headset performance. Synthetic tracking and three shared models do not establish headroom for arbitrary custom VRMs or a full live match.
+
+Data: [near](validation/avatar-animation-mixed-near.json), [Q1DM6](validation/avatar-animation-mixed-dm6.json), [disabled buffer experiment](validation/avatar-animation-buffer-experiment.json), [spring microbenchmark](validation/avatar-animation-secondary-micro.json).
+
+Reproduction:
+
+```sh
+godot --xr-mode off --path . --rendering-method mobile --rendering-driver vulkan --script tools/avatar_lod/benchmark_animation.gd -- /tmp/animation-near near
+godot --xr-mode off --path . --rendering-method mobile --rendering-driver vulkan --script tools/avatar_lod/benchmark_animation.gd -- /tmp/animation-dm6 qsrc_dm6
+godot --headless --xr-mode off --path . --script tools/avatar_lod/benchmark_secondary.gd
+godot --xr-mode off --path . --rendering-method mobile --rendering-driver vulkan --script tools/avatar_lod/test_animation.gd
+```
+
+`rig.animation_optimized=false` exposes the comparison path; `animation_metrics.gd.enabled` turns on script timings. `rig.secondary_motion_enabled=false` disables all secondary integration for the comparison. These are runtime diagnostics. Profiling is off by default. Admission limits, gameplay simulation, networking, custom VRM acceptance and authored materials are unchanged. Shared near-range locomotion and a native spring backend remain unimplemented; the current changes preserve individual tracked IK.
+
+## Final validation
+
+Main and experimental each pass 1,245 animation/spring/morph/visibility checks and 1,082 existing mesh/LOD/scope/XR-guard checks under Vulkan. Headless IK, local-body, stance, death, facial-expression, eye/bot and tracking/audio fixtures pass on both. The tracking/audio test now treats absent visemes on custom VRMs as optional, while retaining full bundled-model assertions. See [validation results](validation/avatar-animation-validation.json).
+
+Existing ObjectDB exit warnings remain (one in most fixtures, up to four in tracking/audio); these checks do not establish that the application is leak-free. Actual Quest/headset play, arbitrary custom-model visual quality, moving-platform contact and live-match timing remain unverified. The simplified collider refresh can still contribute to frame-time spikes; the native solver investigation should include that work, not just the integrator.

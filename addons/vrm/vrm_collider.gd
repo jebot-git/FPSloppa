@@ -77,6 +77,8 @@ class VrmRuntimeCollider:
 	var offset: Vector3
 	var radius: float
 	var position: Vector3
+	var bounds_position: Vector3
+	var bounds_radius: float
 	var gizmo_color: Color
 
 	func _init(p_collider: VRMCollider, p_bone_idx: int, p_node: Node3D):
@@ -98,6 +100,8 @@ class VrmRuntimeCollider:
 			position = center_transform * (skel.get_bone_global_pose(bone_idx) * offset)
 		else:  # if node != null:
 			position = center_transform * skel_global_xform_inv * node.global_transform * offset
+
+		bounds_position=position;bounds_radius=radius
 
 	func collision(bone_position: Vector3, bone_radius: float, bone_length: float, out: Vector3, position_offset: Vector3 = Vector3.ZERO) -> Vector3:
 		var this_position = self.position + position_offset
@@ -159,6 +163,8 @@ class CapsuleCollider:
 		else:  # if node != null
 			position = p_center_transform * p_skel_global_xform_inv * node.global_transform * offset
 			tail_position = p_center_transform * p_skel_global_xform_inv * node.global_transform * tail_offset
+
+		bounds_position=(position+tail_position)*.5;bounds_radius=radius+position.distance_to(tail_position)*.5
 
 	func collision(p_bone_position: Vector3, p_bone_radius: float, p_bone_length: float, p_out: Vector3, p_position_offset: Vector3 = Vector3.ZERO) -> Vector3:
 		var P: Vector3 = tail_position - position

@@ -93,10 +93,64 @@ var internal_modifier_node: Node3D
 # Props
 
 var local_body_disabled:=false
+# Runtime-only budget, opt-in from the game. Editor and other plugin users retain
+# the original cadence. Interpolated LOCAL rotations follow this frame's parent.
+var animation_rate:=0.0
+var buffered_animation:=false: # Measured prototype: slower in GDScript; kept opt-in.
+	set(value):
+		buffered_animation=value
+		pose_buffer=preload("./vrm_spring_pose_buffer.gd").new() if value else null
+		if value and is_instance_valid(skel):pose_buffer.setup(skel,spring_bones_internal)
+var optimize_collisions:=false
+var simplify_animation:=false
+var applied_simplification:=false
+var pose_buffer
+var animation_suspended:=false
+var profile_animation:=false
+var animation_usec:=0
+var animation_ticks:=0
+var animation_resets:=0
+var budget_elapsed:=0.0
+var budget_bones: Array[int]=[]
+var budget_previous: Array[Quaternion]=[]
+var budget_current: Array[Quaternion]=[]
+var budget_position:=Vector3.INF
+var budget_rotation:=Quaternion.IDENTITY
+func reset_animation_budget() -> void:
+	budget_elapsed=0
+	budget_bones.clear();budget_previous.clear();budget_current.clear()
+	budget_position=Vector3.INF
+func budgeted_tick(delta: float) -> void:
+	var rotation:=skel.global_basis.orthonormalized().get_rotation_quaternion()
+	if skel.global_position.distance_squared_to(budget_position)>4 or rotation.angle_to(budget_rotation)>PI*.5 or delta>.25:
+		update_centers(skel.global_transform)
+		for i in spring_bones_internal.size():spring_bones_internal[i].setup(center_transforms_inv[springs_centers[i]],true)
+		reset_animation_budget();animation_resets+=1
+	budget_position=skel.global_position;budget_rotation=rotation
+	var step:=1.0/clampf(animation_rate,30,60)
+	budget_elapsed+=maxf(0,delta)
+	if budget_current.is_empty():budget_elapsed=maxf(budget_elapsed,step)
+	# One bounded integration after a stall; never chase an unbounded backlog.
+	if budget_elapsed>=step:
+		budget_elapsed=fmod(budget_elapsed,step)
+		budget_previous=budget_current.duplicate()
+		tick_spring_bones(step);animation_ticks+=1
+		if budget_bones.is_empty():
+			for spring in spring_bones_internal:
+				for verlet in spring.verlets:
+					if verlet.bone_idx>=0 and not verlet.bone_idx in budget_bones:budget_bones.append(verlet.bone_idx)
+		budget_current.resize(budget_bones.size())
+		for i in budget_bones.size():budget_current[i]=skel.get_bone_pose_rotation(budget_bones[i])
+		if budget_previous.size()!=budget_current.size():budget_previous=budget_current.duplicate()
+	var alpha:=clampf(budget_elapsed/step,0,1) if delta<step else 1.0
+	for i in budget_bones.size():
+		skel.set_bone_pose_rotation(budget_bones[i],budget_previous[i].slerp(budget_current[i],alpha))
+
 
 func set_local_body(value: bool) -> void:
 	if local_body_disabled==value:return
 	local_body_disabled=value
+	reset_animation_budget()
 	# Clear only spring overrides; the humanoid IK owns the tracked body.
 	for spring in spring_bones_internal:
 		for verlet in spring.verlets:
@@ -138,6 +192,9 @@ func _on_recreate_collider():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	reset_animation_budget()
+	applied_simplification=false
+	springs_centers.clear()
 	skel = get_node(skeleton)
 	if skel == null:
 		return  # Not supported.
@@ -239,6 +296,7 @@ func _ready() -> void:
 		new_spring_bone.disable_colliders = disable_colliders
 		spring_bones_internal.append(new_spring_bone)
 		springs_centers.append(center_idx)
+	if buffered_animation:pose_buffer.setup(skel,spring_bones_internal)
 
 
 func check_for_editor_update() -> bool:
@@ -283,6 +341,11 @@ func tick_spring_bones(delta: float) -> void:
 	var skel_transform: Transform3D = skel.global_transform
 
 	update_centers(skel_transform)
+	if applied_simplification!=simplify_animation:
+		for i in spring_bones_internal.size():spring_bones_internal[i].set_simplified(simplify_animation,center_transforms_inv[springs_centers[i]])
+		applied_simplification=simplify_animation
+		reset_animation_budget()
+		if buffered_animation:pose_buffer.setup(skel,spring_bones_internal)
 
 	var needs_reintialize: bool = false
 	# our setter syncs it the other direction.
@@ -321,8 +384,9 @@ func tick_spring_bones(delta: float) -> void:
 
 	for collider_i in range(len(colliders_internal)):
 		colliders_internal[collider_i].update(skel_transform, center_transforms[colliders_centers[collider_i]], skel)
+	if buffered_animation:pose_buffer.begin()
 	for spring_i in range(len(spring_bones_internal)):
-		spring_bones_internal[spring_i].update(delta, center_transforms[springs_centers[spring_i]], center_transforms_inv[springs_centers[spring_i]])
+		spring_bones_internal[spring_i].update(delta, center_transforms[springs_centers[spring_i]], center_transforms_inv[springs_centers[spring_i]],pose_buffer if buffered_animation else null,optimize_collisions)
 
 	if secondary_gizmo != null:
 		if Engine.is_editor_hint():
@@ -355,11 +419,18 @@ func _on_secondary_process_modification_processed() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func do_process(delta: float) -> void:
-	if local_body_disabled:return
+	if local_body_disabled or animation_suspended:
+		if not budget_current.is_empty():reset_animation_budget()
+		return
 	# Arena: disabled/hidden avatars must not continue signal-driven spring simulation.
 	if not Engine.is_editor_hint() and (not can_process() or not is_visible_in_tree()): return
 	if not Engine.is_editor_hint() or check_for_editor_update():
-		tick_spring_bones(delta)
+		var started:=Time.get_ticks_usec() if profile_animation else 0
+		if animation_rate>0 and not Engine.is_editor_hint():budgeted_tick(delta)
+		else:
+			if not budget_current.is_empty():reset_animation_budget()
+			tick_spring_bones(delta);animation_ticks+=1
+		if profile_animation:animation_usec+=Time.get_ticks_usec()-started
 	elif Engine.is_editor_hint():
 		if secondary_gizmo != null:
 			if skel != null:

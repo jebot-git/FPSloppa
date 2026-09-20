@@ -64,6 +64,22 @@ class SpringBoneRuntimeState:
 	var add_force: Vector3 = Vector3.ZERO
 
 	var joint_nodes: PackedStringArray
+	var simplified:=false
+	var parameter_indices:=PackedInt32Array()
+	var simple_colliders: Array=[]
+	var collider_refresh:=0.0
+	const HUMANOID=["Hips","Spine","Chest","UpperChest","Neck","Head","LeftEye","RightEye","Jaw","LeftUpperLeg","LeftLowerLeg","LeftFoot","LeftToes","RightUpperLeg","RightLowerLeg","RightFoot","RightToes","LeftShoulder","LeftUpperArm","LeftLowerArm","LeftHand","RightShoulder","RightUpperArm","RightLowerArm","RightHand"]
+	func can_simplify() -> bool:
+		for name_here in joint_nodes:
+			if name_here in HUMANOID:return false
+			for finger in ["Thumb","Index","Middle","Ring","Little"]:
+				if name_here.begins_with("Left"+finger) or name_here.begins_with("Right"+finger):return false
+		return true
+	func set_simplified(value: bool,center_inv: Transform3D) -> void:
+		value=value and can_simplify()
+		if simplified==value:return
+		simplified=value;collider_refresh=0;simple_colliders.clear()
+		setup(center_inv,true)
 	var cached_center_bone: String
 	var cached_center_node: NodePath
 	var cached_collider_groups: Array
@@ -87,11 +103,28 @@ class SpringBoneRuntimeState:
 				if not verlets.is_empty():
 					for verlet in verlets:
 						verlet.reset(skel)
-				verlets.clear()
-				for id in range(len(joint_nodes) - 1):
-					var verlet: VRMSpringBoneLogic = create_vertlet(id, center_transform_inv)
-					if verlet!=null:verlets.append(verlet)
+				verlets.clear();parameter_indices.clear();collider_refresh=0
+				var id:=0
+				while id<len(joint_nodes)-1:
+					var end:=mini(id+2,len(joint_nodes)-1) if simplified else id+1
+					var verlet: VRMSpringBoneLogic=create_span(id,end,center_transform_inv) if end>id+1 else create_vertlet(id,center_transform_inv)
+					if verlet==null and end>id+1:end=id+1;verlet=create_vertlet(id,center_transform_inv)
+					if verlet!=null:verlets.append(verlet);parameter_indices.append(id)
+					id=end
 
+
+	func create_span(start: int,end: int,center_inv: Transform3D) -> VRMSpringBoneLogic:
+		var bone:=skel.find_bone(joint_nodes[start]);var tip:=skel.find_bone(joint_nodes[end])
+		if bone<0 or tip<0:return null
+		# Only collapse an actual ancestor path, never unrelated or branched roots.
+		var parent:=skel.get_bone_parent(tip)
+		while parent>=0 and parent!=bone:
+			if skel.get_bone_children(parent).size()!=1:return null
+			parent=skel.get_bone_parent(parent)
+		if parent!=bone:return null
+		var endpoint: Vector3=skel.get_bone_global_rest(bone).affine_inverse()*skel.get_bone_global_rest(tip).origin
+		if endpoint.length()<.0001:return null
+		return VRMSpringBoneLogic.new(skel,bone,center_inv,endpoint,skel.get_bone_global_pose(bone))
 
 	func create_vertlet(id: int, center_tr_inv: Transform3D) -> VRMSpringBoneLogic:
 		var verlet: VRMSpringBoneLogic
@@ -140,7 +173,7 @@ class SpringBoneRuntimeState:
 		return false
 
 
-	func update(delta: float, center_transform: Transform3D, center_transform_inv: Transform3D) -> void:
+	func update(delta: float, center_transform: Transform3D, center_transform_inv: Transform3D, pose_buffer=null,optimize_collisions:=false) -> void:
 		if verlets.is_empty() or len(verlets) != len(springbone.joint_nodes):
 			if joint_nodes.is_empty():
 				return
@@ -149,11 +182,23 @@ class SpringBoneRuntimeState:
 		var tmp_colliders: Array
 		if not disable_colliders:
 			tmp_colliders = colliders
+			if simplified and colliders.size()>4:
+				collider_refresh-=delta
+				if collider_refresh<=0 or simple_colliders.is_empty():
+					collider_refresh=collider_refresh+.125 if not simple_colliders.is_empty() else .01+.115*float((skel.get_instance_id()+verlets[0].bone_idx)%23)/23.0
+					var origin: Vector3=center_transform*skel.get_bone_global_pose(verlets[0].bone_idx).origin
+					var ranked: Array=[]
+					for collider in colliders:ranked.append([maxf(0,origin.distance_to(collider.bounds_position)-collider.bounds_radius),collider])
+					ranked.sort_custom(func(a,b):return a[0]<b[0])
+					simple_colliders.clear()
+					for i in 4:simple_colliders.append(ranked[i][1])
+				tmp_colliders=simple_colliders
 
 		for i in range(len(verlets)):
+			var parameter: int=parameter_indices[i]
 			var pfa: PackedFloat64Array = springbone.gravity_power
-			var external: Vector3 = (springbone.gravity_dir[i] if i < len(springbone.gravity_dir) else springbone.gravity_dir_default)
-			external = external * (1.0 if pfa.is_empty() else pfa[i] if i < len(pfa) else pfa[-1]) * delta * springbone.gravity_scale * gravity_multiplier
+			var external: Vector3 = (springbone.gravity_dir[parameter] if parameter < len(springbone.gravity_dir) else springbone.gravity_dir_default)
+			external = external * (1.0 if pfa.is_empty() else pfa[parameter] if parameter < len(pfa) else pfa[-1]) * delta * springbone.gravity_scale * gravity_multiplier
 			if !gravity_rotation.is_equal_approx(Quaternion.IDENTITY):
 				external = gravity_rotation * external
 			if !center_transform.basis.is_equal_approx(Basis.IDENTITY):
@@ -161,13 +206,13 @@ class SpringBoneRuntimeState:
 			external += add_force * delta
 
 			pfa = springbone.stiffness_force
-			var stiffness: float = springbone.stiffness_scale * (1.0 if pfa.is_empty() else pfa[i] if i < len(pfa) else pfa[-1]) * delta
+			var stiffness: float = springbone.stiffness_scale * (1.0 if pfa.is_empty() else pfa[parameter] if parameter < len(pfa) else pfa[-1]) * delta
 			pfa = springbone.drag_force
-			var drag_force: float = springbone.drag_force_scale * (1.0 if pfa.is_empty() else pfa[i] if i < len(pfa) else pfa[-1])
+			var drag_force: float = springbone.drag_force_scale * (1.0 if pfa.is_empty() else pfa[parameter] if parameter < len(pfa) else pfa[-1])
 			pfa = springbone.hit_radius
-			verlets[i].radius = springbone.hit_radius_scale * (1.0 if pfa.is_empty() else pfa[i] if i < len(pfa) else pfa[-1])
+			verlets[i].radius = springbone.hit_radius_scale * (1.0 if pfa.is_empty() else pfa[parameter] if parameter < len(pfa) else pfa[-1])
 
-			verlets[i].update(skel, center_transform, center_transform_inv, stiffness, drag_force, external, tmp_colliders)
+			verlets[i].update(skel, center_transform, center_transform_inv, stiffness, drag_force, external, tmp_colliders,pose_buffer,optimize_collisions)
 
 
 func create_runtime(skel: Skeleton3D) -> SpringBoneRuntimeState:

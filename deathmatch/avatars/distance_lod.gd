@@ -114,7 +114,7 @@ func set_cosmetics(distant: bool) -> void:
 			for bone in rig.eyes.eye_bones:rig.skeleton.reset_bone_pose(bone)
 	for secondary in rig.secondary_nodes:secondary.set_local_body(distant or rig.first_person)
 func _process_modification_with_delta(delta: float) -> void:
-	if rig==null:return
+	if rig==null or rig.animation_sleeping:return
 	var sk: Skeleton3D=rig.skeleton
 	if using_generic:
 		# Aim additive in the rig's frame, keeping the baked elbows/hand shapes.

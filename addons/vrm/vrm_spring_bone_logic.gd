@@ -66,11 +66,11 @@ func pre_update(skel: Skeleton3D) -> void:
 	global_pose = get_global_pose(skel)
 
 
-func update(skel: Skeleton3D, center_transform: Transform3D, center_transform_inv: Transform3D, stiffness_force: float, drag_force: float, external: Vector3, colliders: Array) -> void:
+func update(skel: Skeleton3D, center_transform: Transform3D, center_transform_inv: Transform3D, stiffness_force: float, drag_force: float, external: Vector3, colliders: Array,pose_buffer=null,optimize_collisions:=false) -> void:
 	var tmp_current_tail: Vector3 = current_tail
 	var tmp_prev_tail: Vector3 = prev_tail
 	if ClassDB.class_exists(&"SkeletonModifier3D"):
-		global_pose = get_global_pose(skel)
+		global_pose = pose_buffer.global_pose(bone_idx) if pose_buffer!=null else get_global_pose(skel)
 	var global_pose_tr: Transform3D = get_global_pose_cached()
 	var local_pose_rotation: Quaternion = get_local_pose_rotation_cached()
 
@@ -84,7 +84,12 @@ func update(skel: Skeleton3D, center_transform: Transform3D, center_transform_in
 	#next_tail = center_transform_inv * next_tail
 
 	# Collision movement
-	for collider in colliders:
+	for collider: vrm_collider.VrmRuntimeCollider in colliders:
+		# Every collision correction projects the tail back onto this reach sphere.
+		# A disjoint collider bound cannot affect it, including capsule end spheres.
+		if optimize_collisions:
+			var reach:=length+radius+collider.bounds_radius
+			if origin.distance_squared_to(collider.bounds_position)>reach*reach:continue
 		next_tail = collider.collision(origin, radius, length, next_tail)
 
 	# Recording current tails for next process
@@ -98,6 +103,7 @@ func update(skel: Skeleton3D, center_transform: Transform3D, center_transform_in
 		var qt: Quaternion = ft * local_pose_rotation
 		global_pose_tr.basis = Basis(qt).scaled(global_pose_tr.basis.get_scale()) # Scaling here avoids the most egregious artifacts in a scaled character, but this math is not correct. Use scale 1,1,1
 		if ClassDB.class_exists(&"SkeletonModifier3D"):
-			skel.set_bone_global_pose(bone_idx, global_pose_tr)
+			if pose_buffer!=null:pose_buffer.set_global_pose(bone_idx,global_pose_tr)
+			else:skel.set_bone_global_pose(bone_idx, global_pose_tr)
 		else:
 			skel.set_bone_global_pose_override(bone_idx, global_pose_tr, 1.0, true)

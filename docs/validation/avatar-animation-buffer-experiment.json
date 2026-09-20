@@ -1,0 +1,205 @@
+{
+  "actors": 32,
+  "engine": "4.7.2-stable (fedora)",
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "map": "near",
+  "reports": [
+    {
+      "frames": 360,
+      "full_tracking": 16,
+      "gpu_ms": {
+        "mean": 1.95708055827353,
+        "p95": 3.15400004386902,
+        "p99": 3.63700008392334
+      },
+      "head_hands_only": 16,
+      "morph_writes_per_frame": 624.0,
+      "optimized": false,
+      "render_cpu_ms": {
+        "mean": 3.29738333622615,
+        "p95": 3.78399991989136,
+        "p99": 4.17899990081787
+      },
+      "scripts": {
+        "eyes": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 1.47781111111111
+        },
+        "morph": {
+          "calls_per_frame": 48.0,
+          "ms_per_frame": 1.53853055555556
+        },
+        "pose": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 4.33336111111111
+        },
+        "rig": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 1.15165
+        },
+        "spring": {
+          "ms_per_frame": 15.8474083333333,
+          "resets": 0,
+          "ticks_per_frame": 32.0
+        }
+      },
+      "sleeping": 0,
+      "tiers": {
+        "0": 32
+      },
+      "wall_ms": {
+        "mean": 33.3300166666667,
+        "p95": 35.504,
+        "p99": 36.81
+      }
+    },
+    {
+      "frames": 360,
+      "full_tracking": 16,
+      "gpu_ms": {
+        "mean": 2.08974999835094,
+        "p95": 3.56200003623962,
+        "p99": 4.30700016021729
+      },
+      "head_hands_only": 16,
+      "morph_writes_per_frame": 42.4722222222222,
+      "optimized": true,
+      "render_cpu_ms": {
+        "mean": 3.29979444940885,
+        "p95": 3.95199990272522,
+        "p99": 4.56099987030029
+      },
+      "scripts": {
+        "eyes": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 0.961430555555556
+        },
+        "morph": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 0.576566666666667
+        },
+        "pose": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 4.15889444444444
+        },
+        "rig": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 1.20637777777778
+        },
+        "spring": {
+          "ms_per_frame": 19.5986305555556,
+          "resets": 0,
+          "ticks_per_frame": 32.0
+        }
+      },
+      "sleeping": 0,
+      "tiers": {
+        "0": 32
+      },
+      "wall_ms": {
+        "mean": 36.0375138888889,
+        "p95": 39.078,
+        "p99": 40.056
+      }
+    },
+    {
+      "frames": 360,
+      "full_tracking": 23,
+      "gpu_ms": {
+        "mean": 1.98865277883079,
+        "p95": 3.23900008201599,
+        "p99": 4.06199979782104
+      },
+      "head_hands_only": 9,
+      "morph_writes_per_frame": 54.5944444444444,
+      "optimized": true,
+      "render_cpu_ms": {
+        "mean": 3.35556944410006,
+        "p95": 3.89800000190735,
+        "p99": 4.43499994277954
+      },
+      "scripts": {
+        "eyes": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 1.02538888888889
+        },
+        "morph": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 0.620241666666667
+        },
+        "pose": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 4.49056111111111
+        },
+        "rig": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 1.31501388888889
+        },
+        "spring": {
+          "ms_per_frame": 20.0030916666667,
+          "resets": 0,
+          "ticks_per_frame": 32.0
+        }
+      },
+      "sleeping": 0,
+      "tiers": {
+        "0": 32
+      },
+      "wall_ms": {
+        "mean": 37.2586444444444,
+        "p95": 40.63,
+        "p99": 42.673
+      }
+    },
+    {
+      "frames": 360,
+      "full_tracking": 23,
+      "gpu_ms": {
+        "mean": 2.14886944625113,
+        "p95": 3.70799994468689,
+        "p99": 4.44000005722046
+      },
+      "head_hands_only": 9,
+      "morph_writes_per_frame": 624.0,
+      "optimized": false,
+      "render_cpu_ms": {
+        "mean": 3.37812777691417,
+        "p95": 3.93600010871887,
+        "p99": 4.28900003433228
+      },
+      "scripts": {
+        "eyes": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 1.53374722222222
+        },
+        "morph": {
+          "calls_per_frame": 48.0,
+          "ms_per_frame": 1.59492222222222
+        },
+        "pose": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 4.79402777777778
+        },
+        "rig": {
+          "calls_per_frame": 32.0,
+          "ms_per_frame": 1.31938611111111
+        },
+        "spring": {
+          "ms_per_frame": 16.3152861111111,
+          "resets": 0,
+          "ticks_per_frame": 32.0
+        }
+      },
+      "sleeping": 0,
+      "tiers": {
+        "0": 32
+      },
+      "wall_ms": {
+        "mean": 34.8607111111111,
+        "p95": 37.348,
+        "p99": 38.474
+      }
+    }
+  ],
+  "scope": "1440x900 Vulkan Mobile, vsync off, same geometry/LOD throughout. 16/32 and 23/32 full body/eye/face tracking; others head/hands VR. Half speaking independently. Three shared VRMs, asynchronous motion, 360 measured frames after warmup. Synthetic render-only test, no network/gameplay/XR hardware. Nested morph time is included in eyes; aggregate script timings do not include engine skeleton/skinning cost. 23/32 rounds the 70% case up to 71.875%."
+}

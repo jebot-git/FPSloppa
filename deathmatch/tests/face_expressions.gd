@@ -54,10 +54,10 @@ func run() -> void:
 		# Exercise an overlapping VRM bind: smile, speech and blink must share one writer.
 		if not avatar.mouth.binds[0].is_empty():
 			var shared: Array=avatar.mouth.binds[0][0];var saved: Array=avatar.eyes.binds[7]
-			avatar.eyes.binds[7]=[shared];avatar.eyes._process_modification_with_delta(.1)
-			var expression_only: float=shared[0].get_blend_shape_value(shared[1]);avatar.mouth.speak(PackedFloat32Array([.3,0,0,0,0]));avatar.mouth._process(.02)
+			avatar.eyes.binds[7]=[shared];avatar.eyes.rebuild_bindings();avatar.eyes._process_modification_with_delta(.1)
+			var expression_only: float=shared[0].get_blend_shape_value(shared[1]);avatar.mouth.speak(PackedFloat32Array([.3,0,0,0,0]));avatar.mouth._process(.02);avatar.eyes.apply_morphs()
 			check(shared[0].get_blend_shape_value(shared[1])>expression_only and shared[0].get_blend_shape_value(shared[1])<=.9991,"Overlapping speech and expression morphs compose without overwriting")
-			avatar.eyes.binds[7]=saved
+			avatar.eyes.binds[7]=saved;avatar.eyes.rebuild_bindings()
 		avatar.xr_pose.clear();avatar.eyes._process_modification_with_delta(1)
 		check(avatar.eyes.expression_weights==neutral,"Expression returns to neutral when tracking disappears")
 		parent.free()

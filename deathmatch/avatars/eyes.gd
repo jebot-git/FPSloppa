@@ -1,4 +1,5 @@
 extends SkeletonModifier3D
+const Metrics=preload("res://deathmatch/avatars/animation_metrics.gd")
 ## Conservative cosmetic eye rotation; never translates eye bones.
 const NAMES=[["lookleft"],["lookright"],["lookup"],["lookdown"],["blinkleft","blink_l"],["blinkright","blink_r"],["blink"],["happy","joy"],["angry"],["sad","sorrow"],["relaxed","fun"],["surprised"]]
 var binds: Array=[[],[],[],[],[],[],[],[],[],[],[],[]]
@@ -8,6 +9,34 @@ var rig
 var look:=Vector2.ZERO
 var blink:=Vector2.ZERO
 var eye_bones: Array[int]=[]
+var eye_frames: Array=[]
+var head_rest:=Basis.IDENTITY
+var channels: Array=[]
+var morph_writes:=0
+func rebuild_bindings() -> void:
+	channels.clear()
+	var by_mesh: Dictionary={}
+	for source in 17:
+		var source_binds: Array=binds[source] if source<12 else rig.mouth.binds[source-12]
+		for bind in source_binds:
+			var mesh: MeshInstance3D=bind[0]
+			if not by_mesh.has(mesh):by_mesh[mesh]={}
+			if not by_mesh[mesh].has(bind[1]):
+				by_mesh[mesh][bind[1]]=channels.size()
+				channels.append([mesh,bind[1],.999,[],NAN])
+			var channel: Array=channels[by_mesh[mesh][bind[1]]]
+			channel[3].append([source,bind[2]])
+			if source<7:channel[2]=.9
+func compose_cached() -> void:
+	for channel in channels:
+		if not is_instance_valid(channel[0]):continue
+		var value:=0.0
+		for source in channel[3]:
+			value+=(morph_weights[source[0]] if source[0]<12 else rig.mouth.weights[source[0]-12] if not rig.dead else 0.0)*source[1]
+		value=clampf(value,0,channel[2])
+		if is_nan(channel[4]) or absf(value-channel[4])>.00001:
+			channel[0].set_blend_shape_value(channel[1],value);channel[4]=value;morph_writes+=1
+
 func setup(model: Node) -> void:
 	for node in model.find_children("*","AnimationPlayer",true,false):
 		var base: Node=node.get_node(node.root_node)
@@ -31,8 +60,20 @@ func setup(model: Node) -> void:
 	var sk: Skeleton3D=rig.skeleton
 	for name_here in ["LeftEye","RightEye"]:
 		var bone:=sk.find_bone(name_here)
-		if bone>=0: eye_bones.append(bone)
+		if bone>=0:
+			eye_bones.append(bone)
+			var parent:=sk.get_bone_parent(bone)
+			var frame:=sk.get_bone_global_rest(parent).basis.orthonormalized() if parent>=0 else Basis.IDENTITY
+			eye_frames.append([frame,frame.inverse(),sk.get_bone_rest(bone).basis.orthonormalized()])
+	var head:=sk.find_bone("Head")
+	if head>=0:head_rest=sk.get_bone_global_rest(head).basis.orthonormalized()
+	rebuild_bindings()
 func _process_modification_with_delta(delta: float) -> void:
+	var started:=Metrics.begin()
+	update_animation(delta)
+	Metrics.end("eyes",started)
+func update_animation(delta: float) -> void:
+	if rig and rig.animation_sleeping:return
 	if not rig: return
 	var data: Dictionary=rig.xr_pose.get("face",{}) if not rig.dead else {}
 	var desired: Vector2=data.get("look",Vector2.ZERO) if data.get("gaze",false) else Vector2.ZERO
@@ -51,10 +92,14 @@ func _process_modification_with_delta(delta: float) -> void:
 		weights.append(expression_weights[i])
 	if eye_bones.size()==2:
 		var sk: Skeleton3D=rig.skeleton
-		var head:=sk.find_bone("Head")
-		var head_rest:=sk.get_bone_global_rest(head).basis.orthonormalized()
+		var head_rest: Basis=self.head_rest if rig.animation_optimized else sk.get_bone_global_rest(sk.find_bone("Head")).basis.orthonormalized()
 		var offset:=head_rest*Basis(Vector3.UP,safe_look.x)*Basis(Vector3.RIGHT,-safe_look.y)*head_rest.inverse()
-		for bone in eye_bones:
+		for eye in eye_bones.size():
+			var bone:=eye_bones[eye]
+			if rig.animation_optimized:
+				var frame: Array=eye_frames[eye]
+				sk.set_bone_pose_rotation(bone,(frame[1]*offset*frame[0]*frame[2]).get_rotation_quaternion())
+				continue
 			var parent:=sk.get_bone_parent(bone)
 			var parent_rest:=sk.get_bone_global_rest(parent).basis.orthonormalized() if parent>=0 else Basis.IDENTITY
 			sk.set_bone_pose_rotation(bone,(parent_rest.inverse()*offset*parent_rest*sk.get_bone_rest(bone).basis.orthonormalized()).get_rotation_quaternion())
@@ -68,6 +113,11 @@ func _process_modification_with_delta(delta: float) -> void:
 	morph_weights=weights
 	apply_morphs()
 func apply_morphs() -> void:
+	var started:=Metrics.begin()
+	if rig.animation_optimized:compose_cached()
+	else:compose_legacy()
+	Metrics.end("morph",started)
+func compose_legacy() -> void:
 	var totals: Dictionary={}
 	var eye_limits: Dictionary={}
 	for i in range(NAMES.size()):
@@ -87,4 +137,7 @@ func apply_morphs() -> void:
 				if not totals.has(bind[0]):totals[bind[0]]={}
 				totals[bind[0]][bind[1]]=float(totals[bind[0]].get(bind[1],0))+rig.mouth.weights[i]*bind[2]
 	for mesh in totals:
-		for shape in totals[mesh]: mesh.set_blend_shape_value(shape,clampf(totals[mesh][shape],0,eye_limits.get(mesh,{}).get(shape,.999)))
+		for shape in totals[mesh]:
+			mesh.set_blend_shape_value(shape,clampf(totals[mesh][shape],0,eye_limits.get(mesh,{}).get(shape,.999)));morph_writes+=1
+	# A/B toggles invalidate the dirty cache.
+	for channel in channels:channel[4]=NAN
