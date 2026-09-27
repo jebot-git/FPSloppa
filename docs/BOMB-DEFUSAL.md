@@ -4,7 +4,7 @@ Select **DE — BOMB DEFUSAL** in Host/Practice or set `sv_gametype "de"` on a
 server. DE forces the existing CS16 arsenal. Choose Dust2, Nuke, Inferno, Aztec
 or Train from the supported BSP29 reconstructions. See [Dust2 notes](../maps/Dust2Rebuilt/README.md)
 and [the four additional maps](../maps/ClassicDE/README.md) for fidelity limits.
-Matching clients and server require **`fpsloppa-45-de-utility`**.
+Matching clients and server require **`fpsloppa-52-defuse-snip`**.
 
 ```cfg
 set sv_gametype "de"
@@ -52,9 +52,14 @@ ammunition; ordinary arena supplies and jetpacks are disabled. Press **Use** nea
 a dropped gun to pick it up. A weapon already in that slot drops on the ground
 with its loaded rounds, including when exchanging two guns of the same model.
 The other slot stays equipped, and walking over a gun does not collect it.
+Both players and bots retain at most one primary and one pistol across purchases,
+pickups and surviving round transitions. Surplus guns inherited from older
+sessions are dropped at the next round start, keeping the equipped gun first.
+Replacement drops share the global 64-gun pool cap.
 If the bomb carrier dies, the bomb drops at the body with its arming progress
 cleared. Another living terrorist can recover it with **Use** or a tracked-hand
-grip in VR, then arm and plant it normally. A recoverable bomb takes priority
+grip in VR. Recovery attaches it to the chest slot without putting it in the hand;
+draw it from the chest to arm and plant it normally. A recoverable bomb takes priority
 over nearby dropped guns, with a **RECOVER BOMB** prompt. Counter-terrorists,
 dead players and spectators cannot collect it; range and wall checks still apply.
 Desktop uses **E** by default; VR uses its bound **Use** button. The AK is T-only; M4 and cutters
@@ -109,26 +114,41 @@ again closes it. Live rounds restore the ordinary weapon-selection wheel.
 Desktop uses **B**, then a mouse click or the shown radial order with **1–9**;
 **B/Esc** closes it. Cash and purchase notices are visible in the wheel/HUD.
 
-The bomb sits prominently on the carrier's chest with its keypad facing outward.
-Grab it there with the primary-hand grip and keep holding that grip. Use the
-offhand fingertip to touch the digit shown on the display four times; a wrong
-digit resets the sequence. Once armed, there are five seconds to press the
+The bomb sits at 40% scale on the carrier's chest, with its keypad facing outward.
+Grab it with the gun-hand grip to stash the gun and draw the full-size bomb,
+offset above and beside the gripping hand so all keys remain accessible.
+Keep holding grip and press the displayed digit four times with the free hand's
+visible index fingertip; a wrong digit resets the sequence. Each key uses its
+actual keycap bounds with a 5 mm fingertip radius. Withdraw the finger before
+pressing again; brushing sideways or squeezing a controller trigger cannot type.
+Once armed, there are five seconds to press the
 **back of the bomb** against a floor, crate, or wall within A or B. The whole
 backing must fit on one solid surface within reach. It attaches with the keypad
-facing outward; there are no stands or fixed planting sockets. Release the grip
-to drop it. The server derives placement and keypad contacts from validated
-tracking and world collision, including left-handed controls.
+facing outward; there are no stands or fixed planting sockets. Releasing grip
+returns the bomb to the chest and restores the gun. **Press Use while holding
+the bomb to drop it explicitly.** Recovery equips the chest slot. The server
+derives placement and keypad contacts from validated tracking and world
+collision, including left-handed controls.
 
 All five DE maps identify A/B using wall and floor markings. No floating letters
-or guide text mark a plant point. The held bomb retains its contextual controls
-and valid-surface outline; these follow the bomb rather than a fixed site point.
+or guide text mark a plant point. The bomb also has no floating instruction text.
+Its physical keypad/display and valid-surface outline remain available.
 
 A CT can touch the displayed eight-digit sequence to defuse. A purchased kit
-provides cutters: grab the waist pouch with the primary grip, put the cutter tip
-on each of the three exposed wire loops, and squeeze the primary trigger once
-per wire. Releasing the grip holsters the tool. Leaving reach, dying, opening a
-menu, losing fresh input or abandoning contact interrupts the attempt. Only one
-player can work on the bomb at a time. The fuse beeps faster as it expires.
+attaches tweezers to the gun-hand side of the chest. Grab them with that hand's
+grip to stash the gun, put the tip on an exposed wire loop, then press the
+trigger to cut. Each wire requires a fresh trigger press while touching it.
+Every fresh squeeze closes and reopens the tweezer jaws with a short mechanical
+snip, including practice squeezes away from a wire. Holding the trigger does not
+repeat it. Accepted cuts and dry snips replicate to other players and demos;
+desktop and bot wire cuts produce the same feedback.
+Releasing grip returns the tweezers to the chest and restores the gun. Leaving
+reach, dying, opening a menu, losing fresh input or abandoning contact interrupts
+the attempt. Only one
+player can work on the bomb at a time. Both chest attachments use the pouch's
+tracked hip heading and follow torso lean toward the head. Both mount points sit
+8 cm lower along that torso frame to keep them away from normal aiming grips; without hip tracking
+they use the existing inferred hip frame. The fuse beeps faster as it expires.
 
 Desktop **E/Use** draws the carried bomb; type displayed digits using **0–9**.
 Use again while armed to mount it on the nearby aimed surface, or on the floor

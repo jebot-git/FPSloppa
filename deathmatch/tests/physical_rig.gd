@@ -95,6 +95,35 @@ func run() -> void:
 	check(ballistics.launch(Vector3(0,2,-4)).is_equal_approx(Vector3(0,4.8,-9.6)) and ballistics.launch(Vector3(100,0,0)).length()<=26.001,"Physical throw has bounded strength boost")
 	var arc: PackedVector3Array=ballistics.arc(game.get_world_3d().direct_space_state,Fixture.point()+Vector3.UP,Vector3(20,3,0),1.2)
 	check(arc.size()>2 and arc[-1].x<Fixture.ORIGIN.x+10,"Throw guide stops at world collision before crossing fixture wall")
+	# Compare the actual rendered arc with the accepted authoritative projectile,
+	# including mirrored controllers and a turned player/aim different from swing.
+	game.match_mode.kind="tf";game.armory.apply_mode();rig.focused=true;bindings.physical_interactions=true
+	for role in ["soldier","demoman","pyro"]:
+		for left in [false,true]:
+			game.players[1].tf_next=role;game._spawn(1);tf.cooldowns[1]=0;tf.physical.next_arm.clear()
+			game.fighters[1].position=Fixture.point();game.local_yaw=.7;game.players[1].yaw=.7
+			rig.left_handed=left;rig.origin_offset=Vector3.ZERO;rig.head.position=Vector3(0,1.65,0)
+			await physics_frame
+			rig.left.position=Vector3(-.3,1.1,-.3);rig.right.position=Vector3(.3,1.1,-.3)
+			bindings.inputs={};rig._process(.02)
+			var free_hand=rig.left_aim if left else rig.right_aim
+			free_hand.basis=Basis(Vector3.UP,-.5)*Basis(Vector3.RIGHT,.25)
+			bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
+			var actions=rig.physical_actions;var stroke:=Vector3(2,1,-3)
+			actions.gesture.velocity=stroke;actions.guide_elapsed=0
+			actions.update_guide(.02,rig.right if left else rig.left)
+			var vertices: PackedVector3Array=actions.guide.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
+			var pose: Dictionary=rig.sample_pose();var aim: Transform3D=rig.global_transform*pose.weapon
+			check(vertices[0].distance_to(aim.origin)<.001 and vertices[1].distance_to(aim.origin-aim.basis.z*1.2)<.001,role+" free-hand aiming line matches mirrored/turned rig "+str(left))
+			actions.send("throw",pose,stroke)
+			check(tf.charges.has(1),role+" accepts guided throw from rig "+str(left))
+			if tf.charges.has(1):
+				var charge: Dictionary=tf.charges[1]
+				var shown_velocity: Vector3=(vertices[3]-vertices[2])*30+Vector3.UP*20.0/30
+				check(vertices[2].distance_to(charge.position)<.001 and shown_velocity.distance_to(charge.velocity)<.007,role+" rendered first arc step matches server origin, aim, speed and gravity "+str(left))
+				check(charge.velocity.normalized().distance_to(-aim.basis.z)<.001 and absf(charge.velocity.length()-stroke.length()*2.4)<.001,role+" free hand controls direction and throwing stroke controls power "+str(left))
+				check(vertices.size()<=2+2*(60 if role=="demoman" else 36),role+" preview retains its own fuse horizon")
+			actions.reset();tf.charges.clear()
 	game.active=false;rig._process(.02)
 	check(not rig.gun.visible,"Inactive player state hides the weapon while the fighter still exists")
 	game.quitting=true;rig._process(.02)

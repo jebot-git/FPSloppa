@@ -29,7 +29,7 @@ for label,source in files.items():
         assert archive.testzip() is None,source
         for name in archive.namelist():
             parts=Path(name).parts
-            assert Path(name).suffix.lower() not in {'.log','.mp4','.bak','.tmp','.keystore','.jks','.p12'},('Unwanted payload',name)
+            assert Path(name).suffix.lower() not in {'.log','.mp4','.bak','.tmp','.blend1','.blend2','.keystore','.jks','.p12'},('Unwanted payload',name)
             assert not RETIRED.intersection(parts),('Retired content',source,name)
             assert not any(part in {'.git','.codex','.agents','test-results','__pycache__'} for part in parts),('Private/build payload',name)
     destination=OUT/f'FPSloppa-{VERSION}-{label}'

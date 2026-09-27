@@ -6,13 +6,11 @@ var rules
 var bomb
 var preview: Node3D
 var tools: Dictionary={}
-var hint: Label3D
 var beep: AudioStreamPlayer3D
 var next_beep:=0.0
 func setup(value):
 	rules=value;name="DefusalObjectives"
 	bomb=Model.new();add_child(bomb)
-	hint=Model.label("",Vector3.ZERO,.0012,28,Color("efdbb5"));hint.billboard=BaseMaterial3D.BILLBOARD_ENABLED;add_child(hint)
 	# Site callouts are painted into every DE map. Do not add floating labels or
 	# fixed plant-point markers: the bomb can mount anywhere in the site's bounds.
 	preview=Node3D.new();add_child(preview);preview.hide()
@@ -24,6 +22,10 @@ func setup(value):
 	var data:=PackedByteArray();data.resize(2206)
 	for i in 1103:data.encode_s16(i*2,roundi(sin(i*TAU*1100/22050.0)*6000*(1.0-i/1103.0)))
 	stream.data=data;beep.stream=stream;add_child(beep)
+func tool_for(id: int) -> Node3D:
+	if not tools.has(id):tools[id]=Model.cutters();tools[id].hide();add_child(tools[id])
+	return tools[id]
+func snip(id: int):tool_for(id).snip()
 func update():
 	var game=rules.game;var mine: int=game.multiplayer.get_unique_id()
 	bomb.visible=rules.phase in ["prepare","live","post"]
@@ -35,6 +37,12 @@ func update():
 	if rules.planted:text="%d [%d/8]  %02d"%[rules.defuse_code[mini(rules.defuse_index,7)],rules.defuse_index,ceili(maxf(0,rules.fuse_end-game.clock))]
 	if rules.phase=="post":text=rules.message
 	bomb.update_display(text,armed or rules.planted,rules.cut_mask)
+	bomb.highlight(-1)
+	if game.is_vr() and (rules.carrier==mine and rules.held or rules.planted and rules.role(mine)==1):
+		var pose: Dictionary=game.xr_rig.sample_pose()
+		if pose.has("index_tip"):
+			var at: Vector3=bomb.global_transform.affine_inverse()*(game.xr_rig.global_transform*Contact.fingertip(pose))
+			bomb.highlight(Contact.key_at(at))
 	preview.hide()
 	if armed and rules.carrier==mine and rules.held and rules.phase=="live":
 		var candidate: Dictionary=rules.placement(mine)
@@ -42,22 +50,14 @@ func update():
 	if rules.planted and rules.phase=="live" and game.clock>=next_beep:
 		beep.global_position=rules.bomb_position;beep.play();next_beep=game.clock+clampf((rules.fuse_end-game.clock)/40.0,.15,1.0)
 	if not rules.planted:next_beep=0
-	hint.visible=rules.phase=="live" and game.players.has(mine) and not game.players[mine].dead and not game.menu_open
-	if hint.visible:
-		if rules.carrier==mine and not rules.held and game.is_vr():
-			hint.global_position=game.xr_rig.global_transform*Contact.carried(game.xr_rig.sample_pose()).origin+Vector3.UP*.23;hint.text="GRAB CHEST BOMB"
-		else:
-			hint.global_position=bomb.global_position+Vector3.UP*.30
-			hint.visible=rules.reachable(mine,bomb.global_position,2.5)
-			hint.text=("USE · CUTTERS / J K L" if rules.account(mine).kit else "USE · THEN TYPE SHOWN DIGIT") if rules.planted and not game.is_vr() else "TOUCH THE SHOWN KEY" if rules.held or rules.planted else "BOMB CARRIER" if rules.carrier!=0 else "USE · TAKE BOMB"
 	for id in tools.keys():
 		if not game.players.has(id):tools[id].queue_free();tools.erase(id)
 	for id in game.players:
-		if not rules.account(id).tool:
+		if not rules.account(id).kit:
 			if tools.has(id):tools[id].hide()
 			continue
-		if not tools.has(id):tools[id]=Model.cutters();add_child(tools[id])
-		var node: Node3D=tools[id];node.visible=rules.alive(id) and rules.phase=="live"
+		var node:=tool_for(id);node.visible=rules.alive(id) and rules.phase in ["prepare","live"]
 		var pose: Dictionary=game.players[id].xr
-		node.global_transform=rules.base_pose(id)*pose.get("weapon",Transform3D(Basis.IDENTITY,Vector3(.15,1.0,-.4)))
-		if id==mine and game.is_vr():node.global_transform=game.xr_rig.global_transform*game.xr_rig.sample_pose().get("weapon",Transform3D.IDENTITY)
+		var frame: Transform3D=rules.base_pose(id)
+		if id==mine and game.is_vr():pose=game.xr_rig.sample_pose();frame=game.xr_rig.global_transform
+		node.global_transform=frame*(pose.get("weapon",Transform3D(Basis.IDENTITY,Vector3(.15,1.0,-.4))) if rules.account(id).tool else Contact.tool_carried(pose))

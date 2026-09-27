@@ -19,10 +19,11 @@ func prepare(w: int,left: bool=false):
 	s.merge({"weapon":w,"owned":range(12),"ammo":[240,64,300,40],"hp":100,"dead":false,"spectator":false,"invulnerable":0,"cooldown":0.0,"fire":false,"held":false,"alt_fire":false,"reload":false,"reload_grip":false,"input_blocked":false,"last_input":g.clock,"vr_device":true},true)
 	pose=Poses.neutral();pose.left_handed=left;pose.weapon=Transform3D(Basis.IDENTITY,Vector3(-.3 if left else .3,1.1,-.3));pose["left" if left else "right"]=pose.weapon
 	step(Reload.pouch(pose).origin,false)
-func step(hand: Vector3,grip: bool=false,eject: bool=false,dt: float=.06,blocked: bool=false,basis: Basis=Basis.IDENTITY):
+func step(hand: Vector3,grip: bool=false,eject: bool=false,dt: float=.06,blocked: bool=false,basis: Variant=null):
 	g.clock+=dt;seq+=1;var s: Dictionary=g.players[1]
 	s.cooldown=maxf(0,s.cooldown-dt);s.held=false
-	pose["right" if pose.left_handed else "left"]=Transform3D(basis,hand);pose.offhand_weapon=pose["right" if pose.left_handed else "left"]
+	var hand_basis: Basis=basis if basis is Basis else pose.weapon.basis*Models.ammo_basis(s.weapon).inverse() if cs.physical(1).carry in [1,Reload.REMOVED_MAG] else Basis.IDENTITY
+	pose["right" if pose.left_handed else "left"]=Transform3D(hand_basis,hand);pose.offhand_weapon=pose["right" if pose.left_handed else "left"]
 	g._accept_input(1,{"seq":seq,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":s.weapon,"slow":false,"respawn":false,"reload":eject,"reload_grip":grip,"input_blocked":blocked,"xr":pose})
 	cs.tick_input(1,dt)
 func point(local: Vector3) -> Vector3:return Reload.model_pose(pose,g.players[1].weapon)*local
@@ -35,6 +36,10 @@ func magazine():
 func cycle():
 	var w: int=g.players[1].weapon;var local: Vector3=Reload.RACK_POINTS[w]
 	step(point(local));step(point(local),true)
+	if w==9:
+		var raised: Vector3=Reload.BOLT_PIVOT+Basis(Vector3.BACK,PI/3)*(local-Reload.BOLT_PIVOT)
+		step(point(raised),true,false,.12);step(point(raised+Vector3.BACK*.10),true,false,.12)
+		step(point(raised),true,false,.12);step(point(local),true,false,.12);step(point(local));return
 	var stroke:=.105 if w==3 else .10 if w==9 else .065
 	step(point(local+Vector3.BACK*stroke),true,false,.12)
 	if Reload.manual_cycle(w):step(point(local),true,false,.12)
@@ -53,7 +58,7 @@ func run():
 		prepare(w,w%2==0);var before: Array=g.players[1].ammo.duplicate();var cap: int=g.armory.data(w).magazine
 		step(Reload.pouch(pose).origin,true)
 		check(cs.physical(1).carry==0,Models.NAMES[w]+" cannot draw a second magazine while one is seated")
-		step(Reload.pouch(pose).origin,false,true)
+		cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true)
 		check(not cs.physical(1).mag and cs.state(1).clips[w]==0 and not cs.shoot(1),Models.NAMES[w]+" ejection removes the magazine and blocks firing")
 		check(not cs.begin_reload(1),Models.NAMES[w]+" VR cannot invoke the timed desktop reload")
 		step(Reload.pouch(pose).origin,false,false,5)
@@ -93,51 +98,54 @@ func run():
 	step(point(Reload.cover_point(1)),false,true)
 	check(not cs.physical(1).mag,"M249 box ejects with its feed cover open")
 	magazine();check(cs.state(1).clips[8]==100 and cs.physical(1).cover>.9,"New ammo box seats through the open feed tray")
+	step(point(Reload.BELT_PICKUP));step(point(Reload.BELT_PICKUP),true)
+	step(point(Reload.BELT_TRAY),true,false,.2);step(point(Reload.BELT_TRAY))
+	check(cs.physical(1).belt,"M249 belt is laid on the feed tray before closing")
 	cycle();check(not cs.physical(1).ready,"M249 cannot chamber with its cover open")
 	cover(0);check(cs.physical(1).cover<.05 and not cs.shoot(1),"Closing feed cover still requires charging handle")
 	cycle();check(g.players[1].ammo==total and cs.shoot(1),"Closed and charged M249 fires without duplicated ammo")
-	prepare(6);step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
+	prepare(6);cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
 	step(point(Reload.MAG_POINTS[6]),true,false,.20,true)
 	check(not cs.physical(1).mag and cs.physical(1).carry==0,"Opening a menu cancels a carried magazine without inserting it")
 	g.players[1].weapon=7;cs.state(1);g.players[1].weapon=6
 	check(not cs.physical(1).mag and cs.state(1).clips[6]==0,"Holstering cannot restore an ejected magazine")
-	prepare(7);step(Reload.pouch(pose).origin,false,true);g.players[1].ammo[2]=0;step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
+	prepare(7);cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);g.players[1].ammo[2]=0;step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
 	check(cs.physical(1).carry==0,"Empty reserve cannot produce a magazine")
-	prepare(7);step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
-	step(point(Reload.MAG_POINTS[7]),true,false,.2,false,Basis(Vector3.RIGHT,PI))
+	prepare(7);cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
+	step(point(Reload.MAG_POINTS[7]),true,false,.2,false,Basis(Vector3.RIGHT,PI)*Models.ammo_basis(7).inverse())
 	check(cs.state(1).clips[7]==0 and cs.physical(1).carry==1,"An upside-down magazine cannot seat")
 	step(point(Reload.MAG_POINTS[7]))
 	check(cs.state(1).clips[7]==0 and cs.physical(1).carry==0,"Letting go of an unseated magazine cannot grant ammunition")
 	step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true);g.clock+=.4;cs.tick_input(1,.4)
 	check(cs.physical(1).carry==0 and cs.state(1).clips[7]==0,"Stale network input cancels an unfinished reload")
-	prepare(2);step(Reload.pouch(pose).origin,false,true);magazine()
+	prepare(2);cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);magazine()
 	step(point(Reload.RACK_POINTS[2]),true);step(point(Reload.RACK_POINTS[2]+Vector3.BACK*.03),true,false,.12);step(point(Reload.RACK_POINTS[2]+Vector3.BACK*.03))
 	check(not cs.physical(1).ready,"Short slide tug cannot chamber a round")
 	prepare(2);cs.state(1).clips[2]=1;cs.shoot(1)
 	check(cs.physical(1).locked,"Last pistol shot locks the slide")
-	step(Reload.pouch(pose).origin,false,true);magazine()
+	cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);magazine()
 	check(cs.physical(1).locked and not cs.physical(1).ready,"Fresh magazine does not release an empty pistol's slide")
 	cycle();check(not cs.physical(1).locked and cs.physical(1).ready,"Offhand racking releases the slide and chambers")
-	prepare(6);step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
+	prepare(6);cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
 	pose.erase("offhand_weapon");g.players[1].xr=Poses.validate(pose);cs.tick_input(1,.02)
 	check(cs.physical(1).carry==0 and not cs.physical(1).mag,"Offhand tracking loss cancels carried ammo")
 	step(point(Reload.MAG_POINTS[6]),true,false,.2)
 	check(cs.state(1).clips[6]==0,"Tracking recovery with grip held cannot insert stale ammo")
-	prepare(2);step(Reload.pouch(pose).origin,false,true);magazine()
+	prepare(2);cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);magazine()
 	step(point(Reload.RACK_POINTS[2]),true);step(point(Reload.RACK_POINTS[2]+Vector3.BACK*.065),true,false,.01);step(point(Reload.RACK_POINTS[2]),false,false,.01)
 	check(not cs.physical(1).ready,"Instantaneous controller jump cannot complete a rack")
 	step(point(Reload.RACK_POINTS[2]));step(point(Reload.RACK_POINTS[2]),true)
 	g.players[1].xr={};cs.tick_input(1,.02)
 	check(cs.physical(1).grab.is_empty() and not cs.physical(1).ready,"Invalid tracking cancels an unfinished rack")
-	prepare(7);step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
+	prepare(7);cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);step(Reload.pouch(pose).origin);step(Reload.pouch(pose).origin,true)
 	pose.left_handed=true;step(point(Reload.MAG_POINTS[7]),true,false,.2)
 	check(cs.physical(1).carry==0 and cs.state(1).clips[7]==0,"Changing gun hand cannot complete an in-flight insertion")
 	prepare(6);pose.head.origin.y=1.05;pose.head.basis=Basis(Vector3.UP,.7)
 	pose.weapon=Transform3D(Basis.from_euler(Vector3(.3,.5,.1)),Vector3(.25,.85,-.3));pose.right=pose.weapon
-	step(Reload.pouch(pose).origin,false,true);magazine();cycle()
+	cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true);magazine();cycle()
 	check(cs.physical(1).ready,"Seated-height pouch and tilted weapon retain working interaction coordinates")
 	cycle();var snapshot: Dictionary=cs.snapshot();cs.receive(snapshot)
-	check(cs.view[1].size()==9 and cs.view[1][5]&Reload.CHAMBERED,"Physical state survives snapshot validation")
+	check(cs.view[1].size()==Reload.ROW_SIZE and cs.view[1][5]&Reload.CHAMBERED,"Physical state survives snapshot validation")
 	var bad: Array=snapshot[1].duplicate();bad[6]=101;cs.receive({1:bad});check(cs.view.is_empty(),"Out-of-range action progress is rejected")
 	g.players[1].serial+=1;check(cs.physical(1).mag and cs.physical(1).ready,"New life starts with a seated and chambered spawn weapon")
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}

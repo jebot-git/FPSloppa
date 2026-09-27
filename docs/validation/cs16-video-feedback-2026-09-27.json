@@ -1,0 +1,152 @@
+{
+  "date_utc": "2026-09-27T08:16:17.330313+00:00",
+  "protocol": "fpsloppa-48-cs-vr-actions",
+  "source_video": {
+    "path": "/home/blux/Downloads/cst.mp4",
+    "duration_seconds": 581.68,
+    "review": "Contact sheet plus focused AWP, magazine and M249 sequences; physical reach/comfort still requires user testing."
+  },
+  "changes": [
+    "Tactical magazine changes retain the chambered round; empty chambers still need charging.",
+    "AWP close/lock accepts natural diagonal travel and the release sample.",
+    "M249 belt leader latches upon entering the feed tray.",
+    "Pistol slide release accepts a single brisk movement to either side.",
+    "Held ammunition feed axis corrected toward the thumb.",
+    "CS rendered recoil moves gun and primary palm; offhand snaps to fore-end and stays until grip release.",
+    "Ground bomb recovery attaches to chest; floating bomb instructions removed.",
+    "DE throw guide uses free-hand direction and throwing-hand power; gun support does not trigger grenade arming."
+  ],
+  "reference": "raifslop integration/golf-fishing reel visual-pose override and analog grip hysteresis studied; input tracking remains separate from prop attachment.",
+  "tests": [
+    {
+      "name": "physical_reload",
+      "checks": 110,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/reload.log"
+    },
+    {
+      "name": "video_feedback",
+      "checks": 86,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/feedback.log"
+    },
+    {
+      "name": "weapon_actions",
+      "checks": 161,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/actions.log"
+    },
+    {
+      "name": "bomb_recovery",
+      "checks": 30,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/bomb.log"
+    },
+    {
+      "name": "rendered_reload_ui",
+      "checks": 37,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/reload-ui.log"
+    },
+    {
+      "name": "rendered_avatar_snap",
+      "checks": 101,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/local-body.log"
+    },
+    {
+      "name": "rendered_grenade_controls",
+      "checks": 29,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/grenade-vr.log"
+    },
+    {
+      "name": "all_de_objectives",
+      "checks": 73,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/maps.log"
+    },
+    {
+      "name": "cs_combat",
+      "checks": 70,
+      "passed": true,
+      "log": "test-results/cs16/video-feedback/combat.log"
+    },
+    {
+      "name": "cs_enet",
+      "checks": 93,
+      "passed": true,
+      "logs": [
+        "test-results/cs16/network-server.log",
+        "test-results/cs16/network-client.log"
+      ]
+    },
+    {
+      "name": "bomb_enet",
+      "checks": 19,
+      "passed": true,
+      "logs": [
+        "test-results/defusal/bomb-recovery-network-server.log",
+        "test-results/defusal/bomb-recovery-network-carrier.log",
+        "test-results/defusal/bomb-recovery-network-rescuer.log",
+        "test-results/defusal/bomb-recovery-network-defender.log"
+      ]
+    }
+  ],
+  "assertions": 809,
+  "console_server": {
+    "passed": true,
+    "log": "test-results/cs16/video-feedback/server-audit.log",
+    "artifact": "test-results/cs16/video-feedback/server"
+  },
+  "live_test": {
+    "pid": 976515,
+    "started_utc": "2026-09-27T08:14:58.412139+00:00",
+    "map": "de_dust2_rebuilt",
+    "bots": 0,
+    "runtime": {
+      "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+      "OpenXRVendorID": 0,
+      "XRRuntimeName": "WiVRn 'v26.9'",
+      "XRRuntimeVersion": "26.9.0"
+    },
+    "controllers_tracked": [
+      true,
+      true
+    ],
+    "focused": true,
+    "input_blocked": false,
+    "bomb": {
+      "carrier": 1,
+      "code": [
+        1,
+        9,
+        3,
+        1
+      ],
+      "held": false,
+      "phase": "live",
+      "planted": false
+    },
+    "grenades": [
+      1,
+      2,
+      1
+    ],
+    "foveation": {
+      "attached": true,
+      "centers": "[(0.229678, 0.102303), (-0.261331, 0.102303)]",
+      "size": 1,
+      "updates": 2442,
+      "valid": true
+    },
+    "all_cs_weapons": true,
+    "reserves_replenished": true,
+    "desktop_foveation_mask": "Test-only script, excluded from release."
+  },
+  "limitations": [
+    "Automated checks establish state transitions and visual attachment; headset comfort and reach remain for this live user test.",
+    "Native test shutdown has pre-existing ObjectDB/resource warnings. Live startup has existing third-party material UID fallback warnings; no script/runtime errors observed.",
+    "No public server deployment or release in this update."
+  ]
+}

@@ -7,6 +7,12 @@ static func launch(hand_velocity: Vector3) -> Vector3:
 	# Preserve gentle drops; a modest arm stroke can reach across a room.
 	var gain:=lerpf(1.0,2.4,clampf((bounded.length()-.65)/1.35,0,1))
 	return (bounded*gain).limit_length(MAX_SPEED)
+static func guided(pose: Dictionary,hand_velocity: Vector3) -> Vector3:
+	var velocity:=launch(hand_velocity)
+	if velocity.length()<.8 or not pose.has("weapon"):return velocity
+	# DE/TF assistance: free-hand aim supplies direction, throwing motion supplies
+	# power. Preview and authority share this function; gentle drops stay physical.
+	return -pose.weapon.basis.z.normalized()*velocity.length()
 static func arc(space: PhysicsDirectSpaceState3D,start: Vector3,velocity: Vector3,duration: float,gravity: float=GRAVITY) -> PackedVector3Array:
 	var result:=PackedVector3Array([start])
 	# Reuse one sweep query across the preview; only its transform/motion change.

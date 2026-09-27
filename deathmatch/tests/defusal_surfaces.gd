@@ -54,7 +54,7 @@ func run():
 	for left in [false,true]:
 		pose=Poses.neutral();pose.left_handed=left
 		var carried:=Contact.carried(pose)
-		check(carried.origin.z<-.2 and carried.origin.y>1.1 and carried.basis.z.dot(Vector3.FORWARD)>.99,"Chest bomb is centered, forward and outward for "+("left" if left else "right")+" handed carrier")
+		check(carried.origin.z<-.1 and carried.origin.y>1.1 and carried.basis.z.normalized().dot(Vector3.FORWARD)>.99 and is_equal_approx(carried.basis.get_scale().x,Contact.CARRIED_SCALE),"Chest bomb is centered, forward and outward for "+("left" if left else "right")+" handed carrier")
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/defusal/surfaces.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "))
 	print("DEFUSAL_SURFACE_RESULT ",JSON.stringify(result));g.disconnect_game();g.free();quit(0 if failures.is_empty() else 1)

@@ -1,0 +1,952 @@
+{
+  "version": "0.18v",
+  "date": "2026-09-27",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "protocol": "fpsloppa-53-retained-magazine",
+  "quest_version_code": 23,
+  "focused_tests": [
+    {
+      "test": "mipmaps",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.22,
+      "checks": 12,
+      "errors": [],
+      "log": "test-results/release-0.18v/mipmaps.log"
+    },
+    {
+      "test": "filter_variants",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.26,
+      "checks": 12,
+      "errors": [],
+      "log": "test-results/release-0.18v/filter_variants.log"
+    },
+    {
+      "test": "map_colour_mips",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.21,
+      "checks": 0,
+      "errors": [],
+      "log": "test-results/release-0.18v/map_colour_mips.log"
+    },
+    {
+      "test": "client_preferences",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.26,
+      "checks": 13,
+      "errors": [],
+      "log": "test-results/release-0.18v/client_preferences.log"
+    },
+    {
+      "test": "map_presentation",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.36,
+      "checks": 121,
+      "errors": [],
+      "log": "test-results/release-0.18v/map_presentation.log"
+    },
+    {
+      "test": "native_springs",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.52,
+      "checks": 60,
+      "errors": [],
+      "log": "test-results/release-0.18v/native_springs.log"
+    },
+    {
+      "test": "hip_reload",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.17,
+      "checks": 73,
+      "errors": [],
+      "log": "test-results/release-0.18v/hip_reload.log"
+    },
+    {
+      "test": "cs16",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 70,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16.log"
+    },
+    {
+      "test": "cs16_sights",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.57,
+      "checks": 69,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_sights.log"
+    },
+    {
+      "test": "cs16_vr_reload",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.97,
+      "checks": 110,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_vr_reload.log"
+    },
+    {
+      "test": "cs16_actions",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.97,
+      "checks": 161,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_actions.log"
+    },
+    {
+      "test": "cs16_feedback",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.97,
+      "checks": 103,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_feedback.log"
+    },
+    {
+      "test": "cs16_accuracy",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.97,
+      "checks": 282,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_accuracy.log"
+    },
+    {
+      "test": "cs16_mag_pull",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 202,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_mag_pull.log"
+    },
+    {
+      "test": "defusal_chest",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 74,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_chest.log"
+    },
+    {
+      "test": "defusal_snip",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 18,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_snip.log"
+    },
+    {
+      "test": "grenade_notice",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 22,
+      "errors": [],
+      "log": "test-results/release-0.18v/grenade_notice.log"
+    },
+    {
+      "test": "bullet_marks",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 100.01,
+      "checks": 17,
+      "errors": [],
+      "log": "test-results/release-0.18v/bullet_marks-native.log",
+      "initial_attempt": {
+        "renderer": "headless",
+        "exit": 124,
+        "note": "Requires RenderingServer frame_post_draw and a native renderer."
+      }
+    },
+    {
+      "test": "foveation",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.26,
+      "checks": 143,
+      "errors": [],
+      "log": "test-results/release-0.18v/foveation.log"
+    },
+    {
+      "test": "weapon_wheel",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.52,
+      "checks": 104,
+      "errors": [],
+      "log": "test-results/release-0.18v/weapon_wheel.log"
+    },
+    {
+      "test": "dropped_weapons",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 51,
+      "errors": [],
+      "log": "test-results/release-0.18v/dropped_weapons.log"
+    },
+    {
+      "test": "defusal",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.97,
+      "checks": 100,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal.log"
+    },
+    {
+      "test": "defusal_distribution",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 104,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_distribution.log"
+    },
+    {
+      "test": "defusal_maps",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 5.37,
+      "checks": 73,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_maps.log"
+    },
+    {
+      "test": "defusal_surfaces",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 18,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_surfaces.log"
+    },
+    {
+      "test": "defusal_bomb_recovery",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.07,
+      "checks": 30,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_bomb_recovery.log"
+    },
+    {
+      "test": "defusal_bot_behavior",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 8.38,
+      "checks": 27,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_bot_behavior.log"
+    },
+    {
+      "test": "defusal_pickups",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.07,
+      "checks": 39,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_pickups.log"
+    },
+    {
+      "test": "defusal_observer",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.82,
+      "checks": 92,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_observer.log"
+    },
+    {
+      "test": "defusal_vr",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.07,
+      "checks": 42,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_vr.log"
+    },
+    {
+      "test": "defusal_grenades",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.97,
+      "checks": 45,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_grenades.log"
+    },
+    {
+      "test": "defusal_grenade_vr",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.52,
+      "checks": 35,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_grenade_vr.log"
+    },
+    {
+      "test": "network_delivery",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.16,
+      "checks": 23,
+      "errors": [],
+      "log": "test-results/release-0.18v/network_delivery.log"
+    },
+    {
+      "test": "jetpack_physics",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.36,
+      "checks": 42,
+      "errors": [],
+      "log": "test-results/release-0.18v/jetpack-confirm.log",
+      "initial_attempt": {
+        "exit": 1,
+        "errors": [
+          "FAIL Curved boost rises and travels under 50 m at 30 Hz"
+        ],
+        "note": "Parallel run measured half-distance at 30 Hz; isolated rerun passed all rates. Timing-sensitive test, no gameplay changes."
+      }
+    },
+    {
+      "test": "jetpack_pickups",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 95,
+      "errors": [],
+      "log": "test-results/release-0.18v/jetpack_pickups.log"
+    },
+    {
+      "test": "lobby_transition",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.97,
+      "checks": 13,
+      "errors": [],
+      "log": "test-results/release-0.18v/lobby_transition.log"
+    },
+    {
+      "test": "mode_weapon_policy",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.22,
+      "checks": 39,
+      "errors": [],
+      "log": "test-results/release-0.18v/mode_weapon_policy.log"
+    },
+    {
+      "test": "music",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.87,
+      "checks": 58,
+      "errors": [],
+      "log": "test-results/release-0.18v/music.log"
+    },
+    {
+      "test": "export_resources",
+      "renderer": "headless",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.92,
+      "checks": 0,
+      "errors": [],
+      "log": "test-results/release-0.18v/export_resources.log"
+    },
+    {
+      "test": "cs16_art",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.57,
+      "checks": 227,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_art-native.log"
+    },
+    {
+      "test": "cs16_reload_ui",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 7.38,
+      "checks": 84,
+      "errors": [],
+      "log": "test-results/release-0.18v/cs16_reload_ui-native.log"
+    },
+    {
+      "test": "vr_interactions",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.37,
+      "checks": 68,
+      "errors": [],
+      "log": "test-results/release-0.18v/vr_interactions-native.log"
+    },
+    {
+      "test": "physical_rig",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 4.67,
+      "checks": 67,
+      "errors": [],
+      "log": "test-results/release-0.18v/physical_rig-native.log"
+    },
+    {
+      "test": "vr_hand_mask",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.72,
+      "checks": 30,
+      "errors": [],
+      "log": "test-results/release-0.18v/vr_hand_mask-native.log"
+    },
+    {
+      "test": "vr_context_controls",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.52,
+      "checks": 34,
+      "errors": [],
+      "log": "test-results/release-0.18v/vr_context_controls-native.log"
+    },
+    {
+      "test": "defusal_hand_contact",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 11.09,
+      "checks": 61,
+      "errors": [],
+      "log": "test-results/release-0.18v/defusal_hand_contact-native.log"
+    },
+    {
+      "test": "local_body",
+      "renderer": "OpenGL",
+      "exit": 0,
+      "passed": true,
+      "seconds": 7.08,
+      "checks": 101,
+      "errors": [],
+      "log": "test-results/release-0.18v/local_body-native.log"
+    }
+  ],
+  "focused_checks_passed": 3264,
+  "network_suites": [
+    {
+      "suite": "tools/cs16/run_network.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 22.66,
+      "log": "test-results/release-0.18v/run_network.log"
+    },
+    {
+      "suite": "tools/run_defusal_network.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 16.45,
+      "log": "test-results/release-0.18v/run_defusal_network.log"
+    },
+    {
+      "suite": "tools/run_defusal_bomb_recovery.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 7.93,
+      "log": "test-results/release-0.18v/run_defusal_bomb_recovery.log"
+    },
+    {
+      "suite": "tools/run_defusal_grenades.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 12.79,
+      "log": "test-results/release-0.18v/run_defusal_grenades.log"
+    },
+    {
+      "suite": "tools/run_defusal_grenades.py --tracked",
+      "exit": 0,
+      "passed": true,
+      "seconds": 12.79,
+      "log": "test-results/release-0.18v/run_defusal_grenades-tracked.log"
+    },
+    {
+      "suite": "tools/run_defusal_voice.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 12.69,
+      "log": "test-results/release-0.18v/run_defusal_voice.log"
+    },
+    {
+      "suite": "tools/run_jetpack_network.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 10.18,
+      "log": "test-results/release-0.18v/run_jetpack_network.log"
+    },
+    {
+      "suite": "deathmatch/tests/run_physical_network_tests.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 6.03,
+      "log": "test-results/release-0.18v/run_physical_network_tests.log"
+    },
+    {
+      "suite": "deathmatch/tests/run_dropped_weapon_tests.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 5.78,
+      "log": "test-results/release-0.18v/run_dropped_weapon_tests.log"
+    }
+  ],
+  "packaged_server_suites": [
+    {
+      "suite": "deathmatch/tests/run_server_bots_tests.py",
+      "exit": 0,
+      "passed": true,
+      "seconds": 52.06,
+      "log": "test-results/release-0.18v/run_server_bots_tests.log"
+    },
+    {
+      "suite": "deathmatch/tests/run_server_browser_tests.py --server /home/blux/Documents/FPSloppa/Builds/ConsoleServer/FPSloppaServer.x86_64",
+      "exit": 0,
+      "passed": true,
+      "seconds": 7.13,
+      "log": "test-results/release-0.18v/run_server_browser_tests.log"
+    },
+    {
+      "suite": "deathmatch/tests/run_test_master_tests.py --server /home/blux/Documents/FPSloppa/Builds/ConsoleServer/FPSloppaServer.x86_64",
+      "exit": 0,
+      "passed": true,
+      "seconds": 14.39,
+      "log": "test-results/release-0.18v/run_test_master_tests.log"
+    }
+  ],
+  "console_server": {
+    "passed": true,
+    "maps": 32
+  },
+  "master_unit_tests": 18,
+  "binary_smoke": {
+    "client_exit": 0,
+    "renderer": "Vulkan Mobile",
+    "map": "de_dust2_rebuilt",
+    "mode": "de",
+    "protocol": "fpsloppa-53-retained-magazine",
+    "weapon_rules": "cs16",
+    "bots": 12,
+    "spectators": 1,
+    "source_asset_override": false,
+    "errors": [],
+    "passed": true
+  },
+  "map_cache_checks": {
+    "count": 96,
+    "failures": []
+  },
+  "mipmaps": {
+    "totals": {
+      "avatar": {
+        "assets": 10,
+        "data_samplers": 0,
+        "mipmapped": 112,
+        "one_pixel": 0,
+        "textures": 112
+      },
+      "import": {
+        "assets": 87,
+        "data_samplers": 0,
+        "mipmapped": 87,
+        "one_pixel": 0,
+        "textures": 87
+      },
+      "map": {
+        "assets": 36,
+        "data_samplers": 655,
+        "mipmapped": 705,
+        "one_pixel": 0,
+        "textures": 705
+      },
+      "model": {
+        "assets": 74,
+        "data_samplers": 0,
+        "mipmapped": 94,
+        "one_pixel": 0,
+        "textures": 94
+      }
+    },
+    "failures": []
+  },
+  "cleanup": {
+    "authoring_backups_archived": [
+      {
+        "path": "tools/defusal/defusal_props.blend1",
+        "bytes": 3300786,
+        "sha256": "ec0148313cb0590866cb475bb95aeba1f0965b8be4f9c0c790e0fab57d9ec5c8",
+        "retained_in": "test-results/release-0.18v/authoring-backups.zip"
+      },
+      {
+        "path": "tools/cs16/refined/cs16_arsenal.blend1",
+        "bytes": 3181123,
+        "sha256": "1b7e1ad230fb19969265ca9548c9094243f0c858203a3f982b97f1a537426f8f",
+        "retained_in": "test-results/release-0.18v/authoring-backups.zip"
+      },
+      {
+        "path": "tools/weapon_sources/refined/weapon_fittings.blend1",
+        "bytes": 407458,
+        "sha256": "4407f8878463cbb0d7d8a65d78e7da2a7b4287ff77b85081706ba6941b879d1d",
+        "retained_in": "test-results/release-0.18v/authoring-backups.zip"
+      }
+    ],
+    "removed_generated_caches": [
+      {
+        "path": ".godot/exported",
+        "bytes": 469074
+      },
+      {
+        "path": "android/build/build",
+        "bytes": 3430145149
+      },
+      {
+        "path": "tools/__pycache__",
+        "bytes": 509976
+      },
+      {
+        "path": "tools/fortressone/__pycache__",
+        "bytes": 7775
+      },
+      {
+        "path": "tools/hispeed_concept/__pycache__",
+        "bytes": 37756
+      },
+      {
+        "path": "tools/quake_source/__pycache__",
+        "bytes": 24186
+      },
+      {
+        "path": "tools/texture_replacements/__pycache__",
+        "bytes": 21297
+      },
+      {
+        "path": "tools/frigate_concept/__pycache__",
+        "bytes": 38403
+      },
+      {
+        "path": "tools/assault_layout_tests/__pycache__",
+        "bytes": 37299
+      },
+      {
+        "path": "tools/makkon/__pycache__",
+        "bytes": 25241
+      },
+      {
+        "path": "tools/community_maps/__pycache__",
+        "bytes": 21233
+      },
+      {
+        "path": "tools/ut_to_vrm/__pycache__",
+        "bytes": 36707
+      },
+      {
+        "path": "tools/pressureworks/__pycache__",
+        "bytes": 46439
+      },
+      {
+        "path": "tools/vesper/__pycache__",
+        "bytes": 42563
+      },
+      {
+        "path": "tools/koth/__pycache__",
+        "bytes": 77026
+      },
+      {
+        "path": "tools/threewave_rebuild/__pycache__",
+        "bytes": 41840
+      },
+      {
+        "path": "tools/lighting_experiment/__pycache__",
+        "bytes": 147704
+      },
+      {
+        "path": "tools/cc/__pycache__",
+        "bytes": 24843
+      },
+      {
+        "path": "tools/optional_maps/__pycache__",
+        "bytes": 19430
+      },
+      {
+        "path": "tools/remote_match/__pycache__",
+        "bytes": 30086
+      },
+      {
+        "path": "tools/ai_study/__pycache__",
+        "bytes": 26125
+      },
+      {
+        "path": "tools/network_study/__pycache__",
+        "bytes": 32596
+      },
+      {
+        "path": "tools/ai_balance/__pycache__",
+        "bytes": 53329
+      },
+      {
+        "path": "tools/ai_fixes/__pycache__",
+        "bytes": 35267
+      },
+      {
+        "path": "tools/skyboxes/__pycache__",
+        "bytes": 19151
+      },
+      {
+        "path": "tools/effect_lighting/__pycache__",
+        "bytes": 6191
+      },
+      {
+        "path": "tools/ba2/__pycache__",
+        "bytes": 61693
+      },
+      {
+        "path": "tools/titanball/__pycache__",
+        "bytes": 54167
+      },
+      {
+        "path": "tools/master_server/__pycache__",
+        "bytes": 79226
+      },
+      {
+        "path": "tools/dust2_rebuild/__pycache__",
+        "bytes": 41724
+      },
+      {
+        "path": "tools/cs16/__pycache__",
+        "bytes": 61894
+      },
+      {
+        "path": "tools/defusal/__pycache__",
+        "bytes": 45810
+      },
+      {
+        "path": "tools/classic_de/__pycache__",
+        "bytes": 48913
+      },
+      {
+        "path": "tools/de_texturing/__pycache__",
+        "bytes": 23073
+      },
+      {
+        "path": "tools/titanball/simulation/__pycache__",
+        "bytes": 120342
+      },
+      {
+        "path": "tools/titanball/cindercoil/__pycache__",
+        "bytes": 49867
+      },
+      {
+        "path": "tools/ba2/gameplay/__pycache__",
+        "bytes": 1438
+      },
+      {
+        "path": "tools/lighting_experiment/candidates789/__pycache__",
+        "bytes": 39366
+      },
+      {
+        "path": "tools/lighting_experiment/candidates1011/__pycache__",
+        "bytes": 9023
+      }
+    ],
+    "removed_cache_bytes": 3432613222,
+    "runtime_compressed_resources": [
+      {
+        "path": "deathmatch/weapons/cs16/knife.scn",
+        "bytes": 14074
+      },
+      {
+        "path": "deathmatch/weapons/cs16/glock.scn",
+        "bytes": 61893
+      },
+      {
+        "path": "deathmatch/weapons/cs16/usp.scn",
+        "bytes": 68168
+      },
+      {
+        "path": "deathmatch/weapons/cs16/m3.scn",
+        "bytes": 57572
+      },
+      {
+        "path": "deathmatch/weapons/cs16/xm1014.scn",
+        "bytes": 71070
+      },
+      {
+        "path": "deathmatch/weapons/cs16/mp5.scn",
+        "bytes": 71515
+      },
+      {
+        "path": "deathmatch/weapons/cs16/ak47.scn",
+        "bytes": 70238
+      },
+      {
+        "path": "deathmatch/weapons/cs16/m4a1.scn",
+        "bytes": 105540
+      },
+      {
+        "path": "deathmatch/weapons/cs16/m249.scn",
+        "bytes": 117890
+      },
+      {
+        "path": "deathmatch/weapons/cs16/awp.scn",
+        "bytes": 82165
+      },
+      {
+        "path": "deathmatch/weapons/cs16/deagle.scn",
+        "bytes": 65780
+      },
+      {
+        "path": "deathmatch/weapons/cs16/p90.scn",
+        "bytes": 64315
+      },
+      {
+        "path": "deathmatch/weapons/cs16/magazine_pouch.scn",
+        "bytes": 80096
+      },
+      {
+        "path": "deathmatch/weapons/cs16/finish.res",
+        "bytes": 1053890
+      },
+      {
+        "path": "deathmatch/audio/cs16/mag_out.res",
+        "bytes": 8007
+      },
+      {
+        "path": "deathmatch/audio/cs16/mag_in.res",
+        "bytes": 8607
+      },
+      {
+        "path": "deathmatch/audio/cs16/rack_back.res",
+        "bytes": 9082
+      },
+      {
+        "path": "deathmatch/audio/cs16/rack_close.res",
+        "bytes": 8604
+      },
+      {
+        "path": "deathmatch/audio/cs16/empty_lock.res",
+        "bytes": 6389
+      },
+      {
+        "path": "deathmatch/audio/cs16/snip.res",
+        "bytes": 8189
+      }
+    ],
+    "source_assets_and_recordings_preserved": true,
+    "post_export_caches_removed": [
+      {
+        "path": ".godot/exported",
+        "bytes": 469074
+      },
+      {
+        "path": "android/build/build",
+        "bytes": 3425841209
+      }
+    ]
+  },
+  "release_targets": [
+    "Linux",
+    "Windows",
+    "Dedicated-Server-Linux",
+    "Quest",
+    "Source",
+    "Master-Server"
+  ],
+  "bundled_content": {
+    "maps": 32,
+    "avatars": 3,
+    "base_asset_files": 323,
+    "uncompressed_bytes": 817039456,
+    "compressed_bytes": 658590694
+  },
+  "pack_audits": [
+    {
+      "failures": [],
+      "files": 1610,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 1610,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 1732,
+      "failures": []
+    }
+  ],
+  "quest_signature_and_16k_alignment_verified": true,
+  "test_only_assets_excluded": true,
+  "limitations": [
+    "Native Windows and physical Quest validation were not performed.",
+    "The latest VR reach/comfort changes still require in-headset feedback.",
+    "Quad-view rendering and Tribes movement are not implemented.",
+    "Editor exports and some fixtures emit existing shutdown resource/UID warnings; the exported Linux Vulkan smoke test reported no runtime errors.",
+    "Bullet-mark capture requires a native renderer; its headless attempt timed out.",
+    "The parallel jetpack fixture measured an incorrect half-distance at 30 Hz; isolated rerun passed at 30, 60 and 120 Hz without gameplay changes."
+  ],
+  "archive_verification": "tools/prepare_release.py verifies final archives and writes SHA256SUMS and BUILD-MANIFEST.json; tools/publish_release.py verifies uploaded hashes before publication."
+}

@@ -44,7 +44,7 @@ func server_case():
 	check(await wait_for(func():return a.jetpack_state.mode==0,5),"Remote boost lands through shared collision physics")
 	check(a.jetpack_state.cooldown>0,"Landing retains the eight-second activation cooldown")
 	relocate(id);stage("hover")
-	check(await wait_for(func():return a.jetpack_state.mode==2,3),"Stationary double tap starts remote hover")
+	check(await wait_for(func():return a.jetpack_state.mode==2,3),"Dedicated jetpack button starts remote hover after a lost press packet")
 	check(await wait_for(func():return observer.seen.has("replicated hover") and observer.seen.has("viewer flight"),3),"Hover and backpack state reach owner and spectator")
 	await pause(2.3);relocate(id);stage("menu")
 	await pause(.6);check(a.jetpack_state.activation==0,"Blocked menu input cannot start a jetpack")
@@ -84,11 +84,12 @@ func client_case():
 				if game.fighters[pilot].jetpack_state.mode==2 and not reported.has("viewer flight"):
 					reported["viewer flight"]=true;observer.report.rpc_id(1,"viewer flight")
 			continue
-		var jump: bool=phase in ["boost","hover","menu"] and (age<.045 or age>.13 and age<.18)
+		var jump: bool=phase in ["boost","menu"] and (age<.045 or age>.13 and age<.18)
+		var jetpack: bool=phase in ["hover","menu"] and age<.045
 		var blocked:=phase=="menu"
 		var move:=Vector2(0,-1) if phase=="boost" else Vector2.ZERO
 		seq+=1
-		var command:={"seq":seq,"map_epoch":game.map_epoch,"move":move,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":s.weapon,"slow":false,"respawn":false,"jump":jump,"input_blocked":blocked}
+		var command:={"seq":seq,"map_epoch":game.map_epoch,"move":move,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":s.weapon,"slow":false,"respawn":false,"jump":jump,"jetpack":jetpack,"input_blocked":blocked}
 		game.input_delivery.sample(command,s.serial,game.clock)
 		accumulated+=dt
 		if accumulated>=1.0/30:
@@ -96,9 +97,10 @@ func client_case():
 			if phase=="forge":wire.jetpack=true;wire.jetpack_event=1
 			var packet:=Codec.pack(wire);max_packet=maxi(max_packet,packet.size())
 			# Deliberately lose raw jump presses in the moving boost case.
-			if phase!="boost" or not jump:game._input_packet.rpc_id(1,packet)
+			if (phase!="boost" or not jump) and (phase!="hover" or not jetpack):game._input_packet.rpc_id(1,packet)
 		if not s.dead and not s.spectator:
 			a.configure_jetpack(game.jetpacks.enabled() and s.get("jetpack",false),blocked)
+			a.jetpack_requested=game.input_delivery.jet_triggered
 			a.simulate(move,0,false,dt,jump)
 			a.prediction.remember(seq,a.position,a.velocity,a.collision_height,a.jetpack_state if a.jetpack_enabled else {})
 		var facts:={"owned":s.get("jetpack",false) and packs.size()==1 and not packs[0].available,"predicted boost":phase=="boost" and a.jetpack_state.mode==1,"replicated boost":phase=="boost" and game.input_delivery.jet_pending==0 and a.jetpack_state.mode==1 and age>.3,"replicated hover":phase=="hover" and a.jetpack_state.mode==2 and age>.3,"dead":phase=="dead" and s.dead and not s.get("jetpack",false),"respawn":phase=="respawn" and not s.dead and not s.get("jetpack",false) and s.owned==[9],"disabled":phase=="disabled" and packs.is_empty() and not game.match_mode.jetpacks,"ctf":phase=="ctf" and game.match_mode.kind=="ctf" and packs.size()==2}

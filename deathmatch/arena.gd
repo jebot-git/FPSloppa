@@ -9,7 +9,7 @@ const Fighter = preload("res://deathmatch/fighter.gd")
 const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-45-de-utility"
+const PROTOCOL := "fpsloppa-53-retained-magazine"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -974,6 +974,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	s.physical=command.get("physical",false)==true
 	s.vr_device=command.has("xr")
 	s.xr=VRPoses.validate(command.get("xr",{}))
+	if s.xr.get("pump",false) and (armory.effective()!="cs16" or command.weapon!=3 or not s.reload_grip or s.reload or s.input_blocked):s.xr={}
 	s.de_grip=command.get("de_grip",false)==true;s.de_tap=command.get("de_tap",false)==true;s.de_trigger=command.get("de_trigger",false)==true
 	match_mode.fortress.walkers.accept_controls(id,command.get("pilot_controls",[]))
 	s.room=RoomScale.validate(command.get("room"),s.xr)
@@ -1009,13 +1010,15 @@ func _physics_process(delta: float) -> void:
 		command.map_epoch=map_epoch
 		command.view_time=remote_view_time
 		fire_delivery.sample(command,players[mine].serial,clock)
+		input_delivery.sample(command,players[mine].serial,clock)
 		if multiplayer.is_server():
 			command.input_life=players[mine].serial
+			input_delivery.annotate(command,clock)
 			fire_delivery.annotate(command,clock)
 			_accept_input(mine,command)
+			input_delivery.acknowledge(players[mine].serial,int(players[mine].get("jump_ack",0)),int(players[mine].get("jetpack_ack",0)))
 			fire_delivery.acknowledge(players[mine].serial,int(players[mine].get("fire_ack",0)))
 		else:
-			input_delivery.sample(command,players[mine].serial,clock)
 			input_accumulator += delta
 			if input_accumulator>=1.0/30:
 				input_accumulator = fmod(input_accumulator,1.0/30)
@@ -1034,6 +1037,7 @@ func _physics_process(delta: float) -> void:
 				if armory.effective()=="cs16" and not lobby.active():fighters[mine].speed_multiplier*=float(armory.data(players[mine].weapon).get("move_speed",1));speed*=float(armory.data(players[mine].weapon).get("move_speed",1))
 				_update_crouch(mine,command.get("xr",{}),command)
 				fighters[mine].configure_jetpack(jetpacks.enabled() and players[mine].get("jetpack",false),command.get("input_blocked",false))
+				fighters[mine].jetpack_requested=input_delivery.jet_triggered
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
@@ -1393,6 +1397,7 @@ func _update_melee_hand(id: int,offhand: bool) -> void:
 		var pose: Dictionary=s.xr.duplicate()
 		if offhand: pose.weapon=pose.offhand_weapon;pose.left_handed=not pose.left_handed
 		var tip: Vector3=Art.muzzle(s.weapon,armory.effective())*Art.VR_SCALE if axe or knife else Vector3(0,0,-Melee.WEAPON_LENGTH)
+		if knife:tip=Art.held_transform(Transform3D.IDENTITY,s.weapon,Art.VR_SCALE,"cs16")*Art.muzzle(s.weapon,"cs16")
 		var swing:=Melee.sample(state,pose,clock,s.weapon,tip,delay)
 		if swing.is_empty(): return
 		started=swing.started;segments=swing.segments
@@ -1460,6 +1465,7 @@ func _fire(id: int, offhand: bool=false) -> void:
 	else:
 		var start: Vector3 = shot.origin
 		var endpoints := PackedVector3Array()
+		var surfaces := PackedVector3Array()
 		if w==9:
 			var end: Vector3=start-_weapon_transform(id).basis.z*d.range
 			var wall:=HitDetection.world_fraction(get_world_3d().direct_space_state,start,end,0.0)
@@ -1496,6 +1502,7 @@ func _fire(id: int, offhand: bool=false) -> void:
 				direction=_weapon_transform(id,offhand).basis*W.direction(yaw-s.yaw,pitch-s.pitch)
 			var hit := _trace(start,start+direction*d.range,id,_shot_rewind(id))
 			endpoints.append(hit.position)
+			surfaces.append(hit.get("surface_normal",Vector3.ZERO))
 			var amount: int=d.damage*randi_range(1,d.dice)
 			_damage_map_hit(hit,id,amount)
 			if hit.id!=0:
@@ -1503,7 +1510,7 @@ func _fire(id: int, offhand: bool=false) -> void:
 				if d.name=="FLAMETHROWER":match_mode.fortress.ignite(hit.id,id)
 			if hit.has("building"):match_mode.fortress.damage_building(hit.building,id,amount)
 		if d.name=="FLAMETHROWER":_ability_fx.rpc("flame",start,endpoints[0],s.team)
-		else:_impacts.rpc(start,endpoints,w)
+		else:_impacts.rpc(start,endpoints,w,surfaces)
 	if offhand: s.offhand_held=true
 	else: s.held = true
 
@@ -1546,6 +1553,11 @@ func _trace(start: Vector3,end: Vector3,exclude: int,rewind: float = 0.0,radius:
 	var query:=PhysicsRayQueryParameters3D.create(start,point+(end-start).normalized()*.04,1)
 	query.collide_with_areas=true
 	var contact:=space.intersect_ray(query)
+	# Only static world surfaces receive bullet marks. Movers, breakables, players
+	# and deployables must never leave marks suspended in empty space.
+	if target==0 and not contact.is_empty() and contact.collider is StaticBody3D and not contact.collider is AnimatableBody3D and contact.position.distance_squared_to(point)<.000025:
+		var runtime=get_node_or_null("Map/MapRuntime")
+		if not runtime or not runtime.triggers.rows.has(contact.collider):result.surface_normal=contact.normal
 	if not contact.is_empty() and (target==0 or start.distance_to(contact.position)<start.distance_to(point)):
 		var runtime=get_node_or_null("Map/MapRuntime")
 		if runtime and runtime.triggers.rows.has(contact.collider):
@@ -2168,6 +2180,7 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false
 		else:
 			recoil=1;visual_cooldown=match_mode.fortress.weapon_data(id,weapon).cycle
 		if is_vr(): xr_rig.feedback(.25 if weapon<3 else .65,.08,offhand)
+		if is_vr() and armory.effective()=="cs16":xr_rig.kick_weapon(weapon)
 		if camera and ((weapon>0 and not alternate) if armory.kind=="cs16" else weapon>=2 and weapon!=8) and not flame:
 			var flash := Node3D.new()
 			camera.add_child(flash)
@@ -2198,13 +2211,18 @@ func _emit_ability_fx(kind: String,start: Vector3,end: Vector3,team: int) -> voi
 	ability_effects.emit(kind,start,end,team)
 
 @rpc("authority","call_local","unreliable",3)
-func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int) -> void:
-	demos.event("_impacts",[start,ends,weapon])
+func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int,surfaces: PackedVector3Array=PackedVector3Array()) -> void:
+	demos.event("_impacts",[start,ends,weapon,surfaces])
 	if headless or weapon<2 and not (armory.effective()=="cs16" and weapon==1): return
 	var definition: Dictionary=armory.data(weapon).duplicate()
 	if match_mode.kind=="tf" and weapon==9:definition.name="SNIPER RIFLE"
 	if match_mode.kind=="tf" and weapon==7:definition.kind="hitscan"
 	_weapon_visuals().impacts(armory.effective(),start,ends,weapon,definition)
+	if not surfaces.is_empty() and definition.get("kind","hitscan") in ["hitscan","sniper"] and definition.get("range",0.0)>3.0 and definition.name!="FLAMETHROWER":
+		var marks=get_node_or_null("Map/BulletMarks")
+		if not marks:
+			marks=load("res://deathmatch/effects/bullet_marks.gd").new();marks.name="BulletMarks";$Map.add_child(marks)
+		for i in mini(ends.size(),surfaces.size()):marks.enqueue(ends[i],surfaces[i])
 	var impact_budget:=2
 	for end in ends:
 		if impact_budget>0:
@@ -2263,7 +2281,7 @@ func _process(delta: float) -> void:
 	if armory.effective()=="cs16":
 		for fighter_id in fighters:
 			var cs_row: Array=variant_combat.cs.status(fighter_id)
-			for model in _cs_weapon_models(fighter_id):preload("res://deathmatch/counterstrike/models.gd").presentation(model,cs_row.size()==9 and cs_row[1] in [2,7] and cs_row[4],cs_row)
+			for model in _cs_weapon_models(fighter_id):preload("res://deathmatch/counterstrike/models.gd").presentation(model,cs_row.size()==preload("res://deathmatch/counterstrike/reload_state.gd").ROW_SIZE and cs_row[1] in [2,7] and cs_row[4],cs_row)
 	if is_vr(): return
 	if not camera or not active: return
 	var s := local_state()
@@ -2533,6 +2551,24 @@ func _movement_sound(epoch: int,id: int,serial: int,kind: String,where: Vector3)
 	demos.event("_movement_sound",[epoch,id,serial,kind,where])
 	if headless:return
 	effects.play(kind,where,-10 if kind=="jump" else -14)
+
+@rpc("authority","call_local","reliable",3)
+func _de_tool_snip(epoch: int,id: int,serial: int) -> void:
+	if not demos.playing and (epoch!=map_epoch or not players.has(id) or serial!=int(players[id].serial) or not match_mode.defusal.enabled()):return
+	demos.event("_de_tool_snip",[epoch,id,serial])
+	if headless:return
+	var de=match_mode.defusal
+	de.draw()
+	if is_instance_valid(de.visuals):de.visuals.snip(id)
+	if fighters.has(id):spatial.play("de_snip",_weapon_transform(id).origin,-10)
+	if id==multiplayer.get_unique_id() and is_vr():xr_rig.feedback(.18,.035)
+
+@rpc("authority","call_local","reliable",3)
+func _cs_reload_sound(epoch: int,id: int,serial: int,kind: String) -> void:
+	if kind not in ["mag_out","mag_in","rack_back","rack_close","empty_lock"]:return
+	if not demos.playing and (epoch!=map_epoch or not players.has(id) or serial!=int(players[id].serial)):return
+	demos.event("_cs_reload_sound",[epoch,id,serial,kind])
+	if not headless and fighters.has(id):spatial.play("cs_reload_"+kind,_weapon_transform(id).origin,-9)
 
 @rpc("authority","call_local","unreliable",3)
 func _variant_shot_fx(id: int,weapon: int,alternate: bool) -> void:

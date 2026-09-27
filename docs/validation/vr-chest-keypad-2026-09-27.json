@@ -1,0 +1,148 @@
+{
+  "date_utc": "2026-09-27T09:37:11.555231+00:00",
+  "protocol": "fpsloppa-50-vr-chest-keypad",
+  "changes": [
+    "Chest bomb uses 40% linear scale; held bomb stays full size, raised and offset to keep the keypad clear of the gripping palm. Both hands supported.",
+    "Bomb and purchased tweezers follow the pouch hip heading and torso lean, with the existing headset-based fallback. Tweezers remain visible on the weapon-hand chest side.",
+    "Weapon-hand grip draws chest equipment and temporarily stashes the equipped gun. Grip release stows the equipment and restores the gun. Use explicitly drops a held VR bomb; recovery equips its chest slot.",
+    "Cutting requires a fresh weapon-hand trigger press with the tweezer tip at a wire.",
+    "Turn-stick and wheel grenade selection set a separate shoulder preference and leave the gun equipped. Offhand shoulder Grip + Trigger actually draws the selected grenade.",
+    "Keypad contact uses the rendered free-hand index fingertip, measured keycap boxes with a 5 mm fingertip radius, front-face crossing and withdrawal before each new press. Invalid or distant tracked tips are rejected.",
+    "Avatars without index finger bones temporarily use the visible tracked glove and hide only the replaced avatar hand. Fingertip skin offsets are cached per model."
+  ],
+  "tests": [
+    {
+      "log": "test-results/cs16/chest-keypad/defusal.log",
+      "checks": 100,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/chest.log",
+      "checks": 72,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/defusal-vr.log",
+      "checks": 42,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/surfaces.log",
+      "checks": 18,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/grenade-vr.log",
+      "checks": 35,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/controls.log",
+      "checks": 34,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/grenades.log",
+      "checks": 45,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/recovery.log",
+      "checks": 30,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/hand-contact.log",
+      "checks": 61,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/hand-mask.log",
+      "checks": 30,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/local-body.log",
+      "checks": 101,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/grenade-network.log",
+      "checks": 25,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/chest-keypad/grenade-replay.log",
+      "checks": 7,
+      "passed": true
+    }
+  ],
+  "checks_passed": 600,
+  "console_server": {
+    "passed": true,
+    "build_log": "test-results/cs16/chest-keypad/server-build.log",
+    "audit_log": "test-results/cs16/chest-keypad/server-audit.log",
+    "maps_audited": 32
+  },
+  "visual_review": [
+    "test-results/cs16/chest-keypad/chest.png",
+    "test-results/cs16/chest-keypad/keypad-finger.png"
+  ],
+  "live_test": {
+    "pid": 993477,
+    "started_utc": "2026-09-27T09:36:25.924516+00:00",
+    "runtime": {
+      "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+      "OpenXRVendorID": 0,
+      "XRRuntimeName": "WiVRn 'v26.9'",
+      "XRRuntimeVersion": "26.9.0"
+    },
+    "focused": false,
+    "controllers_tracked": [
+      true,
+      true
+    ],
+    "input_blocked": true,
+    "bots": 0,
+    "cash": 16000,
+    "buy_available": true,
+    "bomb": {
+      "carrier": 1,
+      "code": [
+        4,
+        7,
+        5,
+        9
+      ],
+      "held": false,
+      "kit": true,
+      "phase": "live",
+      "planted": false,
+      "role": 0,
+      "tool": false
+    },
+    "foveation": {
+      "attached": true,
+      "centers": "[(0.0, 0.0), (0.0, 0.0)]",
+      "size": 1,
+      "updates": 783,
+      "valid": false
+    },
+    "test_only_desktop_mask": true,
+    "startup_observation": {
+      "ms": 8072,
+      "focused": true,
+      "input_blocked": false,
+      "left_tracked": true,
+      "right_tracked": true,
+      "foveation_gaze_valid": true,
+      "foveation_updates": 13
+    },
+    "later_focus_note": "Runtime subsequently reported focus loss; input and gaze pause normally while unfocused."
+  },
+  "limits": [
+    "In-headset comfort and reach await user feedback; automated contact checks and native rendering passed.",
+    "The fovea desktop visualization and unlimited purchases are isolated to ignored, export-excluded live test fixtures.",
+    "Existing third-party UID fallback and shutdown resource warnings remain; no script or runtime errors occurred in the focused validation."
+  ]
+}

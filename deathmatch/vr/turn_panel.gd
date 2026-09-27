@@ -6,6 +6,7 @@ var angle: Label
 var controls: Button
 var seat: Button
 var stock: Button
+var pump: Button
 var notice: Label
 var speed_up: Button
 var angle_up: Button
@@ -13,13 +14,16 @@ func setup(value: Node) -> void:
 	rig=value;hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
 	var style=preload("res://deathmatch/ui/iron_theme.gd").panel()
-	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:style.set_content_margin(side,30)
+	for side in [SIDE_LEFT,SIDE_RIGHT,SIDE_TOP,SIDE_BOTTOM]:style.set_content_margin(side,20)
 	add_theme_stylebox_override("panel",style)
-	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",8);add_child(column)
+	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",6);add_child(column)
 	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="VR CONTROLS";title.add_theme_font_size_override("font_size",30);column.add_child(title)
 	controls=add_button(column,"",func():rig.left_controls=not rig.left_controls;rig.cycle_latched=false;save())
 	seat=add_button(column,"",func():rig.seated=not rig.seated;rig.recenter();save())
-	stock=add_button(column,"",func():rig.virtual_stock_enabled=not rig.virtual_stock_enabled;rig.virtual_stock.reset();save())
+	var weapons:=HBoxContainer.new();column.add_child(weapons)
+	stock=add_button(weapons,"",func():rig.virtual_stock_enabled=not rig.virtual_stock_enabled;rig.virtual_stock.reset();save())
+	pump=add_button(weapons,"",func():rig.pump_auto_transfer=not rig.pump_auto_transfer;rig.physical_reload.reset();save())
+	pump.tooltip_text="M3: keep offhand grip held and release weapon grip to snap into the pump hold. Grip the weapon hand to take it back."
 	add_button(column,"RECENTER / CALIBRATE SEATED HEIGHT",func():rig.recenter();refresh())
 	mode=add_button(column,"",func():rig.smooth_turn=not rig.smooth_turn;save())
 	for setting in ["turn_speed","snap_angle"]:
@@ -46,7 +50,8 @@ func save() -> void:
 func refresh() -> void:
 	controls.text="CONTROLS: "+("LEFT-HANDED · MOVE R / TURN L" if rig.left_controls else "RIGHT-HANDED · MOVE L / TURN R")
 	seat.text="SEATED: "+("ON (suspended with body tracking)" if rig.seated else "OFF")
-	stock.text="CS VIRTUAL STOCK: "+("ON · TWO-HAND SHOULDER AIM" if rig.virtual_stock_enabled else "OFF")
+	stock.text="CS VIRTUAL STOCK: "+("ON" if rig.virtual_stock_enabled else "OFF")
+	pump.text="M3 AUTO OFFHAND HOLD: "+("ON" if rig.pump_auto_transfer else "OFF")
 	mode.text="TURN MODE: "+("SMOOTH" if rig.smooth_turn else "SNAP")
 	speed.text="%.0f° / s"%rig.turn_speed;angle.text="%.0f°"%rig.snap_angle
 func open() -> void:

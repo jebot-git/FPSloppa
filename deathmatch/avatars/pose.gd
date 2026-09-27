@@ -160,19 +160,32 @@ func update_animation(_delta: float) -> void:
 		var hand := bone(sk,side+"Hand")
 		if hand<0:continue
 		if not rig.xr_pose.is_empty():
-			var target: Transform3D=rig.tracking_transform()*rig.xr_pose[side.to_lower()]
-			var optical:=body.has(side.to_lower()+"_hand")
+			var snaps: Dictionary=rig.xr_pose.get("snapped_hands",{})
+			var snapped: bool=snaps.has(side.to_lower())
+			var target: Transform3D=rig.tracking_transform()*snaps.get(side.to_lower(),rig.xr_pose[side.to_lower()])
+			var optical: bool=not snapped and body.has(side.to_lower()+"_hand")
 			if optical: target=rig.tracking_transform()*body[side.to_lower()+"_hand"]
 			else: target.origin+=target.basis.y*.06 # Grip is at the palm, IK ends at the wrist.
 			var elbow: Vector3=rig.to_global(Vector3(sign_x*.65,.85,.05))
 			if body.has(side.to_lower()+"_elbow"): elbow=(rig.tracking_transform()*body[side.to_lower()+"_elbow"]).origin
 			solve(sk,side+"UpperArm",side+"LowerArm",side+"Hand",target.origin,elbow)
+			# Different avatar arm lengths must not pull tracked palms off the gun.
+			# Skinning stretches the forearm to this wrist instead of clipping reach.
+			var wrist_parent:=sk.get_bone_parent(hand)
+			sk.set_bone_pose_position(hand,sk.get_bone_global_pose(wrist_parent).affine_inverse()*sk.to_local(target.origin))
 			var parent:=sk.get_bone_parent(hand)
 			# OpenXR grip -Z runs little-finger to thumb; it is not the aim/finger axis.
 			# Humanoid hands use +Y along fingers and +Z toward the palm.
 			var palm_basis: Basis=target.basis if optical else target.basis*controller_hand_basis(side=="Left")
 			var desired: Basis=sk.global_basis.orthonormalized().inverse()*palm_basis
 			sk.set_bone_pose_rotation(hand,((sk.get_bone_global_pose(parent).basis.orthonormalized().inverse() if parent>=0 else Basis.IDENTITY)*desired).get_rotation_quaternion())
+			if snapped:
+				# Direct prop attachment is final. Arm IK positions the elbow, but
+				# cannot pull or rotate the palm away from the authored grip frame.
+				var final_hand:=sk.get_bone_global_pose(hand)
+				final_hand.origin=sk.to_local(target.origin)
+				final_hand.basis=desired.scaled(final_hand.basis.get_scale())
+				sk.set_bone_global_pose(hand,final_hand)
 		else:
 			# Pistols use separate grips; other weapons retain the supporting hand.
 			var grip: Vector3=preload("res://deathmatch/art.gd").desktop_hand(side=="Left",rig.aim_pitch,rig.offhand_recoil if side=="Left" and rig.weapon_id==2 else rig.recoil,rig.weapon_id==2)

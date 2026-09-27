@@ -14,14 +14,15 @@ func run() -> void:
 			check(await wait_for(func():return s.get("physical",false) and not s.xr.is_empty(),8),"Fresh VR pose and physical setting arrive through input channel")
 			game._server_tick(1.0/60)
 			check(is_equal_approx(game.fighters[id].collision_height,.9) and s.xr.face.expression[0]>.5,"Server applies tracked crouch and accepts expression weights")
+			var ammo_before: int=s.ammo[2]
 			game._announcement.rpc("ARM_READY")
 			check(await wait_for(func():return physical.armed.has(id),8),"Offhand arming RPC uses authenticated sender")
 			game._announcement.rpc("THROW_READY")
 			check(await wait_for(func():return game.match_mode.fortress.charges.has(id),8),"Reliable grip release launches grenade")
 			if game.match_mode.fortress.charges.has(id):
-				check(s.ammo[2]==14 and game.match_mode.fortress.charges[id].velocity.is_equal_approx(Vector3(0,4.8,-9.6)),"Network release boosts deliberate throw and charges ammo once")
+				check(s.ammo[2]==ammo_before-1 and game.match_mode.fortress.charges[id].velocity.is_equal_approx(Vector3(0,0,-sqrt(4.8*4.8+9.6*9.6))),"Network release uses free-hand aim and swing power, charging ammo once")
 				await pause(.3)
-				check(s.ammo[2]==14 and game.match_mode.fortress.charges.size()==1,"Duplicate and stale network releases are ignored")
+				check(s.ammo[2]==ammo_before-1 and game.match_mode.fortress.charges.size()==1,"Duplicate and stale network releases are ignored")
 				game._send_snapshot();await pause(.3)
 				game.clock+=.8;game.match_mode.fortress.tick_charges(.1);game._send_snapshot();game._announcement.rpc("DETONATE_READY")
 				check(await wait_for(func():return game.match_mode.fortress.charges.is_empty(),8),"Remote offhand action detonates pipe after arming delay")

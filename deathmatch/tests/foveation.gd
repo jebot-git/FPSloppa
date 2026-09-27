@@ -1,6 +1,7 @@
 extends SceneTree
 const Foveation=preload("res://deathmatch/vr/foveation.gd")
 const Settings=preload("res://deathmatch/settings/preferences.gd")
+const GazeVRS=preload("res://deathmatch/vr/gaze_vrs.gd")
 class Runtime extends RefCounted:
 	var ready:=true
 	var native:=false
@@ -22,6 +23,32 @@ func check(ok: bool,label: String) -> void:
 	if not ok:failures.append(label)
 func _initialize() -> void:run.call_deferred()
 func run() -> void:
+	var projection:=Projection.create_perspective(90,1.0,.05,100)
+	var gaze_pose:=Transform3D.IDENTITY
+	check(GazeVRS.project_gaze(Transform3D.IDENTITY,projection,gaze_pose).is_equal_approx(Vector2.ZERO),"Forward -Z gaze projects to the center")
+	gaze_pose.basis=Basis(Vector3.UP,-.25)
+	check(GazeVRS.project_gaze(Transform3D.IDENTITY,projection,gaze_pose).x>0,"Looking right moves the fovea right")
+	gaze_pose.basis=Basis(Vector3.RIGHT,.25)
+	check(GazeVRS.project_gaze(Transform3D.IDENTITY,projection,gaze_pose).y>0,"Looking up moves the fovea up")
+	gaze_pose.basis=Basis(Vector3.UP,PI)
+	check(not GazeVRS.project_gaze(Transform3D.IDENTITY,projection,gaze_pose).is_finite(),"A ray behind the view cannot produce a valid mask")
+	gaze_pose=Transform3D.IDENTITY
+	var left_eye:=Transform3D(Basis.IDENTITY,Vector3(-.032,0,0))
+	var right_eye:=Transform3D(Basis.IDENTITY,Vector3(.032,0,0))
+	check(GazeVRS.project_gaze(left_eye,projection,gaze_pose).x>0 and GazeVRS.project_gaze(right_eye,projection,gaze_pose).x<0,"Each eye receives its own projected gaze center")
+	var world:=Transform3D(Basis.from_euler(Vector3(.3,.7,.2)),Vector3(10,2,-8))
+	check(GazeVRS.project_gaze(world*left_eye,projection,world*gaze_pose).is_equal_approx(GazeVRS.project_gaze(left_eye,projection,gaze_pose)),"World translation and rotation preserve relative gaze projection")
+	var mask:=GazeVRS.new();var sharp_counts: Array[int]=[]
+	for size in [1,2,3]:
+		mask.build(size,1.0);var sharp:=0
+		for y in 128:
+			for x in 128:
+				var rate:=mask.kernel.get_pixel(x+64,y+64).r
+				if rate<.1:sharp+=1
+		check(mask.kernel.get_pixel(128,128).r==0 and is_equal_approx(mask.kernel.get_pixel(64,64).r,128.0/255),"Mask has a full-rate center and a 2x2 peripheral limit: "+str(size))
+		sharp_counts.append(sharp)
+	check(sharp_counts[0]<sharp_counts[1] and sharp_counts[1]<sharp_counts[2],"Every fovea-size setting increases the actual sharp area")
+	check(mask.texture.get_layers()==2,"Persistent VRS texture contains separate left/right layers")
 	var viewport:=SubViewport.new();root.add_child(viewport)
 	var xr:=Runtime.new()
 	for native in [false,true]:

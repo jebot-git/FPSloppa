@@ -26,6 +26,8 @@ func drop(id: int) -> void:
 	next_id+=1
 	add(next_id,position,weapon,amount)
 func add(id: int,position: Vector3,weapon: int,amount: int) -> void:
+	if entries.has(id):remove(id)
+	elif entries.size()>=LIMIT:remove(entries.keys()[0])
 	var pickup: Dictionary={"kind":"weapon","item":weapon,"position":position,"amount":amount,"available":true,"respawn":INF,"expires":game.clock+LIFETIME,"dropped":true,"node":null,"title":game.armory.data(weapon).name}
 	if not game.headless:
 		pickup.node=game._pickup_art(pickup)

@@ -1,0 +1,83 @@
+{
+  "date_utc": "2026-09-27T11:15:19.402618+00:00",
+  "protocol": "fpsloppa-53-retained-magazine",
+  "changes": [
+    "Removed magazines retain their exact authoritative ammunition count, excluding the chamber, and can be reinserted with a distinct inward movement.",
+    "A compact held-magazine tooltip displays the replicated round count, including zero; it clears on insertion, release or interrupted tracking.",
+    "Reinsertion preserves tactical chamber state, empty chambers still need cycling, and M249 boxes still require belt seating.",
+    "Pump ownership clears held shell state; existing held-pump continuation and grips near the fore-end cannot draw shells from overlapping hip recovery space.",
+    "Bomb and cutter chest mounts are lowered 8 cm in the shared tracked torso frame; visual and interaction mounts use the same transform."
+  ],
+  "tests": [
+    {
+      "log": "test-results/cs16/retained-magazine/authority.log",
+      "checks": 202,
+      "passed": true,
+      "result": "CS16_MAG_PULL_RESULT {\"checks\":202,\"failures\":[]}"
+    },
+    {
+      "log": "test-results/cs16/retained-magazine/reload.log",
+      "checks": 110,
+      "passed": true,
+      "result": "CS16_VR_RELOAD_RESULT {\"checks\":110,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "log": "test-results/cs16/retained-magazine/actions.log",
+      "checks": 161,
+      "passed": true,
+      "result": "CS16_ACTIONS_RESULT {\"checks\":161,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "log": "test-results/cs16/retained-magazine/reload-ui-native.log",
+      "checks": 84,
+      "passed": true,
+      "result": "CS16_RELOAD_UI_RESULT {\"checks\":84,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "log": "test-results/cs16/retained-magazine/hip.log",
+      "checks": 73,
+      "passed": true,
+      "result": "HIP_RELOAD_RESULT {\"checks\":73,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "log": "test-results/cs16/retained-magazine/chest.log",
+      "checks": 74,
+      "passed": true,
+      "result": "DE_CHEST_RESULT {\"checks\":74,\"failures\":[]}"
+    },
+    {
+      "log": "test-results/cs16/retained-magazine/network-server.log",
+      "checks": 54,
+      "passed": true,
+      "result": "CS16_NETWORK_RESULT server []"
+    },
+    {
+      "log": "test-results/cs16/retained-magazine/network-client.log",
+      "checks": 45,
+      "passed": true,
+      "result": "CS16_NETWORK_RESULT client []"
+    }
+  ],
+  "checks_passed": 803,
+  "visual_review": [
+    "test-results/cs16/reload/09-pulled-magazine-false.png",
+    "test-results/cs16/reload/09-pulled-magazine-true.png"
+  ],
+  "sha256": {
+    "deathmatch/counterstrike/reload_state.gd": "ba9129cea37ea1ade39f57700606019096aab66d6ef6d2b4a71effff29f7113e",
+    "deathmatch/counterstrike/combat.gd": "170f90c61e3bb28944479e997053de4f1bc3f36acc72e4e85ff7ccf508212c45",
+    "deathmatch/counterstrike/action.gd": "e96ec78695730be23dccba52706a0512c7b21aaf9396b80ca8dbbacd8107c14d",
+    "deathmatch/vr/physical_reload.gd": "63be6652f38806f2d30b40cc11603d4b60210e33bbf55909ef1c35304e5d33cd",
+    "deathmatch/counterstrike/bomb_interaction.gd": "4c23a88d56edd25a52391f9fd16c282ae6fde9e5fe82fc77b9434fee953aaca5",
+    "deathmatch/arena.gd": "388e02e60df8594b04e45e6144f88a15e45927a23cfcf92507cc7ac275452a47"
+  },
+  "notes": [
+    "Initial headless reload UI attempt cannot build the normal HUD and timed out; native rendered tests subsequently pass.",
+    "Display and loopback sockets were unavailable in the sandbox; corresponding tests passed with host access.",
+    "The hip test fixture was updated to orient the held magazine for the existing insertion alignment requirement.",
+    "Existing UID fallback and shutdown ObjectDB/resource warnings remain in test logs.",
+    "Automated authority, rendered-rig and loopback tests passed; the new handling has not yet been validated by the user in a headset.",
+    "Running live WiVRn session was not restarted and has not loaded these changes.",
+    "No Tribes movement was implemented; see the separate feasibility assessment."
+  ]
+}

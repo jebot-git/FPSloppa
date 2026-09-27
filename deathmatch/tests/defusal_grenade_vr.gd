@@ -30,23 +30,41 @@ func run():
 	for left in [false,true]:
 		rig.left_handed=left;rig.head.position=Vector3(0,1.65,0)
 		var hand=rig.right if left else rig.left
+		var free_hand=rig.left if left else rig.right
+		free_hand.transform=Transform3D(Basis(Vector3.UP,.45),Vector3(-.2 if left else .2,1.2,-.35))
+		(rig.left_aim if left else rig.right_aim).transform=free_hand.transform
 		hand.position=Vector3(.3 if left else -.3,1.8,.15)
-		u.cancel(1);u.state(1).counts=[1,2,1];u.state(1).cooldown=0;b.inputs={};frame();frame()
+		u.cancel(1);u.state(1).shoulder=0;u.state(1).counts=[1,2,1];u.state(1).cooldown=0;b.inputs={};frame();frame()
 		b.inputs={"support":true,"offhand_fire":true};frame()
 		check(rig.physical_actions.gesture.held and u.state(1).primed and u.state(1).offhand,"TF-style shoulder chord arms offhand grenade, left="+str(left))
 		check(is_instance_valid(rig.physical_actions.grenade) and rig.physical_actions.grenade.visible,"Held model and throw guide shown, left="+str(left))
+		var grenade_pose: Transform3D=rig.physical_actions.grenade.global_transform
+		check(grenade_pose.basis.y.dot(-hand.global_basis.z)>.999,"Grenade top follows the controller thumb axis")
+		check(grenade_pose.basis.x.dot(hand.global_basis.x)>(.999) if not left else grenade_pose.basis.x.dot(-hand.global_basis.x)>.999,"Grenade safety lever faces the holding palm")
 		check(not rig.command(seq+1).fire and not rig.command(seq+1).offhand_fire,"Held utility blocks both gun triggers")
 		for i in 7:hand.position.z-=.06;frame()
 		b.inputs={"offhand_fire":true};frame()
 		check(u.flying.size()==1 and u.state(1).counts[0]==0,"Swing and grip release emits exactly one purchased HE")
-		if not u.flying.is_empty():check(u.flying.values()[0].velocity.z<-3 and u.flying.values()[0].velocity.length()<=26.001,"TF throw boost preserves bounded offhand motion")
+		if not u.flying.is_empty():
+			check(u.flying.values()[0].velocity.z<-3 and u.flying.values()[0].velocity.length()<=26.001,"Throw boost preserves bounded offhand power")
+			check(u.flying.values()[0].velocity.normalized().dot(-free_hand.basis.z)>.999,"DE throw follows the free hand's aim, independently of throwing direction")
+		check(not rig.physical_actions.hint.visible,"DE grenade guide uses geometry without floating text")
 		check(not rig.physical_actions.grenade.visible,"Released local model hides")
 		u.flying.clear();u.state(1).cooldown=0;b.inputs={};frame();u.equip(1,2)
+		check(u.state(1).shoulder==2 and u.selected(1)==-1 and not de.gun_holstered(1),"VR wheel chooses shoulder smoke without holstering gun")
+		hand.position=Vector3(.3 if left else -.3,1.8,.15);frame()
 		b.inputs={"support":true,"offhand_fire":true};frame();check(u.state(1).selected==2 and u.state(1).offhand,"Wheel-selected smoke uses same offhand gesture")
 		g.menu_open=true;frame();check(u.selected(1)==-1 and u.state(1).counts[2]==1 and not rig.physical_actions.gesture.held,"Menu cancels offhand grenade without consuming it")
 		g.menu_open=false;frame();check(not u.state(1).primed,"Closing menu with chord held cannot rearm")
 		b.inputs={};frame();u.state(1).counts=[0,0,0];b.inputs={"support":true,"offhand_fire":true};frame()
 		check(not rig.physical_actions.gesture.held and u.selected(1)==-1,"Empty utility rejects physical arm immediately")
+	rig.left_handed=false;rig.right.transform=Transform3D(Basis.IDENTITY,Vector3(.2,1.2,-.35))
+	rig.right_aim.transform=rig.right.transform
+	b.inputs={};u.cancel(1);u.state(1).counts=[1,2,1];u.state(1).cooldown=0
+	g.players[1].owned=range(12);g.players[1].ammo=[240,64,300,40];g.players[1].serial+=1;g.players[1].weapon=6;g.desired_weapon=6;frame()
+	rig.left.position=preload("res://deathmatch/counterstrike/reload_state.gd").model_pose(rig.sample_pose(),6)*preload("res://deathmatch/counterstrike/models.gd").support(6)
+	b.inputs={"support":true,"offhand_fire":true};frame();frame()
+	check(rig.support_aim.engaged and not rig.physical_actions.busy() and not u.state(1).primed,"Gripping and triggering at the handguard keeps gun support without arming a grenade")
 	b.inputs={};frame();u.state(1).counts=[1,0,0];u.state(1).cooldown=0
 	var rpc=g.match_mode.fortress.physical;var pose: Dictionary=rig.sample_pose();var sequence: int=rig.physical_actions.sequence+100
 	check(not rpc.request_for(1,g.map_epoch,g.players[1].serial-1,sequence,"arm",pose,Vector3.ZERO),"Stale life rejects DE physical arm")

@@ -48,6 +48,7 @@ var scale_factor := 1.0
 var neutral_hip_height:=.92
 var neutral_foot_heights:Dictionary={"left":.08,"right":.08}
 var first_person := false
+var keypad_glove:=""
 var secondary_nodes: Array[Node]=[]
 var visual_meshes: Array[MeshInstance3D]=[]
 var avatar_hash:=""
@@ -187,8 +188,17 @@ func set_first_person(value: bool) -> void:
 	for secondary in secondary_nodes:secondary.set_local_body(value)
 	for mesh in visual_meshes:
 		mesh.visible=bool(mesh.get_meta("arena_first_person" if value else "arena_third_person"))
+		if mesh.get_meta("arena_first_person"):preload("res://deathmatch/avatars/first_person_mask.gd").apply(mesh,skeleton,value,keypad_glove)
 	if gun: gun.visible=not value and not dead
 	if offhand_gun: offhand_gun.visible=not value and not dead
+
+func set_keypad_glove(side: String):
+	if side==keypad_glove:return
+	keypad_glove=side
+	if not first_person:return
+	for mesh in visual_meshes:
+		if mesh.get_meta("arena_first_person"):
+			mesh.show();preload("res://deathmatch/avatars/first_person_mask.gd").apply(mesh,skeleton,true,keypad_glove)
 
 func build_animations() -> void:
 	motion = AnimationPlayer.new()

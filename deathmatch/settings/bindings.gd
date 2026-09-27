@@ -1,8 +1,8 @@
 extends RefCounted
 const Profile=preload("res://deathmatch/profile.gd")
 const KEYS={"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"jump":KEY_SPACE,"slow":KEY_SHIFT,"use":KEY_E,"melee":KEY_F,"scores":KEY_TAB,"chat":KEY_ENTER,"team_chat":KEY_Y,"team_ptt":KEY_B,"ptt":KEY_V,"crouch":KEY_CTRL,"prone":KEY_Z,"down":KEY_CTRL,"reload":KEY_R,"fire":-MOUSE_BUTTON_LEFT,"alt_fire":-MOUSE_BUTTON_RIGHT,"offhand_fire":-MOUSE_BUTTON_RIGHT,"next_weapon":-MOUSE_BUTTON_WHEEL_UP,"previous_weapon":-MOUSE_BUTTON_WHEEL_DOWN}
-const VR={"reload":"weapon:grip","fire":"weapon:trigger","alt_fire":"support:trigger","offhand_fire":"support:trigger","support":"support:grip","jump":"turn:ax_button","slow":"move:primary_click","use":"move:ax_button","scores":"move:by_button","menu":"turn:by_button","ptt":"support:grip","weapon_wheel":"right:primary_click"}
-const INPUTS=["trigger","grip","ax_button","by_button","primary_click"]
+const VR={"reload":"weapon:ax_button","ability":"weapon:ax_button","jetpack":"weapon:ax_button","fire":"weapon:trigger","alt_fire":"support:trigger","offhand_fire":"support:trigger","support":"support:grip","jump":"move:primary_click","slow":"move:none","use":"move:ax_button","scores":"move:by_button","menu":"turn:by_button","ptt":"support:grip","weapon_wheel":"right:primary_click"}
+const INPUTS=["trigger","grip","ax_button","by_button","primary_click","none"]
 var keys:=KEYS.duplicate()
 var axes: Dictionary={"move":"move","turn":"turn"}
 var vr:=VR.duplicate()
@@ -24,11 +24,16 @@ func load_settings() -> void:
 	for action in VR:
 		var value=c.get_value("vr_bindings",action,VR[action])
 		if valid_vr(value):vr[action]=value
+	# Migrate only the previous defaults; preserve other custom bindings.
+	if int(c.get_value("bindings_meta","revision",0))<2:
+		for action in {"reload":"weapon:grip","jump":"turn:ax_button","slow":"move:primary_click"}:
+			if vr[action]=={"reload":"weapon:grip","jump":"turn:ax_button","slow":"move:primary_click"}[action]:vr[action]=VR[action]
 	for option in ["two_handed","physical_jump","physical_crouch","physical_prone","tracked_leg_animation","physical_interactions","face_expressions"]:
 		var value=c.get_value("control_options",option,get(option))
 		if value is bool:set(option,value)
 func save() -> Error:
 	var c:=ConfigFile.new();c.load(Profile.config_path())
+	c.set_value("bindings_meta","revision",2)
 	for action in keys:c.set_value("bindings",action,keys[action])
 	for action in axes:c.set_value("vr_axes",action,axes[action])
 	for action in vr:c.set_value("vr_bindings",action,vr[action])
@@ -55,7 +60,9 @@ func controller(rig: Node,role: String) -> XRController3D:
 func vr_pressed(rig: Node,action: String) -> bool:
 	var parts:String=vr.get(action,"")
 	if not valid_vr(parts):return false
-	var pieces:=parts.split(":");var hand:=controller(rig,pieces[0])
+	var pieces:=parts.split(":")
+	if pieces[1]=="none":return false
+	var hand:=controller(rig,pieces[0])
 	if not rig.simulated and not hand.get_has_tracking_data():return false
 	return hand.get_float(pieces[1])>.6 if pieces[1] in ["trigger","grip"] else hand.is_button_pressed(pieces[1])
 func vr_event(rig: Node,action: String,hand: XRController3D,button: String) -> bool:

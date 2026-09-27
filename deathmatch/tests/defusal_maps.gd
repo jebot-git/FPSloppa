@@ -24,7 +24,7 @@ func run():
 		var objectives=load("res://deathmatch/ui/defusal_world.gd").new();g.get_node("Map").add_child(objectives);objectives.setup(de);objectives.update()
 		var fixed_labels: Array=[]
 		for label in objectives.find_children("*","Label3D",true,false):
-			if label!=objectives.hint and not objectives.bomb.is_ancestor_of(label):fixed_labels.append(label)
+			if not objectives.bomb.is_ancestor_of(label):fixed_labels.append(label)
 		check(fixed_labels.is_empty(),"No floating plant-point text on "+id)
 		check(g.get_node("Map").find_children("*","Label3D",true,false).all(func(label):return objectives.is_ancestor_of(label)),"Compiled map adds no floating site text: "+id)
 		for site in 2:

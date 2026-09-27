@@ -2,8 +2,7 @@
 
 Implemented against 0.9v / `5105fb8`, preserving the pending stair-contact fixes.
 The initial interaction change used protocol `fpsloppa-27-vr-interactions`.
-Current source uses `fpsloppa-31-team-radio` after the subsequent stance and radio
-work; older clients and servers cannot mix with it. No release binaries were built or published for this change.
+Current source uses `fpsloppa-52-defuse-snip`; older clients and servers cannot mix with it. No release binaries were built or published for this change.
 
 ## Behavior
 
@@ -11,12 +10,19 @@ work; older clients and servers cannot mix with it. No release binaries were bui
   re-arms contact. First poses, tracking discontinuities, stale samples and passive
   contact do not activate abilities. Head-relative motion avoids adding locomotion,
   recentering or turn velocity to a slap.
-- Support grip + offhand trigger activates TF abilities. Explosive classes get a
+- Weapon-hand **A/X** defaults to the configurable **ability** action in TF/TB,
+  using the existing class ability and cooldown. Engineer turn-stick up/down
+  selects sentry/dispenser without changing the queued respawn class; the HUD
+  shows the selected deployable. Support grip + offhand trigger also activates TF abilities. Explosive classes get a
   visible held grenade, released by grip release or trigger release during a throw.
   Recent hand displacement over roughly 100 ms supplies velocity, bounded to 12 m/s
-  before up to 2.4× assistance and a final 26 m/s cap. A held-ordnance arc previews
-  the current launch through the first world contact. Gentle drops are not boosted.
-  Dropping produces zero initial velocity. Holding expires after ten seconds;
+  before up to 2.4× assistance and a final 26 m/s cap. TF now uses the same free-hand
+  aiming assistance as DE: aim with the weapon hand, swing the grenade hand for
+  power. The aiming line and held-ordnance arc use the server's launch calculation,
+  stopping at first world contact. Gentle releases keep their physical direction;
+  releasing a stationary hand drops with zero initial velocity. TF retains its
+  gravity and preview horizon (1.2 seconds, or 2 seconds for Demoman).
+  Holding expires after ten seconds;
   gameplay interruptions cancel it. Existing Use controls remain available.
 - AS consoles use visible caps centered on the same positions tested for hand
   contact. Stage, team, range and line-of-sight checks remain authoritative. VR uses
@@ -64,7 +70,7 @@ result is claimed by the automated controller simulation.
 
 ```sh
 godot --headless --xr-mode off --path . --script res://deathmatch/tests/vr_interactions.gd
-godot --headless --xr-mode off --path . --script res://deathmatch/tests/physical_rig.gd -- --client-config /tmp/physical-rig.cfg
+godot --xr-mode off --audio-driver Dummy --path . --script res://deathmatch/tests/physical_rig.gd -- --client-config /tmp/physical-rig.cfg
 python3 deathmatch/tests/run_physical_network_tests.py
 godot --headless --xr-mode off --path . --script res://deathmatch/tests/assault.gd -- res://maps/as_hislop.bsp
 godot --headless --xr-mode off --path . --script res://deathmatch/tests/server_load_audit.gd -- 16 --ticks 480 --memory --vr

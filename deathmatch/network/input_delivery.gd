@@ -10,11 +10,20 @@ var jet_event:=0
 var jet_pending:=0
 var jet_expires:=0.0
 var last_press:=-100.0
+var jet_held:=false
+var jet_triggered:=false
 func reset() -> void:
 	life = -1; held = false; event = 0; pending = 0; expires = 0; guards.clear();jet_event=0;jet_pending=0;jet_expires=0;last_press=-100.0
+	jet_held=false;jet_triggered=false
 func sample(command: Dictionary, serial: int, now: float) -> void:
 	if life != serial:
 		life = serial; held = false; event = 0; pending = 0;jet_event=0;jet_pending=0;last_press=-100.0
+		jet_held=false
+	jet_triggered=false
+	var jet_button: bool=command.get("jetpack",false)==true
+	if jet_button and not jet_held and not command.get("input_blocked",false):
+		jet_event+=1;jet_pending=jet_event;jet_expires=now+.5;jet_triggered=true
+	jet_held=jet_button or command.get("input_blocked",false)
 	var pressed: bool = command.get("jump",false) and not command.get("input_blocked",false)
 	if pressed and not held:
 		event += 1; pending = event; expires = now + .25

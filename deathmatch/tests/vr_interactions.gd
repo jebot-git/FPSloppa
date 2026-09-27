@@ -58,7 +58,7 @@ func run() -> void:
 		role(name);var ammo: int=g.players[1].ammo[3 if name=="pyro" else 2]
 		check(request("arm") and physical.armed.has(1),name+" arms in offhand")
 		check(request("throw",Vector3(0,2,-4)) and tf.charges.has(1),name+" releases server projectile")
-		check(tf.charges[1].velocity.distance_to(Vector3(0,4.8,-9.6))<.001 and tf.charges[1].position.distance_to(Fixture.point()+Poses.neutral().left.origin)<.02,name+" inherits hand origin and throw motion")
+		check(tf.charges[1].velocity.distance_to(Vector3(0,0,-sqrt(4.8*4.8+9.6*9.6)))<.001 and tf.charges[1].position.distance_to(Fixture.point()+Poses.neutral().left.origin)<.02,name+" inherits hand origin, free-hand aim and swing power")
 		check(g.players[1].ammo[3 if name=="pyro" else 2]==ammo-(20 if name=="pyro" else 1),name+" consumes exactly one charge cost")
 		check(not request("throw",Vector3(0,2,-4)),name+" duplicate release cannot spawn another charge")
 		if name=="demoman":

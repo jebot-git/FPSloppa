@@ -121,8 +121,9 @@ def build():
     bomb=combine('DE_BombChassis',parts)
     # Compact flush cutters: continuous tangs, curved grips, overlapping pivot,
     # broad tapered jaws. Their tip remains exactly 18cm along -Z in Godot.
-    parts=[]
+    arms=[]
     for side in [-1,1]:
+        parts=[]
         points=[(side*.030,.018),(side*.040,-.018),(side*.034,-.067),(side*.013,-.112)]
         for a,b in zip(points,points[1:]):parts.append(rod('Insulated grip',(a[0],0,a[1]),(b[0],0,b[1]),.024,sand))
         for t in range(4):
@@ -130,10 +131,16 @@ def build():
             parts.append(box('Grip ridge',(x,0,z),(.026,.026,.003),rubber,.001))
         outline=[(side*.018,-.078),(side*.012,-.112),(-side*.028,-.151),(-side*.018,-.173),(-side*.002,-.180),(-side*.005,-.154),(side*.025,-.114)]
         parts.append(plate('Forged jaw',outline,.013,steel))
+        arm=combine('DE_CutterLeft' if side<0 else 'DE_CutterRight',parts)
+        pivot=Vector(coords((0,0,-.111)))
+        for vertex in arm.data.vertices:vertex.co-=pivot
+        arm.location=pivot;arms.append(arm)
+    parts=[]
     parts.append(cylinder('Hinge',(0,0,-.111),.017,.023,steel,axis=(0,1,0)))
     parts.append(cylinder('Hinge cap',(0,.013,-.111),.009,.004,dark,axis=(0,1,0)))
-    parts.append(rod('Return spring',(-.02,0,-.070),(.02,0,-.070),.003,steel))
-    cutters=combine('DE_Cutters',parts)
+    hinge=combine('DE_CutterHinge',parts)
+    cutters=bpy.data.objects.new('DE_Cutters',None);scene.collection.objects.link(cutters)
+    for part in [hinge]+arms:part.parent=cutters
     for obj in scene.objects:obj.select_set(False)
     bomb.select_set(True);bpy.context.view_layer.objects.active=bomb
     for area in bpy.context.screen.areas:
@@ -141,7 +148,7 @@ def build():
             area.spaces.active.region_3d.view_distance=.78
             area.spaces.active.region_3d.view_location=(0,0,0)
             area.spaces.active.region_3d.view_rotation=Vector((.4,-1,.3)).to_track_quat('Z','Y')
-    print('DE_ASSETS',[(o.name,len(o.data.vertices),len(o.data.polygons)) for o in [bomb,cutters]])
+    print('DE_ASSETS',[(o.name,len(o.data.vertices),len(o.data.polygons)) for o in [bomb,hinge]+arms])
     return bomb,cutters
 
 def export_assets():
@@ -150,6 +157,7 @@ def export_assets():
     for name,filename in [('DE_BombChassis','bomb_chassis.glb'),('DE_Cutters','cutters.glb')]:
         for obj in bpy.context.selected_objects:obj.select_set(False)
         obj=bpy.data.objects[name];obj.hide_set(False);obj.select_set(True);bpy.context.view_layer.objects.active=obj
+        for child in obj.children_recursive:child.hide_set(False);child.select_set(True)
         bpy.ops.export_scene.gltf(filepath=str(ROOT/'deathmatch/pickups/defusal'/filename),export_format=fmt,use_selection=True,use_active_scene=True,export_yup=True,export_animations=False,export_cameras=False,export_lights=False)
 
 if __name__=='__main__':build()

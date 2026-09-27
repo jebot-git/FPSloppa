@@ -1,0 +1,108 @@
+{
+  "date_utc": "2026-09-27T10:03:39.092293+00:00",
+  "protocol": "fpsloppa-51-vr-mag-pull",
+  "changes": [
+    "Accepted grenade selections show the existing type icon and name for 1.6 seconds, with a persistent shoulder-type status alongside bomb status; repeated snapshots do not restart the popup.",
+    "MP5, AK-47, M4A1, M249, AWP and P90 support grabbing a seated magazine with offhand trigger or grip, pulling about 5.5 cm in its extraction direction, then releasing it. Pistols and tube-fed shotguns are excluded.",
+    "M249 cover and belt requirements remain; overlapping grab volumes choose magazine versus belt by proximity.",
+    "Removed magazines stay visible in the hand until release, then become bounded local debris. Chambered rounds and shared ammo accounting are preserved; existing magazine removal sounds and haptics apply.",
+    "Existing button ejection remains available. New grab/carry state is replicated and validated."
+  ],
+  "tests": [
+    {
+      "log": "test-results/cs16/mag-pull/authority.log",
+      "checks": 132,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/mag-pull/reload.log",
+      "checks": 110,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/mag-pull/actions.log",
+      "checks": 161,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/mag-pull/reload-ui.log",
+      "checks": 59,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/mag-pull/notice.log",
+      "checks": 22,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/mag-pull/vr-ui.log",
+      "checks": 60,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/mag-pull/network-server.log",
+      "checks": 52,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/mag-pull/network-client.log",
+      "checks": 49,
+      "passed": true
+    }
+  ],
+  "checks_passed": 645,
+  "console_server": {
+    "passed": true,
+    "maps_audited": 32,
+    "log": "test-results/cs16/mag-pull/server-audit.log"
+  },
+  "visual_review": [
+    "test-results/cs16/mag-pull/grenade-2.png",
+    "test-results/cs16/reload/09-pulled-magazine-false.png"
+  ],
+  "live_test": {
+    "pid": 998747,
+    "started_utc": "2026-09-27T10:03:07.302352+00:00",
+    "runtime": {
+      "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+      "OpenXRVendorID": 0,
+      "XRRuntimeName": "WiVRn 'v26.9'",
+      "XRRuntimeVersion": "26.9.0"
+    },
+    "focused": true,
+    "input_blocked": false,
+    "controllers_tracked": [
+      true,
+      true
+    ],
+    "bots": 0,
+    "cash": 16000,
+    "buy_available": true,
+    "bomb": {
+      "carrier": 1,
+      "code": [
+        8,
+        5,
+        9,
+        1
+      ],
+      "held": false,
+      "kit": true,
+      "phase": "live",
+      "planted": false,
+      "role": 0,
+      "tool": false
+    },
+    "foveation": {
+      "attached": true,
+      "centers": "[(0.303403, -0.065757), (-0.190941, -0.065757)]",
+      "size": 1,
+      "updates": 1526,
+      "valid": true
+    }
+  },
+  "notes": [
+    "Native render tests passed; existing shutdown resource/UID fallback warnings remain.",
+    "In-headset reach and comfort await player feedback."
+  ]
+}

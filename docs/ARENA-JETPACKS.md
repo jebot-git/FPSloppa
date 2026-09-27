@@ -36,6 +36,11 @@ so renderer/import differences cannot produce different pickup indices.
 
 Double-press the existing **jump** control within **300 ms**: Space on desktop,
 or the configured jump button in VR. Holding jump keeps its normal behavior.
+VR also defaults the **jetpack** action to weapon-hand **A/X**, shared with the
+reload button. One press activates an owned pack; holding does not repeat.
+With CS weapons, a shared binding keeps magazine release, so use double-tap jump
+or bind jetpack separately in Control Bindings. Menus and the weapon wheel block
+activation without replaying a held button when closed.
 
 With movement input, the pack launches a short arcing boost with limited steering
 (18 degrees per second). The open-floor test measures about **33 m** of travel

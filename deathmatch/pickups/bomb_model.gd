@@ -9,6 +9,7 @@ var wires: Array=[]
 var keys: Array=[]
 var ready_material: StandardMaterial3D
 var idle_material: StandardMaterial3D
+var focus_key: MeshInstance3D
 func _init():
 	name="BombKeypad"
 	add_child(load("res://deathmatch/pickups/defusal/bomb_chassis.glb").instantiate())
@@ -18,6 +19,9 @@ func _init():
 	for digit in 10:
 		var key:=Node3D.new();key.position=Contact.key_point(digit);add_child(key);keys.append(key)
 		var text:=label(str(digit),Vector3(0,0,.001),.0009,28,Color("ebe0c7"));key.add_child(text)
+	var focus_material:=Art.material(Color(.35,.75,.65,.22),0,0)
+	focus_material.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;focus_material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED
+	focus_key=Art.box(self,Vector3.ZERO,Vector3(Contact.KEY_SIZE.x,Contact.KEY_SIZE.y,.001),focus_material);focus_key.hide()
 	lamp=Art.box(self,Vector3(.105,.112,.084),Vector3(.011,.025,.008),idle_material)
 	for i in 3:
 		var wire:=Node3D.new();add_child(wire);wires.append(wire)
@@ -37,5 +41,8 @@ func update_display(text: String,armed: bool,cuts: int):
 	if display.text!=text:display.text=text
 	lamp.material_override=ready_material if armed else idle_material
 	for i in 3:wires[i].visible=cuts&(1<<i)==0
+func highlight(digit: int):
+	focus_key.visible=digit>=0
+	if digit>=0:focus_key.position=Contact.key_point(digit)+Vector3.BACK*.002
 static func cutters() -> Node3D:
-	return load("res://deathmatch/pickups/defusal/cutters.glb").instantiate()
+	return load("res://deathmatch/pickups/cutter_model.gd").new()

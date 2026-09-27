@@ -1,0 +1,198 @@
+{
+  "date": "2026-09-27T10:54:38.142793+00:00",
+  "protocol": "fpsloppa-52-defuse-snip",
+  "passed": true,
+  "checks": 906,
+  "changes": [
+    "Removed M3 external charging handle; retained physical pump, sights and XM1014 handle.",
+    "Blender cutters now have two pivoting whole handle/jaw arms with fixed hinge. Trigger squeeze plays one 0.20 second close/open cycle and original 0.22 second snip cue.",
+    "Server validates fresh equipped-tool input; feedback also works away from a wire, replicates reliably and is recorded in demos.",
+    "TF Soldier, Demoman and Pyro use DE free-hand aiming assistance for both trajectory preview and authoritative physical throw. Gentle drops and TF gravity/fuse behavior retained.",
+    "GRENADES buy category explicitly maps to de_he rather than falling back to pistol. HE, flash and smoke entries retain distinct icons."
+  ],
+  "findings": {
+    "head_damage": "4x base per pellet before range falloff and shared armor; verified actual health loss for all 11 CS guns, USP/M4 suppressors, and standing/crouched/prone targets.",
+    "stance_accuracy": {
+      "grounded_crouch": 0.75,
+      "grounded_prone": 0.45,
+      "air_or_water": 1.0,
+      "verified": "Actual horizontal and vertical shot rays, with VR/support/movement combinations; long-gun single-hand 2x penalty, pistols exempt."
+    },
+    "armor": "DE retains shared armor tiers: vest absorbs 1/3 and vest+helmet 1/2, limited by remaining armor. This is not exact location-specific CS1.6 armor behavior.",
+    "tf_preview": "Native rendered first trajectory step agrees with server spawn position, direction, speed and gravity for all 3 roles, both hands and player/aim rotations.",
+    "snip_network": "Three wire cuts yielded exactly three reliable events in attacker, defender and late-viewer demos; recorded frames validate."
+  },
+  "tests": [
+    {
+      "name": "accuracy",
+      "checks": 282,
+      "passed": true,
+      "log": "test-results/cs16/snip/accuracy.log"
+    },
+    {
+      "name": "vr-interactions",
+      "checks": 68,
+      "passed": true,
+      "log": "test-results/cs16/snip/vr-interactions.log"
+    },
+    {
+      "name": "physical-rig",
+      "checks": 67,
+      "passed": true,
+      "log": "test-results/cs16/snip/physical-rig.log"
+    },
+    {
+      "name": "snip-native",
+      "checks": 18,
+      "passed": true,
+      "log": "test-results/cs16/snip/snip-native.log"
+    },
+    {
+      "name": "art",
+      "checks": 227,
+      "passed": true,
+      "log": "test-results/cs16/snip/art.log"
+    },
+    {
+      "name": "sights",
+      "checks": 69,
+      "passed": true,
+      "log": "test-results/cs16/snip/sights.log"
+    },
+    {
+      "name": "reload",
+      "checks": 110,
+      "passed": true,
+      "log": "test-results/cs16/snip/reload.log"
+    },
+    {
+      "name": "de-ui",
+      "checks": 20,
+      "passed": true,
+      "log": "test-results/cs16/snip/de-ui.log"
+    },
+    {
+      "name": "de-network-server",
+      "checks": 16,
+      "passed": true,
+      "log": "test-results/defusal/network-server.log"
+    },
+    {
+      "name": "de-network-attacker",
+      "checks": 4,
+      "passed": true,
+      "log": "test-results/defusal/network-attacker.log"
+    },
+    {
+      "name": "de-network-defender",
+      "checks": 4,
+      "passed": true,
+      "log": "test-results/defusal/network-defender.log"
+    },
+    {
+      "name": "de-network-viewer",
+      "checks": 5,
+      "passed": true,
+      "log": "test-results/defusal/network-viewer.log"
+    },
+    {
+      "name": "tf-network-server",
+      "checks": 8,
+      "passed": true,
+      "log": "test-results/physical-interactions/network-server.log"
+    },
+    {
+      "name": "tf-network-client",
+      "checks": 8,
+      "passed": true,
+      "log": "test-results/physical-interactions/network-client.log"
+    }
+  ],
+  "visuals": [
+    "test-results/cs16/snip/models.png",
+    "test-results/defusal/buy-categories.png",
+    "test-results/defusal/buy-grenades.png"
+  ],
+  "assets": [
+    {
+      "path": "deathmatch/weapons/cs16/m3.scn",
+      "sha256": "000a5c2549057df9c9ca5816078f1ee96badd7572d82d755056efea97530bb87"
+    },
+    {
+      "path": "deathmatch/pickups/defusal/cutters.glb",
+      "sha256": "c5362109f0c059a7eb21875e112d8e940d4076f8cd7c850b4c5268ffeaf0fc22"
+    },
+    {
+      "path": "deathmatch/audio/cs16/snip.res",
+      "sha256": "7c8f0754146e4329542ff4c11712556584638469a79e16dcf561831c46594686"
+    },
+    {
+      "path": "deathmatch/pickups/cutter_model.gd",
+      "sha256": "da01ec3d5ccf93fbb73cf47c6da875845235a53c52fdc4723c905823f3ac7a40"
+    },
+    {
+      "path": "deathmatch/vr/throw_ballistics.gd",
+      "sha256": "b1f5654ecedbdb634acf545351ea8d3d3c14f6cb8b8741a2ac198e435ed0947e"
+    },
+    {
+      "path": "deathmatch/vr/physical_actions.gd",
+      "sha256": "bb59930528da738d17f92124f2135f8837270ad6bdaa51fa6638f5514a15d029"
+    },
+    {
+      "path": "deathmatch/modes/vr_interactions.gd",
+      "sha256": "f46094f698b5f8707f0b83aa05b7b6f7a3c25fb4b270442441566211ceeccbdc"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons.gd",
+      "sha256": "f8cba041457aba5078a5f1d2607696a77eeb3f451a26b70a2cfaf80021f34f3d"
+    },
+    {
+      "path": "tools/defusal/build_assets.py",
+      "sha256": "f233073bded11e1a09a8f05a5adaffbdd20bb075e1e12f71232dc8e5f5e4739a"
+    }
+  ],
+  "limitations": [
+    "Automated simulated controllers and local ENet tests do not establish human headset gesture comfort.",
+    "Existing ObjectDB/resource shutdown diagnostics remain; editor import also reports pre-existing BSP hull warnings and a sandbox-blocked editor listener. Runtime regression checks report no script errors.",
+    "Source and live test updated; no release binaries built or published in this task."
+  ],
+  "live_test": {
+    "launch_receipt": "test-results/cs16/live-wivrn/launch.json",
+    "pid": 1009694,
+    "protocol": "fpsloppa-52-defuse-snip",
+    "process_alive": true,
+    "runtime": {
+      "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+      "OpenXRVendorID": 0,
+      "XRRuntimeName": "WiVRn 'v26.9'",
+      "XRRuntimeVersion": "26.9.0"
+    },
+    "map": "de_dust2_rebuilt",
+    "bot_count": 0,
+    "cash": 16000,
+    "buy_available": true,
+    "bomb_and_tweezers": {
+      "carrier": 1,
+      "code": [
+        0,
+        7,
+        1,
+        4
+      ],
+      "held": false,
+      "kit": true,
+      "phase": "live",
+      "planted": false,
+      "role": 0,
+      "tool": false
+    },
+    "grenades": [
+      1,
+      2,
+      1
+    ],
+    "gaze_valid": true,
+    "left_tracked": true,
+    "right_tracked": true
+  }
+}

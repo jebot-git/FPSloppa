@@ -32,6 +32,10 @@ func _initialize() -> void:
 	for required in ["deathmatch/modes/defusal.gd","deathmatch/counterstrike/reload_state.gd","deathmatch/vr/hip_mount.gd","deathmatch/vr/physical_reload.gd","deathmatch/counterstrike/grenades.gd"]:
 		if not ResourceLoader.exists("res://"+required):failures.append("Missing 0.17 feature: "+required)
 	var config=load("res://deathmatch/server/config.gd")
+	for required in ["deathmatch/vr/gaze_vrs.gd","deathmatch/counterstrike/reload_motion.gd","deathmatch/counterstrike/feed_belt.gd","deathmatch/vr/weapon_kick.gd","deathmatch/vr/keypad_finger.gd","deathmatch/avatars/first_person_mask.gd","deathmatch/ui/grenade_notice.gd","deathmatch/pickups/cutter_model.gd","deathmatch/audio/cs16/snip.res","deathmatch/effects/bullet_marks.gd"]:
+		if not ResourceLoader.exists("res://"+required):failures.append("Missing 0.18 feature: "+required)
+	for forbidden in ["test-results","deathmatch/tests"]:
+		if DirAccess.dir_exists_absolute("res://"+forbidden):failures.append("Test-only content: "+forbidden)
 	if config.DEFAULTS.has("sv_tb_heavy_ordnance") or config.RANGES.has("sv_tb_heavy_ordnance"):failures.append("Retired TB server setting")
 	var walker=load("res://deathmatch/vehicles/ba2/controller.gd").new()
 	if walker.PILOT_MAX_HEALTH!=200 or not walker.heavy_ordnance_only or walker.pilot_regeneration:failures.append("Incorrect fixed TB defaults")

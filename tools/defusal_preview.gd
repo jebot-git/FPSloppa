@@ -15,6 +15,8 @@ func run():
 	var camera:=Camera3D.new();g.add_child(camera);camera.fov=70;camera.near=.035;camera.make_current()
 	camera.position=de.sites[0]+Vector3(0,1.3,2.0);camera.look_at(de.sites[0]+Vector3.UP*.6)
 	de.draw();de.panel.toggle();await capture("buy-categories")
+	de.panel.select(204);de.panel.hover=0;de.panel.refresh();await capture("buy-grenades")
+	de.panel.select(1000)
 	de.panel.select(201);de.panel.hover=0;de.panel.refresh();await capture("buy-weapons")
 	de.panel.close();de.phase="live";de.held=true;de.carrier=1
 	g.players[1].yaw=0.0;g.players[1].pitch=0.0

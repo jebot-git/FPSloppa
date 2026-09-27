@@ -1,0 +1,114 @@
+{
+  "date": "2026-09-27",
+  "scope": "Live VR feedback, CS-only one-handed recoil, continuous AWP action and gaze VRS",
+  "protocol": "fpsloppa-47-vr-handling",
+  "passed": true,
+  "suites": {
+    "cs16": {
+      "passed": true,
+      "checks": 70,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/cs16.log"
+    },
+    "cs16_actions": {
+      "passed": true,
+      "checks": 161,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/cs16_actions.log"
+    },
+    "cs16_vr_reload": {
+      "passed": true,
+      "checks": 110,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/cs16_vr_reload.log"
+    },
+    "reload-ui": {
+      "passed": true,
+      "checks": 30,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/reload-ui.log"
+    },
+    "vr_hand_mask": {
+      "passed": true,
+      "checks": 28,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/vr_hand_mask.log"
+    },
+    "local_body": {
+      "passed": true,
+      "checks": 81,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/local_body.log"
+    },
+    "foveation": {
+      "passed": true,
+      "checks": 143,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/foveation.log"
+    },
+    "defusal_vr": {
+      "passed": true,
+      "checks": 42,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/defusal_vr.log"
+    },
+    "hip_reload": {
+      "passed": true,
+      "checks": 73,
+      "failures": [],
+      "log": "test-results/cs16/live-feedback/hip_reload.log"
+    },
+    "enet": {
+      "passed": true,
+      "log": "test-results/cs16/live-feedback/network.log"
+    },
+    "console": {
+      "passed": true,
+      "maps": 32,
+      "log": "test-results/cs16/live-feedback/console.log"
+    }
+  },
+  "live": {
+    "runtime": {
+      "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+      "OpenXRVendorID": 0,
+      "XRRuntimeName": "WiVRn 'v26.9'",
+      "XRRuntimeVersion": "26.9.0"
+    },
+    "empty_arena": true,
+    "bomb": {
+      "carrier": 1,
+      "code": [
+        4,
+        3,
+        7,
+        5
+      ],
+      "held": false,
+      "phase": "live",
+      "planted": false
+    },
+    "gaze": {
+      "attached": true,
+      "centers": "[(0.354644, -0.016001), (-0.136829, -0.016001)]",
+      "size": 3,
+      "updates": 3732,
+      "valid": true
+    },
+    "controllers_tracked": true,
+    "fps_with_debug_mirror": 72.0
+  },
+  "test_only": [
+    "Separate native desktop mask window under export-excluded test-results; no overlay in headset",
+    "Solo DE rule subclass ignores elimination; production mode unchanged",
+    "Additional desktop render makes this unsuitable as a clean headset-only FPS benchmark"
+  ],
+  "assets_manifest_sha256": "79ccc4e68b30892ad973cba600de0c5aac15b318848a1eb06a3b8a7832ee7ede",
+  "limitations": [
+    "Physical comfort and precise controller gesture feel still need user validation",
+    "Generic stereo VRS, not quad views; native density-map path unchanged",
+    "Native renderer required by reload UI fixture; headless attempt discarded",
+    "Existing UID fallback/shutdown object warnings remain; final live startup has no script/runtime errors"
+  ],
+  "release": "Source changes and local test only; no publication"
+}

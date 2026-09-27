@@ -560,6 +560,7 @@ func ability_state(id: int) -> Dictionary:
 	if not enabled() or not game.players.has(id):return {}
 	var role: String=game.players.get(id,{}).get("tf_class","soldier")
 	var labels={"scout":"SPRINT","sniper":"FOCUS","soldier":"GRENADE","demoman":"PIPE GRENADE","medic":"HEAL","heavy":"BRACE","pyro":"NAPALM","spy":"UNCLOAK" if spy_invisibility and cloaked(id) else "CLOAK" if spy_invisibility else "DISGUISE","engineer":"BUILD / REPAIR"}
+	if role=="engineer":labels[role]="BUILD "+String(game.players[id].get("tf_tool","sentry")).to_upper()+" / REPAIR"
 	var total: float={"scout":10.0,"sniper":12.0,"soldier":8.0,"demoman":8.0,"medic":2.0,"heavy":12.0,"pyro":10.0,"spy":.5,"engineer":2.0}[role]
 	var remaining:=maxf(0,cooldowns.get(id,0)-game.clock)
 	var active_left:=maxf(0,effects.get(id,{}).get("until",0)-game.clock)

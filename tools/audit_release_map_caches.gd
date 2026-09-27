@@ -19,5 +19,7 @@ func run() -> void:
 			if not valid:failures.append(path)
 			packed=null
 		await process_frame
-	FileAccess.open("res://test-results/release-0.17v/map-caches.json",FileAccess.WRITE).store_string(JSON.stringify({"records":records,"failures":failures},"  "))
+	var output: String="res://test-results/release-"+str(ProjectSettings.get_setting("application/config/version"))
+	DirAccess.make_dir_recursive_absolute(output)
+	FileAccess.open(output+"/map-caches.json",FileAccess.WRITE).store_string(JSON.stringify({"records":records,"failures":failures},"  "))
 	print("RELEASE_MAP_CACHES_RESULT ",records.size()," ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

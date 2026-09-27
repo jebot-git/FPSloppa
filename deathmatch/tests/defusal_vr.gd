@@ -22,9 +22,14 @@ func pose_at(weapon: Transform3D,left_handed: bool=false) -> Dictionary:
 	pose.offhand_weapon=Transform3D(Basis.IDENTITY,Vector3(-.3,1.0,-.3))
 	pose["right" if left_handed else "left"]=pose.offhand_weapon
 	return pose
-func touch(id: int,pose: Dictionary,digit: int):
-	var tip: Vector3=de.base_pose(id).affine_inverse()*de.bomb_pose()*Contact.key_point(digit)
-	pose.offhand_weapon=Transform3D(Basis.IDENTITY,tip+Vector3(0,0,.055));pose["right" if pose.left_handed else "left"]=pose.offhand_weapon
+func touch(id: int,pose: Dictionary,digit: int,grip:=false):
+	var base: Transform3D=de.base_pose(id).affine_inverse()*de.bomb_pose()
+	var tip: Vector3=base*Contact.key_point(digit)
+	pose.index_tip=tip+base.basis.z*.05
+	pose.offhand_weapon=Transform3D(Basis.IDENTITY,pose.index_tip+Vector3(0,0,.08));pose["right" if pose.left_handed else "left"]=pose.offhand_weapon
+	send(id,pose,grip)
+	pose.index_tip=tip
+	pose.offhand_weapon.origin=tip+Vector3(0,0,.08);pose["right" if pose.left_handed else "left"]=pose.offhand_weapon
 func run():
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.start_host("VR defusal",0,20,10,true,"de")
 	if is_instance_valid(g.bots):g.bots.free();g.bots=null
@@ -40,8 +45,8 @@ func run():
 	var before: int=de.arm_index;send(1,pose,true,true)
 	check(de.arm_index==before,"Trigger far from keypad cannot enter a digit")
 	for i in 4:
-		pose.offhand_weapon.origin=Vector3(-.6,1,-.1);pose.left=pose.offhand_weapon;send(1,pose,true)
-		touch(1,pose,de.arm_code[de.arm_index]);send(1,pose,true,true)
+		pose.erase("index_tip");pose.offhand_weapon.origin=Vector3(-.6,1,-.1);pose.left=pose.offhand_weapon;send(1,pose,true)
+		touch(1,pose,de.arm_code[de.arm_index],true);send(1,pose,true,true)
 	check(de.arm_index==4 and de.armed_until>g.clock,"Four offhand keypad contacts arm the VR bomb")
 	var mount: Transform3D=de.placement(1).get("pose",Transform3D(Basis(Vector3.RIGHT,-PI/2),de.sites[0]+Vector3.UP*.08))
 	pose.head.origin.y=.95
@@ -53,12 +58,12 @@ func run():
 	ct.head.origin.y=.95
 	for i in 3:
 		touch(-1,ct,de.defuse_code[de.defuse_index]);send(-1,ct,false,true)
-		ct.offhand_weapon.origin=Vector3(.6,1,-.1);ct.right=ct.offhand_weapon;send(-1,ct)
+		ct.erase("index_tip");ct.offhand_weapon.origin=Vector3(.6,1,-.1);ct.right=ct.offhand_weapon;send(-1,ct)
 	check(de.defuse_index==3 and de.defuser==-1,"Left-handed offhand keypad entry uses mirrored controller roles")
 	g.players[-1].input_blocked=true;de.sample_player(-1)
 	check(de.defuse_index==0 and de.defuser==0,"Menu/focus block interrupts defusal progress")
 	de.account(-1).kit=true
-	ct=pose_at(Transform3D(Basis.IDENTITY,Vector3(-.17,1,-.12)),true);send(-1,ct,true)
+	ct=pose_at(Transform3D.IDENTITY,true);ct.weapon.origin=Contact.holster(ct);ct.left=ct.weapon;send(-1,ct);send(-1,ct,true)
 	check(de.account(-1).tool,"CT draws purchased cutters with primary grip")
 	send(-1,ct,true,false,true)
 	check(de.cut_mask==0,"Cutters cannot cut remotely")

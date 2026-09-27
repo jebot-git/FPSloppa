@@ -14,6 +14,9 @@ static func read(game,id: int) -> Dictionary:
 			result.ability=ability.label+" · "+("READY" if ability.ready else "READY IN %.1fs"%ability.remaining)
 			if ability.active>0:result.ability+=" · ACTIVE %.1fs"%ability.active
 	if game.armory.effective()=="cs16":result.ability=game.variant_combat.cs.label(id)
+	if game.match_mode.defusal.enabled() and state.get("vr_device",false) and state.get("physical",false):
+		var utility=game.match_mode.defusal.utility;var kind: int=utility.shoulder_selected(id)
+		if kind>=0:result.ability+=" · SHOULDER: "+utility.NAMES[kind]
 	if game.jetpacks.enabled() and game.fighters.has(id) and game.fighters[id].jetpack_enabled and game.intermission<=0:
 		result.ability+=(" · " if not result.ability.is_empty() else "")+game.fighters[id].Jetpack.status(game.fighters[id].jetpack_state)
 	if game.match_mode.titanball.preparing() and game.intermission<=0:

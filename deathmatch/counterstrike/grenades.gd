@@ -21,9 +21,20 @@ var next_id:=0
 var visual
 func setup(value):rules_ref=weakref(value)
 func state(id: int) -> Dictionary:
-	if not states.has(id):states[id]={"counts":[0,0,0],"selected":-1,"primed":false,"pressed":false,"ready":0.0,"release":false,"weapon":-1,"hand":Vector3.ZERO,"hand_time":-1.0,"velocity":Vector3.ZERO,"cooldown":0.0}
+	if not states.has(id):states[id]={"counts":[0,0,0],"selected":-1,"shoulder":-1,"primed":false,"pressed":false,"ready":0.0,"release":false,"weapon":-1,"hand":Vector3.ZERO,"hand_time":-1.0,"velocity":Vector3.ZERO,"cooldown":0.0}
 	return states[id]
 func selected(id: int) -> int:return int(states.get(id,{}).get("selected",-1)) if rules.enabled() else -1
+func shoulder_selected(id: int) -> int:
+	var u:=state(id);var kind: int=u.shoulder
+	if kind>=0 and u.counts[kind]>0:return kind
+	for k in 3:
+		if u.counts[k]>0:return k
+	return -1
+func select_shoulder(id: int,kind: int) -> bool:
+	if not rules.enabled() or not rules.alive(id) or rules.phase!="live" or kind not in [-1,0,1,2] or game.intermission>0 or state(id).primed or rules.busy(id):return false
+	if kind>=0 and state(id).counts[kind]<=0:return false
+	cancel(id);state(id).shoulder=kind
+	return true
 func reset():
 	states.clear();flying.clear();clouds.clear();flashes.clear();next_id=0;clear_visuals()
 func clear_visuals():
@@ -39,6 +50,9 @@ func buy(id: int,kind: int) -> bool:
 	if kind<0 or kind>2 or state(id).counts[kind]>=LIMITS[kind]:return false
 	state(id).counts[kind]+=1;return true
 func equip(id: int,kind: int) -> bool:
+	if game.players.get(id,{}).get("vr_device",false) and game.players[id].get("physical",false):return select_shoulder(id,kind)
+	return equip_hand(id,kind)
+func equip_hand(id: int,kind: int) -> bool:
 	if not rules.enabled() or not rules.alive(id) or rules.phase!="live" or kind not in [-1,0,1,2] or game.intermission>0:return false
 	if kind>=0 and (state(id).counts[kind]<=0 or rules.busy(id)):return false
 	cancel(id);var s:=state(id);s.selected=kind;s.weapon=game.players[id].weapon
@@ -49,6 +63,14 @@ func inventory(id: int) -> Array:
 	for kind in 3:
 		if state(id).counts[kind]>0:rows.append({"id":ITEMS[kind],"name":NAMES[kind],"ammo":state(id).counts[kind],"usable":true})
 	return rows
+func cycle(id: int,direction: int) -> bool:
+	if direction not in [-1,1] or state(id).primed:return false
+	var current: int=int(state(id).shoulder)
+	if current<0:current=-1 if direction>0 else 0
+	for offset in range(1,4):
+		var kind: int=posmod(current+direction*offset,3)
+		if state(id).counts[kind]>0:return select_shoulder(id,kind)
+	return false
 func origin(id: int) -> Vector3:
 	var s: Dictionary=game.players[id]
 	if not s.xr.is_empty():return (rules.base_pose(id)*rules.Interaction.primary(s.xr)).origin
@@ -83,16 +105,13 @@ func physical_request(id: int,action: String,pose: Dictionary,velocity: Vector3)
 	if not rules.ray_surface(chest,at).is_empty():cancel(id);return false
 	if action=="arm":
 		if u.primed:return false
-		var kind: int=selected(id)
-		if kind<0:
-			for k in 3:
-				if u.counts[k]>0:kind=k;break
-		if not equip(id,kind) or kind<0:return false
+		var kind: int=shoulder_selected(id)
+		if not equip_hand(id,kind) or kind<0:return false
 		u.offhand=true;u.primed=true;u.until=game.clock+10;u.left_handed=pose.left_handed
 		return true
 	if action=="throw":
 		if not u.get("offhand",false) or not u.primed or game.clock>u.until or pose.left_handed!=u.left_handed:cancel(id);return false
-		var launched: Vector3=rules.base_pose(id).basis*preload("res://deathmatch/vr/throw_ballistics.gd").launch(velocity)
+		var launched: Vector3=rules.base_pose(id).basis*preload("res://deathmatch/vr/throw_ballistics.gd").guided(pose,velocity)
 		var success:=throw_grenade(id,launched,pose)
 		if not success:cancel(id)
 		return success
@@ -104,7 +123,9 @@ func throw_grenade(id: int,override_velocity: Variant=null,physical_pose: Dictio
 	if not physical_pose.is_empty():from=rules.base_pose(id)*(physical_pose.right.origin if physical_pose.left_handed else physical_pose.left.origin)
 	var direction: Vector3=game.W.direction(s.yaw,s.pitch)
 	var velocity: Vector3
-	if override_velocity is Vector3:velocity=override_velocity.limit_length(26)
+	if override_velocity is Vector3:
+		velocity=override_velocity.limit_length(26)
+		if velocity.length()>.1:direction=velocity.normalized()
 	elif not s.xr.is_empty():
 		direction=-(rules.base_pose(id)*rules.Interaction.primary(s.xr)).basis.z
 		velocity=u.velocity.limit_length(12)+direction*3+game.fighters[id].velocity.limit_length(9)
@@ -216,7 +237,7 @@ func bot_combat(id: int,brain: Dictionary) -> bool:
 func snapshot() -> Dictionary:
 	var inventory: Dictionary={};var shots: Array=[];var smoke: Array=[];var blind: Dictionary={}
 	for id in states:
-		if game.players.has(id):inventory[id]=[state(id).counts.duplicate(),selected(id),state(id).primed,state(id).get("offhand",false)]
+		if game.players.has(id):inventory[id]=[state(id).counts.duplicate(),selected(id),state(id).primed,state(id).get("offhand",false),int(state(id).shoulder)]
 	for id in flying:
 		var p: Dictionary=flying[id];shots.append([id,p.kind,p.owner,p.position,p.velocity,p.age,p.ground])
 	for id in clouds:smoke.append([id,clouds[id].position,clouds[id].age])
@@ -229,6 +250,7 @@ func receive(data: Dictionary):
 	for id in data.get("inventory",{}):
 		var row: Array=data.inventory[id];state(id).counts=row[0];state(id).selected=row[1];state(id).primed=row[2]
 		state(id).offhand=row[3] if row.size()>3 else false
+		state(id).shoulder=row[4] if row.size()>4 else -1
 	for row in data.get("shots",[]):flying[row[0]]={"kind":row[1],"owner":row[2],"position":row[3],"velocity":row[4],"age":row[5],"ground":row[6]}
 	for row in data.get("smoke",[]):clouds[row[0]]={"position":row[1],"age":row[2]}
 	for id in data.get("blind",{}):
@@ -240,8 +262,9 @@ static func valid_snapshot(data: Variant) -> bool:
 	if not data.get("inventory") is Dictionary or data.inventory.size()>32 or not data.get("shots") is Array or data.shots.size()>128 or not data.get("smoke") is Array or data.smoke.size()>32 or not data.get("blind") is Dictionary or data.blind.size()>32:return false
 	for id in data.inventory:
 		var row=data.inventory[id]
-		if not id is int or not row is Array or row.size() not in [3,4] or not row[0] is Array or row[0].size()!=3 or not row[1] is int or row[1] not in [-1,0,1,2] or not row[2] is bool:return false
-		if row.size()==4 and not row[3] is bool:return false
+		if not id is int or not row is Array or row.size() not in [3,4,5] or not row[0] is Array or row[0].size()!=3 or not row[1] is int or row[1] not in [-1,0,1,2] or not row[2] is bool:return false
+		if row.size()>=4 and not row[3] is bool:return false
+		if row.size()==5 and (not row[4] is int or row[4] not in [-1,0,1,2]):return false
 		for k in 3:
 			if not row[0][k] is int or row[0][k]<0 or row[0][k]>LIMITS[k]:return false
 	for row in data.shots:

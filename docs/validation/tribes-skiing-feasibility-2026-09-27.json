@@ -1,0 +1,618 @@
+{
+  "date": "2026-09-27",
+  "scope": "Feasibility assessment; no skiing implementation",
+  "engine": "Godot 4.7.2",
+  "map_audit": {
+    "method": "BSP29 world-model upward non-sky/non-liquid draw-face areas by slope; includes roofs and inaccessible ledges, not a ski route/reachability measure. Extents use Quake X/Y horizontal and Z vertical.",
+    "maps": [
+      {
+        "map": "tb_cindercoil",
+        "bsp_version": 29,
+        "bytes": 17925452,
+        "world_extent_m": [
+          227.94,
+          235.94,
+          79.94
+        ],
+        "faces": 31292,
+        "nodes": 13455,
+        "clipnodes": 0,
+        "area_m2": {
+          "flat_0_1deg": 41461.12,
+          "gentle_1_8deg": 15795.46,
+          "hill_8_40deg": 1586.57,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 358
+      },
+      {
+        "map": "tf_ironspan",
+        "bsp_version": 29,
+        "bytes": 2339544,
+        "world_extent_m": [
+          97.94,
+          49.94,
+          22.94
+        ],
+        "faces": 967,
+        "nodes": 335,
+        "clipnodes": 1112,
+        "area_m2": {
+          "flat_0_1deg": 6070.38,
+          "gentle_1_8deg": 0,
+          "hill_8_40deg": 480.42,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 20
+      },
+      {
+        "map": "tf_relayworks",
+        "bsp_version": 29,
+        "bytes": 2351968,
+        "world_extent_m": [
+          89.94,
+          53.94,
+          26.94
+        ],
+        "faces": 1042,
+        "nodes": 378,
+        "clipnodes": 1252,
+        "area_m2": {
+          "flat_0_1deg": 6207.0,
+          "gentle_1_8deg": 0,
+          "hill_8_40deg": 476.41,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 36
+      },
+      {
+        "map": "de_dust2_rebuilt",
+        "bsp_version": 29,
+        "bytes": 5300420,
+        "world_extent_m": [
+          118.12,
+          111.75,
+          25.94
+        ],
+        "faces": 5877,
+        "nodes": 1112,
+        "clipnodes": 2453,
+        "area_m2": {
+          "flat_0_1deg": 13067.78,
+          "gentle_1_8deg": 369.07,
+          "hill_8_40deg": 890.32,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 183
+      },
+      {
+        "map": "de_nuke_rebuilt",
+        "bsp_version": 29,
+        "bytes": 6251212,
+        "world_extent_m": [
+          154.88,
+          95.81,
+          31.94
+        ],
+        "faces": 4972,
+        "nodes": 946,
+        "clipnodes": 2313,
+        "area_m2": {
+          "flat_0_1deg": 18162.8,
+          "gentle_1_8deg": 0,
+          "hill_8_40deg": 420.88,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 50
+      },
+      {
+        "map": "de_inferno_rebuilt",
+        "bsp_version": 29,
+        "bytes": 5629304,
+        "world_extent_m": [
+          136.88,
+          121.5,
+          23.94
+        ],
+        "faces": 4736,
+        "nodes": 1161,
+        "clipnodes": 2280,
+        "area_m2": {
+          "flat_0_1deg": 17999.03,
+          "gentle_1_8deg": 0,
+          "hill_8_40deg": 0,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 0
+      },
+      {
+        "map": "de_aztec_rebuilt",
+        "bsp_version": 29,
+        "bytes": 4098336,
+        "world_extent_m": [
+          116.62,
+          80.44,
+          27.94
+        ],
+        "faces": 4754,
+        "nodes": 887,
+        "clipnodes": 1960,
+        "area_m2": {
+          "flat_0_1deg": 9715.08,
+          "gentle_1_8deg": 0,
+          "hill_8_40deg": 381.48,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 74
+      },
+      {
+        "map": "de_train_rebuilt",
+        "bsp_version": 29,
+        "bytes": 8117308,
+        "world_extent_m": [
+          129.56,
+          117.19,
+          23.94
+        ],
+        "faces": 10924,
+        "nodes": 3817,
+        "clipnodes": 3864,
+        "area_m2": {
+          "flat_0_1deg": 19741.46,
+          "gentle_1_8deg": 0,
+          "hill_8_40deg": 135.55,
+          "steep_40_70deg": 0
+        },
+        "inclined_faces_8_70deg": 21
+      }
+    ],
+    "cindercoil_route": {
+      "length_m": 349.999755859375,
+      "rise_m": 14.0,
+      "max_grade_degrees": 3.295675180469398,
+      "min_grade_degrees": -0.00021891598340283318
+    }
+  },
+  "collision_probe": {
+    "current_controller": {
+      "after_1_second": 0.0,
+      "distance_m": 2.25339078903198,
+      "initial_horizontal_speed": 20,
+      "supported": true
+    },
+    "import_ms": 2136,
+    "road_probe": {
+      "hits": 71,
+      "max_height_error_m": 0.028922937810421,
+      "misses": [],
+      "samples": [
+        {
+          "height_error_m": 0.0,
+          "route_m": 0,
+          "slope_degrees": 0.0
+        },
+        {
+          "height_error_m": 0.0,
+          "route_m": 5,
+          "slope_degrees": 0.0
+        },
+        {
+          "height_error_m": 0.0,
+          "route_m": 10,
+          "slope_degrees": 0.0
+        },
+        {
+          "height_error_m": 0.0,
+          "route_m": 15,
+          "slope_degrees": 0.0
+        },
+        {
+          "height_error_m": 0.0,
+          "route_m": 20,
+          "slope_degrees": 0.0
+        },
+        {
+          "height_error_m": 0.028922937810421,
+          "route_m": 25,
+          "slope_degrees": 2.49951515424537
+        },
+        {
+          "height_error_m": 0.00845417380332947,
+          "route_m": 30,
+          "slope_degrees": 2.37050299154015
+        },
+        {
+          "height_error_m": 0.00648978352546692,
+          "route_m": 35,
+          "slope_degrees": 2.18346097300383
+        },
+        {
+          "height_error_m": 1.9371509552002e-05,
+          "route_m": 40,
+          "slope_degrees": 2.11396277344847
+        },
+        {
+          "height_error_m": 0.0097506046295166,
+          "route_m": 45,
+          "slope_degrees": 3.11665238879736
+        },
+        {
+          "height_error_m": 0.0157970190048218,
+          "route_m": 50,
+          "slope_degrees": 2.10384714367304
+        },
+        {
+          "height_error_m": 0.00658631324768066,
+          "route_m": 55,
+          "slope_degrees": 2.17708748146527
+        },
+        {
+          "height_error_m": 7.98702239990234e-06,
+          "route_m": 60,
+          "slope_degrees": 3.22367218327223
+        },
+        {
+          "height_error_m": 0.00936996936798096,
+          "route_m": 65,
+          "slope_degrees": 3.08984155516115
+        },
+        {
+          "height_error_m": 0.0157232284545898,
+          "route_m": 70,
+          "slope_degrees": 2.10068184729858
+        },
+        {
+          "height_error_m": 0.00680875778198242,
+          "route_m": 75,
+          "slope_degrees": 2.16582099051658
+        },
+        {
+          "height_error_m": -3.09944152832031e-06,
+          "route_m": 80,
+          "slope_degrees": 3.25160854795068
+        },
+        {
+          "height_error_m": 0.00917220115661621,
+          "route_m": 85,
+          "slope_degrees": 3.08159405224034
+        },
+        {
+          "height_error_m": 0.0156567096710205,
+          "route_m": 90,
+          "slope_degrees": 2.10830771077303
+        },
+        {
+          "height_error_m": 0.0071418285369873,
+          "route_m": 95,
+          "slope_degrees": 2.14228834647474
+        },
+        {
+          "height_error_m": -1.62124633789062e-05,
+          "route_m": 100,
+          "slope_degrees": 3.25954643619613
+        },
+        {
+          "height_error_m": 0.00922536849975586,
+          "route_m": 105,
+          "slope_degrees": 3.08426103939713
+        },
+        {
+          "height_error_m": 0.0154111385345459,
+          "route_m": 110,
+          "slope_degrees": 2.11451819253323
+        },
+        {
+          "height_error_m": 0.00744962692260742,
+          "route_m": 115,
+          "slope_degrees": 2.1301030360563
+        },
+        {
+          "height_error_m": -3.4332275390625e-05,
+          "route_m": 120,
+          "slope_degrees": 2.16771785143205
+        },
+        {
+          "height_error_m": 0.00942087173461914,
+          "route_m": 125,
+          "slope_degrees": 3.09427342172057
+        },
+        {
+          "height_error_m": 0.0150771141052246,
+          "route_m": 130,
+          "slope_degrees": 2.12190989449501
+        },
+        {
+          "height_error_m": 0.00765419006347656,
+          "route_m": 135,
+          "slope_degrees": 2.12227880410489
+        },
+        {
+          "height_error_m": -4.43458557128906e-05,
+          "route_m": 140,
+          "slope_degrees": 3.25852521605964
+        },
+        {
+          "height_error_m": 0.00985050201416016,
+          "route_m": 145,
+          "slope_degrees": 3.12016794943891
+        },
+        {
+          "height_error_m": 0.014592170715332,
+          "route_m": 150,
+          "slope_degrees": 2.13652501637633
+        },
+        {
+          "height_error_m": 0.0077824592590332,
+          "route_m": 155,
+          "slope_degrees": 2.11211032211589
+        },
+        {
+          "height_error_m": 4.48226928710938e-05,
+          "route_m": 160,
+          "slope_degrees": 3.2496210494684
+        },
+        {
+          "height_error_m": 0.0106377601623535,
+          "route_m": 165,
+          "slope_degrees": 3.15969657938905
+        },
+        {
+          "height_error_m": 0.0139031410217285,
+          "route_m": 170,
+          "slope_degrees": 2.14840064583496
+        },
+        {
+          "height_error_m": 0.00780820846557617,
+          "route_m": 175,
+          "slope_degrees": 2.10849336304405
+        },
+        {
+          "height_error_m": 1.00135803222656e-05,
+          "route_m": 180,
+          "slope_degrees": 2.18256442368023
+        },
+        {
+          "height_error_m": 0.011284351348877,
+          "route_m": 185,
+          "slope_degrees": 3.19812516963214
+        },
+        {
+          "height_error_m": 0.0134105682373047,
+          "route_m": 190,
+          "slope_degrees": 2.1719572068289
+        },
+        {
+          "height_error_m": 0.00785112380981445,
+          "route_m": 195,
+          "slope_degrees": 2.10449823162167
+        },
+        {
+          "height_error_m": -2.6702880859375e-05,
+          "route_m": 200,
+          "slope_degrees": 2.17231762120024
+        },
+        {
+          "height_error_m": 0.0116853713989258,
+          "route_m": 205,
+          "slope_degrees": 3.22616115557427
+        },
+        {
+          "height_error_m": 0.0131206512451172,
+          "route_m": 210,
+          "slope_degrees": 2.18148807835433
+        },
+        {
+          "height_error_m": 0.0078277587890625,
+          "route_m": 215,
+          "slope_degrees": 2.10459122775037
+        },
+        {
+          "height_error_m": 3.91006469726562e-05,
+          "route_m": 220,
+          "slope_degrees": 2.16283684954515
+        },
+        {
+          "height_error_m": 0.0120601654052734,
+          "route_m": 225,
+          "slope_degrees": 3.23900048274556
+        },
+        {
+          "height_error_m": 0.0129737854003906,
+          "route_m": 230,
+          "slope_degrees": 2.18686450992455
+        },
+        {
+          "height_error_m": 0.00777244567871094,
+          "route_m": 235,
+          "slope_degrees": 2.10905022184748
+        },
+        {
+          "height_error_m": 2.86102294921875e-05,
+          "route_m": 240,
+          "slope_degrees": 2.14228834647474
+        },
+        {
+          "height_error_m": 0.0122499465942383,
+          "route_m": 245,
+          "slope_degrees": 3.25467775183078
+        },
+        {
+          "height_error_m": 0.0130844116210938,
+          "route_m": 250,
+          "slope_degrees": 2.18157779407138
+        },
+        {
+          "height_error_m": 0.00765609741210938,
+          "route_m": 255,
+          "slope_degrees": 2.11757039463019
+        },
+        {
+          "height_error_m": -2.86102294921875e-06,
+          "route_m": 260,
+          "slope_degrees": 3.1078461060878
+        },
+        {
+          "height_error_m": 0.0123090744018555,
+          "route_m": 265,
+          "slope_degrees": 3.26692576398414
+        },
+        {
+          "height_error_m": 0.0133152008056641,
+          "route_m": 270,
+          "slope_degrees": 2.17312833508853
+        },
+        {
+          "height_error_m": 0.0074920654296875,
+          "route_m": 275,
+          "slope_degrees": 2.12679275598693
+        },
+        {
+          "height_error_m": -3.24249267578125e-05,
+          "route_m": 280,
+          "slope_degrees": 3.09148841796742
+        },
+        {
+          "height_error_m": 0.0122804641723633,
+          "route_m": 285,
+          "slope_degrees": 3.25521907597143
+        },
+        {
+          "height_error_m": 0.0137786865234375,
+          "route_m": 290,
+          "slope_degrees": 2.1554946327434
+        },
+        {
+          "height_error_m": 0.00723838806152344,
+          "route_m": 295,
+          "slope_degrees": 2.14082611275765
+        },
+        {
+          "height_error_m": 3.71932983398438e-05,
+          "route_m": 300,
+          "slope_degrees": 2.11266622798846
+        },
+        {
+          "height_error_m": 0.0120868682861328,
+          "route_m": 305,
+          "slope_degrees": 3.26068742179342
+        },
+        {
+          "height_error_m": 0.014491081237793,
+          "route_m": 310,
+          "slope_degrees": 2.14493610553438
+        },
+        {
+          "height_error_m": 0.00687503814697266,
+          "route_m": 315,
+          "slope_degrees": 2.16120740040593
+        },
+        {
+          "height_error_m": 1.04904174804688e-05,
+          "route_m": 320,
+          "slope_degrees": 3.07841605782323
+        },
+        {
+          "height_error_m": 0.0117940902709961,
+          "route_m": 325,
+          "slope_degrees": 3.23143629006541
+        },
+        {
+          "height_error_m": 0.0168991088867188,
+          "route_m": 330,
+          "slope_degrees": 2.12273985100017
+        },
+        {
+          "height_error_m": 0.00254726409912109,
+          "route_m": 335,
+          "slope_degrees": 2.62852872405977
+        },
+        {
+          "height_error_m": 0.0,
+          "route_m": 340,
+          "slope_degrees": 0.0
+        },
+        {
+          "height_error_m": 0.0,
+          "route_m": 345,
+          "slope_degrees": 0.0
+        },
+        {
+          "height_error_m": 0.0,
+          "route_m": 350,
+          "slope_degrees": 0.0
+        }
+      ]
+    },
+    "shape_types": {
+      "ConcavePolygonShape3D": 2
+    },
+    "wall_sweeps": [
+      {
+        "end_x": 0.33331298828125,
+        "hit": false,
+        "motion_m": 0.333333333333333,
+        "speed_m_s": 20,
+        "wall_reachable_this_step": false
+      },
+      {
+        "end_x": 0.66668701171875,
+        "hit": false,
+        "motion_m": 0.666666666666667,
+        "speed_m_s": 40,
+        "wall_reachable_this_step": false
+      },
+      {
+        "end_x": 0.6875,
+        "hit": true,
+        "motion_m": 1.0,
+        "speed_m_s": 60,
+        "wall_reachable_this_step": true
+      },
+      {
+        "end_x": 0.68359375,
+        "hit": true,
+        "motion_m": 1.66666666666667,
+        "speed_m_s": 100,
+        "wall_reachable_this_step": true
+      }
+    ]
+  },
+  "limitations": [
+    "Static floor ray samples are not high-speed slope traversal.",
+    "Simple wall sweeps are not a complete skiing controller.",
+    "No original Tribes constants or retail physics equivalence verified.",
+    "No multiplayer, bot or headset skiing tests performed.",
+    "Existing importer texture warnings and an ObjectDB exit warning."
+  ],
+  "sha256": {
+    "deathmatch/fighter.gd": "bb5f7893728013882230a753155bbf148ca332edd6a0763d1e7b84bbc7ba6f44",
+    "deathmatch/movement/quake.gd": "a669d996f98880f674e770d47e15738a8322b07810bc61e6177813a367bb4dae",
+    "deathmatch/movement/jetpack.gd": "0dc3943651434c58b4d99afdd9fb1e0a7117daa111ef0485bd57581456b56b71",
+    "deathmatch/movement/prediction.gd": "f7cb5168047f6ca4c3cf2f18a3923295611e86235e22d1d1a6976c6c20233b6d",
+    "deathmatch/maps/loader.gd": "158b441b1c6e50008e4456534bbffa0273fa8354d927fe838782212400568837",
+    "addons/bsp_importer/bsp_reader.gd": "a4b052fd6883906c9c75b3a6def3154f8e85d1b2a41f7e0aebce37e99baa9859",
+    "maps/tb_cindercoil.bsp": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb"
+  },
+  "requested_integration": {
+    "loadout": "tribes",
+    "scope": "Dedicated loadout bundles skiing and its own energy jetpack; other loadouts retain their behavior.",
+    "existing_selector_viable": true,
+    "initial_modes": [
+      "dm",
+      "tdm",
+      "ctf",
+      "koth",
+      "ft"
+    ],
+    "movement_implemented": false,
+    "integration_points": [
+      "deathmatch/experimental/weapon_rules.gd",
+      "deathmatch/interface.gd",
+      "deathmatch/modes/votes.gd",
+      "deathmatch/modes/match.gd",
+      "deathmatch/arena.gd",
+      "deathmatch/server/config.gd",
+      "deathmatch/demos/session.gd"
+    ]
+  }
+}

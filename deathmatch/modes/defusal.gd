@@ -146,6 +146,7 @@ func begin_round():
 			var c: Dictionary=game.variant_combat.cs.state(id);c.merge(clips,true);c.serial=s.serial
 			for p in c.physical.values():game.variant_combat.cs.Reload.interrupt(p)
 			s.starting_weapons=[0,Arsenal.STARTING_SIDEARMS[role(id)]]
+		enforce_capacity(id)
 		if id==game.multiplayer.get_unique_id():game.desired_weapon=s.weapon
 		if not s.spectator:s.yaw=spawn_yaws[role(id)]
 	spawning=false
@@ -167,18 +168,34 @@ func offers(id: int) -> Array:
 		var name: String=game.armory.data(item).name if item<12 else GEAR[item]
 		result.append({"id":item,"name":name,"ammo":PRICES[item],"usable":can_buy(id) and a.cash>=PRICES[item] and (item>=12 or not s.owned.has(item)) and (item not in utility.ITEMS or utility.state(id).counts[utility.ITEMS.find(item)]<utility.LIMITS[utility.ITEMS.find(item)]),"buy":true,"cash":a.cash})
 	return result
-func category(w: int) -> int:return 0 if w==0 else 1 if w in PISTOLS else 2
-func replace_weapon(id: int,w: int,swap_same: bool=false):
+func category(w: int) -> int:return -1 if w<0 or w>=Arsenal.NAMES.size() else 0 if w==0 else 1 if w in PISTOLS else 2
+func enforce_capacity(id: int):
+	# Surviving inventories may come from an older/test session. Prefer the active
+	# gun, then the most recently acquired gun in each slot; drop any surplus.
 	var s: Dictionary=game.players[id]
+	var kept: Dictionary={}
+	for w in s.owned:
+		if category(w)>0:kept[category(w)]=w
+	if category(s.weapon)>0 and s.weapon in s.owned:kept[category(s.weapon)]=s.weapon
+	for w in kept.values():replace_weapon(id,w)
+	var unique: Array=[]
+	for w in s.owned:
+		if category(w)>=0 and not w in unique:unique.append(w)
+	if not 0 in unique:unique.push_front(0)
+	s.owned=unique
+	if not s.weapon in s.owned:s.weapon=s.owned.back()
+func replace_weapon(id: int,w: int,swap_same: bool=false):
+	if category(w)<=0:return
+	var s: Dictionary=game.players[id]
+	var c: Dictionary=game.variant_combat.cs.state(id)
 	for old in s.owned.duplicate():
 		if old==w and not swap_same or category(old)!=category(w):continue
 		var pool: int=game.armory.data(old).ammo
-		var c: Dictionary=game.variant_combat.cs.state(id)
 		var amount: int=mini(s.ammo[pool],int(c.clips.get(old,game.armory.data(old).magazine)))
 		game.dropped_weapons.next_id+=1
 		game.dropped_weapons.add(game.dropped_weapons.next_id,game.fighters[id].position,old,amount);s.ammo[pool]-=amount
 		s.owned.erase(old)
-		c.clips.erase(old);c.physical.erase(old)
+		c.clips.erase(old);c.physical.erase(old);c.modes.erase(old)
 func buy(id: int,item: int) -> bool:
 	if not can_buy(id) or not offer_allowed(id,item):return false
 	var s: Dictionary=game.players[id];var a:=account(id);var price: int=PRICES[item]
@@ -279,7 +296,7 @@ func can_recover_bomb(id: int) -> bool:
 	return enabled() and phase=="live" and game.intermission<=0 and carrier==0 and not planted and alive(id) and role(id)==0 and reachable(id,bomb_position)
 func recover_bomb(id: int) -> bool:
 	if not can_recover_bomb(id):return false
-	carrier=id;held=true;arm_index=0;armed_until=0;key_at=0
+	carrier=id;held=false;arm_index=0;armed_until=0;key_at=0
 	utility.cancel(id)
 	return true
 func bot_input(id: int) -> bool:
@@ -363,6 +380,8 @@ func nearby_weapon(id: int) -> int:
 	return closest
 func use(id: int) -> bool:
 	if not enabled() or not alive(id) or game.intermission>0:return false
+	if phase in ["prepare","live"] and game.players[id].vr_device and carrier==id and held:
+		drop(id);return true
 	# Death drops the equipped gun beside the bomb. Taking weapons first could
 	# swap that same slot forever and prevent a surviving terrorist recovering it.
 	if recover_bomb(id):return true
@@ -375,12 +394,15 @@ func use(id: int) -> bool:
 	if phase!="live":return false
 	if role(id)==0 and not planted:
 		if carrier==id:
+			if game.players[id].vr_device:
+				return false # VR draws from the chest with the weapon-hand grip.
 			if held and armed_until>game.clock:
 				return plant(id)
 			held=not held
 			if not held:arm_index=0;armed_until=0
 			return true
 	elif role(id)==1 and planted and reachable(id,bomb_position):
+		if game.players[id].vr_device:return false # Physical cutters belong to grip + trigger.
 		account(id).tool=not account(id).tool if account(id).kit else false
 		return lock_defuse(id)
 	return false
@@ -403,47 +425,74 @@ func digit(id: int,value: int) -> bool:
 	return true
 func cut(id: int,index: int) -> bool:
 	if not enabled() or phase!="live" or not planted or game.clock>=fuse_end or not alive(id) or role(id)!=1 or not account(id).kit or not account(id).tool or not reachable(id,bomb_position) or index<0 or index>2 or game.clock<key_at or not lock_defuse(id):return false
+	if not game.players[id].vr_device:snip(id)
 	key_at=game.clock+.16;cut_mask|=1<<index
 	if cut_mask==7:credit(id,300);finish_round(1-attacking,"BOMB DEFUSED")
 	return true
+func snip(id: int):
+	# Feedback also works away from a wire, once per fresh trigger squeeze.
+	if game.clock<float(account(id).get("snip_at",-1.0)):return
+	account(id).snip_at=game.clock+.12
+	game._de_tool_snip.rpc(game.map_epoch,id,int(game.players[id].serial))
 func plant(id: int,index: int=-1) -> bool:
 	if not enabled() or phase!="live" or planted or not alive(id) or carrier!=id or not held or armed_until<=game.clock or game.clock>=phase_end:return false
 	var candidate:=placement(id)
 	if candidate.is_empty() or index>=0 and candidate.site!=index:return false
 	planted=true;held=false;carrier=0;planted_site=candidate.site;bomb_position=candidate.pose.origin;bomb_basis=candidate.pose.basis;fuse_end=game.clock+fuse_seconds;armed_until=0
 	credit(id,300);game._announcement.rpc("BOMB PLANTED · SITE "+("A" if planted_site==0 else "B"));return true
+func stow_items(id: int):
+	if carrier==id and held:held=false;arm_index=0;armed_until=0
+	if account(id).tool and defuser==id:reset_defuse()
+	account(id).tool=false
 func sample_player(id: int):
 	if not enabled() or not alive(id):return
 	var s: Dictionary=game.players[id]
 	utility.sample_player(id)
 	if utility.selected(id)>=0:return
-	if phase!="live" or s.input_blocked or game.clock-s.last_input>.35:
+	if phase not in ["prepare","live"] or s.input_blocked or game.clock-s.last_input>.35:
 		if defuser==id:reset_defuse()
-		input_edges.erase(id);return
-	if s.xr.is_empty():return
-	var pose: Dictionary=s.xr;var grip: bool=s.get("de_grip",false);var tap: bool=s.get("de_tap",false);var trigger: bool=s.get("de_trigger",false)
-	var old: Dictionary=input_edges.get(id,{"grip":false,"tap":false,"trigger":false,"key":-1})
-	var hand: Vector3=(base_pose(id)*Interaction.primary(pose)).origin
-	if role(id)==0 and not planted:
-		if grip and not old.grip:
-			if carrier==id and not held and Interaction.primary(pose).origin.distance_to(Interaction.carried(pose).origin)<.27:held=true
-			elif hand.distance_to(bomb_position)<.28:recover_bomb(id)
-		if carrier==id and held:
-			if not grip and old.grip:drop(id)
-			elif armed_until>game.clock:plant(id)
-	elif planted and role(id)==1 and account(id).kit:
-		if grip and not old.grip and Interaction.primary(pose).origin.distance_to(Interaction.holster(pose))<.27:account(id).tool=true
-		if not grip and old.grip:account(id).tool=false
-	if planted and role(id)==1 and account(id).tool and trigger and not old.trigger:
-		var tip: Vector3=base_pose(id)*Interaction.cutter_tip(pose)
-		cut(id,Interaction.wire_at(bomb_pose().affine_inverse()*tip))
-	var key: int=-1
-	if pose.has("offhand_weapon") and (carrier==id and held or planted and role(id)==1):
-		var tip: Vector3=base_pose(id)*Interaction.fingertip(pose)
-		key=Interaction.key_at(bomb_pose().affine_inverse()*tip)
-		if key>=0 and (tap and not old.tap or key!=old.key):digit(id,key)
-		if planted and defuser==id and reachable(id,bomb_position) and key>=0:defuse_touch=game.clock
-	input_edges[id]={"grip":grip,"tap":tap,"trigger":trigger,"key":key}
+		stow_items(id)
+		input_edges[id]={"grip":true,"trigger":true}
+		return
+	if s.xr.is_empty():
+		if s.vr_device:
+			stow_items(id)
+			if defuser==id:reset_defuse()
+			input_edges[id]={"grip":true,"trigger":true}
+		return
+	var pose: Dictionary=s.xr;var grip: bool=s.get("de_grip",false);var trigger: bool=s.get("de_trigger",false)
+	var old: Dictionary=input_edges.get(id,{"grip":false,"trigger":false})
+	var palm: Vector3=Interaction.primary(pose).origin
+	var hand: Vector3=base_pose(id)*palm
+	if not grip:stow_items(id)
+	elif not old.grip and not busy(id):
+		var bomb_distance: float=palm.distance_to(Interaction.carried(pose).origin) if carrier==id and not planted else INF
+		var tool_distance: float=palm.distance_to(Interaction.holster(pose)) if account(id).kit else INF
+		if bomb_distance<.15 and bomb_distance<=tool_distance:held=true
+		elif tool_distance<.13:account(id).tool=true
+		elif not planted and hand.distance_to(bomb_position)<.28:recover_bomb(id)
+	if carrier==id and held and armed_until>game.clock:plant(id)
+	if account(id).tool and trigger and not old.trigger:
+		snip(id)
+		if planted and role(id)==1:
+			var tip: Vector3=base_pose(id)*Interaction.cutter_tip(pose)
+			cut(id,Interaction.wire_at(bomb_pose().affine_inverse()*tip))
+	var tip:=Vector3.INF
+	var contact: int=-1
+	var pressed: bool=old.get("pressed",false)
+	var stamp: float=s.last_input
+	if phase=="live" and pose.has("offhand_weapon") and (carrier==id and held or planted and role(id)==1 and not account(id).tool):
+		tip=bomb_pose().affine_inverse()*(base_pose(id)*Interaction.fingertip(pose))
+		var fresh: bool=stamp>float(old.get("stamp",-1)) and stamp-float(old.get("stamp",-1))<=.25
+		if tip.z>=Interaction.RELEASE_DEPTH:pressed=false
+		if fresh and not pressed:
+			contact=Interaction.press(old.get("tip",Vector3.INF),tip)
+			if contact>=0:
+				pressed=true
+				if digit(id,contact) and id==game.multiplayer.get_unique_id() and game.is_vr():game.xr_rig.feedback(.2,.035,true)
+		if planted and defuser==id and reachable(id,bomb_position) and Interaction.key_at(tip)>=0:defuse_touch=game.clock
+	else:pressed=false
+	input_edges[id]={"grip":grip,"trigger":trigger,"tip":tip,"pressed":pressed,"stamp":stamp}
 func request(id: int,action: String,value: int,epoch: int,round_number: int,life: int,sequence: int) -> bool:
 	if not game.multiplayer.is_server() or not enabled() or not alive(id) or epoch!=game.map_epoch or round_number!=round_id or life!=game.players[id].serial or sequence<=int(action_sequences.get(id,0)) or sequence>2147483647:return false
 	action_sequences[id]=sequence
@@ -452,6 +501,7 @@ func request(id: int,action: String,value: int,epoch: int,round_number: int,life
 	a.request_at=game.clock+.08
 	if action=="buy":return buy(id,value)
 	if action=="grenade":return utility.equip(id,value)
+	if action=="grenade_cycle":return utility.cycle(id,value)
 	# VR contacts are derived from validated tracking, never remote keypad indices.
 	if game.players[id].vr_device:return false
 	if action=="digit":return digit(id,value)
@@ -526,7 +576,7 @@ func hint(id: int) -> String:
 	if phase=="prepare":return "$%d · BUY: RIGHT STICK CLICK / B · %ds"%[int(account(id).cash),ceili(maxf(0,phase_end-game.clock))]
 	if carrier==id:return "ARM: %s · PLACE AT A/B"%str(arm_code[mini(arm_index,3)]) if held and armed_until<=game.clock else "ARMED · PRESS BACK TO SURFACE · %ds"%ceili(armed_until-game.clock) if held else "BOMB · GRAB CHEST BOMB / USE"
 	if planted:return "BOMB · %ds · CODE OR CUT THREE WIRES"%ceili(maxf(0,fuse_end-game.clock))
-	return "$%d · %s"%[int(account(id).cash),"DEFUSE CUTTERS" if account(id).kit else "DEFEND A / B" if role(id)==1 else "ESCORT THE BOMB"]
+	return "$%d · %s"%[int(account(id).cash),"DEFUSE CUTTERS · CHEST" if account(id).kit else "DEFEND A / B" if role(id)==1 else "ESCORT THE BOMB"]
 func snapshot() -> Dictionary:
 	if not enabled():return {}
 	var rows: Dictionary={}

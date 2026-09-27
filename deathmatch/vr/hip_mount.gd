@@ -23,6 +23,18 @@ static func pouch(pose: Dictionary) -> Transform3D:
 	# Back/belt loops face the body; the fabric front faces out from either hip.
 	return hip*Transform3D(Basis(Vector3.UP,-side*PI/2),Vector3(side*.29,-.035,0))
 
+static func chest(pose: Dictionary) -> Transform3D:
+	var hip:=frame(pose)
+	# Share the pouch's pelvis heading; looking sideways cannot drag chest gear.
+	# The measured torso span also carries gear forward when the player leans.
+	var span: Vector3=pose.head.origin-hip.origin
+	var at:=hip.origin+span*.58
+	var up:=span.normalized() if tracked(pose) and span.length()>.2 else Vector3.UP
+	var right:=hip.basis.x-up*hip.basis.x.dot(up)
+	if right.length_squared()<.01:right=hip.basis.x
+	right=right.normalized()
+	return Transform3D(Basis(right,up,right.cross(up)).orthonormalized(),at)
+
 static func recovery_contains(pose: Dictionary,point: Vector3) -> bool:
 	var local: Vector3=frame(pose).affine_inverse()*point
 	# The entire offhand belt side is usable: front, flank and behind the hip.

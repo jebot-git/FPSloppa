@@ -15,11 +15,19 @@ var cover:=0.0
 var chambered:=true
 var rack_held:=false
 var slide_locked:=false
+var lift:=0.0
+var belt_progress:=0.0
+var belt_seated:=false
+var belt_grab:=false
+var belt_endpoint: Variant=null
+var belt
 func setup(model: Node3D,index: int):
 	name="ChamberAction";slot=index
-	for key in ["Slide","Bolt","Pump","ChargingHandle","Magazine","FeedCover"]:
+	for key in ["Slide","Bolt","Pump","ChargingHandle","Magazine","FeedCover","FeedBelt"]:
 		var part:=model.find_child(key,true,false) as Node3D
 		if part:parts[key]=part;rest[key]=part.transform
+	if slot==8:
+		belt=load("res://deathmatch/counterstrike/feed_belt.gd").new();model.add_child(belt);belt.setup();belt.hide()
 	set_process(false)
 func shot():
 	if slot==0:return
@@ -27,15 +35,20 @@ func shot():
 	elapsed=0;duration=.70 if slot==3 else 1.35 if slot==9 else .12
 	set_process(true);pose(.12)
 func sync(row: Array):
-	if row.size() not in [5,9]:return
+	if row.size() not in [5,9,11,12]:return
 	if life!=row[0]:life=row[0];elapsed=10;empty=false;reload_ms=0
 	empty=row[2]==0;reload_ms=row[3]
-	physical=row.size()==9 and row[5]&1!=0
+	physical=row.size()>=9 and row[5]&1!=0
 	chambered=not physical or row[5]&4!=0
 	rack_held=physical and row[5]&8!=0
 	slide_locked=physical and row[5]&32!=0
 	manual_stroke=float(row[6])/100 if physical else 0.0;cover=float(row[7])/100 if physical else 0.0
+	lift=float(row[9])/100 if physical and row.size()>=11 else manual_stroke if slot==9 else 0.0
+	belt_progress=float(row[10])/100 if physical and row.size()>=11 else 1.0
+	belt_seated=not physical or row[5]&128!=0;belt_grab=physical and row[5]&256!=0;belt_endpoint=null
 	if parts.has("Magazine"):parts.Magazine.visible=not physical or row[5]&2!=0
+	if parts.has("FeedBelt"):parts.FeedBelt.visible=not physical
+	if belt:belt.visible=physical and row[5]&2!=0 and row[2]>0
 	if physical and slot in [3,9]:elapsed=duration;set_process(false)
 	if elapsed>=duration:pose(1.0)
 func pose(t: float):
@@ -52,18 +65,25 @@ func pose(t: float):
 	if parts.has("Bolt"):
 		if slot==9:
 			if physical:
-				parts.Bolt.rotation.z-=manual_stroke*PI/3;parts.Bolt.position.z+=.10*manual_stroke
+				parts.Bolt.rotation.z+=lift*PI/3;parts.Bolt.position.z+=.10*manual_stroke
 				return
 			var cycle: float=clampf(t,0,1)
 			var lift: float=smoothstep(.10,.25,cycle)*(1-smoothstep(.82,.98,cycle))
 			var pull: float=smoothstep(.25,.43,cycle)*(1-smoothstep(.60,.82,cycle))
 			if reload_ms>0:lift=stroke;pull=stroke
-			parts.Bolt.rotation.z-=lift*PI/3;parts.Bolt.position.z+=.10*pull
+			parts.Bolt.rotation.z+=lift*PI/3;parts.Bolt.position.z+=.10*pull
 		else:parts.Bolt.position.z+=.028*stroke
 	# M4/MP5/M249/P90 charging handles stay still during automatic fire.
 	if parts.has("ChargingHandle") and reload_ms>0:parts.ChargingHandle.position.z+=.045*stroke
-	if parts.has("ChargingHandle") and physical:parts.ChargingHandle.position.z+=.045*manual_stroke
+	if parts.has("ChargingHandle") and physical:
+		if slot==5:parts.ChargingHandle.transform=preload("res://deathmatch/counterstrike/reload_state.gd").hk_transform(manual_stroke,lift)*rest.ChargingHandle
+		else:parts.ChargingHandle.position.z+=.065*manual_stroke
 	if parts.has("FeedCover"):parts.FeedCover.rotation.x=-cover*deg_to_rad(80)
+	if belt and belt.visible:
+		var dropped:=Vector3(-.18,-.075,-.30)
+		var end: Vector3=belt.SEATED if belt_seated else dropped.lerp(belt.SEATED,belt_progress)
+		if belt_grab and belt_endpoint is Vector3:end=belt_endpoint
+		belt.update_belt(end)
 func _process(delta: float):
 	elapsed=minf(duration,elapsed+delta);pose(elapsed/duration)
 	if elapsed>=duration:set_process(false)

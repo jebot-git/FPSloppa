@@ -26,6 +26,18 @@ func _initialize() -> void:
 	s.serial=2; Delivery.accept(s,recovered)
 	check(not Delivery.consume(s,actor),"Old-life jump cannot replay after respawn")
 	client.annotate(recovered,.4); check(recovered.jump_event==0,"Stale press expires after 250 ms")
+	client.reset();s={"serial":3,"dead":false,"spectator":false,"jump":false}
+	client.sample({"jetpack":true},3,1.0);client.sample({"jetpack":false},3,1.016)
+	var jet_packet: Dictionary={};client.annotate(jet_packet,1.033);Delivery.accept(s,jet_packet);Delivery.consume(s,actor)
+	check(actor.jetpack_requested and jet_packet.jump_event==0,"Dedicated jetpack press survives a dropped packet without generating a jump")
+	Delivery.accept(s,jet_packet);Delivery.consume(s,actor);check(not actor.jetpack_requested,"Repeated dedicated jetpack event is consumed once")
+	client.acknowledge(3,0,s.jetpack_ack);client.sample({"jetpack":true},3,1.1)
+	var event_before:=client.jet_event;client.sample({"jetpack":true},3,10.0)
+	check(client.jet_event==event_before and not client.jet_triggered,"Holding the jetpack button cannot reactivate when cooldown expires")
+	client.sample({"jetpack":true,"input_blocked":true},3,10.1);client.sample({"jetpack":true},3,10.2)
+	check(client.jet_pending==0 and not client.jet_triggered,"Closing a menu with the jetpack button held cannot launch")
+	client.sample({"jetpack":false},3,10.3);client.sample({"jetpack":true},3,10.4)
+	check(client.jet_triggered,"Fresh jetpack press after release predicts one launch")
 	s.jump=true
 	check(Delivery.consume(s,actor) and Delivery.consume(s,actor),"Held jump remains held for swimming; no synthetic release")
 	var accepted := 0

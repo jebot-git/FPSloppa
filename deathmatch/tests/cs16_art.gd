@@ -43,6 +43,43 @@ func run():
 				action.sync([1,slot,100,0,false,3,0,100,0])
 				check(action.parts.FeedCover.transform.origin==action.rest.FeedCover.origin and action.parts.FeedCover.rotation.x<-1.3,"M249 feed cover lifts around its fixed front hinge")
 				action.sync([1,slot,100,0,false,7,0,0,0]);check(action.parts.FeedCover.transform.is_equal_approx(action.rest.FeedCover),"Closed M249 cover returns sight to its aligned position")
+				action.sync([1,slot,100,0,false,259,0,100,3,0,40])
+				action.belt_endpoint=Vector3(-.25,.25,-.35);action.pose(1)
+				check(not action.parts.FeedBelt.visible and action.belt.visible,"Physical belt replaces the static cartridge mesh")
+				var rounds: MultiMesh=action.belt.rounds.multimesh
+				# The dummy renderer cannot read instance buffers. Native runs
+				# wait for the rendering thread before inspecting the endpoints.
+				if DisplayServer.get_name()!="headless":
+					await process_frame;await process_frame
+					check(rounds.get_instance_transform(0).origin.is_equal_approx(action.belt.START) and rounds.get_instance_transform(rounds.instance_count-1).origin.is_equal_approx(action.belt_endpoint),"Held belt stays attached at the box and follows the leader hand")
+				action.sync([1,slot,100,0,false,131,0,100,0,0,100])
+				if DisplayServer.get_name()!="headless":
+					await process_frame;await process_frame
+					check(rounds.get_instance_transform(rounds.instance_count-1).origin.is_equal_approx(action.belt.SEATED),"Seated belt reaches the feed tray")
+				for instance in [action.belt.rounds,action.belt.links]:
+					var belt_mat: StandardMaterial3D=instance.multimesh.mesh.material
+					var atlas: Image=belt_mat.albedo_texture.get_image()
+					check(atlas.has_mipmaps(),"Articulated belt material retains mipmaps")
+					var uv: Vector3=belt_mat.uv1_offset+belt_mat.uv1_scale*.5
+					var color: Color=atlas.get_pixel(int(uv.x*atlas.get_width()),int(uv.y*atlas.get_height()))
+					check(color.r>color.b+.15 if instance==action.belt.rounds else color.b>color.r,"Belt samples brass cartridges and cool steel links from their atlas regions")
+			if slot==9:
+				action.sync([1,slot,3,0,false,11,0,0,0,100,0])
+				check(is_equal_approx(action.parts.Bolt.rotation.z,PI/3) and action.parts.Bolt.position.is_equal_approx(action.rest.Bolt.origin),"AWP raise rotates the bolt without retracting it")
+				action.sync([1,slot,3,0,false,11,100,0,0,100,0])
+				check(is_equal_approx(action.parts.Bolt.rotation.z,PI/3) and is_equal_approx(action.parts.Bolt.position.z,action.rest.Bolt.origin.z+.10),"AWP pull keeps the raised handle unlocked")
+				action.sync([1,slot,3,0,false,11,0,0,0,100,0])
+				check(is_equal_approx(action.parts.Bolt.rotation.z,PI/3),"AWP forward travel alone does not lower the bolt")
+				action.sync([1,slot,3,0,false,7,0,0,0,0,0])
+				check(action.parts.Bolt.transform.is_equal_approx(action.rest.Bolt),"AWP lock returns the bolt to its authored rest pose")
+			if slot==5:
+				action.sync([1,slot,30,0,false,67,100,0,0,100,0])
+				var hk=preload("res://deathmatch/counterstrike/reload_state.gd")
+				check(action.parts.ChargingHandle.transform.is_equal_approx(hk.hk_transform(1,1)*action.rest.ChargingHandle),"MP5 latch rotates around its cocking-tube pivot")
+				var root_point: Vector3=hk.hk_transform(1,1)*Vector3(-.004,.144,-.445)
+				check(Vector2(root_point.x,root_point.y-.142).length()<.017,"Locked MP5 handle remains inside the cocking tube")
+				action.sync([1,slot,30,0,false,7,0,0,0,0,0])
+				check(action.parts.ChargingHandle.transform.is_equal_approx(action.rest.ChargingHandle),"HK slap returns the MP5 handle to rest")
 		var pose:=Transform3D(Basis(Vector3.UP,.7),Vector3(2,1,3));var held:=Art.held_transform(pose,slot,Art.VR_SCALE,"cs16")
 		check((held*Models.grip(slot)).is_equal_approx(pose.origin),Models.NAMES[slot]+" palm anchor aligns with either controller pose")
 		var materials:=0

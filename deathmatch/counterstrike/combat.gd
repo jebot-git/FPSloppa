@@ -24,7 +24,25 @@ func manual(id: int) -> bool:return id>0 and game.players[id].vr_device and game
 func physical(id: int) -> Dictionary:
 	var c:=state(id);var w: int=game.players[id].weapon
 	if not c.physical.has(w):c.physical[w]=Reload.make(int(c.clips.get(w,0)))
+	c.physical[w].weapon=w
 	return c.physical[w]
+func supported(id: int) -> bool:
+	var s: Dictionary=game.players[id]
+	if not s.vr_device:return true
+	if s.xr.is_empty() or not s.xr.has("offhand_weapon") or not s.get("reload_grip",false) or s.xr.get("pump",false):return false
+	var p:=physical(id)
+	if not p.grab.is_empty() or p.carry>0:p.braced=false;return false
+	if p.get("braced",false):return true
+	var model=preload("res://deathmatch/counterstrike/models.gd")
+	var point: Vector3=model.grip(s.weapon)+Vector3(0,0,-.07) if s.weapon in [1,2,10] else model.support(s.weapon)
+	var hand: Transform3D=s.xr.right if s.xr.left_handed else s.xr.left
+	p.braced=hand.origin.distance_to(Reload.model_pose(s.xr,s.weapon)*point)<.14
+	return p.braced
+func recoil_scale(id: int) -> float:
+	if game.armory.effective()!="cs16" or not game.players[id].vr_device or game.players[id].weapon in [1,2,10] or supported(id):return 1.0
+	return 2.0
+func reload_sound(id: int,kind: String):
+	game._cs_reload_sound.rpc(game.map_epoch,id,int(game.players[id].serial),kind)
 func definition(id: int) -> Dictionary:
 	var s: Dictionary=game.players[id];var d: Dictionary=game.armory.data(s.weapon).duplicate(true)
 	var c:=state(id)
@@ -34,7 +52,12 @@ func definition(id: int) -> Dictionary:
 	var extra: float=0.0 if d.get("shell_reload",false) else minf(4.0,heat)+(.0 if motion<.5 else 1.6)
 	if not game.fighters[id].is_supported():extra+=4.0
 	if s.weapon==9 and not s.get("weapon_zoom",false):extra+=3.0
+	var penalty:=recoil_scale(id)
 	d.spread+=extra;d.vertical+=extra
+	if s.vr_device:
+		d.spread*=penalty;d.vertical*=penalty
+		# Sustained recoil climbs above the tracked sight, without moving the palm.
+		d.recoil_pitch=minf(4.0,heat)*.35*penalty
 	return d
 func begin_reload(id: int) -> bool:
 	if manual(id):return false
@@ -60,8 +83,12 @@ func tick_input(id: int,_delta: float):
 	var hands:=manual(id)
 	if hands:
 		c.reloading=-1
-		var p:=physical(id)
-		c.clips[w]=Reload.sample(p,w,c.clips[w],s.ammo[d.ammo],d.magazine,s.xr,s.get("reload_grip",false),reload_pressed,game.clock,not blocked)
+		var p:=physical(id);var before:=p.duplicate();var old_clip: int=c.clips[w]
+		c.clips[w]=Reload.sample(p,w,c.clips[w],s.ammo[d.ammo],d.magazine,s.xr,s.get("reload_grip",false),reload_pressed,game.clock,not blocked,s.last_input)
+		if before.mag and not p.mag:reload_sound(id,"mag_out")
+		elif not before.mag and p.mag or Reload.tube_fed(w) and c.clips[w]>old_clip:reload_sound(id,"mag_in")
+		if before.stroke<.7 and p.stroke>=.7:reload_sound(id,"rack_back")
+		if not before.ready and p.ready:reload_sound(id,"rack_close")
 		if not Reload.can_fire(p,w):c.burst=0
 		if p.grab!="" or p.cover>.05:alt=false
 	if c.reloading>=0:
@@ -90,7 +117,7 @@ func shoot(id: int,burst_round: bool=false) -> bool:
 	var d:=definition(id)
 	if not burst_round and (game.clock<c.burst_until or d.semi and s.held and id>0):return false
 	if c.clips[w]<=0 or s.ammo[d.ammo]<=0:return false
-	if manual(id) and not Reload.can_fire(physical(id),w):return false
+	if manual(id) and (s.xr.get("pump",false) or not Reload.can_fire(physical(id),w)):return false
 	if game._shot_solution(id).blocked:return false
 	# Reuse the authority's trace, rewind, friendly-fire and damage path.
 	var loaded: int=c.clips[w]
@@ -99,7 +126,9 @@ func shoot(id: int,burst_round: bool=false) -> bool:
 	if manual(id):
 		var p:=physical(id)
 		if Reload.manual_cycle(w) or c.clips[w]==0:p.ready=false
-		if c.clips[w]==0:p.locked=true
+		if c.clips[w]==0:
+			p.locked=true
+			if w in [1,2,10]:reload_sound(id,"empty_lock")
 	if w==1 and c.modes.get(w,false):
 		if not burst_round:c.burst=mini(2,c.clips[w]);c.burst_until=game.clock+.5
 		s.cooldown=.1;c.next_burst=game.clock+.1
@@ -111,7 +140,7 @@ func row(id: int) -> Array:
 	if not game.players.has(id):return []
 	var c:=state(id);var s: Dictionary=game.players[id]
 	var p: Dictionary=physical(id) if manual(id) else {}
-	return [s.serial,s.weapon,int(c.clips.get(s.weapon,0)),maxi(0,roundi((c.reload_at-game.clock)*1000)) if c.reloading>=0 else 0,c.modes.get(s.weapon,false),Reload.flags(p) if not p.is_empty() else 0,roundi(p.stroke*100) if not p.is_empty() else 0,roundi(p.cover*100) if not p.is_empty() else 0,int(p.carry) if not p.is_empty() else 0]
+	return [s.serial,s.weapon,int(c.clips.get(s.weapon,0)),maxi(0,roundi((c.reload_at-game.clock)*1000)) if c.reloading>=0 else 0,c.modes.get(s.weapon,false),Reload.flags(p) if not p.is_empty() else 0,roundi(p.stroke*100) if not p.is_empty() else 0,roundi(p.cover*100) if not p.is_empty() else 0,int(p.carry) if not p.is_empty() else 0,roundi(p.lift*100) if not p.is_empty() else 0,roundi(p.belt_progress*100) if not p.is_empty() else 0,int(p.carried_rounds) if not p.is_empty() else 0]
 func snapshot() -> Dictionary:
 	var rows: Dictionary={}
 	for id in game.players:rows[id]=row(id)
@@ -121,13 +150,15 @@ func receive(rows: Variant):
 	if not rows is Dictionary:return
 	for id in rows:
 		var r=rows[id]
-		if not id is int or not r is Array or r.size()!=9 or not r[0] is int or not r[1] is int or r[1]<0 or r[1]>11 or not r[2] is int or r[2]<0 or r[2]>100 or not r[3] is int or r[3]<0 or r[3]>6000 or not r[4] is bool:continue
-		if not r[5] is int or r[5]<0 or r[5]>63 or not r[6] is int or r[6]<0 or r[6]>100 or not r[7] is int or r[7]<0 or r[7]>100 or not r[8] is int or r[8]<0 or r[8]>2:continue
+		if not id is int or not r is Array or r.size()!=Reload.ROW_SIZE or not r[0] is int or not r[1] is int or r[1]<0 or r[1]>11 or not r[2] is int or r[2]<0 or r[2]>100 or not r[3] is int or r[3]<0 or r[3]>6000 or not r[4] is bool:continue
+		if not r[5] is int or r[5]<0 or r[5]>Reload.MAX_FLAGS or not r[6] is int or r[6]<0 or r[6]>100 or not r[7] is int or r[7]<0 or r[7]>100 or not r[8] is int or r[8]<0 or r[8]>Reload.REMOVED_MAG:continue
+		if not r[9] is int or r[9]<0 or r[9]>100 or not r[10] is int or r[10]<0 or r[10]>100:continue
+		if not r[11] is int or r[11]<0 or r[11]>100 or r[8]!=Reload.REMOVED_MAG and r[11]!=0:continue
 		view[id]=r.duplicate()
 func status(id: int) -> Array:
 	var row: Array=row(id) if game.multiplayer.is_server() and not game.demos.playing else view.get(id,[])
 	var s: Dictionary=game.players.get(id,{})
-	return row if row.size()==9 and row[0]==s.get("serial",-1) and row[1]==s.get("weapon",-1) else []
+	return row if row.size()==Reload.ROW_SIZE and row[0]==s.get("serial",-1) and row[1]==s.get("weapon",-1) else []
 func label(id: int) -> String:
 	var row:=status(id)
 	if row.is_empty():return ""
@@ -135,10 +166,15 @@ func label(id: int) -> String:
 	if d.ammo<0:return "MELEE"
 	var prompt:=""
 	if row[5]&Reload.PHYSICAL:
-		if row[8]>0:prompt="INSERT SHELL" if row[8]==2 else "INSERT MAGAZINE"
+		if row[8]==Reload.REMOVED_MAG:prompt="HELD MAGAZINE: %d"%row[11]
+		elif row[5]&Reload.MAG_GRIP:prompt="PULL MAGAZINE CLEAR"
+		elif row[5]&Reload.PUMP_HOLD:prompt="GRIP WEAPON TO TAKE BACK" if row[5]&Reload.CHAMBERED else "SWING BACK + FORWARD"
+		elif row[5]&Reload.HK_LOCK:prompt="SLAP COCKING HANDLE"
+		elif row[8]>0:prompt="LAY BELT ON FEED TRAY" if row[8]==3 else "INSERT SHELL" if row[8]==2 else "BUMP OLD MAGAZINE" if s.weapon==6 and row[5]&Reload.MAGAZINE else "INSERT MAGAZINE"
+		elif s.weapon==8 and row[7]>90 and row[2]>0 and not row[5]&Reload.BELT_SEATED:prompt="GRAB + LAY FEED BELT"
 		elif row[7]>.0:prompt=("EJECT AMMO BOX" if row[5]&Reload.CHAMBERED or row[2]==0 else "CLOSE FEED COVER") if row[5]&Reload.MAGAZINE else "DRAW AMMO BOX"
 		elif not row[5]&Reload.MAGAZINE:prompt="DRAW MAGAZINE"
-		elif not row[5]&Reload.CHAMBERED and row[2]>0:prompt="PUMP" if s.weapon==3 else "CYCLE BOLT" if s.weapon==9 else "RACK"
+		elif not row[5]&Reload.CHAMBERED and row[2]>0:prompt="PUMP / SWING" if s.weapon==3 else "RAISE · PULL · CLOSE · LOCK" if s.weapon==9 else "RACK / SIDE FLICK" if s.weapon in [1,2,10] and row[5]&Reload.SLIDE_LOCK else "RACK"
 		elif row[2]==0:prompt="DRAW SHELL" if Reload.tube_fed(s.weapon) else "OPEN FEED COVER" if s.weapon==8 else "EJECT MAGAZINE"
 	return (prompt+" · " if not prompt.is_empty() else "RELOADING · " if row[3]>0 else "")+"%d / %d"%[row[2],maxi(0,s.ammo[d.ammo]-row[2])]+(" · BURST" if s.weapon==1 and row[4] else " · SEMI" if s.weapon==1 else " · SUPPRESSED" if row[4] else "")
 func suppressed(id: int) -> bool:

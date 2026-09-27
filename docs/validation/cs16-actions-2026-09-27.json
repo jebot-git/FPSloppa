@@ -1,0 +1,145 @@
+{
+  "date": "2026-09-27",
+  "scope": "CS loadout VR manipulation actions",
+  "protocol": "fpsloppa-46-cs-actions",
+  "passed": true,
+  "actions": [
+    "AK replacement-magazine bump ejection",
+    "MP5 raised charging-handle latch and open-hand HK slap",
+    "M249 attached belt pickup and feed-tray placement",
+    "M3 offhand pump ownership and reciprocal swing cycle, weapon-grip takeback",
+    "Locked-slide pistol sideways release gesture",
+    "AWP separate raise, pull, close and lock"
+  ],
+  "engine": "Godot 4.7.2 (Fedora native tests, official packager, custom console runtime)",
+  "suites": {
+    "cs16": {
+      "checks": 70,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/cs16.log"
+    },
+    "cs16_actions": {
+      "checks": 82,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/cs16_actions.log"
+    },
+    "cs16_vr_reload": {
+      "checks": 110,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/cs16_vr_reload.log"
+    },
+    "cs16_art": {
+      "checks": 223,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/cs16_art.log"
+    },
+    "cs16_art_native": {
+      "checks": 225,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/cs16_art_native.log"
+    },
+    "cs16_sights": {
+      "checks": 69,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/cs16_sights.log"
+    },
+    "hip_reload": {
+      "checks": 73,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/hip_reload.log"
+    },
+    "reload-ui": {
+      "checks": 23,
+      "failures": [],
+      "passed": true,
+      "log": "test-results/cs16/actions/reload-ui.log"
+    },
+    "replication_protocol": {
+      "encode_us": 1686,
+      "failures": [],
+      "input_bytes": 407,
+      "max_packet": 1037,
+      "packets": 4,
+      "players_updated_with_one_packet_missing": 11,
+      "snapshot_bytes": 3768,
+      "log": "test-results/cs16/actions/replication_protocol.log"
+    },
+    "cs16_bots": {
+      "passed": true,
+      "log": "test-results/cs16/actions/cs16_bots.log"
+    },
+    "vr": {
+      "passed": true,
+      "log": "test-results/cs16/actions/vr.log"
+    },
+    "enet": {
+      "passed": true,
+      "server": true,
+      "client": true,
+      "log": "test-results/cs16/actions/network.log"
+    },
+    "dedicated_server": {
+      "passed": true,
+      "exit_code": 0,
+      "maps": [
+        "as_hislop",
+        "as_frigate",
+        "tf_pressureworks",
+        "tf_vesper",
+        "koth_solstice",
+        "koth_torture",
+        "koth_hyperborea",
+        "koth_alichar",
+        "cc_hyperborea",
+        "cc_psychofuge",
+        "cc_ghostquarter",
+        "cc_basement",
+        "qsrc_dm1",
+        "qsrc_dm2",
+        "qsrc_dm3",
+        "qsrc_dm4",
+        "qsrc_dm5",
+        "qsrc_dm6",
+        "qsrc_dm7",
+        "ctf_tideworks",
+        "ctf_crucible",
+        "ctf_confluence",
+        "ctf_deepvault",
+        "ctf_crownreach",
+        "ctf_skyfracture",
+        "tb_ashfall",
+        "tb_cindercoil",
+        "de_dust2_rebuilt",
+        "de_nuke_rebuilt",
+        "de_inferno_rebuilt",
+        "de_aztec_rebuilt",
+        "de_train_rebuilt"
+      ],
+      "resources": 122,
+      "log": "test-results/cs16/actions/console-suite.log"
+    }
+  },
+  "visual_review": [
+    "test-results/cs16/actions/action-stages.png",
+    "test-results/cs16/reload/07-belt.png"
+  ],
+  "authoring": "Blender MCP unavailable; M249 feed components rebuilt with installed Blender 5.2.0 in a separate background process.",
+  "notes": [
+    "Headless art suite skips two MultiMesh endpoint readbacks unavailable in the dummy renderer; native renderer checks all 225 assertions.",
+    "Controller-driven belt disables physics interpolation to avoid added hand-following delay.",
+    "Initial local socket tests required sandbox escalation; final ENet and console audits passed with loopback access.",
+    "Existing shutdown ObjectDB/resource warnings remain."
+  ],
+  "limitations": [
+    "Controller trajectories are simulated, not a physical-headset comfort/playability test.",
+    "This is a post-0.17v source update and local test server build; no live deployment or release publication."
+  ],
+  "assets_manifest_sha256": "e963aaee2a904057816c57c43a7ed30f9345e3e2339345c801698af36a15fe6a"
+}

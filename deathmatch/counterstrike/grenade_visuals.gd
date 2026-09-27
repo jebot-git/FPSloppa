@@ -12,6 +12,10 @@ var layer: CanvasLayer
 var eye_quad: MeshInstance3D
 var eye_material: ShaderMaterial
 func setup(value):utility_ref=weakref(value);name="DEUtility"
+static func held_pose(grip: Transform3D,left: bool) -> Transform3D:
+	# Cylinder top follows the thumb; mirror the safety lever toward the palm.
+	var basis:=Basis(Vector3.RIGHT,-PI/2)*Basis(Vector3.UP,0 if left else PI)
+	return grip*Transform3D(basis,Vector3(0,-.018,-.018))
 static func material(color: Color) -> StandardMaterial3D:
 	var m:=StandardMaterial3D.new();m.albedo_color=color;m.roughness=.65;return m
 static func mesh_part(parent: Node3D,mesh: Mesh,at: Vector3,mat: Material):
@@ -69,7 +73,8 @@ func update():
 		elif not game.players[id].xr.is_empty():
 			var pose: Dictionary=game.players[id].xr
 			var hand: Transform3D=(pose.right if pose.left_handed else pose.left) if utility.state(id).get("offhand",false) else utility.rules.Interaction.primary(pose)
-			hands[id].global_transform=utility.rules.base_pose(id)*hand
+			var left: bool=not pose.left_handed if utility.state(id).get("offhand",false) else pose.left_handed
+			hands[id].global_transform=utility.rules.base_pose(id)*held_pose(hand,left)
 		else:hands[id].global_transform=utility.rules.base_pose(id)*Transform3D(Basis.IDENTITY,Vector3(.2,1.05,-.4))
 	overlays()
 	var at: Vector3=game.xr_rig.head.global_position if game.is_vr() else game.camera.global_position

@@ -1,0 +1,113 @@
+{
+  "date_utc": "2026-09-27T10:25:59.153589+00:00",
+  "protocol": "fpsloppa-51-vr-mag-pull",
+  "changes": [
+    "Trimmed receiver, stock and fore-end widths by 8\u201314 percent and exposed more of shotgun barrels; protected magazine geometry, bores, sights, grip anchors and action pivots.",
+    "Original padded 1024x512 material atlas with editable wear layers painted through Krita MCP; one shared mipmapped runtime texture. Amber P90 magazine, walnut AK furniture, steel/polymer/olive/brass separation.",
+    "M249 articulated belt samples brass and steel atlas regions using native primitive UV orientation.",
+    "Dropped magazines keep scale on the mesh child of an unscaled rigid body; both button ejection and release from a hand preserve VR size after physics steps."
+  ],
+  "tests": [
+    {
+      "log": "test-results/cs16/art-refine/actions.log",
+      "checks": 161,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/art-refine/reload-ui.log",
+      "checks": 80,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/art-refine/sights.log",
+      "checks": 69,
+      "passed": true
+    },
+    {
+      "log": "test-results/cs16/art-refine/art-native.log",
+      "checks": 228,
+      "passed": true
+    }
+  ],
+  "checks_passed": 538,
+  "asset_checks": {
+    "same_triangle_counts": true,
+    "same_sight_landmarks": true,
+    "connected_component_bounds": true,
+    "closed_trigger_guards": true,
+    "native_runtime_scene_and_texture_bytes": 1985331
+  },
+  "krita": {
+    "status": "Existing installed and configured MCP server reconnected; no replacement installation needed.",
+    "source": "https://github.com/SanSaSane/krita-mcp",
+    "version": "6.0.2.1",
+    "bridge_version": "1.0.0",
+    "transport": "MCP stdio",
+    "self_test_checks_passed": 9,
+    "layers": "tools/cs16/refined/cs16-finish.kra",
+    "log": "test-results/cs16/art-refine/krita-texturing.log"
+  },
+  "visual_review": [
+    "test-results/cs16/arsenal.png",
+    "test-results/cs16/inspection/ak47.png",
+    "test-results/cs16/inspection/mp5.png",
+    "test-results/cs16/inspection/m3.png",
+    "test-results/cs16/inspection/awp.png",
+    "test-results/cs16/inspection/p90.png",
+    "test-results/cs16/actions/action-stages.png",
+    "test-results/cs16/game-ak47.png"
+  ],
+  "live_test": {
+    "pid": 1003705,
+    "started_utc": "2026-09-27T10:24:47.799497+00:00",
+    "runtime": {
+      "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+      "OpenXRVendorID": 0,
+      "XRRuntimeName": "WiVRn 'v26.9'",
+      "XRRuntimeVersion": "26.9.0"
+    },
+    "map": "de_dust2_rebuilt",
+    "bots": 0,
+    "cash": 16000,
+    "buy_available": true,
+    "bomb": {
+      "carrier": 1,
+      "code": [
+        3,
+        8,
+        8,
+        5
+      ],
+      "held": false,
+      "kit": true,
+      "phase": "live",
+      "planted": false,
+      "role": 0,
+      "tool": false
+    },
+    "grenades": [
+      1,
+      2,
+      1
+    ],
+    "focused": true,
+    "controllers_tracked": [
+      true,
+      true
+    ],
+    "input_blocked": false,
+    "foveation": {
+      "attached": true,
+      "centers": "[(0.272174, -0.121566), (-0.219174, -0.121566)]",
+      "size": 1,
+      "updates": 4350,
+      "valid": true
+    }
+  },
+  "notes": [
+    "All 538 focused gameplay/art checks passed. Existing shutdown ObjectDB/resource warnings remain.",
+    "In-headset appearance and comfort await player feedback. Live WiVRn status confirmed both controllers tracked, focused rendering and valid gaze.",
+    "Bounds adjacency checks do not claim mechanical components are welded into a single solid.",
+    "Blender crashed writing a temporary separate scene with libraries.write; recovered from saved workbench, removed that export method, rebuilt successfully and exported the M249 source in an isolated background process."
+  ]
+}

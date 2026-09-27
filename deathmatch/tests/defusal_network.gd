@@ -56,12 +56,16 @@ func server_case():
 	position_player(ct,de.bomb_position+Vector3(0,0,.7));stage("cut")
 	check(await wait_for(func():return de.phase=="post",6),"Remote purchased cutter interaction completes")
 	check(de.cut_mask==7 and game.match_mode.scores==[0,2],"Three wire cuts replicate and score only once")
+	check(await wait_for(func():return observer.seen.has("attacker snips") and observer.seen.has("defender snips") and observer.seen.has("viewer snips"),3),"All peers receive exactly three reliable snip events")
 	game.demos.stop_record();stage("done");await pause(.3)
 func client_case():
 	var viewer: bool=role=="viewer"
 	game.start_join(role,"127.0.0.1",28982,viewer)
 	check(await wait_for(func():return game.active and game.local_state().get("serial",0)>0,20),"Client enters supported DE map")
 	game.set_physics_process(false);game.set_process(false)
+	var recording_path:="res://test-results/defusal/network-"+role+".fpsdemo"
+	DirAccess.remove_absolute(recording_path);game.demos.start_record(recording_path)
+	var snip_total:=0
 	observer.report.rpc_id(1,role+" ready")
 	var sent: Dictionary={};var seq:=1000;var next_action:=0.0;var previous:=""
 	var deadline:=Time.get_ticks_msec()+50000
@@ -69,6 +73,16 @@ func client_case():
 		await physics_frame;game.clock+=1.0/Engine.physics_ticks_per_second
 		var de=game.match_mode.defusal;var mine: int=game.multiplayer.get_unique_id();var s: Dictionary=game.local_state()
 		if s.is_empty():continue
+		if de.cut_mask==7 and not sent.has("cut_seen"):sent["cut_seen"]=Time.get_ticks_msec()
+		if de.cut_mask==7 and Time.get_ticks_msec()-sent.get("cut_seen",Time.get_ticks_msec())>400 and not sent.has("snips"):
+			game.demos.stop_record()
+			var stream:=FileAccess.open(recording_path,FileAccess.READ);stream.get_buffer(8)
+			while stream.get_position()+4<stream.get_length():
+				var frame: Dictionary=bytes_to_var(stream.get_buffer(stream.get_32()))
+				if not game.demos.valid_frame(frame):check(false,"Recorded network frame validates")
+				snip_total+=frame.events.filter(func(e):return e[0]=="_de_tool_snip").size()
+			stream.close();sent["snips"]=true
+			if snip_total==3:observer.report.rpc_id(1,role+" snips")
 		if viewer:
 			if de.planted and de.accounts.size()>=2 and not sent.has("late bomb"):
 				sent["late bomb"]=true;observer.report.rpc_id(1,"late bomb")
@@ -96,4 +110,6 @@ func client_case():
 					if de.cut_mask&(1<<wire)==0:de.send("cut",wire);break
 	check(observer.phase=="done","Network scenario completes")
 	check(game.armory.effective()=="cs16" and game.match_mode.kind=="de","DE and forced arsenal survive both network rounds")
+	check(snip_total==3,"Three remote wire cuts produce three replayable snips")
+	game.demos.stop_record()
 	if viewer:check(sent.has("late bomb") and sent.has("result"),"Late viewer observes objective and outcome")

@@ -41,6 +41,13 @@ func run() -> void:
 		actor.xr_pose.body.left_foot.origin.z=-.35
 		actor._process(.016);avatar._process(.016)
 		check(avatar.xr_pose.body.left_foot==actor.xr_pose.body.left_foot,"Local body uses current pose without network smoothing")
+		actor.xr_pose.snapped_hands={"left":Transform3D(Basis(Vector3.BACK,-PI/2),Vector3(-.2,1.25,-.65)),"right":Transform3D(Basis(Vector3.BACK,PI/2),Vector3(.2,1.25,-.65))}
+		actor._process(.016);avatar._process(.016);avatar.solver._process_modification_with_delta(.016)
+		for side in ["Left","Right"]:
+			var grip: Transform3D=avatar.tracking_transform()*actor.xr_pose.snapped_hands[side.to_lower()]
+			var expected: Transform3D=Transform3D(grip.basis*avatar.solver.controller_hand_basis(side=="Left"),grip.origin+grip.basis.y*.06)
+			var actual: Transform3D=avatar.skeleton.global_transform*avatar.skeleton.get_bone_global_pose(avatar.skeleton.find_bone(side+"Hand"))
+			check(actual.origin.distance_to(expected.origin)<.001 and actual.basis.orthonormalized().is_equal_approx(expected.basis),"Prop snap owns wrist position and orientation after arm IK: "+side+" / "+library.entries[hash].title)
 		actor.set_local_body(false)
 		actor.show_alive(true,false)
 		check(avatar.visible and not avatar.first_person,"Remote avatar retains full third-person mesh")

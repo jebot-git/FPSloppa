@@ -1,0 +1,198 @@
+{
+  "date_utc": "2026-09-27T09:01:02.354563+00:00",
+  "protocol": "fpsloppa-49-vr-equipment",
+  "video": {
+    "path": "/home/blux/Downloads/rec.mp4",
+    "duration_seconds": 468.839,
+    "review": "Contact sheet plus focused knife and MP5 swipe sequences; side swipes had missed the old two-sample downward detector."
+  },
+  "changes": [
+    "Turn-stick up/down selects CS grenades or Engineer deployable; A/X defaults to TF ability and jetpack, preserving CS magazine-release priority.",
+    "Knife follows native controller grip frame; CS grenade top follows thumb direction with mirrored palm-side lever.",
+    "MP5 handle rotates about cocking tube rather than floating upwards; swept palm detection accepts a larger approach volume and single fresh motion sample.",
+    "CS pistols have normal accuracy/recoil without unsupported long-gun multiplier.",
+    "Optional M3 auto offhand hold defaults on, persists in VR menu, transfers when support grip is retained and weapon grip is released.",
+    "DE validates one primary, one sidearm and knife across purchases, explicit Use pickups and round carryover; surplus carryover drops; drop pool capped at 64.",
+    "Cosmetic gunshot marks: one 128-instance MultiMesh, 32 pending, 4 candidates / 16 corner rays per frame, 30-second life, 40-metre distance cutoff, no physics interpolation, shadow or GI; shotgun impact RPCs batched."
+  ],
+  "tests": [
+    {
+      "log": "test-results/cs16/rec-feedback/controls.log",
+      "checks": 34,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/network_delivery.log",
+      "checks": 23,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/jetpack_physics.log",
+      "checks": 42,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/cs16_feedback.log",
+      "checks": 103,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/cs16_actions.log",
+      "checks": 161,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/cs16_vr_reload.log",
+      "checks": 110,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/defusal.log",
+      "checks": 100,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/defusal_pickups.log",
+      "checks": 39,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/reload-ui.log",
+      "checks": 47,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/grenade-vr.log",
+      "checks": 33,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/art.log",
+      "checks": 226,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/vr_ui.log",
+      "checks": 60,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/solo_defusal.log",
+      "checks": 21,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "log": "test-results/cs16/rec-feedback/bullet_marks.log",
+      "checks": 17,
+      "passed": true,
+      "failures": []
+    },
+    {
+      "name": "CS networking network-server",
+      "log": "test-results/cs16/network-server.log",
+      "checks": 48,
+      "passed": true
+    },
+    {
+      "name": "CS networking network-client",
+      "log": "test-results/cs16/network-client.log",
+      "checks": 45,
+      "passed": true
+    },
+    {
+      "name": "Jetpack networking network-server",
+      "log": "test-results/jetpacks/network-server.log",
+      "checks": 17,
+      "passed": true
+    },
+    {
+      "name": "Jetpack networking network-pilot",
+      "log": "test-results/jetpacks/network-pilot.log",
+      "checks": 4,
+      "passed": true
+    },
+    {
+      "name": "Jetpack networking network-viewer",
+      "log": "test-results/jetpacks/network-viewer.log",
+      "checks": 3,
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "check_count": 1133,
+  "console_server": {
+    "passed": true,
+    "report": "test-results/console-server/results.json",
+    "artifact": "test-results/cs16/rec-feedback/server"
+  },
+  "bullet_marks_draw_calls": {
+    "renderer": "Forward Mobile Vulkan",
+    "without": 2,
+    "with_128_instances": 3,
+    "extra": 1,
+    "frame_time_benchmark": false
+  },
+  "visuals": [
+    "test-results/cs16/rec-feedback/bullet-marks.png",
+    "test-results/cs16/actions/action-stages.png"
+  ],
+  "live_test": {
+    "pid": 986134,
+    "map": "de_dust2_rebuilt",
+    "bots": 0,
+    "owned": [
+      0,
+      1,
+      6
+    ],
+    "cash": 16000,
+    "buy_available": true,
+    "unlimited_money": "Test-only override restores $16000 after every purchase; live buy wheel available anywhere. Team purchase restrictions remain active.",
+    "bomb": "Chest carried. Production planting switches solo tester to CT, supplies defusal tweezers and gives a 180-second test fuse.",
+    "grenades": [
+      1,
+      2,
+      1
+    ],
+    "pump_auto_transfer": true,
+    "runtime": {
+      "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+      "OpenXRVendorID": 0,
+      "XRRuntimeName": "WiVRn 'v26.9'",
+      "XRRuntimeVersion": "26.9.0"
+    },
+    "focused": true,
+    "controllers_tracked": [
+      true,
+      true
+    ],
+    "fovea": {
+      "attached": true,
+      "centers": "[(0.286097, -0.020872), (-0.205063, -0.020872)]",
+      "size": 1,
+      "updates": 3140,
+      "valid": true
+    },
+    "status_file": "test-results/cs16/live-wivrn/status.json",
+    "launch_file": "test-results/cs16/live-wivrn/launch.json"
+  },
+  "limitations": [
+    "Controller comfort/orientation and physical gesture tolerances require hands-on confirmation.",
+    "Decals omit surface edges and moving/breakable geometry. One draw-call overhead measured; VR GPU frame-time impact has not been benchmarked.",
+    "Existing third-party hand material UID fallbacks and test shutdown ObjectDB/resource warnings remain; no script/parse errors in passing runs.",
+    "All test-only overrides and desktop fovea mask live under export-excluded test-results."
+  ]
+}

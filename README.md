@@ -1,10 +1,10 @@
-# FPSloppa 0.15v
+# FPSloppa 0.18v
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.17v build notes](docs/RELEASE-0.17v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.18v build notes](docs/RELEASE-0.18v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.17v:** DE bomb defusal with five classic-layout map studies and CS-inspired weapons, physical VR reloads, the hip magazine pouch, a persistent weapon wheel, Cindercoil for Titanball, optional arena jetpacks, native avatar springs, tracking and stair fixes, foveation controls and complete texture mipmaps. The original soundtrack is retained with a new orchestral DE cue. Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch.
+**New in 0.18v:** refined CS weapon models and physical reloads, retained-magazine reinsertion with an ammunition count, improved hand attachment and recoil, chest-mounted bomb and defusal tools, shared grenade aiming guidance, bounded bullet decals, and corrected gaze-driven foveation. The original soundtrack and DE orchestral cue remain. Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch. Tribes skiing is assessed, not implemented.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 

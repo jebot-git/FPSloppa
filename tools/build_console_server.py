@@ -39,8 +39,10 @@ CLIENT_FILES = {'deathmatch/lighting/weapon_pool.gd', 'deathmatch/experimental/v
                 'deathmatch/maps/surface_motion.gd', 'deathmatch/maps/atmosphere.gd',
                 'deathmatch/modes/lobby_wall.gd', 'deathmatch/modes/lobby_mirror.gd',
                 'deathmatch/modes/lobby_results.gd'}
-VR_SHARED = {'body_basis.gd', 'poses.gd', 'preferences.gd', 'room_scale.gd', 'weapon_clearance.gd', 'throw_ballistics.gd', 'hip_mount.gd'}
+VR_SHARED = {'body_basis.gd', 'poses.gd', 'preferences.gd', 'room_scale.gd', 'weapon_clearance.gd', 'throw_ballistics.gd', 'hip_mount.gd', 'pump_hold.gd'}
 CLIENT_FILES.add('deathmatch/counterstrike/grenade_visuals.gd')
+CLIENT_FILES.add('deathmatch/counterstrike/feed_belt.gd')
+CLIENT_FILES.add('deathmatch/effects/bullet_marks.gd')
 
 
 def allowed(path):

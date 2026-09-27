@@ -7,6 +7,21 @@ static func muzzle(slot: int) -> Vector3:
 	return Vector3(0,0,-.44) if slot==0 else Vector3(0,.113 if slot in [1,2,10,11] else .085,-LENGTHS[clampi(slot,0,11)]-.015)
 static func grip(slot: int) -> Vector3:
 	return Vector3(0,0,-.032) if slot==0 else Vector3(0,.005,-.26) if slot==11 else Vector3(0,-.057,.028)
+static func support(slot: int) -> Vector3:
+	# Palm contact on the fore-end/handguard, in authored model coordinates.
+	return {3:Vector3(0,-.032,-.51),4:Vector3(0,-.032,-.48),5:Vector3(0,-.025,-.45),6:Vector3(0,-.030,-.48),7:Vector3(0,-.020,-.49),8:Vector3(0,-.032,-.54),9:Vector3(0,-.032,-.48),11:Vector3(0,-.030,-.39)}.get(slot,grip(slot))
+static func support_pose(model: Transform3D,slot: int,left: bool) -> Transform3D:
+	# Palm faces up under the fore-end; fingers wrap inward from either side.
+	return Transform3D(model.basis.orthonormalized()*Basis(Vector3.BACK,PI/2 if left else -PI/2),model*support(slot))
+static func ammo_basis(_slot: int) -> Basis:
+	# Feed end points toward the controller's thumb (-Z), not along its +Y axis.
+	return Basis(Vector3.RIGHT,-PI/2)
+static func ammo_pose(hand: Transform3D,slot: int,left: bool=false) -> Transform3D:
+	# Grip pose axes describe a controller, not the gun's magazine socket.
+	# Present cartridges forward and the magazine top above the curled fingers.
+	var offset:=Vector3(-.025 if left else .025,-.012,-.075) if slot in [3,4] else Vector3(0,-.025,-.045)
+	var basis:=ammo_basis(slot)
+	return hand*Transform3D(basis.scaled(Vector3.ONE*(1.0 if slot in [3,4] else .65)),offset)
 static func make(slot: int) -> Node3D:
 	slot=clampi(slot,0,11)
 	if not cache.has(slot):cache[slot]=load("res://deathmatch/weapons/cs16/"+NAMES[slot]+".scn")
@@ -33,6 +48,11 @@ static func ammunition(slot: int) -> Node3D:
 		if mag:
 			var mesh: Node3D=mag.duplicate();root.add_child(mesh)
 			mesh.position-=load("res://deathmatch/counterstrike/reload_state.gd").MAG_POINTS[slot]
+		if slot==8:
+			var belt:=model.find_child("FeedBelt",true,false) as Node3D
+			if belt:
+				var attached: Node3D=belt.duplicate();root.add_child(attached)
+				attached.position-=load("res://deathmatch/counterstrike/reload_state.gd").MAG_POINTS[slot]
 		model.free()
 	return root
 static func presentation(model: Node3D,suppressed: bool,row: Array=[]):

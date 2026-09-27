@@ -12,9 +12,9 @@ static func valid_transform(value: Variant) -> bool:
 		if absf(axis.length()-1.0)>.02: return false
 	return absf(value.basis.x.dot(value.basis.y))<.02 and absf(value.basis.x.dot(value.basis.z))<.02 and absf(value.basis.y.dot(value.basis.z))<.02
 static func validate(data: Variant) -> Dictionary:
-	if not data is Dictionary or data.size()<5 or data.size()>9: return {}
+	if not data is Dictionary or data.size()<5 or data.size()>11: return {}
 	for key in data:
-		if key not in ["head","left","right","weapon","left_handed","body","face","offhand_weapon","height"]: return {}
+		if key not in ["head","left","right","weapon","left_handed","body","face","offhand_weapon","height","pump","index_tip"]: return {}
 	if not data.has("left_handed") or not data.left_handed is bool: return {}
 	for key in ["head","left","right","weapon"]:
 		if not valid_transform(data.get(key)): return {}
@@ -29,10 +29,16 @@ static func validate(data: Variant) -> Dictionary:
 	for key in ["left","right"]:
 		if data[key].origin.distance_to(Vector3(head.x,clampf(head.y-.45,.25,2.7),head.z))>1.55: return {}
 	var hand: Transform3D=data.left if data.left_handed else data.right
-	if data.weapon.origin.distance_to(hand.origin)>.4: return {}
+	if data.has("pump") and not data.pump is bool:return {}
+	if data.get("pump",false):
+		if not data.has("offhand_weapon") or not preload("res://deathmatch/vr/pump_hold.gd").attached(data):return {}
+	elif data.weapon.origin.distance_to(hand.origin)>.4: return {}
 	if data.has("offhand_weapon"):
 		var offhand: Transform3D=data.right if data.left_handed else data.left
 		if not valid_transform(data.offhand_weapon) or data.offhand_weapon.origin.distance_to(offhand.origin)>.4: return {}
+	if data.has("index_tip"):
+		var offhand: Transform3D=data.right if data.left_handed else data.left
+		if not data.has("offhand_weapon") or not data.index_tip is Vector3 or not data.index_tip.is_finite() or data.index_tip.distance_to(offhand.origin)>.25:return {}
 	var result: Dictionary=data.duplicate()
 	if data.has("height"):
 		if not (data.height is float or data.height is int) or not is_finite(float(data.height)):return {}

@@ -27,6 +27,7 @@ var carrier_notice: Label
 var kill_feed: Label
 var center_message: Label
 var toast_label: Label
+var grenade_notice
 var water_tint: ColorRect
 var damage: ColorRect
 var hit: Label
@@ -133,6 +134,9 @@ func setup(arena: Node) -> void:
 	toast_label.offset_right = 400
 	toast_label.offset_top = -140
 	toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	grenade_notice=preload("res://deathmatch/ui/grenade_notice.gd").new();hud.add_child(grenade_notice)
+	grenade_notice.set_anchors_and_offsets_preset(Control.PRESET_CENTER)
+	grenade_notice.position+=Vector2(-185,100);grenade_notice.size=Vector2(370,66)
 	water_tint=ColorRect.new();water_tint.color=Color(.035,.20,.28,.14);hud.add_child(water_tint)
 	water_tint.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);water_tint.mouse_filter=Control.MOUSE_FILTER_IGNORE;water_tint.hide()
 	damage = ColorRect.new()
@@ -404,6 +408,7 @@ func toast(message: String) -> void:
 
 func _process(_delta: float) -> void:
 	if game==null: return
+	grenade_notice.update_selection(game,game.multiplayer.get_unique_id())
 	fortress_button.visible=game.active and not game.demos.playing and game.match_mode.fortress.enabled() and not game.local_state().get("spectator",false)
 	map_choice.trigger.disabled=game.active
 	map_import.disabled=importing_bsp or not game.uploads.offered.is_empty()

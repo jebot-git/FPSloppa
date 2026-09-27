@@ -1,28 +1,38 @@
 {
-  "description": "Original Blender game geometry; shared CC0 AFPS metal finish",
-  "texture_author": "Drummyfish / tastyfish",
+  "description": "Original Blender game geometry; original material atlas finished in Krita",
+  "texture_author": "FPSloppa contributors",
   "texture_license": "CC0-1.0",
-  "texture_source": "https://opengameart.org/content/oldschool-afps-weapons",
+  "texture_source": "tools/cs16/refined/cs16-finish.kra",
   "files": [
     {
-      "path": "deathmatch/weapons/afps_2.glb",
-      "sha256": "0b5681033eade0a2b1b356109fcfd5458ca5d82c72a831c3cb28ed22a4b14640",
-      "bytes": 1185796
-    },
-    {
       "path": "tools/cs16/model_weapons.py",
-      "sha256": "27d28ee596241725f7ede3299a4aed3df797c6e6fb1059f7cbbd5697d8a5198b",
-      "bytes": 17716
+      "sha256": "17163e913217cdae1b286803b96d90f0464d9d7a1c3ca27432e459c0d9c4e22a",
+      "bytes": 16899
     },
     {
       "path": "tools/cs16/weapon_shapes.py",
-      "sha256": "faa19f60aeca68d3a2b1de4dd7236f0baafc9b883714563253ed025c92ad9b8d",
-      "bytes": 21180
+      "sha256": "d97b352d2399541bbf844b7487c2a7e548e6c0fb8516f8cb8dd6b82de61fdac0",
+      "bytes": 21191
+    },
+    {
+      "path": "tools/cs16/refine_profiles.py",
+      "sha256": "6bf2313e0284a76223d165f0ae3f5332350e92ea49861b62388894fd99af101d",
+      "bytes": 2726
+    },
+    {
+      "path": "tools/cs16/surface_finish.py",
+      "sha256": "754776e9e381844201e281c65fd79f4e912a194ba1b14a3a410ae0d32b668d8c",
+      "bytes": 3406
+    },
+    {
+      "path": "tools/cs16/paint_finish.py",
+      "sha256": "6e8878e995b20c3cdb4bbce215f64c9564a21f48de9ef922b771c63b0e67ea53",
+      "bytes": 4193
     },
     {
       "path": "tools/cs16/import_models.gd",
-      "sha256": "1a560facf3a4edeba25831b1ca10143165e111b374007351b72e4fef5665612f",
-      "bytes": 1936
+      "sha256": "0b02306e1aa6be754e27cf191e585eaeb3515080f36a158504d8078fe3c1052d",
+      "bytes": 1764
     },
     {
       "path": "tools/cs16/build_pouch.py",
@@ -35,74 +45,99 @@
       "bytes": 958
     },
     {
+      "path": "tools/cs16/build_reload_sounds.py",
+      "sha256": "976324a1c27b99b6140d313c4984213f658761d2e905cd0192041102a553c19c",
+      "bytes": 1324
+    },
+    {
+      "path": "tools/cs16/import_reload_sounds.gd",
+      "sha256": "1afd68392f6bf1289739a283f718d9aa2709e886d4fc501f6793542fe5cb636b",
+      "bytes": 418
+    },
+    {
       "path": "tools/cs16/refined/ak47.glb",
-      "sha256": "c77a01d383431f7bac9ea68ccf9f58669a0de3101faec92f49cd19ec8ab228aa",
-      "bytes": 1484560
+      "sha256": "1cdd19e44c5c0c70f76358e38e682e3ab9642430f2dda6f165e01d39334631b8",
+      "bytes": 927452
     },
     {
       "path": "tools/cs16/refined/awp.glb",
-      "sha256": "ed9426c2c9bf2858664588638e8bbe53582c951f8ead3772f757cb0cd8884962",
-      "bytes": 1620656
+      "sha256": "332a03c4cbb4480f602d96ff81f44813336e037b21a1397ab6ff90bcd2d7928d",
+      "bytes": 1023824
     },
     {
       "path": "tools/cs16/refined/deagle.glb",
-      "sha256": "624e0b0f7e2827a0f91aa2386d27ae8658becf681ec1fe474c2a4b1bb574207a",
-      "bytes": 1456760
+      "sha256": "cec2f552708b26eaaba0e4d0b8eecd8e59102fd975485795629c476797d5806c",
+      "bytes": 904244
     },
     {
       "path": "tools/cs16/refined/glock.glb",
-      "sha256": "a9f7833246ca29e9108a3a222be76ade23f9622db2e0ef5499bafb441db36c36",
-      "bytes": 1441188
+      "sha256": "c7c6209cd23ba09eed9a759a0572b0defaefe72194b53f674a8bbeb7fbc10805",
+      "bytes": 888676
     },
     {
       "path": "tools/cs16/refined/knife.glb",
-      "sha256": "72405385009e63a756d9286d5cbc573e74aa56f58c1a6a6633dfa664420ef0ae",
-      "bytes": 1260224
+      "sha256": "95fc9826f7089d26906426e8a9fb204bdadcd0fff092d8e8fb1a1c93467dc6e6",
+      "bytes": 706128
     },
     {
       "path": "tools/cs16/refined/m249.glb",
-      "sha256": "70913a9d86dd8354f01d3ca12d26f45857832a800d51b6cbfe34c842e0ffd3a0",
-      "bytes": 1781132
+      "sha256": "a412022f53497b5157c8311bdaa0d90d7418b28bddc10d4b5f34795298ca21e3",
+      "bytes": 1187800
     },
     {
       "path": "tools/cs16/refined/m3.glb",
-      "sha256": "331eb085a77915cd9a976a9a4a764d7571d0e99d0e62e5346fce269a4268bf1b",
-      "bytes": 1448772
+      "sha256": "cd40f4c8b3baf41803f3d1e870503694c0256dd7b0b85bbbab04127326420c29",
+      "bytes": 884864
     },
     {
       "path": "tools/cs16/refined/m4a1.glb",
-      "sha256": "855bdb84be8b55f543e59082ccba221d3d6c06b391e86d320f6edc062373f006",
-      "bytes": 1657464
+      "sha256": "adf54585c55ce9eceb3957534d55d872c5e3fff8aca2f8462aa02da40e3e2b20",
+      "bytes": 1084748
     },
     {
       "path": "tools/cs16/refined/mp5.glb",
-      "sha256": "ae148147b0aee7c67cd4058189be69209eba5fa295d275558c789142f75e980f",
-      "bytes": 1489788
+      "sha256": "9f3fea5d5c9a6ebcac801935d8ab1280962715ec61251b1eb7e4bbad3dc39723",
+      "bytes": 927772
     },
     {
       "path": "tools/cs16/refined/p90.glb",
-      "sha256": "27628e51680c54d841fad60fd34097e9c4673851201da127536b1d91bb41e62a",
-      "bytes": 1475704
+      "sha256": "9beecbbdc3f4174c45d3cd1397fb881d73853a2b297f9eddeadbfa30cef7c60c",
+      "bytes": 886360
     },
     {
       "path": "tools/cs16/refined/usp.glb",
-      "sha256": "f0d3575cde126f6f4af69328fd73b062b716429542f0c5a6a93122b8d6d4f80d",
-      "bytes": 1481292
+      "sha256": "f87fb18d58baba4f9a3d26b74e49b4c1be486257d96a0a44bd7002bc090b8fa3",
+      "bytes": 922504
     },
     {
       "path": "tools/cs16/refined/xm1014.glb",
-      "sha256": "a14626b1c8b3c27437fe3f5d592f58ba1423d58eb5d090b9e6e3d0dcf1bdd4c7",
-      "bytes": 1505500
+      "sha256": "8e9d8374ad7ec8aee26994a68161c0723d53a645f95e0720e713d84e6ada2cba",
+      "bytes": 942180
     },
     {
       "path": "tools/cs16/refined/cs16_arsenal.blend",
-      "sha256": "2e56bf19ae8cf30eac724ff8e411de68f1b284024abbf865345f6f2bc4a64635",
-      "bytes": 883346
+      "sha256": "e37fe7a2ce50efb361f29a41f3f964dd5456f8eee333e94e3833b0ac996a2bbb",
+      "bytes": 3830047
     },
     {
-      "path": "tools/cs16/refined/afps-metal-donor.png",
-      "sha256": "7372347712e80e7d024ccbbb78f55aa37263f78a361c836929ef0bcd0f8edff3",
-      "bytes": 1181427
+      "path": "tools/cs16/refined/m249_feed.blend",
+      "sha256": "7eaf1caa86b1521cc775456857f6a40e89b686cdee5ea34aa7e22bc9049df6c2",
+      "bytes": 1552233
+    },
+    {
+      "path": "tools/cs16/refined/cs16-finish-painted.png",
+      "sha256": "4d3fc40280c64eb4683d28e437369bff6b51961b652b47ca053afcba5d16aaf9",
+      "bytes": 639433
+    },
+    {
+      "path": "tools/cs16/refined/cs16-finish.png",
+      "sha256": "484a7e0e0ffae0f0acb0a785328b6c95c6b239e27d77830a7ffdc608b18b8f1e",
+      "bytes": 675605
+    },
+    {
+      "path": "tools/cs16/refined/cs16-finish.kra",
+      "sha256": "1cb560e781f3114c47042c5f504f59aa0e4bf0edce6264cb6050674bed47b6a6",
+      "bytes": 1932791
     },
     {
       "path": "tools/cs16/pouch/magazine_pouch.blend",
@@ -116,43 +151,43 @@
     },
     {
       "path": "deathmatch/weapons/cs16/ak47.scn",
-      "sha256": "a1c928560fb9cd60d065189962f7d70b07de1597ab4822ce003ecc4bb65599bc",
-      "bytes": 70310
+      "sha256": "db2d8b325f3910e4372631fa76755738605581d922ea6daa63d2f6ded79d2932",
+      "bytes": 70238
     },
     {
       "path": "deathmatch/weapons/cs16/awp.scn",
-      "sha256": "0db62f1471c5ae829b5727344307f4ca65e3ec85a8b8ae067e57d9b6bfc94eff",
-      "bytes": 88376
+      "sha256": "e28fc99ddd6d5bdefd0cb9d03ae0213225337fc2429c140a8d26572239e45f89",
+      "bytes": 82165
     },
     {
       "path": "deathmatch/weapons/cs16/deagle.scn",
-      "sha256": "0eead5fac4b8946bc3cf751a16b5258357417f9e365718fb34151df59da151ab",
-      "bytes": 65170
+      "sha256": "f63e28b6bcfed8c93bb9a1bf707425b4234f71b123a576d49f7026b34f13f4f8",
+      "bytes": 65780
     },
     {
       "path": "deathmatch/weapons/cs16/glock.scn",
-      "sha256": "b94ef1fe46a43924aaabede2c8cf0af7b0efc9b16bfb9e079c5817bd054c087d",
-      "bytes": 61177
+      "sha256": "2fe84f0a8f8289e889e02ccc5587fd562a1b4d704ddf4210b3e839df022e1c3e",
+      "bytes": 61893
     },
     {
       "path": "deathmatch/weapons/cs16/knife.scn",
-      "sha256": "e99119c58e59e2d04d2f4a2c1999fdb93e6236d8136d762270b0b093dcfaaa83",
-      "bytes": 15730
+      "sha256": "9aefaeae95724d28d8460f3ed972a919b6f0415bc992d223121aa82f94788494",
+      "bytes": 14074
     },
     {
       "path": "deathmatch/weapons/cs16/m249.scn",
-      "sha256": "341203184bf9ed7f247c165bbcba43bc968bfba652dcb3a729f4924397826066",
-      "bytes": 120580
+      "sha256": "b97b588f7bbb982b5c064a561b3655b4312834a393ae22d8a9557ce98bcb25d2",
+      "bytes": 117890
     },
     {
       "path": "deathmatch/weapons/cs16/m3.scn",
-      "sha256": "828dce601201f85e4225c9e152cef8245fb01eb89dd0a87f091778203b56c232",
-      "bytes": 60223
+      "sha256": "000a5c2549057df9c9ca5816078f1ee96badd7572d82d755056efea97530bb87",
+      "bytes": 57572
     },
     {
       "path": "deathmatch/weapons/cs16/m4a1.scn",
-      "sha256": "0696c602fd93f2d065665ac532714ad2c4b95e3186e05bcfb3de89759fae8238",
-      "bytes": 108021
+      "sha256": "c123532e2cb12c3481c8caf39955286ec663f4016a85b3026965113a020e0735",
+      "bytes": 105540
     },
     {
       "path": "deathmatch/weapons/cs16/magazine_pouch.scn",
@@ -161,28 +196,93 @@
     },
     {
       "path": "deathmatch/weapons/cs16/mp5.scn",
-      "sha256": "a38236b3ecda9859e4d8ad4024b6f5fa23f8509288e799097ce19437319c3aa2",
-      "bytes": 72166
+      "sha256": "cfb75310810fd93b161e1382562ceaad00155121de5d5b5661c976c48a5bf514",
+      "bytes": 71515
     },
     {
       "path": "deathmatch/weapons/cs16/p90.scn",
-      "sha256": "c99fe16950e87e73b3d8f5eb48f7f8e68c7ab21666dd27a9ba02fa26a6e4e02e",
-      "bytes": 67108
+      "sha256": "da89d0d475ed502f8d555fbd6b02dddc0188e2ddac959fe73483ab52cefd5d28",
+      "bytes": 64315
     },
     {
       "path": "deathmatch/weapons/cs16/usp.scn",
-      "sha256": "78364f3449198892519441ebf8901e4e4e748296c110a0223faab04a44f63533",
-      "bytes": 68569
+      "sha256": "2579d4ee60aef7c40bbc0ccd2937f6a7fc7ff5a658d5e3f019ebaf596886c23e",
+      "bytes": 68168
     },
     {
       "path": "deathmatch/weapons/cs16/xm1014.scn",
-      "sha256": "6415217ea2be09077847a772abc6084c7a0c68f58c46ea134b94a193cc438ada",
-      "bytes": 71027
+      "sha256": "06ea88a097f43da3eb81a2fbb9e789f9b4e0b4a26bc37d50f13e91f8884e0303",
+      "bytes": 71070
     },
     {
       "path": "deathmatch/weapons/cs16/finish.res",
-      "sha256": "2e2a94f6487b179656d52b8834777b803e7a5b26e98373a525198f1763dc2408",
-      "bytes": 2546798
+      "sha256": "8cbfafdbb2ab81267bfe80b708653d8aa053b8065fc821227f2697197704c75d",
+      "bytes": 1053890
+    },
+    {
+      "path": "deathmatch/counterstrike/feed_belt.gd",
+      "sha256": "24629fb2893a883a3c02b298d30077173c232c67badafed157ca7c8dcd17e58c",
+      "bytes": 2302
+    },
+    {
+      "path": "tools/cs16/reload_audio/empty_lock.wav",
+      "sha256": "e4e196f7f177a0c609af78e598de40161d46fdb4c0271793970d54e2c7574572",
+      "bytes": 10604
+    },
+    {
+      "path": "tools/cs16/reload_audio/mag_in.wav",
+      "sha256": "9cebb1ef6fa2eff2e2c0e9de88c36f442a3a4c51f496a8305564370bd1a56174",
+      "bytes": 10604
+    },
+    {
+      "path": "tools/cs16/reload_audio/mag_out.wav",
+      "sha256": "1b5111cc324baee0c37f4e30ccad073501f1a1332dbaffacad6bc3df5bb17ffd",
+      "bytes": 10604
+    },
+    {
+      "path": "tools/cs16/reload_audio/rack_back.wav",
+      "sha256": "7594535ee868be8e54c4a16a80c19092f9955ca3ae0d2471c92bda94b6fa8665",
+      "bytes": 10604
+    },
+    {
+      "path": "tools/cs16/reload_audio/rack_close.wav",
+      "sha256": "43a321cf8271fcfaa94f6e2ecfa1200ecd839b4013ec335ab8be57a66134715c",
+      "bytes": 10604
+    },
+    {
+      "path": "tools/cs16/reload_audio/snip.wav",
+      "sha256": "b0e52fb68bc2569d7c993abc2c05ba64ecbe05358668581d909d8d1ed86f6abe",
+      "bytes": 10604
+    },
+    {
+      "path": "deathmatch/audio/cs16/empty_lock.res",
+      "sha256": "8cd0888147c78a04d233bf5e090c1403b95bb11353d6967bcfe2c7f4e9e363b2",
+      "bytes": 6389
+    },
+    {
+      "path": "deathmatch/audio/cs16/mag_in.res",
+      "sha256": "25241238f2974d74026c37b505518f025a49f856459fcb6b13f446cc12d086c9",
+      "bytes": 8607
+    },
+    {
+      "path": "deathmatch/audio/cs16/mag_out.res",
+      "sha256": "adc0e89ecada6e5fc1f4c033109f02baa9ae12e572b4ce269884009095d542e7",
+      "bytes": 8007
+    },
+    {
+      "path": "deathmatch/audio/cs16/rack_back.res",
+      "sha256": "1b3ce07aa8e2b10bec2d7e4009faef219d576147cd133d10513e89fdbd1b0a36",
+      "bytes": 9082
+    },
+    {
+      "path": "deathmatch/audio/cs16/rack_close.res",
+      "sha256": "29fd19685985ee9a95e4c3148757c50e06cb6d35faa22040bce3319c800701a7",
+      "bytes": 8604
+    },
+    {
+      "path": "deathmatch/audio/cs16/snip.res",
+      "sha256": "7c8f0754146e4329542ff4c11712556584638469a79e16dcf561831c46594686",
+      "bytes": 8189
     }
   ]
 }

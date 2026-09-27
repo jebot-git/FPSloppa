@@ -2,6 +2,7 @@
 from pathlib import Path
 import hashlib, json, zipfile
 ROOT=Path(__file__).resolve().parents[1]
+VERSION=(ROOT/'VERSION').read_text().strip()
 base=json.loads((ROOT/'deathmatch/assets/base_manifest.json').read_text())
 rows=[]
 for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),('Windows','FPSloppa-Windows.zip','FPSloppa-Windows/'),('Server','FPSloppa-Dedicated-Server-Linux.zip','FPSloppa-Server/'),('Source','FPSloppa-Deathmatch.zip','Godot/')]:
@@ -15,7 +16,7 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
             assert name.startswith(prefix) and '..' not in p.parts and not name.startswith('/'), name
             assert not set(p.parts)&{'.git','.codex','.agents','test-results','release-assets','__pycache__','optional-map-pack','optional-tf-map-pack','optional-arena-pack'}, name
             assert p.parts[1] not in {'demos','video-output'}, name
-            assert p.suffix.lower() not in {'.log','.mp4','.bak','.tmp','.pyc','.keystore','.jks','.p12'}, name
+            assert p.suffix.lower() not in {'.log','.mp4','.bak','.tmp','.pyc','.blend1','.blend2','.keystore','.jks','.p12'}, name
             assert p.name not in {'Entryway.pck','Entryway.exe','Entryway.x86_64'}, name
             assert p.parts[1:3]!=('maps','Community'), name
         assets=[row for row in base['files'] if label!='Server' or Path(row['path']).suffix not in {'.scn','.lit'} and 'cache' not in Path(row['path']).parts]
@@ -31,8 +32,8 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
                 assert prefix+source in names,source
             for source in ['tools/master_server/server.py','tools/master_server/issue_token.py','deathmatch/ui/server_browser.gd','deathmatch/ui/server_directory.gd','deathmatch/server/discovery.gd','deathmatch/server/discovery_protocol.gd']:
                 assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale discovery source',source)
-            for source in ['deathmatch/arena.gd','deathmatch/counterstrike/grenades.gd','deathmatch/vr/hip_mount.gd','deathmatch/tests/defusal_grenade_network.gd','tools/audit_release_map_caches.gd','docs/RELEASE-0.17v.md','maps/Dust2Rebuilt/de_dust2_rebuilt.map','maps/Cindercoil/tb_cindercoil.map']:
-                assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale 0.17 source',source)
+            for source in ['deathmatch/arena.gd','deathmatch/counterstrike/grenades.gd','deathmatch/counterstrike/reload_state.gd','deathmatch/counterstrike/combat.gd','deathmatch/counterstrike/bomb_interaction.gd','deathmatch/vr/physical_reload.gd','deathmatch/vr/gaze_vrs.gd','deathmatch/vr/hip_mount.gd','deathmatch/pickups/cutter_model.gd','deathmatch/effects/bullet_marks.gd','deathmatch/tests/cs16_mag_pull.gd','deathmatch/tests/defusal_grenade_network.gd','tools/audit_release_map_caches.gd','docs/RELEASE-'+VERSION+'.md','maps/Dust2Rebuilt/de_dust2_rebuilt.map','maps/Cindercoil/tb_cindercoil.map']:
+                assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale release source',source)
             # Authored texture import settings must survive a fresh source checkout.
             for source in ROOT.glob('deathmatch/**/*.import'):
                 rel=source.relative_to(ROOT).as_posix()

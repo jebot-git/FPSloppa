@@ -15,6 +15,9 @@ The code reads live Blender enum values. Shader materials are located by node
 type. Export uses the active scene and selected prop, preserving metre scale and
 Godot +Y up. Key centers, back mount offset and cutter tip must stay aligned with
 `deathmatch/counterstrike/bomb_interaction.gd` and `surface_mount()`.
+The cutters export their two complete handle/jaw arms and fixed hinge as children.
+`cutter_model.gd` closes them around the shared pivot for each trigger squeeze.
+`preview_snip.gd` renders both poses alongside the M3's retained pump action.
 
 `tools/defusal_preview.gd` renders the actual imported props, shop, floor/wall
 placements and chest-mounted carrier. Source data here is excluded from Godot

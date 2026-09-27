@@ -43,6 +43,24 @@ func run():
 	g.clock+=.3;g._use_for(1);check(not s.owned.has(5),"Use cannot collect through a wall")
 	wall.free();g.match_mode.kind="dm";g.dropped_weapons.clear();drop(5,30);g._collect(1)
 	check(s.owned.has(5),"Arena modes retain automatic pickups")
+	g.match_mode.kind="de";de.phase="prepare";de.phase_end=g.clock+600;g.intermission=0
+	# Exercise every purchase category and both human/bot authority paths.
+	for id in [1,-1]:
+		g._spawn(id);g.fighters[id].position=de.spawns(g.players[id].team)[0]
+		for weapon in range(1,12):
+			de.credit(id,16000)
+			if not de.offer_allowed(id,weapon):continue
+			de.buy(id,weapon)
+			var owned: Array=g.players[id].owned
+			check(owned.filter(func(w):return de.category(w)==1).size()<=1 and owned.filter(func(w):return de.category(w)==2).size()<=1 and owned.has(0),"Purchase keeps one primary, one pistol and knife: %d/%d"%[id,weapon])
+	# Round carryover repairs any inventory inherited from an older sandbox.
+	s.owned=range(12);s.weapon=6;s.ammo=[240,64,300,40];s.dead=false
+	de.round_id=2;de.begin_round()
+	check(s.owned==[0,6,10] and s.weapon==6,"Survival carries one primary and one secondary, preferring equipped gun")
+	check(g.dropped_weapons.entries.values().any(func(p):return p.item==9),"Surplus carried guns drop instead of disappearing")
+	for i in 80:
+		g.dropped_weapons.next_id+=1;g.dropped_weapons.add(g.dropped_weapons.next_id,g.fighters[1].position,6,30)
+	check(g.dropped_weapons.entries.size()==g.dropped_weapons.LIMIT,"Repeated swaps cannot exceed drop pool capacity")
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/defusal/pickups.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "))
 	print("DEFUSAL_PICKUP_RESULT ",JSON.stringify(result));g.disconnect_game();g.free();await process_frame;quit(0 if failures.is_empty() else 1)

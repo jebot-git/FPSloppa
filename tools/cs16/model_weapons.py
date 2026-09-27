@@ -1,6 +1,6 @@
 """Original CS-inspired meshes. Execute in Blender; only replaces CS16_Workbench.
 Godot coordinates are in Art units, with explicit palm anchors and bore facing -Z.
-No retail Counter-Strike assets. Surface texture reuses CC0 AFPS donor metal.
+No retail Counter-Strike assets. Shared finish is original procedural game art.
 """
 import bpy, bmesh, math, json, struct
 from pathlib import Path
@@ -14,19 +14,17 @@ if COL in bpy.data.collections:
  for ob in list(bpy.data.collections[COL].objects):bpy.data.objects.remove(ob,do_unlink=True)
  bpy.data.collections.remove(bpy.data.collections[COL])
 collection=bpy.data.collections.new(COL);bpy.context.scene.collection.children.link(collection)
-# Retain one shared, small CC0 donor texture. A bare metal patch is mapped with
-# different UV orientations, preserving the scratched finish of the main arsenal.
-b=(ROOT/'deathmatch/weapons/afps_2.glb').read_bytes();n=struct.unpack_from('<I',b,12)[0];doc=json.loads(b[20:20+n]);view=doc['bufferViews'][doc['images'][0]['bufferView']];start=28+n+view.get('byteOffset',0)
-texpath=OUT/'afps-metal-donor.png';texpath.write_bytes(b[start:start+view['byteLength']])
-image=bpy.data.images.load(str(texpath),check_existing=True)
-COLORS=[(.29,.32,.35),(.085,.095,.105),(.53,.24,.075),(.30,.38,.22),(.73,.76,.77),(.60,.43,.15)]
+exec(compile((ROOT/'tools/cs16/surface_finish.py').read_text(),str(ROOT/'tools/cs16/surface_finish.py'),'exec'),globals())
+exec(compile((ROOT/'tools/cs16/refine_profiles.py').read_text(),str(ROOT/'tools/cs16/refine_profiles.py'),'exec'),globals())
+image=make_finish(bpy,OUT/'cs16-finish.png')
 MATS=[]
-for i,(name,c) in enumerate(zip(['Parkerized steel','Stippled polymer','Oiled walnut','Olive composite','Machined steel','Cartridge brass'],COLORS)):
- mat=bpy.data.materials.new('CS16 '+name);mat.diffuse_color=(*c,1);mat.use_nodes=True
- nodes=mat.node_tree.nodes;p=next(n for n in nodes if n.type=='BSDF_PRINCIPLED');p.inputs['Metallic'].default_value=.35 if i in [0,4,5] else .0;p.inputs['Roughness'].default_value=.68 if i in [1,2,3] else .48
+for i,(name,color) in enumerate(zip(FINISH_NAMES,FINISH_COLORS)):
+ mat=bpy.data.materials.new('CS16 '+name);mat.diffuse_color=tuple(c/255 for c in color)+(1,);mat.use_nodes=True
+ nodes=mat.node_tree.nodes;p=next(n for n in nodes if n.type=='BSDF_PRINCIPLED')
+ p.inputs['Metallic'].default_value=.30 if i in [0,4,5] else .0
+ p.inputs['Roughness'].default_value=.72 if i in [0,1,2,3,6,7] else .48
  tex=nodes.new('ShaderNodeTexImage');tex.image=image
- # glTF exporter reads this texture; import_models.gd applies material tints.
- mat.node_tree.links.new(tex.outputs['Color'],p.inputs['Base Color']);p.inputs['Base Color'].default_value=(*c,1)
+ mat.node_tree.links.new(tex.outputs['Color'],p.inputs['Base Color']);p.inputs['Base Color'].default_value=(1,1,1,1)
  MATS.append(mat)
 PARTS=[]
 def xyz(v):return (v[0],-v[2],v[1])
@@ -39,15 +37,7 @@ def obj(name,vertices,faces,mat=0,bevel=.003):
   mod=ob.modifiers.new('Forged edge bevel','BEVEL');mod.width=bevel;mod.segments=2;bpy.ops.object.modifier_apply(modifier=mod.name)
  for face in mesh.polygons:face.use_smooth=False
  normal=ob.modifiers.new('Face-weighted normals','WEIGHTED_NORMAL');normal.keep_sharp=True;bpy.ops.object.modifier_apply(modifier=normal.name)
- # Box projection onto a neutral mottled metal region of the existing atlas.
- uv=mesh.uv_layers.new(name='Surface finish')
- for face in mesh.polygons:
-  axis=max(range(3),key=lambda i:abs(face.normal[i]));axes=[i for i in range(3) if i!=axis]
-  for loop in face.loop_indices:
-   v=mesh.vertices[mesh.loops[loop].vertex_index].co
-   lo=[min(mesh.vertices[mesh.loops[l].vertex_index].co[a] for l in face.loop_indices) for a in axes]
-   u=(v[axes[0]]-lo[0])*.65;w=(v[axes[1]]-lo[1])*.65
-   uv.data[loop].uv=(.74+u*.20,.085+w*.065)
+ apply_finish(ob)
  ob.select_set(False);PARTS.append(ob);return ob
 
 def profile(name,outline,width,mat=0,x=0,bevel=.003):
@@ -141,7 +131,7 @@ def build(slot):
  for face in chassis.data.polygons:face.use_smooth=abs(face.normal.x)<.99
  block('P90 recoil pad',(0,.078,.222),(.147,.192,.014),0,.005)
  profile('P90 stock inset',[(.208,.061),(.018,.061),(.010,-.006),(.208,-.006)],.145,1,bevel=.002)
- block('P90 horizontal magazine',(0,.153,-.224),(.113,.037,.402),2,.006)
+ block('P90 horizontal magazine',(0,.153,-.224),(.113,.037,.402),7,.006)
  for j in range(18):
   # Cartridge rim details under an amber body, kept opaque for VR overdraw.
   tube('Magazine cartridge rims',(0,.154,-.037-j*.021),.006,.115,5,0,8,'x')
@@ -179,7 +169,7 @@ def mechanism_parts(slot):
 
 def role(ob,slot):
  name=ob.name.split('.')[0]
- if slot==8 and name=='Feed belt links':return 'Magazine'
+ if slot==8 and name in ['Feed belt links','Linked cartridges']:return 'FeedBelt'
  mags={1:['Pistol magazine','Magazine floorplate'],2:['Pistol magazine','Magazine floorplate'],10:['Pistol magazine','Magazine floorplate'],5:['MP5 curved 9mm magazine','MP5 magazine pressed groove','MP5 magazine floorplate'],6:['Curved box magazine','Pressed magazine rib'],7:['STANAG 30-round magazine','STANAG pressed rib','STANAG floorplate'],8:['Ammunition box','Ammunition box lid','Ammo box strengthening rib','Linked cartridges'],9:['AWP magazine','AW magazine rib'],11:['P90 horizontal magazine','Magazine cartridge rims']}
  if name in mags.get(slot,[]):return 'Magazine'
  if slot==8 and name in ['M249 feed cover','Rear sight pedestal','Rear sight aperture','Rear sight protector']:return 'FeedCover'
@@ -212,7 +202,9 @@ def join_named(objects,name,pivot=(0,0,0)):
  bpy.context.scene.cursor.location=xyz(pivot);bpy.ops.object.origin_set(type='ORIGIN_CURSOR');return result
 
 def export(slot):
- build(slot);mechanism_parts(slot);objects=PARTS.copy();disconnected=connected_report(objects)
+ build(slot);mechanism_parts(slot);objects=PARTS.copy();profile_changes=refine_profiles(objects,slot)
+ for ob in objects:apply_finish(ob)
+ disconnected=connected_report(objects)
  guard=next((o for o in objects if 'closed trigger guard' in o.name.lower()),None)
  guard_closed=True
  if guard:
@@ -236,7 +228,7 @@ def export(slot):
  for ob in objects:ob.select_set(True);ob['weapon']=NAMES[slot];ob['component']=ob.name.split('.')[0]
  bpy.ops.export_scene.gltf(filepath=str(OUT/(NAMES[slot]+'.glb')),use_selection=True,export_yup=True)
  for ob in objects:ob.hide_set(True)
- return {'slot':slot,'name':NAMES[slot],'triangles':sum(len(o.data.loop_triangles) for o in objects if o.type=='MESH'),'parts':len(groups),'sights':SIGHT_POINTS.get(slot,[]),'disconnected_bounds':disconnected,'closed_guard_manifold':guard_closed,'magazine_guard_clearance':clearance,'grip_style':'integrated thumbhole' if slot in [9,11] else 'contoured pistol' if slot else 'straight knife'}
+ return {'slot':slot,'name':NAMES[slot],'triangles':sum(len(o.data.loop_triangles) for o in objects if o.type=='MESH'),'parts':len(groups),'profile_changes':profile_changes,'sights':SIGHT_POINTS.get(slot,[]),'disconnected_bounds':disconnected,'closed_guard_manifold':guard_closed,'magazine_guard_clearance':clearance,'grip_style':'integrated thumbhole' if slot in [9,11] else 'contoured pistol' if slot else 'straight knife'}
 
 def main():
  report=[export(i) for i in range(12)]

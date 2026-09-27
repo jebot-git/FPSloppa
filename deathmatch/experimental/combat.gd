@@ -44,6 +44,7 @@ func tick_input(id: int,delta: float) -> void:
 		charging[id]={"weapon":weapon,"alt":alt,"time":delta,"maximum":float(d.get("charge_max",2.0))};return
 	if (primary or alt) and s.cooldown<=0:fire(id,alt)
 func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -> bool:
+	if cs_shot and game.armory.effective()!="cs16":return false
 	if game.armory.effective()=="cs16" and not cs_shot:return cs.shoot(id)
 	if not game.multiplayer.is_server() or not game.players.has(id):return false
 	var s: Dictionary=game.players[id];var w: int=s.weapon
@@ -81,10 +82,12 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 		return true
 	if kind in ["hitscan","sniper","beam","shock_beam","hammer"]:
 		if kind=="shock_beam" and shock_combo(id,start,start+forward*d.range):return true
+		var endpoints:=PackedVector3Array();var surfaces:=PackedVector3Array()
 		for pellet in int(d.pellets):
 			var basis: Basis=game._weapon_transform(id).basis
 			var accuracy: float=game.fighters[id].accuracy_scale()
-			var direction: Vector3=(forward+basis.x*randf_range(-1,1)*tan(deg_to_rad(d.spread*accuracy))+basis.y*randf_range(-1,1)*tan(deg_to_rad(d.vertical*accuracy))).normalized()
+			var climb: float=float(d.get("recoil_pitch",0.0)) if cs_shot else 0.0
+			var direction: Vector3=(forward+basis.y*tan(deg_to_rad(climb))+basis.x*randf_range(-1,1)*tan(deg_to_rad(d.spread*accuracy))+basis.y*randf_range(-1,1)*tan(deg_to_rad(d.vertical*accuracy))).normalized()
 			var reach: float=d.get("surface_range",d.range) if kind=="hammer" else d.range
 			var hit: Dictionary=game._trace(start,start+direction*reach,id,game._shot_rewind(id),float(d.get("beam_radius",0.0)))
 			var melee_reaches: bool=kind!="hammer" or start.distance_to(hit.position)<=float(d.range)
@@ -99,7 +102,8 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 			if kind=="hammer" and hit.hit and hit.id==0 and not hit.has("building"):
 				hammer_surface(id,d,alternate,charge,start,hit.position,direction)
 			if d.name=="FLAMETHROWER":game._ability_fx.rpc("flame",start,hit.position,s.team)
-			else:game._impacts.rpc(start,PackedVector3Array([hit.position]),w)
+			else:endpoints.append(hit.position);surfaces.append(hit.get("surface_normal",Vector3.ZERO))
+		if not endpoints.is_empty():game._impacts.rpc(start,endpoints,w,surfaces)
 		return true
 	for shot in (1 if kind=="bio" else count):
 		for pellet in int(d.pellets):

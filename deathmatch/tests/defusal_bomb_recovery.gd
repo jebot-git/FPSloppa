@@ -27,10 +27,15 @@ func run():
 	check(de.hint(99)=="USE / GRAB · RECOVER BOMB","Recovery hint takes priority over weapon swapping")
 	de.utility.state(99).counts[0]=1;de.utility.equip(99,0)
 	g._use_for(99)
-	check(de.carrier==99 and de.held and g.players[99].weapon==5 and not g.players[99].owned.has(6),"Use recovers bomb without swapping the survivor's gun")
+	check(de.carrier==99 and not de.held and g.players[99].weapon==5 and not g.players[99].owned.has(6),"Use attaches the recovered bomb to the chest without swapping the gun")
 	check(de.utility.selected(99)<0 and de.utility.state(99).counts[0]==1,"Recovery holsters utility without consuming it")
 	check(not de.recover_bomb(-2) and de.carrier==99,"A second attacker cannot steal a carried bomb")
 	g.fighters[99].position=de.sites[0]+Vector3(0,0,.8);g.players[99].yaw=0.0
+	# The synthetic site overlaps the death position; leave the recovered gun
+	# behind before testing a deliberate second Use to equip the chest slot.
+	for entry in g.dropped_weapons.entries.values():entry.available=false
+	de.use(99)
+	check(de.held,"Carrier deliberately equips the recovered bomb from its slot")
 	for i in 4:g.clock+=.2;de.digit(99,de.arm_code[de.arm_index])
 	check(de.plant(99,0) and de.planted,"The surviving terrorist can arm and plant the recovered bomb")
 	check(not de.recover_bomb(99),"Planted bombs cannot be picked back up")
@@ -57,7 +62,7 @@ func run():
 	g.clock+=.2
 	g._accept_input(99,{"seq":1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":5,"slow":false,"respawn":false,"xr":pose,"de_grip":true})
 	de.sample_player(99)
-	check(not g.players[99].xr.is_empty() and de.carrier==99 and de.held,"A tracked-hand grip recovers the dead carrier's bomb in VR")
+	check(not g.players[99].xr.is_empty() and de.carrier==99 and not de.held,"A tracked-hand grip recovers the dead carrier's bomb in VR")
 	for attacking in [0,1]:
 		de.drop(99);de.attacking=attacking;g.players[99].team=1-attacking;g.players[-1].team=1-attacking
 		var dropped: Vector3=de.bomb_position

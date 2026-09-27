@@ -30,7 +30,15 @@ func update(delta: float,valid: bool) -> void:
 	var grip: bool=game.bindings.vr_pressed(rig,"support")
 	var trigger: bool=game.bindings.vr_pressed(rig,"offhand_fire")
 	var pose: Dictionary=rig.sample_pose() if available else {}
-	var result: String=gesture.sample(support.position-rig.head.position,delta,grip,trigger,available and (game.match_mode.fortress.enabled() or de and game.match_mode.defusal.phase=="live") and not pose.is_empty())
+	var candidate:=true
+	if de and not gesture.held:
+		var relative: Vector3=rig.head.transform.affine_inverse()*support.position
+		candidate=relative.y>-.30 and relative.z>-.20 and absf(relative.x)>.12
+		candidate=candidate and not rig.support_aim.engaged and not rig.physical_reload.busy()
+	var result:=""
+	if candidate or gesture.held:
+		result=gesture.sample(support.position-rig.head.position,delta,grip,trigger,available and (game.match_mode.fortress.enabled() or de and game.match_mode.defusal.phase=="live") and not pose.is_empty())
+	else:gesture.busy=false;gesture.latched=false;gesture.samples.clear()
 	if result=="arm":
 		var role: String=game.local_state().get("tf_class","")
 		var pipe: bool=game.match_mode.fortress.charges.has(game.multiplayer.get_unique_id())
@@ -42,9 +50,7 @@ func update(delta: float,valid: bool) -> void:
 	if gesture.held:
 		var item: int=game.match_mode.defusal.utility.selected(game.multiplayer.get_unique_id()) if de else -1
 		if de and item<0:
-			var counts: Array=game.match_mode.defusal.utility.state(game.multiplayer.get_unique_id()).counts
-			for k in 3:
-				if counts[k]>0:item=k;break
+			item=game.match_mode.defusal.utility.shoulder_selected(game.multiplayer.get_unique_id())
 		if is_instance_valid(grenade) and grenade.get_meta("kind",-1)!=item:grenade.free();grenade=null
 		if not is_instance_valid(grenade):
 			grenade=Node3D.new();rig.add_child(grenade)
@@ -52,10 +58,10 @@ func update(delta: float,valid: bool) -> void:
 			var mesh:=MeshInstance3D.new();var sphere:=SphereMesh.new();sphere.radius=.065;sphere.height=.13;mesh.mesh=sphere
 			mesh.material_override=preload("res://deathmatch/art.gd").material(Color("d4aa52"),.25,.4);grenade.add_child(mesh)
 			var pin:=MeshInstance3D.new();var ring:=TorusMesh.new();ring.inner_radius=.012;ring.outer_radius=.020;pin.mesh=ring;pin.position.y=.09;pin.rotation.x=PI/2;pin.material_override=preload("res://deathmatch/art.gd").material(Color("bbbbbb"));grenade.add_child(pin)
-			hint=Label3D.new();hint.text="SWING + RELEASE GRIP TO THROW";hint.font_size=24;hint.pixel_size=.0015;hint.position.y=.16;hint.billboard=BaseMaterial3D.BILLBOARD_ENABLED;grenade.add_child(hint)
+			hint=Label3D.new();hint.text="SWING + RELEASE GRIP TO THROW";hint.font_size=24;hint.pixel_size=.0015;hint.position.y=.16;hint.billboard=BaseMaterial3D.BILLBOARD_ENABLED;grenade.add_child(hint);hint.visible=not de
 			if de and item>=0:
 				mesh.free();pin.free();grenade.add_child(load("res://deathmatch/counterstrike/grenade_visuals.gd").model(item))
-		grenade.global_transform=support.global_transform;grenade.visible=true
+		grenade.global_transform=preload("res://deathmatch/counterstrike/grenade_visuals.gd").held_pose(support.global_transform,support==rig.left) if de else support.global_transform;grenade.visible=true
 		update_guide(delta,support)
 	else:
 		if is_instance_valid(grenade):grenade.hide()
@@ -71,16 +77,19 @@ func update_guide(delta: float,hand: XRController3D) -> void:
 	var mesh: ImmediateMesh=guide.mesh;mesh.clear_surfaces();guide.visible=true
 	var game=rig.game;var space: PhysicsDirectSpaceState3D=rig.get_world_3d().direct_space_state
 	var role: String=game.local_state().get("tf_class","")
-	var velocity: Vector3=rig.global_basis*Ballistics.launch(gesture.velocity)
+	var de: bool=game.match_mode.defusal.enabled()
+	var pose: Dictionary=rig.sample_pose()
+	var velocity: Vector3=rig.global_basis*Ballistics.guided(pose,gesture.velocity)
 	var mine: int=game.multiplayer.get_unique_id()
 	var chest: Vector3=game.fighters[mine].global_position+Vector3.UP*game.fighters[mine].torso_height()
 	var solution: Dictionary=preload("res://deathmatch/vr/weapon_clearance.gd").solve(space,chest,hand.global_position,hand.global_position,.12)
 	if solution.blocked:hint.text="BLOCKED · MOVE HAND CLEAR";return
 	hint.text="SWING + RELEASE GRIP TO THROW"
-	var de: bool=game.match_mode.defusal.enabled()
 	var points:=Ballistics.arc(space,solution.origin,velocity,1.5 if de else 2.0 if role=="demoman" else 1.2,12.5 if de else Ballistics.GRAVITY)
 	if points.size()<2:return
 	mesh.surface_begin(Mesh.PRIMITIVE_LINES)
+	var aim: Transform3D=rig.global_transform*pose.weapon
+	mesh.surface_add_vertex(aim.origin);mesh.surface_add_vertex(aim.origin-aim.basis.z*1.2)
 	for i in points.size()-1:
 		mesh.surface_add_vertex(points[i]);mesh.surface_add_vertex(points[i+1])
 	mesh.surface_end()

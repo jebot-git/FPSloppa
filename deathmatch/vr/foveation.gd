@@ -49,7 +49,7 @@ static func description(xr,level: int,fovea_size: int=-1) -> String:
 		fovea_size=size_from_level(level) if fovea_size<0 else clampi(fovea_size,0,3)
 		if fovea_size==0:return "Eye tracking is available. Foveation is off; full-rate shading is requested throughout the view."
 		if xr.is_foveation_supported():return "Larger sizes request a wider sharp region using the headset's foveation presets. Exact size and eye-tracked movement depend on runtime support."
-		return "Size of the sharp region around your gaze. Larger keeps more detail; smaller reduces shading work. Uses a fixed center if gaze is temporarily lost."
+		return "Size of the sharp region around your gaze. Larger keeps more detail; smaller reduces shading work. Keeps full detail if gaze is temporarily lost; peripheral shading is limited to 2×2."
 	if level==0:return "Foveation is off. Full-rate shading is requested throughout the view."
 	if xr.is_foveation_supported():return "Static foveation requested using the headset's presets. Lower levels keep more peripheral detail."
 	return "Static foveation requested. Turn your head to inspect peripheral detail, or choose a lower level for clearer edges. Requires GPU VRS support."
