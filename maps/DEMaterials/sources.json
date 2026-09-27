@@ -1,0 +1,26 @@
+{
+  "artwork": [
+    {
+      "file": "source/plaster.png",
+      "sha256": "72786d21ee21fc2502162283e44e1f6618ce0327650f4fbdf0e22be61edbdfaa",
+      "generator": "built-in imagegen",
+      "date": "2026-09-26",
+      "use": "Original DE surface albedo; no library textures supplied as references"
+    },
+    {
+      "file": "source/ruins.png",
+      "sha256": "18f35672e85532b06b64c6cc1ef0f9c0ac8a1df6adf1368edda3f88b9df1512f",
+      "generator": "built-in imagegen",
+      "date": "2026-09-26",
+      "use": "Original DE surface albedo; no library textures supplied as references"
+    },
+    {
+      "file": "source/paving.png",
+      "sha256": "6b10ede03ff97d26a2df6ac4d1fcdee47f6bcd3c794423d2dc3f1ab12fd32f6e",
+      "generator": "built-in imagegen",
+      "date": "2026-09-26",
+      "use": "Original DE surface albedo; no library textures supplied as references"
+    }
+  ],
+  "conversion": "512px WAD2, Quake palette indices 0\u2013223, BOX-filtered mip chain. Source files retained unchanged."
+}

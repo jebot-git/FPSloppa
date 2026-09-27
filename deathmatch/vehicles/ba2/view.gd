@@ -14,6 +14,7 @@ var footsteps=preload("res://deathmatch/vehicles/ba2/footsteps.gd").new()
 func setup() -> void:
 	if ResourceLoader.exists(MODEL):
 		model=load(MODEL).instantiate();add_child(model)
+		load("res://deathmatch/maps/filtering.gd").new().apply(model)
 		player=model.find_child("AnimationPlayer",true,false)
 		for n in model.find_children("*","Skeleton3D",true,false):skeleton=n;break
 		if player and skeleton:

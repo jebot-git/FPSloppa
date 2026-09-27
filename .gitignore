@@ -5,6 +5,12 @@
 !/deathmatch/maps/skies/*.png.import
 # Runtime dictionary reads original WAD bytes; do not import an unused scene.
 !/deathmatch/maps/texture_replacements/makkon-used.wad.import
+# Preserve mip generation for runtime art, including existing developer imports.
+!/deathmatch/**/*.png.import
+!/deathmatch/**/*.svg.import
+!/addons/godot-xr-tools/hands/textures/*.png.import
+!/addons/godot-xr-tools/images/*.png.import
+!/addons/godot-xr-tools/assets/misc/*.png.import
 # Generated Gradle project and local signing configuration
 /android/
 .env
@@ -57,6 +63,7 @@ __pycache__/
 
 /demos/
 /video-output/
+/recordings/
 
 # Arcane Dimensions derivatives and source assets stay local.
 **/ad_arena_*.bsp
@@ -103,6 +110,17 @@ __pycache__/
 /maps/*.prt
 /maps/*.texinfo
 /maps/*.vis
+# Per-map compiler outputs; editable MAP/WAD sources remain in source releases.
+/maps/ClassicDE/**/*.bsp
+/maps/ClassicDE/**/*.lit
+/maps/ClassicDE/**/*.prt
+/maps/ClassicDE/**/*.vis
+/maps/ClassicDE/**/*.texinfo
+/maps/Dust2Rebuilt/*.bsp
+/maps/Dust2Rebuilt/*.lit
+/maps/Dust2Rebuilt/*.prt
+/maps/Dust2Rebuilt/*.vis
+/maps/Dust2Rebuilt/*.texinfo
 
 # Separate experimental checkouts.
 /.worktrees/

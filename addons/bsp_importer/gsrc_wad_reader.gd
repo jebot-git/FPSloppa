@@ -132,4 +132,5 @@ func load_texture(entry : Dictionary, save_path : String, save_to_file := false)
 	
 	if save_to_file: 
 		img.save_png(save_path.to_lower())
+	img.generate_mipmaps()
 	return ImageTexture.create_from_image(img)

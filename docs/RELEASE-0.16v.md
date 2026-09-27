@@ -41,3 +41,25 @@ signature/content audits are recorded in `docs/validation/release-0.16v.json`.
 
 No fresh native Windows, physical headset, or public-WAN playtest is claimed.
 Ping measures the query endpoint; gameplay access is confirmed when joining.
+
+## Standalone master server update — 2026-09-20
+
+The **FPSloppa-0.16v-Master-Server.zip** download now automatically discovers
+games on the same host and lists their reported versions. Its built-in HTTP
+server serves a live dashboard with maps, rules, player/bot/spectator counts,
+reserved and open seats, match state, and verification age. The page refreshes
+every 10 seconds; unverified listings expire after 90 seconds.
+
+Enable a distinct nonzero `sv_query_port` on each game, run `python3 server.py`
+from the extracted master directory, and open **http://127.0.0.1:8080/**.
+Same-host discovery needs no registration token. Linux detects custom query
+ports automatically; other platforms can use `--local-query-ports 7779 7789`.
+For public listings, configure `--local-address YOUR_PUBLIC_IP` and the existing
+HTTPS deployment. Use `--no-local-discovery` to disable automatic local listings.
+Keep the included `static/` folder beside `server.py`; the updated setup guide
+is included in the archive at `docs/SERVER-BROWSER.md`.
+
+This refresh applies to the standalone master download. Existing game binaries,
+the dedicated-server bundle, the source bundle, and the 0.16v tag are unchanged.
+Validation: 18 master tests, Godot test-master and server-browser integration
+suites, and a browser rendering check of the dashboard.

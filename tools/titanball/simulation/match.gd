@@ -29,13 +29,16 @@ func run() -> void:
  if options.get("pilot_health","fixed200")=="class":
   g.match_mode.fortress.walkers.free();g.match_mode.fortress.walkers=preload("res://tools/titanball/simulation/class_health_baseline.gd").new()
   g.match_mode.fortress.walkers.name="Walkers";g.match_mode.fortress.add_child(g.match_mode.fortress.walkers)
- root.add_child(g);g.selected_map="tb_ashfall"
- loaded_map_hash=FileAccess.get_sha256("res://maps/tb_ashfall.bsp")
+ var map_id: String=options.get("map","tb_ashfall")
+ if not g.map_catalog.any(func(row):return row.id==map_id and "tb" in row.modes):
+  push_error("Choose a registered TITANBALL map");g.free();quit(1);return
+ root.add_child(g);g.selected_map=map_id
+ loaded_map_hash=FileAccess.get_sha256("res://maps/"+map_id+".bsp")
  g.start_host("TITANBALL 6v6 balance observer",0,100,10,true,"tb","quake" if profile=="tf" else profile)
  g.match_mode.fortress.walkers.heavy_ordnance_only=options.get("pilot_damage","heavy")=="heavy"
  g.match_mode.fortress.walkers.pilot_regeneration=options.get("pilot_healing","off")=="station"
  g.set_physics_process(false);g.set_process(false)
- if not g.active or g.current_map!="tb_ashfall":push_error("Wrong map or inactive arena");quit(1);return
+ if not g.active or g.current_map!=map_id:push_error("Wrong map or inactive arena");quit(1);return
  g.players[1].spectator=true;g._spawn(1)
  for id in range(-4,-13,-1):g._add_player(id,"Bot %02d"%-id)
  for id in g.players:
@@ -50,6 +53,13 @@ func run() -> void:
  g.bots.navigation.install_links()
  seed(int(options.get("seed",7129)));g.match_mode.reset()
  for id in g.players:g._spawn(id)
+ var teams: Array=[0,0];var spectators:=0
+ for state in g.players.values():
+  if state.spectator:spectators+=1
+  elif state.team in [0,1]:teams[state.team]+=1
+ if teams!=[6,6] or spectators!=1:
+  push_error("TITANBALL preview requires six bots per team and one spectator");quit(1);return
+ print("TB_SIM_ROSTER ",JSON.stringify({"teams":teams,"spectators":spectators,"players":g.players.size()}))
  g.bots.brains.clear()
  if profile!="tf":place_pickups()
  var old=g.server_log;metrics=preload("res://tools/titanball/simulation/recorder.gd").new();metrics.game=g;g.add_child(metrics);g.server_log=metrics;old.queue_free();metrics.begin()

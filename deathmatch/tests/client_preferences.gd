@@ -17,7 +17,7 @@ func run() -> void:
 	voice.load_preferences(path)
 	check(voice.mode==1 and not voice.muted_all,"Fresh config enables push-to-talk by default")
 	voice.set_mode(2);voice.muted_all=true;voice.threshold=.04;voice.input_device="Unavailable headset microphone";voice.save_preferences(path)
-	var settings:=Presentation.defaults();settings.voice=.35;settings.texture_filter=1;settings.contrast_lighting=true
+	var settings:=Presentation.defaults();settings.voice=.35;settings.texture_filter=1;settings.contrast_lighting=true;settings.spring_bones=false
 	Presentation.save_settings(settings,path)
 	voice.reset()
 	check(voice.mode==2 and voice.muted_all and voice.threshold==.04,"Reconnect resets transport without resetting voice preferences")
@@ -26,8 +26,13 @@ func run() -> void:
 	check(voice.mode==2 and voice.muted_all and voice.input_device=="Unavailable headset microphone","Restart restores mode, mute and preferred microphone; shutdown does not overwrite them")
 	check(Presentation.read_settings(path).voice==.35 and Presentation.read_settings(path).texture_filter==1,"Voice volume and texture filtering survive config reload")
 	check(Presentation.read_settings(path).contrast_lighting and not Presentation.defaults().contrast_lighting,"Experimental lighting survives reload and remains opt-in")
+	check(not Presentation.read_settings(path).spring_bones and Presentation.defaults().spring_bones,"Spring-bone toggle survives reload; existing configs default to enabled")
 	original.load(path)
 	check(original.get_value("player","name")=="Config Marine","Voice and graphics writes preserve other config sections")
+	original.set_value('presentation','soundtrack','amiga');original.save(path)
+	check(not Presentation.read_settings(path).has('soundtrack'),'Removed soundtrack preference is ignored in existing configs')
+	Presentation.save_settings(Presentation.read_settings(path),path);original.clear();original.load(path)
+	check(not original.has_section_key('presentation','soundtrack'),'Saving cleans up the removed soundtrack preference')
 	original.set_value("voice","mode","bad");original.set_value("voice","threshold",NAN);original.save(path)
 	voice.load_preferences(path)
 	check(voice.mode==1 and voice.threshold==.018,"Malformed voice config uses safe defaults")

@@ -23,9 +23,10 @@ func run():
 	check(rig.tracking.full_body_available(),"Native hip and two foot poses satisfy full-body availability")
 	rig.head.position.x=.3;rig.head.position.z=-.2
 	rig.left.position+=Vector3(.3,0,-.2);rig.right.position+=Vector3(.3,0,-.2)
+	var origin_before: Vector3=rig.origin_offset;var scale_before:=XRServer.world_scale
 	for i in 100:rig._process(.02)
 	check(completions==1 and rig.tracking.calibrated,"Full rig T-pose invokes native calibration automatically")
-	check(rig.origin_offset.is_equal_approx(Vector3(-.3,0,.2)) and not rig.tracking.native_corrections.is_empty(),"T-pose recenters room-scale offset before installing fresh body corrections")
+	check(rig.origin_offset.is_equal_approx(origin_before) and is_equal_approx(XRServer.world_scale,scale_before) and not rig.tracking.native_corrections.is_empty(),"T-pose preserves tracking origin and scale while installing fresh body corrections")
 	check(is_instance_valid(rig.calibration_sound) and rig.calibration_sound.playing and rig.calibration_sound.stream.get_length()<.6,"Successful calibration plays the short local completion jingle")
 	for i in 300:rig._process(.02)
 	check(completions==1,"Holding the same pose never loops the jingle")

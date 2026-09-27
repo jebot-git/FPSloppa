@@ -65,7 +65,7 @@ func run() -> void:
 		var material_rows: Array=[]
 		for mat in materials:
 			var tex: Texture2D=mat.get_shader_parameter("_BumpMap")
-			material_rows.append({"name":mat.resource_name,"normal_size":[tex.get_width(),tex.get_height()] if tex else [],"normal_mipmaps":tex.has_mipmaps() if tex else false,"normal_scale":materials[mat],"arena_policy":mat.get_shader_parameter("_ArenaLightingEnabled"),"has_filter_variants":mat.has_meta(Filtering.BANK),"shader_uses_include":mat.shader.code.contains("#include")})
+			material_rows.append({"name":mat.resource_name,"normal_size":[tex.get_width(),tex.get_height()] if tex else [],"normal_mipmaps":tex.get_image().has_mipmaps() if tex else false,"normal_scale":materials[mat],"arena_policy":mat.get_shader_parameter("_ArenaLightingEnabled"),"has_filter_variants":mat.has_meta(Filtering.BANK),"shader_uses_include":mat.shader.code.contains("#include")})
 		var authored:=await capture(name+"-normal-on")
 		for mat in materials:mat.set_shader_parameter("_BumpScale",0.0)
 		var flat:=await capture(name+"-normal-off")

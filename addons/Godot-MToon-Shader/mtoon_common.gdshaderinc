@@ -45,10 +45,10 @@ uniform sampler2D _MainTex : source_color, hint_default_white, filter_linear_mip
 uniform vec4 _MainTex_ST = vec4(1.0,1.0,0.0,0.0);
 uniform sampler2D _ShadeTexture : source_color, hint_default_white, filter_linear_mipmap_anisotropic;
 uniform float _BumpScale : hint_range(-16,16) = 1.0; // "Normal Scale"
-uniform sampler2D _BumpMap : hint_normal; // "Normal Texture"
-uniform sampler2D _ReceiveShadowTexture : hint_default_white;
+uniform sampler2D _BumpMap : hint_normal, filter_linear_mipmap_anisotropic; // "Normal Texture"
+uniform sampler2D _ReceiveShadowTexture : hint_default_white, filter_linear_mipmap_anisotropic;
 uniform float _ReceiveShadowRate = 1.0; // "Receive Shadow"
-uniform sampler2D _ShadingGradeTexture : hint_default_white;
+uniform sampler2D _ShadingGradeTexture : hint_default_white, filter_linear_mipmap_anisotropic;
 uniform float _ShadingGradeRate = 1.0; // "Shading Grade"
 uniform float _ShadeShift : hint_range(-1.0, 1.0) = 0.0;
 uniform float _ShadeToony : hint_range(0.0, 1.0) = 0.9;
@@ -66,13 +66,13 @@ uniform float _EmissionMultiplier = 1.0;
 uniform sampler2D _EmissionMap : source_color, hint_default_white, filter_linear_mipmap_anisotropic;
 // Not implemented:
 uniform float _OutlineWidthMode : hint_range(0,2,1) = 1;
-uniform sampler2D _OutlineWidthTexture : hint_default_white;
+uniform sampler2D _OutlineWidthTexture : hint_default_white, filter_linear_mipmap_anisotropic;
 uniform float _OutlineWidth : hint_range(0.01, 1.0) = 0.5;
 uniform float _OutlineScaledMaxDistance : hint_range(1,10) = 1;
 uniform float _OutlineColorMode : hint_range(0,1,1) = 0;
 uniform vec4 _OutlineColor : source_color = vec4(0,0,0,1);
 uniform float _OutlineLightingMix : hint_range(0,1) = 0;
-uniform sampler2D _UvAnimMaskTexture : hint_default_white;
+uniform sampler2D _UvAnimMaskTexture : hint_default_white, filter_linear_mipmap_anisotropic;
 uniform float _UvAnimScrollX = 0;
 uniform float _UvAnimRotation = 0;
 uniform float _UvAnimScrollY = 0;

@@ -102,7 +102,11 @@ func set_radio(value: bool) -> void:
 	if is_instance_valid(radio_audio):radio_audio.cue(value,volume)
 
 func team_channel() -> bool:
-	return game.voice_enabled and mode>0 and team_available() and (radio_active or not game.is_vr() and game.bindings.pressed("team_ptt"))
+	return game.voice_enabled and mode>0 and team_available() and (radio_active or not game.is_vr() and desktop_radio_pressed())
+
+func desktop_radio_pressed() -> bool:
+	# B opens the DE shop during preparation; it must not also open the microphone.
+	return game.bindings.pressed("team_ptt") and not (game.bindings.keys.get("team_ptt")==KEY_B and game.match_mode.defusal.can_buy(multiplayer.get_unique_id()))
 
 func push_to_talk() -> bool:
 	if team_channel():return true
@@ -112,11 +116,11 @@ func push_to_talk() -> bool:
 	return game.bindings.pressed("ptt")
 
 func _process(delta: float) -> void:
-	if not game.is_vr():set_radio(game.bindings.pressed("team_ptt") and can_transmit())
+	if not game.is_vr():set_radio(desktop_radio_pressed() and can_transmit())
 	if radio_active and not team_available():set_radio(false)
 	for id in streams.keys():
 		var state: Dictionary=streams[id]
-		if not game.players.has(id) or game.clock-state.last_time>2 or state.get("team",false) and (not team_available(id) or not team_available() or not game.match_mode.same_team(id,multiplayer.get_unique_id())):remove_stream(id);continue
+		if game.clock-state.last_time>2 or not playback_allowed(id,state.team,state.dead,state.life,state.round_id):remove_stream(id);continue
 		var speaker=state.speaker
 		if game.clock-state.last_time>.16 and speaker.inopusstream:speaker.external_end_stream()
 		if game.fighters.has(id) and state.player is AudioStreamPlayer3D:state.player.global_position=game.fighters[id].global_position+Vector3.UP*1.55
@@ -132,8 +136,8 @@ func _process(delta: float) -> void:
 
 var decoded_peak:=0.0
 signal packet_received(id: int,serial: int,data: PackedByteArray)
-func create_stream(id: int,serial: int,team_only: bool=false) -> void:
-	var player=AudioStreamPlayer.new() if game.headless or team_only else AudioStreamPlayer3D.new()
+func create_stream(id: int,serial: int,team_only: bool=false,dead: bool=false,life: int=-1,round_id: int=-1) -> void:
+	var player=AudioStreamPlayer.new() if game.headless or team_only or dead else AudioStreamPlayer3D.new()
 	if player is AudioStreamPlayer3D:
 		player.unit_size=8;player.max_distance=60;player.attenuation_filter_cutoff_hz=18000
 	if team_only and is_instance_valid(radio_audio):player.bus=radio_audio.bus
@@ -142,7 +146,7 @@ func create_stream(id: int,serial: int,team_only: bool=false) -> void:
 	speaker.packet_decoded.connect(func():decoded_packets+=1)
 	var header:={"opussamplerate":48000,"opuschannels":1,"lenchunkprefix":2,"opusstreamcount":0,"opusframesize":960,"opusframecount":0,"talkingtimestart":0}
 	speaker.receive_audio_packet(JSON.stringify(header).to_ascii_buffer())
-	streams[id]={"team":team_only,"player":player,"speaker":speaker,"base":serial,"last":serial-1,"seen":{},"last_time":game.clock}
+	streams[id]={"team":team_only,"dead":dead,"life":life,"round_id":round_id,"player":player,"speaker":speaker,"base":serial,"last":serial-1,"seen":{},"last_time":game.clock}
 
 func set_muted(id: int,value: bool) -> void:
 	if value: muted[id]=true; remove_stream(id)
@@ -185,20 +189,20 @@ func mouth_pose(id: int) -> PackedFloat32Array:
 	var state: Dictionary=mouth_poses.get(id,{})
 	return state.weights if state.get("until",0)>game.clock else PackedFloat32Array([0,0,0,0,0])
 
-func _receive_audio(id: int,serial: int,data: PackedByteArray,team_only: bool=false) -> void:
+func _receive_audio(id: int,serial: int,data: PackedByteArray,team_only: bool=false,dead: bool=false,life: int=-1,round_id: int=-1) -> void:
 	if not game.voice_enabled or not game.players.has(id) or id==multiplayer.get_unique_id() or muted_all or muted.has(id) or not valid_packet(data):return
-	if team_only and (not team_available(id) or not team_available() or not game.match_mode.same_team(id,multiplayer.get_unique_id())):return
+	if not playback_allowed(id,team_only,dead,life,round_id):return
 	if game.headless and not test_receive:return
 	var channel: Dictionary=channel_serial.get(id,{"serial":-1,"team":team_only})
 	if serial<=channel.serial and team_only!=channel.team:return
 	if serial>channel.serial:channel_serial[id]={"serial":serial,"team":team_only}
-	if streams.has(id) and streams[id].team!=team_only:remove_stream(id)
+	if streams.has(id) and (streams[id].team!=team_only or streams[id].dead!=dead or streams[id].life!=life or streams[id].round_id!=round_id):remove_stream(id)
 	if streams.has(id):
 		var old: Dictionary=streams[id]
 		if serial<old.base or serial<old.last-32 or old.seen.has(serial):return
 		if serial>old.last+50 or serial-old.base>=32000 or game.clock-old.last_time>.16:remove_stream(id)
 	if not streams.has(id):
-		create_stream(id,serial,team_only)
+		create_stream(id,serial,team_only,dead,life,round_id)
 		if team_only and is_instance_valid(radio_audio):radio_audio.cue(true,volume)
 	var state: Dictionary=streams[id]
 	state.last=maxi(state.last,serial);state.last_time=game.clock;state.seen[serial]=true

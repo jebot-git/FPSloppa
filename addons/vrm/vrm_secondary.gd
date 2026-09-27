@@ -92,6 +92,11 @@ var internal_modifier_node: Node3D
 
 # Props
 
+static var springs_enabled:=true
+var native_simulator: SpringBoneSimulator3D
+var native_external_colliders: Array=[]
+var native_last_position:=Vector3.INF
+var native_last_rotation:=Quaternion.IDENTITY
 var local_body_disabled:=false
 # Runtime-only budget, opt-in from the game. Editor and other plugin users retain
 # the original cadence. Interpolated LOCAL rotations follow this frame's parent.
@@ -150,6 +155,8 @@ func budgeted_tick(delta: float) -> void:
 func set_local_body(value: bool) -> void:
 	if local_body_disabled==value:return
 	local_body_disabled=value
+	if is_instance_valid(native_simulator):
+		update_native_state();return
 	reset_animation_budget()
 	# Clear only spring overrides; the humanoid IK owns the tracked body.
 	for spring in spring_bones_internal:
@@ -192,6 +199,16 @@ func _on_recreate_collider():
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if not Engine.is_editor_hint():
+		skel=get_node_or_null(skeleton)
+		if not skel:return
+		if is_instance_valid(native_simulator):native_simulator.free()
+		native_external_colliders.clear()
+		native_simulator=preload("./vrm_native_springs.gd").build(self,skel)
+		add_to_group("vrm_secondary_runtime")
+		native_last_position=Vector3.INF
+		update_native_state()
+		return
 	reset_animation_budget()
 	applied_simplification=false
 	springs_centers.clear()
@@ -395,7 +412,26 @@ func tick_spring_bones(delta: float) -> void:
 			secondary_gizmo.draw_in_game()
 
 
+func update_native_state() -> void:
+	if not is_instance_valid(native_simulator):return
+	var enabled:=springs_enabled and not local_body_disabled and not animation_suspended and can_process() and is_visible_in_tree()
+	var rotation:=skel.global_basis.orthonormalized().get_rotation_quaternion()
+	if enabled and (not native_simulator.active or skel.global_position.distance_squared_to(native_last_position)>4 or rotation.angle_to(native_last_rotation)>PI*.5):
+		native_simulator.reset();animation_resets+=1
+	native_simulator.active=enabled
+	native_last_position=skel.global_position;native_last_rotation=rotation
+	for entry in native_external_colliders:
+		if is_instance_valid(entry[1]):
+			entry[0].transform=skel.global_transform.affine_inverse()*entry[1].global_transform*entry[2]
+
+func spring_chain_count() -> int:
+	return native_simulator.setting_count if is_instance_valid(native_simulator) else spring_bones_internal.size()
+
 func _process(delta: float):
+	if is_instance_valid(native_simulator):
+		update_native_state()
+		if delta>.25:native_simulator.reset()
+		return
 	if not ClassDB.class_exists(&"SkeletonModifier3D"):
 		if not update_secondary_fixed:
 			do_process(delta)
@@ -419,6 +455,7 @@ func _on_secondary_process_modification_processed() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func do_process(delta: float) -> void:
+	if is_instance_valid(native_simulator):return
 	if local_body_disabled or animation_suspended:
 		if not budget_current.is_empty():reset_animation_budget()
 		return

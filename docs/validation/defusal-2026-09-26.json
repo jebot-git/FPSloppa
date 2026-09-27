@@ -1,0 +1,251 @@
+{
+  "date": "2026-09-26",
+  "engine": "Godot 4.7.2 stable Fedora",
+  "protocol": "fpsloppa-44-defusal",
+  "de_checks": 416,
+  "suites": {
+    "rules": {
+      "checks": 100,
+      "failures": [],
+      "passed": true
+    },
+    "vr": {
+      "checks": 42,
+      "failures": [],
+      "passed": true
+    },
+    "ui": {
+      "checks": 20,
+      "failures": [],
+      "passed": true
+    },
+    "surfaces": {
+      "checks": 18,
+      "failures": [],
+      "passed": true
+    },
+    "bots": {
+      "checks": 10,
+      "failures": [],
+      "passed": true
+    },
+    "demo": {
+      "checks": 14,
+      "failures": [],
+      "frames": 349,
+      "passed": true
+    },
+    "package": {
+      "passed": true,
+      "server_resources": 110,
+      "dust2_files": [
+        {
+          "path": "maps/Dust2Rebuilt/README.md",
+          "size": 4947,
+          "sha256": "aa30701da7d4333b1a646a25be88317ad8a71541822f0ccc38c4663309558844"
+        },
+        {
+          "path": "maps/cache/de_dust2_rebuilt-lightmap1.scn",
+          "size": 4925519,
+          "sha256": "13ac7a271dbc87a3502f3112ebaff65c2e6690a5fdc0c6835e5e47aec9431d34"
+        },
+        {
+          "path": "maps/cache/de_dust2_rebuilt.scn",
+          "size": 4925519,
+          "sha256": "13ac7a271dbc87a3502f3112ebaff65c2e6690a5fdc0c6835e5e47aec9431d34"
+        },
+        {
+          "path": "maps/de_dust2_rebuilt.bsp",
+          "size": 1268484,
+          "sha256": "6e26f8c6f8a25de7bf4523f743846fbf2e4b6302c69828dc7f56c6a49b4072f7"
+        },
+        {
+          "path": "maps/de_maplist.txt",
+          "size": 17,
+          "sha256": "e7aed5d2e5e94aba63ecc673644176daa23e3ee573872baebfd10e60f56f898d"
+        },
+        {
+          "path": "maps/navigation/de_dust2_rebuilt.res",
+          "size": 23131,
+          "sha256": "0cdd2a6e8b3fa07dbfbaa20aaf6dcf591226ef332fc79dd561f1b98aba50dcad"
+        }
+      ]
+    },
+    "distribution": {
+      "checks": 104,
+      "failures": [],
+      "passed": true
+    },
+    "observer": {
+      "checks": 92,
+      "failures": [],
+      "passed": true
+    },
+    "pickups": {
+      "checks": 16,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "local_enet": {
+    "server": {
+      "passed": true,
+      "checks": 15
+    },
+    "attacker": {
+      "passed": true,
+      "checks": 3
+    },
+    "defender": {
+      "passed": true,
+      "checks": 3
+    },
+    "viewer": {
+      "passed": true,
+      "checks": 4
+    }
+  },
+  "regressions": {
+    "wheel-regression": {
+      "passed": true,
+      "checks": 100
+    },
+    "prefs-regression": {
+      "passed": true,
+      "checks": 11
+    },
+    "reload-regression": {
+      "passed": true,
+      "checks": 109
+    },
+    "policy-regression": {
+      "passed": true,
+      "checks": 39
+    },
+    "jetpack-regression": {
+      "passed": true,
+      "checks": 21
+    },
+    "voice-server": {
+      "passed": true,
+      "checks": 16
+    },
+    "spectator-regression": {
+      "passed": true,
+      "checks": 8
+    },
+    "team-radio-enet": {
+      "passed": true,
+      "checks": 18
+    },
+    "music-runtime": {
+      "passed": true,
+      "checks": 58
+    },
+    "radio-guards": {
+      "passed": true,
+      "checks": 13
+    }
+  },
+  "master_tests": 18,
+  "assets": {
+    "deathmatch/pickups/defusal/bomb_chassis.glb": {
+      "bytes": 411768,
+      "sha256": "3b49df12938bb4a7df10a3e40ff2aa08bf3f0c9ea82ead3adf36199f707e0f4d"
+    },
+    "deathmatch/pickups/defusal/cutters.glb": {
+      "bytes": 242308,
+      "sha256": "52f9e6c3dae04c79f844430028b0bd44987c7a384446bedf3d0da864d583daad"
+    }
+  },
+  "blender": "5.2.0 LTS via Blender MCP",
+  "real_headset_tested": false,
+  "deployed": false,
+  "logs": "test-results/defusal",
+  "notes": [
+    "Tracked poses simulated through production validation, not physical hardware.",
+    "Four-process ENet test covers floor A, wall B, code and cutter defusal, late spectator and replay.",
+    "Existing engine ObjectDB warning remains at shutdown.",
+    "Dead camera, independent corpse position, bidirectional dead/living audio/text separation and stale playback tested; existing team-radio network tests still pass.",
+    "Use-to-swap: sixteen checks cover primary/sidearm/same-model swaps, loaded-round accounting, no touch pickup, dead/post-round/reach/occlusion guards and unchanged arena auto-pickup."
+  ],
+  "voice_enet": {
+    "server": {
+      "checks": 2,
+      "failures": [],
+      "passed": true
+    },
+    "sender": {
+      "checks": 3,
+      "failures": [],
+      "passed": true
+    },
+    "dead": {
+      "checks": 5,
+      "failures": [],
+      "passed": true
+    },
+    "alive": {
+      "checks": 3,
+      "failures": [],
+      "passed": true
+    },
+    "observer": {
+      "checks": 4,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "server_dependency_audit": {
+    "passed": true,
+    "scripts_and_resources": 113,
+    "check": "All recursively reachable server preloads are allowed console resources."
+  },
+  "music": {
+    "key": "de",
+    "stem": "copper_fuse",
+    "title": "Copper Fuse",
+    "bpm": 152,
+    "bars": 64,
+    "duration": 101.05263038548753,
+    "ogg_bytes": 1611991,
+    "sha256": "8514948d43a50ef9ba4accc81a0697a0580acf7515f8ded8bce1ce315de473b2",
+    "target_lufs": -20,
+    "measured_lufs": -19.99,
+    "true_peak_dbtp": -7.66,
+    "loop": true,
+    "loop_offset": 0,
+    "loop_step": 0.0014677796280011535,
+    "sample_rate": 44100,
+    "license": "CC0-1.0",
+    "generator": "tools/generate_de_music.py --install",
+    "source_file": "copper_fuse.score.json",
+    "source_format": "recorded-sample-and-synthesis-arrangement",
+    "source_hashes_verified": 10,
+    "runtime_playback_passed": true
+  },
+  "full_bot_match": {
+    "dead_player_frames": 12166,
+    "failures": [],
+    "frames": 30432,
+    "passed": true,
+    "planted_frames": 8958,
+    "playback_and_seeking": true,
+    "players": 12,
+    "rounds": 29,
+    "scores": [
+      13,
+      16
+    ],
+    "seconds": 1521.54999999894,
+    "path": "recordings/de-6v6-2026-09-26T17-25-40/match.fpsdemo",
+    "bytes": 430185440,
+    "teams_every_frame": [
+      6,
+      6
+    ],
+    "real_time": true,
+    "native_live_view_attached": true,
+    "recorded_before_use_swap_change": true
+  }
+}

@@ -98,7 +98,7 @@ func refresh(delta: float) -> void:
 		modes[i].set_pressed_no_signal(i==voice.mode)
 		modes[i].disabled=voice.game.active and not voice.game.voice_enabled
 	mute.set_pressed_no_signal(voice.muted_all)
-	status.text=(("TEAM RADIO · " if voice.team_channel() else "PROXIMITY · ") if voice.transmitting else "")+voice.message+"\nInput level: %d%%"%mini(100,roundi(voice.meter*500))
+	status.text=("DEAD / SPECTATORS ONLY · " if voice.dead_channel() else ("TEAM RADIO · " if voice.team_channel() else "PROXIMITY · ") if voice.transmitting else "")+voice.message+"\nInput level: %d%%"%mini(100,roundi(voice.meter*500))
 	var key:=str(voice.game.players.keys())+str(voice.muted)
 	if key==roster_key: return
 	roster_key=key

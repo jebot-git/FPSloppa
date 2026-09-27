@@ -79,12 +79,16 @@ func tick(delta: float) -> void:
 		if s.dead or s.spectator or game.match_mode.special.blocked(id):
 			s.move=Vector2.ZERO;s.fire=false;s.alt_fire=false;s.offhand_fire=false;s.jump=false;s.swim=Vector3.ZERO;continue
 		s.last_input=game.clock;s.room=Vector3.ZERO;s.offhand_fire=false;s.input_blocked=false
-		if titanball.pilot_input(id,brain):continue
-		if game.clock>=brain.next:
+		# Objective interactions may consume movement/fire, but never perception.
+		# A planter/defuser must still notice an approaching opponent.
+		var thinking: bool=game.clock>=brain.next
+		if thinking:
 			brain.next=game.clock+.2
 			perceive(id,brain)
-			if game.clock>=brain.plan_at:
-				plan(id,brain);brain.plan_at=game.clock+.8
+		if game.match_mode.defusal.bot_input(id):s.move=Vector2.ZERO;s.fire=false;s.alt_fire=false;s.melee=false;s.jump=false;continue
+		if titanball.pilot_input(id,brain):continue
+		if thinking and game.clock>=brain.plan_at:
+			plan(id,brain);brain.plan_at=game.clock+.8
 		if map_triggers.tick(id,brain,delta):continue
 		combat(id,brain,delta)
 		steer(id,brain,delta)
@@ -98,6 +102,7 @@ func eye(id: int) -> Vector3:
 func target_position(id: int) -> Vector3:
 	return game.fighters[id].position+Vector3.UP*game.fighters[id].torso_height()
 func visible(id: int,other: int) -> bool:
+	if game.match_mode.defusal.utility.flash_amount(id)>.35 or game.match_mode.defusal.utility.obscured(eye(id),target_position(other)):return false
 	var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(eye(id),target_position(other),3,[game.fighters[id].get_rid()]))
 	return hit.is_empty() or hit.collider==game.fighters[other] or game.match_mode.fortress.walkers.contact_pilot(hit)==other
 func can_harm_target(id: int,other: int,weapon: int) -> bool:
@@ -194,6 +199,7 @@ func ammo_value(id: int,ammo: int) -> float:
 
 func mode_goals(id: int,brain: Dictionary,rows: Array) -> void:
 	var mode=game.match_mode;var s: Dictionary=game.players[id]
+	if mode.defusal.enabled():mode.defusal.bot_goals(self,id,rows);return
 	var rank:=team_rank(id)
 	brain.role="defend" if rank%3==1 or s.get("tf_class","") in ["engineer","sniper"] else "attack"
 	if mode.freeze_tag():objectives.thaw_goals(id,rows)
@@ -258,6 +264,9 @@ func defense_point(id: int,anchor: Vector3) -> Vector3:
 		var angle:=TAU*float(posmod(index+team_rank(id)*3,8))/8
 		var point:=anchor+Vector3(cos(angle),0,sin(angle))*4
 		point=navigation.project_local(point)
+		# project_local deliberately leaves distant/off-mesh points unchanged.
+		# Such a point can look clear across a ledge or train but have no route.
+		if navigation.ready() and NavigationServer3D.map_get_closest_point(region.get_navigation_map(),point).distance_to(point)>.35:continue
 		if point.distance_to(anchor)>7 or navigation.hazardous(point) or not navigation.ray(point+Vector3.UP*1.2,anchor+Vector3.UP).is_empty():continue
 		var score: float=-game.fighters[id].position.distance_to(point)*.1
 		for friend in brains:
@@ -308,7 +317,7 @@ func plan(id: int,brain: Dictionary) -> void:
 		var pickup: Dictionary=game.pickups[index]
 		# Arrive near a known respawn, but never wait a full pickup cycle.
 		var wait_time: float=maxf(0,pickup.get("respawn",INF)-game.clock) if not pickup.available else 0.0
-		if wait_time>3 or game.match_mode.fixed_loadout():continue
+		if wait_time>3 or not game.jetpacks.allowed(pickup):continue
 		if teamplay.consider_pickup(id,pickup) and teamplay.leaving_pickup(id,pickup):continue
 		var value: float=item_value(id,pickup)/(1+wait_time*.3)
 		# A short weapon detour prevents objective runners feeding opponents
@@ -443,6 +452,7 @@ func safe_shot(id: int,point: Vector3,explosive: bool=false) -> bool:
 func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 	var s: Dictionary=game.players[id]
 	s.fire=false;s.alt_fire=false
+	if game.match_mode.defusal.utility.bot_combat(id,brain):return
 	if game.clock<brain.boost_until:return
 	if translocator_input(id,brain,delta):return
 	if brain.goal_kind=="destroy" and game.match_mode.kind=="as":
@@ -480,7 +490,9 @@ func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 		var safe: bool=safe_shot(id,point,explosive_weapon(id,s.weapon) or float(data.get("splash",0))>0)
 		if game.armory.effective()=="quake" and s.weapon==8 and game.fighters[id].in_water:safe=false
 		s.fire=aligned and game.clock-brain.seen_at>brain.reaction and distance<=data.get("range",100.0) and safe
-		if alternate:s.alt_fire=s.fire;s.fire=false
+		if alternate:
+			s.alt_fire=s.fire
+			if game.armory.effective()!="cs16":s.fire=false
 		# Releasing a charged weapon fires it. Cancel through the same blocked
 		# input used by menus if the lane has become unsafe before release.
 		if game.variant_combat.charging.has(id):
@@ -528,6 +540,7 @@ func translocator_input(id: int,brain: Dictionary,delta: float) -> bool:
 	return true
 
 func alternate_fire(id: int,distance: float,brain: Dictionary) -> bool:
+	if game.armory.effective()=="cs16":return game.players[id].weapon==9
 	if game.armory.effective()!="ut99":return false
 	var s: Dictionary=game.players[id]
 	# Once charging, retain that fire mode until release.

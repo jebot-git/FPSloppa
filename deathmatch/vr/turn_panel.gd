@@ -5,6 +5,7 @@ var speed: Label
 var angle: Label
 var controls: Button
 var seat: Button
+var stock: Button
 var notice: Label
 var speed_up: Button
 var angle_up: Button
@@ -18,6 +19,7 @@ func setup(value: Node) -> void:
 	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="VR CONTROLS";title.add_theme_font_size_override("font_size",30);column.add_child(title)
 	controls=add_button(column,"",func():rig.left_controls=not rig.left_controls;rig.cycle_latched=false;save())
 	seat=add_button(column,"",func():rig.seated=not rig.seated;rig.recenter();save())
+	stock=add_button(column,"",func():rig.virtual_stock_enabled=not rig.virtual_stock_enabled;rig.virtual_stock.reset();save())
 	add_button(column,"RECENTER / CALIBRATE SEATED HEIGHT",func():rig.recenter();refresh())
 	mode=add_button(column,"",func():rig.smooth_turn=not rig.smooth_turn;save())
 	for setting in ["turn_speed","snap_angle"]:
@@ -44,6 +46,7 @@ func save() -> void:
 func refresh() -> void:
 	controls.text="CONTROLS: "+("LEFT-HANDED · MOVE R / TURN L" if rig.left_controls else "RIGHT-HANDED · MOVE L / TURN R")
 	seat.text="SEATED: "+("ON (suspended with body tracking)" if rig.seated else "OFF")
+	stock.text="CS VIRTUAL STOCK: "+("ON · TWO-HAND SHOULDER AIM" if rig.virtual_stock_enabled else "OFF")
 	mode.text="TURN MODE: "+("SMOOTH" if rig.smooth_turn else "SNAP")
 	speed.text="%.0f° / s"%rig.turn_speed;angle.text="%.0f°"%rig.snap_angle
 func open() -> void:

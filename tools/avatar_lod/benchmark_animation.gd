@@ -56,16 +56,21 @@ func measure(optimized: bool,springs: bool=true) -> Dictionary:
 	var timings: Dictionary={}
 	for key in Metrics.samples:timings[key]={"ms_per_frame":Metrics.samples[key][0]/360000.0,"calls_per_frame":Metrics.samples[key][1]/360.0}
 	var spring_usec:=0;var spring_ticks:=0;var resets:=0;var writes:=0;var sleeping:=0;var tiers: Dictionary={}
-	var joints:=0;var pairs:=0
+	var joints:=0;var pairs:=0;var native:=false
 	for rig in rigs:
 		writes+=rig.eyes.morph_writes
 		if rig.animation_sleeping:sleeping+=1
 		var tier: String=str(rig.distance_lod.tier);tiers[tier]=int(tiers.get(tier,0))+1
 		for secondary in rig.secondary_nodes:
 			spring_usec+=secondary.animation_usec;spring_ticks+=secondary.animation_ticks;resets+=secondary.animation_resets
+			if is_instance_valid(secondary.native_simulator):
+				native=true
+				for setting in secondary.native_simulator.setting_count:
+					var count: int=secondary.native_simulator.get_joint_count(setting)
+					joints+=count;pairs+=count*secondary.native_simulator.get_collision_count(setting)
 			for spring in secondary.spring_bones_internal:
 				joints+=spring.verlets.size();pairs+=spring.verlets.size()*(mini(4,spring.colliders.size()) if spring.simplified else spring.colliders.size())
-	timings.spring={"ms_per_frame":spring_usec/360000.0,"ticks_per_frame":spring_ticks/360.0,"resets":resets,"resident_joints":joints,"resident_potential_pairs":pairs}
+	timings.spring={"implementation":"native" if native else "gdscript","ms_per_frame":null if native else spring_usec/360000.0,"ticks_per_frame":null if native else spring_ticks/360.0,"resets":resets,"resident_joints":joints,"resident_potential_pairs":pairs}
 	return {"optimized":optimized,"secondary_enabled":springs,"full_tracking":tracked,"head_hands_only":32-tracked,"frames":360,"wall_ms":summary(wall),"gpu_ms":summary(gpu),"render_cpu_ms":summary(cpu),"scripts":timings,"morph_writes_per_frame":writes/360.0,"sleeping":sleeping,"tiers":tiers}
 func run() -> void:
 	var args:=OS.get_cmdline_user_args()

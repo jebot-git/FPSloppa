@@ -1,0 +1,263 @@
+{
+  "passed": true,
+  "tests": [
+    {
+      "name": "regression",
+      "checks": 27,
+      "passed": true
+    },
+    {
+      "name": "defusal-bots",
+      "checks": 10,
+      "passed": true
+    },
+    {
+      "name": "bomb-recovery",
+      "checks": 29,
+      "passed": true
+    },
+    {
+      "name": "tactics",
+      "checks": 27,
+      "passed": true
+    },
+    {
+      "name": "teamplay",
+      "checks": 41,
+      "passed": true
+    },
+    {
+      "name": "cs16-bots",
+      "checks": 12,
+      "passed": true
+    },
+    {
+      "name": "network-server",
+      "checks": 13,
+      "passed": true
+    },
+    {
+      "name": "network-carrier",
+      "checks": 2,
+      "passed": true
+    },
+    {
+      "name": "network-rescuer",
+      "checks": 2,
+      "passed": true
+    },
+    {
+      "name": "network-defender",
+      "checks": 2,
+      "passed": true
+    }
+  ],
+  "checks": 165,
+  "comparison": [
+    {
+      "map": "de_dust2_rebuilt",
+      "before": {
+        "max_spawn_exit_seconds": 5.017,
+        "spawn_exits_over_7_seconds": 0,
+        "roam_samples": 250,
+        "alive_samples": 2297,
+        "completed": true,
+        "rounds": 6
+      },
+      "after": {
+        "max_spawn_exit_seconds": 4.933,
+        "spawn_exits_over_7_seconds": 0,
+        "roam_samples": 63,
+        "alive_samples": 2062,
+        "completed": true,
+        "rounds": 6
+      }
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "before": {
+        "max_spawn_exit_seconds": 5.817,
+        "spawn_exits_over_7_seconds": 0,
+        "roam_samples": 241,
+        "alive_samples": 1383,
+        "completed": true,
+        "rounds": 6
+      },
+      "after": {
+        "max_spawn_exit_seconds": 4.417,
+        "spawn_exits_over_7_seconds": 0,
+        "roam_samples": 38,
+        "alive_samples": 1399,
+        "completed": true,
+        "rounds": 6
+      }
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "before": {
+        "max_spawn_exit_seconds": 7.183,
+        "spawn_exits_over_7_seconds": 1,
+        "roam_samples": 239,
+        "alive_samples": 2387,
+        "completed": true,
+        "rounds": 6
+      },
+      "after": {
+        "max_spawn_exit_seconds": 4.467,
+        "spawn_exits_over_7_seconds": 0,
+        "roam_samples": 43,
+        "alive_samples": 2101,
+        "completed": true,
+        "rounds": 6
+      }
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "before": {
+        "max_spawn_exit_seconds": 8.45,
+        "spawn_exits_over_7_seconds": 1,
+        "roam_samples": 240,
+        "alive_samples": 1129,
+        "completed": true,
+        "rounds": 6
+      },
+      "after": {
+        "max_spawn_exit_seconds": 4.483,
+        "spawn_exits_over_7_seconds": 0,
+        "roam_samples": 31,
+        "alive_samples": 1257,
+        "completed": true,
+        "rounds": 6
+      }
+    },
+    {
+      "map": "de_train_rebuilt",
+      "before": {
+        "max_spawn_exit_seconds": 9.433,
+        "spawn_exits_over_7_seconds": 3,
+        "roam_samples": 499,
+        "alive_samples": 2047,
+        "completed": true,
+        "rounds": 6
+      },
+      "after": {
+        "max_spawn_exit_seconds": 4.467,
+        "spawn_exits_over_7_seconds": 0,
+        "roam_samples": 42,
+        "alive_samples": 1845,
+        "completed": true,
+        "rounds": 6
+      }
+    }
+  ],
+  "completed_rounds": 30,
+  "simulation": "60 Hz physics, accelerated wall-clock pacing, seed 7129",
+  "recording_audit": [
+    {
+      "holstered_away_from_objective": [
+        {
+          "cause": "held bomb away from site",
+          "duration": 0.550000000000438,
+          "id": -1002,
+          "round": 3,
+          "start": 135.85
+        }
+      ],
+      "map": "de_dust2_rebuilt"
+    },
+    {
+      "holstered_away_from_objective": [
+        {
+          "cause": "held bomb away from site",
+          "duration": 8.19999999999953,
+          "id": -1010,
+          "round": 1,
+          "start": 34.1499999999993
+        }
+      ],
+      "map": "de_nuke_rebuilt"
+    },
+    {
+      "holstered_away_from_objective": [
+        {
+          "cause": "held bomb away from site",
+          "duration": 0.650000000000517,
+          "id": -1008,
+          "round": 3,
+          "start": 146.300000000009
+        },
+        {
+          "cause": "held bomb away from site",
+          "duration": 0.650000000000517,
+          "id": -1002,
+          "round": 3,
+          "start": 146.950000000009
+        },
+        {
+          "cause": "held bomb away from site",
+          "duration": 0.5499999999995,
+          "id": -1005,
+          "round": 6,
+          "start": 268.700000000084
+        },
+        {
+          "cause": "held bomb away from site",
+          "duration": 1.89999999999827,
+          "id": -1003,
+          "round": 6,
+          "start": 269.450000000084
+        }
+      ],
+      "map": "de_inferno_rebuilt"
+    },
+    {
+      "holstered_away_from_objective": [
+        {
+          "cause": "held bomb away from site",
+          "duration": 1.49999999999991,
+          "id": -1008,
+          "round": 3,
+          "start": 118.849999999995
+        },
+        {
+          "cause": "held bomb away from site",
+          "duration": 2.60000000000207,
+          "id": -1003,
+          "round": 5,
+          "start": 193.800000000046
+        }
+      ],
+      "map": "de_aztec_rebuilt"
+    },
+    {
+      "holstered_away_from_objective": [
+        {
+          "cause": "held bomb away from site",
+          "duration": 0.600000000000477,
+          "id": -1005,
+          "round": 5,
+          "start": 242.100000000085
+        }
+      ],
+      "map": "de_train_rebuilt"
+    }
+  ],
+  "live_clips": [
+    {
+      "map": "de_train_rebuilt",
+      "video": "/home/blux/Documents/FPSloppa/recordings/de-bot-fixes-2026-09-26/de_train_rebuilt/match.mp4",
+      "seconds": 60.0,
+      "completed": false,
+      "duplicate_frames": 24,
+      "frames": 1800
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "video": "/home/blux/Documents/FPSloppa/recordings/de-bot-fixes-2026-09-26/de_nuke_rebuilt/match.mp4",
+      "seconds": 60.0,
+      "completed": false,
+      "duplicate_frames": 26,
+      "frames": 1800
+    }
+  ]
+}

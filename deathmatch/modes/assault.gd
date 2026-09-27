@@ -123,6 +123,7 @@ func complete_leg(success: bool) -> void:
 		message="DRAW · neither team completed the assault" if not success and not first_finished else "DRAW · equal completion times" if mode.scores==[0,0] else ("RED" if mode.scores[0]>0 else "BLUE")+" WINS THE ASSAULT"
 		game._end_round()
 func next_leg() -> void:
+	game.dropped_weapons.clear()
 	leg=1;attacking=1;stage=0;checkpoint=0;switching=false
 	budget=maxf(.001,first_time) if first_finished else game.time_limit
 	game.round_left=budget;game.intermission=0;game.round_message=""

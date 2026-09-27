@@ -45,7 +45,7 @@ func run():
 			var source=JSON.parse_string(FileAccess.get_file_as_string('res://deathmatch/audio/music/'+file+'.score.json'))
 			var score_key: String='ft' if key=='if' else key
 			check(source is Dictionary and source.get('key')==score_key and source.get('events',[]).size()>100 and source.get('sha256')==FileAccess.get_sha256('res://deathmatch/audio/music/'+file+'.ogg'),key+' arrangement matches its rendered audio')
-	check(bytes<21000000 and hashes.size()==12 and hashes.all(func(h):return hashes.count(h)==1),'Twelve distinct runtime scores stay below 21 MB total, with IF sharing FT')
+	check(bytes<21000000 and hashes.size()==13 and hashes.all(func(h):return hashes.count(h)==1),'Thirteen distinct runtime scores stay below 21 MB total, with IF sharing FT')
 	var game:=FakeGame.new();root.add_child(game)
 	var server:=Music.new();game.add_child(server);game.headless=true;server.setup(game)
 	check(server.players.is_empty() and server.cache.is_empty(),'Dedicated server loads no music resources');server.free();game.headless=false
@@ -70,9 +70,10 @@ func run():
 	check(is_equal_approx(AudioServer.get_bus_volume_db(bus),-32.),'Music trim survives a track change and crossfade')
 	var before: int=music.current;game.current_map='lqdm2';music._process(.1)
 	check(music.current==before and music.selected=='dm','Map changes within one mode do not restart its music')
-	for key in ['tdm','ctf','koth','ig','ft','if','cc','tf','tb','as']:
+	for key in ['tdm','ctf','koth','ig','ft','if','cc','tf','tb','as','de']:
 		game.match_mode.kind=key
 		check(await ready_track(music,key),key+' selects its own track asynchronously')
+		if key=='de':check(Music.TRACKS[key]=='copper_fuse' and music.players[music.current].stream.loop,'DE selects and loops Copper Fuse')
 		if key=='tb':
 			check(Music.TRACKS[key]=='escape_velocity','Titanball selects Escape Velocity rather than the TF track')
 			music._process(3)

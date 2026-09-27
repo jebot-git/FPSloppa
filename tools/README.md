@@ -21,3 +21,26 @@ The [MDL Avatar Converter](mdl_avatar_converter/README.md) provides a separate e
 `python3 tools/build_bhaptics_native.py` builds the Linux/Windows x86_64 Godot GDExtension for direct Bluetooth vest feedback. Linux requires Rust/Cargo, pkg-config and libdbus development headers; Windows requires the Rust MSVC toolchain and C++ build tools (Windows build unvalidated here); `--offline` uses cached dependencies and `--release` builds an optimized library. See [BHAPTICS.md](../BHAPTICS.md) for setup and opt-in hardware tests.
 
 The [master directory](master_server/README.md) is a standalone Python service for public server discovery. Release packaging includes its own small ZIP and the [browser setup guide](../docs/SERVER-BROWSER.md) in all desktop/server downloads.
+
+`dust2_rebuild/` builds an editable CS 1.6 Dust2 layout study as BSP29, with
+procedural desert textures, embedded RGB lighting and full VIS. It also bakes
+Godot collision/navigation and tests primary routes in both directions. See
+[`maps/Dust2Rebuilt/README.md`](../maps/Dust2Rebuilt/README.md) for commands and
+fidelity limits. The installed map is opt-in and does not change rotations.
+
+DE objective art lives in [the Blender workshop](defusal/README.md). `run_defusal_network.py` runs a four-process local ENet test; `deathmatch/tests/defusal_demo.gd` checks its recording. `defusal_preview.gd` renders the purchase wheel, surface-mounted bomb, cutters and chest carrier. See [DE validation](../docs/BOMB-DEFUSAL.md).
+
+`classic_de/` builds and validates the four additional classic DE BSP29 studies;
+see [map build instructions](../maps/ClassicDE/README.md).
+`compose_de_orchestral.py` writes an editable MilkyTracker XM;
+`generate_de_music.py --install` renders the current DE orchestral cue.
+`run_defusal_grenades.py` validates utility over real local ENet.
+
+`titanball/cindercoil/` generates the circular, ascending TB map, prepares its
+desktop/mobile caches, bakes navigation and tests Titan/fighter traversal.
+See [Cindercoil source and rebuild instructions](../maps/Cindercoil/README.md).
+
+`mipmap_imports.py` audits persisted texture import settings; use `--fix` before
+a Godot editor reimport to migrate older local imports. `audit_mipmaps.gd`
+inspects actual loaded mip chains across runtime images, models, installed maps
+and avatars. See [texture mipmap policy and validation](../docs/TEXTURE-MIPMAPS.md).

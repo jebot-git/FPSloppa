@@ -27,6 +27,7 @@ func spawn(id: int) -> void:
 		s.weapon=9 if mode.instagib() else 1;s.owned=[s.weapon];s.ammo=[0,0,0,0]
 func freeze(id: int,attacker: int) -> void:
 	var g=mode.game;var s: Dictionary=g.players[id]
+	g.jetpacks.clear_player(id)
 	frozen[id]=0.0;s.fire=false;s.offhand_fire=false;s.melee=false;s.charge=0.0;s.move=Vector2.ZERO;s.room=Vector3.ZERO
 	g.fighters[id].velocity=Vector3.ZERO;g.fighters[id].blast_velocity=Vector2.ZERO
 	s.deaths+=1

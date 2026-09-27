@@ -5,7 +5,7 @@ const MAX_FILE:=1_073_741_824
 const MAX_FRAME:=2_097_152
 # Retired cues remain readable in old recordings, but are never played.
 const LEGACY_ANNOUNCER_CUES=["start","team_deathmatch","capture_the_flag","last_man_standing","round_winner","game_over"]
-const EVENTS=["_variant_shot_fx","_variant_bounce_fx","_variant_combo_fx","_pickup_event","_ability_fx","_movement_sound","_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
+const EVENTS=["_de_grenade_fx","_variant_shot_fx","_variant_bounce_fx","_variant_combo_fx","_pickup_event","_ability_fx","_movement_sound","_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
 var game
 var auto_record:=false
 var auto_path:=""
@@ -82,7 +82,14 @@ static func valid_frame(frame: Variant) -> bool:
 		if not row is Array or row.size()!=7 or not row[0] is int or not row[1] is String or row[1].length()>80 or not row[2] is int or row[2]<0 or row[2]>7 or not row[3] is Vector3 or not row[3].is_finite() or not row[4] is float or not is_finite(row[4]) or not row[5] is bool or not row[6] in [-1,0,1]:return false
 	var s=frame.get("snapshot")
 	if not s is Array or s.size()!=12 or not s[0] is Array or s[0].size()>MAX_PLAYERS or not s[1] is PackedByteArray or s[1].size()>8192 or not s[7] is Array or s[7].size()>1024 or not s[8] is Array or not s[10] is Dictionary or not s[11] is Dictionary:return false
-	if not s[10].get("weapon_rules","doom") in ["doom","quake","ut99"]:return false
+	if not s[10].get("weapon_rules","doom") in preload("res://deathmatch/experimental/weapon_rules.gd").IDS:return false
+	if not preload("res://deathmatch/modes/defusal.gd").valid_snapshot(s[10].get("defusal",{})):return false
+	if s[10].has("jetpacks") and not s[10].jetpacks is bool:return false
+	if s[10].has("jetpack_pickups"):
+		var sites=s[10].jetpack_pickups
+		if not sites is Array or sites.size()>2:return false
+		for point in sites:
+			if not point is Vector3 or not point.is_finite():return false
 	var ordnance=s[10].get("ordnance",{})
 	if not ordnance is Dictionary or ordnance.size()>256:return false
 	for id in ordnance:
@@ -101,11 +108,14 @@ static func valid_frame(frame: Variant) -> bool:
 		if not states is Dictionary or states.size()>MAX_PLAYERS:return false
 		for id in states:
 			var state=states[id]
-			if not id is int or not state is Dictionary or state.size()<3 or state.size()>5:return false
+			if not id is int or not state is Dictionary or state.size()<3 or state.size()>8:return false
 			for key in state:
-				if key not in ["height","grounded","assist","jump_ack","fire_ack"]:return false
+				if key not in ["height","grounded","assist","jump_ack","fire_ack","jetpack","jetpack_owned","jetpack_ack"]:return false
 			if state.has("jump_ack") and (not state.jump_ack is int or state.jump_ack<0):return false
 			if state.has("fire_ack") and (not state.fire_ack is int or state.fire_ack<0):return false
+			if state.has("jetpack_ack") and (not state.jetpack_ack is int or state.jetpack_ack<0):return false
+			if state.has("jetpack_owned") and not state.jetpack_owned is bool:return false
+			if state.has("jetpack") and not preload("res://deathmatch/movement/jetpack.gd").valid_state(state.jetpack):return false
 			if not (state.get("height") is float or state.get("height") is int) or not is_finite(float(state.height)) or state.height<.65 or state.height>1.65:return false
 			if not state.get("grounded") is bool or not state.get("assist") is bool:return false
 	for gate in s[8]:
@@ -118,14 +128,16 @@ static func valid_frame(frame: Variant) -> bool:
 	if not frame.get("events") is Array or frame.events.size()>256:return false
 	for e in frame.events:
 		if not e is Array or e.size()!=2 or not e[0] in EVENTS or not e[1] is Array:return false
-		var schemas={"_variant_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_variant_bounce_fx":[TYPE_VECTOR3,TYPE_INT],"_variant_combo_fx":[TYPE_VECTOR3],"_pickup_event":[TYPE_INT,TYPE_STRING,TYPE_INT,TYPE_INT],"_saw_contact":[TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_INT],"_announcer_cue":[TYPE_STRING,TYPE_INT],"_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_melee_fx":[TYPE_INT,TYPE_BOOL],"_impacts":[TYPE_VECTOR3,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT],"_hurt_fx":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_BOOL,TYPE_BOOL,TYPE_INT],"_projectile_end":[TYPE_INT,TYPE_VECTOR3,TYPE_INT],"_teleport_fx":[TYPE_VECTOR3]}
+		var schemas={"_de_grenade_fx":[TYPE_VECTOR3,TYPE_INT],"_variant_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_variant_bounce_fx":[TYPE_VECTOR3,TYPE_INT],"_variant_combo_fx":[TYPE_VECTOR3],"_pickup_event":[TYPE_INT,TYPE_STRING,TYPE_INT,TYPE_INT],"_saw_contact":[TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_INT],"_announcer_cue":[TYPE_STRING,TYPE_INT],"_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_melee_fx":[TYPE_INT,TYPE_BOOL],"_impacts":[TYPE_VECTOR3,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT],"_hurt_fx":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_BOOL,TYPE_BOOL,TYPE_INT],"_projectile_end":[TYPE_INT,TYPE_VECTOR3,TYPE_INT],"_teleport_fx":[TYPE_VECTOR3]}
 		schemas["_ability_fx"]=[TYPE_STRING,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT]
 		schemas["_movement_sound"]=[TYPE_INT,TYPE_INT,TYPE_INT,TYPE_STRING,TYPE_VECTOR3]
+		if e[0]=="_pickup_event" and e[1].size()==5:schemas["_pickup_event"].append(TYPE_BOOL)
 		if e[0]=="_hurt_fx":
 			if e[1].size()>=8:schemas["_hurt_fx"].append(TYPE_BOOL)
 			if e[1].size()==10:schemas["_hurt_fx"].append_array([TYPE_STRING,TYPE_BOOL])
 			if e[1].size()==10 and e[1][8] is String and e[1][8].length()>80:return false
 		if not typed_values(e[1],schemas[e[0]]):return false
+		if e[0]=="_de_grenade_fx" and e[1][1] not in [0,1]:return false
 		if e[0]=="_announcer_cue" and not e[1][0] in preload("res://deathmatch/audio/announcer.gd").CLIPS+LEGACY_ANNOUNCER_CUES:return false
 		if e[0]=="_pickup_event" and (not game_weapon(e[1][3]) or e[1][1]=="weapon" and not game_weapon(e[1][2])):return false
 		if e[0] in ["_shot_fx","_variant_shot_fx","_variant_bounce_fx"] and not game_weapon(e[1][1]):return false
@@ -192,6 +204,8 @@ func apply_frame(frame: Dictionary,play_events: bool=true) -> void:
 	var snap: Array=frame.snapshot
 	game.round_left=snap[2];game.intermission=snap[3];game.round_message=snap[4];game.frag_limit=snap[5];game.time_limit=snap[6]
 	game.variant_combat.charge_view=snap[10].get("weapon_charge",{})
+	game.variant_combat.cs.receive(snap[10].get("cs16",{}))
+	game.dropped_weapons.receive(snap[10].get("dropped_weapons",[]))
 	game.match_mode.receive(snap[10]);game.lobby.view=snap[10].get("lobby",{});game.votes.view=snap[11]
 	for row in snap[0]:
 		if not game.players.has(row[0]):continue
@@ -199,9 +213,12 @@ func apply_frame(frame: Dictionary,play_events: bool=true) -> void:
 		state.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"xr":row[18],"spectator":row[20]},true)
 		if not play_events or actor.spawn_serial!=row[14]:actor.position=row[1];actor.rotation.y=row[3]
 		actor.spawn_serial=row[14];actor.target=row[1];actor.target_yaw=row[3];actor.visual_velocity=row[2];actor.visual_pitch=row[4];actor.visual_weapon=row[8];actor.xr_pose=row[18];actor.receive_locomotion(snap[10].get("locomotion",{}).get(row[0],{}));actor.spectator=row[20];actor.show_alive(not row[7],false)
+		var locomotion: Dictionary=snap[10].get("locomotion",{}).get(row[0],{})
+		state.jetpack=locomotion.get("jetpack_owned",false);game.jetpacks.configure_player(row[0])
+		if actor.jetpack_enabled:actor.Jetpack.reconcile(actor,locomotion.get("jetpack",{}))
 	for i in mini(snap[1].size(),game.pickups.size()):
 		game.pickups[i].available=snap[1][i]==1
-		if is_instance_valid(game.pickups[i].node):game.pickups[i].node.visible=snap[1][i]==1 and not game.match_mode.fixed_loadout()
+		if is_instance_valid(game.pickups[i].node):game.pickups[i].node.visible=snap[1][i]==1 and game.jetpacks.allowed(game.pickups[i])
 	var live: Array=[]
 	for shot in snap[7]:
 		live.append(shot[0])
@@ -256,7 +273,7 @@ func update_camera(delta: float) -> void:
 	if s.weapon!=gun_id or gun_art_rules!=art_rules:
 		if is_instance_valid(gun):gun.free()
 		gun=game.Art.weapon(s.weapon,2,art_rules);game.add_child(gun);gun_id=s.weapon;gun_art_rules=art_rules
-	gun.visible=viewpoint=="first" and not s.dead and not game.lobby.active()
+	gun.visible=viewpoint=="first" and not s.dead and not game.lobby.active() and not game.match_mode.defusal.gun_holstered(selected_player)
 	var held: Transform3D=actor.global_transform*s.xr.weapon if not s.xr.is_empty() else Transform3D(aim.basis,aim.origin+aim.basis*Vector3(.18,-.24,-.35))
 	gun.global_transform=game.Art.held_transform(held,s.weapon,game.Art.VR_SCALE,art_rules)
 func _unhandled_input(event: InputEvent) -> void:

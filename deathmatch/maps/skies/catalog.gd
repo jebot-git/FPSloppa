@@ -8,6 +8,7 @@ const TEXTURES={
  "ember":"res://deathmatch/maps/skies/ember.png"
 }
 const MAPS={
+ "tb_cindercoil":["overcast",.85],
  "as_hislop":["storm",.75],"as_frigate":["overcast",.85],
  "tf_pressureworks":["storm",.75],"tf_vesper":["night",.9],
  "koth_solstice":["winter",.85],"koth_torture":["ember",.7],"koth_hyperborea":["winter",.85],

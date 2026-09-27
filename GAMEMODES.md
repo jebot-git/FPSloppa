@@ -78,6 +78,10 @@ IF defaults to the Instagib maplist, with the usual server rotation fallback. Se
 
 Validation: `python3 deathmatch/tests/run_instafreeze_tests.py` covers rules, hosting, maplist selection and three-process ENet replication.
 
-**TB — TITANBALL:** TF classes and Quake loadouts. Red pilots the BA-2 to Blue’s base; Blue stops it. Ashfall Boulevard is the native BSP playtest map, with a 350 m route and checkpoints at 80/230 m. Preparation lasts 60 seconds, then a fixed 10:00 clock with two +3:00 checkpoint extensions. Pilots board with 200 HP, fixed heavy-ordnance hull protection and no cockpit regeneration. Voluntary exit locks for 10 seconds; acceleration/braking take 5 seconds, followed by a 3-second stationary wait before replacement boarding. See [rules and validation](docs/TITANBALL.md).
+**TB — TITANBALL:** TF classes and Quake loadouts. Red pilots the BA-2 to Blue’s base; Blue stops it. Ashfall Boulevard and the circular, ascending Cindercoil are native BSP playtest maps, each with a 350 m route and checkpoints at 80/230 m. Preparation lasts 60 seconds, then a fixed 10:00 clock with two +3:00 checkpoint extensions. Pilots board with 200 HP, fixed heavy-ordnance hull protection and no cockpit regeneration. Voluntary exit locks for 10 seconds; acceleration/braking take 5 seconds, followed by a 3-second stationary wait before replacement boarding. See [rules and validation](docs/TITANBALL.md).
 
 Round-end and lobby voting instead use a shared 3×3 grid of complete map/mode/loadout choices. One click casts a changeable vote; the highest count wins at the deadline, with grid order breaking ties. See [session features](SESSION_FEATURES.md) for the full ballot rules.
+
+## DE — Bomb Defusal
+
+`de` forces CS16 weapons and supports the Dust2, Nuke, Inferno, Aztec and Train BSP29 reconstructions, plus HE/flash/smoke utility. Buy during preparation, plant on the environment at A/B, or defend and defuse. Players have one life per round; the default is first to 16 with a side switch after 15 rounds. See [rules, economy and controls](docs/BOMB-DEFUSAL.md).

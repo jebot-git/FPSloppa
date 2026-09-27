@@ -43,7 +43,9 @@ setup, e.g. `http://127.0.0.1:8080`.
 
 Allow/forward **UDP 7777 and UDP 7779**, or your configured equivalents. RCON remains
 separate TCP 7778 and is not used for discovery. Use `sv_public 0` with a nonzero
-query port for manually added favorites without a directory. Manual favorites take
+query port for manually added favorites or automatic discovery by a master on the
+same host. Use `--no-local-discovery` on that master if games should only be listed
+through authenticated registration. Manual favorites take
 a numeric IPv4 or IPv6 address and separate game/query ports. Favorites and the
 master URL persist in the existing client preferences (`--client-config` is honored).
 
@@ -78,7 +80,9 @@ client browser, enter **http://127.0.0.1:8080**. No token issuance or manual mas
 startup is needed. `FPSLOPPA_PYTHON` can select a Python executable when it is not
 available as `python3` (`python` for a Windows source run).
 
-The test directory binds only to IPv4 loopback and contains this game server.
+The test directory binds only to IPv4 loopback and also discovers other local
+games with enabled query ports. Open **http://127.0.0.1:8080/** in a web browser
+for its live dashboard.
 Game/query listeners must include IPv4 loopback (`net_ip *`, `0.0.0.0`, or
 `127.0.0.1`). This convenience mode is for local testing; use the standalone
 HTTPS deployment below for other computers and multiple registered servers.
@@ -87,13 +91,60 @@ parent exit. Temporary token-digest/readiness files are removed. A bind conflict
 missing Python, or failed helper startup stops the dedicated launch clearly.
 Ordinary dedicated hosting still requires no Python installation.
 
-### Standalone service
+### Automatic same-host discovery and dashboard
+
+Enable `sv_query_port` on each game, with a different query port per instance;
+`sv_public` can remain `0`, and no token or master URL is needed on these games.
+Start the master and open its base URL in a web browser:
+
+```sh
+python3 tools/master_server/server.py
+# Dashboard: http://127.0.0.1:8080/
+```
+
+Linux discovery reads `/proc/net/udp` and `/proc/net/udp6` in the master's network
+namespace and verifies local listeners using the existing cookie/status protocol.
+It supports wildcard, loopback, and explicit local IPv4/IPv6 binds. It does not scan
+other machines. Without readable Linux socket tables, the default query port 7779
+is still checked over IPv4/IPv6 loopback. On any platform, use
+`--local-query-ports 7779 7789` to check additional loopback ports.
+Disabled query endpoints cannot be discovered; containers in other network
+namespaces need authenticated heartbeats or shared host networking.
+
+Set **`--local-address YOUR_PUBLIC_IP`** for a public master behind a proxy or NAT.
+This is the numeric address published for every auto-discovered game; probes still
+go to the actual local listener. By default it uses the public bind IP, or loopback
+for a wildcard/loopback bind (`::1` for an IPv6 loopback bind). Configure all games
+to accept connections at the advertised address and forward their game/query ports
+without port translation. Local verification does not prove external reachability.
+For a LAN deployment, an explicit private unicast address is also supported.
+
+Discovery runs on a background worker, checking up to 512 endpoints per pass with
+16 bounded concurrent probes. Larger socket tables are rotated across passes.
+Scans start immediately and repeat 10 seconds after completion. Verified metadata,
+including the game's own version, updates the listing. Failed queries do not renew
+it; listings expire after 90 seconds. A heartbeat and discovery of the same
+advertised address/game/query endpoint produce one row, retaining its token ID.
+Use `--no-local-discovery` for a directory accepting only authenticated registrations.
+
+The HTTP listener serves bundled static HTML at `/` and `/index.html`, with no
+third-party assets. Its dashboard polls `v1/servers` every 10 seconds and shows
+server totals, players, bots, free seats, endpoints, maps, rules, spectators,
+reservations, version/protocol, match state, and verification age. Search filters
+the table; totals cover all listed servers. An outage visibly marks retained data.
+Remote server statistics update on their 30–32 second heartbeats; local statistics
+update on successful discovery scans. Keep `static/` beside `server.py` in a manual
+installation. For proxy path prefixes, access the dashboard with a trailing slash
+or `/index.html` so relative asset and API URLs resolve under that prefix.
+
+### Authenticated remote registrations
 
 The standalone implementation is `tools/master_server/server.py`, using Python's
 standard library (Python 3.10+). It needs no Godot runtime or third-party packages.
 Use one process per directory. The registry is in memory; a restart clears leases
-and servers reappear on their next successful heartbeat. Capacity is 256 registered
-server identities, with one operator-issued token per game server.
+and servers reappear on their next successful discovery scan or heartbeat. Capacity
+is 256 server identities. Remote registrations require one operator-issued token
+per game server; `--tokens` can be omitted for a directory serving only local games.
 
 From the repository root, issue a credential without displaying the secret:
 
@@ -117,7 +168,8 @@ The recommended deployment is a loopback listener behind an HTTPS reverse proxy:
 ```sh
 python3 tools/master_server/server.py \
   --bind 127.0.0.1 --port 8080 \
-  --tokens /path/to/master-tokens.json --trust-loopback-proxy
+  --tokens /path/to/master-tokens.json --trust-loopback-proxy \
+  --local-address YOUR_PUBLIC_IP
 ```
 
 The proxy must **overwrite `X-Real-IP` with the immediate client's numeric source
@@ -130,7 +182,7 @@ Alternatively, the service can terminate TLS directly:
 
 ```sh
 python3 tools/master_server/server.py --bind 0.0.0.0 --port 8443 \
-  --tokens /path/to/master-tokens.json \
+  --tokens /path/to/master-tokens.json --local-address YOUR_PUBLIC_IP \
   --cert /path/to/fullchain.pem --key /path/to/private-key.pem
 ```
 
@@ -148,8 +200,9 @@ registration ID represents one advertised endpoint at a time.
 ## Protocol and limits
 
 `GET /v1/servers` returns `{ "schema": 1, "servers": [...] }`. Each row contains
-the numeric address, game/query ports, ID, heartbeat age, and validated public
-status. Entries expire 90 seconds after their last verified heartbeat. If the
+the numeric address, game/query ports, ID, verification age (`age_seconds`), source
+(`local` or `heartbeat`), and validated public status including `version`.
+Entries expire 90 seconds after their last successful verification. If the
 directory is unavailable, the browser retains known endpoints in memory, marks
 their status unverified, and queries them directly. Successful directory refreshes
 remove expired public entries while retaining favorites.

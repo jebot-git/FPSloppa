@@ -40,6 +40,13 @@ func run():
  actor.position=Vector3(2,.02,0);actor.velocity=Vector3.ZERO;actor.reset_view()
  for i in range(45):await physics_frame;actor.simulate(Vector2(0,-1),0,true,1.0/60)
  check(actor.position.z>-.8 and actor.position.y<.1,"Tall obstacles cannot be climbed as stairs")
- actor.reset_view();check(actor.view_offset==0,"Teleport/spawn clears stair smoothing")
+ # Physical and camera smoothing interpolate together even at high headset Hz.
+ actor.previous_view_offset=-.1;actor.view_offset=-.35
+ for fraction in [0.0,.25,.5,.75,1.0]:
+  var rendered_height:float=lerpf(1.0,1.25,fraction)+actor.render_view_offset(fraction)
+  check(absf(rendered_height-.9)<.00001,"Stair smoothing has no interpolation-phase bounce at "+str(fraction))
+ actor.view_offset_tick=-1;actor._physics_process(.1)
+ check(absf(actor.view_offset)<.35,"Stair offset settles even when movement simulation is stopped")
+ actor.reset_view();check(actor.view_offset==0 and actor.previous_view_offset==0,"Teleport/spawn clears stair smoothing")
  world.free()
  print("STAIRS_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

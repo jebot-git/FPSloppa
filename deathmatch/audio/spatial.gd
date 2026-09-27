@@ -29,7 +29,10 @@ func setup(arena: Node) -> void:
 		AudioServer.set_bus_name(idx,"ArenaEffects");AudioServer.set_bus_send(idx,"ArenaSpatial")
 func choose(kind: String) -> AudioStream:
 	var file:="res://deathmatch/audio/"+kind+".wav"
-	if kind=="flamethrower":file="res://deathmatch/audio/flamethrower.res"
+	if kind.begins_with("cs16_weapon_"):
+		var slot:=kind.trim_prefix("cs16_weapon_").trim_suffix("_alt").to_int()
+		file="res://deathmatch/audio/doom-style/weapon_%d.wav"%([2,2,2,3,3,5,5,5,5,3,2,5][clampi(slot,0,11)])
+	elif kind=="flamethrower":file="res://deathmatch/audio/flamethrower.res"
 	elif kind=="ba2_stomp":file="res://deathmatch/audio/ba2/stomp_%d.res"%randi_range(0,2)
 	elif kind.begins_with("quake_") or kind.begins_with("ut99_"):
 		if kind.contains("/") or kind.contains(".") or kind.length()>32:return null

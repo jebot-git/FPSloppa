@@ -1,0 +1,194 @@
+{
+  "date": "2026-09-26",
+  "engine": "Godot 4.7.2.stable.fedora",
+  "renderer": "Vulkan Mobile",
+  "gpu": "Intel Arc A770",
+  "import_policy": {
+    "audited": 722,
+    "runtime": 87,
+    "local_developer_textures": 635,
+    "missing": 0,
+    "explicit_normal_maps": 3,
+    "fresh_import": {
+      "dimensions": [
+        17,
+        9
+      ],
+      "lower_mip_levels": 4,
+      "passed": true
+    }
+  },
+  "asset_audit": {
+    "totals": {
+      "avatar": {
+        "assets": 10,
+        "data_samplers": 0,
+        "mipmapped": 112,
+        "one_pixel": 0,
+        "textures": 112
+      },
+      "import": {
+        "assets": 87,
+        "data_samplers": 0,
+        "mipmapped": 87,
+        "one_pixel": 0,
+        "textures": 87
+      },
+      "map": {
+        "assets": 36,
+        "data_samplers": 655,
+        "mipmapped": 705,
+        "one_pixel": 0,
+        "textures": 705
+      },
+      "model": {
+        "assets": 74,
+        "data_samplers": 0,
+        "mipmapped": 94,
+        "one_pixel": 0,
+        "textures": 94
+      }
+    },
+    "failures": [],
+    "map_ids": [
+      "as_hislop",
+      "as_frigate",
+      "tf_pressureworks",
+      "tf_vesper",
+      "koth_solstice",
+      "koth_torture",
+      "koth_hyperborea",
+      "koth_alichar",
+      "cc_hyperborea",
+      "cc_psychofuge",
+      "cc_ghostquarter",
+      "cc_basement",
+      "qsrc_dm1",
+      "qsrc_dm2",
+      "qsrc_dm3",
+      "qsrc_dm4",
+      "qsrc_dm5",
+      "qsrc_dm6",
+      "qsrc_dm7",
+      "ctf_tideworks",
+      "ctf_crucible",
+      "ctf_confluence",
+      "ctf_deepvault",
+      "ctf_crownreach",
+      "ctf_skyfracture",
+      "tf_ironspan",
+      "tf_relayworks",
+      "as_frigate_tiny",
+      "as_hislop_tiny",
+      "tb_ashfall",
+      "tb_cindercoil",
+      "de_dust2_rebuilt",
+      "de_nuke_rebuilt",
+      "de_inferno_rebuilt",
+      "de_aztec_rebuilt",
+      "de_train_rebuilt"
+    ],
+    "notes": "Texture counts are deduplicated within each asset, not across assets. Uninstalled optional maps are excluded."
+  },
+  "tests": {
+    "mipmaps_headless": {
+      "passed": true,
+      "explicit_passes": 12,
+      "result": [
+        "MIPMAPS_RESULT []"
+      ]
+    },
+    "mipmaps_vulkan": {
+      "passed": true,
+      "explicit_passes": 12,
+      "result": [
+        "MIPMAPS_RESULT []"
+      ]
+    },
+    "filter_variants": {
+      "passed": true,
+      "explicit_passes": 12,
+      "result": [
+        "FILTER_VARIANTS_RESULT []"
+      ]
+    },
+    "map_colour_mips": {
+      "passed": true,
+      "explicit_passes": 0,
+      "result": [
+        "MAP_COLOUR_MIPS_RESULT {\"failures\":[],\"linear_average_srgb\":188}"
+      ]
+    },
+    "client_preferences": {
+      "passed": true,
+      "explicit_passes": 13,
+      "result": [
+        "CLIENT_PREFERENCES_RESULT []"
+      ]
+    },
+    "map_presentation": {
+      "passed": true,
+      "explicit_passes": 121,
+      "result": [
+        "MAP_PRESENTATION_RESULT []"
+      ]
+    },
+    "reload_ui_vulkan": {
+      "passed": true,
+      "explicit_passes": 17,
+      "result": [
+        "CS16_RELOAD_UI_RESULT {\"checks\":17,\"failures\":[],\"passed\":true}"
+      ]
+    }
+  },
+  "exceptions": {
+    "packed_bsp_lightmaps": "Bilinear, no mips; atlas padding cannot isolate smaller levels.",
+    "weapon_occlusion_tree": "Exact floating-point lookup data; texel fetch / nearest.",
+    "viewport_textures": "Live render targets retain their sampling.",
+    "one_pixel": "No lower level exists."
+  },
+  "known_unrelated_failure": {
+    "suite": "post07.gd",
+    "passed_checks": 19,
+    "failed_checks": 1,
+    "reason": "Legacy assertion expects <=24 cm at an unscaled muzzle; existing code uses LENGTH=.60, START_OFFSET=.04 and VR_SCALE. Both mismatch in HEAD before this task.",
+    "texture_check_passed": true
+  },
+  "warnings": [
+    "Existing XR-tools UID fallbacks use text paths successfully.",
+    "Existing ObjectDB/resource exit warnings in renderer tests."
+  ],
+  "headset_tested": false,
+  "source_sha256": {
+    "project.godot": "e61bde16ff8fd39af36381f102c8d93a34b5b5a7a263c3f78fe41d05191f199c",
+    "deathmatch/maps/filtering.gd": "8f4d36ffe91ce71d3ec8b5acb18a4976d0e2fafee4089675f4cca21919800e49",
+    "addons/Godot-MToon-Shader/mtoon_common.gdshaderinc": "56ec462a63b809be7565df720aed54f36f9aaea3b14e722cc1bc62ec1df717bc",
+    "deathmatch/maps/previews.gd": "9b4066cc29ee39fb54d8b24a2134c9899c650f88a0d11acaee302f07b5aa4851",
+    "deathmatch/vr/rig.gd": "55adeb2adca81a545ca599f4cdff3316fd7e6120c779656164c0fab4b6dd2b1f",
+    "deathmatch/vr/physical_reload.gd": "fa92c53706def03e29af280be4144593644bb57dde94d971b546661c732bdb3d",
+    "deathmatch/vehicles/ba2/view.gd": "c0142f7c3f5adb2ed13f18ffca6008770a8383aae764c58d9fa4fa0a3123f9b6",
+    "deathmatch/ui/weapon_wheel.gd": "84c8bcaddb3b15271311b84c217187c95653e68f3ab6c20393481f50f5c0bfdc",
+    "deathmatch/modes/lobby_panel.gd": "460efdf5e1604da2b85ee891b146d537527f05221c8b6e3c7e220c151247e2bc",
+    "addons/bsp_importer/gsrc_wad_reader.gd": "dc9e667b13d6c491359bfeb726e36e1cfc6357ea3cd61824c5c00270397a41a5",
+    "tools/mipmap_imports.py": "bde62475cec0efa9f62296a8dc03487ba849079d32edc08bc0b79a6e10e9f882",
+    "tools/audit_mipmaps.gd": "867a56a68bc560e4a1a50e01b085502db4d4c4c63a47814355976533933323bf",
+    "deathmatch/tests/mipmaps.gd": "62e4174230b40d23b0385b8b2d0abac7de18d89691e438be2f36a4ddc57f2a99",
+    "deathmatch/tests/filter_switch_profile.gd": "f92a2a7c638ba25a15d024e043feb77bf99a98a8e71930ed8f95ca6a8007f8e8",
+    "deathmatch/tests/filter_variants.gd": "e8e0fed101a68c9fa8ce19753ae9ef427c4304e47ff517dc0dc4d69d936f9e9f",
+    "tools/lighting_experiment/material_audit.gd": "ad9925b02706cd6c712eeab21804f266dbbf9a6caa750ce8aba5bef582fb97c4"
+  },
+  "filter_switch_profile": {
+    "samples": 16,
+    "image_reads": 0,
+    "texture_rebuilds": 0,
+    "pixel_preparation_ms": 0.0,
+    "max_cpu_ms": 2.012,
+    "script_or_shader_errors": false,
+    "notes": "Unprepared-material diagnostics refer only to hidden FilterWarmup variant copies, which intentionally have no recursive variant bank."
+  },
+  "visual_check": {
+    "image": "test-results/cs16/reload/01-pouch.png",
+    "inspected": true,
+    "description": "Pouch canvas, controller glove and USP render with no missing textures; all 17 reload presentation checks pass."
+  }
+}

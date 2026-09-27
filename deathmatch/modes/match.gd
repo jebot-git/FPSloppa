@@ -1,6 +1,6 @@
 extends RefCounted
 ## All rules run on the server. Clients receive a read-only objective snapshot.
-const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","if":"INSTAFREEZE","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","tb":"TITANBALL","as":"ASSAULT"}
+const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","if":"INSTAFREEZE","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","tb":"TITANBALL","as":"ASSAULT","de":"BOMB DEFUSAL"}
 const COLORS=[Color("ed6558"),Color("65a9ef")]
 const TEAMS=["RED","BLUE"]
 var game
@@ -8,6 +8,7 @@ var fortress=preload("res://deathmatch/modes/fortress.gd").new()
 var titanball=preload("res://deathmatch/modes/titanball.gd").new()
 var special=preload("res://deathmatch/modes/special.gd").new()
 var assault=preload("res://deathmatch/modes/assault.gd").new()
+var defusal=preload("res://deathmatch/modes/defusal.gd").new()
 var kind:="dm":
 	set(value):
 		if kind==value:return
@@ -15,6 +16,7 @@ var kind:="dm":
 		if game:
 			game.armory.apply_mode()
 			game.time_limit=game.normal_time_limit
+var jetpacks:=false
 var friendly_fire:=false
 var capture_limit:=5
 var hill_limit:=120
@@ -35,9 +37,11 @@ var hill_label: Label3D
 var visuals: Node3D
 var visual_key:=""
 
-func setup(arena: Node) -> void: game=arena;titanball.setup(self);special.setup(self);assault.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self)
+func setup(arena: Node) -> void: game=arena;titanball.setup(self);special.setup(self);assault.setup(self);defusal.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self)
 func configure(settings: Dictionary) -> void:
 	kind=settings.get("sv_gametype","dm")
+	jetpacks=settings.get("sv_jetpacks",0)==1
+	defusal.configure(settings)
 	fortress.walkers.heavy_ordnance_only=true
 	fortress.walkers.pilot_regeneration=false
 	fortress.spy_invisibility=settings.get("sv_tf_spy_invisibility",0)==1
@@ -48,7 +52,7 @@ func instagib() -> bool:return kind in ["ig","if"]
 func freeze_tag() -> bool:return kind in ["ft","if"]
 func fixed_loadout() -> bool:return instagib() or kind=="cc"
 static func maplist_kind(value: String) -> String:return value
-func team_game() -> bool: return kind in ["tdm","ctf","koth","ft","if","tf","tb","as"]
+func team_game() -> bool: return kind in ["tdm","ctf","koth","ft","if","tf","tb","as","de"]
 func assign_team(spectator: bool) -> int:
 	if spectator or not team_game():return -1
 	var count: Array=[0,0]
@@ -59,7 +63,8 @@ func same_team(a: int,b: int) -> bool:
 	return team_game() and game.players.has(a) and game.players.has(b) and game.players[a].team>=0 and game.players[a].team==game.players[b].team
 func reset() -> void:
 	capture_notice.clear()
-	special.reset();fortress.reset();assault.reset();titanball.reset()
+	special.reset();fortress.reset();assault.reset();titanball.reset();defusal.reset()
+	game.jetpacks.clear()
 	scores=[0,0];hill_owner=-1;hill_credit=0.0;flags.clear();bases.clear();captures.clear()
 	hills.clear();hill_index=0;hill_remaining=HILL_SECONDS
 	if game.spawn_points.is_empty():return
@@ -91,6 +96,7 @@ func reset() -> void:
 	for i in range(2):captures.append(game.tf_capture.get(i,bases[i]) if kind=="tf" else bases[i])
 	for i in range(2):flags.append({"carrier":0,"dropped":false,"position":bases[i],"return_at":0.0})
 	clear_visuals()
+	game.jetpacks.rebuild()
 func vector(value: Array) -> Vector3:return Vector3(value[0],value[1],value[2])
 func prepare_hills() -> void:
 	if hills.is_empty():hills.append(hill)
@@ -146,6 +152,7 @@ func tick_hill(delta: float) -> void:
 			game._announcement.rpc("Hill moved · position %d/%d"%[hill_index+1,hills.size()])
 func spawns(team: int) -> Array:
 	if game.lobby.active():return game.spawn_points
+	if kind=="de" and team in [0,1]:return defusal.spawns(team)
 	if kind=="as" and team in [0,1]:return assault.spawns(team)
 	if kind=="tb" and team in [0,1]:return titanball.spawns(team)
 	if kind in ["ctf","tf","tb","koth"] and team in [0,1] and not game.ctf_spawns[team].is_empty():return game.ctf_spawns[team]
@@ -155,6 +162,7 @@ func spawns(team: int) -> Array:
 		if point.distance_squared_to(bases[team])<=point.distance_squared_to(bases[1-team]):result.append(point)
 	return result if not result.is_empty() else game.spawn_points
 func killed(victim: int,attacker: int) -> void:
+	defusal.killed(victim,attacker)
 	fortress.walkers.departed(victim)
 	drop(victim)
 	if not game.players.has(attacker):return
@@ -165,6 +173,7 @@ func killed(victim: int,attacker: int) -> void:
 		check_limit()
 	elif kind in ["dm","ig","cc"] and game.players[attacker].kills>=game.frag_limit:game._end_round()
 func drop(id: int) -> void:
+	defusal.drop(id)
 	for i in range(flags.size()):
 		var f: Dictionary=flags[i]
 		if f.carrier!=id:continue
@@ -184,7 +193,7 @@ func nearby(id: int,pos: Vector3,radius: float) -> bool:
 	return game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin+Vector3.UP*.8,pos+Vector3.UP*.8,1)).is_empty()
 func tick(delta: float) -> void:
 	if not game.multiplayer.is_server() or game.intermission>0:return
-	special.tick(delta);fortress.tick(delta);assault.tick(delta)
+	special.tick(delta);fortress.tick(delta);assault.tick(delta);defusal.tick(delta)
 	if kind in ["ctf","tf"]:
 		for i in range(2):
 			var f: Dictionary=flags[i]
@@ -207,7 +216,7 @@ func tick(delta: float) -> void:
 				return_flag(enemy);scores[own]+=1;game._announcement.rpc(TEAMS[own]+" captured the flag!");game._capture_feedback.rpc(own,s.name,scores[own]);game.announcer.objective_completed();check_limit()
 				if game.intermission>0:return
 	elif kind=="koth":tick_hill(delta)
-func limit() -> int:return capture_limit if kind in ["ctf","tf"] else hill_limit if kind=="koth" else game.frag_limit
+func limit() -> int:return defusal.win_limit if kind=="de" else capture_limit if kind in ["ctf","tf"] else hill_limit if kind=="koth" else game.frag_limit
 func check_limit() -> void:
 	if maxi(scores[0],scores[1])>=limit():game._end_round()
 func result() -> String:
@@ -215,6 +224,7 @@ func result() -> String:
 	if kind=="tb":return titanball.result()
 	return ("DRAW" if scores[0]==scores[1] else TEAMS[0 if scores[0]>scores[1] else 1]+" WINS")+" · %d : %d"%[scores[0],scores[1]]
 func status(id: int=0) -> String:
+	if kind=="de":return defusal.status(id)
 	if kind=="as":return assault.status()
 	if kind=="tb":return titanball.status(id)+fortress.status(id)
 	if not team_game():return kind.to_upper()+" · %d FRAGS"%game.frag_limit
@@ -226,20 +236,24 @@ func status(id: int=0) -> String:
 	if freeze_tag():text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
 	return text+fortress.status(id)
 func snapshot() -> Dictionary:
-	return {"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
+	return {"defusal":defusal.snapshot(),"jetpacks":jetpacks,"jetpack_pickups":game.jetpacks.positions(),"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
 func receive(data: Dictionary) -> void:
 	if data.is_empty():return
 	game.announcer.policy(bool(data.get("announcer",true)))
 	special.frozen=data.get("frozen",{});special.reset_at=data.get("freeze_reset",0.0)
+	jetpacks=data.get("jetpacks",false)==true
 	kind=data.kind;fortress.receive(data.get("fortress",{}));scores=data.scores;bases=data.bases;captures=data.get("captures",bases);flags=data.flags;hill=data.hill;hill_owner=data.owner;friendly_fire=data.friendly_fire
 	hills=data.get("hills",[hill]);hill_index=int(data.get("hill_index",0));hill_remaining=float(data.get("hill_remaining",HILL_SECONDS))
 	assault.receive(data.get("assault",{}));titanball.receive(data.get("titanball",{}))
+	defusal.receive(data.get("defusal",{}))
+	game.jetpacks.receive(data.get("jetpack_pickups",[]))
 	if kind in ["ctf","tf"]:capture_limit=data.limit
 	elif kind=="koth":hill_limit=data.limit
 func clear_visuals() -> void:
 	if is_instance_valid(visuals):visuals.free()
 	visuals=null;visual_key="";hill_label=null
 func draw_objectives() -> void:
+	defusal.draw()
 	if game.headless:return
 	fortress.draw()
 	fortress.walkers.draw(game.get_process_delta_time())

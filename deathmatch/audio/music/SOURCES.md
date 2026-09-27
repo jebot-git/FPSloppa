@@ -18,6 +18,7 @@ Title and lobby keep their previously approved compositions and renders.
 | Team Fortress | Siege Engine | 124 | 124 s | C-sharp battle rhythm and open chord accents |
 | Titanball | Escape Velocity | 136 | 113 s | Looping sci-fi rock with breakbeats and paired guitar riffs |
 | Assault | Mega Destruction — Zilly Mike | Tracker tempo | 157 s | Public-domain XM metal arrangement |
+| Bomb Defusal | Copper Fuse | 150 | 102.4 s | Orchestral action: string ostinati, brass, timpani and percussion |
 
 Metal tracks use independent left/right guitar recordings, open and palm-muted
 articulations, root/fifth/octave power chords, amp saturation, cabinet-like EQ
@@ -25,7 +26,7 @@ and acoustic drums with short room tails. They retain 44.1 kHz stereo detail in
 compact Vorbis files. Title/lobby use 32 kHz stereo Vorbis and retain editable
 eight-channel MODs. No existing game soundtrack recording or melody is used.
 
-The twelve active Ogg files total **19,233,245 bytes (18.34 MiB)**. Gameplay is mastered
+The thirteen active Ogg files total **20,842,464 bytes (19.88 MiB)**. Gameplay is mastered
 to −19 LUFS, title −22 and lobby −21, with a −3 dBTP target before Vorbis encoding.
 Loop-edge fades prevent sample-boundary clicks. Selection remains asynchronous,
 with 2.5-second crossfades, a separate persistent music volume, and no restart
@@ -124,3 +125,11 @@ the decoded Ogg and updates its manifest entry. The original finite audition
 remains in [the comparison folder](../../../docs/audio/escape-velocity/README.md).
 The runtime version is mastered to −19 LUFS; only its Ogg and score metadata
 are added to the normal music assets. Existing music volume and crossfades apply.
+
+## Bomb Defusal — Copper Fuse
+
+DE uses the original **Copper Fuse**, a 64-bar, 150 BPM orchestral action XM
+arrangement with strings, horns, trumpet, flute, timpani and orchestral percussion.
+It loops at 102.4 seconds and follows ordinary music volume/crossfade settings.
+The CC0 VSCO recordings, pinned hashes, editable MilkyTracker module and render
+instructions are in [the DE music source package](../../../docs/audio/copper-fuse/README.md).

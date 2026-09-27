@@ -1,10 +1,10 @@
 extends RefCounted
 ## Arena approximations. TF/TB require Quake; Assault requires UT99.
 const Doom=preload("res://deathmatch/weapons.gd")
-const IDS=["doom","quake","ut99"]
-const NAMES={"doom":"DOOM · classic","quake":"QUAKE I · experimental","ut99":"UT99 · experimental"}
+const IDS=["doom","quake","ut99","cs16"]
+const NAMES={"doom":"DOOM · classic","quake":"QUAKE I · experimental","ut99":"UT99 · experimental","cs16":"CS 1.6 · arena adaptation"}
 const SLOT_COUNT:=12
-const MODE_RULES={"tf":"quake","tb":"quake","as":"ut99"}
+const MODE_RULES={"tf":"quake","tb":"quake","as":"ut99","de":"cs16"}
 static func selectable(mode:String) -> bool:return mode in ["dm","tdm","ctf","koth","ft"]
 static func required(mode:String) -> String:return "doom" if mode in ["ig","if","cc"] else MODE_RULES.get(mode,"")
 var preferred:="doom"
@@ -20,7 +20,8 @@ func select(value: String,remember: bool=true) -> bool:
 	var resolved:=for_mode(game.match_mode.kind if game else "dm",value)
 	if kind==resolved and not table.is_empty():return true
 	kind=resolved;table=Doom.DATA.duplicate(true)
-	if kind=="quake":
+	if kind=="cs16":table=preload("res://deathmatch/counterstrike/arsenal.gd").table()
+	elif kind=="quake":
 		set_weapon(0,"AXE",-1,0,.5,20,{"range":2.0})
 		set_weapon(1,"AXE",-1,0,.5,20,{"range":2.0})
 		set_weapon(2,"SHOTGUN",1,1,.5,4,{"pellets":6,"spread":2.29,"vertical":2.29})
@@ -57,15 +58,17 @@ func experimental() -> bool:return kind!="doom" and (not game or not game.match_
 func effective() -> String:return kind if experimental() else "doom"
 func dual() -> bool:return not experimental()
 func valid(index: int) -> bool:return index>=0 and index<(table.size() if experimental() else 10) and not (index==11 and game and game.match_mode.kind=="as")
-func max_ammo() -> Array:return [200,100,100,100] if kind=="quake" else Doom.MAX_AMMO
-func ammo_names() -> Array:return ["NAILS","SHELLS","ROCKETS","CELLS"] if kind=="quake" else ["BULLETS / BLADES","FLAK","ROCKETS","ENERGY / BIO"] if kind=="ut99" else Doom.AMMO_NAMES
+func max_ammo() -> Array:return [240,64,300,40] if kind=="cs16" else [200,100,100,100] if kind=="quake" else Doom.MAX_AMMO
+func ammo_names() -> Array:return ["PISTOL / SMG","SHELLS","RIFLE","SNIPER"] if kind=="cs16" else ["NAILS","SHELLS","ROCKETS","CELLS"] if kind=="quake" else ["BULLETS / BLADES","FLAK","ROCKETS","ENERGY / BIO"] if kind=="ut99" else Doom.AMMO_NAMES
 func color(index: int) -> Color:
 	if not experimental():return Doom.COLORS[clampi(index,0,9)]
+	if kind=="cs16":return Color("dbbf8a")
 	if kind=="quake":return Color("aebcff") if index==8 else Color("ffa13b") if index in [4,6] else Color("e1ba80")
 	return [Color("dbdcce"),Color("7adb38"),Color("ffca83"),Color("bd65ff"),Color("ffb842"),Color("ffe59c"),Color("ff683c"),Color("61ed83"),Color("fff3b8"),Color("e0eaff"),Color("57cedb"),Color("85aaff")][clampi(index,0,11)]
 func spawn_loadout(state: Dictionary) -> void:
 	if not experimental():return
 	state.owned=[0,2];state.weapon=2;state.ammo=[0,25,0,0] if kind=="quake" else [50,0,0,0]
+	if kind=="cs16":state.ammo=[60,0,0,0]
 	if kind=="ut99" and game.match_mode.kind!="as":state.owned.append(11)
 func tf_loadout(state: Dictionary) -> void:
 	if not experimental():return
@@ -77,6 +80,7 @@ func pickup_bundle(index: int) -> Array:
 	# Existing BSPs have seven weapon entity types. These paired caches expose the
 	# two extra UT weapons without changing geometry or network pickup ordering.
 	if game and game.match_mode.kind=="as":return []
+	if effective()=="cs16":return {3:[10],5:[1],7:[11]}.get(index,[])
 	return [9] if effective()=="ut99" and index==3 else [10] if effective()=="ut99" and index==5 else []
 func pickup_title(index: int) -> String:
 	var title: String=data(index).name
@@ -84,8 +88,9 @@ func pickup_title(index: int) -> String:
 	return title
 func pickup_weapon(classname: String,fallback: int) -> int:
 	if not experimental():return fallback
+	if kind=="cs16":return {"weapon_shotgun":3,"weapon_supershotgun":4,"weapon_nailgun":5,"weapon_supernailgun":7,"weapon_grenadelauncher":8,"weapon_rocketlauncher":6,"weapon_lightning":9}.get(classname,fallback)
 	if kind=="quake":return {"weapon_shotgun":2,"weapon_supershotgun":3,"weapon_nailgun":5,"weapon_supernailgun":7,"weapon_grenadelauncher":4,"weapon_rocketlauncher":6,"weapon_lightning":8}.get(classname,fallback)
 	return {"weapon_shotgun":3,"weapon_supershotgun":4,"weapon_nailgun":5,"weapon_supernailgun":7,"weapon_grenadelauncher":1,"weapon_rocketlauncher":6,"weapon_lightning":8}.get(classname,fallback)
 
 func vr_physical_only(index: int) -> bool:
-	return index in [0,1] if effective()=="quake" else index==0 and effective()=="doom"
+	return index in [0,1] if effective()=="quake" else index==0 and effective() in ["doom","cs16"]

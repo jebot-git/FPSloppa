@@ -46,12 +46,13 @@ Neither map includes a Redeemer or translocator.
 
 Weapons are separate pickups: Assault no longer bundles sniper with shock or
 Ripper with minigun. Assault uses normal shared pickup availability: a collected
-weapon disappears for every player and respawns after 15 seconds. A respawned
+weapon disappears for every player and respawns after 5 seconds. A respawned
 weapon can replenish ammunition even when already owned; a full player leaves it
-available. The Redeemer, if present on a custom map, respawns after 30 seconds.
-Assault halves weapon timers only; other modes retain their normal 30/60-second
-weapon timers. Bots account for ammunition needs, respawn times and actual
-armour quantities when choosing supplies. Swapping attack/defend roles restores
+available. The Redeemer, if present on a custom map, uses the same 5-second timer.
+Weapon timing follows the [Quake III-style policy](WEAPON-RESPAWNS.md): 5 seconds
+except in Team Deathmatch, where it is 30 seconds. Bots account for ammunition
+needs, respawn times and actual armour quantities when choosing supplies.
+Swapping attack/defend roles restores
 all pickups and clears their timers.
 
 ## Deliberate approximations

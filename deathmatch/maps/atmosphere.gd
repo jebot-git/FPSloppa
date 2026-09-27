@@ -2,6 +2,7 @@ extends RefCounted
 ## Default static skies. Fog is disabled for every map, including imports.
 const Skies=preload("res://deathmatch/maps/skies/catalog.gd")
 const PROFILES={
+ "desert":[Color(.27,.46,.66),Color(.78,.72,.59)],
  "abbey":[Color(.025,.04,.095),Color(.22,.27,.36)],
  "works":[Color(.16,.23,.29),Color(.48,.48,.40)],
  "coast":[Color(.10,.22,.34),Color(.42,.52,.56)],
@@ -9,6 +10,8 @@ const PROFILES={
  "void":[Color(.013,.02,.06),Color(.11,.16,.25)]
 }
 const MAPS={
+ "tb_cindercoil":"works",
+ "de_dust2_rebuilt":"desert","de_nuke_rebuilt":"desert","de_inferno_rebuilt":"desert","de_aztec_rebuilt":"works","de_train_rebuilt":"coast",
  "tf_vesper":"abbey","tf_pressureworks":"works","as_hislop":"works","as_frigate":"coast",
  "koth_solstice":"coast","koth_torture":"abbey","koth_hyperborea":"coast","koth_alichar":"abbey",
  "cc_hyperborea":"coast","cc_psychofuge":"inferno","cc_ghostquarter":"abbey","cc_basement":"inferno",

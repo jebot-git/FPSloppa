@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FPSloppa · Live servers</title>
+  <link rel="stylesheet" href="dashboard.css">
+  <script src="dashboard.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <div><p class="eyebrow">FPSLOPPA / MASTER DIRECTORY</p><h1>Live servers</h1>
+        <p class="intro">Find a match. See who’s playing.</p></div>
+      <div class="refresh"><button id="refresh" type="button">Refresh now</button>
+        <p id="connection" role="status">Connecting to directory…</p></div>
+    </header>
+    <section class="stats" aria-label="Directory totals">
+      <div><span id="total-servers">—</span><h2>Servers</h2></div>
+      <div><span id="total-humans">—</span><h2>Players</h2></div>
+      <div><span id="total-bots">—</span><h2>Bots</h2></div>
+      <div><span id="total-open">—</span><h2>Open seats</h2></div>
+    </section>
+    <section aria-label="Server listings">
+      <div class="list-heading"><h2>Available servers</h2>
+        <label>Filter <input id="filter" type="search" placeholder="Name, map, mode, version…"></label></div>
+      <p id="empty" role="status">Loading servers…</p>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Live server statistics">
+        <table>
+          <thead><tr><th scope="col">Server / endpoint</th><th scope="col">Map / rules</th>
+            <th scope="col">Players</th><th scope="col">Bots</th><th scope="col">Spectators</th>
+            <th scope="col">Reserved</th><th scope="col">Open seats</th><th scope="col">Version / protocol</th>
+            <th scope="col">State / verified</th></tr></thead>
+          <tbody id="servers"></tbody>
+        </table>
+      </div>
+    </section>
+    <footer>Refreshes every 10 seconds. Statistics are from the last verified query; listings expire after 90 seconds.
+      Bots can yield seats to players. Connect using the listed gameplay endpoint or the in-game server browser.</footer>
+  </main>
+</body>
+</html>

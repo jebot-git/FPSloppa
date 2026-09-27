@@ -2,15 +2,15 @@
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.16v build notes](docs/RELEASE-0.16v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.17v build notes](docs/RELEASE-0.17v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.16v:** desktop/VR server browsing, live status, favorites, Join/Spectate, and an optional standalone master directory with authenticated dedicated-server registration. Public listing is opt-in; operators supply the master URL. Dedicated servers can also run a local test master with `sv_master_test 1`. Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch.
+**New in 0.17v:** DE bomb defusal with five classic-layout map studies and CS-inspired weapons, physical VR reloads, the hip magazine pouch, a persistent weapon wheel, Cindercoil for Titanball, optional arena jetpacks, native avatar springs, tracking and stair fixes, foveation controls and complete texture mipmaps. The original soundtrack is retained with a new orchestral DE cue. Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
 FPSloppa is a PC OpenXR and desktop online arena shooter with seven base Quake deathmatch arenas, dedicated objective/CC maps and an optional 53-map community pack, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
-See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG, IF and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
+See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Click the right joystick to open the [weapon wheel](docs/WEAPON-WHEEL.md), tilt and release to equip, or click again to cancel. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG, IF and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
 
 The separate [portable avatar converter](tools/avatar_converter/README.md) prepares FBX/glTF source avatars as VRM on Windows and Linux, with manual humanoid mapping and optional texture resizing. It can extract source models from Unity packages; assembled Unity prefabs and VRChat-specific shaders/components require preparation in their source editor. [Download Linux/Windows releases](https://github.com/jebot-git/AvatarConverter/releases/tag/v0.1.0) or build from its [independent repository](https://github.com/jebot-git/AvatarConverter).
 
@@ -18,7 +18,7 @@ The additional [UT Avatar Converter](tools/ut_avatar_converter/README.md) turns 
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest APK installation and device-testing limitations. Smooth turning now defaults on.
 
-For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use 0.15v clients and servers together to receive all fixes. The protocol is `fpsloppa-39-rotating-koth`.
+For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching client and server builds to receive all fixes. The protocol is `fpsloppa-45-de-utility`.
 
 Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Current standalone APKs include the base maps and models and install them automatically on first launch. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Instafreeze, Freeze Tag and Chainsaw Circus are available.
 
@@ -57,7 +57,7 @@ Movement uses Quake-style ground friction and air strafing. Release and press ju
 
 ## Weapon behavior
 
-There are no magazines or manual reloads. Shotguns have an automatic firing/reload cycle. First pistol/chaingun shots are accurate; sustained fire spreads. Pistols use 4.2° horizontal spread (down from 5.6°). Selecting slot 2 equips a pair, with independent firing cycles and one shared bullet pool. Pellet damage is randomized. Free vertical mouse aim replaces the original game's vertical auto-aim.
+The default Doom loadout has no magazines or manual reloads. Its shotguns have an automatic firing/reload cycle. First pistol/chaingun shots are accurate; sustained fire spreads. Pistols use 4.2° horizontal spread (down from 5.6°). Selecting slot 2 equips a pair, with independent firing cycles and one shared bullet pool. Pellet damage is randomized. Free vertical mouse aim replaces the original game's vertical auto-aim. The optional [CS 1.6 loadout](docs/CS16-LOADOUT.md) has magazines and physical VR reloads.
 
 | Weapon | Behavior | Approximate firing interval / ammo |
 |---|---|---|
@@ -79,7 +79,7 @@ These are approximations, not an emulation of Doom's 35 Hz state machine or rand
 - Players spawn with 100 health, only dual pistols and 50 shared bullets. Inventory resets on death. Spawn points favor distance from living opponents.
 - Spawn protection lasts 1.5 seconds and is cancelled by firing.
 - Suicides subtract one frag. A death adds to the victim's death count. Fire/Space respawns after two seconds; automatic respawn follows three seconds later.
-- Weapons, ammunition, health and armor respawn after 30 seconds; the BFG pickup takes 60 seconds. Pickup claims are resolved by the server once.
+- Map weapons respawn after 5 seconds, or 30 seconds in Team Deathmatch, including the BFG/lightning gun/Redeemer slot. Ammunition, health and armor respawn after 30 seconds. Pickup claims are resolved by the server once. See [weapon timing audit](docs/WEAPON-RESPAWNS.md).
 - Tab shows names, frags, deaths and ping. The feed shows kills, chat, joins and departures.
 
 ## Dedicated server
@@ -121,7 +121,7 @@ Optional [bHaptics vest feedback](BHAPTICS.md) includes the FPSloppa Vest v1 wea
 
 Optional [body tracking](TRACKING.md), [recorded spatial audio and speech-driven VRM mouths](AUDIO.md) are included in protocol `fpsloppa-29-acknowledged-movement`. Update the server and every client together.
 
-Eye-tracked VRM gaze and measured blinking are automatic on supported OpenXR runtimes/models; see [EYES.md](EYES.md). See [PERFORMANCE.md](PERFORMANCE.md) for rendering changes, profiling commands and hardware-validation limits. The generated launcher artwork is documented in [ICON.md](ICON.md).
+Eye-tracked VRM gaze and measured blinking are automatic on supported OpenXR runtimes/models; see [EYES.md](EYES.md). Graphics shows Fovea Size (Off/Small/Medium/Large) when eye tracking is available, or Static Foveation (Off/Low/Medium/High) otherwise. See [foveation and quad-view support](docs/XR-FOVEATION.md) and [PERFORMANCE.md](PERFORMANCE.md) for rendering changes, profiling commands and hardware-validation limits. The generated launcher artwork is documented in [ICON.md](ICON.md).
 
 Voice starts in push-to-talk mode (**V** / VR off-hand grip). The voice controls are selectable inside the VR menu; Android requests microphone and vendor tracking access with a retry option. Tracked VR players can look down at their own head-hidden avatar body for an IK reference. See [VOICE.md](VOICE.md) and [TRACKING.md](TRACKING.md).
 
@@ -133,7 +133,7 @@ Select **Join as spectator** before **JOIN MATCH** to watch with a free-flying c
 
 The final scoreboard opens automatically when a match ends, including its VR surface, and closes for the next round. **SETTINGS…** is available before joining and during matches. Audio controls include master, effects, music, voice playback, output device and access to microphone/voice controls. Graphics controls include render resolution (50–125%), MSAA and shadows; desktop also offers fullscreen/windowed mode and FOV. Changes apply immediately and persist alongside your other client preferences. VR FOV and refresh timing remain headset/runtime controlled.
 
-Four original tracker compositions provide a looping industrial action score with recorded guitar, bass and acoustic drums. Their editable ProTracker modules are about 52 KiB each; portable Ogg playback totals 2.67 MiB. Music defaults to 30% and has its own saved volume control. See [music sources](deathmatch/audio/music/SOURCES.md). New supply models distinguish bullets, shells, rockets, cells, medkits and armour with cached single-surface meshes.
+The original soundtrack covers the title, lobby and gameplay modes, including **Escape Velocity** for Titanball and **Mega Destruction** for Assault. DE adds **Copper Fuse**, an orchestral action cue. Music has its own saved volume control and crossfades between contexts. See [music sources](deathmatch/audio/music/SOURCES.md) and [DE's editable tracker source](docs/audio/copper-fuse/README.md). New supply models distinguish bullets, shells, rockets, cells, medkits and armour with cached single-surface meshes.
 
 
 ## 0.4v arena update
@@ -162,3 +162,9 @@ underwater approach and locked gun-control bridge. Enable Assault through
 `sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).
 
 Experimental Doom / Quake I / UT99 weapon selection and controls: [Weapon variants](docs/WEAPON_VARIANTS.md). Doom remains the default.
+
+The optional [CS 1.6 arena loadout](docs/CS16-LOADOUT.md) adds twelve weapons with magazines, physical VR pouch reloads and manual actions, desktop timed reloads, burst/suppressor modes, aligned sights and the existing VR sniper scope. Select it in Host/Practice or use `sv_weapon_rules "cs16"`.
+
+Dedicated servers can opt into [experimental arena jetpacks](docs/ARENA-JETPACKS.md) with `sv_jetpacks "1"` for DM/TDM/CTF/IG/IF/FT. Collect the pack, then double-tap jump; pickup counts are capped and respawn with megahealth.
+
+[DE — Bomb Defusal](docs/BOMB-DEFUSAL.md) adds CS economy and single-life rounds on five classic BSP29 map reconstructions, preparation-time purchases through the weapon wheel, chest-carried bombs, surface planting and tactile keypad/cutter defusal. An optional CS virtual stock is in VR Controls.

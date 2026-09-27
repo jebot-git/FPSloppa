@@ -52,6 +52,7 @@ static func model_id(id: int,rules: String) -> int:
 	return clampi(id,0,9)
 
 static func muzzle(id: int,rules: String="doom") -> Vector3:
+	if rules=="cs16":return preload("res://deathmatch/counterstrike/models.gd").muzzle(id)
 	if rules=="sentry":return Vector3(0,0,-.855534)
 	if rules=="tf_sniper" or (rules=="ut99" and id==9):return Vector3(0,.10827,-1.039774)
 	if rules=="tf_flame":return Vector3(0,.035,-.785)
@@ -67,6 +68,7 @@ static func muzzle(id: int,rules: String="doom") -> Vector3:
 static func held_transform(pose: Transform3D, id: int, size: float = VR_SCALE,rules: String="doom") -> Transform3D:
 	var grip: Vector3=Vector3(0,-.055,.06) if rules=="tf_flame" else Vector3(0,-.17,.09) if rules=="ut99" and id==0 else GRIPS[model_id(id,rules)]
 	if rules=="tf_sniper" or (rules=="ut99" and id==9):grip=SNIPER_GRIP
+	if rules=="cs16":grip=preload("res://deathmatch/counterstrike/models.gd").grip(id)
 	return Transform3D(pose.basis.scaled(Vector3.ONE*size),pose.origin-pose.basis*(grip*size))
 
 static func clip_saw(model: Node3D) -> void:
@@ -83,6 +85,10 @@ static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: 
 	return pivot+Basis(Vector3.RIGHT,pitch)*(grip-pivot)+Vector3(0,0,recoil*.035)
 
 static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
+	if rules=="cs16":
+		var cs_model:=preload("res://deathmatch/counterstrike/models.gd").make(id)
+		if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(cs_model,filter_mode)
+		return cs_model
 	var slot:=id
 	id=model_id(id,rules)
 	var root := Node3D.new()

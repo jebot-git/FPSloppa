@@ -25,7 +25,7 @@ func run() -> void:
 			game.fighters[1].position=p.position
 			game._collect(1)
 			var label: String=map_id+" "+p.kind+" "+str(p.item)+" "+str(p.position)
-			var delay:=15 if p.kind=="weapon" else 30
+			var delay:=5 if p.kind=="weapon" else 30
 			check(not p.available and is_equal_approx(p.respawn,game.clock+delay),label+": consumed with "+str(delay)+"-second deadline")
 			game._send_snapshot()
 			check(not p.node.visible,label+": collected model disappears on snapshot")
@@ -64,7 +64,7 @@ func run() -> void:
 	weapon.item=8;weapon.amount=10;weapon.available=true;weapon.respawn=0
 	game.players[1].owned=[2];game.players[1].ammo=[0,0,0,0];game.fighters[1].position=weapon.position
 	game._collect(1)
-	check(not weapon.available and is_equal_approx(weapon.respawn,game.clock+30),"AS Redeemer uses halved 30-second power-weapon timer")
+	check(not weapon.available and is_equal_approx(weapon.respawn,game.clock+5),"AS Redeemer uses the same five-second weapon timer")
 	game.clock=weapon.respawn-.01;game._respawn_pickups()
 	check(not weapon.available,"Power weapon cannot respawn early")
 	game.clock=weapon.respawn;game._respawn_pickups()
@@ -74,7 +74,7 @@ func run() -> void:
 		weapon.item=item;weapon.available=true;weapon.respawn=0
 		game.players[1].owned=[2];game.players[1].ammo=[0,0,0,0]
 		game._collect(1)
-		check(not weapon.available and is_equal_approx(weapon.respawn,game.clock+(60 if item==8 else 30)),"Non-AS weapon "+str(item)+" retains its normal respawn timer")
+		check(not weapon.available and is_equal_approx(weapon.respawn,game.clock+5),"DM weapon "+str(item)+" uses the five-second timer")
 	finish()
 func finish() -> void:
 	print("PICKUP_LIFECYCLE_RESULT ",JSON.stringify(failures));game.free();quit(0 if failures.is_empty() else 1)

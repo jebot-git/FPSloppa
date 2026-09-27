@@ -1,8 +1,10 @@
 # TB — TITANBALL prototype
 
-TB uses all nine TF classes and their Quake loadouts, including TF health, armour, class selection and abilities. The mode identifier is `tb`. Select **TITANBALL → Ashfall Boulevard** in the normal hosting menu, or use the local playground below. The map and mode are available for playtesting; human balance and Quest testing remain pending.
+TB uses all nine TF classes and their Quake loadouts, including TF health, armour, class selection and abilities. The mode identifier is `tb`. Select **TITANBALL → Ashfall Boulevard** or **Cindercoil** in the normal hosting menu, or use the local playground below. The map and mode are available for playtesting; human balance and Quest testing remain pending.
 
 **Ashfall Boulevard (`tb_ashfall`) is a compiled Quake BSP29 map**, with editable brush source and texture WAD in [maps/Ashfall](../maps/Ashfall/README.md). The 350 m winding route runs through a sealed ruined city. Buildings, ground-floor passages and solid rear walls line both sides throughout; the playable area ends at those walls. The nominal 26 m street now has 42 shoulder cover groups (8 wrecks, 28 rubble piles and 6 broken walls), a clear central robot route, sidewalks/access towers, three 13.2 m high overpasses, eight 6 m side balconies and increasingly fortified positions near the defender base. All tests now load this same BSP through the normal map importer.
+
+**Cindercoil (`tb_cindercoil`)** adds a circular industrial route climbing 14 m toward the defender bunker. Four tunnels connect through a central hall; three overpasses have access towers on both road flanks. Both teams can use all of these routes. Its 350 m course, checkpoint distances, spawn stages, six dispensers and preparation/timer rules match Ashfall. See [source, layout and validation instructions](../maps/Cindercoil/README.md) and [the final validation receipt](validation/cindercoil-2026-09-26.json): 174 map checks, 50 timing/payload/route regressions, full VIS, desktop/mobile cache verification and a four-minute 6v6 smoke test. The 56 m → 315 m tunnel crossing is 87.7 m, versus 259 m along the Titan route.
 
 ## Test it
 
@@ -91,7 +93,7 @@ The HUD is composited **inside the monitor viewport**, over the camera feed: pil
 
 Native captures use Vulkan Mobile on an Intel Arc A770 at 1280×800. They are visual checks, not Quest performance measurements. Godot reports ObjectDB/resource-use cleanup messages at test shutdown; no runtime script errors occur in the final passing runs. The legacy full Fortress test has outdated pre-Quake loadout assertions, and the older HiSlop sentry fixture assumes three map sentries; focused current sentry checks and the 38-check weapon-mode policy suite are used here.
 
-The robot uses approximate collision envelopes and a level route, without terrain IK or limb-to-wall simulation. The compiled BSP, source WAD and cached navigation are included in the workspace and base-asset packaging selection. No executable/APK release was built or published, and no Quest test is claimed. Combat balance has not yet been measured with human teams; the current map is an experimental playtest layout. See [model credits](../deathmatch/vehicles/ba2/SOURCES.md) and the earlier [walk animation report](BA2-WALK.md).
+The robot uses approximate collision envelopes and a horizontal chassis, without terrain IK or limb-to-wall simulation. Ashfall is level; Cindercoil uses a gentle grade verified against that same envelope. The compiled BSP, source WAD and cached navigation are included in the workspace and base-asset packaging selection. No executable/APK release was built or published, and no Quest test is claimed. Combat balance has not yet been measured with human teams; the current map is an experimental playtest layout. See [model credits](../deathmatch/vehicles/ba2/SOURCES.md) and the earlier [walk animation report](BA2-WALK.md).
 
 ## Objective-aware bots and comparative playtests
 

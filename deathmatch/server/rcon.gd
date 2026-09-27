@@ -70,7 +70,7 @@ func execute(command: String) -> Dictionary:
 	var words: Array=parsed.words
 	if words.is_empty():return {"error":"Empty command"}
 	match words[0]:
-		"help":return {"commands":["status","bots <count>","map <configured-map>","mode <allowed-mode>","match <allowed-mode> <configured-map> <doom|quake|ut99>","kick <peer-id>","say <message>","restart","loglevel <off|normal|verbose>"]}
+		"help":return {"commands":["status","bots <count>","map <configured-map>","mode <allowed-mode>","match <allowed-mode> <configured-map> <doom|quake|ut99|cs16>","kick <peer-id>","say <message>","restart","loglevel <off|normal|verbose>"]}
 		"status":
 			var players: Array=[]
 			for id in game.players:
@@ -85,7 +85,7 @@ func execute(command: String) -> Dictionary:
 			game.server_log.record("bot_count_changed",{"target":amount})
 			return {"ok":true,"bot_count":amount}
 		"match":
-			if words.size()!=4 or not words[3] in game.armory.IDS:return {"error":"Expected mode, configured map and doom, quake or ut99"}
+			if words.size()!=4 or not words[3] in game.armory.IDS:return {"error":"Expected mode, configured map and doom, quake, ut99 or cs16"}
 			if not game.votes.match_choices().any(func(row):return row.mode==words[1] and row.map==words[2]):return {"error":"Match must be in the enabled mode maplists"}
 			if game.armory.for_mode(words[1],words[3])!=words[3]:return {"error":words[1].to_upper()+" requires "+game.armory.for_mode(words[1],words[3])+" weapons"}
 			change_match.call_deferred(words[1],words[2],words[3])

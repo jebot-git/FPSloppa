@@ -1,7 +1,7 @@
 {
-  "version": "0.16v",
+  "version": "0.17v",
   "delivery": "bundled",
-  "sha256": "a897714a3386b8214f51c302de8b34dd45926e450fb2a3eccd36d9e0d498e7a4",
+  "sha256": "20f996ed79f606dc002e2e2c231ca5404305cbfe420a76d5399c235e5753bd99",
   "files": [
     {
       "path": "maps/Ashfall/CC0-1.0.txt",
@@ -72,6 +72,186 @@
       "path": "maps/CTFStudies/texture-sources.json",
       "size": 10940,
       "sha256": "3d4d0b867b59598f1f1dee7fd79109e300f36f16035579931557b5aa139de486"
+    },
+    {
+      "path": "maps/Cindercoil/CC0-1.0.txt",
+      "size": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "maps/Cindercoil/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/Cindercoil/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/Cindercoil/Makkon_License.txt",
+      "size": 1274,
+      "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
+    },
+    {
+      "path": "maps/Cindercoil/README.md",
+      "size": 4409,
+      "sha256": "f3067c1cb38929c5f0af44129480bbdcbd922e08cf7da4396952f53601dc028f"
+    },
+    {
+      "path": "maps/Cindercoil/layout.svg",
+      "size": 346531,
+      "sha256": "afcff626c8e26c9f004ab742348f68a052054c6ab2f334642151a85c39358a1c"
+    },
+    {
+      "path": "maps/Cindercoil/texture-sources.json",
+      "size": 7741,
+      "sha256": "3f3e41e925e5752d43fd2dcc7eeef995b2961b5b2f022e3ae485a3f0e9c88249"
+    },
+    {
+      "path": "maps/ClassicDE/README.md",
+      "size": 3228,
+      "sha256": "e5bdbc21a56aae8b09d1f8fccda02b4d583243fb88368cab6ac0deb7c316b673"
+    },
+    {
+      "path": "maps/ClassicDE/de_aztec_rebuilt/CC0-1.0.txt",
+      "size": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "maps/ClassicDE/de_aztec_rebuilt/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/ClassicDE/de_aztec_rebuilt/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/ClassicDE/de_aztec_rebuilt/Makkon_License.txt",
+      "size": 1274,
+      "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
+    },
+    {
+      "path": "maps/ClassicDE/de_aztec_rebuilt/texture-sources.json",
+      "size": 4812,
+      "sha256": "d4547266e162826fe5fd863e412d410fe23ffae163cc022f111760dcf0da100a"
+    },
+    {
+      "path": "maps/ClassicDE/de_inferno_rebuilt/CC0-1.0.txt",
+      "size": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "maps/ClassicDE/de_inferno_rebuilt/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/ClassicDE/de_inferno_rebuilt/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/ClassicDE/de_inferno_rebuilt/Makkon_License.txt",
+      "size": 1274,
+      "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
+    },
+    {
+      "path": "maps/ClassicDE/de_inferno_rebuilt/texture-sources.json",
+      "size": 6433,
+      "sha256": "a4b29fc132914e7efe14015459a3f393479092fc7a83e2823035e17b9c21df2c"
+    },
+    {
+      "path": "maps/ClassicDE/de_nuke_rebuilt/CC0-1.0.txt",
+      "size": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "maps/ClassicDE/de_nuke_rebuilt/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/ClassicDE/de_nuke_rebuilt/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/ClassicDE/de_nuke_rebuilt/Makkon_License.txt",
+      "size": 1274,
+      "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
+    },
+    {
+      "path": "maps/ClassicDE/de_nuke_rebuilt/texture-sources.json",
+      "size": 5892,
+      "sha256": "c8462b23ef510b5271f78e4543b42d678ec3b3f9d1bc553e4bb5e601405ea6f7"
+    },
+    {
+      "path": "maps/ClassicDE/de_train_rebuilt/CC0-1.0.txt",
+      "size": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "maps/ClassicDE/de_train_rebuilt/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/ClassicDE/de_train_rebuilt/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/ClassicDE/de_train_rebuilt/Makkon_License.txt",
+      "size": 1274,
+      "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
+    },
+    {
+      "path": "maps/ClassicDE/de_train_rebuilt/texture-sources.json",
+      "size": 7328,
+      "sha256": "93c40c6a6076924a29561ef3f2df15d4039af6aed0f53a67b94666bdc95826a8"
+    },
+    {
+      "path": "maps/DEMaterials/SOURCES.md",
+      "size": 5398,
+      "sha256": "a228d7963e3fae7f2a984f68de9dd22f8ec9eb926b51f3acc7574df9c4e3c37f"
+    },
+    {
+      "path": "maps/DEMaterials/sources.json",
+      "size": 1002,
+      "sha256": "a0957675bd2936f71166b2f34abf6e8e678bb1a70b28b30a3c4705de97840a1c"
+    },
+    {
+      "path": "maps/Dust2Rebuilt/CC0-1.0.txt",
+      "size": 7048,
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "maps/Dust2Rebuilt/LibreQuake-COPYING.txt",
+      "size": 1697,
+      "sha256": "c3426ae10fd52ab1a3c3d4de4f2fae60543403e3cfd09ae5dc2ec16ae4717d28"
+    },
+    {
+      "path": "maps/Dust2Rebuilt/LibreQuake-CREDITS.txt",
+      "size": 3254,
+      "sha256": "60b632851de3e5d02cb96ed158ff06700ced1c9fb6425f2d5d10509392021bd0"
+    },
+    {
+      "path": "maps/Dust2Rebuilt/Makkon_License.txt",
+      "size": 1274,
+      "sha256": "55849ea3e61c078d39e9f51570c1f590b689b95835f8ba7a13a50389d50ab57c"
+    },
+    {
+      "path": "maps/Dust2Rebuilt/README.md",
+      "size": 5262,
+      "sha256": "0fb36d69d78df587e64d341165f65af4f4cbf79830196fb74955207f70af04ef"
+    },
+    {
+      "path": "maps/Dust2Rebuilt/texture-sources.json",
+      "size": 4231,
+      "sha256": "cd445d2125057b992eacd0ef2afdbc8ba93db3dd9f3b511aaa413ff0f02e1e44"
     },
     {
       "path": "maps/Frigate/LICENSE-geometry.txt",
@@ -255,8 +435,8 @@
     },
     {
       "path": "maps/README.txt",
-      "size": 2773,
-      "sha256": "7178d5593ed505f5b1ea17ea234ea28d064301a4feba9cb9a749d1cfbeec34cc"
+      "size": 3508,
+      "sha256": "6162ba2def2e75530287f58041c380827c41a9258423a59156c7f6e0245f1bdc"
     },
     {
       "path": "maps/VesperAbbey/CC0-1.0.txt",
@@ -549,6 +729,166 @@
       "sha256": "1fb01294fab260a929762ddd282c19572a0058f613f2a5c3894f113be502b926"
     },
     {
+      "path": "maps/cache/de_aztec_rebuilt-lightmap1-astc4.scn",
+      "size": 2516493,
+      "sha256": "2db84d40d983cc414ea7e1b2cd01c3c8edf85d0c91940fba248f0d6c03e7623a"
+    },
+    {
+      "path": "maps/cache/de_aztec_rebuilt-lightmap1-bc7.scn",
+      "size": 2514427,
+      "sha256": "57239f2a56b4d81de5651a2ef4b6c3569c1c0a9f6790da086f294945fa1a82e9"
+    },
+    {
+      "path": "maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+      "size": 2516493,
+      "sha256": "2db84d40d983cc414ea7e1b2cd01c3c8edf85d0c91940fba248f0d6c03e7623a"
+    },
+    {
+      "path": "maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+      "size": 2514427,
+      "sha256": "57239f2a56b4d81de5651a2ef4b6c3569c1c0a9f6790da086f294945fa1a82e9"
+    },
+    {
+      "path": "maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "size": 2783694,
+      "sha256": "8f65a6bdaed08663790b6ef19092187bba47d89ebcf0394bf28d94a16f417cdc"
+    },
+    {
+      "path": "maps/cache/de_aztec_rebuilt-lightmap1.scn",
+      "size": 2783694,
+      "sha256": "8f65a6bdaed08663790b6ef19092187bba47d89ebcf0394bf28d94a16f417cdc"
+    },
+    {
+      "path": "maps/cache/de_aztec_rebuilt.scn",
+      "size": 2783694,
+      "sha256": "8f65a6bdaed08663790b6ef19092187bba47d89ebcf0394bf28d94a16f417cdc"
+    },
+    {
+      "path": "maps/cache/de_dust2_rebuilt-lightmap1-astc4.scn",
+      "size": 2916958,
+      "sha256": "1488acbf9f3beee13ff01d147b9bb398178a8334a6497e27fa095c31f674877f"
+    },
+    {
+      "path": "maps/cache/de_dust2_rebuilt-lightmap1-bc7.scn",
+      "size": 2972298,
+      "sha256": "2bdccf3ba0956502c44cd68c7d4b8d6ec7c0d2ee20ee5255dc10c850964d295b"
+    },
+    {
+      "path": "maps/cache/de_dust2_rebuilt-lightmap1.scn",
+      "size": 3099307,
+      "sha256": "19bd933d710d379695cd269af054431e4554af18023e2d95c7faef36a1154baf"
+    },
+    {
+      "path": "maps/cache/de_dust2_rebuilt.scn",
+      "size": 3099307,
+      "sha256": "19bd933d710d379695cd269af054431e4554af18023e2d95c7faef36a1154baf"
+    },
+    {
+      "path": "maps/cache/de_inferno_rebuilt-lightmap1-astc4.scn",
+      "size": 4369599,
+      "sha256": "cd70af172e69483ec31f2d48f71460404e532af8daebe19b1bef85629ff326e6"
+    },
+    {
+      "path": "maps/cache/de_inferno_rebuilt-lightmap1-bc7.scn",
+      "size": 4407951,
+      "sha256": "aeaa2383ef61fa62d6fdbb43d89ec5b89de92fa2d6d9ae5ba5be5b1623046e6f"
+    },
+    {
+      "path": "maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+      "size": 4369599,
+      "sha256": "cd70af172e69483ec31f2d48f71460404e532af8daebe19b1bef85629ff326e6"
+    },
+    {
+      "path": "maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+      "size": 4407951,
+      "sha256": "aeaa2383ef61fa62d6fdbb43d89ec5b89de92fa2d6d9ae5ba5be5b1623046e6f"
+    },
+    {
+      "path": "maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "size": 4852791,
+      "sha256": "fad3645f7bcb77dcc5e55e4d90c52b6fbe2535b52073030f65d7936bf6de39c3"
+    },
+    {
+      "path": "maps/cache/de_inferno_rebuilt-lightmap1.scn",
+      "size": 4852791,
+      "sha256": "fad3645f7bcb77dcc5e55e4d90c52b6fbe2535b52073030f65d7936bf6de39c3"
+    },
+    {
+      "path": "maps/cache/de_inferno_rebuilt.scn",
+      "size": 4852791,
+      "sha256": "fad3645f7bcb77dcc5e55e4d90c52b6fbe2535b52073030f65d7936bf6de39c3"
+    },
+    {
+      "path": "maps/cache/de_nuke_rebuilt-lightmap1-astc4.scn",
+      "size": 4494424,
+      "sha256": "4ba2feafd89b12e77f8692d54d6df29c2143e1e53ce9104fa8270f8530f23120"
+    },
+    {
+      "path": "maps/cache/de_nuke_rebuilt-lightmap1-bc7.scn",
+      "size": 4494477,
+      "sha256": "06508d7605e49bef6dc8adc4cff293c21a11aea0dde2db6b57e2feda6b99fc3b"
+    },
+    {
+      "path": "maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+      "size": 4494424,
+      "sha256": "4ba2feafd89b12e77f8692d54d6df29c2143e1e53ce9104fa8270f8530f23120"
+    },
+    {
+      "path": "maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+      "size": 4494477,
+      "sha256": "06508d7605e49bef6dc8adc4cff293c21a11aea0dde2db6b57e2feda6b99fc3b"
+    },
+    {
+      "path": "maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "size": 5289777,
+      "sha256": "5a922f24b7a82950ad68d34dac8e7bedf28337b16f91144029be6b31daf92e5b"
+    },
+    {
+      "path": "maps/cache/de_nuke_rebuilt-lightmap1.scn",
+      "size": 5289777,
+      "sha256": "5a922f24b7a82950ad68d34dac8e7bedf28337b16f91144029be6b31daf92e5b"
+    },
+    {
+      "path": "maps/cache/de_nuke_rebuilt.scn",
+      "size": 5289777,
+      "sha256": "5a922f24b7a82950ad68d34dac8e7bedf28337b16f91144029be6b31daf92e5b"
+    },
+    {
+      "path": "maps/cache/de_train_rebuilt-lightmap1-astc4.scn",
+      "size": 6053473,
+      "sha256": "439c3a5fa9a7fcae512a3bf82d10f7a3e6a9edd60451f7f4b478fb985343daa2"
+    },
+    {
+      "path": "maps/cache/de_train_rebuilt-lightmap1-bc7.scn",
+      "size": 6061111,
+      "sha256": "4b4f2aa146ebb6cf9b37f18b67e7a81d3d6ad191af5026597fdbd40194c02bff"
+    },
+    {
+      "path": "maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+      "size": 6053473,
+      "sha256": "439c3a5fa9a7fcae512a3bf82d10f7a3e6a9edd60451f7f4b478fb985343daa2"
+    },
+    {
+      "path": "maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+      "size": 6061111,
+      "sha256": "4b4f2aa146ebb6cf9b37f18b67e7a81d3d6ad191af5026597fdbd40194c02bff"
+    },
+    {
+      "path": "maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "size": 7041965,
+      "sha256": "e947912143db81d40f283cf3b78419f0f11802e1edf58a2b2cf626e4a42e11c6"
+    },
+    {
+      "path": "maps/cache/de_train_rebuilt-lightmap1.scn",
+      "size": 7041965,
+      "sha256": "e947912143db81d40f283cf3b78419f0f11802e1edf58a2b2cf626e4a42e11c6"
+    },
+    {
+      "path": "maps/cache/de_train_rebuilt.scn",
+      "size": 7041965,
+      "sha256": "e947912143db81d40f283cf3b78419f0f11802e1edf58a2b2cf626e4a42e11c6"
+    },
+    {
       "path": "maps/cache/koth_alichar-lightmap1-astc4.scn",
       "size": 4595294,
       "sha256": "3d5cf96b6299b7e1d482e4008e3399d5408d2acd6878a057dde7de3dca4eb309"
@@ -804,6 +1144,41 @@
       "sha256": "9657268eed8cd2c60ff2de9d9b05a085482273a7712e140886ee70bb7b934b0a"
     },
     {
+      "path": "maps/cache/tb_cindercoil-lightmap1-astc4.scn",
+      "size": 11340031,
+      "sha256": "2f009c0fba46285c0fae8b24dd19e4c7247710fbd6efd539d861c0c8bf7c8b12"
+    },
+    {
+      "path": "maps/cache/tb_cindercoil-lightmap1-bc7.scn",
+      "size": 11327434,
+      "sha256": "dca54674aad1fd8eb08797b6e2fa299311a192327724e36558b60c166f4f0846"
+    },
+    {
+      "path": "maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+      "size": 11340031,
+      "sha256": "2f009c0fba46285c0fae8b24dd19e4c7247710fbd6efd539d861c0c8bf7c8b12"
+    },
+    {
+      "path": "maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+      "size": 11327434,
+      "sha256": "dca54674aad1fd8eb08797b6e2fa299311a192327724e36558b60c166f4f0846"
+    },
+    {
+      "path": "maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+      "size": 12263845,
+      "sha256": "7525615c687cfde98558f3cc6e81c4f0112842a92ce6feb9aa7d3cf59ff2e047"
+    },
+    {
+      "path": "maps/cache/tb_cindercoil-lightmap1.scn",
+      "size": 12263845,
+      "sha256": "7525615c687cfde98558f3cc6e81c4f0112842a92ce6feb9aa7d3cf59ff2e047"
+    },
+    {
+      "path": "maps/cache/tb_cindercoil.scn",
+      "size": 12263845,
+      "sha256": "7525615c687cfde98558f3cc6e81c4f0112842a92ce6feb9aa7d3cf59ff2e047"
+    },
+    {
       "path": "maps/cache/tf_pressureworks-lightmap1-astc4.scn",
       "size": 8687175,
       "sha256": "db65b41cf15de7f12967fda0717677bbdd6509bbf820a1805a652c660c2e2e9b"
@@ -919,6 +1294,36 @@
       "sha256": "6fcba14ad1c5834eeecc1cf622da403a3a0647a20268d21cb2841eedaef8ff0e"
     },
     {
+      "path": "maps/de_aztec_rebuilt.bsp",
+      "size": 4098336,
+      "sha256": "d9a00b19da36805f955dfaea73e6ee01c86c8849c15ebf06c8987527443e154c"
+    },
+    {
+      "path": "maps/de_dust2_rebuilt.bsp",
+      "size": 5300420,
+      "sha256": "645e8036c46a95505d69f60c53c3e742e562ec20bf921b2979b91993d516e6a5"
+    },
+    {
+      "path": "maps/de_inferno_rebuilt.bsp",
+      "size": 5629304,
+      "sha256": "9fd7b2b56b729fe734d2933c6047733917981e01c0c6d128d50df9b66b30eeca"
+    },
+    {
+      "path": "maps/de_maplist.txt",
+      "size": 86,
+      "sha256": "3acc010d02bf55b0c7a92ae35a51c6a0eb15b71e5e4ca35dd82d6795a235bb36"
+    },
+    {
+      "path": "maps/de_nuke_rebuilt.bsp",
+      "size": 6251212,
+      "sha256": "ce81ea4a8ff00095266a3ade3bdb00bd9bd40b98275bf759bf6b01033e38a012"
+    },
+    {
+      "path": "maps/de_train_rebuilt.bsp",
+      "size": 8117308,
+      "sha256": "b52cdc5f71c19773bd643bdfeb2cdc718ae508c0cd634f054ec6f416a43d1aa3"
+    },
+    {
       "path": "maps/dm_maplist.txt",
       "size": 63,
       "sha256": "7b8a845d2550aa6f37011d7b4354fdd17e06286cd686e0a25199f1f10c961dba"
@@ -1024,6 +1429,31 @@
       "sha256": "8e117ed1df6c198ae702c5446d4bb347bde2203f9231d4af5e51fd40903ffd99"
     },
     {
+      "path": "maps/navigation/de_aztec_rebuilt.res",
+      "size": 11791,
+      "sha256": "28d3d0aaa0fffe1d07421da30f3748e4c5513fd9a45b5bd7264766cfb41b7226"
+    },
+    {
+      "path": "maps/navigation/de_dust2_rebuilt.res",
+      "size": 22899,
+      "sha256": "47633bae1e9ddd752086c74694e4cd6d9edb15b9aa7f406e1536bf8c5e737a97"
+    },
+    {
+      "path": "maps/navigation/de_inferno_rebuilt.res",
+      "size": 18279,
+      "sha256": "ca42e5b9b59d1b04772ad9b427d8fe2a4e130be029411490e5c20ca0e006c020"
+    },
+    {
+      "path": "maps/navigation/de_nuke_rebuilt.res",
+      "size": 17535,
+      "sha256": "eb0c6b9000625ff9200b3b9cdd9563488d9c27f5f1cf1bac15c53ee2f773b3a2"
+    },
+    {
+      "path": "maps/navigation/de_train_rebuilt.res",
+      "size": 16643,
+      "sha256": "5b8a5ae4ad8f0fc10d0cd525072031e4adebba487a9f25cb8df9fc2adec1df16"
+    },
+    {
       "path": "maps/navigation/koth_alichar.res",
       "size": 31239,
       "sha256": "82ec73b65edf98a1a12bf82400c11019fc461cc961f27616093824ead2528bbf"
@@ -1084,6 +1514,11 @@
       "sha256": "a72c2ad4ac4c5488223d74a0db4931fd96e5e057a7df4e2543ba8ba165458c0a"
     },
     {
+      "path": "maps/navigation/tb_cindercoil.res",
+      "size": 62298,
+      "sha256": "97ea1cd8d0dc0d4ac67d7470f9dd9841fbcf007084af42e4d77e52f1790786c6"
+    },
+    {
       "path": "maps/navigation/tf_pressureworks.res",
       "size": 32319,
       "sha256": "4641ac6bd117f0978ddcd8ea8bfe8e00864a72f727fa1956ed5cfc2ab5a66cb7"
@@ -1134,9 +1569,14 @@
       "sha256": "8363abb19e2a591e84134db0f3eecd504d423481ed689d35eec73009c89409e3"
     },
     {
+      "path": "maps/tb_cindercoil.bsp",
+      "size": 17925452,
+      "sha256": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb"
+    },
+    {
       "path": "maps/tb_maplist.txt",
-      "size": 11,
-      "sha256": "3a0579d5aab1f94abe0e32098510acabe59958595b3733092c03a7cf0e04c971"
+      "size": 25,
+      "sha256": "54363c47dac569b8e72caa3c698653a20d2c6e8b091c18891669de2e44e17fb1"
     },
     {
       "path": "maps/tdm_maplist.txt",

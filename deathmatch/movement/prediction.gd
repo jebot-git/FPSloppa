@@ -9,19 +9,21 @@ var stats: Dictionary={"corrections":0,"resets":0,"max_error":0.0}
 func clear() -> void:
 	samples.clear();acknowledged=-1
 
-func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0) -> void:
-	samples[sequence]={"position":position,"velocity":velocity,"height":height}
+func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,jetpack: Dictionary={}) -> void:
+	samples[sequence]={"position":position,"velocity":velocity,"height":height,"jetpack":jetpack.duplicate(true)}
 	while samples.size()>CAPACITY:samples.erase(samples.keys()[0])
 
-func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false) -> void:
+func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false,jetpack: Dictionary={}) -> void:
 	if sequence<=acknowledged:return
 	acknowledged=sequence
 	if not samples.has(sequence):
+		if not jetpack.is_empty():actor.Jetpack.reconcile(actor,jetpack)
 		# History loss/reconnect: only a substantial divergence warrants a reset.
 		if actor.position.distance_to(position)>2.5:
 			actor.position=position;actor.velocity=velocity;actor.reset_view()
 		return
 	var reference: Dictionary=samples[sequence]
+	if not jetpack.is_empty():actor.Jetpack.reconcile(actor,jetpack,reference.get("jetpack",{}))
 	# Correct a server-denied stand-up at its acknowledged input. An older echo
 	# must not undo a newer local crouch/prone transition.
 	if height>=.65 and height<=1.65 and reference.get("height",-1.0)>0 and is_equal_approx(actor.collision_height,reference.height) and not is_equal_approx(height,reference.height):

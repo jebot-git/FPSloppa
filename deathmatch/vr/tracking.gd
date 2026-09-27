@@ -148,6 +148,13 @@ func sample() -> Dictionary:
 					var pose: Transform3D=tracker.get_joint_transform(JOINTS[key])
 					pose.origin*=XRServer.world_scale
 					pose.basis=preload("res://deathmatch/vr/body_basis.gd").native_to_facing(key,pose.basis)*native_corrections.get(tracker.name,{}).get(key,Basis.IDENTITY)
+					if key in ["hips","chest"] and not native_corrections.get(tracker.name,{}).has(key):
+						# Learn bridge sensor axes once. Rebuilding this from the head
+						# every frame makes a hip tracker turn whenever the player looks.
+						var facing := safe_native_torso(tracker, pose.basis, Transform3D(rig.head.basis,rig.head.position/XRServer.world_scale))
+						if not native_corrections.has(tracker.name): native_corrections[tracker.name] = {}
+						native_corrections[tracker.name][key] = pose.basis.inverse() * facing
+						pose.basis = facing
 					result[key]=rig.origin.transform*pose
 			# A tracked lower leg must drive the endpoint too, not just the knee
 			# bend hint of a foot that remains planted by procedural walking.
@@ -166,6 +173,12 @@ func sample() -> Dictionary:
 					inferred.origin.y=maxf(inferred.origin.y,rig.origin.position.y+.03*XRServer.world_scale)
 					result[foot]=inferred
 		for key in raw:
+			if key == "hips" and not corrections.has(key):
+				# A waist-only setup need not wait for full-body T-pose calibration.
+				# Preserve its measured position and learn only its neutral facing.
+				var head_basis: Basis = rig.origin.basis * rig.head.basis
+				var facing := Basis(Vector3.UP, atan2(head_basis.z.x, head_basis.z.z))
+				corrections[key] = Transform3D(raw[key].basis.inverse() * facing, Vector3.ZERO)
 			if corrections.has(key): result[key]=raw[key]*corrections[key]
 	hand_sources.clear()
 	for side in ["left","right"]:
@@ -191,6 +204,28 @@ func sample() -> Dictionary:
 		var access_status: String=rig.game.permissions.tracking_status()
 		if not access_status.is_empty(): status=access_status
 	return result
+static func safe_native_torso(tracker: XRBodyTracker, orientation: Basis, head_pose: Transform3D) -> Basis:
+	# Some bridges expose sensor axes instead of Humanoid axes. Before a T-pose
+	# establishes their offsets, reject a torso-up axis inconsistent with the
+	# measured hip/chest positions. A correctly mapped (even leaning) torso passes.
+	var hips := tracker.get_joint_transform(XRBodyTracker.JOINT_HIPS).origin
+	var chest := head_pose.origin
+	if tracker.get_joint_flags(XRBodyTracker.JOINT_CHEST)&XRBodyTracker.JOINT_FLAG_POSITION_VALID:
+		chest = tracker.get_joint_transform(XRBodyTracker.JOINT_CHEST).origin
+	var up := chest-hips
+	if up.length() < .1: return orientation
+	up = up.normalized()
+	if orientation.y.dot(up) > .45: return orientation
+	var forward := -head_pose.basis.z
+	var left_flags := tracker.get_joint_flags(XRBodyTracker.JOINT_LEFT_SHOULDER)
+	var right_flags := tracker.get_joint_flags(XRBodyTracker.JOINT_RIGHT_SHOULDER)
+	if left_flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID and right_flags&XRBodyTracker.JOINT_FLAG_POSITION_VALID:
+		var across := tracker.get_joint_transform(XRBodyTracker.JOINT_RIGHT_SHOULDER).origin-tracker.get_joint_transform(XRBodyTracker.JOINT_LEFT_SHOULDER).origin
+		if across.length() > .1: forward = up.cross(across)
+	forward -= up*forward.dot(up)
+	if forward.length_squared() < .001: return orientation
+	return Basis.looking_at(forward.normalized(),up)
+
 static func calibrate_foot(lower_leg: Transform3D,floor_height: float,scale: float,facing: Basis) -> Transform3D:
 	var length:=clampf(lower_leg.origin.y-floor_height-.08*scale,.05*scale,.65*scale)
 	return lower_leg.affine_inverse()*Transform3D(facing,lower_leg.origin+Vector3.DOWN*length)

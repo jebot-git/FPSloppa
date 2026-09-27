@@ -24,10 +24,32 @@ func team_available(id: int=0) -> bool:
 
 func recipients(id: int,team_only: bool) -> Array:
 	var result: Array=[]
-	if team_only and not team_available(id):return result
 	for peer in game.players:
-		if peer!=id and (not team_only or team_available(peer) and game.match_mode.same_team(id,peer)):result.append(peer)
+		if peer!=id and can_hear(id,peer,team_only):result.append(peer)
 	return result
+
+func dead_channel(id: int=0) -> bool:
+	if id==0:id=multiplayer.get_unique_id()
+	var s: Dictionary=game.players.get(id,{})
+	return game.match_mode.defusal.enabled() and (s.get("dead",false) or s.get("spectator",false))
+
+func can_hear(sender: int,listener: int,team_only: bool) -> bool:
+	if not game.players.has(sender) or not game.players.has(listener):return false
+	if game.match_mode.defusal.enabled():
+		if dead_channel(sender)!=dead_channel(listener):return false
+		# Either PTT control joins the shared dead/observer channel, across teams.
+		if dead_channel(sender):return true
+	return not team_only or team_available(sender) and team_available(listener) and game.match_mode.same_team(sender,listener)
+
+func playback_allowed(id: int,team_only: bool,dead: bool,life: int,round_id: int) -> bool:
+	var mine:=multiplayer.get_unique_id()
+	if not can_hear(id,mine,team_only):return false
+	if dead!=dead_channel(id):return false
+	if round_id>=0:
+		if not game.match_mode.defusal.enabled() or game.players[mine].serial!=life:return false
+		var de=game.match_mode.defusal
+		if round_id!=de.round_id:return false
+	return true
 
 static func valid_packet(data: PackedByteArray) -> bool:
 	# Fixed 48 kHz mono, 20 ms Opus frames. The prefix is replaced by the relay sequence.
@@ -56,16 +78,20 @@ func accept_sender(id: int,serial: int,data: PackedByteArray) -> bool:
 
 func relay(id: int,serial: int,data: PackedByteArray,team_only: bool=false) -> void:
 	if not accept_sender(id,serial,data):return
+	var dead:=dead_channel(id)
+	if dead:team_only=false
+	var round_id: int=game.match_mode.defusal.round_id if game.match_mode.defusal.enabled() else -1
 	for peer in recipients(id,team_only):
 		game.bandwidth.reserve(data.size()+48,game.clock)
-		if peer>1:receive.rpc_id(peer,id,serial,data,team_only)
-		elif not game.dedicated:receive(id,serial,data,team_only)
+		var life: int=game.players[peer].serial if round_id>=0 else -1
+		if peer>1:receive.rpc_id(peer,id,serial,data,team_only,dead,life,round_id)
+		elif not game.dedicated:receive(id,serial,data,team_only,dead,life,round_id)
 	relayed_packets+=1
 
 @rpc("authority","call_remote","unreliable",6)
-func receive(id: int,serial: int,data: PackedByteArray,team_only: bool=false) -> void:
-	_receive_audio(id,serial,data,team_only)
-func _receive_audio(_id: int,_serial: int,_data: PackedByteArray,_team_only: bool=false) -> void:pass
+func receive(id: int,serial: int,data: PackedByteArray,team_only: bool=false,dead: bool=false,life: int=-1,round_id: int=-1) -> void:
+	_receive_audio(id,serial,data,team_only,dead,life,round_id)
+func _receive_audio(_id: int,_serial: int,_data: PackedByteArray,_team_only: bool=false,_dead: bool=false,_life: int=-1,_round_id: int=-1) -> void:pass
 
 @rpc("authority","call_remote","reliable",0)
 func policy(allowed: bool,host_name: String,backend: String="builtin",external_url: String="") -> void:

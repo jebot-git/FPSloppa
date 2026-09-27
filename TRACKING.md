@@ -16,7 +16,7 @@ The generic XRBodyTracker adapter also consumes joints from another compatible r
 
 ## Vive setup
 
-Assign waist, chest, left/right foot, knee and elbow tracker roles in SteamVR. Use SteamVR as the active OpenXR runtime and enable its HTC Vive tracker extension support. Start the game, stand upright with feet pointing forward and arms relaxed, recenter, then select **CALIBRATE BODY** in the VR menu. Tracker roles use a dedicated `tracker_pose` action, separate from hand and eye actions. Only the eight supported body roles are included; unused wrist/ankle revision-3 paths are excluded for SteamVR compatibility. Compatible bridges publishing `default` or `grip` poses are also accepted. Each detected tracker gets a mounting offset to standing targets aligned with your current headset direction. Calibrate again after adjusting trackers or recentering. Tracker additions require recalibration. Partial sets work; hips plus two feet is a useful starting set.
+Assign waist, chest, left/right foot, knee and elbow tracker roles in SteamVR. Use SteamVR as the active OpenXR runtime and enable its HTC Vive tracker extension support. Start the game, stand upright with feet pointing forward and arms relaxed, recenter, then select **CALIBRATE BODY** in the VR menu. Tracker roles use a dedicated `tracker_pose` action, separate from hand and eye actions. Only the eight supported body roles are included; unused wrist/ankle revision-3 paths are excluded for SteamVR compatibility. Compatible bridges publishing `default` or `grip` poses are also accepted. Each detected tracker gets a mounting offset to standing targets aligned with your current headset direction. Calibrate again after adjusting trackers or recentering. A waist-only tracker activates immediately with an orientation-only neutral offset; stand upright and face forward when enabling it. Adding other roles still requires calibration. Partial sets work; hips plus two feet is a useful starting set.
 
 ## SteamVR, WiVRn and fingers
 
@@ -49,7 +49,7 @@ The menu's **BODY TRACKING ON / OFF** disables body targets; finger animation re
 
 ## Implementation and checks
 
-Poses are bounded, finite rigid transforms relative to the authoritative player origin. The server validates cosmetic body targets separately from the weapon pose; invalid body data cannot move hitboxes or extend weapon reach. Remote poses are smoothed. The payload includes at most ten transforms and ten finger-curl floats per player; body tracking adds snapshot bandwidth, particularly with many tracked players. No additional internet tracking service is used.
+Poses are bounded, finite rigid transforms relative to the authoritative player origin. The server validates body targets separately from the weapon pose. A valid hip target anchors room-scale movement using the same fixed capsule, speed cap and collision checks; invalid body data cannot extend movement or weapon reach. Remote poses are smoothed. The payload includes at most ten transforms and ten finger-curl floats per player; body tracking adds snapshot bandwidth, particularly with many tracked players. No additional internet tracking service is used.
 
 Orientation regression checks cover SteamVR default role poses, reversed Slime translation frames, and native torso/foot axes on all three avatars (`deathmatch/tests/tracking_orientation.gd`). Tests also cover local body mesh selection on all three bundled avatars, immediate local IK/foot targets, visibility transitions, controller push-to-talk, Android permission queue/retry behavior, native joint ingestion/loss, OSC decoding and calibration, rejected oversized/malformed poses, all bundled VRM mouth bindings, finite IK and server-to-client body-pose replication. The three bundled first-person bodies were also rendered with the project’s Mobile renderer. The Compatibility renderer showed MToon artifacts in close body views and remains a troubleshooting fallback. Physical calibration quality, tracker mounting conventions, joint orientation and tracking latency still require real devices.
 
@@ -57,3 +57,30 @@ Sources: [Godot hand tracking and Index support](https://docs.godotengine.org/en
 # Lower-leg-only native tracking
 
 Some WiVRn/SolarXR bridges expose calf trackers as lower-leg joints without ankle or foot poses. Those joints now drive estimated foot endpoints as well as knee bending. Stand upright and use **CALIBRATE BODY** to measure each tracker-to-ankle offset; lifting or rotating a lower leg moves the estimated foot. Genuine native foot poses and calibrated external foot trackers override this estimate. Independent ankle articulation still requires a foot pose.
+
+## Hip tracking, leaning and attachments
+
+A valid native, Vive-role or calibrated OSC pelvis anchors the collision capsule
+and the CS magazine pouch. Head turning and leaning no longer drag the pouch or
+capsule around when hips are available. The pouch follows pelvic translation and
+yaw, with an upright belt frame through pelvic pitch/roll. Tracking loss returns
+to headset-based room movement and the inferred hip attachment.
+
+Native bridge torso-axis corrections are learned once, so later head turns do
+not steer the pelvis. Explicit body calibration still replaces these offsets.
+Waist-only role tracking preserves the measured position without requiring the
+full-body T-pose gesture. This follows raifslop's `integration/golf-fishing`
+hip mounting, neutral-axis calibration and hip-anchored leaning behavior
+(reviewed at `555e9fc`). Existing normalized player scaling is unchanged.
+
+Leaning over a low rail leaves the capsule at the hips. A swept 12 cm head volume
+checks tall walls, including fast pose changes and near-wall contact. FPSloppa
+keeps its existing physical-origin preservation and wall blackout instead of
+raifslop's local headset pushback; the server independently blocks combat and
+reload manipulation while the head is clipped. Hip displacement remains capped
+at 75 cm and 2.4 m/s; tracked leaning is bounded to 1.2 m from the capsule and
+1.25 m from the pelvis. These are normalized game-space limits.
+
+`deathmatch/tests/hip_reload.gd` covers live synthetic waist tracking, prediction
+input/authority agreement, low-rail and tall-wall cases, tracker loss, and broad
+hip-side magazine recovery. Physical tracker comfort still needs headset testing.

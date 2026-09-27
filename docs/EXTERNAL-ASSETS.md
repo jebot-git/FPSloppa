@@ -20,7 +20,7 @@ A headless server stores and serves previews supplied by graphical clients. For 
 godot --path . --script res://tools/generate_map_previews.gd -- --asset-root /absolute/path/to/assets
 ```
 
-Add `--map <map-id>` to generate one map. The utility needs a graphical renderer. A card remains votable while its preview is unavailable or still being generated. Clients and server need matching `fpsloppa-39-rotating-koth` builds.
+Add `--map <map-id>` to generate one map. The utility needs a graphical renderer. A card remains votable while its preview is unavailable or still being generated. Clients and server need matching `fpsloppa-40-weapon-drops` builds.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](ARCHIVED-EXTRAS.md).
 

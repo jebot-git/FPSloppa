@@ -1,0 +1,475 @@
+{
+  "version": "0.17v",
+  "date": "2026-09-27",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "protocol": "fpsloppa-45-de-utility",
+  "quest_version_code": 22,
+  "focused_tests": [
+    {
+      "test": "mipmaps",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.31,
+      "assertions": 12,
+      "errors": []
+    },
+    {
+      "test": "filter_variants",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.32,
+      "assertions": 12,
+      "errors": []
+    },
+    {
+      "test": "map_colour_mips",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.31,
+      "assertions": 0,
+      "errors": []
+    },
+    {
+      "test": "client_preferences",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.41,
+      "assertions": 13,
+      "errors": []
+    },
+    {
+      "test": "map_presentation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.52,
+      "assertions": 121,
+      "errors": []
+    },
+    {
+      "test": "native_springs",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.77,
+      "assertions": 60,
+      "errors": []
+    },
+    {
+      "test": "auto_calibration",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.97,
+      "assertions": 9,
+      "errors": []
+    },
+    {
+      "test": "prediction_stairs",
+      "exit": 0,
+      "passed": true,
+      "seconds": 15.49,
+      "assertions": 0,
+      "errors": []
+    },
+    {
+      "test": "stairs",
+      "exit": 0,
+      "passed": true,
+      "seconds": 8.88,
+      "assertions": 18,
+      "errors": []
+    },
+    {
+      "test": "hip_reload",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.32,
+      "assertions": 73,
+      "errors": []
+    },
+    {
+      "test": "cs16",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.12,
+      "assertions": 70,
+      "errors": []
+    },
+    {
+      "test": "cs16_art",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "assertions": 213,
+      "errors": []
+    },
+    {
+      "test": "cs16_sights",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.72,
+      "assertions": 69,
+      "errors": []
+    },
+    {
+      "test": "cs16_reload_ui",
+      "exit": 0,
+      "passed": true,
+      "seconds": 100.01,
+      "assertions": 17,
+      "errors": [],
+      "renderer": "Vulkan",
+      "notes": [
+        "Requires renderer; headless invocation was invalid. PulseAudio device shutdown warning is unrelated to assertions."
+      ]
+    },
+    {
+      "test": "weapon_wheel",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.67,
+      "assertions": 103,
+      "errors": []
+    },
+    {
+      "test": "dropped_weapons",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "assertions": 51,
+      "errors": []
+    },
+    {
+      "test": "foveation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.32,
+      "assertions": 132,
+      "errors": []
+    },
+    {
+      "test": "presentation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.77,
+      "assertions": 44,
+      "errors": []
+    },
+    {
+      "test": "defusal",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "assertions": 100,
+      "errors": []
+    },
+    {
+      "test": "defusal_distribution",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "assertions": 104,
+      "errors": []
+    },
+    {
+      "test": "defusal_maps",
+      "exit": 0,
+      "passed": true,
+      "seconds": 5.52,
+      "assertions": 73,
+      "errors": []
+    },
+    {
+      "test": "defusal_surfaces",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "assertions": 18,
+      "errors": []
+    },
+    {
+      "test": "defusal_bomb_recovery",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "assertions": 29,
+      "errors": []
+    },
+    {
+      "test": "defusal_bot_behavior",
+      "exit": 0,
+      "passed": true,
+      "seconds": 8.43,
+      "assertions": 27,
+      "errors": []
+    },
+    {
+      "test": "defusal_pickups",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.22,
+      "assertions": 16,
+      "errors": []
+    },
+    {
+      "test": "defusal_observer",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.97,
+      "assertions": 92,
+      "errors": []
+    },
+    {
+      "test": "defusal_vr",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.22,
+      "assertions": 42,
+      "errors": []
+    },
+    {
+      "test": "jetpack_maps",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.47,
+      "assertions": 0,
+      "errors": []
+    },
+    {
+      "test": "jetpack_physics",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.62,
+      "assertions": 42,
+      "errors": []
+    },
+    {
+      "test": "jetpack_pickups",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.17,
+      "assertions": 95,
+      "errors": []
+    },
+    {
+      "test": "lobby_transition",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.27,
+      "assertions": 13,
+      "errors": []
+    },
+    {
+      "test": "mode_weapon_policy",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.57,
+      "assertions": 39,
+      "errors": []
+    },
+    {
+      "test": "pickup_lifecycle",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.32,
+      "assertions": 754,
+      "errors": []
+    },
+    {
+      "test": "vr_interactions",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.27,
+      "assertions": 68,
+      "errors": []
+    },
+    {
+      "test": "music",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.92,
+      "assertions": 58,
+      "errors": []
+    },
+    {
+      "test": "tracking_orientation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.02,
+      "errors": []
+    },
+    {
+      "test": "weapon_respawns",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.47,
+      "errors": []
+    },
+    {
+      "test": "post07",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "errors": []
+    },
+    {
+      "test": "defusal_grenades",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "test": "defusal_grenade_vr",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "test": "cs16_vr_reload",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "test": "network_delivery",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    },
+    {
+      "test": "export_resources",
+      "passed": true,
+      "exit": 0,
+      "errors": []
+    }
+  ],
+  "network_suites": [
+    {
+      "suite": "tools/run_defusal_network.py",
+      "exit": 0,
+      "seconds": 15.94
+    },
+    {
+      "suite": "tools/run_defusal_bomb_recovery.py",
+      "exit": 0,
+      "seconds": 7.53
+    },
+    {
+      "suite": "tools/run_defusal_grenades.py",
+      "exit": 0,
+      "seconds": 12.69,
+      "passed": true,
+      "notes": "Rerun after fixing persistent trigger state; checks hold duration and no holstered gunfire."
+    },
+    {
+      "suite": "tools/run_defusal_voice.py",
+      "exit": 0,
+      "seconds": 12.94
+    },
+    {
+      "suite": "tools/run_jetpack_network.py",
+      "exit": 0,
+      "seconds": 10.33
+    },
+    {
+      "suite": "deathmatch/tests/run_dropped_weapon_tests.py",
+      "exit": 0,
+      "seconds": 5.97
+    },
+    {
+      "suite": "tools/validate_soundtrack.py",
+      "exit": 0,
+      "seconds": 41.15
+    },
+    {
+      "suite": "tools/run_defusal_grenades.py --tracked",
+      "exit": 0,
+      "passed": true
+    }
+  ],
+  "packaged_server_suites": [
+    {
+      "suite": "deathmatch/tests/run_console_server_tests.py",
+      "passed": true,
+      "exit": 0,
+      "seconds": 6.58
+    },
+    {
+      "suite": "deathmatch/tests/run_server_bots_tests.py",
+      "passed": true,
+      "exit": 0,
+      "seconds": 52.13
+    },
+    {
+      "suite": "deathmatch/tests/run_server_browser_tests.py",
+      "passed": true,
+      "exit": 0,
+      "seconds": 7.48
+    },
+    {
+      "suite": "deathmatch/tests/run_test_master_tests.py",
+      "passed": true,
+      "exit": 0,
+      "seconds": 14.54
+    }
+  ],
+  "master_unit_tests": 18,
+  "binary_smoke": {
+    "passed": true,
+    "client_exit": 0,
+    "graphical_linux_client": true,
+    "mode": "de",
+    "map": "de_dust2_rebuilt",
+    "bot_fill": 12,
+    "source_asset_override": false,
+    "errors": []
+  },
+  "map_cache_checks": {
+    "count": 96,
+    "failures": []
+  },
+  "mipmaps": {
+    "runtime_imports": 87,
+    "installed_maps": 36,
+    "embedded_models": 74,
+    "installed_avatars": 10,
+    "complete_texture_chains": 998,
+    "data_sampler_bindings_exempt": 655,
+    "failures": []
+  },
+  "soundtrack": {
+    "cues": 13,
+    "failures": []
+  },
+  "release_targets": [
+    "Linux",
+    "Windows",
+    "Dedicated-Server-Linux",
+    "Quest",
+    "Source",
+    "Master-Server"
+  ],
+  "bundled_content": {
+    "maps": 32,
+    "avatars": 3,
+    "base_asset_files": 323,
+    "uncompressed_bytes": 817039456,
+    "compressed_bytes": 658590694
+  },
+  "cleanup": {
+    "verified_redundant_raw_video_bytes_removed": 19435306798,
+    "mp4_recordings_preserved": true,
+    "source_assets_preserved": true
+  },
+  "pack_audits_passed": [
+    "Linux PCK",
+    "Windows PCK",
+    "Quest APK"
+  ],
+  "quest_signature_and_16k_alignment_verified": true,
+  "limitations": [
+    "Native Windows and physical headset validation were not performed.",
+    "Quad-view rendering is not implemented; eye-tracking/foveation requires runtime support.",
+    "Godot export/resource fixtures report shutdown resource leaks; no gameplay script errors were observed.",
+    "Rendered reload UI passed 17 checks; a PulseAudio input shutdown warning was observed."
+  ],
+  "archive_verification": "tools/prepare_release.py validates final archives and emits SHA256SUMS and BUILD-MANIFEST.json; publication checks uploaded hashes before making the release public."
+}

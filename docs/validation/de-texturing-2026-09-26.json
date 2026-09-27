@@ -1,0 +1,905 @@
+{
+  "date": "2026-09-26",
+  "maps": [
+    {
+      "map": "de_nuke_rebuilt",
+      "sha256": "e424d0d1dff70c598f193f40da8d3f9becc3ba7a83e2db04001368582a08ad1a",
+      "bytes": 6222248,
+      "textures": 12,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "6b2ba7cfd20c4454dabf2a6a65a8858e1a39b8daeaf4e0e406020e9d322d2542",
+      "previous_sha256": "959b2ac014631ff35f2e51b8a6cf735809c658357eb324bffd80e2f3b97647c2",
+      "brush_planes_and_entities_preserved": true,
+      "navigation_preserved": true
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "sha256": "76c99972300eb8b88060808393babe91fa33b27b3b2152f20ba86fdd10033d58",
+      "bytes": 5598896,
+      "textures": 14,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "442d4ee58a7f26f72cda13a29858a36ab3e44919bc67f0041bc26ed54c3211a6",
+      "previous_sha256": "e8b8a0ee7f9c86d1fab40e5eda81c1b0c3ef63abe7add6046b99cf8282f6d3f3",
+      "brush_planes_and_entities_preserved": true,
+      "navigation_preserved": true
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "sha256": "71a43760c294af71e433a1b2116db6b9e3a688e9d07278e6ca0ef90f1187503e",
+      "bytes": 4067348,
+      "textures": 13,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "4803baf0ee0993719793b2f74677bc9d6769d8d8a5888ccf9764ee194d333dc7",
+      "previous_sha256": "efc9837b3619f03a4a8b91f1c5943ed06e33eb5fefc694bb0eec7637a86ec1c5",
+      "brush_planes_and_entities_preserved": true,
+      "navigation_preserved": true
+    },
+    {
+      "map": "de_train_rebuilt",
+      "sha256": "9448c89246737f9c84aa8bdb405da25f77313caac4cc7d17e8694d3fd31a8ed2",
+      "bytes": 8090128,
+      "textures": 15,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "f752cb03dfbc3e510aa8adac49e7c6973db0b43303d11a42b3b7e009c6fc40f3",
+      "previous_sha256": "8a414e1b3da205cd0222c6b4daf372642685401cb8a6d1467c0bb12895ec41da",
+      "brush_planes_and_entities_preserved": true,
+      "navigation_preserved": true
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "sha256": "adfcc0d3344f47f20fbe556ec38b602d47b5680ebdd74190138cd152d91548cc",
+      "bytes": 5303748,
+      "textures": 11,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "0cdd2a6e8b3fa07dbfbaa20aaf6dcf591226ef332fc79dd561f1b98aba50dcad",
+      "previous_sha256": "6e26f8c6f8a25de7bf4523f743846fbf2e4b6302c69828dc7f56c6a49b4072f7",
+      "brush_planes_and_entities_preserved": true,
+      "navigation_preserved": true
+    }
+  ],
+  "objective_checks": {
+    "checks": 73,
+    "failures": [],
+    "passed": true
+  },
+  "traversal": [
+    {
+      "map": "de_nuke_rebuilt",
+      "checks": 44,
+      "routes": [
+        {
+          "end": [
+            477.496231079102,
+            347.196792602539,
+            -1.73389600813389
+          ],
+          "name": "T lobby to A",
+          "passed": true
+        },
+        {
+          "end": [
+            63.3230997721354,
+            337.930353800456,
+            -1.733923381567
+          ],
+          "name": "T lobby to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            478.981877644857,
+            349.706120808919,
+            -257.734643554688
+          ],
+          "name": "T radio ramp to B",
+          "passed": true
+        },
+        {
+          "end": [
+            62.9859008789062,
+            337.948153177897,
+            -1.7338986903429
+          ],
+          "name": "T radio ramp to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            479.006149291992,
+            347.997375488281,
+            -1.73313658535481
+          ],
+          "name": "CT outside to A",
+          "passed": true
+        },
+        {
+          "end": [
+            764.902791341146,
+            249.00092569987,
+            -1.73361389935017
+          ],
+          "name": "CT outside to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            479.92876180013,
+            350.992172241211,
+            -257.733483886719
+          ],
+          "name": "CT garage tunnel to B",
+          "passed": true
+        },
+        {
+          "end": [
+            765.001871744792,
+            249.001383463542,
+            -1.73356487452984
+          ],
+          "name": "CT garage tunnel to B (return)",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "checks": 47,
+      "routes": [
+        {
+          "end": [
+            372.258504231771,
+            97.1555989583333,
+            -1.73379706442356
+          ],
+          "name": "T banana to B",
+          "passed": true
+        },
+        {
+          "end": [
+            47.117431640625,
+            430.98871866862,
+            -1.73342106342316
+          ],
+          "name": "T banana to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            645.051106770833,
+            452.463602701823,
+            -1.73320858776569
+          ],
+          "name": "T mid to A",
+          "passed": true
+        },
+        {
+          "end": [
+            47.15283203125,
+            430.988372802734,
+            -1.73342054188252
+          ],
+          "name": "T mid to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            645.121744791667,
+            452.689432779948,
+            -1.73324880599976
+          ],
+          "name": "Apartments balcony to A",
+          "passed": true
+        },
+        {
+          "end": [
+            175.002461751302,
+            577.940205891927,
+            -1.73347712159157
+          ],
+          "name": "Apartments balcony to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            373.265795389811,
+            95.7640991210938,
+            -1.7336807757616
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            678.940388997396,
+            178.911326090495,
+            -1.73312371075153
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            645.467488606771,
+            451.255015055339,
+            -1.73334994018078
+          ],
+          "name": "CT library to A",
+          "passed": true
+        },
+        {
+          "end": [
+            678.721638997396,
+            181.253692626953,
+            -1.73335087895393
+          ],
+          "name": "CT library to A (return)",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "checks": 47,
+      "routes": [
+        {
+          "end": [
+            377.782567342122,
+            327.061302185059,
+            -1.73351258635521
+          ],
+          "name": "T doors to A",
+          "passed": true
+        },
+        {
+          "end": [
+            124.020528157552,
+            525.612162272135,
+            -1.73395135104656
+          ],
+          "name": "T doors to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            175.977701822917,
+            211.264872233073,
+            -1.73342487812042
+          ],
+          "name": "T bridge to B",
+          "passed": true
+        },
+        {
+          "end": [
+            124.149576822917,
+            525.344421386719,
+            -1.73396468758583
+          ],
+          "name": "T bridge to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            600.622375488281,
+            199.873443603516,
+            -1.73336253166199
+          ],
+          "name": "Lower canal to CT",
+          "passed": true
+        },
+        {
+          "end": [
+            162.002502441406,
+            466.115549723307,
+            -7.25275192260742
+          ],
+          "name": "Lower canal to CT (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            380.039433797201,
+            327.063331604004,
+            -1.73310448825359
+          ],
+          "name": "CT to A",
+          "passed": true
+        },
+        {
+          "end": [
+            600.264078776042,
+            199.628234863281,
+            -1.73344945013523
+          ],
+          "name": "CT to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            176.200419108073,
+            211.202626546224,
+            -1.73348010182381
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            599.975911458333,
+            198.65283203125,
+            -1.7337081193924
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "map": "de_train_rebuilt",
+      "checks": 50,
+      "routes": [
+        {
+          "end": [
+            559.042012532552,
+            355.995325724284,
+            -1.73397467136383
+          ],
+          "name": "T main to A",
+          "passed": true
+        },
+        {
+          "end": [
+            47.0909830729167,
+            62.1323038736979,
+            -1.73364146649838
+          ],
+          "name": "T main to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            559.15434773763,
+            355.971715291341,
+            -1.73356624543667
+          ],
+          "name": "T ivy to A",
+          "passed": true
+        },
+        {
+          "end": [
+            46.8969319661458,
+            62.1026611328125,
+            -1.73312079012394
+          ],
+          "name": "T ivy to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            401.893933931987,
+            571.974405924479,
+            -1.73394269347191
+          ],
+          "name": "T halls to B",
+          "passed": true
+        },
+        {
+          "end": [
+            47.008056640625,
+            62.1187540690104,
+            -1.73319933414459
+          ],
+          "name": "T halls to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            559.137410481771,
+            355.976109822591,
+            -1.73354675471783
+          ],
+          "name": "CT to A",
+          "passed": true
+        },
+        {
+          "end": [
+            636.239725748698,
+            550.024922688802,
+            -1.73355679810047
+          ],
+          "name": "CT to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            404.18328221639,
+            571.998250325521,
+            -1.73269124925137
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            634.74989827474,
+            551.444966634115,
+            -1.73369244337082
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            403.965436299642,
+            571.983581542969,
+            -1.73307204842567
+          ],
+          "name": "A Z connector B",
+          "passed": true
+        },
+        {
+          "end": [
+            449.472534179688,
+            344.799687703451,
+            -1.73023443520069
+          ],
+          "name": "A Z connector B (return)",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "checks": 70,
+      "routes": [
+        {
+          "end": [
+            182.779581705729,
+            99.1484781901042,
+            222.266241455078
+          ],
+          "name": "T spawn through long doors to A",
+          "passed": true
+        },
+        {
+          "end": [
+            649.999938964844,
+            524.037963867188,
+            126.269934082031
+          ],
+          "name": "T spawn through long doors to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            621.303568522135,
+            329.000816345215,
+            126.266355895996
+          ],
+          "name": "T spawn directly to top mid",
+          "passed": true
+        },
+        {
+          "end": [
+            649.999938964844,
+            524.094523111979,
+            126.269934082031
+          ],
+          "name": "T spawn directly to top mid (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            218.554707845052,
+            531.835225423177,
+            62.2667526245117
+          ],
+          "name": "T spawn through upper tunnels to B",
+          "passed": true
+        },
+        {
+          "end": [
+            518.776814778646,
+            519.959981282552,
+            62.2667640686035
+          ],
+          "name": "T spawn through upper tunnels to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            386.999947865804,
+            514.065511067708,
+            62.2668174743652
+          ],
+          "name": "Lower tunnel half-turn stairs to upper",
+          "passed": true
+        },
+        {
+          "end": [
+            350.000020345052,
+            366.071634928385,
+            -1.73322949409485
+          ],
+          "name": "Lower tunnel half-turn stairs to upper (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            211.005533854167,
+            265.924677530924,
+            -1.733280813694
+          ],
+          "name": "Mid slope and double doors to CT",
+          "passed": true
+        },
+        {
+          "end": [
+            618.752176920573,
+            328.999987284342,
+            126.266638183594
+          ],
+          "name": "Mid slope and double doors to CT (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            215.015848795573,
+            184.305684407552,
+            222.266775512695
+          ],
+          "name": "Top mid via catwalk and short stairs to A",
+          "passed": true
+        },
+        {
+          "end": [
+            599.036193847656,
+            296.999972979228,
+            126.269888305664
+          ],
+          "name": "Top mid via catwalk and short stairs to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            179.445780436198,
+            170.111368815104,
+            222.266439819336
+          ],
+          "name": "CT ramp to A",
+          "passed": true
+        },
+        {
+          "end": [
+            174.000020345052,
+            276.121770222982,
+            22.556135559082
+          ],
+          "name": "CT ramp to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            236.999542236328,
+            517.698181152344,
+            62.266455078125
+          ],
+          "name": "CT through B doors",
+          "passed": true
+        },
+        {
+          "end": [
+            210.904439290365,
+            311.127530415853,
+            -1.73356652855873
+          ],
+          "name": "CT through B doors (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            410.961368560791,
+            105.000061035156,
+            -1.73373926281929
+          ],
+          "name": "Long pit escape",
+          "passed": true
+        },
+        {
+          "end": [
+            514.061828613281,
+            105.000040690104,
+            -65.733171081543
+          ],
+          "name": "Long pit escape (return)",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "checks": 331,
+  "views": [
+    {
+      "floating_site_labels": 0.0,
+      "images": [
+        "de_dust2_rebuilt-a-site.png",
+        "de_dust2_rebuilt-long-a.png",
+        "de_dust2_rebuilt-b-site.png",
+        "de_dust2_rebuilt-mid.png",
+        "de_dust2_rebuilt-upper-tunnels.png",
+        "de_dust2_rebuilt-short-a.png",
+        "de_dust2_rebuilt-site-a.png",
+        "de_dust2_rebuilt-site-b.png"
+      ],
+      "map": "de_dust2_rebuilt",
+      "renderer": "mobile",
+      "sha256": "adfcc0d3344f47f20fbe556ec38b602d47b5680ebdd74190138cd152d91548cc"
+    },
+    {
+      "floating_site_labels": 0.0,
+      "images": [
+        "de_nuke_rebuilt-nuke-upper.png",
+        "de_nuke_rebuilt-nuke-lower.png",
+        "de_nuke_rebuilt-nuke-outside.png",
+        "de_nuke_rebuilt-site-a.png",
+        "de_nuke_rebuilt-site-b.png"
+      ],
+      "map": "de_nuke_rebuilt",
+      "renderer": "mobile",
+      "sha256": "e424d0d1dff70c598f193f40da8d3f9becc3ba7a83e2db04001368582a08ad1a"
+    },
+    {
+      "floating_site_labels": 0.0,
+      "images": [
+        "de_inferno_rebuilt-inferno-a.png",
+        "de_inferno_rebuilt-inferno-banana.png",
+        "de_inferno_rebuilt-inferno-apartments.png",
+        "de_inferno_rebuilt-site-a.png",
+        "de_inferno_rebuilt-site-b.png"
+      ],
+      "map": "de_inferno_rebuilt",
+      "renderer": "mobile",
+      "sha256": "76c99972300eb8b88060808393babe91fa33b27b3b2152f20ba86fdd10033d58"
+    },
+    {
+      "floating_site_labels": 0.0,
+      "images": [
+        "de_aztec_rebuilt-aztec-bridge.png",
+        "de_aztec_rebuilt-aztec-a.png",
+        "de_aztec_rebuilt-aztec-canal.png",
+        "de_aztec_rebuilt-site-a.png",
+        "de_aztec_rebuilt-site-b.png"
+      ],
+      "map": "de_aztec_rebuilt",
+      "renderer": "mobile",
+      "sha256": "71a43760c294af71e433a1b2116db6b9e3a688e9d07278e6ca0ef90f1187503e"
+    },
+    {
+      "floating_site_labels": 0,
+      "images": [
+        "de_train_rebuilt-train-outer.png",
+        "de_train_rebuilt-train-inner.png",
+        "de_train_rebuilt-train-ivy.png",
+        "de_train_rebuilt-site-a.png",
+        "de_train_rebuilt-site-b.png"
+      ],
+      "map": "de_train_rebuilt",
+      "renderer": "mobile",
+      "sha256": "9448c89246737f9c84aa8bdb405da25f77313caac4cc7d17e8694d3fd31a8ed2"
+    }
+  ],
+  "render_assets": [
+    {
+      "bsp_sha256": "e424d0d1dff70c598f193f40da8d3f9becc3ba7a83e2db04001368582a08ad1a",
+      "codecs": [
+        {
+          "encoded_bytes": 2796416,
+          "format": "bc7",
+          "images": 8,
+          "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-bc7.scn",
+          "raw_bytes": 8388600
+        },
+        {
+          "encoded_bytes": 2796416,
+          "format": "astc4",
+          "images": 8,
+          "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-astc4.scn",
+          "raw_bytes": 8388600
+        }
+      ],
+      "invalid_faces": 0,
+      "map": "de_nuke_rebuilt",
+      "overflow_faces": 0,
+      "packing": {
+        "from": [
+          2048,
+          2048
+        ],
+        "occupancy_after": 0.937080383300781,
+        "occupancy_before": 0.234270095825195,
+        "padded_luxels": 982600,
+        "patches": 4728,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 12582912,
+        "remapped_vertices": 32223,
+        "to": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "bsp_sha256": "76c99972300eb8b88060808393babe91fa33b27b3b2152f20ba86fdd10033d58",
+      "codecs": [
+        {
+          "encoded_bytes": 2796416,
+          "format": "bc7",
+          "images": 8,
+          "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-bc7.scn",
+          "raw_bytes": 8388600
+        },
+        {
+          "encoded_bytes": 2796416,
+          "format": "astc4",
+          "images": 8,
+          "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-astc4.scn",
+          "raw_bytes": 8388600
+        }
+      ],
+      "invalid_faces": 0,
+      "map": "de_inferno_rebuilt",
+      "overflow_faces": 0,
+      "packing": {
+        "from": [
+          2048,
+          2048
+        ],
+        "occupancy_after": 0.737886428833008,
+        "occupancy_before": 0.184471607208252,
+        "padded_luxels": 773730,
+        "patches": 4309,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 12582912,
+        "remapped_vertices": 30621,
+        "to": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "bsp_sha256": "71a43760c294af71e433a1b2116db6b9e3a688e9d07278e6ca0ef90f1187503e",
+      "codecs": [
+        {
+          "encoded_bytes": 1136064,
+          "format": "bc7",
+          "images": 4,
+          "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-bc7.scn",
+          "raw_bytes": 3407868
+        },
+        {
+          "encoded_bytes": 1136064,
+          "format": "astc4",
+          "images": 4,
+          "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-astc4.scn",
+          "raw_bytes": 3407868
+        }
+      ],
+      "invalid_faces": 0,
+      "map": "de_aztec_rebuilt",
+      "overflow_faces": 0,
+      "packing": {
+        "from": [
+          2048,
+          2048
+        ],
+        "occupancy_after": 0.757877349853516,
+        "occupancy_before": 0.189469337463379,
+        "padded_luxels": 794692,
+        "patches": 4399,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 12582912,
+        "remapped_vertices": 31167,
+        "to": [
+          1024,
+          1024
+        ]
+      }
+    },
+    {
+      "bsp_sha256": "9448c89246737f9c84aa8bdb405da25f77313caac4cc7d17e8694d3fd31a8ed2",
+      "codecs": [
+        {
+          "encoded_bytes": 3495520,
+          "format": "bc7",
+          "images": 10,
+          "path": "res://maps/cache/de_train_rebuilt-lightmap1-bc7.scn",
+          "raw_bytes": 10485750
+        },
+        {
+          "encoded_bytes": 3495520,
+          "format": "astc4",
+          "images": 10,
+          "path": "res://maps/cache/de_train_rebuilt-lightmap1-astc4.scn",
+          "raw_bytes": 10485750
+        }
+      ],
+      "invalid_faces": 0,
+      "map": "de_train_rebuilt",
+      "overflow_faces": 0,
+      "packing": {
+        "from": [
+          2048,
+          2048
+        ],
+        "occupancy_after": 0.300709009170532,
+        "occupancy_before": 0.300709009170532,
+        "padded_luxels": 1261265,
+        "patches": 10729,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 12582912,
+        "remapped_vertices": 85791,
+        "to": [
+          2048,
+          2048
+        ]
+      }
+    },
+    {
+      "bsp_sha256": "adfcc0d3344f47f20fbe556ec38b602d47b5680ebdd74190138cd152d91548cc",
+      "codecs": [
+        {
+          "encoded_bytes": 1573024,
+          "format": "bc7",
+          "images": 6,
+          "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-bc7.scn",
+          "raw_bytes": 4718586
+        },
+        {
+          "encoded_bytes": 1573024,
+          "format": "astc4",
+          "images": 6,
+          "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-astc4.scn",
+          "raw_bytes": 4718586
+        }
+      ],
+      "invalid_faces": 0,
+      "map": "de_dust2_rebuilt",
+      "overflow_faces": 0,
+      "packing": {
+        "from": [
+          2048,
+          2048
+        ],
+        "occupancy_after": 0.249904870986938,
+        "occupancy_before": 0.249904870986938,
+        "padded_luxels": 1048177,
+        "patches": 5544,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 12582912,
+        "remapped_vertices": 40134,
+        "to": [
+          2048,
+          2048
+        ]
+      }
+    }
+  ],
+  "package": {
+    "path": "test-results/de-texturing/Base-Assets.zip",
+    "bytes": 657191423,
+    "sha256": "30c4a0d54d712f05e39c5c9712bf584cde17373df00d556075f7887e96a75e33",
+    "verified_de_entries": 72
+  },
+  "artwork": "maps/DEMaterials/SOURCES.md",
+  "review": "test-results/de-texturing/index.html",
+  "notes": [
+    "Native Vulkan Mobile review on Intel Arc A770; headset hardware not tested in this pass.",
+    "Existing ObjectDB/resource cleanup warnings persist in game preview exit; first all-map preview also logged PulseAudio input cleanup errors. All 28 captures completed; final Train preview used Dummy audio.",
+    "Brush-plane/entity comparison and byte-identical navigation refer to the pre-texturing maps; lightmap/texture UV changes can change BSP face subdivision."
+  ]
+}

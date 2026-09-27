@@ -2,11 +2,15 @@
 
 The target is native 72 FPS or better: 13.89 ms per frame at 72 Hz, 11.11 ms at 90 Hz. This build is optimized toward that target, but has **not** demonstrated it on Quest, Pico or PC VR hardware. No headset was connected for this release. A successful APK export is not a frame-rate or thermal test.
 
+## September 2026 CPU and stair update
+
+Runtime avatar springs now use Godot native simulation and can be disabled in Graphics. Stair camera offsets interpolate with the capsule. See the [investigation, CPU comparison, server findings, and validation](docs/VR-PERFORMANCE-2026-09-26.md). These local CPU measurements do not establish Vive Pro 2 / SteamVR performance.
+
 ## Changes
 
 - Vulkan Mobile renderer on PC and Android, following Godot's current XR recommendation. OpenXR handles stereo/multiview and headset frame pacing; desktop VSync is disabled in XR. PC retains the runtime's refresh selection. Standalone requests the lowest advertised refresh rate at or above 72 Hz when the session starts.
 - OpenGL/GLES fallback is disabled. Preview tools use Mobile, and Compatibility-specific avatar/decal workarounds have been removed; see [renderer support](docs/RENDERER-SUPPORT.md).
-- OpenXR VRS on the main viewport; medium dynamic foveation for compatible runtimes. Unsupported runtime extensions are optional. This is not a guarantee of eye-tracked foveation on every device.
+- Graphics shows Fovea Size (Off/Small/Medium/Large) with gaze support, replacing Static Foveation (Off/Low/Medium/High). The choices are saved independently and applied immediately. PC defaults to Off; Android to Medium. Compatible runtimes use their native profile, otherwise Godot supplies stereo VRS. Gaze is used when available, with fixed foveation otherwise. Manual strength is independent of workload-adaptive foveation. Quad views are unsupported by the current engine; see [foveation analysis](docs/XR-FOVEATION.md). Runtime capability and requested settings are logged as `XR_FOVEATION`; these do not certify GPU savings or active eye tracking.
 - 4× MSAA on PC, 2× on Android; no SSAO, glow or dynamic sun shadows. No second full-scene spectator render is added.
 - BSP occlusion culling and bounded nearby unshadowed lights: eight on PC, four on Android, selected at 5 Hz. Ambient illumination remains available throughout the maps.
 - VRM outline passes and shadow casting disabled. Meshes retain their authored materials, transparency and expressions. Geometry is hidden beyond 65 metres.

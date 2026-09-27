@@ -31,12 +31,19 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
                 assert prefix+source in names,source
             for source in ['tools/master_server/server.py','tools/master_server/issue_token.py','deathmatch/ui/server_browser.gd','deathmatch/ui/server_directory.gd','deathmatch/server/discovery.gd','deathmatch/server/discovery_protocol.gd']:
                 assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale discovery source',source)
+            for source in ['deathmatch/arena.gd','deathmatch/counterstrike/grenades.gd','deathmatch/vr/hip_mount.gd','deathmatch/tests/defusal_grenade_network.gd','tools/audit_release_map_caches.gd','docs/RELEASE-0.17v.md','maps/Dust2Rebuilt/de_dust2_rebuilt.map','maps/Cindercoil/tb_cindercoil.map']:
+                assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale 0.17 source',source)
+            # Authored texture import settings must survive a fresh source checkout.
+            for source in ROOT.glob('deathmatch/**/*.import'):
+                rel=source.relative_to(ROOT).as_posix()
+                if 'importer="texture"' in source.read_text():
+                    assert z.read(prefix+rel)==source.read_bytes(),('Missing texture import policy',rel)
         assert z.read(prefix+'docs/SERVER-BROWSER.md')==(ROOT/'docs/SERVER-BROWSER.md').read_bytes(),('Missing or stale browser guide',label)
         rows.append({'archive':filename,'bytes':archive.stat().st_size,'files':len(names),'verified_assets':len(assets),'maps':sum(row['path'].endswith('.bsp') for row in assets),'passed':True})
         print(label,'passed',len(names),'files',flush=True)
 archive=ROOT.parent/'FPSloppa-Master-Server.zip'
 with zipfile.ZipFile(archive) as z:
-    expected={name:ROOT/'tools/master_server'/name for name in ['server.py','issue_token.py','README.md']}
+    expected={name:ROOT/'tools/master_server'/name for name in ['server.py','issue_token.py','README.md','static/index.html','static/dashboard.css','static/dashboard.js']}
     expected.update({'VERSION':ROOT/'VERSION','docs/SERVER-BROWSER.md':ROOT/'docs/SERVER-BROWSER.md'})
     assert z.testzip() is None
     assert len(z.infolist())==len(expected) and set(z.namelist())=={'FPSloppa-Master-Server/'+name for name in expected}

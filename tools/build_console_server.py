@@ -39,7 +39,8 @@ CLIENT_FILES = {'deathmatch/lighting/weapon_pool.gd', 'deathmatch/experimental/v
                 'deathmatch/maps/surface_motion.gd', 'deathmatch/maps/atmosphere.gd',
                 'deathmatch/modes/lobby_wall.gd', 'deathmatch/modes/lobby_mirror.gd',
                 'deathmatch/modes/lobby_results.gd'}
-VR_SHARED = {'body_basis.gd', 'poses.gd', 'preferences.gd', 'room_scale.gd', 'weapon_clearance.gd', 'throw_ballistics.gd'}
+VR_SHARED = {'body_basis.gd', 'poses.gd', 'preferences.gd', 'room_scale.gd', 'weapon_clearance.gd', 'throw_ballistics.gd', 'hip_mount.gd'}
+CLIENT_FILES.add('deathmatch/counterstrike/grenade_visuals.gd')
 
 
 def allowed(path):
@@ -189,7 +190,8 @@ script=ExtResource("1")
     cache.write_text('list=Array[Dictionary](['+',\n'.join(classes)+'])\n')
     selected['.godot/global_script_class_cache.cfg'] = cache
     binary = dest / 'FPSloppaServer.x86_64'
-    if template.resolve()!=binary.resolve():shutil.copy2(template, binary)
+    if template.resolve()!=binary.resolve() and (not binary.exists() or hashlib.sha256(template.read_bytes()).digest()!=hashlib.sha256(binary.read_bytes()).digest()):
+        shutil.copy2(template, binary)
     binary.chmod(0o755)
     pack = binary.with_suffix('.pck')
     rows = [dict(path='res://'+path, source=str(source)) for path, source in sorted(selected.items())]
@@ -207,10 +209,10 @@ script=ExtResource("1")
         package_files.add(path.as_posix())
         target = dest / path;target.parent.mkdir(parents=True, exist_ok=True);shutil.copy2(ROOT / path, target)
     if not (dest / 'server.cfg').exists():shutil.copy2(ROOT / 'server.cfg', dest / 'server.cfg')
-    for name in ['docs/SERVER-BROWSER.md', 'SERVER.md', 'VOICE.md', 'TF.md', 'AS.md', 'GAMEMODES.md', 'ASSET_CREDITS.md', 'GODOT-LICENSE.txt', 'GODOT-COPYRIGHT.txt']:
+    for name in ['docs/SERVER-BROWSER.md', 'docs/BOMB-DEFUSAL.md', 'docs/CS16-LOADOUT.md', 'docs/CS16-GRENADES.md', 'docs/ARENA-JETPACKS.md', 'docs/WEAPON-RESPAWNS.md', 'docs/TITANBALL.md', 'SERVER.md', 'VOICE.md', 'TF.md', 'AS.md', 'GAMEMODES.md', 'ASSET_CREDITS.md', 'GODOT-LICENSE.txt', 'GODOT-COPYRIGHT.txt']:
         (dest / name).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / name, dest / name);package_files.add(name)
-    for name in ['server.py','issue_token.py','README.md']:
+    for name in ['server.py','issue_token.py','README.md','static/index.html','static/dashboard.css','static/dashboard.js']:
         target=dest/'master'/name;target.parent.mkdir(parents=True,exist_ok=True)
         shutil.copy2(ROOT/'tools/master_server'/name,target);package_files.add('master/'+name)
     for source in (ROOT / 'addons/bsp_importer').glob('*LICENSE*'):

@@ -1,0 +1,299 @@
+{
+  "date": "2026-09-26",
+  "map": "tb_cindercoil",
+  "title": "Cindercoil",
+  "bsp_sha256": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb",
+  "bsp_version": 29,
+  "bytes": 17925452,
+  "full_vis": true,
+  "route_m": 349.999755859375,
+  "rise_m": 14,
+  "max_grade": 0.0574414519249207,
+  "drive_seconds": 442.500000000032,
+  "map_checks": 174,
+  "route_regressions": [
+    {
+      "name": "Monotone grade with flat bases, direction -1.0",
+      "passed": true
+    },
+    {
+      "name": "Monotone grade with flat bases, direction 1.0",
+      "passed": true
+    },
+    {
+      "name": "Existing Ashfall route samples and length are unchanged",
+      "passed": true
+    }
+  ],
+  "mode_regressions": {
+    "timing_checks": 27,
+    "payload_checks": 20,
+    "failures": []
+  },
+  "navigation": {
+    "anchor": "(17.0, 0.05, -23.0)",
+    "components": 60,
+    "nearest_vertex_m": 1.8927481213763,
+    "original_polygons": 2289,
+    "retained_polygons": 1783
+  },
+  "navigation_sha256": "97ea1cd8d0dc0d4ac67d7470f9dd9841fbcf007084af42e4d77e52f1790786c6",
+  "shortcuts": [
+    {
+      "from_route_m": 56.0,
+      "road_route_m": 86.0,
+      "saved_m": 27.7627120148391,
+      "to_route_m": 142.0,
+      "walking_path_m": 58.2372879851609
+    },
+    {
+      "from_route_m": 56.0,
+      "road_route_m": 178.0,
+      "saved_m": 91.5316122071818,
+      "to_route_m": 234.0,
+      "walking_path_m": 86.4683877928182
+    },
+    {
+      "from_route_m": 56.0,
+      "road_route_m": 259.0,
+      "saved_m": 171.31201185286,
+      "to_route_m": 315.0,
+      "walking_path_m": 87.6879881471395
+    },
+    {
+      "from_route_m": 142.0,
+      "road_route_m": 92.0,
+      "saved_m": 27.7769984267652,
+      "to_route_m": 234.0,
+      "walking_path_m": 64.2230015732348
+    },
+    {
+      "from_route_m": 142.0,
+      "road_route_m": 173.0,
+      "saved_m": 87.3912390768528,
+      "to_route_m": 315.0,
+      "walking_path_m": 85.6087609231472
+    },
+    {
+      "from_route_m": 234.0,
+      "road_route_m": 81.0,
+      "saved_m": 25.0277646519244,
+      "to_route_m": 315.0,
+      "walking_path_m": 55.9722353480756
+    }
+  ],
+  "assets": {
+    "bsp_sha256": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb",
+    "codecs": [
+      {
+        "encoded_bytes": 3495520,
+        "format": "bc7",
+        "images": 10,
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-bc7.scn",
+        "raw_bytes": 10485750
+      },
+      {
+        "encoded_bytes": 3495520,
+        "format": "astc4",
+        "images": 10,
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-astc4.scn",
+        "raw_bytes": 10485750
+      }
+    ],
+    "geometry_hashes": 14,
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.913236856460571,
+      "occupancy_before": 0.228309214115143,
+      "padded_luxels": 3830393,
+      "patches": 30410,
+      "raw_bytes_after": 12582912,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 221133,
+      "to": [
+        2048,
+        2048
+      ]
+    }
+  },
+  "asset_verification": {
+    "failures": [],
+    "records": [
+      {
+        "codec": "bc7",
+        "compressed_materials": 10,
+        "filtering_retains_compression": true,
+        "full_resolution_mips": true,
+        "lightmaps_glow_unchanged": true,
+        "materials": 12
+      },
+      {
+        "codec": "astc4",
+        "compressed_materials": 10,
+        "filtering_retains_compression": true,
+        "full_resolution_mips": true,
+        "lightmaps_glow_unchanged": true,
+        "materials": 12
+      }
+    ]
+  },
+  "texture_audit": {
+    "bsp_sha256": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb",
+    "textures": [
+      {
+        "texture": "ind_brk01_brwn",
+        "unchanged": true,
+        "sha256": "21cf950017e4a2a990bc7c8600e3137a243a8de4a26f680d8976eef40378fc05"
+      },
+      {
+        "texture": "ind_brk02_gry1",
+        "unchanged": true,
+        "sha256": "7b5fa9632e90ff06e3db685dd22b879be3e4f40df85091ea2e0511c0500f53f2"
+      },
+      {
+        "texture": "metal_iron1_01",
+        "unchanged": true,
+        "sha256": "5176fcc9dec3f643a13f23bb40ea75ab3613d62e54503d0830cf5cd5b628f585"
+      },
+      {
+        "texture": "sky_star",
+        "unchanged": true,
+        "sha256": "8ce6e152bff7b3a65d8d8f745713b86f34d235e7e5410c86f606e3da0bca5744"
+      },
+      {
+        "texture": "med_cobstn1_2",
+        "unchanged": true,
+        "sha256": "dcc69a9fd20993c58dac9b2dd2bdb3e0d7a725bad9c545cb51809beb2b1544b6"
+      },
+      {
+        "texture": "med_flat5a",
+        "unchanged": true,
+        "sha256": "1705105f69396ee0c0ca007302311a4ece5719d5db013138bd71bbf67c2812d3"
+      },
+      {
+        "texture": "ind_dp01_blu1",
+        "unchanged": true,
+        "sha256": "8a2261bcc3ba1229ab1debbf5819b5314e9b9615da945213af7bfb4b7bcc1c48"
+      },
+      {
+        "texture": "ind_dp01_red1",
+        "unchanged": true,
+        "sha256": "5e42b1cd5ae0a53f40a4d7eaacd01e24ca4e46309a66f3cc9c4458e7145f0891"
+      },
+      {
+        "texture": "ind_cont1_ylw1",
+        "unchanged": true,
+        "sha256": "ef0bb02fa39c265849a0926660a668b9f8ed9c9741787535638200ebe19aaa24"
+      },
+      {
+        "texture": "metal_copp_01",
+        "unchanged": true,
+        "sha256": "1b75b690f7834192e56253095d8775c6da4c7767b61e9b94411e931e3316b968"
+      },
+      {
+        "texture": "metal_iron1_07",
+        "unchanged": true,
+        "sha256": "1004c43188b9026e2f2b4a00643e231c245cef37d5da97fa3209c362e2ed4f0c"
+      },
+      {
+        "texture": "ind_w02_blk1",
+        "unchanged": true,
+        "sha256": "e241ef1b712a19112b875f588af848d13834e7dd529aec38d2cd451a26ec657f"
+      },
+      {
+        "texture": "ind_cont2_blk1",
+        "unchanged": true,
+        "sha256": "3133a1e5e140f4c3fe3d20406fdcd8ce3fc0a019409bd88afbba980869a29c68"
+      }
+    ]
+  },
+  "bot_smoke": {
+    "seconds": 240.000000000083,
+    "teams": [
+      6,
+      6
+    ],
+    "progress_m": 84.3138805229671,
+    "deaths": 44,
+    "boardings": 8,
+    "living_below_road_samples": 0,
+    "vantage_observations": 317,
+    "completed_round": false,
+    "source": "test-results/titanball/simulation/cindercoil-final-tf-7129.json",
+    "bsp_sha256": "130fbb25a42d3e9d6625856c9adf2cc6a442c394d4e6e165a7ed04a1b8f6944e",
+    "geometry_collision_vis_preserved_in_relight": true
+  },
+  "screenshots": [
+    "road-ascent",
+    "checkpoint-two",
+    "central-tunnels",
+    "defender-base",
+    "overpass",
+    "attacker-hangar",
+    "overview",
+    "layout"
+  ],
+  "renderer": "Godot 4.7.2 Vulkan Mobile / Intel Arc A770",
+  "limitations": [
+    "New playtest layout; human balance and headset performance unmeasured.",
+    "Headless runs retain the existing one ObjectDB cleanup warning; native preview reports two.",
+    "Compiler reports clipped/detail/portal diagnostics; sealed draw hull, full VIS and lightmap checks pass."
+  ],
+  "deployment": "local workspace and internal asset package only",
+  "failures": [],
+  "hall_lighting": {
+    "original_sha256": "130fbb25a42d3e9d6625856c9adf2cc6a442c394d4e6e165a7ed04a1b8f6944e",
+    "sha256": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb",
+    "geometry_collision_vis_textures_unchanged": true,
+    "change": "Central hall lamp raised from 12 m inside the vessel to 13.5 m beneath the ceiling"
+  },
+  "distribution": {
+    "archive": "test-results/cindercoil/Base-Assets.zip",
+    "sha256": "2a4f001f2581fbd821015ffd29ed209d832c83f7ada555880e12114e8ac6a9de",
+    "map_files": 16,
+    "new_map_files_match_archive": true
+  },
+  "native_preview": {
+    "bsp_sha256": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb",
+    "views": [
+      {
+        "draw_calls": 3,
+        "primitives": 367743,
+        "view": "road-ascent"
+      },
+      {
+        "draw_calls": 10,
+        "primitives": 368275,
+        "view": "checkpoint-two"
+      },
+      {
+        "draw_calls": 4,
+        "primitives": 368169,
+        "view": "central-tunnels"
+      },
+      {
+        "draw_calls": 18,
+        "primitives": 401758,
+        "view": "defender-base"
+      },
+      {
+        "draw_calls": 25,
+        "primitives": 401078,
+        "view": "overpass"
+      },
+      {
+        "draw_calls": 28,
+        "primitives": 426762,
+        "view": "attacker-hangar"
+      },
+      {
+        "draw_calls": 31,
+        "primitives": 270436,
+        "view": "overview"
+      }
+    ]
+  }
+}

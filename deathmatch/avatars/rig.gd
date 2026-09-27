@@ -81,6 +81,7 @@ func update_animation_budget(delta: float) -> void:
 		secondary.animation_rate=45.0 if animation_optimized and not protected_view else 0.0
 		secondary.animation_suspended=sleeping or not secondary_motion_enabled
 		secondary.profile_animation=Metrics.enabled
+		secondary.update_native_state()
 
 
 func enable_distance_lod() -> void:
@@ -111,6 +112,8 @@ func configure(root: Node3D) -> bool:
 		neutral_foot_heights[side.to_lower()]=(skeleton_transform*skeleton.get_bone_global_rest(skeleton.find_bone(side+"Foot")).origin).y
 	# All meshes are cosmetic: no imported physics, lights, cameras or audio.
 	strip_nonvisual(root)
+	# Retargeting can leave non-humanoid helpers in pre-conversion poses.
+	skeleton.reset_bone_poses()
 	solver = Pose.new()
 	solver.rig = self
 	skeleton.add_child(solver)
@@ -123,6 +126,9 @@ func configure(root: Node3D) -> bool:
 	skeleton.add_child(eyes)
 	eyes.setup(model)
 	mouth.external_mixer=true;mouth.mixer=eyes.apply_morphs
+	# Secondary motion follows humanoid IK and expression modifiers.
+	for secondary in secondary_nodes:
+		if is_instance_valid(secondary.native_simulator):skeleton.move_child(secondary.native_simulator,-1)
 	build_animations()
 	set_weapon(2)
 	return true

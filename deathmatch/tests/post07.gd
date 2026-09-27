@@ -34,7 +34,8 @@ func run():
  check(mat.albedo_texture.get_image().has_mipmaps() and mat.texture_filter==BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC,"Existing cached textures acquire actual mipmaps and anisotropic sampling")
  var guide=preload("res://deathmatch/vr/aim_guide.gd").new();root.add_child(guide)
  var pose=Transform3D(Basis(Vector3.UP,.4),Vector3(0,20,0));guide.update(pose,2,true)
- check(guide.global_position.distance_to(art.held_transform(pose,2)*art.muzzle(2))<.001 and guide.beam.scale.y<=.24,"Aim guide starts at the real muzzle and stays shorter than 25 cm")
+ var guide_start:Vector3=art.held_transform(pose,2,art.VR_SCALE)*art.muzzle(2)-pose.basis.z.normalized()*guide.START_OFFSET
+ check(guide.global_position.distance_to(guide_start)<.001 and guide.beam.scale.y<=guide.LENGTH+.001,"Aim guide uses the VR muzzle, clear start offset and bounded beam length")
  guide.update(pose,1,true);check(not guide.visible,"Melee weapons do not show an aim guide");guide.free()
  var g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.set_physics_process(false);g.start_host("Demo test",0,100,30,true,"dm")
  var path="res://test-results/post07.fpsdemo"

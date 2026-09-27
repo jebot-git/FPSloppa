@@ -1,0 +1,187 @@
+{
+  "date": "2026-09-26",
+  "task": "Restore original OST and keep DE orchestral addition",
+  "original_byte_identical_to_head": [
+    "dead_air",
+    "please_hold",
+    "iron_circuit",
+    "pressure_lock",
+    "dark_relay",
+    "high_ground",
+    "foundry_run",
+    "cryostasis",
+    "carousel_of_teeth",
+    "breach_protocol",
+    "mega_destruction",
+    "escape_velocity"
+  ],
+  "retained_de": {
+    "key": "de",
+    "stem": "copper_fuse",
+    "title": "Copper Fuse",
+    "bpm": 150,
+    "bars": 64,
+    "duration": 102.4,
+    "ogg_bytes": 1609219,
+    "sha256": "428a3fcf0e316ccc4c7553e8ba876c6cd5e8b83d78c0847c6a828d23605ffd53",
+    "target_lufs": -20,
+    "measured_lufs": -20.0,
+    "true_peak_dbtp": -7.48,
+    "loop": true,
+    "loop_offset": 0,
+    "loop_step": 0.0006104338099248707,
+    "sample_rate": 44100,
+    "license": "CC0-1.0",
+    "generator": "tools/generate_de_music.py --install",
+    "source_file": "docs/audio/copper-fuse/Copper-Fuse-Orchestral.xm",
+    "source_format": "XM",
+    "arrangement": "orchestral action",
+    "source_sha256": "e5919f103dc7c3ab469cef6780fb102061274f1982779e9580d9a01bcbc9afca",
+    "channels": 24,
+    "instruments": 10
+  },
+  "removed": [
+    "Alternate Amiga soundtrack, selector and preference",
+    "Global MilkyTracker recompositions and associated source/listening packages"
+  ],
+  "tests": [
+    {
+      "test": "music",
+      "checks": 58,
+      "result": "MUSIC_RESULT []"
+    },
+    {
+      "test": "client_preferences",
+      "checks": 13,
+      "result": "CLIENT_PREFERENCES_RESULT []"
+    },
+    {
+      "test": "presentation",
+      "checks": 44,
+      "result": "PRESENTATION_RESULT []"
+    }
+  ],
+  "render_analysis": {
+    "scores": [
+      {
+        "mode": "title",
+        "seconds": 112.9411875,
+        "lufs": -22.03,
+        "true_peak_dbtp": -5.05,
+        "loop_step": 0.002201,
+        "bytes": 729805,
+        "passed": true
+      },
+      {
+        "mode": "lobby",
+        "seconds": 102.85715625,
+        "lufs": -21.02,
+        "true_peak_dbtp": -6.29,
+        "loop_step": 0.001914,
+        "bytes": 990176,
+        "passed": true
+      },
+      {
+        "mode": "dm",
+        "seconds": 111.304375,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.69,
+        "loop_step": 0.004119,
+        "bytes": 1610662,
+        "passed": true
+      },
+      {
+        "mode": "tdm",
+        "seconds": 120.0,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.49,
+        "loop_step": 0.000541,
+        "bytes": 1699484,
+        "passed": true
+      },
+      {
+        "mode": "ctf",
+        "seconds": 105.2055,
+        "lufs": -19.08,
+        "true_peak_dbtp": -4.31,
+        "loop_step": 0.000737,
+        "bytes": 1563643,
+        "passed": true
+      },
+      {
+        "mode": "koth",
+        "seconds": 132.4138125,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.74,
+        "loop_step": 0.009354,
+        "bytes": 1832638,
+        "passed": true
+      },
+      {
+        "mode": "ig",
+        "seconds": 92.530125,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.56,
+        "loop_step": 0.001868,
+        "bytes": 1429692,
+        "passed": true
+      },
+      {
+        "mode": "ft",
+        "seconds": 147.69234375,
+        "lufs": -19.05,
+        "true_peak_dbtp": -6.03,
+        "loop_step": 0.000373,
+        "bytes": 1969551,
+        "passed": true
+      },
+      {
+        "mode": "cc",
+        "seconds": 101.05265625,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.87,
+        "loop_step": 0.002602,
+        "bytes": 1462327,
+        "passed": true
+      },
+      {
+        "mode": "tf",
+        "seconds": 123.871,
+        "lufs": -19.08,
+        "true_peak_dbtp": -3.31,
+        "loop_step": 0.003109,
+        "bytes": 1751873,
+        "passed": true
+      },
+      {
+        "mode": "as",
+        "seconds": 156.9,
+        "lufs": -19.09,
+        "true_peak_dbtp": -4.47,
+        "loop_step": 2e-06,
+        "bytes": 2213053,
+        "passed": true
+      },
+      {
+        "mode": "tb",
+        "seconds": 112.9411875,
+        "lufs": -19.14,
+        "true_peak_dbtp": -2.64,
+        "loop_step": 0.000909,
+        "bytes": 1980341,
+        "passed": true
+      },
+      {
+        "mode": "de",
+        "seconds": 102.4,
+        "lufs": -20.0,
+        "true_peak_dbtp": -7.48,
+        "loop_step": 0.00049,
+        "bytes": 1609219,
+        "passed": true
+      }
+    ],
+    "runtime_bytes": 20842464,
+    "failures": []
+  }
+}

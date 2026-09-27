@@ -60,6 +60,7 @@ func begin() -> void:
 	game._rotate_map(ID);until=game.clock+seconds;game.round_left=seconds
 	game._announcement.rpc("Waiting room · vote for the next match on the wall")
 func build() -> bool:
+	game.dropped_weapons.clear()
 	if not game.headless:load("res://deathmatch/maps/atmosphere.gd").apply(game,ID)
 	game.match_mode.fortress.reset()
 	game.map_assault.clear()

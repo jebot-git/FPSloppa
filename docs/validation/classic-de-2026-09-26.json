@@ -1,0 +1,488 @@
+{
+  "date": "2026-09-26",
+  "engine": "Godot 4.7.2 stable Fedora",
+  "protocol": "fpsloppa-45-de-utility",
+  "maps": [
+    {
+      "id": "de_nuke_rebuilt",
+      "bsp": "maps/de_nuke_rebuilt.bsp",
+      "sha256": "959b2ac014631ff35f2e51b8a6cf735809c658357eb324bffd80e2f3b97647c2",
+      "bytes": 1298832,
+      "full_vis": true,
+      "route_spawn_navigation_checks": 44,
+      "routes": [
+        {
+          "end": [
+            477.496526082357,
+            347.197209676107,
+            -1.83674342036247
+          ],
+          "name": "T lobby to A",
+          "passed": true
+        },
+        {
+          "end": [
+            63.3234049479167,
+            337.930333455404,
+            -1.73384686410427
+          ],
+          "name": "T lobby to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            478.983337402344,
+            349.904556274414,
+            -257.733331298828
+          ],
+          "name": "T radio ramp to B",
+          "passed": true
+        },
+        {
+          "end": [
+            62.9859212239583,
+            337.948155721029,
+            -1.73569268584251
+          ],
+          "name": "T radio ramp to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            479.006403605143,
+            347.997400919596,
+            -1.73324888050556
+          ],
+          "name": "CT outside to A",
+          "passed": true
+        },
+        {
+          "end": [
+            764.903116861979,
+            249.000951131185,
+            -1.73317692279816
+          ],
+          "name": "CT outside to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            479.928822835286,
+            350.992218017578,
+            -257.733361816406
+          ],
+          "name": "CT garage tunnel to B",
+          "passed": true
+        },
+        {
+          "end": [
+            765.001546223958,
+            249.001368204753,
+            -1.73317713141441
+          ],
+          "name": "CT garage tunnel to B (return)",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "de_inferno_rebuilt",
+      "bsp": "maps/de_inferno_rebuilt.bsp",
+      "sha256": "e8b8a0ee7f9c86d1fab40e5eda81c1b0c3ef63abe7add6046b99cf8282f6d3f3",
+      "bytes": 1391176,
+      "full_vis": true,
+      "route_spawn_navigation_checks": 47,
+      "routes": [
+        {
+          "end": [
+            372.253257751465,
+            97.1315104166667,
+            -1.83660761117935
+          ],
+          "name": "T banana to B",
+          "passed": true
+        },
+        {
+          "end": [
+            47.11767578125,
+            430.988708496094,
+            -1.73397966325283
+          ],
+          "name": "T banana to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            645.05078125,
+            452.46376546224,
+            -1.73384808599949
+          ],
+          "name": "T mid to A",
+          "passed": true
+        },
+        {
+          "end": [
+            47.0882568359375,
+            430.989084879557,
+            -1.73498577475548
+          ],
+          "name": "T mid to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            645.12168375651,
+            452.68950398763,
+            -1.73334980607033
+          ],
+          "name": "Apartments balcony to A",
+          "passed": true
+        },
+        {
+          "end": [
+            175.002461751302,
+            577.940511067708,
+            -1.73320827484131
+          ],
+          "name": "Apartments balcony to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            373.266405741374,
+            95.7639363606771,
+            -1.73321049511433
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            678.940368652344,
+            178.911244710286,
+            -1.73471484184265
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            645.467508951823,
+            451.255055745443,
+            -1.73341249525547
+          ],
+          "name": "CT library to A",
+          "passed": true
+        },
+        {
+          "end": [
+            678.721659342448,
+            181.253631591797,
+            -1.734845495224
+          ],
+          "name": "CT library to A (return)",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "de_aztec_rebuilt",
+      "bsp": "maps/de_aztec_rebuilt.bsp",
+      "sha256": "efc9837b3619f03a4a8b91f1c5943ed06e33eb5fefc694bb0eec7637a86ec1c5",
+      "bytes": 1085404,
+      "full_vis": true,
+      "route_spawn_navigation_checks": 47,
+      "routes": [
+        {
+          "end": [
+            377.782020568848,
+            327.061319986979,
+            -1.73320851325989
+          ],
+          "name": "T doors to A",
+          "passed": true
+        },
+        {
+          "end": [
+            124.020731608073,
+            525.612101236979,
+            -1.79033078849316
+          ],
+          "name": "T doors to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            175.977966308594,
+            211.264892578125,
+            -1.73328018784523
+          ],
+          "name": "T bridge to B",
+          "passed": true
+        },
+        {
+          "end": [
+            124.149881998698,
+            525.344278971354,
+            -1.73335083425045
+          ],
+          "name": "T bridge to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            600.622416178385,
+            199.873352050781,
+            -1.73361582159996
+          ],
+          "name": "Lower canal to CT",
+          "passed": true
+        },
+        {
+          "end": [
+            162.002502441406,
+            466.115559895833,
+            -7.25324020385742
+          ],
+          "name": "Lower canal to CT (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            379.964687347412,
+            327.058970133464,
+            -1.83674395680428
+          ],
+          "name": "CT to A",
+          "passed": true
+        },
+        {
+          "end": [
+            600.264078776042,
+            199.628346761068,
+            -1.73505630195141
+          ],
+          "name": "CT to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            176.200663248698,
+            211.202657063802,
+            -1.73327990472317
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            599.975423177083,
+            198.652628580729,
+            -1.73370180130005
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "id": "de_train_rebuilt",
+      "bsp": "maps/de_train_rebuilt.bsp",
+      "sha256": "8a414e1b3da205cd0222c6b4daf372642685401cb8a6d1467c0bb12895ec41da",
+      "bytes": 2209156,
+      "full_vis": true,
+      "route_spawn_navigation_checks": 50,
+      "routes": [
+        {
+          "end": [
+            559.043263753255,
+            355.995381673177,
+            -1.73344918191433
+          ],
+          "name": "T main to A",
+          "passed": true
+        },
+        {
+          "end": [
+            47.0922037760417,
+            62.1325276692708,
+            -1.73395270705223
+          ],
+          "name": "T main to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            559.154388427734,
+            355.971750895182,
+            -1.73347867131233
+          ],
+          "name": "T ivy to A",
+          "passed": true
+        },
+        {
+          "end": [
+            46.8977864583333,
+            62.1027628580729,
+            -1.73400569558144
+          ],
+          "name": "T ivy to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            401.932567914327,
+            571.975504557292,
+            -1.73398998975754
+          ],
+          "name": "T halls to B",
+          "passed": true
+        },
+        {
+          "end": [
+            47.0084228515625,
+            62.1188354492188,
+            -1.73421335816383
+          ],
+          "name": "T halls to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            559.137013753255,
+            355.976155598958,
+            -1.73347770273685
+          ],
+          "name": "CT to A",
+          "passed": true
+        },
+        {
+          "end": [
+            636.239949544271,
+            550.023986816406,
+            -1.73399063050747
+          ],
+          "name": "CT to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            404.183792750041,
+            571.998250325521,
+            -1.73274118304253
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            634.750366210938,
+            551.444763183594,
+            -1.73377411663532
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            403.965531349182,
+            571.983601888021,
+            -1.73255530595779
+          ],
+          "name": "A Z connector B",
+          "passed": true
+        },
+        {
+          "end": [
+            449.457321166992,
+            344.831573486328,
+            -1.73270436227322
+          ],
+          "name": "A Z connector B (return)",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "tests": {
+    "defusal": 100,
+    "defusal_distribution": 104,
+    "defusal_ui": 20,
+    "defusal_vr": 42,
+    "defusal_surfaces": 18,
+    "defusal_pickups": 16,
+    "defusal_bots": 10,
+    "defusal_observer": 92,
+    "defusal_demo": 14,
+    "defusal_grenades": 45,
+    "defusal_maps": 63,
+    "defusal_grenade_vr": 24,
+    "physical_rig": 37,
+    "vr_interactions": 68,
+    "music": 58,
+    "utility-demo": 7,
+    "utility-vr-demo": 7
+  },
+  "regression_checks": 725,
+  "route_spawn_navigation_checks": 188,
+  "network": {
+    "utility-network": {
+      "server": 19,
+      "attacker": 3,
+      "defender": 3,
+      "viewer": 3
+    },
+    "utility-vr-network": {
+      "server": 19,
+      "attacker": 3,
+      "defender": 3,
+      "viewer": 3
+    }
+  },
+  "network_checks": 56,
+  "music": {
+    "key": "de",
+    "stem": "copper_fuse",
+    "title": "Copper Fuse",
+    "bpm": 150,
+    "bars": 64,
+    "duration": 102.4,
+    "ogg_bytes": 1609219,
+    "sha256": "428a3fcf0e316ccc4c7553e8ba876c6cd5e8b83d78c0847c6a828d23605ffd53",
+    "target_lufs": -20,
+    "measured_lufs": -20.0,
+    "true_peak_dbtp": -7.48,
+    "loop": true,
+    "loop_offset": 0,
+    "loop_step": 0.0006104338099248707,
+    "sample_rate": 44100,
+    "license": "CC0-1.0",
+    "generator": "tools/generate_de_music.py --install",
+    "source_file": "docs/audio/copper-fuse/Copper-Fuse-Orchestral.xm",
+    "source_format": "XM",
+    "arrangement": "orchestral action",
+    "source_sha256": "e5919f103dc7c3ab469cef6780fb102061274f1982779e9580d9a01bcbc9afca",
+    "channels": 24,
+    "instruments": 10
+  },
+  "milkytracker": {
+    "loaded_and_played": true,
+    "screenshot": "test-results/classic-de/milkytracker-orchestral.png"
+  },
+  "packaging": {
+    "server_resources": 113,
+    "no_eager_client_dependencies": true,
+    "four_maps_and_caches_in_base_archive": true
+  },
+  "base_archive": {
+    "path": "test-results/classic-de/Base-Assets.zip",
+    "sha256": "50a227f73865bf101bd87013ecf4eb00eb5ed6212bb4896175ca1fdf890d0f30"
+  },
+  "native_render": "Intel Arc A770, Forward Mobile Vulkan; map viewpoints, grenade models/smoke/flash/XR shader compiled and captured",
+  "limitations": [
+    "Independent map reconstructions with approximate geometry and original textures, not exact retail conversions",
+    "No real-headset comfort, stereo-occlusion or competitive-balance session performed",
+    "One existing ObjectDB exit leak warning in headless test processes; two in native preview",
+    "Changes and internal asset archive are local; no live-server deployment"
+  ]
+}

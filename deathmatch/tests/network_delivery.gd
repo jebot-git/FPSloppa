@@ -5,6 +5,7 @@ const Interpolation = preload("res://deathmatch/network/interpolation.gd")
 var failures: Array = []
 class Actor extends RefCounted:
 	var jump_held := true
+	var jetpack_requested:=false
 func check(ok: bool, label: String) -> void:
 	print("PASS " if ok else "FAIL ",label)
 	if not ok: failures.append(label)

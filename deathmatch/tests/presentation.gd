@@ -1,5 +1,11 @@
 extends SceneTree
 const Settings=preload("res://deathmatch/settings/preferences.gd")
+class GazeRuntime extends RefCounted:
+	var gaze:=true
+	var ready:=true
+	func is_initialized() -> bool:return ready
+	func is_eye_gaze_interaction_supported() -> bool:return gaze
+	func is_foveation_supported() -> bool:return false
 var failures: Array=[]
 func check(ok: bool,label: String):
 	print("PASS " if ok else "FAIL ",label)
@@ -54,6 +60,7 @@ func run():
 	check(is_equal_approx(panel.values.music,music_before+.01) and is_equal_approx(Settings.read_settings(path).music,panel.values.music),"Music button adjusts and persists one-percent increments")
 	check(panel.get_rect().size.y<=g.hud.get_child(0).size.y+1,"Settings panel fits the VR canvas")
 	check(panel.controls.announcer.get_global_rect().end.y<=640,"Announcer controls fit the VR audio page")
+	check(not panel.controls.has('soundtrack'),'Audio menu only exposes the original soundtrack')
 	panel.section="haptics";panel.refresh()
 	for mode in [0,1]:
 		panel.haptics_page.backend.select(mode);panel.haptics_page.refresh()
@@ -69,6 +76,27 @@ func run():
 	panel.section="controls";panel.refresh();await process_frame;await process_frame
 	check(panel.get_rect().size.y<=640,"Controls page fits the VR canvas")
 	check(Settings.ALWAYS_ENABLED.all(func(key):return not panel.controls.has(key) and Settings.read_settings(path)[key]),"Default visual effects have no menu toggles and remain enabled")
+	check(panel.controls.has("spring_bones"),"Graphics menu exposes avatar spring bones")
+	check(panel.controls.has("foveation_level") and panel.foveation_status.text.contains("Without eye tracking"),"Graphics explains static foveation without a headset")
+	for level in 4:
+		var before: int=panel.values.foveation_level
+		panel.controls.foveation_level.pressed.emit()
+		check(panel.values.foveation_level==(before+1)%4 and Settings.read_settings(path).foveation_level==panel.values.foveation_level,"Foveation button cycles and saves each preset")
+	var gaze_runtime:=GazeRuntime.new()
+	panel.refresh_foveation(gaze_runtime)
+	check(panel.controls.fovea_size.visible and not panel.controls.foveation_level.visible and panel.controls.fovea_size.text.begins_with("VR FOVEA SIZE:"),"Gaze replaces the static setting with fovea size")
+	var saved_static: int=panel.values.foveation_level
+	for size in 4:
+		var before: int=panel.values.fovea_size
+		panel.controls.fovea_size.pressed.emit();panel.refresh_foveation(gaze_runtime)
+		check(panel.values.fovea_size==(before+1)%4 and Settings.read_settings(path).fovea_size==panel.values.fovea_size and panel.values.foveation_level==saved_static,"Fovea size cycles and saves without overwriting static strength")
+	panel.section="graphics";panel.refresh();panel.refresh_foveation(gaze_runtime);graphics_scroll.scroll_vertical=0
+	await process_frame;await process_frame
+	check(panel.get_rect().size.y<=640 and graphics_scroll.get_global_rect().encloses(panel.controls.fovea_size.get_global_rect()),"Replacement fovea control fits the VR graphics canvas")
+	gaze_runtime.gaze=false;panel.refresh_foveation(gaze_runtime)
+	check(not panel.controls.fovea_size.visible and panel.controls.foveation_level.visible and panel.values.foveation_level==saved_static,"No-eye runtime restores static control and remembered strength")
+	gaze_runtime.gaze=true;gaze_runtime.ready=false;panel.refresh_foveation(gaze_runtime)
+	check(not panel.controls.fovea_size.visible and panel.controls.foveation_level.visible,"Uninitialized runtime does not expose a gaze control")
 	# Exercise the presentation branch despite running this fixture headlessly.
 	g.headless=false
 	panel.controls.hud_scale.get_parent().get_child(3).pressed.emit()

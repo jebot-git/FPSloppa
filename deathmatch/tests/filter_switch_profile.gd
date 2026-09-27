@@ -6,11 +6,11 @@ class Probe extends "res://deathmatch/maps/filtering.gd":
 	var image_reads:=0
 	var rebuilt:=0
 	var shader_changes:=0
-	func texture(source: Texture2D) -> Texture2D:
+	func prepare_texture(source: Texture2D,normal: bool) -> Texture2D:
 		if omit_pixels:return source
-		var read_image:=source!=null and not source is ViewportTexture and not source.has_mipmaps() and not textures.has(source)
+		var read_image:=source!=null and not source is ViewportTexture and not source.has_meta(MIPS_READY) and not source.has_mipmaps() and not textures.has([source,normal])
 		var before:=Time.get_ticks_usec()
-		var result:=super.texture(source)
+		var result:=super.prepare_texture(source,normal)
 		pixel_us+=Time.get_ticks_usec()-before
 		if read_image:image_reads+=1
 		if source!=result:rebuilt+=1

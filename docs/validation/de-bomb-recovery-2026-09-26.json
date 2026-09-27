@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-26",
+  "passed": true,
+  "change": "Dropped bomb recovery takes priority over nearby guns for living terrorists; shared Use and VR recovery validation",
+  "regressions": {
+    "recovery": {
+      "checks": 19,
+      "failures": [],
+      "passed": true
+    },
+    "rules": {
+      "checks": 100,
+      "failures": [],
+      "passed": true
+    },
+    "pickups": {
+      "checks": 16,
+      "failures": [],
+      "passed": true
+    },
+    "vr": {
+      "checks": 42,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "network": {
+    "server": {
+      "failures": [],
+      "passed": true,
+      "checks": 9
+    },
+    "carrier": {
+      "failures": [],
+      "passed": true,
+      "checks": 2
+    },
+    "rescuer": {
+      "failures": [],
+      "passed": true,
+      "checks": 2
+    },
+    "defender": {
+      "failures": [],
+      "passed": true,
+      "checks": 2
+    }
+  },
+  "network_checks": 15,
+  "total_checks": 192,
+  "server_source_sha256": "f7968164aed2b330d7a347fbacfad22acb380089dc8e5f3dddc1b9dcb8fbe5dd",
+  "failures": []
+}

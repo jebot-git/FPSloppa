@@ -1,5 +1,6 @@
 extends PanelContainer
 const Preferences=preload("res://deathmatch/settings/preferences.gd")
+const Foveation=preload("res://deathmatch/vr/foveation.gd")
 var game
 var values: Dictionary={}
 var controls: Dictionary={}
@@ -12,6 +13,9 @@ var page_spacer: Control
 var input_page: VBoxContainer
 var tracking_page: VBoxContainer
 var tracking_status: Label
+var foveation_status: Label
+var foveation_mode:=""
+var foveation_poll:=0.0
 var haptics_page: VBoxContainer
 func setup(arena: Node) -> void:
 	game=arena;values=game.presentation;name="AudioGraphicsSettings";hide()
@@ -62,6 +66,10 @@ func setup(arena: Node) -> void:
 	controls.texture_filter=button(graphics_options,"",func():values.texture_filter=(int(values.texture_filter)+1)%3;save())
 	controls.contrast_lighting=button(graphics_options,"",func():values.contrast_lighting=not values.get("contrast_lighting",false);save())
 	controls.msaa=button(graphics_options,"",func():values.msaa=(int(values.msaa)+1)%4;save())
+	controls.foveation_level=button(graphics_options,"",func():values.foveation_level=(int(values.foveation_level)+1)%4;save())
+	controls.fovea_size=button(graphics_options,"",func():values.fovea_size=(int(values.fovea_size)+1)%4;save())
+	foveation_status=Label.new();foveation_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;graphics_options.add_child(foveation_status)
+	controls.spring_bones=button(graphics_options,"",func():values.spring_bones=not values.spring_bones;save())
 	controls.shadows=button(graphics_options,"",func():values.shadows=not values.shadows;save())
 	controls.fullscreen=button(graphics_options,"",func():values.fullscreen=not values.fullscreen;save())
 	stepper(graphics_options,"fov","Desktop field of view",5)
@@ -106,9 +114,28 @@ func refresh() -> void:
 	controls.texture_filter.text="TEXTURES: "+["PIXELATED + MIPMAPS","TRILINEAR","ANISOTROPIC"][int(values.texture_filter)]
 	controls.contrast_lighting.text="BAKED LIGHTING: "+("CONTRAST (EXPERIMENTAL)" if values.get("contrast_lighting",false) else "CLASSIC")
 	controls.msaa.text="ANTI-ALIASING: "+["OFF","2× MSAA","4× MSAA","8× MSAA"][int(values.msaa)]
+	refresh_foveation(XRServer.find_interface("OpenXR"))
+	controls.spring_bones.text="AVATAR SPRING BONES: "+("ON" if values.spring_bones else "OFF")
 	controls.shadows.text="SHADOWS: "+("ON" if values.shadows else "OFF")
 	controls.fullscreen.text="DISPLAY: "+("FULLSCREEN" if values.fullscreen else "WINDOWED");controls.fullscreen.visible=not game.is_vr() and not OS.has_feature("android")
 	controls.spatial_audio.text="SPATIAL AUDIO: "+("STEAM AUDIO HRTF (HEADPHONES)" if values.spatial_audio=="steam_audio" else "STANDARD STEREO")
 	controls.output.text="OUTPUT: "+AudioServer.output_device+" (select to cycle)"
 func open() -> void:
 	refresh();get_parent().move_child(self,-1);show()
+
+func refresh_foveation(xr) -> void:
+	foveation_mode=Foveation.mode(xr)
+	var gaze:=foveation_mode=="gaze"
+	controls.foveation_level.visible=not gaze
+	controls.fovea_size.visible=gaze
+	controls.foveation_level.text="VR STATIC FOVEATION: "+Foveation.LABELS[int(values.foveation_level)]
+	controls.fovea_size.text="VR FOVEA SIZE: "+Foveation.SIZE_LABELS[int(values.fovea_size)]
+	foveation_status.text=Foveation.description(xr,int(values.foveation_level),int(values.fovea_size))
+
+func _process(delta: float) -> void:
+	if not is_visible_in_tree() or section!="graphics":return
+	foveation_poll+=delta
+	if foveation_poll<.5:return
+	foveation_poll=0.0
+	var xr=XRServer.find_interface("OpenXR")
+	if Foveation.mode(xr)!=foveation_mode:refresh_foveation(xr)

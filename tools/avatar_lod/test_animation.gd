@@ -21,9 +21,9 @@ func run() -> void:
 			var actor:=Node3D.new();world.add_child(actor)
 			var rig=Loader.create_avatar(library,sample);actor.add_child(rig);rig.animation_optimized=optimized;rig.set_process(false)
 			rig.solver.active=false;rig.eyes.active=false;rig.mouth.set_process(false);rig.motion.pause()
-			for secondary in rig.secondary_nodes:secondary.internal_modifier_node.active=false;secondary.optimize_collisions=optimized
+			for secondary in rig.secondary_nodes:secondary.native_simulator.active=false;secondary.set_process(false)
 			rigs.append(rig)
-		var max_rotation:=0.0;var max_position:=0.0;var max_tail:=0.0
+		var max_rotation:=0.0;var max_position:=0.0
 		for frame in 45:
 			for rig in rigs:
 				for bone in rig.skeleton.get_bone_count():rig.skeleton.reset_bone_pose(bone)
@@ -37,13 +37,8 @@ func run() -> void:
 				var b: Transform3D=rigs[1].skeleton.get_bone_global_pose(bone)
 				max_rotation=maxf(max_rotation,a.basis.get_rotation_quaternion().angle_to(b.basis.get_rotation_quaternion()))
 				max_position=maxf(max_position,a.origin.distance_to(b.origin))
-			for i in rigs[0].secondary_nodes.size():
-				for j in rigs[0].secondary_nodes[i].spring_bones_internal.size():
-					var a=rigs[0].secondary_nodes[i].spring_bones_internal[j]
-					var b=rigs[1].secondary_nodes[i].spring_bones_internal[j]
-					for k in a.verlets.size():max_tail=maxf(max_tail,a.verlets[k].current_tail.distance_to(b.verlets[k].current_tail))
-		print("POSE_PARITY ",sample," rotation=",max_rotation," position=",max_position," spring_tail=",max_tail)
-		check(max_rotation<.003 and max_position<.0001 and max_tail<.0001,sample+" bounded collisions/body preserve legacy pose")
+		print("POSE_PARITY ",sample," rotation=",max_rotation," position=",max_position)
+		check(max_rotation<.003 and max_position<.0001,sample+" body optimizations preserve IK pose")
 		var rig=rigs[1]
 		# Dirty channels must reset correctly, including shared eye/mouth binds.
 		for i in 12:rig.eyes.morph_weights[i]=float(i%3)*.13
@@ -59,36 +54,16 @@ func run() -> void:
 		for channel in rig.eyes.channels:check(channel[0].get_blend_shape_value(channel[1])==0,"Death clears composed speech")
 		rig.dead=false
 		for secondary in rig.secondary_nodes:
-			secondary.animation_rate=45;secondary.reset_animation_budget();secondary.animation_ticks=0
-			for frame in 180:
-				for bone in rig.skeleton.get_bone_count():rig.skeleton.reset_bone_pose(bone)
-				secondary.do_process(1.0/180)
-			check(secondary.animation_ticks>=45 and secondary.animation_ticks<=46,"45 Hz secondary step at 180 render FPS")
-			var before: int=secondary.animation_ticks;secondary.do_process(2)
-			check(secondary.animation_ticks==before+1,"Stall performs only one bounded catch-up step")
-			var resets: int=secondary.animation_resets;rig.get_parent().position.x+=5;secondary.do_process(1.0/180)
-			check(secondary.animation_resets==resets+1,"Teleport resets spring velocity")
-			for spring in secondary.spring_bones_internal:
-				for verlet in spring.verlets:check(verlet.current_tail.is_finite(),"Budget spring tail remains finite")
-			secondary.animation_suspended=true;before=secondary.animation_ticks;secondary.do_process(1)
-			check(secondary.animation_ticks==before,"Suspended springs do no integration")
-		# Approximate mode changes cosmetic DOFs, never the authored skeleton.
-		for secondary in rig.secondary_nodes:
-			secondary.animation_suspended=false;secondary.animation_rate=0;secondary.simplify_animation=true
-			var authored: Array=[];var before_joints:=0
-			for spring in secondary.spring_bones_internal:authored.append(spring.springbone.joint_nodes.duplicate());before_joints+=spring.verlets.size()
-			secondary.do_process(1.0/60)
-			var after_joints:=0
-			for i in secondary.spring_bones_internal.size():
-				var spring=secondary.spring_bones_internal[i];after_joints+=spring.verlets.size()
-				check(spring.springbone.joint_nodes==authored[i],"Simplification leaves imported VRM resources unchanged")
-				if spring.simplified:check(spring.simple_colliders.size()<=4,"Approximate chain has at most four collision candidates")
-				for verlet in spring.verlets:check(verlet.current_tail.is_finite() and verlet.length>.00001,"Collapsed segment stays finite and nonzero")
-			check(after_joints<before_joints,"Programmatic simplification reduces simulated joints")
-			secondary.simplify_animation=false;secondary.do_process(1.0/60)
-			var restored:=0
-			for spring in secondary.spring_bones_internal:restored+=spring.verlets.size()
-			check(restored==before_joints,"Full authored chains restore when approximate mode is disabled")
+			check(secondary.native_simulator is SpringBoneSimulator3D,"Runtime uses Godot native secondary motion")
+			check(secondary.spring_bones_internal.is_empty(),"Runtime allocates no scripted Verlet chains")
+			var authored: Array=secondary.spring_bones.duplicate(true)
+			secondary.animation_suspended=true;secondary.update_native_state()
+			check(not secondary.native_simulator.active,"Suspended native springs do no integration")
+			secondary.animation_suspended=false;secondary.update_native_state()
+			check(secondary.native_simulator.active,"Native springs resume")
+			var resets: int=secondary.animation_resets;rig.get_parent().position.x+=5;secondary.update_native_state()
+			check(secondary.animation_resets==resets+1,"Teleport resets native spring history")
+			check(secondary.spring_bones.size()==authored.size(),"Native conversion preserves imported resources")
 		rig.get_parent().position=Vector3.ZERO
 		rig.hide();rig.update_animation_budget(.6);check(rig.animation_sleeping,"Hidden avatar sleeps after grace")
 		rig.target_xr_pose=Poses.neutral();rig.target_xr_pose.head.origin.y=1.2
@@ -97,8 +72,8 @@ func run() -> void:
 			rig.update_animation_budget(0);check(not rig.animation_sleeping and is_equal_approx(rig.xr_pose.head.origin.y,1.2),"Wake consumes newest tracking sample")
 		rig.secondary_motion_enabled=false;rig.update_animation_budget(0)
 		for secondary in rig.secondary_nodes:
-			var ticks: int=secondary.animation_ticks;secondary.do_process(.1)
-			check(secondary.animation_ticks==ticks,"No-springs diagnostic disables all secondary integration")
+			secondary.update_native_state()
+			check(not secondary.native_simulator.active,"No-springs diagnostic disables native integration")
 		rig.secondary_motion_enabled=true
 		var xr:=XRCamera3D.new();world.add_child(xr);xr.current=true
 		rig.update_animation_budget(1)

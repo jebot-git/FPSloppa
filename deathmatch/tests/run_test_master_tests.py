@@ -54,7 +54,8 @@ def main():
                 process=subprocess.Popen(command,env=env,stdout=output,stderr=subprocess.STDOUT)
                 try:
                     assert wait(lambda:'"http_status":200' in (logs/(label+'.log')).read_text() or process.poll() is not None,10),(logs/(label+'.log')).read_text()
-                    rows=listing(master_port)
+                    # The master may also discover other games on this host.
+                    rows=[row for row in listing(master_port) if row['game_port']==game_port and row['query_port']==query_port]
                     assert process.poll() is None and len(rows)==1,(logs/(label+'.log')).read_text()
                     assert rows[0]['game_port']==game_port and rows[0]['query_port']==query_port and rows[0]['id']=='local-test'
                     if forced:process.kill()

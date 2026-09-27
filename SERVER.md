@@ -58,11 +58,12 @@ set sv_maplist "lqdm1 lqdm2 lqdm4 lqdm7 lqdm8"
 | sv_maxclients | 1–32 players (default 8); counts above 16 are unsupported; dedicated host consumes no player slot |
 | sv_bot_fill | Target total occupancy (humans + bots), 0 disables; must not exceed sv_maxclients |
 | fraglimit | 1–100 individual frags, team TDM frags, or FT/IF team rounds |
-| sv_gametype | Initial `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf`, `tb` or `as`; default `dm` |
+| sv_gametype | Initial `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf`, `tb`, `as` or `de`; default `dm` |
 | sv_gametypes | Optional space-separated allowlist for mode votes; includes initial mode |
 | capturelimit | CTF captures to win, 1–100, default 5 |
 | hilllimit | KOTH points to win, 1–3600, default 120 |
 | sv_friendlyfire | Team damage, 0 or 1; default 0 |
+| sv_jetpacks | Experimental jetpack pickups in DM/TDM/CTF/IG/IF/FT, 0 or 1; default 0; one per map or CTF base, megahealth respawn timer |
 | sv_votes | Enable in-match majority votes and between-match grid ballots, default 1 |
 | timelimit | 1–60 minutes |
 | sv_voice | 1 enables configured voice; 0 disables voice |
@@ -83,7 +84,7 @@ Restart the server to apply configuration changes. `--port`, `--map`, `--frags` 
 
 Clients stay connected during rotation and download a missing map automatically. Scores, inventory, projectiles and map entities reset. The new round starts when the first player is admitted; other players enter after their own map and model checks finish. Slow or stalled downloads do not freeze ready players or block lobby voting and countdowns. Packets from the previous map are rejected. This is a small Q3-style configuration subset, not a Quake console: no command chaining, nested exec, or arbitrary script execution. Optional authenticated master registration and the public query port are documented in [server browser setup](docs/SERVER-BROWSER.md). Password-protected RCON is documented below.
 
-Clients need this protocol version (`fpsloppa-39-rotating-koth`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
+Clients need this protocol version (`fpsloppa-45-de-utility`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
 
 ## Running as a service
 
@@ -166,7 +167,7 @@ set rcon_port "7778"
 
 Use an SSH tunnel (`ssh -L 7778:127.0.0.1:7778 USER@SERVER`) and run `python3 tools/rcon.py 127.0.0.1 status`. The client prompts for the password; automated tools may supply `FPSLOPPA_RCON_PASSWORD` in their environment. Do not put passwords in command-line arguments. Requests and responses use nonce-based HMAC-SHA256 authentication; commands themselves are not encrypted, so keep the loopback binding and use SSH for remote access. Each nonce permits one command. Authentication attempts, connections, input sizes and command names are bounded.
 
-Commands: `status`, `map <current-mode-maplist-entry>`, `mode <enabled-mode>`, `match <enabled-mode> <configured-map> <doom|quake|ut99>`, `kick <peer-id>`, `say <message>`, `restart`, `loglevel <off|normal|verbose>`, `help`. There is no shell execution, arbitrary script evaluation or unrestricted config setter. Passwords and command arguments are omitted from the RCON audit log.
+Commands: `status`, `map <current-mode-maplist-entry>`, `mode <enabled-mode>`, `match <enabled-mode> <configured-map> <doom|quake|ut99|cs16>`, `kick <peer-id>`, `say <message>`, `restart`, `loglevel <off|normal|verbose>`, `help`. There is no shell execution, arbitrary script evaluation or unrestricted config setter. Passwords and command arguments are omitted from the RCON audit log.
 
 Join logs now include transport address/RTT/loss, handshake stages and timeout stage. Protocol mismatch, private practice and full-server rejection have separate explanations. Initial transport/hello deadlines are 30 seconds; asset preparation retains its separate extended deadline. A bounded reserve of ENet handshakes permits explicit rejection when the admitted-player limit is reached; it does not enlarge the gameplay capacity or the eight-player host limit.
 
@@ -185,3 +186,11 @@ Rotation precedence is an explicit mode-specific config list, then a nonempty `s
 TF always uses Quake weapons; Assault always uses UT99. Host settings, `sv_weapon_rules`, CLI overrides and mode votes cannot override these requirements. The configured preference resumes in unrestricted modes.
 
 RCON `match` selects the mode, map and weapon rules in one transition. It rejects a contradictory TF/AS rules argument. It accepts only enabled mode/map pairs, rebuilds pickup mappings when rules change, and preserves fixed loadouts in IG, IF and CC. `status` also reports effective weapon rules, lobby state, intermission and round result.
+
+## Experimental arena jetpacks
+
+Set `sv_jetpacks "1"` and restart to enable jetpack pickups in DM, TDM, CTF, IG, IF and FT. The default is `0`. There is one pickup per map, or one per CTF flag base, respawning on the existing megahealth timer (30 seconds). Packs last until death/freeze/respawn; double-tap jump to fly. IG/IF still suppress normal supplies. See [controls, placement and validation](docs/ARENA-JETPACKS.md).
+
+## Bomb Defusal
+
+`sv_gametype "de"` selects CS16 automatically. `map` can select `de_dust2_rebuilt`, `de_nuke_rebuilt`, `de_inferno_rebuilt`, `de_aztec_rebuilt` or `de_train_rebuilt`; the default rotation contains all five. `sv_de_prepare` (15), `sv_de_roundtime` (120) and `sv_de_bombtime` (45) are seconds; `sv_de_winlimit` defaults to 16 round wins. These replace frag/time limits for DE. Add `de` to `sv_gametypes` to allow votes. See [DE configuration and rules](docs/BOMB-DEFUSAL.md).

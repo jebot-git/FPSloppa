@@ -1,0 +1,404 @@
+{
+  "completed": true,
+  "real_time": true,
+  "players_per_team": 6,
+  "rounds_per_map": 6,
+  "maps": [
+    {
+      "map": "de_dust2_rebuilt",
+      "seconds": 301.266666666667,
+      "scores": [
+        3,
+        3
+      ],
+      "rounds": 6,
+      "teams": [
+        6,
+        6
+      ],
+      "halftime_after": 3,
+      "validation_frames": 5957,
+      "utility": {
+        "HE": 22,
+        "flash": 10,
+        "flash_frames": 516,
+        "smoke": 0,
+        "smoke_frames": 0
+      },
+      "planted_sites": [
+        "1",
+        "0"
+      ],
+      "round_results": [
+        "BOMB DEFUSED",
+        "DEFENDERS ELIMINATED",
+        "ATTACKERS ELIMINATED",
+        "BOMB DEFUSED",
+        "BOMB DEFUSED",
+        "DEFENDERS ELIMINATED"
+      ],
+      "duplicate_frame_fraction": 0.005089621597698606,
+      "video": "recordings/de-map-series-2026-09-26/de_dust2_rebuilt/match.mp4",
+      "video_sha256": "f2a77e2c16ed8733d7f6c1c25d980b11165f3b95e0c4f3c0ec851f2f2cdca41f",
+      "bsp_sha256": "6e26f8c6f8a25de7bf4523f743846fbf2e4b6302c69828dc7f56c6a49b4072f7",
+      "replay": "recordings/de-map-series-2026-09-26/de_dust2_rebuilt/match.fpsdemo",
+      "replay_sha256": "ae2cae20f3751d948e214b48bb0283dee70f5c194c31bc5ea38974c4cb1d8c10",
+      "playback_and_seeking": true,
+      "roles_by_round": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 1,
+        "6": 1
+      },
+      "game_seconds": 297.816666666724,
+      "wall_seconds": 297.81,
+      "frames": 9038,
+      "max_frame_gap_seconds": 0.191132,
+      "audio_alignment": {
+        "tempo": 0.9797700713390032,
+        "pitch_preserved": true,
+        "source_seconds": 295.172063492064,
+        "video_seconds": 301.266666666667
+      },
+      "full_decode_passed": true,
+      "diagnostics": {
+        "client.log": [
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        ],
+        "server.log": [
+          "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+        ]
+      }
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "seconds": 244.166666666667,
+      "scores": [
+        2,
+        4
+      ],
+      "rounds": 6,
+      "teams": [
+        6,
+        6
+      ],
+      "halftime_after": 3,
+      "validation_frames": 4815,
+      "utility": {
+        "HE": 36,
+        "flash": 7,
+        "flash_frames": 802,
+        "smoke": 0,
+        "smoke_frames": 0
+      },
+      "planted_sites": [
+        "0",
+        "1"
+      ],
+      "round_results": [
+        "ATTACKERS ELIMINATED",
+        "BOMB DEFUSED",
+        "ATTACKERS ELIMINATED",
+        "ATTACKERS ELIMINATED",
+        "DEFENDERS ELIMINATED",
+        "ATTACKERS ELIMINATED"
+      ],
+      "duplicate_frame_fraction": 0.005324232081911262,
+      "video": "recordings/de-map-series-2026-09-26/de_nuke_rebuilt/match.mp4",
+      "video_sha256": "9de7fa8ce4e32a390992cacd6e95bf076914c7d268ed0491962d9016633c70c0",
+      "bsp_sha256": "959b2ac014631ff35f2e51b8a6cf735809c658357eb324bffd80e2f3b97647c2",
+      "replay": "recordings/de-map-series-2026-09-26/de_nuke_rebuilt/match.fpsdemo",
+      "replay_sha256": "f5305d708d9b04d0c1ed6f777f6d1d71bd88bbb6d3eacc110afbba741d393c9d",
+      "playback_and_seeking": true,
+      "roles_by_round": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 1,
+        "6": 1
+      },
+      "game_seconds": 240.700000000084,
+      "wall_seconds": 240.691,
+      "frames": 7325,
+      "max_frame_gap_seconds": 0.192344,
+      "audio_alignment": {
+        "tempo": 0.9753331940284615,
+        "pitch_preserved": true,
+        "source_seconds": 238.143854875283,
+        "video_seconds": 244.166666666667
+      },
+      "full_decode_passed": true,
+      "diagnostics": {
+        "client.log": [
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        ],
+        "server.log": [
+          "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+        ]
+      }
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "seconds": 281.533333333333,
+      "scores": [
+        3,
+        3
+      ],
+      "rounds": 6,
+      "teams": [
+        6,
+        6
+      ],
+      "halftime_after": 3,
+      "validation_frames": 5559,
+      "utility": {
+        "HE": 27,
+        "flash": 2,
+        "flash_frames": 162,
+        "smoke": 0,
+        "smoke_frames": 0
+      },
+      "planted_sites": [
+        "1",
+        "0"
+      ],
+      "round_results": [
+        "BOMB DEFUSED",
+        "BOMB DEFUSED",
+        "ATTACKERS ELIMINATED",
+        "ATTACKERS ELIMINATED",
+        "ATTACKERS ELIMINATED",
+        "ATTACKERS ELIMINATED"
+      ],
+      "duplicate_frame_fraction": 0.003788775751835188,
+      "video": "recordings/de-map-series-2026-09-26/de_inferno_rebuilt/match.mp4",
+      "video_sha256": "b40e26eaa305783531dd602048963d7ccbe956a6f9c98d33a7bf35f123ad14d2",
+      "bsp_sha256": "e8b8a0ee7f9c86d1fab40e5eda81c1b0c3ef63abe7add6046b99cf8282f6d3f3",
+      "replay": "recordings/de-map-series-2026-09-26/de_inferno_rebuilt/match.fpsdemo",
+      "replay_sha256": "e71af9b05fbdc912e5415215c4a72a73f4dff54ff99fb84c7f3ea8966339e0e1",
+      "playback_and_seeking": true,
+      "roles_by_round": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 1,
+        "6": 1
+      },
+      "game_seconds": 277.916666666743,
+      "wall_seconds": 277.918,
+      "frames": 8446,
+      "max_frame_gap_seconds": 0.19339,
+      "audio_alignment": {
+        "tempo": 0.9791639885885709,
+        "pitch_preserved": true,
+        "source_seconds": 275.667301587302,
+        "video_seconds": 281.533333333333
+      },
+      "full_decode_passed": true,
+      "diagnostics": {
+        "client.log": [
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        ],
+        "server.log": [
+          "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+        ]
+      }
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "seconds": 240.4,
+      "scores": [
+        4,
+        2
+      ],
+      "rounds": 6,
+      "teams": [
+        6,
+        6
+      ],
+      "halftime_after": 3,
+      "validation_frames": 4737,
+      "utility": {
+        "HE": 30,
+        "flash": 2,
+        "flash_frames": 81,
+        "smoke": 0,
+        "smoke_frames": 0
+      },
+      "planted_sites": [
+        "1",
+        "0"
+      ],
+      "round_results": [
+        "DEFENDERS ELIMINATED",
+        "BOMB DEFUSED",
+        "BOMB DEFUSED",
+        "ATTACKERS ELIMINATED",
+        "ATTACKERS ELIMINATED",
+        "ATTACKERS ELIMINATED"
+      ],
+      "duplicate_frame_fraction": 0.006378258458125347,
+      "video": "recordings/de-map-series-2026-09-26/de_aztec_rebuilt/match.mp4",
+      "video_sha256": "e90af5f6b4cec9b325a10d3bd2e641139df539909514dc21646090d40e7a9b13",
+      "bsp_sha256": "efc9837b3619f03a4a8b91f1c5943ed06e33eb5fefc694bb0eec7637a86ec1c5",
+      "replay": "recordings/de-map-series-2026-09-26/de_aztec_rebuilt/match.fpsdemo",
+      "replay_sha256": "4cbe2ca01f7d2cb21153bcefe0c100a7097e36e4f116f468f2e6be318e29ec7b",
+      "playback_and_seeking": true,
+      "roles_by_round": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 1,
+        "6": 1
+      },
+      "game_seconds": 236.816666666747,
+      "wall_seconds": 236.83,
+      "frames": 7212,
+      "max_frame_gap_seconds": 0.206102,
+      "audio_alignment": {
+        "tempo": 0.9759335348115931,
+        "pitch_preserved": true,
+        "source_seconds": 234.614421768707,
+        "video_seconds": 240.4
+      },
+      "full_decode_passed": true,
+      "diagnostics": {
+        "client.log": [
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+        ],
+        "server.log": [
+          "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+        ]
+      }
+    },
+    {
+      "map": "de_train_rebuilt",
+      "seconds": 288.633333333333,
+      "scores": [
+        5,
+        1
+      ],
+      "rounds": 6,
+      "teams": [
+        6,
+        6
+      ],
+      "halftime_after": 3,
+      "validation_frames": 5702,
+      "utility": {
+        "HE": 31,
+        "flash": 6,
+        "flash_frames": 590,
+        "smoke": 0,
+        "smoke_frames": 0
+      },
+      "planted_sites": [
+        "0",
+        "1"
+      ],
+      "round_results": [
+        "ATTACKERS ELIMINATED",
+        "DEFENDERS ELIMINATED",
+        "DEFENDERS ELIMINATED",
+        "BOMB DEFUSED",
+        "ATTACKERS ELIMINATED",
+        "ATTACKERS ELIMINATED"
+      ],
+      "duplicate_frame_fraction": 0.003926550409978058,
+      "video": "recordings/de-map-series-2026-09-26/de_train_rebuilt/match.mp4",
+      "video_sha256": "5677ed6c2c83afd8403192239d9cbcc2ed1c2d8b228c6a7a674443aeed2f7576",
+      "bsp_sha256": "8a414e1b3da205cd0222c6b4daf372642685401cb8a6d1467c0bb12895ec41da",
+      "replay": "recordings/de-map-series-2026-09-26/de_train_rebuilt/match.fpsdemo",
+      "replay_sha256": "f73e6b6a6bdeb00a52e8cf4e6b186c993b6c4ed74a284c6a0b6cff0d578e9b92",
+      "playback_and_seeking": true,
+      "roles_by_round": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1,
+        "5": 1,
+        "6": 1
+      },
+      "game_seconds": 285.083333333403,
+      "wall_seconds": 285.081,
+      "frames": 8659,
+      "max_frame_gap_seconds": 0.20073,
+      "audio_alignment": {
+        "tempo": 0.9785686396050515,
+        "pitch_preserved": true,
+        "source_seconds": 282.447528344671,
+        "video_seconds": 288.633333333333
+      },
+      "full_decode_passed": true,
+      "diagnostics": {
+        "client.log": [
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: [Physics interpolation] MultiMesh interpolation is being triggered from outside physics process, this might lead to issues (possibly benign).",
+          "WARNING: 8 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+          "ERROR: 2 resources still in use at exit (run with --verbose for details)."
+        ],
+        "server.log": [
+          "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+        ]
+      }
+    }
+  ],
+  "failures": [],
+  "date": "2026-09-26",
+  "protocol": "fpsloppa-45-de-utility",
+  "engine": "Godot 4.7.2 stable Fedora",
+  "renderer": "Vulkan Mobile / Intel Arc A770",
+  "total_rounds": 30,
+  "total_recorded_states": 26770,
+  "total_video_seconds": 1356.0,
+  "video_format": "1280x720, 30 fps, H.264 + AAC",
+  "source": "Native local ENet spectator; client viewport and client-only Master bus audio",
+  "watch_page": "recordings/de-map-series-2026-09-26/index.html",
+  "format_override": "Test-only six rounds, role swap after three; production first-to-16 unchanged",
+  "deployment": "Local workspace only",
+  "limitations": [
+    "One six-round autonomous bot session per map; no human balance or headset performance conclusion.",
+    "No smoke throws occurred in the live bot sessions; HE and flash were exercised.",
+    "Native clients logged MultiMesh physics interpolation warnings.",
+    "Headless shutdowns report one ObjectDB cleanup leak; native shutdowns report two, except Inferno reported eight and two resources still in use at exit.",
+    "Dummy audio clock drift corrected using a pitch-preserving tempo adjustment to match measured video duration."
+  ],
+  "final_source_sha256": {
+    "deathmatch/modes/defusal.gd": "a1e2fab649f6a0d255ce67b0a9220fc475dd8bd8fb51e911d8cbb416f35bc1e3",
+    "deathmatch/bots.gd": "08653d344a01d69398e9fb4d4c1e2d772c40355b5dc0b5edbcc7318c7e8226f6",
+    "deathmatch/counterstrike/grenades.gd": "39895132a6b7f285db14d346db9cbbeb96b74f0c2aa1ec9e883532405f11be7e",
+    "tools/defusal/series_rules.gd": "4ce2158d7484b574cce32e8d14661939ee453816bb0bcb7553faddbbb72151f1",
+    "tools/defusal/series_server.gd": "18e2a61239c67154973fdcc0cb6384a2166bd4c516f948910cabb7d1359b453f",
+    "tools/defusal/series_view.gd": "c134c7e41094b8c22615e85c8252a26112f962634100e8469ba2d1276444bedb",
+    "tools/validate_defusal_recording.gd": "e9f9646ef6a39e96444b62ca6946efed40b88d31ced10d2e8059de91958e7dc6"
+  }
+}

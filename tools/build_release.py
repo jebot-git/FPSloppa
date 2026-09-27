@@ -48,7 +48,7 @@ for _,folder,binary in targets:
     asset_manifest=json.loads((root/"deathmatch/assets/base_manifest.json").read_text())
     for row in asset_manifest["files"]:
         source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);stage(source,destination)
-    for name in ['EXTERNAL-ASSETS.md','ARCHIVED-EXTRAS.md','RENDERER-SUPPORT.md','SERVER-BROWSER.md']:
+    for name in ['EXTERNAL-ASSETS.md','ARCHIVED-EXTRAS.md','RENDERER-SUPPORT.md','SERVER-BROWSER.md','BOMB-DEFUSAL.md','CS16-LOADOUT.md','CS16-GRENADES.md','TEXTURE-MIPMAPS.md','XR-FOVEATION.md','WEAPON-WHEEL.md','WEAPON-RESPAWNS.md','ARENA-JETPACKS.md','TITANBALL.md','RELEASE-'+(root/'VERSION').read_text().strip()+'.md']:
         stage(root/'docs'/name,dest/'docs'/name)
     for name in ['AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','EYES.md','PERFORMANCE.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         stage(root/name,dest/name)
@@ -109,13 +109,14 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         if len(rel.parts)>1 and rel.parts[:2]==('optional-ad-tools','local'):continue
         if not f.is_file() or rel.parts[0] in RETIRED | {'materials','textures','android','test-results','release-assets','.agents','.codex'}:continue
         if any(part in {'.godot','.git','__pycache__'} for part in rel.parts):continue
-        if f.suffix=='.import' and rel.parent!=Path('deathmatch/maps/skies') and rel.as_posix()!='deathmatch/maps/texture_replacements/makkon-used.wad.import':continue
+        # Versioned import files are authored policy (mips, normals, sky codecs,
+        # raw WAD handling); unversioned editor metadata is excluded by Git.
         if f.suffix in {'.pyc','.log','.mp4','.bak','.tmp','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
         z.write(f,Path('Godot')/rel)
 archives.append(archive)
 archive=root.parent/'FPSloppa-Master-Server.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
-    for name in ['server.py','issue_token.py','README.md']:
+    for name in ['server.py','issue_token.py','README.md','static/index.html','static/dashboard.css','static/dashboard.js']:
         z.write(root/'tools/master_server'/name,Path('FPSloppa-Master-Server')/name)
     z.write(root/'VERSION','FPSloppa-Master-Server/VERSION')
     z.write(root/'docs/SERVER-BROWSER.md','FPSloppa-Master-Server/docs/SERVER-BROWSER.md')

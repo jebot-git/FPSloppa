@@ -1,5 +1,13 @@
 # Texture and material audit
 
+Update, 2026-09-26: [the mipmap fixes and loaded-image audit](TEXTURE-MIPMAPS.md)
+now cover avatar normal/mask textures and add explicit mipmap sampling to all
+MToon image samplers. The diagnostic now checks `tex.get_image().has_mipmaps()`;
+Godot 4.7.2's Texture2D method incorrectly reports false for ImageTexture, so the
+older missing-mipmap counts below are historical and are not reliable chain
+measurements. Fixed anisotropic MToon sampling and the tiny-normal heuristic
+remain as described below.
+
 The current maps use colour textures, baked RGB lighting/AO and selected glow masks. They do **not** have a normal/bump/specular material pipeline. Avatar normal maps work, but their filtering has two defects. This audit inspected the 25 current base maps and rendered the three bundled VRMs with Vulkan Mobile on the local Intel Arc A770.
 
 | Surface or effect | Current behavior | Assessment |

@@ -1,0 +1,84 @@
+{
+  "date": "2026-09-26",
+  "task": "Magazine pouch and tracked hip attachment/leaning",
+  "source": "raifslop integration/golf-fishing at 555e9fc",
+  "blender": "5.2.0 LTS, live Blender MCP",
+  "asset": {
+    "path": "deathmatch/weapons/cs16/magazine_pouch.scn",
+    "bytes": 80096,
+    "sha256": "fe8e316d995068a339243b837a796664aa5d8d92683264c503a454b801064f78",
+    "triangles": 3092,
+    "material_surfaces": 5
+  },
+  "tests": [
+    {
+      "test": "hip_reload",
+      "checks": 73,
+      "passed": true,
+      "result": "HIP_RELOAD_RESULT {\"checks\":73,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "test": "cs16_vr_reload",
+      "checks": 109,
+      "passed": true,
+      "result": "CS16_VR_RELOAD_RESULT {\"checks\":109,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "test": "cs16_reload_ui",
+      "checks": 17,
+      "passed": true,
+      "result": "CS16_RELOAD_UI_RESULT {\"checks\":17,\"failures\":[],\"passed\":true}"
+    },
+    {
+      "test": "room_scale",
+      "checks": 16,
+      "passed": true,
+      "result": "ROOM_SCALE_RESULT []"
+    },
+    {
+      "test": "vr_crouch_water",
+      "checks": 39,
+      "passed": true,
+      "result": "VR_CROUCH_WATER_RESULT []"
+    },
+    {
+      "test": "auto_calibration",
+      "checks": 9,
+      "passed": true,
+      "result": "AUTO_CALIBRATION_RESULT []"
+    },
+    {
+      "test": "avatar_scaling",
+      "checks": 108,
+      "passed": true,
+      "result": "AVATAR_SCALING_RESULT []"
+    },
+    {
+      "test": "vr_alignment",
+      "checks": 21,
+      "passed": true,
+      "result": "VR_ALIGNMENT_RESULT []"
+    },
+    {
+      "test": "tracking_orientation",
+      "checks": 59,
+      "passed": true,
+      "result": "TRACKING_ORIENTATION_RESULT []"
+    }
+  ],
+  "total_checks": 451,
+  "renders": [
+    "docs/images/magazine-pouch.png",
+    "test-results/cs16/reload/01-pouch.png"
+  ],
+  "limitations": [
+    "Synthetic tracking and local physics/authority tests; no physical headset or waist tracker available.",
+    "Existing resource/ObjectDB cleanup warnings remain in the reload UI fixture."
+  ],
+  "behavior": [
+    "Offhand recovery half-ellipse: 0.58m lateral, 0.48m fore/aft, -0.28 to +0.24m vertically relative to hip.",
+    "Twelve-centimeter hip-relative draw before insertion; reserve/chamber/racking rules retained.",
+    "Tracked hips anchor capsule and pouch; head-based fallback on loss.",
+    "Swept head volume uses FPSloppa wall fade and server input blocking instead of raifslop headset pushback."
+  ]
+}

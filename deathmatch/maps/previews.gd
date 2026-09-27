@@ -49,6 +49,7 @@ func texture(map_id: String,hash: String="") -> Texture2D:
 	var image:=decode(bytes_for(hash))
 	if image!=null and DisplayServer.get_name()!="headless":
 		if textures.size()>=32:textures.erase(textures.keys()[0])
+		image.generate_mipmaps()
 		textures[hash]=ImageTexture.create_from_image(image);return textures[hash]
 	if not row.is_empty():enqueue(row)
 	elif game.active and not multiplayer.is_server() and Time.get_ticks_msec()>=waiting.get(hash,0):

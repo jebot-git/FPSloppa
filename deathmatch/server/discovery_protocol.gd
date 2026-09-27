@@ -3,7 +3,7 @@ extends RefCounted
 const WIRE := "fpsloppa-query-1"
 const MAX_PACKET := 1200
 const MAX_SERVERS := 256
-const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as"]
+const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as","de"]
 
 static func public_text(value: String, byte_limit: int=80) -> String:
 	var output:="";var bytes:=0
@@ -27,7 +27,7 @@ static func valid_status(value: Variant) -> bool:
 	if not value is Dictionary:return false
 	for key in {"name":80,"map":80,"map_title":80,"protocol":80,"version":40}:
 		if not plain(value.get(key),{"name":80,"map":80,"map_title":80,"protocol":80,"version":40}[key]):return false
-	if not value.get("mode") in MODES or not value.get("weapon_rules") in ["doom","quake","ut99"]:return false
+	if not value.get("mode") in MODES or not value.get("weapon_rules") in preload("res://deathmatch/experimental/weapon_rules.gd").IDS:return false
 	if not value.get("state") in ["match","lobby","intermission","loading"]:return false
 	if not integer(value.get("game_port"),1024,65535) or not integer(value.get("capacity"),1,32):return false
 	for key in ["humans","spectators","bots","reserved","open_slots"]:

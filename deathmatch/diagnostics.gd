@@ -19,7 +19,7 @@ static func check_assets(game: Node) -> int:
 			var count:=0
 			for node in avatar.find_children("*","Node",true,false):
 				if node.get_script() and node.get_script().resource_path.ends_with("vrm_secondary.gd"):
-					count+=node.spring_bones_internal.size()
+					count+=node.spring_chain_count()
 			print("ASSET_AVATAR ",row.title," spring_chains=",count)
 			if count==0: failures.append("spring animation "+row.path)
 			avatar.queue_free()

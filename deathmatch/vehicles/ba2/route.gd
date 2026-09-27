@@ -8,6 +8,11 @@ static func curve(points: Array,loop: bool=false) -> Curve3D:
 		var before: Vector3=points[posmod(i-1,points.size())] if loop or i>0 else p
 		var after: Vector3=points[(i+1)%points.size()] if loop or i<points.size()-1 else p
 		var tangent: Vector3=(after-before).normalized()*minf(p.distance_to(before),p.distance_to(after))*.3
+		# Keep authored grades monotone at transitions to flat bases. Unrestricted
+		# tangents dip below the road before an ascent and overshoot its summit.
+		var rise_in: float=p.y-before.y;var rise_out: float=after.y-p.y
+		if rise_in*rise_out<=0:tangent.y=0
+		else:tangent.y=signf(rise_in)*minf(absf(tangent.y),minf(absf(rise_in),absf(rise_out)))
 		result.add_point(p,-tangent,tangent)
 	if loop:result.add_point(points[0],result.get_point_in(0),result.get_point_out(0))
 	return result

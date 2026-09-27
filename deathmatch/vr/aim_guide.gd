@@ -2,6 +2,9 @@ extends Node3D
 const LENGTH:=.60
 const START_OFFSET:=.04
 var beam: MeshInstance3D
+static func supports_weapon(weapon: int,rules: String="doom") -> bool:
+	if rules=="tf_sniper" or (rules in ["ut99","cs16"] and weapon==9):return false
+	return weapon>=2 or (rules in ["ut99","cs16"] and weapon==1)
 func _ready() -> void:
 	top_level=true
 	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
@@ -10,7 +13,7 @@ func _ready() -> void:
 	var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=Color(.45,.85,1)
 	beam.material_override=material;beam.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(beam);hide()
 func update(pose: Transform3D,weapon: int,enabled: bool,rules: String="doom") -> void:
-	visible=enabled and rules!="tf_sniper" and not (rules=="ut99" and weapon==9) and (weapon>=2 or rules=="ut99" and weapon==1)
+	visible=enabled and supports_weapon(weapon,rules)
 	if not visible:return
 	var art=preload("res://deathmatch/art.gd")
 	var start:Vector3=art.held_transform(pose,weapon,art.VR_SCALE,rules)*art.muzzle(weapon,rules)

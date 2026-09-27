@@ -33,6 +33,8 @@ func run():
  tracking.calibrate()
  check(tracking.sample().hips.basis.z.dot(Vector3.FORWARD)>.99,"Vive calibration follows the direction the player faces")
  XRServer.remove_tracker(vive)
+ # Let XRController3D retire the old Vive pose before exercising other sources.
+ await process_frame
  rig.head.rotation=Vector3.ZERO
  var now:float=Time.get_ticks_msec()*.001
  tracking.osc.samples={"hips":{"position":Vector3(0,.9,0),"basis":Basis(Vector3.UP,PI),"time":now,"rotation_time":now},"left_foot":{"position":Vector3(.15,.1,0),"basis":Basis(Vector3.UP,PI),"time":now,"rotation_time":now}}
@@ -71,6 +73,19 @@ func run():
   native_tracker.set_joint_transform(XRBodyTracker.JOINT_LEFT_LOWER_LEG,Transform3D(Basis(Vector3.RIGHT,-PI/2)*bridge_basis,Vector3(-.13,.70,0)))
   var raised:Transform3D=tracking.sample().left_foot
   check(raised.origin.y>.69 and raised.origin.z>.4,"Bridge inferred foot follows physical leg lift after neutral measurement: "+str(roll))
+ # Automatic native-bridge alignment is learned once, not rebuilt from head yaw.
+ tracking.native_corrections.clear()
+ rig.head.rotation=Vector3.ZERO
+ var bridge_hips:=Basis.from_euler(Vector3(PI/2,.4,0))
+ native_tracker.set_joint_transform(XRBodyTracker.JOINT_HIPS,Transform3D(bridge_hips,Vector3(0,.9,0)))
+ var neutral_hips:Transform3D=tracking.sample().hips
+ check(neutral_hips.basis.y.dot(Vector3.UP)>.99 and neutral_hips.origin.is_equal_approx(Vector3(0,.9,0)),"Uncalibrated native bridge restores upright torso axes without moving the hips")
+ rig.head.rotation.y=1.2
+ check(tracking.sample().hips.is_equal_approx(neutral_hips),"Looking sideways does not recalibrate or steer native tracked hips")
+ native_tracker.set_joint_transform(XRBodyTracker.JOINT_HIPS,Transform3D(Basis(Vector3.UP,.6)*bridge_hips,Vector3(.1,.9,0)))
+ var turned_hips:Transform3D=tracking.sample().hips
+ check(turned_hips.basis.is_equal_approx(Basis(Vector3.UP,.6)*neutral_hips.basis) and turned_hips.origin.is_equal_approx(Vector3(.1,.9,0)),"Native hip yaw and translation follow the sensor after automatic axis alignment")
+ rig.head.rotation=Vector3.ZERO
  XRServer.remove_tracker(native_tracker)
  rig.free()
  var world:=Node3D.new();root.add_child(world)

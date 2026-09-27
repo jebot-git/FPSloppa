@@ -1,0 +1,689 @@
+{
+  "date": "2026-09-26",
+  "engine": "Godot 4.7.2",
+  "scope": "Manifest BSPs available in base and optional asset directories; entities passed through maps/runtime.gd and server collection for each supported mode and weapon preset. Unavailable manifest entries were not map-audited.",
+  "weapon_placements": 306,
+  "policy_seconds": {
+    "weapon_default": 5,
+    "weapon_tdm": 30,
+    "other_pickups": 30
+  },
+  "result": {
+    "checks": 44926,
+    "failures": [],
+    "maps": 48,
+    "unavailable": [
+      "dm_ashcourt",
+      "dm_bellvault",
+      "dm_cindercoil",
+      "dm_fluxring",
+      "dm_switchyard",
+      "tdm_basalt",
+      "tdm_crosskeep",
+      "tdm_manifold",
+      "tdm_smelter",
+      "tdm_turbines",
+      "ctf_coolant",
+      "ctf_slagline",
+      "ctf_sunken",
+      "ctf_switchback",
+      "ctf_vespers",
+      "koth_belfry",
+      "koth_corehold",
+      "koth_crowns",
+      "koth_crucible",
+      "koth_uplink",
+      "ig_gargoyle",
+      "ig_ionfork",
+      "ig_shutters",
+      "ig_sightbreak",
+      "ig_sunlance",
+      "ft_coldforge",
+      "ft_cryoloop",
+      "ft_oathstone",
+      "ft_reliquary",
+      "ft_rescuebay",
+      "cc_bonewalk",
+      "cc_meatgrinder",
+      "cc_razorloop",
+      "cc_redmaze",
+      "cc_shortcircuit",
+      "tf_abbeyline",
+      "tf_capacitor",
+      "tf_kilnfront",
+      "tf_lockworks",
+      "tf_obsidian"
+    ]
+  },
+  "maps": [
+    {
+      "map": "lqdm1",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm1.bsp",
+      "sha256": "b12e3e000353ef02b658e3ccad75d546531fdd503571ce9639daa0f3cb7cf499",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "lqdm2",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm2.bsp",
+      "sha256": "8764c2b3f8684c55d2fd0be6b61e9916fb726c7375dbf3532bd9ae4f79b6dec0",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "lqdm4",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm4.bsp",
+      "sha256": "e46cc5b3095e3047814bd251cb71ceb6b3e9770878e8c353d69e704dac46c834",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 9
+    },
+    {
+      "map": "lqdm7",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm7.bsp",
+      "sha256": "451a1bb8b32b906fb52301e44e4b7ce761b58be441f49a2cb8c8cee8925a8af8",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 10
+    },
+    {
+      "map": "lqdm8",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm8.bsp",
+      "sha256": "054ac4a53ea19b3ce1229ae17b3509c82875ab6371c23abfd9f33a1e2ae9fa0a",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 8
+    },
+    {
+      "map": "lqdm3",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm3.bsp",
+      "sha256": "dd2522278bb209b7333c4c35ad1c22e551d54c2354875c4f6cee727f9ac0ceb8",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 4
+    },
+    {
+      "map": "lqdm5",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm5.bsp",
+      "sha256": "cc8e11c4a38ceeda11c36597938ceaab0398ce3e49fd94b4aa9865526813094f",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 7
+    },
+    {
+      "map": "lqdm6",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc",
+        "ctf"
+      ],
+      "path": "res://optional-librequake/maps/lqdm6.bsp",
+      "sha256": "68010692e60dbded7750a884742783cfee5987d70fa2ae0c070198f66aa375dc",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 8
+    },
+    {
+      "map": "as_hislop",
+      "modes": [
+        "as"
+      ],
+      "path": "res://maps/as_hislop.bsp",
+      "sha256": "5fbb4ffe3b3df4335796424d3136c4574dacec63a4ae9a208476ce940c34e321",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 18
+    },
+    {
+      "map": "as_frigate",
+      "modes": [
+        "as"
+      ],
+      "path": "res://maps/as_frigate.bsp",
+      "sha256": "9988634fb175ece87ad5381f0ca9df1f35fdc5f53b12a9167a01b8c846ebc27e",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 10
+    },
+    {
+      "map": "dm_lasercade_slop",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-community/maps/dm_lasercade_slop.bsp",
+      "sha256": "ea64a35a58c63a95e3252687388ff63f90903ca8e457aa788f16ef50a0a926e8",
+      "slot8": 2,
+      "timer_overrides": [],
+      "weapons": 15
+    },
+    {
+      "map": "dm_auhdm2_slop",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-community/maps/dm_auhdm2_slop.bsp",
+      "sha256": "959cc198e584801584e069a0765ff39815965994cbf840cadb650362b7bd0e7e",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 9
+    },
+    {
+      "map": "dm_anctomb_slop",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-community/maps/dm_anctomb_slop.bsp",
+      "sha256": "7b5191355565cec907e9164910a93431c1acc3d5e0aece4fcbb1b55e6cc95788",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 7
+    },
+    {
+      "map": "dm_anchall_slop",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-community/maps/dm_anchall_slop.bsp",
+      "sha256": "bb8cba628e69e39b900969374bce863f2a66ed12e70643f15f3ea16b6b238fd6",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 5
+    },
+    {
+      "map": "dm_battlef_slop",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-community/maps/dm_battlef_slop.bsp",
+      "sha256": "3103f36a1565c8172ae891c112b1b5d9e7869292fabb5ce134a77188074022cb",
+      "slot8": 2,
+      "timer_overrides": [],
+      "weapons": 13
+    },
+    {
+      "map": "tf_pressureworks",
+      "modes": [
+        "tf"
+      ],
+      "path": "res://maps/tf_pressureworks.bsp",
+      "sha256": "8d7140cb7d69ad220815c38e4dcb26c0b6c43d123b9a6200f32241f6a958479f",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "tf_vesper",
+      "modes": [
+        "tf"
+      ],
+      "path": "res://maps/tf_vesper.bsp",
+      "sha256": "350cbf2aa0a301cc6d140734821cf2efe178cd114ae8fb5c831c57f5b93d63b3",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "koth_solstice",
+      "modes": [
+        "koth"
+      ],
+      "path": "res://maps/koth_solstice.bsp",
+      "sha256": "bf8e5b80c94048ce1957662f6e076144c288e8577087c60589bf380225dd73f6",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "koth_torture",
+      "modes": [
+        "koth"
+      ],
+      "path": "res://maps/koth_torture.bsp",
+      "sha256": "827a5a2d18aaa2aee5d864983bc512d32ee5c0fd207754328635d3c901653a3b",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "koth_hyperborea",
+      "modes": [
+        "koth"
+      ],
+      "path": "res://maps/koth_hyperborea.bsp",
+      "sha256": "1a7746deb921c419f7992bc2c4e8e24b6e66cd3a202b141035eb549a9e85b3f1",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 4
+    },
+    {
+      "map": "koth_alichar",
+      "modes": [
+        "koth"
+      ],
+      "path": "res://maps/koth_alichar.bsp",
+      "sha256": "8c0524709b90a48ab34edea1fdd02c5838c9a01132ff3353e00949e05946a58b",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 8
+    },
+    {
+      "map": "cc_hyperborea",
+      "modes": [
+        "cc"
+      ],
+      "path": "res://maps/cc_hyperborea.bsp",
+      "sha256": "5dca01530f1095daf162a364ba314ebb5bbaf9b51a840bab6912900ae09b2be6",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "cc_psychofuge",
+      "modes": [
+        "cc"
+      ],
+      "path": "res://maps/cc_psychofuge.bsp",
+      "sha256": "a511dfaeec9461904b99e073927d516e1407351c8873f6ff1fc7febe108c154e",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "cc_ghostquarter",
+      "modes": [
+        "cc"
+      ],
+      "path": "res://maps/cc_ghostquarter.bsp",
+      "sha256": "40cb78eabee16c7bd2b0c73b10d10f488422dc009cdb512bfb108ee7c1a86f91",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "cc_basement",
+      "modes": [
+        "cc"
+      ],
+      "path": "res://maps/cc_basement.bsp",
+      "sha256": "6a3ab7ec4f3aedcf15b266be49d1168e142418a3526bc2c00b700732b3489a6d",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "qsrc_dm1",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft"
+      ],
+      "path": "res://maps/qsrc_dm1.bsp",
+      "sha256": "e2b6c613aa2561fe83337d581889b148c27d067f7490d1394688eb332c4187fc",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 4
+    },
+    {
+      "map": "qsrc_dm2",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft"
+      ],
+      "path": "res://maps/qsrc_dm2.bsp",
+      "sha256": "1ead245774e8ec318916ceca108108c551a49206fa7070e08a470092d2623eb7",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 5
+    },
+    {
+      "map": "qsrc_dm3",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft"
+      ],
+      "path": "res://maps/qsrc_dm3.bsp",
+      "sha256": "b6f10ea9f25dd06c3b3b678af8d086a01d4bed17a7a9d0eaab2a82b488559efe",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "qsrc_dm4",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft"
+      ],
+      "path": "res://maps/qsrc_dm4.bsp",
+      "sha256": "183bf7bc3d98785e8954aeba67cbc29052d2373eeaadac786c9e0b1d177a232d",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 7
+    },
+    {
+      "map": "qsrc_dm5",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft"
+      ],
+      "path": "res://maps/qsrc_dm5.bsp",
+      "sha256": "46fc1804bb8c31bb1e2a623bcd24bd8f298b88b7fe1adb82ce35d53a3990d802",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 5
+    },
+    {
+      "map": "qsrc_dm6",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft"
+      ],
+      "path": "res://maps/qsrc_dm6.bsp",
+      "sha256": "169ab15e6016744c17e5175b32dc5209923e6cc76f747078962d52cc8c077c7f",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 7
+    },
+    {
+      "map": "qsrc_dm7",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft"
+      ],
+      "path": "res://maps/qsrc_dm7.bsp",
+      "sha256": "ed091c7cab780ff4d70b27492474848614a42988655e22c7e3b8701fdf665350",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 9
+    },
+    {
+      "map": "ctf_tideworks",
+      "modes": [
+        "ctf"
+      ],
+      "path": "res://maps/ctf_tideworks.bsp",
+      "sha256": "6fcba14ad1c5834eeecc1cf622da403a3a0647a20268d21cb2841eedaef8ff0e",
+      "slot8": 2,
+      "timer_overrides": [],
+      "weapons": 7
+    },
+    {
+      "map": "ctf_crucible",
+      "modes": [
+        "ctf"
+      ],
+      "path": "res://maps/ctf_crucible.bsp",
+      "sha256": "9953b1517ece867d1f1123252f8f9ab9d9b99b7be9dcd114d061fb6dedbe18d0",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "ctf_confluence",
+      "modes": [
+        "ctf"
+      ],
+      "path": "res://maps/ctf_confluence.bsp",
+      "sha256": "45181914617d9f0908d59ef18677677f018361d4420104d936c23b7976b3f775",
+      "slot8": 2,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "ctf_deepvault",
+      "modes": [
+        "ctf"
+      ],
+      "path": "res://maps/ctf_deepvault.bsp",
+      "sha256": "b90bda1a949d516cefb429143d0278868542c7a6ba748da7d60f72514e91bf2c",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 4
+    },
+    {
+      "map": "ctf_crownreach",
+      "modes": [
+        "ctf"
+      ],
+      "path": "res://maps/ctf_crownreach.bsp",
+      "sha256": "2a665569bb10cf963230ade2249b8504613b19505fa4dce4d3ef801eea4c00ba",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 4
+    },
+    {
+      "map": "ctf_skyfracture",
+      "modes": [
+        "ctf"
+      ],
+      "path": "res://maps/ctf_skyfracture.bsp",
+      "sha256": "295aac85894654eb22eeb760d73bf4e6c16f2a2ddae5681ae4d8d9e1f6f31bfa",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 4
+    },
+    {
+      "map": "lqdm13",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-librequake/maps/lqdm13.bsp",
+      "sha256": "9d2b3399fd26d73abc5c69aa0a1da9b2897db60ea7d39d95e5b711c107ba2dc3",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 10
+    },
+    {
+      "map": "lqdm12",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-librequake/maps/lqdm12.bsp",
+      "sha256": "de712a7642ffc1b73b10a9379a17c6d2ce5c89ec51b896023d0401daa41aaa2c",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 10
+    },
+    {
+      "map": "lqdm10",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-librequake/maps/lqdm10.bsp",
+      "sha256": "da2203660dde5ae85c5b478e3284cf8a578110ed29c6c8963a0935eed98bee4d",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 10
+    },
+    {
+      "map": "lqdm9",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-librequake/maps/lqdm9.bsp",
+      "sha256": "b9bab9a6fbd7c723f89ef076c8768ab17b084de239b12221614d26eb3263d477",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 9
+    },
+    {
+      "map": "lqdm11",
+      "modes": [
+        "dm",
+        "tdm",
+        "ig",
+        "ft",
+        "cc"
+      ],
+      "path": "res://optional-librequake/maps/lqdm11.bsp",
+      "sha256": "c5ba9fda0779d3d613df42dc4a6220bc6e6587b384cb861dace142e770e0ce54",
+      "slot8": 1,
+      "timer_overrides": [],
+      "weapons": 6
+    },
+    {
+      "map": "tf_ironspan",
+      "modes": [
+        "tf"
+      ],
+      "path": "res://maps/tf_ironspan.bsp",
+      "sha256": "89e4a932eef1e25991fffe4639f48715ce05489d27809eba9aa7afd5f3a5f3e2",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "tf_relayworks",
+      "modes": [
+        "tf"
+      ],
+      "path": "res://maps/tf_relayworks.bsp",
+      "sha256": "21cd59f041071ec0dd00d792e8d521ac3fa4788444a46b8eed98e8a840fccba1",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    },
+    {
+      "map": "as_frigate_tiny",
+      "modes": [
+        "as"
+      ],
+      "path": "res://maps/as_frigate_tiny.bsp",
+      "sha256": "b4b0bde6043869369a5a1e2cb847c7b46d543d0f023b461f18e6515cbec113ba",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 10
+    },
+    {
+      "map": "as_hislop_tiny",
+      "modes": [
+        "as"
+      ],
+      "path": "res://maps/as_hislop_tiny.bsp",
+      "sha256": "5780e4dfda5d6d18c014fda31a39992f877fd998014a35dbb098e37d841a096a",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 18
+    },
+    {
+      "map": "tb_ashfall",
+      "modes": [
+        "tb"
+      ],
+      "path": "res://maps/tb_ashfall.bsp",
+      "sha256": "8363abb19e2a591e84134db0f3eecd504d423481ed689d35eec73009c89409e3",
+      "slot8": 0,
+      "timer_overrides": [],
+      "weapons": 0
+    }
+  ]
+}

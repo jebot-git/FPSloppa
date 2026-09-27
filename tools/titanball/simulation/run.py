@@ -5,6 +5,7 @@ from pathlib import Path
 root=Path(__file__).resolve().parents[3]
 p=argparse.ArgumentParser()
 p.add_argument('--profiles',nargs='+',default=['tf'],choices=['tf'])
+p.add_argument('--map',default='tb_ashfall',choices=['tb_ashfall','tb_cindercoil'])
 p.add_argument('--seconds',type=int,default=1030)
 p.add_argument('--seed',type=int,default=7129)
 p.add_argument('--speed',type=int,default=4,choices=[1,2,4])
@@ -19,7 +20,7 @@ if a.record and a.headless:p.error('--record requires a visible renderer')
 out=root/'test-results/titanball/simulation';out.mkdir(parents=True,exist_ok=True)
 for profile in a.profiles:
  name=f'{a.name}-{profile}-{a.seed}'
- options={'profile':profile,'revision':a.name,'pilot_damage':a.pilot_damage,'pilot_healing':a.pilot_healing,'pilot_health':a.pilot_health,'seconds':a.seconds,'seed':a.seed,'speed':a.speed,'record':a.record,'output':str(out/(name+'.json'))}
+ options={'profile':profile,'map':a.map,'revision':a.name,'pilot_damage':a.pilot_damage,'pilot_healing':a.pilot_healing,'pilot_health':a.pilot_health,'seconds':a.seconds,'seed':a.seed,'speed':a.speed,'record':a.record,'output':str(out/(name+'.json'))}
  cmd=['godot','--path',str(root),'--log-file',str(out/(name+'-engine.log')),'--xr-mode','off','--audio-driver','Dummy','--script','res://tools/titanball/simulation/match.gd']
  cmd+=['--headless','--fixed-fps','60'] if a.headless else ['--rendering-method','mobile','--rendering-driver','vulkan','--max-fps','60']
  if a.record:cmd+=['--write-movie',str(out/(name+'.avi')),'--fixed-fps','30','--disable-vsync']

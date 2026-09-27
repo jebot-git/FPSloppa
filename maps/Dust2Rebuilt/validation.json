@@ -1,0 +1,185 @@
+{
+  "checks": 70,
+  "failures": [],
+  "routes": [
+    {
+      "end": [
+        182.779479980469,
+        99.1485595703125,
+        222.266775512695
+      ],
+      "name": "T spawn through long doors to A",
+      "passed": true
+    },
+    {
+      "end": [
+        649.999959309896,
+        524.065246582031,
+        126.266889953613
+      ],
+      "name": "T spawn through long doors to A (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        621.303649902344,
+        329.000760396322,
+        126.264784240723
+      ],
+      "name": "T spawn directly to top mid",
+      "passed": true
+    },
+    {
+      "end": [
+        649.999918619792,
+        524.095275878906,
+        126.266889953613
+      ],
+      "name": "T spawn directly to top mid (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        218.573567708333,
+        531.865539550781,
+        62.2668594360352
+      ],
+      "name": "T spawn through upper tunnels to B",
+      "passed": true
+    },
+    {
+      "end": [
+        518.77880859375,
+        519.960042317708,
+        62.2667678833008
+      ],
+      "name": "T spawn through upper tunnels to B (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        386.999970753988,
+        514.065185546875,
+        62.2657836914062
+      ],
+      "name": "Lower tunnel half-turn stairs to upper",
+      "passed": true
+    },
+    {
+      "end": [
+        350.000020345052,
+        366.07172648112,
+        -1.73354091346264
+      ],
+      "name": "Lower tunnel half-turn stairs to upper (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        211.005350748698,
+        265.92298634847,
+        -1.73368436694145
+      ],
+      "name": "Mid slope and double doors to CT",
+      "passed": true
+    },
+    {
+      "end": [
+        618.751973470052,
+        328.999987284342,
+        126.266577148438
+      ],
+      "name": "Mid slope and double doors to CT (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        215.015869140625,
+        184.305979410807,
+        222.216635131836
+      ],
+      "name": "Top mid via catwalk and short stairs to A",
+      "passed": true
+    },
+    {
+      "end": [
+        599.035664876302,
+        296.999976793925,
+        126.265715026855
+      ],
+      "name": "Top mid via catwalk and short stairs to A (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        179.445780436198,
+        170.111338297526,
+        222.264700317383
+      ],
+      "name": "CT ramp to A",
+      "passed": true
+    },
+    {
+      "end": [
+        174.000020345052,
+        276.127365112305,
+        22.5184730529785
+      ],
+      "name": "CT ramp to A (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        236.999542236328,
+        517.69814046224,
+        62.1632789611816
+      ],
+      "name": "CT through B doors",
+      "passed": true
+    },
+    {
+      "end": [
+        210.90537516276,
+        311.115980784098,
+        -1.7335184276104
+      ],
+      "name": "CT through B doors (return)",
+      "passed": true
+    },
+    {
+      "end": [
+        410.961326599121,
+        105.000020345052,
+        -1.73324929773808
+      ],
+      "name": "Long pit escape",
+      "passed": true
+    },
+    {
+      "end": [
+        514.073516845703,
+        105.0,
+        -65.7332473754883
+      ],
+      "name": "Long pit escape (return)",
+      "passed": true
+    }
+  ],
+  "bsp_sha256": "6e26f8c6f8a25de7bf4523f743846fbf2e4b6302c69828dc7f56c6a49b4072f7",
+  "bsp_bytes": 1268484,
+  "bsp_version": 29,
+  "full_vis": true,
+  "bspx_lumps": [
+    "RGBLIGHTING"
+  ],
+  "godot": "4.7.2 Fedora",
+  "navigation_polygons": 709,
+  "practice_host": {
+    "players": 4,
+    "spawns": 21,
+    "pickups": 18,
+    "passed": true
+  },
+  "renderer": "Forward Mobile / Intel Arc A770",
+  "real_headset_tested": false
+}

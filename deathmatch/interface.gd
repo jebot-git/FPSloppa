@@ -411,7 +411,7 @@ func _process(_delta: float) -> void:
 	session_map_import.disabled=map_import.disabled
 	vr_actions.visible=game.is_vr()
 	team_chat_button.visible=game.voice.team_available()
-	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Turn / ↑↓ weapons\nTRIGGER Fire / select · RIGHT A Jump / respawn\nLEFT X/A Use · RIGHT B Menu · HOLD LEFT Y/B Scores"
+	if game.is_vr(): controls.text="LEFT STICK Move · RIGHT STICK Click: weapon wheel\nTilt + release stick to equip · Click again to cancel\nTRIGGER Fire · RIGHT A Jump · RIGHT B Menu · LEFT Y/B Scores"
 	hud.visible = game.active
 	avatar_status.text = ""
 	vote_alert.visible=false;capture_alert.visible=false
@@ -430,6 +430,7 @@ func _process(_delta: float) -> void:
 	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
 	ammo.text = game.variant_combat.charge_label(game.multiplayer.get_unique_id())+("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else game.armory.ammo_names()[d.ammo])
+	if game.armory.effective()=="cs16":ammo.text=game.variant_combat.cs.label(viewed_id)
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size()]
 	if game.match_mode.kind!="dm":
 		match_status.text=game.match_mode.status(viewed_id).replace(" · RED FLAG","\nRED FLAG").replace(" · HILL","\nHILL")+" · %02d:%02d"%[int(game.round_left)/60,int(game.round_left)%60]
@@ -462,6 +463,8 @@ func _process(_delta: float) -> void:
 		center_message.text = game.round_message+"\nNext round in %d" % ceili(game.intermission)
 	elif state.spectator:
 		center_message.text="SPECTATING · WASD move · SPACE / CTRL fly" if not game.is_vr() else "SPECTATING"
+	elif state.dead and game.match_mode.defusal.enabled():
+		center_message.text="SPECTATING · NEXT ROUND TO RESPAWN\nWASD move · SPACE / CTRL fly · DEAD VOICE ONLY" if not game.is_vr() else "SPECTATING · DEAD VOICE ONLY"
 	elif state.dead:
 		var wait: float = maxf(0,state.respawn_at-game.clock)
 		center_message.text = "FRAGGED\n"+("Respawn in %.1f" % wait if wait>0 else "Fire or Space to respawn")

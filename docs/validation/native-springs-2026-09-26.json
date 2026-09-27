@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-26",
+  "cpu": "Intel Core i7-12700",
+  "reports": [
+    {
+      "actors": 8,
+      "engine": "4.7.2-stable (fedora)",
+      "frames": 360,
+      "median_ms": 4.777,
+      "p95_ms": 5.221,
+      "scope": "Headless CPU, fixed 90 FPS simulation delta, uncapped wall time; no rendering/network/XR hardware",
+      "variant": "legacy"
+    },
+    {
+      "actors": 8,
+      "engine": "4.7.2-stable (fedora)",
+      "frames": 360,
+      "median_ms": 2.038,
+      "p95_ms": 2.15,
+      "scope": "Headless CPU, fixed 90 FPS simulation delta, uncapped wall time; no rendering/network/XR hardware",
+      "variant": "native"
+    },
+    {
+      "actors": 8,
+      "engine": "4.7.2-stable (fedora)",
+      "frames": 360,
+      "median_ms": 1.167,
+      "p95_ms": 1.224,
+      "scope": "Headless CPU, fixed 90 FPS simulation delta, uncapped wall time; no rendering/network/XR hardware",
+      "variant": "off"
+    }
+  ],
+  "headset_verified": false,
+  "server_modified": false
+}

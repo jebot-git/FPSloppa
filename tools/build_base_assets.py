@@ -27,18 +27,18 @@ for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
  lit='maps/'+row['id']+'.lit'
  if (ROOT/lit).is_file():paths.append(lit)
 for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
-paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','if','cc','tf','tb','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
+paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','if','cc','tf','tb','as','de'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
 # Validate TF bake/navigation lineage without shipping development receipts.
 tf_files()
 # Runtime assets retain notices and provenance. Editable map/WAD sources live
 # in the separately published source archive, not every installed game.
-for folder in ['Ashfall','CC','CTFStudies','Frigate','HiSlop','KOTH','Quake','Makkon','Pressureworks','VesperAbbey']:
+for folder in ['Ashfall','Cindercoil','CC','CTFStudies','Frigate','HiSlop','KOTH','Quake','Makkon','Pressureworks','VesperAbbey','Dust2Rebuilt','ClassicDE','DEMaterials']:
  for p in (ROOT/'maps'/folder).rglob('*'):
   name=p.name.lower()
   if p.is_file() and (p.suffix.lower()=='.txt' and any(token in name for token in ['license','licence','copying','credits','cc0','gnu']) or name in {'texture-sources.json','sources.md','sources.json'}):
    paths.append(str(p.relative_to(ROOT)))
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('LibreQuake-*.txt'))
-paths.extend(['maps/README.txt','vrm/README.txt'])
+paths.extend(['maps/README.txt','vrm/README.txt','maps/Dust2Rebuilt/README.md','maps/ClassicDE/README.md','maps/Cindercoil/README.md','maps/Cindercoil/layout.svg'])
 paths=[p for p in paths if distributable(p)]
 assert all(Path(p).parts[0] in {'maps','vrm'} for p in paths)
 assert all(Path(p).suffix.lower() not in {'.log','.mp4','.png','.map','.wad'} for p in paths)

@@ -1,0 +1,87 @@
+{
+  "d2_red": {
+    "source": "Original DE builder artwork",
+    "license": "CC0-1.0",
+    "sha256": "be347690ea377cb0c65e3c864f74cabcc7ed7266068b272f6e4f40f79594faec"
+  },
+  "d2_signa": {
+    "source": "Original DE builder artwork",
+    "license": "CC0-1.0",
+    "sha256": "0d8c231f5f2fbbbce3b686dcbf290621a1e629c159f3c0a0cbe7af79b1d7dd6e"
+  },
+  "d2_signb": {
+    "source": "Original DE builder artwork",
+    "license": "CC0-1.0",
+    "sha256": "cb261fc2298f4004a2c1fae8c2803a0946f87d9889727f419c4a2e0dfc645b04"
+  },
+  "de_paving": {
+    "source": "maps/DEMaterials/source/paving.png",
+    "source_sha256": "6b10ede03ff97d26a2df6ac4d1fcdee47f6bcd3c794423d2dc3f1ab12fd32f6e",
+    "sha256": "a984d503a2782224a7f0f75cbf7388aec3549538ee3cd7722c69dd5704931d10",
+    "format": "512px palette albedo; four filtered mip levels",
+    "license": "Original generated artwork; see SOURCES.md",
+    "generator": "built-in imagegen"
+  },
+  "de_plaster": {
+    "source": "maps/DEMaterials/source/plaster.png",
+    "source_sha256": "72786d21ee21fc2502162283e44e1f6618ce0327650f4fbdf0e22be61edbdfaa",
+    "sha256": "6495e38a348faac0c4ecde3c3b1f59d618277a78abfde2a7bef9e399f7e422da",
+    "format": "512px palette albedo; four filtered mip levels",
+    "license": "Original generated artwork; see SOURCES.md",
+    "generator": "built-in imagegen"
+  },
+  "ind_wd01_brwn1": {
+    "author": "Ben \"Makkon\" Hale",
+    "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+    "archive": "makkon_industrial.zip",
+    "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+    "wad": "makkon_industrial.wad",
+    "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+    "sha256": "08126105fba34612c04348f3dd671cb8a62b8398c7548fc04f063001c1198091",
+    "format": "original WAD2 miptex; all four mip levels unchanged",
+    "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+  },
+  "med_dr3a_blu": {
+    "source": "https://github.com/lavenderdotpet/LibreQuake",
+    "archive_sha256": "8b6cd467a73976e8ed6ee52eecc0cafc7d3a0c289058b1ccebcf05583a88f288",
+    "wad": "dev/texture-wads/lq_medieval.wad",
+    "wad_sha256": "f6a75374430814a72ad92606d3ab77735a60028fa3644cbceac8f61ec1337acc",
+    "license": "BSD-3-Clause",
+    "sha256": "317d222da783e0f8cc977ff2584f8776cbd965d134bee76ec4de72d405673e09",
+    "format": "original WAD2 miptex; all four mip levels unchanged"
+  },
+  "med_rock3_bump": {
+    "source": "https://github.com/lavenderdotpet/LibreQuake",
+    "archive_sha256": "8b6cd467a73976e8ed6ee52eecc0cafc7d3a0c289058b1ccebcf05583a88f288",
+    "wad": "dev/texture-wads/lq_terra.wad",
+    "wad_sha256": "ad08be9cc25c1050adc8ecb23c459e903312ee3b0f237b4d0f495197b64c6cd4",
+    "license": "BSD-3-Clause",
+    "sha256": "52e16996722add5bfeb2c1ccbe4c00cb55c097863b61e46854fe8250c2058e68",
+    "format": "original WAD2 miptex; all four mip levels unchanged"
+  },
+  "med_tanwall1": {
+    "source": "https://github.com/lavenderdotpet/LibreQuake",
+    "archive_sha256": "8b6cd467a73976e8ed6ee52eecc0cafc7d3a0c289058b1ccebcf05583a88f288",
+    "wad": "dev/texture-wads/lq_medieval.wad",
+    "wad_sha256": "f6a75374430814a72ad92606d3ab77735a60028fa3644cbceac8f61ec1337acc",
+    "license": "BSD-3-Clause",
+    "sha256": "94aee663bdd06e876e20d3193475d71468cc98b0dedf3b20f5d7d1b2af7fc84b",
+    "format": "original WAD2 miptex; all four mip levels unchanged"
+  },
+  "metal_iron1_01": {
+    "author": "Ben \"Makkon\" Hale",
+    "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+    "archive": "makkon_metal.zip",
+    "archive_sha256": "c0eca6be6984e29a8ac1615c05bbc98409b3bed52a230dc43fc91a4bb3698a85",
+    "wad": "makkon_metal.wad",
+    "wad_sha256": "e64b1bb928b7e28e5949c425619888440ed5c87d0db3dcce1f4b515589e61972",
+    "sha256": "5176fcc9dec3f643a13f23bb40ea75ab3613d62e54503d0830cf5cd5b628f585",
+    "format": "original WAD2 miptex; all four mip levels unchanged",
+    "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+  },
+  "sky_d2": {
+    "source": "Original DE builder artwork",
+    "license": "CC0-1.0",
+    "sha256": "56e33fe71a076266f76210301cd0eaca27ccee69891abde0a34522da22b6b256"
+  }
+}

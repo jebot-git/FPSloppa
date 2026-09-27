@@ -13,7 +13,8 @@ This is a PC OpenXR VR FPS built with Godot 4.7.2 and Godot XR Tools 4.5.1. Star
 | Move, relative to headset direction | Left stick | Left stick |
 | Walk | Left stick click | Left stick click |
 | Turn | Right stick left/right | Right stick left/right |
-| Cycle owned weapons | Right stick up/down | Right stick up/down |
+| Weapon wheel | Right stick click, tilt and release to equip; click again to cancel | Right stick click, tilt and release to equip; click again to cancel |
+| Cycle owned weapons (wheel closed) | Right stick up/down | Right stick up/down |
 | Fire | Gun-hand trigger; other trigger fires second pistol in slot 2 | Gun-hand trigger; other trigger fires second pistol in slot 2 |
 | Jump / swim / respawn | Right A | Right A |
 | Use nearby door | Left X | Left A |
@@ -21,7 +22,9 @@ This is a PC OpenXR VR FPS built with Godot 4.7.2 and Godot XR Tools 4.5.1. Star
 | Menu | Right B or left menu | Right B |
 | Select menu controls | Point and trigger | Point and trigger |
 
-**Smooth turning is the default.** Open **TURN SETTINGS…** in the VR menu to select smooth or snap turning and adjust smooth speed (30–360°/s, default 120°/s) and snap angle (15–90°, default 30°). The large −/+ controls work with either controller pointer. Mode, speed and angle save immediately in the client config and load next launch. The menu also offers recentering and switching the gun hand. Recenter after changing play posture. Weapon grips sit at the controller’s palm position while orientation follows its independent aim pose, including roll. Local models, remote avatars and server muzzle positions use the same per-weapon grip anchors. Grips do not reload: ammo, automatic weapon cycles, damage, projectile speeds and pickups retain the classic arena rules. There is no physical magazine manipulation.
+The [weapon wheel](docs/WEAPON-WHEEL.md) stays open until selection or cancellation and shows owned weapons with icons and ammunition. Selection always uses the physical right joystick, including mirrored controls.
+
+**Smooth turning is the default.** Open **TURN SETTINGS…** in the VR menu to select smooth or snap turning and adjust smooth speed (30–360°/s, default 120°/s) and snap angle (15–90°, default 30°). The large −/+ controls work with either controller pointer. Mode, speed and angle save immediately in the client config and load next launch. The menu also offers recentering and switching the gun hand. Recenter after changing play posture. Weapon grips sit at the controller’s palm position while orientation follows its independent aim pose, including roll. Local models, remote avatars and server muzzle positions use the same per-weapon grip anchors. The Doom, Quake and UT99 loadouts retain their classic arena ammo and automatic weapon cycles. The optional [CS 1.6 loadout](docs/CS16-LOADOUT.md) uses physical VR reloads: weapon-hand grip ejects a magazine; offhand grip draws a replacement from the contextual hip pouch, seats it and racks the action. The M3 needs a full offhand pump after each shot; the AWP needs its bolt cycled. The XM1014 loads individual shells and cycles automatically. For the M249, lift the feed cover, replace the box, close the cover and charge the gun. Hand roles mirror for left-handed use; menus and tracking loss cancel unfinished gestures.
 
 Multiplayer players spawn and respawn with **only a pistol, 50 bullets and 100 health**. Offline practice uses the same inventory rules. Pick up weapons in deathmatch to expand inventory.
 
@@ -187,3 +190,13 @@ Downloads or game folders; open directories with one trigger click, use UP for
 the parent, and drag the file list. Select a file and press IMPORT to confirm.
 Large directories have additional pages. The path field supports direct paths
 and the VR keyboard. Access is still limited by the operating system permissions.
+
+## Optional jetpack
+
+On servers with `sv_jetpacks "1"`, collect a jetpack and double-press the configured jump button within 300 ms. Move the stick to launch a directional boost, or leave it centred to lift and briefly hover. The shared status display shows readiness and the eight-second cooldown. Death or freezing removes the pack. See [arena jetpacks](docs/ARENA-JETPACKS.md).
+
+## Bomb Defusal and CS virtual stock
+
+In DE preparation, the right-stick wheel becomes a purchase menu. The carrier grabs the outward-facing bomb on their chest, touches four displayed digits with the offhand, then presses its back onto a site floor, crate or wall within five seconds. CT uses eight keypad entries or purchased waist-pouch cutters on three wires. [Full DE controls](docs/BOMB-DEFUSAL.md).
+
+Settings → Controls → VR Controls → **CS VIRTUAL STOCK** enables a saved shoulder constraint for two-handed CS long guns. It defaults off and disengages for hand release, reloads, menus or tracking loss. Real-controller comfort remains unverified.

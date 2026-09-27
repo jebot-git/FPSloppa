@@ -291,5 +291,30 @@
     "measured_lufs": -19.14,
     "true_peak_dbtp": -2.64,
     "license": "CC0-1.0"
+  },
+  {
+    "key": "de",
+    "stem": "copper_fuse",
+    "title": "Copper Fuse",
+    "bpm": 150,
+    "bars": 64,
+    "duration": 102.4,
+    "ogg_bytes": 1609219,
+    "sha256": "428a3fcf0e316ccc4c7553e8ba876c6cd5e8b83d78c0847c6a828d23605ffd53",
+    "target_lufs": -20,
+    "measured_lufs": -20.0,
+    "true_peak_dbtp": -7.48,
+    "loop": true,
+    "loop_offset": 0,
+    "loop_step": 0.0006104338099248707,
+    "sample_rate": 44100,
+    "license": "CC0-1.0",
+    "generator": "tools/generate_de_music.py --install",
+    "source_file": "docs/audio/copper-fuse/Copper-Fuse-Orchestral.xm",
+    "source_format": "XM",
+    "arrangement": "orchestral action",
+    "source_sha256": "e5919f103dc7c3ab469cef6780fb102061274f1982779e9580d9a01bcbc9afca",
+    "channels": 24,
+    "instruments": 10
   }
 ]

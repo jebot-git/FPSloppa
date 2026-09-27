@@ -1,0 +1,166 @@
+{
+  "passed": true,
+  "sites": [
+    {
+      "map": "de_nuke_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_train_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_train_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    }
+  ],
+  "native_views": 20,
+  "traversals": [
+    {
+      "map": "de_dust2_rebuilt",
+      "checks": 70,
+      "passed": true
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "checks": 44,
+      "passed": true
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "checks": 47,
+      "passed": true
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "checks": 47,
+      "passed": true
+    },
+    {
+      "map": "de_train_rebuilt",
+      "checks": 50,
+      "passed": true
+    }
+  ],
+  "map_objective_checks": 73,
+  "materials": [
+    {
+      "map": "de_nuke_rebuilt",
+      "sha256": "ce81ea4a8ff00095266a3ade3bdb00bd9bd40b98275bf759bf6b01033e38a012",
+      "bytes": 6251212,
+      "textures": 13,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "eb0c6b9000625ff9200b3b9cdd9563488d9c27f5f1cf1bac15c53ee2f773b3a2"
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "sha256": "9fd7b2b56b729fe734d2933c6047733917981e01c0c6d128d50df9b66b30eeca",
+      "bytes": 5629304,
+      "textures": 15,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "ca42e5b9b59d1b04772ad9b427d8fe2a4e130be029411490e5c20ca0e006c020"
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "sha256": "d9a00b19da36805f955dfaea73e6ee01c86c8849c15ebf06c8987527443e154c",
+      "bytes": 4098336,
+      "textures": 14,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "28d3d0aaa0fffe1d07421da30f3748e4c5513fd9a45b5bd7264766cfb41b7226"
+    },
+    {
+      "map": "de_train_rebuilt",
+      "sha256": "b52cdc5f71c19773bd643bdfeb2cdc718ae508c0cd634f054ec6f416a43d1aa3",
+      "bytes": 8117308,
+      "textures": 16,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "5b8a5ae4ad8f0fc10d0cd525072031e4adebba487a9f25cb8df9fc2adec1df16"
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "sha256": "645e8036c46a95505d69f60c53c3e742e562ec20bf921b2979b91993d516e6a5",
+      "bytes": 5300420,
+      "textures": 11,
+      "embedded_miptex_matches_source": true,
+      "full_vis": true,
+      "navigation_sha256": "47633bae1e9ddd752086c74694e4cd6d9edb15b9aa7f406e1536bf8c5e737a97"
+    }
+  ],
+  "package": {
+    "path": "test-results/de-site-markings/Base-Assets.zip",
+    "sha256": "2c0b755d6f77e43479bf863f99331f95b51edbe1e5183c423fc4127b408a7f5a",
+    "bytes": 658590694
+  }
+}

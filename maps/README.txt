@@ -40,5 +40,18 @@ material licences and limitations. Original reference assets are not included.
 
 TITANBALL layout
 The TB rotation contains tb_ashfall (Ashfall Boulevard), a sealed original
-ruined-city BSP. Editable MAP/WAD, build manifest and notices are in Ashfall/.
+ruined-city BSP, and tb_cindercoil (Cindercoil), a circular climbing industrial
+road with connecting tunnels and overpass towers. Both preserve the 350 m TB
+route and standard spawn/checkpoint/resupply rules. Editable MAP/WAD, build
+manifests and notices are in Ashfall/ and Cindercoil/.
 This does not add any maps to the TF rotation.
+
+Classic Dust2 reconstruction (experimental)
+de_dust2_rebuilt is an independently brushed BSP29 study for DM-family modes.
+Source MAP/WAD, build notes and validation are in Dust2Rebuilt/. Select it for
+practice or add it to a personal mode maplist; default rotations are unchanged.
+This is an approximate classic layout, with no bomb-defusal rules.
+
+Classic DE expansion
+Nuke, Inferno, Aztec and Train are original BSP29 layout studies for DE.
+See ClassicDE/README.md for source, build steps, attribution and fidelity limits.

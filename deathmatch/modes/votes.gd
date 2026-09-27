@@ -110,6 +110,7 @@ func switch_team(team: int) -> void:
 func team_request(team: int) -> void:
 	if multiplayer.is_server():change_team(multiplayer.get_remote_sender_id(),team)
 func change_team(id: int,team: int,force: bool=false) -> bool:
+	if game.match_mode.defusal.enabled() and game.match_mode.defusal.phase not in ["waiting","prepare"]:return false
 	if game.match_mode.special.blocked(id):return false
 	if not game.active or not game.match_mode.team_game() or not eligible(id) or not team in [0,1] or game.players[id].team==team or game.intermission>0 or game.map_loading:return false
 	if not force:
@@ -124,6 +125,7 @@ func change_team(id: int,team: int,force: bool=false) -> bool:
 	game._spawn(id);game.players[id].invulnerable=0
 	game._broadcast_roster();game._announcement.rpc(game.players[id].name+" joined "+game.match_mode.TEAMS[team]);return true
 func balance() -> void:
+	if game.match_mode.defusal.enabled() and game.match_mode.defusal.phase not in ["waiting","prepare"]:return
 	var ids: Array=game.players.keys().filter(eligible)
 	ids.sort_custom(func(a,b):return game.players[a].kills>game.players[b].kills if game.players[a].kills!=game.players[b].kills else a<b)
 	# Snake ordering spreads the strongest fraggers while keeping sizes within one.

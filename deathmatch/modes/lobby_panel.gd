@@ -21,6 +21,7 @@ func setup(arena: Node) -> void:
 		var card:=Button.new();card.toggle_mode=true;card.custom_minimum_size=Vector2(0,132)
 		card.size_flags_horizontal=Control.SIZE_EXPAND_FILL;card.size_flags_vertical=Control.SIZE_EXPAND_FILL;grid.add_child(card)
 		var preview:=TextureRect.new();card.add_child(preview);preview.mouse_filter=Control.MOUSE_FILTER_IGNORE
+		preview.texture_filter=CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 		preview.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);preview.offset_left=4;preview.offset_top=4;preview.offset_right=-4;preview.offset_bottom=-4;preview.expand_mode=TextureRect.EXPAND_IGNORE_SIZE
 		preview.stretch_mode=TextureRect.STRETCH_KEEP_ASPECT_COVERED
 		var shade:=ColorRect.new();card.add_child(shade);shade.mouse_filter=Control.MOUSE_FILTER_IGNORE
@@ -46,10 +47,18 @@ func open() -> void:
 	show();get_parent().move_child(self,-1);refresh()
 func _process(delta: float) -> void:
 	refresh_left-=delta
-	if visible and refresh_left<=0:refresh();refresh_left=.1
+	if (wall or visible) and refresh_left<=0:refresh();refresh_left=.1
 func refresh() -> void:
 	var data: Dictionary=game.lobby.snapshot() if game.multiplayer.is_server() and not game.demos.playing else game.lobby.view
-	if data.is_empty():hide();return
+	if data.is_empty():
+		if not wall:hide();return
+		show()
+		status.text="WAITING LOBBY · NEXT MATCH"
+		response.text="Waiting for the server ballot…"
+		next_match.text=""
+		for card in cards:card.button.disabled=true
+		return
+	if wall:show()
 	var options: Array=data.get("options",[])
 	var counts: Array=data.get("counts",[])
 	var mine: int=game.multiplayer.get_unique_id()

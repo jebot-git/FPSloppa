@@ -2,9 +2,9 @@ extends SceneTree
 const Filtering=preload("res://deathmatch/maps/filtering.gd")
 class Probe extends "res://deathmatch/maps/filtering.gd":
 	var pixel_calls:=0
-	func texture(source: Texture2D) -> Texture2D:
+	func prepare_texture(source: Texture2D,normal: bool) -> Texture2D:
 		pixel_calls+=1
-		return super.texture(source)
+		return super.prepare_texture(source,normal)
 var failures: Array=[]
 func _initialize():call_deferred("run")
 func check(ok: bool,label: String) -> void:
@@ -55,7 +55,8 @@ void fragment() {
 	legacy.set_shader_parameter("base_texture",original);legacy.set_shader_parameter("bake_texture",original);legacy.set_shader_parameter("base_colour",Color.GREEN)
 	Filtering.new().material(legacy)
 	check(legacy.shader==Filtering.BAKED and legacy.get_shader_parameter("bake_texture")==original and legacy.get_shader_parameter("base_colour")==Color.GREEN,"Older embedded baked shaders upgrade without losing lighting or tint")
-	check(legacy.get_shader_parameter("base_nearest")==original and legacy.get_shader_parameter("base_linear")==original,"All baked filter samplers share the original prepared image")
+	var colour_corrected: Texture2D=legacy.get_shader_parameter("base_texture")
+	check(legacy.get_shader_parameter("base_nearest")==colour_corrected and legacy.get_shader_parameter("base_linear")==colour_corrected and colour_corrected.has_meta(Filtering.ColourMips.TAG),"All baked filter samplers share the colour-correct prepared image")
 	var multi:=MultiMeshInstance3D.new();multi.multimesh=MultiMesh.new();multi.multimesh.mesh=BoxMesh.new();multi.multimesh.mesh.material=material;world.add_child(multi)
 	Filtering.new().apply(world,2,false)
 	check(material.texture_filter==Filtering.FILTERS[2],"MultiMesh map fixtures follow the selected filter")

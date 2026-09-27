@@ -2,14 +2,16 @@ extends RefCounted
 ## Server-authoritative experimental firing, using existing traces, damage and RPCs.
 const Rules=preload("res://deathmatch/experimental/weapon_rules.gd")
 var game
+var cs=preload("res://deathmatch/counterstrike/combat.gd").new()
 var charging: Dictionary={}
 var discs: Dictionary={}
 var predictions: Array=[]
 var charge_view: Dictionary={}
 const MAX_PROJECTILES:=256
-func setup(arena: Node) -> void:game=arena
-func reset() -> void:charging.clear();discs.clear();predictions.clear();charge_view.clear()
+func setup(arena: Node) -> void:game=arena;cs.setup(arena)
+func reset() -> void:cs.reset();charging.clear();discs.clear();predictions.clear();charge_view.clear()
 func tick_input(id: int,delta: float) -> void:
+	if game.armory.effective()=="cs16":cs.tick_input(id,delta);return
 	var s: Dictionary=game.players[id]
 	if s.dead or s.spectator or game.lobby.active() or game.intermission>0:
 		charging.erase(id);return
@@ -41,16 +43,17 @@ func tick_input(id: int,delta: float) -> void:
 	if held_charge and (primary or alt) and s.cooldown<=0:
 		charging[id]={"weapon":weapon,"alt":alt,"time":delta,"maximum":float(d.get("charge_max",2.0))};return
 	if (primary or alt) and s.cooldown<=0:fire(id,alt)
-func fire(id: int,alternate: bool=false,charge: float=0.0) -> bool:
+func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -> bool:
+	if game.armory.effective()=="cs16" and not cs_shot:return cs.shoot(id)
 	if not game.multiplayer.is_server() or not game.players.has(id):return false
 	var s: Dictionary=game.players[id];var w: int=s.weapon
 	if s.vr_device and game.armory.vr_physical_only(w):return false
 	if s.get("input_blocked",false) or not game.armory.valid(w) or s.dead or s.spectator or s.cooldown>0 or game.intermission>0 or game.lobby.active():return false
 	if game.match_mode.special.blocked(id) or game.match_mode.fortress.walkers.mounted(id):return false
-	var d: Dictionary=game.match_mode.fortress.weapon_data(id,w).duplicate()
+	var d: Dictionary=cs.definition(id) if cs_shot else game.match_mode.fortress.weapon_data(id,w).duplicate()
 	if alternate and game.armory.kind=="ut99":d.merge(d.get("alt",{}),true)
 	if d.get("zoom",false):return false
-	if w==11 and alternate:return translocate(id)
+	if game.armory.kind=="ut99" and w==11 and alternate:return translocate(id)
 	var count:=1;var scale:=1.0
 	if game.armory.kind=="ut99":
 		if w==6:count=clampi(1+int(charge/.5),1,6)
@@ -70,7 +73,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0) -> bool:
 	if d.ammo>=0:s.ammo[d.ammo]-=d.cost*count
 	s.cooldown=d.cycle;s.invulnerable=0;s.shots+=1
 	if d.ammo>=0:game.match_mode.fortress.revealed(id)
-	game._variant_shot_fx.rpc(id,w,alternate)
+	game._variant_shot_fx.rpc(id,w,cs.suppressed(id) if cs_shot else alternate)
 	var start: Vector3=solution.origin;var forward: Vector3=-game._weapon_transform(id).basis.z
 	if game.armory.kind=="quake" and w==8 and game.fighters[id].in_water:
 		var cells: int=1+s.ammo[3];s.ammo[3]=0
@@ -86,7 +89,8 @@ func fire(id: int,alternate: bool=false,charge: float=0.0) -> bool:
 			var hit: Dictionary=game._trace(start,start+direction*reach,id,game._shot_rewind(id),float(d.get("beam_radius",0.0)))
 			var melee_reaches: bool=kind!="hammer" or start.distance_to(hit.position)<=float(d.range)
 			var damage: int=d.damage
-			if kind=="sniper" and hit.id!=0 and not hit.get("vehicle",false) and hit.get("headshot",false):damage=int(d.get("head_damage",100))
+			if d.has("head_damage") and hit.id!=0 and not hit.get("vehicle",false) and hit.get("headshot",false):damage=int(d.get("head_damage",100))
+			if cs_shot:damage=cs.falloff(d,damage,start.distance_to(hit.position))
 			if melee_reaches:game._damage_map_hit(hit,id,damage)
 			if hit.id!=0 and melee_reaches:
 				game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false) and d.range>3 and d.name!="FLAMETHROWER",d.get("heavy_automatic",false))
@@ -249,12 +253,14 @@ func translocate(id: int) -> bool:
 	game._teleport_fx.rpc(destination);game._projectile_end.rpc(discs[id],destination,11);discs.erase(id)
 	return true
 func cancel_player(id: int) -> void:
+	cs.cancel(id)
 	charging.erase(id)
 	if discs.has(id):
 		var disc: int=discs[id]
 		if game.projectiles.has(disc):game._projectile_end.rpc(disc,game.projectiles[disc].position,11)
 		discs.erase(id)
 func predict(id: int,command: Dictionary) -> void:
+	if game.armory.effective()=="cs16":return # Clip/reload/burst audio follows accepted server shots.
 	if game.headless or game.multiplayer.is_server() or not game.players.has(id):return
 	var s: Dictionary=game.players[id];var w: int=s.weapon;var alt: bool=command.get("alt_fire",false)
 	if game.armory.vr_physical_only(w) and (s.vr_device or command.has("xr")):return

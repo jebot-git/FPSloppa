@@ -29,6 +29,8 @@ func _initialize() -> void:
 		if not FileAccess.file_exists("res://"+required) and not ResourceLoader.exists("res://"+required):failures.append("Missing release feature: "+required)
 	for required in ["deathmatch/ui/server_browser.gd","deathmatch/ui/server_directory.gd","deathmatch/server/discovery.gd","deathmatch/server/discovery_protocol.gd","deathmatch/server/test_master.gd"]:
 		if not ResourceLoader.exists("res://"+required):failures.append("Missing discovery feature: "+required)
+	for required in ["deathmatch/modes/defusal.gd","deathmatch/counterstrike/reload_state.gd","deathmatch/vr/hip_mount.gd","deathmatch/vr/physical_reload.gd","deathmatch/counterstrike/grenades.gd"]:
+		if not ResourceLoader.exists("res://"+required):failures.append("Missing 0.17 feature: "+required)
 	var config=load("res://deathmatch/server/config.gd")
 	if config.DEFAULTS.has("sv_tb_heavy_ordnance") or config.RANGES.has("sv_tb_heavy_ordnance"):failures.append("Retired TB server setting")
 	var walker=load("res://deathmatch/vehicles/ba2/controller.gd").new()

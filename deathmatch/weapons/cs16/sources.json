@@ -1,0 +1,188 @@
+{
+  "description": "Original Blender game geometry; shared CC0 AFPS metal finish",
+  "texture_author": "Drummyfish / tastyfish",
+  "texture_license": "CC0-1.0",
+  "texture_source": "https://opengameart.org/content/oldschool-afps-weapons",
+  "files": [
+    {
+      "path": "deathmatch/weapons/afps_2.glb",
+      "sha256": "0b5681033eade0a2b1b356109fcfd5458ca5d82c72a831c3cb28ed22a4b14640",
+      "bytes": 1185796
+    },
+    {
+      "path": "tools/cs16/model_weapons.py",
+      "sha256": "27d28ee596241725f7ede3299a4aed3df797c6e6fb1059f7cbbd5697d8a5198b",
+      "bytes": 17716
+    },
+    {
+      "path": "tools/cs16/weapon_shapes.py",
+      "sha256": "faa19f60aeca68d3a2b1de4dd7236f0baafc9b883714563253ed025c92ad9b8d",
+      "bytes": 21180
+    },
+    {
+      "path": "tools/cs16/import_models.gd",
+      "sha256": "1a560facf3a4edeba25831b1ca10143165e111b374007351b72e4fef5665612f",
+      "bytes": 1936
+    },
+    {
+      "path": "tools/cs16/build_pouch.py",
+      "sha256": "b332e89637cd1bc918fe1ad2e92493f224a6ada13115a05f607bbda82937fa96",
+      "bytes": 8116
+    },
+    {
+      "path": "tools/cs16/import_pouch.gd",
+      "sha256": "a681d82b540ae0133c0e3ad3555e5aa1fc691a6c4cfa82989cddcf1bd2961be0",
+      "bytes": 958
+    },
+    {
+      "path": "tools/cs16/refined/ak47.glb",
+      "sha256": "c77a01d383431f7bac9ea68ccf9f58669a0de3101faec92f49cd19ec8ab228aa",
+      "bytes": 1484560
+    },
+    {
+      "path": "tools/cs16/refined/awp.glb",
+      "sha256": "ed9426c2c9bf2858664588638e8bbe53582c951f8ead3772f757cb0cd8884962",
+      "bytes": 1620656
+    },
+    {
+      "path": "tools/cs16/refined/deagle.glb",
+      "sha256": "624e0b0f7e2827a0f91aa2386d27ae8658becf681ec1fe474c2a4b1bb574207a",
+      "bytes": 1456760
+    },
+    {
+      "path": "tools/cs16/refined/glock.glb",
+      "sha256": "a9f7833246ca29e9108a3a222be76ade23f9622db2e0ef5499bafb441db36c36",
+      "bytes": 1441188
+    },
+    {
+      "path": "tools/cs16/refined/knife.glb",
+      "sha256": "72405385009e63a756d9286d5cbc573e74aa56f58c1a6a6633dfa664420ef0ae",
+      "bytes": 1260224
+    },
+    {
+      "path": "tools/cs16/refined/m249.glb",
+      "sha256": "70913a9d86dd8354f01d3ca12d26f45857832a800d51b6cbfe34c842e0ffd3a0",
+      "bytes": 1781132
+    },
+    {
+      "path": "tools/cs16/refined/m3.glb",
+      "sha256": "331eb085a77915cd9a976a9a4a764d7571d0e99d0e62e5346fce269a4268bf1b",
+      "bytes": 1448772
+    },
+    {
+      "path": "tools/cs16/refined/m4a1.glb",
+      "sha256": "855bdb84be8b55f543e59082ccba221d3d6c06b391e86d320f6edc062373f006",
+      "bytes": 1657464
+    },
+    {
+      "path": "tools/cs16/refined/mp5.glb",
+      "sha256": "ae148147b0aee7c67cd4058189be69209eba5fa295d275558c789142f75e980f",
+      "bytes": 1489788
+    },
+    {
+      "path": "tools/cs16/refined/p90.glb",
+      "sha256": "27628e51680c54d841fad60fd34097e9c4673851201da127536b1d91bb41e62a",
+      "bytes": 1475704
+    },
+    {
+      "path": "tools/cs16/refined/usp.glb",
+      "sha256": "f0d3575cde126f6f4af69328fd73b062b716429542f0c5a6a93122b8d6d4f80d",
+      "bytes": 1481292
+    },
+    {
+      "path": "tools/cs16/refined/xm1014.glb",
+      "sha256": "a14626b1c8b3c27437fe3f5d592f58ba1423d58eb5d090b9e6e3d0dcf1bdd4c7",
+      "bytes": 1505500
+    },
+    {
+      "path": "tools/cs16/refined/cs16_arsenal.blend",
+      "sha256": "2e56bf19ae8cf30eac724ff8e411de68f1b284024abbf865345f6f2bc4a64635",
+      "bytes": 883346
+    },
+    {
+      "path": "tools/cs16/refined/afps-metal-donor.png",
+      "sha256": "7372347712e80e7d024ccbbb78f55aa37263f78a361c836929ef0bcd0f8edff3",
+      "bytes": 1181427
+    },
+    {
+      "path": "tools/cs16/pouch/magazine_pouch.blend",
+      "sha256": "0e04e2e21ff5ee6ba97042908a70980d06f5c648c7bdd5dbbc459b31d174f823",
+      "bytes": 209433
+    },
+    {
+      "path": "tools/cs16/pouch/magazine_pouch.glb",
+      "sha256": "ec09fd87da425bad83c656b1201505bf61c72708966f0581ebfbdf2f6429493b",
+      "bytes": 174568
+    },
+    {
+      "path": "deathmatch/weapons/cs16/ak47.scn",
+      "sha256": "a1c928560fb9cd60d065189962f7d70b07de1597ab4822ce003ecc4bb65599bc",
+      "bytes": 70310
+    },
+    {
+      "path": "deathmatch/weapons/cs16/awp.scn",
+      "sha256": "0db62f1471c5ae829b5727344307f4ca65e3ec85a8b8ae067e57d9b6bfc94eff",
+      "bytes": 88376
+    },
+    {
+      "path": "deathmatch/weapons/cs16/deagle.scn",
+      "sha256": "0eead5fac4b8946bc3cf751a16b5258357417f9e365718fb34151df59da151ab",
+      "bytes": 65170
+    },
+    {
+      "path": "deathmatch/weapons/cs16/glock.scn",
+      "sha256": "b94ef1fe46a43924aaabede2c8cf0af7b0efc9b16bfb9e079c5817bd054c087d",
+      "bytes": 61177
+    },
+    {
+      "path": "deathmatch/weapons/cs16/knife.scn",
+      "sha256": "e99119c58e59e2d04d2f4a2c1999fdb93e6236d8136d762270b0b093dcfaaa83",
+      "bytes": 15730
+    },
+    {
+      "path": "deathmatch/weapons/cs16/m249.scn",
+      "sha256": "341203184bf9ed7f247c165bbcba43bc968bfba652dcb3a729f4924397826066",
+      "bytes": 120580
+    },
+    {
+      "path": "deathmatch/weapons/cs16/m3.scn",
+      "sha256": "828dce601201f85e4225c9e152cef8245fb01eb89dd0a87f091778203b56c232",
+      "bytes": 60223
+    },
+    {
+      "path": "deathmatch/weapons/cs16/m4a1.scn",
+      "sha256": "0696c602fd93f2d065665ac532714ad2c4b95e3186e05bcfb3de89759fae8238",
+      "bytes": 108021
+    },
+    {
+      "path": "deathmatch/weapons/cs16/magazine_pouch.scn",
+      "sha256": "fe8e316d995068a339243b837a796664aa5d8d92683264c503a454b801064f78",
+      "bytes": 80096
+    },
+    {
+      "path": "deathmatch/weapons/cs16/mp5.scn",
+      "sha256": "a38236b3ecda9859e4d8ad4024b6f5fa23f8509288e799097ce19437319c3aa2",
+      "bytes": 72166
+    },
+    {
+      "path": "deathmatch/weapons/cs16/p90.scn",
+      "sha256": "c99fe16950e87e73b3d8f5eb48f7f8e68c7ab21666dd27a9ba02fa26a6e4e02e",
+      "bytes": 67108
+    },
+    {
+      "path": "deathmatch/weapons/cs16/usp.scn",
+      "sha256": "78364f3449198892519441ebf8901e4e4e748296c110a0223faab04a44f63533",
+      "bytes": 68569
+    },
+    {
+      "path": "deathmatch/weapons/cs16/xm1014.scn",
+      "sha256": "6415217ea2be09077847a772abc6084c7a0c68f58c46ea134b94a193cc438ada",
+      "bytes": 71027
+    },
+    {
+      "path": "deathmatch/weapons/cs16/finish.res",
+      "sha256": "2e2a94f6487b179656d52b8834777b803e7a5b26e98373a525198f1763dc2408",
+      "bytes": 2546798
+    }
+  ]
+}

@@ -62,10 +62,10 @@ func update_network(progress: Dictionary,ping: int,host: bool) -> void:
 	var next:={"show":progress.visible,"percent":int(progress.fraction*100),"ping":ping,"host":host}
 	if next!=network:network=next;queue_redraw()
 const INK=Color("e5d5ad")
-func update_status(state: Dictionary,remaining: float,limit: int,leader: int,intermission: bool,mic: bool,objective: String="",radio: bool=false,weapon_data: Dictionary={},capacities: Array=W.MAX_AMMO) -> void:
+func update_status(state: Dictionary,remaining: float,limit: int,leader: int,intermission: bool,mic: bool,objective: String="",radio: bool=false,weapon_data: Dictionary={},capacities: Array=W.MAX_AMMO,wait_for_round: bool=false) -> void:
 	if weapon_data.is_empty():weapon_data=W.DATA[clampi(state.weapon,0,9)]
 	var ammo_type:int=weapon_data.ammo
-	var next:={"objective":objective,"spectator":state.get("spectator",false),"hp":maxi(0,state.hp),"armor":state.armor,"ammo":state.ammo[ammo_type] if ammo_type>=0 else -1,"capacity":capacities[ammo_type] if ammo_type>=0 else 1,"weapon":weapon_data.name,"seconds":maxi(0,ceili(remaining)),"frags":maxi(0,limit-leader),"dead":state.dead,"pause":intermission,"mic":mic,"radio":radio}
+	var next:={"objective":objective,"spectator":state.get("spectator",false),"hp":maxi(0,state.hp),"armor":state.armor,"ammo":state.ammo[ammo_type] if ammo_type>=0 else -1,"capacity":capacities[ammo_type] if ammo_type>=0 else 1,"weapon":weapon_data.name,"seconds":maxi(0,ceili(remaining)),"frags":maxi(0,limit-leader),"dead":state.dead,"wait_for_round":wait_for_round,"pause":intermission,"mic":mic,"radio":radio}
 	if next!=values:values=next;queue_redraw()
 func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
 	draw_string(ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
@@ -105,8 +105,8 @@ func _draw() -> void:
 	label(Vector2(30,34),"ROUND OVER" if values.pause else values.objective if not values.objective.is_empty() else "%d FRAGS LEFT"%values.frags,21,Color("d8bc8b"))
 	label(Vector2(615,34),"%02d:%02d"%[values.seconds/60,values.seconds%60],23)
 	label(Vector2(810,34),"RADIO" if values.radio else "MIC LIVE" if values.mic else "",21,Color("86dfb0"))
-	if values.spectator:
-		label(Vector2(30,96),"SPECTATING",36)
+	if values.spectator or values.dead and values.get("wait_for_round",false):
+		label(Vector2(30,96),"SPECTATING · DEAD VOICE ONLY" if values.get("wait_for_round",false) else "SPECTATING",30)
 		label(Vector2(30,140),"LEFT STICK MOVE · RIGHT STICK UP / DOWN TO FLY",20)
 		return
 	var colors:=[Color("86dfb0") if values.hp>25 else Color("ff827a"),Color("83c9ec"),Color("edce91")]
@@ -124,4 +124,4 @@ func _draw() -> void:
 		draw_line(Vector2(x,157),Vector2(x+264,157),Color(.25,.32,.35,.8),5,true)
 		var ratio:float=1.0 if amounts[i]<0 else clampf(float(amounts[i])/([100.0,200.0,float(values.capacity)][i]),0,1)
 		if ratio>0:draw_line(Vector2(x,157),Vector2(x+264*ratio,157),tint,5,true)
-	if values.dead:label(Vector2(295,67),"FRAGGED · A / TRIGGER TO RESPAWN",19,Color("ffaaa0"))
+	if values.dead:label(Vector2(295,67),"OUT · WAIT FOR NEXT ROUND" if values.get("wait_for_round",false) else "FRAGGED · A / TRIGGER TO RESPAWN",19,Color("ffaaa0"))

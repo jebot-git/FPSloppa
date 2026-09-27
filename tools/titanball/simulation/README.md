@@ -6,6 +6,9 @@ classes and Quake weapons in normal hosting and in the current match runner.
 Historical classless UT/Doom artifacts are retained for reference; those loadouts
 are no longer accepted by the runner. Each round ends on delivery or timeout.
 
+`--map tb_cindercoil` selects the circular ascending map. The default remains
+`tb_ashfall`; the result records the selected map and its BSP checksum.
+
 `--seed`, `--seconds`, `--speed 1|2|4`, `--name` and `--headless` allow bounded
 follow-up tests. `--record` uses Godot's viewport movie writer at 30 fps and then
 encodes H.264/AAC MP4 with FFmpeg. It captures the game, including preparation,

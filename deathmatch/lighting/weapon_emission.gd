@@ -1,7 +1,8 @@
 extends RefCounted
 ## One cosmetic recipe per actual shot type, independent of damage/hit radius.
 static func kind(profile: String,slot: int,definition: Dictionary={}) -> String:
-	if slot in [0,1] and profile!="ut99":return "melee"
+	if slot==0 and profile=="cs16":return "melee"
+	if slot in [0,1] and profile not in ["ut99","cs16"]:return "melee"
 	if definition.get("name","")=="FLAMETHROWER":return "flame"
 	if definition.get("name","")=="SNIPER RIFLE":return "sniper"
 	if definition.get("tranquilize",false):return "dart"

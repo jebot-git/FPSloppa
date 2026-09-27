@@ -2,7 +2,7 @@
 
 ## Team radio and team text
 
-In TDM, CTF, KOTH, Freeze Tag, TF and ASSAULT, the built-in voice system provides
+In TDM, CTF, KOTH, Freeze Tag, TF, ASSAULT and DE, the built-in voice system provides
 a radio on the **offhand shoulder**: left shoulder for a right-handed gun, right
 shoulder for a left-handed gun. Changing the gun-hand setting moves it and releases
 any held radio. Reach to that shoulder, grab with the offhand grip, then **hold
@@ -29,7 +29,17 @@ effects or decoding.
 
 This radio controls **built-in TwoVoIP**. External Mumble remains independently
 configured and controlled by its client. Multiplayer protocol is now
-`fpsloppa-31-team-radio`; clients and servers need matching updates.
+`fpsloppa-44-defusal`; clients and servers need matching updates.
+
+In **DE**, dead players and spectators share a non-positional voice channel
+across both teams. Neither side of the living/dead boundary hears the other.
+Both PTT controls address the dead channel when dead; text follows the same
+boundary with a `[DEAD]` prefix. The server enforces recipients, and playback
+discards queued or stale life/round audio on death and revival. This applies to
+built-in voice; external applications require their own channel management.
+During DE preparation, default **B** opens the buy menu without also activating
+team PTT; **V** remains available, and a rebound team-PTT key works normally.
+See [DE controls](docs/BOMB-DEFUSAL.md).
 
 Tests: `python3 deathmatch/tests/run_radio_tests.py` starts a dedicated server,
 sender, teammate and opponent to verify routing, decoding and private/public text.

@@ -40,6 +40,7 @@ func run() -> void:
 				game.fighters[collector].position=p.position
 				await publish(kind+" available",index,true)
 				game._collect(collector)
+				check(is_equal_approx(p.respawn-game.clock,5.0 if kind=="weapon" else 30.0),kind+": server schedules the expected respawn interval")
 				await publish(kind+" collected",index,false)
 				game.clock=p.respawn-.01;game._respawn_pickups()
 				await publish(kind+" before deadline",index,false)

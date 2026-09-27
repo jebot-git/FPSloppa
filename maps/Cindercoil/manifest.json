@@ -1,0 +1,33 @@
+{
+  "id": "tb_cindercoil",
+  "title": "Cindercoil | TITANBALL",
+  "sha256": "17261486713e2f460658bb9ea48703654acaa921d8542097a24683d8be2b32bb",
+  "source_sha256": "5fbcf5967ba56580c1bb36d4e26d3cf15daaed7504a56388ecbaf9cad7af0b6d",
+  "bytes": 17925452,
+  "route_m": 349.999755859375,
+  "rise_m": 14,
+  "structural_brushes": 613,
+  "detail_brushes": 946,
+  "checkpoints": [
+    80,
+    230
+  ],
+  "attacker_stages": [
+    0,
+    72,
+    222
+  ],
+  "defender_base": 350,
+  "team_spawns": [
+    12,
+    4
+  ],
+  "shared_resupply": 6,
+  "overpasses": 3,
+  "towers": 6,
+  "connecting_tunnels": 4,
+  "natural_pickups": 0,
+  "full_vis": true,
+  "geometry_license": "CC0-1.0",
+  "textures": "texture-sources.json"
+}

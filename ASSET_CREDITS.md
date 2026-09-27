@@ -167,3 +167,26 @@ recorded in `tools/threewave_rebuild/README.md`. New geometry is CC0-1.0; Makkon
 The experimental robot uses Quandtum’s BA-2 v1.1 with an authored slow walk and procedural belly ladder. See [runtime asset credits and texture provenance](deathmatch/vehicles/ba2/SOURCES.md) and the [TB test guide](docs/TITANBALL.md).
 
 Ashfall Boulevard / TITANBALL: original CC0 geometry; Makkon Industrial/Metal textures by Ben “Makkon” Hale, ptoing palette/LUT credit, and LibreQuake BSD textures. Original miptex records and separate licenses are retained in [maps/Ashfall](maps/Ashfall/README.md).
+
+Cindercoil / TITANBALL: original circular, ascending BSP29 geometry under CC0, with the same Makkon Industrial/Metal and LibreQuake texture sources. Per-texture provenance, original miptex records and separate notices are retained in [maps/Cindercoil](maps/Cindercoil/README.md).
+
+## CS-inspired arsenal
+
+Twelve original Blender-authored weapon models reuse a shared CC0 Oldschool AFPS Weapons metal finish. No CS retail assets or reference photographs are bundled. See [provenance and source hashes](deathmatch/weapons/cs16/CREDITS.md).
+
+## DE objective equipment
+
+Original Blender bomb case and cutters, original shop SVGs, and a synthesized beep. [Editable source and runtime provenance](deathmatch/pickups/defusal/SOURCES.md). Dust2 uses the existing [independent BSP29 reconstruction](maps/Dust2Rebuilt/README.md).
+
+DE theme **Copper Fuse** is an original CC0 composition and arrangement using
+CC0 Versilian VSCO strings, brass and orchestral percussion recordings, existing
+credited project samples, and original synthesis. [Pinned sources, licenses
+and regeneration](docs/audio/copper-fuse/README.md).
+
+All five DE studies use original brushes, original generated plaster/paving/ruin
+artwork, and unchanged Makkon Industrial/Metal and LibreQuake miptextures.
+Makkon textures are by Ben “Makkon” Hale (palette/LUT: ptoing), under the existing
+project-specific permission and separate license. LibreQuake textures remain
+BSD-3-Clause. See [material provenance and prompts](maps/DEMaterials/SOURCES.md)
+and [map references and fidelity](maps/ClassicDE/README.md).
+HE/flash/smoke models, shaders and SVG icons are original native Godot assets.

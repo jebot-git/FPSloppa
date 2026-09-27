@@ -6,6 +6,8 @@ const BANK="fpsloppa_filter_variants"
 const BAKED=preload("res://deathmatch/maps/baked_light.gdshader")
 const QUAKE=preload("res://deathmatch/maps/quake_light.gdshader")
 const ColourMips=preload("res://deathmatch/maps/colour_mips.gd")
+const DATA_SAMPLERS=["bake_texture","weapon_occlusion_tree"]
+const MIPS_READY="fpsloppa_mipmaps_ready"
 var mode:=2
 var prepare_assets:=true
 var lighting_mode:=-1
@@ -24,14 +26,25 @@ class Warmup extends Node3D:
 		for source in sources:source.set_meta("fpsloppa_filter_warmed",true)
 		queue_free()
 func texture(source: Texture2D) -> Texture2D:
-	if not source or source is ViewportTexture or source.has_mipmaps():return source
-	if textures.has(source):return textures[source]
+	return prepare_texture(source,false)
+func normal_texture(source: Texture2D) -> Texture2D:
+	return prepare_texture(source,true)
+func prepare_texture(source: Texture2D,normal: bool) -> Texture2D:
+	if not source or source is ViewportTexture or source.has_meta(MIPS_READY) or source.has_mipmaps():return source
+	var key:=[source,normal]
+	if textures.has(key):return textures[key]
 	var result: Texture2D=source
 	var image:=source.get_image()
-	if image and not image.has_mipmaps():
-		if image.is_compressed():image.decompress()
-		if image.generate_mipmaps()==OK:result=ImageTexture.create_from_image(image)
-	textures[source]=result
+	if image and not image.has_mipmaps() and maxi(image.get_width(),image.get_height())>1:
+		# The headless renderer may return the shared backing Image. Never alter
+		# source pixels: another material may interpret them as a normal map.
+		image=image.duplicate() as Image
+		if image.is_compressed() and image.decompress()!=OK:return source
+		if image.generate_mipmaps(normal)==OK:result=ImageTexture.create_from_image(image)
+	# Texture2D.has_mipmaps() returns false for ImageTexture in Godot 4.7.2;
+	# retain the verified result to avoid another GPU read on subsequent loads.
+	if image and image.has_mipmaps():result.set_meta(MIPS_READY,true)
+	textures[key]=result
 	return result
 func textured(source: BaseMaterial3D) -> bool:
 	for slot in BaseMaterial3D.TEXTURE_MAX:
@@ -46,6 +59,7 @@ func map_texture(source: Texture2D,cutout: bool=false) -> Texture2D:
 func material(source: Material) -> void:
 	if not source or materials.has(source):return
 	materials[source]=true
+	material(source.next_pass)
 	if source is BaseMaterial3D:
 		if not textured(source):return
 		if prepare_assets:
@@ -56,7 +70,7 @@ func material(source: Material) -> void:
 				if previous!=source.albedo_texture and source.has_meta(BANK):source.remove_meta(BANK)
 			for slot in BaseMaterial3D.TEXTURE_MAX:
 				var original: Texture2D=source.get_texture(slot)
-				var prepared:=texture(original)
+				var prepared:=normal_texture(original) if slot in [BaseMaterial3D.TEXTURE_NORMAL,BaseMaterial3D.TEXTURE_DETAIL_NORMAL] else texture(original)
 				if original!=prepared:source.set_texture(slot,prepared)
 			if not source.has_meta(BANK):
 				var variants: Array=[]
@@ -82,10 +96,15 @@ func material(source: Material) -> void:
 			if lighting_mode>=0:source.set_shader_parameter("contrast_lighting",lighting_mode==1)
 			return
 		if prepare_assets:
-			for key in ["base_texture","glow_texture","_MainTex","_ShadeTexture","_EmissionMap","_SphereAdd","_RimTexture","_ShadingGradeTexture","_ReceiveShadowTexture","_UvAnimMaskTexture","_OutlineWidthTexture"]:
+			# Includes imported avatar normal/mask maps and custom material slots.
+			# Packed light atlases and the exact-texel BSP lookup are not images
+			# that can be downsampled safely; live ViewportTextures also bypass it.
+			for uniform in source.shader.get_shader_uniform_list() if source.shader else []:
+				var key: String=uniform.name
+				if key in DATA_SAMPLERS:continue
 				var value=source.get_shader_parameter(key)
 				if value is Texture2D:
-					var prepared:=texture(value)
+					var prepared:=normal_texture(value) if key=="_BumpMap" or "normal" in key.to_lower() else texture(value)
 					if value!=prepared:source.set_shader_parameter(key,prepared)
 			if source.shader and not source.has_meta(BANK):
 				var code: String=source.shader.code
@@ -110,7 +129,18 @@ func apply(root: Node,filter_mode: int=2,prepare: bool=true,lighting: int=-1) ->
 	if root is GeometryInstance3D:nodes.append(root)
 	for node in nodes:
 		if node.has_meta("fpsloppa_filter_warmup"):continue
-		var mesh: Mesh=node.mesh if node is MeshInstance3D else node.multimesh.mesh if node is MultiMeshInstance3D and node.multimesh else null
+		material(node.material_override)
+		material(node.material_overlay)
+		if node is Sprite3D:
+			if node.texture and not node.texture is ViewportTexture:
+				if prepare:node.texture=texture(node.texture)
+				node.texture_filter=FILTERS[mode]
+		if node is GPUParticles3D:
+			for pass_index in node.draw_passes:
+				var particle_mesh: Mesh=node.get_draw_pass_mesh(pass_index)
+				if particle_mesh:
+					for surface in particle_mesh.get_surface_count():material(node.material_override if node.material_override else particle_mesh.surface_get_material(surface))
+		var mesh: Mesh=node.mesh if node is MeshInstance3D or node is CPUParticles3D else node.multimesh.mesh if node is MultiMeshInstance3D and node.multimesh else null
 		if not mesh:continue
 		for surface in mesh.get_surface_count():
 			var source: Material=node.get_active_material(surface) if node is MeshInstance3D else node.material_override if node.material_override else mesh.surface_get_material(surface)
@@ -124,3 +154,10 @@ func apply(root: Node,filter_mode: int=2,prepare: bool=true,lighting: int=-1) ->
 				var instance:=MeshInstance3D.new();instance.mesh=mesh;instance.material_override=variant
 				instance.cast_shadow=node.cast_shadow;instance.set_meta("fpsloppa_filter_warmup",true);warmup.add_child(instance)
 	if warmup:root.add_child(warmup)
+	if prepare:
+		var decals:=root.find_children("*","Decal",true,false)
+		if root is Decal:decals.append(root)
+		for decal in decals:
+			for slot in Decal.TEXTURE_MAX:
+				var value: Texture2D=decal.get_texture(slot)
+				decal.set_texture(slot,normal_texture(value) if slot==Decal.TEXTURE_NORMAL else texture(value))

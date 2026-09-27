@@ -43,7 +43,7 @@ Each card displays a cached 320×180 map preview behind its text. The BSP import
 
 With the waiting lobby enabled, the same cards and votes continue from intermission onto the lobby wall. Players can move and use voice chat there, without weapons, pickups or damage. A camera-based tracking mirror beside the wall shows your avatar between matches. The lobby duration accepts 15–180 seconds. Without the lobby, the selected match starts as intermission ends. Closing the ballot leaves it available through **Teams & Votes**.
 
-The default is `sv_lobby "0"`, which uses the intermission ballot without a waiting room. `sv_votes "0"` disables the ballot and preserves configured rotation. Offline practice does not use between-match voting. Clients and server must both use protocol `fpsloppa-39-rotating-koth`.
+The default is `sv_lobby "0"`, which uses the intermission ballot without a waiting room. `sv_votes "0"` disables the ballot and preserves configured rotation. Offline practice does not use between-match voting. Clients and server must both use protocol `fpsloppa-44-defusal`.
 
 ## Server capacity and avatar browser
 
@@ -80,3 +80,7 @@ Changing avatars while frozen keeps the ice appearance. The effect is cosmetic
 and does not alter collision, thaw range or team scoring. Frozen first-person
 body parts also receive the ice material; the local ring and overhead label stay
 hidden to avoid obstructing the headset view.
+
+## Equipped weapons on death
+
+Players and bots drop their equipped weapon when it was not in their mode/class starting inventory. The weapon carries its remaining ammunition, can be collected once, expires after 30 seconds, and is cleared on a round or map transition. It does not grant the extra weapons bundled into authored map pickups. Drops are server-authoritative and visible to late joiners; matching protocol 41 clients and servers are required.
