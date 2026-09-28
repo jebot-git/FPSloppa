@@ -386,5 +386,41 @@
     "Completed previews use earlier code as identified by each provenance file.",
     "Raindance synthetic reconstruction and Godot collision differ from the original game.",
     "No new headset test was performed."
+  ],
+  "current_previews": [
+    {
+      "folder": "test-results/st-speed/live-stonehenge-obstacles-9300",
+      "status": "running_at_verification",
+      "observed_seconds": 55.1499999999982,
+      "observed_scores": [
+        0,
+        0
+      ],
+      "git_head": "a9edbd32ef7ce14733e6dfe17217980492d23637",
+      "map": "ctf_stonehenge",
+      "speed": 1,
+      "duration_limit_seconds": 1200.0,
+      "first_capture_cutoff_seconds": 600,
+      "post_capture_pickup_cutoff_seconds": 600,
+      "renderer": "Vulkan mobile",
+      "recording": "test-results/st-speed/live-stonehenge-obstacles-9300/match.mp4"
+    },
+    {
+      "folder": "test-results/st-speed/live-raindance-obstacles-9300",
+      "status": "running_at_verification",
+      "observed_seconds": 50.1333333333318,
+      "observed_scores": [
+        0,
+        0
+      ],
+      "git_head": "a9edbd32ef7ce14733e6dfe17217980492d23637",
+      "map": "ctf_raindance",
+      "speed": 1,
+      "duration_limit_seconds": 1200.0,
+      "first_capture_cutoff_seconds": 600,
+      "post_capture_pickup_cutoff_seconds": 600,
+      "renderer": "Vulkan mobile",
+      "recording": "test-results/st-speed/live-raindance-obstacles-9300/match.mp4"
+    }
   ]
 }

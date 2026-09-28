@@ -323,3 +323,12 @@ rules; a running preview is not a completed validation result. The focused test
 receipts, code/map hashes and run locations are recorded separately in
 `docs/validation/st-momentum-2026-09-28.json`. Raw replays, unsuccessful experiments
 and recordings remain under ignored `test-results/st-speed`.
+
+The subsequent pre-obstacle seed 9298 runs finished Stonehenge at the 600-second
+no-capture cutoff (0–0) and Raindance at twenty minutes (1–1, first capture at
+552.53 seconds). They do not validate the later handoff, curb or roof corrections.
+Final controlled validation passes 442 focused checks and 18 unopposed capture
+cases. New seed 9300 normal-speed, recorded 6v6 previews were started on both
+maps from commit `a9edbd3`, with Vulkan spectators and both inactivity cutoffs.
+Their result files, when present, are the completion authority; the receipt only
+records their startup verification.
