@@ -1,0 +1,209 @@
+{
+  "date": "2026-09-27",
+  "track": {
+    "key": "st",
+    "stem": "skyward_relay",
+    "title": "Skyward Relay",
+    "bpm": 156,
+    "bars": 80,
+    "duration": 123.07691609977324,
+    "ogg_bytes": 2063777,
+    "sha256": "0f488d076b59cd5aa6f705cee5d6dbddb9770ee89007eef5b6098d5c66ff66a3",
+    "target_lufs": -20,
+    "measured_lufs": -19.99,
+    "true_peak_dbtp": -3.74,
+    "loop": true,
+    "loop_offset": 0,
+    "loop_step": 4.5219509047456086e-05,
+    "sample_rate": 44100,
+    "license": "CC0-1.0",
+    "seed": 270926,
+    "generator": "tools/generate_st_music.py --install",
+    "source_format": "recorded-sample-and-synthesis-arrangement",
+    "source_file": "skyward_relay.score.json",
+    "sections": [
+      {
+        "start_bar": 0,
+        "end_bar": 8,
+        "name": "Launch signal"
+      },
+      {
+        "start_bar": 8,
+        "end_bar": 24,
+        "name": "Low flight"
+      },
+      {
+        "start_bar": 24,
+        "end_bar": 40,
+        "name": "Flag run"
+      },
+      {
+        "start_bar": 40,
+        "end_bar": 48,
+        "name": "Above the clouds"
+      },
+      {
+        "start_bar": 48,
+        "end_bar": 56,
+        "name": "Re-entry"
+      },
+      {
+        "start_bar": 56,
+        "end_bar": 72,
+        "name": "Homeward surge"
+      },
+      {
+        "start_bar": 72,
+        "end_bar": 80,
+        "name": "Turnaround"
+      }
+    ]
+  },
+  "reference": {
+    "title": "VDC",
+    "artist": "Chris Rickwood",
+    "url": "https://chrisrickwood.bandcamp.com/album/tribes-ascend-original-soundtrack",
+    "use": "Public preview analysis for broad tempo/energy direction; no reference samples or melody in generated assets"
+  },
+  "audio_validation": {
+    "scores": [
+      {
+        "mode": "title",
+        "seconds": 112.9411875,
+        "lufs": -22.03,
+        "true_peak_dbtp": -5.05,
+        "loop_step": 0.002201,
+        "bytes": 729805,
+        "passed": true
+      },
+      {
+        "mode": "lobby",
+        "seconds": 102.85715625,
+        "lufs": -21.02,
+        "true_peak_dbtp": -6.29,
+        "loop_step": 0.001914,
+        "bytes": 990176,
+        "passed": true
+      },
+      {
+        "mode": "dm",
+        "seconds": 111.304375,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.69,
+        "loop_step": 0.004119,
+        "bytes": 1610662,
+        "passed": true
+      },
+      {
+        "mode": "tdm",
+        "seconds": 120.0,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.49,
+        "loop_step": 0.000541,
+        "bytes": 1699484,
+        "passed": true
+      },
+      {
+        "mode": "ctf",
+        "seconds": 105.2055,
+        "lufs": -19.08,
+        "true_peak_dbtp": -4.31,
+        "loop_step": 0.000737,
+        "bytes": 1563643,
+        "passed": true
+      },
+      {
+        "mode": "koth",
+        "seconds": 132.4138125,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.74,
+        "loop_step": 0.009354,
+        "bytes": 1832638,
+        "passed": true
+      },
+      {
+        "mode": "ig",
+        "seconds": 92.530125,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.56,
+        "loop_step": 0.001868,
+        "bytes": 1429692,
+        "passed": true
+      },
+      {
+        "mode": "ft",
+        "seconds": 147.69234375,
+        "lufs": -19.05,
+        "true_peak_dbtp": -6.03,
+        "loop_step": 0.000373,
+        "bytes": 1969551,
+        "passed": true
+      },
+      {
+        "mode": "cc",
+        "seconds": 101.05265625,
+        "lufs": -19.07,
+        "true_peak_dbtp": -3.87,
+        "loop_step": 0.002602,
+        "bytes": 1462327,
+        "passed": true
+      },
+      {
+        "mode": "tf",
+        "seconds": 123.871,
+        "lufs": -19.08,
+        "true_peak_dbtp": -3.31,
+        "loop_step": 0.003109,
+        "bytes": 1751873,
+        "passed": true
+      },
+      {
+        "mode": "as",
+        "seconds": 156.9,
+        "lufs": -19.09,
+        "true_peak_dbtp": -4.47,
+        "loop_step": 2e-06,
+        "bytes": 2213053,
+        "passed": true
+      },
+      {
+        "mode": "tb",
+        "seconds": 112.9411875,
+        "lufs": -19.14,
+        "true_peak_dbtp": -2.64,
+        "loop_step": 0.000909,
+        "bytes": 1980341,
+        "passed": true
+      },
+      {
+        "mode": "de",
+        "seconds": 102.4,
+        "lufs": -20.0,
+        "true_peak_dbtp": -7.48,
+        "loop_step": 0.00049,
+        "bytes": 1609219,
+        "passed": true
+      },
+      {
+        "mode": "st",
+        "seconds": 123.0769375,
+        "lufs": -19.99,
+        "true_peak_dbtp": -3.74,
+        "loop_step": 4e-05,
+        "bytes": 2063777,
+        "passed": true
+      }
+    ],
+    "runtime_bytes": 22906241,
+    "failures": []
+  },
+  "runtime_checks": 63,
+  "source_hash_checks": 9,
+  "source_hashes_passed": true,
+  "runtime_passed": true,
+  "notes": [
+    "Godot real audio mixer checked at muted music-bus output.",
+    "Existing ObjectDB shutdown warning remains.",
+    "No human listening approval recorded."
+  ]
+}

@@ -8,6 +8,7 @@ const TEXTURES={
  "ember":"res://deathmatch/maps/skies/ember.png"
 }
 const MAPS={
+ "ctf_stonehenge":["overcast",.85],
  "tb_cindercoil":["overcast",.85],
  "as_hislop":["storm",.75],"as_frigate":["overcast",.85],
  "tf_pressureworks":["storm",.75],"tf_vesper":["night",.9],

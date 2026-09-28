@@ -36,9 +36,33 @@ func run():
 	region=NavigationRegion3D.new();region.navigation_mesh=load("res://maps/navigation/"+id+".res");world.add_child(region)
 	NavigationServer3D.map_set_cell_size(region.get_navigation_map(),region.navigation_mesh.cell_size)
 	if "--views" in OS.get_cmdline_user_args():await views();world.free();quit();return
+	# This pass audits walkable geometry with doorways open. The live runtime
+	# test verifies automatic activation, closed collision, travel and replication.
+	preload("res://tools/classic_de/doors.gd").open_for_navigation(level)
 	actor=load("res://deathmatch/fighter.gd").new();actor.setup(1,"Classic DE audit",Color.WHITE);world.add_child(actor);actor.set_physics_process(false)
 	await physics_frame;await physics_frame
 	var space=world.get_world_3d().direct_space_state
+	for structure in data.get("structure_checks",[]):
+		var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(p(structure.start)-Vector3.UP*.05,p(structure.end)-Vector3.UP*.05,1))
+		check(not hit.is_empty() and hit.position.distance_to(p(structure.at)-Vector3.UP*.05)<.015,"Attached structure: "+structure.name+" "+str(structure.at))
+	for sight in data.get("sightline_checks",[]):
+		var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(p(sight.start),p(sight.end),1))
+		check(hit.is_empty()==sight.clear,"Tactical sightline: "+sight.name)
+	for cover in data.get("cover_checks",[]):
+		for point in cover.ground:
+			var base:=p(point)-Vector3.UP*.05
+			var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(base+Vector3.UP*.008,base-Vector3.UP*.3,1))
+			check(not hit.is_empty() and absf(hit.position.y-base.y)<.015,"Cover rests on floor: "+cover.name+" "+str(point))
+		for point in cover.clear:
+			var query:=PhysicsShapeQueryParameters3D.new();var sphere:=SphereShape3D.new();sphere.radius=.01
+			query.shape=sphere;query.collision_mask=1;query.transform.origin=p(point)-Vector3.UP*.05
+			check(space.intersect_shape(query).is_empty(),"Cover corner clear of walls: "+cover.name+" "+str(point))
+	for gate in data.get("gate_checks",[]):
+		var start:=p(gate.hinge)-Vector3.UP*.05;var end:=p(gate.wall)-Vector3.UP*.05
+		for step in range(11):
+			var at:=start.lerp(end,float(step)/10)
+			var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(at+Vector3.BACK*.75,at+Vector3.FORWARD*3,1))
+			check(not hit.is_empty(),"Door jamb connects hinge to wall: "+str(gate.hinge)+" #"+str(step))
 	for s in data.spawns:
 		var at:=p(s);var query:=PhysicsShapeQueryParameters3D.new();var capsule:=CapsuleShape3D.new();capsule.radius=.32;capsule.height=1.7;query.shape=capsule;query.collision_mask=1;query.transform.origin=at+Vector3.UP*.9
 		check(space.intersect_shape(query).is_empty(),"Spawn capsule clear "+str(s))
@@ -66,7 +90,7 @@ func views():
 		camera.position=p(view.eye);camera.look_at(p(view.look))
 		await process_frame;await process_frame;await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://test-results/classic-de/"+str(data.id)+"/"+view.name+".png")
-	camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.size=125
+	camera.projection=Camera3D.PROJECTION_ORTHOGONAL;camera.size=190 if data.id=="de_aztec_rebuilt" else 125
 	camera.position=p([400,300,5200]);camera.look_at(p([400,300,0]),Vector3(-1,0,0))
 	await process_frame;await process_frame;await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://test-results/classic-de/"+str(data.id)+"/overview.png")

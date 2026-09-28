@@ -11,6 +11,14 @@ OUT.mkdir(parents=True, exist_ok=True)
 processes, logs = [], []
 try:
     for role, delay in [("server", 1), ("attacker", 1), ("defender", 6), ("viewer", 0)]:
+        if role == "viewer":
+            # A fixed startup delay can join before planting on a slower host.
+            # Wait for the authoritative event to exercise an actual late join.
+            deadline = time.monotonic() + 25
+            while "PASS Remote arming and site placement" not in (OUT / "network-server.log").read_text():
+                if time.monotonic() >= deadline or processes[0][1].poll() is not None:
+                    raise RuntimeError("Server did not reach the first plant before late viewer join")
+                time.sleep(.05)
         log = open(OUT / f"network-{role}.log", "w")
         logs.append(log)
         env = dict(os.environ, XDG_CONFIG_HOME=f"/tmp/fps-denet-{role}", XDG_DATA_HOME=f"/tmp/fps-denet-{role}")

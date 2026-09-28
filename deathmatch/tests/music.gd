@@ -45,7 +45,7 @@ func run():
 			var source=JSON.parse_string(FileAccess.get_file_as_string('res://deathmatch/audio/music/'+file+'.score.json'))
 			var score_key: String='ft' if key=='if' else key
 			check(source is Dictionary and source.get('key')==score_key and source.get('events',[]).size()>100 and source.get('sha256')==FileAccess.get_sha256('res://deathmatch/audio/music/'+file+'.ogg'),key+' arrangement matches its rendered audio')
-	check(bytes<21000000 and hashes.size()==13 and hashes.all(func(h):return hashes.count(h)==1),'Thirteen distinct runtime scores stay below 21 MB total, with IF sharing FT')
+	check(bytes<25000000 and hashes.size()==13 and hashes.all(func(h):return hashes.count(h)==1),'Thirteen distinct runtime scores stay below 25 MB total, with IF sharing FT')
 	var game:=FakeGame.new();root.add_child(game)
 	var server:=Music.new();game.add_child(server);game.headless=true;server.setup(game)
 	check(server.players.is_empty() and server.cache.is_empty(),'Dedicated server loads no music resources');server.free();game.headless=false
@@ -75,12 +75,12 @@ func run():
 		check(await ready_track(music,key),key+' selects its own track asynchronously')
 		if key=='de':check(Music.TRACKS[key]=='copper_fuse' and music.players[music.current].stream.loop,'DE selects and loops Copper Fuse')
 		if key=='tb':
-			check(Music.TRACKS[key]=='escape_velocity','Titanball selects Escape Velocity rather than the TF track')
+			if key=='tb':check(Music.TRACKS[key]=='escape_velocity','Titanball selects Escape Velocity rather than the TF track')
 			music._process(3)
 			var player: AudioStreamPlayer=music.players[music.current]
 			player.seek(player.stream.get_length()-.10)
 			await create_timer(.35).timeout
-			check(player.playing and player.get_playback_position()<1.0,'Titanball playback wraps at the loop boundary')
+			check(player.playing and player.get_playback_position()<1.0,key+' playback wraps at the loop boundary')
 	game.lobby.in_lobby=true
 	check(await ready_track(music,'lobby'),'Lobby elevator music overrides the prior game mode')
 	game.active=false;game.lobby.in_lobby=false

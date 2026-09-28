@@ -1,5 +1,7 @@
 # Practice bot AI
 
+ST sections below document deferred source development. ST, Stonehenge and the Tribes loadout are unavailable in 0.19v.
+
 Practice bots use the normal server movement, weapon, pickup, damage, TF ability,
 and objective code. The AI selects inputs and goals; it does not grant equipment,
 teleport actors, heal directly, or advance objectives itself.
@@ -7,6 +9,39 @@ teleport actors, heal directly, or advance objectives itself.
 The [AI balance follow-up](docs/AI-BALANCE-FIXES.md) documents profile-aware
 equipment acquisition, coordinated CTF pushes and carrier screens, KOTH access
 adjustments, spawn-overlap prevention, and the validated water/low-ceiling exits.
+
+DE bots use [CS 1.6 map-specific tactics](docs/CS16-MAP-TACTICS-STUDY.md):
+stable alternate attack lanes, entrance-facing holds, one bomb recovery runner,
+and one planned defuser with covering teammates. Profiles are bound to map
+hashes; navigation validates access and ordinary perception still governs combat.
+
+ST bots use [situational team assignments and ski routes](docs/ST-CTF-RESEARCH.md).
+Jobs are reconsidered once per second and immediately on flag, power or living
+roster changes. Nearby available bots recover flags and escort carriers;
+repair-capable players restore power, and visible base pressure can recruit a
+second defender. A healthy base releases more attackers. Switching jobs does
+not automatically send an equipped bot home to change armour. Maintenance bots
+can purchase and place defensive remote turrets, repair damaged friendly
+equipment, and skip disabled stations. Runners fire at visible hostile turrets
+without abandoning their flag route. Low-speed uphill skiing releases to walking,
+while sufficient momentum permits coasting over a rise. Tower approaches use terrain
+run-ups, recharge and class-aware flight, including backing out after a miss.
+Routes persist while making progress and exclude loops through alternate-lane
+waypoints. Open launch terrain no longer uses the bunker hovering controller;
+airborne arrivals brake with directional jets. Healthy cappers can leave on
+spawn equipment without shopping for an optional backpack. The integrated
+`st_bot_capture.gd` fixture runs the planner and real flag rules for a complete
+spawn-to-enemy-flag-to-home trip, including each of Stonehenge's sixteen spawns.
+[Adaptive ST tactics](docs/ST-BOT-ADAPTATION.md) retain failed approaches across
+respawns, rotate attack corridors, bound regrouping waits, separate escort
+positions and shelter a carrier when the home flag is missing. Resupply uses
+completion hysteresis. Final tower flights face the deck while preserving
+combat aim. Competitive capture rates and optimal ski routes remain unproven;
+see the [implementation gaps](docs/TRIBES-IMPLEMENTATION-GAPS.md).
+The [capture reliability follow-up](docs/ST-CAPTURE-RELIABILITY.md) adds flag
+passes without stopping, immediate carrier replanning and momentum-aware exits.
+Local ST 6v6 tests automatically terminate if neither team captures within the
+first ten game minutes; event logs distinguish a flag pickup from a capture.
 
 ## Decisions and teamwork
 
@@ -152,3 +187,7 @@ use a complete runtime copy when native libraries may also change.
 
 The subsequent [team coordination report](docs/BOT-TEAMPLAY-REPORT.md) covers
 shared sightings, support positions, supply offers, ambushes and team-mode reruns.
+
+ST [offence and construction](docs/ST-OFFENCE-DEFENCES.md) now include downhill carrier exits, guarded flag passing, real disc jumps, Heavy mortar support, all seven deployable plans and fixed-equipment siege. These use ordinary inputs, ammunition, energy, purchases and perception.
+
+ST field-system bots now repair redundant power sources according to actual disable thresholds, seek nearby useful recovery cases when depleted, place target beacons and briefly designate visible equipment for mortar teammates. Heavy support can solve and clear-check shared laser/beacon trajectories. See [steps 4–6](docs/ST-FIELD-SYSTEMS.md) for scope and validation.

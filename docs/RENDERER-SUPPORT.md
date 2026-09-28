@@ -1,6 +1,6 @@
-# Renderer support — 12 September 2026
+# Renderer support — 28 September 2026
 
-FPSloppa maintains **Mobile/Vulkan** for Linux, Windows and standalone Quest/Pico. OpenGL/GLES Compatibility is unsupported and automatic OpenGL fallback is disabled in `project.godot`. Windows retains Godot's native D3D12 fallback capability; it has not been validated here. The dedicated server requires no graphics API.
+FPSloppa maintains **Mobile/Vulkan** for Linux, Windows and standalone Quest/Pico. OpenGL/GLES Compatibility is unsupported and automatic OpenGL fallback is disabled in `project.godot`. New Windows templates also use Vulkan exclusively. The dedicated server requires no graphics API.
 
 The project now uses one MToon fill policy and the Mobile decal path. The Compatibility-specific avatar fill, mesh-decal workaround and global depth-prepass workaround were removed. Map/demo preview helpers and default rendering tests use Mobile. Older OpenGL comparison tools and receipts remain as historical diagnostics, not supported game configurations.
 
@@ -10,7 +10,17 @@ The project now uses one MToon fill policy and the Mobile decal path. The Compat
 
 [Pico's hardware/software matrix](https://developer.picoxr.com/document/unreal/hardware-and-software-specifications/) lists Vulkan rendering for its supported Neo3/4 devices. The supplied [Pico Vulkan page](https://developer.picoxr.com/document/unreal/vulkan-rendering/) returned only navigation content to the research tool, so its exact warning about simultaneously enabling GLES/Vulkan was not independently verified. Those engine-specific export settings must not be confused with Godot retaining unused backend code inside a stock export template.
 
-Godot's [fallback setting](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-rendering-rendering-device-fallback-to-opengl3) controls automatic selection of Compatibility. Exported Android `project.binary` is checked for Mobile and disabled OpenGL fallback. The APK manifest requires Vulkan 1.1. The stock template still contains OpenGL implementation code and a GLES hardware-capability declaration; that does not enable a second active game renderer. No claim is made that custom engine binaries were compiled with OpenGL physically removed.
+Godot's [fallback setting](https://docs.godotengine.org/en/stable/classes/class_projectsettings.html#class-projectsettings-property-rendering-rendering-device-fallback-to-opengl3) controls automatic selection of Compatibility. Exported Android `project.binary` is checked for Mobile and disabled OpenGL fallback. The APK manifest requires Vulkan 1.1. Earlier releases used stock templates containing inactive OpenGL code. **Future client releases require custom templates compiled with `opengl3=no`**, not just a disabled fallback. `tools/build_release.py` and `tools/build_android.py` reject missing or mismatched template receipts; package-only PC releases also compare the exported engine code against the verified template. Android verifies the packaged native library against its verified AAR. The live ST launcher now permits only RenderingDevice methods and explicitly selects Vulkan.
+
+The 0.19v Linux, Windows and Quest runtimes have been compiled from pinned Godot 4.7.2 source with `opengl3=no`, `vulkan=yes` and `openxr=yes`; Windows also sets `d3d12=no`. Hash receipts are verified before every export. The dedicated server excludes both graphics backends.
+
+Build the client toolchains with `podman build -t localhost/fpsloppa-client-toolchain:godot-4.7.2-jammy -f tools/client_runtime/Containerfile tools/client_runtime` and the Windows toolchain with `podman build -t localhost/fpsloppa-windows-toolchain:godot-4.7.2-noble -f tools/client_runtime/Containerfile.windows tools/client_runtime`. Linux uses Ubuntu 22.04 for its runtime ABI; Windows uses Ubuntu 24.04's C++20-capable MinGW compiler. Build templates with `python3 tools/build_client_templates.py PLATFORM --container`, where PLATFORM is `linuxbsd`, `windows` or `android`. Each platform has a separate source/build directory.
+
+Godot's pinned `install_swappy_android.py` supplies Android frame pacing; Windows uses its pinned AccessKit and WinRT installers. Run these from the corresponding extracted source directory before compilation. Android requires SDK/NDK 29 and JDK 17. Gradle resolves SCons even when native tasks are excluded, so install SCons 4.9.1 into `Builds/ClientRuntime/python` (an isolated virtual environment) or provide it on PATH. Gradle wraps the already compiled ARM64 library without regenerating it. Output and hash receipts live in ignored `Builds/ClientTemplates/`.
+
+Linux receives an exported Vulkan smoke test. Windows and Quest are cross-built and receive binary, package and signing checks; no new headset/device test is claimed by this release.
+
+In the ST live-view comparison, switching only the spectator from OpenGL to Vulkan resolved the reported head/hair/armour flicker, confirmed by the wearer. No MToon shader change was needed for that observation.
 
 ## Physical validation
 

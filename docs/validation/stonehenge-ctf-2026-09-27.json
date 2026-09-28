@@ -1,0 +1,146 @@
+{
+  "date": "2026-09-27",
+  "build": {
+    "id": "ctf_stonehenge",
+    "title": "Stonehenge | Tribes terrain study",
+    "bsp_sha256": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
+    "bytes": 10592496,
+    "bsp_version": 29,
+    "terrain_step_m": 16,
+    "terrain_extent_m": [
+      704,
+      704
+    ],
+    "terrain_elevation_m": [
+      -5.4375,
+      160.25
+    ],
+    "terrain_brushes": 3872,
+    "detail_brushes": 3955,
+    "structural_brushes": 6,
+    "full_vis": true,
+    "flag_separation_m": 448.5382820919525,
+    "team_spawns": [
+      8,
+      8
+    ],
+    "expected_loadout": "tribes",
+    "inventory_stations": [
+      2,
+      2
+    ],
+    "playable_boundary": {
+      "min": [
+        -350,
+        -24,
+        -350
+      ],
+      "max": [
+        350,
+        320,
+        350
+      ]
+    },
+    "reference": "references.json",
+    "faces": 30368,
+    "vertices": 31341,
+    "nodes": 27806,
+    "leaves": 15312
+  },
+  "stations": {
+    "bsp_sha256": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
+    "checks": 118,
+    "failures": []
+  },
+  "regressions": {
+    "routes": {
+      "checks": 44,
+      "failures": [],
+      "routes": 27
+    },
+    "armour": {
+      "checks": 87,
+      "failures": [],
+      "passed": true
+    },
+    "arsenal": {
+      "checks": 37,
+      "failures": []
+    },
+    "demo": {
+      "checks": 13,
+      "failures": []
+    }
+  },
+  "map_acceptance": {
+    "checks": 59,
+    "failures": [],
+    "terrain": {
+      "holes": [],
+      "max_uncovered_height_error_m": 0.0003204345703125,
+      "samples": 769,
+      "samples_under_architecture": 45
+    }
+  },
+  "network": {
+    "server": "passed",
+    "owner": "passed",
+    "late_spectator": "passed",
+    "movement_delay_ms": [
+      50,
+      100
+    ],
+    "movement_packet_loss": 0.2,
+    "station_purchases": "remote reliable RPC for medium and heavy",
+    "protocol": "fpsloppa-57-tribes-stations"
+  },
+  "prepared_assets": {
+    "bsp_sha256": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
+    "codecs": [
+      {
+        "encoded_bytes": 1398208,
+        "format": "bc7",
+        "images": 4,
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-bc7.scn",
+        "raw_bytes": 4194300
+      },
+      {
+        "encoded_bytes": 1398208,
+        "format": "astc4",
+        "images": 4,
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-astc4.scn",
+        "raw_bytes": 4194300
+      }
+    ],
+    "geometry_hashes": 8,
+    "ground_navigation_polygons": 42024,
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.559796810150146,
+      "occupancy_before": 0.139949202537537,
+      "padded_luxels": 2347958,
+      "patches": 30086,
+      "raw_bytes_after": 12582912,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 181503,
+      "to": [
+        2048,
+        2048
+      ]
+    }
+  },
+  "reviewed_views": [
+    "test-results/stonehenge-ctf/station-0.png",
+    "test-results/stonehenge-ctf/station-1.png",
+    "test-results/stonehenge-ctf/inventory-1.png"
+  ],
+  "limitations": [
+    "No physical headset run.",
+    "Stations permanently powered; generator damage and repairs are deferred.",
+    "Ground navigation does not supply competitive skiing AI or bot inventory tactics.",
+    "Existing ObjectDB shutdown warning; graphical preview also reports a PulseAudio shutdown warning."
+  ]
+}

@@ -14,7 +14,9 @@ func run():
 		for id in [-1,-2,-3]:g._peer_left(id)
 		for i in 12:
 			g._add_player(-1000-i,"Bot "+str(i+1));g.players[-1000-i].team=i%2;g._spawn(-1000-i)
-		g.dedicated=true;g.bot_population.count_target=12
+		# start_host clamps ordinary practice to eight seats. Restore the test
+		# capacity before enabling population maintenance, so all 12 bots stay.
+		g.max_clients=16;g.dedicated=true;g.bot_population.count_target=12
 		var de=g.match_mode.defusal;de.reset()
 		while not g.bots.ready_to_walk or not g.bots.navigation.ready():await physics_frame
 		var samples: Array=[];var starts: Dictionary={};var exits: Array=[];var round_seen:=0;var next_sample:=0.0;var phase:=""

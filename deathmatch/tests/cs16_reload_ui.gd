@@ -198,6 +198,30 @@ func run():
 		check(released.global_transform.is_equal_approx(Models.ammo_pose(support_hand.global_transform,7,not handed)),"Released magazine starts at the held magazine pose")
 		for i in 8:await physics_frame
 		check(released.global_basis.get_scale().is_equal_approx(Vector3.ONE*Art.VR_SCALE),"Physics steps preserve released magazine size")
+	# USP secondary shares the offhand reload trigger; only a fresh close press wins.
+	for handed in [false,true]:
+		rig.left_handed=handed;left.set_input("trigger",0.0);right.set_input("trigger",0.0)
+		left.set_input("grip",0.0);right.set_input("grip",0.0)
+		rig.left.transform=Transform3D(Basis.IDENTITY,Vector3(-.22,1.18,-.3));rig.left_aim.transform=rig.left.transform
+		rig.right.transform=Transform3D(Basis.IDENTITY,Vector3(.22,1.18,-.3));rig.right_aim.transform=rig.right.transform
+		equip(2)
+		var off: XRControllerTracker=right if handed else left
+		var muzzle:=point(Models.muzzle(2));var pouch:=Reload.pouch(rig.sample_pose()).origin
+		off.set_input("trigger",1.0);step(pouch);step(muzzle)
+		check(not cs.suppressed(1) and not rig.command(sequence+1).alt_fire,"USP requires fresh close secondary in live rig: "+str(handed))
+		off.set_input("trigger",0.0);step(muzzle);off.set_input("trigger",1.0);step(muzzle)
+		check(cs.suppressed(1),"USP offhand trigger attaches silencer near muzzle: "+str(handed))
+		step(muzzle);check(cs.suppressed(1),"Live rig held secondary cannot toggle USP twice")
+		off.set_input("trigger",0.0);step(muzzle);off.set_input("trigger",1.0);step(muzzle)
+		check(not cs.suppressed(1),"USP offhand trigger removes silencer near muzzle")
+		off.set_input("trigger",0.0);step(pouch,false,true);step(pouch)
+		off.set_input("trigger",1.0);step(pouch);step(pouch+Vector3.UP*.20)
+		check(cs.physical(1).carry==1,"Shared secondary trigger holds USP replacement magazine")
+		step(point(Reload.MAG_POINTS[2]));step(muzzle)
+		check(cs.physical(1).mag and not cs.suppressed(1) and not rig.command(sequence+1).alt_fire,"Finishing reload with trigger held cannot attach USP silencer")
+		off.set_input("trigger",0.0);step(muzzle);off.set_input("trigger",1.0);step(muzzle)
+		check(cs.suppressed(1),"Releasing reload trigger permits deliberate silencer attachment")
+		off.set_input("trigger",0.0);step(muzzle)
 	# Every removable CS magazine uses the same visual scale in either drop path.
 	for w in [1,2,5,6,7,8,9,10,11]:
 		equip(w)

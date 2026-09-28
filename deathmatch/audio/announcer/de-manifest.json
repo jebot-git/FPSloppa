@@ -1,0 +1,60 @@
+{
+  "engine": "Piper 1.8.0",
+  "voice": "en_US-joe-medium",
+  "length_scale": 0.91,
+  "noise_scale": 0.45,
+  "noise_w_scale": 0.6,
+  "processing": "highpass=f=140,lowpass=f=6500,acompressor=threshold=0.15:ratio=3:attack=5:release=80,loudnorm=I=-18:TP=-2:LRA=5,aresample=44100",
+  "cues": [
+    {
+      "cue": "de_terrorists",
+      "text": "You are terrorists.",
+      "duration": 1.033288,
+      "sample_rate": 44100,
+      "channels": 1,
+      "bytes": 11713,
+      "source_sha256": "da937e7c84c5289e7f7f43b5b951f4b21c0d103327566bea24829feaaf9cd13a",
+      "output_sha256": "7033fc4a2d45ac6a35477c0d6df4d7cd098e83e46662cc0481257b08ac20eca0"
+    },
+    {
+      "cue": "de_counter_terrorists",
+      "text": "You are counter terrorists.",
+      "duration": 1.520907,
+      "sample_rate": 44100,
+      "channels": 1,
+      "bytes": 16379,
+      "source_sha256": "cf963913ebe84213ae4a6646c002754ff4dbdc22d1b770e471ff536d1746bf9f",
+      "output_sha256": "e5010a8df7e43d028befb27db4193a0dec6b3e6184efe8eb54d241bc938dd137"
+    },
+    {
+      "cue": "de_terrorists_win",
+      "text": "Terrorists win.",
+      "duration": 1.056508,
+      "sample_rate": 44100,
+      "channels": 1,
+      "bytes": 12367,
+      "source_sha256": "a0dc4bbfad10453ba72eddfa2bd1c43620232c43cf424d008a0612df4402bc6d",
+      "output_sha256": "0ec2ac549101580f3d1800731d2051413c407dc777978652731c3174215766f6"
+    },
+    {
+      "cue": "de_counter_terrorists_win",
+      "text": "Counter terrorists win.",
+      "duration": 1.195828,
+      "sample_rate": 44100,
+      "channels": 1,
+      "bytes": 13017,
+      "source_sha256": "521f5b4ec5615863fe41839d518cdb797093e50fb3f1a9a1a97e8a2684beb9a5",
+      "output_sha256": "f5c84a186d62a65ba7724aea07e8c3e575a59e01eb1e3243b809cebe3899def9"
+    },
+    {
+      "cue": "de_bomb_planted",
+      "text": "The bomb has been planted.",
+      "duration": 1.748027,
+      "sample_rate": 44100,
+      "channels": 1,
+      "bytes": 16734,
+      "source_sha256": "bd86bdf536e3e389005f0c7c4a4b937ff006ea5938501f63e5c29bf2abecf743",
+      "output_sha256": "b8c48e276769f07030a044a44d23acf700d2aa864f2756bda6100dd34fc14e5b"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "date": "2026-09-27",
+  "scope": "ST Stonehenge bot capture navigation; live match stopped at user request",
+  "changes": [
+    "Erase alternate-lane graph loops",
+    "Retain routes while advancing; recover stalled routes",
+    "Use precise steering for bunker goals and ceilings, not every position near a base",
+    "Preserve staging recharge and recovery state",
+    "Align takeoff and allow a distance-dependent loft before the covered deck",
+    "Hand off deck arrivals and brake with directional jets",
+    "Convert movement after navigation yaw changes",
+    "Let healthy cappers attack with spawn equipment without optional shopping detours"
+  ],
+  "capture_regression": {
+    "opponents": 0,
+    "spawn_cases": 16,
+    "passed": true,
+    "actual_flag_take_and_capture_required": true,
+    "normal_planner": true,
+    "ordinary_physics_hz": 60,
+    "start_equipment": "Light, disc/chaingun/blaster, no backpack",
+    "max_seconds_per_case": 300,
+    "round_trip_seconds": {
+      "min": 121.916666666661,
+      "median": 176.9583333333665,
+      "max": 201.783333333386
+    },
+    "peak_horizontal_kmh": 104.635450744629,
+    "cases": [
+      {
+        "passed": true,
+        "peak_kmh": 73.3154479980469,
+        "seconds": 184.550000000039,
+        "spawn": 0,
+        "take_seconds": 100.616666666662,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 70.5740776062012,
+        "seconds": 159.366666666686,
+        "spawn": 1,
+        "take_seconds": 80.5999999999967,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 72.0996185302734,
+        "seconds": 153.283333333347,
+        "spawn": 2,
+        "take_seconds": 67.9833333333308,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 81.909757232666,
+        "seconds": 201.783333333386,
+        "spawn": 3,
+        "take_seconds": 101.766666666662,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 72.3663597106934,
+        "seconds": 163.616666666689,
+        "spawn": 4,
+        "take_seconds": 84.1333333333298,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 71.878443145752,
+        "seconds": 175.500000000032,
+        "spawn": 5,
+        "take_seconds": 94.2333333333293,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 76.5841552734375,
+        "seconds": 138.683333333336,
+        "spawn": 6,
+        "take_seconds": 65.7666666666642,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 71.882933807373,
+        "seconds": 186.466666666707,
+        "spawn": 7,
+        "take_seconds": 102.133333333329,
+        "team": 0
+      },
+      {
+        "passed": true,
+        "peak_kmh": 63.9988494873047,
+        "seconds": 183.783333333372,
+        "spawn": 0,
+        "take_seconds": 68.8833333333307,
+        "team": 1
+      },
+      {
+        "passed": true,
+        "peak_kmh": 82.0288558959961,
+        "seconds": 162.516666666688,
+        "spawn": 1,
+        "take_seconds": 69.5999999999973,
+        "team": 1
+      },
+      {
+        "passed": true,
+        "peak_kmh": 79.4716300964355,
+        "seconds": 191.766666666711,
+        "spawn": 2,
+        "take_seconds": 79.4833333333301,
+        "team": 1
+      },
+      {
+        "passed": true,
+        "peak_kmh": 101.631362915039,
+        "seconds": 183.083333333371,
+        "spawn": 3,
+        "take_seconds": 81.7999999999966,
+        "team": 1
+      },
+      {
+        "passed": true,
+        "peak_kmh": 81.949047088623,
+        "seconds": 179.966666666702,
+        "spawn": 4,
+        "take_seconds": 86.9833333333297,
+        "team": 1
+      },
+      {
+        "passed": true,
+        "peak_kmh": 69.4807388305664,
+        "seconds": 178.416666666701,
+        "spawn": 5,
+        "take_seconds": 89.0999999999962,
+        "team": 1
+      },
+      {
+        "passed": true,
+        "peak_kmh": 104.635450744629,
+        "seconds": 121.916666666661,
+        "spawn": 6,
+        "take_seconds": 58.449999999998,
+        "team": 1
+      },
+      {
+        "passed": true,
+        "peak_kmh": 100.206449890137,
+        "seconds": 152.91666666668,
+        "spawn": 7,
+        "take_seconds": 65.3833333333309,
+        "team": 1
+      }
+    ],
+    "result": "test-results/st-tribes/research/captures.json",
+    "log": "test-results/st-tribes/research/capture-final.log"
+  },
+  "physical_routes": {
+    "cases": 19,
+    "passed": true,
+    "classes": [
+      "light",
+      "medium",
+      "heavy"
+    ],
+    "scope": "flag routes, station arrivals, eight station spawn approaches, descent and both below-tower starts for all classes",
+    "result": "test-results/st-tribes/research/routes.json",
+    "log": "test-results/st-tribes/research/routes-essential-final.log"
+  },
+  "tactics": {
+    "checks": 57,
+    "failures": [],
+    "log": "test-results/st-tribes/research/tactics-essential-final.log"
+  },
+  "live_match": {
+    "server_pid": 1164457,
+    "spectator_pid": 1164510,
+    "stopped": true,
+    "restarted": false,
+    "contested_capture_validation": "Not rerun; prior 6v6 match produced no captures"
+  },
+  "limitations": [
+    "Unopposed route completion does not prove contested capture reliability",
+    "Competitive ski routes, deployable counterplay, damaged fixed inventory stations and fixed pulse sensors remain essential follow-up work",
+    "Known one ObjectDB instance warning at test shutdown; no script/runtime errors in final tests",
+    "No physical VR playtest or release build in this pass"
+  ],
+  "source_sha256": {
+    "deathmatch/bot_ai/tribes.gd": "b60f26b48514787e5368ab19648ce0c8c2981a46414a2c45f10a58379f4df3da",
+    "deathmatch/bot_ai/tribes_routes.gd": "e4d1ef8849d586b3108ec376df2ab412d77e8526660ff0f72548648f42259fe7",
+    "deathmatch/tests/st_bot_capture.gd": "1e7ec19f3fed53998eb6ca3ac8f426282d4437b087f61466311a0370c13a9446",
+    "deathmatch/tests/st_bot_tactics.gd": "c3db4e174d953421d13892505d376b8f0942c7716fdc91d7a40c09c3658b5098"
+  }
+}

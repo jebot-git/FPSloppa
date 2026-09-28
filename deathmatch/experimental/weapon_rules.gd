@@ -21,6 +21,7 @@ func select(value: String,remember: bool=true) -> bool:
 	if kind==resolved and not table.is_empty():return true
 	kind=resolved;table=Doom.DATA.duplicate(true)
 	if kind=="cs16":table=preload("res://deathmatch/counterstrike/arsenal.gd").table()
+	elif kind=="tribes":table=preload("res://deathmatch/tribes/arsenal.gd").table()
 	elif kind=="quake":
 		set_weapon(0,"AXE",-1,0,.5,20,{"range":2.0})
 		set_weapon(1,"AXE",-1,0,.5,20,{"range":2.0})
@@ -58,17 +59,18 @@ func experimental() -> bool:return kind!="doom" and (not game or not game.match_
 func effective() -> String:return kind if experimental() else "doom"
 func dual() -> bool:return not experimental()
 func valid(index: int) -> bool:return index>=0 and index<(table.size() if experimental() else 10) and not (index==11 and game and game.match_mode.kind=="as")
-func max_ammo() -> Array:return [240,64,300,40] if kind=="cs16" else [200,100,100,100] if kind=="quake" else Doom.MAX_AMMO
-func ammo_names() -> Array:return ["PISTOL / SMG","SHELLS","RIFLE","SNIPER"] if kind=="cs16" else ["NAILS","SHELLS","ROCKETS","CELLS"] if kind=="quake" else ["BULLETS / BLADES","FLAK","ROCKETS","ENERGY / BIO"] if kind=="ut99" else Doom.AMMO_NAMES
+func max_ammo() -> Array:return [240,64,300,40] if kind=="cs16" else [200,100,100,100] if kind in ["quake","tribes"] else Doom.MAX_AMMO
+func ammo_names() -> Array:return ["PISTOL / SMG","SHELLS","RIFLE","SNIPER"] if kind=="cs16" else ["NAILS","SHELLS","ROCKETS","CELLS"] if kind in ["quake","tribes"] else ["BULLETS / BLADES","FLAK","ROCKETS","ENERGY / BIO"] if kind=="ut99" else Doom.AMMO_NAMES
 func color(index: int) -> Color:
 	if not experimental():return Doom.COLORS[clampi(index,0,9)]
 	if kind=="cs16":return Color("dbbf8a")
-	if kind=="quake":return Color("aebcff") if index==8 else Color("ffa13b") if index in [4,6] else Color("e1ba80")
+	if kind in ["quake","tribes"]:return Color("aebcff") if index==8 else Color("ffa13b") if index in [4,6] else Color("e1ba80")
 	return [Color("dbdcce"),Color("7adb38"),Color("ffca83"),Color("bd65ff"),Color("ffb842"),Color("ffe59c"),Color("ff683c"),Color("61ed83"),Color("fff3b8"),Color("e0eaff"),Color("57cedb"),Color("85aaff")][clampi(index,0,11)]
 func spawn_loadout(state: Dictionary) -> void:
 	if not experimental():return
-	state.owned=[0,2];state.weapon=2;state.ammo=[0,25,0,0] if kind=="quake" else [50,0,0,0]
+	state.owned=[0,2];state.weapon=2;state.ammo=[0,25,0,0] if kind in ["quake","tribes"] else [50,0,0,0]
 	if kind=="cs16":state.ammo=[60,0,0,0]
+	if kind=="tribes":state.owned=[3,2,4,9,10,11];state.weapon=3;state.ammo=[0,0,0,0]
 	if kind=="ut99" and game.match_mode.kind!="as":state.owned.append(11)
 func tf_loadout(state: Dictionary) -> void:
 	if not experimental():return
@@ -89,6 +91,7 @@ func pickup_title(index: int) -> String:
 func pickup_weapon(classname: String,fallback: int) -> int:
 	if not experimental():return fallback
 	if kind=="cs16":return {"weapon_shotgun":3,"weapon_supershotgun":4,"weapon_nailgun":5,"weapon_supernailgun":7,"weapon_grenadelauncher":8,"weapon_rocketlauncher":6,"weapon_lightning":9}.get(classname,fallback)
+	if kind=="tribes":return {"weapon_shotgun":0,"weapon_supershotgun":1,"weapon_nailgun":2,"weapon_supernailgun":6,"weapon_grenadelauncher":4,"weapon_rocketlauncher":3,"weapon_lightning":5}.get(classname,0)
 	if kind=="quake":return {"weapon_shotgun":2,"weapon_supershotgun":3,"weapon_nailgun":5,"weapon_supernailgun":7,"weapon_grenadelauncher":4,"weapon_rocketlauncher":6,"weapon_lightning":8}.get(classname,fallback)
 	return {"weapon_shotgun":3,"weapon_supershotgun":4,"weapon_nailgun":5,"weapon_supernailgun":7,"weapon_grenadelauncher":1,"weapon_rocketlauncher":6,"weapon_lightning":8}.get(classname,fallback)
 

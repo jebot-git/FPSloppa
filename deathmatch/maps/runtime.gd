@@ -2,6 +2,7 @@ extends Node
 const Loader = preload("res://deathmatch/maps/loader.gd")
 const TeleportExit = preload("res://deathmatch/maps/teleport_exit.gd")
 var game
+var tribes_stations
 var lights: Array[OmniLight3D]=[]
 var light_tick:=0.0
 var regions: Array = []
@@ -17,6 +18,7 @@ var legacy_train_push:=false
 var gate_targets: Dictionary={}
 var trigger_until: Dictionary={}
 var triggers=preload("res://deathmatch/maps/triggers.gd").new()
+var ballistics=preload("res://deathmatch/counterstrike/penetration.gd").new()
 
 func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	game = arena
@@ -136,7 +138,9 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	var push_index:=0
 	for i in regions.size():
 		if regions[i].kind=="trigger_push":regions[i]=pushes[push_index];push_index+=1
+	tribes_stations=preload("res://deathmatch/tribes/stations.gd").new();tribes_stations.name="TribesStations";add_child(tribes_stations);tribes_stations.configure(game,entities)
 	triggers.setup(self,entities)
+	if not bsp_path.is_empty():ballistics.open(bsp_path,root)
 	preload("res://deathmatch/vehicles/ba2/map.gd").configure(game,entities)
 	remove_sentry_pickups()
 	if not game.headless and not fixtures.is_empty():load("res://deathmatch/maps/librequake_props.gd").add(root,fixtures)

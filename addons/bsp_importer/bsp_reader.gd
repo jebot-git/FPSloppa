@@ -1739,7 +1739,9 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 	if use_named_texture_replacements and embedded:
 		# A same-named bundled texture belongs to this BSP, never another map.
 		image_path = ""
-		material_path = ""
+		# Explicit caller mappings describe behavior (e.g. moving glass), not
+		# accidental same-name art overrides. Keep those deliberate materials.
+		if not texture_material_rename.has(name):material_path = ""
 	
 	if (!ResourceLoader.exists(image_path)):
 		image_path = str(image_path.get_basename(), ".jpg") # Jpeg fallback

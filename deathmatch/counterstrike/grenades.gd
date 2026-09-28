@@ -171,6 +171,7 @@ func detonate(id: int):
 	var p: Dictionary=flying[id];flying.erase(id)
 	if p.kind==2:clouds[id]={"position":p.position+Vector3.UP*.8,"age":0.0};return
 	if p.kind==0:
+		preload("res://deathmatch/effects/surface_marks.gd").blast(game,p.position,{"name":"HE GRENADE","splash":100,"blast_radius":1.8})
 		for victim in game.players:
 			if not rules.alive(victim):continue
 			var target: Vector3=game.fighters[victim].position+Vector3.UP*.9

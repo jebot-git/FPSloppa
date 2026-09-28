@@ -1819,6 +1819,42 @@
     "distribution": "base"
   },
   {
+    "id": "de_train_rebuilt",
+    "title": "Train | Classic layout reconstruction",
+    "modes": [
+      "de"
+    ],
+    "path": "res://maps/de_train_rebuilt.bsp",
+    "scene": "res://maps/cache/de_train_rebuilt.scn",
+    "sha256": "9fe07919cb7f457b54024ec04b1836a0f470e2d821aba770decfc7d2ad99282b",
+    "distribution": "base",
+    "expansion": "classic-de"
+  },
+  {
+    "id": "de_aztec_rebuilt",
+    "title": "Aztec | Classic layout reconstruction",
+    "modes": [
+      "de"
+    ],
+    "path": "res://maps/de_aztec_rebuilt.bsp",
+    "scene": "res://maps/cache/de_aztec_rebuilt.scn",
+    "sha256": "d26a45d16c79bab32a359436b92657f15fc79738db7ccb7aceab843e99e1b318",
+    "distribution": "base",
+    "expansion": "classic-de"
+  },
+  {
+    "id": "de_inferno_rebuilt",
+    "title": "Inferno | Classic layout reconstruction",
+    "modes": [
+      "de"
+    ],
+    "path": "res://maps/de_inferno_rebuilt.bsp",
+    "scene": "res://maps/cache/de_inferno_rebuilt.scn",
+    "sha256": "209038cf9eea48574e843f2e252b71bb02664b50cd1a45f9998695f1955c18d9",
+    "distribution": "base",
+    "expansion": "classic-de"
+  },
+  {
     "id": "de_dust2_rebuilt",
     "title": "Dust2 | Classic layout reconstruction",
     "modes": [
@@ -1831,7 +1867,7 @@
     ],
     "path": "res://maps/de_dust2_rebuilt.bsp",
     "scene": "res://maps/cache/de_dust2_rebuilt.scn",
-    "sha256": "645e8036c46a95505d69f60c53c3e742e562ec20bf921b2979b91993d516e6a5",
+    "sha256": "d78fd878ca89bfb1d23e18b883d1e75b8343e551d5c44750ae1ed35a1bb46993",
     "distribution": "base",
     "expansion": "dust2-rebuilt"
   },
@@ -1843,43 +1879,7 @@
     ],
     "path": "res://maps/de_nuke_rebuilt.bsp",
     "scene": "res://maps/cache/de_nuke_rebuilt.scn",
-    "sha256": "ce81ea4a8ff00095266a3ade3bdb00bd9bd40b98275bf759bf6b01033e38a012",
-    "distribution": "base",
-    "expansion": "classic-de"
-  },
-  {
-    "id": "de_inferno_rebuilt",
-    "title": "Inferno | Classic layout reconstruction",
-    "modes": [
-      "de"
-    ],
-    "path": "res://maps/de_inferno_rebuilt.bsp",
-    "scene": "res://maps/cache/de_inferno_rebuilt.scn",
-    "sha256": "9fd7b2b56b729fe734d2933c6047733917981e01c0c6d128d50df9b66b30eeca",
-    "distribution": "base",
-    "expansion": "classic-de"
-  },
-  {
-    "id": "de_aztec_rebuilt",
-    "title": "Aztec | Classic layout reconstruction",
-    "modes": [
-      "de"
-    ],
-    "path": "res://maps/de_aztec_rebuilt.bsp",
-    "scene": "res://maps/cache/de_aztec_rebuilt.scn",
-    "sha256": "d9a00b19da36805f955dfaea73e6ee01c86c8849c15ebf06c8987527443e154c",
-    "distribution": "base",
-    "expansion": "classic-de"
-  },
-  {
-    "id": "de_train_rebuilt",
-    "title": "Train | Classic layout reconstruction",
-    "modes": [
-      "de"
-    ],
-    "path": "res://maps/de_train_rebuilt.bsp",
-    "scene": "res://maps/cache/de_train_rebuilt.scn",
-    "sha256": "b52cdc5f71c19773bd643bdfeb2cdc718ae508c0cd634f054ec6f416a43d1aa3",
+    "sha256": "beecd72483cc95719f43a2a4f4d4e66468161d22c20a0622428f3eb2ea4eda7b",
     "distribution": "base",
     "expansion": "classic-de"
   }

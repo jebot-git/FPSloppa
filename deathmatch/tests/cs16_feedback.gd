@@ -2,6 +2,8 @@ extends "res://deathmatch/tests/cs16_vr_reload.gd"
 const Aim=preload("res://deathmatch/vr/aim_support.gd")
 const Kick=preload("res://deathmatch/vr/weapon_kick.gd")
 const Throw=preload("res://deathmatch/vr/throw_ballistics.gd")
+func kick_shot(kick,slot: int,support: bool):
+	kick.shot(slot,support);kick.update(.016);kick.update(.03)
 func run():
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);Fixture.setup(g);await physics_frame
 	g.start_host("Video feedback tests",0,100,60,true,"dm","cs16");g.bots.free();g.bots=null;g.set_process(false);g.set_physics_process(false)
@@ -58,10 +60,10 @@ func run():
 			var snap:=Models.support_pose(Transform3D.IDENTITY,w,left)
 			var palm: Basis=snap.basis*preload("res://deathmatch/avatars/pose.gd").controller_hand_basis(left)
 			check(palm.z.dot(Vector3.UP)>.999 and snap.origin==Models.support(w),"Snapped palm faces the underside of the handguard")
-	var kick:=Kick.new();kick.shot(6,true);var supported_pitch:=kick.pitch
+	var kick:=Kick.new();kick_shot(kick,6,true);var supported_pitch:=kick.pitch
 	var kicked:=kick.apply(Transform3D.IDENTITY)
 	check(kicked.origin.z>0 and -kicked.basis.z.y>0,"Recoil visibly kicks the rendered gun backward and upward")
-	kick.reset();kick.shot(6,false);check(kick.pitch>supported_pitch,"One-handed visual recoil is stronger")
+	kick.reset();kick_shot(kick,6,false);check(kick.pitch>supported_pitch,"One-handed visual recoil is stronger")
 	kick.update(.5);check(kick.pitch<.001 and kick.back<.001,"Visual recoil settles promptly")
 	var ammo:=Models.ammo_pose(Transform3D.IDENTITY,6,true)
 	check(ammo.basis.y.normalized().dot(Vector3.FORWARD)>.999,"Magazine feed end points toward the thumb, not the old reversed axis")
@@ -89,7 +91,7 @@ func run():
 		step(point(Models.grip(w)+Vector3.FORWARD*.07),true)
 		var braced: Dictionary=cs.definition(1)
 		check(scale==1.0 and one.spread==braced.spread and one.get("recoil_pitch",0)==braced.get("recoil_pitch",0),"Pistol accuracy and recoil have no unsupported-hand penalty: "+Models.NAMES[w])
-		kick.reset();kick.shot(w,false);var one_pitch:=kick.pitch;kick.reset();kick.shot(w,true)
+		kick.reset();kick_shot(kick,w,false);var one_pitch:=kick.pitch;kick.reset();kick_shot(kick,w,true)
 		check(is_equal_approx(one_pitch,kick.pitch),"Pistol visual recoil also has no extra one-hand multiplier")
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/cs16/video-feedback/gestures.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "))

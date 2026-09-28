@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-27",
+  "physical_routes": {
+    "passed": true,
+    "cases": 13,
+    "downhill_peak_kmh": 117.78546752929692,
+    "downhill_jet_seconds": 0.0
+  },
+  "combat_soak": {
+    "seconds": 600.01666666645,
+    "teams": [
+      6,
+      6
+    ],
+    "scores": [
+      0,
+      0
+    ],
+    "peak_kmh": 107.887342071533,
+    "errors": []
+  },
+  "limitations": [
+    "No captures in the contested 600-second match",
+    "Steep downhill fixture is not a typical direct flag route",
+    "No headset movement regression test in this pass"
+  ],
+  "sources": "docs/ST-CTF-RESEARCH.md"
+}

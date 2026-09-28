@@ -44,7 +44,8 @@ static func masked(mesh: Mesh,skin: Skin,sk: Skeleton3D,hand: String="") -> Mesh
 			arrays[Mesh.ARRAY_INDEX]=indices
 		out.add_surface_from_arrays(mesh.surface_get_primitive_type(surface),arrays,mesh.surface_get_blend_shape_arrays(surface),{},mesh.surface_get_format(surface)&Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS)
 		out.surface_set_material(out.get_surface_count()-1,mesh.surface_get_material(surface))
-		surfaces.append(surface)
+		var source_surfaces: Array=mesh.get_meta("full_body_surfaces",[])
+		surfaces.append(source_surfaces[surface] if not source_surfaces.is_empty() else surface)
 	out.set_meta("full_body_surfaces",surfaces)
 	var result: Mesh=out if out.get_surface_count()>0 else null
 	cache[key]=result
@@ -55,13 +56,17 @@ static func apply(node: MeshInstance3D,sk: Skeleton3D,enabled: bool,hand: String
 		var materials: Array[Material]=[]
 		for i in node.get_surface_override_material_count():materials.append(node.get_surface_override_material(i))
 		node.set_meta("full_body_overrides",materials)
+	var source_mesh: Mesh=node.get_meta("full_body_mesh")
+	var head_only: bool=node.get_meta("tribes_head_only",false)
+	if head_only:source_mesh=preload("res://deathmatch/tribes/head_mesh.gd").keep(source_mesh,node.skin,sk,node.get_meta("tribes_original_hands",[]))
+	if not source_mesh:node.hide();return
 	if enabled:
-		var replacement:=masked(node.get_meta("full_body_mesh"),node.skin,sk,hand)
+		var replacement:=masked(source_mesh,node.skin,sk,hand)
 		if replacement:node.mesh=replacement
-		else:node.hide()
-	else:node.mesh=node.get_meta("full_body_mesh")
+		else:node.hide();return
+	else:node.mesh=source_mesh
 	var originals: Array=node.get_meta("full_body_overrides")
 	var mapping: Array=node.mesh.get_meta("full_body_surfaces",[]) if node.mesh else []
 	for i in node.get_surface_override_material_count():
-		var source: int=mapping[i] if enabled and not mapping.is_empty() else i
+		var source: int=mapping[i] if (enabled or head_only) and not mapping.is_empty() else i
 		node.set_surface_override_material(i,originals[source] if source<originals.size() else null)

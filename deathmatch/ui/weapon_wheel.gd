@@ -32,6 +32,7 @@ func _draw() -> void:
 	draw_arc(CENTER,OUTER+7,0,TAU,128,Color("777565"),2,true)
 	if rows.is_empty():return
 	var buying: bool=rows[0].get("buy",false)
+	var energy_shop: bool=rows[0].get("currency","")=="ENERGY"
 	var desktop: bool=rows[0].get("desktop",false)
 	var step:=TAU/rows.size()
 	for i in rows.size():
@@ -47,9 +48,9 @@ func _draw() -> void:
 		var point:=ring_point(step*i,286)
 		var color: Color=GOLD if selected else INK if row.usable else MUTED
 		draw_texture_rect(Icons.texture(row.get("icon",row.name)),Rect2(point-Vector2(53,48),Vector2(106,80)),false,color)
-		caption(("$" if buying else "")+str(row.ammo) if row.ammo>=0 else row.name if buying else "—",point+Vector2(0,58),22 if buying else 26,Color("ed8f78") if not row.usable else color)
+		caption(("" if energy_shop else "$" if buying else "")+str(row.ammo) if row.ammo>=0 else row.name if buying else "—",point+Vector2(0,58),22 if buying else 26,Color("ed8f78") if not row.usable else color)
 	draw_circle(CENTER,INNER-6,Color("141a1ff5"))
-	caption("BUY · $%d"%rows[0].cash if buying else "ARSENAL",CENTER+Vector2(0,-128),25,MUTED)
+	caption("TEAM ENERGY · UNLIMITED" if energy_shop and rows[0].get("infinite_energy",false) else "TEAM ENERGY · %d"%rows[0].cash if energy_shop else "BUY · $%d"%rows[0].cash if buying else "ARSENAL",CENTER+Vector2(0,-128),25,MUTED)
 	var index:=hover
 	if index<0:
 		for i in rows.size():
@@ -62,6 +63,6 @@ func _draw() -> void:
 			caption(" ".join(words.slice(0,words.size()-1)),CENTER+Vector2(0,30),32)
 			caption(words[-1],CENTER+Vector2(0,65),32)
 		else:caption(row.name,CENTER+Vector2(0,45),34)
-		caption(("UNAVAILABLE" if not row.usable else "$%d"%row.ammo if row.ammo>=0 else "OPEN") if buying else "NO AMMO" if not row.usable else "%d AMMO"%row.ammo if row.ammo>=0 else "UNLIMITED",CENTER+Vector2(0,104),23,Color("ed8f78") if not row.usable else MUTED)
+		caption(("UNAVAILABLE" if not row.usable else row.detail if row.has("detail") else ("%d ENERGY" if energy_shop else "$%d")%row.ammo if row.ammo>=0 else "OPEN") if buying else "NO AMMO" if not row.usable else "%d AMMO"%row.ammo if row.ammo>=0 else "UNLIMITED",CENTER+Vector2(0,104),23,Color("ed8f78") if not row.usable else MUTED)
 	caption("CLICK TO BUY" if desktop else "CENTER STICK FIRST" if waiting else "RELEASE STICK TO BUY" if buying and hover>=0 else "RELEASE STICK TO EQUIP" if hover>=0 else "TILT RIGHT STICK",CENTER+Vector2(0,148),22,GOLD)
 	caption("B / ESC TO CLOSE" if desktop else "PRESS AGAIN TO CANCEL",Vector2(450,870),25,INK)

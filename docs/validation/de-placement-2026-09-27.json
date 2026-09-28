@@ -1,0 +1,94 @@
+{
+  "date": "2026-09-27",
+  "passed": true,
+  "maps": [
+    {
+      "map": "de_aztec_rebuilt",
+      "sha256": "16a6e2735edeef24e63b930e1276fcf0a01914980079d0050accdffa704d93c9",
+      "checks": 214,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "87d3c043fd8f576b50a4a8ddfa3de9213b2a8ef880025368963d7ef47ae26071",
+      "facade_panels": 0,
+      "facade_backing_checks": 0,
+      "bot_rounds": 6,
+      "sides_swap_after": 3,
+      "bots": 12,
+      "spawn_exits": 72,
+      "maximum_spawn_exit_seconds": 4.46666666667022,
+      "scores": [
+        3,
+        3
+      ]
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "sha256": "d2d1f0cacc5c32ce1d2f22e0543e92b2e331c6cf2da607711f3871a49163371a",
+      "checks": 183,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "f82170dd0b512291ee24f0d4c5774d47168632562dfc78ae81dfb5f7757e47c6",
+      "facade_panels": 17,
+      "facade_backing_checks": 153,
+      "bot_rounds": 6,
+      "sides_swap_after": 3,
+      "bots": 12,
+      "spawn_exits": 72,
+      "maximum_spawn_exit_seconds": 4.78333333333714,
+      "scores": [
+        3,
+        3
+      ]
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "sha256": "c3ca4817091037e6643e090424b230e3061175ab58fcb07aa984873f86dfb998",
+      "checks": 75,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "bd90b29b544e48e038d740ae35d663c670690eaef8753415dbe04e00c00804b8",
+      "facade_panels": 0,
+      "facade_backing_checks": 0,
+      "bot_rounds": 6,
+      "sides_swap_after": 3,
+      "bots": 12,
+      "spawn_exits": 72,
+      "maximum_spawn_exit_seconds": 5.01666666667066,
+      "scores": [
+        4,
+        2
+      ]
+    }
+  ],
+  "compiled_geometry_checks": 472,
+  "facade_authoring_checks": 153,
+  "completed_bot_rounds": 18,
+  "archive": {
+    "path": "test-results/de-placement/Base-Assets.zip",
+    "sha256": "ef27a2d7346f8735ed3e2fd6904501ae7ab15e7584c59f9ac2dcceb0dfba079b",
+    "bytes": 667268569,
+    "all_entries_verified": true
+  },
+  "visuals": [
+    "test-results/classic-de/de_aztec_rebuilt/aztec-double-doors.png",
+    "test-results/classic-de/de_inferno_rebuilt/inferno-mid-facades.png",
+    "test-results/classic-de/de_inferno_rebuilt/inferno-b-cover.png",
+    "test-results/dust2/mid-double-doors.png",
+    "test-results/dust2/mid-double-doors-ct.png"
+  ],
+  "limits": [
+    "Approximate classic reconstructions; fixed open door leaves, not moving hinged doors.",
+    "Bot soak uses normal 60 Hz game steps with accelerated offline pacing.",
+    "Earlier restoration/live video receipts refer to earlier map hashes.",
+    "Godot harnesses report existing ObjectDB/resource shutdown warnings."
+  ]
+}

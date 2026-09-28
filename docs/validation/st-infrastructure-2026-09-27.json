@@ -1,0 +1,173 @@
+{
+  "date": "2026-09-27",
+  "engine": "Godot 4.7.2 Fedora",
+  "protocol": "fpsloppa-60-st-base-assets",
+  "scope": [
+    "Release skiing for low-speed uphill walking while preserving useful coast",
+    "Independent inventory-station and medium-pulse-sensor damage/repair",
+    "Powered fixed 250 m pulse scan, LOS, jamming, shared desktop/VR status",
+    "Bot repair of friendly equipment and visible hostile deployable counterplay"
+  ],
+  "checks": {
+    "base_assets": {
+      "passed": 70,
+      "failures": [],
+      "log": "test-results/st-tribes/research/base-assets.log"
+    },
+    "mode": {
+      "passed": 57,
+      "failures": [],
+      "log": "test-results/st-tribes/research/parity-st_tribes.log"
+    },
+    "deployables": {
+      "passed": 55,
+      "failures": [],
+      "log": "test-results/st-tribes/research/parity-tribes_deployables.log"
+    },
+    "stations": {
+      "passed": 118,
+      "failures": [],
+      "log": "test-results/st-tribes/research/parity-tribes_stations.log"
+    },
+    "demo": {
+      "passed": 13,
+      "failures": [],
+      "log": "test-results/st-tribes/research/parity-tribes_demo.log"
+    },
+    "tactics": {
+      "passed": 57,
+      "failures": [],
+      "log": "test-results/st-tribes/research/parity-st_bot_tactics.log"
+    },
+    "vulkan_ui": {
+      "passed": 24,
+      "failures": [],
+      "log": "test-results/st-tribes/research/parity-tribes_deployable_ui.log"
+    },
+    "routes": {
+      "passed": 19,
+      "total": 19,
+      "seconds_min": 1.71666666666667,
+      "seconds_max": 64.2666666666643,
+      "report": "test-results/st-tribes/research/routes.json"
+    },
+    "captures": {
+      "passed": 16,
+      "total": 16,
+      "seconds_min": 132.633333333331,
+      "seconds_max": 190.233333333377,
+      "report": "test-results/st-tribes/research/captures.json"
+    },
+    "network": {
+      "server": {
+        "passed": 38,
+        "completed": true,
+        "log": "test-results/tribes/network-server.log"
+      },
+      "pilot": {
+        "passed": 6,
+        "completed": true,
+        "log": "test-results/tribes/network-pilot.log"
+      },
+      "viewer": {
+        "passed": 3,
+        "completed": true,
+        "log": "test-results/tribes/network-viewer.log"
+      }
+    }
+  },
+  "sources": [
+    "https://github.com/shayk-siege/t1.41-base/blob/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/sensors/sensor.cs",
+    "https://github.com/shayk-siege/t1.41-base/blob/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/stations/inventorystation.cs"
+  ],
+  "source_sha256": {
+    "deathmatch/bot_ai/tribes.gd": "07098fc426a97557509601619416bc815b8cdee78072b2f2567e1985f770b9a9",
+    "deathmatch/bot_ai/tribes_equipment.gd": "8acd3ce55fd80cb6ec765be74f5dc034ca6c281b615bd03752c74e1d117688d5",
+    "deathmatch/tribes/base_assets.gd": "bf0549a59569a0b13e763518109b25dcafd94c2cdcfcab9a8bc60af91db36bf6",
+    "deathmatch/tribes/stations.gd": "3350eceab8f71b5f960a428adca5de6840c4fe91c6dcd2b4b635741ae8674628",
+    "deathmatch/tribes/deployables.gd": "ba8f393e6bf9a4f4c635dfbb943a84c6a49b9b53793b525f02fe887939a059a4",
+    "deathmatch/tribes/combat.gd": "0b35a7faf149e3f054a5146281631dcf340020c91197777a3a5a784247f9348a",
+    "deathmatch/modes/tribes.gd": "3295c4e68a405279d600d5c40a9fd477bc8222c827ac0c1c647afc935a02e665",
+    "deathmatch/ui/player_status.gd": "1eb548843d87ecd6c5fc8a604a32748fcb871d689402b179634af93ef42f646a",
+    "deathmatch/tests/st_base_assets.gd": "9e7e6d03058ed8818a52215aab5fc590c9082dcd24888b22decc62169914ff85",
+    "deathmatch/tests/tribes_network.gd": "46c202a34b23b8fbf195b250e8806fdf6127129705788b7988ff7b4c6b0b34c7"
+  },
+  "live": {
+    "processes": "test-results/st-tribes/live-infrastructure/processes.json",
+    "renderer": "mobile/vulkan",
+    "teams": [
+      6,
+      6
+    ],
+    "spectators": 1,
+    "previous_logs": "test-results/st-tribes/live-capture-fixes",
+    "old_match_stopped": true,
+    "screenshot_inspected": true
+  },
+  "limitations": [
+    "Community reference scripts are not authenticated retail source; Stonehenge fixture count uses a documented mission variant.",
+    "No original equipment shields/disable thresholds, multiple power links, fixed turrets, long-range sensors or commander map.",
+    "No claim of reliable competitive bot capture rates or balance from a single contested soak.",
+    "Broad deployable placement planning, synchronized assaults, learned ski routes and flag standoff tactics remain future work.",
+    "Physical headset ergonomics and maximum deployable population performance not verified.",
+    "Known ObjectDB exit warning and spectator MultiMesh interpolation warnings remain; no script errors in tested paths."
+  ],
+  "contested": {
+    "seconds": 900.016666666177,
+    "speed_setting": 4,
+    "teams": [
+      6,
+      6
+    ],
+    "scores": [
+      1,
+      0
+    ],
+    "flag_pickups": {
+      "red_team": 6,
+      "blue_team": 1
+    },
+    "capture_first_sample_seconds": 195.383333333381,
+    "peak_horizontal_kmh": 95.0365791320801,
+    "destroyed_deployable_ids": [
+      "1",
+      "2",
+      "3",
+      "6"
+    ],
+    "damaged_turret_ids": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "repair_increase_observed_in_5s_samples": [],
+    "generator_min_hp": [
+      0.0,
+      148.541381421685
+    ],
+    "script_errors": 0,
+    "log": "test-results/st-tribes/soak-infrastructure/server.log",
+    "report": "test-results/st-tribes/soak-infrastructure/result.json",
+    "flag_events": [
+      "DM_EVENT Bot 9 took the BLUE flag",
+      "DM_EVENT BLUE flag dropped",
+      "DM_EVENT Bot 7 took the BLUE flag",
+      "DM_EVENT BLUE flag dropped",
+      "DM_EVENT Bot 9 took the BLUE flag",
+      "DM_EVENT BLUE flag dropped",
+      "DM_EVENT Bot 11 took the BLUE flag",
+      "DM_EVENT RED captured the flag!",
+      "DM_EVENT Bot 1 took the BLUE flag",
+      "DM_EVENT BLUE flag dropped",
+      "DM_EVENT Bot 7 took the BLUE flag",
+      "DM_EVENT BLUE flag dropped",
+      "DM_EVENT Bot 2 returned the BLUE flag",
+      "DM_EVENT Bot 12 took the RED flag",
+      "DM_EVENT RED flag dropped",
+      "DM_EVENT Bot 7 returned the RED flag"
+    ],
+    "interpretation": "First contested capture in this follow-up; low frequency and only Red completed a return. Does not establish reliable or balanced captures. Both teams took an opposing flag; visible equipment counterplay produced destroyed turrets. Friendly deployable repair is verified by the focused fixture but no repair increase was observed in the 5-second soak samples."
+  },
+  "validation_order_note": "The soak loaded before tower-staging equipment-aim propagation; the live match includes that correction. A final disconnect-between-perception-ticks guard was tested separately after the live launch and will take effect on its next restart."
+}

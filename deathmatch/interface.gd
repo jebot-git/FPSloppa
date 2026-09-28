@@ -409,7 +409,8 @@ func toast(message: String) -> void:
 func _process(_delta: float) -> void:
 	if game==null: return
 	grenade_notice.update_selection(game,game.multiplayer.get_unique_id())
-	fortress_button.visible=game.active and not game.demos.playing and game.match_mode.fortress.enabled() and not game.local_state().get("spectator",false)
+	fortress_button.text="TRIBES ARMOUR…" if game.match_mode.tribes.enabled() else "TF CLASS…"
+	fortress_button.visible=game.active and not game.demos.playing and (game.match_mode.fortress.enabled() or game.match_mode.tribes.enabled()) and not game.local_state().get("spectator",false)
 	map_choice.trigger.disabled=game.active
 	map_import.disabled=importing_bsp or not game.uploads.offered.is_empty()
 	session_map_import.visible=game.active
@@ -432,9 +433,12 @@ func _process(_delta: float) -> void:
 	suicide.disabled=game.demos.playing or state.is_empty() or state.get("dead",true) or state.get("spectator",false) or game.intermission>0 or game.lobby.active() or game.match_mode.special.blocked(viewed_id)
 	if state.is_empty(): return
 	var d: Dictionary = game.match_mode.fortress.weapon_data(viewed_id,state.weapon)
-	vitals.text = "%03d  HEALTH    %03d  ARMOR" % [state.hp,state.armor]
+	var resource: Dictionary=preload("res://deathmatch/ui/player_status.gd").vitals(game,viewed_id)
+	vitals.text = "%03d  HEALTH    %03d  %s" % [state.hp,resource.value,resource.name]
 	weapon.text = d.name+"\n"+"B %d   S %d   R %d   C %d" % [state.ammo[0],state.ammo[1],state.ammo[2],state.ammo[3]]
 	ammo.text = game.variant_combat.charge_label(game.multiplayer.get_unique_id())+("∞" if d.ammo<0 else str(state.ammo[d.ammo]))+"  "+("ENERGY" if state.weapon==9 and d.ammo<0 else "MELEE" if d.ammo<0 else game.armory.ammo_names()[d.ammo])
+	if game.match_mode.tribes.enabled():
+		ammo.text=game.match_mode.tribes.ammo_label(viewed_id,state.weapon);weapon.text=d.name
 	if game.armory.effective()=="cs16":ammo.text=game.variant_combat.cs.label(viewed_id)
 	match_status.text = "%s   ·   %02d:%02d   ·   %d FRAGS   ·   %d PLAYERS" % [game.map_title.to_upper(),int(game.round_left)/60,int(game.round_left)%60,game.frag_limit,game.players.values().filter(func(player):return not player.spectator).size()]
 	if game.match_mode.kind!="dm":

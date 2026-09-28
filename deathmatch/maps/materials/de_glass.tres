@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[sub_resource type="Shader" id="Glass"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_never, cull_back;
+void fragment() {
+    ALBEDO = vec3(0.30, 0.48, 0.53);
+    METALLIC = 0.0;
+    SPECULAR = 0.15;
+    ROUGHNESS = 0.30;
+    ALPHA = 0.18;
+}
+"
+
+[resource]
+shader = SubResource("Glass")

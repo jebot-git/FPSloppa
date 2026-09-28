@@ -19,12 +19,12 @@ func prepare(w: int,left: bool=false):
 	s.merge({"weapon":w,"owned":range(12),"ammo":[240,64,300,40],"hp":100,"dead":false,"spectator":false,"invulnerable":0,"cooldown":0.0,"fire":false,"held":false,"alt_fire":false,"reload":false,"reload_grip":false,"input_blocked":false,"last_input":g.clock,"vr_device":true},true)
 	pose=Poses.neutral();pose.left_handed=left;pose.weapon=Transform3D(Basis.IDENTITY,Vector3(-.3 if left else .3,1.1,-.3));pose["left" if left else "right"]=pose.weapon
 	step(Reload.pouch(pose).origin,false)
-func step(hand: Vector3,grip: bool=false,eject: bool=false,dt: float=.06,blocked: bool=false,basis: Variant=null):
+func step(hand: Vector3,grip: bool=false,eject: bool=false,dt: float=.06,blocked: bool=false,basis: Variant=null,alt: bool=false):
 	g.clock+=dt;seq+=1;var s: Dictionary=g.players[1]
 	s.cooldown=maxf(0,s.cooldown-dt);s.held=false
 	var hand_basis: Basis=basis if basis is Basis else pose.weapon.basis*Models.ammo_basis(s.weapon).inverse() if cs.physical(1).carry in [1,Reload.REMOVED_MAG] else Basis.IDENTITY
 	pose["right" if pose.left_handed else "left"]=Transform3D(hand_basis,hand);pose.offhand_weapon=pose["right" if pose.left_handed else "left"]
-	g._accept_input(1,{"seq":seq,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":s.weapon,"slow":false,"respawn":false,"reload":eject,"reload_grip":grip,"input_blocked":blocked,"xr":pose})
+	g._accept_input(1,{"seq":seq,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":s.weapon,"slow":false,"respawn":false,"reload":eject,"reload_grip":grip,"alt_fire":alt,"input_blocked":blocked,"xr":pose})
 	cs.tick_input(1,dt)
 func point(local: Vector3) -> Vector3:return Reload.model_pose(pose,g.players[1].weapon)*local
 func magazine():
@@ -50,6 +50,39 @@ func cover(amount: float):
 	step(point(Reload.cover_point(cs.physical(1).cover)),true)
 	step(point(Reload.cover_point(amount)),true,false,.15)
 	step(point(Reload.cover_point(amount)))
+func usp_silencer():
+	for handed in [false,true]:
+		prepare(2,handed)
+		var muzzle:=point(Models.muzzle(2));var far:=Reload.pouch(pose).origin
+		step(far,false,false,.06,false,null,true)
+		check(not cs.suppressed(1),"USP secondary at pouch cannot attach silencer: "+str(handed))
+		step(muzzle,false,false,.06,false,null,true)
+		check(not cs.suppressed(1),"Moving held secondary into reach cannot attach silencer")
+		step(muzzle);step(muzzle,false,false,.06,false,null,true)
+		check(cs.suppressed(1),"Fresh secondary near USP muzzle attaches silencer: "+str(handed))
+		step(muzzle,false,false,2.1,false,null,true)
+		check(cs.suppressed(1),"Held secondary cannot remove silencer after cooldown")
+		step(muzzle);step(muzzle,false,false,.06,false,null,true)
+		check(not cs.suppressed(1),"Fresh secondary near USP muzzle removes silencer")
+		prepare(2,handed);muzzle=point(Models.muzzle(2))
+		step(muzzle,false,true,.06,false,null,true)
+		check(not cs.suppressed(1) and not cs.physical(1).mag,"Magazine eject and secondary cannot attach together")
+		step(far);step(far,true)
+		check(cs.physical(1).carry==1,"USP reload has a magazine in the offhand")
+		step(muzzle,true,false,.2,false,null,true)
+		check(not cs.suppressed(1),"Carried magazine near muzzle blocks silencer attachment")
+		step(muzzle,false,false,.06,false,null,true)
+		check(not cs.suppressed(1),"Dropping ammo with secondary held cannot attach silencer")
+		step(muzzle);step(muzzle,false,false,.06,true,null,true)
+		step(muzzle,false,false,.06,false,null,true)
+		check(not cs.suppressed(1),"Unblocking held secondary requires another press")
+		step(muzzle);pose.erase("offhand_weapon");g.players[1].xr=Poses.validate(pose);g.players[1].alt_fire=true
+		cs.tick_input(1,.01)
+		check(not cs.suppressed(1),"Untracked offhand cannot attach USP silencer")
+		step(muzzle,false,false,.06,false,null,true)
+		check(not cs.suppressed(1),"Tracking recovery cannot revive a held silencer press")
+		step(muzzle);g.players[1].last_input=g.clock-1;g.players[1].alt_fire=true;cs.tick_input(1,.01)
+		check(not cs.suppressed(1),"Stale input cannot attach USP silencer")
 func run():
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);Fixture.setup(g);await physics_frame
 	g.start_host("VR reload tests",0,100,60,true,"dm","cs16");g.bots.free();g.bots=null;g.set_process(false);g.set_physics_process(false)
@@ -148,6 +181,7 @@ func run():
 	check(cs.view[1].size()==Reload.ROW_SIZE and cs.view[1][5]&Reload.CHAMBERED,"Physical state survives snapshot validation")
 	var bad: Array=snapshot[1].duplicate();bad[6]=101;cs.receive({1:bad});check(cs.view.is_empty(),"Out-of-range action progress is rejected")
 	g.players[1].serial+=1;check(cs.physical(1).mag and cs.physical(1).ready,"New life starts with a seated and chambered spawn weapon")
+	usp_silencer()
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/cs16/vr-reload.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "))
 	print("CS16_VR_RELOAD_RESULT ",JSON.stringify(result));g.disconnect_game();g.free();quit(0 if failures.is_empty() else 1)

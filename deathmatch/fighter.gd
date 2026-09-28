@@ -3,6 +3,15 @@ signal movement_sound(kind: String,where: Vector3)
 const Art = preload("res://deathmatch/art.gd")
 const QuakeMovement = preload("res://deathmatch/movement/quake.gd")
 const Jetpack=preload("res://deathmatch/movement/jetpack.gd")
+const Tribes=preload("res://deathmatch/movement/tribes.gd")
+var tribes_enabled:=false
+var tribes_armour_model: Node3D
+var tribes_blocked:=false
+var tribes_state: Dictionary=Tribes.fresh()
+var ski_held:=false
+var jet_held:=false
+var travel_path: Array=[]
+var tribes_command: Dictionary={}
 var jetpack_state: Dictionary=Jetpack.fresh()
 var jetpack_enabled:=false
 var jetpack_blocked:=false
@@ -93,7 +102,23 @@ func setup(id: int, nickname: String, color: Color) -> void:
 
 var speed_multiplier:=1.0
 func is_supported() -> bool:
+	if tribes_enabled:return tribes_state.grounded
 	return is_on_floor() or stepped_last_frame
+
+func configure_tribes(enabled: bool,blocked: bool=false) -> void:
+	if tribes_enabled!=enabled:
+		tribes_enabled=enabled
+		reset_tribes();velocity=Vector3.ZERO;blast_velocity=Vector2.ZERO;reset_view()
+	tribes_enabled=enabled;tribes_blocked=blocked
+	if blocked:ski_held=false;jet_held=false;tribes_state.jetting=false;tribes_state.skiing=false
+func reset_tribes() -> void:
+	tribes_state=Tribes.fresh(tribes_state.get("armour","light") if tribes_enabled else "light");ski_held=false;jet_held=false;travel_path.clear();jump_held=false
+func touches(point: Vector3,radius: float) -> bool:
+	if position.distance_to(point)<=radius:return true
+	if tribes_enabled:
+		for i in range(1,travel_path.size()):
+			if Geometry3D.get_closest_point_to_segment(point,travel_path[i-1],travel_path[i]).distance_to(point)<=radius:return true
+	return false
 
 func torso_height() -> float:return maxf(.25,minf(1.25,collision_height-.40))
 func damage_yaw() -> float:
@@ -111,6 +136,7 @@ func reset_jetpack() -> void:
 func locomotion_state() -> Dictionary:
 	var state:={"height":collision_height,"grounded":is_supported(),"assist":tracked_leg_animation}
 	if jetpack_enabled:state.jetpack=jetpack_state.duplicate(true)
+	if tribes_enabled:state.tribes=tribes_state.duplicate(true)
 	return state
 func receive_locomotion(state: Dictionary) -> void:
 	update_height(float(state.get("height",xr_pose.get("height",1.65))),true)
@@ -139,6 +165,10 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	water_deep_time=water_deep_time+delta if underwater else 0.0
 	if water_deep_time>.25 or is_supported() and not in_water:water_jump_used=false
 	var direction := (basis * Vector3(input.x,0,input.y)).limit_length(1.0)
+	if tribes_enabled:
+		tribes_command={"move":input,"yaw":yaw,"slow":slow,"delta":delta,"jump":jump,"ski":ski_held,"jet":jet_held,"height":collision_height,"blocked":tribes_blocked,"swim":swim}
+		Tribes.simulate(self,direction,slow,delta,jump)
+		return
 	var speed := (5.2 if slow else 9.4)*speed_multiplier*stance_speed()
 	var stroke: Vector3=(basis*swim.limit_length(1.0)) if in_water and swim.is_finite() else Vector3.ZERO
 	if in_water:
@@ -201,6 +231,7 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
 
 func simulate_frozen(delta: float) -> void:
+	tribes_state.jetting=false;tribes_state.skiing=false;travel_path.clear()
 	advance_view_offset(delta)
 	# Statues still obey gravity, but cannot retain a jump, swim or blast impulse.
 	blast_velocity=Vector2.ZERO;jump_held=false;jump_queued=false
@@ -210,6 +241,8 @@ func simulate_frozen(delta: float) -> void:
 
 func apply_blast(impulse: Vector3) -> void:
 	if not impulse.is_finite() or spectator:return
+	if tribes_enabled:
+		velocity+=impulse*(9.0/Tribes.Armour.definition(tribes_state.armour).mass);return
 	var previous:=blast_velocity
 	blast_velocity=(blast_velocity+Vector2(impulse.x,impulse.z)).limit_length(20.0)
 	velocity.x+=blast_velocity.x-previous.x;velocity.z+=blast_velocity.y-previous.y
@@ -257,6 +290,7 @@ func step_up(travel: Vector3,height: float) -> bool:
 
 func reset_view() -> void:
 	prediction.clear();prediction_view_offset=Vector3.ZERO
+	travel_path.clear()
 	water_jump_used=false;water_deep_time=0;water_exit_grace=0;water_boost=0;was_in_water=false
 	view_offset=0;previous_view_offset=0;floor_grace=0;stepped_last_frame=false
 	reset_physics_interpolation()
@@ -305,7 +339,7 @@ func correct_prediction(requested: Vector3) -> Vector3:
 
 func show_alive(alive: bool, is_local: bool) -> void:
 	alive=alive and not spectator
-	if alive_state and not alive:reset_jetpack()
+	if alive_state and not alive:reset_jetpack();reset_tribes()
 	alive_state = alive
 	local_player = is_local
 	collision_layer = 2 if alive else 0
@@ -469,7 +503,14 @@ func set_burning_visual(active: bool) -> void:
 
 func _update_jetpack_visual() -> void:
 	if DisplayServer.get_name()=="headless":return
-	if not jetpack_enabled:
+	if tribes_enabled:
+		if not is_instance_valid(tribes_armour_model):tribes_armour_model=load("res://deathmatch/tribes/armour_visual.gd").new();add_child(tribes_armour_model)
+		tribes_armour_model.update(self)
+		if is_instance_valid(jetpack_model):jetpack_model.hide()
+		return
+	if is_instance_valid(tribes_armour_model):
+		tribes_armour_model.replacement.clear();tribes_armour_model.queue_free();tribes_armour_model=null
+	if not jetpack_enabled and not tribes_enabled:
 		if is_instance_valid(jetpack_model):jetpack_model.hide()
 		return
 	if not is_instance_valid(jetpack_model):
@@ -481,4 +522,4 @@ func _update_jetpack_visual() -> void:
 	if avatar_hash.is_empty() and is_instance_valid(avatar):pose=avatar.transform*avatar.get_node("Upper").transform
 	else:pose=Transform3D(Basis(Vector3.UP,preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose)),Vector3.ZERO)*pose
 	jetpack_model.transform=pose*Transform3D(Basis.IDENTITY,Vector3(0,.24,.25))
-	jetpack_model.set_exhaust(jetpack_state.mode!=0 and jetpack_state.age<(1.5 if jetpack_state.mode==2 else Jetpack.BURN_TIME))
+	jetpack_model.set_exhaust(tribes_state.jetting if tribes_enabled else jetpack_state.mode!=0 and jetpack_state.age<(1.5 if jetpack_state.mode==2 else Jetpack.BURN_TIME))

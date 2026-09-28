@@ -1,6 +1,6 @@
 extends SceneTree
 ## Real weapon definitions and FX, real production map receiver/pool, deterministic stills.
-const OUT="res://test-results/weapon-emission/"
+const OUT="res://test-results/weapon-emission-loadouts/"
 const Rules=preload("res://deathmatch/experimental/weapon_rules.gd")
 const FX=preload("res://deathmatch/experimental/visuals.gd")
 const Pool=preload("res://deathmatch/lighting/weapon_pool.gd")
@@ -79,8 +79,12 @@ func catalogue() -> Array:
 		arena._projectile_end(9001,at,7)
 		check(not live_pool.sources.any(func(item):return item.key==key),"Live impact removes its moving source")
 		arena.match_mode.kind="tf";arena.armory.select("quake");live_pool.clear()
+		arena.players[1]=arena._new_state("Lighting audit",1);arena.players[1].tf_class="heavy"
+		arena._create_fighter(1);arena.fighters[1].set_physics_process(false);arena.fighters[1].position=at
+		arena._play_shot_fx(1,7)
 		arena._impacts(at,PackedVector3Array([at+Vector3.FORWARD*4]),7)
 		check(not live_pool.sources.is_empty(),"Live TF heavy hitscan produces muzzle illumination")
+		live_muzzles(arena,live_pool,at)
 		var was_xr: bool=arena.xr_rig.enabled
 		for vr in [false,true]:
 			arena.xr_rig.enabled=vr;live_pool.clear()
@@ -94,18 +98,49 @@ func catalogue() -> Array:
 		check(live_pool.sources.is_empty(),"Live transition clears transient illumination")
 	arena.players.clear();arena.free();camera.make_current()
 	return rows
+func live_muzzles(arena,live_pool,at: Vector3) -> void:
+	arena.match_mode.kind="dm"
+	arena.players[2]=arena._new_state("Remote lighting audit",2);arena._create_fighter(2);arena.fighters[2].set_physics_process(false);arena.fighters[2].position=at
+	for profile in ["cs16","tribes"]:
+		arena.armory.select(profile)
+		for id in [1,2]:
+			for slot in 12:
+				arena.players[id].weapon=slot;live_pool.clear()
+				arena._play_variant_shot_fx(id,slot,false)
+				var expected: bool=slot>0 if profile=="cs16" else slot in [0,1,2,3,4,7]
+				check(live_pool.sources.size()==(1 if expected else 0),"Live %s %s slot %d: correct single muzzle source"%[profile,"local" if id==1 else "remote",slot])
+				if profile=="cs16":
+					arena._impacts(at,PackedVector3Array([at+Vector3.FORWARD*3]),slot)
+					check(live_pool.sources.size()==(1 if expected else 0),"CS impact does not duplicate muzzle light %d/%d"%[id,slot])
+				if profile=="cs16" and slot in [2,7]:
+					live_pool.clear();arena._play_variant_shot_fx(id,slot,true);arena._impacts(at,PackedVector3Array([at+Vector3.FORWARD*3]),slot)
+					check(live_pool.sources.is_empty(),"Suppressed CS shot remains dark %d/%d"%[id,slot])
+		arena.armory.select(profile)
+		if profile=="tribes":
+			for slot in [5,6,8,11]:
+				live_pool.clear();arena._impacts(at,PackedVector3Array([at+Vector3.FORWARD*4]),slot)
+				check(live_pool.sources.is_empty() if slot==11 else live_pool.sources.size()==1 and live_pool.sources[0].a.distance_to(live_pool.sources[0].b)>3,"Live Tribes slot %d: beam lighting follows segment or stays non-emissive"%slot)
+	arena.armory.select("tribes");arena.players[2].weapon=2
+	arena.players[2].vr_device=true;arena.players[2].xr=preload("res://deathmatch/vr/poses.gd").neutral()
+	var shot: Dictionary=arena._shot_solution(2)
+	live_pool.clear();arena._play_variant_shot_fx(2,2,false)
+	check(live_pool.sources.size()==1 and live_pool.sources[0].a.is_equal_approx(shot.origin),"Remote XR muzzle source uses the clipped weapon launch position")
+	arena.players[2].xr={};arena.players[2].vr_device=false
+	live_pool.clear();arena.armory.select("doom")
+
 func scenario(row: Dictionary,index: int) -> void:
 	reset_fx();seed(1234)
 	var d: Dictionary=row.definition;var kind:=Emission.kind(row.profile,row.slot,d)
 	if row.profile=="ut99" and row.slot==7 and row.alt:kind="pulse_beam"
 	var noop: bool=d.get("zoom",false) or (row.profile=="ut99" and row.slot==11 and row.alt) or kind in ["melee","hammer"]
-	var start:=Vector3(-2,.55,0);var end:=Vector3(2,.55,0)
+	var height:=.25 if kind=="tribes_repair" else .55
+	var start:=Vector3(-2,height,0);var end:=Vector3(2,height,0)
 	var projectile: Node3D
 	if not noop:
 		if kind=="flame":
 			fx.streak(PackedVector3Array([start,end]),Emission.recipe(kind).color,.035,.14)
 			fx.illumination.emit(start,end,Emission.recipe(kind),0)
-		elif kind in ["hitscan","sniper","rail","shock_beam","beam","pulse_beam"]:
+		elif kind in ["hitscan","sniper"] or kind in Emission.BEAMS:
 			var ends:=PackedVector3Array()
 			for i in int(d.get("pellets",1)):ends.append(end+Vector3(0,0,(i-(d.get("pellets",1)-1)*.5)*.022))
 			fx.impacts(row.profile,start,ends,row.slot,d)
@@ -126,7 +161,7 @@ func scenario(row: Dictionary,index: int) -> void:
 	pool.update_receivers()
 	var lit:=await shot(slug+"-on")
 	var delta:=changed(baseline,lit)
-	var expected: bool=not noop and (kind in ["hitscan","sniper","rail","shock_beam","beam","pulse_beam","flame"] or Emission.recipe(kind).get("energy",0)>0)
+	var expected: bool=not noop and (kind in ["hitscan","sniper","flame"] or Emission.recipe(kind).get("energy",0)>0)
 	check((count>0)==expected,row.label+": appropriate illumination")
 	check(delta>8 if expected else delta==0,row.label+": rendered surface response")
 	check(stage.find_children("*","Light3D",true,false).is_empty(),row.label+": no light nodes")
@@ -135,6 +170,9 @@ func scenario(row: Dictionary,index: int) -> void:
 	if projectile:
 		reset_fx();fx.burst(row.profile,Vector3(0,.18,0),row.slot,kind,d);fx._process(0)
 		pool.update_receivers();var burst_count: int=pool.selected_count
+		if row.profile=="tribes" and row.slot in [0,1,3,4,7,9,10]:check(burst_count==1,row.label+": impact must illuminate the environment")
+		if row.profile=="tribes" and row.slot in [2,11]:check(burst_count==0,row.label+": non-emissive impact stays dark")
+		if row.profile=="tribes" and row.slot in [0,1]:check(pool.sources[0].color==Color("ff6358" if row.slot==0 else "ffce40"),row.label+": impact keeps its arsenal-specific energy colour")
 		for receiver in pool.receivers:receiver.set_shader_parameter("weapon_count",0)
 		var impact_off:=await shot(slug+"-impact-off");pool.update_receivers();var impact_on:=await shot(slug+"-impact-on")
 		check(changed(impact_off,impact_on)>8 if burst_count>0 else changed(impact_off,impact_on)==0,row.label+": impact illumination")
@@ -187,6 +225,11 @@ func stress() -> void:
 	check(pool.sources.size()==64,"300 projectile sources bounded to 64 candidates")
 	pool.update_receivers();check(pool.selected_count==2,"Desktop selects at most two sources")
 	check(material.get_shader_parameter("weapon_count")==2,"Both selected sources reach the shader")
+	pool.clear()
+	for kind in ["tribes_bolt","tribes_plasma","tribes_disc","tribes_laser","tribes_repair","tribes_mortar"]:
+		pool.emit_source(Vector3(-1,.3,0),Vector3(1,.3,0),Emission.recipe(kind))
+	pool.update_receivers()
+	check(pool.sources.size()==6 and pool.selected_count==2 and material.get_shader_parameter("weapon_count")==2,"Six mixed Tribes sources still share exactly two shader slots")
 	pool.emit_source(Vector3.ZERO,Vector3.ZERO,Emission.recipe("rocket"),300);pool.remove_source(300)
 	check(not pool.sources.any(func(item):return item.key==300),"Destroyed projectile removed immediately")
 	pool.clear();check(material.get_shader_parameter("weapon_count")==0,"Map teardown disables receivers")

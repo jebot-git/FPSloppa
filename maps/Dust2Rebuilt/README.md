@@ -8,7 +8,7 @@ The installed map is `maps/de_dust2_rebuilt.bsp`. Its source copy, editable
 Quake `.map`, embedded-texture `dust2.wad`, and build manifest are in this
 folder. The map catalog calls it **Dust2 | Classic layout reconstruction**.
 Select it for local practice, or add `de_dust2_rebuilt` to a personal DM/TDM/IG/FT/IF
-maplist. Existing rotations have not been changed. It is also the fixed map for DE, included in the base-asset selection for future builds. It has not been deployed to a live server.
+maplist. It is one of the five DE maps in the base-asset selection.
 
 ## Layout and presentation
 
@@ -18,6 +18,11 @@ maplist. Existing rotations have not been changed. It is also the fixed map for 
 - Upper/lower tunnels with a half-turn staircase, B doors and a raised B window.
 - Fixed open wooden gate leaves, semicircular brush arches, crates, a faceted
   rock face, sandstone courses and original painted A/B markers.
+- Revised staggered A cover, angled B crates and long/tunnel cover from the
+  [classic fidelity study](../../docs/DE-MAP-FIDELITY.md).
+- Authored `FSLP_BALLISTICS` BSPX volumes enable
+  [CS shoot-through cover](../../docs/CS16-PENETRATION.md) with thickness and
+  material limits. Fixed gate leaves retain their original static behavior.
 - 21 deathmatch spawns and 18 Quake-style pickups, translated by FPSloppa's
   existing weapon-set rules. Weapon respawns inherit the project's normal
   mode policy; no map-specific timer override is embedded.
@@ -71,6 +76,12 @@ godot --rendering-method mobile --xr-mode off --path . --script tools/dust2_rebu
 The traversal audit uses FPSloppa's real CharacterBody movement and triangle
 collision, forwards and backwards through nine routes. It also checks every
 spawn capsule/floor, nine navigation connections and the short-A bridge deck.
+The seven non-mid archways now include grounded jambs and connections to the
+surrounding masonry. Long A's inner doorway has a return wall separating its
+ceiling from the overlapping pit room; the outer doorway joins both courtyard
+walls. The pit escape remains traversable. The audit also probes the jambs and
+new crown infill. Matching before/after renders are in
+`test-results/dust2-arches/index.html` (`tools/dust2_rebuild/arch_views.gd`).
 Engine time scale accelerates a fixed 60 Hz simulation; it does not teleport
 between route waypoints. Actual route results are in `validation.json`;
 compiler/test logs and full screenshots are under `test-results/dust2/`.

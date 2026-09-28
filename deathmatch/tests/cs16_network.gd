@@ -114,6 +114,7 @@ func run():
 		game.dedicated=true;game.bind_address="127.0.0.1";game.armory.select("cs16");game.start_host("CS16 network",28978,100,10,false,"dm","cs16")
 		check(await wait_for(func():return game.players.size()==1 and observer.seen.has("ready"),20),"Remote client joins CS16 server")
 		game.set_physics_process(false);game.set_process(false)
+		game.input_delivery.guards.clear() # Fresh budget after freezing the authority clock.
 		if game.players.size()==1:
 			var id: int=game.players.keys()[0];var s: Dictionary=game.players[id];var cs=game.variant_combat.cs
 			s.merge({"weapon":2,"owned":range(12),"ammo":[60,64,300,40],"dead":false,"spectator":false,"hp":2000,"invulnerable":0,"cooldown":0.0,"input_blocked":false,"reload":false,"fire":false,"held":false,"alt_fire":false},true)
@@ -183,9 +184,11 @@ func run():
 			if observer.phase.is_empty() or handled==observer.phase or observer.phase=="done":continue
 			var label:=observer.phase
 			if observer.expected.size() in [5,8]:await gesture(label,observer.expected[0])
-			check(await wait_for(func():
+			var matched:=await wait_for(func():
 				var row: Array=game.variant_combat.cs.status(game.multiplayer.get_unique_id())
-				return row.size()==Reload.ROW_SIZE and ([row[1],row[2],row[5],row[6],row[7],row[8],row[9],row[10]] if observer.expected.size()==8 else [row[1],row[2],row[5],row[7],row[8]] if observer.expected.size()==5 else [row[1],row[2],row[3]>0,row[4]])==observer.expected,5),"Replicated "+label+" agrees with authority")
+				return row.size()==Reload.ROW_SIZE and ([row[1],row[2],row[5],row[6],row[7],row[8],row[9],row[10]] if observer.expected.size()==8 else [row[1],row[2],row[5],row[7],row[8]] if observer.expected.size()==5 else [row[1],row[2],row[3]>0,row[4]])==observer.expected,5)
+			check(matched,"Replicated "+label+" agrees with authority")
+			if not matched:print("CS16_STATE_MISMATCH ",label," expected=",observer.expected," actual=",game.variant_combat.cs.status(game.multiplayer.get_unique_id()))
 			if label in ["M4 pull magazine","M4 reinsert magazine"]:
 				check(game.variant_combat.cs.status(game.multiplayer.get_unique_id())[11]==(29 if label=="M4 pull magazine" else 0),"Held magazine count replicates for "+label)
 			observer.acknowledge.rpc_id(1,label);handled=label

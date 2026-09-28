@@ -114,7 +114,7 @@ func goals(id: int,brain: Dictionary,rows: Array) -> bool:
 			ai.candidate(rows,"hill:screen:%s"%slot,"guard",station(id,mode.hill,4.8,slot),105,true)
 			rows[-1].look=mode.hill
 		return true
-	if mode.kind!="ctf" or mode.flags.size()!=2:return false
+	if mode.kind not in ["ctf","st"] or mode.flags.size()!=2:return false
 	var own: Dictionary=mode.flags[s.team];var flag: Dictionary=mode.flags[1-s.team]
 	brain.role="defend" if slot==0 and roster.size()>1 else "support" if slot==1 and roster.size()>2 else "attack"
 	if flag.carrier==id:

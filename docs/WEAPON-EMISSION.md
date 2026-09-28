@@ -34,3 +34,41 @@ godot --xr-mode off --path . --rendering-method mobile \
   --script res://tools/lighting_experiment/weapon_matrix.gd
 python3 tools/lighting_experiment/weapon_report.py
 ```
+
+## New-loadout audit — 27 September 2026
+
+The matrix now includes CS 1.6 and Tribes: **102 cases and 718 graphical checks**.
+The new loadouts had several missing or incorrect connections, now corrected:
+
+- Tribes laser and repair beams illuminate their actual segments in red/green;
+  ELF keeps its beam contribution. The targeting laser remains visible without
+  adding environmental light or a generic warm muzzle flash.
+- Tribes grenades, hand grenades, mines, discs and mortars now emit bounded impact
+  illumination. Blaster/plasma impacts retain their red/yellow arsenal colours.
+- Muzzle illumination follows the resolved firing mode, including UT alternate
+  fire and TF overrides, instead of relying on Doom weapon-slot numbers. Both
+  local and remote shooters use it; remote XR uses the clipped launch position.
+- Shot events own the single muzzle contribution. Impact tracers no longer
+  duplicate it or accidentally illuminate suppressed CS shots. Melee, scope-only,
+  hand-thrown and targeting/translocator actions do not get a gun muzzle flash.
+
+The existing limits remain mandatory: **two illuminated effects total, shared by
+all loadouts on desktop and XR**, at most 64 candidate sources, and the same
+source expiry, distance selection and intensity/radius limits. Neither the pool
+nor its occlusion shader changed. BSP solids, thin walls, translated/rotated brush
+models and fail-dark traversal continue to restrict illumination. No realtime
+light nodes were introduced. Receiver coverage remains the two production BSP
+material shaders described above; this does not add lighting to arbitrary props
+or avatars.
+
+The native Mobile/Vulkan captures compare identical effects with receiver
+illumination disabled/enabled. The repair probe is closer to the floor because
+its intentionally short radius is only half a metre. Tests also cover six mixed
+Tribes sources competing for the same two shader slots, local/remote CS shots,
+suppressors, utility tools, cleanup and expiration.
+
+[Audit receipt](validation/weapon-emission-loadouts-2026-09-27.json) ·
+[Matched rendered examples](../test-results/weapon-emission-loadouts/comparison.jpg).
+Regenerate with `tools/lighting_experiment/weapon_matrix.gd` in graphical Godot,
+then `python3 tools/lighting_experiment/loadout_report.py`. This audit adds no new
+performance claim or physical-headset measurement.

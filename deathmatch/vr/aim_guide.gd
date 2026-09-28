@@ -3,8 +3,8 @@ const LENGTH:=.60
 const START_OFFSET:=.04
 var beam: MeshInstance3D
 static func supports_weapon(weapon: int,rules: String="doom") -> bool:
-	if rules=="tf_sniper" or (rules in ["ut99","cs16"] and weapon==9):return false
-	return weapon>=2 or (rules in ["ut99","cs16"] and weapon==1)
+	if rules in ["cs16","tf_sniper"] or rules=="ut99" and weapon==9:return false
+	return weapon>=2 or rules=="ut99" and weapon==1
 func _ready() -> void:
 	top_level=true
 	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF

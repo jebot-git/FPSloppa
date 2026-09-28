@@ -92,5 +92,5 @@ func direct():
 	var counts: Array=[0,0]
 	for id in alive:counts[g.players[id].team]+=1
 	var watched: String=g.players[focus].name if g.players.has(focus) else "Overview"
-	var name: String=str(options.map).trim_prefix("de_").trim_suffix("_rebuilt").to_upper()
-	overlay.text="LIVE 6v6 · %s · ROUND %d / 6 · %s\nRED %d  :  %d BLUE     ALIVE %d : %d     RED: %s     %s\n%s"%[name,de.round_id,de.phase.to_upper(),g.match_mode.scores[0],g.match_mode.scores[1],counts[0],counts[1],"T" if de.attacking==0 else "CT",watched,"BOMB PLANTED · %.0fs"%maxf(0,de.fuse_end-g.clock) if de.planted and de.phase=="live" else de.message]
+	var name: String=str(g.current_map).trim_prefix("de_").trim_suffix("_rebuilt").to_upper()
+	overlay.text="LIVE 6v6 · %s · ROUND %d / %d · %s\nRED %d  :  %d BLUE     ALIVE %d : %d     RED: %s     %s\n%s"%[name,de.round_id,int(options.get("rounds",6)),de.phase.to_upper(),g.match_mode.scores[0],g.match_mode.scores[1],counts[0],counts[1],"T" if de.attacking==0 else "CT",watched,"BOMB PLANTED · %.0fs"%maxf(0,de.fuse_end-g.clock) if de.planted and de.phase=="live" else de.message]

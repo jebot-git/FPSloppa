@@ -1,6 +1,8 @@
 extends Node
 ## Server-authorized, non-positional calls with a bounded priority queue.
-const CLIPS=["first_blood","double_kill","triple_kill","rampage","dominating","unstoppable","objective_completed"]
+const DE_TEAMS=["de_terrorists","de_counter_terrorists"]
+const DE_EVENTS=["de_terrorists_win","de_counter_terrorists_win","de_bomb_planted"]
+const CLIPS=["first_blood","double_kill","triple_kill","rampage","dominating","unstoppable","objective_completed"]+DE_TEAMS+DE_EVENTS
 var game
 var allowed:=true
 var player: AudioStreamPlayer
@@ -13,6 +15,7 @@ var was_over:=false
 var first_blood:=false
 var streaks: Dictionary={}
 var combos: Dictionary={}
+var defusal_team_key:=""
 signal cue_received(cue: String,target: int)
 signal cue_started(cue: String)
 
@@ -43,13 +46,16 @@ func enqueue(cue: String,priority: int=1) -> void:
 	if float(game.presentation.get("announcer",.8))<=0:return
 	if cue!="objective_completed" and game.clock-float(recent.get(cue,-100.0))<1.0:return
 	recent[cue]=game.clock
-	if priority>=3:pending.clear()
+	if priority>=3:
+		pending.clear()
+		# Time-critical DE calls should not wait behind a long kill-streak voice.
+		if cue in DE_EVENTS and is_instance_valid(player):player.stop()
 	pending.append({"cue":cue,"priority":priority,"until":game.clock+6.0})
 	pending.sort_custom(func(a,b):return a.priority>b.priority)
 	while pending.size()>4:pending.pop_back()
 
 func clear_audio() -> void:
-	pending.clear();recent.clear()
+	pending.clear();recent.clear();defusal_team_key=""
 	if is_instance_valid(player):player.stop();player.stream=null
 
 func reset() -> void:
@@ -74,7 +80,30 @@ func killed(victim: int,attacker: int) -> void:
 	if not cue.is_empty() and attacker>0:receive.rpc(cue,attacker)
 
 func accepts(cue: String) -> bool:
+	if cue in DE_TEAMS or cue in DE_EVENTS:return game.match_mode.kind=="de"
 	return cue in CLIPS and (cue!="objective_completed" or game.match_mode.kind in ["tf","as"])
+
+static func cue_priority(cue: String) -> int:
+	return 4 if cue in DE_EVENTS else 2 if cue in DE_TEAMS or cue=="objective_completed" else 1
+
+func defusal_event(cue: String) -> void:
+	if multiplayer.is_server() and allowed and game.match_mode.defusal.enabled() and cue in DE_EVENTS:
+		receive.rpc(cue,0)
+
+func update_defusal_team() -> void:
+	# Derive the personal call from replicated round/roster state. This also
+	# covers late joins and demo viewpoints without broadcasting opposing roles.
+	var de=game.match_mode.defusal
+	if not game.active or not de.enabled() or de.phase not in ["prepare","live"] or game.intermission>0:return
+	if game.headless or not allowed or float(game.presentation.get("announcer",.8))<=0:return
+	var listener: int=game.demos.selected_player if game.demos.playing else multiplayer.get_unique_id()
+	var state: Dictionary=game.players.get(listener,{})
+	if state.get("spectator",true) or state.get("team",-1) not in [0,1]:defusal_team_key="";return
+	var key: String="%d:%d:%d:%d:%d"%[game.map_epoch,de.round_id,listener,state.team,de.attacking]
+	if key==defusal_team_key:return
+	defusal_team_key=key
+	pending=pending.filter(func(row):return row.cue not in DE_TEAMS)
+	enqueue(DE_TEAMS[de.role(listener)],2)
 
 func objective_completed() -> void:
 	if multiplayer.is_server() and allowed and game.match_mode.kind in ["tf","as"]:
@@ -88,6 +117,7 @@ func _process(_delta: float) -> void:
 		was_active=false;was_over=false;return
 	was_active=active;was_over=over
 	if not allowed or float(game.presentation.get("announcer",.8))<=0:clear_audio();return
+	update_defusal_team()
 	pending=pending.filter(func(row):return row.until>game.clock)
 	if not player.playing and not pending.is_empty():
 		var cue: String=pending.pop_front().cue

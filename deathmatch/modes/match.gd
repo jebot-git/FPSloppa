@@ -4,6 +4,8 @@ const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG",
 const COLORS=[Color("ed6558"),Color("65a9ef")]
 const TEAMS=["RED","BLUE"]
 var game
+var st=preload("res://deathmatch/tribes/ctf.gd").new()
+var tribes=preload("res://deathmatch/modes/tribes.gd").new()
 var fortress=preload("res://deathmatch/modes/fortress.gd").new()
 var titanball=preload("res://deathmatch/modes/titanball.gd").new()
 var special=preload("res://deathmatch/modes/special.gd").new()
@@ -11,7 +13,7 @@ var assault=preload("res://deathmatch/modes/assault.gd").new()
 var defusal=preload("res://deathmatch/modes/defusal.gd").new()
 var kind:="dm":
 	set(value):
-		if kind==value:return
+		if kind==value or not NAMES.has(value):return
 		kind=value
 		if game:
 			game.armory.apply_mode()
@@ -37,11 +39,12 @@ var hill_label: Label3D
 var visuals: Node3D
 var visual_key:=""
 
-func setup(arena: Node) -> void: game=arena;titanball.setup(self);special.setup(self);assault.setup(self);defusal.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self)
+func setup(arena: Node) -> void: game=arena;st.setup(self);titanball.setup(self);special.setup(self);assault.setup(self);defusal.setup(self);fortress.name="FortressRules";game.add_child(fortress);fortress.setup(self);tribes.name="TribesRules";game.add_child(tribes);tribes.setup(self)
 func configure(settings: Dictionary) -> void:
 	kind=settings.get("sv_gametype","dm")
 	jetpacks=settings.get("sv_jetpacks",0)==1
 	defusal.configure(settings)
+	tribes.infinite_energy=settings.get("sv_tribes_infinite_energy",0)==1
 	fortress.walkers.heavy_ordnance_only=true
 	fortress.walkers.pilot_regeneration=false
 	fortress.spy_invisibility=settings.get("sv_tf_spy_invisibility",0)==1
@@ -52,7 +55,7 @@ func instagib() -> bool:return kind in ["ig","if"]
 func freeze_tag() -> bool:return kind in ["ft","if"]
 func fixed_loadout() -> bool:return instagib() or kind=="cc"
 static func maplist_kind(value: String) -> String:return value
-func team_game() -> bool: return kind in ["tdm","ctf","koth","ft","if","tf","tb","as","de"]
+func team_game() -> bool: return kind in ["tdm","ctf","koth","ft","if","tf","tb","as","de","st"]
 func assign_team(spectator: bool) -> int:
 	if spectator or not team_game():return -1
 	var count: Array=[0,0]
@@ -62,8 +65,8 @@ func assign_team(spectator: bool) -> int:
 func same_team(a: int,b: int) -> bool:
 	return team_game() and game.players.has(a) and game.players.has(b) and game.players[a].team>=0 and game.players[a].team==game.players[b].team
 func reset() -> void:
-	capture_notice.clear()
-	special.reset();fortress.reset();assault.reset();titanball.reset();defusal.reset()
+	capture_notice.clear();st.reset()
+	special.reset();fortress.reset();tribes.reset();assault.reset();titanball.reset();defusal.reset()
 	game.jetpacks.clear()
 	scores=[0,0];hill_owner=-1;hill_credit=0.0;flags.clear();bases.clear();captures.clear()
 	hills.clear();hill_index=0;hill_remaining=HILL_SECONDS
@@ -155,13 +158,14 @@ func spawns(team: int) -> Array:
 	if kind=="de" and team in [0,1]:return defusal.spawns(team)
 	if kind=="as" and team in [0,1]:return assault.spawns(team)
 	if kind=="tb" and team in [0,1]:return titanball.spawns(team)
-	if kind in ["ctf","tf","tb","koth"] and team in [0,1] and not game.ctf_spawns[team].is_empty():return game.ctf_spawns[team]
-	if not kind in ["ctf","tf"] or team<0 or bases.size()!=2:return game.spawn_points
+	if kind in ["ctf","tf","st","tb","koth"] and team in [0,1] and not game.ctf_spawns[team].is_empty():return game.ctf_spawns[team]
+	if not kind in ["ctf","tf","st"] or team<0 or bases.size()!=2:return game.spawn_points
 	var result: Array=[]
 	for point in game.spawn_points:
 		if point.distance_squared_to(bases[team])<=point.distance_squared_to(bases[1-team]):result.append(point)
 	return result if not result.is_empty() else game.spawn_points
 func killed(victim: int,attacker: int) -> void:
+	st.kill_bonus(victim,attacker)
 	defusal.killed(victim,attacker)
 	fortress.walkers.departed(victim)
 	drop(victim)
@@ -174,6 +178,7 @@ func killed(victim: int,attacker: int) -> void:
 	elif kind in ["dm","ig","cc"] and game.players[attacker].kills>=game.frag_limit:game._end_round()
 func drop(id: int) -> void:
 	defusal.drop(id)
+	if kind=="st":st.drop(id);return
 	for i in range(flags.size()):
 		var f: Dictionary=flags[i]
 		if f.carrier!=id:continue
@@ -187,14 +192,23 @@ func drop(id: int) -> void:
 func return_flag(team: int) -> void:
 	flags[team]={"carrier":0,"dropped":false,"position":bases[team],"return_at":0.0}
 func nearby(id: int,pos: Vector3,radius: float) -> bool:
-	var origin: Vector3=game.fighters[id].position
+	var actor=game.fighters[id]
+	if actor.tribes_enabled:
+		for i in range(1,actor.travel_path.size()):
+			var a: Vector3=actor.travel_path[i-1];var b: Vector3=actor.travel_path[i]
+			var span:=Vector2(b.x-a.x,b.z-a.z)
+			var fraction:=clampf(Vector2(pos.x-a.x,pos.z-a.z).dot(span)/span.length_squared(),0,1) if span.length_squared()>.000001 else 0.0
+			if visible_touch(a.lerp(b,fraction),pos,radius):return true
+	return visible_touch(actor.position,pos,radius)
+func visible_touch(origin: Vector3,pos: Vector3,radius: float) -> bool:
 	var offset:=origin-pos
 	if absf(offset.y)>1.8 or Vector2(offset.x,offset.z).length()>radius:return false
 	return game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(origin+Vector3.UP*.8,pos+Vector3.UP*.8,1)).is_empty()
 func tick(delta: float) -> void:
 	if not game.multiplayer.is_server() or game.intermission>0:return
-	special.tick(delta);fortress.tick(delta);assault.tick(delta);defusal.tick(delta)
-	if kind in ["ctf","tf"]:
+	special.tick(delta);fortress.tick(delta);tribes.tick(delta);assault.tick(delta);defusal.tick(delta)
+	if kind in ["ctf","tf","st"]:
+		st.tick(delta)
 		for i in range(2):
 			var f: Dictionary=flags[i]
 			if f.carrier!=0:
@@ -208,15 +222,16 @@ func tick(delta: float) -> void:
 			var own: int=s.team;var enemy:=1-own
 			if kind!="tf" and flags[own].dropped and nearby(id,flags[own].position,1.15):
 				return_flag(own);game._announcement.rpc(s.name+" returned the "+TEAMS[own]+" flag")
-			if flags[enemy].carrier==0 and nearby(id,flags[enemy].position,1.15):
+			if flags[enemy].carrier==0 and (kind!="st" or st.can_take(enemy,id)) and nearby(id,flags[enemy].position,1.15):
 				flags[enemy].carrier=id;flags[enemy].dropped=false;s.invulnerable=0
 				fortress.revealed(id)
 				game._announcement.rpc(s.name+" took the "+TEAMS[enemy]+" flag")
 			if flags[enemy].carrier==id and (kind=="tf" or flags[own].carrier==0 and not flags[own].dropped) and nearby(id,captures[own] if kind=="tf" else bases[own],1.4):
+				if kind=="st":s.kills+=5
 				return_flag(enemy);scores[own]+=1;game._announcement.rpc(TEAMS[own]+" captured the flag!");game._capture_feedback.rpc(own,s.name,scores[own]);game.announcer.objective_completed();check_limit()
 				if game.intermission>0:return
 	elif kind=="koth":tick_hill(delta)
-func limit() -> int:return defusal.win_limit if kind=="de" else capture_limit if kind in ["ctf","tf"] else hill_limit if kind=="koth" else game.frag_limit
+func limit() -> int:return defusal.win_limit if kind=="de" else capture_limit if kind in ["ctf","tf","st"] else hill_limit if kind=="koth" else game.frag_limit
 func check_limit() -> void:
 	if maxi(scores[0],scores[1])>=limit():game._end_round()
 func result() -> String:
@@ -230,13 +245,13 @@ func status(id: int=0) -> String:
 	if not team_game():return kind.to_upper()+" · %d FRAGS"%game.frag_limit
 	var text: String=kind.to_upper()+" · RED %d  BLUE %d / %d"%[scores[0],scores[1],limit()]
 	if game.players.has(id) and game.players[id].team>=0:text+=" · YOU: "+TEAMS[game.players[id].team]
-	if kind in ["ctf","tf"] and flags.size()==2:
+	if kind in ["ctf","tf","st"] and flags.size()==2:
 		for i in range(2):text+=" · "+TEAMS[i]+" FLAG "+("TAKEN" if flags[i].carrier!=0 else "DROPPED" if flags[i].dropped else "HOME")
 	elif kind=="koth":text+=" · HILL "+("CONTESTED" if hill_owner==-2 else "OPEN" if hill_owner==-1 else TEAMS[hill_owner])+" · %ds"%ceili(maxf(0,hill_remaining))
 	if freeze_tag():text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
 	return text+fortress.status(id)
 func snapshot() -> Dictionary:
-	return {"defusal":defusal.snapshot(),"jetpacks":jetpacks,"jetpack_pickups":game.jetpacks.positions(),"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
+	return {"tribes":tribes.snapshot(),"defusal":defusal.snapshot(),"jetpacks":jetpacks,"jetpack_pickups":game.jetpacks.positions(),"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
 func receive(data: Dictionary) -> void:
 	if data.is_empty():return
 	game.announcer.policy(bool(data.get("announcer",true)))
@@ -245,9 +260,9 @@ func receive(data: Dictionary) -> void:
 	kind=data.kind;fortress.receive(data.get("fortress",{}));scores=data.scores;bases=data.bases;captures=data.get("captures",bases);flags=data.flags;hill=data.hill;hill_owner=data.owner;friendly_fire=data.friendly_fire
 	hills=data.get("hills",[hill]);hill_index=int(data.get("hill_index",0));hill_remaining=float(data.get("hill_remaining",HILL_SECONDS))
 	assault.receive(data.get("assault",{}));titanball.receive(data.get("titanball",{}))
-	defusal.receive(data.get("defusal",{}))
+	defusal.receive(data.get("defusal",{}));tribes.receive(data.get("tribes",{}))
 	game.jetpacks.receive(data.get("jetpack_pickups",[]))
-	if kind in ["ctf","tf"]:capture_limit=data.limit
+	if kind in ["ctf","tf","st"]:capture_limit=data.limit
 	elif kind=="koth":hill_limit=data.limit
 func clear_visuals() -> void:
 	if is_instance_valid(visuals):visuals.free()
@@ -262,7 +277,7 @@ func draw_objectives() -> void:
 	if visual_key!=key or not is_instance_valid(visuals):
 		clear_visuals();visual_key=key
 		visuals=Node3D.new();game.get_node("Map").add_child(visuals)
-		if kind in ["ctf","tf"] and bases.size()==2:
+		if kind in ["ctf","tf","st"] and bases.size()==2:
 			for i in range(2):
 				marker(bases[i],COLORS[i],TEAMS[i]+" FLAG",1.4)
 				if captures.size()==2 and captures[i].distance_to(bases[i])>2:marker(captures[i],COLORS[i],TEAMS[i]+" CAPTURE",1.4)
@@ -274,11 +289,14 @@ func draw_objectives() -> void:
 				assault.draw_button(visuals,i)
 				marker(objective.position,Color("67dba8") if i<assault.stage else COLORS[assault.attacking],("DONE · " if i<assault.stage else "LOCKED · " if i>assault.stage else "TARGET · " if int(objective.get("health",0))>0 else "ACTIVATE · ")+str(objective.get("title","OBJECTIVE")),1.2)
 	if kind=="koth" and is_instance_valid(hill_label):hill_label.text=hill_timer_text()
-	if kind in ["ctf","tf"] and flags.size()==2:
+	if kind in ["ctf","tf","st"] and flags.size()==2:
 		for i in range(2):
 			var flag: Node3D=visuals.get_node("Flag"+str(i))
-			flag.position=flags[i].position+Vector3.UP*(1.1 if flags[i].carrier!=0 else 0.0)
+			var target: Vector3=flags[i].position+Vector3.UP*(1.1 if flags[i].carrier!=0 else 0.0)
+			flag.position=flag.position.lerp(target,minf(1,game.get_process_delta_time()*20)) if kind=="st" and flags[i].dropped and flag.position.distance_to(target)<15 else target
 			flag.visible=flags[i].carrier!=game.multiplayer.get_unique_id()
+			var fade: float=clampf(1.0-(flags[i].return_at-game.clock)/st.FADE_SECONDS,0,1) if kind=="st" and flags[i].dropped else 0.0
+			for mesh in flag.find_children("*","GeometryInstance3D",true,false):mesh.transparency=fade
 func marker(pos: Vector3,color: Color,title: String,radius: float) -> Label3D:
 	var root:=Node3D.new();root.position=pos;visuals.add_child(root)
 	var mesh:=MeshInstance3D.new();var ring:=TorusMesh.new();ring.inner_radius=radius-.06;ring.outer_radius=radius

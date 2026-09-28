@@ -9,9 +9,10 @@ var teamplay=preload("res://deathmatch/bot_ai/teamplay.gd").new()
 var objectives=preload("res://deathmatch/bot_ai/objectives.gd").new()
 var navigation=preload("res://deathmatch/bot_ai/navigation.gd").new()
 var map_triggers=preload("res://deathmatch/bot_ai/map_triggers.gd").new()
+var tribes=preload("res://deathmatch/bot_ai/tribes.gd").new()
 var titanball=preload("res://deathmatch/bot_ai/titanball.gd").new()
 func setup(arena: Node) -> void:
-	game=arena;teamplay.ai=self;objectives.ai=self;titanball.ai=self
+	game=arena;tribes.setup(self);teamplay.ai=self;objectives.ai=self;titanball.ai=self
 	region=NavigationRegion3D.new()
 	add_child(region)
 	var nav_map: RID=region.get_navigation_map()
@@ -69,6 +70,7 @@ func tick(delta: float) -> void:
 	if ready_to_walk:
 		navigation.install_links();navigation.update_jump_links()
 	teamplay.tick()
+	if game.match_mode.kind=="st":tribes.tactics.tick()
 	for id in brains.keys():
 		if not game.players.has(id) or not game.fighters.has(id):brains.erase(id)
 	for id in game.players:
@@ -81,7 +83,8 @@ func tick(delta: float) -> void:
 		s.last_input=game.clock;s.room=Vector3.ZERO;s.offhand_fire=false;s.input_blocked=false
 		# Objective interactions may consume movement/fire, but never perception.
 		# A planter/defuser must still notice an approaching opponent.
-		var thinking: bool=game.clock>=brain.next
+		var flag_changed: bool=game.match_mode.kind=="st" and tribes.flag_changed(id,brain)
+		var thinking: bool=game.clock>=brain.next or flag_changed
 		if thinking:
 			brain.next=game.clock+.2
 			perceive(id,brain)
@@ -124,7 +127,7 @@ func perceive(id: int,brain: Dictionary) -> void:
 		if game.match_mode.fortress.enabled() and game.players[other].get("tf_disguise",{}).get("team",-1)==s.team:continue
 		if not can_engage(id,other):continue
 		var distance: float=eye(id).distance_to(target_position(other))
-		if distance>60:continue
+		if distance>(140 if game.match_mode.kind=="st" else 60):continue
 		# Nearby opponents can be heard; distant enemies must enter the field of
 		# view. Never acquire a silent distant opponent through the back of the head.
 		var bearing: Vector3=target_position(other)-eye(id)
@@ -132,6 +135,9 @@ func perceive(id: int,brain: Dictionary) -> void:
 		if not visible(id,other):continue
 		brain.visible.append(other)
 		var value:=35.0/(1+distance*.08)+(8 if other==previous else 0)+(12 if game.match_mode.fortress.carrying(other) else 0)
+		if game.match_mode.kind=="st":
+			if game.match_mode.st.carried(other)>=0:value+=18
+			value+=tribes.offense.escort_priority(id,other)
 		if game.match_mode.kind=="tb" and game.match_mode.fortress.walkers.mounted(other):value+=30
 		# A radio call must not distract a bot from an immediate melee threat.
 		if distance<4:value+=20
@@ -182,6 +188,8 @@ func combat_upgrade(id: int,weapon: int) -> bool:
 	return weapon!=2 and not melee_weapon(id,weapon) and data.get("kind","")!="translocator" and float(data.get("damage",0))>0
 func needs_equipment(id: int) -> bool:
 	var s: Dictionary=game.players[id]
+	if game.match_mode.tribes.enabled():
+		return not s.owned.any(func(w):return w<8 and game.match_mode.tribes.usable(id,w))
 	for weapon in s.owned:
 		if not combat_upgrade(id,weapon):continue
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
@@ -189,6 +197,10 @@ func needs_equipment(id: int) -> bool:
 		if ammo<0 or s.ammo[ammo]>=maxi(1,int(data.get("cost",1)))*3:return false
 	return true
 func ammo_value(id: int,ammo: int) -> float:
+	if game.match_mode.tribes.enabled():
+		for w in game.players[id].owned:
+			if game.match_mode.tribes.amount(id,w)==0:return 50.0
+		return 0.0
 	var s: Dictionary=game.players[id]
 	var usable:=false
 	for weapon in s.owned:
@@ -200,12 +212,13 @@ func ammo_value(id: int,ammo: int) -> float:
 func mode_goals(id: int,brain: Dictionary,rows: Array) -> void:
 	var mode=game.match_mode;var s: Dictionary=game.players[id]
 	if mode.defusal.enabled():mode.defusal.bot_goals(self,id,rows);return
+	if mode.kind=="st":tribes.goals(id,brain,rows);return
 	var rank:=team_rank(id)
 	brain.role="defend" if rank%3==1 or s.get("tf_class","") in ["engineer","sniper"] else "attack"
 	if mode.freeze_tag():objectives.thaw_goals(id,rows)
 	if mode.kind=="tb":titanball.goals(id,brain,rows)
 	elif objectives.goals(id,brain,rows):return
-	if mode.kind in ["ctf","tf"] and s.team in [0,1] and mode.flags.size()==2:
+	if mode.kind in ["ctf","tf","st"] and s.team in [0,1] and mode.flags.size()==2:
 		var own: Dictionary=mode.flags[s.team];var flag: Dictionary=mode.flags[1-s.team]
 		if flag.carrier==id:
 			candidate(rows,"capture","capture",mode.captures[s.team],240,true)
@@ -292,6 +305,8 @@ func cover_goals(id: int,brain: Dictionary,rows: Array) -> void:
 		candidate(rows,"cover:%s"%index,"cover",point,170 if s.hp<35 else 110,true)
 
 func travel_weight(kind: String,distance: float) -> float:
+	if game.match_mode.kind=="st" and kind in ["st_rally","st_hold"]:return 1+minf(distance,45)*.02
+	if game.match_mode.kind=="st" and kind in ["st_repair","st_asset_repair","st_deploy_repair","st_fixed_repair","st_fixed_attack","st_base_attack","st_bombard","st_destroy","st_build","supply"]:return 1+minf(distance,60)*.015
 	# A distant team objective must not lose forever to nearby consumables on
 	# large Assault maps. Local scavenging still uses the full route distance.
 	if kind in ["objective","checkpoint","destroy","capture","defend","intercept","escort"]:return 1+minf(distance,45)*.02
@@ -324,7 +339,7 @@ func plan(id: int,brain: Dictionary) -> void:
 		# indefinitely with spawn equipment. Do not interrupt a flag run.
 		var kind:="item"
 		if value>0 and equip and pickup.available and pickup.kind=="weapon" and combat_upgrade(id,int(pickup.item)):
-			if game.match_mode.kind in ["ctf","koth","tb"]:
+			if game.match_mode.kind in ["ctf","st","koth","tb"]:
 				value=maxf(value,240 if game.match_mode.kind=="tb" else 190);kind="equip"
 			elif origin.distance_to(pickup.position)<10:value=maxf(value,105)
 		candidate(rows,"item:%s"%index,kind,pickup.position,value)
@@ -349,8 +364,21 @@ func plan(id: int,brain: Dictionary) -> void:
 		var row: Dictionary=rows[index]
 		if row.score<=0:continue
 		teamplay.count("route_queries")
-		var trial: PackedVector3Array=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6)
+		var retained: bool=game.match_mode.kind=="st" and row.key==brain.goal_key and row.position.distance_to(brain.goal)<2 and brain.step<brain.path.size() and game.clock<brain.route_at
+		var terrain_first: bool=not retained and game.match_mode.kind=="st" and origin.distance_to(row.position)>45
+		var trial:=PackedVector3Array()
+		if retained:trial=brain.path.slice(brain.step)
+		elif terrain_first:
+			# Long ST trips already choose the terrain graph. Asking the walking
+			# mesh first wastes a search and can fail inside Godot's corridor
+			# builder when a dropped flag lies on a disconnected terrain island.
+			trial=tribes.path(origin,row.position,id)
+			if trial.is_empty():trial=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6)
+		else:trial=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6)
 		var distance: float=navigation.cost(origin,row.position,trial)
+		if not retained and not terrain_first and game.match_mode.kind=="st" and (not is_finite(distance) or distance>45):
+			var flight: PackedVector3Array=tribes.path(origin,row.position,id)
+			if not flight.is_empty():trial=flight;distance=navigation.cost(origin,row.position,trial)
 		row.boost=""
 		if not is_finite(distance) or distance>25:
 			row.boost=boost_route(id,brain,row.position)
@@ -391,9 +419,13 @@ func plan(id: int,brain: Dictionary) -> void:
 		teamplay.count("idle_plans")
 		brain.path=PackedVector3Array();brain.goal=origin;brain.goal_key="";brain.goal_kind="idle";brain.hold=true;brain.support=0
 		return
+	# Retain the jet approach until completed; resetting it every planning tick
+	# sent airborne bots back toward a nearby node behind them.
+	if game.match_mode.kind=="st" and chosen.key==brain.goal_key and chosen.position.distance_to(brain.goal)<2 and brain.step<brain.path.size() and game.clock<brain.route_at:
+		return
 	teamplay.selected(id,brain,chosen)
 	brain.goal=chosen.position;brain.goal_key=chosen.key;brain.goal_kind=chosen.kind;brain.hold=chosen.hold;brain.support=chosen.support
-	brain.path=route;brain.step=0;brain.route_at=game.clock+.8;brain.boost_kind=chosen.get("boost","");brain.rocket_route=not brain.boost_kind.is_empty()
+	brain.path=route;brain.step=0;brain.route_at=game.clock+(12 if game.match_mode.kind=="st" else .8);brain.boost_kind=chosen.get("boost","");brain.rocket_route=not brain.boost_kind.is_empty()
 
 func melee_weapon(id: int,weapon: int) -> bool:
 	var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
@@ -411,6 +443,7 @@ func choose_weapon(id: int,distance: float,enemy: int=0) -> int:
 		if not game.match_mode.fortress.can_fire(id,weapon) or enemy!=0 and not can_harm_target(id,enemy,weapon):continue
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
 		if data.get("kind","")=="translocator":continue
+		if game.match_mode.kind=="st" and weapon in [8,9,10,11]:continue
 		# Estimate useful damage from the actual class/profile data, not Doom's
 		# slot numbers (Quake grenades and UT shock occupy shotgun slots).
 		var damage: float=float(data.damage)*(1+float(data.get("dice",1)))*.5*int(data.get("pellets",1))
@@ -452,6 +485,7 @@ func safe_shot(id: int,point: Vector3,explosive: bool=false) -> bool:
 func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 	var s: Dictionary=game.players[id]
 	s.fire=false;s.alt_fire=false
+	if game.match_mode.kind=="st" and tribes.combat(id,brain,delta):return
 	if game.match_mode.defusal.utility.bot_combat(id,brain):return
 	if game.clock<brain.boost_until:return
 	if translocator_input(id,brain,delta):return
@@ -480,8 +514,9 @@ func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 		var alternate:=alternate_fire(id,distance,brain)
 		if alternate:data=data.duplicate();data.merge(data.get("alt",{}),true)
 		if float(data.get("speed",0))>0:
-			var flight: float=minf(.8,distance/data.speed)
+			var flight: float=minf(2.0 if game.match_mode.kind=="st" else .8,distance/data.speed)
 			var predicted: Vector3=point+brain.observed_velocity*flight*brain.aiming.lead
+			if game.match_mode.tribes.enabled():predicted-=game.fighters[id].velocity*float(data.get("inherit",0))*flight
 			predicted.y+=.5*float(data.get("gravity",0))*flight*flight
 			if navigation.ray(eye(id),predicted).is_empty():point=predicted
 		var motion:float=maxf(brain.observed_velocity.length(),game.fighters[id].velocity.length())
@@ -598,6 +633,10 @@ func safe_blast(id: int,point: Vector3) -> bool:
 
 func stop_radius(brain: Dictionary) -> float:
 	match brain.goal_kind:
+		"st_rally":return 2.5
+		"st_hold":return 1.0
+		"st_repair","st_build","st_asset_repair","st_deploy_repair","st_fixed_repair":return .5
+		"st_destroy":return .6
 		"map_control":return .04
 		"heal":return 3.5
 		"repair":return 2.4
@@ -609,6 +648,7 @@ func stop_radius(brain: Dictionary) -> float:
 		"objective":return 1.0 if game.match_mode.kind=="koth" else .4
 	return .35
 func steer(id: int,brain: Dictionary,delta: float) -> void:
+	if game.match_mode.kind=="st":tribes.steer(id,brain);return
 	var s: Dictionary=game.players[id];var actor=game.fighters[id]
 	s.jump=false;s.swim=Vector3.ZERO;s.slow=false;s.crouch=false;s.prone=false
 	if not brain.goal_key.is_empty() and brain.goal_kind in ["roam","search","explore"] and actor.position.distance_to(brain.goal)<(.5 if brain.goal_kind=="explore" else 1.5):
@@ -688,6 +728,8 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 	if at_goal and brain.enemy==0 and brain.goal_kind in ["guard","ambush"]:
 		aim(id,brain.watch+Vector3.UP,1-exp(-6*delta))
 		s.crouch=brain.goal_kind=="ambush"
+	if at_goal and brain.enemy==0 and game.match_mode.defusal.enabled() and brain.goal_key.begins_with("de:") and brain.goal_kind=="defend" and brain.has("de_watch"):
+		aim(id,brain.de_watch+Vector3.UP,1-exp(-6*delta))
 	if not riding_lift and game.clock<brain.dodge_until:desired=brain.dodge;at_goal=false
 	if not riding_lift and game.clock<brain.recover_until:desired=brain.recover_direction;at_goal=false
 	# Separate teammates locally while retaining the chosen route.

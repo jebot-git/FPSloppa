@@ -103,9 +103,11 @@ def nuke():
     a.room(402,155,454,244,0,256);a.room(434,75,543,229,0,320,'Ramp room')
     a.room(435,230,565,399,0,384,'Upper reactor A')
     a.room(420,285,443,344,0,150,'Hut');a.room(397,350,471,378,0,176,'Squeaky')
-    a.room(550,230,605,315,0,220,'Heaven access')
+    a.room(550,230,605,315,0,384,'Heaven access')
     a.room(442,233,601,264,192,384,'Heaven');a.stairs(567,264,604,294,192,0,'v')
-    a.block(445,233,566,251,176,192,'metal')
+    # Continuous landing joins the high stair tread to the catwalk. The
+    # access ceiling above must clear a standing capsule on the top tread.
+    a.block(445,233,604,264,176,192,'metal')
     a.room(617,414,729,527,0,256,'Garage');a.room(595,435,631,490,0,240)
     # Full lower level beneath A, reached by the classic ramp and outside tunnel.
     a.room(435,261,565,399,-256,-48,'Lower reactor B')
@@ -118,18 +120,21 @@ def nuke():
     a.room(399,379,453,410,-256,108,'Vent');a.room(399,388,428,486,-256,108)
     a.ramp(399,388,428,477,0,-256,'v');a.room(415,449,450,486,-256,-48)
     a.room(434,396,460,486,-256,-48)
-    for u,v in [(490,307),(523,307)]:a.tank(u,v,0,10,136);a.tank(u,v,-256,10,120)
-    for u,v,w,h in [(199,346,15,100),(327,375,15,90),(492,493,15,112),(591,401,16,118),(670,454,18,104),(445,131,12,92)]:a.crate(u,v,w,h)
+    from classic_de.restoration import nuke_cover
+    nuke_cover(a)
+    from classic_de.study_layout import nuke as study_nuke
+    study_nuke(a)
     # Roof trusses, wall vents and riveted exterior panels.
     for v in [270,310,350,387]:a.block(435,v,565,v+2,328,342,'metal')
-    for u in [444,477,510,543]:a.block(u,394,u+18,395,60,116,'vent')
+    for u in [444,477,510,543]:a.block(u,398.5,u+18,399.2,60,116,'vent')
     a.site(435,270,565,392,0,[478,348,0],wall=(495.5,398.6,509.5,398.8,[0,-1]))
-    a.site(435,275,565,398,-256,[479,351,-256],wall=(435.2,330,435.4,352,[1,0]))
+    a.site(435,275,565,398,-256,[479,351,-256],wall=(436.2,335,436.4,357,[1,0]))
     a.team(0,32,329);a.team(1,745,240)
     a.route('T lobby to A',[[62,338,0],[175,332,0],[223,332,0],[320,340,0],[380,323,0],[427,320,0],[461,320,0],[478,348,0]])
-    a.route('T radio ramp to B',[[62,338,0],[175,332,0],[223,332,0],[320,340,0],[385,316,0],[384,249,0],[418,240,0],[420,195,0],[448,195,0],[448,143,0],[490,143,0],[490,270,-256],[479,351,-256]])
-    a.route('CT outside to A',[[766,249,0],[615,249,0],[608,306,0],[578,306,0],[552,306,0],[548,348,0],[478,348,0]])
-    a.route('CT garage tunnel to B',[[766,249,0],[617,249,0],[608,379,0],[608,480,0],[704,480,0],[706,446,0],[732,443,0],[732,550,-256],[607,548,-256],[606,408,-256],[548,405,-256],[547,350,-256],[479,351,-256]])
+    a.route('T radio ramp to B',[[62,338,0],[175,332,0],[223,332,0],[320,340,0],[385,316,0],[408,278,0],[408,248,0],[418,240,0],[420,195,0],[448,195,0],[448,143,0],[490,143,0],[490,270,-256],[457,285,-256],[457,350,-256],[479,351,-256]])
+    a.route('CT outside to A',[[766,249,0],[615,249,0],[608,306,0],[578,306,0],[552,306,0],[548,367,0],[478,367,0],[478,348,0]])
+    a.route('CT garage tunnel to B',[[766,249,0],[617,249,0],[608,379,0],[608,480,0],[704,480,0],[706,446,0],[732,443,0],[732,550,-256],[607,548,-256],[606,408,-256],[585,408,-256],[585,484,-256],[548,484,-256],[547,372,-256],[479,372,-256],[479,351,-256]])
+    a.route('Heaven stairs to catwalk',[[585,306,0],[585,291,19],[585,275,122],[585,260,192],[552,245,192],[458,245,192]])
     a.views=[dict(name='nuke-upper',eye=[455,380,80],look=[515,293,95]),dict(name='nuke-lower',eye=[452,383,-175],look=[525,302,-154]),dict(name='nuke-outside',eye=[575,497,75],look=[401,390,90])]
     return a.finalize()
 
@@ -144,10 +149,13 @@ def inferno():
     a.stairs(395,584,476,610,0,96);a.room(577,506,614,592,96,312,'Balcony')
     a.room(578,486,618,541,0,312);a.stairs(580,487,609,546,0,96,'v')
     a.room(577,361,618,410,0,240);a.room(580,265,614,345,0,240,'Library')
-    for u,v,w,h in [(329,77,18,90),(350,111,18,132),(361,62,14,70),(615,442,20,76),(668,475,18,108),(647,416,16,70),(690,550,16,90),(361,215,12,52)]:a.crate(u,v,w,h)
+    from classic_de.restoration import inferno_cover
+    inferno_cover(a)
+    from classic_de.study_layout import inferno as study_inferno
     # Houses: plaster bands, shutters, overhanging timber balcony and tiled roofs.
-    for u,v in [(245,407),(340,408),(382,408),(449,408),(499,374),(550,349),(650,104),(312,33),(180,516)]:
-        a.window(u,v,17,92);a.block(u-1,v-1,u+18,v-.1,181,192,'roof')
+    from classic_de.restoration import inferno_facades
+    inferno_facades(a)
+    study_inferno(a)
     a.block(613,548,615,588,96,114,'wood')
     for v in [550,562,574,586]:a.block(613,v,615,v+.7,114,154,'wood')
     for u,v in [(302,132),(394,132),(616,490),(703,490)]:a.pillar(u,v,0,200,2)
@@ -157,52 +165,23 @@ def inferno():
     a.site(581,398,711,489,0,[646,452,0],wall=(710.6,436,710.8,458,[-1,0]))
     a.site(302,30,397,142,0,[372,96,0],wall=(302.2,75,302.4,97,[1,0]))
     a.team(0,25,422);a.team(1,658,171)
-    a.route('T banana to B',[[46,431,0],[151,430,0],[257,423,0],[303,402,0],[303,303,0],[332,256,0],[350,230,0],[386,220,0],[387,162,0],[372,96,0]])
+    a.route('T banana to B',[[46,431,0],[151,430,0],[257,423,0],[303,402,0],[303,303,0],[332,256,0],[360,230,0],[386,220,0],[387,162,0],[372,96,0]])
     a.route('T mid to A',[[46,431,0],[151,430,0],[257,423,0],[510,430,0],[510,515,0],[563,514,0],[590,479,0],[646,452,0]])
     a.route('Apartments balcony to A',[[175,579,0],[175,540,0],[407,540,0],[403,579,0],[400,596,6],[470,596,96],[458,571,96],[594,571,96],[594,493,0],[646,452,0]])
     a.route('CT to B',[[679,180,0],[675,99,0],[419,87,0],[372,96,0]])
     a.route('CT library to A',[[679,180,0],[664,249,0],[595,249,0],[595,346,0],[596,383,0],[646,452,0]])
-    a.views=[dict(name='inferno-a',eye=[590,476,70],look=[675,431,74]),dict(name='inferno-banana',eye=[306,333,75],look=[365,207,84]),dict(name='inferno-apartments',eye=[546,571,172],look=[603,535,162])]
+    a.views=[dict(name='inferno-a',eye=[590,476,70],look=[675,431,74]),dict(name='inferno-banana',eye=[306,333,75],look=[365,207,84]),dict(name='inferno-apartments',eye=[546,571,172],look=[603,535,162]),dict(name='inferno-mid-facades',eye=[407,445,74],look=[412,408,112]),dict(name='inferno-b-cover',eye=[385,115,72],look=[325,66,96])]
     return a.finalize()
 
 def aztec():
-    a=Classic('aztec','ruins')
-    # Ruins courts joined by double doors, a suspended bridge and a lower canal.
-    for r,z,label in [((65,431,191,564),0,'T ruins'),((150,397,294,442),0,'Double door approach'),((263,311,307,419),0,'Double doors'),((303,247,475,399),0,'A court'),((452,233,567,285),0,'CT connector'),((520,158,666,258),0,'CT spawn'),((167,468,260,515),0,'Bridge approach'),((234,388,268,491),0,'Bridge gate'),((234,318,268,390),0,'Suspension bridge'),((229,215,270,318),0,'Bridge exit'),((74,156,269,257),0,'B court'),((238,156,540,195),0,'CT upper corridor')]:a.room(*r,z,label=label)
-    # Canal lies under the suspended bridge, with ramps at both ends.
-    a.room(141,312,562,389,-128,640,'Lower water canal')
-    a.room(132,378,187,476,-128,640);a.ramp(132,385,187,470,-128,0,'v')
-    a.room(511,268,563,388,-128,640);a.ramp(511,268,563,382,0,-128,'v')
-    a.block(141,313,561,388,-128,-118,'*water_de')
-    a.block(263,311,307,419,-24,0,'floor');a.block(303,247,475,399,-24,0,'floor')
-    a.block(234,308,268,395,-14,0,'wood')
-    # Continuous planking and low ropes; collision stays smooth over the deck.
-    for v in range(309,395,5):a.block(234,v,268,v+.6,0,1,'wood')
-    for u in [235,267]:
-        for v in range(310,396,14):a.block(u-.4,v-.4,u+.4,v+.4,1,48,'wood')
-        a.block(u-.4,308,u+.4,397,43,46,'rope')
-    a.opening(284,314,35,'u',doors=True);a.opening(251,416,31,'u',doors=True)
-    for u,v,w,h in [(352,295,22,90),(410,366,20,128),(447,285,18,80),(120,203,23,118),(209,180,18,84),(161,237,16,68),(101,480,17,92)]:a.crate(u,v,w,h)
-    # Recessed grass patches, stepped temple mass and carved pillars.
-    a.block(80,163,115,192,0,8,'moss')
-    for inset,z in [(0,0),(3,24),(6,48)]:a.block(316+inset,251+inset,344-inset,279-inset,z,z+24,'carved')
-    for u,v in [(77,252),(260,252),(307,251),(471,251),(306,395),(473,395)]:a.pillar(u,v,0,208,4)
-    for u,v,U,V in [(77,158,268,159),(303,248,473,249),(304,393,473,394)]:a.block(u,v,U,V,140,170,'carved')
-    a.site(304,249,473,396,0,[379,327,0],wall=(474.6,285,474.8,307,[-1,0]))
-    a.site(77,158,267,255,0,[175,211,0],wall=(74.2,188,74.4,210,[1,0]))
-    a.team(0,102,517);a.team(1,580,190)
-    a.route('T doors to A',[[123,526,0],[210,493,0],[251,475,0],[251,435,0],[284,435,0],[284,331,0],[320,330,0],[379,327,0]])
-    a.route('T bridge to B',[[123,526,0],[180,493,0],[251,493,0],[251,357,0],[251,231,0],[175,211,0]])
-    a.route('Lower canal to CT',[[162,467,0],[162,386,-128],[200,380,-128],[506,382,-128],[538,382,-128],[537,270,0],[583,242,0],[601,199,0]])
-    a.route('CT to A',[[601,199,0],[542,250,0],[478,259,0],[461,332,0],[379,327,0]])
-    a.route('CT to B',[[601,199,0],[534,176,0],[251,176,0],[251,224,0],[175,211,0]])
-    a.views=[dict(name='aztec-bridge',eye=[248,426,72],look=[248,283,38]),dict(name='aztec-a',eye=[323,379,72],look=[446,274,95]),dict(name='aztec-canal',eye=[203,353,-56],look=[430,353,-52])]
-    return a.finalize()
+    from classic_de.restoration import aztec_layout
+    return aztec_layout(Classic('aztec','ruins')).finalize()
 
 def train():
     a=Classic('train','rail')
     for r,z,Z,label in [((8,12,94,110),0,640,'T spawn'),((74,61,245,108),0,640,'T corridor'),((204,29,560,78),0,640,'Ivy approach'),((538,64,575,238),0,640,'Ivy'),((207,104,250,220),0,288,'Main'),((173,164,250,397),0,304,'Ladder room approach'),((245,194,676,363),0,640,'Outer yard A'),((635,228,678,482),0,640,'CT alley'),((577,466,678,583),0,384,'CT spawn'),((405,356,447,461),0,240,'Connector'),((416,416,581,464),0,240,'Z connector'),((493,443,536,494),0,240,'B entry'),((241,467,584,584),0,384,'Inner yard B'),((179,585,642,616),0,240,'Back platform'),((165,447,251,600),0,288,'B halls'),((174,395,215,468),0,288,'Lower B approach')]:a.room(*r,z,Z,label)
-    a.room(168,265,195,399,96,304,'Upper hall');a.stairs(168,271,194,333,96,0,'v')
+    a.room(168,265,195,399,96,304,'Upper hall');a.stairs(168,271,194,333,0,96,'v')
+    a.block(168,333,195,399,80,96,'floor')
     a.room(168,391,233,470,96,320,'Upper B ramp');a.ramp(168,391,233,468,96,0,'v')
     a.room(233,391,252,481,0,288,'Lower B bypass')
     a.room(530,441,574,507,0,240,'B entry flank')
@@ -216,23 +195,28 @@ def train():
         for x in [u+9,u+length-17]:
             for y in [v+1,v+18]:a.block(x,y,x+9,y+3,0,48,'metal')
         for z in range(8,57,8):a.block(u-13+z/8,v+6,u,v+16,0,z,'metal')
-    for u,v,l,f,c in [(261,218,115,False,'wagon'),(385,218,104,False,'wagon2'),(327,265,92,False,'wagon2'),(454,265,104,False,'wagon'),(265,330,108,False,'wagon2'),(500,330,98,True,'wagon'),(278,475,124,False,'wagon2'),(428,475,124,False,'wagon'),(328,529,125,True,'wagon')]:wagon(u,v,l,f,c)
-    for v in [228,276,341,486,540]:
+    # Classic outer arrangement: one rear, two middle, two front cars.
+    # Inner yard has three parallel pairs, including two low bomb/flat cars.
+    for u,v,l,f,c in [(380,218,108,False,'wagon'),(320,265,104,False,'wagon2'),(447,265,104,False,'wagon'),(265,330,108,False,'wagon2'),(500,330,98,True,'wagon'),(279,475,102,False,'wagon2'),(423,475,112,False,'wagon'),(310,516,99,True,'wagon'),(432,516,105,False,'wagon2'),(277,557,105,True,'wagon'),(405,557,105,False,'wagon')]:wagon(u,v,l,f,c)
+    for v in [228,276,341,486,527,568]:
         for y in [v-5,v+5]:a.block(249,y,675 if v<400 else 580,y+.6,.1,1.2,'metal')
         for u in range(253,582,10):a.block(u,v-8,u+1.5,v+8,0,.3,'wood')
     for u in [252,342,432,522,578]:
         a.block(u,468,u+2,584,308,324,'metal')
         a.window(u,466,18,175)
     a.crate(206,374,16,94);a.crate(600,512,15,78)
+    from classic_de.restoration import train_details
+    train_details(a)
     a.site(486,316,617,362,0,[558,356,0],wall=(548,362.6,570,362.8,[0,-1]))
-    a.site(313,515,472,583,0,[403,572,0],wall=(392,583.6,414,583.8,[0,-1]))
+    a.site(313,515,472,583,0,[414,546,0],wall=(392,583.6,414,583.8,[0,-1]))
     a.team(0,25,53);a.team(1,615,542)
     a.route('T main to A',[[46,62,0],[222,83,0],[227,180,0],[229,249,0],[284,249,0],[609,249,0],[609,356,0],[558,356,0]])
     a.route('T ivy to A',[[46,62,0],[227,83,0],[229,54,0],[556,54,0],[556,198,0],[607,247,0],[610,355,0],[558,356,0]])
-    a.route('T halls to B',[[46,62,0],[227,83,0],[227,180,0],[243,377,0],[243,413,0],[243,482,0],[221,568,0],[403,572,0]])
+    a.route('T upper halls to B',[[227,180,0],[182,250,0],[182,271,0],[182,333,96],[182,391,96],[182,460,10],[210,482,0],[260,546,0],[414,546,0]])
+    a.route('T halls to B',[[46,62,0],[227,83,0],[227,180,0],[243,377,0],[243,413,0],[243,482,0],[260,546,0],[414,546,0]])
     a.route('CT to A',[[636,551,0],[655,475,0],[653,354,0],[558,356,0]])
-    a.route('CT to B',[[636,551,0],[578,572,0],[403,572,0]])
-    a.route('A Z connector B',[[450,344,0],[427,378,0],[427,436,0],[560,436,0],[565,505,0],[464,509,0],[465,571,0],[403,572,0]])
+    a.route('CT to B',[[636,551,0],[565,551,0],[565,546,0],[414,546,0]])
+    a.route('A Z connector B',[[450,344,0],[427,378,0],[427,436,0],[560,436,0],[565,505,0],[414,505,0],[414,546,0]])
     a.views=[dict(name='train-outer',eye=[270,305,74],look=[566,319,89]),dict(name='train-inner',eye=[560,564,74],look=[331,518,96]),dict(name='train-ivy',eye=[555,187,74],look=[610,299,105])]
     return a.finalize()
 
@@ -272,19 +256,24 @@ def textures(theme):
             if name.endswith('a'):d.line([(25,108),(64,19),(105,108)],fill=ink,width=12);d.line((41,77,87,77),fill=ink,width=11)
             else:d.line([(30,108),(30,20),(81,20),(100,39),(83,63),(31,63),(85,63),(103,84),(85,108),(30,108)],fill=ink,width=11)
         result[name]=im.quantize(palette=quant,dither=Image.Dither.NONE)
+    result['de_glass']=Image.new('RGB',(32,32),(80,115,128)).quantize(palette=quant,dither=Image.Dither.NONE)
     return result
 
 def build(a,compiler,fast=False):
     folder=OUT/a.name;folder.mkdir(parents=True,exist_ok=True)
     logs=ROOT/'test-results/classic-de'/a.name;logs.mkdir(parents=True,exist_ok=True)
+    from classic_de.ballistics import capture,embed
+    ballistics=capture(a)
     style(a,a.theme);write_wad(a,folder,'classic.wad',textures(a.theme))
     world=dict(classname='worldspawn',message=a.title,wad='classic.wad',_fpsloppa_bake='1',_fpsloppa_atlas='2048',_fpsloppa_light_response='quake',_minlight='32',_sunlight='125' if a.theme!='ruins' else '85',_sunlight_color='1 .92 .8',_sun_mangle='125 -58 0',_sunlight2='45',_bounce='1')
     path=folder/(a.name+'.map');bsp=folder/(a.name+'.bsp')
-    path.write_text('{\n'+fields(world)+'\n'+'\n'.join(a.brushes)+'\n}\n{\n"classname" "func_detail"\n'+'\n'.join(a.detail_brushes)+'\n}\n'+'\n'.join('{\n'+fields(e)+'\n}' for e in a.entities)+'\n')
+    path.write_text('{\n'+fields(world)+'\n'+'\n'.join(a.brushes)+'\n}\n{\n"classname" "func_detail"\n'+'\n'.join(a.detail_brushes)+'\n}\n'+'\n'.join('{\n'+fields(e)+'\n}' for e in a.entities)+'\n'+'\n'.join('{\n'+fields(e)+'\n'+'\n'.join(parts)+'\n}' for e,parts in a.models)+'\n')
+    path.write_text(path.read_text().rstrip()+'\n')
     for tool,flags in [('qbsp',['-wadpath',str(folder),str(path),str(bsp)]),('vis',['-threads','4',*(['-fast'] if fast else []),str(bsp)]),('light',['-threads','4','-extra','-bspxlit',str(bsp)])]:
         print(a.name,tool,flush=True)
         with (logs/(tool+'.log')).open('w') as log:subprocess.run([str(compiler/tool),*flags],stdout=log,stderr=subprocess.STDOUT,check=True)
     log=(logs/'qbsp.log').read_text();assert 'LEAK' not in log.upper() and "Couldn't create brush faces" not in log,log[-4000:]
+    embed(bsp,ballistics)
     raw=bsp.read_bytes();assert struct.unpack_from('<i',raw)[0]==29 and len(raw)<25_000_000
     sites=[engine([(b[0]+b[2])/2,(b[1]+b[3])/2,b[4]]) for b in a.site_bounds]
     # Choose documented clear planting points, not centers occupied by a prop.
@@ -297,6 +286,8 @@ def build(a,compiler,fast=False):
     rules=dict(sha256=hashlib.sha256(raw).hexdigest(),sites=sites,bounds=bounds,starts=[[engine(p) for p in side] for side in a.team_starts],yaw=a.yaws)
     report=dict(id=a.name,title=a.title,format=29,bytes=len(raw),sha256=rules['sha256'],brushes=len(a.brushes)+len(a.detail_brushes),spawns=a.spawns,landmarks=a.landmarks,routes=a.routes,views=a.views,full_vis=not fast,reference=("https://cstake.ru/maps/de-maps/155-karta-de_aztec-dlja-cs-16.html" if a.name=="de_aztec_rebuilt" else REFERENCE),theme=a.theme,defusal=rules)
     report['site_markings']=a.site_markings
+    for key in ['cover_checks','gate_checks','decor_checks','sightline_checks','structure_checks']:
+        if hasattr(a,key):report[key]=getattr(a,key)
     (folder/'manifest.json').write_text(json.dumps(report,indent=2)+'\n')
     shutil.copy2(bsp,ROOT/'maps'/bsp.name)
     bind_hash(a.name,report['sha256'])

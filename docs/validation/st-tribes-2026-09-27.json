@@ -1,0 +1,100 @@
+{
+  "date": "2026-09-27",
+  "mode": "st",
+  "map": "ctf_stonehenge",
+  "protocol": "fpsloppa-58-st-tribes",
+  "bsp_changed": false,
+  "runtime": "Godot 4.7.2 Linux",
+  "checks": {
+    "st_rules": 57,
+    "stations": 118,
+    "terrain": 44,
+    "arsenal": 37,
+    "armour": 87,
+    "demo": 13,
+    "ballot_exclusions": 24,
+    "map_acceptance": 59
+  },
+  "dedicated_configuration": "passed: forced arsenal, dedicated maplist, unlimited buying energy, normal votes and ballot exclusion",
+  "network": "passed: ENet authority, owner and late spectator; 50\u2013100 ms input delay/jitter and 20% movement loss; class purchases, jet energy, base outage/repair and airborne flag replication",
+  "master_directory": "ST / Tribes status validation passed",
+  "visuals": [
+    "generator-0.png",
+    "generator-1.png",
+    "generator-offline-0.png",
+    "generator-offline-1.png",
+    "inventory.png",
+    "hip-chest-equipment.png"
+  ],
+  "bot_smoke": {
+    "captures": [
+      0,
+      0
+    ],
+    "passed": true,
+    "players": {
+      "-4": {
+        "bought": false,
+        "distance": 25.8676700592041,
+        "fired": 0,
+        "goal": "(151.9441, 139.9641, -91.87312)",
+        "jets": 586,
+        "kind": "supply",
+        "path": "[(160.5212, 125.6691, -88.63535), (160.5212, 125.6691, -88.63535), (159.3351, 139.9641, -88.81165), (151.9441, 139.9641, -91.87312)]",
+        "position": "(160.4905, 125.3891, -88.55555)",
+        "ski": 0,
+        "start": "(149.9291, 145.9741, -90.90343)",
+        "step": 2
+      },
+      "-3": {
+        "bought": true,
+        "distance": 63.548656463623,
+        "fired": 0,
+        "goal": "(-171.3959, 124.9459, 149.1909)",
+        "jets": 128,
+        "kind": "defend",
+        "path": "[(-171.5752, 125.2, 149.7962), (-171.3959, 125.2, 149.1909)]",
+        "position": "(-171.5168, 124.9063, 149.5991)",
+        "ski": 42,
+        "start": "(-142.4384, 125.1144, 132.7731)",
+        "step": 1
+      },
+      "-2": {
+        "bought": true,
+        "distance": 358.020538330078,
+        "fired": 0,
+        "goal": "(-175.3959, 124.9459, 149.1909)",
+        "jets": 571,
+        "kind": "objective",
+        "path": "[(-139.5967, 97.14628, 100.9527), (-139.5967, 97.14628, 100.9527), (-145.7181, 131.2045, 110.1838), (-151.8395, 131.2045, 119.4149), (-157.9608, 131.2045, 128.6461), (-164.0822, 124.9459, 137.8772), (-175.3959, 124.9459, 149.1909)]",
+        "position": "(-139.604, 97.14298, 100.9461)",
+        "ski": 65,
+        "start": "(154.0341, 139.9741, -97.8425)",
+        "step": 2
+      },
+      "-1": {
+        "bought": false,
+        "distance": 28.6802635192871,
+        "fired": 0,
+        "goal": "(-149.8756, 125.1044, 109.3275)",
+        "jets": 582,
+        "kind": "supply",
+        "path": "[(-156.8659, 105.4262, 105.5917), (-156.8659, 105.4262, 105.5917), (-157.0663, 115.2653, 105.9288), (-157.2667, 125.1044, 106.266), (-149.8756, 125.1044, 109.3275)]",
+        "position": "(-156.8659, 105.4262, 105.5917)",
+        "ski": 0,
+        "start": "(-147.7444, 131.1144, 108.6516)",
+        "step": 2
+      }
+    }
+  },
+  "limits": [
+    "No live headset test in this pass.",
+    "The 120-second 2v2 bot smoke checks movement and jets; no captures occurred, so full autonomous ST matches are not validated.",
+    "Generators use native 300-health approximation; stations are not independently destructible.",
+    "Deployables, vehicles, automated turret/sensor networks and commander orders remain deferred.",
+    "Godot reports its existing shutdown ObjectDB warning; graphical preview reports two instances."
+  ],
+  "evidence": "test-results/st-tribes/",
+  "map_source_name": "st_stonehenge",
+  "checks_total": 439
+}

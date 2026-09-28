@@ -188,7 +188,7 @@ func set_first_person(value: bool) -> void:
 	for secondary in secondary_nodes:secondary.set_local_body(value)
 	for mesh in visual_meshes:
 		mesh.visible=bool(mesh.get_meta("arena_first_person" if value else "arena_third_person"))
-		if mesh.get_meta("arena_first_person"):preload("res://deathmatch/avatars/first_person_mask.gd").apply(mesh,skeleton,value,keypad_glove)
+		if mesh.get_meta("arena_first_person") or mesh.get_meta("tribes_head_only",false):preload("res://deathmatch/avatars/first_person_mask.gd").apply(mesh,skeleton,value,keypad_glove)
 	if gun: gun.visible=not value and not dead
 	if offhand_gun: offhand_gun.visible=not value and not dead
 

@@ -14,6 +14,10 @@
    P90 geometry and shared extrusion/UV/export helpers are in `model_weapons.py`.
    `refine_profiles.py` trims the bulky receiver, stock and fore-end envelopes
    without moving sights, magazines, controls or palm anchors.
+   Export clears hidden-object selection and limits output to the active scene,
+   so other review/workshop scenes cannot leak into a weapon GLB. Trigger
+   concavity faces the muzzle (`-Z` in runtime coordinates); keep the Glock's
+   safety tab on that face when editing the shared trigger profile.
 
    `surface_finish.py` creates the original padded 1024×512 base atlas. The
    editable painted finish is `refined/cs16-finish.kra`; save a flattened copy as

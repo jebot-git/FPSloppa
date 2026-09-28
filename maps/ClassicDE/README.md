@@ -19,7 +19,7 @@ including Dust2, are in `maps/de_maplist.txt` and the base-asset selection.
 
 The Nuke, Inferno and Train plans were independently traced against the classic
 [CS 1.6 overview/callout guide](https://steamcommunity.com/sharedfiles/filedetails/?id=913388004).
-Aztec uses landmark-based reconstruction and
+Aztec initially used landmark-based reconstruction and
 [classic-map reference imagery](https://cstake.ru/maps/de-maps/155-karta-de_aztec-dlja-cs-16.html).
 No reference image is shipped as a runtime texture. CS map names and original
 layout concepts belong to their respective creators/Valve; the new brushes are
@@ -30,9 +30,25 @@ See [material sources and prompts](../DEMaterials/SOURCES.md), each map's
 
 Fidelity limits: approximate distances and elevations; simplified architecture,
 materials, lighting and cover; ladders replaced with stairs/ramps where needed;
-no breakable windows, rotating doors, water physics or exact CS movement. Aztec
-has the least precise plan reference. These need multiplayer balance and real
+no breakable windows, rotating doors or exact CS movement. Aztec's shallow
+water brush does not reproduce all original water/environment behavior. Aztec
+now has a rebuilt court/bridge/canal plan informed by the later BSP survey.
+These need multiplayer balance and real
 VR playtesting before competitive use.
+
+The [2026-09-27 fidelity audit](../../docs/DE-MAP-FIDELITY.md) compares all five
+DE maps with classic reference BSPs, identifies cover/decoration differences,
+and assesses original moving doors, breakable panels and bullet penetration.
+Its read-only survey can be repeated with `tools/classic_de/audit.py`.
+
+The subsequent [restoration and penetration pass](../../docs/CS16-PENETRATION.md)
+revises cover across all maps, rebuilds Aztec's east–west bridge/canal layout,
+densifies Train's inner yard and restores Nuke's four paired sliding glass
+doors. Their frames and panes share eight movers; touch activation, round
+reset and network positions use the existing mover system. New convex
+material volumes in the `FSLP_BALLISTICS` BSPX lump support CS shoot-through
+cover with real thickness limits. These maps still do not contain breakable
+windows or rotating doors. Retail faces and textures were not imported.
 
 Rebuild with the installed ericw-tools binaries:
 
@@ -52,3 +68,9 @@ on a native renderer to save the authored viewpoints. Reports and compiler logs
 are in `test-results/classic-de/<map-id>/`. Run
 `deathmatch/tests/defusal_maps.gd` for all-map configuration, hash, site, planting
 and snapshot checks. Rebuild the internal asset archive before release packaging.
+
+The [CS 1.6 tactics study](../../docs/CS16-MAP-TACTICS-STUDY.md) adds hut and
+apartment occlusion, repairs the Aztec west canal and Train upper-hall routes,
+and supplies hash-bound bot lanes/holds for all five DE maps. After compiling
+new geometry, run `python3 tools/classic_de/tactics.py` and the documented
+tactical regression alongside the map route checks.

@@ -11,9 +11,12 @@ func run():
 	check(demo.open_demo("res://test-results/defusal/network.fpsdemo"),"Production parser opens real two-round network recording")
 	if not demo.playing:print(demo.message);g.free();quit(1);return
 	var modes: Dictionary={};var plant_sites: Dictionary={};var kit:=false;var money:=false;var code:=false;var cuts:=false;var sample: Dictionary={};var planted_time:=0.0
+	var audio: Array=[]
 	for offset in demo.offsets:
 		demo.input.seek(offset);var frame: Dictionary=demo.read_frame();demo.apply_frame(frame,false)
 		var de=g.match_mode.defusal;modes[de.phase]=true
+		for event in frame.events:
+			if event[0]=="_announcer_cue" and event[1][0] in g.announcer.DE_EVENTS:audio.append(event[1])
 		if de.planted:plant_sites[de.planted_site]=true;planted_time=frame.time
 		kit=kit or de.accounts.values().any(func(a):return a.kit)
 		money=money or de.accounts.values().any(func(a):return a.cash==150)
@@ -23,6 +26,7 @@ func run():
 	check(modes.has("prepare") and modes.has("live") and modes.has("post"),"Replay preserves preparation, live and round-result phases")
 	check(plant_sites.has(0) and plant_sites.has(1),"Replay contains both bomb sites")
 	check(kit and money and code and cuts,"Economy, kits, keypad progress and cut wires survive replay")
+	check(audio==[["de_bomb_planted",0],["de_counter_terrorists_win",0],["de_bomb_planted",0],["de_counter_terrorists_win",0]],"Replay retains each global plant and winning-side voice exactly once")
 	demo.seek(planted_time);check(g.match_mode.defusal.planted,"Seeking restores planted bomb")
 	demo.seek(0);check(g.match_mode.defusal.phase=="prepare" and not g.match_mode.defusal.planted,"Backward seeking restores earlier preparation")
 	for field in ["accounts","arm_code","position","phase","basis"]:

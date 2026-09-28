@@ -57,3 +57,15 @@ The main production risks and acceptance work are:
 Recommended sequence: isolated controller and BSP29 course; contact and energy validation; shared multiplayer prediction and interaction tests; headset testing; then a purpose-built CTF map and bot routing. Prototype feasibility is high. Shipping a polished multiplayer VR implementation is a substantial movement feature, not a small friction adjustment. No gameplay, map geometry or running VR session was changed by this assessment.
 
 Raw audit and probe results are retained in `docs/validation/tribes-skiing-feasibility-2026-09-27.json`; the exploratory probe and log are under `test-results/skiing-feasibility/`. The importer emitted existing texture warnings and an ObjectDB exit warning. A full ski controller, high-speed terrain routes, multiplayer behavior, bot behavior and VR comfort have not yet been tested.
+
+Follow-up, 2026-09-27: an optional [Stonehenge BSP29 terrain study](../maps/Stonehenge/README.md)
+now provides a 704 × 704 m CTF environment with reconstructed bases and reference
+terrain. Native CTF and swept capsule checks passed. It has no Tribes movement
+implementation; the 16 m terrain grid and approximate architecture require
+route and headset evaluation once that controller exists.
+
+## Playable follow-up, 2026-09-27
+
+The separate Tribes movement loadout and Stonehenge test build are now implemented.
+See [the movement test](TRIBES-MOVEMENT.md) for controls, energy, validation and
+remaining differences from the original game. This document records the initial assessment.

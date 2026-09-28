@@ -2,9 +2,9 @@
   "id": "de_nuke_rebuilt",
   "title": "Nuke | Classic layout reconstruction",
   "format": 29,
-  "bytes": 6251212,
-  "sha256": "ce81ea4a8ff00095266a3ade3bdb00bd9bd40b98275bf759bf6b01033e38a012",
-  "brushes": 215,
+  "bytes": 7064008,
+  "sha256": "beecd72483cc95719f43a2a4f4d4e66468161d22c20a0622428f3eb2ea4eda7b",
+  "brushes": 248,
   "spawns": [
     [
       32,
@@ -273,6 +273,38 @@
       ]
     },
     {
+      "name": "Lower service chamber",
+      "point": [
+        500.0,
+        459.0,
+        -256
+      ]
+    },
+    {
+      "name": "Lower west passage",
+      "point": [
+        421.0,
+        409.5,
+        -256
+      ]
+    },
+    {
+      "name": "Lower east passage",
+      "point": [
+        583.5,
+        409.5,
+        -256
+      ]
+    },
+    {
+      "name": "Lower back passage",
+      "point": [
+        504.5,
+        514.0,
+        -256
+      ]
+    },
+    {
       "name": "Site A",
       "point": [
         478,
@@ -290,6 +322,26 @@
     }
   ],
   "routes": [
+    {
+      "name": "Hut doorway clearance",
+      "points": [
+        [
+          414,
+          320,
+          0
+        ],
+        [
+          431,
+          320,
+          0
+        ],
+        [
+          453,
+          320,
+          0
+        ]
+      ]
+    },
     {
       "name": "T lobby to A",
       "points": [
@@ -364,8 +416,13 @@
           0
         ],
         [
-          384,
-          249,
+          408,
+          278,
+          0
+        ],
+        [
+          408,
+          248,
           0
         ],
         [
@@ -396,6 +453,16 @@
         [
           490,
           270,
+          -256
+        ],
+        [
+          457,
+          285,
+          -256
+        ],
+        [
+          457,
+          350,
           -256
         ],
         [
@@ -435,7 +502,12 @@
         ],
         [
           548,
-          348,
+          367,
+          0
+        ],
+        [
+          478,
+          367,
           0
         ],
         [
@@ -499,19 +571,69 @@
           -256
         ],
         [
+          585,
+          408,
+          -256
+        ],
+        [
+          585,
+          484,
+          -256
+        ],
+        [
           548,
-          405,
+          484,
           -256
         ],
         [
           547,
-          350,
+          372,
+          -256
+        ],
+        [
+          479,
+          372,
           -256
         ],
         [
           479,
           351,
           -256
+        ]
+      ]
+    },
+    {
+      "name": "Heaven stairs to catwalk",
+      "points": [
+        [
+          585,
+          306,
+          0
+        ],
+        [
+          585,
+          291,
+          19
+        ],
+        [
+          585,
+          275,
+          122
+        ],
+        [
+          585,
+          260,
+          192
+        ],
+        [
+          552,
+          245,
+          192
+        ],
+        [
+          458,
+          245,
+          192
         ]
       ]
     }
@@ -561,7 +683,7 @@
   "reference": "https://steamcommunity.com/sharedfiles/filedetails/?id=913388004",
   "theme": "industrial",
   "defusal": {
-    "sha256": "ce81ea4a8ff00095266a3ade3bdb00bd9bd40b98275bf759bf6b01033e38a012",
+    "sha256": "beecd72483cc95719f43a2a4f4d4e66468161d22c20a0622428f3eb2ea4eda7b",
     "sites": [
       [
         9.0,
@@ -717,13 +839,279 @@
         -256
       ],
       "wall": [
-        435.4,
-        341.0,
+        436.4,
+        346.0,
         -170
       ],
       "normal": [
         1,
         0
+      ]
+    }
+  ],
+  "sightline_checks": [
+    {
+      "name": "Hut doorway remains open",
+      "start": [
+        414,
+        320,
+        48
+      ],
+      "end": [
+        453,
+        320,
+        48
+      ],
+      "clear": true
+    },
+    {
+      "name": "Hut side breaks the broad lobby angle",
+      "start": [
+        427,
+        280,
+        48
+      ],
+      "end": [
+        427,
+        350,
+        48
+      ],
+      "clear": false
+    }
+  ],
+  "structure_checks": [
+    {
+      "name": "South vent backed by wall",
+      "start": [
+        453,
+        397,
+        88
+      ],
+      "end": [
+        453,
+        400,
+        88
+      ],
+      "at": [
+        453,
+        398.5,
+        88
+      ]
+    },
+    {
+      "name": "South vent backed by wall",
+      "start": [
+        486,
+        397,
+        88
+      ],
+      "end": [
+        486,
+        400,
+        88
+      ],
+      "at": [
+        486,
+        398.5,
+        88
+      ]
+    },
+    {
+      "name": "South vent backed by wall",
+      "start": [
+        519,
+        397,
+        88
+      ],
+      "end": [
+        519,
+        400,
+        88
+      ],
+      "at": [
+        519,
+        398.5,
+        88
+      ]
+    },
+    {
+      "name": "South vent backed by wall",
+      "start": [
+        552,
+        397,
+        88
+      ],
+      "end": [
+        552,
+        400,
+        88
+      ],
+      "at": [
+        552,
+        398.5,
+        88
+      ]
+    },
+    {
+      "name": "West column reaches roof",
+      "start": [
+        439,
+        275,
+        32
+      ],
+      "end": [
+        434,
+        275,
+        32
+      ],
+      "at": [
+        436.5,
+        275,
+        32
+      ]
+    },
+    {
+      "name": "West column reaches roof",
+      "start": [
+        439,
+        275,
+        200
+      ],
+      "end": [
+        434,
+        275,
+        200
+      ],
+      "at": [
+        436.5,
+        275,
+        200
+      ]
+    },
+    {
+      "name": "West column reaches roof",
+      "start": [
+        439,
+        275,
+        376
+      ],
+      "end": [
+        434,
+        275,
+        376
+      ],
+      "at": [
+        436.5,
+        275,
+        376
+      ]
+    },
+    {
+      "name": "North column reaches roof",
+      "start": [
+        471,
+        232.5,
+        32
+      ],
+      "end": [
+        471,
+        229.5,
+        32
+      ],
+      "at": [
+        471,
+        231.5,
+        32
+      ]
+    },
+    {
+      "name": "North column reaches roof",
+      "start": [
+        471,
+        232.5,
+        200
+      ],
+      "end": [
+        471,
+        229.5,
+        200
+      ],
+      "at": [
+        471,
+        231.5,
+        200
+      ]
+    },
+    {
+      "name": "North column reaches roof",
+      "start": [
+        471,
+        232.5,
+        376
+      ],
+      "end": [
+        471,
+        229.5,
+        376
+      ],
+      "at": [
+        471,
+        231.5,
+        376
+      ]
+    },
+    {
+      "name": "North column reaches roof",
+      "start": [
+        535,
+        232.5,
+        32
+      ],
+      "end": [
+        535,
+        229.5,
+        32
+      ],
+      "at": [
+        535,
+        231.5,
+        32
+      ]
+    },
+    {
+      "name": "North column reaches roof",
+      "start": [
+        535,
+        232.5,
+        200
+      ],
+      "end": [
+        535,
+        229.5,
+        200
+      ],
+      "at": [
+        535,
+        231.5,
+        200
+      ]
+    },
+    {
+      "name": "North column reaches roof",
+      "start": [
+        535,
+        232.5,
+        376
+      ],
+      "end": [
+        535,
+        229.5,
+        376
+      ],
+      "at": [
+        535,
+        231.5,
+        376
       ]
     }
   ]

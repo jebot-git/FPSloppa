@@ -24,7 +24,9 @@ def fields(d): return '\n'.join('"%s" "%s"' % (k,v) for k,v in d.items())
 class Dust(Arena):
     def __init__(self):
         super().__init__(ID, 'Dust2 | Classic layout reconstruction')
-        self.rooms=[]; self.landmarks=[]; self.routes=[]; self.spawns=[]; self.views=[]
+        self.rooms=[]; self.landmarks=[]; self.routes=[]; self.spawns=[]; self.views=[];self.models=[]
+    def model(self,attributes,start):
+        self.models.append((attributes,self.brushes[start:]));del self.brushes[start:]
     def face(self,points,texture):
         base=super().face(points,texture)
         if texture.startswith('d2_sign'):
@@ -80,6 +82,29 @@ class Dust(Arena):
                 for x in [u-width/2+1,u+width/2-3]:self.block(x,v-10,x+2,v+10,z,z+116,'d2_door')
             else:
                 for y in [v-width/2+1,v+width/2-3]:self.block(u-10,y,u+10,y+2,z,z+116,'d2_door')
+    def framed_opening(self,name,u,v,width,axis,z,doors,low,high,ceiling):
+        # The shared opening primitive supplies only a crown. Dust's frames
+        # also need grounded jambs, wall returns and a solid ceiling connection.
+        self.opening(u,v,width,axis,z,doors)
+        center=u if axis=='u' else v
+        left,right=center-width/2,center+width/2
+        crown=z+120+width*SCALE/2+20
+        top=max(crown,ceiling)+1
+        def piece(l,r,b,t,texture):
+            if axis=='u':self.block(l,v-2,r,v+2,b,t,texture)
+            else:self.block(u-2,l,u+2,r,b,t,texture)
+        piece(low-.2,left+2,z-8,top,'d2_trim')
+        piece(right-2,high+.2,z-8,top,'d2_trim')
+        if ceiling>crown:piece(left,right,crown-1,top,'d2_stone')
+        if not hasattr(self,'arch_checks'):self.arch_checks=[]
+        points=[]
+        # Probe exposed jamb faces, away from coplanar room seams and the
+        # existing ceiling solids that bury the upper part of some frames.
+        for along in [(low+left+2)/2+.25,(right-2+high)/2-.25]:
+            for height in [z+2,z+60,z+122]:
+                points.append([along,v,height] if axis=='u' else [u,along,height])
+        self.arch_checks.append(dict(name=name,axis=axis,jambs=points,
+                                     crown=[u,v,(crown+ceiling)/2] if ceiling>crown else None))
     def spawn(self,u,v,z=0,angle=0):
         p=[u,v,z];self.spawns.append(p);self.ent('info_player_deathmatch',xyz(u,v,z+4),angle=angle)
     def pickup(self,kind,u,v,z=0):self.ent(kind,xyz(u,v,z+24))
@@ -189,10 +214,22 @@ def generate():
     a.room(344,437,405,455,0,224,label='Tunnel stair landing')
     a.room(335,340,372,438,0,224,label='Lower tunnels')
     # Doors and semi-circular arches, scaled to a standing FPSloppa capsule.
-    for u,v,w,axis,z,doors in [(313,321,40,'v',0,True),(237,458,28,'u',64,True),(433,137,30,'v',0,True),(508,177,36,'v',0,True),(355,563,30,'v',64,False),(430,517,34,'v',64,False),(353.5,350,37,'u',0,False),(211,241,40,'u',0,False)]:
-        a.opening(u,v,w,axis,z,doors)
+    from classic_de.restoration import dust2_mid_doors
+    dust2_mid_doors(a)
+    # Separate the inner Long doorway from the overlapping pit room. Its
+    # north return joins the solid corner at u=493; the pit escape stays open.
+    a.block(433,122,494,126,-72,448,'d2_stone')
+    for row in [('B doors',237,458,28,'u',64,True,223,251,304),
+                ('Long inner',433,139.5,27,'v',0,True,124,153,240),
+                ('Long outer',508,177,36,'v',0,True,145,214,448),
+                ('B tunnel',355,563,30,'v',64,False,548,579,288),
+                ('Upper tunnel',430,517,34,'v',64,False,499,535,288),
+                ('Lower tunnel',353.5,350,37,'u',0,False,335,372,224),
+                ('CT underpass',211,241,40,'u',0,False,190,232,196)]:
+        a.framed_opening(*row)
     # Site cover, goose corner, middle box, tunnel pillar and outside-long stack.
-    for u,v,w,h,z in [(206,104,22,88,224),(206,128,22,88,224),(206,151,22,112,224),(165,187,12,56,224),(165,501,27,88,64),(202,497,20,112,64),(249,547,22,80,64),(111,555,18,72,88),(229,420,18,80,47),(360,332,16,64,18),(570,503,26,96,86),(548,206,24,112,0),(599,241,18,80,0),(674,379,20,80,128)]:a.crate(u,v,w,h,z)
+    from classic_de.restoration import dust2_cover
+    dust2_cover(a)
     a.block(381,528,389,540,64,288,'d2_trim')
     rock=[xyz(u,v)[:2] for u,v in [(145,345),(153,358),(159,389),(154,423),(148,447),(141,418)]]
     polygon(a,list(reversed(rock)),0,365,'d2_rock')
@@ -219,6 +256,7 @@ def generate():
     a.route('CT through B doors',[[211,310,0],[207,356,0],[207,410,34],[207,440,60],[237,440,64],[237,476,64],[237,519,64]])
     a.route('Long pit escape',[[515,105,-64],[450,105,-26],[410,105,0]])
     a.views=[dict(name='a-site',eye=[176,189,278],look=[215,100,266]),dict(name='long-a',eye=[408,59,54],look=[184,65,262]),dict(name='b-site',eye=[259,525,118],look=[150,499,125]),dict(name='mid',eye=[581,332,182],look=[295,320,48]),dict(name='upper-tunnels',eye=[395,511,118],look=[373,560,115]),dict(name='short-a',eye=[342,254,182],look=[287,208,240])]
+    a.views.extend([dict(name='mid-double-doors',eye=[362,321,66],look=[313,321,105]),dict(name='mid-double-doors-ct',eye=[270,321,66],look=[315,321,105])])
     a.shell();return a
 
 def textures():
@@ -258,7 +296,8 @@ def textures():
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--compiler-dir',type=Path,required=True);p.add_argument('--fast-vis',action='store_true');p.add_argument('--install',action='store_true');args=p.parse_args()
     OUT.mkdir(parents=True,exist_ok=True);logs=ROOT/'test-results/dust2';logs.mkdir(parents=True,exist_ok=True)
-    a=generate();style(a,'desert')
+    from classic_de.ballistics import capture,embed
+    a=generate();ballistics=capture(a);style(a,'desert')
     tiles=textures()
     write_wad(a,OUT,'dust2.wad',tiles)
     world=dict(classname='worldspawn',message=a.title,wad='dust2.wad',_fpsloppa_bake='1',_fpsloppa_atlas='2048',_fpsloppa_light_response='quake',_minlight='28',_sunlight='135',_sunlight_color='1 .91 .76',_sun_mangle='125 -58 0',_sunlight2='35',_sunlight2_color='.68 .79 1',_bounce='1')
@@ -268,8 +307,11 @@ def main():
         print(tool,flush=True)
         with (logs/(tool+'.log')).open('w') as log:subprocess.run([str(args.compiler_dir.resolve()/tool),*flags],stdout=log,stderr=subprocess.STDOUT,check=True)
     log=(logs/'qbsp.log').read_text();assert 'LEAK' not in log.upper() and "Couldn't create brush faces" not in log,log[-3000:]
+    embed(bsp,ballistics)
     raw=bsp.read_bytes();assert struct.unpack_from('<i',raw)[0]==29 and len(raw)<25_000_000
     report=dict(id=ID,title=a.title,format=29,bytes=len(raw),sha256=hashlib.sha256(raw).hexdigest(),brushes=len(a.brushes),entities=len(a.entities),spawns=a.spawns,landmarks=a.landmarks,routes=a.routes,views=a.views,full_vis=not args.fast_vis,reconstruction=True,reference='https://www.johnsto.co.uk/design/making-dust2/',modes=['dm','tdm','ig','ft','if','de'],textures='texture-sources.json; shared art pass in tools/de_texturing/materials.py',scale='6 Quake units per reference-plan unit; 32 Quake units per Godot metre')
+    report['door_checks']=a.door_checks
+    report['arch_checks']=a.arch_checks
     (OUT/'manifest.json').write_text(json.dumps(report,indent=2)+'\n');print('BUILT',len(raw),'bytes;',len(a.brushes),'brushes;',len(a.spawns),'spawns',flush=True)
     if args.install:
         import shutil

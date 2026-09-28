@@ -2,11 +2,14 @@
 from pathlib import Path
 import os, subprocess, secrets, json, zipfile, hashlib, argparse, re, shutil
 
+from renderer_policy import require_client_template, verify_android_renderer
+
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--thin', action='store_true', help=argparse.SUPPRESS)
 parser.add_argument('--target', choices=['Quest'], default='Quest')
 args = parser.parse_args()
+client_template = require_client_template('android')
 if args.thin:parser.error('Thin APKs are retired; all builds include offline assets.')
 sdk = Path(os.environ.get('ANDROID_SDK_ROOT', str(Path.home() / 'Android/Sdk')))
 jdk = Path(os.environ.get('JAVA_HOME', str(Path.home() / '.local/share/entryway-toolchains/jdk-17.0.20.1+1')))
@@ -34,6 +37,8 @@ if not (root / 'android/build/gradlew').exists():
     (root / 'android/.build_version').write_text('4.7.2.stable')
     (root / 'android/.gdignore').touch()
     (root / 'android/build/gradlew').chmod(0o755)
+# Replace the stock native runtime in the Gradle project before export.
+shutil.copy2(client_template, root / 'android/build/libs/release/godot-lib.template_release.aar')
 # ZIPReader seeks within the included base archive. Deflating that ZIP again
 # inside the APK makes Android asset seeks repeatedly decompress its prefix.
 # Store ZIP assets directly; their contents are already compressed.
@@ -64,7 +69,7 @@ try:
     # Export filters do not stop the editor's pre-export import scan. These
     # directories are excluded by both Android presets and contain generated
     # engine/build trees or authoring sources, not APK resources.
-    for name in ['Builds', 'dist', 'tools', 'docs', 'materials', 'textures']:
+    for name in ['Builds', 'dist', 'external-tools', 'tools', 'docs', 'materials', 'textures', 'maps', 'vrm']:
         folder = root/name
         marker = folder/'.gdignore'
         if folder.is_dir() and not marker.exists():
@@ -89,6 +94,7 @@ try:
             raise SystemExit(f'{target} export failed; inspect {log}')
         if not args.thin:
             with zipfile.ZipFile(apk) as package:
+                verify_android_renderer(package)
                 if package.getinfo('assets/deathmatch/assets/offline-base.zip').compress_type != zipfile.ZIP_STORED:
                     raise SystemExit(f'{target}: base ZIP must be stored uncompressed for Android random access')
         check = subprocess.run([str(sdk / 'build-tools/36.1.0/apksigner'), 'verify', '--verbose', '--print-certs', str(apk)], env=env, text=True, capture_output=True, check=True)

@@ -3,6 +3,7 @@ const ID:="__waiting_lobby__"
 const HASH:="fpsloppa-built-in-waiting-room-v1"
 var game
 var enabled:=false
+var excluded_modes: Array=[]
 var seconds:=45
 var until:=0.0
 var view: Dictionary={}
@@ -17,6 +18,9 @@ func active() -> bool:return game.current_map==ID
 func choices() -> Array:
 	var result: Array=[]
 	for mode in game.votes.allowed_modes:
+		# Only the between-match ballot is filtered. With voting disabled this
+		# path also supplies the waiting room's ordinary rotation destination.
+		if game.votes.enabled and mode in excluded_modes:continue
 		var maps: Array=game.maps_for_mode(mode)
 		for map in maps:
 			if game.map_catalog.any(func(row):return row.id==map and (mode!="as" or game.Maps.supports_assault(row.path))):result.append({"mode":mode,"map":map})

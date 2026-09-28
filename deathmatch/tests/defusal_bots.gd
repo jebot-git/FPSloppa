@@ -27,7 +27,13 @@ func run():
 	for i in 6:g.clock+=.7;de.bot_input(-2)
 	check(de.planted and de.planted_site==1,"Bot enters arming sequence and plants on B floor")
 	rows.clear();ai.mode_goals(-1,ai.brains[-1],rows)
-	check(rows.any(func(row):return row.key=="de:defuse"),"CT switches to planted-bomb objective")
+	check(rows.any(func(row):return row.key=="de:defuse" or row.key.begins_with("de:guard:")),"CT switches to defusing or covering the planted bomb")
+	var workers:=0
+	for bot in ai.brains:
+		if de.role(bot)!=1 or not de.alive(bot):continue
+		var jobs: Array=[];de.bot_goals(ai,bot,jobs)
+		if jobs.any(func(row):return row.key=="de:defuse"):workers+=1
+	check(workers==1,"One CT approaches the bomb while teammates cover")
 	g.fighters[-1].position=de.bomb_position+Vector3(0,0,.7)
 	for i in 3:g.clock+=.7;de.bot_input(-1)
 	check(de.phase=="post" and de.cut_mask==7,"Purchased bot cutters finish defusal through shared authority")

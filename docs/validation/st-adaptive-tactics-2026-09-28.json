@@ -1,0 +1,183 @@
+{
+  "date": "2026-09-28",
+  "engine": "Godot 4.7.2 Fedora",
+  "protocol": "fpsloppa-60-st-base-assets (unchanged)",
+  "changes": [
+    "Match-local failed approach and armour-specific launch memory",
+    "Bounded coordinated attack groups and 55-second near-flag approach commitment",
+    "Carrier standoffs, distinct escorts and resupply hysteresis",
+    "Final tower facing and elevated turret acquisition",
+    "Bounded physical recovery and slow grounded teammate separation"
+  ],
+  "checks": {
+    "st_adaptive_tactics": {
+      "pass_count": 34,
+      "failures": [],
+      "log": "test-results/st-tribes/research/adaptive-st_adaptive_tactics.log"
+    },
+    "st_base_assets": {
+      "pass_count": 72,
+      "failures": [],
+      "log": "test-results/st-tribes/research/adaptive-st_base_assets.log"
+    },
+    "st_bot_tactics": {
+      "pass_count": 57,
+      "failures": [],
+      "log": "test-results/st-tribes/research/adaptive-st_bot_tactics.log"
+    },
+    "bot_teamplay": {
+      "pass_count": 41,
+      "failures": [],
+      "log": "test-results/st-tribes/research/adaptive-bot_teamplay.log"
+    },
+    "recorded_position_recovery": {
+      "cases": 4,
+      "passed": 4,
+      "report": "test-results/st-tribes/research/adaptive-recovery.json"
+    },
+    "captures": {
+      "cases": 16,
+      "passed": 16,
+      "min_seconds": 128.399999999994,
+      "max_seconds": 193.066666666712,
+      "report": "test-results/st-tribes/research/adaptive-captures.json"
+    },
+    "routes": {
+      "cases": 19,
+      "passed": 19,
+      "min_seconds": 1.71666666666667,
+      "max_seconds": 64.2666666666643,
+      "report": "test-results/st-tribes/research/adaptive-routes.json"
+    }
+  },
+  "source_sha256": {
+    "deathmatch/bot_ai/tribes_tactics.gd": "15a2bd1e8ff14c82398c6dda1d99eb4e00a7754022f8137e753668cfc4f7ba01",
+    "deathmatch/bot_ai/tribes.gd": "a94e5c93f137b0ce9491407b807f871e7be0816d8b9dda7cc45ba79bcffa3b2d",
+    "deathmatch/bot_ai/tribes_routes.gd": "d4e850a14b135b9d67226ca54ece7ae370866dc64463e15b1580b63214d9064e",
+    "deathmatch/bot_ai/tribes_equipment.gd": "47628bc97f94b00d55b3744385b2d4b11dd30db8672fa749f3d440b7963a6d7e",
+    "deathmatch/bots.gd": "b4a8d3edd150da7e5eee87a6bfe6317a21abbe0720398d0da3dde63d10438bf2",
+    "deathmatch/tests/st_adaptive_tactics.gd": "b4d2689516b5f8de84ccc0ce6dc69d107efff112e154ad7271f4d1e60e5854a2",
+    "deathmatch/tests/st_base_assets.gd": "c4ce0785d4af556cde3a131b03d176bc7955225f0f95e929fac9f8c99715838f",
+    "tools/tribes/live_match.gd": "4817899f3bfd75f231a7e8fd9f89ecb7a8b6ca56c59a481af672aa2cba09af2b",
+    "tools/tribes/run_live.py": "f215f0d2306bb5ed1bb54eda527837833ef8c5a61937d46f0dfcdbcc4e656d1f",
+    "tools/tribes/report_match.py": "0a8f2498e89a03cbf068cfe8cedcc63f5316ea53ee47fbbe2577378cf7ea4e97",
+    "deathmatch/tests/st_bot_capture.gd": "e7d369126a750c4a0cf16cd3711de2b5d85fbe17820a001d3fec45f71190e262"
+  },
+  "preliminary_contested": {
+    "baseline": "test-results/st-tribes/research/soak-infrastructure-summary.json",
+    "adaptive_before_facing_and_commitment": "test-results/st-tribes/research/soak-adaptive-summary.json"
+  },
+  "interrupted_trials": [
+    "test-results/st-tribes/soak-adaptive-second",
+    "test-results/st-tribes/soak-adaptive-final"
+  ],
+  "live": {
+    "processes": "test-results/st-tribes/live-adaptive-final/processes.json",
+    "renderer": "Mobile/Vulkan",
+    "spectators": 1,
+    "teams": [
+      6,
+      6
+    ],
+    "screenshot_inspected": true,
+    "checked_at_utc": "2026-09-27T22:28:16.764994+00:00",
+    "seconds": 792.166666666275,
+    "scores": [
+      1,
+      0
+    ],
+    "viewer_frames": 44400,
+    "map": "ctf_stonehenge",
+    "server_script_errors": 0,
+    "viewer_script_errors": 0
+  },
+  "limitations": [
+    "No claim of learned optimal ski routes, disc-jump routes, flag passing, heavy artillery coordination, or full commander parity.",
+    "Five-second sampled role changes can miss short transitions; only capper-to-siege within 100 m is counted for the diversion comparison.",
+    "Separate matches are observations, not a controlled statistical comparison or proof that all cycles are gone.",
+    "Known ObjectDB exit and spectator MultiMesh interpolation warnings remain; tested paths must have no script errors.",
+    "No new player physics, weapon damage, inventory grants, bot teleports or free energy."
+  ],
+  "final_contested": {
+    "folder": "test-results/st-tribes/soak-adaptive-committed",
+    "complete": true,
+    "seconds": 1200.0166666659,
+    "scores": [
+      1,
+      0
+    ],
+    "flag_pickups": {
+      "red": 11,
+      "blue": 3
+    },
+    "captures_in_samples": [
+      {
+        "observed_seconds": 140.383333333337,
+        "scores": [
+          1,
+          0
+        ]
+      }
+    ],
+    "near_flag_capper_to_siege_transitions": 1,
+    "diversion_samples": [
+      {
+        "seconds": 847.349999999558,
+        "id": -1002
+      }
+    ],
+    "lane_counts": {
+      "-1000": 3,
+      "-1001": 3,
+      "-1002": 3,
+      "-1003": 3,
+      "-1004": 3,
+      "-1005": 3,
+      "-1006": 3,
+      "-1007": 3,
+      "-1008": 3,
+      "-1009": 3,
+      "-1010": 3,
+      "-1011": 3
+    },
+    "role_counts": {
+      "-1000": 7,
+      "-1001": 7,
+      "-1002": 7,
+      "-1003": 7,
+      "-1004": 7,
+      "-1005": 6,
+      "-1006": 8,
+      "-1007": 7,
+      "-1008": 7,
+      "-1009": 6,
+      "-1010": 6,
+      "-1011": 7
+    },
+    "tactics": {
+      "approaches_committed": 59,
+      "attack_lane_changes": 113,
+      "failed_launches": 17,
+      "progress_recoveries": 42,
+      "pushes_formed": 17,
+      "pushes_interrupted": 9,
+      "pushes_released": 17
+    },
+    "peak_horizontal_kmh": 108.262113189697,
+    "script_errors": 0,
+    "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Different runs are not a controlled statistical comparison.",
+    "report": "test-results/st-tribes/research/soak-adaptive-committed-summary.json",
+    "seed": 9281,
+    "requested_speed": 4,
+    "teams": [
+      6,
+      6
+    ],
+    "comparison": {
+      "baseline_seconds": 900,
+      "baseline_near_flag_capper_to_siege_transitions": 37,
+      "interpretation": "The targeted late diversion is much less frequent in this observation; different runs and five-second sampling do not establish statistical significance or eliminate every cycle."
+    },
+    "capture_limitations": "The only completed capture was around 140 seconds. Continued flag takes did not produce another score. Carrier escape and effective coordinated support remain unresolved."
+  }
+}

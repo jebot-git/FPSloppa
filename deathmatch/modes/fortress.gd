@@ -57,6 +57,7 @@ func class_definition(role: String) -> Dictionary:
 		return invisible_spy
 	return data
 func max_health(id: int) -> int:
+	if mode.tribes.enabled():return mode.tribes.definition(id).hp
 	if not enabled():return 100
 	return walkers.pilot_max_health(id) if mode.kind=="tb" and walkers.mounted(id) else int(definition(id).hp)
 func speed(id: int) -> float:
@@ -444,13 +445,17 @@ func draw() -> void:
 		var friendly: bool=mode.same_team(id,mine) or id==mine
 		var disguise: Dictionary=game.players[id].get("tf_disguise",{}) if enabled() else {}
 		if not friendly and not disguise.is_empty():role=disguise.get("class","soldier")
-		game.fighters[id].set_class_badge(CLASSES.get(role,CLASSES.soldier).name if enabled() else "",CLASS_COLORS.get(role,Color.WHITE))
+		if mode.tribes.enabled():game.fighters[id].set_class_badge(mode.tribes.definition(id).name,Color("a6d2ec"))
+		else:game.fighters[id].set_class_badge(CLASSES.get(role,CLASSES.soldier).name if enabled() else "",CLASS_COLORS.get(role,Color.WHITE))
 		var label: Label3D=game.fighters[id].label
 		if label:
 			var nickname: String=disguise.get("name",game.players[id].name) if not friendly and not disguise.is_empty() else game.players[id].name
 			var team: int=disguise.get("team",game.players[id].team) if not friendly and not disguise.is_empty() else game.players[id].team
 			game.fighters[id].set_nametag(nickname,team,mode.COLORS[team] if team in [0,1] else game.COLORS[game.players[id].color])
 		game.fighters[id].set_cloak_visual(cloaked(id),friendly,mode.COLORS[maxi(0,game.players[id].team)],get_process_delta_time())
+		if mode.tribes.enabled() and not friendly and mode.tribes.jammed(id):
+			if label:label.hide()
+			if is_instance_valid(game.fighters[id].class_badge):game.fighters[id].class_badge.hide()
 	var desired: Dictionary={}
 	if structures_enabled():
 		for key in buildings:desired["b"+str(key)]=buildings[key]
@@ -523,6 +528,7 @@ func outgoing_damage(attacker: int,victim: int,amount: int,weapon: String) -> in
 func can_fire(id: int,weapon: int) -> bool:
 	if walkers.mounted(id):return false
 	if not game.players.has(id) or not game.armory.valid(weapon):return false
+	if mode.tribes.enabled():return weapon<8 and mode.tribes.usable(id,weapon)
 	var data:=weapon_data(id,weapon)
 	return data.ammo<0 or game.players[id].ammo[data.ammo]>=data.cost
 

@@ -7,6 +7,7 @@ func _initialize() -> void:
 		var folder: String=stack.pop_back()
 		for file in DirAccess.get_files_at(folder):
 			count+=1;var path:=folder.path_join(file)
+			if path.contains("deathmatch/weapons/tribes/") or path.contains("deathmatch/audio/tribes/") or file.begins_with("tribes_") and path.contains("weapon_icons/") or file.begins_with("skyward_relay") or file.begins_with("ctf_stonehenge"):failures.append("Deferred content: "+path)
 			if folder.begins_with("res://textures") or folder.begins_with("res://materials") or folder.contains("docs/audio") or folder.contains("deathmatch/audio/music/samples") or folder.contains("optional-arena-pack") or folder.contains("optional-ad-tools") or folder.contains("optional-threewave-tools") or folder.contains("optional-tf-tools"):failures.append(path)
 			if ".bsp" in file.to_lower() or file.get_extension().to_lower() in ["vrm","pak","log"] or path.contains("AD-NOTICES") or file.begins_with("ad_arena_"):failures.append(path)
 		for child in DirAccess.get_directories_at(folder):stack.append(folder.path_join(child))
@@ -32,6 +33,9 @@ func _initialize() -> void:
 	for required in ["deathmatch/modes/defusal.gd","deathmatch/counterstrike/reload_state.gd","deathmatch/vr/hip_mount.gd","deathmatch/vr/physical_reload.gd","deathmatch/counterstrike/grenades.gd"]:
 		if not ResourceLoader.exists("res://"+required):failures.append("Missing 0.17 feature: "+required)
 	var config=load("res://deathmatch/server/config.gd")
+	if "st" in config.MODES or "tribes" in load("res://deathmatch/experimental/weapon_rules.gd").IDS or load("res://deathmatch/release_features.gd").TRIBES:failures.append("Deferred ST enabled")
+	var map_rows: Array=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/maps/manifest.json"))
+	if map_rows.any(func(row):return row.id=="ctf_stonehenge"):failures.append("Deferred Stonehenge catalog entry")
 	for required in ["deathmatch/vr/gaze_vrs.gd","deathmatch/counterstrike/reload_motion.gd","deathmatch/counterstrike/feed_belt.gd","deathmatch/vr/weapon_kick.gd","deathmatch/vr/keypad_finger.gd","deathmatch/avatars/first_person_mask.gd","deathmatch/ui/grenade_notice.gd","deathmatch/pickups/cutter_model.gd","deathmatch/audio/cs16/snip.res","deathmatch/effects/bullet_marks.gd"]:
 		if not ResourceLoader.exists("res://"+required):failures.append("Missing 0.18 feature: "+required)
 	for forbidden in ["test-results","deathmatch/tests"]:

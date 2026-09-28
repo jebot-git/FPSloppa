@@ -1,0 +1,345 @@
+{
+  "passed": true,
+  "date": "2026-09-27",
+  "checks": 903,
+  "tests": [
+    {
+      "name": "penetration-physics",
+      "checks": 30,
+      "passed": true
+    },
+    {
+      "name": "penetration-combat",
+      "checks": 65,
+      "passed": true
+    },
+    {
+      "name": "cover-runtime",
+      "checks": 360,
+      "passed": true
+    },
+    {
+      "name": "cs16",
+      "checks": 70,
+      "passed": true
+    },
+    {
+      "name": "objectives",
+      "checks": 73,
+      "passed": true
+    },
+    {
+      "name": "bot-behavior",
+      "checks": 27,
+      "passed": true
+    },
+    {
+      "name": "network-server",
+      "checks": 9,
+      "passed": true
+    },
+    {
+      "name": "network-client",
+      "checks": 8,
+      "passed": true
+    },
+    {
+      "name": "routes-dust",
+      "checks": 70,
+      "passed": true
+    },
+    {
+      "name": "routes-nuke",
+      "checks": 44,
+      "passed": true
+    },
+    {
+      "name": "routes-inferno",
+      "checks": 47,
+      "passed": true
+    },
+    {
+      "name": "routes-aztec",
+      "checks": 50,
+      "passed": true
+    },
+    {
+      "name": "routes-train",
+      "checks": 50,
+      "passed": true
+    }
+  ],
+  "maps": [
+    {
+      "id": "de_dust2_rebuilt",
+      "sha256": "94e2adb519eae616997cd0b191437ab07abad8f87496f74f38b751b35c6969ce",
+      "bsp_bytes": 4925808,
+      "metadata_bytes": 82952,
+      "static_brushes": 293,
+      "moving_leaves": 0,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "dead290ec2a55068aae73be9b813b2e00dc816ce6e0d992d07e295a4a5c787a8"
+    },
+    {
+      "id": "de_nuke_rebuilt",
+      "sha256": "69c40d29fd718ace8f33b4883a34e48dacad6314affce5fcbabb46187c4fe617",
+      "bsp_bytes": 7032868,
+      "metadata_bytes": 85972,
+      "static_brushes": 245,
+      "moving_leaves": 8,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "ea9a9ace4234bfca9c880868074c64e1ebed7cdc301535cf1068995678c55d9e"
+    },
+    {
+      "id": "de_inferno_rebuilt",
+      "sha256": "bf5d6758115c34f7c07679394193c8c3520aaa73b1bd473a80fad543f8aa850b",
+      "bsp_bytes": 5766240,
+      "metadata_bytes": 77488,
+      "static_brushes": 276,
+      "moving_leaves": 0,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "221d07003e3246832a78d4368bc6e5e37cda97ace46640fd45aa94d93bb24c27"
+    },
+    {
+      "id": "de_aztec_rebuilt",
+      "sha256": "6a695c44983440f172018b9da6bdf48f32d2bf3ec78c2608aed3e2e96b5670f7",
+      "bsp_bytes": 4132884,
+      "metadata_bytes": 65123,
+      "static_brushes": 242,
+      "moving_leaves": 0,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "4f1e68c7ac8a09e98606489aca0da145f7f458c0d8ee878c83bbb65ce457c956"
+    },
+    {
+      "id": "de_train_rebuilt",
+      "sha256": "1afb80e133ed0d1ba0969aca0a7d99ed1dfdefc86fd50f81a529f0603547076b",
+      "bsp_bytes": 8616996,
+      "metadata_bytes": 153154,
+      "static_brushes": 570,
+      "moving_leaves": 0,
+      "full_vis": true,
+      "compressed_caches": [
+        "bc7",
+        "astc4"
+      ],
+      "navigation_sha256": "581e7b4da672fdd2aba60fd14491cfcbca4fda25cfc29454a10d1c84eec032b4"
+    }
+  ],
+  "site_markings": [
+    {
+      "map": "de_nuke_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_train_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_train_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "site": "A",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "site": "B",
+      "red_ground_cross": true,
+      "red_wall_letter": true,
+      "solid_wall_backing": true,
+      "glyph_reads_left_to_right": true
+    }
+  ],
+  "bot_series": [
+    {
+      "map": "de_dust2_rebuilt",
+      "completed": true,
+      "rounds": 6,
+      "simulation_seconds": 296.383333333392,
+      "scores": [
+        4,
+        2
+      ],
+      "roster": 12,
+      "spawn_exits": 72,
+      "max_spawn_exit_seconds": 5.14999999999971
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "completed": true,
+      "rounds": 6,
+      "simulation_seconds": 236.900000000081,
+      "scores": [
+        3,
+        3
+      ],
+      "roster": 12,
+      "spawn_exits": 72,
+      "max_spawn_exit_seconds": 4.46666666666652
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "completed": true,
+      "rounds": 6,
+      "simulation_seconds": 304.050000000052,
+      "scores": [
+        3,
+        3
+      ],
+      "roster": 12,
+      "spawn_exits": 72,
+      "max_spawn_exit_seconds": 4.6500000000037
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "completed": true,
+      "rounds": 6,
+      "simulation_seconds": 287.900000000067,
+      "scores": [
+        3,
+        3
+      ],
+      "roster": 12,
+      "spawn_exits": 72,
+      "max_spawn_exit_seconds": 7.39999999999968
+    },
+    {
+      "map": "de_train_rebuilt",
+      "completed": true,
+      "rounds": 6,
+      "simulation_seconds": 231.83333333341,
+      "scores": [
+        3,
+        3
+      ],
+      "roster": 12,
+      "spawn_exits": 72,
+      "max_spawn_exit_seconds": 4.4833333333369
+    }
+  ],
+  "completed_rounds": 30,
+  "simulation": "Ordinary 60 Hz physics, accelerated offline pacing; six rounds/map, sides swapped after three",
+  "query_probe": [
+    {
+      "map": "de_dust2_rebuilt",
+      "max_candidates": 55,
+      "passable": 8,
+      "probe_and_physics_usec": 5043,
+      "probes": 69
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "max_candidates": 82,
+      "passable": 15,
+      "probe_and_physics_usec": 5606,
+      "probes": 64
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "max_candidates": 49,
+      "passable": 42,
+      "probe_and_physics_usec": 5940,
+      "probes": 91
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "max_candidates": 66,
+      "passable": 68,
+      "probe_and_physics_usec": 7312,
+      "probes": 91
+    },
+    {
+      "map": "de_train_rebuilt",
+      "max_candidates": 82,
+      "passable": 205,
+      "probe_and_physics_usec": 33028,
+      "probes": 322
+    }
+  ],
+  "network": "Actual loopback ENet: late join, partial mover positions, round resets, demo state and AK damage through Nuke timber",
+  "archive": {
+    "path": "test-results/de-restoration/Base-Assets.zip",
+    "sha256": "30280e1d84d52ae0182156fdb65c9c363cc58d49215f6247f38ded580282c1b9",
+    "bytes": 662597961,
+    "all_entry_hashes_verified": true
+  },
+  "limits": [
+    "Approximate reconstructed layouts, not exact retail geometry or GoldSrc penetration parity.",
+    "No player penetration, breakable surfaces, hinged doors or rotating/scaled penetration movers.",
+    "Geometry/CPU queries and desktop rendering checked; no headset frame-time benchmark.",
+    "Some Godot harnesses report shutdown ObjectDB/resource warnings."
+  ]
+}

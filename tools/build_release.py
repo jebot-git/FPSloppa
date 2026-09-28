@@ -3,17 +3,20 @@ from pathlib import Path
 import subprocess, shutil, zipfile, json, os, sys
 
 from map_distribution import distributable
+from renderer_policy import require_client_template
 root=Path(__file__).resolve().parents[1]
 RETIRED={'optional-map-pack','optional-arena-pack','optional-threewave-tools','optional-tf-tools','optional-ad-tools','optional-tf-map-pack'}
 builds=root.parent/'Builds'
 godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
 if not godot: raise SystemExit('Set GODOT_BIN or install Godot on PATH')
 (root/'test-results').mkdir(exist_ok=True)
+# Verify even package-only runs; an old stock binary must not be republished.
+client_templates={p:require_client_template(p) for p in ['linuxbsd','windows']}
 targets=[('Linux PC','Linux','FPSloppa.x86_64'),('Windows PC','Windows','FPSloppa.exe')]
 if '--package-only' not in sys.argv and '--stage-only' not in sys.argv:
     markers=[]
     try:
-        for name in ['Builds','dist','external-tools','tools','docs','materials','textures']:
+        for name in ['Builds','dist','external-tools','tools','docs','materials','textures','maps','vrm']:
             marker=root/name/'.gdignore'
             if marker.parent.is_dir() and not marker.exists():marker.touch();markers.append(marker)
         for preset,folder,binary in targets:
@@ -40,6 +43,9 @@ if '--exports-only' in sys.argv:raise SystemExit(0)
 package_files={}
 for _,folder,binary in targets:
     dest=builds/folder
+    template=client_templates['linuxbsd' if folder=='Linux' else 'windows']
+    from renderer_policy import verify_client_export
+    verify_client_export(dest/binary,template)
     native={'Linux':['libfpsloppa_bhaptics_native.so','libgodot-steam-audio.linux.template_release.x86_64.so','libgodotopenxrvendors.so','libphonon.so','libtwovoip.linux.template_release.x86_64.so'], 'Windows':['fpsloppa_bhaptics_native.dll','libgodot-steam-audio.windows.template_release.x86_64.dll','libgodotopenxrvendors.dll','libtwovoip.windows.template_release.x86_64.dll','libunwind.dll','phonon.dll']}
     selected={binary,'FPSloppa.pck',*native[folder]}
     package_files[folder]=selected
@@ -48,12 +54,12 @@ for _,folder,binary in targets:
     asset_manifest=json.loads((root/"deathmatch/assets/base_manifest.json").read_text())
     for row in asset_manifest["files"]:
         source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);stage(source,destination)
-    for name in ['EXTERNAL-ASSETS.md','ARCHIVED-EXTRAS.md','RENDERER-SUPPORT.md','SERVER-BROWSER.md','BOMB-DEFUSAL.md','CS16-LOADOUT.md','CS16-GRENADES.md','BULLET-MARKS.md','VR_PHYSICAL_INTERACTIONS.md','TEXTURE-MIPMAPS.md','XR-FOVEATION.md','WEAPON-WHEEL.md','WEAPON-RESPAWNS.md','ARENA-JETPACKS.md','TITANBALL.md','RELEASE-'+(root/'VERSION').read_text().strip()+'.md']:
+    for name in ['EXTERNAL-ASSETS.md','ARCHIVED-EXTRAS.md','RENDERER-SUPPORT.md','SERVER-BROWSER.md','BOMB-DEFUSAL.md','CS16-LOADOUT.md','CS16-GRENADES.md','CS16-PENETRATION.md','DE-MAP-FIDELITY.md','BULLET-MARKS.md','VR_PHYSICAL_INTERACTIONS.md','TEXTURE-MIPMAPS.md','XR-FOVEATION.md','WEAPON-WHEEL.md','WEAPON-RESPAWNS.md','ARENA-JETPACKS.md','TITANBALL.md','RELEASE-'+(root/'VERSION').read_text().strip()+'.md']:
         stage(root/'docs'/name,dest/'docs'/name)
     for name in ['AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','EYES.md','PERFORMANCE.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         stage(root/name,dest/name)
     for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
-        if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt','CREDITS.txt'}):
+        if distributable(source.relative_to(root)) and source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt','CREDITS.txt'}):
             out=dest/'licenses'/source.relative_to(root);out.parent.mkdir(parents=True,exist_ok=True);stage(source,out)
     for source in (root/'deathmatch/maps').glob('LibreQuake-*.txt'):
         out=dest/'licenses'/source.name;out.parent.mkdir(parents=True,exist_ok=True);stage(source,out)

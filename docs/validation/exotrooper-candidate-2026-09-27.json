@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-27",
+  "title": "Exotrooper (low poly)",
+  "author": "nublet",
+  "source": "https://opengameart.org/content/exotrooper-low-poly",
+  "download": "https://opengameart.org/sites/default/files/exo_6.blend",
+  "license": "CC0-1.0",
+  "bytes": 619192,
+  "sha256": "e6a8fb117204294e5bf529d6f02e663243ca308b5ccd7c7d4811716fec4fc6b8",
+  "blender_import": [
+    {
+      "name": "exo_head",
+      "type": "MESH",
+      "vertices": 64,
+      "triangles": 124,
+      "bones": 0,
+      "materials": 0
+    },
+    {
+      "name": "exo_body",
+      "type": "MESH",
+      "vertices": 494,
+      "triangles": 784,
+      "bones": 0,
+      "materials": 0
+    },
+    {
+      "name": "Armature.007",
+      "type": "ARMATURE",
+      "vertices": 0,
+      "triangles": 0,
+      "bones": 55,
+      "materials": 0
+    }
+  ],
+  "bundled": false,
+  "recommendation": "Medium blockout / simpler Heavy donor; requires substantial remodeling and new textures."
+}

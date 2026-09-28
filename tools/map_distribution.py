@@ -8,6 +8,11 @@ DOC_SUFFIXES={'.md','.txt','.json','.png','.mp4','.map','.wad'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def distributable(path):
     p=Path(path)
+    if p.parts[:2] in {('maps','Stonehenge'),('tools','tribes'),('tools','stonehenge')}:return False
+    if p.parts[:3] == ('docs','audio','skyward-relay'):return False
+    if p.name.startswith(('ctf_stonehenge','skyward_relay','tribes_')) or p.name == 'st_maplist.txt':
+        if p.suffix not in {'.gd','.uid','.py'}:return False
+    if p.parts[:3] in {('deathmatch','weapons','tribes'),('deathmatch','audio','tribes')}:return False
     if p.parts[:2]==('maps','Community'):return False
     if p.name.startswith(('as_hislop_tiny','as_frigate_tiny','tf_ironspan','tf_relayworks')):return False
     if p.parts[:2]==('maps','HiSlop') or p.parts[:2]==('maps','Frigate'):

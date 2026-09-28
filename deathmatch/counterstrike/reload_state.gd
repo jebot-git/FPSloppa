@@ -21,6 +21,7 @@ const Hip=preload("res://deathmatch/vr/hip_mount.gd")
 const DRAW_DISTANCE:=.12
 const INSERT_RADIUS:=.095
 const MIN_STROKE_TIME:=.10
+const USP_SUPPRESSOR_RADIUS:=.16
 const RACK_POINTS=[Vector3.ZERO,Vector3(0,.14,-.04),Vector3(0,.14,-.04),Vector3(0,.055,-.51),Vector3(.079,.101,-.19),Vector3(-.044,.144,-.445),Vector3(.084,.106,-.19),Vector3(0,.142,.055),Vector3(.114,.078,-.29),Vector3(.077,.043,.006),Vector3(0,.15,-.04),Vector3(.09,.106,-.438)]
 const MAG_POINTS=[Vector3.ZERO,Vector3(0,-.12,.066),Vector3(0,-.12,.049),Vector3(0,.02,-.235),Vector3(0,.02,-.235),Vector3(0,-.06,-.237),Vector3(0,-.08,-.275),Vector3(0,-.08,-.244),Vector3(-.027,-.13,-.335),Vector3(0,-.09,-.291),Vector3(0,-.14,.058),Vector3(0,.153,-.224)]
 const COVER_POINT:=Vector3(0,.23,-.10)
@@ -74,6 +75,11 @@ static func pouch(pose: Dictionary) -> Transform3D:
 static func model_pose(pose: Dictionary,w: int) -> Transform3D:
 	var art=load("res://deathmatch/art.gd")
 	return art.held_transform(pose.weapon,w,art.VR_SCALE,"cs16")
+static func usp_suppressor_contact(pose: Dictionary) -> bool:
+	if pose.is_empty() or not pose.has("offhand_weapon"):return false
+	var hand: Transform3D=pose.right if pose.left_handed else pose.left
+	var muzzle: Vector3=load("res://deathmatch/counterstrike/models.gd").muzzle(2)
+	return hand.origin.distance_to(model_pose(pose,2)*muzzle)<USP_SUPPRESSOR_RADIUS
 static func wants_pouch(w: int,p: Dictionary,clip: int,total: int,capacity: int) -> bool:
 	return total>clip and clip<capacity and (tube_fed(w) or not p.mag or w==6)
 static func can_fire(p: Dictionary,w: int) -> bool:

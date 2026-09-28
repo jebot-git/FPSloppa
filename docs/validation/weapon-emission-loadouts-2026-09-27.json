@@ -1,0 +1,26 @@
+{
+  "date": "2026-09-27",
+  "passed": true,
+  "weapon_cases": 102,
+  "graphical_checks": 718,
+  "failures": [],
+  "effect_limit": {
+    "desktop": 2,
+    "vr": 2
+  },
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "renderer": "mobile",
+  "constraints": "Existing shared two-source shader cap, 64 candidate cap, BSP/moving-brush occlusion and fail-dark traversal remain unchanged.",
+  "unchanged_files": {
+    "deathmatch/lighting/weapon_pool.gd": "37f4db71e0eaf08db4b1a54abf0725d88b6e1f0f402c091051c1f292d0e23654",
+    "deathmatch/lighting/weapon_light.gdshaderinc": "da329e81a3bc3953d1a487804190ee4b271a4fe70851437e511ef485a1b3cbe1"
+  },
+  "artifacts": "test-results/weapon-emission-loadouts/",
+  "regressions": {
+    "weapon_rules_and_demos": 71,
+    "simulated_vr_projectile_presentation": 28
+  },
+  "runtime_notes": [
+    "Simulated VR emits the existing PulseAudio microphone shutdown warning after its checks; native runs report ObjectDB cleanup warnings."
+  ]
+}

@@ -1,6 +1,8 @@
 extends "res://deathmatch/tests/network_runner.gd"
 const Codec=preload("res://deathmatch/network/codec.gd")
 class Probe extends Node:
+	@rpc("authority","call_remote","reliable")
+	func face(yaw: float):get_parent().local_yaw=yaw;get_parent().local_pitch=0.0
 	var phase:=""
 	var seen: Dictionary={}
 	@rpc("any_peer","call_remote","reliable")
@@ -9,12 +11,15 @@ class Probe extends Node:
 	@rpc("authority","call_local","reliable")
 	func stage(label: String):phase=label
 var observer: Probe
+var audio_cues: Array=[]
 func stage(value: String):observer.stage.rpc(value)
 func position_player(id: int,point: Vector3):
 	game.fighters[id].position=point;game.fighters[id].velocity=Vector3.ZERO;game.players[id].yaw=0.0;game.players[id].serial+=1;game.players[id].invulnerable=0
 func run():
 	role=OS.get_cmdline_user_args()[0]
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
+	game.announcer.cue_received.connect(func(cue,target):
+		if cue in game.announcer.DE_EVENTS:audio_cues.append([cue,target]))
 	observer=Probe.new();observer.name="DefusalProbe";game.add_child(observer)
 	if role=="server":await server_case()
 	else:await client_case()
@@ -48,15 +53,30 @@ func server_case():
 	de.phase_end=game.clock;await pause(.15)
 	check(de.phase=="prepare" and not game.players[t].dead and de.account(ct).kit,"Next round restores dead player and survivor kit")
 	de.phase_end=game.clock;await pause(.1)
-	var wall: Dictionary=de.ray_surface(de.sites[1]+Vector3(1.5,1,0),de.sites[1]+Vector3(1.5,1,0)+Vector3.FORWARD*25)
-	position_player(t,wall.position+Vector3(0,-1,.8));game._send_snapshot();stage("plant2")
+	# Updated B cover is angled: derive the facing from actual collision.
+	var wall: Dictionary={}
+	for x in [-4.0,-2.0,0.0,2.0,4.0]:
+		for z in [-4.0,-2.0,0.0,2.0,4.0]:
+			var from: Vector3=de.sites[1]+Vector3(x,1.35,z)
+			var hit: Dictionary=de.ray_surface(from,from+Vector3.FORWARD*10)
+			if hit.is_empty() or absf(hit.normal.y)>.01:continue
+			game.fighters[t].position=hit.position+hit.normal*.8-Vector3.UP*1.35
+			game.players[t].yaw=atan2(hit.normal.x,hit.normal.z)
+			var mount: Dictionary=de.placement(t)
+			if not mount.is_empty() and mount.site==1 and mount.pose.basis.z.dot(hit.normal)>.99:wall=hit;break
+		if not wall.is_empty():break
+	check(not wall.is_empty(),"B site has a supported wall inside the plant zone")
+	if wall.is_empty():return
+	position_player(t,wall.position+wall.normal*.8-Vector3.UP*1.35)
+	game.players[t].yaw=atan2(wall.normal.x,wall.normal.z);observer.face.rpc_id(t,game.players[t].yaw);game._send_snapshot();stage("plant2")
 	check(await wait_for(func():return de.planted,8),"Second network round plants on B wall")
-	check(de.planted and de.bomb_basis.z.dot(Vector3.BACK)>.99,"Server mounts and replicates outward-facing wall bomb")
+	check(de.planted and de.bomb_basis.z.dot(wall.normal)>.99,"Server mounts and replicates outward-facing wall bomb")
 	position_player(t,de.sites[1]+Vector3(2.5,0,0))
-	position_player(ct,de.bomb_position+Vector3(0,0,.7));stage("cut")
+	position_player(ct,de.bomb_position+wall.normal*.7);stage("cut")
 	check(await wait_for(func():return de.phase=="post",6),"Remote purchased cutter interaction completes")
 	check(de.cut_mask==7 and game.match_mode.scores==[0,2],"Three wire cuts replicate and score only once")
 	check(await wait_for(func():return observer.seen.has("attacker snips") and observer.seen.has("defender snips") and observer.seen.has("viewer snips"),3),"All peers receive exactly three reliable snip events")
+	check(audio_cues==[["de_bomb_planted",0],["de_counter_terrorists_win",0],["de_bomb_planted",0],["de_counter_terrorists_win",0]],"Authority emits one global plant and winner cue per round")
 	game.demos.stop_record();stage("done");await pause(.3)
 func client_case():
 	var viewer: bool=role=="viewer"
@@ -89,7 +109,7 @@ func client_case():
 			if de.phase=="post" and not sent.has("result"):sent["result"]=true;observer.report.rpc_id(1,"result")
 			continue
 		seq+=1
-		game._input_packet.rpc_id(1,Codec.pack({"seq":seq,"map_epoch":game.map_epoch,"input_life":s.serial,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"weapon":s.weapon,"slow":false,"respawn":true}))
+		game._input_packet.rpc_id(1,Codec.pack({"seq":seq,"map_epoch":game.map_epoch,"input_life":s.serial,"move":Vector2.ZERO,"yaw":game.local_yaw,"pitch":game.local_pitch,"fire":false,"weapon":s.weapon,"slow":false,"respawn":true}))
 		if previous!=observer.phase:previous=observer.phase;next_action=game.clock+.25
 		if game.clock<next_action:continue
 		next_action=game.clock+.25
@@ -111,5 +131,7 @@ func client_case():
 	check(observer.phase=="done","Network scenario completes")
 	check(game.armory.effective()=="cs16" and game.match_mode.kind=="de","DE and forced arsenal survive both network rounds")
 	check(snip_total==3,"Three remote wire cuts produce three replayable snips")
+	check(audio_cues.count(["de_counter_terrorists_win",0])==2,"Both round results reach "+role+" globally, including after death")
+	check(audio_cues.count(["de_bomb_planted",0])==(1 if viewer else 2),"Plant confirmation reaches "+role+" without replaying past plants for a late viewer")
 	game.demos.stop_record()
 	if viewer:check(sent.has("late bomb") and sent.has("result"),"Late viewer observes objective and outcome")

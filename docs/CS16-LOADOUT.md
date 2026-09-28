@@ -84,11 +84,15 @@ The existing death-drop policy excludes the starting knife and USP.
   hand away, lower the cover, then pull and release the charging
   handle. A loose belt prevents closing the cover; an open cover prevents firing
   and chambering. Dropping the belt before seating it leaves it attached to the box.
-- Alternate fire: toggle Glock semi/burst or the USP/M4 suppressor. With the AWP,
+- Alternate fire: toggle Glock semi/burst or the USP/M4 suppressor. In VR,
+  bring the offhand within 16 cm of the USP muzzle, then press alternate fire
+  to attach or remove its silencer. Finish handling the magazine or slide first;
+  release and press again if the button was held during reloading or out of reach.
+  With the AWP,
   hold alternate fire to zoom; looking through the existing VR optic also applies
   its scoped accuracy. The AWP retains the game's monocular scope, eye box,
-  wall occlusion and render-layer behavior. It has **no laser guide**, matching
-  the other sniper rifles. Other CS guns retain the existing VR laser guide.
+  wall occlusion and render-layer behavior. **All CS weapons have no aiming
+  laser**; use their aligned sights or the AWP scope.
 - Knife damage uses the existing melee sweeps and collision checks. Desktop
   primary/alternate input selects slash/stab; in VR, swing the knife and use the
   alternate binding for the stronger stab. The knife follows the controller grip
@@ -152,8 +156,17 @@ CS VR firing without an offhand supporting the gun multiplies spread and recoil
 climb by **2.0 for long guns**. Pistols have no one-handed accuracy or recoil
 penalty; their ordinary movement spread and firing recoil remain. The server checks the
 tracked support-hand position and grip/trigger state. Desktop CS, bots and other
-weapon loadouts keep their existing recoil. Accepted CS shots also visibly kick
-the held gun backward and upward. Both rendered palms follow the prop while raw
+weapon loadouts keep their existing recoil. A recovered first shot is perfectly
+accurate while stationary and grounded, including an unscoped AWP; shotguns and
+unsupported VR long guns retain their normal spread. Follow-up shots retain the
+existing bloom, random spread and VR climb until the weapon recovers. Accepted CS
+shots emit their bullet and muzzle flash at the firing pose, then animate the gun
+backward and toward the next server-generated spray direction on desktop and in
+VR (the average pellet direction for shotguns). Random spread samples are reserved
+one shot ahead; the next bullet uses them with the current movement, stance and
+recovery. The gun holds its anticipated pose through automatic fire and settles
+when firing stops.
+Both rendered palms follow the prop while raw
 controller poses continue to drive gameplay. The offhand snaps to the underside
 of each gun's handguard and stays attached while grip remains held, with analog
 hysteresis; firing and ordinary wrist drift do not release it. The arm solver
@@ -197,12 +210,16 @@ not location-specific CS1.6 armor rules.
 
 The arena adaptation does not enable CS economy or round/bomb rules; those
 are available separately in [DE mode](BOMB-DEFUSAL.md). It does not implement
-wall penetration, a full weapon roster, caliber-specific inventory, armor types or exact GoldSrc recoil
+a full weapon roster, caliber-specific inventory, armor types or exact GoldSrc recoil
 and movement. Four shared arena ammunition families remain. Movement multipliers
 are normalized to the existing movement speed; spread adds movement, airborne
 and recovering sustained-fire penalties. Buckshot falloff/reload staging and
 knife behavior are arena adaptations. There is no special first-slash or
 backstab damage model. The AWP uses the existing single zoom behavior.
+
+Eligible CS guns now support [material- and thickness-limited wall penetration](CS16-PENETRATION.md)
+on all five authored DE maps, including their thin timber and sliding glass.
+Maps without valid authored metadata retain normal wall blocking.
 
 Fire, clip counts, burst scheduling, reload completion and firing modes are
 server-authoritative. The new snapshot row is validated and bound to a player
@@ -229,6 +246,11 @@ Krita wear layers remain editable. The runtime shares a mipmapped texture,
 including the M249 belt; no retail CS meshes, textures, sounds or manufacturer
 photographs are bundled. Each mesh is
 roughly 1,200–8,900 triangles, with separate moving components.
+
+The trigger bows now open toward the muzzle on all eleven guns, including the
+P90's separate trigger; the Glock safety tab follows its corrected face.
+Rebuilt assets preserve sight landmarks, action pivots and detachable components.
+See [trigger validation](validation/cs16-triggers-2026-09-27.json).
 
 Validation scripts cover combat and reloads (`cs16.gd`), physical VR gestures and
 interruption safety (`cs16_vr_reload.gd`, `cs16_actions.gd`), simulated-controller UI and pouch/action

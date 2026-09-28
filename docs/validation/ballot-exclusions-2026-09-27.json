@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-27",
+  "setting": "sv_ballot_exclude_modes",
+  "default": "",
+  "scope": [
+    "post-game grid",
+    "between-match lobby ballot"
+  ],
+  "unchanged": [
+    "normal mode/match votes",
+    "RCON mode/match selection",
+    "rotation with votes disabled"
+  ],
+  "no_candidates": "skip ballot and waiting room; use current mode rotation",
+  "validation": {
+    "targeted_checks": 24,
+    "failures": [],
+    "match_ballot_regression": "passed",
+    "normal_vote_regression": "passed",
+    "dedicated_config_startup": "passed"
+  },
+  "log_directory": "test-results/ballot-exclusions"
+}

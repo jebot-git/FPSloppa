@@ -1,5 +1,6 @@
 """Check exported PCK/APK payloads independently of the source asset directory."""
 from pathlib import Path
+from map_distribution import distributable
 import os,subprocess,tempfile,json,zipfile,shutil,argparse
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--desktop-only', action='store_true')
@@ -21,6 +22,7 @@ for target in ([] if args.desktop_only else ['Quest']):
   assert archive.testzip() is None
   forbidden=[n for n in archive.namelist() if '.bsp' in Path(n).name.lower() or Path(n).suffix.lower() in ['.vrm','.pak'] or 'AD-NOTICES' in n or Path(n).name.startswith('ad_arena_')]
   assert not forbidden,forbidden
+  assert all(distributable(n.removeprefix('assets/')) for n in archive.namelist()), 'Deferred asset in APK'
   for name in ['flame.json','flame2.json','LICENCE.txt','CREDITS.txt','SOURCES.json']:assert 'assets/deathmatch/maps/librequake-props/'+name in archive.namelist(),name
   reports.append({'apk':str(path),'files':len(archive.namelist()),'failures':[]});print(target,'APK passed',flush=True)
 (root/'test-results/release-pack-audit.json').write_text(json.dumps(reports,indent=2)+'\n')

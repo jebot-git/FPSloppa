@@ -190,3 +190,5 @@ project-specific permission and separate license. LibreQuake textures remain
 BSD-3-Clause. See [material provenance and prompts](maps/DEMaterials/SOURCES.md)
 and [map references and fidelity](maps/ClassicDE/README.md).
 HE/flash/smoke models, shaders and SVG icons are original native Godot assets.
+
+The experimental Tribes equipment, armour bodies and Stonehenge assets are not distributed in 0.19v. The eleven bundled avatars retain their CC0 provenance in [vrm/SOURCES.json](vrm/SOURCES.json).

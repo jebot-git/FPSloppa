@@ -1,0 +1,168 @@
+{
+  "date": "2026-09-27",
+  "tests": {
+    "tactics": {
+      "checks": 54,
+      "failures": [],
+      "log": "test-results/st-tribes/research/tactics-final-three.log"
+    },
+    "deployables": {
+      "checks": 55,
+      "failures": [],
+      "log": "test-results/st-tribes/research/deployables-final-two.log"
+    },
+    "deployable_ui": {
+      "checks": 19,
+      "failures": [],
+      "log": "test-results/st-tribes/research/deployable-ui-final.log"
+    },
+    "st_rules": {
+      "checks": 57,
+      "failures": [],
+      "log": "test-results/st-tribes/research/st-final.log"
+    },
+    "arsenal": {
+      "checks": 37,
+      "failures": [],
+      "log": "test-results/st-tribes/research/regression-tribes_arsenal.log"
+    },
+    "stations": {
+      "checks": 118,
+      "failures": [],
+      "log": "test-results/st-tribes/research/regression-tribes_stations.log"
+    },
+    "armour": {
+      "checks": 87,
+      "failures": [],
+      "log": "test-results/st-tribes/research/regression-tribes_armour.log"
+    },
+    "demo": {
+      "checks": 13,
+      "failures": [],
+      "log": "test-results/st-tribes/research/regression-tribes_demo.log"
+    }
+  },
+  "physical_routes": {
+    "cases": 19,
+    "passed": true,
+    "classes": [
+      "light",
+      "medium",
+      "heavy"
+    ],
+    "tower_cases": 6,
+    "max_horizontal_kmh": 109.02132339477552,
+    "log": "test-results/st-tribes/research/routes-final-three.log"
+  },
+  "network": {
+    "server": [],
+    "pilot": [],
+    "viewer": [],
+    "log": "test-results/st-tribes/research/network-final.log"
+  },
+  "combat_soak": {
+    "seconds": 600.01666666645,
+    "teams": [
+      6,
+      6
+    ],
+    "scores": [
+      0,
+      0
+    ],
+    "peak_horizontal_kmh": 75.3317481994629,
+    "peak_deployed_items": 3,
+    "bots_with_multiple_roles": 11,
+    "bots": 12,
+    "roles": {
+      "-1000": [
+        "flag_defense"
+      ],
+      "-1001": [
+        "capper",
+        "flag_defense",
+        "repairer",
+        "siege"
+      ],
+      "-1002": [
+        "capper",
+        "repairer",
+        "siege"
+      ],
+      "-1003": [
+        "capper",
+        "flag_defense",
+        "repairer",
+        "siege"
+      ],
+      "-1004": [
+        "capper",
+        "repairer",
+        "siege"
+      ],
+      "-1005": [
+        "capper",
+        "flag_defense",
+        "repairer",
+        "siege"
+      ],
+      "-1006": [
+        "capper",
+        "repairer",
+        "siege"
+      ],
+      "-1007": [
+        "capper",
+        "flag_defense",
+        "siege"
+      ],
+      "-1008": [
+        "capper",
+        "repairer",
+        "siege"
+      ],
+      "-1009": [
+        "capper",
+        "flag_defense",
+        "repairer",
+        "siege"
+      ],
+      "-1010": [
+        "capper",
+        "repairer",
+        "siege"
+      ],
+      "-1011": [
+        "capper",
+        "flag_defense",
+        "repairer",
+        "siege"
+      ]
+    },
+    "flag_carrier_samples": 0,
+    "log": "test-results/st-tribes/research/dynamic-six-v-six/server.log",
+    "version_note": "Soak began before the final maintenance-role tie-break, Medium loft correction and wall-camera render changes; those are covered by focused checks and the refreshed live session."
+  },
+  "live": {
+    "server": 1164457,
+    "port": 28984,
+    "output": "/home/blux/Documents/FPSloppa/test-results/st-tribes/live-dynamic",
+    "viewer": 1164510
+  },
+  "source_sha256": {
+    "deathmatch/bot_ai/tribes.gd": "475c48eea09f7c9d8ff95cc1b85e4e0de1f81915fa81ae6307a10e50883b659e",
+    "deathmatch/tribes/deployables.gd": "3d26303d6515e205ade7a4d0d984ab3d0b544fac7c9f80143f7a6112096c98c4",
+    "deathmatch/tribes/deployable_view.gd": "77a46c4ecbb4a05c013d4727499e085170b809c48bb7e05089ad2c4ac02b41b4",
+    "deathmatch/tribes/buy_wheel.gd": "da77ae519bb8c07f3901588cfa51141ac4bc2e8dc5039b6afd038568ab56d0ba",
+    "deathmatch/modes/tribes.gd": "840d1b9350b85b9d15d27a8aad3f42d6dbdf41b9250d7c1bfdbe714b37b4dd13"
+  },
+  "limitations": [
+    "Contested ten-minute match ended 0\u20130 with no sampled flag carriers. Autonomous captures remain unreliable.",
+    "This soak peaked at 75.3 km/h; an earlier ski-controller soak reached 107.9 km/h. Reliable fast flag routes remain incomplete.",
+    "VR equipment interaction uses existing guarded poses and tracked mounts; no physical headset deployable test performed.",
+    "Maximum deployment state validated and codec round-tripped, but no full-load graphical performance soak.",
+    "Godot exit logs retain small ObjectDB leak warnings; live viewer reports the existing MultiMesh interpolation warning. No script errors in selected runs.",
+    "Future OpenGL-free client templates are gated but not built: local SCons missing. No release binaries generated.",
+    "Sandboxed focused tests could not rotate/write the global user log; stdout/stderr were captured in the listed project log files. Test completion receipts are present."
+  ]
+}

@@ -27,12 +27,18 @@ for i,(name,color) in enumerate(zip(FINISH_NAMES,FINISH_COLORS)):
  mat.node_tree.links.new(tex.outputs['Color'],p.inputs['Base Color']);p.inputs['Base Color'].default_value=(1,1,1,1)
  MATS.append(mat)
 PARTS=[]
+def deselect_all():
+ # The UI operator skips hidden review objects, but glTF's selected-object
+ # export still includes them. Clear selection on the entire view layer.
+ bpy.context.view_layer.update()
+ for ob in bpy.context.view_layer.objects:
+  if ob is not None:ob.select_set(False)
 def xyz(v):return (v[0],-v[2],v[1])
 def obj(name,vertices,faces,mat=0,bevel=.003):
  mesh=bpy.data.meshes.new(name);mesh.from_pydata([xyz(v) for v in vertices],[],faces);mesh.update()
  bm=bmesh.new();bm.from_mesh(mesh);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(mesh);bm.free()
  ob=bpy.data.objects.new(name,mesh);collection.objects.link(ob);mesh.materials.append(MATS[mat])
- bpy.ops.object.select_all(action='DESELECT');ob.select_set(True);bpy.context.view_layer.objects.active=ob
+ deselect_all();ob.select_set(True);bpy.context.view_layer.objects.active=ob
  if bevel:
   mod=ob.modifiers.new('Forged edge bevel','BEVEL');mod.width=bevel;mod.segments=2;bpy.ops.object.modifier_apply(modifier=mod.name)
  for face in mesh.polygons:face.use_smooth=False
@@ -72,7 +78,9 @@ def ring_profile(name,outer,inner,width,mat=0):
  return obj(name,verts,faces,mat,.001)
 def guard(z=-.095):
  ring_profile('Closed trigger guard',[(-.036,.043),(-.145,.043),(-.169,.018),(-.169,-.036),(-.145,-.060),(-.052,-.060),(-.030,-.037),(-.030,.019)],[(-.052,.024),(-.137,.024),(-.153,.009),(-.153,-.030),(-.137,-.044),(-.060,-.044),(-.046,-.029),(-.046,.009)],.057)
- profile('Curved trigger',[(-.09,.032),(-.099,-.005),(-.089,-.032),(-.101,-.027),(-.110,-.001),(-.10,.032)],.012,4,bevel=.001)
+ # The finger pad is concave toward the muzzle (-Z). The old bow opened
+ # toward the grip; keep the upper attachment while reversing that curve.
+ profile('Curved trigger',[(-.10,.032),(-.091,-.005),(-.101,-.032),(-.089,-.027),(-.080,-.001),(-.09,.032)],.012,4,bevel=.001)
 def magazine(curved=False,small=False):
  if curved:
   outline=[(-.235,.035),(-.122,.03),(-.133,-.105),(-.176,-.241),(-.264,-.33),(-.35,-.283),(-.279,-.188),(-.247,-.091)]
@@ -146,7 +154,7 @@ def build(slot):
  bpy.ops.object.modifier_apply(modifier=cut.name);PARTS.remove(cutter);bpy.data.objects.remove(cutter,do_unlink=True)
  block('P90 aiming post',(0,.257,-.441),(.005,.018,.005),0,.0005)
  SIGHT_POINTS[11]=[(0,.266,-.318),(0,.266,-.441)]
- profile('P90 trigger',[(-.327,.084),(-.344,.079),(-.348,.033),(-.337,.027),(-.337,.063)],.029,0,bevel=.003)
+ profile('P90 trigger',[(-.347,.098),(-.339,.051),(-.349,.033),(-.337,.027),(-.326,.049),(-.334,.098)],.029,0,bevel=.003)
  tube('P90 selector',(0,.014,-.33),.013,.069,0,0,12,'x')
  tube('P90 barrel',(0,.115,-.532),.021,.065,0,.013,16)
  tube('P90 muzzle',(0,.115,-.58),.027,.039,0,.013,16)
@@ -194,7 +202,7 @@ def connected_report(objects):
  return [objects[i].name for i in range(len(objects)) if i not in linked]
 
 def join_named(objects,name,pivot=(0,0,0)):
- bpy.ops.object.select_all(action='DESELECT')
+ deselect_all()
  for ob in objects:ob.select_set(True)
  bpy.context.view_layer.objects.active=objects[0]
  if len(objects)>1:bpy.ops.object.join()
@@ -224,9 +232,9 @@ def export(slot):
   objects.append(join_named(PARTS,NAMES[slot]+'_Suppressor'))
  for key,position in zip(['SightRear','SightFront'],SIGHT_POINTS.get(slot,[])):
   marker=bpy.data.objects.new(NAMES[slot]+'_'+key,None);collection.objects.link(marker);marker.location=xyz(position);objects.append(marker)
- bpy.ops.object.select_all(action='DESELECT')
+ deselect_all()
  for ob in objects:ob.select_set(True);ob['weapon']=NAMES[slot];ob['component']=ob.name.split('.')[0]
- bpy.ops.export_scene.gltf(filepath=str(OUT/(NAMES[slot]+'.glb')),use_selection=True,export_yup=True)
+ bpy.ops.export_scene.gltf(filepath=str(OUT/(NAMES[slot]+'.glb')),use_selection=True,use_active_scene=True,export_yup=True)
  for ob in objects:ob.hide_set(True)
  return {'slot':slot,'name':NAMES[slot],'triangles':sum(len(o.data.loop_triangles) for o in objects if o.type=='MESH'),'parts':len(groups),'profile_changes':profile_changes,'sights':SIGHT_POINTS.get(slot,[]),'disconnected_bounds':disconnected,'closed_guard_manifold':guard_closed,'magazine_guard_clearance':clearance,'grip_style':'integrated thumbhole' if slot in [9,11] else 'contoured pistol' if slot else 'straight knife'}
 

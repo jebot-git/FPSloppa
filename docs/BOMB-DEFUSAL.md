@@ -4,6 +4,8 @@ Select **DE — BOMB DEFUSAL** in Host/Practice or set `sv_gametype "de"` on a
 server. DE forces the existing CS16 arsenal. Choose Dust2, Nuke, Inferno, Aztec
 or Train from the supported BSP29 reconstructions. See [Dust2 notes](../maps/Dust2Rebuilt/README.md)
 and [the four additional maps](../maps/ClassicDE/README.md) for fidelity limits.
+The [cover, decoration and interaction audit](DE-MAP-FIDELITY.md) records
+remaining differences and the implementation path for original doors and wall penetration.
 Matching clients and server require **`fpsloppa-52-defuse-snip`**.
 
 ```cfg
@@ -108,11 +110,25 @@ wheel and TF-style offhand Grip + Trigger, swing and Grip release. See [grenade 
 ## Buying and bomb controls
 
 In VR, press the right stick during preparation to open the purchase wheel.
+The compact panel follows the dominant hand and faces the player, including
+while navigating purchase categories.
 Tilt and release to select a category or buy an affordable item; the shop stays
 open for further purchases. **BACK** returns to categories; pressing the stick
 again closes it. Live rounds restore the ordinary weapon-selection wheel.
 Desktop uses **B**, then a mouse click or the shown radial order with **1–9**;
 **B/Esc** closes it. Cash and purchase notices are visible in the wheel/HUD.
+
+Each round announces the local player's **terrorist** or **counter-terrorist**
+role, including side swaps and players joining a live round. Spectators receive
+no team assignment. Completing a plant broadcasts a short confirmation chirp
+and **“The bomb has been planted.”** to both teams. Every round outcome announces
+**“Terrorists win”** or **“Counter terrorists win”**, using the current roles
+rather than fixed red/blue teams. Dead players and spectators hear the global
+plant/result calls too; these bypass distance attenuation and take priority over
+kill awards. The existing announcer volume and `sv_announcer` switch apply.
+The bomb's nearby countdown beep remains positional. Global calls are recorded
+in demos, and team calls follow the selected replay player's role. Generated
+voice assets and regeneration details: [DE audio sources](../deathmatch/audio/announcer/DE-SOURCES.md).
 
 The bomb sits at 40% scale on the carrier's chest, with its keypad facing outward.
 Grab it with the gun-hand grip to stash the gun and draw the full-size bomb,
@@ -164,8 +180,10 @@ off by default. Hold a CS long gun with two hands and bring the firing hand near
 the inferred shoulder to stabilize its direction. Knife and pistols bypass it.
 The existing two-hand support grip is required; release, physical reload,
 tracking loss, menus, the weapon wheel and bomb interaction disengage it.
-The muzzle position is unchanged. This is a basic shoulder constraint; actual
-headset/controller comfort and calibration still need hardware playtesting.
+The muzzle position is unchanged. This is a basic shoulder constraint. On
+2026-09-27 the user reported that the empty Quest Pro/WiVRn virtual-stock test
+passed; this does not establish calibration or comfort for every headset.
+See [the test receipt](validation/virtual-stock-2026-09-27.json).
 
 ## Assets and validation
 
@@ -234,3 +252,6 @@ resources still in use at Inferno shutdown; no GDScript errors occurred.
 The [live-series receipt](validation/de-live-series-2026-09-26.json) includes
 map/video checksums, round outcomes, capture metrics and limitations. These local
 desktop bot runs do not measure headset performance or human multiplayer balance.
+
+Map-specific bot lanes, entrance holds, bomb recovery/defuse roles and their
+CS 1.6 references are documented in the [map and tactics study](CS16-MAP-TACTICS-STUDY.md).

@@ -118,7 +118,7 @@ def pistol_v2(slot):
  block('Magazine catch',(-.042,-.012,-.014),(.007,.014,.017),0,.001)
  if slot==1:
   block('Glock selector',(-.049,.125,.023),(.006,.020,.018),0,.001)
-  block('Trigger safety tab',(0,-.006,-.105),(.005,.03,.005),1,.0005)
+  block('Trigger safety tab',(0,-.006,-.095),(.005,.03,.005),1,.0005)
  else:
   profile('Hammer spur',[(.057,.133),(.087,.143),(.094,.12),(.068,.101)],.03,0,bevel=.001)
   block('Safety lever',(-.055,.12,.032),(.009,.019,.033),0,.001)
@@ -294,7 +294,11 @@ def awp():
  for side in [-1,1]:
   for z in [-.259,-.291,-.323]:block('AW magazine rib',(side*.046,-.098,z),(.003,.102,.006),0,.001)
  finish_barrel(1.12,.28,.022)
- for z in [-.12,-.39]:block('Optic mount',(0,.173,z),(.049,.111,.035),0,.002)
+ # The front support sits above the narrower barrel, beyond the receiver
+ # sleeve. Extend its foot into that surface while keeping the scope fixed.
+ for z,bottom in [(-.12,.1175),(-.39,.0975)]:
+  top=.2285
+  block('Optic mount',(0,(bottom+top)/2,z),(.049,top-bottom,.035),0,.002)
  tube('Scope tube',(0,.244,-.27),.039,.37,0,.029,24)
  tube('Scope ocular',(0,.244,-.065),.052,.077,0,.038,24)
  tube('Scope objective',(0,.244,-.478),.060,.075,0,.044,24)

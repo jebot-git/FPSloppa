@@ -1,0 +1,171 @@
+{
+  "date_utc": "2026-09-27T12:42:26.876834+00:00",
+  "changes": [
+    "Personal terrorist/counter-terrorist voice once per round and role, derived from authoritative round and roster state; supports side swaps, late players and demo viewpoints.",
+    "Global reliable bomb-planted chirp/voice and correct role winner voice; dead players and spectators hear the calls.",
+    "DE global calls preempt kill awards, obey announcer volume and server policy, and are retained in demo events. Existing positional bomb ticking is preserved.",
+    "Five locally generated Piper Joe voice assets, 44.1 kHz mono Vorbis; generator, raw WAVs and source/license provenance retained."
+  ],
+  "tests": [
+    {
+      "test": "de_events",
+      "log": "test-results/de-announcements/unit.log",
+      "passed": true,
+      "checks": 36
+    },
+    {
+      "test": "de_rules",
+      "log": "test-results/de-announcements/rules.log",
+      "passed": true,
+      "checks": 100
+    },
+    {
+      "test": "announcer_mixer",
+      "log": "test-results/de-announcements/mixer.log",
+      "passed": true,
+      "checks": 25
+    },
+    {
+      "test": "demo",
+      "log": "test-results/de-announcements/replay.log",
+      "passed": true,
+      "checks": 15
+    },
+    {
+      "test": "network_server",
+      "log": "test-results/defusal/network-server.log",
+      "passed": true,
+      "checks": 17
+    },
+    {
+      "test": "network_attacker",
+      "log": "test-results/defusal/network-attacker.log",
+      "passed": true,
+      "checks": 6
+    },
+    {
+      "test": "network_defender",
+      "log": "test-results/defusal/network-defender.log",
+      "passed": true,
+      "checks": 6
+    },
+    {
+      "test": "network_viewer",
+      "log": "test-results/defusal/network-viewer.log",
+      "passed": true,
+      "checks": 7
+    }
+  ],
+  "checks_passed": 212,
+  "audio_decode": [
+    {
+      "cue": "de_terrorists",
+      "decoded_seconds": 1.0332879818594105,
+      "peak": 0.6540480852127075,
+      "rms": 0.12169266492128372,
+      "sha256": "7033fc4a2d45ac6a35477c0d6df4d7cd098e83e46662cc0481257b08ac20eca0"
+    },
+    {
+      "cue": "de_counter_terrorists",
+      "decoded_seconds": 1.5209070294784581,
+      "peak": 0.7816169261932373,
+      "rms": 0.08741360157728195,
+      "sha256": "e5010a8df7e43d028befb27db4193a0dec6b3e6184efe8eb54d241bc938dd137"
+    },
+    {
+      "cue": "de_terrorists_win",
+      "decoded_seconds": 1.0565079365079366,
+      "peak": 0.5363656282424927,
+      "rms": 0.10553840547800064,
+      "sha256": "0ec2ac549101580f3d1800731d2051413c407dc777978652731c3174215766f6"
+    },
+    {
+      "cue": "de_counter_terrorists_win",
+      "decoded_seconds": 1.195827664399093,
+      "peak": 0.7582581639289856,
+      "rms": 0.07695996016263962,
+      "sha256": "f5c84a186d62a65ba7724aea07e8c3e575a59e01eb1e3243b809cebe3899def9"
+    },
+    {
+      "cue": "de_bomb_planted",
+      "decoded_seconds": 1.7480272108843538,
+      "peak": 0.7773244976997375,
+      "rms": 0.0995483472943306,
+      "sha256": "b8c48e276769f07030a044a44d23acf700d2aa864f2756bda6100dd34fc14e5b"
+    }
+  ],
+  "assets": {
+    "engine": "Piper 1.8.0",
+    "voice": "en_US-joe-medium",
+    "length_scale": 0.91,
+    "noise_scale": 0.45,
+    "noise_w_scale": 0.6,
+    "processing": "highpass=f=140,lowpass=f=6500,acompressor=threshold=0.15:ratio=3:attack=5:release=80,loudnorm=I=-18:TP=-2:LRA=5,aresample=44100",
+    "cues": [
+      {
+        "cue": "de_terrorists",
+        "text": "You are terrorists.",
+        "duration": 1.033288,
+        "sample_rate": 44100,
+        "channels": 1,
+        "bytes": 11713,
+        "source_sha256": "da937e7c84c5289e7f7f43b5b951f4b21c0d103327566bea24829feaaf9cd13a",
+        "output_sha256": "7033fc4a2d45ac6a35477c0d6df4d7cd098e83e46662cc0481257b08ac20eca0"
+      },
+      {
+        "cue": "de_counter_terrorists",
+        "text": "You are counter terrorists.",
+        "duration": 1.520907,
+        "sample_rate": 44100,
+        "channels": 1,
+        "bytes": 16379,
+        "source_sha256": "cf963913ebe84213ae4a6646c002754ff4dbdc22d1b770e471ff536d1746bf9f",
+        "output_sha256": "e5010a8df7e43d028befb27db4193a0dec6b3e6184efe8eb54d241bc938dd137"
+      },
+      {
+        "cue": "de_terrorists_win",
+        "text": "Terrorists win.",
+        "duration": 1.056508,
+        "sample_rate": 44100,
+        "channels": 1,
+        "bytes": 12367,
+        "source_sha256": "a0dc4bbfad10453ba72eddfa2bd1c43620232c43cf424d008a0612df4402bc6d",
+        "output_sha256": "0ec2ac549101580f3d1800731d2051413c407dc777978652731c3174215766f6"
+      },
+      {
+        "cue": "de_counter_terrorists_win",
+        "text": "Counter terrorists win.",
+        "duration": 1.195828,
+        "sample_rate": 44100,
+        "channels": 1,
+        "bytes": 13017,
+        "source_sha256": "521f5b4ec5615863fe41839d518cdb797093e50fb3f1a9a1a97e8a2684beb9a5",
+        "output_sha256": "f5c84a186d62a65ba7724aea07e8c3e575a59e01eb1e3243b809cebe3899def9"
+      },
+      {
+        "cue": "de_bomb_planted",
+        "text": "The bomb has been planted.",
+        "duration": 1.748027,
+        "sample_rate": 44100,
+        "channels": 1,
+        "bytes": 16734,
+        "source_sha256": "bd86bdf536e3e389005f0c7c4a4b937ff006ea5938501f63e5c29bf2abecf743",
+        "output_sha256": "b8c48e276769f07030a044a44d23acf700d2aa864f2756bda6100dd34fc14e5b"
+      }
+    ]
+  },
+  "notes": [
+    "First network attempt revealed the old fixed-delay late spectator actually joined before the first plant. The harness now waits for the authoritative plant event; the repeated test confirms no historical plant cue is sent to that late viewer.",
+    "Headless import encountered sandbox editor-socket/settings warnings; all generated Ogg resources subsequently loaded successfully.",
+    "Tests retain an existing ObjectDB shutdown warning. All assertions pass.",
+    "No live headset session was launched; voice balance can be reviewed in the next live test."
+  ],
+  "sha256": {
+    "deathmatch/audio/announcer.gd": "498f32814e226f58424f75e9db70b830a043e1fc74e99e3b93439c4ff3dad488",
+    "deathmatch/modes/defusal.gd": "9eb32a0d08c3c21c4705a6044119f221f4de3b4d04d226eade5ff96c53c3a370",
+    "deathmatch/arena.gd": "26d179cae3bedf6192d34c6656b785d898fc9f6f44ab47f8c268f9262044a8a5",
+    "deathmatch/tests/defusal_announcements.gd": "d98f03bf9af0b34f3040e68dc9d4f53c55324749de5d64377c12f7ff62525fe3",
+    "deathmatch/tests/defusal_network.gd": "387fbeeb024eb76c14085cecbb99975cbba5da2379d9654cadc5215ecb8dbfa8",
+    "deathmatch/tests/defusal_demo.gd": "9f37160bdad477265ca89fa11583e2f1720654fc64866e528060046171fa6ebf"
+  }
+}

@@ -1,9 +1,27 @@
 extends RefCounted
+const Features=preload("res://deathmatch/release_features.gd")
 const ImportPolicy=preload("res://deathmatch/maps/import_policy.gd")
 const MAX_BYTES:=25_000_000
 const Reader = preload("res://addons/bsp_importer/bsp_reader.gd")
 const SCALE := 1.0/32.0
 const Paths=preload("res://deathmatch/assets/paths.gd")
+static func supports_tribes(path: String) -> bool:
+	var file:=FileAccess.open(path,FileAccess.READ)
+	if not file or file.get_length()<124:return false
+	file.seek(4);var offset:=file.get_32();var length:=file.get_32()
+	if offset+length>file.get_length() or length>1048576:return false
+	file.seek(offset);var entities:=file.get_buffer(length).get_string_from_ascii()
+	# Dedicated terrain arenas need flags, team spawns, inventory and a safe edge.
+	for entity in ["item_flag_team1","item_flag_team2","info_player_team1","info_player_team2","info_tribes_inventory","info_playable_bounds"]:
+		if not entities.contains('"'+entity+'"'):return false
+	for classes in [["info_tribes_inventory"],["info_tribes_generator","info_tribes_solar","info_tribes_portable_generator"]]:
+		for team in [0,1]:
+			var found:=false
+			var pattern:=RegEx.new();pattern.compile('"team"\\s*"'+str(team)+'"')
+			for block in entities.split("}"):
+				if classes.any(func(classname):return block.contains('"'+classname+'"')) and pattern.search(block)!=null:found=true;break
+			if not found:return false
+	return true
 static func supports_assault(path: String) -> bool:
 	var file:=FileAccess.open(path,FileAccess.READ)
 	if not file or file.get_length()<124:return false
@@ -12,11 +30,16 @@ static func supports_assault(path: String) -> bool:
 	file.seek(offset);var entities:=file.get_buffer(length).get_string_from_ascii()
 	return entities.count('"info_as_objective"')==2 and entities.contains('"info_player_team1"') and entities.contains('"info_player_team2"')
 static func available_for_mode(row: Dictionary,mode: String) -> bool:
+	if mode=="st" and not Features.TRIBES or not Features.map_allowed(row.get("id","")):return false
 	# Imported tags are exact; shipped IG arenas remain usable by IF.
 	if not row.has("modes"):return mode in ImportPolicy.DEFAULT_MODES
 	var kind: String="ig" if mode=="if" and not row.get("imported",false) else mode
 	return kind in row.modes
 static func choices_for_mode(rows: Array,mode: String,configured: Array=[]) -> Array:
+	if mode=="st":
+		if not Features.TRIBES:return []
+		var compatible: Array=rows.filter(func(row):return available_for_mode(row,mode) and supports_tribes(row.path)).map(func(row):return row.id)
+		return compatible if configured.is_empty() else configured.filter(func(id):return id in compatible)
 	if not configured.is_empty():return configured.duplicate()
 	return rows.filter(func(row):return available_for_mode(row,mode)).map(func(row):return row.id)
 static func inherited_maplist(rows: Array,mode: String,configured: Array) -> Array:
@@ -35,6 +58,7 @@ static func catalog() -> Array:
 	var known: Dictionary={}
 	var rows: Array=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/maps/manifest.json"))
 	for row in rows:
+		if not Features.map_allowed(row.id):continue
 		row=row.duplicate(true);row.path=Paths.resolve(row.path);row.scene=Paths.resolve(row.scene)
 		if not FileAccess.file_exists(row.path):continue
 		var hash:=FileAccess.get_sha256(row.path)
@@ -46,6 +70,7 @@ static func catalog() -> Array:
 		var path:=Paths.folder("maps")+filename
 		if known.has(path):continue
 		var id:=filename.get_basename()
+		if not Features.map_allowed(id):continue
 		if id.length()>80 or not id.is_valid_filename():continue
 		var error:=validate(path)
 		if not error.is_empty():push_warning(filename+": "+error);continue
@@ -144,6 +169,7 @@ static func read(path: String) -> Node3D:
 	reader.transparent_texture_prefix = "{"
 	reader.save_separate_materials = false
 	reader.material_path_pattern = "res://deathmatch/maps/materials/{texture_name}.tres"
+	reader.texture_material_rename["de_glass"] = "res://deathmatch/maps/materials/de_glass.tres"
 	reader.texture_path_pattern = "res://deathmatch/maps/textures/{texture_name}.png"
 	reader.texture_emission_path_pattern = "res://deathmatch/maps/textures/{texture_name}_emission.png"
 	reader.texture_palette_path = "res://deathmatch/maps/palette.lmp"

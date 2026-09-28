@@ -4,10 +4,11 @@ Android app is a separate package. It tests JNI initialization and a bounded sca
 when Bluetooth permissions are granted. It never connects or actuates a vest.
 """
 from pathlib import Path
-import argparse, os, shutil, subprocess, zipfile
+import argparse, json, os, shutil, subprocess, zipfile
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('platform', choices=['Android', 'Windows'])
+parser.add_argument('platform', choices=['Android', 'Windows', 'Linux'])
+parser.add_argument('--template', type=Path, help='Actual release runtime to exercise (desktop only)')
 parser.add_argument('--work', type=Path, default=ROOT/'test-results/bhaptics-build-smoke')
 args = parser.parse_args()
 p = args.work.resolve()/args.platform.lower(); p.mkdir(parents=True, exist_ok=True)
@@ -78,7 +79,7 @@ func run() -> void:
 ''')
 android = args.platform=='Android'
 (p/'output').mkdir(exist_ok=True)
-out=p/'output'/('smoke.apk' if android else 'smoke.exe')
+out=p/'output'/('smoke.apk' if android else 'smoke.x86_64' if args.platform=='Linux' else 'smoke.exe')
 options='''gradle_build/use_gradle_build=true
 gradle_build/min_sdk="26"
 architectures/armeabi-v7a=false
@@ -90,7 +91,8 @@ package/name="bHaptics native smoke test"
 package/signed=true
 xr_features/xr_mode=0
 ''' if android else 'binary_format/architecture="x86_64"\nbinary_format/embed_pck=false\n'
-(p/'export_presets.cfg').write_text('[preset.0]\nname="Smoke"\nplatform="'+('Android' if android else 'Windows Desktop')+'"\nrunnable=false\nexport_filter="all_resources"\ninclude_filter=""\nexclude_filter="output/*,*.log"\n[preset.0.options]\n'+options)
+if args.template:options+='custom_template/release='+json.dumps(str(args.template.resolve()))+'\n'
+(p/'export_presets.cfg').write_text('[preset.0]\nname="Smoke"\nplatform="'+('Android' if android else 'Linux' if args.platform=='Linux' else 'Windows Desktop')+'"\nrunnable=false\nexport_filter="all_resources"\ninclude_filter=""\nexclude_filter="output/*,*.log"\n[preset.0.options]\n'+options)
 if android and not (p/'android/build/gradlew').exists():
     template=Path.home()/'.local/share/godot/export_templates/4.7.2.stable/android_source.zip'
     with zipfile.ZipFile(template) as z:z.extractall(p/'android/build')

@@ -5,7 +5,7 @@ const MAX_FILE:=1_073_741_824
 const MAX_FRAME:=2_097_152
 # Retired cues remain readable in old recordings, but are never played.
 const LEGACY_ANNOUNCER_CUES=["start","team_deathmatch","capture_the_flag","last_man_standing","round_winner","game_over"]
-const EVENTS=["_de_tool_snip","_cs_reload_sound","_de_grenade_fx","_variant_shot_fx","_variant_bounce_fx","_variant_combo_fx","_pickup_event","_ability_fx","_movement_sound","_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
+const EVENTS=["_surface_marks","_de_tool_snip","_cs_reload_sound","_de_grenade_fx","_variant_shot_fx","_variant_bounce_fx","_variant_combo_fx","_pickup_event","_ability_fx","_movement_sound","_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
 var game
 var auto_record:=false
 var auto_path:=""
@@ -84,6 +84,7 @@ static func valid_frame(frame: Variant) -> bool:
 	if not s is Array or s.size()!=12 or not s[0] is Array or s[0].size()>MAX_PLAYERS or not s[1] is PackedByteArray or s[1].size()>8192 or not s[7] is Array or s[7].size()>1024 or not s[8] is Array or not s[10] is Dictionary or not s[11] is Dictionary:return false
 	if not s[10].get("weapon_rules","doom") in preload("res://deathmatch/experimental/weapon_rules.gd").IDS:return false
 	if not preload("res://deathmatch/modes/defusal.gd").valid_snapshot(s[10].get("defusal",{})):return false
+	if not preload("res://deathmatch/modes/tribes.gd").valid_snapshot(s[10].get("tribes",{})):return false
 	if s[10].has("jetpacks") and not s[10].jetpacks is bool:return false
 	if s[10].has("jetpack_pickups"):
 		var sites=s[10].jetpack_pickups
@@ -97,11 +98,20 @@ static func valid_frame(frame: Variant) -> bool:
 		if not id is int or not p is Dictionary or not p.get("extra") is Dictionary or not p.get("velocity") is Vector3 or not p.velocity.is_finite() or not p.get("stuck") is bool:return false
 		if not (p.get("life") is float or p.get("life") is int) or not is_finite(float(p.life)) or p.life>30:return false
 		for key in p.extra:
-			if key in ["alternate","fragment","nail_fallback"]:
+			if key in ["alternate","fragment","nail_fallback","tribes_turret"]:
 				if not p.extra[key] is bool:return false
+			elif key=="fixed_turret":
+				if not p.extra[key] in ["fusion","mini","missile","mortar"]:return false
+			elif key=="turret_team":
+				if not p.extra[key] is int or p.extra[key] not in [0,1]:return false
+			elif key=="target":
+				if not p.extra[key] is int:return false
+			elif key=="launch_velocity":
+				if not p.extra[key] is Vector3 or not p.extra[key].is_finite() or p.extra[key].length()>2000:return false
 			elif key=="scale":
 				if not (p.extra[key] is float or p.extra[key] is int) or not is_finite(float(p.extra[key])) or p.extra[key]<1 or p.extra[key]>8:return false
 			else:return false
+		if (p.extra.has("fixed_turret") or p.extra.get("tribes_turret",false)) and not p.extra.has("turret_team"):return false
 	if not typed_values([s[2],s[3],s[4],s[5],s[6],s[9]],[TYPE_FLOAT,TYPE_FLOAT,TYPE_STRING,TYPE_INT,TYPE_FLOAT,TYPE_INT]):return false
 	if s[10].has("locomotion"):
 		var states=s[10].locomotion
@@ -110,11 +120,12 @@ static func valid_frame(frame: Variant) -> bool:
 			var state=states[id]
 			if not id is int or not state is Dictionary or state.size()<3 or state.size()>8:return false
 			for key in state:
-				if key not in ["height","grounded","assist","jump_ack","fire_ack","jetpack","jetpack_owned","jetpack_ack"]:return false
+				if key not in ["height","grounded","assist","jump_ack","fire_ack","jetpack","jetpack_owned","jetpack_ack","tribes"]:return false
 			if state.has("jump_ack") and (not state.jump_ack is int or state.jump_ack<0):return false
 			if state.has("fire_ack") and (not state.fire_ack is int or state.fire_ack<0):return false
 			if state.has("jetpack_ack") and (not state.jetpack_ack is int or state.jetpack_ack<0):return false
 			if state.has("jetpack_owned") and not state.jetpack_owned is bool:return false
+			if state.has("tribes") and not preload("res://deathmatch/movement/tribes.gd").valid_state(state.tribes):return false
 			if state.has("jetpack") and not preload("res://deathmatch/movement/jetpack.gd").valid_state(state.jetpack):return false
 			if not (state.get("height") is float or state.get("height") is int) or not is_finite(float(state.height)) or state.height<.65 or state.height>1.65:return false
 			if not state.get("grounded") is bool or not state.get("assist") is bool:return false
@@ -129,19 +140,30 @@ static func valid_frame(frame: Variant) -> bool:
 	for e in frame.events:
 		if not e is Array or e.size()!=2 or not e[0] in EVENTS or not e[1] is Array:return false
 		var schemas={"_de_tool_snip":[TYPE_INT,TYPE_INT,TYPE_INT],"_cs_reload_sound":[TYPE_INT,TYPE_INT,TYPE_INT,TYPE_STRING],"_de_grenade_fx":[TYPE_VECTOR3,TYPE_INT],"_variant_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_variant_bounce_fx":[TYPE_VECTOR3,TYPE_INT],"_variant_combo_fx":[TYPE_VECTOR3],"_pickup_event":[TYPE_INT,TYPE_STRING,TYPE_INT,TYPE_INT],"_saw_contact":[TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_INT],"_announcer_cue":[TYPE_STRING,TYPE_INT],"_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_melee_fx":[TYPE_INT,TYPE_BOOL],"_impacts":[TYPE_VECTOR3,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT],"_hurt_fx":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_BOOL,TYPE_BOOL,TYPE_INT],"_projectile_end":[TYPE_INT,TYPE_VECTOR3,TYPE_INT],"_teleport_fx":[TYPE_VECTOR3]}
+		schemas["_surface_marks"]=[TYPE_PACKED_VECTOR3_ARRAY,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT]
 		schemas["_ability_fx"]=[TYPE_STRING,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT]
 		schemas["_movement_sound"]=[TYPE_INT,TYPE_INT,TYPE_INT,TYPE_STRING,TYPE_VECTOR3]
 		if e[0]=="_pickup_event" and e[1].size()==5:schemas["_pickup_event"].append(TYPE_BOOL)
-		if e[0]=="_impacts" and e[1].size()==4:
+		if e[0]=="_variant_shot_fx" and e[1].size()==4:schemas["_variant_shot_fx"].append(TYPE_VECTOR3)
+		if e[0]=="_impacts" and e[1].size() in [4,5]:
 			schemas["_impacts"].append(TYPE_PACKED_VECTOR3_ARRAY)
 			if not e[1][3] is PackedVector3Array or e[1][3].size()>32 or not e[1][1] is PackedVector3Array or e[1][3].size()!=e[1][1].size() and not e[1][3].is_empty():return false
 			for normal in e[1][3]:
 				if not normal.is_finite() or normal.length_squared()>1.01:return false
+		if e[0]=="_impacts" and e[1].size()==5:
+			schemas["_impacts"].append(TYPE_INT)
+			if not e[1][4] is int or e[1][4]<-1 or e[1][4]>=7:return false
 		if e[0]=="_hurt_fx":
 			if e[1].size()>=8:schemas["_hurt_fx"].append(TYPE_BOOL)
 			if e[1].size()==10:schemas["_hurt_fx"].append_array([TYPE_STRING,TYPE_BOOL])
 			if e[1].size()==10 and e[1][8] is String and e[1][8].length()>80:return false
 		if not typed_values(e[1],schemas[e[0]]):return false
+		if e[0]=="_surface_marks":
+			if e[1][0].size()!=e[1][1].size() or e[1][0].size()>32 or e[1][2]<0 or e[1][2]>=7:return false
+			for point in e[1][0]:
+				if not point.is_finite():return false
+			for normal in e[1][1]:
+				if not normal.is_finite() or absf(normal.length_squared()-1)>.02:return false
 		if e[0]=="_de_grenade_fx" and e[1][1] not in [0,1]:return false
 		if e[0]=="_announcer_cue" and not e[1][0] in preload("res://deathmatch/audio/announcer.gd").CLIPS+LEGACY_ANNOUNCER_CUES:return false
 		if e[0]=="_pickup_event" and (not game_weapon(e[1][3]) or e[1][1]=="weapon" and not game_weapon(e[1][2])):return false
@@ -221,6 +243,8 @@ func apply_frame(frame: Dictionary,play_events: bool=true) -> void:
 		var locomotion: Dictionary=snap[10].get("locomotion",{}).get(row[0],{})
 		state.jetpack=locomotion.get("jetpack_owned",false);game.jetpacks.configure_player(row[0])
 		if actor.jetpack_enabled:actor.Jetpack.reconcile(actor,locomotion.get("jetpack",{}))
+		actor.configure_tribes(game.armory.effective()=="tribes")
+		if actor.tribes_enabled:actor.Tribes.reconcile(actor,locomotion.get("tribes",{}))
 	for i in mini(snap[1].size(),game.pickups.size()):
 		game.pickups[i].available=snap[1][i]==1
 		if is_instance_valid(game.pickups[i].node):game.pickups[i].node.visible=snap[1][i]==1 and game.jetpacks.allowed(game.pickups[i])

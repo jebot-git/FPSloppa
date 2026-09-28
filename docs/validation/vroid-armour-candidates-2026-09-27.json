@@ -1,0 +1,280 @@
+{
+  "date": "2026-09-27",
+  "purpose": "Inspect locally supplied VRoid Hub models as armour candidates",
+  "blender_version": "5.2.0 LTS",
+  "vrm_addon": "4.7.2",
+  "imported": 6,
+  "armour_combinations": 15,
+  "checks": 880,
+  "failed_checks": 0,
+  "models": [
+    {
+      "file": "/home/blux/Downloads/27048436064424208.vrm",
+      "bytes": 15794880,
+      "sha256": "759696d8c39ef38022a1998e868fe05e93d63c6070f2618c78b6492dbcbc78a3",
+      "version": "0.0",
+      "meta": {
+        "version": "",
+        "author": "",
+        "contactInformation": "",
+        "reference": "",
+        "title": "",
+        "texture": 25,
+        "allowedUserName": "Everyone",
+        "violentUssageName": "Disallow",
+        "sexualUssageName": "Disallow",
+        "commercialUssageName": "Disallow",
+        "otherPermissionUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=disallow",
+        "licenseName": "Other",
+        "otherLicenseUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=disallow"
+      },
+      "triangles": 46305,
+      "materials": 14,
+      "springs": 24,
+      "texture_pixels": 33620160,
+      "body": {
+        "name": "Body",
+        "vertices": 9920,
+        "triangles": 17113,
+        "materials": 6,
+        "vertex_groups": 147,
+        "dimensions": [
+          1.4189655780792236,
+          0.2881007194519043,
+          1.8044753074645996
+        ]
+      },
+      "blender_import": "{'FINISHED'}",
+      "armour_test": null,
+      "gameplay_eligible": false,
+      "bundled": false
+    },
+    {
+      "file": "/home/blux/Downloads/4746773052303664305.vrm",
+      "bytes": 15343864,
+      "sha256": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e",
+      "version": "0.0",
+      "meta": {
+        "allowedUserName": "Everyone",
+        "author": "KEIV",
+        "commercialUssageName": "Disallow",
+        "licenseName": "Other",
+        "otherLicenseUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "otherPermissionUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "sexualUssageName": "Disallow",
+        "texture": 22,
+        "title": "MEC-VAL-白狐",
+        "violentUssageName": "Allow"
+      },
+      "triangles": 44651,
+      "materials": 15,
+      "springs": 25,
+      "texture_pixels": 37290176,
+      "body": {
+        "name": "Body.001",
+        "vertices": 9165,
+        "triangles": 15237,
+        "materials": 7,
+        "vertex_groups": 161,
+        "dimensions": [
+          1.4186069965362549,
+          0.29176849126815796,
+          1.8044754266738892
+        ]
+      },
+      "blender_import": "{'FINISHED'}",
+      "armour_test": {
+        "avatar": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e",
+        "checks": 176,
+        "failures": [],
+        "file": "/home/blux/Downloads/4746773052303664305.vrm",
+        "exit_code": 0,
+        "script_errors": false
+      },
+      "gameplay_eligible": true,
+      "bundled": false
+    },
+    {
+      "file": "/home/blux/Downloads/686393150552586347.vrm",
+      "bytes": 16891520,
+      "sha256": "309ac37d16cd592126006000d58375f4445baf603d8a17bfa31fb51583b4ab8f",
+      "version": "0.0",
+      "meta": {
+        "allowedUserName": "Everyone",
+        "author": "KEIV",
+        "commercialUssageName": "Disallow",
+        "licenseName": "Other",
+        "otherPermissionUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "sexualUssageName": "Disallow",
+        "texture": 27,
+        "title": "MECHANICAL-VALKYRIE-F.L.2",
+        "violentUssageName": "Allow",
+        "otherLicenseUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow"
+      },
+      "triangles": 46307,
+      "materials": 20,
+      "springs": 25,
+      "texture_pixels": 42664064,
+      "body": {
+        "name": "Body.002",
+        "vertices": 10802,
+        "triangles": 17115,
+        "materials": 12,
+        "vertex_groups": 162,
+        "dimensions": [
+          1.4186069965362549,
+          0.3044757544994354,
+          1.8172378540039062
+        ]
+      },
+      "blender_import": "{'FINISHED'}",
+      "armour_test": {
+        "avatar": "309ac37d16cd592126006000d58375f4445baf603d8a17bfa31fb51583b4ab8f",
+        "checks": 176,
+        "failures": [],
+        "file": "/home/blux/Downloads/686393150552586347.vrm",
+        "exit_code": 0,
+        "script_errors": false
+      },
+      "gameplay_eligible": true,
+      "bundled": false
+    },
+    {
+      "file": "/home/blux/Downloads/7070848076468546799.vrm",
+      "bytes": 15932952,
+      "sha256": "185f689b139462bcf39fc371b84e9cca0b537a57bb07646b133cf1fd573100cd",
+      "version": "0.0",
+      "meta": {
+        "allowedUserName": "Everyone",
+        "author": "KEIV",
+        "commercialUssageName": "Disallow",
+        "licenseName": "Other",
+        "otherLicenseUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "otherPermissionUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "sexualUssageName": "Disallow",
+        "texture": 25,
+        "title": "CLONE-VAL",
+        "violentUssageName": "Allow"
+      },
+      "triangles": 39257,
+      "materials": 18,
+      "springs": 18,
+      "texture_pixels": 41615552,
+      "body": {
+        "name": "Body.003",
+        "vertices": 9478,
+        "triangles": 15655,
+        "materials": 10,
+        "vertex_groups": 143,
+        "dimensions": [
+          1.4186069965362549,
+          0.3044757843017578,
+          1.8044753074645996
+        ]
+      },
+      "blender_import": "{'FINISHED'}",
+      "armour_test": {
+        "avatar": "185f689b139462bcf39fc371b84e9cca0b537a57bb07646b133cf1fd573100cd",
+        "checks": 176,
+        "failures": [],
+        "file": "/home/blux/Downloads/7070848076468546799.vrm",
+        "exit_code": 0,
+        "script_errors": false
+      },
+      "gameplay_eligible": true,
+      "bundled": false
+    },
+    {
+      "file": "/home/blux/Downloads/7136124279442785104.vrm",
+      "bytes": 16598940,
+      "sha256": "bc8c7d17733dd8bfa1ea13886d90265a8b4ad79c6759384ad2be0998abbbfe5c",
+      "version": "0.0",
+      "meta": {
+        "allowedUserName": "Everyone",
+        "author": "KEIV",
+        "commercialUssageName": "Disallow",
+        "licenseName": "Other",
+        "otherPermissionUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "sexualUssageName": "Disallow",
+        "texture": 25,
+        "title": "MECHANICAL-VALKYRIE-F.L.1",
+        "violentUssageName": "Allow",
+        "otherLicenseUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow"
+      },
+      "triangles": 45189,
+      "materials": 18,
+      "springs": 25,
+      "texture_pixels": 42139776,
+      "body": {
+        "name": "Body.004",
+        "vertices": 9664,
+        "triangles": 15997,
+        "materials": 10,
+        "vertex_groups": 161,
+        "dimensions": [
+          1.4186069965362549,
+          0.3044757544994354,
+          1.8172378540039062
+        ]
+      },
+      "blender_import": "{'FINISHED'}",
+      "armour_test": {
+        "avatar": "bc8c7d17733dd8bfa1ea13886d90265a8b4ad79c6759384ad2be0998abbbfe5c",
+        "checks": 176,
+        "failures": [],
+        "file": "/home/blux/Downloads/7136124279442785104.vrm",
+        "exit_code": 0,
+        "script_errors": false
+      },
+      "gameplay_eligible": true,
+      "bundled": false
+    },
+    {
+      "file": "/home/blux/Downloads/9015280639729005329.vrm",
+      "bytes": 16388304,
+      "sha256": "9f4cd7405c23a762650118dbfade650ff7712f7c17b1985462d3b461fca86d5d",
+      "version": "0.0",
+      "meta": {
+        "allowedUserName": "Everyone",
+        "author": "KEIV",
+        "commercialUssageName": "Disallow",
+        "licenseName": "Other",
+        "otherLicenseUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "otherPermissionUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+        "sexualUssageName": "Disallow",
+        "texture": 25,
+        "title": "MEC-VAL-F.L.1_ver.L.O.M",
+        "violentUssageName": "Allow"
+      },
+      "triangles": 45189,
+      "materials": 18,
+      "springs": 25,
+      "texture_pixels": 41615552,
+      "body": {
+        "name": "Body.005",
+        "vertices": 9664,
+        "triangles": 15997,
+        "materials": 10,
+        "vertex_groups": 161,
+        "dimensions": [
+          1.4186069965362549,
+          0.3044757544994354,
+          1.8172378540039062
+        ]
+      },
+      "blender_import": "{'FINISHED'}",
+      "armour_test": {
+        "avatar": "9f4cd7405c23a762650118dbfade650ff7712f7c17b1985462d3b461fca86d5d",
+        "checks": 176,
+        "failures": [],
+        "file": "/home/blux/Downloads/9015280639729005329.vrm",
+        "exit_code": 0,
+        "script_errors": false
+      },
+      "gameplay_eligible": true,
+      "bundled": false
+    }
+  ],
+  "gallery": "test-results/tribes-arsenal/vroid-inspection/candidates-front.png",
+  "note": "Tests apply existing original project armour to the candidate avatars. They do not validate a new armour body derived from candidate geometry. Originals remain in Downloads; no candidate asset has entered the base bundle."
+}

@@ -11,6 +11,7 @@ const MAX_PROJECTILES:=256
 func setup(arena: Node) -> void:game=arena;cs.setup(arena)
 func reset() -> void:cs.reset();charging.clear();discs.clear();predictions.clear();charge_view.clear()
 func tick_input(id: int,delta: float) -> void:
+	if game.armory.effective()=="tribes":game.match_mode.tribes.combat.tick_input(id,delta);return
 	if game.armory.effective()=="cs16":cs.tick_input(id,delta);return
 	var s: Dictionary=game.players[id]
 	if s.dead or s.spectator or game.lobby.active() or game.intermission>0:
@@ -44,6 +45,7 @@ func tick_input(id: int,delta: float) -> void:
 		charging[id]={"weapon":weapon,"alt":alt,"time":delta,"maximum":float(d.get("charge_max",2.0))};return
 	if (primary or alt) and s.cooldown<=0:fire(id,alt)
 func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -> bool:
+	if game.armory.effective()=="tribes":return game.match_mode.tribes.combat.fire(id)
 	if cs_shot and game.armory.effective()!="cs16":return false
 	if game.armory.effective()=="cs16" and not cs_shot:return cs.shoot(id)
 	if not game.multiplayer.is_server() or not game.players.has(id):return false
@@ -74,7 +76,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 	if d.ammo>=0:s.ammo[d.ammo]-=d.cost*count
 	s.cooldown=d.cycle;s.invulnerable=0;s.shots+=1
 	if d.ammo>=0:game.match_mode.fortress.revealed(id)
-	game._variant_shot_fx.rpc(id,w,cs.suppressed(id) if cs_shot else alternate)
+	if not cs_shot:game._variant_shot_fx.rpc(id,w,alternate)
 	var start: Vector3=solution.origin;var forward: Vector3=-game._weapon_transform(id).basis.z
 	if game.armory.kind=="quake" and w==8 and game.fighters[id].in_water:
 		var cells: int=1+s.ammo[3];s.ammo[3]=0
@@ -86,24 +88,32 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 		for pellet in int(d.pellets):
 			var basis: Basis=game._weapon_transform(id).basis
 			var accuracy: float=game.fighters[id].accuracy_scale()
-			var climb: float=float(d.get("recoil_pitch",0.0)) if cs_shot else 0.0
-			var direction: Vector3=(forward+basis.y*tan(deg_to_rad(climb))+basis.x*randf_range(-1,1)*tan(deg_to_rad(d.spread*accuracy))+basis.y*randf_range(-1,1)*tan(deg_to_rad(d.vertical*accuracy))).normalized()
+			var direction: Vector3=basis*cs.spray_direction(id,d,pellet) if cs_shot else (forward+basis.x*randf_range(-1,1)*tan(deg_to_rad(d.spread*accuracy))+basis.y*randf_range(-1,1)*tan(deg_to_rad(d.vertical*accuracy))).normalized()
 			var reach: float=d.get("surface_range",d.range) if kind=="hammer" else d.range
-			var hit: Dictionary=game._trace(start,start+direction*reach,id,game._shot_rewind(id),float(d.get("beam_radius",0.0)))
-			var melee_reaches: bool=kind!="hammer" or start.distance_to(hit.position)<=float(d.range)
-			var damage: int=d.damage
-			if d.has("head_damage") and hit.id!=0 and not hit.get("vehicle",false) and hit.get("headshot",false):damage=int(d.get("head_damage",100))
-			if cs_shot:damage=cs.falloff(d,damage,start.distance_to(hit.position))
-			if melee_reaches:game._damage_map_hit(hit,id,damage)
-			if hit.id!=0 and melee_reaches:
-				game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false) and d.range>3 and d.name!="FLAMETHROWER",d.get("heavy_automatic",false))
-				if d.name=="FLAMETHROWER":game.match_mode.fortress.ignite(hit.id,id)
-			if hit.has("building") and melee_reaches:game.match_mode.fortress.damage_building(hit.building,id,damage)
-			if kind=="hammer" and hit.hit and hit.id==0 and not hit.has("building"):
-				hammer_surface(id,d,alternate,charge,start,hit.position,direction)
-			if d.name=="FLAMETHROWER":game._ability_fx.rpc("flame",start,hit.position,s.team)
-			else:endpoints.append(hit.position);surfaces.append(hit.get("surface_normal",Vector3.ZERO))
-		if not endpoints.is_empty():game._impacts.rpc(start,endpoints,w,surfaces)
+			var hits: Array
+			var runtime=game.get_node_or_null("Map/MapRuntime") if cs_shot else null
+			if runtime and runtime.ballistics.ready:
+				hits=runtime.ballistics.trace(game,start,start+direction*reach,id,game._shot_rewind(id),w)
+			else:hits=[game._trace(start,start+direction*reach,id,game._shot_rewind(id),float(d.get("beam_radius",0.0)))]
+			for hit in hits:
+				var melee_reaches: bool=kind!="hammer" or start.distance_to(hit.position)<=float(d.range)
+				var damage: int=d.damage
+				if d.has("head_damage") and hit.id!=0 and not hit.get("vehicle",false) and hit.get("headshot",false):damage=int(d.get("head_damage",100))
+				if cs_shot:damage=maxi(1,roundi(cs.falloff(d,damage,start.distance_to(hit.position))*float(hit.get("damage_scale",1.0))))
+				if melee_reaches:game._damage_map_hit(hit,id,damage)
+				if hit.id!=0 and melee_reaches:
+					game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false) and d.range>3 and d.name!="FLAMETHROWER",d.get("heavy_automatic",false))
+					if d.name=="FLAMETHROWER":game.match_mode.fortress.ignite(hit.id,id)
+				if hit.has("building") and melee_reaches:game.match_mode.fortress.damage_building(hit.building,id,damage)
+				if kind=="hammer" and hit.hit and hit.id==0 and not hit.has("building"):
+					hammer_surface(id,d,alternate,charge,start,hit.position,direction)
+				if d.name=="FLAMETHROWER":
+					game._ability_fx.rpc("flame",start,hit.position,s.team)
+					preload("res://deathmatch/effects/surface_marks.gd").contact(game,hit,start,start+direction*reach,d)
+				else:
+					endpoints.append(hit.position);surfaces.append(hit.get("surface_normal",Vector3.ZERO))
+					if float(d.get("beam_radius",0))>0:preload("res://deathmatch/effects/surface_marks.gd").contact(game,hit,start,start+direction*reach,d)
+		if not endpoints.is_empty():game._impacts.rpc(start,endpoints,w,surfaces,preload("res://deathmatch/effects/surface_marks.gd").profile(d))
 		return true
 	for shot in (1 if kind=="bio" else count):
 		for pellet in int(d.pellets):
@@ -136,12 +146,16 @@ func launch(owner_id: int,weapon: int,position: Vector3,direction: Vector3,extra
 	if game.projectiles.size()>=MAX_PROJECTILES:return -1
 	game.projectile_id+=1
 	game._projectile_spawn.rpc(game.projectile_id,owner_id,weapon,position,direction,atan2(-direction.x,-direction.z),asin(clampf(direction.y,-1,1)),extra)
-	if weapon==11:
+	if weapon==11 and game.armory.kind=="ut99":
 		if discs.has(owner_id) and game.projectiles.has(discs[owner_id]):game._projectile_end.rpc(discs[owner_id],position,11)
 		discs[owner_id]=game.projectile_id
 	return game.projectile_id
 func definition(owner_id: int,weapon: int,extra: Dictionary) -> Dictionary:
 	var d: Dictionary=game.match_mode.fortress.weapon_data(owner_id,weapon).duplicate()
+	if game.armory.effective()=="tribes" and extra.get("tribes_turret",false):
+		d.name="REMOTE TURRET";d.damage=roundi(.1*game.match_mode.tribes.Arsenal.UNIT);d.speed=80.0;d.fuse=4.0;d.turret_team=int(extra.get("turret_team",-1))
+	if game.armory.effective()=="tribes" and extra.has("fixed_turret"):
+		d=preload("res://deathmatch/tribes/fixed_defence_data.gd").projectile(str(extra.fixed_turret),int(extra.get("turret_team",-1)),int(extra.get("target",0)))
 	if extra.get("nail_fallback",false) and game.armory.kind=="quake" and weapon==7:d=game.match_mode.fortress.weapon_data(owner_id,5).duplicate()
 	if extra.get("alternate",false):d.merge(d.get("alt",{}),true)
 	if extra.get("fragment",false):d=game.armory.data(4).duplicate();d.pellets=1;d.fuse=.65
@@ -149,6 +163,7 @@ func definition(owner_id: int,weapon: int,extra: Dictionary) -> Dictionary:
 	if d.get("kind","")=="bio":d.damage*=scale;d.splash*=scale;d.blast_radius=minf(4,1.8+scale*.2);d.radius*=sqrt(scale)
 	return d
 func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) -> void:
+	if game.armory.effective()=="tribes":game.match_mode.tribes.combat.tick_projectile(id,delta,movement_start,targets);return
 	if not game.projectiles.has(id):return
 	var p: Dictionary=game.projectiles[id];var d: Dictionary=p.definition
 	p.life-=delta
@@ -186,6 +201,7 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) ->
 						if not p.has("pierced"):p["pierced"]={}
 						p.pierced[hit.id]=true;p.position=hit.position;return
 				explode(id,hit.position,hit.id if game.armory.kind=="quake" and d.kind=="rocket" else 0,hit.id if hit.get("vehicle",false) else 0);return
+			preload("res://deathmatch/effects/surface_marks.gd").contact(game,hit,p.position,end,d)
 			var ray: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(p.position,end+p.velocity.normalized()*(d.radius+.2),1))
 			var normal: Vector3=ray.get("normal",-p.velocity.normalized())
 			p.position=hit.position+normal*(d.radius+.015)
@@ -204,12 +220,13 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) ->
 func explode(id: int,where: Vector3,ignore: int=0,hull_impact: int=0) -> void:
 	if not game.projectiles.has(id):return
 	var p: Dictionary=game.projectiles[id];var d: Dictionary=p.definition
-	if float(d.get("splash",0))>0:blast(where,p.owner,int(d.splash),float(d.blast_radius),d.name,ignore,game.armory.kind=="quake" and not d.get("incendiary",false),hull_impact,d.get("incendiary",false))
+	if float(d.get("splash",0))>0:blast(where,p.owner,int(d.splash),float(d.blast_radius),d.name,ignore,game.armory.kind=="quake" and not d.get("incendiary",false),hull_impact,d.get("incendiary",false),d)
 	if d.kind=="flak_shell":
 		for i in 6:launch(p.owner,4,where+Vector3.UP*.15,Vector3(randf_range(-1,1),randf_range(.1,1),randf_range(-1,1)).normalized(),{"fragment":true})
 	game._projectile_end.rpc(id,where,p.weapon)
-func blast(where: Vector3,owner_id: int,damage: int,radius: float,title: String,ignore: int=0,quake_falloff: bool=false,hull_impact: int=0,ignite: bool=false) -> void:
+func blast(where: Vector3,owner_id: int,damage: int,radius: float,title: String,ignore: int=0,quake_falloff: bool=false,hull_impact: int=0,ignite: bool=false,mark_definition: Dictionary={}) -> void:
 	if not game.multiplayer.is_server() or game.intermission>0 or game.lobby.active():return
+	preload("res://deathmatch/effects/surface_marks.gd").blast(game,where,mark_definition if not mark_definition.is_empty() else {"name":title,"kind":"bio" if title=="BIO RIFLE" else "shock_orb" if title=="SHOCK COMBO" else "","splash":damage,"blast_radius":radius})
 	game.match_mode.fortress.blast(where,owner_id,damage,radius)
 	var map_runtime=game.get_node_or_null("Map/MapRuntime")
 	if map_runtime:map_runtime.triggers.blast(where,owner_id,damage,radius)
@@ -264,7 +281,7 @@ func cancel_player(id: int) -> void:
 		if game.projectiles.has(disc):game._projectile_end.rpc(disc,game.projectiles[disc].position,11)
 		discs.erase(id)
 func predict(id: int,command: Dictionary) -> void:
-	if game.armory.effective()=="cs16":return # Clip/reload/burst audio follows accepted server shots.
+	if game.armory.effective() in ["cs16","tribes"]:return # Clip/reload/burst audio follows accepted server shots.
 	if game.headless or game.multiplayer.is_server() or not game.players.has(id):return
 	var s: Dictionary=game.players[id];var w: int=s.weapon;var alt: bool=command.get("alt_fire",false)
 	if game.armory.vr_physical_only(w) and (s.vr_device or command.has("xr")):return

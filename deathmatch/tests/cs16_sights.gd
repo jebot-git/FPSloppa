@@ -15,9 +15,9 @@ func run():
 		var model:=Models.make(slot);stage.add_child(model)
 		var pose:=Transform3D(Basis.from_euler(Vector3(.23,.73,-.31)),Vector3(2,3,4))
 		model.transform=Art.held_transform(pose,slot,Art.VR_SCALE,"cs16")
-		check(Guide.supports_weapon(slot,"cs16")== (slot not in [0,9]),Models.NAMES[slot]+" uses the intended laser policy")
+		check(not Guide.supports_weapon(slot,"cs16"),Models.NAMES[slot]+" uses physical sights without a laser guide")
 		guide.update(pose,slot,true,"cs16")
-		check(guide.visible==(slot not in [0,9]),Models.NAMES[slot]+" actual laser visibility matches policy")
+		check(not guide.visible,Models.NAMES[slot]+" actual laser is hidden")
 		if slot>0:
 			check(model.has_meta("sight_rear") and model.has_meta("sight_front"),Models.NAMES[slot]+" exports physical sight landmarks")
 			if model.has_meta("sight_front"):
@@ -38,6 +38,10 @@ func run():
 				if not hit.is_empty():print("OBSTRUCTION ",model.to_local(hit.position)," ",hit.collider.get_parent().name)
 		model.free()
 	check(not Guide.supports_weapon(9,"ut99") and not Guide.supports_weapon(2,"tf_sniper"),"Existing sniper rules also remain laser-free")
+	guide.update(Transform3D.IDENTITY,2,true,"doom");check(guide.visible,"Doom weapon retains its aiming guide")
+	guide.update(Transform3D.IDENTITY,2,true,"cs16");check(not guide.visible,"Switching to CS hides an already visible guide")
+	guide.update(Transform3D.IDENTITY,2,true,"quake");check(guide.visible,"Switching back to Quake restores its aiming guide")
+	check(Guide.supports_weapon(1,"ut99") and Guide.supports_weapon(2,"ut99"),"UT99 non-sniper guide rules are preserved")
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/cs16/sights.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "))
 	print("CS16_SIGHTS_RESULT ",JSON.stringify(result));stage.free();quit(0 if failures.is_empty() else 1)

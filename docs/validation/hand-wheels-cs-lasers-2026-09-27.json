@@ -1,0 +1,55 @@
+{
+  "date_utc": "2026-09-27T12:30:16.038491+00:00",
+  "changes": [
+    "VR weapon and buy wheels use a 0.38 m panel instead of 1.05 m, 0.23 m above the dominant grip.",
+    "Panel translation follows the grip in the shared XR origin; it faces the eyes without following wrist roll.",
+    "Handedness changes and shop pages retain following; dominant tracking loss closes the wheel.",
+    "Physical right-stick selection, persistence and cancellation are retained. Desktop purchase layout is unchanged.",
+    "All CS16 weapons disable the existing local aiming guide. Other arsenals retain their previous policy; menu pointer lasers are separate. No remote aim-guide renderer exists."
+  ],
+  "tests": [
+    {
+      "script": "deathmatch/tests/weapon_wheel.gd",
+      "log": "test-results/hand-wheels/weapon.log",
+      "checks_passed": 116,
+      "failures": []
+    },
+    {
+      "script": "deathmatch/tests/defusal_ui.gd",
+      "log": "test-results/hand-wheels/buy.log",
+      "checks_passed": 22,
+      "failures": []
+    },
+    {
+      "script": "deathmatch/tests/vr_ui.gd",
+      "log": "test-results/hand-wheels/ui.log",
+      "checks_passed": 60,
+      "failures": []
+    },
+    {
+      "script": "deathmatch/tests/cs16_sights.gd",
+      "log": "test-results/hand-wheels/sights.log",
+      "checks_passed": 73,
+      "failures": []
+    }
+  ],
+  "checks_passed": 271,
+  "reviewed_previews": [
+    "test-results/hand-wheels/buy-right.png",
+    "test-results/hand-wheels/buy-primary-left.png",
+    "test-results/hand-wheels/weapons-moved.png"
+  ],
+  "notes": [
+    "Native render completed; existing PulseAudio shutdown/ObjectDB warnings remain.",
+    "The first purchase run used a relative engine log path and reported a log-directory warning; redirected output records all 22 successful checks. Later runs used absolute engine log paths.",
+    "No headset session was relaunched for these changes. In-headset size/readability remains to be checked."
+  ],
+  "sha256": {
+    "deathmatch/vr/weapon_wheel.gd": "71636609a298e995d8e921fedf959abc6909e1200c97723c81b71b729c94ef87",
+    "deathmatch/vr/rig.gd": "d55146f6766c0c58938dc49ff1b93d0744a5923cb4dc6e4fcb5eba6b44daf26c",
+    "deathmatch/vr/aim_guide.gd": "4c0f4c5ac217f76f6604fd97f464f33604e09457d5b018714cab0b0aa0811e35",
+    "deathmatch/tests/weapon_wheel.gd": "2860470b994bbd992b346793d1da30e0f70d838732932e57997ba0a21b9ba2fd",
+    "deathmatch/tests/defusal_ui.gd": "0b4553e5b69b354d106e0a01a9329b3cb3adbbace47c288c21bc8ca4a35938c7",
+    "deathmatch/tests/cs16_sights.gd": "586ba4cf2957985cebc91af6bed975c1108629af41216771d80bb057d47d0f92"
+  }
+}

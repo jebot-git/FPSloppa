@@ -1,0 +1,35 @@
+{
+  "date": "2026-09-27",
+  "change": "VR USP silencer requires a fresh secondary press with tracked offhand within 0.16 m of the muzzle. Reload operations and held-button transitions cannot attach or remove it.",
+  "authority": "Validated hand poses and physical reload state checked on server; client preserves raw button edge through input filtering.",
+  "coverage": [
+    "left- and right-handed attachment/removal",
+    "out-of-reach held input",
+    "magazine ejection and carried ammunition",
+    "held trigger through completed reload",
+    "tracking loss/recovery and stale/blocked input",
+    "existing desktop and other physical reload behavior"
+  ],
+  "results": {
+    "server_physical_reload": {
+      "checks": 136,
+      "failures": [],
+      "passed": true
+    },
+    "desktop_cs16": {
+      "checks": 70,
+      "failures": [],
+      "passed": true
+    },
+    "simulated_vr_controllers": {
+      "checks": 98,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "total_checks": 304,
+  "limitations": [
+    "Controller integration uses simulated XR, not a physical headset.",
+    "Existing ObjectDB cleanup warnings remain after passing tests."
+  ]
+}

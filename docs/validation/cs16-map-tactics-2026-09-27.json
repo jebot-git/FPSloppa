@@ -1,0 +1,288 @@
+{
+  "date": "2026-09-27",
+  "targeted_validation_passed": true,
+  "all_regressions_passed": false,
+  "scope": "All five DE maps; new brushes on Nuke, Inferno, Aztec and Train; Dust2 geometry unchanged.",
+  "checks": 1095,
+  "tests": [
+    {
+      "name": "defusal_bots",
+      "checks": 11,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "name": "defusal_bot_behavior",
+      "checks": 27,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "name": "cs16_bots",
+      "checks": 12,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "name": "defusal_maps",
+      "checks": 73,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "name": "defusal_tactics",
+      "checks": 363,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "name": "defusal_distribution",
+      "checks": 104,
+      "failures": [],
+      "passed": true
+    }
+  ],
+  "maps": [
+    {
+      "map": "de_dust2_rebuilt",
+      "sha256": "c3ca4817091037e6643e090424b230e3061175ab58fcb07aa984873f86dfb998",
+      "lanes": 4,
+      "holds": 6
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "sha256": "eeeb9d3dc17a43431d61bb66788c00b2860dbfc934500caf05014cb57ae14333",
+      "lanes": 4,
+      "holds": 6,
+      "checks": 49,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "sha256": "0a0cc4619da1933ed8a37e8d20c80570703905b51502806c6a727c03804c9a98",
+      "lanes": 3,
+      "holds": 6,
+      "checks": 186,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "sha256": "d26a45d16c79bab32a359436b92657f15fc79738db7ccb7aceab843e99e1b318",
+      "lanes": 4,
+      "holds": 6,
+      "checks": 217,
+      "failures": [],
+      "passed": true
+    },
+    {
+      "map": "de_train_rebuilt",
+      "sha256": "9fe07919cb7f457b54024ec04b1836a0f470e2d821aba770decfc7d2ad99282b",
+      "lanes": 4,
+      "holds": 6,
+      "checks": 53,
+      "failures": [],
+      "passed": true
+    }
+  ],
+  "additional_cover_audit": {
+    "name": "de_cover",
+    "checks": 409,
+    "failures": [
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #16",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #19",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #23",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #30",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #51"
+    ],
+    "passed": false
+  },
+  "cover_failure_scope": "Five existing Dust2 collision/penetration exit mismatches; Dust2 BSP unchanged from the baseline. No failure on the four rebuilt maps.",
+  "comparison": [
+    {
+      "map": "de_dust2_rebuilt",
+      "before": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 301.133,
+        "map_sha256": "c3ca4817091037e6643e090424b230e3061175ab58fcb07aa984873f86dfb998",
+        "plant_rounds": 5,
+        "planted_samples": 125,
+        "multiple_defuser_samples": 109,
+        "alive_samples": 3311,
+        "roam_samples": 72,
+        "maximum_spawn_exit_seconds": 5.017,
+        "source_sha256": "f10539ec8220b744bf7b37cf14d0223b921392d7faf9250645a70df1ae202c06"
+      },
+      "after": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 317.283,
+        "map_sha256": "c3ca4817091037e6643e090424b230e3061175ab58fcb07aa984873f86dfb998",
+        "plant_rounds": 5,
+        "planted_samples": 110,
+        "multiple_defuser_samples": 0,
+        "alive_samples": 3782,
+        "roam_samples": 93,
+        "maximum_spawn_exit_seconds": 3.75,
+        "source_sha256": "f3970c53e5a66346a523858f9f510efdaf555abc2ec8f46e700d6f2f89f83b5c"
+      }
+    },
+    {
+      "map": "de_nuke_rebuilt",
+      "before": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 223.717,
+        "map_sha256": "69c40d29fd718ace8f33b4883a34e48dacad6314affce5fcbabb46187c4fe617",
+        "plant_rounds": 1,
+        "planted_samples": 16,
+        "multiple_defuser_samples": 13,
+        "alive_samples": 2148,
+        "roam_samples": 65,
+        "maximum_spawn_exit_seconds": 4.467,
+        "source_sha256": "ac91aeaef9c3d17f6057ecbaa8b161aba5506b29990bc157afe20a47fd004f8a"
+      },
+      "after": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 308.15,
+        "map_sha256": "eeeb9d3dc17a43431d61bb66788c00b2860dbfc934500caf05014cb57ae14333",
+        "plant_rounds": 4,
+        "planted_samples": 104,
+        "multiple_defuser_samples": 0,
+        "alive_samples": 3222,
+        "roam_samples": 56,
+        "maximum_spawn_exit_seconds": 4.45,
+        "source_sha256": "5eaf3638ec6c98cf630c7e55774081cc27496c59e3c531176ab6e87389cb913f"
+      }
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "before": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 282.733,
+        "map_sha256": "d2d1f0cacc5c32ce1d2f22e0543e92b2e331c6cf2da607711f3871a49163371a",
+        "plant_rounds": 5,
+        "planted_samples": 100,
+        "multiple_defuser_samples": 86,
+        "alive_samples": 3062,
+        "roam_samples": 69,
+        "maximum_spawn_exit_seconds": 4.783,
+        "source_sha256": "70a803493c6078cd2ad5a1af3149fe22f54c966683c83796a67edaa2d40bd23f"
+      },
+      "after": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 301.583,
+        "map_sha256": "0a0cc4619da1933ed8a37e8d20c80570703905b51502806c6a727c03804c9a98",
+        "plant_rounds": 3,
+        "planted_samples": 92,
+        "multiple_defuser_samples": 0,
+        "alive_samples": 3366,
+        "roam_samples": 59,
+        "maximum_spawn_exit_seconds": 4.617,
+        "source_sha256": "becbcd3a88f445a1a1b71c92af088df513e84c164279426fe25ec995971c6389"
+      }
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "before": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 249.333,
+        "map_sha256": "16a6e2735edeef24e63b930e1276fcf0a01914980079d0050accdffa704d93c9",
+        "plant_rounds": 2,
+        "planted_samples": 56,
+        "multiple_defuser_samples": 51,
+        "alive_samples": 2385,
+        "roam_samples": 92,
+        "maximum_spawn_exit_seconds": 4.467,
+        "source_sha256": "9948ab3ec0c57d70c45cf9a9abcc05d87cd766557c55d6c25174a5a07ecbd2fc"
+      },
+      "after": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 342.217,
+        "map_sha256": "d26a45d16c79bab32a359436b92657f15fc79738db7ccb7aceab843e99e1b318",
+        "plant_rounds": 5,
+        "planted_samples": 100,
+        "multiple_defuser_samples": 0,
+        "alive_samples": 4197,
+        "roam_samples": 217,
+        "maximum_spawn_exit_seconds": 4.683,
+        "source_sha256": "e706be9b86752fc9c9f1b939f32a40e0439b759d727143effc9c0d037d3d4acb"
+      }
+    },
+    {
+      "map": "de_train_rebuilt",
+      "before": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 245.9,
+        "map_sha256": "1afb80e133ed0d1ba0969aca0a7d99ed1dfdefc86fd50f81a529f0603547076b",
+        "plant_rounds": 1,
+        "planted_samples": 21,
+        "multiple_defuser_samples": 19,
+        "alive_samples": 2612,
+        "roam_samples": 60,
+        "maximum_spawn_exit_seconds": 4.5,
+        "source_sha256": "7451e894c7c6fe2c7b62de64366208181457385a10013a84de007fe57f7468f5"
+      },
+      "after": {
+        "completed": true,
+        "rounds": 6,
+        "seconds": 289.017,
+        "map_sha256": "9fe07919cb7f457b54024ec04b1836a0f470e2d821aba770decfc7d2ad99282b",
+        "plant_rounds": 2,
+        "planted_samples": 46,
+        "multiple_defuser_samples": 0,
+        "alive_samples": 3179,
+        "roam_samples": 75,
+        "maximum_spawn_exit_seconds": 5.95,
+        "source_sha256": "04f61ea8ae1772d10074d163fcc44edc26f3ae8591fb5f6fb7b9b514cbb11876"
+      }
+    }
+  ],
+  "completed_rounds": 60,
+  "simulation": "Twelve autonomous bots, seed 7129, six rounds/map, halftime after three; ordinary 60 Hz physics accelerated with --fixed-fps 1000. No forced damage, teleports or round wins.",
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=cZcAfKtbJAY",
+      "title": "Counter Strike 1.6 Best Pro Plays on DUST 2",
+      "upload_date": "20190623",
+      "duration": 281,
+      "inspected": "Contact-sheet frames at 00:00, 00:10, ... 01:50 from the first 120 seconds; no timing claim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=zg1pF-4n_vc",
+      "title": "Counter Strike 1.6 Best Pro Plays on NUKE",
+      "upload_date": "20190405",
+      "duration": 352,
+      "inspected": "Contact-sheet frames at 00:00, 00:10, ... 01:50 from the first 120 seconds; no timing claim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=eovfGE14QNA",
+      "title": "CS 1.6 Top 20 tricks on INFERNO",
+      "upload_date": "20191003",
+      "duration": 239,
+      "inspected": "Contact-sheet frames at 00:00, 00:10, ... 01:50 from the first 120 seconds; no timing claim."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=jBxiEhh2fyg",
+      "title": "CS 1.6 Top 25 tricks on TRAIN",
+      "upload_date": "20200109",
+      "duration": 317,
+      "inspected": "Contact-sheet frames at 00:00, 00:10, ... 01:50 from the first 120 seconds; no timing claim."
+    }
+  ],
+  "study": "docs/CS16-MAP-TACTICS-STUDY.md",
+  "limits": [
+    "One seed is not a competitive balance study.",
+    "Video review used sampled frames, not complete match viewing.",
+    "No new coordinated utility, economy, fake executes or ladder mechanics.",
+    "Native render views checked; headset playtest and release packaging not performed."
+  ]
+}

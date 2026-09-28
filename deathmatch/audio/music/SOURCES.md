@@ -26,8 +26,8 @@ and acoustic drums with short room tails. They retain 44.1 kHz stereo detail in
 compact Vorbis files. Title/lobby use 32 kHz stereo Vorbis and retain editable
 eight-channel MODs. No existing game soundtrack recording or melody is used.
 
-The thirteen active Ogg files total **20,842,464 bytes (19.88 MiB)**. Gameplay is mastered
-to −19 LUFS, title −22 and lobby −21, with a −3 dBTP target before Vorbis encoding.
+The fourteen active Ogg files total **22,906,241 bytes (21.85 MiB)**. Gameplay is mastered
+to −19 LUFS (DE/ST −20), title −22 and lobby −21, with a −3 dBTP target before Vorbis encoding.
 Loop-edge fades prevent sample-boundary clicks. Selection remains asynchronous,
 with 2.5-second crossfades, a separate persistent music volume, and no restart
 when only the map changes within the same mode. Headless servers load no music.

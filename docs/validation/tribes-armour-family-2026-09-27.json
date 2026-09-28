@@ -1,0 +1,139 @@
+{
+  "date": "2026-09-27",
+  "scope": "Coordinated MEC-VAL derived Light/Medium/Heavy replacement armour",
+  "source_author": "KEIV",
+  "source_sha256": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e",
+  "source_notice": "deathmatch/weapons/tribes/SOURCES.md",
+  "geometry": {
+    "light": {
+      "triangles": 8610,
+      "undersuit_triangles": 6242,
+      "bones": 19,
+      "surfaces": 4,
+      "head_mesh": false,
+      "spring_groups": 0,
+      "source_sha256": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e"
+    },
+    "medium": {
+      "triangles": 11442,
+      "undersuit_triangles": 6242,
+      "bones": 19,
+      "surfaces": 4,
+      "head_mesh": false,
+      "spring_groups": 0,
+      "source_sha256": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e"
+    },
+    "heavy": {
+      "triangles": 11828,
+      "undersuit_triangles": 4596,
+      "bones": 19,
+      "surfaces": 4,
+      "head_mesh": false,
+      "spring_groups": 0,
+      "source_sha256": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e"
+    }
+  },
+  "export_audit": [
+    {
+      "class": "light",
+      "vrm_bytes": 928944,
+      "vrm_sha256": "da17dc1fa67ef1fe7d5da652525430dfcad48262b420190e178a38d750db6524",
+      "license_retained": true,
+      "humanoid_bones": 19,
+      "spring_groups": 0,
+      "surfaces": 4,
+      "images": 2
+    },
+    {
+      "class": "medium",
+      "vrm_bytes": 1196808,
+      "vrm_sha256": "0c652725f16edaae23bb427da89841d900407ec7fd951be7be557c5bce51d508",
+      "license_retained": true,
+      "humanoid_bones": 19,
+      "spring_groups": 0,
+      "surfaces": 4,
+      "images": 2
+    },
+    {
+      "class": "heavy",
+      "vrm_bytes": 1328180,
+      "vrm_sha256": "7510b42be3c514ea571da33ccb00ceca38c674ff650dbfb4a89ffa12c079c146",
+      "license_retained": true,
+      "humanoid_bones": 19,
+      "spring_groups": 0,
+      "surfaces": 4,
+      "images": 2
+    }
+  ],
+  "runtime_assets": [
+    {
+      "path": "deathmatch/weapons/tribes/body_light.scn",
+      "bytes": 181466,
+      "sha256": "3c4d89631578c5d918701c9539ba28ea03df119ab33e9a9e2bacaf985ad8f579"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/body_medium.scn",
+      "bytes": 225841,
+      "sha256": "92f8c824a351bf1baa3b1dfbfe5c4f9dbc1140820898e44688b8008189105f35"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/body_heavy.scn",
+      "bytes": 219785,
+      "sha256": "cbe585cde7873420bfd5dd4d1be0d86b5f100eddfa666c451719e57081229549"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/armour-suit.res",
+      "bytes": 896647,
+      "sha256": "4e82e3308f1b3b8a6f38fc0de48342e7db7a25a1ae95486c0c2b3408f67126e4"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/armour-finish.res",
+      "bytes": 243521,
+      "sha256": "1e934088fd7c399abc5a69dd00f713a1a9e6e484426ab659856edc1b55fa1e32"
+    }
+  ],
+  "default_gallery": {
+    "avatar": "",
+    "checks": 202,
+    "failures": []
+  },
+  "cc0_avatar_matrix": {
+    "avatars": 8,
+    "class_combinations": 24,
+    "checks": 1604,
+    "failures": [],
+    "script_errors": false
+  },
+  "total_native_checks": 1806,
+  "visual_review": [
+    "front",
+    "quarter",
+    "back",
+    "crouch",
+    "light-collar",
+    "medium-collar"
+  ],
+  "verified": [
+    "Light has less external coverage; Medium uses the former Light shell",
+    "Light and Medium keep MEC-VAL fitted footwear",
+    "Heavy has broader angular torso/shoulders, flank protection and shortened shin plates",
+    "Light/Medium open neck gaiters face outward and conceal the head-swap seam",
+    "Original heads, hands, facial morphs and per-player team colours retained",
+    "First-person masking and restoration remain functional",
+    "Four surfaces, two shared mipmapped textures and no added spring bones",
+    "Source licence retained in derived VRMs and distributed notices"
+  ],
+  "limitations": [
+    "No headset playtest of this armour revision",
+    "Arbitrary user avatars may require further fit adjustments",
+    "Godot emits the existing one-ObjectDB-instance exit warning"
+  ],
+  "screenshots": [
+    "test-results/tribes-armour-family/front.png",
+    "test-results/tribes-armour-family/quarter.png",
+    "test-results/tribes-armour-family/back.png",
+    "test-results/tribes-armour-family/crouch.png",
+    "test-results/tribes-armour-family/light-collar.png",
+    "test-results/tribes-armour-family/medium-collar.png"
+  ]
+}

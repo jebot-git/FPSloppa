@@ -29,6 +29,7 @@ var accounts: Dictionary={}
 var input_edges: Dictionary={}
 var action_sequences: Dictionary={}
 var bot_times: Dictionary={}
+var tactics=preload("res://deathmatch/bot_ai/defusal.gd").new()
 var carrier:=0
 var held:=false
 var planted:=false
@@ -97,6 +98,7 @@ func clear_visuals():
 	if is_instance_valid(panel):panel.queue_free()
 	panel=null
 func clear_bomb():
+	tactics.assigned=0;tactics.assignment_until=0;tactics.assignment_round=-1
 	carrier=0;held=false;planted=false;planted_site=-1;fuse_end=0;armed_until=0;arm_index=0;defuse_index=0;defuser=0;defuse_touch=0;cut_mask=0;key_at=0
 	arm_code=random_code(4);defuse_code=random_code(8)
 static func random_code(count: int) -> Array:
@@ -122,6 +124,14 @@ func spawn_loadout(id: int):
 	a.tool=false
 	if not spawning and phase in ["live","post","finished"]:s.dead=true;s.hp=0;s.respawn_at=INF
 func begin_round():
+	# Authored DE sliding leaves return to their closed position each round.
+	# Existing mover snapshots replicate the transform; no new network message.
+	for i in game.gates.size():
+		var gate: Dictionary=game.gates[i]
+		if gate.node.get_script()!=preload("res://deathmatch/maps/entity.gd") or int(gate.node.attributes.get("_de_reset",0))!=1:continue
+		if gate.open:game._gate_state.rpc(i,false)
+		if gate.has("motion_tween") and is_instance_valid(gate.motion_tween):gate.motion_tween.kill()
+		gate.open=false;gate.until=0.0;gate.node.position=gate.base_position
 	var halftime: bool=not halftime_done and round_id==win_limit-1 and round_id>0
 	if halftime:attacking=1-attacking;losses=[0,0];halftime_done=true
 	round_id+=1;clear_bomb();input_edges.clear();bot_times.clear();utility.new_round()
@@ -347,21 +357,7 @@ func bot_stow_objective(id: int):
 	if defuser==id:reset_defuse()
 	account(id).tool=false
 func bot_goals(ai,id: int,rows: Array):
-	var target: Vector3=sites[round_id%2]
-	if planted:
-		target=bomb_position
-		var floor_hit:=ray_surface(bomb_position+Vector3.UP*.1,bomb_position-Vector3.UP*5)
-		if not floor_hit.is_empty():target=floor_hit.position+Vector3.UP*.05
-		if role(id)==1 and defuser in [0,id]:ai.candidate(rows,"de:defuse","objective",target,600,true)
-		else:ai.candidate(rows,"de:guard:%s"%id,"defend",ai.defense_point(id,target),220,true)
-	elif role(id)==0:
-		if carrier==id:ai.candidate(rows,"de:plant","objective",target,550,true)
-		elif carrier==0:ai.candidate(rows,"de:recover","objective",bomb_position,480,true)
-		else:ai.candidate(rows,"de:escort","objective",target,250,true)
-	# defense_point already spreads the squad around the sites. A shared key
-	# applies the planner's exclusive-goal penalty once per defender, making
-	# spawn roaming outrank site defense for the last members of a 6v6 team.
-	else:ai.candidate(rows,"de:site:%s"%id,"defend",ai.defense_point(id,sites[ai.team_rank(id)%2]),230,true)
+	tactics.goals(self,ai,id,rows)
 func nearby_weapon(id: int) -> int:
 	if not enabled() or phase not in ["prepare","live"] or not alive(id) or busy(id):return -1
 	var s: Dictionary=game.players[id];var origin: Vector3=game.fighters[id].position
@@ -439,7 +435,8 @@ func plant(id: int,index: int=-1) -> bool:
 	var candidate:=placement(id)
 	if candidate.is_empty() or index>=0 and candidate.site!=index:return false
 	planted=true;held=false;carrier=0;planted_site=candidate.site;bomb_position=candidate.pose.origin;bomb_basis=candidate.pose.basis;fuse_end=game.clock+fuse_seconds;armed_until=0
-	credit(id,300);game._announcement.rpc("BOMB PLANTED · SITE "+("A" if planted_site==0 else "B"));return true
+	credit(id,300);game._announcement.rpc("BOMB PLANTED · SITE "+("A" if planted_site==0 else "B"))
+	game.announcer.defusal_event("de_bomb_planted");return true
 func stow_items(id: int):
 	if carrier==id and held:held=false;arm_index=0;armed_until=0
 	if account(id).tool and defuser==id:reset_defuse()
@@ -560,6 +557,7 @@ func finish_round(winner: int,reason: String):
 		if planted and s.team==attacking and winner!=attacking:bonus+=800
 		credit(id,bonus);account(id).tool=false
 	game._announcement.rpc("%s · %s WIN · %d : %d"%[reason,"T" if winner==attacking else "CT",mode.scores[0],mode.scores[1]])
+	game.announcer.defusal_event("de_terrorists_win" if winner==attacking else "de_counter_terrorists_win")
 	game.server_log.record("de_round",{"round":round_id,"winner":winner,"reason":reason,"scores":mode.scores.duplicate()},1)
 	held=false;defuser=0
 func status(id: int=0) -> String:

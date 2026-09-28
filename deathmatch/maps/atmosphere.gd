@@ -10,6 +10,7 @@ const PROFILES={
  "void":[Color(.013,.02,.06),Color(.11,.16,.25)]
 }
 const MAPS={
+ "ctf_stonehenge":"works",
  "tb_cindercoil":"works",
  "de_dust2_rebuilt":"desert","de_nuke_rebuilt":"desert","de_inferno_rebuilt":"desert","de_aztec_rebuilt":"works","de_train_rebuilt":"coast",
  "tf_vesper":"abbey","tf_pressureworks":"works","as_hislop":"works","as_frigate":"coast",

@@ -1,6 +1,6 @@
 extends RefCounted
 const Profile=preload("res://deathmatch/profile.gd")
-const KEYS={"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"jump":KEY_SPACE,"slow":KEY_SHIFT,"use":KEY_E,"melee":KEY_F,"scores":KEY_TAB,"chat":KEY_ENTER,"team_chat":KEY_Y,"team_ptt":KEY_B,"ptt":KEY_V,"crouch":KEY_CTRL,"prone":KEY_Z,"down":KEY_CTRL,"reload":KEY_R,"fire":-MOUSE_BUTTON_LEFT,"alt_fire":-MOUSE_BUTTON_RIGHT,"offhand_fire":-MOUSE_BUTTON_RIGHT,"next_weapon":-MOUSE_BUTTON_WHEEL_UP,"previous_weapon":-MOUSE_BUTTON_WHEEL_DOWN}
+const KEYS={"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"jump":KEY_SPACE,"slow":KEY_SHIFT,"use":KEY_E,"melee":KEY_F,"scores":KEY_TAB,"chat":KEY_ENTER,"team_chat":KEY_Y,"team_ptt":KEY_B,"ptt":KEY_V,"crouch":KEY_CTRL,"prone":KEY_Z,"down":KEY_CTRL,"reload":KEY_R,"jetpack":KEY_Q,"fire":-MOUSE_BUTTON_LEFT,"alt_fire":-MOUSE_BUTTON_RIGHT,"offhand_fire":-MOUSE_BUTTON_RIGHT,"next_weapon":-MOUSE_BUTTON_WHEEL_UP,"previous_weapon":-MOUSE_BUTTON_WHEEL_DOWN}
 const VR={"reload":"weapon:ax_button","ability":"weapon:ax_button","jetpack":"weapon:ax_button","fire":"weapon:trigger","alt_fire":"support:trigger","offhand_fire":"support:trigger","support":"support:grip","jump":"move:primary_click","slow":"move:none","use":"move:ax_button","scores":"move:by_button","menu":"turn:by_button","ptt":"support:grip","weapon_wheel":"right:primary_click"}
 const INPUTS=["trigger","grip","ax_button","by_button","primary_click","none"]
 var keys:=KEYS.duplicate()

@@ -1,0 +1,112 @@
+{
+  "date": "2026-09-27",
+  "targeted_checks": 980,
+  "targeted_passed": true,
+  "tests": [
+    {
+      "name": "surface_marks",
+      "checks": 78,
+      "failures": []
+    },
+    {
+      "name": "bullet_marks",
+      "checks": 21,
+      "failures": []
+    },
+    {
+      "name": "weapon_variants",
+      "checks": 71,
+      "failures": []
+    },
+    {
+      "name": "cs16",
+      "checks": 70,
+      "failures": []
+    },
+    {
+      "name": "tribes_arsenal",
+      "checks": 37,
+      "failures": []
+    },
+    {
+      "name": "inferno_layout",
+      "checks": 186,
+      "failures": []
+    },
+    {
+      "name": "dust2_layout",
+      "checks": 81,
+      "failures": []
+    },
+    {
+      "name": "defusal_tactics",
+      "checks": 363,
+      "failures": []
+    },
+    {
+      "name": "defusal_maps",
+      "checks": 73,
+      "failures": []
+    }
+  ],
+  "draw_calls_for_128_marks": 1,
+  "styles": 7,
+  "decoration_guard_rejects_old_inferno_overlap": true,
+  "broader_penetration_audit": {
+    "checks": 409,
+    "failures": [
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #16",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #19",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #23",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #30",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #51"
+    ],
+    "note": "Same five Dust2 failures recorded in the prior CS16 study; separate from targeted passing checks."
+  },
+  "maps": {
+    "de_dust2_rebuilt": "37b7cab3cf9264d07819f66e9c8e185bd81fdaba96990f7f23cbcd7da41fb867",
+    "de_inferno_rebuilt": "209038cf9eea48574e843f2e252b71bb02664b50cd1a45f9998695f1955c18d9"
+  },
+  "comparison_provenance": [
+    {
+      "map": "de_nuke_rebuilt",
+      "before_source": "Reconstructed by reversing study geometry edits",
+      "before_bsp_sha256": "8f2a8870fa5c2bf19c1187ceafa14601bb038a6bffdec27da9a90940bf64ac0f",
+      "study_before_bsp_sha256": "69c40d29fd718ace8f33b4883a34e48dacad6314affce5fcbabb46187c4fe617",
+      "after_bsp_sha256": "eeeb9d3dc17a43431d61bb66788c00b2860dbfc934500caf05014cb57ae14333"
+    },
+    {
+      "map": "de_inferno_rebuilt",
+      "before_source": "Reconstructed by reversing study geometry edits",
+      "before_bsp_sha256": "4415d7b2b76fdc67a34c338b8297592a4d8334d25aaf0d2258e3ac6c29ded0e2",
+      "study_before_bsp_sha256": "d2d1f0cacc5c32ce1d2f22e0543e92b2e331c6cf2da607711f3871a49163371a",
+      "after_bsp_sha256": "209038cf9eea48574e843f2e252b71bb02664b50cd1a45f9998695f1955c18d9"
+    },
+    {
+      "map": "de_aztec_rebuilt",
+      "before_source": "Reconstructed by reversing study geometry edits",
+      "before_bsp_sha256": "17da7076b7f90c26408f799ca3039915a049ae211912c8fa21eea01ec4b610f9",
+      "study_before_bsp_sha256": "16a6e2735edeef24e63b930e1276fcf0a01914980079d0050accdffa704d93c9",
+      "after_bsp_sha256": "d26a45d16c79bab32a359436b92657f15fc79738db7ccb7aceab843e99e1b318"
+    },
+    {
+      "map": "de_train_rebuilt",
+      "before_source": "Reconstructed by reversing study geometry edits",
+      "before_bsp_sha256": "2e06a2453ca9e16712ae36c19d0c62157e76e689438e3d2fbdd9a7c4799f8da2",
+      "study_before_bsp_sha256": "1afb80e133ed0d1ba0969aca0a7d99ed1dfdefc86fd50f81a529f0603547076b",
+      "after_bsp_sha256": "9fe07919cb7f457b54024ec04b1836a0f470e2d821aba770decfc7d2ad99282b"
+    },
+    {
+      "map": "de_dust2_rebuilt",
+      "before_source": "Archived actual BSP before the floating A-site trim correction",
+      "before_bsp_sha256": "c3ca4817091037e6643e090424b230e3061175ab58fcb07aa984873f86dfb998",
+      "after_bsp_sha256": "37b7cab3cf9264d07819f66e9c8e185bd81fdaba96990f7f23cbcd7da41fb867"
+    }
+  ],
+  "visuals": [
+    "test-results/de-study-comparison/index.html",
+    "test-results/de-study-comparison/comparison-sheet.jpg",
+    "test-results/weapon-decals/styles.png"
+  ],
+  "incidental_compile_fix": "Explicit Dictionary type on the Tribes deployables blast trace; a concurrently added script otherwise failed Godot type inference."
+}

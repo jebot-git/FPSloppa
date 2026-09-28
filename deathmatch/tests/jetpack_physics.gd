@@ -7,6 +7,10 @@ var failures: Array=[]
 var measurements: Array=[]
 var checks:=0
 var actor
+class PhysicsClock extends Node:
+	signal tick(delta: float)
+	func _physics_process(delta: float) -> void:tick.emit(delta)
+var clock: PhysicsClock
 func check(ok: bool,label: String) -> void:
 	checks+=1;print("PASS " if ok else "FAIL ",label)
 	if not ok:failures.append(label)
@@ -19,12 +23,19 @@ func press(wish: Vector2,dt: float) -> void:
 	actor.simulate(wish,0,false,dt,true)
 func _initialize():run.call_deferred()
 func run() -> void:
+	clock=PhysicsClock.new();root.add_child(clock)
 	var world:=Node3D.new();root.add_child(world);Fixture.box(world,Vector3(0,-.5,0),Vector3(600,1,600))
 	actor=Fighter.new();actor.setup(1,"Jetpack",Color.WHITE);actor.quake_movement=true;world.add_child(actor)
-	await physics_frame;await physics_frame
+	await clock.tick;await clock.tick
 	for hz in [30,60,120]:
 		Engine.physics_ticks_per_second=hz
-		await physics_frame;await physics_frame
+		# move_and_slide uses the engine physics delta only inside a real physics
+		# callback; SceneTree.physics_frame can still expose the previous tick.
+		var observed:=0.0
+		for frame in 12:
+			observed=await clock.tick
+			if is_equal_approx(observed,1.0/hz):break
+		check(Engine.is_in_physics_frame() and is_equal_approx(observed,1.0/hz),"Body physics delta matches %d Hz fixture"%hz)
 		var dt: float=1.0/hz;reset();press(Vector2.RIGHT,dt)
 		check(actor.jetpack_state.mode==1,"Double press starts moving flight at %d Hz"%hz)
 		var start: Vector3=actor.position;var top: float=actor.position.y;var last: Vector3=actor.position;var travel:=0.0;var duration:=0.0
@@ -39,7 +50,9 @@ func run() -> void:
 		for i in hz:actor.simulate(Vector2.ZERO,0,false,dt,false)
 		press(Vector2.RIGHT,dt);check(actor.jetpack_state.activation==activation+1,"Fresh double press works after 8 second cooldown at %d Hz"%hz)
 	Engine.physics_ticks_per_second=60
-	await physics_frame;await physics_frame
+	for frame in 12:
+		var observed: float=await clock.tick
+		if is_equal_approx(observed,1.0/60):break
 	reset();actor.simulate(Vector2.ZERO,0,false,1.0/60,true)
 	for i in 90:actor.simulate(Vector2.ZERO,0,false,1.0/60,true)
 	check(actor.jetpack_state.activation==0,"Holding jump remains an ordinary jump")
@@ -105,7 +118,7 @@ func run() -> void:
 	Jet.reconcile(actor,authority,local);check(actor.jetpack_state.mode==0,"Authority can deny an acknowledged predicted boost")
 	reset();press(Vector2.RIGHT,1.0/60)
 	var wall:=Fixture.box(world,Vector3(8,8,0),Vector3(.3,16,30));var ceiling:=Fixture.box(world,Vector3(-30,3,0),Vector3(15,.3,15))
-	await physics_frame;await physics_frame
+	await clock.tick;await clock.tick
 	reset();press(Vector2.RIGHT,1.0/60)
 	for i in 150:actor.simulate(Vector2.RIGHT,0,false,1.0/60,false)
 	check(actor.position.x<7.56,"Boost collides with walls instead of tunnelling")
@@ -113,7 +126,7 @@ func run() -> void:
 	for i in 150:actor.simulate(Vector2.ZERO,0,false,1.0/60,false);max_height=maxf(max_height,actor.position.y)
 	check(max_height<1.3 and actor.is_supported(),"Low ceiling stops lift safely and hover still ends")
 	actor.configure_jetpack(false);check(actor.jetpack_state.mode==0 and actor.jetpack_state.cooldown==0,"Disabling the pack clears flight state")
-	world.free();await process_frame
+	world.queue_free();clock.queue_free();await process_frame
 	DirAccess.make_dir_recursive_absolute("res://test-results/jetpacks")
 	var report:={"checks":checks,"failures":failures,"flights":measurements};FileAccess.open("res://test-results/jetpacks/physics.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
 	print("JETPACK_PHYSICS_RESULT ",JSON.stringify(report));quit(0 if failures.is_empty() else 1)

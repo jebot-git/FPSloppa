@@ -36,6 +36,10 @@ func run():
 	check(instance.mesh.get_surface_count()==2 and instance.get_surface_override_material(0)==arm_material,"Leaving keypad contact restores the original avatar hand")
 	Mask.apply(instance,sk,false)
 	check(instance.mesh==mesh and instance.get_surface_override_material(2)==arm_material,"Returning to third person restores mesh and material indices")
+	instance.set_meta("tribes_head_only",true);instance.set_meta("tribes_original_hands",["LeftHand"])
+	Mask.apply(instance,sk,true)
+	check(instance.mesh.get_surface_count()==1 and instance.get_surface_override_material(0)==arm_material,"Tribes original-hand filtering composes material indices with the first-person mask")
+	instance.remove_meta("tribes_head_only");instance.remove_meta("tribes_original_hands");Mask.apply(instance,sk,false)
 	for w in [3,4,5,6,7,8,9,11]:
 		for yaw in [0.0,.7,-1.2]:
 			var primary:=Transform3D(Basis.from_euler(Vector3(.2,yaw,.1)),Vector3(.2,1.3,-.3))

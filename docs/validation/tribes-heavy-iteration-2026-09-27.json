@@ -1,0 +1,118 @@
+{
+  "date": "2026-09-27",
+  "scope": "Heavy armour visual iteration 4 and imported-avatar backpack frame correction",
+  "geometry": {
+    "triangles": 9814,
+    "undersuit_triangles": 4596,
+    "bones": 19,
+    "surfaces": 4,
+    "head_mesh": false,
+    "spring_groups": 0,
+    "source_sha256": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e"
+  },
+  "previous_triangles": 11828,
+  "triangle_reduction_percent": 17.03,
+  "shared_asset_hashes_unchanged": {
+    "deathmatch/weapons/tribes/body_light.scn": true,
+    "deathmatch/weapons/tribes/body_medium.scn": true,
+    "tools/tribes/refined/body_light.vrm": true,
+    "tools/tribes/refined/body_medium.vrm": true,
+    "deathmatch/weapons/tribes/armour-suit.res": true,
+    "deathmatch/weapons/tribes/armour-finish.res": true
+  },
+  "native_default_gallery": {
+    "avatar": "",
+    "checks": 205,
+    "failures": []
+  },
+  "additional_cc0_avatars": {
+    "avatars": 8,
+    "class_combinations": 24,
+    "checks": 1628,
+    "failures": [],
+    "script_errors": false
+  },
+  "total_native_checks": 1833,
+  "visual_review": [
+    "front",
+    "quarter",
+    "side",
+    "back",
+    "crouch",
+    "all five packs on Heavy",
+    "original avatar heads and hands retained"
+  ],
+  "references_reviewed": [
+    "Cached original Tribes manual, PDF page 21 / printed pages 40–41",
+    "Cached Mech Kitbash render by masterxeon1001",
+    "Cached Exotrooper render by nublet",
+    "Existing family atlas, original armour modelling helpers and KEIV MEC-VAL fitted suit"
+  ],
+  "new_external_assets": false,
+  "licence_retained": {
+    "author": "KEIV; FPSloppa contributors",
+    "licence": "Other",
+    "terms": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+    "notice": "deathmatch/weapons/tribes/SOURCES.md"
+  },
+  "verified": [
+    "Heavy distinctive shell with overlapping shoulder/upper-arm bindings",
+    "Canted chest, abdominal rings, pelvic chassis and femur-bound skirts",
+    "Reinforced limb shells, service panels, boots and neck seal",
+    "Same four material surfaces and two shared mipmapped textures",
+    "19 humanoid bones and no added spring groups",
+    "Imported VRM rest/model axes corrected for rearward backpack attachment",
+    "All original head/hand, team-colour and first-person-mask checks pass",
+    "Light and Medium runtime bodies and shared textures unchanged"
+  ],
+  "limitations": [
+    "No headset playtest of this visual revision",
+    "Existing one-ObjectDB-instance exit warning remains",
+    "Arbitrary user avatars can still require fit adjustments"
+  ],
+  "files": [
+    {
+      "path": "tools/tribes/heavy_shell.py",
+      "bytes": 9568,
+      "sha256": "69492d8a3352685f5bd744816d4eeb901784ae36c89564dc2f2dcdce9b443506"
+    },
+    {
+      "path": "tools/tribes/family.py",
+      "bytes": 17201,
+      "sha256": "df8660748e2bd16fdb355c98878230c34ad1f7c67702bf7c3cba9dad2cd184f1"
+    },
+    {
+      "path": "tools/tribes/refined/body_heavy.vrm",
+      "bytes": 1178592,
+      "sha256": "ade900d0f652306d2fdad6334d2657d1a9c54556eae3e3b666da1bcf5c2215b0"
+    },
+    {
+      "path": "tools/tribes/refined/tribes-bodies.blend",
+      "bytes": 1197803,
+      "sha256": "606800015cafadc99c22e909217eeabaad5d044556d5bb2230e54148023e3df1"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/body_heavy.scn",
+      "bytes": 198555,
+      "sha256": "3e909836914fadb9e51dfecf715d01c9c3dd9af1a2056d486ec79a676580eaa0"
+    },
+    {
+      "path": "deathmatch/tribes/armour_visual.gd",
+      "bytes": 2685,
+      "sha256": "6d98599e25cff3f6fd028e7edaf00bb3e058b528c0648e5a06d891e3512e2361"
+    }
+  ],
+  "previews": [
+    "test-results/tribes-heavy-iteration/front.png",
+    "test-results/tribes-heavy-iteration/quarter.png",
+    "test-results/tribes-heavy-iteration/side.png",
+    "test-results/tribes-heavy-iteration/back.png",
+    "test-results/tribes-heavy-iteration/pack-energy.png",
+    "test-results/tribes-heavy-iteration/pack-ammo.png",
+    "test-results/tribes-heavy-iteration/pack-repair.png",
+    "test-results/tribes-heavy-iteration/pack-shield.png",
+    "test-results/tribes-heavy-iteration/pack-jammer.png",
+    "test-results/tribes-armour-family/crouch.png",
+    "test-results/tribes-armour-family/front.png"
+  ]
+}

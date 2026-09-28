@@ -1,0 +1,465 @@
+{
+  "date": "2026-09-28",
+  "generated_utc": "2026-09-28T07:52:40.431459+00:00",
+  "scope": "Bot capture reliability; PDA deferred; terminate local ST tests if no first capture within 600 game seconds",
+  "stopped_previous_preview": {
+    "reason": "First capture occurred after 600 game seconds",
+    "first_capture_sample_seconds": 972.766666666111,
+    "stopped_pids": [
+      1292290,
+      1293351
+    ],
+    "timestamp": "2026-09-28T07:29:02.974280+00:00"
+  },
+  "focused_checks": 203,
+  "checks": {
+    "deadline": {
+      "checks": 8,
+      "failures": [],
+      "log": "test-results/st-tribes/capture-cutoff/deadline.log",
+      "sha256": "2a316cec9b2ba856abe8a05ecc593d3bb0beaa805ab69ff1f5c329b7d9d7111a"
+    },
+    "momentum": {
+      "checks": 20,
+      "failures": [],
+      "log": "test-results/st-tribes/capture-cutoff/momentum.log",
+      "sha256": "8d6fb3548ab7df25fe0d69049e7003787575d6e797ddc3bc86aa0da46dcc6ad2"
+    },
+    "bombard": {
+      "checks": 6,
+      "failures": [],
+      "log": "test-results/st-tribes/capture-cutoff/bombard.log",
+      "sha256": "0c0849206556bf3bd5d04bdfbc06af01109b3851020a6a9c6e3e32bca614b690"
+    },
+    "adaptive": {
+      "checks": 30,
+      "failures": [],
+      "log": "test-results/st-tribes/capture-cutoff/adaptive.log",
+      "sha256": "24e94ad88c803308c8cf6c389a45f50fb788b7d0ad967ab4d73356ebfa93240d"
+    },
+    "offense": {
+      "checks": 81,
+      "failures": [],
+      "log": "test-results/st-tribes/capture-cutoff/offense.log",
+      "sha256": "8b42b2f59850756f005f3827d57be557154edb68053fdd4a339c23daa6d86d93"
+    },
+    "tactics": {
+      "checks": 58,
+      "failures": [],
+      "log": "test-results/st-tribes/capture-cutoff/tactics.log",
+      "sha256": "a8e2ee47c618e082e2fb92d3d706324926d889091ecfd0ee99ff71ccf5c7af33"
+    }
+  },
+  "integrated_routes": {
+    "cases": 16,
+    "passed": 16,
+    "seconds_range": [
+      141.916666666672,
+      195.483333333381
+    ],
+    "artifact": "test-results/st-tribes/capture-cutoff/final-captures.json"
+  },
+  "matches": {
+    "trial-9286": {
+      "folder": "test-results/st-tribes/capture-cutoff/trial-9286",
+      "complete": true,
+      "seconds": 600.01666666645,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 225.733333333405,
+      "first_capture_limit_seconds": 600.0,
+      "capture_deadline_status": "passed",
+      "termination_reason": "duration_reached",
+      "capture_events": [
+        {
+          "carrier": -1004,
+          "energy": 48.6833333333365,
+          "flag_team": 1,
+          "goal": "st:capture",
+          "hp": 44,
+          "kind": "capture",
+          "phase": "flag_run",
+          "position": "(-175.1993, 124.8925, 147.944)",
+          "seconds": 225.733333333405,
+          "velocity": "(-1.712886, 0.0, 10.86453)"
+        }
+      ],
+      "flag_pickups": {
+        "red": 5,
+        "blue": 8
+      },
+      "captures_in_samples": [
+        {
+          "observed_seconds": 230.383333333409,
+          "scores": [
+            1,
+            0
+          ]
+        }
+      ],
+      "near_flag_capper_to_siege_transitions": 0,
+      "diversion_samples": [],
+      "lane_counts": {
+        "-1000": 3,
+        "-1001": 3,
+        "-1002": 3,
+        "-1003": 3,
+        "-1004": 3,
+        "-1005": 3,
+        "-1006": 3,
+        "-1007": 3,
+        "-1008": 3,
+        "-1009": 3,
+        "-1010": 3,
+        "-1011": 3
+      },
+      "role_counts": {
+        "-1000": 7,
+        "-1001": 6,
+        "-1002": 5,
+        "-1003": 7,
+        "-1004": 7,
+        "-1005": 5,
+        "-1006": 7,
+        "-1007": 7,
+        "-1008": 7,
+        "-1009": 7,
+        "-1010": 6,
+        "-1011": 6
+      },
+      "tactics": {
+        "approaches_committed": 20,
+        "attack_lane_changes": 24,
+        "failed_launches": 7,
+        "progress_recoveries": 29,
+        "pushes_formed": 4,
+        "pushes_interrupted": 4,
+        "pushes_released": 4
+      },
+      "offense": {
+        "bombard_shots": 14,
+        "built_turret": 3,
+        "disc_jump_attempts": 21,
+        "flag_exit_routes": 18,
+        "flag_pass_catches": 1,
+        "flag_passes": 1,
+        "target_beacons": 1
+      },
+      "fixed_fire": {
+        "fusion": 287
+      },
+      "peak_horizontal_kmh": 120.101824951172,
+      "script_errors": 0,
+      "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Different runs are not a controlled statistical comparison.",
+      "engine_error_count": 73,
+      "source_stage": "Flag momentum and immediate replanning; before artillery and terrain-query fixes"
+    },
+    "trial-9288": {
+      "folder": "test-results/st-tribes/capture-cutoff/trial-9288",
+      "complete": true,
+      "seconds": 600.01666666645,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 420.849999999946,
+      "first_capture_limit_seconds": 600.0,
+      "capture_deadline_status": "passed",
+      "termination_reason": "duration_reached",
+      "capture_events": [
+        {
+          "carrier": -1000,
+          "energy": 60.0,
+          "flag_team": 1,
+          "goal": "st:capture",
+          "hp": 31,
+          "kind": "capture",
+          "phase": "flag_run",
+          "position": "(-175.2154, 124.8923, 147.9271)",
+          "seconds": 420.849999999946,
+          "velocity": "(-1.555459, 0.0, 10.88787)"
+        }
+      ],
+      "flag_pickups": {
+        "red": 7,
+        "blue": 4
+      },
+      "captures_in_samples": [
+        {
+          "observed_seconds": 420.933333333279,
+          "scores": [
+            1,
+            0
+          ]
+        }
+      ],
+      "near_flag_capper_to_siege_transitions": 0,
+      "diversion_samples": [],
+      "lane_counts": {
+        "-1000": 3,
+        "-1001": 3,
+        "-1002": 3,
+        "-1003": 3,
+        "-1004": 3,
+        "-1005": 3,
+        "-1006": 3,
+        "-1007": 3,
+        "-1008": 3,
+        "-1009": 3,
+        "-1010": 3,
+        "-1011": 3
+      },
+      "role_counts": {
+        "-1000": 6,
+        "-1001": 6,
+        "-1002": 5,
+        "-1003": 7,
+        "-1004": 7,
+        "-1005": 7,
+        "-1006": 6,
+        "-1007": 6,
+        "-1008": 7,
+        "-1009": 6,
+        "-1010": 6,
+        "-1011": 7
+      },
+      "tactics": {
+        "approaches_committed": 33,
+        "attack_lane_changes": 33,
+        "failed_launches": 8,
+        "progress_recoveries": 18,
+        "pushes_formed": 7,
+        "pushes_interrupted": 5,
+        "pushes_released": 7
+      },
+      "offense": {
+        "bombard_shots": 25,
+        "built_motion": 2,
+        "built_turret": 2,
+        "disc_jump_attempts": 15,
+        "flag_exit_routes": 13,
+        "target_beacons": 2
+      },
+      "fixed_fire": {
+        "fusion": 110
+      },
+      "peak_horizontal_kmh": 110.86742477417,
+      "script_errors": 0,
+      "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Different runs are not a controlled statistical comparison.",
+      "engine_error_count": 42,
+      "source_stage": "Includes artillery fixes; before terrain-query fix"
+    },
+    "final-9288": {
+      "folder": "test-results/st-tribes/capture-cutoff/final-9288",
+      "complete": true,
+      "seconds": 600.01666666645,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 420.849999999946,
+      "first_capture_limit_seconds": 600.0,
+      "capture_deadline_status": "passed",
+      "termination_reason": "duration_reached",
+      "capture_events": [
+        {
+          "carrier": -1000,
+          "energy": 60.0,
+          "flag_team": 1,
+          "goal": "st:capture",
+          "hp": 31,
+          "kind": "capture",
+          "phase": "flag_run",
+          "position": "(-175.2154, 124.8923, 147.9271)",
+          "seconds": 420.849999999946,
+          "velocity": "(-1.555459, 0.0, 10.88787)"
+        }
+      ],
+      "flag_pickups": {
+        "red": 7,
+        "blue": 4
+      },
+      "captures_in_samples": [
+        {
+          "observed_seconds": 420.933333333279,
+          "scores": [
+            1,
+            0
+          ]
+        }
+      ],
+      "near_flag_capper_to_siege_transitions": 0,
+      "diversion_samples": [],
+      "lane_counts": {
+        "-1000": 3,
+        "-1001": 3,
+        "-1002": 3,
+        "-1003": 3,
+        "-1004": 3,
+        "-1005": 3,
+        "-1006": 3,
+        "-1007": 3,
+        "-1008": 3,
+        "-1009": 3,
+        "-1010": 3,
+        "-1011": 3
+      },
+      "role_counts": {
+        "-1000": 6,
+        "-1001": 6,
+        "-1002": 5,
+        "-1003": 7,
+        "-1004": 7,
+        "-1005": 7,
+        "-1006": 6,
+        "-1007": 6,
+        "-1008": 7,
+        "-1009": 6,
+        "-1010": 6,
+        "-1011": 7
+      },
+      "tactics": {
+        "approaches_committed": 33,
+        "attack_lane_changes": 33,
+        "failed_launches": 8,
+        "progress_recoveries": 18,
+        "pushes_formed": 7,
+        "pushes_interrupted": 5,
+        "pushes_released": 7
+      },
+      "offense": {
+        "bombard_shots": 25,
+        "built_motion": 2,
+        "built_turret": 2,
+        "disc_jump_attempts": 15,
+        "flag_exit_routes": 13,
+        "target_beacons": 2
+      },
+      "fixed_fire": {
+        "fusion": 110
+      },
+      "peak_horizontal_kmh": 110.86742477417,
+      "script_errors": 0,
+      "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Different runs are not a controlled statistical comparison.",
+      "engine_error_count": 0,
+      "source_stage": "Final bot source"
+    },
+    "live-9287": {
+      "folder": "test-results/st-tribes/capture-cutoff/live-9287",
+      "complete": false,
+      "seconds": 716.916666666343,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 560.899999999819,
+      "first_capture_limit_seconds": 600.0,
+      "capture_deadline_status": "passed",
+      "termination_reason": "running",
+      "capture_events": [],
+      "flag_pickups": {
+        "red": 8,
+        "blue": 5
+      },
+      "captures_in_samples": [
+        {
+          "observed_seconds": 561.399999999818,
+          "scores": [
+            1,
+            0
+          ]
+        }
+      ],
+      "near_flag_capper_to_siege_transitions": 0,
+      "diversion_samples": [],
+      "lane_counts": {
+        "-1000": 3,
+        "-1001": 3,
+        "-1002": 3,
+        "-1003": 3,
+        "-1004": 3,
+        "-1005": 3,
+        "-1006": 3,
+        "-1007": 3,
+        "-1008": 3,
+        "-1009": 3,
+        "-1010": 3,
+        "-1011": 3
+      },
+      "role_counts": {
+        "-1000": 7,
+        "-1001": 7,
+        "-1002": 6,
+        "-1003": 7,
+        "-1004": 7,
+        "-1005": 5,
+        "-1006": 6,
+        "-1007": 7,
+        "-1008": 7,
+        "-1009": 7,
+        "-1010": 7,
+        "-1011": 7
+      },
+      "tactics": {
+        "approaches_committed": 29,
+        "attack_lane_changes": 24,
+        "failed_launches": 9,
+        "progress_recoveries": 36,
+        "pushes_formed": 10,
+        "pushes_interrupted": 9,
+        "pushes_released": 10
+      },
+      "offense": {
+        "bombard_shots": 17,
+        "built_motion": 1,
+        "built_turret": 3,
+        "disc_jump_attempts": 21,
+        "flag_exit_routes": 16,
+        "flag_pass_catches": 1,
+        "flag_passes": 1,
+        "target_beacons": 4
+      },
+      "fixed_fire": {
+        "fusion": 295
+      },
+      "peak_horizontal_kmh": 141.677627563477,
+      "script_errors": 0,
+      "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Different runs are not a controlled statistical comparison.",
+      "engine_error_count": 0,
+      "source_stage": "Includes artillery fixes; before terrain-query fix",
+      "observed_seconds": 767.083333332964,
+      "scores_at_observation": [
+        1,
+        0
+      ],
+      "processes": {
+        "server": 1302006,
+        "port": 28984,
+        "output": "/home/blux/Documents/FPSloppa/test-results/st-tribes/capture-cutoff/live-9287",
+        "viewer": 1302046
+      },
+      "renderer": "Vulkan / Mobile"
+    }
+  },
+  "source_sha256": {
+    "deathmatch/bots.gd": "f229582da00f74479b79d758e0f822d0f752ce6fdad718f25f6fc66fd7e2b408",
+    "deathmatch/bot_ai/tribes.gd": "ded645409c53b05228b78b7b3bb69698dff6f96a96503fc0a1ed1582418f2ad8",
+    "deathmatch/bot_ai/tribes_offense.gd": "baddc5d47f0fd96b400bfbef41c4a2299b1157b6441db527830f6ce6be88bb5f",
+    "tools/tribes/live_match.gd": "558b52e07cb235ca66c0e98e271b52d44ebcfb6c32d8afae71ef20a7a00135e5",
+    "tools/tribes/capture_deadline.gd": "ff488ce7c87e8c1eb4ff47e40c83c47db77114de34f469ffcefbf6aa0c6a8162",
+    "tools/tribes/run_live.py": "7319b0f3ec0f6e3ad0f1930e47a71195e13b0c875ecdde4ddf521cea535cfec1",
+    "tools/tribes/report_match.py": "ee4ecf8599705e45dddc938c2b6fb8c111cf3fae37cf333fcb64e47f8a03b175",
+    "deathmatch/tests/st_capture_deadline.gd": "a24ddfe49dd1f45615f0ab198a17f19142119ac3fd6b6d2b2b5c8520bda53e0f",
+    "deathmatch/tests/st_capture_momentum.gd": "b574804525be20cd17a4ea94c072d17d00708eec9d9eae7fbe45f4a0ef2b61d1",
+    "deathmatch/tests/st_bot_bombard.gd": "e129db2a388992644b0801f54c2619b793a61f34bcef0f3d37bf7d5fbb5eabd5"
+  },
+  "limits": [
+    "Three distinct tested seeds each captured before ten minutes; this is not proof of reliable competitive bot play.",
+    "All scored captures in this follow-up were Red; Blue return reliability remains unresolved.",
+    "The preview is still running as of the receipt and auto-ends at its requested 900-second duration.",
+    "First-capture cutoff boundaries are tested; these new full matches all passed the cutoff. The previous late-capture preview was explicitly terminated.",
+    "Godot ObjectDB exit leak warning predates this change."
+  ]
+}

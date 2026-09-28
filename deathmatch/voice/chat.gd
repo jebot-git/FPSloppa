@@ -106,7 +106,7 @@ func team_channel() -> bool:
 
 func desktop_radio_pressed() -> bool:
 	# B opens the DE shop during preparation; it must not also open the microphone.
-	return game.bindings.pressed("team_ptt") and not (game.bindings.keys.get("team_ptt")==KEY_B and game.match_mode.defusal.can_buy(multiplayer.get_unique_id()))
+	return game.bindings.pressed("team_ptt") and not (game.bindings.keys.get("team_ptt")==KEY_B and (game.match_mode.defusal.can_buy(multiplayer.get_unique_id()) or game.match_mode.tribes.enabled()))
 
 func push_to_talk() -> bool:
 	if team_channel():return true

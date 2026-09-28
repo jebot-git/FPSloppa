@@ -1,0 +1,315 @@
+{
+  "date": "2026-09-27",
+  "scope": "Read-only comparison of five installed BSP29 rebuilds with classic BSP30 references; runtime feasibility assessment. No maps or door/penetration mechanics changed.",
+  "tool": "tools/classic_de/audit.py",
+  "tool_sha256": "7a6219cfdd0ec1689a8712ab0eb69bbb24681b3da532d8f57c964a1cd626217e",
+  "reference_sources": [
+    {
+      "name": "dust2",
+      "url": "https://raw.githubusercontent.com/phamvanhiepvn/cs/2e3c25596baeb6781a9d274cef7e25f42413ab3f/cstrike/maps/de_dust2.bsp",
+      "commit": "2e3c25596baeb6781a9d274cef7e25f42413ab3f",
+      "bytes": 2057288,
+      "sha256": "15945389528d113562ede0a2c80647ebfa799079ed1c05a25379bcf84e4e9286"
+    },
+    {
+      "name": "nuke",
+      "url": "https://raw.githubusercontent.com/phamvanhiepvn/cs/2e3c25596baeb6781a9d274cef7e25f42413ab3f/cstrike/maps/de_nuke.bsp",
+      "commit": "2e3c25596baeb6781a9d274cef7e25f42413ab3f",
+      "bytes": 2021352,
+      "sha256": "85e6386ffe33a25c2283100e36db7cb5e993cfa070924322339f48725360eeaa"
+    },
+    {
+      "name": "inferno",
+      "url": "https://raw.githubusercontent.com/phamvanhiepvn/cs/2e3c25596baeb6781a9d274cef7e25f42413ab3f/cstrike/maps/de_inferno.bsp",
+      "commit": "2e3c25596baeb6781a9d274cef7e25f42413ab3f",
+      "bytes": 6269880,
+      "sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+    },
+    {
+      "name": "aztec",
+      "url": "https://raw.githubusercontent.com/phamvanhiepvn/cs/2e3c25596baeb6781a9d274cef7e25f42413ab3f/cstrike/maps/de_aztec.bsp",
+      "commit": "2e3c25596baeb6781a9d274cef7e25f42413ab3f",
+      "bytes": 2705772,
+      "sha256": "6a9c1c472ad01283098760314cb8744552e5f3a6493108ab5e19075216a3f9ed"
+    },
+    {
+      "name": "train",
+      "url": "https://raw.githubusercontent.com/phamvanhiepvn/cs/2e3c25596baeb6781a9d274cef7e25f42413ab3f/cstrike/maps/de_train.bsp",
+      "commit": "2e3c25596baeb6781a9d274cef7e25f42413ab3f",
+      "bytes": 1145428,
+      "sha256": "690fc75d9c29a847aa453448800f5dee22d4c4e1652924923c5f7ab3dc5cfa70"
+    }
+  ],
+  "maps": [
+    {
+      "map": "dust2",
+      "reference": {
+        "sha256": "15945389528d113562ede0a2c80647ebfa799079ed1c05a25379bcf84e4e9286",
+        "version": 30,
+        "faces": 5383,
+        "brush_models": 43,
+        "entity_counts": {
+          "worldspawn": 1,
+          "light_environment": 1,
+          "func_breakable": 10,
+          "func_illusionary": 28,
+          "light": 11,
+          "func_bomb_target": 2,
+          "func_buyzone": 2,
+          "info_player_start": 20,
+          "info_player_deathmatch": 20,
+          "info_target": 3,
+          "trigger_camera": 3
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 10
+      },
+      "rebuilt": {
+        "sha256": "645e8036c46a95505d69f60c53c3e742e562ec20bf921b2979b91993d516e6a5",
+        "version": 29,
+        "faces": 5877,
+        "brush_models": 1,
+        "entity_counts": {
+          "worldspawn": 1,
+          "info_player_deathmatch": 21,
+          "info_player_start": 1,
+          "weapon_supershotgun": 1,
+          "weapon_nailgun": 1,
+          "weapon_rocketlauncher": 2,
+          "weapon_supernailgun": 1,
+          "weapon_grenadelauncher": 1,
+          "weapon_lightning": 1,
+          "item_armor2": 2,
+          "item_armor1": 1,
+          "item_health": 4,
+          "item_shells": 1,
+          "item_spikes": 1,
+          "item_rockets": 1,
+          "item_cells": 1,
+          "light": 6
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 0
+      }
+    },
+    {
+      "map": "nuke",
+      "reference": {
+        "sha256": "85e6386ffe33a25c2283100e36db7cb5e993cfa070924322339f48725360eeaa",
+        "version": 30,
+        "faces": 7571,
+        "brush_models": 95,
+        "entity_counts": {
+          "worldspawn": 1,
+          "func_wall": 48,
+          "func_illusionary": 10,
+          "infodecal": 4,
+          "func_ladder": 4,
+          "env_glow": 31,
+          "light_spot": 18,
+          "light": 32,
+          "func_breakable": 9,
+          "light_environment": 1,
+          "info_player_start": 10,
+          "env_spark": 1,
+          "info_player_deathmatch": 10,
+          "trigger_multiple": 4,
+          "func_door": 16,
+          "func_door_rotating": 1,
+          "ambient_generic": 2,
+          "func_bomb_target": 2,
+          "info_map_parameters": 1,
+          "trigger_camera": 3,
+          "info_target": 3
+        },
+        "shoot_damage_enabled_breakables": 9,
+        "sliding_door_parts": 16,
+        "hinged_doors": 1,
+        "trigger_only_breakables": 0
+      },
+      "rebuilt": {
+        "sha256": "ce81ea4a8ff00095266a3ade3bdb00bd9bd40b98275bf759bf6b01033e38a012",
+        "version": 29,
+        "faces": 4972,
+        "brush_models": 1,
+        "entity_counts": {
+          "worldspawn": 1,
+          "info_player_deathmatch": 16,
+          "light": 29,
+          "info_player_start": 1
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 0
+      }
+    },
+    {
+      "map": "inferno",
+      "reference": {
+        "sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b",
+        "version": 30,
+        "faces": 9347,
+        "brush_models": 155,
+        "entity_counts": {
+          "worldspawn": 1,
+          "func_illusionary": 78,
+          "func_wall": 71,
+          "light_environment": 3,
+          "info_player_start": 16,
+          "info_player_deathmatch": 16,
+          "infodecal": 9,
+          "func_door_rotating": 1,
+          "func_breakable": 1,
+          "func_ladder": 1,
+          "func_bomb_target": 2
+        },
+        "shoot_damage_enabled_breakables": 1,
+        "sliding_door_parts": 0,
+        "hinged_doors": 1,
+        "trigger_only_breakables": 0
+      },
+      "rebuilt": {
+        "sha256": "9fd7b2b56b729fe734d2933c6047733917981e01c0c6d128d50df9b66b30eeca",
+        "version": 29,
+        "faces": 4736,
+        "brush_models": 1,
+        "entity_counts": {
+          "worldspawn": 1,
+          "info_player_deathmatch": 16,
+          "light": 32,
+          "info_player_start": 1
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 0
+      }
+    },
+    {
+      "map": "aztec",
+      "reference": {
+        "sha256": "6a9c1c472ad01283098760314cb8744552e5f3a6493108ab5e19075216a3f9ed",
+        "version": 30,
+        "faces": 6262,
+        "brush_models": 96,
+        "entity_counts": {
+          "worldspawn": 1,
+          "func_wall": 59,
+          "func_water": 5,
+          "func_illusionary": 16,
+          "func_breakable": 8,
+          "infodecal": 2,
+          "light_environment": 2,
+          "ambient_generic": 5,
+          "info_target": 3,
+          "multi_manager": 1,
+          "trigger_camera": 3,
+          "light_spot": 4,
+          "env_glow": 4,
+          "trigger_multiple": 2,
+          "cycler_sprite": 27,
+          "env_sprite": 72,
+          "info_player_start": 16,
+          "info_player_deathmatch": 18,
+          "func_bomb_target": 2,
+          "func_buyzone": 2,
+          "env_rain": 1
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 8
+      },
+      "rebuilt": {
+        "sha256": "d9a00b19da36805f955dfaea73e6ee01c86c8849c15ebf06c8987527443e154c",
+        "version": 29,
+        "faces": 4754,
+        "brush_models": 1,
+        "entity_counts": {
+          "worldspawn": 1,
+          "info_player_deathmatch": 16,
+          "light": 15,
+          "info_player_start": 1
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 0
+      }
+    },
+    {
+      "map": "train",
+      "reference": {
+        "sha256": "690fc75d9c29a847aa453448800f5dee22d4c4e1652924923c5f7ab3dc5cfa70",
+        "version": 30,
+        "faces": 4261,
+        "brush_models": 58,
+        "entity_counts": {
+          "worldspawn": 1,
+          "light_environment": 5,
+          "info_player_deathmatch": 12,
+          "info_player_start": 12,
+          "trigger_camera": 5,
+          "func_illusionary": 3,
+          "func_ladder": 16,
+          "func_wall": 27,
+          "func_buyzone": 3,
+          "infodecal": 10,
+          "func_bomb_target": 2,
+          "env_glow": 7,
+          "ambient_generic": 11,
+          "light": 2,
+          "light_spot": 2,
+          "info_target": 5,
+          "trigger_multiple": 4,
+          "func_breakable": 2
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 2
+      },
+      "rebuilt": {
+        "sha256": "b52cdc5f71c19773bd643bdfeb2cdc718ae508c0cd634f054ec6f416a43d1aa3",
+        "version": 29,
+        "faces": 10924,
+        "brush_models": 1,
+        "entity_counts": {
+          "worldspawn": 1,
+          "info_player_deathmatch": 16,
+          "light": 22,
+          "info_player_start": 1
+        },
+        "shoot_damage_enabled_breakables": 0,
+        "sliding_door_parts": 0,
+        "hinged_doors": 0,
+        "trigger_only_breakables": 0
+      }
+    }
+  ],
+  "limits": [
+    "Reference files are pinned community-hosted CS 1.6 BSPs, not authenticated Steam depot extracts.",
+    "Entity, face and texture counts are structural observations, not fidelity scores.",
+    "Cover highlighting uses texture-name heuristics and does not count individual cover objects.",
+    "Plan panels are not geometrically registered; exact positional deviation is not measured.",
+    "Height cutoffs omit higher geometry; overlapping floors require separate slices. These are not complete object inventories.",
+    "Trigger-only breakable brushes are not counted as shoot-damage-enabled surfaces.",
+    "No reference geometry or textures are installed into the game."
+  ],
+  "reproduction": "MPLCONFIGDIR=/tmp/fpsloppa-map-audit-mpl python3 tools/classic_de/audit.py --references /path/to/classic-cs16/maps",
+  "survey_sha256": "282379046d6efcd983bc3b2501ea5fff1ae3aa7a2a206ece60a1366c35d5a178",
+  "report": "docs/DE-MAP-FIDELITY.md",
+  "reference_bullet_code": {
+    "project": "ReGameDLL_CS",
+    "revision": "4a50c42e85fd3778c2b7d24731c7d30c83bbab01",
+    "path": "regamedll/dlls/cbase.cpp",
+    "function": "CBaseEntity::FireBullets3",
+    "sha256": "ba9f0d5265bb3da7339f75aa2571af6a3173dca85fed1b7b4e526ce9634a6a9d"
+  },
+  "feature_prototype_tested": false
+}

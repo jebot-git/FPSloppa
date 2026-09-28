@@ -4,5 +4,5 @@ const NAMES={"GRENADES":"de_he","HE GRENADE":"de_he","FLASHBANG":"de_flash","SMO
 static var cache: Dictionary={}
 static func texture(weapon_name: String) -> Texture2D:
 	var key: String=NAMES.get(weapon_name,"pistol")
-	if not cache.has(key):cache[key]=load(DIRECTORY+key+".svg")
+	if not cache.has(key):cache[key]=load("res://deathmatch/weapons/tribes/"+key+".res") if key.begins_with("tribes_") else load(DIRECTORY+key+".svg")
 	return cache[key]

@@ -2,14 +2,17 @@ extends "res://deathmatch/tests/network_runner.gd"
 const Codec=preload("res://deathmatch/network/codec.gd")
 class Probe extends Node:
 	var phase:=""
+	var life:=0
 	var seen: Dictionary={}
 	@rpc("any_peer","call_remote","reliable")
 	func report(label: String):
 		if multiplayer.is_server():seen[label]=true
 	@rpc("authority","call_local","reliable")
-	func stage(label: String):phase=label
+	func stage(label: String,serial: int):phase=label;life=serial
 var observer: Probe
-func stage(label: String):observer.stage.rpc(label)
+func stage(label: String):
+	var pilots: Array=game.players.values().filter(func(s):return not s.spectator)
+	observer.stage.rpc(label,int(pilots[0].serial) if not pilots.is_empty() else 0)
 func relocate(id: int):
 	var s: Dictionary=game.players[id];var a=game.fighters[id]
 	s.serial+=1;s.move=Vector2.ZERO;s.jump=false;s.invulnerable=0
@@ -73,6 +76,9 @@ func client_case():
 		else:age+=dt
 		var mine: int=game.multiplayer.get_unique_id();var s: Dictionary=game.local_state()
 		if s.is_empty() or not game.fighters.has(mine):continue
+		# Reliable phase messages can overtake the unreliable relocated-life
+		# snapshot. Start the synthetic press only after that state arrives.
+		if not viewer and s.serial<observer.life:age=0.0;continue
 		var a=game.fighters[mine]
 		var packs: Array=game.pickups.filter(func(item):return item.kind=="jetpack")
 		var pilot_ids: Array=game.players.keys().filter(func(key):return not game.players[key].spectator)

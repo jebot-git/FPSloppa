@@ -29,7 +29,8 @@ func setup(arena: Node) -> void:
 		AudioServer.set_bus_name(idx,"ArenaEffects");AudioServer.set_bus_send(idx,"ArenaSpatial")
 func choose(kind: String) -> AudioStream:
 	var file:="res://deathmatch/audio/"+kind+".wav"
-	if kind.begins_with("cs_reload_") and kind.trim_prefix("cs_reload_") in ["mag_out","mag_in","rack_back","rack_close","empty_lock"]:
+	if kind.begins_with("tribes_") and not "/" in kind and not "." in kind:file="res://deathmatch/audio/tribes/"+kind.trim_prefix("tribes_").trim_suffix("_alt")+".res"
+	elif kind.begins_with("cs_reload_") and kind.trim_prefix("cs_reload_") in ["mag_out","mag_in","rack_back","rack_close","empty_lock"]:
 		file="res://deathmatch/audio/cs16/"+kind.trim_prefix("cs_reload_")+".res"
 	elif kind=="de_snip":file="res://deathmatch/audio/cs16/snip.res"
 	elif kind.begins_with("cs16_weapon_"):

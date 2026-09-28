@@ -32,6 +32,13 @@ DE objective art lives in [the Blender workshop](defusal/README.md). `run_defusa
 
 `classic_de/` builds and validates the four additional classic DE BSP29 studies;
 see [map build instructions](../maps/ClassicDE/README.md).
+`classic_de/audit.py --references /path/to/cs16/maps` produces a read-only
+BSP29/BSP30 geometry and entity comparison. It needs NumPy and Matplotlib;
+reference maps are not installed. See [the fidelity assessment](../docs/DE-MAP-FIDELITY.md).
+`classic_de/tactics.py` emits hash-bound DE bot lanes/holds after map rebuilds.
+`classic_de/study_views.gd -- <map-id> --views` captures the changed tactical
+features; `classic_de/study_report.py` summarizes retained before/after soak and
+regression receipts. See the [CS 1.6 tactics study](../docs/CS16-MAP-TACTICS-STUDY.md).
 `compose_de_orchestral.py` writes an editable MilkyTracker XM;
 `generate_de_music.py --install` renders the current DE orchestral cue.
 `run_defusal_grenades.py` validates utility over real local ENet.
@@ -44,3 +51,19 @@ See [Cindercoil source and rebuild instructions](../maps/Cindercoil/README.md).
 a Godot editor reimport to migrate older local imports. `audit_mipmaps.gd`
 inspects actual loaded mip chains across runtime images, models, installed maps
 and avatars. See [texture mipmap policy and validation](../docs/TEXTURE-MIPMAPS.md).
+
+`stonehenge/` rebuilds an optional BSP29 Stonehenge terrain/layout study for the
+proposed Tribes loadout, prepares desktop/mobile caches, and verifies collision
+and CTF objectives. See [Stonehenge references and fidelity limits](../maps/Stonehenge/README.md).
+
+`de_announcer/generate.py` bakes the five DE team, round-result and planted-bomb
+calls with an offline Piper voice, including the plant confirmation chirp.
+See [audio provenance and rebuild parameters](../deathmatch/audio/announcer/DE-SOURCES.md).
+
+### Tribes movement test
+
+`python3 tools/run_tribes_network.py` checks a real local ENet server, predicted
+pilot and late spectator with delayed/lost inputs.
+`python3 tools/stonehenge/package_test.py` exports the separate Linux Stonehenge
+test bundle with desktop and VR launchers, map caches and notices.
+See [controls and validation](../docs/TRIBES-MOVEMENT.md).

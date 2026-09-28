@@ -85,3 +85,5 @@ Round-end and lobby voting instead use a shared 3×3 grid of complete map/mode/l
 ## DE — Bomb Defusal
 
 `de` forces CS16 weapons and supports the Dust2, Nuke, Inferno, Aztec and Train BSP29 reconstructions, plus HE/flash/smoke utility. Buy during preparation, plant on the environment at A/B, or defend and defuse. Players have one life per round; the default is first to 16 with a side switch after 15 rounds. See [rules, economy and controls](docs/BOMB-DEFUSAL.md).
+
+ST, Stonehenge and the Tribes loadout are deferred and unavailable in 0.19v.

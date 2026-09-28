@@ -1,0 +1,80 @@
+{
+  "date": "2026-09-27",
+  "protocol": "fpsloppa-56-tribes-arsenal",
+  "results": {
+    "arsenal": {
+      "checks": 37,
+      "failures": [],
+      "script_errors": false
+    },
+    "armour": {
+      "checks": 87,
+      "failures": [],
+      "passed": true,
+      "script_errors": false
+    },
+    "physics": {
+      "checks": 36,
+      "failures": [],
+      "measurements": [
+        {
+          "coasting_energy": 43.0000000000001,
+          "energy_after_two_second_burn": 32,
+          "hz": 30
+        },
+        {
+          "coasting_energy": 43.0000000000001,
+          "energy_after_two_second_burn": 32,
+          "hz": 60
+        },
+        {
+          "coasting_energy": 43.0000000000001,
+          "energy_after_two_second_burn": 32,
+          "hz": 120
+        }
+      ],
+      "script_errors": false
+    },
+    "demo": {
+      "checks": 12,
+      "failures": [],
+      "script_errors": false
+    },
+    "mask": {
+      "checks": 31,
+      "failures": [],
+      "script_errors": false
+    }
+  },
+  "network": [
+    "TRIBES_NETWORK_RESULT server []",
+    "TRIBES_NETWORK_RESULT pilot []",
+    "TRIBES_NETWORK_RESULT viewer []"
+  ],
+  "bodies": {
+    "checks": 175,
+    "failures": []
+  },
+  "cc0_avatar_armour_checks": 1388,
+  "cc0_avatar_combinations": 24,
+  "bundled_avatars": 11,
+  "new_avatars": 8,
+  "archive": {
+    "path": "test-results/avatars-cc0/FPSloppa-Base-Assets.zip",
+    "bytes": 784867049,
+    "sha256": "bc7f5719b2688f22d0c9e9cdcedc88d2d5eef1e3b1cfb936bf035b2160a7bf87",
+    "all_11_avatar_hashes_verified": true
+  },
+  "blender_vrm_addon": {
+    "version": "4.7.2",
+    "blender": "5.2.0 LTS",
+    "enabled_module": "bl_ext.user_default.vrm",
+    "release_sha256": "e85588660bfbb4099910a86803fa87dc8348e65541a4ccdcaf40c538f60027dc",
+    "heavy_import_validate_export_roundtrip": "passed"
+  },
+  "limitations": [
+    "New arsenal and armour have not undergone a headset playtest.",
+    "Deployable stations, turrets and full sensor-network simulation remain deferred.",
+    "Base-asset archive was built and verified locally; no release was published."
+  ]
+}

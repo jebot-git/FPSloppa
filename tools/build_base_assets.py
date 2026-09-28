@@ -38,7 +38,7 @@ for folder in ['Ashfall','Cindercoil','CC','CTFStudies','Frigate','HiSlop','KOTH
   if p.is_file() and (p.suffix.lower()=='.txt' and any(token in name for token in ['license','licence','copying','credits','cc0','gnu']) or name in {'texture-sources.json','sources.md','sources.json'}):
    paths.append(str(p.relative_to(ROOT)))
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('LibreQuake-*.txt'))
-paths.extend(['maps/README.txt','vrm/README.txt','maps/Dust2Rebuilt/README.md','maps/ClassicDE/README.md','maps/Cindercoil/README.md','maps/Cindercoil/layout.svg'])
+paths.extend(['maps/README.txt','vrm/README.txt','vrm/SOURCES.json','maps/Dust2Rebuilt/README.md','maps/ClassicDE/README.md','maps/Cindercoil/README.md','maps/Cindercoil/layout.svg'])
 paths=[p for p in paths if distributable(p)]
 assert all(Path(p).parts[0] in {'maps','vrm'} for p in paths)
 assert all(Path(p).suffix.lower() not in {'.log','.mp4','.png','.map','.wad'} for p in paths)

@@ -1,0 +1,260 @@
+{
+  "date": "2026-09-27",
+  "map": "de_dust2_rebuilt",
+  "sha256": "d78fd878ca89bfb1d23e18b883d1e75b8343e551d5c44750ae1ed35a1bb46993",
+  "changes": [
+    "Grounded jambs at all seven non-mid arches",
+    "Long inner return wall joined to existing pit corner",
+    "Long outer wall returns and crown infill",
+    "B doorway ceiling gap filled"
+  ],
+  "results": {
+    "geometry": {
+      "checks": 126,
+      "failures": [],
+      "routes": [
+        {
+          "end": [
+            182.779602050781,
+            99.1483968098958,
+            222.26653137207
+          ],
+          "name": "T spawn through long doors to A",
+          "passed": true
+        },
+        {
+          "end": [
+            649.999938964844,
+            524.034586588542,
+            126.269934082031
+          ],
+          "name": "T spawn through long doors to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            621.303426106771,
+            329.000823974609,
+            126.266859436035
+          ],
+          "name": "T spawn directly to top mid",
+          "passed": true
+        },
+        {
+          "end": [
+            649.999918619792,
+            524.094991048177,
+            126.269934082031
+          ],
+          "name": "T spawn directly to top mid (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            218.717020670573,
+            532.000447591146,
+            62.2668556213379
+          ],
+          "name": "T spawn through upper tunnels to B",
+          "passed": true
+        },
+        {
+          "end": [
+            518.770497639974,
+            519.959757486979,
+            62.2667526245117
+          ],
+          "name": "T spawn through upper tunnels to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            386.999996185303,
+            514.066569010417,
+            62.266813659668
+          ],
+          "name": "Lower tunnel half-turn stairs to upper",
+          "passed": true
+        },
+        {
+          "end": [
+            350.000015258789,
+            366.071533203125,
+            -1.7342421323061
+          ],
+          "name": "Lower tunnel half-turn stairs to upper (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            211.005533854167,
+            265.924812316895,
+            -1.73356724381447
+          ],
+          "name": "Mid slope and double doors to CT",
+          "passed": true
+        },
+        {
+          "end": [
+            618.751668294271,
+            328.999982198079,
+            126.266767883301
+          ],
+          "name": "Mid slope and double doors to CT (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            215.015828450521,
+            184.305725097656,
+            222.266836547852
+          ],
+          "name": "Top mid via catwalk and short stairs to A",
+          "passed": true
+        },
+        {
+          "end": [
+            599.036458333333,
+            296.999979019165,
+            126.266874694824
+          ],
+          "name": "Top mid via catwalk and short stairs to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            179.445739746094,
+            170.11137898763,
+            222.266348266602
+          ],
+          "name": "CT ramp to A",
+          "passed": true
+        },
+        {
+          "end": [
+            174.000020345052,
+            276.123280843099,
+            22.5060581207275
+          ],
+          "name": "CT ramp to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            236.999542236328,
+            517.697896321615,
+            62.2669013977051
+          ],
+          "name": "CT through B doors",
+          "passed": true
+        },
+        {
+          "end": [
+            210.904317220052,
+            311.128988901774,
+            -1.73396887481213
+          ],
+          "name": "CT through B doors (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            410.961447397868,
+            105.000061035156,
+            -1.73316659629345
+          ],
+          "name": "Long pit escape",
+          "passed": true
+        },
+        {
+          "end": [
+            514.065439860026,
+            105.000020345052,
+            -65.7331405639648
+          ],
+          "name": "Long pit escape (return)",
+          "passed": true
+        }
+      ]
+    },
+    "tactics": {
+      "checks": 363,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "total_checks": 489,
+  "full_vis": true,
+  "compressed_caches": [
+    {
+      "encoded_bytes": 1573024,
+      "format": "bc7",
+      "images": 6,
+      "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-bc7.scn",
+      "raw_bytes": 4718586,
+      "sha256": "86404a73e62f488b8e31b465ae76647053c189f507382592eca9cdfeffc73178"
+    },
+    {
+      "encoded_bytes": 1573024,
+      "format": "astc4",
+      "images": 6,
+      "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-astc4.scn",
+      "raw_bytes": 4718586,
+      "sha256": "f9c07852aac184616ad48bc89fdc469c368213af0f7ef3de429d55eeb68c1825"
+    }
+  ],
+  "comparison": "test-results/dust2-arches/index.html",
+  "limitations": [
+    "Headless collision and bot-navigation checks; no physical-headset test",
+    "Existing ObjectDB cleanup warnings"
+  ],
+  "cover_regression": {
+    "checks": 403,
+    "failures": [
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #16",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #19",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #23",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #30",
+      "Exit agrees with actual outer collision: de_dust2_rebuilt #51"
+    ],
+    "maps": [
+      {
+        "map": "de_dust2_rebuilt",
+        "max_candidates": 62,
+        "passable": 69,
+        "probe_and_physics_usec": 12916,
+        "probes": 157
+      },
+      {
+        "map": "de_nuke_rebuilt",
+        "max_candidates": 91,
+        "passable": 23,
+        "probe_and_physics_usec": 7080,
+        "probes": 71
+      },
+      {
+        "map": "de_inferno_rebuilt",
+        "max_candidates": 62,
+        "passable": 17,
+        "probe_and_physics_usec": 5724,
+        "probes": 86
+      },
+      {
+        "map": "de_aztec_rebuilt",
+        "max_candidates": 64,
+        "passable": 67,
+        "probe_and_physics_usec": 8562,
+        "probes": 100
+      },
+      {
+        "map": "de_train_rebuilt",
+        "max_candidates": 78,
+        "passable": 205,
+        "probe_and_physics_usec": 31906,
+        "probes": 322
+      }
+    ],
+    "passed": false
+  },
+  "cover_regression_note": "Same five pre-existing Dust2 collision-exit mismatches (#16, #19, #23, #30, #51); no new failing probes."
+}

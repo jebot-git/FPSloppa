@@ -3,7 +3,7 @@ extends RefCounted
 ## positions before applying the ordinary pickup availability bitset.
 const MODES=["dm","tdm","ctf","ig","if","ft"]
 var game
-func enabled() -> bool:return game.match_mode.jetpacks and game.match_mode.kind in MODES and not game.lobby.active()
+func enabled() -> bool:return game.armory.effective()!="tribes" and game.match_mode.jetpacks and game.match_mode.kind in MODES and not game.lobby.active()
 func allowed(p: Dictionary) -> bool:
 	if game.match_mode.defusal.enabled():return p.get("dropped",false) and p.kind=="weapon"
 	return enabled() if p.kind=="jetpack" else not game.match_mode.fixed_loadout()
@@ -15,7 +15,7 @@ func clear() -> void:
 		game.pickups.remove_at(i)
 func clear_player(id: int) -> void:
 	if game.players.has(id):game.players[id].jetpack=false;game.players[id].jetpack_pending=false
-	if game.fighters.has(id):game.fighters[id].configure_jetpack(false);game.fighters[id].reset_jetpack()
+	if game.fighters.has(id):game.fighters[id].configure_jetpack(false);game.fighters[id].reset_jetpack();game.fighters[id].reset_tribes()
 func configure_player(id: int,blocked: bool=false) -> void:
 	var s: Dictionary=game.players[id]
 	game.fighters[id].configure_jetpack(enabled() and s.get("jetpack",false) and not s.dead and not s.spectator and not game.match_mode.special.blocked(id) and game.intermission<=0,blocked)

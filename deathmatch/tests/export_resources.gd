@@ -29,7 +29,14 @@ func run() -> void:
 				for node in avatar.find_children("*","Node",true,false):
 					if node.get_script() and node.get_script().resource_path.ends_with("vrm_secondary.gd"):
 						springs+=node.spring_chain_count()
-				if springs==0: failures.append("spring bones not initialized "+row.path)
+				# Bald/base avatars legitimately contain no spring chains.
+				var file:=FileAccess.open(row.path,FileAccess.READ);file.seek(12)
+				var length:=file.get_32();file.get_32()
+				var gltf: Dictionary=JSON.parse_string(file.get_buffer(length).get_string_from_utf8())
+				var extensions: Dictionary=gltf.get("extensions",{})
+				var declared: Array=extensions.get("VRM",{}).get("secondaryAnimation",{}).get("boneGroups",[])
+				declared+=extensions.get("VRMC_springBone",{}).get("springs",[])
+				if not declared.is_empty() and springs==0: failures.append("spring bones not initialized "+row.path)
 				avatar.queue_free()
 				await process_frame
 	for id in range(preload("res://deathmatch/weapons.gd").DATA.size()):

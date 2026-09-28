@@ -1,0 +1,217 @@
+{
+  "date": "2026-09-28",
+  "scope": [
+    "4: base power and infrastructure",
+    "5: artillery targeting",
+    "6: inventory recovery and transfers"
+  ],
+  "protocol": "fpsloppa-62-st-field-equipment",
+  "engine": "Godot 4.7.2.stable.fedora.ed1daf0bf",
+  "renderer": "Vulkan / Forward Mobile / Intel Arc A770",
+  "checks": 669,
+  "scenarios": {
+    "network-pilot": {
+      "checks": 6,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/network-pilot.log",
+      "sha256": "cf4d86da052d9677726d3e453bb4d67a5f4664822b590b25ff9283df1bde0857"
+    },
+    "network-server": {
+      "checks": 51,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/network-server.log",
+      "sha256": "22b4a430a4eb69383319491ef4c1921a60a6593dc8b8bd1630846fb8c2130c38"
+    },
+    "network-viewer": {
+      "checks": 3,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/network-viewer.log",
+      "sha256": "a69c7c7c2bb3237138ef50079e287a864a319892fe820bece85151c7568da41a"
+    },
+    "st_adaptive_tactics": {
+      "checks": 34,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/st_adaptive_tactics.log",
+      "sha256": "4919c78bf0a1c027bc0a2f240ec7c2a29494b9fcd661637909014075fac1036a"
+    },
+    "st_base_assets": {
+      "checks": 76,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/st_base_assets.log",
+      "sha256": "ea8f615715cd321b4b225a4440e822ebdc90edb2a97a383351cf6d6be53a551e"
+    },
+    "st_bot_tactics": {
+      "checks": 58,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/st_bot_tactics.log",
+      "sha256": "a8e2ee47c618e082e2fb92d3d706324926d889091ecfd0ee99ff71ccf5c7af33"
+    },
+    "st_parity123": {
+      "checks": 81,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/st_parity123.log",
+      "sha256": "8b42b2f59850756f005f3827d57be557154edb68053fdd4a339c23daa6d86d93"
+    },
+    "st_parity456": {
+      "checks": 77,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/st_parity456.log",
+      "sha256": "c774f1258aaff020747aa757f74f69178f307dbf4775de7d415e2630e131a28f"
+    },
+    "st_tribes": {
+      "checks": 59,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/st_tribes.log",
+      "sha256": "df31d8f8d5e88daa7baac499110b26b2e77a2b39ffb6fc5f432770a39ecba3bd"
+    },
+    "tribes_demo": {
+      "checks": 17,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/tribes_demo.log",
+      "sha256": "f9c7f83ffc3957cc3eadae250c8c377495ab5df7dea4138dec22f261d10cfcfe"
+    },
+    "tribes_deployable_ui": {
+      "checks": 34,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/tribes_deployable_ui.log",
+      "sha256": "111c361315d8806e5a8de7946197e10bdc62073192692f9e20d2d89002d52869"
+    },
+    "tribes_deployables": {
+      "checks": 55,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/tribes_deployables.log",
+      "sha256": "8037b1c8f239c9b3f95f0b5cbb05d2f07aa9f97e4d10bb3b7fddc8ebeaad398d"
+    },
+    "tribes_stations": {
+      "checks": 118,
+      "failures": [],
+      "log": "test-results/st-tribes/parity456/tribes_stations.log",
+      "sha256": "121be0219940073886c033682f2cbe3066684756d9fe21fa2fc8197f966cb4b9"
+    }
+  },
+  "source_sha256": {
+    "deathmatch/arena.gd": "95307cb4ea9aaba6f24f42aaeda6cf3a5e6a1ee9096e0a1ca5fab18c357b7f85",
+    "deathmatch/bot_ai/tribes.gd": "b7475d49353fc373ddc19158940cb90571f9c44dec97bb70b2d4588b15289ea2",
+    "deathmatch/bot_ai/tribes_construction.gd": "26c948bb73a345218fe1fad9a24fde28d9fc8e7458339126348b9984dcb26c5e",
+    "deathmatch/bot_ai/tribes_equipment.gd": "b41d4629b8be1cd501638142b393271c39634d4a4a46846b278e90f3c232b633",
+    "deathmatch/bot_ai/tribes_offense.gd": "03d6430faed8e34e69e0bc748251a38eec74775b1bdf3538b6479ed588535f9e",
+    "deathmatch/bot_ai/tribes_routes.gd": "d4e850a14b135b9d67226ca54ece7ae370866dc64463e15b1580b63214d9064e",
+    "deathmatch/bot_ai/tribes_tactics.gd": "8b8e4a374761a5dcc4923f137b2ae3d4a87e3df87ef71108352ad902407ef100",
+    "deathmatch/maps/loader.gd": "38a9e3867702d079308bf4c058327812d9d195ac78175c26155fa00aa8c2fd2c",
+    "deathmatch/modes/tribes.gd": "4a554282d6984aa8f29f5877368dd3039f91585c4c10e1648e64a106168a2260",
+    "deathmatch/modes/vr_interactions.gd": "a213b1f26a66f3cdf559df20f3196f1683dc5549b014c9f9728ae2d0ebe8e85d",
+    "deathmatch/tribes/armour_visual.gd": "36a680d4293815912a8c439778610a9fbee8e29acafc73790226655f571c1040",
+    "deathmatch/tribes/arsenal.gd": "827d0ea8454b793a0f76913781ca6d613c45ad07cc80bb9bf822682844a9f01f",
+    "deathmatch/tribes/ballistics.gd": "0ad50e940e5bf0991b6b44d4409953a55d170510c3bf9e2b45e1e10a4dbb97f5",
+    "deathmatch/tribes/base_assets.gd": "5b04aaa359917a1ab05bc2c9bdebecd09a96eed583f3de7f837e4a9d03fe9b79",
+    "deathmatch/tribes/body_replacement.gd": "a7ff62bb6d26d21e5bc689999fc9f29d408f3a36fc7ed01ba5d2fffbad602e76",
+    "deathmatch/tribes/buy_wheel.gd": "8e39b6af14602c24e25a6845240a70410f6af035a2aa58dffae776915ed8986e",
+    "deathmatch/tribes/combat.gd": "b16c749c28bdd419abe50f9f29807d0f9ecc3e245b0af50bf166f4e270eabf2c",
+    "deathmatch/tribes/ctf.gd": "a853f3d85af52aa5237c2593c7bba677300a500c7db89c1a9806d522085bbfe0",
+    "deathmatch/tribes/deployable_data.gd": "a4fba9e8164b11c5b984b4af0223a8df22c0a2490f8cfe2ab8ae9c1ab616de4c",
+    "deathmatch/tribes/deployable_model.gd": "90dc331887571ec1f771e4a3891faac817d842906bf081fdc51c66ccf3c93aca",
+    "deathmatch/tribes/deployable_view.gd": "77a46c4ecbb4a05c013d4727499e085170b809c48bb7e05089ad2c4ac02b41b4",
+    "deathmatch/tribes/deployables.gd": "919d63b3968c62a373410a4fdc6857b7bcb4443a9835b983d8f60890e63b1a8c",
+    "deathmatch/tribes/equipment.gd": "27501253e7dc20003e4181f8e2226b2f059f81d35eaaaa947849b41c0d646126",
+    "deathmatch/tribes/equipment_health.gd": "99aa3dff1d0746ecf92f4636669c83550a8655fcf20edb82ee8b258e3203f8c9",
+    "deathmatch/tribes/field_view.gd": "9d07ef34e7ad4ec61bd0f0a9146596261fed893cdc36df12ac01d8301fba1623",
+    "deathmatch/tribes/fixed_defence_data.gd": "0f75e1447f2a6eb9e7d7f89c1b364c5a220021e77e78172a27d80eeaf3b44c12",
+    "deathmatch/tribes/fixed_defence_model.gd": "b80c86d7144c738bd9d4218625e68b709cc010bf905d5d7363b9b31a7817fbfa",
+    "deathmatch/tribes/fixed_defences.gd": "5f4556de2caf95f7e161eb8ecef083061eae2e4d7d209d95d8254f9b5eb5724c",
+    "deathmatch/tribes/head_mesh.gd": "29890b326c86577d2d0940b3e2920529eef8b773ee82af74936630273370a43d",
+    "deathmatch/tribes/models.gd": "57b10c294d7cb5cb4a9a6827bed2d7f0594527760f54279995be274061734091",
+    "deathmatch/tribes/recovery.gd": "39d30b5301f81cf64c12826e122adea10ad04b64743b201f2a4c093a18f2011f",
+    "deathmatch/tribes/stations.gd": "33017bc708420d429278e1c5546ef18708b7851344ef15f099afd2130e1ce3b6",
+    "deathmatch/tribes/targeting.gd": "78ec9ce418a861a5dee90a6bff1d56309c12620bcbd64ccd40304d0b464292be",
+    "deathmatch/tribes/turret_view.gd": "479d66f1b418432791a1e277e02bb208ee716664481e7abeb76e82bd636ff72b",
+    "deathmatch/vr/physical_actions.gd": "3666cc82f136d2931d1b57ea94620c4dfe456ffe2ddf077bd6139a7476e2dfc7",
+    "deathmatch/vr/tribes_equipment.gd": "05fb9b937d9285ec28efabc734756adaa2f9fe952bec826646fd8d942dd4ec3e"
+  },
+  "reference_manifest": "test-results/st-tribes/parity456/references/sources.json",
+  "live_preview": {
+    "path": "test-results/st-tribes/live-parity456-final",
+    "processes": {
+      "server": 1292290,
+      "port": 28984,
+      "output": "/home/blux/Documents/FPSloppa/test-results/st-tribes/live-parity456-final",
+      "viewer": 1293351
+    },
+    "speed": 1,
+    "teams": [
+      6,
+      6
+    ],
+    "renderer": "mobile / vulkan",
+    "seed": 9286,
+    "planned_seconds": 1800,
+    "verified_sample": {
+      "seconds": 215.383333333397,
+      "scores": [
+        0,
+        0
+      ],
+      "teams": [
+        6,
+        6
+      ],
+      "spectators": 1,
+      "targeting": {
+        "designations": 2,
+        "placed": 1
+      },
+      "field_recovery": {
+        "pickups": 37
+      }
+    },
+    "viewer_verified": {
+      "clock": 26.7333333333331,
+      "frames": 1200,
+      "map": "ctf_stonehenge",
+      "peer": 943169776,
+      "pid": 1293351,
+      "spectator": true
+    },
+    "director_sha256": "9bf832640df055d158e5e717c4ccb583dd93bdaf2aa1a54ed5835149297bfa70"
+  },
+  "soak": {
+    "path": "test-results/st-tribes/parity456/soak",
+    "status": "completed",
+    "simulation_seconds": 1200.0166666659,
+    "scores": [
+      1,
+      1
+    ],
+    "peak_horizontal_kmh": 126.729808044434,
+    "last_sample": {
+      "offense": {
+        "bombard_shots": 21,
+        "built_turret": 2,
+        "disc_jump_attempts": 49,
+        "flag_exit_routes": 12,
+        "flag_pass_misses": 1,
+        "flag_passes": 1,
+        "target_beacons": 2
+      },
+      "targeting": {
+        "designations": 88,
+        "placed": 2
+      },
+      "field_recovery": {
+        "pickups": 161
+      },
+      "loot": 3
+    },
+    "result_sha256": "ca1f9b40e5f6868006361c359a5a0effd7dd7fc69475dd908e5de4c102526bd0",
+    "script_errors": 0
+  },
+  "limitations": [
+    "Community reference repositories are not authenticated retail source; this is an adaptation.",
+    "Stonehenge retains existing station/source placements; solar/redundant power and other station kinds are exercised in fixtures.",
+    "Command terminal exposes existing camera/turret menu; full PDA/orders and vehicle gameplay remain separate steps.",
+    "Recovery uses cases instead of animated lootable corpses and does not increase salvage refund credit.",
+    "VR uses synthetic tracked-pose tests; headset ergonomics were not tested this turn.",
+    "Pre-existing ObjectDB exit warnings and PulseAudio graphical-test shutdown warning remain; no script errors in passing test receipts."
+  ],
+  "soak_source_boundary": "Long contested run started before final beacon entry-point collision, player-clearance, orphaned friendly-fire checks, graphical trajectory bound and generic station-type bot filtering. These received focused validation; the final visible preview runs the recorded source hashes.",
+  "finished_at": "2026-09-28T07:03:14.605317+00:00"
+}

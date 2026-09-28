@@ -42,6 +42,26 @@ func run() -> void:
 	right.set_input("primary_click",true);rig.poll_controls()
 	var wheel=rig.weapon_wheel
 	check(rig.wheel_open() and wheel.visible,"Right joystick click opens the VR wheel")
+	var quad: QuadMesh=wheel.get_node("WheelSurface").mesh
+	check(quad.size.x<.5 and quad.size==Vector2.ONE*quad.size.x,"VR wheel fits a compact hand-sized square")
+	rig.head.position=Vector3(0,1.65,0);rig.right.position=Vector3(.25,1.2,-.55);rig.left.position=Vector3(-.25,1.2,-.55)
+	rig.origin.position=Vector3(.1,.3,-.2);rig.rotation.y=.7;wheel.update(Vector2.ZERO)
+	var initial: Vector3=wheel.global_position;var offset: Vector3=initial-rig.right.global_position
+	check(offset.y>.15 and offset.y<.3 and Vector2(offset.x,offset.z).length()<.001,"Wheel sits above dominant grip under transformed XR origin")
+	var delta:=Vector3(.14,.08,-.12);rig.right.position+=delta;wheel.update(Vector2.ZERO)
+	check((wheel.global_position-initial).is_equal_approx(rig.origin.global_basis*delta),"Moving dominant hand translates the open wheel immediately")
+	initial=wheel.global_position;rig.left.position+=Vector3(.2,-.1,.1);wheel.update(Vector2.ZERO)
+	check(wheel.global_position.is_equal_approx(initial),"Support hand does not drag the weapon wheel")
+	rig.head.position+=Vector3(-.1,.05,.1);rig.head.rotation=Vector3(.15,.35,.2);wheel.update(Vector2.ZERO)
+	check(wheel.global_position.is_equal_approx(initial),"Head movement does not translate the hand-anchored wheel")
+	check(wheel.global_basis.z.dot(wheel.global_position.direction_to(rig.head.global_position))>.999,"Wheel front faces the eyes after head movement")
+	var upright: Basis=wheel.global_basis;rig.right.rotation=Vector3(.8,-.4,1.2);wheel.update(Vector2.ZERO)
+	check(wheel.global_basis.is_equal_approx(upright),"Wrist roll does not rotate the joystick sectors")
+	rig.left_handed=true;wheel.update(Vector2.ZERO)
+	check((wheel.global_position-rig.left.global_position).is_equal_approx(offset),"Handedness change moves the open wheel to the left grip")
+	initial=wheel.global_position;rig.left.position+=delta;wheel.update(Vector2.ZERO)
+	check((wheel.global_position-initial).is_equal_approx(rig.origin.global_basis*delta),"Left-dominant wheel follows left hand motion")
+	rig.left_handed=false;rig.rotation=Vector3.ZERO;rig.origin.position=Vector3.ZERO;rig.head.rotation=Vector3.ZERO;rig.right.rotation=Vector3.ZERO
 	rig.poll_controls();check(rig.wheel_open(),"Holding click does not repeatedly toggle")
 	right.set_input("primary_click",false);rig.poll_controls();wheel.update(Vector2.ZERO)
 	right.set_input("trigger",1.0);left.set_input("trigger",1.0)
@@ -98,5 +118,16 @@ func run() -> void:
 	for key in Icons.NAMES:
 		var icon=Icons.texture(key);check(icon!=null and icon.get_width()==128,"Icon imports: "+key)
 	wheel.reset();check(wheel.viewport.render_target_update_mode==SubViewport.UPDATE_DISABLED,"Closed wheel stops viewport rendering")
+	var head_tracker:=XRPositionalTracker.new();head_tracker.name="head";head_tracker.type=XRServer.TRACKER_HEAD;XRServer.add_tracker(head_tracker)
+	head_tracker.set_pose("default",rig.head.transform,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	left.set_pose("grip",rig.left.transform,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	right.set_pose("grip",rig.right.transform,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)
+	await process_frame
+	rig.left_handed=true;wheel.toggle(Vector2.ZERO);rig.simulated=false
+	check(rig.can_open_weapon_wheel() and rig.wheel_open(),"Tracked head and both controllers allow a left-dominant wheel")
+	left.invalidate_pose("grip");await process_frame;wheel.update(Vector2.ZERO)
+	check(not rig.wheel_open() and not wheel.visible,"Dominant grip tracking loss closes the wheel despite tracked right selection stick")
+	wheel.toggle(Vector2.ZERO);check(not rig.wheel_open(),"Untracked dominant grip cannot reopen a stranded wheel")
+	rig.simulated=true;XRServer.remove_tracker(head_tracker)
 	XRServer.remove_tracker(left);XRServer.remove_tracker(right)
 	game.disconnect_game();game.free();print("WEAPON_WHEEL_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

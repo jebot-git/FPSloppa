@@ -19,7 +19,7 @@ SHA = lambda raw: hashlib.sha256(raw).hexdigest()
 # Textures are material roles, not randomized substitutions. World-aligned UVs
 # keep adjacent shell brushes continuous; doors/crates use local panel alignment.
 PALETTES = {
- 'desert': dict(wall='de_plaster',floor='de_paving',ceiling='med_tanwall1',trim='med_tanwall1',crate='ind_wd01_brwn1',wood='med_dr3a_blu',metal='metal_iron1_01',rock='med_rock3_bump'),
+ 'desert': dict(wall='de_plaster',floor='de_paving',ceiling='med_tanwall1',trim='med_tanwall1',crate='ind_wd01_brwn1',wood='med_wood2_plk1',metal='metal_iron1_01',rock='med_rock3_bump'),
  'industrial': dict(wall='ind_w01_grey2',floor='ind_dp01_grey2',ceiling='ind_w04_grey1',trim='metal_iron1_01',crate='ind_wd01_brwn1',wood='ind_door1_grey1',metal='metal_iron1_01',vent='ind_w07_grey1',tank='ind_w08_ylw1'),
  'village': dict(wall='de_plaster',floor='med_cobstn2_1',ceiling='ind_wd04_brwn1',trim='de_paving',crate='ind_wd01_brwn1',wood='med_dr3a_blu',metal='metal_iron1_01',window='ind_win1_blk1a',roof='ind_wdt01_brwn1'),
  'ruins': dict(wall='de_ruins',floor='de_ruins',ceiling='med_rock5_g1',trim='med_tanwall1',crate='ind_wd01_brwn1',wood='med_wood2_plk1',metal='metal_iron1_01',carved='carved',moss='grass1',rope='med_wood2_plk1'),
@@ -86,9 +86,10 @@ def style(a, theme):
         return '\n'.join(rows)
     a.brushes=[brush(b) for b in a.brushes]
     if hasattr(a,'detail_brushes'):a.detail_brushes=[brush(b) for b in a.detail_brushes]
+    if hasattr(a,'models'):a.models=[(attributes,[brush(b) for b in parts]) for attributes,parts in a.models]
 
 def write_wad(a, folder, filename, originals):
-    faces='\n'.join(a.brushes+getattr(a,'detail_brushes',[]))
+    faces='\n'.join(a.brushes+getattr(a,'detail_brushes',[])+[b for _,parts in getattr(a,'models',[]) for b in parts])
     names={m.group(2) for line in faces.splitlines() if (m:=FACE.match(line))}
     records,sources=generated()
     # Keep existing source WADs usable offline, with hash-checked provenance.

@@ -1,0 +1,205 @@
+{
+  "date": "2026-09-27",
+  "map": "de_nuke_rebuilt",
+  "sha256": "beecd72483cc95719f43a2a4f4d4e66468161d22c20a0622428f3eb2ea4eda7b",
+  "changes": [
+    "Connected Heaven stair landing to catwalk",
+    "Raised Heaven access ceiling for standing headroom",
+    "Mounted south wall vents into shell; removed overlapping duplicate panels",
+    "Replaced isolated short posts with wall-mounted columns reaching the roof"
+  ],
+  "results": {
+    "geometry": {
+      "checks": 65,
+      "failures": [],
+      "routes": [
+        {
+          "end": [
+            451.940678914388,
+            320.00003306071,
+            -1.73347518444061
+          ],
+          "name": "Hut doorway clearance",
+          "passed": true
+        },
+        {
+          "end": [
+            415.059195200602,
+            320.000003814697,
+            -1.73354276120663
+          ],
+          "name": "Hut doorway clearance (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            477.496210734049,
+            347.196746826172,
+            -1.23090762495995
+          ],
+          "name": "T lobby to A",
+          "passed": true
+        },
+        {
+          "end": [
+            62.8847249348958,
+            337.953442891439,
+            -1.73390120863914
+          ],
+          "name": "T lobby to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            477.803187052409,
+            350.933837890625,
+            -257.233911132813
+          ],
+          "name": "T radio ramp to B",
+          "passed": true
+        },
+        {
+          "end": [
+            63.2532348632812,
+            337.934000651042,
+            -1.73393564522266
+          ],
+          "name": "T radio ramp to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            478.007517496745,
+            348.937204996745,
+            -1.23394558429718
+          ],
+          "name": "CT outside to A",
+          "passed": true
+        },
+        {
+          "end": [
+            764.902791341146,
+            249.000946044922,
+            -1.73357928395271
+          ],
+          "name": "CT outside to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            479.002487182617,
+            352.083831787109,
+            -257.23395690918
+          ],
+          "name": "CT garage tunnel to B",
+          "passed": true
+        },
+        {
+          "end": [
+            765.002197265625,
+            249.001378377279,
+            -1.7336138099432
+          ],
+          "name": "CT garage tunnel to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            459.265436808268,
+            245.005523681641,
+            190.266165161133
+          ],
+          "name": "Heaven stairs to catwalk",
+          "passed": true
+        },
+        {
+          "end": [
+            584.99989827474,
+            305.030761400859,
+            -1.73371525704861
+          ],
+          "name": "Heaven stairs to catwalk (return)",
+          "passed": true
+        }
+      ]
+    },
+    "tactics": {
+      "checks": 363,
+      "failures": [],
+      "passed": true
+    },
+    "cover": {
+      "checks": 397,
+      "failures": [
+        "Exit agrees with actual outer collision: de_dust2_rebuilt #16",
+        "Exit agrees with actual outer collision: de_dust2_rebuilt #19",
+        "Exit agrees with actual outer collision: de_dust2_rebuilt #23",
+        "Exit agrees with actual outer collision: de_dust2_rebuilt #30",
+        "Exit agrees with actual outer collision: de_dust2_rebuilt #51"
+      ],
+      "maps": [
+        {
+          "map": "de_dust2_rebuilt",
+          "max_candidates": 62,
+          "passable": 69,
+          "probe_and_physics_usec": 13330,
+          "probes": 157
+        },
+        {
+          "map": "de_nuke_rebuilt",
+          "max_candidates": 86,
+          "passable": 17,
+          "probe_and_physics_usec": 6583,
+          "probes": 66
+        },
+        {
+          "map": "de_inferno_rebuilt",
+          "max_candidates": 62,
+          "passable": 17,
+          "probe_and_physics_usec": 5964,
+          "probes": 86
+        },
+        {
+          "map": "de_aztec_rebuilt",
+          "max_candidates": 64,
+          "passable": 67,
+          "probe_and_physics_usec": 8203,
+          "probes": 100
+        },
+        {
+          "map": "de_train_rebuilt",
+          "max_candidates": 78,
+          "passable": 205,
+          "probe_and_physics_usec": 34541,
+          "probes": 322
+        }
+      ],
+      "passed": false
+    }
+  },
+  "geometry_and_tactics_checks": 428,
+  "cover_note": "Same five pre-existing Dust2 penetration mismatches; Nuke checks pass.",
+  "cache_codecs": [
+    {
+      "encoded_bytes": 3145968,
+      "format": "bc7",
+      "images": 9,
+      "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-bc7.scn",
+      "raw_bytes": 9437175,
+      "sha256": "2b5670b64bdfda389cf2397d920d704e431693757c42c3cf418960898c8ae695"
+    },
+    {
+      "encoded_bytes": 3145968,
+      "format": "astc4",
+      "images": 9,
+      "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-astc4.scn",
+      "raw_bytes": 9437175,
+      "sha256": "5b650b721901aa4056a327e0191dfa1c5155496bb7ba2ef1eeff0298b79a4507"
+    }
+  ],
+  "comparison": "test-results/nuke-geometry/index.html",
+  "limitations": [
+    "No physical-headset test",
+    "Existing ObjectDB cleanup warnings"
+  ]
+}

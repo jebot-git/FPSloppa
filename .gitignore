@@ -125,3 +125,17 @@ __pycache__/
 
 # Separate experimental checkouts.
 /.worktrees/
+
+# Deferred ST artwork and map remain local until an ST release is approved.
+/deathmatch/weapons/tribes/
+/deathmatch/audio/tribes/
+/deathmatch/ui/weapon_icons/tribes_*
+/deathmatch/audio/music/skyward_relay*
+/maps/Stonehenge/
+/maps/ctf_stonehenge*
+/maps/cache/ctf_stonehenge*
+/maps/navigation/ctf_stonehenge*
+/maps/st_maplist.txt
+/tools/tribes/sources/
+/tools/tribes/refined/
+/docs/audio/skyward-relay/

@@ -38,6 +38,29 @@ func run():
 	actor=load("res://deathmatch/fighter.gd").new();actor.setup(1,"Dust2 audit",Color.WHITE);world.add_child(actor);actor.set_physics_process(false)
 	await physics_frame;await physics_frame
 	var space=world.get_world_3d().direct_space_state
+	for arch in data.get("arch_checks",[]):
+		var normal:=Vector3.RIGHT if arch.axis=="u" else Vector3.BACK
+		for at in arch.jambs:
+			var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(p(at)-normal*2.5,p(at)+normal*2.5,1))
+			check(not hit.is_empty(),"Arch jamb connects floor to crown: "+arch.name+" "+str(at))
+		if arch.crown!=null:
+			var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(p(arch.crown)-normal*2.5,p(arch.crown)+normal*2.5,1))
+			check(not hit.is_empty(),"Arch crown joins surrounding masonry: "+arch.name)
+	for door in data.get("door_checks",[]):
+		var n:=Vector3(door.normal[1],0,-door.normal[0])
+		var at:=p(door.wood)-Vector3.UP*.05
+		var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(at-n*.3,at+n*.3,1))
+		check(not hit.is_empty(),"Mid double door has solid wooden leaf "+str(door.hinge))
+		at=p(door.hinge)-Vector3.UP*.05
+		hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(at+Vector3.BACK*.5,at+Vector3.FORWARD*.5,1))
+		check(not hit.is_empty(),"Mid door hinge attaches to masonry "+str(door.hinge))
+	check(space.intersect_ray(PhysicsRayQueryParameters3D.create(p([298,321,48]),p([325,321,48]),1)).is_empty(),"Iconic centre gap remains open")
+	for point in [[151,82,237],[151,95,237],[151,108,237]]:
+		var query:=PhysicsShapeQueryParameters3D.new();var probe:=SphereShape3D.new();probe.radius=.02;query.shape=probe;query.collision_mask=1;query.transform.origin=p(point)-Vector3.UP*.05
+		check(space.intersect_shape(query).is_empty(),"A terrace has no floating trim: "+str(point))
+	for v in [82,95,108]:
+		var hit=space.intersect_ray(PhysicsRayQueryParameters3D.create(p([112.5,v,246]),p([109.5,v,246]),1))
+		check(not hit.is_empty(),"Relocated terrace course has solid wall backing: "+str(v))
 	for s in data.spawns:
 		var at:=p(s);var query:=PhysicsShapeQueryParameters3D.new();var capsule:=CapsuleShape3D.new();capsule.radius=.32;capsule.height=1.7;query.shape=capsule;query.collision_mask=1;query.transform.origin=at+Vector3.UP*.9
 		check(space.intersect_shape(query).is_empty(),"Spawn capsule clear "+str(s))

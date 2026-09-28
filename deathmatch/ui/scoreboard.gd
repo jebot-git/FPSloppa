@@ -48,6 +48,7 @@ func refresh_data(data: Dictionary,wall: bool=false) -> void:
 	var team_game: bool=data.team_game
 	var tf: bool=data.tf
 	title.text=data.title;summary.text=data.summary
+	headers[3].text="SCORE" if data.get("st",false) else "FRAGS"
 	var ranked: Array=data.ranked
 	headers[2].visible=tf
 	for i in range(16):

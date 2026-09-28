@@ -9,20 +9,25 @@ var stats: Dictionary={"corrections":0,"resets":0,"max_error":0.0}
 func clear() -> void:
 	samples.clear();acknowledged=-1
 
-func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,jetpack: Dictionary={}) -> void:
-	samples[sequence]={"position":position,"velocity":velocity,"height":height,"jetpack":jetpack.duplicate(true)}
+func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,jetpack: Dictionary={},tribes: Dictionary={},command: Dictionary={}) -> void:
+	samples[sequence]={"position":position,"velocity":velocity,"height":height,"jetpack":jetpack.duplicate(true),"tribes":tribes.duplicate(true),"command":command.duplicate(true)}
 	while samples.size()>CAPACITY:samples.erase(samples.keys()[0])
 
-func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false,jetpack: Dictionary={}) -> void:
+func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false,jetpack: Dictionary={},tribes: Dictionary={}) -> void:
 	if sequence<=acknowledged:return
 	acknowledged=sequence
+	if actor.tribes_enabled and actor.Tribes.valid_state(tribes):
+		replay_tribes(actor,sequence,position,velocity,height,tribes)
+		return
 	if not samples.has(sequence):
 		if not jetpack.is_empty():actor.Jetpack.reconcile(actor,jetpack)
+		if not tribes.is_empty():actor.Tribes.reconcile(actor,tribes)
 		# History loss/reconnect: only a substantial divergence warrants a reset.
 		if actor.position.distance_to(position)>2.5:
 			actor.position=position;actor.velocity=velocity;actor.reset_view()
 		return
 	var reference: Dictionary=samples[sequence]
+	if not tribes.is_empty():actor.Tribes.reconcile(actor,tribes,reference.get("tribes",{}))
 	if not jetpack.is_empty():actor.Jetpack.reconcile(actor,jetpack,reference.get("jetpack",{}))
 	# Correct a server-denied stand-up at its acknowledged input. An older echo
 	# must not undo a newer local crouch/prone transition.
@@ -60,3 +65,35 @@ func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: f
 		else:
 			samples[key].position+=correction
 			samples[key].velocity+=impulse
+
+func replay_tribes(actor,sequence: int,position: Vector3,velocity: Vector3,height: float,state: Dictionary) -> void:
+	# Fast terrain travel needs collision replay, not a velocity-error impulse:
+	# the latter can turn an older slope contact into a new vertical launch.
+	var before: Vector3=actor.render_position()
+	var before_physics: Vector3=actor.position
+	var reference: Dictionary=samples.get(sequence,{})
+	var error: float=position.distance_to(reference.get("position",position))
+	stats.max_error=maxf(stats.max_error,error)
+	if error>.20:stats.corrections+=1
+	var held: Array=[actor.ski_held,actor.jet_held,actor.tribes_blocked,actor.jump_held,actor.rotation.y]
+	actor.position=position;actor.velocity=velocity;actor.tribes_state=state.duplicate(true)
+	if height>=.65 and height<=1.65:actor.update_height(height,true)
+	actor.jump_held=reference.get("command",{}).get("jump",actor.jump_held)
+	for key in samples.keys():
+		if key<=sequence:samples.erase(key);continue
+		var command: Dictionary=samples[key].get("command",{})
+		if command.is_empty():continue
+		# Authority runs every physics tick while holding the last 30 Hz input.
+		# Its state may already cover part of the newer local simulation timeline;
+		# replaying those milliseconds twice would add latency-dependent travel.
+		var end_time: float=samples[key].tribes.get("time",state.time)
+		var remaining:=minf(command.delta,maxf(0,end_time-float(actor.tribes_state.time)))
+		if remaining<=.000001:continue
+		actor.ski_held=command.ski;actor.jet_held=command.jet;actor.tribes_blocked=command.blocked
+		actor.update_height(command.height)
+		actor.simulate(command.move,command.yaw,command.slow,remaining,command.jump,command.swim)
+		samples[key].position=actor.position;samples[key].velocity=actor.velocity;samples[key].tribes=actor.tribes_state.duplicate(true)
+	actor.ski_held=held[0];actor.jet_held=held[1];actor.tribes_blocked=held[2];actor.jump_held=held[3];actor.rotation.y=held[4]
+	actor.reset_physics_interpolation()
+	actor.prediction_view_offset=before-actor.global_position
+	stats["max_replay_adjustment"]=maxf(stats.get("max_replay_adjustment",0.0),before_physics.distance_to(actor.position))

@@ -1,0 +1,94 @@
+{
+  "date": "2026-09-27",
+  "passed": true,
+  "protocol": "fpsloppa-55-tribes-armour",
+  "integration_checks": 87,
+  "light_movement_regression_checks": 36,
+  "demo_checks": 12,
+  "network": [
+    {
+      "role": "server",
+      "checks": 22
+    },
+    {
+      "role": "pilot",
+      "checks": 6
+    },
+    {
+      "role": "viewer",
+      "checks": 3
+    }
+  ],
+  "tf_regression_checks": 80,
+  "visuals": [
+    "test-results/tribes-armour/menu.png",
+    "test-results/tribes-armour/energy-hud.png"
+  ],
+  "classes": {
+    "light": {
+      "hp": 100,
+      "energy": 60,
+      "cost": 175,
+      "guns": 3
+    },
+    "medium": {
+      "hp": 152,
+      "energy": 80,
+      "cost": 250,
+      "guns": 4
+    },
+    "heavy": {
+      "hp": 200,
+      "energy": 110,
+      "cost": 400,
+      "guns": 5
+    }
+  },
+  "reference_repository": "https://github.com/shayk-siege/t1.41-base",
+  "reference_revision": "c077e0f6ee5c5b0987f9eddf4834a139b5a5a332",
+  "source_hashes": [
+    {
+      "file": "server_game.cs",
+      "sha256": "18bee7ddeb0503bb698ac0c39432590a9a14a866e200881b5291a9dc298c354f"
+    },
+    {
+      "file": "server_game_player.cs",
+      "sha256": "d317468ba546f8622b2a1edf0ff9c4630b4868c65e17ce4c84d421dbbac7ec44"
+    },
+    {
+      "file": "server_game_playerspawn.cs",
+      "sha256": "cc159e51c642126a20545b0b278690c4bbf768a68817c0db5caf35194a68f575"
+    },
+    {
+      "file": "server_items_armors_heavyarmor.cs",
+      "sha256": "9c84f7804ee58e56acef2e0d1405193d3ea1069bb3b7d352bcfe7bcaf7988f10"
+    },
+    {
+      "file": "server_items_armors_lightarmor.cs",
+      "sha256": "ff04cc28db8953819b493da1e49bc79fefc68b23df8bd4604cf8d68df6a2ff5f"
+    },
+    {
+      "file": "server_items_armors_mediumarmor.cs",
+      "sha256": "a10c8905a5793d375eeeca2b9fcee147aae87319df29d76c41a547c546f6ccfb"
+    },
+    {
+      "file": "server_items_item.cs",
+      "sha256": "0c28584d8ab740e97148a300c5c2ffece234705441d45e266fe75d3d16b27f36"
+    },
+    {
+      "file": "server_items_packs_energypack.cs",
+      "sha256": "2168899ffc024111bb7ce9d12ec08fc6e4540e692c34537eee8236c65e1235af"
+    },
+    {
+      "file": "server_server.cs",
+      "sha256": "f1bb89bb196fa1da9c98bdf29ad88ccf4a4bfd5ffc907d655e8a6c1718fe16ba"
+    }
+  ],
+  "limits": [
+    "Maintained community base scripts, not an authenticated retail 1.11 extraction.",
+    "Health scaled relative to existing 100 HP light; Quake weapons remain test proxies.",
+    "Respawn-based finite team supply replaces inventory-station refits for this test.",
+    "User approved light skiing in VR; new medium/heavy armour needs headset feel validation.",
+    "Native test harness reports ObjectDB/resources still in use at shutdown; assertions and script execution pass."
+  ]
+}

@@ -14,7 +14,7 @@ func state(id: int) -> Dictionary:
 	var c: Dictionary=states[id]
 	if c.weapon!=s.weapon:
 		if c.physical.has(c.weapon):Reload.interrupt(c.physical[c.weapon])
-		c.weapon=s.weapon;c.reloading=-1;c.burst=0;c.heat=0.0
+		c.weapon=s.weapon;c.reloading=-1;c.burst=0;c.heat=0.0;c.erase("spray")
 		# Holstering cancels unfinished reloads; the existing clip is retained.
 	var d: Dictionary=game.armory.data(s.weapon)
 	if d.ammo>=0 and not c.clips.has(s.weapon):c.clips[s.weapon]=mini(d.magazine,s.ammo[d.ammo])
@@ -43,22 +43,39 @@ func recoil_scale(id: int) -> float:
 	return 2.0
 func reload_sound(id: int,kind: String):
 	game._cs_reload_sound.rpc(game.map_epoch,id,int(game.players[id].serial),kind)
-func definition(id: int) -> Dictionary:
+func definition(id: int,at_time: float=-1.0) -> Dictionary:
 	var s: Dictionary=game.players[id];var d: Dictionary=game.armory.data(s.weapon).duplicate(true)
 	var c:=state(id)
 	if c.modes.get(s.weapon,false) and d.has("suppressor"):d.merge(d.suppressor,true)
-	var heat: float=maxf(0,float(c.heat)-maxf(0,game.clock-float(c.shot_at)-.12)*5.0)
+	var shot_time: float=game.clock if at_time<0.0 else at_time
+	var heat: float=maxf(0,float(c.heat)-maxf(0,shot_time-float(c.shot_at)-.12)*5.0)
 	var motion: float=Vector2(game.fighters[id].velocity.x,game.fighters[id].velocity.z).length()
 	var extra: float=0.0 if d.get("shell_reload",false) else minf(4.0,heat)+(.0 if motion<.5 else 1.6)
 	if not game.fighters[id].is_supported():extra+=4.0
 	if s.weapon==9 and not s.get("weapon_zoom",false):extra+=3.0
 	var penalty:=recoil_scale(id)
+	# A recovered, stationary shot goes exactly along the sight, including an
+	# unscoped AWP. Shotguns and unsupported VR long guns retain their spread.
+	if heat==0.0 and motion<.5 and game.fighters[id].is_supported() and not d.get("shell_reload",false) and penalty==1.0:
+		d.spread=0.0;d.vertical=0.0;extra=0.0
 	d.spread+=extra;d.vertical+=extra
 	if s.vr_device:
 		d.spread*=penalty;d.vertical*=penalty
 		# Sustained recoil climbs above the tracked sight, without moving the palm.
 		d.recoil_pitch=minf(4.0,heat)*.35*penalty
 	return d
+func prepare_spray(id: int,pellets: int):
+	# Reserve the random samples after each shot so its recoil can anticipate
+	# the next bullet. Movement, stance and recovery are still evaluated at fire.
+	var samples: Array[Vector2]=[]
+	for pellet in pellets:samples.append(Vector2(randf_range(-1,1),randf_range(-1,1)))
+	state(id).spray=samples
+func spray_direction(id: int,d: Dictionary,pellet: int) -> Vector3:
+	var c:=state(id)
+	if not c.has("spray") or c.spray.size()!=int(d.pellets):prepare_spray(id,int(d.pellets))
+	var sample: Vector2=c.spray[pellet]
+	var accuracy: float=game.fighters[id].accuracy_scale()
+	return Vector3(sample.x*tan(deg_to_rad(d.spread*accuracy)),tan(deg_to_rad(float(d.get("recoil_pitch",0.0))))+sample.y*tan(deg_to_rad(d.vertical*accuracy)),-1).normalized()
 func begin_reload(id: int) -> bool:
 	if manual(id):return false
 	var s: Dictionary=game.players[id];var c:=state(id);var d: Dictionary=game.armory.data(s.weapon)
@@ -67,7 +84,10 @@ func begin_reload(id: int) -> bool:
 	return true
 func tick_input(id: int,_delta: float):
 	var s: Dictionary=game.players[id];var c:=state(id);var w: int=s.weapon
+	var usp_hands: bool=w==2 and manual(id)
+	var alt_requested: bool=s.get("alt_fire",false)
 	if s.dead or s.spectator or game.lobby.active() or game.intermission>0 or game.match_mode.special.blocked(id):
+		if usp_hands:c.alt_held=alt_requested
 		c.reloading=-1;c.burst=0
 		if c.physical.has(w):Reload.interrupt(c.physical[w])
 		return
@@ -91,6 +111,9 @@ func tick_input(id: int,_delta: float):
 		if not before.ready and p.ready:reload_sound(id,"rack_close")
 		if not Reload.can_fire(p,w):c.burst=0
 		if p.grab!="" or p.cover>.05:alt=false
+		# Test both sides of sampling: seating ammo/releasing the slide must
+		# not turn that same reload press into a silencer attachment.
+		if usp_hands and (reload_pressed or before.grab!="" or before.carry>0 or p.grab!="" or p.carry>0 or not Reload.usp_suppressor_contact(s.xr)):alt=false
 	if c.reloading>=0:
 		if d.get("shell_reload",false) and primary and c.clips[w]>0:c.reloading=-1
 		elif game.clock>=c.reload_at:
@@ -99,7 +122,8 @@ func tick_input(id: int,_delta: float):
 			else:c.reloading=-1
 	if alt and not c.alt_held and (w==1 or d.has("suppressor")) and c.reloading<0 and s.cooldown<=0 and c.burst==0:
 		c.modes[w]=not c.modes.get(w,false);s.cooldown=.3 if w==1 else 2.0
-	c.alt_held=alt
+	# Re-entering reach or finishing a reload while held requires a new press.
+	c.alt_held=alt_requested if usp_hands else alt
 	if not hands and reload_pressed and not c.reload_held:begin_reload(id)
 	c.reload_held=reload_pressed
 	if blocked:c.burst=0;return
@@ -132,6 +156,13 @@ func shoot(id: int,burst_round: bool=false) -> bool:
 	if w==1 and c.modes.get(w,false):
 		if not burst_round:c.burst=mini(2,c.clips[w]);c.burst_until=game.clock+.5
 		s.cooldown=.1;c.next_burst=game.clock+.1
+	prepare_spray(id,int(d.pellets))
+	var next_definition:=definition(id,game.clock+s.cooldown)
+	var next_direction:=Vector3.ZERO
+	for pellet in int(d.pellets):next_direction+=spray_direction(id,next_definition,pellet)
+	# Traces/impacts have already been emitted. This payload is the next shot's
+	# pose, never a correction that rotates the gun before the current bullet.
+	game._variant_shot_fx.rpc(id,w,suppressed(id),next_direction.normalized())
 	return true
 func falloff(d: Dictionary,damage: int,distance: float) -> int:
 	# 500 GoldSrc units -> 12.7 m (one source unit = one inch).

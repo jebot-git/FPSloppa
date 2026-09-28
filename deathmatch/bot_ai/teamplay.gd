@@ -39,7 +39,7 @@ func tick() -> void:
 		if not reports.has(key) or reports[key].time<report.time:
 			reports[key]=report;count("reports_delivered")
 			var location: String="my position"
-			if game.match_mode.kind in ["ctf","tf"] and game.match_mode.bases.size()==2:
+			if game.match_mode.kind in ["ctf","tf","st"] and game.match_mode.bases.size()==2:
 				var team: int=0 if report.position.distance_to(game.match_mode.bases[0])<report.position.distance_to(game.match_mode.bases[1]) else 1
 				location=game.match_mode.TEAMS[team]+" base"
 			elif game.match_mode.kind=="koth" and report.position.distance_to(game.match_mode.hill)<15:location="the hill"
@@ -189,7 +189,7 @@ func goals(id: int,brain: Dictionary,rows: Array) -> void:
 	if anchor.is_empty() and mode.kind=="tdm" and not sightings.is_empty():anchor=sightings[0]
 	if anchor.is_empty():return
 	var watch: Vector3=anchor.position
-	if mode.kind in ["ctf","tf"] and mode.flags.size()==2:watch=mode.flags[game.players[id].team].position
+	if mode.kind in ["ctf","tf","st"] and mode.flags.size()==2:watch=mode.flags[game.players[id].team].position
 	elif mode.kind=="as" and mode.assault.stage<mode.assault.objectives.size():watch=mode.assault.objectives[mode.assault.stage].position
 	var spot:=firing_point(id,watch,watch,true)
 	if not spot.is_empty():ai.candidate(rows,"ambush","ambush",spot.position,155,true);rows[-1].look=spot.look

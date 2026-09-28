@@ -61,5 +61,6 @@ func fire(game: Node,id: int) -> void:
 	elif hit.has("building"):
 		game.match_mode.fortress.damage_building(hit.building,id,game.W.DATA[1].damage*randi_range(1,game.W.DATA[1].dice))
 	elif hit.hit:
+		preload("res://deathmatch/effects/surface_marks.gd").contact(game,hit,line[0],line[1],{"name":"CHAINSAW","radius":.035})
 		var wall:=space.intersect_ray(PhysicsRayQueryParameters3D.create(line[0],line[1],1))
 		feedback(game,id,hit.position,wall.get("normal",(line[0]-line[1]).normalized()))

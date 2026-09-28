@@ -1,6 +1,7 @@
 """Audit final archives independently of staging folders and local user files."""
 from pathlib import Path
 import hashlib, json, zipfile
+from map_distribution import distributable
 ROOT=Path(__file__).resolve().parents[1]
 VERSION=(ROOT/'VERSION').read_text().strip()
 base=json.loads((ROOT/'deathmatch/assets/base_manifest.json').read_text())
@@ -13,6 +14,7 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
         assert len(names)==len(z.infolist()), 'Duplicate archive entries'
         for name in names:
             p=Path(name)
+            assert distributable(Path(*p.parts[1:])), ("Deferred asset",name)
             assert name.startswith(prefix) and '..' not in p.parts and not name.startswith('/'), name
             assert not set(p.parts)&{'.git','.codex','.agents','test-results','release-assets','__pycache__','optional-map-pack','optional-tf-map-pack','optional-arena-pack'}, name
             assert p.parts[1] not in {'demos','video-output'}, name
@@ -37,7 +39,7 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
             # Authored texture import settings must survive a fresh source checkout.
             for source in ROOT.glob('deathmatch/**/*.import'):
                 rel=source.relative_to(ROOT).as_posix()
-                if 'importer="texture"' in source.read_text():
+                if distributable(rel) and 'importer="texture"' in source.read_text():
                     assert z.read(prefix+rel)==source.read_bytes(),('Missing texture import policy',rel)
         assert z.read(prefix+'docs/SERVER-BROWSER.md')==(ROOT/'docs/SERVER-BROWSER.md').read_bytes(),('Missing or stale browser guide',label)
         rows.append({'archive':filename,'bytes':archive.stat().st_size,'files':len(names),'verified_assets':len(assets),'maps':sum(row['path'].endswith('.bsp') for row in assets),'passed':True})

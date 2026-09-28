@@ -75,7 +75,7 @@ func execute(command: String) -> Dictionary:
 			var players: Array=[]
 			for id in game.players:
 				var s: Dictionary=game.players[id];players.append({"id":id,"name":s.name,"spectator":s.spectator,"ping_ms":s.ping,"bot":id<0,"team":s.team,"class":s.tf_class})
-			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.PROTOCOL,"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"bot_fill":game.bot_population.target,"bot_count":game.bot_population.count_target,"tb_heavy_ordnance":game.match_mode.fortress.walkers.heavy_ordnance_only,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
+			return {"version":ProjectSettings.get_setting("application/config/version"),"protocol":game.PROTOCOL,"map":game.current_map,"mode":game.match_mode.kind,"capacity":game.max_clients,"bot_fill":game.bot_population.target,"bot_count":game.bot_population.count_target,"tb_heavy_ordnance":game.match_mode.fortress.walkers.heavy_ordnance_only,"players":players,"pending":game.pending_joins.size(),"rotation":game.map_rotation,"allowed_modes":game.votes.allowed_modes,"ballot_exclude_modes":game.lobby.excluded_modes,"time_remaining":game.round_left,"intermission":game.intermission,"result":game.round_message,"weapon_rules":game.armory.effective(),"lobby":game.lobby.active()}
 		"bots":
 			if words.size()!=2 or not str(words[1]).is_valid_int():return {"error":"Expected bots <count> (0 disables bots)"}
 			var amount:=int(words[1])

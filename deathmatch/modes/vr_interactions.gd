@@ -15,14 +15,14 @@ func setup(value) -> void:owner_ref=weakref(value)
 func reset() -> void:history.clear();armed.clear();sequences.clear();next_arm.clear()
 func departed(id: int) -> void:history.erase(id);armed.erase(id);sequences.erase(id);next_arm.erase(id)
 func eligible(id: int) -> bool:
-	return multiplayer.is_server() and game.active and not game.map_loading and not game.lobby.active() and game.intermission<=0 and tf.mode.kind in ["tf","tb","as","de"] and game.players.has(id) and not game.players[id].dead and not game.players[id].spectator and not tf.mode.special.blocked(id)
+	return multiplayer.is_server() and game.active and not game.map_loading and not game.lobby.active() and game.intermission<=0 and (tf.mode.kind in ["tf","tb","as","de"] or tf.mode.tribes.enabled()) and game.players.has(id) and not game.players[id].dead and not game.players[id].spectator and not tf.mode.special.blocked(id)
 func clear_path(start: Vector3,end: Vector3) -> bool:
 	var query:=PhysicsRayQueryParameters3D.create(start,end,1);query.hit_from_inside=true
 	return game.get_world_3d().direct_space_state.intersect_ray(query).is_empty()
 func body_transform(id: int) -> Transform3D:
 	return Transform3D(Basis(Vector3.UP,game.players[id].yaw),game.fighters[id].position)
 func sample(id: int) -> void:
-	if tf.mode.kind=="de":return # DE owns its held equipment and cancellation.
+	if tf.mode.kind=="de" or tf.mode.tribes.enabled():return # DE owns its held equipment and cancellation.
 	if not eligible(id) or not game.players[id].get("physical",false) or game.players[id].xr.is_empty():history.erase(id);armed.erase(id);return
 	var pose: Dictionary=game.players[id].xr
 	if armed.has(id) and (armed[id].until<game.clock or armed[id].role!=game.players[id].get("tf_class","") or armed[id].left_handed!=pose.left_handed):armed.erase(id)
@@ -78,8 +78,14 @@ func submit(kind: String,pose: Dictionary,velocity: Vector3,seq: int) -> void:
 func request(epoch: int,life: int,seq: int,kind: String,pose: Dictionary,velocity: Vector3) -> void:
 	if multiplayer.is_server():request_for(multiplayer.get_remote_sender_id(),epoch,life,seq,kind,pose,velocity)
 func request_for(id: int,epoch: int,life: int,seq: int,kind: String,raw_pose: Dictionary,velocity: Vector3) -> bool:
-	if not eligible(id) or epoch!=game.map_epoch or life!=game.players[id].serial or seq<=sequences.get(id,-1) or not kind in ["arm","throw","ability","cancel"]:return false
+	if not eligible(id) or epoch!=game.map_epoch or life!=game.players[id].serial or seq<=sequences.get(id,-1):return false
+	if kind not in ["arm","throw","ability","cancel"] and not (tf.mode.tribes.enabled() and kind in ["hold_kit","hold_pack","hold_flag","hold_ammo","transfer","activate"]):return false
 	sequences[id]=seq
+	if tf.mode.tribes.enabled():
+		var ok: bool=tf.mode.tribes.combat.physical_request(id,kind,Poses.validate(raw_pose),velocity)
+		if id==multiplayer.get_unique_id():reply(epoch,life,seq,kind,ok)
+		else:reply.rpc_id(id,epoch,life,seq,kind,ok)
+		return ok
 	if tf.mode.kind=="de":
 		var ok: bool=tf.mode.defusal.utility.physical_request(id,kind,Poses.validate(raw_pose),velocity)
 		if id==multiplayer.get_unique_id():reply(epoch,life,seq,kind,ok)

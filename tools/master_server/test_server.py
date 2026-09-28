@@ -27,6 +27,16 @@ def status():
 
 
 class DirectoryTests(unittest.TestCase):
+    def test_deferred_tribes_mode_and_arsenal_rejected(self):
+        row = status()
+        row.update(mode="st", weapon_rules="tribes", map="ctf_stonehenge")
+        with self.assertRaises(ValueError):
+            validate_status(row)
+        row.update(mode="dm")
+        with self.assertRaises(ValueError):
+            validate_status(row)
+
+
     def setUp(self):
         self.now = 100.0
         self.probes = []

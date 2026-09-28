@@ -24,7 +24,14 @@ func run():
 	await physics_frame;await physics_frame
 	var de=g.match_mode.defusal;de.tick(0);wheel=rig.weapon_wheel;wheel.toggle(Vector2.ZERO)
 	check(wheel.shopping and rig.wheel_open() and wheel.entries.size()==5,"Right-click wheel becomes categorized shop during preparation")
+	rig.right.position=Vector3(.28,1.1,-.6);wheel.update(Vector2.ZERO)
+	var before: Vector3=wheel.global_position
+	rig.right.position+=Vector3(.2,.12,-.08);wheel.update(Vector2.ZERO)
+	check((wheel.global_position-before).is_equal_approx(rig.origin.global_basis*Vector3(.2,.12,-.08)),"Open buy wheel follows dominant hand while browsing")
 	select(200);check(rig.wheel_open() and wheel.page==200,"Tilt/recenter opens sidearms category without closing")
+	rig.left_handed=true;rig.left.position=Vector3(-.3,1.15,-.6);wheel.update(Vector2.ZERO)
+	check(absf(wheel.global_position.x-rig.left.global_position.x)<.001,"Buy submenu follows left dominance without changing categories")
+	rig.left_handed=false
 	select(10);check(de.account(1).cash==150 and g.players[1].owned==[0,10],"Wheel selection purchases through production authority")
 	check(rig.wheel_open() and g.desired_weapon==10,"Buy wheel persists for more purchases and equips new sidearm")
 	g.clock+=.2;select(2);check(de.account(1).cash==150 and not g.players[1].owned.has(2),"Unaffordable wheel entry cannot grant equipment")

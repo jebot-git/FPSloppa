@@ -22,6 +22,7 @@ func run():
 	check(not cfg.has("error") and cfg.values.sv_weapon_rules=="cs16" and cfg.values.map=="de_dust2_rebuilt" and cfg.values.maps==preload("res://deathmatch/modes/defusal_maps.gd").IDS,"Server DE config forces CS loadout and defaults to classic map rotation")
 	check(Config.parse('set sv_de_prepare "0"').has("error") and Config.parse('set sv_de_bombtime "999"').has("error"),"Invalid DE timers rejected")
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g)
+	g.selected_map="de_dust2_rebuilt"
 	g.start_host("Bomb test",0,20,10,true,"de","doom")
 	if is_instance_valid(g.bots):g.bots.free();g.bots=null
 	g.set_process(false);g.set_physics_process(false);de=g.match_mode.defusal

@@ -1,0 +1,30 @@
+{
+  "date": "2026-09-27",
+  "change": "Reconnect front AWP scope support without changing optics or bolt pivot",
+  "geometry": {
+    "front_support_extension_model_units": 0.02,
+    "previous_gap_model_units": 0.0105,
+    "barrel_overlap_model_units": 0.0095,
+    "sight_markers_unchanged": true,
+    "bolt_pivot_unchanged": true,
+    "other_workbench_meshes_unchanged": 38,
+    "triangle_count": 6452,
+    "shared_texture_sha256_unchanged": true
+  },
+  "checks": {
+    "cs16_art": {
+      "checks": 225,
+      "failures": [],
+      "passed": true
+    },
+    "cs16_sights": {
+      "checks": 73,
+      "failures": [],
+      "passed": true
+    },
+    "visual_review": "Blender MCP viewport plus native Godot right, left, sight-line and open-action views"
+  },
+  "preview": "test-results/cs16/scope-mount/awp.png",
+  "native_asset_sha256": "35087f14957500546f019e7a86c14c9ab1e0b1c471d15db22d897d311f0b7fe8",
+  "headset_test_run": false
+}

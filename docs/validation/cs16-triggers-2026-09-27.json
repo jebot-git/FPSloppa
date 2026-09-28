@@ -1,0 +1,159 @@
+{
+  "date": "2026-09-27",
+  "change": "Reverse trigger concavity toward the muzzle on eleven CS guns; align Glock safety tab and reconnect the P90 trigger upper attachment.",
+  "checks": {
+    "art": {
+      "checks": 225,
+      "failures": [],
+      "passed": true
+    },
+    "sights": {
+      "checks": 73,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "total_checks": 298,
+  "asset_manifest_verified_files": 56,
+  "component_comparison": [
+    {
+      "weapon": "knife",
+      "changed_components": []
+    },
+    {
+      "weapon": "glock",
+      "changed_components": [
+        "glock_Body"
+      ]
+    },
+    {
+      "weapon": "usp",
+      "changed_components": [
+        "usp_Body"
+      ]
+    },
+    {
+      "weapon": "m3",
+      "changed_components": [
+        "m3_Body"
+      ]
+    },
+    {
+      "weapon": "xm1014",
+      "changed_components": [
+        "xm1014_Body"
+      ]
+    },
+    {
+      "weapon": "mp5",
+      "changed_components": [
+        "mp5_Body"
+      ]
+    },
+    {
+      "weapon": "ak47",
+      "changed_components": [
+        "ak47_Body"
+      ]
+    },
+    {
+      "weapon": "m4a1",
+      "changed_components": [
+        "m4a1_Body"
+      ]
+    },
+    {
+      "weapon": "m249",
+      "changed_components": [
+        "m249_Body"
+      ]
+    },
+    {
+      "weapon": "awp",
+      "changed_components": [
+        "awp_Body"
+      ]
+    },
+    {
+      "weapon": "deagle",
+      "changed_components": [
+        "deagle_Body"
+      ]
+    },
+    {
+      "weapon": "p90",
+      "changed_components": [
+        "p90_Body"
+      ]
+    }
+  ],
+  "preserved": "All non-body mesh position/normal/UV attributes and node transforms match pre-change GLBs. Sight markers, reload components, AWP bolt pivot and scope support remain in place. Knife assets restored unchanged.",
+  "export_isolation": "Clear selection including hidden view-layer objects; limit selected-object glTF export to active scene. Final GLB node inventories contain only each intended weapon assembly.",
+  "visual_review": "Blender MCP Glock close-up and native Godot Glock/P90 left/right/sight/open-action cards. Native cards generated for all twelve weapons.",
+  "artifacts": [
+    "test-results/cs16/triggers/art.stdout",
+    "test-results/cs16/triggers/sights.stdout",
+    "test-results/cs16/triggers/components.json",
+    "test-results/cs16/inspection"
+  ],
+  "native_assets": [
+    {
+      "path": "deathmatch/weapons/cs16/ak47.scn",
+      "sha256": "211071d223b7397e8617b586448a68b949f065fbe75c2744b092ecdcec6e08fb"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/awp.scn",
+      "sha256": "9552cb86c1eb04bc0bbee2c6b2587a1097fa50eadd92e157d10f981f55b0a772"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/deagle.scn",
+      "sha256": "a8d319cc6eef470e79de8426a7054571a6844ca310785a1685f9dea10b274508"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/glock.scn",
+      "sha256": "33051c83466296c97badf706c04d0ec8e1c45325d6f2a9a614fa74ca037d7a63"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/knife.scn",
+      "sha256": "9aefaeae95724d28d8460f3ed972a919b6f0415bc992d223121aa82f94788494"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/m249.scn",
+      "sha256": "e841c75a287fa89737c9136c2513aa82dc201d2a1b385ced0fa88005de7351e4"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/m3.scn",
+      "sha256": "a3d77e2b796637ae8fe82f85ffbd1687956e409755d5eff5b7fc3ceda6ee1f64"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/m4a1.scn",
+      "sha256": "c4d0f0a468857adf10a27aa1da856c64c3a70bc91259ae09b421d095907717bc"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/magazine_pouch.scn",
+      "sha256": "fe8e316d995068a339243b837a796664aa5d8d92683264c503a454b801064f78"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/mp5.scn",
+      "sha256": "5e29737abeea0e43d011125f6be1ff8b4149a0ed68ecffaa070617ecdc4c37c6"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/p90.scn",
+      "sha256": "8a3cf8bcef1fbc434b1fa7da9039dbcd2cb6e18e07ec39c0b15b5975c63d7d4c"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/usp.scn",
+      "sha256": "6ff20944ed186f5f3b74b66d956082de80117750a852c497e9b62997967a6953"
+    },
+    {
+      "path": "deathmatch/weapons/cs16/xm1014.scn",
+      "sha256": "9a74c53592bef0e0126c62f6c9da41d052242d72bb202fa3b6a72397aeddafcf"
+    }
+  ],
+  "limitations": [
+    "No new physical-headset validation.",
+    "Each headless suite still reports one ObjectDB instance at shutdown, also observed in earlier validation."
+  ],
+  "input_bindings_changed": false,
+  "release_built": false
+}

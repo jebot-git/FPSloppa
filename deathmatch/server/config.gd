@@ -2,7 +2,7 @@ extends RefCounted
 const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as","de"]
 const MAX_CLIENTS := 32
 const CAPACITY_WARNING := "UNSUPPORTED PLAYER COUNT: more than 16 players is unsupported. Performance, gameplay and maps are not balanced for player limits higher than 16."
-const DEFAULTS={"sv_de_prepare":15,"sv_de_roundtime":120,"sv_de_bombtime":45,"sv_de_winlimit":16,"de_maplist":"","sv_jetpacks":0,"sv_master_test":0,"sv_master_test_port":8080,"sv_public":0,"sv_query_port":0,"sv_master_url":"","sv_bot_fill":0,"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","if_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
+const DEFAULTS={"sv_de_prepare":15,"sv_de_roundtime":120,"sv_de_bombtime":45,"sv_de_winlimit":16,"de_maplist":"","sv_jetpacks":0,"sv_master_test":0,"sv_master_test_port":8080,"sv_public":0,"sv_query_port":0,"sv_master_url":"","sv_bot_fill":0,"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_ballot_exclude_modes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","if_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
 const RANGES={"sv_de_prepare":Vector2i(5,60),"sv_de_roundtime":Vector2i(30,600),"sv_de_bombtime":Vector2i(10,90),"sv_de_winlimit":Vector2i(1,30),"sv_jetpacks":Vector2i(0,1),"sv_master_test":Vector2i(0,1),"sv_master_test_port":Vector2i(1024,65535),"sv_public":Vector2i(0,1),"sv_query_port":Vector2i(0,65535),"sv_bot_fill":Vector2i(0,MAX_CLIENTS),"rcon_port":Vector2i(1024,65535),"sv_lobby":Vector2i(0,1),"sv_lobby_seconds":Vector2i(15,180),"sv_map_uploads":Vector2i(0,1),"sv_log_max_mb":Vector2i(1,512),"sv_log_backups":Vector2i(1,9),"sv_friendlyfire":Vector2i(0,1),"capturelimit":Vector2i(1,100),"hilllimit":Vector2i(1,3600),"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_votes":Vector2i(0,1),"sv_tf_spy_invisibility":Vector2i(0,1),"sv_announcer":Vector2i(0,1),"sv_voice":Vector2i(0,1)}
 
 static func parse(source: String) -> Dictionary:
@@ -30,7 +30,7 @@ static func parse(source: String) -> Dictionary:
 			if number<RANGES[key].x or number>RANGES[key].y: return {"error":"Line %d: %s is out of range."%[line_number,key]}
 			values[key]=number
 		else:
-			if (value.is_empty() and not key.ends_with("_maplist") and not key in ["sv_maplist","sv_mumble_url","sv_gametypes","sv_log_file","rcon_password","sv_master_url"]) or value.length()>(2048 if key.ends_with("_maplist") else 512 if key in ["sv_mumble_url","sv_log_file","sv_master_url"] else 80): return {"error":"Line %d: empty or excessive value."%line_number}
+			if (value.is_empty() and not key.ends_with("_maplist") and not key in ["sv_maplist","sv_mumble_url","sv_gametypes","sv_ballot_exclude_modes","sv_log_file","rcon_password","sv_master_url"]) or value.length()>(2048 if key.ends_with("_maplist") else 512 if key in ["sv_mumble_url","sv_log_file","sv_master_url"] else 80): return {"error":"Line %d: empty or excessive value."%line_number}
 			values[key]=value
 	if values.sv_master_test==1:
 		if not str(values.sv_master_url).is_empty():return {"error":"sv_master_test manages its own URL; leave sv_master_url empty."}
@@ -63,14 +63,22 @@ static func parse(source: String) -> Dictionary:
 	values["gametypes"]=[]
 	for mode in modes:
 		if not values.gametypes.has(mode):values.gametypes.append(mode)
+	var excluded:=str(values.sv_ballot_exclude_modes).to_lower().replace("\t"," ").split(" ",false)
+	if not Array(excluded).all(func(mode):return mode in MODES):return {"error":"sv_ballot_exclude_modes must list valid game modes."}
+	values["ballot_exclude_modes"]=[]
+	for mode in excluded:
+		if not values.ballot_exclude_modes.has(mode):values.ballot_exclude_modes.append(mode)
 	if not values.sv_log_level in ["off","normal","verbose"]:return {"error":"sv_log_level must be off, normal or verbose."}
+	if not preload("res://deathmatch/release_features.gd").map_allowed(values.map):return {"error":"Map is unavailable in this release."}
 	var maps:=str(values.sv_maplist).split(" ",false)
+	if not Array(maps).all(func(id):return preload("res://deathmatch/release_features.gd").map_allowed(id)):return {"error":"Map is unavailable in this release."}
 	if maps.size()>32: return {"error":"sv_maplist supports at most 32 maps."}
 	values["maps"]=Array(maps) if not maps.is_empty() else [values.map]
 	values["mode_maps"]={}
 	for mode in MODES:
 		var specific:=str(values[mode+"_maplist"]).split(" ",false)
 		if specific.size()>32:return {"error":mode+"_maplist supports at most 32 maps."}
+		if not Array(specific).all(func(id):return preload("res://deathmatch/release_features.gd").map_allowed(id)):return {"error":"Map is unavailable in this release."}
 		values.mode_maps[mode]=Array(specific)
 	# Preserve old configs while allowing IF-tagged imports an independent list.
 	if values.mode_maps["if"].is_empty():values.mode_maps["if"]=values.mode_maps.ig.duplicate()

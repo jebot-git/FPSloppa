@@ -58,8 +58,9 @@ set sv_maplist "lqdm1 lqdm2 lqdm4 lqdm7 lqdm8"
 | sv_maxclients | 1–32 players (default 8); counts above 16 are unsupported; dedicated host consumes no player slot |
 | sv_bot_fill | Target total occupancy (humans + bots), 0 disables; must not exceed sv_maxclients |
 | fraglimit | 1–100 individual frags, team TDM frags, or FT/IF team rounds |
-| sv_gametype | Initial `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf`, `tb`, `as` or `de`; default `dm` |
+| sv_gametype | Initial `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf`, `tb`, `as`, `de` or `st`; default `dm` |
 | sv_gametypes | Optional space-separated allowlist for mode votes; includes initial mode |
+| sv_ballot_exclude_modes | Space-separated modes excluded from post-game and lobby ballots only; empty by default |
 | capturelimit | CTF captures to win, 1–100, default 5 |
 | hilllimit | KOTH points to win, 1–3600, default 120 |
 | sv_friendlyfire | Team damage, 0 or 1; default 0 |
@@ -137,6 +138,16 @@ Files rotate at `sv_log_max_mb` (1–512 MiB, default 8), retaining `sv_log_back
 
 Set `sv_lobby "1"` to enable the unarmed voting room and `sv_lobby_seconds "45"` to choose its duration (15–180 seconds). The default is disabled. See [controls, demos and lobby documentation](SESSION_FEATURES.md) for voting and rotation behavior.
 
+Use `set sv_ballot_exclude_modes "ig if cc"` to keep those modes out of the
+post-game grid and its continuation in the waiting lobby. Modes remain
+available in normal mode/match votes and RCON when enabled by `sv_gametypes`.
+The list accepts the same mode IDs, ignores case and duplicates, and may include
+modes that are currently disabled. An empty list preserves existing ballots.
+If exclusions leave no compatible options, the server skips the ballot and
+waiting room and follows the current mode's normal map rotation. This setting
+does not change rotation when `sv_votes 0`. Restart the server after editing it;
+RCON `status` reports the applied list as `ballot_exclude_modes`.
+
 ### Announcer policy
 
 `set sv_announcer "1"` enables WARLORD announcer calls (default). Set it to `"0"` to disable all announcer calls for every player; restart the dedicated server after editing the config. This leaves combat sounds and capture fanfares enabled. Players may lower or mute their own announcer volume in Settings → Audio. The server policy is authoritative and persists across map rotation; client volume cannot override a disabled server policy.
@@ -183,7 +194,7 @@ Base rotations now use Quake DM1–DM7 for DM/IG/FT/TDM, four rebuilt CC arenas,
 
 Rotation precedence is an explicit mode-specific config list, then a nonempty `sv_maplist`, then the mode's maplist file, then the configured `map`. A global personal rotation therefore overrides bundled files; a mode-specific config list can override that global rotation.
 
-TF always uses Quake weapons; Assault always uses UT99. Host settings, `sv_weapon_rules`, CLI overrides and mode votes cannot override these requirements. The configured preference resumes in unrestricted modes.
+TF always uses Quake weapons; Assault always uses UT99; DE uses CS16. Host settings, `sv_weapon_rules`, CLI overrides and mode votes cannot override these requirements. The configured preference resumes in unrestricted modes.
 
 RCON `match` selects the mode, map and weapon rules in one transition. It rejects a contradictory TF/AS rules argument. It accepts only enabled mode/map pairs, rebuilds pickup mappings when rules change, and preserves fixed loadouts in IG, IF and CC. `status` also reports effective weapon rules, lobby state, intermission and round result.
 
@@ -194,3 +205,5 @@ Set `sv_jetpacks "1"` and restart to enable jetpack pickups in DM, TDM, CTF, IG,
 ## Bomb Defusal
 
 `sv_gametype "de"` selects CS16 automatically. `map` can select `de_dust2_rebuilt`, `de_nuke_rebuilt`, `de_inferno_rebuilt`, `de_aztec_rebuilt` or `de_train_rebuilt`; the default rotation contains all five. `sv_de_prepare` (15), `sv_de_roundtime` (120) and `sv_de_bombtime` (45) are seconds; `sv_de_winlimit` defaults to 16 round wins. These replace frag/time limits for DE. Add `de` to `sv_gametypes` to allow votes. See [DE configuration and rules](docs/BOMB-DEFUSAL.md).
+
+ST, Stonehenge and the Tribes loadout are excluded from 0.19v. Existing ST configurations must select an available mode and map before upgrading.

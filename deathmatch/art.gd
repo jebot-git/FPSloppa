@@ -47,20 +47,21 @@ const SNIPER_GRIP := Vector3(0,-.01,.025) # Center between the source pistol-gri
 const GRIPS = [Vector3.ZERO,Vector3(0,0,.10),Vector3(0,-.10,.11),Vector3(0,-.035,.04),Vector3(0,-.035,.04),Vector3(0,-.11,-.22),Vector3(0,-.14,.06),Vector3(0,-.11,-.13),Vector3(0,-.10,.02),Vector3(0,-.10,.12)]
 
 static func model_id(id: int,rules: String) -> int:
-	if rules=="quake":return [0,0,3,4,6,5,6,7,8,9][clampi(id,0,9)]
+	if rules in ["quake","tribes"]:return [0,0,3,4,6,5,6,7,8,9][clampi(id,0,9)]
 	if rules=="ut99":return [0,7,2,9,4,5,6,7,8,9,7,2][clampi(id,0,11)]
 	return clampi(id,0,9)
 
 static func muzzle(id: int,rules: String="doom") -> Vector3:
+	if rules=="tribes":return preload("res://deathmatch/tribes/models.gd").muzzle(id)
 	if rules=="cs16":return preload("res://deathmatch/counterstrike/models.gd").muzzle(id)
 	if rules=="sentry":return Vector3(0,0,-.855534)
 	if rules=="tf_sniper" or (rules=="ut99" and id==9):return Vector3(0,.10827,-1.039774)
 	if rules=="tf_flame":return Vector3(0,.035,-.785)
 	if rules=="ut99" and id==0:return Vector3(0,0,-.65)
-	if rules=="quake" and id in [0,1]:return Vector3(0,.411368,-.521071)
+	if rules in ["quake","tribes"] and id in [0,1]:return Vector3(0,.411368,-.521071)
 	# Just beyond the mesh's z=-.83 front face, on the bore centreline.
-	if rules=="quake" and id==2:return Vector3(.0003,.00825,-.855)
-	if rules=="quake" and id==3:return Vector3(0,.07,-.855)
+	if rules in ["quake","tribes"] and id==2:return Vector3(.0003,.00825,-.855)
+	if rules in ["quake","tribes"] and id==3:return Vector3(0,.07,-.855)
 	if rules=="ut99" and id==11:return Vector3(0,.08,-.45)
 	id=model_id(id,rules)
 	return Vector3(0,.05,.22-WEAPON_LENGTHS[id])
@@ -69,6 +70,7 @@ static func held_transform(pose: Transform3D, id: int, size: float = VR_SCALE,ru
 	var grip: Vector3=Vector3(0,-.055,.06) if rules=="tf_flame" else Vector3(0,-.17,.09) if rules=="ut99" and id==0 else GRIPS[model_id(id,rules)]
 	if rules=="tf_sniper" or (rules=="ut99" and id==9):grip=SNIPER_GRIP
 	if rules=="cs16":grip=preload("res://deathmatch/counterstrike/models.gd").grip(id)
+	if rules=="tribes":grip=Vector3.ZERO
 	return Transform3D(pose.basis.scaled(Vector3.ONE*size),pose.origin-pose.basis*(grip*size))
 
 static func clip_saw(model: Node3D) -> void:
@@ -85,6 +87,7 @@ static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: 
 	return pivot+Basis(Vector3.RIGHT,pitch)*(grip-pivot)+Vector3(0,0,recoil*.035)
 
 static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
+	if rules=="tribes":return preload("res://deathmatch/tribes/models.gd").make(id)
 	if rules=="cs16":
 		var cs_model:=preload("res://deathmatch/counterstrike/models.gd").make(id)
 		if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(cs_model,filter_mode)
@@ -111,7 +114,7 @@ static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
 		return root
 	if id==0:
 		if rules!="doom":
-			var key:="axe" if rules=="quake" else "impact_hammer"
+			var key:="axe" if rules in ["quake","tribes"] else "impact_hammer"
 			if not weapon_scenes.has(key):weapon_scenes[key]=load("res://deathmatch/weapons/experimental/"+key+".scn")
 			root.add_child(weapon_scenes[key].instantiate())
 		if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
@@ -222,11 +225,11 @@ static func variant_barrel(root: Node3D,pos: Vector3,radius: float,length: float
 static func variant_details(root: Node3D,model: Node3D,slot: int,rules: String) -> void:
 	var quake=["888888","888888","b9a17f","b87a4e","c3ac69","7c8b75","c06b49","9b7561","748fb4","728c75"]
 	var ut=["888888","91e85d","acbdc9","bc75ed","ffd253","c6a165","ef795b","67c9aa","c5c8d1","748795","5fbdcf","729aef"]
-	var color:=Color((quake if rules=="quake" else ut)[slot]);tint_model(model,color)
+	var color:=Color((quake if rules in ["quake","tribes"] else ut)[slot]);tint_model(model,color)
 	var accent:=material(color,.65,.18)
 	var dark:=material(color.darkened(.18),.7)
 	for x in [-.11,.11]:box(root,Vector3(x,.08,-.3),Vector3(.045,.09,.30),accent)
-	if rules=="quake":
+	if rules in ["quake","tribes"]:
 		match slot:
 			3:
 				for x in [-.07,.07]:variant_barrel(root,Vector3(x,.07,-.59),.064,.45,dark)

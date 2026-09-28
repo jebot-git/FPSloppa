@@ -5,12 +5,13 @@ var last_weapon:=-1
 func reset() -> void:engaged=false;last_weapon=-1
 func solve(primary: Transform3D, support: Transform3D, weapon: int, holding: bool, valid: bool,rules: String="doom") -> Transform3D:
 	if weapon!=last_weapon:engaged=false;last_weapon=weapon
-	if (weapon in [0,1,2,10] if rules=="cs16" else weapon in [0,2]) or not holding or not valid:engaged=false;return primary
+	if (weapon in [0,1,2,10] if rules=="cs16" else weapon in [9,10] if rules=="tribes" else weapon in [0,2]) or not holding or not valid:engaged=false;return primary
 	var offset:=support.origin-primary.origin
 	var distance:=offset.length()
 	var forward:=-primary.basis.z
 	if not (rules=="cs16" and engaged) and (distance<(.075 if rules=="cs16" else .12) or distance>.80 or offset.dot(forward)<.06):engaged=false;return primary
 	var anchor:=Vector3.FORWARD*.32
+	if rules=="tribes":anchor=Vector3(0,.035,-.25)*.65
 	if rules=="cs16":
 		var models=preload("res://deathmatch/counterstrike/models.gd")
 		anchor=(models.support(weapon)-models.grip(weapon))*.65

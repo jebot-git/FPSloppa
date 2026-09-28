@@ -20,3 +20,5 @@ This native component is licensed LGPL-3.0-or-later, as declared in `native/Carg
 The independent library describes itself as work in progress. Support is limited to the model names with implemented mappings; no arbitrary BLE device is accepted. The X40 motor characteristic checked before use is `6e40000a-b5a3-f393-e0a9-e50e24dcca9e`. No pairing database, bond keys, firmware or persistent device settings are read or modified by this extension.
 
 The game profile uses `submit_levels` for per-motor 0–15 amplitudes multiplied by the global strength. Legacy boolean `submit_frame` remains available. See the FPSloppa Vest v1 section in the user guide for the editable profile and scenario simulation.
+
+For Vulkan-only 0.19v runtimes the bridge builds the minimal Godot binding set and uses lazy function tables. It resolves only the API it actually calls, so optional WebXR/OpenGL methods are not required during extension startup. Dependency versions remain locked. See the [pinned binding feature definitions](https://github.com/godot-rust/gdext/blob/v0.5.5/godot/Cargo.toml).

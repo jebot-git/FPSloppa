@@ -1,0 +1,319 @@
+{
+  "date": "2026-09-28",
+  "engine": "Godot 4.7.2 Fedora",
+  "protocol": "fpsloppa-61-st-fixed-defences",
+  "scope": [
+    "1: downhill flag exits, escorts, guarded flag passing, mortar support and real disc jumps",
+    "2: seven deployable plans, replacement, forward supply, fixed infrastructure attacks",
+    "3: five fixed turret types, manual desktop/VR panel, large pulse sensors; two fusion sockets on Stonehenge"
+  ],
+  "checks": {
+    "st_parity123": {
+      "pass_count": 81,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/st_parity123-final.log"
+    },
+    "st_bot_tactics": {
+      "pass_count": 58,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/st_bot_tactics-final.log"
+    },
+    "st_adaptive_tactics": {
+      "pass_count": 34,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/adaptive-final.log"
+    },
+    "st_base_assets": {
+      "pass_count": 72,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/base.log"
+    },
+    "tribes_deployables": {
+      "pass_count": 55,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/deployables.log"
+    },
+    "st_tribes": {
+      "pass_count": 57,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/mode.log"
+    },
+    "tribes_demo": {
+      "pass_count": 14,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/demo.log"
+    },
+    "bot_teamplay": {
+      "pass_count": 41,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/teamplay.log"
+    },
+    "tribes_deployable_ui": {
+      "pass_count": 29,
+      "failures": [],
+      "log": "test-results/st-tribes/parity123/ui-vulkan.log"
+    },
+    "integrated_unopposed_captures": {
+      "cases": 16,
+      "passed": 16,
+      "min_seconds": 142.733333333339,
+      "max_seconds": 178.216666666701,
+      "report": "test-results/st-tribes/parity123/captures-final.json",
+      "scope": "All sixteen Light spawn-to-flag-to-home routes, normal integrated planner and CTF touches; no defending players. Predates only the construction-specific deck approach and manual-view input fixes."
+    },
+    "physical_routes": {
+      "cases": 19,
+      "passed": 19,
+      "min_seconds": 1.71666666666667,
+      "max_seconds": 64.2666666666643,
+      "report": "test-results/st-tribes/parity123/routes.json"
+    },
+    "construction_routes": {
+      "cases": 2,
+      "passed": 2,
+      "min_seconds": 14.9333333333337,
+      "max_seconds": 66.6499999999975,
+      "report": "test-results/st-tribes/parity123/construction-routes.json",
+      "scope": "Medium with purchased turret pack starts at each inventory pad; ordinary steering/BSP physics and actual placement must finish within the 150-second plan lease. Final deck placement and central landing fixes included."
+    },
+    "real_ENet": {
+      "server": [],
+      "pilot": [],
+      "late_spectator": [],
+      "logs": [
+        "test-results/st-tribes/parity123/network-server.log",
+        "test-results/st-tribes/parity123/network-pilot.log",
+        "test-results/st-tribes/parity123/network-viewer.log"
+      ],
+      "note": "Control claim, exclusive ownership, aim/fire, release, damage/repair, late spectator and existing movement/equipment/flag replication. Later Use release is also covered by the focused authority fixture."
+    }
+  },
+  "references": [
+    {
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/turrets/turret.cs",
+      "file": "test-results/st-tribes/research/fixed-defences/turret.cs",
+      "sha256": "f593ffb067b8c9dfe6812fd49800b3a3e90326c062ebae1d71325417f0ff9462"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/turrets/plasmaturret.cs",
+      "file": "test-results/st-tribes/research/fixed-defences/plasmaturret.cs",
+      "sha256": "88daafcec63fdc08cb0d4646aae79a9842dedf060fb3694e9a20b536c491073e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/turrets/indoorturret.cs",
+      "file": "test-results/st-tribes/research/fixed-defences/indoorturret.cs",
+      "sha256": "457226bd30ed833fab8eaf86d2dc2eb65ae88508db674ef8dadbfe9d756c2e1b"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/turrets/elfturret.cs",
+      "file": "test-results/st-tribes/research/fixed-defences/elfturret.cs",
+      "sha256": "fabbbfb93a8e087554de2e1bd3c2b059812913a8115dfe29b1f9bd8c55aeb8af"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/turrets/rocketturret.cs",
+      "file": "test-results/st-tribes/research/fixed-defences/rocketturret.cs",
+      "sha256": "045a75c63793fcc837b1d3d61a2c552a77ea11ac40dfbc04cd60044381532fdf"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/turrets/mortarturret.cs",
+      "file": "test-results/st-tribes/research/fixed-defences/mortarturret.cs",
+      "sha256": "c04c634e088c394db86e5ef4174123e918cbeda1eab0ce4b6534a7a74bd70679"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/sensors/sensor.cs",
+      "file": "test-results/st-tribes/research/fixed-defences/sensor.cs",
+      "sha256": "fc1664cdc3be1be35c67b997bad8d71e2bf55de5e290540332c8b6a49136bbc2"
+    }
+  ],
+  "source_sha256": {
+    "deathmatch/arena.gd": "b974361c1fad826193e48ff9bb6ca7d38bac4eb615bc0250aac34c4d6d53c87a",
+    "deathmatch/bot_ai/tribes.gd": "e3234b5ded18be3c9bd450245f0c1eef07b61fa763f028a8e9fc68dd80f8e5de",
+    "deathmatch/bot_ai/tribes_construction.gd": "26c948bb73a345218fe1fad9a24fde28d9fc8e7458339126348b9984dcb26c5e",
+    "deathmatch/bot_ai/tribes_equipment.gd": "529d439b2dc707eb2a641513a9071caaa4684fd4ca71363f5cfbf27ab034c059",
+    "deathmatch/bot_ai/tribes_offense.gd": "e84d92eb8e96f471a20a5f3e7af5b9d48562d5880e3af9ba86cfa320a0a4d34e",
+    "deathmatch/bot_ai/tribes_tactics.gd": "8b8e4a374761a5dcc4923f137b2ae3d4a87e3df87ef71108352ad902407ef100",
+    "deathmatch/bots.gd": "b5031247eb73bf8892c4ca45aa3712686f7d66e5809f4af548c412d908d4c598",
+    "deathmatch/demos/session.gd": "8af0b9d80394667275f1371d9675d3466b6c15ac3c0378d09a44036be4c7a957",
+    "deathmatch/experimental/combat.gd": "76cef598f5b4d43f278fd30697ca8b95f207718deb263ee822da3794ecf41af1",
+    "deathmatch/modes/tribes.gd": "406aeda201de8487c0ef3748ee2ad35a557d00c21f7a54b2fac2589f0509fddc",
+    "deathmatch/tests/st_construction_routes.gd": "d985faeb45e00e9723b08ba0b68ae0a2aed87384abbcdae8bdfc40332db6b046",
+    "deathmatch/tests/st_parity123.gd": "0732c53ecb0b865269f16ef240c72e31fc67df2fe10585ac48093d2c82dd3548",
+    "deathmatch/tribes/ballistics.gd": "0ad50e940e5bf0991b6b44d4409953a55d170510c3bf9e2b45e1e10a4dbb97f5",
+    "deathmatch/tribes/base_assets.gd": "63ccaab95e4f0a98eed78f1263cba48877a80e431fe32ebba47f925ab613091b",
+    "deathmatch/tribes/buy_wheel.gd": "cd356d35233629f05ac9af2b1526fd17a86b5c41c4e08951ecf204e4ed4db5e1",
+    "deathmatch/tribes/combat.gd": "8d7e9fffbba6bc0f02e7dae06db490957632416d845a8642d041a5a58d86e32d",
+    "deathmatch/tribes/deployables.gd": "c26e56a075f0c1fef4aa23c35df8e99ce64333273a48383e704ccae7e4bd935d",
+    "deathmatch/tribes/fixed_defence_data.gd": "0f75e1447f2a6eb9e7d7f89c1b364c5a220021e77e78172a27d80eeaf3b44c12",
+    "deathmatch/tribes/fixed_defence_model.gd": "b80c86d7144c738bd9d4218625e68b709cc010bf905d5d7363b9b31a7817fbfa",
+    "deathmatch/tribes/fixed_defences.gd": "d83eaf92a163fad186ff3d8e4f9608ee821def88b62decdb80f68fef2da67a7d",
+    "deathmatch/tribes/stations.gd": "c578921a355c1006954bb57a0a82ddec04c6b12d473f42d8ef9e9221e3b7d288",
+    "deathmatch/tribes/turret_view.gd": "479d66f1b418432791a1e277e02bb208ee716664481e7abeb76e82bd636ff72b",
+    "tools/tribes/live_match.gd": "a20ef0648640c219acda18a2d8e94464d3849b019911774c63ffbff36104fa65",
+    "tools/tribes/report_match.py": "cc3324d1af6d24e9802f37dd3d6eefe446ab4601d067d0d6d7c3d56f2b3b8ff3"
+  },
+  "interrupted_diagnostics": [
+    "test-results/st-tribes/parity123/soak-first",
+    "test-results/st-tribes/parity123/soak-second"
+  ],
+  "contested": {
+    "folder": "test-results/st-tribes/parity123/soak-final",
+    "complete": true,
+    "seconds": 1200.0166666659,
+    "scores": [
+      1,
+      2
+    ],
+    "flag_pickups": {
+      "red": 9,
+      "blue": 11
+    },
+    "captures_in_samples": [
+      {
+        "observed_seconds": 245.383333333421,
+        "scores": [
+          1,
+          0
+        ]
+      },
+      {
+        "observed_seconds": 817.249999999585,
+        "scores": [
+          1,
+          1
+        ]
+      },
+      {
+        "observed_seconds": 1083.13333333268,
+        "scores": [
+          1,
+          2
+        ]
+      }
+    ],
+    "near_flag_capper_to_siege_transitions": 2,
+    "diversion_samples": [
+      {
+        "seconds": 716.916666666343,
+        "id": -1008
+      },
+      {
+        "seconds": 1083.13333333268,
+        "id": -1001
+      }
+    ],
+    "lane_counts": {
+      "-1000": 3,
+      "-1001": 3,
+      "-1002": 3,
+      "-1003": 3,
+      "-1004": 3,
+      "-1005": 3,
+      "-1006": 3,
+      "-1007": 3,
+      "-1008": 3,
+      "-1009": 3,
+      "-1010": 3,
+      "-1011": 3
+    },
+    "role_counts": {
+      "-1000": 7,
+      "-1001": 7,
+      "-1002": 8,
+      "-1003": 8,
+      "-1004": 8,
+      "-1005": 7,
+      "-1006": 8,
+      "-1007": 7,
+      "-1008": 8,
+      "-1009": 7,
+      "-1010": 7,
+      "-1011": 7
+    },
+    "tactics": {
+      "approaches_committed": 62,
+      "attack_lane_changes": 72,
+      "failed_launches": 10,
+      "progress_recoveries": 42,
+      "pushes_formed": 15,
+      "pushes_interrupted": 9,
+      "pushes_released": 15
+    },
+    "offense": {
+      "bombard_shots": 12,
+      "built_ammo_station": 1,
+      "built_motion": 1,
+      "built_pulse": 1,
+      "built_remote_jammer": 1,
+      "built_turret": 1,
+      "disc_jump_attempts": 50,
+      "flag_exit_routes": 14,
+      "flag_pass_misses": 1,
+      "flag_passes": 2
+    },
+    "fixed_fire": {
+      "fusion": 26
+    },
+    "peak_horizontal_kmh": 120.219776916504,
+    "script_errors": 0,
+    "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Different runs are not a controlled statistical comparison.",
+    "status": "complete",
+    "seed": 9281,
+    "requested_speed": 4,
+    "teams": [
+      6,
+      6
+    ],
+    "source_scope": "Includes offence, fixed defence and surviving-team/builder allocation fixes. Predates the final deck-vs-roof construction placement and central deck landing fixes; these have separate real-physics tests and are present in the new live match.",
+    "report": "test-results/st-tribes/parity123/contested-summary.json"
+  },
+  "live": {
+    "folder": "test-results/st-tribes/live-parity123",
+    "seed": 9282,
+    "renderer": "Mobile/Vulkan",
+    "teams": [
+      6,
+      6
+    ],
+    "source_scope": "Includes the final construction floor/landing and Use release fixes. Later visual-only VR direction normalization is fixture-parsed but this desktop spectator does not exercise VR.",
+    "seconds": 420.933333333279,
+    "scores": [
+      0,
+      0
+    ],
+    "spectators": 1,
+    "viewer_frames": 22200,
+    "processes": "test-results/st-tribes/live-parity123/processes.json",
+    "screenshot": "test-results/st-tribes/live-parity123/live.png",
+    "screenshot_inspected": true,
+    "checked_utc": "2026-09-27T23:28:56.065444+00:00",
+    "server_script_errors": 0,
+    "viewer_script_errors": 0,
+    "observed_offense": {
+      "bombard_shots": 7,
+      "built_ammo_station": 1,
+      "built_motion": 2,
+      "built_pulse": 1,
+      "built_turret": 2,
+      "disc_jump_attempts": 15,
+      "flag_exit_routes": 1,
+      "flag_pass_misses": 1,
+      "flag_passes": 1
+    }
+  },
+  "visuals": {
+    "turret_gallery": "test-results/st-tribes/parity123/fixed-gallery.png",
+    "manual_panel": "test-results/st-tribes/parity123/turret-panel.png",
+    "inspected": true,
+    "final_log": "test-results/st-tribes/parity123/preview-final.log"
+  },
+  "limitations": [
+    "Contested carrier escape and balanced repeatable capture rates are not established by the isolated fixtures.",
+    "New bot skills are bounded heuristics; no learned optimal ski routes or shared target-designation system.",
+    "Stonehenge turret placement is a project adaptation, not verified stock mission placement. Large sensor and non-fusion fixed turret types are implemented and fixture-tested, not all placed on Stonehenge.",
+    "Fixed equipment shields, original disable thresholds, multiple power sources and command/PDA remain future work.",
+    "Manual VR turret panel ergonomics require headset testing. The current live spectator is desktop Vulkan.",
+    "Known ObjectDB shutdown, graphical PulseAudio input cleanup and spectator MultiMesh interpolation warnings remain; no script errors are accepted on tested paths.",
+    "Five-second observations can miss short transitions; different seeds/runs are not a controlled comparison.",
+    "The contested pass counter records attempts; catch/expiry can clear in the planner before the sampled accounting tick, so no match pass-success count is claimed. The focused physical pass/catch fixture passes."
+  ]
+}

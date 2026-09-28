@@ -67,7 +67,7 @@ func streak(points: PackedVector3Array,color: Color,width: float,life: float) ->
 		for axis in [side,forward.cross(side)]:
 			for v in [a-axis,b-axis,b+axis,a-axis,b+axis,a+axis]:mesh.surface_add_vertex(v)
 	mesh.surface_end();shape(mesh,Vector3.ZERO,color,life)
-func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int,definition: Dictionary={}) -> void:
+func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int,definition: Dictionary={},muzzle_light: bool=true) -> void:
 	var kind:=Emission.kind(rules,weapon,definition)
 	if kind=="melee" or kind=="hammer":return
 	if rules=="ut99" and weapon==7:kind="pulse_beam"
@@ -83,19 +83,25 @@ func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int,d
 			for i in range(1,steps):points.append(start.lerp(end,float(i)/steps)+Vector3(randf_range(-.045,.045),randf_range(-.045,.045),randf_range(-.045,.045)))
 			points.append(end);streak(points,recipe.color,recipe.width,recipe.life)
 		else:streak(PackedVector3Array([start,tail]),recipe.color,recipe.width,recipe.life)
-		if kind in ["rail","shock_beam","beam","pulse_beam"]:
+		if kind in Emission.BEAMS:
 			streak(PackedVector3Array([start,end]),Color("e7f1ff"),.007,minf(recipe.life,.10))
 			illumination.emit(start,end,recipe,0)
-		else:
+		elif muzzle_light:
 			# Bullet pellets do not become room-length area lights. One shared
 			# muzzle key coalesces shotgun pellets and rapid-fire bursts.
-			illumination.emit(start,start,Emission.recipe("muzzle"),hash(start))
+			illumination.emit(start,start,Emission.muzzle_recipe(rules,weapon,definition),hash(start))
 		for i in 2:particle(end-direction*.02,Vector3(randf_range(-1,1),randf_range(.2,1.5),randf_range(-1,1)),recipe.color,.025,.18)
 func projectile(rules: String,definition: Dictionary) -> Node3D:
-	var root:=Node3D.new();var kind: String=definition.kind;var visual_kind:=Emission.kind(rules,-1,definition)
+	var root:=Node3D.new();var kind: String=definition.kind;var visual_kind:=Emission.kind(rules,preload("res://deathmatch/tribes/arsenal.gd").NAMES.find(definition.get("name","")) if rules=="tribes" else -1,definition)
 	root.set_meta("kind",kind);root.set_meta("emission",Emission.projectile_recipe(visual_kind,definition));root.set_meta("visual_kind",visual_kind);root.set_meta("trail_time",0.0)
-	var color:=Color("776f58") if rules=="quake" else Color("b7a077")
+	var color:=Color("776f58") if rules in ["quake","tribes"] else Color("b7a077")
 	match kind:
+		"tribes_mine","tribes_handgrenade":root.add_child(preload("res://deathmatch/tribes/models.gd").make(10 if kind=="tribes_mine" else 9))
+		"tribes_disc":
+			var disc:=Art.barrel(root,Vector3.ZERO,.18,.035,material(Color("599cff")));disc.rotation.x=0;disc.name="Spin"
+		"tribes_grenade","tribes_mortar":
+			Art.barrel(root,Vector3.ZERO,.08 if kind=="tribes_grenade" else .15,.22,Art.material(Color("9a9f63"),.6))
+		"tribes_bullet","tribes_bolt":Art.barrel(root,Vector3.ZERO,.012 if kind=="tribes_bullet" else .025,.20,material(Emission.recipe(visual_kind).color))
 		"nail":
 			Art.barrel(root,Vector3.ZERO,.020,.26,material(Emission.recipe(visual_kind).color))
 		"rocket","warhead":
@@ -150,14 +156,12 @@ func travel(node: Node3D,velocity: Vector3,delta: float,stuck: bool) -> void:
 	elif kind in ["shock_orb","pulse","plasma","bfg"]:particle(pos,Vector3.ZERO,recipe.color,.055,.12)
 func burst(rules: String,pos: Vector3,weapon: int,kind: String="",definition: Dictionary={}) -> void:
 	if rules=="doom" and kind.is_empty():kind=Emission.kind(rules,weapon)
-	var light_kind: String="explosion" if kind in ["rocket","grenade","flak_shell","warhead","razor_blast"] else kind
-	var light:=Emission.projectile_recipe(light_kind,definition)
-	if kind=="bfg":light=light.duplicate();light.life=.32;light.radius=4.5
+	var light:=Emission.impact_recipe(rules,weapon,kind,definition)
 	illumination.emit(pos,pos,light,0)
 	if rules=="doom" and kind in ["plasma","bfg"]:
 		globe(pos,light.color,.4 if kind=="plasma" else 2.5,.18 if kind=="plasma" else .32)
 		return
-	var explosive: bool=weapon in [4,6] if rules=="quake" else kind in ["rocket","grenade","flak_shell","warhead","razor_blast"]
+	var explosive: bool=weapon in [1,3,4,7,9,10] if rules=="tribes" else weapon in [4,6] if rules=="quake" else kind in ["rocket","grenade","flak_shell","warhead","razor_blast"]
 	if rules=="ut99" and kind.is_empty():explosive=weapon in [6,8]
 	if rules=="ut99" and weapon==3:
 		globe(pos,Color(.7,.32,1,.7),1.3,.24);ring(pos,Color(.8,.45,1,.8),1.6,.3)

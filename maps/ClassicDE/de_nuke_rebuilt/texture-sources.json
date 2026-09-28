@@ -14,6 +14,22 @@
     "license": "CC0-1.0",
     "sha256": "248cad2b08b66fc7853b9687997183ae47091f36426e24c9ca1fddb70daaaf3c"
   },
+  "de_glass": {
+    "source": "Original DE builder artwork",
+    "license": "CC0-1.0",
+    "sha256": "d93de7d4db98efb8b268d90e082ff53e5b5e0cec38a9a980e133f2beea31ba82"
+  },
+  "ind_door1_grey1": {
+    "author": "Ben \"Makkon\" Hale",
+    "source": "https://www.slipseer.com/resources/makkon-textures.28/",
+    "archive": "makkon_industrial.zip",
+    "archive_sha256": "72e3d79f1047fea9184ab66bc4881af4b87816d1753438f66335aeaa6fc886a3",
+    "wad": "makkon_industrial.wad",
+    "wad_sha256": "ba3cf52dcd277ece3c42c76576d35352acc337a053c908c9ea39bf3cc136666d",
+    "sha256": "902c0704f467d3eedd422761e1f2e91d7a5e138a20d02d2acf093dffdad197df",
+    "format": "original WAD2 miptex; all four mip levels unchanged",
+    "license": "Makkon_License.txt; project-specific permission confirmed by project owner"
+  },
   "ind_dp01_grey2": {
     "author": "Ben \"Makkon\" Hale",
     "source": "https://www.slipseer.com/resources/makkon-textures.28/",
@@ -111,5 +127,14 @@
     "source": "Original DE builder artwork",
     "license": "CC0-1.0",
     "sha256": "c2e35e1c0c62acac4dd7868087b48f0057077cc2e1af9aba7da60c5dfe0b36b9"
+  },
+  "trigger": {
+    "source": "https://github.com/lavenderdotpet/LibreQuake",
+    "archive_sha256": "8b6cd467a73976e8ed6ee52eecc0cafc7d3a0c289058b1ccebcf05583a88f288",
+    "wad": "dev/texture-wads/lq_dev.wad",
+    "wad_sha256": "ec2f3f65ae966b26fb7e902f347cc1787899f348f4f5560e89c84c22454b58ed",
+    "license": "BSD-3-Clause",
+    "sha256": "0ecfb8fa2ae69ecd3f0fa9f15f70400d0459f5dceb8c3e560a2c0bba19ba13aa",
+    "format": "original WAD2 miptex; all four mip levels unchanged"
   }
 }
