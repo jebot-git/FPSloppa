@@ -175,5 +175,62 @@
     "Role/planner tests prove recovery assignments, not that an opposed match will necessarily break every stalemate.",
     "Known single ObjectDB shutdown warning remains in headless fixtures; no script errors in passing tests."
   ],
-  "next_live_matches": []
+  "next_live_matches": [
+    {
+      "map": "stonehenge",
+      "folder": "test-results/st-speed/live-stonehenge-recovery-9301",
+      "source_commit": "d8b0de0f1f1acecc033481c4d6a2ee76925fffda",
+      "processes": {
+        "server": 1463164,
+        "port": 29031,
+        "output": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-speed/live-stonehenge-recovery-9301",
+        "viewer": 1463202
+      },
+      "verified_seconds": 75.2166666666637,
+      "verified_teams": [
+        6,
+        6
+      ],
+      "spectators": 1,
+      "scores_at_verification": [
+        0,
+        0
+      ],
+      "status": "running at startup verification; result.json is completion authority",
+      "renderer": "Vulkan mobile",
+      "recording": true,
+      "recording_bytes_at_verification": 25428016,
+      "requested_game_seconds": 1200,
+      "first_capture_cutoff_seconds": 600,
+      "post_capture_next_pickup_cutoff_seconds": 600
+    },
+    {
+      "map": "raindance",
+      "folder": "test-results/st-speed/live-raindance-recovery-9301",
+      "source_commit": "d8b0de0f1f1acecc033481c4d6a2ee76925fffda",
+      "processes": {
+        "server": 1463371,
+        "port": 29032,
+        "output": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-speed/live-raindance-recovery-9301",
+        "viewer": 1463409
+      },
+      "verified_seconds": 60.1666666666645,
+      "verified_teams": [
+        6,
+        6
+      ],
+      "spectators": 1,
+      "scores_at_verification": [
+        0,
+        0
+      ],
+      "status": "running at startup verification; result.json is completion authority",
+      "renderer": "Vulkan mobile",
+      "recording": true,
+      "recording_bytes_at_verification": 20709424,
+      "requested_game_seconds": 1200,
+      "first_capture_cutoff_seconds": 600,
+      "post_capture_next_pickup_cutoff_seconds": 600
+    }
+  ]
 }

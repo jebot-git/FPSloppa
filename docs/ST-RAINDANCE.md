@@ -374,3 +374,10 @@ Stonehenge hold replays, four escape replays and 18 unopposed capture cases
 `docs/validation/st-carrier-recovery-2026-09-28.json`. Fresh contested recordings
 are needed to assess stalemate frequency; role assertions alone cannot prove
 that every carrier can be recovered.
+
+The next normal-speed 6v6 previews, seed 9301 from commit `d8b0de0`, are recorded
+as `live-stonehenge-recovery-9301` and `live-raindance-recovery-9301` under
+`test-results/st-speed`. Both Vulkan spectators connected with the horizontal
+speed HUD visible and recording active. Startup verification is not a completed
+match result; the twenty-minute limit and both 600-second inactivity cutoffs
+remain enabled.
