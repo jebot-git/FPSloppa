@@ -244,3 +244,82 @@ matches. They are not a statistical reconstruction of competitive win rates or
 proof that routes are globally optimal. No original HUD speed was inferred from
 camera displacement. The reconstructed base geometry and BSP collision differ
 from the original engine, and physical-headset comfort remains untested here.
+
+## Momentum, carrier priorities and entrance follow-up (28 September)
+
+The normal-speed seed 9297 previews both reached the 600-second first-capture
+cutoff at 0–0. Their movement records showed flag approaches repeatedly settling
+near walking speed, with large losses around launch staging. The forward jet
+controller previously targeted the current speed, so its acceleration input
+vanished near walking speed. It now targets useful horizontal jet speed while
+reserving thrust for terrain clearance, keeps ski held through open-air landings,
+and spends surplus energy accelerating clear descending approaches. Sharp turns
+retain their separate steering input. Armour, weapon damage and shared movement
+physics are unchanged.
+
+Downhill travel enables skiing before the alignment check. Uphill travel uses
+jets when speed, headroom and energy permit, otherwise walking traction. A
+recharging bot now walks up a supported slope at normal input strength instead
+of creeping while waiting for its jet reserve. Precise stops and turns toward
+an uphill destination still use their intended direction; a velocity-only
+slope override failed tower and doorway recovery tests and was removed.
+
+ST carriers can plan only delivery, nearby home-flag recovery, or protected
+holding while the home flag is stolen. Generic combat cover, enemy pursuit and
+ally-assistance candidates cannot replace those objectives. Carriers and fast
+travellers skip optional equipment attacks and use recent visible threats for
+short defensive fire: immediate threats, enemies ahead in the travel lane, or
+a bounded return-fire window. Navigation regains its view between those bursts.
+Energy weapons cannot spend a carrier's flight reserve. Optional siege and
+construction role changes discourage diverting a fast attacker; essential
+base repairs remain urgent.
+
+Healthy Medium/Heavy carriers may relay to a healthy, sufficiently charged Light
+who is ahead toward home and has a better homeward speed. A fast Heavy keeps the
+flag when that transfer would slow delivery. The throw searches feasible flight
+times with the ordinary impulse limit, inherited velocity, collision checks and
+observed enemy pressure. Moving catches and a receiver cooldown prevent turning
+back or immediately throwing the flag back. The existing injury-based emergency
+pass remains available. Stopped carriers request recovery after eight seconds
+(twelve for Heavy), while moving detours retain the longer progress budget and
+intentional home-flag holds remain exempt.
+
+Outdoor obstacle probes follow anticipated body travel, including airborne
+descent and capsule width, at a bounded polling rate. Low barriers use ordinary
+jump/jet inputs; tall barriers select a persistent clear flank and brake before
+impact. Close probes now include the feet: Raindance's 0.8 m bridge curb was
+below the previous chest-height ray. Replays of the observed bridge carrier and
+attacker recover 25 m of objective progress in 2.98 and 3.95 seconds. The isolated
+1.2 m barrier test retains 22 m/s; the 12 m wall test uses a flank with no stopped
+interval. These are controlled collision tests, not contested-match averages.
+
+Tower launches now check the full climb for an overhead roof before taking
+control from doorway navigation. Covered bots leave through the real exit;
+a launch that enters a bunker records its failed stage instead of repeating it.
+Launch selection also rejects downhill slopes whose fall direction would pull
+a skier across the intended corridor. Both bunker-to-roof repair replays leave
+the room and reach the actual repair approach without sustained ceiling contact.
+
+Raindance had a 0.74–1 metre floor edge at both bunker entrances, exceeding the
+0.42 metre walking step. All 18 baseline entry cases failed. Broad convex ramps
+now cover the full apron, with refreshed floor-height portals, collision,
+lighting and walking navigation. Entry validation covers three lanes, all three
+armours and a six-bot group on each team. Every authored navigation portal also
+has a supporting-floor collision check. Generated BSP/cache/navigation assets
+remain local to this experimental checkout.
+
+The isolated four-second flight test improves a walking-speed approach from
+11 to 18.72 m/s (39.6 to 67.4 km/h), consuming ordinary jet energy; an existing
+28 m/s landing preserves that speed. These are controlled physics fixtures,
+not claims about average contested-match speed. Faster experimental tower
+controllers and an extra launch-stage detour were rejected after full-route
+regressions. Tower approaches remain the main speed limitation.
+
+The intermediate open-travel-only comparison finished Stonehenge at 1–1 with
+its first capture at 279.82 seconds; Raindance still hit the 600-second cutoff.
+That comparison predates the carrier-priority, slope and entrance changes.
+Fresh normal-speed 6v6 previews use 20-minute limits and retain both inactivity
+rules; a running preview is not a completed validation result. The focused test
+receipts, code/map hashes and run locations are recorded separately in
+`docs/validation/st-momentum-2026-09-28.json`. Raw replays, unsuccessful experiments
+and recordings remain under ignored `test-results/st-speed`.

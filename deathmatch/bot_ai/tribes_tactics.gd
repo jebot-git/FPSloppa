@@ -67,13 +67,21 @@ func watch(id: int,brain: Dictionary,m: Dictionary):
 	if old.is_empty() or old.target.distance_to(target)>12 or distance<old.best-5:
 		if m.watches.size()>=8:m.watches.erase(m.watches.keys()[0])
 		m.watches[key]={"target":target,"best":distance,"at":game.clock};return
-	if game.clock-old.at<(60 if game.players[id].tribes_class=="heavy" else 35):return
+	var carrying: bool=ai.tribes.carrier(id)
+	# Distinguish a stopped carrier from a useful route detour. Restarting
+	# merely because home is not closer after eight seconds breaks run-ups.
+	if not old.has("stall_at") or Vector2(actor.velocity.x,actor.velocity.z).length()>2 or actor.position.distance_to(old.get("stall_position",actor.position))>1.5:
+		old.stall_at=game.clock;old.stall_position=actor.position
+	var heavy: bool=game.players[id].tribes_class=="heavy"
+	var stopped: bool=carrying and game.clock-old.stall_at>=(12 if heavy else 8)
+	if not stopped and game.clock-old.at<(60 if heavy else 35):return
 	old.at=game.clock;old.best=distance
 	var next: Vector3=brain.path[brain.step] if brain.step<brain.path.size() else target
 	m.failures.append({"point":next,"until":game.clock+120})
 	if m.failures.size()>12:m.failures.pop_front()
 	if brain.has("tower"):reject_stage(id,brain.goal,brain.tower.stage)
 	m.lane=(int(m.lane)+1)%3;m.recoveries+=1;count("progress_recoveries")
+	if stopped:count("stopped_carrier_recoveries")
 	if brain.goal_kind=="st_fixed_repair":ai.tribes.equipment.defer_fixed(game.players[id].team,int(brain.support))
 	m.erase("attempt_until");m.attempt_after=game.clock+20
 	brain.erase("tower");brain.route_at=0;brain.plan_at=0

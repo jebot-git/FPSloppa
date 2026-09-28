@@ -22,6 +22,26 @@ func travel_look(id: int,brain: Dictionary,point: Vector3):
 	if ai.tribes.carrier(id) and velocity.length()>3 and actor.position.distance_to(brain.goal)>30 and fmod(ai.game.clock,3.5)<1.2:
 		point=ai.eye(id)-velocity.normalized()*30
 	ai.aim(id,point,.08)
+func travel_defence(id: int,brain: Dictionary) -> bool:
+	# Use only the traveller's recent perception. Fire cannot create a pursuit
+	# goal, and distant fights/equipment are left to the escort.
+	if brain.enemy not in brain.visible or not ai.alive(brain.enemy) or ai.game.clock-brain.last_seen_at>.3:return false
+	var actor=ai.game.fighters[id]
+	var threat: Vector3=brain.seen_position-actor.position
+	var distance:=threat.length()
+	if distance<12:return true
+	var forward:=Vector3(actor.velocity.x,0,actor.velocity.z)
+	if forward.length()<3:forward=Vector3(brain.goal.x-actor.position.x,0,brain.goal.z-actor.position.z)
+	var ahead: float=Vector3(threat.x,0,threat.z).normalized().dot(forward.normalized())
+	if distance<40 and ahead>.75:return true # Enemy directly in the escape lane.
+	# A brief return-fire window keeps pursuit in check without staring
+	# backwards throughout the run. Close-range self-defence remains immediate.
+	return distance<35 and fmod(ai.game.clock+abs(id)*.17,3.5)<.65
+func carrier_weapon(id: int,weapon: int) -> bool:
+	var game=ai.game;var row: Dictionary=game.match_mode.tribes.Arsenal.table()[weapon]
+	if float(row.get("energy",0))<=0:return true
+	var actor=game.fighters[id];var profile: Dictionary=game.match_mode.tribes.definition(id)
+	return actor.tribes_state.energy-float(row.energy)>=profile.energy*.55
 func screen_enemy(id: int,brain: Dictionary) -> bool:
 	# A player covering the grab/escape takes precedence over optional base
 	# damage. Only current perception can trigger this, never shared wall vision.
@@ -91,7 +111,7 @@ func flag_run(id: int,brain: Dictionary) -> bool:
 		var landing: float=actor.position.y+actor.velocity.y*eta-10*eta*eta
 		s.jet_held=actor.tribes_state.energy>3 and (not aligned and cross_speed>.6 or landing<brain.goal.y+.2)
 		s.ski=true
-	if brain.enemy==0 and game.clock>=float(brain.get("equipment_aim_until",0)):ai.aim(id,brain.goal+Vector3.UP,.08)
+	if ai.tribes.route_look(id,brain) and game.clock>=float(brain.get("equipment_aim_until",0)):ai.aim(id,brain.goal+Vector3.UP,.08)
 	s.move=ai.tribes.movement(id,desired);s.prone=false;s.crouch=false;s.swim=Vector3.ZERO
 	brain.travel_phase="flag_run"
 	return true
@@ -170,22 +190,41 @@ func prepare(id: int,brain: Dictionary) -> bool:
 	return s.tribes_pack=="none" and game.clock<brain.st_outfit_until and pads and pads.rows.any(func(row):return row.kind=="inventory" and row.team==s.team and pads.assets.active(row.asset) and game.fighters[id].position.distance_to(row.position)<40)
 func pass_flag(id: int,brain: Dictionary) -> bool:
 	var game=ai.game;var s: Dictionary=game.players[id];var actor=game.fighters[id]
-	if not ai.tribes.carrier(id) or s.hp>40 or s.tribes_kit or game.clock<float(brain.get("pass_at",0)):return false
-	brain.pass_at=game.clock+2
+	if not ai.tribes.carrier(id) or game.clock<float(brain.get("pass_at",0)):return false
+	var emergency: bool=s.hp<=40 and not s.tribes_kit
+	var relay: bool=s.tribes_class in ["medium","heavy"]
+	if not emergency and not relay:return false
+	brain.pass_at=game.clock+.5
 	var home: Vector3=game.match_mode.bases[s.team];var origin: Vector3=actor.position+Vector3.UP*.8
+	var forward: Vector3=home-actor.position;forward.y=0;forward=forward.normalized()
+	var own_speed: float=maxf(game.match_mode.tribes.definition(id).walk,actor.velocity.dot(forward))
+	var candidates: Array=[]
 	for friend in game.players:
-		if friend==id or not ai.alive(friend) or game.players[friend].team!=s.team or game.players[friend].hp<s.hp+30:continue
-		var other=game.fighters[friend];var distance: float=other.position.distance_to(actor.position)
-		if distance<3 or distance>18 or other.position.distance_to(home)>actor.position.distance_to(home)-4:continue
-		var flight:=clampf(distance/16,.3,1.2);var target: Vector3=other.position+other.velocity*flight+Vector3.UP*.6
-		var impulse: Vector3=(target-origin)/flight+Vector3.UP*10*flight-actor.velocity
-		if impulse.length()>20:continue
-		var unsafe: bool=ai.teamplay.intel(id).any(func(row):return row.position.distance_to(target)<16)
-		if unsafe or not Ballistics.clear(game.get_world_3d().direct_space_state,origin,{"velocity":actor.velocity+impulse,"time":flight},20):continue
-		if game.match_mode.st.drop(id,origin,impulse):
-			passes[friend]={"until":game.clock+2,"arrival":game.clock+flight,"point":target-Vector3.UP*.6,"team":s.team,"epoch":game.map_epoch}
-			if ai.brains.has(friend):ai.brains[friend].plan_at=0
-			brain.plan_at=0;count("flag_passes");return true
+		if friend==id or not ai.alive(friend) or game.players[friend].team!=s.team:continue
+		var other=game.fighters[friend];var state: Dictionary=game.players[friend]
+		var profile: Dictionary=game.match_mode.tribes.definition(friend)
+		var faster: bool=relay and state.tribes_class=="light" and state.hp>=profile.hp*.6 and other.tribes_state.energy>=profile.energy*.25 and maxf(profile.walk,other.velocity.dot(forward))>=own_speed+2
+		if not faster and not (emergency and state.hp>=s.hp+30):continue
+		var distance: float=other.position.distance_to(actor.position)
+		if distance<3 or distance>24 or other.position.distance_to(home)>actor.position.distance_to(home)-4:continue
+		candidates.append({"id":friend,"faster":faster,"cost":other.position.distance_to(home)/maxf(profile.walk,other.velocity.dot(forward))})
+	candidates.sort_custom(func(a,b):return a.cost<b.cost)
+	for candidate in candidates:
+		var friend: int=candidate.id;var other=game.fighters[friend]
+		# A faster receiver needs more flight time than distance/16. Search
+		# feasible ordinary throws, including the sender's inherited velocity.
+		for flight in [.45,.6,.75,.9,1.05,1.2,1.4,1.6]:
+			var target: Vector3=other.position+other.velocity*flight+Vector3.UP*.6
+			var impulse: Vector3=(target-origin)/flight+Vector3.UP*10*flight-actor.velocity
+			if impulse.length()>20:continue
+			var unsafe: bool=ai.teamplay.intel(id).any(func(row):return row.position.distance_to(target)<16)
+			if unsafe or not Ballistics.clear(game.get_world_3d().direct_space_state,origin,{"velocity":actor.velocity+impulse,"time":flight},20):continue
+			if game.match_mode.st.drop(id,origin,impulse):
+				passes[friend]={"until":game.clock+2.2,"arrival":game.clock+flight,"point":target-Vector3.UP*.6,"team":s.team,"epoch":game.map_epoch}
+				if ai.brains.has(friend):ai.brains[friend].plan_at=0;ai.brains[friend].pass_at=game.clock+4
+				brain.plan_at=0;count("flag_passes")
+				if candidate.faster:count("faster_armour_handoffs")
+				return true
 	return false
 func catch_goal(id: int,rows: Array) -> bool:
 	if not passes.has(id):return false

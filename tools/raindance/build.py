@@ -92,6 +92,15 @@ class Raindance(Stonehenge):
         def box(lo,hi,t=WALL):self.block(lo,hi,t,o,a)
         # Low, wide, single-room bunker with large front entry and sloped roof.
         box((-19,-46,-2),(19,5,-1),FLOOR)
+        # The floor's front edge stood 0.74–1 m above the terrain, beyond
+        # ordinary walking step height. Embed a broad ramp into both surfaces.
+        # Use the lowest sampled outer ground so no exposed lip remains there.
+        entry_y=20
+        entry_z=min(self.height(*local((x,entry_y,0),team)[:2]) for x in range(-19,20,2))-o[2]-.3
+        bottom=min(-1,entry_z)-1
+        verts=[(-19,4.5,bottom),(19,4.5,bottom),(19,entry_y,bottom),(-19,entry_y,bottom),
+               (-19,4.5,-1),(19,4.5,-1),(19,entry_y,entry_z),(-19,entry_y,entry_z)]
+        self.convex([local(p,team) for p in verts],[[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]],FLOOR)
         box((-19,-46,-1),(-17,1,15));box((17,-46,-1),(19,1,15));box((-17,-46,-1),(17,-44,15))
         box((-17,-1,-1),(-7,1,10));box((7,-1,-1),(17,1,10));box((-7,-1,8.5),(7,1,10))
         # Sloping outer roof strip joins the flat spawn/sensor platform.
@@ -113,7 +122,11 @@ class Raindance(Stonehenge):
         box((-3,-40,-1),(3,-38,2),TRIM)
         self.marker('info_tribes_generator',local((0,-39,-.94),team),team=team)
         # Indoor portal chains keep graph sampling from choosing the roof.
-        for p in [(0,-34,-.94),(5,-35,-.94),(-10,-20,-.94),(10,-20,-.94),(0,-20,-.94),(0,-7,-.94),(0,3,-.94),(0,12,-.94)]:self.portal(local(p,team))
+        for p in [(0,-34,-.94),(5,-35,-.94),(-10,-20,-.94),(10,-20,-.94),(0,-20,-.94),(0,-7,-.94),(0,3,-.94)]:self.portal(local(p,team))
+        for y in [8,12,20]:
+            ramp=-1+(entry_z+1)*(y-4.5)/(entry_y-4.5)
+            terrain=self.height(*local((0,y,0),team)[:2])-o[2]
+            self.portal(local((0,y,max(ramp,terrain)+.06),team))
         for x,y in [(-10,-37),(0,-37),(10,-37),(-10,-26),(0,-26),(10,-26),(-10,-16),(10,-16)]:
             p=local((x,y,16.06),team);self.marker('info_player_team'+str(team+1),p,angle=team*180)
             self.probes['spawns'].append(dict(team=team,position=game(p)))

@@ -348,6 +348,10 @@ func plan(id: int,brain: Dictionary) -> void:
 	for index in game.spawn_points.size():
 		var point: Vector3=game.spawn_points[index]
 		if origin.distance_to(point)>2:candidate(rows,"roam:%s"%index,"roam",point,8.0+posmod(index-id,3))
+	# The ST carrier's route is a delivery decision. Generic cover, ally
+	# assistance and enemy candidates must not win as exposure penalties stack.
+	if game.match_mode.kind=="st" and tribes.carrier(id):
+		rows=rows.filter(func(row):return row.key in ["st:capture","st:carrier-return","st:hold"])
 	# Usually evaluate six routes. If all fail, try a bounded fallback and
 	# temporarily avoid failed goals so the next plan can reach later choices.
 	for row in rows:
@@ -444,6 +448,7 @@ func choose_weapon(id: int,distance: float,enemy: int=0) -> int:
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
 		if data.get("kind","")=="translocator":continue
 		if game.match_mode.kind=="st" and weapon in [8,9,10,11]:continue
+		if game.match_mode.kind=="st" and tribes.carrier(id) and not tribes.offense.carrier_weapon(id,weapon):continue
 		# Estimate useful damage from the actual class/profile data, not Doom's
 		# slot numbers (Quake grenades and UT shock occupy shotgun slots).
 		var damage: float=float(data.damage)*(1+float(data.get("dice",1)))*.5*int(data.get("pellets",1))
@@ -510,6 +515,7 @@ func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
 		var distance: float=eye(id).distance_to(point)
 		if game.clock>=brain.weapon_at or not game.match_mode.fortress.can_fire(id,s.weapon) or not can_harm_target(id,brain.enemy,s.weapon):
 			s.weapon=choose_weapon(id,distance,brain.enemy);brain.weapon_at=game.clock+.2
+		if game.match_mode.kind=="st" and tribes.carrier(id) and not tribes.offense.carrier_weapon(id,s.weapon):return
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,s.weapon)
 		var alternate:=alternate_fire(id,distance,brain)
 		if alternate:data=data.duplicate();data.merge(data.get("alt",{}),true)

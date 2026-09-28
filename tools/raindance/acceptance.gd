@@ -106,7 +106,11 @@ func run():
 		for fixture in g.match_mode.tribes.stations().rows:
 			if fixture.team!=team:continue
 			check(not ai.tribes.routes.path(g.ctf_spawns[team][0],fixture.position).is_empty(),"Bunker portal connects to "+str(team)+" "+fixture.kind)
-	check(g.match_mode.tribes.stations().navigation_points.size()==22,"Authored indoor and shelf portals reach runtime")
+	check(g.match_mode.tribes.stations().navigation_points.size()==probes.portals.size(),"Authored indoor and shelf portals reach runtime")
+	for point in probes.portals:
+		var p:=v(point)
+		var floor_hit:=space.intersect_ray(PhysicsRayQueryParameters3D.create(p+Vector3.UP*.12,p-Vector3.UP*.2,1))
+		check(not floor_hit.is_empty() and floor_hit.normal.y>.65,"Navigation portal has nearby supporting floor at "+str(p))
 	for fixture in g.match_mode.tribes.stations().generators:
 		var hit: Dictionary=g._trace(fixture.frame*Vector3(0,0,4),fixture.frame.origin,1)
 		check(hit.get("generator",-1)==fixture.team,"Generator housing can be shot/repaired "+str(fixture.team))

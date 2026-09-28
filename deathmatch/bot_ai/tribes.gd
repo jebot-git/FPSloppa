@@ -8,7 +8,8 @@ var equipment=preload("res://deathmatch/bot_ai/tribes_equipment.gd").new()
 var construction=preload("res://deathmatch/bot_ai/tribes_construction.gd").new()
 var offense=preload("res://deathmatch/bot_ai/tribes_offense.gd").new()
 var tactics=preload("res://deathmatch/bot_ai/tribes_tactics.gd").new()
-func setup(value):ai_ref=weakref(value);routes.ai=value;equipment.ai=value;tactics.ai=value;offense.ai=value;construction.ai=value
+var avoidance=preload("res://deathmatch/bot_ai/tribes_avoidance.gd").new()
+func setup(value):ai_ref=weakref(value);routes.ai=value;equipment.ai=value;tactics.ai=value;offense.ai=value;construction.ai=value;avoidance.ai=value
 
 var assignments: Dictionary={}
 var assignment_state: Dictionary={}
@@ -25,6 +26,10 @@ func allocate(pool: Array,point: Vector3,job: String,result: Dictionary) -> int:
 		var value: float=actor.position.distance_to(point)/maxf(8,game.match_mode.tribes.definition(id).walk)
 		value-=2 if assignments.get(id,"")==job else 0 # hysteresis, not a fixed role
 		if job not in ["chaser","escort"] and tactics.committed(id):value+=20
+		# Optional construction/siege should not reclaim an attacker in the
+		# middle of a fast descent. Base outages still request urgent repairs.
+		if job in ["repairer","siege"] and assignments.get(id,"") in ["capper","escort","chaser"] and momentum(id) and not (job=="repairer" and equipment.essential_damage(s.team)):
+			value+=25
 		if job=="repairer":
 			var pads=game.match_mode.tribes.stations()
 			var working: bool=s.tribes_pack=="repair" or game.match_mode.tribes.deployables.Data.is_pack(s.tribes_pack) and pads and not equipment.essential_damage(s.team)
@@ -211,7 +216,13 @@ func goals(id: int,brain: Dictionary,rows: Array) -> void:
 	else:ai.candidate(rows,"st:flag","objective",flag.position,300)
 
 func combat(id: int,brain: Dictionary,delta: float) -> bool:
-	if carrier(id) and offense.disc_jump(id,brain):return true
+	brain.travel_focus=false;brain.travel_defending=false
+	if carrier(id) or momentum(id) and brain.goal_kind not in ["st_repair","st_asset_repair","st_deploy_repair","st_fixed_repair"]:
+		brain.travel_focus=true
+		brain.equipment_target=-1;brain.equipment_aim_until=0.0
+		if offense.disc_jump(id,brain):return true
+		brain.travel_defending=offense.travel_defence(id,brain)
+		return not brain.travel_defending
 	if offense.screen_enemy(id,brain):return false
 	if offense.designate(id,brain,delta) or offense.disc_jump(id,brain) or offense.bombard(id,brain,delta):return true
 	offense.beacon(id,brain)
@@ -246,18 +257,49 @@ func path(start: Vector3,goal: Vector3,id: int=0) -> PackedVector3Array:
 		var exit: PackedVector3Array=offense.exit_route(id,start,goal,lane,avoid)
 		if not exit.is_empty():return exit
 	return routes.path(start,goal,lane,avoid)
-static func ground_ski(normal: Vector3,direction: Vector3,velocity: Vector3,walk: float,rise: float=0.0) -> bool:
+static func ground_ski(normal: Vector3,direction: Vector3,velocity: Vector3,walk: float,_rise: float=0.0) -> bool:
 	var speed:=velocity.length()
+	# Follow the intended slope: descend on skis, climb with traction/jets.
+	# Testing alignment first made turning downhill briefly apply the walk cap.
+	if normal.dot(direction)>.035:return true
+	if normal.dot(direction)<-.035:return false
 	if direction.is_zero_approx() or speed>1 and velocity.normalized().dot(direction)<.65:return false
-	var slope:=normal.dot(direction)
-	if slope>.035:return true
-	if slope<-.035:
-		# Keep a fast valley crossing, but release ski before an upslope eats
-		# the useful momentum. Walking supplies traction; ski has no thrust.
-		var climb:=maxf(rise,-slope/maxf(.2,normal.y)*8)
-		return speed>walk*1.3 and (speed*speed-walk*walk)/40>climb+1
 	return speed>walk*1.05
+static func jet_wish(velocity: Vector3,direction: Vector3,profile: Dictionary,upward_thrust: float) -> Vector3:
+	# Aim for the armour's ordinary horizontal jet range, not its present
+	# speed. The old velocity error approached zero at walking speed, leaving
+	# almost all thrust vertical even when the route had room to accelerate.
+	var horizontal:=Vector3(velocity.x,0,velocity.z)
+	var wish: Vector3=(direction*maxf(profile.side_speed*.95,horizontal.length())-horizontal)*.12
+	if wish.is_zero_approx():return wish
+	# The shared physics trades lift for horizontal thrust. Limit stick travel
+	# by the lift needed for the approaching terrain; no extra force is added.
+	var share:=clampf(1-horizontal.dot(wish.normalized())/profile.side_speed,0,.8)
+	var available:=clampf(1-upward_thrust/profile.thrust,0,.8)
+	return wish.limit_length(minf(1,available/share) if share>.001 else 1)
 func steer(id: int,brain: Dictionary) -> void:
+	steer_route(id,brain)
+	avoidance.steer(id,brain)
+	slope_inputs(id,brain)
+func slope_inputs(id: int,brain: Dictionary) -> void:
+	var game=ai.game;var actor=game.fighters[id];var s: Dictionary=game.players[id]
+	if not actor.is_supported():return
+	var velocity:=Vector3(actor.velocity.x,0,actor.velocity.z)
+	var desired:=Basis(Vector3.UP,s.yaw)*Vector3(s.move.x,0,s.move.y)
+	var travel:=desired.normalized()
+	var slope: float=actor.tribes_state.normal.dot(travel)
+	if slope>.035:s.ski=true
+	elif slope<-.035:
+		var profile: Dictionary=game.match_mode.tribes.definition(id)
+		# Spend a real jump/jet input before walking can clamp a fast upslope
+		# entry. Low reserves use traction instead of skiing to a standstill.
+		if brain.get("travel_phase","") in ["run_up","ski"] and not brain.get("staging",false) and velocity.length()>profile.walk*1.1 and desired.dot(velocity.normalized())>.4 and actor.position.distance_to(brain.goal)>12 and actor.tribes_state.energy>profile.energy*.25 and ai.navigation.ray(actor.position+Vector3.UP*1.8,actor.position+Vector3.UP*2.8).is_empty():
+			s.jet_held=true;s.jump=not actor.jump_held
+		s.ski=false
+func momentum(id: int) -> bool:
+	var actor=ai.game.fighters[id]
+	return Vector2(actor.velocity.x,actor.velocity.z).length()>ai.game.match_mode.tribes.definition(id).walk*1.3
+func steer_route(id: int,brain: Dictionary) -> void:
 	if offense.catch_steer(id,brain):return
 	if ai.game.clock<float(brain.get("disc_launch_until",0)):
 		ai.game.players[id].jump=not ai.game.fighters[id].jump_held;ai.game.players[id].ski=true;ai.game.players[id].jet_held=false
@@ -270,6 +312,17 @@ func steer(id: int,brain: Dictionary) -> void:
 	var remaining:=position.distance_to(next)
 	if brain.get("route_target",Vector3.INF)!=next or remaining<float(brain.get("route_best",INF))-2:
 		brain.route_target=next;brain.route_best=remaining;brain.route_at=ai.game.clock+10
+	# A tall bunker roof can be many metres above the head. Check the full
+	# climb to the destination before handing control to a tower launch; the
+	# old one-metre headroom probe noticed it only after reaching the ceiling.
+	if brain.goal.y>position.y+3:
+		var cover: Dictionary=ai.navigation.ray(position+Vector3.UP*1.7,Vector3(position.x,brain.goal.y+1.7,position.z))
+		if not cover.is_empty() and cover.normal.y<-.5:
+			if brain.has("tower") and brain.tower.phase in ["run","flight"]:
+				tactics.reject_stage(id,brain.goal,brain.tower.stage)
+				if not brain.has("failed_stages"):brain.failed_stages=[]
+				brain.failed_stages.append(brain.tower.stage)
+			brain.erase("tower");brain.travel_phase="base_approach";precision_steer(id,brain);return
 	if not brain.get("staging",false) and tower_approach(id,brain):return
 	if not brain.get("staging",false) and offense.flag_run(id,brain):return
 	# Only covered interiors need the portal controller. Proximity to a flag
@@ -318,7 +371,7 @@ func steer(id: int,brain: Dictionary) -> void:
 		var recovery:=routes.path(actor.position,brain.goal,0,tactics.detours(id))
 		if not recovery.is_empty():brain.path=recovery;brain.step=0;brain.route_at=game.clock+12;return
 	var ceiling: bool=not ai.navigation.ray(actor.position+Vector3.UP*1.8,actor.position+Vector3.UP*2.8).is_empty()
-	var obstacle: bool=not ai.navigation.ray(actor.position+Vector3.UP,actor.position+Vector3.UP+direct*2).is_empty()
+	var obstacle: bool=not avoidance.wall(actor.position,actor.position+direct*2).is_empty()
 	var final: bool=brain.step>=brain.path.size()-1
 	var brake_distance: float=maxf(12,speed*speed/(profile.thrust)+3)
 	var precision: bool=ceiling or final and distance<brake_distance or offset.y>3 and offset.y>distance*.6
@@ -340,7 +393,10 @@ func steer(id: int,brain: Dictionary) -> void:
 			var braking: bool=final and offset.y<2 and speed>3 and (distance<.01 or velocity.dot(direct)>maxf(2,distance*.7) or velocity.slide(direct).length()>3)
 			desired*=.75 if braking else .28
 			s.jet_held=not ceiling and not brain.get("jet_recharge",false) and (braking or offset.y+1-actor.velocity.y*.35>0)
-		if offset.y>3:desired=(direct*.2-velocity*.035).limit_length(.22)
+		if offset.y>3:
+			desired=(direct*.2-velocity*.035).limit_length(.22)
+			# Recharging does not require crawling up a clear walkable slope.
+			if grounded and not s.jet_held and actor.tribes_state.normal.y>.65 and actor.tribes_state.normal.dot(direct)<-.035:desired=direct
 		brain.travel_phase="precision"
 	else:
 		# Follow the corridor continuously, looking ahead to the next upslope.
@@ -367,19 +423,21 @@ func steer(id: int,brain: Dictionary) -> void:
 			s.jump=s.jet_held and not actor.jump_held
 			brain.travel_phase="ski" if s.ski else "run_up"
 		else:
-			desired=desired.limit_length(.3 if climb else .65)
-			# Coast downhill; burn only when the predicted arc falls below the
-			# coming terrain. No horizontal braking simply because a node is high.
-			s.ski=aligned
+			var lift: float=20+2*(rise+.8-actor.velocity.y*eta)/(eta*eta)
+			desired=jet_wish(actor.velocity,direct,profile,lift) if aligned else desired.limit_length(.3 if climb else .65)
+			# Reserve lift for the coming terrain, or use surplus energy to
+			# accelerate through a clear descent. Never brake just for a high node.
+			s.ski=true # Keep ski held through landing; grounded steering decides when to walk.
 			# Airborne stick input has no force without jets. A descending
 			# carrier changing corridor must burn to turn; otherwise it keeps
 			# its old heading and can hit the bunker beside a clear exit route.
 			var turn: bool=speed>3 and (velocity.dot(direct)<speed*.7 or velocity.slide(direct).length()*minf(distance/maxf(speed,profile.walk),2)>6)
-			s.jet_held=not ceiling and energy>3 and (climb and rise+1>ballistic_height or turn)
+			var accelerate: bool=aligned and velocity.dot(direct)<profile.side_speed*.85 and energy>profile.energy*.45 and rise< -2
+			s.jet_held=not ceiling and energy>3 and (climb and rise+1>ballistic_height or turn or accelerate)
 			brain.travel_phase="climb" if s.jet_held else "coast"
 		if s.jet_held and grounded:desired=desired.limit_length(.3)
-	if offset.length()<ai.stop_radius(brain):desired=-velocity.limit_length(1);s.ski=false;s.jet_held=false;s.jump=false;brain.travel_phase="arrive"
-	if brain.enemy==0 and brain.goal_kind not in ["st_repair","st_destroy"] and ai.game.clock>=float(brain.get("equipment_aim_until",0)) and horizontal.length()>.5:offense.travel_look(id,brain,target+Vector3.UP)
+	if final and actor.position.distance_to(brain.goal)<ai.stop_radius(brain):desired=-velocity.limit_length(1);s.ski=false;s.jet_held=false;s.jump=false;brain.travel_phase="arrive"
+	if route_look(id,brain) and brain.goal_kind not in ["st_repair","st_destroy"] and ai.game.clock>=float(brain.get("equipment_aim_until",0)) and horizontal.length()>.5:offense.travel_look(id,brain,target+Vector3.UP)
 	s.move=movement(id,desired)
 	s.prone=false;s.crouch=false;s.swim=Vector3.ZERO
 
@@ -401,7 +459,7 @@ func precision_steer(id: int,brain: Dictionary) -> void:
 		# waypoint. Rejoin through an outside portal instead of pressing down.
 		var recovery:=routes.path(actor.position,brain.goal,0,tactics.detours(id))
 		if not recovery.is_empty():brain.path=recovery;brain.step=0;brain.route_at=game.clock+12;return
-	var obstacle: bool=not ai.navigation.ray(actor.position+Vector3.UP,actor.position+Vector3.UP+direct*2).is_empty()
+	var obstacle: bool=not avoidance.wall(actor.position,actor.position+direct*2).is_empty()
 	var ceiling: bool=not ai.navigation.ray(actor.position+Vector3.UP*1.8,actor.position+Vector3.UP*2.8).is_empty()
 	var energy: float=actor.tribes_state.energy;var capacity: float=game.match_mode.tribes.definition(id).energy
 	if grounded and energy<capacity*.85 and (offset.y>3 or brain.get("jet_recharge",false)):brain.jet_recharge=true
@@ -412,7 +470,8 @@ func precision_steer(id: int,brain: Dictionary) -> void:
 	if grounded:
 		s.jet_held=rise and not ceiling and not brain.get("jet_recharge",false)
 		s.jump=s.jet_held and not actor.jump_held
-		if rise and offset.y>3:desired=-velocity.limit_length(1)
+		if rise and offset.y>3 and s.jet_held:desired=-velocity.limit_length(1)
+		elif rise and not s.jet_held and actor.tribes_state.normal.y>.65 and actor.tribes_state.normal.dot(direct)<-.035:desired=direct
 	else:
 		# Sustained partial directional input preserves vertical lift. Full
 		# strafing thrust spends most lift and caused the old cliff oscillation.
@@ -421,9 +480,9 @@ func precision_steer(id: int,brain: Dictionary) -> void:
 		s.jet_held=not ceiling and not brain.get("jet_recharge",false) and offset.y+1-actor.velocity.y*.35>0
 		s.jump=false
 	s.ski=velocity.length()>8 and offset.y<.6 and not obstacle and distance>7 and ground_ski(actor.tribes_state.normal,direct,velocity,game.match_mode.tribes.definition(id).walk,offset.y)
-	if offset.length()<ai.stop_radius(brain):desired=-velocity.limit_length(1);s.ski=false;s.jet_held=false
+	if brain.step>=brain.path.size()-1 and actor.position.distance_to(brain.goal)<ai.stop_radius(brain):desired=-velocity.limit_length(1);s.ski=false;s.jet_held=false
 	# Navigation-facing while idle makes distant approaches enter perception.
-	if brain.enemy==0 and brain.goal_kind not in ["st_repair","st_destroy"] and ai.game.clock>=float(brain.get("equipment_aim_until",0)) and horizontal.length()>.5:offense.travel_look(id,brain,target+Vector3.UP)
+	if route_look(id,brain) and brain.goal_kind not in ["st_repair","st_destroy"] and ai.game.clock>=float(brain.get("equipment_aim_until",0)) and horizontal.length()>.5:offense.travel_look(id,brain,target+Vector3.UP)
 	s.move=movement(id,desired)
 	s.prone=false;s.crouch=false;s.swim=Vector3.ZERO
 
@@ -519,6 +578,11 @@ func tower_approach(id: int,brain: Dictionary) -> bool:
 				if pads.generators.any(func(row):return Vector2(point.x-row.position.x,point.z-row.position.z).length()<34):continue
 				var hit: Dictionary=ai.navigation.ray(point+Vector3.UP*50,point-Vector3.UP*90)
 				if hit.is_empty() or hit.normal.y<.7 or goal.y-hit.position.y>33:continue
+				# A downhill run-up follows gravity while skiing. A nearby hill
+				# whose fall line points across the launch corridor sends the bot
+				# sideways into a bunker before its aligned-launch gate can open.
+				var fall_line:=Vector3.DOWN.slide(hit.normal);fall_line.y=0
+				if hit.normal.dot(-direction)>.035 and fall_line.length()>.08 and fall_line.normalized().dot(-direction)<.7:continue
 				# Roof edges can sit outside the generator's exclusion radius.
 				# They look like launch hills from above, but reaching them sends
 				# a grounded skier into the bunker wall. Prefer solid terrain;
@@ -591,9 +655,11 @@ func tower_approach(id: int,brain: Dictionary) -> bool:
 			if not brain.has("failed_stages"):brain.failed_stages=[]
 			brain.failed_stages.append(run.stage);brain.erase("tower");s.jet_held=false;s.jump=false
 	elif game.clock-run.at>8:brain.erase("tower")
-	if brain.enemy==0 and game.clock>=float(brain.get("equipment_aim_until",0)):ai.aim(id,goal+Vector3.UP,.08)
+	if route_look(id,brain) and game.clock>=float(brain.get("equipment_aim_until",0)):ai.aim(id,goal+Vector3.UP,.08)
 	s.move=movement(id,desired);s.prone=false;s.crouch=false;s.swim=Vector3.ZERO
 	return true
+func route_look(id: int,brain: Dictionary) -> bool:
+	return brain.enemy==0 or brain.get("travel_focus",false) and not brain.get("travel_defending",false)
 func movement(id: int,desired: Vector3) -> Vector2:
 	var game=ai.game;var actor=game.fighters[id]
 	# Share narrow launch hills without steering airborne or fast skiers out

@@ -155,6 +155,7 @@ func uphill_cases():
 			actor.ski_held=AI.ground_ski(actor.tribes_state.normal,Vector3.RIGHT,velocity,rules.definition(-1).walk,3)
 			skiing+=int(actor.ski_held);actor.simulate(Vector2.RIGHT,0,false,1.0/60)
 		check(actor.position.x-start.x>rules.definition(-1).walk*2.5 and actor.position.y>start.y+3 and skiing==0,"Walk traction climbs a real 20-degree hill without jets: "+armour)
-	check(AI.ground_ski(Vector3(-.34,.94,0),Vector3.RIGHT,Vector3.RIGHT*35,11,5),"Fast uphill coast keeps useful momentum")
+	check(not AI.ground_ski(Vector3(-.34,.94,0),Vector3.RIGHT,Vector3.RIGHT*35,11,5),"Uphill approach uses jets or walking instead of passive skiing")
 	check(not AI.ground_ski(Vector3(-.34,.94,0),Vector3.RIGHT,Vector3.RIGHT*12,11,5),"Fading uphill momentum releases ski before stalling")
 	check(AI.ground_ski(Vector3(.34,.94,0),Vector3.RIGHT,Vector3.ZERO,11),"Downhill skiing can accelerate from rest")
+	check(AI.ground_ski(Vector3(.34,.94,0),Vector3.RIGHT,Vector3.BACK*20,11),"Turning downhill enables ski before applying a walking clamp")

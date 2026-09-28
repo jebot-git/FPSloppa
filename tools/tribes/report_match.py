@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 import re
 from math import dist
-from collections import Counter
+from collections import Counter, defaultdict
 from statistics import median, quantiles
 
 
@@ -37,6 +37,7 @@ def combat_metrics(folder):
 def travel_metrics(samples, events, bases=None):
     phases, packs = Counter(), Counter()
     speeds, previous = [], {}
+    by_phase = defaultdict(list)
     no_progress, watches = [], {}
     near_flag_seconds = 0.0
     for sample in samples:
@@ -46,8 +47,13 @@ def travel_metrics(samples, events, bases=None):
             attacking = bot.get('goal') in ('st:flag', 'st:capture') and not bot.get('dead', False)
             old = previous.get(ident)
             if attacking:
-                velocity = vector(bot['velocity'])
-                speeds.append((velocity[0] ** 2 + velocity[2] ** 2) ** .5 * 3.6)
+                if 'velocity' in bot:
+                    velocity = vector(bot['velocity'])
+                    speed = (velocity[0] ** 2 + velocity[2] ** 2) ** .5 * 3.6
+                else:
+                    speed = bot.get('speed_kmh', 0)  # Five-second live snapshots.
+                speeds.append(speed)
+                by_phase[bot['goal'] + '/' + bot.get('phase', '')].append(speed)
                 elapsed = min(6, now - old[0]) if old and old[1].get('serial') == bot.get('serial') else 0
                 phases[bot.get('phase', '')] += elapsed
                 packs[bot.get('pack', '')] += elapsed
@@ -98,6 +104,10 @@ def travel_metrics(samples, events, bases=None):
         carries.append(row)
     return dict(travel_median_kmh=median(speeds) if speeds else 0,
                 travel_p90_kmh=quantiles(speeds, n=10, method='inclusive')[8] if len(speeds) > 1 else 0,
+                travel_by_goal_phase={key: dict(samples=len(values), median_kmh=median(values),
+                    p90_kmh=quantiles(values, n=10, method='inclusive')[8] if len(values) > 1 else values[0],
+                    fraction_above_90_kmh=sum(value > 90 for value in values) / len(values))
+                    for key, values in sorted(by_phase.items())},
                 attacking_phase_seconds=dict(phases), attacking_pack_seconds=dict(packs),
                 enemy_flag_100m_exposure_seconds=near_flag_seconds,
                 no_5m_objective_progress_in_35s=no_progress, carries=carries)
@@ -173,7 +183,7 @@ def summarize(folder):
         "fixed_fire": samples[-1].get("fixed_fire", {}),
         "peak_horizontal_kmh": max((bot.get("movement", {}).get("peak_kmh", 0) for sample in samples for bot in sample["bots"]), default=0),
         "script_errors": log.count("SCRIPT ERROR"),
-        "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Different runs are not a controlled statistical comparison.",
+        "sampling_note": "Five-second samples can miss brief role or flag transitions; pickup totals come from the event log. Travel metrics use one-second movement records when available, otherwise five-second snapshots. Different runs are not a controlled statistical comparison.",
     }
 
 

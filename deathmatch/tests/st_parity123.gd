@@ -161,6 +161,34 @@ func offense_cases():
 		g.match_mode.tick(1.0/60)
 		if g.match_mode.flags[1].carrier==1:caught=true;break
 	check(caught,"Moving receiver catches with ordinary steering, flight and flag touches")
+	for armour in ["medium","heavy"]:
+		g.match_mode.return_flag(1);st.offense.passes.clear()
+		rules.apply_equipment(-1,armour,[3,2,0],"energy");rules.apply_equipment(1,"light",[3,2,0],"energy")
+		s.hp=rules.definition(-1).hp;s.tribes_kit=true
+		a.position=Fixture.ORIGIN;receiver.position=a.position+direction*8;a.velocity=Vector3.ZERO;receiver.velocity=Vector3.ZERO
+		await physics_frame
+		for frame in 4:
+			for id in [-1,1]:g._configure_tribes(id,g.players[id]);g.fighters[id].simulate(Vector2.ZERO,0,false,1.0/60,false)
+		a.velocity=direction*rules.definition(-1).walk;receiver.velocity=direction*11
+		ai.brains[-1]=ai.new_brain(-1);ai.brains[1]=ai.new_brain(1);g.match_mode.flags[1].carrier=-1
+		check(st.offense.pass_flag(-1,ai.brains[-1]),"Healthy %s with a kit passes to a faster homeward Light"%armour)
+		caught=false
+		for frame in 120:
+			g.clock+=1.0/60;s.last_input=g.clock;rs.last_input=g.clock
+			var rows: Array=[];st.offense.catch_goal(1,rows)
+			if not rows.is_empty():
+				var b: Dictionary=ai.brains[1];b.goal_key=rows[0].key;b.goal_kind=rows[0].kind;b.goal=rows[0].position;b.path=PackedVector3Array([b.goal]);b.step=0;st.steer(1,b)
+			g._configure_tribes(1,rs);receiver.simulate(rs.move,rs.yaw,false,1.0/60,rs.jump)
+			g._configure_tribes(-1,s);a.simulate(st.movement(-1,direction),s.yaw,false,1.0/60,false)
+			g.match_mode.tick(1.0/60)
+			if g.match_mode.flags[1].carrier==1:caught=true;break
+		check(caught,"Light catches %s relay through ordinary moving-body flag touches"%armour)
+		check(not st.offense.pass_flag(1,ai.brains[1]),"Receiver keeps the flag instead of immediately passing back")
+	# Armour alone must not make an already-fast carrier surrender momentum.
+	g.match_mode.return_flag(1);st.offense.passes.clear();g.match_mode.flags[1].carrier=-1
+	a.position=Fixture.ORIGIN;a.velocity=direction*25;receiver.position=a.position+direction*8;receiver.velocity=direction*11
+	ai.brains[-1]=ai.new_brain(-1)
+	check(not st.offense.pass_flag(-1,ai.brains[-1]),"Fast healthy Heavy retains flag when the Light would slow delivery")
 	g.match_mode.return_flag(1);ai.brains.erase(1)
 	st.assignments[-1]="escort";g.match_mode.flags[1].carrier=1;g.fighters[-2].position=g.fighters[1].position+Vector3(6,0,0)
 	check(st.offense.escort_priority(-1,-2)>20,"Escort prioritizes an observed threat close to its carrier")

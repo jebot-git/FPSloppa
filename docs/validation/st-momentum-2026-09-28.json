@@ -1,0 +1,390 @@
+{
+  "date": "2026-09-28",
+  "branch": "experimental/st-raindance",
+  "scope": "ST experimental only; omitted from current release",
+  "source_sha256": {
+    "deathmatch/bot_ai/tribes.gd": "888e01352ab66d56c1f21e6a9f31bf8832c9defc9e9f17d970a540357cda4e7c",
+    "deathmatch/bot_ai/tribes_offense.gd": "f05d42015765d98df5119de44acbdc8c40d90caae477cd6c483922ff1e75affb",
+    "deathmatch/bot_ai/tribes_avoidance.gd": "0533a9e6b0682468daa57f57e1696f7d3e6561b9d1b5aff2e860d1a4099b3170",
+    "deathmatch/bot_ai/tribes_tactics.gd": "2a59800a6aea11f357eb296062e969f6efdb8fff71b3d1615b75b6f7ad6ff342",
+    "deathmatch/bots.gd": "801441f7894f2376a8bbaa6522ef5b1324889985ab8769d5fd71ddc086a91cf7",
+    "tools/raindance/build.py": "8f7b622f8fdcba45b446f1123ff0ced5048ae48a41be50c07b587e38574375ad",
+    "maps/ctf_raindance.bsp": "48bc28440f0a2f08f1a9654d840b00b639bbfd6a4dfc2e5ade826966bde337b9",
+    "maps/navigation/ctf_raindance.res": "1f475316eb8a3357cc0ac1959e6545ef26afd5d01b985451f4c553ea8bc7bc2e"
+  },
+  "focused_tests": [
+    {
+      "script": "st_speed_control.gd",
+      "log": "test-results/st-speed/final-speed.log",
+      "checks": 7,
+      "passed": true
+    },
+    {
+      "script": "st_carrier_focus.gd",
+      "log": "test-results/st-speed/final-focus.log",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "script": "st_obstacle_control.gd",
+      "log": "test-results/st-speed/final-obstacle.log",
+      "checks": 4,
+      "passed": true
+    },
+    {
+      "script": "st_base_assets.gd",
+      "log": "test-results/st-speed/final-base.log",
+      "checks": 77,
+      "passed": true
+    },
+    {
+      "script": "st_parity123.gd",
+      "log": "test-results/st-speed/final-parity.log",
+      "checks": 94,
+      "passed": true
+    },
+    {
+      "script": "st_bot_tactics.gd",
+      "log": "test-results/st-speed/final-tactics.log",
+      "checks": 62,
+      "passed": true
+    },
+    {
+      "script": "st_adaptive_tactics.gd",
+      "log": "test-results/st-speed/aligned-adaptive.log",
+      "checks": 42,
+      "passed": true
+    },
+    {
+      "script": "st_raindance_entrance.gd",
+      "log": "test-results/st-speed/final-entrance.log",
+      "checks": 20,
+      "passed": true
+    },
+    {
+      "script": "st_raindance_routes.gd",
+      "log": "test-results/st-speed/aligned-roof.log",
+      "checks": 7,
+      "passed": true
+    },
+    {
+      "script": "tools/raindance/acceptance.gd",
+      "log": "test-results/st-speed/acceptance-wide.log",
+      "checks": 109,
+      "passed": true
+    },
+    {
+      "script": "st_carrier_escape.gd",
+      "log": "test-results/st-speed/aligned-escape.log",
+      "checks": 4,
+      "passed": true
+    }
+  ],
+  "focused_checks": 442,
+  "carrier_replays": [
+    {
+      "escape_100m_seconds": 6.08333333333333,
+      "longest_slow_interval_seconds": 0.0,
+      "map": "ctf_raindance",
+      "pass": true,
+      "team": 0
+    },
+    {
+      "escape_100m_seconds": 9.91666666666667,
+      "longest_slow_interval_seconds": 0.0,
+      "map": "ctf_raindance",
+      "pass": true,
+      "team": 1
+    },
+    {
+      "escape_100m_seconds": 16.1833333333333,
+      "longest_slow_interval_seconds": 0.3,
+      "map": "ctf_stonehenge",
+      "pass": true,
+      "team": 1
+    },
+    {
+      "escape_100m_seconds": 24.9166666666667,
+      "longest_slow_interval_seconds": 0.333333333333333,
+      "map": "ctf_stonehenge",
+      "pass": true,
+      "team": 0
+    }
+  ],
+  "unopposed_capture_routes": [
+    {
+      "file": "test-results/st-speed/aligned-all-spawns-raindance.json",
+      "cases": [
+        {
+          "passed": true,
+          "peak_kmh": 94.7639122009277,
+          "seconds": 187.966666666708,
+          "spawn": 0,
+          "take_energy": 29.8666666666657,
+          "take_kmh": 44.950520324707,
+          "take_seconds": 83.8666666666632,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 90.3833267211914,
+          "seconds": 164.750000000023,
+          "spawn": 1,
+          "take_energy": 32.6166666666645,
+          "take_kmh": 48.194734954834,
+          "take_seconds": 71.4833333333306,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 121.152035522461,
+          "seconds": 268.400000000085,
+          "spawn": 2,
+          "take_energy": 4.46666666666658,
+          "take_kmh": 55.6103656768799,
+          "take_seconds": 150.766666666679,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 102.415635681152,
+          "seconds": 235.85000000008,
+          "spawn": 3,
+          "take_energy": 8.51666666666656,
+          "take_kmh": 27.9178081512451,
+          "take_seconds": 82.7166666666633,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 80.6339218139648,
+          "seconds": 150.583333333345,
+          "spawn": 4,
+          "take_energy": 29.1166666666662,
+          "take_kmh": 46.006958770752,
+          "take_seconds": 91.5833333333294,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 117.181425476074,
+          "seconds": 161.933333333354,
+          "spawn": 5,
+          "take_energy": 28.466666666665,
+          "take_kmh": 45.7808841705322,
+          "take_seconds": 76.2666666666636,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 104.702879333496,
+          "seconds": 156.050000000016,
+          "spawn": 6,
+          "take_energy": 30.8666666666669,
+          "take_kmh": 45.9945957183838,
+          "take_seconds": 95.9333333333292,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 101.523580169678,
+          "seconds": 168.550000000026,
+          "spawn": 7,
+          "take_energy": 32.3333333333334,
+          "take_kmh": 45.9715759277344,
+          "take_seconds": 81.9666666666633,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 107.030030822754,
+          "seconds": 189.850000000043,
+          "spawn": 0,
+          "take_energy": 26.4833333333334,
+          "take_kmh": 46.507190322876,
+          "take_seconds": 77.2499999999969,
+          "team": 1
+        },
+        {
+          "passed": true,
+          "peak_kmh": 97.9771453857422,
+          "seconds": 183.933333333372,
+          "spawn": 1,
+          "take_energy": 28.3833333333323,
+          "take_kmh": 46.1565685272217,
+          "take_seconds": 92.8833333333293,
+          "team": 1
+        },
+        {
+          "passed": true,
+          "peak_kmh": 81.4850395202637,
+          "seconds": 157.750000000018,
+          "spawn": 2,
+          "take_energy": 28.0333333333324,
+          "take_kmh": 46.1825099945068,
+          "take_seconds": 91.4833333333294,
+          "team": 1
+        },
+        {
+          "passed": true,
+          "peak_kmh": 100.866659545898,
+          "seconds": 173.766666666697,
+          "spawn": 3,
+          "take_energy": 28.3166666666667,
+          "take_kmh": 46.5725624084473,
+          "take_seconds": 104.366666666662,
+          "team": 1
+        },
+        {
+          "passed": true,
+          "peak_kmh": 87.8911262512207,
+          "seconds": 166.950000000025,
+          "spawn": 4,
+          "take_energy": 28.6499999999998,
+          "take_kmh": 46.1731887817383,
+          "take_seconds": 86.5499999999964,
+          "team": 1
+        },
+        {
+          "passed": true,
+          "peak_kmh": 79.0082542419434,
+          "seconds": 149.966666666678,
+          "spawn": 5,
+          "take_energy": 26.6333333333325,
+          "take_kmh": 46.5427276611328,
+          "take_seconds": 88.3333333333296,
+          "team": 1
+        },
+        {
+          "passed": true,
+          "peak_kmh": 83.4102699279785,
+          "seconds": 172.166666666696,
+          "spawn": 6,
+          "take_energy": 19.9666666666656,
+          "take_kmh": 45.5993110656738,
+          "take_seconds": 94.3833333333293,
+          "team": 1
+        },
+        {
+          "passed": true,
+          "peak_kmh": 73.4143592834473,
+          "seconds": 149.633333333345,
+          "spawn": 7,
+          "take_energy": 30.6166666666654,
+          "take_kmh": 48.1016086578369,
+          "take_seconds": 89.2666666666629,
+          "team": 1
+        }
+      ]
+    },
+    {
+      "file": "test-results/st-speed/aligned-stonehenge.json",
+      "cases": [
+        {
+          "passed": true,
+          "peak_kmh": 93.7335525512695,
+          "seconds": 165.11666666669,
+          "spawn": 0,
+          "take_energy": 14.4833333333404,
+          "take_kmh": 46.4027137756348,
+          "take_seconds": 101.283333333329,
+          "team": 0
+        },
+        {
+          "passed": true,
+          "peak_kmh": 78.9160308837891,
+          "seconds": 193.700000000046,
+          "spawn": 0,
+          "take_energy": 7.96666666666658,
+          "take_kmh": 27.3988260269165,
+          "take_seconds": 116.183333333328,
+          "team": 1
+        }
+      ]
+    }
+  ],
+  "completed_previews": [
+    {
+      "folder": "test-results/st-speed/live-stonehenge-safe-9297",
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "reason": "match_finished",
+      "first_capture_seconds": 279.816666666741,
+      "script_errors": 0,
+      "provenance": "test-results/st-speed/live-stonehenge-safe-9297/provenance.json",
+      "recording": "test-results/st-speed/live-stonehenge-safe-9297/match.mp4",
+      "scope": "Predates final handoff, obstacle, bridge and roof corrections."
+    },
+    {
+      "folder": "test-results/st-speed/live-raindance-safe-9297",
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "script_errors": 0,
+      "provenance": "test-results/st-speed/live-raindance-safe-9297/provenance.json",
+      "recording": "test-results/st-speed/live-raindance-safe-9297/match.mp4",
+      "scope": "Predates final handoff, obstacle, bridge and roof corrections."
+    },
+    {
+      "folder": "test-results/st-speed/live-stonehenge-final-9298",
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "script_errors": 0,
+      "provenance": "test-results/st-speed/live-stonehenge-final-9298/provenance.json",
+      "recording": "test-results/st-speed/live-stonehenge-final-9298/match.mp4",
+      "scope": "Predates final handoff, obstacle, bridge and roof corrections."
+    },
+    {
+      "folder": "test-results/st-speed/live-raindance-wide-9298",
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "reason": "match_finished",
+      "first_capture_seconds": 552.533333333159,
+      "script_errors": 0,
+      "provenance": "test-results/st-speed/live-raindance-wide-9298/provenance.json",
+      "recording": "test-results/st-speed/live-raindance-wide-9298/match.mp4",
+      "scope": "Predates final handoff, obstacle, bridge and roof corrections."
+    }
+  ],
+  "interrupted_previews": [
+    {
+      "folder": "test-results/st-speed/live-raindance-final-9298",
+      "reason": "Superseded by corrected full-width convex entrance ramps; partial run, not a completed match."
+    }
+  ],
+  "rejected_iterations": [
+    {
+      "log": "test-results/st-speed/obstacle-control.log",
+      "reason": "Foot ray was too high and missed the low barrier; corrected to include near-foot collision."
+    },
+    {
+      "file": "test-results/st-speed/avoid-all-spawns-raindance.json",
+      "reason": "One of sixteen failed: bunker launches could repeat after roof interruption."
+    },
+    {
+      "file": "test-results/st-speed/roof-all-spawns-raindance.json",
+      "reason": "One of sixteen failed: downhill stage fall direction crossed the launch corridor. Final aligned-stage suite passes sixteen."
+    }
+  ],
+  "limitations": [
+    "Controlled movement/capture fixtures omit combat. They do not establish reliable contested captures.",
+    "Completed previews use earlier code as identified by each provenance file.",
+    "Raindance synthetic reconstruction and Godot collision differ from the original game.",
+    "No new headset test was performed."
+  ]
+}
