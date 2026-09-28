@@ -62,7 +62,9 @@ func run():
 	else:
 		game.dedicated=true;game.bind_address="127.0.0.1";game.max_clients=16;game.bot_population.count_target=12
 		game.match_mode.configure({"sv_gametype":"st","capturelimit":5});game.selected_map=str(options.get("map","ctf_stonehenge"));game.lobby.enabled=false
-		game.start_host("ST experimental 6v6",int(options.get("port",28984)),5,30,false,"st")
+		var duration: float=float(options.get("seconds",0))
+		var minutes:=clampi(ceili(duration/60.0),1,60) if duration>0 else 30
+		game.start_host("ST experimental 6v6",int(options.get("port",28984)),5,minutes,false,"st")
 		game.voice_enabled=false
 		game.server_log.free()
 		game.server_log=preload("res://tools/tribes/match_log.gd").new();game.add_child(game.server_log)
