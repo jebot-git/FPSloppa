@@ -381,3 +381,17 @@ as `live-stonehenge-recovery-9301` and `live-raindance-recovery-9301` under
 speed HUD visible and recording active. Startup verification is not a completed
 match result; the twenty-minute limit and both 600-second inactivity cutoffs
 remain enabled.
+
+
+### Headless routing study (2026-09-28)
+
+The subsequent routing study ran 86 full-authority 8v8 simulations across both
+maps, retaining the existing inactivity cutoffs. It rejected broader terrain
+cost/slope changes after mixed traversal timings and weaker capture results,
+and retained a guarded partial-fuel moving-launch predictor plus path-equivalent
+route-cost caching. Overall capture reliability remains unresolved; the paired
+launch experiment did not establish a match-wide capture-rate improvement.
+
+See [ST-ROUTING-STUDY.md](ST-ROUTING-STUDY.md) for the completed results, video
+reference comparison, route plots, source hashes and accepted/rejected changes.
+ST remains experimental and excluded from release.

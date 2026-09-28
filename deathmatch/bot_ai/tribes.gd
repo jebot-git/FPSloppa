@@ -273,6 +273,7 @@ func path(start: Vector3,goal: Vector3,id: int=0) -> PackedVector3Array:
 		var exit: PackedVector3Array=offense.exit_route(id,start,goal,lane,avoid)
 		if not exit.is_empty():return exit
 		if carrier(id):return travel.path(id,start,goal,avoid)
+
 	return routes.path(start,goal,lane,avoid)
 static func ground_ski(normal: Vector3,direction: Vector3,velocity: Vector3,walk: float,_rise: float=0.0) -> bool:
 	var speed:=velocity.length()
@@ -379,6 +380,7 @@ func steer_route(id: int,brain: Dictionary) -> void:
 		for ahead_index in range(brain.step+1,mini(brain.path.size(),brain.step+5)):
 			var candidate: Vector3=brain.path[ahead_index]
 			if candidate.distance_to(actor.position)>clampf(speed*1.6,24,55):break
+
 			if not routes.clear(actor.position,candidate):break
 			brain.step=ahead_index
 		target=brain.path[brain.step]
@@ -533,6 +535,20 @@ func reroute_below_deck(id: int,brain: Dictionary) -> bool:
 	game.players[id].jet_held=false;game.players[id].jump=false
 	tactics.count("underpass_replans");return true
 
+static func rolling_height(height: float,vertical: float,goal: float,seconds: float,energy: float,profile: Dictionary,pack: String) -> float:
+	# Predict the existing pulsed shelf controller using the real remaining
+	# reserve and recharge. Requiring enough fuel for a continuous full burn
+	# rejected useful ski approaches that need only a short lift and coast.
+	var recharge:=11.0 if pack=="energy" else 8.0
+	var remaining:=seconds
+	while remaining>0:
+		var dt:=minf(1.0/60,remaining);remaining-=dt
+		var held: bool=vertical<clampf((goal+.55-height)*1.5,-4,10) and energy>3
+		energy=clampf(energy+(recharge-(profile.drain if held else 0))*dt,0,profile.energy)
+		vertical+=((profile.thrust*.9 if held else 0)-20)*dt
+		height+=vertical*dt
+	return height
+
 func tower_approach(id: int,brain: Dictionary) -> bool:
 	var game=ai.game;var actor=game.fighters[id];var s: Dictionary=game.players[id]
 	var goal: Vector3=brain.goal
@@ -563,7 +579,6 @@ func tower_approach(id: int,brain: Dictionary) -> bool:
 		# approach hill that already accounts for the intended exit direction.
 		var through_run: bool=brain.goal_key!="st:flag" or incoming.normalized().dot(homeward.normalized())>-.25
 		var jump: float=profile.jump if actor.is_supported() else 0.0
-		var reachable: float=actor.position.y+(actor.velocity.y+jump)*eta+.5*(profile.thrust*.9-20)*eta*eta
 		# We start considering a tower at 100 m. Committing to a stopping
 		# stage there made the <75 m rolling-launch test unreachable. Keep an
 		# aligned fast approach until the launch window, and reconsider while
@@ -573,7 +588,10 @@ func tower_approach(id: int,brain: Dictionary) -> bool:
 				brain.erase("tower");return false
 		# A capper already carrying enough speed and energy should keep its
 		# approach, rather than brake at an arbitrary 48-metre refuelling point.
-		if through_run and flat.length()>24 and flat.length()<75 and incoming.dot(direction)>profile.walk*1.1 and incoming.slide(direction).length()<incoming.length()*.25 and eta<3 and actor.tribes_state.energy>maxf(profile.energy*.55,eta*(profile.drain-8)) and reachable>goal.y+.6:
+		# Keep lateral correction within roughly one second at 15% thrust.
+		# Larger turns spend the lift assumed by the moving-height forecast;
+		# retain the established staged approach for those entries.
+		if through_run and flat.length()>24 and flat.length()<75 and incoming.dot(direction)>profile.walk*1.1 and incoming.slide(direction).length()<minf(incoming.length()*.25,profile.thrust*.15) and eta<3 and actor.tribes_state.energy>profile.energy*.25 and rolling_height(actor.position.y,actor.velocity.y+jump,goal.y,eta,actor.tribes_state.energy,profile,s.tribes_pack)>goal.y+.2:
 			if ai.navigation.ray(goal-direction*18+Vector3.UP*.8,goal+Vector3.UP*.8).is_empty() and ai.navigation.ray(actor.position+Vector3.UP*1.7,actor.position+direction*10+Vector3.UP*1.7).is_empty():
 				brain.tower={"goal":goal,"stage":actor.position,"phase":"flight","at":game.clock,"path":PackedVector3Array(),"step":0,"launch":jump>0}
 				tactics.count("rolling_launches")

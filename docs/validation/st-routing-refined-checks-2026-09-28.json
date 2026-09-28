@@ -1,0 +1,1243 @@
+{
+  "branch": "experimental/st-raindance",
+  "release_included": false,
+  "code": {
+    "deathmatch/bot_ai/tribes.gd": "528f551242304faf75b28817d001738feafb1c136be289cf104ee3ad123b4254",
+    "deathmatch/bot_ai/tribes_routes.gd": "a642d45fd368d194375d3ba00cf35d6b6085a019e74adf500ad31d9e7030a413"
+  },
+  "test_processes": [
+    {
+      "test": "st_adaptive_tactics",
+      "exit_code": 0,
+      "script_errors": 0,
+      "log": "test-results/st-routing/final-checks/st_adaptive_tactics.log"
+    },
+    {
+      "test": "st_rolling_launch",
+      "exit_code": 0,
+      "script_errors": 0,
+      "log": "test-results/st-routing/final-checks/st_rolling_launch.log"
+    },
+    {
+      "test": "st_ski_chain",
+      "exit_code": 0,
+      "script_errors": 0,
+      "log": "test-results/st-routing/final-checks/st_ski_chain.log"
+    },
+    {
+      "test": "st_route_cache",
+      "exit_code": 0,
+      "script_errors": 0,
+      "log": "test-results/st-routing/final-checks/st_route_cache.log"
+    }
+  ],
+  "assertions": {
+    "adaptive_tactics": 42,
+    "route_cache_equivalence": 48
+  },
+  "unopposed_cases": {
+    "raindance": {
+      "cases": 16,
+      "passed": 16,
+      "mean_seconds": 158.66145833335113,
+      "max_seconds": 261.416666666758,
+      "source": "test-results/st-routing/capture-refined-raindance.json"
+    },
+    "stonehenge": {
+      "cases": 16,
+      "passed": 16,
+      "mean_seconds": 160.9843750000205,
+      "max_seconds": 234.383333333412,
+      "source": "test-results/st-routing/capture-refined-stonehenge.json"
+    }
+  },
+  "rolling_launch_cases": [
+    {
+      "captured": true,
+      "energy": 35,
+      "passed": true,
+      "rolling_launches": 1,
+      "seconds": 2.55,
+      "speed": 18.0
+    },
+    {
+      "captured": true,
+      "energy": 35,
+      "passed": true,
+      "rolling_launches": 1,
+      "seconds": 2.11666666666666,
+      "speed": 22.0
+    }
+  ],
+  "note": "These focused checks do not establish contested capture reliability. Full-match results are recorded separately.",
+  "ski_chain_cases": [
+    {
+      "armour": "light",
+      "arrived": true,
+      "launches": [
+        {
+          "energy": 59.7666666666667,
+          "speed": 26.836462020874,
+          "x": -8.39111328125
+        },
+        {
+          "energy": 50.2,
+          "speed": 27.0929775238037,
+          "x": 10.1219482421875
+        }
+      ],
+      "peak": 27.0929775238037,
+      "samples": [
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.0286, 34.2309, 1000.0)",
+          "seconds": 0.0166666666666667,
+          "ski": true,
+          "velocity": "(0.160697, -0.058489, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.1947, 34.17046, 1000.0)",
+          "seconds": 0.216666666666667,
+          "ski": true,
+          "velocity": "(1.446272, -0.5264, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.6179, 34.01644, 1000.0)",
+          "seconds": 0.416666666666667,
+          "ski": true,
+          "velocity": "(2.731848, -0.994311, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(936.2982, 33.76883, 1000.0)",
+          "seconds": 0.616666666666667,
+          "ski": true,
+          "velocity": "(4.017422, -1.462222, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(937.2355, 33.42765, 1000.0)",
+          "seconds": 0.816666666666668,
+          "ski": true,
+          "velocity": "(5.302994, -1.930132, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(938.4301, 32.99288, 1000.0)",
+          "seconds": 1.01666666666667,
+          "ski": true,
+          "velocity": "(6.588566, -2.398041, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(939.8817, 32.46453, 1000.0)",
+          "seconds": 1.21666666666667,
+          "ski": true,
+          "velocity": "(7.874138, -2.865951, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(941.5904, 31.8426, 1000.0)",
+          "seconds": 1.41666666666667,
+          "ski": true,
+          "velocity": "(9.159717, -3.333864, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(943.5563, 31.12709, 1000.0)",
+          "seconds": 1.61666666666667,
+          "ski": true,
+          "velocity": "(10.4453, -3.801776, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(945.7792, 30.31799, 1000.0)",
+          "seconds": 1.81666666666667,
+          "ski": true,
+          "velocity": "(11.73087, -4.269688, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(948.2593, 29.41531, 1000.0)",
+          "seconds": 2.01666666666666,
+          "ski": true,
+          "velocity": "(13.01645, -4.7376, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(950.9965, 28.41905, 1000.0)",
+          "seconds": 2.21666666666666,
+          "ski": true,
+          "velocity": "(14.30203, -5.205512, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(953.9908, 27.32921, 1000.0)",
+          "seconds": 2.41666666666666,
+          "ski": true,
+          "velocity": "(15.58761, -5.673425, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(957.2422, 26.14578, 1000.0)",
+          "seconds": 2.61666666666666,
+          "ski": true,
+          "velocity": "(16.87319, -6.141337, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(960.7499, 24.86632, 1000.0)",
+          "seconds": 2.81666666666666,
+          "ski": true,
+          "velocity": "(18.15877, -6.609251, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(964.5151, 23.4945, 1000.0)",
+          "seconds": 3.01666666666666,
+          "ski": true,
+          "velocity": "(19.44436, -7.077166, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(968.5378, 22.03033, 1000.0)",
+          "seconds": 3.21666666666666,
+          "ski": true,
+          "velocity": "(20.72994, -7.54508, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(972.8178, 20.47257, 1000.0)",
+          "seconds": 3.41666666666666,
+          "ski": true,
+          "velocity": "(22.01552, -8.012994, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(977.3547, 18.82123, 1000.0)",
+          "seconds": 3.61666666666666,
+          "ski": true,
+          "velocity": "(23.30111, -8.480907, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(982.1489, 17.07631, 1000.0)",
+          "seconds": 3.81666666666666,
+          "ski": true,
+          "velocity": "(24.58669, -8.948822, 0.0)"
+        },
+        {
+          "energy": 60.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(987.2001, 15.23781, 1000.0)",
+          "seconds": 4.01666666666666,
+          "ski": true,
+          "velocity": "(25.87227, -9.416736, 0.0)"
+        },
+        {
+          "energy": 59.3,
+          "jet": true,
+          "phase": "climb",
+          "position": "(992.512, 13.70974, 1000.0)",
+          "seconds": 4.21666666666666,
+          "ski": true,
+          "velocity": "(27.09298, -1.625788, 0.0)"
+        },
+        {
+          "energy": 56.5,
+          "jet": true,
+          "phase": "climb",
+          "position": "(997.9304, 13.51421, 1000.0)",
+          "seconds": 4.41666666666666,
+          "ski": true,
+          "velocity": "(27.09298, -0.381344, 0.0)"
+        },
+        {
+          "energy": 53.7,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1003.349, 13.56757, 1000.0)",
+          "seconds": 4.61666666666666,
+          "ski": true,
+          "velocity": "(27.09298, 0.863101, 0.0)"
+        },
+        {
+          "energy": 50.9,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1008.767, 13.86982, 1000.0)",
+          "seconds": 4.81666666666665,
+          "ski": true,
+          "velocity": "(27.09298, 2.107545, 0.0)"
+        },
+        {
+          "energy": 48.1,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1014.186, 15.85661, 1000.0)",
+          "seconds": 5.01666666666665,
+          "ski": true,
+          "velocity": "(27.09298, 11.18277, 0.0)"
+        },
+        {
+          "energy": 45.2999999999999,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1019.604, 18.22279, 1000.0)",
+          "seconds": 5.21666666666665,
+          "ski": true,
+          "velocity": "(27.09298, 12.42722, 0.0)"
+        },
+        {
+          "energy": 42.4999999999999,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1025.023, 20.83786, 1000.0)",
+          "seconds": 5.41666666666665,
+          "ski": true,
+          "velocity": "(27.09298, 13.67168, 0.0)"
+        },
+        {
+          "energy": 39.6999999999999,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1030.443, 23.70183, 1000.0)",
+          "seconds": 5.61666666666665,
+          "ski": true,
+          "velocity": "(27.09298, 14.91613, 0.0)"
+        },
+        {
+          "energy": 36.8999999999999,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1035.851, 26.80315, 1000.0)",
+          "seconds": 5.81666666666665,
+          "ski": false,
+          "velocity": "(26.7853, 15.85291, 0.0)"
+        },
+        {
+          "energy": 34.5166666666666,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1041.113, 30.00271, 1000.0)",
+          "seconds": 6.01666666666665,
+          "ski": false,
+          "velocity": "(25.93918, 15.81422, 0.0)"
+        },
+        {
+          "energy": 35.8833333333333,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1046.29, 32.75617, 1000.0)",
+          "seconds": 6.21666666666665,
+          "ski": false,
+          "velocity": "(25.41474, 12.16384, 0.0)"
+        },
+        {
+          "energy": 33.0833333333333,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1051.045, 34.99079, 1000.0)",
+          "seconds": 6.41666666666665,
+          "ski": false,
+          "velocity": "(22.26807, 10.26163, 0.0)"
+        },
+        {
+          "energy": 30.2833333333332,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1055.171, 36.84497, 1000.0)",
+          "seconds": 6.61666666666665,
+          "ski": false,
+          "velocity": "(19.1214, 8.359413, 0.0)"
+        },
+        {
+          "energy": 27.4833333333332,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1058.668, 38.3187, 1000.0)",
+          "seconds": 6.81666666666665,
+          "ski": false,
+          "velocity": "(15.97474, 6.45719, 0.0)"
+        },
+        {
+          "energy": 24.6833333333332,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1061.535, 39.41199, 1000.0)",
+          "seconds": 7.01666666666665,
+          "ski": false,
+          "velocity": "(12.82807, 4.554964, 0.0)"
+        },
+        {
+          "energy": 21.8833333333332,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1063.773, 40.12483, 1000.0)",
+          "seconds": 7.21666666666665,
+          "ski": false,
+          "velocity": "(9.681402, 2.652743, 0.0)"
+        },
+        {
+          "energy": 20.3333333333332,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1065.404, 40.44194, 1000.0)",
+          "seconds": 7.41666666666665,
+          "ski": false,
+          "velocity": "(7.321402, 0.226077, 0.0)"
+        },
+        {
+          "energy": 22.5333333333332,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1066.869, 40.07049, 1000.0)",
+          "seconds": 7.61666666666664,
+          "ski": false,
+          "velocity": "(7.321402, -3.773924, 0.0)"
+        },
+        {
+          "energy": 24.7333333333331,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1068.334, 38.89904, 1000.0)",
+          "seconds": 7.81666666666664,
+          "ski": false,
+          "velocity": "(7.321402, -7.773921, 0.0)"
+        },
+        {
+          "energy": 23.5999999999998,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1069.743, 37.11976, 1000.0)",
+          "seconds": 8.01666666666664,
+          "ski": false,
+          "velocity": "(6.538229, -9.060793, 0.0)"
+        },
+        {
+          "energy": 22.8833333333331,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1070.564, 36.23026, 1000.0)",
+          "seconds": 8.21666666666665,
+          "ski": true,
+          "velocity": "(1.479341, 0.538436, 0.0)"
+        },
+        {
+          "energy": 25.083333333333,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1070.728, 36.28988, 1000.0)",
+          "seconds": 8.41666666666666,
+          "ski": true,
+          "velocity": "(0.193766, 0.070525, 0.0)"
+        },
+        {
+          "energy": 27.283333333333,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1070.633, 36.25568, 1000.0)",
+          "seconds": 8.61666666666667,
+          "ski": true,
+          "velocity": "(-1.091808, -0.397385, 0.0)"
+        },
+        {
+          "energy": 29.483333333333,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1070.281, 36.12764, 1000.0)",
+          "seconds": 8.81666666666668,
+          "ski": true,
+          "velocity": "(-2.377383, -0.865296, 0.0)"
+        },
+        {
+          "energy": 31.6833333333329,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1069.672, 35.90586, 1000.0)",
+          "seconds": 9.01666666666669,
+          "ski": true,
+          "velocity": "(-3.662956, -1.333206, 0.0)"
+        },
+        {
+          "energy": 33.8833333333329,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1068.915, 35.6304, 1000.0)",
+          "seconds": 9.2166666666667,
+          "ski": true,
+          "velocity": "(-3.695604, -1.345089, 0.0)"
+        },
+        {
+          "energy": 36.083333333333,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1068.285, 35.40102, 1000.0)",
+          "seconds": 9.41666666666671,
+          "ski": true,
+          "velocity": "(-3.10179, -1.128958, 0.0)"
+        }
+      ],
+      "seconds": 9.60000000000006
+    },
+    {
+      "armour": "medium",
+      "arrived": true,
+      "launches": [
+        {
+          "energy": 79.6625,
+          "speed": 26.836462020874,
+          "x": -8.3857421875
+        },
+        {
+          "energy": 66.1624999999998,
+          "speed": 26.8630619049072,
+          "x": 9.6708984375
+        }
+      ],
+      "peak": 27.0969219207764,
+      "samples": [
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.0329, 34.22931, 1000.0)",
+          "seconds": 0.0166666666666667,
+          "ski": true,
+          "velocity": "(0.160697, -0.058489, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.199, 34.16888, 1000.0)",
+          "seconds": 0.216666666666667,
+          "ski": true,
+          "velocity": "(1.446272, -0.5264, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.6221, 34.01485, 1000.0)",
+          "seconds": 0.416666666666667,
+          "ski": true,
+          "velocity": "(2.731848, -0.994311, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(936.3024, 33.76725, 1000.0)",
+          "seconds": 0.616666666666667,
+          "ski": true,
+          "velocity": "(4.017422, -1.462222, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(937.2398, 33.42607, 1000.0)",
+          "seconds": 0.816666666666668,
+          "ski": true,
+          "velocity": "(5.302994, -1.930132, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(938.4343, 32.9913, 1000.0)",
+          "seconds": 1.01666666666667,
+          "ski": true,
+          "velocity": "(6.588566, -2.398041, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(939.8859, 32.46295, 1000.0)",
+          "seconds": 1.21666666666667,
+          "ski": true,
+          "velocity": "(7.874138, -2.865951, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(941.5947, 31.84102, 1000.0)",
+          "seconds": 1.41666666666667,
+          "ski": true,
+          "velocity": "(9.159717, -3.333864, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(943.5605, 31.12551, 1000.0)",
+          "seconds": 1.61666666666667,
+          "ski": true,
+          "velocity": "(10.4453, -3.801776, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(945.7835, 30.31641, 1000.0)",
+          "seconds": 1.81666666666667,
+          "ski": true,
+          "velocity": "(11.73087, -4.269688, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(948.2636, 29.41373, 1000.0)",
+          "seconds": 2.01666666666666,
+          "ski": true,
+          "velocity": "(13.01645, -4.7376, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(951.0008, 28.41747, 1000.0)",
+          "seconds": 2.21666666666666,
+          "ski": true,
+          "velocity": "(14.30203, -5.205512, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(953.9951, 27.32763, 1000.0)",
+          "seconds": 2.41666666666666,
+          "ski": true,
+          "velocity": "(15.58761, -5.673425, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(957.2465, 26.1442, 1000.0)",
+          "seconds": 2.61666666666666,
+          "ski": true,
+          "velocity": "(16.87319, -6.141337, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(960.7551, 24.86719, 1000.0)",
+          "seconds": 2.81666666666666,
+          "ski": true,
+          "velocity": "(18.15877, -6.609251, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(964.5203, 23.49537, 1000.0)",
+          "seconds": 3.01666666666666,
+          "ski": true,
+          "velocity": "(19.44436, -7.077166, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(968.5431, 22.0312, 1000.0)",
+          "seconds": 3.21666666666666,
+          "ski": true,
+          "velocity": "(20.72994, -7.54508, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(972.8231, 20.47344, 1000.0)",
+          "seconds": 3.41666666666666,
+          "ski": true,
+          "velocity": "(22.01552, -8.012994, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(977.36, 18.8221, 1000.0)",
+          "seconds": 3.61666666666666,
+          "ski": true,
+          "velocity": "(23.30111, -8.480907, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(982.1542, 17.07718, 1000.0)",
+          "seconds": 3.81666666666666,
+          "ski": true,
+          "velocity": "(24.58669, -8.948822, 0.0)"
+        },
+        {
+          "energy": 80.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(987.2054, 15.23868, 1000.0)",
+          "seconds": 4.01666666666666,
+          "ski": true,
+          "velocity": "(25.87227, -9.416736, 0.0)"
+        },
+        {
+          "energy": 78.9875,
+          "jet": true,
+          "phase": "climb",
+          "position": "(992.5176, 13.71429, 1000.0)",
+          "seconds": 4.21666666666666,
+          "ski": true,
+          "velocity": "(27.09692, -1.585656, 0.0)"
+        },
+        {
+          "energy": 74.9374999999999,
+          "jet": true,
+          "phase": "climb",
+          "position": "(997.9375, 13.49331, 1000.0)",
+          "seconds": 4.41666666666666,
+          "ski": true,
+          "velocity": "(27.09692, -0.662579, 0.0)"
+        },
+        {
+          "energy": 70.8874999999998,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1003.357, 13.45695, 1000.0)",
+          "seconds": 4.61666666666666,
+          "ski": true,
+          "velocity": "(27.09692, 0.260498, 0.0)"
+        },
+        {
+          "energy": 66.8374999999998,
+          "jet": true,
+          "phase": "ski",
+          "position": "(1008.775, 13.74308, 1000.0)",
+          "seconds": 4.81666666666665,
+          "ski": true,
+          "velocity": "(26.86306, 9.777346, 0.0)"
+        },
+        {
+          "energy": 64.8708333333331,
+          "jet": false,
+          "phase": "coast",
+          "position": "(1014.148, 17.17038, 1000.0)",
+          "seconds": 5.01666666666665,
+          "ski": true,
+          "velocity": "(26.86306, 17.01065, 0.0)"
+        },
+        {
+          "energy": 63.9458333333331,
+          "jet": false,
+          "phase": "coast",
+          "position": "(1019.521, 20.43276, 1000.0)",
+          "seconds": 5.21666666666665,
+          "ski": true,
+          "velocity": "(26.86306, 15.47219, 0.0)"
+        },
+        {
+          "energy": 62.4999999999998,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1024.895, 23.39943, 1000.0)",
+          "seconds": 5.41666666666665,
+          "ski": true,
+          "velocity": "(26.86306, 14.34399, 0.0)"
+        },
+        {
+          "energy": 61.0541666666666,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1030.268, 26.14045, 1000.0)",
+          "seconds": 5.61666666666665,
+          "ski": true,
+          "velocity": "(26.86306, 13.21578, 0.0)"
+        },
+        {
+          "energy": 58.0458333333333,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1035.617, 28.72979, 1000.0)",
+          "seconds": 5.81666666666665,
+          "ski": false,
+          "velocity": "(26.42983, 12.88512, 0.0)"
+        },
+        {
+          "energy": 55.0375000000001,
+          "jet": false,
+          "phase": "precision",
+          "position": "(1040.816, 31.29863, 1000.0)",
+          "seconds": 6.01666666666665,
+          "ski": false,
+          "velocity": "(25.70779, 12.26564, 0.0)"
+        },
+        {
+          "energy": 54.1125000000002,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1045.877, 33.38842, 1000.0)",
+          "seconds": 6.21666666666665,
+          "ski": false,
+          "velocity": "(24.23086, 9.250257, -0.0)"
+        },
+        {
+          "energy": 50.0625000000003,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1050.416, 35.02694, 1000.0)",
+          "seconds": 6.41666666666665,
+          "ski": false,
+          "velocity": "(21.277, 7.219499, -0.0)"
+        },
+        {
+          "energy": 46.0125000000004,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1054.363, 36.2593, 1000.0)",
+          "seconds": 6.61666666666665,
+          "ski": false,
+          "velocity": "(18.32314, 5.188733, -0.0)"
+        },
+        {
+          "energy": 41.9625000000005,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1057.72, 37.08551, 1000.0)",
+          "seconds": 6.81666666666665,
+          "ski": false,
+          "velocity": "(15.36929, 3.157968, -0.0)"
+        },
+        {
+          "energy": 37.9125000000006,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1060.486, 37.50556, 1000.0)",
+          "seconds": 7.01666666666665,
+          "ski": false,
+          "velocity": "(12.41546, 1.127203, -0.0)"
+        },
+        {
+          "energy": 33.8625000000007,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1062.662, 37.51947, 1000.0)",
+          "seconds": 7.21666666666665,
+          "ski": false,
+          "velocity": "(9.461624, -0.903561, -0.0)"
+        },
+        {
+          "energy": 29.8125000000007,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1064.247, 37.12722, 1000.0)",
+          "seconds": 7.41666666666665,
+          "ski": false,
+          "velocity": "(6.507783, -2.934325, -0.0)"
+        }
+      ],
+      "seconds": 7.41666666666665
+    },
+    {
+      "armour": "heavy",
+      "arrived": true,
+      "launches": [
+        {
+          "energy": 109.610416666667,
+          "speed": 26.836462020874,
+          "x": -8.3858642578125
+        },
+        {
+          "energy": 95.5854166666672,
+          "speed": 26.0746250152588,
+          "x": 7.82177734375
+        }
+      ],
+      "peak": 27.0929756164551,
+      "samples": [
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.0329, 34.22931, 1000.0)",
+          "seconds": 0.0166666666666667,
+          "ski": true,
+          "velocity": "(0.160697, -0.058489, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.199, 34.16888, 1000.0)",
+          "seconds": 0.216666666666667,
+          "ski": true,
+          "velocity": "(1.446272, -0.5264, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(935.6221, 34.01485, 1000.0)",
+          "seconds": 0.416666666666667,
+          "ski": true,
+          "velocity": "(2.731848, -0.994311, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(936.3024, 33.76725, 1000.0)",
+          "seconds": 0.616666666666667,
+          "ski": true,
+          "velocity": "(4.017422, -1.462222, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(937.2398, 33.42607, 1000.0)",
+          "seconds": 0.816666666666668,
+          "ski": true,
+          "velocity": "(5.302994, -1.930132, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(938.4343, 32.9913, 1000.0)",
+          "seconds": 1.01666666666667,
+          "ski": true,
+          "velocity": "(6.588566, -2.398041, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(939.8859, 32.46295, 1000.0)",
+          "seconds": 1.21666666666667,
+          "ski": true,
+          "velocity": "(7.874138, -2.865951, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(941.5947, 31.84102, 1000.0)",
+          "seconds": 1.41666666666667,
+          "ski": true,
+          "velocity": "(9.159717, -3.333864, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(943.5605, 31.12551, 1000.0)",
+          "seconds": 1.61666666666667,
+          "ski": true,
+          "velocity": "(10.4453, -3.801776, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(945.7835, 30.31641, 1000.0)",
+          "seconds": 1.81666666666667,
+          "ski": true,
+          "velocity": "(11.73087, -4.269688, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(948.2636, 29.41373, 1000.0)",
+          "seconds": 2.01666666666666,
+          "ski": true,
+          "velocity": "(13.01645, -4.7376, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(951.0008, 28.41747, 1000.0)",
+          "seconds": 2.21666666666666,
+          "ski": true,
+          "velocity": "(14.30203, -5.205512, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(953.9951, 27.32763, 1000.0)",
+          "seconds": 2.41666666666666,
+          "ski": true,
+          "velocity": "(15.58761, -5.673425, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(957.2465, 26.1442, 1000.0)",
+          "seconds": 2.61666666666666,
+          "ski": true,
+          "velocity": "(16.87319, -6.141337, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(960.7551, 24.86719, 1000.0)",
+          "seconds": 2.81666666666666,
+          "ski": true,
+          "velocity": "(18.15877, -6.609251, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(964.5203, 23.49537, 1000.0)",
+          "seconds": 3.01666666666666,
+          "ski": true,
+          "velocity": "(19.44436, -7.077166, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(968.5431, 22.0312, 1000.0)",
+          "seconds": 3.21666666666666,
+          "ski": true,
+          "velocity": "(20.72994, -7.54508, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(972.8231, 20.47344, 1000.0)",
+          "seconds": 3.41666666666666,
+          "ski": true,
+          "velocity": "(22.01552, -8.012994, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(977.36, 18.8221, 1000.0)",
+          "seconds": 3.61666666666666,
+          "ski": true,
+          "velocity": "(23.30111, -8.480907, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(982.1542, 17.07718, 1000.0)",
+          "seconds": 3.81666666666666,
+          "ski": true,
+          "velocity": "(24.58669, -8.948822, 0.0)"
+        },
+        {
+          "energy": 110.0,
+          "jet": false,
+          "phase": "ski",
+          "position": "(987.2054, 15.23868, 1000.0)",
+          "seconds": 4.01666666666666,
+          "ski": true,
+          "velocity": "(25.87227, -9.416736, 0.0)"
+        },
+        {
+          "energy": 108.83125,
+          "jet": true,
+          "phase": "climb",
+          "position": "(992.5172, 13.70356, 1000.0)",
+          "seconds": 4.21666666666666,
+          "ski": true,
+          "velocity": "(27.09298, -1.867455, 0.0)"
+        },
+        {
+          "energy": 104.15625,
+          "jet": true,
+          "phase": "climb",
+          "position": "(997.9357, 13.35901, 1000.0)",
+          "seconds": 4.41666666666666,
+          "ski": true,
+          "velocity": "(27.09298, -1.589679, 0.0)"
+        },
+        {
+          "energy": 99.4812500000004,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1003.354, 13.07, 1000.0)",
+          "seconds": 4.61666666666666,
+          "ski": true,
+          "velocity": "(27.09298, -1.311902, 0.0)"
+        },
+        {
+          "energy": 94.8062500000005,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1008.691, 14.10559, 1000.0)",
+          "seconds": 4.81666666666665,
+          "ski": true,
+          "velocity": "(26.07463, 17.42531, 0.0)"
+        },
+        {
+          "energy": 92.4229166666673,
+          "jet": false,
+          "phase": "coast",
+          "position": "(1013.906, 17.53047, 1000.0)",
+          "seconds": 5.01666666666665,
+          "ski": true,
+          "velocity": "(26.07463, 16.27717, 0.0)"
+        },
+        {
+          "energy": 90.6125000000008,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1019.121, 20.6262, 1000.0)",
+          "seconds": 5.21666666666665,
+          "ski": true,
+          "velocity": "(26.07463, 14.77253, 0.0)"
+        },
+        {
+          "energy": 88.2291666666675,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1024.335, 23.46111, 1000.0)",
+          "seconds": 5.41666666666665,
+          "ski": true,
+          "velocity": "(26.07463, 13.62438, 0.0)"
+        },
+        {
+          "energy": 85.2729166666677,
+          "jet": true,
+          "phase": "climb",
+          "position": "(1029.55, 26.08272, 1000.0)",
+          "seconds": 5.61666666666665,
+          "ski": true,
+          "velocity": "(26.07463, 12.8327, 0.0)"
+        },
+        {
+          "energy": 81.1708333333345,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1034.71, 28.55349, 1000.0)",
+          "seconds": 5.81666666666665,
+          "ski": false,
+          "velocity": "(25.44722, 12.12659, 0.0)"
+        },
+        {
+          "energy": 76.4958333333346,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1039.721, 30.92932, 1000.0)",
+          "seconds": 6.01666666666665,
+          "ski": false,
+          "velocity": "(24.69434, 11.65147, 0.0)"
+        },
+        {
+          "energy": 75.2583333333347,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1044.604, 32.97449, 1000.0)",
+          "seconds": 6.21666666666665,
+          "ski": false,
+          "velocity": "(23.7133, 8.809323, -0.0)"
+        },
+        {
+          "energy": 70.5833333333349,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1049.08, 34.49793, 1000.0)",
+          "seconds": 6.41666666666665,
+          "ski": false,
+          "velocity": "(21.14662, 6.520436, -0.0)"
+        },
+        {
+          "energy": 65.9083333333351,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1053.042, 35.56359, 1000.0)",
+          "seconds": 6.61666666666665,
+          "ski": false,
+          "velocity": "(18.57994, 4.231549, -0.0)"
+        },
+        {
+          "energy": 61.2333333333351,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1056.49, 36.17148, 1000.0)",
+          "seconds": 6.81666666666665,
+          "ski": false,
+          "velocity": "(16.01325, 1.942662, -0.0)"
+        },
+        {
+          "energy": 56.5583333333351,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1059.425, 36.32158, 1000.0)",
+          "seconds": 7.01666666666665,
+          "ski": false,
+          "velocity": "(13.4466, -0.346222, -0.0)"
+        },
+        {
+          "energy": 51.8833333333351,
+          "jet": true,
+          "phase": "precision",
+          "position": "(1061.847, 36.01392, 1000.0)",
+          "seconds": 7.21666666666665,
+          "ski": false,
+          "velocity": "(10.87994, -2.635107, -0.0)"
+        }
+      ],
+      "seconds": 7.28333333333331
+    }
+  ],
+  "status": "Superseded terrain/slope experiment; these checks passed but paired spawn timing exposed regressions."
+}

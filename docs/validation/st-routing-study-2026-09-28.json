@@ -1,0 +1,3741 @@
+{
+  "date": "2026-09-28",
+  "branch": "experimental/st-raindance",
+  "release_included": false,
+  "engine": "Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org",
+  "project_settings_sha256": "a80b131015d8de67d7b3e9c27c81dedb99222564be1ad5acfafe4621c7e8e2ad",
+  "protocol": {
+    "team_size": 8,
+    "physics_hz": 60,
+    "time_scale": 1,
+    "rendering": false,
+    "normal_seconds": 1200,
+    "capture_limit": 5,
+    "inactivity_cutoffs_seconds": 600
+  },
+  "principal_runs": 86,
+  "normal_endings": 48,
+  "inactivity_cutoffs": 38,
+  "game_hours": 22.333555555543043,
+  "script_errors": 0,
+  "crashes_or_timeouts": 0,
+  "final_gameplay_sha256": {
+    "deathmatch/bot_ai/tribes.gd": "8072a70e90fc2d61db9a816c5f1caf30c74f691d91a1e04566239346c32bd243",
+    "deathmatch/bot_ai/tribes_routes.gd": "d12d031097979d24f6ed03f0ab367ed88da5c73ab7e85ea830102eb030054fa9"
+  },
+  "maps_sha256": {
+    "ctf_stonehenge": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
+    "ctf_raindance": "48bc28440f0a2f08f1a9654d840b00b639bbfd6a4dfc2e5ade826966bde337b9"
+  },
+  "cohorts": {
+    "baseline": {
+      "ctf_raindance": {
+        "runs": 13,
+        "valid_8v8": 13,
+        "normal_endings": 6,
+        "cutoffs": {
+          "no_capture_600s": 7
+        },
+        "with_capture": 6,
+        "captures": 14,
+        "game_seconds": 11400.099999993881,
+        "captures_per_20_minutes": 1.4736712835860226,
+        "pickups": 222,
+        "first_capture_seconds": {
+          "n": 6,
+          "mean": 248.4277777777945,
+          "median": 203.725000000054,
+          "p90": 440.516666666595
+        },
+        "per_run_median_travel_kmh": {
+          "n": 13,
+          "mean": 40.85038318634034,
+          "median": 40.6055597305298,
+          "p90": 41.8096870422363
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 13,
+          "mean": 47.57901609860932,
+          "median": 46.50296058654785,
+          "p90": 53.6093982696533
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 13,
+          "mean": 0.020361196074751373,
+          "median": 0.01646090534979424,
+          "p90": 0.04851752021563342
+        },
+        "carrier_net_progress_per_metre": 0.7522967416066502,
+        "per_run_attacking_median_kmh": {
+          "n": 13,
+          "mean": 41.70659650108636,
+          "median": 41.61378929354436,
+          "p90": 43.09515252456924
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 13,
+          "mean": 69.42125123535016,
+          "median": 69.26342978982612,
+          "p90": 69.88304911794589
+        },
+        "no_progress_35s_per_game_minute": 0.8157823176994055,
+        "per_run_pickup_homeward_kmh": {
+          "n": 13,
+          "mean": 37.29397523028205,
+          "median": 38.06071300822771,
+          "p90": 39.61454485902521
+        },
+        "slow_travel_fraction": 0.04253025170879802,
+        "downhill_ski_fraction": 0.8511801110692769,
+        "uphill_walk_or_jet_fraction": 0.8425941885137285,
+        "abrupt_losses_per_travel_minute": 0.5412067613666735,
+        "failed_launches_per_game_minute": 4.199963158220164,
+        "recoveries_per_game_minute": 2.352610942010543,
+        "rolling_launches": 3,
+        "fast_ski_departures": 12345,
+        "fast_ski_departures_per_travel_minute": 8.896401423530737,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 13,
+            "mean": 19.754973022754363,
+            "median": 19.9496998786926,
+            "p90": 20.80657081604
+          },
+          "light": {
+            "n": 13,
+            "mean": 43.89714907132663,
+            "median": 43.99340686798095,
+            "p90": 44.97673988342285
+          },
+          "medium": {
+            "n": 13,
+            "mean": 29.288644211108878,
+            "median": 28.8633876800537,
+            "p90": 29.9202964782715
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 13,
+            "mean": 19.59682971514188,
+            "median": 19.5936630249023,
+            "p90": 21.6392692565918
+          },
+          "climb": {
+            "n": 13,
+            "mean": 51.915150525019726,
+            "median": 51.5529396057129,
+            "p90": 53.49684677124025
+          },
+          "coast": {
+            "n": 13,
+            "mean": 47.39332338479848,
+            "median": 47.30290775299075,
+            "p90": 49.3757514953613
+          },
+          "obstacle_flank": {
+            "n": 13,
+            "mean": 26.88230004677405,
+            "median": 26.7915121078491,
+            "p90": 27.493831157684347
+          },
+          "obstacle_vault": {
+            "n": 13,
+            "mean": 66.65042724609376,
+            "median": 67.1831130981445,
+            "p90": 68.6531764984131
+          },
+          "precision": {
+            "n": 13,
+            "mean": 23.166502563770003,
+            "median": 23.9526449203491,
+            "p90": 25.04656219482425
+          },
+          "route_recovery": {
+            "n": 13,
+            "mean": 19.264561821864206,
+            "median": 17.8550714492798,
+            "p90": 27.18890047073365
+          },
+          "run_up": {
+            "n": 13,
+            "mean": 38.65125147012565,
+            "median": 39.0624801635742,
+            "p90": 39.3098476409912
+          },
+          "ski": {
+            "n": 13,
+            "mean": 46.116349190932056,
+            "median": 46.22947998046875,
+            "p90": 46.9217336654663
+          },
+          "tower_flight": {
+            "n": 13,
+            "mean": 38.87494988074671,
+            "median": 38.9252643585205,
+            "p90": 39.3284231185913
+          },
+          "tower_runup": {
+            "n": 13,
+            "mean": 39.18326599414533,
+            "median": 39.4123706817627,
+            "p90": 39.57525844573975
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 13,
+          "mean": 42.31051888099084,
+          "median": 42.3918731689453,
+          "p90": 43.6847785949707
+        }
+      },
+      "ctf_stonehenge": {
+        "runs": 13,
+        "valid_8v8": 13,
+        "normal_endings": 8,
+        "cutoffs": {
+          "no_capture_600s": 5
+        },
+        "with_capture": 8,
+        "captures": 21,
+        "game_seconds": 12600.133333326114,
+        "captures_per_20_minutes": 1.9999788362039375,
+        "pickups": 291,
+        "first_capture_seconds": {
+          "n": 8,
+          "mean": 287.3979166666536,
+          "median": 319.683333333371,
+          "p90": 542.949999999835
+        },
+        "per_run_median_travel_kmh": {
+          "n": 13,
+          "mean": 36.42544700915995,
+          "median": 36.6678520202637,
+          "p90": 37.4223844528198
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 13,
+          "mean": 37.17623537503757,
+          "median": 38.82966442108155,
+          "p90": 39.4064878463745
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 13,
+          "mean": 0.0787015242770234,
+          "median": 0.07038123167155426,
+          "p90": 0.136
+        },
+        "carrier_net_progress_per_metre": 0.561531306109241,
+        "per_run_attacking_median_kmh": {
+          "n": 13,
+          "mean": 37.18032089191305,
+          "median": 37.23424456989824,
+          "p90": 38.11342689793432
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 13,
+          "mean": 60.35257094412039,
+          "median": 60.199328384249135,
+          "p90": 62.15763613378957
+        },
+        "no_progress_35s_per_game_minute": 1.7047438651452609,
+        "per_run_pickup_homeward_kmh": {
+          "n": 13,
+          "mean": 19.439020297727737,
+          "median": 22.88342056924973,
+          "p90": 24.69474328263505
+        },
+        "slow_travel_fraction": 0.08494993446434634,
+        "downhill_ski_fraction": 0.7471639959228139,
+        "uphill_walk_or_jet_fraction": 0.881512153549741,
+        "abrupt_losses_per_travel_minute": 1.4133640524671842,
+        "failed_launches_per_game_minute": 1.4428418746899834,
+        "recoveries_per_game_minute": 3.5713907789356028,
+        "rolling_launches": 11,
+        "fast_ski_departures": 7331,
+        "fast_ski_departures_per_travel_minute": 4.941045240170209,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 13,
+            "mean": 18.34303291027363,
+            "median": 17.99819498062135,
+            "p90": 19.0363489151001
+          },
+          "light": {
+            "n": 13,
+            "mean": 38.67991575094371,
+            "median": 38.59396991729735,
+            "p90": 39.1529285430908
+          },
+          "medium": {
+            "n": 13,
+            "mean": 28.166529244642987,
+            "median": 28.5077971458435,
+            "p90": 28.6838350296021
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 13,
+            "mean": 23.35083235227145,
+            "median": 24.2486595153809,
+            "p90": 25.3695121765137
+          },
+          "climb": {
+            "n": 13,
+            "mean": 44.05885567298303,
+            "median": 44.10689392089845,
+            "p90": 45.3493480682373
+          },
+          "coast": {
+            "n": 13,
+            "mean": 41.168200360811674,
+            "median": 40.9398994445801,
+            "p90": 42.0463840484619
+          },
+          "flag_run": {
+            "n": 9,
+            "mean": 26.44450216293334,
+            "median": 23.9077434539795,
+            "p90": 39.5943077087402
+          },
+          "obstacle_flank": {
+            "n": 13,
+            "mean": 32.33419770460863,
+            "median": 31.9171062469482,
+            "p90": 33.7026866912842
+          },
+          "obstacle_vault": {
+            "n": 13,
+            "mean": 39.987068146925694,
+            "median": 40.47186126708985,
+            "p90": 42.16364936828615
+          },
+          "precision": {
+            "n": 13,
+            "mean": 18.333571727459244,
+            "median": 19.1729733467102,
+            "p90": 20.9847141265869
+          },
+          "route_recovery": {
+            "n": 13,
+            "mean": 16.882280291043802,
+            "median": 16.4872100830078,
+            "p90": 20.118678188323948
+          },
+          "run_up": {
+            "n": 13,
+            "mean": 34.21288569523739,
+            "median": 35.4928127288818,
+            "p90": 37.96198139190675
+          },
+          "ski": {
+            "n": 13,
+            "mean": 39.12456348125752,
+            "median": 39.6485389709473,
+            "p90": 40.3522716522217
+          },
+          "tower_flight": {
+            "n": 13,
+            "mean": 37.9633622096135,
+            "median": 37.98897342681885,
+            "p90": 39.14176197052005
+          },
+          "tower_runup": {
+            "n": 13,
+            "mean": 29.939819460648746,
+            "median": 29.624760818481448,
+            "p90": 31.610367965698252
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 13,
+          "mean": 39.308767890930184,
+          "median": 39.4686275482178,
+          "p90": 39.5873176574707
+        }
+      }
+    },
+    "selected": {
+      "ctf_raindance": {
+        "runs": 13,
+        "valid_8v8": 13,
+        "normal_endings": 6,
+        "cutoffs": {
+          "no_capture_600s": 7
+        },
+        "with_capture": 6,
+        "captures": 14,
+        "game_seconds": 11400.099999993881,
+        "captures_per_20_minutes": 1.4736712835860226,
+        "pickups": 221,
+        "first_capture_seconds": {
+          "n": 6,
+          "mean": 248.4277777777945,
+          "median": 203.725000000054,
+          "p90": 440.516666666595
+        },
+        "per_run_median_travel_kmh": {
+          "n": 13,
+          "mean": 40.77354927062988,
+          "median": 40.6055597305298,
+          "p90": 41.77234897613525
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 13,
+          "mean": 47.686693998483506,
+          "median": 46.50296058654785,
+          "p90": 53.6093982696533
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 13,
+          "mean": 0.02082238786059801,
+          "median": 0.017241379310344827,
+          "p90": 0.04851752021563342
+        },
+        "carrier_net_progress_per_metre": 0.7519678867272535,
+        "per_run_attacking_median_kmh": {
+          "n": 13,
+          "mean": 41.631594873178365,
+          "median": 41.61378929354436,
+          "p90": 42.822522193143925
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 13,
+          "mean": 69.31555077307787,
+          "median": 69.07078611358583,
+          "p90": 69.88304911794589
+        },
+        "no_progress_35s_per_game_minute": 0.8157823176994055,
+        "per_run_pickup_homeward_kmh": {
+          "n": 13,
+          "mean": 37.233746739630575,
+          "median": 38.266535534339056,
+          "p90": 39.61454485902521
+        },
+        "slow_travel_fraction": 0.0425467334181944,
+        "downhill_ski_fraction": 0.8515302577949563,
+        "uphill_walk_or_jet_fraction": 0.8414752622973317,
+        "abrupt_losses_per_travel_minute": 0.5416708601260944,
+        "failed_launches_per_game_minute": 4.178910711311793,
+        "recoveries_per_game_minute": 2.3473478302834505,
+        "rolling_launches": 0,
+        "fast_ski_departures": 12233,
+        "fast_ski_departures_per_travel_minute": 8.811515467982066,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 13,
+            "mean": 19.69476213455199,
+            "median": 19.9496998786926,
+            "p90": 20.80657081604
+          },
+          "light": {
+            "n": 13,
+            "mean": 43.78490339425895,
+            "median": 43.9142486572266,
+            "p90": 44.97673988342285
+          },
+          "medium": {
+            "n": 13,
+            "mean": 29.30743677432721,
+            "median": 29.0366163253784,
+            "p90": 29.9202964782715
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 13,
+            "mean": 19.6021174797645,
+            "median": 19.553467655181898,
+            "p90": 21.6392692565918
+          },
+          "climb": {
+            "n": 13,
+            "mean": 51.76285981398363,
+            "median": 51.5408700942993,
+            "p90": 53.49684677124025
+          },
+          "coast": {
+            "n": 13,
+            "mean": 47.182520969097425,
+            "median": 46.9611385345459,
+            "p90": 49.3757514953613
+          },
+          "obstacle_flank": {
+            "n": 13,
+            "mean": 26.939388414529645,
+            "median": 26.7915121078491,
+            "p90": 27.501021194457998
+          },
+          "obstacle_vault": {
+            "n": 13,
+            "mean": 66.58578168428862,
+            "median": 67.3754287719727,
+            "p90": 68.4000240325928
+          },
+          "precision": {
+            "n": 13,
+            "mean": 23.451393237480758,
+            "median": 24.2011968612671,
+            "p90": 25.920919418335
+          },
+          "route_recovery": {
+            "n": 13,
+            "mean": 19.447646933335527,
+            "median": 17.9322452545166,
+            "p90": 27.18890047073365
+          },
+          "run_up": {
+            "n": 13,
+            "mean": 38.67590072338398,
+            "median": 39.0662790298462,
+            "p90": 39.3098476409912
+          },
+          "ski": {
+            "n": 13,
+            "mean": 46.14511303534874,
+            "median": 46.22947998046875,
+            "p90": 47.3081245422363
+          },
+          "tower_flight": {
+            "n": 13,
+            "mean": 38.864746328500615,
+            "median": 38.9092998504639,
+            "p90": 39.4999248504639
+          },
+          "tower_runup": {
+            "n": 13,
+            "mean": 39.13013957096981,
+            "median": 39.4123706817627,
+            "p90": 39.57525844573975
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 13,
+          "mean": 42.10186236454891,
+          "median": 41.9702728271484,
+          "p90": 43.6847785949707
+        }
+      },
+      "ctf_stonehenge": {
+        "runs": 13,
+        "valid_8v8": 13,
+        "normal_endings": 9,
+        "cutoffs": {
+          "no_capture_600s": 4
+        },
+        "with_capture": 9,
+        "captures": 16,
+        "game_seconds": 13200.14999999223,
+        "captures_per_20_minutes": 1.4545289258085174,
+        "pickups": 292,
+        "first_capture_seconds": {
+          "n": 9,
+          "mean": 317.214814814814,
+          "median": 286.833333333401,
+          "p90": 542.949999999835
+        },
+        "per_run_median_travel_kmh": {
+          "n": 13,
+          "mean": 36.7122816819411,
+          "median": 36.917883682251,
+          "p90": 38.0174915313721
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 13,
+          "mean": 37.398387776888335,
+          "median": 38.41496143341065,
+          "p90": 39.5135444641113
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 13,
+          "mean": 0.061505854472199625,
+          "median": 0.0584958217270195,
+          "p90": 0.09848484848484848
+        },
+        "carrier_net_progress_per_metre": 0.5583523427962901,
+        "per_run_attacking_median_kmh": {
+          "n": 13,
+          "mean": 37.36965733779213,
+          "median": 37.638305460862924,
+          "p90": 38.72356701152427
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 13,
+          "mean": 59.93152287491061,
+          "median": 59.6396499059321,
+          "p90": 61.73642588377739
+        },
+        "no_progress_35s_per_game_minute": 1.9272508266962856,
+        "per_run_pickup_homeward_kmh": {
+          "n": 13,
+          "mean": 17.52857118756682,
+          "median": 18.422700561971528,
+          "p90": 23.49365650263299
+        },
+        "slow_travel_fraction": 0.08510884976184394,
+        "downhill_ski_fraction": 0.748332755621512,
+        "uphill_walk_or_jet_fraction": 0.8790010428673479,
+        "abrupt_losses_per_travel_minute": 1.4342213126950116,
+        "failed_launches_per_game_minute": 1.6454358473208852,
+        "recoveries_per_game_minute": 3.3726889467184997,
+        "rolling_launches": 17,
+        "fast_ski_departures": 7584,
+        "fast_ski_departures_per_travel_minute": 4.862375697576651,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 13,
+            "mean": 18.376807616307172,
+            "median": 18.0882159233093,
+            "p90": 19.22702693939205
+          },
+          "light": {
+            "n": 13,
+            "mean": 38.71754643366887,
+            "median": 38.69060840606685,
+            "p90": 39.1092475891113
+          },
+          "medium": {
+            "n": 13,
+            "mean": 28.304980087280274,
+            "median": 28.6049806594849,
+            "p90": 28.7866807937622
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 13,
+            "mean": 24.524202170738825,
+            "median": 25.0277309417725,
+            "p90": 25.919116973877
+          },
+          "climb": {
+            "n": 13,
+            "mean": 44.10912776360146,
+            "median": 44.33950710296635,
+            "p90": 45.3493480682373
+          },
+          "coast": {
+            "n": 13,
+            "mean": 41.45105526263896,
+            "median": 41.1018310546875,
+            "p90": 43.01851787567135
+          },
+          "flag_run": {
+            "n": 9,
+            "mean": 26.050502753257746,
+            "median": 27.1990808486938,
+            "p90": 39.5943077087402
+          },
+          "obstacle_flank": {
+            "n": 13,
+            "mean": 31.91456196124738,
+            "median": 31.8550163269043,
+            "p90": 33.4086032867432
+          },
+          "obstacle_vault": {
+            "n": 13,
+            "mean": 39.615793374868545,
+            "median": 40.0648796081543,
+            "p90": 41.194976234436
+          },
+          "precision": {
+            "n": 13,
+            "mean": 18.181959243921135,
+            "median": 18.7722719192505,
+            "p90": 21.2038793563843
+          },
+          "route_recovery": {
+            "n": 13,
+            "mean": 18.588505444159882,
+            "median": 18.2276521682739,
+            "p90": 20.7626546859741
+          },
+          "run_up": {
+            "n": 13,
+            "mean": 35.074215536851156,
+            "median": 34.98041553497315,
+            "p90": 38.1318214416504
+          },
+          "ski": {
+            "n": 13,
+            "mean": 39.623488426208496,
+            "median": 39.664949798584,
+            "p90": 40.495593452453605
+          },
+          "tower_flight": {
+            "n": 13,
+            "mean": 37.0058576290424,
+            "median": 37.381379699707,
+            "p90": 38.1877006530762
+          },
+          "tower_runup": {
+            "n": 13,
+            "mean": 30.394590920668374,
+            "median": 30.5952827453613,
+            "p90": 31.8099002838135
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 13,
+          "mean": 39.31149123265193,
+          "median": 39.385201835632344,
+          "p90": 39.5941051483154
+        }
+      }
+    },
+    "refined": {
+      "ctf_raindance": {
+        "runs": 13,
+        "valid_8v8": 13,
+        "normal_endings": 7,
+        "cutoffs": {
+          "no_capture_600s": 6
+        },
+        "with_capture": 7,
+        "captures": 14,
+        "game_seconds": 12000.116666659997,
+        "captures_per_20_minutes": 1.3999863890219961,
+        "pickups": 196,
+        "first_capture_seconds": {
+          "n": 7,
+          "mean": 330.89047619047255,
+          "median": 340.800000000019,
+          "p90": 480.033333333225
+        },
+        "per_run_median_travel_kmh": {
+          "n": 13,
+          "mean": 41.46118750939003,
+          "median": 41.1827110290527,
+          "p90": 43.7258743286133
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 13,
+          "mean": 46.50779140178975,
+          "median": 46.34941291809085,
+          "p90": 49.1392330169678
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 13,
+          "mean": 0.01726974234606441,
+          "median": 0.01,
+          "p90": 0.03558718861209965
+        },
+        "carrier_net_progress_per_metre": 0.6894770100336718,
+        "per_run_attacking_median_kmh": {
+          "n": 13,
+          "mean": 42.381427749939974,
+          "median": 42.07675702223801,
+          "p90": 44.63632595999608
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 13,
+          "mean": 70.36813645110219,
+          "median": 70.35891082623206,
+          "p90": 71.38015536823391
+        },
+        "no_progress_35s_per_game_minute": 0.8499917361919261,
+        "per_run_pickup_homeward_kmh": {
+          "n": 13,
+          "mean": 37.86408958798318,
+          "median": 38.371947823352436,
+          "p90": 40.16850859784429
+        },
+        "slow_travel_fraction": 0.039733073452577504,
+        "downhill_ski_fraction": 0.8471878828377346,
+        "uphill_walk_or_jet_fraction": 0.8152200998714842,
+        "abrupt_losses_per_travel_minute": 0.5776820325498048,
+        "failed_launches_per_game_minute": 4.15495960456171,
+        "recoveries_per_game_minute": 2.5749749655225997,
+        "rolling_launches": 2,
+        "fast_ski_departures": 13789,
+        "fast_ski_departures_per_travel_minute": 9.562614101835845,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 13,
+            "mean": 19.907753694974456,
+            "median": 19.653378868103,
+            "p90": 21.3997999191284
+          },
+          "light": {
+            "n": 13,
+            "mean": 44.69970086904673,
+            "median": 44.5787189483643,
+            "p90": 46.0933954238892
+          },
+          "medium": {
+            "n": 13,
+            "mean": 29.630433170612047,
+            "median": 29.091903305053698,
+            "p90": 31.5120986938477
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 13,
+            "mean": 23.814108643165003,
+            "median": 23.8383991241455,
+            "p90": 25.2473012924194
+          },
+          "climb": {
+            "n": 13,
+            "mean": 53.000209016066336,
+            "median": 52.5055194854736,
+            "p90": 54.8103549957275
+          },
+          "coast": {
+            "n": 13,
+            "mean": 49.487399922884435,
+            "median": 49.3747180938721,
+            "p90": 51.44805278778075
+          },
+          "flag_run": {
+            "n": 1,
+            "mean": 16.19934425354,
+            "median": 16.19934425354,
+            "p90": 16.19934425354
+          },
+          "obstacle_flank": {
+            "n": 13,
+            "mean": 26.994991251138547,
+            "median": 26.9071397781372,
+            "p90": 27.476273632049597
+          },
+          "obstacle_vault": {
+            "n": 13,
+            "mean": 65.49596540010893,
+            "median": 67.9009391784668,
+            "p90": 70.7272476196289
+          },
+          "precision": {
+            "n": 13,
+            "mean": 24.44627536626963,
+            "median": 24.44390716552735,
+            "p90": 26.422342300415053
+          },
+          "route_recovery": {
+            "n": 13,
+            "mean": 18.329616946440474,
+            "median": 17.880357170105,
+            "p90": 22.7572242736816
+          },
+          "run_up": {
+            "n": 13,
+            "mean": 38.01515086247371,
+            "median": 39.1930423736572,
+            "p90": 39.392361831665
+          },
+          "ski": {
+            "n": 13,
+            "mean": 45.27135926760161,
+            "median": 45.09252033233645,
+            "p90": 46.7014320373535
+          },
+          "tower_flight": {
+            "n": 13,
+            "mean": 39.131199513948864,
+            "median": 39.0512535095215,
+            "p90": 39.53209075927735
+          },
+          "tower_runup": {
+            "n": 13,
+            "mean": 39.1921430000892,
+            "median": 39.214335250854504,
+            "p90": 39.577771568298346
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 13,
+          "mean": 43.45476410205549,
+          "median": 43.5263454437256,
+          "p90": 45.01983890533445
+        }
+      },
+      "ctf_stonehenge": {
+        "runs": 13,
+        "valid_8v8": 13,
+        "normal_endings": 8,
+        "cutoffs": {
+          "no_capture_600s": 5
+        },
+        "with_capture": 8,
+        "captures": 16,
+        "game_seconds": 12600.133333326114,
+        "captures_per_20_minutes": 1.5237933990125239,
+        "pickups": 242,
+        "first_capture_seconds": {
+          "n": 8,
+          "mean": 206.027083333328,
+          "median": 149.475000000011,
+          "p90": 554.666666666491
+        },
+        "per_run_median_travel_kmh": {
+          "n": 13,
+          "mean": 36.913634006793686,
+          "median": 36.5189426422119,
+          "p90": 37.9828296661377
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 13,
+          "mean": 37.707592568030734,
+          "median": 38.7132694244385,
+          "p90": 39.66604671478275
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 13,
+          "mean": 0.04851216021971117,
+          "median": 0.0438871473354232,
+          "p90": 0.09937888198757763
+        },
+        "carrier_net_progress_per_metre": 0.5545091306447536,
+        "per_run_attacking_median_kmh": {
+          "n": 13,
+          "mean": 37.623498633059235,
+          "median": 37.73094505396241,
+          "p90": 38.37738269470612
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 13,
+          "mean": 59.99290116318229,
+          "median": 59.61651563767789,
+          "p90": 61.980677276368056
+        },
+        "no_progress_35s_per_game_minute": 1.7714098263520588,
+        "per_run_pickup_homeward_kmh": {
+          "n": 13,
+          "mean": 15.722340187300532,
+          "median": 21.82281089147977,
+          "p90": 25.742569750886364
+        },
+        "slow_travel_fraction": 0.08290601409074277,
+        "downhill_ski_fraction": 0.7379596476626674,
+        "uphill_walk_or_jet_fraction": 0.8749787522402971,
+        "abrupt_losses_per_travel_minute": 1.3479627983636535,
+        "failed_launches_per_game_minute": 1.5237933990125239,
+        "recoveries_per_game_minute": 3.485677400241148,
+        "rolling_launches": 12,
+        "fast_ski_departures": 7647,
+        "fast_ski_departures_per_travel_minute": 5.072771416873454,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 13,
+            "mean": 18.67098767940815,
+            "median": 18.35860233306885,
+            "p90": 19.611697769165
+          },
+          "light": {
+            "n": 13,
+            "mean": 38.62973160376915,
+            "median": 38.759964752197305,
+            "p90": 39.296743011474604
+          },
+          "medium": {
+            "n": 13,
+            "mean": 28.34044083815354,
+            "median": 28.49601173400875,
+            "p90": 28.75105504989625
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 13,
+            "mean": 20.14955716499916,
+            "median": 20.471484375,
+            "p90": 21.9814813613892
+          },
+          "climb": {
+            "n": 13,
+            "mean": 43.64644370445839,
+            "median": 43.8693265914917,
+            "p90": 44.6344848632813
+          },
+          "coast": {
+            "n": 13,
+            "mean": 40.785254727877096,
+            "median": 40.7674724578857,
+            "p90": 41.7752140045166
+          },
+          "flag_run": {
+            "n": 7,
+            "mean": 24.22313579831804,
+            "median": 29.6992240905762,
+            "p90": 32.4963706970215
+          },
+          "obstacle_flank": {
+            "n": 13,
+            "mean": 33.157992729773895,
+            "median": 32.98378086090085,
+            "p90": 34.4117546081543
+          },
+          "obstacle_vault": {
+            "n": 13,
+            "mean": 37.36630598214956,
+            "median": 39.8292846679688,
+            "p90": 42.0704509735107
+          },
+          "precision": {
+            "n": 13,
+            "mean": 18.335992350945105,
+            "median": 18.9430767059326,
+            "p90": 20.786676120758052
+          },
+          "route_recovery": {
+            "n": 13,
+            "mean": 18.122305099780743,
+            "median": 18.6684288024902,
+            "p90": 21.11720581054685
+          },
+          "run_up": {
+            "n": 13,
+            "mean": 35.51135611900917,
+            "median": 36.1292610168457,
+            "p90": 38.021259498596194
+          },
+          "ski": {
+            "n": 13,
+            "mean": 39.2348316192627,
+            "median": 39.6272529602051,
+            "p90": 40.2149253845215
+          },
+          "tower_flight": {
+            "n": 13,
+            "mean": 37.955593079787036,
+            "median": 38.24537715911865,
+            "p90": 39.36192798614505
+          },
+          "tower_runup": {
+            "n": 13,
+            "mean": 31.12485327353844,
+            "median": 31.19975051879885,
+            "p90": 33.6990921020508
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 13,
+          "mean": 39.42422944582427,
+          "median": 39.459673690795896,
+          "p90": 39.5854928970337
+        }
+      }
+    },
+    "guard": {
+      "ctf_raindance": {
+        "runs": 4,
+        "valid_8v8": 4,
+        "normal_endings": 2,
+        "cutoffs": {
+          "no_capture_600s": 2
+        },
+        "with_capture": 2,
+        "captures": 4,
+        "game_seconds": 3600.0333333313656,
+        "captures_per_20_minutes": 1.3333209877693606,
+        "pickups": 65,
+        "first_capture_seconds": {
+          "n": 2,
+          "mean": 422.691666666611,
+          "median": 422.691666666611,
+          "p90": 487.983333333218
+        },
+        "per_run_median_travel_kmh": {
+          "n": 4,
+          "mean": 41.47980022430421,
+          "median": 41.17573642730715,
+          "p90": 42.8408380508423
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 4,
+          "mean": 46.90165271759034,
+          "median": 47.59697399139405,
+          "p90": 50.41968612670895
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 4,
+          "mean": 0.03197326386792673,
+          "median": 0.024893759785282934,
+          "p90": 0.06990881458966565
+        },
+        "carrier_net_progress_per_metre": 0.7053510313797486,
+        "per_run_attacking_median_kmh": {
+          "n": 4,
+          "mean": 42.26921201023206,
+          "median": 41.98382678661352,
+          "p90": 43.277099037138164
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 4,
+          "mean": 69.58325633156286,
+          "median": 69.64068927600921,
+          "p90": 69.89571785310845
+        },
+        "no_progress_35s_per_game_minute": 0.8666586420500844,
+        "per_run_pickup_homeward_kmh": {
+          "n": 4,
+          "mean": 34.35335728337752,
+          "median": 34.868089749305426,
+          "p90": 40.34411774360514
+        },
+        "slow_travel_fraction": 0.03780756940289,
+        "downhill_ski_fraction": 0.8518979424297342,
+        "uphill_walk_or_jet_fraction": 0.8321273878971491,
+        "abrupt_losses_per_travel_minute": 0.5359184314898203,
+        "failed_launches_per_game_minute": 3.6166331793243907,
+        "recoveries_per_game_minute": 2.249979166860796,
+        "rolling_launches": 0,
+        "fast_ski_departures": 4026,
+        "fast_ski_departures_per_travel_minute": 9.220545321273576,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 4,
+            "mean": 19.012046813964837,
+            "median": 19.066722679138174,
+            "p90": 19.9141960144043
+          },
+          "light": {
+            "n": 4,
+            "mean": 44.05889997482299,
+            "median": 43.74680843353273,
+            "p90": 45.3672283172607
+          },
+          "medium": {
+            "n": 4,
+            "mean": 29.317814612388588,
+            "median": 29.322914028167702,
+            "p90": 29.9463529586792
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 4,
+            "mean": 20.628494024276726,
+            "median": 20.52270040512085,
+            "p90": 22.4379306793213
+          },
+          "climb": {
+            "n": 4,
+            "mean": 52.1377324104309,
+            "median": 51.9340175628662,
+            "p90": 53.3140995025635
+          },
+          "coast": {
+            "n": 4,
+            "mean": 47.79472017288209,
+            "median": 48.26305618286135,
+            "p90": 48.43331336975095
+          },
+          "obstacle_flank": {
+            "n": 4,
+            "mean": 26.937654304504413,
+            "median": 26.81621074676515,
+            "p90": 27.59523754119875
+          },
+          "obstacle_vault": {
+            "n": 4,
+            "mean": 65.15671148300173,
+            "median": 65.31654796600344,
+            "p90": 67.1518844604492
+          },
+          "precision": {
+            "n": 4,
+            "mean": 19.7877073287964,
+            "median": 19.83014931678775,
+            "p90": 21.7370638847351
+          },
+          "route_recovery": {
+            "n": 4,
+            "mean": 21.984556245803812,
+            "median": 21.79566349983215,
+            "p90": 27.033452510833698
+          },
+          "run_up": {
+            "n": 4,
+            "mean": 38.06738877296446,
+            "median": 38.6929790496826,
+            "p90": 39.33755893707275
+          },
+          "ski": {
+            "n": 4,
+            "mean": 46.544886302948,
+            "median": 46.57234439849853,
+            "p90": 47.0142505645752
+          },
+          "tower_flight": {
+            "n": 4,
+            "mean": 39.79284439086912,
+            "median": 39.75350561141967,
+            "p90": 40.00374584197995
+          },
+          "tower_runup": {
+            "n": 4,
+            "mean": 39.51978778839111,
+            "median": 39.5567868232727,
+            "p90": 40.5171936035156
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 4,
+          "mean": 42.77045001983641,
+          "median": 42.93714694976808,
+          "p90": 43.7105587005615
+        }
+      },
+      "ctf_stonehenge": {
+        "runs": 4,
+        "valid_8v8": 4,
+        "normal_endings": 2,
+        "cutoffs": {
+          "no_capture_600s": 2
+        },
+        "with_capture": 2,
+        "captures": 2,
+        "game_seconds": 3600.0333333313656,
+        "captures_per_20_minutes": 0.6666604938846803,
+        "pickups": 74,
+        "first_capture_seconds": {
+          "n": 2,
+          "mean": 437.09166666659803,
+          "median": 437.09166666659803,
+          "p90": 487.949999999885
+        },
+        "per_run_median_travel_kmh": {
+          "n": 4,
+          "mean": 36.117395353317264,
+          "median": 36.18044357299803,
+          "p90": 36.6378610610962
+        },
+        "per_run_carrier_median_kmh": {
+          "n": 4,
+          "mean": 35.44544405937194,
+          "median": 36.04268016815185,
+          "p90": 38.400471496582
+        },
+        "per_run_carrier_slow_fraction": {
+          "n": 4,
+          "mean": 0.06513390660442908,
+          "median": 0.06146298864745466,
+          "p90": 0.09375
+        },
+        "carrier_net_progress_per_metre": 0.5103628519422613,
+        "per_run_attacking_median_kmh": {
+          "n": 4,
+          "mean": 37.008186312119925,
+          "median": 37.14982302544391,
+          "p90": 37.41183318974531
+        },
+        "per_run_attacking_p90_kmh": {
+          "n": 4,
+          "mean": 60.32055322501329,
+          "median": 60.4382704101781,
+          "p90": 60.47597170200588
+        },
+        "no_progress_35s_per_game_minute": 1.8333163581828706,
+        "per_run_pickup_homeward_kmh": {
+          "n": 4,
+          "mean": 19.756208711272414,
+          "median": 19.192436387703005,
+          "p90": 26.59329506604888
+        },
+        "slow_travel_fraction": 0.08644866436919178,
+        "downhill_ski_fraction": 0.7507970997378451,
+        "uphill_walk_or_jet_fraction": 0.8741379596167325,
+        "abrupt_losses_per_travel_minute": 1.3742333229963086,
+        "failed_launches_per_game_minute": 1.3333209877693606,
+        "recoveries_per_game_minute": 3.9832964509609647,
+        "rolling_launches": 3,
+        "fast_ski_departures": 2034,
+        "fast_ski_departures_per_travel_minute": 4.827617580266826,
+        "per_run_class_median_kmh": {
+          "heavy": {
+            "n": 4,
+            "mean": 18.14780366420745,
+            "median": 18.10912771224975,
+            "p90": 18.5602289199829
+          },
+          "light": {
+            "n": 4,
+            "mean": 38.6129801273346,
+            "median": 38.60679817199708,
+            "p90": 38.8740646362305
+          },
+          "medium": {
+            "n": 4,
+            "mean": 28.295383143424974,
+            "median": 28.50847220420835,
+            "p90": 28.7513408660889
+          }
+        },
+        "per_run_phase_median_kmh": {
+          "base_approach": {
+            "n": 4,
+            "mean": 24.91391730308535,
+            "median": 24.542361831665048,
+            "p90": 26.5608026504517
+          },
+          "climb": {
+            "n": 4,
+            "mean": 44.24617824554445,
+            "median": 44.225063037872346,
+            "p90": 44.8300003051758
+          },
+          "coast": {
+            "n": 4,
+            "mean": 41.83334240913393,
+            "median": 41.39196882247927,
+            "p90": 43.7846649169922
+          },
+          "flag_run": {
+            "n": 2,
+            "mean": 17.22583765983582,
+            "median": 17.22583765983582,
+            "p90": 31.4002501487732
+          },
+          "obstacle_flank": {
+            "n": 4,
+            "mean": 32.062597846984865,
+            "median": 32.02797031402588,
+            "p90": 32.9519496917725
+          },
+          "obstacle_vault": {
+            "n": 4,
+            "mean": 38.42809352874755,
+            "median": 38.9297387123108,
+            "p90": 43.0371362686157
+          },
+          "precision": {
+            "n": 4,
+            "mean": 17.058275985717763,
+            "median": 17.320384025573727,
+            "p90": 18.4324150085449
+          },
+          "route_recovery": {
+            "n": 4,
+            "mean": 17.69763211011885,
+            "median": 18.238484001159648,
+            "p90": 22.3336601257324
+          },
+          "run_up": {
+            "n": 4,
+            "mean": 31.906949043273926,
+            "median": 31.522001838684076,
+            "p90": 35.794953918457054
+          },
+          "ski": {
+            "n": 4,
+            "mean": 39.22720255851745,
+            "median": 39.52951841354367,
+            "p90": 39.71028213500975
+          },
+          "tower_flight": {
+            "n": 4,
+            "mean": 37.03259897232055,
+            "median": 37.18128089904785,
+            "p90": 37.7081577301025
+          },
+          "tower_runup": {
+            "n": 4,
+            "mean": 29.217772293090825,
+            "median": 29.091144990921023,
+            "p90": 30.22419719696045
+          }
+        },
+        "per_run_median_departure_kmh": {
+          "n": 4,
+          "mean": 39.394758224487305,
+          "median": 39.371199417114276,
+          "p90": 39.499960899353
+        }
+      }
+    }
+  },
+  "paired_launch_candidate": {
+    "ctf_raindance": {
+      "pairs": 13,
+      "capture_count_wins": 0,
+      "capture_count_losses": 0,
+      "capture_count_ties": 13,
+      "median_travel_kmh_delta": {
+        "n": 13,
+        "mean": -0.07683391571045425,
+        "median": 0.0,
+        "p90": 0.0
+      },
+      "recovery_rate_delta": {
+        "n": 13,
+        "mean": -0.003846100428094792,
+        "median": 0.0,
+        "p90": 0.0
+      }
+    },
+    "ctf_stonehenge": {
+      "pairs": 13,
+      "capture_count_wins": 3,
+      "capture_count_losses": 7,
+      "capture_count_ties": 3,
+      "median_travel_kmh_delta": {
+        "n": 13,
+        "mean": 0.2868346727811476,
+        "median": 0.2204406738280511,
+        "p90": 1.3866600036621008
+      },
+      "recovery_rate_delta": {
+        "n": 13,
+        "mean": -0.05769225427426812,
+        "median": 0.0,
+        "p90": 0.6000486104352126
+      }
+    }
+  },
+  "source_provenance_sha256": {
+    "baseline": "6faba52010170264d89152f2e64453ce19366f2defa2f9f1d03ad68375c0912d",
+    "refined": "19a6cf0ada1279908ca514fb08504adc3019a5f58240876481d3531b612ca51f",
+    "selected": "5d9aeda2fb336345145a15711d58ff7c38ae37dc057bbd8bf053143c5948f40e",
+    "guard": "b022c8c353bba8710a9dcc4410ea9a3d51bc182bc3149640139bded766c7d91a"
+  },
+  "analysis_sha256": {
+    "report_routing.py": "d440cce80a4333a11c17dbdee0b5e9ec68ea5da186e52ced0ac5882ef92a3985",
+    "report_match.py": "98a79e63453a3386d8b1170897fe529e57946c5c9930066b8ec03303abb4a4c3",
+    "plot_routing.py": "592cb93c7364cf402c9680e4b9f9cd25d17673ce65d2971c6254ea6f0145c301"
+  },
+  "route_figure": {
+    "path": "docs/validation/st-routing-routes-2026-09-28.png",
+    "sha256": "2683aba60aea833c72db45793bf35bf7b390ed6a7729e177d602fa4488abc8e4"
+  },
+  "source_archive": {
+    "path": "test-results/st-routing/frozen-routing-sources.tar.gz",
+    "sha256": "67dd1d2ad777c18d7e438b651cb42a8e137cf5ed93a72719cdbf8c686a478333"
+  },
+  "notes": [
+    "The 52 paired baseline/selected runs predate the final lateral-correction safeguard.",
+    "The final guarded code has eight full-authority runs on fresh seeds plus the expanded physical launch matrix and all 32 Light spawn routes.",
+    "The 26 refined runs are a rejected terrain/slope experiment, not accepted improvements.",
+    "Six completed unrestricted-lane explorations (two normal, four cutoffs) and six deliberately interrupted coarse-predictor runs are retained separately and excluded from the principal count.",
+    "Original Tribes video review was qualitative; numeric live-recording comparisons use synchronized FPSloppa telemetry.",
+    "Cutoff outcomes remain failures to capture within the required time, not successful normal endings."
+  ],
+  "focused_checks": "docs/validation/st-routing-checks-2026-09-28.json",
+  "references": "docs/validation/st-routing-references-2026-09-28.json",
+  "runs": [
+    {
+      "map": "ctf_raindance",
+      "seed": 9400,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9400",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1151.6580863599665,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 230.366666666742,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "a8258d6c9840e572dd0b43e5d0a97cd09e4e5417320e09f007b527e5771b6201",
+        "navigation.jsonl": "4e75ddd981450b3f0ab4bf07d63cb150aa29a3c128ef7fc16e371ea1711acdc4",
+        "navigation-events.jsonl": "896af164916f55bcf9d3ac6ddb77ef0dd8ad922a381009e9d115e2c083b9f237",
+        "navigation-summary.json": "9673cae12b1dce20f91ecea0e65c99acdc08e23d1ffee47cbac57df58de093c8"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9401,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9401",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 516.6875443590106,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "e6819ffef2bb1042aa376ee3f205eff362efcc03208f72a8e440e6de56605d0c",
+        "navigation.jsonl": "fd82e5eb05e79681c5adb70d1edb0c66fffee2f2501a813082e5b934a1120f73",
+        "navigation-events.jsonl": "d1206985238b3276114a5b4beb02a4cd5e31bbd90e91f645875f903720368fb8",
+        "navigation-summary.json": "b4ed6ad20817c98584b15bb5e1e8da87e9bea4252a0842928476d9c51b119276"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9402,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9402",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1179.9810688720318,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 171.383333333362,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "e1b82ae009836ac3e9cdc3a92de1d742acba69d2b5fbb5a26cb4facc366be1a0",
+        "navigation.jsonl": "3b3bbe0d15d278ca281f6425ad3ca9b9d52b72c779c2787e9452d255b290b652",
+        "navigation-events.jsonl": "4359330b63f0291b6b526e6286018bad3f8ca440f62597173d404f05243dabaf",
+        "navigation-summary.json": "8066ff05cc94e9d1ba45607f97b4e39086ca0a3c0f258121a4e605278c44e09e"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9403,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9403",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 528.5266825699946,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "9c99b5dba689e6f6bec6379bbf12a077be634e564486765963b09957d8b9a940",
+        "navigation.jsonl": "c331f4fda73f8dde935be67fe692cd28ccef6171d6a0272e5efd655e08eb1c7f",
+        "navigation-events.jsonl": "18ad51b9461ea34c82d9c32d6fb11403e980835d9902f1ac0941b5df22781499",
+        "navigation-summary.json": "41b453b986950891b36ea897ec0f5475c991fdf852af5691253924bad24030f5"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9404,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9404",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1320.7214200269664,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 142.033333333339,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "b2989ca0e3d4af802d2b5cf520bd957ebc8ea545c87e8bf639c5810376569473",
+        "navigation.jsonl": "c9ef420a45b5a7a3127ca95051cb377647ba5228efd2eed785f281eceaa40400",
+        "navigation-events.jsonl": "fcaa55b2fe5916c5db17a63aab77cf72fa76b2f539ab08388fb2c5d26b8ecdb4",
+        "navigation-summary.json": "3804fe3a46c77bbbb3dc520c31db67241fc0695df312ff52645642c13aae911c"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9405,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9405",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 689.1669468639884,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "fc8deed4880e7e482494540ee66bd850b77b32b467b3bd0db99f6a5a2c6e1fd1",
+        "navigation.jsonl": "b241849371d82128039b6f90f115607aed746755211117021f75c872ff40d476",
+        "navigation-events.jsonl": "2ba8d7c895f0b8c65d0ebb0f39b176cbb201bebf351984fb8be508de2059c401",
+        "navigation-summary.json": "217a66d48cf590119ae488cef85d64c25c58289f9631f2464ca69c0020fd6f0c"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9406,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9406",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 686.2792944329558,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "501df09a78b5d6007dec8e157e8bf2e123971bbc1c116eb69dc999295681d1a3",
+        "navigation.jsonl": "0923945fe2ef47596da6b2abddb709056899282fb7f4fcc07666856197ce7599",
+        "navigation-events.jsonl": "080f9dd54af1c814e68361c1517572550a56c29337e46e572b938ff308940494",
+        "navigation-summary.json": "f2a76e1eb841db2b49cb521abaa019ab3d1cc5fafe435713f322ba410f1efed7"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9407,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9407",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 663.8680873460253,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "0bc8d1bb289da57604d33b5c225afdb87f0cfcdfbb979de2698f6408663d8272",
+        "navigation.jsonl": "0de45cd37f8cea5e5c55dc99503f12bdde3e165ef30c963b7c504d60ed0c6cb6",
+        "navigation-events.jsonl": "57c15720065b1bde32b7964e96bef99b0cc1ebc570e6942b26d5a547e51b53b6",
+        "navigation-summary.json": "8241d31c23c498d6209b618559521eacfd91002c6680449925f2bd9795d87206"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9408,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9408",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 661.168891142006,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "f868cf1be99f0f157454b8ce076abb1da12da2c0cac2fa0799936d567b6e1b98",
+        "navigation.jsonl": "a554e122831ef22081a6bf61ec3a10d9fad0cad2fbf3b00539b951d275a7d828",
+        "navigation-events.jsonl": "3c994fb17b21d16d287160286a6924b4cd3cbdefc1faeeca9df24766c22c2e4c",
+        "navigation-summary.json": "69f2dc15a6afd2855abacaccb45e759aeea91ebd49cc97cb7745063d77e557ce"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9409,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9409",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 764.4381495930138,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "8ad0f726cc72d8b9ea75b98de400c89479ce38071cde411e382ea37299f6673d",
+        "navigation.jsonl": "441378098d163efe2db3b0d4f3ba95e108cb31b5798b627488aa8be8cd6c3320",
+        "navigation-events.jsonl": "e0d0fe902d8ad399273d9cba03c8667de1238c32b4d48e697af15e8c10f02137",
+        "navigation-summary.json": "6a06c0c41aa90ece6829809340ee0f0436270080158c23b9e7aaee3488cf5a4e"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9410,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9410",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1470.6293125689845,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 329.183333333363,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "bd536cd4ad0bf215f59215d9e39a1f31013cf4a7dc1442a6c9ca10db397380cb",
+        "navigation.jsonl": "8d2c796fee8090836ea517a515baad5b278b14b8bc1b29737b8144eaf9d205ad",
+        "navigation-events.jsonl": "4a080216e11d9c621ed1b174229e5d9665b6e913a2d68de6e0a368c03c1353d9",
+        "navigation-summary.json": "f1484bd3287fbfcc4504ce16f23fd9f8c5cb98349a8b93c6c23d937c2269c02b"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9411,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9411",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1296.7727404439938,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 440.516666666595,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "22162369c3202faad59b68db1d56c7e6f77ac7a9efdc58f0e569a77195e52cdd",
+        "navigation.jsonl": "235a3af5b434971bfea24b2a969f17eb78abdca9d7cefdb6b77ea2ee9626f382",
+        "navigation-events.jsonl": "e1bef867e04d8591598735cbce5fef15448fe73c5de5dd05bfd4ad29a1bae66d",
+        "navigation-summary.json": "1f1a144602900fd30341c2e336a9d2468a0d3b2ba782f043072cc5c2d06f4297"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9412,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_raindance-9412",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1245.8892392530106,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 177.083333333366,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "07ee52eb17e847cba60e2158596dd9db4dd2379ce577c19656f5e65e86138bde",
+        "navigation.jsonl": "136e0bf507be0444277cbf016db4915fa5b79ce6c3a8f02a2e4a3ae405cbd6cd",
+        "navigation-events.jsonl": "2f67a9183b4c2e22548362ce10afbbead609fc15f3afaf33ccdcb2a904354bdf",
+        "navigation-summary.json": "e11471c47c6de26f252eb0eae3dde6613a204cabfa124177e5deda8fab9539bd"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9400,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9400",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1318.318269156036,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 117.216666666661,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "8ecbf20f7bd6dbcf574cce2c617e423a7911eaa048f2336bf9415bcb089265d8",
+        "navigation.jsonl": "3eed9e37f5bacf0da99709af2968ddcc27e37e1fe3131324f78b906acc678534",
+        "navigation-events.jsonl": "3f135b7e4f1189780a0184268afc23c43289b779a4412a88935e89646c86f55e",
+        "navigation-summary.json": "6a881526e018a123f1be5bc7d01ded877533750322d70d8c6a70aa9c489331c5"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9401,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9401",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1347.8093487059814,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 364.799999999997,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "0d0aa900ac6e485582964d80c8ff865d95b9903c7badf01094e7dfe5b5849c69",
+        "navigation.jsonl": "4fa47b9d1eaf6116e5329ae0f19b2927950750f7ab5a01d153f0a2062d8948cf",
+        "navigation-events.jsonl": "9a092253aa98f6dd652a01371a1f8aa9db41a3d29643eb30c2620cec9b9b0344",
+        "navigation-summary.json": "d7784ba51cd5fbceca03d727a1dd586584b1b1836eea2dd77a9d1e75e222d8a9"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9402,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9402",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 606.0421977289952,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "629ed7cf7e205ecd22ad3dfe3a32a053edc42a45db7cb1c31b510abfaa58cbda",
+        "navigation.jsonl": "e19e81794d1c6ea1fbacf4c62874efee0761a6770aca5eef4e21b4da43abb917",
+        "navigation-events.jsonl": "7eedbecd35061146f483df95d0e4869a08193ce5224ab4a3edcf263076738bfa",
+        "navigation-summary.json": "557642d7a0dc1d65ed24b70ed88e069d0e9c6b011bf205a036fefa2c8da1213f"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9403,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9403",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 621.462267469964,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "283e21d43f242dd767502f502eb0de340d0a75745ff852cc884c201ad3e54564",
+        "navigation.jsonl": "3f712a27da409e633d3215cc138f3f9e4246dc22ce7a4af83ea6b95770a5eff7",
+        "navigation-events.jsonl": "c0146edadf2ff62f4a861c647ce0a4c493b8410bf20f841d8971700d9da4d6a7",
+        "navigation-summary.json": "7144d25705becc97a5ea898ad295e803be09d5e926c4d1db0c6855551f4e8964"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9404,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9404",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 773.2351179530378,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "4dc517ae0d1937fdd6396826a48339d982ffb3c2ccdcbaefc3d2581a14aa084e",
+        "navigation.jsonl": "06a17e221c88020b4c400762d6020aea590f5317d87eec1e494b0fa2a54be439",
+        "navigation-events.jsonl": "bb452c3c613ce5da506707fb843fb90772435cabba2c00f8113eb7493ab8f734",
+        "navigation-summary.json": "f353aa3937d486270173ddc517bbe01310bfbd66c2e11c3600ef94bac970613f"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9405,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9405",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1467.1828831810271,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 145.600000000008,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "00d6c857c5585ee1ec4cd7bf373caa020ec0bfe3ca0328ebf2e5e3272db2d12d",
+        "navigation.jsonl": "e21f4aca1f411c470f80c4c3f7cc0bcff42eb0529e5cf52dc214409b8dd2539a",
+        "navigation-events.jsonl": "9c9f208b6f46f7a6308ab0d3fb98334a1a3f90680632b3d8cfdfcef98abeee62",
+        "navigation-summary.json": "8aa0ebb58a3320c890036fcc9306fa3a3224f6678b2c2f94858c5a6494212eb7"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9406,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9406",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1614.5361372710322,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 370.899999999991,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "c6725f96a0fa26f9f8a82757812aea2a2b5475e0a4ba4f3606ad66802a5c7ce4",
+        "navigation.jsonl": "bacb5c032f702b16cfc1989684aa73aa91d47fe3dea689cc75b94ed324b7a0f7",
+        "navigation-events.jsonl": "8399e8b696f8623162dcdea7d018b7c26d8fa30cd5247fe20c148a0424a60688",
+        "navigation-summary.json": "67037a04393901fb9374e435acf2e2f422bdde5ec0ca77d0a81faa4d6482b87f"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9407,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9407",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1625.7433209560113,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 542.949999999835,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "99ae2f2bffdcccc13da7a56390282025f07803c4fb2884e58e41c3cfba620d3d",
+        "navigation.jsonl": "c6416be4a9a126aa6f4a7b753ffd20a38109c897b7e37aaa0f4a5158d5135e3c",
+        "navigation-events.jsonl": "4bd710dfd5f701d398b5494f3919274cf651339cbb93e3e0d0a7afe5b913588e",
+        "navigation-summary.json": "59e17590683c33b20b6d963b3db87798277e974629befe19eedc6700ed815d48"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9408,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9408",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1621.603151104995,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 286.833333333401,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "50a97b13824af7691274661b75c2d0183c5490e8dcc2da2f73b75c73e45ce08a",
+        "navigation.jsonl": "cd3b398efa361596b776d85a2fdb0fd0b281d60d90b6c84fe02d82ddd173e57f",
+        "navigation-events.jsonl": "547227f03c9d25d2722b65540cde623844d7e4dd5e1d24666cf9d14dc7095deb",
+        "navigation-summary.json": "eb3d7ab8b291f3f11d4479e7b6d7022c07c936d159ae3224b3fdbebe1b50cc12"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9409,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9409",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1653.8415490920306,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 352.533333333341,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "74be5b7182b63a946a7086f3bba337582f5742828906ebec9315346463a83cb9",
+        "navigation.jsonl": "8e14716f4f9e4a851447c5c65a59432f90d7b718f69e8103d99527eda1bf85f5",
+        "navigation-events.jsonl": "0e5b0443ee269962509709a3c6a3ada3f9a2a2f7ff8877ec20b5860e5f18b67b",
+        "navigation-summary.json": "2655675a00337be6ecd7687c7c5cb125eecf09eea474c2cd74280659ff1da064"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9410,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9410",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 865.5316625410342,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "549e6470f589177262058347e85f4bf2d580146eec3e9addbbcabaa4e0a02a1b",
+        "navigation.jsonl": "dfe831510e726f1c1fe034aa6f449b59764c47cec7677fa7ce943a28f31895e8",
+        "navigation-events.jsonl": "075a127b0050ab993aab44c5dcc4bf33bb8c6e912ad66cd69843cc30cbd096c5",
+        "navigation-summary.json": "26a2bb717c9c9a15f03406b02ff4eca3a7c847185f53e7c6d955cce764e1af8e"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9411,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9411",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 887.2783308820217,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "2ba902dc29bf0ed435533247c921554cbf2797957f16e7788cdb397aa974fc4d",
+        "navigation.jsonl": "db75cc9571c1336bec0eb8df5659fcfc93cf780cb6b1aa004cea80f5f02ddef2",
+        "navigation-events.jsonl": "64189bb41118fcbe5bcad88057a93cc5062d0b0984cda3c0c8a2b18dcb6e4eab",
+        "navigation-summary.json": "43b78855578d9425e25cda866b1309c83bc2abad3dffc7f54379ae26df690a6c"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9412,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/baseline/ctf_stonehenge-9412",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1398.0858616899932,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 118.349999999995,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "baseline",
+      "artifacts": {
+        "result.json": "a4c3434c34540e1c88e1b569608e7e04c920ac753ca9e3c492d8891a476ca1b5",
+        "navigation.jsonl": "e25c156ba74a313d5468a6fd979d5275ab4b27f33ad7ad5b31ff533a26740a0f",
+        "navigation-events.jsonl": "f67b57fc9036eb4f60b40a67d0eb0bcad2183886bff0d1ca38756b7cf5150b47",
+        "navigation-summary.json": "2467fd88f6a85b831558fed5aba7d7c972652518df69c8a03f6c6f4634a12d3b"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9400,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9400",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1635.2408156630117,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 127.149999999994,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "0a3dee78381be03e6b97366febda2b8a49a2174385847595a9d5084a25c06348",
+        "navigation.jsonl": "0d5fc66b3d9b9b23b7a95da9f3c369591117fe9b928dc522bd163dd7f74b5e3a",
+        "navigation-events.jsonl": "1f7b118b1c0aae324ae8ecc0987d36d4a8eae357535333ad096903cb1521c7de",
+        "navigation-summary.json": "00cb78daa7a7c7cc9e98def7bd2edf046b0ced72a35fa328f854c72a146ade38"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9401,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9401",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 937.5481025829795,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "a33484ddde073e70789effa0920a7a579dfce9eb4819c6a07e705078d2ce64d1",
+        "navigation.jsonl": "01f82b80c21138db95f44476ba625d0dd1f091a7f693729bd101fcdd301eb179",
+        "navigation-events.jsonl": "3a69001b082ff95b2e85c8bc72f818cdd28809a31ab6132fc46cf300fd3cfd3b",
+        "navigation-summary.json": "6be956fe8f980009875c7da6cd8c2a831c587fccdff50653717c3e17d581452c"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9402,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9402",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1624.2140445209807,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 301.216666666721,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "f598b3c42dfa0f8459681d3393fc7da2543aadbdd155f599aca10c678a69e3f3",
+        "navigation.jsonl": "ba8cf7558e79e58aab0eeec4705d59524595f2dc04e7c6193406073029a35962",
+        "navigation-events.jsonl": "1353a2e1df3676ec74793660386e1d3d23ce4e73b75e9dd3b2be4c4a4de16f06",
+        "navigation-summary.json": "a9d993c3e89a37e9767444525bd211e896d56a08a0b111418e605b31864e02cb"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9403,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9403",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1648.4636754379608,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 340.800000000019,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "5ea6354a3f178e9dc549ede984c6fb604bbfe8794f1a40c82235d3652bbd955d",
+        "navigation.jsonl": "a0f47a83f7e13334a171c470cf5fc79fb74afee6714e0864d41f5d11cce40177",
+        "navigation-events.jsonl": "130d8d6727f36cdb4c1cce2482ba2529e156f5502ed1999a219e71dc388cec13",
+        "navigation-summary.json": "e6d6220f950719433f36915fe7bad2c71f179f73d46ca4699592f286fe71cfcd"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9404,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9404",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1310.7654928680276,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 395.583333333302,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "251a3ccef8e92f7e2b4683e269d24a57e5f12c82b54d5edce11d724feeff304f",
+        "navigation.jsonl": "db709763caa92268a3b30f84899d5783dbbf65403c154672b6be6b2339a466dc",
+        "navigation-events.jsonl": "92246d2b972a6d1a849c0a0f4e8e9b06dbc6cae298b94d6be6801f28786ac90f",
+        "navigation-summary.json": "a793a78bc19c8893702e9670cdaa8e0830699cdf8f2f0e96891f52d09348ff09"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9405,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9405",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 614.5933675509878,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "a33493bea687bdd1a2c71cd073ec3c12e5e8e95fefa24aba681fd9ed9532d3d2",
+        "navigation.jsonl": "48ebdacda062de666ccd94b54d8be9d093bdb461a025cf10c3106f3cf4a466c4",
+        "navigation-events.jsonl": "312ae2ce0392cab0dbc8b01787e76119592f0427834aab67514e4f6c4ea78346",
+        "navigation-summary.json": "4f18bf54c6bfd4101265a8701104ea6b01953177f119eff6f96da465866e5a9e"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9406,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9406",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1178.2156029920443,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 279.866666666741,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "339f1dce504d31d7046a0762653269e177750da3f8f9df84a06686ac876708d2",
+        "navigation.jsonl": "ea7c8d4f6ad11a4fa4b3a740beb9e480cde9898921b7e8e9151d9b4ae4559cb1",
+        "navigation-events.jsonl": "ddfb9576b0378e5890510b3b31b4c6e9775df92442f981994b8638de897db1e9",
+        "navigation-summary.json": "93674efdd4988f625fad8fcb41004b7512149bfba95e0b4689a8b3cd8b477a02"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9407,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9407",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 606.607652257022,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "72a80ac05ee2e14080a98183be5b8beb90735b795cc066f5890c757fb9642afa",
+        "navigation.jsonl": "aeb04c5dd6a1648c4a5b81557609f5673695eaf12a51dc18764c106bee82500b",
+        "navigation-events.jsonl": "4f5a1cbd913c1213f3239a78b145048ef13083cd78dee10f5fe12a4721a013fe",
+        "navigation-summary.json": "918eeb353da479d001fe33c4525d35afc42cbacc33f03a39791e35d63aa8bfb5"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9408,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9408",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 610.3098940419732,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "783f6fb497829eae27abd4f73b3552104d595951e3fed5a4508494caa83ea75b",
+        "navigation.jsonl": "45f83d6024b12591651634987805a42a5dc1ee07727a8c0d9a58633e4dde09b6",
+        "navigation-events.jsonl": "40f5eb5bd9cf0eb9e44e463298adfd7b4c9ee8ec64d757966924e6564f6a9d1f",
+        "navigation-summary.json": "9dbd10c3a4a63532f10825f2e720a896b5ff6fa169028879168537b5c59aceee"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9409,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9409",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 606.6012090879958,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "9d3bf1c4e18a3f0614721801bf4916937e96cc8bf6fd4b63e8ff1e26a35559db",
+        "navigation.jsonl": "6d9ac76fb3b746dae212f2fe69aa31ba4b9cb77444f4c37363cdf7927768fe88",
+        "navigation-events.jsonl": "6cbdeea7d5c45a563179a7bd991ed9f5b087b85c2bec51e0aba0e0f8c4b52a9c",
+        "navigation-summary.json": "f2486ddaebfc9a38114a2d536a6d7d64e40007e5c0c965879a58b8937ba8f0f0"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9410,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9410",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1580.974297548004,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 391.583333333306,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "f05698cced58f84d5485b2ec48a28a5eef57c117606fe73a9c28e7e318970a5e",
+        "navigation.jsonl": "a93e414454edb1ef11cef3150305da59c64624438a25b1ec3d8dfb1b1aa2ec30",
+        "navigation-events.jsonl": "e32fd3e06038999e6e0d8033ba9ee39d19501ab72ff12f139a68ccc54e050a9b",
+        "navigation-summary.json": "252450402b3ab2807f4f5d45590f61f7371175df600a40316c4de4c57e3e05ea"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9411,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9411",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1916.9908679389628,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 480.033333333225,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "bb5fbc4941a592c6ec18fe22325168b6e0e69d44659ee5e9d1387d8a88be8281",
+        "navigation.jsonl": "48141b78e27cdb7dd0b8d4d93e66f24b3f79d45cdb83dd06b5b16132f07f5255",
+        "navigation-events.jsonl": "bc8804cd68a67785d3b0a026a50e8370966bde2cc2603406337623457171b623",
+        "navigation-summary.json": "a2b0d70c25033039584b42f70566acbadf2ad2b1fbf250a111463f52066f92e0"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9412,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_raindance-9412",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 944.8513866509893,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "e6596088684599aaa02879d114b9e958f259861852f65abcff05bf0ea50da333",
+        "navigation.jsonl": "0679c3251daa23b2b46203d9b744af37b4638c1c1f28e95c3f03521b9e8ea920",
+        "navigation-events.jsonl": "6e4b682df0ae64b3199327f615451f4ef5c02ff41a1c9c74418697133dc718ad",
+        "navigation-summary.json": "f45cb2c2d8f80d461ba256f93976cd95df15361978b0cde03c28b018f22f32bb"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9400,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9400",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1715.3500920320512,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 116.299999999995,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "62efc28b6b7dc0f03e785cf1f22ee9127a75a045a886dcafe3f5ab7c807cd51b",
+        "navigation.jsonl": "e6460dfd443a5af5e9b9106a7fb2f6d96a92724cf41debb4abae74a27f8d8273",
+        "navigation-events.jsonl": "08e3900fe0bb40522bb294573fb829db0d14d461ff50bb21498f47239b7e25d6",
+        "navigation-summary.json": "b770bdcd9ab7ab0af9f7e2f8b29843589ca9a8d7b4ea218030b9426b29669592"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9401,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9401",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 1003.9107926599681,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "35b90fc209b94ee830699c091ee19615795c715f303307d641cf8cce341d5e78",
+        "navigation.jsonl": "4ec3d38c5845a3430479249748e3ecf6ba2b5106e02cff49fa299ff00484dd61",
+        "navigation-events.jsonl": "61e34e91e5c315b6afa5f87cde33bdf2221ad5a6ea92eb396f11ad9e4f37ba99",
+        "navigation-summary.json": "641405264b9ac86e0fe637931a2cced77dc383f443d5cf42137b920b476b6a6b"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9402,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9402",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 964.9938081690343,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "381a13c76a96e1b69dda12575b76810cf97244a68464712e0d4545697e6a5e84",
+        "navigation.jsonl": "85220a70ebee978ad7688b62051455faa125dfb59f577a23a6be6f45d5d09fcc",
+        "navigation-events.jsonl": "cd4c9df3ce72701b1c3135ca862300ef8a88a2df164931df0f73b794b1a6ea0f",
+        "navigation-summary.json": "e2cb805fde172e621e21ef31ace13ed54e8ae75646ab5770c569d3bead674669"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9403,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9403",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1793.5047018820187,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        0,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 149.333333333344,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "70bd0846c7678b043b0f63cbf650d482bb6c1be5f5d70acf2bdcb0676b8eb2e2",
+        "navigation.jsonl": "4b2b741d15a4759b6d3c6af7e57e21842e56b619fd68bb5fd1f5c7de8a3e530b",
+        "navigation-events.jsonl": "14811dad0ab80ceeff2bfa40ea5e9da6ebb09e68b4f1f5b7627b3947b8adce8b",
+        "navigation-summary.json": "987b84fecc22df8ed4a77d4136ecca8781cee950670c606da2191d7b4ad22835"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9404,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9404",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 817.2083225329989,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "f13b69408d6956815da11f0a6d7255317bea3f8b648203029ab77d4cd28d9442",
+        "navigation.jsonl": "3ac0e3efa6144477079ed5db6924cf3377efd2adb9950a6423e566186e00c812",
+        "navigation-events.jsonl": "2480d43a5b78832734620182da01e11c2d1ede408840a3306a003a8915af5502",
+        "navigation-summary.json": "039734e5f30dc0b5693a97551aedc0744d66c9e627ef5a4a3fe3f3b491283852"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9405,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9405",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1407.4271191449952,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 136.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "fc32514da2247db153f16847b342d0f753950639b02d65a1dba6b7581c4db2a3",
+        "navigation.jsonl": "8cc17b1e11f16e6858b6e7f267a73880448f236627927efc264fafc1eba3e22c",
+        "navigation-events.jsonl": "0c8151f168d05a5be590fb4c04e5b177ad167c0e59a7e89f3956da4282356b9d",
+        "navigation-summary.json": "e0ad2098be55326ccbadd28b93c70ad77ac694355aaee74112aaeea57e265e18"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9406,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9406",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 671.211704342044,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "2d3d47d053628f84ab53a09c9b4b26b7c16157e9e4b380edbab6f7b91ee8e9ce",
+        "navigation.jsonl": "4ae3dfacd9255afee25788e25187d827219a52af0a326853ba2069895fcf5c68",
+        "navigation-events.jsonl": "7397fba804eb43845bfa373ee8cbb763ed29b8e03375586c52db98392d715210",
+        "navigation-summary.json": "192758104eac6a1a34686f5ad19a015f786f5b8a38c87395f9ae8423af91a092"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9407,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9407",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 643.7650718140067,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "21e20775d966ac54811dfa2e9dac4faeb48598f52dff9d8c835854d5b3727c8f",
+        "navigation.jsonl": "0c687c1709b22c41d4b816a7edfcc67de8f248bffe3a69ec6363587c8772a601",
+        "navigation-events.jsonl": "99ecf93e322c389f06f6e9d525d157c8663e5d119c5a97601fc736e5fba9d7ee",
+        "navigation-summary.json": "b5bcfb7587c8553f129d37e1cc24dad5d073aa4968dffd830fc0c759d4473189"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9408,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9408",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1305.4859113240382,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 149.616666666678,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "6eb860f68610111c82ee4dc74190a8fb3434fe4be90b3ead67d3fe47926d1636",
+        "navigation.jsonl": "a199636796e6650a118baadfd9a8273953f8c498b78b0dfa3a6c58d0c494f43d",
+        "navigation-events.jsonl": "23ff8a2f653ebf52c525afbfd936878d2adc7c24dd26b09ab3aa1eebd8dd584e",
+        "navigation-summary.json": "b115a2ae5f7595c2d4a9086bc832932f1cbad5012536ac2e558b4c69bdcc0cb8"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9409,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9409",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1676.4368533040397,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 246.766666666755,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "4977d7d8a7235b44e58e1f9575232c3ee0b7970be80216379bc8240213b3a374",
+        "navigation.jsonl": "72f6c5e904c228249bf772814e999aeee3dc8b3f69f6d150473f483e06b29583",
+        "navigation-events.jsonl": "7fb16c96ae228f32137edf355795b94c813d969866efc33cd85a8505a8586594",
+        "navigation-summary.json": "418e3df9a40a5a62aa8243b3ef9d5eba0dece5948d8b3c06a6dd634fee986457"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9410,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9410",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1721.8923825870152,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        0,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 554.666666666491,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "5ee4aab02ecc3abaf1d5e569625c65b277ba619e290da5122259e05ec5e08865",
+        "navigation.jsonl": "cde9285bbf74995f6dfda7b475e302a51afba2eae9ea4f857c5b98ffde725162",
+        "navigation-events.jsonl": "129eca49ff2e0fa7409cf65b9936794f811528d3095cfeb41c218bd483bc676c",
+        "navigation-summary.json": "4640f775b5cefae7f1f63b2edd2ffd8fdc2a24da9b25d03e8d98925413ba6792"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9411,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9411",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1697.7836286060046,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 176.283333333366,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "503eb5c4a59ad2d21117eeb1bb1aef119fbf3ee6262b0784bb8573da0629771a",
+        "navigation.jsonl": "73442fd811220467fc867c922a0200c03a2ab65a61277306c0a43d4bd788701a",
+        "navigation-events.jsonl": "a8d578d411f465dc9b47ca300a53b0b7d90a2dc98df77c2d858af75d95915b5a",
+        "navigation-summary.json": "3e208a01baecbc284989f7927c8bab2128a027f1bbe326d23472b3e70a647e72"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9412,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/refined/ctf_stonehenge-9412",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2046.5526915280498,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 119.249999999995,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "refined",
+      "artifacts": {
+        "result.json": "250ce842380c684e22f14c9f64cffd7b511d05df64a97f1f3fe36223ee1bea84",
+        "navigation.jsonl": "a6aeea733b098aa56f04d12ad8786e5021688c90f293b9c61764d0f58f7111e0",
+        "navigation-events.jsonl": "01601ee0adfdb9210e206d689669cb8442758eac53a94157a1603eac4a354572",
+        "navigation-summary.json": "8d72837ecc040966183220608d989c96d051369458c0f0b9d0f2a8d346425ba7"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9400,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9400",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1809.795031783986,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 230.366666666742,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "2fcfdf0d5f1d983a10196388bb33dd24c257d42386a644c12f81f1cf205b1831",
+        "navigation.jsonl": "4e75ddd981450b3f0ab4bf07d63cb150aa29a3c128ef7fc16e371ea1711acdc4",
+        "navigation-events.jsonl": "896af164916f55bcf9d3ac6ddb77ef0dd8ad922a381009e9d115e2c083b9f237",
+        "navigation-summary.json": "9673cae12b1dce20f91ecea0e65c99acdc08e23d1ffee47cbac57df58de093c8"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9401,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9401",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 928.7418457010062,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "56ebb6d43848ff01e0a3ac19cb8f2a5c9997fa01a496bc1cd67ae59608322bbb",
+        "navigation.jsonl": "fd82e5eb05e79681c5adb70d1edb0c66fffee2f2501a813082e5b934a1120f73",
+        "navigation-events.jsonl": "d1206985238b3276114a5b4beb02a4cd5e31bbd90e91f645875f903720368fb8",
+        "navigation-summary.json": "b4ed6ad20817c98584b15bb5e1e8da87e9bea4252a0842928476d9c51b119276"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9402,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9402",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1840.5029687279603,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 171.383333333362,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "6a838e9ca1732b2e7cecfb098b015b10adc3d029a3f07db8a89183f3822c66e0",
+        "navigation.jsonl": "3b3bbe0d15d278ca281f6425ad3ca9b9d52b72c779c2787e9452d255b290b652",
+        "navigation-events.jsonl": "4359330b63f0291b6b526e6286018bad3f8ca440f62597173d404f05243dabaf",
+        "navigation-summary.json": "8066ff05cc94e9d1ba45607f97b4e39086ca0a3c0f258121a4e605278c44e09e"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9403,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9403",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 926.7034952930408,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "0e65afa7bdde56918525d802669a29bfbfeef219eb2c8b413f68d1db9c5a3ff5",
+        "navigation.jsonl": "c331f4fda73f8dde935be67fe692cd28ccef6171d6a0272e5efd655e08eb1c7f",
+        "navigation-events.jsonl": "18ad51b9461ea34c82d9c32d6fb11403e980835d9902f1ac0941b5df22781499",
+        "navigation-summary.json": "41b453b986950891b36ea897ec0f5475c991fdf852af5691253924bad24030f5"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9404,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9404",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1833.0974020310096,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 142.033333333339,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "17e48d41b2d577c60539cef03a2464dfead3dae7865a42d3e43a653512fdaf61",
+        "navigation.jsonl": "6c46b415a0d347aedb9c499ff7d796d4c98e1b479141ab0088dcd82421810a94",
+        "navigation-events.jsonl": "93e6868280de3540f3230060e85299ea98b361906c593d87c07b834e2b2924ec",
+        "navigation-summary.json": "3cae14af9fcf835a5f41324463d6948398ae9a6fe38f32d95d38b02e9d651a83"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9405,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9405",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 934.8346240840037,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "ed30d13fad4e5059c819eb801307bc572561dbd399aa894a636a2e35c7a32e48",
+        "navigation.jsonl": "b241849371d82128039b6f90f115607aed746755211117021f75c872ff40d476",
+        "navigation-events.jsonl": "2ba8d7c895f0b8c65d0ebb0f39b176cbb201bebf351984fb8be508de2059c401",
+        "navigation-summary.json": "217a66d48cf590119ae488cef85d64c25c58289f9631f2464ca69c0020fd6f0c"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9406,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9406",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 956.9447604729794,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "c94a90c5bc566dacc3f3e723eb3c708f0788fceaed2ed28512e7044a5fef336f",
+        "navigation.jsonl": "0923945fe2ef47596da6b2abddb709056899282fb7f4fcc07666856197ce7599",
+        "navigation-events.jsonl": "080f9dd54af1c814e68361c1517572550a56c29337e46e572b938ff308940494",
+        "navigation-summary.json": "f2a76e1eb841db2b49cb521abaa019ab3d1cc5fafe435713f322ba410f1efed7"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9407,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9407",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 953.3481676389929,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "48ad72ac25888468cc1b7cef526ce856119e55577f88e7761acfe4ed811a87a4",
+        "navigation.jsonl": "0de45cd37f8cea5e5c55dc99503f12bdde3e165ef30c963b7c504d60ed0c6cb6",
+        "navigation-events.jsonl": "57c15720065b1bde32b7964e96bef99b0cc1ebc570e6942b26d5a547e51b53b6",
+        "navigation-summary.json": "8241d31c23c498d6209b618559521eacfd91002c6680449925f2bd9795d87206"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9408,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9408",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 741.5860346800182,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "340df54b2d5c2fcfcea05da18a341afd3bf3570bec0f90cb97df5111f811b754",
+        "navigation.jsonl": "a554e122831ef22081a6bf61ec3a10d9fad0cad2fbf3b00539b951d275a7d828",
+        "navigation-events.jsonl": "3c994fb17b21d16d287160286a6924b4cd3cbdefc1faeeca9df24766c22c2e4c",
+        "navigation-summary.json": "69f2dc15a6afd2855abacaccb45e759aeea91ebd49cc97cb7745063d77e557ce"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9409,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9409",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 731.8133743010112,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "08e1d1cc0189d434162b1656a600144b9d670f1648c0e78adc740808e0afff5e",
+        "navigation.jsonl": "441378098d163efe2db3b0d4f3ba95e108cb31b5798b627488aa8be8cd6c3320",
+        "navigation-events.jsonl": "e0d0fe902d8ad399273d9cba03c8667de1238c32b4d48e697af15e8c10f02137",
+        "navigation-summary.json": "6a06c0c41aa90ece6829809340ee0f0436270080158c23b9e7aaee3488cf5a4e"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9410,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9410",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1136.7216411689878,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 329.183333333363,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "b8badec2c55fa33d674e3edcdc62d87b89c67e61afda0326dc96fe0656c5bbf3",
+        "navigation.jsonl": "8d2c796fee8090836ea517a515baad5b278b14b8bc1b29737b8144eaf9d205ad",
+        "navigation-events.jsonl": "4a080216e11d9c621ed1b174229e5d9665b6e913a2d68de6e0a368c03c1353d9",
+        "navigation-summary.json": "f1484bd3287fbfcc4504ce16f23fd9f8c5cb98349a8b93c6c23d937c2269c02b"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9411,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9411",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1116.7256740329904,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 440.516666666595,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "b0f2da4a32b7ab7f09cae33f50c4cf3cf922a4a8c5c61c1fea21e02adac4cc6d",
+        "navigation.jsonl": "7bc9b12b19e766acaaa0a270afc9bfbe161f2bf6d24a996c06479a1b03d519c6",
+        "navigation-events.jsonl": "37467d00c5354b4753e0f68ee072f4eae3ae114e6a78b6eb62d8dac2a4c4c73e",
+        "navigation-summary.json": "e96045587b2fcda75f26c4e898ff8afeb44c7ce20dae79f0391e4bd0fba793b4"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9412,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_raindance-9412",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1110.6294133309857,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 177.083333333366,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "2b3fb219b5717f8d7407a0b645719c352aee6db087a69e9c255079993c76a590",
+        "navigation.jsonl": "136e0bf507be0444277cbf016db4915fa5b79ce6c3a8f02a2e4a3ae405cbd6cd",
+        "navigation-events.jsonl": "2f67a9183b4c2e22548362ce10afbbead609fc15f3afaf33ccdcb2a904354bdf",
+        "navigation-summary.json": "e11471c47c6de26f252eb0eae3dde6613a204cabfa124177e5deda8fab9539bd"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9400,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9400",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1999.5282439139555,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 207.833333333391,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "37014f0eb11ba466b87d70950130d18b3a0539cbec3999d94c52a5e76924e4ad",
+        "navigation.jsonl": "65b6e41b20bc3ced2b9ecdebbc1d9b4aed399812a474b0c19880bae23c8c9493",
+        "navigation-events.jsonl": "7170929d6c4b4f0a01e0bf8af323ce2c8f66e6ece5868d1957e2cb72849ea635",
+        "navigation-summary.json": "1cf4a4371c1904b79ccc68e57e22659d9a28d78a82dc0585ddfa221833d2adaa"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9401,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9401",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 987.6741752050002,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "64a7f9b3107fcfc1da29cad717f15940af7818c4560b5c5fec5b6570b8245aa3",
+        "navigation.jsonl": "a0e17a685dbeddfa6fb08b6e7e7697fd0f7fa1d25f8503cb72550823c8376ebd",
+        "navigation-events.jsonl": "785f3375a9517f666a1aa33b7edd9857de996d86615f072ad7bae0f336688d22",
+        "navigation-summary.json": "75e331e966d7c1b7827d07fe7810752e123884fa5e02c54cff2afa7f2773c947"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9402,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9402",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 1001.2760662129731,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "c352370c8e5a16040ed95aea20f18075c5d82f11cdfd327bae15c4998c7345d0",
+        "navigation.jsonl": "5c38699ba78b141b78b53e7e134e9f17440e53ce08774fbe4a22f564a1987dea",
+        "navigation-events.jsonl": "5650e2691b6e9642f49d5c04140215274104189a5ecfb125b3a48da76352834f",
+        "navigation-summary.json": "1943bdafa557af0e2bd93000d06c58618bf18248f606c5fcf72cf6e63e1ee9b1"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9403,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9403",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 2011.7019351260387,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 405.666666666626,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "57cc3496095dde413459499e1b6b9363dfc06c594090464576985a708453bcec",
+        "navigation.jsonl": "171afbdf0e74fe6a68cb1327eac7772c0ede08ebca15cfca88bc09b809a5cd52",
+        "navigation-events.jsonl": "734e6d22ee33d9df327f921e6fe7670c01a77617aa0a33079c37a8ef365de85d",
+        "navigation-summary.json": "3e69b8695587fe3b82b459a320d5a288fffb8a56dff0129ff79de6efc49f27ab"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9404,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9404",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1975.8399085570127,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 198.366666666717,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "8b10ffeefaf89a59f311b393b384aa79ba5fda4963876689e051156d681668fc",
+        "navigation.jsonl": "ab943efa0dd23193a5b972303d92010c8a34d962f5c3d2b011234ff0d82bbf0b",
+        "navigation-events.jsonl": "3eb42e6de5c1420867e2d81e2adc4c1a715c8e882a571ad0f30490df00c05e72",
+        "navigation-summary.json": "2736a16c949fa6913af89733f40c47539f15ea1d1101ef3578fb6adacaf40857"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9405,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9405",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1987.8123922399827,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 145.600000000008,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "e890ff5f1a1a5985a66119efee718fb6e61b0f8c9a100ba3df27c337ce66d4c5",
+        "navigation.jsonl": "e21f4aca1f411c470f80c4c3f7cc0bcff42eb0529e5cf52dc214409b8dd2539a",
+        "navigation-events.jsonl": "9c9f208b6f46f7a6308ab0d3fb98334a1a3f90680632b3d8cfdfcef98abeee62",
+        "navigation-summary.json": "8aa0ebb58a3320c890036fcc9306fa3a3224f6678b2c2f94858c5a6494212eb7"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9406,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9406",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 1030.0232254329603,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "84be8c2c627fb48cd5e8f9cb13f8eac19d41e4006e6ec15d841e99676340ef5e",
+        "navigation.jsonl": "4a008fff75eff23e6f16b79168c4813fc57bd80732b68df081c490c328574434",
+        "navigation-events.jsonl": "978a2786d7285a05ec49646133ee2d0665894d20f4107f89d2377e9336ccc9d3",
+        "navigation-summary.json": "7458efeccd33773474826834f7a7d5c6fdea9a04c9cf2dc95510f702299f386d"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9407,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9407",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1771.3317972769728,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 542.949999999835,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "468dee5f213b55a04755bfd40b030cb67fb89f27a2beb3f9c4cb8c5fc51006d0",
+        "navigation.jsonl": "a4ec91d45a1319bbecd5f370fd8ef94e8f4e97874590ad6d9683af1b9a50790e",
+        "navigation-events.jsonl": "6f7269e278d35bd8fc40ee3177ace8ab2e1cede7fa53937a28d3717b5e97a8af",
+        "navigation-summary.json": "8c166df67b05390bc69958236045b56aa7f17a013c61c654b7f8ea3e727050f1"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9408,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9408",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1782.1785428590374,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 286.833333333401,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "ed70845731316c8427552566ee9eb9a96b028fedac65a98a38231c50c39692ea",
+        "navigation.jsonl": "b243c0297735b0942517f359cb29af86e36a6c67a5f30564591e371506ecde3d",
+        "navigation-events.jsonl": "34ab8ec2fdd33e6ec8f6263a7fbf169e0c072f9ac5910571484499230656378f",
+        "navigation-summary.json": "4742db51d33e5069b86c6e5889901612192e99793cacfe5f70941be9fb1deff9"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9409,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9409",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1292.4910949729965,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 339.866666666686,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "a74d476a8eff6f11e4bb9a36d30a84ca8c4588b0a3b9c0a9698929db219029f3",
+        "navigation.jsonl": "53fd8038a883e8f4ad2f65493647efc6bef0e774177afb9de53a29639a315790",
+        "navigation-events.jsonl": "00946be447952c7f148de3c302da6e09de0a960b0c250af4d158f79dda72e617",
+        "navigation-summary.json": "808c8bd2512a1e8a536b3cbb012cd3cb5f32511fd0cc33fdbdfe1657ce254759"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9410,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9410",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 786.7805522950366,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "fe72eb049a472cf32a3d29c6dc09da54a7dc788bc40b61656e93cab3186aa66b",
+        "navigation.jsonl": "dfe831510e726f1c1fe034aa6f449b59764c47cec7677fa7ce943a28f31895e8",
+        "navigation-events.jsonl": "075a127b0050ab993aab44c5dcc4bf33bb8c6e912ad66cd69843cc30cbd096c5",
+        "navigation-summary.json": "26a2bb717c9c9a15f03406b02ff4eca3a7c847185f53e7c6d955cce764e1af8e"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9411,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9411",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1229.1700237920159,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 444.083333333258,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "59bcfb3f6bcf3b1bf6257d42910ecc711516ca160e9b2b192b1beba2f8062cf9",
+        "navigation.jsonl": "4a6e3048498300af9bcd1d6bcacc8aa9fcf0ac75d3918b9cbe0b5e51d6f6c20a",
+        "navigation-events.jsonl": "3c85aa35a97a42026c9bdd02eb2fc25dcc2b8247aa2a46dcdd8d1c75c841ff03",
+        "navigation-summary.json": "fe54faa4fbeae0cf7121ae23340c8ab7cb20af0e89aef03c4ebf0fcee120786f"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9412,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/selected/ctf_stonehenge-9412",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1192.3844402710092,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 283.733333333404,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "selected",
+      "artifacts": {
+        "result.json": "dd818bacaa1a38d89cec784c7f4b0ceba36c06029b2a6db0affe8ddb07fa48c2",
+        "navigation.jsonl": "f5b7b6d19c3f08eee26133149bf8e53dc0e2fc0cc0ee6f9d3c4ed279d963b841",
+        "navigation-events.jsonl": "687b5cd2b15854cf512178397341a9b2b81fc7b78baf804963a74a919948292c",
+        "navigation-summary.json": "fe3d334b03416e270fb8b35955c431110b45fc013cb97f3c1ac639139bbc581e"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9413,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_raindance-9413",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 996.0096149910241,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "33a11b2aabb8b1005ed5b47e92134cb164f2abe395b71feb8e9b160483b92478",
+        "navigation.jsonl": "b14a89bef6936470434b288788f119fbf5981edccae3ce2a08792319edda2bba",
+        "navigation-events.jsonl": "9f55bc5289ece03277b336cc633ce47c51dd048a6fd1b1e15e2703e8cc8a08fb",
+        "navigation-summary.json": "a804f84ffea26abe9be09afa6d448e5885e6112ea8c7fe5033b5c42eaa0d498e"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9414,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_raindance-9414",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1629.9406914009596,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 487.983333333218,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "f6b84887b89e60f498e290d0f765a535db9346b7c76b65edee4ccf47885a0b64",
+        "navigation.jsonl": "79c4e0de4d03055efcd84df7dd36a5ec20fa2209d6ec1320ce939fe96e03afaf",
+        "navigation-events.jsonl": "f833d5eaa5d6eff3abee32fb336b0a4aeff0042a1e5caa953e20703c7e43318f",
+        "navigation-summary.json": "bb2781b3e3c5d56c10520ccdc5919f2d7ea6de86c283beb63188b776c9e3cb14"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9415,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_raindance-9415",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 986.520831337024,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "e6c24d26c6326a1d28f30bbea7987b83a471c09cdcf2448ca2132f4d99bf9197",
+        "navigation.jsonl": "38c766adc519d2623c7cdc6e14b4aa7de2e322b73f5bc3136f4d40fdd2ab8bc0",
+        "navigation-events.jsonl": "b2e65afd6a977c4b3834cca9f776fcd213dad569416eb7edcb9229926b81b620",
+        "navigation-summary.json": "2f66bcfb26cd4fad605a8759b56df0232d79d5441da5c0d4470ee92e2ad4f043"
+      }
+    },
+    {
+      "map": "ctf_raindance",
+      "seed": 9416,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_raindance-9416",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1621.03677697503,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        0
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 357.400000000004,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "b09170b449e5a9ecdd50d7f5ba85884941623a1f923bfeec340c6a854cced677",
+        "navigation.jsonl": "0c24e0a05189f09907d95f1cdc66a30d518372bd08580f435d0e4cd79323fee8",
+        "navigation-events.jsonl": "acacbc2249bb38bb63e8e52bc1ab731f0f74a56f357021c5fd45bbc14c57d25f",
+        "navigation-summary.json": "86ee87639549196cc5a3c95e3754f312f36fa27ae699ef6234204c0527c468ae"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9413,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_stonehenge-9413",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1738.5879194790032,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        0,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 386.233333333311,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "b33248460d715c4e237fdf4fa8fce681755777f863cf8efe7ceec15c263d33d0",
+        "navigation.jsonl": "e709fe327dc69b7f5660a867221c208a208ab813734142a4aadb90d19a2b2d2f",
+        "navigation-events.jsonl": "670d9c9fa9a5052a49f0514dbef59c02d856cae8b02c80b137b27ada07200d69",
+        "navigation-summary.json": "b522e87f64916370a2568dcb4124c71e4e93fd23396fe260b3b96cd85de1606e"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9414,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_stonehenge-9414",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 1083.8161344670225,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "b0cb36db785360fa2ca021ad44a243814ac22b06fb4dc2f6552c86a6c9c03f18",
+        "navigation.jsonl": "97e5ccb16fc2ff8e6fc40781dbb92774d6f0c6f2a96c57ef766079da0d5c7bf8",
+        "navigation-events.jsonl": "d33c7ee90757b81c3226ef3880e9b465f6c1bbe20b4a687955269ab2f60f2c69",
+        "navigation-summary.json": "fdc23f4f12fe0143341053310441593d94378f7b91d66f0b2a2f1e5c01c84023"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9415,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_stonehenge-9415",
+      "exit_code": 2,
+      "timed_out": false,
+      "wall_seconds": 1065.3101001569885,
+      "script_errors": 0,
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "first_capture_seconds": -1.0,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "c89c7d9981be064dae7ad1999eac7697be1d13b58e54aad54b142d30437d6787",
+        "navigation.jsonl": "93249b7910736c72d27c3ef2ca3c0d2772250c4f225e27ad228f1bc6d71dd006",
+        "navigation-events.jsonl": "784e642c4e25113333d96dc3441a24048e6a2f5b56140e3eb6edbb344e0b2d4f",
+        "navigation-summary.json": "7aad66d09c325dea0a9dc9fc1556920aa0247530ff29e54623f9fb8128585df9"
+      }
+    },
+    {
+      "map": "ctf_stonehenge",
+      "seed": 9416,
+      "folder": "/home/blux/Documents/FPSloppa/.worktrees/st-raindance/test-results/st-routing/guard/ctf_stonehenge-9416",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_seconds": 1740.8890419850359,
+      "script_errors": 0,
+      "seconds": 1200.0166666659,
+      "scores": [
+        0,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 487.949999999885,
+      "teams": [
+        8,
+        8
+      ],
+      "cohort": "guard",
+      "artifacts": {
+        "result.json": "6ceeb649617f6a246fab0c1c6c64f8e590589ec5a5517c1f93893d883f88f321",
+        "navigation.jsonl": "2d20bc48e59a4d8c3498925619b37c08752f4c241f71ea4e78f88baf48d4e340",
+        "navigation-events.jsonl": "a95ea50a3a2d03a5c93d42882eef014fbe66722600990bfe18ce0cf3a8c8c8f9",
+        "navigation-summary.json": "8d64e05b4ded6cf260cf7ce63732f02c2203406e7cf429566aefd12794960626"
+      }
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "original_game_references": [
+    {
+      "url": "https://www.youtube.com/watch?v=3vi7vkBsz1U",
+      "local_file": "test-results/st-raindance/references/raindance-capper.webm",
+      "sha256": "766ae83231551638d66639c278ea6554ca8dc15d5d588cea76071d86d9878cdf",
+      "reviewed_interval_seconds": [
+        420,
+        480
+      ],
+      "review": "Previously sampled contact sheets re-inspected during this pass, not continuous video playback.",
+      "observation": "Sampled approach across successive gullies toward the exposed flag shelf, with a separate inventory bunker. Use continuous terrain travel and select the actual shelf approach; this interval also contains combat and interruptions."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=2B9Y688lDuI",
+      "local_file": "test-results/st-raindance/references/sectionfx-stonehenge.webm",
+      "sha256": "45a4ff0c11fb951bc81011561057f1aef094ea02212e9965f242792002aec0d7",
+      "reviewed_interval_seconds": [
+        558,
+        591
+      ],
+      "review": "Previously sampled contact sheets re-inspected during this pass, not continuous video playback.",
+      "observation": "Sampled departure from the flag stand into the gully and return toward the raised deck. The visible approach uses terrain and horizontal travel; it is not a stationary vertical ascent beneath the lip."
+    }
+  ],
+  "video_linked_fpsloppa_baselines": [
+    {
+      "map": "stonehenge",
+      "folder": "test-results/st-speed/live-stonehenge-recovery-9301",
+      "video": "test-results/st-speed/live-stonehenge-recovery-9301/match.mp4",
+      "clock_anchors": "test-results/st-speed/live-stonehenge-recovery-9301/video.json",
+      "source_commit": "d8b0de0",
+      "teams": [
+        6,
+        6
+      ],
+      "seconds": 1200.0166666659,
+      "scores": [
+        2,
+        1
+      ],
+      "pickups": {
+        "red": 11,
+        "blue": 8
+      },
+      "travel_median_kmh": 35.687345485422306,
+      "travel_p90_kmh": 59.967409620456806,
+      "tactics": {
+        "approaches_committed": 67,
+        "attack_lane_changes": 42,
+        "failed_launches": 19,
+        "fallen_corridor_replans": 109,
+        "moving_pushes": 7,
+        "obstacles_anticipated": 524,
+        "progress_recoveries": 55,
+        "pushes_formed": 7,
+        "pushes_interrupted": 1,
+        "underpass_replans": 59
+      }
+    },
+    {
+      "map": "raindance",
+      "folder": "test-results/st-speed/live-raindance-recovery-9301",
+      "video": "test-results/st-speed/live-raindance-recovery-9301/match.mp4",
+      "clock_anchors": "test-results/st-speed/live-raindance-recovery-9301/video.json",
+      "source_commit": "d8b0de0",
+      "teams": [
+        6,
+        6
+      ],
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "pickups": {
+        "red": 4,
+        "blue": 8
+      },
+      "travel_median_kmh": 39.599454164472014,
+      "travel_p90_kmh": 69.65952793168266,
+      "tactics": {
+        "approaches_committed": 32,
+        "attack_lane_changes": 26,
+        "failed_launches": 41,
+        "fallen_corridor_replans": 18,
+        "moving_pushes": 5,
+        "obstacles_anticipated": 111,
+        "progress_recoveries": 24,
+        "pushes_formed": 5,
+        "pushes_interrupted": 2,
+        "underpass_replans": 13
+      }
+    }
+  ],
+  "comparison_limits": [
+    "Original-game footage informs approach style and landmarks; it does not provide calibrated world-space routes or reliable numeric speed samples for these adapted BSP29 maps.",
+    "Numeric route, speed and result comparisons use server telemetry synchronized to FPSloppa recordings, followed by paired 8v8 simulations. The recorded 6v6 runs are contextual evidence, not part of the paired sample."
+  ]
+}

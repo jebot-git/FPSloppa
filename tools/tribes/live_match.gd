@@ -1,5 +1,5 @@
 extends SceneTree
-## Real 6v6 authority and a separate visible ENet spectator. No bot stat buffs.
+## Real authority and an optional separate ENet spectator. No bot stat buffs.
 class Director extends Node:
 	var session
 	func _process(_delta):session.direct()
@@ -22,6 +22,7 @@ var recorder
 var travel_samples: Array=[]
 var travel_at:=0.0
 var last_view_clock:=0.0
+var navigation_metrics
 func _initialize():run.call_deferred()
 func write(name: String,value):FileAccess.open(options.output+"/"+name,FileAccess.WRITE).store_string(JSON.stringify(value,"  "))
 func run():
@@ -60,11 +61,12 @@ func run():
 			var encoder_pid: int=recorder.finish();var end:=Time.get_ticks_msec()+30000
 			while OS.is_process_running(encoder_pid) and Time.get_ticks_msec()<end:await create_timer(.1).timeout
 	else:
-		game.dedicated=true;game.bind_address="127.0.0.1";game.max_clients=16;game.bot_population.count_target=12
+		var team_size:=clampi(int(options.get("team_size",6)),1,16)
+		game.dedicated=true;game.bind_address="127.0.0.1";game.max_clients=maxi(16,team_size*2);game.bot_population.count_target=team_size*2
 		game.match_mode.configure({"sv_gametype":"st","capturelimit":5});game.selected_map=str(options.get("map","ctf_stonehenge"));game.lobby.enabled=false
 		var duration: float=float(options.get("seconds",0))
 		var minutes:=clampi(ceili(duration/60.0),1,60) if duration>0 else 30
-		game.start_host("ST experimental 6v6",int(options.get("port",28984)),5,minutes,false,"st")
+		game.start_host("ST experimental %dv%d"%[team_size,team_size],int(options.get("port",28984)),5,minutes,false,"st")
 		game.voice_enabled=false
 		game.server_log.free()
 		game.server_log=preload("res://tools/tribes/match_log.gd").new();game.add_child(game.server_log)
@@ -72,11 +74,13 @@ func run():
 		game.server_log.evidence=FileAccess.open(options.output+"/combat.jsonl",FileAccess.WRITE)
 		if not game.active:push_error("ST match failed to start");quit(1);return
 		start=game.clock
+		if options.get("navigation_metrics",false):navigation_metrics=preload("res://tools/tribes/navigation_metrics.gd").new();navigation_metrics.setup(game,options.output)
 		var speed: int=int(options.get("speed",1));Engine.time_scale=speed;Engine.physics_ticks_per_second=60*speed;Engine.max_physics_steps_per_frame=32
 		print("ST_LIVE_SERVER_READY ",OS.get_process_id())
 		while game.active:
 			await physics_frame
 			measure_movement()
+			if navigation_metrics:navigation_metrics.tick()
 			if game.clock>=travel_at:travel_at=game.clock+1;sample_travel()
 			observe_flags()
 			if game.clock>=sample_at:sample_at=game.clock+5;sample()
@@ -88,6 +92,7 @@ func run():
 		write("travel.json",travel_samples)
 		var result:={"seconds":game.clock-start,"scores":game.match_mode.scores,"samples":samples,"movement":movement,"termination_reason":termination_reason,"flag_events":flag_events}
 		result.merge(capture_deadline.snapshot());write("result.json",result)
+		if navigation_metrics:navigation_metrics.finish()
 		print("ST_MATCH_END ",termination_reason," first_capture=",capture_deadline.first_capture_seconds)
 	game.disconnect_game();game.queue_free();await process_frame;quit(2 if termination_reason in ["no_capture_600s","no_pickup_after_capture_600s"] else 0)
 func flag_event(kind: String,team: int,carrier: int):

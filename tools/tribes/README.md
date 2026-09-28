@@ -7,6 +7,35 @@ tests. `--seconds` still caps total duration after a qualifying capture.
 flag-event timestamps; `report_match.py <output-folder>` summarizes the gate
 separately from pickup totals. See `docs/ST-CAPTURE-RELIABILITY.md`.
 
+For a headless 8v8 routing study, use:
+
+```sh
+python3 tools/tribes/run_batch.py --output test-results/st-routing/example --snapshot /tmp/st-routing-example --seeds 13 --workers 6 --seconds 1200 --port 29500 --wall-timeout 5400
+python3 tools/tribes/report_routing.py test-results/st-routing/baseline test-results/st-routing/example --output test-results/st-routing/comparison.json
+godot --headless --xr-mode off --path . --script tools/tribes/export_route_layout.gd -- res://test-results/st-routing
+MPLCONFIGDIR=/tmp/st-route-plot python3 tools/tribes/plot_routing.py test-results/st-routing/baseline test-results/st-routing/example --output test-results/st-routing/routes.png
+```
+
+Thirteen seeds on each map produce 26 full-authority simulations. Repeat with
+the same seeds for a paired comparison. The snapshot freezes executable game
+scripts and shares large unchanged assets; source and BSP hashes are retained.
+Do not modify shared map assets during a study. Godot's fixed-FPS mode removes
+wall-clock pacing while retaining normal 60 Hz server ticks, ordinary combat,
+respawns, equipment, energy and collision. There is no spectator. The existing
+600-game-second inactivity cutoffs remain active; reports distinguish those
+outcomes from normal match endings and exclude crashes/timeouts.
+
+One-second route traces and frame-level contact departures/sudden speed losses
+are passive instrumentation. A departure is not necessarily a sustained flight;
+the report debounces them and does not infer that every loss was a wall collision.
+`progress.json` lists completed jobs; each run keeps its logs, events, source
+receipt, result and diagnostic traces. Both output and snapshot directories must
+be new so earlier evidence cannot be overwritten.
+
+The numeric report uses the Python standard library. Route plotting requires
+Matplotlib; collision-height contours are optional. See
+`docs/ST-ROUTING-STUDY.md` for the comparison protocol and its limitations.
+
 The personal arsenal, packs, icons, synthetic sounds and new armour plates are
 original project assets. The three armour bodies now incorporate a reduced
 **MEC-VAL-白狐 suit by KEIV**, under its attribution and non-commercial terms.

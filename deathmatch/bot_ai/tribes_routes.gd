@@ -9,9 +9,16 @@ class TerrainGraph extends AStar3D:
 	var costs: Dictionary={}
 	var travel: Dictionary={}
 	var covered: Dictionary={}
+	var cached_travel: Dictionary={}
+	var edge_costs: Dictionary={}
+	func prepare(context: Dictionary):
+		travel=context
+		if context!=cached_travel:cached_travel=context.duplicate();edge_costs.clear()
 	func _estimate_cost(from_id: int,to_id: int) -> float:
 		return get_point_position(from_id).distance_to(get_point_position(to_id))*(.35 if not travel.is_empty() else 1.0)
 	func _compute_cost(from_id: int,to_id: int) -> float:
+		var edge:=Vector2i(from_id,to_id)
+		if not travel.is_empty() and edge_costs.has(edge):return edge_costs[edge]+float(costs.get(to_id,0))
 		var a:=get_point_position(from_id);var b:=get_point_position(to_id)
 		var climb:=maxf(0,b.y-a.y)
 		if not travel.is_empty():
@@ -19,6 +26,7 @@ class TerrainGraph extends AStar3D:
 			var speed: float=travel.walk if climb>1 else travel.speed
 			var cost: float=distance*maxf(.35,travel.walk/speed)+climb*(2+4*(1-travel.reserve))
 			if covered.has(from_id) or covered.has(to_id):cost+=distance*.9+travel.walk*.4
+			edge_costs[edge]=cost
 			return cost+float(costs.get(to_id,0))
 		return a.distance_to(b)+climb*1.8+maxf(0,climb-4)*3+float(costs.get(to_id,0))
 var graph:=TerrainGraph.new()
@@ -117,7 +125,9 @@ func path(start: Vector3,goal: Vector3,lane: int=0,avoid: Array=[],travel: Dicti
 	# Soft, query-local costs keep a sole doorway usable. Only experienced
 	# failed approaches supply these penalties; no hidden enemy positions.
 	graph.costs.clear()
-	graph.travel=travel
+	# Alternative lanes share identical armour/energy costs. Memoize those
+	# immutable edge calculations; failure penalties remain query-local.
+	graph.prepare(travel)
 	for note in avoid:
 		if note.until<=ai.game.clock:continue
 		for index in nearby(note.point,2):
