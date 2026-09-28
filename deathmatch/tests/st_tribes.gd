@@ -17,7 +17,7 @@ func request(kind: String,pose: Dictionary,velocity:=Vector3.ZERO) -> bool:
 func place(point: Vector3):g.fighters[1].position=point;g.fighters[1].travel_path=[];g.fighters[1].velocity=Vector3.ZERO
 func run():
 	var config:=Config.parse('set sv_gametype "ST"\nset sv_weapon_rules "doom"\nset sv_gametypes "dm st"\nset sv_ballot_exclude_modes "st"')
-	check(not config.has("error") and config.values.sv_weapon_rules=="tribes" and config.values.map=="ctf_stonehenge" and config.values.mode_maps.st==["ctf_stonehenge"],"Server configuration forces ST arsenal and dedicated default map")
+	check(not config.has("error") and config.values.sv_weapon_rules=="tribes" and config.values.map=="ctf_stonehenge" and config.values.mode_maps.st==["ctf_stonehenge","ctf_raindance"],"Server configuration forces ST arsenal and dedicated default map")
 	check(config.values.gametypes==["dm","st"] and config.values.ballot_exclude_modes==["st"],"ST supports normal votes and independent ballot exclusions")
 	check(preload("res://deathmatch/server/discovery_protocol.gd").MODES.has("st"),"Discovery accepts ST")
 	check(preload("res://deathmatch/maps/import_policy.gd").modes("st_new.bsp")==["st"],"Imported ST maps keep dedicated mode classification")
@@ -29,7 +29,7 @@ func run():
 	check(g.active and mode.kind=="st" and g.current_map=="ctf_stonehenge" and g.armory.effective()=="tribes" and actor.tribes_enabled,"ST practice selects Stonehenge and forces Tribes movement/loadout")
 	g.armory.select("cs16");check(g.armory.effective()=="tribes","ST cannot switch to a non-Tribes loadout")
 	check(mode.team_game() and mode.limit()==2 and not g.jetpacks.enabled(),"ST uses capture limit, two teams and intrinsic jets")
-	check(g.maps_for_mode("st")==["ctf_stonehenge"] and not "ctf_stonehenge" in g.maps_for_mode("ctf"),"Stonehenge is dedicated to ST")
+	check(g.maps_for_mode("st")==["ctf_stonehenge","ctf_raindance"] and not "ctf_stonehenge" in g.maps_for_mode("ctf"),"Stonehenge is dedicated to ST")
 	check(Maps.choices_for_mode(g.map_catalog,"st",["qsrc_dm1"]).is_empty() and not g._load_map("qsrc_dm1"),"Configured lists and direct map loads cannot bypass ST compatibility")
 	var downloaded: Dictionary=preload("res://deathmatch/network/asset_jobs.gd").map_file("res://maps/ctf_stonehenge.bsp",g.map_sha,g.map_title,"/tmp/fps-st-download-%d/"%OS.get_process_id(),g.map_network.source_name())
 	check(not downloaded.has("error") and Maps.available_for_mode(downloaded,"st") and Maps.supports_tribes(downloaded.path),"Downloaded Stonehenge preserves ST classification and required entities")

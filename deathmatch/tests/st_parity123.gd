@@ -130,13 +130,37 @@ func offense_cases():
 	s.team=0;g.players[1].team=0;s.dead=false;s.hp=25;s.tribes_kit=false
 	var direction: Vector3=(g.match_mode.bases[0]-Fixture.ORIGIN).normalized();direction.y=0;direction=direction.normalized()
 	a.position=Fixture.ORIGIN;a.velocity=Vector3.ZERO;g.fighters[1].position=a.position+direction*8;g.fighters[1].velocity=Vector3.ZERO;g.players[1].hp=100
-	ai.brains[1]=ai.new_brain(1);ai.brains[-1]=ai.new_brain(-1);g.match_mode.flags[1].carrier=-1
-	check(st.offense.pass_flag(-1,ai.brains[-1]),"Injured carrier throws the flag to a healthier teammate ahead")
+	ai.brains.erase(1);ai.brains[-1]=ai.new_brain(-1);g.match_mode.flags[1].carrier=-1
+	check(st.offense.pass_flag(-1,ai.brains[-1]),"Injured carrier throws to a healthier human teammate without a bot brain")
 	var caught:=false
 	for frame in 90:
 		g.clock+=1.0/60;g.match_mode.tick(1.0/60)
 		if g.match_mode.flags[1].carrier==1:caught=true;break
 	check(caught,"Flag pass is caught through real flight and ordinary flag touch rules")
+	# Both players keep moving: the receiver must meet the led throw rather
+	# than brake/turn toward its current position behind them.
+	g.match_mode.return_flag(1);st.offense.passes.clear()
+	var receiver=g.fighters[1];var rs: Dictionary=g.players[1]
+	rules.apply_equipment(1,"light",[3,2,0],"energy")
+	a.position=Fixture.ORIGIN;receiver.position=a.position+direction*8;a.velocity=Vector3.ZERO;receiver.velocity=Vector3.ZERO
+	await physics_frame
+	for frame in 4:
+		for id in [-1,1]:g._configure_tribes(id,g.players[id]);g.fighters[id].simulate(Vector2.ZERO,0,false,1.0/60,false)
+	a.velocity=direction*11;receiver.velocity=direction*11;s.hp=25;s.tribes_kit=false
+	ai.brains[-1]=ai.new_brain(-1);ai.brains[1]=ai.new_brain(1);g.match_mode.flags[1].carrier=-1
+	check(st.offense.pass_flag(-1,ai.brains[-1]),"Moving carrier plans a lead pass to a moving teammate")
+	caught=false
+	for frame in 90:
+		g.clock+=1.0/60
+		var rows: Array=[];st.offense.catch_goal(1,rows)
+		if not rows.is_empty():
+			var b: Dictionary=ai.brains[1];b.goal_key=rows[0].key;b.goal_kind=rows[0].kind;b.goal=rows[0].position;b.path=PackedVector3Array([b.goal]);b.step=0
+			st.steer(1,b)
+		g._configure_tribes(1,rs);receiver.simulate(rs.move,rs.yaw,false,1.0/60,rs.jump)
+		g._configure_tribes(-1,s);a.simulate(st.movement(-1,direction),s.yaw,false,1.0/60,false)
+		g.match_mode.tick(1.0/60)
+		if g.match_mode.flags[1].carrier==1:caught=true;break
+	check(caught,"Moving receiver catches with ordinary steering, flight and flag touches")
 	g.match_mode.return_flag(1);ai.brains.erase(1)
 	st.assignments[-1]="escort";g.match_mode.flags[1].carrier=1;g.fighters[-2].position=g.fighters[1].position+Vector3(6,0,0)
 	check(st.offense.escort_priority(-1,-2)>20,"Escort prioritizes an observed threat close to its carrier")
@@ -214,6 +238,26 @@ func movement_skill_cases():
 		g._update_projectiles(1.0/60);peak=maxf(peak,actor.velocity.length())
 	check(state.hp<100 and state.hp>0 and peak>12,"Disc jump receives ordinary self damage and blast impulse")
 	ramp.free()
+	# A healthy carrier may trade real health/ammo for escape speed on flat
+	# ground, including after using its repair kit. No free impulse is granted.
+	rules.apply_equipment(-1,"light",[3,2,0],"energy");state.tribes_kit=false;state.cooldown=0;state.yaw=0;state.pitch=0
+	actor.position=origin;actor.velocity=Vector3.ZERO;actor.jump_held=false
+	await physics_frame
+	for frame in 4:g._configure_tribes(-1,state);actor.simulate(Vector2.ZERO,0,false,1.0/60,false)
+	actor.velocity=Vector3(0,0,-11);actor.tribes_state.energy=20
+	brain=ai.new_brain(-1);brain.role="capper";brain.goal=origin+Vector3(0,0,-150)
+	g.match_mode.flags[1].carrier=-1;ammo=rules.amount(-1,3)
+	check(ai.tribes.offense.disc_jump(-1,brain),"Healthy flag carrier can select an ordinary flat-ground escape disc jump")
+	check(rules.combat.fire(-1) and rules.amount(-1,3)==ammo-1,"Carrier escape boost consumes actual disc ammunition")
+	peak=0
+	for frame in 90:
+		g.clock+=1.0/60;state.last_input=g.clock;state.ski=true;state.jet_held=false
+		g._configure_tribes(-1,state);actor.simulate(Vector2(0,-1),state.yaw,false,1.0/60,frame==0)
+		g._update_projectiles(1.0/60);peak=maxf(peak,actor.velocity.length())
+	check(state.hp<100 and state.hp>0 and peak>12,"Carrier pays normal self damage and gains only the real projectile impulse")
+	state.hp=80;state.cooldown=0;brain.disc_jump_at=0
+	check(not ai.tribes.offense.disc_jump(-1,brain),"Wounded carrier does not spend its remaining health on an escape boost")
+	g.match_mode.return_flag(1)
 	# Large fixed sensor markers instantiate a powered, damageable 400 m unit.
 	var entity=preload("res://deathmatch/maps/entity.gd").new();entity.attributes={"classname":"info_tribes_sensor","team":"0","type":"large"};g.add_child(entity);entity.position=Fixture.ORIGIN+Vector3(0,.7,90)
 	var assets=preload("res://deathmatch/tribes/base_assets.gd").new();assets.setup(rules.stations(),[entity]);var sensor: Dictionary=assets.rows[-1]

@@ -20,7 +20,11 @@ func reset() -> void:
 func busy() -> bool:return available and (rig.game.match_mode.fortress.enabled() or rig.game.match_mode.defusal.enabled() or rig.game.match_mode.tribes.enabled()) and (gesture.busy or not equipment.item.is_empty())
 func reply(seq: int,kind: String,accepted: bool) -> void:
 	if seq!=sequence:return
-	if not accepted:gesture.held=false;equipment.item=""
+	if not accepted:
+		# A rejected placement keeps the pack in the same hand. Releasing and
+		# pressing trigger retries after moving to a legal surface.
+		if kind=="activate" and equipment.item=="pack":equipment.used=false
+		else:gesture.held=false;equipment.item=""
 	if accepted and kind!="cancel":rig.feedback(.4,.08,true)
 func send(kind: String,pose: Dictionary,velocity:=Vector3.ZERO) -> void:
 	sequence+=1;rig.game.match_mode.fortress.physical.submit(kind,pose,velocity,sequence)

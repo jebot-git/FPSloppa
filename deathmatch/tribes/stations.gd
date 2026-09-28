@@ -5,6 +5,7 @@ const Health=preload("res://deathmatch/tribes/equipment_health.gd")
 var game
 var rows: Array=[]
 var patch_markers: Array=[]
+var navigation_points:=PackedVector3Array()
 var repair: Dictionary={}
 var supply: Dictionary={}
 const GENERATOR_HP:=300.0
@@ -19,7 +20,9 @@ func configure(arena,entities: Array) -> void:
 	game=arena
 	for node in entities:
 		var e: Dictionary=node.attributes
-		if e.get("classname","")=="info_tribes_repair_patch":patch_markers.append(node.global_position-Vector3.UP*.5)
+		if e.get("classname","")=="info_tribes_navigation":
+			if navigation_points.size()<1024:navigation_points.append(node.global_position-Vector3.UP*.70)
+		elif e.get("classname","")=="info_tribes_repair_patch":patch_markers.append(node.global_position-Vector3.UP*.5)
 		elif e.get("classname","")=="info_playable_bounds":
 			var dimensions:=str(e.get("size","")).split_floats(" ",false)
 			if dimensions.size()==3 and Array(dimensions).all(func(v):return is_finite(v) and v>0 and v<=8192):

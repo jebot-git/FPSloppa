@@ -233,18 +233,21 @@ func physical_request(id: int,kind: String,pose: Dictionary,velocity: Vector3) -
 		var item: Dictionary=held.get(id,{})
 		if item.is_empty() or item.until<game.clock or item.left!=pose.left_handed or item.get("used",false) or item.get("item","") not in ["pack","ammo"]:return false
 		held.erase(id)
-		return rules.recovery.drop(id,item.item,point,body.basis*velocity*2+game.fighters[id].velocity)
+		var solution:=preload("res://deathmatch/vr/weapon_clearance.gd").solve(game.get_world_3d().direct_space_state,chest,point,point,.12)
+		if solution.blocked:return false
+		return rules.recovery.drop(id,item.item,solution.origin,body.basis*velocity*2+game.fighters[id].velocity)
 	if kind=="activate":
 		var item: Dictionary=held.get(id,{})
 		if item.is_empty() or item.until<game.clock or item.left!=pose.left_handed or item.get("used",false):return false
-		item.used=true
-		if item.get("item","")=="kit":return rules.kit(id)
+		if item.get("item","")=="kit":
+			item.used=rules.kit(id);return item.used
 		if item.get("item","")=="pack":
 			if rules.deployables.Data.is_pack(s.tribes_pack):
 				var frame: Transform3D=body*pose[hand]
 				var deployed: bool=rules.deployables.deploy(id,frame.origin,-frame.basis.z)
+				item.used=deployed
 				rules.deployment_notice(id,deployed);return deployed
-			if s.tribes_pack in ["repair","shield","jammer"]:rules.action(id);return true
+			if s.tribes_pack in ["repair","shield","jammer"]:item.used=true;rules.action(id);return true
 		return false
 	if kind=="arm":
 		if rules.amount(id,w)<=0 or held.has(id) or game.clock<s.get("tribes_throw_at",0.0):return false

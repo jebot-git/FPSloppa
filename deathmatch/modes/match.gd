@@ -1,6 +1,6 @@
 extends RefCounted
 ## All rules run on the server. Clients receive a read-only objective snapshot.
-const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","if":"INSTAFREEZE","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","tb":"TITANBALL","as":"ASSAULT","de":"BOMB DEFUSAL"}
+const NAMES={"dm":"DEATHMATCH","tdm":"TEAM DEATHMATCH","ctf":"CAPTURE THE FLAG","koth":"KING OF THE HILL","ig":"INSTAGIB","if":"INSTAFREEZE","ft":"FREEZE TAG","cc":"CHAINSAW CIRCUS","tf":"TEAM FORTRESS","tb":"TITANBALL","as":"ASSAULT","de":"BOMB DEFUSAL","st":"TRIBES"}
 const COLORS=[Color("ed6558"),Color("65a9ef")]
 const TEAMS=["RED","BLUE"]
 var game

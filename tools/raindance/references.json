@@ -1,0 +1,184 @@
+{
+  "heightmap": {
+    "url": "https://raw.githubusercontent.com/levizoesch/tribes.mapping/4ca392c73b210d52b77572f5f66571291bc8a4f7/v1.0.8/heightmaps/CTF/Raindance.png",
+    "sha256": "79265bd00d1d7cbeb35e1f5dfe70f93e911f7395949de39aef0ce9fbc9cd61f7",
+    "height_scale_m": 70,
+    "vertical_offset_m": 6.5,
+    "source_sample_spacing_m": 8,
+    "bsp_sample_spacing_m": 16
+  },
+  "mission": {
+    "url": "https://library.theexiled.pwnageservers.com/download.php?id=2018",
+    "archive_sha256": "9cfe9527fb3f0c06c7122dd8bc0076ecbd473c631a7ec4b616c3f8be51edaae1",
+    "mission_sha256": "6979c42f66c533c9710d761b44dbf4871593a330a8ffd55cf3d87335613920ae",
+    "note": "Archived server-side Raindance 1.8 mission; anchors cross-checked against 1999/2000 match footage. Rebuilt interiors are approximate."
+  },
+  "videos": [
+    {
+      "url": "https://www.youtube.com/watch?v=3vi7vkBsz1U",
+      "title": "Finland vs USA (scrim) - Masta Capper - Raindance - 27/12/99",
+      "reviewed_seconds": [
+        30,
+        90,
+        150,
+        240,
+        360,
+        380,
+        384,
+        388,
+        392,
+        396,
+        400,
+        404,
+        408,
+        420,
+        425,
+        430,
+        435,
+        440,
+        445,
+        450,
+        455,
+        460,
+        465,
+        470,
+        475,
+        480,
+        600,
+        720
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=KAme8SNiNmQ",
+      "title": "Tribes1 - =ACE= vs Toons - Raindance - RiTuaL",
+      "reviewed_seconds": [
+        30,
+        90,
+        140,
+        143,
+        146,
+        149,
+        152,
+        155,
+        158,
+        161,
+        240,
+        360,
+        480,
+        600,
+        900
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=4wyEAlg2bp4",
+      "title": "EL vs 2K - Bloody - Dangerous Crossing - 23/1/2000",
+      "reviewed_seconds": [
+        60,
+        120,
+        180,
+        240,
+        360,
+        480,
+        600,
+        720
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=NOxGRipenxA",
+      "title": "Starsiege: Tribes BASICS TUTORIAL Part 1",
+      "reviewed_seconds": [
+        90,
+        210,
+        330,
+        450,
+        570,
+        690,
+        810,
+        930
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=DQkmXGQfNt8",
+      "title": "Starsiege: Tribes BASICS TUTORIAL Part 2",
+      "reviewed_seconds": [
+        60,
+        180,
+        300,
+        420,
+        540,
+        660,
+        780,
+        840
+      ]
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=KxwORDvppaQ",
+      "title": "Starsiege: Tribes - Return our flag!",
+      "reviewed_seconds": [
+        10,
+        30,
+        50,
+        70,
+        90,
+        110,
+        130,
+        150
+      ],
+      "note": "Later client/HUD footage; qualitative pursuit only, not a source for base-game constants."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=0QEj91X5G-Y",
+      "title": "5150 vs IE - sLaM LD - Stonehenge - 13/08/2000",
+      "reviewed_seconds": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330,
+        390,
+        450,
+        510,
+        570,
+        630,
+        690,
+        750,
+        810,
+        870,
+        930
+      ],
+      "note": "Sampled defender POV: patrols flag tower, pursues through adjacent gullies, vertical disc attacks and roof/interior resupply. Not a numerical speed reference."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=2B9Y688lDuI",
+      "title": "Tribes 1 - Wolfpack vs. Trauma - Stonehenge - RedSpider",
+      "reviewed_seconds": [
+        30,
+        90,
+        150,
+        210,
+        270,
+        330,
+        390,
+        450,
+        510,
+        558,
+        561,
+        564,
+        567,
+        570,
+        573,
+        576,
+        579,
+        582,
+        585,
+        588,
+        591,
+        630,
+        690,
+        750
+      ],
+      "observations": "Sampled overview and consecutive 558\u2013591 s frames: direct player combat around flag stand and dropped flag in adjacent gully, followed by return to tower. Supports contextual defender/pursuer priority; no exact speed or weapon constants inferred."
+    }
+  ]
+}
