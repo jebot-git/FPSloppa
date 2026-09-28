@@ -27,10 +27,13 @@ func run():
 		mode.flags[1-team].carrier=runner;g.players[runner].hp=10
 		var rows: Array=[];tribes.goals(runner,ai.new_brain(runner),rows)
 		check(rows.size()==1 and rows[0].key=="st:capture","Carrier ignores purchases and unrelated fights %d"%team)
-		mode.flags[team].carrier=members[0] # Public stolen-flag objective for role routing only.
-		var defender: int=members.filter(func(id):return tribes.role(id)=="flag_defense")[0]
-		rows=[];tribes.goals(defender,ai.new_brain(defender),rows)
-		check(not rows.any(func(r):return r.kind=="intercept"),"Flag defender does not join the whole-team chase %d"%team)
+		# Low-health carrier logic may have initiated a pass above. Restore
+		# possession for the separate two-flag role assignment assertion.
+		mode.flags[1-team].carrier=runner;mode.flags[1-team].dropped=false
+		mode.flags[team].carrier=g.players.keys().filter(func(id):return id<0 and g.players[id].team!=team)[0]
+		var escort: int=members.filter(func(id):return tribes.role(id)=="escort")[0]
+		rows=[];tribes.goals(escort,ai.new_brain(escort),rows)
+		check(rows.any(func(r):return r.kind=="escort") and not rows.any(func(r):return r.kind=="intercept"),"One escort protects the carrier during the recovery push %d"%team)
 		mode.return_flag(team);mode.return_flag(1-team)
 		var repairer: int=members.filter(func(id):return tribes.role(id)=="repairer")[0]
 		var base: Dictionary=tribes.generator(team);var s: Dictionary=g.players[repairer];var actor=g.fighters[repairer]

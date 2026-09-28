@@ -332,3 +332,45 @@ cases. New seed 9300 normal-speed, recorded 6v6 previews were started on both
 maps from commit `a9edbd3`, with Vulkan spectators and both inactivity cutoffs.
 Their result files, when present, are the completion authority; the receipt only
 records their startup verification.
+
+
+### Carrier approaches and two-flag recovery (2026-09-28)
+
+The seed 9300 previews completed twenty minutes at 1–1 on both maps without
+script errors. Stonehenge's final two-flag stalemate exposed spare cappers and
+repairers targeting the enemy flag on their own carrier, effectively becoming
+extra escorts. Existing chasers also struggled with the raised bunker entrance.
+These recordings predate the following fixes.
+
+During a two-flag stalemate, a full powered six-player team now retains one
+carrier and one escort and sends four players to recover its home flag. A power
+outage can reserve one eligible repairer, leaving three chasers. Smaller living
+teams prioritise recovery, including the last non-carrier teammate. Recovery
+preempts shopping, scavenging and generic cover goals; a bounded flag-pass catch
+remains valid. Dropped flags switch chasers to touch-return, and ordinary roles
+resume when possession changes. Other support bots no longer target the flag
+already held by a friendly carrier.
+
+Raindance's observed carrier bunker entry was caused by sideways ski drift
+preventing an aligned launch. Light and Medium now start ordinary directional
+jets to correct that drift before entering the bunker. Heavy keeps its original
+ballistic control because its smaller lift surplus cannot support that burn.
+Four recorded approach variants capture in 4.42–6.03 seconds without entering
+the bunker. Stonehenge's outdoor wall avoidance no longer overrides nearby
+covered entry or a verified raised portal. Both recorded hold approaches now
+reach the entrance, in 56.1 and 34 seconds; this does not imply a fast approach.
+
+Carrier routes rank ordinary and alternate terrain corridors by estimated
+travel time, accounting for turns, momentum, climbs, energy and covered passages.
+A valid current route is retained unless the replacement saves at least 15%
+and 1.5 seconds. Flag exits use the same cost. This is a bounded planning
+heuristic, not a global fastest-route guarantee. The synthetic real-physics
+comparison selects a 120.62 m route over a 104 m covered route and arrives 0.2
+seconds earlier. Shared movement physics and energy limits are unchanged.
+
+Validation passes 289 focused checks, four recorded approach cases, two
+Stonehenge hold replays, four escape replays and 18 unopposed capture cases
+(16 Raindance spawns and one per Stonehenge team). The receipt is
+`docs/validation/st-carrier-recovery-2026-09-28.json`. Fresh contested recordings
+are needed to assess stalemate frequency; role assertions alone cannot prove
+that every carrier can be recovered.

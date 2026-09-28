@@ -130,6 +130,7 @@ func exit_route(id: int,start: Vector3,home: Vector3,lane: int,avoid: Array) -> 
 	for enemy in ai.brains.get(id,{}).get("visible",[]):
 		if ai.alive(enemy):observed.append(game.fighters[enemy].position)
 	var exposed_missiles: Array=[];var pads=game.match_mode.tribes.stations()
+	var travel: Dictionary=ai.tribes.travel.context(id)
 	if pads:
 		for key in pads.defences.rows.size():
 			var fixture: Dictionary=pads.defences.rows[key]
@@ -156,9 +157,10 @@ func exit_route(id: int,start: Vector3,home: Vector3,lane: int,avoid: Array) -> 
 			for shift in [Vector3.ZERO,side,-side]:
 				if not ai.navigation.ray(start+Vector3.UP*.8+shift,departure+Vector3.UP*.8+shift).is_empty() or not ai.navigation.ray(departure+Vector3.UP*.8+shift,point+Vector3.UP*.8+shift).is_empty():blocked=true;break
 			if blocked:continue
-			var path: PackedVector3Array=routes.path(point,home,lane,avoid)
+			var path: PackedVector3Array=routes.path(point,home,lane,avoid,travel)
 			if path.is_empty():continue
-			var value: float=routes.route_length(path)+start.distance_to(point)
+			var complete:=PackedVector3Array([start]);complete.append_array(path)
+			var value: float=ai.tribes.travel.seconds(id,complete)*travel.walk
 			# An observed missile battery can punish even a fast grab. Prefer
 			# a descending lane behind terrain instead of repeatedly jetting
 			# through its firing corridor. This is observation-based routing;
@@ -171,7 +173,7 @@ func exit_route(id: int,start: Vector3,home: Vector3,lane: int,avoid: Array) -> 
 					previous=waypoint
 			# A shortest-distance reversal wastes the speed used to grab the
 			# flag. Prefer a downhill exit that preserves incoming momentum.
-			if velocity.length()>6:value+=(1-velocity.normalized().dot(direction))*velocity.length()*5
+			if velocity.length()>6:value+=(1-velocity.normalized().dot(direction))*velocity.length()*2
 			# Include the carrier's own observations, not only teammates' radio
 			# reports. Score exposure along the early route rather than just its
 			# first waypoint, so cover behind a bunker can justify a longer exit.

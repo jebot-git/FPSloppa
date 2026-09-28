@@ -38,6 +38,11 @@ func steer(id: int,brain: Dictionary) -> void:
 	var game=ai.game;var actor=game.fighters[id];var s: Dictionary=game.players[id]
 	# Tower landings, indoor portals and flag catches have precise controllers.
 	if brain.get("travel_phase","") not in ["ski","run_up","climb","coast"] or brain.get("staging",false):return
+	var next: Vector3=brain.path[brain.step] if brain.step<brain.path.size() else brain.goal
+	# A verified raised portal is an intended landing, not a wall to flank.
+	# Let its lift/braking controller establish entry height before crossing.
+	if actor.position.distance_to(brain.goal)<65 and ai.tribes.routes.covered(brain.goal) or next.y>actor.position.y+2 and actor.position.distance_to(next)<40 and ai.tribes.routes.clear(actor.position,next):
+		brain.erase("st_obstacle");return
 	var velocity:=Vector3(actor.velocity.x,0,actor.velocity.z);var speed:=velocity.length()
 	if actor.position.distance_to(brain.goal)<8:return
 	var action: Dictionary=brain.get("st_obstacle",{})

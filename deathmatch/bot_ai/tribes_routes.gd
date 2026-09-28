@@ -7,14 +7,25 @@ var ai:
 	set(value):ai_ref=weakref(value)
 class TerrainGraph extends AStar3D:
 	var costs: Dictionary={}
+	var travel: Dictionary={}
+	var covered: Dictionary={}
+	func _estimate_cost(from_id: int,to_id: int) -> float:
+		return get_point_position(from_id).distance_to(get_point_position(to_id))*(.35 if not travel.is_empty() else 1.0)
 	func _compute_cost(from_id: int,to_id: int) -> float:
 		var a:=get_point_position(from_id);var b:=get_point_position(to_id)
 		var climb:=maxf(0,b.y-a.y)
+		if not travel.is_empty():
+			var distance:=a.distance_to(b)
+			var speed: float=travel.walk if climb>1 else travel.speed
+			var cost: float=distance*maxf(.35,travel.walk/speed)+climb*(2+4*(1-travel.reserve))
+			if covered.has(from_id) or covered.has(to_id):cost+=distance*.9+travel.walk*.4
+			return cost+float(costs.get(to_id,0))
 		return a.distance_to(b)+climb*1.8+maxf(0,climb-4)*3+float(costs.get(to_id,0))
 var graph:=TerrainGraph.new()
 var built:=false
 var points:=PackedVector3Array()
 var cells: Dictionary={}
+var cover_cache: Dictionary={}
 const SPACING:=16.0
 
 func add(point: Vector3) -> void:
@@ -78,10 +89,17 @@ func build() -> void:
 			add(row.position+row.frame.basis.z*3.8)
 			add(row.repair_position)
 	for i in points.size():
+		if covered(points[i]):graph.covered[i]=true
 		for j in nearby(points[i]):
 			if i==j or points[i].distance_to(points[j])>27:continue
 			if clear(points[i],points[j]):graph.connect_points(i,j,false)
 	print("ST_ROUTES nodes=",points.size())
+func covered(point: Vector3) -> bool:
+	var key:=point.snapped(Vector3.ONE*.5)
+	if not cover_cache.has(key):
+		var hit: Dictionary=ai.navigation.ray(point+Vector3.UP*1.7,point+Vector3.UP*21)
+		cover_cache[key]=not hit.is_empty() and hit.normal.y<-.5
+	return cover_cache[key]
 func attach(point: Vector3,arriving: bool=false) -> int:
 	var best:=-1;var cost:=INF
 	for i in nearby(point,3):
@@ -90,7 +108,7 @@ func attach(point: Vector3,arriving: bool=false) -> int:
 		if not (clear(points[i],point) if arriving else clear(point,points[i])):continue
 		cost=distance;best=i
 	return best
-func path(start: Vector3,goal: Vector3,lane: int=0,avoid: Array=[]) -> PackedVector3Array:
+func path(start: Vector3,goal: Vector3,lane: int=0,avoid: Array=[],travel: Dictionary={}) -> PackedVector3Array:
 	build()
 	var from:=attach(start);var to:=attach(goal,true)
 	if from<0 or to<0:return PackedVector3Array()
@@ -99,13 +117,14 @@ func path(start: Vector3,goal: Vector3,lane: int=0,avoid: Array=[]) -> PackedVec
 	# Soft, query-local costs keep a sole doorway usable. Only experienced
 	# failed approaches supply these penalties; no hidden enemy positions.
 	graph.costs.clear()
+	graph.travel=travel
 	for note in avoid:
 		if note.until<=ai.game.clock:continue
 		for index in nearby(note.point,2):
 			var distance: float=points[index].distance_to(note.point)
 			if distance<22:graph.costs[index]=float(graph.costs.get(index,0))+80*(1-distance/22)
 	var path:=graph.get_point_path(from,to)
-	if path.is_empty():graph.costs.clear();return path
+	if path.is_empty():graph.costs.clear();graph.travel={};return path
 	if lane!=0 and start.distance_to(goal)>220:
 		# Split long flag runs across terrain corridors instead of feeding both
 		# teams into the same midfield duel. The corridor is still a valid graph.
@@ -115,7 +134,7 @@ func path(start: Vector3,goal: Vector3,lane: int=0,avoid: Array=[]) -> PackedVec
 		var first:=graph.get_point_path(from,via);var second:=graph.get_point_path(via,to)
 		if not first.is_empty() and not second.is_empty() and route_length(first)+route_length(second)<route_length(path)*1.55:
 			path=first;path.append_array(second)
-	graph.costs.clear()
+	graph.costs.clear();graph.travel={}
 	# A via point can lie on a spur shared by both halves. Erase that loop
 	# rather than making a skier reverse down the same hill after visiting it.
 	var simple:=PackedVector3Array()

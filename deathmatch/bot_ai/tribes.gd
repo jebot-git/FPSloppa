@@ -9,7 +9,8 @@ var construction=preload("res://deathmatch/bot_ai/tribes_construction.gd").new()
 var offense=preload("res://deathmatch/bot_ai/tribes_offense.gd").new()
 var tactics=preload("res://deathmatch/bot_ai/tribes_tactics.gd").new()
 var avoidance=preload("res://deathmatch/bot_ai/tribes_avoidance.gd").new()
-func setup(value):ai_ref=weakref(value);routes.ai=value;equipment.ai=value;tactics.ai=value;offense.ai=value;construction.ai=value;avoidance.ai=value
+var travel=preload("res://deathmatch/bot_ai/tribes_travel.gd").new()
+func setup(value):ai_ref=weakref(value);routes.ai=value;equipment.ai=value;tactics.ai=value;offense.ai=value;construction.ai=value;avoidance.ai=value;travel.ai=value
 
 var assignments: Dictionary={}
 var assignment_state: Dictionary={}
@@ -51,6 +52,20 @@ func assign_roles(team: int,member: int):
 	assignment_state[team]={"signature":signature,"until":game.clock+1}
 	var pool:=group.duplicate();var result: Dictionary={}
 	if enemy.carrier in pool:result[enemy.carrier]="capper";pool.erase(enemy.carrier)
+	# With both flags away, spare attackers used to target the enemy flag's
+	# position on their own carrier, accidentally becoming extra escorts.
+	# Keep one protector; commit the rest to recovering the home flag.
+	if ai.alive(enemy.carrier) and (own.dropped or ai.alive(own.carrier)):
+		if pool.size()>=3:allocate(pool,game.fighters[enemy.carrier].position,"escort",result)
+		if pool.size()>=4 and pads and not pads.powered(team):
+			var repair_pool: Array=pool.filter(func(id):return equipment.service(team) or game.players[id].tribes_pack in ["none","repair"])
+			if not repair_pool.is_empty():pool.erase(allocate(repair_pool,generator(team).position,"repairer",result))
+		var point: Vector3=game.fighters[own.carrier].position if ai.alive(own.carrier) else own.position
+		while not pool.is_empty():allocate(pool,point,"chaser",result)
+		for id in group:
+			if assignments.get(id,"")!=result[id] and ai.brains.has(id):ai.brains[id].plan_at=0
+			assignments[id]=result[id]
+		return
 	# Public flag emergencies interrupt any former job, including defence.
 	if own.dropped or own.carrier!=0:
 		var point: Vector3=game.fighters[own.carrier].position if ai.alive(own.carrier) else own.position
@@ -143,6 +158,9 @@ func goals(id: int,brain: Dictionary,rows: Array) -> void:
 		tactics.carrier_goal(id,brain,rows)
 		return
 	if offense.catch_goal(id,rows):return
+	if job=="chaser":
+		if own.dropped:ai.candidate(rows,"st:return","objective",own.position,560);return
+		if ai.alive(own.carrier):ai.candidate(rows,"st:intercept","intercept",tactics.intercept_point(id,own.carrier),550);return
 	equipment.recovery_goal(id,rows)
 	if rules.can_refit(id) and job in ["capper","escort"]:rules.targeting.buy(id)
 	var loadout:=outfit(job)
@@ -191,15 +209,13 @@ func goals(id: int,brain: Dictionary,rows: Array) -> void:
 			if pads.source_hp(base)<base.maximum:ai.candidate(rows,"st:repair","st_repair",base.position+base.frame.basis.z*3.8,540,true,s.team)
 			else:equipment.repair_goal(id,rows)
 		elif s.tribes_pack=="none":ai.candidate(rows,"st:repair-pack","supply",base.repair_position,550,true)
-	if own.dropped:
-		if job=="chaser":
-			ai.candidate(rows,"st:return","objective",own.position,520);return
-	elif ai.alive(own.carrier) and job=="chaser":
-		# Public flag position permits pursuit; it does not bypass LOS for fire.
-		ai.candidate(rows,"st:intercept","intercept",tactics.intercept_point(id,own.carrier),510);return
 	if ai.alive(flag.carrier):
 		if job=="escort":
 			ai.candidate(rows,"st:escort","escort",tactics.escort_point(id,flag.carrier),350,true,flag.carrier);return
+		# The friendly carrier already has that flag. Remaining support keeps
+		# its useful goals or covers home instead of trying to pick it up again.
+		if rows.is_empty():ai.candidate(rows,"st:defend","defend",mode.bases[s.team],260,true)
+		return
 	if job=="flag_defense":
 		ai.candidate(rows,"st:defend","defend",mode.bases[s.team],260,true)
 	elif job=="repairer":
@@ -256,6 +272,7 @@ func path(start: Vector3,goal: Vector3,id: int=0) -> PackedVector3Array:
 	if id!=0:
 		var exit: PackedVector3Array=offense.exit_route(id,start,goal,lane,avoid)
 		if not exit.is_empty():return exit
+		if carrier(id):return travel.path(id,start,goal,avoid)
 	return routes.path(start,goal,lane,avoid)
 static func ground_ski(normal: Vector3,direction: Vector3,velocity: Vector3,walk: float,_rise: float=0.0) -> bool:
 	var speed:=velocity.length()
@@ -632,7 +649,11 @@ func tower_approach(id: int,brain: Dictionary) -> bool:
 		# start. Requiring above-walk speed here made that acceleration
 		# unreachable: walking capped the run-up before skiing could begin.
 		s.ski=ground_ski(actor.tribes_state.normal,direction,velocity,profile.walk)
-		if flat.length()<48 and velocity.dot(direction)>profile.walk*.75 and velocity.slide(direction).length()<profile.walk*.3 or not actor.is_supported():
+		# Skiing follows the fall line; stick input cannot remove sideways
+		# drift. Start a real directional jet correction before that drift
+		# accelerates into the bunker below the launch hill.
+		var heading_correction: bool=s.tribes_class!="heavy" and s.ski and speed>profile.walk*.4 and velocity.slide(direction).length()>maxf(1.5,speed*.2)
+		if heading_correction or flat.length()<48 and velocity.dot(direction)>profile.walk*.75 and (s.tribes_class!="heavy" or velocity.slide(direction).length()<profile.walk*.3) or not actor.is_supported():
 			run.phase="flight";run.at=game.clock;s.jump=actor.tribes_state.airtime<.25 and not actor.jump_held
 		brain.travel_phase="tower_runup"
 	if run.phase=="flight":
@@ -648,7 +669,11 @@ func tower_approach(id: int,brain: Dictionary) -> bool:
 			var eta:=clampf(maxf(1,flat.length()-11)/maxf(speed,2),.1,6.0)
 			var projected: float=actor.position.y+actor.velocity.y*eta-10*eta*eta
 			s.jet_held=projected<goal.y+.7 and actor.tribes_state.energy>3
-		desired=((direction*maxf(speed,profile.walk)-velocity)*.09+direction*.08).limit_length(.22)
+		# Heavy retains its ballistic launch: its much smaller lift surplus
+		# cannot afford this Light/Medium heading burn from a slow takeoff.
+		var correcting: bool=s.tribes_class!="heavy" and flat.length()>18 and velocity.slide(direction).length()>maxf(2,speed*.2) and goal.y-actor.position.y<8 and actor.velocity.y> -2
+		desired=((direction*maxf(speed,profile.walk)-velocity)*.09+direction*.08).limit_length(.55 if correcting else .22)
+		if correcting and actor.tribes_state.energy>3:s.jet_held=true
 		s.ski=true;brain.travel_phase="tower_flight"
 		if game.clock-run.at>1 and actor.is_supported() and actor.position.y<goal.y-2 or game.clock-run.at>12:
 			tactics.reject_stage(id,goal,run.stage)

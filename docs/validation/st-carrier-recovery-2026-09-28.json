@@ -1,0 +1,179 @@
+{
+  "date": "2026-09-28",
+  "branch": "experimental/st-raindance",
+  "scope": "Experimental ST only; excluded from release",
+  "source_sha256": {
+    "deathmatch/bot_ai/tribes.gd": "ff5a4bc6ee1a1dac755fb7865c497dbe68eb0442b1976ca2b155cfe0690f95ce",
+    "deathmatch/bot_ai/tribes_avoidance.gd": "6f5e3fb46ef20fb996f3349e1db54995fbe6fe4d13bffd8d3e734608db1504dc",
+    "deathmatch/bot_ai/tribes_offense.gd": "8dfc2ca1cab5dcccbc8f1db3148cf338f2b4630501009fcc70702c74e1d7ce64",
+    "deathmatch/bot_ai/tribes_routes.gd": "893366d70f0ed3a241a98255d53a9dcbb77d457bba6001d3c275c34ae9f48898",
+    "deathmatch/bot_ai/tribes_travel.gd": "fdbfe99b7cebc3d1a17062eb84a5de074202165b27f6546f793e0f9c589934d2",
+    "deathmatch/bots.gd": "3d97a2e3841d3ed50ae903564caebd524cfcaf399347c197aae5a1e5265851ce",
+    "maps/ctf_stonehenge.bsp": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
+    "maps/navigation/ctf_stonehenge.res": "2e1a3686379d9943de78b23d90319d9726d34d85ae2c7c97725932ff6be47f02",
+    "maps/ctf_raindance.bsp": "48bc28440f0a2f08f1a9654d840b00b639bbfd6a4dfc2e5ade826966bde337b9",
+    "maps/navigation/ctf_raindance.res": "1f475316eb8a3357cc0ac1959e6545ef26afd5d01b985451f4c553ea8bc7bc2e"
+  },
+  "focused_tests": [
+    {
+      "script": "deathmatch/tests/st_flag_stalemate.gd",
+      "log": "test-results/st-speed/final-st_flag_stalemate.log",
+      "checks": 30,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_bot_tactics.gd",
+      "log": "test-results/st-speed/current-st_bot_tactics.log",
+      "checks": 62,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_adaptive_tactics.gd",
+      "log": "test-results/st-speed/final-st_adaptive_tactics.log",
+      "checks": 42,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_parity123.gd",
+      "log": "test-results/st-speed/final-st_parity123.log",
+      "checks": 94,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_carrier_focus.gd",
+      "log": "test-results/st-speed/current-st_carrier_focus.log",
+      "checks": 16,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_carrier_routes.gd",
+      "log": "test-results/st-speed/current-st_carrier_routes.log",
+      "checks": 14,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_obstacle_control.gd",
+      "log": "test-results/st-speed/current-st_obstacle_control.log",
+      "checks": 4,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_raindance_entrance.gd",
+      "log": "test-results/st-speed/current-st_raindance_entrance.log",
+      "checks": 20,
+      "passed": true
+    },
+    {
+      "script": "deathmatch/tests/st_raindance_routes.gd",
+      "log": "test-results/st-speed/current-st_raindance_routes.log",
+      "checks": 7,
+      "passed": true
+    }
+  ],
+  "focused_checks": 289,
+  "capture_cases": [
+    {
+      "map": "stonehenge",
+      "artifact": "test-results/st-speed/current-capture-stonehenge.json",
+      "cases": 2,
+      "passed": true,
+      "maximum_seconds": 230.133333333409,
+      "scope": "unopposed normal physics and swept flag touches"
+    },
+    {
+      "map": "raindance",
+      "artifact": "test-results/st-speed/current-capture-raindance.json",
+      "cases": 16,
+      "passed": true,
+      "maximum_seconds": 210.783333333393,
+      "scope": "unopposed normal physics and swept flag touches"
+    }
+  ],
+  "recorded_replays": [
+    {
+      "script": "st_carrier_approach.gd",
+      "log": "test-results/st-speed/current-st_carrier_approach.log",
+      "cases": 4,
+      "passed": true,
+      "seconds": [
+        4.9333,
+        4.4167,
+        6.0333,
+        5.25
+      ],
+      "entered_bunker": false
+    },
+    {
+      "script": "st_stonehenge_carrier_hold.gd",
+      "log": "test-results/st-speed/stonehenge-hold-current.log",
+      "artifact": "test-results/st-speed/stonehenge-carrier-hold.json",
+      "cases": 2,
+      "passed": true,
+      "seconds": [
+        56.1,
+        34
+      ]
+    },
+    {
+      "script": "st_carrier_escape.gd",
+      "log": "test-results/st-speed/current-st_carrier_escape.log",
+      "cases": 4,
+      "passed": true
+    }
+  ],
+  "previous_matches": [
+    {
+      "map": "stonehenge",
+      "folder": "test-results/st-speed/live-stonehenge-obstacles-9300",
+      "gameplay_commit": "a9edbd3",
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 156.366666666683,
+      "flag_pickups": {
+        "red": 9,
+        "blue": 13
+      },
+      "script_errors": 0,
+      "validates_current_changes": false
+    },
+    {
+      "map": "raindance",
+      "folder": "test-results/st-speed/live-raindance-obstacles-9300",
+      "gameplay_commit": "a9edbd3",
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        1
+      ],
+      "termination_reason": "match_finished",
+      "first_capture_seconds": 168.93333333336,
+      "flag_pickups": {
+        "red": 6,
+        "blue": 8
+      },
+      "script_errors": 0,
+      "validates_current_changes": false
+    }
+  ],
+  "rejected_experiments": [
+    {
+      "log": "test-results/st-speed/carrier-approach-initial-experiment.json",
+      "reason": "Heavy cannot afford Light/Medium heading burn from slow launch; original Heavy flight retained"
+    },
+    {
+      "log": "test-results/st-speed/stonehenge-carrier-hold2.log",
+      "reason": "Experimental precision flight controller failed red entrance replay; removed"
+    }
+  ],
+  "limitations": [
+    "Travel cost is a bounded heuristic; the controlled longer-route fixture saved 0.2 seconds, not a claim of global optimality.",
+    "Stonehenge entrance replays reach in 34 and 56.1 seconds; final approach speed still needs contested observation.",
+    "Role/planner tests prove recovery assignments, not that an opposed match will necessarily break every stalemate.",
+    "Known single ObjectDB shutdown warning remains in headless fixtures; no script errors in passing tests."
+  ],
+  "next_live_matches": []
+}

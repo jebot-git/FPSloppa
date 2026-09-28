@@ -352,6 +352,9 @@ func plan(id: int,brain: Dictionary) -> void:
 	# assistance and enemy candidates must not win as exposure penalties stack.
 	if game.match_mode.kind=="st" and tribes.carrier(id):
 		rows=rows.filter(func(row):return row.key in ["st:capture","st:carrier-return","st:hold"])
+	elif game.match_mode.kind=="st" and brain.role=="chaser" and game.players[id].team in [0,1]:
+		var own: Dictionary=game.match_mode.flags[game.players[id].team]
+		if own.dropped or alive(own.carrier):rows=rows.filter(func(row):return row.key in ["st:return","st:intercept","st:catch"])
 	# Usually evaluate six routes. If all fail, try a bounded fallback and
 	# temporarily avoid failed goals so the next plan can reach later choices.
 	for row in rows:
