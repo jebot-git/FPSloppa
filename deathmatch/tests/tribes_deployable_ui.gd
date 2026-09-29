@@ -47,7 +47,7 @@ func run():
 	for i in 15:d.rows[10+i]=camera_row.duplicate()
 	d.rows[100]=camera_row.duplicate();d.rows[100].team=1
 	wheel.select(207,r,1);var seen: Array=[]
-	for i in 5:
+	for i in 8:
 		rows=wheel.rows(r,1);check(rows.size()<=8,"Camera wheel page %d stays readable"%i)
 		for row in rows:
 			if row.id>2000:seen.append(row.id)

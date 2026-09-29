@@ -27,7 +27,7 @@ func tick_input(id: int,_delta: float):
 func fire(id: int) -> bool:
 	if not game.multiplayer.is_server() or not rules.enabled() or not game.players.has(id):return false
 	var pads=rules.stations()
-	if pads and pads.defences.operated(id)>=0:return false
+	if rules.vehicles.piloting(id) or pads and pads.defences.operated(id)>=0:return false
 	var s: Dictionary=game.players[id];var w: int=s.weapon
 	if not game.armory.valid(w) or w not in s.owned or s.dead or s.spectator or s.cooldown>0 or s.get("input_blocked",false) or game.intermission>0 or game.match_mode.special.blocked(id):return false
 	if w==2 and spins.get(id,0.0)<1:return false
@@ -73,6 +73,9 @@ func beam(id: int,w: int,start: Vector3,direction: Vector3,spent: float):
 			var damage: int=fractional(id,hit.id,.006,"elf")
 			if damage>0:game._damage(hit.id,id,damage,d.name,false,hit.position,direction)
 	elif w==8:
+		if hit.has("scout"):
+			rules.vehicles.repair(hit.scout,id,.01*A.UNIT)
+			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array(),-1,id);return
 		if hit.has("beacon"):
 			rules.targeting.repair(hit.beacon,id,.01*A.UNIT)
 			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array(),-1,id);return
@@ -144,7 +147,7 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets):
 	if not hit.hit:p.position=end;return
 	preload("res://deathmatch/effects/surface_marks.gd").contact(game,hit,p.position,end,d)
 	if w in [0,2]:
-		var friendly_map: bool=d.has("turret_team") and (hit.get("generator",-1)==d.turret_team or rules.deployables.rows.get(hit.get("deployable",-1),{}).get("team",-1)==d.turret_team or rules.targeting.beacons.get(hit.get("beacon",-1),{}).get("team",-1)==d.turret_team)
+		var friendly_map: bool=d.has("turret_team") and (rules.vehicles.rows.get(hit.get("scout",-1),{}).get("team",-1)==d.turret_team or hit.get("generator",-1)==d.turret_team or rules.deployables.rows.get(hit.get("deployable",-1),{}).get("team",-1)==d.turret_team or rules.targeting.beacons.get(hit.get("beacon",-1),{}).get("team",-1)==d.turret_team)
 		if d.has("turret_team") and hit.has("fixed_turret"):
 			var pads=rules.stations()
 			friendly_map=friendly_map or pads and pads.defences.rows[hit.fixed_turret].team==d.turret_team
@@ -173,6 +176,7 @@ func blast(where: Vector3,owner_id: int,d: Dictionary):
 	game.match_mode.fortress.blast(where,owner_id,d.splash,d.blast_radius)
 	var pads=rules.stations()
 	if pads:pads.blast(where,owner_id,d.splash,d.blast_radius,int(d.get("turret_team",-1)),"Mortar" if "MORTAR" in d.name else "Grenade" if "GRENADE" in d.name else "")
+	rules.vehicles.blast(where,owner_id,d.splash,d.blast_radius,int(d.get("turret_team",-1)))
 	rules.deployables.blast(where,owner_id,d.splash,d.blast_radius,int(d.get("turret_team",-1)))
 	rules.targeting.blast(where,owner_id,d.splash,d.blast_radius,int(d.get("turret_team",-1)))
 	var runtime=game.get_node_or_null("Map/MapRuntime")
@@ -213,7 +217,7 @@ func damage_mine(id: int,points: float):
 func physical_request(id: int,kind: String,pose: Dictionary,velocity: Vector3) -> bool:
 	if kind=="cancel":held.erase(id);return true
 	var pads=rules.stations()
-	if pads and pads.defences.operated(id)>=0:held.erase(id);return false
+	if rules.vehicles.piloting(id) or pads and pads.defences.operated(id)>=0:held.erase(id);return false
 	if pose.is_empty() or not velocity.is_finite() or velocity.length()>30 or not game.players[id].get("physical",false) or game.players[id].get("input_blocked",false):held.erase(id);return false
 	var s: Dictionary=game.players[id];var w: int=s.get("tribes_grenade",9)
 	var hand: String="right" if pose.left_handed else "left"
@@ -233,18 +237,21 @@ func physical_request(id: int,kind: String,pose: Dictionary,velocity: Vector3) -
 		var item: Dictionary=held.get(id,{})
 		if item.is_empty() or item.until<game.clock or item.left!=pose.left_handed or item.get("used",false) or item.get("item","") not in ["pack","ammo"]:return false
 		held.erase(id)
-		return rules.recovery.drop(id,item.item,point,body.basis*velocity*2+game.fighters[id].velocity)
+		var solution:=preload("res://deathmatch/vr/weapon_clearance.gd").solve(game.get_world_3d().direct_space_state,chest,point,point,.12)
+		if solution.blocked:return false
+		return rules.recovery.drop(id,item.item,solution.origin,body.basis*velocity*2+game.fighters[id].velocity)
 	if kind=="activate":
 		var item: Dictionary=held.get(id,{})
 		if item.is_empty() or item.until<game.clock or item.left!=pose.left_handed or item.get("used",false):return false
-		item.used=true
-		if item.get("item","")=="kit":return rules.kit(id)
+		if item.get("item","")=="kit":
+			item.used=rules.kit(id);return item.used
 		if item.get("item","")=="pack":
 			if rules.deployables.Data.is_pack(s.tribes_pack):
-				var frame: Transform3D=body*pose[hand]
+				var frame: Transform3D=body*preload("res://deathmatch/tribes/equipment.gd").hand_frame(pose)
 				var deployed: bool=rules.deployables.deploy(id,frame.origin,-frame.basis.z)
+				item.used=deployed
 				rules.deployment_notice(id,deployed);return deployed
-			if s.tribes_pack in ["repair","shield","jammer"]:rules.action(id);return true
+			if s.tribes_pack in ["repair","shield","jammer"]:item.used=true;rules.pack_action(id);return true
 		return false
 	if kind=="arm":
 		if rules.amount(id,w)<=0 or held.has(id) or game.clock<s.get("tribes_throw_at",0.0):return false

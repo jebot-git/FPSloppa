@@ -162,20 +162,27 @@ func strip_nonvisual(node: Node) -> void:
 			child.free()
 		else: strip_nonvisual(child)
 	if node is MeshInstance3D:
-		visual_meshes.append(node)
-		node.set_meta("arena_first_person",(node.layers&(1<<19))!=0)
-		node.set_meta("arena_third_person",(node.layers&1)!=0)
-		node.visible=bool(node.get_meta("arena_third_person"))
-		node.layers = 1
-		node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		# MToon outlines add a second draw for every material surface.
+		register_visual_mesh(node,(node.layers&(1<<19))!=0,(node.layers&1)!=0)
+		# MToon outlines add a second draw for every imported material surface.
 		for surface in range(node.mesh.get_surface_count()):
 			var material: Material=node.get_active_material(surface)
 			if material:
 				preload("res://deathmatch/avatars/lighting.gd").prepare(material)
-				if not material.has_meta("arena_outline"): material.set_meta("arena_outline",material.next_pass)
+				if not material.has_meta("arena_outline"):material.set_meta("arena_outline",material.next_pass)
 				material.next_pass=null
-		node.visibility_range_end = 65
+
+func register_visual_mesh(node: MeshInstance3D,local_visible: bool,remote_visible: bool) -> void:
+	# Runtime replacement bodies must join the same view/hand-mask lifecycle as
+	# imported avatar meshes, including transitions before their next update.
+	if node not in visual_meshes:visual_meshes.append(node)
+	node.set_meta("arena_first_person",local_visible)
+	node.set_meta("arena_third_person",remote_visible)
+	node.visible=local_visible if first_person else remote_visible
+	node.layers=1
+	node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	node.visibility_range_end=0 if distance_lod else 65
+	if distance_lod:node.lod_bias=1.5
+	if first_person and local_visible:preload("res://deathmatch/avatars/first_person_mask.gd").apply(node,skeleton,true,keypad_glove)
 
 func set_first_person(value: bool) -> void:
 	if first_person==value: return

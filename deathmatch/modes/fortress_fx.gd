@@ -1,6 +1,6 @@
 extends Node3D
 ## Bounded cosmetic effects shared by live network play and demo playback.
-const KINDS=["jump_pad","sentry_fire","ba2_cannon","explosion","napalm","heal","repair","build","scout","sniper","heavy","spy","flame","bounce"]
+const KINDS=["scout_fire","jump_pad","sentry_fire","ba2_cannon","explosion","napalm","heal","repair","build","scout","sniper","heavy","spy","flame","bounce"]
 var game
 var bursts: Array[Node3D]=[]
 func material(color: Color) -> StandardMaterial3D:
@@ -25,6 +25,8 @@ func emit(kind: String,start: Vector3,end: Vector3,team: int) -> void:
 	var color: Color=game.match_mode.COLORS[clampi(team,0,1)]
 	var life:=.5
 	match kind:
+		"scout_fire":
+			game.spatial.play("tribes_weapon_3",start,-5)
 		"jump_pad":
 			var ring:=MeshInstance3D.new();var torus:=TorusMesh.new();torus.inner_radius=.27;torus.outer_radius=.33;torus.rings=12;torus.ring_segments=16
 			ring.mesh=torus;ring.material_override=material(Color("63e9ff"));ring.position=start+Vector3.UP*.08;root.add_child(ring)

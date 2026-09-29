@@ -1,0 +1,903 @@
+{
+  "date": "2026-09-29",
+  "branch": "experimental/st-raindance",
+  "main_merged": false,
+  "main_unchanged": true,
+  "base": "8b19bd959e7dbf17cba1b201bb9f55d448f87614",
+  "main_head": "8b19bd959e7dbf17cba1b201bb9f55d448f87614",
+  "st_head": "8dbf9cc8ac3355c1682dec040c4291bcf6a58bf4",
+  "protocol": "fpsloppa-68-st-native-main",
+  "integration": {
+    "incoming": 183,
+    "actions": {
+      "merged": 11,
+      "copy": 169,
+      "conflict": 3
+    },
+    "excluded": {
+      "--client-config.json": "Stray test-result JSON, not source or configuration"
+    },
+    "manifest_sha256": "94b10c2a0138f95c70cc855aa252d39aeee13b0619510ca197abed98d8f67ea3",
+    "asset_audit": {
+      "available_maps": [
+        "as_hislop",
+        "as_frigate",
+        "tf_pressureworks",
+        "tf_vesper",
+        "koth_solstice",
+        "koth_torture",
+        "koth_hyperborea",
+        "koth_alichar",
+        "cc_hyperborea",
+        "cc_psychofuge",
+        "cc_ghostquarter",
+        "cc_basement",
+        "qsrc_dm1",
+        "qsrc_dm2",
+        "qsrc_dm3",
+        "qsrc_dm4",
+        "qsrc_dm5",
+        "qsrc_dm6",
+        "qsrc_dm7",
+        "ctf_tideworks",
+        "ctf_crucible",
+        "ctf_confluence",
+        "ctf_deepvault",
+        "ctf_crownreach",
+        "ctf_skyfracture",
+        "tf_ironspan",
+        "tf_relayworks",
+        "as_frigate_tiny",
+        "as_hislop_tiny",
+        "tb_ashfall",
+        "tb_cindercoil",
+        "de_inferno_rebuilt",
+        "de_dust2_rebuilt",
+        "de_aztec_rebuilt",
+        "de_nuke_rebuilt",
+        "de_train_rebuilt",
+        "ctf_stonehenge",
+        "ctf_raindance"
+      ],
+      "available_count": 38,
+      "optional_absent_in_both_worktrees": [
+        "lqdm1",
+        "lqdm2",
+        "lqdm4",
+        "lqdm7",
+        "lqdm8",
+        "lqdm3",
+        "lqdm5",
+        "lqdm6",
+        "dm_lasercade_slop",
+        "dm_auhdm2_slop",
+        "dm_anctomb_slop",
+        "dm_anchall_slop",
+        "dm_battlef_slop",
+        "dm_ashcourt",
+        "dm_bellvault",
+        "dm_cindercoil",
+        "lqdm13",
+        "dm_fluxring",
+        "lqdm12",
+        "lqdm10",
+        "dm_switchyard",
+        "lqdm9",
+        "lqdm11",
+        "tdm_basalt",
+        "tdm_crosskeep",
+        "tdm_manifold",
+        "tdm_smelter",
+        "tdm_turbines",
+        "ctf_coolant",
+        "ctf_slagline",
+        "ctf_sunken",
+        "ctf_switchback",
+        "ctf_vespers",
+        "koth_belfry",
+        "koth_corehold",
+        "koth_crowns",
+        "koth_crucible",
+        "koth_uplink",
+        "ig_gargoyle",
+        "ig_ionfork",
+        "ig_shutters",
+        "ig_sightbreak",
+        "ig_sunlance",
+        "ft_coldforge",
+        "ft_cryoloop",
+        "ft_oathstone",
+        "ft_reliquary",
+        "ft_rescuebay",
+        "cc_bonewalk",
+        "cc_meatgrinder",
+        "cc_razorloop",
+        "cc_redmaze",
+        "cc_shortcircuit",
+        "tf_abbeyline",
+        "tf_capacitor",
+        "tf_kilnfront",
+        "tf_lockworks",
+        "tf_obsidian"
+      ],
+      "missing_required_or_present_in_main": [],
+      "hash_mismatch": [],
+      "incoming_missing_runtime_resources": [],
+      "note": "Incoming source literals were audited; missing literals were generated test evidence only."
+    },
+    "runtime_assets": [
+      {
+        "path": "maps/de_aztec_rebuilt.bsp",
+        "sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b"
+      },
+      {
+        "path": "maps/navigation/de_aztec_rebuilt.res",
+        "sha256": "7fdd790d08c63aa3f9d164f5f355ad8657b83722e1406b1d15739b17fda31da5"
+      },
+      {
+        "path": "maps/de_nuke_rebuilt.bsp",
+        "sha256": "4ac1eaec5b7b69d6899ab2d3058f817a0690559eb7130d4d175fdd715eeffb1f"
+      },
+      {
+        "path": "maps/navigation/de_nuke_rebuilt.res",
+        "sha256": "b8af3d27c567551bd2f07d96c93e5cd101ad9f69f3d547bc139f92118a9292ef"
+      },
+      {
+        "path": "maps/de_train_rebuilt.bsp",
+        "sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524"
+      },
+      {
+        "path": "maps/navigation/de_train_rebuilt.res",
+        "sha256": "ac5f4dc0eb8cd2f8ec368597209256f0198270ab25de8574c3c3e1ae172df47f"
+      }
+    ]
+  },
+  "native": [
+    {
+      "target": "linux",
+      "library": "addons/fps_native/bin/libfpsloppa_native.so",
+      "sha256": "5f07b05ed0aec0986655742928f801d38f25e9d02c0e2f23c9577a24066696fb",
+      "receipt_sha256": "968b85e812a37d49b0a1bae4a6eb2fdb8cf3efce3956268f111b2d363c057781",
+      "runtime_tested": true
+    },
+    {
+      "target": "linux-server",
+      "library": "addons/fps_native/bin/libfpsloppa_native.server.so",
+      "sha256": "787104da9b0ef32734b3d54c2f02c95634b40a6324d2c6c45158b09bdb00356e",
+      "receipt_sha256": "377403271557b05b1780d0611d0d7e5394040edf69973983fb4471b1f2fcadb6",
+      "runtime_tested": false
+    },
+    {
+      "target": "windows",
+      "library": "addons/fps_native/bin/libfpsloppa_native.dll",
+      "sha256": "eddbfdc7c2884501b8dbe485477f8a0a99920f69848fe17a359be0ae17a9c7b2",
+      "receipt_sha256": "3fee3eab00a8f4eb9c616087d30fd3d95eadd5718150b7cf62ca838795514351",
+      "runtime_tested": false
+    },
+    {
+      "target": "android",
+      "library": "addons/fps_native/bin/libfpsloppa_native.android.so",
+      "sha256": "7b8cac9b0f5973b87a29d84defd86e226ebae4c0361e48b4be4c537b7c99189d",
+      "receipt_sha256": "6c6d4b7176e3bf2fef27fc66da2ba52bac418738f1e4a287147ae5630f79e6a8",
+      "runtime_tested": false
+    }
+  ],
+  "regressions": [
+    {
+      "log": "test-results/st-main-sync/checks/native_preparation.log",
+      "sha256": "77623cd965f87e3f511e0666b81fcb4e45df90d8c561666989142b227e35b575",
+      "checks": 225612,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "native_preparation",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/native_bots.log",
+      "sha256": "517805e37f2831a4d7361be4a616da75efecd090490896e15f23b321b59af94a",
+      "checks": 673858,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "native_bots",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/native_acceleration.log",
+      "sha256": "cd3ac7a8f726c3ffffc9675923d9d6fd0ba52aebf8614ff4707a7b6ea0004eca",
+      "checks": 51311,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "native_acceleration",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/native_codec.log",
+      "sha256": "fdc584b0e832427f8efbc6017362b6fd09321bfcd5f0342b73fe03491046c4b3",
+      "checks": 15248,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "native_codec",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/native_rewind.log",
+      "sha256": "1c3749ac3ecc049ae485b6b4d1c5d80e2fb15530494ecfd81f08975a981e9314",
+      "checks": 16850,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "native_rewind",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/followup/native_shot_history.log",
+      "sha256": "e17f8ec112d6d480c7817032bd68cf8278efeb805afdc3b3033db5dfb7381fa3",
+      "checks": 10,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "native_shot_history",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/native_network_packing.log",
+      "sha256": "9323f28e098cfd9bac73d2b3d145a14a40220c7455d94be8af1bbbe090f98c20",
+      "checks": 6335,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "native_network_packing",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/frame_smoothness.log",
+      "sha256": "410b5d490c9399d449521a3dc219f0728f7fe51dfa396e446403911944ba4ba6",
+      "checks": 2415,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "frame_smoothness",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/replication_protocol.log",
+      "sha256": "0efbb6d86e2a07aca38e96278ed110ed6fd11c475f5d40ed7a3823ca1b4b9aab",
+      "checks": 0,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "replication_protocol",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_tribes.log",
+      "sha256": "df31d8f8d5e88daa7baac499110b26b2e77a2b39ffb6fc5f432770a39ecba3bd",
+      "checks": 59,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_tribes",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/followup/tribes_arsenal.log",
+      "sha256": "32bcf001cbf02958193ff0d9c535ba07b41b19f7443aaaf4106e71bdb5e618bb",
+      "checks": 37,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "tribes_arsenal",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/tribes_deployables.log",
+      "sha256": "8037b1c8f239c9b3f95f0b5cbb05d2f07aa9f97e4d10bb3b7fddc8ebeaad398d",
+      "checks": 55,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "tribes_deployables",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/tribes_demo.log",
+      "sha256": "f9c7f83ffc3957cc3eadae250c8c377495ab5df7dea4138dec22f261d10cfcfe",
+      "checks": 17,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "tribes_demo",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_parity123.log",
+      "sha256": "3a334831b4db42e77ba45094f249a7d38ed7ab3e89b4eb612db55f0b4e80e54a",
+      "checks": 94,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_parity123",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_parity456.log",
+      "sha256": "c774f1258aaff020747aa757f74f69178f307dbf4775de7d415e2630e131a28f",
+      "checks": 77,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_parity456",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_carrier_focus.log",
+      "sha256": "3fa804cbfc212b6d2a17116fc27f19af4aad326aaa4f27674724e1201f5d1ad1",
+      "checks": 16,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_carrier_focus",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_carrier_recharge.log",
+      "sha256": "d62079f58121fff3dc6655cc8f72b078abc53e4118bff16c9185a6488e760673",
+      "checks": 6,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_carrier_recharge",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_capture_readiness.log",
+      "sha256": "71e49c1fa8d877940c669273cb06486b345e1f813a309a3afceaad87383150ad",
+      "checks": 20,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_capture_readiness",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_ski_safety.log",
+      "sha256": "5cac44323f900fbd38f2171eefabd9cbcc1555a60885aef4bfa93101b5525738",
+      "checks": 19,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_ski_safety",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_ski_chain.log",
+      "sha256": "7254de1e8b1eee2bc86cdbf5230354e9eb2e6c273154ee7836c83c983a70a354",
+      "checks": 0,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_ski_chain",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_rolling_launch.log",
+      "sha256": "c89e57553ba094b4db2cc727dfd79a3fe6d2217a56d7136e26c9e65536d56f79",
+      "checks": 0,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_rolling_launch",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_obstacle_control.log",
+      "sha256": "852a2f241721423d84ccb996edd8a61a8ae27f7d44d453701ba6c8241721c577",
+      "checks": 4,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_obstacle_control",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_flag_stalemate.log",
+      "sha256": "1c09cbec83bac910a4046c9831a8eb9872afbde08fcc3be7441663b7310d12df",
+      "checks": 30,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_flag_stalemate",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_scout.log",
+      "sha256": "9b615a7c4f07f8dc467e322a572c86ab12954a1105eb36d595e2a8902222763c",
+      "checks": 55,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_scout",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_transports.log",
+      "sha256": "5b1da35f50652dd72b6fffdaf0bc755190c4eb2cae1a213d4d1e5068f5604a3a",
+      "checks": 93,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_transports",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/st_command.log",
+      "sha256": "65c00eb289df05c5a2ce260043a0d74d114b8f6add91cbfc7dac7ee6a1f51258",
+      "checks": 46,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "st_command",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/tribes_bodies.log",
+      "sha256": "37e897c59f5c0e11d3578287d092575c0aa71482ddeafc9af6832c00de3469da",
+      "checks": 226,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "tribes_bodies",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/followup/bindings.log",
+      "sha256": "7871af46ff1ec326fb7358a9960576815034d714752905127fa9ebba37cf14bc",
+      "checks": 31,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "bindings",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/client_preferences.log",
+      "sha256": "cfb383fff5e3806530b7727028605bb2a826ad4e02870fd91c41e99964f464ad",
+      "checks": 19,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "client_preferences",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/followup/cs16_compensation.log",
+      "sha256": "747b94c065af488e90e97353562f74763069266c1d22c5f293853545ff738120",
+      "checks": 470,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "cs16_compensation",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/followup/cs16_accuracy.log",
+      "sha256": "ee4f2aacfefb28b7a06c25fcd135e3a84f6a48ccd7acee33e883815789fc22d8",
+      "checks": 1095,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "cs16_accuracy",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/followup/cs16_penetration.log",
+      "sha256": "d379832008836270ecf0c65534a38fecbb67f5cdeca21e0c623ddec1999e83c5",
+      "checks": 67,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "cs16_penetration",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/de_cover.log",
+      "sha256": "5d7b0fb7b3f72a21706477639d68adc21201074b9816b523fc086c6b19194bf0",
+      "checks": 386,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "de_cover",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/defusal.log",
+      "sha256": "3e8ea5b2edbc5004a0e3a83f20b577fbf2217ef977988b390eb33a87312ec4dd",
+      "checks": 102,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "defusal",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/defusal_posture.log",
+      "sha256": "26f47eba8c30f9a2276c117bbf924ef83995bde221f5ffc20b2ec2ddf0207ae2",
+      "checks": 30,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "defusal_posture",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/dropped_ammo.log",
+      "sha256": "e5528268b5823de58f022d856e9c729d75825ba23cfe4de022176db365e072c6",
+      "checks": 146,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "dropped_ammo",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/shared_hit_feedback.log",
+      "sha256": "bc46f3d973440b54ff5d2390e087ded6ff491c1ebf681f6aa840a222b3724e0d",
+      "checks": 394,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "shared_hit_feedback",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/projectile_ordering.log",
+      "sha256": "96f28d69f866c0976be1d90b1d1872bc8f6b693283c24568e088dd78d1c2eeae",
+      "checks": 8,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "projectile_ordering",
+      "exit": 0
+    },
+    {
+      "log": "test-results/st-main-sync/checks/weapon_wheel.log",
+      "sha256": "d6b3013f48db9fd6d2bd825664830d6a8434952d3838c31daa75ec33acd3be16",
+      "checks": 122,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true,
+      "suite": "weapon_wheel",
+      "exit": 0
+    },
+    {
+      "suite": "native-st-bots",
+      "exit": 0,
+      "log": "test-results/st-main-sync/native-st-bots.log",
+      "sha256": "21c3532a9fe298b43b937ae659850f19e6c06703f0882c9bc3edda03e2704484",
+      "checks": 49317,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "targeting-final-native",
+      "exit": 0,
+      "log": "test-results/st-main-sync/targeting-final-native.log",
+      "sha256": "0225c9c73dfb7dabe1c9ab0086f70417b0430c41f7cf0e8f9fe06235c739899a",
+      "checks": 43,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "targeting-final-reference",
+      "exit": 0,
+      "log": "test-results/st-main-sync/targeting-final-reference.log",
+      "sha256": "0225c9c73dfb7dabe1c9ab0086f70417b0430c41f7cf0e8f9fe06235c739899a",
+      "checks": 43,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "targeting-vulkan",
+      "exit": 0,
+      "log": "test-results/st-main-sync/targeting-vulkan.log",
+      "sha256": "ca94c79c7f4cdfae599bc60f6d821b6fe1e92d3d19009b834aa6338376598c01",
+      "checks": 40,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "native_shot_history-reference",
+      "exit": 0,
+      "log": "test-results/st-main-sync/followup/native_shot_history-reference.log",
+      "sha256": "e17f8ec112d6d480c7817032bd68cf8278efeb805afdc3b3033db5dfb7381fa3",
+      "checks": 10,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "tribes_arsenal-reference",
+      "exit": 0,
+      "log": "test-results/st-main-sync/followup/tribes_arsenal-reference.log",
+      "sha256": "32bcf001cbf02958193ff0d9c535ba07b41b19f7443aaaf4106e71bdb5e618bb",
+      "checks": 37,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "st_vr_reliability",
+      "exit": 0,
+      "log": "test-results/st-main-sync/final-regression/st_vr_reliability.log",
+      "sha256": "82e8288008e114a8555901d46d31425ac4f47aa90857ba230a1b2278bf4ab0f6",
+      "checks": 27,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "st_parity456",
+      "exit": 0,
+      "log": "test-results/st-main-sync/final-regression/st_parity456.log",
+      "sha256": "c774f1258aaff020747aa757f74f69178f307dbf4775de7d415e2630e131a28f",
+      "checks": 77,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "st_parity456-reference",
+      "exit": 0,
+      "log": "test-results/st-main-sync/final-regression/st_parity456-reference.log",
+      "sha256": "c774f1258aaff020747aa757f74f69178f307dbf4775de7d415e2630e131a28f",
+      "checks": 77,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "native_bots",
+      "exit": 0,
+      "log": "test-results/st-main-sync/final-regression/native_bots.log",
+      "sha256": "517805e37f2831a4d7361be4a616da75efecd090490896e15f23b321b59af94a",
+      "checks": 673858,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "st_tribes",
+      "exit": 0,
+      "log": "test-results/st-main-sync/final-regression/st_tribes.log",
+      "sha256": "df31d8f8d5e88daa7baac499110b26b2e77a2b39ffb6fc5f432770a39ecba3bd",
+      "checks": 59,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "vulkan-st_vr_inventory",
+      "exit": 0,
+      "log": "test-results/st-main-sync/vr/st_vr_inventory.log",
+      "sha256": "c359129d44e4ef48d23095fd95794959a3e654ea5e3f2e5ddc9d28799ef90437",
+      "checks": 46,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "vulkan-st_vr_deploy_use",
+      "exit": 0,
+      "log": "test-results/st-main-sync/vr/st_vr_deploy_use.log",
+      "sha256": "7840ad48ea0e10c97432550de735d7cb0da58a81db7bb85cfde79c81bff40465",
+      "checks": 57,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "vulkan-st_transport_vr",
+      "exit": 0,
+      "log": "test-results/st-main-sync/vr/st_transport_vr.log",
+      "sha256": "ef943a380de19936e5b602ff0ccd171723f5828d9933b53d53d7357bdd3f6892",
+      "checks": 56,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "vulkan-st_command_vr",
+      "exit": 0,
+      "log": "test-results/st-main-sync/vr/st_command_vr.log",
+      "sha256": "9c00e18c3e1fd996c68389e83580ea3835a95e6ab28e83c982ea14955104e596",
+      "checks": 34,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "vulkan-tribes_bodies",
+      "exit": 0,
+      "log": "test-results/st-main-sync/vr/tribes-bodies-corrected.log",
+      "sha256": "c965f154385a1a9e573ac4ab2b42f3ac6a0a4de2de2ba3b50323749dd51d4963",
+      "checks": 226,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    },
+    {
+      "suite": "vulkan-vr_hand_mask",
+      "exit": 0,
+      "log": "test-results/st-main-sync/vr/vr_hand_mask.log",
+      "sha256": "4e444139164fe1d94e812fa67430b524afd1f397ad3f94f0f97d67315ef5ebdd",
+      "checks": 31,
+      "script_errors": 0,
+      "failures": [],
+      "shutdown_warnings": true
+    }
+  ],
+  "networks": [
+    {
+      "name": "targeting-network",
+      "checks": 19,
+      "passed": true,
+      "log": "test-results/st-main-sync/targeting-network.log",
+      "sha256": "a292968270833ca523a6996ee08ab087e5a160d1e7e7f752ec7bf675698d0815"
+    },
+    {
+      "name": "targeting-network-reference",
+      "checks": 19,
+      "passed": true,
+      "log": "test-results/st-main-sync/targeting-network-reference.log",
+      "sha256": "a292968270833ca523a6996ee08ab087e5a160d1e7e7f752ec7bf675698d0815"
+    },
+    {
+      "name": "command-network",
+      "checks": 22,
+      "passed": true,
+      "log": "test-results/st-main-sync/command-network.log",
+      "sha256": "45ed37e8464116878c28504da5a97e764b84d8fb2520b72db3c0c44affaf0bd2"
+    },
+    {
+      "name": "transport-network",
+      "checks": 41,
+      "passed": true,
+      "log": "test-results/st-main-sync/transport-network.log",
+      "sha256": "154ddb3dfadfdfc324ca5c4013019df795dcf97d2393331651bf044ebac1e4d1"
+    }
+  ],
+  "matches": [
+    {
+      "map": "ctf_raindance",
+      "teams": [
+        8,
+        8
+      ],
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "exit": 2,
+      "script_errors": 0,
+      "timed_out": false,
+      "flag_events": {
+        "pickup": 6,
+        "drop": 5,
+        "return": 5,
+        "release": 1
+      },
+      "targeting": {
+        "designations": 29,
+        "placed": 3
+      },
+      "offense": {
+        "bombard_shots": 27,
+        "built_ammo_station": 1,
+        "built_motion": 2,
+        "built_pulse": 1,
+        "built_turret": 3,
+        "disc_jump_attempts": 17,
+        "flag_exit_routes": 5,
+        "flag_pass_misses": 1,
+        "flag_passes": 1,
+        "recharge_escapes": 12,
+        "target_beacons": 3
+      },
+      "result": "test-results/st-main-sync/matches/ctf_raindance-9400/result.json",
+      "result_sha256": "0542878e7f880399dfd57c9770207178a74b5ce71df9596769da490ba49084b0"
+    },
+    {
+      "map": "ctf_stonehenge",
+      "teams": [
+        8,
+        8
+      ],
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "termination_reason": "no_capture_600s",
+      "exit": 2,
+      "script_errors": 0,
+      "timed_out": false,
+      "flag_events": {
+        "pickup": 11,
+        "drop": 11,
+        "return": 8
+      },
+      "targeting": {
+        "placed": 7
+      },
+      "offense": {
+        "bombard_shots": 31,
+        "built_motion": 2,
+        "built_turret": 3,
+        "carrier_disc_jump_attempts": 1,
+        "disc_jump_attempts": 12,
+        "flag_exit_routes": 4,
+        "flag_pass_catches": 1,
+        "flag_passes": 1,
+        "recharge_escapes": 11,
+        "target_beacons": 7
+      },
+      "result": "test-results/st-main-sync/matches/ctf_stonehenge-9400/result.json",
+      "result_sha256": "1163bc34b6f3038af2b59fc3f2bd5805545aca01bb12310e3d962f4f89c8ffe5"
+    }
+  ],
+  "matches_complete": true,
+  "code_sha256": {
+    "deathmatch/arena.gd": "d98f64d4db053d6e06e830af71c08f87d2f1f41a6550d169a49eb57698ea64b7",
+    "deathmatch/bots.gd": "78824391493462390349236bf4394a5daa70d40a70389da59daf3fc7347011cc",
+    "deathmatch/vr/rig.gd": "673fabf6932074b71e63ba98e533ac63ffd193e873781f7e7a3c34ba4a69b955",
+    "deathmatch/vr/physical_actions.gd": "1953ab3e9b3c108a6e55a6c1caeb2352a2ef7f0dfe260cffdc62f76bfe9e9135",
+    "deathmatch/vr/weapon_wheel.gd": "cbc15e098fdb53ba341618e1666d90ec10f107d300363144b6767491f2e7fe8a",
+    "deathmatch/avatars/rig.gd": "216d915abb1ac24cf674ed26a911188fd035dfcfea2eb09f271a2faf28977bc1",
+    "deathmatch/tribes/body_replacement.gd": "9bd155aa3400a8b9269c1892e1499a8db99cfa0f93419fa1d96d76d151cd7d49",
+    "deathmatch/tribes/targeting.gd": "1bf888cff3c31b08262f80f4b65f7626c9db8f5d0cf9deafda51ec956843b5fa",
+    "deathmatch/tribes/field_view.gd": "fc91e425323aa124914fcad32d81c1d4c310790f70d9627ece5db33f72865bd1",
+    "deathmatch/tribes/combat.gd": "a674deddbf7958c76e6a90de211cc758fd7c6c8a4df704cd72419ce58b66dc05",
+    "deathmatch/server/config.gd": "4587c74cb6b2227957106a6eeb7b86731aaa079dbef0a1b4f62527299e5bdf95",
+    "deathmatch/maps/manifest.json": "389d7a179f5b31e8c9be727736a64dfce207e3df3b51a02661415ac0c8bff682",
+    "deathmatch/native/runtime.gd": "2a4b55a109258d47f7353d464cb7ceea636ed5972fbb8206e22e0b39db7a7235",
+    "deathmatch/tests/st_targeting.gd": "1ad157e3e7786e365e4a6b68dea6038821fa6c198908fc78aa0883fc4a5fc153",
+    "deathmatch/tests/st_targeting_network.gd": "9f1016a600b7f4456d0f5a81b5a26a98cd2362957d69d7bf5b1dc817daf13fbf",
+    "deathmatch/tests/native_st_bots.gd": "49d2b698083992f0e13403dd8631b5bbaa984706fe67fa97c859d2026a23c94e",
+    "tools/tribes/test_targeting_network.py": "19ef1e2c372f4a2853d5c7a0fb4a75d107d3b7899d8571091609303dcee15c04",
+    "addons/fps_native/src/bots.cpp": "9c9e153a12d54c9e224e38c173def36ee7734780f3093ae3a73933e7fe26aacd",
+    "addons/fps_native/src/bot_names.h": "ff0435c26cd94e908b5f24581a13aabeb21271a3037fa5bd07c21e855499c166"
+  },
+  "visuals": {
+    "targeting-guidance.png": "09b79e8ad8817bbeb48d2236f0932d57e484bdd37ac0942250cb8e4a1b1997e7",
+    "targeting-aim.png": "63ecaa5c4b41508e801827a5833c077f1c0391a9a48539ac24063032d525c0d2"
+  },
+  "notes": [
+    "Initial shot-history and arsenal tests reproduced a navigation callback shutdown double-free, fixed by polling asynchronous bake completion.",
+    "Initial bindings invocation omitted disposable config; CS tests needed their generated output directories and penetration fixture; graphical armour test needed no --vr-test argument. Corrected invocations passed; original evidence retained.",
+    "Linux Godot 4.7.2; Vulkan mobile visual/VR-input checks. Windows/Android native builds were not tested on target devices. Server library was built and hash-validated.",
+    "Existing fixture ObjectDB/resource warnings remain; no new benchmark or capture-reliability claim.",
+    "Map-run source snapshot precedes the presentation-only marker readability/centring change and additional test cases. Gameplay and native sources match the validated integration."
+  ],
+  "live_vr": {
+    "log": "test-results/st-main-sync/live-wivrn.log",
+    "runtime": "WiVRn v26.9",
+    "headset": "Meta Quest Pro",
+    "map": "ctf_raindance",
+    "bots": 0,
+    "renderer": "Vulkan mobile",
+    "xr_ready": true,
+    "host_ready": true,
+    "script_errors": 0,
+    "human_interaction_validated": false
+  }
+}

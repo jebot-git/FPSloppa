@@ -1,5 +1,5 @@
 extends RefCounted
-## Deferred experiments stay in source but cannot be enabled in this release.
-const TRIBES := false
+## ST is available in main development; published release builds are unchanged.
+const TRIBES := true
 static func map_allowed(id: String) -> bool:
-	return TRIBES or id != "ctf_stonehenge"
+	return TRIBES or id not in ["ctf_stonehenge", "ctf_raindance"]

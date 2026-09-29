@@ -1,10 +1,12 @@
 extends Node3D
 ## Fixed BSP inventory pads. The same map entities and boundary shapes are used
 ## by the authority, predicted clients and replay viewers.
+const Props=preload("res://deathmatch/tribes/prop_library.gd")
 const Health=preload("res://deathmatch/tribes/equipment_health.gd")
 var game
 var rows: Array=[]
 var patch_markers: Array=[]
+var navigation_points:=PackedVector3Array()
 var repair: Dictionary={}
 var supply: Dictionary={}
 const GENERATOR_HP:=300.0
@@ -19,7 +21,9 @@ func configure(arena,entities: Array) -> void:
 	game=arena
 	for node in entities:
 		var e: Dictionary=node.attributes
-		if e.get("classname","")=="info_tribes_repair_patch":patch_markers.append(node.global_position-Vector3.UP*.5)
+		if e.get("classname","")=="info_tribes_navigation":
+			if navigation_points.size()<1024:navigation_points.append(node.global_position-Vector3.UP*.70)
+		elif e.get("classname","")=="info_tribes_repair_patch":patch_markers.append(node.global_position-Vector3.UP*.5)
 		elif e.get("classname","")=="info_playable_bounds":
 			var dimensions:=str(e.get("size","")).split_floats(" ",false)
 			if dimensions.size()==3 and Array(dimensions).all(func(v):return is_finite(v) and v>0 and v<=8192):
@@ -27,44 +31,43 @@ func configure(arena,entities: Array) -> void:
 		elif e.get("classname","") in ["info_tribes_inventory","info_tribes_ammo","info_tribes_command","info_tribes_vehicle"] and int(e.get("team",-1)) in [0,1]:
 			var row:={"team":int(e.team),"position":node.global_position-Vector3.UP*.70,"kind":str(e.classname).trim_prefix("info_tribes_")}
 			row.merge(circuit(e))
+			if e.get("vehicle_spawn") is Vector3:row.vehicle_spawn=e.vehicle_spawn
 			row.frame=Transform3D(Basis(Vector3.UP,deg_to_rad(float(e.get("angle",0)))),row.position)
 			rows.append(row)
 			fixture(row,deg_to_rad(float(e.get("angle",0))))
 			if not game.headless:
 				visual(row,deg_to_rad(float(e.get("angle",0))))
-				var label:=Label3D.new();label.text=row.kind.to_upper();label.font_size=48;label.pixel_size=.009
+				var label:=Label3D.new();label.text=row.kind.to_upper();label.font_size=36;label.pixel_size=.009
 				label.modulate=Color("ff9385") if row.team==0 else Color("8ebeff")
 				label.outline_size=8;label.no_depth_test=false;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
-				add_child(label);label.global_position=row.position+Vector3.UP*2.6
+				add_child(label);label.global_position=row.position+Vector3.UP*3.45
 				row.label=label
 		elif e.get("classname","") in ["info_tribes_generator","info_tribes_solar","info_tribes_portable_generator"] and int(e.get("team",-1)) in [0,1]:
 			if generators.size()>=32:continue
 			var maximum: float=Health.UNIT if e.classname=="info_tribes_solar" else 1.6*Health.UNIT if e.classname=="info_tribes_portable_generator" else GENERATOR_HP
 			var primary: bool=not generators.any(func(row):return row.team==int(e.team))
 			var source:={"team":int(e.team),"position":node.global_position-Vector3.UP*.70,"hp":maximum,"maximum":maximum,"primary":primary,"native":e.classname!="info_tribes_generator","key":generators.size(),"name":str(e.get("targetname","power_%d"%generators.size())).left(64)}
+			source["kind"]=str(e.classname).trim_prefix("info_tribes_")
 			source.merge(circuit(e));generators.append(source)
 	rows.sort_custom(func(a,b):return a.team<b.team or a.team==b.team and a.position.x<b.position.x)
 	for generator in generators:
 		var center:=Vector3.ZERO;var count:=0
 		for row in rows:
-			if row.team==generator.team:center+=row.position;count+=1
+			# Vehicle pads can be far outside the base; they must not rotate its generator.
+			if row.team==generator.team and row.kind in ["inventory","ammo"]:center+=row.position;count+=1
 		var forward: Vector3=(center/maxi(1,count)-generator.position);forward.y=0;forward=forward.normalized()
 		if forward.length_squared()<.1:forward=Vector3.BACK
 		generator["frame"]=Transform3D(Basis(Vector3.UP.cross(forward),Vector3.UP,forward),generator.position+Vector3.UP*1.45)
 		if generator.native:
 			var body:=StaticBody3D.new();body.collision_layer=1;body.collision_mask=0;add_child(body);body.global_transform=generator.frame
 			var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Vector3(5.8,2.8,2);shape.shape=box;body.add_child(shape)
-			if not game.headless:
-				var art=preload("res://deathmatch/art.gd");art.box(body,Vector3.ZERO,box.size,art.material(Color("334654"),.6))
-				for x in [-2,-1,0,1,2]:art.box(body,Vector3(x,0,1.02),Vector3(.86,2.4,.04),art.material(Color("325e87"),.65))
 		generator["repair_position"]=generator.frame*Vector3(5,-1.45,4)
 		if not game.headless:
 			var rack=preload("res://deathmatch/tribes/equipment.gd").model("pack",generator.team)
 			add_child(rack);rack.global_position=generator.repair_position+Vector3.UP*.8; rack.scale=Vector3.ONE*3
 			var sign:=Label3D.new();sign.text="EMERGENCY REPAIR PACK";sign.font_size=30;sign.pixel_size=.006;sign.billboard=BaseMaterial3D.BILLBOARD_ENABLED
 			add_child(sign);sign.global_position=generator.repair_position+Vector3.UP*1.5
-			var lamp:=preload("res://deathmatch/art.gd").box(self,Vector3.ZERO,Vector3(4.8,.55,.06),preload("res://deathmatch/art.gd").material(Color("65dfa6"),.4,1.0))
-			lamp.global_transform=generator.frame*Transform3D(Basis.IDENTITY,Vector3(0,0,1.06));generator["lamp"]=lamp
+			var housing=Props.make(generator.kind,generator.team);add_child(housing);housing.global_transform=generator.frame;generator["visual"]=housing
 			var label:=Label3D.new();label.font_size=36;label.pixel_size=.012;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
 			add_child(label);label.global_position=generator.position+Vector3.UP*3.4;generator["label"]=label
 	assets.setup(self,entities);defences.setup(self,entities)
@@ -139,11 +142,9 @@ func blast(where: Vector3,attacker: int,amount: float,radius: float,source_team:
 func _process(_delta: float) -> void:
 	assets.update();defences.update()
 	for row in generators:
-		if not row.has("lamp"):continue
+		if not row.has("visual"):continue
 		var active: bool=source_active(row)
-		row.lamp.material_override.albedo_color=Color("65dfa6") if active else Color("b52320")
-		row.lamp.material_override.emission=Color("65dfa6") if active else Color("b52320")
-		row.lamp.material_override.emission_energy_multiplier=1.0 if active else .15
+		Props.set_active(row.visual,active)
 		row.label.text="GENERATOR · %d%%"%roundi(source_hp(row)/row.maximum*100) if active else "GENERATOR · OFFLINE"
 
 func fixture(row: Dictionary,yaw: float) -> void:
@@ -153,21 +154,10 @@ func fixture(row: Dictionary,yaw: float) -> void:
 	add_child(body);body.global_transform=Transform3D(Basis(Vector3.UP,yaw),row.position)
 
 func visual(row: Dictionary,yaw: float) -> void:
-	var mesh:=ArrayMesh.new()
-	var colors: Array=[Color("414953"),Color("e75443") if row.team==0 else Color("438de7"),Color("101c24")]
-	var parts: Array=[
-		[[Vector3(0,-.025,0),Vector3(2.9,.04,2.9)],[Vector3(-1.65,1.5,1.7),Vector3(.32,3,.6)],[Vector3(1.65,1.5,1.7),Vector3(.32,3,.6)]],
-		[[Vector3(-1.65,1.9,1.37),Vector3(.20,1.7,.05)],[Vector3(1.65,1.9,1.37),Vector3(.20,1.7,.05)],[Vector3(0,2.4,1.57),Vector3(2.1,.6,.05)]],
-		[[Vector3(0,2.4,1.87),Vector3(2.4,1,.5)]]]
-	for i in 3:
-		var surface:=SurfaceTool.new();surface.begin(Mesh.PRIMITIVE_TRIANGLES)
-		for part in parts[i]:
-			var box:=BoxMesh.new();box.size=part[1]
-			surface.append_from(box,0,Transform3D(Basis.IDENTITY,part[0]))
-		var material:=StandardMaterial3D.new();material.albedo_color=colors[i];material.metallic=.55;material.roughness=.7
-		surface.set_material(material);surface.commit(mesh)
-	var node:=MeshInstance3D.new();node.mesh=mesh;add_child(node)
+	var node=Props.make("station_"+row.kind,row.team);add_child(node)
 	node.global_transform=Transform3D(Basis(Vector3.UP,yaw),row.position)
+	if game.current_map=="ctf_stonehenge" and row.kind=="inventory":
+		var surround=Props.make("station_surround",row.team);node.add_child(surround)
 	row.visual=node
 
 func boundary(center: Vector3,size: Vector3) -> void:

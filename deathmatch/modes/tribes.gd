@@ -3,9 +3,14 @@ extends Node
 const Armour=preload("res://deathmatch/movement/tribes_armour.gd")
 const Arsenal=preload("res://deathmatch/tribes/arsenal.gd")
 const CLASSES=Armour.CLASSES
+var vehicles=preload("res://deathmatch/vehicles/tribes/controller.gd").new()
 var deployables=preload("res://deathmatch/tribes/deployables.gd").new()
 var recovery=preload("res://deathmatch/tribes/recovery.gd").new()
 var targeting=preload("res://deathmatch/tribes/targeting.gd").new()
+var remote=preload("res://deathmatch/tribes/remote_control.gd").new()
+var commander=preload("res://deathmatch/tribes/command_state.gd").new()
+var command_view
+var order_sequence:=0
 var field_view
 var field_sequence:=0
 var field_requests: Dictionary={}
@@ -25,10 +30,12 @@ var requests: Dictionary={}
 var panel: CanvasLayer
 var local_station:=-1
 var funded_slots: Array=[1,1,1]
-func setup(rules) -> void:mode=rules;game=rules.game;combat.setup(self);deployables.setup(self);recovery.setup(self);targeting.setup(self)
+func setup(rules) -> void:mode=rules;game=rules.game;remote.setup(self);commander.setup(self);combat.setup(self);deployables.setup(self);recovery.setup(self);targeting.setup(self);vehicles.name="TribesVehicles";add_child(vehicles);vehicles.setup(self)
 func enabled() -> bool:return preload("res://deathmatch/release_features.gd").TRIBES and game.armory.effective()=="tribes" and not game.lobby.active()
 func reset() -> void:
 	if is_instance_valid(panel):panel.close()
+	vehicles.reset();remote.reset();commander.reset()
+	if is_instance_valid(command_view):command_view.close()
 	energy=[INITIAL_ENERGY,INITIAL_ENERGY,INITIAL_ENERGY];credit=0.0;requests.clear();combat.reset();deployables.reset();recovery.reset();targeting.reset();field_requests.clear();local_station=-1;funded_slots=[1,1,1]
 	var pads=stations()
 	if pads:pads.reset();recovery.spawn_patches(pads.patch_markers)
@@ -120,7 +127,9 @@ func tick(delta: float) -> void:
 	if not multiplayer.is_server():return
 	if not enabled() or mode.kind!="st":
 		if not deployables.rows.is_empty():deployables.reset()
+	vehicles.tick(delta)
 	if not enabled():return
+	remote.tick();commander.tick()
 	deployables.tick(delta)
 	combat.tick(delta);recovery.tick(delta);targeting.tick()
 	var pads=stations()
@@ -137,7 +146,7 @@ func damage(id: int,amount: int,weapon: String,bypass: bool) -> int:
 	if not enabled() or amount<=0:return amount
 	var w: int=Arsenal.NAMES.find(weapon)
 	if weapon in ["REMOTE TURRET","FUSION TURRET","MINI-FUSION TURRET"]:w=0
-	elif weapon=="MISSILE TURRET":w=3
+	elif weapon in ["MISSILE TURRET","SCOUT ROCKET"]:w=3
 	elif weapon=="MORTAR TURRET":w=7
 	elif weapon=="ELF TURRET":w=6
 	if w<0:return amount
@@ -199,6 +208,8 @@ func select_equipment(id: int,armour: String,weapons: Array,pack: String,refit: 
 	if id==multiplayer.get_unique_id():game.desired_weapon=s.weapon
 	return true
 func action(id: int) -> void:
+	if remote.operated(id)>=0:remote.release(id);return
+	if vehicles.use(id):return
 	if not enabled() or not multiplayer.is_server() or not game.players.has(id):return
 	var pads=stations()
 	if pads and pads.defences.operated(id)>=0:pads.defences.release(id);return
@@ -206,6 +217,9 @@ func action(id: int) -> void:
 		if id==multiplayer.get_unique_id():command_station_notice()
 		elif id>0:command_station_notice.rpc_id(id)
 		return
+	pack_action(id)
+func pack_action(id: int):
+	if not enabled() or not multiplayer.is_server() or not game.players.has(id) or vehicles.piloting(id):return
 	var s: Dictionary=game.players[id]
 	if s.dead or s.spectator or s.get("input_blocked",false) or game.intermission>0 or game.clock<s.get("tribes_use_at",0.0):return
 	s.tribes_use_at=game.clock+.25
@@ -231,9 +245,10 @@ func use_kit() -> void:
 func kit_request() -> void:
 	if multiplayer.is_server():kit(multiplayer.get_remote_sender_id())
 func kit(id: int) -> bool:
-	if not enabled() or not multiplayer.is_server() or not game.players.has(id):return false
+	if not recovery.eligible(id):return false
 	var s: Dictionary=game.players[id]
-	if s.dead or s.spectator or s.get("input_blocked",false) or mode.special.blocked(id) or not s.get("tribes_kit",false) or s.hp>=definition(id).hp or game.intermission>0:return false
+	# This is an explicit inventory/H-button action, not held weapon input.
+	if not s.get("tribes_kit",false) or s.hp>=definition(id).hp:return false
 	s.hp=mini(definition(id).hp,s.hp+roundi(.2*Arsenal.UNIT));s.tribes_kit=false;return true
 func toss_flag() -> void:
 	if multiplayer.is_server():flag_request()
@@ -252,14 +267,19 @@ func snapshot() -> Dictionary:
 		var s: Dictionary=game.players[id]
 		people[id]={"class":s.get("tribes_class","light"),"next":s.get("tribes_next","light"),"fallback":s.get("tribes_fallback",false),"pack":s.get("tribes_pack","energy"),"next_pack":s.get("tribes_next_pack","energy"),"guns":s.get("tribes_next_guns",Arsenal.defaults(s.get("tribes_next","light"))).duplicate(),"ammo":s.get("tribes_ammo",[0,0,0,0,0,0,0,0,0,0,0,0]).duplicate(),"kit":s.get("tribes_kit",false),"grenade":s.get("tribes_grenade",9),"paid":s.get("tribes_paid",0),"beacons":s.get("tribes_beacons",0)}
 	var pads=stations()
-	return {"energy":energy.duplicate(),"credit":credit,"players":people,"infinite_energy":infinite_energy,"generators":pads.health.duplicate() if pads else [300.0,300.0],"base_assets":pads.assets.snapshot() if pads else [],"fixed_defences":pads.defences.snapshot() if pads else [],"deployables":deployables.snapshot(),"power":pads.power_snapshot() if pads else {"sources":[],"shields":[]},"targeting":targeting.snapshot(),"recovery":recovery.snapshot()}
+	return {"remote":remote.snapshot(),"command":commander.snapshot(),"vehicles":vehicles.snapshot(),"energy":energy.duplicate(),"credit":credit,"players":people,"infinite_energy":infinite_energy,"generators":pads.health.duplicate() if pads else [300.0,300.0],"base_assets":pads.assets.snapshot() if pads else [],"fixed_defences":pads.defences.snapshot() if pads else [],"deployables":deployables.snapshot(),"power":pads.power_snapshot() if pads else {"sources":[],"shields":[]},"targeting":targeting.snapshot(),"recovery":recovery.snapshot()}
 static func valid_snapshot(data: Variant) -> bool:
 	if not data is Dictionary:return false
 	if data.is_empty():return true
-	if data.size() not in [6,7,8,11] or data.size()>=7 and not data.has("base_assets") or data.size()>=8 and not data.has("fixed_defences") or not preload("res://deathmatch/tribes/base_assets.gd").valid(data.get("base_assets",[])):return false
-	if data.size()==11 and (not preload("res://deathmatch/tribes/stations.gd").valid_power(data.get("power")) or not preload("res://deathmatch/tribes/targeting.gd").valid(data.get("targeting")) or not preload("res://deathmatch/tribes/recovery.gd").valid(data.get("recovery"))):return false
+	if data.size() not in [6,7,8,11,12,14] or data.size()>=7 and not data.has("base_assets") or data.size()>=8 and not data.has("fixed_defences") or not preload("res://deathmatch/tribes/base_assets.gd").valid(data.get("base_assets",[])):return false
+	if data.size()>=11 and (not preload("res://deathmatch/tribes/stations.gd").valid_power(data.get("power")) or not preload("res://deathmatch/tribes/targeting.gd").valid(data.get("targeting")) or not preload("res://deathmatch/tribes/recovery.gd").valid(data.get("recovery"))):return false
+	if data.has("vehicles") and not preload("res://deathmatch/vehicles/tribes/controller.gd").valid(data.vehicles):return false
+	if data.size()>=12 and not data.has("vehicles"):return false
+	if data.size()==14 and (not preload("res://deathmatch/tribes/remote_control.gd").valid(data.get("remote")) or not preload("res://deathmatch/tribes/command_state.gd").valid(data.get("command"))):return false
 	if not preload("res://deathmatch/tribes/fixed_defences.gd").valid(data.get("fixed_defences",[])):return false
 	if not preload("res://deathmatch/tribes/deployables.gd").valid(data.get("deployables")) or not data.get("infinite_energy") is bool or not data.get("energy") is Array or data.energy.size()!=3 or not data.get("players") is Dictionary or data.players.size()>128:return false
+	for key in data.get("remote",{}):
+		if not data.deployables.rows.has(key) or data.deployables.rows[key].kind not in ["camera","turret"] or not data.players.has(data.remote[key]):return false
 	if not (data.get("credit") is float or data.get("credit") is int) or not is_finite(float(data.credit)) or data.credit<0 or data.credit>=REPLENISH_SECONDS:return false
 	if not data.get("generators") is Array or data.generators.size()!=2:return false
 	for hp in data.generators:
@@ -277,9 +297,11 @@ static func valid_snapshot(data: Variant) -> bool:
 			if not row.ammo[w] is int or row.ammo[w]<0 or row.ammo[w]>Arsenal.capacity(row["class"],row.pack,w):return false
 	return true
 func receive(data: Dictionary) -> void:
-	if data.is_empty():deployables.reset();recovery.reset();targeting.reset();return
+	if data.is_empty():vehicles.reset();deployables.reset();recovery.reset();targeting.reset();remote.reset();commander.reset();return
 	if not valid_snapshot(data):return
+	vehicles.receive(data.get("vehicles",{"rows":{},"rockets":{}}))
 	deployables.receive(data.deployables)
+	remote.receive(data.get("remote",{}));commander.receive(data.get("command",{"commanders":{},"orders":{}}))
 	recovery.receive(data.get("recovery",{}));targeting.receive(data.get("targeting",{"beacons":{},"lasers":{}}))
 	energy=data.energy.duplicate();credit=data.credit;infinite_energy=data.infinite_energy
 	var pads=stations()
@@ -301,7 +323,7 @@ func receive(data: Dictionary) -> void:
 		state.tribes_pack=row.pack;state.tribes_next_pack=row.next_pack;state.tribes_next_guns=row.guns.duplicate();state.tribes_ammo=row.ammo.duplicate();state.tribes_kit=row.kit;state.tribes_grenade=row.grenade;state.tribes_paid=row.paid;state.tribes_beacons=row.get("beacons",0)
 
 func can_refit(id: int) -> bool:
-	if not enabled() or not game.active or game.map_loading or not game.players.has(id) or not game.fighters.has(id):return false
+	if vehicles.mounted(id) or not enabled() or not game.active or game.map_loading or not game.players.has(id) or not game.fighters.has(id):return false
 	var s: Dictionary=game.players[id]
 	if s.dead or s.spectator or game.intermission>0 or mode.special.blocked(id):return false
 	var pads=stations()
@@ -310,6 +332,17 @@ func can_refit(id: int) -> bool:
 	for point in mode.spawns(s.team):
 		if game.fighters[id].position.distance_to(point)<5:return true
 	return false
+func inventory_station(id: int) -> int:
+	if vehicles.mounted(id) or not deployables.accessible(id):return -1
+	var pads=stations()
+	var index: int=pads.at(id,["inventory","command"]) if pads else -1
+	if index>=0:return index
+	index=vehicles.station(id)
+	if index>=0:return 2000+index
+	index=deployables.station(id)
+	return 1000+index if index>=0 else -1
+func can_open_inventory(id: int) -> bool:
+	return can_refit(id) or inventory_station(id)>=0
 func cycle_grenade(direction: int):
 	if multiplayer.is_server():cycle_for(multiplayer.get_unique_id(),direction)
 	else:cycle_request.rpc_id(1,direction)
@@ -333,6 +366,10 @@ func open_inventory() -> void:
 	if not is_instance_valid(panel):panel=load("res://deathmatch/ui/defusal_panel.gd").new();game.add_child(panel);panel.setup(self)
 	if not panel.opened:panel.toggle()
 func _process(_delta: float):
+	vehicles.update(_delta)
+	if not game.headless and enabled() and game.active and not is_instance_valid(command_view):
+		command_view=load("res://deathmatch/tribes/command_view.gd").new();game.add_child(command_view);command_view.setup(self)
+	if is_instance_valid(command_view):command_view.update(_delta)
 	if is_instance_valid(panel) and panel.opened:panel.refresh()
 	if not game.headless and enabled() and game.active:
 		if not is_instance_valid(deployable_view):deployable_view=preload("res://deathmatch/tribes/deployable_view.gd").new();game.add_child(deployable_view);deployable_view.setup(self)
@@ -345,23 +382,25 @@ func _process(_delta: float):
 	if is_instance_valid(field_view):field_view.update()
 	if game.headless or not enabled() or not game.active or game.map_loading or game.demos.playing:return
 	var id: int=multiplayer.get_unique_id();var pads=stations()
-	var current: int=pads.at(id) if pads and can_refit(id) else -1
-	if current<0 and deployables.station(id)>=0:current=1000+deployables.station(id)
+	var current: int=inventory_station(id)
 	if current<0:
 		if local_station>=0:
 			if is_instance_valid(panel):panel.close()
 			if game.is_vr() and game.xr_rig.weapon_wheel.tribes_shop:game.xr_rig.weapon_wheel.close()
 		local_station=-1;return
-	if current==local_station or game.menu_open:return
+	if current==local_station or game.menu_open or pda_open() or operating(id):return
 	if game.is_vr():
 		var wheel=game.xr_rig.weapon_wheel
 		if not game.xr_rig.can_open_weapon_wheel():return
-		wheel.close();wheel.toggle(Vector2.ZERO)
+		wheel.close();wheel.toggle(game.xr_rig.right.get_vector2("primary"))
 	else:open_inventory()
 	local_station=current
-func menu_open() -> bool:return enabled() and is_instance_valid(panel) and panel.opened
+func menu_open() -> bool:return enabled() and (pda_open() or is_instance_valid(panel) and panel.opened)
 func desktop_input(event: InputEvent) -> bool:
 	if not enabled() or game.menu_open or game.demos.playing:return false
+	if pda_open():return command_view.input(event)
+	if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode==KEY_C:
+		open_pda();return true
 	if menu_open():
 		panel.refresh()
 		if event is InputEventKey and event.pressed and not event.echo:panel.handle_key(event.physical_keycode)
@@ -384,9 +423,25 @@ func deployment_result(success: bool):
 func deployable_sound(epoch: int,where: Vector3):
 	if epoch==game.map_epoch and not game.headless:game.spatial.play("tribes_weapon_0",where,-8)
 func view_camera(key: int):
+	if key>=0:control_turret(-1);control_remote(-1)
 	if is_instance_valid(deployable_view):deployable_view.watch(key)
 
+func close_remote_view() -> bool:
+	# Consume the Use edge locally before it can also activate a chest pack.
+	var pads=stations();var closed:=false
+	if pda_open():command_view.close();closed=true
+	if remote.operated(multiplayer.get_unique_id())>=0 or is_instance_valid(turret_view) and turret_view.remote_mode and turret_view.key>=0:
+		control_remote(-1);closed=true
+	if (is_instance_valid(turret_view) and turret_view.key>=0) or (pads and pads.defences.operated(multiplayer.get_unique_id())>=0):
+		control_turret(-1);closed=true
+		if is_instance_valid(turret_view):turret_view.key=-1
+	if is_instance_valid(deployable_view) and deployable_view.camera_key>=0:
+		deployable_view.watch(-1);closed=true
+	return closed
+
 func control_turret(key: int):
+	if is_instance_valid(turret_view):turret_view.releasing=key<0
+	if key>=0 and is_instance_valid(deployable_view):deployable_view.watch(-1)
 	var id: int=multiplayer.get_unique_id();var s: Dictionary=game.local_state()
 	if multiplayer.is_server():turret_control(key,game.map_epoch,s.get("serial",-1))
 	else:turret_control.rpc_id(1,key,game.map_epoch,s.get("serial",-1))
@@ -396,7 +451,7 @@ func turret_control(key: int,epoch: int,life: int):
 	var id: int=multiplayer.get_remote_sender_id()
 	if id==0:id=multiplayer.get_unique_id()
 	var pads=stations()
-	if pads:pads.defences.control(id,key,epoch,life)
+	if pads and pads.defences.control(id,key,epoch,life) and key>=0:remote.release(id)
 @rpc("any_peer","call_remote","unreliable_ordered",3)
 func turret_command(key: int,epoch: int,life: int,direction: Vector3,fire: bool):
 	if not multiplayer.is_server():return
@@ -429,13 +484,75 @@ func perform_field(id: int,kind: String,epoch: int,life: int,sequence: int) -> b
 		return targeting.place(id,frame.origin,-frame.basis.z)
 	return recovery.drop(id,kind)
 @rpc("authority","call_remote","reliable",0)
-func command_station_notice():
-	if game.is_vr():
-		var wheel=game.xr_rig.weapon_wheel;wheel.close();wheel.toggle(Vector2.ZERO)
-	else:open_inventory()
-	game.status("Command terminal: open Sensor Network for cameras and base turrets.")
+func command_station_notice():open_pda()
 
 @rpc("authority","call_remote","reliable",0)
 func field_result(ok: bool,kind: String):
 	var labels:={"pack":"Backpack dropped.","ammo":"Ammunition dropped.","weapon":"Weapon dropped.","beacon":"Target beacon deployed.","buy_beacons":"Target beacons purchased."}
 	game.status(labels.get(kind,"Equipment ready.") if ok else "Equipment unavailable, obstructed or out of reach.")
+
+func buy_scout():buy_vehicle("scout")
+func buy_vehicle(kind: String):
+	var s: Dictionary=game.local_state()
+	if multiplayer.is_server():vehicle_purchase(game.map_epoch,s.get("serial",-1),kind)
+	else:vehicle_purchase.rpc_id(1,game.map_epoch,s.get("serial",-1),kind)
+@rpc("any_peer","call_remote","reliable",0)
+func vehicle_purchase(epoch: int,life: int,kind: String):
+	if not multiplayer.is_server() or kind not in vehicles.Data.KINDS:return
+	var id: int=multiplayer.get_remote_sender_id()
+	if id==0:id=multiplayer.get_unique_id()
+	var ok: bool=vehicles.purchase(id,epoch,life,kind)
+	if id==multiplayer.get_unique_id():vehicle_notice(ok,kind)
+	elif id>0:vehicle_notice.rpc_id(id,ok,kind)
+@rpc("authority","call_remote","reliable",0)
+func vehicle_notice(ok: bool,kind: String):
+	game.status(vehicles.Data.definition(kind).name+" ready in 3 seconds. Use beside a seat to board; jump to eject." if ok else "Vehicle purchase failed: check station power, team energy, type limit and clear launch pad.")
+
+func operating(id: int) -> bool:
+	var pads=stations()
+	return remote.operated(id)>=0 or pads and pads.defences.operated(id)>=0
+func pda_open() -> bool:return is_instance_valid(command_view) and command_view.opened
+func open_pda():
+	if game.headless or not enabled():return
+	if not is_instance_valid(command_view):command_view=load("res://deathmatch/tribes/command_view.gd").new();game.add_child(command_view);command_view.setup(self)
+	command_view.toggle()
+func control_remote(key: int):
+	if is_instance_valid(turret_view):turret_view.releasing=key<0
+	if key>=0:
+		if is_instance_valid(deployable_view):deployable_view.watch(-1)
+		if pda_open():command_view.close()
+	var s: Dictionary=game.local_state()
+	if multiplayer.is_server():remote_control(key,game.map_epoch,s.get("serial",-1))
+	else:remote_control.rpc_id(1,key,game.map_epoch,s.get("serial",-1))
+@rpc("any_peer","call_remote","reliable",0)
+func remote_control(key: int,epoch: int,life: int):
+	if not multiplayer.is_server():return
+	var id: int=multiplayer.get_remote_sender_id()
+	if id==0:id=multiplayer.get_unique_id()
+	var ok: bool=remote.control(id,key,epoch,life)
+	if not ok:
+		if id==multiplayer.get_unique_id():remote_notice()
+		elif id>0:remote_notice.rpc_id(id)
+@rpc("authority","call_remote","reliable",0)
+func remote_notice():game.status("Remote control unavailable: check team, active equipment and current operator.")
+@rpc("any_peer","call_remote","unreliable_ordered",3)
+func remote_command(key: int,epoch: int,life: int,direction: Vector3,fire: bool):
+	if not multiplayer.is_server():return
+	var id: int=multiplayer.get_remote_sender_id()
+	if id==0:id=multiplayer.get_unique_id()
+	remote.command(id,key,epoch,life,direction,fire)
+func command_action(action: String,units: Array,point:=Vector3.ZERO):
+	order_sequence+=1
+	var life: int=game.local_state().get("serial",-1)
+	if multiplayer.is_server():command_request(game.map_epoch,life,order_sequence,action,units,point)
+	else:command_request.rpc_id(1,game.map_epoch,life,order_sequence,action,units,point)
+@rpc("any_peer","call_remote","reliable",0)
+func command_request(epoch: int,life: int,sequence: int,action: String,units: Array,point: Vector3):
+	if not multiplayer.is_server():return
+	var id: int=multiplayer.get_remote_sender_id()
+	if id==0:id=multiplayer.get_unique_id()
+	var ok: bool=commander.request(id,epoch,life,sequence,action,units,point)
+	if id==multiplayer.get_unique_id():command_result(ok)
+	elif id>0:command_result.rpc_id(id,ok)
+@rpc("authority","call_remote","reliable",0)
+func command_result(ok: bool):game.status("Command updated." if ok else "Command unavailable: select a unit under your command or an unassigned bot.")

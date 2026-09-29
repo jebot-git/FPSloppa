@@ -93,12 +93,24 @@ func run():
 						visible_heads+=1
 						check(count(m.mesh)<=count(m.get_meta("full_body_mesh")) and m.mesh.get_blend_shape_count()==m.get_meta("full_body_mesh").get_blend_shape_count(),"Retained original head mesh remains on original rig")
 				check(visible_heads>0,armour+" original head remains visible")
-				actor.show_alive(true,true);actor.set_local_body(true);replacement.update(actor)
+				actor.show_alive(true,true);actor.set_local_body(true)
+				check(count(replacement.body.mesh)<triangles,armour+" masks immediately with avatar first-person transition")
+				replacement.update(actor)
 				check(actor.avatar.visual_meshes.any(func(m):return m.visible and replacement.Original.has_hand(m.mesh,m.skin,actor.avatar.skeleton,"LeftHand")),armour+" original hand remains visible in first person")
 				check(count(replacement.body.mesh)<triangles and count(replacement.body.mesh)>0,armour+" first-person torso mask leaves limbs")
+				var mask_before: Mesh=replacement.body.mesh
+				actor.avatar.set_keypad_glove("left")
+				check(replacement.body.mesh==Mask.masked(replacement.body.get_meta("full_body_mesh"),replacement.body.skin,actor.avatar.skeleton,"left"),armour+" follows avatar hand-mask changes immediately")
+				actor.avatar.set_keypad_glove("")
+				check(replacement.body.mesh==mask_before,armour+" restores shared first-person mask after glove release")
+				replacement.build(actor)
+				check(actor.avatar.visual_meshes.count(replacement.body)==1 and count(replacement.body.mesh)<triangles,armour+" rebuilt body starts masked and registers only once")
+				replacement.update(actor)
 				var colour_before: Color=material.albedo_color
 				stage.players[id].team=1-stage.players[id].team;replacement.update(actor)
-				actor.set_local_body(false);actor.show_alive(true,false);replacement.update(actor)
+				actor.set_local_body(false);actor.show_alive(true,false)
+				check(count(replacement.body.mesh)==triangles,armour+" restores immediately with avatar third-person transition")
+				replacement.update(actor)
 				check(count(replacement.body.mesh)==triangles,armour+" third-person restores complete body")
 				for i in replacement.body.mesh.get_surface_count():
 					var candidate=replacement.body.get_active_material(i)
@@ -106,6 +118,7 @@ func run():
 				var previous: Array=[]
 				for m in actor.avatar.visual_meshes:previous.append(m.get_meta("full_body_mesh"))
 				replacement.clear()
+				check(not actor.avatar.visual_meshes.any(func(m):return not is_instance_valid(m) or m.get_meta("tribes_body",false)),armour+" removes armour from avatar visibility lifecycle on unequip")
 				for i in actor.avatar.visual_meshes.size():
 					var m=actor.avatar.visual_meshes[i]
 					check(m.mesh==previous[i] and m.visible==bool(m.get_meta("arena_third_person")),"Leaving Tribes restores original body and visibility")
@@ -169,6 +182,12 @@ func run():
 			actors[3].show();actors[4].show()
 			for label in gallery_labels:label.show()
 			camera.position=Vector3(0,1.05,-6);camera.look_at(Vector3(0,.90,0));camera.size=3.1
+			for first in [false,true]:
+				for i in range(3,6):actors[i].rotation.y=0;actors[i].avatar.set_first_person(first)
+				await process_frame;await RenderingServer.frame_post_draw
+				DirAccess.make_dir_recursive_absolute("res://test-results/st-armour-culling")
+				root.get_texture().get_image().save_png("res://test-results/st-armour-culling/"+("first-person" if first else "third-person")+".png")
+			for i in range(3,6):actors[i].avatar.set_first_person(false)
 			for i in range(3,6):
 				actors[i].rotation.y=.55;actors[i].avatar.stance="crouch";actors[i].avatar.collider_height=1.15;actors[i].avatar.set_process(true)
 			for i in 35:await process_frame

@@ -1,0 +1,884 @@
+{
+  "date": "2026-09-29",
+  "checked_utc": "2026-09-28T23:04:37.150788+00:00",
+  "branch": "experimental/st-raindance",
+  "git_head": "8dbf9cc8ac3355c1682dec040c4291bcf6a58bf4",
+  "scope": "Reference-led ST station, turret, deployable and power-equipment artwork matching the vehicle family. Experimental branch only; no release or commit.",
+  "models": 22,
+  "cladding_helpers": 1,
+  "updated_icons": 7,
+  "references": [
+    {
+      "path": "test-results/st-vehicle-design/references/manual.pdf",
+      "bytes": 15163303,
+      "sha256": "6062b84030587dee447ec2b6c44964fcb46e74c1b851795f2a1d5d88dec7bdd4",
+      "url": "https://www.the-flet.com/dynamix/t1/TribesManual.pdf",
+      "pages": "printed 46\u201351"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/gallery-13.jpg",
+      "bytes": 65432,
+      "sha256": "44cbd656bab5650a0d72690e60452be5b783e06664f75b3dd6c7d9b8bfb5bc2a",
+      "url": "https://www.old-games.ru/games/pc/starsiege_tribes/screenshots/733_4b269528adef0.jpg"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/gallery-17.jpg",
+      "bytes": 78367,
+      "sha256": "9b1252d031256ffe3ef8a3f4dee2ba699789ece82dfe199add8d55f4e38a3048",
+      "url": "https://www.old-games.ru/games/pc/starsiege_tribes/screenshots/733_4b269528eea12.jpg"
+    }
+  ],
+  "provenance": "Independent outer geometry and original vehicle SVG atlas; modified CC0 Kenney Space Kit mechanical cores. No retail models or texture pixels shipped.",
+  "blender": "5.2.0 LTS via Blender MCP (protocol 5 fallback)",
+  "godot": "4.7.2.stable.fedora.ed1daf0bf; Vulkan Mobile Intel Arc A770 previews",
+  "tests": [
+    {
+      "path": "test-results/st-equipment-design/st_base_assets.log",
+      "bytes": 4780,
+      "sha256": "10b2730e8815c857974e5e347bf7f6b25e5c329c0634323bc465cd7c9ec6193d",
+      "name": "ST_BASE_ASSETS",
+      "checks_passed": 77
+    },
+    {
+      "path": "test-results/st-equipment-design/st_parity123.log",
+      "bytes": 6628,
+      "sha256": "3a334831b4db42e77ba45094f249a7d38ed7ab3e89b4eb612db55f0b4e80e54a",
+      "name": "ST_PARITY123",
+      "checks_passed": 94
+    },
+    {
+      "path": "test-results/st-equipment-design/st_parity456.log",
+      "bytes": 4920,
+      "sha256": "c774f1258aaff020747aa757f74f69178f307dbf4775de7d415e2630e131a28f",
+      "name": "ST_PARITY456",
+      "checks_passed": 77
+    },
+    {
+      "path": "test-results/st-equipment-design/tribes_deployables.log",
+      "bytes": 3128,
+      "sha256": "8037b1c8f239c9b3f95f0b5cbb05d2f07aa9f97e4d10bb3b7fddc8ebeaad398d",
+      "name": "TRIBES_DEPLOYABLES",
+      "checks_passed": 55
+    },
+    {
+      "path": "test-results/st-equipment-design/tribes_deployable_ui.log",
+      "bytes": 2387,
+      "sha256": "a368637d5071b4e77e9b7f48a59cd1c92220e218e48579a515efccb168371204",
+      "name": "TRIBES_DEPLOYABLE_UI",
+      "checks_passed": 34
+    },
+    {
+      "path": "test-results/st-equipment-design/mounts.log",
+      "bytes": 800,
+      "sha256": "49fbddad6669fc12d8f08f57c08023e0574a9b248d7902a09bc8ff646c839324",
+      "name": "ST_EQUIPMENT_MOUNTS",
+      "checks_passed": 112
+    },
+    {
+      "path": "test-results/st-equipment-design/routes.log",
+      "bytes": 1447,
+      "sha256": "282dfb480e8822f9850060a764d2b6478baed28bf0e32872eb26c6b1bd562282",
+      "name": "ST_RAINDANCE_ROUTES",
+      "checks_passed": 7
+    }
+  ],
+  "checks_passed": 456,
+  "native_audit": {
+    "ammo_station": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 744
+    },
+    "base_sensor": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 784
+    },
+    "beacon": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 3,
+      "triangles": 96
+    },
+    "camera": {
+      "meshes": 2,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 316
+    },
+    "fixed_elf": {
+      "meshes": 2,
+      "mipmapped": true,
+      "surfaces": 7,
+      "triangles": 1372
+    },
+    "fixed_fusion": {
+      "meshes": 2,
+      "mipmapped": true,
+      "surfaces": 7,
+      "triangles": 1704
+    },
+    "fixed_mini": {
+      "meshes": 2,
+      "mipmapped": true,
+      "surfaces": 7,
+      "triangles": 1188
+    },
+    "fixed_missile": {
+      "meshes": 2,
+      "mipmapped": true,
+      "surfaces": 7,
+      "triangles": 1676
+    },
+    "fixed_mortar": {
+      "meshes": 2,
+      "mipmapped": true,
+      "surfaces": 7,
+      "triangles": 1252
+    },
+    "generator": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 474
+    },
+    "inventory": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 744
+    },
+    "large_sensor": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 1564
+    },
+    "motion": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 4,
+      "triangles": 488
+    },
+    "portable_generator": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 474
+    },
+    "pulse": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 1176
+    },
+    "remote_jammer": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 4,
+      "triangles": 228
+    },
+    "solar": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 3,
+      "triangles": 958
+    },
+    "station_ammo": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 976
+    },
+    "station_command": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 928
+    },
+    "station_inventory": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 888
+    },
+    "station_surround": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 3,
+      "triangles": 48
+    },
+    "station_vehicle": {
+      "meshes": 1,
+      "mipmapped": true,
+      "surfaces": 5,
+      "triangles": 824
+    },
+    "turret": {
+      "meshes": 2,
+      "mipmapped": true,
+      "surfaces": 7,
+      "triangles": 1452
+    }
+  },
+  "native_bytes": 1445732,
+  "behavior_notes": [
+    "Existing firing, aiming, service and deployment logic retained. Fixed turret head pivots aligned to authoritative eyes; remote turret barrels at the existing 1.2 metre firing axis.",
+    "Packed body/head offset is shared; nested placement-preview meshes receive the ghost material.",
+    "Raindance generator frame excludes distant vehicle stations; damage surface now aligns to BSP housing.",
+    "Raindance fixed sensors gain compact native solid/damage fixtures at 60% of Stonehenge size. All 32 original spawn capsules and station approach points tested clear.",
+    "Old compatibility fixtures now omit the later vehicles field when constructing historical recordings. No production protocol changes."
+  ],
+  "preserved": "Prior Scout/LPC/HPC asset hashes match st-vehicle-design-2026-09-29.json; preceding bot and vehicle work retained. BSP maps and navigation resources unchanged.",
+  "assets": [
+    {
+      "path": "deathmatch/tribes/props/ammo_station.scn",
+      "bytes": 12922,
+      "sha256": "8d2f343c274231dfe6e8aff0ec3331c7417b482860a44a747c1889bf945bb693"
+    },
+    {
+      "path": "deathmatch/tribes/props/base_sensor.scn",
+      "bytes": 12392,
+      "sha256": "79c0c1332166a64aaaf43e5914131371c1bc5b15ef2c8346c2c13165ec43e484"
+    },
+    {
+      "path": "deathmatch/tribes/props/beacon.scn",
+      "bytes": 3632,
+      "sha256": "753558e479a2103c5a81721037f0f6d01d0bbbbbca2a9fafdb0bfe441d9af9f8"
+    },
+    {
+      "path": "deathmatch/tribes/props/camera.scn",
+      "bytes": 7719,
+      "sha256": "4afa8a98489c5567f92fe3f2d621aecd9aaa8934884aab73646d10919bda8c3d"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_elf.scn",
+      "bytes": 19817,
+      "sha256": "85c17840ae5a6212178f2c9f7ef6fdc6935bc1a4a5a1b0fcb142dbe5d9df74e2"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_fusion.scn",
+      "bytes": 27584,
+      "sha256": "4344a8089c7577bb153f1fc68dd913eb2fa348e54d17569a45eaa1762f776893"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_mini.scn",
+      "bytes": 21547,
+      "sha256": "7b159bfd38f6b6ddb502207dba341763de7f1945ac6a153b432bbe0e080e7d43"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_missile.scn",
+      "bytes": 22060,
+      "sha256": "cf7b511bbf59dfed72647d076b5a36d80db6bbfc35f2b2f1dae72fb293273e19"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_mortar.scn",
+      "bytes": 22299,
+      "sha256": "0fb4803d7ca41dc1c2224bf72b589b0fdef01a6685b0ca6ceee555e1f2e597b5"
+    },
+    {
+      "path": "deathmatch/tribes/props/generator.scn",
+      "bytes": 8274,
+      "sha256": "45995139ebcbd87d1bf8ba46fcee40a6ac2fbc18dbb99531053963b343c67604"
+    },
+    {
+      "path": "deathmatch/tribes/props/inventory.scn",
+      "bytes": 12872,
+      "sha256": "16b73b9fdb274a79e18925cc565a1d7980f9ae4d00e8454856aee68bc35db5cb"
+    },
+    {
+      "path": "deathmatch/tribes/props/large_sensor.scn",
+      "bytes": 24487,
+      "sha256": "41266d0cf525ae10b1756cfade3ba304a4018794e8adbc90e9decfb5b7f9ce82"
+    },
+    {
+      "path": "deathmatch/tribes/props/motion.scn",
+      "bytes": 9120,
+      "sha256": "6e8f2cf781e228a4b43da5e25044a06d8c30b17133899113781fbdb765f1e5e4"
+    },
+    {
+      "path": "deathmatch/tribes/props/portable_generator.scn",
+      "bytes": 8316,
+      "sha256": "b1772ee57169e80db59df97cf36ad7a36566cfb7fc9912f1e2fb70e841956a36"
+    },
+    {
+      "path": "deathmatch/tribes/props/pulse.scn",
+      "bytes": 16782,
+      "sha256": "0a74fcb237cc938547b77f5ab4e3e4dd41ab1093d6c375e825d7155856f24f05"
+    },
+    {
+      "path": "deathmatch/tribes/props/remote_jammer.scn",
+      "bytes": 6518,
+      "sha256": "5f7e6f0e5b33f4ec167f97a6cf4025809ec4cc7ab52b27317509c32afdd05da2"
+    },
+    {
+      "path": "deathmatch/tribes/props/solar.scn",
+      "bytes": 13687,
+      "sha256": "9e518ed7801e656ff853126f3b57714ca0829d832b16cd70f6032a68fd054d02"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_ammo.scn",
+      "bytes": 15396,
+      "sha256": "6086e055fb40fcf3904c01c0285e8366e8bdd3ca081b2ed06e7299002d58538e"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_command.scn",
+      "bytes": 15029,
+      "sha256": "3e72b46a61ae386db99fbdb84a15f6aca99c6ebdb788c472218b15addaf1f758"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_inventory.scn",
+      "bytes": 15073,
+      "sha256": "ee565360ca12faeaebed82f36057de86f9e1d0c67277e8429710eee0de09f48c"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_surround.scn",
+      "bytes": 2447,
+      "sha256": "1455b54c8428ee8417e42a6ed130c9b5442fa75c46297d0e22fb286e4448132b"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_vehicle.scn",
+      "bytes": 13596,
+      "sha256": "bbf127294707bb78ad92f682692e6e928c64ff05fc6a41372da0f0922aaafa88"
+    },
+    {
+      "path": "deathmatch/tribes/props/turret.scn",
+      "bytes": 24190,
+      "sha256": "7e3d7bce877ccf197a79aa20d2523049f922c14a8739f3110604ca6d945d1e80"
+    },
+    {
+      "path": "deathmatch/tribes/props/finish.res",
+      "bytes": 1109973,
+      "sha256": "bf68edfbfd1eb12da7324fcb0cf2ecb1147d66ba75f1280c72742e741644fe75"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/tribes_remote_turret.svg",
+      "bytes": 440,
+      "sha256": "3fbfdb30094e0e1a09fcded5e71ce47cfc16ab1c591f5f0abbe2aa07298330a2"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/tribes_remote_inventory.svg",
+      "bytes": 421,
+      "sha256": "d7f2a2905b525ab8163faebe12db04044e42c256d84bdd312e8d292254ac315a"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/tribes_remote_ammo.svg",
+      "bytes": 457,
+      "sha256": "3e3b6e1235da71255be37db17cba4ff89453d73c19760605716f662f5d5c9c53"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/tribes_pulse_sensor.svg",
+      "bytes": 675,
+      "sha256": "efb48bf9ce457a014c9f7942876f922515197ecb8e15782dd0190e679631bbe7"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/tribes_motion_sensor.svg",
+      "bytes": 370,
+      "sha256": "8b0854308ad766c14b29b4b04ee0c3ca87a2a70fa4b3ef3ffafcb6c6b160bafa"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/tribes_remote_jammer.svg",
+      "bytes": 421,
+      "sha256": "c8ee7c347d506831e3c03973239edac3707f62fd7d87cb32272d5d2cad519b10"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/tribes_remote_camera.svg",
+      "bytes": 372,
+      "sha256": "9a3ba8016bf50c67cde2667f57be0549dd9d2790e52ed1e577858f21c5537514"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/tribes_remote_turret.res",
+      "bytes": 16307,
+      "sha256": "0e0729e93633ea347c195b82e8845ccc3b422e2943193db9e8caccc79991de9d"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/tribes_remote_inventory.res",
+      "bytes": 18658,
+      "sha256": "3f12a74e86dd565c4c478ee8d7432d5b3157084e1d5943942a680bd90c857287"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/tribes_remote_ammo.res",
+      "bytes": 16917,
+      "sha256": "f62fe38e18b595000fc0a5137b10934bc4809a5ff4726d6c844140f89429f2d5"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/tribes_pulse_sensor.res",
+      "bytes": 30481,
+      "sha256": "6e808d41fe11a5c8752de2479ce79a7d918a80fd82f50e853e4ef57179a8fc3d"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/tribes_motion_sensor.res",
+      "bytes": 20320,
+      "sha256": "18bbfc709ae64d715c69086f522f9bfdeddc5e7d18a08811569039828d75b195"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/tribes_remote_jammer.res",
+      "bytes": 21007,
+      "sha256": "50165d5b1e0c9d5f989836835adf3e21709c4c3165d2c84e8ff2185c9e544b32"
+    },
+    {
+      "path": "deathmatch/weapons/tribes/tribes_remote_camera.res",
+      "bytes": 25925,
+      "sha256": "a86373337d308355a609e62a3a297a3c317b1c3d81671333a4ef7cf3ff8c5aab"
+    }
+  ],
+  "sources": [
+    {
+      "path": "tools/tribes/prop_models.py",
+      "bytes": 16783,
+      "sha256": "3e04a5fbda2502e199b5d571e2b6a0ee943e3696f0d1c8d0a685f558214b9dd4"
+    },
+    {
+      "path": "tools/tribes/prop_sources.py",
+      "bytes": 1596,
+      "sha256": "e5e08d6aca74a28376576fd1bf4a3bd0a6f46e6ee867fe21fbdb7009aadcf327"
+    },
+    {
+      "path": "tools/tribes/prop_icons.py",
+      "bytes": 2392,
+      "sha256": "8642ce14708335b6743e913c78255b570649ecf9de9e73055aadd34ef1a26f0f"
+    },
+    {
+      "path": "tools/tribes/import_props.gd",
+      "bytes": 1788,
+      "sha256": "893fc89c58532b8a2972357e75f7b21244374f9648efd7aa133a0a9751e46fc2"
+    },
+    {
+      "path": "tools/tribes/props_preview.gd",
+      "bytes": 4346,
+      "sha256": "63a38124ae69f83bb5d4625fb955cc9d7e3ebaa2117478037a00497a29b5c4fa"
+    },
+    {
+      "path": "tools/tribes/props_live_preview.gd",
+      "bytes": 1861,
+      "sha256": "6bad64801c4661f48ededa839bcade9bb9df868e0c93c522cd7f45883fa9031d"
+    },
+    {
+      "path": "tools/tribes/prop-sources/st-equipment.blend",
+      "bytes": 1346577,
+      "sha256": "ec26ca3f555b319dc6eabc31e9f1c7af35139bf0d0e8d45c6cdac7173926d2ed"
+    },
+    {
+      "path": "tools/tribes/prop-sources/desk_computerScreen.glb",
+      "bytes": 8248,
+      "sha256": "3a7526fff69a29bd1c793cea34c2bf9d6a96dcc7ef0c7b3c1286f691b8835074"
+    },
+    {
+      "path": "tools/tribes/prop-sources/machine_generator.glb",
+      "bytes": 28044,
+      "sha256": "98e8ac6aceada3b2483ed1eceb59bff7190ee774edac799350ccc11ad140f7f3"
+    },
+    {
+      "path": "tools/tribes/prop-sources/machine_generatorLarge.glb",
+      "bytes": 10220,
+      "sha256": "bbfa33a2e7c7eff7d9ee12f64255249b7e2f5d4b2ada2d681aa35cf38ba599bc"
+    },
+    {
+      "path": "tools/tribes/prop-sources/satelliteDish_detailed.glb",
+      "bytes": 26044,
+      "sha256": "143dd36b2c427e3201110967a18fd836bc7aa8002dbf3e44efa42c75fbb44ae5"
+    },
+    {
+      "path": "tools/tribes/prop-sources/turret_double.glb",
+      "bytes": 50484,
+      "sha256": "a707823a86f895f6418df2340f2e231d7d88be6c2069d3245433299cec1f9f9c"
+    },
+    {
+      "path": "tools/tribes/prop-sources/turret_single.glb",
+      "bytes": 38940,
+      "sha256": "ef27f43718c846297f90a0b20446b13c6a1f092cd995ea730f27d6e003efd1e0"
+    },
+    {
+      "path": "deathmatch/tribes/props/ammo_station.glb",
+      "bytes": 321600,
+      "sha256": "1943aa740e147dfb05ef7cd0e8813adf3439a16693b21df197ca3aea276e2fb2"
+    },
+    {
+      "path": "deathmatch/tribes/props/base_sensor.glb",
+      "bytes": 321896,
+      "sha256": "eb64804d172c8558fab23f63a1e900fbe8c462b14c2b89c216469b2b80fe66a9"
+    },
+    {
+      "path": "deathmatch/tribes/props/beacon.glb",
+      "bytes": 276136,
+      "sha256": "65f9b24e7acbe44302c47c9454414aba87c2e5d7677733e470ea15bce61d20e2"
+    },
+    {
+      "path": "deathmatch/tribes/props/camera.glb",
+      "bytes": 292364,
+      "sha256": "f18f3082c15f7785a721f7d32f2275c77e606487163a5982009832140364da8c"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_elf.glb",
+      "bytes": 364920,
+      "sha256": "879d09be575758ef8a3270d048b82cd099c17772f9009d9532e1f7151fd92be7"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_fusion.glb",
+      "bytes": 397176,
+      "sha256": "eceeaecd9aa7fef6558eef4e23996164a09350d584619144a1abd040e06a1a1d"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_mini.glb",
+      "bytes": 359328,
+      "sha256": "22e3b3c47730329551b1b091a41ac5b50cd8a4064f5fe63afcdef72acd7a49f2"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_missile.glb",
+      "bytes": 384404,
+      "sha256": "0de13818cdcc75e59228b88ff6ce7682d5cfaa5062bfdde68f9855bf0456dce4"
+    },
+    {
+      "path": "deathmatch/tribes/props/fixed_mortar.glb",
+      "bytes": 363292,
+      "sha256": "dee79d8e1dfdb451d2a5131073d53a92b544d45c2f5c358c6e3cbf1732b600ea"
+    },
+    {
+      "path": "deathmatch/tribes/props/generator.glb",
+      "bytes": 305028,
+      "sha256": "489fe61c5b44ab8104f0f4bbf7d71b6ad50a1bd72eeed0d9507c5fdcbd8337a4"
+    },
+    {
+      "path": "deathmatch/tribes/props/inventory.glb",
+      "bytes": 321576,
+      "sha256": "4095ef34055dc6b70af582ab3048730baef1f4438c27d2d5cd67a1751ec79762"
+    },
+    {
+      "path": "deathmatch/tribes/props/large_sensor.glb",
+      "bytes": 388036,
+      "sha256": "3cd5f5c6ef2ef6797fd4e124be470af1f0208ffbbef2b7dde06cc4f3ea1cd48f"
+    },
+    {
+      "path": "deathmatch/tribes/props/motion.glb",
+      "bytes": 302912,
+      "sha256": "44be775ff6b8e098f3a5cf5c4e98832f81d8b64ab8223122bb27be6f902ab44a"
+    },
+    {
+      "path": "deathmatch/tribes/props/portable_generator.glb",
+      "bytes": 305076,
+      "sha256": "d2d9bf961a8f6da4e6e0123cf4733a3441bccc11612b60fa710736fbd3ec6133"
+    },
+    {
+      "path": "deathmatch/tribes/props/pulse.glb",
+      "bytes": 349788,
+      "sha256": "39a27572e4d1c257a9a84006c564049c3f1ecae4403fa76de6a302bf9058e188"
+    },
+    {
+      "path": "deathmatch/tribes/props/remote_jammer.glb",
+      "bytes": 285520,
+      "sha256": "b678c80c31e986208c5352fa5d4cd128331a958cde1687ab3493cc5994dcf782"
+    },
+    {
+      "path": "deathmatch/tribes/props/solar.glb",
+      "bytes": 339620,
+      "sha256": "6d9301f40fbee979f5c88995318459a9de1682de90bea0725cbb03a9488cb9f5"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_ammo.glb",
+      "bytes": 336208,
+      "sha256": "3aead7a4c7dfeeab3d06289bde97cf0628af13843897cb2042472fc63500f6e9"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_command.glb",
+      "bytes": 334900,
+      "sha256": "d1c6fb1981fbd96345c893e561c7ac28c56785e8d31bb099e2a474354ade9ef5"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_inventory.glb",
+      "bytes": 331080,
+      "sha256": "1bd21b168512abde96e56c7737cade1b89eccbb7c502cb4d1e364d7ec93bf569"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_surround.glb",
+      "bytes": 272716,
+      "sha256": "35457b02011d0579d9afa3057fdf12d0d043c64f4a160c282653527eaa51cbc0"
+    },
+    {
+      "path": "deathmatch/tribes/props/station_vehicle.glb",
+      "bytes": 327620,
+      "sha256": "27c1d19b1e198703e4a20d959e194a0b6de44be5ef0763bc852f647383e14a1d"
+    },
+    {
+      "path": "deathmatch/tribes/props/turret.glb",
+      "bytes": 377540,
+      "sha256": "80188a5e100435f0ad6f08102f3bfb7e2751767b204f6a9a9426e91c6037d612"
+    },
+    {
+      "path": "deathmatch/tribes/prop_library.gd",
+      "bytes": 1494,
+      "sha256": "5c015c9340cd4c453390b32d570b155f8f60c4c50eb3a41998b1c09b348309b0"
+    },
+    {
+      "path": "deathmatch/tribes/stations.gd",
+      "bytes": 15386,
+      "sha256": "db56d4c2e062d2a5952808266e72fdc384eef6d4db1a3bfdc7bafeec483411bd"
+    },
+    {
+      "path": "deathmatch/tribes/base_assets.gd",
+      "bytes": 7074,
+      "sha256": "55e41061c29562b47b29cd4866928ac15c1838298b4ce120c5ee49302de83570"
+    },
+    {
+      "path": "deathmatch/tribes/deployable_model.gd",
+      "bytes": 474,
+      "sha256": "41e94e156a0555627b26d88d10169f41543c36e7148eae9ea24512056944495c"
+    },
+    {
+      "path": "deathmatch/tribes/fixed_defence_model.gd",
+      "bytes": 392,
+      "sha256": "bb89f4058020b27e91a0f7dd0ffe49f77a3f89486d945dd2fee1a1166d5750b0"
+    },
+    {
+      "path": "deathmatch/tribes/deployable_view.gd",
+      "bytes": 4875,
+      "sha256": "f8c4d63814a21974665e8a73786c5560c4386dd459d503d4f4cdfb095e667153"
+    },
+    {
+      "path": "deathmatch/tribes/deployables.gd",
+      "bytes": 14554,
+      "sha256": "09b9bc686470e4b114256463103ca6ecb7f19513fb092676e446966022cbac39"
+    },
+    {
+      "path": "deathmatch/tribes/fixed_defences.gd",
+      "bytes": 10532,
+      "sha256": "a80b3383223cf0aa0496db780556379eea86a15125c26d14a20934de2034d95a"
+    },
+    {
+      "path": "deathmatch/tribes/field_view.gd",
+      "bytes": 4156,
+      "sha256": "59c506b0285993cb7bf14df3ef6ff250c84f50b989dd7c197bf426d54e1b78a0"
+    },
+    {
+      "path": "deathmatch/tests/st_equipment_mounts.gd",
+      "bytes": 4443,
+      "sha256": "e8047b05e9171098d9cc9d92bd897334a9260db9e5f4a00372294070a40877b9"
+    },
+    {
+      "path": "deathmatch/tests/st_base_assets.gd",
+      "bytes": 12363,
+      "sha256": "f44b7a5f510d7bf8a1081d7ac813c75a48f9a591c377d1fa87a81c20086bd304"
+    },
+    {
+      "path": "deathmatch/tests/st_parity456.gd",
+      "bytes": 16102,
+      "sha256": "85f6c8ac933c671fad1d957e0166bf716abfafaeab7382aa7e93ef8af346eba2"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "test-results/st-equipment-design/ctf_raindance-ammo.png",
+      "bytes": 2200444,
+      "sha256": "1e5341d3485938315f9b867b229dc82565625bd41e95676424e70abb0dda2b60"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_raindance-generator.png",
+      "bytes": 2143782,
+      "sha256": "fd5452b6523face287d8a90c0fcd15c61ba3d93e2b098498db3b08d0b05a5505"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_raindance-inventory.png",
+      "bytes": 2163953,
+      "sha256": "f253a6c54d393c7a81092052c17baaf49f72c39333483cbe5b0e23b43517b4e8"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_raindance-sensor.png",
+      "bytes": 1767387,
+      "sha256": "cb4144e8ae5d02fc581efca88ca50b8440bd1039865476bf01113167c0d848cf"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_raindance-turret.png",
+      "bytes": 1629080,
+      "sha256": "67cb092807a869b945da166a1e606304cf9fe7cb2027179ac829f292109dba50"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_raindance-vehicle.png",
+      "bytes": 1790951,
+      "sha256": "8d7ea23ddfccdf15bc5a0f3a13710a7bad16c81feffdb4aff533ddf5c6f48ea1"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_stonehenge-generator.png",
+      "bytes": 1308653,
+      "sha256": "e6e3743886891c896c3e10a297296a7985d2e0025e3e75254730920ed0039f92"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_stonehenge-inventory.png",
+      "bytes": 1403077,
+      "sha256": "0fd363ca72892f4f4287fad8ae29311425dc19c22c454690d79f257bf9108937"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_stonehenge-sensor.png",
+      "bytes": 1755129,
+      "sha256": "7bff308964abbf887a2f8ecfb071d4fae580709f05898fa805f945042ccbdee8"
+    },
+    {
+      "path": "test-results/st-equipment-design/ctf_stonehenge-turret.png",
+      "bytes": 1981941,
+      "sha256": "38de1c4e84eb5810568c5a8d98dd7af3acdd84358b353b42a9c0da44d7941a6b"
+    },
+    {
+      "path": "test-results/st-equipment-design/deployables.png",
+      "bytes": 80180,
+      "sha256": "f8904cc1229b1bc44494c1a391273dc274a358db38758d468dfb09218a174752"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-base_sensor.png",
+      "bytes": 377034,
+      "sha256": "58756b29143bb21c9af0b42cd3d2b2966261ac06fde38a46a05f8c37ac314b98"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-camera.png",
+      "bytes": 68201,
+      "sha256": "ee35cc1239e012321b4b8726c23b021d132086f696323500df159bc1ee032ff4"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-fixed_elf.png",
+      "bytes": 223802,
+      "sha256": "dbbf663446c1088967cf2077b805cf9d8dfa207281639a8b478aa7b0dd1b5b6e"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-fixed_fusion.png",
+      "bytes": 223985,
+      "sha256": "b41ff2e9d7d4b2d8c62616f06c36eedc334ccb1ec0d10aa69d803ffae202ae70"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-fixed_missile.png",
+      "bytes": 266709,
+      "sha256": "87f536bb45ea972d4ebcd7c666dc044a3083f6fc3dc08ad779e4fabfd36db51e"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-fixed_mortar.png",
+      "bytes": 229920,
+      "sha256": "ec1b9292a34fd50dadc1a2d68e4949f3f1f84d6493d5ddbc31453e037eea30d7"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-generator.png",
+      "bytes": 293943,
+      "sha256": "5a15fb02443e500266ac8d931faa7029590c95ee0836922dc475436554be0a92"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-inventory.png",
+      "bytes": 181116,
+      "sha256": "1faa76a2952154cd2af6ce084b0bc8d4c1c355f14b9fe07ef46663e3bed0c917"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-pulse.png",
+      "bytes": 86325,
+      "sha256": "15b006660a64283c6c12bb6ecc5fbd21e9bb61858058b9dd272907053327a8c1"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-remote_jammer.png",
+      "bytes": 95729,
+      "sha256": "08cf4d65e9cdcaa4338c3001ef3820ad793af832e45e04b265c3dab172725b9f"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-station_inventory.png",
+      "bytes": 188097,
+      "sha256": "106f0feaee994ffd3e5ed016ecc59f49d43c22f4fb449fbc9cba8370ebfdd51b"
+    },
+    {
+      "path": "test-results/st-equipment-design/detail-turret.png",
+      "bytes": 124998,
+      "sha256": "0e8d91e7ad7912be35d4fa113d4bf199d3be66691950521be63571b4113c3702"
+    },
+    {
+      "path": "test-results/st-equipment-design/power.png",
+      "bytes": 147903,
+      "sha256": "67c2565bae545c3295cd0251d7fc2230ddc2ff79e325ce881214d2ae33ad77e0"
+    },
+    {
+      "path": "test-results/st-equipment-design/purchase-icons.png",
+      "bytes": 39118,
+      "sha256": "7981ff9ada310a4dfbc9b770698acff8bf17f02c7faaa36acdaa427c92fb2c57"
+    },
+    {
+      "path": "test-results/st-equipment-design/sensors.png",
+      "bytes": 332484,
+      "sha256": "c5e450e7ebdca2098d794be8d230eaa237a9972008ac64f9fb3c97b992d7e993"
+    },
+    {
+      "path": "test-results/st-equipment-design/station-offline.png",
+      "bytes": 187294,
+      "sha256": "935e4a09bbacfd15d06fde1dca78828499595e4799e7c196a448bb65e08ddb33"
+    },
+    {
+      "path": "test-results/st-equipment-design/stations.png",
+      "bytes": 171717,
+      "sha256": "22a009945465e671956f7533f00c7b1528551cd839fea6efec9154ba2538f070"
+    },
+    {
+      "path": "test-results/st-equipment-design/turrets.png",
+      "bytes": 157054,
+      "sha256": "3b1674a64f94405f32f565015e57ec729327cd1746aca4c0b6069bbb9ca8417d"
+    }
+  ],
+  "logs": [
+    {
+      "path": "test-results/st-equipment-design/import-icons.log",
+      "bytes": 300,
+      "sha256": "973385494590b38dce2cf7a4e2fca1b2286a766784df3b77289333d9c6c4bab7"
+    },
+    {
+      "path": "test-results/st-equipment-design/import.log",
+      "bytes": 321,
+      "sha256": "f31c8e2e70a5894a2c682d1e96647bcfdaa57c8cdf6d01d193752cbe7a814abe"
+    },
+    {
+      "path": "test-results/st-equipment-design/map-preview.log",
+      "bytes": 875,
+      "sha256": "167b94f75ee835e8189356bc1195e62c422a66b6cc996008df92a56e75c3f287"
+    },
+    {
+      "path": "test-results/st-equipment-design/mounts.log",
+      "bytes": 800,
+      "sha256": "49fbddad6669fc12d8f08f57c08023e0574a9b248d7902a09bc8ff646c839324"
+    },
+    {
+      "path": "test-results/st-equipment-design/preview.log",
+      "bytes": 418,
+      "sha256": "8d8f28d3bfcb73ada5a88ffa5d02dadf5305ed8775f2f9b1bdba4f01b4eb6709"
+    },
+    {
+      "path": "test-results/st-equipment-design/routes.log",
+      "bytes": 1447,
+      "sha256": "282dfb480e8822f9850060a764d2b6478baed28bf0e32872eb26c6b1bd562282"
+    },
+    {
+      "path": "test-results/st-equipment-design/st_base_assets.log",
+      "bytes": 4780,
+      "sha256": "10b2730e8815c857974e5e347bf7f6b25e5c329c0634323bc465cd7c9ec6193d"
+    },
+    {
+      "path": "test-results/st-equipment-design/st_parity123.log",
+      "bytes": 6628,
+      "sha256": "3a334831b4db42e77ba45094f249a7d38ed7ab3e89b4eb612db55f0b4e80e54a"
+    },
+    {
+      "path": "test-results/st-equipment-design/st_parity456.log",
+      "bytes": 4920,
+      "sha256": "c774f1258aaff020747aa757f74f69178f307dbf4775de7d415e2630e131a28f"
+    },
+    {
+      "path": "test-results/st-equipment-design/tribes_deployable_ui.log",
+      "bytes": 2387,
+      "sha256": "a368637d5071b4e77e9b7f48a59cd1c92220e218e48579a515efccb168371204"
+    },
+    {
+      "path": "test-results/st-equipment-design/tribes_deployables.log",
+      "bytes": 3128,
+      "sha256": "8037b1c8f239c9b3f95f0b5cbb05d2f07aa9f97e4d10bb3b7fddc8ebeaad398d"
+    }
+  ],
+  "archive": {
+    "path": "test-results/st-equipment-design/sources-final.tar.gz",
+    "bytes": 9313664,
+    "sha256": "d7d8b24454124a2c13a7ac74bfeaf33ae1e620de466eb1b56acc3a07e5852080"
+  },
+  "limitations": [
+    "Adapted to existing solid cover and interaction dimensions; large sensor rear beams/plinths remain constrained by Stonehenge BSP geometry.",
+    "No physical headset session or multiplayer soak in this pass.",
+    "Existing one/two ObjectDB shutdown warnings remain; no final script errors."
+  ],
+  "earlier_iterations": "Initial missing-metadata log noise, outdated legacy fixture expectations and an incorrectly headless graphical test are retained in ignored initial/ evidence. All were resolved or rerun correctly before this receipt."
+}

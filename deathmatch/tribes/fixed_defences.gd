@@ -33,7 +33,7 @@ func release(id: int):
 func eligible(id: int) -> bool:
 	if not game.active or game.map_loading or game.intermission>0 or not game.players.has(id) or not game.fighters.has(id):return false
 	var s: Dictionary=game.players[id]
-	return not s.dead and not s.spectator and not game.match_mode.special.blocked(id) and game.match_mode.st.carried(id)<0
+	return not s.dead and not s.spectator and not game.match_mode.special.blocked(id) and game.match_mode.st.carried(id)<0 and not game.match_mode.tribes.vehicles.mounted(id)
 func control(id: int,key: int,epoch: int,life: int) -> bool:
 	if not game.multiplayer.is_server() or epoch!=game.map_epoch or game.players.get(id,{}).get("serial",-1)!=life:return false
 	if key<0:release(id);return true
@@ -65,7 +65,7 @@ func blast(where: Vector3,attacker: int,amount: float,radius: float,team: int=-1
 		if where.distance_to(eye(key))>radius+4:continue
 		var hit: Dictionary=game._trace(where,eye(key),attacker)
 		if hit.get("fixed_turret",-1)==key and where.distance_to(hit.position)<radius:damage(key,attacker,amount*(1-where.distance_to(hit.position)/radius),family)
-func warm(id: int) -> bool:return game.clock<float(heat.get(id,0))
+func warm(id: int) -> bool:return game.match_mode.tribes.vehicles.mounted(id) or game.clock<float(heat.get(id,0))
 func acquire(key: int) -> int:
 	var row: Dictionary=rows[key];var d: Dictionary=Data.TYPES[row.kind];var nearest: float=d.range;var selected:=0
 	if nearest<=0:return 0 # Original mortar is manually operated.
@@ -95,7 +95,7 @@ func tick(delta: float):
 		var desired: Vector3=row.aim;var firing:=false
 		if row.operator!=0:
 			var input: Dictionary=row.get("command",{})
-			if not input.is_empty():desired=input.aim;firing=input.fire
+			if not input.is_empty():desired=input.aim;firing=input.fire and not game.players[row.operator].get("input_blocked",false)
 		elif row.target!=0 and game.players.has(row.target) and not game.players[row.target].dead:
 			var actor=game.fighters[row.target];var point: Vector3=actor.position+Vector3.UP*actor.torso_height()
 			if row.kind=="missile" and not warm(row.target):row.target=0;continue
@@ -129,6 +129,7 @@ func update():
 	for key in rows.size():
 		var row: Dictionary=rows[key]
 		if not is_instance_valid(row.get("model")):continue
+		preload("res://deathmatch/tribes/prop_library.gd").set_active(row.model,active(key))
 		var head=row.model.get_node("Head");head.look_at(head.global_position+row.aim,Vector3.UP if absf(row.aim.y)<.99 else Vector3.RIGHT)
 		row.model.get_node("Status").text=Data.TYPES[row.kind].name+" · "+("OFFLINE" if not active(key) else "CONTROLLED" if row.operator else "%d%%"%roundi(100*row.hp/Data.hp(row.kind)))
 func snapshot() -> Array:return rows.map(func(row):return [row.hp,row.energy,row.aim,row.operator])

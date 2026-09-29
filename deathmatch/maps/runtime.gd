@@ -138,6 +138,14 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	var push_index:=0
 	for i in regions.size():
 		if regions[i].kind=="trigger_push":regions[i]=pushes[push_index];push_index+=1
+	# Runtime equipment on the two existing Raindance vehicle-pad landmarks.
+	# Physical BSP cover and navigation stay unchanged.
+	if bsp_path.get_file()=="ctf_raindance.bsp":
+		for team in 2:
+			var pad: Vector3=[Vector3(-1.067,22.9064,306.0292),Vector3(2.278,35.5526,-282.696)][team]
+			var marker=preload("res://deathmatch/maps/entity.gd").new()
+			marker.attributes={"classname":"info_tribes_vehicle","team":str(team),"angle":str(0 if team==0 else 180),"vehicle_spawn":pad+Vector3.UP*1.2}
+			root.add_child(marker);marker.global_position=pad+Vector3(7,.70,0);entities.append(marker)
 	tribes_stations=preload("res://deathmatch/tribes/stations.gd").new();tribes_stations.name="TribesStations";add_child(tribes_stations);tribes_stations.configure(game,entities)
 	triggers.setup(self,entities)
 	if not bsp_path.is_empty():ballistics.open(bsp_path,root)

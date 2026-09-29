@@ -1,10 +1,10 @@
 extends RefCounted
 ## Arena approximations. TF/TB require Quake; Assault requires UT99.
 const Doom=preload("res://deathmatch/weapons.gd")
-const IDS=["doom","quake","ut99","cs16"]
-const NAMES={"doom":"DOOM · classic","quake":"QUAKE I · experimental","ut99":"UT99 · experimental","cs16":"CS 1.6 · arena adaptation"}
+const IDS=["doom","quake","ut99","cs16","tribes"]
+const NAMES={"doom":"DOOM · classic","quake":"QUAKE I · experimental","ut99":"UT99 · experimental","cs16":"CS 1.6 · arena adaptation","tribes":"TRIBES · experimental"}
 const SLOT_COUNT:=12
-const MODE_RULES={"tf":"quake","tb":"quake","as":"ut99","de":"cs16"}
+const MODE_RULES={"tf":"quake","tb":"quake","as":"ut99","de":"cs16","st":"tribes"}
 static func selectable(mode:String) -> bool:return mode in ["dm","tdm","ctf","koth","ft"]
 static func required(mode:String) -> String:return "doom" if mode in ["ig","if","cc"] else MODE_RULES.get(mode,"")
 var preferred:="doom"

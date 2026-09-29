@@ -18,6 +18,7 @@ var hidden_hand:=""
 var original_hands: Array=[]
 static var mesh_cache: Dictionary={}
 func clear():
+	if is_instance_valid(avatar) and not fallback:avatar.visual_meshes.erase(body)
 	if is_instance_valid(body) and not fallback:body.free()
 	if is_instance_valid(source_root):source_root.free()
 	for entry in originals:
@@ -49,6 +50,7 @@ func build(value):
 		var replacement:=MeshInstance3D.new();replacement.name="TribesBody";replacement.mesh=result.mesh;replacement.skin=result.skin
 		avatar.skeleton.add_child(replacement);replacement.skeleton=NodePath("..");source_root.free();source_root=null;source_sk=null;body=replacement
 	body.set_meta("tribes_body",true);team=-99;last_first=false
+	if not fallback:avatar.register_visual_mesh(body,true,true)
 func is_weapon(node: Node) -> bool:
 	while node!=avatar and node!=null:
 		if node.name=="WeaponModel":return true
@@ -107,6 +109,8 @@ func update(value):
 	if avatar!=value.avatar or key!=value.tribes_state.armour or not is_instance_valid(body):build(value)
 	var state: Dictionary=value.get_parent().players.get(value.peer_id,{})
 	var next_team: int=state.get("team",-1)
+	var first: bool=value.local_player and value.local_body_visible if fallback else avatar.first_person
+	var hand: String=avatar.get("keypad_glove") if not fallback else ""
 	if next_team!=team:
 		team=next_team
 		var full: Mesh=body.get_meta("full_body_mesh",body.mesh)
@@ -118,10 +122,10 @@ func update(value):
 				copy=material.duplicate();copy.albedo_color=Color("ff7764") if team==0 else Color("72acff") if team==1 else Color("c6c4ab")
 			overrides.append(copy)
 		body.set_meta("full_body_mesh",full);body.set_meta("full_body_overrides",overrides)
-		Mask.apply(body,source_sk if fallback else avatar.skeleton,last_first,hidden_hand)
-	var first: bool=value.local_player and value.local_body_visible
-	var hand: String=avatar.get("keypad_glove") if not fallback else ""
-	if first!=last_first or hand!=hidden_hand:
+		Mask.apply(body,source_sk if fallback else avatar.skeleton,first,hand)
+	# VRM meshes are updated immediately by the owning avatar. The procedural
+	# fallback has no avatar rig, so retain its local visibility handling here.
+	if fallback and (first!=last_first or hand!=hidden_hand):
 		Mask.apply(body,source_sk if fallback else avatar.skeleton,first,hand);last_first=first;hidden_hand=hand
 	body.visible=(not value.local_player or value.local_body_visible) and not value.spectator and not value.gibbed and (value.alive_state or avatar.death_time<preload("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
 	if fallback:update_fallback()

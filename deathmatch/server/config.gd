@@ -1,9 +1,9 @@
 extends RefCounted
-const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as","de"]
+const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as","de","st"]
 const MAX_CLIENTS := 32
 const CAPACITY_WARNING := "UNSUPPORTED PLAYER COUNT: more than 16 players is unsupported. Performance, gameplay and maps are not balanced for player limits higher than 16."
-const DEFAULTS={"sv_de_prepare":15,"sv_de_roundtime":120,"sv_de_bombtime":45,"sv_de_winlimit":16,"de_maplist":"","sv_jetpacks":0,"sv_master_test":0,"sv_master_test_port":8080,"sv_public":0,"sv_query_port":0,"sv_master_url":"","sv_bot_fill":0,"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_ballot_exclude_modes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","if_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
-const RANGES={"sv_de_prepare":Vector2i(5,60),"sv_de_roundtime":Vector2i(30,600),"sv_de_bombtime":Vector2i(10,90),"sv_de_winlimit":Vector2i(1,30),"sv_jetpacks":Vector2i(0,1),"sv_master_test":Vector2i(0,1),"sv_master_test_port":Vector2i(1024,65535),"sv_public":Vector2i(0,1),"sv_query_port":Vector2i(0,65535),"sv_bot_fill":Vector2i(0,MAX_CLIENTS),"rcon_port":Vector2i(1024,65535),"sv_lobby":Vector2i(0,1),"sv_lobby_seconds":Vector2i(15,180),"sv_map_uploads":Vector2i(0,1),"sv_log_max_mb":Vector2i(1,512),"sv_log_backups":Vector2i(1,9),"sv_friendlyfire":Vector2i(0,1),"capturelimit":Vector2i(1,100),"hilllimit":Vector2i(1,3600),"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_votes":Vector2i(0,1),"sv_tf_spy_invisibility":Vector2i(0,1),"sv_announcer":Vector2i(0,1),"sv_voice":Vector2i(0,1)}
+const DEFAULTS={"st_maplist":"","sv_tribes_infinite_energy":0,"sv_de_prepare":15,"sv_de_roundtime":120,"sv_de_bombtime":45,"sv_de_winlimit":16,"de_maplist":"","sv_jetpacks":0,"sv_master_test":0,"sv_master_test_port":8080,"sv_public":0,"sv_query_port":0,"sv_master_url":"","sv_bot_fill":0,"sv_weapon_rules":"doom","sv_lobby":0,"sv_lobby_seconds":45,"sv_hostname":"FPSloppa","net_ip":"*","net_port":7777,"sv_maxclients":8,"fraglimit":20,"timelimit":10,"sv_log_level":"normal","sv_log_file":"","sv_log_max_mb":8,"sv_log_backups":3,"sv_voice":1,"sv_tf_spy_invisibility":0,"sv_announcer":1,"sv_voice_backend":"builtin","sv_mumble_url":"","sv_votes":1,"sv_map_uploads":1,"map":"qsrc_dm1","sv_maplist":"","sv_gametype":"dm","sv_gametypes":"","sv_ballot_exclude_modes":"","sv_friendlyfire":0,"capturelimit":5,"hilllimit":120,"rcon_password":"","rcon_port":7778,"rcon_bind":"127.0.0.1","dm_maplist":"","tdm_maplist":"","ctf_maplist":"","koth_maplist":"","ig_maplist":"","if_maplist":"","ft_maplist":"","cc_maplist":"","tf_maplist":"","tb_maplist":"","as_maplist":""}
+const RANGES={"sv_tribes_infinite_energy":Vector2i(0,1),"sv_de_prepare":Vector2i(5,60),"sv_de_roundtime":Vector2i(30,600),"sv_de_bombtime":Vector2i(10,90),"sv_de_winlimit":Vector2i(1,30),"sv_jetpacks":Vector2i(0,1),"sv_master_test":Vector2i(0,1),"sv_master_test_port":Vector2i(1024,65535),"sv_public":Vector2i(0,1),"sv_query_port":Vector2i(0,65535),"sv_bot_fill":Vector2i(0,MAX_CLIENTS),"rcon_port":Vector2i(1024,65535),"sv_lobby":Vector2i(0,1),"sv_lobby_seconds":Vector2i(15,180),"sv_map_uploads":Vector2i(0,1),"sv_log_max_mb":Vector2i(1,512),"sv_log_backups":Vector2i(1,9),"sv_friendlyfire":Vector2i(0,1),"capturelimit":Vector2i(1,100),"hilllimit":Vector2i(1,3600),"net_port":Vector2i(1024,65535),"sv_maxclients":Vector2i(1,MAX_CLIENTS),"fraglimit":Vector2i(1,100),"timelimit":Vector2i(1,60),"sv_votes":Vector2i(0,1),"sv_tf_spy_invisibility":Vector2i(0,1),"sv_announcer":Vector2i(0,1),"sv_voice":Vector2i(0,1)}
 
 static func parse(source: String) -> Dictionary:
 	var values:=DEFAULTS.duplicate()
@@ -43,9 +43,14 @@ static func parse(source: String) -> Dictionary:
 	if not str(values.sv_master_url).is_empty() and not preload("res://deathmatch/server/discovery_protocol.gd").valid_url(values.sv_master_url):return {"error":"sv_master_url requires HTTPS (numeric loopback HTTP is allowed for local testing)."}
 	if values.sv_public==1 and (values.sv_query_port==0 or str(values.sv_master_url).is_empty()):return {"error":"sv_public requires sv_query_port and sv_master_url."}
 	if values.sv_bot_fill>values.sv_maxclients:return {"error":"sv_bot_fill cannot exceed sv_maxclients."}
-	if not values.sv_weapon_rules in preload("res://deathmatch/experimental/weapon_rules.gd").IDS:return {"error":"sv_weapon_rules must be doom, quake, ut99 or cs16."}
+	if not values.sv_weapon_rules in preload("res://deathmatch/experimental/weapon_rules.gd").IDS:return {"error":"sv_weapon_rules must be doom, quake, ut99, cs16 or tribes."}
 	values.sv_gametype=str(values.sv_gametype).to_lower()
 	if values.sv_gametype=="tb":values.timelimit=10
+	if values.sv_gametype=="st":
+		values.sv_weapon_rules="tribes"
+		if values.map=="qsrc_dm1":values.map="ctf_stonehenge"
+		if str(values.st_maplist).is_empty():values.st_maplist="ctf_stonehenge ctf_raindance"
+		if str(values.sv_maplist).is_empty():values.sv_maplist=values.st_maplist
 	if values.sv_gametype=="de":
 		values.sv_weapon_rules="cs16"
 		var de_maps=preload("res://deathmatch/modes/defusal_maps.gd")
@@ -54,7 +59,7 @@ static func parse(source: String) -> Dictionary:
 		if str(values.sv_maplist).is_empty():values.sv_maplist=values.de_maplist
 		for id in (str(values.de_maplist)+" "+str(values.sv_maplist)).split(" ",false):
 			if not de_maps.installed(id):return {"error":"DE maplists require an installed map with validated defusal objectives."}
-	if not values.sv_gametype in MODES:return {"error":"sv_gametype must be dm, tdm, ctf, koth, ig, if, ft, cc, tf, tb, as or de."}
+	if not values.sv_gametype in MODES:return {"error":"sv_gametype must be dm, tdm, ctf, koth, ig, if, ft, cc, tf, tb, as, de or st."}
 	if not values.sv_voice_backend in ["builtin","mumble"]:return {"error":"sv_voice_backend must be builtin or mumble."}
 	if values.sv_voice_backend=="mumble" and not preload("res://deathmatch/voice/external.gd").valid_url(values.sv_mumble_url):return {"error":"Mumble requires a valid mumble://host:port/channel URL without credentials."}
 	var modes:=str(values.sv_gametypes).to_lower().split(" ",false)

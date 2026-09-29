@@ -282,10 +282,10 @@ func recenter() -> void:
 	calibration_pending=false
 	if tracking: tracking.corrections.clear();tracking.native_corrections.clear();tracking.native_foot_offsets.clear()
 	place_menu()
-func on_spawn() -> void:
+func on_spawn(inventory_refit: bool=false) -> void:
 	defusal_lowering=0.0;defusal_posture=false
 	virtual_stock.reset();support_aim.reset()
-	if weapon_wheel:weapon_wheel.reset()
+	if weapon_wheel and not inventory_refit:weapon_wheel.reset()
 	physical_actions.reset();shoulder_radio.reset()
 	if physical_reload:physical_reload.reset()
 	swim_detector.reset();swim_input=Vector3.ZERO;t_pose_detector.reset()
@@ -300,7 +300,8 @@ func control_button(action: String, _hand: XRController3D) -> void:
 func poll_controls() -> void:
 	var wheel_pressed: bool=game.bindings.vr_pressed(self,"weapon_wheel")
 	if weapon_wheel and focused and wheel_pressed and not control_edges.get("weapon_wheel",false):
-		weapon_wheel.toggle(right.get_vector2("primary"))
+		if game.match_mode.tribes.pda_open():game.match_mode.tribes.command_view.close()
+		else:weapon_wheel.toggle(right.get_vector2("primary"))
 	control_edges["weapon_wheel"]=wheel_pressed
 	for action in ["menu","scores","use","ability"]:
 		var pressed: bool=game.bindings.vr_pressed(self,action)
@@ -314,7 +315,9 @@ func poll_controls() -> void:
 				"menu":toggle_menu()
 				"use":
 					if game.active and not game.menu_open and not wheel_open() and not (game.match_mode.fortress.enabled() and game.bindings.vr.use==game.bindings.vr.ability):
-						if multiplayer.is_server():game._use_for(multiplayer.get_unique_id())
+						if game.match_mode.tribes.enabled() and game.match_mode.tribes.close_remote_view():pass
+						elif game.match_mode.tribes.enabled() and physical_actions.equipment.use_held_pack():pass
+						elif multiplayer.is_server():game._use_for(multiplayer.get_unique_id())
 						else:game._use_request.rpc_id(1)
 				"ability":
 					if context_controls_available() and game.match_mode.fortress.enabled() and not physical_actions.busy() and not shoulder_radio.held:
@@ -324,13 +327,13 @@ func poll_controls() -> void:
 
 func context_controls_available() -> bool:
 	var s: Dictionary=game.local_state()
-	return game.active and not s.is_empty() and not s.get("dead",true) and not s.get("spectator",false) and focused and not game.menu_open and not scores and not wheel_open() and not game.map_loading and not game.demos.playing and game.intermission<=0 and not game.lobby.active() and not game.match_mode.special.blocked(multiplayer.get_unique_id()) and not blackout.visible and (simulated or head_tracked() and turning_hand().get_has_tracking_data())
+	return not game.match_mode.tribes.pda_open() and not game.match_mode.tribes.operating(multiplayer.get_unique_id()) and game.active and not s.is_empty() and not s.get("dead",true) and not s.get("spectator",false) and focused and not game.menu_open and not scores and not wheel_open() and not game.map_loading and not game.demos.playing and game.intermission<=0 and not game.lobby.active() and not game.match_mode.special.blocked(multiplayer.get_unique_id()) and not blackout.visible and (simulated or head_tracked() and turning_hand().get_has_tracking_data())
 
 func cycle_equipment(direction: int):
 	if not context_controls_available():return
 	var tf=game.match_mode.fortress
 	var s: Dictionary=game.local_state()
-	if tf.walkers.mounted(multiplayer.get_unique_id()):return
+	if tf.walkers.mounted(multiplayer.get_unique_id()) or game.match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()):return
 	if game.armory.effective()=="cs16":
 		if game.match_mode.defusal.enabled():game.match_mode.defusal.send("grenade_cycle",direction)
 	elif game.match_mode.tribes.enabled():game.match_mode.tribes.cycle_grenade(direction)
@@ -348,11 +351,11 @@ func wheel_open() -> bool:
 	return is_instance_valid(weapon_wheel) and weapon_wheel.input.opened
 
 func can_open_weapon_wheel() -> bool:
-	if not enabled or not focused or not game.active or game.menu_open or scores or game.map_loading or game.intermission>0 or game.demos.playing or game.lobby.active():return false
+	if game.match_mode.tribes.pda_open() or not enabled or not focused or not game.active or game.menu_open or scores or game.map_loading or game.intermission>0 or game.demos.playing or game.lobby.active():return false
 	var state: Dictionary=game.local_state()
 	if state.is_empty() or state.get("dead",true) or state.get("spectator",false):return false
 	var id:=multiplayer.get_unique_id()
-	if game.match_mode.special.blocked(id) or game.match_mode.fortress.walkers.mounted(id) or physical_actions.busy():return false
+	if game.match_mode.special.blocked(id) or game.match_mode.fortress.walkers.mounted(id) or game.match_mode.tribes.vehicles.piloting(id) or physical_actions.busy():return false
 	if is_instance_valid(blackout) and blackout.visible:return false
 	var hand: XRController3D=left if left_handed else right
 	return simulated or head_tracked() and right.get_has_tracking_data() and hand.get_has_tracking_data()
@@ -473,7 +476,7 @@ func _process(delta: float) -> void:
 	if weapon_wheel:
 		if weapon_wheel.input.captures_stick:cycle_latched=true
 		weapon_wheel.update(right.get_vector2("primary"))
-	if actor and not game.menu_open and focused:
+	if actor and not game.menu_open and not game.match_mode.tribes.pda_open() and focused:
 		var stick: Vector2=control_axis("turn")
 		apply_turn(stick.x,delta)
 		global_basis=Basis(Vector3.UP,game.local_yaw)
@@ -482,7 +485,7 @@ func _process(delta: float) -> void:
 		if not cycle_latched:cycle_equipment(1 if equipment_stick.y>0 else -1)
 		cycle_latched=true
 	if absf(equipment_stick.y)<.3 and not wheel_open():cycle_latched=false
-	var mounted: bool=game.match_mode.fortress.walkers.mounted(mine)
+	var mounted: bool=game.match_mode.fortress.walkers.mounted(mine) or game.match_mode.tribes.vehicles.piloting(mine) or game.match_mode.tribes.operating(mine) or game.match_mode.tribes.pda_open()
 	var grenade_chord: bool=(game.match_mode.tribes.enabled() or game.match_mode.defusal.enabled() and game.match_mode.defusal.utility.shoulder_selected(mine)>=0) and game.bindings.vr_pressed(self,"support") and game.bindings.vr_pressed(self,"offhand_fire")
 	shoulder_radio.update(not grenade_chord and game.match_mode.defusal.utility.selected(mine)<0 and not mounted and living and tracked_hands and focused and not game.menu_open and not scores and not blackout.visible)
 	physical_actions.update(delta,not game.match_mode.defusal.busy(mine) and not mounted and not shoulder_radio.held and living and tracked_hands and focused and not game.menu_open and not scores and not wheel_open())
@@ -532,7 +535,7 @@ func _process(delta: float) -> void:
 			(left if left_handed else right).add_child(gun)
 			gun.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 			gun_id=s.weapon;gun_rules=art_rules
-		gun.visible=not game.match_mode.defusal.gun_holstered(mine) and not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
+		gun.visible=not game.match_mode.tribes.pda_open() and not game.match_mode.tribes.operating(mine) and not game.match_mode.fortress.walkers.mounted(mine) and not game.match_mode.tribes.vehicles.piloting(mine) and not game.match_mode.defusal.gun_holstered(mine) and not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
 		var grip: XRController3D=left if left_handed else right
 		var aim: XRController3D=left_aim if left_handed else right_aim
 		weapon_kick.update(delta)
@@ -640,7 +643,7 @@ func sample_pose() -> Dictionary:
 	return Poses.validate(pose)
 
 func command(sequence: int) -> Dictionary:
-	var blocked: bool=game.menu_open or scores or not focused
+	var blocked: bool=game.menu_open or scores or not focused or game.match_mode.tribes.pda_open()
 	var combat_blocked: bool=blocked or wheel_open()
 	var de_blocked: bool=game.match_mode.defusal.combat_blocked(game.multiplayer.get_unique_id())
 	var aim: XRController3D=left_aim if left_handed else right_aim
@@ -649,6 +652,7 @@ func command(sequence: int) -> Dictionary:
 	var stick: Vector2=control_axis("move") if not blocked else Vector2.ZERO
 	if stick.length()<.18: stick=Vector2.ZERO
 	var movement:=Basis(Vector3.UP,head.rotation.y)*Vector3(stick.x,0,-stick.y)
+	if game.match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()):movement=Vector3(stick.x,0,-stick.y)
 	var pose:=sample_pose()
 	var trigger: bool=game.bindings.vr_pressed(self,"fire")
 	var physical_weapon: bool=game.armory.vr_physical_only(game.desired_weapon)

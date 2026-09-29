@@ -35,6 +35,9 @@ struct BotNames {
  Key can_fire{"can_fire"};
  Key can_harm_target{"can_harm_target"};
  Key carried{"carried"};
+ Key carrier{"carrier"};
+ Key carrier_weapon{"carrier_weapon"};
+ Key capture_preparing{"capture_preparing"};
  Key carrying{"carrying"};
  Key charging{"charging"};
  Key choose_weapon{"choose_weapon"};

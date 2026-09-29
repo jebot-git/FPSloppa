@@ -69,9 +69,42 @@ func run():
 	await wave_cases()
 	carrier_cases()
 	refill_cases()
+	screen_cases()
+	await rear_check_case()
 	if "logic-only" not in OS.get_cmdline_user_args():await recovery_cases()
 	print("ST_ADAPTIVE_TACTICS ",JSON.stringify({"checks":checks,"failures":failures,"stats":t.stats}))
 	g.disconnect_game();g.free();quit(0 if failures.is_empty() else 1)
+func screen_cases():
+	var ai=g.bots;var st=ai.tribes;var mode=g.match_mode
+	var b: Dictionary=ai.new_brain(-1);b.role="siege";b.enemy=-2;b.visible=[-2]
+	g.players[-1].team=0;g.players[-2].team=1;g.players[-2].dead=false
+	mode.return_flag(0);mode.return_flag(1)
+	g.fighters[-1].position=mode.bases[1]+Vector3(50,0,0);g.fighters[-2].position=mode.bases[1]
+	check(st.offense.screen_enemy(-1,b),"Siege support prioritises a visible flag defender over equipment")
+	b.visible=[];check(not st.offense.screen_enemy(-1,b),"Remembered or hidden defender cannot interrupt equipment targeting")
+	b.visible=[-2];g.fighters[-2].position=mode.bases[1]+Vector3(180,0,0)
+	check(not st.offense.screen_enemy(-1,b),"Distant player does not distract support from its base attack")
+	g.fighters[-1].position=mode.bases[0];g.fighters[-2].position=mode.bases[0]+Vector3(40,0,0)
+	b.role="escort";mode.flags[1].carrier=-1
+	check(st.offense.screen_enemy(-1,b),"Carrier's visible pursuer takes precedence away from the flag stand")
+	mode.return_flag(1);b.role="repairer"
+	check(not st.offense.screen_enemy(-1,b),"Ordinary maintenance retains its existing threat policy")
+func rear_check_case():
+	var ai=g.bots;var st=ai.tribes;var mode=g.match_mode
+	var b: Dictionary=ai.new_brain(-1);ai.brains[-1]=b
+	var s: Dictionary=g.players[-1];s.team=0;s.yaw=0;s.pitch=0
+	g.players[-2].team=1;g.players[-2].dead=false
+	var actor=g.fighters[-1];actor.position=Vector3(0,230,0);actor.velocity=Vector3(0,0,-10)
+	g.fighters[-2].position=Vector3(0,230,40)
+	b.goal=Vector3(0,230,-100);b.goal_kind="objective";b.goal_key="st:capture";b.path=PackedVector3Array([b.goal]);b.step=0
+	mode.flags[1].carrier=-1;g.clock=350;await physics_frame
+	ai.perceive(-1,b);check(-2 not in b.visible,"Carrier does not initially see a distant pursuer behind it")
+	for frame in 45:
+		g.clock=350+frame/60.0;st.steer(-1,b)
+	var world_move: Vector3=Basis(Vector3.UP,s.yaw)*Vector3(s.move.x,0,s.move.y)
+	check(world_move.z<0,"Rear view check preserves forward escape steering")
+	ai.perceive(-1,b);check(-2 in b.visible,"Periodic carrier look-back acquires a pursuer through normal perception")
+	mode.return_flag(1)
 func wave_cases():
 	var ai=g.bots;var st=ai.tribes;var t=st.tactics;var mode=g.match_mode
 	t.waves.clear();mode.return_flag(0);mode.return_flag(1)
@@ -86,15 +119,14 @@ func wave_cases():
 	check(t.waves.has(0) and t.waves[0].members.size()==2,"Nearby attackers form a bounded coordinated push")
 	if not t.waves.has(0):return
 	var wave: Dictionary=t.waves[0];var rows: Array=[]
-	check(t.push_goal(-1,rows) and rows[0].kind=="st_rally","Gathering creates an ordinary movement objective")
-	g.fighters[-1].position=wave.point;t.update_wave(0);g.clock+=5.1;t.update_wave(0)
-	check(wave.phase=="attack" and not t.push_goal(-1,[]),"First arrival waits at most five seconds for its partner")
-	wave.phase="gather";wave.until=g.clock+22;wave.arrival=-1;g.players[-2].dead=true;t.update_wave(0)
-	check(wave.phase=="attack","Partner death releases the surviving attacker")
-	g.players[-2].dead=false;wave.members=[-1,-2];wave.phase="gather";wave.until=g.clock-1;wave.arrival=-1;t.update_wave(0)
-	check(wave.phase=="attack","Unreachable rendezvous expires without waiting for an arrival")
-	wave.members=[-1,-2];wave.phase="gather";wave.until=g.clock+22;mode.flags[0].dropped=true;t.update_wave(0)
-	check(t.waves[0].members.is_empty() and not t.push_goal(-1,[]),"Flag emergency immediately cancels attack gathering")
+	check(wave.phase=="attack" and not t.push_goal(-1,rows) and rows.is_empty(),"Coordinated push keeps the existing ski route without a stopping objective")
+	check(t.committed(-1) and t.committed(-2),"Moving attackers retain their roles for the bounded approach")
+	g.players[-2].dead=true;t.update_wave(0)
+	check(wave.members==[-1] and wave.phase=="attack","Partner death never makes the survivor wait")
+	g.clock=wave.until+.1;t.update_wave(0)
+	check(wave.members.is_empty(),"Moving attack commitment expires")
+	wave.members=[-1,-2];wave.until=g.clock+22;mode.flags[0].dropped=true;t.update_wave(0)
+	check(t.waves[0].members.is_empty() and not t.push_goal(-1,[]),"Flag emergency immediately cancels attack grouping")
 	mode.return_flag(0);t.waves.clear();await physics_frame
 func carrier_cases():
 	var ai=g.bots;var st=ai.tribes;var t=st.tactics;var mode=g.match_mode
@@ -134,6 +166,7 @@ func recovery_cases():
 		{"name":"blue flag low approach","team":0,"armour":"light","start":Vector3(129.5355,108.9624,-120.5305),"goal":g.match_mode.bases[1]}]
 	var report: Array=[];var actor=g.fighters[-1];var s: Dictionary=g.players[-1]
 	for row in cases:
+		if "heavy-only" in OS.get_cmdline_user_args() and row.armour!="heavy":continue
 		s.team=row.team;s.dead=false;s.serial+=1;s.yaw=0;s.pitch=0;rules.apply_equipment(-1,row.armour,[3,2,0],"none")
 		actor.position=row.start;actor.velocity=Vector3.ZERO;actor.jump_held=false;t.memory.clear()
 		var b: Dictionary=ai.new_brain(-1);ai.brains[-1]=b;b.goal=row.goal;b.goal_key="recovery-fixture";b.goal_kind="objective"
@@ -145,7 +178,7 @@ func recovery_cases():
 				b.path=st.routes.path(actor.position,b.goal,0,t.detours(-1));b.step=0;b.route_at=g.clock+10
 			st.steer(-1,b);s.last_input=g.clock;g._configure_tribes(-1,s);actor.simulate(s.move,s.yaw,false,1.0/60,s.jump)
 			if actor.position.distance_to(row.goal)<1.5:passed=true;break
-			if frame%300==0:samples.append({"seconds":elapsed,"position":actor.position,"phase":b.get("travel_phase",""),"recoveries":t.record(-1).recoveries})
+			if frame%300==0 or "detail" in OS.get_cmdline_user_args() and frame%30==0:samples.append({"seconds":elapsed,"position":actor.position,"phase":b.get("travel_phase",""),"recoveries":t.record(-1).recoveries,"energy":actor.tribes_state.energy,"velocity":actor.velocity,"tower_phase":b.get("tower",{}).get("phase",""),"stage":b.get("tower",{}).get("stage",Vector3.ZERO)})
 			if frame%600==0:await process_frame
 		check(passed,"Real physics escapes recorded midmatch position: "+row.name)
 		report.append({"case":row.name,"passed":passed,"seconds":elapsed,"recoveries":t.record(-1).recoveries,"samples":samples})

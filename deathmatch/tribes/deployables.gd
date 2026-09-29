@@ -18,10 +18,12 @@ func active() -> bool:return rules.enabled() and rules.mode.kind=="st"
 func operational(row: Dictionary) -> bool:return row.hp>Data.hp(row.kind)*(.2 if row.kind in ["pulse","motion","remote_jammer"] else .5)
 func count(team: int,kind: String) -> int:
 	return rows.values().filter(func(row):return row.team==team and row.kind==kind).size()
-func enabled(id: int) -> bool:
+func accessible(id: int) -> bool:
 	if not active() or not game.active or game.map_loading or game.intermission>0 or not game.players.has(id) or not game.fighters.has(id):return false
 	var s: Dictionary=game.players[id]
-	return not s.dead and not s.spectator and not s.get("input_blocked",false) and s.team in [0,1] and not rules.mode.special.blocked(id)
+	return not s.dead and not s.spectator and s.team in [0,1] and not rules.mode.special.blocked(id)
+func enabled(id: int) -> bool:
+	return accessible(id) and not game.players[id].get("input_blocked",false)
 func placement(id: int,origin: Vector3,direction: Vector3) -> Dictionary:
 	if not enabled(id) or not origin.is_finite() or not direction.is_finite() or absf(direction.length()-1)>.01:return {}
 	var s: Dictionary=game.players[id];var kind: String=s.tribes_pack
@@ -65,7 +67,8 @@ func ray(a: Vector3,b: Vector3) -> Dictionary:
 	if a.distance_squared_to(b)<.000001:return {}
 	return game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(a,b,1))
 func station(id: int,inventory_only: bool=true) -> int:
-	if not enabled(id):return -1
+	# Menus block weapon input, not access to a station or its local reserve.
+	if not accessible(id):return -1
 	var point: Vector3=game.fighters[id].position;var team: int=game.players[id].team
 	for key in rows:
 		var row: Dictionary=rows[key]
@@ -157,8 +160,9 @@ func tick(delta: float):
 	if game.clock>=next_scan:next_scan=game.clock+.2;scan()
 	for key in rows:
 		var row: Dictionary=rows[key]
-		if row.kind!="turret" or (game.clock<row.ready or not operational(row)):continue
-		row.energy=minf(60,row.energy+5*delta)
+		if row.kind not in ["turret","camera"] or (game.clock<row.ready or not operational(row)):continue
+		if row.kind=="turret":row.energy=minf(60,row.energy+5*delta)
+		if rules.remote.advance(key,delta) or row.kind=="camera":continue
 		var start: Vector3=Data.frame(row)*Vector3(0,1.2,0)
 		var target:=0;var nearest:=30.0
 		for id in game.players:
@@ -173,10 +177,7 @@ func tick(delta: float):
 		var actor=game.fighters[target];var point: Vector3=actor.position+Vector3.UP*actor.torso_height()+actor.velocity*nearest/80
 		var direction: Vector3=(point-start).normalized();row.aim=row.aim.slerp(direction,minf(1,delta*6)).normalized()
 		if row.aim.dot(direction)<.97 or row.energy<6 or game.clock<float(row.get("fire_at",0)):continue
-		row.fire_at=game.clock+.4
-		var owner_id: int=row.owner if game.players.has(row.owner) and game.players[row.owner].team==row.team else 0
-		if game.variant_combat.launch(owner_id,0,start,row.aim,{"tribes_turret":true,"turret_team":row.team})>=0:
-			row.energy-=5;rules.deployable_sound.rpc(game.map_epoch,start)
+		fire(key,row.owner if game.players.has(row.owner) and game.players[row.owner].team==row.team else 0)
 	for id in game.players:
 		var key:=station(id,false)
 		if key<0:supply_time.erase(id);continue
@@ -190,6 +191,15 @@ func tick(delta: float):
 			if amount<=0:continue
 			var cost: int=amount*rules.Arsenal.AMMO_PRICE[w];s.tribes_ammo[w]+=amount;row.energy-=cost;s.tribes_paid=mini(rules.MAX_TEAM_ENERGY,s.tribes_paid+cost)
 		if not s.tribes_kit and row.energy>=35:s.tribes_kit=true;row.energy-=35;s.tribes_paid=mini(rules.MAX_TEAM_ENERGY,s.tribes_paid+35)
+func fire(key: int,owner_id: int) -> bool:
+	if not game.multiplayer.is_server() or not rows.has(key):return false
+	var row: Dictionary=rows[key]
+	if row.kind!="turret" or not operational(row) or game.clock<row.ready or row.energy<6 or game.clock<float(row.get("fire_at",0)):return false
+	var start: Vector3=Data.eye(row)
+	# The projectile begins above the housing; never shoot through adjacent cover.
+	if not ray(start,start+row.aim*.35).is_empty():return false
+	if game.variant_combat.launch(owner_id,0,start,row.aim,{"tribes_turret":true,"turret_team":row.team})<0:return false
+	row.fire_at=game.clock+.4;row.energy-=5;rules.deployable_sound.rpc(game.map_epoch,start);return true
 func sync():
 	for key in nodes.keys():
 		if not rows.has(key):
@@ -203,6 +213,13 @@ func sync():
 			if not game.headless:node.add_child(Model.make(row.kind,row.team))
 			game.add_child(node);nodes[key]=node
 		nodes[key].global_transform=Data.frame(row)
+	update_visuals()
+func update_visuals():
+	if game.headless:return
+	for key in nodes:
+		if not rows.has(key) or not is_instance_valid(nodes[key]):continue
+		var row: Dictionary=rows[key]
+		if not game.headless:preload("res://deathmatch/tribes/prop_library.gd").set_active(nodes[key].get_child(1),operational(row))
 		if not game.headless and row.kind in ["turret","camera"]:
 			var head=nodes[key].get_child(1).get_node("Head")
 			head.look_at(head.global_position+row.aim,Vector3.UP if absf(row.aim.y)<.99 else Vector3.RIGHT)

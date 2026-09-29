@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-29",
+  "branch": "experimental/st-raindance",
+  "fix": "VR Use activates held deployable pack using the same offhand pose and validated action as the trigger",
+  "checks": 43,
+  "failures": [],
+  "exit_code": 0,
+  "log": "test-results/st-vr-deploy-use/regression.log",
+  "files": {
+    "deathmatch/vr/tribes_equipment.gd": "784bf7bb18d1e5cb2e3e117409050a4e80e318193c51e98df70bb8bc2a305dd7",
+    "deathmatch/vr/rig.gd": "1b23bc94b36e334ac13518e08504c71a6a559861056ca0f5150993ab38914f1e",
+    "deathmatch/tests/st_vr_deploy_use.gd": "8eeb4fa086204d411bc841c828f3a99708251de06a4dd2d06a5c0f16d26ade78"
+  },
+  "coverage": [
+    "right and left dominant hands",
+    "default and rebound Use",
+    "offhand trigger",
+    "invalid placement and fresh-press retry",
+    "no auto-repeat",
+    "placement matches offhand preview",
+    "consumed pack cannot activate another item",
+    "unheld Use retains aimed fallback"
+  ],
+  "limitation": "Simulated controller regression; no human headset check yet."
+}

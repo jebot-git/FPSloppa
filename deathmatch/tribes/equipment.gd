@@ -5,6 +5,12 @@ static func mount(pose: Dictionary,item: String) -> Transform3D:
 	if item in ["kit","ammo"]:return Hip.pouch(pose)
 	var side:=Hip.offhand_side(pose)
 	return Hip.chest(pose)*Transform3D(Basis.IDENTITY,Vector3(side*(.17 if item=="pack" else -.17),-.08,-.24))
+static func hand_frame(pose: Dictionary) -> Transform3D:
+	# Grip locates the palm; the OpenXR aim pose supplies pointing orientation.
+	# Older recordings without an aim pose retain their original grip fallback.
+	var grip: Transform3D=pose.right if pose.left_handed else pose.left
+	var aim: Transform3D=pose.get("offhand_weapon",grip)
+	return Transform3D(aim.basis,grip.origin)
 static func target(pose: Dictionary,state: Dictionary,carrying: bool) -> String:
 	if pose.is_empty():return ""
 	var hand: Vector3=pose.right.origin if pose.left_handed else pose.left.origin

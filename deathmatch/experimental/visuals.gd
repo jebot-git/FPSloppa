@@ -12,6 +12,7 @@ var emission_budget:=64
 func _ready() -> void:
 	for smoke in [false,true]:
 		var draw:=MultiMeshInstance3D.new();var mm:=MultiMesh.new()
+		draw.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 		mm.transform_format=MultiMesh.TRANSFORM_3D;mm.use_colors=true
 		var geometry: Mesh
 		if smoke:

@@ -1882,5 +1882,57 @@
     "sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524",
     "distribution": "base",
     "expansion": "classic-de"
+  },
+  {
+    "id": "ctf_stonehenge",
+    "title": "Stonehenge | Tribes terrain study",
+    "path": "res://maps/ctf_stonehenge.bsp",
+    "scene": "res://maps/cache/ctf_stonehenge.scn",
+    "sha256": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
+    "size": 10592496,
+    "modes": [
+      "st"
+    ],
+    "source_name": "st_stonehenge",
+    "distribution": "optional",
+    "experimental": true,
+    "objectives": {
+      "red": [
+        -175.396,
+        124.946,
+        149.191
+      ],
+      "blue": [
+        167.625,
+        141.901,
+        -139.315
+      ]
+    }
+  },
+  {
+    "id": "ctf_raindance",
+    "title": "Raindance | Tribes CTF",
+    "path": "res://maps/ctf_raindance.bsp",
+    "scene": "res://maps/cache/ctf_raindance.scn",
+    "sha256": "48bc28440f0a2f08f1a9654d840b00b639bbfd6a4dfc2e5ade826966bde337b9",
+    "size": 9084348,
+    "modes": [
+      "st"
+    ],
+    "source_name": "st_raindance",
+    "distribution": "optional",
+    "experimental": true,
+    "objectives": {
+      "red": [
+        66.188,
+        38.7137,
+        314.2048
+      ],
+      "blue": [
+        -91.16,
+        52.8173,
+        -304.783
+      ]
+    }
   }
 ]

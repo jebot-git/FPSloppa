@@ -67,13 +67,21 @@ func watch(id: int,brain: Dictionary,m: Dictionary):
 	if old.is_empty() or old.target.distance_to(target)>12 or distance<old.best-5:
 		if m.watches.size()>=8:m.watches.erase(m.watches.keys()[0])
 		m.watches[key]={"target":target,"best":distance,"at":game.clock};return
-	if game.clock-old.at<(60 if game.players[id].tribes_class=="heavy" else 35):return
+	var carrying: bool=ai.tribes.carrier(id)
+	# Distinguish a stopped carrier from a useful route detour. Restarting
+	# merely because home is not closer after eight seconds breaks run-ups.
+	if not old.has("stall_at") or Vector2(actor.velocity.x,actor.velocity.z).length()>2 or actor.position.distance_to(old.get("stall_position",actor.position))>1.5:
+		old.stall_at=game.clock;old.stall_position=actor.position
+	var heavy: bool=game.players[id].tribes_class=="heavy"
+	var stopped: bool=carrying and game.clock-old.stall_at>=(12 if heavy else 8)
+	if not stopped and game.clock-old.at<(60 if heavy else 35):return
 	old.at=game.clock;old.best=distance
 	var next: Vector3=brain.path[brain.step] if brain.step<brain.path.size() else target
 	m.failures.append({"point":next,"until":game.clock+120})
 	if m.failures.size()>12:m.failures.pop_front()
 	if brain.has("tower"):reject_stage(id,brain.goal,brain.tower.stage)
 	m.lane=(int(m.lane)+1)%3;m.recoveries+=1;count("progress_recoveries")
+	if stopped:count("stopped_carrier_recoveries")
 	if brain.goal_kind=="st_fixed_repair":ai.tribes.equipment.defer_fixed(game.players[id].team,int(brain.support))
 	m.erase("attempt_until");m.attempt_after=game.clock+20
 	brain.erase("tower");brain.route_at=0;brain.plan_at=0
@@ -98,13 +106,7 @@ func update_wave(team: int):
 		waves[team]={"members":[],"until":0.0,"next":game.clock+12};return
 	if not wave.is_empty() and not wave.members.is_empty():
 		wave.members=wave.members.filter(func(id):return ai.alive(id) and game.players[id].team==team and ai.tribes.assignments.get(id,"")=="capper")
-		if wave.phase=="gather":
-			var ready: Array=wave.members.filter(func(id):return game.fighters[id].position.distance_to(wave.point)<12)
-			if not ready.is_empty() and wave.arrival<0:wave.arrival=game.clock
-			if ready.size()>=2 or wave.arrival>=0 and game.clock-wave.arrival>=5 or game.clock>=wave.until or wave.members.size()<2:
-				wave.phase="attack";wave.until=game.clock+45;count("pushes_released")
-				for id in wave.members:ai.brains[id].plan_at=0
-		elif game.clock>=wave.until or wave.members.is_empty():
+		if game.clock>=wave.until or wave.members.is_empty():
 			wave.members=[];wave.next=game.clock+15
 		return
 	if game.clock<float(wave.get("next",35)):return
@@ -115,23 +117,36 @@ func update_wave(team: int):
 	var lead: int=group[0];var origin: Vector3=game.fighters[lead].position
 	# Never drag an attacker away from a nearly completed approach.
 	if origin.distance_to(goal)<75 or origin.distance_to(goal)>230:return
-	var route: PackedVector3Array=ai.brains[lead].path
-	var point:=Vector3.INF
-	for candidate in route:
-		if candidate.distance_to(goal)>85 and candidate.distance_to(goal)<145 and origin.distance_to(candidate)<75:
-			point=candidate;break
-	if not point.is_finite():return
-	group=group.filter(func(id):return game.fighters[id].position.distance_to(point)<100)
+	# Group runners with similar arrival times. Never replace a ski route with
+	# a stationary rendezvous or make the leading capper reverse to collect help.
+	var eta: float=arrival_seconds(lead,goal)
+	group=group.filter(func(id):return absf(arrival_seconds(id,goal)-eta)<5 and game.fighters[id].position.distance_to(origin)<110)
 	if group.size()<2:return
 	group=group.slice(0,3)
-	waves[team]={"members":group,"point":point,"phase":"gather","arrival":-1.0,"until":game.clock+22,"next":0.0}
-	count("pushes_formed")
-	for id in group:ai.brains[id].plan_at=0
-func push_goal(id: int,rows: Array) -> bool:
-	var game=ai.game;var wave: Dictionary=waves.get(game.players[id].team,{})
-	if wave.is_empty() or id not in wave.members or wave.phase!="gather" or game.clock>=wave.until:return false
-	var point: Vector3=ai.objectives.station(id,wave.point,2.5,wave.members.find(id))
-	ai.candidate(rows,"st:rally","st_rally",point,400,true);return true
+	waves[team]={"members":group,"point":origin,"phase":"attack","until":game.clock+minf(45,eta+15),"next":0.0}
+	count("pushes_formed");count("moving_pushes")
+func arrival_seconds(id: int,goal: Vector3) -> float:
+	var actor=ai.game.fighters[id];var toward: Vector3=goal-actor.position;toward.y=0
+	var speed: float=maxf(12,Vector3(actor.velocity.x,0,actor.velocity.z).dot(toward.normalized()))
+	return toward.length()/minf(speed,45)
+func push_goal(_id: int,_rows: Array) -> bool:
+	# Kept as the planner hook: a moving push commits roles, not stopping points.
+	return false
+func intercept_point(id: int,carrier: int) -> Vector3:
+	var game=ai.game;var target=game.fighters[carrier];var chaser=game.fighters[id]
+	var velocity: Vector3=target.velocity;velocity.y=0
+	if velocity.length()<4:return target.position
+	# Flag position/motion are public. No enemy route, aim or hidden target is
+	# consulted. Bound prediction so turns can be corrected on the next plan.
+	var seconds: float=clampf(chaser.position.distance_to(target.position)/maxf(15,Vector2(chaser.velocity.x,chaser.velocity.z).length()+10),.5,2.5)
+	for fraction in [1.0,.5]:
+		var probe: Vector3=target.position+(velocity*seconds*fraction).limit_length(80)
+		var hit: Dictionary=ai.navigation.ray(probe+Vector3.UP*24,probe-Vector3.UP*60)
+		if hit.is_empty() or hit.normal.y<.6 or ai.navigation.hazardous(hit.position):continue
+		var point: Vector3=hit.position+Vector3.UP*.06
+		if ai.tribes.routes.attach(point,true)>=0:return point
+	return target.position
+
 func carrier_goal(id: int,brain: Dictionary,rows: Array):
 	var game=ai.game;var team: int=game.players[id].team;var own: Dictionary=game.match_mode.flags[team]
 	if own.carrier==0 and not own.dropped or game.fighters[id].position.distance_to(game.match_mode.bases[team])>100:
@@ -163,10 +178,11 @@ func escort_point(id: int,carrier: int) -> Vector3:
 	var escorts: Array=ai.tribes.assignments.keys().filter(func(friend):return ai.alive(friend) and game.players[friend].team==game.players[id].team and ai.tribes.assignments[friend]=="escort")
 	escorts.sort();var front: bool=escorts.find(id)==0
 	var brain: Dictionary=ai.brains.get(carrier,{})
+	var lead_distance: float=clampf(Vector2(actor.velocity.x,actor.velocity.z).length()*1.5,12,65)
 	if front and not brain.is_empty():
 		var path: PackedVector3Array=brain.path
 		for i in range(brain.step,path.size()):
-			if anchor.distance_to(path[i])>12 and anchor.distance_to(path[i])<35:
+			if anchor.distance_to(path[i])>=lead_distance and anchor.distance_to(path[i])<lead_distance+27:
 				anchor=path[i];break
 	var side:=direction.cross(Vector3.UP)*(1 if front else -1)
 	var point: Vector3=anchor+direction*(5 if front else -8)+side*6

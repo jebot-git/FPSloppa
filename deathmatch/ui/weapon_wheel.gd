@@ -48,7 +48,7 @@ func _draw() -> void:
 		var point:=ring_point(step*i,286)
 		var color: Color=GOLD if selected else INK if row.usable else MUTED
 		draw_texture_rect(Icons.texture(row.get("icon",row.name)),Rect2(point-Vector2(53,48),Vector2(106,80)),false,color)
-		caption(("" if energy_shop else "$" if buying else "")+str(row.ammo) if row.ammo>=0 else row.name if buying else "—",point+Vector2(0,58),22 if buying else 26,Color("ed8f78") if not row.usable else color)
+		caption(row.get("caption",("" if energy_shop else "$" if buying else "")+str(row.ammo) if row.ammo>=0 else row.name if buying else "—"),point+Vector2(0,58),22 if buying else 26,Color("ed8f78") if not row.usable else color)
 	draw_circle(CENTER,INNER-6,Color("141a1ff5"))
 	caption("TEAM ENERGY · UNLIMITED" if energy_shop and rows[0].get("infinite_energy",false) else "TEAM ENERGY · %d"%rows[0].cash if energy_shop else "BUY · $%d"%rows[0].cash if buying else "ARSENAL",CENTER+Vector2(0,-128),25,MUTED)
 	var index:=hover

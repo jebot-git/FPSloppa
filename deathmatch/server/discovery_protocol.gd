@@ -3,7 +3,7 @@ extends RefCounted
 const WIRE := "fpsloppa-query-1"
 const MAX_PACKET := 1200
 const MAX_SERVERS := 256
-const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as","de"]
+const MODES := ["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as","de","st"]
 
 static func public_text(value: String, byte_limit: int=80) -> String:
 	var output:="";var bytes:=0

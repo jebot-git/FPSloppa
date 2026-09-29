@@ -206,3 +206,17 @@ exposed and fixed the existing desktop VRM pack frame: imported model rotation
 must be removed before applying the rearward pack offset. That attachment fix
 is checked across the bundled-avatar matrix. See
 `docs/validation/tribes-heavy-iteration-2026-09-27.json` for the current receipt.
+
+## First-person culling follow-up — 29 September 2026
+
+Replacement armour now registers with the avatar rig’s visibility and hand-mask
+updates. Head, neck and torso triangles use the same cached first-person mask
+as ordinary avatars; arms, original hands and legs remain visible. View switches
+and first-person rebuilds apply immediately, fixing the previous one-update
+delay. Unequipping unregisters the replacement cleanly; team colours and complete
+third-person meshes are restored. Armour materials remain unchanged.
+
+All three classes passed immediate-transition, rebuild, glove and unequip checks,
+plus avatar/import/scaling regression and Vulkan inspection. Evidence is in
+`test-results/st-armour-culling`; see the
+[validation receipt](validation/st-armour-culling-2026-09-29.json).

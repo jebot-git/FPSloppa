@@ -10,7 +10,7 @@ const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 var native_projectiles=preload("res://deathmatch/native/runtime.gd").projectiles()
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-66-shared-hit-feedback"
+const PROTOCOL := "fpsloppa-68-st-native-main"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -707,8 +707,11 @@ func _peer_left(id: int) -> void:
 	chainsaw.contact_at.erase(id)
 	announcer.forget(id)
 	match_mode.fortress.departed(id)
+	match_mode.tribes.vehicles.departed(id)
 	match_mode.tribes.requests.erase(id)
 	match_mode.tribes.field_requests.erase(id)
+	match_mode.tribes.remote.release(id)
+	match_mode.tribes.commander.requests.erase(id)
 	match_mode.tribes.combat.cancel(id)
 	server_log.record("peer_disconnected",{"peer":id})
 	avatars.remove_peer(id)
@@ -799,6 +802,7 @@ func status(message: String) -> void:
 	print(message)
 
 func _spawn(id: int) -> void:
+	match_mode.tribes.vehicles.departed(id)
 	jetpacks.clear_player(id)
 	match_mode.fortress.walkers.departed(id)
 	players[id].jump_received=0;players[id].jump_ack=0;players[id].jump_pending=false
@@ -920,6 +924,16 @@ func _local_command() -> Dictionary:
 	if match_mode.fortress.walkers.mounted(multiplayer.get_unique_id()):desired_weapon=0
 	if is_vr():
 		var command: Dictionary=xr_rig.command(sequence)
+		if match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()):
+			var lift: float=xr_rig.control_axis("turn").y if not command.input_blocked else 0.0
+			command.fly=signf(lift)*clampf((absf(lift)-.18)/.82,0,1)
+			command.pitch=0.0;command.jetpack=false
+			if not command.get("xr",{}).is_empty():
+				var grip=xr_rig.left if xr_rig.left_handed else xr_rig.right
+				var aim=xr_rig.left_aim if xr_rig.left_handed else xr_rig.right_aim
+				command.xr.weapon=xr_rig.origin.transform*preload("res://deathmatch/vr/poses.gd").held_weapon(grip.transform,aim.transform)
+			command.fire=bindings.vr_pressed(xr_rig,"fire") and not command.input_blocked
+			command.melee=false;command.offhand_fire=false;command.room=Vector3.ZERO
 		var walkers=match_mode.fortress.walkers
 		if walkers.mounted(multiplayer.get_unique_id()):
 			command.fire=false;command.alt_fire=false;command.offhand_fire=false;command.melee=false
@@ -1023,8 +1037,7 @@ func _physics_process(delta: float) -> void:
 	if players.has(mine) and not dedicated:
 		sequence += 1
 		var command := _local_command()
-		var control_pads=match_mode.tribes.stations() if match_mode.kind=="st" else null
-		if control_pads and control_pads.defences.operated(mine)>=0:
+		if match_mode.tribes.operating(mine):
 			command.move=Vector2.ZERO;command.room=Vector3.ZERO;command.jump=false;command.ski=false;command.jet_held=false;command.jetpack=false
 			command.fire=false;command.alt_fire=false;command.offhand_fire=false;command.melee=false;command.physical=false
 		match_mode.defusal.move_observer(command,delta)
@@ -1051,7 +1064,7 @@ func _physics_process(delta: float) -> void:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
 			if match_mode.special.frozen.has(mine) and intermission<=0:
 				fighters[mine].simulate_frozen(delta)
-			elif not players[mine].dead and not match_mode.special.blocked(mine) and not match_mode.defusal.movement_blocked() and not match_mode.fortress.walkers.mounted(mine) and intermission<=0:
+			elif not players[mine].dead and not match_mode.special.blocked(mine) and not match_mode.defusal.movement_blocked() and not match_mode.fortress.walkers.mounted(mine) and not match_mode.tribes.vehicles.mounted(mine) and intermission<=0:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
@@ -1086,7 +1099,7 @@ func _physics_process(delta: float) -> void:
 
 func _predict_shots(id: int,command: Dictionary) -> void:
 	if match_mode.defusal.combat_blocked(id):return
-	if match_mode.fortress.walkers.mounted(id):return
+	if match_mode.fortress.walkers.mounted(id) or match_mode.tribes.vehicles.piloting(id):return
 	if armory.experimental():variant_combat.predict(id,command);return
 	# Match the authority before predicting audio, flash or recoil.
 	var predicted_bullets: int=players[id].ammo[0]
@@ -1111,6 +1124,7 @@ func _interpolate_remote_players(delta: float) -> void:
 	elif snapshot_view_time>=0:remote_view_time=snapshot_view_time
 	for id in fighters:
 		if id==mine: continue
+		if match_mode.tribes.vehicles.mounted(id):continue
 		var sample: Dictionary=remote_interpolation.sample(id)
 		if not sample.is_empty():
 			fighters[id].position=sample.position; fighters[id].rotation.y=sample.yaw
@@ -1177,8 +1191,7 @@ func _server_tick(delta: float) -> void:
 		movement_start[id]={"position":fighters[id].position,"serial":players[id].serial,"height":fighters[id].collision_height,"yaw":fighters[id].damage_yaw()}
 	for id in players:
 		var s: Dictionary = players[id]
-		var st_pads=match_mode.tribes.stations() if match_mode.kind=="st" else null
-		if st_pads and st_pads.defences.operated(id)>=0:
+		if match_mode.tribes.operating(id):
 			s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.jump=false;s.jet_held=false;s.ski=false;s.fire=false;s.alt_fire=false
 		jetpacks.configure_player(id,s.get("input_blocked",false) or clock-s.last_input>.35)
 		_configure_tribes(id,s)
@@ -1206,6 +1219,7 @@ func _server_tick(delta: float) -> void:
 			s.melee = false
 		var jump: bool=input_delivery.consume(s,fighters[id])
 		if match_mode.fortress.walkers.handle_player(id,jump):continue
+		if match_mode.tribes.vehicles.handle_player(id,jump,delta):continue
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
 		if armory.effective()=="cs16":fighters[id].speed_multiplier*=float(armory.data(s.weapon).get("move_speed",1))
@@ -1623,6 +1637,7 @@ func _trace_reference(start: Vector3,end: Vector3,exclude: int,rewind: float = 0
 			result["map_node"]=contact.collider
 			if contact.collider is Area3D:result.id=0;result.vehicle=false;result.hit=true;result.position=contact.position
 	if match_mode.tribes.enabled():
+		result=match_mode.tribes.vehicles.trace(start,end,result,radius)
 		result=match_mode.tribes.combat.trace_mines(start,end,result,radius)
 		result=match_mode.tribes.deployables.trace(start,end,result,radius)
 		result=match_mode.tribes.targeting.trace(start,end,result,radius)
@@ -1636,6 +1651,7 @@ func _damage_map_hit(hit: Dictionary,id: int,amount: float,family: String="") ->
 		var normal: Vector3=hit.get("impact_normal",Vector3.ZERO)
 		if normal.length_squared()<.5 and fighters.has(id):normal=(fighters[id].position+Vector3.UP-hit.position).normalized()
 		if normal.length_squared()>.5:_contact_fx.rpc(hit.position,normal,preload("res://deathmatch/effects/surface_marks.gd").Style.BULLET)
+	if multiplayer.is_server() and hit.has("scout"):match_mode.tribes.vehicles.damage(hit.scout,id,amount,family)
 	if multiplayer.is_server() and hit.has("fixed_turret"):
 		var pads=match_mode.tribes.stations()
 		if pads:pads.defences.damage(hit.fixed_turret,id,amount,family)
@@ -1715,7 +1731,7 @@ func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 
 func _native_trace_allowed() -> bool:
 	# Special structures, mounted hulls and Tribes traces retain their full path.
-	return not match_mode.kind in ["tf","tb","as","st"] and match_mode.fortress.walkers.robots.is_empty()
+	return not match_mode.kind in ["tf","tb","as","st"] and not match_mode.tribes.enabled() and match_mode.fortress.walkers.robots.is_empty()
 
 func _projectile_contact(id: int,hit: Dictionary,p: Dictionary,end: Vector3) -> void:
 	var d: Dictionary = W.DATA[p.weapon]
@@ -1740,6 +1756,7 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: St
 	if lobby.active():return
 	if not multiplayer.is_server() or intermission>0:return
 	preload("res://deathmatch/effects/surface_marks.gd").blast(self,pos,{"name":weapon_name,"splash":damage,"blast_radius":radius})
+	match_mode.tribes.vehicles.blast(pos,owner_id,damage,radius)
 	match_mode.fortress.blast(pos,owner_id,damage,radius)
 	var map_runtime=get_node_or_null("Map/MapRuntime")
 	if map_runtime:map_runtime.triggers.blast(pos,owner_id,damage,radius)
@@ -2007,6 +2024,9 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		if not fighters.has(id): continue
 		var s: Dictionary = players[id]
 		var actor = fighters[id]
+		# ST refits advance the life token without a death or teleport. Keep an
+		# open inventory page while resetting the old weapon/physical input state.
+		var inventory_refit: bool=id==mine and is_vr() and xr_rig.wheel_open() and xr_rig.weapon_wheel.tribes_shop and not s.dead and not row[7] and s.deaths==row[12] and match_mode.tribes.can_refit(id)
 		if not multiplayer.is_server():actor.configure_tribes(armory.effective()=="tribes" and not lobby.active(),row[7] or row[20] or pause>0 or match_mode.special.blocked(id))
 		if not multiplayer.is_server():
 			s.jetpack=mode_state.get("locomotion",{}).get(id,{}).get("jetpack_owned",false)==true
@@ -2027,7 +2047,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 					# Begin passive falling at the freeze location, discarding pre-hit
 					# movement history so reconciliation cannot restore a jump.
 					actor.position=row[1];actor.velocity=row[2];actor.reset_view()
-				else:
+				elif not match_mode.tribes.vehicles.mounted(id):
 					var locomotion: Dictionary=mode_state.get("locomotion",{}).get(id,{})
 					actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(locomotion.get("height",-1.0)),locomotion.get("grounded",false),locomotion.get("jetpack",{}),locomotion.get("tribes",{}))
 		if actor.spawn_serial!=row[14]:
@@ -2043,7 +2063,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 				local_yaw = row[3]
 				local_pitch = 0
 				desired_weapon = row[8]
-				if is_vr(): xr_rig.on_spawn()
+				if is_vr(): xr_rig.on_spawn(inventory_refit)
 		if id==mine and match_mode.tribes.enabled() and (desired_weapon not in s.owned or desired_weapon==5 and s.tribes_pack!="energy"):desired_weapon=s.weapon
 		# The owner samples tracking every render frame; network echoes are older.
 		if id!=mine or demos.playing or multiplayer.is_server() or not is_vr():
@@ -2446,7 +2466,7 @@ func _process(delta: float) -> void:
 	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead and not s.spectator and not match_mode.defusal.observing() else fighters[multiplayer.get_unique_id()].eye_height(),minf(1,delta*8))
 	camera.global_position = match_mode.defusal.observer_origin(fighters[multiplayer.get_unique_id()].render_position())+Vector3.UP*(camera_eye_height+fighters[multiplayer.get_unique_id()].render_view_offset())
 	fighters[multiplayer.get_unique_id()].rotation.y = local_yaw
-	viewmodel.visible = not match_mode.defusal.gun_holstered(multiplayer.get_unique_id()) and not s.dead and not menu_open and not lobby.active()
+	viewmodel.visible = not match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()) and not match_mode.defusal.gun_holstered(multiplayer.get_unique_id()) and not s.dead and not menu_open and not lobby.active()
 	weapon_bob_time+=delta
 	weapon_bob_speed=lerpf(weapon_bob_speed,fighters[multiplayer.get_unique_id()].velocity.length(),1-exp(-12*delta))
 	var speed: float = weapon_bob_speed

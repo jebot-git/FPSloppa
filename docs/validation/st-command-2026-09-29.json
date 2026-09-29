@@ -1,0 +1,137 @@
+{
+  "date": "2026-09-29",
+  "branch": "experimental/st-raindance",
+  "protocol": "fpsloppa-67-st-command",
+  "changes": [
+    "All VR craft use independent stick lift and cosmetic pitch; Scout uses raw dominant controller rocket aim",
+    "Nose up only while ascending without horizontal input or appreciable residual drift",
+    "Exclusive leased deployed camera/turret remote control and replicated aim/fire",
+    "Desktop and offhand VR PDA with terrain, sensors, team equipment, voluntary hierarchy, move/attack/defend orders and acknowledgements"
+  ],
+  "checks": 632,
+  "suites": [
+    {
+      "log": "test-results/st-command/st_command.log",
+      "checks": 46,
+      "failures": [],
+      "sha256": "65c00eb289df05c5a2ce260043a0d74d114b8f6add91cbfc7dac7ee6a1f51258"
+    },
+    {
+      "log": "test-results/st-command/st_command_vr.log",
+      "checks": 34,
+      "failures": [],
+      "sha256": "02c625107b31f40ec852c1f26bfd758b2f28455adb59d7d676112033af3c1db1"
+    },
+    {
+      "log": "test-results/st-command/st_parity123.log",
+      "checks": 94,
+      "failures": [],
+      "sha256": "3a334831b4db42e77ba45094f249a7d38ed7ab3e89b4eb612db55f0b4e80e54a"
+    },
+    {
+      "log": "test-results/st-command/st_parity456.log",
+      "checks": 77,
+      "failures": [],
+      "sha256": "c774f1258aaff020747aa757f74f69178f307dbf4775de7d415e2630e131a28f"
+    },
+    {
+      "log": "test-results/st-command/st_scout.log",
+      "checks": 55,
+      "failures": [],
+      "sha256": "9b615a7c4f07f8dc467e322a572c86ab12954a1105eb36d595e2a8902222763c"
+    },
+    {
+      "log": "test-results/st-command/st_transport_vr.log",
+      "checks": 56,
+      "failures": [],
+      "sha256": "25d478904b195b934096a8fb99e7ec10a43e2eab03a4b1702f4885d5506669b5"
+    },
+    {
+      "log": "test-results/st-command/st_transports.log",
+      "checks": 93,
+      "failures": [],
+      "sha256": "5b1da35f50652dd72b6fffdaf0bc755190c4eb2cae1a213d4d1e5068f5604a3a"
+    },
+    {
+      "log": "test-results/st-command/st_vr_inventory.log",
+      "checks": 46,
+      "failures": [],
+      "sha256": "ada50bbf0231a8f1ed84121c242f7a0eaf29075f3b0cd3209d006be090a10862"
+    },
+    {
+      "log": "test-results/st-command/tribes_demo.log",
+      "checks": 17,
+      "failures": [],
+      "sha256": "f9c7f83ffc3957cc3eadae250c8c377495ab5df7dea4138dec22f261d10cfcfe"
+    },
+    {
+      "log": "test-results/st-command/tribes_deployable_ui.log",
+      "checks": 37,
+      "failures": [],
+      "sha256": "9bc1dc77562a14d4fbe23c3e914220e4602eee04f227e8601413f025b805a90b"
+    },
+    {
+      "log": "test-results/st-command/tribes_deployables.log",
+      "checks": 55,
+      "failures": [],
+      "sha256": "8037b1c8f239c9b3f95f0b5cbb05d2f07aa9f97e4d10bb3b7fddc8ebeaad398d"
+    },
+    {
+      "log": "test-results/st-command/network-run.log",
+      "checks": 22,
+      "failures": [],
+      "sha256": "45ed37e8464116878c28504da5a97e764b84d8fb2520b72db3c0c44affaf0bd2"
+    }
+  ],
+  "files": {
+    "deathmatch/arena.gd": "a8814f10c8b6c38e21ed63956ca692f4dfa586dfe4623e1b444cbcc91a99cc88",
+    "deathmatch/modes/tribes.gd": "49204c40008c9e8b95e55c799d9bc10efe9c7285431ce3236bb08b85b08360b1",
+    "deathmatch/tribes/command_state.gd": "d331d02f6d3e4ac3b4c75ebbaf70a48cc4ce0bfe423465ade4c26f624529b732",
+    "deathmatch/tribes/command_view.gd": "e754553d260466f1b370ee213d1d7ee0ab90097f0cd9c9f6176e1fd2efd71367",
+    "deathmatch/tribes/remote_control.gd": "c64e30a93dc827a5ae8269be6b55f301007fb1753007de8963afd620df798ee3",
+    "deathmatch/tribes/turret_view.gd": "99da6a594ff7a4c3cc1e97fa48ad430e1f9ebf1ce21c4e6054d2e118385c7782",
+    "deathmatch/tribes/deployables.gd": "d4814872983655f9f5f4486eed327791437e5650898e282a7161dd30962886f0",
+    "deathmatch/tribes/deployable_view.gd": "8843c4b8525851c1f35fcf0551ae1a23b1730085b9d44d4dbe127c72fe9dfa85",
+    "deathmatch/tribes/fixed_defences.gd": "4b4be215998d692b9b2dfbf26451b790d8220da7f7b5698e24088ea51bd609c3",
+    "deathmatch/tribes/ctf.gd": "0ae8e7a03cc479871dc296d2d0231fa4fbb7d4a285865feda4aeb92e14434047",
+    "deathmatch/tribes/buy_wheel.gd": "9d7141b5445be869920fc0ea6cf964cbe7a4dbf8820bfdab1223d0409bc4437d",
+    "deathmatch/bot_ai/tribes.gd": "ba63e609cd488309a6147a4947d1483a93a25c6f6085cf7d7ed6a76e8a90219b",
+    "deathmatch/vehicles/tribes/scout_data.gd": "ad199d0854702c38b784afc1edce12f13050e01682d7e233979f9b19fd3524c0",
+    "deathmatch/vehicles/tribes/controller.gd": "8fcd232079b9c7b3a6c5539948c66ba6a1c99a63846e528f9b79e2b9a14cc9d1",
+    "deathmatch/vr/rig.gd": "8754ddeb382fdb5af668cbb129663d101c3e597451357881a579fd36b386f5fe",
+    "deathmatch/vr/weapon_wheel.gd": "1f89c3263c4aebc93df3569a16ce7eb4635dd41ab257eef45208a63c7855b112",
+    "deathmatch/tests/st_command.gd": "38d5596924521594963ef0003c05734140e4dc3b70e2d9c55e976ce407291a55",
+    "deathmatch/tests/st_command_vr.gd": "68eedcdc69f676638b4b6d7d401624493104bed915724b818765b7f9bdb21f28",
+    "deathmatch/tests/st_command_network.gd": "6a18793c2200af4e6c87b95895d6d7146a7c184369470070cf01c8d8b409172c",
+    "tools/tribes/test_command_network.py": "008e51f5428f3670454acee34a400c80b1f15068b2b26c93054b7f904101db49"
+  },
+  "screenshots": {
+    "test-results/st-command/pda-desktop.png": "bc603a37f6c8a909b497c2d9b39f6bbfbc07e3ee281183e70e9b473a865f8d22",
+    "test-results/st-command/pda-vr.png": "bc603a37f6c8a909b497c2d9b39f6bbfbc07e3ee281183e70e9b473a865f8d22"
+  },
+  "limitations": [
+    "Human headset ergonomics and contested command tactics remain unverified",
+    "Teammate camera, explicit repair orders, briefing and detailed interior map remain later work",
+    "Portable remote control adapts the original command-station restriction",
+    "Existing ObjectDB fixture-shutdown and XR hand-resource UID fallback warnings remain",
+    "Vehicle input replay prediction and autonomous bot flight remain unimplemented"
+  ],
+  "fixture_corrections": [
+    "Dedicated network host must explicitly configure ST mode and Tribes loadout",
+    "Separate follow and acknowledgement actions respect the 0.15 second command request rate limit",
+    "Core bot-planner fixture requires bots and is run without --no-bots"
+  ],
+  "live_test": {
+    "map": "ctf_raindance",
+    "bots": 0,
+    "real_xr": true,
+    "renderer": "Vulkan mobile",
+    "runtime": "Meta Quest Pro on WiVRn v26.9",
+    "log": "test-results/st-command/live-wivrn.log",
+    "verified": [
+      "XR_READY OpenXR",
+      "MAP_READY ctf_raindance",
+      "DM_HOST_READY port=0 practice=true"
+    ]
+  }
+}

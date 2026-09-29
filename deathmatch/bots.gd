@@ -32,7 +32,9 @@ func setup(arena: Node) -> void:
 		var doors:=preload("res://deathmatch/maps/de_navigation.gd").open_for_navigation(game.get_node("Map").get_child(0))
 		NavigationServer3D.parse_source_geometry_data(mesh,data,game.get_node("Map").get_child(0))
 		preload("res://deathmatch/maps/de_navigation.gd").restore(doors)
-		NavigationServer3D.bake_from_source_geometry_data_async(mesh,data,func(): ready_to_walk=true)
+		# Poll completion below. A lambda retained by the navigation server can
+		# outlive this script on map changes or shutdown during an uncached bake.
+		NavigationServer3D.bake_from_source_geometry_data_async(mesh,data)
 	NavigationServer3D.map_set_cell_size(nav_map,region.navigation_mesh.cell_size)
 	var ad_map: bool=game.current_map.begins_with("ad_arena_")
 	NavigationServer3D.map_set_use_edge_connections(nav_map,not ad_map)
@@ -70,6 +72,7 @@ func new_brain(id: int) -> Dictionary:
 
 func tick(delta: float) -> void:
 	if not multiplayer.is_server():return
+	if not ready_to_walk and not NavigationServer3D.is_baking_navigation_mesh(region.navigation_mesh):ready_to_walk=navigation.ready()
 	if ready_to_walk:
 		navigation.install_links();navigation.update_jump_links()
 	teamplay.tick()
@@ -355,6 +358,13 @@ func plan(id: int,brain: Dictionary) -> void:
 	for index in game.spawn_points.size():
 		var point: Vector3=game.spawn_points[index]
 		if origin.distance_to(point)>2:candidate(rows,"roam:%s"%index,"roam",point,8.0+posmod(index-id,3))
+	# The ST carrier's route is a delivery decision. Generic cover, ally
+	# assistance and enemy candidates must not win as exposure penalties stack.
+	if game.match_mode.kind=="st" and tribes.carrier(id):
+		rows=rows.filter(func(row):return row.key in ["st:capture","st:carrier-return","st:hold"])
+	elif game.match_mode.kind=="st" and brain.role=="chaser" and game.players[id].team in [0,1]:
+		var own: Dictionary=game.match_mode.flags[game.players[id].team]
+		if own.dropped or alive(own.carrier):rows=rows.filter(func(row):return row.key in ["st:return","st:intercept","st:catch"])
 	# Usually evaluate six routes. If all fail, try a bounded fallback and
 	# temporarily avoid failed goals so the next plan can reach later choices.
 	for row in rows:
@@ -451,6 +461,7 @@ func choose_weapon(id: int,distance: float,enemy: int=0) -> int:
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,weapon)
 		if data.get("kind","")=="translocator":continue
 		if game.match_mode.kind=="st" and weapon in [8,9,10,11]:continue
+		if game.match_mode.kind=="st" and (tribes.carrier(id) or brains.get(id,{}).get("capture_preparing",false) and brains[id].goal_key=="st:flag") and not tribes.offense.carrier_weapon(id,weapon):continue
 		# Estimate useful damage from the actual class/profile data, not Doom's
 		# slot numbers (Quake grenades and UT shock occupy shotgun slots).
 		var damage: float=float(data.damage)*(1+float(data.get("dice",1)))*.5*int(data.get("pellets",1))
@@ -521,6 +532,7 @@ func combat_reference(id: int,brain: Dictionary,delta: float=.2) -> void:
 		var distance: float=eye(id).distance_to(point)
 		if game.clock>=brain.weapon_at or not game.match_mode.fortress.can_fire(id,s.weapon) or not can_harm_target(id,brain.enemy,s.weapon):
 			s.weapon=choose_weapon(id,distance,brain.enemy);brain.weapon_at=game.clock+.2
+		if game.match_mode.kind=="st" and (tribes.carrier(id) or brain.get("capture_preparing",false) and brain.goal_key=="st:flag") and not tribes.offense.carrier_weapon(id,s.weapon):return
 		var data: Dictionary=game.match_mode.fortress.weapon_data(id,s.weapon)
 		var alternate:=alternate_fire(id,distance,brain)
 		if alternate:data=data.duplicate();data.merge(data.get("alt",{}),true)

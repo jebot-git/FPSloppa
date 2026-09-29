@@ -122,3 +122,7 @@ passes, sensors, a jammer and a forward ammo station. Camera and forward
 inventory placement pass the real placement fixture but were not observed in
 that contested match. A pass attempt is not counted as a successful catch.
 The improved result is one match, not evidence of balanced competitive play.
+
+The subsequent [equipment artwork pass](ST-EQUIPMENT-DESIGN.md) replaces placeholder
+station/turret/deployable geometry with reference-led Blender assets and updates
+Raindance sensor fixtures and generator alignment.

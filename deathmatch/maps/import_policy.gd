@@ -1,6 +1,6 @@
 extends RefCounted
 ## Classification survives hash-based storage; filenames never become disk paths.
-const MODES=["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as"]
+const MODES=["dm","tdm","ctf","koth","ig","if","ft","cc","tf","tb","as","st"]
 const DEFAULT_MODES=["dm","tdm","ig","ft","if"]
 static func source_name(value: String) -> String:
 	var name:=value.replace("\\","/").get_file()

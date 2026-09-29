@@ -1,0 +1,1642 @@
+{
+  "date": "2026-09-28",
+  "branch": "experimental/st-raindance",
+  "base_commit": "8b19bd9",
+  "release_inclusion": false,
+  "cutoffs": {
+    "first_capture_game_seconds": 600,
+    "next_pickup_after_each_capture_game_seconds": 600,
+    "semantics": "Each capture arms a deadline. A timely subsequent pickup clears it; a later capture rearms it."
+  },
+  "runs": [
+    {
+      "run": "live-exit-9286",
+      "map": "ctf_raindance",
+      "seed": null,
+      "options_recorded": false,
+      "evidence": "test-results/st-raindance/live-exit-9286",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 39.441671931528596,
+        "travel_p90_kmh": 59.95777993592792
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 7,
+        "blue": 2
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": null,
+        "last_pickup_seconds": null,
+        "waiting_for_pickup": null,
+        "post_capture_pickup_limit_seconds": null
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 113.371380615234,
+      "tactics": {
+        "approaches_committed": 24,
+        "attack_lane_changes": 32,
+        "failed_launches": 6,
+        "moving_pushes": 5,
+        "progress_recoveries": 25,
+        "pushes_formed": 5,
+        "pushes_interrupted": 2,
+        "underpass_replans": 17
+      },
+      "offense": {
+        "bombard_shots": 10,
+        "built_turret": 1,
+        "disc_jump_attempts": 31,
+        "flag_exit_routes": 8,
+        "flag_pass_catches": 1,
+        "flag_passes": 1
+      }
+    },
+    {
+      "run": "live-layered-9286",
+      "map": "ctf_raindance",
+      "seed": null,
+      "options_recorded": false,
+      "evidence": "test-results/st-raindance/live-layered-9286",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 39.30235464117444,
+        "travel_p90_kmh": 58.37174861259331
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 0,
+        "blue": 0
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": null,
+        "last_pickup_seconds": null,
+        "waiting_for_pickup": null,
+        "post_capture_pickup_limit_seconds": null
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 113.371380615234,
+      "tactics": {
+        "approaches_committed": 18,
+        "attack_lane_changes": 23,
+        "failed_launches": 25,
+        "moving_pushes": 5,
+        "progress_recoveries": 41,
+        "pushes_formed": 5
+      },
+      "offense": {
+        "bombard_shots": 3,
+        "disc_jump_attempts": 38
+      }
+    },
+    {
+      "run": "live-raindance-9286",
+      "map": "ctf_raindance",
+      "seed": null,
+      "options_recorded": false,
+      "evidence": "test-results/st-raindance/live-raindance-9286",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 39.18524587181178,
+        "travel_p90_kmh": 62.18873415331478
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 0,
+        "blue": 0
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": null,
+        "last_pickup_seconds": null,
+        "waiting_for_pickup": null,
+        "post_capture_pickup_limit_seconds": null
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 145.202069091797,
+      "tactics": {
+        "approaches_committed": 21,
+        "attack_lane_changes": 31,
+        "failed_launches": 16,
+        "moving_pushes": 4,
+        "progress_recoveries": 38,
+        "pushes_formed": 4
+      },
+      "offense": {
+        "bombard_shots": 4,
+        "built_motion": 1,
+        "built_turret": 1,
+        "disc_jump_attempts": 47
+      }
+    },
+    {
+      "run": "live-stonehenge-9286",
+      "map": "ctf_stonehenge",
+      "seed": null,
+      "options_recorded": false,
+      "evidence": "test-results/st-raindance/live-stonehenge-9286",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 35.388556688071866,
+        "travel_p90_kmh": 47.73787117485306
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 4,
+        "blue": 1
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": null,
+        "last_pickup_seconds": null,
+        "waiting_for_pickup": null,
+        "post_capture_pickup_limit_seconds": null
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 109.982187652588,
+      "tactics": {
+        "approaches_committed": 34,
+        "attack_lane_changes": 32,
+        "failed_launches": 23,
+        "moving_pushes": 9,
+        "progress_recoveries": 17,
+        "pushes_formed": 9,
+        "pushes_interrupted": 1,
+        "underpass_replans": 43
+      },
+      "offense": {
+        "bombard_shots": 28,
+        "built_turret": 2,
+        "disc_jump_attempts": 18,
+        "flag_exit_routes": 5,
+        "target_beacons": 2
+      }
+    },
+    {
+      "run": "live-supported-9286",
+      "map": "ctf_raindance",
+      "seed": null,
+      "options_recorded": false,
+      "evidence": "test-results/st-raindance/live-supported-9286",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 38.72558081458696,
+        "travel_p90_kmh": 60.9007642698558
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 0,
+        "blue": 2
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": null,
+        "last_pickup_seconds": null,
+        "waiting_for_pickup": null,
+        "post_capture_pickup_limit_seconds": null
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 113.371380615234,
+      "tactics": {
+        "approaches_committed": 34,
+        "attack_lane_changes": 26,
+        "failed_launches": 13,
+        "moving_pushes": 7,
+        "progress_recoveries": 26,
+        "pushes_formed": 7,
+        "pushes_interrupted": 2,
+        "underpass_replans": 24
+      },
+      "offense": {
+        "bombard_shots": 11,
+        "built_ammo_station": 1,
+        "built_motion": 2,
+        "built_pulse": 1,
+        "built_turret": 4,
+        "disc_jump_attempts": 28,
+        "flag_exit_routes": 1,
+        "flag_passes": 1
+      }
+    },
+    {
+      "run": "raindance-diagnostics-9290",
+      "map": "ctf_raindance",
+      "seed": 9290,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/raindance-diagnostics-9290",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 39.49243382008705,
+        "travel_p90_kmh": 60.79483723742991
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "MISSILE TURRET": 88,
+          "CHAINGUN": 434,
+          "PLASMA GUN": 102,
+          "BLASTER": 19
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 4,
+          "PLASMA GUN": 2
+        }
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 2,
+        "blue": 5
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 580.333333333134,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 117.874594116211,
+      "tactics": {
+        "approaches_committed": 25,
+        "attack_lane_changes": 29,
+        "failed_launches": 20,
+        "fallen_corridor_replans": 12,
+        "moving_pushes": 2,
+        "progress_recoveries": 25,
+        "pushes_formed": 2,
+        "pushes_interrupted": 2,
+        "rolling_launches": 5,
+        "underpass_replans": 7
+      },
+      "offense": {
+        "bombard_shots": 15,
+        "built_ammo_station": 2,
+        "built_camera": 1,
+        "built_motion": 2,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 5,
+        "disc_jump_attempts": 15,
+        "flag_exit_routes": 6,
+        "flag_pass_misses": 1,
+        "flag_passes": 1,
+        "target_beacons": 2
+      }
+    },
+    {
+      "run": "raindance-final-9296",
+      "map": "ctf_raindance",
+      "seed": 9296,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/raindance-final-9296",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 39.560902001626886,
+        "travel_p90_kmh": 64.01117977588005
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 685,
+          "PLASMA GUN": 174,
+          "FUSION TURRET": 49,
+          "DISC LAUNCHER": 31,
+          "MISSILE TURRET": 75
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 9,
+          "PLASMA GUN": 2,
+          "FUSION TURRET": 1,
+          "DISC LAUNCHER": 1
+        }
+      },
+      "seconds": 1200.0166666659,
+      "scores": [
+        3,
+        0
+      ],
+      "first_capture_seconds": 209.283333333392,
+      "flag_pickups": {
+        "red": 12,
+        "blue": 6
+      },
+      "termination_reason": "duration_reached",
+      "post_capture_activity": {
+        "last_capture_seconds": 956.016666666126,
+        "last_pickup_seconds": 1160.14999999927,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 124.74141998291,
+      "tactics": {
+        "approaches_committed": 52,
+        "attack_lane_changes": 53,
+        "failed_launches": 47,
+        "fallen_corridor_replans": 12,
+        "moving_pushes": 5,
+        "progress_recoveries": 45,
+        "pushes_formed": 5,
+        "pushes_interrupted": 1,
+        "underpass_replans": 17
+      },
+      "offense": {
+        "bombard_shots": 24,
+        "built_ammo_station": 1,
+        "built_motion": 2,
+        "built_pulse": 1,
+        "built_turret": 6,
+        "carrier_disc_jump_attempts": 1,
+        "disc_jump_attempts": 44,
+        "flag_exit_routes": 9,
+        "flag_pass_catches": 2,
+        "flag_passes": 2,
+        "target_beacons": 2
+      }
+    },
+    {
+      "run": "recorded-raindance-airturn-9288",
+      "map": "ctf_raindance",
+      "seed": 9288,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-airturn-9288",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 39.50018563397789,
+        "travel_p90_kmh": 65.6079339049672
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 5,
+        "blue": 3
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 594.583333333121,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 111.250710296631,
+      "tactics": {
+        "approaches_committed": 32,
+        "attack_lane_changes": 34,
+        "failed_launches": 22,
+        "moving_pushes": 2,
+        "progress_recoveries": 16,
+        "pushes_formed": 2,
+        "pushes_interrupted": 1,
+        "underpass_replans": 11
+      },
+      "offense": {
+        "bombard_shots": 21,
+        "built_ammo_station": 2,
+        "built_camera": 1,
+        "built_motion": 2,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 5,
+        "disc_jump_attempts": 18,
+        "flag_exit_routes": 8,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "recorded-raindance-boost-9294",
+      "map": "ctf_raindance",
+      "seed": 9294,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-boost-9294",
+      "recording": "test-results/st-raindance/recorded-raindance-boost-9294/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.58750482963897,
+        "travel_p90_kmh": 62.63053890902879
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 240
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 4
+        }
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 1,
+        "blue": 3
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 484.116666666555,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 105.074910736084,
+      "tactics": {
+        "approaches_committed": 31,
+        "attack_lane_changes": 27,
+        "failed_launches": 27,
+        "fallen_corridor_replans": 8,
+        "moving_pushes": 4,
+        "progress_recoveries": 24,
+        "pushes_formed": 4,
+        "pushes_interrupted": 2,
+        "rolling_launches": 1,
+        "underpass_replans": 4
+      },
+      "offense": {
+        "bombard_shots": 19,
+        "built_ammo_station": 1,
+        "built_camera": 1,
+        "built_motion": 3,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 6,
+        "disc_jump_attempts": 18,
+        "flag_exit_routes": 4,
+        "target_beacons": 1
+      }
+    },
+    {
+      "run": "recorded-raindance-cover-9293",
+      "map": "ctf_raindance",
+      "seed": 9293,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-cover-9293",
+      "recording": "test-results/st-raindance/recorded-raindance-cover-9293/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.241312830888766,
+        "travel_p90_kmh": 60.027718776290826
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 348,
+          "PLASMA GUN": 65,
+          "BLASTER": 50
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 4,
+          "PLASMA GUN": 1,
+          "BLASTER": 2
+        }
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 3,
+        "blue": 5
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 498.699999999875,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 121.120669555664,
+      "tactics": {
+        "approaches_committed": 29,
+        "attack_lane_changes": 29,
+        "failed_launches": 23,
+        "fallen_corridor_replans": 5,
+        "moving_pushes": 3,
+        "progress_recoveries": 21,
+        "pushes_formed": 3,
+        "underpass_replans": 8
+      },
+      "offense": {
+        "bombard_shots": 20,
+        "built_ammo_station": 1,
+        "built_motion": 1,
+        "built_turret": 4,
+        "disc_jump_attempts": 21,
+        "flag_exit_routes": 6,
+        "flag_pass_misses": 1,
+        "flag_passes": 1
+      }
+    },
+    {
+      "run": "recorded-raindance-downhill-9292",
+      "map": "ctf_raindance",
+      "seed": 9292,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-downhill-9292",
+      "recording": "test-results/st-raindance/recorded-raindance-downhill-9292/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.477846660296464,
+        "travel_p90_kmh": 60.08539065239734
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 337
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 7
+        }
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 4,
+        "blue": 4
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 479.933333333226,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 120.990975952148,
+      "tactics": {
+        "approaches_committed": 32,
+        "attack_lane_changes": 34,
+        "failed_launches": 29,
+        "fallen_corridor_replans": 6,
+        "moving_pushes": 6,
+        "progress_recoveries": 18,
+        "pushes_formed": 6,
+        "pushes_interrupted": 1,
+        "underpass_replans": 14
+      },
+      "offense": {
+        "bombard_shots": 21,
+        "built_ammo_station": 1,
+        "built_motion": 1,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 3,
+        "disc_jump_attempts": 22,
+        "flag_exit_routes": 7,
+        "flag_pass_misses": 1,
+        "flag_passes": 1
+      }
+    },
+    {
+      "run": "recorded-raindance-push-9291",
+      "map": "ctf_raindance",
+      "seed": 9291,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-push-9291",
+      "recording": "test-results/st-raindance/recorded-raindance-push-9291/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.37164775034243,
+        "travel_p90_kmh": 60.81214780934513
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 471,
+          "REMOTE TURRET": 15,
+          "PLASMA GUN": 210,
+          "BLASTER": 25
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 8,
+          "PLASMA GUN": 2
+        }
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 4,
+        "blue": 6
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 576.183333333138,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 127.834057617187,
+      "tactics": {
+        "approaches_committed": 31,
+        "attack_lane_changes": 29,
+        "failed_launches": 27,
+        "fallen_corridor_replans": 8,
+        "moving_pushes": 4,
+        "progress_recoveries": 25,
+        "pushes_formed": 4,
+        "pushes_interrupted": 2,
+        "rolling_launches": 3,
+        "underpass_replans": 8
+      },
+      "offense": {
+        "bombard_shots": 22,
+        "built_ammo_station": 1,
+        "built_motion": 1,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 5,
+        "disc_jump_attempts": 16,
+        "flag_exit_routes": 13,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "recorded-raindance-rear-9290",
+      "map": "ctf_raindance",
+      "seed": 9290,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-rear-9290",
+      "recording": "test-results/st-raindance/recorded-raindance-rear-9290/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.59331293357084,
+        "travel_p90_kmh": 62.76735990872878
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "MISSILE TURRET": 30,
+          "CHAINGUN": 240,
+          "DISC LAUNCHER": 20,
+          "PLASMA GUN": 95
+        },
+        "carrier_deaths_by_weapon": {
+          "MISSILE TURRET": 1,
+          "CHAINGUN": 5
+        }
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 3,
+        "blue": 3
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 539.816666666504,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 115.912559509277,
+      "tactics": {
+        "approaches_committed": 26,
+        "attack_lane_changes": 25,
+        "failed_launches": 25,
+        "fallen_corridor_replans": 6,
+        "moving_pushes": 4,
+        "progress_recoveries": 25,
+        "pushes_formed": 4,
+        "pushes_interrupted": 3,
+        "rolling_launches": 1,
+        "underpass_replans": 6
+      },
+      "offense": {
+        "bombard_shots": 15,
+        "built_ammo_station": 1,
+        "built_motion": 1,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 3,
+        "disc_jump_attempts": 19,
+        "flag_exit_routes": 6,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "recorded-raindance-screen-9288",
+      "map": "ctf_raindance",
+      "seed": 9288,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-screen-9288",
+      "recording": "test-results/st-raindance/recorded-raindance-screen-9288/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.33877734150417,
+        "travel_p90_kmh": 58.36028693778877
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 5,
+        "blue": 5
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 587.866666666461,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 110.516665649414,
+      "tactics": {
+        "approaches_committed": 30,
+        "attack_lane_changes": 27,
+        "failed_launches": 15,
+        "moving_pushes": 3,
+        "progress_recoveries": 20,
+        "pushes_formed": 3,
+        "pushes_interrupted": 1,
+        "underpass_replans": 14
+      },
+      "offense": {
+        "bombard_shots": 27,
+        "built_ammo_station": 1,
+        "built_motion": 2,
+        "built_turret": 3,
+        "disc_jump_attempts": 19,
+        "flag_exit_routes": 9,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "recorded-raindance-through-9295",
+      "map": "ctf_raindance",
+      "seed": 9295,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-through-9295",
+      "recording": "test-results/st-raindance/recorded-raindance-through-9295/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.52276270024344,
+        "travel_p90_kmh": 61.4736591716415
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "PLASMA GUN": 94,
+          "CHAINGUN": 480,
+          "DISC LAUNCHER": 38
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 10
+        }
+      },
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 582.499999999799,
+      "flag_pickups": {
+        "red": 8,
+        "blue": 4
+      },
+      "termination_reason": "duration_reached",
+      "post_capture_activity": {
+        "last_capture_seconds": 582.499999999799,
+        "last_pickup_seconds": 968.849999999448,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 131.780236816406,
+      "tactics": {
+        "approaches_committed": 53,
+        "attack_lane_changes": 53,
+        "failed_launches": 42,
+        "fallen_corridor_replans": 11,
+        "moving_pushes": 7,
+        "progress_recoveries": 37,
+        "pushes_formed": 7,
+        "pushes_interrupted": 3,
+        "underpass_replans": 14
+      },
+      "offense": {
+        "bombard_shots": 28,
+        "built_ammo_station": 1,
+        "built_camera": 1,
+        "built_motion": 3,
+        "built_pulse": 2,
+        "built_remote_jammer": 1,
+        "built_turret": 5,
+        "carrier_disc_jump_attempts": 1,
+        "disc_jump_attempts": 53,
+        "flag_exit_routes": 10,
+        "flag_pass_misses": 1,
+        "flag_passes": 1,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "recorded-raindance-window-9289",
+      "map": "ctf_raindance",
+      "seed": 9289,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-raindance-window-9289",
+      "recording": "test-results/st-raindance/recorded-raindance-window-9289/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 39.533128768681756,
+        "travel_p90_kmh": 63.13955410162898
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 9,
+        "blue": 3
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 558.383333333154,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 111.241344451904,
+      "tactics": {
+        "approaches_committed": 28,
+        "attack_lane_changes": 33,
+        "failed_launches": 19,
+        "fallen_corridor_replans": 7,
+        "moving_pushes": 1,
+        "progress_recoveries": 20,
+        "pushes_formed": 1,
+        "rolling_launches": 4,
+        "underpass_replans": 11
+      },
+      "offense": {
+        "bombard_shots": 19,
+        "built_ammo_station": 1,
+        "built_motion": 1,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 5,
+        "disc_jump_attempts": 23,
+        "flag_exit_routes": 12,
+        "target_beacons": 1
+      }
+    },
+    {
+      "run": "recorded-stonehenge-9287",
+      "map": "ctf_stonehenge",
+      "seed": null,
+      "options_recorded": false,
+      "evidence": "test-results/st-raindance/recorded-stonehenge-9287",
+      "recording": "test-results/st-raindance/recorded-stonehenge-9287/match.mp4",
+      "video_clock_basis": "legacy_client_local_clock_not_authority",
+      "behaviour": {
+        "travel_median_kmh": 34.43639872936909,
+        "travel_p90_kmh": 49.54194414927397
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 1800.01666666536,
+      "scores": [
+        0,
+        2
+      ],
+      "first_capture_seconds": 475.949999999896,
+      "flag_pickups": {
+        "red": 11,
+        "blue": 10
+      },
+      "termination_reason": "match_finished",
+      "post_capture_activity": {
+        "last_capture_seconds": 739.783333332989,
+        "last_pickup_seconds": 1776.86666666538,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 114.023453521729,
+      "tactics": {
+        "approaches_committed": 79,
+        "attack_lane_changes": 78,
+        "failed_launches": 64,
+        "moving_pushes": 23,
+        "progress_recoveries": 53,
+        "pushes_formed": 23,
+        "pushes_interrupted": 3,
+        "underpass_replans": 29
+      },
+      "offense": {
+        "bombard_shots": 28,
+        "built_motion": 2,
+        "built_turret": 4,
+        "disc_jump_attempts": 74,
+        "flag_exit_routes": 19,
+        "flag_pass_misses": 1,
+        "flag_passes": 1,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "recorded-stonehenge-final-9296",
+      "map": "ctf_stonehenge",
+      "seed": 9296,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/recorded-stonehenge-final-9296",
+      "recording": "test-results/st-raindance/recorded-stonehenge-final-9296/match.mp4",
+      "video_clock_basis": "server_snapshot_time",
+      "behaviour": {
+        "travel_median_kmh": 36.52168671211436,
+        "travel_p90_kmh": 50.72664379367987
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 940,
+          "BLASTER": 39,
+          "PLASMA GUN": 63,
+          "DISC LAUNCHER": 58
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 15,
+          "DISC LAUNCHER": 1
+        }
+      },
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 172.266666666696,
+      "flag_pickups": {
+        "red": 11,
+        "blue": 6
+      },
+      "termination_reason": "duration_reached",
+      "post_capture_activity": {
+        "last_capture_seconds": 172.266666666696,
+        "last_pickup_seconds": 1089.266666666,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 112.721834564209,
+      "tactics": {
+        "approaches_committed": 55,
+        "attack_lane_changes": 44,
+        "failed_launches": 29,
+        "fallen_corridor_replans": 48,
+        "moving_pushes": 14,
+        "progress_recoveries": 58,
+        "pushes_formed": 14,
+        "pushes_interrupted": 1,
+        "underpass_replans": 32
+      },
+      "offense": {
+        "bombard_shots": 22,
+        "built_ammo_station": 2,
+        "built_motion": 2,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 6,
+        "disc_jump_attempts": 29,
+        "flag_exit_routes": 1,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "refit-raindance-9287",
+      "map": "ctf_raindance",
+      "seed": null,
+      "options_recorded": false,
+      "evidence": "test-results/st-raindance/refit-raindance-9287",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 38.930185687924606,
+        "travel_p90_kmh": 61.386361736510295
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 599.999999999783,
+      "scores": [
+        0,
+        0
+      ],
+      "first_capture_seconds": -1.0,
+      "flag_pickups": {
+        "red": 2,
+        "blue": 1
+      },
+      "termination_reason": "no_capture_600s",
+      "post_capture_activity": {
+        "last_capture_seconds": -1.0,
+        "last_pickup_seconds": 478.76666666656,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 110.638579559326,
+      "tactics": {
+        "approaches_committed": 26,
+        "attack_lane_changes": 29,
+        "failed_launches": 32,
+        "moving_pushes": 3,
+        "progress_recoveries": 20,
+        "pushes_formed": 3,
+        "pushes_interrupted": 2,
+        "underpass_replans": 45
+      },
+      "offense": {
+        "bombard_shots": 16,
+        "built_ammo_station": 1,
+        "built_motion": 1,
+        "built_turret": 2,
+        "disc_jump_attempts": 23,
+        "flag_exit_routes": 3,
+        "target_beacons": 3
+      }
+    },
+    {
+      "run": "stonehenge-airturn-9288",
+      "map": "ctf_stonehenge",
+      "seed": 9288,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/stonehenge-airturn-9288",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 36.86541488173093,
+        "travel_p90_kmh": 49.510640889044836
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 1800.01666666536,
+      "scores": [
+        2,
+        0
+      ],
+      "first_capture_seconds": 235.666666666746,
+      "flag_pickups": {
+        "red": 13,
+        "blue": 9
+      },
+      "termination_reason": "match_finished",
+      "post_capture_activity": {
+        "last_capture_seconds": 513.599999999862,
+        "last_pickup_seconds": 1678.3499999988,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 125.604794311523,
+      "tactics": {
+        "approaches_committed": 93,
+        "attack_lane_changes": 78,
+        "failed_launches": 66,
+        "moving_pushes": 24,
+        "progress_recoveries": 80,
+        "pushes_formed": 24,
+        "pushes_interrupted": 4,
+        "underpass_replans": 34
+      },
+      "offense": {
+        "bombard_shots": 35,
+        "built_ammo_station": 2,
+        "built_motion": 1,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 4,
+        "disc_jump_attempts": 70,
+        "flag_exit_routes": 1,
+        "flag_pass_misses": 1,
+        "flag_passes": 1,
+        "target_beacons": 4
+      }
+    },
+    {
+      "run": "stonehenge-boost-9294",
+      "map": "ctf_stonehenge",
+      "seed": 9294,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/stonehenge-boost-9294",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 36.66048716329133,
+        "travel_p90_kmh": 49.25945225848365
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 500,
+          "PLASMA GUN": 168
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 6,
+          "PLASMA GUN": 2
+        }
+      },
+      "seconds": 900.016666666177,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 149.616666666678,
+      "flag_pickups": {
+        "red": 9,
+        "blue": 1
+      },
+      "termination_reason": "duration_reached",
+      "post_capture_activity": {
+        "last_capture_seconds": 149.616666666678,
+        "last_pickup_seconds": 866.783333332874,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 114.310931396484,
+      "tactics": {
+        "approaches_committed": 48,
+        "attack_lane_changes": 38,
+        "failed_launches": 32,
+        "fallen_corridor_replans": 32,
+        "moving_pushes": 14,
+        "progress_recoveries": 35,
+        "pushes_formed": 14,
+        "pushes_interrupted": 1,
+        "rolling_launches": 2,
+        "underpass_replans": 33
+      },
+      "offense": {
+        "bombard_shots": 27,
+        "built_ammo_station": 2,
+        "built_camera": 1,
+        "built_motion": 1,
+        "built_pulse": 1,
+        "built_remote_jammer": 1,
+        "built_turret": 3,
+        "disc_jump_attempts": 26,
+        "flag_exit_routes": 5,
+        "flag_pass_misses": 1,
+        "flag_passes": 1,
+        "target_beacons": 4
+      }
+    },
+    {
+      "run": "stonehenge-downhill-9292",
+      "map": "ctf_stonehenge",
+      "seed": 9292,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/stonehenge-downhill-9292",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 35.1616754330024,
+        "travel_p90_kmh": 50.15107917778094
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 608,
+          "BLASTER": 44,
+          "PLASMA GUN": 17
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 10
+        }
+      },
+      "seconds": 900.016666666177,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 168.750000000026,
+      "flag_pickups": {
+        "red": 7,
+        "blue": 4
+      },
+      "termination_reason": "duration_reached",
+      "post_capture_activity": {
+        "last_capture_seconds": 168.750000000026,
+        "last_pickup_seconds": 706.933333333019,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 112.726208496094,
+      "tactics": {
+        "approaches_committed": 45,
+        "attack_lane_changes": 47,
+        "failed_launches": 26,
+        "fallen_corridor_replans": 28,
+        "moving_pushes": 17,
+        "progress_recoveries": 31,
+        "pushes_formed": 17,
+        "rolling_launches": 1,
+        "underpass_replans": 33
+      },
+      "offense": {
+        "bombard_shots": 31,
+        "built_motion": 2,
+        "built_turret": 3,
+        "disc_jump_attempts": 29,
+        "flag_exit_routes": 4,
+        "target_beacons": 2
+      }
+    },
+    {
+      "run": "stonehenge-push-9291",
+      "map": "ctf_stonehenge",
+      "seed": 9291,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/stonehenge-push-9291",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 35.070688069256505,
+        "travel_p90_kmh": 48.91747076448361
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "CHAINGUN": 380,
+          "PLASMA GUN": 30
+        },
+        "carrier_deaths_by_weapon": {
+          "PLASMA GUN": 1,
+          "CHAINGUN": 3
+        }
+      },
+      "seconds": 900.016666666177,
+      "scores": [
+        2,
+        0
+      ],
+      "first_capture_seconds": 408.866666666623,
+      "flag_pickups": {
+        "red": 4,
+        "blue": 3
+      },
+      "termination_reason": "duration_reached",
+      "post_capture_activity": {
+        "last_capture_seconds": 589.466666666459,
+        "last_pickup_seconds": 882.299999999526,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 118.217628479004,
+      "tactics": {
+        "approaches_committed": 44,
+        "attack_lane_changes": 33,
+        "failed_launches": 29,
+        "fallen_corridor_replans": 51,
+        "moving_pushes": 2,
+        "progress_recoveries": 36,
+        "pushes_formed": 2,
+        "rolling_launches": 1,
+        "underpass_replans": 35
+      },
+      "offense": {
+        "bombard_shots": 19,
+        "built_motion": 2,
+        "built_turret": 2,
+        "disc_jump_attempts": 24,
+        "target_beacons": 4
+      }
+    },
+    {
+      "run": "stonehenge-through-9295",
+      "map": "ctf_stonehenge",
+      "seed": 9295,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/stonehenge-through-9295",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 34.92364364350639,
+        "travel_p90_kmh": 49.327608035466525
+      },
+      "combat": {
+        "recorded": true,
+        "carrier_damage_by_weapon": {
+          "DISC LAUNCHER": 8,
+          "CHAINGUN": 669,
+          "PLASMA GUN": 170
+        },
+        "carrier_deaths_by_weapon": {
+          "CHAINGUN": 9,
+          "PLASMA GUN": 1
+        }
+      },
+      "seconds": 1200.0166666659,
+      "scores": [
+        1,
+        0
+      ],
+      "first_capture_seconds": 140.933333333338,
+      "flag_pickups": {
+        "red": 8,
+        "blue": 4
+      },
+      "termination_reason": "duration_reached",
+      "post_capture_activity": {
+        "last_capture_seconds": 140.933333333338,
+        "last_pickup_seconds": 1190.94999999925,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 119.327687072754,
+      "tactics": {
+        "approaches_committed": 64,
+        "attack_lane_changes": 41,
+        "failed_launches": 31,
+        "fallen_corridor_replans": 69,
+        "moving_pushes": 15,
+        "progress_recoveries": 50,
+        "pushes_formed": 15,
+        "pushes_interrupted": 4,
+        "underpass_replans": 46
+      },
+      "offense": {
+        "bombard_shots": 25,
+        "built_ammo_station": 1,
+        "built_motion": 2,
+        "built_turret": 2,
+        "disc_jump_attempts": 34,
+        "flag_exit_routes": 2,
+        "target_beacons": 4
+      }
+    },
+    {
+      "run": "stonehenge-window-9289",
+      "map": "ctf_stonehenge",
+      "seed": 9289,
+      "options_recorded": true,
+      "evidence": "test-results/st-raindance/stonehenge-window-9289",
+      "recording": null,
+      "video_clock_basis": null,
+      "behaviour": {
+        "travel_median_kmh": 36.68847503956298,
+        "travel_p90_kmh": 48.80200743950066
+      },
+      "combat": {
+        "recorded": false
+      },
+      "seconds": 1800.01666666536,
+      "scores": [
+        2,
+        1
+      ],
+      "first_capture_seconds": 281.750000000072,
+      "flag_pickups": {
+        "red": 17,
+        "blue": 14
+      },
+      "termination_reason": "match_finished",
+      "post_capture_activity": {
+        "last_capture_seconds": 1223.39999999922,
+        "last_pickup_seconds": 1755.08333333207,
+        "waiting_for_pickup": false,
+        "post_capture_pickup_limit_seconds": 600.0
+      },
+      "script_errors": 0,
+      "peak_horizontal_kmh": 120.912959289551,
+      "tactics": {
+        "approaches_committed": 103,
+        "attack_lane_changes": 84,
+        "carrier_holds": 4,
+        "failed_launches": 59,
+        "fallen_corridor_replans": 85,
+        "moving_pushes": 27,
+        "progress_recoveries": 71,
+        "pushes_formed": 27,
+        "pushes_interrupted": 7,
+        "rolling_launches": 1,
+        "underpass_replans": 37
+      },
+      "offense": {
+        "bombard_shots": 25,
+        "built_motion": 2,
+        "built_turret": 4,
+        "disc_jump_attempts": 56,
+        "flag_exit_routes": 1,
+        "flag_pass_catches": 1,
+        "flag_pass_misses": 2,
+        "flag_passes": 3,
+        "target_beacons": 4
+      }
+    }
+  ],
+  "comparison_note": "Exploratory iterations with different code/seeds; not a controlled statistical comparison. Failed runs are retained. Only completed result.json runs are included.",
+  "tests": [
+    {
+      "name": "RAINDANCE_ACCEPTANCE",
+      "checks": 83,
+      "failures": [],
+      "evidence": "test-results/st-raindance/acceptance-final.log"
+    },
+    {
+      "name": "ST_TRIBES",
+      "checks": 59,
+      "failures": [],
+      "evidence": "test-results/st-raindance/st_tribes.log"
+    },
+    {
+      "name": "ST_CAPTURE_DEADLINE",
+      "checks": 15,
+      "failures": [],
+      "evidence": "test-results/st-raindance/deadline-final.log"
+    },
+    {
+      "name": "ST_VR_RELIABILITY",
+      "checks": 27,
+      "failures": [],
+      "evidence": "test-results/st-raindance/vr-final.log"
+    },
+    {
+      "name": "ST_PARITY456",
+      "checks": 77,
+      "failures": [],
+      "evidence": "test-results/st-raindance/parity-final.log"
+    },
+    {
+      "name": "ST_PARITY123",
+      "checks": 87,
+      "failures": [],
+      "evidence": "test-results/st-raindance/parity123-verified.log"
+    },
+    {
+      "name": "ST_BOT_TACTICS",
+      "checks": 62,
+      "failures": [],
+      "evidence": "test-results/st-raindance/tactics-final.log"
+    },
+    {
+      "name": "ST_ADAPTIVE_TACTICS",
+      "checks": 42,
+      "failures": [],
+      "evidence": "test-results/st-raindance/adaptive-final.log"
+    }
+  ],
+  "unopposed_spawns": {
+    "passed": 16,
+    "total": 16,
+    "min_capture_seconds": 127.649999999994,
+    "max_capture_seconds": 294.750000000061,
+    "evidence": "test-results/st-raindance/all-spawns-through.json"
+  },
+  "recorded_carrier_escapes": [
+    {
+      "escape_100m_seconds": 8.21666666666667,
+      "longest_slow_interval_seconds": 0.0,
+      "map": "ctf_raindance",
+      "pass": true,
+      "team": 0
+    },
+    {
+      "escape_100m_seconds": 12.5333333333333,
+      "longest_slow_interval_seconds": 0.0,
+      "map": "ctf_raindance",
+      "pass": true,
+      "team": 1
+    },
+    {
+      "escape_100m_seconds": 13.7166666666667,
+      "longest_slow_interval_seconds": 0.0,
+      "map": "ctf_stonehenge",
+      "pass": true,
+      "team": 1
+    },
+    {
+      "escape_100m_seconds": 16.1166666666667,
+      "longest_slow_interval_seconds": 0.0,
+      "map": "ctf_stonehenge",
+      "pass": true,
+      "team": 0
+    }
+  ],
+  "map": {
+    "format": "BSP29",
+    "bsp_sha256": "072c18d151eead245567794e8651096f80c2c053e568ca5d3956614701a4cdf6",
+    "navigation_sha256": "b82bd4bdcb1912116afab4b1f7c2089558bde6bdd71e43da358354d60b679f8f",
+    "navigation_polygons": 27335
+  },
+  "spectator": {
+    "renderer": "Vulkan",
+    "speed": "Replicated horizontal velocity in km/h",
+    "clock": "server_snapshot_time",
+    "final_clock_and_microphone_smoke": "test-results/st-harness-smoke-9301",
+    "speed_audit": "test-results/st-raindance/recorded-raindance-window-9289/speed-audit.json"
+  },
+  "successful_recording": "test-results/st-raindance/recorded-raindance-through-9295/review/first-capture.mp4",
+  "limitations": [
+    "Unopposed success is separate from contested success; all failed match runs are retained.",
+    "Original footage was reviewed in sampled frames and short sequences, not complete narrated playthroughs.",
+    "These exploratory code/seed iterations are not a controlled statistical comparison or proof of optimal routes.",
+    "Raindance Blue-side contested consistency and slow terrain corrections still need work.",
+    "Rebuilt Raindance interiors and textures are approximate; vehicle pads are landmarks, not functional vehicles.",
+    "VR pose/RPC checks do not replace a physical-headset comfort test.",
+    "Legacy Stonehenge 9287 speed/clock are marked unreliable; its corrected clip uses the visible countdown.",
+    "Older silent viewer shutdowns logged a PulseAudio input error; the separate final harness smoke has no errors.",
+    "Final match pair predates spectator cleanup and human pass-recipient extension; moving-bot handoffs use the tested final controller.",
+    "Some headless test fixtures log ObjectDB cleanup warnings; authoritative match scripts log no script errors."
+  ]
+}

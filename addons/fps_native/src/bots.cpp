@@ -67,6 +67,11 @@ void FPSBots::combat(Object *ai,int64_t id,Dictionary brain,double delta){
   if(n(brain,k.last_seen_at.value)>=0)point=v(brain,k.seen_position.value)+Vector3(0,1,0)*double(c.actor(enemy)->call(k.torso_height.name))+v(brain,k.observed_velocity.value)*std::clamp(c.clock-n(brain,k.last_seen_at.value),0.,.2)*.85;
   double distance=eye.distance_to(point);
   if(c.clock>=n(brain,k.weapon_at.value)||!bool(c.fortress->call(k.can_fire.name,id,state[k.weapon.value]))||!bool(ai->call(k.can_harm_target.name,id,enemy,state[k.weapon.value]))){state[k.weapon.value]=ai->call(k.choose_weapon.name,id,distance,enemy);brain[k.weapon_at.value]=c.clock+.2;}
+  // ST carriers and committed cappers reserve jet energy even between weapon
+  // selection ticks. Keep the newer ST rule identical to combat_reference.
+  if(c.kind=="st"&&(bool(c.tribes->call(k.carrier.name,id))||(bool(brain.get(k.capture_preparing.value,false))&&s(brain,k.goal_key.value)=="st:flag"))){
+   Object *offense=c.tribes->get(k.offense.name);if(!bool(offense->call(k.carrier_weapon.name,id,state[k.weapon.value])))return;
+  }
   Dictionary data=c.fortress->call(k.weapon_data.name,id,state[k.weapon.value]);
   // Derive common traits once from the base definition, before alternate-fire
   // overrides. The script helpers perform these same read-only lookups again.

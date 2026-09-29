@@ -11,6 +11,7 @@ const PROFILES={
 }
 const MAPS={
  "ctf_stonehenge":"works",
+ "ctf_raindance":"works",
  "tb_cindercoil":"works",
  "de_dust2_rebuilt":"desert","de_nuke_rebuilt":"desert","de_inferno_rebuilt":"desert","de_aztec_rebuilt":"works","de_train_rebuilt":"coast",
  "tf_vesper":"abbey","tf_pressureworks":"works","as_hislop":"works","as_frigate":"coast",

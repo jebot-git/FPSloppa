@@ -125,7 +125,7 @@ func run() -> void:
 	check(saved.vr.weapon_wheel=="left:primary_click","Wheel binding reloads")
 	game.bindings.vr.weapon_wheel="right:primary_click";game.bindings.save()
 	for key in Icons.NAMES:
-		var icon=Icons.texture(key);check(icon!=null and icon.get_width()==128,"Icon imports: "+key)
+		var icon=Icons.texture(key);check(icon!=null and icon.get_width()>=128 and icon.get_image().has_mipmaps(),"Icon imports: "+key)
 	wheel.reset();check(wheel.viewport.render_target_update_mode==SubViewport.UPDATE_DISABLED,"Closed wheel stops viewport rendering")
 	var head_tracker:=XRPositionalTracker.new();head_tracker.name="head";head_tracker.type=XRServer.TRACKER_HEAD;XRServer.add_tracker(head_tracker)
 	head_tracker.set_pose("default",rig.head.transform,Vector3.ZERO,Vector3.ZERO,XRPose.XR_TRACKING_CONFIDENCE_HIGH)

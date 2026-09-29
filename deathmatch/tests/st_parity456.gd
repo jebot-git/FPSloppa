@@ -165,7 +165,7 @@ func state_cases():
 	var data: Dictionary=r.snapshot();check(r.valid_snapshot(data),"Complete field state accepted by production validator")
 	check(r.valid_snapshot(Codec.unpack(Codec.pack(data))),"Field state survives production compressed codec")
 	var old:=data.duplicate(true)
-	for key in ["power","targeting","recovery"]:old.erase(key)
+	for key in ["power","targeting","recovery","vehicles","remote","command"]:old.erase(key)
 	for row in old.players.values():row.erase("beacons")
 	check(r.valid_snapshot(old),"Previous protocol's recording state remains readable")
 	var bad:=data.duplicate(true);bad.players[1].beacons=14;check(not r.valid_snapshot(bad),"Oversized beacon inventory rejected")

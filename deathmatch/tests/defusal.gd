@@ -29,7 +29,8 @@ func run():
 	await physics_frame;await physics_frame
 	check(g.active and g.current_map==de.MAP and g.armory.effective()=="cs16","Practice starts DE on Dust2 with forced CS weapons")
 	check(not g._load_map("qsrc_dm1"),"Unsupported map cannot be loaded as DE")
-	check(g.maps_for_mode("de").size()==5 and g.maps_for_mode("de").has(de.MAP),"Host/votes expose all five supported DE maps")
+	var offered_maps: Array=g.maps_for_mode("de")
+	check(de.Maps.IDS.all(func(id):return id in offered_maps),"Host/votes expose all five built-in DE maps alongside installed conversions")
 	for role in 2:
 		for p in de.starts[role]:
 			var hit: Dictionary=g.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(p+Vector3.UP*.2,p-Vector3.UP*.3,1))

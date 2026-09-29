@@ -1,0 +1,280 @@
+{
+  "date": "2026-09-29",
+  "branch": "main",
+  "st_enabled": true,
+  "separate_worktree_removed": true,
+  "main_checkpoint": "07f727c58c9c0789b4aca7bb979e1b6f2899d4d3",
+  "st_checkpoint": "7a07cbf14285b474420149d0a3122bc66f342023",
+  "recovery_branch": "experimental/st-raindance",
+  "protocol": "fpsloppa-68-st-native-main",
+  "published_release_changed": false,
+  "pushed": false,
+  "preservation": {
+    "main_existing_source_changes_checkpointed": 183,
+    "st_tracked_paths_compared": 4642,
+    "runtime_assets_verified_after_removal": 154,
+    "runtime_assets_updated": 40,
+    "generated_import_metadata_and_extracted_textures": 161,
+    "generated_import_bytes": 7759707,
+    "archive": "test-results/st-main-promotion/st-worktree-before.tar.zst",
+    "archive_bytes": 7987530236,
+    "archive_sha256": "c570a375d62bd5d036ed209541fd35df0b8ac10039da8becf1119759e95f1d2d",
+    "archive_comparison": "tar -I zstd -df against original worktree: exit 0, empty differences",
+    "archive_verification_log": "test-results/st-main-promotion/archive-verify.log",
+    "main_changes_backup": "test-results/st-main-promotion/main-before",
+    "previous_runtime_assets": "test-results/st-main-promotion/main-runtime-before",
+    "latest_prior_evidence": "test-results/st-main-sync",
+    "source_manifest_sha256": "945ad6a8db30eb3868b7bc13a1df0544d3236402618ca4edf75275f562b90040",
+    "runtime_manifest_sha256": "c83f42091a8e781a7a7efe0825d07eb3013f2414400e258308f22b9dd50f835f",
+    "post_removal_audit": "test-results/st-main-promotion/post-removal-audit.json"
+  },
+  "native_receipts": {
+    "linux": "5f07b05ed0aec0986655742928f801d38f25e9d02c0e2f23c9577a24066696fb",
+    "linux-server": "787104da9b0ef32734b3d54c2f02c95634b40a6324d2c6c45158b09bdb00356e",
+    "windows": "eddbfdc7c2884501b8dbe485477f8a0a99920f69848fe17a359be0ae17a9c7b2",
+    "android": "7b8cac9b0f5973b87a29d84defd86e226ebae4c0361e48b4be4c537b7c99189d"
+  },
+  "native_validation": "Copied existing integration builds; all four receipt/source/library hashes match. Linux runtime tested; Windows/Android not tested on devices.",
+  "migration_fixes": [
+    "Blender generator project roots use script location instead of removed worktree.",
+    "Builds/.gdignore excludes compiler and engine fixtures from Godot asset scans.",
+    "DE test requires all five built-in maps while allowing installed CS map conversions.",
+    "VR command test creates its screenshot directory in a fresh checkout."
+  ],
+  "asset_import": {
+    "final_exit_code": 0,
+    "final_script_errors": 0,
+    "final_errors": 0,
+    "log": "test-results/st-main-promotion/checks/import-final.log",
+    "initial_attempt": "Interrupted after scanning build-tool fixtures; initial log preserved. Local build directory excluded and final import completed."
+  },
+  "checks": [
+    {
+      "suite": "native_st_bots",
+      "exit_code": 0,
+      "seconds": 4.07,
+      "rendering": "headless",
+      "command": [
+        "godot",
+        "--headless",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/native_st_bots.gd"
+      ],
+      "result_lines": [
+        "NATIVE_ST_BOTS_RESULT {\"cases\":54,\"checks\":49317,\"failures\":[]}"
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "suite": "st_targeting",
+      "exit_code": 0,
+      "seconds": 3.53,
+      "rendering": "headless",
+      "command": [
+        "godot",
+        "--headless",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/st_targeting.gd"
+      ],
+      "result_lines": [
+        "ST_TARGETING_RESULT {\"checks\":43,\"failures\":[]}"
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "suite": "st_command",
+      "exit_code": 0,
+      "seconds": 3.52,
+      "rendering": "headless",
+      "command": [
+        "godot",
+        "--headless",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/st_command.gd"
+      ],
+      "result_lines": [
+        "ST_COMMAND {\"checks\":46,\"failures\":[]}"
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "suite": "st_transports",
+      "exit_code": 0,
+      "seconds": 3.97,
+      "rendering": "headless",
+      "command": [
+        "godot",
+        "--headless",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/st_transports.gd"
+      ],
+      "result_lines": [
+        "ST_TRANSPORTS {\"checks\":93,\"failures\":[]}"
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "suite": "defusal",
+      "exit_code": 0,
+      "seconds": 3.42,
+      "rendering": "headless",
+      "command": [
+        "godot",
+        "--headless",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/defusal.gd"
+      ],
+      "result_lines": [
+        "DEFUSAL_RESULT {\"checks\":102,\"failures\":[],\"passed\":true}"
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "suite": "cs16_compensation",
+      "exit_code": 0,
+      "seconds": 3.77,
+      "rendering": "headless",
+      "command": [
+        "godot",
+        "--headless",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/cs16_compensation.gd"
+      ],
+      "result_lines": [
+        "CS16_COMPENSATION_RESULT {\"checks\":470,\"failures\":[],\"passed\":true}"
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "suite": "tribes_bodies",
+      "exit_code": 0,
+      "seconds": 11.24,
+      "rendering": "Vulkan mobile",
+      "command": [
+        "godot",
+        "--rendering-method",
+        "mobile",
+        "--rendering-driver",
+        "vulkan",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/tribes_bodies.gd"
+      ],
+      "result_lines": [
+        "TRIBES_BODIES {\"avatar\":\"\",\"checks\":226,\"failures\":[]}"
+      ],
+      "failures": [],
+      "passed": true
+    },
+    {
+      "suite": "st_command_vr",
+      "exit_code": 0,
+      "seconds": 7.48,
+      "rendering": "Vulkan mobile",
+      "command": [
+        "godot",
+        "--rendering-method",
+        "mobile",
+        "--rendering-driver",
+        "vulkan",
+        "--xr-mode",
+        "off",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        "/home/blux/Documents/FPSloppa",
+        "--script",
+        "deathmatch/tests/st_command_vr.gd",
+        "--",
+        "--vr-test",
+        "--no-bots"
+      ],
+      "result_lines": [
+        "ST_COMMAND_VR {\"checks\":34,\"failures\":[]}"
+      ],
+      "failures": [
+        "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+      ],
+      "passed": true
+    }
+  ],
+  "network": {
+    "suite": "st_targeting_network",
+    "processes": 4,
+    "checks": 19,
+    "exit_code": 0,
+    "log": "test-results/st-main-promotion/checks/targeting-network.log"
+  },
+  "vr_session": {
+    "launched_from": "/home/blux/Documents/FPSloppa",
+    "mode": "st",
+    "map": "ctf_raindance",
+    "bots": 0,
+    "runtime": "WiVRn v26.9",
+    "headset": "Meta Quest Pro",
+    "renderer": "Vulkan mobile",
+    "xr_ready": true,
+    "map_ready": true,
+    "script_errors": 0,
+    "subsequent_exit_code": 0,
+    "running": false,
+    "log": "test-results/st-main-promotion/live-wivrn.log",
+    "shutdown_diagnostics": [
+      "XR_ERROR_SESSION_NOT_STOPPING in xrEndSession: Session is not stopping",
+      "ERROR: Attempt to disconnect a nonexistent connection from '<OpenXRSpatialEntityExtension#5402263799>'. Signal: 'spatial_discovery_recommended', callable: 'OpenXRSpatialMarkerTrackingCapability::_on_spatial_discovery_recommended'.",
+      "ERROR: 4 RID allocations of type 'N9OpenXRAPI18InteractionProfileE' were leaked at exit."
+    ]
+  },
+  "limits": [
+    "Existing fixture ObjectDB/resource cleanup warnings remain; final suites have no script errors or failed assertions.",
+    "VR client reached the map, then exited with status 0 and Godot/OpenXR cleanup diagnostics. Startup verified, not new human interaction or performance validation.",
+    "Capture reliability remains unresolved as described in ST-MAIN-INTEGRATION.md; no new long bot match was run for this location-only promotion."
+  ]
+}

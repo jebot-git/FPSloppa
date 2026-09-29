@@ -27,10 +27,13 @@ func run():
 		mode.flags[1-team].carrier=runner;g.players[runner].hp=10
 		var rows: Array=[];tribes.goals(runner,ai.new_brain(runner),rows)
 		check(rows.size()==1 and rows[0].key=="st:capture","Carrier ignores purchases and unrelated fights %d"%team)
-		mode.flags[team].carrier=members[0] # Public stolen-flag objective for role routing only.
-		var defender: int=members.filter(func(id):return tribes.role(id)=="flag_defense")[0]
-		rows=[];tribes.goals(defender,ai.new_brain(defender),rows)
-		check(not rows.any(func(r):return r.kind=="intercept"),"Flag defender does not join the whole-team chase %d"%team)
+		# Low-health carrier logic may have initiated a pass above. Restore
+		# possession for the separate two-flag role assignment assertion.
+		mode.flags[1-team].carrier=runner;mode.flags[1-team].dropped=false
+		mode.flags[team].carrier=g.players.keys().filter(func(id):return id<0 and g.players[id].team!=team)[0]
+		var escort: int=members.filter(func(id):return tribes.role(id)=="escort")[0]
+		rows=[];tribes.goals(escort,ai.new_brain(escort),rows)
+		check(rows.any(func(r):return r.kind=="escort") and not rows.any(func(r):return r.kind=="intercept"),"One escort protects the carrier during the recovery push %d"%team)
 		mode.return_flag(team);mode.return_flag(1-team)
 		var repairer: int=members.filter(func(id):return tribes.role(id)=="repairer")[0]
 		var base: Dictionary=tribes.generator(team);var s: Dictionary=g.players[repairer];var actor=g.fighters[repairer]
@@ -115,8 +118,26 @@ func dynamic_cases():
 	g.fighters[attacker].position=pads.rows[0].position+Vector3(0,0,5)
 	goals=[];tribes.goals(attacker,ai.brains[attacker],goals)
 	check(goals.any(func(row):return row.kind=="supply"),"Fresh capper can purchase an energy pack at a nearby spawn station")
-	g.clock+=13;goals=[];tribes.goals(attacker,ai.brains[attacker],goals)
-	check(goals.any(func(row):return row.key=="st:flag") and not goals.any(func(row):return row.kind=="supply"),"Expired preparation window releases the capper without repeated shopping")
+	tribes.tactics.record(attacker).attempt_until=g.clock+100
+	g.clock+=13;g.fighters[attacker].position+=Vector3(35,0,0);goals=[];tribes.goals(attacker,ai.brains[attacker],goals)
+	check(goals.any(func(row):return row.kind=="supply"),"Initial refit survives the detour from a roof spawn to its doorway")
+	g.clock+=33;goals=[];tribes.goals(attacker,ai.brains[attacker],goals)
+	check(tribes.role(attacker)=="capper" and goals.any(func(row):return row.key=="st:flag") and not goals.any(func(row):return row.kind=="supply"),"Expired preparation window releases the capper without repeated shopping")
+	for i in group.size():
+		var id: int=group[i];rules.apply_equipment(id,"light",[3,2,4],"energy")
+		g.fighters[id].position=mode.bases[1]+Vector3(35+i*8,-10,0)
+		ai.brains[id]=ai.new_brain(id);ai.brains[id].visible=[enemies[0]];tribes.assignments[id]="capper"
+	g.fighters[enemies[0]].position=mode.bases[1];g.players[enemies[0]].dead=false
+	tribes.assignment_state.clear();g.clock+=3
+	var jobs: Array=group.map(func(id):return tribes.role(id))
+	check(jobs.count("escort")==1 and jobs.count("capper")>=1,"Visible flag defender recruits one close supporting attacker while retaining a runner")
+	var screen: int=group[jobs.find("escort")] if jobs.has("escort") else 0
+	goals=[]
+	if screen!=0:tribes.goals(screen,ai.brains[screen],goals)
+	check(goals.any(func(row):return row.key=="st:screen"),"Pre-grab support chooses a real firing position with sight of the observed defender")
+	for id in group:ai.brains[id].visible=[]
+	g.clock+=3;tribes.assignment_state.clear()
+	check(not group.any(func(id):return tribes.role(id)=="escort"),"Cleared pressure releases pre-grab support instead of fixing its role")
 
 func build_case():
 	var ai=g.bots;var mode=g.match_mode;var rules=mode.tribes;var tribes=ai.tribes

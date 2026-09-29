@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Start local ST 6v6; automatically stop if no capture in 600 game seconds."""
+"""Start a local ST match with 600-second capture/pickup cutoffs."""
 import argparse
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -13,13 +14,37 @@ parser.add_argument('--output', default='test-results/st-tribes/live')
 parser.add_argument('--speed', type=int, choices=[1, 2, 4], default=1)
 parser.add_argument('--seconds', type=float, default=0)
 parser.add_argument('--seed', type=int, default=9281)
+parser.add_argument('--team-size', type=int, choices=range(1, 17), default=6)
+parser.add_argument('--navigation-metrics', action='store_true')
+parser.add_argument('--map', choices=['ctf_stonehenge', 'ctf_raindance'], default='ctf_stonehenge')
 parser.add_argument('--headless', action='store_true')
+parser.add_argument('--record', action='store_true', help='Record the visible spectator viewport and game-clock anchors')
 parser.add_argument('--renderer', choices=['mobile', 'forward_plus'], default='mobile')
 args = parser.parse_args()
 project = Path(__file__).resolve().parents[2]
 output = (project / args.output).resolve()
+if args.record and args.headless:
+    parser.error('--record requires a visible spectator')
+if output.exists() and any(output.iterdir()):
+    parser.error('Use an empty output directory to preserve earlier match evidence')
 output.mkdir(parents=True, exist_ok=True)
-options = dict(output=str(output), port=args.port, speed=args.speed, seconds=args.seconds, seed=args.seed)
+options = dict(output=str(output), port=args.port, speed=args.speed, seconds=args.seconds, seed=args.seed,
+               map=args.map, record=args.record, headless=args.headless, renderer=args.renderer,
+               team_size=args.team_size, navigation_metrics=args.navigation_metrics)
+(output / 'options.json').write_text(json.dumps(options, indent=2))
+diff = subprocess.check_output(['git', 'diff', '--no-ext-diff'], cwd=project)
+(output / 'source.patch').write_bytes(diff)
+code = {}
+for folder in ['deathmatch/bot_ai', 'deathmatch/tribes', 'deathmatch/movement', 'tools/tribes']:
+    for path in sorted((project / folder).glob('*')):
+        if path.suffix in ('.gd', '.py'):
+            code[str(path.relative_to(project))] = hashlib.sha256(path.read_bytes()).hexdigest()
+(output / 'provenance.json').write_text(json.dumps(dict(
+    git_head=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=project, text=True).strip(),
+    diff_sha256=hashlib.sha256(diff).hexdigest(), code=code,
+    bsp_sha256=hashlib.sha256((project / 'maps' / (args.map + '.bsp')).read_bytes()).hexdigest(),
+    navigation_sha256=hashlib.sha256((project / 'maps/navigation' / (args.map + '.res')).read_bytes()).hexdigest(),
+), indent=2))
 base = ['godot', '--xr-mode', 'off', '--path', str(project), '--script', 'tools/tribes/live_match.gd']
 env = os.environ.copy()
 env['XDG_DATA_HOME'] = f'/tmp/fps-st-live-{args.port}'

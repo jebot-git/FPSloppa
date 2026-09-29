@@ -28,10 +28,11 @@ siege bots can also target other remote equipment. A close player threat takes
 priority. Broader deployment planning and fixed-asset siege objectives remain
 future work.
 
-The uphill steering decision compares slope, direction and available momentum.
-Low-speed climbing releases ski for walking traction; useful fast uphill
-coasting and downhill acceleration remain available. The player physics,
-weapon damage and bot inventory rules are unchanged.
+The current steering follows the intended slope: downhill travel skis, uphill
+travel uses jets when energy/headroom permit and walking traction otherwise.
+Forward jets and obstacle anticipation preserve useful travel momentum. See
+`ST-RAINDANCE.md` for the subsequent carrier, doorway and bridge corrections.
+The player physics, weapon damage and bot inventory rules are unchanged.
 
 ## Reference and adaptations
 

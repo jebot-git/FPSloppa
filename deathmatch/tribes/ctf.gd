@@ -27,6 +27,7 @@ func drop(id: int,origin:=Vector3.INF,impulse:=Vector3.ZERO) -> bool:
 	game._announcement.rpc(rules.TEAMS[team]+" flag dropped")
 	return true
 func can_take(team: int,id: int) -> bool:
+	if rules.tribes.vehicles.mounted(id) or rules.tribes.operating(id):return false
 	var flight: Dictionary=flights.get(team,{})
 	return flight.get("dropper",0)!=id or game.clock>=flight.get("grace",0.0)
 func tick(delta: float):
