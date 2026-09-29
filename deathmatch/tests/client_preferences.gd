@@ -17,7 +17,8 @@ func run() -> void:
 	voice.load_preferences(path)
 	check(voice.mode==1 and not voice.muted_all,"Fresh config enables push-to-talk by default")
 	voice.set_mode(2);voice.muted_all=true;voice.threshold=.04;voice.input_device="Unavailable headset microphone";voice.save_preferences(path)
-	var settings:=Presentation.defaults();settings.voice=.35;settings.texture_filter=1;settings.contrast_lighting=true;settings.spring_bones=false
+	check(not Presentation.read_settings(path).spring_bones and not Presentation.defaults().spring_bones,"Spring bones default off for fresh and existing configs without a saved preference")
+	var settings:=Presentation.defaults();settings.voice=.35;settings.texture_filter=1;settings.contrast_lighting=true;settings.spring_bones=true;settings.controller_haptic_strength=.4
 	Presentation.save_settings(settings,path)
 	voice.reset()
 	check(voice.mode==2 and voice.muted_all and voice.threshold==.04,"Reconnect resets transport without resetting voice preferences")
@@ -26,7 +27,11 @@ func run() -> void:
 	check(voice.mode==2 and voice.muted_all and voice.input_device=="Unavailable headset microphone","Restart restores mode, mute and preferred microphone; shutdown does not overwrite them")
 	check(Presentation.read_settings(path).voice==.35 and Presentation.read_settings(path).texture_filter==1,"Voice volume and texture filtering survive config reload")
 	check(Presentation.read_settings(path).contrast_lighting and not Presentation.defaults().contrast_lighting,"Experimental lighting survives reload and remains opt-in")
-	check(not Presentation.read_settings(path).spring_bones and Presentation.defaults().spring_bones,"Spring-bone toggle survives reload; existing configs default to enabled")
+	check(Presentation.read_settings(path).spring_bones,"Explicit spring-bone opt-in survives reload")
+	check(is_equal_approx(Presentation.read_settings(path).controller_haptic_strength,.4),"Controller haptic strength survives reload")
+	for sample in [[-2.0,0.0],[9.0,1.0],[NAN,1.0],["bad",1.0]]:
+		var invalid:=ConfigFile.new();invalid.load(path);invalid.set_value("presentation","controller_haptic_strength",sample[0]);invalid.save(path)
+		check(is_equal_approx(Presentation.read_settings(path).controller_haptic_strength,sample[1]),"Controller strength safely bounds invalid config: "+str(sample[0]))
 	original.load(path)
 	check(original.get_value("player","name")=="Config Marine","Voice and graphics writes preserve other config sections")
 	original.set_value('presentation','soundtrack','amiga');original.save(path)

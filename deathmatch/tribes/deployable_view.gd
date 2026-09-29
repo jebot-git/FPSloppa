@@ -31,21 +31,26 @@ func _input(event):
 	if camera_key>=0 and (rules.game.bindings.matches("use",event) or event is InputEventKey and event.pressed and event.physical_keycode==KEY_ESCAPE):
 		camera_key=-1;get_viewport().set_input_as_handled()
 func update():
+	rules.deployables.update_visuals()
 	var game=rules.game;var deploy=rules.deployables;var id: int=game.multiplayer.get_unique_id();var state: Dictionary=game.local_state()
-	var allowed: bool=deploy.enabled(id) and not game.menu_open and not game.demos.playing
-	var kind: String=state.get("tribes_pack","");var show: bool=allowed and deploy.Data.is_pack(kind)
+	# A wheel can still have blocked the last input packet when the view opens.
+	var allowed: bool=deploy.accessible(id) and not game.menu_open and not game.demos.playing
+	var kind: String=state.get("tribes_pack","");var show: bool=allowed and deploy.enabled(id) and deploy.Data.is_pack(kind)
 	if game.is_vr():show=show and game.xr_rig.physical_actions.equipment.item=="pack"
 	if show and ghost_kind!=kind:
 		if is_instance_valid(ghost):ghost.queue_free()
 		ghost=deploy.Model.make(kind,state.team);game.add_child(ghost);ghost_kind=kind
 		var mat:=StandardMaterial3D.new();mat.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;mat.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;mat.albedo_color=Color(.2,1,.65,.35)
-		for part in ghost.get_children():if part is MeshInstance3D:part.material_override=mat
+		for part in ghost.find_children("*","MeshInstance3D",true,false):part.material_override=mat
 	if is_instance_valid(ghost):
 		ghost.visible=false
 		if show:
 			var hand: Transform3D=game._weapon_transform(id)
-			if game.is_vr():hand=(game.xr_rig.right if game.xr_rig.left_handed else game.xr_rig.left).global_transform
-			var placement: Dictionary=deploy.placement(id,hand.origin,-hand.basis.z)
+			if game.is_vr():
+				var pose: Dictionary=game.xr_rig.sample_pose()
+				if pose.is_empty():show=false
+				else:hand=game.xr_rig.global_transform*preload("res://deathmatch/tribes/equipment.gd").hand_frame(pose)
+			var placement: Dictionary=deploy.placement(id,hand.origin,-hand.basis.z) if show else {}
 			if not placement.is_empty():
 				ghost.global_transform=deploy.Data.frame(placement);ghost.visible=true
 				if kind=="camera":

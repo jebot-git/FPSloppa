@@ -5,7 +5,7 @@ const MAX_FILE:=1_073_741_824
 const MAX_FRAME:=2_097_152
 # Retired cues remain readable in old recordings, but are never played.
 const LEGACY_ANNOUNCER_CUES=["start","team_deathmatch","capture_the_flag","last_man_standing","round_winner","game_over"]
-const EVENTS=["_surface_marks","_de_tool_snip","_cs_reload_sound","_de_grenade_fx","_variant_shot_fx","_variant_bounce_fx","_variant_combo_fx","_pickup_event","_ability_fx","_movement_sound","_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
+const EVENTS=["_contact_fx","_surface_marks","_de_tool_snip","_cs_reload_sound","_de_grenade_fx","_variant_shot_fx","_variant_bounce_fx","_variant_combo_fx","_pickup_event","_ability_fx","_movement_sound","_saw_contact","_announcer_cue","_shot_fx","_melee_fx","_impacts","_hurt_fx","_projectile_end","_teleport_fx"]
 var game
 var auto_record:=false
 var auto_path:=""
@@ -140,24 +140,28 @@ static func valid_frame(frame: Variant) -> bool:
 	for e in frame.events:
 		if not e is Array or e.size()!=2 or not e[0] in EVENTS or not e[1] is Array:return false
 		var schemas={"_de_tool_snip":[TYPE_INT,TYPE_INT,TYPE_INT],"_cs_reload_sound":[TYPE_INT,TYPE_INT,TYPE_INT,TYPE_STRING],"_de_grenade_fx":[TYPE_VECTOR3,TYPE_INT],"_variant_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_variant_bounce_fx":[TYPE_VECTOR3,TYPE_INT],"_variant_combo_fx":[TYPE_VECTOR3],"_pickup_event":[TYPE_INT,TYPE_STRING,TYPE_INT,TYPE_INT],"_saw_contact":[TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_INT],"_announcer_cue":[TYPE_STRING,TYPE_INT],"_shot_fx":[TYPE_INT,TYPE_INT,TYPE_BOOL],"_melee_fx":[TYPE_INT,TYPE_BOOL],"_impacts":[TYPE_VECTOR3,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT],"_hurt_fx":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT,TYPE_BOOL,TYPE_BOOL,TYPE_INT],"_projectile_end":[TYPE_INT,TYPE_VECTOR3,TYPE_INT],"_teleport_fx":[TYPE_VECTOR3]}
+		schemas["_contact_fx"]=[TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT]
 		schemas["_surface_marks"]=[TYPE_PACKED_VECTOR3_ARRAY,TYPE_PACKED_VECTOR3_ARRAY,TYPE_INT]
 		schemas["_ability_fx"]=[TYPE_STRING,TYPE_VECTOR3,TYPE_VECTOR3,TYPE_INT]
 		schemas["_movement_sound"]=[TYPE_INT,TYPE_INT,TYPE_INT,TYPE_STRING,TYPE_VECTOR3]
 		if e[0]=="_pickup_event" and e[1].size()==5:schemas["_pickup_event"].append(TYPE_BOOL)
 		if e[0]=="_variant_shot_fx" and e[1].size()==4:schemas["_variant_shot_fx"].append(TYPE_VECTOR3)
-		if e[0]=="_impacts" and e[1].size() in [4,5]:
+		if e[0]=="_impacts" and e[1].size() in [4,5,6,7]:
 			schemas["_impacts"].append(TYPE_PACKED_VECTOR3_ARRAY)
 			if not e[1][3] is PackedVector3Array or e[1][3].size()>32 or not e[1][1] is PackedVector3Array or e[1][3].size()!=e[1][1].size() and not e[1][3].is_empty():return false
 			for normal in e[1][3]:
 				if not normal.is_finite() or normal.length_squared()>1.01:return false
-		if e[0]=="_impacts" and e[1].size()==5:
+		if e[0]=="_impacts" and e[1].size() in [5,6,7]:
 			schemas["_impacts"].append(TYPE_INT)
 			if not e[1][4] is int or e[1][4]<-1 or e[1][4]>=7:return false
+		if e[0]=="_impacts" and e[1].size()>=6:schemas["_impacts"].append(TYPE_INT)
+		if e[0]=="_impacts" and e[1].size()==7:schemas["_impacts"].append(TYPE_BOOL)
 		if e[0]=="_hurt_fx":
 			if e[1].size()>=8:schemas["_hurt_fx"].append(TYPE_BOOL)
 			if e[1].size()==10:schemas["_hurt_fx"].append_array([TYPE_STRING,TYPE_BOOL])
 			if e[1].size()==10 and e[1][8] is String and e[1][8].length()>80:return false
 		if not typed_values(e[1],schemas[e[0]]):return false
+		if e[0]=="_contact_fx" and (not e[1][0].is_finite() or not e[1][1].is_finite() or absf(e[1][1].length_squared()-1)>.02 or e[1][2]<0 or e[1][2]>=7):return false
 		if e[0]=="_surface_marks":
 			if e[1][0].size()!=e[1][1].size() or e[1][0].size()>32 or e[1][2]<0 or e[1][2]>=7:return false
 			for point in e[1][0]:

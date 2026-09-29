@@ -382,6 +382,7 @@ func _tick_cannons(r: Dictionary,delta: float,body_rid: RID) -> void:
 					var target: Vector3=origin+direction*CANNON_RANGE
 					cannon_impact(r,index,manual_target(r,origin,target),target,body_rid)
 				volley_fired(r,pair,2,0)
+				_cannon_feedback.rpc(r.pilot,pair)
 			continue
 		var id: int=r.targets[pair]
 		if id==0 or not game.players.has(id) or not tf.sentry_enemy(id,r.team):continue
@@ -402,6 +403,12 @@ func _tick_cannons(r: Dictionary,delta: float,body_rid: RID) -> void:
 			cannon_impact(r,index,id,target,body_rid);fired+=1
 		if fired>0:
 			volley_fired(r,pair,fired,id)
+@rpc("authority","call_local","unreliable",3)
+func _cannon_feedback(pilot: int,side: int) -> void:
+	if game.headless or pilot!=game.multiplayer.get_unique_id() or side not in [0,1] or not mounted(pilot) or not game.is_vr():return
+	var rig=game.xr_rig
+	rig.weapon_feedback({"name":"TITAN CANNON","cycle":tf.SENTRY_INTERVAL},(side==0)!=rig.left_handed)
+
 func volley_fired(r: Dictionary,pair: int,barrels: int,target: int) -> void:
 	r.next[pair]=game.clock+tf.SENTRY_INTERVAL;r.last_fire[pair]=game.clock
 	r.heat[pair]=minf(100.,r.heat[pair]+HEAT_PER_VOLLEY);r.overheated[pair]=r.heat[pair]>=100.

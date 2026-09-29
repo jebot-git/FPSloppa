@@ -32,12 +32,15 @@ func place(id: int,origin: Vector3,direction: Vector3) -> bool:
 	s.tribes_beacons-=1;s.tribes_paid=maxi(0,s.tribes_paid-5)
 	stats["placed"]=int(stats.get("placed",0))+1;return true
 func designate(id: int,hit: Dictionary):
-	if not rules.recovery.eligible(id) or rules.mode.kind!="st" or game.players[id].weapon!=11 or not game.players[id].fire or not hit.hit:return
+	if not rules.recovery.eligible(id) or rules.mode.kind!="st" or game.players[id].weapon!=11 or not game.players[id].fire:return
+	# A fresh miss supersedes the previous surface; the lease is only for
+	# intervals between accepted traces, not for a beam now pointing at sky.
+	if not hit.hit:lasers.erase(id);return
 	lasers[id]={"team":game.players[id].team,"position":hit.position,"until":game.clock+.45,"life":game.players[id].serial}
 	stats["designations"]=int(stats.get("designations",0))+1
 func tick():
 	for id in lasers.keys():
-		if not rules.recovery.eligible(id) or lasers[id].until<game.clock or game.players[id].serial!=lasers[id].life or game.players[id].weapon!=11 or not game.players[id].fire or game.players[id].get("input_blocked",false):lasers.erase(id)
+		if not rules.recovery.eligible(id) or lasers[id].until<game.clock or game.players[id].serial!=lasers[id].life or game.players[id].team!=lasers[id].team or game.players[id].weapon!=11 or not game.players[id].fire or game.players[id].get("input_blocked",false):lasers.erase(id)
 func targets(team: int) -> Array:
 	var result: Array=[]
 	for key in beacons:

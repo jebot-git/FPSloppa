@@ -85,6 +85,8 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 	if kind in ["hitscan","sniper","beam","shock_beam","hammer"]:
 		if kind=="shock_beam" and shock_combo(id,start,start+forward*d.range):return true
 		var endpoints:=PackedVector3Array();var surfaces:=PackedVector3Array()
+		var rewind: float=game._shot_rewind(id)
+		var trace_context: Dictionary=game._rewind_context(rewind)
 		for pellet in int(d.pellets):
 			var basis: Basis=game._weapon_transform(id).basis
 			var accuracy: float=game.fighters[id].accuracy_scale()
@@ -93,8 +95,8 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 			var hits: Array
 			var runtime=game.get_node_or_null("Map/MapRuntime") if cs_shot else null
 			if runtime and runtime.ballistics.ready:
-				hits=runtime.ballistics.trace(game,start,start+direction*reach,id,game._shot_rewind(id),w)
-			else:hits=[game._trace(start,start+direction*reach,id,game._shot_rewind(id),float(d.get("beam_radius",0.0)))]
+				hits=runtime.ballistics.trace(game,start,start+direction*reach,id,rewind,w,trace_context)
+			else:hits=[game._trace(start,start+direction*reach,id,rewind,float(d.get("beam_radius",0.0)),{},null,trace_context)]
 			for hit in hits:
 				var melee_reaches: bool=kind!="hammer" or start.distance_to(hit.position)<=float(d.range)
 				var damage: int=d.damage
@@ -113,7 +115,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 				else:
 					endpoints.append(hit.position);surfaces.append(hit.get("surface_normal",Vector3.ZERO))
 					if float(d.get("beam_radius",0))>0:preload("res://deathmatch/effects/surface_marks.gd").contact(game,hit,start,start+direction*reach,d)
-		if not endpoints.is_empty():game._impacts.rpc(start,endpoints,w,surfaces,preload("res://deathmatch/effects/surface_marks.gd").profile(d))
+		if not endpoints.is_empty():game._impacts.rpc(start,endpoints,w,surfaces,preload("res://deathmatch/effects/surface_marks.gd").profile(d),id)
 		return true
 	for shot in (1 if kind=="bio" else count):
 		for pellet in int(d.pellets):
@@ -256,7 +258,7 @@ func shock_combo(owner_id: int,start: Vector3,end: Vector3) -> bool:
 		if closest.distance_to(p.position)<=.30 and distance<nearest:nearest=distance;selected=id
 	if selected<0:return false
 	var p: Dictionary=game.projectiles[selected]
-	game._impacts.rpc(start,PackedVector3Array([p.position]),3)
+	game._impacts.rpc(start,PackedVector3Array([p.position]),3,PackedVector3Array(),-1,owner_id)
 	blast(p.position,owner_id,165,5.0,"SHOCK COMBO")
 	game._variant_combo_fx.rpc(p.position)
 	game._projectile_end.rpc(selected,p.position,3)

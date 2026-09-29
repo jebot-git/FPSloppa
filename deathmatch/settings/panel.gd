@@ -17,6 +17,7 @@ var foveation_status: Label
 var foveation_mode:=""
 var foveation_poll:=0.0
 var haptics_page: VBoxContainer
+var haptics_scroll: ScrollContainer
 func setup(arena: Node) -> void:
 	game=arena;values=game.presentation;name="AudioGraphicsSettings";hide()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -32,7 +33,11 @@ func setup(arena: Node) -> void:
 	button(tabs,"CONTROLS",func():section="controls";refresh())
 	button(tabs,"TRACKING",func():section="tracking";refresh())
 	button(tabs,"HAPTICS",func():section="haptics";refresh())
-	haptics_page=load("res://deathmatch/haptics/panel.gd").new();column.add_child(haptics_page);haptics_page.setup(game)
+	haptics_scroll=preload("res://deathmatch/ui/drag_scroll.gd").new();haptics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;haptics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;column.add_child(haptics_scroll)
+	var haptics_options:=VBoxContainer.new();haptics_options.add_theme_constant_override("separation",8);haptics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;haptics_scroll.add_child(haptics_options)
+	stepper(haptics_options,"controller_haptic_strength","Controller strength",.1)
+	haptics_options.add_child(HSeparator.new())
+	haptics_page=load("res://deathmatch/haptics/panel.gd").new();haptics_options.add_child(haptics_page);haptics_page.setup(game)
 	input_page=VBoxContainer.new();input_page.add_theme_constant_override("separation",8);column.add_child(input_page)
 	tracking_page=VBoxContainer.new();tracking_page.add_theme_constant_override("separation",8);column.add_child(tracking_page)
 	button(input_page,"BINDINGS…",func():game.hud.open_bindings())
@@ -96,9 +101,9 @@ func save() -> void:
 	notice.text="Saved. Changes applied." if err==OK else "Settings applied; saving failed: "+error_string(err)
 	refresh()
 func refresh() -> void:
-	page_spacer.visible=section!="graphics"
-	haptics_page.visible=section=="haptics"
-	notice.visible=section!="haptics"
+	page_spacer.visible=section not in ["graphics","haptics"]
+	haptics_scroll.visible=section=="haptics"
+	notice.visible=true
 	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics";input_page.visible=section=="controls";tracking_page.visible=section=="tracking"
 	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
 	tracking_status.text=game.xr_rig.tracking.status if game.is_vr() else "Connect a VR headset to configure tracking."
@@ -107,7 +112,7 @@ func refresh() -> void:
 		controls.body.text="BODY TRACKING: "+("ON" if game.xr_rig.tracking.enabled else "OFF")
 		controls.osc.text="SLIMEVR OSC: "+("ON" if game.xr_rig.tracking.udp!=null else "OFF")
 	values.voice=game.voice.volume
-	for key in ["master","effects","voice","music","announcer","render_scale"]:controls[key].text="%d%%"%roundi(values[key]*100)
+	for key in ["master","effects","voice","music","announcer","render_scale","controller_haptic_strength"]:controls[key].text="%d%%"%roundi(values[key]*100)
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()
 	controls.hud_scale.text="%d%%"%roundi(values.hud_scale*100)
 	controls.hud_y.text="%+.0f cm"%(values.hud_y*100)

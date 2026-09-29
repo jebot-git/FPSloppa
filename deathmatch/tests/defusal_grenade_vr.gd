@@ -56,6 +56,22 @@ func run():
 		b.inputs={"support":true,"offhand_fire":true};frame();check(u.state(1).selected==2 and u.state(1).offhand,"Wheel-selected smoke uses same offhand gesture")
 		g.menu_open=true;frame();check(u.selected(1)==-1 and u.state(1).counts[2]==1 and not rig.physical_actions.gesture.held,"Menu cancels offhand grenade without consuming it")
 		g.menu_open=false;frame();check(not u.state(1).primed,"Closing menu with chord held cannot rearm")
+		# Shoulder equipment must take a hand already latched to the M3 pump.
+		u.cancel(1);u.state(1).counts=[1,2,1];u.state(1).cooldown=0;b.inputs={};frame()
+		g.players[1].weapon=3;g.players[1].owned.append(3);g.desired_weapon=3
+		hand.position=Vector3(.3 if left else -.3,1.8,.15)
+		rig.physical_reload.pump_held=true;rig.support_aim.engaged=true
+		b.inputs={"support":true,"offhand_fire":true};frame()
+		check(rig.physical_actions.gesture.held and not rig.physical_reload.pump_held and not rig.support_aim.engaged,"Shoulder grenade takes priority over held shotgun pump")
+		check(not rig.command(seq+1).reload_grip and not rig.command(seq+1).xr.get("pump",false),"Shoulder grenade also releases authoritative pump input")
+		u.cancel(1);rig.physical_actions.reset();b.inputs={};frame()
+		g.voice_enabled=true;g.voice.mode=1
+		hand.position=Vector3(.3 if left else -.3,1.1,-.4);b.inputs={"support":true};frame()
+		rig.physical_reload.pump_held=true;rig.support_aim.engaged=true
+		hand.position=rig.shoulder_radio.shoulder();frame()
+		check(rig.shoulder_radio.held and not rig.physical_reload.pump_held and not rig.support_aim.engaged,"Pump hand transfers held grip to shoulder radio")
+		check(not rig.command(seq+1).reload_grip,"Radio releases authoritative reload grip")
+		b.inputs={};frame()
 		b.inputs={};frame();u.state(1).counts=[0,0,0];b.inputs={"support":true,"offhand_fire":true};frame()
 		check(not rig.physical_actions.gesture.held and u.selected(1)==-1,"Empty utility rejects physical arm immediately")
 	rig.left_handed=false;rig.right.transform=Transform3D(Basis.IDENTITY,Vector3(.2,1.2,-.35))
@@ -66,6 +82,23 @@ func run():
 	b.inputs={"support":true,"offhand_fire":true};frame();frame()
 	check(rig.support_aim.engaged and not rig.physical_actions.busy() and not u.state(1).primed,"Gripping and triggering at the handguard keeps gun support without arming a grenade")
 	b.inputs={};frame();u.state(1).counts=[1,0,0];u.state(1).cooldown=0
+	# A separately updated XR aim node must not drag a grip-anchored gun.
+	for left in [false,true]:
+		rig.left_handed=left;b.inputs={};rig.virtual_stock.reset();rig.support_aim.reset()
+		var grip=rig.left if left else rig.right
+		var aim=rig.left_aim if left else rig.right_aim
+		grip.transform=Transform3D(Basis(Vector3.UP,.2),Vector3(.2,1.25,-.35))
+		aim.transform=grip.transform*Transform3D(Basis(Vector3.RIGHT,.1),Vector3(0,.04,-.08))
+		frame()
+		check(rig.gun.get_parent()==grip and rig.gun.physics_interpolation_mode==Node.PHYSICS_INTERPOLATION_MODE_OFF,"Local gun follows grip without physics interpolation, left="+str(left))
+		var held: Transform3D=rig.gun.global_transform
+		aim.position+=Vector3(.02,-.01,.03)
+		check(rig.gun.global_transform.is_equal_approx(held),"Late aim translation cannot jitter the held model")
+		grip.position+=Vector3(.03,.02,-.04)
+		check(rig.gun.global_position.is_equal_approx(held.origin+rig.origin.global_basis*Vector3(.03,.02,-.04)),"Late grip motion moves the gun immediately with the hand")
+		var local: Transform3D=grip.global_transform.affine_inverse()*rig.gun.global_transform
+		rig.position+=Vector3(1,0,2);rig.rotate_y(.15)
+		check((grip.global_transform.affine_inverse()*rig.gun.global_transform).is_equal_approx(local),"Locomotion and turning preserve gun position in the palm")
 	var rpc=g.match_mode.fortress.physical;var pose: Dictionary=rig.sample_pose();var sequence: int=rig.physical_actions.sequence+100
 	check(not rpc.request_for(1,g.map_epoch,g.players[1].serial-1,sequence,"arm",pose,Vector3.ZERO),"Stale life rejects DE physical arm")
 	check(rpc.request_for(1,g.map_epoch,g.players[1].serial,sequence,"arm",pose,Vector3.ZERO),"Fresh physical arm accepted")

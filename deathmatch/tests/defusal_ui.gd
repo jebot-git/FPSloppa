@@ -36,6 +36,25 @@ func run():
 	check(rig.wheel_open() and g.desired_weapon==10,"Buy wheel persists for more purchases and equips new sidearm")
 	g.clock+=.2;select(2);check(de.account(1).cash==150 and not g.players[1].owned.has(2),"Unaffordable wheel entry cannot grant equipment")
 	select(1000);check(wheel.page==0 and rig.wheel_open(),"Back entry returns to purchase categories")
+	var original_position: Vector3=g.fighters[1].position
+	var original_team: int=g.players[1].team
+	var original_owned: Array=g.players[1].owned.duplicate()
+	var original_cash: int=de.account(1).cash
+	for team in [0,1]:
+		g.players[1].team=team;g.fighters[1].position=de.spawns(team)[0]
+		for left in [false,true]:
+			rig.left_handed=left
+			for item in [9,6 if de.role(1)==0 else 7]:
+				de.credit(1,16000);g.players[1].owned=[0,10];g.clock+=.2
+				wheel.page=201;wheel.entries=wheel.inventory();wheel.input.open(wheel.entries.map(func(row):return row.id),Vector2.ZERO);wheel.refresh_view()
+				var index: int=wheel.entries.map(func(row):return row.id).find(item)
+				var point: Vector2=wheel.view.ring_point(TAU*index/wheel.entries.size(),286)-wheel.view.CENTER
+				var stick:=Vector2(point.x,-point.y).normalized()
+				wheel.update(stick)
+				check(wheel.input.hover==index and wheel.view.rows[index].id==item,"Displayed buy angle highlights the matching weapon: "+str([team,left,item]))
+				wheel.update(Vector2(signf(stick.x)*.8,0));wheel.update(Vector2.ZERO)
+				check(g.players[1].owned.has(item) and g.desired_weapon==item,"Diagonal release buys AWP/rifle rather than adjacent P90/MP5: "+str([team,left,item]))
+	g.fighters[1].position=original_position;g.players[1].team=original_team;g.players[1].owned=original_owned;g.players[1].weapon=10;g.desired_weapon=10;de.account(1).cash=original_cash;rig.left_handed=false
 	wheel.toggle(Vector2.ZERO);check(not rig.wheel_open(),"Second joystick press dismisses shop")
 	wheel.toggle(Vector2.ZERO);g.clock=de.phase_end;de.tick(0);wheel.update(Vector2.ZERO)
 	check(not rig.wheel_open() and not wheel.input.captures_stick,"Preparation ending closes shop and releases the stick")

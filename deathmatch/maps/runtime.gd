@@ -138,6 +138,14 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 	var push_index:=0
 	for i in regions.size():
 		if regions[i].kind=="trigger_push":regions[i]=pushes[push_index];push_index+=1
+	# Runtime equipment on the two existing Raindance vehicle-pad landmarks.
+	# Physical BSP cover and navigation stay unchanged.
+	if bsp_path.get_file()=="ctf_raindance.bsp":
+		for team in 2:
+			var pad: Vector3=[Vector3(-1.067,22.9064,306.0292),Vector3(2.278,35.5526,-282.696)][team]
+			var marker=preload("res://deathmatch/maps/entity.gd").new()
+			marker.attributes={"classname":"info_tribes_vehicle","team":str(team),"angle":str(0 if team==0 else 180),"vehicle_spawn":pad+Vector3.UP*1.2}
+			root.add_child(marker);marker.global_position=pad+Vector3(7,.70,0);entities.append(marker)
 	tribes_stations=preload("res://deathmatch/tribes/stations.gd").new();tribes_stations.name="TribesStations";add_child(tribes_stations);tribes_stations.configure(game,entities)
 	triggers.setup(self,entities)
 	if not bsp_path.is_empty():ballistics.open(bsp_path,root)
@@ -242,7 +250,7 @@ func add_pickup(e: Dictionary, origin: Vector3) -> void:
 		elif item_kind=="ammo":amount=([50,40,10,12] if int(e.get("spawnflags",0))&1 else [25,20,5,6])[item]
 	elif game.armory.effective()=="ut99":
 		if item_kind=="ammo":amount=[50,10,6,25][item]
-		if item_kind=="weapon":amount={1:25,3:20,4:10,5:100,6:6,7:60,8:10,9:8,10:15}.get(item,1)
+		if item_kind=="weapon":amount=game.armory.pickup_ammo(item)
 		if e.has("fpsloppa_amount"):amount=clampi(int(e.fpsloppa_amount),1,200)
 	# Quake pickups occupy a 32-unit box extending positive X/Y from origin.
 	var p := {"kind":item_kind,"item":item,"position":origin+Vector3(-.5,.05,-.5),"available":true,"respawn":0.0,"node":null}

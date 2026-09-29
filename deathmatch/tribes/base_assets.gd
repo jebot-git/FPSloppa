@@ -1,6 +1,7 @@
 extends RefCounted
 ## Fixed inventory units and medium pulse sensors share their base generator.
 ## Their BSP/native fixtures remain solid cover when disabled and repairable.
+const Props=preload("res://deathmatch/tribes/prop_library.gd")
 const Health=preload("res://deathmatch/tribes/equipment_health.gd")
 const HP:=100.0/.66
 const SENSOR_RANGE:=250.0
@@ -27,14 +28,20 @@ func setup(value,entities: Array):
 		sensors.append({"kind":"pulse","energy":100.0,"power_group":pads.circuit(data).power_group,"power_sources":pads.circuit(data).power_sources,"team":team,"frame":frame,"hp":HP*(1.5 if large else 1),"maximum":HP*(1.5 if large else 1),"range":400.0 if large else SENSOR_RANGE,"large":large,"parts":SENSOR_PARTS,"point":frame*Vector3(0,5,.6),"approach":frame*Vector3(0,0,3.4)})
 	sensors.sort_custom(func(a,b):return a.team<b.team or a.team==b.team and a.frame.origin.x<b.frame.origin.x)
 	for row in sensors:
-		if row.large:
+		# Raindance's Oracle occupies a tight roof beside the original spawns.
+		# Its compact native housing must not inherit Stonehenge's large BSP plinth.
+		row.model_scale=.6 if pads.game.current_map=="ctf_raindance" and not row.large else 1.0
+		row.parts=SENSOR_PARTS.map(func(part):return [part[0]*row.model_scale,part[1]*row.model_scale])
+		row.point=row.frame*Vector3(0,5*row.model_scale,.6*row.model_scale)
+		row.approach=row.frame*Vector3(0,0,3.4*row.model_scale)
+		if row.large or pads.game.current_map!="ctf_stonehenge":
 			var body:=StaticBody3D.new();body.collision_layer=1;body.collision_mask=0;pads.add_child(body);body.global_transform=row.frame
-			for part in SENSOR_PARTS:
+			for part in row.parts:
 				var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=part[1];shape.shape=box;shape.position=part[0];body.add_child(shape)
-				if not pads.game.headless:preload("res://deathmatch/art.gd").box(body,part[0],part[1],preload("res://deathmatch/art.gd").material(Color("65788c"),.6))
 		if not pads.game.headless:
+			var visual=Props.make("large_sensor" if row.large else "base_sensor",row.team);pads.add_child(visual);visual.global_transform=row.frame;visual.scale*=row.model_scale;row.visual=visual
 			var label:=Label3D.new();label.font_size=30;label.pixel_size=.012;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED
-			pads.add_child(label);label.global_position=row.frame.origin+Vector3.UP*7;row.label=label
+			pads.add_child(label);label.global_position=row.frame.origin+Vector3.UP*(7*row.model_scale);row.label=label
 		rows.append(row)
 func reset():
 	for row in rows:row.hp=maximum(row);row.energy=100.0 if row.kind=="pulse" else 0.0
@@ -81,6 +88,7 @@ func update():
 	for key in rows.size():
 		var row: Dictionary=rows[key]
 		var state: String="DISABLED" if not Health.enabled(row.hp,maximum(row)) else "NO POWER" if not pads.connected(row) else "%d%%"%roundi(row.hp/maximum(row)*100)
+		if is_instance_valid(row.get("visual")):Props.set_active(row.visual,active(key))
 		if is_instance_valid(row.get("label")):
 			row.label.text=(row.kind.to_upper()+" STATION" if row.kind!="pulse" else "LARGE PULSE SENSOR" if row.get("large",false) else "PULSE SENSOR")+" · "+state
 			row.label.modulate=(Color("ff9385") if row.team==0 else Color("8ebeff")) if active(key) else Color("85858a")

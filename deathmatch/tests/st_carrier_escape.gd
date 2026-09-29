@@ -43,5 +43,6 @@ func run():
 			if not passed:failures.append(map+":"+str(s.team))
 			print("ST_CARRIER_ESCAPE ",map," team=",s.team," escape=",escape_at," stall=",worst_stall," pass=",passed)
 		g.disconnect_game();g.free();await process_frame
-	FileAccess.open("res://test-results/st-raindance/carrier-escape.json",FileAccess.WRITE).store_string(JSON.stringify({"results":results,"failures":failures},"  "))
+	var output: String=OS.get_cmdline_user_args()[0] if not OS.get_cmdline_user_args().is_empty() else "res://test-results/st-raindance/carrier-escape.json"
+	FileAccess.open(output,FileAccess.WRITE).store_string(JSON.stringify({"results":results,"failures":failures},"  "))
 	quit(0 if failures.is_empty() else 1)

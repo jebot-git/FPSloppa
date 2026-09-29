@@ -37,9 +37,10 @@ func run() -> void:
 	game.camera=game.get_node("Overview")
 	game.spatial.play("weapon_7",game.camera.position,-4)
 	var sound=game.spatial.active.back()
-	check(absf(float(sound.get_meta("dry_db"))+17.82)<.01,"Plasma playback applies measured 13.82 dB attenuation")
+	var expected: float=-4+preload("res://deathmatch/audio/weapon_levels.gd").TRIM_DB["weapon_7.wav"]
+	check(absf(float(sound.get_meta("dry_db"))-expected)<.01,"Plasma playback applies the current measured attenuation")
 	game.spatial.update_source(sound,float(sound.get_meta("dry_db")))
-	check(sound.volume_db<=-17.8,"Spatial updates retain weapon normalization")
+	check(sound.volume_db<=expected+.01,"Spatial updates retain weapon normalization")
 	game.free()
 	print("WEAPON_SETUP_RESULT ",JSON.stringify(failures))
 	quit(0 if failures.is_empty() else 1)

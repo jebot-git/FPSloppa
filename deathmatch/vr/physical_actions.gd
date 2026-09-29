@@ -42,7 +42,9 @@ func update(delta: float,valid: bool) -> void:
 	if (de or tribes) and not gesture.held:
 		var relative: Vector3=rig.head.transform.affine_inverse()*support.position
 		candidate=relative.y>-.30 and relative.z>-.20 and absf(relative.x)>.12
-		candidate=candidate and not rig.support_aim.engaged and not rig.physical_reload.busy()
+		# An intentional shoulder grab takes priority over an existing pump or
+		# support grip; weapon_pose has already released those local latches.
+		candidate=candidate and (rig.shoulder_equipment_claims_hand() or not rig.support_aim.engaged and not rig.physical_reload.busy())
 	var result:=""
 	if not equipment_busy and (candidate or gesture.held):
 		result=gesture.sample(support.position-rig.head.position,delta,grip,trigger,available and (game.match_mode.fortress.enabled() or tribes or de and game.match_mode.defusal.phase=="live") and not pose.is_empty())

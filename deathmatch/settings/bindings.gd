@@ -1,5 +1,7 @@
 extends RefCounted
 const Profile=preload("res://deathmatch/profile.gd")
+# Bump only for major control changes that invalidate existing mappings.
+const CONTROLS_REVISION=3
 const KEYS={"forward":KEY_W,"back":KEY_S,"left":KEY_A,"right":KEY_D,"jump":KEY_SPACE,"slow":KEY_SHIFT,"use":KEY_E,"melee":KEY_F,"scores":KEY_TAB,"chat":KEY_ENTER,"team_chat":KEY_Y,"team_ptt":KEY_B,"ptt":KEY_V,"crouch":KEY_CTRL,"prone":KEY_Z,"down":KEY_CTRL,"reload":KEY_R,"jetpack":KEY_Q,"fire":-MOUSE_BUTTON_LEFT,"alt_fire":-MOUSE_BUTTON_RIGHT,"offhand_fire":-MOUSE_BUTTON_RIGHT,"next_weapon":-MOUSE_BUTTON_WHEEL_UP,"previous_weapon":-MOUSE_BUTTON_WHEEL_DOWN}
 const VR={"reload":"weapon:ax_button","ability":"weapon:ax_button","jetpack":"weapon:ax_button","fire":"weapon:trigger","alt_fire":"support:trigger","offhand_fire":"support:trigger","support":"support:grip","jump":"move:primary_click","slow":"move:none","use":"move:ax_button","scores":"move:by_button","menu":"turn:by_button","ptt":"support:grip","weapon_wheel":"right:primary_click"}
 const INPUTS=["trigger","grip","ax_button","by_button","primary_click","none"]
@@ -13,27 +15,35 @@ var physical_prone:=true
 var tracked_leg_animation:=false
 var face_expressions:=true
 var physical_interactions:=true
+func reset_bindings(device: String="all") -> void:
+	if device in ["all","desktop"]:keys=KEYS.duplicate()
+	if device in ["all","vr"]:vr=VR.duplicate();axes={"move":"move","turn":"turn"}
 func load_settings() -> void:
-	var c:=ConfigFile.new();c.load(Profile.config_path())
+	reset_bindings()
+	var c:=ConfigFile.new();var error:=c.load(Profile.config_path())
+	var revision=c.get_value("bindings_meta","revision",0)
+	var reset_required: bool=not revision is int or revision!=CONTROLS_REVISION
 	for action in KEYS:
 		var value=c.get_value("bindings",action,KEYS[action])
-		if value is int and value!=0 and value>=-9 and value<=KEY_SPECIAL+4096:keys[action]=value
+		if not reset_required and value is int and value!=0 and value>=-9 and value<=KEY_SPECIAL+4096:keys[action]=value
 	for action in axes:
 		var value=c.get_value("vr_axes",action,action)
-		if value in ["move","turn","left","right"]:axes[action]=value
+		if not reset_required and value in ["move","turn","left","right"]:axes[action]=value
 	for action in VR:
 		var value=c.get_value("vr_bindings",action,VR[action])
-		if valid_vr(value):vr[action]=value
-	# Migrate only the previous defaults; preserve other custom bindings.
-	if int(c.get_value("bindings_meta","revision",0))<2:
-		for action in {"reload":"weapon:grip","jump":"turn:ax_button","slow":"move:primary_click"}:
-			if vr[action]=={"reload":"weapon:grip","jump":"turn:ax_button","slow":"move:primary_click"}[action]:vr[action]=VR[action]
+		if not reset_required and valid_vr(value):vr[action]=value
 	for option in ["two_handed","physical_jump","physical_crouch","physical_prone","tracked_leg_animation","physical_interactions","face_expressions"]:
 		var value=c.get_value("control_options",option,get(option))
 		if value is bool:set(option,value)
+	# Persist now so future launches retain newly customized controls.
+	# Do not overwrite a config that failed to parse or could not be read.
+	if reset_required and error in [OK,ERR_FILE_NOT_FOUND]:
+		var save_error:=save()
+		if save_error!=OK:push_warning("Could not save updated control bindings: "+error_string(save_error))
 func save() -> Error:
-	var c:=ConfigFile.new();c.load(Profile.config_path())
-	c.set_value("bindings_meta","revision",2)
+	var c:=ConfigFile.new();var error:=c.load(Profile.config_path())
+	if error not in [OK,ERR_FILE_NOT_FOUND]:return error
+	c.set_value("bindings_meta","revision",CONTROLS_REVISION)
 	for action in keys:c.set_value("bindings",action,keys[action])
 	for action in axes:c.set_value("vr_axes",action,axes[action])
 	for action in vr:c.set_value("vr_bindings",action,vr[action])

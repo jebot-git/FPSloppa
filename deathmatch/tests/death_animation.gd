@@ -7,9 +7,14 @@ var library
 class LobbyStub:
 	extends RefCounted
 	func active()->bool:return false
+class DefusalStub extends RefCounted:
+	func gun_holstered(_id: int) -> bool:return false
+class ModeStub extends RefCounted:
+	var defusal=DefusalStub.new()
 class GameFixture:
 	extends Node3D
 	var lobby=LobbyStub.new()
+	var match_mode=ModeStub.new()
 	func is_vr()->bool:return false
 func _initialize():run.call_deferred()
 func check(ok:bool,label:String):

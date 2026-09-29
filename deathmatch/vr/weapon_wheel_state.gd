@@ -2,6 +2,9 @@ extends RefCounted
 ## OpenXR axes: positive Y is up. A deliberate tilt and recenter confirms.
 const ENTER:=0.60
 const CENTER:=0.25
+const RELEASE_DROP:=.12
+var peak_radius:=0.0
+var returning:=false
 var opened:=false
 var captures_stick:=false
 var waiting_for_center:=false
@@ -14,7 +17,7 @@ static func sector(stick: Vector2,count: int) -> int:
 
 func open(owned: Array,stick: Vector2) -> void:
 	if owned.is_empty():return
-	slots=owned.duplicate();opened=true;captures_stick=true;hover=-1
+	slots=owned.duplicate();opened=true;captures_stick=true;hover=-1;peak_radius=0.0;returning=false
 	waiting_for_center=not stick.is_finite() or stick.length()>CENTER
 
 func close() -> void:
@@ -26,14 +29,20 @@ func reset() -> void:
 
 func sample(stick: Vector2) -> int:
 	if not stick.is_finite():close();return -1
-	var length:=stick.length()
+	var length:=minf(stick.length(),1.0)
 	if not opened:
 		if length<=CENTER:captures_stick=false
 		return -1
 	if waiting_for_center:
 		if length<=CENTER:waiting_for_center=false
 		return -1
-	if length>=ENTER:hover=sector(stick,slots.size())
+	# An Index stick can shed Y before X when released from a diagonal.
+	# Preserve the highlighted sector once it retreats, until centered or
+	# deliberately pushed back out. Rotation around the outer ring still works.
+	if hover>=0 and length<peak_radius-RELEASE_DROP:returning=true
+	if returning and length>=peak_radius-.04:returning=false
+	peak_radius=maxf(peak_radius,length)
+	if length>=ENTER and not returning:hover=sector(stick,slots.size())
 	elif length<=CENTER and hover>=0:
 		var selected: int=slots[hover]
 		close();captures_stick=false

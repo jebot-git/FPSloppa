@@ -13,6 +13,16 @@ func tick():
 		if game.match_mode.flags[1-row.team].carrier==id:count("flag_pass_catches");passes.erase(id)
 		elif not ai.alive(id) or game.clock>row.until:count("flag_pass_misses");passes.erase(id)
 func count(key: String):stats[key]=int(stats.get(key,0))+1
+func recharge_escape(id: int,brain: Dictionary) -> bool:
+	if not ai.tribes.carrier(id):brain.carrier_recharging=false;return false
+	var energy: float=ai.game.fighters[id].tribes_state.energy
+	var capacity: float=ai.game.match_mode.tribes.definition(id).energy
+	# Hysteresis keeps a ski/recharge leg intact instead of spending every
+	# newly regenerated unit on another optional acceleration burn.
+	if energy<capacity*.4 and not brain.get("carrier_recharging",false):
+		brain.carrier_recharging=true;brain.route_at=0;count("recharge_escapes")
+	elif energy>=capacity*.65:brain.carrier_recharging=false
+	return brain.get("carrier_recharging",false)
 func travel_look(id: int,brain: Dictionary,point: Vector3):
 	var actor=ai.game.fighters[id]
 	var velocity:=Vector3(actor.velocity.x,0,actor.velocity.z)
@@ -34,6 +44,7 @@ func travel_defence(id: int,brain: Dictionary) -> bool:
 	if forward.length()<3:forward=Vector3(brain.goal.x-actor.position.x,0,brain.goal.z-actor.position.z)
 	var ahead: float=Vector3(threat.x,0,threat.z).normalized().dot(forward.normalized())
 	if distance<40 and ahead>.75:return true # Enemy directly in the escape lane.
+	if brain.get("carrier_recharging",false):return false
 	# A brief return-fire window keeps pursuit in check without staring
 	# backwards throughout the run. Close-range self-defence remains immediate.
 	return distance<35 and fmod(ai.game.clock+abs(id)*.17,3.5)<.65
@@ -118,9 +129,9 @@ func flag_run(id: int,brain: Dictionary) -> bool:
 func exit_route(id: int,start: Vector3,home: Vector3,lane: int,avoid: Array) -> PackedVector3Array:
 	var game=ai.game;var team: int=game.players[id].team;var routes=ai.tribes.routes
 	if not ai.tribes.carrier(id) or start.distance_to(game.match_mode.bases[1-team])>32 or home.distance_to(game.match_mode.bases[team])>110:return PackedVector3Array()
-	# Low reserves cannot reliably steer a new airborne exit. Keep the
-	# ordinary terrain/portal route and its landing recovery in that case.
-	if game.fighters[id].tribes_state.energy<game.match_mode.tribes.definition(id).energy*.25:return PackedVector3Array()
+	# Low reserves need an aligned gravity exit, not a return through the
+	# bunker just because a turning flight would be unaffordable.
+	var recharge: bool=recharge_escape(id,ai.brains.get(id,{}))
 	# Leave the exposed flag deck through a clear descending corridor. Do not
 	# brake to touch nearby terrain graph nodes or route back via the bunker.
 	var forward:=home-start;forward.y=0;forward=forward.normalized()
@@ -140,6 +151,7 @@ func exit_route(id: int,start: Vector3,home: Vector3,lane: int,avoid: Array) -> 
 	for radius in [24,36,48]:
 		for angle in [0.0,-.4,.4,-.8,.8,-1.2,1.2,-1.8,1.8,-2.4,2.4,PI]:
 			var direction:=forward.rotated(Vector3.UP,angle);var probe: Vector3=start+direction*radius
+			if recharge and velocity.length()>5 and velocity.normalized().dot(direction)<.8:continue
 			var hit: Dictionary=ai.navigation.ray(probe+Vector3.UP*6,probe-Vector3.UP*42)
 			if hit.is_empty() or hit.normal.y<.6 or hit.position.y>start.y-3:continue
 			var point: Vector3=hit.position+Vector3.UP*.06
@@ -161,6 +173,14 @@ func exit_route(id: int,start: Vector3,home: Vector3,lane: int,avoid: Array) -> 
 			if path.is_empty():continue
 			var complete:=PackedVector3Array([start]);complete.append_array(path)
 			var value: float=ai.tribes.travel.seconds(id,complete)*travel.walk
+			if recharge:
+				# Value the first safe descent even if it temporarily travels
+				# sideways: downhill skiing gains speed while the pack refills.
+				value-=minf(24,start.y-point.y)*4
+				var previous: Vector3=point
+				for waypoint in path:
+					if start.distance_to(waypoint)>100:break
+					value+=maxf(0,waypoint.y-previous.y)*10;previous=waypoint
 			# An observed missile battery can punish even a fast grab. Prefer
 			# a descending lane behind terrain instead of repeatedly jetting
 			# through its firing corridor. This is observation-based routing;
@@ -293,6 +313,7 @@ func bombard(id: int,brain: Dictionary,delta: float) -> bool:
 func disc_jump(id: int,brain: Dictionary) -> bool:
 	var game=ai.game;var s: Dictionary=game.players[id];var actor=game.fighters[id]
 	var carrying: bool=ai.tribes.carrier(id)
+	if carrying and brain.get("carrier_recharging",false):return false
 	if brain.role!="capper" or s.hp<(90 if carrying else 95) or not carrying and not s.tribes_kit or s.cooldown>0 or game.clock<float(brain.get("disc_jump_at",0)):return false
 	if not actor.is_supported() or 3 not in s.owned or game.match_mode.tribes.amount(id,3)<3 or actor.tribes_state.energy<(10 if carrying else 25):return false
 	var forward: Vector3=brain.goal-actor.position;forward.y=0;forward=forward.normalized()

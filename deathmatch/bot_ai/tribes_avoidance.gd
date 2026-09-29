@@ -19,6 +19,50 @@ func wall(start: Vector3,end: Vector3) -> Dictionary:
 			if travel<distance:nearest=hit;distance=travel
 	return nearest
 
+func ski_clear(id: int,brain: Dictionary,wish: Vector3) -> bool:
+	var game=ai.game;var actor=game.fighters[id]
+	# These controllers deliberately released ski for traction/braking. The
+	# final downhill preference must not undo their collision-avoidance input.
+	if brain.get("travel_phase","") in ["obstacle_flank","precision","base_approach","arrive","flag_catch","route_recovery"]:return false
+	if wish.is_zero_approx() or brain.path.is_empty() or brain.step>=brain.path.size():return false
+	var target: Vector3=brain.path[brain.step]
+	if brain.has("tower") and brain.tower.phase=="stage":target=brain.tower.stage
+	var velocity:=Vector3(actor.velocity.x,0,actor.velocity.z)
+	if velocity.length()>3 and velocity.normalized().dot(wish.normalized())<0:return false
+	var profile: Dictionary=game.match_mode.tribes.definition(id)
+	var gravity:=Vector3.DOWN.slide(actor.tribes_state.normal)*20
+	# Probe through the walking brake distance plus a reaction margin. Ski
+	# input cannot steer sideways, so test existing drift as well as the wish.
+	var horizon:=clampf(velocity.length()/maxf(8,profile.accel-gravity.length())+.2,.4,1.8)
+	var old: Dictionary=brain.get("ski_probe",{})
+	if not old.is_empty() and game.clock<old.until and actor.position.distance_to(old.position)<1.5 and actor.velocity.distance_to(old.velocity)<2 and target.distance_to(old.target)<1 and wish.normalized().dot(old.direction)>.97:
+		return old.clear
+	var clear:=true;var start: Vector3=actor.position
+	var projected_velocity: Vector3=actor.velocity;var normal: Vector3=actor.tribes_state.normal
+	for step in 4:
+		var seconds: float=horizon/4
+		var acceleration:=Vector3.DOWN.slide(normal)*20
+		var point: Vector3=start+projected_velocity*seconds+acceleration*.5*seconds*seconds
+		# Follow the actual surface instead of tracing underground where the
+		# first floor hit can hide a wall further along the projected descent.
+		var floor_hit: Dictionary=ai.navigation.ray(point+Vector3.UP*12,point-Vector3.UP*8)
+		if floor_hit.is_empty() or floor_hit.normal.y<.35 or ai.navigation.hazardous(floor_hit.position):clear=false;break
+		# Do not turn a box/roof top into a fictitious walkable ramp.
+		if floor_hit.normal.y>.98 and floor_hit.position.y>point.y+1:clear=false;break
+		point=floor_hit.position+Vector3.UP*.06
+		if not wall(start,point).is_empty():clear=false;break
+		# Re-anchor on each slope. Extrapolating the original downhill tangent
+		# through a valley put later probes underground and falsely braked
+		# clear ski-to-jet approaches, especially the heavier armour classes.
+		normal=floor_hit.normal;projected_velocity=(projected_velocity+acceleration*seconds).slide(normal);start=point
+	if clear:
+		var direction:=wish.normalized();var length:=minf(actor.position.distance_to(target),maxf(3,velocity.length()*horizon))
+		var point: Vector3=actor.position+direction*length
+		point.y=actor.position.y-actor.tribes_state.normal.dot(direction)*length/maxf(.2,actor.tribes_state.normal.y)
+		clear=wall(actor.position,point).is_empty()
+	brain.ski_probe={"until":game.clock+.1,"position":actor.position,"velocity":actor.velocity,"target":target,"direction":wish.normalized(),"clear":clear}
+	return clear
+
 func threat(id: int,wish: Vector3) -> Dictionary:
 	var game=ai.game;var actor=game.fighters[id];var s: Dictionary=game.players[id]
 	var acceleration:=Vector3.ZERO

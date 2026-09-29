@@ -1,0 +1,369 @@
+{
+  "date": "2026-09-29",
+  "checked_utc": "2026-09-28T22:38:17.849887+00:00",
+  "branch": "experimental/st-raindance",
+  "git_head": "8dbf9cc8ac3355c1682dec040c4291bcf6a58bf4",
+  "scope": "Original-style Scout, LPC and HPC remodels, original panel atlas and matching purchase icons; experimental ST only.",
+  "working_tree": "Uncommitted experimental changes. Earlier transport/Scout/bot work retained; no release performed.",
+  "changes": [
+    "Scout narrow fuselage, swept wings/canards and paired fins",
+    "Carrier sloping bronze nose armour, dark centre cowls, recessed bays and connected lift pods",
+    "HPC four-pod silhouette and raised aft block",
+    "Original bronze/gunmetal SVG panel atlas with fine grain, seams, access covers and vents",
+    "Matching purchase icons and common Blender rebuild source"
+  ],
+  "reference_policy": "Visual study only. No retail geometry or texture pixels included. CC0 Kenney craft_speederA retained as refinished keel; attribution/license in project.",
+  "references": [
+    {
+      "path": "test-results/st-vehicle-design/references/manual.pdf",
+      "bytes": 15163303,
+      "sha256": "6062b84030587dee447ec2b6c44964fcb46e74c1b851795f2a1d5d88dec7bdd4",
+      "url": "https://www.the-flet.com/dynamix/t1/TribesManual.pdf"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/Scout.jpg",
+      "bytes": 4100,
+      "sha256": "6968c9e0952d2f352cb75a66527b35c7eb0ac0729f76292ff6d60ffcd2667901",
+      "url": "https://static.wikia.nocookie.net/tribes/images/4/46/Scout.jpg"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/LPC.jpg",
+      "bytes": 4678,
+      "sha256": "10e10ac65429c040b5d81bca594c8fe3aea0e049e494be449a7be5c2e8048e1e",
+      "url": "https://static.wikia.nocookie.net/tribes/images/e/ee/LPC.jpg"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/HPC.jpg",
+      "bytes": 4554,
+      "sha256": "81f760c7890a8c87e81bca326a3ac1263563467062b66c2799247214111179aa",
+      "url": "https://static.wikia.nocookie.net/tribes/images/4/4c/HPC.jpg"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/gallery-07.jpg",
+      "bytes": 88500,
+      "sha256": "2d22824476a5739b79f652d07df0cd382b6c2a7efb3be3f8beeaf231c8598c1a",
+      "url": "https://www.old-games.ru/games/pc/starsiege_tribes/screenshots/733_4b2695284a13c.jpg"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/gallery-08.jpg",
+      "bytes": 74503,
+      "sha256": "6757a751be4248c666554a9488faf138543855f8e91475c9be90206ae4263720",
+      "url": "https://www.old-games.ru/games/pc/starsiege_tribes/screenshots/733_4b2695285af98.jpg"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/gallery-10.jpg",
+      "bytes": 135301,
+      "sha256": "d57f1f70df7071bd199c1641474ba08e88f071608420156cf19f6cf3993f2f98",
+      "url": "https://www.old-games.ru/games/pc/starsiege_tribes/screenshots/733_4b2695287c9d3.jpg"
+    },
+    {
+      "path": "test-results/st-vehicle-design/references/gallery-11.jpg",
+      "bytes": 99951,
+      "sha256": "2d3887da39147ea9bfaf3650d712ba84add973855653bccc2ca6a519b9b9c5e9",
+      "url": "https://www.old-games.ru/games/pc/starsiege_tribes/screenshots/733_4b2695288d75c.jpg"
+    }
+  ],
+  "preserved_behavior_files": [
+    "deathmatch/vehicles/tribes/controller.gd",
+    "deathmatch/vehicles/tribes/view.gd",
+    "deathmatch/vehicles/tribes/scout_data.gd"
+  ],
+  "tests": [
+    {
+      "name": "Scout gameplay",
+      "checks_passed": 55,
+      "path": "test-results/st-vehicle-design/st_scout.log",
+      "bytes": 3216,
+      "sha256": "9b615a7c4f07f8dc467e322a572c86ab12954a1105eb36d595e2a8902222763c"
+    },
+    {
+      "name": "Transport gameplay and synthetic interactions",
+      "checks_passed": 93,
+      "path": "test-results/st-vehicle-design/st_transports.log",
+      "bytes": 4980,
+      "sha256": "5b1da35f50652dd72b6fffdaf0bc755190c4eb2cae1a213d4d1e5068f5604a3a"
+    }
+  ],
+  "checks_passed": 148,
+  "asset_audit": {
+    "hpc": {
+      "icon_mipmaps": true,
+      "meshes": 3,
+      "mipmapped_surfaces": 6,
+      "surfaces": 7,
+      "team_surfaces": 1,
+      "triangles": 2692
+    },
+    "lpc": {
+      "icon_mipmaps": true,
+      "meshes": 3,
+      "mipmapped_surfaces": 6,
+      "surfaces": 7,
+      "team_surfaces": 1,
+      "triangles": 2052
+    },
+    "scout": {
+      "icon_mipmaps": true,
+      "meshes": 3,
+      "mipmapped_surfaces": 6,
+      "surfaces": 7,
+      "team_surfaces": 1,
+      "triangles": 1668
+    }
+  },
+  "graphical_validation": "Godot 4.7.2 Vulkan Mobile on Intel Arc A770. All three exterior views, carrier occupied bays, pilot/passenger views and matching purchase icons inspected.",
+  "screenshots": [
+    {
+      "path": "test-results/st-vehicle-design/screenshots/hpc-cockpit.png",
+      "bytes": 942786,
+      "sha256": "8e341faff7b98b70b528b2ad8a6f7f8535917ab50c70be63855d6fe267f5d90b"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/hpc-front.png",
+      "bytes": 1455609,
+      "sha256": "3547983661b45d593147869d0973cc45c667e6d6c46b38a24fecb55029760bc2"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/hpc-occupied.png",
+      "bytes": 1324185,
+      "sha256": "c40bf748932e52daf1f488d492e48a9b5b811cf82be27abdd1396a96a260ed82"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/hpc-pad.png",
+      "bytes": 1359851,
+      "sha256": "51892cb5d22d58267b3202abdbc469e1e24a69f2d93a0e928dca4cf09d58f104"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/hpc-passenger.png",
+      "bytes": 1061008,
+      "sha256": "35a68c1e0fd0ae72dc340639c2351a17c6335e4bae0bda569f21c8eae1c6d1c8"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/lpc-cockpit.png",
+      "bytes": 980159,
+      "sha256": "4bfbb1276c7bf06838b27903411c5e7f3152e59552a488fd4d67af5a7c823e92"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/lpc-front.png",
+      "bytes": 1467331,
+      "sha256": "dfb63dc12500204e696095522e48cc51a3a890ce34bd79c5e4be3f898c479b46"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/lpc-occupied.png",
+      "bytes": 1323811,
+      "sha256": "4404918849f71ce2380294a8a3f9004542ea8c839b2cba8eaaa1e44134f26196"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/lpc-pad.png",
+      "bytes": 1367822,
+      "sha256": "8d20efae838a3ee1d5ac0e437bde15bc4ea6bbf7cb4823317768110f5fdcc79f"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/lpc-passenger.png",
+      "bytes": 1076275,
+      "sha256": "32e12916ee795a528b6ea42ee4e1b5c628eb15ef5d63360dc90967c347989cb7"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/scout-buy.png",
+      "bytes": 289717,
+      "sha256": "ff360d472dda22c2cc63b3ed60a3b3b077100491616c247e4daa2b6ea21708b6"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/scout-cockpit.png",
+      "bytes": 1029485,
+      "sha256": "de3e1450b742ba668dd123342d5eee10c7e782be360f744280765818554dadfd"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/scout-front.png",
+      "bytes": 1486325,
+      "sha256": "4d26aa28b133fbeb6bdb3f8b8ab6baa78a987c7172e2ee49881caea4b58946f4"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/scout-pad.png",
+      "bytes": 1397011,
+      "sha256": "4b2254d9f143ce51784ce0abae73ededc45d65219ad7e1e669ad92220332db77"
+    },
+    {
+      "path": "test-results/st-vehicle-design/screenshots/transports-buy.png",
+      "bytes": 307303,
+      "sha256": "2bfe6d179b2994d36703d546784d69b7c6676b7871a1b41a9118b4170fe22d12"
+    }
+  ],
+  "logs": [
+    {
+      "path": "test-results/st-vehicle-design/asset-audit.log",
+      "bytes": 659,
+      "sha256": "bbecd79524b3933ce7eabe780f8a81536e43d84aa828bb4718682b32d636d7db"
+    },
+    {
+      "path": "test-results/st-vehicle-design/atlas.log",
+      "bytes": 300,
+      "sha256": "973385494590b38dce2cf7a4e2fca1b2286a766784df3b77289333d9c6c4bab7"
+    },
+    {
+      "path": "test-results/st-vehicle-design/import-scout.log",
+      "bytes": 318,
+      "sha256": "24fd1a6eb25e080dde097e530658faa2f629c9f9d752219db046fe8786191981"
+    },
+    {
+      "path": "test-results/st-vehicle-design/import-transports.log",
+      "bytes": 322,
+      "sha256": "19783a9cd854e1dd78b0ac5bc1046537dea552d0d66db088b4182130cd605ca0"
+    },
+    {
+      "path": "test-results/st-vehicle-design/scout-preview.log",
+      "bytes": 640,
+      "sha256": "61ef4c723428db488fa39a78647bf75516b757f0f70e922f0dd2ab3afa7f94e0"
+    },
+    {
+      "path": "test-results/st-vehicle-design/st_scout.log",
+      "bytes": 3216,
+      "sha256": "9b615a7c4f07f8dc467e322a572c86ab12954a1105eb36d595e2a8902222763c"
+    },
+    {
+      "path": "test-results/st-vehicle-design/st_transports.log",
+      "bytes": 4980,
+      "sha256": "5b1da35f50652dd72b6fffdaf0bc755190c4eb2cae1a213d4d1e5068f5604a3a"
+    },
+    {
+      "path": "test-results/st-vehicle-design/transports-preview.log",
+      "bytes": 866,
+      "sha256": "201767757d1034e810472912ced2b1bc9eb9300a32df202aa55ee6512495bd6b"
+    }
+  ],
+  "assets": [
+    {
+      "path": "deathmatch/ui/weapon_icons/st_hpc.svg",
+      "bytes": 1322,
+      "sha256": "dc0e3fb44a9c896bc65e2a14519997d5c86579beec16e8dc20707d091365940b"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/st_lpc.svg",
+      "bytes": 904,
+      "sha256": "4715686724aba924bcd65779d15baeb68aeaf16c969f1c7ed531c5398a59ed7d"
+    },
+    {
+      "path": "deathmatch/ui/weapon_icons/st_scout.svg",
+      "bytes": 800,
+      "sha256": "ef7bec23de766b469dfa9671aa3f34ae9213e615db5da7a8d23bd3651f6bdb13"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/hpc-icon.res",
+      "bytes": 25470,
+      "sha256": "a7342ccc26f10354f0c5fc0f668b51819833e1f163f0770c193518431901a7c7"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/hpc.glb",
+      "bytes": 705360,
+      "sha256": "15ca436c77dc37627507d9592681cde2e3cc6d0861ff5bcd3fde89a7032c5822"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/hpc.scn",
+      "bytes": 1139909,
+      "sha256": "e2b66da57731eaae1140b99faa968dd468cc3d8cc981aff0536d3c9ebcf82de9"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/hull-atlas.png",
+      "bytes": 525897,
+      "sha256": "587828336bd616d75b48d63e2665ba36c9ec160f17ea48459797f81c47fa5349"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/hull-atlas.svg",
+      "bytes": 1589753,
+      "sha256": "249079589712fee6e09f278b7fd990abdd4f23eafa566e15d14ee1521acdb643"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/lpc-icon.res",
+      "bytes": 24253,
+      "sha256": "8cd1e4f12833166ad8462e201d011bbf7425bec36799c64390430b98b500cc9f"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/lpc.glb",
+      "bytes": 665116,
+      "sha256": "5a013b8686d87c4cc71b86e0b94cf97d08b870b9cb2b97a30e1198cd8bbc2b44"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/lpc.scn",
+      "bytes": 1134775,
+      "sha256": "380d276095d7d64d3cc9985fb1f2eecbdab0f2fffe7118e5722da5fa74b14c9a"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/scout-icon.res",
+      "bytes": 31036,
+      "sha256": "8be1616280a7c6156c7bb6d5756a4532b95349a89a80b7fef83b4683c94d0c14"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/scout.glb",
+      "bytes": 640216,
+      "sha256": "d93bff0543a8720370e62588e9e159c593fad2c8a97ee5d50dcb976ccba8bb16"
+    },
+    {
+      "path": "deathmatch/vehicles/tribes/scout.scn",
+      "bytes": 1128965,
+      "sha256": "56fb68558653a801b37baeff7b082dc3a18bbefc8f5d026d342dd9976de827dd"
+    }
+  ],
+  "sources": [
+    {
+      "path": "tools/tribes/vehicle_models.py",
+      "bytes": 12660,
+      "sha256": "783b3158893e87dfb31aee1f0cef55ac86f06f17a5b2c21a858f7d7fd02aea1b"
+    },
+    {
+      "path": "tools/tribes/vehicle_texture.py",
+      "bytes": 2760,
+      "sha256": "5f8c2b6e9333b52ea74fbf507d101df2ae72b62edd899f47ac5afbc2479e49cb"
+    },
+    {
+      "path": "tools/tribes/vehicle_texture.gd",
+      "bytes": 271,
+      "sha256": "db71c5984d7cf60109ea5c83fba14eea3f63622384b91a128dbb5d7b19f626e0"
+    },
+    {
+      "path": "tools/tribes/scout_model.py",
+      "bytes": 363,
+      "sha256": "d8f5438d8e8860716134ed4e878d3013d14707eaadc78627719262fc28a6801c"
+    },
+    {
+      "path": "tools/tribes/transport_models.py",
+      "bytes": 368,
+      "sha256": "a407f3da50e9f59ebc0b02473d1612e664913ce1fa7d00109e89893a34f1acff"
+    },
+    {
+      "path": "tools/tribes/import_scout.gd",
+      "bytes": 1151,
+      "sha256": "6d28f6434ecb4205769255038f0cd2ebb9e7b5904ad9b106589e04fbd1859248"
+    },
+    {
+      "path": "tools/tribes/import_transports.gd",
+      "bytes": 879,
+      "sha256": "57f0a8f077f0ca664101dca39095a65716f565901279c6553633cb55361c06a5"
+    },
+    {
+      "path": "tools/tribes/scout_preview.gd",
+      "bytes": 2019,
+      "sha256": "2c7467943974bd7ba6de3fe6db46f9372cc30a7c65e6288651cb7e591f700b60"
+    },
+    {
+      "path": "tools/tribes/transports_preview.gd",
+      "bytes": 3050,
+      "sha256": "197a9d1a5cae8a32686092fe087be5bf59e716c67bf15241a980ba30e3c17817"
+    },
+    {
+      "path": "tools/tribes/vehicle-sources/vehicles.blend",
+      "bytes": 1019751,
+      "sha256": "7d07321b47301fcf4540ff5948c587487e5817dffefaa05a9bd4e04096496a87"
+    }
+  ],
+  "archive": {
+    "path": "test-results/st-vehicle-design/sources-final.tar.gz",
+    "bytes": 6776948,
+    "sha256": "30b41ac4c155a1c18e4acf2d5817d4ebfdd578c6382bf092a701d9de4bd7a325"
+  },
+  "limitations": [
+    "Independent approximations adapted to existing cockpit/seat positions, not exact retail mesh replicas.",
+    "No physical headset test in this art pass.",
+    "Existing ObjectDB shutdown warning remains (one headless / two graphical); no script errors.",
+    "Network suite was not rerun for art-only changes; preceding mechanics validation is st-transports-2026-09-29.json."
+  ]
+}

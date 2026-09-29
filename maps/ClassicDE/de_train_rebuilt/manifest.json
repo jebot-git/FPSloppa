@@ -2,8 +2,8 @@
   "id": "de_train_rebuilt",
   "title": "Train | Classic layout reconstruction",
   "format": 29,
-  "bytes": 8628076,
-  "sha256": "9fe07919cb7f457b54024ec04b1836a0f470e2d821aba770decfc7d2ad99282b",
+  "bytes": 8642316,
+  "sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524",
   "brushes": 571,
   "spawns": [
     [
@@ -587,7 +587,7 @@
   "reference": "https://steamcommunity.com/sharedfiles/filedetails/?id=913388004",
   "theme": "rail",
   "defusal": {
-    "sha256": "9fe07919cb7f457b54024ec04b1836a0f470e2d821aba770decfc7d2ad99282b",
+    "sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524",
     "sites": [
       [
         10.5,
@@ -750,6 +750,98 @@
       "normal": [
         0,
         -1
+      ]
+    }
+  ],
+  "structure_checks": [
+    {
+      "name": "Train window attached to north wall",
+      "start": [
+        271,
+        469,
+        216
+      ],
+      "end": [
+        271,
+        466,
+        216
+      ],
+      "at": [
+        271,
+        467.6,
+        216
+      ]
+    },
+    {
+      "name": "Train window attached to north wall",
+      "start": [
+        351,
+        469,
+        216
+      ],
+      "end": [
+        351,
+        466,
+        216
+      ],
+      "at": [
+        351,
+        467.6,
+        216
+      ]
+    },
+    {
+      "name": "Train window attached to north wall",
+      "start": [
+        391,
+        469,
+        216
+      ],
+      "end": [
+        391,
+        466,
+        216
+      ],
+      "at": [
+        391,
+        467.6,
+        216
+      ]
+    },
+    {
+      "name": "Train window attached to north wall",
+      "start": [
+        441,
+        469,
+        216
+      ],
+      "end": [
+        441,
+        466,
+        216
+      ],
+      "at": [
+        441,
+        467.6,
+        216
+      ]
+    },
+    {
+      "name": "Train window attached to north wall",
+      "start": [
+        479,
+        469,
+        216
+      ],
+      "end": [
+        479,
+        466,
+        216
+      ],
+      "at": [
+        479,
+        467.6,
+        216
       ]
     }
   ]

@@ -14,12 +14,18 @@ func state(id: int) -> Dictionary:
 	var c: Dictionary=states[id]
 	if c.weapon!=s.weapon:
 		if c.physical.has(c.weapon):Reload.interrupt(c.physical[c.weapon])
-		c.weapon=s.weapon;c.reloading=-1;c.burst=0;c.heat=0.0;c.erase("spray")
+		c.weapon=s.weapon;c.reloading=-1;c.burst=0;c.heat=0.0;c.erase("spray");c.erase("support_sample");c.erase("spray_angles");c.erase("spray_step")
 		# Holstering cancels unfinished reloads; the existing clip is retained.
 	var d: Dictionary=game.armory.data(s.weapon)
 	if d.ammo>=0 and not c.clips.has(s.weapon):c.clips[s.weapon]=mini(d.magazine,s.ammo[d.ammo])
 	if d.ammo>=0:c.clips[s.weapon]=mini(c.clips[s.weapon],s.ammo[d.ammo])
 	return c
+func loaded_ammo(id: int,weapon: int) -> int:
+	var d: Dictionary=game.armory.data(weapon)
+	if d.ammo<0:return 0
+	var c:=state(id)
+	# Clip includes a chambered round; a removed magazine is already excluded.
+	return clampi(int(c.clips.get(weapon,d.magazine)),0,mini(int(d.magazine),int(game.players[id].ammo[d.ammo])))
 func manual(id: int) -> bool:return id>0 and game.players[id].vr_device and game.players[id].weapon>0
 func physical(id: int) -> Dictionary:
 	var c:=state(id);var w: int=game.players[id].weapon
@@ -41,6 +47,29 @@ func supported(id: int) -> bool:
 func recoil_scale(id: int) -> float:
 	if game.armory.effective()!="cs16" or not game.players[id].vr_device or game.players[id].weapon in [1,2,10] or supported(id):return 1.0
 	return 2.0
+# Active offhand correction slows accumulation, never the weapon's fire timer.
+const COMPENSATED_BLOOM:=.5
+func bloom_scale(id: int) -> float:
+	var s: Dictionary=game.players[id];var c:=state(id)
+	if not s.vr_device or s.weapon not in [5,6,7,8,9,11] or not supported(id) or game.clock-s.last_input>.16:
+		c.erase("support_sample");return 1.0
+	var primary: Transform3D=s.xr.left if s.xr.left_handed else s.xr.right
+	var other: Transform3D=s.xr.right if s.xr.left_handed else s.xr.left
+	# Relative hand direction removes walking, turning and moving both hands
+	# together. Only adjusting the support hand against recoil earns a reduction.
+	var axis: Vector3=primary.basis.inverse()*(other.origin-primary.origin)
+	if axis.length()<.075 or axis.length()>1.1:
+		c.erase("support_sample");return 1.0
+	var angles:=Vector2(atan2(axis.y,-axis.z),atan2(-axis.x,-axis.z))
+	var before: Dictionary=c.get("support_sample",{})
+	c.support_sample={"angles":angles,"time":game.clock,"stamp":s.last_input}
+	if before.is_empty() or s.last_input<=before.stamp or game.clock-before.time>.25 or not c.has("spray_step"):return 1.0
+	var delta:=Vector2(wrapf(angles.x-before.angles.x,-PI,PI),wrapf(angles.y-before.angles.y,-PI,PI))
+	if delta.length()>deg_to_rad(20):return 1.0 # Tracking jumps are not compensation.
+	var recoil: Vector2=c.spray_step
+	var counter:=maxf(0.0,-delta.dot(recoil.normalized())-deg_to_rad(.08))
+	var fraction:=clampf(counter/maxf(recoil.length(),deg_to_rad(.25)),0,1)
+	return lerpf(1.0,COMPENSATED_BLOOM,fraction)
 func reload_sound(id: int,kind: String):
 	game._cs_reload_sound.rpc(game.map_epoch,id,int(game.players[id].serial),kind)
 func definition(id: int,at_time: float=-1.0) -> Dictionary:
@@ -146,7 +175,8 @@ func shoot(id: int,burst_round: bool=false) -> bool:
 	# Reuse the authority's trace, rewind, friendly-fire and damage path.
 	var loaded: int=c.clips[w]
 	if not game.variant_combat.fire(id,false,0.0,true):return false
-	c.clips[w]=loaded-1;c.heat=minf(5.0,maxf(0,c.heat-maxf(0,game.clock-c.shot_at-.12)*5.0)+d.bloom);c.shot_at=game.clock;s.held=true
+	var firing_angles: Vector2=c.get("spray_angles",Vector2.ZERO) if game.clock-c.shot_at<=.25 else Vector2.ZERO
+	c.clips[w]=loaded-1;c.heat=minf(5.0,maxf(0,c.heat-maxf(0,game.clock-c.shot_at-.12)*5.0)+d.bloom*bloom_scale(id));c.shot_at=game.clock;s.held=true
 	if manual(id):
 		var p:=physical(id)
 		if Reload.manual_cycle(w) or c.clips[w]==0:p.ready=false
@@ -162,7 +192,10 @@ func shoot(id: int,burst_round: bool=false) -> bool:
 	for pellet in int(d.pellets):next_direction+=spray_direction(id,next_definition,pellet)
 	# Traces/impacts have already been emitted. This payload is the next shot's
 	# pose, never a correction that rotates the gun before the current bullet.
-	game._variant_shot_fx.rpc(id,w,suppressed(id),next_direction.normalized())
+	next_direction=next_direction.normalized()
+	c.spray_angles=Vector2(asin(clampf(next_direction.y,-1,1)),atan2(-next_direction.x,-next_direction.z))
+	c.spray_step=c.spray_angles-firing_angles
+	game._variant_shot_fx.rpc(id,w,suppressed(id),next_direction)
 	return true
 func falloff(d: Dictionary,damage: int,distance: float) -> int:
 	# 500 GoldSrc units -> 12.7 m (one source unit = one inch).

@@ -63,7 +63,7 @@ fallback still works.
 
 This is an experimental reconstruction, not a byte-identical conversion.
 Interior dimensions, generator floor arrangement, textures, collision capsules
-and vehicle pads are adapted. Vehicles are not functional. Source height data
+and vehicle pads are adapted. The subsequent [vehicle passes](ST-VEHICLES.md) add powered terminals, Scout flyers, LPCs and HPCs to those existing pad landmarks. Source height data
 and mission references are retained locally for study; no original Tribes DIS
 meshes or retail textures are bundled. Existing Makkon/LibreQuake texture notices
 are copied into the local map source folder.

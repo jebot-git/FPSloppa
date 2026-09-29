@@ -126,7 +126,7 @@ __pycache__/
 # Separate experimental checkouts.
 /.worktrees/
 
-# Deferred ST artwork and map remain local until an ST release is approved.
+# ST artwork, source references and compiled maps are maintained as local assets.
 /deathmatch/weapons/tribes/
 /deathmatch/audio/tribes/
 /deathmatch/ui/weapon_icons/tribes_*
@@ -143,3 +143,11 @@ __pycache__/
 /tools/tribes/sources/
 /tools/tribes/refined/
 /docs/audio/skyward-relay/
+
+# Locally compiled optional gameplay extension.
+/addons/fps_native/bin/
+/addons/fps_native/build*/
+/addons/fps_native/fps_native.gdextension
+/addons/fps_native/.sconsign*
+/addons/fps_native/src/*.os
+/addons/fps_native/src/*.o

@@ -1,0 +1,1246 @@
+{
+  "date": "2026-09-29",
+  "cpu": "Intel Core i7-12700",
+  "scope": "Exploration only; production behavior unchanged. Sequential retained runs, uncontrolled OS clocks; no headset, Windows or Android performance claims. No measured native replacement for the newly proposed candidates.",
+  "commands": [
+    "python3 tools/native_study/remaining.py --network",
+    "python3 tools/native_study/remaining.py --network --codec-scopes",
+    "python3 tools/native_study/remaining.py --avatars",
+    "python3 tools/native_study/remaining.py --server",
+    "python3 tools/native_study/remaining.py --server --reference"
+  ],
+  "results": {
+    "network": {
+      "engine": "4.7.2-stable (fedora)",
+      "pose_codec": {
+        "compress": {
+          "mean_ms": 0.00219575,
+          "median_ms": 0.00217,
+          "p95_ms": 0.00229
+        },
+        "decode": {
+          "mean_ms": 0.060928,
+          "median_ms": 0.0602,
+          "p95_ms": 0.06549
+        },
+        "decompress": {
+          "mean_ms": 0.000519,
+          "median_ms": 0.00051,
+          "p95_ms": 0.00056
+        },
+        "encode": {
+          "mean_ms": 0.0605675,
+          "median_ms": 0.06063,
+          "p95_ms": 0.06249
+        },
+        "pack": {
+          "mean_ms": 0.06408575,
+          "median_ms": 0.0637,
+          "p95_ms": 0.06797
+        },
+        "packed_bytes": 397,
+        "raw_bytes": 608,
+        "scope": "Full body/face pose only, excludes command envelope; 40 batches of 100 calls after 100 warmup calls. One scenario at a time.",
+        "unpack": {
+          "mean_ms": 0.062235,
+          "median_ms": 0.06192,
+          "p95_ms": 0.06565
+        },
+        "validate": {
+          "mean_ms": 0.03428825,
+          "median_ms": 0.03348,
+          "p95_ms": 0.03789
+        }
+      },
+      "scope": "Current production paths; 20 warmup + 120 changing snapshots each; includes compression, record caches and full receiver flush. No ENet transport, loss, scene application or rendering.",
+      "snapshots": [
+        {
+          "bytes_per_snapshot": 422.616666666667,
+          "encode": {
+            "mean_ms": 0.32385,
+            "median_ms": 0.315,
+            "p95_ms": 0.371
+          },
+          "flush": {
+            "mean_ms": 0.018175,
+            "median_ms": 0.017,
+            "p95_ms": 0.025
+          },
+          "full_vr": false,
+          "packets_per_snapshot": 1.0,
+          "players": 8,
+          "receive": {
+            "mean_ms": 0.352383333333333,
+            "median_ms": 0.34,
+            "p95_ms": 0.415
+          },
+          "shots": 0
+        },
+        {
+          "bytes_per_snapshot": 3140.81666666667,
+          "encode": {
+            "mean_ms": 1.74053333333333,
+            "median_ms": 1.702,
+            "p95_ms": 2.043
+          },
+          "flush": {
+            "mean_ms": 0.16415,
+            "median_ms": 0.154,
+            "p95_ms": 0.238
+          },
+          "full_vr": true,
+          "packets_per_snapshot": 3.05,
+          "players": 16,
+          "receive": {
+            "mean_ms": 1.78555833333333,
+            "median_ms": 1.738,
+            "p95_ms": 1.995
+          },
+          "shots": 32
+        },
+        {
+          "bytes_per_snapshot": 16977.8,
+          "encode": {
+            "mean_ms": 2.44325,
+            "median_ms": 2.414,
+            "p95_ms": 2.611
+          },
+          "flush": {
+            "mean_ms": 0.231566666666667,
+            "median_ms": 0.225,
+            "p95_ms": 0.296
+          },
+          "full_vr": false,
+          "packets_per_snapshot": 16.05,
+          "players": 16,
+          "receive": {
+            "mean_ms": 2.10261666666667,
+            "median_ms": 2.045,
+            "p95_ms": 2.484
+          },
+          "shots": 523
+        }
+      ]
+    },
+    "network-scopes": {
+      "engine": "4.7.2-stable (fedora)",
+      "pose_codec": {
+        "compress": {
+          "mean_ms": 0.0023805,
+          "median_ms": 0.00217,
+          "p95_ms": 0.00263
+        },
+        "decode": {
+          "mean_ms": 0.064816,
+          "median_ms": 0.06314,
+          "p95_ms": 0.07578
+        },
+        "decompress": {
+          "mean_ms": 0.0005055,
+          "median_ms": 0.0005,
+          "p95_ms": 0.00054
+        },
+        "encode": {
+          "mean_ms": 0.06396225,
+          "median_ms": 0.06181,
+          "p95_ms": 0.0729
+        },
+        "pack": {
+          "mean_ms": 0.06352975,
+          "median_ms": 0.06311,
+          "p95_ms": 0.06816
+        },
+        "packed_bytes": 397,
+        "raw_bytes": 608,
+        "scope": "Full body/face pose only, excludes command envelope; 40 batches of 100 calls after 100 warmup calls. One scenario at a time.",
+        "unpack": {
+          "mean_ms": 0.06303975,
+          "median_ms": 0.06262,
+          "p95_ms": 0.06811
+        },
+        "validate": {
+          "mean_ms": 0.03322475,
+          "median_ms": 0.03245,
+          "p95_ms": 0.03829
+        }
+      },
+      "scope": "Current production paths; 20 warmup + 120 changing snapshots each; includes compression, record caches and full receiver flush. No ENet transport, loss, scene application or rendering.",
+      "snapshots": [
+        {
+          "bytes_per_snapshot": 422.616666666667,
+          "compact_codec_us_and_calls": {
+            "decode": [
+              35864,
+              960
+            ],
+            "encode": [
+              28991,
+              960
+            ]
+          },
+          "encode": {
+            "mean_ms": 0.31575,
+            "median_ms": 0.309,
+            "p95_ms": 0.348
+          },
+          "flush": {
+            "mean_ms": 0.0165,
+            "median_ms": 0.016,
+            "p95_ms": 0.02
+          },
+          "full_vr": false,
+          "packets_per_snapshot": 1.0,
+          "players": 8,
+          "receive": {
+            "mean_ms": 0.345783333333333,
+            "median_ms": 0.335,
+            "p95_ms": 0.394
+          },
+          "shots": 0
+        },
+        {
+          "bytes_per_snapshot": 3140.81666666667,
+          "compact_codec_us_and_calls": {
+            "decode": [
+              188632,
+              1920
+            ],
+            "encode": [
+              170902,
+              1920
+            ]
+          },
+          "encode": {
+            "mean_ms": 1.7055,
+            "median_ms": 1.675,
+            "p95_ms": 1.859
+          },
+          "flush": {
+            "mean_ms": 0.153566666666667,
+            "median_ms": 0.151,
+            "p95_ms": 0.186
+          },
+          "full_vr": true,
+          "packets_per_snapshot": 3.05,
+          "players": 16,
+          "receive": {
+            "mean_ms": 1.77619166666667,
+            "median_ms": 1.763,
+            "p95_ms": 1.924
+          },
+          "shots": 32
+        },
+        {
+          "bytes_per_snapshot": 16977.8,
+          "compact_codec_us_and_calls": {
+            "decode": [
+              75174,
+              1920
+            ],
+            "encode": [
+              61601,
+              1920
+            ]
+          },
+          "encode": {
+            "mean_ms": 2.498375,
+            "median_ms": 2.483,
+            "p95_ms": 2.686
+          },
+          "flush": {
+            "mean_ms": 0.242966666666667,
+            "median_ms": 0.238,
+            "p95_ms": 0.309
+          },
+          "full_vr": false,
+          "packets_per_snapshot": 16.05,
+          "players": 16,
+          "receive": {
+            "mean_ms": 2.13588333333333,
+            "median_ms": 2.09,
+            "p95_ms": 2.514
+          },
+          "shots": 523
+        }
+      ]
+    },
+    "avatars": {
+      "cold_clip_bakes": [
+        {
+          "bones": 140,
+          "direction": 0,
+          "model": "sample_d",
+          "ms": 1.634,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 1,
+          "model": "sample_d",
+          "ms": 1.464,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 2,
+          "model": "sample_d",
+          "ms": 1.516,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 3,
+          "model": "sample_d",
+          "ms": 1.459,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 4,
+          "model": "sample_d",
+          "ms": 1.446,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 5,
+          "model": "sample_d",
+          "ms": 1.467,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 6,
+          "model": "sample_d",
+          "ms": 1.459,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 7,
+          "model": "sample_d",
+          "ms": 1.515,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 0,
+          "model": "sample_f",
+          "ms": 1.55,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 1,
+          "model": "sample_f",
+          "ms": 1.437,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 2,
+          "model": "sample_f",
+          "ms": 1.43,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 3,
+          "model": "sample_f",
+          "ms": 1.415,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 4,
+          "model": "sample_f",
+          "ms": 1.4,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 5,
+          "model": "sample_f",
+          "ms": 1.425,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 6,
+          "model": "sample_f",
+          "ms": 1.437,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 7,
+          "model": "sample_f",
+          "ms": 1.521,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 0,
+          "model": "sample_g",
+          "ms": 1.701,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 1,
+          "model": "sample_g",
+          "ms": 1.714,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 2,
+          "model": "sample_g",
+          "ms": 1.6,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 3,
+          "model": "sample_g",
+          "ms": 1.543,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 4,
+          "model": "sample_g",
+          "ms": 1.559,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 5,
+          "model": "sample_g",
+          "ms": 1.867,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 6,
+          "model": "sample_g",
+          "ms": 1.62,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 7,
+          "model": "sample_g",
+          "ms": 1.684,
+          "tracks": 30
+        }
+      ],
+      "engine": "4.7.2-stable (fedora)",
+      "frames_per_block": 360,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "reports": [
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.539711111535629,
+            "p95": 0.657000005245209,
+            "p99": 0.795000016689301
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 21.2777777777778,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.71542221771346,
+            "p95": 1.98399996757507,
+            "p99": 2.31599998474121
+          },
+          "scenario": "near",
+          "scripts": {
+            "distance_modifier": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.132911111111111
+            },
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.439025
+            },
+            "floor_ray": {
+              "calls_per_frame": 1.55555555555556,
+              "ms_per_frame": 0.00268055555555556
+            },
+            "gait": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.110455555555556
+            },
+            "lod": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.1507
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.266933333333333
+            },
+            "native_capture": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.160980555555556
+            },
+            "native_fingers": {
+              "calls_per_frame": 32.0,
+              "ms_per_frame": 0.0846722222222222
+            },
+            "native_orient": {
+              "calls_per_frame": 32.0,
+              "ms_per_frame": 0.0457638888888889
+            },
+            "native_solve": {
+              "calls_per_frame": 64.0,
+              "ms_per_frame": 0.11875
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.47342777777778
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.744838888888889
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            },
+            "tracking": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.180172222222222
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 8.06881666666666,
+            "p95": 8.9,
+            "p99": 9.379
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.396155556208558,
+            "p95": 0.550999999046326,
+            "p99": 0.649999976158142
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.63961110942894,
+            "p95": 1.9190000295639,
+            "p99": 2.09500002861023
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "distance_modifier": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.163141666666667
+            },
+            "gait": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.114036111111111
+            },
+            "lod": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.300722222222222
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.899219444444444
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            },
+            "tracking": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.184113888888889
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.980375,
+            "p95": 6.705,
+            "p99": 7.052
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.406061111887296,
+            "p95": 0.48199999332428,
+            "p99": 0.680000007152557
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 23.1055555555556,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.67353888650735,
+            "p95": 1.95200002193451,
+            "p99": 2.22099995613098
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "blend_push": {
+              "calls_per_frame": 1.55555555555556,
+              "ms_per_frame": 0.0923916666666667
+            },
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.393530555555556
+            },
+            "floor_ray": {
+              "calls_per_frame": 0.0888888888888889,
+              "ms_per_frame": 0.000158333333333333
+            },
+            "gait": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.103155555555556
+            },
+            "lod": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.0595138888888889
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.252388888888889
+            },
+            "native_blend": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.274277777777778
+            },
+            "native_capture": {
+              "calls_per_frame": 1.55555555555556,
+              "ms_per_frame": 0.0195
+            },
+            "native_fingers": {
+              "calls_per_frame": 3.11111111111111,
+              "ms_per_frame": 0.00845555555555555
+            },
+            "native_orient": {
+              "calls_per_frame": 3.11111111111111,
+              "ms_per_frame": 0.00491388888888889
+            },
+            "native_solve": {
+              "calls_per_frame": 6.22222222222222,
+              "ms_per_frame": 0.0121638888888889
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.596241666666667
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.62285
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            },
+            "tracking": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.170738888888889
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.72387777777778,
+            "p95": 8.871,
+            "p99": 9.368
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.410436110860772,
+            "p95": 0.568000018596649,
+            "p99": 0.875999987125397
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.3583333333333,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.65584166844686,
+            "p95": 1.9650000333786,
+            "p99": 2.1340000629425
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "blend_push": {
+              "calls_per_frame": 1.55555555555556,
+              "ms_per_frame": 0.0948055555555556
+            },
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.383308333333333
+            },
+            "floor_ray": {
+              "calls_per_frame": 0.0888888888888889,
+              "ms_per_frame": 0.000144444444444444
+            },
+            "gait": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.101038888888889
+            },
+            "lod": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.0595833333333333
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.243566666666667
+            },
+            "native_blend": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.275602777777778
+            },
+            "native_capture": {
+              "calls_per_frame": 1.55555555555556,
+              "ms_per_frame": 0.0195611111111111
+            },
+            "native_fingers": {
+              "calls_per_frame": 3.11111111111111,
+              "ms_per_frame": 0.00868611111111111
+            },
+            "native_orient": {
+              "calls_per_frame": 3.11111111111111,
+              "ms_per_frame": 0.00457222222222222
+            },
+            "native_solve": {
+              "calls_per_frame": 6.22222222222222,
+              "ms_per_frame": 0.0120194444444444
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.599294444444444
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.614155555555556
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            },
+            "tracking": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.168163888888889
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.65638611111111,
+            "p95": 9.008,
+            "p99": 9.73
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.389877778457271,
+            "p95": 0.497000008821487,
+            "p99": 0.628000020980835
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.65218610995346,
+            "p95": 1.90900003910065,
+            "p99": 2.08200001716614
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "distance_modifier": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.169191666666667
+            },
+            "gait": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.113386111111111
+            },
+            "lod": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.303822222222222
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.908480555555556
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            },
+            "tracking": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.186663888888889
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 6.00757222222223,
+            "p95": 6.613,
+            "p99": 7.431
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.54009166624811,
+            "p95": 0.663999974727631,
+            "p99": 0.800000011920929
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.0194444444444,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.72816666927603,
+            "p95": 1.98000001907349,
+            "p99": 2.30200004577637
+          },
+          "scenario": "near",
+          "scripts": {
+            "blend_push": {
+              "calls_per_frame": 1.23333333333333,
+              "ms_per_frame": 0.0825166666666667
+            },
+            "distance_modifier": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.129711111111111
+            },
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.430438888888889
+            },
+            "floor_ray": {
+              "calls_per_frame": 0.511111111111111,
+              "ms_per_frame": 0.00155277777777778
+            },
+            "gait": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.109966666666667
+            },
+            "lod": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.152586111111111
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.269758333333333
+            },
+            "native_blend": {
+              "calls_per_frame": 6.0,
+              "ms_per_frame": 0.108319444444444
+            },
+            "native_capture": {
+              "calls_per_frame": 11.2333333333333,
+              "ms_per_frame": 0.227252777777778
+            },
+            "native_fingers": {
+              "calls_per_frame": 22.4666666666667,
+              "ms_per_frame": 0.0649416666666667
+            },
+            "native_orient": {
+              "calls_per_frame": 32.0,
+              "ms_per_frame": 0.0455305555555556
+            },
+            "native_solve": {
+              "calls_per_frame": 44.9333333333333,
+              "ms_per_frame": 0.0876083333333333
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.46926666666667
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.743647222222222
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            },
+            "tracking": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.177330555555556
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 10,
+            "1": 6
+          },
+          "wall_ms": {
+            "mean": 8.04586944444445,
+            "p95": 9.082,
+            "p99": 9.874
+          }
+        }
+      ],
+      "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+    },
+    "server": {
+      "bot_match": {
+        "bots": 16,
+        "map": "qsrc_dm1",
+        "pickups": 25,
+        "scopes_us_and_calls": {
+          "arena": {
+            "_collect": [
+              332995,
+              9223
+            ],
+            "_record_history": [
+              33514,
+              600
+            ],
+            "_server_tick": [
+              3836455,
+              600
+            ],
+            "_update_melee": [
+              94727,
+              9223
+            ],
+            "_update_projectiles": [
+              7528,
+              600
+            ]
+          },
+          "bots": {
+            "combat": [
+              414854,
+              9206
+            ],
+            "perceive": [
+              238145,
+              734
+            ],
+            "plan": [
+              316007,
+              215
+            ],
+            "steer": [
+              639452,
+              9226
+            ],
+            "tick": [
+              1905847,
+              600
+            ],
+            "visible": [
+              106214,
+              7506
+            ]
+          },
+          "fighter": {
+            "engine_slide": [
+              764737,
+              9100
+            ],
+            "simulate": [
+              1088314,
+              9223
+            ],
+            "step_up": [
+              225445,
+              6339
+            ]
+          },
+          "navigation": {
+            "cost": [
+              56258,
+              1871
+            ],
+            "path": [
+              91366,
+              1872
+            ],
+            "ray": [
+              119608,
+              43206
+            ]
+          }
+        },
+        "tick": {
+          "max_ms": 12.29,
+          "mean_ms": 6.45634166666666,
+          "median_ms": 6.051,
+          "p95_ms": 9.467
+        },
+        "ticks": 600
+      },
+      "engine": "4.7.2-stable (fedora)",
+      "hitscan": [
+        {
+          "eight_rays": {
+            "max_ms": 0.141,
+            "mean_ms": 0.11135,
+            "median_ms": 0.107,
+            "p95_ms": 0.131
+          },
+          "path": "native_current",
+          "scopes_us_and_calls": {
+            "arena": {},
+            "bots": {},
+            "fighter": {},
+            "navigation": {}
+          },
+          "target_hits_including_warmup": 560
+        },
+        {
+          "eight_rays": {
+            "max_ms": 0.626,
+            "mean_ms": 0.464166666666667,
+            "median_ms": 0.449,
+            "p95_ms": 0.599
+          },
+          "path": "gd_current",
+          "scopes_us_and_calls": {
+            "arena": {
+              "_rewound_heights": [
+                128,
+                480
+              ],
+              "_rewound_positions": [
+                143,
+                480
+              ],
+              "_rewound_yaws": [
+                105,
+                480
+              ]
+            },
+            "bots": {},
+            "fighter": {},
+            "navigation": {}
+          },
+          "target_hits_including_warmup": 560
+        },
+        {
+          "eight_rays": {
+            "max_ms": 2.505,
+            "mean_ms": 1.58726666666667,
+            "median_ms": 1.517,
+            "p95_ms": 1.999
+          },
+          "path": "gd_rewind_100ms",
+          "scopes_us_and_calls": {
+            "arena": {
+              "_rewound_heights": [
+                20076,
+                480
+              ],
+              "_rewound_positions": [
+                20157,
+                480
+              ],
+              "_rewound_yaws": [
+                21494,
+                480
+              ]
+            },
+            "bots": {},
+            "fighter": {},
+            "navigation": {}
+          },
+          "target_hits_including_warmup": 560
+        }
+      ],
+      "scope": "16 active bots and spectator, qsrc_dm1 DM/Doom, 120 warmup + 600 measured ticks after navigation setup. Server tick includes native projectiles, movement, AI, pickups and history; excludes snapshot packing/transport and the engine physics step. Nested timer scopes include instrument overhead; call totals in microseconds. Controlled hitscan fixture uses eight rays per batch with 16 current or historical targets; no damage/ammo."
+    },
+    "server-reference": {
+      "bot_match": {
+        "bots": 16,
+        "map": "qsrc_dm1",
+        "pickups": 25,
+        "scopes_us_and_calls": {
+          "arena": {},
+          "bots": {},
+          "fighter": {},
+          "navigation": {}
+        },
+        "tick": {
+          "max_ms": 14.645,
+          "mean_ms": 6.81430833333334,
+          "median_ms": 6.42,
+          "p95_ms": 10.164
+        },
+        "ticks": 600
+      },
+      "engine": "4.7.2-stable (fedora)",
+      "hitscan": [
+        {
+          "eight_rays": {
+            "max_ms": 0.128,
+            "mean_ms": 0.105516666666667,
+            "median_ms": 0.103,
+            "p95_ms": 0.121
+          },
+          "path": "native_current",
+          "scopes_us_and_calls": {
+            "arena": {},
+            "bots": {},
+            "fighter": {},
+            "navigation": {}
+          },
+          "target_hits_including_warmup": 560
+        },
+        {
+          "eight_rays": {
+            "max_ms": 0.709,
+            "mean_ms": 0.4246,
+            "median_ms": 0.412,
+            "p95_ms": 0.498
+          },
+          "path": "gd_current",
+          "scopes_us_and_calls": {
+            "arena": {},
+            "bots": {},
+            "fighter": {},
+            "navigation": {}
+          },
+          "target_hits_including_warmup": 560
+        },
+        {
+          "eight_rays": {
+            "max_ms": 2.103,
+            "mean_ms": 1.49433333333333,
+            "median_ms": 1.47,
+            "p95_ms": 1.654
+          },
+          "path": "gd_rewind_100ms",
+          "scopes_us_and_calls": {
+            "arena": {},
+            "bots": {},
+            "fighter": {},
+            "navigation": {}
+          },
+          "target_hits_including_warmup": 560
+        }
+      ],
+      "scope": "16 active bots and spectator, qsrc_dm1 DM/Doom, 120 warmup + 600 measured ticks after navigation setup. Server tick includes native projectiles, movement, AI, pickups and history; excludes snapshot packing/transport and the engine physics step. Nested timer scopes include instrument overhead; call totals in microseconds. Controlled hitscan fixture uses eight rays per batch with 16 current or historical targets; no damage/ammo."
+    }
+  },
+  "source_sha256": {
+    "tools/native_study/remaining.py": "9cb08fcd8c05ae52d28d64fd3fca43ddade7f19433eac4a1bd29e6ebd3a78c04",
+    "tools/native_study/remaining_network.gd": "bf7ff1058a2e2f6362addb7c6d68e452f6f3142f0e0b23579628c1b8f97cc251",
+    "tools/native_study/remaining_server.gd": "bc8cda403bef1804246a47f60ca3c91d46a2537409dcb6a3d6dadf1766e1e187",
+    "deathmatch/network/codec.gd": "905de307916e8f972a8c62ea67d244b96d6d7df7fba20a8300098da408260411",
+    "deathmatch/network/snapshot_codec.gd": "9ab2e7c1104640ed6a9dfbdb6c3bfb0c8e5f63b06f40a83fc560d0d0ebdd5f96",
+    "deathmatch/network/replication.gd": "223189ed3ee3444d24c9be5d3beac2aba6d1133af94f4137e6c94103b8ea33a9",
+    "deathmatch/avatars/rig.gd": "3f21701f49593d9ecc15eda6652cc3f3a0c6d7edcc39add7847372105e797c28",
+    "deathmatch/avatars/pose.gd": "b7441af97f9f3253bf3b246081e79138a08fa2e9e5435b30136cfed7f58a13c7",
+    "deathmatch/avatars/pose_blend.gd": "0bfcdf994f244c335241baff27b24ee538a5c1c1df17ef48b3df996933940ce4",
+    "deathmatch/avatars/eyes.gd": "44f57497560a9470cac8fecd8d0a597e96da055d4067f7c872af3823e027bef1",
+    "deathmatch/avatars/distance_lod.gd": "d4551e803c6396eced2f2572053a158f7c547eb7f63b0018e9c86e345badf60b",
+    "deathmatch/arena.gd": "0db4ff8ee099341ade1d417a28a96fdd89d46000116a464c7c8f8dc3dc20b5cd",
+    "deathmatch/bots.gd": "9e9d6e200cf0706fedd8cfb80519f6894bf0e8df417891defb0904efe8573647",
+    "deathmatch/fighter.gd": "f0e77bd511f1669848a4045d668b179360f2a3bcfd5e90c2294da8a51b45c983",
+    "deathmatch/lag_compensation.gd": "b06fdf991f67c1a30e72afc51e09b40c414439138b025b4c9235c5c6ba322ace",
+    "deathmatch/bot_ai/navigation.gd": "649c5aa5c2a1f5b434f336c40a11bdc6e28b3f9d14edddb1f0bee7da072805c5",
+    "addons/fps_native/bin/libfpsloppa_native.so": "6983431239ec4dc2ca2c61e45a65cc5657860163992aa98081d45251aa4afcc7"
+  },
+  "logs": {
+    "network.log": {
+      "sha256": "cdc570adfeeaf3728b0437ba8a59904004f9f2361a452ace5fae088b42dde228",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "avatars.log": {
+      "sha256": "ec15bc5cbf12b3caf13501dcfae6ad252a81260c376177d0528fb92eb45c6d62",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "server.log": {
+      "sha256": "f9498fb13ac438380a31598c6a2417d6d91ed5c1584ff623b870979b8b6afd5b",
+      "diagnostics": [
+        "WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    "network-scopes.log": {
+      "sha256": "9c2d80de420e9517895456cc254749e10144fbdaa01e080c75f17792e79d928e",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "server-reference.log": {
+      "sha256": "c6c4c02da6f696deaf886bbf55e66ddb4414afb75ab29c3845c9b14b5aaa9a8d",
+      "diagnostics": [
+        "WARNING: 18 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    }
+  },
+  "validation": {
+    "probes_completed": true,
+    "script_errors": false,
+    "python_compile": true,
+    "diff_check": true
+  }
+}

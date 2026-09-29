@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-29",
+  "branch": "experimental/st-raindance",
+  "protocol": "fpsloppa-66-st-vehicle-controls",
+  "changes": [
+    "VR LPC/HPC turn-stick Y commands analog rise/descent with centered hover; movement-stick thrust/strafe retained",
+    "Shared per-frame hull/seat interpolation and graphics-only avatar attachment; physics remains authoritative",
+    "Monotonic network render clock smooths snapshot jitter without extrapolation",
+    "Held pack, preview and authority use offhand aim basis at grip origin rather than grip basis"
+  ],
+  "checks": 316,
+  "suites": [
+    {
+      "log": "test-results/st-transport-vr/vr-controls.log",
+      "checks": 56,
+      "failures": [],
+      "sha256": "bc36296a27875fd2464d1ed65adf3aded9f46bcf3f6dfa5d2f3bec4878b0d9d4"
+    },
+    {
+      "log": "test-results/st-transport-vr/deploy-aim.log",
+      "checks": 57,
+      "failures": [],
+      "sha256": "a257ae7b78518bf00a2029dc1474fd4763e441ebe2808cd3d277f4cc5c9b5959"
+    },
+    {
+      "log": "test-results/st-transport-vr/st_scout.log",
+      "checks": 55,
+      "failures": [],
+      "sha256": "9b615a7c4f07f8dc467e322a572c86ab12954a1105eb36d595e2a8902222763c"
+    },
+    {
+      "log": "test-results/st-transport-vr/st_transports.log",
+      "checks": 93,
+      "failures": [],
+      "sha256": "5b1da35f50652dd72b6fffdaf0bc755190c4eb2cae1a213d4d1e5068f5604a3a"
+    },
+    {
+      "log": "test-results/st-transport-vr/local_prediction.log",
+      "checks": 14,
+      "failures": [],
+      "sha256": "2caa96d19414f0b6963f03ce78088d44bd0d615138cd6df9626698efc96cae12"
+    },
+    {
+      "log": "test-results/st-transport-vr/network-run.log",
+      "checks": 41,
+      "failures": [],
+      "sha256": "154ddb3dfadfdfc324ca5c4013019df795dcf97d2393331651bf044ebac1e4d1"
+    }
+  ],
+  "files": {
+    "deathmatch/arena.gd": "c5e6db30298b38ca96910f30c497e44c76a7d793cc7b48338d4d3a0dea4df2e9",
+    "deathmatch/fighter.gd": "dcec1fb47005ae5541f9fce7a544abdc715b0a8c6a93cf9e69e282efdcc4b4d4",
+    "deathmatch/vehicles/tribes/controller.gd": "fee8513b073903ade1b3d76f349b5a8cf6c669469cc68670890a26ca857e76c9",
+    "deathmatch/vehicles/tribes/scout_data.gd": "209de3293e7a64413940f9404b42f88a68042007067bbf3f38d7c4fd1523693f",
+    "deathmatch/vehicles/tribes/render_motion.gd": "590f882996408ad4b7fa712cdec1aeba8226032f65d7f78d17cb25aa7af1f793",
+    "deathmatch/vehicles/tribes/view.gd": "6b4bde5de1449895cdfbd33a70e342f61ab9887c669903cc08a271886a3d8f19",
+    "deathmatch/tribes/equipment.gd": "252d84406b0c62412ee35374f28590ac2a007aade054e58a663e47b772dc2e65",
+    "deathmatch/tribes/combat.gd": "b159fd5346711252407636bb6fb9ce56322b784336f1662a8d28298855b40d04",
+    "deathmatch/tribes/deployable_view.gd": "6a661c23a44a6b6694300afcf649e82d61387448aa0ea88fdc117951c73cf818",
+    "deathmatch/vr/tribes_equipment.gd": "f88ec075d28d6b0f4b873ffd974b7648900b09af460562af630cc9c4622db895",
+    "deathmatch/tests/st_transport_vr.gd": "5258a425fdca8cb503d5a8598d5c34333aba55a4739b6366ef5ee67dbeb5bb8f",
+    "deathmatch/tests/st_transports_network.gd": "fa4605c9e536cd77c0ecc1fbc9461f38acfe746db10bbd8d9a95680a078f71f0",
+    "deathmatch/tests/st_vr_deploy_use.gd": "9c48c894eb1e918a727e721711672bcaf5da9e5203a3043dd239995f42356bda",
+    "tools/tribes/test_transports_network.py": "98c45ad264d789518eaa6be6a1fac2c52e423b148b99f457661233bfbb8c3d14"
+  },
+  "limitations": [
+    "Synthetic controller and Vulkan regression; human headset ergonomics not yet verified",
+    "Vehicle-specific client input replay prediction remains unimplemented",
+    "Existing one/two ObjectDB shutdown warnings and XR hand-resource UID fallback warnings in test fixtures"
+  ],
+  "live_test": {
+    "map": "ctf_raindance",
+    "bots": 0,
+    "renderer": "Vulkan mobile",
+    "log": "test-results/st-transport-vr/live-wivrn.log",
+    "real_xr": true
+  }
+}

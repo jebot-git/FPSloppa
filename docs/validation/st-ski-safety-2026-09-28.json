@@ -1,0 +1,332 @@
+{
+  "date": "2026-09-28",
+  "checked_utc": "2026-09-28T21:15:05.792690+00:00",
+  "branch": "experimental/st-raindance",
+  "git_head": "8dbf9cc8ac3355c1682dec040c4291bcf6a58bf4",
+  "scope": "Bot downhill safety and slope-launch input allocation; shared movement physics unchanged",
+  "source_sha256": {
+    "deathmatch/bot_ai/aim.gd": "8f9226b9066fa989a7efbb463cfadbe989c9861c499e771b940736aa9f299fe4",
+    "deathmatch/bot_ai/defusal.gd": "56bd73fe28787d19af022947dd21bb984d98252271ebf33b22fbe779e3c7d31d",
+    "deathmatch/bot_ai/map_triggers.gd": "90db0b84921b48e885ce4e987e132a7018f2625711f9dab73f3f718630a02258",
+    "deathmatch/bot_ai/navigation.gd": "649c5aa5c2a1f5b434f336c40a11bdc6e28b3f9d14edddb1f0bee7da072805c5",
+    "deathmatch/bot_ai/objectives.gd": "4d42b29e2d4b92d3b51332ea887366f4cba8a103faa663585abd4d19b52d8d5a",
+    "deathmatch/bot_ai/teamplay.gd": "3479c4c25b369028d5c252e9cd7eb2ee6f98a1ebf18778d2da45abc1db2eda21",
+    "deathmatch/bot_ai/titanball.gd": "2b9aa815bb76fc4ed7f19fab827e4578de507c65903c2c1b5ba9f30b042d745a",
+    "deathmatch/bot_ai/tribes.gd": "93c06fb9840ecb4e3a309a998ea04843cbbbd6a8f9016e6dd994d736587c8d12",
+    "deathmatch/bot_ai/tribes_avoidance.gd": "9004358938c7558dd529a0391cd8ec709a75ccd5e889085b4a5bd649e7f45477",
+    "deathmatch/bot_ai/tribes_capture.gd": "fa41be4f0791c838d037272668467df783f1a4e070c1e9710272280f1023e94a",
+    "deathmatch/bot_ai/tribes_construction.gd": "26c948bb73a345218fe1fad9a24fde28d9fc8e7458339126348b9984dcb26c5e",
+    "deathmatch/bot_ai/tribes_equipment.gd": "b41d4629b8be1cd501638142b393271c39634d4a4a46846b278e90f3c232b633",
+    "deathmatch/bot_ai/tribes_offense.gd": "c963852ac950cf9b8318ae4b8d2590c19ed4da94a439d58cafdc03b319c7e352",
+    "deathmatch/bot_ai/tribes_routes.gd": "d12d031097979d24f6ed03f0ab367ed88da5c73ab7e85ea830102eb030054fa9",
+    "deathmatch/bot_ai/tribes_tactics.gd": "2a59800a6aea11f357eb296062e969f6efdb8fff71b3d1615b75b6f7ad6ff342",
+    "deathmatch/bot_ai/tribes_travel.gd": "1e38fd34b1751517846a2a1c3c4881c5910d2fdba0c709a0487db6532bee365a",
+    "deathmatch/bots.gd": "d430412982f90ae8dbb85aaa244e5d0245fbc08f0a36c63e280e4659ab544390",
+    "deathmatch/movement/jetpack.gd": "0dc3943651434c58b4d99afdd9fb1e0a7117daa111ef0485bd57581456b56b71",
+    "deathmatch/movement/prediction.gd": "0c52f228341a76c715c31b5917feea492c2ab58ec73a9ce25fd4a08c12a02faf",
+    "deathmatch/movement/quake.gd": "a669d996f98880f674e770d47e15738a8322b07810bc61e6177813a367bb4dae",
+    "deathmatch/movement/spawn_clearance.gd": "cb5c3a59f9104224308ccc8efed9e5f8a2354440b4dd1b070b956b0ea94a0d9e",
+    "deathmatch/movement/tribes.gd": "3648f070dac6ed9b1fc958847c9d29dedbdf11aab92628d2a34de7261d958706",
+    "deathmatch/movement/tribes_armour.gd": "32ef7de2b61603e50e3c78e43386cf445de1f43c7ac83aae2fffe6730c996274",
+    "deathmatch/tests/fixture.gd": "4f93b05683b3f5e52cf4bb232cc1e048c52f719935a628c4dfeacd3e809f649c",
+    "deathmatch/tests/st_adaptive_tactics.gd": "874f1e7d3d43d7c4e23067a63ab5b3ea1d2359ed6b18b2221af8613d5e26b551",
+    "deathmatch/tests/st_base_assets.gd": "4437647d2a940b6628ef30ef89f180e81b94f91fad1925d9ff029333d935b151",
+    "deathmatch/tests/st_bot_bombard.gd": "e129db2a388992644b0801f54c2619b793a61f34bcef0f3d37bf7d5fbb5eabd5",
+    "deathmatch/tests/st_bot_capture.gd": "461996ceaa6485551125eb3347de686b142d0499351559511f0adff3779d5d91",
+    "deathmatch/tests/st_bot_routes.gd": "efa177ddea51e92b7a1a4838ce63d00a1054e3ed131cef06754411805c1d561f",
+    "deathmatch/tests/st_bot_smoke.gd": "ac7445dddddf06a76e738329cddf46a9256ec3c92e4ea20ab7f690cd6af65c54",
+    "deathmatch/tests/st_bot_tactics.gd": "1660cc4d114fa0b6666d967bf37068df902241f34de4e529874205809739f0f7",
+    "deathmatch/tests/st_capture_deadline.gd": "b12ffdce5941919a5fb8400581ad4cd0c003aaf7f4fde0574748f4f2b1cde258",
+    "deathmatch/tests/st_capture_entry.gd": "b5d4ffaecf80557a9cbc9d79f0d23f06f8d11f36430bbc96d1bf32f9e1b89def",
+    "deathmatch/tests/st_capture_momentum.gd": "b574804525be20cd17a4ea94c072d17d00708eec9d9eae7fbe45f4a0ef2b61d1",
+    "deathmatch/tests/st_capture_readiness.gd": "39ce75887a8d9aec213b54c90cfc676c131047ab2bc2e4075fcce63b8dac1d01",
+    "deathmatch/tests/st_carrier_approach.gd": "a78ba51af94ed1ac8055f328336ef5213ed4dd2cf2985139408eff3cc368d928",
+    "deathmatch/tests/st_carrier_escape.gd": "627aa42b598c6c96309de97ea6298a59d962a808010dac5f92de39eb645ca0df",
+    "deathmatch/tests/st_carrier_focus.gd": "deb7f4aab04048015e9d3a0f121edf143b95ffea97c929cf4d306ef6321c94f5",
+    "deathmatch/tests/st_carrier_recharge.gd": "5d0ff6956b4d30b24d608dd4fcfeae00c2c6bbb4c104a391a255381f03ad4e1c",
+    "deathmatch/tests/st_carrier_routes.gd": "f2ddd91b959e0fc110b3a4351a01c22ce900f2db0212d7de6c94654beb018b83",
+    "deathmatch/tests/st_construction_routes.gd": "d985faeb45e00e9723b08ba0b68ae0a2aed87384abbcdae8bdfc40332db6b046",
+    "deathmatch/tests/st_flag_stalemate.gd": "926c0495c7098f936915983cae50a9a582874b47b7e0b06f8bbbabc330710404",
+    "deathmatch/tests/st_obstacle_control.gd": "e47d6388f12acb57a7777937e24cd1489e32ec1b05fd0e3b6653ea7b055e2d96",
+    "deathmatch/tests/st_parity123.gd": "57ea0486bd9d8f2df8f3e9c54f9f411ba5c895c6cd6407685abab6b74bfcf5d2",
+    "deathmatch/tests/st_parity456.gd": "118775924f965a0bac08a261e18d8075216d6d788e6cdeee3e436e528961b3a1",
+    "deathmatch/tests/st_power_marker.gd": "6bd7ec1309d2c2c069c7dd2f918fa17928142a128cf2e46e923fc317cfc12238",
+    "deathmatch/tests/st_raindance_entrance.gd": "f270d86d94d4710b9b0e4fe9cb0a4d4d07857ce2aa536f68703505c9844396e4",
+    "deathmatch/tests/st_raindance_routes.gd": "40581a2acfae9f7e424049047bbec44106a3680174677218df368a5602cfa968",
+    "deathmatch/tests/st_rolling_launch.gd": "3dc272a7fe11608f99c0c4821a757fec4d81d6616f651a287935369f38713043",
+    "deathmatch/tests/st_route_cache.gd": "016b4d862771f60db8e295e70eb01c33d49ac8ef029fd9866a9af68d814dcc9a",
+    "deathmatch/tests/st_server.gd": "6eb82e1862875b2babd7e802dddb8a728ffc1af7b2c7c68ddf7569206b954c0c",
+    "deathmatch/tests/st_ski_chain.gd": "19b08acd6629e006bb237b90a19536df0495378296022018e4f9d732146dda37",
+    "deathmatch/tests/st_ski_safety.gd": "93b2020609491f45f01f1ff0ab9d1d17ff6138d883fd7f59ffaeca29ca97fd4b",
+    "deathmatch/tests/st_speed_control.gd": "f9d69c74bb565fcc5617c5b483b30fd14074bdf694e6782bdff2bce3af1a26d1",
+    "deathmatch/tests/st_stonehenge_carrier_hold.gd": "76b4ba0540d92aae72d92d67a182c72d5193487acbfd52610d11f63403ff9ac2",
+    "deathmatch/tests/st_tribes.gd": "12c6ba442ca7a00a69a2eeb9b4b2d3b238268084174e9b32e2783f78a88e0848",
+    "deathmatch/tests/st_vr_reliability.gd": "7310f4e898413cce50fbc14c4583c3eca8746790460bf20627d576491ab4f06d",
+    "deathmatch/tribes/armour_visual.gd": "36a680d4293815912a8c439778610a9fbee8e29acafc73790226655f571c1040",
+    "deathmatch/tribes/arsenal.gd": "827d0ea8454b793a0f76913781ca6d613c45ad07cc80bb9bf822682844a9f01f",
+    "deathmatch/tribes/ballistics.gd": "0ad50e940e5bf0991b6b44d4409953a55d170510c3bf9e2b45e1e10a4dbb97f5",
+    "deathmatch/tribes/base_assets.gd": "5b04aaa359917a1ab05bc2c9bdebecd09a96eed583f3de7f837e4a9d03fe9b79",
+    "deathmatch/tribes/body_replacement.gd": "a7ff62bb6d26d21e5bc689999fc9f29d408f3a36fc7ed01ba5d2fffbad602e76",
+    "deathmatch/tribes/buy_wheel.gd": "8e39b6af14602c24e25a6845240a70410f6af035a2aa58dffae776915ed8986e",
+    "deathmatch/tribes/combat.gd": "b458bd7542972214934af62fe6563ee57cbf140764bae98719df2ab82e63195c",
+    "deathmatch/tribes/ctf.gd": "a853f3d85af52aa5237c2593c7bba677300a500c7db89c1a9806d522085bbfe0",
+    "deathmatch/tribes/deployable_data.gd": "a4fba9e8164b11c5b984b4af0223a8df22c0a2490f8cfe2ab8ae9c1ab616de4c",
+    "deathmatch/tribes/deployable_model.gd": "90dc331887571ec1f771e4a3891faac817d842906bf081fdc51c66ccf3c93aca",
+    "deathmatch/tribes/deployable_view.gd": "77a46c4ecbb4a05c013d4727499e085170b809c48bb7e05089ad2c4ac02b41b4",
+    "deathmatch/tribes/deployables.gd": "919d63b3968c62a373410a4fdc6857b7bcb4443a9835b983d8f60890e63b1a8c",
+    "deathmatch/tribes/equipment.gd": "27501253e7dc20003e4181f8e2226b2f059f81d35eaaaa947849b41c0d646126",
+    "deathmatch/tribes/equipment_health.gd": "99aa3dff1d0746ecf92f4636669c83550a8655fcf20edb82ee8b258e3203f8c9",
+    "deathmatch/tribes/field_view.gd": "9d07ef34e7ad4ec61bd0f0a9146596261fed893cdc36df12ac01d8301fba1623",
+    "deathmatch/tribes/fixed_defence_data.gd": "0f75e1447f2a6eb9e7d7f89c1b364c5a220021e77e78172a27d80eeaf3b44c12",
+    "deathmatch/tribes/fixed_defence_model.gd": "b80c86d7144c738bd9d4218625e68b709cc010bf905d5d7363b9b31a7817fbfa",
+    "deathmatch/tribes/fixed_defences.gd": "5f4556de2caf95f7e161eb8ecef083061eae2e4d7d209d95d8254f9b5eb5724c",
+    "deathmatch/tribes/head_mesh.gd": "29890b326c86577d2d0940b3e2920529eef8b773ee82af74936630273370a43d",
+    "deathmatch/tribes/models.gd": "57b10c294d7cb5cb4a9a6827bed2d7f0594527760f54279995be274061734091",
+    "deathmatch/tribes/recovery.gd": "39d30b5301f81cf64c12826e122adea10ad04b64743b201f2a4c093a18f2011f",
+    "deathmatch/tribes/stations.gd": "f8d0257db21d48486938cbed7c79ff8f726a2d123ca399d8affd46fdf76a3a64",
+    "deathmatch/tribes/targeting.gd": "78ec9ce418a861a5dee90a6bff1d56309c12620bcbd64ccd40304d0b464292be",
+    "deathmatch/tribes/turret_view.gd": "479d66f1b418432791a1e277e02bb208ee716664481e7abeb76e82bd636ff72b"
+  },
+  "archives": {
+    "test-results/st-ski-safety/sources-before.tar.gz": "bb13c9d3823bc697bd84f7c92cb0056dfdf5a0864daece900324b0db1f664cbe",
+    "test-results/st-ski-safety/sources-final.tar.gz": "3511331234e40c8799041ec1944a5dadd19f2e32d88b76d40ed54e885c23a078"
+  },
+  "tests": {
+    "ski_safety": {
+      "checks": 19,
+      "failures": [],
+      "log": "test-results/st-ski-safety/safety-lift-final.log",
+      "sha256": "5cac44323f900fbd38f2171eefabd9cbcc1555a60885aef4bfa93101b5525738"
+    },
+    "speed_control": {
+      "checks": 7,
+      "failures": [],
+      "log": "test-results/st-ski-safety/speed-lift-final.log",
+      "sha256": "c4ad9d1c52fbb997652c40c94094a30cacd7f52a54a49677497f809e8393955f"
+    },
+    "raindance_routes": {
+      "checks": 7,
+      "failures": [],
+      "log": "test-results/st-ski-safety/raindance-lift-final.log",
+      "sha256": "5697ab805e0a7767140647b758003184b9fd94fdd81985670680cf3b997ecb1c"
+    },
+    "carrier_recharge": {
+      "checks": 6,
+      "downhill_metres": 29.1651611328125,
+      "failures": [],
+      "jet_frames": 0,
+      "speed_kmh": 69.6141334533691,
+      "log": "test-results/st-ski-safety/recharge-lift-final.log",
+      "sha256": "d62079f58121fff3dc6655cc8f72b078abc53e4118bff16c9185a6488e760673"
+    },
+    "obstacle_control": {
+      "checks": 4,
+      "failures": [],
+      "log": "test-results/st-ski-safety/obstacle-lift-final.log",
+      "sha256": "852a2f241721423d84ccb996edd8a61a8ae27f7d44d453701ba6c8241721c577"
+    }
+  },
+  "ski_chain": {
+    "before": [
+      {
+        "armour": "light",
+        "arrived": true,
+        "final_energy": 34.1999999999996,
+        "jet_seconds": 3.28333333333333,
+        "launches": [
+          {
+            "energy": 59.7666666666667,
+            "speed": 26.836462020874,
+            "x": -8.39111328125
+          },
+          {
+            "energy": 50.2,
+            "speed": 27.0929775238037,
+            "x": 10.1141357421875
+          }
+        ],
+        "peak": 27.0929775238037,
+        "seconds": 9.28333333333337
+      },
+      {
+        "armour": "medium",
+        "arrived": true,
+        "final_energy": 28.4625000000007,
+        "jet_seconds": 2.81666666666666,
+        "launches": [
+          {
+            "energy": 79.6625,
+            "speed": 26.836462020874,
+            "x": -8.3857421875
+          },
+          {
+            "energy": 66.1624999999998,
+            "speed": 26.3149089813232,
+            "x": 9.65484619140625
+          }
+        ],
+        "peak": 27.0969219207764,
+        "seconds": 7.48333333333331
+      },
+      {
+        "armour": "heavy",
+        "arrived": true,
+        "final_energy": 49.7291666666684,
+        "jet_seconds": 2.76666666666666,
+        "launches": [
+          {
+            "energy": 109.610416666667,
+            "speed": 26.836462020874,
+            "x": -8.3858642578125
+          },
+          {
+            "energy": 95.5854166666672,
+            "speed": 25.5264720916748,
+            "x": 7.8056640625
+          }
+        ],
+        "peak": 27.0929756164551,
+        "seconds": 7.33333333333331
+      }
+    ],
+    "after": [
+      {
+        "armour": "light",
+        "arrived": true,
+        "final_energy": 27.4166666666663,
+        "jet_seconds": 3.28333333333333,
+        "launches": [
+          {
+            "energy": 59.7666666666667,
+            "speed": 26.836462020874,
+            "x": -8.39111328125
+          },
+          {
+            "energy": 50.2,
+            "speed": 27.0929775238037,
+            "x": 10.1141357421875
+          }
+        ],
+        "peak": 27.0929775238037,
+        "seconds": 8.66666666666668
+      },
+      {
+        "armour": "medium",
+        "arrived": true,
+        "final_energy": 28.4625000000007,
+        "jet_seconds": 2.81666666666666,
+        "launches": [
+          {
+            "energy": 79.6625,
+            "speed": 26.836462020874,
+            "x": -8.3857421875
+          },
+          {
+            "energy": 66.1624999999998,
+            "speed": 26.3149089813232,
+            "x": 9.65484619140625
+          }
+        ],
+        "peak": 27.0969219207764,
+        "seconds": 7.48333333333331
+      },
+      {
+        "armour": "heavy",
+        "arrived": true,
+        "final_energy": 49.7291666666684,
+        "jet_seconds": 2.76666666666666,
+        "launches": [
+          {
+            "energy": 109.610416666667,
+            "speed": 26.836462020874,
+            "x": -8.3858642578125
+          },
+          {
+            "energy": 95.5854166666672,
+            "speed": 25.5264720916748,
+            "x": 7.8056640625
+          }
+        ],
+        "peak": 27.0929756164551,
+        "seconds": 7.33333333333331
+      }
+    ],
+    "evidence": {
+      "test-results/st-ski-safety/chain-measured-before.json": "7c130ff068abb55084a23da5caa518db0de085173b97196965bd4fcf56c0574b",
+      "test-results/st-ski-safety/chain-lift.json": "23ab20ae5c49172be510fbfbaa4c968903ef7738dc97fe309279ff8ca7528df6"
+    },
+    "limitations": [
+      "All three armour cases still have two ground departures.",
+      "Light final energy is lower due to less elapsed recharge time.",
+      "Controlled route results do not establish match capture reliability."
+    ]
+  },
+  "carrier_escape": {
+    "failures": [],
+    "results": [
+      {
+        "escape_100m_seconds": 9.35,
+        "longest_slow_interval_seconds": 0.0,
+        "map": "ctf_raindance",
+        "pass": true,
+        "team": 0
+      },
+      {
+        "escape_100m_seconds": 9.71666666666667,
+        "longest_slow_interval_seconds": 0.0,
+        "map": "ctf_raindance",
+        "pass": true,
+        "team": 1
+      },
+      {
+        "escape_100m_seconds": 18.2833333333333,
+        "longest_slow_interval_seconds": 0.483333333333333,
+        "map": "ctf_stonehenge",
+        "pass": true,
+        "team": 1
+      },
+      {
+        "escape_100m_seconds": 8.28333333333333,
+        "longest_slow_interval_seconds": 0.0,
+        "map": "ctf_stonehenge",
+        "pass": true,
+        "team": 0
+      }
+    ],
+    "evidence": "test-results/st-ski-safety/carrier-escape-lift-final.json",
+    "sha256": "53713cabc76c838f62e74d0cf8c40c1ee3b9410558b927968b79003761b42d15"
+  },
+  "live": {
+    "folder": "test-results/st-ski-safety/live-stonehenge-9417",
+    "status_at_check": "running",
+    "seconds_at_check": 90.2666666666628,
+    "teams": [
+      8,
+      8
+    ],
+    "spectators": 1,
+    "scores_at_check": [
+      0,
+      0
+    ],
+    "renderer": "Vulkan mobile",
+    "viewer": {
+      "bot": -1014,
+      "clock": 90.0499999999962,
+      "frames": 4800,
+      "horizontal_speed_kmh": 59.2212593078613,
+      "map": "ctf_stonehenge",
+      "peer": 2104403019,
+      "pid": 1509224,
+      "spectator": true
+    },
+    "first_capture_cutoff_seconds": 600.0,
+    "post_capture_pickup_cutoff_seconds": 600.0,
+    "completed_result": "test-results/st-ski-safety/live-stonehenge-9417/result.json"
+  },
+  "known_warning": "One ObjectDB instance leaked at fixture shutdown; no script errors",
+  "excluded_experiments": [
+    "Initial baseline output-directory save failure",
+    "Earlier takeoff: Light jet time increased from 3.28 to 3.52 seconds"
+  ]
+}

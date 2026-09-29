@@ -59,6 +59,8 @@ static func presentation(model: Node3D,suppressed: bool,row: Array=[]):
 	if not is_instance_valid(model) or not model.has_meta("cs16"):return
 	var node:=model.find_child("Suppressor",true,false)
 	if node:node.visible=suppressed
+	# The authored suppressor cap extends .186 beyond the bare muzzle marker.
+	model.set_meta("muzzle",muzzle(int(model.get_meta("cs16")))+Vector3.FORWARD*(.186 if node and suppressed else 0.0))
 
 	var action:=model.get_node_or_null("ChamberAction")
 	if action:action.sync(row)

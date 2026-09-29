@@ -28,7 +28,7 @@ func run() -> void:
 			var pickup: Dictionary=game.dropped_weapons.entries.values()[0]
 			game.fighters[collector].position=pickup.position;game.players[collector].owned=[2];game.players[collector].ammo=[0,0,0,0]
 			game._collect(collector);game._respawn_pickups()
-			check(game.players[collector].owned.has(3) and game.players[collector].ammo[1]==17,"Authority awards the carried weapon and ammunition")
+			check(game.players[collector].owned.has(3) and game.players[collector].ammo[1]==8,"Authority awards the weapon and standard pickup ammunition")
 		observer.stage.rpc("removed")
 		check(await wait_for(func():game._send_snapshot();return observer.seen.get("removed",{}).size()==2,8),"Both clients remove the collected drop")
 		observer.stage.rpc("done");await pause(.3)
@@ -39,7 +39,7 @@ func run() -> void:
 		check(await wait_for(func():return game.dropped_weapons.entries.size()==1,15),"Snapshot creates death drop")
 		if not game.dropped_weapons.entries.is_empty():
 			var pickup: Dictionary=game.dropped_weapons.entries.values()[0]
-			check(pickup.item==3 and pickup.amount==17,"Exact dropped weapon and ammo survive replication")
+			check(pickup.item==3 and pickup.amount==8,"Exact dropped weapon and ammo survive replication")
 		observer.acknowledge.rpc_id(1,"present")
 		check(await wait_for(func():return observer.phase=="removed" and game.dropped_weapons.entries.is_empty(),12),"Collection removes replica")
 		observer.acknowledge.rpc_id(1,"removed")

@@ -26,16 +26,18 @@ func run():
 		for frame in 20:g._configure_tribes(-1,s);actor.simulate(Vector2.ZERO,s.yaw,false,1.0/60,false)
 		var b: Dictionary=ai.new_brain(-1);ai.brains[-1]=b;b.goal=Fixture.ORIGIN+Vector3(65,65*tan(angle)+.6,0);b.goal_key="ski-chain";b.goal_kind="objective"
 		b.path=PackedVector3Array([actor.position,Fixture.ORIGIN+Vector3(-40,40*tan(angle)+.6,0),Fixture.ORIGIN+Vector3(-16,16*tan(angle)+.6,0),Fixture.ORIGIN+Vector3(16,16*tan(angle)+.6,0),Fixture.ORIGIN+Vector3(40,40*tan(angle)+.6,0),b.goal]);b.step=0
-		var peak:=0.0;var launches: Array=[];var elapsed:=0.0;var arrived:=false;var samples: Array=[]
+		var peak:=0.0;var launches: Array=[];var elapsed:=0.0;var arrived:=false;var samples: Array=[];var jet_seconds:=0.0
 		for frame in 1200:
 			g.clock+=1.0/60;elapsed+=1.0/60;s.last_input=g.clock
 			var grounded: bool=actor.is_supported();var speed:=Vector2(actor.velocity.x,actor.velocity.z).length()
 			ai.tribes.steer(-1,b);g._configure_tribes(-1,s);actor.simulate(s.move,s.yaw,false,1.0/60,s.jump)
+			if s.jet_held:jet_seconds+=1.0/60
 			peak=maxf(peak,Vector2(actor.velocity.x,actor.velocity.z).length())
 			if grounded and not actor.is_supported() and (s.jump or s.jet_held):launches.append({"speed":speed,"x":actor.position.x-Fixture.ORIGIN.x,"energy":actor.tribes_state.energy})
 			if frame%12==0:samples.append({"seconds":elapsed,"position":actor.position,"velocity":actor.velocity,"jet":s.jet_held,"ski":s.ski,"phase":b.get("travel_phase",""),"energy":actor.tribes_state.energy})
 			if actor.position.distance_to(b.goal)<3:arrived=true;break
-		var row:={"armour":armour,"arrived":arrived,"seconds":elapsed,"peak":peak,"launches":launches,"samples":samples};results.append(row)
+		var row:={"armour":armour,"arrived":arrived,"seconds":elapsed,"peak":peak,"launches":launches,"samples":samples,"jet_seconds":jet_seconds,"final_energy":actor.tribes_state.energy};results.append(row)
 		print("ST_SKI_CHAIN ",armour," arrived=",arrived," seconds=",elapsed," peak=",peak," launches=",launches)
-	FileAccess.open("res://test-results/st-routing/ski-chain.json",FileAccess.WRITE).store_string(JSON.stringify(results,"  "))
+	var output: String=OS.get_cmdline_user_args()[0] if not OS.get_cmdline_user_args().is_empty() else "res://test-results/st-routing/ski-chain.json"
+	FileAccess.open(output,FileAccess.WRITE).store_string(JSON.stringify(results,"  "))
 	g.disconnect_game();g.free();quit(0 if results.all(func(r):return r.arrived and r.launches.any(func(l):return l.speed>12)) else 1)

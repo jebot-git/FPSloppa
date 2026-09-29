@@ -2,6 +2,8 @@
 from pathlib import Path
 import subprocess, shutil, zipfile, json, os, sys
 
+from build_gameplay_native import require_build
+require_build("linux"); require_build("windows")
 from map_distribution import distributable
 from renderer_policy import require_client_template
 root=Path(__file__).resolve().parents[1]
@@ -46,7 +48,7 @@ for _,folder,binary in targets:
     template=client_templates['linuxbsd' if folder=='Linux' else 'windows']
     from renderer_policy import verify_client_export
     verify_client_export(dest/binary,template)
-    native={'Linux':['libfpsloppa_bhaptics_native.so','libgodot-steam-audio.linux.template_release.x86_64.so','libgodotopenxrvendors.so','libphonon.so','libtwovoip.linux.template_release.x86_64.so'], 'Windows':['fpsloppa_bhaptics_native.dll','libgodot-steam-audio.windows.template_release.x86_64.dll','libgodotopenxrvendors.dll','libtwovoip.windows.template_release.x86_64.dll','libunwind.dll','phonon.dll']}
+    native={'Linux':['libfpsloppa_native.so','libfpsloppa_bhaptics_native.so','libgodot-steam-audio.linux.template_release.x86_64.so','libgodotopenxrvendors.so','libphonon.so','libtwovoip.linux.template_release.x86_64.so'], 'Windows':['libfpsloppa_native.dll','fpsloppa_bhaptics_native.dll','libgodot-steam-audio.windows.template_release.x86_64.dll','libgodotopenxrvendors.dll','libtwovoip.windows.template_release.x86_64.dll','libunwind.dll','phonon.dll']}
     selected={binary,'FPSloppa.pck',*native[folder]}
     package_files[folder]=selected
     def stage(source,out):

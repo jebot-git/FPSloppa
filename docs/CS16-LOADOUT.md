@@ -159,13 +159,22 @@ tracked support-hand position and grip/trigger state. Desktop CS, bots and other
 weapon loadouts keep their existing recoil. A recovered first shot is perfectly
 accurate while stationary and grounded, including an unscoped AWP; shotguns and
 unsupported VR long guns retain their normal spread. Follow-up shots retain the
-existing bloom, random spread and VR climb until the weapon recovers. Accepted CS
+existing bloom, random spread and VR climb until the weapon recovers. For supported
+VR rifles/SMGs, actively moving the offhand against the preceding recoil reduces
+the next bloom increment proportionally, down to 50% at full correction. Holding
+both hands still, moving them together, or moving with recoil grants no reduction.
+Firing intervals stay unchanged; stale samples and tracking jumps cannot count as
+compensation. Accepted CS
 shots emit their bullet and muzzle flash at the firing pose, then animate the gun
 backward and toward the next server-generated spray direction on desktop and in
 VR (the average pellet direction for shotguns). Random spread samples are reserved
 one shot ahead; the next bullet uses them with the current movement, stance and
 recovery. The gun holds its anticipated pose through automatic fire and settles
-when firing stops.
+when firing stops. Local tracers begin at the current rendered barrel (or
+suppressor cap), including recoil and current controller motion; impact endpoints
+and hit detection remain authoritative. Remote shots and demo playback retain
+their recorded origins. Updated clients/server use `fpsloppa-65-local-shot-origin`;
+older impact recordings remain readable.
 Both rendered palms follow the prop while raw
 controller poses continue to drive gameplay. The offhand snaps to the underside
 of each gun's handguard and stays attached while grip remains held, with analog

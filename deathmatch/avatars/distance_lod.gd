@@ -9,7 +9,6 @@ var clips:=AnimationLibrary.new()
 var last_pose: Dictionary={}
 var blend_pose: Dictionary={}
 var blend_left:=0.0
-var sample_tick:=0.0
 var mesh_retry:=0.0
 var bone_ids: Array[int]=[]
 var arms: Array[int]=[]
@@ -28,7 +27,6 @@ func setup(owner_rig) -> void:
 		var bone: int=rig.skeleton.find_bone(name_here)
 		if bone>=0:arms.append(bone)
 	head=rig.skeleton.find_bone("Head")
-	sample_tick=float(rig.get_instance_id()%17)/17.0/30.0
 	for mesh in rig.visual_meshes:mesh.visibility_range_end=0;mesh.lod_bias=1.5
 	preload("res://deathmatch/avatars/mesh_lod.gd").request(rig)
 func choose_tier(camera: Camera3D) -> int:
@@ -82,12 +80,10 @@ func update(delta: float) -> bool:
 	rig.motion.pause()
 	if current_key!=description.key and clip!=null:
 		begin_blend();current_key=description.key
-		player.play(current_key);player.seek(rig.gait.phase*clip.length,true)
-		sample_tick=0
-	sample_tick-=delta
-	if sample_tick<=0:
-		player.seek(rig.gait.phase*player.current_animation_length,true)
-		sample_tick+=1.0/(15 if tier==3 else 30)
+		player.play(current_key)
+	# Native track interpolation is cheap; expensive procedural solves stay budgeted.
+	# Sample the prepared clip at display cadence instead of holding 15/30 Hz poses.
+	player.seek(rig.gait.phase*player.current_animation_length,true)
 	return true
 func switch_generic(value: bool) -> void:
 	begin_blend();using_generic=value;rig.solver.active=not value
@@ -102,7 +98,7 @@ func switch_generic(value: bool) -> void:
 					if bone>=0:rig.skeleton.set_bone_pose_rotation(bone,rig.skeleton.get_bone_rest(bone).basis.get_rotation_quaternion()*Quaternion(Vector3.RIGHT,.8))
 	else:
 		player.pause();current_key=""
-		rig.solver.cached_poses.clear();rig.solver.floor_heights.clear();rig.solver.solve_tick=0
+		rig.solver.cached_poses.clear();rig.solver.floor_heights.clear();rig.solver.reset_interpolation()
 func begin_blend() -> void:
 	blend_pose=last_pose.duplicate(true);blend_left=.18
 func set_cosmetics(distant: bool) -> void:

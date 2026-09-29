@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-28",
+  "feature": "Crouching CT floor-bomb defusal posture assist",
+  "entry_radius_m": 0.9,
+  "exit_radius_m": 1.1,
+  "maximum_bomb_height_above_feet_m": 0.4,
+  "target_head_height_m": 0.48,
+  "vr_transition_speed_m_per_second": 2.5,
+  "conditions": [
+    "Live planted bomb, living CT, physically crouching or desktop crouch",
+    "Grounded and outside water",
+    "Upward-facing low bomb with clear line of sight"
+  ],
+  "behavior": [
+    "Translate the complete VR tracking origin so visible fingers and authority contact remain aligned",
+    "Use existing prone collider, replicated stance and body animation",
+    "Temporarily omit torso/leg tracker overrides during assist; retain hands/fingers",
+    "Return to regular posture on standing, leaving vicinity or round end"
+  ],
+  "tests": {
+    "posture_and_render": {
+      "checks": 31,
+      "failures": [],
+      "passed": true
+    },
+    "stances": {
+      "checks": 73,
+      "failures": []
+    },
+    "vr_interaction": {
+      "checks": 42,
+      "failures": [],
+      "passed": true
+    }
+  },
+  "image": "test-results/defusal/posture.png",
+  "notes": [
+    "Native render exited successfully; PulseAudio reported a microphone disconnect warning during cleanup.",
+    "Live headset comfort has not been checked for this change."
+  ]
+}

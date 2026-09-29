@@ -1,0 +1,635 @@
+{
+  "date": "2026-09-28",
+  "changes": [
+    "Host/Practice DE buy countdown: 5\u201360 seconds, default 15; dedicated setting sv_de_prepare.",
+    "Bomb center capped at 1.5 m above standable ground; standing clearance and support footprint required.",
+    "Repeated pose samples no longer reset magazine draw hold; ammo inspection preserved.",
+    "Shoulder radio and grenade grabs release pump/support ownership before pose resolution.",
+    "Local weapon models parented to gripping controller with physics interpolation disabled; pump uses supporting grip.",
+    "Aztec north-right enclosed recess filled to walkway; Train windows relocated to intact wall spans; Nuke stair landing overlapped and ramp column extended.",
+    "Preserve embedded BSP pixels instead of overriding them with missing-texture fallback.",
+    "Active VR offhand counter-motion proportionally reduces spray bloom increment to a minimum of 50%; original firing cadence and next-shot visual preview retained.",
+    "Buy/weapon wheel freezes the selected sector during radial stick return; deliberate full re-extension permits reselection. Tests reproduce AWP\u2192P90 and M4\u2192MP5 diagonal-return paths.",
+    "Local hitscan effects carry shooter/hand identity; displayed barrel or suppressor cap supplies local tracer origin. Authoritative impacts, remote effects and demo origins remain unchanged; historical impact payload lengths 3\u20137 parse correctly."
+  ],
+  "maps": {
+    "aztec": {
+      "sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b",
+      "assets": {
+        "bsp_sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b",
+        "codecs": [
+          {
+            "encoded_bytes": 786512,
+            "format": "bc7",
+            "images": 3,
+            "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-bc7.scn",
+            "raw_bytes": 2359293
+          },
+          {
+            "encoded_bytes": 786512,
+            "format": "astc4",
+            "images": 3,
+            "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-astc4.scn",
+            "raw_bytes": 2359293
+          }
+        ],
+        "invalid_faces": 0,
+        "map": "de_aztec_rebuilt",
+        "overflow_faces": 0,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.955206871032715,
+          "occupancy_before": 0.238801717758179,
+          "padded_luxels": 1001607,
+          "patches": 5248,
+          "raw_bytes_after": 3145728,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 36918,
+          "to": [
+            1024,
+            1024
+          ]
+        }
+      }
+    },
+    "nuke": {
+      "sha256": "4ac1eaec5b7b69d6899ab2d3058f817a0690559eb7130d4d175fdd715eeffb1f",
+      "assets": {
+        "bsp_sha256": "4ac1eaec5b7b69d6899ab2d3058f817a0690559eb7130d4d175fdd715eeffb1f",
+        "codecs": [
+          {
+            "encoded_bytes": 3145968,
+            "format": "bc7",
+            "images": 9,
+            "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-bc7.scn",
+            "raw_bytes": 9437175
+          },
+          {
+            "encoded_bytes": 3145968,
+            "format": "astc4",
+            "images": 9,
+            "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-astc4.scn",
+            "raw_bytes": 9437175
+          }
+        ],
+        "invalid_faces": 0,
+        "map": "de_nuke_rebuilt",
+        "overflow_faces": 0,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.259527683258057,
+          "occupancy_before": 0.259527683258057,
+          "padded_luxels": 1088538,
+          "patches": 5542,
+          "raw_bytes_after": 12582912,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 38505,
+          "to": [
+            2048,
+            2048
+          ]
+        }
+      }
+    },
+    "train": {
+      "sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524",
+      "assets": {
+        "bsp_sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524",
+        "codecs": [
+          {
+            "encoded_bytes": 3495520,
+            "format": "bc7",
+            "images": 10,
+            "path": "res://maps/cache/de_train_rebuilt-lightmap1-bc7.scn",
+            "raw_bytes": 10485750
+          },
+          {
+            "encoded_bytes": 3495520,
+            "format": "astc4",
+            "images": 10,
+            "path": "res://maps/cache/de_train_rebuilt-lightmap1-astc4.scn",
+            "raw_bytes": 10485750
+          }
+        ],
+        "invalid_faces": 0,
+        "map": "de_train_rebuilt",
+        "overflow_faces": 0,
+        "packing": {
+          "from": [
+            2048,
+            2048
+          ],
+          "occupancy_after": 0.32044792175293,
+          "occupancy_before": 0.32044792175293,
+          "padded_luxels": 1344056,
+          "patches": 12728,
+          "raw_bytes_after": 12582912,
+          "raw_bytes_before": 12582912,
+          "remapped_vertices": 102807,
+          "to": [
+            2048,
+            2048
+          ]
+        }
+      }
+    }
+  },
+  "validation": {
+    "magazine_pull": {
+      "checks": 272,
+      "failures": []
+    },
+    "reload_presentation": {
+      "checks": 98,
+      "failures": [],
+      "passed": true
+    },
+    "vr_shoulder_and_motion": {
+      "checks": 51,
+      "failures": [],
+      "passed": true
+    },
+    "bomb_height": {
+      "checks": 25,
+      "failures": [],
+      "passed": true
+    },
+    "rounds_and_countdown": {
+      "checks": 102,
+      "failures": [],
+      "passed": true
+    },
+    "all_map_planting": {
+      "checks": 73,
+      "failures": [],
+      "passed": true
+    },
+    "texture_import": {
+      "dictionary": "6899bcb9eaeeb5a3",
+      "failures": []
+    },
+    "aztec_geometry": {
+      "checks": 220,
+      "failures": [],
+      "routes": [
+        {
+          "end": [
+            635.998311360677,
+            198.900767008464,
+            62.26669921875
+          ],
+          "name": "North ruins corner escape",
+          "passed": true
+        },
+        {
+          "end": [
+            598.984354654948,
+            136.005676269531,
+            62.2656806945801
+          ],
+          "name": "North ruins corner escape (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            143.125081380208,
+            180.331034342448,
+            62.766096496582
+          ],
+          "name": "T bridge to B",
+          "passed": true
+        },
+        {
+          "end": [
+            673.930786132812,
+            279.997412363688,
+            -1.73332104682922
+          ],
+          "name": "T bridge to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            325.305597941081,
+            482.944071451823,
+            62.7666076660156
+          ],
+          "name": "T central lane to A",
+          "passed": true
+        },
+        {
+          "end": [
+            674.994222005208,
+            280.971436818441,
+            -1.73320551812649
+          ],
+          "name": "T central lane to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            141.09238688151,
+            180.204956054688,
+            62.7659896850586
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            25.00048828125,
+            278.898115793864,
+            -49.7331443786621
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            322.928563435872,
+            483.017435709635,
+            62.7660583496094
+          ],
+          "name": "CT doors to A",
+          "passed": true
+        },
+        {
+          "end": [
+            25.0002034505208,
+            281.259452819824,
+            -49.7333503723145
+          ],
+          "name": "CT doors to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            325.315027872721,
+            482.939636230469,
+            62.7668975830078
+          ],
+          "name": "B central turn to A",
+          "passed": true
+        },
+        {
+          "end": [
+            142.00010172526,
+            181.099670410156,
+            62.766096496582
+          ],
+          "name": "B central turn to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            143.115681966146,
+            180.328165690104,
+            62.766096496582
+          ],
+          "name": "Canal west ramp to B",
+          "passed": true
+        },
+        {
+          "end": [
+            310.864664713542,
+            243.999979654948,
+            -257.733972167969
+          ],
+          "name": "Canal west ramp to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            438.687100728353,
+            243.999994913737,
+            62.2699226379395
+          ],
+          "name": "Canal escape to east",
+          "passed": true
+        },
+        {
+          "end": [
+            312.001546223958,
+            439.096059163411,
+            -257.733453369141
+          ],
+          "name": "Canal escape to east (return)",
+          "passed": true
+        }
+      ]
+    },
+    "nuke_geometry": {
+      "checks": 80,
+      "failures": [],
+      "routes": [
+        {
+          "end": [
+            451.940633138021,
+            320.000035603841,
+            -1.73354796171188
+          ],
+          "name": "Hut doorway clearance",
+          "passed": true
+        },
+        {
+          "end": [
+            415.059171040853,
+            319.999996185303,
+            -1.73497616350651
+          ],
+          "name": "Hut doorway clearance (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            477.496139526367,
+            347.196655273438,
+            -1.23090804219246
+          ],
+          "name": "T lobby to A",
+          "passed": true
+        },
+        {
+          "end": [
+            62.8848063151042,
+            337.953432718913,
+            -1.73389894366264
+          ],
+          "name": "T lobby to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            477.803181966146,
+            350.933715820312,
+            -257.233911132813
+          ],
+          "name": "T radio ramp to B",
+          "passed": true
+        },
+        {
+          "end": [
+            63.2528279622396,
+            337.934008280436,
+            -1.73393706083298
+          ],
+          "name": "T radio ramp to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            478.00749206543,
+            348.937174479167,
+            -1.23394549489021
+          ],
+          "name": "CT outside to A",
+          "passed": true
+        },
+        {
+          "end": [
+            764.903198242188,
+            249.000930786133,
+            -1.73353507220745
+          ],
+          "name": "CT outside to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            479.002507527669,
+            352.083847045898,
+            -257.23395690918
+          ],
+          "name": "CT garage tunnel to B",
+          "passed": true
+        },
+        {
+          "end": [
+            765.001790364583,
+            249.001373291016,
+            -1.73358598947525
+          ],
+          "name": "CT garage tunnel to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            459.265421549479,
+            245.005518595378,
+            190.266165161133
+          ],
+          "name": "Heaven stairs to catwalk",
+          "passed": true
+        },
+        {
+          "end": [
+            584.999918619792,
+            305.027803738912,
+            -1.7336425691843
+          ],
+          "name": "Heaven stairs to catwalk (return)",
+          "passed": true
+        }
+      ]
+    },
+    "train_geometry": {
+      "checks": 58,
+      "failures": [],
+      "routes": [
+        {
+          "end": [
+            559.042012532552,
+            355.995442708333,
+            -1.23390535116196
+          ],
+          "name": "T main to A",
+          "passed": true
+        },
+        {
+          "end": [
+            47.0910237630208,
+            62.1322428385417,
+            -1.73311210274696
+          ],
+          "name": "T main to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            559.154113769531,
+            355.97178141276,
+            -1.23420659303665
+          ],
+          "name": "T ivy to A",
+          "passed": true
+        },
+        {
+          "end": [
+            46.8975423177083,
+            62.102783203125,
+            -1.73354679942131
+          ],
+          "name": "T ivy to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            413.010019938151,
+            545.996561686198,
+            -1.23394623994827
+          ],
+          "name": "T upper halls to B",
+          "passed": true
+        },
+        {
+          "end": [
+            226.478230794271,
+            180.819468180339,
+            -1.73387535512447
+          ],
+          "name": "T upper halls to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            412.692985534668,
+            545.997009277344,
+            -1.23396933674812
+          ],
+          "name": "T halls to B",
+          "passed": true
+        },
+        {
+          "end": [
+            47.0327962239583,
+            62.1229248046875,
+            -1.73320124149323
+          ],
+          "name": "T halls to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            559.137502034505,
+            355.976181030273,
+            -1.23423508405685
+          ],
+          "name": "CT to A",
+          "passed": true
+        },
+        {
+          "end": [
+            636.239827473958,
+            550.024454752604,
+            -1.73355721533299
+          ],
+          "name": "CT to A (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            415.162447611491,
+            546.00303141276,
+            -1.23394150137901
+          ],
+          "name": "CT to B",
+          "passed": true
+        },
+        {
+          "end": [
+            634.877563476562,
+            550.993713378906,
+            -1.73361410796642
+          ],
+          "name": "CT to B (return)",
+          "passed": true
+        },
+        {
+          "end": [
+            414.011545817057,
+            544.789957682292,
+            -1.23392627239227
+          ],
+          "name": "A Z connector B",
+          "passed": true
+        },
+        {
+          "end": [
+            449.472819010417,
+            344.799285888672,
+            -1.73329643011093
+          ],
+          "name": "A Z connector B (return)",
+          "passed": true
+        }
+      ]
+    },
+    "network": {
+      "roles": [
+        "server",
+        "attacker",
+        "defender",
+        "viewer"
+      ],
+      "passed": true
+    },
+    "offhand_compensation": {
+      "checks": 470,
+      "failures": [],
+      "passed": true
+    },
+    "accuracy_and_recoil": {
+      "checks": 1095,
+      "failures": [],
+      "passed": true
+    },
+    "local_tracers": {
+      "checks": 116,
+      "failures": [],
+      "passed": true
+    },
+    "purchase_wheel": {
+      "checks": 38,
+      "failures": [],
+      "passed": true
+    },
+    "weapon_wheel": {
+      "passed": true,
+      "checks": 119,
+      "failures": []
+    },
+    "cs_network": {
+      "roles": [
+        "server",
+        "client"
+      ],
+      "passed": true
+    }
+  },
+  "visual_checks": [
+    "test-results/de019/aztec-recess-after.png",
+    "test-results/de019/train-windows-after.png",
+    "test-results/de019/nuke-stairs-after.png",
+    "test-results/de019/nuke-ramp-after.png"
+  ],
+  "limitations": [
+    "Gun motion checked with simulated independent grip/aim updates; live headset feel has not been revalidated for this patch.",
+    "The first demo includes only about three seconds of Aztec; recess identified using user location and collision scan.",
+    "Index diagonal release is reproduced with synthetic controller samples; physical Index testing has not been performed."
+  ],
+  "additional_check": {
+    "cs_map_conversion": {
+      "checks": 28,
+      "assertion_failures": [],
+      "process_exit": 134,
+      "issue": "The separate converter fixture passes assertions but the Fedora Godot build aborts during shutdown with double free or corruption. Also reproduced with explicit disconnect cleanup. No runtime converter changes made for this task."
+    }
+  },
+  "runtime_protocol": "fpsloppa-65-local-shot-origin"
+}

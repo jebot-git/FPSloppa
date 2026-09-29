@@ -92,7 +92,7 @@ var internal_modifier_node: Node3D
 
 # Props
 
-static var springs_enabled:=true
+static var springs_enabled:=false
 var native_simulator: SpringBoneSimulator3D
 var native_external_colliders: Array=[]
 var native_last_position:=Vector3.INF

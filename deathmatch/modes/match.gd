@@ -249,6 +249,9 @@ func status(id: int=0) -> String:
 		for i in range(2):text+=" · "+TEAMS[i]+" FLAG "+("TAKEN" if flags[i].carrier!=0 else "DROPPED" if flags[i].dropped else "HOME")
 	elif kind=="koth":text+=" · HILL "+("CONTESTED" if hill_owner==-2 else "OPEN" if hill_owner==-1 else TEAMS[hill_owner])+" · %ds"%ceili(maxf(0,hill_remaining))
 	if freeze_tag():text+=" · "+("FROZEN · THAW %.1f / 3s"%special.frozen[id] if special.frozen.has(id) else "STAY NEAR FROZEN TEAMMATES TO THAW")
+	if tribes.vehicles.mounted(id):
+		var scout: Dictionary=tribes.vehicles.rows[tribes.vehicles.vehicle_for(id)];var craft: Dictionary=tribes.vehicles.definition(scout)
+		text+=" · %s %d%% · %d km/h · %s"%[craft.name,roundi(scout.hp/craft.hp*100),roundi(scout.velocity.length()*3.6),"PILOT" if scout.pilot==id else "PASSENGER"]
 	return text+fortress.status(id)
 func snapshot() -> Dictionary:
 	return {"tribes":tribes.snapshot(),"defusal":defusal.snapshot(),"jetpacks":jetpacks,"jetpack_pickups":game.jetpacks.positions(),"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}

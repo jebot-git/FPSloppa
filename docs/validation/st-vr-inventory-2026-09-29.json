@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-29",
+  "branch": "experimental/st-raindance",
+  "scope": "ST inventory, remote-view VR controls and menu icons",
+  "checks": 349,
+  "tests": [
+    {
+      "log": "test-results/st-vr-inventory/vr-inventory.log",
+      "checks": 49,
+      "failures": [],
+      "exit_code": 0,
+      "sha256": "3f141209856bc2e5c32f962208c753d2593a056c4f7434539981cbd3f73f92dc"
+    },
+    {
+      "log": "test-results/st-vr-inventory/weapon-wheel.log",
+      "checks": 119,
+      "failures": [],
+      "exit_code": 0,
+      "sha256": "adba1765fa44017fe8c8f5028ac4723ebd8d6284d2abfac390dac485ddfc2024"
+    },
+    {
+      "log": "test-results/st-vr-inventory/deployable-ui.log",
+      "checks": 34,
+      "failures": [],
+      "exit_code": 0,
+      "sha256": "a368637d5071b4e77e9b7f48a59cd1c92220e218e48579a515efccb168371204"
+    },
+    {
+      "log": "test-results/st-vr-inventory/deployables.log",
+      "checks": 55,
+      "failures": [],
+      "exit_code": 0,
+      "sha256": "8037b1c8f239c9b3f95f0b5cbb05d2f07aa9f97e4d10bb3b7fddc8ebeaad398d"
+    },
+    {
+      "log": "test-results/st-vr-inventory/scout.log",
+      "checks": 55,
+      "failures": [],
+      "exit_code": 0,
+      "sha256": "9b615a7c4f07f8dc467e322a572c86ab12954a1105eb36d595e2a8902222763c"
+    },
+    {
+      "log": "test-results/st-vr-inventory/arsenal-vulkan.log",
+      "checks": 37,
+      "failures": [],
+      "exit_code": 0,
+      "sha256": "e1049fff851aa2c6ad28b2ef97741a5822e372bad16792b9d42f14241af2ff92"
+    }
+  ],
+  "new_icons": 24,
+  "native_icon_bytes": 384642,
+  "files": {
+    "deathmatch/arena.gd": "726a6dcac261b940b9438ffe9c6eeae17b9e78360f0961dc8a10493572109621",
+    "deathmatch/vr/rig.gd": "1a465e70029fcd017774d3bdcdfee3bc7d51f13802c9a028ae3e34c8695f0ed9",
+    "deathmatch/vr/weapon_wheel.gd": "4933ace28a4dc7e2ddf9868445e0a6a44f94e01c28110aeabff83d94c60b75d7",
+    "deathmatch/tribes/buy_wheel.gd": "50efc2a0e90ff3c7d7f1c9f4207d440d266c29640394d1fdb6fc492b0d90cc7d",
+    "deathmatch/tribes/deployables.gd": "93c5ba79ed069610a5547c5ecaf59d7da0a3ec8c8b4be19375cf837530453b4a",
+    "deathmatch/tribes/deployable_view.gd": "225899816e90a70f3af42014cbf957deefc18defa78b7c04c419fa23ee65ebfa",
+    "deathmatch/tribes/turret_view.gd": "10ef7826146bbc878387d302315dc733e08efe8e04fe7ebf7408fa7ec7de5b52",
+    "deathmatch/vehicles/tribes/controller.gd": "6495a028b218a837fb7b3828cce830932765b3eae546fa14fedc610c59337aa2",
+    "deathmatch/modes/tribes.gd": "eead2dfa269f78ef79de9e44e648199a0c605903c2d9c45ef9be70b8e127af2b",
+    "deathmatch/ui/weapon_icons.gd": "4abcdc284c13133e510a56019a5774061cb38fd726d04c6c213eb7cdb684eb74",
+    "deathmatch/ui/weapon_wheel.gd": "1f86ef3b97fd58148c9c8f3959725eda6690cdee5dd91a5b808596b45f796443",
+    "deathmatch/ui/defusal_panel.gd": "f5edc27a4f49f9768901a17223aa885575ef26742fca9ff13a33375632eeb9a1",
+    "deathmatch/tests/st_vr_inventory.gd": "a819fc4468b06227f885705ba962e15c46b1f51f12e7808bfe5908f527ad9e5a",
+    "deathmatch/tests/weapon_wheel.gd": "ac879d21af246e102e72e6a65a3fec404751365845d2d234d85dbd304bd3416b",
+    "tools/tribes/menu_icons.py": "4a69fc4cca3eb5fc57001e977801b8a8d5abebf427ca966eb788e1be46917671",
+    "tools/tribes/import_menu_icons.gd": "6706e5dadd7f9daec9afa46cc3e233691cb59789b3ebbb7f289fbbd114f8361f",
+    "deathmatch/tribes/menu_icons/tribes_menu_armour.res": "05aa49cc920da61f8a05089fe1a11c64f87fd146a462f8065ae669cbe3969571",
+    "deathmatch/tribes/menu_icons/tribes_menu_back.res": "57e1d0aadd0623768313a509cf931828ca7b7f8ff2913c2cb12568a928a1634e",
+    "deathmatch/tribes/menu_icons/tribes_menu_backpack.res": "4f2f0eede14b3656f0e48b880971d06047edef93f26cd817f87f528c5634577f",
+    "deathmatch/tribes/menu_icons/tribes_menu_beacon.res": "36bd58cc9bc7ff8ff8548f243a638ea1df494d23c6aa261c2bf893561dc0cc3d",
+    "deathmatch/tribes/menu_icons/tribes_menu_buy_beacons.res": "d69e4b7376b0a4db2957e7a9e253f93bb17090ef97b236846cfd48b1dd40c354",
+    "deathmatch/tribes/menu_icons/tribes_menu_carried.res": "f652c011c6f16ef5e5f6846b07f601b5810374f4a8719cb44f0e43d8d4c1554b",
+    "deathmatch/tribes/menu_icons/tribes_menu_close_camera.res": "207e24c53ccbde5695a3c45ac4e20df5a7f24e2ffc804871a783160bf263f2e0",
+    "deathmatch/tribes/menu_icons/tribes_menu_contacts.res": "e03f234406d6c0402fe226dd96dfcbad52558d9728a4c762e4f34ce0b08fb716",
+    "deathmatch/tribes/menu_icons/tribes_menu_deployables.res": "c776c9d99b27587bd08ae824d6ae4607b446807d0a9f5e036fac59090ca90886",
+    "deathmatch/tribes/menu_icons/tribes_menu_drop_pack.res": "35f3d803faeacc5ae580ec27eff44d28219adfdb7dc8c9298d4322070a17160a",
+    "deathmatch/tribes/menu_icons/tribes_menu_drop_weapon.res": "20195102f7cd17e9408c0481036f0e4d92ce7f9efaecccc594df9f618578a1c8",
+    "deathmatch/tribes/menu_icons/tribes_menu_field.res": "214e1ea90adfe4895c6bee11c3f383b1ee52737d54d8b4a153c3217df2240387",
+    "deathmatch/tribes/menu_icons/tribes_menu_kit.res": "d80400bb3caa7cc1c85611d8a7e080b167636cfa4a3b670bfb10932ff051959e",
+    "deathmatch/tribes/menu_icons/tribes_menu_network.res": "569f96edc1c2addc3154918ff0266e274b1c38e1ebe316d103c470e56f1b919f",
+    "deathmatch/tribes/menu_icons/tribes_menu_next.res": "e1279be60c00d68589a0c6268608b0330f3bec5ecd3ef02e9cf38580e91140ff",
+    "deathmatch/tribes/menu_icons/tribes_menu_refit.res": "d29adcc02a0481a11d84c58dd9fcdb2de87cb33c08f0842724020dda838c740e",
+    "deathmatch/tribes/menu_icons/tribes_menu_release_turret.res": "92ff06231393d59347b39106432128beb7faf71d73065ec8fe0ab01d393ff05f",
+    "deathmatch/tribes/menu_icons/tribes_menu_share_ammo.res": "14413f0f6dcef3683c79adba9f35343ca9e514496b43f24b3037a814b53b56de",
+    "deathmatch/tribes/menu_icons/tribes_menu_turret_elf.res": "4c4fff31b29b40fad1bb715b6e70cc004bf82ab46b64f0faeaed683f2321a4bd",
+    "deathmatch/tribes/menu_icons/tribes_menu_turret_fusion.res": "c5d09fd5ffc976e8be721e4763900b378b427e6432056511d67395ba324cbd70",
+    "deathmatch/tribes/menu_icons/tribes_menu_turret_mini.res": "e9a625be59a255abdcaf145ca915c14fef174b30399e4a26d910f45c53f15c21",
+    "deathmatch/tribes/menu_icons/tribes_menu_turret_missile.res": "ce08c6402f756745afedd1345504636e953dd0b19b955f64f16d8acaf0a9a1f8",
+    "deathmatch/tribes/menu_icons/tribes_menu_turret_mortar.res": "b779243ed568f3ee61965c35e5d404cd3d7d0cf560891afb16c3de0ffc9c3d63",
+    "deathmatch/tribes/menu_icons/tribes_menu_weapons.res": "2a5bf8d36a27ec49dadd1fbc0d345c1bc5f032bc3462fdedc86e3cb326dddfc3"
+  },
+  "previews": [
+    "test-results/st-vr-inventory/root-menu.png",
+    "test-results/st-vr-inventory/field-menu.png",
+    "test-results/st-vr-inventory/menu-icons.png"
+  ],
+  "limitations": [
+    "Controller interaction tests use simulated OpenXR trackers; manual headset usability remains to be confirmed.",
+    "The headless arsenal suite passed 37 assertions but aborted during engine teardown; its Vulkan rerun passed and exited zero. Logs retain the headless failure.",
+    "Graphical test teardown reports existing ObjectDB leak warnings.",
+    "No ENet multi-client soak was performed for these UI changes."
+  ],
+  "live_vr": {
+    "log": "test-results/st-vr-inventory/live-wivrn.log",
+    "map": "ctf_raindance",
+    "mode": "st",
+    "bots": 0,
+    "renderer": "Vulkan",
+    "runtime": "WiVRn"
+  }
+}

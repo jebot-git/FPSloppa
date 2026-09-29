@@ -172,6 +172,14 @@ func run():
 	var frame: Dictionary=g.demos.read_frame()
 	check(not frame.is_empty(),"Production parser accepts recorded spray direction")
 	if not frame.is_empty():
+		var impacts: Array=frame.events.filter(func(event):return event[0]=="_impacts")[0][1]
+		check(impacts.size()==7 and impacts[5]==1 and not impacts[6],"Recorded impact identifies shooter and firing hand")
+		for count in [3,4,5,6,7]:
+			var historical: Dictionary=frame.duplicate(true);historical.events=[["_impacts",impacts.slice(0,count)]]
+			check(g.demos.valid_frame(historical),"Impact replay accepts legacy/current payload length "+str(count))
+		var malformed_owner: Dictionary=frame.duplicate(true)
+		var bad_impact: Array=impacts.duplicate();bad_impact[5]="bad";malformed_owner.events=[["_impacts",bad_impact]]
+		check(not g.demos.valid_frame(malformed_owner),"Malformed impact owner rejected")
 		var legacy: Dictionary=frame.duplicate(true)
 		legacy.events=[["_variant_shot_fx",[1,6,false]]]
 		check(g.demos.valid_frame(legacy),"Legacy three-argument shot recordings remain readable")

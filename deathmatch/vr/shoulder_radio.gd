@@ -2,6 +2,7 @@ extends RefCounted
 var held:=false
 var active:=false
 var grip_was_down:=false
+var near_was:=false
 var hand_side:=false
 var model: Node3D
 var label: Label3D
@@ -10,7 +11,7 @@ var rig:
 	get:return rig_ref.get_ref()
 func setup(value) -> void:rig_ref=weakref(value)
 func reset() -> void:
-	held=false;active=false;grip_was_down=true
+	held=false;active=false;grip_was_down=true;near_was=true
 	if is_instance_valid(model):model.hide()
 	if rig.game.voice:rig.game.voice.set_radio(false)
 func shoulder() -> Vector3:
@@ -25,8 +26,8 @@ func update(valid: bool) -> void:
 	var hand: XRController3D=rig.right if rig.left_handed else rig.left
 	var near: bool=hand.position.distance_to(shoulder())<.22
 	if not grip:held=false
-	elif near and not grip_was_down and not rig.physical_actions.busy():held=true
-	grip_was_down=grip
+	elif near and (not grip_was_down or not near_was) and not rig.physical_actions.busy():held=true
+	grip_was_down=grip;near_was=near
 	active=held and rig.game.bindings.vr_pressed(rig,"offhand_fire")
 	voice.set_radio(active)
 	if not is_instance_valid(model):

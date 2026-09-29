@@ -54,11 +54,11 @@ static func parse(source: String) -> Dictionary:
 	if values.sv_gametype=="de":
 		values.sv_weapon_rules="cs16"
 		var de_maps=preload("res://deathmatch/modes/defusal_maps.gd")
-		if not values.map in de_maps.IDS:values.map=de_maps.DEFAULT
-		if str(values.de_maplist).is_empty():values.de_maplist=" ".join(de_maps.IDS)
+		if not de_maps.installed(values.map):values.map=de_maps.DEFAULT
+		if str(values.de_maplist).is_empty():values.de_maplist=" ".join(de_maps.IDS) if values.map in de_maps.IDS else values.map
 		if str(values.sv_maplist).is_empty():values.sv_maplist=values.de_maplist
 		for id in (str(values.de_maplist)+" "+str(values.sv_maplist)).split(" ",false):
-			if not id in de_maps.IDS:return {"error":"DE maplists require a supported classic defusal map."}
+			if not de_maps.installed(id):return {"error":"DE maplists require an installed map with validated defusal objectives."}
 	if not values.sv_gametype in MODES:return {"error":"sv_gametype must be dm, tdm, ctf, koth, ig, if, ft, cc, tf, tb, as, de or st."}
 	if not values.sv_voice_backend in ["builtin","mumble"]:return {"error":"sv_voice_backend must be builtin or mumble."}
 	if values.sv_voice_backend=="mumble" and not preload("res://deathmatch/voice/external.gd").valid_url(values.sv_mumble_url):return {"error":"Mumble requires a valid mumble://host:port/channel URL without credentials."}

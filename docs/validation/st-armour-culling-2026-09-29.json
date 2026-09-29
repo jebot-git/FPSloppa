@@ -1,0 +1,53 @@
+{
+  "date": "2026-09-29",
+  "branch": "experimental/st-raindance",
+  "change": "Register replacement armour with avatar visibility and first-person mask lifecycle; unregister on rebuild/unequip. Team changes use current avatar view state. Existing armour materials and shared full meshes retained.",
+  "reproduction": "All six immediate first/third-person transition assertions failed on prior code across Light, Medium and Heavy; the old tests only checked after replacement.update.",
+  "suites": [
+    {
+      "log": "test-results/st-armour-culling/tribes_bodies.log",
+      "checks": 226,
+      "sha256": "37e897c59f5c0e11d3578287d092575c0aa71482ddeafc9af6832c00de3469da"
+    },
+    {
+      "log": "test-results/st-armour-culling/vr_hand_mask.log",
+      "checks": 31,
+      "sha256": "908a6f6cf82f49bd3d95a952800f906eeaae66f9495667b2bfe669486e6b69a0"
+    },
+    {
+      "log": "test-results/st-armour-culling/avatars.log",
+      "checks": 151,
+      "sha256": "9fc7ab673bc6f029f44364eff66bea067908752619f5cdf5c034018ec54df304"
+    },
+    {
+      "log": "test-results/st-armour-culling/avatar_scaling.log",
+      "checks": 108,
+      "sha256": "410f63b3ccfbdd880e653e4a15be84cc169c8bc3ed8a42b3c64e54dd56a382f0"
+    },
+    {
+      "log": "test-results/st-armour-culling/vulkan.log",
+      "checks": 226,
+      "sha256": "c965f154385a1a9e573ac4ab2b42f3ac6a0a4de2de2ba3b50323749dd51d4963"
+    }
+  ],
+  "files": {
+    "deathmatch/avatars/rig.gd": "dcd97d75d1d69527203dc0064a855bc812bf1d05dc3072e3a624924e1a0cf4eb",
+    "deathmatch/tribes/body_replacement.gd": "9bd155aa3400a8b9269c1892e1499a8db99cfa0f93419fa1d96d76d151cd7d49",
+    "deathmatch/tests/tribes_bodies.gd": "f84e9fdaa37969781da730167945d7418718543333751bb60355b6c9eaf85f04"
+  },
+  "screenshots": {
+    "test-results/st-armour-culling/first-person.png": "31ab8fae8d2691703551b89c06106b1cab2e0b6f74acc7bc5d33a6a286da4d59",
+    "test-results/st-armour-culling/third-person.png": "92b238deba32ea8ecd0684dd2fea67b3c8ac496ebdaa2e13aaec515b12db6894"
+  },
+  "limitations": [
+    "Existing one ObjectDB fixture-shutdown warning",
+    "Actual headset ergonomics remain subject to user verification"
+  ],
+  "live_test": {
+    "map": "ctf_raindance",
+    "bots": 0,
+    "renderer": "Vulkan mobile",
+    "runtime": "WiVRn / Quest Pro",
+    "log": "test-results/st-armour-culling/live-wivrn.log"
+  }
+}

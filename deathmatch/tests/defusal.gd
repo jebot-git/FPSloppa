@@ -23,7 +23,7 @@ func run():
 	check(Config.parse('set sv_de_prepare "0"').has("error") and Config.parse('set sv_de_bombtime "999"').has("error"),"Invalid DE timers rejected")
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g)
 	g.selected_map="de_dust2_rebuilt"
-	g.start_host("Bomb test",0,20,10,true,"de","doom")
+	g.start_host("Bomb test",0,20,10,true,"de","doom",27)
 	if is_instance_valid(g.bots):g.bots.free();g.bots=null
 	g.set_process(false);g.set_physics_process(false);de=g.match_mode.defusal
 	await physics_frame;await physics_frame
@@ -40,6 +40,7 @@ func run():
 		var hit: Dictionary=g.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(p+Vector3.UP*.2,p-Vector3.UP*.3,1))
 		check(not hit.is_empty(),"Bomb site uses authored floor mark "+str(p))
 	fresh()
+	check(is_equal_approx(de.prepare_seconds,27) and is_equal_approx(de.phase_end-g.clock,27),"Host buy countdown applies to opening preparation")
 	check(de.phase=="prepare" and de.round_id==1,"Both teams start preparation round")
 	check(g.players[1].owned==[0,1] and g.players[-1].owned==[0,2],"T starts Glock; CT starts USP; both retain knife")
 	check(de.account(1).cash==800 and de.account(-1).cash==800,"Opening economy grants $800")
@@ -87,6 +88,7 @@ func run():
 	check(g.match_mode.scores==[0,1] and de.account(-1).cash==rewards,"Round result and money are awarded once")
 	g.clock=de.phase_end;de.tick(0)
 	check(de.phase=="prepare" and de.round_id==2 and not s.dead and not de.account(1).kit,"Next round revives dead players with fresh loadout")
+	check(is_equal_approx(de.phase_end-g.clock,27),"Configured buy countdown persists into later rounds")
 	check(de.account(-1).kit,"Survivor retains purchased kit")
 	live();arm(1,1);de.plant(1,1)
 	g.fighters[-1].position=de.bomb_position+Vector3(0,0,.7);de.account(-1).tool=false

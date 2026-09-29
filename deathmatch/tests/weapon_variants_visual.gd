@@ -6,6 +6,7 @@ func _initialize():run.call_deferred()
 func label(parent: Node3D,text: String,position: Vector3,size: int=34) -> void:
 	var node:=Label3D.new();node.text=text;node.font_size=size;node.pixel_size=.004;node.position=position;node.no_depth_test=true;parent.add_child(node)
 func run() -> void:
+	for rules in ["doom","quake","ut99"]:Art.prepare_loadout(rules)
 	root.size=Vector2i(1920,1080)
 	root.content_scale_size=Vector2i(1920,1080)
 	var stage:=Node3D.new();root.add_child(stage)

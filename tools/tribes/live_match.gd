@@ -30,12 +30,13 @@ func run():
 	DirAccess.make_dir_recursive_absolute(options.output)
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
 	if options.get("viewer",false):
-		root.title="ST LIVE · "+str(options.get("map","ctf_stonehenge"))+" · 6v6";root.mode=Window.MODE_WINDOWED;root.size=Vector2i(1280,800);root.position=Vector2i(50,50)
+		var team_size:=clampi(int(options.get("team_size",6)),1,16)
+		root.title="ST LIVE · "+str(options.get("map","ctf_stonehenge"))+" · %dv%d"%[team_size,team_size];root.mode=Window.MODE_WINDOWED;root.size=Vector2i(1280,800);root.position=Vector2i(50,50)
 		root.content_scale_size=root.size;Engine.max_fps=60
 		game.start_join("ST Live View","127.0.0.1",int(options.port),true)
 		game.voice_enabled=false # Silent bot observer; no microphone capture.
 		var deadline:=Time.get_ticks_msec()+60000
-		while not game.active or game.players.size()<13 or game.match_mode.kind!="st":
+		while not game.active or game.players.size()<team_size*2+1 or game.match_mode.kind!="st":
 			if Time.get_ticks_msec()>deadline:push_error("ST spectator connection timeout");quit(1);return
 			await process_frame
 		game.voice.set_mode(0) # Session-only; disconnect must not reopen capture.
@@ -62,7 +63,7 @@ func run():
 			while OS.is_process_running(encoder_pid) and Time.get_ticks_msec()<end:await create_timer(.1).timeout
 	else:
 		var team_size:=clampi(int(options.get("team_size",6)),1,16)
-		game.dedicated=true;game.bind_address="127.0.0.1";game.max_clients=maxi(16,team_size*2);game.bot_population.count_target=team_size*2
+		game.dedicated=true;game.bind_address="127.0.0.1";game.max_clients=maxi(16,team_size*2+1);game.bot_population.count_target=team_size*2
 		game.match_mode.configure({"sv_gametype":"st","capturelimit":5});game.selected_map=str(options.get("map","ctf_stonehenge"));game.lobby.enabled=false
 		var duration: float=float(options.get("seconds",0))
 		var minutes:=clampi(ceili(duration/60.0),1,60) if duration>0 else 30
@@ -132,7 +133,7 @@ func sample_travel():
 		if not game.bots.alive(id):continue
 		var b: Dictionary=game.bots.brains[id];var s: Dictionary=game.players[id];var actor=game.fighters[id]
 		if b.goal_key not in ["st:flag","st:capture"]:continue
-		rows.append({"id":id,"serial":s.serial,"team":s.team,"goal":b.goal_key,"position":actor.position,"velocity":actor.velocity,"hp":s.hp,"energy":actor.tribes_state.energy,"pack":s.tribes_pack,"phase":b.get("travel_phase",""),"grounded":actor.is_supported(),"jet":s.jet_held,"ski":s.ski,"distance":actor.position.distance_to(b.goal),"waypoint":b.path[b.step] if b.step<b.path.size() else b.goal})
+		rows.append({"id":id,"serial":s.serial,"team":s.team,"goal":b.goal_key,"position":actor.position,"velocity":actor.velocity,"hp":s.hp,"energy":actor.tribes_state.energy,"pack":s.tribes_pack,"phase":b.get("travel_phase",""),"grounded":actor.is_supported(),"jet":s.jet_held,"ski":s.ski,"distance":actor.position.distance_to(b.goal),"waypoint":b.path[b.step] if b.step<b.path.size() else b.goal,"capture_decision":b.get("capture_decision",""),"capture_readiness":b.get("capture_readiness",{})})
 	travel_samples.append({"seconds":game.clock-start,"bots":rows})
 func sample():
 	var teams: Array=[0,0];var spectators:=0;var bots: Array=[]
@@ -143,9 +144,11 @@ func sample():
 		var brain: Dictionary=game.bots.brains.get(id,{})
 		bots.append({"id":id,"team":s.team,"role":brain.get("role",""),"class":s.tribes_class,"pack":s.tribes_pack,"dead":s.dead,"hp":s.hp,"shots":s.shots,"deaths":s.deaths,"position":game.fighters[id].position,"goal":brain.get("goal_key",""),"target":brain.get("goal",Vector3.ZERO),"step":brain.get("step",0),"path":brain.get("path",[]),"energy":game.fighters[id].tribes_state.energy,"speed_kmh":Vector2(game.fighters[id].velocity.x,game.fighters[id].velocity.z).length()*3.6,"phase":brain.get("travel_phase",""),"ski":s.ski,"jet":s.jet_held,"equipment_target":brain.get("equipment_target",-1),"lane":game.bots.tribes.tactics.lane(id),"recoveries":game.bots.tribes.tactics.record(id).recoveries,"movement":movement.get(id,{})})
 		var tower: Dictionary=brain.get("tower",{})
+		bots[-1].merge({"capture_decision":brain.get("capture_decision",""),"capture_readiness":brain.get("capture_readiness",{}),"carrier_recharging":brain.get("carrier_recharging",false)})
 		bots[-1].merge({"serial":s.serial,"velocity":game.fighters[id].velocity,"refilling":brain.get("refilling",false),"waypoint":brain.path[brain.step] if not brain.is_empty() and brain.step<brain.path.size() else brain.get("goal",Vector3.ZERO),"tower_phase":tower.get("phase",""),"tower_stage":tower.get("stage",Vector3.ZERO)})
 	var row:={"pid":OS.get_process_id(),"clock":game.clock,"seconds":game.clock-start,"teams":teams,"spectators":spectators,"scores":game.match_mode.scores.duplicate(),"flags":game.match_mode.flags.duplicate(true),"generators":game.match_mode.tribes.stations().health.duplicate(),"base_assets":game.match_mode.tribes.stations().assets.snapshot(),"deployables":game.match_mode.tribes.deployables.snapshot().rows,"tactics":game.bots.tribes.tactics.stats.duplicate(),"offense":game.bots.tribes.offense.stats.duplicate(),"fixed_defences":game.match_mode.tribes.stations().defences.snapshot(),"fixed_fire":game.match_mode.tribes.stations().defences.stats.duplicate(),"field_recovery":game.match_mode.tribes.recovery.stats.duplicate(),"targeting":game.match_mode.tribes.targeting.stats.duplicate(),"loot":game.match_mode.tribes.recovery.rows.size(),"waves":game.bots.tribes.tactics.waves.duplicate(true),"bots":bots}
 	row.merge(capture_deadline.snapshot());row.termination_reason=termination_reason
+	row.capture_planner=game.bots.tribes.capture.stats.duplicate()
 	write("server.json",row);samples.append(row)
 	if samples.size()%12==0:write("samples.json",samples)
 	if samples.size()%6==0:print("ST_MATCH ",snappedf(game.clock-start,1)," scores=",row.scores," flags=",row.flags.map(func(f):return f.carrier)," power=",row.generators)
@@ -187,4 +190,5 @@ func direct():
 		var f: Dictionary=game.match_mode.flags[i];names.append(("RED" if i==0 else "BLUE")+": "+("CARRIED" if f.carrier else "DROPPED" if f.dropped else "HOME"))
 	var watched: String=game.players[focus].name+" · "+game.players[focus].tribes_class.to_upper() if game.players.has(focus) else "Overview"
 	var speed:=watched_speed()
-	overlay.text="LIVE 6v6 · ST TRIBES · %s     RED %d : %d BLUE     %02d:%02d\n%s     %s\nWatching %s     SPEED %.0f km/h horizontal"%[game.current_map.trim_prefix("ctf_").to_upper(),game.match_mode.scores[0],game.match_mode.scores[1],int(game.round_left)/60,int(game.round_left)%60,names[0],names[1],watched,speed]
+	var team_size:=clampi(int(options.get("team_size",6)),1,16)
+	overlay.text="LIVE %dv%d · ST TRIBES · %s     RED %d : %d BLUE     %02d:%02d\n%s     %s\nWatching %s     SPEED %.0f km/h horizontal"%[team_size,team_size,game.current_map.trim_prefix("ctf_").to_upper(),game.match_mode.scores[0],game.match_mode.scores[1],int(game.round_left)/60,int(game.round_left)%60,names[0],names[1],watched,speed]

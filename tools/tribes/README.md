@@ -7,6 +7,17 @@ tests. `--seconds` still caps total duration after a qualifying capture.
 flag-event timestamps; `report_match.py <output-folder>` summarizes the gate
 separately from pickup totals. See `docs/ST-CAPTURE-RELIABILITY.md`.
 
+For an 8v8 Vulkan live view with recording and route telemetry:
+
+```sh
+python3 tools/tribes/run_live.py --team-size 8 --map ctf_stonehenge --seconds 1200 --navigation-metrics --record --output test-results/st-readiness/example
+```
+
+The authority reserves an additional spectator seat so joining the view does
+not evict one of the sixteen bots. The title and overlay show the chosen team
+size. Match snapshots include capture-readiness decisions and preparation
+counters; these are planning estimates, not guarantees of a successful escape.
+
 For a headless 8v8 routing study, use:
 
 ```sh
@@ -72,3 +83,30 @@ mipmaps without replacing the weapon atlas.
 Blender source scenes and intermediate GLB/VRM files live in `refined/`.
 `mesh-report.json` and `body-report.json` record geometry counts. Runtime code
 and native tests are documented in `docs/TRIBES-LOADOUT.md`.
+
+The [Scout vehicle pass](../../docs/ST-VEHICLES.md) provides a playable Raindance flyer. `scout_model.py` runs in Blender; `scout_audio.py` and `import_scout.gd` rebuild native assets. `test_scout_network.py` runs a real server/pilot/observer lifecycle test.
+
+### LPC / HPC transports
+
+`transport_models.py` adapts the same CC0 hull in Blender MCP; `import_transports.gd` builds the compressed native scenes and mipmapped icons. `test_transports_network.py` runs pilot/passenger/spectator lifecycle checks for both carriers, and `transports_preview.gd` renders their occupied decks and controls in Vulkan. See [ST vehicles](../../docs/ST-VEHICLES.md) for limits and validation.
+
+
+The current vehicle artwork is rebuilt by `vehicle_models.py` in Blender MCP,
+with `scout_model.py`/`transport_models.py` as subset entry points. The editable
+source is `vehicle-sources/vehicles.blend`. Run `vehicle_texture.py` followed by
+`vehicle_texture.gd` to regenerate the original SVG/PNG hull atlas before the
+Blender build, then run both native import scripts. The designs follow original
+Tribes vehicle silhouettes while retaining the tested cockpit/seat/muzzle mounts.
+
+
+`prop_models.py` and `prop_sources.py` rebuild the ST stations, fixed turrets,
+deployables, sensors and power equipment in Blender MCP. Current editable art
+is in `prop-sources/st-equipment.blend`; CC0 kit sources and their license are
+retained beside it. `import_props.gd` builds the native scenes with a shared
+mipmapped vehicle atlas. `prop_icons.py` and `import_icons.gd` build the matching
+seven deployable icons. `props_preview.gd` and `props_live_preview.gd` provide
+Vulkan model and map reviews. See [equipment design](../../docs/ST-EQUIPMENT-DESIGN.md).
+
+The [VR inventory fixes](../../docs/ST-VR-INVENTORY.md) add `menu_icons.py` and
+`import_menu_icons.gd` for 24 original menu/remote-control pictograms. Their SVG
+and mipmapped native outputs live in `deathmatch/tribes/menu_icons/`.

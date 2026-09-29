@@ -1,0 +1,430 @@
+{
+  "date": "2026-09-28",
+  "machine": "Linux-7.2.6-201.nobara.fc44.x86_64-x86_64-with-glibc2.43",
+  "compiler": "g++ (GCC) 16.2.1 20260819 (Red Hat 16.2.1-2)",
+  "compiler_flags": [
+    "-O3",
+    "-std=c++17",
+    "-ffp-contract=off",
+    "-Wall",
+    "-Wextra"
+  ],
+  "server": [
+    {
+      "label": "baseline16a",
+      "instrumented": false,
+      "args": [],
+      "scopes": {},
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 1.284,
+        "tick_max_ms": 10.959,
+        "tick_p50_ms": 6.68,
+        "tick_p95_ms": 8.323,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.598338888888889,
+        "history_ms_per_tick": 0.0552777777777778,
+        "melee_ms_per_tick": 0.157852777777778,
+        "projectiles_ms_per_tick": 3.53750277777778
+      },
+      "shutdown_warnings": [
+        "WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "label": "packets16a",
+      "instrumented": true,
+      "args": [
+        "--packets"
+      ],
+      "scopes": {
+        "hits": {
+          "samples": {
+            "player_fraction": [
+              8626,
+              9112
+            ],
+            "world_fraction": [
+              213815,
+              118190
+            ]
+          },
+          "scope": "hits",
+          "ticks_including_warmup": 360
+        },
+        "targets": {
+          "samples": {
+            "build": [
+              24638,
+              342
+            ],
+            "candidates": [
+              173576,
+              118190
+            ]
+          },
+          "scope": "targets",
+          "ticks_including_warmup": 360
+        },
+        "codec": {
+          "samples": {
+            "encode": [
+              80911,
+              1920
+            ]
+          },
+          "scope": "codec",
+          "ticks_including_warmup": 360
+        },
+        "snapshot_codec": {
+          "samples": {
+            "encode": [
+              133860,
+              45942
+            ],
+            "pack": [
+              216955,
+              44937
+            ]
+          },
+          "scope": "snapshot_codec",
+          "ticks_including_warmup": 360
+        },
+        "replication": {
+          "samples": {
+            "packets": [
+              471641,
+              120
+            ]
+          },
+          "scope": "replication",
+          "ticks_including_warmup": 360
+        },
+        "arena": {
+          "samples": {
+            "_trace": [
+              915108,
+              118190
+            ]
+          },
+          "scope": "arena",
+          "ticks_including_warmup": 360
+        }
+      },
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 7.621,
+        "tick_max_ms": 10.905,
+        "tick_p50_ms": 7.732,
+        "tick_p95_ms": 9.494,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.604130555555556,
+        "history_ms_per_tick": 0.0575527777777778,
+        "melee_ms_per_tick": 0.162188888888889,
+        "projectiles_ms_per_tick": 4.20583888888889
+      },
+      "shutdown_warnings": [
+        "WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "label": "packets8vr",
+      "instrumented": true,
+      "args": [
+        "--packets",
+        "--vr"
+      ],
+      "scopes": {
+        "hits": {
+          "samples": {
+            "player_fraction": [
+              442,
+              228
+            ],
+            "world_fraction": [
+              120698,
+              63347
+            ]
+          },
+          "scope": "hits",
+          "ticks_including_warmup": 360
+        },
+        "targets": {
+          "samples": {
+            "build": [
+              16047,
+              342
+            ],
+            "candidates": [
+              84468,
+              63347
+            ]
+          },
+          "scope": "targets",
+          "ticks_including_warmup": 360
+        },
+        "codec": {
+          "samples": {
+            "encode": [
+              57037,
+              960
+            ]
+          },
+          "scope": "codec",
+          "ticks_including_warmup": 360
+        },
+        "snapshot_codec": {
+          "samples": {
+            "encode": [
+              89808,
+              26697
+            ],
+            "pack": [
+              125019,
+              24344
+            ]
+          },
+          "scope": "snapshot_codec",
+          "ticks_including_warmup": 360
+        },
+        "replication": {
+          "samples": {
+            "packets": [
+              287233,
+              120
+            ]
+          },
+          "scope": "replication",
+          "ticks_including_warmup": 360
+        },
+        "arena": {
+          "samples": {
+            "_trace": [
+              478260,
+              63347
+            ]
+          },
+          "scope": "arena",
+          "ticks_including_warmup": 360
+        }
+      },
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 281,
+        "players": 8,
+        "snapshot_p95_ms": 4.219,
+        "tick_max_ms": 6.888,
+        "tick_p50_ms": 4.298,
+        "tick_p95_ms": 5.374,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": true
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.313427777777778,
+        "history_ms_per_tick": 0.0398055555555556,
+        "melee_ms_per_tick": 0.114197222222222,
+        "projectiles_ms_per_tick": 2.23369444444444
+      },
+      "shutdown_warnings": [
+        "WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "label": "packets16b",
+      "instrumented": true,
+      "args": [
+        "--packets"
+      ],
+      "scopes": {
+        "hits": {
+          "samples": {
+            "player_fraction": [
+              8356,
+              9112
+            ],
+            "world_fraction": [
+              211343,
+              118190
+            ]
+          },
+          "scope": "hits",
+          "ticks_including_warmup": 360
+        },
+        "targets": {
+          "samples": {
+            "build": [
+              21955,
+              342
+            ],
+            "candidates": [
+              171728,
+              118190
+            ]
+          },
+          "scope": "targets",
+          "ticks_including_warmup": 360
+        },
+        "codec": {
+          "samples": {
+            "encode": [
+              80417,
+              1920
+            ]
+          },
+          "scope": "codec",
+          "ticks_including_warmup": 360
+        },
+        "snapshot_codec": {
+          "samples": {
+            "encode": [
+              132123,
+              45942
+            ],
+            "pack": [
+              216154,
+              44937
+            ]
+          },
+          "scope": "snapshot_codec",
+          "ticks_including_warmup": 360
+        },
+        "replication": {
+          "samples": {
+            "packets": [
+              467719,
+              120
+            ]
+          },
+          "scope": "replication",
+          "ticks_including_warmup": 360
+        },
+        "arena": {
+          "samples": {
+            "_trace": [
+              908300,
+              118190
+            ]
+          },
+          "scope": "arena",
+          "ticks_including_warmup": 360
+        }
+      },
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 7.297,
+        "tick_max_ms": 11.899,
+        "tick_p50_ms": 7.656,
+        "tick_p95_ms": 9.119,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.608038888888889,
+        "history_ms_per_tick": 0.0549555555555555,
+        "melee_ms_per_tick": 0.159494444444444,
+        "projectiles_ms_per_tick": 4.14228611111111
+      },
+      "shutdown_warnings": [
+        "WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    {
+      "label": "baseline16b",
+      "instrumented": false,
+      "args": [],
+      "scopes": {},
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 1.321,
+        "tick_max_ms": 10.62,
+        "tick_p50_ms": 6.737,
+        "tick_p95_ms": 8.1,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.600413888888889,
+        "history_ms_per_tick": 0.0554944444444445,
+        "melee_ms_per_tick": 0.160230555555556,
+        "projectiles_ms_per_tick": 3.51598333333333
+      },
+      "shutdown_warnings": [
+        "WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    }
+  ],
+  "box": {
+    "gdscript": {
+      "cases": 30000,
+      "checksum": 2457.13793159779,
+      "contacts": 10797,
+      "engine": "4.7.2-stable (fedora)",
+      "milliseconds": [
+        22.519,
+        23.007,
+        22.195,
+        23.086,
+        22.475
+      ],
+      "scope": "Production GDScript box_fraction; synthetic mixed cases; no engine collision or extension boundary.",
+      "warmup_passes": 1
+    },
+    "cpp": {
+      "cases": 30000,
+      "mismatches": 0,
+      "max_error": 0,
+      "contacts": 10797,
+      "checksum": 2457.1379316,
+      "milliseconds": [
+        0.968337,
+        0.96414,
+        0.957211,
+        0.960453,
+        1.035761
+      ]
+    },
+    "median_speed_ratio": 23.356566473748625
+  },
+  "client_receipt": "frame-smoothness-2026-09-28.json",
+  "limitations": [
+    "Native kernel is standalone, without GDExtension calls or data conversion.",
+    "Server is a synthetic fixture with no AI, real map complexity or remote network transport.",
+    "Instrumented scopes include timer overhead and warmup; nested scopes must not be added together.",
+    "Baseline snapshot timing skips packet construction because there are no remote peers.",
+    "CPU clocks are not controlled. Client measurements are from the earlier same-day rendered study; no new client native implementation was tested."
+  ],
+  "source_sha256": {
+    "deathmatch/arena.gd": "3379f1d92f1c1a079bf6c9818734676b91eb58596558c471acd29520a6d62610",
+    "deathmatch/hit_detection.gd": "6756ce60eca88f0cf3b3c643b3a017fde6c926d37387dfcc24d28f8068d539a4",
+    "deathmatch/projectile_targets.gd": "202f26bbffaa5436183a3ce690b2cf299712794d8b19a41301520e30021aa01a",
+    "deathmatch/network/codec.gd": "905de307916e8f972a8c62ea67d244b96d6d7df7fba20a8300098da408260411",
+    "deathmatch/network/snapshot_codec.gd": "9ab2e7c1104640ed6a9dfbdb6c3bfb0c8e5f63b06f40a83fc560d0d0ebdd5f96",
+    "deathmatch/network/replication.gd": "eba7260d7a69a45aaea0690988a3f73444dac99ec3b0cb1e03f0cd28e38605d5",
+    "deathmatch/avatars/pose.gd": "b7f6aba79be24667bf555d6704cf5ce08205086269af10d1af48877111fd10f0",
+    "deathmatch/avatars/pose_blend.gd": "720b22287dac1c7361c20fb1769e62884ac37b38ed13ec75e47b5775f4f4bb8b"
+  }
+}

@@ -45,6 +45,7 @@ func capture(name: String,title: String):
 func run():
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);Fixture.setup(game)
 	game.set_process(false);game.set_physics_process(false)
+	if not is_instance_valid(game.hud):game.hud=load("res://deathmatch/interface.gd").new();game.add_child(game.hud);game.hud.setup(game)
 	rig=load("res://deathmatch/vr/rig.gd").new();game.add_child(rig);game.xr_rig=rig;rig.setup(game,true)
 	rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false;rig.blackout.hide()
 	rig.pump_auto_transfer=false # Baseline manual-grab cases; auto transfer tested below.

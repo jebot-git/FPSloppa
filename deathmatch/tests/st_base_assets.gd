@@ -73,7 +73,7 @@ func run():
 	malformed=snapshot.duplicate(true);malformed.deployables.suppressed=["bad"]
 	check(not rules.valid_snapshot(malformed),"Malformed sensor suppression rejected")
 	var legacy: Dictionary=snapshot.duplicate(true);legacy.erase("base_assets");legacy.erase("fixed_defences");legacy.deployables.erase("suppressed")
-	for key in ["power","targeting","recovery"]:legacy.erase(key)
+	for key in ["power","targeting","recovery","vehicles"]:legacy.erase(key)
 	for row in legacy.players.values():row.erase("beacons")
 	check(rules.valid_snapshot(legacy),"Legacy Tribes demo state remains readable")
 	assets.rows[0].hp=0;rules.receive(snapshot);check(assets.rows[0].hp==snapshot.base_assets[0],"Client/replay restores independent fixture damage")

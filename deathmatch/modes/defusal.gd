@@ -51,7 +51,9 @@ var spawning:=false
 var sites: Array=[]
 var starts: Array=[[],[]] # Roles: attackers, defenders.
 var site_bounds: Array=[]
+var site_volumes: Array=[]
 var spawn_yaws: Array=[PI,0.0]
+var individual_yaws: Array=[]
 var visuals: Node3D
 var panel
 var local_sequence:=0
@@ -84,12 +86,27 @@ func reset():
 	observer_life=""
 	phase="waiting";round_id=0;attacking=0;halftime_done=false;phase_end=0;losses=[0,0];accounts.clear();input_edges.clear();action_sequences.clear();bot_times.clear();local_sequence=0;spawning=false
 	message="Waiting for both teams";clear_bomb();clear_visuals()
+	load_layout()
+
+func load_layout():
 	var layout:=Maps.resolve(game.current_map,game.map_sha)
 	if layout.is_empty():layout=Maps.resolve(MAP)
-	sites=layout.sites.map(func(p):return Maps.vector(p));starts=[[],[]];site_bounds.clear()
+	sites=layout.sites.map(func(p):return Maps.vector(p));starts=[[],[]];site_bounds.clear();site_volumes.clear()
 	for team in 2:starts[team]=layout.starts[team].map(func(p):return Maps.vector(p))
 	for bounds in layout.bounds:site_bounds.append(AABB(Maps.vector(bounds.min),Maps.vector(bounds.max)-Maps.vector(bounds.min)))
+	for boxes in layout.get("volumes",[]):
+		site_volumes.append(boxes.map(func(box):return AABB(Maps.vector(box.min),Maps.vector(box.max)-Maps.vector(box.min))))
 	spawn_yaws=layout.yaw.duplicate()
+	individual_yaws=layout.get("start_yaws",[]).duplicate(true)
+
+func spawn_yaw(id: int) -> float:
+	var team:=role(id)
+	if individual_yaws.size()!=2 or not game.fighters.has(id):return spawn_yaws[team]
+	var nearest:=0;var distance:=INF
+	for i in starts[team].size():
+		var d: float=starts[team][i].distance_squared_to(game.fighters[id].position)
+		if d<distance:nearest=i;distance=d
+	return float(individual_yaws[team][nearest])
 
 func clear_visuals():
 	utility.clear_visuals()
@@ -109,6 +126,15 @@ func account(id: int) -> Dictionary:
 	if not accounts.has(id):accounts[id]={"cash":800,"kit":false,"helmet":false,"tool":false,"notice":"","request_at":-1.0}
 	return accounts[id]
 func alive(id: int) -> bool:return game.players.has(id) and game.fighters.has(id) and not game.players[id].dead and not game.players[id].spectator and game.players[id].team in [0,1]
+func crouch_defuse_assist(id: int,crouched: bool,active: bool=false) -> bool:
+	if not crouched or not enabled() or phase!="live" or not planted or game.clock>=fuse_end or game.intermission>0 or not alive(id) or role(id)!=1:return false
+	var actor=game.fighters[id]
+	if actor.in_water or not actor.is_supported() or bomb_basis.z.dot(Vector3.UP)<.7:return false
+	var delta: Vector3=bomb_position-actor.position
+	# Only low floor mounts need this assist, not a wall or high crate keypad.
+	if delta.y<-.15 or delta.y>.4 or Vector2(delta.x,delta.z).length()>(1.1 if active else .9):return false
+	return ray_surface(actor.position+Vector3.UP*.48,bomb_position+bomb_basis.z*.05).is_empty()
+
 func role(id: int) -> int:return 0 if game.players.get(id,{}).get("team",-1)==attacking else 1
 func spawns(team: int) -> Array:return starts[0 if team==attacking else 1]
 func preparing() -> bool:return enabled() and phase=="prepare"
@@ -158,7 +184,7 @@ func begin_round():
 			s.starting_weapons=[0,Arsenal.STARTING_SIDEARMS[role(id)]]
 		enforce_capacity(id)
 		if id==game.multiplayer.get_unique_id():game.desired_weapon=s.weapon
-		if not s.spectator:s.yaw=spawn_yaws[role(id)]
+		if not s.spectator:s.yaw=spawn_yaw(id)
 	spawning=false
 	var attackers: Array=game.players.keys().filter(func(id):return alive(id) and role(id)==0)
 	if not attackers.is_empty():carrier=attackers[(round_id-1)%attackers.size()]
@@ -201,7 +227,7 @@ func replace_weapon(id: int,w: int,swap_same: bool=false):
 	for old in s.owned.duplicate():
 		if old==w and not swap_same or category(old)!=category(w):continue
 		var pool: int=game.armory.data(old).ammo
-		var amount: int=mini(s.ammo[pool],int(c.clips.get(old,game.armory.data(old).magazine)))
+		var amount: int=game.variant_combat.cs.loaded_ammo(id,old)
 		game.dropped_weapons.next_id+=1
 		game.dropped_weapons.add(game.dropped_weapons.next_id,game.fighters[id].position,old,amount);s.ammo[pool]-=amount
 		s.owned.erase(old)
@@ -250,11 +276,29 @@ func reachable(id: int,where: Vector3,radius: float=1.8) -> bool:
 	return pos.distance_to(where)<radius and game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(pos+Vector3.UP*.9,where,1)).is_empty()
 func site_at(point: Vector3) -> int:
 	for i in site_bounds.size():
-		if site_bounds[i].grow(.06).has_point(point):return i
+		if not site_bounds[i].grow(.06).has_point(point):continue
+		if site_volumes.size()!=site_bounds.size() or site_volumes[i].any(func(box):return box.grow(.06).has_point(point)):return i
 	return -1
 
 func ray_surface(start: Vector3,end: Vector3) -> Dictionary:
 	return game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,end,1))
+const MAX_PLANT_HEIGHT:=1.5
+func plant_ground(center: Vector3,normal: Vector3) -> Dictionary:
+	# Check the floor beside the keypad, not the planter's feet (which may be
+	# jumping). Leave room for a standing defender in front of a wall mount.
+	var outward:=Vector3(normal.x,0,normal.z).normalized()
+	var at:=center+outward*.25
+	var floor_hit:=ray_surface(at+Vector3.UP*.01,at-Vector3.UP*(MAX_PLANT_HEIGHT+.01))
+	if floor_hit.is_empty() or floor_hit.normal.y<cos(deg_to_rad(50)) or center.y-floor_hit.position.y>MAX_PLANT_HEIGHT+.001:return {}
+	# A narrow trim ledge or a low overhang is not standable ground.
+	var capsule:=CapsuleShape3D.new();capsule.radius=.30;capsule.height=1.65
+	var query:=PhysicsShapeQueryParameters3D.new();query.shape=capsule;query.collision_mask=1
+	query.transform.origin=floor_hit.position+Vector3.UP*(capsule.height*.5+.025)
+	if not game.get_world_3d().direct_space_state.intersect_shape(query).is_empty():return {}
+	for offset in [Vector3.RIGHT*.24,Vector3.LEFT*.24,Vector3.FORWARD*.24,Vector3.BACK*.24]:
+		var support:=ray_surface(floor_hit.position+offset+Vector3.UP*.1,floor_hit.position+offset-Vector3.UP*.3)
+		if support.is_empty() or support.normal.y<cos(deg_to_rad(50)):return {}
+	return floor_hit
 func surface_mount(id: int,hit: Dictionary,up: Vector3) -> Dictionary:
 	if hit.is_empty():return {}
 	var index:=site_at(hit.position)
@@ -266,6 +310,7 @@ func surface_mount(id: int,hit: Dictionary,up: Vector3) -> Dictionary:
 	var basis:=Basis(vertical.cross(normal).normalized(),vertical,normal).orthonormalized()
 	var center: Vector3=hit.position+normal*.102
 	if not reachable(id,center,2.1):return {}
+	if plant_ground(center,normal).is_empty():return {}
 	# All four mounting feet must rest on the same solid plane. This rules out
 	# thin edges, holes, corners, and partly embedded/unsupported placements.
 	for x in [-.12,.12]:

@@ -44,7 +44,7 @@ func refresh():
 	for entry in entries:entry.desktop=true
 	view.set_content(entries,hover,-1,false)
 	label.position=Vector2(0,-32);label.size=Vector2(900,30)
-	label.text="CHOOSE EQUIPMENT · B / ESC CLOSE · "+("INVENTORY STATION: EQUIP NOW" if rules.can_refit(id) else "FAVOURITES: BUY AT A FRIENDLY STATION" if rules.base_ctf() else "QUEUED FOR NEXT RESPAWN") if tribes else "CLICK TO BUY · B / ESC CLOSE · %ds · %s"%[ceili(maxf(0,rules.phase_end-game.clock)),rules.account(id).notice]
+	label.text="CHOOSE EQUIPMENT · B / ESC CLOSE · "+("VEHICLE STATION: BUY AIRCRAFT" if rules.vehicles.station(id)>=0 else "INVENTORY STATION: EQUIP NOW" if rules.can_refit(id) else "FAVOURITES: BUY AT A FRIENDLY STATION" if rules.base_ctf() else "QUEUED FOR NEXT RESPAWN") if tribes else "CLICK TO BUY · B / ESC CLOSE · %ds · %s"%[ceili(maxf(0,rules.phase_end-game.clock)),rules.account(id).notice]
 func mouse_input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		var offset: Vector2=event.position-View.CENTER
@@ -54,6 +54,8 @@ func mouse_input(event: InputEvent):
 		view.accept_event()
 func select(item: int):
 	if tribes:
+		var entries: Array=tribes_shop.rows(rules,rules.game.multiplayer.get_unique_id()).filter(func(row):return row.id==item)
+		if entries.is_empty() or not entries[0].usable:return
 		if tribes_shop.select(item,rules,rules.game.multiplayer.get_unique_id()):close();return
 		hover=-1;refresh();return
 	if Shop.GROUPS.has(item):page=item

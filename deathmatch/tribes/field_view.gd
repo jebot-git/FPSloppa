@@ -13,7 +13,7 @@ func _exit_tree():
 		if is_instance_valid(node):node.queue_free()
 func update():
 	var game=rules.game
-	if epoch!=game.map_epoch:epoch=game.map_epoch;next_update=0.0
+	if epoch!=game.map_epoch:epoch=game.map_epoch;next_update=0.0;selected_target=""
 	if game.clock<next_update and rules.enabled():return
 	next_update=game.clock+.1
 	var present: Dictionary={}
@@ -30,8 +30,7 @@ func update():
 		for key in rules.targeting.beacons:
 			var tag: String="b%d"%key;var row: Dictionary=rules.targeting.beacons[key];present[tag]=true
 			if not nodes.has(tag):
-				var node:=Node3D.new();game.add_child(node);nodes[tag]=node
-				var art=preload("res://deathmatch/art.gd");art.box(node,Vector3.ZERO,Vector3(.22,.12,.22),art.material(Color("354651"),.6));art.box(node,Vector3(0,.09,0),Vector3(.06,.1,.06),art.material(Color("f48c75") if row.team==0 else Color("7bbcf5"),.2,1))
+				var node=preload("res://deathmatch/tribes/prop_library.gd").make("beacon",row.team);game.add_child(node);nodes[tag]=node
 			nodes[tag].global_position=row.position
 			var y: Vector3=row.normal;var x: Vector3=Vector3.FORWARD.cross(y).normalized() if absf(y.z)<.95 else Vector3.RIGHT.cross(y).normalized()
 			nodes[tag].global_basis=Basis(x,y,x.cross(y))
@@ -49,7 +48,7 @@ func update():
 	if game.is_vr():forward=-game.xr_rig.head.global_basis.z
 	var chosen: Dictionary={};var best:=-2.0
 	for row in candidates:
-		mark(row.key,row.position+Vector3.UP*.3,"◇ "+row.name,Color("dfbe78"))
+		mark(row.key,row.position+Vector3.UP*.3,"◇",row.name,Color("dfbe78"))
 		var score: float=forward.dot((row.position-origin).normalized())+(.25 if row.key==selected_target else 0.0)
 		if score>best:chosen=row;best=score
 	# One collision-checked solution per 10 Hz update, not an arc for every
@@ -57,13 +56,19 @@ func update():
 	if not chosen.is_empty():
 		selected_target=chosen.key
 		var solution: Dictionary=rules.targeting.solution(id,chosen.position)
-		if not solution.is_empty():mark("aim"+chosen.key,origin+solution.direction*8,"⊕ "+chosen.name+" %0.1fs"%solution.time,Color("86efbe"))
+		if not solution.is_empty():mark("aim"+chosen.key,origin+solution.direction*8,"⊕",chosen.name+" %0.1fs"%solution.time,Color("86efbe"))
 	purge_markers()
 func purge_markers():
 	for key in markers.keys():
 		if not visible_markers.has(key):markers[key].queue_free();markers.erase(key)
-func mark(key: String,point: Vector3,text: String,color: Color):
+func mark(key: String,point: Vector3,symbol: String,text: String,color: Color):
 	visible_markers[key]=true
 	if not markers.has(key):
-		var label:=Label3D.new();label.font_size=28;label.pixel_size=.006;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true;rules.game.add_child(label);markers[key]=label
-	markers[key].global_position=point;markers[key].text=text;markers[key].modulate=color;markers[key].show()
+		# Artillery targets can be hundreds of metres away. Keep a small fixed
+		# angular size so the name remains readable at both the site and aim cue.
+		var label:=Label3D.new();label.font_size=28;label.pixel_size=.0015;label.fixed_size=true;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;label.no_depth_test=true;rules.game.add_child(label);markers[key]=label
+		# Centre only the symbol on the solution. Centring a combined caption
+		# shifts the visible aiming ring left of the actual ballistic direction.
+		var caption:=Label3D.new();caption.name="Caption";caption.font_size=28;caption.pixel_size=label.pixel_size;caption.fixed_size=true;caption.billboard=label.billboard;caption.no_depth_test=true;caption.horizontal_alignment=HORIZONTAL_ALIGNMENT_LEFT;caption.offset=Vector2(20,0);label.add_child(caption)
+	markers[key].global_position=point;markers[key].text=symbol;markers[key].modulate=color;markers[key].show()
+	var caption: Label3D=markers[key].get_node("Caption");caption.text=text;caption.modulate=color

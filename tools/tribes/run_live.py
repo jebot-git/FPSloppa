@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Start local ST 6v6 with 600-second first-capture/post-capture-pickup cutoffs."""
+"""Start a local ST match with 600-second capture/pickup cutoffs."""
 import argparse
 import hashlib
 import json
@@ -14,6 +14,8 @@ parser.add_argument('--output', default='test-results/st-tribes/live')
 parser.add_argument('--speed', type=int, choices=[1, 2, 4], default=1)
 parser.add_argument('--seconds', type=float, default=0)
 parser.add_argument('--seed', type=int, default=9281)
+parser.add_argument('--team-size', type=int, choices=range(1, 17), default=6)
+parser.add_argument('--navigation-metrics', action='store_true')
 parser.add_argument('--map', choices=['ctf_stonehenge', 'ctf_raindance'], default='ctf_stonehenge')
 parser.add_argument('--headless', action='store_true')
 parser.add_argument('--record', action='store_true', help='Record the visible spectator viewport and game-clock anchors')
@@ -27,7 +29,8 @@ if output.exists() and any(output.iterdir()):
     parser.error('Use an empty output directory to preserve earlier match evidence')
 output.mkdir(parents=True, exist_ok=True)
 options = dict(output=str(output), port=args.port, speed=args.speed, seconds=args.seconds, seed=args.seed,
-               map=args.map, record=args.record, headless=args.headless, renderer=args.renderer)
+               map=args.map, record=args.record, headless=args.headless, renderer=args.renderer,
+               team_size=args.team_size, navigation_metrics=args.navigation_metrics)
 (output / 'options.json').write_text(json.dumps(options, indent=2))
 diff = subprocess.check_output(['git', 'diff', '--no-ext-diff'], cwd=project)
 (output / 'source.patch').write_bytes(diff)

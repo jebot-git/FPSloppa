@@ -15,6 +15,8 @@ func seconds(id: int,path: PackedVector3Array) -> float:
 	var speed: float=maxf(profile.walk,velocity.length());var heading:=velocity.normalized()
 	var reserve: float=game.fighters[id].tribes_state.energy/profile.energy
 	var total:=0.0;var index:=0
+	var recharging: bool=ai.brains.get(id,{}).get("carrier_recharging",false)
+	var travelled:=0.0
 	while index<path.size()-1:
 		# Match the steering controller's clear-corridor lookahead instead of
 		# charging for every small zigzag of the terrain sampling grid.
@@ -25,6 +27,10 @@ func seconds(id: int,path: PackedVector3Array) -> float:
 		var offset:=path[next]-path[index];var distance:=offset.length();var flat:=Vector3(offset.x,0,offset.z);var direction:=flat.normalized()
 		if distance<.1:index=next;continue
 		var turn:=acos(clampf(heading.dot(direction),-1,1)) if not heading.is_zero_approx() and not direction.is_zero_approx() else 0.0
+		if recharging and travelled<100:
+			# Early downhill distance is useful recharge time. Penalise an
+			# immediate climb or reversal which would spend the empty reserve.
+			total+=maxf(0,offset.y)*.5+turn*2
 		# A reversal spends time braking and rebuilding speed; a shallow bend
 		# can be flown with a smaller directional-jet correction.
 		total+=2*speed*sin(turn*.5)/maxf(4,profile.thrust*.5)
@@ -38,6 +44,7 @@ func seconds(id: int,path: PackedVector3Array) -> float:
 			total+=offset.y*(.12+.35*(1-reserve))
 		else:exit_speed=maxf(entry,profile.walk*1.15)
 		total+=distance/maxf(1,(entry+exit_speed)*.5)
+		travelled+=distance
 		speed=exit_speed;heading=direction;index=next
 	return total
 func path(id: int,start: Vector3,goal: Vector3,avoid: Array,retain: bool=true) -> PackedVector3Array:

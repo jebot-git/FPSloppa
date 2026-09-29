@@ -28,6 +28,9 @@ func setup(arena: Node) -> void:
 		var idx:=AudioServer.bus_count-1
 		AudioServer.set_bus_name(idx,"ArenaEffects");AudioServer.set_bus_send(idx,"ArenaSpatial")
 func choose(kind: String) -> AudioStream:
+	if kind in ["hit_confirm","impact_energy","impact_heavy","impact_dust"]:
+		if not cache.has(kind):cache[kind]=preload("res://deathmatch/audio/impact_sounds.gd").make(kind)
+		return cache[kind]
 	var file:="res://deathmatch/audio/"+kind+".wav"
 	if kind.begins_with("tribes_") and not "/" in kind and not "." in kind:file="res://deathmatch/audio/tribes/"+kind.trim_prefix("tribes_").trim_suffix("_alt")+".res"
 	elif kind.begins_with("cs_reload_") and kind.trim_prefix("cs_reload_") in ["mag_out","mag_in","rack_back","rack_close","empty_lock"]:

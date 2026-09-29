@@ -159,8 +159,10 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 		elif p.mag:
 			# Measure the draw relative to the gun, using fresh bounded tracking.
 			# A normal pull is enough; no flick or high speed is required.
-			if not motion.get("valid",false):p.anchor=local;p.started=now
-			elif (local-p.anchor).dot(mag_direction(w))*.65>=.055 and now-p.started>=.06:
+			# Server ticks between network packets must not restart a held pull.
+			# Only a new invalid tracking sample breaks its continuous stroke.
+			if not motion.get("valid",false) and not motion.get("duplicate",false):p.anchor=local;p.started=now
+			elif motion.get("valid",false) and (local-p.anchor).dot(mag_direction(w))*.65>=.055 and now-p.started>=.06:
 				var loaded:=clip
 				eject_mag(p);clip=mini(clip,1) if p.ready else 0;p.carry=REMOVED_MAG
 				p.carried_rounds=loaded-clip;p.removed_depth=(local-p.anchor).dot(mag_direction(w));p.started=now

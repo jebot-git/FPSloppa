@@ -40,10 +40,10 @@ for target in ['Quest']:
         assert {n.split('/')[1] for n in z.namelist() if n.startswith('lib/')} == {'arm64-v8a'}
         for name in ['libgodot_android.so', 'libopenxr_loader.so', 'libgodotopenxrvendors.so']:
             assert 'lib/arm64-v8a/' + name in z.namelist()
-        for name, local in [('libgodot-steam-audio.android.template_release.arm64.so','addons/godot-steam-audio/bin/libgodot-steam-audio.android.template_release.arm64.so'),('libphonon.so','addons/godot-steam-audio/bin/android/arm64/libphonon.so'),('libtwovoip.android.template_release.arm64.so','addons/twovoip/libs/libtwovoip.android.template_release.arm64.so')]:
+        for name, local in [('libfpsloppa_native.android.so','addons/fps_native/bin/libfpsloppa_native.android.so'),('libgodot-steam-audio.android.template_release.arm64.so','addons/godot-steam-audio/bin/libgodot-steam-audio.android.template_release.arm64.so'),('libphonon.so','addons/godot-steam-audio/bin/android/arm64/libphonon.so'),('libtwovoip.android.template_release.arm64.so','addons/twovoip/libs/libtwovoip.android.template_release.arm64.so')]:
             binary=z.read('lib/arm64-v8a/'+name)
             assert binary[:6]==b'\x7fELF\x02\x01', (target,name,'expected ELF64 little endian')
-            assert allocated_sections(binary)==allocated_sections((root/local).read_bytes()), ('Outdated native audio library',target,name)
+            assert allocated_sections(binary)==allocated_sections((root/local).read_bytes()), ('Outdated native library',target,name)
             offset=struct.unpack_from('<Q',binary,32)[0]
             size,count=struct.unpack_from('<HH',binary,54)
             loads=[struct.unpack_from('<IIQQQQQQ',binary,offset+i*size) for i in range(count)]

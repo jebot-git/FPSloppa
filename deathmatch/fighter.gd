@@ -67,6 +67,8 @@ var stepped_last_frame:=false
 var visual_reset_until:=-1
 var prediction=preload("res://deathmatch/movement/prediction.gd").new()
 var prediction_view_offset:=Vector3.ZERO
+var render_mount: Callable
+var mounted_visuals: Array=[]
 
 func setup(id: int, nickname: String, color: Color) -> void:
 	process_priority=-20
@@ -306,6 +308,7 @@ func _physics_process(delta: float) -> void:
 	if view_offset_tick!=Engine.get_physics_frames():advance_view_offset(delta)
 
 func render_view_offset(fraction: float=-1.0) -> float:
+	if render_mount.is_valid() and render_mount.call().is_finite():return 0.0
 	# Interpolate the stair offset on the same timeline as the capsule. Applying
 	# the newest offset to the previous physics pose jolts the camera each step.
 	if fraction<0:
@@ -314,8 +317,32 @@ func render_view_offset(fraction: float=-1.0) -> float:
 	return lerpf(previous_view_offset,view_offset,clampf(fraction,0,1))
 
 func render_position() -> Vector3:
+	if render_mount.is_valid():
+		var mounted: Vector3=render_mount.call()
+		if mounted.is_finite():return mounted
 	var rendered:=get_global_transform_interpolated().origin
 	return global_position if Engine.get_physics_frames()<=visual_reset_until else rendered+prediction_view_offset
+
+func clear_mounted_visuals() -> void:
+	for saved in mounted_visuals:
+		var node=saved.node.get_ref()
+		if not is_instance_valid(node):continue
+		node.transform=saved.pose;node.physics_interpolation_mode=saved.interpolation
+		node.reset_physics_interpolation()
+	mounted_visuals.clear()
+
+func update_mounted_visuals() -> void:
+	# Runs after animation: translate only graphics, keeping collision authoritative.
+	clear_mounted_visuals()
+	if not render_mount.is_valid():return
+	var at: Vector3=render_mount.call()
+	if not at.is_finite():return
+	for node in [avatar,jetpack_model,label]:
+		if not is_instance_valid(node):continue
+		if node==avatar and not avatar_hash.is_empty() and avatar.first_person:continue
+		mounted_visuals.append({"node":weakref(node),"pose":node.transform,"interpolation":node.physics_interpolation_mode})
+		node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
+		node.global_position+=at-global_position
 
 func correct_prediction(requested: Vector3) -> Vector3:
 	if requested.is_zero_approx():return Vector3.ZERO
@@ -372,10 +399,11 @@ func set_local_body(value: bool) -> void:
 	show_alive(alive_state,local_player)
 
 func _process(_delta: float) -> void:
+	clear_mounted_visuals()
 	_update_jetpack_visual()
 	prediction_view_offset*=exp(-12.0*_delta)
 	if not avatar:return
-	var unarmed: bool=get_parent().lobby.active() or get_parent().match_mode.defusal.gun_holstered(peer_id)
+	var unarmed: bool=get_parent().match_mode.tribes.vehicles.piloting(peer_id) or get_parent().lobby.active() or get_parent().match_mode.defusal.gun_holstered(peer_id)
 	if avatar:
 		if avatar_hash.is_empty():
 			for weapon in avatar.find_children("WeaponModel","Node3D",true,false):weapon.visible=not unarmed and alive_state

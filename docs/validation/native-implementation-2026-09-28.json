@@ -1,0 +1,1303 @@
+{
+  "date": "2026-09-28",
+  "scope": "Hybrid C++ avatar/projectile acceleration and GDScript packet grouping; no LOD, tick-rate or wire-protocol change.",
+  "server": [
+    {
+      "label": "reference-a",
+      "combined": {
+        "max_ms": 16.033,
+        "mean_ms": 8.84099166666667,
+        "p50_ms": 7.668,
+        "p95_ms": 14.977
+      },
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 6.894,
+        "tick_max_ms": 9.71,
+        "tick_p50_ms": 7.326,
+        "tick_p95_ms": 8.638,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.607772222222222,
+        "history_ms_per_tick": 0.0623222222222222,
+        "melee_ms_per_tick": 0.166388888888889,
+        "projectiles_ms_per_tick": 3.77208888888889
+      }
+    },
+    {
+      "label": "native-a",
+      "combined": {
+        "max_ms": 10.157,
+        "mean_ms": 4.90844166666667,
+        "p50_ms": 3.884,
+        "p95_ms": 8.651
+      },
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 4.406,
+        "tick_max_ms": 6.002,
+        "tick_p50_ms": 3.694,
+        "tick_p95_ms": 4.618,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.600444444444444,
+        "history_ms_per_tick": 0.0547527777777778,
+        "melee_ms_per_tick": 0.159041666666667,
+        "projectiles_ms_per_tick": 1.338725
+      }
+    },
+    {
+      "label": "native-b",
+      "combined": {
+        "max_ms": 10.895,
+        "mean_ms": 4.9937125,
+        "p50_ms": 3.814,
+        "p95_ms": 8.881
+      },
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 4.986,
+        "tick_max_ms": 6.522,
+        "tick_p50_ms": 3.656,
+        "tick_p95_ms": 4.759,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.605036111111111,
+        "history_ms_per_tick": 0.0565777777777778,
+        "melee_ms_per_tick": 0.162747222222222,
+        "projectiles_ms_per_tick": 1.35500833333333
+      }
+    },
+    {
+      "label": "reference-b",
+      "combined": {
+        "max_ms": 17.826,
+        "mean_ms": 8.7683125,
+        "p50_ms": 7.402,
+        "p95_ms": 14.675
+      },
+      "load": {
+        "history_entries": 23,
+        "max_projectiles": 523,
+        "players": 16,
+        "snapshot_p95_ms": 6.786,
+        "tick_max_ms": 11.099,
+        "tick_p50_ms": 7.14,
+        "tick_p95_ms": 8.397,
+        "ticks": 240,
+        "version": "0.19v",
+        "vr": false
+      },
+      "helpers": {
+        "collect_ms_per_tick": 0.610158333333333,
+        "history_ms_per_tick": 0.057375,
+        "melee_ms_per_tick": 0.164827777777778,
+        "projectiles_ms_per_tick": 3.77652222222222
+      }
+    }
+  ],
+  "avatars": {
+    "reference": {
+      "cold_clip_bakes": [
+        {
+          "bones": 140,
+          "direction": 0,
+          "model": "sample_d",
+          "ms": 3.682,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 1,
+          "model": "sample_d",
+          "ms": 2.765,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 2,
+          "model": "sample_d",
+          "ms": 2.382,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 3,
+          "model": "sample_d",
+          "ms": 2.262,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 4,
+          "model": "sample_d",
+          "ms": 2.284,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 5,
+          "model": "sample_d",
+          "ms": 2.307,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 6,
+          "model": "sample_d",
+          "ms": 2.426,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 7,
+          "model": "sample_d",
+          "ms": 3.336,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 0,
+          "model": "sample_f",
+          "ms": 2.448,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 1,
+          "model": "sample_f",
+          "ms": 2.369,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 2,
+          "model": "sample_f",
+          "ms": 2.4,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 3,
+          "model": "sample_f",
+          "ms": 2.399,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 4,
+          "model": "sample_f",
+          "ms": 2.555,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 5,
+          "model": "sample_f",
+          "ms": 2.318,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 6,
+          "model": "sample_f",
+          "ms": 2.315,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 7,
+          "model": "sample_f",
+          "ms": 2.724,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 0,
+          "model": "sample_g",
+          "ms": 2.434,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 1,
+          "model": "sample_g",
+          "ms": 2.384,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 2,
+          "model": "sample_g",
+          "ms": 2.373,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 3,
+          "model": "sample_g",
+          "ms": 2.264,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 4,
+          "model": "sample_g",
+          "ms": 2.296,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 5,
+          "model": "sample_g",
+          "ms": 2.397,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 6,
+          "model": "sample_g",
+          "ms": 2.311,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 7,
+          "model": "sample_g",
+          "ms": 2.493,
+          "tracks": 30
+        }
+      ],
+      "engine": "4.7.2-stable (fedora)",
+      "frames_per_block": 360,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "reports": [
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.548580555617809,
+            "p95": 0.694999992847443,
+            "p99": 0.823000013828278
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 20.6111111111111,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.77098611361451,
+            "p95": 2.11199998855591,
+            "p99": 2.34100008010864
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.437708333333333
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.259897222222222
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.96689444444444
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.698952777777778
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 8.55103611111111,
+            "p95": 9.388,
+            "p99": 9.957
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.402325000448359,
+            "p95": 0.570999979972839,
+            "p99": 0.755999982357025
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.77479444212384,
+            "p95": 2.10800004005432,
+            "p99": 2.68499994277954
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.890372222222222
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 6.20621111111111,
+            "p95": 6.991,
+            "p99": 8.247
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.419216667281257,
+            "p95": 0.602999985218048,
+            "p99": 0.760999977588654
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 22.2166666666667,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.7347499989801,
+            "p95": 2.05999994277954,
+            "p99": 2.40599989891052
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.386563888888889
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.243527777777778
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.768133333333333
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.591786111111111
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.93491388888889,
+            "p95": 9.492,
+            "p99": 10.374
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.41074166579379,
+            "p95": 0.546000003814697,
+            "p99": 0.671000003814697
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.9527777777778,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.74510833356116,
+            "p95": 2.05399990081787,
+            "p99": 2.69099998474121
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.388247222222222
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.243691666666667
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.786805555555556
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.598944444444444
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 7.01288333333333,
+            "p95": 9.786,
+            "p99": 10.548
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.394922222197056,
+            "p95": 0.546999990940094,
+            "p99": 0.669000029563904
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.74827221996254,
+            "p95": 2.11899995803833,
+            "p99": 2.23300004005432
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.885708333333333
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 6.18133333333333,
+            "p95": 6.951,
+            "p99": 7.412
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.567230554090606,
+            "p95": 0.782999992370605,
+            "p99": 0.939000010490417
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 20.6222222222222,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.8023777809408,
+            "p95": 2.27500009536743,
+            "p99": 3.01300001144409
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.439066666666667
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.270352777777778
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.92135
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.715083333333333
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 10,
+            "1": 6
+          },
+          "wall_ms": {
+            "mean": 8.674025,
+            "p95": 10.387,
+            "p99": 15.23
+          }
+        }
+      ],
+      "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+    },
+    "native": {
+      "cold_clip_bakes": [
+        {
+          "bones": 140,
+          "direction": 0,
+          "model": "sample_d",
+          "ms": 1.617,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 1,
+          "model": "sample_d",
+          "ms": 1.412,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 2,
+          "model": "sample_d",
+          "ms": 1.449,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 3,
+          "model": "sample_d",
+          "ms": 1.444,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 4,
+          "model": "sample_d",
+          "ms": 1.428,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 5,
+          "model": "sample_d",
+          "ms": 1.378,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 6,
+          "model": "sample_d",
+          "ms": 1.391,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 7,
+          "model": "sample_d",
+          "ms": 1.407,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 0,
+          "model": "sample_f",
+          "ms": 1.526,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 1,
+          "model": "sample_f",
+          "ms": 1.434,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 2,
+          "model": "sample_f",
+          "ms": 1.411,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 3,
+          "model": "sample_f",
+          "ms": 1.422,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 4,
+          "model": "sample_f",
+          "ms": 1.397,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 5,
+          "model": "sample_f",
+          "ms": 1.716,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 6,
+          "model": "sample_f",
+          "ms": 1.394,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 7,
+          "model": "sample_f",
+          "ms": 1.383,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 0,
+          "model": "sample_g",
+          "ms": 1.377,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 1,
+          "model": "sample_g",
+          "ms": 1.469,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 2,
+          "model": "sample_g",
+          "ms": 1.587,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 3,
+          "model": "sample_g",
+          "ms": 1.456,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 4,
+          "model": "sample_g",
+          "ms": 1.403,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 5,
+          "model": "sample_g",
+          "ms": 1.445,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 6,
+          "model": "sample_g",
+          "ms": 1.398,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 7,
+          "model": "sample_g",
+          "ms": 1.427,
+          "tracks": 30
+        }
+      ],
+      "engine": "4.7.2-stable (fedora)",
+      "frames_per_block": 360,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "reports": [
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.561630555573437,
+            "p95": 0.764999985694885,
+            "p99": 0.897000014781952
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 20.2916666666667,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.98016388648086,
+            "p95": 2.63199996948242,
+            "p99": 2.8529999256134
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.486822222222222
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.290911111111111
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.50698333333333
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.794247222222222
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 9.00732777777778,
+            "p95": 10.984,
+            "p99": 12.81
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.405063888927301,
+            "p95": 0.569000005722046,
+            "p99": 0.739000022411346
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.73577222426732,
+            "p95": 2.23300004005432,
+            "p99": 2.4300000667572
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.899847222222222
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 6.21242222222222,
+            "p95": 7.325,
+            "p99": 8.162
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.412188889500168,
+            "p95": 0.535000026226044,
+            "p99": 0.712999999523163
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 21.4305555555556,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.80173889100552,
+            "p95": 2.20300006866455,
+            "p99": 2.50300002098083
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.39205
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.2452
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.615838888888889
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.599461111111111
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 7.05440277777777,
+            "p95": 9.2,
+            "p99": 10.267
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.42334999980198,
+            "p95": 0.617999970912933,
+            "p99": 0.819999992847443
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 20.3305555555556,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.72594999869665,
+            "p95": 2.06699991226196,
+            "p99": 2.34100008010864
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.381369444444444
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.240197222222222
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.579125
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.591944444444444
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.81682777777778,
+            "p95": 8.828,
+            "p99": 9.659
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.414183333184984,
+            "p95": 0.619000017642975,
+            "p99": 0.824000000953674
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.70035555627611,
+            "p95": 2.11400008201599,
+            "p99": 2.29999995231628
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.882127777777778
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 6.09541666666667,
+            "p95": 7.04,
+            "p99": 7.655
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.555997223572599,
+            "p95": 0.736999988555908,
+            "p99": 0.859000027179718
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 20.675,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.74662499858273,
+            "p95": 2.08200001716614,
+            "p99": 2.42300009727478
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.423355555555556
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.259558333333333
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.35418611111111
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.696777777777778
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 10,
+            "1": 6
+          },
+          "wall_ms": {
+            "mean": 7.91842222222221,
+            "p95": 8.879,
+            "p99": 9.968
+          }
+        }
+      ],
+      "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+    }
+  },
+  "checks": [
+    {
+      "script": "deathmatch/tests/native_acceleration.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/hit_detection.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/projectile_targets.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/projectile_ordering.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/frame_smoothness.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/replication_protocol.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/de_cover.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "tools/avatar_lod/test_animation.gd",
+      "ok": true,
+      "exit_code": 0
+    }
+  ],
+  "console": {
+    "native_library_mapped": true,
+    "script_errors": false,
+    "exit_code": 2,
+    "server_ready": true,
+    "config_errors": false
+  },
+  "live_network": {
+    "passed": true,
+    "roles": {
+      "server": 0,
+      "shooter": 0,
+      "target": 0,
+      "spectator": 0
+    }
+  },
+  "builds": {
+    "android": {
+      "target": "android",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "18de47455410842c9c37e385e2e85d9622f5b3a4dfcc2c3d04ad95a05c7cf819",
+      "source_sha256": {
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "c06ce76401b22a72ac607dec4533302b97c36ab927196c495aa949b3f0142b8d",
+        "src/projectiles.h": "1bdc895370fdcc4115a899df8256790d4a6d21a2e8f4c2cc2fc6e768fdf5581a",
+        "src/register.cpp": "4e0dc78dbbe2d1a943c1edbaed9bf45d9b63f820de158cd4a50e86373bc111b9",
+        "src/register_server.cpp": "8b74894cc568f3c71a9e6ecab2fa3178998719d6f9d2310df48da641c30d2a76"
+      }
+    },
+    "linux": {
+      "target": "linux",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "6983431239ec4dc2ca2c61e45a65cc5657860163992aa98081d45251aa4afcc7",
+      "source_sha256": {
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "c06ce76401b22a72ac607dec4533302b97c36ab927196c495aa949b3f0142b8d",
+        "src/projectiles.h": "1bdc895370fdcc4115a899df8256790d4a6d21a2e8f4c2cc2fc6e768fdf5581a",
+        "src/register.cpp": "4e0dc78dbbe2d1a943c1edbaed9bf45d9b63f820de158cd4a50e86373bc111b9",
+        "src/register_server.cpp": "8b74894cc568f3c71a9e6ecab2fa3178998719d6f9d2310df48da641c30d2a76"
+      }
+    },
+    "windows": {
+      "target": "windows",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "b89d4ae27bfc4900c1fbf3102ca51d66b4b4b5172fe73199ff3389e091a71f62",
+      "source_sha256": {
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "c06ce76401b22a72ac607dec4533302b97c36ab927196c495aa949b3f0142b8d",
+        "src/projectiles.h": "1bdc895370fdcc4115a899df8256790d4a6d21a2e8f4c2cc2fc6e768fdf5581a",
+        "src/register.cpp": "4e0dc78dbbe2d1a943c1edbaed9bf45d9b63f820de158cd4a50e86373bc111b9",
+        "src/register_server.cpp": "8b74894cc568f3c71a9e6ecab2fa3178998719d6f9d2310df48da641c30d2a76"
+      }
+    },
+    "linux-server": {
+      "target": "linux-server",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "4dfa6279b7fcefd2c4a54d8f328e2a7e96a373f5b67b64f7b087855c0853de64",
+      "source_sha256": {
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "c06ce76401b22a72ac607dec4533302b97c36ab927196c495aa949b3f0142b8d",
+        "src/projectiles.h": "1bdc895370fdcc4115a899df8256790d4a6d21a2e8f4c2cc2fc6e768fdf5581a",
+        "src/register.cpp": "4e0dc78dbbe2d1a943c1edbaed9bf45d9b63f820de158cd4a50e86373bc111b9",
+        "src/register_server.cpp": "8b74894cc568f3c71a9e6ecab2fa3178998719d6f9d2310df48da641c30d2a76"
+      }
+    }
+  },
+  "limitations": [
+    "Synthetic client fixture; no headset runtime or Android/Windows runtime measurement.",
+    "Uncontrolled OS/GPU clocks; near-avatar wall-frame p95 does not show a consistent improvement.",
+    "Server fixture uses sixteen actors firing plasma, no AI or real remote transport; combined scopes include snapshot computation, not the entire engine physics frame.",
+    "Existing fixture ObjectDB/resource shutdown warnings remain in baseline and native runs."
+  ],
+  "network": {
+    "checks": 6335,
+    "failures": [],
+    "reports": [
+      {
+        "after_bytes": 27313,
+        "after_ms": {
+          "median": 0.309,
+          "p95": 0.398
+        },
+        "after_packets": 64,
+        "before_bytes": 27313,
+        "before_ms": {
+          "median": 0.351,
+          "p95": 0.439
+        },
+        "before_packets": 64,
+        "players": 8,
+        "shots": 0,
+        "vr": false
+      },
+      {
+        "after_bytes": 131432,
+        "after_ms": {
+          "median": 1.039,
+          "p95": 1.279
+        },
+        "after_packets": 132,
+        "before_bytes": 131432,
+        "before_ms": {
+          "median": 1.265,
+          "p95": 1.503
+        },
+        "before_packets": 132,
+        "players": 16,
+        "shots": 32,
+        "vr": true
+      },
+      {
+        "after_bytes": 1087542,
+        "after_ms": {
+          "median": 2.515,
+          "p95": 2.758
+        },
+        "after_packets": 1028,
+        "before_bytes": 1087542,
+        "before_ms": {
+          "median": 4.554,
+          "p95": 4.857
+        },
+        "before_packets": 1028,
+        "players": 16,
+        "shots": 523,
+        "vr": false
+      }
+    ]
+  },
+  "native_parity": {
+    "checks": 51311,
+    "failures": []
+  },
+  "combat_checks": [
+    {
+      "script": "deathmatch/tests/rocket_jump.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/combat.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/fortress.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/defusal_grenades.gd",
+      "ok": true,
+      "exit_code": 0
+    },
+    {
+      "script": "deathmatch/tests/lag_reliability.gd",
+      "ok": true,
+      "exit_code": 0
+    }
+  ],
+  "source_sha256": {
+    "deathmatch/arena.gd": "0db4ff8ee099341ade1d417a28a96fdd89d46000116a464c7c8f8dc3dc20b5cd",
+    "deathmatch/avatars/pose.gd": "b7441af97f9f3253bf3b246081e79138a08fa2e9e5435b30136cfed7f58a13c7",
+    "deathmatch/avatars/pose_blend.gd": "0bfcdf994f244c335241baff27b24ee538a5c1c1df17ef48b3df996933940ce4",
+    "deathmatch/network/replication.gd": "223189ed3ee3444d24c9be5d3beac2aba6d1133af94f4137e6c94103b8ea33a9",
+    "deathmatch/native/runtime.gd": "55639674f609567f544138b52c503f0990495fbcfec0ad4364711cfd83055c0b"
+  }
+}

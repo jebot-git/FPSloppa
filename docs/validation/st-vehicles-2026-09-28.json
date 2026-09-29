@@ -1,0 +1,170 @@
+{
+  "date": "2026-09-28",
+  "checked_utc": "2026-09-28T21:47:57.710652+00:00",
+  "branch": "experimental/st-raindance",
+  "git_head": "8dbf9cc8ac3355c1682dec040c4291bcf6a58bf4",
+  "working_tree": "Uncommitted Scout implementation alongside preceding ST bot changes; no release or commit performed.",
+  "scope": "First playable Scout with Raindance terminals, server flight/combat, replicated seats and existing desktop/VR controls.",
+  "protocol": "fpsloppa-64-st-scout",
+  "godot": "4.7.2.stable.fedora.ed1daf0bf",
+  "tests": [
+    {
+      "name": "Scout gameplay and collision",
+      "checks_passed": 55,
+      "log": "test-results/st-vehicles/scout-final-checked.log",
+      "sha256": "9b615a7c4f07f8dc467e322a572c86ab12954a1105eb36d595e2a8902222763c"
+    },
+    {
+      "name": "Three-process ENet lifecycle",
+      "checks_passed": 17,
+      "log": "test-results/st-vehicles/network-final-checked.log",
+      "sha256": "7c1816d227254bee6311ef2929508f31f652c9a8d5bd596820341053faea716b"
+    },
+    {
+      "name": "ST rules and interactions",
+      "checks_passed": 59,
+      "log": "test-results/st-vehicles/regression-st-final.log",
+      "sha256": "df31d8f8d5e88daa7baac499110b26b2e77a2b39ffb6fc5f432770a39ecba3bd"
+    },
+    {
+      "name": "Recording validation",
+      "checks_passed": 17,
+      "log": "test-results/st-vehicles/regression-demo.log",
+      "sha256": "f9c7f83ffc3957cc3eadae250c8c377495ab5df7dea4138dec22f261d10cfcfe"
+    },
+    {
+      "name": "Recorded Raindance routes",
+      "checks_passed": 7,
+      "log": "test-results/st-vehicles/regression-routes.log",
+      "sha256": "282dfb480e8822f9850060a764d2b6478baed28bf0e32872eb26c6b1bd562282"
+    },
+    {
+      "name": "Fixed defence and offence parity",
+      "checks_passed": 94,
+      "log": "test-results/st-vehicles/regression-parity123.log",
+      "sha256": "3a334831b4db42e77ba45094f249a7d38ed7ab3e89b4eb612db55f0b4e80e54a"
+    }
+  ],
+  "total_checks_passed": 249,
+  "network_process_logs": {
+    "test-results/st-vehicles/network/pilot.log": "b5f03dd3b3fca2a9d0d6a6d955e8764a769f8ebabf499a02a1932735cdc5fff0",
+    "test-results/st-vehicles/network/server.log": "6c0b3d96b2a58ea39c640d12dc3cd89e728da553617860ba21bccfbb5393d05c",
+    "test-results/st-vehicles/network/viewer.log": "ada6a51d208840c21a21a5f153a1f18b7d39c4f3d5b3a6490f1e4d01e361afa6"
+  },
+  "graphical_validation": {
+    "renderer": "Vulkan mobile",
+    "xr": "off",
+    "audio_driver": "Dummy",
+    "evidence_sha256": {
+      "test-results/st-vehicles/preview-validated.log": "61ef4c723428db488fa39a78647bf75516b757f0f70e922f0dd2ab3afa7f94e0",
+      "test-results/st-vehicles/scout-pad.png": "ac37a705c9881497f5f50e9f3e82b6999417cfe42904fad94f2fca5308838bf3",
+      "test-results/st-vehicles/scout-front.png": "795da9ae55817a387255c3990af3ca00967d97a3ef3aea3ee5c5e1f6442a307d",
+      "test-results/st-vehicles/scout-cockpit.png": "40c584897735c29d26090d87123dbf1b8363ce60a6ade3c84153848ebe2fd038",
+      "test-results/st-vehicles/scout-buy.png": "b54c5b20a85bb146fa62b880ba2b1d6635b623ed76ebccd25b4b189aace51c0b"
+    }
+  },
+  "assets": {
+    "source": "CC0 Kenney Space Kit craft_speederA.glb, remodeled in Blender MCP",
+    "blender": "5.2 LTS",
+    "mcp_addon_protocol": 5,
+    "mcp_note": "Available fallback tools used with newer server; no addon update required.",
+    "editable": "tools/tribes/vehicle-sources/scout.blend",
+    "credits": "deathmatch/vehicles/tribes/CREDITS.md",
+    "audio": "Original synthesized turbine loop; playback resource verified, Dummy audio used during render check."
+  },
+  "references": [
+    {
+      "local": "test-results/st-vehicles/references/scout.cs",
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/vehicles/scout.cs",
+      "sha256": "ba4093d9f0f6c22bb3040c5cd4d0ea710aa317b665f530724f049220b1765975"
+    },
+    {
+      "local": "test-results/st-vehicles/references/vehicle.cs",
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/vehicles/vehicle.cs",
+      "sha256": "e02f2fbcfbc84cffc3e2ca1c275bf4e084d5aa57b5783f7215bb8a780e49874b"
+    },
+    {
+      "local": "test-results/st-vehicles/references/vehiclestation.cs",
+      "url": "https://raw.githubusercontent.com/shayk-siege/t1.41-base/c077e0f6ee5c5b0987f9eddf4834a139b5a5a332/server/items/stations/vehiclestation.cs",
+      "sha256": "e67b437c90a0aaf502b57bc64de9eb3c20f0301ed078c8852ee7a0ab3debf103"
+    },
+    {
+      "local": "test-results/st-vehicles/references/kenney.html",
+      "url": "https://kenney.nl/assets/space-kit",
+      "sha256": "e139b87388dfadd443cba3e6dd740803a6236bcf65c678c639ec427976381181"
+    },
+    {
+      "local": "test-results/st-vehicles/kenney-space-kit.zip",
+      "url": "https://kenney.nl/media/pages/assets/space-kit/20874c75ac-1677698978/kenney_space-kit.zip",
+      "sha256": "d5d7cdf2635ed5a43a9187deaf409b6f47484e402321128341d3c3698e9ef4d9"
+    }
+  ],
+  "manual_reference": "https://www.the-flet.com/dynamix/t1/TribesManual.pdf",
+  "source_sha256": {
+    "deathmatch/arena.gd": "7ec9ac1e24d24f7f3ddfde5c7b8508d03a08f32f705dc47ce8ba65c19ca3f007",
+    "deathmatch/fighter.gd": "e2526249c1da378aaa39cb3a7da37f069e3a17ff5b6a9412ed1cc9caa4c26f8f",
+    "deathmatch/maps/runtime.gd": "64ac2993393eee74ccfa5691ffc5abcf13b2e9ab1baa0754899fbc075773084b",
+    "deathmatch/modes/fortress_fx.gd": "3f72bbbb45c823ce9e2af6b88f6ca46769b0955d49780322168b8309b3444f33",
+    "deathmatch/modes/match.gd": "0d5f32574f08672e0efef32393e7183c036d6f12ac03efb47d1302fb46169871",
+    "deathmatch/modes/tribes.gd": "049a9b338712d8df4afb52536efb3cdcee22509359b84d00ababb4835a4a0279",
+    "deathmatch/tests/st_parity123.gd": "57ea0486bd9d8f2df8f3e9c54f9f411ba5c895c6cd6407685abab6b74bfcf5d2",
+    "deathmatch/tests/st_raindance_routes.gd": "40581a2acfae9f7e424049047bbec44106a3680174677218df368a5602cfa968",
+    "deathmatch/tests/st_scout.gd": "59af115982578ab5612887387a1b0558ddea64362b162cb96cc99c787a97bc88",
+    "deathmatch/tests/st_scout_network.gd": "3ab65310fb45ca95c68a1625f43f1c08d57781b9f40b44bc85fc5a66ac5cdf8a",
+    "deathmatch/tests/st_tribes.gd": "12c6ba442ca7a00a69a2eeb9b4b2d3b238268084174e9b32e2783f78a88e0848",
+    "deathmatch/tests/tribes_demo.gd": "4483d839ab957ec4aad45f3b19e4ba22ef2499ff493987990ec4c984853c01d5",
+    "deathmatch/tribes/buy_wheel.gd": "6413a3eefd84fc9ab77816e3cdd916ea5574c150525bbd0cdd9a10f77edd3b11",
+    "deathmatch/tribes/combat.gd": "bd70f0fdbc6259961ce47dca992c88cf17598eb9903f6a768464416936103ff4",
+    "deathmatch/tribes/ctf.gd": "c37378f774fd2ad10b05ef6bdefc527c7e73e6132aec13644017c7acecf9a2f6",
+    "deathmatch/tribes/fixed_defences.gd": "2b1ec3ce98b43176050bb067bd41b08fd9117da83b70cb2665c902fb2dc355fa",
+    "deathmatch/tribes/stations.gd": "d4ae2fd43de8dc79635f0d57b76b6726d748a0c400b5a84ac3df521072c623bf",
+    "deathmatch/ui/defusal_panel.gd": "f164c62a656124415b01cb3133761fb7024666ed7df6a87473dcb944d97f2dce",
+    "deathmatch/ui/weapon_icons/st_scout.svg": "ff70286f891a3d2f6de7122aac066902b4d311b12a09e92816e597c56ec865ae",
+    "deathmatch/ui/weapon_icons.gd": "12d5defa7ef19434edc16da56bc431f4a34779de2f251c37f5d70a06a0aed501",
+    "deathmatch/vehicles/tribes/CREDITS.md": "9e5987fe0bb6eeee2fbd4cfbb98c854a3e901380e991e0f0ecc6173c18b53d10",
+    "deathmatch/vehicles/tribes/controller.gd": "90f507e671864d36c8a9b20de6bed739f0eaa08e52097f725a2123ae3b49cdd7",
+    "deathmatch/vehicles/tribes/controller.gd.uid": "5ac19ffd0cd76c50cf5c078a8a8334dc151d484d9898092ad1109ceecf74328b",
+    "deathmatch/vehicles/tribes/scout-icon.res": "1fdc3589f0f78b3b1ee942552e436b14278af72706c697cf75c94d83d63cb22c",
+    "deathmatch/vehicles/tribes/scout.glb": "35048728a5aa6c6331f01e6576be8c01760e429fa2c4b167ddb71beeb0010da0",
+    "deathmatch/vehicles/tribes/scout.scn": "333ef2270dcab6492f1eac57679ad8b01419d35fd8a99a85319ba84cd038749b",
+    "deathmatch/vehicles/tribes/scout_data.gd": "a1769f87ad010b9ef2fe1a74a46277e0e20d7bb74841771d2b86e7c176ea0981",
+    "deathmatch/vehicles/tribes/scout_data.gd.uid": "8b2d4ee203caaee03834f9f6d0fe34bd90733256654af6ed588fddd7003c163e",
+    "deathmatch/vehicles/tribes/turbine.res": "b66714951595d99bf555eca4a50a55dbf6fa20e82b8bb49bfdcfe317c574f664",
+    "deathmatch/vehicles/tribes/turbine.wav": "9e766bdbb0466d64fa56fb0eda85929b4191bcd3773792a96ebeba32690020ca",
+    "deathmatch/vehicles/tribes/view.gd": "e70756cd73c2f84b6216301e75cd896cc5b3027ec55350c4070b8d23f626c03a",
+    "deathmatch/vehicles/tribes/view.gd.uid": "2e2a7cb63d0e97c0f881d14bb4fc3125ea6ffc1492e0a510ea722451272eff3c",
+    "deathmatch/vr/rig.gd": "c2969e76f5c769ac5ac6309ed51acfd049901077a66c4581e52a8e50347fbd15",
+    "docs/ST-FIELD-SYSTEMS.md": "c960257948ad50a77e750ba60c63f2ccd831a5f86f717f09b2714a4fe3c4a735",
+    "docs/ST-RAINDANCE.md": "88b3457b6748d00cbdd69a46d8a59808f5522b6a7e5db5fcf73a7f94737823f0",
+    "docs/ST-VEHICLES.md": "67b4e0531b7a05b98fe55c81df8d2d37a8c800405ef85d508fa284733523f85d",
+    "tools/tribes/README.md": "12bdc745b40d88cf5df5aa3f684994348015d6e881e49bb83c5f078342c8ec6a",
+    "tools/tribes/import_scout.gd": "6d28f6434ecb4205769255038f0cd2ebb9e7b5904ad9b106589e04fbd1859248",
+    "tools/tribes/import_scout.gd.uid": "e145477199cabf8358aa1fb1b00b491c2510aed0d23c66c1fdc09f72c9710ecb",
+    "tools/tribes/scout_audio.py": "28ed95b86efb53aa2357cfc53bc16588540730128afc4517fea045b341d6c30d",
+    "tools/tribes/scout_model.py": "bd219225d25220eeaa6dfdceb5fce7c1fc124765299a84f2a16288e41070316f",
+    "tools/tribes/scout_preview.gd": "ebae0b470ed38b2f750b0d857becc445fbaad0fd1d22942f5bf16b3dc5e92921",
+    "tools/tribes/test_scout_network.py": "43c74d8df3cffe8a68d67dc89a0487ba6f80234af777adaa4e53a799a9d9a045",
+    "tools/tribes/vehicle-sources/License.txt": "bd4e050e69d41351282c4d53f943cd4d80a80b968593e60653ba5292637941b7",
+    "tools/tribes/vehicle-sources/craft_speederA.glb": "dc48652fa5c59088a5e3902abce7598199f32e0dcb8c91bac25e17bb8ce15876",
+    "tools/tribes/vehicle-sources/scout.blend": "091bdaa657e5662de1b84cbca4ed8de67fe7aa2a40065482c4d9d16b3f8478a4"
+  },
+  "source_archive": {
+    "path": "test-results/st-vehicles/sources-final.tar.gz",
+    "sha256": "3c16ba940335393a642c43f6a3705f4f0367a5c97301bcc6f134ee279d3a24e5",
+    "bytes": 541364,
+    "note": "Relevant current source/assets/tests; integration files also contain earlier work. Not a standalone game build."
+  },
+  "limitations": [
+    "No physical headset ergonomics test or contested vehicle match in this pass.",
+    "Flight controller is an independent Godot adaptation; prototype tuning is documented.",
+    "Clients interpolate seats/hulls without vehicle-specific input replay prediction.",
+    "Physical cockpit-stick controls and dedicated seated avatar pose are outstanding.",
+    "Bots do not buy or pilot vehicles.",
+    "LPC/HPC transports deferred per Scout-first selection.",
+    "Only existing Raindance vehicle pads receive terminals; no new Stonehenge station."
+  ],
+  "known_warnings": [
+    "One ObjectDB instance leaked at headless fixture shutdown; two at graphical preview shutdown. No script errors in final logs."
+  ],
+  "excluded_evidence": "Earlier iterative logs in test-results/st-vehicles are retained for debugging; only the named final logs establish these results."
+}

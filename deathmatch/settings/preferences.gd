@@ -4,7 +4,7 @@ const Bounds=preload("res://deathmatch/vr/preferences.gd")
 const ALWAYS_ENABLED=["train_motion","surface_animation","surface_variation"]
 const MUSIC_TRIM_DB := -12.0
 static func defaults() -> Dictionary:
-	return {"train_motion":true,"spatial_audio":"steam_audio","master":1.0,"music":.3,"effects":1.0,"voice":.8,"announcer":.8,"output":"Default","render_scale":1.0,"msaa":1 if OS.has_feature("android") else 2,"foveation_level":2 if OS.has_feature("android") else 0,"fovea_size":2 if OS.has_feature("android") else 0,"texture_filter":2,"contrast_lighting":false,"surface_animation":true,"surface_variation":true,"spring_bones":true,"shadows":false,"fullscreen":false,"fov":85.0,"hud_scale":1.0,"hud_y":-.46}
+	return {"train_motion":true,"spatial_audio":"steam_audio","master":1.0,"music":.3,"effects":1.0,"voice":.8,"announcer":.8,"output":"Default","render_scale":1.0,"msaa":1 if OS.has_feature("android") else 2,"foveation_level":2 if OS.has_feature("android") else 0,"fovea_size":2 if OS.has_feature("android") else 0,"texture_filter":2,"contrast_lighting":false,"surface_animation":true,"surface_variation":true,"spring_bones":false,"controller_haptic_strength":1.0,"shadows":false,"fullscreen":false,"fov":85.0,"hud_scale":1.0,"hud_y":-.46}
 static func limits(key: String) -> Array:
 	return [0,2] if key=="texture_filter" else [.7,1.4] if key=="hud_scale" else [-.65,.55] if key=="hud_y" else [.5,1.25] if key=="render_scale" else [0,3] if key in ["msaa","foveation_level","fovea_size"] else [60,110] if key=="fov" else [0,1]
 static func read_settings(path: String="") -> Dictionary:
@@ -44,7 +44,7 @@ static func bus_volume(bus_name: String,amount: float) -> void:
 static func apply(game: Node,values: Dictionary) -> void:
 	if game.voice:game.voice.volume=values.voice
 	if game.headless:return
-	load("res://addons/vrm/vrm_secondary.gd").springs_enabled=bool(values.get("spring_bones",true))
+	load("res://addons/vrm/vrm_secondary.gd").springs_enabled=bool(values.get("spring_bones",false))
 	game.get_tree().call_group("vrm_secondary_runtime","update_native_state")
 	var filtering:=int(values.get("texture_filter",2))
 	var contrast:=bool(values.get("contrast_lighting",false))

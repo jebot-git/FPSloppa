@@ -41,6 +41,7 @@ func inventory() -> Array:
 		var ammo: int=game.match_mode.tribes.amount(game.multiplayer.get_unique_id(),id) if game.match_mode.tribes.enabled() else -1 if data.ammo<0 else state.get("ammo",[0,0,0,0])[data.ammo]
 		rows.append({"id":id,"name":data.name,"icon":("TRIBES "+data.name) if game.match_mode.tribes.enabled() else data.name,"ammo":ammo,"usable":ammo<0 or ammo>=data.cost})
 	rows.append_array(game.match_mode.defusal.utility.inventory(game.multiplayer.get_unique_id()))
+	if game.match_mode.kind=="st":rows.append({"id":7000,"name":"COMMAND PDA","icon":"ST NETWORK","ammo":-1,"usable":true})
 	return rows
 
 func ensure_view() -> void:
@@ -59,7 +60,7 @@ func ensure_view() -> void:
 func toggle(stick: Vector2) -> void:
 	if input.opened:close();return
 	if not rig.can_open_weapon_wheel():return
-	tribes_shop=rig.game.match_mode.tribes.can_refit(rig.game.multiplayer.get_unique_id())
+	tribes_shop=rig.game.match_mode.tribes.can_open_inventory(rig.game.multiplayer.get_unique_id())
 	if tribes_shop:tribes_inventory.open(rig.game.local_state())
 	shopping=rig.game.match_mode.defusal.can_buy(rig.game.multiplayer.get_unique_id());page=0
 	entries=inventory();input.open(entries.map(func(row):return row.id),stick)
@@ -74,7 +75,7 @@ func reset() -> void:
 	close();input.reset()
 
 func update(stick: Vector2) -> void:
-	if input.opened and tribes_shop and not rig.game.match_mode.tribes.can_refit(rig.game.multiplayer.get_unique_id()):reset();return
+	if input.opened and tribes_shop and not rig.game.match_mode.tribes.can_open_inventory(rig.game.multiplayer.get_unique_id()):reset();return
 	if input.opened and shopping and not rig.game.match_mode.defusal.can_buy(rig.game.multiplayer.get_unique_id()):reset();return
 	if input.opened and not rig.can_open_weapon_wheel():close()
 	if input.opened:
@@ -89,9 +90,16 @@ func update(stick: Vector2) -> void:
 	var previous: int=input.hover
 	var selected: int=input.sample(stick)
 	if selected>=0:
+		if selected==7000:close();rig.game.match_mode.tribes.open_pda();return
 		if tribes_shop:
+			var row: Array=entries.filter(func(entry):return entry.id==selected)
+			if row.is_empty() or not row[0].usable:
+				rig.game.status("Equipment unavailable.")
+				input.open(entries.map(func(entry):return entry.id),stick);refresh_view();return
 			var exit_shop: bool=tribes_inventory.select(selected,rig.game.match_mode.tribes,rig.game.multiplayer.get_unique_id())
-			if exit_shop:tribes_shop=false
+			if exit_shop:
+				if selected==205:tribes_shop=false # Only CARRIED WEAPONS changes wheel type.
+				else:close();return # Remote views need the selection wheel released.
 			entries=inventory();input.open(entries.map(func(row):return row.id),stick);refresh_view();return
 		if shopping:
 			if Shop.GROUPS.has(selected):page=selected
@@ -117,4 +125,4 @@ func refresh_view() -> void:
 		viewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 
 func pulse(strength: float) -> void:
-	if not rig.simulated:rig.right.trigger_haptic_pulse("haptic",0,strength,.035,0)
+	rig.feedback(strength,.035,rig.left_handed)

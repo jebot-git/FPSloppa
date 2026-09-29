@@ -1,5 +1,6 @@
 extends RefCounted
 ## Versioned, bounded value codec. No object/resource deserialization.
+static var native_codec=preload("res://deathmatch/native/runtime.gd").codec()
 const LIMIT = 262144
 const FIXED = {4:8, 6:8, 7:12, 8:20, 13:16, 14:8}
 var stream := StreamPeerBuffer.new()
@@ -15,6 +16,10 @@ static func pack(value: Variant) -> PackedByteArray:
 	return result
 
 static func encode(value: Variant) -> PackedByteArray:
+	if native_codec:return native_codec.encode(value)
+	return encode_reference(value)
+
+static func encode_reference(value: Variant) -> PackedByteArray:
 	var codec = load("res://deathmatch/network/codec.gd").new()
 	codec.write(value)
 	if not codec.valid or codec.stream.data_array.size() > LIMIT: return PackedByteArray()
@@ -29,6 +34,10 @@ static func unpack(packet: PackedByteArray, maximum: int = LIMIT) -> Variant:
 	return decode(raw)
 
 static func decode(raw: PackedByteArray) -> Variant:
+	if native_codec:return native_codec.decode(raw)
+	return decode_reference(raw)
+
+static func decode_reference(raw: PackedByteArray) -> Variant:
 	if raw.size() > LIMIT: return null
 	var codec = load("res://deathmatch/network/codec.gd").new()
 	codec.stream.data_array = raw

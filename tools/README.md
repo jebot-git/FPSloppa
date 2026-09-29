@@ -67,3 +67,17 @@ pilot and late spectator with delayed/lost inputs.
 `python3 tools/stonehenge/package_test.py` exports the separate Linux Stonehenge
 test bundle with desktop and VR launchers, map caches and notices.
 See [controls and validation](../docs/TRIBES-MOVEMENT.md).
+# CS 1.6 map conversion
+
+`cs16_map_converter/convert.py` converts locally supplied GoldSrc BSP30/WAD3
+maps to self-contained DE BSP29. See the [converter guide](cs16_map_converter/README.md)
+for texture resolution, A/B overrides, validation, deployment and entity limits.
+`python3 tools/build_cs16_map_converter.py` packages the portable Python tool.
+
+Native gameplay acceleration: `build_gameplay_native.py` builds the client/server C++ libraries; `native_study/validate_implementation.py --bench` repeats parity checks and integrated A/B measurements. See [build instructions and results](../docs/NATIVE-ACCELERATION.md).
+
+`native_study/remaining.py` profiles remaining avatar, compact-codec, bot and hitscan candidates using disposable copies. See [remaining native options](../docs/REMAINING-NATIVE-OPTIONS.md) for commands, measurements and limitations.
+
+`native_study/validate_network_rewind.py --bench` validates the native compact codec and shared hitscan history, then repeats paired network measurements. See [implementation and results](../docs/NATIVE-NETWORK-REWIND.md).
+
+`native_study/validate_avatar_bots.py --regressions` checks native avatar preparation and bot behavior; `--bench-only --bench both` repeats isolated A/B measurements. See [implementation and results](../docs/NATIVE-AVATAR-BOTS.md).
