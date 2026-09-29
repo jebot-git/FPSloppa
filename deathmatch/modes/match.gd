@@ -296,6 +296,8 @@ func draw_objectives() -> void:
 		for i in range(2):
 			var flag: Node3D=visuals.get_node("Flag"+str(i))
 			var target: Vector3=flags[i].position+Vector3.UP*(1.1 if flags[i].carrier!=0 else 0.0)
+			if flags[i].carrier!=0 and game.fighters.has(flags[i].carrier):target=game.fighters[flags[i].carrier].render_position()+Vector3.UP*1.1
+			flag.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 			flag.position=flag.position.lerp(target,minf(1,game.get_process_delta_time()*20)) if kind=="st" and flags[i].dropped and flag.position.distance_to(target)<15 else target
 			flag.visible=flags[i].carrier!=game.multiplayer.get_unique_id()
 			var fade: float=clampf(1.0-(flags[i].return_at-game.clock)/st.FADE_SECONDS,0,1) if kind=="st" and flags[i].dropped else 0.0

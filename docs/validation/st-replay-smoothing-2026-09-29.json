@@ -1,0 +1,72 @@
+{
+  "date": "2026-09-29",
+  "task": "ST vehicle replay smoothing and three-minute cinematic revision",
+  "tests": {
+    "vehicle_replay": {
+      "checks": 39,
+      "failures": [],
+      "renderer": "Vulkan Mobile",
+      "hz": [
+        30,
+        90,
+        144
+      ],
+      "playback_rates": [
+        0.5,
+        1,
+        2
+      ],
+      "position_tolerance_metres": 0.001,
+      "real_vrm_passenger": true
+    },
+    "tribes_demo": {
+      "checks": 17,
+      "failures": []
+    },
+    "st_transport_vr": {
+      "checks": 56,
+      "failures": [],
+      "simulated_vr": true
+    }
+  },
+  "total_checks": 112,
+  "transport_camera_checks": {
+    "raindance": {
+      "clipped_frames": 0,
+      "minimum_clear_fraction": 1.0
+    },
+    "katabatic": {
+      "clipped_frames": 0,
+      "minimum_clear_fraction": 1.0
+    }
+  },
+  "video_directory": "video-output/st-trailer/revision",
+  "source_matches": "Original 8v8 Stonehenge, Raindance and Katabatic recordings; no new simulation or state edits",
+  "retained": [
+    "Raindance verified disc boost",
+    "Stonehenge disc sequence",
+    "Raindance flag snatch and escape"
+  ],
+  "limitations": [
+    "Source recordings contain flag pickups and escapes but no completed captures.",
+    "MovieMaker reports resources still in use during shutdown; completed media is validated separately."
+  ],
+  "media": {
+    "path": "/home/blux/Documents/FPSloppa/video-output/st-trailer/revision/ST-cinematic-trailer-3min.mp4",
+    "duration_seconds": 180,
+    "resolution": [
+      1920,
+      1080
+    ],
+    "fps": 30,
+    "audio": "Stereo AAC 48 kHz",
+    "bytes": 358492488,
+    "sha256": "07e329200cd634667eabbe57ad08eea0f46c5c26a5654268adcffd1775437baf",
+    "integrated_loudness_lufs": -17.5,
+    "true_peak_dbfs": -1.1,
+    "visual_review": "All 30 final shots reviewed via contact sheets, with additional multi-frame reviews for vehicles and combat",
+    "black_or_freeze_intervals_over_threshold": [],
+    "ui": "HUD and world labels hidden after scene updates",
+    "music": "Tower Defense Theme by DST, CC0; original gameplay SFX retained"
+  }
+}

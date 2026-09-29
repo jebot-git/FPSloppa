@@ -11,6 +11,7 @@ var next_id:=1
 var next_rocket:=1
 var locks: Dictionary={}
 var requests: Dictionary={}
+var impact_locks: Dictionary={}
 var view
 var render_motion=preload("res://deathmatch/vehicles/tribes/render_motion.gd").new()
 var render_frames: Dictionary={}
@@ -32,7 +33,10 @@ func render_frame(key: int) -> Transform3D:
 	var number:=Engine.get_process_frames()
 	if number!=render_frame_number:render_frames.clear();render_frame_number=number
 	if not render_frames.has(key):
-		var stamp: float=game.clock-get_physics_process_delta_time()*(1.0-Engine.get_physics_interpolation_fraction()) if game.multiplayer.is_server() and not game.demos.playing else render_motion.advance(Time.get_ticks_usec()/1000000.0)
+		var stamp: float
+		if game.demos.playing:stamp=game.demos.render_time()
+		elif game.multiplayer.is_server():stamp=game.clock-get_physics_process_delta_time()*(1.0-Engine.get_physics_interpolation_fraction())
+		else:stamp=render_motion.advance(Time.get_ticks_usec()/1000000.0)
 		render_frames[key]=render_motion.sample(key,stamp,seat_frame(rows[key]))
 	return render_frames[key]
 func render_seat_position(id: int) -> Vector3:
@@ -155,16 +159,20 @@ func handle_player(id: int,jump: bool,delta: float=1.0/60) -> bool:
 	return mounted(id)
 func departed(id: int):
 	leave(id,true);locks.erase(id);requests.erase(id)
+	for pair in impact_locks.keys():
+		if pair.y==id:impact_locks.erase(pair)
 func remove(key: int):
 	if not rows.has(key):return
 	for id in occupants(rows[key]):
 		if id!=0:leave(id,true)
 	if is_instance_valid(bodies.get(key)):bodies[key].free()
 	bodies.erase(key);rows.erase(key)
+	for pair in impact_locks.keys():
+		if pair.x==key:impact_locks.erase(pair)
 	render_motion.erase(key);render_frames.erase(key)
 func reset():
 	for key in rows.keys():remove(key)
-	rockets.clear();locks.clear();requests.clear();next_id=1;next_rocket=1
+	rockets.clear();locks.clear();requests.clear();impact_locks.clear();next_id=1;next_rocket=1
 	render_motion.clear();render_frames.clear();render_frame_number=-1
 	if is_instance_valid(view):view.clear()
 func tick(delta: float):
@@ -185,6 +193,13 @@ func tick(delta: float):
 		var control:=Data.controls(s if enabled else {})
 		if not enabled:control.yaw=row.yaw;control.pitch=0.0
 		var body: CharacterBody3D=bodies[key]
+		# Player movement runs before vehicles. Catch contacts initiated by a
+		# player too, rather than only collisions returned by the hull sweep.
+		for victim in game.fighters:
+			var actor=game.fighters[victim]
+			for contact in actor.get_slide_collision_count():
+				var hit: KinematicCollision3D=actor.get_slide_collision(contact)
+				if hit.get_collider()==body:impact_player(key,victim,row.velocity,hit.get_normal(),hit.get_position())
 		if not render_motion.tracks.has(key):render_motion.push(key,game.clock-delta,seat_frame(row))
 		var floor_query:=PhysicsRayQueryParameters3D.create(row.position,row.position-Vector3.UP*500,1,[body.get_rid()])
 		var floor_hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(floor_query)
@@ -201,11 +216,12 @@ func tick(delta: float):
 		row.position=body.position
 		if collision:
 			var speed: float=maxf(0,-row.velocity.dot(collision.get_normal()))
+			for contact in collision.get_collision_count():
+				var collider=collision.get_collider(contact)
+				for victim in game.fighters:
+					if collider==game.fighters[victim]:impact_player(key,victim,row.velocity,-collision.get_normal(contact),collision.get_position(contact))
 			row.velocity=row.velocity.slide(collision.get_normal())*.65
 			if speed>8:
-				for victim in game.fighters:
-					if victim!=id and collision.get_collider()==game.fighters[victim]:
-						game._damage(victim,id,roundi(d.ram*100/.66*minf(1,speed/d.speed)),d.name+" IMPACT",false,collision.get_position(),-collision.get_normal())
 				damage(key,id,(speed-8)*4*(d.ground_scale if collision.get_normal().y>.5 else 1.0),"IMPACT")
 			if not rows.has(key):continue
 		pin(key)
@@ -230,6 +246,24 @@ func tick(delta: float):
 			rules.combat.blast(at,rocket.owner,{"name":"SCOUT ROCKET","splash":Data.ROCKET_DAMAGE,"blast_radius":Data.ROCKET_RADIUS,"kick":250.0,"turret_team":rocket.team if not game.players.has(rocket.owner) else -2})
 			game._ability_fx.rpc("explosion",at,at,rocket.team);rockets.erase(key)
 		else:rocket.position=end
+func impact_player(key: int,victim: int,velocity: Vector3,direction: Vector3,point: Vector3) -> bool:
+	if not multiplayer.is_server() or not active() or not rows.has(key) or not game.players.has(victim) or not game.fighters.has(victim):return false
+	if not velocity.is_finite() or not direction.is_finite() or not point.is_finite() or velocity.length()<3 or direction.length_squared()<.5:return false
+	var row: Dictionary=rows[key];var s: Dictionary=game.players[victim]
+	if mounted(victim) or s.dead or s.spectator or s.invulnerable>game.clock or game.intermission>0 or game.match_mode.special.blocked(victim):return false
+	if s.team==row.team and not rules.mode.friendly_fire:return false
+	var actor=game.fighters[victim];direction=direction.normalized()
+	var closing: float=(velocity-actor.velocity).dot(direction)
+	if closing<3:return false # No grazing damage or damage from a parked hull.
+	var pair:=Vector2i(key,victim);var previous: Dictionary=impact_locks.get(pair,{})
+	if previous.get("life",-1)==s.serial and game.clock<float(previous.get("until",0)):return false
+	impact_locks[pair]={"life":s.serial,"until":game.clock+.35}
+	var d:=definition(row)
+	# Reuse mass-aware blast momentum and the authoritative damage/snapshot path.
+	# Send the impulse before lethal damage so the death pose retains momentum.
+	actor.apply_blast(direction*minf(28,closing*.8)+Vector3.UP*minf(3,closing*.12))
+	game._damage(victim,row.pilot,roundi(d.ram*100/.66*minf(1,closing/d.speed)),d.name+" IMPACT",false,point,direction)
+	return true
 func fire(key: int) -> bool:
 	if not multiplayer.is_server() or not rows.has(key) or rockets.size()>=64:return false
 	var row: Dictionary=rows[key];var id: int=row.pilot
@@ -332,8 +366,9 @@ func receive(data: Dictionary):
 		rows[key].merge({"kind":"scout","passengers":[],"passenger_lives":[]})
 		make_body(key);bodies[key].global_transform=frame(rows[key])
 		pin(key)
-		var stamp: float=game.snapshot_view_time if game.snapshot_view_time>=0 else game.clock
-		render_motion.push(key,stamp,seat_frame(rows[key]));render_motion.received(stamp,Time.get_ticks_usec()/1000000.0)
+		var stamp: float=game.demos.snapshot_time if game.demos.playing else game.snapshot_view_time if game.snapshot_view_time>=0 else game.clock
+		render_motion.push(key,stamp,seat_frame(rows[key]))
+		if not game.demos.playing:render_motion.received(stamp,Time.get_ticks_usec()/1000000.0)
 		for person in occupants(rows[key]):
 			if person!=0 and game.fighters.has(person):
 				bodies[key].add_collision_exception_with(game.fighters[person]);game.fighters[person].add_collision_exception_with(bodies[key])

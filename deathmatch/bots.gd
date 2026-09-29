@@ -375,6 +375,7 @@ func plan(id: int,brain: Dictionary) -> void:
 			if friend==id or not alive(friend) or not game.match_mode.same_team(id,friend):continue
 			if brains[friend].goal_key==row.key and row.kind in ["item","equip","heal","repair","thaw","checkpoint","defend","guard","ambush"]:row.score*=.35
 	rows.sort_custom(func(a,b):return a.score>b.score)
+	var route_queries:Dictionary={}
 	var chosen: Dictionary={};var best:=-INF;var route:=PackedVector3Array()
 	for index in mini(18,rows.size()):
 		if index>=6 and not chosen.is_empty():break
@@ -390,8 +391,8 @@ func plan(id: int,brain: Dictionary) -> void:
 			# mesh first wastes a search and can fail inside Godot's corridor
 			# builder when a dropped flag lies on a disconnected terrain island.
 			trial=tribes.path(origin,row.position,id)
-			if trial.is_empty():trial=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6)
-		else:trial=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6)
+			if trial.is_empty():trial=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6,route_queries)
+		else:trial=navigation.path(origin,row.position,game.match_mode.fortress.speed(id)>=.6,route_queries)
 		var distance: float=navigation.cost(origin,row.position,trial)
 		if not retained and not terrain_first and game.match_mode.kind=="st" and (not is_finite(distance) or distance>45):
 			var flight: PackedVector3Array=tribes.path(origin,row.position,id)

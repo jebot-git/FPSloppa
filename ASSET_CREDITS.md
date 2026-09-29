@@ -62,7 +62,7 @@ Godot-VRM secondary physics has a small runtime guard to skip signal-driven spri
 
 The bevelled ammo racks, rocket carrier, cell pack, medkit, armour vests and bonus supplies in `deathmatch/pickups/models.gd` were authored for this project. The meshes use a muted industrial vertex-colour palette, without external textures or downloaded models. These authored pickup meshes are offered under CC0 1.0.
 
-Eight original recorded-sample metal scores and two title/lobby tracker scores use edited CC0 Karoryfer and VSCO 2 Community Edition recordings, offered under CC0 1.0. VSCO recordings are by Sam Gossner and Simon Dalzell, with sample cutting by Elan Hickler. Editable sample arrangements / title-lobby MODs, compact Ogg playback and provenance are in [deathmatch/audio/music/SOURCES.md](deathmatch/audio/music/SOURCES.md). No existing game score or game recording is included.
+The two retained title/lobby tracker scores, Dead Air and Please Hold, use edited CC0 Karoryfer and VSCO 2 Community Edition recordings, offered under CC0 1.0. Gameplay music is client-supplied; former bundled gameplay scores are retired. VSCO recordings are by Sam Gossner and Simon Dalzell, with sample cutting by Elan Hickler. Editable sample arrangements / title-lobby MODs, compact Ogg playback and provenance are in [deathmatch/audio/music/SOURCES.md](deathmatch/audio/music/SOURCES.md). No existing game score or game recording is included.
 
 
 ## 0.3v additions
@@ -120,7 +120,7 @@ CC0 scores using recorded CC0 Karoryfer guitars, bass and drums. Additional guit
 takes are by Brian Wood. Sources, hashes, processing notes and listening links
 are in [the audition folder](docs/audio/metal-alternates/README.md). The metal direction was selected for all eight gameplay modes. Comparison
 assets and source recordings under docs/ are excluded from game exports; the
-selected Ogg renders are installed in the active soundtrack.
+selected Ogg renders have since been removed from the active soundtrack.
 
 ## Classic weapon and movement sound refresh
 
@@ -130,7 +130,7 @@ Edited Freedoom weapon, explosion and mechanical pickup samples are BSD-3-Clause
 
 LibreQuake BSD-3-Clause material and four original generated gothic reliefs replace missing named BSP textures. See `deathmatch/maps/texture_replacements/SOURCES.md` and `tools/texture_replacements/PROMPT.md`. Map source licenses remain separate. No original id or QRP texture pixels are included.
 
-AS theme: **Mega Destruction** (`mega_destruction.xm`) by **Zilly Mike**, listed as **Public Domain** by [Mod Archive](https://modarchive.org/index.php?request=view_by_moduleid&query=50252). Original module and conversion provenance: [Assault music](docs/audio/assault/README.md).
+Archived former AS theme (not bundled): **Mega Destruction** (`mega_destruction.xm`) by **Zilly Mike**, listed as **Public Domain** by [Mod Archive](https://modarchive.org/index.php?request=view_by_moduleid&query=50252). Original module and conversion provenance: [Assault music](docs/audio/assault/README.md).
 
 HiSlop is an authored train Assault concept with LibreQuake textures. The generator is CC0-1.0; embedded art remains BSD-3-Clause. Notices and exact texture provenance accompany the external map in `maps/HiSlop/`. No Unreal Tournament packages or extracted art are included.
 
@@ -178,7 +178,7 @@ Twelve original Blender-authored weapon models reuse a shared CC0 Oldschool AFPS
 
 Original Blender bomb case and cutters, original shop SVGs, and a synthesized beep. [Editable source and runtime provenance](deathmatch/pickups/defusal/SOURCES.md). Dust2 uses the existing [independent BSP29 reconstruction](maps/Dust2Rebuilt/README.md).
 
-DE theme **Copper Fuse** is an original CC0 composition and arrangement using
+Archived former DE theme **Copper Fuse** (not bundled) is an original CC0 composition and arrangement using
 CC0 Versilian VSCO strings, brass and orchestral percussion recordings, existing
 credited project samples, and original synthesis. [Pinned sources, licenses
 and regeneration](docs/audio/copper-fuse/README.md).

@@ -35,14 +35,27 @@ func project_local(point: Vector3) -> Vector3:
 	return projected if projected.distance_to(point)<=2.0 else point
 func ray(a: Vector3,b: Vector3) -> Dictionary:
 	return game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(a,b,1))
-func path(start: Vector3,goal: Vector3,allow_jump: bool=true) -> PackedVector3Array:
+var batch_queries:=not OS.get_cmdline_user_args().has("--reference-nav-queries")
+func path(start: Vector3,goal: Vector3,allow_jump: bool=true,context: Variant=null) -> PackedVector3Array:
 	if not ready():return PackedVector3Array()
-	# Never project a distant island/test arena onto an unrelated part of the map.
+	# Context belongs to one synchronous plan. A changed map iteration or RID
+	# invalidates both successful and failed queries; no routes cross ticks.
 	var map:=region.get_navigation_map()
-	if NavigationServer3D.map_get_closest_point(map,start).distance_to(start)>2.5:return PackedVector3Array()
-	var result:=NavigationServer3D.map_get_path(map,start,goal,true,3 if allow_jump else 1)
-	if result.is_empty() or result[-1].distance_to(goal)>2.0:return PackedVector3Array()
+	var layers:=3 if allow_jump else 1
+	var cached:bool=batch_queries and context is Dictionary
+	var key:=[start,goal,layers]
+	if cached:
+		var iteration:=NavigationServer3D.map_get_iteration_id(map)
+		if context.get("map")!=map or context.get("iteration",-1)!=iteration:
+			context.clear();context.merge({"map":map,"iteration":iteration,"starts":{},"paths":{}})
+		if context.paths.has(key):return context.paths[key].duplicate()
+	var valid:bool=context.starts[start] if cached and context.starts.has(start) else NavigationServer3D.map_get_closest_point(map,start).distance_to(start)<=2.5
+	if cached:context.starts[start]=valid
+	var result:=NavigationServer3D.map_get_path(map,start,goal,true,layers) if valid else PackedVector3Array()
+	if not result.is_empty() and result[-1].distance_to(goal)>2.0:result=PackedVector3Array()
+	if cached:context.paths[key]=result.duplicate()
 	return result
+
 func cost(start: Vector3,goal: Vector3,route: PackedVector3Array) -> float:
 	if route.is_empty():
 		return start.distance_to(goal) if absf(start.y-goal.y)<1.0 and ray(start+Vector3.UP*.8,goal+Vector3.UP*.8).is_empty() else INF

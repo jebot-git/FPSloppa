@@ -12,6 +12,8 @@ var frame:=-1
 var enabled:=true
 func configure(arena: Node,level: Node) -> void:
  game=arena
+ if DisplayServer.get_name()!="headless" and preload("res://deathmatch/maps/weather.gd").PROFILES.has(Atmosphere.Skies.canonical(str(game.current_map))):
+  var weather=preload("res://deathmatch/maps/weather.gd").new();weather.name="Weather";add_child(weather);weather.configure(str(game.current_map))
  var bank: Dictionary=level.get_meta(Assets.FRAME_TAG,{})
  var seen: Dictionary={}
  for node in level.find_children("*","MeshInstance3D",true,false):

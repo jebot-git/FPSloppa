@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-29",
+  "artifact": "video-output/st-trailer/ST-cinematic-trailer.mp4",
+  "sha256": "7036435ae140378232bd371346d9ca12adb7d0a1ab68048b842b2ce40b8d48cf",
+  "duration_seconds": 110,
+  "video": {
+    "width": 1920,
+    "height": 1080,
+    "fps": 30,
+    "frames": 3300,
+    "codec": "H.264",
+    "hud": false
+  },
+  "audio": {
+    "codec": "AAC",
+    "channels": 2,
+    "sample_rate": 48000,
+    "integrated_lufs": -17.1,
+    "true_peak_dbfs": -1.3,
+    "game_sfx": true,
+    "music": "Tower Defense Theme \u2014 DST (CC0)"
+  },
+  "maps": [
+    "ctf_stonehenge",
+    "ctf_raindance",
+    "ctf_katabatic"
+  ],
+  "teams": [
+    8,
+    8
+  ],
+  "vehicle_inputs": "one assigned bot pilot per team on maps with vehicle terminals; production physics and damage",
+  "disc_boost": {
+    "map": "ctf_raindance",
+    "bot": -1011,
+    "source_shot_seconds": 17.95,
+    "source_blast_seconds": 18.0,
+    "trailer_seconds": 22.8,
+    "health_before": 100,
+    "health_after": 63,
+    "horizontal_kmh_before": 39.4,
+    "horizontal_kmh_after": 65.6,
+    "visually_confirmed": true,
+    "clip": "video-output/st-trailer/disc-boost.mp4"
+  },
+  "qa": {
+    "decoded_all_frames": true,
+    "unexpected_black_or_frozen_sections": false,
+    "camera_contact_sheets_reviewed": true,
+    "script_runtime_errors": false
+  },
+  "provenance": "video-output/st-trailer/match-provenance.json",
+  "credits": "video-output/st-trailer/CREDITS.md"
+}

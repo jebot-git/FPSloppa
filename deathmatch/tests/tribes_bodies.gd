@@ -24,6 +24,56 @@ func count(mesh: Mesh) -> int:
 		var a:=mesh.surface_get_arrays(i);n+=(a[Mesh.ARRAY_INDEX].size() if a[Mesh.ARRAY_INDEX]!=null else a[Mesh.ARRAY_VERTEX].size())/3
 	return n
 func _initialize():run.call_deferred()
+func check_cuffs(replacement,sk: Skeleton3D,label: String):
+	var mesh: Mesh=replacement.body.get_meta("full_body_mesh",replacement.body.mesh)
+	var skin: Skin=replacement.body.skin
+	for hand in ["LeftHand","RightHand"]:
+		var wrist:=sk.find_bone(hand);var elbow:=sk.find_bone(hand.trim_suffix("Hand")+"LowerArm")
+		var start:=sk.get_bone_global_rest(elbow).origin;var end:=sk.get_bone_global_rest(wrist).origin
+		var axis:=end-start;var cuff_vertices:=0;var max_error:=0.0;var furthest:=0.0
+		for surface in mesh.get_surface_count():
+			var a:=mesh.surface_get_arrays(surface);var vertices: PackedVector3Array=a[Mesh.ARRAY_VERTEX]
+			var bones: PackedInt32Array=a[Mesh.ARRAY_BONES];var weights: PackedFloat32Array=a[Mesh.ARRAY_WEIGHTS];var stride: int=bones.size()/vertices.size()
+			var used: Dictionary={}
+			for index in a[Mesh.ARRAY_INDEX]:used[index]=true
+			for index in used:
+				var arm_weight:=0.0;var hand_weight:=0.0
+				for j in stride:
+					var name_here:=skin.get_bind_name(bones[index*stride+j])
+					if name_here==hand:hand_weight+=weights[index*stride+j]
+					if name_here==hand.trim_suffix("Hand")+"LowerArm":arm_weight+=weights[index*stride+j]
+				if arm_weight+hand_weight<.99:continue
+				furthest=maxf(furthest,(vertices[index]-end).dot(axis.normalized()))
+				if (vertices[index]-start).dot(axis)/axis.length_squared()<.87:continue
+				cuff_vertices+=1
+				# Out-of-reach tracked wrists translate independently of the elbow;
+				# test translation plus a full turn against the actual skin weights.
+				for rotation in [0.0,PI/2,PI]:
+					var rest:=sk.get_bone_global_rest(wrist)
+					var wrist_pose:=Transform3D(Basis(Vector3.FORWARD,rotation)*rest.basis,rest.origin+Vector3(.3,.25,-.4))
+					var expected:=wrist_pose*rest.affine_inverse()*vertices[index]
+					var posed:=Vector3.ZERO
+					for j in stride:
+						var bind:=bones[index*stride+j];var bone:=sk.find_bone(skin.get_bind_name(bind))
+						posed+=(wrist_pose if bone==wrist else sk.get_bone_global_rest(bone))*skin.get_bind_pose(bind)*vertices[index]*weights[index*stride+j]
+					max_error=maxf(max_error,posed.distance_to(expected))
+		check(cuff_vertices>=8 and max_error<.0001,label+" "+hand+" sleeve stays fixed to wrist under reach and rotation")
+		check(furthest<.04,label+" "+hand+" has cuff only, without duplicate generated glove")
+	for node in replacement.avatar.visual_meshes:
+		if node==replacement.body or not node.visible:continue
+		var retained: Mesh=node.mesh;var fixed:=true
+		for surface in retained.get_surface_count():
+			var a:=retained.surface_get_arrays(surface);var stride: int=a[Mesh.ARRAY_BONES].size()/a[Mesh.ARRAY_VERTEX].size()
+			for vertex in a[Mesh.ARRAY_INDEX]:
+				var hand_weight:=0.0
+				for j in stride:
+					var bind: int=a[Mesh.ARRAY_BONES][vertex*stride+j]
+					var bone: int=sk.find_bone(node.skin.get_bind_name(bind)) if node.skin.get_bind_name(bind)!=&"" else node.skin.get_bind_bone(bind)
+					while bone>=0:
+						if sk.get_bone_name(bone) in ["LeftHand","RightHand"]:hand_weight+=a[Mesh.ARRAY_WEIGHTS][vertex*stride+j];break
+						bone=sk.get_bone_parent(bone)
+				if hand_weight>.15 and hand_weight<.9999:fixed=false
+		check(fixed,label+" retained hand edges share wrist transform without forearm lag")
 func check_assets():
 	for key in ["light","medium","heavy"]:
 		var asset:=Models.model("body_"+key)
@@ -44,7 +94,8 @@ func run():
 	for directory in ["res://test-results/tribes-arsenal/","res://test-results/tribes-armour-family/","res://test-results/tribes-heavy-iteration/",output_dir]:
 		DirAccess.make_dir_recursive_absolute(directory)
 	check_assets()
-	if not OS.get_cmdline_user_args().is_empty():test_hash=OS.get_cmdline_user_args()[0]
+	for arg in OS.get_cmdline_user_args():
+		if not arg.begins_with("--"):test_hash=arg;break
 	var stage:=Stage.new();root.add_child(stage)
 	var library=preload("res://deathmatch/avatars/library.gd").new();root.add_child(library)
 	if FileAccess.file_exists(test_hash):
@@ -86,7 +137,7 @@ func run():
 				var avatar_back: Vector3=actor.global_basis.inverse()*actor.avatar.global_basis.z
 				check(chest_frame.basis.z.normalized().dot(avatar_back.normalized())>.95,armour+" backpack faces behind avatar despite imported skeleton axes")
 				check(replacement.original_hands==["LeftHand","RightHand"],armour+" preserves both original avatar hands")
-				for hand in replacement.original_hands:check(not replacement.Original.has_hand(replacement.body.mesh,replacement.body.skin,actor.avatar.skeleton,hand),armour+" omits generated "+hand+" when original is available")
+				check_cuffs(replacement,actor.avatar.skeleton,armour)
 				var visible_heads:=0
 				for m in actor.avatar.visual_meshes:
 					if m.visible:
@@ -197,5 +248,19 @@ func run():
 				if actors[i].avatar.offhand_gun:actors[i].avatar.offhand_gun.hide()
 			await process_frame;await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_png("res://test-results/tribes-armour-family/crouch.png")
+		if "--capture-wrists" in OS.get_cmdline_user_args():
+			DirAccess.make_dir_recursive_absolute("res://test-results/st-hands-impacts")
+			for i in range(3,6):
+				var avatar=actors[i].avatar;avatar.set_process(false);avatar.solver.active=false
+				var sk: Skeleton3D=avatar.skeleton;sk.reset_bone_poses()
+				for side in ["Left","Right"]:
+					var wrist:=sk.find_bone(side+"Hand");var rest:=sk.get_bone_global_rest(wrist)
+					for reach in [0.0,.22]:
+						var pose:=rest;pose.origin+=Vector3(reach,reach*.3,-reach*.4);pose.basis=Basis(Vector3.RIGHT,reach*4)*rest.basis
+						sk.set_bone_global_pose(wrist,pose)
+						var centre:=sk.to_global(pose.origin)
+						camera.position=centre+Vector3(.15,.17,-.5);camera.look_at(centre);camera.size=.48
+						await process_frame;await RenderingServer.frame_post_draw
+						root.get_texture().get_image().save_png("res://test-results/st-hands-impacts/%s-%s-%s.png"%[["light","medium","heavy"][i-3],side,str(reach)])
 	var report:={"checks":checks,"failures":failures,"avatar":test_hash};FileAccess.open("res://test-results/tribes-arsenal/bodies.json" if test_hash.is_empty() else output_dir+output_key+"-armour.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
 	print("TRIBES_BODIES ",JSON.stringify(report));stage.free();library.free();quit(0 if failures.is_empty() else 1)

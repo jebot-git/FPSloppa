@@ -4,6 +4,8 @@
 using namespace godot;
 using namespace godot::bot;
 void FPSBots::_bind_methods(){
+ ClassDB::bind_method(D_METHOD("st_route","ai","id","brain","recharging"),&FPSBots::st_route);
+ ClassDB::bind_method(D_METHOD("st_precision","ai","id","brain"),&FPSBots::st_precision);
  ClassDB::bind_method(D_METHOD("perceive","ai","id","brain"),&FPSBots::perceive);
  ClassDB::bind_method(D_METHOD("combat","ai","id","brain","delta"),&FPSBots::combat);
  ClassDB::bind_method(D_METHOD("steer","ai","id","brain","delta"),&FPSBots::steer);

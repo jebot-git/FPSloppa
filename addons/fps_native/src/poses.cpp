@@ -7,6 +7,9 @@
 #include <cmath>
 using namespace godot;
 void FPSPose::_bind_methods() {
+ ClassDB::bind_method(D_METHOD("configure_morphs","channels"),&FPSPose::configure_morphs);
+ ClassDB::bind_method(D_METHOD("compose_morphs","eyes","mouth","dead"),&FPSPose::compose_morphs);
+ ClassDB::bind_method(D_METHOD("interpolate_tracking","shown","target","delta"),&FPSPose::interpolate_tracking);
  ClassDB::bind_method(D_METHOD("prepare_live","skeleton","rig","ids","rest","rotations","floor_heights","sample_floor"),&FPSPose::prepare_live);
  ClassDB::bind_method(D_METHOD("solve","skeleton","upper","lower","end","target","pole"),&FPSPose::solve);
  ClassDB::bind_method(D_METHOD("rotate_toward","skeleton","index","source","destination"),&FPSPose::rotate_toward);

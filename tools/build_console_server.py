@@ -48,6 +48,8 @@ CLIENT_FILES.add('deathmatch/counterstrike/grenade_visuals.gd')
 CLIENT_FILES.add('deathmatch/counterstrike/feed_belt.gd')
 CLIENT_FILES.add('deathmatch/effects/bullet_marks.gd')
 CLIENT_FILES.add('deathmatch/tribes/armour_visual.gd')
+CLIENT_FILES.update({'deathmatch/tribes/command_view.gd', 'deathmatch/tribes/turret_view.gd',
+                     'deathmatch/tribes/wrist_display.gd'})
 
 
 def allowed(path):

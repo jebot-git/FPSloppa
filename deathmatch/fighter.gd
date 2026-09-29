@@ -415,16 +415,20 @@ func _process(_delta: float) -> void:
 	if frozen or not avatar: return
 	avatar.visible = not spectator and not gibbed and (not local_player or local_body_visible and alive_state) and (alive_state or avatar.death_time<load("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
 	var displayed_velocity: Vector3=velocity if local_player else visual_velocity
+	# Hull speed is world motion, not walking relative to the passenger deck.
+	var mounted: bool=render_mount.is_valid() and render_mount.call().is_finite()
+	if mounted:displayed_velocity=Vector3.ZERO
+	var displayed_grounded: bool=mounted or (is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded)
 	if avatar_hash.is_empty():
 		if alive_state:avatar.rotation.y=load("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,avatar.rotation.y)
-		avatar.animate(_delta,avatar.global_basis.inverse()*displayed_velocity,stance,collision_height,is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded,xr_pose.get("body",{}),tracked_leg_animation)
+		avatar.animate(_delta,avatar.global_basis.inverse()*displayed_velocity,stance,collision_height,displayed_grounded,xr_pose.get("body",{}),tracked_leg_animation)
 		return
 	avatar.target_xr_pose=xr_pose
 	avatar.speed = Vector2(displayed_velocity.x,displayed_velocity.z).length()
 	avatar.movement = basis.inverse()*displayed_velocity
 	avatar.stance=stance
 	avatar.collider_height=collision_height
-	avatar.grounded=is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded
+	avatar.grounded=displayed_grounded
 	avatar.tracked_leg_animation=tracked_leg_animation
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)

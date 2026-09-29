@@ -49,7 +49,7 @@ static func parse(source: String) -> Dictionary:
 	if values.sv_gametype=="st":
 		values.sv_weapon_rules="tribes"
 		if values.map=="qsrc_dm1":values.map="ctf_stonehenge"
-		if str(values.st_maplist).is_empty():values.st_maplist="ctf_stonehenge ctf_raindance"
+		if str(values.st_maplist).is_empty():values.st_maplist="ctf_stonehenge ctf_raindance ctf_katabatic"
 		if str(values.sv_maplist).is_empty():values.sv_maplist=values.st_maplist
 	if values.sv_gametype=="de":
 		values.sv_weapon_rules="cs16"

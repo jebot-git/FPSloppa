@@ -18,7 +18,7 @@ targets=[('Linux PC','Linux','FPSloppa.x86_64'),('Windows PC','Windows','FPSlopp
 if '--package-only' not in sys.argv and '--stage-only' not in sys.argv:
     markers=[]
     try:
-        for name in ['Builds','dist','external-tools','tools','docs','materials','textures','maps','vrm']:
+        for name in ['Builds','dist','external-tools','tools','docs','materials','textures','maps','vrm','bgm']:
             marker=root/name/'.gdignore'
             if marker.parent.is_dir() and not marker.exists():marker.touch();markers.append(marker)
         for preset,folder,binary in targets:
@@ -45,6 +45,7 @@ if '--exports-only' in sys.argv:raise SystemExit(0)
 package_files={}
 for _,folder,binary in targets:
     dest=builds/folder
+    (dest/'bgm').mkdir(parents=True,exist_ok=True) # Never copy or replace a user's music.
     template=client_templates['linuxbsd' if folder=='Linux' else 'windows']
     from renderer_policy import verify_client_export
     verify_client_export(dest/binary,template)
@@ -87,6 +88,7 @@ archives=[]
 for folder,name in [('Linux','FPSloppa-Linux.zip'),('Windows','FPSloppa-Windows.zip'),('Server','FPSloppa-Dedicated-Server-Linux.zip')]:
     archive=root.parent/name
     with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
+        if folder!='Server':z.writestr(f'FPSloppa-{folder}/bgm/',b'')
         package_dir=server_dest if folder=='Server' else builds/folder
         allowed=server_files if folder=='Server' else package_files[folder]
         for name in sorted(allowed):
@@ -115,6 +117,7 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         if rel.name.startswith('tf_fo_') or rel.parts[:3]==('tools','fortressone','local'):continue
         if 'AD-NOTICES' in rel.parts or rel.name.startswith('ad_arena_') or rel.name.endswith('_ad_maplist.txt') or rel.name=='ad-maplists.cfg':continue
         if len(rel.parts)>1 and rel.parts[:2]==('optional-ad-tools','local'):continue
+        if rel.parts[0]=='bgm' and rel.as_posix()!='bgm/.gdignore':continue
         if not f.is_file() or rel.parts[0] in RETIRED | {'materials','textures','android','test-results','release-assets','.agents','.codex'}:continue
         if any(part in {'.godot','.git','__pycache__'} for part in rel.parts):continue
         # Versioned import files are authored policy (mips, normals, sky codecs,

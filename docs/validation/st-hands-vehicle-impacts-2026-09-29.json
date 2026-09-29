@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-29",
+  "evidence": "test-results/st-hands-impacts",
+  "tests": {
+    "tribes_bodies_vulkan": {"checks": 241, "failures": []},
+    "st_vehicle_impacts": {"checks": 25, "failures": []},
+    "st_scout": {"checks": 55, "failures": []},
+    "st_transports": {"checks": 93, "failures": []}
+  },
+  "visual_checks": ["medium-Left-0.22.png", "heavy-Right-0.22.png"],
+  "headset_validation": false
+}

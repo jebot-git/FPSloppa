@@ -100,7 +100,38 @@ static func retarget(mesh: MeshInstance3D,src: Skeleton3D,dst: Skeleton3D,cache_
 				if not omit:kept.append_array(indices.slice(i,i+3))
 			if kept.is_empty():continue
 			arrays[Mesh.ARRAY_INDEX]=kept
+		# Generated gloves were removed using their authored weights above.
+		# Pin the surviving cuff to the tracked wrist and blend the sleeve into
+		# it. A forearm-only cuff cannot follow the IK wrist's reach correction.
+		for hand in hands:
+			var wrist:=dst.find_bone(hand);var elbow:=dst.find_bone(hand.trim_suffix("Hand")+"LowerArm")
+			var hand_bind:=-1;var arm_bind:=-1
+			for bind in skin.get_bind_count():
+				if skin.get_bind_name(bind)==hand:hand_bind=bind
+				if skin.get_bind_name(bind)==hand.trim_suffix("Hand")+"LowerArm":arm_bind=bind
+			if wrist<0 or elbow<0 or hand_bind<0 or arm_bind<0:continue
+			var start:=dst.get_bone_global_rest(elbow).origin
+			var axis:=dst.get_bone_global_rest(wrist).origin-start
+			if axis.length_squared()<.0001:continue
+			for v in vertices.size():
+				var along: float=(vertices[v]-start).dot(axis)/axis.length_squared()
+				var follow:=smoothstep(.45,.87,along)
+				if follow<=0:continue
+				var slot:=-1
+				for j in stride:
+					if bones[v*stride+j]==hand_bind and weights[v*stride+j]>0:slot=v*stride+j;break
+				if slot<0:
+					for j in stride:
+						if weights[v*stride+j]<=0:slot=v*stride+j;break
+				if slot<0:continue
+				for j in stride:
+					var index:=v*stride+j
+					if bones[index]!=arm_bind or weights[index]<=0:continue
+					var transferred:=weights[index]*follow
+					weights[index]-=transferred;bones[slot]=hand_bind;weights[slot]+=transferred
+		arrays[Mesh.ARRAY_BONES]=bones;arrays[Mesh.ARRAY_WEIGHTS]=weights
 		out.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays);out.surface_set_material(out.get_surface_count()-1,source.surface_get_material(surface))
+	out.set_meta("transplanted_hands",hands.duplicate())
 	var result:={"mesh":out,"skin":skin}
 	if mesh_cache.size()>32:mesh_cache.erase(mesh_cache.keys()[0])
 	mesh_cache[cache_key]=result;return result

@@ -2,6 +2,10 @@
 
 This implements the next two items from [the remaining native study](REMAINING-NATIVE-OPTIONS.md), on top of the existing native pose helpers, projectiles and network codec. The previous implementations remain available for comparison and fallback.
 
+ST is now enabled in merged main. See the [current ST integration audit and remaining-cost study](NATIVE-CURRENT-ST-STUDY.md); the earlier DM results below do not measure specialized ST steering. The standard parity runner now also includes `native_st_bots`.
+
+The [next implementation and 16/32-actor comparisons](NATIVE-ST-BATCHES.md) add native ST corridor/precision steering, facial composition and remote tracking interpolation. It supersedes the script-ownership descriptions below for those specific kernels; these earlier measurements remain unchanged.
+
 ## Measured results
 
 Paired runs use the installed Godot 4.7.2 Fedora runtime, i7-12700 and Arc A770, with portable release libraries. Both reference and native runs retain all earlier native optimizations. [The validation receipt](validation/native-avatar-bots-2026-09-29.json) records runs, scope and build hashes.

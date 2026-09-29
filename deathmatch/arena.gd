@@ -765,7 +765,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	players.clear()
 	for projectile in projectiles.values():
 		if is_instance_valid(projectile.node): projectile.node.queue_free()
-	projectiles.clear();history.clear()
+	projectiles.clear();match_mode.tribes.combat.mines.clear();history.clear()
 	if is_instance_valid(variant_visuals):variant_visuals.queue_free();variant_visuals=null
 	var weapon_pool=get_node_or_null("Map/MapRuntime/WeaponLighting")
 	if weapon_pool:weapon_pool.clear()
@@ -1027,7 +1027,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 
 func _physics_process(delta: float) -> void:
 	# Simulation uses the engine physics delta; _process interpolates to the current display frame.
-	if demos.playing:clock+=delta;demos.tick(delta);return
+	if demos.playing:clock+=delta;return
 	clock += delta
 	if connect_address_deadline>0 and clock>connect_address_deadline and connect_address_index<connect_addresses.size():_next_connect_address()
 	if connect_deadline>0 and clock>connect_deadline: disconnect_game("Connection timed out. Check host, firewall and UDP port forwarding.")
@@ -1708,6 +1708,8 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 		if is_instance_valid(node):node.position=visible_start;node.set_meta("trail_position",visible_start)
 	if not definition.is_empty():projectiles[id].merge({"definition":definition,"extra":extra,"velocity":extra.get("launch_velocity",direction*definition.speed),"life":definition.fuse,"stuck":false},true)
 
+	if weapon==10 and armory.effective()=="tribes":match_mode.tribes.combat.mines[id]=true
+
 func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 	if native_projectiles:
 		native_projectiles.step(self,delta,movement_start,W.DATA,_native_trace_allowed());return
@@ -2103,7 +2105,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 					var pool=get_node_or_null("Map/MapRuntime/WeaponLighting")
 					if pool:pool.remove_source(projectiles[id].node.get_instance_id())
 					projectiles[id].node.queue_free()
-				projectiles.erase(id)
+				projectiles.erase(id);match_mode.tribes.combat.mines.erase(id)
 		for i in range(mini(gate_states.size(),gates.size())):
 			if gates[i].open!=gate_states[i]: _gate_state(i,gate_states[i])
 		_sync_elevators(mode_state.get("elevators",[]))
@@ -2391,6 +2393,7 @@ func _impacts(start: Vector3,ends: PackedVector3Array,weapon: int,surfaces: Pack
 	_draw_surface_marks(ends,surfaces,style)
 @rpc("authority","call_local","reliable",0)
 func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
+	match_mode.tribes.combat.mines.erase(id)
 	if not multiplayer.is_server():
 		if ended_projectiles.has(id):return
 		ended_projectiles[id]=true
@@ -2638,7 +2641,7 @@ func _clear_map_players() -> void:
 	fighters.clear();players.clear()
 	for shot in projectiles.values():
 		if is_instance_valid(shot.node): shot.node.free()
-	projectiles.clear();history.clear()
+	projectiles.clear();match_mode.tribes.combat.mines.clear();history.clear()
 	if is_instance_valid(variant_visuals):variant_visuals.queue_free();variant_visuals=null
 	var weapon_pool=get_node_or_null("Map/MapRuntime/WeaponLighting")
 	if weapon_pool:weapon_pool.clear()

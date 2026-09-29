@@ -9,7 +9,7 @@ func check(ok: bool,label: String):
 	if not ok:failures.append(label);push_error(label)
 func _initialize():run.call_deferred()
 func run():
-	for map in ["ctf_stonehenge","ctf_raindance"]:
+	for map in ["ctf_stonehenge","ctf_raindance","ctf_katabatic"]:
 		g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.selected_map=map;g.start_host("Equipment alignment",0,100,30,true,"st")
 		g.set_process(false);g.set_physics_process(false);g.match_mode.tribes.set_process(false)
 		for id in g.players.keys():

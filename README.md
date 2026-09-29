@@ -4,7 +4,7 @@
 
 [0.18v build notes](docs/RELEASE-0.18v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.18v:** refined CS weapon models and physical reloads, retained-magazine reinsertion with an ammunition count, improved hand attachment and recoil, chest-mounted bomb and defusal tools, shared grenade aiming guidance, bounded bullet decals, and corrected gaze-driven foveation. The original soundtrack and DE orchestral cue remain. Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch. Tribes skiing is assessed, not implemented.
+**New in 0.18v:** refined CS weapon models and physical reloads, retained-magazine reinsertion with an ammunition count, improved hand attachment and recoil, chest-mounted bomb and defusal tools, shared grenade aiming guidance, bounded bullet decals, and corrected gaze-driven foveation. Dead Air and Please Hold remain for title and lobby; gameplay music is now client-owned OGG playlists in `bgm/` (see [AUDIO.md](AUDIO.md)). Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch. Tribes skiing is assessed, not implemented.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
@@ -133,7 +133,7 @@ Select **Join as spectator** before **JOIN MATCH** to watch with a free-flying c
 
 The final scoreboard opens automatically when a match ends, including its VR surface, and closes for the next round. **SETTINGS…** is available before joining and during matches. Audio controls include master, effects, music, voice playback, output device and access to microphone/voice controls. Graphics controls include render resolution (50–125%), MSAA and shadows; desktop also offers fullscreen/windowed mode and FOV. Changes apply immediately and persist alongside your other client preferences. VR FOV and refresh timing remain headset/runtime controlled.
 
-The original soundtrack covers the title, lobby and gameplay modes, including **Escape Velocity** for Titanball and **Mega Destruction** for Assault. DE adds **Copper Fuse**, an orchestral action cue. Music has its own saved volume control and crossfades between contexts. See [music sources](deathmatch/audio/music/SOURCES.md) and [DE's editable tracker source](docs/audio/copper-fuse/README.md). New supply models distinguish bullets, shells, rockets, cells, medkits and armour with cached single-surface meshes.
+The title and lobby retain **Dead Air** and **Please Hold**. Gameplay uses your OGG music from the empty `bgm/` folder: map-specific playlists override mode-specific playlists, then unprefixed tracks. Matching tracks loop in filename order; named mode/map folders and M3U playlists are supported. Music retains its saved volume control and context crossfades. See [custom music instructions](AUDIO.md#mixer-and-custom-music) and [built-in music credits](deathmatch/audio/music/SOURCES.md). New supply models distinguish bullets, shells, rockets, cells, medkits and armour with cached single-surface meshes.
 
 
 ## 0.4v arena update

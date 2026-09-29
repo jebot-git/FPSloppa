@@ -8,7 +8,7 @@ import remaining
 
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'test-results/native-avatar-bots'
-PARITY=['native_preparation','native_bots','native_acceleration']
+PARITY=['native_preparation','native_bots','native_st_bots','native_st_steering','native_avatar_channels','st_query_batches','native_acceleration']
 REGRESSIONS=['bot_humanization','bot_weapons','bot_traversal','bot_tactics','bot_underpass','bot_assault','bot_teamplay','bot_objective_roles','bot_map_triggers','bot_map_transport','cs16_bots','defusal_bots','defusal_bot_behavior','bot_movement','frame_smoothness','death_animation','render_motion']
 
 

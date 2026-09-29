@@ -10,6 +10,7 @@ const TEXTURES={
 const MAPS={
  "ctf_stonehenge":["overcast",.85],
  "ctf_raindance":["overcast",.85],
+ "ctf_katabatic":["winter",.85],
  "tb_cindercoil":["overcast",.85],
  "as_hislop":["storm",.75],"as_frigate":["overcast",.85],
  "tf_pressureworks":["storm",.75],"tf_vesper":["night",.9],

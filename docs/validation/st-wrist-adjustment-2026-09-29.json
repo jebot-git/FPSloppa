@@ -1,0 +1,98 @@
+{
+  "date": "2026-09-29",
+  "task": "Raise and rotate the ST wrist tablet following headset feedback",
+  "pose": {
+    "side_angle_degrees": 60,
+    "mirrored_between_hands": true,
+    "outward_lift_metres": 0.04,
+    "cuffs_remain_forearm_aligned": true,
+    "supports_extended_metres": 0.04
+  },
+  "blender": {
+    "version": "5.2.0 LTS",
+    "mcp_used": true,
+    "model_report": {
+      "pda": {
+        "Case": {
+          "vertices": 2168,
+          "faces": 2432
+        },
+        "Mount": {
+          "vertices": 924,
+          "faces": 1152
+        }
+      },
+      "camera": {
+        "Case": {
+          "vertices": 2168,
+          "faces": 2432
+        },
+        "Mount": {
+          "vertices": 924,
+          "faces": 1152
+        }
+      }
+    },
+    "visual_review": [
+      "rotated front casings",
+      "raised backs and extended supports"
+    ]
+  },
+  "draw_surfaces_per_device": 3,
+  "test": {
+    "script": "deathmatch/tests/st_command_vr.gd",
+    "renderer": "Vulkan mobile",
+    "simulated_vr": true,
+    "arguments": [
+      "--vr-test",
+      "--no-bots",
+      "--capture-wrist"
+    ],
+    "exit_code": 0,
+    "checks": 88,
+    "failures": [],
+    "script_errors": 0,
+    "log": "test-results/st-wrist-display/vr-adjusted.log",
+    "shutdown_diagnostics": [
+      "WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/left_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://bnx4hithcij6y - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_L.gltf",
+      "WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:3 - ext_resource, invalid UID: uid://dgkfppran5j1f - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_caucasian_green_camo.png",
+      "WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:4 - ext_resource, invalid UID: uid://bw8rmigwt5pr4 - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_normal.png",
+      "WARNING: res://addons/godot-xr-tools/hands/materials/glove_caucasian_green_camo.tres:5 - ext_resource, invalid UID: uid://d2iocwfr47kqp - using text path instead: res://addons/godot-xr-tools/hands/textures/glove_fingerless_occlusionRoughnessMetallic.png",
+      "WARNING: res://addons/godot-xr-tools/hands/scenes/lowpoly/right_tac_glove_low.tscn:3 - ext_resource, invalid UID: uid://csgsp0wuw8ucy - using text path instead: res://addons/godot-xr-tools/hands/model/Hand_Glove_low_R.gltf",
+      "WARNING: 2 ObjectDB instances were leaked at exit (run with `--verbose` for details)."
+    ]
+  },
+  "captures": {
+    "directory": "test-results/st-wrist-display",
+    "files": [
+      "pda-wrist-left.png",
+      "pda-wrist-right.png",
+      "camera-wrist-left.png",
+      "camera-wrist-right.png"
+    ],
+    "reviewed": [
+      "pda-wrist-left.png",
+      "camera-wrist-right.png"
+    ]
+  },
+  "headset_feedback": "User confirmed other functions pass; requested rotation and lift. New pose has not yet been confirmed in headset.",
+  "sha256": {
+    "deathmatch/tribes/wrist_display.gd": "a2a1f513ea21865a86497dce90e40443010c6594c34c1f479962b57799f7930e",
+    "deathmatch/tribes/command_view.gd": "d40d58bbd39103013aee448614cb51cae3a345f4084ba9c68e11de33d299fdef",
+    "deathmatch/tribes/turret_view.gd": "b67cc407e4d98e63e0d62e6d21755008fc173eecdf52b84597b46fb9fc003752",
+    "deathmatch/tests/st_command_vr.gd": "44db930be0694119cb6f421321ab66d67e8fe2cb806d2ce7f8cc58f8d19605de",
+    "tools/tribes/wrist_geometry.gd": "95766b609335f64872fe864b0dc6ddf2f960d5a4cc1d60970f060067af6b5a6a",
+    "tools/tribes/wrist_model.py": "e80b4da81b05614566332eec2ce4c36f436ba65bb289c19570cff7878f2012f8",
+    "tools/tribes/export_wrist.gd": "5b629c9dbd3450d8c6dc1e5ebabc9787b7bc4794b28c35709f8f8e6cbad913ae",
+    "tools/tribes/import_wrist.gd": "269e84e35edc07b6acbfe51b88ca8a19471e07724c23ec397864dcb1d73ef8e1",
+    "deathmatch/tribes/wrist/pda.glb": "cf4c39dae4c41103c9a21313fe3d345fd24128a0f8731e5b7f12c760e7fc5027",
+    "deathmatch/tribes/wrist/camera.glb": "f99b4930279589930533fe8efdee39326b2a9afbab08320901158cd944f750f4",
+    "deathmatch/tribes/wrist/model-report.json": "d76aede849ce866c218f21a66cbce1e99ede3177daa3de6c0bd4958c6187566a",
+    "deathmatch/tribes/wrist/pda.scn": "0748d3a40983b541b7d9ac032dd56f47f64650e6e9eec94e9666f1e66a8a4699",
+    "deathmatch/tribes/wrist/camera.scn": "bb1bfe17a6b7d7fc576ae42b41432b98c5be2ea6be75519a380cd20681fe708d",
+    "deathmatch/tribes/wrist/CREDITS.md": "3a7d2b1c4936f9dd06cd66149c28975c7c868b71cf5e059375949bbe928b5d79",
+    "tools/tribes/wrist-sources/wrist-displays.blend": "c50c0b194b540f1e31f69beba61f4d8558983087d2795ada7a3299074ad29c65",
+    "tools/tribes/wrist-sources/base-pda.glb": "b954978661c919497d09f36e793b17d24aa5e647db933069c1ca84ff3c8cf03e",
+    "tools/tribes/wrist-sources/base-camera.glb": "68684b14400ec128b5f93097eab5c6e95d8b4701b4e6b6b2738d32867fc2df2d"
+  }
+}

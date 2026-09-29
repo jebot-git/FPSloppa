@@ -1,0 +1,41 @@
+{
+  "repository": "https://github.com/exogen/t2-mapper",
+  "commit": "abe5198e5020554fe1f1620231c188d48f00f045",
+  "gallery": "https://exogen.github.io/t2-maps/#Katabatic",
+  "inspector": "https://exogen.github.io/t2-mapper/?mission=Katabatic",
+  "layout_reference": "https://wiki.tribesdepot.com/wiki/Tribes_2/Maps/Katabatic",
+  "files": {
+    "Katabatic.mis": {
+      "path": "docs/base/@vl2/missions.vl2/missions/Katabatic.mis",
+      "sha256": "6a979f76e70fbcb04eb989c387be8785912d463309ca2222d119e6634ffe3df7"
+    },
+    "Katabatic.ter": {
+      "path": "docs/base/@vl2/missions.vl2/terrains/Katabatic.ter",
+      "sha256": "343eac945eb868e723fc3d49f84ee252f731e9edb53bb83771c7f68cd48d5186"
+    },
+    "dif.ts": {
+      "path": "src/dif/dif.ts",
+      "sha256": "1c41be26ebdcbda6e7fbc7a57bf68431833de7d2891625c468c569c65ad89aa6"
+    },
+    "sbunk2.dif": {
+      "path": "docs/base/@vl2/interiors.vl2/interiors/sbunk2.dif",
+      "sha256": "1713ba3bc0fd04961fd47c5ab546562c40a53574f97467b8af131353f2f64511"
+    },
+    "svpad.dif": {
+      "path": "docs/base/@vl2/interiors.vl2/interiors/svpad.dif",
+      "sha256": "42d90addf450f63ad9babc45fff0b918fd153b94e2cc2f5987718b07ba2da8ad"
+    },
+    "smisc3.dif": {
+      "path": "docs/base/@vl2/interiors.vl2/interiors/smisc3.dif",
+      "sha256": "d60f9e258f08eec54acb268f4c2c981b23a3151a728daeeca1ce996614c15913"
+    },
+    "stowr6.dif": {
+      "path": "docs/base/@vl2/interiors.vl2/interiors/stowr6.dif",
+      "sha256": "419eb7bfca892f3413041cc93aff74e1ad0097c779d3d2a875c144240cf8db85"
+    },
+    "stowr4.dif": {
+      "path": "docs/base/@vl2/interiors.vl2/interiors/stowr4.dif",
+      "sha256": "43b7e8143140010157efc72011716333657f769365c71072c72828fe59e37baa"
+    }
+  }
+}

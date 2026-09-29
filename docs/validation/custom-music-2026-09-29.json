@@ -1,0 +1,66 @@
+{
+  "date": "2026-09-29",
+  "source_checks": {
+    "checks": 38,
+    "failures": []
+  },
+  "exported_checks": {
+    "checks": 38,
+    "failures": []
+  },
+  "retained_tracks": [
+    {
+      "name": "dead_air.ogg",
+      "bytes": 729805,
+      "sha256": "20a17c5fdad2027c982d42a6bc6e564941d2d4802e20b54667c131dc2d205de8",
+      "unchanged_from_head": true
+    },
+    {
+      "name": "please_hold.ogg",
+      "bytes": 990176,
+      "sha256": "acefabfc5d0d99272487f5047256192f112299ae423af69321e85b2c80440e5c",
+      "unchanged_from_head": true
+    }
+  ],
+  "audio_audit": {
+    "scores": [
+      {
+        "mode": "title",
+        "seconds": 112.9411875,
+        "lufs": -22.03,
+        "true_peak_dbtp": -5.05,
+        "loop_step": 0.002201,
+        "bytes": 729805,
+        "passed": true
+      },
+      {
+        "mode": "lobby",
+        "seconds": 102.85715625,
+        "lufs": -21.02,
+        "true_peak_dbtp": -6.29,
+        "loop_step": 0.001914,
+        "bytes": 990176,
+        "passed": true
+      }
+    ],
+    "runtime_bytes": 1719981,
+    "failures": []
+  },
+  "pack_contains_only_retained_tracks": true,
+  "pack_excludes_external_bgm": true,
+  "pc_archive_empty_bgm_entry": "implemented in tools/build_release.py; audited on next release packaging",
+  "precedence": [
+    "map",
+    "mode",
+    "global",
+    "silence"
+  ],
+  "order": "case-insensitive natural filename order; repeat queue",
+  "rescan": "gameplay context change (map/mode/lobby), or client restart",
+  "logs": [
+    "test-results/custom-music-test.log",
+    "test-results/custom-music-exported-test.log",
+    "test-results/custom-music-pack-check.log",
+    "test-results/custom-music-export.log"
+  ]
+}

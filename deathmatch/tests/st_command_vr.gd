@@ -1,5 +1,6 @@
 extends SceneTree
 const Fixture=preload("res://deathmatch/tests/fixture.gd")
+const Wrist=preload("res://deathmatch/tribes/wrist_display.gd")
 var g
 var checks:=0
 var failures: Array=[]
@@ -7,8 +8,39 @@ func check(ok: bool,label: String):
 	checks+=1;print("PASS " if ok else "FAIL ",label)
 	if not ok:failures.append(label)
 func _initialize():run.call_deferred()
+func check_wrist(display,rig,label: String):
+	var hand=rig.right if rig.left_handed else rig.left
+	check(display.get_parent()==hand,label+" is parented to the offhand grip")
+	var attachment: Transform3D=hand.global_transform.affine_inverse()*display.global_transform
+	var old: Transform3D=hand.transform
+	hand.transform=old*Transform3D(Basis.from_euler(Vector3(.3,-.2,.7)),Vector3(.03,.06,-.09))
+	check(display.global_transform.is_equal_approx(hand.global_transform*attachment),label+" immediately inherits all wrist translation and roll")
+	hand.transform=old
+	var palm: Basis=hand.global_basis*preload("res://deathmatch/avatars/pose.gd").controller_hand_basis(not rig.left_handed)
+	check(display.global_basis.z.dot(-palm.z)>.999 and display.global_basis.y.dot(palm.y)>.999,label+" faces out from the anatomical wrist with its top toward the fingers")
+	var parts: Array=display.find_children("*","MeshInstance3D",true,false)
+	check(parts.size()==3 and parts.all(func(part):return part.layers==Wrist.LOCAL_LAYER),label+" uses a cuff, raised casing and local screen")
+	check(display.screen.material_override.cull_mode==BaseMaterial3D.CULL_BACK,label+" screen is opaque from behind")
+func capture_wrist(display,rig,file: String):
+	if not OS.get_cmdline_user_args().has("--capture-wrist"):return
+	var hand=rig.right if rig.left_handed else rig.left;var saved: Transform3D=hand.global_transform
+	# The rig is deliberately paused for controller assertions; hide its initial
+	# menu/keyboard surfaces as the normal rig process does during gameplay.
+	var hidden: Array=[]
+	for node in [rig.panel,rig.keyboard,rig.status_surface,rig.damage_overlay]:
+		if node.visible:hidden.append(node);node.hide()
+	for pointer in rig.pointers:
+		if pointer.visible:hidden.append(pointer);pointer.hide()
+	var front:=Transform3D(Basis(Vector3.UP,.18)*Basis(Vector3.RIGHT,-.32),Vector3(-.06,-.10,-.46))
+	hand.global_transform=rig.head.global_transform*front*Wrist.grip_pose(not rig.left_handed).affine_inverse()
+	for i in 6:await process_frame
+	await RenderingServer.frame_post_draw
+	check(root.get_texture().get_image().save_png("res://test-results/st-wrist-display/"+file+".png")==OK,"Capture "+file)
+	hand.global_transform=saved
+	for node in hidden:node.show()
 func run():
 	DirAccess.make_dir_recursive_absolute("res://test-results/st-command")
+	DirAccess.make_dir_recursive_absolute("res://test-results/st-wrist-display")
 	root.size=Vector2i(1280,900);root.position=Vector2i(6000,6000)
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.selected_map="ctf_raindance";g.start_host("PDA VR",0,100,60,true,"st");g.set_process(false);g.set_physics_process(false)
 	var r=g.match_mode.tribes;r.set_process(false);var rig=g.xr_rig;rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false;rig.focused=true;rig.blackout.hide()
@@ -34,11 +66,19 @@ func run():
 	var center_hit: Transform3D=view.surface.global_transform*Transform3D(Basis.IDENTITY,Vector3(0,0,.5))
 	check(view.ray_point(view.surface.global_transform,center_hit).distance_to(view.SIZE*.5)<.01,"VR pointing ray maps exactly to panel centre")
 	check(not view.ray_point(view.surface.global_transform,view.surface.global_transform*Transform3D(Basis.IDENTITY,Vector3(2,0,.5))).is_finite(),"Off-panel ray cannot click controls")
+	check(not view.ray_point(view.surface.global_transform,view.surface.global_transform*Transform3D(Basis(Vector3.UP,PI),Vector3(0,0,-.5))).is_finite(),"Opaque PDA back cannot activate a button")
+	check(not view.ray_point(view.surface.global_transform,view.surface.global_transform*Transform3D(Basis.IDENTITY,Vector3(view.PANEL_SIZE.x*.5+.008,0,.5))).is_finite(),"Tablet bezel cannot activate a button")
 	var saved: Transform3D=rig.head.global_transform
 	for mirrored in [false,true]:
 		rig.left_handed=mirrored;rig.left_controls=mirrored
 		var trigger=left if mirrored else right;var other=right if mirrored else left;var aim=rig.left_aim if mirrored else rig.right_aim
 		trigger.set_input("trigger",false);view.update(.02)
+		check_wrist(view.wrist,rig,"PDA (%s)"%mirrored)
+		var fixed: Transform3D=view.wrist.global_transform
+		rig.head.position+=Vector3(.15,.08,.12);rig.head.rotate_y(.2);view.update(.02)
+		check(view.wrist.global_transform.is_equal_approx(fixed),"PDA does not billboard or move when the head moves (%s)"%mirrored)
+		rig.head.global_transform=saved
+		await capture_wrist(view.wrist,rig,"pda-wrist-left" if not mirrored else "pda-wrist-right")
 		var button: Dictionary=view.buttons.filter(func(row):return row.action=="sensors")[0];var pixel: Vector2=button.rect.get_center()
 		var local:=Vector3((pixel.x/view.SIZE.x-.5)*view.PANEL_SIZE.x,(.5-pixel.y/view.SIZE.y)*view.PANEL_SIZE.y,.5)
 		aim.global_transform=view.surface.global_transform*Transform3D(Basis.IDENTITY,local)
@@ -46,13 +86,16 @@ func run():
 		check(view.sensors!=previous,"Tracked trigger activates PDA button (%s)"%mirrored)
 		view.update(.02);check(view.sensors!=previous,"Held trigger does not repeatedly toggle PDA (%s)"%mirrored)
 		trigger.set_input("trigger",false)
+		rig.focused=false;view.update(.02);check(not view.wrist.visible and not view.surface.visible,"PDA hides with lost XR focus (%s)"%mirrored)
+		rig.focused=true;view.update(.02)
 		other.set_input("ax_button",true);rig.poll_controls();check(not view.opened,"Use closes PDA (%s)"%mirrored)
+		check(not view.wrist.visible,"PDA close hides its casing (%s)"%mirrored)
 		other.set_input("ax_button",false);rig.poll_controls();r.open_pda();view.update(.02)
 	check(rig.head.global_transform==saved,"PDA never moves headset camera")
 	view.close();rig.left_handed=false;rig.left_controls=false
 	# Desktop shares the exact map, click targets and state.
 	rig.enabled=false;r.open_pda();view.update(.02);view.refresh();await process_frame;await RenderingServer.frame_post_draw
-	check(view.layer.visible and not view.surface.visible,"Desktop PDA uses flat panel")
+	check(view.layer.visible and not view.surface.visible and not view.wrist.visible,"Desktop PDA uses flat panel without wrist casing")
 	var screen=view.layer.get_node("Screen");var pixel: Vector2=screen.position+view.SIZE*.5*screen.scale
 	check(view.screen_point(pixel).distance_to(view.SIZE*.5)<.01,"Desktop scaled panel maps pointer correctly")
 	view.viewport.get_texture().get_image().save_png("res://test-results/st-command/pda-desktop.png")
@@ -71,11 +114,35 @@ func run():
 		for key in [1,2]:
 			s.input_blocked=false;r.control_remote(key);r._process(0)
 			aim.global_basis=Basis(Vector3.UP,.35)*Basis(Vector3.RIGHT,.1);trigger.set_input("trigger",true);g.clock+=.1;r.turret_view.update()
+			var remote=r.turret_view
+			check_wrist(remote.wrist,rig,"Remote %d (%s)"%[key,mirrored])
+			check(remote.hud.get_viewport()==remote.viewport and remote.camera.cull_mask&Wrist.LOCAL_LAYER==0,"Remote feed includes its HUD and excludes the local tablet (%s)"%mirrored)
+			if key==1:await capture_wrist(remote.wrist,rig,"camera-wrist-left" if not mirrored else "camera-wrist-right")
 			check(r.remote.operated(1)==key and r.remote.claims[key].aim.is_equal_approx(-aim.global_basis.z),"Remote %d uses dominant aim (%s)"%[key,mirrored])
+			rig.focused=false;g.clock+=.1;remote.update()
+			check(not remote.wrist.visible and not r.remote.claims[key].fire,"Hidden remote display cannot keep firing (%s)"%mirrored)
+			rig.focused=true;g.clock+=.1;remote.update()
 			var personal: Dictionary=g._local_command();g.sequence+=1;g._physics_process(0)
 			check(not s.fire and s.move==Vector2.ZERO,"Remote control suppresses personal weapon/movement (%s)"%mirrored)
 			other.set_input("ax_button",true);rig.poll_controls();r.turret_view.update();check(r.remote.operated(1)<0 and r.turret_view.key<0,"Use releases remote device (%s)"%mirrored)
+			check(not remote.wrist.visible and remote.viewport.render_target_update_mode==SubViewport.UPDATE_DISABLED,"Remote release hides case and stops feed (%s)"%mirrored)
 			other.set_input("ax_button",false);trigger.set_input("trigger",false);rig.poll_controls()
+	# Distant fixed-turret audio must reach its remote operator through the tablet.
+	var fixed=r.stations().defences;var turret: Dictionary=fixed.rows[0];var old_kind: String=turret.kind
+	r.turret_view.wrist.show();turret.operator=1
+	for kind in fixed.Data.TYPES:
+		turret.kind=kind;g.spatial.clear();r.fixed_turret_sound(g.map_epoch,0,actor.position+Vector3(500,0,0))
+		check(g.spatial.active.size()==1,"Fixed "+kind+" emits a firing sound")
+		if not g.spatial.active.is_empty():
+			var sound=g.spatial.active.back()
+			check(sound.global_position.is_equal_approx(r.turret_view.wrist.screen.global_position),"Fixed "+kind+" relays audio through the operator wrist screen")
+			check(g.spatial.choose("tribes_weapon_%d"%fixed.Data.TYPES[kind].weapon)!=null,"Fixed "+kind+" has a loadable weapon sound")
+	turret.operator=0;turret.kind=old_kind;g.spatial.clear()
+	var muzzle: Vector3=fixed.muzzle(0);r.fixed_turret_sound(g.map_epoch,0,muzzle)
+	check(g.spatial.active.size()==1 and g.spatial.active.back().global_position.is_equal_approx(muzzle),"Bystanders hear fixed turret at its world muzzle")
+	g.spatial.clear();r.fixed_turret_sound(g.map_epoch-1,0,muzzle);r.fixed_turret_sound(g.map_epoch,-1,muzzle)
+	check(g.spatial.active.is_empty(),"Old-map and invalid turret audio is ignored")
+	r.turret_view.wrist.hide()
 	var c=r.vehicles
 	c.rows[1]={"kind":"scout","position":Fixture.ORIGIN+Vector3.UP*10,"velocity":Vector3.ZERO,"yaw":0.0,"pitch":-.12,"bank":0.0,"hp":c.Data.HP,"pilot":1,"life":s.serial,"passengers":[],"passenger_lives":[],"team":0,"owner_team":0,"ready":0.0,"next_fire":0.0,"idle_until":1000.0}
 	c.make_body(1);c.pin(1)

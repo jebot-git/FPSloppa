@@ -26,13 +26,6 @@ def main():
     for source in json.loads((MUSIC/'samples/vsco-sources.json').read_text()):
         if hashlib.sha256((MUSIC/'samples'/(source['name']+'.wav')).read_bytes()).hexdigest()!=source['prepared_sha256']:
             failures.append('source '+source['name'])
-    de_samples=ROOT/'docs/audio/copper-fuse/samples'
-    for source in json.loads((de_samples/'sources.json').read_text()):
-        if hashlib.sha256((de_samples/(source['name']+'.wav')).read_bytes()).hexdigest()!=source['prepared_sha256']:
-            failures.append('DE source '+source['name'])
-    for name,source in json.loads((ROOT/'docs/audio/skyward-relay/sources.json').read_text()).items():
-        if hashlib.sha256((ROOT/source['path']).read_bytes()).hexdigest()!=source['sha256']:
-            failures.append('ST source '+name)
     result={'scores':rows,'runtime_bytes':sum(r['bytes'] for r in rows),'failures':failures}
     dest=ROOT/'test-results/soundtrack-analysis.json';dest.parent.mkdir(exist_ok=True);dest.write_text(json.dumps(result,indent=2)+'\n')
     raise SystemExit(bool(failures))

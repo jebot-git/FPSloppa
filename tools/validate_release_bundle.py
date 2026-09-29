@@ -11,6 +11,9 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
     with zipfile.ZipFile(archive) as z:
         assert z.testzip() is None, filename
         names=set(z.namelist())
+        if label in {'Linux','Windows'}:
+            assert prefix+'bgm/' in names, ('Missing custom music folder',label)
+            assert {n for n in names if n.startswith(prefix+'bgm/')}=={prefix+'bgm/'}, ('User music leaked into release',label)
         assert len(names)==len(z.infolist()), 'Duplicate archive entries'
         for name in names:
             p=Path(name)

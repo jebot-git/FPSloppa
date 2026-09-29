@@ -2,7 +2,8 @@ extends Node
 ## Portable tactical map: a 2D terrain survey and team-filtered markers, shared in VR.
 const SIZE:=Vector2(1040,720)
 const MAP:=Rect2(24,86,660,550)
-const PANEL_SIZE:=Vector2(.66,.457)
+const Wrist=preload("res://deathmatch/tribes/wrist_display.gd")
+const PANEL_SIZE:=Wrist.PDA_SIZE
 const GRID:=64
 class MapCanvas extends Control:
 	var view
@@ -13,6 +14,7 @@ var canvas: MapCanvas
 var layer: CanvasLayer
 var viewport: SubViewport
 var surface: MeshInstance3D
+var wrist
 var marker: Label3D
 var terrain: Array=[]
 var survey_at:=0
@@ -39,15 +41,14 @@ var game:
 	get:return rules.game
 func setup(value):rules=value
 func _exit_tree():
-	for node in [surface,marker]:
+	for node in [wrist,marker]:
 		if is_instance_valid(node):node.queue_free()
 func create_view():
 	viewport=SubViewport.new();viewport.size=Vector2i(SIZE);viewport.transparent_bg=false;viewport.disable_3d=true;viewport.gui_disable_input=true;viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;add_child(viewport)
 	canvas=MapCanvas.new();canvas.view=self;canvas.size=SIZE;viewport.add_child(canvas)
 	layer=CanvasLayer.new();layer.layer=10;add_child(layer)
 	var image:=TextureRect.new();image.texture=viewport.get_texture();image.name="Screen";image.mouse_filter=Control.MOUSE_FILTER_IGNORE;layer.add_child(image)
-	surface=MeshInstance3D.new();var quad:=QuadMesh.new();quad.size=PANEL_SIZE;surface.mesh=quad;surface.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	var mat:=StandardMaterial3D.new();mat.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;mat.albedo_texture=viewport.get_texture();mat.cull_mode=BaseMaterial3D.CULL_DISABLED;surface.material_override=mat;game.add_child(surface);surface.hide();layer.hide()
+	wrist=Wrist.new();game.add_child(wrist);wrist.setup(viewport.get_texture(),"pda");surface=wrist.screen;surface.hide();layer.hide()
 func toggle():
 	if opened:close();return
 	var id: int=game.multiplayer.get_unique_id()
@@ -61,7 +62,7 @@ func toggle():
 	update(0)
 func close():
 	opened=false;verb="";dragging=false
-	if is_instance_valid(viewport):viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;layer.hide();surface.hide()
+	if is_instance_valid(viewport):viewport.render_target_update_mode=SubViewport.UPDATE_DISABLED;layer.hide();surface.hide();wrist.hide()
 	if game.active and not game.menu_open and not game.is_vr():Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 func scale_world() -> float:return MAP.size.y/maxf(1,maxf(bounds.size.x,bounds.size.z))*zoom
 func project(point: Vector3) -> Vector2:return MAP.get_center()+(Vector2(point.x,point.z)-center)*scale_world()
@@ -116,7 +117,8 @@ func screen_point(pixel: Vector2) -> Vector2:
 	var image=layer.get_node("Screen");return (pixel-image.position)/image.scale
 static func ray_point(pose: Transform3D,aim: Transform3D) -> Vector2:
 	var inverse:=pose.affine_inverse();var origin: Vector3=inverse*aim.origin;var direction: Vector3=inverse.basis*(-aim.basis.z)
-	if absf(direction.z)<.0001:return Vector2.INF
+	# The case is opaque: pointing at the back or through its bezel cannot click.
+	if origin.z<=0 or direction.z>=-.0001:return Vector2.INF
 	var distance: float=-origin.z/direction.z
 	if distance<0 or distance>3:return Vector2.INF
 	var hit:=origin+direction*distance
@@ -199,11 +201,10 @@ func update(delta: float):
 	if not opened:return
 	survey()
 	if game.is_vr():
-		layer.hide();surface.show()
-		var rig=game.xr_rig;var hand=rig.right if rig.left_handed else rig.left
-		surface.global_position=hand.global_position+Vector3.UP*.25;surface.look_at(rig.head.global_position,Vector3.UP,true)
+		layer.hide()
+		var rig=game.xr_rig;surface.visible=wrist.mount(rig)
 		var aim=rig.left_aim if rig.left_handed else rig.right_aim
-		var tracked: bool=rig.focused and not rig.scores and not rig.blackout.visible and (rig.simulated or aim.get_has_tracking_data())
+		var tracked: bool=wrist.visible and (rig.simulated or aim.get_has_tracking_data())
 		var previous:=cursor
 		cursor=ray_point(surface.global_transform,aim.global_transform) if tracked else Vector2.INF
 		if previous.is_finite()!=cursor.is_finite() or cursor.is_finite() and previous.distance_to(cursor)>1:refresh()
@@ -213,7 +214,7 @@ func update(delta: float):
 		var pan: Vector2=rig.control_axis("move")
 		if pan.length()>.25:center+=Vector2(pan.x,-pan.y)*delta*150/zoom;refresh()
 	else:
-		surface.hide();layer.show();var screen=layer.get_node("Screen");var factor:=minf(game.get_viewport().get_visible_rect().size.x/SIZE.x,game.get_viewport().get_visible_rect().size.y/SIZE.y)*.94
+		surface.hide();wrist.hide();layer.show();var screen=layer.get_node("Screen");var factor:=minf(game.get_viewport().get_visible_rect().size.x/SIZE.x,game.get_viewport().get_visible_rect().size.y/SIZE.y)*.94
 		screen.scale=Vector2.ONE*factor;screen.size=SIZE;screen.position=(game.get_viewport().get_visible_rect().size-SIZE*factor)*.5
 	if game.clock>=next_update:next_update=game.clock+.1;refresh()
 func refresh():

@@ -1,0 +1,155 @@
+{
+  "date": "2026-09-29",
+  "map": {
+    "id": "ctf_katabatic",
+    "title": "Katabatic | Tribes 2 CTF",
+    "bsp_sha256": "2186b88cc7d2aed7023486475ed3b06bc3eb61496909cba73ead01a45f797b3d",
+    "bytes": 10647748,
+    "bsp_version": 29,
+    "terrain_steps_m": [
+      8,
+      16,
+      32
+    ],
+    "terrain_extent_m": [
+      1504,
+      1408
+    ],
+    "detail_brushes": 5640,
+    "interior_hulls": 1980,
+    "full_vis": true,
+    "flag_separation_m": 1060.4692184741857,
+    "team_spawns": [
+      8,
+      8
+    ],
+    "navigation_portals": 335,
+    "faces": 34349,
+    "vertices": 36263,
+    "nodes": 29046,
+    "leaves": 15740
+  },
+  "preparation": {
+    "bsp_sha256": "2186b88cc7d2aed7023486475ed3b06bc3eb61496909cba73ead01a45f797b3d",
+    "codecs": [
+      {
+        "encoded_bytes": 1747760,
+        "format": "bc7",
+        "images": 5,
+        "path": "res://maps/cache/ctf_katabatic-lightmap1-bc7.scn",
+        "raw_bytes": 5242875
+      },
+      {
+        "encoded_bytes": 1747760,
+        "format": "astc4",
+        "images": 5,
+        "path": "res://maps/cache/ctf_katabatic-lightmap1-astc4.scn",
+        "raw_bytes": 5242875
+      }
+    ],
+    "geometry_hashes": 49,
+    "ground_navigation_polygons": 59068,
+    "navigation_cleanup": {
+      "removed_redundant_polygons": 0,
+      "unresolved_edges": 0
+    },
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.495866060256958,
+      "occupancy_before": 0.12396651506424,
+      "padded_luxels": 2079813,
+      "patches": 33516,
+      "raw_bytes_after": 12582912,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 192306,
+      "to": [
+        2048,
+        2048
+      ]
+    }
+  },
+  "checks": {
+    "map_acceptance": 514,
+    "equipment_mounts": 166,
+    "st_mode": 59,
+    "weather_vulkan_mobile": 19,
+    "turret_vr_audio": 101,
+    "turret_combat": 94,
+    "map_presentation": "passed",
+    "skyboxes": "passed"
+  },
+  "bot_smoke": {
+    "seconds": 180.000000000035,
+    "scores": [
+      0,
+      0
+    ],
+    "termination_reason": "match_finished",
+    "flag_events": [
+      {
+        "carrier": -1010,
+        "energy": 60.0,
+        "flag_team": 1,
+        "goal": "st:flag",
+        "hp": 70,
+        "kind": "pickup",
+        "pack": "none",
+        "phase": "flag_run",
+        "position": "(-433.3003, 89.55382, -384.8159)",
+        "role": "capper",
+        "seconds": 158.183333333351,
+        "velocity": "(-10.70169, 0.0, 2.539788)"
+      },
+      {
+        "carrier": -1010,
+        "energy": 60.0,
+        "flag_team": 1,
+        "goal": "st:capture",
+        "hp": 0,
+        "kind": "drop",
+        "pack": "none",
+        "phase": "coast",
+        "position": "(-381.865, 117.9646, -400.742)",
+        "role": "capper",
+        "seconds": 163.150000000022,
+        "velocity": "(30.3311, 5.90815, 9.765624)"
+      },
+      {
+        "carrier": 0,
+        "flag_team": 1,
+        "kind": "return",
+        "seconds": 176.633333333366
+      }
+    ]
+  },
+  "fog": {
+    "enabled_by_default": [
+      "ctf_stonehenge",
+      "ctf_raindance",
+      "ctf_katabatic"
+    ],
+    "volumetric": false
+  },
+  "limitations": [
+    "Simplified remote towers and adaptive terrain sampling preserve BSP29 limits.",
+    "Three-minute contested run had no capture; competitive routing/balance remains unproven.",
+    "Weather roof survey uses four-metre cells; headset weather performance/comfort unmeasured.",
+    "Known test-fixture shutdown resource warnings remain."
+  ],
+  "sha256": {
+    "tools/katabatic/build.py": "d3e8a909cb367fd429cc3ed4fe1374a55445efaee3a9842f21ed9e30ddda4f5c",
+    "tools/katabatic/portals.json": "80b920e152c730401ea4d2ed1a8ef5df26775f6891946f5f5f687989a3e769fe",
+    "tools/katabatic/references.json": "a2acd8386fe70c084946813888ef67966dba47974aa7491241b5c4faf694401e",
+    "tools/katabatic/texture-sources.json": "d3cbe81c31ca8304e78d5d06e7be2b4e9ba8265b7480e75617514da0a994fe7d",
+    "deathmatch/maps/weather.gd": "7e59ee289dfa15e2b5e2836542093b0124d0069e29a0b80855ab7dcdf4f618b3",
+    "deathmatch/maps/weather.gdshader": "43ab722c689a6e9697f77048eb1d6589cc9cd0a62acef7b2488755a26816c3ba",
+    "deathmatch/maps/atmosphere.gd": "269c0b5bc62cdf0d9611f7082b6c0801929bb173d4e96babb708fafa9505c1b8",
+    "deathmatch/tribes/fixed_defences.gd": "93b84fc87d2b76945a5aeb6ef624e4b429161bc1cae8224119aa1b978cdca88b",
+    "deathmatch/modes/tribes.gd": "e26bedfc721046fc5e08c5a328ad6d0957a24434bd15c12ca66411639942c449",
+    "maps/ctf_katabatic.bsp": "2186b88cc7d2aed7023486475ed3b06bc3eb61496909cba73ead01a45f797b3d",
+    "maps/navigation/ctf_katabatic.res": "b9f95afa1cc5f9efe72e6bcf050777123371a1d5d84f17c7d2b7f8f37ee12adf"
+  }
+}

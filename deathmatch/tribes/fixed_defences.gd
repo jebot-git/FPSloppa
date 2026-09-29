@@ -119,7 +119,7 @@ func fire(key: int) -> bool:
 	else:
 		if game.variant_combat.launch(row.operator,d.weapon,start,row.aim,{"fixed_turret":row.kind,"turret_team":row.team,"target":row.target})<0:return false
 	row.energy=maxf(0,row.energy-d.cost);row.fire_at=game.clock+d.cycle
-	stats[row.kind]=int(stats.get(row.kind,0))+1;game.match_mode.tribes.deployable_sound.rpc(game.map_epoch,start);return true
+	stats[row.kind]=int(stats.get(row.kind,0))+1;game.match_mode.tribes.fixed_turret_sound.rpc(game.map_epoch,key,start);return true
 func fixture(key: int):
 	var row: Dictionary=rows[key];var node:=StaticBody3D.new();node.collision_layer=1;node.collision_mask=0
 	var shape:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Data.size(row.kind);shape.shape=box;shape.position.y=box.size.y*.5;node.add_child(shape);pads.add_child(node);node.global_position=row.position

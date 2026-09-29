@@ -375,7 +375,7 @@ func _process(_delta: float):
 		if not is_instance_valid(deployable_view):deployable_view=preload("res://deathmatch/tribes/deployable_view.gd").new();game.add_child(deployable_view);deployable_view.setup(self)
 	if is_instance_valid(deployable_view):deployable_view.update()
 	if not game.headless and enabled() and game.active and not is_instance_valid(turret_view):
-		turret_view=preload("res://deathmatch/tribes/turret_view.gd").new();game.add_child(turret_view);turret_view.setup(self)
+		turret_view=load("res://deathmatch/tribes/turret_view.gd").new();game.add_child(turret_view);turret_view.setup(self)
 	if is_instance_valid(turret_view):turret_view.update()
 	if not game.headless and enabled() and game.active and not is_instance_valid(field_view):
 		field_view=preload("res://deathmatch/tribes/field_view.gd").new();game.add_child(field_view);field_view.setup(self)
@@ -422,6 +422,19 @@ func deployment_result(success: bool):
 @rpc("authority","call_local","unreliable",3)
 func deployable_sound(epoch: int,where: Vector3):
 	if epoch==game.map_epoch and not game.headless:game.spatial.play("tribes_weapon_0",where,-8)
+@rpc("authority","call_local","unreliable",3)
+func fixed_turret_sound(epoch: int,key: int,where: Vector3):
+	if epoch!=game.map_epoch or game.headless or not where.is_finite():return
+	var pads=stations()
+	if not pads or key<0 or key>=pads.defences.rows.size():return
+	var row: Dictionary=pads.defences.rows[key]
+	# The listener remains at the player while a distant turret is controlled.
+	# Relay its firing audio through the tablet, avoiding a second local echo.
+	if row.operator==multiplayer.get_unique_id():
+		if is_instance_valid(turret_view) and is_instance_valid(turret_view.wrist) and turret_view.wrist.visible:
+			where=turret_view.wrist.screen.global_position
+		elif is_instance_valid(game.camera):where=game.camera.global_position-game.camera.global_basis.z
+	game.spatial.play("tribes_weapon_%d"%pads.defences.Data.TYPES[row.kind].weapon,where,-6)
 func view_camera(key: int):
 	if key>=0:control_turret(-1);control_remote(-1)
 	if is_instance_valid(deployable_view):deployable_view.watch(key)

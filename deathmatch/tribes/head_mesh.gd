@@ -33,14 +33,21 @@ static func keep(mesh: Mesh,skin: Skin,sk: Skeleton3D,hands: Array=[]) -> Mesh:
 	var key:=str(mesh.get_instance_id())+":"+str(skin.get_instance_id())+":"+str(hands)
 	if cache.has(key):return cache[key]
 	var kept: Dictionary={}
+	var hand_binds: Dictionary={};var hand_roots: Dictionary={}
 	for i in skin.get_bind_count():
 		var b:=sk.find_bone(skin.get_bind_name(i)) if skin.get_bind_name(i)!=&"" else skin.get_bind_bone(i)
 		if b>=0 and b<sk.get_bone_count() and head_bone(sk,b,hands):kept[i]=true
+		for hand in hands:
+			var ancestor:=b
+			if b>=0 and sk.get_bone_name(b)==hand:hand_roots[hand]=i
+			while ancestor>=0:
+				if sk.get_bone_name(ancestor)==hand:hand_binds[i]=hand;break
+				ancestor=sk.get_bone_parent(ancestor)
 	var out:=ArrayMesh.new();out.blend_shape_mode=mesh.blend_shape_mode
 	for i in mesh.get_blend_shape_count():out.add_blend_shape(mesh.get_blend_shape_name(i))
 	var mapping: Array[int]=[]
 	for surface in mesh.get_surface_count():
-		var arrays: Array=mesh.surface_get_arrays(surface).duplicate()
+		var arrays: Array=mesh.surface_get_arrays(surface).duplicate(true)
 		var vertices: PackedVector3Array=arrays[Mesh.ARRAY_VERTEX];var bones=arrays[Mesh.ARRAY_BONES];var weights=arrays[Mesh.ARRAY_WEIGHTS]
 		if bones==null or weights==null or bones.is_empty() or mesh.surface_get_primitive_type(surface)!=Mesh.PRIMITIVE_TRIANGLES:continue
 		var allowed:=PackedByteArray();allowed.resize(vertices.size());var stride: int=bones.size()/vertices.size()
@@ -55,6 +62,23 @@ static func keep(mesh: Mesh,skin: Skin,sk: Skeleton3D,hands: Array=[]) -> Mesh:
 			if allowed[source[i]] and allowed[source[i+1]] and allowed[source[i+2]]:indices.append_array(source.slice(i,i+3))
 		if indices.is_empty():continue
 		arrays[Mesh.ARRAY_INDEX]=indices
+		# Keep finger articulation, but assign the retained wrist seam's former
+		# forearm influences to its hand. Both sides of the transplant now share
+		# one wrist transform, including controller reach and wrist rotation.
+		for v in vertices.size():
+			for hand in hands:
+				if not hand_roots.has(hand):continue
+				var influence:=0.0;var slot:=-1
+				for j in stride:
+					var at:=v*stride+j
+					if hand_binds.get(bones[at],"")==hand:influence+=weights[at]
+					elif weights[at]>0 and slot<0:slot=at
+				if influence<=.15 or influence>=.99999 or slot<0:continue
+				for j in stride:
+					var at:=v*stride+j
+					if hand_binds.get(bones[at],"")!=hand:weights[at]=0
+				bones[slot]=hand_roots[hand];weights[slot]=1.0-influence
+		arrays[Mesh.ARRAY_BONES]=bones;arrays[Mesh.ARRAY_WEIGHTS]=weights
 		out.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,mesh.surface_get_blend_shape_arrays(surface),{},mesh.surface_get_format(surface)&Mesh.ARRAY_FLAG_USE_8_BONE_WEIGHTS)
 		out.surface_set_material(out.get_surface_count()-1,mesh.surface_get_material(surface));mapping.append(surface)
 	out.set_meta("full_body_surfaces",mapping)

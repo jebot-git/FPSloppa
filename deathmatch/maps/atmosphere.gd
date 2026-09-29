@@ -1,5 +1,5 @@
 extends RefCounted
-## Default static skies. Fog is disabled for every map, including imports.
+## Static skies, with restrained distance haze on the three outdoor ST maps.
 const Skies=preload("res://deathmatch/maps/skies/catalog.gd")
 const PROFILES={
  "desert":[Color(.27,.46,.66),Color(.78,.72,.59)],
@@ -12,6 +12,7 @@ const PROFILES={
 const MAPS={
  "ctf_stonehenge":"works",
  "ctf_raindance":"works",
+ "ctf_katabatic":"coast",
  "tb_cindercoil":"works",
  "de_dust2_rebuilt":"desert","de_nuke_rebuilt":"desert","de_inferno_rebuilt":"desert","de_aztec_rebuilt":"works","de_train_rebuilt":"coast",
  "tf_vesper":"abbey","tf_pressureworks":"works","as_hislop":"works","as_frigate":"coast",
@@ -19,6 +20,11 @@ const MAPS={
  "cc_hyperborea":"coast","cc_psychofuge":"inferno","cc_ghostquarter":"abbey","cc_basement":"inferno",
  "qsrc_dm1":"inferno","qsrc_dm2":"inferno","qsrc_dm3":"works","qsrc_dm4":"inferno","qsrc_dm5":"abbey","qsrc_dm6":"abbey","qsrc_dm7":"coast",
  "ctf_tideworks":"coast","ctf_crucible":"works","ctf_confluence":"coast","ctf_deepvault":"abbey","ctf_crownreach":"abbey","ctf_skyfracture":"void"
+}
+const DISTANCE_FOG={
+ "ctf_stonehenge":[240.0,950.0,.22,Color(.43,.49,.53)],
+ "ctf_raindance":[300.0,1200.0,.22,Color(.39,.47,.51)],
+ "ctf_katabatic":[350.0,1400.0,.28,Color(.62,.70,.78)]
 }
 static func apply(game: Node,map: String) -> void:
  map=Skies.canonical(map)
@@ -32,6 +38,7 @@ static func apply(game: Node,map: String) -> void:
  if not MAPS.has(map):world.environment=baseline;return
  var profile_key: String=MAPS[map]
  var key: String=str(Skies.MAPS[map]) if Skies.MAPS.has(map) else profile_key
+ if DISTANCE_FOG.has(map):key=map+key
  var bank: Dictionary=world.get_meta("map_atmosphere_bank",{})
  if not bank.has(key):
   var profile: Array=PROFILES[profile_key]
@@ -45,5 +52,13 @@ static func apply(game: Node,map: String) -> void:
    material.sun_angle_max=8.0
    sky.sky_material=material;sky.process_mode=Sky.PROCESS_MODE_QUALITY;sky.radiance_size=Sky.RADIANCE_SIZE_128
   env.sky=sky
+  distance_fog(env,map)
   bank[key]=env;world.set_meta("map_atmosphere_bank",bank)
  world.environment=bank[key]
+static func distance_fog(env: Environment,map: String) -> void:
+ if not DISTANCE_FOG.has(map):return
+ var profile: Array=DISTANCE_FOG[map]
+ env.fog_enabled=true;env.fog_mode=Environment.FOG_MODE_DEPTH
+ env.fog_depth_begin=profile[0];env.fog_depth_end=profile[1]
+ env.fog_depth_curve=1.5;env.fog_density=profile[2];env.fog_light_color=profile[3]
+ env.fog_sky_affect=0;env.fog_height_density=0;env.volumetric_fog_enabled=false

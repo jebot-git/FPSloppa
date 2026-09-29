@@ -5,6 +5,10 @@ before its promotion into main. ST is now enabled in the main development checko
 the published release is unchanged. Current network protocol:
 `fpsloppa-68-st-native-main`. See [the promotion record](ST-MAIN-PROMOTION.md).
 
+Post-promotion follow-up: [native integration audit and remaining performance opportunities](NATIVE-CURRENT-ST-STUDY.md), with current source/build checks, ST profiles and shared regression results.
+
+Implemented next steps: [query batching, native ST steering and avatar channels](NATIVE-ST-BATCHES.md), with 16/32-avatar render tests and remote server comparisons.
+
 Main and ST share base `8b19bd959e7dbf17cba1b201bb9f55d448f87614`. Main's newer
 implementation was uncommitted, so this integration used a three-way comparison
 against main's working files, preserving ST's existing committed and uncommitted

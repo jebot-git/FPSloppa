@@ -1934,5 +1934,31 @@
         -304.783
       ]
     }
+  },
+  {
+    "id": "ctf_katabatic",
+    "title": "Katabatic | Tribes 2 CTF",
+    "path": "res://maps/ctf_katabatic.bsp",
+    "scene": "res://maps/cache/ctf_katabatic.scn",
+    "sha256": "2186b88cc7d2aed7023486475ed3b06bc3eb61496909cba73ead01a45f797b3d",
+    "size": 10647748,
+    "modes": [
+      "st"
+    ],
+    "source_name": "st_katabatic",
+    "distribution": "optional",
+    "experimental": true,
+    "objectives": {
+      "red": [
+        467.373,
+        96.096,
+        173.553
+      ],
+      "blue": [
+        -434.317,
+        89.6055,
+        -384.576
+      ]
+    }
   }
 ]

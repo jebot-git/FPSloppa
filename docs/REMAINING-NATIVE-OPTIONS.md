@@ -1,5 +1,7 @@
 # Remaining native optimization options — 2026-09-29
 
+Latest follow-up: [remaining opportunities after the ST merge](NATIVE-CURRENT-ST-STUDY.md), including current integration audit and two-map profiles. The measurements below predate the subsequently implemented ports.
+
 Implementation follow-up: [avatar preparation and bot AI](NATIVE-AVATAR-BOTS.md). The candidate costs below precede these ports.
 
 Implementation follow-up: [native compact codec and shared hitscan history](NATIVE-NETWORK-REWIND.md). The measurements below describe the investigation before those two changes.

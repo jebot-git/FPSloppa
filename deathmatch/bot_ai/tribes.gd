@@ -299,6 +299,7 @@ static func jet_wish(velocity: Vector3,direction: Vector3,profile: Dictionary,up
 	var share:=clampf(1-horizontal.dot(wish.normalized())/profile.side_speed,0,.8)
 	var available:=clampf(1-upward_thrust/profile.thrust,0,.8)
 	return wish.limit_length(minf(1,available/share) if share>.001 else 1)
+var native_steering:=not OS.get_cmdline_user_args().has("--gdscript-st-steering")
 func steer(id: int,brain: Dictionary) -> void:
 	steer_route(id,brain)
 	avoidance.steer(id,brain)
@@ -359,6 +360,10 @@ func steer_route(id: int,brain: Dictionary) -> void:
 	var interior_goal: bool=not brain.get("staging",false) and pads and (pads.rows.any(func(row):return row.position.distance_to(brain.goal)<3) or pads.generators.any(func(row):return row.position.distance_to(brain.goal)<12))
 	if not ai.navigation.ray(position+Vector3.UP*1.8,position+Vector3.UP*2.8).is_empty() or interior_goal and position.distance_to(brain.goal)<55:
 		brain.travel_phase="base_approach";precision_steer(id,brain);return
+	if native_steering and ai.native_ai!=null and ai.native_ai.has_method("st_route"):
+		ai.native_ai.st_route(ai,id,brain,recharging);return
+	steer_route_reference(id,brain,recharging)
+func steer_route_reference(id: int,brain: Dictionary,recharging: bool) -> void:
 	var game=ai.game;var s: Dictionary=game.players[id];var actor=game.fighters[id]
 	var velocity:=Vector3(actor.velocity.x,0,actor.velocity.z);var speed:=velocity.length()
 	var profile: Dictionary=game.match_mode.tribes.definition(id)
@@ -473,6 +478,10 @@ func steer_route(id: int,brain: Dictionary) -> void:
 	s.prone=false;s.crouch=false;s.swim=Vector3.ZERO
 
 func precision_steer(id: int,brain: Dictionary) -> void:
+	if native_steering and ai.native_ai!=null and ai.native_ai.has_method("st_precision"):
+		ai.native_ai.st_precision(ai,id,brain);return
+	precision_steer_reference(id,brain)
+func precision_steer_reference(id: int,brain: Dictionary) -> void:
 	var game=ai.game;var s: Dictionary=game.players[id];var actor=game.fighters[id]
 	if reroute_below_deck(id,brain):return
 	var target: Vector3=brain.goal

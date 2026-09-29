@@ -1,0 +1,105 @@
+{
+  "date": "2026-09-29",
+  "task": "Wrist-mounted ST PDA and remote camera/turret displays",
+  "blender": {
+    "version": "5.2.0 LTS",
+    "mcp_used": true,
+    "art_source": "tools/tribes/wrist-sources/wrist-displays.blend",
+    "model_report": {
+      "pda": {
+        "vertices": 3092,
+        "faces": 3584,
+        "bounds_blender_metres": [
+          0.30299997329711914,
+          0.11559999734163284,
+          0.2199999988079071
+        ]
+      },
+      "camera": {
+        "vertices": 3092,
+        "faces": 3584,
+        "bounds_blender_metres": [
+          0.30299997329711914,
+          0.11559999734163284,
+          0.1862500011920929
+        ]
+      }
+    },
+    "visual_review": [
+      "front casings",
+      "opaque backs and attached cuffs"
+    ]
+  },
+  "implementation": {
+    "screen_metres": {
+      "pda": [
+        0.26,
+        0.18
+      ],
+      "camera": [
+        0.26,
+        0.14625
+      ]
+    },
+    "attachment": "Offhand grip, shared avatar anatomical mapping, full rotation inheritance",
+    "draw_surfaces_per_device": 2,
+    "additional_viewports": 0,
+    "lazy_case_loading": true,
+    "one_sided_screen": true,
+    "remote_camera_excludes_local_device": true
+  },
+  "test": {
+    "script": "deathmatch/tests/st_command_vr.gd",
+    "renderer": "Vulkan mobile",
+    "simulated_vr": true,
+    "arguments": [
+      "--vr-test",
+      "--no-bots",
+      "--capture-wrist"
+    ],
+    "exit_code": 0,
+    "checks": 88,
+    "failures": [],
+    "script_errors": 0,
+    "log": "test-results/st-wrist-display/vr-final.log",
+    "shutdown_diagnostics": [
+      "WARNING: 6 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+      "ERROR: 1 resources still in use at exit (run with --verbose for details)."
+    ]
+  },
+  "captures": {
+    "directory": "test-results/st-wrist-display",
+    "files": [
+      "pda-wrist-left.png",
+      "pda-wrist-right.png",
+      "camera-wrist-left.png",
+      "camera-wrist-right.png"
+    ],
+    "reviewed": [
+      "pda-wrist-left.png",
+      "camera-wrist-right.png"
+    ]
+  },
+  "limits": [
+    "Automated controller and graphical checks; no new human headset ergonomics assessment."
+  ],
+  "sha256": {
+    "deathmatch/tribes/wrist_display.gd": "4ad75706911479a7fe5436e2c8b8eb90e2987fe2739cb1b436330c677ead2390",
+    "deathmatch/tribes/command_view.gd": "d40d58bbd39103013aee448614cb51cae3a345f4084ba9c68e11de33d299fdef",
+    "deathmatch/tribes/turret_view.gd": "b67cc407e4d98e63e0d62e6d21755008fc173eecdf52b84597b46fb9fc003752",
+    "deathmatch/tests/st_command_vr.gd": "7a65743a6ed415d94fe51b500cab280c167c573efa5d76a3d973e8b6fdcd638f",
+    "tools/tribes/wrist_geometry.gd": "95766b609335f64872fe864b0dc6ddf2f960d5a4cc1d60970f060067af6b5a6a",
+    "tools/tribes/wrist_model.py": "3d329204612031c956119dc4f03443c917574c1420166e52e06cf8d1de7990a0",
+    "tools/tribes/export_wrist.gd": "5b629c9dbd3450d8c6dc1e5ebabc9787b7bc4794b28c35709f8f8e6cbad913ae",
+    "tools/tribes/import_wrist.gd": "417eb9643dc988cb6490c7e1cdc43484b605da64579e024babddfdae9a2995b7",
+    "deathmatch/tribes/wrist/pda.glb": "5744aa73c9c964c7b7ec314229952381cb73b9c493cc46a9ffe516baade6db25",
+    "deathmatch/tribes/wrist/camera.glb": "17f2ec25253b6c2b562983521d96048ba14bab4b30905b86b0374916aeb93266",
+    "deathmatch/tribes/wrist/model-report.json": "d07cd9d87f28e2cfef598e25eb197e0c453f89a9ed38ea138d1fb8a783ac280f",
+    "deathmatch/tribes/wrist/pda.scn": "9c938ea9689d689e67300c8c5953ad265cb6b4cfc43da17c9d8904b8066df1da",
+    "deathmatch/tribes/wrist/camera.scn": "6193792798d4f65abd3cea00ecc8cb7bd780fdd6da5514176c38abda97c2a05a",
+    "deathmatch/tribes/wrist/CREDITS.md": "95be5d135efd4faa6b4b64faf35a33c55216573ab0f673d40ba4f55acc987333",
+    "tools/tribes/wrist-sources/wrist-displays.blend": "b7793ea0510cc4eedf69e812c9a3ca535015178b5eed238c1a9c7186be4e2c27",
+    "tools/tribes/wrist-sources/base-pda.glb": "b954978661c919497d09f36e793b17d24aa5e647db933069c1ca84ff3c8cf03e",
+    "tools/tribes/wrist-sources/base-camera.glb": "68684b14400ec128b5f93097eab5c6e95d8b4701b4e6b6b2738d32867fc2df2d"
+  }
+}

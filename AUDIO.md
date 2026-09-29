@@ -16,11 +16,59 @@ Local mouth motion uses TwoVoIP’s processed speech, resampled to 16 kHz for an
 
 Validation: tests load and animate all five expression bindings on all three default VRMs, check silence and loss recovery, exercise native/OSC body poses, verify audio asset loading and real physics-wall occlusion, and confirm received speech creates a positional source with native Opus playback. Local ENet tests cover voice relay, invalid packets, mute and server policy. Headset listening, acoustic quality and lip-sync latency need human/device evaluation.
 
-## Mixer and soundtrack
+## Mixer and custom music
 
-**SETTINGS… → AUDIO** provides persistent master, sound-effects, music and voice levels plus output-device selection. Sound effects use `ArenaEffects`, music uses `ArenaMusic`, and voice retains its independent playback gain; voice plays independently of the effects bus. Muting music does not affect incoming voice or microphone capture. Ten original scores plus the public-domain Assault theme cover the game modes, lobby and title screen. The eight original gameplay scores use distinct metal arrangements with double-tracked recorded guitars, bass and acoustic drums. The title remains slow and ambient; the lobby keeps its corrected elevator-jazz harmony. Selection loads asynchronously and crossfades over 2.5 seconds without restarting on same-mode map changes. The active Ogg files total about 16.45 MiB; [source arrangements and provenance](deathmatch/audio/music/SOURCES.md) are included in the source project. The [industrial-versus-metal audition](docs/audio/metal-alternates/README.md) remains available outside game exports.
+**SETTINGS… → AUDIO** retains independent master, effects, music, announcer and
+voice levels. Music uses `ArenaMusic`, including its existing −12 dB trim and
+1% volume steps. Muting it does not affect effects or voice.
 
-Music has a −12 dB bus trim below the selected level, and its controls adjust in 1% steps. A saved 10% setting now produces −32 dB on ArenaMusic (previously −20 dB). Zero still mutes completely. Master, effects, announcer and voice gain are unchanged; crossfades retain the music trim.
+The title screen always plays internal **Dead Air**; the lobby always plays
+internal **Please Hold**. These are the only bundled music tracks. Gameplay is
+silent when no custom track matches.
+
+Put **Ogg Vorbis `.ogg` files** in `bgm/` beside the desktop game executable.
+The folder is provided empty in PC downloads and created on client startup if
+missing. Source runs use the project folder; standalone Android uses
+`/sdcard/Android/data/<game package>/files/bgm/`. An explicit `--asset-root`
+relocates `bgm/` alongside `maps/` and `vrm/`.
+
+| Name inside `bgm/` | Plays during |
+| --- | --- |
+| `01_song.ogg`, `02_song.ogg` | Any gameplay mode without a more specific playlist |
+| `dm_01.ogg`, `dm_02.ogg` | DM only |
+| `st_01.ogg`, `tf_01.ogg`, `de_01.ogg` | The named mode only |
+| `de_dust2_rebuilt.ogg` | That map only |
+| `de_dust2_rebuilt_01.ogg`, `de_dust2_rebuilt_02.ogg` | Multiple tracks for that map |
+| `st/` containing OGG files | ST only |
+| `de_dust2_rebuilt/` containing OGG files | That map only |
+| `tf.m3u` or `de_dust2_rebuilt.m3u` | Local OGG files listed for that mode/map |
+
+Map playlists take priority over mode playlists, which take priority over the
+unprefixed global playlist. Recognized map names are the client's map IDs (the
+BSP filename without `.bsp`); these are matched before mode prefixes. Mode IDs
+are `dm`, `tdm`, `ctf`, `koth`, `ig`, `if`, `ft`, `cc`, `tf`, `tb`, `as`, `de`, `st`.
+
+All matching files at the selected priority combine into one repeating queue,
+sorted by filename, case-insensitively with numeric order (`2` before `10`).
+Files in named mode/map folders, including nested albums, inherit that folder's
+scope. Unnamed/general subfolders are not scanned, but playlists can reference
+them. Duplicated playlist references play once per queue.
+
+M3U and M3U8 support local relative paths (relative to the playlist) and absolute
+paths, comments, UTF-8 BOM, and Windows or Unix line endings/path separators.
+Their OGG entries are **sorted by filename**, rather than by the written line
+order. Remote URLs, missing files and non-OGG entries are ignored. Unreadable
+OGG files are skipped; an entirely unreadable queue is silent.
+
+Folders are rescanned when entering gameplay or changing mode/map. Restart the
+client or change map after editing the collection. The same selected playlist
+continues across map changes; changing playlists starts from its first file.
+Audio loads on a worker thread with just one upcoming track prefetched.
+Context changes crossfade over 2.5 seconds. Track completion advances to the
+next song, and the last song wraps to the first. Client music is never sent to
+the server, copied into releases or changed by the installer.
+
+Built-in track sources and license: [music credits](deathmatch/audio/music/SOURCES.md).
 
 
 ## Steam Audio spatialisation (0.3v)
@@ -66,7 +114,7 @@ Grounded takeoffs play a short boot push-off and a distinct 160 ms exertion voca
 
 Validate with `python3 tools/validate_movement_audio.py`: actual character takeoff/landing, movement and pickup regressions, stale event rejection, demo capture, and a dedicated server with two clients hearing one event per takeoff/landing. Headset listening and perceived distance still require an in-device check.
 
-Assault uses Zilly Mike’s public-domain **Mega Destruction**, retaining the XM arrangement and instruments in a 44.1 kHz stereo Ogg conversion mastered to the existing −19 LUFS target. It loops through the same music bus, volume setting and crossfade system. [Original module, attribution and conversion instructions](docs/audio/assault/README.md).
+Historical Assault music source material is archived in [docs/audio/assault/](docs/audio/assault/README.md) and is not bundled as runtime BGM.
 
 Objective announcements are authoritative events recorded in demos. Retired voice files and their licenses are archived under `docs/audio/retired-announcer/`, excluded from game exports. Older demos containing those event names remain readable; the retired calls are ignored during playback.
 

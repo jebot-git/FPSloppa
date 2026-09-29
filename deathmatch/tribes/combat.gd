@@ -6,8 +6,12 @@ var game
 var spins: Dictionary={}
 var fractions: Dictionary={}
 var held: Dictionary={}
+# In launch order, including airborne mines for blast chains. Trace filters stuck
+# state live, so a same-tick landing/removal is immediately visible.
+var mines:Dictionary={}
+var indexed_mines:=not OS.get_cmdline_user_args().has("--reference-mine-scan")
 func setup(value):rules=value;game=rules.game
-func reset():spins.clear();fractions.clear();held.clear()
+func reset():spins.clear();fractions.clear();held.clear();mines.clear()
 func cancel(id: int):
 	spins.erase(id);held.erase(id)
 	for key in fractions.keys():
@@ -193,7 +197,9 @@ func blast(where: Vector3,owner_id: int,d: Dictionary):
 		var falloff: float=1-distance/d.blast_radius
 		game.fighters[id].apply_blast(direction*(float(d.get("kick",0))/9.0)*falloff)
 		game._damage(id,owner_id,maxi(1,roundi(d.splash*falloff)),d.name,false,target,direction,true)
-	for other in game.projectiles.keys():
+	for other in (mines.keys() if indexed_mines else game.projectiles.keys()):
+		# A previous chain explosion may already have removed another candidate.
+		if not game.projectiles.has(other):continue
 		var mine: Dictionary=game.projectiles[other]
 		if mine.weapon!=10 or mine.position.distance_to(where)>=d.blast_radius:continue
 		var direction: Vector3=(mine.position-where).normalized()
@@ -202,7 +208,8 @@ func blast(where: Vector3,owner_id: int,d: Dictionary):
 		damage_mine(other,float(d.damage)*fraction*(.25 if d.name=="LAND MINE" else 1.0))
 func trace_mines(start: Vector3,end: Vector3,hit: Dictionary,radius: float) -> Dictionary:
 	var reach: float=start.distance_to(hit.position)
-	for id in game.projectiles:
+	for id in (mines if indexed_mines else game.projectiles):
+		if not game.projectiles.has(id):continue
 		var p: Dictionary=game.projectiles[id]
 		if p.weapon!=10 or not p.stuck:continue
 		var near:=Geometry3D.get_closest_point_to_segment(p.position,start,end)

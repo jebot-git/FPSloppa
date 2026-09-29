@@ -1,0 +1,3568 @@
+{
+  "date": "2026-09-29",
+  "audit": {
+    "head": "4902896149a53c6424aa2148b35e1e7a0f55d9b5",
+    "base": "8b19bd959e7dbf17cba1b201bb9f55d448f87614",
+    "checkpoint": "07f727c",
+    "paths": 183,
+    "counts": {
+      "unchanged": 166,
+      "changed": 17,
+      "missing": 0
+    },
+    "libraries": {
+      "linux": {
+        "current": true,
+        "sha256": "5f07b05ed0aec0986655742928f801d38f25e9d02c0e2f23c9577a24066696fb"
+      },
+      "linux-server": {
+        "current": true,
+        "sha256": "787104da9b0ef32734b3d54c2f02c95634b40a6324d2c6c45158b09bdb00356e"
+      },
+      "windows": {
+        "current": true,
+        "sha256": "eddbfdc7c2884501b8dbe485477f8a0a99920f69848fe17a359be0ae17a9c7b2"
+      },
+      "android": {
+        "current": true,
+        "sha256": "7b8cac9b0f5973b87a29d84defd86e226ebae4c0361e48b4be4c537b7c99189d"
+      }
+    }
+  },
+  "main_path_status": {
+    ".gitignore": "changed",
+    "AUDIO.md": "unchanged",
+    "VR.md": "unchanged",
+    "addons/bsp_importer/bsp_reader.gd": "unchanged",
+    "addons/fps_native/CMakeLists.txt": "unchanged",
+    "addons/fps_native/GODOT-CPP-LICENSE.md": "unchanged",
+    "addons/fps_native/SConstruct": "unchanged",
+    "addons/fps_native/fps_native.gdextension.in": "unchanged",
+    "addons/fps_native/profile-server.json": "unchanged",
+    "addons/fps_native/profile.json": "unchanged",
+    "addons/fps_native/src/bot_context.h": "unchanged",
+    "addons/fps_native/src/bot_names.h": "changed",
+    "addons/fps_native/src/bot_steering.cpp": "unchanged",
+    "addons/fps_native/src/bots.cpp": "changed",
+    "addons/fps_native/src/bots.h": "unchanged",
+    "addons/fps_native/src/codec.cpp": "unchanged",
+    "addons/fps_native/src/codec.h": "unchanged",
+    "addons/fps_native/src/pose_preparation.cpp": "unchanged",
+    "addons/fps_native/src/poses.cpp": "unchanged",
+    "addons/fps_native/src/poses.h": "unchanged",
+    "addons/fps_native/src/projectiles.cpp": "unchanged",
+    "addons/fps_native/src/projectiles.h": "unchanged",
+    "addons/fps_native/src/register.cpp": "unchanged",
+    "addons/fps_native/src/register_server.cpp": "unchanged",
+    "addons/vrm/vrm_secondary.gd": "unchanged",
+    "deathmatch/arena.gd": "changed",
+    "deathmatch/art.gd": "unchanged",
+    "deathmatch/audio/impact_sounds.gd": "unchanged",
+    "deathmatch/audio/spatial.gd": "unchanged",
+    "deathmatch/avatars/distance_lod.gd": "unchanged",
+    "deathmatch/avatars/fallback.gd": "unchanged",
+    "deathmatch/avatars/lod_clips.gd": "unchanged",
+    "deathmatch/avatars/pose.gd": "unchanged",
+    "deathmatch/avatars/pose_blend.gd": "unchanged",
+    "deathmatch/avatars/rig.gd": "changed",
+    "deathmatch/bots.gd": "changed",
+    "deathmatch/counterstrike/combat.gd": "unchanged",
+    "deathmatch/counterstrike/models.gd": "unchanged",
+    "deathmatch/counterstrike/penetration.gd": "unchanged",
+    "deathmatch/counterstrike/reload_motion.gd": "unchanged",
+    "deathmatch/counterstrike/reload_state.gd": "unchanged",
+    "deathmatch/demos/session.gd": "unchanged",
+    "deathmatch/dropped_weapons.gd": "unchanged",
+    "deathmatch/effects/combat.gd": "unchanged",
+    "deathmatch/effects/soft_puff.gdshader": "unchanged",
+    "deathmatch/experimental/combat.gd": "unchanged",
+    "deathmatch/experimental/visuals.gd": "changed",
+    "deathmatch/experimental/weapon_rules.gd": "changed",
+    "deathmatch/interface.gd": "unchanged",
+    "deathmatch/lag_compensation.gd": "unchanged",
+    "deathmatch/maps/bsp_extensions.gd": "unchanged",
+    "deathmatch/maps/bsp_extensions.gd.uid": "unchanged",
+    "deathmatch/maps/de_navigation.gd": "unchanged",
+    "deathmatch/maps/de_navigation.gd.uid": "unchanged",
+    "deathmatch/maps/defusal.json": "unchanged",
+    "deathmatch/maps/loader.gd": "unchanged",
+    "deathmatch/maps/manifest.json": "changed",
+    "deathmatch/maps/runtime.gd": "changed",
+    "deathmatch/maps/skies/SOURCES.json": "unchanged",
+    "deathmatch/modes/defusal.gd": "unchanged",
+    "deathmatch/modes/defusal_maps.gd": "unchanged",
+    "deathmatch/native/runtime.gd": "unchanged",
+    "deathmatch/network/asset_jobs.gd": "unchanged",
+    "deathmatch/network/codec.gd": "unchanged",
+    "deathmatch/network/replication.gd": "unchanged",
+    "deathmatch/server/config.gd": "changed",
+    "deathmatch/settings/bindings.gd": "unchanged",
+    "deathmatch/settings/bindings_panel.gd": "unchanged",
+    "deathmatch/settings/panel.gd": "unchanged",
+    "deathmatch/settings/preferences.gd": "unchanged",
+    "deathmatch/tests/bindings.gd": "unchanged",
+    "deathmatch/tests/client_preferences.gd": "unchanged",
+    "deathmatch/tests/cs16_accuracy.gd": "unchanged",
+    "deathmatch/tests/cs16_compensation.gd": "unchanged",
+    "deathmatch/tests/cs16_local_tracers.gd": "unchanged",
+    "deathmatch/tests/cs16_mag_pull.gd": "unchanged",
+    "deathmatch/tests/cs16_reload_ui.gd": "unchanged",
+    "deathmatch/tests/cs_map_conversion.gd": "unchanged",
+    "deathmatch/tests/cs_map_conversion.gd.uid": "unchanged",
+    "deathmatch/tests/cs_map_network.gd": "unchanged",
+    "deathmatch/tests/cs_map_network.gd.uid": "unchanged",
+    "deathmatch/tests/death_animation.gd": "unchanged",
+    "deathmatch/tests/defusal.gd": "changed",
+    "deathmatch/tests/defusal_grenade_vr.gd": "unchanged",
+    "deathmatch/tests/defusal_posture.gd": "unchanged",
+    "deathmatch/tests/defusal_surfaces.gd": "unchanged",
+    "deathmatch/tests/defusal_ui.gd": "unchanged",
+    "deathmatch/tests/dropped_ammo.gd": "unchanged",
+    "deathmatch/tests/dropped_weapons.gd": "unchanged",
+    "deathmatch/tests/dropped_weapons_network.gd": "unchanged",
+    "deathmatch/tests/frame_smoothness.gd": "unchanged",
+    "deathmatch/tests/native_acceleration.gd": "unchanged",
+    "deathmatch/tests/native_bots.gd": "unchanged",
+    "deathmatch/tests/native_codec.gd": "unchanged",
+    "deathmatch/tests/native_network_packing.gd": "unchanged",
+    "deathmatch/tests/native_preparation.gd": "unchanged",
+    "deathmatch/tests/native_rewind.gd": "unchanged",
+    "deathmatch/tests/native_shot_history.gd": "unchanged",
+    "deathmatch/tests/native_springs.gd": "unchanged",
+    "deathmatch/tests/presentation.gd": "unchanged",
+    "deathmatch/tests/profiled_arena.gd": "unchanged",
+    "deathmatch/tests/quake_shot_effects.gd": "unchanged",
+    "deathmatch/tests/render_motion.gd": "unchanged",
+    "deathmatch/tests/shared_hit_feedback.gd": "unchanged",
+    "deathmatch/tests/surface_marks.gd": "unchanged",
+    "deathmatch/tests/tf_weapon_art.gd": "unchanged",
+    "deathmatch/tests/weapon_construction_profile.gd": "unchanged",
+    "deathmatch/tests/weapon_setup.gd": "unchanged",
+    "deathmatch/tests/weapon_variants_visual.gd": "unchanged",
+    "deathmatch/tests/weapon_wheel.gd": "changed",
+    "deathmatch/tribes/combat.gd": "changed",
+    "deathmatch/vehicles/ba2/controller.gd": "unchanged",
+    "deathmatch/vr/controller_haptics.gd": "unchanged",
+    "deathmatch/vr/physical_actions.gd": "changed",
+    "deathmatch/vr/rig.gd": "changed",
+    "deathmatch/vr/shoulder_radio.gd": "unchanged",
+    "deathmatch/vr/status_hud.gd": "unchanged",
+    "deathmatch/vr/weapon_wheel.gd": "changed",
+    "deathmatch/vr/weapon_wheel_state.gd": "unchanged",
+    "docs/BOMB-DEFUSAL.md": "unchanged",
+    "docs/CPU-FRAMETIME-STUDY.md": "unchanged",
+    "docs/CS16-LOADOUT.md": "unchanged",
+    "docs/FRAME-SMOOTHNESS.md": "unchanged",
+    "docs/NATIVE-ACCELERATION.md": "unchanged",
+    "docs/NATIVE-AVATAR-BOTS.md": "unchanged",
+    "docs/NATIVE-NETWORK-REWIND.md": "unchanged",
+    "docs/NATIVE-PERFORMANCE-STUDY.md": "unchanged",
+    "docs/REMAINING-NATIVE-OPTIONS.md": "unchanged",
+    "docs/WEAPON-WHEEL.md": "unchanged",
+    "docs/validation/bindings-menu-2026-09-28.json": "unchanged",
+    "docs/validation/controller-settings-2026-09-28.json": "unchanged",
+    "docs/validation/cs16-map-converter-2026-09-28.json": "unchanged",
+    "docs/validation/de-019-fixes-2026-09-28.json": "unchanged",
+    "docs/validation/defusal-posture-2026-09-28.json": "unchanged",
+    "docs/validation/frame-smoothness-2026-09-28.json": "unchanged",
+    "docs/validation/frametime-study-2026-09-28.json": "unchanged",
+    "docs/validation/native-avatar-bots-2026-09-29.json": "unchanged",
+    "docs/validation/native-implementation-2026-09-28.json": "unchanged",
+    "docs/validation/native-network-rewind-2026-09-29.json": "unchanged",
+    "docs/validation/native-performance-2026-09-28.json": "unchanged",
+    "docs/validation/remaining-native-study-2026-09-29.json": "unchanged",
+    "docs/validation/shared-combat-feedback-2026-09-28.json": "unchanged",
+    "maps/ClassicDE/de_aztec_rebuilt/de_aztec_rebuilt.map": "unchanged",
+    "maps/ClassicDE/de_aztec_rebuilt/manifest.json": "unchanged",
+    "maps/ClassicDE/de_nuke_rebuilt/de_nuke_rebuilt.map": "unchanged",
+    "maps/ClassicDE/de_nuke_rebuilt/manifest.json": "unchanged",
+    "maps/ClassicDE/de_train_rebuilt/de_train_rebuilt.map": "unchanged",
+    "maps/ClassicDE/de_train_rebuilt/manifest.json": "unchanged",
+    "tools/README.md": "unchanged",
+    "tools/avatar_lod/frametime_study.gd": "unchanged",
+    "tools/avatar_lod/test_animation.gd": "unchanged",
+    "tools/build_android.py": "unchanged",
+    "tools/build_console_server.py": "unchanged",
+    "tools/build_cs16_map_converter.py": "unchanged",
+    "tools/build_gameplay_native.py": "unchanged",
+    "tools/build_release.py": "unchanged",
+    "tools/classic_de/build.py": "unchanged",
+    "tools/classic_de/restoration.py": "unchanged",
+    "tools/cs16_map_converter/README.md": "unchanged",
+    "tools/cs16_map_converter/bsp.py": "unchanged",
+    "tools/cs16_map_converter/convert.py": "unchanged",
+    "tools/cs16_map_converter/entities.py": "unchanged",
+    "tools/cs16_map_converter/make_fixture.py": "unchanged",
+    "tools/cs16_map_converter/preview.gd": "unchanged",
+    "tools/cs16_map_converter/replacements.py": "unchanged",
+    "tools/cs16_map_converter/run_network.py": "unchanged",
+    "tools/cs16_map_converter/test.py": "unchanged",
+    "tools/cs16_map_converter/test_prodigy.py": "unchanged",
+    "tools/cs16_map_converter/test_santorini.py": "unchanged",
+    "tools/cs16_map_converter/textures.py": "unchanged",
+    "tools/cs16_map_converter/validate.gd": "unchanged",
+    "tools/cs16_map_converter/validate.gd.uid": "unchanged",
+    "tools/native_study/box_probe.cpp": "unchanged",
+    "tools/native_study/box_probe.gd": "unchanged",
+    "tools/native_study/prepare.py": "unchanged",
+    "tools/native_study/remaining.py": "unchanged",
+    "tools/native_study/remaining_network.gd": "unchanged",
+    "tools/native_study/remaining_server.gd": "unchanged",
+    "tools/native_study/run.py": "unchanged",
+    "tools/native_study/validate_avatar_bots.py": "unchanged",
+    "tools/native_study/validate_implementation.py": "unchanged",
+    "tools/native_study/validate_network_rewind.py": "unchanged",
+    "tools/verify_android.py": "unchanged"
+  },
+  "runtime": {
+    "godot": "4.7.2.stable.fedora.ed1daf0bf",
+    "cpu": "Intel Core i7-12700",
+    "gpu": "Intel Arc A770",
+    "platform": "Linux",
+    "concurrency": "Profiles and regressions sequential; no concurrent builds/tests; OS/GPU clocks uncontrolled."
+  },
+  "profiles": {
+    "ctf_stonehenge-scopes": {
+      "bots": 16,
+      "bytes_per_snapshot": 5376,
+      "control": false,
+      "map": "ctf_stonehenge",
+      "mode": "st",
+      "native": {
+        "bots": true,
+        "codec": true,
+        "projectiles": true,
+        "specialized_trace": true
+      },
+      "packets_per_snapshot": 5.94166666666667,
+      "peak_projectiles": 9,
+      "scopes_us_calls_max_self": {
+        "arena._collect": [
+          31254,
+          19200,
+          79,
+          31254
+        ],
+        "arena._configure_tribes": [
+          79019,
+          19200,
+          48,
+          79019
+        ],
+        "arena._record_history": [
+          46821,
+          1200,
+          118,
+          46821
+        ],
+        "arena._send_snapshot": [
+          50066,
+          120,
+          494,
+          34766
+        ],
+        "arena._server_tick": [
+          13730645,
+          1200,
+          67946,
+          604138
+        ],
+        "arena._trace_reference": [
+          226668,
+          5820,
+          248,
+          191861
+        ],
+        "arena._update_melee": [
+          116427,
+          19200,
+          33,
+          116427
+        ],
+        "arena._update_projectiles": [
+          260560,
+          1200,
+          603,
+          74988
+        ],
+        "bot_ai/navigation.cost": [
+          176796,
+          3444,
+          284,
+          176583
+        ],
+        "bot_ai/navigation.path": [
+          3313304,
+          1383,
+          4079,
+          3313304
+        ],
+        "bot_ai/navigation.ray": [
+          956516,
+          390161,
+          707,
+          956516
+        ],
+        "bot_ai/tribes.assign_roles": [
+          142470,
+          2098,
+          692,
+          142470
+        ],
+        "bot_ai/tribes.combat": [
+          785900,
+          19200,
+          858,
+          640823
+        ],
+        "bot_ai/tribes.goals": [
+          179538,
+          396,
+          5224,
+          121078
+        ],
+        "bot_ai/tribes.precision_steer": [
+          647526,
+          9058,
+          221,
+          428647
+        ],
+        "bot_ai/tribes.route_look": [
+          13501,
+          19188,
+          24,
+          13501
+        ],
+        "bot_ai/tribes.steer": [
+          2461438,
+          21239,
+          1026,
+          106924
+        ],
+        "bot_ai/tribes.steer_route": [
+          2144827,
+          21239,
+          1021,
+          789667
+        ],
+        "bot_ai/tribes.tower_approach": [
+          333697,
+          17457,
+          1002,
+          121344
+        ],
+        "bot_ai/tribes_avoidance.steer": [
+          194643,
+          21239,
+          536,
+          126453
+        ],
+        "bot_ai/tribes_offense.tick": [
+          109,
+          39,
+          4,
+          109
+        ],
+        "bot_ai/tribes_routes.attach": [
+          476348,
+          3414,
+          907,
+          46871
+        ],
+        "bot_ai/tribes_routes.clear": [
+          412511,
+          33785,
+          742,
+          140981
+        ],
+        "bot_ai/tribes_routes.nearby": [
+          60079,
+          3416,
+          81,
+          60079
+        ],
+        "bot_ai/tribes_routes.path": [
+          810600,
+          1707,
+          2146,
+          312941
+        ],
+        "bot_ai/tribes_tactics.tick": [
+          13663,
+          1200,
+          408,
+          13554
+        ],
+        "bots.combat": [
+          1004800,
+          19200,
+          886,
+          218900
+        ],
+        "bots.perceive": [
+          170229,
+          1534,
+          270,
+          168888
+        ],
+        "bots.plan": [
+          4917565,
+          396,
+          23650,
+          327134
+        ],
+        "bots.safe_shot": [
+          58252,
+          1333,
+          111,
+          58252
+        ],
+        "bots.steer": [
+          2334983,
+          19200,
+          1033,
+          82757
+        ],
+        "bots.tick": [
+          8731683,
+          1200,
+          62055,
+          277095
+        ],
+        "bots.visible": [
+          1293,
+          57,
+          63,
+          1293
+        ],
+        "fighter.simulate": [
+          3268651,
+          19200,
+          2751,
+          101355
+        ],
+        "fighter.step_up": [
+          403117,
+          14685,
+          675,
+          403117
+        ],
+        "modes/match.snapshot": [
+          15300,
+          120,
+          148,
+          3598
+        ],
+        "modes/match.tick": [
+          612749,
+          1200,
+          769,
+          118982
+        ],
+        "modes/tribes.snapshot": [
+          11702,
+          120,
+          117,
+          11702
+        ],
+        "modes/tribes.tick": [
+          493767,
+          1200,
+          667,
+          36847
+        ],
+        "movement/tribes.simulate": [
+          3167296,
+          19200,
+          2745,
+          783285
+        ],
+        "movement/tribes.support": [
+          1980894,
+          76800,
+          332,
+          1980894
+        ],
+        "network/replication.flush": [
+          12616,
+          120,
+          150,
+          12616
+        ],
+        "network/replication.packets": [
+          60272,
+          120,
+          632,
+          60272
+        ],
+        "network/replication.receive": [
+          45027,
+          713,
+          174,
+          45027
+        ],
+        "tribes/base_assets.tick": [
+          13193,
+          1200,
+          72,
+          13193
+        ],
+        "tribes/combat.blast": [
+          1635,
+          9,
+          260,
+          1389
+        ],
+        "tribes/combat.tick": [
+          13221,
+          1200,
+          22,
+          13221
+        ],
+        "tribes/combat.tick_input": [
+          26164,
+          19200,
+          103,
+          26164
+        ],
+        "tribes/combat.tick_projectile": [
+          185572,
+          5042,
+          341,
+          42875
+        ],
+        "tribes/deployables.tick": [
+          73917,
+          1200,
+          192,
+          73917
+        ],
+        "tribes/deployables.trace": [
+          6468,
+          5820,
+          17,
+          6468
+        ],
+        "tribes/fixed_defences.tick": [
+          78207,
+          1200,
+          324,
+          78207
+        ],
+        "tribes/stations.tick": [
+          362200,
+          1200,
+          569,
+          270800
+        ],
+        "tribes/stations.trace": [
+          18142,
+          5838,
+          50,
+          18142
+        ],
+        "tribes/targeting.tick": [
+          1241,
+          1200,
+          4,
+          1241
+        ],
+        "tribes/targeting.trace": [
+          4177,
+          5820,
+          5,
+          4177
+        ],
+        "vehicles/tribes/controller.tick": [
+          6341,
+          1200,
+          10,
+          6341
+        ],
+        "vehicles/tribes/controller.trace": [
+          6179,
+          5820,
+          32,
+          6179
+        ]
+      },
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 13,
+      "simulation": {
+        "max_ms": 67.991,
+        "mean_ms": 11.4860275,
+        "p95_ms": 28.275,
+        "p99_ms": 50.226
+      },
+      "snapshot_assembly": {
+        "max_ms": 0.496,
+        "mean_ms": 0.4196,
+        "p95_ms": 0.46,
+        "p99_ms": 0.483
+      },
+      "snapshot_encode": {
+        "max_ms": 0.636,
+        "mean_ms": 0.506191666666667,
+        "p95_ms": 0.58,
+        "p99_ms": 0.634
+      },
+      "snapshot_receive_flush": {
+        "max_ms": 0.664,
+        "mean_ms": 0.494375,
+        "p95_ms": 0.573,
+        "p99_ms": 0.603
+      },
+      "ticks": 1200,
+      "warmup": 300,
+      "warmup_simulation": {
+        "max_ms": 372.513,
+        "mean_ms": 15.8695066666667,
+        "p95_ms": 54.786,
+        "p99_ms": 65.886
+      }
+    },
+    "ctf_raindance-scopes": {
+      "bots": 16,
+      "bytes_per_snapshot": 3804,
+      "control": false,
+      "map": "ctf_raindance",
+      "mode": "st",
+      "native": {
+        "bots": true,
+        "codec": true,
+        "projectiles": true,
+        "specialized_trace": true
+      },
+      "packets_per_snapshot": 4.39166666666667,
+      "peak_projectiles": 0,
+      "scopes_us_calls_max_self": {
+        "arena._collect": [
+          30791,
+          19200,
+          43,
+          30791
+        ],
+        "arena._configure_tribes": [
+          78547,
+          19200,
+          118,
+          78547
+        ],
+        "arena._record_history": [
+          47977,
+          1200,
+          97,
+          47977
+        ],
+        "arena._send_snapshot": [
+          48844,
+          120,
+          528,
+          33079
+        ],
+        "arena._server_tick": [
+          12926207,
+          1200,
+          58762,
+          606279
+        ],
+        "arena._update_melee": [
+          115350,
+          19200,
+          69,
+          115350
+        ],
+        "arena._update_projectiles": [
+          7673,
+          1200,
+          23,
+          7673
+        ],
+        "bot_ai/navigation.cost": [
+          209408,
+          4024,
+          375,
+          209408
+        ],
+        "bot_ai/navigation.jump_clear": [
+          4335,
+          149,
+          57,
+          4335
+        ],
+        "bot_ai/navigation.path": [
+          3570643,
+          1895,
+          3009,
+          3570643
+        ],
+        "bot_ai/navigation.ray": [
+          809666,
+          390616,
+          125,
+          809666
+        ],
+        "bot_ai/tribes.assign_roles": [
+          153481,
+          2171,
+          317,
+          153481
+        ],
+        "bot_ai/tribes.combat": [
+          684373,
+          19200,
+          220,
+          679801
+        ],
+        "bot_ai/tribes.goals": [
+          202633,
+          398,
+          8306,
+          136759
+        ],
+        "bot_ai/tribes.precision_steer": [
+          1077045,
+          14518,
+          295,
+          793558
+        ],
+        "bot_ai/tribes.route_look": [
+          13015,
+          19200,
+          39,
+          13015
+        ],
+        "bot_ai/tribes.steer": [
+          2056883,
+          19549,
+          1070,
+          84315
+        ],
+        "bot_ai/tribes.steer_route": [
+          1859869,
+          19549,
+          1065,
+          490794
+        ],
+        "bot_ai/tribes.tower_approach": [
+          102100,
+          14446,
+          1053,
+          69244
+        ],
+        "bot_ai/tribes_avoidance.steer": [
+          111015,
+          19549,
+          447,
+          70260
+        ],
+        "bot_ai/tribes_offense.tick": [
+          97,
+          39,
+          5,
+          97
+        ],
+        "bot_ai/tribes_routes.attach": [
+          502708,
+          3550,
+          293,
+          48476
+        ],
+        "bot_ai/tribes_routes.clear": [
+          430946,
+          34129,
+          87,
+          161970
+        ],
+        "bot_ai/tribes_routes.nearby": [
+          60981,
+          3550,
+          82,
+          60981
+        ],
+        "bot_ai/tribes_routes.path": [
+          1003589,
+          1775,
+          2814,
+          479865
+        ],
+        "bot_ai/tribes_tactics.tick": [
+          13067,
+          1200,
+          288,
+          12970
+        ],
+        "bots.combat": [
+          914699,
+          19200,
+          273,
+          230326
+        ],
+        "bots.perceive": [
+          159684,
+          1534,
+          216,
+          159684
+        ],
+        "bots.plan": [
+          5158127,
+          398,
+          24870,
+          340274
+        ],
+        "bots.steer": [
+          2107342,
+          19200,
+          1074,
+          82119
+        ],
+        "bots.tick": [
+          9250267,
+          1200,
+          55474,
+          588226
+        ],
+        "fighter.simulate": [
+          2182387,
+          19200,
+          579,
+          103090
+        ],
+        "fighter.step_up": [
+          197851,
+          23604,
+          130,
+          197851
+        ],
+        "modes/match.snapshot": [
+          15765,
+          120,
+          210,
+          3668
+        ],
+        "modes/match.tick": [
+          635357,
+          1200,
+          1074,
+          124411
+        ],
+        "modes/tribes.snapshot": [
+          12097,
+          120,
+          159,
+          12097
+        ],
+        "modes/tribes.tick": [
+          510946,
+          1200,
+          964,
+          39005
+        ],
+        "movement/tribes.simulate": [
+          2079297,
+          19200,
+          574,
+          509256
+        ],
+        "movement/tribes.support": [
+          1372190,
+          76800,
+          152,
+          1372190
+        ],
+        "network/replication.flush": [
+          11839,
+          120,
+          158,
+          11839
+        ],
+        "network/replication.packets": [
+          55675,
+          120,
+          594,
+          55675
+        ],
+        "network/replication.receive": [
+          40152,
+          527,
+          179,
+          40152
+        ],
+        "tribes/base_assets.tick": [
+          13030,
+          1200,
+          27,
+          13030
+        ],
+        "tribes/combat.tick": [
+          12379,
+          1200,
+          21,
+          12379
+        ],
+        "tribes/combat.tick_input": [
+          19556,
+          19200,
+          18,
+          19556
+        ],
+        "tribes/deployables.tick": [
+          73766,
+          1200,
+          134,
+          73766
+        ],
+        "tribes/fixed_defences.tick": [
+          73527,
+          1200,
+          533,
+          73527
+        ],
+        "tribes/stations.tick": [
+          377398,
+          1200,
+          794,
+          290841
+        ],
+        "tribes/targeting.tick": [
+          1228,
+          1200,
+          5,
+          1228
+        ],
+        "vehicles/tribes/controller.tick": [
+          7170,
+          1200,
+          79,
+          7170
+        ]
+      },
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 0,
+      "simulation": {
+        "max_ms": 58.811,
+        "mean_ms": 10.8169375,
+        "p95_ms": 37.143,
+        "p99_ms": 52.13
+      },
+      "snapshot_assembly": {
+        "max_ms": 0.531,
+        "mean_ms": 0.409516666666666,
+        "p95_ms": 0.449,
+        "p99_ms": 0.503
+      },
+      "snapshot_encode": {
+        "max_ms": 0.598,
+        "mean_ms": 0.4678,
+        "p95_ms": 0.556,
+        "p99_ms": 0.572
+      },
+      "snapshot_receive_flush": {
+        "max_ms": 0.567,
+        "mean_ms": 0.445358333333333,
+        "p95_ms": 0.54,
+        "p99_ms": 0.56
+      },
+      "ticks": 1200,
+      "warmup": 300,
+      "warmup_simulation": {
+        "max_ms": 538.496,
+        "mean_ms": 13.9485133333333,
+        "p95_ms": 36.691,
+        "p99_ms": 46.585
+      }
+    },
+    "qsrc_dm1-scopes": {
+      "bots": 16,
+      "bytes_per_snapshot": 2105,
+      "control": false,
+      "map": "qsrc_dm1",
+      "mode": "dm",
+      "native": {
+        "bots": true,
+        "codec": true,
+        "projectiles": true,
+        "specialized_trace": false
+      },
+      "packets_per_snapshot": 2.31666666666667,
+      "peak_projectiles": 0,
+      "scopes_us_calls_max_self": {
+        "arena._collect": [
+          604836,
+          16873,
+          168,
+          604836
+        ],
+        "arena._configure_tribes": [
+          61308,
+          19200,
+          46,
+          61308
+        ],
+        "arena._record_history": [
+          48223,
+          1200,
+          151,
+          48223
+        ],
+        "arena._send_snapshot": [
+          32602,
+          120,
+          398,
+          28409
+        ],
+        "arena._server_tick": [
+          6235618,
+          1200,
+          12107,
+          614627
+        ],
+        "arena._update_melee": [
+          174825,
+          16873,
+          71,
+          174825
+        ],
+        "arena._update_projectiles": [
+          8233,
+          1200,
+          19,
+          8233
+        ],
+        "bot_ai/navigation.cost": [
+          114590,
+          2788,
+          345,
+          114309
+        ],
+        "bot_ai/navigation.jump_clear": [
+          28185,
+          1208,
+          127,
+          28185
+        ],
+        "bot_ai/navigation.path": [
+          118894,
+          2789,
+          172,
+          118894
+        ],
+        "bot_ai/navigation.ray": [
+          33157,
+          6824,
+          65,
+          33157
+        ],
+        "bots.choose_weapon": [
+          24999,
+          972,
+          125,
+          24999
+        ],
+        "bots.combat": [
+          637520,
+          16879,
+          772,
+          459381
+        ],
+        "bots.perceive": [
+          360957,
+          1345,
+          748,
+          187674
+        ],
+        "bots.plan": [
+          510093,
+          397,
+          2559,
+          274788
+        ],
+        "bots.safe_shot": [
+          153149,
+          11967,
+          652,
+          153149
+        ],
+        "bots.steer": [
+          838912,
+          16885,
+          1052,
+          822416
+        ],
+        "bots.tick": [
+          2678310,
+          1200,
+          7218,
+          288075
+        ],
+        "bots.visible": [
+          173283,
+          11968,
+          145,
+          173283
+        ],
+        "fighter.engine_slide": [
+          1444266,
+          16571,
+          5779,
+          1444266
+        ],
+        "fighter.simulate": [
+          2062150,
+          16873,
+          5791,
+          177918
+        ],
+        "fighter.step_up": [
+          439966,
+          11771,
+          1281,
+          439966
+        ],
+        "modes/match.snapshot": [
+          4193,
+          120,
+          62,
+          3928
+        ],
+        "modes/match.tick": [
+          31329,
+          1200,
+          57,
+          21798
+        ],
+        "modes/tribes.snapshot": [
+          265,
+          120,
+          3,
+          265
+        ],
+        "modes/tribes.tick": [
+          9531,
+          1200,
+          45,
+          5805
+        ],
+        "network/replication.flush": [
+          6396,
+          120,
+          73,
+          6396
+        ],
+        "network/replication.packets": [
+          34591,
+          120,
+          424,
+          34591
+        ],
+        "network/replication.receive": [
+          19830,
+          278,
+          134,
+          19830
+        ],
+        "vehicles/tribes/controller.tick": [
+          3726,
+          1200,
+          8,
+          3726
+        ]
+      },
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 585,
+      "simulation": {
+        "max_ms": 12.152,
+        "mean_ms": 5.2417925,
+        "p95_ms": 7.58,
+        "p99_ms": 9.187
+      },
+      "snapshot_assembly": {
+        "max_ms": 0.401,
+        "mean_ms": 0.273975,
+        "p95_ms": 0.307,
+        "p99_ms": 0.352
+      },
+      "snapshot_encode": {
+        "max_ms": 0.428,
+        "mean_ms": 0.291866666666667,
+        "p95_ms": 0.395,
+        "p99_ms": 0.42
+      },
+      "snapshot_receive_flush": {
+        "max_ms": 0.354,
+        "mean_ms": 0.226675,
+        "p95_ms": 0.322,
+        "p99_ms": 0.332
+      },
+      "ticks": 1200,
+      "warmup": 300,
+      "warmup_simulation": {
+        "max_ms": 11.394,
+        "mean_ms": 5.8933,
+        "p95_ms": 9.054,
+        "p99_ms": 10.336
+      }
+    },
+    "ctf_stonehenge-control": {
+      "bots": 16,
+      "bytes_per_snapshot": 0,
+      "control": true,
+      "map": "ctf_stonehenge",
+      "mode": "st",
+      "native": {
+        "bots": true,
+        "codec": true,
+        "projectiles": true,
+        "specialized_trace": true
+      },
+      "packets_per_snapshot": 0.0,
+      "peak_projectiles": 9,
+      "scopes_us_calls_max_self": {},
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 13,
+      "simulation": {
+        "max_ms": 65.186,
+        "mean_ms": 10.47992,
+        "p95_ms": 26.32,
+        "p99_ms": 48.637
+      },
+      "snapshot_assembly": {},
+      "snapshot_encode": {},
+      "snapshot_receive_flush": {},
+      "ticks": 1200,
+      "warmup": 300,
+      "warmup_simulation": {
+        "max_ms": 281.592,
+        "mean_ms": 14.7070766666667,
+        "p95_ms": 53.109,
+        "p99_ms": 64.247
+      }
+    },
+    "ctf_raindance-control": {
+      "bots": 16,
+      "bytes_per_snapshot": 0,
+      "control": true,
+      "map": "ctf_raindance",
+      "mode": "st",
+      "native": {
+        "bots": true,
+        "codec": true,
+        "projectiles": true,
+        "specialized_trace": true
+      },
+      "packets_per_snapshot": 0.0,
+      "peak_projectiles": 0,
+      "scopes_us_calls_max_self": {},
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 0,
+      "simulation": {
+        "max_ms": 55.181,
+        "mean_ms": 9.82859083333334,
+        "p95_ms": 34.687,
+        "p99_ms": 48.438
+      },
+      "snapshot_assembly": {},
+      "snapshot_encode": {},
+      "snapshot_receive_flush": {},
+      "ticks": 1200,
+      "warmup": 300,
+      "warmup_simulation": {
+        "max_ms": 363.838,
+        "mean_ms": 12.6526333333333,
+        "p95_ms": 34.976,
+        "p99_ms": 46.232
+      }
+    },
+    "ctf_stonehenge-engine-scopes": {
+      "bots": 16,
+      "bytes_per_snapshot": 5376,
+      "control": false,
+      "map": "ctf_stonehenge",
+      "mode": "st",
+      "native": {
+        "bots": true,
+        "codec": true,
+        "projectiles": true,
+        "specialized_trace": true
+      },
+      "packets_per_snapshot": 5.94166666666667,
+      "peak_projectiles": 9,
+      "scopes_us_calls_max_self": {
+        "arena._collect": [
+          31989,
+          19200,
+          75,
+          31989
+        ],
+        "arena._configure_tribes": [
+          82154,
+          19200,
+          70,
+          82154
+        ],
+        "arena._record_history": [
+          51014,
+          1200,
+          117,
+          51014
+        ],
+        "arena._send_snapshot": [
+          54003,
+          120,
+          591,
+          37486
+        ],
+        "arena._server_tick": [
+          14263765,
+          1200,
+          70136,
+          637909
+        ],
+        "arena._trace_reference": [
+          242618,
+          5820,
+          247,
+          205854
+        ],
+        "arena._update_melee": [
+          119577,
+          19200,
+          117,
+          119577
+        ],
+        "arena._update_projectiles": [
+          283110,
+          1200,
+          629,
+          84218
+        ],
+        "bot_ai/navigation.cost": [
+          187733,
+          3444,
+          296,
+          187509
+        ],
+        "bot_ai/navigation.path": [
+          3375825,
+          1383,
+          4624,
+          10523
+        ],
+        "bot_ai/navigation.ray": [
+          986374,
+          390161,
+          240,
+          986374
+        ],
+        "bot_ai/tribes.assign_roles": [
+          157811,
+          2098,
+          512,
+          157811
+        ],
+        "bot_ai/tribes.combat": [
+          826011,
+          19200,
+          599,
+          671823
+        ],
+        "bot_ai/tribes.goals": [
+          185275,
+          396,
+          5290,
+          124272
+        ],
+        "bot_ai/tribes.precision_steer": [
+          661856,
+          9058,
+          786,
+          440602
+        ],
+        "bot_ai/tribes.route_look": [
+          13530,
+          19188,
+          45,
+          13530
+        ],
+        "bot_ai/tribes.steer": [
+          2546210,
+          21239,
+          1141,
+          110181
+        ],
+        "bot_ai/tribes.steer_route": [
+          2223146,
+          21239,
+          1034,
+          815010
+        ],
+        "bot_ai/tribes.tower_approach": [
+          351921,
+          17457,
+          1015,
+          128868
+        ],
+        "bot_ai/tribes_avoidance.steer": [
+          197421,
+          21239,
+          537,
+          128860
+        ],
+        "bot_ai/tribes_offense.tick": [
+          123,
+          39,
+          7,
+          123
+        ],
+        "bot_ai/tribes_routes.attach": [
+          485941,
+          3414,
+          411,
+          47160
+        ],
+        "bot_ai/tribes_routes.clear": [
+          420224,
+          33785,
+          153,
+          142863
+        ],
+        "bot_ai/tribes_routes.nearby": [
+          62825,
+          3416,
+          91,
+          62825
+        ],
+        "bot_ai/tribes_routes.path": [
+          829369,
+          1707,
+          2123,
+          321858
+        ],
+        "bot_ai/tribes_tactics.tick": [
+          15590,
+          1200,
+          473,
+          15467
+        ],
+        "bots.combat": [
+          1054520,
+          19200,
+          911,
+          228509
+        ],
+        "bots.perceive": [
+          179490,
+          1534,
+          330,
+          177993
+        ],
+        "bots.plan": [
+          5041810,
+          396,
+          25237,
+          340136
+        ],
+        "bots.safe_shot": [
+          61652,
+          1333,
+          170,
+          61652
+        ],
+        "bots.steer": [
+          2409000,
+          19200,
+          1150,
+          82520
+        ],
+        "bots.tick": [
+          9011595,
+          1200,
+          64547,
+          297148
+        ],
+        "bots.visible": [
+          1433,
+          57,
+          61,
+          1433
+        ],
+        "fighter.simulate": [
+          3424273,
+          19200,
+          2838,
+          111462
+        ],
+        "fighter.step_up": [
+          406257,
+          14685,
+          677,
+          406257
+        ],
+        "modes/match.snapshot": [
+          16517,
+          120,
+          183,
+          3857
+        ],
+        "modes/match.tick": [
+          646077,
+          1200,
+          1252,
+          126921
+        ],
+        "modes/tribes.snapshot": [
+          12660,
+          120,
+          140,
+          12660
+        ],
+        "modes/tribes.tick": [
+          519156,
+          1200,
+          1115,
+          39754
+        ],
+        "movement/tribes.engine_move": [
+          477826,
+          40613,
+          427,
+          477826
+        ],
+        "movement/tribes.engine_support": [
+          1935160,
+          76800,
+          327,
+          1935160
+        ],
+        "movement/tribes.simulate": [
+          3312811,
+          19200,
+          2831,
+          352502
+        ],
+        "movement/tribes.support": [
+          2076226,
+          76800,
+          329,
+          141066
+        ],
+        "navigation.engine_closest": [
+          1513463,
+          1383,
+          1311,
+          1513463
+        ],
+        "navigation.engine_path": [
+          1851839,
+          1049,
+          3439,
+          1851839
+        ],
+        "network/replication.flush": [
+          12829,
+          120,
+          130,
+          12829
+        ],
+        "network/replication.packets": [
+          61473,
+          120,
+          646,
+          61473
+        ],
+        "network/replication.receive": [
+          45559,
+          713,
+          135,
+          45559
+        ],
+        "tribes/base_assets.tick": [
+          14831,
+          1200,
+          74,
+          14831
+        ],
+        "tribes/combat.blast": [
+          1712,
+          9,
+          260,
+          1475
+        ],
+        "tribes/combat.tick": [
+          14287,
+          1200,
+          75,
+          14287
+        ],
+        "tribes/combat.tick_input": [
+          27081,
+          19200,
+          107,
+          27081
+        ],
+        "tribes/combat.tick_projectile": [
+          198892,
+          5042,
+          337,
+          45892
+        ],
+        "tribes/deployables.tick": [
+          76224,
+          1200,
+          229,
+          76224
+        ],
+        "tribes/deployables.trace": [
+          6911,
+          5820,
+          15,
+          6911
+        ],
+        "tribes/fixed_defences.tick": [
+          85365,
+          1200,
+          296,
+          85365
+        ],
+        "tribes/stations.tick": [
+          380388,
+          1200,
+          759,
+          280192
+        ],
+        "tribes/stations.trace": [
+          19056,
+          5838,
+          41,
+          19056
+        ],
+        "tribes/targeting.tick": [
+          1288,
+          1200,
+          4,
+          1288
+        ],
+        "tribes/targeting.trace": [
+          4322,
+          5820,
+          7,
+          4322
+        ],
+        "vehicles/tribes/controller.tick": [
+          7215,
+          1200,
+          68,
+          7215
+        ],
+        "vehicles/tribes/controller.trace": [
+          6625,
+          5820,
+          9,
+          6625
+        ]
+      },
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 13,
+      "simulation": {
+        "max_ms": 70.185,
+        "mean_ms": 11.9345383333333,
+        "p95_ms": 28.856,
+        "p99_ms": 51.256
+      },
+      "snapshot_assembly": {
+        "max_ms": 0.594,
+        "mean_ms": 0.4526,
+        "p95_ms": 0.51,
+        "p99_ms": 0.557
+      },
+      "snapshot_encode": {
+        "max_ms": 0.652,
+        "mean_ms": 0.516458333333334,
+        "p95_ms": 0.587,
+        "p99_ms": 0.65
+      },
+      "snapshot_receive_flush": {
+        "max_ms": 0.645,
+        "mean_ms": 0.500766666666667,
+        "p95_ms": 0.595,
+        "p99_ms": 0.614
+      },
+      "ticks": 1200,
+      "warmup": 300,
+      "warmup_simulation": {
+        "max_ms": 376.709,
+        "mean_ms": 16.24565,
+        "p95_ms": 55.154,
+        "p99_ms": 65.969
+      }
+    },
+    "ctf_raindance-engine-scopes": {
+      "bots": 16,
+      "bytes_per_snapshot": 3804,
+      "control": false,
+      "map": "ctf_raindance",
+      "mode": "st",
+      "native": {
+        "bots": true,
+        "codec": true,
+        "projectiles": true,
+        "specialized_trace": true
+      },
+      "packets_per_snapshot": 4.39166666666667,
+      "peak_projectiles": 0,
+      "scopes_us_calls_max_self": {
+        "arena._collect": [
+          30974,
+          19200,
+          47,
+          30974
+        ],
+        "arena._configure_tribes": [
+          79769,
+          19200,
+          781,
+          79769
+        ],
+        "arena._record_history": [
+          48143,
+          1200,
+          101,
+          48143
+        ],
+        "arena._send_snapshot": [
+          49102,
+          120,
+          663,
+          33294
+        ],
+        "arena._server_tick": [
+          13133337,
+          1200,
+          59545,
+          611073
+        ],
+        "arena._update_melee": [
+          115437,
+          19200,
+          111,
+          115437
+        ],
+        "arena._update_projectiles": [
+          7719,
+          1200,
+          19,
+          7719
+        ],
+        "bot_ai/navigation.cost": [
+          216756,
+          4024,
+          853,
+          216756
+        ],
+        "bot_ai/navigation.jump_clear": [
+          4163,
+          149,
+          53,
+          4163
+        ],
+        "bot_ai/navigation.path": [
+          3601479,
+          1895,
+          4850,
+          12328
+        ],
+        "bot_ai/navigation.ray": [
+          819530,
+          390616,
+          1206,
+          819530
+        ],
+        "bot_ai/tribes.assign_roles": [
+          156329,
+          2171,
+          1017,
+          156329
+        ],
+        "bot_ai/tribes.combat": [
+          696214,
+          19200,
+          1174,
+          691663
+        ],
+        "bot_ai/tribes.goals": [
+          202970,
+          398,
+          8417,
+          136642
+        ],
+        "bot_ai/tribes.precision_steer": [
+          1082521,
+          14518,
+          1240,
+          796177
+        ],
+        "bot_ai/tribes.route_look": [
+          12938,
+          19200,
+          72,
+          12938
+        ],
+        "bot_ai/tribes.steer": [
+          2068329,
+          19549,
+          1271,
+          84138
+        ],
+        "bot_ai/tribes.steer_route": [
+          1870889,
+          19549,
+          1260,
+          495165
+        ],
+        "bot_ai/tribes.tower_approach": [
+          103347,
+          14446,
+          1070,
+          70141
+        ],
+        "bot_ai/tribes_avoidance.steer": [
+          111603,
+          19549,
+          738,
+          70706
+        ],
+        "bot_ai/tribes_offense.tick": [
+          105,
+          39,
+          6,
+          105
+        ],
+        "bot_ai/tribes_routes.attach": [
+          510505,
+          3550,
+          1421,
+          48524
+        ],
+        "bot_ai/tribes_routes.clear": [
+          436346,
+          34129,
+          1223,
+          161131
+        ],
+        "bot_ai/tribes_routes.nearby": [
+          63099,
+          3550,
+          628,
+          63099
+        ],
+        "bot_ai/tribes_routes.path": [
+          1014696,
+          1775,
+          2835,
+          483312
+        ],
+        "bot_ai/tribes_tactics.tick": [
+          13586,
+          1200,
+          482,
+          13481
+        ],
+        "bots.combat": [
+          926766,
+          19200,
+          1204,
+          230552
+        ],
+        "bots.perceive": [
+          164172,
+          1534,
+          282,
+          164172
+        ],
+        "bots.plan": [
+          5213652,
+          398,
+          27561,
+          342326
+        ],
+        "bots.steer": [
+          2118093,
+          19200,
+          1277,
+          81785
+        ],
+        "bots.tick": [
+          9332167,
+          1200,
+          56545,
+          587853
+        ],
+        "fighter.simulate": [
+          2299548,
+          19200,
+          1529,
+          103278
+        ],
+        "fighter.step_up": [
+          200015,
+          23604,
+          657,
+          200015
+        ],
+        "modes/match.snapshot": [
+          15808,
+          120,
+          199,
+          3766
+        ],
+        "modes/match.tick": [
+          637575,
+          1200,
+          1905,
+          125398
+        ],
+        "modes/tribes.snapshot": [
+          12042,
+          120,
+          151,
+          12042
+        ],
+        "modes/tribes.tick": [
+          512177,
+          1200,
+          1787,
+          38786
+        ],
+        "movement/tribes.engine_move": [
+          195483,
+          40014,
+          516,
+          195483
+        ],
+        "movement/tribes.engine_support": [
+          1307392,
+          76800,
+          1344,
+          1307392
+        ],
+        "movement/tribes.simulate": [
+          2196270,
+          19200,
+          1521,
+          349637
+        ],
+        "movement/tribes.support": [
+          1451135,
+          76800,
+          1363,
+          143743
+        ],
+        "navigation.engine_closest": [
+          1259656,
+          1895,
+          1987,
+          1259656
+        ],
+        "navigation.engine_path": [
+          2329495,
+          1629,
+          3382,
+          2329495
+        ],
+        "network/replication.flush": [
+          11947,
+          120,
+          171,
+          11947
+        ],
+        "network/replication.packets": [
+          55783,
+          120,
+          564,
+          55783
+        ],
+        "network/replication.receive": [
+          40551,
+          527,
+          180,
+          40551
+        ],
+        "tribes/base_assets.tick": [
+          13158,
+          1200,
+          30,
+          13158
+        ],
+        "tribes/combat.tick": [
+          12740,
+          1200,
+          23,
+          12740
+        ],
+        "tribes/combat.tick_input": [
+          19075,
+          19200,
+          8,
+          19075
+        ],
+        "tribes/deployables.tick": [
+          73899,
+          1200,
+          157,
+          73899
+        ],
+        "tribes/fixed_defences.tick": [
+          72420,
+          1200,
+          618,
+          72420
+        ],
+        "tribes/stations.tick": [
+          378625,
+          1200,
+          1675,
+          293047
+        ],
+        "tribes/targeting.tick": [
+          1224,
+          1200,
+          15,
+          1224
+        ],
+        "vehicles/tribes/controller.tick": [
+          6903,
+          1200,
+          70,
+          6903
+        ]
+      },
+      "scores": [
+        0,
+        0
+      ],
+      "shots": 0,
+      "simulation": {
+        "max_ms": 59.592,
+        "mean_ms": 10.98951,
+        "p95_ms": 37.754,
+        "p99_ms": 52.451
+      },
+      "snapshot_assembly": {
+        "max_ms": 0.666,
+        "mean_ms": 0.411666666666667,
+        "p95_ms": 0.458,
+        "p99_ms": 0.512
+      },
+      "snapshot_encode": {
+        "max_ms": 0.568,
+        "mean_ms": 0.468833333333333,
+        "p95_ms": 0.555,
+        "p99_ms": 0.567
+      },
+      "snapshot_receive_flush": {
+        "max_ms": 0.563,
+        "mean_ms": 0.449441666666667,
+        "p95_ms": 0.54,
+        "p99_ms": 0.56
+      },
+      "ticks": 1200,
+      "warmup": 300,
+      "warmup_simulation": {
+        "max_ms": 540.844,
+        "mean_ms": 14.01864,
+        "p95_ms": 36.552,
+        "p99_ms": 46.779
+      }
+    },
+    "projectiles-native": {
+      "kind": "st_sustained_projectiles",
+      "mean_projectiles": 85.9166666666667,
+      "native": true,
+      "peak_projectiles": 90,
+      "scopes_us_calls_max_self": {
+        "arena._trace_reference": [
+          1583033,
+          51550,
+          311,
+          1443416
+        ],
+        "arena._update_projectiles": [
+          2077410,
+          600,
+          5969,
+          205395
+        ],
+        "tribes/combat.blast": [
+          3826,
+          30,
+          239,
+          3266
+        ],
+        "tribes/combat.tick_projectile": [
+          1872015,
+          51906,
+          320,
+          285156
+        ],
+        "tribes/deployables.trace": [
+          38326,
+          51550,
+          44,
+          38326
+        ],
+        "tribes/stations.trace": [
+          38740,
+          51610,
+          70,
+          38740
+        ],
+        "tribes/targeting.trace": [
+          28217,
+          51550,
+          12,
+          28217
+        ],
+        "vehicles/tribes/controller.trace": [
+          34894,
+          51550,
+          18,
+          34894
+        ]
+      },
+      "shooters": 16,
+      "shots": 550,
+      "state_hash": 4243520320,
+      "ticks": 600,
+      "update": {
+        "max_ms": 5.973,
+        "mean_ms": 3.46528,
+        "p95_ms": 3.748,
+        "p99_ms": 4.101
+      },
+      "warmup": 300
+    },
+    "projectiles-fallback": {
+      "kind": "st_sustained_projectiles",
+      "mean_projectiles": 85.9166666666667,
+      "native": false,
+      "peak_projectiles": 90,
+      "scopes_us_calls_max_self": {
+        "arena._trace_reference": [
+          1602368,
+          51550,
+          243,
+          1460406
+        ],
+        "arena._update_projectiles": [
+          2180264,
+          600,
+          5901,
+          195876
+        ],
+        "tribes/combat.blast": [
+          3798,
+          30,
+          237,
+          3235
+        ],
+        "tribes/combat.tick_projectile": [
+          1984388,
+          51906,
+          286,
+          378222
+        ],
+        "tribes/deployables.trace": [
+          39262,
+          51550,
+          18,
+          39262
+        ],
+        "tribes/stations.trace": [
+          39477,
+          51610,
+          24,
+          39477
+        ],
+        "tribes/targeting.trace": [
+          28485,
+          51550,
+          16,
+          28485
+        ],
+        "vehicles/tribes/controller.trace": [
+          35301,
+          51550,
+          37,
+          35301
+        ]
+      },
+      "shooters": 16,
+      "shots": 550,
+      "state_hash": 4243520320,
+      "ticks": 600,
+      "update": {
+        "max_ms": 5.908,
+        "mean_ms": 3.63672,
+        "p95_ms": 3.949,
+        "p99_ms": 4.528
+      },
+      "warmup": 300
+    },
+    "projectiles-engine-scopes": {
+      "kind": "st_sustained_projectiles",
+      "mean_projectiles": 85.9166666666667,
+      "native": true,
+      "peak_projectiles": 90,
+      "scopes_us_calls_max_self": {
+        "arena._trace_reference": [
+          1803691,
+          51550,
+          356,
+          1420989
+        ],
+        "arena._update_projectiles": [
+          2322400,
+          600,
+          6766,
+          217786
+        ],
+        "hit_detection.engine_cast": [
+          28898,
+          51550,
+          98,
+          28898
+        ],
+        "hit_detection.engine_overlap": [
+          36228,
+          51550,
+          83,
+          36228
+        ],
+        "hit_detection.world_fraction": [
+          238569,
+          51550,
+          141,
+          173443
+        ],
+        "tribes/combat.blast": [
+          3783,
+          30,
+          249,
+          3211
+        ],
+        "tribes/combat.tick_projectile": [
+          2104614,
+          51906,
+          362,
+          297140
+        ],
+        "tribes/deployables.trace": [
+          40520,
+          51550,
+          65,
+          40520
+        ],
+        "tribes/stations.trace": [
+          39820,
+          51610,
+          64,
+          39820
+        ],
+        "tribes/targeting.trace": [
+          29013,
+          51550,
+          43,
+          29013
+        ],
+        "vehicles/tribes/controller.trace": [
+          35352,
+          51550,
+          64,
+          35352
+        ]
+      },
+      "shooters": 16,
+      "shots": 550,
+      "state_hash": 4243520320,
+      "ticks": 600,
+      "update": {
+        "max_ms": 6.772,
+        "mean_ms": 3.874145,
+        "p95_ms": 4.207,
+        "p99_ms": 4.883
+      },
+      "warmup": 300
+    },
+    "projectiles-mine-scopes": {
+      "kind": "st_sustained_projectiles",
+      "mean_projectiles": 85.9166666666667,
+      "native": true,
+      "peak_projectiles": 90,
+      "scopes_us_calls_max_self": {
+        "arena._trace_reference": [
+          1830311,
+          51550,
+          220,
+          658173
+        ],
+        "arena._update_projectiles": [
+          2353291,
+          600,
+          5842,
+          218734
+        ],
+        "hit_detection.engine_cast": [
+          28810,
+          51550,
+          45,
+          28810
+        ],
+        "hit_detection.engine_overlap": [
+          36345,
+          51550,
+          61,
+          36345
+        ],
+        "hit_detection.world_fraction": [
+          237372,
+          51550,
+          87,
+          172217
+        ],
+        "tribes/combat.blast": [
+          4126,
+          30,
+          293,
+          3545
+        ],
+        "tribes/combat.tick_projectile": [
+          2134557,
+          51906,
+          306,
+          300120
+        ],
+        "tribes/combat.trace_mines": [
+          792990,
+          51550,
+          141,
+          792990
+        ],
+        "tribes/deployables.trace": [
+          39761,
+          51550,
+          70,
+          39761
+        ],
+        "tribes/stations.trace": [
+          39385,
+          51610,
+          41,
+          39385
+        ],
+        "tribes/targeting.trace": [
+          28324,
+          51550,
+          18,
+          28324
+        ],
+        "vehicles/tribes/controller.trace": [
+          34887,
+          51550,
+          91,
+          34887
+        ]
+      },
+      "shooters": 16,
+      "shots": 550,
+      "state_hash": 4243520320,
+      "ticks": 600,
+      "update": {
+        "max_ms": 5.847,
+        "mean_ms": 3.92562333333333,
+        "p95_ms": 4.297,
+        "p99_ms": 4.775
+      },
+      "warmup": 300
+    }
+  },
+  "avatars": {
+    "cold_clip_bakes": [
+      {
+        "bones": 140,
+        "direction": 0,
+        "model": "sample_d",
+        "ms": 1.267,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 1,
+        "model": "sample_d",
+        "ms": 1.133,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 2,
+        "model": "sample_d",
+        "ms": 1.108,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 3,
+        "model": "sample_d",
+        "ms": 1.1,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 4,
+        "model": "sample_d",
+        "ms": 1.083,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 5,
+        "model": "sample_d",
+        "ms": 1.086,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 6,
+        "model": "sample_d",
+        "ms": 1.082,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 7,
+        "model": "sample_d",
+        "ms": 1.074,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 0,
+        "model": "sample_f",
+        "ms": 1.113,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 1,
+        "model": "sample_f",
+        "ms": 1.086,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 2,
+        "model": "sample_f",
+        "ms": 1.075,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 3,
+        "model": "sample_f",
+        "ms": 1.077,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 4,
+        "model": "sample_f",
+        "ms": 1.084,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 5,
+        "model": "sample_f",
+        "ms": 1.087,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 6,
+        "model": "sample_f",
+        "ms": 1.086,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 7,
+        "model": "sample_f",
+        "ms": 1.069,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 0,
+        "model": "sample_g",
+        "ms": 1.101,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 1,
+        "model": "sample_g",
+        "ms": 1.081,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 2,
+        "model": "sample_g",
+        "ms": 1.085,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 3,
+        "model": "sample_g",
+        "ms": 1.104,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 4,
+        "model": "sample_g",
+        "ms": 1.092,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 5,
+        "model": "sample_g",
+        "ms": 1.081,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 6,
+        "model": "sample_g",
+        "ms": 1.064,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 7,
+        "model": "sample_g",
+        "ms": 1.071,
+        "tracks": 30
+      }
+    ],
+    "engine": "4.7.2-stable (fedora)",
+    "frames_per_block": 360,
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "reports": [
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.998680554827054,
+          "p95": 1.6599999666214,
+          "p99": 2.03900003433228
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 23.8944444444444,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.20279722246859,
+          "p95": 1.55999994277954,
+          "p99": 1.71300005912781
+        },
+        "scenario": "near",
+        "scripts": {
+          "distance_modifier": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0926694444444444
+          },
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.340841666666667
+          },
+          "gait": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0931805555555556
+          },
+          "lod": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.121888888888889
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.197436111111111
+          },
+          "native_capture": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.111677777777778
+          },
+          "native_prepare_live": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.620297222222222
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.850538888888889
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.576205555555556
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          },
+          "tracking": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.133269444444444
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 16
+        },
+        "wall_ms": {
+          "mean": 5.77573611111111,
+          "p95": 6.582,
+          "p99": 7.18
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.66788888797164,
+          "p95": 1.13999998569489,
+          "p99": 1.30299997329712
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 0.0,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.09046944611602,
+          "p95": 1.43700003623962,
+          "p99": 1.79700005054474
+        },
+        "scenario": "desktop_far",
+        "scripts": {
+          "distance_modifier": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.116711111111111
+          },
+          "gait": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0986388888888889
+          },
+          "lod": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.227386111111111
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.693688888888889
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          },
+          "tracking": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.137244444444444
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "2": 16
+        },
+        "wall_ms": {
+          "mean": 4.37526388888889,
+          "p95": 5.217,
+          "p99": 5.904
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.678955556452274,
+          "p95": 1.24600005149841,
+          "p99": 1.432000041008
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 24.3805555555556,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.16062500377496,
+          "p95": 1.5,
+          "p99": 1.83299994468689
+        },
+        "scenario": "xr_policy_far",
+        "scripts": {
+          "blend_push": {
+            "calls_per_frame": 1.11111111111111,
+            "ms_per_frame": 0.0544916666666667
+          },
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.288338888888889
+          },
+          "gait": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0881305555555556
+          },
+          "lod": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0451305555555556
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.180638888888889
+          },
+          "native_blend": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.181733333333333
+          },
+          "native_capture": {
+            "calls_per_frame": 1.11111111111111,
+            "ms_per_frame": 0.0109305555555556
+          },
+          "native_prepare_live": {
+            "calls_per_frame": 1.11111111111111,
+            "ms_per_frame": 0.0471
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.359630555555556
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.488088888888889
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          },
+          "tracking": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.130897222222222
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 16
+        },
+        "wall_ms": {
+          "mean": 4.938475,
+          "p95": 6.509,
+          "p99": 7.146
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.687622222469913,
+          "p95": 1.24399995803833,
+          "p99": 1.36699998378754
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 16.0777777777778,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.12608333130678,
+          "p95": 1.442999958992,
+          "p99": 1.59700000286102
+        },
+        "scenario": "xr_policy_far",
+        "scripts": {
+          "blend_push": {
+            "calls_per_frame": 1.11111111111111,
+            "ms_per_frame": 0.0539833333333333
+          },
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.27635
+          },
+          "gait": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0871
+          },
+          "lod": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0475944444444444
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.169672222222222
+          },
+          "native_blend": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.181469444444444
+          },
+          "native_capture": {
+            "calls_per_frame": 1.11111111111111,
+            "ms_per_frame": 0.0101583333333333
+          },
+          "native_prepare_live": {
+            "calls_per_frame": 1.11111111111111,
+            "ms_per_frame": 0.0460666666666667
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.355730555555556
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.479644444444444
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          },
+          "tracking": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.129683333333333
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 16
+        },
+        "wall_ms": {
+          "mean": 4.83558333333333,
+          "p95": 6.334,
+          "p99": 7.087
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.805013888825973,
+          "p95": 1.31200003623962,
+          "p99": 1.52799999713898
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 0.0,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.13435277789831,
+          "p95": 1.53900003433228,
+          "p99": 1.8289999961853
+        },
+        "scenario": "desktop_far",
+        "scripts": {
+          "distance_modifier": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.124216666666667
+          },
+          "gait": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0975027777777778
+          },
+          "lod": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.2313
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.70135
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          },
+          "tracking": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.140491666666667
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "2": 16
+        },
+        "wall_ms": {
+          "mean": 4.48913888888889,
+          "p95": 5.364,
+          "p99": 6.397
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.844094444976913,
+          "p95": 1.3289999961853,
+          "p99": 1.83800005912781
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 22.1555555555556,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.20695555855831,
+          "p95": 1.46399998664856,
+          "p99": 1.68900001049042
+        },
+        "scenario": "near",
+        "scripts": {
+          "blend_push": {
+            "calls_per_frame": 0.983333333333333,
+            "ms_per_frame": 0.0518194444444444
+          },
+          "distance_modifier": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0925972222222222
+          },
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.330413888888889
+          },
+          "gait": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.0939361111111111
+          },
+          "lod": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.123486111111111
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.196994444444444
+          },
+          "native_blend": {
+            "calls_per_frame": 6.0,
+            "ms_per_frame": 0.0733111111111111
+          },
+          "native_capture": {
+            "calls_per_frame": 10.9833333333333,
+            "ms_per_frame": 0.132027777777778
+          },
+          "native_prepare_live": {
+            "calls_per_frame": 10.9833333333333,
+            "ms_per_frame": 0.460633333333333
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.826925
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.582547222222222
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          },
+          "tracking": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.132855555555556
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 10,
+          "1": 6
+        },
+        "wall_ms": {
+          "mean": 5.75238888888889,
+          "p95": 6.696,
+          "p99": 7.142
+        }
+      }
+    ],
+    "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+  },
+  "validation": {
+    "suite_count": 24,
+    "reported_check_count": 1041991,
+    "suites": {
+      "native_preparation": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 225612,
+            "failures": []
+          }
+        ],
+        "log_sha256": "77623cd965f87e3f511e0666b81fcb4e45df90d8c561666989142b227e35b575"
+      },
+      "native_bots": {
+        "passed": true,
+        "results": [
+          {
+            "cases": 900,
+            "checks": 673858,
+            "failures": []
+          }
+        ],
+        "log_sha256": "517805e37f2831a4d7361be4a616da75efecd090490896e15f23b321b59af94a"
+      },
+      "native_st_bots": {
+        "passed": true,
+        "results": [
+          {
+            "cases": 54,
+            "checks": 49317,
+            "failures": []
+          }
+        ],
+        "log_sha256": "21c3532a9fe298b43b937ae659850f19e6c06703f0882c9bc3edda03e2704484"
+      },
+      "native_acceleration": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 51311,
+            "failures": []
+          }
+        ],
+        "log_sha256": "cd3ac7a8f726c3ffffc9675923d9d6fd0ba52aebf8614ff4707a7b6ea0004eca"
+      },
+      "native_codec": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 15248,
+            "failures": []
+          }
+        ],
+        "log_sha256": "fdc584b0e832427f8efbc6017362b6fd09321bfcd5f0342b73fe03491046c4b3"
+      },
+      "native_network_packing": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 6335,
+            "failures": [],
+            "reports": [
+              {
+                "after_bytes": 27313,
+                "after_ms": {
+                  "median": 0.071,
+                  "p95": 0.082
+                },
+                "after_packets": 64,
+                "before_bytes": 27313,
+                "before_ms": {
+                  "median": 0.108,
+                  "p95": 0.185
+                },
+                "before_packets": 64,
+                "players": 8,
+                "shots": 0,
+                "vr": false
+              },
+              {
+                "after_bytes": 131432,
+                "after_ms": {
+                  "median": 0.239,
+                  "p95": 0.27
+                },
+                "after_packets": 132,
+                "before_bytes": 131432,
+                "before_ms": {
+                  "median": 0.455,
+                  "p95": 0.532
+                },
+                "before_packets": 132,
+                "players": 16,
+                "shots": 32,
+                "vr": true
+              },
+              {
+                "after_bytes": 1087542,
+                "after_ms": {
+                  "median": 1.849,
+                  "p95": 1.904
+                },
+                "after_packets": 1028,
+                "before_bytes": 1087542,
+                "before_ms": {
+                  "median": 3.868,
+                  "p95": 3.955
+                },
+                "before_packets": 1028,
+                "players": 16,
+                "shots": 523,
+                "vr": false
+              }
+            ]
+          }
+        ],
+        "log_sha256": "98a79fa3ae11bb8548abed0e380526176102774228123d6b28cbb5580717f65a"
+      },
+      "native_rewind": {
+        "passed": true,
+        "results": [
+          {
+            "benchmarks": [
+              {
+                "eight_rays": {
+                  "mean_ms": 1.42141666666667,
+                  "median_ms": 1.421,
+                  "p95_ms": 1.446
+                },
+                "path": "reference"
+              },
+              {
+                "eight_rays": {
+                  "mean_ms": 0.51235,
+                  "median_ms": 0.516,
+                  "p95_ms": 0.535
+                },
+                "path": "batched_gd"
+              },
+              {
+                "eight_rays": {
+                  "mean_ms": 0.156466666666667,
+                  "median_ms": 0.156,
+                  "p95_ms": 0.16
+                },
+                "path": "native"
+              },
+              {
+                "eight_rays": {
+                  "mean_ms": 0.156508333333333,
+                  "median_ms": 0.156,
+                  "p95_ms": 0.161
+                },
+                "path": "native"
+              },
+              {
+                "eight_rays": {
+                  "mean_ms": 0.5123,
+                  "median_ms": 0.514,
+                  "p95_ms": 0.532
+                },
+                "path": "batched_gd"
+              },
+              {
+                "eight_rays": {
+                  "mean_ms": 1.41925833333333,
+                  "median_ms": 1.42,
+                  "p95_ms": 1.442
+                },
+                "path": "reference"
+              }
+            ],
+            "checks": 16850,
+            "failures": []
+          }
+        ],
+        "log_sha256": "3e75dc7d8e8f0570a3d6e0b53451ff44cd0a6c6b138468a17d77c4c737961e9a"
+      },
+      "native_shot_history": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 10,
+            "failures": []
+          }
+        ],
+        "log_sha256": "e17f8ec112d6d480c7817032bd68cf8278efeb805afdc3b3033db5dfb7381fa3"
+      },
+      "st_tribes": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 59,
+            "failures": []
+          }
+        ],
+        "log_sha256": "df31d8f8d5e88daa7baac499110b26b2e77a2b39ffb6fc5f432770a39ecba3bd"
+      },
+      "tribes_physics": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 36,
+            "failures": [],
+            "measurements": [
+              {
+                "coasting_energy": 43.0000000000001,
+                "energy_after_two_second_burn": 32,
+                "hz": 30
+              },
+              {
+                "coasting_energy": 43.0000000000001,
+                "energy_after_two_second_burn": 32,
+                "hz": 60
+              },
+              {
+                "coasting_energy": 43.0000000000001,
+                "energy_after_two_second_burn": 32,
+                "hz": 120
+              }
+            ]
+          }
+        ],
+        "log_sha256": "d1d05fa989081ae1f7a49da9c7d0e86e2f835b014f453c08a4a5f96f62db5b4b"
+      },
+      "tribes_arsenal": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 37,
+            "failures": []
+          }
+        ],
+        "log_sha256": "32bcf001cbf02958193ff0d9c535ba07b41b19f7443aaaf4106e71bdb5e618bb"
+      },
+      "st_targeting": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 43,
+            "failures": []
+          }
+        ],
+        "log_sha256": "0225c9c73dfb7dabe1c9ab0086f70417b0430c41f7cf0e8f9fe06235c739899a"
+      },
+      "st_vr_inventory": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 46,
+            "failures": []
+          }
+        ],
+        "log_sha256": "a8955ff0ac46d709584b7d8d4cefe6b510228ba6e0237106ac7bb1df74d83321"
+      },
+      "st_vr_reliability": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 27,
+            "failures": []
+          }
+        ],
+        "log_sha256": "82e8288008e114a8555901d46d31425ac4f47aa90857ba230a1b2278bf4ab0f6"
+      },
+      "st_equipment_mounts": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 112,
+            "failures": []
+          }
+        ],
+        "log_sha256": "49fbddad6669fc12d8f08f57c08023e0574a9b248d7902a09bc8ff646c839324"
+      },
+      "frame_smoothness": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 2415,
+            "clip_slice_max_us": 253,
+            "failures": []
+          }
+        ],
+        "log_sha256": "7e71cebaa69b877832059ae3161e6926904ff4447e98208dcc3ac2e116028d85"
+      },
+      "render_motion": {
+        "passed": true,
+        "results": [],
+        "log_sha256": "28ba5b100c44c2ca250dfe6dfc1d524e960e38bad48b9d323c4bcf1356423021"
+      },
+      "controller_tracking": {
+        "passed": true,
+        "results": [],
+        "log_sha256": "784f33dfa8bb5836646df4e56f5cd4df9a1ce23108ea44d9d2fb5fcf0baa4684"
+      },
+      "weapon_wheel": {
+        "passed": true,
+        "results": [],
+        "log_sha256": "d6b3013f48db9fd6d2bd825664830d6a8434952d3838c31daa75ec33acd3be16"
+      },
+      "cs16_feedback": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 103,
+            "failures": [],
+            "passed": true
+          }
+        ],
+        "log_sha256": "157397217a919d7854347027b35959479b789d049ed9e86fb2013667223e5808"
+      },
+      "cs16_vr_reload": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 136,
+            "failures": [],
+            "passed": true
+          }
+        ],
+        "log_sha256": "622030784ecae91a636d71c935f25bda79363f5792637fdc4efdfe61d44feae5"
+      },
+      "defusal_vr": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 42,
+            "failures": [],
+            "passed": true
+          }
+        ],
+        "log_sha256": "dabf3a9a0a636f121563bd84d6d182d1a826d63332b160882967165e57a5f2e0"
+      },
+      "dropped_weapons": {
+        "passed": true,
+        "results": [],
+        "log_sha256": "d3180f1a223b15b3ac6c3d314e44cb9c7b5493a23a28b41d3ed73c1bfeb2a47b"
+      },
+      "shared_hit_feedback": {
+        "passed": true,
+        "results": [
+          {
+            "checks": 394,
+            "failures": []
+          }
+        ],
+        "log_sha256": "bc46f3d973440b54ff5d2390e087ded6ff491c1ebf681f6aa840a222b3724e0d"
+      }
+    },
+    "python_compile": "passed",
+    "git_diff_check": "passed"
+  },
+  "harness_corrections": [
+    {
+      "test": "st_vr_inventory",
+      "initial_error": "Headless launch did not create xr_rig.",
+      "resolution": "Reran with display and --vr-test; passed.",
+      "log": "test-results/native-current-study/invalid-headless-st-vr-inventory.log"
+    },
+    {
+      "test": "st_equipment_mounts",
+      "initial_error": "Expected test report directory absent.",
+      "resolution": "Runner now prepares literal test-results destinations; rerun passed.",
+      "log": "test-results/native-current-study/invalid-report-directory-st-equipment.log"
+    }
+  ],
+  "limits": [
+    "No production gameplay or native source changes in this study; standard native validator gains native_st_bots.",
+    "Server simulation excludes separate engine physics stepping and network transport; snapshot probes exclude scene application.",
+    "Scope self time includes uninstrumented engine/helpers; nested times overlap and instrumentation adds overhead.",
+    "ST opening samples have sparse/no combat; sustained projectiles use empty lanes and replenished inventory, with no impacts or active special objects.",
+    "Initial, engine and mine scoped runs have successively more instrumentation; do not interpret their total differences as optimizations.",
+    "Native/fallback projectile hash equality covers this fixture only, not complete ST ballistic/impact parity.",
+    "Avatar fixture uses shared VRMs, not ST armour or an actual headset; XR policy is synthetic.",
+    "No Windows/Android runtime measurements. Prior ST capture reliability remains unresolved.",
+    "Existing shutdown resource/ObjectDB warnings remain; malformed codec diagnostics are expected."
+  ],
+  "source_sha256": {
+    "addons/fps_native/src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+    "addons/fps_native/src/bot_names.h": "ff0435c26cd94e908b5f24581a13aabeb21271a3037fa5bd07c21e855499c166",
+    "addons/fps_native/src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+    "addons/fps_native/src/bots.cpp": "9c9e153a12d54c9e224e38c173def36ee7734780f3093ae3a73933e7fe26aacd",
+    "addons/fps_native/src/bots.h": "5660a3e0d00cef95a67ae9a80f28c76ad535b6775a6956cc2d2bd88d2b21fdc3",
+    "addons/fps_native/src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+    "addons/fps_native/src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+    "addons/fps_native/src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+    "addons/fps_native/src/poses.cpp": "3def55898e54e90aab73405f9d5c6873264fcd55b4d6c5043a1a27dad22c5af1",
+    "addons/fps_native/src/poses.h": "ec2624bd67543a07aef8985caef10df5648a6cfeee4b3ef34ca3e75bd5a18874",
+    "addons/fps_native/src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+    "addons/fps_native/src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+    "addons/fps_native/src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+    "addons/fps_native/src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65",
+    "deathmatch/arena.gd": "d98f64d4db053d6e06e830af71c08f87d2f1f41a6550d169a49eb57698ea64b7",
+    "deathmatch/avatars/animation_metrics.gd": "67e1326654aba5270794bab0cdf73fc3191ecfac5556491c935e871521b23ab3",
+    "deathmatch/avatars/death_pose.gd": "cea0c1b100595f8f6baae05038ca9573e04e219a0f205f226559b12389f5b166",
+    "deathmatch/avatars/distance_lod.gd": "d4551e803c6396eced2f2572053a158f7c547eb7f63b0018e9c86e345badf60b",
+    "deathmatch/avatars/eyes.gd": "44f57497560a9470cac8fecd8d0a597e96da055d4067f7c872af3823e027bef1",
+    "deathmatch/avatars/fallback.gd": "0be855d73bef2837bd240d9d1f2513d5f14b84f0c3266de5b09af8d19e1d8fd2",
+    "deathmatch/avatars/first_person_mask.gd": "d60c313db1bd2787e708ad8c2bfa64a97e4e497cfe113f9413d506713a1e238d",
+    "deathmatch/avatars/hit_body.gd": "cd653272ff6d57b199158e38246ad79e37fc75701a492238c22e01e4c2a94fc6",
+    "deathmatch/avatars/library.gd": "702fd5554b12aed87e5cec9934af09edbf79802be985c9502483a2798f2d72b8",
+    "deathmatch/avatars/lighting.gd": "aadb31e40fd8d728962ea2ea88e87c2582529937e6bac037ca8afddefe7bfcc0",
+    "deathmatch/avatars/locomotion.gd": "546286c70c53448063b59818b58dcf2f091497ce329c7686747502eb5313310c",
+    "deathmatch/avatars/lod_clips.gd": "68dfcc69df21a08773cf593956f1360b4fa513da7a77f5c959eb2b6b0ee0e27a",
+    "deathmatch/avatars/mesh_lod.gd": "8a6757da5d599cce963032cf2cf05e577c21d4fa4afafeb06c61d28c1284ebdb",
+    "deathmatch/avatars/mouth.gd": "7a73e913ab676bceb1c9c00178c2d4328248f764284253f002c3d9322d7c7794",
+    "deathmatch/avatars/network.gd": "04db6f814d63f919ea5ef77d3f355a510f778db91267dc5ff20ae183b8ebf16c",
+    "deathmatch/avatars/picker.gd": "009c554db6a2bb6be305fa64a54a7c72ad5ed94cb762eae22b0199a459317657",
+    "deathmatch/avatars/pose.gd": "4768cb18a9f7bd9b7cb8df7344c7234caa3040f8e1c1119fe91f54ec51d29b1d",
+    "deathmatch/avatars/pose_blend.gd": "0bfcdf994f244c335241baff27b24ee538a5c1c1df17ef48b3df996933940ce4",
+    "deathmatch/avatars/rest_bounds.gd": "dad9b5faaa6d0b1b649f4163ab3bc4a3c6d7ba1cd096985e4ea44d75dea899fd",
+    "deathmatch/avatars/rig.gd": "216d915abb1ac24cf674ed26a911188fd035dfcfea2eb09f271a2faf28977bc1",
+    "deathmatch/avatars/visual_loader.gd": "ce651ef469a3b7300efb212fa6ed0387bf7307ddb86d975863408ba10b31c039",
+    "deathmatch/bot_ai/aim.gd": "8f9226b9066fa989a7efbb463cfadbe989c9861c499e771b940736aa9f299fe4",
+    "deathmatch/bot_ai/defusal.gd": "56bd73fe28787d19af022947dd21bb984d98252271ebf33b22fbe779e3c7d31d",
+    "deathmatch/bot_ai/map_triggers.gd": "90db0b84921b48e885ce4e987e132a7018f2625711f9dab73f3f718630a02258",
+    "deathmatch/bot_ai/navigation.gd": "649c5aa5c2a1f5b434f336c40a11bdc6e28b3f9d14edddb1f0bee7da072805c5",
+    "deathmatch/bot_ai/objectives.gd": "4d42b29e2d4b92d3b51332ea887366f4cba8a103faa663585abd4d19b52d8d5a",
+    "deathmatch/bot_ai/teamplay.gd": "3479c4c25b369028d5c252e9cd7eb2ee6f98a1ebf18778d2da45abc1db2eda21",
+    "deathmatch/bot_ai/titanball.gd": "2b9aa815bb76fc4ed7f19fab827e4578de507c65903c2c1b5ba9f30b042d745a",
+    "deathmatch/bot_ai/tribes.gd": "ba63e609cd488309a6147a4947d1483a93a25c6f6085cf7d7ed6a76e8a90219b",
+    "deathmatch/bot_ai/tribes_avoidance.gd": "9004358938c7558dd529a0391cd8ec709a75ccd5e889085b4a5bd649e7f45477",
+    "deathmatch/bot_ai/tribes_capture.gd": "fa41be4f0791c838d037272668467df783f1a4e070c1e9710272280f1023e94a",
+    "deathmatch/bot_ai/tribes_construction.gd": "26c948bb73a345218fe1fad9a24fde28d9fc8e7458339126348b9984dcb26c5e",
+    "deathmatch/bot_ai/tribes_equipment.gd": "b41d4629b8be1cd501638142b393271c39634d4a4a46846b278e90f3c232b633",
+    "deathmatch/bot_ai/tribes_offense.gd": "c963852ac950cf9b8318ae4b8d2590c19ed4da94a439d58cafdc03b319c7e352",
+    "deathmatch/bot_ai/tribes_routes.gd": "d12d031097979d24f6ed03f0ab367ed88da5c73ab7e85ea830102eb030054fa9",
+    "deathmatch/bot_ai/tribes_tactics.gd": "2a59800a6aea11f357eb296062e969f6efdb8fff71b3d1615b75b6f7ad6ff342",
+    "deathmatch/bot_ai/tribes_travel.gd": "1e38fd34b1751517846a2a1c3c4881c5910d2fdba0c709a0487db6532bee365a",
+    "deathmatch/bots.gd": "78824391493462390349236bf4394a5daa70d40a70389da59daf3fc7347011cc",
+    "deathmatch/fighter.gd": "dcec1fb47005ae5541f9fce7a544abdc715b0a8c6a93cf9e69e282efdcc4b4d4",
+    "deathmatch/hit_detection.gd": "6756ce60eca88f0cf3b3c643b3a017fde6c926d37387dfcc24d28f8068d539a4",
+    "deathmatch/modes/match.gd": "5d876893f2d6cd6f77c0b8a1c644bda3228683506636c546b926b30eed4d5fcc",
+    "deathmatch/modes/tribes.gd": "49204c40008c9e8b95e55c799d9bc10efe9c7285431ce3236bb08b85b08360b1",
+    "deathmatch/movement/tribes.gd": "3648f070dac6ed9b1fc958847c9d29dedbdf11aab92628d2a34de7261d958706",
+    "deathmatch/network/asset_jobs.gd": "4964c3935e814fd952d6201f06090c3e9387de3a89f969db10f31331b0d5eb17",
+    "deathmatch/network/bandwidth.gd": "bc23f4a65ac96a1cc4abe6c624271a08f827365b5a8fc0406d85f4c748aeb32d",
+    "deathmatch/network/codec.gd": "075b28c8e587339f0fce58c36d69a1ca767bb6f0a4f3255780e4900e2efbcdc3",
+    "deathmatch/network/diagnostics.gd": "defc3c7b2f718c530c7a5d91c4855002369f0f09f043e1a41305460ef8900ced",
+    "deathmatch/network/disk_worker.gd": "6df09bbf954f8366ae61f1a14e99a90424bf87990eddd1b7a33f688c95a7e1c9",
+    "deathmatch/network/fire_delivery.gd": "9e6df535ec197a68b16713277883ac0d69817b19cb6606f7450c7fb7c5705971",
+    "deathmatch/network/input_delivery.gd": "bd9848b1b89de53f77dd991e1d541f7dc457bb15b939544da6fc737f38f25c4f",
+    "deathmatch/network/interpolation.gd": "847d134270613770ff4dadd08cd86af3449618b79bf5f9b39c33ba7a62299baa",
+    "deathmatch/network/loading.gd": "0c0600bb5f80dccf09523b68a9efe58f3e963a0e38584d12d9cc26060618a33c",
+    "deathmatch/network/loading_overlay.gd": "49e6af09070d2f045d6a7878048809469d96e65da62fdfc1887e462a6c4f5004",
+    "deathmatch/network/replication.gd": "223189ed3ee3444d24c9be5d3beac2aba6d1133af94f4137e6c94103b8ea33a9",
+    "deathmatch/network/snapshot_codec.gd": "9ab2e7c1104640ed6a9dfbdb6c3bfb0c8e5f63b06f40a83fc560d0d0ebdd5f96",
+    "deathmatch/release_features.gd": "94127c8e93471d5f0a49f10eef7e939abc33f0a853f55e5d12fd4bdfeef3e9bd",
+    "deathmatch/tribes/armour_visual.gd": "36a680d4293815912a8c439778610a9fbee8e29acafc73790226655f571c1040",
+    "deathmatch/tribes/arsenal.gd": "827d0ea8454b793a0f76913781ca6d613c45ad07cc80bb9bf822682844a9f01f",
+    "deathmatch/tribes/ballistics.gd": "0ad50e940e5bf0991b6b44d4409953a55d170510c3bf9e2b45e1e10a4dbb97f5",
+    "deathmatch/tribes/base_assets.gd": "55e41061c29562b47b29cd4866928ac15c1838298b4ce120c5ee49302de83570",
+    "deathmatch/tribes/body_replacement.gd": "9bd155aa3400a8b9269c1892e1499a8db99cfa0f93419fa1d96d76d151cd7d49",
+    "deathmatch/tribes/buy_wheel.gd": "9d7141b5445be869920fc0ea6cf964cbe7a4dbf8820bfdab1223d0409bc4437d",
+    "deathmatch/tribes/combat.gd": "a674deddbf7958c76e6a90de211cc758fd7c6c8a4df704cd72419ce58b66dc05",
+    "deathmatch/tribes/command_state.gd": "d331d02f6d3e4ac3b4c75ebbaf70a48cc4ce0bfe423465ade4c26f624529b732",
+    "deathmatch/tribes/command_view.gd": "e754553d260466f1b370ee213d1d7ee0ab90097f0cd9c9f6176e1fd2efd71367",
+    "deathmatch/tribes/ctf.gd": "0ae8e7a03cc479871dc296d2d0231fa4fbb7d4a285865feda4aeb92e14434047",
+    "deathmatch/tribes/deployable_data.gd": "a4fba9e8164b11c5b984b4af0223a8df22c0a2490f8cfe2ab8ae9c1ab616de4c",
+    "deathmatch/tribes/deployable_model.gd": "41e94e156a0555627b26d88d10169f41543c36e7148eae9ea24512056944495c",
+    "deathmatch/tribes/deployable_view.gd": "8843c4b8525851c1f35fcf0551ae1a23b1730085b9d44d4dbe127c72fe9dfa85",
+    "deathmatch/tribes/deployables.gd": "d4814872983655f9f5f4486eed327791437e5650898e282a7161dd30962886f0",
+    "deathmatch/tribes/equipment.gd": "252d84406b0c62412ee35374f28590ac2a007aade054e58a663e47b772dc2e65",
+    "deathmatch/tribes/equipment_health.gd": "99aa3dff1d0746ecf92f4636669c83550a8655fcf20edb82ee8b258e3203f8c9",
+    "deathmatch/tribes/field_view.gd": "fc91e425323aa124914fcad32d81c1d4c310790f70d9627ece5db33f72865bd1",
+    "deathmatch/tribes/fixed_defence_data.gd": "0f75e1447f2a6eb9e7d7f89c1b364c5a220021e77e78172a27d80eeaf3b44c12",
+    "deathmatch/tribes/fixed_defence_model.gd": "bb89f4058020b27e91a0f7dd0ffe49f77a3f89486d945dd2fee1a1166d5750b0",
+    "deathmatch/tribes/fixed_defences.gd": "4b4be215998d692b9b2dfbf26451b790d8220da7f7b5698e24088ea51bd609c3",
+    "deathmatch/tribes/head_mesh.gd": "29890b326c86577d2d0940b3e2920529eef8b773ee82af74936630273370a43d",
+    "deathmatch/tribes/models.gd": "57b10c294d7cb5cb4a9a6827bed2d7f0594527760f54279995be274061734091",
+    "deathmatch/tribes/prop_library.gd": "5c015c9340cd4c453390b32d570b155f8f60c4c50eb3a41998b1c09b348309b0",
+    "deathmatch/tribes/recovery.gd": "39d30b5301f81cf64c12826e122adea10ad04b64743b201f2a4c093a18f2011f",
+    "deathmatch/tribes/remote_control.gd": "c64e30a93dc827a5ae8269be6b55f301007fb1753007de8963afd620df798ee3",
+    "deathmatch/tribes/stations.gd": "db56d4c2e062d2a5952808266e72fdc384eef6d4db1a3bfdc7bafeec483411bd",
+    "deathmatch/tribes/targeting.gd": "1bf888cff3c31b08262f80f4b65f7626c9db8f5d0cf9deafda51ec956843b5fa",
+    "deathmatch/tribes/turret_view.gd": "99da6a594ff7a4c3cc1e97fa48ad430e1f9ebf1ce21c4e6054d2e118385c7782",
+    "tools/native_study/box_probe.cpp": "7d76d6e1cae704c64b98caa96c5d5bd019a6ce9c192362a5e91778d0da6182dc",
+    "tools/native_study/box_probe.gd": "4bbff32e1208b1c63f236c79b13da664f906ad989e6a2ca97e9e1d4d168a764c",
+    "tools/native_study/current_projectiles.gd": "55fe436be472a5dd100b50ea38437ace47d38b7e92fd15efe61b8b3bfdbed553",
+    "tools/native_study/current_server.gd": "caa945be0e44e79f43070d8b7591b8d31da08f8bead738d397242ad4294a4b43",
+    "tools/native_study/prepare.py": "035abdf7046c4c2f222f609d16fc8cdada20244fe0ae8d51fad944d69b38defe",
+    "tools/native_study/remaining.py": "9cb08fcd8c05ae52d28d64fd3fca43ddade7f19433eac4a1bd29e6ebd3a78c04",
+    "tools/native_study/remaining_network.gd": "bf7ff1058a2e2f6362addb7c6d68e452f6f3142f0e0b23579628c1b8f97cc251",
+    "tools/native_study/remaining_server.gd": "bc8cda403bef1804246a47f60ca3c91d46a2537409dcb6a3d6dadf1766e1e187",
+    "tools/native_study/run.py": "6b1da26aae025eec62b573ec4334112227af4e81a6841386dea8b37b8d069ebf",
+    "tools/native_study/study_current.py": "7618a7b275508c8c1fd5c2e3d710ecc5c48cc7e1f0aa5b27d6d43c0c2f6791cb",
+    "tools/native_study/study_scopes.gd": "2cc9bdc9cc1566b904f5792f94b2cfbb620b47fc8479c63b49d98323928374e7",
+    "tools/native_study/validate_avatar_bots.py": "99da2c4856e2106b08c4f96b1ab32c6a6ea2993ab8a0d7069adeb24f0bec6d8e",
+    "tools/native_study/validate_implementation.py": "9cfe67b5db37b92f898f80efa3548b5ac86b54c98a358583ee0ae5629b64777a",
+    "tools/native_study/validate_network_rewind.py": "3573a685a2e7c6c1a42f3dc3caee0f0dda32e77e3904c29f664d473b7f2e1d3c"
+  },
+  "raw_log_sha256": {
+    "test-results/native-current-study/avatars.log": "2bdd9cfa0d43ee8dffee59e45e4f63db1738c46d0b32853a731342ee8fe76e81",
+    "test-results/native-current-study/check-controller_tracking.log": "784f33dfa8bb5836646df4e56f5cd4df9a1ce23108ea44d9d2fb5fcf0baa4684",
+    "test-results/native-current-study/check-cs16_feedback.log": "157397217a919d7854347027b35959479b789d049ed9e86fb2013667223e5808",
+    "test-results/native-current-study/check-cs16_vr_reload.log": "622030784ecae91a636d71c935f25bda79363f5792637fdc4efdfe61d44feae5",
+    "test-results/native-current-study/check-defusal_vr.log": "dabf3a9a0a636f121563bd84d6d182d1a826d63332b160882967165e57a5f2e0",
+    "test-results/native-current-study/check-dropped_weapons.log": "d3180f1a223b15b3ac6c3d314e44cb9c7b5493a23a28b41d3ed73c1bfeb2a47b",
+    "test-results/native-current-study/check-frame_smoothness.log": "7e71cebaa69b877832059ae3161e6926904ff4447e98208dcc3ac2e116028d85",
+    "test-results/native-current-study/check-native_acceleration.log": "cd3ac7a8f726c3ffffc9675923d9d6fd0ba52aebf8614ff4707a7b6ea0004eca",
+    "test-results/native-current-study/check-native_bots.log": "517805e37f2831a4d7361be4a616da75efecd090490896e15f23b321b59af94a",
+    "test-results/native-current-study/check-native_codec.log": "fdc584b0e832427f8efbc6017362b6fd09321bfcd5f0342b73fe03491046c4b3",
+    "test-results/native-current-study/check-native_network_packing.log": "98a79fa3ae11bb8548abed0e380526176102774228123d6b28cbb5580717f65a",
+    "test-results/native-current-study/check-native_preparation.log": "77623cd965f87e3f511e0666b81fcb4e45df90d8c561666989142b227e35b575",
+    "test-results/native-current-study/check-native_rewind.log": "3e75dc7d8e8f0570a3d6e0b53451ff44cd0a6c6b138468a17d77c4c737961e9a",
+    "test-results/native-current-study/check-native_shot_history.log": "e17f8ec112d6d480c7817032bd68cf8278efeb805afdc3b3033db5dfb7381fa3",
+    "test-results/native-current-study/check-native_st_bots.log": "21c3532a9fe298b43b937ae659850f19e6c06703f0882c9bc3edda03e2704484",
+    "test-results/native-current-study/check-render_motion.log": "28ba5b100c44c2ca250dfe6dfc1d524e960e38bad48b9d323c4bcf1356423021",
+    "test-results/native-current-study/check-shared_hit_feedback.log": "bc46f3d973440b54ff5d2390e087ded6ff491c1ebf681f6aa840a222b3724e0d",
+    "test-results/native-current-study/check-st_equipment_mounts.log": "49fbddad6669fc12d8f08f57c08023e0574a9b248d7902a09bc8ff646c839324",
+    "test-results/native-current-study/check-st_targeting.log": "0225c9c73dfb7dabe1c9ab0086f70417b0430c41f7cf0e8f9fe06235c739899a",
+    "test-results/native-current-study/check-st_tribes.log": "df31d8f8d5e88daa7baac499110b26b2e77a2b39ffb6fc5f432770a39ecba3bd",
+    "test-results/native-current-study/check-st_vr_inventory.log": "a8955ff0ac46d709584b7d8d4cefe6b510228ba6e0237106ac7bb1df74d83321",
+    "test-results/native-current-study/check-st_vr_reliability.log": "82e8288008e114a8555901d46d31425ac4f47aa90857ba230a1b2278bf4ab0f6",
+    "test-results/native-current-study/check-tribes_arsenal.log": "32bcf001cbf02958193ff0d9c535ba07b41b19f7443aaaf4106e71bdb5e618bb",
+    "test-results/native-current-study/check-tribes_physics.log": "d1d05fa989081ae1f7a49da9c7d0e86e2f835b014f453c08a4a5f96f62db5b4b",
+    "test-results/native-current-study/check-weapon_wheel.log": "d6b3013f48db9fd6d2bd825664830d6a8434952d3838c31daa75ec33acd3be16",
+    "test-results/native-current-study/ctf_raindance-control.log": "d7650a347e20c822de024cc1f355484c097fc2fc4849e0cba49a81174ccf241c",
+    "test-results/native-current-study/ctf_raindance-engine-scopes.log": "7d2972ad5d67d440f2a7de909427c891eaeaadeddba8d7ccf68343a7017a2afa",
+    "test-results/native-current-study/ctf_raindance-scopes.log": "e3280daa81df43fbc20bcf547898557c1496ce6cc5d31c73d54db9971ff6e253",
+    "test-results/native-current-study/ctf_stonehenge-control.log": "810cf80dc89db2c26514de58640de87dbee568891ecf1888c0f8bb59d934d7b1",
+    "test-results/native-current-study/ctf_stonehenge-engine-scopes.log": "c8adffd7c1984c4327e913ae17aeedb44210d71d4e578e318898462338ea6eec",
+    "test-results/native-current-study/ctf_stonehenge-scopes.log": "c485fefeb55510405e36985dd8284813094fb9efb0fbfb19a38b0ad0f83a02b9",
+    "test-results/native-current-study/invalid-headless-st-vr-inventory.log": "3538f8a252e6342afc7acbb8fa0f4dbb7c6b95679e4116ccca732ea775309c17",
+    "test-results/native-current-study/invalid-report-directory-st-equipment.log": "1455729147e5a9d741b8ab290cf46334ef3b44220617f5328d74068673fdb7c5",
+    "test-results/native-current-study/projectiles-engine-scopes.log": "a9aea0c395941b7fd3ff6de93242775477cddfbfbae75ae24c1ce88c5b7bf38d",
+    "test-results/native-current-study/projectiles-fallback.log": "afdf6c20f203b353c02f90cff9494c4b865801817a2c01bc150d734f3bded358",
+    "test-results/native-current-study/projectiles-mine-scopes.log": "d0bbc36841eb16293b9cec09556d308e64211c0d5b9974fac67a9a69d42ffec2",
+    "test-results/native-current-study/projectiles-native.log": "aa96138afb6435ccc4389fb6cad39f5e62e33f3ce61af9637131cf36ee3cae95",
+    "test-results/native-current-study/qsrc_dm1-scopes.log": "731b3558ce606bd6e0d5f6124839d5c7de42a0859c2aa8ae252b63845b55e2dc"
+  }
+}

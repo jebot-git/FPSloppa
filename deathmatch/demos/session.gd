@@ -33,7 +33,20 @@ var gun_art_rules:=""
 var exit_at_end:=false
 var stop_at:=INF
 var free_rotation:=Vector2.ZERO
-func setup(arena: Node) -> void:game=arena
+const RENDER_DELAY:=.05
+var snapshot_time:=0.0
+var actor_motion=preload("res://deathmatch/vehicles/tribes/render_motion.gd").new()
+func setup(arena: Node) -> void:
+	game=arena
+	# Accept replay frames before the XR rig, fighter animation and mounted visuals.
+	process_priority=-40
+func _process(delta: float) -> void:
+	if playing:tick(delta)
+func render_time() -> float:return maxf(0,position_seconds-RENDER_DELAY)
+func reset_motion() -> void:
+	actor_motion.clear()
+	var vehicles=game.match_mode.tribes.vehicles
+	vehicles.render_motion.clear();vehicles.render_frames.clear();vehicles.render_frame_number=-1
 func folder() -> String:return game.Maps.Paths.folder("demos")
 func start_record(filename: String="") -> bool:
 	if recording or playing or not game.active:return false
@@ -193,11 +206,16 @@ func open_demo(filename: String) -> bool:
 	game.dedicated=true;game.menu_open=false;game.active=true
 	playing=true;paused=false;position_seconds=0;duration=times.back();cursor=0;path=filename
 	camera=Camera3D.new();camera.name="DemoCamera";camera.near=.04;camera.fov=85;game.add_child(camera);camera.make_current();game.camera=camera
+	camera.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 	if game.hud:game.hud.show_menu(false)
 	Input.mouse_mode=Input.MOUSE_MODE_CAPTURED
 	seek(0);message="Playing "+filename.get_file();return playing
 func stop_playback() -> void:
 	playing=false
+	reset_motion()
+	for actor in game.fighters.values():
+		actor.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_INHERIT
+		actor.reset_physics_interpolation()
 	if input:input.close();input=null
 	if is_instance_valid(camera):camera.queue_free()
 	if is_instance_valid(gun):gun.queue_free()
@@ -205,6 +223,7 @@ func stop_playback() -> void:
 func seek(time: float) -> void:
 	if not playing:return
 	position_seconds=clampf(time,0,duration);cursor=maxi(0,times.bsearch(position_seconds,false)-1)
+	reset_motion()
 	game.effects.clear()
 	game.announcer.clear_audio()
 	input.seek(offsets[cursor]);apply_frame(read_frame(),false);cursor+=1
@@ -233,6 +252,7 @@ func apply_frame(frame: Dictionary,play_events: bool=true) -> void:
 		if choice is Dictionary and game.avatars.library.entries.has(choice.get("hash","")) and game.avatars.choices.get(id,{})!=choice:
 			game.avatars.choices[id]=choice;game.avatars.queue_avatar(id)
 	var snap: Array=frame.snapshot
+	snapshot_time=frame.time
 	game.round_left=snap[2];game.intermission=snap[3];game.round_message=snap[4];game.frag_limit=snap[5];game.time_limit=snap[6]
 	game.variant_combat.charge_view=snap[10].get("weapon_charge",{})
 	game.variant_combat.cs.receive(snap[10].get("cs16",{}))
@@ -241,6 +261,11 @@ func apply_frame(frame: Dictionary,play_events: bool=true) -> void:
 	for row in snap[0]:
 		if not game.players.has(row[0]):continue
 		var state: Dictionary=game.players[row[0]];var actor=game.fighters[row[0]]
+		# Replay owns interpolation at display frequency; don't interpolate these
+		# already sampled transforms a second time on the physics clock.
+		actor.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
+		if not play_events or actor.spawn_serial!=row[14]:actor_motion.erase(row[0]);actor.reset_view()
+		actor_motion.push(row[0],frame.time,Transform3D(Basis(Vector3.UP,row[3]),row[1]))
 		state.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"xr":row[18],"spectator":row[20]},true)
 		if not play_events or actor.spawn_serial!=row[14]:actor.position=row[1];actor.rotation.y=row[3]
 		actor.spawn_serial=row[14];actor.target=row[1];actor.target_yaw=row[3];actor.visual_velocity=row[2];actor.visual_pitch=row[4];actor.visual_weapon=row[8];actor.xr_pose=row[18];actor.receive_locomotion(snap[10].get("locomotion",{}).get(row[0],{}));actor.spectator=row[20];actor.show_alive(not row[7],false)
@@ -276,8 +301,9 @@ func tick(delta: float) -> void:
 		if position_seconds>=minf(duration,stop_at):
 			paused=true
 			if exit_at_end:finish_movie()
-	for actor in game.fighters.values():
-		actor.position=actor.position.lerp(actor.target,minf(delta*20*speed,1));actor.rotation.y=lerp_angle(actor.rotation.y,actor.target_yaw,minf(delta*20*speed,1))
+	for id in game.fighters:
+		var actor=game.fighters[id]
+		actor.transform=actor_motion.sample(id,render_time(),actor.transform)
 	if not game.lobby.active():game.match_mode.draw_objectives()
 	for shot in game.projectiles.values():
 		if is_instance_valid(shot.node):shot.node.position=shot.position
@@ -288,8 +314,9 @@ func update_camera(delta: float) -> void:
 	var actor=game.fighters.get(selected_player)
 	if not actor:return
 	var s: Dictionary=game.players[selected_player]
-	var aim:=Transform3D(Basis(Vector3.UP,s.yaw)*Basis(Vector3.RIGHT,s.pitch),actor.position+Vector3.UP*actor.eye_height())
-	if not s.xr.is_empty():aim=actor.global_transform*s.xr.head
+	var rendered:=Transform3D(actor.global_basis,actor.render_position())
+	var aim:=Transform3D(rendered.basis*Basis(Vector3.RIGHT,s.pitch),rendered.origin+Vector3.UP*actor.eye_height())
+	if not s.xr.is_empty():aim=rendered*s.xr.head
 	if viewpoint=="free":
 		if not game.menu_open:
 			var input_dir:=Vector3(float(game.bindings.pressed("right"))-float(game.bindings.pressed("left")),float(game.bindings.pressed("jump"))-float(game.bindings.pressed("down")),float(game.bindings.pressed("back"))-float(game.bindings.pressed("forward")))
@@ -306,8 +333,9 @@ func update_camera(delta: float) -> void:
 	if s.weapon!=gun_id or gun_art_rules!=art_rules:
 		if is_instance_valid(gun):gun.free()
 		gun=game.Art.weapon(s.weapon,2,art_rules);game.add_child(gun);gun_id=s.weapon;gun_art_rules=art_rules
+		gun.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 	gun.visible=viewpoint=="first" and not s.dead and not game.lobby.active() and not game.match_mode.defusal.gun_holstered(selected_player)
-	var held: Transform3D=actor.global_transform*s.xr.weapon if not s.xr.is_empty() else Transform3D(aim.basis,aim.origin+aim.basis*Vector3(.18,-.24,-.35))
+	var held: Transform3D=rendered*s.xr.weapon if not s.xr.is_empty() else Transform3D(aim.basis,aim.origin+aim.basis*Vector3(.18,-.24,-.35))
 	gun.global_transform=game.Art.held_transform(held,s.weapon,game.Art.VR_SCALE,art_rules)
 func _unhandled_input(event: InputEvent) -> void:
 	if not playing:return

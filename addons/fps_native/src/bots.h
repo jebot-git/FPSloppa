@@ -11,6 +11,8 @@ class FPSBots : public RefCounted {
 protected: static void _bind_methods();
 public:
  FPSBots();
+ void st_route(Object *ai,int64_t id,Dictionary brain,bool recharging);
+ void st_precision(Object *ai,int64_t id,Dictionary brain);
  void perceive(Object *ai,int64_t id,Dictionary brain);
  void combat(Object *ai,int64_t id,Dictionary brain,double delta);
  void steer(Object *ai,int64_t id,Dictionary brain,double delta);

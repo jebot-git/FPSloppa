@@ -7,6 +7,8 @@ const Art = preload("res://deathmatch/art.gd")
 const RestBounds = preload("res://deathmatch/avatars/rest_bounds.gd")
 var target_xr_pose: Dictionary={}
 var xr_pose: Dictionary={}
+var native_tracking=preload("res://deathmatch/native/runtime.gd").pose()
+var native_interpolation:bool=native_tracking!=null and native_tracking.has_method("interpolate_tracking") and not OS.get_cmdline_user_args().has("--gdscript-avatar-channels")
 var pain:=0.0
 var pain_direction:=Vector3.ZERO
 var skeleton: Skeleton3D
@@ -284,19 +286,8 @@ func update_animation(delta: float) -> void:
 		position.x=0;position.z=0;rotation.y=0
 	if target_xr_pose.is_empty(): xr_pose.clear()
 	elif xr_pose.is_empty() or first_person: xr_pose=target_xr_pose.duplicate()
-	else:
-		for key in ["head","left","right","weapon"]: xr_pose[key]=xr_pose[key].interpolate_with(target_xr_pose[key],minf(1.0,delta*22))
-		if target_xr_pose.has("offhand_weapon"):
-			xr_pose.offhand_weapon=xr_pose.get("offhand_weapon",target_xr_pose.offhand_weapon).interpolate_with(target_xr_pose.offhand_weapon,minf(1.0,delta*22))
-		else: xr_pose.erase("offhand_weapon")
-		xr_pose.left_handed=target_xr_pose.left_handed
-		xr_pose.face=target_xr_pose.get("face",{})
-		var next_body: Dictionary=target_xr_pose.get("body",{})
-		var previous: Dictionary=xr_pose.get("body",{})
-		var body: Dictionary={}
-		for key in next_body:
-			body[key]=previous[key].interpolate_with(next_body[key],minf(1,delta*18)) if previous.has(key) and next_body[key] is Transform3D else next_body[key]
-		xr_pose.body=body
+	elif native_interpolation:native_tracking.interpolate_tracking(xr_pose,target_xr_pose,delta)
+	else:interpolate_tracking_reference(delta)
 	# Rotate only the rendered body; controller/head poses retain their tracking frame.
 	body_heading=preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,body_heading)
 	var physical_yaw:=body_heading
@@ -336,3 +327,17 @@ func update_animation(delta: float) -> void:
 		grip.origin.y-=1.65-collider_height
 		offhand_gun.transform=Art.held_transform(grip,2,.48)
 		offhand_gun.visible=not unarmed and not dead and not first_person
+
+func interpolate_tracking_reference(delta: float) -> void:
+	for key in ["head","left","right","weapon"]: xr_pose[key]=xr_pose[key].interpolate_with(target_xr_pose[key],minf(1.0,delta*22))
+	if target_xr_pose.has("offhand_weapon"):
+		xr_pose.offhand_weapon=xr_pose.get("offhand_weapon",target_xr_pose.offhand_weapon).interpolate_with(target_xr_pose.offhand_weapon,minf(1.0,delta*22))
+	else: xr_pose.erase("offhand_weapon")
+	xr_pose.left_handed=target_xr_pose.left_handed
+	xr_pose.face=target_xr_pose.get("face",{})
+	var next_body: Dictionary=target_xr_pose.get("body",{})
+	var previous: Dictionary=xr_pose.get("body",{})
+	var body: Dictionary={}
+	for key in next_body:
+		body[key]=previous[key].interpolate_with(next_body[key],minf(1,delta*18)) if previous.has(key) and next_body[key] is Transform3D else next_body[key]
+	xr_pose.body=body

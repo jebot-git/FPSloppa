@@ -13,6 +13,8 @@ var eye_frames: Array=[]
 var head_rest:=Basis.IDENTITY
 var channels: Array=[]
 var morph_writes:=0
+var native_face=preload("res://deathmatch/native/runtime.gd").pose()
+var native_channels:bool=native_face!=null and native_face.has_method("configure_morphs") and not OS.get_cmdline_user_args().has("--gdscript-avatar-channels")
 func rebuild_bindings() -> void:
 	channels.clear()
 	var by_mesh: Dictionary={}
@@ -27,7 +29,12 @@ func rebuild_bindings() -> void:
 			var channel: Array=channels[by_mesh[mesh][bind[1]]]
 			channel[3].append([source,bind[2]])
 			if source<7:channel[2]=.9
+	if native_channels:native_face.configure_morphs(channels)
 func compose_cached() -> void:
+	if native_channels:
+		morph_writes+=native_face.compose_morphs(morph_weights,rig.mouth.weights,rig.dead);return
+	compose_cached_reference()
+func compose_cached_reference() -> void:
 	for channel in channels:
 		if not is_instance_valid(channel[0]):continue
 		var value:=0.0

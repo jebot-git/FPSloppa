@@ -1,58 +1,14 @@
-# FPSloppa soundtrack
+# Built-in music
 
-Metal instrumentation was selected after an A/B audition. The nine original gameplay scores
-use their own electric-guitar, bass and acoustic-drum arrangement.
-Title and lobby keep their previously approved compositions and renders.
+Only **Dead Air** (title, 113 seconds) and **Please Hold** (lobby, 103 seconds)
+remain bundled. Their original Ogg renders and eight-channel MOD sources are
+unchanged. Gameplay uses client-owned Ogg music from the external `bgm` folder;
+see [AUDIO.md](../../../AUDIO.md) for naming and playlist rules.
 
-| Context | Title | BPM | Length | Arrangement |
-| --- | --- | ---: | ---: | --- |
-| Title / disconnected menu | Dead Air | 68 | 113 s | Slow dark ambient drones and distant metal |
-| Between-match lobby | Please Hold | 112 | 103 s | Light elevator jazz with corrected piano/flute harmony |
-| Deathmatch | Iron Teeth | 138 | 111 s | Low E thrash riffs and double-kick accents |
-| Team deathmatch | Breach Formation | 128 | 120 s | Low D marching metal and staggered kick rhythm |
-| Capture the flag | Redline Relay | 146 | 105 s | Galloping guitars and fast power-chord responses |
-| King of the hill | Crowned in Rust | 116 | 132 s | Low C sludge riffs with half-time weight |
-| Instagib | Razor Current | 166 | 93 s | Fast F-sharp riffing and tightly clipped notes |
-| Freeze tag | Cold Anvil | 104 | 148 s | Low C doom riffs and ringing power chords |
-| Chainsaw carousel | Chain Drive | 152 | 101 s | Low D groove, chugs and heavy half-time snare |
-| Team Fortress | Siege Engine | 124 | 124 s | C-sharp battle rhythm and open chord accents |
-| Titanball | Escape Velocity | 136 | 113 s | Looping sci-fi rock with breakbeats and paired guitar riffs |
-| Assault | Mega Destruction — Zilly Mike | Tracker tempo | 157 s | Public-domain XM metal arrangement |
-| Bomb Defusal | Copper Fuse | 150 | 102.4 s | Orchestral action: string ostinati, brass, timpani and percussion |
-
-Metal tracks use independent left/right guitar recordings, open and palm-muted
-articulations, root/fifth/octave power chords, amp saturation, cabinet-like EQ
-and acoustic drums with short room tails. They retain 44.1 kHz stereo detail in
-compact Vorbis files. Title/lobby use 32 kHz stereo Vorbis and retain editable
-eight-channel MODs. No existing game soundtrack recording or melody is used.
-
-The fourteen active Ogg files total **22,906,241 bytes (21.85 MiB)**. Gameplay is mastered
-to −19 LUFS (DE/ST −20), title −22 and lobby −21, with a −3 dBTP target before Vorbis encoding.
-Loop-edge fades prevent sample-boundary clicks. Selection remains asynchronous,
-with 2.5-second crossfades, a separate persistent music volume, and no restart
-when only the map changes within the same mode. Headless servers load no music.
-
-## Sources, editing and comparison
-
-- `scores.json` records all active assignments, durations, sizes and hashes.
-- Each original gameplay `*.score.json` stores its recorded-sample arrangement and matching
-  render hash. These replace the previous gameplay MOD sources; they are not
-  represented as tracker modules.
-- `python3 tools/generate_metal_alternates.py --install` regenerates and installs
-  all eight gameplay scores. Optional mode keys render a subset, retaining the
-  other previously rendered tracks. NumPy and FFmpeg are required.
-- `python3 tools/generate_tracker_music.py title lobby` regenerates only the two
-  remaining tracker compositions; its default now selects title and lobby.
-- `python3 tools/validate_soundtrack.py` audits the active renders.
-
-The three auditioned metal tracks are installed without further audio changes.
-The five remaining modes use the same recorded-instrument rendering approach
-with distinct keys, tempos, riffs and rhythms. Full recordings, additional guitar
-sample URLs, hashes, source notes and A/B previews are in
-[the metal score folder](../../../docs/audio/metal-alternates/README.md).
-The previous industrial Oggs/MODs and metadata are preserved under
-`docs/audio/industrial-originals/`. Comparison/source assets under `docs/` are
-excluded from game exports; only the selected active audio is shipped.
+`scores.json` lists the two retained renders and their hashes. Run
+`python3 tools/generate_tracker_music.py title lobby` to regenerate them, or
+`python3 tools/validate_soundtrack.py` to audit the retained audio. Historical
+composition material under `docs/audio/` is not included in game exports.
 
 ## Recorded instrument sources — CC0 1.0
 
@@ -105,31 +61,3 @@ The original compositions, arrangements, edited instruments and rendered music
 are dedicated under **CC0 1.0 Universal**, matching the recordings' license:
 https://creativecommons.org/publicdomain/zero/1.0/ . This applies to these music
 assets, not the whole game.
-
-## Assault — Mega Destruction
-
-AS uses **Mega Destruction** by **Zilly Mike**, an external XM module listed as **Public Domain** by [Mod Archive](https://modarchive.org/index.php?request=view_by_moduleid&query=50252). Its original instrumentation is retained, converted and mastered to match the gameplay music. The original XM, source/license links and regeneration instructions are in [docs/audio/assault/README.md](../../../docs/audio/assault/README.md). This track is separate from the original compositions and their CC0 dedication above.
-
-## Titanball — Escape Velocity
-
-TB uses the original **Escape Velocity** sci-fi rock/breakbeat arrangement, adapted
-into a **64-bar loop at 136 BPM (112.941 seconds)**. The last B chord resolves
-back into the opening E groove; the audition intro/outro fades are removed.
-Instrument releases and stereo delays carry across the loop. Filter/compressor
-state is warmed from the previous cycle; short 3 ms edge ramps and an 8 ms
-Vorbis entry ramp suppress codec-boundary clicks without a musical pause.
-
-The same recorded CC0 guitar, bass, drums and VSCO viola sources are used.
-`python3 tools/generate_tb_music.py --install` regenerates the loop, validates
-the decoded Ogg and updates its manifest entry. The original finite audition
-remains in [the comparison folder](../../../docs/audio/escape-velocity/README.md).
-The runtime version is mastered to −19 LUFS; only its Ogg and score metadata
-are added to the normal music assets. Existing music volume and crossfades apply.
-
-## Bomb Defusal — Copper Fuse
-
-DE uses the original **Copper Fuse**, a 64-bar, 150 BPM orchestral action XM
-arrangement with strings, horns, trumpet, flute, timpani and orchestral percussion.
-It loops at 102.4 seconds and follows ordinary music volume/crossfade settings.
-The CC0 VSCO recordings, pinned hashes, editable MilkyTracker module and render
-instructions are in [the DE music source package](../../../docs/audio/copper-fuse/README.md).
