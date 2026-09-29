@@ -1,0 +1,37 @@
+{
+  "date": "2026-09-28",
+  "protocol": "fpsloppa-66-shared-hit-feedback",
+  "features": [
+    "Shared confirmed player/world hit feedback and original impact SFX",
+    "Directional VRM and fallback pain reactions without local view tilt",
+    "Local muzzle presentation and stable hand attachment across supported arsenals",
+    "DE loaded-round-only death/swap drops; standard weapon pickup ammo elsewhere",
+    "Weapon-specific motion-controller pulses, alternate/offhand fire, TF variants and manual Titan pairs"
+  ],
+  "checks": {
+    "shared_feedback_haptics_native_render": 390,
+    "de_and_default_drop_ammo": 134,
+    "surface_contact_arsenals": 66,
+    "weapon_variants_combat": 71,
+    "cs_local_tracers": 116,
+    "titan_pilot_controls": 29
+  },
+  "network": {
+    "quake_tf_server_client": "passed",
+    "ut99_assault_server_client": "passed",
+    "dropped_weapon_server_client_late_join": "passed"
+  },
+  "additional": {
+    "base_combat": "passed",
+    "dropped_weapon_collection_replication_demo": "passed",
+    "diff_whitespace": "passed"
+  },
+  "failures": [],
+  "image": "test-results/shared-feedback/impacts.png",
+  "notes": [
+    "All supported arsenals (Doom, Quake, UT99, CS 1.6) exercised with both controller handedness settings.",
+    "Outdated surface test now enumerates supported arsenal IDs rather than attempting the disabled Tribes selection.",
+    "Native render reports two ObjectDB instances at shutdown; exits successfully with no script/runtime errors.",
+    "Live controller feel, headset visibility and audio balance require wearer evaluation."
+  ]
+}

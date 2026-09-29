@@ -2,6 +2,10 @@
 
 Press the **physical right joystick** to open the wheel. It stays open without a timeout. Tilt towards a weapon to highlight it, then release the stick to its centre to equip it. Press the joystick again to cancel and keep the current weapon. Opening with a tilted stick requires centring it before selection.
 
+Returning the stick toward center preserves the highlighted sector, even if its
+axes recenter unevenly (for example, an Index diagonal sliding toward horizontal).
+Push it back to the outer ring to deliberately change the highlighted choice.
+
 The VR weapon and purchase wheels use a compact 38 cm panel, positioned 23 cm
 above the dominant controller's grip. They follow that hand continuously,
 including left-handed play, and face the eyes with upright sectors rather than

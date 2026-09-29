@@ -3,6 +3,8 @@ from pathlib import Path
 import os, subprocess, secrets, json, zipfile, hashlib, argparse, re, shutil
 
 from renderer_policy import require_client_template, verify_android_renderer
+from build_gameplay_native import require_build
+require_build("android")
 
 root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()

@@ -6,7 +6,7 @@ const SCALE:=.65
 static func sample(p: Dictionary,pose: Dictionary,weapon: Transform3D,hand: Transform3D,stamp: float) -> Dictionary:
 	var current:={"time":stamp,"hand":weapon.affine_inverse()*hand.origin,"weapon":pose.weapon.origin-pose.head.origin,"support":hand.origin-pose.head.origin,"raw_weapon":pose.weapon.origin,"raw_support":hand.origin,"basis":pose.weapon.basis,"head_basis":pose.head.basis}
 	var before: Dictionary=p.get("motion",{})
-	if not before.is_empty() and stamp<=before.time:return {"valid":false}
+	if not before.is_empty() and stamp<=before.time:return {"valid":false,"duplicate":true}
 	p.motion=current
 	if before.is_empty():return {"valid":false}
 	var dt: float=stamp-before.time

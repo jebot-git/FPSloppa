@@ -1,0 +1,193 @@
+{
+  "date": "2026-09-28",
+  "task": "CS 1.6 BSP30/WAD3 to native BSP29 Bomb Defusal conversion",
+  "runtime_protocol": "fpsloppa-64-de-map-conversion",
+  "requires_updated_runtime": true,
+  "published_019v_unchanged": true,
+  "bundle": {
+    "path": "/home/blux/Documents/FPSloppa/Builds/Converters/FPSloppa-CS16-Map-Converter-1.0.zip",
+    "bytes": 22282,
+    "sha256": "6f1005733bbf6f2332cfe3eabfec8ef6a23260335076ee4706e2fabec5ac7c59"
+  },
+  "portable_bundle_test": {
+    "passed": true,
+    "bundle_sha256": "6f1005733bbf6f2332cfe3eabfec8ef6a23260335076ee4706e2fabec5ac7c59",
+    "manifest_files_verified": 6,
+    "map": "de_santorini",
+    "output_byte_identical": true,
+    "engine_validation": "passed",
+    "run_outside_project": true
+  },
+  "python_unit_tests": {
+    "passed": 23,
+    "log": "test-results/cs16-map-converter/unit.log"
+  },
+  "runtime_fixture": {
+    "checks": 28,
+    "failures": []
+  },
+  "runtime_catalog": {
+    "failures": [],
+    "maps": 42
+  },
+  "regressions": [
+    {
+      "test": "defusal",
+      "exit": 0,
+      "passed": true,
+      "checks": 100
+    },
+    {
+      "test": "defusal_maps",
+      "exit": 0,
+      "passed": true,
+      "checks": 73
+    },
+    {
+      "test": "imported_map_policy",
+      "exit": 0,
+      "passed": true,
+      "checks": 29
+    },
+    {
+      "test": "release_scope",
+      "exit": 0,
+      "passed": true,
+      "checks": 28
+    },
+    {
+      "test": "map_colour_mips",
+      "exit": 0,
+      "passed": true,
+      "checks": 0
+    },
+    {
+      "test": "de_cover",
+      "exit": 0,
+      "passed": true,
+      "checks": 392
+    },
+    {
+      "test": "defusal_bot_behavior",
+      "exit": 0,
+      "passed": true,
+      "checks": 27
+    }
+  ],
+  "maps": [
+    {
+      "id": "de_prodigy32_fps",
+      "source_sha256": "84e955e900af19fa1e35d0a892ff0d93cdd763d486c5e7d71742314eae3e79b6",
+      "output_sha256": "35e1556add90a7a95507f85228d9f06d12b409e013357a816fd8afb05e9552f4",
+      "output_bytes": 4890373,
+      "artifact": "Builds/Converters/Maps/de_prodigy32_fps.bsp",
+      "report": "Builds/Converters/Maps/de_prodigy32_fps.conversion.json",
+      "geometry_lumps_preserved": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "spawns_by_role": [
+        16,
+        16
+      ],
+      "plant_volumes_by_site": [
+        3,
+        1
+      ],
+      "textures": 214,
+      "generated_textures": 214,
+      "resampled_wad_textures": [],
+      "runtime_validation": "passed",
+      "spawn_to_site_routes": 64,
+      "source_regression_tests_passed": 7,
+      "regression_log": "test-results/cs16-map-converter/prodigy/regression.log",
+      "network_checks_passed": 9,
+      "network_log": "test-results/cs16-map-converter/prodigy/network.log",
+      "renderer": "Vulkan mobile",
+      "preview_count": 10,
+      "preview_folder": "test-results/cs16-map-converter/prodigy/screenshots",
+      "wad_sources": [],
+      "warnings_count": 63
+    },
+    {
+      "id": "de_santorini_fps",
+      "source_sha256": "3a83d058b262019a35ad2418fce573deb107f154449ea69b04ff3c635fae1bc1",
+      "output_sha256": "1bb9bbac3960f5551463b486959664cad1776997da0b3c43cd57de402eb6c4bd",
+      "output_bytes": 9663353,
+      "artifact": "Builds/Converters/Maps/de_santorini_fps.bsp",
+      "report": "Builds/Converters/Maps/de_santorini_fps.conversion.json",
+      "geometry_lumps_preserved": [
+        1,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "spawns_by_role": [
+        18,
+        18
+      ],
+      "plant_volumes_by_site": [
+        1,
+        1
+      ],
+      "textures": 79,
+      "generated_textures": 4,
+      "resampled_wad_textures": [
+        "black",
+        "sky"
+      ],
+      "runtime_validation": "passed",
+      "spawn_to_site_routes": 72,
+      "source_regression_tests_passed": 5,
+      "regression_log": "test-results/cs16-map-converter/santorini/regression.log",
+      "network_checks_passed": 9,
+      "network_log": "test-results/cs16-map-converter/santorini/network.log",
+      "renderer": "Vulkan mobile",
+      "preview_count": 10,
+      "preview_folder": "test-results/cs16-map-converter/santorini/screenshots",
+      "wad_sources": [
+        {
+          "name": "de_santorini.wad",
+          "sha256": "744a2a003bee4d02397ef4508a6aa0829c7146c5c6a47107c45ae80d058ba95c",
+          "bytes": 7876936
+        }
+      ],
+      "warnings_count": 181
+    }
+  ],
+  "limits": [
+    "Source geometry is retained, but GoldSrc clip-only hull barriers are not reconstructed by triangle collision.",
+    "Unsupported brush behaviour becomes reported static cover; ladder movement, external models/sprites/decals/sounds and original skyboxes are not ported.",
+    "A/B ordering follows trigger entity order and remains operator-reviewable through --sites.",
+    "Per-spawn navigation routes are checked; no complete bot match was simulated for these conversions.",
+    "One ObjectDB instance shutdown warning remains in Godot test logs; no engine or script errors in passing runs."
+  ],
+  "source_files": {
+    "tools/cs16_map_converter/bsp.py": "bc5fdcaa17e2ee45ea6649c81b4e7995eb6cabfc7735700954ddcf9b275d19df",
+    "tools/cs16_map_converter/convert.py": "9fce1e8e195015afe59398ad158d6c419485d035f42729417d8b7cdff79c083e",
+    "tools/cs16_map_converter/entities.py": "f97054bd2c7fd03053cc0ab0aafdcc9f7bbccea6ae29a10041b50bebcceb2f93",
+    "tools/cs16_map_converter/make_fixture.py": "67d4c8f4fd8c77cebcf37b26e9238073d9b9c5537f8f917d7d22a2ae6ef0678d",
+    "tools/cs16_map_converter/replacements.py": "df3833ee22b747271d744d544f4ef7901ce22018221aee654bc6c801ae503c10",
+    "tools/cs16_map_converter/run_network.py": "dac35a4617264a01e5eb2909fe22bf8ec9089d25025b0d71609b44feb5b05e1f",
+    "tools/cs16_map_converter/test.py": "14c78f240ac290e58090eac82e041ee8b203e2dd77f3ba425584ed8304f45dd9",
+    "tools/cs16_map_converter/test_prodigy.py": "8cbeb388e4c67745d8cb149855b24322df3fe62f6ad37c4b3187c49e945dd675",
+    "tools/cs16_map_converter/test_santorini.py": "d83a354dd6accd69de94e6e6f95dfefb2875537f656cde71451fece34476bf98",
+    "tools/cs16_map_converter/textures.py": "22d66a2cb04c8d02ea1370486141c0ee30ed98f5dde7cd0373f9923681a2495e"
+  }
+}

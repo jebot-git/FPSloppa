@@ -1,0 +1,2133 @@
+{
+  "date": "2026-09-28",
+  "features": [
+    "Bounded packed weapon visual cache and active-loadout preparation during map loading",
+    "Two pose samples per global frame for queued clip preparation, live rig restoration and weak-reference cancellation",
+    "Remote IK pose interpolation and display-cadence prepared animation playback",
+    "Render-time cosmetic pickup bobbing"
+  ],
+  "unchanged": [
+    "XR LOD policy and distance thresholds",
+    "Local tracked pose latency and authoritative movement/hitboxes",
+    "Network protocol"
+  ],
+  "weapon_comparison": {
+    "doom": {
+      "before_median_ms": 0.08149999999999999,
+      "after_median_ms": 0.06,
+      "before_max_ms": 13.909,
+      "after_max_ms": 0.153
+    },
+    "quake": {
+      "before_median_ms": 13.776,
+      "after_median_ms": 0.10650000000000001,
+      "before_max_ms": 16.161,
+      "after_max_ms": 0.177
+    },
+    "ut99": {
+      "before_median_ms": 13.756,
+      "after_median_ms": 0.11,
+      "before_max_ms": 14.49,
+      "after_max_ms": 0.223
+    },
+    "cs16": {
+      "before_median_ms": 0.126,
+      "after_median_ms": 0.13,
+      "before_max_ms": 1.019,
+      "after_max_ms": 0.769
+    }
+  },
+  "clip_live_slice": {
+    "samples_per_frame": 2,
+    "max_pending": 8,
+    "observed_max_us": 606
+  },
+  "tests": {
+    "focused": {
+      "checks": 2379,
+      "clip_slice_max_us": 606,
+      "failures": []
+    },
+    "animation_parity": {
+      "checks": 702,
+      "failures": []
+    },
+    "lod_headless": {
+      "checks": 1081,
+      "engine": "4.7.2-stable (fedora)",
+      "failures": [],
+      "mesh_jobs": 12,
+      "renderer": "mobile",
+      "retargeted_clips": 22
+    },
+    "lod_native": {
+      "checks": 1082,
+      "engine": "4.7.2-stable (fedora)",
+      "failures": [],
+      "mesh_jobs": 12,
+      "renderer": "mobile",
+      "retargeted_clips": 22
+    },
+    "tf_weapon_art": {
+      "checks": 37,
+      "failures": [],
+      "passed": true
+    },
+    "cs16_reload_ui": {
+      "checks": 98,
+      "failures": [],
+      "passed": true
+    },
+    "shared": {
+      "checks": 394,
+      "failures": []
+    },
+    "weapon_variants_visual": {
+      "failures": [],
+      "image": "res://test-results/weapon-variants/weapons.png",
+      "passed": true
+    },
+    "death_animation": {
+      "failures": [],
+      "models": [
+        {
+          "entry": "stand",
+          "head": "(0.257964, 0.205548, 0.597225)",
+          "live_head": "(0.000105, 1.459922, 0.008379)",
+          "model": "VRoid Sample D",
+          "settled_update_us": 25.35
+        },
+        {
+          "entry": "prone",
+          "head": "(0.257964, 0.205548, 0.597225)",
+          "live_head": "(0.000105, 0.423762, -0.143503)",
+          "model": "VRoid Sample D",
+          "settled_update_us": 24.3583333333333
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.257964, 0.205548, 0.597225)",
+          "live_head": "(-0.000174, 1.459922, 0.014452)",
+          "model": "VRoid Sample D",
+          "settled_update_us": 24.4333333333333
+        },
+        {
+          "entry": "stand",
+          "head": "(0.25073, 0.206062, 0.575378)",
+          "live_head": "(0.000258, 1.455292, 0.006591)",
+          "model": "VRoid Sample F",
+          "settled_update_us": 26.275
+        },
+        {
+          "entry": "prone",
+          "head": "(0.25073, 0.206062, 0.575378)",
+          "live_head": "(0.000258, 0.41824, -0.12243)",
+          "model": "VRoid Sample F",
+          "settled_update_us": 26.0833333333333
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.25073, 0.206062, 0.575378)",
+          "live_head": "(-0.000169, 1.455292, 0.013938)",
+          "model": "VRoid Sample F",
+          "settled_update_us": 29.2833333333333
+        },
+        {
+          "entry": "stand",
+          "head": "(0.249797, 0.206052, 0.572568)",
+          "live_head": "(0.000307, 1.464901, 0.00566)",
+          "model": "VRoid Sample G",
+          "settled_update_us": 27.4416666666667
+        },
+        {
+          "entry": "prone",
+          "head": "(0.249797, 0.206052, 0.572568)",
+          "live_head": "(0.000307, 0.417604, -0.120479)",
+          "model": "VRoid Sample G",
+          "settled_update_us": 28.5666666666667
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.249797, 0.206052, 0.572568)",
+          "live_head": "(-0.00017, 1.464901, 0.013948)",
+          "model": "VRoid Sample G",
+          "settled_update_us": 27.1583333333333
+        },
+        {
+          "entry": "stand",
+          "head": "(0.251151, 0.205875, 0.576113)",
+          "live_head": "(0.00049, 1.482109, 0.005088)",
+          "model": "VRoid Sample D - Darkness",
+          "settled_update_us": 24.4416666666667
+        },
+        {
+          "entry": "prone",
+          "head": "(0.251151, 0.205875, 0.576113)",
+          "live_head": "(0.00049, 0.418604, -0.12489)",
+          "model": "VRoid Sample D - Darkness",
+          "settled_update_us": 25.15
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.251151, 0.205875, 0.576113)",
+          "live_head": "(0.0, 1.482109, 0.014125)",
+          "model": "VRoid Sample D - Darkness",
+          "settled_update_us": 24.1333333333333
+        },
+        {
+          "entry": "stand",
+          "head": "(0.256759, 0.204968, 0.593573)",
+          "live_head": "(0.000131, 1.433609, 0.006973)",
+          "model": "VRoid Sample E (Vivi)",
+          "settled_update_us": 25.65
+        },
+        {
+          "entry": "prone",
+          "head": "(0.256759, 0.204968, 0.593573)",
+          "live_head": "(0.000131, 0.423489, -0.141609)",
+          "model": "VRoid Sample E (Vivi)",
+          "settled_update_us": 26.5583333333333
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.256759, 0.204968, 0.593573)",
+          "live_head": "(-0.000169, 1.433609, 0.015032)",
+          "model": "VRoid Sample E (Vivi)",
+          "settled_update_us": 25.55
+        },
+        {
+          "entry": "stand",
+          "head": "(0.259921, 0.205384, 0.602579)",
+          "live_head": "(0.000272, 1.476494, 0.008474)",
+          "model": "VRoid Base Female",
+          "settled_update_us": 16.35
+        },
+        {
+          "entry": "prone",
+          "head": "(0.259921, 0.205384, 0.602579)",
+          "live_head": "(0.000272, 0.425166, -0.149097)",
+          "model": "VRoid Base Female",
+          "settled_update_us": 16.25
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.259921, 0.205384, 0.602579)",
+          "live_head": "(-0.0, 1.476494, 0.014616)",
+          "model": "VRoid Base Female",
+          "settled_update_us": 19.625
+        },
+        {
+          "entry": "stand",
+          "head": "(0.263518, 0.216232, 0.613432)",
+          "live_head": "(0.000492, 1.495081, -0.006066)",
+          "model": "VRoid Base Male",
+          "settled_update_us": 12.825
+        },
+        {
+          "entry": "prone",
+          "head": "(0.263518, 0.216232, 0.613432)",
+          "live_head": "(0.000492, 0.417073, -0.166314)",
+          "model": "VRoid Base Male",
+          "settled_update_us": 13.3083333333333
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.263518, 0.216232, 0.613432)",
+          "live_head": "(-0.0, 1.495081, 0.003768)",
+          "model": "VRoid Base Male",
+          "settled_update_us": 12.6416666666667
+        },
+        {
+          "entry": "stand",
+          "head": "(0.253166, 0.206001, 0.582195)",
+          "live_head": "(0.000344, 1.449041, 0.008047)",
+          "model": "VRoid Hair Sample Female",
+          "settled_update_us": 21.125
+        },
+        {
+          "entry": "prone",
+          "head": "(0.253166, 0.206001, 0.582195)",
+          "live_head": "(0.000344, 0.419879, -0.128085)",
+          "model": "VRoid Hair Sample Female",
+          "settled_update_us": 22.125
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.253166, 0.206001, 0.582195)",
+          "live_head": "(-0.0, 1.449041, 0.013999)",
+          "model": "VRoid Hair Sample Female",
+          "settled_update_us": 21.0333333333333
+        },
+        {
+          "entry": "stand",
+          "head": "(0.259034, 0.216335, 0.5999)",
+          "live_head": "(0.000479, 1.454078, -0.005899)",
+          "model": "VRoid Hair Sample Male",
+          "settled_update_us": 17.1333333333333
+        },
+        {
+          "entry": "prone",
+          "head": "(0.259034, 0.216335, 0.5999)",
+          "live_head": "(0.000479, 0.413862, -0.152153)",
+          "model": "VRoid Hair Sample Male",
+          "settled_update_us": 17.25
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.259034, 0.216335, 0.5999)",
+          "live_head": "(-0.0, 1.454078, 0.003665)",
+          "model": "VRoid Hair Sample Male",
+          "settled_update_us": 16.5916666666667
+        },
+        {
+          "entry": "stand",
+          "head": "(0.250331, 0.216503, 0.574218)",
+          "live_head": "(0.000505, 1.488562, -0.002754)",
+          "model": "Sakurada Fumiriya",
+          "settled_update_us": 21.35
+        },
+        {
+          "entry": "prone",
+          "head": "(0.250331, 0.216503, 0.574218)",
+          "live_head": "(0.000505, 0.407783, -0.122415)",
+          "model": "Sakurada Fumiriya",
+          "settled_update_us": 24.75
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.250331, 0.216503, 0.574218)",
+          "live_head": "(-0.000182, 1.488562, 0.003497)",
+          "model": "Sakurada Fumiriya",
+          "settled_update_us": 20.6666666666667
+        },
+        {
+          "entry": "stand",
+          "head": "(0.256321, 0.205596, 0.592268)",
+          "live_head": "(0.000155, 1.463777, 0.007367)",
+          "model": "Sendagaya Shino",
+          "settled_update_us": 26.0166666666667
+        },
+        {
+          "entry": "prone",
+          "head": "(0.256321, 0.205596, 0.592268)",
+          "live_head": "(0.000155, 0.422576, -0.139381)",
+          "model": "Sendagaya Shino",
+          "settled_update_us": 26.25
+        },
+        {
+          "entry": "tracked",
+          "head": "(0.256321, 0.205596, 0.592268)",
+          "live_head": "(-0.000174, 1.463777, 0.014404)",
+          "model": "Sendagaya Shino",
+          "settled_update_us": 25.7916666666667
+        }
+      ]
+    },
+    "weapon_setup": {
+      "passed": true,
+      "pass_lines": 50
+    },
+    "cs16_local_tracers": {
+      "passed": true,
+      "pass_lines": 116
+    },
+    "render_motion": {
+      "passed": true,
+      "pass_lines": 2
+    }
+  },
+  "weapon_after": {
+    "device": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "engine": "4.7.2-stable (fedora)",
+    "samples": [
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.147,
+        "free_ms": 0.016,
+        "name": "FIST",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 72.926,
+        "free_ms": 0.031,
+        "name": "CHAINSAW",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.014,
+        "construct_ms": 26.633,
+        "free_ms": 0.024,
+        "name": "DUAL PISTOLS",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.016,
+        "construct_ms": 23.959,
+        "free_ms": 0.024,
+        "name": "SHOTGUN",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.018,
+        "construct_ms": 115.085,
+        "free_ms": 0.09,
+        "name": "SUPER SHOTGUN",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.016,
+        "construct_ms": 26.994,
+        "free_ms": 0.023,
+        "name": "CHAINGUN",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 30.194,
+        "free_ms": 0.022,
+        "name": "ROCKET LAUNCHER",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 23.894,
+        "free_ms": 0.023,
+        "name": "PLASMA RIFLE",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.013,
+        "construct_ms": 43.384,
+        "free_ms": 0.038,
+        "name": "BFG 9000",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 26.927,
+        "free_ms": 0.019,
+        "name": "RAILGUN",
+        "pass": 0,
+        "rules": "doom",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.014,
+        "construct_ms": 12.707,
+        "free_ms": 0.02,
+        "name": "AXE",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 0.384,
+        "free_ms": 0.029,
+        "name": "AXE",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.763,
+        "free_ms": 0.044,
+        "name": "SHOTGUN",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 1.23,
+        "free_ms": 0.041,
+        "name": "SUPER SHOTGUN",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.545,
+        "free_ms": 0.051,
+        "name": "GRENADE LAUNCHER",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.536,
+        "free_ms": 0.073,
+        "name": "NAILGUN",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.82,
+        "free_ms": 0.031,
+        "name": "ROCKET LAUNCHER",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.632,
+        "free_ms": 0.089,
+        "name": "SUPER NAILGUN",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.014,
+        "construct_ms": 0.931,
+        "free_ms": 0.063,
+        "name": "LIGHTNING GUN",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.423,
+        "free_ms": 0.023,
+        "name": "RAILGUN",
+        "pass": 0,
+        "rules": "quake",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.018,
+        "construct_ms": 12.037,
+        "free_ms": 0.063,
+        "name": "IMPACT HAMMER",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.632,
+        "free_ms": 0.038,
+        "name": "BIO RIFLE",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.475,
+        "free_ms": 0.027,
+        "name": "ENFORCER",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.678,
+        "free_ms": 0.065,
+        "name": "SHOCK RIFLE",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.635,
+        "free_ms": 0.051,
+        "name": "FLAK CANNON",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 0.863,
+        "free_ms": 0.026,
+        "name": "MINIGUN",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.754,
+        "free_ms": 0.074,
+        "name": "ROCKET LAUNCHER",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 0.994,
+        "free_ms": 0.095,
+        "name": "PULSE GUN",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.625,
+        "free_ms": 0.047,
+        "name": "REDEEMER",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 2.538,
+        "free_ms": 0.034,
+        "name": "SNIPER RIFLE",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.013,
+        "construct_ms": 1.069,
+        "free_ms": 0.067,
+        "name": "RIPPER",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 10
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.52,
+        "free_ms": 0.043,
+        "name": "TRANSLOCATOR",
+        "pass": 0,
+        "rules": "ut99",
+        "slot": 11
+      },
+      {
+        "add_ms": 0.038,
+        "construct_ms": 10.207,
+        "free_ms": 0.025,
+        "name": "KNIFE",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 1.429,
+        "free_ms": 0.041,
+        "name": "GLOCK-18",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.02,
+        "construct_ms": 2.523,
+        "free_ms": 0.036,
+        "name": "USP",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 1.307,
+        "free_ms": 0.026,
+        "name": "M3 SUPER 90",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 1.501,
+        "free_ms": 0.025,
+        "name": "XM1014",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 1.339,
+        "free_ms": 0.044,
+        "name": "MP5 NAVY",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.017,
+        "construct_ms": 1.587,
+        "free_ms": 0.028,
+        "name": "AK-47",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 1.56,
+        "free_ms": 0.037,
+        "name": "M4A1",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.024,
+        "construct_ms": 4.07,
+        "free_ms": 0.183,
+        "name": "M249",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.014,
+        "construct_ms": 1.898,
+        "free_ms": 0.044,
+        "name": "AWP",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.013,
+        "construct_ms": 1.373,
+        "free_ms": 0.024,
+        "name": "DESERT EAGLE",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 10
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 1.562,
+        "free_ms": 0.022,
+        "name": "P90",
+        "pass": 0,
+        "rules": "cs16",
+        "slot": 11
+      },
+      {
+        "add_ms": 0.002,
+        "construct_ms": 0.022,
+        "free_ms": 0.007,
+        "name": "FIST",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.062,
+        "free_ms": 0.015,
+        "name": "CHAINSAW",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.052,
+        "free_ms": 0.014,
+        "name": "DUAL PISTOLS",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.051,
+        "free_ms": 0.028,
+        "name": "SHOTGUN",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 0.153,
+        "free_ms": 0.029,
+        "name": "SUPER SHOTGUN",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.053,
+        "free_ms": 0.014,
+        "name": "CHAINGUN",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.048,
+        "free_ms": 0.012,
+        "name": "ROCKET LAUNCHER",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.066,
+        "free_ms": 0.01,
+        "name": "PLASMA RIFLE",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.07,
+        "free_ms": 0.022,
+        "name": "BFG 9000",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.049,
+        "free_ms": 0.015,
+        "name": "RAILGUN",
+        "pass": 1,
+        "rules": "doom",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.055,
+        "free_ms": 0.016,
+        "name": "AXE",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.058,
+        "free_ms": 0.013,
+        "name": "AXE",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.073,
+        "free_ms": 0.024,
+        "name": "SHOTGUN",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 0.1,
+        "free_ms": 0.096,
+        "name": "SUPER SHOTGUN",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 0.177,
+        "free_ms": 0.134,
+        "name": "GRENADE LAUNCHER",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.117,
+        "free_ms": 0.029,
+        "name": "NAILGUN",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.134,
+        "free_ms": 0.042,
+        "name": "ROCKET LAUNCHER",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 0.161,
+        "free_ms": 0.055,
+        "name": "SUPER NAILGUN",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 0.161,
+        "free_ms": 0.072,
+        "name": "LIGHTNING GUN",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.087,
+        "free_ms": 0.047,
+        "name": "RAILGUN",
+        "pass": 1,
+        "rules": "quake",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 0.162,
+        "free_ms": 0.067,
+        "name": "IMPACT HAMMER",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 0.116,
+        "free_ms": 0.082,
+        "name": "BIO RIFLE",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.118,
+        "free_ms": 0.062,
+        "name": "ENFORCER",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.156,
+        "free_ms": 0.06,
+        "name": "SHOCK RIFLE",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.119,
+        "free_ms": 0.042,
+        "name": "FLAK CANNON",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.09,
+        "free_ms": 0.02,
+        "name": "MINIGUN",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.113,
+        "free_ms": 0.108,
+        "name": "ROCKET LAUNCHER",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 0.187,
+        "free_ms": 0.056,
+        "name": "PULSE GUN",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.081,
+        "free_ms": 0.021,
+        "name": "REDEEMER",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.07,
+        "free_ms": 0.022,
+        "name": "SNIPER RIFLE",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.131,
+        "free_ms": 0.064,
+        "name": "RIPPER",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 10
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.099,
+        "free_ms": 0.077,
+        "name": "TRANSLOCATOR",
+        "pass": 1,
+        "rules": "ut99",
+        "slot": 11
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.129,
+        "free_ms": 0.036,
+        "name": "KNIFE",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.16,
+        "free_ms": 0.068,
+        "name": "GLOCK-18",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.015,
+        "construct_ms": 0.287,
+        "free_ms": 0.035,
+        "name": "USP",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.135,
+        "free_ms": 0.025,
+        "name": "M3 SUPER 90",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.108,
+        "free_ms": 0.024,
+        "name": "XM1014",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.119,
+        "free_ms": 0.048,
+        "name": "MP5 NAVY",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.21,
+        "free_ms": 0.023,
+        "name": "AK-47",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.112,
+        "free_ms": 0.026,
+        "name": "M4A1",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 0.769,
+        "free_ms": 0.09,
+        "name": "M249",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.111,
+        "free_ms": 0.023,
+        "name": "AWP",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.102,
+        "free_ms": 0.02,
+        "name": "DESERT EAGLE",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 10
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.121,
+        "free_ms": 0.031,
+        "name": "P90",
+        "pass": 1,
+        "rules": "cs16",
+        "slot": 11
+      },
+      {
+        "add_ms": 0.003,
+        "construct_ms": 0.027,
+        "free_ms": 0.011,
+        "name": "FIST",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.082,
+        "free_ms": 0.021,
+        "name": "CHAINSAW",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.067,
+        "free_ms": 0.013,
+        "name": "DUAL PISTOLS",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.05,
+        "free_ms": 0.015,
+        "name": "SHOTGUN",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.087,
+        "free_ms": 0.034,
+        "name": "SUPER SHOTGUN",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.049,
+        "free_ms": 0.016,
+        "name": "CHAINGUN",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.059,
+        "free_ms": 0.019,
+        "name": "ROCKET LAUNCHER",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.063,
+        "free_ms": 0.017,
+        "name": "PLASMA RIFLE",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.086,
+        "free_ms": 0.035,
+        "name": "BFG 9000",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.061,
+        "free_ms": 0.014,
+        "name": "RAILGUN",
+        "pass": 2,
+        "rules": "doom",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.064,
+        "free_ms": 0.017,
+        "name": "AXE",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.138,
+        "free_ms": 0.041,
+        "name": "AXE",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.167,
+        "free_ms": 0.036,
+        "name": "SHOTGUN",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 0.127,
+        "free_ms": 0.051,
+        "name": "SUPER SHOTGUN",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.113,
+        "free_ms": 0.037,
+        "name": "GRENADE LAUNCHER",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.079,
+        "free_ms": 0.029,
+        "name": "NAILGUN",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.083,
+        "free_ms": 0.024,
+        "name": "ROCKET LAUNCHER",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.092,
+        "free_ms": 0.056,
+        "name": "SUPER NAILGUN",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.085,
+        "construct_ms": 0.156,
+        "free_ms": 0.06,
+        "name": "LIGHTNING GUN",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.004,
+        "construct_ms": 0.066,
+        "free_ms": 0.025,
+        "name": "RAILGUN",
+        "pass": 2,
+        "rules": "quake",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.135,
+        "free_ms": 0.054,
+        "name": "IMPACT HAMMER",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.089,
+        "free_ms": 0.074,
+        "name": "BIO RIFLE",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.085,
+        "free_ms": 0.048,
+        "name": "ENFORCER",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.017,
+        "construct_ms": 0.223,
+        "free_ms": 0.042,
+        "name": "SHOCK RIFLE",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.089,
+        "free_ms": 0.031,
+        "name": "FLAK CANNON",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.071,
+        "free_ms": 0.019,
+        "name": "MINIGUN",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.016,
+        "construct_ms": 0.101,
+        "free_ms": 0.046,
+        "name": "ROCKET LAUNCHER",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.011,
+        "construct_ms": 0.107,
+        "free_ms": 0.049,
+        "name": "PULSE GUN",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.063,
+        "free_ms": 0.026,
+        "name": "REDEEMER",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.13,
+        "free_ms": 0.064,
+        "name": "SNIPER RIFLE",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.013,
+        "construct_ms": 0.201,
+        "free_ms": 0.091,
+        "name": "RIPPER",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 10
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.107,
+        "free_ms": 0.043,
+        "name": "TRANSLOCATOR",
+        "pass": 2,
+        "rules": "ut99",
+        "slot": 11
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.114,
+        "free_ms": 0.023,
+        "name": "KNIFE",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 0
+      },
+      {
+        "add_ms": 0.008,
+        "construct_ms": 0.135,
+        "free_ms": 0.025,
+        "name": "GLOCK-18",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 1
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.165,
+        "free_ms": 0.031,
+        "name": "USP",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 2
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.117,
+        "free_ms": 0.041,
+        "name": "M3 SUPER 90",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 3
+      },
+      {
+        "add_ms": 0.01,
+        "construct_ms": 0.174,
+        "free_ms": 0.02,
+        "name": "XM1014",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 4
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.161,
+        "free_ms": 0.024,
+        "name": "MP5 NAVY",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 5
+      },
+      {
+        "add_ms": 0.005,
+        "construct_ms": 0.11,
+        "free_ms": 0.033,
+        "name": "AK-47",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 6
+      },
+      {
+        "add_ms": 0.009,
+        "construct_ms": 0.163,
+        "free_ms": 0.023,
+        "name": "M4A1",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 7
+      },
+      {
+        "add_ms": 0.012,
+        "construct_ms": 0.766,
+        "free_ms": 0.1,
+        "name": "M249",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 8
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.131,
+        "free_ms": 0.034,
+        "name": "AWP",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 9
+      },
+      {
+        "add_ms": 0.007,
+        "construct_ms": 0.121,
+        "free_ms": 0.024,
+        "name": "DESERT EAGLE",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 10
+      },
+      {
+        "add_ms": 0.006,
+        "construct_ms": 0.128,
+        "free_ms": 0.026,
+        "name": "P90",
+        "pass": 2,
+        "rules": "cs16",
+        "slot": 11
+      }
+    ],
+    "scope": "Weapon factory CPU time with native renderer, first factory use then two warm passes; each model lives six process frames so deferred warmup completes. Does not measure first-visible-frame GPU pipeline compilation, avatar attachment, gameplay or XR.",
+    "variant_stages": [
+      {
+        "filter_ms": 0.045,
+        "instantiate_ms": 0.019,
+        "rules": "quake",
+        "slot": 4,
+        "trial": 0,
+        "variant_details_ms": 0.309
+      },
+      {
+        "filter_ms": 0.045,
+        "instantiate_ms": 0.015,
+        "rules": "quake",
+        "slot": 4,
+        "trial": 1,
+        "variant_details_ms": 0.24
+      },
+      {
+        "filter_ms": 0.042,
+        "instantiate_ms": 0.016,
+        "rules": "quake",
+        "slot": 4,
+        "trial": 2,
+        "variant_details_ms": 0.233
+      },
+      {
+        "filter_ms": 0.035,
+        "instantiate_ms": 0.012,
+        "rules": "quake",
+        "slot": 6,
+        "trial": 0,
+        "variant_details_ms": 0.147
+      },
+      {
+        "filter_ms": 0.042,
+        "instantiate_ms": 0.023,
+        "rules": "quake",
+        "slot": 6,
+        "trial": 1,
+        "variant_details_ms": 0.245
+      },
+      {
+        "filter_ms": 0.04,
+        "instantiate_ms": 0.018,
+        "rules": "quake",
+        "slot": 6,
+        "trial": 2,
+        "variant_details_ms": 0.223
+      },
+      {
+        "filter_ms": 0.04,
+        "instantiate_ms": 0.024,
+        "rules": "ut99",
+        "slot": 5,
+        "trial": 0,
+        "variant_details_ms": 0.271
+      },
+      {
+        "filter_ms": 0.038,
+        "instantiate_ms": 0.017,
+        "rules": "ut99",
+        "slot": 5,
+        "trial": 1,
+        "variant_details_ms": 0.201
+      },
+      {
+        "filter_ms": 0.04,
+        "instantiate_ms": 0.019,
+        "rules": "ut99",
+        "slot": 5,
+        "trial": 2,
+        "variant_details_ms": 0.191
+      },
+      {
+        "filter_ms": 0.063,
+        "instantiate_ms": 0.026,
+        "rules": "ut99",
+        "slot": 6,
+        "trial": 0,
+        "variant_details_ms": 0.354
+      },
+      {
+        "filter_ms": 0.06,
+        "instantiate_ms": 0.022,
+        "rules": "ut99",
+        "slot": 6,
+        "trial": 1,
+        "variant_details_ms": 0.274
+      },
+      {
+        "filter_ms": 0.058,
+        "instantiate_ms": 0.02,
+        "rules": "ut99",
+        "slot": 6,
+        "trial": 2,
+        "variant_details_ms": 0.298
+      }
+    ]
+  },
+  "avatars_after": {
+    "cold_clip_bakes": [
+      {
+        "bones": 140,
+        "direction": 0,
+        "model": "sample_d",
+        "ms": 2.198,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 1,
+        "model": "sample_d",
+        "ms": 2.184,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 2,
+        "model": "sample_d",
+        "ms": 2.106,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 3,
+        "model": "sample_d",
+        "ms": 2.022,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 4,
+        "model": "sample_d",
+        "ms": 2.137,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 5,
+        "model": "sample_d",
+        "ms": 2.017,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 6,
+        "model": "sample_d",
+        "ms": 2.245,
+        "tracks": 30
+      },
+      {
+        "bones": 140,
+        "direction": 7,
+        "model": "sample_d",
+        "ms": 2.087,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 0,
+        "model": "sample_f",
+        "ms": 2.176,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 1,
+        "model": "sample_f",
+        "ms": 2.049,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 2,
+        "model": "sample_f",
+        "ms": 2.047,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 3,
+        "model": "sample_f",
+        "ms": 2.04,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 4,
+        "model": "sample_f",
+        "ms": 1.972,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 5,
+        "model": "sample_f",
+        "ms": 2.038,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 6,
+        "model": "sample_f",
+        "ms": 2.044,
+        "tracks": 30
+      },
+      {
+        "bones": 160,
+        "direction": 7,
+        "model": "sample_f",
+        "ms": 2.036,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 0,
+        "model": "sample_g",
+        "ms": 2.101,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 1,
+        "model": "sample_g",
+        "ms": 2.195,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 2,
+        "model": "sample_g",
+        "ms": 2.013,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 3,
+        "model": "sample_g",
+        "ms": 2.053,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 4,
+        "model": "sample_g",
+        "ms": 2.027,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 5,
+        "model": "sample_g",
+        "ms": 2.034,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 6,
+        "model": "sample_g",
+        "ms": 2.049,
+        "tracks": 30
+      },
+      {
+        "bones": 167,
+        "direction": 7,
+        "model": "sample_g",
+        "ms": 2.209,
+        "tracks": 30
+      }
+    ],
+    "engine": "4.7.2-stable (fedora)",
+    "frames_per_block": 360,
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+    "reports": [
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 1.01376944531997,
+          "p95": 1.90499997138977,
+          "p99": 2.49699997901917
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 21.45,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.59994722406069,
+          "p95": 1.89800000190735,
+          "p99": 2.15799999237061
+        },
+        "scenario": "near",
+        "scripts": {
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.405233333333333
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.2395
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 1.82044166666667
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.637497222222222
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 16
+        },
+        "wall_ms": {
+          "mean": 7.85413611111111,
+          "p95": 8.931,
+          "p99": 9.502
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.676494443830517,
+          "p95": 1.10300004482269,
+          "p99": 1.47399997711182
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 0.0,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.4834083351824,
+          "p95": 1.90799999237061,
+          "p99": 2.14499998092651
+        },
+        "scenario": "desktop_far",
+        "scripts": {
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.774072222222222
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "2": 16
+        },
+        "wall_ms": {
+          "mean": 5.37083333333333,
+          "p95": 6.307,
+          "p99": 6.821
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.702938888884253,
+          "p95": 1.04499995708466,
+          "p99": 1.34099996089935
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 23.3916666666667,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.58163055645095,
+          "p95": 2.03399991989136,
+          "p99": 2.57100009918213
+        },
+        "scenario": "xr_policy_far",
+        "scripts": {
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.358030555555556
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.226569444444444
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.679686111111111
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.536863888888889
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 16
+        },
+        "wall_ms": {
+          "mean": 6.36506111111112,
+          "p95": 8.957,
+          "p99": 10.4
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.872716667420334,
+          "p95": 1.29999995231628,
+          "p99": 1.7389999628067
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 19.1055555555556,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.62444444497426,
+          "p95": 2.14000010490417,
+          "p99": 2.71300005912781
+        },
+        "scenario": "xr_policy_far",
+        "scripts": {
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.374491666666667
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.235919444444444
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.724355555555556
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.563902777777778
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 16
+        },
+        "wall_ms": {
+          "mean": 6.63249166666667,
+          "p95": 9.231,
+          "p99": 10.755
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 0.596969443890784,
+          "p95": 0.96399998664856,
+          "p99": 1.09700000286102
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 0.0,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.54471388757229,
+          "p95": 1.94400000572205,
+          "p99": 2.30800008773804
+        },
+        "scenario": "desktop_far",
+        "scripts": {
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.799080555555556
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "2": 16
+        },
+        "wall_ms": {
+          "mean": 5.55906666666667,
+          "p95": 6.535,
+          "p99": 7.317
+        }
+      },
+      {
+        "actors": 16,
+        "frames": 360,
+        "full_tracking": 8,
+        "gpu_ms": {
+          "mean": 1.06597222205665,
+          "p95": 1.99000000953674,
+          "p99": 2.58699989318848
+        },
+        "head_hands_only": 8,
+        "morph_writes_per_frame": 17.2361111111111,
+        "optimized": true,
+        "render_cpu_ms": {
+          "mean": 1.57571944329474,
+          "p95": 1.99199998378754,
+          "p99": 2.11899995803833
+        },
+        "scenario": "near",
+        "scripts": {
+          "eyes": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.38715
+          },
+          "morph": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.234572222222222
+          },
+          "pose": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 1.71771111111111
+          },
+          "rig": {
+            "calls_per_frame": 16.0,
+            "ms_per_frame": 0.626366666666667
+          },
+          "spring": {
+            "implementation": "native",
+            "ms_per_frame": null,
+            "resets": 0,
+            "resident_joints": 1185,
+            "resident_potential_pairs": 19030,
+            "ticks_per_frame": null
+          }
+        },
+        "secondary_enabled": false,
+        "sleeping": 0,
+        "tiers": {
+          "0": 10,
+          "1": 6
+        },
+        "wall_ms": {
+          "mean": 7.63431944444444,
+          "p95": 9.005,
+          "p99": 9.776
+        }
+      }
+    ],
+    "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+  },
+  "baseline_receipt": "frametime-study-2026-09-28.json",
+  "limitations": [
+    "Synthetic benchmarks on i7-12700 / Arc A770, without headset or controlled clocks.",
+    "Remote interpolation adds bounded presentation delay up to a solve interval and some render-frame work.",
+    "Synthetic XR-policy avatar scene has higher p95 frame times after interpolation; no overall FPS improvement is claimed.",
+    "First weapon preparation cost is moved to loading rather than eliminated.",
+    "Successful fixtures report an existing ObjectDB shutdown warning."
+  ],
+  "fixture_maintenance": [
+    "Audio test reads the current generated weapon trim instead of a stale hardcoded attenuation.",
+    "TF visual test checks the enforced effective loadout.",
+    "Death fixture supplies the existing defusal visibility API.",
+    "Animation fixture explicitly enables springs, which now default off.",
+    "Rendered-motion fixture supplies the current lobby/defusal visibility APIs."
+  ],
+  "failures": []
+}

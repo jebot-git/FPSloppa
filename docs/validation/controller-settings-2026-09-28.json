@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-28",
+  "features": [
+    "Persistent 0\u2013100% motion-controller strength in Settings / Haptics, independent of vest intensity",
+    "All controller pulses share strength scaling; zero disables pulses, wheel stays on physical right hand",
+    "Spring bones default off before avatar load; explicitly saved preferences retained"
+  ],
+  "checks": {
+    "client_preferences": 19,
+    "presentation_native_render": 50,
+    "shared_feedback": 394,
+    "native_springs": 139
+  },
+  "failures": [],
+  "image": "test-results/controller-settings/haptics.png",
+  "notes": [
+    "Native rendering visually inspected; controller and vest controls fit the VR menu.",
+    "Shared feedback and native spring tests report one ObjectDB instance at shutdown; exit successfully.",
+    "Physical controller feel has not been tested on a wearer."
+  ]
+}

@@ -168,11 +168,12 @@ func exit_surface(entry: Vector3,direction: Vector3,power: float,space: PhysicsD
 		if reverse.is_empty() or reverse.normal.is_zero_approx() or reverse.position.distance_to(outside)>.012:return {}
 	return {"position":outside,"thickness":end-hits[0].enter,"cost":cost,"retention":retention}
 
-func trace(game: Node,start: Vector3,end: Vector3,id: int,rewind: float,weapon: int) -> Array:
+func trace(game: Node,start: Vector3,end: Vector3,id: int,rewind: float,weapon: int,context: Dictionary={}) -> Array:
+	if context.is_empty():context=game._rewind_context(rewind)
 	var results: Array=[];var current:=start;var direction: Vector3=(end-start).normalized()
 	var profile: Array=WEAPONS.get(weapon,[0,0.0,0.0]);var power: float=profile[1]/32.0;var factor:=1.0
 	for layer in int(profile[0])+1:
-		var hit: Dictionary=game._trace(current,end,id,rewind)
+		var hit: Dictionary=game._trace(current,end,id,rewind,0.0,{},null,context)
 		hit["damage_scale"]=factor;results.append(hit)
 		if not ready or layer==int(profile[0]) or not hit.hit or hit.id!=0 or hit.has("building") or start.distance_to(hit.position)>profile[2]:break
 		# Only the authored map can use its metadata; runtime props, players and

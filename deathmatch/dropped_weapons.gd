@@ -16,8 +16,7 @@ func drop(id: int) -> void:
 	var state: Dictionary=game.players[id]
 	var weapon: int=state.weapon
 	if state.spectator or not game.armory.valid(weapon) or weapon in state.get("starting_weapons",state.owned) or not weapon in state.owned:return
-	var ammo_type: int=game.armory.data(weapon).ammo
-	var amount: int=maxi(0,game.match_mode.tribes.amount(id,weapon)) if game.match_mode.tribes.enabled() else state.ammo[ammo_type] if ammo_type>=0 else 0
+	var amount: int=game.variant_combat.cs.loaded_ammo(id,weapon) if game.match_mode.defusal.enabled() else game.armory.pickup_ammo(weapon)
 	var position: Vector3=game.fighters[id].position
 	var query:=PhysicsRayQueryParameters3D.create(position+Vector3.UP*.5,position-Vector3.UP*2,1)
 	var floor_hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(query)

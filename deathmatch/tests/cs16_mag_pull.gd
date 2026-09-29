@@ -3,6 +3,20 @@ func run():
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);Fixture.setup(g);await physics_frame
 	g.start_host("Magazine pulls",0,100,60,true,"dm","cs16");g.bots.free();g.bots=null;g.set_process(false);g.set_physics_process(false)
 	await physics_frame;await physics_frame;cs=g.variant_combat.cs
+	# Interleave fresh controller packets with duplicate server-tick samples.
+	for left in [false,true]:
+		for w in [5,6,7,9,11]:
+			prepare(w,left);cs.state(1).clips[w]=6
+			var mag: Vector3=Reload.MAG_POINTS[w];var direction:=Reload.mag_direction(w)
+			step(point(mag));step(point(mag),true)
+			var started: float=cs.physical(1).started
+			for sample in range(1,6):
+				g.clock+=.008;cs.tick_input(1,.008)
+				check(cs.physical(1).started==started or not cs.physical(1).mag,"Repeated sample does not restart magazine pull")
+				step(point(mag+direction*.026*sample),true,false,.012)
+			check(cs.physical(1).carry==Reload.REMOVED_MAG and cs.row(1)[11]==5,"Network-rate pull exposes exact held ammo: "+str([w,left]))
+			for tick in 10:g.clock+=.008;cs.tick_input(1,.008)
+			check(cs.physical(1).carry==Reload.REMOVED_MAG and cs.row(1)[11]==5,"Inspection survives repeated server ticks")
 	for left in [false,true]:
 		for w in [5,6,7,8,9,11]:
 			prepare(w,left)

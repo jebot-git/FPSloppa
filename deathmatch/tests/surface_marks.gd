@@ -31,7 +31,7 @@ func run():
 	Fixture.box(g,Fixture.ORIGIN+Vector3(0,3,-1.6),Vector3(40,6,.2))
 	await physics_frame;await physics_frame
 	g.demos.recording=true
-	for rules in ["doom","quake","ut99","cs16","tribes"]:
+	for rules in preload("res://deathmatch/experimental/weapon_rules.gd").IDS:
 		g.armory.select(rules)
 		var count: int=g.armory.table.size()
 		for w in count:

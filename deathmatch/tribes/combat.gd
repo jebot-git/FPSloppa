@@ -75,24 +75,24 @@ func beam(id: int,w: int,start: Vector3,direction: Vector3,spent: float):
 	elif w==8:
 		if hit.has("beacon"):
 			rules.targeting.repair(hit.beacon,id,.01*A.UNIT)
-			game._impacts.rpc(start,PackedVector3Array([hit.position]),w);return
+			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array(),-1,id);return
 		if hit.has("fixed_turret"):
 			var pads=rules.stations()
 			if pads:pads.defences.repair(hit.fixed_turret,id,.01*A.UNIT)
-			game._impacts.rpc(start,PackedVector3Array([hit.position]),w);return
+			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array(),-1,id);return
 		if hit.has("base_asset"):
 			var pads=rules.stations()
 			if pads:pads.assets.repair(hit.base_asset,id,.01*A.UNIT)
-			game._impacts.rpc(start,PackedVector3Array([hit.position]),w);return
+			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array(),-1,id);return
 		if hit.has("deployable"):
 			rules.deployables.repair(hit.deployable,id,.01*A.UNIT)
-			game._impacts.rpc(start,PackedVector3Array([hit.position]),w);return
+			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array(),-1,id);return
 		if hit.has("generator"):
 			var pads=rules.stations()
 			if pads:
 				if hit.has("power_source"):pads.restore_source(hit.power_source,id,.01*A.UNIT)
 				else:pads.restore(hit.generator,id,.01*A.UNIT)
-			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array([hit.get("surface_normal",Vector3.ZERO)]));return
+			game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array([hit.get("surface_normal",Vector3.ZERO)]),-1,id);return
 		var target: int=hit.id if hit.id!=0 and game.match_mode.same_team(id,hit.id) else id
 		var amount: int=fractional(id,target,.005 if target==id else .01,"repair")
 		game.players[target].hp=mini(rules.definition(target).hp,game.players[target].hp+amount)
@@ -103,7 +103,7 @@ func beam(id: int,w: int,start: Vector3,direction: Vector3,spent: float):
 		game._damage_map_hit(hit,id,damage,"Laser")
 		if hit.id!=0:game._damage(hit.id,id,damage,d.name,false,hit.position,direction)
 		if hit.has("building"):game.match_mode.fortress.damage_building(hit.building,id,damage)
-	game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array([hit.get("surface_normal",Vector3.ZERO)]))
+	game._impacts.rpc(start,PackedVector3Array([hit.position]),w,PackedVector3Array([hit.get("surface_normal",Vector3.ZERO)]),-1,id)
 func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets):
 	if not game.projectiles.has(id):return
 	var p: Dictionary=game.projectiles[id];var d: Dictionary=p.definition;var w: int=p.weapon

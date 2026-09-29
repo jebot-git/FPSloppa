@@ -34,6 +34,8 @@ A large world-space panel provides hosting, joining, map selection and model pre
 
 Choose MODEL to preview any bundled VRM or import a self-contained custom VRM up to **25,000,000 bytes**. Models download through the server for other players. See [AVATARS.md](AVATARS.md) for structural limits and licensing. Missing BSP maps download from the host before joining; see [MAPS.md](MAPS.md).
 
+Remote IK poses interpolate between the existing budgeted solves, and prepared distant-animation tracks sample at display cadence. Local tracked poses remain immediate. Teleports, death, tracking changes and weapon changes reset the remote blend. New distant clips are prepared in two-sample slices per frame and reused by avatar; full 21-solve preparation no longer runs in the live request path. Distance thresholds and the conservative XR LOD policy are unchanged. Weapon visuals are prepared during map loading and reused on equip, with independent per-instance reload actions.
+
 Head, hands and weapon poses are replicated. Remote avatars use smoothed tracked head orientation, crouching hip motion, arm IK and ground-aligned feet. Every model shares the same standing capsule and damage volumes; tracked crouching reduces their height together. Small physical steps and leaning move the shared movement/damage capsule horizontally toward the headset, with a 2 cm tolerance. Tracking offsets are limited to 0.75 m and room-scale motion to 2.4 m/s, sharing the normal locomotion speed budget. The server validates the request against the headset pose and performs collision checks. Only actual capsule travel is subtracted from the tracking origin and replicated poses, preserving headset/weapon world positions when walls block movement. Room-scale input cannot move the capsule vertically. Physical crouching can shorten its height while keeping its feet on the ground. Implausible/nonfinite/scaled poses are rejected. A muzzle through a wall cannot shoot. Losing gun-controller tracking blocks firing. Head penetration fades the view to black. Network position corrections sweep the player capsule against obstacles and preserve the interpolated camera position while converging. Delayed wall and ceiling stops do not produce recoil; these collision corrections are shared with desktop movement.
 
 Stair movement probes for reachable treads and snaps down to descending steps. A short visual height blend softens the step change in both desktop and VR while headset motion remains direct. Invisible map trigger volumes retain their behavior but no longer render opaque boxes, including on lqdm1.
@@ -60,9 +62,15 @@ Text chat also appears above the in-game VR notifications, including the sender'
 
 Recorded CC0 gunfire, impact and footstep variants supplement the original synthesized effects. Combat and voice audio use spatial attenuation, wall occlusion and room reverb; see [AUDIO.md](AUDIO.md). Hits produce directional avatar flinches, blood bursts and surface stains. Heavy kills produce low-poly head/meat/bone gibs. These effects are cosmetic and bounded: 12 blood bursts, 48 stains, 32 gibs and 32 simultaneous combat sound voices. Local damage adds a brief red edge tint and a quiet, unoccluded pain sound, including small hits. The tint fades quickly and is hidden over VR menus or on focus loss. VR hit and shot feedback includes controller haptics; hit animation never kicks or rolls the headset camera.
 
+All supported arsenals share confirmed-hit feedback: brighter blood and mist, directional torso/head flinches, and an attacker-only confirmation click with a brief **HIT** indicator on the VR HUD. World contacts emit sparks/chips and soft puffs, with separate ballistic, energy and heavy-impact sounds. Misses do not create an impact at their maximum range. Moving props receive contact effects without persistent floating decals. Shotgun clusters and sustained fire share bounded effect/audio budgets.
+
+Local held weapons follow the gripping controller without physics interpolation in every loadout; desktop bob uses render time. Hitscan trails start at the current displayed barrel, including offhand pistols, and projectile presentation starts there before settling onto the authoritative path. These cosmetic adjustments do not move damage traces or let projectiles cross walls.
+
+Motion-controller recoil uses weapon-specific strength, duration and frequency for pistols, automatics, shotguns, snipers, launchers, energy guns, melee and utility weapons, including alternate fire and TF class variants. A braced weapon adds lighter support-hand feedback; offhand fire follows handedness. Manual Titan cannon volleys pulse their physical firing controller once per linked pair. Settings → Haptics → Controller strength scales all controller pulses from 0% (off) to 100%, independently of optional vest intensity, and saves the choice. Avatar spring bones default off in Graphics; an explicitly saved preference is retained. These controller pulses work independently of optional vest haptics, and weapon recoil pulses are suppressed in menus, replays, on focus loss, while dead or spectating. Live controller feel still needs a wearer check. Matching clients and servers use protocol `fpsloppa-66-shared-hit-feedback`.
+
 The super shotgun again uses the original textured CC0 shotgun mesh, with its original wider stock and paired-bores adaptation for a consistent weapon style. Player damage uses a continuous 0.40 m radius, 1.80 m tall capsule; movement collision remains unchanged. Rocket/plasma/BFG radii are 0.14/0.16/0.30 m, also reflected in their visible projectile sizes. Swept collision considers target motion between server ticks and blocks enlarged hits through cover. Existing hitscan latency rewind remains bounded to 200 ms.
 
-This source revision uses protocol `entryway-13-team-modes`; clients and server must use matching source/builds.
+Clients and servers must use matching source/builds; the current protocol is listed with the combat-feedback changes above.
 
 ## Validation and remaining device checks
 
@@ -114,7 +122,11 @@ Controller-only VR shows the avatar's first-person arms even when body tracking 
 
 Ranged weapons have a 24 cm direction guide at the muzzle, clipped by nearby walls. It does not steer shots or select targets. The extra fist mesh is hidden. VR chainsaw contact follows the visible blade, with a 4 cm tip allowance in CC and 9 cm in other modes. The model retracts at walls without moving the tracked hand; blocked reach cannot damage or parry through geometry. Blade contacts produce sparks, a short grinding sound and haptic feedback.
 
-Settings → Bindings supports trigger-drag scrolling on both the outer page and its dropdowns. Either joystick also scrolls an open dropdown vertically. Closing the menu closes all dropdowns immediately. Dragging outside a dropdown continues the scroll without selecting a row, and Back remains above the scrolling page. Desktop key capture is disabled in VR to prevent a trigger click from accidentally rebinding the mouse.
+Settings → Bindings has separate **Desktop** and **VR** tabs, opening on the current device. Desktop actions are grouped by movement, combat and communication. VR actions have separate hand and button selectors, followed by physical controls and tracking options. Back and Reset stay visible while scrolling; Reset affects only the selected device's bindings. The old help block has been removed.
+
+The VR tab supports trigger-drag scrolling on both the outer page and its dropdowns. Either joystick also scrolls an open dropdown vertically. Closing the menu or changing tabs closes all dropdowns immediately. Dragging outside a dropdown continues the scroll without selecting a row. Desktop key capture is disabled in VR to prevent a trigger click from accidentally rebinding the mouse.
+
+Major control changes reset desktop keys, VR buttons and stick assignments once on the next launch. Tracking/physical-control preferences and unrelated settings are retained. New custom bindings then persist normally. Developers must bump `CONTROLS_REVISION` in `deathmatch/settings/bindings.gd` for each incompatible major controls change; ordinary releases do not reset controls. Revision 3 applies the current defaults to existing profiles.
 
 Movement integrates using Godot’s supplied physics delta, with per-render-frame interpolation for the headset view. The simulation tick rate is independent of headset FPS. Movement validation measured the same 9.4 m/s run speed at 30, 60, 72, 90, 120 and 144 render FPS, and at 60, 90 and 120 physics ticks per second. Network input/snapshot timers retain fractional elapsed time instead of discarding it.
 
@@ -145,7 +157,7 @@ plays the completion cue on success. The cue follows the sound-effects volume.
 
 ## Physical TF / AS interactions and close-surface shooting
 
-**Settings → Bindings → Physical TF abilities / AS buttons** is enabled by default
+**Settings → Bindings → VR → Physical ability / console buttons** is enabled by default
 and saved in the client configuration. Engineers can slap friendly buildings;
 medics can touch teammates. Hold support grip and press the offhand trigger for a
 class ability or to hold a grenade. Release grip to throw or drop it, or release the
@@ -165,7 +177,7 @@ See [implementation and validation notes](docs/VR_PHYSICAL_INTERACTIONS.md).
 
 ## Physical crouching, surface jumps and face expressions
 
-Physical playspace crouching is enabled by default in **Settings → Bindings**.
+Physical playspace crouching is enabled by default in **Settings → Bindings → VR**.
 Recenter while standing to calibrate. Lower your headset by 30 cm to crouch;
 stand within 20 cm of the calibrated height to release it. The server adjusts
 movement and damage height together, bounded to 0.80–1.65 m, and checks overhead
@@ -177,7 +189,7 @@ normal-strength jump to clear a bank. It rearms after sustained immersion or
 landing on dry ground. Level arm strokes propel forward while gravity continues
 to let you sink; look up/down to steer vertically. Holding jump still swims up.
 
-**Face expression matching (experimental)** is enabled in Settings → Bindings and
+**Face expressions (experimental)** is enabled in Settings → Bindings → VR and
 saved to the client config. When native face data is available, facial movements
 approximate VRM happy, angry, sad, relaxed and surprised presets. Models without
 those morphs are unchanged. The strongest cue fades in gently and returns to

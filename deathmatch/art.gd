@@ -86,11 +86,40 @@ static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: 
 	var pivot := Vector3(0,1.3,0)
 	return pivot+Basis(Vector3.RIGHT,pitch)*(grip-pivot)+Vector3(0,0,recoil*.035)
 
+# Packed visuals share immutable decoration; mutable CS actions are constructed fresh.
+static var weapon_templates: Dictionary={}
+const TEMPLATE_LIMIT:=64
 static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
+	var key:=rules+":"+str(id)
+	var root: Node3D
+	if rules in ["cs16","tribes"]:
+		root=_build_weapon(id,rules)
+	elif weapon_templates.has(key):root=weapon_templates[key].instantiate()
+	else:
+		root=_build_weapon(id,rules)
+		_own_weapon(root,root)
+		var packed:=PackedScene.new()
+		if packed.pack(root)==OK:
+			if weapon_templates.size()>=TEMPLATE_LIMIT:weapon_templates.erase(weapon_templates.keys()[0])
+			weapon_templates[key]=packed
+	if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
+	return root
+static func _own_weapon(node: Node,root: Node) -> void:
+	# Flatten imported scene instances before packing their owned children.
+	# Otherwise PackedScene can instantiate both the source scene and the copy.
+	node.scene_file_path=""
+	for child in node.get_children():
+		child.owner=root;_own_weapon(child,root)
+static func prepare_loadout(rules: String,filter_mode: int=2) -> void:
+	if DisplayServer.get_name()=="headless":return
+	var armory=load("res://deathmatch/experimental/weapon_rules.gd").new();armory.select(rules)
+	for slot in armory.table.size():weapon(slot,filter_mode,rules).free()
+	if rules=="quake":
+		for variant in ["sentry","tf_sniper","tf_flame"]:weapon(5 if variant=="sentry" else 9 if variant=="tf_sniper" else 7,filter_mode,variant).free()
+static func _build_weapon(id: int,rules: String) -> Node3D:
 	if rules=="tribes":return preload("res://deathmatch/tribes/models.gd").make(id)
 	if rules=="cs16":
 		var cs_model:=preload("res://deathmatch/counterstrike/models.gd").make(id)
-		if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(cs_model,filter_mode)
 		return cs_model
 	var slot:=id
 	id=model_id(id,rules)
@@ -105,19 +134,16 @@ static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
 			root.set_meta("scope_rear",Vector3(0,.17939,-.0609))
 			root.set_meta("scope_front",Vector3(0,.17939,-.31491))
 			root.set_meta("scope_radius",.019)
-		if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
 		return root
 	if rules=="tf_flame":
 		if not weapon_scenes.has(rules):weapon_scenes[rules]=load("res://deathmatch/weapons/experimental/tf_flamethrower.scn")
 		root.add_child(weapon_scenes[rules].instantiate());root.set_meta("tf_flamethrower",true)
-		if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
 		return root
 	if id==0:
 		if rules!="doom":
 			var key:="axe" if rules in ["quake","tribes"] else "impact_hammer"
 			if not weapon_scenes.has(key):weapon_scenes[key]=load("res://deathmatch/weapons/experimental/"+key+".scn")
 			root.add_child(weapon_scenes[key].instantiate())
-		if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
 		return root
 	var asset: String = WEAPON_ASSETS[clampi(id,0,W.DATA.size()-1)]
 	if not weapon_scenes.has(asset): weapon_scenes[asset] = load("res://deathmatch/weapons/"+asset+".glb")
@@ -140,7 +166,6 @@ static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
 			barrel(root,Vector3(x,.05,-.57),.045,.25,material(Color("6cdf58"),.25,1.8))
 	root.set_meta("muzzle",muzzle(slot,rules))
 	if rules!="doom":variant_details(root,model,slot,rules)
-	if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
 	return root
 
 static func marine(color: Color) -> Node3D:

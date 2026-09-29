@@ -23,6 +23,7 @@ static func map_file(path: String,hash: String,title: String,directory: String,s
 	if publish(path,destination,hash)!=OK:return {"error":"Cannot save map."}
 	var metadata:=Maps.ImportPolicy.save(directory,hash,source_name,title)
 	if metadata.has("error"):return metadata
+	if not preload("res://deathmatch/modes/defusal_maps.gd").embedded(destination).is_empty():metadata.modes=["de"]
 	var entry:={"id":id,"path":destination,"scene":directory+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(destination)}
 	entry.merge(metadata);return entry
 

@@ -1,0 +1,21 @@
+{
+  "date": "2026-09-28",
+  "feature": "Separate desktop and VR bindings menus with major-revision reset",
+  "controls_revision": 3,
+  "reset_scope": ["desktop bindings", "VR action bindings", "VR stick assignments"],
+  "preserved": ["tracking and physical-control preferences", "unrelated client settings", "new custom bindings at the current revision"],
+  "tests": {
+    "bindings_migration_and_menu_render": {"checks": 32, "failures": []},
+    "vr_controller_ui": {"checks": 60, "failures": []},
+    "diff_whitespace": "passed"
+  },
+  "images_reviewed": [
+    "test-results/bindings/desktop.png",
+    "test-results/bindings/vr-compact.png"
+  ],
+  "notes": [
+    "Verified native desktop rendering and compact 853x640 VR layout.",
+    "Controller UI tests use simulated tracked controllers; no live headset verification for this menu change.",
+    "Godot reports one ObjectDB instance leaked at shutdown; both test processes exited successfully."
+  ]
+}

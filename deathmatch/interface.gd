@@ -57,6 +57,8 @@ var settings_panel: PanelContainer
 var host_panel: PanelContainer
 var host_mode
 var host_port: SpinBox
+var de_buy_seconds: SpinBox
+var de_buy_row: HBoxContainer
 var spectator_choice: CheckButton
 var server_browser: PanelContainer
 
@@ -298,11 +300,15 @@ func _build_menu(root: Control) -> void:
 	minutes.value = 10
 	rules.add_child(minutes)
 	text(rules,"minutes",14)
+	de_buy_row=HBoxContainer.new();host_column.add_child(de_buy_row);de_buy_row.hide()
+	text(de_buy_row,"DE BUY COUNTDOWN",14).size_flags_horizontal=Control.SIZE_EXPAND_FILL
+	de_buy_seconds=SpinBox.new();de_buy_seconds.min_value=5;de_buy_seconds.max_value=60;de_buy_seconds.step=1;de_buy_seconds.value=15
+	de_buy_row.add_child(de_buy_seconds);text(de_buy_row,"seconds",14)
 	var host_space:=Control.new();host_space.size_flags_vertical=Control.SIZE_EXPAND_FILL;host_column.add_child(host_space)
 	var host_actions:=HBoxContainer.new();host_column.add_child(host_actions)
-	var start_host:=button(host_actions,"START HOST",func():game.start_host(name_field.text,int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value,weapon_choice.value))
+	var start_host:=button(host_actions,"START HOST",func():game.start_host(name_field.text,int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value,weapon_choice.value,int(de_buy_seconds.value)))
 	start_host.custom_minimum_size.y=48
-	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,host_mode.value,weapon_choice.value))
+	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,host_mode.value,weapon_choice.value,int(de_buy_seconds.value)))
 	start_practice.custom_minimum_size.y=48
 	button(host_column,"BACK",host_panel.hide).custom_minimum_size.y=44
 	spectator_choice=CheckButton.new();spectator_choice.text="Join as spectator";spectator_choice.custom_minimum_size.y=36
@@ -510,6 +516,7 @@ func _import_bsp(path: String) -> void:
 			for peer in multiplayer.get_peers():game.votes.offer(peer)
 
 func refresh_maps() -> void:
+	if is_instance_valid(de_buy_row):de_buy_row.visible=host_mode.value=="de"
 	if is_instance_valid(minutes) and is_instance_valid(host_mode):
 		minutes.editable=host_mode.value!="tb"
 		if host_mode.value=="tb":minutes.value=10

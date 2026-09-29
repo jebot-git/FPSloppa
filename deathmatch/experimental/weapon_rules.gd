@@ -78,6 +78,12 @@ func tf_loadout(state: Dictionary) -> void:
 		state.ammo=[100,30,20,150];return
 	var definition: Dictionary=game.match_mode.fortress.class_definition(state.tf_class)
 	state.owned=definition.owned.duplicate();state.weapon=definition.weapon;state.ammo=definition.ammo.duplicate()
+func pickup_ammo(index: int) -> int:
+	var ammo: int=data(index).ammo
+	if ammo<0:return 0
+	if effective()=="cs16":return preload("res://deathmatch/counterstrike/arsenal.gd").pickup(index)
+	if effective()=="ut99":return {1:25,3:20,4:10,5:100,6:6,7:60,8:10,9:8,10:15}.get(index,1)
+	return [20,8,2,40][ammo]
 func pickup_bundle(index: int) -> Array:
 	# Existing BSPs have seven weapon entity types. These paired caches expose the
 	# two extra UT weapons without changing geometry or network pickup ordering.

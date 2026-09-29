@@ -133,6 +133,7 @@ class BSPTexture:
 	var has_alpha_test := false # If the material has alpha testing we want to know for collision.
 	var texture_data_offset : int
 	var source_name := ""
+	var palette := PackedByteArray() # Optional converter-owned per-texture palette.
 
 	static func get_data_size() -> int:
 		return 40 # 16 + 4 * 6
@@ -778,6 +779,8 @@ func read_bsp(source_file : String) -> Node:
 	
 	file.seek(textures_offset)
 	var num_textures := file.get_32()
+	var palette_bytes:=preload("res://deathmatch/maps/bsp_extensions.gd").read(source_file,"FSL_PALETTES",8+2048*768)
+	var has_palettes: bool=palette_bytes.size()==8+num_textures*768 and palette_bytes.decode_u32(0)==1 and palette_bytes.decode_u32(4)==num_textures
 	texture_offset_offsets.resize(num_textures)
 	print("num_textures: ", num_textures)
 	textures.resize(num_textures)
@@ -797,6 +800,7 @@ func read_bsp(source_file : String) -> Node:
 			var complete_offset := textures_offset + texture_offset
 			file.seek(complete_offset)
 			textures[i] = BSPTexture.new()
+			if has_palettes:textures[i].palette=palette_bytes.slice(8+i*768,8+(i+1)*768)
 			textures[i].read_texture(file, self)
 
 	# UV stuff
@@ -1811,6 +1815,7 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 			else: # No palette, load default palette.
 				print("Could not load palette file: ", texture_palette_path, ".  loading built-in palette.")
 				palette = generate_default_palette()
+			if bsp_texture and not bsp_texture.palette.is_empty():palette=bsp_texture.palette
 			if (bsp_texture):
 				if (bsp_texture.texture_data_offset > 0):
 					print("Reading texture from bsp file at ", bsp_texture.texture_data_offset)
@@ -1830,7 +1835,7 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 						if masked and indexed_color==255:
 							image_cursor+=4
 							continue
-						if (is_fullbright_index(indexed_color)):
+						if (bsp_texture.palette.is_empty() and is_fullbright_index(indexed_color)):
 							if (!has_emission):
 								has_emission = true
 								image_data_emission.resize(num_pixels * channels)
@@ -1865,7 +1870,7 @@ func load_or_create_material(name : StringName, bsp_texture : BSPTexture = null)
 					#file.seek(bsp_texture.current_file_offset) # Go back to where we were, in case that matters for reading the next texture.
 				else:
 					print("No texture data in BSP file.")
-					if use_named_texture_replacements:
+					if use_named_texture_replacements and bsp_texture.palette.is_empty():
 						var replacement: Dictionary=load("res://deathmatch/maps/texture_replacements/dictionary.gd").resolve(bsp_texture.source_name if not bsp_texture.source_name.is_empty() else str(name))
 						texture=replacement.get("texture")
 						texture_emission=replacement.get("emission")

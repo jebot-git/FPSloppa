@@ -107,7 +107,7 @@ def nuke():
     a.room(442,233,601,264,192,384,'Heaven');a.stairs(567,264,604,294,192,0,'v')
     # Continuous landing joins the high stair tread to the catwalk. The
     # access ceiling above must clear a standing capsule on the top tread.
-    a.block(445,233,604,264,176,192,'metal')
+    a.block(445,233,604,266,176,192,'metal')
     a.room(617,414,729,527,0,256,'Garage');a.room(595,435,631,490,0,240)
     # Full lower level beneath A, reached by the classic ramp and outside tunnel.
     a.room(435,261,565,399,-256,-48,'Lower reactor B')
@@ -122,6 +122,10 @@ def nuke():
     a.room(434,396,460,486,-256,-48)
     from classic_de.restoration import nuke_cover
     nuke_cover(a)
+    # Probe across the top tread/landing seam, including both stair edges.
+    for u in [570,585,600]:
+        for v in [263.5,264,264.5,265.5]:
+            a.structure_checks.append(dict(name='Heaven stair landing continuous',start=[u,v,200],end=[u,v,172],at=[u,v,192]))
     from classic_de.study_layout import nuke as study_nuke
     study_nuke(a)
     # Roof trusses, wall vents and riveted exterior panels.
@@ -203,7 +207,12 @@ def train():
         for u in range(253,582,10):a.block(u,v-8,u+1.5,v+8,0,.3,'wood')
     for u in [252,342,432,522,578]:
         a.block(u,468,u+2,584,308,324,'metal')
-        a.window(u,466,18,175)
+    # The B entry and CT flank remove parts of the north wall. Mount windows
+    # only on its remaining solid spans, with frames embedded in the shell.
+    a.structure_checks=[]
+    for u in [262,342,382,432,470]:
+        a.window(u,466.8,18,175)
+        a.structure_checks.append(dict(name='Train window attached to north wall',start=[u+9,469,216],end=[u+9,466,216],at=[u+9,467.6,216]))
     a.crate(206,374,16,94);a.crate(600,512,15,78)
     from classic_de.restoration import train_details
     train_details(a)

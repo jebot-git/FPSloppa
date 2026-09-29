@@ -1,58 +1,115 @@
 extends PanelContainer
+const Choice=preload("res://deathmatch/ui/choice.gd")
+const LABELS={"forward":"Forward","back":"Backward","left":"Strafe left","right":"Strafe right","jump":"Jump / ski","slow":"Walk","use":"Use / interact","melee":"Melee","scores":"Scoreboard","chat":"Text chat","team_chat":"Team text chat","team_ptt":"Team voice","ptt":"Push to talk","crouch":"Crouch (hold)","prone":"Prone (toggle)","down":"Swim down","reload":"Reload / magazine release","jetpack":"Jetpack","fire":"Fire","alt_fire":"Alternate fire","offhand_fire":"Offhand fire","next_weapon":"Next weapon","previous_weapon":"Previous weapon","ability":"Class ability","support":"Support-hand grip","menu":"Menu","weapon_wheel":"Weapon wheel"}
+const DESKTOP_GROUPS={"MOVEMENT":["forward","back","left","right","jump","slow","crouch","prone","down","jetpack"],"COMBAT & EQUIPMENT":["fire","alt_fire","offhand_fire","reload","melee","use","next_weapon","previous_weapon"],"COMMUNICATION & MATCH":["scores","chat","team_chat","team_ptt","ptt"]}
+const ROLES={"weapon":"Weapon hand","support":"Support hand","move":"Movement hand","turn":"Turning hand","left":"Left hand","right":"Right hand"}
+const INPUT_LABELS={"trigger":"Trigger","grip":"Grip","ax_button":"A / X","by_button":"B / Y","primary_click":"Stick click","none":"Unbound"}
+const OPTIONS={"two_handed":"Support-hand aiming","physical_jump":"Physical jump","physical_crouch":"Physical crouch","physical_prone":"Physical prone","tracked_leg_animation":"Animate tracked legs while still","physical_interactions":"Physical ability / console buttons","face_expressions":"Face expressions (experimental)"}
 var game
 var capture:=""
+var device:="desktop"
 var notice: Label
 var buttons: Dictionary={}
+var pages: Dictionary={}
+var tabs: Dictionary={}
+var axis_choices: Dictionary={}
+var vr_choices: Dictionary={}
+var checks: Dictionary={}
+var scroll: ScrollContainer
+var reset: Button
 func setup(arena: Node) -> void:
 	game=arena;theme=preload("res://deathmatch/ui/iron_theme.gd").theme();hide();set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var layout:=VBoxContainer.new();add_child(layout)
-	var close:=Button.new();close.text="BACK";close.custom_minimum_size.y=48;layout.add_child(close);close.pressed.connect(func():capture="";hide())
-	var scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();scroll.name="BindingsScroll";scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;layout.add_child(scroll)
-	var column:=VBoxContainer.new();column.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(column)
-	var title:=Label.new();title.text="CONTROL BINDINGS";column.add_child(title)
-	for option in ["two_handed","physical_jump","physical_crouch","physical_prone","tracked_leg_animation","physical_interactions","face_expressions"]:
-		var check:=CheckButton.new();check.text={"two_handed":"Support-hand aim (hold grip near fore-end)","physical_jump":"Physical playspace jump (standing only)","physical_crouch":"Physical playspace crouch (standing only)","physical_prone":"Physical prone (lie down; standing play only)","tracked_leg_animation":"Animate tracked legs while still (optional)","face_expressions":"Face expression matching (experimental)","physical_interactions":"Physical TF abilities / AS buttons"}[option];check.button_pressed=game.bindings.get(option);check.custom_minimum_size.y=48;column.add_child(check)
-		check.toggled.connect(func(value):game.bindings.set(option,value);save())
-	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Ctrl: hold crouch. Z: toggle prone (no jumping). Tracked-leg assist yields to leg motion. Select a desktop action, then press a key or mouse button. Escape cancels. VR roles follow your hand settings. Shared bindings trigger both actions; the weapon wheel takes priority over menu, scores and Use. Its selection stick is always the physical right stick. Turn-stick up/down cycles owned CS grenades or the TF Engineer’s sentry/dispenser; other loadouts retain weapon cycling. CS 1.6: desktop reload with R or when empty. VR: movement-stick click jumps; weapon A/X ejects the magazine. Offhand grip or trigger draws from the hip pouch and operates reload parts. Insert the magazine; rack only with an empty chamber. Grab and cycle the M3 pump after each shot; load individual shotgun shells from the pouch. Open the M249 feed cover before changing its box, lay the belt, close it, then rack; alternate toggles Glock burst / USP and M4 suppressors, holds AWP zoom or modifies a knife swing. Experimental UT99: alt_fire is right mouse / support trigger (configurable); hold primary to charge rockets or hammer. TF: weapon A/X (ability binding) activates the class ability. Alternatively, hold support grip + offhand trigger for ability / grenade; release grip to throw, or release trigger during a throw. Slap buildings to repair, touch teammates to heal. Jetpack: weapon A/X activates an owned pack; with CS weapons, a shared A/X binding remains magazine release. Double-tap jump also activates the pack. Ability and jetpack can be rebound separately below. Tribes: hold Jump to ski; hold Q (desktop) or weapon A/X (VR jetpack binding) for jets. Release Jump to brake. AS: press the console or Use.";column.add_child(notice)
-	for action in game.bindings.KEYS:
-		var button:=Button.new();button.custom_minimum_size.y=48;column.add_child(button);buttons[action]=button
-		button.pressed.connect(func():
-			if game.is_vr():notice.text="Desktop bindings require a keyboard or mouse. VR bindings are below.";return
-			capture=action;notice.text="Press a key / mouse button for "+action+"; Escape cancels.")
+	var margin:=MarginContainer.new();add_child(margin)
+	for side in ["left","right","top","bottom"]:margin.add_theme_constant_override("margin_"+side,16)
+	var layout:=VBoxContainer.new();layout.add_theme_constant_override("separation",12);margin.add_child(layout)
+	var header:=HBoxContainer.new();layout.add_child(header)
+	var title:=Label.new();title.text="CONTROL BINDINGS";title.size_flags_horizontal=Control.SIZE_EXPAND_FILL;header.add_child(title)
+	var close:=Button.new();close.text="BACK";close.custom_minimum_size=Vector2(120,48);header.add_child(close);close.pressed.connect(close_panel)
+	var tab_row:=HBoxContainer.new();layout.add_child(tab_row)
+	for id in ["desktop","vr"]:
+		var tab:=Button.new();tab.text="DESKTOP" if id=="desktop" else "VR";tab.toggle_mode=true;tab.custom_minimum_size.y=48;tab.size_flags_horizontal=Control.SIZE_EXPAND_FILL;tab_row.add_child(tab);tabs[id]=tab
+		tab.pressed.connect(func():select_device(id))
+	scroll=preload("res://deathmatch/ui/drag_scroll.gd").new();scroll.name="BindingsScroll";scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;layout.add_child(scroll)
+	var content:=VBoxContainer.new();content.size_flags_horizontal=Control.SIZE_EXPAND_FILL;scroll.add_child(content)
+	for id in tabs:
+		var page:=VBoxContainer.new();page.size_flags_horizontal=Control.SIZE_EXPAND_FILL;page.add_theme_constant_override("separation",8);content.add_child(page);pages[id]=page
+	for group in DESKTOP_GROUPS:
+		section(pages.desktop,group)
+		for action in DESKTOP_GROUPS[group]:
+			var row:=binding_row(pages.desktop,LABELS[action]);var button:=Button.new();button.custom_minimum_size.y=48;button.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(button);buttons[action]=button
+			button.pressed.connect(func():begin_capture(action))
+	section(pages.vr,"STICKS")
 	for action in ["move","turn"]:
-		var label:=Label.new();label.text="VR "+action+" stick";column.add_child(label)
-		var axis:=preload("res://deathmatch/ui/choice.gd").new();column.add_child(axis)
-		var roles: Array=[]
-		for role in ["move","turn","left","right"]:roles.append({"id":role,"title":role})
-		axis.configure(roles,"SELECT STICK");axis.choose(game.bindings.axes[action])
+		var row:=binding_row(pages.vr,"Movement stick" if action=="move" else "Turning stick")
+		var axis=selector(row,{"move":"Movement hand","turn":"Turning hand","left":"Left hand","right":"Right hand"});axis_choices[action]=axis
 		axis.selected.connect(func(value):game.bindings.axes[action]=value;save())
+	section(pages.vr,"ACTIONS")
 	for action in game.bindings.VR:
-		var row:=HBoxContainer.new();column.add_child(row)
-		var label:=Label.new();label.text="VR "+action;label.custom_minimum_size.x=180;row.add_child(label)
-		var choice:=preload("res://deathmatch/ui/choice.gd").new();choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(choice)
-		var roles: Array=[]
-		for role in ["weapon","support","move","turn","left","right"]:
-			for input in game.bindings.INPUTS:
-				var value: String=role+":"+input;roles.append({"id":value,"title":value})
-		choice.configure(roles,"SELECT BINDING");choice.choose(game.bindings.vr[action])
-		choice.selected.connect(func(value):game.bindings.vr[action]=value;save())
-	var reset:=Button.new();reset.text="RESET BINDINGS";reset.custom_minimum_size.y=48;column.add_child(reset)
-	reset.pressed.connect(func():game.bindings.keys=game.bindings.KEYS.duplicate();game.bindings.vr=game.bindings.VR.duplicate();game.bindings.axes={"move":"move","turn":"turn"};save();hide();queue_free();game.hud.open_bindings())
-	var back:=Button.new();back.text="BACK";back.custom_minimum_size.y=52;column.add_child(back);back.pressed.connect(func():capture="";hide())
-	refresh()
+		var row:=binding_row(pages.vr,LABELS[action]);var hand=selector(row,ROLES);var input=selector(row,INPUT_LABELS);vr_choices[action]=[hand,input]
+		hand.selected.connect(func(value):set_vr_binding(action,0,value))
+		input.selected.connect(func(value):set_vr_binding(action,1,value))
+	section(pages.vr,"PHYSICAL CONTROLS & TRACKING")
+	for option in OPTIONS:
+		var check:=CheckButton.new();check.text=OPTIONS[option];check.custom_minimum_size.y=48;pages.vr.add_child(check);checks[option]=check
+		check.toggled.connect(func(value):game.bindings.set(option,value);save())
+	var footer:=HBoxContainer.new();footer.add_theme_constant_override("separation",12);layout.add_child(footer)
+	notice=Label.new();notice.size_flags_horizontal=Control.SIZE_EXPAND_FILL;notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;footer.add_child(notice)
+	reset=Button.new();reset.custom_minimum_size.y=48;footer.add_child(reset)
+	reset.pressed.connect(func():cancel_capture();game.bindings.reset_bindings(device);save())
+	visibility_changed.connect(func():
+		if not visible:cancel_capture();close_choices())
+	select_device("vr" if game.is_vr() else "desktop");refresh()
+func section(parent: Control,title: String) -> void:
+	var label:=Label.new();label.text=title;label.custom_minimum_size.y=40;parent.add_child(label)
+func binding_row(parent: Control,title: String) -> HBoxContainer:
+	var row:=HBoxContainer.new();row.add_theme_constant_override("separation",12);parent.add_child(row)
+	var label:=Label.new();label.text=title;label.custom_minimum_size.x=260;row.add_child(label)
+	return row
+func selector(parent: Control,labels: Dictionary):
+	var choice=Choice.new();choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(choice)
+	var items: Array=[]
+	for id in labels:items.append({"id":id,"title":labels[id]})
+	choice.configure(items,"SELECT");return choice
+func select_device(id: String) -> void:
+	cancel_capture();close_choices();device=id
+	for key in pages:pages[key].visible=key==id;tabs[key].set_pressed_no_signal(key==id)
+	scroll.scroll_vertical=0;reset.text="RESET "+id.to_upper()+" BINDINGS";notice.text=""
+func close_choices() -> void:
+	for choice in axis_choices.values():choice.close_popup()
+	for pair in vr_choices.values():
+		for choice in pair:choice.close_popup()
+func close_panel() -> void:cancel_capture();hide()
+func cancel_capture() -> void:
+	capture="";refresh()
+func begin_capture(action: String) -> void:
+	if game.is_vr():notice.text="Use a keyboard or mouse to edit desktop bindings.";return
+	capture=action;notice.text="Press a key or mouse button. Escape cancels.";refresh()
+func set_vr_binding(action: String,index: int,value: String) -> void:
+	var parts: PackedStringArray=game.bindings.vr[action].split(":");parts[index]=value;game.bindings.vr[action]=":".join(parts);save()
 func refresh() -> void:
 	for action in buttons:
 		var key:int=game.bindings.keys[action]
-		buttons[action].text=action.to_upper()+": "+(OS.get_keycode_string(key) if key>0 else "MOUSE "+str(-key))
+		buttons[action].text="PRESS KEY…" if capture==action else key_label(key)
+	for action in axis_choices:refresh_choice(axis_choices[action],game.bindings.axes[action])
+	for action in vr_choices:
+		var parts: PackedStringArray=game.bindings.vr[action].split(":")
+		for i in 2:refresh_choice(vr_choices[action][i],parts[i])
+	for option in checks:checks[option].set_pressed_no_signal(game.bindings.get(option))
+func refresh_choice(choice,value: String) -> void:
+	choice.set_block_signals(true);choice.choose(value);choice.set_block_signals(false)
+func key_label(key: int) -> String:
+	if key>0:return OS.get_keycode_string(key)
+	return {MOUSE_BUTTON_LEFT:"Left mouse",MOUSE_BUTTON_RIGHT:"Right mouse",MOUSE_BUTTON_MIDDLE:"Middle mouse",MOUSE_BUTTON_WHEEL_UP:"Wheel up",MOUSE_BUTTON_WHEEL_DOWN:"Wheel down",MOUSE_BUTTON_WHEEL_LEFT:"Wheel left",MOUSE_BUTTON_WHEEL_RIGHT:"Wheel right",MOUSE_BUTTON_XBUTTON1:"Mouse back",MOUSE_BUTTON_XBUTTON2:"Mouse forward"}.get(-key,"Mouse "+str(-key))
 func save() -> void:
-	var error:int=game.bindings.save();notice.text="Saved. Escape and the controller menu button remain available." if error==OK else "Save failed: "+error_string(error);refresh()
+	var error:int=game.bindings.save();notice.text="Saved" if error==OK else "Save failed: "+error_string(error);refresh()
 func _input(event: InputEvent) -> void:
-	if not visible or capture.is_empty():return
+	if not is_visible_in_tree() or capture.is_empty():return
 	var code:=0
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.physical_keycode==KEY_ESCAPE:capture="";get_viewport().set_input_as_handled();return
+		if event.physical_keycode==KEY_ESCAPE:cancel_capture();notice.text="Cancelled";get_viewport().set_input_as_handled();return
 		code=event.physical_keycode
 	elif event is InputEventMouseButton and event.pressed:code=-event.button_index
 	if code!=0:
 		game.bindings.keys[capture]=code;capture="";save();get_viewport().set_input_as_handled()
-func open() -> void:refresh();show();get_parent().move_child(self,-1)
+func open() -> void:
+	select_device("vr" if game.is_vr() else "desktop");refresh();show();get_parent().move_child(self,-1)

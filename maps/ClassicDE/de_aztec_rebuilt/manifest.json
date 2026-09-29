@@ -2,9 +2,9 @@
   "id": "de_aztec_rebuilt",
   "title": "Aztec | Classic layout reconstruction",
   "format": 29,
-  "bytes": 4535900,
-  "sha256": "d26a45d16c79bab32a359436b92657f15fc79738db7ccb7aceab843e99e1b318",
-  "brushes": 258,
+  "bytes": 4531472,
+  "sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b",
+  "brushes": 259,
   "spawns": [
     [
       662.0,
@@ -322,6 +322,26 @@
     }
   ],
   "routes": [
+    {
+      "name": "North ruins corner escape",
+      "points": [
+        [
+          598.0,
+          136.0,
+          64
+        ],
+        [
+          636.0,
+          136.0,
+          64
+        ],
+        [
+          636.0,
+          200.0,
+          64
+        ]
+      ]
+    },
     {
       "name": "T bridge to B",
       "points": [
@@ -765,7 +785,7 @@
   "reference": "https://cstake.ru/maps/de-maps/155-karta-de_aztec-dlja-cs-16.html",
   "theme": "ruins",
   "defusal": {
-    "sha256": "d26a45d16c79bab32a359436b92657f15fc79738db7ccb7aceab843e99e1b318",
+    "sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b",
     "sites": [
       [
         34.3125,

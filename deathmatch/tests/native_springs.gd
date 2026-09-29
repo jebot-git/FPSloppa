@@ -28,6 +28,8 @@ func synthetic() -> void:
 		check(is_equal_approx(sim.get_joint_stiffness(0,0),.5) and is_equal_approx(sim.get_joint_drag(0,0),.4),"Per-joint spring parameters survive conversion")
 		model.free()
 func run():
+	check(not VRMSecondary.springs_enabled,"Spring simulation defaults off before presentation settings load")
+	VRMSecondary.springs_enabled=true
 	await synthetic()
 	var world:=Node3D.new();root.add_child(world)
 	var library=load("res://deathmatch/avatars/library.gd").new();root.add_child(library)

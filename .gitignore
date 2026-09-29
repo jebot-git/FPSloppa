@@ -139,3 +139,11 @@ __pycache__/
 /tools/tribes/sources/
 /tools/tribes/refined/
 /docs/audio/skyward-relay/
+
+# Locally compiled optional gameplay extension.
+/addons/fps_native/bin/
+/addons/fps_native/build*/
+/addons/fps_native/fps_native.gdextension
+/addons/fps_native/.sconsign*
+/addons/fps_native/src/*.os
+/addons/fps_native/src/*.o

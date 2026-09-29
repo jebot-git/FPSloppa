@@ -188,7 +188,11 @@ def nuke_cover(a):
     # Structural columns belong on the shell and reach its ceiling. The old
     # short posts sat in open floor space, including the hut's doorway.
     supports=[(434.8,273,436.5,277),(469,229.8,473,231.5),(533,229.8,537,231.5)]
-    for u,v,U,V in supports:a.block(u,v,U,V,0,384,'metal')
+    for u,v,U,V in supports:
+        # The western north column crosses the descending ramp. Its foot must
+        # meet that sloping floor rather than hang at the upper room's zero.
+        base=-180 if u==469 else 0
+        a.block(u,v,U,V,base,384,'metal')
     a.structure_checks=[]
     for u in [444,477,510,543]:
         a.structure_checks.append(dict(name='South vent backed by wall',start=[u+9,397,88],end=[u+9,400,88],at=[u+9,398.5,88]))
@@ -197,6 +201,8 @@ def nuke_cover(a):
     for u in [471,535]:
         for z in [32,200,376]:
             a.structure_checks.append(dict(name='North column reaches roof',start=[u,232.5,z],end=[u,229.5,z],at=[u,231.5,z]))
+    for z in [-160,-96,-16]:
+        a.structure_checks.append(dict(name='Ramp column reaches sloped floor',start=[471,232.5,z],end=[471,229.5,z],at=[471,231.5,z]))
     # Roof vents and a hut roof retain the existing open floor routes.
     a.block(420,285,443,344,150,160,'metal')
 
@@ -266,6 +272,10 @@ def aztec_layout(a):
     room(0,512,1792,960,64,label='Bridge approach')
     room(1728,448,2048,704,0);ramp(1728,448,2048,704,0,64,'y')
     box(1728,704,2048,1408,0,64,'floor')
+    # This blind square inherited the lower T floor but was surrounded by
+    # the raised north walkway. Fill it level so falling in cannot trap a player.
+    box(1472,1216,1728,1408,0,64,'floor')
+    route('North ruins corner escape',[(1584,1312,64),(1888,1312,64),(1888,800,64)])
     # CT spawn on the west, with stairs to B and the southern A approach.
     room(-3328,-416,-2688,640,-48,label='CT ruins')
     room(-3840,0,-3200,704,-48,label='CT back recess')

@@ -62,10 +62,22 @@ func run():
 	check(panel.controls.announcer.get_global_rect().end.y<=640,"Announcer controls fit the VR audio page")
 	check(not panel.controls.has('soundtrack'),'Audio menu only exposes the original soundtrack')
 	panel.section="haptics";panel.refresh()
+	panel.controls.controller_haptic_strength.get_parent().get_child(1).pressed.emit()
+	check(is_equal_approx(Settings.read_settings(path).controller_haptic_strength,.9) and panel.controls.controller_haptic_strength.text=="90%","Haptic menu applies and persists controller strength independently of vest settings")
 	for mode in [0,1]:
 		panel.haptics_page.backend.select(mode);panel.haptics_page.refresh()
 		await process_frame;await process_frame
-		check(panel.get_rect().size.y<=640 and panel.get_global_rect().encloses(panel.haptics_page.notice.get_global_rect()),"Haptics page fits the scaled VR canvas: "+str(mode))
+		panel.haptics_scroll.scroll_vertical=0
+		await process_frame;await process_frame
+		check(panel.get_rect().size.y<=640 and panel.haptics_scroll.get_global_rect().encloses(panel.controls.controller_haptic_strength.get_global_rect()),"Controller strength fits the scaled VR canvas: "+str(mode))
+		panel.haptics_scroll.scroll_vertical=10000
+		await process_frame;await process_frame
+		check(panel.haptics_scroll.get_global_rect().encloses(panel.haptics_page.notice.get_global_rect()),"Vest controls remain reachable in the haptics scroll area: "+str(mode))
+	if "--capture-settings" in OS.get_cmdline_user_args():
+		panel.haptics_scroll.scroll_vertical=0
+		await process_frame;await process_frame;await RenderingServer.frame_post_draw
+		DirAccess.make_dir_recursive_absolute("res://test-results/controller-settings")
+		g.xr_rig.panel.get_node("Viewport").get_texture().get_image().save_png("res://test-results/controller-settings/haptics.png")
 	panel.section="graphics";panel.refresh()
 	await process_frame;await process_frame
 	check(panel.get_rect().size.y<=640,"Graphics page fits the VR canvas")
@@ -99,6 +111,12 @@ func run():
 	check(not panel.controls.fovea_size.visible and panel.controls.foveation_level.visible,"Uninitialized runtime does not expose a gaze control")
 	# Exercise the presentation branch despite running this fixture headlessly.
 	g.headless=false
+	panel.values.spring_bones=false;panel.save()
+	check(not VRMSecondary.springs_enabled,"Graphics settings apply spring-bone default off at runtime")
+	panel.controls.spring_bones.pressed.emit()
+	check(VRMSecondary.springs_enabled and Settings.read_settings(path).spring_bones,"Spring-bone menu opt-in applies and persists")
+	panel.controls.spring_bones.pressed.emit()
+	check(not VRMSecondary.springs_enabled and not Settings.read_settings(path).spring_bones,"Spring-bone menu can disable simulation again")
 	panel.controls.hud_scale.get_parent().get_child(3).pressed.emit()
 	g.headless=true
 	check(is_equal_approx(g.xr_rig.status_surface.scale.x,panel.values.hud_scale),"HUD size button applies through the menu")

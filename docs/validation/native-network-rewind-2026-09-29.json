@@ -1,0 +1,1533 @@
+{
+  "date": "2026-09-29",
+  "cpu": "Intel Core i7-12700",
+  "engine": "4.7.2-stable Fedora",
+  "scope": "Native bounded compact codec and synchronous shot-local history batching/native traces. No protocol, cadence or damage-order change. Focused CPU measurements, not total FPS. Native Windows/Android builds only, no device timing.",
+  "checks": {
+    "native_codec": {
+      "NATIVE_CODEC_RESULT": {
+        "checks": 15248,
+        "failures": []
+      }
+    },
+    "native_rewind": {
+      "NATIVE_REWIND_RESULT": {
+        "benchmarks": [
+          {
+            "eight_rays": {
+              "mean_ms": 1.53923333333333,
+              "median_ms": 1.515,
+              "p95_ms": 1.777
+            },
+            "path": "reference"
+          },
+          {
+            "eight_rays": {
+              "mean_ms": 0.555116666666667,
+              "median_ms": 0.542,
+              "p95_ms": 0.659
+            },
+            "path": "batched_gd"
+          },
+          {
+            "eight_rays": {
+              "mean_ms": 0.167333333333333,
+              "median_ms": 0.158,
+              "p95_ms": 0.219
+            },
+            "path": "native"
+          },
+          {
+            "eight_rays": {
+              "mean_ms": 0.166166666666667,
+              "median_ms": 0.162,
+              "p95_ms": 0.194
+            },
+            "path": "native"
+          },
+          {
+            "eight_rays": {
+              "mean_ms": 0.551741666666667,
+              "median_ms": 0.538,
+              "p95_ms": 0.639
+            },
+            "path": "batched_gd"
+          },
+          {
+            "eight_rays": {
+              "mean_ms": 1.53455833333333,
+              "median_ms": 1.508,
+              "p95_ms": 1.719
+            },
+            "path": "reference"
+          }
+        ],
+        "checks": 16850,
+        "failures": []
+      }
+    },
+    "native_acceleration": {},
+    "replication_protocol": {},
+    "native_network_packing": {
+      "NATIVE_NETWORK_RESULT": {
+        "checks": 6335,
+        "failures": [],
+        "reports": [
+          {
+            "after_bytes": 27313,
+            "after_ms": {
+              "median": 0.072,
+              "p95": 0.087
+            },
+            "after_packets": 64,
+            "before_bytes": 27313,
+            "before_ms": {
+              "median": 0.11,
+              "p95": 0.19
+            },
+            "before_packets": 64,
+            "players": 8,
+            "shots": 0,
+            "vr": false
+          },
+          {
+            "after_bytes": 131432,
+            "after_ms": {
+              "median": 0.242,
+              "p95": 0.279
+            },
+            "after_packets": 132,
+            "before_bytes": 131432,
+            "before_ms": {
+              "median": 0.464,
+              "p95": 0.533
+            },
+            "before_packets": 132,
+            "players": 16,
+            "shots": 32,
+            "vr": true
+          },
+          {
+            "after_bytes": 1087542,
+            "after_ms": {
+              "median": 1.977,
+              "p95": 2.212
+            },
+            "after_packets": 1028,
+            "before_bytes": 1087542,
+            "before_ms": {
+              "median": 4.061,
+              "p95": 4.485
+            },
+            "before_packets": 1028,
+            "players": 16,
+            "shots": 523,
+            "vr": false
+          }
+        ]
+      }
+    },
+    "lag_reliability": {},
+    "cs16_penetration": {},
+    "cs16_accuracy": {},
+    "de_cover": {},
+    "hit_detection": {},
+    "projectile_targets": {},
+    "projectile_ordering": {},
+    "combat": {},
+    "fortress": {},
+    "replication_protocol-fallback": {},
+    "lag_reliability-fallback": {},
+    "cs16_penetration-fallback": {},
+    "combat-fallback": {},
+    "native_shot_history": {
+      "NATIVE_SHOT_HISTORY_RESULT": {
+        "checks": 10,
+        "failures": []
+      }
+    }
+  },
+  "network_abba": {
+    "reference-a": {
+      "REMAINING_RESULT": {
+        "engine": "4.7.2-stable (fedora)",
+        "pose_codec": {
+          "compress": {
+            "mean_ms": 0.00225225,
+            "median_ms": 0.00223,
+            "p95_ms": 0.00239
+          },
+          "decode": {
+            "mean_ms": 0.063654,
+            "median_ms": 0.06342,
+            "p95_ms": 0.06585
+          },
+          "decompress": {
+            "mean_ms": 0.00052875,
+            "median_ms": 0.00053,
+            "p95_ms": 0.00056
+          },
+          "encode": {
+            "mean_ms": 0.0645335,
+            "median_ms": 0.06423,
+            "p95_ms": 0.06739
+          },
+          "pack": {
+            "mean_ms": 0.06699975,
+            "median_ms": 0.06684,
+            "p95_ms": 0.06966
+          },
+          "packed_bytes": 397,
+          "raw_bytes": 608,
+          "scope": "Full body/face pose only, excludes command envelope; 40 batches of 100 calls after 100 warmup calls. One scenario at a time.",
+          "unpack": {
+            "mean_ms": 0.06502,
+            "median_ms": 0.06479,
+            "p95_ms": 0.06969
+          },
+          "validate": {
+            "mean_ms": 0.03360675,
+            "median_ms": 0.033,
+            "p95_ms": 0.03786
+          }
+        },
+        "scope": "Current production paths; 20 warmup + 120 changing snapshots each; includes compression, record caches and full receiver flush. No ENet transport, loss, scene application or rendering.",
+        "snapshots": [
+          {
+            "bytes_per_snapshot": 422.616666666667,
+            "encode": {
+              "mean_ms": 0.340816666666667,
+              "median_ms": 0.323,
+              "p95_ms": 0.424
+            },
+            "flush": {
+              "mean_ms": 0.0187916666666667,
+              "median_ms": 0.018,
+              "p95_ms": 0.024
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 1.0,
+            "players": 8,
+            "receive": {
+              "mean_ms": 0.367491666666667,
+              "median_ms": 0.347,
+              "p95_ms": 0.468
+            },
+            "shots": 0
+          },
+          {
+            "bytes_per_snapshot": 3140.81666666667,
+            "encode": {
+              "mean_ms": 1.7168,
+              "median_ms": 1.69,
+              "p95_ms": 1.889
+            },
+            "flush": {
+              "mean_ms": 0.15165,
+              "median_ms": 0.149,
+              "p95_ms": 0.184
+            },
+            "full_vr": true,
+            "packets_per_snapshot": 3.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 1.77846666666667,
+              "median_ms": 1.746,
+              "p95_ms": 2.029
+            },
+            "shots": 32
+          },
+          {
+            "bytes_per_snapshot": 16977.8,
+            "encode": {
+              "mean_ms": 2.55949166666667,
+              "median_ms": 2.523,
+              "p95_ms": 2.801
+            },
+            "flush": {
+              "mean_ms": 0.25115,
+              "median_ms": 0.243,
+              "p95_ms": 0.302
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 16.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 2.18806666666667,
+              "median_ms": 2.142,
+              "p95_ms": 2.531
+            },
+            "shots": 523
+          }
+        ]
+      }
+    },
+    "native-a": {
+      "REMAINING_RESULT": {
+        "engine": "4.7.2-stable (fedora)",
+        "pose_codec": {
+          "compress": {
+            "mean_ms": 0.0023565,
+            "median_ms": 0.00225,
+            "p95_ms": 0.00302
+          },
+          "decode": {
+            "mean_ms": 0.006561,
+            "median_ms": 0.00631,
+            "p95_ms": 0.00735
+          },
+          "decompress": {
+            "mean_ms": 0.0005505,
+            "median_ms": 0.00053,
+            "p95_ms": 0.00063
+          },
+          "encode": {
+            "mean_ms": 0.00601625,
+            "median_ms": 0.00575,
+            "p95_ms": 0.00714
+          },
+          "pack": {
+            "mean_ms": 0.0088315,
+            "median_ms": 0.00873,
+            "p95_ms": 0.00981
+          },
+          "packed_bytes": 397,
+          "raw_bytes": 608,
+          "scope": "Full body/face pose only, excludes command envelope; 40 batches of 100 calls after 100 warmup calls. One scenario at a time.",
+          "unpack": {
+            "mean_ms": 0.0071055,
+            "median_ms": 0.007,
+            "p95_ms": 0.00806
+          },
+          "validate": {
+            "mean_ms": 0.035051,
+            "median_ms": 0.03404,
+            "p95_ms": 0.04052
+          }
+        },
+        "scope": "Current production paths; 20 warmup + 120 changing snapshots each; includes compression, record caches and full receiver flush. No ENet transport, loss, scene application or rendering.",
+        "snapshots": [
+          {
+            "bytes_per_snapshot": 422.616666666667,
+            "encode": {
+              "mean_ms": 0.0837500000000001,
+              "median_ms": 0.078,
+              "p95_ms": 0.1
+            },
+            "flush": {
+              "mean_ms": 0.016675,
+              "median_ms": 0.016,
+              "p95_ms": 0.021
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 1.0,
+            "players": 8,
+            "receive": {
+              "mean_ms": 0.0550833333333333,
+              "median_ms": 0.049,
+              "p95_ms": 0.097
+            },
+            "shots": 0
+          },
+          {
+            "bytes_per_snapshot": 3140.81666666667,
+            "encode": {
+              "mean_ms": 0.362316666666667,
+              "median_ms": 0.353,
+              "p95_ms": 0.426
+            },
+            "flush": {
+              "mean_ms": 0.124358333333333,
+              "median_ms": 0.119,
+              "p95_ms": 0.155
+            },
+            "full_vr": true,
+            "packets_per_snapshot": 3.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 0.302475,
+              "median_ms": 0.292,
+              "p95_ms": 0.359
+            },
+            "shots": 32
+          },
+          {
+            "bytes_per_snapshot": 16977.8,
+            "encode": {
+              "mean_ms": 2.06803333333333,
+              "median_ms": 2.034,
+              "p95_ms": 2.354
+            },
+            "flush": {
+              "mean_ms": 0.230291666666667,
+              "median_ms": 0.224,
+              "p95_ms": 0.286
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 16.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 1.54039166666667,
+              "median_ms": 1.492,
+              "p95_ms": 1.924
+            },
+            "shots": 523
+          }
+        ]
+      }
+    },
+    "native-b": {
+      "REMAINING_RESULT": {
+        "engine": "4.7.2-stable (fedora)",
+        "pose_codec": {
+          "compress": {
+            "mean_ms": 0.00221125,
+            "median_ms": 0.00221,
+            "p95_ms": 0.0023
+          },
+          "decode": {
+            "mean_ms": 0.00615425,
+            "median_ms": 0.00595,
+            "p95_ms": 0.00672
+          },
+          "decompress": {
+            "mean_ms": 0.00051175,
+            "median_ms": 0.00051,
+            "p95_ms": 0.00054
+          },
+          "encode": {
+            "mean_ms": 0.00584425,
+            "median_ms": 0.00579,
+            "p95_ms": 0.00622
+          },
+          "pack": {
+            "mean_ms": 0.00863525,
+            "median_ms": 0.00858,
+            "p95_ms": 0.0091
+          },
+          "packed_bytes": 397,
+          "raw_bytes": 608,
+          "scope": "Full body/face pose only, excludes command envelope; 40 batches of 100 calls after 100 warmup calls. One scenario at a time.",
+          "unpack": {
+            "mean_ms": 0.006685,
+            "median_ms": 0.00664,
+            "p95_ms": 0.00706
+          },
+          "validate": {
+            "mean_ms": 0.0328135,
+            "median_ms": 0.03274,
+            "p95_ms": 0.03428
+          }
+        },
+        "scope": "Current production paths; 20 warmup + 120 changing snapshots each; includes compression, record caches and full receiver flush. No ENet transport, loss, scene application or rendering.",
+        "snapshots": [
+          {
+            "bytes_per_snapshot": 422.616666666667,
+            "encode": {
+              "mean_ms": 0.0835,
+              "median_ms": 0.08,
+              "p95_ms": 0.105
+            },
+            "flush": {
+              "mean_ms": 0.0164666666666667,
+              "median_ms": 0.016,
+              "p95_ms": 0.02
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 1.0,
+            "players": 8,
+            "receive": {
+              "mean_ms": 0.054575,
+              "median_ms": 0.051,
+              "p95_ms": 0.072
+            },
+            "shots": 0
+          },
+          {
+            "bytes_per_snapshot": 3140.81666666667,
+            "encode": {
+              "mean_ms": 0.372808333333333,
+              "median_ms": 0.362,
+              "p95_ms": 0.43
+            },
+            "flush": {
+              "mean_ms": 0.1254,
+              "median_ms": 0.122,
+              "p95_ms": 0.142
+            },
+            "full_vr": true,
+            "packets_per_snapshot": 3.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 0.30525,
+              "median_ms": 0.297,
+              "p95_ms": 0.363
+            },
+            "shots": 32
+          },
+          {
+            "bytes_per_snapshot": 16977.8,
+            "encode": {
+              "mean_ms": 2.03495,
+              "median_ms": 2.01,
+              "p95_ms": 2.169
+            },
+            "flush": {
+              "mean_ms": 0.219525,
+              "median_ms": 0.213,
+              "p95_ms": 0.261
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 16.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 1.5296,
+              "median_ms": 1.492,
+              "p95_ms": 1.732
+            },
+            "shots": 523
+          }
+        ]
+      }
+    },
+    "reference-b": {
+      "REMAINING_RESULT": {
+        "engine": "4.7.2-stable (fedora)",
+        "pose_codec": {
+          "compress": {
+            "mean_ms": 0.00218375,
+            "median_ms": 0.00214,
+            "p95_ms": 0.00231
+          },
+          "decode": {
+            "mean_ms": 0.064576,
+            "median_ms": 0.06414,
+            "p95_ms": 0.06902
+          },
+          "decompress": {
+            "mean_ms": 0.00050325,
+            "median_ms": 0.0005,
+            "p95_ms": 0.00052
+          },
+          "encode": {
+            "mean_ms": 0.06475025,
+            "median_ms": 0.06411,
+            "p95_ms": 0.06904
+          },
+          "pack": {
+            "mean_ms": 0.06788425,
+            "median_ms": 0.0668,
+            "p95_ms": 0.07257
+          },
+          "packed_bytes": 397,
+          "raw_bytes": 608,
+          "scope": "Full body/face pose only, excludes command envelope; 40 batches of 100 calls after 100 warmup calls. One scenario at a time.",
+          "unpack": {
+            "mean_ms": 0.06385875,
+            "median_ms": 0.06309,
+            "p95_ms": 0.06754
+          },
+          "validate": {
+            "mean_ms": 0.03172525,
+            "median_ms": 0.0315,
+            "p95_ms": 0.03314
+          }
+        },
+        "scope": "Current production paths; 20 warmup + 120 changing snapshots each; includes compression, record caches and full receiver flush. No ENet transport, loss, scene application or rendering.",
+        "snapshots": [
+          {
+            "bytes_per_snapshot": 422.616666666667,
+            "encode": {
+              "mean_ms": 0.32885,
+              "median_ms": 0.324,
+              "p95_ms": 0.365
+            },
+            "flush": {
+              "mean_ms": 0.0172916666666667,
+              "median_ms": 0.017,
+              "p95_ms": 0.021
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 1.0,
+            "players": 8,
+            "receive": {
+              "mean_ms": 0.356566666666667,
+              "median_ms": 0.348,
+              "p95_ms": 0.401
+            },
+            "shots": 0
+          },
+          {
+            "bytes_per_snapshot": 3140.81666666667,
+            "encode": {
+              "mean_ms": 1.79654166666667,
+              "median_ms": 1.774,
+              "p95_ms": 1.989
+            },
+            "flush": {
+              "mean_ms": 0.161966666666667,
+              "median_ms": 0.158,
+              "p95_ms": 0.205
+            },
+            "full_vr": true,
+            "packets_per_snapshot": 3.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 1.85386666666667,
+              "median_ms": 1.809,
+              "p95_ms": 2.146
+            },
+            "shots": 32
+          },
+          {
+            "bytes_per_snapshot": 16977.8,
+            "encode": {
+              "mean_ms": 2.564625,
+              "median_ms": 2.533,
+              "p95_ms": 2.805
+            },
+            "flush": {
+              "mean_ms": 0.248066666666667,
+              "median_ms": 0.246,
+              "p95_ms": 0.328
+            },
+            "full_vr": false,
+            "packets_per_snapshot": 16.05,
+            "players": 16,
+            "receive": {
+              "mean_ms": 2.207075,
+              "median_ms": 2.15,
+              "p95_ms": 2.5
+            },
+            "shots": 523
+          }
+        ]
+      }
+    }
+  },
+  "mixed_enet": {
+    "reference-server": {
+      "passed": true,
+      "roles": {
+        "server": 0,
+        "shooter": 0,
+        "target": 0,
+        "spectator": 0
+      }
+    },
+    "reference-clients": {
+      "passed": true,
+      "roles": {
+        "server": 0,
+        "shooter": 0,
+        "target": 0,
+        "spectator": 0
+      }
+    }
+  },
+  "native_enet": {
+    "passed": true,
+    "roles": [
+      "server",
+      "shooter",
+      "target",
+      "spectator"
+    ],
+    "log": "live-network.log"
+  },
+  "console": {
+    "termination_exit": -15,
+    "native_server_library_mapped": true,
+    "host_ready": true,
+    "server_library_codec_parity_passed": true,
+    "codec_probe_engine": "4.7.2 Fedora, isolated project loading server-only library",
+    "console_template_script_override": false
+  },
+  "builds": {
+    "linux": {
+      "target": "linux",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "fed0ae925ae2993fb8cdf1a102f7f8fe6501ef6fa8f7bf0adad1f9b2441442cb",
+      "source_sha256": {
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "a9e76ba4040e574466413cbe5f3bba10869c70755c99402dac30278b78273c7a",
+        "src/register_server.cpp": "f8a2aa3aa92fbec5d801817e7dbb3e1e8c773f404d85818032a22063769daeb4"
+      }
+    },
+    "linux-server": {
+      "target": "linux-server",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "6e5f2cbc08e9acb2414f26fbfa774abff0516a7cae412f02e88772248e5a3ee5",
+      "source_sha256": {
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "a9e76ba4040e574466413cbe5f3bba10869c70755c99402dac30278b78273c7a",
+        "src/register_server.cpp": "f8a2aa3aa92fbec5d801817e7dbb3e1e8c773f404d85818032a22063769daeb4"
+      }
+    },
+    "windows": {
+      "target": "windows",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "78ea047dabaa3e3b17153b365ff2255d6d75837c76555808d504f889dcefa027",
+      "source_sha256": {
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "a9e76ba4040e574466413cbe5f3bba10869c70755c99402dac30278b78273c7a",
+        "src/register_server.cpp": "f8a2aa3aa92fbec5d801817e7dbb3e1e8c773f404d85818032a22063769daeb4"
+      }
+    },
+    "android": {
+      "target": "android",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "c493388257cab0e38e119d7509b2d8a00fcc9bf8c3e521f159dd0c182e33fc98",
+      "source_sha256": {
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+        "src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "a9e76ba4040e574466413cbe5f3bba10869c70755c99402dac30278b78273c7a",
+        "src/register_server.cpp": "f8a2aa3aa92fbec5d801817e7dbb3e1e8c773f404d85818032a22063769daeb4"
+      }
+    }
+  },
+  "console_package": {
+    "package_files": [
+      "AS.md",
+      "ASSET_CREDITS.md",
+      "FPSloppaServer.pck",
+      "FPSloppaServer.x86_64",
+      "GAMEMODES.md",
+      "GODOT-COPYRIGHT.txt",
+      "GODOT-LICENSE.txt",
+      "SERVER.md",
+      "TF.md",
+      "VOICE.md",
+      "addons/fps_native/bin/libfpsloppa_native.server.so",
+      "docs/ARENA-JETPACKS.md",
+      "docs/BOMB-DEFUSAL.md",
+      "docs/CS16-GRENADES.md",
+      "docs/CS16-LOADOUT.md",
+      "docs/SERVER-BROWSER.md",
+      "docs/TITANBALL.md",
+      "docs/WEAPON-RESPAWNS.md",
+      "licenses/bsp_importer/LICENSE",
+      "licenses/fps_native/GODOT-CPP-LICENSE.md",
+      "maps/Ashfall/CC0-1.0.txt",
+      "maps/Ashfall/LibreQuake-COPYING.txt",
+      "maps/Ashfall/LibreQuake-CREDITS.txt",
+      "maps/Ashfall/Makkon_License.txt",
+      "maps/Ashfall/texture-sources.json",
+      "maps/CC/LibreQuake-COPYING.txt",
+      "maps/CC/LibreQuake-CREDITS.txt",
+      "maps/CC/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "maps/CC/Makkon_License.txt",
+      "maps/CTFStudies/CC0-1.0.txt",
+      "maps/CTFStudies/LibreQuake-COPYING.txt",
+      "maps/CTFStudies/LibreQuake-CREDITS.txt",
+      "maps/CTFStudies/Makkon_License.txt",
+      "maps/CTFStudies/texture-sources.json",
+      "maps/Cindercoil/CC0-1.0.txt",
+      "maps/Cindercoil/LibreQuake-COPYING.txt",
+      "maps/Cindercoil/LibreQuake-CREDITS.txt",
+      "maps/Cindercoil/Makkon_License.txt",
+      "maps/Cindercoil/README.md",
+      "maps/Cindercoil/layout.svg",
+      "maps/Cindercoil/texture-sources.json",
+      "maps/ClassicDE/README.md",
+      "maps/ClassicDE/de_aztec_rebuilt/CC0-1.0.txt",
+      "maps/ClassicDE/de_aztec_rebuilt/LibreQuake-COPYING.txt",
+      "maps/ClassicDE/de_aztec_rebuilt/LibreQuake-CREDITS.txt",
+      "maps/ClassicDE/de_aztec_rebuilt/Makkon_License.txt",
+      "maps/ClassicDE/de_aztec_rebuilt/texture-sources.json",
+      "maps/ClassicDE/de_inferno_rebuilt/CC0-1.0.txt",
+      "maps/ClassicDE/de_inferno_rebuilt/LibreQuake-COPYING.txt",
+      "maps/ClassicDE/de_inferno_rebuilt/LibreQuake-CREDITS.txt",
+      "maps/ClassicDE/de_inferno_rebuilt/Makkon_License.txt",
+      "maps/ClassicDE/de_inferno_rebuilt/texture-sources.json",
+      "maps/ClassicDE/de_nuke_rebuilt/CC0-1.0.txt",
+      "maps/ClassicDE/de_nuke_rebuilt/LibreQuake-COPYING.txt",
+      "maps/ClassicDE/de_nuke_rebuilt/LibreQuake-CREDITS.txt",
+      "maps/ClassicDE/de_nuke_rebuilt/Makkon_License.txt",
+      "maps/ClassicDE/de_nuke_rebuilt/texture-sources.json",
+      "maps/ClassicDE/de_train_rebuilt/CC0-1.0.txt",
+      "maps/ClassicDE/de_train_rebuilt/LibreQuake-COPYING.txt",
+      "maps/ClassicDE/de_train_rebuilt/LibreQuake-CREDITS.txt",
+      "maps/ClassicDE/de_train_rebuilt/Makkon_License.txt",
+      "maps/ClassicDE/de_train_rebuilt/texture-sources.json",
+      "maps/DEMaterials/SOURCES.md",
+      "maps/DEMaterials/sources.json",
+      "maps/Dust2Rebuilt/CC0-1.0.txt",
+      "maps/Dust2Rebuilt/LibreQuake-COPYING.txt",
+      "maps/Dust2Rebuilt/LibreQuake-CREDITS.txt",
+      "maps/Dust2Rebuilt/Makkon_License.txt",
+      "maps/Dust2Rebuilt/README.md",
+      "maps/Dust2Rebuilt/texture-sources.json",
+      "maps/Frigate/LICENSE-geometry.txt",
+      "maps/Frigate/LibreQuake-COPYING.txt",
+      "maps/Frigate/LibreQuake-CREDITS.txt",
+      "maps/Frigate/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "maps/Frigate/Makkon_License.txt",
+      "maps/Frigate/texture-sources.json",
+      "maps/HiSlop/LibreQuake-COPYING.txt",
+      "maps/HiSlop/LibreQuake-CREDITS.txt",
+      "maps/HiSlop/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "maps/HiSlop/Makkon_License.txt",
+      "maps/HiSlop/texture-sources.json",
+      "maps/KOTH/LibreQuake-COPYING.txt",
+      "maps/KOTH/LibreQuake-CREDITS.txt",
+      "maps/KOTH/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "maps/KOTH/Makkon_License.txt",
+      "maps/LibreQuake-COPYING.txt",
+      "maps/LibreQuake-CREDITS.txt",
+      "maps/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "maps/Makkon/Makkon_License.txt",
+      "maps/Pressureworks/CC0-1.0.txt",
+      "maps/Pressureworks/LibreQuake-COPYING.txt",
+      "maps/Pressureworks/LibreQuake-CREDITS.txt",
+      "maps/Pressureworks/Makkon_License.txt",
+      "maps/Pressureworks/texture-sources.json",
+      "maps/Quake/COPYING-GPL-2.0.txt",
+      "maps/Quake/LibreQuake-COPYING.txt",
+      "maps/Quake/LibreQuake-CREDITS.txt",
+      "maps/Quake/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "maps/Quake/Makkon_License.txt",
+      "maps/Quake/sources/TEXTURE-SOURCES.json",
+      "maps/Quake/sources/original/gnu.txt",
+      "maps/Quake/texture-dictionary/LibreQuake-COPYING.txt",
+      "maps/Quake/texture-dictionary/LibreQuake-CREDITS.txt",
+      "maps/Quake/texture-dictionary/LibreQuake-README-IMPORTANT-LICENCE-INFO.txt",
+      "maps/Quake/texture-dictionary/Makkon_License.txt",
+      "maps/Quake/texture-dictionary/SOURCES.md",
+      "maps/README.txt",
+      "maps/VesperAbbey/CC0-1.0.txt",
+      "maps/VesperAbbey/LibreQuake-COPYING.txt",
+      "maps/VesperAbbey/LibreQuake-CREDITS.txt",
+      "maps/VesperAbbey/Makkon_License.txt",
+      "maps/VesperAbbey/texture-sources.json",
+      "maps/as_frigate.bsp",
+      "maps/as_hislop.bsp",
+      "maps/as_maplist.txt",
+      "maps/cc_basement.bsp",
+      "maps/cc_ghostquarter.bsp",
+      "maps/cc_hyperborea.bsp",
+      "maps/cc_maplist.txt",
+      "maps/cc_psychofuge.bsp",
+      "maps/ctf_confluence.bsp",
+      "maps/ctf_crownreach.bsp",
+      "maps/ctf_crucible.bsp",
+      "maps/ctf_deepvault.bsp",
+      "maps/ctf_maplist.txt",
+      "maps/ctf_skyfracture.bsp",
+      "maps/ctf_tideworks.bsp",
+      "maps/de_aztec_rebuilt.bsp",
+      "maps/de_dust2_rebuilt.bsp",
+      "maps/de_inferno_rebuilt.bsp",
+      "maps/de_maplist.txt",
+      "maps/de_nuke_rebuilt.bsp",
+      "maps/de_train_rebuilt.bsp",
+      "maps/dm_maplist.txt",
+      "maps/ft_maplist.txt",
+      "maps/if_maplist.txt",
+      "maps/ig_maplist.txt",
+      "maps/koth_alichar.bsp",
+      "maps/koth_hyperborea.bsp",
+      "maps/koth_maplist.txt",
+      "maps/koth_solstice.bsp",
+      "maps/koth_torture.bsp",
+      "maps/navigation/as_frigate.res",
+      "maps/navigation/as_hislop.res",
+      "maps/navigation/cc_basement.res",
+      "maps/navigation/cc_ghostquarter.res",
+      "maps/navigation/cc_hyperborea.res",
+      "maps/navigation/cc_psychofuge.res",
+      "maps/navigation/ctf_confluence.res",
+      "maps/navigation/ctf_crownreach.res",
+      "maps/navigation/ctf_crucible.res",
+      "maps/navigation/ctf_deepvault.res",
+      "maps/navigation/ctf_skyfracture.res",
+      "maps/navigation/ctf_tideworks.res",
+      "maps/navigation/de_aztec_rebuilt.res",
+      "maps/navigation/de_dust2_rebuilt.res",
+      "maps/navigation/de_inferno_rebuilt.res",
+      "maps/navigation/de_nuke_rebuilt.res",
+      "maps/navigation/de_train_rebuilt.res",
+      "maps/navigation/koth_alichar.res",
+      "maps/navigation/koth_hyperborea.res",
+      "maps/navigation/koth_solstice.res",
+      "maps/navigation/koth_torture.res",
+      "maps/navigation/qsrc_dm1.res",
+      "maps/navigation/qsrc_dm2.res",
+      "maps/navigation/qsrc_dm3.res",
+      "maps/navigation/qsrc_dm4.res",
+      "maps/navigation/qsrc_dm5.res",
+      "maps/navigation/qsrc_dm6.res",
+      "maps/navigation/qsrc_dm7.res",
+      "maps/navigation/tb_ashfall.res",
+      "maps/navigation/tb_cindercoil.res",
+      "maps/navigation/tf_pressureworks.res",
+      "maps/navigation/tf_vesper.res",
+      "maps/qsrc_dm1.bsp",
+      "maps/qsrc_dm2.bsp",
+      "maps/qsrc_dm3.bsp",
+      "maps/qsrc_dm4.bsp",
+      "maps/qsrc_dm5.bsp",
+      "maps/qsrc_dm6.bsp",
+      "maps/qsrc_dm7.bsp",
+      "maps/tb_ashfall.bsp",
+      "maps/tb_cindercoil.bsp",
+      "maps/tb_maplist.txt",
+      "maps/tdm_maplist.txt",
+      "maps/tf_maplist.txt",
+      "maps/tf_pressureworks.bsp",
+      "maps/tf_vesper.bsp",
+      "master/README.md",
+      "master/issue_token.py",
+      "master/server.py",
+      "master/static/dashboard.css",
+      "master/static/dashboard.js",
+      "master/static/index.html",
+      "server-build.json",
+      "server.cfg",
+      "start-server.sh",
+      "vrm/README.txt",
+      "vrm/SOURCES.json",
+      "vrm/base_female.vrm",
+      "vrm/base_male.vrm",
+      "vrm/hairsample_female.vrm",
+      "vrm/hairsample_male.vrm",
+      "vrm/sakurada_fumiriya.vrm",
+      "vrm/sample_d.vrm",
+      "vrm/sample_d_darkness.vrm",
+      "vrm/sample_e.vrm",
+      "vrm/sample_f.vrm",
+      "vrm/sample_g.vrm",
+      "vrm/sendagaya_shino.vrm"
+    ],
+    "engine": "4.7.2-stable",
+    "source_sha256": "e954996374cbd1cb5d72e0e3781cc537408e6ce73b010b12c6c2f308a820690a",
+    "platform_policy": "console-only-alerts-and-shell-v1",
+    "flags": {
+      "platform": "linuxbsd",
+      "target": "template_release",
+      "arch": "x86_64",
+      "production": "yes",
+      "optimize": "speed",
+      "lto": "none",
+      "use_static_cpp": "no",
+      "x11": "no",
+      "wayland": "no",
+      "vulkan": "no",
+      "opengl3": "no",
+      "openxr": "no",
+      "alsa": "no",
+      "pulseaudio": "no",
+      "dbus": "no",
+      "speechd": "no",
+      "fontconfig": "no",
+      "udev": "no",
+      "sdl": "no",
+      "touch": "no",
+      "accesskit": "no",
+      "modules_enabled_by_default": "no",
+      "module_gdscript_enabled": "yes",
+      "module_enet_enabled": "yes",
+      "module_multiplayer_enabled": "yes",
+      "module_godot_physics_3d_enabled": "yes",
+      "module_navigation_3d_enabled": "yes",
+      "module_regex_enabled": "yes",
+      "module_zip_enabled": "yes",
+      "module_mbedtls_enabled": "yes",
+      "disable_physics_2d": "yes",
+      "disable_navigation_2d": "yes",
+      "disable_overrides": "yes",
+      "disable_path_overrides": "yes"
+    },
+    "dependencies": "\tlinux-vdso.so.1 (0x00007f70033a6000)\n\tlibstdc++.so.6 => /lib64/libstdc++.so.6 (0x00007f6fff800000)\n\tlibm.so.6 => /lib64/libm.so.6 (0x00007f6fffae9000)\n\tlibgcc_s.so.1 => /lib64/libgcc_s.so.1 (0x00007f7003345000)\n\tlibc.so.6 => /lib64/libc.so.6 (0x00007f6fff607000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f70033a8000)\n\nGameplay extension:\n\tlinux-vdso.so.1 (0x00007f3f72866000)\n\tlibm.so.6 => /lib64/libm.so.6 (0x00007f3f72623000)\n\tlibc.so.6 => /lib64/libc.so.6 (0x00007f3f7242a000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f3f72868000)\n",
+    "required_abi": [
+      "CXXABI_1.3",
+      "CXXABI_1.3.7",
+      "CXXABI_1.3.9",
+      "GLIBCXX_3.4",
+      "GLIBCXX_3.4.11",
+      "GLIBCXX_3.4.14",
+      "GLIBCXX_3.4.17",
+      "GLIBCXX_3.4.22",
+      "GLIBCXX_3.4.29",
+      "GLIBCXX_3.4.30",
+      "GLIBC_2.11",
+      "GLIBC_2.14",
+      "GLIBC_2.17",
+      "GLIBC_2.2.5",
+      "GLIBC_2.25",
+      "GLIBC_2.27",
+      "GLIBC_2.28",
+      "GLIBC_2.29",
+      "GLIBC_2.3",
+      "GLIBC_2.3.4",
+      "GLIBC_2.33",
+      "GLIBC_2.34",
+      "GLIBC_2.4",
+      "GLIBC_2.7"
+    ],
+    "resources": [
+      ".godot/global_script_class_cache.cfg",
+      "addons/bsp_importer/bsp_reader.gd",
+      "addons/bsp_importer/collision_surface_info.gd",
+      "addons/bsp_importer/gsrc_wad_reader.gd",
+      "addons/fps_native/fps_native.gdextension",
+      "deathmatch/arena.gd",
+      "deathmatch/arena.tscn",
+      "deathmatch/art.gd",
+      "deathmatch/assets/base_manifest.json",
+      "deathmatch/assets/paths.gd",
+      "deathmatch/audio/announcer.gd",
+      "deathmatch/avatars/hit_body.gd",
+      "deathmatch/avatars/library.gd",
+      "deathmatch/avatars/models/manifest.json",
+      "deathmatch/avatars/network.gd",
+      "deathmatch/bot_ai/aim.gd",
+      "deathmatch/bot_ai/defusal.gd",
+      "deathmatch/bot_ai/map_triggers.gd",
+      "deathmatch/bot_ai/navigation.gd",
+      "deathmatch/bot_ai/objectives.gd",
+      "deathmatch/bot_ai/teamplay.gd",
+      "deathmatch/bot_ai/titanball.gd",
+      "deathmatch/bot_ai/tribes.gd",
+      "deathmatch/bot_ai/tribes_construction.gd",
+      "deathmatch/bot_ai/tribes_equipment.gd",
+      "deathmatch/bot_ai/tribes_offense.gd",
+      "deathmatch/bot_ai/tribes_routes.gd",
+      "deathmatch/bot_ai/tribes_tactics.gd",
+      "deathmatch/bots.gd",
+      "deathmatch/chainsaw.gd",
+      "deathmatch/counterstrike/action.gd",
+      "deathmatch/counterstrike/arsenal.gd",
+      "deathmatch/counterstrike/bomb_interaction.gd",
+      "deathmatch/counterstrike/combat.gd",
+      "deathmatch/counterstrike/grenades.gd",
+      "deathmatch/counterstrike/models.gd",
+      "deathmatch/counterstrike/penetration.gd",
+      "deathmatch/counterstrike/reload_motion.gd",
+      "deathmatch/counterstrike/reload_state.gd",
+      "deathmatch/demos/session.gd",
+      "deathmatch/dropped_weapons.gd",
+      "deathmatch/effects/combat.gd",
+      "deathmatch/effects/surface_marks.gd",
+      "deathmatch/experimental/combat.gd",
+      "deathmatch/experimental/weapon_rules.gd",
+      "deathmatch/fighter.gd",
+      "deathmatch/hit_detection.gd",
+      "deathmatch/jetpacks.gd",
+      "deathmatch/lag_compensation.gd",
+      "deathmatch/lighting/weapon_emission.gd",
+      "deathmatch/maps/brush.tscn",
+      "deathmatch/maps/bsp_extensions.gd",
+      "deathmatch/maps/colour_mips.gd",
+      "deathmatch/maps/contents.gd",
+      "deathmatch/maps/de_navigation.gd",
+      "deathmatch/maps/defusal.json",
+      "deathmatch/maps/defusal_tactics.json",
+      "deathmatch/maps/entity.gd",
+      "deathmatch/maps/glow_masks.gd",
+      "deathmatch/maps/import_policy.gd",
+      "deathmatch/maps/loader.gd",
+      "deathmatch/maps/manifest.json",
+      "deathmatch/maps/network.gd",
+      "deathmatch/maps/point.tscn",
+      "deathmatch/maps/previews.gd",
+      "deathmatch/maps/runtime.gd",
+      "deathmatch/maps/surface_assets.gd",
+      "deathmatch/maps/teleport_exit.gd",
+      "deathmatch/maps/trigger.tscn",
+      "deathmatch/maps/triggers.gd",
+      "deathmatch/maps/uploads.gd",
+      "deathmatch/melee.gd",
+      "deathmatch/modes/assault.gd",
+      "deathmatch/modes/defusal.gd",
+      "deathmatch/modes/defusal_maps.gd",
+      "deathmatch/modes/flag.gd",
+      "deathmatch/modes/fortress.gd",
+      "deathmatch/modes/fortress_fx.gd",
+      "deathmatch/modes/lobby.gd",
+      "deathmatch/modes/match.gd",
+      "deathmatch/modes/scoreboard_data.gd",
+      "deathmatch/modes/special.gd",
+      "deathmatch/modes/titanball.gd",
+      "deathmatch/modes/tribes.gd",
+      "deathmatch/modes/votes.gd",
+      "deathmatch/modes/vr_interactions.gd",
+      "deathmatch/movement/jetpack.gd",
+      "deathmatch/movement/prediction.gd",
+      "deathmatch/movement/quake.gd",
+      "deathmatch/movement/spawn_clearance.gd",
+      "deathmatch/movement/tribes.gd",
+      "deathmatch/movement/tribes_armour.gd",
+      "deathmatch/native/runtime.gd",
+      "deathmatch/network/asset_jobs.gd",
+      "deathmatch/network/bandwidth.gd",
+      "deathmatch/network/codec.gd",
+      "deathmatch/network/diagnostics.gd",
+      "deathmatch/network/disk_worker.gd",
+      "deathmatch/network/fire_delivery.gd",
+      "deathmatch/network/input_delivery.gd",
+      "deathmatch/network/interpolation.gd",
+      "deathmatch/network/loading.gd",
+      "deathmatch/network/replication.gd",
+      "deathmatch/network/snapshot_codec.gd",
+      "deathmatch/profile.gd",
+      "deathmatch/projectile_targets.gd",
+      "deathmatch/release_features.gd",
+      "deathmatch/server/bot_population.gd",
+      "deathmatch/server/config.gd",
+      "deathmatch/server/discovery.gd",
+      "deathmatch/server/discovery_protocol.gd",
+      "deathmatch/server/engine_errors.gd",
+      "deathmatch/server/geometry.gd",
+      "deathmatch/server/log.gd",
+      "deathmatch/server/rcon.gd",
+      "deathmatch/server/test_master.gd",
+      "deathmatch/settings/bindings.gd",
+      "deathmatch/settings/preferences.gd",
+      "deathmatch/tribes/arsenal.gd",
+      "deathmatch/tribes/ballistics.gd",
+      "deathmatch/tribes/base_assets.gd",
+      "deathmatch/tribes/combat.gd",
+      "deathmatch/tribes/ctf.gd",
+      "deathmatch/tribes/deployable_data.gd",
+      "deathmatch/tribes/deployable_model.gd",
+      "deathmatch/tribes/deployable_view.gd",
+      "deathmatch/tribes/deployables.gd",
+      "deathmatch/tribes/equipment.gd",
+      "deathmatch/tribes/equipment_health.gd",
+      "deathmatch/tribes/field_view.gd",
+      "deathmatch/tribes/fixed_defence_data.gd",
+      "deathmatch/tribes/fixed_defence_model.gd",
+      "deathmatch/tribes/fixed_defences.gd",
+      "deathmatch/tribes/models.gd",
+      "deathmatch/tribes/recovery.gd",
+      "deathmatch/tribes/stations.gd",
+      "deathmatch/tribes/targeting.gd",
+      "deathmatch/tribes/turret_view.gd",
+      "deathmatch/vehicles/ba2/cockpit.gd",
+      "deathmatch/vehicles/ba2/cockpit_hud.gd",
+      "deathmatch/vehicles/ba2/cockpit_room.gd",
+      "deathmatch/vehicles/ba2/controller.gd",
+      "deathmatch/vehicles/ba2/footsteps.gd",
+      "deathmatch/vehicles/ba2/map.gd",
+      "deathmatch/vehicles/ba2/pilot_controls.gd",
+      "deathmatch/vehicles/ba2/route.gd",
+      "deathmatch/vehicles/ba2/tuning.gd",
+      "deathmatch/vehicles/ba2/view.gd",
+      "deathmatch/voice/external.gd",
+      "deathmatch/voice/relay.gd",
+      "deathmatch/vr/body_basis.gd",
+      "deathmatch/vr/hip_mount.gd",
+      "deathmatch/vr/poses.gd",
+      "deathmatch/vr/preferences.gd",
+      "deathmatch/vr/pump_hold.gd",
+      "deathmatch/vr/room_scale.gd",
+      "deathmatch/vr/throw_ballistics.gd",
+      "deathmatch/vr/weapon_clearance.gd",
+      "deathmatch/vr/weapon_kick.gd",
+      "deathmatch/weapons.gd",
+      "project.godot"
+    ],
+    "resource_sha256": {
+      "project.godot": "b68fe3dff11d994cc381a8e8fe6a7dfbaa19e44eaaafc449562564a09379a918",
+      "deathmatch/arena.tscn": "b2a97242d0e1973c9186582822b4c434a0745dc2676c5fa47af9b09417cbe260",
+      "addons/fps_native/fps_native.gdextension": "1c832f36fed1c76bf2dba91c7eb39d81432742e880071222adf9558b55d4a271",
+      "deathmatch/assets/base_manifest.json": "49e0b09c9a3c86f9a212de2224f8c8414e1c85e19dee6e974f91a12095491ebf",
+      "deathmatch/avatars/models/manifest.json": "6aaf62fbf0cbbee6782b4b0914c5bef38a1c76a4e78f4e0d245e3008212586cf",
+      "deathmatch/maps/manifest.json": "b56fdb7dcd04d58662764958a2ed96c1330046c04f0fb64770c0c362c2fa91a4",
+      "addons/bsp_importer/collision_surface_info.gd": "17d8bb44c966259791e49e5363a74a0383404ec2224e727f4cf20148956c7999",
+      "addons/bsp_importer/gsrc_wad_reader.gd": "dc9e667b13d6c491359bfeb726e36e1cfc6357ea3cd61824c5c00270397a41a5",
+      "deathmatch/voice/relay.gd": "38b6384fc039c63e2cff0cd69c486683aaba3a619859863f0025cb582964ff01",
+      "deathmatch/voice/external.gd": "3b96647e9ffb2322e6a99a74b403cfdb685e43a0db7644a4d94fbcf373b16ebb",
+      "deathmatch/arena.gd": "1011fefbd391107ce224aa0abef6cf2f87a5ae9d6f98de1d72e734a9e7ad132f",
+      "deathmatch/vr/weapon_clearance.gd": "6f65c9beed7f0abddb4650562933ddd6875d4dfed547298564855d9f949ea96e",
+      "deathmatch/hit_detection.gd": "6756ce60eca88f0cf3b3c643b3a017fde6c926d37387dfcc24d28f8068d539a4",
+      "deathmatch/avatars/hit_body.gd": "cd653272ff6d57b199158e38246ad79e37fc75701a492238c22e01e4c2a94fc6",
+      "deathmatch/maps/runtime.gd": "52ec0effc0b7743eb424c76f8f63f05b5a7d8428069246d3befd8a161e249152",
+      "deathmatch/vehicles/ba2/map.gd": "12cd12412e460af3a8afebb4585447f22f40f3603205086ec4fca20568a7990f",
+      "deathmatch/tribes/stations.gd": "33017bc708420d429278e1c5546ef18708b7851344ef15f099afd2130e1ce3b6",
+      "deathmatch/art.gd": "da06152ea19db2f21bca397414716e8d56de295ad5a7cfc97f4a2687c8b0b656",
+      "deathmatch/counterstrike/models.gd": "7c6f519b95007263dff859568ee2c737312beea3bb1956e8a98f5f613e3fc6d0",
+      "deathmatch/counterstrike/reload_state.gd": "e47527870c5f809f568e92270cd5284b011b46138cd029d35a6f8037c444e178",
+      "deathmatch/vr/hip_mount.gd": "dd0225a9f64513ecb5a5b861b4f3d05fe0a5854497594dcd31519f3cfe087323",
+      "deathmatch/counterstrike/reload_motion.gd": "d1f3efde4ef4763f1838f9e81584c86cf968c33a2b032374954e688d1d92d7c0",
+      "deathmatch/counterstrike/action.gd": "e96ec78695730be23dccba52706a0512c7b21aaf9396b80ca8dbbacd8107c14d",
+      "deathmatch/tribes/models.gd": "57b10c294d7cb5cb4a9a6827bed2d7f0594527760f54279995be274061734091",
+      "deathmatch/tribes/arsenal.gd": "827d0ea8454b793a0f76913781ca6d613c45ad07cc80bb9bf822682844a9f01f",
+      "deathmatch/movement/tribes_armour.gd": "32ef7de2b61603e50e3c78e43386cf445de1f43c7ac83aae2fffe6730c996274",
+      "deathmatch/tribes/deployable_data.gd": "a4fba9e8164b11c5b984b4af0223a8df22c0a2490f8cfe2ab8ae9c1ab616de4c",
+      "deathmatch/experimental/weapon_rules.gd": "85c9de95d8dfa86f1a0dca4854db9181fe510414e34c775b6a18552432ca1e9e",
+      "deathmatch/counterstrike/arsenal.gd": "02316833e15d2b96d1fc67dc12fde1ccd78af9789028a64444591a817b2510ad",
+      "deathmatch/weapons.gd": "9f3b2eec84d896c437b92d3da6378c1d297b0f88b626fb209841700ac802f3cd",
+      "deathmatch/tribes/equipment.gd": "27501253e7dc20003e4181f8e2226b2f059f81d35eaaaa947849b41c0d646126",
+      "deathmatch/tribes/base_assets.gd": "5b04aaa359917a1ab05bc2c9bdebecd09a96eed583f3de7f837e4a9d03fe9b79",
+      "deathmatch/tribes/equipment_health.gd": "99aa3dff1d0746ecf92f4636669c83550a8655fcf20edb82ee8b258e3203f8c9",
+      "deathmatch/tribes/fixed_defences.gd": "5f4556de2caf95f7e161eb8ecef083061eae2e4d7d209d95d8254f9b5eb5724c",
+      "deathmatch/tribes/fixed_defence_model.gd": "b80c86d7144c738bd9d4218625e68b709cc010bf905d5d7363b9b31a7817fbfa",
+      "deathmatch/tribes/fixed_defence_data.gd": "0f75e1447f2a6eb9e7d7f89c1b364c5a220021e77e78172a27d80eeaf3b44c12",
+      "deathmatch/maps/entity.gd": "991f91c63cb3d30706e0a10f97d1171f6826f14c54220fa8113e0e732206e885",
+      "deathmatch/counterstrike/penetration.gd": "78070443723b7a8598e88832a4ad4628303903cd2c211d57b9a92a03c4c9f82e",
+      "deathmatch/maps/triggers.gd": "48628a1255287d40f337198449d77e6574d499c19786e8f0931304e407c8e299",
+      "deathmatch/maps/loader.gd": "6226dcd86ac2bf17c1e71f34b8578699c8a5e4c11dce48ea645b1a5a2547100b",
+      "deathmatch/maps/bsp_extensions.gd": "13b50fd6d20569a8da12c466e7de0c0a97149eff027951df57bb9e266ebd94b5",
+      "deathmatch/network/disk_worker.gd": "6df09bbf954f8366ae61f1a14e99a90424bf87990eddd1b7a33f688c95a7e1c9",
+      "deathmatch/modes/defusal_maps.gd": "1e004cf1eb2a258b3b755b2fe8f482abddc7b4b1ab2286ee7110c50d39253636",
+      "deathmatch/assets/paths.gd": "7f28e94b8f15c06b9cbc823428a20a06dd42138d9cd05f4f97666db069c03475",
+      "deathmatch/maps/defusal.json": "e59ad94f672a0406c963464ecfb3c73a503cf3513bffec2aca500e809ef91ebd",
+      "deathmatch/maps/surface_assets.gd": "08d0c046b76e4c1f41f20e4b75071d24db8df1f6078b0e42e5ae6e0dc987dd3e",
+      "deathmatch/maps/colour_mips.gd": "7eea93902491c19aa9de6d1de2b20480467065b6a1ecfe9ff3f84fa98cc527f6",
+      "deathmatch/maps/glow_masks.gd": "63c11620b472fc3429616dea5063fa813c54ecdca62e1ac1928193fda751384a",
+      "deathmatch/maps/trigger.tscn": "5834551c795d93854bdff3e5ba3705efa307e3fae3cb87ee4f6596eb81537c11",
+      "deathmatch/maps/brush.tscn": "98fe4e7b7575c62eeaeb4b21c44912c3c29743ba6aa0ab3705c31266cc24f452",
+      "deathmatch/maps/point.tscn": "f7fc13bb6439f3ca1f44327498039147b12afbcd89d395896c8f9aab9d3d07dc",
+      "deathmatch/server/geometry.gd": "ea0647272578fbc71c044bcb17760e5a5fcd91c2ffb9df5ed00a25900e0579a7",
+      "addons/bsp_importer/bsp_reader.gd": "afe3b5ac18701e033c9b14be928965cf93388d535578191f200b7365e72e040c",
+      "deathmatch/maps/import_policy.gd": "4946e2de0ac56eb4d3fd2209a5b3760eabf1a76eb6f00e5e2839948b3a43873a",
+      "deathmatch/release_features.gd": "724386a53aafa55a852172a6b03dcd8ee9076761075906005a3cfdaadadc5561",
+      "deathmatch/maps/contents.gd": "77daf5e84e4c7bdebacb04a21585ba4d240419629f059094d3d919439bb1355c",
+      "deathmatch/maps/teleport_exit.gd": "81159eb1dbfc8a64ab076a520aa07b25cf18c28714301f45636396429c3cf3a4",
+      "deathmatch/effects/surface_marks.gd": "8045be29ad8f636e1b9a2b2c09890dbca8a341e9c77f12f144a20dbe6e65bbfe",
+      "deathmatch/modes/fortress_fx.gd": "c74f7a07545c60e3ef1d3f46021eee9829e87b4f13444bccfb139da3fd9d2b06",
+      "deathmatch/lighting/weapon_emission.gd": "86ccb74727ee2d5b955772cc21c7c3775a355dccf0dc14cc58f33b70919a5ef6",
+      "deathmatch/modes/scoreboard_data.gd": "5057cd2d8e8371f9e898b9fd5b310d8dd880c8c6e349c5cba140e222cb54703e",
+      "deathmatch/vr/preferences.gd": "ecf177c61cf3e0d076c2aea9dc6817c03962325aa096857de97a3d6d881b803f",
+      "deathmatch/profile.gd": "25f63aeeb4d221e674aac501e340809c5bf9c7ea5459cda75db5d7a3bc0666d2",
+      "deathmatch/movement/spawn_clearance.gd": "cb5c3a59f9104224308ccc8efed9e5f8a2354440b4dd1b070b956b0ea94a0d9e",
+      "deathmatch/server/config.gd": "3d15afcf5192e01467cea6ff254ed7ec8a8471dee658c0c828c5fc41ea5138f5",
+      "deathmatch/server/discovery_protocol.gd": "ef523bf02e0c81c713833f1361c3b1aa86dea8238bd443455e36a768efe173d4",
+      "deathmatch/bots.gd": "9e9d6e200cf0706fedd8cfb80519f6894bf0e8df417891defb0904efe8573647",
+      "deathmatch/bot_ai/aim.gd": "8f9226b9066fa989a7efbb463cfadbe989c9861c499e771b940736aa9f299fe4",
+      "deathmatch/maps/de_navigation.gd": "b24ffe3d6a9307c44ad935b35c470470fde8d40872d50030cbe032948311838d",
+      "deathmatch/bot_ai/titanball.gd": "2b9aa815bb76fc4ed7f19fab827e4578de507c65903c2c1b5ba9f30b042d745a",
+      "deathmatch/bot_ai/tribes.gd": "ded645409c53b05228b78b7b3bb69698dff6f96a96503fc0a1ed1582418f2ad8",
+      "deathmatch/bot_ai/tribes_tactics.gd": "8b8e4a374761a5dcc4923f137b2ae3d4a87e3df87ef71108352ad902407ef100",
+      "deathmatch/bot_ai/tribes_offense.gd": "baddc5d47f0fd96b400bfbef41c4a2299b1157b6441db527830f6ce6be88bb5f",
+      "deathmatch/tribes/ballistics.gd": "0ad50e940e5bf0991b6b44d4409953a55d170510c3bf9e2b45e1e10a4dbb97f5",
+      "deathmatch/bot_ai/tribes_construction.gd": "26c948bb73a345218fe1fad9a24fde28d9fc8e7458339126348b9984dcb26c5e",
+      "deathmatch/bot_ai/tribes_equipment.gd": "b41d4629b8be1cd501638142b393271c39634d4a4a46846b278e90f3c232b633",
+      "deathmatch/bot_ai/tribes_routes.gd": "d4e850a14b135b9d67226ca54ece7ae370866dc64463e15b1580b63214d9064e",
+      "deathmatch/bot_ai/map_triggers.gd": "90db0b84921b48e885ce4e987e132a7018f2625711f9dab73f3f718630a02258",
+      "deathmatch/bot_ai/navigation.gd": "649c5aa5c2a1f5b434f336c40a11bdc6e28b3f9d14edddb1f0bee7da072805c5",
+      "deathmatch/bot_ai/objectives.gd": "4d42b29e2d4b92d3b51332ea887366f4cba8a103faa663585abd4d19b52d8d5a",
+      "deathmatch/bot_ai/teamplay.gd": "3479c4c25b369028d5c252e9cd7eb2ee6f98a1ebf18778d2da45abc1db2eda21",
+      "deathmatch/server/discovery.gd": "85747458bfc49d05bd6efff086f6e468de0256976ec6da953d7f33abeb927656",
+      "deathmatch/server/test_master.gd": "d0a35c05a7d0029c182773f94d0ddc7e7b74da102f72e9a3cc797627322627d2",
+      "deathmatch/server/rcon.gd": "5e4a4171468504d43a58e72f7024b5e49bd064979fc5e00968c7f1d465db964e",
+      "deathmatch/effects/combat.gd": "9142c7fefedfda7e2cf6451a2c2de2cababfe56e6a5a5ce91a202a5a2f5e29c7",
+      "deathmatch/maps/previews.gd": "9b4066cc29ee39fb54d8b24a2134c9899c650f88a0d11acaee302f07b5aa4851",
+      "deathmatch/avatars/library.gd": "702fd5554b12aed87e5cec9934af09edbf79802be985c9502483a2798f2d72b8",
+      "deathmatch/maps/uploads.gd": "bceb42bae81bd9dc4510389e3ce5536e2fade9fc5190c5a7b4493846b33d2c83",
+      "deathmatch/network/asset_jobs.gd": "4964c3935e814fd952d6201f06090c3e9387de3a89f969db10f31331b0d5eb17",
+      "deathmatch/maps/network.gd": "0e550a7651eb545014fb006122076e191c2e367c4b4f43a91b8aebe11bcdc8e4",
+      "deathmatch/avatars/network.gd": "04db6f814d63f919ea5ef77d3f355a510f778db91267dc5ff20ae183b8ebf16c",
+      "deathmatch/network/loading.gd": "0c0600bb5f80dccf09523b68a9efe58f3e963a0e38584d12d9cc26060618a33c",
+      "deathmatch/audio/announcer.gd": "498f32814e226f58424f75e9db70b830a043e1fc74e99e3b93439c4ff3dad488",
+      "deathmatch/modes/votes.gd": "364b49e3a2e1aeb0b7797494e8aa082bc47a7fd4bc68e7bfb846838801d23dcc",
+      "deathmatch/server/log.gd": "0f9d3c40bbbb3078e0f98a2f480c3a73ec5d7707c3c73d2b43f7cc4d97e01f98",
+      "deathmatch/server/engine_errors.gd": "08c9f76ed60ccf9fadf493923c8b53e3d053289460b3b94471fee1fae6e1a96e",
+      "deathmatch/modes/lobby.gd": "bfe24aa7d590d80eebf4e32040418a6945c0575b3fec19606854de1c5a638fe8",
+      "deathmatch/demos/session.gd": "a79ced7251b01026d28078e9ed78d12e164c8aae448570a4c267b662d2c8ead3",
+      "deathmatch/movement/jetpack.gd": "0dc3943651434c58b4d99afdd9fb1e0a7117daa111ef0485bd57581456b56b71",
+      "deathmatch/movement/tribes.gd": "3648f070dac6ed9b1fc958847c9d29dedbdf11aab92628d2a34de7261d958706",
+      "deathmatch/modes/tribes.gd": "1d693f7c9b329309ddafc5faac7b22240f8e7d441abc9f4420d85db83ae7fb13",
+      "deathmatch/tribes/field_view.gd": "9d07ef34e7ad4ec61bd0f0a9146596261fed893cdc36df12ac01d8301fba1623",
+      "deathmatch/tribes/turret_view.gd": "479d66f1b418432791a1e277e02bb208ee716664481e7abeb76e82bd636ff72b",
+      "deathmatch/tribes/deployable_view.gd": "77a46c4ecbb4a05c013d4727499e085170b809c48bb7e05089ad2c4ac02b41b4",
+      "deathmatch/tribes/deployables.gd": "919d63b3968c62a373410a4fdc6857b7bcb4443a9835b983d8f60890e63b1a8c",
+      "deathmatch/tribes/deployable_model.gd": "90dc331887571ec1f771e4a3891faac817d842906bf081fdc51c66ccf3c93aca",
+      "deathmatch/tribes/recovery.gd": "39d30b5301f81cf64c12826e122adea10ad04b64743b201f2a4c093a18f2011f",
+      "deathmatch/tribes/targeting.gd": "78ec9ce418a861a5dee90a6bff1d56309c12620bcbd64ccd40304d0b464292be",
+      "deathmatch/tribes/combat.gd": "5250f7031d7c839da131bc93c507275f5796827240b4f4e41ecb00fdca66fb23",
+      "deathmatch/vr/throw_ballistics.gd": "b1f5654ecedbdb634acf545351ea8d3d3c14f6cb8b8741a2ac198e435ed0947e",
+      "deathmatch/modes/defusal.gd": "03aec060384e7fefc4cfa415367648d5f40b4a17d4763b799af288624fa4479d",
+      "deathmatch/counterstrike/grenades.gd": "cc3e1d2c15e7e2a4c72cb5d6c470e40dae2fac5f7b5c5de1170e230721c78653",
+      "deathmatch/bot_ai/defusal.gd": "56bd73fe28787d19af022947dd21bb984d98252271ebf33b22fbe779e3c7d31d",
+      "deathmatch/maps/defusal_tactics.json": "d2046b8135afe2ce8d26b74e38cfe7a85e416391bdbcf09a8bebcfb2d3843ca4",
+      "deathmatch/counterstrike/bomb_interaction.gd": "4c23a88d56edd25a52391f9fd16c282ae6fde9e5fe82fc77b9434fee953aaca5",
+      "deathmatch/settings/bindings.gd": "465ac9c125232d58d1fcc4398f8d6d5c01651f7df20e626d731db9f5b4c551fd",
+      "deathmatch/network/codec.gd": "075b28c8e587339f0fce58c36d69a1ca767bb6f0a4f3255780e4900e2efbcdc3",
+      "deathmatch/native/runtime.gd": "c9fec8020dcd3f216468a06a40280d4d27a96405d57f6a0c5e9163eb01e30ab0",
+      "deathmatch/network/fire_delivery.gd": "9e6df535ec197a68b16713277883ac0d69817b19cb6606f7450c7fb7c5705971",
+      "deathmatch/network/input_delivery.gd": "bd9848b1b89de53f77dd991e1d541f7dc457bb15b939544da6fc737f38f25c4f",
+      "deathmatch/network/interpolation.gd": "847d134270613770ff4dadd08cd86af3449618b79bf5f9b39c33ba7a62299baa",
+      "deathmatch/network/replication.gd": "223189ed3ee3444d24c9be5d3beac2aba6d1133af94f4137e6c94103b8ea33a9",
+      "deathmatch/network/snapshot_codec.gd": "9ab2e7c1104640ed6a9dfbdb6c3bfb0c8e5f63b06f40a83fc560d0d0ebdd5f96",
+      "deathmatch/network/bandwidth.gd": "bc23f4a65ac96a1cc4abe6c624271a08f827365b5a8fc0406d85f4c748aeb32d",
+      "deathmatch/settings/preferences.gd": "63b39c4ba513549b10323f0bb9243c5a5ab6594bceeb3e12fdfec09de2b2ee12",
+      "deathmatch/modes/match.gd": "f1fe957384becf2bdd6b541b22ded911cea7b94c8244344b059999a22956b4a9",
+      "deathmatch/modes/flag.gd": "1665c1bc94f058c836357ed20010d3831bb6a9c96794e55fb8eb20560d03b3a2",
+      "deathmatch/modes/assault.gd": "a3e6c3a968476f7c3c89ea588e2863d48de00fb2da0b03929dc2fe180d7e1b57",
+      "deathmatch/modes/special.gd": "f2af948fa7c72b3f28671f8c3a03cbed2047b1ef4c7c9cbdf0cc472692bde7dd",
+      "deathmatch/modes/titanball.gd": "61d91246e1ced00e9a48d5d174af7a4fa5428aa919229927fb4aeebfb6f4ea39",
+      "deathmatch/modes/fortress.gd": "2eac48c1c4b4505edd0a07d6dc3fda89083e89c250bc2121c0d6226107873274",
+      "deathmatch/modes/vr_interactions.gd": "a213b1f26a66f3cdf559df20f3196f1683dc5549b014c9f9728ae2d0ebe8e85d",
+      "deathmatch/vr/poses.gd": "2a22c8cdbcb2c4af0a2f90f363a61f7c1b924283940a62b7b2fccf5876691942",
+      "deathmatch/vr/pump_hold.gd": "51fa48e1e28a7ddedca11926cfefd2d2152556aab16c5af1a6d13cd31cf21472",
+      "deathmatch/vr/room_scale.gd": "b7a2705e5f3edf9162bd66809a22c714f604be134ba2ffdbeb95e4aff119c899",
+      "deathmatch/vehicles/ba2/controller.gd": "cae51c21e425b885d2fe537bc9b925bc62632cb10f57fe2067918d3c2132b308",
+      "deathmatch/vehicles/ba2/cockpit.gd": "f117285da0a3e3d670ba8a9ed92e908abc11a57c1bf1ebef3726d97cb233a070",
+      "deathmatch/vehicles/ba2/tuning.gd": "a08d187a2ff845c5c20cd39e4e745e424b7745f945147c1fb2f6db256ef3fdf1",
+      "deathmatch/vehicles/ba2/cockpit_hud.gd": "171c0a2c1f3cd7de7510b11ccab70189e2f5f5564aecdf59d186e50fd365fc65",
+      "deathmatch/vehicles/ba2/cockpit_room.gd": "d536bbdee54d083a9d514fd809eafa66cd17fe8f332e71cefec64d61df662ffe",
+      "deathmatch/vehicles/ba2/pilot_controls.gd": "7fa339e237ec64d9421390a2f210b5b724ff2e11687a05c391784b9f611d9fbb",
+      "deathmatch/vehicles/ba2/view.gd": "25f715c5a05e5f4a05d3be81d67620856583301486172cb422ea85bcf1317eba",
+      "deathmatch/vehicles/ba2/footsteps.gd": "38713c9c9537ab6fbca543a000851b62bd2a26ec282109f182c1fb232f4cf868",
+      "deathmatch/vehicles/ba2/route.gd": "7285d9794d9911aef490f45617b81bf4d598f467edc776332d33df756abf52ad",
+      "deathmatch/tribes/ctf.gd": "a853f3d85af52aa5237c2593c7bba677300a500c7db89c1a9806d522085bbfe0",
+      "deathmatch/network/diagnostics.gd": "defc3c7b2f718c530c7a5d91c4855002369f0f09f043e1a41305460ef8900ced",
+      "deathmatch/lag_compensation.gd": "75b233b3eb956edd32e11e92f66da6b2154944d548adfdd84a4b89caf6a29981",
+      "deathmatch/vr/weapon_kick.gd": "edaa3ae3bd110b5bdcb6aada138fb0e882c6658517263c1b75d8061404ba8b08",
+      "deathmatch/server/bot_population.gd": "bf0fb4aabea08a0f83ad966e047f1d91cbfcb51606b8dcc0f67a3c6d2b3e492d",
+      "deathmatch/chainsaw.gd": "9815072d0cd24783911652c044f2f0208646eccf0e6315445ec2a306fb470491",
+      "deathmatch/dropped_weapons.gd": "ee218c3f9a298addc2caee2b9f1f6f41ec7a7f77c7064652550f942664f4a5c5",
+      "deathmatch/jetpacks.gd": "4a99a7372f869993ccb93f38c75b1e4adb0c519a08e548a8fc510add16871bbe",
+      "deathmatch/melee.gd": "6140d415388e81d994ca1d209e2f6ae29f5463355f1511d482521d61144c4fd8",
+      "deathmatch/projectile_targets.gd": "202f26bbffaa5436183a3ce690b2cf299712794d8b19a41301520e30021aa01a",
+      "deathmatch/fighter.gd": "f0e77bd511f1669848a4045d668b179360f2a3bcfd5e90c2294da8a51b45c983",
+      "deathmatch/vr/body_basis.gd": "c61c6ed46f8cb041a40df215a9c2e34ac2d148bbd7dcf08088fd6a9f1355e3df",
+      "deathmatch/movement/prediction.gd": "0c52f228341a76c715c31b5917feea492c2ab58ec73a9ce25fd4a08c12a02faf",
+      "deathmatch/movement/quake.gd": "a669d996f98880f674e770d47e15738a8322b07810bc61e6177813a367bb4dae",
+      "deathmatch/experimental/combat.gd": "c675befadb8791aebaca1b864b4f8c21e2e5a3cb93106ecb299f0e1f70c13b1d",
+      "deathmatch/counterstrike/combat.gd": "25373a8993f3a2f808f27d384f58ce68b250960000e28f95647dd11769cabb2e",
+      ".godot/global_script_class_cache.cfg": "9b578fe8a0a6176e6549cddba97f128b79ecc5ef879eca8b1f6bd2e85a28240a"
+    },
+    "executable_sha256": "e4c933b200d1006de2785454b63971faceff6766ce5564d3bf07932a1f2cf63b",
+    "pack_sha256": "b2d14e8538bbec65c588be2d8faed9ea435ccf469e24136d8caf903d83358d00",
+    "native_sha256": "6e5f2cbc08e9acb2414f26fbfa774abff0516a7cae412f02e88772248e5a3ee5"
+  },
+  "binary_audits": {
+    "android_program_headers": "\nElf file type is DYN (Shared object file)\nEntry point 0x0\nThere are 9 program headers, starting at offset 64\n\nProgram Headers:\n  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align\n  PHDR           0x000040 0x0000000000000040 0x0000000000000040 0x0001f8 0x0001f8 R   0x8\n  LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x0cc0b0 0x0cc0b0 R E 0x4000\n  LOAD           0x0cc0b0 0x00000000000d00b0 0x00000000000d00b0 0x006900 0x006f50 RW  0x4000\n  LOAD           0x0d29b0 0x00000000000da9b0 0x00000000000da9b0 0x000190 0x005a90 RW  0x4000\n  DYNAMIC        0x0d1370 0x00000000000d5370 0x00000000000d5370 0x0001b0 0x0001b0 RW  0x8\n  GNU_RELRO      0x0cc0b0 0x00000000000d00b0 0x00000000000d00b0 0x006900 0x006f50 R   0x1\n  GNU_EH_FRAME   0x038514 0x0000000000038514 0x0000000000038514 0x00361c 0x00361c R   0x4\n  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0\n  NOTE           0x000238 0x0000000000000238 0x0000000000000238 0x0000bc 0x0000bc R   0x4\n\n Section to Segment mapping:\n  Segment Sections...\n   00     \n   01     .note.android.ident .note.gnu.build-id .dynsym .gnu.version .gnu.version_r .gnu.hash .dynstr .rela.dyn .rela.plt .gcc_except_table .rodata .eh_frame_hdr .eh_frame .text __lcxx_override .plt \n   02     .data.rel.ro .fini_array .init_array .dynamic .got .got.plt .relro_padding \n   03     .data .bss \n   04     .dynamic \n   05     .data.rel.ro .fini_array .init_array .dynamic .got .got.plt .relro_padding \n   06     .eh_frame_hdr \n   07     \n   08     .note.android.ident .note.gnu.build-id \n",
+    "windows_imports": [
+      "DLL Name: KERNEL32.dll",
+      "DLL Name: msvcrt.dll"
+    ]
+  },
+  "source_sha256": {
+    "deathmatch/network/codec.gd": "075b28c8e587339f0fce58c36d69a1ca767bb6f0a4f3255780e4900e2efbcdc3",
+    "deathmatch/lag_compensation.gd": "75b233b3eb956edd32e11e92f66da6b2154944d548adfdd84a4b89caf6a29981",
+    "deathmatch/arena.gd": "1011fefbd391107ce224aa0abef6cf2f87a5ae9d6f98de1d72e734a9e7ad132f",
+    "deathmatch/experimental/combat.gd": "c675befadb8791aebaca1b864b4f8c21e2e5a3cb93106ecb299f0e1f70c13b1d",
+    "deathmatch/counterstrike/penetration.gd": "78070443723b7a8598e88832a4ad4628303903cd2c211d57b9a92a03c4c9f82e",
+    "deathmatch/native/runtime.gd": "c9fec8020dcd3f216468a06a40280d4d27a96405d57f6a0c5e9163eb01e30ab0",
+    "deathmatch/tests/native_codec.gd": "5bff858ca40af7b8267b1bd82fe389c5c53bcb021cfe97050264b9fa6b9b2bbe",
+    "deathmatch/tests/native_rewind.gd": "9f57bbe2e4acdec9e35ed4eb2b26f5085633a6da0cbf2c4e31e6fb396de2d6f9",
+    "deathmatch/tests/native_shot_history.gd": "f5510a748ba2e668ddb1f0c830f8b6216460a53ef1f40a518e9ca65ebb5f9acc",
+    "tools/native_study/validate_network_rewind.py": "3573a685a2e7c6c1a42f3dc3caee0f0dda32e77e3904c29f664d473b7f2e1d3c",
+    "tools/native_study/remaining_network.gd": "bf7ff1058a2e2f6362addb7c6d68e452f6f3142f0e0b23579628c1b8f97cc251",
+    "addons/fps_native/CMakeLists.txt": "f544df2b67ebf0a180b27641157fe33be57cb7b3e072ae9c4e01b22d3d8ee5aa",
+    "addons/fps_native/SConstruct": "e3f3d753d9f6b73942f229ea60b465174b40bd7f34c9bba7c68e815104d20b50",
+    "addons/fps_native/src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+    "addons/fps_native/src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+    "addons/fps_native/src/poses.cpp": "595f1cf057640179fe313e57c8302cc27ca9cfd3dd8d4b8b615ef64e30d0ec2a",
+    "addons/fps_native/src/poses.h": "b940948b6800d3eea99c893511736726e5e82da766f38cf8857c784522144664",
+    "addons/fps_native/src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+    "addons/fps_native/src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+    "addons/fps_native/src/register.cpp": "a9e76ba4040e574466413cbe5f3bba10869c70755c99402dac30278b78273c7a",
+    "addons/fps_native/src/register_server.cpp": "f8a2aa3aa92fbec5d801817e7dbb3e1e8c773f404d85818032a22063769daeb4"
+  },
+  "logs": {
+    "combat-fallback.log": {
+      "sha256": "0902abaf31dcfd43428968ef21a8c7caa74a5db521832a62c3f6e6b1b5545714",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "combat.log": {
+      "sha256": "0902abaf31dcfd43428968ef21a8c7caa74a5db521832a62c3f6e6b1b5545714",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "cs16_accuracy.log": {
+      "sha256": "ee4f2aacfefb28b7a06c25fcd135e3a84f6a48ccd7acee33e883815789fc22d8",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "cs16_penetration-fallback.log": {
+      "sha256": "d379832008836270ecf0c65534a38fecbb67f5cdeca21e0c623ddec1999e83c5",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "cs16_penetration.log": {
+      "sha256": "d379832008836270ecf0c65534a38fecbb67f5cdeca21e0c623ddec1999e83c5",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "de_cover.log": {
+      "sha256": "75e1a24e6f052b3f5bd71cb0cb7613fa0c279a0ad3ea7bf1268a2af1bf835208",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "fortress.log": {
+      "sha256": "05be47d681c605381a4e2df1d5ff333e0ee59c867a23036d2643eba32d048c67",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "hit_detection.log": {
+      "sha256": "6e0a17a7cc3cc535d098cee482ca7711d72aaac8fc84840cafdd6b0c03107559",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "lag_reliability-fallback.log": {
+      "sha256": "68a3978583c62f64a343a9ccc1051788641767388e17699a542560a06ba3df10",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "lag_reliability.log": {
+      "sha256": "68a3978583c62f64a343a9ccc1051788641767388e17699a542560a06ba3df10",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "live-network.log": {
+      "sha256": "06787f20265d3532b3120918e1cbde383f572491853cf6dd26ec4292fda32b1a",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "mixed-reference-clients.log": {
+      "sha256": "236fc260ab5577eaf9825eb565e1539c4aa05ec6438cb3f1c5115192c6a34a34",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "mixed-reference-server.log": {
+      "sha256": "07538e967c440f5248c3795ee67a6c1037c44388424d32eb7c20fdce151aad4b",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details).",
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "native-a.log": {
+      "sha256": "1be87aedd2117b43bf0d8c9f1506bb47642e5c1610d7b0907c929cb5229b3c58",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "native-b.log": {
+      "sha256": "389840a911326a063f3e0bc70c9bcade763de966ecc88deeae1361c9a409ec63",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "native_acceleration.log": {
+      "sha256": "cd3ac7a8f726c3ffffc9675923d9d6fd0ba52aebf8614ff4707a7b6ea0004eca",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "native_codec.log": {
+      "sha256": "fdc584b0e832427f8efbc6017362b6fd09321bfcd5f0342b73fe03491046c4b3",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "native_network_packing.log": {
+      "sha256": "b83f0b18031debccacc0908750dfcf97cd72e29fb141765ee72bfdee42693019",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "native_rewind.log": {
+      "sha256": "dca3d357b7209f5b475151419758d0a6f1d9926d3300cb51269fd2939f46d857",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "native_shot_history.log": {
+      "sha256": "5456bcdb928d4443aa2af0ba8f40baac6227e00a62ce80c92427f57a5500bc7b",
+      "diagnostics": [
+        "WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "ERROR: 5 resources still in use at exit (run with --verbose for details)."
+      ]
+    },
+    "projectile_ordering.log": {
+      "sha256": "11943c5eb74e6f7d627351dcff14379e1648a444713ecc5f310c150c04781a33",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "projectile_targets.log": {
+      "sha256": "517db8c3aa1c7a3c17cfe9281651555907005d676d59a4ed5a253a8a249e5d92",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "reference-a.log": {
+      "sha256": "e4b547d32642b5b3c58f30fe740768b4ccea5c93a38cf2b142db898dafd12b3b",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "reference-b.log": {
+      "sha256": "1d6b5c1573d9095d2aa761efe3d189bbfd0355e3b2f2da2808086d39be4c3961",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "replication_protocol-fallback.log": {
+      "sha256": "123d35b87e577feb55d3636c5dd74c950c01f5faa2374cc28cae8228756f3320",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "replication_protocol.log": {
+      "sha256": "0e50a5d6bc0691b60d04450d64ba3ca81e3582b34e3d6e0df71b24440a25b33d",
+      "diagnostics": [
+        "WARNING: 1 ObjectDB instance was leaked at exit (run with `--verbose` for details)."
+      ]
+    },
+    "server-codec.log": {
+      "sha256": "810c08c5b866f2dff1fce160d46b3c42583df5a00b229f02ec386d7ba140e40f",
+      "diagnostics": []
+    },
+    "server-smoke.log": {
+      "sha256": "463e3ff5121e9e2225b21ff1b7adeee8b34fce680d7baec045b613d206c80ec9",
+      "diagnostics": []
+    }
+  },
+  "validation": {
+    "python_compile": true,
+    "git_diff_check": true,
+    "source_receipts_current": true,
+    "snapshot_counts_and_bytes_unchanged": true
+  }
+}

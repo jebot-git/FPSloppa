@@ -1,6 +1,7 @@
 extends SceneTree
 const Contact=preload("res://deathmatch/counterstrike/bomb_interaction.gd")
 const Poses=preload("res://deathmatch/vr/poses.gd")
+const Fixture=preload("res://deathmatch/tests/fixture.gd")
 var g
 var de
 var checks:=0
@@ -55,6 +56,21 @@ func run():
 		pose=Poses.neutral();pose.left_handed=left
 		var carried:=Contact.carried(pose)
 		check(carried.origin.z<-.1 and carried.origin.y>1.1 and carried.basis.z.normalized().dot(Vector3.FORWARD)>.99 and is_equal_approx(carried.basis.get_scale().x,Contact.CARRIED_SCALE),"Chest bomb is centered, forward and outward for "+("left" if left else "right")+" handed carrier")
+	Fixture.setup(g)
+	var home:=Fixture.point()
+	Fixture.box(g,home+Vector3(0,2,-1),Vector3(4,4,.2))
+	Fixture.box(g,home+Vector3(6,.5,0),Vector3(3,1,3))
+	Fixture.box(g,home+Vector3(10,1,0),Vector3(.16,.15,.16))
+	await physics_frame;await physics_frame
+	de.site_bounds=[AABB(home+Vector3(-5,-1,-5),Vector3(20,8,10))];de.site_volumes=[]
+	s.xr={};s.vr_device=false;g.fighters[1].position=home
+	for height in [1.0,1.5,1.51,1.9]:
+		var hit:={"position":home+Vector3(0,height,-.9),"normal":Vector3.BACK}
+		check(de.surface_mount(1,hit,Vector3.UP).is_empty()==(height>1.5),"Wall plant height is capped at 1.5m above standable ground: "+str(height))
+	g.fighters[1].position=home+Vector3.UP*.5
+	check(de.surface_mount(1,{"position":home+Vector3(0,1.8,-.9),"normal":Vector3.BACK},Vector3.UP).is_empty(),"Jumping cannot raise the bomb plant limit")
+	check(not de.plant_ground(home+Vector3(6,2.5,0),Vector3.BACK).is_empty(),"A standable raised platform is the nearest ground below")
+	check(de.plant_ground(home+Vector3(10,2.4,0),Vector3.UP).is_empty(),"Narrow decoration cannot count as standable ground")
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/defusal/surfaces.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "))
 	print("DEFUSAL_SURFACE_RESULT ",JSON.stringify(result));g.disconnect_game();g.free();quit(0 if failures.is_empty() else 1)

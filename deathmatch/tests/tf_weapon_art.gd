@@ -25,7 +25,7 @@ func run() -> void:
 		game.armory.select(rule);s.tf_class="sniper";s.weapon=9;game.desired_weapon=9;game._process(.02);remote.set_weapon(9)
 		check(game.viewmodel.has_meta("sniper") and remote.gun.has_meta("sniper"),rule+" TF sniper uses replacement locally and remotely")
 		s.tf_class="heavy";game._process(.02);remote.set_weapon(9)
-		check(game.viewmodel.has_meta("sniper")== (rule=="ut99") and remote.gun.has_meta("sniper")== (rule=="ut99"),rule+" class switch restores profile-specific slot 9")
+		check(game.viewmodel.has_meta("sniper")== (game.armory.effective()=="ut99") and remote.gun.has_meta("sniper")== (game.armory.effective()=="ut99"),rule+" class switch restores profile-specific slot 9")
 	s.weapon=7;game.desired_weapon=7
 	remote.free()
 	game.armory.select("quake");s.tf_class="pyro"

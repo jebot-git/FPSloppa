@@ -6,7 +6,11 @@ or Train from the supported BSP29 reconstructions. See [Dust2 notes](../maps/Dus
 and [the four additional maps](../maps/ClassicDE/README.md) for fidelity limits.
 The [cover, decoration and interaction audit](DE-MAP-FIDELITY.md) records
 remaining differences and the implementation path for original doors and wall penetration.
-Matching clients and server require **`fpsloppa-52-defuse-snip`**.
+Locally supplied CS 1.6 BSP30 maps can also be prepared using the
+[CS map converter](../tools/cs16_map_converter/README.md). Converted maps carry
+their validated DE objectives and texture palettes in the BSP, including through
+automatic map downloads. Matching updated clients and server require
+**`fpsloppa-65-local-shot-origin`**; this integration is newer than release 0.19v.
 
 ```cfg
 set sv_gametype "de"
@@ -17,7 +21,9 @@ set sv_de_bombtime "45"
 set sv_de_winlimit "16"
 ```
 
-Timers are in seconds. Preparation accepts 5–60, live rounds 30–600, and the
+Host/Practice exposes **DE BUY COUNTDOWN** in server options (default 15 seconds).
+It controls preparation from the opening round onward; dedicated servers use
+`sv_de_prepare`. Timers are in seconds. Preparation accepts 5–60, live rounds 30–600, and the
 bomb fuse 10–90. The win limit accepts 1–30. Add `de` to `sv_gametypes` when
 allowing mode votes. DE's map/loadout selectors are restricted automatically;
 normal arena rotations and the default server mode stay as configured.
@@ -58,6 +64,10 @@ Both players and bots retain at most one primary and one pistol across purchases
 pickups and surviving round transitions. Surplus guns inherited from older
 sessions are dropped at the next round start, keeping the equipped gun first.
 Replacement drops share the global 64-gun pool cap.
+Death drops also contain only the gun's loaded rounds (including its chamber),
+never the previous owner's reserve pool or a magazine already removed from it.
+Empty guns stay empty. Outside DE, dropped weapons give their standard weapon
+pickup ammunition amount regardless of how much the previous owner carried.
 If the bomb carrier dies, the bomb drops at the body with its arming progress
 cleared. Another living terrorist can recover it with **Use** or a tracked-hand
 grip in VR. Recovery attaches it to the chest slot without putting it in the hand;
@@ -139,7 +149,9 @@ actual keycap bounds with a 5 mm fingertip radius. Withdraw the finger before
 pressing again; brushing sideways or squeezing a controller trigger cannot type.
 Once armed, there are five seconds to press the
 **back of the bomb** against a floor, crate, or wall within A or B. The whole
-backing must fit on one solid surface within reach. It attaches with the keypad
+backing must fit on one solid surface within reach. The bomb center must be at
+most 1.5 m above the nearest standable ground below it, with room for a standing
+defender; jumping and narrow decorative ledges cannot raise that limit. It attaches with the keypad
 facing outward; there are no stands or fixed planting sockets. Releasing grip
 returns the bomb to the chest and restores the gun. **Press Use while holding
 the bomb to drop it explicitly.** Recovery equips the chest slot. The server
@@ -149,6 +161,13 @@ collision, including left-handed controls.
 All five DE maps identify A/B using wall and floor markings. No floating letters
 or guide text mark a plant point. The bomb also has no floating instruction text.
 Its physical keypad/display and valid-surface outline remain available.
+
+Crouching within 0.9 m of a ground-planted bomb lowers a living CT's viewpoint
+to about 48 cm and uses the prone body pose. The assist applies only to low,
+upward-facing keypads with a clear path; it releases beyond 1.1 m, when standing,
+or when the round ends. In VR the whole tracking origin lowers smoothly, keeping
+hands and visible fingertip contacts aligned. Torso/leg trackers temporarily yield
+to the prone animation so the crouched real-world body cannot obstruct the keypad.
 
 A CT can touch the displayed eight-digit sequence to defuse. A purchased kit
 attaches tweezers to the gun-hand side of the chest. Grab them with that hand's

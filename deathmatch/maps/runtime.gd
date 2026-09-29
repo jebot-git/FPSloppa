@@ -242,7 +242,7 @@ func add_pickup(e: Dictionary, origin: Vector3) -> void:
 		elif item_kind=="ammo":amount=([50,40,10,12] if int(e.get("spawnflags",0))&1 else [25,20,5,6])[item]
 	elif game.armory.effective()=="ut99":
 		if item_kind=="ammo":amount=[50,10,6,25][item]
-		if item_kind=="weapon":amount={1:25,3:20,4:10,5:100,6:6,7:60,8:10,9:8,10:15}.get(item,1)
+		if item_kind=="weapon":amount=game.armory.pickup_ammo(item)
 		if e.has("fpsloppa_amount"):amount=clampi(int(e.fpsloppa_amount),1,200)
 	# Quake pickups occupy a 32-unit box extending positive X/Y from origin.
 	var p := {"kind":item_kind,"item":item,"position":origin+Vector3(-.5,.05,-.5),"available":true,"respawn":0.0,"node":null}

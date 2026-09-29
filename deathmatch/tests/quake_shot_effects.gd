@@ -22,7 +22,7 @@ func run():
   effect.impacts("quake",start,ends,slot);effect._process(.01)
   check(effect.shapes.size()==(2 if slot==9 else ends.size()),"Visible rail trail or pellet streaks are emitted for Quake slot "+str(slot))
   if slot!=9:
-   check(effect.particles.any(func(p):return p.smoke),"Shotgun hits emit a visible impact puff: "+str(slot))
+   check(effect.particles.is_empty(),"Tracer endpoints alone do not claim a surface hit: "+str(slot))
    check(Art.muzzle(slot,"quake").z<-.83,"Shotgun effects start beyond the model front face: "+str(slot))
   check(effect.shapes.size()<=effect.MAX_SHAPES and effect.particles.size()<=effect.MAX_PARTICLES,"Effects remain within VR budgets: "+str(slot))
   var label:=Label3D.new();stage.add_child(label);label.text="SHOTGUN" if slot==2 else "SUPER SHOTGUN" if slot==3 else "RAILGUN";label.position=Vector3(-3,y-.6,.1);label.font_size=38;label.pixel_size=.004

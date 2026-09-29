@@ -1,12 +1,21 @@
 extends SceneTree
 const Fixture=preload("res://deathmatch/tests/fixture.gd")
+class LobbyStub extends RefCounted:
+ func active() -> bool:return false
+class DefusalStub extends RefCounted:
+ func gun_holstered(_id: int) -> bool:return false
+class ModeStub extends RefCounted:
+ var defusal=DefusalStub.new()
+class World extends Node3D:
+ var lobby=LobbyStub.new()
+ var match_mode=ModeStub.new()
 class Driver extends Node:
  var actor
  func _physics_process(delta:float):actor.simulate(Vector2(0,-1),0,false,delta)
 func _initialize():call_deferred("run")
 func run():
  Engine.max_fps=144
- var world=Node3D.new();root.add_child(world);Fixture.box(world,Vector3(0,-.5,0),Vector3(8,1,30))
+ var world=World.new();root.add_child(world);Fixture.box(world,Vector3(0,-.5,0),Vector3(8,1,30))
  var actor=preload("res://deathmatch/fighter.gd").new();actor.setup(1,"Motion",Color.WHITE);actor.quake_movement=true;world.add_child(actor);actor.position=Vector3(0,.01,10)
  var driver=Driver.new();driver.actor=actor;world.add_child(driver)
  actor.get_global_transform_interpolated()

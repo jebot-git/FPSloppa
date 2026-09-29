@@ -20,7 +20,10 @@ func _ready() -> void:
 			var cube:=BoxMesh.new();cube.size=Vector3.ONE;geometry=cube
 		mm.mesh=geometry;mm.instance_count=MAX_PARTICLES;mm.visible_instance_count=0;draw.multimesh=mm
 		var m:=StandardMaterial3D.new();m.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;m.vertex_color_use_as_albedo=true;m.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA
-		draw.material_override=m;draw.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		draw.material_override=m
+		if smoke:
+			var soft:=ShaderMaterial.new();soft.shader=preload("res://deathmatch/effects/soft_puff.gdshader");draw.material_override=soft
+		draw.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(draw);batches.append(mm)
 func particle(pos: Vector3,velocity: Vector3,color: Color,size: float,life: float,smoke: bool=false) -> void:
 	if particles.size()>=MAX_PARTICLES or emission_budget<=0:return
@@ -90,7 +93,6 @@ func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int,d
 			# Bullet pellets do not become room-length area lights. One shared
 			# muzzle key coalesces shotgun pellets and rapid-fire bursts.
 			illumination.emit(start,start,Emission.muzzle_recipe(rules,weapon,definition),hash(start))
-		for i in 2:particle(end-direction*.02,Vector3(randf_range(-1,1),randf_range(.2,1.5),randf_range(-1,1)),recipe.color,.025,.18)
 func projectile(rules: String,definition: Dictionary) -> Node3D:
 	var root:=Node3D.new();var kind: String=definition.kind;var visual_kind:=Emission.kind(rules,preload("res://deathmatch/tribes/arsenal.gd").NAMES.find(definition.get("name","")) if rules=="tribes" else -1,definition)
 	root.set_meta("kind",kind);root.set_meta("emission",Emission.projectile_recipe(visual_kind,definition));root.set_meta("visual_kind",visual_kind);root.set_meta("trail_time",0.0)

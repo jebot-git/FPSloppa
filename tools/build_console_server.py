@@ -7,6 +7,7 @@ import argparse
 import hashlib
 import json
 import os
+import os
 from pathlib import Path
 import re
 import shutil
@@ -15,7 +16,10 @@ import tarfile
 import tempfile
 import urllib.request
 
+from build_gameplay_native import require_build
 ROOT = Path(__file__).resolve().parents[1]
+NATIVE_LIBRARY = "addons/fps_native/bin/libfpsloppa_native.server.so"
+NATIVE_DESCRIPTOR = "addons/fps_native/fps_native.gdextension"
 VERSION = '4.7.2-stable'
 SOURCE_SHA256 = 'e954996374cbd1cb5d72e0e3781cc537408e6ce73b010b12c6c2f308a820690a'
 FLAGS = dict(platform='linuxbsd', target='template_release', arch='x86_64',
@@ -47,6 +51,7 @@ CLIENT_FILES.add('deathmatch/tribes/armour_visual.gd')
 
 
 def allowed(path):
+    if path == NATIVE_DESCRIPTOR: return True
     if path.startswith(CLIENT_PREFIXES) or path in CLIENT_FILES:
         return False
     if path.startswith('addons/') and path not in {'addons/bsp_importer/bsp_reader.gd', 'addons/bsp_importer/gsrc_wad_reader.gd', 'addons/bsp_importer/collision_surface_info.gd', 'addons/bsp_importer/clipper.gd'}:
@@ -60,6 +65,14 @@ def allowed(path):
     if path.startswith('deathmatch/audio/') and path != 'deathmatch/audio/announcer.gd':
         return False
     return Path(path).suffix in {'.gd', '.json', '.tscn', '.lmp'}
+
+
+def native_dependencies(library):
+    dependencies = subprocess.check_output(['ldd', str(library)], text=True)
+    if re.search(r'lib(?:X11|Xext|Xcursor|Xrandr|wayland|vulkan|GL\.|EGL|asound|pulse|openxr|SDL|speechd|fontconfig|freetype|harfbuzz|dbus|phonon|opus|ogg|vorbis|mp3)', dependencies, re.I):
+        raise RuntimeError('Client dependency in server gameplay extension:\n'+dependencies)
+    if 'not found' in dependencies:raise RuntimeError('Unresolved server extension dependency:\n'+dependencies)
+    return dependencies
 
 
 def runtime_audit(binary):
@@ -133,9 +146,11 @@ def compile_runtime(source, scons, jobs, native=False):
 
 def package(godot, template, dest):
     dependencies = runtime_audit(template)
+    native_library = require_build("linux", server=True)
+    dependencies += "\nGameplay extension:\n" + native_dependencies(native_library)
     dest.mkdir(parents=True, exist_ok=True)
     # A fresh directory prevents an earlier generic export leaving native plugins behind.
-    leftovers = list(dest.rglob('*.so')) + list(dest.rglob('*.gdextension'))
+    leftovers = [p for p in list(dest.rglob('*.so')) + list(dest.rglob('*.gdextension')) if p.relative_to(dest).as_posix() != NATIVE_LIBRARY]
     if leftovers:
         raise RuntimeError('Use an empty server output directory; stale client plugins: ' + str(leftovers))
     work = ROOT / 'test-results/console-server-package'
@@ -165,6 +180,9 @@ script=ExtResource("1")
 [node name="Map" type="Node3D" parent="."]
 ''')
     selected = {'project.godot': work / 'project.godot', 'deathmatch/arena.tscn': work / 'arena.tscn'}
+    descriptor = work / 'fps_native.gdextension'
+    descriptor.write_text('[configuration]\nentry_symbol="fpsloppa_native_init"\ncompatibility_minimum="4.7"\n\n[libraries]\nlinux.x86_64="res://'+NATIVE_LIBRARY+'"\n')
+    selected[NATIVE_DESCRIPTOR] = descriptor
     pending = ['deathmatch/arena.gd', 'deathmatch/voice/relay.gd', 'addons/bsp_importer/gsrc_wad_reader.gd', 'addons/bsp_importer/collision_surface_info.gd',
                'deathmatch/maps/manifest.json', 'deathmatch/avatars/models/manifest.json', 'deathmatch/assets/base_manifest.json']
     while pending:
@@ -202,6 +220,15 @@ script=ExtResource("1")
     subprocess.run([godot, '--headless', '--xr-mode', 'off', '--log-file', str(work/'packaging.log'), '--path', str(ROOT), '--script', 'res://deathmatch/server/package.gd', '--', str(manifest)], check=True)
     # Original BSP/VRM bytes are necessary for serving downloads, never rendered here.
     package_files = {'FPSloppaServer.x86_64', 'FPSloppaServer.pck', 'server.cfg', 'start-server.sh', 'server-build.json'}
+    target = dest / NATIVE_LIBRARY
+    target.parent.mkdir(parents=True, exist_ok=True)
+    staged = target.with_suffix('.new')
+    shutil.copy2(native_library, staged); os.replace(staged, target)
+    package_files.add(NATIVE_LIBRARY)
+    license_target = dest / 'licenses/fps_native/GODOT-CPP-LICENSE.md'
+    license_target.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(ROOT/'addons/fps_native/GODOT-CPP-LICENSE.md', license_target)
+    package_files.add(license_target.relative_to(dest).as_posix())
     assets = json.loads((ROOT / 'deathmatch/assets/base_manifest.json').read_text())['files']
     for row in assets:
         path = Path(row['path'])
@@ -229,7 +256,7 @@ script=ExtResource("1")
     abi=sorted(set(re.findall(r'\b(?:GLIBC|GLIBCXX|CXXABI)_[0-9.]+',symbols)))
     report = dict(package_files=sorted(package_files), engine=VERSION, source_sha256=SOURCE_SHA256, platform_policy='console-only-alerts-and-shell-v1', flags=FLAGS, dependencies=dependencies, required_abi=abi, resources=sorted(selected),
                   resource_sha256={path:hashlib.sha256(source.read_bytes()).hexdigest() for path,source in selected.items()},
-                  executable_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(), pack_sha256=hashlib.sha256(pack.read_bytes()).hexdigest())
+                  executable_sha256=hashlib.sha256(binary.read_bytes()).hexdigest(), pack_sha256=hashlib.sha256(pack.read_bytes()).hexdigest(), native_sha256=hashlib.sha256(native_library.read_bytes()).hexdigest())
     (dest / 'server-build.json').write_text(json.dumps(report, indent=2)+'\n')
     print('CONSOLE_SERVER_BUILT', binary, 'resources=', len(selected))
 
@@ -243,8 +270,11 @@ def verify_package(dest):
             raise RuntimeError('Server build receipt does not match '+str(file))
     for name in report['package_files']:
         if not (dest/name).is_file():raise RuntimeError('Missing server package file: '+name)
-    if list(dest.rglob('*.so')) or list(dest.rglob('*.gdextension')):
-        raise RuntimeError('Unexpected native plugins in server directory')
+    unexpected = [p for p in list(dest.rglob('*.so')) + list(dest.rglob('*.gdextension')) if p.relative_to(dest).as_posix() != NATIVE_LIBRARY]
+    if unexpected: raise RuntimeError('Unexpected native plugins in server directory: '+str(unexpected))
+    native_dependencies(dest/NATIVE_LIBRARY)
+    if hashlib.sha256((dest/NATIVE_LIBRARY).read_bytes()).hexdigest()!=report.get('native_sha256'):
+        raise RuntimeError('Server native library differs from receipt')
     if any(not allowed(p) for p in report['resources'] if p not in {'project.godot','.godot/global_script_class_cache.cfg'}):
         raise RuntimeError('Client resources found in server receipt')
     print('CONSOLE_SERVER_VERIFIED',binary)

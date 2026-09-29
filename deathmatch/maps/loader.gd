@@ -77,6 +77,7 @@ static func catalog() -> Array:
 		var hash:=FileAccess.get_sha256(path)
 		var entry:={"id":id,"path":path,"scene":Paths.folder("maps")+"cache/"+hash+".scn","sha256":hash,"size":preload("res://deathmatch/network/disk_worker.gd").size(path)}
 		entry.merge(ImportPolicy.read(Paths.folder("maps"),hash,filename,map_title(path,id)))
+		if not preload("res://deathmatch/modes/defusal_maps.gd").register_map(path,hash).is_empty():entry.modes=["de"]
 		result.append(entry)
 	return result
 static func map_title(path: String,fallback: String) -> String:
@@ -159,6 +160,10 @@ static func validate(path: String) -> String:
 		var offset := f.get_32()
 		var length := f.get_32()
 		if offset<0 or length<0 or offset+length>f.get_length(): return "BSP lump extends beyond file."
+	var extension_error: String=preload("res://deathmatch/maps/bsp_extensions.gd").directory(path).get("error","")
+	if not extension_error.is_empty():return extension_error
+	var extensions:=preload("res://deathmatch/maps/bsp_extensions.gd").directory(path)
+	if extensions.has("FSL_DE") and preload("res://deathmatch/modes/defusal_maps.gd").embedded(path).is_empty():return "Invalid embedded DE objectives."
 	return validate_geometry(path)
 static func read(path: String) -> Node3D:
 	if not validate(path).is_empty(): return null
@@ -270,6 +275,7 @@ static func import_custom(path: String,title_override: String="") -> Dictionary:
 	if path!=raw_path and DirAccess.copy_absolute(path,raw_path)!=OK:return {"error":"Could not copy BSP to maps folder."}
 	var metadata:=ImportPolicy.save(directory,checksum,path,title_override if not title_override.is_empty() else map_title(path,path.get_file().get_basename()))
 	if metadata.has("error"):return metadata
+	if not preload("res://deathmatch/modes/defusal_maps.gd").register_map(raw_path,checksum).is_empty():metadata.modes=["de"]
 	var entry:={"id":id,"path":raw_path,"scene":scene_path,"sha256":checksum,"size":preload("res://deathmatch/network/disk_worker.gd").size(raw_path)}
 	entry.merge(metadata);return entry
 
@@ -292,6 +298,10 @@ static func validate_geometry(path: String) -> String:
 	if sizes[2]<4: return "Missing embedded texture table."
 	var count:=bytes.decode_s32(offsets[2])
 	if count<0 or count>2048 or 4+count*4>sizes[2]: return "Invalid texture table."
+	var extension_directory:=preload("res://deathmatch/maps/bsp_extensions.gd").directory(path)
+	if extension_directory.has("FSL_PALETTES"):
+		var palettes:=preload("res://deathmatch/maps/bsp_extensions.gd").read(path,"FSL_PALETTES",8+2048*768)
+		if palettes.size()!=8+count*768 or palettes.decode_u32(0)!=1 or palettes.decode_u32(4)!=count:return "Invalid embedded texture palettes."
 	var pixels:=0
 	for i in range(count):
 		var rel:=bytes.decode_s32(offsets[2]+4+i*4)

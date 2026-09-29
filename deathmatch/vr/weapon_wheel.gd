@@ -117,4 +117,4 @@ func refresh_view() -> void:
 		viewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 
 func pulse(strength: float) -> void:
-	if not rig.simulated:rig.right.trigger_haptic_pulse("haptic",0,strength,.035,0)
+	rig.feedback(strength,.035,rig.left_handed)

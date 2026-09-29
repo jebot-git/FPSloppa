@@ -10,6 +10,8 @@ func check(ok: bool,label: String) -> void:
 	checks+=1
 	if not ok:failures.append(label);push_error(label)
 func run() -> void:
+	# This fixture explicitly exercises enabled secondary motion; production defaults off.
+	VRMSecondary.springs_enabled=true
 	if not OS.get_cmdline_user_args().is_empty():output=OS.get_cmdline_user_args()[0]
 	var world:=Node3D.new();root.add_child(world)
 	var camera:=Camera3D.new();world.add_child(camera);camera.position=Vector3(0,1.5,3);camera.current=true

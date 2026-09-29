@@ -7,11 +7,16 @@ var dead:=false:
 		if dead==value:return
 		dead=value;death_time=0.0;death_start.clear()
 		if dead and is_inside_tree():death_basis=get_parent().global_basis.orthonormalized()
-		if not dead:gait=preload("res://deathmatch/avatars/locomotion.gd").new();rotation=Vector3.ZERO
+		if not dead:gait=preload("res://deathmatch/avatars/locomotion.gd").new();rotation=Vector3.ZERO;pain=0.0
+var pain:=0.0
+var pain_direction:=Vector3.ZERO
 var death_time:=0.0
 var death_basis:=Basis.IDENTITY
 var death_start:Dictionary={}
 var arm_rest:Dictionary={}
+
+func hurt(direction: Vector3,strength: float) -> void:
+	pain=maxf(pain,clampf(strength/45.0,.25,1.0));pain_direction=global_basis.inverse()*direction.normalized()
 
 func animate_death(delta:float) -> void:
 	if is_inside_tree():global_basis=death_basis
@@ -76,6 +81,11 @@ func animate(delta: float,movement: Vector3,stance: String,height: float,grounde
 		segment(get_node(side+"Thigh"),hip,knee)
 		segment(get_node(side+"Shin"),knee,foot)
 		get_node(side+"Boot").position=foot+Vector3(0,-.01,-.05)
+
+	pain=move_toward(pain,0,delta*2.8)
+	if not is_instance_valid(get_parent()) or not get_parent().get("local_player"):
+		$Upper.rotation+=Vector3(pain*(.09+pain_direction.z*.24),0,-pain*pain_direction.x*.24)
+		$Upper/Head.rotation.x-=pain*.12
 
 func segment(mesh: Node3D,from: Vector3,to: Vector3) -> void:
 	mesh.position=(from+to)*.5

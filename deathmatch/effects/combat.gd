@@ -8,6 +8,11 @@ var stains: Array=[]
 var sounds: Dictionary={}
 var voices: Array=[]
 var last_hit: Dictionary={}
+var last_pain: Dictionary={}
+var surface_hits: Dictionary={}
+var surface_audio_at:=-10.0
+var confirmation: AudioStreamPlayer
+var confirmation_at:=-10.0
 var steps: Dictionary={}
 var enabled:=true
 var local_pickup: AudioStreamPlayer
@@ -22,22 +27,56 @@ func clear() -> void:
 	for child in get_children(): child.queue_free()
 	particles.clear();gibs.clear();stains.clear();voices.clear();steps.clear();last_hit.clear()
 	local_pickup=null;local_pain=null;local_pain_at=-10
+	confirmation=null;confirmation_at=-10;surface_audio_at=-10;surface_hits.clear();last_pain.clear()
 func hit(id: int,pos: Vector3,direction: Vector3,amount: int,dead: bool,gibbed: bool,seed_value: int) -> void:
 	if game.headless: return
 	if game.fighters.has(id):
 		var actor=game.fighters[id]
-		if actor.avatar and not actor.avatar_hash.is_empty(): actor.avatar.hurt(direction,amount)
-		elif actor.avatar:
-			actor.avatar.rotation.x=-.12
-			create_tween().tween_property(actor.avatar,"rotation:x",0.0,.2)
+		if actor.avatar and actor.avatar.has_method("hurt") and not dead:actor.avatar.hurt(direction,amount)
 		actor.gibbed=gibbed
 	if dead or game.clock-float(last_hit.get(id,-10))>.09:
 		last_hit[id]=game.clock
 		play("gib" if gibbed else "death" if dead else "flesh",pos)
-		if not dead and amount>10 and id!=multiplayer.get_unique_id(): play("pain",pos,-8)
-		if enabled: blood(pos,direction,seed_value)
+		if not dead and amount>0 and id!=multiplayer.get_unique_id() and game.clock-float(last_pain.get(id,-10))>.4:
+			last_pain[id]=game.clock;play("pain",pos,-6)
+		if enabled:
+			blood(pos,direction,seed_value)
+			var fx=game._weapon_visuals()
+			for i in 5:fx.particle(pos-direction.normalized()*.035,-direction.normalized()*.9+Vector3(randf_range(-.5,.5),randf_range(.1,.7),randf_range(-.5,.5)),Color(.65,.025,.04,.7),.10,.30,true)
 	if enabled and gibbed: burst_gibs(pos,direction,seed_value)
 	if id==multiplayer.get_unique_id() and game.is_vr(): game.xr_rig.feedback(.8,.12)
+func confirm_hit() -> void:
+	# Attacker-only cue, independent of distance. Pellet groups share one click.
+	if game.headless or game.quitting or game.clock-confirmation_at<.045:return
+	confirmation_at=game.clock
+	if not is_instance_valid(confirmation):
+		confirmation=AudioStreamPlayer.new();confirmation.bus="ArenaEffects";confirmation.volume_db=-14;confirmation.max_polyphony=3;add_child(confirmation)
+	confirmation.stream=game.spatial.choose("hit_confirm");confirmation.play()
+func world_hit(pos: Vector3,normal: Vector3,style: int) -> bool:
+	if game.headless or style<0 or style>=7 or not pos.is_finite() or not normal.is_finite() or normal.length_squared()<.9:return false
+	# Shotgun clusters and overlapping contact/blast messages coalesce locally.
+	var key:=Vector3i((pos*5).floor())
+	if game.clock-float(surface_hits.get(key,-10))<.07:return false
+	if surface_hits.size()>=128:surface_hits.erase(surface_hits.keys()[0])
+	surface_hits[key]=game.clock
+	var profile=preload("res://deathmatch/effects/surface_marks.gd")
+	var energy: bool=style==profile.Style.ENERGY
+	var scorch: bool=style==profile.Style.SCORCH
+	var bio: bool=style==profile.Style.BIO
+	if game.clock-surface_audio_at>=.035:
+		surface_audio_at=game.clock
+		play("impact_energy" if energy else "impact_heavy" if style in [profile.Style.DENT,profile.Style.SCORCH] else "flesh" if bio else "impact_dust",pos+normal*.04,-10)
+	if not enabled:return true
+	var fx=game._weapon_visuals();var at:=pos+normal*.035
+	var spark_color:=Color("7ccfff") if energy else Color("b0cf50") if bio else Color("ffd78a")
+	for i in (10 if energy else 6):
+		var velocity:=normal*randf_range(1.2,3.2)+Vector3(randf_range(-1,1),randf_range(-1,1),randf_range(-1,1))
+		fx.particle(at,velocity,spark_color,.035 if energy else .025,randf_range(.12,.28))
+		if i<2 and style in [profile.Style.BULLET,profile.Style.ENERGY,profile.Style.PIN]:fx.streak(PackedVector3Array([at,at+velocity*.065]),spark_color,.006,.12)
+	var smoke_color:=Color(.24,.22,.20,.65) if scorch else Color(.52,.48,.42,.60) if not bio else Color(.3,.48,.08,.65)
+	for i in (5 if scorch else 3):
+		fx.particle(at,normal*randf_range(.25,.7)+Vector3(randf_range(-.2,.2),.25,randf_range(-.2,.2)),smoke_color,.17 if scorch else .14,.55 if scorch else .35,true)
+	return true
 func pickup(kind: String) -> void:
 	if game.headless or game.quitting:return
 	if not is_instance_valid(local_pickup):
@@ -73,7 +112,7 @@ func blood(pos: Vector3,direction: Vector3,seed_value: int) -> void:
 	if particles.size()>=12: return
 	var p:=CPUParticles3D.new()
 	p.position=pos
-	p.amount=14
+	p.amount=20
 	p.lifetime=.55
 	p.one_shot=true
 	p.explosiveness=1
@@ -83,11 +122,11 @@ func blood(pos: Vector3,direction: Vector3,seed_value: int) -> void:
 	p.initial_velocity_max=3.8
 	p.gravity=Vector3(0,-12,0)
 	p.scale_amount_min=.012
-	p.scale_amount_max=.045
+	p.scale_amount_max=.06
 	var mesh:=BoxMesh.new()
 	mesh.size=Vector3.ONE
 	p.mesh=mesh
-	p.material_override=Art.material(Color("8d1118"))
+	p.material_override=Art.material(Color("ac1722"),0,.25)
 	add_child(p)
 	particles.append(p)
 	get_tree().create_timer(.8).timeout.connect(p.queue_free)

@@ -24,6 +24,15 @@ func run() -> void:
 		for i in count:
 			var angle: float=TAU*i/count;good=good and State.sector(Vector2(sin(angle),cos(angle)),count)==i
 		check(good,"Clockwise icon and input sectors agree for %d weapons"%count)
+	for slot in [3,5]:
+		var angle: float=TAU*slot/8
+		state.open(range(8),Vector2.ZERO);state.sample(Vector2(sin(angle),cos(angle)))
+		var drift:=Vector2(1 if slot==3 else -1,0)*.8
+		state.sample(drift)
+		check(state.hover==slot and state.sample(Vector2.ZERO)==slot,"Diagonal return cannot replace the highlighted purchase")
+	state.open(range(8),Vector2.ZERO);state.sample(Vector2.DOWN);state.sample(Vector2.RIGHT*.8)
+	state.sample(Vector2.RIGHT)
+	check(state.hover==2 and state.sample(Vector2.ZERO)==2,"Pushing back to the rim permits deliberate reselection")
 	state.open([2],Vector2.ZERO);state.sample(Vector2(NAN,0));check(not state.opened,"Invalid controller sample cancels safely")
 	var game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
 	preload("res://deathmatch/tests/fixture.gd").setup(game)

@@ -9,7 +9,7 @@ func run():
 	game.set_process(false);game.set_physics_process(false)
 	game.active=true;game.spawn_points=[Vector3(1000,10,1000)];game.spawn_yaws=[0.0]
 	game._add_player(1,"Human");game._add_player(-1,"Bot")
-	for rules in ["doom","quake","ut99"]:
+	for rules in ["doom","quake","ut99","cs16"]:
 		game.match_mode.kind="dm";game.armory.select(rules)
 		for victim in [1,-1]:
 			game._spawn(victim)
@@ -17,7 +17,7 @@ func run():
 			game._damage(victim,victim,10000,"TEST",true)
 			check(game.dropped_weapons.entries.is_empty(),rules+": starting weapon is not dropped for "+str(victim))
 			game._spawn(victim);state.owned.append(3);state.weapon=3;state.ammo=[13,17,19,23]
-			var ammo: int=state.ammo[game.armory.data(3).ammo]
+			var ammo: int=game.armory.pickup_ammo(3)
 			game._damage(victim,victim,10000,"TEST",true)
 			check(game.dropped_weapons.entries.size()==1,rules+": equipped acquired weapon drops on death for "+str(victim))
 			game._damage(victim,victim,10000,"TEST",true)
@@ -29,7 +29,7 @@ func run():
 			var other: int=-1 if victim==1 else 1
 			game._spawn(other);game.fighters[other].position=wire[0][1];game.players[other].ammo=[0,0,0,0]
 			game._collect(other)
-			check(game.players[other].owned.has(3) and game.players[other].ammo[game.armory.data(3).ammo]==ammo,"Living player collects exact weapon and carried ammo")
+			check(game.players[other].owned.has(3) and game.players[other].ammo[game.armory.data(3).ammo]==ammo,"Living player collects weapon with standard pickup ammo")
 			if rules=="ut99":check(not game.players[other].owned.has(9),"Dropped Shock Rifle does not grant a bundled sniper")
 			game._respawn_pickups();check(game.dropped_weapons.entries.is_empty(),"Consumed drop is removed without respawning")
 	game._spawn(1);game.players[1].owned.append(6);game.players[1].weapon=6

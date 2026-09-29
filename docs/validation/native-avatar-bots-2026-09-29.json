@@ -1,0 +1,2880 @@
+{
+  "date": "2026-09-29",
+  "timezone": "Europe/Prague",
+  "engine": "4.7.2-stable (fedora)",
+  "hardware": {
+    "cpu": "Intel Core i7-12700",
+    "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)"
+  },
+  "summary": {
+    "reference": {
+      "ai_ms_per_tick": 3.2269275000000004,
+      "steering_ms_per_tick": 1.0923266666666667,
+      "combat_ms_per_tick": 0.7099024999999999,
+      "perception_ms_per_tick": 0.40794416666666666,
+      "server_tick_mean_ms": 6.5495925,
+      "server_tick_p95_ms": [
+        9.809,
+        9.357
+      ],
+      "near_full": {
+        "pose_ms": 1.439359722222225,
+        "wall_mean_ms": 8.270554166666665,
+        "wall_p95_ms": [
+          10.089,
+          8.771
+        ]
+      },
+      "near_mixed": {
+        "pose_ms": 1.3849111111111099,
+        "wall_mean_ms": 7.84790833333334,
+        "wall_p95_ms": [
+          9.001,
+          8.887
+        ]
+      },
+      "xr_far": {
+        "pose_ms": 0.5771944444444442,
+        "wall_mean_ms": 6.623490277777775,
+        "wall_p95_ms": [
+          8.63,
+          8.813,
+          8.732,
+          8.801
+        ]
+      }
+    },
+    "native": {
+      "ai_ms_per_tick": 2.962114166666667,
+      "steering_ms_per_tick": 0.826865,
+      "combat_ms_per_tick": 0.6822766666666666,
+      "perception_ms_per_tick": 0.39053499999999997,
+      "server_tick_mean_ms": 6.34925333333333,
+      "server_tick_p95_ms": [
+        9.494,
+        9.211
+      ],
+      "near_full": {
+        "pose_ms": 1.004694444444443,
+        "wall_mean_ms": 7.4492166666666595,
+        "wall_p95_ms": [
+          8.075,
+          8.343
+        ]
+      },
+      "near_mixed": {
+        "pose_ms": 1.07711527777778,
+        "wall_mean_ms": 7.506094444444445,
+        "wall_p95_ms": [
+          8.377,
+          8.31
+        ]
+      },
+      "xr_far": {
+        "pose_ms": 0.5382333333333332,
+        "wall_mean_ms": 6.63779375,
+        "wall_p95_ms": [
+          8.283,
+          8.284,
+          8.479,
+          8.441
+        ]
+      }
+    }
+  },
+  "reductions_percent": {
+    "ai_ms_per_tick": 8.206361417581698,
+    "steering_ms_per_tick": 24.302406484018825,
+    "combat_ms_per_tick": 3.891496837006947,
+    "perception_ms_per_tick": 4.26753661142355,
+    "server_tick_mean_ms": 3.058803531161214,
+    "near_full_pose": 30.198516122620344,
+    "near_mixed_pose": 22.224952263281818,
+    "xr_far_pose": 6.750084219644814
+  },
+  "checks": {
+    "native_preparation": {
+      "NATIVE_PREPARATION": {
+        "checks": 225612,
+        "failures": []
+      }
+    },
+    "native_bots": {
+      "NATIVE_BOTS": {
+        "cases": 900,
+        "checks": 673858,
+        "failures": []
+      }
+    },
+    "native_acceleration": {
+      "NATIVE_ACCELERATION": {
+        "checks": 51311,
+        "failures": []
+      }
+    },
+    "bot_humanization": {
+      "BOT_HUMANIZATION": []
+    },
+    "bot_weapons": {
+      "BOT_WEAPONS": []
+    },
+    "bot_traversal": {
+      "BOT_TRAVERSAL": []
+    },
+    "bot_tactics": {
+      "BOT_TACTICS": []
+    },
+    "bot_underpass": {},
+    "bot_assault": {
+      "BOT_ASSAULT": []
+    },
+    "bot_teamplay": {
+      "BOT_TEAMPLAY": []
+    },
+    "bot_objective_roles": {
+      "BOT_ROLE": []
+    },
+    "bot_map_triggers": {
+      "BOT_MAP_TRIGGERS": []
+    },
+    "bot_map_transport": {
+      "BOT_MAP_TRANSPORT": true
+    },
+    "cs16_bots": {
+      "CS16_BOTS": []
+    },
+    "defusal_bots": {
+      "DEFUSAL_BOT": {
+        "checks": 11,
+        "failures": [],
+        "passed": true
+      }
+    },
+    "defusal_bot_behavior": {
+      "DE_BOT_BEHAVIOR": {
+        "checks": 27,
+        "failures": [],
+        "passed": true
+      }
+    },
+    "bot_movement": {
+      "BOT_MOVEMENT": []
+    },
+    "frame_smoothness": {
+      "FRAME_SMOOTHNESS": {
+        "checks": 2379,
+        "clip_slice_max_us": 298,
+        "failures": []
+      }
+    },
+    "death_animation": {
+      "DEATH_ANIMATION": {
+        "failures": [],
+        "models": [
+          {
+            "entry": "stand",
+            "head": "(0.257964, 0.205548, 0.597225)",
+            "live_head": "(0.000105, 1.459922, 0.008379)",
+            "model": "VRoid Sample D",
+            "settled_update_us": 26.3166666666667
+          },
+          {
+            "entry": "prone",
+            "head": "(0.257964, 0.205548, 0.597225)",
+            "live_head": "(0.000105, 0.423762, -0.143503)",
+            "model": "VRoid Sample D",
+            "settled_update_us": 32.15
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.257964, 0.205548, 0.597225)",
+            "live_head": "(-0.000174, 1.459922, 0.014452)",
+            "model": "VRoid Sample D",
+            "settled_update_us": 26.1833333333333
+          },
+          {
+            "entry": "stand",
+            "head": "(0.25073, 0.206062, 0.575378)",
+            "live_head": "(0.000258, 1.455292, 0.006591)",
+            "model": "VRoid Sample F",
+            "settled_update_us": 27.5833333333333
+          },
+          {
+            "entry": "prone",
+            "head": "(0.25073, 0.206062, 0.575378)",
+            "live_head": "(0.000258, 0.41824, -0.12243)",
+            "model": "VRoid Sample F",
+            "settled_update_us": 28.35
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.25073, 0.206062, 0.575378)",
+            "live_head": "(-0.000169, 1.455292, 0.013938)",
+            "model": "VRoid Sample F",
+            "settled_update_us": 28.475
+          },
+          {
+            "entry": "stand",
+            "head": "(0.249797, 0.206052, 0.572568)",
+            "live_head": "(0.000307, 1.464901, 0.00566)",
+            "model": "VRoid Sample G",
+            "settled_update_us": 30.4
+          },
+          {
+            "entry": "prone",
+            "head": "(0.249797, 0.206052, 0.572568)",
+            "live_head": "(0.000307, 0.417604, -0.120479)",
+            "model": "VRoid Sample G",
+            "settled_update_us": 27.9833333333333
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.249797, 0.206052, 0.572568)",
+            "live_head": "(-0.00017, 1.464901, 0.013948)",
+            "model": "VRoid Sample G",
+            "settled_update_us": 30.4166666666667
+          },
+          {
+            "entry": "stand",
+            "head": "(0.251151, 0.205875, 0.576113)",
+            "live_head": "(0.00049, 1.482109, 0.005088)",
+            "model": "VRoid Sample D - Darkness",
+            "settled_update_us": 27.275
+          },
+          {
+            "entry": "prone",
+            "head": "(0.251151, 0.205875, 0.576113)",
+            "live_head": "(0.00049, 0.418604, -0.12489)",
+            "model": "VRoid Sample D - Darkness",
+            "settled_update_us": 25.3833333333333
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.251151, 0.205875, 0.576113)",
+            "live_head": "(0.0, 1.482109, 0.014125)",
+            "model": "VRoid Sample D - Darkness",
+            "settled_update_us": 26.4416666666667
+          },
+          {
+            "entry": "stand",
+            "head": "(0.256759, 0.204968, 0.593573)",
+            "live_head": "(0.000131, 1.433609, 0.006973)",
+            "model": "VRoid Sample E (Vivi)",
+            "settled_update_us": 28.4083333333333
+          },
+          {
+            "entry": "prone",
+            "head": "(0.256759, 0.204968, 0.593573)",
+            "live_head": "(0.000131, 0.423489, -0.141609)",
+            "model": "VRoid Sample E (Vivi)",
+            "settled_update_us": 26.5583333333333
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.256759, 0.204968, 0.593573)",
+            "live_head": "(-0.000169, 1.433609, 0.015032)",
+            "model": "VRoid Sample E (Vivi)",
+            "settled_update_us": 27.9333333333333
+          },
+          {
+            "entry": "stand",
+            "head": "(0.259921, 0.205384, 0.602579)",
+            "live_head": "(0.000272, 1.476494, 0.008474)",
+            "model": "VRoid Base Female",
+            "settled_update_us": 15.725
+          },
+          {
+            "entry": "prone",
+            "head": "(0.259921, 0.205384, 0.602579)",
+            "live_head": "(0.000272, 0.425166, -0.149097)",
+            "model": "VRoid Base Female",
+            "settled_update_us": 16.1666666666667
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.259921, 0.205384, 0.602579)",
+            "live_head": "(-0.0, 1.476494, 0.014616)",
+            "model": "VRoid Base Female",
+            "settled_update_us": 16.75
+          },
+          {
+            "entry": "stand",
+            "head": "(0.263518, 0.216232, 0.613432)",
+            "live_head": "(0.000492, 1.495081, -0.006066)",
+            "model": "VRoid Base Male",
+            "settled_update_us": 15.5333333333333
+          },
+          {
+            "entry": "prone",
+            "head": "(0.263518, 0.216232, 0.613432)",
+            "live_head": "(0.000492, 0.417073, -0.166314)",
+            "model": "VRoid Base Male",
+            "settled_update_us": 14.175
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.263518, 0.216232, 0.613432)",
+            "live_head": "(-0.0, 1.495081, 0.003768)",
+            "model": "VRoid Base Male",
+            "settled_update_us": 14.5583333333333
+          },
+          {
+            "entry": "stand",
+            "head": "(0.253166, 0.206001, 0.582195)",
+            "live_head": "(0.000344, 1.449041, 0.008047)",
+            "model": "VRoid Hair Sample Female",
+            "settled_update_us": 22.5416666666667
+          },
+          {
+            "entry": "prone",
+            "head": "(0.253166, 0.206001, 0.582195)",
+            "live_head": "(0.000344, 0.419879, -0.128085)",
+            "model": "VRoid Hair Sample Female",
+            "settled_update_us": 21.425
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.253166, 0.206001, 0.582195)",
+            "live_head": "(-0.0, 1.449041, 0.013999)",
+            "model": "VRoid Hair Sample Female",
+            "settled_update_us": 23.45
+          },
+          {
+            "entry": "stand",
+            "head": "(0.259034, 0.216335, 0.5999)",
+            "live_head": "(0.000479, 1.454078, -0.005899)",
+            "model": "VRoid Hair Sample Male",
+            "settled_update_us": 16.8916666666667
+          },
+          {
+            "entry": "prone",
+            "head": "(0.259034, 0.216335, 0.5999)",
+            "live_head": "(0.000479, 0.413862, -0.152153)",
+            "model": "VRoid Hair Sample Male",
+            "settled_update_us": 17.45
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.259034, 0.216335, 0.5999)",
+            "live_head": "(-0.0, 1.454078, 0.003665)",
+            "model": "VRoid Hair Sample Male",
+            "settled_update_us": 17.75
+          },
+          {
+            "entry": "stand",
+            "head": "(0.250331, 0.216503, 0.574218)",
+            "live_head": "(0.000505, 1.488562, -0.002754)",
+            "model": "Sakurada Fumiriya",
+            "settled_update_us": 21.5916666666667
+          },
+          {
+            "entry": "prone",
+            "head": "(0.250331, 0.216503, 0.574218)",
+            "live_head": "(0.000505, 0.407783, -0.122415)",
+            "model": "Sakurada Fumiriya",
+            "settled_update_us": 22.1333333333333
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.250331, 0.216503, 0.574218)",
+            "live_head": "(-0.000182, 1.488562, 0.003497)",
+            "model": "Sakurada Fumiriya",
+            "settled_update_us": 22.1
+          },
+          {
+            "entry": "stand",
+            "head": "(0.256321, 0.205596, 0.592268)",
+            "live_head": "(0.000155, 1.463777, 0.007367)",
+            "model": "Sendagaya Shino",
+            "settled_update_us": 26.9666666666667
+          },
+          {
+            "entry": "prone",
+            "head": "(0.256321, 0.205596, 0.592268)",
+            "live_head": "(0.000155, 0.422576, -0.139381)",
+            "model": "Sendagaya Shino",
+            "settled_update_us": 28.4833333333333
+          },
+          {
+            "entry": "tracked",
+            "head": "(0.256321, 0.205596, 0.592268)",
+            "live_head": "(-0.000174, 1.463777, 0.014404)",
+            "model": "Sendagaya Shino",
+            "settled_update_us": 27.5833333333333
+          }
+        ]
+      }
+    },
+    "render_motion": {},
+    "bot_humanization-fallback": {
+      "BOT_HUMANIZATION": []
+    },
+    "bot_traversal-fallback": {
+      "BOT_TRAVERSAL": []
+    },
+    "defusal_bot_behavior-fallback": {
+      "DE_BOT_BEHAVIOR": {
+        "checks": 27,
+        "failures": [],
+        "passed": true
+      }
+    },
+    "frame_smoothness-fallback": {
+      "FRAME_SMOOTHNESS": {
+        "checks": 2379,
+        "clip_slice_max_us": 392,
+        "failures": []
+      }
+    }
+  },
+  "test_runs": 24,
+  "server_smoke": {
+    "host_ready": true,
+    "native_server_loaded": true,
+    "bot_fill": 4,
+    "bots_added": 4,
+    "seconds_after_ready": 12,
+    "alive": true,
+    "script_errors": false
+  },
+  "server_network": {
+    "checks": [
+      "Startup config populates four bots; TB protection needs no setting",
+      "Real human replaces one bot at capacity",
+      "Remote client observes moving dedicated bots",
+      "Three concurrent joins replace remaining bots without overflow",
+      "Human-only full server explicitly rejects fifth client",
+      "Bot refills after human departure",
+      "Map rotation accepted",
+      "Rotation restores connected humans and bot fill",
+      "Heavy policy persists through rotation",
+      "Population returns to four bots after all humans leave",
+      "Dedicated TF-class TB switch accepted",
+      "TB bots receive balanced teams and varied TF classes",
+      "TB bot teams split evenly",
+      "Live server and clients produce no engine/script errors"
+    ],
+    "passed": true
+  },
+  "builds": {
+    "linux": {
+      "target": "linux",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "2ee8ee18c171f62d298959a5ca1fe31536c07800cfb5bd654e404528aee7a78f",
+      "source_sha256": {
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "ae3bd549a9ebd1103a7b167cc4f43e73444f1e51ef6f72dee634bda91c9d9a32",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "b39cea588d11a550c95df5cc3d67e798ae402c0fca03b26914f96119ebe5c9b5",
+        "src/bots.h": "5660a3e0d00cef95a67ae9a80f28c76ad535b6775a6956cc2d2bd88d2b21fdc3",
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "3def55898e54e90aab73405f9d5c6873264fcd55b4d6c5043a1a27dad22c5af1",
+        "src/poses.h": "ec2624bd67543a07aef8985caef10df5648a6cfeee4b3ef34ca3e75bd5a18874",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65"
+      }
+    },
+    "linux-server": {
+      "target": "linux-server",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "21a24618ea802476908030d0bcfc9f19e4bd9f791c38487173105db6bd2d4aad",
+      "source_sha256": {
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "ae3bd549a9ebd1103a7b167cc4f43e73444f1e51ef6f72dee634bda91c9d9a32",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "b39cea588d11a550c95df5cc3d67e798ae402c0fca03b26914f96119ebe5c9b5",
+        "src/bots.h": "5660a3e0d00cef95a67ae9a80f28c76ad535b6775a6956cc2d2bd88d2b21fdc3",
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "3def55898e54e90aab73405f9d5c6873264fcd55b4d6c5043a1a27dad22c5af1",
+        "src/poses.h": "ec2624bd67543a07aef8985caef10df5648a6cfeee4b3ef34ca3e75bd5a18874",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65"
+      }
+    },
+    "windows": {
+      "target": "windows",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": true,
+      "sha256": "378a080b68b4d379267f9f90310cccb12d823fa460232cbd876eeee815a10eb2",
+      "source_sha256": {
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "ae3bd549a9ebd1103a7b167cc4f43e73444f1e51ef6f72dee634bda91c9d9a32",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "b39cea588d11a550c95df5cc3d67e798ae402c0fca03b26914f96119ebe5c9b5",
+        "src/bots.h": "5660a3e0d00cef95a67ae9a80f28c76ad535b6775a6956cc2d2bd88d2b21fdc3",
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "3def55898e54e90aab73405f9d5c6873264fcd55b4d6c5043a1a27dad22c5af1",
+        "src/poses.h": "ec2624bd67543a07aef8985caef10df5648a6cfeee4b3ef34ca3e75bd5a18874",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65"
+      }
+    },
+    "android": {
+      "target": "android",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "b10e071dc6af1e8e139a667aa38fa4ac7258c56ed8a8cfd157ffba41a0e61129",
+      "source_sha256": {
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "ae3bd549a9ebd1103a7b167cc4f43e73444f1e51ef6f72dee634bda91c9d9a32",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "b39cea588d11a550c95df5cc3d67e798ae402c0fca03b26914f96119ebe5c9b5",
+        "src/bots.h": "5660a3e0d00cef95a67ae9a80f28c76ad535b6775a6956cc2d2bd88d2b21fdc3",
+        "src/codec.cpp": "acc5ecec6be60c01c21fb461648f03d00ea8575a7a8c8312ea8ca127a556e613",
+        "src/codec.h": "f2212a3fc53970a12e0256f723238c32fcdc5ab4de616d999418f838b53d2e15",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "3def55898e54e90aab73405f9d5c6873264fcd55b4d6c5043a1a27dad22c5af1",
+        "src/poses.h": "ec2624bd67543a07aef8985caef10df5648a6cfeee4b3ef34ca3e75bd5a18874",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65"
+      }
+    }
+  },
+  "source_sha256": {
+    "deathmatch/avatars/pose.gd": "4768cb18a9f7bd9b7cb8df7344c7234caa3040f8e1c1119fe91f54ec51d29b1d",
+    "deathmatch/bots.gd": "9be4adb873e59edc2c29ec8875076370835d32bab89273e245388d2efb922cd4",
+    "deathmatch/native/runtime.gd": "2a4b55a109258d47f7353d464cb7ceea636ed5972fbb8206e22e0b39db7a7235",
+    "deathmatch/tests/native_bots.gd": "fe82609ea9d4c7d7ff2787a295d10066860b24f15416fa07f9758470874bc617",
+    "deathmatch/tests/native_preparation.gd": "e0d862ff4391d3dcfe91585e128c41e8798acfe8dec1d2aa458a81677ed5144d",
+    "tools/native_study/validate_avatar_bots.py": "04bcd3ce237bbea7492072d49e0fbf535e6b621710f761dbfc69c5819ef80e69"
+  },
+  "bot_runs": {
+    "reference-a": {
+      "bots": 16,
+      "map": "qsrc_dm1",
+      "pickups": 25,
+      "scopes_us_and_calls": {
+        "arena": {
+          "_collect": [
+            352437,
+            9223
+          ],
+          "_record_history": [
+            34099,
+            600
+          ],
+          "_server_tick": [
+            3960253,
+            600
+          ],
+          "_update_melee": [
+            98664,
+            9223
+          ],
+          "_update_projectiles": [
+            7604,
+            600
+          ]
+        },
+        "bots": {
+          "combat": [
+            433727,
+            9206
+          ],
+          "perceive": [
+            247044,
+            734
+          ],
+          "plan": [
+            318620,
+            215
+          ],
+          "steer": [
+            667605,
+            9226
+          ],
+          "tick": [
+            1965821,
+            600
+          ],
+          "visible": [
+            108536,
+            7506
+          ]
+        },
+        "fighter": {
+          "engine_slide": [
+            782220,
+            9100
+          ],
+          "simulate": [
+            1115426,
+            9223
+          ],
+          "step_up": [
+            231754,
+            6339
+          ]
+        },
+        "navigation": {
+          "cost": [
+            56751,
+            1871
+          ],
+          "path": [
+            91518,
+            1872
+          ],
+          "ray": [
+            123528,
+            43206
+          ]
+        }
+      },
+      "tick": {
+        "max_ms": 12.356,
+        "mean_ms": 6.663495,
+        "median_ms": 6.199,
+        "p95_ms": 9.809
+      },
+      "ticks": 600
+    },
+    "native-a": {
+      "bots": 16,
+      "map": "qsrc_dm1",
+      "pickups": 25,
+      "scopes_us_and_calls": {
+        "arena": {
+          "_collect": [
+            350126,
+            9223
+          ],
+          "_record_history": [
+            35278,
+            600
+          ],
+          "_server_tick": [
+            3805545,
+            600
+          ],
+          "_update_melee": [
+            99894,
+            9223
+          ],
+          "_update_projectiles": [
+            6759,
+            600
+          ]
+        },
+        "bots": {
+          "combat": [
+            411521,
+            9206
+          ],
+          "perceive": [
+            235272,
+            734
+          ],
+          "plan": [
+            330248,
+            215
+          ],
+          "steer": [
+            498656,
+            9226
+          ],
+          "tick": [
+            1790257,
+            600
+          ],
+          "visible": [
+            114101,
+            7506
+          ]
+        },
+        "fighter": {
+          "engine_slide": [
+            787361,
+            9100
+          ],
+          "simulate": [
+            1123762,
+            9223
+          ],
+          "step_up": [
+            232183,
+            6339
+          ]
+        },
+        "navigation": {
+          "cost": [
+            59303,
+            1871
+          ],
+          "path": [
+            94063,
+            1872
+          ],
+          "ray": [
+            33218,
+            4771
+          ]
+        }
+      },
+      "tick": {
+        "max_ms": 12.378,
+        "mean_ms": 6.40805833333333,
+        "median_ms": 5.902,
+        "p95_ms": 9.494
+      },
+      "ticks": 600
+    },
+    "native-b": {
+      "bots": 16,
+      "map": "qsrc_dm1",
+      "pickups": 25,
+      "scopes_us_and_calls": {
+        "arena": {
+          "_collect": [
+            348818,
+            9223
+          ],
+          "_record_history": [
+            33879,
+            600
+          ],
+          "_server_tick": [
+            3736631,
+            600
+          ],
+          "_update_melee": [
+            97668,
+            9223
+          ],
+          "_update_projectiles": [
+            6299,
+            600
+          ]
+        },
+        "bots": {
+          "combat": [
+            407211,
+            9206
+          ],
+          "perceive": [
+            233370,
+            734
+          ],
+          "plan": [
+            318863,
+            215
+          ],
+          "steer": [
+            493582,
+            9226
+          ],
+          "tick": [
+            1764280,
+            600
+          ],
+          "visible": [
+            113192,
+            7506
+          ]
+        },
+        "fighter": {
+          "engine_slide": [
+            776693,
+            9100
+          ],
+          "simulate": [
+            1103408,
+            9223
+          ],
+          "step_up": [
+            227002,
+            6339
+          ]
+        },
+        "navigation": {
+          "cost": [
+            57221,
+            1871
+          ],
+          "path": [
+            91676,
+            1872
+          ],
+          "ray": [
+            32960,
+            4771
+          ]
+        }
+      },
+      "tick": {
+        "max_ms": 12.881,
+        "mean_ms": 6.29044833333333,
+        "median_ms": 5.851,
+        "p95_ms": 9.211
+      },
+      "ticks": 600
+    },
+    "reference-b": {
+      "bots": 16,
+      "map": "qsrc_dm1",
+      "pickups": 25,
+      "scopes_us_and_calls": {
+        "arena": {
+          "_collect": [
+            331148,
+            9223
+          ],
+          "_record_history": [
+            32522,
+            600
+          ],
+          "_server_tick": [
+            3825176,
+            600
+          ],
+          "_update_melee": [
+            93823,
+            9223
+          ],
+          "_update_projectiles": [
+            7131,
+            600
+          ]
+        },
+        "bots": {
+          "combat": [
+            418156,
+            9206
+          ],
+          "perceive": [
+            242489,
+            734
+          ],
+          "plan": [
+            314648,
+            215
+          ],
+          "steer": [
+            643187,
+            9226
+          ],
+          "tick": [
+            1906492,
+            600
+          ],
+          "visible": [
+            105595,
+            7506
+          ]
+        },
+        "fighter": {
+          "engine_slide": [
+            764301,
+            9100
+          ],
+          "simulate": [
+            1085615,
+            9223
+          ],
+          "step_up": [
+            224436,
+            6339
+          ]
+        },
+        "navigation": {
+          "cost": [
+            55944,
+            1871
+          ],
+          "path": [
+            89759,
+            1872
+          ],
+          "ray": [
+            119057,
+            43206
+          ]
+        }
+      },
+      "tick": {
+        "max_ms": 12.335,
+        "mean_ms": 6.43569,
+        "median_ms": 6.03,
+        "p95_ms": 9.357
+      },
+      "ticks": 600
+    }
+  },
+  "avatar_runs": {
+    "reference-a": {
+      "cold_clip_bakes": [
+        {
+          "bones": 140,
+          "direction": 0,
+          "model": "sample_d",
+          "ms": 1.743,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 1,
+          "model": "sample_d",
+          "ms": 1.532,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 2,
+          "model": "sample_d",
+          "ms": 1.686,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 3,
+          "model": "sample_d",
+          "ms": 1.442,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 4,
+          "model": "sample_d",
+          "ms": 1.472,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 5,
+          "model": "sample_d",
+          "ms": 1.541,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 6,
+          "model": "sample_d",
+          "ms": 1.375,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 7,
+          "model": "sample_d",
+          "ms": 1.362,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 0,
+          "model": "sample_f",
+          "ms": 1.425,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 1,
+          "model": "sample_f",
+          "ms": 1.486,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 2,
+          "model": "sample_f",
+          "ms": 1.508,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 3,
+          "model": "sample_f",
+          "ms": 1.567,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 4,
+          "model": "sample_f",
+          "ms": 1.424,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 5,
+          "model": "sample_f",
+          "ms": 1.451,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 6,
+          "model": "sample_f",
+          "ms": 1.397,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 7,
+          "model": "sample_f",
+          "ms": 1.443,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 0,
+          "model": "sample_g",
+          "ms": 1.382,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 1,
+          "model": "sample_g",
+          "ms": 1.373,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 2,
+          "model": "sample_g",
+          "ms": 1.355,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 3,
+          "model": "sample_g",
+          "ms": 1.494,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 4,
+          "model": "sample_g",
+          "ms": 1.454,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 5,
+          "model": "sample_g",
+          "ms": 1.412,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 6,
+          "model": "sample_g",
+          "ms": 1.504,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 7,
+          "model": "sample_g",
+          "ms": 1.487,
+          "tracks": 30
+        }
+      ],
+      "engine": "4.7.2-stable (fedora)",
+      "frames_per_block": 360,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "reports": [
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.576441665738821,
+            "p95": 0.791000008583069,
+            "p99": 0.995999991893768
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 20.7638888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.90286110904482,
+            "p95": 2.34999990463257,
+            "p99": 3.01300001144409
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.472830555555556
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.281275
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.48612777777778
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.771355555555556
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 8.65143055555555,
+            "p95": 10.089,
+            "p99": 12.087
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.423391666097773,
+            "p95": 0.607999980449677,
+            "p99": 0.758000016212463
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.65177500082387,
+            "p95": 2.02300000190735,
+            "p99": 2.61999988555908
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.853719444444444
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.92361111111111,
+            "p95": 6.829,
+            "p99": 7.542
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.490816666765345,
+            "p95": 0.666000008583069,
+            "p99": 2.83800005912781
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 22.6916666666667,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.6728444473611,
+            "p95": 2.02900004386902,
+            "p99": 2.28600001335144
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.376613888888889
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.237130555555556
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.565869444444444
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.571675
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.61884444444444,
+            "p95": 8.63,
+            "p99": 9.579
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.428783334212171,
+            "p95": 0.592000007629395,
+            "p99": 0.726000010967255
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.6388888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.6769305570258,
+            "p95": 1.99500000476837,
+            "p99": 2.18499994277954
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.383458333333333
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.240383333333333
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.588558333333333
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.578344444444444
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.64120555555555,
+            "p95": 8.813,
+            "p99": 9.416
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.402758333749241,
+            "p95": 0.575999975204468,
+            "p99": 0.714999973773956
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.68148055672646,
+            "p95": 1.99300003051758,
+            "p99": 2.20700001716614
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.866663888888889
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.982725,
+            "p95": 6.724,
+            "p99": 6.987
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.547544444600741,
+            "p95": 0.720000028610229,
+            "p99": 0.818000018596649
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.3472222222222,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.72100555532508,
+            "p95": 2.01300001144409,
+            "p99": 2.17799997329712
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.426986111111111
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.261069444444444
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.3897
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.710238888888889
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 10,
+            "1": 6
+          },
+          "wall_ms": {
+            "mean": 7.89071944444445,
+            "p95": 9.001,
+            "p99": 9.767
+          }
+        }
+      ],
+      "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+    },
+    "native-a": {
+      "cold_clip_bakes": [
+        {
+          "bones": 140,
+          "direction": 0,
+          "model": "sample_d",
+          "ms": 1.607,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 1,
+          "model": "sample_d",
+          "ms": 1.348,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 2,
+          "model": "sample_d",
+          "ms": 1.154,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 3,
+          "model": "sample_d",
+          "ms": 1.122,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 4,
+          "model": "sample_d",
+          "ms": 1.112,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 5,
+          "model": "sample_d",
+          "ms": 1.224,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 6,
+          "model": "sample_d",
+          "ms": 1.262,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 7,
+          "model": "sample_d",
+          "ms": 1.332,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 0,
+          "model": "sample_f",
+          "ms": 1.363,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 1,
+          "model": "sample_f",
+          "ms": 1.173,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 2,
+          "model": "sample_f",
+          "ms": 1.168,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 3,
+          "model": "sample_f",
+          "ms": 1.143,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 4,
+          "model": "sample_f",
+          "ms": 1.265,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 5,
+          "model": "sample_f",
+          "ms": 1.146,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 6,
+          "model": "sample_f",
+          "ms": 1.12,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 7,
+          "model": "sample_f",
+          "ms": 1.113,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 0,
+          "model": "sample_g",
+          "ms": 1.122,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 1,
+          "model": "sample_g",
+          "ms": 1.154,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 2,
+          "model": "sample_g",
+          "ms": 1.308,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 3,
+          "model": "sample_g",
+          "ms": 1.302,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 4,
+          "model": "sample_g",
+          "ms": 1.168,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 5,
+          "model": "sample_g",
+          "ms": 1.337,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 6,
+          "model": "sample_g",
+          "ms": 1.17,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 7,
+          "model": "sample_g",
+          "ms": 1.205,
+          "tracks": 30
+        }
+      ],
+      "engine": "4.7.2-stable (fedora)",
+      "frames_per_block": 360,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "reports": [
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.56381944368283,
+            "p95": 0.759999990463257,
+            "p99": 0.884999990463257
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 21.9138888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.68226388957765,
+            "p95": 1.98399996757507,
+            "p99": 2.24699997901917
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.434558333333333
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.255105555555556
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.996580555555556
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.687380555555556
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 7.36156388888888,
+            "p95": 8.075,
+            "p99": 8.4
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.394902777175109,
+            "p95": 0.566999971866608,
+            "p99": 0.694999992847443
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.65228055417538,
+            "p95": 1.97000002861023,
+            "p99": 2.20300006866455
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.860702777777778
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.86450833333333,
+            "p95": 6.612,
+            "p99": 7.242
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.409052777373128,
+            "p95": 0.540000021457672,
+            "p99": 0.699999988079071
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 23.4361111111111,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.68374444842339,
+            "p95": 1.92599999904633,
+            "p99": 2.18400001525879
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.379938888888889
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.239688888888889
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.520919444444444
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.595813888888889
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.55325555555555,
+            "p95": 8.283,
+            "p99": 8.908
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.409027778274483,
+            "p95": 0.574999988079071,
+            "p99": 0.658999979496002
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.1138888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.68483611312177,
+            "p95": 1.97099995613098,
+            "p99": 2.35800004005432
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.381016666666667
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.240608333333333
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.534802777777778
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.584966666666667
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.57507222222222,
+            "p95": 8.284,
+            "p99": 8.781
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.396438888791535,
+            "p95": 0.564000010490417,
+            "p99": 0.657000005245209
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.66072500050068,
+            "p95": 1.96599996089935,
+            "p99": 2.21799993515015
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.856338888888889
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.90794444444444,
+            "p95": 6.729,
+            "p99": 6.959
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.547702777468496,
+            "p95": 0.739000022411346,
+            "p99": 0.841000020503998
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 17.7888888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.71023610995875,
+            "p95": 2.01500010490417,
+            "p99": 2.34800004959106
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.425958333333333
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.258297222222222
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.081625
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.703227777777778
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 10,
+            "1": 6
+          },
+          "wall_ms": {
+            "mean": 7.51344722222222,
+            "p95": 8.377,
+            "p99": 8.908
+          }
+        }
+      ],
+      "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+    },
+    "native-b": {
+      "cold_clip_bakes": [
+        {
+          "bones": 140,
+          "direction": 0,
+          "model": "sample_d",
+          "ms": 1.367,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 1,
+          "model": "sample_d",
+          "ms": 1.249,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 2,
+          "model": "sample_d",
+          "ms": 1.263,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 3,
+          "model": "sample_d",
+          "ms": 1.231,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 4,
+          "model": "sample_d",
+          "ms": 1.15,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 5,
+          "model": "sample_d",
+          "ms": 1.144,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 6,
+          "model": "sample_d",
+          "ms": 1.158,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 7,
+          "model": "sample_d",
+          "ms": 1.216,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 0,
+          "model": "sample_f",
+          "ms": 1.319,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 1,
+          "model": "sample_f",
+          "ms": 1.336,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 2,
+          "model": "sample_f",
+          "ms": 1.169,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 3,
+          "model": "sample_f",
+          "ms": 1.134,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 4,
+          "model": "sample_f",
+          "ms": 1.163,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 5,
+          "model": "sample_f",
+          "ms": 1.137,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 6,
+          "model": "sample_f",
+          "ms": 1.214,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 7,
+          "model": "sample_f",
+          "ms": 1.125,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 0,
+          "model": "sample_g",
+          "ms": 1.147,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 1,
+          "model": "sample_g",
+          "ms": 1.126,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 2,
+          "model": "sample_g",
+          "ms": 1.117,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 3,
+          "model": "sample_g",
+          "ms": 1.216,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 4,
+          "model": "sample_g",
+          "ms": 1.216,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 5,
+          "model": "sample_g",
+          "ms": 1.325,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 6,
+          "model": "sample_g",
+          "ms": 1.156,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 7,
+          "model": "sample_g",
+          "ms": 1.141,
+          "tracks": 30
+        }
+      ],
+      "engine": "4.7.2-stable (fedora)",
+      "frames_per_block": 360,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "reports": [
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.554666667514377,
+            "p95": 0.736999988555908,
+            "p99": 0.824999988079071
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 21.0083333333333,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.73278055157926,
+            "p95": 2.00500011444092,
+            "p99": 2.17700004577637
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.442769444444444
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.259813888888889
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.01280833333333
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.703244444444444
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 7.53686944444444,
+            "p95": 8.343,
+            "p99": 8.7
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.400572222802374,
+            "p95": 0.587000012397766,
+            "p99": 0.666000008583069
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.65554166701105,
+            "p95": 1.93599998950958,
+            "p99": 2.12899994850159
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.859091666666667
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.90127777777778,
+            "p95": 6.517,
+            "p99": 7.079
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.414138888898823,
+            "p95": 0.595000028610229,
+            "p99": 0.745000004768372
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 23.1638888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.70623611112436,
+            "p95": 2.02600002288818,
+            "p99": 2.27999997138977
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.387611111111111
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.242661111111111
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.543719444444444
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.597286111111111
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.68685555555556,
+            "p95": 8.479,
+            "p99": 9.232
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.407430555588669,
+            "p95": 0.514999985694885,
+            "p99": 0.705999970436096
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.3805555555556,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.72954999970065,
+            "p95": 2.06399989128113,
+            "p99": 2.35700011253357
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.390380555555556
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.243991666666667
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.553491666666667
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.591675
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.73599166666667,
+            "p95": 8.441,
+            "p99": 9.284
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.392122221572532,
+            "p95": 0.513999998569489,
+            "p99": 0.586000025272369
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.67295833230019,
+            "p95": 2.0090000629425,
+            "p99": 2.25200009346008
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.875327777777778
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 6.00178611111111,
+            "p95": 6.752,
+            "p99": 7.225
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.554086110906469,
+            "p95": 0.734000027179718,
+            "p99": 0.856000006198883
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 18.8444444444444,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.72010555830267,
+            "p95": 2.04099988937378,
+            "p99": 2.19000005722046
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.424502777777778
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.256877777777778
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.07260555555556
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.695680555555556
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 10,
+            "1": 6
+          },
+          "wall_ms": {
+            "mean": 7.49874166666667,
+            "p95": 8.31,
+            "p99": 8.822
+          }
+        }
+      ],
+      "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+    },
+    "reference-b": {
+      "cold_clip_bakes": [
+        {
+          "bones": 140,
+          "direction": 0,
+          "model": "sample_d",
+          "ms": 2.142,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 1,
+          "model": "sample_d",
+          "ms": 1.692,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 2,
+          "model": "sample_d",
+          "ms": 1.508,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 3,
+          "model": "sample_d",
+          "ms": 1.535,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 4,
+          "model": "sample_d",
+          "ms": 1.446,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 5,
+          "model": "sample_d",
+          "ms": 1.501,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 6,
+          "model": "sample_d",
+          "ms": 1.432,
+          "tracks": 30
+        },
+        {
+          "bones": 140,
+          "direction": 7,
+          "model": "sample_d",
+          "ms": 1.537,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 0,
+          "model": "sample_f",
+          "ms": 1.611,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 1,
+          "model": "sample_f",
+          "ms": 1.569,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 2,
+          "model": "sample_f",
+          "ms": 1.593,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 3,
+          "model": "sample_f",
+          "ms": 1.446,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 4,
+          "model": "sample_f",
+          "ms": 1.476,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 5,
+          "model": "sample_f",
+          "ms": 1.426,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 6,
+          "model": "sample_f",
+          "ms": 1.471,
+          "tracks": 30
+        },
+        {
+          "bones": 160,
+          "direction": 7,
+          "model": "sample_f",
+          "ms": 1.516,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 0,
+          "model": "sample_g",
+          "ms": 1.584,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 1,
+          "model": "sample_g",
+          "ms": 1.493,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 2,
+          "model": "sample_g",
+          "ms": 1.595,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 3,
+          "model": "sample_g",
+          "ms": 1.668,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 4,
+          "model": "sample_g",
+          "ms": 1.521,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 5,
+          "model": "sample_g",
+          "ms": 1.563,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 6,
+          "model": "sample_g",
+          "ms": 1.5,
+          "tracks": 30
+        },
+        {
+          "bones": 167,
+          "direction": 7,
+          "model": "sample_g",
+          "ms": 1.48,
+          "tracks": 30
+        }
+      ],
+      "engine": "4.7.2-stable (fedora)",
+      "frames_per_block": 360,
+      "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+      "reports": [
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.562580555429061,
+            "p95": 0.734000027179718,
+            "p99": 0.839999973773956
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 21.0694444444444,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.71948333349493,
+            "p95": 2.00799989700317,
+            "p99": 2.27099990844727
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.442955555555556
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.25875
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.39259166666667
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.697505555555556
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 7.88967777777778,
+            "p95": 8.771,
+            "p99": 9.332
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.408316666384538,
+            "p95": 0.566999971866608,
+            "p99": 0.681999981403351
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.66530833310551,
+            "p95": 1.98800003528595,
+            "p99": 2.14000010490417
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.855697222222222
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.92543333333334,
+            "p95": 6.682,
+            "p99": 7.186
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.415930555181371,
+            "p95": 0.579999983310699,
+            "p99": 0.691999971866608
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 23.1888888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.68101944492923,
+            "p95": 1.99100005626678,
+            "p99": 2.08899998664856
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.380625
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.238883333333333
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.573130555555556
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.578369444444444
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.6032,
+            "p95": 8.732,
+            "p99": 9.548
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.424072222742769,
+            "p95": 0.601999998092651,
+            "p99": 0.686999976634979
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 19.3388888888889,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.68314444753859,
+            "p95": 2.00600004196167,
+            "p99": 2.40700006484985
+          },
+          "scenario": "xr_policy_far",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.383538888888889
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.239027777777778
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.581219444444444
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.578563888888889
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 16
+          },
+          "wall_ms": {
+            "mean": 6.63071111111111,
+            "p95": 8.801,
+            "p99": 9.362
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.406097222202354,
+            "p95": 0.514999985694885,
+            "p99": 0.675000011920929
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 0.0,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.67188055647744,
+            "p95": 2.01500010490417,
+            "p99": 2.37100005149841
+          },
+          "scenario": "desktop_far",
+          "scripts": {
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.870736111111111
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "2": 16
+          },
+          "wall_ms": {
+            "mean": 5.95756944444445,
+            "p95": 6.715,
+            "p99": 7.621
+          }
+        },
+        {
+          "actors": 16,
+          "frames": 360,
+          "full_tracking": 8,
+          "gpu_ms": {
+            "mean": 0.579119442734453,
+            "p95": 0.75900000333786,
+            "p99": 0.883000016212463
+          },
+          "head_hands_only": 8,
+          "morph_writes_per_frame": 18.8611111111111,
+          "optimized": true,
+          "render_cpu_ms": {
+            "mean": 1.70849722259574,
+            "p95": 1.99800002574921,
+            "p99": 2.21000003814697
+          },
+          "scenario": "near",
+          "scripts": {
+            "eyes": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.42575
+            },
+            "morph": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.258325
+            },
+            "pose": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 1.38012222222222
+            },
+            "rig": {
+              "calls_per_frame": 16.0,
+              "ms_per_frame": 0.690972222222222
+            },
+            "spring": {
+              "implementation": "native",
+              "ms_per_frame": null,
+              "resets": 0,
+              "resident_joints": 1185,
+              "resident_potential_pairs": 19030,
+              "ticks_per_frame": null
+            }
+          },
+          "secondary_enabled": false,
+          "sleeping": 0,
+          "tiers": {
+            "0": 10,
+            "1": 6
+          },
+          "wall_ms": {
+            "mean": 7.80509722222223,
+            "p95": 8.887,
+            "p99": 9.35
+          }
+        }
+      ],
+      "scope": "16 avatars, three shared VRMs, eight full-body/face and eight head/hands, half speaking; springs disabled. Reversed scenario order. XR policy is a synthetic XRCamera3D without headset/runtime, NOT VR rendering or headset timing. No map, networking, audio or gameplay. Script scopes are nested; render CPU is rendering only. Uncontrolled OS/GPU clocks."
+    }
+  },
+  "artifact_directory": "test-results/native-avatar-bots",
+  "server_package": "test-results/native-avatar-bots/ConsoleServer",
+  "reference_flags": [
+    "--gdscript-preparation",
+    "--gdscript-bots"
+  ],
+  "scope": [
+    "Reference runs retain earlier native math, projectiles and codec. Two reference runs bracket two native runs. Builds and tests are stopped during timing.",
+    "Avatar runs: 16 avatars, three VRMs, half full-body tracked, half head/hands, springs disabled, 360 frames/block. First near block has 16 full detail; repeated near block retains 10 full and six medium through existing hysteresis.",
+    "Bot runs: 16 active bots plus spectator on qsrc_dm1 DM/Doom; 120 warmup and 600 measured ticks after navigation setup. Same perception, planning and combat/steering invocation counts across all four final runs.",
+    "Server tick timing excludes snapshot transport and the separate engine physics step. Instrumented scopes are nested; native world rays are included in combat/steering rather than script navigation-ray counters.",
+    "Avatar measurements precede the final bot-only lookup/combat refinement. Avatar preparation source is identical, and no bots exist in the avatar fixture."
+  ],
+  "limits": [
+    "No headset timing or Windows/Android runtime performance measurement. Synthetic XRCamera3D tests existing XR LOD policy only.",
+    "OS/GPU clocks uncontrolled. One short DM map workload does not establish all-mode server capacity or total-game FPS.",
+    "Legacy Tribes integration tests excluded because release_features.TRIBES is false. Specialized Tribes steering remains GDScript.",
+    "Existing ObjectDB/resource shutdown warnings remain in some fixtures; focused regressions and live server tests have no script failures."
+  ]
+}

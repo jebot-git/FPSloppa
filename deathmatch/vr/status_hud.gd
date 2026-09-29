@@ -7,6 +7,9 @@ const SELECTION_HEIGHT=72
 const VIEW_SIZE=Vector2i(960,292+CHAT_HEIGHT+NOTIFY_HEIGHT+SELECTION_HEIGHT)
 var grenade_notice
 var player_status: Dictionary={}
+var hit_confirmed:=false
+func update_hit(value: bool) -> void:
+	if value!=hit_confirmed:hit_confirmed=value;queue_redraw()
 func update_player_status(data: Dictionary) -> void:
 	if data!=player_status:player_status=data;queue_redraw()
 var chat_labels: Array[Label]=[]
@@ -81,6 +84,9 @@ func update_status(state: Dictionary,remaining: float,limit: int,leader: int,int
 func label(at: Vector2,value: String,font_size: int,color: Color=INK) -> void:
 	draw_string(ThemeDB.fallback_font,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
 func _draw() -> void:
+	if hit_confirmed:
+		draw_rect(Rect2(818,8,132,48),Color(.08,.12,.10,.9))
+		label(Vector2(850,42),"HIT",28,Color("fff0ba"))
 	for i in chat_labels.size():
 		if not chat_labels[i].text.is_empty():draw_rect(Rect2(4,SELECTION_HEIGHT+2+i*64,952,62),Color(.10,.075,.05,.88))
 	draw_set_transform(Vector2(0,SELECTION_HEIGHT+CHAT_HEIGHT))
