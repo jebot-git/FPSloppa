@@ -41,7 +41,7 @@ func run() -> void:
 				check(train.route.size()>1 and train.route_time>0,row.id+" keeps train route")
 			else:check(gate.travel.length()>0 and gate.travel.length()<100,row.id+" keeps door travel")
 		maps.append({"map":row.id,"shapes":shapes,"liquids":liquid_count,"doors":game.gates.size(),"lifts":game.lifts.size()})
-		game.match_mode.kind="as" if row.id.begins_with("as_") else "tf"
+		game.match_mode.kind="st" if "st" in row.get("modes",[]) else "as" if row.id.begins_with("as_") else "tf"
 		game.match_mode.reset()
 		check(presentation_nodes()==0,row.id+" team mode creates no presentation nodes")
 	game._end_round()

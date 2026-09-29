@@ -14,6 +14,7 @@ In-game hosting and offline practice offer all supported modes and allow at most
 |---|---|---|
 | `dm` | Individual deathmatch | `fraglimit`, default 20 |
 | `tdm` | Red vs blue team frags; suicides and teamkills subtract a team frag | `fraglimit` |
+| `st` | Tribes CTF with skiing, jetpacks, armour classes, stations, deployables and vehicles | `capturelimit` |
 | `ctf` | Steal the enemy flag and bring it to your base while your flag is home | `capturelimit`, default 5 |
 | `if` | INSTAFREEZE: Instagib railgun combat with Freeze Tag freezing, teammate thawing and team elimination rounds | `fraglimit` (team rounds won) |
 | `koth` | Hold the active hill for one point per second; it moves every 30 seconds through at least three sites; both teams present pauses scoring | `hilllimit`, default 120 |
@@ -74,7 +75,7 @@ set fraglimit "10"
 set timelimit "15"
 ```
 
-IF defaults to the Instagib maplist, with the usual server rotation fallback. Set `if_maplist` or supply `maps/if_maplist.txt` for a separate rotation. Imported `if_` maps enter only IF; untagged imports enter DM, TDM, IG, FT and IF. Existing curated Instagib arenas remain compatible. Both lobby and in-game votes use this same list. In-game hosts can select **INSTAFREEZE** in Host Match. The mode currently reuses Freeze Tag's Cryostasis music.
+IF defaults to the Instagib maplist, with the usual server rotation fallback. Set `if_maplist` or supply `maps/if_maplist.txt` for a separate rotation. Imported `if_` maps enter only IF; untagged imports enter DM, TDM, IG, FT and IF. Existing curated Instagib arenas remain compatible. Both lobby and in-game votes use this same list. In-game hosts can select **INSTAFREEZE** in Host Match. Custom BGM can use the `if_` prefix; see [audio settings](AUDIO.md).
 
 Validation: `python3 deathmatch/tests/run_instafreeze_tests.py` covers rules, hosting, maplist selection and three-process ENet replication.
 
@@ -86,4 +87,4 @@ Round-end and lobby voting instead use a shared 3×3 grid of complete map/mode/l
 
 `de` forces CS16 weapons and supports the Dust2, Nuke, Inferno, Aztec and Train BSP29 reconstructions, plus HE/flash/smoke utility. Buy during preparation, plant on the environment at A/B, or defend and defuse. Players have one life per round; the default is first to 16 with a side switch after 15 rounds. See [rules, economy and controls](docs/BOMB-DEFUSAL.md).
 
-ST, Stonehenge and the Tribes loadout are deferred and unavailable in 0.19v.
+ST ships in 0.20v with Stonehenge, Raindance and Katabatic. It uses Tribes equipment, armour, skiing, energy-powered flight, team infrastructure and vehicles. See [ST rules and VR controls](docs/ST-TRIBES.md).

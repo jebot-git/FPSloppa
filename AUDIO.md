@@ -89,7 +89,7 @@ Licenses, upstream archive checksum and runtime notices are under `addons/godot-
 
 Recorded pain grunts rotate between three short takes; local feedback is limited to one cue per 300 ms. Player respawns have a stronger teleport cue. Megahealth, mega armour and BFG availability transitions play a positional powerful-item cue once, replicated reliably to clients. Ordinary item respawns stay quiet. Health, armour, ammunition, weapons and mega pickups have distinct short cues with recorded metallic transients. All use the effects bus and its volume control.
 
-Gameplay music uses CC0 Karoryfer guitar, bass and acoustic drums at 44.1 kHz. The title/lobby tracker arrangements also use VSCO piano, flute, strings and anvil. Full source links, editable arrangements and regeneration instructions accompany the music. Chainsaw contact adds a short spatial grinding cue derived from the existing CC0 Kenney metal impact, with throttled sparks and VR haptics on world contact or a successful blade parry.
+The retained title/lobby arrangements use Karoryfer and VSCO instruments, with source credits accompanying the music. Gameplay uses the custom music system described above. Chainsaw contact adds a short spatial grinding cue derived from the existing CC0 Kenney metal impact, with throttled sparks and VR haptics on world contact or a successful blade parry.
 
 ## Announcer
 

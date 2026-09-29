@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "date": "2026-09-27",
+  "bodies": {
+    "source_title": "MEC-VAL-白狐",
+    "source_author": "KEIV",
+    "source_filename": "4746773052303664305.vrm",
+    "source_delivery": "User-provided VRoid Hub download",
+    "source_sha256": "b8d7b1cbce1279098d545e61ebf55f61d240e2e88ae9e971dcbc02f9e75a302e",
+    "embedded_vrm_terms": {
+      "allowedUserName": "Everyone",
+      "author": "KEIV",
+      "commercialUssageName": "Disallow",
+      "licenseName": "Other",
+      "otherLicenseUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+      "otherPermissionUrl": "https://hub.vroid.com/license?allowed_to_use_user=everyone&characterization_allowed_user=everyone&corporate_commercial_use=disallow&credit=necessary&modification=allow&personal_commercial_use=nonprofit&redistribution=allow&sexual_expression=disallow&version=1&violent_expression=allow",
+      "sexualUssageName": "Disallow",
+      "title": "MEC-VAL-白狐",
+      "violentUssageName": "Allow"
+    },
+    "outputs": [
+      "body_light.scn",
+      "body_medium.scn",
+      "body_heavy.scn",
+      "armour-suit.res"
+    ],
+    "modifications": [
+      "Extract fitted Onepiece_00_CLOTH body and Tops_01_CLOTH_02 sleeves; remove head, hair, hands and redundant accessories",
+      "Retain fitted footwear on Light and Medium; use new armoured boots on Heavy",
+      "Retarget to the existing 19-bone humanoid; remove donor spring physics and facial morphs",
+      "Remove covered torso/calf geometry on Heavy",
+      "Pack two base-colour maps into a 2048x1024 opaque atlas with mipmaps",
+      "Combine with original shell geometry and a shared 1024x512 mipmapped plate atlas"
+    ],
+    "licence": "Other: exact VRoid Hub terms below; not CC0"
+  },
+  "original_assets": {
+    "author": "FPSloppa contributors",
+    "licence": "CC0-1.0",
+    "includes": [
+      "new armour shell geometry",
+      "armour-finish.res",
+      "personal weapon and pack models",
+      "finish.res",
+      "SVG icons",
+      "synthetic weapon audio"
+    ],
+    "excludes": [
+      "MEC-VAL-derived suit meshes and textures",
+      "combined armour bodies containing MEC-VAL components"
+    ]
+  },
+  "review_only": [
+    "Mech Man by koumis",
+    "Mech Kitbash by masterxeon1001",
+    "Nomad by Mennoknight",
+    "Exotrooper by nublet",
+    "Quaternius Animated Mech Pack"
+  ],
+  "heavy_revision": {
+    "version": 4,
+    "date": "2026-09-27",
+    "geometry_author": "FPSloppa contributors",
+    "source": "tools/tribes/heavy_shell.py",
+    "triangles": 9814,
+    "surfaces": 4,
+    "new_donor_assets": false,
+    "changes": [
+      "canted cuirass",
+      "articulated overlapping shoulders",
+      "abdominal rings and pelvic chassis",
+      "femur-bound hip skirts",
+      "reinforced forearms, thighs and greaves",
+      "rear cooling and service panels",
+      "neck seal and pack coupling",
+      "reinforced boots"
+    ],
+    "licence_note": "Original shell geometry is CC0; combined body retains KEIV suit terms."
+  }
+}

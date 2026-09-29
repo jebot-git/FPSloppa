@@ -192,3 +192,7 @@ and [map references and fidelity](maps/ClassicDE/README.md).
 HE/flash/smoke models, shaders and SVG icons are original native Godot assets.
 
 The experimental Tribes equipment, armour bodies and Stonehenge assets are not distributed in 0.19v. The eleven bundled avatars retain their CC0 provenance in [vrm/SOURCES.json](vrm/SOURCES.json).
+
+## ST equipment and armour
+
+ST arsenal, vehicles, stations, deployables and wrist displays retain their adjacent source notices. The three armour bodies include modified MEC-VAL-白狐 by **KEIV**, with the original VRoid Hub non-commercial, attribution and redistribution terms preserved in [equipment notices](deathmatch/weapons/tribes/SOURCES.md) and [verbatim metadata](deathmatch/weapons/tribes/sources.json). These bodies are not CC0. ST maps retain terrain/layout provenance and Makkon/LibreQuake notices in their map folders and the source archive.

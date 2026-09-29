@@ -10,7 +10,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'tools'))
-from build_console_server import verify_package
+from build_console_server import verify_package, NATIVE_LIBRARY
 
 
 def main():
@@ -32,6 +32,8 @@ def main():
     scene.write_text('[gd_scene format=3]\n[ext_resource type="Script" path="res://deathmatch/tests/console_server.gd" id="1"]\n[node name="Audit" type="Node"]\nscript=ExtResource("1")\n')
     manifest['files'] += [dict(path='res://deathmatch/tests/console_server.gd',source=str(ROOT/'deathmatch/tests/console_server.gd')),dict(path='res://deathmatch/tests/console_server.tscn',source=str(scene))]
     executable=work/'FPSloppaServer.x86_64';shutil.copy2(server/executable.name,executable)
+    native=work/NATIVE_LIBRARY;native.parent.mkdir(parents=True,exist_ok=True)
+    shutil.copy2(server/NATIVE_LIBRARY,native)
     manifest['output']=str(executable.with_suffix('.pck'))
     (work/'pack.json').write_text(json.dumps(manifest))
     godot=os.environ.get('GODOT_BIN') or shutil.which('godot')

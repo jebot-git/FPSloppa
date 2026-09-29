@@ -241,7 +241,7 @@ script=ExtResource("1")
         package_files.add(path.as_posix())
         target = dest / path;target.parent.mkdir(parents=True, exist_ok=True);shutil.copy2(ROOT / path, target)
     if not (dest / 'server.cfg').exists():shutil.copy2(ROOT / 'server.cfg', dest / 'server.cfg')
-    for name in ['docs/SERVER-BROWSER.md', 'docs/BOMB-DEFUSAL.md', 'docs/CS16-LOADOUT.md', 'docs/CS16-GRENADES.md', 'docs/ARENA-JETPACKS.md', 'docs/WEAPON-RESPAWNS.md', 'docs/TITANBALL.md', 'SERVER.md', 'VOICE.md', 'TF.md', 'AS.md', 'GAMEMODES.md', 'ASSET_CREDITS.md', 'GODOT-LICENSE.txt', 'GODOT-COPYRIGHT.txt']:
+    for name in ['docs/ST-TRIBES.md', 'docs/ST-VEHICLES.md', 'docs/ST-COMMAND.md', 'docs/SERVER-BROWSER.md', 'docs/BOMB-DEFUSAL.md', 'docs/CS16-LOADOUT.md', 'docs/CS16-GRENADES.md', 'docs/ARENA-JETPACKS.md', 'docs/WEAPON-RESPAWNS.md', 'docs/TITANBALL.md', 'SERVER.md', 'VOICE.md', 'TF.md', 'AS.md', 'GAMEMODES.md', 'ASSET_CREDITS.md', 'GODOT-LICENSE.txt', 'GODOT-COPYRIGHT.txt']:
         (dest / name).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / name, dest / name);package_files.add(name)
     for name in ['server.py','issue_token.py','README.md','static/index.html','static/dashboard.css','static/dashboard.js']:

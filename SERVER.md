@@ -206,4 +206,4 @@ Set `sv_jetpacks "1"` and restart to enable jetpack pickups in DM, TDM, CTF, IG,
 
 `sv_gametype "de"` selects CS16 automatically. `map` can select `de_dust2_rebuilt`, `de_nuke_rebuilt`, `de_inferno_rebuilt`, `de_aztec_rebuilt` or `de_train_rebuilt`; the default rotation contains all five. `sv_de_prepare` (15), `sv_de_roundtime` (120) and `sv_de_bombtime` (45) are seconds; `sv_de_winlimit` defaults to 16 round wins. These replace frag/time limits for DE. Add `de` to `sv_gametypes` to allow votes. See [DE configuration and rules](docs/BOMB-DEFUSAL.md).
 
-ST, Stonehenge and the Tribes loadout are excluded from 0.19v. Existing ST configurations must select an available mode and map before upgrading.
+ST is available from 0.20v. Set `sv_gametype "st"` and choose `ctf_stonehenge`, `ctf_raindance` or `ctf_katabatic`. ST enforces Tribes equipment and movement. Its bundled rotation is `maps/st_maplist.txt`; add `st` to `sv_gametypes` to allow votes. See [ST rules and configuration](docs/ST-TRIBES.md).

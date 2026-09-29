@@ -1,0 +1,1433 @@
+{
+  "version": "0.20v",
+  "date": "2026-09-29",
+  "engine": "Godot 4.7.2; Vulkan-only clients; console-only Linux server",
+  "protocol": "fpsloppa-68-st-native-main",
+  "quest_version_code": 25,
+  "release_scope": {
+    "tribes_included": true,
+    "st_maps": [
+      "ctf_stonehenge",
+      "ctf_raindance",
+      "ctf_katabatic"
+    ],
+    "base_maps": 35,
+    "cc0_avatars": 11,
+    "armour_terms": "KEIV MEC-VAL derivative attribution and original VRoid Hub terms included"
+  },
+  "focused_suites": [
+    {
+      "test": "native_acceleration",
+      "exit": 0,
+      "passed": true,
+      "seconds": 4.37,
+      "checks": 0,
+      "results": [
+        {
+          "checks": 51311,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_acceleration.log"
+    },
+    {
+      "test": "native_codec",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.47,
+      "checks": 0,
+      "results": [
+        {
+          "checks": 15248,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_codec.log"
+    },
+    {
+      "test": "native_network_packing",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.87,
+      "checks": 0,
+      "results": [
+        {
+          "checks": 6335,
+          "failures": [],
+          "reports": [
+            {
+              "after_bytes": 27313,
+              "after_ms": {
+                "median": 0.075,
+                "p95": 0.126
+              },
+              "after_packets": 64,
+              "before_bytes": 27313,
+              "before_ms": {
+                "median": 0.115,
+                "p95": 0.209
+              },
+              "before_packets": 64,
+              "players": 8,
+              "shots": 0,
+              "vr": false
+            },
+            {
+              "after_bytes": 131432,
+              "after_ms": {
+                "median": 0.248,
+                "p95": 0.297
+              },
+              "after_packets": 132,
+              "before_bytes": 131432,
+              "before_ms": {
+                "median": 0.472,
+                "p95": 0.582
+              },
+              "before_packets": 132,
+              "players": 16,
+              "shots": 32,
+              "vr": true
+            },
+            {
+              "after_bytes": 1087542,
+              "after_ms": {
+                "median": 2.037,
+                "p95": 2.359
+              },
+              "after_packets": 1028,
+              "before_bytes": 1087542,
+              "before_ms": {
+                "median": 4.141,
+                "p95": 4.635
+              },
+              "before_packets": 1028,
+              "players": 16,
+              "shots": 523,
+              "vr": false
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_network_packing.log"
+    },
+    {
+      "test": "native_bots",
+      "exit": 0,
+      "passed": true,
+      "seconds": 4.22,
+      "checks": 0,
+      "results": [
+        {
+          "cases": 900,
+          "checks": 673858,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_bots.log"
+    },
+    {
+      "test": "native_rewind",
+      "exit": 0,
+      "passed": true,
+      "seconds": 4.92,
+      "checks": 0,
+      "results": [
+        {
+          "benchmarks": [
+            {
+              "eight_rays": {
+                "mean_ms": 1.58009166666667,
+                "median_ms": 1.549,
+                "p95_ms": 1.812
+              },
+              "path": "reference"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 0.570108333333333,
+                "median_ms": 0.558,
+                "p95_ms": 0.675
+              },
+              "path": "batched_gd"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 0.16915,
+                "median_ms": 0.161,
+                "p95_ms": 0.203
+              },
+              "path": "native"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 0.178866666666667,
+                "median_ms": 0.17,
+                "p95_ms": 0.229
+              },
+              "path": "native"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 0.578883333333333,
+                "median_ms": 0.558,
+                "p95_ms": 0.674
+              },
+              "path": "batched_gd"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 1.767475,
+                "median_ms": 1.728,
+                "p95_ms": 2.052
+              },
+              "path": "reference"
+            }
+          ],
+          "checks": 16850,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_rewind.log"
+    },
+    {
+      "test": "native_shot_history",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.92,
+      "checks": 0,
+      "results": [
+        {
+          "checks": 10,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_shot_history.log"
+    },
+    {
+      "test": "native_avatar_channels",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.07,
+      "checks": 0,
+      "results": [
+        {
+          "checks": 31236,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_avatar_channels.log"
+    },
+    {
+      "test": "native_springs",
+      "exit": 0,
+      "passed": true,
+      "seconds": 9.13,
+      "checks": 139,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.20v/native_springs.log"
+    },
+    {
+      "test": "frame_smoothness",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.42,
+      "checks": 0,
+      "results": [
+        {
+          "checks": 2415,
+          "clip_slice_max_us": 478,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/frame_smoothness.log"
+    },
+    {
+      "test": "render_motion",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.12,
+      "checks": 2,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.20v/render_motion.log"
+    },
+    {
+      "test": "cs16_mag_pull",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.62,
+      "checks": 272,
+      "results": [
+        {
+          "checks": 272,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/cs16_mag_pull.log"
+    },
+    {
+      "test": "defusal",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.47,
+      "checks": 102,
+      "results": [
+        {
+          "checks": 102,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/defusal.log"
+    },
+    {
+      "test": "defusal_bot_behavior",
+      "exit": 0,
+      "passed": true,
+      "seconds": 14.59,
+      "checks": 27,
+      "results": [
+        {
+          "checks": 27,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/defusal_bot_behavior.log"
+    },
+    {
+      "test": "foveation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.26,
+      "checks": 143,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.20v/foveation.log"
+    },
+    {
+      "test": "client_preferences",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.27,
+      "checks": 19,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.20v/client_preferences.log"
+    },
+    {
+      "test": "network_delivery",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.21,
+      "checks": 23,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.20v/network_delivery.log"
+    },
+    {
+      "test": "cs16_accuracy",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.27,
+      "checks": 1095,
+      "results": [
+        {
+          "checks": 1095,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.20v/cs16_accuracy.log"
+    }
+  ],
+  "release_scope_checks": 28,
+  "map_caches": {
+    "failures": [],
+    "records": [
+      {
+        "codec": "",
+        "map": "as_hislop",
+        "path": "res://maps/cache/as_hislop-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "as_hislop",
+        "path": "res://maps/cache/as_hislop-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "as_hislop",
+        "path": "res://maps/cache/as_hislop-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "as_frigate",
+        "path": "res://maps/cache/as_frigate-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "as_frigate",
+        "path": "res://maps/cache/as_frigate-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "as_frigate",
+        "path": "res://maps/cache/as_frigate-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tf_pressureworks",
+        "path": "res://maps/cache/tf_pressureworks-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tf_pressureworks",
+        "path": "res://maps/cache/tf_pressureworks-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tf_pressureworks",
+        "path": "res://maps/cache/tf_pressureworks-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tf_vesper",
+        "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tf_vesper",
+        "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tf_vesper",
+        "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_solstice",
+        "path": "res://maps/cache/koth_solstice-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_solstice",
+        "path": "res://maps/cache/koth_solstice-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_solstice",
+        "path": "res://maps/cache/koth_solstice-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_torture",
+        "path": "res://maps/cache/koth_torture-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_torture",
+        "path": "res://maps/cache/koth_torture-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_torture",
+        "path": "res://maps/cache/koth_torture-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_hyperborea",
+        "path": "res://maps/cache/koth_hyperborea-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_hyperborea",
+        "path": "res://maps/cache/koth_hyperborea-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_hyperborea",
+        "path": "res://maps/cache/koth_hyperborea-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_alichar",
+        "path": "res://maps/cache/koth_alichar-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_alichar",
+        "path": "res://maps/cache/koth_alichar-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_alichar",
+        "path": "res://maps/cache/koth_alichar-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_hyperborea",
+        "path": "res://maps/cache/cc_hyperborea-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_hyperborea",
+        "path": "res://maps/cache/cc_hyperborea-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_hyperborea",
+        "path": "res://maps/cache/cc_hyperborea-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_psychofuge",
+        "path": "res://maps/cache/cc_psychofuge-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_psychofuge",
+        "path": "res://maps/cache/cc_psychofuge-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_psychofuge",
+        "path": "res://maps/cache/cc_psychofuge-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_ghostquarter",
+        "path": "res://maps/cache/cc_ghostquarter-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_ghostquarter",
+        "path": "res://maps/cache/cc_ghostquarter-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_ghostquarter",
+        "path": "res://maps/cache/cc_ghostquarter-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_basement",
+        "path": "res://maps/cache/cc_basement-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_basement",
+        "path": "res://maps/cache/cc_basement-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_basement",
+        "path": "res://maps/cache/cc_basement-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm1",
+        "path": "res://maps/cache/qsrc_dm1-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm1",
+        "path": "res://maps/cache/qsrc_dm1-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm1",
+        "path": "res://maps/cache/qsrc_dm1-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm2",
+        "path": "res://maps/cache/qsrc_dm2-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm2",
+        "path": "res://maps/cache/qsrc_dm2-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm2",
+        "path": "res://maps/cache/qsrc_dm2-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm3",
+        "path": "res://maps/cache/qsrc_dm3-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm3",
+        "path": "res://maps/cache/qsrc_dm3-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm3",
+        "path": "res://maps/cache/qsrc_dm3-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm4",
+        "path": "res://maps/cache/qsrc_dm4-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm4",
+        "path": "res://maps/cache/qsrc_dm4-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm4",
+        "path": "res://maps/cache/qsrc_dm4-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm5",
+        "path": "res://maps/cache/qsrc_dm5-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm5",
+        "path": "res://maps/cache/qsrc_dm5-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm5",
+        "path": "res://maps/cache/qsrc_dm5-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm6",
+        "path": "res://maps/cache/qsrc_dm6-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm6",
+        "path": "res://maps/cache/qsrc_dm6-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm6",
+        "path": "res://maps/cache/qsrc_dm6-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm7",
+        "path": "res://maps/cache/qsrc_dm7-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm7",
+        "path": "res://maps/cache/qsrc_dm7-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm7",
+        "path": "res://maps/cache/qsrc_dm7-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_tideworks",
+        "path": "res://maps/cache/ctf_tideworks-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_tideworks",
+        "path": "res://maps/cache/ctf_tideworks-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_tideworks",
+        "path": "res://maps/cache/ctf_tideworks-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_crucible",
+        "path": "res://maps/cache/ctf_crucible-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_crucible",
+        "path": "res://maps/cache/ctf_crucible-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_crucible",
+        "path": "res://maps/cache/ctf_crucible-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_confluence",
+        "path": "res://maps/cache/ctf_confluence-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_confluence",
+        "path": "res://maps/cache/ctf_confluence-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_confluence",
+        "path": "res://maps/cache/ctf_confluence-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_deepvault",
+        "path": "res://maps/cache/ctf_deepvault-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_deepvault",
+        "path": "res://maps/cache/ctf_deepvault-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_deepvault",
+        "path": "res://maps/cache/ctf_deepvault-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_crownreach",
+        "path": "res://maps/cache/ctf_crownreach-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_crownreach",
+        "path": "res://maps/cache/ctf_crownreach-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_crownreach",
+        "path": "res://maps/cache/ctf_crownreach-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_skyfracture",
+        "path": "res://maps/cache/ctf_skyfracture-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_skyfracture",
+        "path": "res://maps/cache/ctf_skyfracture-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_skyfracture",
+        "path": "res://maps/cache/ctf_skyfracture-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tb_ashfall",
+        "path": "res://maps/cache/tb_ashfall-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tb_ashfall",
+        "path": "res://maps/cache/tb_ashfall-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tb_ashfall",
+        "path": "res://maps/cache/tb_ashfall-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tb_cindercoil",
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tb_cindercoil",
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tb_cindercoil",
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_inferno_rebuilt",
+        "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_inferno_rebuilt",
+        "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_inferno_rebuilt",
+        "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_dust2_rebuilt",
+        "path": "res://maps/cache/de_dust2_rebuilt-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_dust2_rebuilt",
+        "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_dust2_rebuilt",
+        "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_aztec_rebuilt",
+        "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_aztec_rebuilt",
+        "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_aztec_rebuilt",
+        "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_nuke_rebuilt",
+        "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_nuke_rebuilt",
+        "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_nuke_rebuilt",
+        "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_train_rebuilt",
+        "path": "res://maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_train_rebuilt",
+        "path": "res://maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_train_rebuilt",
+        "path": "res://maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_stonehenge",
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_stonehenge",
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_stonehenge",
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_raindance",
+        "path": "res://maps/cache/ctf_raindance-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_raindance",
+        "path": "res://maps/cache/ctf_raindance-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_raindance",
+        "path": "res://maps/cache/ctf_raindance-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_katabatic",
+        "path": "res://maps/cache/ctf_katabatic-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_katabatic",
+        "path": "res://maps/cache/ctf_katabatic-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_katabatic",
+        "path": "res://maps/cache/ctf_katabatic-lightmap1-astc4.scn",
+        "source_matches": true
+      }
+    ]
+  },
+  "console_server": {
+    "failures": [],
+    "maps": [
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_hislop",
+        "shapes": 9
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_frigate",
+        "shapes": 2
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tf_pressureworks",
+        "shapes": 1
+      },
+      {
+        "doors": 4,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tf_vesper",
+        "shapes": 13
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_solstice",
+        "shapes": 4
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_torture",
+        "shapes": 3
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_hyperborea",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 0,
+        "map": "koth_alichar",
+        "shapes": 9
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_hyperborea",
+        "shapes": 2
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_psychofuge",
+        "shapes": 5
+      },
+      {
+        "doors": 11,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_ghostquarter",
+        "shapes": 17
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_basement",
+        "shapes": 8
+      },
+      {
+        "doors": 6,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm1",
+        "shapes": 8
+      },
+      {
+        "doors": 27,
+        "lifts": 2,
+        "liquids": 0,
+        "map": "qsrc_dm2",
+        "shapes": 35
+      },
+      {
+        "doors": 0,
+        "lifts": 3,
+        "liquids": 0,
+        "map": "qsrc_dm3",
+        "shapes": 6
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm4",
+        "shapes": 6
+      },
+      {
+        "doors": 3,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm5",
+        "shapes": 7
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm6",
+        "shapes": 6
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 0,
+        "map": "qsrc_dm7",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_tideworks",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_crucible",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_confluence",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_deepvault",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_crownreach",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_skyfracture",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tb_ashfall",
+        "shapes": 9
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tb_cindercoil",
+        "shapes": 9
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_inferno_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_dust2_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_aztec_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 8,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_nuke_rebuilt",
+        "shapes": 13
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_train_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_stonehenge",
+        "shapes": 21
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_raindance",
+        "shapes": 37
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_katabatic",
+        "shapes": 97
+      }
+    ],
+    "passed": true,
+    "exit_code": 0
+  },
+  "custom_music": {
+    "checks": 38,
+    "failures": []
+  },
+  "custom_music_test_runtime": "Exported Linux PCK mounted in isolated Godot validation harness; actual production binary separately smoke-tested",
+  "music_package": {
+    "tracks": [
+      "dead_air.ogg",
+      "please_hold.ogg"
+    ],
+    "external_bgm_excluded": true,
+    "passed": true
+  },
+  "transport_network": {
+    "processes": [
+      "server",
+      "pilot",
+      "passenger",
+      "viewer"
+    ],
+    "lpc_and_hpc": true,
+    "passed": true,
+    "log": "test-results/release-0.20v/transport-network.log"
+  },
+  "master_server_tests": {
+    "passed": 19
+  },
+  "cs_map_converter_tests": {
+    "passed": 23
+  },
+  "exported_resource_audits": [
+    {
+      "failures": [],
+      "files": 2139,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 2139,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 2262,
+      "failures": []
+    }
+  ],
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 1251916300,
+      "sha256": "0f66aa45d770f87c890b5f8ca682fe805281c1dc94df3d76ac2a4c07ba753ab9",
+      "assets_verified": [
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "maps/tf_pressureworks.bsp",
+        "maps/tf_vesper.bsp",
+        "maps/koth_solstice.bsp",
+        "maps/koth_torture.bsp",
+        "maps/koth_hyperborea.bsp",
+        "maps/koth_alichar.bsp",
+        "maps/cc_hyperborea.bsp",
+        "maps/cc_psychofuge.bsp",
+        "maps/cc_ghostquarter.bsp",
+        "maps/cc_basement.bsp",
+        "maps/qsrc_dm1.bsp",
+        "maps/qsrc_dm2.bsp",
+        "maps/qsrc_dm3.bsp",
+        "maps/qsrc_dm4.bsp",
+        "maps/qsrc_dm5.bsp",
+        "maps/qsrc_dm6.bsp",
+        "maps/qsrc_dm7.bsp",
+        "maps/ctf_tideworks.bsp",
+        "maps/ctf_crucible.bsp",
+        "maps/ctf_confluence.bsp",
+        "maps/ctf_deepvault.bsp",
+        "maps/ctf_crownreach.bsp",
+        "maps/ctf_skyfracture.bsp",
+        "maps/tb_ashfall.bsp",
+        "maps/tb_cindercoil.bsp",
+        "maps/de_inferno_rebuilt.bsp",
+        "maps/de_dust2_rebuilt.bsp",
+        "maps/de_aztec_rebuilt.bsp",
+        "maps/de_nuke_rebuilt.bsp",
+        "maps/de_train_rebuilt.bsp",
+        "maps/ctf_stonehenge.bsp",
+        "maps/ctf_raindance.bsp",
+        "maps/ctf_katabatic.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm",
+        "vrm/sample_d_darkness.vrm",
+        "vrm/sample_e.vrm",
+        "vrm/base_female.vrm",
+        "vrm/base_male.vrm",
+        "vrm/hairsample_female.vrm",
+        "vrm/hairsample_male.vrm",
+        "vrm/sakurada_fumiriya.vrm",
+        "vrm/sendagaya_shino.vrm"
+      ],
+      "unified_base_assets": 370,
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true,
+      "renderer": {
+        "opengl_compiled": false,
+        "method": "mobile",
+        "android_driver": "vulkan",
+        "opengl_fallback": false
+      },
+      "vulkan_required": true,
+      "seekable_embedded_zip": true
+    }
+  ],
+  "exported_linux_smokes": [
+    {
+      "client_exit": 0,
+      "renderer": "Vulkan Mobile",
+      "map": "ctf_stonehenge",
+      "mode": "st",
+      "protocol": "fpsloppa-68-st-native-main",
+      "weapon_rules": "tribes",
+      "bots": 8,
+      "spectators": 1,
+      "source_asset_override": false,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "client_exit": 0,
+      "renderer": "Vulkan Mobile",
+      "map": "ctf_raindance",
+      "mode": "st",
+      "protocol": "fpsloppa-68-st-native-main",
+      "weapon_rules": "tribes",
+      "bots": 8,
+      "spectators": 1,
+      "source_asset_override": false,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "client_exit": 0,
+      "renderer": "Vulkan Mobile",
+      "map": "ctf_katabatic",
+      "mode": "st",
+      "protocol": "fpsloppa-68-st-native-main",
+      "weapon_rules": "tribes",
+      "bots": 8,
+      "spectators": 1,
+      "source_asset_override": false,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "client_exit": 0,
+      "renderer": "Vulkan Mobile",
+      "map": "de_dust2_rebuilt",
+      "mode": "de",
+      "protocol": "fpsloppa-68-st-native-main",
+      "weapon_rules": "cs16",
+      "bots": 8,
+      "spectators": 1,
+      "source_asset_override": false,
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "fixes_during_release": [
+    "Generated missing Raindance BC7 and ASTC caches from the validated raw scene, preserving geometry.",
+    "Updated isolated console audit to carry the packaged native library and instantiate ST infrastructure.",
+    "Updated package scope audits to require ST and load bundled native model scenes."
+  ],
+  "limitations": [
+    "ST bot capture reliability remains experimental; these short smoke matches validate packaging and runtime startup, not long-match balance.",
+    "No fresh physical-headset validation. Windows and Quest are cross-built and package-verified.",
+    "Malformed-OGG tests intentionally emit decoder diagnostics; native malformed-packet tests intentionally exercise invalid UTF-8.",
+    "Godot fixtures can emit one ObjectDB shutdown warning. Production smoke logs have no ERROR lines.",
+    "Upstream map licence/credit files retain original line endings and blank lines.",
+    "Final archive hashes and publication commit are recorded in BUILD-MANIFEST.json and SHA256SUMS."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "ctf_stonehenge",
+  "title": "Stonehenge | Tribes terrain study",
+  "bsp_sha256": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
+  "bytes": 10592496,
+  "bsp_version": 29,
+  "terrain_step_m": 16,
+  "terrain_extent_m": [
+    704,
+    704
+  ],
+  "terrain_elevation_m": [
+    -5.4375,
+    160.25
+  ],
+  "terrain_brushes": 3872,
+  "detail_brushes": 3955,
+  "structural_brushes": 6,
+  "full_vis": true,
+  "flag_separation_m": 448.5382820919525,
+  "team_spawns": [
+    8,
+    8
+  ],
+  "expected_loadout": "tribes",
+  "inventory_stations": [
+    2,
+    2
+  ],
+  "playable_boundary": {
+    "min": [
+      -350,
+      -24,
+      -350
+    ],
+    "max": [
+      350,
+      320,
+      350
+    ]
+  },
+  "reference": "references.json",
+  "faces": 30368,
+  "vertices": 31341,
+  "nodes": 27806,
+  "leaves": 15312
+}

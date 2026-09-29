@@ -4,15 +4,16 @@ import hashlib,json
 ROOT=Path(__file__).resolve().parents[1]
 TF_MAPS={'tf_pressureworks':'Pressureworks','tf_vesper':'VesperAbbey'}
 AS_MAPS=('as_hislop','as_frigate')
+ST_MAPS=('ctf_stonehenge','ctf_raindance','ctf_katabatic')
 DOC_SUFFIXES={'.md','.txt','.json','.png','.mp4','.map','.wad'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def distributable(path):
     p=Path(path)
-    if p.parts[:2] in {('maps','Stonehenge'),('tools','tribes'),('tools','stonehenge')}:return False
+    if p.parts[:3] in {('tools','tribes','sources'),('tools','tribes','refined'),('tools','katabatic','local')}:return False
+    if p.name.startswith('reference-') and p.parts[0]=='maps':return False
     if p.parts[:3] == ('docs','audio','skyward-relay'):return False
-    if p.name.startswith(('ctf_stonehenge','skyward_relay','tribes_')) or p.name == 'st_maplist.txt':
+    if p.name.startswith('skyward_relay'):
         if p.suffix not in {'.gd','.uid','.py'}:return False
-    if p.parts[:3] in {('deathmatch','weapons','tribes'),('deathmatch','audio','tribes')}:return False
     if p.parts[:2]==('maps','Community'):return False
     if p.name.startswith(('as_hislop_tiny','as_frigate_tiny','tf_ironspan','tf_relayworks')):return False
     if p.parts[:2]==('maps','HiSlop') or p.parts[:2]==('maps','Frigate'):
@@ -82,5 +83,6 @@ def check_selection(paths):
     for mode in ['dm','tdm','ig','ft','if']:assert rotation(mode)==['qsrc_dm'+str(i) for i in range(1,8)]
     assert set(rotation('cc'))==cc
     ctf={'ctf_tideworks','ctf_crucible','ctf_confluence','ctf_deepvault','ctf_crownreach','ctf_skyfracture'}
-    assert {Path(p).stem for p in names if p.startswith('maps/ctf_') and p.endswith('.bsp')}==ctf
+    assert {Path(p).stem for p in names if p.startswith('maps/ctf_') and p.endswith('.bsp')}==ctf|set(ST_MAPS)
     assert set(rotation('ctf'))==ctf
+    assert rotation('st')==list(ST_MAPS)

@@ -4,10 +4,9 @@ Convert a locally supplied **GoldSrc BSP30** map and its **WAD3** textures into
 a self-contained **BSP29** for FPSloppa's Bomb Defusal mode. Python 3.10+ is the
 only conversion dependency. Linux and Windows use the same scripts.
 
-**Requires the updated FPSloppa project containing this converter integration.**
-The published 0.19v binaries do not understand the new embedded DE layouts or
-per-texture palettes. Updated clients and servers use protocol
-`fpsloppa-64-de-map-conversion`; this tool does not modify an existing release.
+**Requires FPSloppa 0.20v or later.** The 0.19v binaries do not understand
+the embedded DE layouts or per-texture palettes. Use matching clients and
+servers; 0.20v uses protocol `fpsloppa-68-st-native-main`.
 
 ## Convert and validate
 

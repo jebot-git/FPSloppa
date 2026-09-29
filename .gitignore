@@ -126,16 +126,12 @@ __pycache__/
 # Separate experimental checkouts.
 /.worktrees/
 
-# ST artwork, source references and compiled maps are maintained as local assets.
-/deathmatch/weapons/tribes/
-/deathmatch/audio/tribes/
-/deathmatch/ui/weapon_icons/tribes_*
+# ST source references and compiled maps remain local; runtime art ships in 0.20v.
 /deathmatch/audio/music/skyward_relay*
 /maps/Stonehenge/
 /maps/ctf_stonehenge*
 /maps/cache/ctf_stonehenge*
 /maps/navigation/ctf_stonehenge*
-/maps/st_maplist.txt
 /maps/Raindance/
 /maps/ctf_raindance*
 /maps/cache/ctf_raindance*

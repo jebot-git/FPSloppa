@@ -16,6 +16,8 @@ The separate [portable avatar converter](tools/avatar_converter/README.md) prepa
 
 The additional [UT Avatar Converter](tools/ut_avatar_converter/README.md) turns original UT99 model and skin packages into experimental VRM avatars on Linux and Windows. It includes archive extraction, material selection, editable rig landmarks and a pose preview, with tested Female Soldier, Female Commando and Rumiko presets. [Download Linux/Windows releases](https://github.com/jebot-git/UTAvatarConverter/releases/tag/v0.1.0) or build from its [independent repository](https://github.com/jebot-git/UTAvatarConverter). The separate [experimental MDL Avatar Converter](https://github.com/jebot-git/MDLAvatarConverter/releases/tag/v0.1.0) now supports Quake MDL/PAK input, palette and frame/skin selection, editable rigging and VRM export. GoldSrc MDL is unsupported.
 
+ST is included from 0.20v with Stonehenge, Raindance and Katabatic; see [Tribes mode and controls](docs/ST-TRIBES.md). Put custom OGG music in the empty `bgm/` folder; see [music selection](AUDIO.md#mixer-and-custom-music).
+
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest APK installation and device-testing limitations. Smooth turning now defaults on.
 
 For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use matching client and server builds to receive all fixes. The protocol is `fpsloppa-45-de-utility`.
