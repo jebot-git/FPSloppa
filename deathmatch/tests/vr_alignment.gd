@@ -24,6 +24,7 @@ func run() -> void:
 	var peer:=ENetMultiplayerPeer.new();var result:=peer.create_client("127.0.0.1",27889)
 	check(result==OK,"Client peer created for owner-side rendering test")
 	if result!=OK:game.free();quit(1);return
+	if game.spawn_points.is_empty():game.spawn_points.append(Vector3(1000,10,1000))
 	var id:=peer.get_unique_id();game._add_player(id,"Local tracked body");game.active=true;game.menu_open=false
 	game.multiplayer.multiplayer_peer=peer
 	var actor=game.fighters[id];actor.position=Vector3(1000,10,1000);actor.reset_view()
@@ -59,13 +60,16 @@ func run() -> void:
 	rig.right.position=Vector3(.8,1.1,0);rig.left.position=rig.right.position
 	rig.right_aim.basis=Basis(Vector3.UP,-PI/2);rig.left_aim.basis=rig.right_aim.basis
 	rig._process(.01);await physics_frame
-	game.headless=false;game.clock=100;game.visual_cooldown=0;game.offhand_visual_cooldown=0;game.predicted_shot_clock=-99;game.predicted_offhand_shot_clock=-99
-	game._predict_shots(id,{"fire":true,"offhand_fire":true,"xr":rig.sample_pose()})
-	check(game.predicted_shot_clock==-99 and game.predicted_offhand_shot_clock==-99 and game.visual_cooldown==0 and game.offhand_visual_cooldown==0,"Both hands behind wall suppress predicted firing effects despite clear stale server pose")
+	game.headless=false;game.clock=100;game.visual_cooldown=0;game.offhand_visual_cooldown=0;game.shot_prediction.reset()
+	var shot_command:Dictionary={"weapon":2,"fire":true,"offhand_fire":true,"xr":rig.sample_pose()}
+	game.fire_delivery.sample(shot_command,state.serial,game.clock)
+	game._predict_shots(id,shot_command)
+	check(game.shot_prediction.pending.is_empty() and game.visual_cooldown==0 and game.offhand_visual_cooldown==0,"Both hands behind wall suppress predicted firing effects despite clear stale server pose")
 	rig.right.position=Vector3(-.2,1.1,-.3);rig.left.position=Vector3(-.4,1.1,-.3)
 	rig.right_aim.basis=Basis.IDENTITY;rig.left_aim.basis=Basis.IDENTITY;rig._process(.01)
-	game._predict_shots(id,{"fire":true,"offhand_fire":true,"xr":rig.sample_pose()})
-	check(game.predicted_shot_clock==100 and game.predicted_offhand_shot_clock==100 and game.visual_cooldown>0 and game.offhand_visual_cooldown>0,"Clear main and offhand shots still predict their firing effects")
+	shot_command.xr=rig.sample_pose()
+	game._predict_shots(id,shot_command)
+	check(game.shot_prediction.pending.size()==2 and game.visual_cooldown>0 and game.offhand_visual_cooldown>0,"Clear main and offhand shots still predict their firing effects")
 	game.headless=DisplayServer.get_name()=="headless"
 	# Let real render/physics ordering run at different rates. Comparing only
 	# _process transforms misses a second interpolation in the rendered subtree.

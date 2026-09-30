@@ -1,9 +1,12 @@
 extends RefCounted
 ## A jump edge is repeated until consumed, with a short expiry and life/epoch guard.
+static var native_packer=preload("res://deathmatch/network/codec.gd").native_codec
+static var native_packing_enabled=not OS.get_cmdline_user_args().has("--gdscript-network-packing")
 var life := -1
 var held := false
 var event := 0
 var pending := 0
+var jump_sequence:=-1
 var expires := 0.0
 var guards: Dictionary = {}
 var jet_event:=0
@@ -26,7 +29,7 @@ func sample(command: Dictionary, serial: int, now: float) -> void:
 	jet_held=jet_button or command.get("input_blocked",false)
 	var pressed: bool = command.get("jump",false) and not command.get("input_blocked",false)
 	if pressed and not held:
-		event += 1; pending = event; expires = now + .25
+		event += 1; pending = event; expires = now + .25;jump_sequence=int(command.get("seq",-1))
 		if now-last_press<=.30:jet_event+=1;jet_pending=jet_event;jet_expires=now+.5;last_press=-100.0
 		else:last_press=now
 	held = pressed
@@ -36,6 +39,7 @@ func sample(command: Dictionary, serial: int, now: float) -> void:
 func annotate(command: Dictionary, now: float) -> void:
 	command.input_life = life
 	command.jump_event = pending if now <= expires else 0
+	command.jump_seq=jump_sequence
 	command.jetpack_event=jet_pending if now<=jet_expires else 0
 func acknowledge(serial: int, value: int, jet_value: int=0) -> void:
 	if serial == life and value >= pending: pending = 0
@@ -60,16 +64,40 @@ static func accept(state: Dictionary, command: Dictionary) -> void:
 	# Consume blocked/dead actions without replaying them after thawing or respawn.
 	if state.dead or state.spectator or command.get("input_blocked",false): state.jump_ack = value; return
 	state.jump_pending = true
+	var sequence=command.get("jump_seq",-1)
+	state.jump_pending_seq=sequence if sequence is int and sequence>=0 and sequence<=command.get("seq",-1) else -1
 static func sync_life(state: Dictionary) -> void:
 	if state.get("jump_event_life",-1) != state.serial:
 		state.jump_event_life = state.serial; state.jump_received = 0; state.jump_ack = 0; state.jump_pending = false;state.jetpack_ack=0;state.jetpack_pending=false
-static func consume(state: Dictionary, actor) -> bool:
+static func consume(state: Dictionary, actor,ready_sequence:int=-1) -> bool:
 	actor.jetpack_requested=state.get("jetpack_pending",false) and not state.get("input_blocked",false)
 	state.jetpack_pending=false
 	var edge: bool = state.get("jump_pending",false)
-	state.jump_pending = false
+	if ready_sequence>=0 and state.get("jump_pending_seq",-1)>ready_sequence:edge=false
+	if edge:state.jump_pending = false
 	if edge:
 		state.jump_ack = state.get("jump_received",0)
 		# A newer press also implies a release, even if the release packet was lost.
 		actor.jump_held = false
 	return edge or state.jump
+
+static func pack(command:Dictionary) -> PackedByteArray:
+	if native_packing_enabled and native_packer and native_packer.has_method("pack_input"):return native_packer.pack_input(command)
+	return pack_reference(command)
+
+static func pack_reference(command:Dictionary) -> PackedByteArray:
+	# Redundancy is optional; never let tracker/history growth make the server
+	# discard the entire input datagram. Keep the oldest unacknowledged trigger.
+	var codec=preload("res://deathmatch/network/codec.gd")
+	var bytes:PackedByteArray=codec.pack(command)
+	if bytes.size()<=1100:return bytes
+	var wire:=command.duplicate(true)
+	while bytes.size()>1100:
+		if wire.get("move_commands",[]).size()>2:wire.move_commands.pop_front()
+		elif wire.get("xr",{}).has("face"):wire.xr.erase("face")
+		elif wire.get("xr",{}).get("body",{}).size()>1:wire.xr=preload("res://deathmatch/vr/poses.gd").gameplay(wire.xr)
+		elif wire.get("fire_events",[]).size()>1:wire.fire_events.pop_back()
+		elif wire.get("move_commands",[]).size()>1:wire.move_commands.pop_front()
+		else:return PackedByteArray()
+		bytes=codec.pack(wire)
+	return bytes

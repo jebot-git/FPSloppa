@@ -186,3 +186,32 @@ Tech Knight's CC0 gatling replaces the gun on TF and Assault sentries. Its six b
 The sniper is 890 triangles (910 before removing glass caps); the turret gun is 2,198. This fits the newer 2–3k-triangle hammer/flamethrower assets, though the original AFPS base meshes are much simpler. Compressed runtime scenes together are about 55 KiB. Original palette/metal colours are preserved, and no new texture pack or rendering pass is needed. Conversion is reproducible through `tools/weapon_sources/sniper_turret_blender.py` and `import_refined.gd`; source files stay out of game/server exports.
 
 Validation: `docs/validation/sniper-turret-models.json`; render: `test-results/weapon-variants/sniper-turret.png`. The scope was checked in rendered Godot tests and the controller poses in simulated XR; live headset comfort has not been retested for these models.
+
+## Responsiveness and effective weapon rates — 30 September 2026
+
+Fractional cooldown overshoot is now carried into the next held shot, bounded to one physics tick. Idle time cannot accumulate a catch-up burst. This restores configured firing rates before changing damage numbers. A 30-second, 60 Hz timer fixture measured:
+
+| Configured cycle | Previous shots | Updated shots |
+| --- | ---: | ---: |
+| 0.060 s | 450 | 500 |
+| 0.086 s | 300 | 349 |
+| 0.100 s | 258 | 300 |
+| 0.120 s | 225 | 250 |
+
+These are sustained timer counts with no reload/ammunition constraint, not observed match DPS. Nailguns, lightning, plasma and other rapid weapons benefit according to their configured cycle. Restored cadence also means more legitimate projectiles per second; the existing projectile limits still apply. No blanket damage buff was applied.
+
+TF flame now samples a deterministic five-ray, five-degree cone over its existing eight-metre range. Each target receives one eight-damage dose per attack, even if multiple rays hit it; ammo cost remains one cell. Each ray checks cover. The visual flame emission remains one per attack. Central hits, wider hits, thin cover, range and ammo consumption are covered for both shared firing implementations.
+
+UT charge presentation starts locally, with a HUD percentage and loading-stage controller pulses. Release/acceptance clears it and preserves the refire interval; menus and invalid states cancel it. This feedback does not create projectiles or predict charged damage. Eligible CS firing now produces immediate local presentation subject to magazine, chamber and manual-reload constraints.
+
+Two-hand support uses explicit weapon/ruleset capabilities, so Quake's slot-two shotgun is supported without treating Doom's slot-two pistol as a long gun. Grip engagement and optional virtual stock blend in over 80 ms; release/tracking loss returns control immediately. The stock remains opt-in and now works with eligible long guns outside CS. Neither helper translates the muzzle or buffers headset motion.
+
+### Design references
+
+- [Quake III weapon timing](https://github.com/id-Software/Quake-III-Arena/blob/master/code/game/bg_pmove.c) subtracts elapsed command time and adds a weapon interval; its [client prediction](https://github.com/id-Software/Quake-III-Arena/blob/master/code/cgame/cg_predict.c) provides the classic arena-shooter precedent for replaying unacknowledged inputs.
+- [Snapshot interpolation](https://gafferongames.com/post/snapshot_interpolation/) explains buffering remote state against packet jitter. Here, playback rate changes gradually while interpolation remains bounded by received state.
+- [John Carmack's latency-mitigation discussion, archived by Dan Luu](https://danluu.com/latency-mitigation/) motivates separating immediate local response from delayed authoritative results. His [VR discussion with Andrew Bosworth](https://www.uploadvr.com/carmack-bosworth-recording-twitter/) also reinforces treating comfort separately from ordinary game-camera smoothing. Neither source establishes headset comfort for this implementation.
+- [Team Beef's Quake2Quest controls](https://github.com/Team-Beef-Studios/Quake2Quest#controls) and the [Quake3Quest project](https://quake3.quakevr.com/) provide relevant two-handed stabilization and comfort-control precedents.
+- [Onward's developer blog](https://www.onwardthegame.com/devblog.html) discusses weapon calibration and weapon handling; the [Half-Life: Alyx developer AMA](https://www.reddit.com/r/HalfLife/comments/esen9b/were_developers_from_the_halflife_alyx_team_ask/) discusses VR movement constraints. These support keeping tracked poses responsive instead of adding artificial camera inertia.
+
+Per-weapon calibration UI and new comfort-vignette modes remain possible follow-ups. Cosmetic projectile actors were subsequently implemented for eligible single, uncharged launches; see the [recipient replication follow-up](NETWORK-STACK-IMPLEMENTATION.md#cosmetic-prediction-and-recipient-replication--30-september-2026) for handoff behavior and exclusions. See [networking details](NETWORK-STACK-IMPLEMENTATION.md#responsiveness-follow-up--30-september-2026) and [measured costs](NATIVE-NETWORK-REWIND.md#responsiveness-cost-and-native-decision--30-september-2026).

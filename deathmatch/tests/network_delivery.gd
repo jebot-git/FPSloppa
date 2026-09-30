@@ -40,6 +40,13 @@ func _initialize() -> void:
 	check(client.jet_triggered,"Fresh jetpack press after release predicts one launch")
 	s.jump=true
 	check(Delivery.consume(s,actor) and Delivery.consume(s,actor),"Held jump remains held for swimming; no synthetic release")
+	s={"serial":4,"dead":false,"spectator":false,"jump":false}
+	Delivery.accept(s,{"input_life":4,"seq":22,"jump_event":1,"jump_seq":21})
+	check(not Delivery.consume(s,actor,20) and s.jump_pending,"History does not consume a future jump early")
+	check(Delivery.consume(s,actor,21) and s.jump_ack==1,"Queued jump executes at its simulation sequence")
+	Delivery.accept(s,{"input_life":4,"seq":30,"jump_event":2,"jump_seq":26})
+	check(Delivery.consume(s,actor,29) and not Delivery.consume(s,actor,30),"Late durable jump survives a missing history entry exactly once")
+
 	var accepted := 0
 	for i in 100:
 		if client.allow(42,0): accepted += 1

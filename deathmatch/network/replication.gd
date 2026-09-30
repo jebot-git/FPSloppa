@@ -1,7 +1,10 @@
 extends RefCounted
 ## Independent state records; loss of one datagram never blocks another entity.
 const Codec = preload("res://deathmatch/network/snapshot_codec.gd")
+const Locomotion=preload("res://deathmatch/network/locomotion_wire.gd")
 const BUDGET = 1100 # Leaves room for the Godot RPC and transport envelope.
+var native_packer=preload("res://deathmatch/network/codec.gd").native_codec
+var native_packing_enabled=not OS.get_cmdline_user_args().has("--gdscript-network-packing")
 var sequence := 0
 var epoch := -1
 var versions: Dictionary = {}
@@ -18,36 +21,44 @@ func reset() -> void:
 	epoch = -1; sequence = 0; versions.clear(); player_rows.clear(); shot_rows.clear(); state.clear(); cached.clear(); dirty = false; membership.clear(); membership_sequence = -1
 
 func packets(snapshot: Array) -> Dictionary:
-	if epoch != snapshot[9]: reset(); epoch = snapshot[9]
-	sequence += 1
-	var records: Array = []
-	for index in [1,2,3,4,5,6,8,9,11,12,13]: records.append([0,index,snapshot[index]])
-	var mode: Dictionary = snapshot[10]
+	if epoch!=snapshot[9]:reset();epoch=snapshot[9]
+	sequence+=1
+	var records:Array=[]
+	for index in [1,2,3,4,5,6,8,9,11,12,13]:records.append([0,index,snapshot[index]])
+	var mode:Dictionary=snapshot[10]
 	for key in mode:
-		if key not in ["locomotion","movement_ack","ordnance"]: records.append([1,key,mode[key]])
-	var ids: Array = []; var shots: Array = []
+		if key not in ["locomotion","movement_ack","ordnance"]:records.append([1,str(key),mode[key]])
+	var ids:Array=[];var shots:Array=[]
 	for row in snapshot[0]:
-		ids.append(row[0]); records.append([2,row[0],row,mode.get("locomotion",{}).get(row[0],{}),mode.get("movement_ack",{}).get(row[0],-1)])
+		ids.append(row[0]);records.append([2,row[0],row,Locomotion.encode(mode.get("locomotion",{}).get(row[0],{})),mode.get("movement_ack",{}).get(row[0],-1)])
 	for row in snapshot[7]:
-		shots.append(row[0]); records.append([3,row[0],row,mode.get("ordnance",{}).get(row[0],{})])
+		shots.append(row[0]);records.append([3,row[0],row,mode.get("ordnance",{}).get(row[0],{})])
 	records.append([4,0,ids,shots,mode.keys()])
-	var result: Dictionary = {"normal":[],"large":[]}
-	var encoded_records: Array = []
-	for record in records:
-		var record_bytes := Codec.encode(record)
-		# Resend unchanged control state once per second for joins and loss recovery.
-		if record[0] in [0,1,4] and not (record[0] == 0 and record[1] in [2,3,12,13]):
-			var key := str(record[0])+":"+str(record[1])
-			var bytes := record_bytes
-			if cached.has(key) and cached[key].bytes == bytes and snapshot[12] - cached[key].time < 1.0: continue
-			cached[key] = {"bytes":bytes,"time":snapshot[12]}
-		encoded_records.append(record_bytes)
+	var result:Dictionary={"normal":[],"large":[]};var encoded_records:Array=[]
+	var batch:Array=native_packer.encode_records(records) if native_packing_enabled and native_packer and native_packer.has_method("encode_records") else []
+	for index in records.size():
+		var record:Array=records[index]
+		var bytes:PackedByteArray=batch[index] if batch.size()==records.size() else Codec.encode(record)
+		if record[0] in [0,1,4] and not (record[0]==0 and record[1] in [2,3,12,13]):
+			var key:=str(record[0])+":"+str(record[1])
+			if cached.has(key) and cached[key].bytes==bytes and snapshot[12]-cached[key].time<1.:continue
+			cached[key]={"bytes":bytes,"time":snapshot[12]}
+		encoded_records.append(bytes)
 	_pack_records(encoded_records,[snapshot[9],sequence,snapshot[12]],result)
-	for bytes in result.normal + result.large:
-		stats.sent_bytes += bytes.size(); stats.sent_packets += 1; stats.max_packet = maxi(stats.max_packet,bytes.size())
+	for bytes in result.normal+result.large:
+		stats.sent_bytes+=bytes.size();stats.sent_packets+=1;stats.max_packet=maxi(stats.max_packet,bytes.size())
 	return result
 
 func _pack_records(records: Array,header: Array,result: Dictionary) -> void:
+	if native_packing_enabled and native_packer and native_packer.has_method("pack_records"):
+		var packed:Dictionary=native_packer.pack_records(records,header)
+		result.normal.append_array(packed.normal);result.large.append_array(packed.large)
+		stats.large_records+=packed.large.size()
+		if packed.invalid:push_error("Snapshot record exceeds codec limit")
+		return
+	_pack_records_reference(records,header,result)
+
+func _pack_records_reference(records: Array,header: Array,result: Dictionary) -> void:
 	# Search packet-sized prefixes instead of recompressing after every record.
 	# Every emitted candidate is checked: compression need not be monotonic.
 	var cursor:=0;var previous_count:=8
@@ -104,7 +115,7 @@ func receive(bytes: PackedByteArray, expected_epoch: int) -> bool:
 			2:
 				if record.size() != 5 or not record[2] is Array or record[2].size() != 22 or not record[3] is Dictionary: return false
 				player_rows[record[1]] = record[2]
-				state[10].locomotion[record[1]] = record[3]; state[10].movement_ack[record[1]] = record[4]; state[10].sample_time[record[1]] = message[2]
+				state[10].locomotion[record[1]] = Locomotion.decode(record[3]); state[10].movement_ack[record[1]] = record[4]; state[10].sample_time[record[1]] = message[2]
 			3:
 				if record.size() != 4 or not record[2] is Array or record[2].size() != 7 or not record[3] is Dictionary: return false
 				shot_rows[record[1]] = record[2]

@@ -1,0 +1,601 @@
+{
+  "date": "2026-09-30",
+  "protocol": "fpsloppa-71-native-special-trace",
+  "environment": {
+    "cpu": "Intel N95",
+    "engine": "Godot 4.7.2 stable",
+    "platform": "Linux x86-64 headless"
+  },
+  "decision": "Enable native special-mode traces with live authoritative callbacks; revert production recipient personalization for frame-time headroom. Keep cosmetic projectile prediction.",
+  "benchmarks": {
+    "special_trace": {
+      "production_gate_enabled": true,
+      "reports": [
+        {
+          "five_rays_us": {
+            "median": 669,
+            "p95": 887
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": false,
+          "structures": 0
+        },
+        {
+          "five_rays_us": {
+            "median": 268,
+            "p95": 348
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": true,
+          "structures": 0
+        },
+        {
+          "five_rays_us": {
+            "median": 270,
+            "p95": 353
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": true,
+          "structures": 0
+        },
+        {
+          "five_rays_us": {
+            "median": 607,
+            "p95": 727
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": false,
+          "structures": 0
+        },
+        {
+          "five_rays_us": {
+            "median": 775,
+            "p95": 1095
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": false,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 260,
+            "p95": 329
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": true,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 259,
+            "p95": 331
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": true,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 775,
+            "p95": 994
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": false,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 1294,
+            "p95": 1608
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": false,
+          "structures": 64
+        },
+        {
+          "five_rays_us": {
+            "median": 307,
+            "p95": 395
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": true,
+          "structures": 64
+        },
+        {
+          "five_rays_us": {
+            "median": 309,
+            "p95": 399
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": true,
+          "structures": 64
+        },
+        {
+          "five_rays_us": {
+            "median": 1171,
+            "p95": 1562
+          },
+          "fixture_mismatches": 0,
+          "mode": "tf",
+          "native": false,
+          "structures": 64
+        },
+        {
+          "five_rays_us": {
+            "median": 971,
+            "p95": 1205
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": false,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 585,
+            "p95": 716
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": true,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 578,
+            "p95": 757
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": true,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 973,
+            "p95": 1097
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": false,
+          "structures": 16
+        },
+        {
+          "five_rays_us": {
+            "median": 1295,
+            "p95": 1566
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": false,
+          "structures": 64
+        },
+        {
+          "five_rays_us": {
+            "median": 908,
+            "p95": 1109
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": true,
+          "structures": 64
+        },
+        {
+          "five_rays_us": {
+            "median": 905,
+            "p95": 1077
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": true,
+          "structures": 64
+        },
+        {
+          "five_rays_us": {
+            "median": 1307,
+            "p95": 1556
+          },
+          "fixture_mismatches": 0,
+          "mode": "st",
+          "native": false,
+          "structures": 64
+        }
+      ],
+      "scope": "16 actors, five rays, TF structures or ST deployables with four scouts/eight beacons; production native body/structure tracing versus complete reference; no rendered scene or damage application. Hull/Tribes correctness covered separately."
+    },
+    "packing": {
+      "native": true,
+      "reports": [
+        {
+          "all_16_recipients_us": {
+            "median": 767,
+            "p95": 993
+          },
+          "fresh_native_packing_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "fresh_native_projection_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "personal": false,
+          "total_payload_bytes": {
+            "median": 65488,
+            "p95": 65696
+          },
+          "variant": "broadcast"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 6729,
+            "p95": 8426
+          },
+          "fresh_native_packing_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "fresh_native_projection_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "reference"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 4558,
+            "p95": 5961
+          },
+          "fresh_native_packing_us": {
+            "median": 1519,
+            "p95": 1645
+          },
+          "fresh_native_projection_us": {
+            "median": 4019,
+            "p95": 4280
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "native"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 4615,
+            "p95": 6120
+          },
+          "fresh_native_packing_us": {
+            "median": 1510,
+            "p95": 1945
+          },
+          "fresh_native_projection_us": {
+            "median": 4023,
+            "p95": 4926
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "native"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 7101,
+            "p95": 10332
+          },
+          "fresh_native_packing_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "fresh_native_projection_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "reference"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 771,
+            "p95": 1013
+          },
+          "fresh_native_packing_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "fresh_native_projection_us": {
+            "median": 0,
+            "p95": 0
+          },
+          "personal": false,
+          "total_payload_bytes": {
+            "median": 65488,
+            "p95": 65696
+          },
+          "variant": "broadcast"
+        }
+      ],
+      "scope": "16 fully tracked players on 25m grid, 32 projectiles, 30Hz, 20 warmup + 80 samples; includes projection/encoding/compression, no transport or rendering"
+    }
+  },
+  "tests": [
+    {
+      "name": "native_special_trace",
+      "results": [
+        "NATIVE_SPECIAL_TRACE_RESULT {\"checks\":7770,\"failures\":[]}"
+      ],
+      "log_sha256": "8849c6d62a6960a8b85e07430595856a282e1936045780146192fa0c7384f744"
+    },
+    {
+      "name": "native_rewind",
+      "results": [
+        "NATIVE_REWIND_RESULT {\"benchmarks\":[{\"eight_rays\":{\"mean_ms\":2.99645833333333,\"median_ms\":2.961,\"p95_ms\":3.297},\"path\":\"reference\"},{\"eight_rays\":{\"mean_ms\":1.16433333333333,\"median_ms\":1.147,\"p95_ms\":1.321},\"path\":\"batched_gd\"},{\"eight_rays\":{\"mean_ms\":0.3946,\"median_ms\":0.381,\"p95_ms\":0.463},\"path\":\"native\"},{\"eight_rays\":{\"mean_ms\":0.401383333333333,\"median_ms\":0.385,\"p95_ms\":0.486},\"path\":\"native\"},{\"eight_rays\":{\"mean_ms\":1.157225,\"median_ms\":1.146,\"p95_ms\":1.247},\"path\":\"batched_gd\"},{\"eight_rays\":{\"mean_ms\":3.0057,\"median_ms\":2.959,\"p95_ms\":3.312},\"path\":\"reference\"}],\"checks\":16850,\"failures\":[]}"
+      ],
+      "log_sha256": "0195ccf6af73cd86c930171da129729d942d45950ad925eb1afafd5832b245eb"
+    },
+    {
+      "name": "native_acceleration",
+      "results": [
+        "NATIVE_ACCELERATION_RESULT {\"checks\":51311,\"failures\":[]}"
+      ],
+      "log_sha256": "9fefcef47adced40706a2291eef24dc385b5f75a3ebb6117903c862f1268952c"
+    },
+    {
+      "name": "flame_coverage",
+      "results": [
+        "FLAME_COVERAGE_RESULT []"
+      ],
+      "log_sha256": "8fba6ca5112c2965ea994357ec1a5ece10badb613eccdb1e3ca49cb0b74278a6"
+    },
+    {
+      "name": "fortress",
+      "results": [
+        "FORTRESS_RESULT []"
+      ],
+      "log_sha256": "f3b7c831b5b60d33b54e8567dd8f0228caf2d55392938e0c4cd62acf47a6b282"
+    },
+    {
+      "name": "replication_protocol",
+      "results": [
+        "REPLICATION_PROTOCOL_RESULT {\"encode_us\":591,\"failures\":[],\"input_bytes\":407,\"max_packet\":1037,\"packets\":4,\"players_updated_with_one_packet_missing\":11,\"snapshot_bytes\":3768}"
+      ],
+      "log_sha256": "a4088cb4cc0ee79b4cfdf1674da86bc3efccdc4af33bdc072c557cb452e68ef3"
+    },
+    {
+      "name": "native_responsiveness",
+      "results": [
+        "NATIVE_RESPONSIVENESS_RESULT {\"checks\":3242,\"failures\":[]}"
+      ],
+      "log_sha256": "47333867509640d430b6ee66f8edb6d1d45e007bf5516e9d222b38bdd474889a"
+    },
+    {
+      "name": "native_network_packing",
+      "results": [
+        "NATIVE_NETWORK_RESULT {\"checks\":6335,\"failures\":[],\"reports\":[{\"after_bytes\":27313,\"after_ms\":{\"median\":0.124,\"p95\":0.155},\"after_packets\":64,\"before_bytes\":27313,\"before_ms\":{\"median\":0.185,\"p95\":0.315},\"before_packets\":64,\"players\":8,\"shots\":0,\"vr\":false},{\"after_bytes\":131432,\"after_ms\":{\"median\":0.39,\"p95\":0.499},\"after_packets\":132,\"before_bytes\":131432,\"before_ms\":{\"median\":0.765,\"p95\":0.953},\"before_packets\":132,\"players\":16,\"shots\":32,\"vr\":true},{\"after_bytes\":1087542,\"after_ms\":{\"median\":2.777,\"p95\":3.048},\"after_packets\":1028,\"before_bytes\":1087542,\"before_ms\":{\"median\":6.482,\"p95\":6.865},\"before_packets\":1028,\"players\":16,\"shots\":523,\"vr\":false}]}"
+      ],
+      "log_sha256": "d09f13d5ffe3f1e6b162b8a8db9d58844ea92fff60554d567323d8c6c7591546"
+    },
+    {
+      "name": "predicted_projectiles",
+      "results": [
+        "PREDICTED_PROJECTILES_RESULT {\"failures\":[]}"
+      ],
+      "log_sha256": "abea3e472edb45612e6b872dc11602f27f7920532167c7e5793a55cfa06bc110"
+    },
+    {
+      "name": "weapon_variants",
+      "results": [
+        "VARIANTS_RESULT {\"checks\":71,\"failures\":[],\"passed\":true}"
+      ],
+      "log_sha256": "62693529848f88309d3ed8780c53fe79c3200ecd33c52115e45d4c3b64b06ea6"
+    },
+    {
+      "name": "cs16",
+      "results": [
+        "CS16_RESULT {\"checks\":70,\"failures\":[],\"passed\":true}"
+      ],
+      "log_sha256": "d9c506cc53655209056c8bf29cc844ed445f441b8a46f33e666c216ede2ff7ad"
+    },
+    {
+      "name": "movement_replay",
+      "results": [
+        "MOVEMENT_REPLAY_RESULT {\"failures\":[],\"prediction\":{\"confirmed\":203,\"corrections\":11,\"max_error\":0.530859410762787,\"replays\":11,\"resets\":0},\"settled_error\":0.0,\"six_tick_reconcile_median_us\":123,\"six_tick_reconcile_p95_us\":990}"
+      ],
+      "log_sha256": "35063c26b5e35de46f2e5e67e3886c3ad6fc588b802f6e0a9ac8d8b83407d432"
+    },
+    {
+      "name": "recipient_replication",
+      "results": [
+        "RECIPIENT_REPLICATION_RESULT {\"failures\":[]}"
+      ],
+      "log_sha256": "3b4c254162825fa1d11191265938a202e0eaf43a8dff917d8489e8fc46b1fea8"
+    }
+  ],
+  "network": {
+    "rocket": [
+      {
+        "log": "/tmp/fpsloppa-rocket-quake-server.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"quake\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":6.71404838562012,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":3.6778564453125,\"landed\":true,\"max_upward_mps\":16.5596351623535,\"rules\":\"quake\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85156345367432,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":11.3955974578857,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":10.0703811645508,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":28.3329639434814,\"landed\":true,\"max_upward_mps\":20.0,\"rules\":\"quake\",\"self_damage\":54,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":25.4595546722412,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008224487305,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":24.38844871521,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":25.4433097839355,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008129119873,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":10.735203742981,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"quake\"}"
+        ]
+      },
+      {
+        "log": "/tmp/fpsloppa-rocket-quake-client.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"quake\"}"
+        ]
+      },
+      {
+        "log": "/tmp/fpsloppa-rocket-doom-server.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"doom\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.4810094833374,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":2.2713623046875,\"landed\":true,\"max_upward_mps\":13.5609922409058,\"rules\":\"doom\",\"self_damage\":59,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":3.24681854248047,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":7.38158130645752,\"landed\":true,\"max_upward_mps\":11.570556640625,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":9.4109001159668,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":29.7403945922852,\"landed\":true,\"max_upward_mps\":19.3233528137207,\"rules\":\"doom\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":28.318244934082,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":9.4109001159668,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":30.3464832305908,\"landed\":true,\"max_upward_mps\":19.3233528137207,\"rules\":\"doom\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":27.8230152130127,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":2.98652935028076,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":7.00857877731323,\"landed\":true,\"max_upward_mps\":11.1041021347046,\"rules\":\"doom\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"doom\"}"
+        ]
+      },
+      {
+        "log": "/tmp/fpsloppa-rocket-doom-client.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"doom\"}"
+        ]
+      }
+    ],
+    "cosmetic": [
+      {
+        "role": "fpsloppa-cosmetic-server",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "PROJECTILE_PREDICTION_NETWORK_RESULT {\"failures\":[],\"role\":\"server\"}"
+        ]
+      },
+      {
+        "role": "fpsloppa-cosmetic-client",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "PROJECTILE_PREDICTION_NETWORK_RESULT {\"failures\":[],\"role\":\"client\"}"
+        ]
+      }
+    ]
+  },
+  "server_smoke": {
+    "bytes": 122,
+    "passed": true
+  },
+  "builds": [
+    {
+      "target": "linux",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "5d6a6ea34df452f8c0cf958520bdb622641e80c90b33fa933fc8c3860ce3d080",
+      "source_sha256": {
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "30e77399c42fadcc85d9a6b58c01129fee1c5baaf128fcbab7957a3e17c4bd9f",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "89e340ae089c556344d7ba1c10a711c8151d4f020e349f82841b629e8e492e6d",
+        "src/bots.h": "8badd96ae32fc1d44fdfe750cbd06bac0e40124c71bbe75d4aa27b32e6340480",
+        "src/codec.cpp": "58a6cd989ffaa1c3e9b5c3edebc1ecdb84159093e9a8a8a2449deef1653b95bc",
+        "src/codec.h": "7f1b8bfcb88bd6d95f536bc5431c66053a22f5e3820f1b1d32904829c7bb5b55",
+        "src/network_packing.cpp": "edb48f0d882310e71ef8c08e48893c6a3317ca31acac6f98183a9d45e3a1bd9f",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/projectiles.cpp": "9ba95c488fd1cd1fffbdd023b0393dd3a8c341a8d920edc4accf05184fbe7e3b",
+        "src/projectiles.h": "9c117d195b28be0715b7ac91669c35e00f546c5d90afde923da14e673a353664",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65",
+        "src/st_steering.cpp": "b8fae04d4d72ba7f5ec2baca59c4b165e917b90070716c3a1b99840dd7e4a867"
+      }
+    },
+    {
+      "target": "linux-server",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "01859033a7e6bcad91767a9fbc08c783f8ed00ececcd6e2ea9ffbe441d14a30c",
+      "source_sha256": {
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "30e77399c42fadcc85d9a6b58c01129fee1c5baaf128fcbab7957a3e17c4bd9f",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "89e340ae089c556344d7ba1c10a711c8151d4f020e349f82841b629e8e492e6d",
+        "src/bots.h": "8badd96ae32fc1d44fdfe750cbd06bac0e40124c71bbe75d4aa27b32e6340480",
+        "src/codec.cpp": "58a6cd989ffaa1c3e9b5c3edebc1ecdb84159093e9a8a8a2449deef1653b95bc",
+        "src/codec.h": "7f1b8bfcb88bd6d95f536bc5431c66053a22f5e3820f1b1d32904829c7bb5b55",
+        "src/network_packing.cpp": "edb48f0d882310e71ef8c08e48893c6a3317ca31acac6f98183a9d45e3a1bd9f",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/projectiles.cpp": "9ba95c488fd1cd1fffbdd023b0393dd3a8c341a8d920edc4accf05184fbe7e3b",
+        "src/projectiles.h": "9c117d195b28be0715b7ac91669c35e00f546c5d90afde923da14e673a353664",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65",
+        "src/st_steering.cpp": "b8fae04d4d72ba7f5ec2baca59c4b165e917b90070716c3a1b99840dd7e4a867"
+      }
+    }
+  ],
+  "source_sha256": {
+    "addons/fps_native/src/projectiles.cpp": "9ba95c488fd1cd1fffbdd023b0393dd3a8c341a8d920edc4accf05184fbe7e3b",
+    "addons/fps_native/src/projectiles.h": "9c117d195b28be0715b7ac91669c35e00f546c5d90afde923da14e673a353664",
+    "addons/fps_native/src/network_packing.cpp": "edb48f0d882310e71ef8c08e48893c6a3317ca31acac6f98183a9d45e3a1bd9f",
+    "deathmatch/arena.gd": "9faaa02649a657a372bce8af061428e699e21e36751fe948d3315a0b3ac98716",
+    "deathmatch/network/replication.gd": "e518286d4d1bd5b4fb270daa21cdf96be5c7f61f9be48821f676587ecaa802b7",
+    "deathmatch/network/projectile_prediction.gd": "c7b07c5bb7cf6ff99d4635e8ae99814a162ef324cab28a223f325a73ab055169",
+    "deathmatch/tests/native_special_trace.gd": "84ad76a5665c88add97cb80ef4dbe9e2c102165128d5a86ac1acf5457800e900",
+    "deathmatch/tests/native_server_codec.gd": "0cd0acf77a7444c4a5f8359228c006bcafc73c012ddc9b7125bfc84cfddfb788",
+    "tools/native_study/special_trace.gd": "08edfe9500ec851f985bb3ec4eaeaa52d1ffc58177d143815e10dff95a6909e2",
+    "tools/native_study/recipient_replication.gd": "3fcae30ac82f3d6b58c0f8ea3eb6ae8819cb06c140cfcecaf5e05c86c788b502",
+    "tools/native_study/personal_replication_reference.gd": "5c72686b468c638b96a57b41d36034b382defb90197ab49d58cdbb0b53144e3c",
+    "tools/native_study/validate_recipient_replication.py": "13fa90efc1865f9a188343811008cb0ce99f46103ce8d143763947844ed78361"
+  },
+  "blocked_full_map_checks": [
+    {
+      "name": "assault",
+      "reason": "Harness requires an external authored BSP argument; none was provided in this checkout. Invocation without it fails before gameplay."
+    },
+    {
+      "name": "titan_pilot_controls",
+      "reason": "No compatible arenas installed; harness fails before spawning its fixture."
+    },
+    {
+      "name": "st_vehicle_impacts",
+      "reason": "No compatible ST arena installed; harness fails before spawning its fixture."
+    },
+    {
+      "name": "tribes_deployables",
+      "reason": "No compatible ST arena installed; harness fails before spawning its fixture."
+    }
+  ],
+  "limitations": [
+    "Synthetic special-mode tests use real callbacks and physics hulls, not full authored AS/ST/TB matches.",
+    "No headset/GPU/frame-time or portable Windows/Android validation.",
+    "Existing one-instance ObjectDB shutdown warnings remain.",
+    "Fresh-cache packing breakdown is separate from the steady-state ABCCBA comparison."
+  ]
+}

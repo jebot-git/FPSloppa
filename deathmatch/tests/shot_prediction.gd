@@ -1,0 +1,30 @@
+extends SceneTree
+const Prediction=preload("res://deathmatch/network/shot_prediction.gd")
+var failures:Array=[]
+func check(ok:bool,label:String):
+ print("PASS " if ok else "FAIL ",label)
+ if not ok:failures.append(label)
+func _initialize():
+ var p:=Prediction.new();p.sync(1,2);p.tick(.3,{})
+ var d:Dictionary={"ammo":0,"cost":1,"cycle":.1}
+ var first:=p.predict(1,2,0,1,d,1,0.)
+ check(first==[1,1,1,0,2],"Stable identity from a trigger")
+ check(p.predict(1,2,1,2,d,4,0.).is_empty(),"Alternate fire shares the primary refire timer")
+ check(p.predict(1,2,2,2,d,1,0.).is_empty(),"Both hands share the final round reservation")
+ check(p.confirm(first) and p.reserved(0)==1,"RPC suppresses duplicate FX but does not release ammo before snapshot")
+ p.receive(1,{"0:1":1},[],.05)
+ check(p.reserved(0)==0 and p.confirm(first),"Snapshot releases reservation without forgetting displayed shot")
+ p.tick(.2,{})
+ var second:=p.predict(1,2,0,3,d,4,.2,true)
+ p.tick(.2,{})
+ check(p.predict(1,2,0,3,d,4,.4,true).is_empty(),"Semi-auto emits once per press")
+ p.receive(1,{},[[3,"muzzle_blocked",1]],.5)
+ check(p.reserved(0)==0,"Rejected attempt releases speculative ammo")
+ p.sync(2,2)
+ check(not p.confirm(second) and p.pending.is_empty(),"Previous life cannot suppress a new shot")
+ p.sync(3,2)
+ check(not p.confirm([3,7,1,0,2]),"Unpredicted accepted shot is presented")
+ check(p.predict(3,2,0,7,d,4,.6,true).is_empty(),"An early authority echo cannot cause a second delayed semi-auto effect")
+ p.receive(3,{"0:8":1},[],.7)
+ check(p.predict(3,2,0,8,d,4,.7,true).is_empty(),"Snapshot before RPC advances shot identity")
+ print("SHOT_PREDICTION_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

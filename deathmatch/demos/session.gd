@@ -65,6 +65,13 @@ func capture(snapshot: Array) -> void:
 	if auto_record and not recording and game.active:start_record(auto_path)
 	if not recording:return
 	snapshot=snapshot.duplicate(true)
+	# Prediction transport metadata is unnecessary for deterministic playback.
+	for state in snapshot[10].get("locomotion",{}).values():
+		for field in ["replay","fire_results","shot_counts"]:state.erase(field)
+	for id in snapshot[10].get("ordnance",{}).keys():
+		var ordnance:Dictionary=snapshot[10].ordnance[id]
+		ordnance.extra.erase("prediction")
+		if not ordnance.has("velocity"):snapshot[10].ordnance.erase(id)
 	snapshot[10]["lobby"]=game.lobby.snapshot() if multiplayer.is_server() else game.lobby.view.duplicate(true)
 	var roster: Array=[]
 	for id in game.players:

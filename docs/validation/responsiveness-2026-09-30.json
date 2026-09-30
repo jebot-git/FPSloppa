@@ -1,0 +1,525 @@
+{
+  "date": "2026-09-30",
+  "base_commit": "ad9ff94",
+  "engine": "Godot 4.7.2 stable ed1daf0bf",
+  "cpu": "Intel N95",
+  "native_available": false,
+  "tests": [
+    {
+      "test": "fire_delivery",
+      "errors": [],
+      "result": [
+        "FIRE_DELIVERY_RESULT {\"checks\":24,\"failures\":[]}"
+      ]
+    },
+    {
+      "test": "weapon_timing",
+      "errors": [],
+      "result": [
+        "WEAPON_TIMING_RESULT {\"failures\":[],\"thirty_second_rates\":[{\"cycle\":0.06,\"new_shots\":500,\"old_shots\":450},{\"cycle\":0.066,\"new_shots\":455,\"old_shots\":450},{\"cycle\":0.075,\"new_shots\":400,\"old_shots\":360},{\"cycle\":0.086,\"new_shots\":349,\"old_shots\":300},{\"cycle\":0.0875,\"new_shots\":343,\"old_shots\":300},{\"cycle\":0.0955,\"new_shots\":314,\"old_shots\":300},{\"cycle\":0.1,\"new_shots\":300,\"old_shots\":258},{\"cycle\":0.114,\"new_shots\":264,\"old_shots\":258},{\"cycle\":0.12,\"new_shots\":250,\"old_shots\":225},{\"cycle\":0.225,\"new_shots\":134,\"old_shots\":129},{\"cycle\":0.4,\"new_shots\":75,\"old_shots\":72},{\"cycle\":0.5,\"new_shots\":60,\"old_shots\":59},{\"cycle\":0.57,\"new_shots\":53,\"old_shots\":52},{\"cycle\":0.7,\"new_shots\":43,\"old_shots\":43},{\"cycle\":0.8,\"new_shots\":38,\"old_shots\":38},{\"cycle\":1.0,\"new_shots\":30,\"old_shots\":30},{\"cycle\":1.63,\"new_shots\":19,\"old_shots\":19}]}"
+      ]
+    },
+    {
+      "test": "shot_prediction",
+      "errors": [],
+      "result": [
+        "SHOT_PREDICTION_RESULT []"
+      ]
+    },
+    {
+      "test": "movement_delivery",
+      "errors": [],
+      "result": [
+        "MOVEMENT_DELIVERY_RESULT []"
+      ]
+    },
+    {
+      "test": "movement_replay",
+      "errors": [],
+      "result": [
+        "MOVEMENT_REPLAY_RESULT {\"failures\":[],\"prediction\":{\"confirmed\":203,\"corrections\":11,\"max_error\":0.530859410762787,\"replays\":11,\"resets\":0},\"settled_error\":0.0,\"six_tick_reconcile_median_us\":114,\"six_tick_reconcile_p95_us\":995}"
+      ]
+    },
+    {
+      "test": "network_delivery",
+      "errors": [],
+      "result": [
+        "NETWORK_DELIVERY_RESULT []"
+      ]
+    },
+    {
+      "test": "responsiveness_protocol",
+      "errors": [],
+      "result": [
+        "RESPONSIVENESS_PROTOCOL_RESULT {\"checks\":721,\"failures\":[],\"maximum_input_bytes\":1100}"
+      ]
+    },
+    {
+      "test": "replication_protocol",
+      "errors": [],
+      "result": [
+        "REPLICATION_PROTOCOL_RESULT {\"encode_us\":3339,\"failures\":[],\"input_bytes\":407,\"max_packet\":1037,\"packets\":4,\"players_updated_with_one_packet_missing\":11,\"snapshot_bytes\":3768}"
+      ]
+    },
+    {
+      "test": "native_network_packing",
+      "errors": [],
+      "result": [
+        "NATIVE_NETWORK_RESULT {\"checks\":6335,\"failures\":[],\"reports\":[{\"after_bytes\":27313,\"after_ms\":{\"median\":0.573,\"p95\":0.722},\"after_packets\":64,\"before_bytes\":27313,\"before_ms\":{\"median\":0.64,\"p95\":0.834},\"before_packets\":64,\"players\":8,\"shots\":0,\"vr\":false},{\"after_bytes\":131432,\"after_ms\":{\"median\":1.99,\"p95\":2.246},\"after_packets\":132,\"before_bytes\":131432,\"before_ms\":{\"median\":2.396,\"p95\":2.726},\"before_packets\":132,\"players\":16,\"shots\":32,\"vr\":true},{\"after_bytes\":1087542,\"after_ms\":{\"median\":4.431,\"p95\":4.723},\"after_packets\":1028,\"before_bytes\":1087542,\"before_ms\":{\"median\":7.879,\"p95\":8.502},\"before_packets\":1028,\"players\":16,\"shots\":523,\"vr\":false}]}"
+      ]
+    },
+    {
+      "test": "flame_coverage",
+      "errors": [],
+      "result": [
+        "FLAME_COVERAGE_RESULT []"
+      ]
+    },
+    {
+      "test": "charge_feedback",
+      "errors": [],
+      "result": [
+        "CHARGE_FEEDBACK_RESULT []"
+      ]
+    },
+    {
+      "test": "weapon_variants",
+      "errors": [],
+      "result": [
+        "VARIANTS_RESULT {\"checks\":71,\"failures\":[],\"passed\":true}"
+      ]
+    },
+    {
+      "test": "cs16",
+      "errors": [],
+      "result": [
+        "CS16_RESULT {\"checks\":70,\"failures\":[],\"passed\":true}"
+      ]
+    },
+    {
+      "test": "cs16_feedback",
+      "errors": [],
+      "result": [
+        "CS16_FEEDBACK_RESULT {\"checks\":103,\"failures\":[],\"passed\":true}"
+      ]
+    },
+    {
+      "test": "prediction_stairs",
+      "errors": [],
+      "result": [
+        "PREDICTION_STAIRS_RESULT []"
+      ]
+    },
+    {
+      "test": "prediction_landings",
+      "errors": [],
+      "result": [
+        "PREDICTION_LANDINGS_RESULT []"
+      ]
+    },
+    {
+      "test": "prediction_obstacles",
+      "errors": [],
+      "result": [
+        "PREDICTION_OBSTACLES_RESULT []"
+      ]
+    },
+    {
+      "test": "vr_crouch_water",
+      "errors": [],
+      "result": [
+        "VR_CROUCH_WATER_RESULT []"
+      ]
+    },
+    {
+      "test": "rocket_cooldown",
+      "errors": [],
+      "result": [
+        "ROCKET_COOLDOWN_RESULT []"
+      ]
+    },
+    {
+      "test": "vr_alignment",
+      "errors": [],
+      "result": [
+        "VR_ALIGNMENT_RESULT []"
+      ]
+    },
+    {
+      "test": "vr_hand_mask",
+      "errors": [],
+      "result": [
+        "VR_HAND_MASK_RESULT {\"checks\":31,\"failures\":[]}"
+      ]
+    }
+  ],
+  "performance": [
+    {
+      "probe": "network",
+      "run": 0,
+      "exit": 0,
+      "errors": [],
+      "result": {
+        "inputs": [
+          {
+            "build_pack_us": {
+              "median": 192,
+              "p95": 245
+            },
+            "bytes": {
+              "median": 588,
+              "p95": 591
+            },
+            "history_count": 0,
+            "max_bytes": 592,
+            "pending_edges": 0,
+            "retained_static_bytes": 16839,
+            "scenario": "baseline"
+          },
+          {
+            "build_pack_us": {
+              "median": 532,
+              "p95": 666
+            },
+            "bytes": {
+              "median": 760,
+              "p95": 821
+            },
+            "history_count": 4,
+            "max_bytes": 844,
+            "pending_edges": 0,
+            "retained_static_bytes": 26048,
+            "scenario": "typical"
+          },
+          {
+            "build_pack_us": {
+              "median": 2242,
+              "p95": 3208
+            },
+            "bytes": {
+              "median": 1088,
+              "p95": 1100
+            },
+            "history_count": 4,
+            "max_bytes": 1100,
+            "pending_edges": 8,
+            "retained_static_bytes": 47829,
+            "scenario": "saturated"
+          }
+        ],
+        "native_codec": false,
+        "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+        "snapshots": [
+          {
+            "bytes": {
+              "median": 3777,
+              "p95": 3794
+            },
+            "encoding_us": {
+              "median": 3890,
+              "p95": 4348
+            },
+            "enhanced": false,
+            "oversized_records": 0
+          },
+          {
+            "bytes": {
+              "median": 4252,
+              "p95": 5012
+            },
+            "encoding_us": {
+              "median": 5538,
+              "p95": 6063
+            },
+            "enhanced": true,
+            "oversized_records": 0
+          }
+        ]
+      }
+    },
+    {
+      "probe": "flame",
+      "run": 0,
+      "exit": 0,
+      "errors": [],
+      "result": {
+        "measurements": [
+          {
+            "median_us": 116,
+            "p95_us": 152,
+            "rays": 1
+          },
+          {
+            "median_us": 637,
+            "p95_us": 794,
+            "rays": 5
+          }
+        ],
+        "native_trace": false,
+        "players": 16,
+        "scope": "World/body queries and per-dose target deduplication only, 16 players; no damage, rendering, network, or rewind. 20 warmup plus 200 samples per case."
+      }
+    },
+    {
+      "probe": "movement",
+      "run": 0,
+      "exit": 0,
+      "errors": [],
+      "result": {
+        "failures": [],
+        "prediction": {
+          "confirmed": 203,
+          "corrections": 11,
+          "max_error": 0.530859410762787,
+          "replays": 11,
+          "resets": 0
+        },
+        "settled_error": 0.0,
+        "six_tick_reconcile_median_us": 105,
+        "six_tick_reconcile_p95_us": 663
+      }
+    },
+    {
+      "probe": "network",
+      "run": 1,
+      "exit": 0,
+      "errors": [],
+      "result": {
+        "inputs": [
+          {
+            "build_pack_us": {
+              "median": 187,
+              "p95": 238
+            },
+            "bytes": {
+              "median": 588,
+              "p95": 591
+            },
+            "history_count": 0,
+            "max_bytes": 592,
+            "pending_edges": 0,
+            "retained_static_bytes": 16839,
+            "scenario": "baseline"
+          },
+          {
+            "build_pack_us": {
+              "median": 531,
+              "p95": 708
+            },
+            "bytes": {
+              "median": 760,
+              "p95": 821
+            },
+            "history_count": 4,
+            "max_bytes": 844,
+            "pending_edges": 0,
+            "retained_static_bytes": 26048,
+            "scenario": "typical"
+          },
+          {
+            "build_pack_us": {
+              "median": 2255,
+              "p95": 3529
+            },
+            "bytes": {
+              "median": 1088,
+              "p95": 1100
+            },
+            "history_count": 4,
+            "max_bytes": 1100,
+            "pending_edges": 8,
+            "retained_static_bytes": 47829,
+            "scenario": "saturated"
+          }
+        ],
+        "native_codec": false,
+        "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+        "snapshots": [
+          {
+            "bytes": {
+              "median": 3777,
+              "p95": 3794
+            },
+            "encoding_us": {
+              "median": 3772,
+              "p95": 4190
+            },
+            "enhanced": false,
+            "oversized_records": 0
+          },
+          {
+            "bytes": {
+              "median": 4252,
+              "p95": 5012
+            },
+            "encoding_us": {
+              "median": 5718,
+              "p95": 6312
+            },
+            "enhanced": true,
+            "oversized_records": 0
+          }
+        ]
+      }
+    },
+    {
+      "probe": "flame",
+      "run": 1,
+      "exit": 0,
+      "errors": [],
+      "result": {
+        "measurements": [
+          {
+            "median_us": 116,
+            "p95_us": 151,
+            "rays": 1
+          },
+          {
+            "median_us": 625,
+            "p95_us": 738,
+            "rays": 5
+          }
+        ],
+        "native_trace": false,
+        "players": 16,
+        "scope": "World/body queries and per-dose target deduplication only, 16 players; no damage, rendering, network, or rewind. 20 warmup plus 200 samples per case."
+      }
+    },
+    {
+      "probe": "movement",
+      "run": 1,
+      "exit": 0,
+      "errors": [],
+      "result": {
+        "failures": [],
+        "prediction": {
+          "confirmed": 203,
+          "corrections": 11,
+          "max_error": 0.530859410762787,
+          "replays": 11,
+          "resets": 0
+        },
+        "settled_error": 0.0,
+        "six_tick_reconcile_median_us": 133,
+        "six_tick_reconcile_p95_us": 749
+      }
+    }
+  ],
+  "rocket_network": [
+    {
+      "log": "/tmp/fpsloppa-rocket-quake-server.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"quake\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":6.71404838562012,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":3.6778564453125,\"landed\":true,\"max_upward_mps\":16.5596351623535,\"rules\":\"quake\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85156345367432,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":11.3955974578857,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":10.0703811645508,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":28.3482398986816,\"landed\":true,\"max_upward_mps\":20.0,\"rules\":\"quake\",\"self_damage\":54,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":25.4595546722412,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":10.0703811645508,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":28.7327461242676,\"landed\":true,\"max_upward_mps\":20.0,\"rules\":\"quake\",\"self_damage\":54,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":25.4435901641846,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008129119873,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":10.735203742981,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"quake\"}"
+      ]
+    },
+    {
+      "log": "/tmp/fpsloppa-rocket-quake-client.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"quake\"}"
+      ]
+    },
+    {
+      "log": "/tmp/fpsloppa-rocket-doom-server.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"doom\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.4810094833374,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":2.2713623046875,\"landed\":true,\"max_upward_mps\":13.5609922409058,\"rules\":\"doom\",\"self_damage\":59,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":3.24681854248047,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":7.38158130645752,\"landed\":true,\"max_upward_mps\":11.570556640625,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":9.4109001159668,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":29.8958644866943,\"landed\":true,\"max_upward_mps\":19.3233528137207,\"rules\":\"doom\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":28.3184776306152,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":2.98653125762939,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":27.4903812408447,\"landed\":true,\"max_upward_mps\":11.1041021347046,\"rules\":\"doom\",\"self_damage\":57,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":28.302339553833,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":2.98652935028076,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":6.52461242675781,\"landed\":true,\"max_upward_mps\":11.1041021347046,\"rules\":\"doom\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"doom\"}"
+      ]
+    },
+    {
+      "log": "/tmp/fpsloppa-rocket-doom-client.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"doom\"}"
+      ]
+    }
+  ],
+  "udp_proxy": [
+    {
+      "rtt_ms": 100,
+      "jitter_ms": 15.0,
+      "loss": 0.02,
+      "uplink_ms": null,
+      "roles": [
+        {
+          "failures": [],
+          "role": "server",
+          "weapons": [
+            {
+              "hits": 6,
+              "ping_ms": 108,
+              "shots": 6,
+              "weapon": 2
+            },
+            {
+              "hits": 3,
+              "ping_ms": 112,
+              "shots": 3,
+              "weapon": 9
+            },
+            {
+              "hits": 13,
+              "ping_ms": 110,
+              "shots": 13,
+              "weapon": 7
+            },
+            {
+              "hits": 6,
+              "ping_ms": 109,
+              "shots": 6,
+              "weapon": 6
+            }
+          ]
+        },
+        {
+          "failures": [],
+          "role": "shooter",
+          "weapons": []
+        },
+        {
+          "failures": [],
+          "role": "target",
+          "weapons": []
+        }
+      ],
+      "proxy": {
+        "received": 3920,
+        "dropped": 85,
+        "delivered": 3849,
+        "duplicated": 14
+      }
+    }
+  ],
+  "limitations": [
+    "Headless tests; no physical headset or GPU frame-time measurements.",
+    "Full defusal_vr fixture requires missing compatible defusal map; CS gestures and stock have independent passing coverage.",
+    "Existing one-instance ObjectDB shutdown warning remains in scene fixtures.",
+    "Native build blocked by absent CMake and C++ compiler; no native performance claim for these changes."
+  ],
+  "probe_sha256": {
+    "tools/native_study/responsiveness.gd": "b48724f51819d4b04aa5dd9795d7e92fb8ef65ea0995d0377dbea9904bc76995",
+    "tools/native_study/responsiveness_flame.gd": "52322793f64cd41f021874b7f092c39aa58ca0d351c93fd441aff7877c67cb1a",
+    "deathmatch/tests/movement_replay.gd": "b02c4710717f6c18db1a9edfc8c7b271c6482de9671bfd053750e34de5086316"
+  }
+}

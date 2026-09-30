@@ -4,7 +4,7 @@ class Arena extends "res://deathmatch/arena.gd":
 	var history_reads:=0
 	func _history_positions() -> Dictionary:
 		history_reads+=1;return super._history_positions()
-	func _shot_rewind(_id: int) -> float:return .1
+	func _shot_rewind(_id: int,_offhand: bool=false) -> float:return .1
 var failures: Array=[]
 var checks:=0
 func check(ok: bool,label: String) -> void:
@@ -12,8 +12,15 @@ func check(ok: bool,label: String) -> void:
 	if not ok:failures.append(label);push_error(label)
 func _initialize() -> void:run.call_deferred()
 func run() -> void:
-	var game=load("res://deathmatch/arena.tscn").instantiate()
-	game.match_mode.fortress.free();game.set_script(Arena);root.add_child(game);Fixture.setup(game)
+	# Replace the root script before construction. set_script() after instance
+	# creation ran arena field initializers twice and orphaned service nodes.
+	var scene:PackedScene=load("res://deathmatch/arena.tscn").duplicate()
+	var bundle:Dictionary=scene._bundled.duplicate(true)
+	for i in bundle.variants.size():
+		if bundle.variants[i] is Script and bundle.variants[i].resource_path=="res://deathmatch/arena.gd":bundle.variants[i]=Arena
+	scene._bundled=bundle
+	var game=scene.instantiate()
+	root.add_child(game);Fixture.setup(game)
 	game.start_host("Shot history",0,100,60,true);game.bots.free();game.bots=null;game.set_process(false);game.set_physics_process(false)
 	for id in game.players:
 		game.players[id].invulnerable=0;game.players[id].hp=10000;game.fighters[id].position=Fixture.point(0,-5 if id==-1 else 10)

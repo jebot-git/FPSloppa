@@ -2,15 +2,17 @@ extends RefCounted
 ## Compare authority with the saved state of its acknowledged input, never with
 ## a newer jump/turn. Bounded history; the server still owns collisions and damage.
 const CAPACITY=180
+const MAX_REPLAY_TICKS=32
 var samples: Dictionary={}
 var acknowledged:=-1
+var pending_authority:Dictionary={}
 var stats: Dictionary={"corrections":0,"resets":0,"max_error":0.0}
 
 func clear() -> void:
-	samples.clear();acknowledged=-1
+	samples.clear();acknowledged=-1;pending_authority={}
 
-func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,jetpack: Dictionary={},tribes: Dictionary={},command: Dictionary={}) -> void:
-	samples[sequence]={"position":position,"velocity":velocity,"height":height,"jetpack":jetpack.duplicate(true),"tribes":tribes.duplicate(true),"command":command.duplicate(true)}
+func remember(sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,jetpack: Dictionary={},tribes: Dictionary={},command: Dictionary={},simulation:Dictionary={}) -> void:
+	samples[sequence]={"position":position,"velocity":velocity,"height":height,"jetpack":jetpack.duplicate(true),"tribes":tribes.duplicate(true),"command":command.duplicate(true),"simulation":simulation.duplicate(true)}
 	while samples.size()>CAPACITY:samples.erase(samples.keys()[0])
 
 func reconcile(actor,sequence: int,position: Vector3,velocity: Vector3,height: float=-1.0,grounded: bool=false,jetpack: Dictionary={},tribes: Dictionary={}) -> void:
@@ -97,3 +99,72 @@ func replay_tribes(actor,sequence: int,position: Vector3,velocity: Vector3,heigh
 	actor.reset_physics_interpolation()
 	actor.prediction_view_offset=before-actor.global_position
 	stats["max_replay_adjustment"]=maxf(stats.get("max_replay_adjustment",0.0),before_physics.distance_to(actor.position))
+
+func queue_authority(sequence:int,position:Vector3,velocity:Vector3,state:Dictionary) -> void:
+	if sequence<=acknowledged or sequence<=pending_authority.get("sequence",-1):return
+	pending_authority={"sequence":sequence,"position":position,"velocity":velocity,"state":state.duplicate(true)}
+
+func apply_pending(actor) -> void:
+	if pending_authority.is_empty():return
+	var update:Dictionary=pending_authority;pending_authority={}
+	var s:Dictionary=update.state
+	if actor.tribes_enabled or not s.has("replay") or not samples.has(update.sequence) or samples[update.sequence].get("command",{}).is_empty():
+		reconcile(actor,update.sequence,update.position,update.velocity,s.get("height",-1.0),s.get("grounded",false),s.get("jetpack",{}),s.get("tribes",{}));return
+	replay(actor,update.sequence,update.position,update.velocity,s)
+
+static func same_simulation(a:Dictionary,b:Dictionary) -> bool:
+	if a.is_empty() or a.size()!=b.size():return false
+	for field in b:
+		if not a.has(field):return false
+		if b[field] is float:
+			if not is_equal_approx(float(a[field]),b[field]):return false
+		elif b[field] is Vector2:
+			if not a[field].is_equal_approx(b[field]):return false
+		elif a[field]!=b[field]:return false
+	return true
+
+func replay(actor,sequence:int,position:Vector3,velocity:Vector3,state:Dictionary) -> void:
+	if sequence<=acknowledged:return
+	acknowledged=sequence
+	var before:Vector3=actor.render_position()
+	var reference:Dictionary=samples[sequence]
+	var error:float=position.distance_to(reference.position)
+	stats.max_error=maxf(stats.max_error,error)
+	if error>.02:stats.corrections+=1
+	# Matching state needs no collision queries. Compare the hidden movement
+	# state too: equal positions alone would miss a queued jump or water boost.
+	if error<.001 and velocity.distance_to(reference.velocity)<.001 and is_equal_approx(state.get("height",-1.0),reference.height) and same_simulation(reference.get("simulation",{}),state.replay) and reference.jetpack==state.get("jetpack",{}):
+		for key in samples.keys():
+			if key<=sequence:samples.erase(key)
+		stats["confirmed"]=stats.get("confirmed",0)+1
+		return
+	if error>2.5 or samples.keys().filter(func(key):return key>sequence).size()>MAX_REPLAY_TICKS:
+		stats.resets+=1;actor.position=position;actor.velocity=velocity;actor.reset_view()
+		actor.restore_prediction_state(state.replay);acknowledged=sequence
+		return
+	var yaw:float=actor.rotation.y
+	var environment:Dictionary=actor.prediction_environment()
+	actor.position=position;actor.velocity=velocity
+	actor.restore_prediction_state(state.replay)
+	actor.update_height(state.get("height",actor.collision_height),true)
+	if state.has("jetpack"):actor.jetpack_state=state.jetpack.duplicate(true)
+	actor.replaying=true;actor.replay_grounded=int(state.get("grounded",false))
+	for key in samples.keys():
+		if key<=sequence:samples.erase(key);continue
+		var c:Dictionary=samples[key].get("command",{})
+		if c.is_empty():continue
+		for field in c.environment:actor.set(field,c.environment[field])
+		actor.update_height(c.height)
+		actor.speed_multiplier=c.speed
+		actor.configure_jetpack(c.jet_enabled,c.jet_blocked);actor.jetpack_requested=c.jet_request
+		actor.simulate(c.move,c.yaw,c.slow,c.delta,c.jump,c.swim)
+		actor.replay_grounded=-1
+		if not c.room.is_zero_approx():preload("res://deathmatch/vr/room_scale.gd").move_capsule(actor,c.room,c.yaw,c.delta)
+		samples[key].position=actor.position;samples[key].velocity=actor.velocity;samples[key].height=actor.collision_height
+		samples[key].jetpack=actor.jetpack_state.duplicate(true) if actor.jetpack_enabled else {}
+		samples[key].simulation=actor.prediction_state()
+	actor.replay_grounded=-1;actor.replaying=false;actor.rotation.y=yaw
+	for field in environment:actor.set(field,environment[field])
+	actor.reset_physics_interpolation()
+	actor.prediction_view_offset=before-actor.global_position
+	stats["replays"]=stats.get("replays",0)+1

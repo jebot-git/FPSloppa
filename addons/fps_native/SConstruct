@@ -6,7 +6,7 @@ env.Append(CPPPATH=['src'])
 env.Append(CXXFLAGS=['-ffp-contract=off'])
 if env['platform']=='windows':env.Append(LINKFLAGS=['-static'])
 if env['platform']=='android':env.Append(LINKFLAGS=['-Wl,-z,max-page-size=16384'])
-sources=['src/register_server.cpp' if server else 'src/register.cpp','src/projectiles.cpp','src/codec.cpp','src/bots.cpp','src/bot_steering.cpp','src/st_steering.cpp']
+sources=['src/register_server.cpp' if server else 'src/register.cpp','src/projectiles.cpp','src/codec.cpp','src/network_packing.cpp','src/bots.cpp','src/bot_steering.cpp','src/st_steering.cpp']
 if server:env.Append(CPPDEFINES=['FPS_SERVER'])
 else:sources+=['src/poses.cpp','src/pose_preparation.cpp','src/avatar_channels.cpp']
 library=env.SharedLibrary('build-scons/libfpsloppa_native'+env['suffix']+env['SHLIBSUFFIX'],sources)

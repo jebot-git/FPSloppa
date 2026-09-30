@@ -16,6 +16,7 @@ void FPSProjectiles::_bind_methods() {
  ClassDB::bind_method(D_METHOD("candidates","start","end","radius"),&FPSProjectiles::candidates);
  ClassDB::bind_static_method("FPSProjectiles",D_METHOD("box_fraction","start","end","half","radius"),&FPSProjectiles::box_fraction);
  ClassDB::bind_method(D_METHOD("player_fraction","start","end","height","yaw","radius"),&FPSProjectiles::player_fraction);
+ ClassDB::bind_static_method("FPSProjectiles",D_METHOD("trace_structures","buildings","start","end","limit","radius"),&FPSProjectiles::trace_structures);
  ClassDB::bind_method(D_METHOD("trace","game","start","end","exclude","radius","movement","candidates","historical"),&FPSProjectiles::trace,DEFVAL(Dictionary()));
  ClassDB::bind_method(D_METHOD("step","game","delta","movement","weapons","native_trace"),&FPSProjectiles::step);
 }
@@ -78,6 +79,32 @@ double FPSProjectiles::player_fraction(Vector3 start,Vector3 end,double height,d
  for(const Part &part:bodies[stance])first=std::min(first,box_fraction(part.inverse.xform(start),part.inverse.xform(end),part.half,radius));
  return first;
 }
+namespace {
+double sphere_entry(Vector3 start,Vector3 motion,Vector3 center,double radius){
+ Vector3 offset=start-center;double c=offset.length_squared()-radius*radius;if(c<=0)return 0.;
+ double a=motion.length_squared();if(a<1e-12)return INF;
+ double b=offset.dot(motion),disc=b*b-a*c;if(disc<0)return INF;
+ double t=(-b-std::sqrt(disc))/a;return t>=0&&t<=1?t:INF;
+}
+double structure_entry(Vector3 start,Vector3 end,double radius){
+ const double bottom=.4,top=1.4,bound=radius+.000001;
+ if(std::min(start.x,end.x)>bound||std::max(start.x,end.x)<-bound||std::min(start.z,end.z)>bound||std::max(start.z,end.z)<-bound||std::min(start.y,end.y)>top+bound||std::max(start.y,end.y)<bottom-bound)return INF;
+ Vector3 motion=end-start,closest(0,std::clamp(double(start.y),bottom,top),0);
+ if(start.distance_squared_to(closest)<=radius*radius)return 0.;
+ double first=std::min(sphere_entry(start,motion,Vector3(0,bottom,0),radius),sphere_entry(start,motion,Vector3(0,top,0),radius));
+ double a=double(motion.x)*motion.x+double(motion.z)*motion.z;
+ if(a>1e-12){double b=double(start.x)*motion.x+double(start.z)*motion.z,c=double(start.x)*start.x+double(start.z)*start.z-radius*radius,disc=b*b-a*c;
+  if(disc>=0){double t=(-b-std::sqrt(disc))/a,height=start.y+motion.y*t;if(t>=0&&t<=1&&height>=bottom&&height<=top)first=std::min(first,t);}}
+ return first;
+}
+}
+Dictionary FPSProjectiles::trace_structures(const Dictionary &buildings,Vector3 start,Vector3 end,double limit,double radius){
+ Dictionary result;Array keys=buildings.keys();
+ for(int i=0;i<keys.size();++i){Dictionary row=buildings[keys[i]];Vector3 position=row["position"];
+  double fraction=structure_entry(start-position,end-position,.55+radius);
+  if(fraction<limit){limit=fraction;result["key"]=keys[i];result["fraction"]=fraction;}}
+ return result;
+}
 Dictionary FPSProjectiles::trace(Node3D *game,Vector3 start,Vector3 end,int64_t exclude,double radius,const Dictionary &movement,const Variant &candidate_ids,const Dictionary &historical) {
  Dictionary players=game->get("players"),fighters=game->get("fighters");
  PhysicsDirectSpaceState3D *space=game->get_world_3d()->get_direct_space_state();
@@ -89,11 +116,18 @@ Dictionary FPSProjectiles::trace(Node3D *game,Vector3 start,Vector3 end,int64_t 
   if(!space->intersect_shape(shape_query,1).is_empty())wall=0;
   else{shape_query->set_motion(end-start);PackedFloat32Array fractions=space->cast_motion(shape_query);if(fractions[0]<1)wall=fractions[0];}
  }
- double nearest=wall;Vector3 point=start.lerp(end,std::min(1.,nearest));int64_t target=0;bool head=false;
+ Object *mode=game->get("match_mode"),*fortress=mode->get("fortress"),*walkers=fortress->get("walkers"),*tribes=mode->get("tribes");
+ Dictionary robots=walkers->get("robots"),mounted;
+ int64_t hull=0;
+ if(!robots.is_empty()){
+  hull=walkers->call("trace_pilot",start,end,radius,wall);
+  Array keys=robots.keys();for(int i=0;i<keys.size();++i){Dictionary row=robots[keys[i]];mounted[row["pilot"]]=true;}
+ }
+ double nearest=wall;Vector3 point=start.lerp(end,std::min(1.,nearest));int64_t target=hull!=exclude?hull:0;bool head=false;
  Array candidates_here=candidate_ids.get_type()==Variant::NIL?players.keys():Array(candidate_ids);
  ray->set_hit_from_inside(false);
  for(int i=0;i<candidates_here.size();++i) {
-  Variant id=candidates_here[i];Dictionary state=players[id];if(int64_t(id)==exclude||bool(state["dead"])||bool(state["spectator"]))continue;
+  Variant id=candidates_here[i];Dictionary state=players[id];if(int64_t(id)==exclude||bool(state["dead"])||bool(state["spectator"])||mounted.has(id))continue;
   Node3D *fighter=Object::cast_to<Node3D>(fighters[id]);Vector3 position=fighter->get_position(),previous=position;double height,yaw;
   Dictionary row=historical.get(id,Dictionary());
   if(!row.is_empty()&&row["serial"]==state["serial"]){position=row["position"];previous=position;height=row["height"];yaw=row["yaw"];}
@@ -108,7 +142,11 @@ Dictionary FPSProjectiles::trace(Node3D *game,Vector3 start,Vector3 end,int64_t 
   nearest=fraction;point=impact;target=id;
   const Part &h=parts[1];Vector3 head_local=h.inverse.xform(Basis(Vector3(0,1,0),-yaw).xform(impact-at));head=head_local.distance_squared_to(head_local.clamp(-h.half,h.half))<=radius*radius+1e-8;
  }
- Dictionary result;result["id"]=target;result["position"]=point;result["headshot"]=head;result["hit"]=target!=0||std::isfinite(wall);result["vehicle"]=false;
+ if(bool(fortress->call("structures_enabled"))){
+  Dictionary structure=trace_structures(fortress->get("buildings"),start,end,nearest,radius);
+  if(!structure.is_empty()){Dictionary hit;hit["id"]=0;hit["building"]=structure["key"];hit["position"]=start.lerp(end,double(structure["fraction"]));hit["hit"]=true;return hit;}
+ }
+ Dictionary result;result["id"]=target;result["position"]=point;result["headshot"]=head;result["hit"]=target!=0||std::isfinite(wall);result["vehicle"]=target!=0&&target==hull;
  ray->set_from(start);ray->set_to(point+(end-start).normalized()*.04);ray->set_collide_with_areas(true);
  Dictionary contact=space->intersect_ray(ray);
  if(!contact.is_empty()) {
@@ -116,6 +154,16 @@ Dictionary FPSProjectiles::trace(Node3D *game,Vector3 start,Vector3 end,int64_t 
   if(runtime){Object *triggers=runtime->get("triggers");rows=triggers->get("rows");}
   if(target==0){if(Object::cast_to<StaticBody3D>(collider)&&!Object::cast_to<AnimatableBody3D>(collider)&&position.distance_squared_to(point)<.000025&&!rows.has(collider))result[StringName("surface_normal")]=contact["normal"];result[StringName("impact_normal")]=contact["normal"];}
   if((target==0||start.distance_to(position)<start.distance_to(point))&&runtime&&rows.has(collider)){result["map_node"]=collider;if(Object::cast_to<Area3D>(collider)){result["id"]=0;result["vehicle"]=false;result["hit"]=true;result["position"]=position;}}
+ }
+ // Keep live special-mode overlays in their authoritative order. Their engine
+ // hull contacts and damage identities must not be replaced with body proxies.
+ if(bool(tribes->call("enabled"))){
+  Object *vehicles=tribes->get("vehicles"),*combat=tribes->get("combat"),*deployables=tribes->get("deployables"),*targeting=tribes->get("targeting");
+  result=vehicles->call("trace",start,end,result,radius);
+  result=combat->call("trace_mines",start,end,result,radius);
+  result=deployables->call("trace",start,end,result,radius);
+  result=targeting->call("trace",start,end,result,radius);
+  Object *pads=tribes->call("stations");if(pads)result=pads->call("trace",result);
  }
  return result;
 }

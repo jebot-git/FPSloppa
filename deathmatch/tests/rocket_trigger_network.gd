@@ -21,6 +21,7 @@ func run() -> void:
  print("ROCKET_TRIGGER_NETWORK_RESULT ",JSON.stringify({"role":role,"rules":rules,"failures":failures}))
  game.disconnect_game();game.free();await pause(.1);quit(0 if failures.is_empty() else 1)
 func authority():
+ game.selected_map="tf_abbeyline" # Bundled map; gameplay runs in the synthetic fixture.
  game.dedicated=true;game.bind_address="127.0.0.1";game.armory.select(rules);game.start_host("Trigger test",28993,100,60,false,"dm",rules)
  check(game.armory.kind==rules,"Authority explicitly selects "+rules+" weapons")
  check(await wait_for(func():return game.players.size()==1,20),"Real client admitted")
@@ -59,6 +60,7 @@ func client():
  check(game.armory.kind==rules,"Client receives "+rules+" weapons")
  game.set_physics_process(false);game.set_process(false)
  var seq:=10000;var delivery:=Delivery.new();var jumping:=JumpDelivery.new()
+ var movement:=preload("res://deathmatch/network/movement_delivery.gd").new()
  for index in cases().size():
   var row:Dictionary=cases()[index];var queued:Array=[]
   check(await wait_for(func():return game.feed.any(func(e):return e.text=="TRIGGER_CASE_"+str(index))),"Case synchronised %d"%index)
@@ -71,10 +73,11 @@ func client():
     var pose:=preload("res://deathmatch/vr/poses.gd").neutral();pose.right.origin=Vector3(.25,.45 if row.get("low",false) else 1.2,-.3);pose.weapon=Transform3D(Basis(Vector3.RIGHT,-PI/2),pose.right.origin);cmd.xr=pose
    delivery.sample(cmd,game.local_state().serial,tick/60.)
    jumping.sample(cmd,game.local_state().serial,tick/60.)
+   movement.sample(cmd,game.local_state().serial)
    if tick%2==0:
-    delivery.annotate(cmd,tick/60.);jumping.annotate(cmd,tick/60.)
+    delivery.annotate(cmd,tick/60.);jumping.annotate(cmd,tick/60.);movement.annotate(cmd)
     # Drop the first packet carrying the edge, including an already released trigger.
-    if not (row.get("drop",false) and tick==fire_tick+fire_tick%2):queued.append({"at":tick+int(row.get("delay",0)),"packet":Codec.pack(cmd)})
+    if not (row.get("drop",false) and tick==fire_tick+fire_tick%2):queued.append({"at":tick+int(row.get("delay",0)),"packet":JumpDelivery.pack(cmd)})
    while not queued.is_empty() and queued[0].at<=tick:game._input_packet.rpc_id(1,queued.pop_front().packet)
    var replica=game.fighters.get(game.multiplayer.get_unique_id())
    if tick>10 and replica:observed_apex=maxf(observed_apex,replica.target.y-Fixture.ORIGIN.y)

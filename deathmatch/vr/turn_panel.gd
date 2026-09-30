@@ -50,7 +50,7 @@ func save() -> void:
 func refresh() -> void:
 	controls.text="CONTROLS: "+("LEFT-HANDED · MOVE R / TURN L" if rig.left_controls else "RIGHT-HANDED · MOVE L / TURN R")
 	seat.text="SEATED: "+("ON (suspended with body tracking)" if rig.seated else "OFF")
-	stock.text="CS VIRTUAL STOCK: "+("ON" if rig.virtual_stock_enabled else "OFF")
+	stock.text="VIRTUAL STOCK: "+("ON" if rig.virtual_stock_enabled else "OFF")
 	pump.text="M3 AUTO OFFHAND HOLD: "+("ON" if rig.pump_auto_transfer else "OFF")
 	mode.text="TURN MODE: "+("SMOOTH" if rig.smooth_turn else "SNAP")
 	speed.text="%.0f° / s"%rig.turn_speed;angle.text="%.0f°"%rig.snap_angle

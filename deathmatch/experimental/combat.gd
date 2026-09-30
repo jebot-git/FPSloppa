@@ -1,15 +1,17 @@
 extends RefCounted
 ## Server-authoritative experimental firing, using existing traces, damage and RPCs.
+const Flame=preload("res://deathmatch/modes/flame_cone.gd")
 const Rules=preload("res://deathmatch/experimental/weapon_rules.gd")
 var game
 var cs=preload("res://deathmatch/counterstrike/combat.gd").new()
 var charging: Dictionary={}
 var discs: Dictionary={}
-var predictions: Array=[]
+var local_charge:Dictionary={}
+var charge_ready_at:=0.0
 var charge_view: Dictionary={}
 const MAX_PROJECTILES:=256
 func setup(arena: Node) -> void:game=arena;cs.setup(arena)
-func reset() -> void:cs.reset();charging.clear();discs.clear();predictions.clear();charge_view.clear()
+func reset() -> void:cs.reset();charging.clear();discs.clear();local_charge.clear();charge_ready_at=0.0;charge_view.clear()
 func tick_input(id: int,delta: float) -> void:
 	if game.armory.effective()=="tribes":game.match_mode.tribes.combat.tick_input(id,delta);return
 	if game.armory.effective()=="cs16":cs.tick_input(id,delta);return
@@ -66,18 +68,19 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 	var nail_fallback: bool=game.armory.kind=="quake" and d.get("kind","")=="nail" and d.cost==2 and s.ammo[0]==1
 	if nail_fallback:d=game.match_mode.fortress.weapon_data(id,5).duplicate()
 	if d.ammo>=0:
-		if s.ammo[d.ammo]<d.cost:return false
+		if s.ammo[d.ammo]<d.cost:s.fire_reject="empty";return false
 		count=mini(count,int(s.ammo[d.ammo]/maxi(1,d.cost)))
 		if w==1 and alternate:scale=float(count)
 	var solution: Dictionary=game._shot_solution(id)
-	if solution.blocked:return false
+	if solution.blocked:s.fire_reject="muzzle_blocked";return false
 	var kind: String=d.get("kind","hitscan")
 	if not kind in ["hitscan","sniper","beam","shock_beam","hammer"] and game.projectiles.size()+count*int(d.pellets)>MAX_PROJECTILES:return false
 	if d.ammo>=0:s.ammo[d.ammo]-=d.cost*count
-	s.cooldown=d.cycle;s.invulnerable=0;s.shots+=1
+	s.cooldown=preload("res://deathmatch/network/weapon_timing.gd").restart(s.cooldown,d.cycle);s.invulnerable=0;s.shots+=1
 	if d.ammo>=0:game.match_mode.fortress.revealed(id)
-	if not cs_shot:game._variant_shot_fx.rpc(id,w,alternate)
-	var start: Vector3=solution.origin;var forward: Vector3=-game._weapon_transform(id).basis.z
+	var identity:Array=game.fire_delivery.shot(s,false,alternate) if not cs_shot else []
+	if not cs_shot:game._variant_shot_fx.rpc(id,w,alternate,Vector3.ZERO,identity)
+	var start: Vector3=solution.origin;var aim_basis:Basis=game._weapon_transform(id).basis;var forward: Vector3=-aim_basis.z
 	if game.armory.kind=="quake" and w==8 and game.fighters[id].in_water:
 		var cells: int=1+s.ammo[3];s.ammo[3]=0
 		blast(start,id,cells*35,20.0,d.name,0,false)
@@ -87,10 +90,12 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 		var endpoints:=PackedVector3Array();var surfaces:=PackedVector3Array()
 		var rewind: float=game._shot_rewind(id)
 		var trace_context: Dictionary=game._rewind_context(rewind)
+		var flame_seen:Dictionary={}
 		for pellet in int(d.pellets):
-			var basis: Basis=game._weapon_transform(id).basis
+			var basis: Basis=aim_basis
 			var accuracy: float=game.fighters[id].accuracy_scale()
 			var direction: Vector3=basis*cs.spray_direction(id,d,pellet) if cs_shot else (forward+basis.x*randf_range(-1,1)*tan(deg_to_rad(d.spread*accuracy))+basis.y*randf_range(-1,1)*tan(deg_to_rad(d.vertical*accuracy))).normalized()
+			if d.has("flame_angle"):direction=Flame.direction(basis,pellet,d.flame_angle)
 			var reach: float=d.get("surface_range",d.range) if kind=="hammer" else d.range
 			var hits: Array
 			var runtime=game.get_node_or_null("Map/MapRuntime") if cs_shot else null
@@ -98,6 +103,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 				hits=runtime.ballistics.trace(game,start,start+direction*reach,id,rewind,w,trace_context)
 			else:hits=[game._trace(start,start+direction*reach,id,rewind,float(d.get("beam_radius",0.0)),{},null,trace_context)]
 			for hit in hits:
+				if d.has("flame_angle") and not Flame.first_hit(flame_seen,hit):continue
 				var melee_reaches: bool=kind!="hammer" or start.distance_to(hit.position)<=float(d.range)
 				var damage: int=d.damage
 				if d.has("head_damage") and hit.id!=0 and not hit.get("vehicle",false) and hit.get("headshot",false):damage=int(d.get("head_damage",100))
@@ -110,7 +116,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 				if kind=="hammer" and hit.hit and hit.id==0 and not hit.has("building"):
 					hammer_surface(id,d,alternate,charge,start,hit.position,direction)
 				if d.name=="FLAMETHROWER":
-					game._ability_fx.rpc("flame",start,hit.position,s.team)
+					if pellet==0:game._ability_fx.rpc("flame",start,hit.position,s.team)
 					preload("res://deathmatch/effects/surface_marks.gd").contact(game,hit,start,start+direction*reach,d)
 				else:
 					endpoints.append(hit.position);surfaces.append(hit.get("surface_normal",Vector3.ZERO))
@@ -122,7 +128,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0,cs_shot: bool=false) -
 			var dir:=forward
 			if count>1 and kind!="bio":dir=dir.rotated(Vector3.UP,deg_to_rad((shot-(count-1)*.5)*3.0))
 			if d.pellets>1:dir=(dir+Vector3(randf_range(-.13,.13),randf_range(-.10,.10),randf_range(-.13,.13))).normalized()
-			launch(id,w,start,dir,{"alternate":alternate,"scale":scale,"nail_fallback":nail_fallback})
+			launch(id,w,start,dir,{"alternate":alternate,"scale":scale,"nail_fallback":nail_fallback,"prediction":identity if count==1 and int(d.pellets)==1 else []})
 	return true
 func hammer_contact(id: int,d: Dictionary) -> bool:
 	var solution: Dictionary=game._shot_solution(id)
@@ -283,38 +289,41 @@ func cancel_player(id: int) -> void:
 		if game.projectiles.has(disc):game._projectile_end.rpc(disc,game.projectiles[disc].position,11)
 		discs.erase(id)
 func predict(id: int,command: Dictionary) -> void:
-	if game.armory.effective() in ["cs16","tribes"]:return # Clip/reload/burst audio follows accepted server shots.
-	if game.headless or game.multiplayer.is_server() or not game.players.has(id):return
-	var s: Dictionary=game.players[id];var w: int=s.weapon;var alt: bool=command.get("alt_fire",false)
-	if game.armory.vr_physical_only(w) and (s.vr_device or command.has("xr")):return
-	if not command.fire and not alt:return
-	if command.get("input_blocked",false) or command.weapon!=w or s.dead or s.spectator or game.visual_cooldown>0 or game.intermission>0 or game.lobby.active() or game.match_mode.special.blocked(id):return
-	# Charged reports occur on authoritative release, not on the initial press.
-	if game.armory.kind=="ut99" and (w==6 or w==0 and not alt or w==1 and alt or w==11 and alt):return
-	var d: Dictionary=game.match_mode.fortress.weapon_data(id,w).duplicate()
-	if d.get("scope",false):
-		if not command.fire:return
-		alt=false # A shot while zoomed remains the primary shot on the server.
+	game._predict_shots(id,command)
+
+func update_charge_feedback(id:int,command:Dictionary) -> void:
+	var s:Dictionary=game.players[id]
+	var w:int=s.weapon
+	var alt:bool=command.get("alt_fire",false)
+	var held:bool=command.get("fire",false) or alt
+	var eligible:bool=game.armory.kind=="ut99" and (w==6 or w==0 and not alt or w==1 and alt)
+	if not eligible or not held or s.dead or s.spectator or command.get("input_blocked",false) or command.weapon!=w or game.intermission>0 or game.lobby.active() or game.match_mode.special.blocked(id):
+		local_charge.clear();return
+	var d:Dictionary=game.match_mode.fortress.weapon_data(id,w).duplicate()
 	if alt:d.merge(d.get("alt",{}),true)
-	var ammo: int=int(s.ammo[d.ammo]) if d.ammo>=0 else 999
-	predictions=predictions.filter(func(p):return game.clock-p.time<.6)
-	for p in predictions:
-		if p.ammo==d.ammo:ammo-=p.cost
-	if ammo<d.cost or game._weapon_blocked(id):return
-	predictions.append({"weapon":w,"alt":alt,"time":game.clock,"ammo":d.ammo,"cost":d.cost})
-	game._play_variant_shot_fx(id,w,alt)
-func consume_prediction(id: int,weapon: int,alternate: bool) -> bool:
-	if id!=game.multiplayer.get_unique_id() or game.multiplayer.is_server() or game.demos.playing:return false
-	predictions=predictions.filter(func(p):return game.clock-p.time<.6)
-	for i in predictions.size():
-		if predictions[i].weapon==weapon and predictions[i].alt==alternate:predictions.remove_at(i);return true
-	return false
+	if d.ammo>=0 and s.ammo[d.ammo]<d.cost:local_charge.clear();return
+	if game.clock<charge_ready_at:return
+	if local_charge.is_empty() or local_charge.weapon!=w or local_charge.life!=s.serial or local_charge.alt!=alt:
+		local_charge={"life":s.serial,"weapon":w,"alt":alt,"start":game.clock,"maximum":float(d.get("charge_max",2.0)),"stage":-1}
+	var elapsed:float=minf(game.clock-local_charge.start,local_charge.maximum)
+	var stage:int=mini(5,int(elapsed/.5)) if w==6 else mini(3,int(elapsed/local_charge.maximum*3))
+	if stage!=local_charge.stage:
+		local_charge.stage=stage
+		if game.is_vr():game.xr_rig.feedback(.12+stage*.035,.035,false,100)
+
+func charge_fired(id:int,weapon:int) -> void:
+	if id!=game.multiplayer.get_unique_id() or local_charge.is_empty() or local_charge.weapon!=weapon:return
+	charge_ready_at=game.clock+float(game.armory.data(weapon,local_charge.alt).cycle)
+	local_charge.clear()
 
 func charge_snapshot() -> Dictionary:
 	var result: Dictionary={}
 	for id in charging:result[id]=clampi(roundi(charging[id].time/charging[id].maximum*100),0,100)
 	return result
 func charge_label(id: int) -> String:
+	if id==game.multiplayer.get_unique_id() and not local_charge.is_empty():
+		var percent:=clampi(roundi((game.clock-local_charge.start)/local_charge.maximum*100),0,100)
+		return "CHARGE %d%% · RELEASE TO FIRE · "%percent
 	var state: Dictionary=charge_snapshot() if game.multiplayer.is_server() else charge_view
 	if not state.get(id) is int:return ""
 	return "CHARGE %d%% · RELEASE TO FIRE · "%clampi(state[id],0,100)

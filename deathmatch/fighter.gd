@@ -67,6 +67,9 @@ var stepped_last_frame:=false
 var visual_reset_until:=-1
 var prediction=preload("res://deathmatch/movement/prediction.gd").new()
 var prediction_view_offset:=Vector3.ZERO
+var prediction_command:Dictionary={}
+var replaying:=false
+var replay_grounded:=-1
 var render_mount: Callable
 var mounted_visuals: Array=[]
 
@@ -104,6 +107,7 @@ func setup(id: int, nickname: String, color: Color) -> void:
 
 var speed_multiplier:=1.0
 func is_supported() -> bool:
+	if replay_grounded>=0:return replay_grounded==1
 	if tribes_enabled:return tribes_state.grounded
 	return is_on_floor() or stepped_last_frame
 
@@ -136,7 +140,7 @@ func configure_jetpack(enabled: bool,blocked: bool=false) -> void:
 func reset_jetpack() -> void:
 	jetpack_state=Jetpack.fresh();jetpack_requested=false
 func locomotion_state() -> Dictionary:
-	var state:={"height":collision_height,"grounded":is_supported(),"assist":tracked_leg_animation}
+	var state:={"height":collision_height,"grounded":is_supported(),"assist":tracked_leg_animation,"replay":prediction_state()}
 	if jetpack_enabled:state.jetpack=jetpack_state.duplicate(true)
 	if tribes_enabled:state.tribes=tribes_state.duplicate(true)
 	return state
@@ -181,7 +185,7 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 		jump_held=raw_jump
 		var before:=position;var impact_speed:=velocity.y
 		move_and_slide();Jetpack.moved(self,before)
-		if is_on_floor() and impact_speed < -3.2:movement_sound.emit("land",global_position+Vector3.UP*.2)
+		if is_on_floor() and impact_speed < -3.2:emit_movement_sound("land",global_position+Vector3.UP*.2)
 		return
 	if stance=="prone":jump=false;jump_queued=false
 	if jump and not jump_held:jump_queued=true
@@ -226,8 +230,8 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	var impact_speed:=velocity.y
 	# The successful sweep already consumed this frame's horizontal motion.
 	if not stepped_last_frame:move_and_slide()
-	if jumping and velocity.y>0:movement_sound.emit("jump",global_position+Vector3.UP*.65)
-	elif not was_grounded and is_on_floor() and impact_speed < -3.2 and not in_water:movement_sound.emit("land",global_position+Vector3.UP*.2)
+	if jumping and velocity.y>0:emit_movement_sound("jump",global_position+Vector3.UP*.65)
+	elif not was_grounded and is_on_floor() and impact_speed < -3.2 and not in_water:emit_movement_sound("land",global_position+Vector3.UP*.2)
 	if stepping and not is_supported() and velocity.y<=0:apply_floor_snap()
 	if stepping and is_supported() and absf(position.y-previous_y)<=step+.05:
 		view_offset=clampf(view_offset+previous_y-position.y,-.55,.55)
@@ -555,3 +559,16 @@ func _update_jetpack_visual() -> void:
 	else:pose=Transform3D(Basis(Vector3.UP,preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose)),Vector3.ZERO)*pose
 	jetpack_model.transform=pose*Transform3D(Basis.IDENTITY,Vector3(0,.24,.25))
 	jetpack_model.set_exhaust(tribes_state.jetting if tribes_enabled else jetpack_state.mode!=0 and jetpack_state.age<(1.5 if jetpack_state.mode==2 else Jetpack.BURN_TIME))
+
+func emit_movement_sound(kind:String,where:Vector3) -> void:
+	if not replaying:movement_sound.emit(kind,where)
+
+func prediction_environment() -> Dictionary:
+	return {"in_water":in_water,"underwater":underwater,"water_surface":water_surface}
+
+func prediction_state() -> Dictionary:
+	return {"jump_held":jump_held,"jump_queued":jump_queued,"blast_velocity":blast_velocity,"floor_grace":floor_grace,"stepped_last_frame":stepped_last_frame,"water_jump_used":water_jump_used,"water_deep_time":water_deep_time,"water_exit_grace":water_exit_grace,"water_boost":water_boost,"was_in_water":was_in_water,"in_water":in_water,"underwater":underwater,"water_surface":water_surface}
+
+func restore_prediction_state(state:Dictionary) -> void:
+	for field in prediction_state():
+		if state.has(field):set(field,state[field])

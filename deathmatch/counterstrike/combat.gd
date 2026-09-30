@@ -195,7 +195,7 @@ func shoot(id: int,burst_round: bool=false) -> bool:
 	next_direction=next_direction.normalized()
 	c.spray_angles=Vector2(asin(clampf(next_direction.y,-1,1)),atan2(-next_direction.x,-next_direction.z))
 	c.spray_step=c.spray_angles-firing_angles
-	game._variant_shot_fx.rpc(id,w,suppressed(id),next_direction)
+	game._variant_shot_fx.rpc(id,w,suppressed(id),next_direction,game.fire_delivery.shot(s))
 	return true
 func falloff(d: Dictionary,damage: int,distance: float) -> int:
 	# 500 GoldSrc units -> 12.7 m (one source unit = one inch).

@@ -29,6 +29,7 @@ func run() -> void:
 	role=OS.get_cmdline_user_args()[0]
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);Fixture.setup(game)
 	if role=="server":
+		game.selected_map="tf_abbeyline"
 		game.dedicated=true;game.start_host("Latency",27787,100,60,false)
 	else:game.start_join(role,"127.0.0.1",27788 if role=="shooter" else 27789)
 	check(await wait_for(func():return game.active and game.players.size()==2),"ENet join through impaired UDP link")

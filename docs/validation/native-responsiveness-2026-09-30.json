@@ -1,0 +1,698 @@
+{
+  "date": "2026-09-30",
+  "environment": {
+    "cpu": "Intel N95",
+    "engine": "Godot 4.7.2 stable",
+    "platform": "Linux x86-64 headless",
+    "toolchain": "GCC 15, CMake 4.2.3; distribution packages extracted under /tmp; no system installation"
+  },
+  "benchmarks": {
+    "reports": [
+      {
+        "variant": "fallback",
+        "result": {
+          "inputs": [
+            {
+              "build_pack_us": {
+                "median": 189,
+                "p95": 240
+              },
+              "bytes": {
+                "median": 588,
+                "p95": 591
+              },
+              "history_count": 0,
+              "max_bytes": 592,
+              "pending_edges": 0,
+              "retained_static_bytes": 16839,
+              "scenario": "baseline"
+            },
+            {
+              "build_pack_us": {
+                "median": 519,
+                "p95": 694
+              },
+              "bytes": {
+                "median": 760,
+                "p95": 821
+              },
+              "history_count": 4,
+              "max_bytes": 844,
+              "pending_edges": 0,
+              "retained_static_bytes": 26048,
+              "scenario": "typical"
+            },
+            {
+              "build_pack_us": {
+                "median": 2189,
+                "p95": 3138
+              },
+              "bytes": {
+                "median": 1088,
+                "p95": 1100
+              },
+              "history_count": 4,
+              "max_bytes": 1100,
+              "pending_edges": 8,
+              "retained_static_bytes": 47829,
+              "scenario": "saturated"
+            }
+          ],
+          "native_codec": false,
+          "native_packing": false,
+          "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+          "snapshots": [
+            {
+              "bytes": {
+                "median": 3777,
+                "p95": 3794
+              },
+              "encoding_us": {
+                "median": 3693,
+                "p95": 4473
+              },
+              "enhanced": false,
+              "oversized_records": 0
+            },
+            {
+              "bytes": {
+                "median": 4252,
+                "p95": 5012
+              },
+              "encoding_us": {
+                "median": 5358,
+                "p95": 5628
+              },
+              "enhanced": true,
+              "oversized_records": 0
+            }
+          ]
+        }
+      },
+      {
+        "variant": "codec_only",
+        "result": {
+          "inputs": [
+            {
+              "build_pack_us": {
+                "median": 21,
+                "p95": 28
+              },
+              "bytes": {
+                "median": 588,
+                "p95": 591
+              },
+              "history_count": 0,
+              "max_bytes": 592,
+              "pending_edges": 0,
+              "retained_static_bytes": 16839,
+              "scenario": "baseline"
+            },
+            {
+              "build_pack_us": {
+                "median": 67,
+                "p95": 88
+              },
+              "bytes": {
+                "median": 760,
+                "p95": 821
+              },
+              "history_count": 4,
+              "max_bytes": 844,
+              "pending_edges": 0,
+              "retained_static_bytes": 26048,
+              "scenario": "typical"
+            },
+            {
+              "build_pack_us": {
+                "median": 280,
+                "p95": 375
+              },
+              "bytes": {
+                "median": 1088,
+                "p95": 1100
+              },
+              "history_count": 4,
+              "max_bytes": 1100,
+              "pending_edges": 8,
+              "retained_static_bytes": 47829,
+              "scenario": "saturated"
+            }
+          ],
+          "native_codec": true,
+          "native_packing": false,
+          "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+          "snapshots": [
+            {
+              "bytes": {
+                "median": 3777,
+                "p95": 3794
+              },
+              "encoding_us": {
+                "median": 722,
+                "p95": 898
+              },
+              "enhanced": false,
+              "oversized_records": 0
+            },
+            {
+              "bytes": {
+                "median": 4252,
+                "p95": 5012
+              },
+              "encoding_us": {
+                "median": 915,
+                "p95": 1094
+              },
+              "enhanced": true,
+              "oversized_records": 0
+            }
+          ]
+        }
+      },
+      {
+        "variant": "fused",
+        "result": {
+          "inputs": [
+            {
+              "build_pack_us": {
+                "median": 20,
+                "p95": 27
+              },
+              "bytes": {
+                "median": 588,
+                "p95": 591
+              },
+              "history_count": 0,
+              "max_bytes": 592,
+              "pending_edges": 0,
+              "retained_static_bytes": 16839,
+              "scenario": "baseline"
+            },
+            {
+              "build_pack_us": {
+                "median": 68,
+                "p95": 92
+              },
+              "bytes": {
+                "median": 760,
+                "p95": 821
+              },
+              "history_count": 4,
+              "max_bytes": 844,
+              "pending_edges": 0,
+              "retained_static_bytes": 26048,
+              "scenario": "typical"
+            },
+            {
+              "build_pack_us": {
+                "median": 273,
+                "p95": 375
+              },
+              "bytes": {
+                "median": 1088,
+                "p95": 1100
+              },
+              "history_count": 4,
+              "max_bytes": 1100,
+              "pending_edges": 8,
+              "retained_static_bytes": 47829,
+              "scenario": "saturated"
+            }
+          ],
+          "native_codec": true,
+          "native_packing": true,
+          "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+          "snapshots": [
+            {
+              "bytes": {
+                "median": 3777,
+                "p95": 3794
+              },
+              "encoding_us": {
+                "median": 626,
+                "p95": 773
+              },
+              "enhanced": false,
+              "oversized_records": 0
+            },
+            {
+              "bytes": {
+                "median": 4252,
+                "p95": 5012
+              },
+              "encoding_us": {
+                "median": 794,
+                "p95": 983
+              },
+              "enhanced": true,
+              "oversized_records": 0
+            }
+          ]
+        }
+      },
+      {
+        "variant": "fused",
+        "result": {
+          "inputs": [
+            {
+              "build_pack_us": {
+                "median": 20,
+                "p95": 26
+              },
+              "bytes": {
+                "median": 588,
+                "p95": 591
+              },
+              "history_count": 0,
+              "max_bytes": 592,
+              "pending_edges": 0,
+              "retained_static_bytes": 16839,
+              "scenario": "baseline"
+            },
+            {
+              "build_pack_us": {
+                "median": 67,
+                "p95": 87
+              },
+              "bytes": {
+                "median": 760,
+                "p95": 821
+              },
+              "history_count": 4,
+              "max_bytes": 844,
+              "pending_edges": 0,
+              "retained_static_bytes": 26048,
+              "scenario": "typical"
+            },
+            {
+              "build_pack_us": {
+                "median": 276,
+                "p95": 370
+              },
+              "bytes": {
+                "median": 1088,
+                "p95": 1100
+              },
+              "history_count": 4,
+              "max_bytes": 1100,
+              "pending_edges": 8,
+              "retained_static_bytes": 47829,
+              "scenario": "saturated"
+            }
+          ],
+          "native_codec": true,
+          "native_packing": true,
+          "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+          "snapshots": [
+            {
+              "bytes": {
+                "median": 3777,
+                "p95": 3794
+              },
+              "encoding_us": {
+                "median": 625,
+                "p95": 812
+              },
+              "enhanced": false,
+              "oversized_records": 0
+            },
+            {
+              "bytes": {
+                "median": 4252,
+                "p95": 5012
+              },
+              "encoding_us": {
+                "median": 810,
+                "p95": 1033
+              },
+              "enhanced": true,
+              "oversized_records": 0
+            }
+          ]
+        }
+      },
+      {
+        "variant": "codec_only",
+        "result": {
+          "inputs": [
+            {
+              "build_pack_us": {
+                "median": 21,
+                "p95": 27
+              },
+              "bytes": {
+                "median": 588,
+                "p95": 591
+              },
+              "history_count": 0,
+              "max_bytes": 592,
+              "pending_edges": 0,
+              "retained_static_bytes": 16839,
+              "scenario": "baseline"
+            },
+            {
+              "build_pack_us": {
+                "median": 68,
+                "p95": 96
+              },
+              "bytes": {
+                "median": 760,
+                "p95": 821
+              },
+              "history_count": 4,
+              "max_bytes": 844,
+              "pending_edges": 0,
+              "retained_static_bytes": 26048,
+              "scenario": "typical"
+            },
+            {
+              "build_pack_us": {
+                "median": 302,
+                "p95": 376
+              },
+              "bytes": {
+                "median": 1088,
+                "p95": 1100
+              },
+              "history_count": 4,
+              "max_bytes": 1100,
+              "pending_edges": 8,
+              "retained_static_bytes": 47829,
+              "scenario": "saturated"
+            }
+          ],
+          "native_codec": true,
+          "native_packing": false,
+          "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+          "snapshots": [
+            {
+              "bytes": {
+                "median": 3777,
+                "p95": 3794
+              },
+              "encoding_us": {
+                "median": 785,
+                "p95": 1058
+              },
+              "enhanced": false,
+              "oversized_records": 0
+            },
+            {
+              "bytes": {
+                "median": 4252,
+                "p95": 5012
+              },
+              "encoding_us": {
+                "median": 975,
+                "p95": 1191
+              },
+              "enhanced": true,
+              "oversized_records": 0
+            }
+          ]
+        }
+      },
+      {
+        "variant": "fallback",
+        "result": {
+          "inputs": [
+            {
+              "build_pack_us": {
+                "median": 186,
+                "p95": 236
+              },
+              "bytes": {
+                "median": 588,
+                "p95": 591
+              },
+              "history_count": 0,
+              "max_bytes": 592,
+              "pending_edges": 0,
+              "retained_static_bytes": 16839,
+              "scenario": "baseline"
+            },
+            {
+              "build_pack_us": {
+                "median": 513,
+                "p95": 628
+              },
+              "bytes": {
+                "median": 760,
+                "p95": 821
+              },
+              "history_count": 4,
+              "max_bytes": 844,
+              "pending_edges": 0,
+              "retained_static_bytes": 26048,
+              "scenario": "typical"
+            },
+            {
+              "build_pack_us": {
+                "median": 2234,
+                "p95": 3156
+              },
+              "bytes": {
+                "median": 1088,
+                "p95": 1100
+              },
+              "history_count": 4,
+              "max_bytes": 1100,
+              "pending_edges": 8,
+              "retained_static_bytes": 47829,
+              "scenario": "saturated"
+            }
+          ],
+          "native_codec": false,
+          "native_packing": false,
+          "scope": "16 full-body actors, 32 projectiles, 8 recent shot identities; 20 warmup + 120 changing snapshots. Input: 240 samples, typical 1 edge/sec and 100ms receipt, saturated 30 edges/sec without receipt. Memory includes retained measurement arrays, not an allocation count. No rendering or ENet.",
+          "snapshots": [
+            {
+              "bytes": {
+                "median": 3777,
+                "p95": 3794
+              },
+              "encoding_us": {
+                "median": 3643,
+                "p95": 3994
+              },
+              "enhanced": false,
+              "oversized_records": 0
+            },
+            {
+              "bytes": {
+                "median": 4252,
+                "p95": 5012
+              },
+              "encoding_us": {
+                "median": 5331,
+                "p95": 5896
+              },
+              "enhanced": true,
+              "oversized_records": 0
+            }
+          ]
+        }
+      }
+    ],
+    "library_sha256": "bf9dc5632048f68e5fb1b2fa7bf1055a748ba4162ce280f3db9603463581bf2d",
+    "scope": "Sequential ABCCBA, no rendering or ENet; assert identical payload sizes. Linux library is a local host build, not a portable release."
+  },
+  "builds": [
+    {
+      "target": "linux",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "bf9dc5632048f68e5fb1b2fa7bf1055a748ba4162ce280f3db9603463581bf2d",
+      "source_sha256": {
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "30e77399c42fadcc85d9a6b58c01129fee1c5baaf128fcbab7957a3e17c4bd9f",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "89e340ae089c556344d7ba1c10a711c8151d4f020e349f82841b629e8e492e6d",
+        "src/bots.h": "8badd96ae32fc1d44fdfe750cbd06bac0e40124c71bbe75d4aa27b32e6340480",
+        "src/codec.cpp": "e0da577b2f8bb5211d15ca5ce20d0e0e0399052ab7280144564f08dc853a138a",
+        "src/codec.h": "25327add15623dc58e7da283d255db4749dc940aeed31370a525fe22248f1f7d",
+        "src/network_packing.cpp": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65",
+        "src/st_steering.cpp": "b8fae04d4d72ba7f5ec2baca59c4b165e917b90070716c3a1b99840dd7e4a867"
+      }
+    },
+    {
+      "target": "linux-server",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "75865106a1a634fece6d345caa1cf19b7cae0bfd9eb4d0009748ab0889c1bad0",
+      "source_sha256": {
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "30e77399c42fadcc85d9a6b58c01129fee1c5baaf128fcbab7957a3e17c4bd9f",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "89e340ae089c556344d7ba1c10a711c8151d4f020e349f82841b629e8e492e6d",
+        "src/bots.h": "8badd96ae32fc1d44fdfe750cbd06bac0e40124c71bbe75d4aa27b32e6340480",
+        "src/codec.cpp": "e0da577b2f8bb5211d15ca5ce20d0e0e0399052ab7280144564f08dc853a138a",
+        "src/codec.h": "25327add15623dc58e7da283d255db4749dc940aeed31370a525fe22248f1f7d",
+        "src/network_packing.cpp": "57fe61955dc05e6a483625b6ed3453d270ef69b98c0b4f791c2de8055789c44c",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65",
+        "src/st_steering.cpp": "b8fae04d4d72ba7f5ec2baca59c4b165e917b90070716c3a1b99840dd7e4a867"
+      }
+    }
+  ],
+  "tests": [
+    {
+      "name": "native_responsiveness",
+      "log_sha256": "47333867509640d430b6ee66f8edb6d1d45e007bf5516e9d222b38bdd474889a",
+      "results": [
+        "NATIVE_RESPONSIVENESS_RESULT {\"checks\":3242,\"failures\":[]}"
+      ]
+    },
+    {
+      "name": "native_codec",
+      "log_sha256": "e6761d5de9d43e2e588376660391453164988c819b3b5fe037d1772927070ff0",
+      "results": [
+        "NATIVE_CODEC_RESULT {\"checks\":15248,\"failures\":[]}"
+      ]
+    },
+    {
+      "name": "native_network_packing",
+      "log_sha256": "446015576d63a54b7f94eba551b685d74e7bbe1d75f7de31dc4166582498d705",
+      "results": [
+        "NATIVE_NETWORK_RESULT {\"checks\":6335,\"failures\":[],\"reports\":[{\"after_bytes\":27313,\"after_ms\":{\"median\":0.146,\"p95\":0.209},\"after_packets\":64,\"before_bytes\":27313,\"before_ms\":{\"median\":0.219,\"p95\":0.323},\"before_packets\":64,\"players\":8,\"shots\":0,\"vr\":false},{\"after_bytes\":131432,\"after_ms\":{\"median\":0.404,\"p95\":0.525},\"after_packets\":132,\"before_bytes\":131432,\"before_ms\":{\"median\":0.79,\"p95\":1.016},\"before_packets\":132,\"players\":16,\"shots\":32,\"vr\":true},{\"after_bytes\":1087542,\"after_ms\":{\"median\":3.132,\"p95\":3.991},\"after_packets\":1028,\"before_bytes\":1087542,\"before_ms\":{\"median\":6.944,\"p95\":8.435},\"before_packets\":1028,\"players\":16,\"shots\":523,\"vr\":false}]}"
+      ]
+    },
+    {
+      "name": "native_acceleration",
+      "log_sha256": "9fefcef47adced40706a2291eef24dc385b5f75a3ebb6117903c862f1268952c",
+      "results": [
+        "NATIVE_ACCELERATION_RESULT {\"checks\":51311,\"failures\":[]}"
+      ]
+    },
+    {
+      "name": "native_rewind",
+      "log_sha256": "55cf5eccb9bdba548017e49bcf47b55ec702a32182663d9f9052e65d28e9ddb0",
+      "results": [
+        "NATIVE_REWIND_RESULT {\"benchmarks\":[{\"eight_rays\":{\"mean_ms\":3.06108333333333,\"median_ms\":2.989,\"p95_ms\":3.582},\"path\":\"reference\"},{\"eight_rays\":{\"mean_ms\":1.20574166666667,\"median_ms\":1.165,\"p95_ms\":1.454},\"path\":\"batched_gd\"},{\"eight_rays\":{\"mean_ms\":0.367208333333333,\"median_ms\":0.353,\"p95_ms\":0.448},\"path\":\"native\"},{\"eight_rays\":{\"mean_ms\":0.363425,\"median_ms\":0.35,\"p95_ms\":0.428},\"path\":\"native\"},{\"eight_rays\":{\"mean_ms\":1.15030833333333,\"median_ms\":1.137,\"p95_ms\":1.271},\"path\":\"batched_gd\"},{\"eight_rays\":{\"mean_ms\":3.02375,\"median_ms\":2.959,\"p95_ms\":3.431},\"path\":\"reference\"}],\"checks\":16850,\"failures\":[]}"
+      ]
+    },
+    {
+      "name": "native_shot_history",
+      "log_sha256": "f248997605fef6925ab435e2ec80f0e77ee03786f9a28792cde69c65d2247265",
+      "results": [
+        "NATIVE_SHOT_HISTORY_RESULT {\"checks\":10,\"failures\":[]}"
+      ]
+    },
+    {
+      "name": "responsiveness_protocol",
+      "log_sha256": "e2d47620bb13a0f495a30f95410e07297e01b0a133b39c5ae29fb8d4df5bcdd4",
+      "results": [
+        "RESPONSIVENESS_PROTOCOL_RESULT {\"checks\":721,\"failures\":[],\"maximum_input_bytes\":1100}"
+      ]
+    },
+    {
+      "name": "replication_protocol",
+      "log_sha256": "a314294c31ece419851c2ae08195d6dbeeca9b2f2db78559d042a722d37da534",
+      "results": [
+        "REPLICATION_PROTOCOL_RESULT {\"encode_us\":650,\"failures\":[],\"input_bytes\":407,\"max_packet\":1037,\"packets\":4,\"players_updated_with_one_packet_missing\":11,\"snapshot_bytes\":3768}"
+      ]
+    },
+    {
+      "name": "weapon_variants",
+      "log_sha256": "62693529848f88309d3ed8780c53fe79c3200ecd33c52115e45d4c3b64b06ea6",
+      "results": [
+        "VARIANTS_RESULT {\"checks\":71,\"failures\":[],\"passed\":true}"
+      ]
+    },
+    {
+      "name": "cs16",
+      "log_sha256": "d9c506cc53655209056c8bf29cc844ed445f441b8a46f33e666c216ede2ff7ad",
+      "results": [
+        "CS16_RESULT {\"checks\":70,\"failures\":[],\"passed\":true}"
+      ]
+    },
+    {
+      "name": "flame_coverage",
+      "log_sha256": "8fba6ca5112c2965ea994357ec1a5ece10badb613eccdb1e3ca49cb0b74278a6",
+      "results": [
+        "FLAME_COVERAGE_RESULT []"
+      ]
+    },
+    {
+      "name": "movement_replay",
+      "log_sha256": "60848fc7602ba8d7416c3b991bfda2c17c9b53536ea369d3d1246847eea7e77f",
+      "results": [
+        "MOVEMENT_REPLAY_RESULT {\"failures\":[],\"prediction\":{\"confirmed\":203,\"corrections\":11,\"max_error\":0.530859410762787,\"replays\":11,\"resets\":0},\"settled_error\":0.0,\"six_tick_reconcile_median_us\":123,\"six_tick_reconcile_p95_us\":497}"
+      ]
+    }
+  ],
+  "server_smoke": [
+    "NATIVE_SERVER_CODEC_RESULT {\"bytes\":122,\"passed\":true}"
+  ],
+  "network": [
+    {
+      "log": "/tmp/fpsloppa-rocket-quake-server.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"quake\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":6.71404838562012,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":3.6778564453125,\"landed\":true,\"max_upward_mps\":16.5596351623535,\"rules\":\"quake\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85156345367432,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":11.3955974578857,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":10.0703811645508,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":28.3482398986816,\"landed\":true,\"max_upward_mps\":20.0,\"rules\":\"quake\",\"self_damage\":54,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":25.4595851898193,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008224487305,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":24.4049091339111,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":24.598072052002,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008129119873,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":11.2331657409668,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"quake\"}"
+      ]
+    },
+    {
+      "log": "/tmp/fpsloppa-rocket-quake-client.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"quake\"}"
+      ]
+    },
+    {
+      "log": "/tmp/fpsloppa-rocket-doom-server.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"doom\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":4.4810094833374,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":2.2713623046875,\"landed\":true,\"max_upward_mps\":13.5609922409058,\"rules\":\"doom\",\"self_damage\":59,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":3.24681854248047,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":7.38158130645752,\"landed\":true,\"max_upward_mps\":11.570556640625,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":9.4109001159668,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":30.0357303619385,\"landed\":true,\"max_upward_mps\":19.3233528137207,\"rules\":\"doom\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":28.318244934082,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":9.4109001159668,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":30.3464832305908,\"landed\":true,\"max_upward_mps\":19.3233528137207,\"rules\":\"doom\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":28.3019504547119,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+        "ROCKET_TRIGGER_METRICS {\"apex_m\":2.98652935028076,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":6.64877319335938,\"landed\":true,\"max_upward_mps\":11.1041021347046,\"rules\":\"doom\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"doom\"}"
+      ]
+    },
+    {
+      "log": "/tmp/fpsloppa-rocket-doom-client.log",
+      "exit": 0,
+      "errors": [],
+      "results": [
+        "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"doom\"}"
+      ]
+    }
+  ],
+  "limitations": [
+    "Focused CPU fixtures; no headset, rendering, GPU or whole-frame timings.",
+    "Linux local client/server builds only; not portable release artifacts; Windows and Android not rebuilt.",
+    "Existing ObjectDB shutdown warnings and deliberate malformed-UTF8 diagnostics remain.",
+    "TF structure-aware flame tracing remains on its existing GDScript path."
+  ]
+}

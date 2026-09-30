@@ -408,8 +408,8 @@ func weapon_pose() -> Transform3D:
 	if game.armory.effective()=="cs16" and game.bindings.vr_pressed(self,"reload"):valid=false
 	if game.match_mode.defusal.gun_holstered(game.multiplayer.get_unique_id()):valid=false
 	var weapon: int=game.local_state().get("weapon",game.desired_weapon)
-	var supported: Transform3D=support_aim.solve(held,other.transform,weapon,support_holding(),valid,game.armory.effective())
-	return virtual_stock.solve(supported,other.transform,head.transform,weapon,left_handed,valid and support_aim.engaged and virtual_stock_enabled and game.armory.effective()=="cs16")
+	var supported: Transform3D=support_aim.solve(held,other.transform,weapon,support_holding(),valid,game.armory.effective(),true)
+	return virtual_stock.solve(supported,other.transform,head.transform,weapon,left_handed,valid and support_aim.engaged and virtual_stock_enabled,game.armory.effective(),true)
 func update_defusal_posture(actor,delta: float) -> void:
 	if actor==null or game.local_state().get("dead",true) or game.local_state().get("spectator",false):
 		defusal_lowering=0.0;defusal_posture=false;return
@@ -439,6 +439,7 @@ func _process(delta: float) -> void:
 			foveation_poll=0.0
 			if preload("res://deathmatch/vr/foveation.gd").mode(XRServer.find_interface("OpenXR"))!=get_meta("foveation_state",{}).get("mode",""):
 				apply_foveation_preferences(game.presentation)
+	support_aim.advance(delta);virtual_stock.advance(delta)
 	poll_controls()
 	left.visible=simulated or left.get_has_tracking_data()
 	right.visible=simulated or right.get_has_tracking_data()

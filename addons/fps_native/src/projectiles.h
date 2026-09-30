@@ -29,6 +29,7 @@ public:
  Array candidates(Vector3 start,Vector3 end,double radius);
  static double box_fraction(Vector3 start,Vector3 end,Vector3 half,double radius);
  double player_fraction(Vector3 start,Vector3 end,double height,double yaw,double radius);
+ static Dictionary trace_structures(const Dictionary &buildings,Vector3 start,Vector3 end,double limit,double radius);
  Dictionary trace(Node3D *game,Vector3 start,Vector3 end,int64_t exclude,double radius,const Dictionary &movement,const Variant &candidate_ids,const Dictionary &historical=Dictionary());
  void step(Node3D *game,double delta,const Dictionary &movement,const Array &weapons,bool native_trace);
 };

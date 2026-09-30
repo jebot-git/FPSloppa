@@ -137,7 +137,7 @@ func weapon_data(id: int,weapon: int) -> Dictionary:
 			data.merge({"name":"TRANQUILIZER","kind":"nail","ammo":1,"cost":1,"cycle":1.5,"damage":20,"pellets":1,"spread":0.0,"vertical":0.0,"speed":46.875,"radius":.035,"tranquilize":true},true)
 		if weapon==0 and role in ["spy","engineer"]:data.name="KNIFE" if role=="spy" else "SPANNER"
 	if role=="pyro" and weapon==7:
-		data.merge({"name":"FLAMETHROWER","ammo":3,"cost":1,"kind":"hitscan","speed":0.0,"damage":8,"dice":1,"cycle":.12,"range":8.0,"pellets":1,"spread":3.0,"vertical":3.0},true)
+		data.merge({"name":"FLAMETHROWER","ammo":3,"cost":1,"kind":"hitscan","speed":0.0,"damage":8,"dice":1,"cycle":.12,"range":8.0,"pellets":5,"spread":0.0,"vertical":0.0,"flame_angle":5.0},true)
 	if role=="medic" and weapon==7 and not game.armory.experimental():data.cycle=.15
 	return data
 func tranquilize(victim: int,attacker: int) -> void:

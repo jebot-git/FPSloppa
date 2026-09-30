@@ -120,6 +120,10 @@ struct Reader {
 };
 }
 void FPSCodec::_bind_methods(){
+ ClassDB::bind_method(D_METHOD("pack_input","command"),&FPSCodec::pack_input);
+ ClassDB::bind_method(D_METHOD("snapshot_records","snapshot","recipient","cadence","cached","shared"),&FPSCodec::snapshot_records);
+ ClassDB::bind_method(D_METHOD("encode_records","records"),&FPSCodec::encode_records);
+ ClassDB::bind_method(D_METHOD("pack_records","records","header"),&FPSCodec::pack_records);
  ClassDB::bind_method(D_METHOD("encode","value"),&FPSCodec::encode);
  ClassDB::bind_method(D_METHOD("decode","bytes"),&FPSCodec::decode);
 }

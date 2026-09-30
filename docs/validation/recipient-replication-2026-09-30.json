@@ -1,0 +1,448 @@
+{
+  "date": "2026-09-30",
+  "protocol": "fpsloppa-70-personal-replication",
+  "environment": {
+    "cpu": "Intel N95",
+    "engine": "Godot 4.7.2 stable",
+    "platform": "Linux x86-64 headless"
+  },
+  "benchmarks": {
+    "recipient": {
+      "native": true,
+      "reports": [
+        {
+          "all_16_recipients_us": {
+            "median": 759,
+            "p95": 962
+          },
+          "personal": false,
+          "total_payload_bytes": {
+            "median": 64464,
+            "p95": 64736
+          },
+          "variant": "broadcast"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 6853,
+            "p95": 8578
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "reference"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 4407,
+            "p95": 6073
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "native"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 4459,
+            "p95": 5924
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "native"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 6653,
+            "p95": 8287
+          },
+          "personal": true,
+          "total_payload_bytes": {
+            "median": 32648,
+            "p95": 51240
+          },
+          "variant": "reference"
+        },
+        {
+          "all_16_recipients_us": {
+            "median": 734,
+            "p95": 920
+          },
+          "personal": false,
+          "total_payload_bytes": {
+            "median": 64464,
+            "p95": 64736
+          },
+          "variant": "broadcast"
+        }
+      ],
+      "scope": "16 fully tracked players on 25m grid, 32 projectiles, 30Hz, 20 warmup + 80 samples; includes projection/encoding/compression, no transport or rendering"
+    },
+    "special": {
+      "production_gate_enabled": false,
+      "reports": [
+        {
+          "buildings": 0,
+          "five_rays_us": {
+            "median": 629,
+            "p95": 753
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": false
+        },
+        {
+          "buildings": 0,
+          "five_rays_us": {
+            "median": 224,
+            "p95": 288
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": true
+        },
+        {
+          "buildings": 0,
+          "five_rays_us": {
+            "median": 222,
+            "p95": 279
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": true
+        },
+        {
+          "buildings": 0,
+          "five_rays_us": {
+            "median": 646,
+            "p95": 817
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": false
+        },
+        {
+          "buildings": 16,
+          "five_rays_us": {
+            "median": 796,
+            "p95": 932
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": false
+        },
+        {
+          "buildings": 16,
+          "five_rays_us": {
+            "median": 382,
+            "p95": 481
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": true
+        },
+        {
+          "buildings": 16,
+          "five_rays_us": {
+            "median": 409,
+            "p95": 537
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": true
+        },
+        {
+          "buildings": 16,
+          "five_rays_us": {
+            "median": 1007,
+            "p95": 1177
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": false
+        },
+        {
+          "buildings": 64,
+          "five_rays_us": {
+            "median": 1234,
+            "p95": 1527
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": false
+        },
+        {
+          "buildings": 64,
+          "five_rays_us": {
+            "median": 758,
+            "p95": 959
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": true
+        },
+        {
+          "buildings": 64,
+          "five_rays_us": {
+            "median": 763,
+            "p95": 940
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": true
+        },
+        {
+          "buildings": 64,
+          "five_rays_us": {
+            "median": 1496,
+            "p95": 1706
+          },
+          "fixture_mismatches": 0,
+          "hybrid_prototype": false
+        }
+      ],
+      "scope": "16 actors, five TF rays, synthetic structure positions; prototype native bodies plus existing structure loop. No hulls, rewind, damage, tribes overlays or rendered scene. Not production parity."
+    },
+    "cosmetic": {
+      "reports": [
+        {
+          "cosmetics": 1,
+          "creation_us": {
+            "median": 1493,
+            "p95": 1493
+          },
+          "step_us": {
+            "median": 12,
+            "p95": 13
+          }
+        },
+        {
+          "cosmetics": 6,
+          "creation_us": {
+            "median": 157,
+            "p95": 1364
+          },
+          "step_us": {
+            "median": 60,
+            "p95": 69
+          }
+        },
+        {
+          "cosmetics": 32,
+          "creation_us": {
+            "median": 137,
+            "p95": 304
+          },
+          "step_us": {
+            "median": 320,
+            "p95": 361
+          }
+        }
+      ],
+      "scope": "Headless Node3D construction and world-clearance steps, 20 warmup/200 samples; excludes GPU, trails, effects and headset frame time. Creation samples are cold and few.",
+      "shared_fx_setup_us": 28042
+    }
+  },
+  "tests": [
+    {
+      "name": "predicted_projectiles",
+      "results": [
+        "PREDICTED_PROJECTILES_RESULT {\"failures\":[]}"
+      ],
+      "log_sha256": "abea3e472edb45612e6b872dc11602f27f7920532167c7e5793a55cfa06bc110"
+    },
+    {
+      "name": "recipient_replication",
+      "results": [
+        "RECIPIENT_REPLICATION_RESULT {\"failures\":[]}"
+      ],
+      "log_sha256": "3b4c254162825fa1d11191265938a202e0eaf43a8dff917d8489e8fc46b1fea8"
+    },
+    {
+      "name": "replication_protocol",
+      "results": [
+        "REPLICATION_PROTOCOL_RESULT {\"encode_us\":551,\"failures\":[],\"input_bytes\":407,\"max_packet\":1036,\"packets\":4,\"players_updated_with_one_packet_missing\":12,\"snapshot_bytes\":3397}"
+      ],
+      "log_sha256": "0e8fff2b8d7d2f4e4a739d1bc812881a678571f88348642d8bd6c92341c1fa88"
+    },
+    {
+      "name": "native_responsiveness",
+      "results": [
+        "NATIVE_RESPONSIVENESS_RESULT {\"checks\":3242,\"failures\":[]}"
+      ],
+      "log_sha256": "47333867509640d430b6ee66f8edb6d1d45e007bf5516e9d222b38bdd474889a"
+    },
+    {
+      "name": "native_network_packing",
+      "results": [
+        "NATIVE_NETWORK_RESULT {\"checks\":6680,\"failures\":[],\"reports\":[{\"after_bytes\":30649,\"after_ms\":{\"median\":0.139,\"p95\":0.191},\"after_packets\":128,\"before_bytes\":30649,\"before_ms\":{\"median\":0.211,\"p95\":0.303},\"before_packets\":128,\"players\":8,\"shots\":0,\"vr\":false},{\"after_bytes\":127546,\"after_ms\":{\"median\":0.433,\"p95\":0.552},\"after_packets\":132,\"before_bytes\":127546,\"before_ms\":{\"median\":0.913,\"p95\":1.05},\"before_packets\":132,\"players\":16,\"shots\":32,\"vr\":true},{\"after_bytes\":1083750,\"after_ms\":{\"median\":3.601,\"p95\":4.155},\"after_packets\":1033,\"before_bytes\":1083750,\"before_ms\":{\"median\":7.487,\"p95\":8.149},\"before_packets\":1033,\"players\":16,\"shots\":523,\"vr\":false}]}"
+      ],
+      "log_sha256": "cbc2e526e96362bdf0297ba2d86b75a173dab863a5e0e688740c23d973485c7c"
+    },
+    {
+      "name": "weapon_variants",
+      "results": [
+        "VARIANTS_RESULT {\"checks\":71,\"failures\":[],\"passed\":true}"
+      ],
+      "log_sha256": "62693529848f88309d3ed8780c53fe79c3200ecd33c52115e45d4c3b64b06ea6"
+    },
+    {
+      "name": "cs16",
+      "results": [
+        "CS16_RESULT {\"checks\":70,\"failures\":[],\"passed\":true}"
+      ],
+      "log_sha256": "d9c506cc53655209056c8bf29cc844ed445f441b8a46f33e666c216ede2ff7ad"
+    },
+    {
+      "name": "movement_replay",
+      "results": [
+        "MOVEMENT_REPLAY_RESULT {\"failures\":[],\"prediction\":{\"confirmed\":203,\"corrections\":11,\"max_error\":0.530859410762787,\"replays\":11,\"resets\":0},\"settled_error\":0.0,\"six_tick_reconcile_median_us\":91,\"six_tick_reconcile_p95_us\":874}"
+      ],
+      "log_sha256": "e159f0840f5c2a78362646a7ef18116846dce21b06b882445a572f6d0e973c50"
+    }
+  ],
+  "network": {
+    "cosmetic": [
+      {
+        "role": "fpsloppa-cosmetic-server",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "PROJECTILE_PREDICTION_NETWORK_RESULT {\"failures\":[],\"role\":\"server\"}"
+        ]
+      },
+      {
+        "role": "fpsloppa-cosmetic-client",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "PROJECTILE_PREDICTION_NETWORK_RESULT {\"failures\":[],\"role\":\"client\"}"
+        ]
+      }
+    ],
+    "rockets": [
+      {
+        "log": "/tmp/fpsloppa-rocket-quake-server.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"quake\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":6.71404838562012,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":3.6778564453125,\"landed\":true,\"max_upward_mps\":16.5596351623535,\"rules\":\"quake\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85156345367432,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":11.3955974578857,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008224487305,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":24.10178565979,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":25.4595851898193,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008224487305,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":24.3884906768799,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.85178661346436,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":25.4174556732178,\"landed\":true,\"max_upward_mps\":14.1035842895508,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.51008129119873,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":10.863805770874,\"landed\":true,\"max_upward_mps\":13.6045427322388,\"rules\":\"quake\",\"self_damage\":56,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"quake\"}"
+        ]
+      },
+      {
+        "log": "/tmp/fpsloppa-rocket-quake-client.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"quake\"}"
+        ]
+      },
+      {
+        "log": "/tmp/fpsloppa-rocket-doom-server.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":1.42704677581787,\"case\":{\"name\":\"normal_jump\",\"rocket\":false,\"vr\":false},\"clipped\":false,\"distance_m\":0.0,\"landed\":true,\"max_upward_mps\":7.40000009536743,\"rules\":\"doom\",\"self_damage\":0,\"shots\":0,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":4.4810094833374,\"case\":{\"name\":\"standing_rocket\",\"rocket\":true,\"vr\":false},\"clipped\":false,\"distance_m\":2.2713623046875,\"landed\":true,\"max_upward_mps\":13.5609922409058,\"rules\":\"doom\",\"self_damage\":59,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":3.24681854248047,\"case\":{\"low\":true,\"name\":\"tracked_floor_rocket\",\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":7.38158130645752,\"landed\":true,\"max_upward_mps\":11.570556640625,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":9.4109001159668,\"case\":{\"delay\":0,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_0\",\"phase\":0,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":30.0514106750488,\"landed\":true,\"max_upward_mps\":19.3233528137207,\"rules\":\"doom\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":0,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_1\",\"phase\":1,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":28.318244934082,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":9.4109001159668,\"case\":{\"delay\":6,\"drop\":false,\"low\":false,\"moving\":true,\"name\":\"moving_bhop_phase_2\",\"phase\":2,\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":30.3030452728271,\"landed\":true,\"max_upward_mps\":19.3233528137207,\"rules\":\"doom\",\"self_damage\":56,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":3.2463903427124,\"case\":{\"delay\":6,\"drop\":true,\"low\":true,\"moving\":true,\"name\":\"moving_bhop_phase_3\",\"phase\":3,\"rocket\":true,\"vr\":true},\"clipped\":true,\"distance_m\":28.2755661010742,\"landed\":true,\"max_upward_mps\":11.5694208145142,\"rules\":\"doom\",\"self_damage\":58,\"shots\":1,\"takeoffs\":2}",
+          "ROCKET_TRIGGER_METRICS {\"apex_m\":2.98652935028076,\"case\":{\"cooldown\":0.2,\"name\":\"brief_tap_before_cooldown_ends\",\"rocket\":true,\"vr\":true},\"clipped\":false,\"distance_m\":6.77428150177002,\"landed\":true,\"max_upward_mps\":11.1041021347046,\"rules\":\"doom\",\"self_damage\":57,\"shots\":1,\"takeoffs\":1}",
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"server\",\"rules\":\"doom\"}"
+        ]
+      },
+      {
+        "log": "/tmp/fpsloppa-rocket-doom-client.log",
+        "exit": 0,
+        "errors": [],
+        "results": [
+          "ROCKET_TRIGGER_NETWORK_RESULT {\"failures\":[],\"role\":\"client\",\"rules\":\"doom\"}"
+        ]
+      }
+    ]
+  },
+  "server_smoke": {
+    "bytes": 122,
+    "passed": true
+  },
+  "builds": [
+    {
+      "target": "linux",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "55f60abe604744c5f96921bc1077915653d69778eea965752700ae40e33742a9",
+      "source_sha256": {
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "30e77399c42fadcc85d9a6b58c01129fee1c5baaf128fcbab7957a3e17c4bd9f",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "89e340ae089c556344d7ba1c10a711c8151d4f020e349f82841b629e8e492e6d",
+        "src/bots.h": "8badd96ae32fc1d44fdfe750cbd06bac0e40124c71bbe75d4aa27b32e6340480",
+        "src/codec.cpp": "58a6cd989ffaa1c3e9b5c3edebc1ecdb84159093e9a8a8a2449deef1653b95bc",
+        "src/codec.h": "7f1b8bfcb88bd6d95f536bc5431c66053a22f5e3820f1b1d32904829c7bb5b55",
+        "src/network_packing.cpp": "edb48f0d882310e71ef8c08e48893c6a3317ca31acac6f98183a9d45e3a1bd9f",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65",
+        "src/st_steering.cpp": "b8fae04d4d72ba7f5ec2baca59c4b165e917b90070716c3a1b99840dd7e4a867"
+      }
+    },
+    {
+      "target": "linux-server",
+      "bindings_revision": "507ed9d840c01a3c5b2a39af8bb4000bfac30bf5",
+      "portable_container": false,
+      "sha256": "8772def59ff8598b71ee2f52e4b8a84a28c6588c4bd26776a909f679d25b69e5",
+      "source_sha256": {
+        "src/avatar_channels.cpp": "d504045236d29622cb9008dd554d1574b893572475cedeb402e4aa29ab55af24",
+        "src/bot_context.h": "e46cec943c1e1424f46784ce98316a10b21360b1dcabc6999c0469fd6e663d4a",
+        "src/bot_names.h": "30e77399c42fadcc85d9a6b58c01129fee1c5baaf128fcbab7957a3e17c4bd9f",
+        "src/bot_steering.cpp": "c02f7159aceff82100964b3906119529cbf051d6ab86956114c08add2fc742ff",
+        "src/bots.cpp": "89e340ae089c556344d7ba1c10a711c8151d4f020e349f82841b629e8e492e6d",
+        "src/bots.h": "8badd96ae32fc1d44fdfe750cbd06bac0e40124c71bbe75d4aa27b32e6340480",
+        "src/codec.cpp": "58a6cd989ffaa1c3e9b5c3edebc1ecdb84159093e9a8a8a2449deef1653b95bc",
+        "src/codec.h": "7f1b8bfcb88bd6d95f536bc5431c66053a22f5e3820f1b1d32904829c7bb5b55",
+        "src/network_packing.cpp": "edb48f0d882310e71ef8c08e48893c6a3317ca31acac6f98183a9d45e3a1bd9f",
+        "src/pose_preparation.cpp": "f634846cb6a8ba27a0c30950ec5e52748172bc2cca040674e4c78c89b44db674",
+        "src/poses.cpp": "8e6717dad8ae2e6063da1f9b3210459a3204efc5e9343a066edb775883396103",
+        "src/poses.h": "f2e4376e3d5ecd5ea214f32a0358df871122a67fa63d68b287e4b1138c130e1d",
+        "src/projectiles.cpp": "9a8683585fb6ac694d038969d083a26d3b6e66a7a62c2cc3dd75b16696260e7f",
+        "src/projectiles.h": "7093e311169a0e8dd2bf2791d7e248bd5ca88105bc28a36e4a1a95619450354e",
+        "src/register.cpp": "5e9db54f562c574f05d1d57a00614b2686747936ba3827f3258853a54e159020",
+        "src/register_server.cpp": "a25a48c31944f97212e3176306959c623b846a54c9f5273f2c786f3819629e65",
+        "src/st_steering.cpp": "b8fae04d4d72ba7f5ec2baca59c4b165e917b90070716c3a1b99840dd7e4a867"
+      }
+    }
+  ],
+  "source_sha256": {
+    "addons/fps_native/src/network_packing.cpp": "edb48f0d882310e71ef8c08e48893c6a3317ca31acac6f98183a9d45e3a1bd9f",
+    "addons/fps_native/src/codec.h": "7f1b8bfcb88bd6d95f536bc5431c66053a22f5e3820f1b1d32904829c7bb5b55",
+    "addons/fps_native/src/codec.cpp": "58a6cd989ffaa1c3e9b5c3edebc1ecdb84159093e9a8a8a2449deef1653b95bc",
+    "deathmatch/arena.gd": "717dd15df42ead3f6e1e0622aacd8b9138fde24b1ff8b7f52023152b1c4ca67a",
+    "deathmatch/network/replication.gd": "4692dc049e09f16d01917d18e8f4481ab7d533a5493911ccb8895234e3d60c1c",
+    "deathmatch/network/projectile_prediction.gd": "c7b07c5bb7cf6ff99d4635e8ae99814a162ef324cab28a223f325a73ab055169",
+    "deathmatch/experimental/combat.gd": "7eb88c2033b255cac0bcd5e897bc6b80784996562f3a4be49d21fd98cd196c63",
+    "deathmatch/demos/session.gd": "91155add702cdead0bd21448fe17ddc75f8283566254dcad9e26846a2646c760",
+    "deathmatch/tests/recipient_replication.gd": "2ae39c6241a80347bc4f8595d5061f635a10a26337de425f8f9cf565769d8b7e",
+    "deathmatch/tests/predicted_projectiles.gd": "b15ac05e694f8d5a606394319bef35a3ca3b4d27a53d9aeb840ca1fea9b8e9b7",
+    "deathmatch/tests/projectile_prediction_network.gd": "85b1d66d43ee1cefaf85cf384079f0c63b2dd7982cb0eeef707c9d49e6a409a7",
+    "tools/native_study/recipient_replication.gd": "140250af6474e2b3f470b03e39e7b3e3fd56475f96e0f9a11ee4512c1a14f517",
+    "tools/native_study/special_trace.gd": "f222b1f0d6f189b688961d2fcbe5cb6150c778968e3560944000182a7f525cc4",
+    "tools/native_study/cosmetic_projectiles.gd": "78437e758a87f0f858a2a098aac065a62854d77eb027523809f5377bc1ef8ef7"
+  },
+  "limitations": [
+    "No headset, GPU or rendered frame-time measurements.",
+    "Local Linux client/server native builds; Windows, Android and portable release packages not rebuilt.",
+    "Special-mode hybrid trace is a benchmark prototype, not enabled production behavior or complete parity coverage.",
+    "Existing one-instance ObjectDB shutdown warnings remain."
+  ]
+}

@@ -10,7 +10,7 @@ const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 var native_projectiles=preload("res://deathmatch/native/runtime.gd").projectiles()
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-68-st-native-main"
+const PROTOCOL := "fpsloppa-71-native-special-trace"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -105,7 +105,6 @@ var visual_cooldown := 0.0
 var offhand_visual_cooldown := 0.0
 var offhand_recoil := 0.0
 var offhand_viewmodel: Node3D
-var predicted_offhand_shot_clock := -10.0
 var melee_animation := 0.0
 var hurt_flash := 0.0
 var hit_flash := 0.0
@@ -155,8 +154,10 @@ var replication = preload("res://deathmatch/network/replication.gd").new()
 var remote_interpolation = preload("res://deathmatch/network/interpolation.gd").new()
 var input_delivery = preload("res://deathmatch/network/input_delivery.gd").new()
 var fire_delivery = preload("res://deathmatch/network/fire_delivery.gd").new()
+var movement_delivery = preload("res://deathmatch/network/movement_delivery.gd").new()
+var projectile_prediction = preload("res://deathmatch/network/projectile_prediction.gd").new()
+var shot_prediction = preload("res://deathmatch/network/shot_prediction.gd").new()
 const NetCodec = preload("res://deathmatch/network/codec.gd")
-var predicted_shot_clock := -10.0
 
 var lobby
 var demos
@@ -616,6 +617,7 @@ func _create_fighter(id: int) -> void:
 	actor.set_nametag(players[id].name,team,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
 	actor.movement_sound.connect(_fighter_movement_sound.bind(id))
 	actor.quake_movement = true
+	if not multiplayer.is_server() and id!=multiplayer.get_unique_id():actor.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 	actor.spectator=players[id].spectator
 	add_child(actor)
 	if not headless:load("res://deathmatch/maps/filtering.gd").new().apply(actor,int(presentation.get("texture_filter",2)),false)
@@ -738,7 +740,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	if is_instance_valid(discovery):discovery.queue_free();discovery=null
 	if is_instance_valid(test_master):test_master.queue_free();test_master=null
 	lobby.reset_ballot()
-	replication.reset(); input_delivery.reset(); fire_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
+	replication.reset(); projectile_prediction.reset(); input_delivery.reset(); fire_delivery.reset(); shot_prediction.reset(); movement_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
 	if haptics:haptics.stop()
 	ConnectionLog.record("disconnected",{"message":reason,"phase":loading.phase if loading else ""})
 	chainsaw.reset();variant_combat.reset()
@@ -952,7 +954,7 @@ func _input_packet(bytes: PackedByteArray) -> void:
 	if not multiplayer.is_server() or bytes.size()>1100: return
 	var id:=multiplayer.get_remote_sender_id()
 	if not players.has(id) or not input_delivery.allow(id,clock): return
-	var command = NetCodec.unpack(bytes,8192)
+	var command = NetCodec.unpack(bytes,16384)
 	if command is Dictionary and command.get("map_epoch",-1)==map_epoch: _accept_input(id,command)
 
 func _accept_input(id: int,command: Dictionary) -> void:
@@ -1014,6 +1016,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	if not s.xr.is_empty() and not s.spectator and swim is Vector3 and swim.is_finite():s.swim=swim.limit_length(1.0)
 	if command.has("xr") and s.xr.is_empty(): s.fire=false;s.alt_fire=false;s.melee=false;s.input_blocked=true
 	fire_delivery.accept(s,command,clock)
+	movement_delivery.accept(s,command)
 	if s.spectator or match_mode.defusal.observing(id):s.fire=false;s.offhand_fire=false;s.alt_fire=false;s.melee=false;s.want_respawn=false
 	if s.vr_device and not s.xr.has("offhand_weapon"): s.offhand_fire=false
 	if not match_mode.fortress.walkers.mounted(id) and armory.valid(command.weapon) and s.owned.has(command.weapon) and command.weapon!=s.weapon and s.charge<=0:
@@ -1035,6 +1038,7 @@ func _physics_process(delta: float) -> void:
 	if not multiplayer.is_server() and clock<input_paused_until:return
 	var mine := multiplayer.get_unique_id()
 	if players.has(mine) and not dedicated:
+		if not multiplayer.is_server():fighters[mine].prediction.apply_pending(fighters[mine])
 		sequence += 1
 		var command := _local_command()
 		if match_mode.tribes.operating(mine):
@@ -1044,7 +1048,11 @@ func _physics_process(delta: float) -> void:
 		command.map_epoch=map_epoch
 		command.view_time=remote_view_time
 		fire_delivery.sample(command,players[mine].serial,clock)
+		shot_prediction.sync(players[mine].serial,players[mine].weapon)
+		shot_prediction.tick(delta,command)
 		input_delivery.sample(command,players[mine].serial,clock)
+		movement_delivery.sample(command,players[mine].serial)
+		variant_combat.update_charge_feedback(mine,command)
 		if multiplayer.is_server():
 			command.input_life=players[mine].serial
 			input_delivery.annotate(command,clock)
@@ -1059,7 +1067,9 @@ func _physics_process(delta: float) -> void:
 				var wire:=command.duplicate()
 				input_delivery.annotate(wire,clock)
 				fire_delivery.annotate(wire,clock)
-				_input_packet.rpc_id(1,NetCodec.pack(wire))
+				if not fighters[mine].tribes_enabled:movement_delivery.annotate(wire)
+				_input_packet.rpc_id(1,input_delivery.pack(wire))
+			fighters[mine].prediction_command={}
 			if players[mine].spectator and intermission<=0:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
 			if match_mode.special.frozen.has(mine) and intermission<=0:
@@ -1073,11 +1083,12 @@ func _physics_process(delta: float) -> void:
 				fighters[mine].configure_jetpack(jetpacks.enabled() and players[mine].get("jetpack",false),command.get("input_blocked",false))
 				fighters[mine].jetpack_requested=input_delivery.jet_triggered
 				_configure_tribes(mine,command)
+				fighters[mine].prediction_command={"move":command.move*(1.0-minf(room.length()*30/speed,1.0)),"yaw":local_yaw,"slow":command.slow,"delta":delta,"jump":command.get("jump",false),"swim":command.get("swim",Vector3.ZERO),"height":fighters[mine].collision_height,"room":room,"jet_request":fighters[mine].jetpack_requested,"jet_enabled":fighters[mine].jetpack_enabled,"jet_blocked":fighters[mine].jetpack_blocked,"speed":fighters[mine].speed_multiplier,"environment":fighters[mine].prediction_environment()}
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
 					xr_rig.compensate_room_move(actual)
-			fighters[mine].prediction.remember(sequence,fighters[mine].position,fighters[mine].velocity,fighters[mine].collision_height,fighters[mine].jetpack_state if fighters[mine].jetpack_enabled else {},fighters[mine].tribes_state if fighters[mine].tribes_enabled else {},fighters[mine].tribes_command if fighters[mine].tribes_enabled else {})
+			fighters[mine].prediction.remember(sequence,fighters[mine].position,fighters[mine].velocity,fighters[mine].collision_height,fighters[mine].jetpack_state if fighters[mine].jetpack_enabled else {},fighters[mine].tribes_state if fighters[mine].tribes_enabled else {},fighters[mine].tribes_command if fighters[mine].tribes_enabled else fighters[mine].prediction_command,fighters[mine].prediction_state())
 			_predict_shots(mine,command)
 
 	if multiplayer.is_server():
@@ -1087,8 +1098,6 @@ func _physics_process(delta: float) -> void:
 		if snapshot_accumulator>=.05:
 			snapshot_accumulator = fmod(snapshot_accumulator,.05)
 			_send_snapshot()
-	else:
-		_interpolate_remote_players(delta)
 	ping_accumulator += delta
 	if ping_accumulator>1 and not multiplayer.is_server():
 		ping_accumulator = 0
@@ -1098,28 +1107,60 @@ func _physics_process(delta: float) -> void:
 		lift.node.position.y = lift.base + clampf((phase-2)/2,0,1)*float(lift.get("travel",1.65)) if phase<6 else lift.base+clampf((10-phase)/2,0,1)*float(lift.get("travel",1.65))
 
 func _predict_shots(id: int,command: Dictionary) -> void:
-	if match_mode.defusal.combat_blocked(id):return
-	if match_mode.fortress.walkers.mounted(id) or match_mode.tribes.vehicles.piloting(id):return
-	if armory.experimental():variant_combat.predict(id,command);return
-	# Match the authority before predicting audio, flash or recoil.
-	var predicted_bullets: int=players[id].ammo[0]
+	var s:Dictionary=players[id]
+	shot_prediction.sync(s.serial,s.weapon)
+	if headless or s.dead or s.spectator or command.get("input_blocked",false) or command.weapon!=s.weapon or intermission>0 or lobby.active() or match_mode.special.blocked(id):return
+	if match_mode.defusal.combat_blocked(id) or match_mode.fortress.walkers.mounted(id) or match_mode.tribes.vehicles.piloting(id):return
+	if armory.effective()=="tribes" or armory.vr_physical_only(s.weapon) and (s.vr_device or command.has("xr")):return
+	var w:int=s.weapon
 	for offhand in [false,true]:
-		var pressed: bool=command.get("offhand_fire",false) if offhand else command.fire
-		var weapon: int=players[id].weapon
-		if weapon==0 and command.has("xr"):continue
-		var ready: bool=(offhand_visual_cooldown if offhand else visual_cooldown)<=0
-		if headless or not pressed or players[id].dead or match_mode.special.blocked(id) or intermission>0 or lobby.active() or not ready or not match_mode.fortress.can_fire(id,weapon): continue
-		if offhand and weapon!=2: continue
-		if weapon==2 and predicted_bullets<=0: continue
-		if weapon!=1 and _weapon_blocked(id,offhand):continue
-		if offhand: predicted_offhand_shot_clock=clock
-		else: predicted_shot_clock=clock
-		_play_shot_fx(id,weapon,offhand)
-		if weapon==2: predicted_bullets-=1
+		if offhand and (not armory.dual() or w!=2):continue
+		var alt:bool=not offhand and command.get("alt_fire",false) and armory.effective()=="ut99"
+		var pressed:bool=command.get("offhand_fire",false) if offhand else command.fire or alt
+		var d:Dictionary=match_mode.fortress.weapon_data(id,w).duplicate(true)
+		if d.get("scope",false):
+			alt=false;pressed=command.fire
+		if not pressed:continue
+		# Charge and utility releases retain their own authoritative state machine.
+		if armory.kind=="ut99" and (w==6 or w==0 and not alt or w==1 and alt or w==11 and alt):continue
+		if alt:d.merge(d.get("alt",{}),true)
+		if armory.kind=="quake" and w==3 and s.ammo[1]-shot_prediction.reserved(1)==1:d=armory.data(2).duplicate()
+		if armory.kind=="quake" and w==7 and s.ammo[0]-shot_prediction.reserved(0)==1:d=match_mode.fortress.weapon_data(id,5).duplicate()
+		var once:=false
+		var effect_alt:=alt
+		if armory.effective()=="cs16":
+			var row:Array=variant_combat.cs.status(id)
+			if w==0 or row.is_empty() or row[3]>0 or command.get("reload",false):continue
+			var reserved:int=shot_prediction.reserved_weapon(w)
+			if row[2]<=reserved:continue
+			var flags:int=row[5]
+			if flags&1:
+				if not flags&4 or flags&(8|16|64|256|512) or row[6]>5 or row[7]>5 or row[9]>5:continue
+				if w==8 and (not flags&2 or not flags&128):continue
+				if preload("res://deathmatch/counterstrike/reload_state.gd").manual_cycle(w) and reserved>0:continue
+				if is_vr() and xr_rig.physical_reload and xr_rig.physical_reload.busy():continue
+			once=d.get("semi",false)
+			# Predict the first burst round; the remaining two follow acceptance.
+			if w==1 and row[4]:once=true
+			effect_alt=w in [2,7] and row[4]
+			if effect_alt:d.merge(d.get("suppressor",{}),true)
+		if w!=1 or armory.experimental():
+			if _weapon_blocked(id,offhand):continue
+		var hand:=2 if offhand else 1 if alt else 0
+		var available:int=s.ammo[d.ammo] if d.ammo>=0 else 999
+		var identity:Array=shot_prediction.predict(s.serial,w,hand,fire_delivery.active[hand],d,available,clock,once)
+		if identity.is_empty():continue
+		if armory.experimental():_play_variant_shot_fx(id,w,effect_alt)
+		else:_play_shot_fx(id,w,offhand)
+		if projectile_prediction.eligible(d):
+			var solution:Dictionary=_shot_solution(id,offhand)
+			if not solution.blocked:
+				if not d.has("kind"):d.kind=preload("res://deathmatch/lighting/weapon_emission.gd").kind(armory.kind,w)
+				projectile_prediction.add(self,identity,d,solution.origin,-_weapon_transform(id,offhand).basis.z)
 
 func _interpolate_remote_players(delta: float) -> void:
 	var mine:=multiplayer.get_unique_id()
-	var view: float=remote_interpolation.advance(clock)
+	var view: float=remote_interpolation.advance(Time.get_ticks_usec()/1000000.0)
 	if view>=0:remote_view_time=view
 	elif snapshot_view_time>=0:remote_view_time=snapshot_view_time
 	for id in fighters:
@@ -1217,9 +1258,19 @@ func _server_tick(delta: float) -> void:
 			s.fire = false
 			s.offhand_fire=false;s.alt_fire=false;s.input_blocked=true
 			s.melee = false
-		var jump: bool=input_delivery.consume(s,fighters[id])
+		var movement_command:Dictionary={} if fighters[id].tribes_enabled or match_mode.fortress.walkers.mounted(id) or match_mode.tribes.vehicles.mounted(id) else movement_delivery.consume(s)
+		var jump_pending:bool=s.get("jump_pending",false)
+		var jump: bool=input_delivery.consume(s,fighters[id],int(s.get("movement_ack",-1)) if not movement_command.is_empty() else -1)
+		var recovered_jump:bool=jump_pending and not s.get("jump_pending",false)
 		if match_mode.fortress.walkers.handle_player(id,jump):continue
 		if match_mode.tribes.vehicles.handle_player(id,jump,delta):continue
+		var movement_saved:Dictionary={}
+		if not movement_command.is_empty():
+			for field in ["move","yaw","slow","jump","crouch","prone","room","swim","xr"]:
+				movement_saved[field]=s.get(field)
+				if movement_command.has(field):s[field]=movement_command[field]
+			jump=movement_command.get("jump",false) or recovered_jump
+			if clock-s.last_input>.35 or s.get("input_blocked",false):s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.swim=Vector3.ZERO;jump=false
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
 		if armory.effective()=="cs16":fighters[id].speed_multiplier*=float(armory.data(s.weapon).get("move_speed",1))
@@ -1229,20 +1280,22 @@ func _server_tick(delta: float) -> void:
 			s.room-=shift
 			RoomScale.rebase_pose(s.xr,shift)
 			if id==multiplayer.get_unique_id() and is_vr(): xr_rig.compensate_room_move(shift)
+		if not movement_saved.is_empty():
+			for field in movement_saved:s[field]=movement_saved[field]
 		if fighters[id].position.y < fall_limit:
 			_damage(id,id,1000,"fell out of the arena",true)
 			continue
 		if RoomScale.Hip.tracked(s.xr) and RoomScale.head_blocked(fighters[id],s.xr,s.yaw):
-			s.input_blocked=true;s.fire=false;s.alt_fire=false;s.offhand_fire=false;s.melee=false;s.physical=false;s.reload=false;s.reload_grip=false;s.fire_pending=[]
+			s.input_blocked=true;s.fire=false;s.alt_fire=false;s.offhand_fire=false;s.melee=false;s.physical=false;s.reload=false;s.reload_grip=false;s.fire_pending=[];s.fire_queue=[]
 		match_mode.defusal.sample_player(id)
 		# Holstering suppresses this combat attempt, not the last received input.
 		# Clearing a held trigger between packets falsely releases a grenade.
 		var defusal_controls: Array=[]
 		if match_mode.defusal.combat_blocked(id):
 			defusal_controls=[s.fire,s.alt_fire,s.melee,s.get("reload",false),s.get("reload_grip",false)]
-			s.fire=false;s.alt_fire=false;s.melee=false;s.reload=false;s.reload_grip=false;s.fire_pending=[]
-		s.cooldown = maxf(0,s.cooldown-delta)
-		s.offhand_cooldown=maxf(0,s.offhand_cooldown-delta)
+			s.fire=false;s.alt_fire=false;s.melee=false;s.reload=false;s.reload_grip=false;s.fire_pending=[];s.fire_queue=[]
+		s.cooldown = preload("res://deathmatch/network/weapon_timing.gd").advance(s.cooldown,delta,s.fire or s.get("alt_fire",false))
+		s.offhand_cooldown=preload("res://deathmatch/network/weapon_timing.gd").advance(s.offhand_cooldown,delta,s.offhand_fire)
 		if s.charge>0:
 			s.charge -= delta
 			if s.charge<=0: _launch(id,8)
@@ -1492,8 +1545,9 @@ func _fire(id: int, offhand: bool=false) -> void:
 	if (s.offhand_cooldown if offhand else s.cooldown)>0: return
 	# Clearance sweeps run only for a ready shot, then share the result with launch.
 	var shot: Dictionary={} if w==1 else _shot_solution(id,offhand)
-	if shot.get("blocked",false):return
+	if shot.get("blocked",false):s.fire_reject="muzzle_blocked";return
 	if not match_mode.fortress.can_fire(id,w):
+		s.fire_reject="empty"
 		for choice in [7,4,5,3,2,1,0]:
 			if s.owned.has(choice) and W.can_fire(choice,s.ammo):
 				s.weapon = choice
@@ -1502,18 +1556,19 @@ func _fire(id: int, offhand: bool=false) -> void:
 		return
 	var d: Dictionary = match_mode.fortress.weapon_data(id,w)
 	if d.ammo>=0: s.ammo[d.ammo] -= d.cost
-	if offhand: s.offhand_cooldown=d.cycle
-	else: s.cooldown = d.cycle
+	if offhand: s.offhand_cooldown=preload("res://deathmatch/network/weapon_timing.gd").restart(s.offhand_cooldown,d.cycle)
+	else: s.cooldown = preload("res://deathmatch/network/weapon_timing.gd").restart(s.cooldown,d.cycle)
 	if w>=2:match_mode.fortress.revealed(id)
 	s.invulnerable = 0
 	s.shots += 1
-	_shot_fx.rpc(id,w,offhand)
+	var identity:Array=fire_delivery.shot(s,offhand)
+	_shot_fx.rpc(id,w,offhand,identity)
 	if w==1:
 		chainsaw.fire(self,id);s.held=true;return
 	if w==8:
 		s.charge = d.charge
 	elif w>=6 and w<=8 and not (match_mode.fortress.enabled() and s.get("tf_class","")=="pyro" and w==7):
-		_launch(id,w,shot)
+		_launch(id,w,shot,identity)
 	else:
 		var start: Vector3 = shot.origin
 		var endpoints := PackedVector3Array()
@@ -1524,9 +1579,9 @@ func _fire(id: int, offhand: bool=false) -> void:
 			var hull_pilot: int=match_mode.fortress.walkers.trace_pilot(start,end,0.,wall)
 			end=start.lerp(end,minf(1.0,wall))
 			if hull_pilot!=0 and hull_pilot!=id:_damage(hull_pilot,id,d.damage,"RAILGUN",false,end,(end-start).normalized(),false,true)
-			var rewound:=_rewound_positions(_shot_rewind(id))
-			var heights:=_rewound_heights(_shot_rewind(id))
-			var yaws:=_rewound_yaws(_shot_rewind(id))
+			var rewound:=_rewound_positions(_shot_rewind(id,offhand))
+			var heights:=_rewound_heights(_shot_rewind(id,offhand))
+			var yaws:=_rewound_yaws(_shot_rewind(id,offhand))
 			for target in players:
 				if target==id or players[target].dead or players[target].spectator or match_mode.fortress.walkers.mounted(target):continue
 				var target_pos: Vector3=rewound.get(target,fighters[target].position)
@@ -1544,20 +1599,22 @@ func _fire(id: int, offhand: bool=false) -> void:
 			_impacts.rpc(start,PackedVector3Array([end]),w,PackedVector3Array(),-1,id,offhand)
 			s.held=true
 			return
-		var rewind:=_shot_rewind(id)
+		var rewind:=_shot_rewind(id,offhand)
 		var trace_context:=_rewind_context(rewind)
+		var flame_seen:Dictionary={}
+		var aim_basis:Basis=_weapon_transform(id,offhand).basis
 		for pellet in range(d.pellets):
 			var spread: float = 0.0 if (w==2 or w==5) and not (s.offhand_held if offhand else s.held) else d.spread
 			var accuracy: float=fighters[id].accuracy_scale() if d.range>3.0 and d.name!="FLAMETHROWER" else 1.0
 			spread*=accuracy
 			var yaw: float = s.yaw+deg_to_rad((randf()-randf())*spread)
 			var pitch: float = s.pitch+deg_to_rad((randf()-randf())*d.vertical*accuracy)
-			var direction := W.direction(yaw,pitch)
-			if not s.xr.is_empty():
-				direction=_weapon_transform(id,offhand).basis*W.direction(yaw-s.yaw,pitch-s.pitch)
+			var direction := aim_basis*W.direction(yaw-s.yaw,pitch-s.pitch)
+			if d.has("flame_angle"):direction=preload("res://deathmatch/modes/flame_cone.gd").direction(aim_basis,pellet,d.flame_angle)
 			var hit := _trace(start,start+direction*d.range,id,rewind,0.0,{},null,trace_context)
 			endpoints.append(hit.position)
 			surfaces.append(hit.get("surface_normal",Vector3.ZERO))
+			if d.has("flame_angle") and not preload("res://deathmatch/modes/flame_cone.gd").first_hit(flame_seen,hit):continue
 			var amount: int=d.damage*randi_range(1,d.dice)
 			_damage_map_hit(hit,id,amount)
 			if hit.id!=0:
@@ -1670,7 +1727,7 @@ func _damage_map_hit(hit: Dictionary,id: int,amount: float,family: String="") ->
 	var runtime=get_node_or_null("Map/MapRuntime")
 	if runtime:runtime.triggers.damage(hit.map_node,id,amount)
 
-func _launch(id: int,weapon: int,solution: Dictionary={}) -> void:
+func _launch(id: int,weapon: int,solution: Dictionary={},identity:Array=[]) -> void:
 	if not players.has(id) or players[id].dead: return
 	if solution.is_empty():solution=_shot_solution(id)
 	if solution.blocked or (players[id].vr_device and players[id].xr.is_empty()): return
@@ -1680,7 +1737,7 @@ func _launch(id: int,weapon: int,solution: Dictionary={}) -> void:
 	var shot_yaw:=atan2(-direction.x,-direction.z)
 	var shot_pitch:=asin(clampf(direction.y,-1,1))
 	projectile_id += 1
-	_projectile_spawn.rpc(projectile_id,id,weapon,start,direction,shot_yaw,shot_pitch)
+	_projectile_spawn.rpc(projectile_id,id,weapon,start,direction,shot_yaw,shot_pitch,{"prediction":identity})
 
 @rpc("authority","call_local","reliable",0)
 func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction: Vector3,yaw: float,pitch: float,extra: Dictionary={}) -> void:
@@ -1688,8 +1745,9 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 	if projectiles.has(id):return
 	if not multiplayer.is_server() and (ended_projectiles.has(id) or (id<=projectile_watermark and not id in snapshot_projectiles)):return
 	var definition: Dictionary=variant_combat.definition(owner_id,weapon,extra) if armory.experimental() else {}
-	var node: Node3D = null
-	if not headless:
+	var predicted:Dictionary=projectile_prediction.take(extra.get("prediction",[])) if owner_id==multiplayer.get_unique_id() and not multiplayer.is_server() else {}
+	var node: Node3D = predicted.get("node")
+	if not headless and not is_instance_valid(node):
 		var visual_definition: Dictionary=definition.duplicate() if armory.experimental() else W.DATA[weapon].duplicate()
 		if not visual_definition.has("kind"):visual_definition.kind=preload("res://deathmatch/lighting/weapon_emission.gd").kind("doom",weapon)
 		node=_weapon_visuals().projectile(armory.effective(),visual_definition)
@@ -1700,6 +1758,7 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 		add_child(node);node.position=pos;node.set_meta("trail_position",pos)
 		if absf(direction.dot(Vector3.UP))<.99:node.look_at(pos+direction)
 	projectiles[id] = {"owner":owner_id,"weapon":weapon,"position":pos,"direction":direction,"life":4.0,"node":node,"yaw":yaw,"pitch":pitch,"fresh":true,"visual_error":Vector3.ZERO,"visual_age":0.0}
+	projectiles[id].extra=extra
 	projectiles[id].previous_position=pos
 	var visible_start:=_local_tracer_origin(pos,weapon,owner_id)
 	if visible_start.distance_to(pos)<.75 and get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(visible_start,pos,1)).is_empty():
@@ -1707,6 +1766,12 @@ func _projectile_spawn(id: int,owner_id: int,weapon: int,pos: Vector3,direction:
 		projectiles[id].muzzle_age=0.0
 		if is_instance_valid(node):node.position=visible_start;node.set_meta("trail_position",visible_start)
 	if not definition.is_empty():projectiles[id].merge({"definition":definition,"extra":extra,"velocity":extra.get("launch_velocity",direction*definition.speed),"life":definition.fuse,"stuck":false},true)
+
+	if not predicted.is_empty():
+		projectiles[id].muzzle_offset=Vector3.ZERO
+		var error:Vector3=predicted.position-pos
+		projectiles[id].visual_error=error if error.length()<2. else Vector3.ZERO
+		if is_instance_valid(node):node.position=pos+projectiles[id].visual_error
 
 	if weapon==10 and armory.effective()=="tribes":match_mode.tribes.combat.mines[id]=true
 
@@ -1732,7 +1797,9 @@ func _update_projectiles(delta: float,movement_start: Dictionary = {}) -> void:
 		else: p.position = end
 
 func _native_trace_allowed() -> bool:
-	# Special structures, mounted hulls and Tribes traces retain their full path.
+	# Updated native traces preserve hull attribution and all live mode overlays.
+	if native_projectiles and native_projectiles.has_method("trace_structures"):return true
+	# Older extensions retain the restricted path.
 	return not match_mode.kind in ["tf","tb","as","st"] and not match_mode.tribes.enabled() and match_mode.fortress.walkers.robots.is_empty()
 
 func _projectile_contact(id: int,hit: Dictionary,p: Dictionary,end: Vector3) -> void:
@@ -1906,10 +1973,11 @@ func _rewound_heights(rewind: float) -> Dictionary:
 func _rewound_yaws(rewind: float) -> Dictionary:
 	if rewind<=0 or history.is_empty():return {}
 	return LagCompensation.positions(history,clock,rewind,_history_positions(),false,true)
-func _shot_rewind(id: int) -> float:
+func _shot_rewind(id: int, offhand: bool=false) -> float:
 	if id<=1:return 0.0 # Local host and bots see the authoritative world.
 	var s: Dictionary=players[id]
-	return LagCompensation.delay(clock,s.ping,s.get("view_time",-1.0),s.last_input)
+	var aim:Dictionary=fire_delivery.context(s,offhand,s.get("alt_fire",false) and armory.kind=="ut99")
+	return LagCompensation.delay(clock,s.ping,aim.get("view_time",s.get("view_time",-1.0)),s.last_input)
 
 func asset_allowance(peer: int, requested: int) -> int:
 	var active_peers: Dictionary={}
@@ -1947,6 +2015,7 @@ func _send_snapshot() -> void:
 	for id in projectiles:
 		var p: Dictionary=projectiles[id]
 		if p.has("definition"):mode_state.ordnance[id]={"extra":p.extra,"velocity":p.velocity,"life":p.life,"stuck":p.stuck}
+		elif not p.get("extra",{}).is_empty():mode_state.ordnance[id]={"extra":p.extra}
 	var bsp_runtime=get_node_or_null("Map/MapRuntime")
 	if bsp_runtime and not bsp_runtime.triggers.killed_targets.is_empty():mode_state["bsp_killed"]=bsp_runtime.triggers.killed_targets
 	mode_state["map_movers"]=[]
@@ -1964,16 +2033,18 @@ func _send_snapshot() -> void:
 		mode_state.locomotion[id]["jetpack_owned"]=players[id].get("jetpack",false)
 		mode_state.locomotion[id]["jetpack_ack"]=players[id].get("jetpack_ack",0)
 		mode_state.locomotion[id]["fire_ack"]=players[id].get("fire_ack",0)
+		mode_state.locomotion[id]["shot_counts"]=players[id].get("fire_ordinals",{}).duplicate()
+		mode_state.locomotion[id]["fire_results"]=players[id].get("fire_results",[]).duplicate(true)
 	mode_state["movement_ack"]={}
-	for id in players:mode_state.movement_ack[id]=players[id].last_seq
+	for id in players:mode_state.movement_ack[id]=players[id].get("movement_ack",players[id].last_seq)
 	var state: Array=[data,items,round_left,intermission,round_message,frag_limit,time_limit,shots,gate_states,map_epoch,mode_state,votes.snapshot(),clock,projectile_id]
 	callv("_snapshot",state)
 	if not multiplayer.get_peers().is_empty():
-		var packets: Dictionary = replication.packets(state)
+		var packets:Dictionary=replication.packets(state)
 		for bytes in packets.normal:
-			bandwidth.reserve((bytes.size()+64)*multiplayer.get_peers().size(),clock); _state_packet.rpc(bytes)
+			bandwidth.reserve((bytes.size()+64)*multiplayer.get_peers().size(),clock);_state_packet.rpc(bytes)
 		for bytes in packets.large:
-			bandwidth.reserve((bytes.size()+64)*multiplayer.get_peers().size(),clock); _state_large.rpc(bytes)
+			bandwidth.reserve((bytes.size()+64)*multiplayer.get_peers().size(),clock);_state_large.rpc(bytes)
 
 @rpc("authority","call_remote","unreliable",1)
 func _state_packet(bytes: PackedByteArray) -> void:
@@ -2043,7 +2114,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			actor.target = row[1]
 			actor.target_yaw = row[3]
 			if id!=mine:
-				remote_interpolation.push(id,float(mode_state.get("sample_time",{}).get(id,server_time)),row[1],row[2],row[3],row[14],clock)
+				remote_interpolation.push(id,float(mode_state.get("sample_time",{}).get(id,server_time)),row[1],row[2],row[3],row[14],Time.get_ticks_usec()/1000000.0)
 			if id==mine and actor.spawn_serial==row[14]:
 				if not was_frozen and match_mode.special.frozen.has(id):
 					# Begin passive falling at the freeze location, discarding pre-hit
@@ -2051,7 +2122,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 					actor.position=row[1];actor.velocity=row[2];actor.reset_view()
 				elif not match_mode.tribes.vehicles.mounted(id):
 					var locomotion: Dictionary=mode_state.get("locomotion",{}).get(id,{})
-					actor.prediction.reconcile(actor,int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],float(locomotion.get("height",-1.0)),locomotion.get("grounded",false),locomotion.get("jetpack",{}),locomotion.get("tribes",{}))
+					actor.prediction.queue_authority(int(mode_state.get("movement_ack",{}).get(id,-1)),row[1],row[2],locomotion)
 		if actor.spawn_serial!=row[14]:
 			actor.spawn_serial = row[14]
 			if not multiplayer.is_server():actor.reset_jetpack();actor.reset_tribes()
@@ -2084,6 +2155,8 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		if id==mine:
 			input_delivery.acknowledge(row[14],int(mode_state.get("locomotion",{}).get(id,{}).get("jump_ack",0)),int(mode_state.get("locomotion",{}).get(id,{}).get("jetpack_ack",0)))
 			fire_delivery.acknowledge(row[14],int(mode_state.get("locomotion",{}).get(id,{}).get("fire_ack",0)))
+			var firing_state:Dictionary=mode_state.get("locomotion",{}).get(id,{})
+			shot_prediction.receive(row[14],firing_state.get("shot_counts",{}),firing_state.get("fire_results",[]),clock)
 			last_local_hp = s.hp
 	for i in range(mini(items.size(),pickups.size())):
 		if not multiplayer.is_server(): pickups[i].available = items[i]==1
@@ -2277,10 +2350,10 @@ func _melee_fx(id: int,offhand: bool=false) -> void:
 		if is_vr():xr_rig.weapon_feedback({"name":"WEAPON WHIP","kind":"melee","cycle":.3},offhand)
 
 @rpc("authority","call_local","unreliable",3)
-func _shot_fx(id: int,weapon: int,offhand: bool=false) -> void:
+func _shot_fx(id: int,weapon: int,offhand: bool=false,identity: Array=[]) -> void:
+	if identity.size()==5 and players.has(id) and identity[0]<players[id].serial:return
 	demos.event("_shot_fx",[id,weapon,offhand])
-	var predicted:=predicted_offhand_shot_clock if offhand else predicted_shot_clock
-	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and clock-predicted<.5: return
+	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and shot_prediction.confirm(identity,float(match_mode.fortress.weapon_data(id,weapon).cycle)):return
 	_play_shot_fx(id,weapon,offhand)
 
 func _cs_weapon_models(id: int) -> Array:
@@ -2419,10 +2492,11 @@ func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
 var pickup_visual_time:=0.0
 func _process(delta: float) -> void:
 	if demos.playing:return
+	if active and not multiplayer.is_server():_interpolate_remote_players(delta)
 	if active and not multiplayer.is_server() and clock>=next_network_health:
 		next_network_health=clock+5
 		var mine:=multiplayer.get_unique_id()
-		ConnectionLog.record("network_health",{"replication":replication.stats,"interpolation_ms":remote_interpolation.delay*1000,"jitter_ms":remote_interpolation.jitter*1000,"sample_age_ms":maxf(0,clock-remote_interpolation.arrived)*1000,"prediction":fighters[mine].prediction.stats if fighters.has(mine) else {}})
+		ConnectionLog.record("network_health",{"replication":replication.stats,"interpolation_ms":remote_interpolation.delay*1000,"jitter_ms":remote_interpolation.jitter*1000,"sample_age_ms":maxf(0,Time.get_ticks_usec()/1000000.0-remote_interpolation.arrived)*1000,"prediction":fighters[mine].prediction.stats if fighters.has(mine) else {},"trigger_delivery":fire_delivery.stats,"interpolation_underruns":remote_interpolation.underruns})
 	if active and not lobby.active():match_mode.draw_objectives()
 	if headless: return
 	melee_animation=maxf(0,melee_animation-delta)
@@ -2540,10 +2614,15 @@ func _load_map(map_id: String) -> bool:
 		$Overview.rotation=Vector3(0,spawn_yaws[0],0)
 		$Overview.fov=85
 		$DuskSun.light_energy=.25
+	# Prepare shared FX buffers during map loading, before the first predicted shot.
+	if not headless:_weapon_visuals()
 	print("MAP_READY ",current_map," spawns=",spawn_points.size()," pickups=",pickups.size())
 	return true
 
 func _update_projectile_visuals(delta: float) -> void:
+	if not multiplayer.is_server():
+		var local:Dictionary=players.get(multiplayer.get_unique_id(),{})
+		projectile_prediction.step(self,delta,int(local.get("serial",-1)),int(local.get("weapon",-1)),local.is_empty() or local.get("dead",true) or local.get("spectator",true) or menu_open or intermission>0,shot_prediction.results)
 	for p in projectiles.values():
 		if not multiplayer.is_server() and intermission<=0:
 			var step:=minf(delta,maxf(0,.10-p.visual_age))
@@ -2567,14 +2646,19 @@ func is_vr() -> bool:
 	return is_instance_valid(xr_rig) and xr_rig.enabled
 func _weapon_transform(id: int, offhand: bool=false) -> Transform3D:
 	var s: Dictionary=players[id]
+	var aim:Dictionary=fire_delivery.context(s,offhand,s.get("alt_fire",false) and armory.kind=="ut99") if multiplayer.is_server() else {}
+	if not aim.is_empty():
+		var yaw:float=aim.get("yaw",s.yaw);var pitch:float=aim.get("pitch",s.pitch)
+		if aim.has("xr"):return Transform3D(Basis(Vector3.UP,yaw),fighters[id].position)*aim.xr.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
+		return Transform3D(Basis(Vector3.UP,yaw)*Basis(Vector3.RIGHT,pitch),fighters[id].position+Vector3.UP*minf(1.45,fighters[id].eye_height()))
 	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and is_vr() and not demos.playing:
 		var pose: Dictionary=xr_rig.sample_pose()
 		if not pose.is_empty():return Transform3D(Basis(Vector3.UP,local_yaw),fighters[id].render_position())*pose.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
 	if not s.xr.is_empty(): return Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*s.xr.get("offhand_weapon" if offhand else "weapon",Transform3D.IDENTITY)
-	var aim:=Basis(Vector3.UP,s.yaw)*Basis(Vector3.RIGHT,s.pitch)
+	var aim_basis:=Basis(Vector3.UP,s.yaw)*Basis(Vector3.RIGHT,s.pitch)
 	# Desktop weapons share the crosshair ray. Parallel left/right pistol rays
 	# missed the visible head despite a centered crosshair; XR keeps tracked muzzles.
-	return Transform3D(aim,fighters[id].position+Vector3.UP*minf(1.45,fighters[id].eye_height()))
+	return Transform3D(aim_basis,fighters[id].position+Vector3.UP*minf(1.45,fighters[id].eye_height()))
 func _update_crouch(id: int,pose: Dictionary,command: Dictionary={}) -> void:
 	var actor=fighters[id]
 	var state: Dictionary=players[id] if command.is_empty() else command
@@ -2627,6 +2711,7 @@ func _teleport_fx(pos: Vector3) -> void:
 	effects.play("teleport",pos)
 
 func _clear_map_players() -> void:
+	projectile_prediction.reset()
 	dropped_weapons.clear()
 	if haptics:haptics.stop()
 	# Cosmetic buildings live under the arena, not under the map scene.
@@ -2653,7 +2738,7 @@ func _clear_map_players() -> void:
 	if not headless and not is_vr(): $Overview.make_current()
 
 func _prepare_client_map(epoch: int) -> void:
-	replication.reset(); input_delivery.reset(); fire_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
+	replication.reset(); projectile_prediction.reset(); input_delivery.reset(); fire_delivery.reset(); shot_prediction.reset(); movement_delivery.reset(); remote_interpolation.reset(); bandwidth.reset(); input_paused_until=0
 	lobby.view.clear()
 	loading.begin();loading.phase="Preparing server map…"
 	map_network.reset()
@@ -2757,10 +2842,14 @@ func _cs_reload_sound(epoch: int,id: int,serial: int,kind: String) -> void:
 	if not headless and fighters.has(id):spatial.play("cs_reload_"+kind,_weapon_transform(id).origin,-9)
 
 @rpc("authority","call_local","unreliable",3)
-func _variant_shot_fx(id: int,weapon: int,alternate: bool,spray_direction: Vector3=Vector3.ZERO) -> void:
+func _variant_shot_fx(id: int,weapon: int,alternate: bool,spray_direction: Vector3=Vector3.ZERO,identity: Array=[]) -> void:
 	if not armory.experimental() or not armory.valid(weapon):return
+	if identity.size()==5 and players.has(id) and identity[0]<players[id].serial:return
 	demos.event("_variant_shot_fx",[id,weapon,alternate,spray_direction])
-	if variant_combat.consume_prediction(id,weapon,alternate):return
+	variant_combat.charge_fired(id,weapon)
+	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and shot_prediction.confirm(identity,float(armory.data(weapon,alternate).cycle)):
+		if is_vr() and armory.effective()=="cs16":xr_rig.weapon_kick.correct(spray_direction)
+		return
 	_play_variant_shot_fx(id,weapon,alternate,spray_direction)
 
 func _play_variant_shot_fx(id: int,weapon: int,alternate: bool,spray_direction: Vector3=Vector3.ZERO) -> void:

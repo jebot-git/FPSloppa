@@ -38,3 +38,9 @@ func update(delta: float):
 		pitch*=exp(-18.0*recovery);yaw*=exp(-18.0*recovery);back*=exp(-22.0*recovery)
 func apply(pose: Transform3D) -> Transform3D:
 	return Transform3D(pose.basis*Basis(Vector3.UP,yaw)*Basis(Vector3.RIGHT,pitch),pose.origin+pose.basis.z*back)
+
+func correct(direction:Vector3) -> void:
+	# Update the next-shot sight without replaying recoil, audio or haptics.
+	if direction.is_zero_approx():return
+	var ray:=direction.normalized()
+	target=Vector2(asin(clampf(ray.y,-1,1)),atan2(-ray.x,-ray.z))

@@ -82,3 +82,12 @@ static func validate_face(value: Variant) -> Dictionary:
 			for i in 5:weights[i]/=total
 		result.expression=weights
 	return result
+
+# Historical gameplay poses need only the hip tracker, not avatar animation/face.
+static func gameplay(data:Dictionary) -> Dictionary:
+	var result:=data.duplicate()
+	result.erase("face")
+	if result.has("body"):
+		var body:Dictionary=result.body
+		result.body={"hips":body.hips} if body.has("hips") else {}
+	return result
