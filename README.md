@@ -1,4 +1,4 @@
-# FPSloppa 0.18v
+# FPSloppa
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
