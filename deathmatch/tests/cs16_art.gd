@@ -11,8 +11,10 @@ func check(ok: bool,label: String):
 	if not ok:failures.append(label)
 func run():
 	var stage:=Node3D.new();root.add_child(stage)
-	var shared_texture: Texture2D
 	for slot in 12:
+		# Each authored weapon has its own baked atlas; all its moving pieces
+		# must share that texture and retain mipmaps.
+		var shared_texture: Texture2D
 		var model:=Models.make(slot);stage.add_child(model)
 		var action=model.get_node("ChamberAction")
 		var kind:="Slide" if slot in [1,2,10] else "Pump" if slot==3 else "Bolt"

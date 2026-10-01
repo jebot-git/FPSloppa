@@ -77,6 +77,8 @@ var voice
 var permissions
 var practice := false
 var bots
+var bot_service: Node
+var bot_shadow:=false
 var bot_population=preload("res://deathmatch/server/bot_population.gd").new(self)
 var round_left := 600.0
 var frag_limit := 20
@@ -193,6 +195,7 @@ func _ready() -> void:
 		spatial=load("res://deathmatch/audio/spatial.gd").new()
 		add_child(spatial)
 		spatial.setup(self)
+		if not headless:_weapon_visuals()
 		round_clock=load("res://deathmatch/audio/round_clock.gd").new();add_child(round_clock);round_clock.setup(self)
 	get_tree().root.gui_embed_subwindows = true
 	# The server owns every RPC path; clients never need peer-to-peer relaying.
@@ -242,6 +245,10 @@ func _ready() -> void:
 	var args := OS.get_cmdline_user_args()
 	if args.has("--quit-after-seconds"):
 		get_tree().create_timer(maxf(.1,float(_arg_value(args,"--quit-after-seconds","10")))).timeout.connect(request_quit)
+	if args.has("--bot-worker"):
+		bot_shadow=true;dedicated=true
+		bot_service=load("res://deathmatch/bot_service/worker.gd").new();add_child(bot_service);bot_service.setup(self,args)
+		return
 	if OS.has_feature("dedicated_server"):
 		_start_dedicated(args)
 		if args.has("--record-demo"):
@@ -294,6 +301,10 @@ func request_quit() -> void:
 	if is_instance_valid(voice):voice.set_mode(0)
 	# Let the audio mixer release stopped playback before engine teardown.
 	await get_tree().create_timer(.1).timeout
+	# Keep the engine alive while the native worker releases motors and verifies
+	# Bluetooth disconnect. Waiting yields frames; it never blocks the render thread.
+	if haptics:
+		while haptics.is_closing():await get_tree().process_frame
 	get_tree().quit()
 
 func _start_dedicated(args: PackedStringArray) -> void:
@@ -359,6 +370,8 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	if not active:
 		get_tree().quit(2)
 		return
+	bot_service=preload("res://deathmatch/bot_service/server.gd").new();add_child(bot_service)
+	if not bot_service.setup(self,settings):get_tree().quit(2);return
 	rcon=preload("res://deathmatch/server/rcon.gd").new();add_child(rcon)
 	if not rcon.setup(self,settings):push_error(rcon.last_error);get_tree().quit(2);return
 	if settings.sv_master_test==1:
@@ -368,6 +381,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	if not discovery.setup(self,settings,_arg_int(args,"--port",settings.net_port),test_master.token if test_master else ""):
 		push_error(discovery.last_error);get_tree().quit(2);return
 	server_log.record("server_started",{"hostname":server_name,"bind":bind_address,"max_clients":max_clients,"protocol":PROTOCOL,"weapon_rules":armory.kind,"version":ProjectSettings.get_setting("application/config/version"),"rotation":map_rotation,"allowed_modes":votes.allowed_modes,"ballot_exclude_modes":lobby.excluded_modes,"voice_backend":voice_backend,"friendly_fire":match_mode.friendly_fire,"score_limit":match_mode.limit()})
+	print("SERVER_PHYSICS backend=",get_world_3d().direct_space_state.get_class())
 	print("SERVER_CONFIG name=",server_name," bind=",bind_address," maxclients=",max_clients," voice=",voice_enabled," map=",current_map," rotation=",map_rotation," weapons=",armory.kind," gametype=",match_mode.kind," limit=",match_mode.limit()," friendlyfire=",match_mode.friendly_fire)
 
 func _arg_value(args: PackedStringArray,key: String,fallback: String) -> String:
@@ -469,7 +483,7 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 		gate.node.position = gate.base_position if gate.has("base_position") else Vector3(gate.node.position.x,gate.base,gate.node.position.z)
 	active = true
 	if not dedicated: _add_player(1,nickname)
-	if training and not OS.get_cmdline_user_args().has("--no-bots"):
+	if training and not bot_shadow and not OS.get_cmdline_user_args().has("--no-bots"):
 		for id in [-1,-2,-3]: _add_player(id,"Bot "+str(-id))
 		bots=preload("res://deathmatch/bots.gd").new()
 		add_child(bots)
@@ -768,7 +782,7 @@ func disconnect_game(reason: String = "Disconnected.") -> void:
 	for projectile in projectiles.values():
 		if is_instance_valid(projectile.node): projectile.node.queue_free()
 	projectiles.clear();match_mode.tribes.combat.mines.clear();history.clear()
-	if is_instance_valid(variant_visuals):variant_visuals.queue_free();variant_visuals=null
+	if is_instance_valid(variant_visuals):variant_visuals.clear()
 	var weapon_pool=get_node_or_null("Map/MapRuntime/WeaponLighting")
 	if weapon_pool:weapon_pool.clear()
 	remote_view_time=-1.0;snapshot_view_time=-1.0;projectile_watermark=-1;snapshot_projectiles.clear();ended_projectiles.clear()
@@ -867,8 +881,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not active or dedicated: return
 	if not (hud and hud.chat.has_focus()) and (match_mode.defusal.desktop_input(event) or match_mode.tribes.desktop_input(event)):get_viewport().set_input_as_handled();return
 	if event is InputEventMouseMotion and not menu_open and not (hud and hud.chat.has_focus()):
-		local_yaw = wrapf(local_yaw-event.relative.x*.0022,-PI,PI)
-		local_pitch = clampf(local_pitch-event.relative.y*.0022,-1.45,1.45)
+		local_yaw = wrapf(local_yaw-event.relative.x*.0022/match_mode.tribes.enhancer.magnification(),-PI,PI)
+		local_pitch = clampf(local_pitch-event.relative.y*.0022/match_mode.tribes.enhancer.magnification(),-1.45,1.45)
 	if not menu_open and not (hud and hud.chat.has_focus()):
 		if bindings.matches("prone",event) and not local_state().get("dead",true) and not local_state().get("spectator",false):prone_toggle=not prone_toggle
 		if bindings.matches("crouch",event):prone_toggle=false
@@ -884,6 +898,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.button_index==MOUSE_BUTTON_LEFT: fire_down = event.pressed and not menu_open
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode==KEY_ESCAPE:
+			if menu_open and hud and hud.menu_back():return
 			menu_open = not menu_open
 			fire_down = false
 			if hud: hud.show_menu(menu_open)
@@ -1029,6 +1044,7 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	match_mode.fortress.physical.sample(id)
 
 func _physics_process(delta: float) -> void:
+	if bot_shadow:return
 	# Simulation uses the engine physics delta; _process interpolates to the current display frame.
 	if demos.playing:clock+=delta;return
 	clock += delta
@@ -1226,6 +1242,7 @@ func _server_tick(delta: float) -> void:
 		elif match_mode.kind=="tb":match_mode.titanball.timeout()
 		else:_end_round()
 		return
+	if is_instance_valid(bot_service):bot_service.before_tick()
 	if is_instance_valid(bots): bots.tick(delta)
 	var movement_start: Dictionary = {}
 	for id in fighters:
@@ -2356,14 +2373,17 @@ func _shot_fx(id: int,weapon: int,offhand: bool=false,identity: Array=[]) -> voi
 	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and shot_prediction.confirm(identity,float(match_mode.fortress.weapon_data(id,weapon).cycle)):return
 	_play_shot_fx(id,weapon,offhand)
 
-func _cs_weapon_models(id: int) -> Array:
+func _weapon_feedback_models(id: int,offhand: bool=false) -> Array:
 	var result: Array=[]
 	if id==multiplayer.get_unique_id():
-		if is_instance_valid(viewmodel):result.append(viewmodel)
-		if is_instance_valid(xr_rig) and is_instance_valid(xr_rig.gun):result.append(xr_rig.gun)
+		var local_model=offhand_viewmodel if offhand else viewmodel
+		if is_instance_valid(local_model):result.append(local_model)
+		if is_instance_valid(xr_rig):
+			var vr_model=xr_rig.offhand_gun if offhand else xr_rig.gun
+			if is_instance_valid(vr_model):result.append(vr_model)
 	if fighters.has(id) and is_instance_valid(fighters[id].avatar):
 		var actor=fighters[id]
-		var model=actor.avatar.gun if not actor.avatar_hash.is_empty() else actor.avatar.get_node_or_null("Upper/WeaponModel")
+		var model=(actor.avatar.offhand_gun if offhand else actor.avatar.gun) if not actor.avatar_hash.is_empty() else (null if offhand else actor.avatar.get_node_or_null("Upper/WeaponModel"))
 		if is_instance_valid(model):result.append(model)
 	return result
 
@@ -2371,10 +2391,13 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false
 	if fighters.has(id): fighters[id].animate_fire(offhand)
 	if headless: return
 	if armory.effective()=="cs16":
-		for model in _cs_weapon_models(id):preload("res://deathmatch/counterstrike/models.gd").fire(model)
+		for model in _weapon_feedback_models(id):preload("res://deathmatch/counterstrike/models.gd").fire(model)
 	var flame:bool=match_mode.fortress.art_rules(id,weapon)=="tf_flame"
 	var shot_definition: Dictionary=match_mode.fortress.weapon_data(id,weapon).duplicate()
 	if armory.effective()=="ut99" and alternate:shot_definition.merge(shot_definition.get("alt",{}),true)
+	for model in _weapon_feedback_models(id,offhand):Art.fire(model,weapon,match_mode.fortress.art_rules(id,weapon),float(shot_definition.cycle))
+	if is_instance_valid(spatial.actions) and players.has(id) and fighters.has(id):
+		spatial.actions.shot(id,match_mode.fortress.art_rules(id,weapon),weapon,int(players[id].serial),_weapon_transform(id,offhand).origin,float(shot_definition.cycle),armory.effective()=="cs16" and variant_combat.cs.manual(id))
 	var muzzle_recipe:=preload("res://deathmatch/lighting/weapon_emission.gd").muzzle_recipe(armory.effective(),weapon,shot_definition,alternate)
 	var muzzle_position: Vector3=_shot_solution(id,offhand).origin if fighters.has(id) and players.has(id) else Vector3.ZERO
 	if id==multiplayer.get_unique_id():
@@ -2402,7 +2425,7 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false
 			else:cs_weapon_kick.shot(weapon,true,spray_direction)
 	if fighters.has(id):
 		_weapon_illumination(muzzle_position,muzzle_position,muzzle_recipe,id)
-		if flame:spatial.play("flamethrower",_weapon_transform(id,offhand).origin,-10)
+		if flame:spatial.play("flamethrower",_weapon_transform(id,offhand).origin,-4)
 		elif not armory.experimental():spatial.play("weapon_"+str(weapon),_weapon_transform(id,offhand).origin,-4)
 
 @rpc("authority","call_local","unreliable",3)
@@ -2516,15 +2539,22 @@ func _process(delta: float) -> void:
 			var halo:=p.node.get_node_or_null("PowerHalo") as Node3D
 			if halo:halo.position.y=.42+sin(pickup_visual_time*2.5)*.12
 	_update_projectile_visuals(delta)
+	if armory.effective() in ["ut99","doom"]:
+		for fighter_id in fighters:
+			var charge_amount: float=variant_combat.visual_charge(fighter_id) if armory.effective()=="ut99" else clampf(1.0-players[fighter_id].charge/.86,0,1) if players[fighter_id].charge>0 else 0.0
+			for model in _weapon_feedback_models(fighter_id):Art.charge(model,charge_amount)
 	if armory.effective()=="cs16":
 		for fighter_id in fighters:
 			var cs_row: Array=variant_combat.cs.status(fighter_id)
-			for model in _cs_weapon_models(fighter_id):preload("res://deathmatch/counterstrike/models.gd").presentation(model,cs_row.size()==preload("res://deathmatch/counterstrike/reload_state.gd").ROW_SIZE and cs_row[1] in [2,7] and cs_row[4],cs_row)
+			for model in _weapon_feedback_models(fighter_id):preload("res://deathmatch/counterstrike/models.gd").presentation(model,cs_row.size()==preload("res://deathmatch/counterstrike/reload_state.gd").ROW_SIZE and cs_row[1] in [2,7] and cs_row[4],cs_row)
 	if is_vr(): return
+	match_mode.tribes.enhancer.desktop_update()
 	if not camera or not active: return
 	var s := local_state()
 	if s.is_empty(): return
-	if armory.experimental():camera.fov=18.0 if match_mode.fortress.weapon_data(multiplayer.get_unique_id(),s.weapon).get("scope",false) and bindings.pressed("alt_fire") and not menu_open else float(presentation.get("fov",85.0))
+	if armory.effective()=="tribes":camera.fov=match_mode.tribes.enhancer.zoom_fov(float(presentation.get("fov",85.0)),match_mode.tribes.enhancer.magnification())
+	elif armory.experimental():camera.fov=18.0 if match_mode.fortress.weapon_data(multiplayer.get_unique_id(),s.weapon).get("scope",false) and bindings.pressed("alt_fire") and not menu_open else float(presentation.get("fov",85.0))
+	else:camera.fov=float(presentation.get("fov",85.0))
 	var art_rules: String=match_mode.fortress.art_rules(multiplayer.get_unique_id(),s.weapon)
 	if s.weapon!=model_weapon or art_rules!=model_art_rules:
 		cs_weapon_kick.reset()
@@ -2543,7 +2573,7 @@ func _process(delta: float) -> void:
 	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead and not s.spectator and not match_mode.defusal.observing() else fighters[multiplayer.get_unique_id()].eye_height(),minf(1,delta*8))
 	camera.global_position = match_mode.defusal.observer_origin(fighters[multiplayer.get_unique_id()].render_position())+Vector3.UP*(camera_eye_height+fighters[multiplayer.get_unique_id()].render_view_offset())
 	fighters[multiplayer.get_unique_id()].rotation.y = local_yaw
-	viewmodel.visible = not match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()) and not match_mode.defusal.gun_holstered(multiplayer.get_unique_id()) and not s.dead and not menu_open and not lobby.active()
+	viewmodel.visible = not match_mode.tribes.enhancer.active and not match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()) and not match_mode.defusal.gun_holstered(multiplayer.get_unique_id()) and not s.dead and not menu_open and not lobby.active()
 	weapon_bob_time+=delta
 	weapon_bob_speed=lerpf(weapon_bob_speed,fighters[multiplayer.get_unique_id()].velocity.length(),1-exp(-12*delta))
 	var speed: float = weapon_bob_speed
@@ -2727,7 +2757,7 @@ func _clear_map_players() -> void:
 	for shot in projectiles.values():
 		if is_instance_valid(shot.node): shot.node.free()
 	projectiles.clear();match_mode.tribes.combat.mines.clear();history.clear()
-	if is_instance_valid(variant_visuals):variant_visuals.queue_free();variant_visuals=null
+	if is_instance_valid(variant_visuals):variant_visuals.clear()
 	var weapon_pool=get_node_or_null("Map/MapRuntime/WeaponLighting")
 	if weapon_pool:weapon_pool.clear()
 	remote_view_time=-1.0;snapshot_view_time=-1.0;projectile_watermark=-1;snapshot_projectiles.clear();ended_projectiles.clear()
@@ -2856,7 +2886,7 @@ func _play_variant_shot_fx(id: int,weapon: int,alternate: bool,spray_direction: 
 	_play_shot_fx(id,weapon,false,alternate,spray_direction)
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
-	if fighters.has(id) and match_mode.fortress.art_rules(id,weapon)!="tf_flame":spatial.play(armory.kind+"_weapon_"+str(weapon)+("_alt" if alternate else ""),_weapon_transform(id).origin,-16 if armory.kind=="cs16" and alternate else -4)
+	if fighters.has(id) and match_mode.fortress.art_rules(id,weapon)!="tf_flame":spatial.play(armory.kind+"_weapon_"+str(weapon)+("_alt" if alternate else ""),_weapon_transform(id).origin,-10 if armory.kind=="cs16" and alternate and weapon in [2,7] else -4)
 
 @rpc("authority","call_local","unreliable",3)
 func _variant_bounce_fx(pos: Vector3,weapon: int) -> void:

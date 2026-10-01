@@ -42,6 +42,7 @@ func reset() -> void:
 	offered = ""
 	next_offer = 0
 	load_queue.clear();avatar_attempts.clear()
+	if library:library.pinned.clear();library.prune_scenes()
 
 func remove_peer(id: int) -> void:
 	choices.erase(id);avatar_attempts.erase(id)
@@ -100,6 +101,10 @@ func _process(_delta: float) -> void:
 		if game.fighters.has(id) and choices.has(id):
 			var hash: String = game.match_mode.fortress.display_avatar(id,choices[id].hash)
 			if library.entries.has(hash):
+				if not library.prepare_avatar(hash):
+					if library.last_error.is_empty():load_queue.append(id)
+					else:avatar_attempts[id]=hash+":"+str(game.fighters[id].get_instance_id())
+					return
 				avatar_attempts[id]=hash+":"+str(game.fighters[id].get_instance_id())
 				var avatar: Node3D = library.create_avatar(hash)
 				if avatar:

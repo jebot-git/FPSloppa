@@ -15,7 +15,7 @@ func run() -> void:
 		var expected: String="quake" if mode in ["tf","dm"] else "ut99"
 		check(game.hud.weapon_choice.value==expected,mode+" shows the correct arsenal")
 		check(game.hud.weapon_choice.trigger.disabled==(mode!="dm"),mode+" locks only required arsenals")
-		check(game.hud.weapon_choice.items.size()==(3 if mode=="dm" else 1),mode+" offers only valid choices")
+		check(game.hud.weapon_choice.items.size()==(game.armory.IDS.size() if mode=="dm" else 1),mode+" offers only valid choices")
 		await RenderingServer.frame_post_draw
 		root.get_texture().get_image().save_png("res://test-results/assault-pickups/host-"+mode+".png")
 	game.hud.host_panel.hide();game.hud.show_menu(false)

@@ -29,7 +29,7 @@ FLAGS = dict(platform='linuxbsd', target='template_release', arch='x86_64',
              udev='no', sdl='no', touch='no', accesskit='no',
              modules_enabled_by_default='no', module_gdscript_enabled='yes',
              module_enet_enabled='yes', module_multiplayer_enabled='yes',
-             module_godot_physics_3d_enabled='yes', module_navigation_3d_enabled='yes',
+             module_godot_physics_3d_enabled='yes', module_jolt_physics_enabled='yes', module_navigation_3d_enabled='yes',
              module_regex_enabled='yes', module_zip_enabled='yes', module_mbedtls_enabled='yes',
              disable_physics_2d='yes', disable_navigation_2d='yes',
              disable_overrides='yes', disable_path_overrides='yes')
@@ -105,6 +105,16 @@ def runtime_audit(binary):
         result=subprocess.run([str(probe),'--quit'],cwd=folder,env=env,capture_output=True,text=True,timeout=10)
         if result.returncode==0 or (folder/'gui-called').exists():
             raise RuntimeError('Runtime opens desktop helpers or accepts missing project data')
+        # Old stripped templates contain only Godot Physics. Require Jolt to
+        # actually start, rather than silently accepting a fallback backend.
+        (folder/'project.godot').write_text('config_version=5\n[application]\nrun/main_scene="res://probe.tscn"\n[physics]\n3d/physics_engine="Jolt Physics"\n')
+        (folder/'probe.tscn').write_text('[gd_scene load_steps=2 format=3]\n[ext_resource type="Script" path="res://probe.gd" id="1"]\n[node name="Probe" type="Node3D"]\nscript=ExtResource("1")\n')
+        (folder/'probe.gd').write_text('extends Node3D\nfunc _ready():\n\tvar backend=get_world_3d().direct_space_state.get_class()\n\tprint("CONSOLE_PHYSICS_BACKEND ",backend)\n\tget_tree().quit(0 if backend.begins_with("Jolt") else 2)\n')
+        (folder/'.godot').mkdir()
+        (folder/'.godot/global_script_class_cache.cfg').write_text('list=Array[Dictionary]([])\n')
+        result=subprocess.run([str(probe)],cwd=folder,env={**os.environ,'XDG_DATA_HOME':str(folder/'user')},capture_output=True,text=True,timeout=10)
+        if result.returncode or 'CONSOLE_PHYSICS_BACKEND Jolt' not in result.stdout:
+            raise RuntimeError('Rebuild console runtime with Jolt Physics support:\n'+result.stdout+result.stderr)
     return dependencies
 
 
@@ -158,6 +168,8 @@ def package(godot, template, dest):
     work = ROOT / 'test-results/console-server-package'
     work.mkdir(parents=True, exist_ok=True)
     version = re.search(r'config/version="([^"]+)"', (ROOT / 'project.godot').read_text()).group(1)
+    physics = re.search(r'^3d/physics_engine="([^"]+)"', (ROOT / 'project.godot').read_text(), re.M)
+    physics_engine = physics.group(1) if physics else 'GodotPhysics3D'
     (work / 'project.godot').write_text('''config_version=5
 _custom_features="dedicated_server"
 [application]
@@ -171,6 +183,7 @@ driver/enable_input=false
 3d/default_cell_size=0.2
 3d/default_cell_height=0.1
 [physics]
+3d/physics_engine="'''+physics_engine+'''"
 common/physics_interpolation=true
 [xr]
 openxr/enabled=false
@@ -254,6 +267,14 @@ script=ExtResource("1")
     launcher = dest / 'start-server.sh'
     launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\nserver_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$server_dir/FPSloppaServer.x86_64" --log-file "$server_dir/server-engine.log" -- --config "$server_dir/server.cfg" "$@"\n')
     launcher.chmod(0o755)
+    worker_launcher = dest / 'start-bot-worker.sh'
+    worker_launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\nworker_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$worker_dir/FPSloppaServer.x86_64" --log-file "$worker_dir/bot-worker-engine.log" -- --bot-worker "$@"\n')
+    worker_launcher.chmod(0o755)
+    package_files.add('start-bot-worker.sh')
+    shutil.copy2(ROOT/'tools/bot_service/fpsloppa-bot-worker.service', dest/'fpsloppa-bot-worker.service')
+    package_files.add('fpsloppa-bot-worker.service')
+    shutil.copy2(ROOT/'tools/bot_service/server-worker.example.cfg', dest/'server-worker.example.cfg')
+    package_files.add('server-worker.example.cfg')
     symbols=subprocess.check_output(['objdump','-T',str(binary)],text=True)
     abi=sorted(set(re.findall(r'\b(?:GLIBC|GLIBCXX|CXXABI)_[0-9.]+',symbols)))
     report = dict(package_files=sorted(package_files), engine=VERSION, source_sha256=SOURCE_SHA256, platform_policy='console-only-alerts-and-shell-v1', flags=FLAGS, dependencies=dependencies, required_abi=abi, resources=sorted(selected),

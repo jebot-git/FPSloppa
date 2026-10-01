@@ -2,7 +2,7 @@
 
 Implemented in `experimental/st-raindance`, 29 September 2026. This work stays
 outside the current release. Matching experimental clients and server use
-protocol `fpsloppa-68-st-native-main` following the [main integration](ST-MAIN-INTEGRATION.md); previous ST demo schemas remain readable.
+protocol `fpsloppa-71-native-special-trace` following the [main integration](ST-MAIN-INTEGRATION.md); previous ST demo schemas remain readable.
 
 ## Controls
 

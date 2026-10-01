@@ -19,7 +19,7 @@ func say(id: int,message: String) -> void:
 	if game.clock<float(callout_at.get(team,0)):return
 	for peer in game.players:
 		if peer>0 and game.match_mode.same_team(id,peer):
-			game._chat_for(id,message,true);callout_at[team]=game.clock+15;return
+			ai.action("team_chat",[id,message]);callout_at[team]=game.clock+15;return
 func active(id: int) -> bool:
 	return ai.alive(id) and not ai.game.match_mode.special.blocked(id)
 func enabled(id: int) -> bool:

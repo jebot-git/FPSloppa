@@ -38,6 +38,7 @@ func _process(delta: float) -> void:
 	if is_instance_valid(avatar):avatar.process_mode=Node.PROCESS_MODE_INHERIT if viewing else Node.PROCESS_MODE_DISABLED
 	if not viewing:return
 	if avatar_hash!=actor.avatar_hash:
+		if not game.avatars.library.prepare_avatar(actor.avatar_hash):return
 		if is_instance_valid(avatar):avatar.free()
 		avatar_hash=actor.avatar_hash;avatar=game.avatars.library.create_avatar(avatar_hash)
 		if not avatar:return

@@ -21,8 +21,9 @@ func run() -> void:
   game.map_catalog.append(options.map_entry)
  game.selected_map=options.map;game.start_host("Bot soak observer",0,100,60,true,options.mode,options.get("rules","doom"))
  if not game.active or game.current_map!=options.map:push_error("SOAK_START_FAILED "+str(options));quit(1);return
- game.players[1].spectator=true;game._spawn(1);game.set_process(false);game.dedicated=true;game.max_clients=9;game.bot_population.count_target=8
- for id in [-4,-5,-6,-7,-8]:game._add_player(id,"Bot "+str(-id))
+ var bot_count:int=clampi(int(options.get("bots",8)),3,31)
+ game.players[1].spectator=true;game._spawn(1);game.set_process(false);game.dedicated=true;game.max_clients=bot_count+1;game.bot_population.count_target=bot_count
+ for id in range(-4,-bot_count-1,-1):game._add_player(id,"Bot "+str(-id))
  var classes: Array=game.match_mode.fortress.CLASSES.keys()
  for id in game.players:
   if id>=0:continue
@@ -61,6 +62,7 @@ func run() -> void:
   for team in 2:score[team]=maxi(score[team],game.match_mode.scores[team])
   for id in by_bot:
    var state: Dictionary=game.players[id];var point: Vector3=game.fighters[id].position;var row: Dictionary=by_bot[id]
+   if not point.is_finite() or not game.fighters[id].velocity.is_finite():push_error("Non-finite bot physics state");quit(1);return
    if state.serial==serial[id] and before[id].distance_to(point)<2:row.distance+=before[id].distance_to(point)
    else:window[id]=point;still[id]=0.0
    var fired: int=maxi(0,state.shots-shots[id]);row.shots+=fired
@@ -88,6 +90,7 @@ func run() -> void:
  ticks.sort()
  for row in by_bot.values():row.cells=row.cells.size();row.erase("last_weapon")
  var result: Dictionary={"hill_samples":hill_samples,"actual_map":game.current_map,"effective_rules":game.armory.effective(),"case":options,"simulated_seconds":game.clock-start,"bots":by_bot,"weapons":weapons,"damage":metrics.damage,"events":metrics.events,"counts":metrics.totals,"goals":goals,"teamplay":game.bots.teamplay.stats,"score":score,"as_stage":stage,"as_checkpoint":checkpoint,"links":game.bots.navigation.links.size(),"jump_links":game.bots.navigation.jump_links,"physics_p50_ms":ticks[ticks.size()/2] if not ticks.is_empty() else 0,"physics_p95_ms":ticks[int(ticks.size()*.95)] if not ticks.is_empty() else 0,"memory_start":initial_bytes,"samples":samples}
+ result.physics_backend=game.get_world_3d().direct_space_state.get_class()
  FileAccess.open(options.output,FileAccess.WRITE).store_string(JSON.stringify(result,"  "))
  print("BOT_SOAK_RESULT ",options.output)
  game.disconnect_game();game.queue_free();await process_frame;await process_frame;quit()

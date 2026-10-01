@@ -1,0 +1,264 @@
+{
+  "tools": [
+    {
+      "name": "search_assets",
+      "description": "Search BlendSwap's catalog of free Blender assets (3D models, materials, simulations, themes, tools). Free to call. Returns compact rows with asset ids, file ids, a short description, Blender versions, file size in bytes, and the uploader's username and profile URL under the author key for get_asset and download_asset. Preview images are not included; they come with download_asset. Licenses are declared by the uploader and are not verified by BlendSwap.",
+      "inputSchema": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "Full-text search over title, description and tags."
+          },
+          "license": {
+            "type": "string",
+            "description": "Comma-separated license keys: cc0, cc_by, cc_by_sa, cc_by_nd, cc_by_nc, cc_by_nc_sa, cc_by_nc_nd, gal, commercial."
+          },
+          "type": {
+            "type": "string",
+            "description": "Comma-separated asset types: model_3d, material, tool, hdri, simulation, theme, addon."
+          },
+          "format": {
+            "type": "string",
+            "description": "Comma-separated file formats the asset must include: blender, texture, fbx, gltf, obj, stl, usd, usdz, other."
+          },
+          "category": {
+            "type": "string",
+            "description": "Category slug (3D models only), for example animals or vehicles."
+          },
+          "tag": {
+            "type": "string",
+            "description": "One exact tag, lowercase."
+          },
+          "blender_version": {
+            "type": "string",
+            "description": "Exact Blender version of a file, for example 4.2."
+          },
+          "render_engine": {
+            "type": "string",
+            "enum": [
+              "cycles",
+              "eevee",
+              "workbench",
+              "blender_internal",
+              "redshift",
+              "octane",
+              "vray",
+              "arnold",
+              "corona",
+              "karma",
+              "luxrender",
+              "yafaray",
+              "appleseed",
+              "mitsuba",
+              "other"
+            ],
+            "description": "Render engine of a file."
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "newest",
+              "downloads",
+              "likes"
+            ],
+            "description": "Default newest."
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "per_page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "description": "Default 25."
+          }
+        },
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Search assets"
+      }
+    },
+    {
+      "name": "get_asset",
+      "description": "Full metadata for one BlendSwap asset: description, license (as declared by the uploader, not verified), tags, author, counts, and the downloadable files with their ids. Preview images come with download_asset. Free to call.",
+      "inputSchema": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Asset id from search_assets."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Get asset"
+      }
+    },
+    {
+      "name": "download_asset",
+      "description": "Get a download URL (valid 1 hour) for one file of a BlendSwap asset. PAID once the day's free allowance is used: every account gets 7 free downloads a day (50 on Friend, 100 on Artist and Studio), shared with the website; after that each download costs 10 credits. Re-downloading the same file within 24 hours is free. The response includes the license as declared by the uploader (not verified by BlendSwap) and the asset's preview image URLs, which are only available with a download. Show the license and any cost to the user. Call get_balance first if unsure.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "type": "integer",
+            "description": "Asset id from search_assets."
+          },
+          "file_id": {
+            "type": "integer",
+            "description": "Optional file id from get_asset; defaults to the asset's first file."
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Download asset file (paid)"
+      }
+    },
+    {
+      "name": "get_balance",
+      "description": "The account's credit balance, the credit cost per download, and how many free downloads remain today. Free to call.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Get balance"
+      }
+    },
+    {
+      "name": "list_studio_tools",
+      "description": "The paid BlendSwap Studio tools (animate, texture, upscale, retopo, cleanup, render) with their parameters and credit price tables. Free to call. Studio generations are charged at create time and there is no free trial through the API; one generation runs at a time per account.",
+      "inputSchema": {
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "List Studio tools"
+      }
+    },
+    {
+      "name": "quote_generation",
+      "description": "Exact credit price of a Studio generation for the given tool and params, plus whether the account can afford it and whether the params are valid. Free; spends nothing. Call this and confirm the price with the user before create_generation.",
+      "inputSchema": {
+        "properties": {
+          "tool": {
+            "type": "string",
+            "enum": [
+              "animate",
+              "texture",
+              "upscale",
+              "retopo",
+              "cleanup",
+              "render"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "description": "Tool parameters as listed by list_studio_tools.",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "tool"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Quote a generation"
+      }
+    },
+    {
+      "name": "create_generation",
+      "description": "PAID. Start a BlendSwap Studio generation (animate, texture, upscale, retopo, cleanup, render). Credits are charged immediately at the price quote_generation reports; there is NO free trial through the API. Only one generation may run per account: while one is queued or processing, this returns generation_in_progress. Returns the generation id and status; poll with get_generation. Confirm the price with the user before calling.",
+      "inputSchema": {
+        "properties": {
+          "tool": {
+            "type": "string",
+            "enum": [
+              "animate",
+              "texture",
+              "upscale",
+              "retopo",
+              "cleanup",
+              "render"
+            ]
+          },
+          "params": {
+            "type": "object",
+            "description": "Tool parameters as listed by list_studio_tools.",
+            "additionalProperties": true
+          }
+        },
+        "required": [
+          "tool"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false,
+        "title": "Create Studio generation (paid)"
+      }
+    },
+    {
+      "name": "get_generation",
+      "description": "Status and outputs of a Studio generation created through the API. Set wait_seconds (up to 20) to block until it finishes or the wait runs out. When done, output URLs are presigned and valid for 1 hour. Free to call.",
+      "inputSchema": {
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "wait_seconds": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 20,
+            "description": "Default 0."
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true,
+        "title": "Get generation"
+      }
+    }
+  ]
+}

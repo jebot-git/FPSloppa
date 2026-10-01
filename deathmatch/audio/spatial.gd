@@ -1,5 +1,7 @@
 extends Node3D
 const WeaponLevels = preload("res://deathmatch/audio/weapon_levels.gd")
+const ModeSounds = preload("res://deathmatch/audio/modes/catalog.gd")
+const ActionSounds = preload("res://deathmatch/audio/weapon-actions/catalog.gd")
 ## Shared bounded spatial mixer. Occlusion is a cosmetic static-world ray test.
 var game
 var steam
@@ -10,9 +12,15 @@ var room_tick:=0.0
 var reverb: AudioEffectReverb
 var own_bus:=false
 var effects_bus_owned:=false
+var bank_cursor: Dictionary={}
+var ambience
+var actions
+var enclosure:=0.0
+var effects_limiter: AudioEffectHardLimiter
 func setup(arena: Node) -> void:
 	game=arena
 	if game.headless: return
+	prewarm()
 	steam=preload("res://deathmatch/audio/steam_backend.gd").new();add_child(steam);steam.setup(game)
 	if AudioServer.get_bus_index("ArenaSpatial")<0:
 		own_bus=true
@@ -27,7 +35,59 @@ func setup(arena: Node) -> void:
 		effects_bus_owned=true;AudioServer.add_bus()
 		var idx:=AudioServer.bus_count-1
 		AudioServer.set_bus_name(idx,"ArenaEffects");AudioServer.set_bus_send(idx,"ArenaSpatial")
+	# Normalized reports can overlap. Limit only the effects sum, with room for
+	# the downstream room reverb; user music/voice levels remain independent.
+	var effects_index:=AudioServer.get_bus_index("ArenaEffects")
+	for effect in AudioServer.get_bus_effect_count(effects_index):
+		if AudioServer.get_bus_effect(effects_index,effect) is AudioEffectHardLimiter:effects_limiter=AudioServer.get_bus_effect(effects_index,effect)
+	if not effects_limiter:
+		effects_limiter=AudioEffectHardLimiter.new();effects_limiter.ceiling_db=-3;effects_limiter.pre_gain_db=0;effects_limiter.release=.06
+		AudioServer.add_bus_effect(effects_index,effects_limiter)
+	ambience=preload("res://deathmatch/audio/ambience.gd").new();add_child(ambience);ambience.setup(game,self)
+	actions=preload("res://deathmatch/audio/weapon-actions/player.gd").new();add_child(actions);actions.setup(game,self)
+func prewarm() -> void:
+	# Bounded built-in combat sounds, prepared before the arena accepts input.
+	# Enumerate random variants directly: warming must not advance gameplay RNG.
+	for kind in ["hit_confirm","impact_energy","impact_heavy","impact_dust"]:
+		if not cache.has(kind):cache[kind]=preload("res://deathmatch/audio/impact_sounds.gd").make(kind)
+	var paths: Array[String]=[]
+	for kind in ["death","gib","spawn","teleport","ui","pickup"]:paths.append("res://deathmatch/audio/"+kind+".wav")
+	paths.append("res://deathmatch/audio/flamethrower.res")
+	for kind in ["explosion","pickup_ammo","pickup_weapon","pickup_armor","pickup_health","pickup_mega"]:paths.append("res://deathmatch/audio/doom-style/"+kind+".wav")
+	for slot in range(1,9):paths.append("res://deathmatch/audio/doom-style/weapon_%d.wav"%slot)
+	for variant in 3:
+		paths.append("res://deathmatch/audio/recorded/pain_%d.wav"%variant)
+		paths.append("res://deathmatch/audio/ba2/stomp_%d.res"%variant)
+		for kind in ["jump","land"]:paths.append("res://deathmatch/audio/doom-style/%s_%d.wav"%[kind,variant])
+	for stem in ["footstep_concrete","impactMetal_light","impactPunch_heavy"]:
+		for variant in 5:paths.append("res://deathmatch/audio/recorded/%s_%03d.ogg"%[stem,variant])
+	for kind in ["snip","mag_out","mag_in","rack_back","rack_close","empty_lock"]:paths.append("res://deathmatch/audio/cs16/"+kind+".res")
+	for rules in ["quake","ut99"]:
+		for slot in 12:
+			for suffix in ["","_alt"]:paths.append("res://deathmatch/audio/experimental/%s_weapon_%d%s.wav"%[rules,slot,suffix])
+		for kind in ["bounce","explosion","combo"]:paths.append("res://deathmatch/audio/experimental/%s_%s.wav"%[rules,kind])
+	for slot in 12:paths.append("res://deathmatch/audio/tribes/weapon_%d.res"%slot)
+	for kind in ["bounce","explosion"]:paths.append("res://deathmatch/audio/tribes/"+kind+".res")
+	for path in paths:
+		if not cache.has(path) and ResourceLoader.exists(path):cache[path]=load(path)
+	for variants in ModeSounds.SOUNDS.values():
+		for path in variants:
+			if not cache.has(path):cache[path]=load(path)
+	for entry in ActionSounds.SOUNDS.values():
+		if not cache.has(entry.path):cache[entry.path]=load(entry.path)
 func choose(kind: String) -> AudioStream:
+	if kind.begins_with("action_"):
+		var entry:Dictionary=ActionSounds.SOUNDS.get(kind.trim_prefix("action_"),{})
+		if entry.is_empty():return null
+		if not cache.has(entry.path):cache[entry.path]=load(entry.path)
+		return cache[entry.path]
+	if ModeSounds.SOUNDS.has(kind):
+		var variants: Array=ModeSounds.SOUNDS[kind]
+		var index: int=bank_cursor.get(kind,0)%variants.size()
+		bank_cursor[kind]=index+1
+		var path: String=variants[index]
+		if not cache.has(path):cache[path]=load(path) # Explicit offline/test callers may skip setup.
+		return cache[path]
 	if kind in ["hit_confirm","impact_energy","impact_heavy","impact_dust"]:
 		if not cache.has(kind):cache[kind]=preload("res://deathmatch/audio/impact_sounds.gd").make(kind)
 		return cache[kind]
@@ -70,18 +130,22 @@ func play(kind: String,where: Vector3,volume: float=-8) -> void:
 	if game.headless or game.quitting: return
 	var source:=choose(kind)
 	if source==null:return
+	var weapon_report:=kind.begins_with("weapon_") or kind.contains("_weapon_") or kind=="flamethrower"
+	if ambience and (weapon_report or kind.ends_with("explosion") or kind=="ut99_combo") and is_instance_valid(game.camera) and where.distance_squared_to(game.camera.global_position)<900:
+		ambience.combat_pulse()
 	active=active.filter(is_instance_valid)
 	if active.size()>=32:
 		active.pop_front().queue_free()
 	var player: AudioStreamPlayer3D=create_player()
 	configure(player)
 	player.stream=source
-	if kind.begins_with("weapon_"):
-		volume += float(WeaponLevels.TRIM_DB.get(player.stream.resource_path.get_file(),0.0))
+	volume+=WeaponLevels.gain_db(kind,source.resource_path)
+	# Permit calibrated positive gains on quiet sources at the reference distance.
+	player.max_db=maxf(0,volume)
 	player.volume_db=volume
 	player.set_meta("dry_db",volume)
 	player.set_meta("expires",game.clock+source.get_length()/.97+.15)
-	player.pitch_scale=randf_range(.985,1.015) if kind.begins_with("weapon_") else randf_range(.97,1.03)
+	player.pitch_scale=randf_range(.985,1.015) if weapon_report else randf_range(.97,1.03)
 	if kind=="ba2_stomp":
 		player.max_distance=100;player.unit_size=8
 		if player.has_method("play_stream"):player.set("min_attenuation_distance",player.unit_size)
@@ -121,8 +185,11 @@ func _physics_process(delta: float) -> void:
 		var pos: Vector3=game.camera.global_position
 		for dir in [Vector3.UP,Vector3.LEFT,Vector3.RIGHT,Vector3.FORWARD,Vector3.BACK]:
 			if occluded(pos,pos+dir*12): count+=1
+		enclosure=lerpf(enclosure,float(count)/5.0,.35)
 		reverb.wet=lerpf(reverb.wet,.04+count*.032,.35)
 func clear() -> void:
+	if is_instance_valid(ambience):ambience.clear()
+	if is_instance_valid(actions):actions.clear()
 	for player in active:
 		if is_instance_valid(player): player.stop();player.queue_free()
 	active.clear()

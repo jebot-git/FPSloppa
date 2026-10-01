@@ -8,11 +8,14 @@ var maps: Array[String]=[]
 var count:=0
 func scope(stem: String,container: bool=false) -> String:
 	stem=stem.to_lower()
+	var prefix:=""
+	if stem.begins_with("win_"):
+		prefix="win:";stem=stem.trim_prefix("win_")
 	for map in maps:
-		if stem==map or not container and stem.begins_with(map+"_"):return "map:"+map
+		if stem==map or not container and stem.begins_with(map+"_"):return prefix+"map:"+map
 	for mode in MODES:
-		if stem==mode or not container and stem.begins_with(mode+"_"):return "mode:"+mode
-	return "" if container else "global"
+		if stem==mode or not container and stem.begins_with(mode+"_"):return prefix+"mode:"+mode
+	return "" if container else prefix+"global"
 func scan(folder: String,map_names: Array) -> void:
 	groups.clear();maps.clear();count=0
 	for value in map_names:
@@ -41,6 +44,8 @@ func add_folder(path: String,key: String,depth: int) -> void:
 		if not name.begins_with(".") and not directory.is_link(name):add_folder(path.path_join(name),key,depth+1)
 func add_file(path: String,key: String) -> void:
 	if count>=MAX_FILES:return
+	# Prefixes inside a mode/map folder retain the inherited scope.
+	if path.get_file().to_lower().begins_with("win_") and not key.begins_with("win:"):key="win:"+key
 	match path.get_extension().to_lower():
 		"ogg":add_track(path,key)
 		"m3u","m3u8":
@@ -57,7 +62,8 @@ func add_track(path: String,key: String) -> void:
 	if count>=MAX_FILES or not FileAccess.file_exists(path):return
 	if not groups.has(key):groups[key]=[]
 	if path not in groups[key]:groups[key].append(path);count+=1
-func choose(mode: String,map: String) -> Dictionary:
+func choose(mode: String,map: String,climax: bool=false) -> Dictionary:
 	for key in ["map:"+map.get_file().to_lower().trim_suffix(".bsp"),"mode:"+mode.to_lower(),"global"]:
+		if climax:key="win:"+key
 		if groups.has(key) and not groups[key].is_empty():return {"key":key,"tracks":groups[key].duplicate()}
 	return {"key":"silent","tracks":[]}

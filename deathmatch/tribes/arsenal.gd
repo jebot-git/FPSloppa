@@ -44,7 +44,7 @@ static func table() -> Array:
 	rows[2].spread=rad_to_deg(.005);rows[2].vertical=rad_to_deg(.005)
 	rows[3].acceleration=5.0;rows[3].terminal=80.0;rows[3].kick=150.0
 	rows[4].arm=1.0;rows[4].kick=150.0;rows[7].arm=2.0;rows[7].kick=250.0
-	rows[5].scope=true;rows[5].minimum=10.0;rows[5].energy=60.0
+	rows[5].minimum=10.0;rows[5].energy=60.0
 	rows[6].range=40.0;rows[6].minimum=3.0;rows[6].energy=1.1
 	rows[8].range=5.0;rows[8].minimum=3.0;rows[8].energy=1.0
 	rows[11].minimum=5.0;rows[11].energy=3.0 # Sustained 15 energy/sec at the .2s trace cadence.

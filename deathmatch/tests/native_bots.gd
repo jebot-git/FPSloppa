@@ -106,5 +106,20 @@ func run() -> void:
 			check(reference_random==randi(),label+" global RNG")
 			compare(reference,native,label+" brain");compare(reference_players,game.players,label+" players");compare(reference_team,team_snapshot(),label+" team")
 			game.players=original;restore_team(team)
+	# Reproduce a target disappearing between perception and steering (worker/human leave).
+	game.match_mode.kind="dm";game.armory.select("quake")
+	game.players[-1].dead=false;game.players[-1].spectator=false;game.players[-1].weapon=2
+	game.fighters[-2].free();game.fighters.erase(-2);game.players.erase(-2)
+	var stale:Dictionary=bots.new_brain(-1)
+	stale.enemy=-2;stale.goal_kind="enemy";stale.goal=actor.position+Vector3(4,0,0)
+	stale.action_at=INF;stale.translocate_at=INF
+	var original:Dictionary=game.players.duplicate(true)
+	var reference:=clone_brain(stale);var native:=clone_brain(stale)
+	seed(7701);bots.steer_reference(-1,reference,1./60)
+	var expected:Dictionary=game.players.duplicate(true)
+	game.players=original;seed(7701);bots.native_ai.steer(bots,-1,native,1./60)
+	compare(reference,native,"departed enemy steering brain")
+	compare(expected,game.players,"departed enemy steering players")
+	check(game.players[-1].move.is_finite(),"Departed target cannot crash native steering")
 	obstacle.free();game.disconnect_game();game.free()
 	print("NATIVE_BOTS_RESULT ",JSON.stringify({"checks":checks,"cases":900,"failures":failures}));quit(0 if failures.is_empty() else 1)

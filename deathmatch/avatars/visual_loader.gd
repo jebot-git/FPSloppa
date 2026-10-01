@@ -1,8 +1,20 @@
 extends RefCounted
 const Extension=preload("res://addons/vrm/vrm_extension.gd")
+static var compile_surfaces:=true # Test tools may isolate the original imported representation.
 const Rig=preload("res://deathmatch/avatars/rig.gd")
-static func create_avatar(library: Node,hash: String) -> Node3D:
-	if not library.entries.has(hash): return null
+static func prepare_avatar(library: Node,hash: String,wait:bool=false) -> bool:
+	if not library.entries.has(hash): return false
+	if library.scenes.has(hash):library.touch_scene(hash);return true
+	library.last_error=""
+	var compiled:=compile_surfaces and not OS.get_cmdline_user_args().has("--unmerged-avatar-surfaces")
+	var cache=library.runtime_cache()
+	var cached:Dictionary=cache.request(hash,compiled)
+	if cached.status=="pending":
+		if not wait:return false
+		var packed=cache.finish_sync(hash,compiled)
+		if packed:library.disk_scenes[hash]=true;library.remember_scene(hash,packed);return true
+	elif cached.status=="ready":
+		library.disk_scenes[hash]=true;library.remember_scene(hash,cached.scene);return true
 	if not library.scenes.has(hash):
 		var gltf := GLTFDocument.new()
 		var extensions: Array = [Extension.new(),preload("res://addons/vrm/1.0/VRMC_node_constraint.gd").new(),preload("res://addons/vrm/1.0/VRMC_springBone.gd").new(),preload("res://addons/vrm/1.0/VRMC_materials_mtoon.gd").new(),preload("res://addons/vrm/1.0/VRMC_materials_hdr_emissiveMultiplier.gd").new(),preload("res://addons/vrm/1.0/VRMC_vrm.gd").new()]
@@ -18,25 +30,39 @@ static func create_avatar(library: Node,hash: String) -> Node3D:
 		for extension in extensions: GLTFDocument.unregister_gltf_document_extension(extension)
 		if not model:
 			library.last_error = "The VRM plugin could not load this model."
-			return null
+			return false
+		if compiled:
+			model.set_meta("arena_surface_compile",preload("res://deathmatch/avatars/surface_compiler.gd").compile(model))
 		var packed := PackedScene.new()
 		# Cache once with the decoded scene, shared by every player using this VRM.
 		# Current poses, IK, first-person head hiding and animation never set its size.
 		var bounds=preload("res://deathmatch/avatars/rest_bounds.gd")
 		model.set_meta(bounds.CACHE_KEY,bounds.measure(model))
-		packed.pack(model)
+		# Prepare mipmaps once before serialization. Reopened scenes then avoid
+		# repeating texture readbacks/mipmap generation during rig creation.
+		if DisplayServer.get_name()!="headless":preload("res://deathmatch/maps/filtering.gd").new().apply(model)
+		var packed_error:=packed.pack(model)
 		model.free()
-		# Keep only a few decoded models; original files remain available on disk.
-		if library.scenes.size()>=4: library.scenes.erase(library.scenes.keys()[0])
-		library.scenes[hash] = packed
+		if packed_error!=OK:library.last_error="Could not prepare the avatar scene.";return false
+		cache.stats.misses+=1
+		cache.store(hash,compiled,packed)
+		library.remember_scene(hash,packed)
+	return true
+static func create_avatar(library: Node,hash: String) -> Node3D:
+	if not prepare_avatar(library,hash,true):return null
 	var rig := Rig.new()
 	rig.avatar_hash=hash
 	rig.name = "VRMAvatar"
-	var model: Node3D = library.scenes[hash].instantiate()
+	var model = library.scenes[hash].instantiate()
 	rig.add_child(model)
-	if not rig.configure(model):
+	if not model is Node3D or not rig.configure(model):
 		rig.free()
+		if library.disk_scenes.has(hash):
+			library.disk_scenes.erase(hash);library.scenes.erase(hash)
+			library.runtime_cache().reject(hash,compile_surfaces and not OS.get_cmdline_user_args().has("--unmerged-avatar-surfaces"))
+			return create_avatar(library,hash)
 		library.last_error = "Humanoid skeleton could not be normalized."
 		return null
 	if DisplayServer.get_name()!="headless":preload("res://deathmatch/maps/filtering.gd").new().apply(rig)
+	library.track_instance(hash,rig)
 	return rig

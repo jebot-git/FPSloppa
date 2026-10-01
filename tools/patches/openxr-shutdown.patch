@@ -1,0 +1,39 @@
+--- a/modules/openxr/openxr_api.cpp
++++ b/modules/openxr/openxr_api.cpp
+@@ -1374,7 +1374,9 @@
+ 	// We could be pulling the rug from underneath rendering...
+ 
+ 	if (running) {
+-		if (session != XR_NULL_HANDLE) {
++		// xrEndSession is only legal after STOPPING. During final teardown,
++		// xrDestroySession below is valid in any session state.
++		if (session != XR_NULL_HANDLE && session_state == XR_SESSION_STATE_STOPPING) {
+ 			xrEndSession(session);
+ 		}
+ 
+--- a/modules/openxr/openxr_interface.cpp
++++ b/modules/openxr/openxr_interface.cpp
+@@ -375,8 +375,8 @@
+ 				openxr_api->interaction_profile_suggest_bindings(ip);
+ 
+ 				// And record it in our array so we can clean it up later on
+-				if (interaction_profile_array.has(ip)) {
+-					interaction_profile_array.push_back(ip);
++				if (!interaction_profiles.has(ip)) {
++					interaction_profiles.push_back(ip);
+ 				}
+ 			}
+ 		}
+--- a/modules/openxr/extensions/spatial_entities/openxr_spatial_marker_tracking.cpp
++++ b/modules/openxr/extensions/spatial_entities/openxr_spatial_marker_tracking.cpp
+@@ -512,7 +512,9 @@
+ 		spatial_context = RID();
+ 	}
+ 
+-	se_extension->disconnect(SNAME("spatial_discovery_recommended"), callable_mp(this, &OpenXRSpatialMarkerTrackingCapability::_on_spatial_discovery_recommended));
++	if (se_extension->is_connected(SNAME("spatial_discovery_recommended"), callable_mp(this, &OpenXRSpatialMarkerTrackingCapability::_on_spatial_discovery_recommended))) {
++		se_extension->disconnect(SNAME("spatial_discovery_recommended"), callable_mp(this, &OpenXRSpatialMarkerTrackingCapability::_on_spatial_discovery_recommended));
++	}
+ }
+ 
+ void OpenXRSpatialMarkerTrackingCapability::on_process() {

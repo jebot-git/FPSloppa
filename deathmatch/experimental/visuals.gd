@@ -7,9 +7,21 @@ const MAX_PARTICLES:=512
 const MAX_SHAPES:=64
 var particles: Array=[]
 var shapes: Array=[]
+var free_shapes: Array=[]
+var ring_mesh: TorusMesh
+var globe_mesh: SphereMesh
 var batches: Array=[]
 var emission_budget:=64
 func _ready() -> void:
+	# Allocate cosmetic resources before play; shots only recycle these entries.
+	ring_mesh=TorusMesh.new();ring_mesh.inner_radius=.45;ring_mesh.outer_radius=.5;ring_mesh.rings=24;ring_mesh.ring_segments=6
+	globe_mesh=SphereMesh.new();globe_mesh.radius=.5;globe_mesh.height=1;globe_mesh.radial_segments=12;globe_mesh.rings=6
+	for i in MAX_SHAPES:
+		var node:=MeshInstance3D.new();var m:=material(Color.WHITE);var trace:=ImmediateMesh.new()
+		node.material_override=m;node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		node.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
+		node.hide();add_child(node)
+		free_shapes.append({"node":node,"mat":m,"trace":trace})
 	for smoke in [false,true]:
 		var draw:=MultiMeshInstance3D.new();var mm:=MultiMesh.new()
 		draw.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
@@ -44,7 +56,8 @@ func _process(delta: float) -> void:
 	for i in 2:batches[i].visible_instance_count=counts[i]
 	for i in range(shapes.size()-1,-1,-1):
 		var item: Dictionary=shapes[i];item.life-=delta
-		if item.life<=0:item.node.queue_free();shapes.remove_at(i);continue
+		if item.life<=0:
+			item.node.hide();free_shapes.append(item);shapes.remove_at(i);continue
 		var fraction: float=1-item.life/item.total
 		item.node.scale=Vector3.ONE*lerpf(item.start,item.end,fraction)
 		item.mat.albedo_color.a=(1-fraction)*item.alpha
@@ -52,25 +65,35 @@ func material(color: Color) -> StandardMaterial3D:
 	var m:=Art.material(color,0,0);m.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;m.transparency=BaseMaterial3D.TRANSPARENCY_ALPHA;m.cull_mode=BaseMaterial3D.CULL_DISABLED
 	return m
 func shape(mesh: Mesh,pos: Vector3,color: Color,life: float,start: float=1,end: float=1) -> MeshInstance3D:
-	if shapes.size()>=MAX_SHAPES:
-		shapes[0].node.queue_free();shapes.pop_front()
-	var node:=MeshInstance3D.new();node.mesh=mesh;var m:=material(color);node.material_override=m
-	node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF;add_child(node);node.position=pos;node.scale=Vector3.ONE*start
-	shapes.append({"node":node,"mat":m,"life":life,"total":life,"start":start,"end":end,"alpha":color.a});return node
+	return _activate_shape(_acquire_shape(),mesh,pos,color,life,start,end)
+func _acquire_shape() -> Dictionary:
+	# Preserve the existing oldest-first eviction policy at the fixed capacity.
+	return free_shapes.pop_back() if not free_shapes.is_empty() else shapes.pop_front()
+func _activate_shape(item: Dictionary,mesh: Mesh,pos: Vector3,color: Color,life: float,start: float,end: float) -> MeshInstance3D:
+	var node: MeshInstance3D=item.node
+	if node.mesh!=mesh:node.mesh=mesh
+	node.transform=Transform3D(Basis.IDENTITY.scaled(Vector3.ONE*start),pos)
+	item.mat.albedo_color=color
+	item.merge({"life":maxf(life,.0001),"total":maxf(life,.0001),"start":start,"end":end,"alpha":color.a},true)
+	node.show();shapes.append(item);return node
+func clear() -> void:
+	for item in shapes:item.node.hide();free_shapes.append(item)
+	shapes.clear();particles.clear();emission_budget=64
+	for batch in batches:batch.visible_instance_count=0
 func ring(pos: Vector3,color: Color,radius: float,life: float) -> void:
-	var torus:=TorusMesh.new();torus.inner_radius=.45;torus.outer_radius=.5;torus.rings=24;torus.ring_segments=6
-	shape(torus,pos,color,life,.2,radius*2)
+	shape(ring_mesh,pos,color,life,.2,radius*2)
 func globe(pos: Vector3,color: Color,radius: float,life: float) -> void:
-	var ball:=SphereMesh.new();ball.radius=.5;ball.height=1;ball.radial_segments=12;ball.rings=6
-	shape(ball,pos,color,life,.12,radius*2)
+	shape(globe_mesh,pos,color,life,.12,radius*2)
 func streak(points: PackedVector3Array,color: Color,width: float,life: float) -> void:
-	var mesh:=ImmediateMesh.new();mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
+	if points.size()<2:return
+	var item:=_acquire_shape();var mesh: ImmediateMesh=item.trace
+	mesh.clear_surfaces();mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLES)
 	for i in range(1,points.size()):
 		var a:=points[i-1];var b:=points[i];var forward:=(b-a).normalized()
 		var side:=forward.cross(Vector3.UP if absf(forward.y)<.9 else Vector3.RIGHT).normalized()*width
 		for axis in [side,forward.cross(side)]:
 			for v in [a-axis,b-axis,b+axis,a-axis,b+axis,a+axis]:mesh.surface_add_vertex(v)
-	mesh.surface_end();shape(mesh,Vector3.ZERO,color,life)
+	mesh.surface_end();_activate_shape(item,mesh,Vector3.ZERO,color,life,1,1)
 func impacts(rules: String,start: Vector3,ends: PackedVector3Array,weapon: int,definition: Dictionary={},muzzle_light: bool=true) -> void:
 	var kind:=Emission.kind(rules,weapon,definition)
 	if kind=="melee" or kind=="hammer":return

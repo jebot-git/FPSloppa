@@ -96,7 +96,8 @@ void FPSBots::st_precision(Object *ai,int64_t id,Dictionary brain){
  if(bool(c.tribes->call(k.reroute_below_deck.name,id,brain)))return;
  Vector3 position=actor->get_position(),goal=brain[k.goal.value],target=goal;PackedVector3Array path=brain[k.path.value];int step=brain[k.step.value];
  if(step<path.size()){
-  while(step<path.size()-1){Vector3 offset=path[step]-position;if(step>0&&(Vector2(offset.x,offset.z).length()>2.3||std::abs(offset.y)>2.8))break;++step;brain[k.step.value]=step;}
+  Object *routes=c.tribes->get(k.routes.name);
+  while(step<path.size()-1){Vector3 offset=path[step]-position;if(step>0&&(Vector2(offset.x,offset.z).length()>2.3||std::abs(offset.y)>2.8||!bool(routes->call(k.clear.name,position,path[step+1]))))break;++step;brain[k.step.value]=step;}
   target=path[step];
  }
  Vector3 offset=target-position,horizontal=flat(offset),full_velocity=actor->get(k.velocity.name),velocity=flat(full_velocity),direct=horizontal.normalized();double distance=horizontal.length();bool grounded=actor->call(k.is_supported.name);

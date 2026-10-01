@@ -138,6 +138,16 @@ class Katabatic(Stonehenge):
                 if 'LIG' in material.upper():tex='ind_dp01_red1' if 'Team1' in row['parents'] else 'ind_dp01_blu1'
                 rows.append(self.face([quake(p) for p in poly@rotation.T+origin],tex))
             if len(rows)>=4:self.detail.append('{\n'+'\n'.join(rows)+'\n}');self.interior_hulls+=1
+        if name=='smisc3':
+            # The original raised turret pad is only a thin cap. Adaptive
+            # terrain can sit metres below it; give its entire footprint a
+            # solid foundation while preserving the authored firing height.
+            samples=[rotation@np.array([x,y,0])+origin for x in np.linspace(-4,4,9) for y in np.linspace(-4.5,4.5,10)]
+            bottom=min(self.height(p[0],p[1]) for p in samples)-.5
+            angle=math.atan2(rotation[1,0],rotation[0,0])
+            self.block((-4,-4.5,bottom-origin[2]),(4,4.5,.08),WALL,origin,angle)
+            corners=[rotation@np.array([x,y,.03125])+origin for x,y in [(-4,-4.5),(4,-4.5),(4,4.5),(-4,4.5)]]
+            self.probes.setdefault('foundations',[]).append(dict(team=0 if 'Team1' in row['parents'] else 1,bottom=bottom,corners=[game(p) for p in corners]))
         # Separate static BSP models keep tiny indoor planes from splitting the
         # entire kilometre-wide terrain tree. This is native BSP29 func_wall.
         self.building_models.append('{\n"classname" "func_wall"\n'+'\n'.join(self.detail[first_brush:])+'\n}')

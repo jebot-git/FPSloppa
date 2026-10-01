@@ -2,9 +2,9 @@
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
-[0.18v build notes](docs/RELEASE-0.18v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.21v build notes](docs/RELEASE-0.21v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.18v:** refined CS weapon models and physical reloads, retained-magazine reinsertion with an ammunition count, improved hand attachment and recoil, chest-mounted bomb and defusal tools, shared grenade aiming guidance, bounded bullet decals, and corrected gaze-driven foveation. Dead Air and Please Hold remain for title and lobby; gameplay music is now client-owned OGG playlists in `bgm/` (see [AUDIO.md](AUDIO.md)). Linux, Windows and Quest remain release targets; CQ stays on its separate experimental branch. Tribes skiing is assessed, not implemented.
+**New in 0.21v:** revised weapon models and audio, ambient and pressure music, VR menu organization, Tribes zoom, avatar caching, Jolt physics and shutdown fixes. An optional Linux bot worker can run AI separately from the dedicated server. Linux, Windows and experimental Quest clients remain release targets; dedicated server and bot worker are Linux-only.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 

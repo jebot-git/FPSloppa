@@ -1,0 +1,67 @@
+FPSloppa weapon action / lifecycle sound bank, 2026-10-01
+
+These are authored interpretations of weapon behavior, not commercial-game samples.
+Existing main reports and embedded shotgun actions remain in their current banks.
+All new cues are mono 32 kHz PCM with prewarmed compressed .res runtime resources.
+No gameplay firing delay, ammunition use or damage was changed.
+
+Recordings and licenses
+- Freedoom v0.13.0, cfb8644b1a8dc7d7d2177e6a892ccaa2922bdaae:
+  sounds/dssawidl.wav and sounds/dssawup.wav, BSD-3-Clause.
+  https://github.com/freedoom/freedoom/tree/cfb8644b1a8dc7d7d2177e6a892ccaa2922bdaae
+  Required copyright/conditions: ../doom-style/LICENSE.txt and CREDITS.txt.
+  saw_idle, saw_ready, saw_settle, rotor_run/start/stop use these recordings.
+- yd, Factory ambiance, CC0:
+  https://opengameart.org/content/factory-ambiance
+- Luke.RUSTLTD, wind1, CC0:
+  https://opengameart.org/content/wind1
+- SpringySpringo, Gun reload sounds, CC0:
+  https://opengameart.org/content/gun-reload-sounds
+- Kenney, Impact Sounds, CC0:
+  https://kenney.nl/assets/impact-sounds
+- Liquid source recording provenance is retained in
+  tools/audio-sources/natural-weapons/SOURCES.json and ../modes/SOURCES.md.
+
+Downloaded-file hashes: tools/audio-sources/weapon-actions/downloads.json.
+All input/output hashes and mastering targets: manifest.json.
+New edits containing only CC0 sources are dedicated to CC0-1.0.
+Mixed Freedoom edits retain its BSD-3-Clause notices.
+
+Authoring
+1. tools/edit_weapon_action_stems.py: installed Audacity MCP edits six source
+   stems with band limiting, DC removal and -6 dBFS normalization. Other
+   Audacity projects are preserved. Edited WAVs are retained in
+   tools/audio-sources/weapon-actions/edited/; MCP call log is in
+   test-results/weapon-actions-20261001/audacity-edits.json.
+2. tools/build_weapon_actions.py: layer, trim and pitch recorded machinery,
+   liquid and air; master to role-specific 50 ms RMS targets (-21 to -30 dBFS),
+   with -6 dBFS sample ceiling. Loops use overlap crossfades, no silent gaps.
+3. Godot --headless --xr-mode off --path . --script tools/import_weapon_actions.gd
+   preserves loop metadata in exported resources.
+4. tools/review_weapon_actions.py creates a 50-second audition and cue timeline.
+
+Behavior references (read-only study; no script or sound copied into runtime)
+- Doom source: chainsaw raise/idle, BFG trigger startup before launch:
+  https://github.com/id-Software/DOOM/blob/master/linuxdoom-1.10/p_pspr.c
+- UT99 original-script mirror: ImpactHammer charge/tension, PulseGun stop,
+  minigun2 wind-down and UT_Eightball chamber-loading states:
+  https://github.com/Slipyx/UT99/tree/master/Botpack
+- Quake source: distinct lightning start/continuous events and weapon-specific
+  mechanical reports, with quiet idle for ordinary firearms:
+  https://github.com/id-Software/Quake/blob/master/qw-qc/weapons.qc
+- Tribes shared-arsenal reference clips previously studied for this project:
+  https://www.youtube.com/watch?v=zp46kZ5A_-0
+  https://www.youtube.com/watch?v=xFxPt05QqaA
+  ST staged machinery and recovery cues are an interpretation of those roles;
+  the game retains Starsiege firing cadence, not Tribes 2 spin-up delays.
+
+Runtime
+profiles.gd declares select, charge, firing loop, recovery and stop roles.
+player.gd follows accepted/predicted feedback once, charge snapshots and the
+current held weapon. Eight reusable nearby positional loop voices use Effects
+volume, distance attenuation and wall muffling. Delayed cues share the existing
+32-voice one-shot mixer. Switching/death cancels pending actions; loops fade
+before reassignment and clear on menus, map changes, backend reset/disconnect.
+BFG startup and Doom/Quake/CS shotgun action already exist in the report bank;
+new duplicate cues are not added. CS physical AWP cycling keeps its real hand
+interaction sounds; the new automatic bolt tail is desktop-only.

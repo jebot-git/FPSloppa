@@ -6,6 +6,8 @@ use freehaptics::device::{BHapticsDevice, mapping::{AttachmentPoint, Mapping}};
 use freehaptics::proto::motor::VestMotorFrame;
 use std::{future::Future, sync::{Arc, Mutex, MutexGuard}, thread::{self, JoinHandle}, time::{Duration, Instant}};
 
+mod lifecycle;
+
 const MOTOR_UUID: &str = "6e40000a-b5a3-f393-e0a9-e50e24dcca9e";
 const FRAME_TTL: Duration = Duration::from_millis(200);
 
@@ -55,12 +57,15 @@ struct Shared {
     frame_changes: u64,
     write_errors: u64,
     connections: u64,
+    disconnects: u64,
+    disconnect_errors: u64,
+    release_errors: u64,
     max_write_ms: f64,
     max_write_gap_ms: f64,
 }
 impl Default for Shared {
     fn default() -> Self {
-        Self { status: "Bluetooth idle. Scan and select an X40 or Air vest.".into(), devices: vec![], scan: false, connect: None, quit: false, connected: false, frame: [0;40], deadline: Instant::now(), writes: 0, active_writes: 0, last_active_motors: 0, last_frame: [0;40], motor_mask: 0, frame_changes: 0, write_errors: 0, connections: 0, max_write_ms: 0.0, max_write_gap_ms: 0.0 }
+        Self { status: "Bluetooth idle. Scan and select an X40 or Air vest.".into(), devices: vec![], scan: false, connect: None, quit: false, connected: false, frame: [0;40], deadline: Instant::now(), writes: 0, active_writes: 0, last_active_motors: 0, last_frame: [0;40], motor_mask: 0, frame_changes: 0, write_errors: 0, connections: 0, disconnects: 0, disconnect_errors: 0, release_errors: 0, max_write_ms: 0.0, max_write_gap_ms: 0.0 }
     }
 }
 fn lock(shared: &Arc<Mutex<Shared>>) -> MutexGuard<'_, Shared> {
@@ -71,6 +76,11 @@ fn supported(name: &str) -> bool {
 }
 fn fresh_frame(shared: &Shared, now: Instant) -> [u8;40] {
     if shared.connected && !shared.quit && now < shared.deadline { shared.frame } else { [0;40] }
+}
+fn request_close(state: &mut Shared) {
+    state.quit = true; state.scan = false; state.connect = None;
+    state.frame = [0;40]; state.deadline = Instant::now(); state.connected = false;
+    state.status = "Releasing vest and disconnecting Bluetooth…".into();
 }
 fn scale_level(level: u8, intensity: f64) -> u8 {
     (level.min(15) as f64 * intensity.clamp(0.0, 1.0)).round() as u8
@@ -117,7 +127,8 @@ impl FpsloppaBhapticsBle {
     fn scan(&mut self) {
         self.ensure_worker();
         let mut state = lock(&self.shared);
-        state.frame = [0;40]; state.deadline = Instant::now(); state.scan = true;
+        if state.quit { return; }
+        state.frame = [0;40]; state.deadline = Instant::now(); state.scan = true; state.connect = None;
         state.status = "Scanning for X40 / Air vests…".into();
     }
     #[func]
@@ -126,6 +137,7 @@ impl FpsloppaBhapticsBle {
         if !lock(&self.shared).devices.iter().any(|d| d.id == id) { return false; }
         self.ensure_worker();
         let mut state = lock(&self.shared);
+        if state.quit { return false; }
         state.frame = [0;40]; state.deadline = Instant::now(); state.connect = Some(id);
         state.connected = false; state.status = "Connecting to the selected vest…".into(); true
     }
@@ -152,7 +164,7 @@ impl FpsloppaBhapticsBle {
     }
     #[func]
     fn close(&self) {
-        let mut state = lock(&self.shared); state.quit = true; state.frame = [0;40]; state.deadline = Instant::now(); state.connected = false;
+        request_close(&mut lock(&self.shared));
     }
     #[func]
     fn status_text(&self) -> GString { GString::from(lock(&self.shared).status.as_str()) }
@@ -169,7 +181,7 @@ impl FpsloppaBhapticsBle {
     fn diagnostics_json(&self) -> GString {
         let state = lock(&self.shared);
         // These count successful host writes, not device acknowledgements (BLE write-without-response).
-        GString::from(&serde_json::json!({"writes":state.writes,"active_writes":state.active_writes,"last_active_motors":state.last_active_motors,"last_frame":state.last_frame.to_vec(),"motor_mask":state.motor_mask,"frame_changes":state.frame_changes,"write_errors":state.write_errors,"connections":state.connections,"max_write_ms":state.max_write_ms,"max_write_gap_ms":state.max_write_gap_ms}).to_string())
+        GString::from(&serde_json::json!({"writes":state.writes,"active_writes":state.active_writes,"last_active_motors":state.last_active_motors,"last_frame":state.last_frame.to_vec(),"motor_mask":state.motor_mask,"frame_changes":state.frame_changes,"write_errors":state.write_errors,"connections":state.connections,"disconnects":state.disconnects,"disconnect_errors":state.disconnect_errors,"release_errors":state.release_errors,"max_write_ms":state.max_write_ms,"max_write_gap_ms":state.max_write_gap_ms}).to_string())
     }
 }
 impl Drop for FpsloppaBhapticsBle {
@@ -185,12 +197,32 @@ async fn limited<T, E: std::fmt::Display>(future: impl Future<Output=Result<T,E>
         .map_err(|_| "Bluetooth operation timed out".to_string())?.map_err(|e| e.to_string())
 }
 struct Session { peripheral: Peripheral, device: BHapticsDevice }
-async fn release(session: &Session) {
-    let _ = limited(session.device.send_vest_motor_frame(&VestMotorFrame { values: [0;40] })).await;
+impl lifecycle::Link for Session {
+    async fn zero(&self) -> Result<(),String> {
+        limited(self.device.send_vest_motor_frame(&VestMotorFrame { values: [0;40] })).await
+    }
+    async fn disconnect(&self) -> Result<(),String> { limited(btleplug::api::Peripheral::disconnect(&self.peripheral)).await }
+    async fn connected(&self) -> Result<bool,String> { limited(self.peripheral.is_connected()).await }
 }
-async fn disconnect(session: Session) {
-    release(&session).await;
-    let _ = limited(session.peripheral.disconnect()).await;
+// Only used before discovery, when there is no validated motor characteristic yet.
+impl lifecycle::Link for Peripheral {
+    async fn zero(&self) -> Result<(),String> { Ok(()) }
+    async fn disconnect(&self) -> Result<(),String> { limited(btleplug::api::Peripheral::disconnect(self)).await }
+    async fn connected(&self) -> Result<bool,String> { limited(self.is_connected()).await }
+}
+async fn disconnect(session: Session, shared: &Arc<Mutex<Shared>>) -> Result<(),String> {
+    lock(shared).connected = false;
+    let result = lifecycle::close(&session).await;
+    let mut state = lock(shared);
+    state.last_frame = [0;40]; state.last_active_motors = 0;
+    match result {
+        Ok(release_error) => {
+            state.disconnects += 1;
+            if release_error.is_some() { state.release_errors += 1; }
+            Ok(())
+        }
+        Err(error) => { state.disconnect_errors += 1; Err(error) }
+    }
 }
 async fn scan(adapter: &Adapter, shared: &Arc<Mutex<Shared>>) -> Result<Vec<Peripheral>,String> {
     limited(adapter.start_scan(ScanFilter::default())).await?;
@@ -202,9 +234,14 @@ async fn scan(adapter: &Adapter, shared: &Arc<Mutex<Shared>>) -> Result<Vec<Peri
     stopped?;
     limited(adapter.peripherals()).await
 }
-async fn connect(peripheral: Peripheral) -> Result<Session,String> {
+async fn connect(peripheral: Peripheral, shared: &Arc<Mutex<Shared>>) -> Result<Session,String> {
+    if lock(shared).quit { return Err("Connection cancelled".into()); }
+    // Recover the stale BlueZ connection observed after a client restart.
+    if limited(peripheral.is_connected()).await? { lifecycle::close(&peripheral).await?; }
+    if lock(shared).quit { return Err("Connection cancelled".into()); }
     let result = async {
         limited(peripheral.connect()).await?;
+        if lock(shared).quit { return Err("Connection cancelled".into()); }
         limited(peripheral.discover_services()).await?;
         let name = limited(peripheral.properties()).await?.and_then(|p| p.local_name)
             .ok_or("Device has no model name")?;
@@ -218,7 +255,12 @@ async fn connect(peripheral: Peripheral) -> Result<Session,String> {
         limited(device.send_vest_motor_frame(&VestMotorFrame {values:[0;40]})).await?;
         Ok(Session { peripheral: peripheral.clone(), device })
     }.await;
-    if result.is_err() { let _ = limited(peripheral.disconnect()).await; }
+    if let Err(error) = &result {
+        if let Err(cleanup) = lifecycle::close(&peripheral).await {
+            lock(shared).disconnect_errors += 1;
+            return Err(format!("{error}; cleanup failed: {cleanup}"));
+        }
+    }
     result
 }
 fn map_frame(frame: &[u8;40], mappings: &[Arc<Mapping>]) -> VestMotorFrame {
@@ -261,7 +303,7 @@ async fn worker_main(shared: Arc<Mutex<Shared>>) -> Result<(),String> {
         };
         if quit { break; }
         if do_scan {
-            if let Some(old) = session.take() { disconnect(old).await; }
+            if let Some(old) = session.take() { disconnect(old, &shared).await?; }
             lock(&shared).connected = false;
             match scan(&adapter, &shared).await {
                 Ok(found) => {
@@ -282,10 +324,11 @@ async fn worker_main(shared: Arc<Mutex<Shared>>) -> Result<(),String> {
                 Err(error) => lock(&shared).status = format!("Scan failed: {error}"),
             }
         }
+        if lock(&shared).quit { break; }
         if let Some(target) = target {
-            if let Some(old) = session.take() { disconnect(old).await; }
+            if let Some(old) = session.take() { disconnect(old, &shared).await?; }
             if let Some(peripheral) = peripherals.iter().find(|p| p.id().to_string() == target) {
-                match connect(peripheral.clone()).await {
+                match connect(peripheral.clone(), &shared).await {
                     Ok(connected) => {
                         let mut state = lock(&shared);
                         state.status = format!("Connected directly to {}", connected.device.name());
@@ -300,6 +343,7 @@ async fn worker_main(shared: Arc<Mutex<Shared>>) -> Result<(),String> {
                 let mut state=lock(&shared);state.connected=false;state.status="Selected device is no longer available. Scan again.".into();
             }
         }
+        if lock(&shared).quit { break; }
         if let Some(connected) = &session {
             let frame = fresh_frame(&lock(&shared), Instant::now());
             let frame = map_frame(&frame, connected.device.mappings());
@@ -308,7 +352,7 @@ async fn worker_main(shared: Arc<Mutex<Shared>>) -> Result<(),String> {
                 let mut state = lock(&shared); state.connected = false; state.frame=[0;40]; state.status=format!("Vest disconnected: {error}. Scan and reconnect.");
                 state.write_errors += 1;
                 drop(state);
-                if let Some(old) = session.take() { disconnect(old).await; }
+                if let Some(old) = session.take() { disconnect(old, &shared).await?; }
             } else {
                 let mut state = lock(&shared);
                 let now = Instant::now();
@@ -325,7 +369,7 @@ async fn worker_main(shared: Arc<Mutex<Shared>>) -> Result<(),String> {
         }
         tokio::time::sleep(Duration::from_millis(50)).await;
     }
-    if let Some(old) = session { disconnect(old).await; }
+    if let Some(old) = session { disconnect(old, &shared).await?; }
     Ok(())
 }
 
@@ -336,6 +380,13 @@ unsafe impl ExtensionLibrary for BhapticsExtension {}
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn shutdown_discards_pending_requests_and_frames() {
+        let mut state=Shared { scan:true, connect:Some("vest".into()), connected:true, frame:[15;40], ..Shared::default() };
+        request_close(&mut state);
+        assert!(state.quit && !state.scan && state.connect.is_none() && !state.connected);
+        assert_eq!(fresh_frame(&state,Instant::now()),[0;40]);
+    }
     #[test]
     fn profile_levels_preserve_gradients_and_global_strength_cap() {
         assert_eq!(scale_level(15,0.25),4);

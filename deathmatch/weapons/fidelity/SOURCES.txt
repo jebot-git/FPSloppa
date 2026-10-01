@@ -1,0 +1,89 @@
+FPSloppa weapon fidelity assets
+
+CC0-1.0 donor meshes (uploader declarations). Attribution retained voluntarily.
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Firearms_kit_1.0 — Britdawgmasterfunk
+https://blendswap.com/blend/28872
+
+Shiny Minigun — Makso
+https://blendswap.com/blend/25753
+
+Painted Sci Fi Weapon — Idco0
+https://blendswap.com/blend/12345
+
+GUNS IMAGES & 3D Models — DeMooz
+https://opengameart.org/content/guns-images-3d-models
+
+Low Poly Guns Pack — quaternius
+https://opengameart.org/content/low-poly-guns-pack
+
+3rd Person Blender Sci-Fi Pack — JohnnyBlack (submitted by Julius)
+https://opengameart.org/content/3rd-person-blender-sci-fi-pack
+
+Retro Style Pistol Lowpoly — Mohamkey
+https://opengameart.org/content/retro-style-pistol-lowpoly
+
+Fallout Shelter Laser Pistol — Josean Castillo
+https://opengameart.org/content/fallout-shelter-laser-pistol
+
+Sci-Fi Rifle — Felix Kütt
+https://opengameart.org/content/sci-fi-rifle
+
+Energy Rifle — Jerd
+https://opengameart.org/content/energy-rifle
+
+AKIRA-LASER RIFLE ST-001 — DREAM_SEARCH_REPEAT
+https://opengameart.org/content/akira-laser-rifle-st-001
+
+LibreQuake — BSD-3-Clause
+Copyright 2019–2023 Contributors to the LibreQuake project.
+https://github.com/lavenderdotpet/LibreQuake
+Commit: 4d2da523331f00211c97c90dc5af8672a2967618
+Full copyright, conditions and disclaimer: LibreQuake-COPYING.txt
+Contributor list: LibreQuake-CREDITS.txt
+
+Existing source history:
+deathmatch/weapons/experimental/sources.json
+deathmatch/weapons/cs16/sources.json
+deathmatch/weapons/tribes/sources.json
+
+Modifications: fitted/recombined receivers, grips and barrels; polygon reduction, bevels, normals, UV rebake, material recoloring, Krita surfaces, moving parts and status lights.
+Retail game references and the rifle discussion image were studied for design only; no image pixels from those references are embedded in runtime textures.
+OpenArena was evaluated as GPLv2 reusable content requiring license and corresponding editable source distribution; no OpenArena asset is included.
+Full per-model provenance and hashes: sources.json.
+
+Photographic material grain, recolored and layered in Krita (CC0-1.0):
+Metal Plate 02 — Rob Tuytel / Poly Haven
+https://polyhaven.com/a/metal_plate_02
+Fine Grained Wood — Rob Tuytel / Poly Haven
+https://polyhaven.com/a/fine_grained_wood
+https://polyhaven.com/license
+
+2026-10-01 furniture additions: Britdawgmasterfunk's CC0 Firearms_kit_1.0
+stock.009 supplies the five revised ST shoulder stocks; grip.001 supplies
+Glock/USP/Deagle hand furniture. Disc cover, curved laser fore-end, rounded
+pistol guards, receiver mounts and closed mortar breech are authored edits.
+Krita furniture-surfaces.kra contains the revised photographic finish layers.
+
+Final topology optimization: original baked UVs and vertex normals preserved
+with meshoptimizer v1.0 (MIT) as an offline authoring tool. No library is linked
+into the game. Laser/rotary ST barrels use octagonal walls; mortar uses 12 sides.
+Per-model before/after counts are recorded in sources.json optimization entries.
+
+Shared shoulder stock follow-up: all five stock.009 instances reduced to 960
+triangles each in editable Blender sources and runtime scenes. Existing atlas,
+materials and node transforms retained; all non-stock mesh arrays unchanged.
+Reports and visual comparisons: test-results/weapon-stock/.
+
+Shared donor optimization follow-up: grip.006 / ContouredLowerReceiver is now
+1,400 triangles on all ten ST instances; body.001 / InstrumentReceiverShell
+is 2,400 on all four. Both miniguns' front and mid stabilizers are 1,400 each;
+Glock/USP/Deagle SculptedPistolGrip is 1,200 each. Both complete railguns are
+9,400 triangles. Total saving: 54,930 triangles across 17 weapons.
+Editable blends, interchange GLBs, runtime scenes and build budgets agree.
+Authored split normals are reprojected per face after decimation to preserve
+hard edges. Existing texture atlases/materials and all non-target mesh arrays,
+node transforms and gameplay metadata are retained. No new donor assets.
+Counts, shape deviation samples and before/after views:
+test-results/weapon-shared-reduction/.

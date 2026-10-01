@@ -30,6 +30,9 @@ func run() -> void:
 		rules.select(kind)
 		for slot in rules.table.size():
 			var original:=Art._build_weapon(slot,kind)
+			# Compare the complete uncached presentation, including authored mechanisms.
+			Art.Presentation.apply(original,slot,kind)
+			Art.Presentation.attach(original,slot,kind)
 			var first:=Art.weapon(slot,2,kind);var second:=Art.weapon(slot,2,kind)
 			check(shape(first)==shape(original) and shape(second)==shape(original),kind+" cached geometry, transforms and tint match source slot "+str(slot))
 			check(first.get_meta("muzzle")==second.get_meta("muzzle") and first.get_meta("muzzle")==original.get_meta("muzzle"),"Cached muzzle metadata preserved")

@@ -35,6 +35,19 @@ func run():
 	check(level.get_meta("baked_light_rgb",false),"Embedded coloured lighting loads")
 	check(level.get_meta("baked_light_invalid_faces",-1)==0 and level.get_meta("baked_light_overflow_faces",-1)==0,"No invalid or overflowing lightmap faces")
 	var space: PhysicsDirectSpaceState3D=g.get_world_3d().direct_space_state
+	# Platforms must have collision all the way down into the sampled terrain,
+	# not merely a thin floating cap which passes the turret's centre floor ray.
+	check(probes.get("foundations",[]).size()==2,"Both hilltop turret platforms have foundations")
+	for foundation in probes.get("foundations",[]):
+		var centre:=Vector3.ZERO
+		for corner in foundation.corners:centre+=v(corner)/4
+		for i in 4:
+			var edge: Vector3=(v(foundation.corners[i])+v(foundation.corners[(i+1)%4]))*.5
+			var outward: Vector3=(edge-centre).normalized()
+			for height in [centre.y-.25,lerpf(centre.y,foundation.bottom,.5)]:
+				var start:=Vector3(edge.x,height,edge.z)+outward*1.0
+				var hit:=space.intersect_ray(PhysicsRayQueryParameters3D.create(start,start-outward*2,1))
+				check(not hit.is_empty(),"Team %d turret foundation has solid side at %.2f"%[foundation.team,height])
 	var shape:=CapsuleShape3D.new();shape.radius=.30;shape.height=1.65
 	for group in [probes.spawns,probes.flags,probes.stations]:
 		for point in group:

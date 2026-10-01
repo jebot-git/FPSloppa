@@ -18,6 +18,7 @@ func run() -> void:
 	check(OS.has_feature("dedicated_server") and DisplayServer.get_name()=="headless","Dedicated feature and headless-only display")
 	check(not ClassDB.class_exists("GLTFDocument") and not ClassDB.class_exists("OpenXRInterface"),"No avatar renderer or OpenXR runtime")
 	game=load("res://deathmatch/arena.tscn").instantiate();get_tree().root.add_child(game)
+	check(game.get_world_3d().direct_space_state.get_class().begins_with("Jolt"),"Packaged server uses Jolt Physics")
 	check(game.dedicated and game.active,"Direct executable starts dedicated hosting")
 	check(game.voice.get_script().resource_path.ends_with("/relay.gd") and game.voice.mic==null,"Voice uses packet relay without microphone")
 	check(game.spatial==null and game.music==null and game.permissions==null,"No client audio or permission services")

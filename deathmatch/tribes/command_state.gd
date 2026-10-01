@@ -62,7 +62,7 @@ func tick():
 func bot_goal(id: int,ai,rows: Array) -> bool:
 	var row: Dictionary=orders.get(id,{})
 	if row.is_empty() or row.status!="accepted" or row.life!=game.players[id].serial:return false
-	if game.fighters[id].position.distance_to(row.point)<6 and row.verb!="defend":row.status="complete";return false
+	if game.fighters[id].position.distance_to(row.point)<6 and row.verb!="defend":ai.action("st_order_complete",[id]);return false
 	ai.candidate(rows,"st:order","objective",row.point,450);return true
 func snapshot() -> Dictionary:return {"commanders":commanders.duplicate(),"orders":orders.duplicate(true)}
 static func valid(data: Variant) -> bool:

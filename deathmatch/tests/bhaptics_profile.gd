@@ -43,11 +43,21 @@ func run() -> void:
 	g.players[1].hp=50;g.players[1].serial=1
 	var service:=Service.new();g.add_child(service);service.game=g;g.haptics=service
 	service.output=output;service.values=Prefs.sanitize({"enabled":true,"backend":"osc"});service.set_process(false)
-	for rules in ["doom","quake","ut99"]:
+	for rules in ["doom","quake","ut99","cs16"]:
 		g.armory.select(rules)
 		for weapon in g.armory.table.size():
 			service.stop();service.shot(1,weapon)
 			check(output.has_pending(Time.get_ticks_msec()*.001)==(g.armory.data(weapon).name!="TRANSLOCATOR"),"Weapon profile resolves: "+rules+" / "+g.armory.data(weapon).name)
+	g.armory.select("cs16")
+	var cs_families:=["melee","pistol","pistol","shotgun","shotgun","automatic","automatic","automatic","automatic","sniper","pistol","automatic"]
+	check(g.armory.table.size()==cs_families.size(),"Every CS weapon has an explicit expectation")
+	for weapon in g.armory.table.size():
+		var title: String=g.armory.data(weapon).name
+		check(profile.family(title)==cs_families[weapon],"CS family: "+title)
+		for alternate in [false,true]:
+			service.stop();service.shot(1,weapon,false,alternate)
+			check(service.last_effect=="recoil_"+cs_families[weapon],"CS service recoil: "+title+" alt="+str(alternate))
+	check(profile.damage("M3 SUPER 90")=="hit_shotgun" and profile.damage("AWP")=="hit_sniper" and profile.damage("KNIFE")=="hit_melee","CS damage families resolve")
 	service.stop();service.observe_health();g.players[1].hp=75;service.observe_health()
 	check(service.last_effect=="healing" and not output.cues.is_empty(),"Observed health gain plays healing wave")
 	service.stop();service.last_effect="";g.players[1].serial=2;g.players[1].hp=100;service.observe_health()

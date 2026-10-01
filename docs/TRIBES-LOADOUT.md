@@ -17,6 +17,9 @@ commander/sensor interface remain incomplete.
 - Light carries three guns, Medium four, Heavy five. Laser rifle requires Light
   and an energy pack; mortar requires Heavy. The repair pack supplies a repair
   gun without consuming a primary-gun slot.
+- The [armour image enhancer](ST-TRIBES.md#image-enhancer) provides 2×/5×/10×/20×
+  viewpoint zoom with every weapon: hold alternate fire, cycle with X/wheel on
+  desktop or turn-stick up/down while holding the support trigger in VR.
 - One optional pack: energy, ammunition, repair, shield or sensor jammer. Energy adds
   3/second to the base 8/second recharge. Ammunition increases per-weapon limits.
   Use activates shields/jamming or selects the repair gun. H or the inventory

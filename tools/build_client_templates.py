@@ -14,6 +14,22 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSION = '4.7.2-stable'
 SOURCE_SHA256 = 'e954996374cbd1cb5d72e0e3781cc537408e6ce73b010b12c6c2f308a820690a'
 NAMES = {'linuxbsd': 'linux.x86_64', 'windows': 'windows.x86_64.exe', 'android': 'godot-lib.template_release.aar'}
+PATCHES = ['openxr-shutdown.patch']
+
+
+def patch_hashes():
+    return {name: hashlib.sha256((ROOT / 'tools/patches' / name).read_bytes()).hexdigest() for name in PATCHES}
+
+
+def patch_source(source):
+    for name in PATCHES:
+        patch = ROOT / 'tools/patches' / name
+        command = ['patch', '--batch', '-p1', '-i', str(patch)]
+        forward = subprocess.run([*command, '--forward', '--dry-run'], cwd=source, capture_output=True)
+        if forward.returncode == 0:
+            subprocess.run([*command, '--forward'], cwd=source, check=True)
+        elif subprocess.run([*command, '--reverse', '--dry-run'], cwd=source, capture_output=True).returncode:
+            raise RuntimeError(f'Engine patch does not match source: {name}')
 
 
 def main():
@@ -25,6 +41,8 @@ def main():
     args = parser.parse_args()
     if not args.scons and not args.container: parser.error('SCons is required; provide --scons or --container')
     work = ROOT / 'Builds/ClientRuntime'; work.mkdir(parents=True, exist_ok=True)
+    (work.parent / '.gdignore').touch()
+    (work / '.gdignore').touch()
     archive = work / ('godot-' + VERSION + '.tar.gz')
     if not archive.exists():
         cached = ROOT / 'Builds/ServerRuntime' / archive.name
@@ -37,6 +55,7 @@ def main():
     source = platform_work / ('godot-' + VERSION)
     if not source.exists():
         with tarfile.open(archive) as bundle: bundle.extractall(platform_work, filter='data')
+    patch_source(source)
     flags = dict(platform=args.platform, target='template_release', arch='arm64' if args.platform == 'android' else 'x86_64',
                  opengl3='no', vulkan='yes', openxr='yes', production='yes', lto='none')
     if args.platform == 'windows': flags['d3d12'] = 'no'
@@ -51,6 +70,10 @@ def main():
                     else 'localhost/fpsloppa-client-toolchain:godot-4.7.2-jammy']
     subprocess.run([*command, *[f'{k}={v}' for k, v in flags.items()], f'-j{args.jobs}'], cwd=source, check=True)
     if args.platform == 'android':
+        # Editor scans from older checkouts can leave Godot import sidecars in
+        # Android resources; AAPT must never receive these generated files.
+        for sidecar in (source / 'platform/android/java').rglob('*.import'):
+            sidecar.unlink()
         env = os.environ.copy()
         env.setdefault('ANDROID_HOME', str(Path.home() / 'Android/Sdk'))
         env.setdefault('JAVA_HOME', str(Path.home() / '.local/share/entryway-toolchains/jdk-17.0.20.1+1'))
@@ -63,7 +86,7 @@ def main():
         output = source / 'bin' / ('godot.' + args.platform + '.template_release.x86_64' + ('.exe' if args.platform == 'windows' else ''))
     dest = ROOT / 'Builds/ClientTemplates' / NAMES[args.platform]; dest.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(output, dest)
-    receipt = dict(engine=VERSION, source_sha256=SOURCE_SHA256, flags=flags, sha256=hashlib.sha256(dest.read_bytes()).hexdigest())
+    receipt = dict(engine=VERSION, source_sha256=SOURCE_SHA256, patches=patch_hashes(), flags=flags, sha256=hashlib.sha256(dest.read_bytes()).hexdigest())
     dest.with_suffix(dest.suffix + '.json').write_text(json.dumps(receipt, indent=2) + '\n')
     from renderer_policy import require_client_template
     require_client_template(args.platform)

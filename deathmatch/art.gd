@@ -52,6 +52,9 @@ static func model_id(id: int,rules: String) -> int:
 	return clampi(id,0,9)
 
 static func muzzle(id: int,rules: String="doom") -> Vector3:
+	var authored=preload("res://deathmatch/weapons/fidelity/dimensions.gd").MUZZLES
+	var key:=rules+"_"+str(id)
+	if authored.has(key):return authored[key]
 	if rules=="tribes":return preload("res://deathmatch/tribes/models.gd").muzzle(id)
 	if rules=="cs16":return preload("res://deathmatch/counterstrike/models.gd").muzzle(id)
 	if rules=="sentry":return Vector3(0,0,-.855534)
@@ -89,21 +92,33 @@ static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: 
 # Packed visuals share immutable decoration; mutable CS actions are constructed fresh.
 static var weapon_templates: Dictionary={}
 const TEMPLATE_LIMIT:=64
+const Presentation=preload("res://deathmatch/weapons/presentation/details.gd")
 static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
 	var key:=rules+":"+str(id)
 	var root: Node3D
 	if rules in ["cs16","tribes"]:
 		root=_build_weapon(id,rules)
+		Presentation.apply(root,id,rules)
 	elif weapon_templates.has(key):root=weapon_templates[key].instantiate()
 	else:
 		root=_build_weapon(id,rules)
+		Presentation.apply(root,id,rules)
 		_own_weapon(root,root)
 		var packed:=PackedScene.new()
 		if packed.pack(root)==OK:
 			if weapon_templates.size()>=TEMPLATE_LIMIT:weapon_templates.erase(weapon_templates.keys()[0])
 			weapon_templates[key]=packed
 	if DisplayServer.get_name()!="headless":load("res://deathmatch/maps/filtering.gd").new().apply(root,filter_mode)
+	Presentation.attach(root,id,rules)
 	return root
+static func fire(model: Node3D,slot: int,rules: String,cycle: float):
+	if not is_instance_valid(model) or model.get_meta("presentation","")!=rules+":"+str(slot):return
+	var action=model.get_node_or_null("WeaponMechanism")
+	if action:action.shot(cycle)
+static func charge(model: Node3D,value: float):
+	if not is_instance_valid(model):return
+	var action=model.get_node_or_null("WeaponMechanism")
+	if action:action.charging(value)
 static func _own_weapon(node: Node,root: Node) -> void:
 	# Flatten imported scene instances before packing their owned children.
 	# Otherwise PackedScene can instantiate both the source scene and the copy.
@@ -121,6 +136,10 @@ static func _build_weapon(id: int,rules: String) -> Node3D:
 	if rules=="cs16":
 		var cs_model:=preload("res://deathmatch/counterstrike/models.gd").make(id)
 		return cs_model
+	var authored_path:="res://deathmatch/weapons/fidelity/"+rules+"_"+str(id)+".scn"
+	if ResourceLoader.exists(authored_path):
+		if not weapon_scenes.has(authored_path):weapon_scenes[authored_path]=load(authored_path)
+		return weapon_scenes[authored_path].instantiate()
 	var slot:=id
 	id=model_id(id,rules)
 	var root := Node3D.new()
@@ -302,5 +321,7 @@ static func variant_details(root: Node3D,model: Node3D,slot: int,rules: String) 
 					var angle:=i*TAU/12;var tooth:=box(root,Vector3(sin(angle)*.23,.21,-.36+cos(angle)*.23),Vector3(.055,.026,.045),accent);tooth.rotation.y=angle
 			11:
 				model.scale=Vector3(.72,.8,.50)
-				var disc:=variant_barrel(root,Vector3(0,.08,-.23),.19,.055,accent);disc.rotation.x=0
-				var core:=variant_barrel(root,Vector3(0,.115,-.23),.11,.02,material(Color("98baff"),.2,1));core.rotation.x=0
+				# Preserve the original flared disc and core; move the assembly
+				# above the receiver (top y=.14081) instead of through it.
+				var disc:=variant_barrel(root,Vector3(0,.18,-.23),.19,.055,accent);disc.rotation.x=0;disc.name="TranslocatorDisc"
+				var core:=variant_barrel(root,Vector3(0,.215,-.23),.11,.02,material(Color("98baff"),.2,1));core.rotation.x=0;core.name="DiscCore"

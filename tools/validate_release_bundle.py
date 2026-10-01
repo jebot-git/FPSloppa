@@ -6,7 +6,7 @@ ROOT=Path(__file__).resolve().parents[1]
 VERSION=(ROOT/'VERSION').read_text().strip()
 base=json.loads((ROOT/'deathmatch/assets/base_manifest.json').read_text())
 rows=[]
-for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),('Windows','FPSloppa-Windows.zip','FPSloppa-Windows/'),('Server','FPSloppa-Dedicated-Server-Linux.zip','FPSloppa-Server/'),('Source','FPSloppa-Deathmatch.zip','Godot/')]:
+for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),('Windows','FPSloppa-Windows.zip','FPSloppa-Windows/'),('Server','FPSloppa-Dedicated-Server-Linux.zip','FPSloppa-Server/'),('BotWorker','FPSloppa-Bot-Worker-Linux.zip','FPSloppa-BotWorker/'),('Source','FPSloppa-Deathmatch.zip','Godot/')]:
     archive=ROOT.parent/filename
     with zipfile.ZipFile(archive) as z:
         assert z.testzip() is None, filename
@@ -24,10 +24,15 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
             assert p.suffix.lower() not in {'.log','.mp4','.bak','.tmp','.pyc','.blend1','.blend2','.keystore','.jks','.p12'}, name
             assert p.name not in {'Entryway.pck','Entryway.exe','Entryway.x86_64'}, name
             assert p.parts[1:3]!=('maps','Community'), name
-        assets=[row for row in base['files'] if label!='Server' or Path(row['path']).suffix not in {'.scn','.lit'} and 'cache' not in Path(row['path']).parts]
+        assets=[row for row in base['files'] if label not in {'Server','BotWorker'} or Path(row['path']).suffix not in {'.scn','.lit'} and 'cache' not in Path(row['path']).parts]
         for row in assets:
             data=z.read(prefix+row['path'])
             assert len(data)==row['size'] and hashlib.sha256(data).hexdigest()==row['sha256'], (label,row['path'])
+        if label in {'Server','BotWorker'}:
+            for launcher in ['start-server.sh','start-bot-worker.sh','fpsloppa-bot-worker.service','server-worker.example.cfg']:
+                assert prefix+launcher in names, (label,launcher)
+            assert z.read(prefix+'server.cfg')==(ROOT/'server.cfg').read_bytes()
+            assert not any(n.endswith(('.exe','.dll','.apk')) for n in names), label
         if label!='Source':
             assert {n for n in names if n.startswith((prefix+'maps/',prefix+'vrm/'))}=={prefix+row['path'] for row in assets}, ('Orphaned installed asset',label)
             assert not any(Path(n).suffix in {'.wad','.map','.png'} for n in names if n.startswith(prefix+'maps/'))

@@ -3,7 +3,7 @@ const Preferences=preload("res://deathmatch/haptics/preferences.gd")
 var game
 var config_path:=""
 var enabled: CheckButton
-var backend: OptionButton
+var backend
 var host: LineEdit
 var port: SpinBox
 var osc_row: HBoxContainer
@@ -11,7 +11,7 @@ var ble_row: HBoxContainer
 var strength_row: HBoxContainer
 var strength: HSlider
 var strength_label: Label
-var device_choice: OptionButton
+var device_choice
 var devices_snapshot:=""
 var toggles: Dictionary={}
 var status: Label
@@ -24,8 +24,10 @@ func setup(arena: Node) -> void:
 	add_child(help)
 	var mode_row:=HBoxContainer.new();add_child(mode_row)
 	enabled=CheckButton.new();enabled.text="Enable bHaptics";enabled.custom_minimum_size.y=44;enabled.size_flags_horizontal=Control.SIZE_EXPAND_FILL;mode_row.add_child(enabled)
-	backend=OptionButton.new();backend.add_item("OSC receiver",0);backend.add_item("Native Bluetooth",1);backend.set_item_disabled(1,not Preferences.Platform.supports_native());mode_row.add_child(backend)
-	backend.item_selected.connect(func(_index: int):save())
+	backend=preload("res://deathmatch/ui/choice.gd").new();mode_row.add_child(backend)
+	var outputs: Array=[{"id":"osc","title":"OSC receiver"}]
+	if Preferences.Platform.supports_native():outputs.append({"id":"ble","title":"Native Bluetooth"})
+	backend.configure(outputs,"OUTPUT");backend.selected.connect(func(_id):save())
 	osc_row=HBoxContainer.new();add_child(osc_row)
 	var label:=Label.new();label.text="Receiver IP";osc_row.add_child(label)
 	host=LineEdit.new();host.size_flags_horizontal=Control.SIZE_EXPAND_FILL;host.placeholder_text="127.0.0.1";host.max_length=45;osc_row.add_child(host)
@@ -34,10 +36,10 @@ func setup(arena: Node) -> void:
 	ble_row=HBoxContainer.new();add_child(ble_row)
 	button(ble_row,"SCAN",func():
 		if game.haptics and game.haptics.output.has_method("scan"):game.haptics.output.scan())
-	device_choice=OptionButton.new();device_choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL;device_choice.fit_to_longest_item=false;ble_row.add_child(device_choice)
+	device_choice=preload("res://deathmatch/ui/choice.gd").new();device_choice.size_flags_horizontal=Control.SIZE_EXPAND_FILL;ble_row.add_child(device_choice)
 	button(ble_row,"CONNECT",func():
-		if game.haptics and game.haptics.output.has_method("connect_device") and device_choice.selected>=0:
-			game.haptics.output.connect_device(str(device_choice.get_item_metadata(device_choice.selected))))
+		if game.haptics and game.haptics.output.has_method("connect_device") and not device_choice.value.is_empty():
+			game.haptics.output.connect_device(device_choice.value))
 	strength_row=HBoxContainer.new();add_child(strength_row)
 	strength_label=Label.new();strength_label.custom_minimum_size.x=160;strength_row.add_child(strength_label)
 	strength=HSlider.new();strength.min_value=0;strength.max_value=1;strength.step=.05;strength.size_flags_horizontal=Control.SIZE_EXPAND_FILL;strength.custom_minimum_size.y=36;strength_row.add_child(strength)
@@ -54,13 +56,13 @@ func setup(arena: Node) -> void:
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="OSC strength is set in the receiver. Direct Bluetooth supports X40 and Air only.";add_child(notice)
 	enabled.toggled.connect(func(_on: bool):save())
 	var values: Dictionary=game.haptics.values if game.haptics else Preferences.read_settings()
-	enabled.set_pressed_no_signal(values.enabled);backend.select(1 if values.backend=="ble" else 0);host.text=values.host;port.value=values.port;strength.set_value_no_signal(values.intensity)
+	enabled.set_pressed_no_signal(values.enabled);backend.set_block_signals(true);backend.choose(values.backend);backend.set_block_signals(false);host.text=values.host;port.value=values.port;strength.set_value_no_signal(values.intensity)
 	for key in toggles:toggles[key].set_pressed_no_signal(values[key])
 	refresh()
 func button(parent: Node,title: String,action: Callable) -> Button:
 	var control:=Button.new();control.text=title;control.custom_minimum_size=Vector2(76,44);control.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(control);control.pressed.connect(action);return control
 func save() -> void:
-	var values: Dictionary={"enabled":enabled.button_pressed,"backend":"ble" if backend.selected==1 else "osc","intensity":strength.value,"host":host.text.strip_edges(),"port":int(port.value)}
+	var values: Dictionary={"enabled":enabled.button_pressed,"backend":backend.value,"intensity":strength.value,"host":host.text.strip_edges(),"port":int(port.value)}
 	for key in toggles:values[key]=toggles[key].button_pressed
 	if values.backend=="osc" and not Preferences.valid_endpoint(values.host,values.port):
 		values.enabled=false;enabled.set_pressed_no_signal(false)
@@ -72,7 +74,7 @@ func save() -> void:
 	notice.text="Saved. Use TEST VEST to check feedback." if err==OK else "Applied; saving failed: "+error_string(err)
 	refresh()
 func refresh() -> void:
-	var direct:=backend.selected==1
+	var direct: bool=backend.value=="ble"
 	osc_row.visible=not direct;ble_row.visible=direct;strength_row.visible=direct
 	strength_label.text="Strength: %d%%"%roundi(strength.value*100)
 	status.text=game.haptics.status_text() if game.haptics else "bHaptics is unavailable on this client."
@@ -82,8 +84,9 @@ func refresh() -> void:
 		var devices: Array=game.haptics.output.devices()
 		var snapshot:=JSON.stringify(devices)
 		if snapshot!=devices_snapshot:
-			devices_snapshot=snapshot;device_choice.clear()
-			for device in devices:
-				device_choice.add_item(str(device.name)+" · "+str(device.id));device_choice.set_item_metadata(device_choice.item_count-1,device.id)
+			devices_snapshot=snapshot
+			var options: Array=[]
+			for device in devices:options.append({"id":str(device.id),"title":str(device.name)+" · "+str(device.id)})
+			device_choice.configure(options,"SCAN FOR A VEST")
 func _process(_delta: float) -> void:
 	if is_visible_in_tree():refresh()

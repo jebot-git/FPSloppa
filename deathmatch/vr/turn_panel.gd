@@ -1,5 +1,6 @@
 extends PanelContainer
 var rig
+var book
 var mode: Button
 var speed: Label
 var angle: Label
@@ -24,7 +25,7 @@ func setup(value: Node) -> void:
 	stock=add_button(weapons,"",func():rig.virtual_stock_enabled=not rig.virtual_stock_enabled;rig.virtual_stock.reset();save())
 	pump=add_button(weapons,"",func():rig.pump_auto_transfer=not rig.pump_auto_transfer;rig.physical_reload.reset();save())
 	pump.tooltip_text="M3: keep offhand grip held and release weapon grip to snap into the pump hold. Grip the weapon hand to take it back."
-	add_button(column,"RECENTER / CALIBRATE SEATED HEIGHT",func():rig.recenter();refresh())
+	var recenter=add_button(column,"RECENTER / CALIBRATE SEATED HEIGHT",func():rig.recenter();refresh())
 	mode=add_button(column,"",func():rig.smooth_turn=not rig.smooth_turn;save())
 	for setting in ["turn_speed","snap_angle"]:
 		var label:=Label.new();label.text="Smooth turn speed" if setting=="turn_speed" else "Snap turn angle";column.add_child(label)
@@ -37,7 +38,20 @@ func setup(value: Node) -> void:
 		else:angle=number;angle_up=plus
 	notice=Label.new();notice.text="Changes apply immediately and are saved for next time.";notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;column.add_child(notice)
 	var space:=Control.new();space.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(space)
-	add_button(column,"BACK",hide)
+	book=preload("res://deathmatch/ui/menu_pages.gd").new();add_child(book)
+	book.add_page("home","VR CONTROLS")
+	var turning: VBoxContainer=book.add_page("turning","TURNING")
+	var handling: VBoxContainer=book.add_page("handling","WEAPON HANDLING")
+	var posture: VBoxContainer=book.add_page("posture","HANDEDNESS & SEATING")
+	book.link("home","turning","TURNING")
+	book.link("home","handling","WEAPON HANDLING")
+	book.link("home","posture","HANDEDNESS & SEATING")
+	for child in column.get_children():
+		if child in [title,notice,space] or child==weapons:continue
+		child.reparent(posture if child in [controls,seat,recenter] else turning)
+	stock.reparent(handling);pump.reparent(handling)
+	notice.reparent(book);book.move_child(notice,book.back_button.get_index())
+	column.queue_free();book.closed.connect(hide)
 	refresh()
 func add_button(parent: Node,label: String,action: Callable) -> Button:
 	var b:=Button.new();b.text=label;b.custom_minimum_size=Vector2(90,52);b.size_flags_horizontal=Control.SIZE_EXPAND_FILL;b.pressed.connect(action);parent.add_child(b);return b
@@ -54,5 +68,6 @@ func refresh() -> void:
 	pump.text="M3 AUTO OFFHAND HOLD: "+("ON" if rig.pump_auto_transfer else "OFF")
 	mode.text="TURN MODE: "+("SMOOTH" if rig.smooth_turn else "SNAP")
 	speed.text="%.0f° / s"%rig.turn_speed;angle.text="%.0f°"%rig.snap_angle
+func go_back() -> void:book.go_back()
 func open() -> void:
-	refresh();get_parent().move_child(self,-1);show()
+	book.navigate("home");refresh();get_parent().move_child(self,-1);show()

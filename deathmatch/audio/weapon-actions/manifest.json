@@ -1,0 +1,295 @@
+{
+  "sample_rate": 32000,
+  "files": [
+    {
+      "name": "saw_idle",
+      "loop": true,
+      "seconds": 1.285,
+      "target_body_dbfs": -28,
+      "peak_dbfs": -16.816521409562142,
+      "boundary_step": 0.0,
+      "sha256": "46881aac569b0f6c095f3217000635d0249c7a6a003b00bac1efdce1bebc333b"
+    },
+    {
+      "name": "saw_ready",
+      "loop": false,
+      "seconds": 0.7,
+      "target_body_dbfs": -21,
+      "peak_dbfs": -12.746195196092067,
+      "boundary_step": 0.0,
+      "sha256": "eeb05ef4b1d228a610c89bdebbf7ff778b5e78fc9aa8853815628ed188cbc062"
+    },
+    {
+      "name": "saw_settle",
+      "loop": false,
+      "seconds": 0.28,
+      "target_body_dbfs": -24,
+      "peak_dbfs": -13.581483839747694,
+      "boundary_step": 0.0,
+      "sha256": "aca6839ec1ae33b2112266d37bba44db6683499eb5d7e69e52585156a5251af2"
+    },
+    {
+      "name": "rotor_run",
+      "loop": true,
+      "seconds": 1.635,
+      "target_body_dbfs": -28,
+      "peak_dbfs": -20.89320622224249,
+      "boundary_step": 0.0,
+      "sha256": "bd5175494fc8642b7b4b82f1e64ccf6dc843853128d5269647e7e32a9a6db8ab"
+    },
+    {
+      "name": "rotor_start",
+      "loop": false,
+      "seconds": 0.26,
+      "target_body_dbfs": -22,
+      "peak_dbfs": -10.275581403306035,
+      "boundary_step": 0.0,
+      "sha256": "08e38b59cb4bf842250dd2d4d368beb152ff6491fb05b922ffb8797ae7e07592"
+    },
+    {
+      "name": "rotor_stop",
+      "loop": false,
+      "seconds": 0.5,
+      "target_body_dbfs": -22,
+      "peak_dbfs": -10.288259720089377,
+      "boundary_step": 0.0,
+      "sha256": "fdb1d3e5fe50e7619e008cb0915588d1316b414f257813ced7a45a9a71fdb4ba"
+    },
+    {
+      "name": "hammer_charge",
+      "loop": true,
+      "seconds": 1.535,
+      "target_body_dbfs": -24,
+      "peak_dbfs": -16.483921883531973,
+      "boundary_step": 0.0,
+      "sha256": "61b752f0298933b9bf0af1f2bef59a327a24dc8f87b8283e1325ace14b8db05e"
+    },
+    {
+      "name": "hammer_start",
+      "loop": false,
+      "seconds": 0.22,
+      "target_body_dbfs": -22,
+      "peak_dbfs": -12.524446742286074,
+      "boundary_step": 0.0,
+      "sha256": "884d2c36606c6b5f0dc9917e8a4fb8871a2a8f6d865db2acc6c777c156d34820"
+    },
+    {
+      "name": "pressure_release",
+      "loop": false,
+      "seconds": 0.3,
+      "target_body_dbfs": -24,
+      "peak_dbfs": -12.097275888626662,
+      "boundary_step": 0.0,
+      "sha256": "e4519713fdc8072ff3d95508360b1e1339b6b36af026e46652669407a36731e5"
+    },
+    {
+      "name": "bio_charge",
+      "loop": true,
+      "seconds": 1.635,
+      "target_body_dbfs": -24,
+      "peak_dbfs": -16.466671327359403,
+      "boundary_step": 0.0,
+      "sha256": "def812c4635e420a7a6d89338564441b2703a8bad28ad832d49b0dc63a71709d"
+    },
+    {
+      "name": "bio_valve",
+      "loop": false,
+      "seconds": 0.22,
+      "target_body_dbfs": -23,
+      "peak_dbfs": -12.244577215029937,
+      "boundary_step": 0.0,
+      "sha256": "d14f8a7552363713c5516bc16c21bc707b977e272c09821212c0976d46686777"
+    },
+    {
+      "name": "bio_settle",
+      "loop": false,
+      "seconds": 0.3,
+      "target_body_dbfs": -24,
+      "peak_dbfs": -12.275735047026874,
+      "boundary_step": 0.0,
+      "sha256": "3aad272eb75dcabae684f3046a80226ebc96fbc081f20d3bc37cb4fe38589eb5"
+    },
+    {
+      "name": "rocket_load",
+      "loop": false,
+      "seconds": 0.22,
+      "target_body_dbfs": -21,
+      "peak_dbfs": -9.627556733530643,
+      "boundary_step": 0.0,
+      "sha256": "95a67c84884d35ca30c486dd7e68abb0dccc146b5b4d027c2405b2021ecc55a6"
+    },
+    {
+      "name": "launcher_close",
+      "loop": false,
+      "seconds": 0.3,
+      "target_body_dbfs": -22,
+      "peak_dbfs": -13.393638357267951,
+      "boundary_step": 0.0,
+      "sha256": "b541e4dccce0e7ddffc77d8a6e6ed1715bb2a2e1fc614a305e7d2c89a6239e46"
+    },
+    {
+      "name": "pulse_run",
+      "loop": true,
+      "seconds": 1.435,
+      "target_body_dbfs": -29,
+      "peak_dbfs": -19.033929915085967,
+      "boundary_step": 0.0,
+      "sha256": "cfcbb1fa6d2496940bfb8f578b63cedabccfc39fd6cb4c25afd8bbd559bd9666"
+    },
+    {
+      "name": "pulse_stop",
+      "loop": false,
+      "seconds": 0.4,
+      "target_body_dbfs": -22,
+      "peak_dbfs": -13.172620973271183,
+      "boundary_step": 0.0,
+      "sha256": "ddb002dfe2028f16187663d11feba717a70b02cbb7b5a91762e26dfc2a7b10e7"
+    },
+    {
+      "name": "energy_select",
+      "loop": false,
+      "seconds": 0.24,
+      "target_body_dbfs": -23,
+      "peak_dbfs": -8.63581104697088,
+      "boundary_step": 0.0,
+      "sha256": "5aa8adce51afccb6ccc9a43e35262d52ab65821ad9c21f1ad7fa2cd1ab117393"
+    },
+    {
+      "name": "lightning_start",
+      "loop": false,
+      "seconds": 0.14,
+      "target_body_dbfs": -23,
+      "peak_dbfs": -10.97388058338191,
+      "boundary_step": 0.0,
+      "sha256": "c91f9c631f9a2f37203f2e4d6e80809927d4064e2a496749908e110ef7dc17e9"
+    },
+    {
+      "name": "lightning_run",
+      "loop": true,
+      "seconds": 1.335,
+      "target_body_dbfs": -29,
+      "peak_dbfs": -20.746795696503003,
+      "boundary_step": 0.0,
+      "sha256": "a5cf815be72ea945d3c2d4dfadb40c8b44e15158b4a147339e8a99d48592dcb8"
+    },
+    {
+      "name": "lightning_stop",
+      "loop": false,
+      "seconds": 0.19,
+      "target_body_dbfs": -25,
+      "peak_dbfs": -17.608382472823696,
+      "boundary_step": 0.0,
+      "sha256": "17d64d940a4c9c5820e3c3328083de7ba3f88a07e876efb83eb3d0b0a1120895"
+    },
+    {
+      "name": "disc_reseat",
+      "loop": false,
+      "seconds": 0.4,
+      "target_body_dbfs": -22,
+      "peak_dbfs": -9.48364459288555,
+      "boundary_step": 0.0,
+      "sha256": "b9a903cf1c39028ee0f19c83e62214edc533512b30d1eb528126d22e998bf7df"
+    },
+    {
+      "name": "plasma_vent",
+      "loop": false,
+      "seconds": 0.28,
+      "target_body_dbfs": -25,
+      "peak_dbfs": -14.786806514493762,
+      "boundary_step": 0.0,
+      "sha256": "f124cd2661bb1ccfb8a7e8bd8525fde7ba6de043e9763d93d1d6eef0317669e5"
+    },
+    {
+      "name": "laser_reset",
+      "loop": false,
+      "seconds": 0.23,
+      "target_body_dbfs": -24,
+      "peak_dbfs": -13.837423994535776,
+      "boundary_step": 0.0,
+      "sha256": "bc78a589b96d2415a54863115da9a36bdc3e0ac3e1ce3e49aa6179d03bdead47"
+    },
+    {
+      "name": "mortar_reseat",
+      "loop": false,
+      "seconds": 0.52,
+      "target_body_dbfs": -21,
+      "peak_dbfs": -13.05596305674734,
+      "boundary_step": 0.0,
+      "sha256": "a092a494e27ea2136c4c83e0b8fa73fa025794c96c46c83911c62d07c8606ace"
+    },
+    {
+      "name": "elf_run",
+      "loop": true,
+      "seconds": 1.585,
+      "target_body_dbfs": -28,
+      "peak_dbfs": -19.387680887314687,
+      "boundary_step": 0.0,
+      "sha256": "9211577e040f8528d29753259b3b6d9c0a0593e699bb293a1bfd57be70155473"
+    },
+    {
+      "name": "repair_run",
+      "loop": true,
+      "seconds": 1.635,
+      "target_body_dbfs": -30,
+      "peak_dbfs": -23.750609734571803,
+      "boundary_step": 0.0,
+      "sha256": "77498fa1c845ff1f9a223ec1dee8d07befc022dd58e8e418e2cbe63e6e584db1"
+    },
+    {
+      "name": "flame_ignite",
+      "loop": false,
+      "seconds": 0.2,
+      "target_body_dbfs": -23,
+      "peak_dbfs": -13.320370116906181,
+      "boundary_step": 0.0,
+      "sha256": "d427fd6880266185201cf8b758c3e2f65e5e2ea1a01419cf6bc852389d5040bb"
+    },
+    {
+      "name": "flame_out",
+      "loop": false,
+      "seconds": 0.32,
+      "target_body_dbfs": -24,
+      "peak_dbfs": -12.382360657861202,
+      "boundary_step": 0.0,
+      "sha256": "99d04c8d0d25b316765aed6baf81ab38b3afca2a1fa75bf6ffdb24634fc9b583"
+    },
+    {
+      "name": "pistol_draw",
+      "loop": false,
+      "seconds": 0.18,
+      "target_body_dbfs": -23,
+      "peak_dbfs": -6.000000000000001,
+      "boundary_step": 0.0,
+      "sha256": "907608e873d8cb76a034948c2c8a0e36f6669d910a79aee7157de69abc435db5"
+    },
+    {
+      "name": "rifle_draw",
+      "loop": false,
+      "seconds": 0.25,
+      "target_body_dbfs": -23,
+      "peak_dbfs": -10.72801899316799,
+      "boundary_step": 0.0,
+      "sha256": "9948307406646c388740a2a4fe053478820d949dcfad3408d8605c1e686dfefb"
+    },
+    {
+      "name": "bolt_cycle",
+      "loop": false,
+      "seconds": 0.42,
+      "target_body_dbfs": -22,
+      "peak_dbfs": -14.453536042116404,
+      "boundary_step": 0.0,
+      "sha256": "b104f8ef05b26c516aea83f3f153b39e8704307812d3308d7a2d0721462c583c"
+    }
+  ],
+  "sources": {
+    "tools/audio-sources/weapon-actions/edited/motor.wav": "9e6e75ebca1f2343023ddc7af0db51d653c1942d30d9201ce5dd3e28694f487f",
+    "tools/audio-sources/weapon-actions/edited/liquid.wav": "b662d1c72d627a152743915b2a82c9c745f86aa5e0f323aa79e326bd2537008b",
+    "tools/audio-sources/weapon-actions/edited/pressure.wav": "9db201a0dabf85e961eb1ad9478993e34b8d51f5198e112fe91da5ceaa9b3c07",
+    "tools/audio-sources/weapon-actions/edited/mechanism.wav": "fc9b5b85b392b21c584211d8cb69f97e3ebc2adb0d1eadc4c8b560acd1ab50c4",
+    "deathmatch/audio/recorded/impactMetal_light_002.ogg": "25a96f90a9a1f88a531e824e126f0519504625e5635e65a72e4f31611428db29",
+    "tools/audio-sources/natural-weapons/shotguncock.wav": "33e007321ba83301c861aef573f2c40b70bc62f8f24c0164877e6dd123e24371",
+    "tools/audio-sources/weapon-actions/edited/saw_idle.wav": "407f0712b5663292a4270cd11f5cf9b735683b953607506eaaa6109d1e640e6d",
+    "tools/audio-sources/weapon-actions/edited/saw_ready.wav": "241b76d195529d2fc508a4f900442a926fce209c199188408098380808c480f8"
+  },
+  "mastering": "Audacity MCP edited stems; 50ms RMS role targets with -6 dBFS sample ceiling; gapless overlap for loops"
+}

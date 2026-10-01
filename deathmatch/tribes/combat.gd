@@ -26,7 +26,7 @@ func tick(delta: float):
 		spins[id]=clampf(float(spins.get(id,0.0))+delta*(2.0 if firing else -1.0/3.0),0,1)
 func tick_input(id: int,_delta: float):
 	var s: Dictionary=game.players[id]
-	s.weapon_zoom=s.weapon==5 and s.get("alt_fire",false)
+	s.weapon_zoom=s.get("alt_fire",false) and not s.get("input_blocked",false)
 	if s.fire:fire(id)
 func fire(id: int) -> bool:
 	if not game.multiplayer.is_server() or not rules.enabled() or not game.players.has(id):return false

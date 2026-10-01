@@ -1,19 +1,59 @@
 extends Node
 ## Content-addressed, self-contained VRM library. Gameplay never derives collision from it.
+# Warm client scripts without importing GLTF or shaders into dedicated servers.
+var visual_loader:Script
+func _init() -> void:
+	if ClassDB.class_exists("GLTFDocument") and not OS.has_feature("dedicated_server"):
+		visual_loader=load("res://deathmatch/avatars/visual_loader.gd")
 const MAX_BYTES := 25_000_000
 const Paths=preload("res://deathmatch/assets/paths.gd")
 static var CACHE: String:
 	get: return Paths.folder("vrm")
 var entries: Dictionary = {}
 var scenes: Dictionary = {}
+var scene_used:Dictionary={}
+var disk_scenes:Dictionary={}
+var scene_instances:Dictionary={}
+var scene_clock:=0
+var _runtime_cache:Node
+const INACTIVE_SCENES=4
+func runtime_cache() -> Node:
+	if not is_instance_valid(_runtime_cache):
+		_runtime_cache=load("res://deathmatch/avatars/runtime_cache.gd").new()
+		add_child(_runtime_cache)
+	return _runtime_cache
+func touch_scene(hash:String) -> void:
+	scene_clock+=1;scene_used[hash]=scene_clock
+func remember_scene(hash:String,packed:PackedScene) -> void:
+	scenes[hash]=packed;touch_scene(hash);prune_scenes(hash)
+func track_instance(hash:String,rig:Node) -> void:
+	if not scene_instances.has(hash):scene_instances[hash]=[]
+	scene_instances[hash].append(weakref(rig));touch_scene(hash)
+func prune_scenes(keep:String="") -> void:
+	var inactive:=[]
+	for hash in scenes:
+		var live:Array=scene_instances.get(hash,[]).filter(func(reference):return is_instance_valid(reference.get_ref()))
+		if live.is_empty():scene_instances.erase(hash)
+		else:scene_instances[hash]=live
+		if live.is_empty() and hash not in pinned and hash!=keep and hash!=selected:inactive.append(hash)
+	inactive.sort_custom(func(a,b):return int(scene_used.get(a,0))<int(scene_used.get(b,0)))
+	while inactive.size()>INACTIVE_SCENES:
+		var hash:String=inactive.pop_front();scenes.erase(hash);scene_used.erase(hash);disk_scenes.erase(hash)
+func prepare_avatar(hash:String) -> bool:
+	return visual_loader.prepare_avatar(self,hash) if visual_loader else false
+
 var selected := ""
 var last_error := ""
 var pinned: Array = []
 const CACHE_BUDGET := 1_000_000_000
 
+var cache_prune_time:=0.0
+func _process(delta:float) -> void:
+	cache_prune_time+=delta
+	if cache_prune_time>=2.0:cache_prune_time=0.0;prune_scenes()
 func _ready() -> void:reload()
 func reload() -> void:
-	entries.clear();scenes.clear();selected=""
+	entries.clear();selected=""
 	DirAccess.make_dir_recursive_absolute(CACHE)
 	var manifest = JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/avatars/models/manifest.json"))
 	if manifest is Array:
@@ -158,7 +198,7 @@ func choose(hash: String) -> void:
 
 func create_avatar(hash: String) -> Node3D:
 	if OS.has_feature("dedicated_server"):return null
-	return load("res://deathmatch/avatars/visual_loader.gd").create_avatar(self,hash)
+	return visual_loader.create_avatar(self,hash) if visual_loader else null
 
 static func validate_structure(doc: Dictionary) -> String:
 	for key in ["nodes","buffers","bufferViews","accessors","images","meshes","skins","textures","materials","animations","scenes"]:

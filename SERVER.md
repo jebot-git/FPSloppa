@@ -30,6 +30,8 @@ Output is `Builds/ConsoleServer/` inside the project. This replaces the legacy g
 
 The shipped process needs only the platform C/C++ runtime libraries (`libc`, `libm`, `libstdc++`, `libgcc_s` and the ELF loader). It does not require Godot, graphics libraries, an audio daemon, a desktop session or audio hardware. The default Ubuntu 22.04 build keeps the library baseline compatible with that distribution and newer compatible Linux systems. For `--native-toolchain` builds, compile on the oldest distribution you intend to support: the host compiler determines the glibc/libstdc++ requirements.
 
+The project uses built-in **Jolt Physics** for both clients and dedicated servers. The console builder includes Jolt and retains Godot Physics as a fallback build option; generated server settings copy the project’s selected backend. Packaging and verification launch a probe and reject older stripped templates without Jolt support. Rebuild client/server packages together when changing the backend; existing remote installations are not updated by editing the project. Physics remains on the main thread at the Godot project level.
+
 The minimal PCK contains server gameplay, physics/navigation, networking, packet relay and metadata validation. Original BSP and VRM files remain outside the PCK for client downloads. The server constructs collision and liquid volumes from BSP data without reading texture pixels or graphical scene caches. It does not decode voice or instantiate avatar models; clients still perform spatial playback and rendering. Dummy Godot resource/display/audio APIs remain for shared engine types, with no hardware drivers.
 
 `server-build.json` records compiler options, runtime dependencies, resource inventory and executable/PCK digests. `python3 tools/build_console_server.py --verify-only` checks the existing artifact; `python3 deathmatch/tests/run_console_server_tests.py` exercises the server resource graph and map/lobby physics in the same console runtime. The full release builder always uses this server builder, and `--package-only` audits the artifact before archiving it. To reuse an already compiled runtime, pass `--template /absolute/console-template` or set `FPSLOPPA_SERVER_TEMPLATE` for `tools/build_release.py`. A generic Godot template fails the driver audit.
@@ -77,6 +79,98 @@ Set `sv_maxclients "32"` to allow up to 32 connections. **Player limits above 16
 
 For a ten-player match populated automatically, use `set sv_maxclients "10"` and `set sv_bot_fill "10"`. The target includes spectators because they consume server slots. Human players take priority: an accepted join reserves a human seat, and a bot yields its place once the incoming player's assets are ready. Multiple simultaneous downloads cannot overbook human seats. Bots refill vacant slots after disconnects and rebuild their navigation on map rotation. They use normal server physics, objectives and TF classes, and cannot vote. A full server containing only humans still rejects extra joins. Bot AI adds server CPU work; choose the population for your hardware. RCON `status` identifies bots and reports both settings. Kicking a bot removes it through the usual departure cleanup; automatic fill will create a replacement.
 
+### External bot service
+
+Bots can run in a separate console-only process on the same machine or a remote
+worker. One worker owns a match's requested bot slots; all bots share its map,
+navigation, team tactics and native AI. The dedicated server retains movement,
+collision, damage, inventory, objectives and slot admission. Workers never send
+positions or damage. Local AI remains the default when this optional service is
+disabled.
+
+Dedicated server and bot worker target Linux x86-64 only. Release downloads
+`Dedicated-Server-Linux.zip` and `Bot-Worker-Linux.zip` contain the same console
+runtime and map assets, with launchers for either role.
+
+Build both roles together with `tools/build_console_server.py`. The resulting
+package includes `start-server.sh` and `start-bot-worker.sh`; no graphical client,
+VR runtime or second gameplay connection is needed. Use the same package and map
+assets on both hosts, including `maps/navigation`. Custom maps must already be
+installed on both sides. Mismatched map/navigation hashes or AI sources reject
+control. The host-built `Builds/BotServiceServer` is a local validation package;
+use the builder's default Ubuntu toolchain for a portable remote installation.
+
+Create a private key file containing at least 32 random bytes, copy the same file
+to both hosts, and restrict it to the service account. The key is read from a
+file; it is never placed in command arguments, RCON status or logs.
+
+Use `server-worker.example.cfg` as a starting point, or add to the dedicated
+server's configuration:
+
+```cfg
+set sv_maxclients "16"
+set sv_bot_worker_port "7780"
+set sv_bot_worker_bind "127.0.0.1"
+set sv_bot_worker_key_file "/srv/fpsloppa/bot-worker.key"
+set sv_bot_worker_limit "16"
+```
+
+`sv_bot_worker_port "0"` disables the service (the default). The limit caps the
+requested bot count and is also constrained by `sv_maxclients`. Keep loopback
+binding when using a tunnel; for a private network, bind its server-side address.
+The TCP channel authenticates every frame with HMAC-SHA256 and a fresh session
+nonce. It does not encrypt world snapshots, so use an encrypted tunnel across
+untrusted networks. The worker needs the TCP worker endpoint, not RCON access.
+
+Start a worker on its host:
+
+```sh
+./start-bot-worker.sh --bot-host 127.0.0.1 --bot-port 7780 \
+  --bot-key-file /srv/fpsloppa/bot-worker.key --bot-count 16
+```
+
+For a remote server, set `--bot-host` to its private address or the local endpoint
+of an SSH tunnel. An example tunnel from the worker host is
+`ssh -N -L 7780:127.0.0.1:7780 <server-login>@<server-host>`; leave the server bound
+to loopback. The package includes `fpsloppa-bot-worker.service` as a systemd template; edit its
+account, paths and endpoint before installing it. Use a service supervisor to
+restart a crashed worker. Its normal
+network disconnects already reconnect automatically after two seconds. Optional
+`--bot-stats /path/worker.json` writes AI time and byte counters every 150 AI ticks.
+
+The worker requests a **bot count**, temporarily replacing the configured fill
+policy. Humans retain priority and evict bots through the normal admission path;
+the worker consumes no human/player slot and cannot vote. On worker disconnect,
+the previous population policy is restored (unless an administrator changed it
+in the meantime). Thus a previous zero-fill policy removes these bots; an
+existing fill policy continues with local AI. RCON `bots N` remains available.
+`status` now includes `bot_worker` connection, lease, request, traffic, acceptance,
+rejection and action-request counters. Rejected old-life inputs around respawn or
+refitting are expected; `actions` counts validated requests, not successful buys.
+
+The dedicated server publishes state at up to 20 Hz and the worker thinks/sends
+inputs at up to 30 Hz. Physics stays at the server's normal rate. Mirrored state
+includes actors and grounded locomotion, pickups, projectiles, map controls,
+doors/lifts, flags, buildings, vehicles, purchases and mode objectives. Equipment,
+class abilities, commander completion, defusal and team callouts use a fixed
+action allowlist with normal server-side rule checks. There is no remote script
+or method execution.
+
+Each input is scoped to an assigned negative bot ID, map epoch, actor life,
+sequence and a server-issued state ticket. Control expires after 350 ms without
+fresh accepted input; controls are cleared and local AI resumes. Respawn/refit
+gets a short neutral handover interval for the new life. Map changes rebuild the
+worker world and bot memory; local AI covers loading. Reads/writes are
+nonblocking, frame sizes and per-poll work are bounded, and at most two state
+updates remain unacknowledged. The server never waits for a worker's path query.
+
+This relocates AI work; it does not fix blocked routes or reduce total system
+CPU/memory. Full steering is latency-sensitive: place the worker near the server.
+The automated tests use loopback, not a WAN or the previous remote host. See
+`tools/bot_service/integration.py`, `contracts.gd`, `network_contracts.gd` and
+`profile_build.py` for reproducible lifecycle, admission, protocol and CPU tests.
+The older `probe.py` is only the original scripted ENet feasibility probe.
+
 TITANBALL uses fixed cockpit rules: boarding grants 200 HP with a 200 HP maximum, and cockpit regeneration is disabled. A living exit restores the normal class maximum and full class health; death ejection does not revive the pilot. Rockets, grenades, pipebombs, detpacks, the Heavy's assault cannon, engineer sentries and Titan cannons can damage an occupied hull. Only direct impacts and explosions on the hull qualify; nearby splash remains blocked. Heavy primary projectiles retain their firing-time classification. Other classes' small arms, on-foot players and other modes follow the established rules. The retired `sv_tb_heavy_ordnance` line is ignored when loading older configs and cannot disable protection. RCON status reports the fixed rule read-only.
 
 See [GAMEMODES.md](GAMEMODES.md) for team rules, objective scoring and player votes. In-game hosts can select all supported modes, with an eight-player limit. See [VOICE.md](VOICE.md) for the external Mumble option.
@@ -85,7 +179,7 @@ Restart the server to apply configuration changes. `--port`, `--map`, `--frags` 
 
 Clients stay connected during rotation and download a missing map automatically. Scores, inventory, projectiles and map entities reset. The new round starts when the first player is admitted; other players enter after their own map and model checks finish. Slow or stalled downloads do not freeze ready players or block lobby voting and countdowns. Packets from the previous map are rejected. This is a small Q3-style configuration subset, not a Quake console: no command chaining, nested exec, or arbitrary script execution. Optional authenticated master registration and the public query port are documented in [server browser setup](docs/SERVER-BROWSER.md). Password-protected RCON is documented below.
 
-Clients need this protocol version (`fpsloppa-45-de-utility`). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
+Clients must match the server's protocol (`fpsloppa-71-native-special-trace` in the current source). PC desktop and PC VR share the same server; the experimental Android targets retain that protocol. The configured UDP port carries gameplay, voice, map downloads and avatar downloads. Allow it through the firewall; Internet hosts behind NAT need port forwarding or a reachable server. A full transport may refuse connection before the game can display a specific rejection reason.
 
 ## Running as a service
 

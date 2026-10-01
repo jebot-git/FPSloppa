@@ -156,3 +156,9 @@ __pycache__/
 # Client-owned music is never imported, committed or packaged.
 /bgm/*
 !/bgm/.gdignore
+
+# Retail weapon scripts are local behavioral reference only.
+/tools/audio-sources/weapon-actions/references/
+
+# Krita autosave backups; keep the editable .kra originals.
+*.kra~

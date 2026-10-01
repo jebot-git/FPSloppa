@@ -362,38 +362,38 @@ func bot_input(id: int) -> bool:
 			bot_times[id]=-round_id
 			var primary: int=Arsenal.PREFERRED_RIFLES[role(id)]
 			if not s.owned.any(func(w):return category(w)==2):
-				if not buy(id,primary):buy(id,5)
-			if role(id)==1:buy(id,102)
-			if not buy(id,101):buy(id,100)
-			buy(id,103);buy(id,104)
-			for item in [110,111,112,111]:buy(id,item)
+				if not game.bots.action("de_buy",[id,primary]):game.bots.action("de_buy",[id,5])
+			if role(id)==1:game.bots.action("de_buy",[id,102])
+			if not game.bots.action("de_buy",[id,101]):game.bots.action("de_buy",[id,100])
+			game.bots.action("de_buy",[id,103]);game.bots.action("de_buy",[id,104])
+			for item in [110,111,112,111]:game.bots.action("de_buy",[id,item])
 		return true
 	if phase!="live":return true
-	if not busy(id) and nearby_weapon(id)>=0:use(id)
-	if carrier==0 and not planted and role(id)==0 and reachable(id,bomb_position):use(id)
+	if not busy(id) and nearby_weapon(id)>=0:game.bots.action("de_use",[id])
+	if carrier==0 and not planted and role(id)==0 and reachable(id,bomb_position):game.bots.action("de_use",[id])
 	var brain: Dictionary=game.bots.brains.get(id,{}) if is_instance_valid(game.bots) else {}
 	var threatened: bool=alive(int(brain.get("enemy",0))) or alive(int(brain.get("remembered_enemy",0))) and game.clock-float(brain.get("last_seen_at",-10))<.6
 	if threatened:
-		bot_stow_objective(id)
+		game.bots.action("de_bot_stow_objective",[id])
 		return false
 	var working: bool=false
 	if carrier==id:
 		var site: int=round_id%2
 		if reachable(id,sites[site]+Vector3.UP*.2,1.5):
-			working=true;held=true
-			if armed_until>game.clock:plant(id,site)
-			elif game.clock>=float(bot_times.get(id,0)):digit(id,arm_code[arm_index]);bot_times[id]=game.clock+.65
+			working=true;game.bots.action("de_hold",[id])
+			if armed_until>game.clock:game.bots.action("de_plant",[id,site])
+			elif game.clock>=float(bot_times.get(id,0)):game.bots.action("de_digit",[id,arm_code[arm_index]]);bot_times[id]=game.clock+.65
 	elif planted and role(id)==1 and reachable(id,bomb_position,1.5) and defuser in [0,id]:
-		working=true;lock_defuse(id)
+		working=true;game.bots.action("de_lock_defuse",[id])
 		if game.clock>=float(bot_times.get(id,0)):
 			if account(id).kit:
-				account(id).tool=true
+				game.bots.action("de_tool",[id])
 				for wire in 3:
-					if cut_mask&(1<<wire)==0:cut(id,wire);break
-			else:digit(id,defuse_code[defuse_index])
+					if cut_mask&(1<<wire)==0:game.bots.action("de_cut",[id,wire]);break
+			else:game.bots.action("de_digit",[id,defuse_code[defuse_index]])
 			bot_times[id]=game.clock+.65
 	if working:s.move=Vector2.ZERO;s.fire=false;s.melee=false;s.alt_fire=false;s.jump=false
-	else:bot_stow_objective(id)
+	else:game.bots.action("de_bot_stow_objective",[id])
 	return working
 func bot_stow_objective(id: int):
 	# A recovered bomb travels on the chest. Cutters and interrupted arming

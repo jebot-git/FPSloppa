@@ -1,0 +1,35 @@
+[
+  {
+    "name": "wind",
+    "page": "https://opengameart.org/content/wind1",
+    "download": "https://opengameart.org/sites/default/files/wind1.wav",
+    "file": "wind.wav",
+    "license": "CC0-1.0",
+    "author": "Luke.RUSTLTD",
+    "sha256": "a2856f794fbf77e05f8241dc4adeade7f62fa21c3c9dc49f7725b6c6218060c3"
+  },
+  {
+    "name": "factory",
+    "page": "https://opengameart.org/content/factory-ambiance",
+    "download": "https://opengameart.org/sites/default/files/Factory.ogg",
+    "file": "factory.ogg",
+    "license": "CC0-1.0",
+    "author": "yd",
+    "sha256": "c8c1b2b5bad66d2951cc366ad3337a67882a769b1c3057b2791fa2085ae4d09e"
+  },
+  {
+    "name": "factory-edited",
+    "file": "factory-edited.wav",
+    "source": "factory.ogg",
+    "license": "CC0-1.0",
+    "author": "yd; FPSloppa edit",
+    "sha256": "b45c07a00661a56ae5ac5e136258e33c8603ea5b7b43048fcbb5da5430d63286",
+    "editor": "Audacity 3.7.9 via audacity-mcp-server 0.1.23",
+    "steps": [
+      "High pass 70 Hz, 12 dB/octave",
+      "Low pass 3800 Hz, 12 dB/octave",
+      "Remove DC and normalize peak to -9 dBFS",
+      "Export mono WAV"
+    ]
+  }
+]

@@ -49,7 +49,7 @@ void FPSBots::steer(Object *ai,int64_t id,Dictionary brain,double delta){
   brain[k.progress_at.value]=c.clock;brain[k.progress_position.value]=position;
  }
  Vector3 desired(travel.x,0,travel.z);if(desired.length()>.1)desired=desired.normalized();
- if(int64_t(brain[k.enemy.value])!=0&&s(brain,k.goal_kind.value)=="enemy"){
+ if(int64_t(brain[k.enemy.value])!=0&&c.alive(brain[k.enemy.value])&&s(brain,k.goal_kind.value)=="enemy"){
   double distance=position.distance_to(c.actor(brain[k.enemy.value])->get_position()),ideal=ai->call(k.ideal_range.name,id,state[k.weapon.value]);
   if(distance<ideal*.65)desired=-desired;
   else if(distance<ideal*1.25){if(c.clock>=n(brain,k.strafe_at.value)){brain[k.strafe_at.value]=c.clock+UtilityFunctions::randf_range(.55,1.6);brain[k.strafe.value]=UtilityFunctions::randf()>.5?1.:-1.;}desired=desired.cross(up)*n(brain,k.strafe.value);}

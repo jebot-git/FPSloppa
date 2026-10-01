@@ -16,6 +16,7 @@ var field_sequence:=0
 var field_requests: Dictionary={}
 var turret_view
 var deployable_view
+var enhancer=preload("res://deathmatch/tribes/image_enhancer.gd").new()
 var combat=preload("res://deathmatch/tribes/combat.gd").new()
 const INITIAL_ENERGY:=5000
 const MAX_TEAM_ENERGY:=700000
@@ -30,9 +31,10 @@ var requests: Dictionary={}
 var panel: CanvasLayer
 var local_station:=-1
 var funded_slots: Array=[1,1,1]
-func setup(rules) -> void:mode=rules;game=rules.game;remote.setup(self);commander.setup(self);combat.setup(self);deployables.setup(self);recovery.setup(self);targeting.setup(self);vehicles.name="TribesVehicles";add_child(vehicles);vehicles.setup(self)
+func setup(rules) -> void:mode=rules;game=rules.game;enhancer.setup(game);remote.setup(self);commander.setup(self);combat.setup(self);deployables.setup(self);recovery.setup(self);targeting.setup(self);vehicles.name="TribesVehicles";add_child(vehicles);vehicles.setup(self)
 func enabled() -> bool:return preload("res://deathmatch/release_features.gd").TRIBES and game.armory.effective()=="tribes" and not game.lobby.active()
 func reset() -> void:
+	enhancer.reset()
 	if is_instance_valid(panel):panel.close()
 	vehicles.reset();remote.reset();commander.reset()
 	if is_instance_valid(command_view):command_view.close()
@@ -405,6 +407,7 @@ func desktop_input(event: InputEvent) -> bool:
 		panel.refresh()
 		if event is InputEventKey and event.pressed and not event.echo:panel.handle_key(event.physical_keycode)
 		return true
+	if enhancer.desktop_input(event):return true
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode==KEY_B:
 			open_inventory();return true

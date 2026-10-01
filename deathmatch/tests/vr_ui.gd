@@ -23,12 +23,13 @@ func run() -> void:
 	var saved_config:=FileAccess.get_file_as_bytes(config_path) if had_config else PackedByteArray()
 	var g=load("res://deathmatch/arena.tscn").instantiate()
 	root.add_child(g)
-	g.voice.panel=preload("res://deathmatch/voice/panel.gd").new()
-	g.voice.add_child(g.voice.panel)
-	g.voice.panel.setup(g.voice)
-	g.hud=load("res://deathmatch/interface.gd").new()
-	g.add_child(g.hud)
-	g.hud.setup(g)
+	if not g.hud:
+		g.voice.panel=preload("res://deathmatch/voice/panel.gd").new()
+		g.voice.add_child(g.voice.panel)
+		g.voice.panel.setup(g.voice)
+		g.hud=load("res://deathmatch/interface.gd").new()
+		g.add_child(g.hud)
+		g.hud.setup(g)
 	g.xr_rig=load("res://deathmatch/vr/rig.gd").new()
 	g.add_child(g.xr_rig)
 	check(g.xr_rig.setup(g,true),"Simulated VR initializes")
@@ -41,11 +42,12 @@ func run() -> void:
 	rig.keyboard.global_transform=rig.panel.global_transform*Transform3D(Basis.IDENTITY,Vector3(0,-1,.15))
 	await physics_frame
 	await physics_frame
-	var menu_scroll: ScrollContainer=g.hud.menu.get_node("MainMenuScroll")
+	var menu_scroll: ScrollContainer=g.hud.menu_pages.pages.home.get_parent()
 	print("MENU_METRICS ",menu_scroll.size," max=",menu_scroll.get_v_scroll_bar().max_value)
 	check(menu_scroll.get_v_scroll_bar().max_value<=menu_scroll.size.y,"Main VR menu fits without scrolling")
 	check(g.hud.get_parent() is SubViewport and rig.pointers.size()==2,"Both controller pointers and viewport UI exist")
 	# Open discovery through the real menu button and controller pointer.
+	g.hud.menu_pages.navigate("play");await process_frame;await process_frame
 	g.hud.server_browser.master.text=""
 	var browse_button: Button=g.hud.launch_buttons.back()
 	var browse_pointer=rig.pointers[1]
@@ -61,6 +63,7 @@ func run() -> void:
 	check(browser.mode.scroll.scroll_vertical>0,"Browser mode filter supports VR joystick scrolling")
 	browser.close();await process_frame
 	check(not browser.mode.popup.visible and browser.directory.probes.is_empty(),"Closing browser cancels requests and closes its dropdown")
+	g.hud.menu_pages.navigate("player");await process_frame;await process_frame
 	var field: LineEdit=g.hud.name_field
 	var pixel: Vector2=field.get_global_transform_with_canvas()*(field.size*.5)
 	for pointer in rig.pointers:
@@ -121,9 +124,10 @@ func run() -> void:
 		point_at(pointer,rig.panel,button.get_global_transform_with_canvas()*(button.size*.5))
 		click(pointer)
 		check(g.voice.mode==mode,"Controller selects voice mode %d"%mode)
+	var muted_before: bool=g.voice.muted_all
 	point_at(pointer,rig.panel,voice_panel.mute.get_global_transform_with_canvas()*(voice_panel.mute.size*.5))
 	click(pointer)
-	check(g.voice.muted_all,"Controller toggles incoming voice mute")
+	check(g.voice.muted_all!=muted_before,"Controller toggles incoming voice mute")
 	point_at(pointer,rig.panel,voice_panel.volume.get_global_transform_with_canvas()*Vector2(voice_panel.volume.size.x*.25,voice_panel.volume.size.y*.5))
 	click(pointer)
 	check(g.voice.volume<.4,"Controller adjusts voice playback volume")
@@ -137,6 +141,7 @@ func run() -> void:
 	point_at(pointer,rig.panel,voice_panel.close.get_global_transform_with_canvas()*(voice_panel.close.size*.5))
 	click(pointer)
 	check(not voice_panel.visible,"Controller closes voice panel")
+	g.hud.menu_pages.navigate("home");await process_frame;await process_frame
 	var settings_button: Button
 	for button in g.hud.menu.find_children("*","Button",true,false):
 		if button.text=="SETTINGS…":settings_button=button
@@ -144,13 +149,17 @@ func run() -> void:
 	await process_frame;await process_frame
 	var settings=g.hud.settings_panel
 	check(settings.visible and settings.size.y<=640,"Audio and graphics options open and fit the VR canvas")
+	var audio_button: Button=settings.category_pages.home.get_child(0)
+	point_at(pointer,rig.panel,audio_button.get_global_transform_with_canvas()*(audio_button.size*.5));click(pointer)
+	await process_frame;await process_frame
 	var music_before:float=settings.values.music
 	var music_plus:Button=settings.controls.music.get_parent().get_child(3)
 	point_at(pointer,rig.panel,music_plus.get_global_transform_with_canvas()*(music_plus.size*.5));click(pointer)
 	check(is_equal_approx(settings.values.music,minf(1,music_before+.01)),"Controller changes music volume by one percent through the real menu pointer")
+	settings.go_back();await process_frame;await process_frame
 	var graphics_button:Button
 	for button in settings.find_children("*","Button",true,false):
-		if button.text=="GRAPHICS":graphics_button=button
+		if button.text.begins_with("GRAPHICS"):graphics_button=button
 	point_at(pointer,rig.panel,graphics_button.get_global_transform_with_canvas()*(graphics_button.size*.5));click(pointer)
 	await process_frame;await process_frame
 	var msaa_before:int=settings.values.msaa
@@ -164,11 +173,13 @@ func run() -> void:
 	await process_frame;await process_frame
 	check(rig.turn_panel.visible,"Controller opens turn settings inside VR menu")
 	rig.turn_speed=120;rig.snap_angle=30;rig.smooth_turn=true
+	rig.turn_panel.book.navigate("turning");await process_frame;await process_frame
 	for button in [rig.turn_panel.speed_up,rig.turn_panel.angle_up,rig.turn_panel.mode]:
 		point_at(pointer,rig.panel,button.get_global_transform_with_canvas()*(button.size*.5));click(pointer)
 	check(rig.turn_speed==150 and rig.snap_angle==35 and not rig.smooth_turn,"Controller configures turn speed, snap angle and mode")
 	var turn_settings=preload("res://deathmatch/vr/preferences.gd").read_settings()
 	check(turn_settings.turn_speed==150 and turn_settings.snap_angle==35 and not turn_settings.smooth_turn,"Turn preferences persist in client config")
+	rig.turn_panel.book.navigate("posture");await process_frame;await process_frame
 	for button in [rig.turn_panel.controls,rig.turn_panel.seat]:
 		point_at(pointer,rig.panel,button.get_global_transform_with_canvas()*(button.size*.5));click(pointer)
 	check(rig.left_controls and rig.seated,"Controller enables mirrored controls and seated mode")
@@ -219,8 +230,7 @@ func run() -> void:
 	point_at(pointer,rig.panel,start_drag-Vector2(0,300));pointer._button_released()
 	await process_frame
 	check(bindings_scroll.scroll_vertical>=190 and bindings.capture.is_empty(),"Bindings page trigger-drag scrolls without capturing a desktop binding")
-	var selectors:Array=bindings.find_children("*","VBoxContainer",true,false).filter(func(n):return n.get_script()==preload("res://deathmatch/ui/choice.gd"))
-	var binding_choice=selectors.back();binding_choice.vr_mode_override=true
+	var binding_choice=bindings.vr_choices.fire[1];binding_choice.vr_mode_override=true
 	bindings_scroll.ensure_control_visible(binding_choice.trigger)
 	await process_frame;await process_frame
 	point_at(pointer,rig.panel,binding_choice.trigger.get_global_transform_with_canvas()*(binding_choice.trigger.size*.5));click(pointer)

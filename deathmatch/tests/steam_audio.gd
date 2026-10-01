@@ -62,4 +62,7 @@ func run():
 		await process_frame
 	check(true,"960 native sources survive rapid creation, immediate deletion and deferred cleanup")
 	g.presentation.spatial_audio="stereo";var fallback=g.spatial.create_player();check(not fallback.has_method("play_stream"),"Standard spatial audio fallback is selectable");fallback.free()
-	print("STEAM_AUDIO_RESULT ",JSON.stringify(failures));g.free();quit(0 if failures.is_empty() else 1)
+	g.free()
+	# Match normal shutdown: let the audio mixer retire stopped playback before exit.
+	await create_timer(.1).timeout
+	print("STEAM_AUDIO_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

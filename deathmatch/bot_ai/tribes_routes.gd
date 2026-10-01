@@ -38,6 +38,15 @@ const SPACING:=16.0
 
 func add(point: Vector3) -> void:
 	if not point.is_finite():return
+	# A downward terrain probe can start inside a bunker slab after its roof
+	# hit. Front-face collision then exposes terrain buried in that solid.
+	# Trace the same vertical segment in both directions: an upward-facing
+	# surface only visible from above is an exit from solid, not a ceiling.
+	var low:=point+Vector3.UP*.15;var high:=point+Vector3.UP*40
+	var ceiling: Dictionary=ai.navigation.ray(low,high)
+	if not ceiling.is_empty():high=ceiling.position-Vector3.UP*.02
+	var top: Dictionary=ai.navigation.ray(high,low)
+	if not top.is_empty():return
 	for index in nearby(point,2):
 		if points[index].distance_to(point)<.5:return
 	var index:=points.size();points.append(point);graph.add_point(index,point)

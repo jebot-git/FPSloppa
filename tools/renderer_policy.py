@@ -42,7 +42,7 @@ def require_client_template(platform, root=None):
     import json
     from pathlib import Path
     import zipfile
-    from build_client_templates import NAMES, VERSION, SOURCE_SHA256
+    from build_client_templates import NAMES, VERSION, SOURCE_SHA256, patch_hashes
     root = Path(root) if root is not None else Path(__file__).resolve().parents[1]
     path = root / 'Builds/ClientTemplates' / NAMES[platform]
     receipt = path.with_suffix(path.suffix + '.json')
@@ -51,6 +51,8 @@ def require_client_template(platform, root=None):
     data = json.loads(receipt.read_text())
     if data.get('engine') != VERSION or data.get('source_sha256') != SOURCE_SHA256:
         raise RuntimeError('Unrecognised client engine provenance: ' + str(receipt))
+    if data.get('patches') != patch_hashes():
+        raise RuntimeError('Client engine patches are stale; rebuild the template: ' + str(path))
     flags = data.get('flags', {})
     for key, value in dict(platform=platform, target='template_release', opengl3='no', vulkan='yes', openxr='yes').items():
         if flags.get(key) != value: raise RuntimeError(f'Invalid client build flag {key}: {path}')

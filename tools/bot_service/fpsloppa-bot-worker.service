@@ -1,0 +1,18 @@
+# Copy/edit for your worker host; uses the same package as the dedicated server.
+[Unit]
+Description=FPSloppa headless bot worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=fpsloppa
+WorkingDirectory=/srv/fpsloppa
+ExecStart=/srv/fpsloppa/start-bot-worker.sh --bot-host 127.0.0.1 --bot-port 7780 --bot-key-file /etc/fpsloppa/bot-worker.key --bot-count 16
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

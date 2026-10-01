@@ -51,6 +51,7 @@ var gun: Node3D
 var offhand_gun: Node3D
 var gun_id:=-1
 var gun_rules:=""
+var tribes_visor
 var sniper_scope
 var weapon_wheel
 var foveation_poll:=0.0
@@ -336,7 +337,9 @@ func cycle_equipment(direction: int):
 	if tf.walkers.mounted(multiplayer.get_unique_id()) or game.match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()):return
 	if game.armory.effective()=="cs16":
 		if game.match_mode.defusal.enabled():game.match_mode.defusal.send("grenade_cycle",direction)
-	elif game.match_mode.tribes.enabled():game.match_mode.tribes.cycle_grenade(direction)
+	elif game.match_mode.tribes.enabled():
+		if game.match_mode.tribes.enhancer.active or game.match_mode.tribes.enhancer.allowed() and game.bindings.vr_pressed(self,"alt_fire") and not game.bindings.vr_pressed(self,"support"):game.match_mode.tribes.enhancer.cycle(direction)
+		else:game.match_mode.tribes.cycle_grenade(direction)
 	elif tf.enabled() and s.get("tf_class","")=="engineer":
 		var choices: Array=["sentry","dispenser"]
 		tf.choose(s.get("tf_next","engineer"),choices[posmod(choices.find(s.get("tf_tool","sentry"))+direction,choices.size())])
@@ -424,6 +427,7 @@ func update_seated(body: Dictionary) -> void:
 	seated_active=seated and not (tracking and tracking.has_body_pose(body))
 	origin_offset.y=seated_height_offset if seated_active else 0.0
 func toggle_menu() -> void:
+	if game.menu_open and game.hud.menu_back():return
 	if weapon_wheel:weapon_wheel.close()
 	game.menu_open=not game.menu_open or not game.active
 	game.hud.show_menu(game.menu_open)
@@ -432,7 +436,9 @@ func toggle_menu() -> void:
 func _process(delta: float) -> void:
 	process_priority=-30
 	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
-	if not enabled or game.quitting: return
+	if not enabled or game.quitting:
+		if tribes_visor:tribes_visor.disable()
+		return
 	if not simulated:
 		foveation_poll+=delta
 		if foveation_poll>=.5:
@@ -500,7 +506,6 @@ func _process(delta: float) -> void:
 	last_panel=menu_visible
 	status_surface.visible=actor!=null and focused and not menu_visible
 	status_hud.update_chat(game.chat_feed,game.clock)
-	status_hud.update_hit(game.hit_flash>0)
 	status_hud.grenade_notice.update_selection(game,mine)
 	if not menu_visible:turn_panel.hide()
 	panel.visible=menu_visible
@@ -598,6 +603,9 @@ func _process(delta: float) -> void:
 	if not sniper_scope and is_instance_valid(gun) and gun.has_meta("scope_rear"):
 		sniper_scope=preload("res://deathmatch/vr/sniper_scope.gd").new();add_child(sniper_scope);sniper_scope.setup(self)
 	if sniper_scope:sniper_scope.update_rig()
+	if not tribes_visor and game.match_mode.tribes.enabled():
+		tribes_visor=preload("res://deathmatch/vr/tribes_visor.gd").new();add_child(tribes_visor);tribes_visor.setup(self)
+	if tribes_visor:tribes_visor.update_rig()
 	if gaze_vrs:gaze_vrs.update(self)
 	if physical_reload:physical_reload.update(delta,living and tracked_hands and focused and not menu_visible and not wheel_open() and not shoulder_radio.held and not blackout.visible and game.intermission<=0 and not game.map_loading and not game.match_mode.special.blocked(mine))
 func clear_weapon_pose(pose: Transform3D,_weapon: int) -> Transform3D:
@@ -770,4 +778,5 @@ func scroll_dropdowns(delta: float,menu_visible: bool) -> void:
 			viewport=target.get_parent().get_node_or_null("Viewport")
 		if viewport and absf(axis)>absf(float(targets.get(viewport,0.0))):targets[viewport]=axis
 	for viewport in targets:
-		preload("res://deathmatch/ui/choice.gd").scroll_active(viewport,targets[viewport],delta)
+		if not preload("res://deathmatch/ui/choice.gd").scroll_active(viewport,targets[viewport],delta):
+			preload("res://deathmatch/ui/drag_scroll.gd").scroll_active(viewport,targets[viewport],delta)

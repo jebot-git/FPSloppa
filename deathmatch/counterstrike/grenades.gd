@@ -223,17 +223,17 @@ func bot_combat(id: int,brain: Dictionary) -> bool:
 	var target: Vector3=game.fighters[brain.enemy].position+Vector3.UP*.7
 	var from:=origin(id);var distance:=from.distance_to(target)
 	if obscured(from,target):return true
-	if game.clock<float(state(id).cooldown) or rules.busy(id):return false
+	if game.clock<maxf(float(state(id).cooldown),float(brain.get("utility_at",0))) or rules.busy(id):return false
 	if distance<7 or distance>22 or not rules.ray_surface(from,target).is_empty():return false
 	if game.players.keys().any(func(peer):return peer!=id and rules.alive(peer) and rules.mode.same_team(peer,id) and game.fighters[peer].position.distance_to(target)<7):return false
 	var counts: Array=state(id).counts;var kind:=0 if counts[0]>0 else 1 if counts[1]>0 else 2 if counts[2]>0 else -1
 	if kind<0:return false
-	if not equip(id,kind):return false
+	if not game.bots.action("de_equip",[id,kind]):return false
 	var time: float=clampf(distance/17,.5,1.3)
 	var velocity: Vector3=(target-from)/time+Vector3.UP*GRAVITY*time*.5
-	var thrown:=throw_grenade(id,velocity)
-	if thrown:state(id).cooldown=game.clock+8
-	else:cancel(id)
+	var thrown: bool=game.bots.action("de_throw",[id,velocity])
+	if thrown:state(id).cooldown=game.clock+8;brain.utility_at=game.clock+8
+	else:game.bots.action("de_cancel",[id])
 	return thrown
 func snapshot() -> Dictionary:
 	var inventory: Dictionary={};var shots: Array=[];var smoke: Array=[];var blind: Dictionary={}

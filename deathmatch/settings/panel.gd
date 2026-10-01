@@ -5,11 +5,12 @@ var game
 var values: Dictionary={}
 var controls: Dictionary={}
 var notice: Label
-var section:="audio"
+var section:="home"
+var book
+var category_pages: Dictionary={}
 var config_path:=""
 var audio_page: VBoxContainer
 var graphics_page: VBoxContainer
-var page_spacer: Control
 var input_page: VBoxContainer
 var tracking_page: VBoxContainer
 var tracking_status: Label
@@ -27,12 +28,6 @@ func setup(arena: Node) -> void:
 	add_theme_stylebox_override("panel",style)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",8);add_child(column)
 	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="SETTINGS";title.add_theme_font_size_override("font_size",28);column.add_child(title)
-	var tabs:=HBoxContainer.new();column.add_child(tabs)
-	button(tabs,"AUDIO",func():section="audio";refresh())
-	button(tabs,"GRAPHICS",func():section="graphics";refresh())
-	button(tabs,"CONTROLS",func():section="controls";refresh())
-	button(tabs,"TRACKING",func():section="tracking";refresh())
-	button(tabs,"HAPTICS",func():section="haptics";refresh())
 	haptics_scroll=preload("res://deathmatch/ui/drag_scroll.gd").new();haptics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;haptics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;column.add_child(haptics_scroll)
 	var haptics_options:=VBoxContainer.new();haptics_options.add_theme_constant_override("separation",8);haptics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;haptics_scroll.add_child(haptics_options)
 	stepper(haptics_options,"controller_haptic_strength","Controller strength",.1)
@@ -81,11 +76,30 @@ func setup(arena: Node) -> void:
 	stepper(graphics_options,"hud_scale","VR HUD size",.1)
 	stepper(graphics_options,"hud_y","VR HUD height",.05)
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Changes apply immediately and are saved.";column.add_child(notice)
-	page_spacer=Control.new();page_spacer.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(page_spacer)
-	button(column,"BACK",hide)
+	book=preload("res://deathmatch/ui/menu_pages.gd").new();add_child(book)
+	for entry in [["home","SETTINGS"],["audio","AUDIO VOLUMES"],["devices","AUDIO DEVICES & VOICE"],["graphics","GRAPHICS QUALITY"],["vr","VR RENDERING & HUD"],["desktop","DESKTOP DISPLAY"],["controls","CONTROLS"],["tracking","TRACKING"],["haptics","HAPTICS"]]:
+		category_pages[entry[0]]=book.add_page(entry[0],entry[1],"audio" if entry[0]=="devices" else "graphics" if entry[0] in ["vr","desktop"] else "home")
+	for entry in [["audio","AUDIO"],["graphics","GRAPHICS"],["controls","CONTROLS"],["tracking","TRACKING"],["haptics","HAPTICS"]]:book.link("home",entry[0],entry[1])
+	for child in audio_page.get_children():
+		child.reparent(category_pages.devices if child is Button else category_pages.audio)
+	book.link("audio","devices","DEVICES & VOICE")
+	for child in graphics_options.get_children():child.reparent(category_pages.graphics)
+	for control in [controls.foveation_level,controls.fovea_size,foveation_status,controls.hud_scale.get_parent(),controls.hud_y.get_parent()]:control.reparent(category_pages.vr)
+	for control in [controls.fullscreen,controls.fov.get_parent()]:control.reparent(category_pages.desktop)
+	book.link("graphics","vr","VR RENDERING & HUD")
+	book.link("graphics","desktop","DESKTOP DISPLAY")
+	for child in input_page.get_children():child.reparent(category_pages.controls)
+	for child in tracking_page.get_children():child.reparent(category_pages.tracking)
+	for child in haptics_options.get_children():child.reparent(category_pages.haptics)
+	notice.reparent(book);book.move_child(notice,book.back_button.get_index())
+	column.queue_free()
+	audio_page=category_pages.audio;graphics_page=category_pages.graphics;input_page=category_pages.controls;tracking_page=category_pages.tracking
+	haptics_scroll=category_pages.haptics.get_parent()
+	book.page_changed.connect(func(id):section=id;refresh())
+	book.closed.connect(hide)
 	refresh()
 func button(parent: Node,title: String,action: Callable) -> Button:
-	var control:=Button.new();control.text=title;control.custom_minimum_size=Vector2(76,44);control.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(control);control.pressed.connect(action);return control
+	var control:=Button.new();control.text=title;control.custom_minimum_size=Vector2(76,52);control.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(control);control.pressed.connect(action);return control
 func stepper(parent: Node,key: String,title: String,step: float) -> void:
 	var row:=HBoxContainer.new();parent.add_child(row)
 	var label:=Label.new();label.text=title;label.custom_minimum_size.x=220;label.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(label)
@@ -101,10 +115,7 @@ func save() -> void:
 	notice.text="Saved. Changes applied." if err==OK else "Settings applied; saving failed: "+error_string(err)
 	refresh()
 func refresh() -> void:
-	page_spacer.visible=section not in ["graphics","haptics"]
-	haptics_scroll.visible=section=="haptics"
-	notice.visible=true
-	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics";input_page.visible=section=="controls";tracking_page.visible=section=="tracking"
+	if book and book.current!=section:book.navigate(section)
 	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
 	tracking_status.text=game.xr_rig.tracking.status if game.is_vr() else "Connect a VR headset to configure tracking."
 	if game.is_vr():
@@ -125,8 +136,9 @@ func refresh() -> void:
 	controls.fullscreen.text="DISPLAY: "+("FULLSCREEN" if values.fullscreen else "WINDOWED");controls.fullscreen.visible=not game.is_vr() and not OS.has_feature("android")
 	controls.spatial_audio.text="SPATIAL AUDIO: "+("STEAM AUDIO HRTF (HEADPHONES)" if values.spatial_audio=="steam_audio" else "STANDARD STEREO")
 	controls.output.text="OUTPUT: "+AudioServer.output_device+" (select to cycle)"
+func go_back() -> void:book.go_back()
 func open() -> void:
-	refresh();get_parent().move_child(self,-1);show()
+	section="home";refresh();get_parent().move_child(self,-1);show()
 
 func refresh_foveation(xr) -> void:
 	foveation_mode=Foveation.mode(xr)
@@ -138,7 +150,7 @@ func refresh_foveation(xr) -> void:
 	foveation_status.text=Foveation.description(xr,int(values.foveation_level),int(values.fovea_size))
 
 func _process(delta: float) -> void:
-	if not is_visible_in_tree() or section!="graphics":return
+	if not is_visible_in_tree() or section!="vr":return
 	foveation_poll+=delta
 	if foveation_poll<.5:return
 	foveation_poll=0.0

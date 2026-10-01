@@ -327,3 +327,11 @@ func charge_label(id: int) -> String:
 	var state: Dictionary=charge_snapshot() if game.multiplayer.is_server() else charge_view
 	if not state.get(id) is int:return ""
 	return "CHARGE %d%% · RELEASE TO FIRE · "%clampi(state[id],0,100)
+
+func visual_charge(id: int) -> float:
+	if id==game.multiplayer.get_unique_id() and not local_charge.is_empty():
+		return clampf((game.clock-local_charge.start)/local_charge.maximum,0,1)
+	if game.multiplayer.is_server():
+		var row: Dictionary=charging.get(id,{})
+		return clampf(row.time/row.maximum,0,1) if not row.is_empty() else 0.0
+	return clampf(float(charge_view.get(id,0))/100,0,1)

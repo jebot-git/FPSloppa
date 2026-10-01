@@ -66,7 +66,7 @@ func build(id: int,brain: Dictionary) -> bool:
 	if game.fighters[id].position.distance_to(row.stand)>.8:return true
 	if game.clock<float(row.get("try_at",0)):return true
 	row.try_at=game.clock+1;row.attempts+=1;game.players[id].yaw=row.yaw
-	if game.match_mode.tribes.deployables.deploy(id,ai.eye(id),(row.point-ai.eye(id)).normalized()):
+	if ai.action("st_deploy",[id,ai.eye(id),(row.point-ai.eye(id)).normalized()]):
 		ai.tribes.offense.count("built_"+row.kind);plans.erase(id);retry[id]=game.clock+5;brain.plan_at=0
 	elif row.attempts>=4:plans.erase(id);retry[id]=game.clock+12;brain.plan_at=0
 	return true

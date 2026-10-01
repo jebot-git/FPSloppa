@@ -22,7 +22,7 @@ func run() -> void:
 			weapon.free()
 	var shotgun:=Art.weapon(3)
 	var double:=Art.weapon(4)
-	check(shotgun.has_node("TexturedWeapon") and double.has_node("TexturedWeapon") and double.get_node("TexturedWeapon").scale.x>1,"Super shotgun restores textured CC0 model with its original paired-bore variant")
+	check(shotgun.get_meta("authored_fidelity",false) and double.find_child("TwinBoreLeft",true,false)!=null and double.find_child("TwinBoreRight",true,false)!=null,"Authored super shotgun retains two distinct bored barrels")
 	shotgun.free();double.free()
 	var path:="/tmp/fpsloppa-profile-test.cfg"
 	var config:=ConfigFile.new();config.set_value("custom","keep",42);config.save(path)
@@ -37,8 +37,8 @@ func run() -> void:
 	game.camera=game.get_node("Overview")
 	game.spatial.play("weapon_7",game.camera.position,-4)
 	var sound=game.spatial.active.back()
-	var expected: float=-4+preload("res://deathmatch/audio/weapon_levels.gd").TRIM_DB["weapon_7.wav"]
-	check(absf(float(sound.get_meta("dry_db"))-expected)<.01,"Plasma playback applies the current measured attenuation")
+	var expected: float=-4+preload("res://deathmatch/audio/weapon_levels.gd").TRIM_DB["res://deathmatch/audio/doom-style/weapon_7.wav"]
+	check(absf(float(sound.get_meta("dry_db"))-expected)<.01,"Plasma playback applies the current measured normalization")
 	game.spatial.update_source(sound,float(sound.get_meta("dry_db")))
 	check(sound.volume_db<=expected+.01,"Spatial updates retain weapon normalization")
 	game.free()

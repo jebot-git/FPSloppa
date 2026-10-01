@@ -30,5 +30,14 @@ func run() -> void:
 	else:check(false,"Native regression requires the isolated D-Bus address")
 	output.stop();output.close()
 	check(not output.is_open(),"Native stop closes the client backend")
+	if OS.get_environment("DBUS_SYSTEM_BUS_ADDRESS")=="unix:path=/tmp/fpsloppa-bhaptics-unavailable.sock":
+		for attempt in 3:
+			check(output.open("",0)==OK,"Closed native backend can reopen")
+			output.scan();output.close()
+			var deadline:=Time.get_ticks_msec()+4000
+			while output.bridge.is_running() and Time.get_ticks_msec()<deadline:await process_frame
+			check(not output.bridge.is_running() and not output.bridge.device_connected(),"Immediate close cancels worker without reconnecting")
+			var diagnostics: Dictionary=JSON.parse_string(output.bridge.diagnostics_json())
+			check(diagnostics.get("connections",-1)==0 and diagnostics.get("disconnect_errors",-1)==0,"Cancelled initialization connects no device")
 	output=null
 	print("BHAPTICS_NATIVE_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

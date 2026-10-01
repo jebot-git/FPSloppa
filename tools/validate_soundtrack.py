@@ -7,7 +7,7 @@ MUSIC=ROOT/'deathmatch/audio/music'
 
 def main():
     rows=[]; failures=[]
-    for score in json.loads((MUSIC/'scores.json').read_text()):
+    for score in json.loads((MUSIC/'scores.json').read_text())+[json.loads((MUSIC/'climax.json').read_text())]:
         path=MUSIC/(score['stem']+'.ogg')
         raw=subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-f','f32le','-ar','32000','-ac','2','-'])
         samples=np.frombuffer(raw,dtype='<f4').reshape(-1,2)
@@ -15,7 +15,8 @@ def main():
         stats=json.JSONDecoder().raw_decode(measure.stderr[measure.stderr.rfind('{'):])[0]
         lufs=float(stats['input_i']);peak=float(stats['input_tp'])
         # Check loop discontinuity in addition to loudness and finite PCM.
-        seam=float(np.max(np.abs(samples[-1]-samples[0])))
+        loop_start=round(score.get('loop_offset',0)*32000)
+        seam=float(np.max(np.abs(samples[-1]-samples[loop_start])))
         duration=len(samples)/32000
         ok=(np.isfinite(samples).all() and abs(duration-score['duration'])<.1
             and abs(lufs-score['target_lufs'])<1.5 and peak<=-2

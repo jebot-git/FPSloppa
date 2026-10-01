@@ -24,7 +24,9 @@ static func ammo_pose(hand: Transform3D,slot: int,left: bool=false) -> Transform
 	return hand*Transform3D(basis.scaled(Vector3.ONE*(1.0 if slot in [3,4] else .65)),offset)
 static func make(slot: int) -> Node3D:
 	slot=clampi(slot,0,11)
-	if not cache.has(slot):cache[slot]=load("res://deathmatch/weapons/cs16/"+NAMES[slot]+".scn")
+	if not cache.has(slot):
+		var authored:="res://deathmatch/weapons/fidelity/cs16_"+str(slot)+".scn"
+		cache[slot]=load(authored if ResourceLoader.exists(authored) else "res://deathmatch/weapons/cs16/"+NAMES[slot]+".scn")
 	var root: Node3D=cache[slot].instantiate();root.name="WeaponModel"
 	root.set_meta("cs16",slot);root.set_meta("muzzle",muzzle(slot))
 	for key in ["SightRear","SightFront"]:

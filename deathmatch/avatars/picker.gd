@@ -193,6 +193,10 @@ func show_model(hash: String) -> void:
 	# Paint feedback first; cancel superseded requests before expensive plugin work.
 	await get_tree().create_timer(.15).timeout
 	if request!=preview_request or not visible or current!=hash:return
+	while not library.prepare_avatar(hash):
+		if not library.last_error.is_empty():feedback.text=library.last_error;preview_button.disabled=false;return
+		await get_tree().process_frame
+		if request!=preview_request or not visible or current!=hash:return
 	var model: Node3D=library.create_avatar(hash)
 	preview_button.disabled=false
 	if not model:feedback.text=library.last_error;return

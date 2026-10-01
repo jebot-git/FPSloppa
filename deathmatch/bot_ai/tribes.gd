@@ -153,7 +153,7 @@ func goals(id: int,brain: Dictionary,rows: Array) -> void:
 	var pads=rules.stations();var job:=role(id);brain.role=job
 	var own: Dictionary=mode.flags[s.team];var flag: Dictionary=mode.flags[1-s.team]
 	brain.capture_preparing=false
-	if s.hp<rules.definition(id).hp*.7:rules.kit(id)
+	if s.hp<rules.definition(id).hp*.7:ai.action("st_kit",[id])
 	# The carrier stays on the return job even with depleted ammo or low HP.
 	if flag.carrier==id:
 		offense.recharge_escape(id,brain)
@@ -166,7 +166,7 @@ func goals(id: int,brain: Dictionary,rows: Array) -> void:
 		if ai.alive(own.carrier):ai.candidate(rows,"st:intercept","intercept",tactics.intercept_point(id,own.carrier),550);return
 	if rules.commander.bot_goal(id,ai,rows):return
 	equipment.recovery_goal(id,rows)
-	if rules.can_refit(id) and job in ["capper","escort"]:rules.targeting.buy(id)
+	if rules.can_refit(id) and job in ["capper","escort"]:ai.action("st_beacon_buy",[id])
 	var loadout:=outfit(job)
 	var deploy=rules.deployables
 	# Keep generator/station repairs urgent, but do not let an unreachable
@@ -186,7 +186,7 @@ func goals(id: int,brain: Dictionary,rows: Array) -> void:
 	var purchase: bool=needs and refit_needed and rules.balance(id)>=rules.refit_cost(id,loadout.armour,loadout.guns,loadout.pack)
 	var emergency: bool=own.dropped or own.carrier!=0 or job in ["escort","chaser"]
 	if purchase and rules.can_refit(id) and not emergency:
-		rules.select_equipment(id,loadout.armour,loadout.guns,loadout.pack,true);purchase=false
+		ai.action("st_refit",[id,loadout.armour,loadout.guns,loadout.pack,true]);purchase=false
 	var empty: bool=rules.amount(id,3)==0 and rules.amount(id,2)<10
 	if empty or s.hp<rules.definition(id).hp*.55:brain.refilling=true
 	if s.hp>=rules.definition(id).hp*.85 and rules.amount(id,3)>=5 and rules.amount(id,2)>=20:brain.refilling=false
@@ -489,6 +489,9 @@ func precision_steer_reference(id: int,brain: Dictionary) -> void:
 		while brain.step<brain.path.size()-1:
 			var offset: Vector3=brain.path[brain.step]-actor.position
 			if brain.step>0 and (Vector2(offset.x,offset.z).length()>2.3 or absf(offset.y)>2.8):break
+			# Near a portal is not through it: keep the corner until the next
+			# corridor is reachable from the body's actual position.
+			if brain.step>0 and not routes.clear(actor.position,brain.path[brain.step+1]):break
 			brain.step+=1
 		target=brain.path[brain.step]
 	var offset: Vector3=target-actor.position

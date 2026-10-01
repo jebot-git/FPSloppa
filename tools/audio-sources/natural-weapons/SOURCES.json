@@ -1,0 +1,129 @@
+{
+  "license": "CC0-1.0",
+  "firearms": {
+    "authors": [
+      "Ben Jaszczak",
+      "Brian Nelson",
+      "Kevin Heras",
+      "Matthew Nanney"
+    ],
+    "page": "https://opengameart.org/node/21826",
+    "archive": "https://opengameart.org/sites/default/files/Prepared%20SFX%20Library.7z",
+    "archive_sha256": "cc1ab5a99a0a365105c7c5dd783f4b0b1fe90938114d3ceec53856bfe005f7d6"
+  },
+  "mechanisms": {
+    "author": "SpringySpringo",
+    "page": "https://opengameart.org/content/gun-reload-sounds",
+    "urls": [
+      "https://opengameart.org/sites/default/files/shotguncock_0.wav",
+      "https://opengameart.org/sites/default/files/assaultriflereload1_0.wav"
+    ]
+  },
+  "outputs": [
+    {
+      "file": "pistol9.wav",
+      "original": "Walther PPQ/X_39P.wav",
+      "original_sha256": "d679a3cd87eae2898d984159f83544392932e6b77526045b672e3aaa9c2dda9f",
+      "start_seconds": 6.44328125,
+      "seconds": 1.15,
+      "sha256": "a5f4a402cf874969a5dbb43a592d12a278edb6cfa68cd4d810561974e29431db"
+    },
+    {
+      "file": "pistol45.wav",
+      "original": "1911/A_42P.wav",
+      "original_sha256": "8e84438e771c157155a6a1ff47a6a7a7d81b6f39b185d41e426c57337a82254a",
+      "start_seconds": 0.94046875,
+      "seconds": 1.15,
+      "sha256": "d3bebb6c837ef1e0703e2e9d446eb84358442e07bb6dc0148ca6b6b64c1a5a32"
+    },
+    {
+      "file": "magnum.wav",
+      "original": "Smith & Wesson 642/V_27P.wav",
+      "original_sha256": "dc9a11f7e6544139f38cadccf3373fed733f2e000caca1b2328575293838fc58",
+      "start_seconds": 6.2176875,
+      "seconds": 1.15,
+      "sha256": "bd214d8bdeae679ae2abcbed4de7dc4f84ecbfce65d604a5960606fce8028f69"
+    },
+    {
+      "file": "ak.wav",
+      "original": "AK-47/C_28P.wav",
+      "original_sha256": "e0934c1d79192d2216db62fdf6ab57bf9d5d585267af367a1cfb21f0972a537d",
+      "start_seconds": 3.25628125,
+      "seconds": 1.15,
+      "sha256": "df0ec1fc084ffa3707a80fe241e52cf9b39eb7e82cb0f43b45c93168808aad38"
+    },
+    {
+      "file": "carbine.wav",
+      "original": "AR-15/D_32P.wav",
+      "original_sha256": "acee9d2106b68fe5956225a19d7aedf943d97793817f9bda9d486a2b74b0a812",
+      "start_seconds": 0.7026875,
+      "seconds": 1.15,
+      "sha256": "1c3f216f2e4060698cba67d13a0e35920da0897f12e9aead8ec0d001134e0f62"
+    },
+    {
+      "file": "smg.wav",
+      "original": "Carl Gustav M45/G_31P.wav",
+      "original_sha256": "5982c6c2fa44545b750ba6217ed57797a6a15c02f5c9943ac0e99e5f3ab2b158",
+      "start_seconds": 6.72665625,
+      "seconds": 1.15,
+      "sha256": "3892efb0da6f331ab88eb996f5c0b064ff311f2d7fd2bc90c0c25fe574523305"
+    },
+    {
+      "file": "shotgun.wav",
+      "original": "Mossberg/N_30P.wav",
+      "original_sha256": "b5a28243e16f8cb10adfc5225d96e90f108d24393fcfffcaa6dcf203af03634a",
+      "start_seconds": 4.9594375,
+      "seconds": 1.15,
+      "sha256": "c36abfbe72b01ab490a710cb0bf6a0d96748dcf2c12f7327781160cf4bc8ee86"
+    },
+    {
+      "file": "autoshotgun.wav",
+      "original": "Nova/O_21P.wav",
+      "original_sha256": "5661d0625e4634f19e6e316c13693b80c8e28cd9f716cf9c75c465153ae40815",
+      "start_seconds": 3.46421875,
+      "seconds": 1.15,
+      "sha256": "0883dac748f428e97b011f944cca7215367bf8e27170084e63b547c94f747b02"
+    },
+    {
+      "file": "sniper.wav",
+      "original": "Tikka/W_29P.wav",
+      "original_sha256": "b1ffe3c104391bf8ceb8337aa4d5a2ca47938fb88ccbd051cdd2b2e205d9e72b",
+      "start_seconds": 5.6638125,
+      "seconds": 1.15,
+      "sha256": "648819ee66917e7cda5ef193f9f3c02fd2c13a5535cf9b35b91526082490f5c9"
+    },
+    {
+      "file": "rifle.wav",
+      "original": "SKS/U_14P.wav",
+      "original_sha256": "ad33d11af79d73ec8b7a527a8aed948a086a0d764cec5a54d2e86887351d6c96",
+      "start_seconds": 16.776625,
+      "seconds": 1.15,
+      "sha256": "9f3d6e345019db4107f15a0574c1d673abe6c2194f444765b6f2505e023853a7"
+    },
+    {
+      "file": "shotguncock.wav",
+      "sha256": "33e007321ba83301c861aef573f2c40b70bc62f8f24c0164877e6dd123e24371",
+      "original": "fpsloppa-shotguncock.wav"
+    },
+    {
+      "file": "rifle-reload.wav",
+      "sha256": "efb2d724d634eabe6ba8d3065686abca848bb7497d4d43a5e4aed5e5ea23016f",
+      "original": "fpsloppa-rifle-reload.wav"
+    },
+    {
+      "file": "bubbles.wav",
+      "url": "https://opengameart.org/sites/default/files/bubbles.wav",
+      "sha256": "c4f0a47bd5eaa3c4a5a34a1889c6189661360fb874ebf120147f3cc98fc84165"
+    },
+    {
+      "file": "water.wav",
+      "url": "https://opengameart.org/sites/default/files/water.wav",
+      "sha256": "6107b595a7f1c19a1fde61200726726e31aec98af6de31aef00048ea336a973e"
+    }
+  ],
+  "water": {
+    "author": "jcpmcdonald",
+    "page": "https://opengameart.org/content/skippy-fish-water-sound-collection",
+    "license": "CC0-1.0"
+  }
+}

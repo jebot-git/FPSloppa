@@ -1,0 +1,1810 @@
+{
+  "version": "0.21v",
+  "date": "2026-10-01",
+  "engine": "Godot 4.7.2, Vulkan-only clients, console-only Linux dedicated server and bot worker, Jolt Physics",
+  "platforms": [
+    "Linux x86-64 client",
+    "Windows x86-64 client",
+    "experimental Quest ARM64 client",
+    "Linux x86-64 dedicated server",
+    "Linux x86-64 bot worker"
+  ],
+  "regressions": [
+    {
+      "test": "native_acceleration",
+      "exit": 0,
+      "passed": true,
+      "seconds": 20.4,
+      "checks": 51311,
+      "results": [
+        {
+          "checks": 51311,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_acceleration.log"
+    },
+    {
+      "test": "native_codec",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.57,
+      "checks": 15248,
+      "results": [
+        {
+          "checks": 15248,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_codec.log"
+    },
+    {
+      "test": "native_network_packing",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.67,
+      "checks": 6335,
+      "results": [
+        {
+          "checks": 6335,
+          "failures": [],
+          "reports": [
+            {
+              "after_bytes": 27313,
+              "after_ms": {
+                "median": 0.175,
+                "p95": 2.572
+              },
+              "after_packets": 64,
+              "before_bytes": 27313,
+              "before_ms": {
+                "median": 0.254,
+                "p95": 3.057
+              },
+              "before_packets": 64,
+              "players": 8,
+              "shots": 0,
+              "vr": false
+            },
+            {
+              "after_bytes": 131432,
+              "after_ms": {
+                "median": 0.56,
+                "p95": 2.943
+              },
+              "after_packets": 132,
+              "before_bytes": 131432,
+              "before_ms": {
+                "median": 0.984,
+                "p95": 4.581
+              },
+              "before_packets": 132,
+              "players": 16,
+              "shots": 32,
+              "vr": true
+            },
+            {
+              "after_bytes": 1087542,
+              "after_ms": {
+                "median": 5.028,
+                "p95": 10.732
+              },
+              "after_packets": 1028,
+              "before_bytes": 1087542,
+              "before_ms": {
+                "median": 11.784,
+                "p95": 21.03
+              },
+              "before_packets": 1028,
+              "players": 16,
+              "shots": 523,
+              "vr": false
+            }
+          ]
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_network_packing.log"
+    },
+    {
+      "test": "native_rewind",
+      "exit": 0,
+      "passed": true,
+      "seconds": 22.63,
+      "checks": 16850,
+      "results": [
+        {
+          "benchmarks": [
+            {
+              "eight_rays": {
+                "mean_ms": 6.41765833333333,
+                "median_ms": 6.325,
+                "p95_ms": 10.957
+              },
+              "path": "reference"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 2.017825,
+                "median_ms": 1.571,
+                "p95_ms": 4.028
+              },
+              "path": "batched_gd"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 0.73745,
+                "median_ms": 0.39,
+                "p95_ms": 2.286
+              },
+              "path": "native"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 0.37735,
+                "median_ms": 0.376,
+                "p95_ms": 0.41
+              },
+              "path": "native"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 1.84235833333333,
+                "median_ms": 1.24,
+                "p95_ms": 3.431
+              },
+              "path": "batched_gd"
+            },
+            {
+              "eight_rays": {
+                "mean_ms": 7.06781666666666,
+                "median_ms": 6.507,
+                "p95_ms": 14.946
+              },
+              "path": "reference"
+            }
+          ],
+          "checks": 16850,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_rewind.log"
+    },
+    {
+      "test": "native_shot_history",
+      "exit": 0,
+      "passed": true,
+      "seconds": 12.8,
+      "checks": 10,
+      "results": [
+        {
+          "checks": 10,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_shot_history.log"
+    },
+    {
+      "test": "native_avatar_channels",
+      "exit": 0,
+      "passed": true,
+      "seconds": 10.05,
+      "checks": 31236,
+      "results": [
+        {
+          "checks": 31236,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_avatar_channels.log"
+    },
+    {
+      "test": "native_springs",
+      "exit": 0,
+      "passed": true,
+      "seconds": 42.12,
+      "checks": 139,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_springs.log"
+    },
+    {
+      "test": "render_motion",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.47,
+      "checks": 2,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/render_motion.log"
+    },
+    {
+      "test": "cs16_accuracy",
+      "exit": 0,
+      "passed": true,
+      "seconds": 18.42,
+      "checks": 1095,
+      "results": [
+        {
+          "checks": 1095,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/cs16_accuracy.log"
+    },
+    {
+      "test": "cs16_mag_pull",
+      "exit": 0,
+      "passed": true,
+      "seconds": 10.65,
+      "checks": 272,
+      "results": [
+        {
+          "checks": 272,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/cs16_mag_pull.log"
+    },
+    {
+      "test": "defusal",
+      "exit": 0,
+      "passed": true,
+      "seconds": 15.57,
+      "checks": 102,
+      "results": [
+        {
+          "checks": 102,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/defusal.log"
+    },
+    {
+      "test": "foveation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.07,
+      "checks": 143,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/foveation.log"
+    },
+    {
+      "test": "client_preferences",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.78,
+      "checks": 19,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/client_preferences.log"
+    },
+    {
+      "test": "network_delivery",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.82,
+      "checks": 26,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/network_delivery.log"
+    },
+    {
+      "test": "avatar_runtime_cache",
+      "exit": 0,
+      "passed": true,
+      "seconds": 10.4,
+      "checks": 27,
+      "results": [
+        {
+          "checks": 27,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/avatar_runtime_cache.log"
+    },
+    {
+      "test": "avatar_surface_compile",
+      "exit": 0,
+      "passed": true,
+      "seconds": 8.84,
+      "checks": 36,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/avatar_surface_compile.log"
+    },
+    {
+      "test": "menu_navigation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 14.15,
+      "checks": 28,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/menu_navigation.log"
+    },
+    {
+      "test": "bhaptics_profile",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.27,
+      "checks": 125,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/bhaptics_profile.log"
+    },
+    {
+      "test": "effect_resources",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.83,
+      "checks": 731,
+      "results": [
+        {
+          "checks": 731,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/effect_resources.log"
+    },
+    {
+      "test": "weapon_audio_levels",
+      "exit": 0,
+      "passed": true,
+      "seconds": 11.85,
+      "checks": 724,
+      "results": [
+        {
+          "captured_frames": 8192,
+          "checks": 724,
+          "failures": [],
+          "overlap_peak_dbfs": -2.99961559503689
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/weapon_audio_levels.log"
+    },
+    {
+      "test": "weapon_actions",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.57,
+      "checks": 92,
+      "results": [
+        {
+          "checks": 92,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/weapon_actions.log"
+    },
+    {
+      "test": "weapon_presentation",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.02,
+      "checks": 725,
+      "results": [
+        {
+          "checks": 725,
+          "failures": [],
+          "weapons": 59
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/weapon_presentation.log"
+    },
+    {
+      "test": "tribes_image_enhancer",
+      "exit": 0,
+      "passed": true,
+      "seconds": 16.68,
+      "checks": 76,
+      "results": [
+        {
+          "checks": 76,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/tribes_image_enhancer.log"
+    },
+    {
+      "test": "tribes_arsenal",
+      "exit": 0,
+      "passed": true,
+      "seconds": 20.65,
+      "checks": 37,
+      "results": [
+        {
+          "checks": 37,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/tribes_arsenal.log"
+    },
+    {
+      "test": "cs16_sights",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.07,
+      "checks": 109,
+      "results": [
+        {
+          "checks": 109,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/cs16_sights.log"
+    },
+    {
+      "test": "cs16_art",
+      "exit": 0,
+      "passed": true,
+      "seconds": 12.31,
+      "checks": 197,
+      "results": [
+        {
+          "checks": 197,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/cs16_art.log"
+    },
+    {
+      "test": "weapon_setup",
+      "exit": 0,
+      "passed": true,
+      "seconds": 11.6,
+      "checks": 50,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/weapon_setup.log"
+    },
+    {
+      "test": "mode_audio",
+      "exit": 0,
+      "passed": true,
+      "seconds": 1.22,
+      "checks": 357,
+      "results": [
+        {
+          "checks": 357,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/mode_audio.log"
+    },
+    {
+      "test": "release_scope",
+      "exit": 0,
+      "passed": true,
+      "seconds": 9.89,
+      "checks": 28,
+      "results": [
+        {
+          "checks": 28,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/release_scope.log"
+    },
+    {
+      "test": "frame_smoothness",
+      "exit": 0,
+      "passed": true,
+      "seconds": 3.03,
+      "checks": 2415,
+      "results": [
+        {
+          "checks": 2415,
+          "clip_slice_max_us": 2597,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/frame_smoothness.log"
+    },
+    {
+      "test": "bhaptics_native",
+      "exit": 0,
+      "passed": true,
+      "seconds": 0.73,
+      "checks": 21,
+      "results": [],
+      "errors": [],
+      "log": "test-results/release-0.21v/bhaptics_native.log"
+    },
+    {
+      "test": "climax_music",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.63,
+      "checks": 98,
+      "results": [
+        {
+          "checks": 98,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/climax_music.log"
+    },
+    {
+      "test": "music",
+      "exit": 0,
+      "passed": true,
+      "seconds": 2.73,
+      "checks": 44,
+      "results": [
+        {
+          "checks": 44,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/music.log"
+    },
+    {
+      "test": "native_bots",
+      "exit": 0,
+      "passed": true,
+      "seconds": 4.27,
+      "checks": 674423,
+      "results": [
+        {
+          "cases": 900,
+          "checks": 674423,
+          "failures": []
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/native_bots.log"
+    },
+    {
+      "test": "defusal_bot_behavior",
+      "exit": 0,
+      "passed": true,
+      "seconds": 13.79,
+      "checks": 27,
+      "results": [
+        {
+          "checks": 27,
+          "failures": [],
+          "passed": true
+        }
+      ],
+      "errors": [],
+      "log": "test-results/release-0.21v/defusal_bot_behavior.log"
+    }
+  ],
+  "regression_suites": 35,
+  "regression_checks": 803158,
+  "map_caches": {
+    "failures": [],
+    "records": [
+      {
+        "codec": "",
+        "map": "as_hislop",
+        "path": "res://maps/cache/as_hislop-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "as_hislop",
+        "path": "res://maps/cache/as_hislop-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "as_hislop",
+        "path": "res://maps/cache/as_hislop-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "as_frigate",
+        "path": "res://maps/cache/as_frigate-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "as_frigate",
+        "path": "res://maps/cache/as_frigate-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "as_frigate",
+        "path": "res://maps/cache/as_frigate-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tf_pressureworks",
+        "path": "res://maps/cache/tf_pressureworks-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tf_pressureworks",
+        "path": "res://maps/cache/tf_pressureworks-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tf_pressureworks",
+        "path": "res://maps/cache/tf_pressureworks-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tf_vesper",
+        "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tf_vesper",
+        "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tf_vesper",
+        "path": "res://maps/cache/tf_vesper-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_solstice",
+        "path": "res://maps/cache/koth_solstice-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_solstice",
+        "path": "res://maps/cache/koth_solstice-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_solstice",
+        "path": "res://maps/cache/koth_solstice-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_torture",
+        "path": "res://maps/cache/koth_torture-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_torture",
+        "path": "res://maps/cache/koth_torture-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_torture",
+        "path": "res://maps/cache/koth_torture-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_hyperborea",
+        "path": "res://maps/cache/koth_hyperborea-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_hyperborea",
+        "path": "res://maps/cache/koth_hyperborea-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_hyperborea",
+        "path": "res://maps/cache/koth_hyperborea-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "koth_alichar",
+        "path": "res://maps/cache/koth_alichar-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "koth_alichar",
+        "path": "res://maps/cache/koth_alichar-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "koth_alichar",
+        "path": "res://maps/cache/koth_alichar-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_hyperborea",
+        "path": "res://maps/cache/cc_hyperborea-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_hyperborea",
+        "path": "res://maps/cache/cc_hyperborea-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_hyperborea",
+        "path": "res://maps/cache/cc_hyperborea-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_psychofuge",
+        "path": "res://maps/cache/cc_psychofuge-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_psychofuge",
+        "path": "res://maps/cache/cc_psychofuge-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_psychofuge",
+        "path": "res://maps/cache/cc_psychofuge-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_ghostquarter",
+        "path": "res://maps/cache/cc_ghostquarter-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_ghostquarter",
+        "path": "res://maps/cache/cc_ghostquarter-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_ghostquarter",
+        "path": "res://maps/cache/cc_ghostquarter-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "cc_basement",
+        "path": "res://maps/cache/cc_basement-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "cc_basement",
+        "path": "res://maps/cache/cc_basement-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "cc_basement",
+        "path": "res://maps/cache/cc_basement-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm1",
+        "path": "res://maps/cache/qsrc_dm1-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm1",
+        "path": "res://maps/cache/qsrc_dm1-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm1",
+        "path": "res://maps/cache/qsrc_dm1-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm2",
+        "path": "res://maps/cache/qsrc_dm2-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm2",
+        "path": "res://maps/cache/qsrc_dm2-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm2",
+        "path": "res://maps/cache/qsrc_dm2-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm3",
+        "path": "res://maps/cache/qsrc_dm3-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm3",
+        "path": "res://maps/cache/qsrc_dm3-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm3",
+        "path": "res://maps/cache/qsrc_dm3-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm4",
+        "path": "res://maps/cache/qsrc_dm4-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm4",
+        "path": "res://maps/cache/qsrc_dm4-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm4",
+        "path": "res://maps/cache/qsrc_dm4-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm5",
+        "path": "res://maps/cache/qsrc_dm5-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm5",
+        "path": "res://maps/cache/qsrc_dm5-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm5",
+        "path": "res://maps/cache/qsrc_dm5-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm6",
+        "path": "res://maps/cache/qsrc_dm6-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm6",
+        "path": "res://maps/cache/qsrc_dm6-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm6",
+        "path": "res://maps/cache/qsrc_dm6-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "qsrc_dm7",
+        "path": "res://maps/cache/qsrc_dm7-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "qsrc_dm7",
+        "path": "res://maps/cache/qsrc_dm7-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "qsrc_dm7",
+        "path": "res://maps/cache/qsrc_dm7-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_tideworks",
+        "path": "res://maps/cache/ctf_tideworks-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_tideworks",
+        "path": "res://maps/cache/ctf_tideworks-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_tideworks",
+        "path": "res://maps/cache/ctf_tideworks-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_crucible",
+        "path": "res://maps/cache/ctf_crucible-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_crucible",
+        "path": "res://maps/cache/ctf_crucible-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_crucible",
+        "path": "res://maps/cache/ctf_crucible-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_confluence",
+        "path": "res://maps/cache/ctf_confluence-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_confluence",
+        "path": "res://maps/cache/ctf_confluence-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_confluence",
+        "path": "res://maps/cache/ctf_confluence-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_deepvault",
+        "path": "res://maps/cache/ctf_deepvault-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_deepvault",
+        "path": "res://maps/cache/ctf_deepvault-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_deepvault",
+        "path": "res://maps/cache/ctf_deepvault-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_crownreach",
+        "path": "res://maps/cache/ctf_crownreach-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_crownreach",
+        "path": "res://maps/cache/ctf_crownreach-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_crownreach",
+        "path": "res://maps/cache/ctf_crownreach-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_skyfracture",
+        "path": "res://maps/cache/ctf_skyfracture-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_skyfracture",
+        "path": "res://maps/cache/ctf_skyfracture-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_skyfracture",
+        "path": "res://maps/cache/ctf_skyfracture-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tb_ashfall",
+        "path": "res://maps/cache/tb_ashfall-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tb_ashfall",
+        "path": "res://maps/cache/tb_ashfall-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tb_ashfall",
+        "path": "res://maps/cache/tb_ashfall-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "tb_cindercoil",
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "tb_cindercoil",
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "tb_cindercoil",
+        "path": "res://maps/cache/tb_cindercoil-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_inferno_rebuilt",
+        "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_inferno_rebuilt",
+        "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_inferno_rebuilt",
+        "path": "res://maps/cache/de_inferno_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_dust2_rebuilt",
+        "path": "res://maps/cache/de_dust2_rebuilt-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_dust2_rebuilt",
+        "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_dust2_rebuilt",
+        "path": "res://maps/cache/de_dust2_rebuilt-lightmap1-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_aztec_rebuilt",
+        "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_aztec_rebuilt",
+        "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_aztec_rebuilt",
+        "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_nuke_rebuilt",
+        "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_nuke_rebuilt",
+        "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_nuke_rebuilt",
+        "path": "res://maps/cache/de_nuke_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "de_train_rebuilt",
+        "path": "res://maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "de_train_rebuilt",
+        "path": "res://maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "de_train_rebuilt",
+        "path": "res://maps/cache/de_train_rebuilt-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_stonehenge",
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_stonehenge",
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_stonehenge",
+        "path": "res://maps/cache/ctf_stonehenge-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_raindance",
+        "path": "res://maps/cache/ctf_raindance-lightmap1-textures-6899bcb9eaeeb5a3.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_raindance",
+        "path": "res://maps/cache/ctf_raindance-lightmap1-textures-6899bcb9eaeeb5a3-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_raindance",
+        "path": "res://maps/cache/ctf_raindance-lightmap1-textures-6899bcb9eaeeb5a3-astc4.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "",
+        "map": "ctf_katabatic",
+        "path": "res://maps/cache/ctf_katabatic-lightmap1.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "bc7",
+        "map": "ctf_katabatic",
+        "path": "res://maps/cache/ctf_katabatic-lightmap1-bc7.scn",
+        "source_matches": true
+      },
+      {
+        "codec": "astc4",
+        "map": "ctf_katabatic",
+        "path": "res://maps/cache/ctf_katabatic-lightmap1-astc4.scn",
+        "source_matches": true
+      }
+    ]
+  },
+  "console_runtime": {
+    "failures": [],
+    "maps": [
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_hislop",
+        "shapes": 9
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "as_frigate",
+        "shapes": 2
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tf_pressureworks",
+        "shapes": 1
+      },
+      {
+        "doors": 4,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tf_vesper",
+        "shapes": 13
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_solstice",
+        "shapes": 4
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_torture",
+        "shapes": 3
+      },
+      {
+        "doors": 2,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "koth_hyperborea",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 0,
+        "map": "koth_alichar",
+        "shapes": 9
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_hyperborea",
+        "shapes": 2
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_psychofuge",
+        "shapes": 5
+      },
+      {
+        "doors": 11,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_ghostquarter",
+        "shapes": 17
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "cc_basement",
+        "shapes": 8
+      },
+      {
+        "doors": 6,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm1",
+        "shapes": 8
+      },
+      {
+        "doors": 27,
+        "lifts": 2,
+        "liquids": 0,
+        "map": "qsrc_dm2",
+        "shapes": 35
+      },
+      {
+        "doors": 0,
+        "lifts": 3,
+        "liquids": 0,
+        "map": "qsrc_dm3",
+        "shapes": 6
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm4",
+        "shapes": 6
+      },
+      {
+        "doors": 3,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm5",
+        "shapes": 7
+      },
+      {
+        "doors": 1,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "qsrc_dm6",
+        "shapes": 6
+      },
+      {
+        "doors": 0,
+        "lifts": 1,
+        "liquids": 0,
+        "map": "qsrc_dm7",
+        "shapes": 8
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_tideworks",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_crucible",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_confluence",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_deepvault",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_crownreach",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_skyfracture",
+        "shapes": 3
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tb_ashfall",
+        "shapes": 9
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "tb_cindercoil",
+        "shapes": 9
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_inferno_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_dust2_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_aztec_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 8,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_nuke_rebuilt",
+        "shapes": 13
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "de_train_rebuilt",
+        "shapes": 1
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_stonehenge",
+        "shapes": 21
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_raindance",
+        "shapes": 37
+      },
+      {
+        "doors": 0,
+        "lifts": 0,
+        "liquids": 0,
+        "map": "ctf_katabatic",
+        "shapes": 97
+      }
+    ],
+    "passed": true,
+    "exit_code": 0
+  },
+  "client_pack_audits": [
+    {
+      "failures": [],
+      "files": 2766,
+      "pack": "/home/blux/Documents/Builds/Linux/FPSloppa.pck"
+    },
+    {
+      "failures": [],
+      "files": 2766,
+      "pack": "/home/blux/Documents/Builds/Windows/FPSloppa.pck"
+    },
+    {
+      "apk": "/home/blux/Documents/Builds/Android/FPSloppa-Quest.apk",
+      "files": 2889,
+      "failures": []
+    }
+  ],
+  "android": [
+    {
+      "target": "Quest",
+      "bytes": 1288320935,
+      "sha256": "4ce51d2ff4692222d516f81aae0e8672afe70cf85611b8817e4557095a103d92",
+      "assets_verified": [
+        "maps/as_hislop.bsp",
+        "maps/as_frigate.bsp",
+        "maps/tf_pressureworks.bsp",
+        "maps/tf_vesper.bsp",
+        "maps/koth_solstice.bsp",
+        "maps/koth_torture.bsp",
+        "maps/koth_hyperborea.bsp",
+        "maps/koth_alichar.bsp",
+        "maps/cc_hyperborea.bsp",
+        "maps/cc_psychofuge.bsp",
+        "maps/cc_ghostquarter.bsp",
+        "maps/cc_basement.bsp",
+        "maps/qsrc_dm1.bsp",
+        "maps/qsrc_dm2.bsp",
+        "maps/qsrc_dm3.bsp",
+        "maps/qsrc_dm4.bsp",
+        "maps/qsrc_dm5.bsp",
+        "maps/qsrc_dm6.bsp",
+        "maps/qsrc_dm7.bsp",
+        "maps/ctf_tideworks.bsp",
+        "maps/ctf_crucible.bsp",
+        "maps/ctf_confluence.bsp",
+        "maps/ctf_deepvault.bsp",
+        "maps/ctf_crownreach.bsp",
+        "maps/ctf_skyfracture.bsp",
+        "maps/tb_ashfall.bsp",
+        "maps/tb_cindercoil.bsp",
+        "maps/de_inferno_rebuilt.bsp",
+        "maps/de_dust2_rebuilt.bsp",
+        "maps/de_aztec_rebuilt.bsp",
+        "maps/de_nuke_rebuilt.bsp",
+        "maps/de_train_rebuilt.bsp",
+        "maps/ctf_stonehenge.bsp",
+        "maps/ctf_raindance.bsp",
+        "maps/ctf_katabatic.bsp",
+        "vrm/sample_d.vrm",
+        "vrm/sample_f.vrm",
+        "vrm/sample_g.vrm",
+        "vrm/sample_d_darkness.vrm",
+        "vrm/sample_e.vrm",
+        "vrm/base_female.vrm",
+        "vrm/base_male.vrm",
+        "vrm/hairsample_female.vrm",
+        "vrm/hairsample_male.vrm",
+        "vrm/sakurada_fumiriya.vrm",
+        "vrm/sendagaya_shino.vrm"
+      ],
+      "unified_base_assets": 370,
+      "arm64_only": true,
+      "vendor_manifest": true,
+      "twovoip_current": true,
+      "twovoip_16k_pages": true,
+      "steam_audio_current": true,
+      "steam_audio_16k_pages": true,
+      "current_feedback_and_music": true,
+      "current_icon": true,
+      "current_vr_interactions": true,
+      "renderer": {
+        "opengl_compiled": false,
+        "method": "mobile",
+        "android_driver": "vulkan",
+        "opengl_fallback": false
+      },
+      "vulkan_required": true,
+      "seekable_embedded_zip": true
+    }
+  ],
+  "rendered_linux_smokes": [
+    {
+      "client_exit": 0,
+      "renderer": "Vulkan Mobile",
+      "map": "ctf_katabatic",
+      "mode": "st",
+      "protocol": "fpsloppa-71-native-special-trace",
+      "weapon_rules": "tribes",
+      "bots": 8,
+      "spectators": 1,
+      "source_asset_override": false,
+      "errors": [],
+      "passed": true
+    },
+    {
+      "client_exit": 0,
+      "renderer": "Vulkan Mobile",
+      "map": "de_dust2_rebuilt",
+      "mode": "de",
+      "protocol": "fpsloppa-71-native-special-trace",
+      "weapon_rules": "cs16",
+      "bots": 8,
+      "spectators": 1,
+      "source_asset_override": false,
+      "errors": [],
+      "passed": true
+    }
+  ],
+  "bot_service": {
+    "input_contract_checks": 17,
+    "tcp_contract_checks": 7,
+    "final_package_integration": {
+      "bot-lifecycle-final": {
+        "passed": true,
+        "samples": 2,
+        "last_status": {
+          "accepted": 1718,
+          "actions": 0,
+          "connected": true,
+          "disconnects": 0,
+          "enabled": true,
+          "leased": 4,
+          "received_bytes": 1104424,
+          "rejected": 2,
+          "requested": 4,
+          "sent_bytes": 4103624,
+          "snapshots": 264
+        },
+        "release_status": {
+          "accepted": 636,
+          "actions": 0,
+          "connected": false,
+          "disconnects": 1,
+          "enabled": true,
+          "leased": 0,
+          "received_bytes": 406924,
+          "rejected": 0,
+          "requested": -1,
+          "sent_bytes": 1502708,
+          "snapshots": 99
+        },
+        "lifecycle_phases": [
+          "suspended",
+          "resumed",
+          "rotated",
+          "restarted",
+          "reconnected"
+        ],
+        "human_phases": [
+          "joined",
+          "refilled"
+        ],
+        "logs_clean": true
+      },
+      "bot-katabatic": {
+        "passed": true,
+        "samples": 5,
+        "last_status": {
+          "accepted": 12303,
+          "actions": 37,
+          "connected": true,
+          "disconnects": 0,
+          "enabled": true,
+          "leased": 16,
+          "received_bytes": 6717544,
+          "rejected": 21,
+          "requested": 16,
+          "sent_bytes": 30441204,
+          "snapshots": 533
+        },
+        "release_status": {
+          "accepted": 15066,
+          "actions": 42,
+          "connected": false,
+          "disconnects": 1,
+          "enabled": true,
+          "leased": 0,
+          "received_bytes": 8218752,
+          "rejected": 26,
+          "requested": -1,
+          "sent_bytes": 36916060,
+          "snapshots": 646
+        },
+        "lifecycle_phases": [],
+        "human_phases": [],
+        "logs_clean": true
+      }
+    },
+    "earlier_mode_coverage": "Local implementation checks also exercised TF, TB, DE, AS and UT99; final portable package checks above exercise DM and 16-bot ST."
+  },
+  "native_bluetooth_unit_tests": 8,
+  "soundtrack": {
+    "scores": [
+      {
+        "mode": "title",
+        "seconds": 112.9411875,
+        "lufs": -22.03,
+        "true_peak_dbtp": -5.05,
+        "loop_step": 0.002201,
+        "bytes": 729805,
+        "passed": true
+      },
+      {
+        "mode": "lobby",
+        "seconds": 102.85715625,
+        "lufs": -21.02,
+        "true_peak_dbtp": -6.29,
+        "loop_step": 0.001914,
+        "bytes": 990176,
+        "passed": true
+      },
+      {
+        "mode": "win",
+        "seconds": 75.0,
+        "lufs": -19.06,
+        "true_peak_dbtp": -7.18,
+        "loop_step": 0.005183,
+        "bytes": 1492513,
+        "passed": true
+      }
+    ],
+    "runtime_bytes": 3212494,
+    "failures": []
+  },
+  "exported_audio": {
+    "weapon_action_cues": 31,
+    "climax_seconds": 75.0,
+    "loop_and_offset_verified": true
+  },
+  "client_runtime_receipts": {
+    "godot-lib.template_release.aar.json": {
+      "engine": "4.7.2-stable",
+      "source_sha256": "e954996374cbd1cb5d72e0e3781cc537408e6ce73b010b12c6c2f308a820690a",
+      "patches": {
+        "openxr-shutdown.patch": "cf135ca4b4c9f4e33d8200bfcf2e46c4f6182de7fc7d83203cea1c5bb509da7d"
+      },
+      "flags": {
+        "platform": "android",
+        "target": "template_release",
+        "arch": "arm64",
+        "opengl3": "no",
+        "vulkan": "yes",
+        "openxr": "yes",
+        "production": "yes",
+        "lto": "none"
+      },
+      "sha256": "6d5923d40f649d5dead83e62798f876f6d3e94abaf9d4b7be4032e68baa92b12"
+    },
+    "linux.x86_64.json": {
+      "engine": "4.7.2-stable",
+      "source_sha256": "e954996374cbd1cb5d72e0e3781cc537408e6ce73b010b12c6c2f308a820690a",
+      "patches": {
+        "openxr-shutdown.patch": "cf135ca4b4c9f4e33d8200bfcf2e46c4f6182de7fc7d83203cea1c5bb509da7d"
+      },
+      "flags": {
+        "platform": "linuxbsd",
+        "target": "template_release",
+        "arch": "x86_64",
+        "opengl3": "no",
+        "vulkan": "yes",
+        "openxr": "yes",
+        "production": "yes",
+        "lto": "none"
+      },
+      "sha256": "fc1318a0e017165ef3f95d57900cad7341d3f0e3b541b4c84a98bd4097478af6"
+    },
+    "windows.x86_64.exe.json": {
+      "engine": "4.7.2-stable",
+      "source_sha256": "e954996374cbd1cb5d72e0e3781cc537408e6ce73b010b12c6c2f308a820690a",
+      "patches": {
+        "openxr-shutdown.patch": "cf135ca4b4c9f4e33d8200bfcf2e46c4f6182de7fc7d83203cea1c5bb509da7d"
+      },
+      "flags": {
+        "platform": "windows",
+        "target": "template_release",
+        "arch": "x86_64",
+        "opengl3": "no",
+        "vulkan": "yes",
+        "openxr": "yes",
+        "production": "yes",
+        "lto": "none",
+        "d3d12": "no"
+      },
+      "sha256": "af49cd17520fb82c844e6130eed348325e4994da704dcbf16985257668439897"
+    }
+  },
+  "portable_linux_maximum_glibc": {
+    "client_runtime": "2.35",
+    "steam_audio": "2.34",
+    "bhaptics": "2.34",
+    "gameplay_native": "2.34"
+  },
+  "fixes_during_release": [
+    "Restored default server settings and base map rotations; excluded test credentials and fixed the feasibility helper symlink overwrite.",
+    "Restored Katabatic base distribution and regenerated the offline asset manifest/bundle.",
+    "Built shutdown patches for every client platform, including portable Linux Steam Audio.",
+    "Added Linux-only bot worker archive, notices and package audits.",
+    "Updated the weapon-cache regression to compare the complete uncached presentation.",
+    "Prevented stale enemy dereferences in native and scripted bot steering/Assault targeting; added a disappearing-target differential regression after a real worker crash during human departure.",
+    "Excluded generated Godot import sidecars from Android runtime resource compilation."
+  ],
+  "limitations": [
+    "No fresh physical VR headset or vest test during release preparation. Windows and Quest are cross-built/package-verified; rendered runtime smoke tests use Linux.",
+    "Bot-worker transport was tested locally, not over WAN. Katabatic navigation can still leave bots stuck; offloading is not a route repair.",
+    "Fixture-only malformed audio/packet and dummy-renderer material diagnostics may appear in regression logs. Final rendered-client, server and worker integration logs contain no runtime errors.",
+    "Original patch context whitespace and third-party credit file formatting are preserved.",
+    "Final archives are gated by tools/prepare_release.py; published BUILD-MANIFEST.json and SHA256SUMS identify the commit and exact uploaded bytes."
+  ]
+}

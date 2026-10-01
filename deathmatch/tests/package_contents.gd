@@ -56,4 +56,8 @@ func _initialize() -> void:
 	if walker.PILOT_MAX_HEALTH!=200 or not walker.heavy_ordnance_only or walker.pilot_regeneration:failures.append("Incorrect fixed TB defaults")
 	walker.free()
 	if not ResourceLoader.exists("res://deathmatch/server/bot_population.gd"):failures.append("Missing dedicated bot population")
+	for required in ["deathmatch/audio/ambience.gd","deathmatch/audio/music/climax.gd","deathmatch/audio/weapon-actions/player.gd","deathmatch/avatars/runtime_cache.gd","deathmatch/avatars/surface_compiler.gd","deathmatch/ui/menu_pages.gd","deathmatch/tribes/zoom_overlay.gd","deathmatch/weapons/presentation/mechanism.gd"]:
+		if not ResourceLoader.exists("res://"+required):failures.append("Missing 0.21 feature: "+required)
+	for required in ["SOURCES.txt","LibreQuake-COPYING.txt","LibreQuake-CREDITS.txt","sources.json"]:
+		if not FileAccess.file_exists("res://deathmatch/weapons/fidelity/"+required):failures.append("Missing weapon notice: "+required)
 	print("PACKAGE_AUDIT ",JSON.stringify({"pack":args[0],"files":count,"failures":failures}));quit(0 if failures.is_empty() else 1)

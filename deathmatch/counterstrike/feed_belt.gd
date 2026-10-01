@@ -6,20 +6,24 @@ const START:=Vector3(-.130,-.004,-.30)
 const SEATED:=Vector3(-.059,.173,-.30)
 var rounds: MultiMeshInstance3D
 var links: MultiMeshInstance3D
+static var round_mesh:Mesh
+static var link_mesh:Mesh
 func setup():
 	name="ArticulatedFeedBelt"
 	# Controller endpoints update on render frames; physics interpolation would
 	# add a second smoothing pass and make the belt lag behind the offhand.
 	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
-	var brass:=StandardMaterial3D.new();brass.albedo_color=Color.WHITE;brass.metallic=.65;brass.roughness=.45
-	brass.albedo_texture=load("res://deathmatch/weapons/cs16/finish.res");brass.texture_filter=BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
-	# Runtime primitive UVs use the PNG's top-left origin (GLTF flips Blender UVs).
-	brass.uv1_scale=Vector3(.22,.44,1);brass.uv1_offset=Vector3(.265,.03,0)
-	var steel:=brass.duplicate() as StandardMaterial3D;steel.metallic=.8
-	steel.uv1_offset=Vector3(.015,.53,0)
-	var round_mesh:=CylinderMesh.new();round_mesh.top_radius=.004;round_mesh.bottom_radius=.008;round_mesh.height=.083;round_mesh.radial_segments=10;round_mesh.material=brass
+	if not round_mesh:
+		# Keep immutable geometry/finish alive between weapon instances. The new
+		# per-weapon atlases no longer retain the old ammunition atlas elsewhere.
+		var brass:=StandardMaterial3D.new();brass.albedo_color=Color.WHITE;brass.metallic=.65;brass.roughness=.45
+		brass.albedo_texture=load("res://deathmatch/weapons/cs16/finish.res");brass.texture_filter=BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		# Runtime primitive UVs use the PNG's top-left origin (GLTF flips Blender UVs).
+		brass.uv1_scale=Vector3(.22,.44,1);brass.uv1_offset=Vector3(.265,.03,0)
+		var steel:=brass.duplicate() as StandardMaterial3D;steel.metallic=.8;steel.uv1_offset=Vector3(.015,.53,0)
+		var cartridge:=CylinderMesh.new();cartridge.top_radius=.004;cartridge.bottom_radius=.008;cartridge.height=.083;cartridge.radial_segments=10;cartridge.material=brass;round_mesh=cartridge
+		var link:=BoxMesh.new();link.size=Vector3(.010,1,.048);link.material=steel;link_mesh=link
 	rounds=instances(round_mesh,COUNT)
-	var link_mesh:=BoxMesh.new();link_mesh.size=Vector3(.010,1,.048);link_mesh.material=steel
 	links=instances(link_mesh,COUNT-1)
 func instances(mesh: Mesh,count: int) -> MultiMeshInstance3D:
 	var node:=MultiMeshInstance3D.new();node.multimesh=MultiMesh.new();node.multimesh.transform_format=MultiMesh.TRANSFORM_3D;node.multimesh.mesh=mesh;node.multimesh.instance_count=count;add_child(node);return node

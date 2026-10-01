@@ -1,9 +1,33 @@
 # Built-in music
 
-Only **Dead Air** (title, 113 seconds) and **Please Hold** (lobby, 103 seconds)
-remain bundled. Their original Ogg renders and eight-channel MOD sources are
-unchanged. Gameplay uses client-owned Ogg music from the external `bgm` folder;
-see [AUDIO.md](../../../AUDIO.md) for naming and playlist rules.
+**Dead Air** (title, 113 seconds), **Please Hold** (lobby, 103 seconds), and the
+conditional **Tower Defense Theme — Climax Loop** (75 seconds) are bundled.
+The title/lobby Ogg renders and eight-channel MOD sources are unchanged.
+Gameplay also supports client-owned Ogg music from the external `bgm` folder;
+see [AUDIO.md](../../../AUDIO.md) for cue conditions and playlist rules.
+
+## Tower Defense Theme — CC0 1.0
+
+Original by **DST (Deceased Superior Technician)**, published December 10, 2012:
+[OpenGameArt source and CC0 license](https://opengameart.org/content/tower-defense-theme),
+[original MP3](https://opengameart.org/sites/default/files/DST-TowerDefenseTheme_1.mp3).
+
+The FPSloppa edit uses exactly **95–170 seconds** of that recording. A
+1.153854-second raised-cosine overlap blends the tail into the opening, keeping
+the 130 BPM beat phase. First playback includes the original buildup; the
+runtime then repeats from 1.153854 seconds, for a 40-bar / 73.846146-second loop.
+Linear loudness adjustment preserves the source's dynamics; the encoded render
+measures −19.06 LUFS and −7.18 dBTP. No generated instruments were added.
+
+`climax.json` records source/render SHA-256 hashes, exact edit points, loop
+offset, measurements and attribution. Regenerate with
+`python3 tools/prepare_climax_music.py /path/to/DST-TowerDefenseTheme_1.mp3`.
+The tool requires FFmpeg and NumPy and checks the original download's hash.
+`python3 tools/validate_soundtrack.py` also validates this cue's decoded loop
+boundary, duration, loudness, peak and hash. This CC0 edit retains the original
+license. The full downloaded MP3 is not bundled.
+
+## Title and lobby renders
 
 `scores.json` lists the two retained renders and their hashes. Run
 `python3 tools/generate_tracker_music.py title lobby` to regenerate them, or

@@ -241,7 +241,7 @@ func pass_flag(id: int,brain: Dictionary) -> bool:
 			if impulse.length()>20:continue
 			var unsafe: bool=ai.teamplay.intel(id).any(func(row):return row.position.distance_to(target)<16)
 			if unsafe or not Ballistics.clear(game.get_world_3d().direct_space_state,origin,{"velocity":actor.velocity+impulse,"time":flight},20):continue
-			if game.match_mode.st.drop(id,origin,impulse):
+			if ai.action("st_drop",[id,origin,impulse]):
 				passes[friend]={"until":game.clock+2.2,"arrival":game.clock+flight,"point":target-Vector3.UP*.6,"team":s.team,"epoch":game.map_epoch}
 				if ai.brains.has(friend):ai.brains[friend].plan_at=0;ai.brains[friend].pass_at=game.clock+4
 				brain.plan_at=0;count("flag_passes")
@@ -365,4 +365,4 @@ func beacon(id: int,brain: Dictionary):
 	var actor=game.fighters[id]
 	if actor.position.distance_to(game.match_mode.bases[1-s.team])>45 or not actor.is_supported():return
 	if rules.targeting.beacons.values().any(func(row):return row.team==s.team and row.position.distance_to(actor.position)<30):return
-	if rules.targeting.place(id,actor.position+Vector3.UP*.7-Basis(Vector3.UP,s.yaw).z*1.1,Vector3.DOWN):count("target_beacons")
+	if ai.action("st_beacon",[id,actor.position+Vector3.UP*.7-Basis(Vector3.UP,s.yaw).z*1.1,Vector3.DOWN]):count("target_beacons")

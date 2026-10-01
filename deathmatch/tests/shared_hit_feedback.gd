@@ -158,8 +158,7 @@ func run():
 	print("SHARED_FEEDBACK_RESULT ",JSON.stringify({"checks":checks,"failures":failures}));quit(0 if failures.is_empty() else 1)
 func render_feedback():
 	g.effects.clear()
-	for item in fx.shapes:item.node.queue_free()
-	fx.shapes.clear();fx.particles.clear()
+	fx.clear()
 	await process_frame
 	for layer in g.find_children("*","CanvasLayer",true,false):layer.hide()
 	g.xr_rig.hide();g.xr_rig.enabled=false

@@ -56,7 +56,7 @@ void FPSBots::combat(Object *ai,int64_t id,Dictionary brain,double delta){
   Object *assault=c.mode->get(k.assault.name);Array objectives=assault->get(k.objectives.name);int stage=assault->get(k.stage.name);
   if(bool(assault->call(k.can_advance.name,id))&&stage<objectives.size()){
    Dictionary objective=objectives[stage];Vector3 point=v(objective,k.position.value)+Vector3(0,1,0)*.85;
-   if(eye.distance_to(point)<30&&(int64_t(brain[k.enemy.value])==0||eye.distance_to(c.target(brain[k.enemy.value]))>6)&&c.ray(eye,point).is_empty()){
+   if(eye.distance_to(point)<30&&(int64_t(brain[k.enemy.value])==0||!c.alive(brain[k.enemy.value])||eye.distance_to(c.target(brain[k.enemy.value]))>6)&&c.ray(eye,point).is_empty()){
     state[k.alt_fire.value]=false;state[k.weapon.value]=ai->call(k.choose_weapon.name,id,eye.distance_to(point));
     state[k.fire.value]=aim_input(point,1-std::exp(-10*delta))&&bool(ai->call(k.safe_shot.name,id,point,ai->call(k.explosive_weapon.name,id,state[k.weapon.value])));return;
    }

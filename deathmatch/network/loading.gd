@@ -121,9 +121,13 @@ func _process(delta: float) -> void:
 	for hash in required:
 		if not game.avatars.library.entries.has(hash):return
 	phase="Preparing player models…"
+	game.avatars.library.pinned=required.keys()
 	if not game.headless:
 		for hash in required:
 			if prepared.has(hash):continue
+			if not game.avatars.library.prepare_avatar(hash):
+				if not game.avatars.library.last_error.is_empty():game.disconnect_game("A required player model could not load.")
+				return
 			var avatar:Node3D=game.avatars.library.create_avatar(hash)
 			if not avatar:game.disconnect_game("A required player model could not load.");return
 			avatar.free();prepared[hash]=true

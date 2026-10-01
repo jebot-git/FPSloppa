@@ -48,6 +48,54 @@ the reference game's unlimited buying-energy option. This does **not** make
 personal jet, weapon or pack energy unlimited. Empty reserves still permit
 a basic emergency spawn; unpaid equipment cannot earn trade credit.
 
+## Image enhancer
+
+Zoom belongs to the armour visor and works with **every Tribes weapon and
+utility**, including the disc launcher, chaingun, blaster, plasma, grenade
+launcher, laser rifle, ELF, mortar, repair gun, targeting laser, grenades and
+mines. It is available in any mode using the Tribes arsenal. The laser rifle
+still requires Light armour and an energy pack to equip; zoom adds no weapon,
+damage, accuracy, range or energy bonuses.
+
+Hold **alternate fire** (default right mouse button) to magnify the viewpoint.
+**X** cycles **2× → 5× → 10× → 20×**; the mouse wheel cycles forward/backward
+while zoom is held. X is rebindable as **Tribes zoom range**. Release alternate
+fire to return to normal view. Range is remembered across weapon switches and
+resets for a new session/map. The current Use/E and prone/Z bindings are retained.
+Desktop mouse sensitivity scales with magnification and the held model disappears.
+
+In VR, hold the **support-hand trigger**, then use **turn-stick up/down** to
+change range. This chord takes priority over shoulder grenade selection.
+The visor follows the head viewpoint; its thin green crosshair follows the
+controller's shot ray and first obstruction, and disappears if that ray is
+blocked or outside the view. It does not predict projectile drop or target lead.
+Grip/trigger equipment interactions take priority over zoom. Menus, death,
+tracking/focus loss, vehicle piloting and remote operation suspend zoom;
+release the trigger before re-entering after an interruption.
+
+The desktop view changes camera FOV using perspective magnification. VR uses
+one head-centred **monoscopic digital visor image**, sampled separately through
+each eye's unchanged runtime projection. It preserves tracked head/controller
+poses but does not provide stereo depth inside the magnified image. The extra
+world render is bounded to 1536² on desktop / 768² on Android and stops when
+inactive; local hands, body, HUD and visor are excluded from that camera.
+Physical headset comfort and compositor cost still need a live play test.
+
+The [original manual, p. 37](https://www.the-flet.com/dynamix/t1/TribesManual.pdf)
+identifies the armour-mounted image enhancer and its four ranges (original
+E/Z controls). The supplied [weapons training gameplay, 4:54–5:06](https://www.youtube.com/watch?v=xFxPt05QqaA&t=294s)
+shows the magnified view, hidden weapon and full-width/height green crosshair;
+the overlay recreates those lines without a circular scope border. A small
+range readout and controller-relative VR aiming are FPSloppa adaptations.
+
+`deathmatch/tests/tribes_image_enhancer.gd` checks all twelve slots, range
+projection, input routing, interruptions, equipment chords and handedness.
+`deathmatch/tests/tribes_visor_render.gd` checks rendered magnification,
+orientation, projection preservation and render suspension on OpenGL/Vulkan.
+`deathmatch/tests/tribes_zoom_desktop.gd` exercises real game input, camera,
+HUD, sensitivity and menu recovery in Stonehenge with a focused desktop window.
+Results and screenshots are in `test-results/tribes-image-enhancer/`.
+
 ## VR interactions
 
 Existing bindings and item-use logic are reused:
@@ -58,6 +106,7 @@ Existing bindings and item-use logic are reused:
 | Weapon-hand A/X | Hold intrinsic jets |
 | Right joystick click | Dominant-hand weapon wheel; inventory wheel on a station |
 | Turn-stick up/down | Select shoulder grenade or mine, retaining the gun |
+| Support-hand trigger; turn-stick up/down while held | Hold image enhancer; change zoom range |
 | Offhand at shoulder, grip + trigger | Draw the selected grenade/mine; swing and release to throw |
 | Offhand grip at the hip | Hold the repair kit; trigger uses it once; release stows it |
 | Offhand grip at the pack control on chest | Trigger activates shield/jammer or selects repair gun |

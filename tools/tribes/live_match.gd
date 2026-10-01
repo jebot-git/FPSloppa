@@ -171,6 +171,9 @@ func direct():
 		if carrier!=0:focus=carrier
 		focus_at=view_clock
 	if game.fighters.has(focus):
+		# Broadcast the watched bot's personal flag cue for this presentation view.
+		# Normal network spectators retain the gameplay music policy.
+		if is_instance_valid(game.music):game.music.preview_listener=focus
 		var s: Dictionary=game.players[focus];var actor=game.fighters[focus];var eye: Vector3=actor.render_position()+Vector3.UP*actor.eye_height()
 		var basis:=Basis(Vector3.UP,s.yaw);var best:=Vector3.ZERO;var clearance:=-INF
 		# Narrow bunker passages can push a chase camera inside avatar hair.

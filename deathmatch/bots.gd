@@ -5,6 +5,16 @@ var game
 var native_ai=preload("res://deathmatch/native/runtime.gd").bots()
 var region: NavigationRegion3D
 var brains: Dictionary={}
+var delegated: Dictionary={}
+
+func action(kind: String,args: Array):
+	if game.bot_shadow:
+		if kind=="de_bot_stow_objective":
+			var de=game.match_mode.defusal;var id: int=args[0]
+			if not (de.carrier==id and de.held) and de.defuser!=id and not de.account(id).tool:return true
+		game.bot_service.actions.append({"kind":kind,"args":args.duplicate(true)})
+		if kind=="team_chat":return true
+	return preload("res://deathmatch/bot_service/actions.gd").execute(game,kind,args)
 var ready_to_walk:=false
 var teamplay=preload("res://deathmatch/bot_ai/teamplay.gd").new()
 var objectives=preload("res://deathmatch/bot_ai/objectives.gd").new()
@@ -72,6 +82,7 @@ func new_brain(id: int) -> Dictionary:
 
 func tick(delta: float) -> void:
 	if not multiplayer.is_server():return
+	if not delegated.is_empty() and not game.players.keys().any(func(id):return id<0 and not delegated.has(id)):return
 	if not ready_to_walk and not NavigationServer3D.is_baking_navigation_mesh(region.navigation_mesh):ready_to_walk=navigation.ready()
 	if ready_to_walk:
 		navigation.install_links();navigation.update_jump_links()
@@ -80,13 +91,17 @@ func tick(delta: float) -> void:
 	for id in brains.keys():
 		if not game.players.has(id) or not game.fighters.has(id):brains.erase(id)
 	for id in game.players:
-		if id>=0 or not game.fighters.has(id):continue
+		if id>=0 or delegated.has(id) or not game.fighters.has(id):continue
 		var s: Dictionary=game.players[id]
 		if not brains.has(id) or brains[id].serial!=s.serial:brains[id]=new_brain(id)
 		var brain: Dictionary=brains[id]
 		if s.dead or s.spectator or game.match_mode.special.blocked(id):
 			s.move=Vector2.ZERO;s.fire=false;s.alt_fire=false;s.offhand_fire=false;s.jump=false;s.swim=Vector3.ZERO;continue
 		s.last_input=game.clock;s.room=Vector3.ZERO;s.offhand_fire=false;s.input_blocked=false
+		# A target can disappear between the staggered perception updates.
+		# Refresh before either native or scripted steering dereferences its actor.
+		if brain.enemy!=0 and not alive(brain.enemy):
+			brain.enemy=0;brain.next=game.clock;brain.plan_at=0.0
 		# Objective interactions may consume movement/fire, but never perception.
 		# A planter/defuser must still notice an approaching opponent.
 		var flag_changed: bool=game.match_mode.kind=="st" and tribes.flag_changed(id,brain)
@@ -518,7 +533,7 @@ func combat_reference(id: int,brain: Dictionary,delta: float=.2) -> void:
 			var point: Vector3=assault.objectives[assault.stage].position+Vector3.UP*.85
 			# Shoot the active objective even while defenders are visible, unless
 			# a nearby enemy presents an immediate threat.
-			if eye(id).distance_to(point)<30 and (brain.enemy==0 or eye(id).distance_to(target_position(brain.enemy))>6) and navigation.ray(eye(id),point).is_empty():
+			if eye(id).distance_to(point)<30 and (brain.enemy==0 or not alive(brain.enemy) or eye(id).distance_to(target_position(brain.enemy))>6) and navigation.ray(eye(id),point).is_empty():
 				s.alt_fire=false;s.weapon=choose_weapon(id,eye(id).distance_to(point));s.fire=aim(id,point,1-exp(-10*delta)) and safe_shot(id,point,explosive_weapon(id,s.weapon))
 				return
 	if brain.enemy!=0 and alive(brain.enemy):
@@ -623,33 +638,33 @@ func class_action(id: int,brain: Dictionary) -> void:
 	if role=="medic" and brain.goal_kind=="heal" and alive(brain.support):
 		if distance>3 and eye(id).distance_to(target_position(brain.support))<5.8 and visible(id,brain.support):
 			s.fire=false;s.alt_fire=false
-			if aim(id,target_position(brain.support),1):tf.action(id)
+			if aim(id,target_position(brain.support),1):action("tf_action",[id,s.tf_tool])
 	elif role=="engineer":
 		if brain.goal_kind=="repair" and tf.buildings.has(brain.support):
 			var point: Vector3=tf.buildings[brain.support].position+Vector3.UP*.7
 			if eye(id).distance_to(point)<3.4 and navigation.ray(eye(id),point).is_empty():
-				s.fire=false;s.alt_fire=false;aim(id,point,1);tf.action(id)
+				s.fire=false;s.alt_fire=false;aim(id,point,1);action("tf_action",[id,s.tf_tool])
 		elif enemy==0 and brain.goal_kind=="defend" and game.fighters[id].position.distance_to(brain.goal)<5:
 			var owned: Array=[]
 			for b in tf.buildings.values():
 				if b.owner==id:owned.append(b.kind)
 			s.tf_tool="dispenser" if "sentry" in owned else "sentry"
 			if not s.tf_tool in owned:
-				s.pitch=0;tf.action(id)
+				s.pitch=0;action("tf_action",[id,s.tf_tool])
 	elif role=="scout":
-		if game.fighters[id].position.distance_to(brain.goal)>10 and not brain.goal_kind in ["cover","defend"]:tf.action(id)
+		if game.fighters[id].position.distance_to(brain.goal)>10 and not brain.goal_kind in ["cover","defend"]:action("tf_action",[id,s.tf_tool])
 	elif role=="sniper":
-		if enemy!=0 and distance>12 and s.fire and brain.stuck<.2:tf.action(id)
+		if enemy!=0 and distance>12 and s.fire and brain.stuck<.2:action("tf_action",[id,s.tf_tool])
 	elif role=="heavy":
-		if enemy!=0 and distance<22 and brain.goal_kind!="capture":tf.action(id)
+		if enemy!=0 and distance<22 and brain.goal_kind!="capture":action("tf_action",[id,s.tf_tool])
 	elif role=="spy":
-		if enemy==0 and not tf.carrying(id) and not tf.cloaked(id) and s.get("tf_disguise",{}).is_empty():tf.action(id)
+		if enemy==0 and not tf.carrying(id) and not tf.cloaked(id) and s.get("tf_disguise",{}).is_empty():action("tf_action",[id,s.tf_tool])
 	elif role in ["soldier","demoman","pyro"]:
 		if role=="demoman" and tf.charges.has(id):
 			var charge: Dictionary=tf.charges[id]
 			for other in brain.visible:
-				if game.fighters[other].position.distance_to(charge.position)<4 and safe_blast(id,charge.position):tf.action(id);break
-		elif enemy!=0 and distance>5 and distance<16 and s.fire and safe_blast(id,game.fighters[enemy].position):tf.action(id)
+				if game.fighters[other].position.distance_to(charge.position)<4 and safe_blast(id,charge.position):action("tf_action",[id,s.tf_tool]);break
+		elif enemy!=0 and distance>5 and distance<16 and s.fire and safe_blast(id,game.fighters[enemy].position):action("tf_action",[id,s.tf_tool])
 func safe_blast(id: int,point: Vector3) -> bool:
 	for other in game.players:
 		if alive(other) and (other==id or game.match_mode.same_team(id,other)) and game.fighters[other].position.distance_to(point)<4.5:return false
@@ -743,7 +758,7 @@ func steer_reference(id: int,brain: Dictionary,delta: float) -> void:
 	var desired:=Vector3(travel.x,0,travel.z)
 	if desired.length()>.1:desired=desired.normalized()
 	# Keep useful weapon distance without abandoning objective routes for a duel.
-	if brain.enemy!=0 and brain.goal_kind=="enemy":
+	if brain.enemy!=0 and alive(brain.enemy) and brain.goal_kind=="enemy":
 		var distance: float=actor.position.distance_to(game.fighters[brain.enemy].position)
 		var ideal: float=ideal_range(id,s.weapon)
 		if distance<ideal*.65:desired=-desired

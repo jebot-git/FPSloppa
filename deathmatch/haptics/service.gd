@@ -121,6 +121,8 @@ func status_text() -> String:
 	return "OSC output to %s:%d · Suit connection is not reported by OSC."%[values.host,values.port]
 func stop() -> void:
 	testing_until=0;cooldowns.clear();was_allowed=false;healed_pending=0;health_last=-1;health_serial=-1;output.stop()
+func is_closing() -> bool:
+	return native_output!=null and native_output.bridge!=null and native_output.bridge.is_running()
 func shutdown() -> void:
 	stop();output.close();set_process(false)
 func _process(_delta: float) -> void:

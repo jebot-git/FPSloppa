@@ -7,9 +7,14 @@ class Lobby extends RefCounted:
 	func active() -> bool:return in_lobby
 class Mode extends RefCounted:
 	var kind:="dm"
+	var defusal=preload("res://deathmatch/modes/defusal.gd").new()
 class FakeGame extends Node:
 	var headless:=false
 	var active:=false
+	var map_loading:=false
+	var quitting:=false
+	var intermission:=0.0
+	var players: Dictionary={}
 	var current_map:="lqdm1"
 	var map_catalog: Array=[{"id":"de_dust2"},{"id":"de_dust2_rebuilt"},{"id":"de_nuke_rebuilt"},{"id":"ctf_raindance"}]
 	var lobby:=Lobby.new()
@@ -54,7 +59,7 @@ func run():
 	for key in Music.TRACKS:
 		var path: String="res://deathmatch/audio/music/"+Music.TRACKS[key]+".ogg"
 		var stream=load(path);check(stream.get_length()>90 and stream.get_length()<160,key+" retains its full original internal cue")
-	check(Music.TRACKS.keys()==["title","lobby"],"Only title and lobby music are bundled")
+	check(Music.TRACKS.keys()==["title","lobby"],"Title and lobby retain their original context tracks")
 	var game:=FakeGame.new();root.add_child(game)
 	var server:=Music.new();game.add_child(server);game.headless=true;server.setup(game,folder+"/server-not-created")
 	check(server.players.is_empty() and server.worker==null and not DirAccess.dir_exists_absolute(folder+"/server-not-created"),"Dedicated server creates no music folder, resources or worker");server.free();game.headless=false
@@ -66,8 +71,11 @@ func run():
 	AudioServer.set_bus_mute(bus,true)
 	check(await ready_track(music,"dead_air.ogg"),"Title always starts internal Dead Air despite custom music")
 	check(music.players[music.current].stream.loop,"Internal title cue loops")
+	check(not music.has_custom_bgm(),"Internal title music does not count as custom BGM")
 	game.active=true
+	check(music.has_custom_bgm(),"Matching custom playlist suppresses ambience before asynchronous loading finishes")
 	check(await ready_track(music,"dm_2.ogg"),"Gameplay starts first matching external track asynchronously")
+	check(music.has_custom_bgm(),"Muted custom playback still suppresses ambience")
 	check(music.players[0].playing and music.players[1].playing,"Context changes crossfade on two players")
 	check(not music.players[music.current].stream.loop,"External song does not loop ahead of the next song")
 	music._process(3);check(not music.players[1-music.current].playing,"Outgoing internal music stops after crossfade")
@@ -83,10 +91,14 @@ func run():
 	check(await ready_track(music,"collection/2.OGG"),"M3U track loads directly without editor import")
 	game.lobby.in_lobby=true
 	check(await ready_track(music,"please_hold.ogg"),"Lobby always selects internal Please Hold")
+	check(music.has_custom_bgm(),"Outgoing custom track suppresses ambience through its crossfade")
+	music._process(3)
+	check(not music.has_custom_bgm(),"Completed custom crossfade releases ambience suppression")
 	game.lobby.in_lobby=false;game.match_mode.kind="st";music._process(.01);game.active=false
 	check(await ready_track(music,"dead_air.ogg"),"A stale async gameplay load cannot replace title music after disconnect")
 	game.active=true;music.folder=folder+"/empty";music.refresh();music._process(3)
 	check(music.selected=="silent" and music.players.all(func(p):return not p.playing),"Empty folder fades out built-in music and leaves gameplay silent")
+	check(not music.has_custom_bgm(),"No matching custom queue allows map ambience")
 	DirAccess.make_dir_recursive_absolute(folder+"/bad");FileAccess.open(folder+"/bad/01.ogg",FileAccess.WRITE).store_string("not ogg")
 	DirAccess.copy_absolute(fixture,folder+"/bad/02.ogg");music.folder=folder+"/bad";music.refresh()
 	check(await ready_track(music,"bad/02.ogg"),"Malformed OGG is skipped and the next valid track plays")

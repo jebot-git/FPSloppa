@@ -350,7 +350,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		free_rotation.x-=event.relative.x*.0022;free_rotation.y=clampf(free_rotation.y-event.relative.y*.0022,-1.5,1.5)
 	if event is InputEventKey and event.pressed and not event.echo:
 		match event.physical_keycode:
-			KEY_ESCAPE:game.menu_open=not game.menu_open;game.hud.show_menu(game.menu_open);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if game.menu_open else Input.MOUSE_MODE_CAPTURED
+			KEY_ESCAPE:
+				if game.menu_open and game.hud.menu_back():return
+				game.menu_open=not game.menu_open;game.hud.show_menu(game.menu_open);Input.mouse_mode=Input.MOUSE_MODE_VISIBLE if game.menu_open else Input.MOUSE_MODE_CAPTURED
 			KEY_P:paused=not paused
 			KEY_SPACE:
 				if viewpoint!="free":paused=not paused

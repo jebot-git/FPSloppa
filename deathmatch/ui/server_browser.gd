@@ -20,6 +20,7 @@ var selected:=""
 var manual_address: LineEdit
 var manual_game: SpinBox
 var manual_query: SpinBox
+var connection_panel: PanelContainer
 
 func setup(arena: Node, hud: Node) -> void:
 	game=arena;interface=hud;name="ServerBrowser"
@@ -61,6 +62,17 @@ func setup(arena: Node, hud: Node) -> void:
 	message=interface.text(column,"",14);message.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;message.custom_minimum_size.y=40
 	interface.button(column,"BACK",close).custom_minimum_size.y=44
 	directory.changed.connect(render);directory.notice.connect(func(value):message.text=value)
+	connection_panel=PanelContainer.new();add_child(connection_panel)
+	connection_panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	connection_panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(20))
+	var book=preload("res://deathmatch/ui/menu_pages.gd").new();connection_panel.add_child(book)
+	var network: VBoxContainer=book.add_page("home","SERVER CONNECTIONS")
+	interface.text(network,"Master server",20);master_row.reparent(network)
+	interface.text(network,"Add a favorite by address",20);manual.reparent(network)
+	book.closed.connect(connection_panel.hide);connection_panel.hide()
+	var toolbar:=HBoxContainer.new();column.add_child(toolbar);column.move_child(toolbar,1)
+	interface.button(toolbar,"REFRESH",refresh)
+	interface.button(toolbar,"CONNECTIONS & FAVORITES…",connection_panel.show)
 	hide();render()
 
 func port_box(parent: Node, value: int) -> SpinBox:
@@ -70,7 +82,12 @@ func open() -> void:
 	if game.active or game.loading.blocking:return
 	get_parent().move_child(self,-1);show();refresh()
 
+func go_back() -> void:
+	if connection_panel.visible:connection_panel.hide()
+	else:close()
+
 func close() -> void:
+	connection_panel.hide()
 	directory.cancel();preload("res://deathmatch/ui/choice.gd").close_all(get_tree());hide()
 
 func refresh() -> void:

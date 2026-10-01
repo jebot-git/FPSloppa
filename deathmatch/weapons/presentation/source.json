@@ -1,0 +1,6 @@
+{
+  "mode": "built-in image_gen",
+  "asset": "finish.png",
+  "purpose": "Four-material weapon detail atlas; mipmapped and limited to 1024 pixels by the Godot importer.",
+  "prompt": "Production game texture, square 1024x1024 weapon trim/detail atlas for circa-2000 PC FPS. Flat orthographic unlit diffuse/albedo only, no scene, no perspective, no cast shadows, no weapons pictured. Exactly four equal quadrants, edge-to-edge without gutters: TOP LEFT a dark neutral gray parkerized steel plate, finely scratched with subtle oil wear and brighter scuffed edges, no bolts; TOP RIGHT brushed medium gray machined steel with horizontal machining lines, modest edge wear; BOTTOM LEFT dark charcoal stippled rubber grip with molded ribs and worn high points; BOTTOM RIGHT warm medium bronze anodized metal with shallow engraved parallel channels. Entire image completely opaque. Each quadrant must read as a continuous flat material surface, not separate objects. Midfrequency material detail appropriate for 512-pixel texture maps, restrained scratches, practical used machinery, not rusty ruins. No words, no numbers, no logos, no decoration, no baked harsh lighting. Four quadrants have clean straight boundaries exactly at image midlines."
+}

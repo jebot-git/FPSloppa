@@ -13,6 +13,14 @@ FPSloppa has an authored **FPSloppa Vest v1** profile for weapon recoil, localiz
 
 The native dependency also provides TactSuit Air mappings, which are enabled experimentally but have not been hardware-tested here. Pro, X16, limbs and gloves are excluded from the direct backend. Android ARM64 now has a direct-BLE Godot adapter, using btleplug’s Android backend and a Java permission/JNI bootstrap. A Quest 3 smoke test passed native loading, Java registration, JNI initialization, scanning and clean worker shutdown. The scan returned no supported vest, so it did not test vest connection or output. Windows uses btleplug’s WinRT backend. Native Windows Bluetooth and Android vest actuation still need hardware validation; Wine only verifies the Windows library loads. A missing or outdated native binary produces an actionable status, rather than silently sending to an OSC endpoint.
 
+## September 30 CS and disconnect fixes
+
+All twelve CS weapon names now resolve to existing recoil families: knife → melee; Glock/USP/Deagle → pistol; M3/XM1014 → shotgun; MP5/AK/M4/M249/P90 → automatic; AWP → sniper. Incoming CS damage uses the same corrected family lookup. Pattern levels, durations, global intensity and saved settings are unchanged.
+
+Native shutdown now sends zero, requests disconnect and polls adapter state for up to three seconds, retrying requests. Motor release has a separate 1.5-second bound and a failed write does not prevent disconnect. Closing discards queued scan/connect requests; late connection completions are cleaned up. A selected stale OS connection is disconnected and verified before reconnecting. Normal game quit yields frames until the bounded worker finishes. Diagnostics add `disconnects`, `disconnect_errors` and `release_errors`; an unconfirmed disconnect reports an error instead of claiming clean shutdown.
+
+Linux software validation covers CS primary/alternate mapping, delayed disconnect confirmation, failed motor release, timeout, queued-request cancellation, plugin loading and unavailable D-Bus shutdown. The Linux native library was rebuilt. The revised path still needs a physical X40 reconnect check; Windows/Android libraries need rebuilding before those clients receive this native change.
+
 ## Direct Bluetooth setup
 
 1. Build the optional extension as described below. Local release builds for all three platforms are installed; ordinary source checkouts do not include the binary.
