@@ -109,9 +109,49 @@ next preparation. Disconnects and deaths release a recoverable bomb.
 
 The rules use [ReGameDLL_CS reward constants](https://github.com/rehlds/ReGameDLL_CS/blob/master/regamedll/dlls/gamerules.h)
 and a [Pavlov-inspired keypad/cutter interaction](https://pavlovwiki.com/index.php/Gamemodes#Search_and_Destroy).
-This is a hybrid using FPSloppa movement, damage/armor, shared ammo pools, the
+This is a hybrid using CS 1.6 movement on supported DE maps, FPSloppa damage/armor, shared ammo pools, the
 existing twelve CS weapons, and its melee/reload/scope systems. It does not add
 exact per-caliber reserve prices or CS armor/headshot behavior.
+
+DE on a hash-validated DE layout selects the shared CS movement profile for
+desktop, VR, bots and client prediction. The CS loadout in other modes keeps
+that mode's movement. Numerical references are the stock branches of
+[ReGameDLL_CS movement](https://github.com/rehlds/ReGameDLL_CS/blob/master/regamedll/pm_shared/pm_shared.cpp),
+its [movement constants](https://github.com/rehlds/ReGameDLL_CS/blob/master/regamedll/pm_shared/pm_shared.h)
+and [weapon speeds](https://github.com/rehlds/ReGameDLL_CS/blob/master/regamedll/dlls/weapons.h).
+The independent implementation uses the BSP scale of 32 GoldSrc units per metre:
+
+- Weapon running speeds, including 250 units/s with a knife/pistol and 150
+  with a scoped AWP; walking uses 52% and crouching 33.3%.
+- Ground acceleration 5, friction 4, stop speed 75 and doubled ledge friction.
+  Air acceleration 10 uses the classic 30-unit directional wish-speed cap,
+  preserving perpendicular momentum for air strafing.
+- Gravity 800, 45-unit jump height and 18-unit steps. Jump requires a new press
+  on the ground; airborne presses are consumed. A takeoff above 120% weapon
+  speed reduces carried speed to 96%. Jump fatigue lasts about 1.316 seconds,
+  reducing repeated jump height and ground momentum while recovering.
+- Water movement uses 80% speed, water friction and held-jump swimming.
+
+Jump fatigue is included in authority snapshots and replay, and resets on a
+new life or movement-profile change. Bots use the same jump arc and avoid
+habitual travel hops in DE. Original per-command fatigue decay is normalized
+to a 100 Hz reference; partial VR stick input scales the stop threshold.
+DE player hulls have flat top and bottom surfaces: players on either team can
+land on another player, hold multi-player stacks, jump from them and perform
+crouch-to-stand boosts when the upper player jumps to make headroom. Standing up
+is blocked while another player occupies that space. Walking off or losing the
+base player resumes falling; respawns do not carry former passengers.
+
+Tracked body height, the 0.6 m circular VR footprint, physical crouching/prone
+bomb access and stair camera smoothing remain FPSloppa adaptations. The DE hull
+is a cylinder rather than GoldSrc's fixed-size box, preserving doorway clearance
+and avoiding rotation-dependent obstruction. Other modes retain their capsules.
+Prone posture uses the CS crouch speed. This does not reproduce GoldSrc hull exploits or add ladders,
+water-ledge auto-jumps, CS fall damage, or camera bob/punch to VR.
+
+Validate with `deathmatch/tests/cs16_movement.gd`, `deathmatch/tests/cs16_stacking.gd`,
+`deathmatch/tests/movement_replay.gd -- --cs16` and the map route verifiers'
+`--cs16` option. Native steering parity includes the CS profile.
 
 HE, flash and smoke are available in the GRENADES buy category. Desktop uses
 **4** to select, hold/release Fire to throw and **Q** to holster; VR uses the weapon

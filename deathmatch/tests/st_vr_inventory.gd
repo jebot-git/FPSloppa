@@ -23,12 +23,13 @@ func packet():
 	var command: Dictionary=rig.command(g.sequence+1);g.sequence+=1
 	g._accept_input(1,command)
 func run():
+	DirAccess.make_dir_recursive_absolute("res://test-results/st-vr-inventory")
 	root.title="ST VR inventory validation";root.size=Vector2i(1280,800);root.position=Vector2i(6000,6000)
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.selected_map="ctf_raindance";g.start_host("VR inventory",0,100,60,true,"st")
 	g.set_process(false);g.set_physics_process(false);rules=g.match_mode.tribes;rules.set_process(false)
 	for id in g.players.keys():
 		if id!=1:g._peer_left(id)
-	rig=g.xr_rig;rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false;rig.blackout.hide();rig.focused=true
+	rig=g.xr_rig;rig.setup(g,true);rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false;rig.blackout.hide();rig.focused=true
 	rig.head.position=Vector3(0,1.65,0);rig.left.position=Vector3(-.3,1.15,-.4);rig.right.position=Vector3(.3,1.15,-.4)
 	left=XRControllerTracker.new();left.name="left_hand";XRServer.add_tracker(left)
 	right=XRControllerTracker.new();right.name="right_hand";XRServer.add_tracker(right)
@@ -38,11 +39,15 @@ func run():
 	var actor=g.fighters[1];actor.velocity=Vector3.ZERO
 	var pads=rules.stations();rules.energy=[20000,20000,20000]
 	var station: int=range(pads.rows.size()).filter(func(i):return pads.rows[i].team==0 and pads.rows[i].kind=="inventory")[0]
-	actor.position=pads.rows[station].position
+	actor.position=pads.rows[station].frame*Vector3(1.4,0,-1.4)
 	await physics_frame
-	rules._process(0)
-	check(wheel.input.opened and wheel.tribes_shop,"Actual Raindance inventory automatically opens VR shop")
-	packet();check(s.input_blocked,"Open VR inventory blocks ordinary combat")
+	rig.focused=false;rules._process(0)
+	check(not wheel.input.opened and rules.local_station<0,"Station approach waits for XR focus before marking the visit open")
+	rig.focused=true;rules._process(0)
+	check(wheel.input.opened and wheel.tribes_shop,"Approaching the corner of the Raindance inventory mat automatically opens VR shop without a click")
+	right.set_input("trigger",true);left.set_input("primary",Vector2(0,1))
+	packet();check(not s.input_blocked and not s.fire and s.move.length()>.9,"Open VR inventory allows authoritative movement while filtering combat")
+	right.set_input("trigger",false);left.set_input("primary",Vector2.ZERO)
 	select(202);select(401);select(201);select(302);select(203)
 	check(s.tribes_class=="medium" and s.tribes_pack=="repair","Tilt/recenter refits selected armour and pack")
 	check(wheel.input.opened and wheel.tribes_shop,"Purchase stays in inventory instead of becoming a weapon wheel")
@@ -77,10 +82,17 @@ func run():
 	wheel.toggle(Vector2.ZERO);select(205);check(wheel.input.opened and not wheel.tribes_shop,"Only explicit Carried Weapons switches to weapon selection")
 	wheel.reset()
 	var vehicle: int=range(pads.rows.size()).filter(func(i):return pads.rows[i].team==0 and pads.rows[i].kind=="vehicle")[0]
-	actor.position=pads.rows[vehicle].position;rules.local_station=-1;s.input_blocked=false
+	actor.position=pads.rows[vehicle].frame*Vector3(0,0,-2.2);rules.local_station=-1;s.input_blocked=false
 	await physics_frame
 	rules._process(0);packet();wheel.update(Vector2.ZERO);rules._process(0)
-	check(wheel.input.opened and wheel.tribes_shop and rules.vehicles.station(1)==vehicle,"Vehicle station shop persists while combat is blocked")
+	check(wheel.input.opened and wheel.tribes_shop and rules.vehicles.station(1)==vehicle,"Approaching vehicle station automatically opens persistent shop")
+	for mirrored in [false,true]:
+		rig.left_handed=mirrored;rig.left_controls=mirrored;wheel.reset()
+		var main=left if mirrored else right
+		main.set_input("primary_click",true);rig.poll_controls()
+		check(wheel.input.opened and wheel.tribes_shop and wheel.entries.any(func(row):return row.id==5000),"Main-hand stick click opens vehicle purchases: "+str(mirrored))
+		main.set_input("primary_click",false);rig.poll_controls()
+	rig.left_handed=false;rig.left_controls=false
 	select(5000);check(rules.vehicles.rows.size()==1 and wheel.tribes_shop and wheel.input.opened,"Vehicle purchase succeeds through the VR wheel")
 	wheel.reset();rules.vehicles.reset()
 	Fixture.box(g,Fixture.ORIGIN-Vector3.UP*.5,Vector3(30,1,30));actor.position=Fixture.ORIGIN

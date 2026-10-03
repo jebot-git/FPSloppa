@@ -49,8 +49,11 @@ The existing death-drop policy excludes the starting knife and USP.
   the replacement is enough to resume firing. Capacity still includes the chamber,
   without an extra round. Empty pistol slides remain locked until an offhand rack
   or one brisk sideways movement of the weapon hand releases them; either side
-  works even with the gun rolled. The feed end of held ammunition points toward
-  the controller's thumb end.
+  works even with the gun rolled. Glock, USP and Desert Eagle magazines stand
+  upward from the palm. Bring the visible feed end into the magazine well;
+  insertion follows that tip so the controller bodies can stay apart. The pistol
+  slide grab extends 8 cm above the slide and still requires a pull and release.
+  Other held ammunition points toward the controller's thumb end.
   Left-handed use mirrors the pouch and hand roles.
 - VR AK-47: with a partly depleted magazine and reserve rounds, draw a replacement
   while the old magazine is still seated. Bump it forward against the magazine
@@ -218,7 +221,8 @@ shared armor tiers. Helmet purchases retain the project's shared armor model,
 not location-specific CS1.6 armor rules.
 
 The arena adaptation does not enable CS economy or round/bomb rules; those
-are available separately in [DE mode](BOMB-DEFUSAL.md). It does not implement
+are available separately in [DE mode](BOMB-DEFUSAL.md), which also selects the
+CS movement profile on supported DE maps. The arsenal alone does not implement
 a full weapon roster, caliber-specific inventory, armor types or exact GoldSrc recoil
 and movement. Four shared arena ammunition families remain. Movement multipliers
 are normalized to the existing movement speed; spread adds movement, airborne

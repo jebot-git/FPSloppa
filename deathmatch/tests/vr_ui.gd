@@ -155,7 +155,7 @@ func run() -> void:
 	var music_before:float=settings.values.music
 	var music_plus:Button=settings.controls.music.get_parent().get_child(3)
 	point_at(pointer,rig.panel,music_plus.get_global_transform_with_canvas()*(music_plus.size*.5));click(pointer)
-	check(is_equal_approx(settings.values.music,minf(1,music_before+.01)),"Controller changes music volume by one percent through the real menu pointer")
+	check(is_equal_approx(settings.values.music,minf(1,music_before+.05)),"Controller changes music volume by five percent through the real menu pointer")
 	settings.go_back();await process_frame;await process_frame
 	var graphics_button:Button
 	for button in settings.find_children("*","Button",true,false):

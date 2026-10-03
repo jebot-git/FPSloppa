@@ -24,6 +24,25 @@ func count(mesh: Mesh) -> int:
 		var a:=mesh.surface_get_arrays(i);n+=(a[Mesh.ARRAY_INDEX].size() if a[Mesh.ARRAY_INDEX]!=null else a[Mesh.ARRAY_VERTEX].size())/3
 	return n
 func _initialize():run.call_deferred()
+func check_shoulders(replacement,sk: Skeleton3D,label: String):
+	var full: Mesh=replacement.body.get_meta("full_body_mesh")
+	var ordinary:=Mask.masked(full,replacement.body.skin,sk)
+	var local: Mesh=replacement.body.mesh
+	check(count(local)<count(ordinary) if replacement.key=="heavy" else local==ordinary,label+" hides shoulders only for Heavy")
+	if replacement.key!="heavy":return
+	var retained: Dictionary={}
+	for surface in local.get_surface_count():
+		var a:=local.surface_get_arrays(surface);var stride: int=a[Mesh.ARRAY_BONES].size()/a[Mesh.ARRAY_VERTEX].size()
+		for vertex in a[Mesh.ARRAY_INDEX]:
+			for j in stride:
+				if a[Mesh.ARRAY_WEIGHTS][vertex*stride+j]<=.05:continue
+				var bind: int=a[Mesh.ARRAY_BONES][vertex*stride+j]
+				var name: String=replacement.body.skin.get_bind_name(bind)
+				if name.is_empty():name=sk.get_bone_name(replacement.body.skin.get_bind_bone(bind))
+				retained[name]=true
+	check(not retained.has("LeftShoulder") and not retained.has("RightShoulder"),label+" removes both shoulder bridges")
+	for side in ["Left","Right"]:
+		check(retained.has(side+"UpperArm") and retained.has(side+"LowerArm") and retained.has(side+"LowerLeg"),label+" retains distal arm, forearm and leg on "+side)
 func check_cuffs(replacement,sk: Skeleton3D,label: String):
 	var mesh: Mesh=replacement.body.get_meta("full_body_mesh",replacement.body.mesh)
 	var skin: Skin=replacement.body.skin
@@ -148,10 +167,11 @@ func run():
 				check(count(replacement.body.mesh)<triangles,armour+" masks immediately with avatar first-person transition")
 				replacement.update(actor)
 				check(actor.avatar.visual_meshes.any(func(m):return m.visible and replacement.Original.has_hand(m.mesh,m.skin,actor.avatar.skeleton,"LeftHand")),armour+" original hand remains visible in first person")
+				check_shoulders(replacement,actor.avatar.skeleton,armour+" VRM")
 				check(count(replacement.body.mesh)<triangles and count(replacement.body.mesh)>0,armour+" first-person torso mask leaves limbs")
 				var mask_before: Mesh=replacement.body.mesh
 				actor.avatar.set_keypad_glove("left")
-				check(replacement.body.mesh==Mask.masked(replacement.body.get_meta("full_body_mesh"),replacement.body.skin,actor.avatar.skeleton,"left"),armour+" follows avatar hand-mask changes immediately")
+				check(replacement.body.mesh==Mask.masked(replacement.body.get_meta("full_body_mesh"),replacement.body.skin,actor.avatar.skeleton,"left",armour=="heavy"),armour+" follows avatar hand-mask changes immediately")
 				actor.avatar.set_keypad_glove("")
 				check(replacement.body.mesh==mask_before,armour+" restores shared first-person mask after glove release")
 				replacement.build(actor)
@@ -176,6 +196,10 @@ func run():
 				replacement.update(actor)
 			else:
 				check(actor.avatar.get_node("Upper/Head").get_child(0).visible,"Fallback original head is retained")
+				actor.show_alive(true,true);actor.local_body_visible=true;replacement.update(actor)
+				check_shoulders(replacement,replacement.source_sk,armour+" fallback")
+				actor.set_local_body(false);actor.show_alive(true,false);replacement.update(actor)
+				check(count(replacement.body.mesh)==triangles,armour+" fallback restores complete third-person body")
 			for gun in actor.avatar.find_children("WeaponModel","Node3D",true,false):gun.hide()
 			if is_instance_valid(actor.label):actor.label.hide()
 	await process_frame;await process_frame

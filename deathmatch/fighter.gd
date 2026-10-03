@@ -3,6 +3,10 @@ signal movement_sound(kind: String,where: Vector3)
 const Art = preload("res://deathmatch/art.gd")
 const QuakeMovement = preload("res://deathmatch/movement/quake.gd")
 const Jetpack=preload("res://deathmatch/movement/jetpack.gd")
+const CS16=preload("res://deathmatch/movement/cs16.gd")
+var cs16_enabled:=false
+var cs16_max_speed:=250.0/32.0
+var cs16_stamina:=0.0
 const Tribes=preload("res://deathmatch/movement/tribes.gd")
 var tribes_enabled:=false
 var tribes_armour_model: Node3D
@@ -57,6 +61,7 @@ var target := Vector3.ZERO
 var target_yaw := 0.0
 var local_player := false
 var local_body_visible := false
+var local_ik_guide := false
 var spawn_serial := -1
 var view_offset := 0.0
 var previous_view_offset := 0.0
@@ -111,6 +116,35 @@ func is_supported() -> bool:
 	if tribes_enabled:return tribes_state.grounded
 	return is_on_floor() or stepped_last_frame
 
+func configure_cs16(enabled: bool,max_speed: float=250.0/32.0) -> void:
+	if cs16_enabled!=enabled:
+		cs16_enabled=enabled
+		configure_player_hull()
+		velocity=Vector3.ZERO;blast_velocity=Vector2.ZERO;reset_view()
+	cs16_max_speed=max_speed
+	floor_snap_length=2.0/32.0 if enabled else .6
+	floor_max_angle=acos(.7) if enabled else deg_to_rad(50)
+	# GoldSrc clips into walls without Godot's 15-degree all-motion stop.
+	wall_min_slide_angle=0.0 if enabled else deg_to_rad(15)
+
+func configure_player_hull() -> void:
+	if not is_instance_valid(body_shape):return
+	# DE uses flat feet and head surfaces so players can stand and jump on
+	# each other. Preserve the circular VR footprint through doorways and turns.
+	if cs16_enabled:
+		var cylinder:=CylinderShape3D.new();cylinder.radius=.30;cylinder.height=collision_height;body_shape.shape=cylinder
+	else:
+		var capsule:=CapsuleShape3D.new();capsule.radius=.30;capsule.height=collision_height;body_shape.shape=capsule
+
+func movement_speed(slow: bool=false) -> float:
+	if cs16_enabled:return cs16_max_speed*(CS16.WALK_SCALE if slow else 1.0)*(CS16.DUCK_SCALE if stance!="stand" else 1.0)
+	return (5.2 if slow else 9.4)*speed_multiplier
+
+func jump_speed() -> float:
+	return CS16.JUMP_SPEED*CS16.stamina_ratio(cs16_stamina) if cs16_enabled else 7.4
+
+func movement_gravity() -> float:return CS16.GRAVITY if cs16_enabled else 20.0
+
 func configure_tribes(enabled: bool,blocked: bool=false) -> void:
 	if tribes_enabled!=enabled:
 		tribes_enabled=enabled
@@ -157,9 +191,14 @@ func update_height(requested: float,force: bool=false) -> void:
 	if requested>collision_height and not force:
 		var query:=PhysicsShapeQueryParameters3D.new();var capsule:=CapsuleShape3D.new();capsule.radius=.30;capsule.height=requested-collision_height+.60
 		# Test only the added upper volume; the existing feet may touch the floor.
-		query.shape=capsule;query.transform=global_transform*Transform3D(Basis.IDENTITY,Vector3.UP*((collision_height+requested)*.5-.30+.005));query.collision_mask=3;query.exclude=[get_rid()];query.margin=.001
+		query.shape=capsule;query.transform=global_transform*Transform3D(Basis.IDENTITY,Vector3.UP*((collision_height+requested)*.5-.30+.005))
+		if cs16_enabled:
+			var cylinder:=CylinderShape3D.new();cylinder.radius=.30;cylinder.height=requested-collision_height
+			query.shape=cylinder;query.transform=Transform3D(Basis.IDENTITY,global_position+Vector3.UP*((collision_height+requested)*.5+.005))
+		query.collision_mask=3;query.exclude=[get_rid()];query.margin=.001
 		if not get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return
-	collision_height=requested;body_shape.shape.height=requested;body_shape.position.y=requested*.5+.005
+	collision_height=requested;body_shape.shape.height=requested
+	body_shape.position.y=requested*.5+.005
 	stance="prone" if collision_height<.80 else "crouch" if collision_height<1.60 else "stand"
 func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool = false, swim: Vector3=Vector3.ZERO) -> void:
 	advance_view_offset(delta)
@@ -175,7 +214,10 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 		tribes_command={"move":input,"yaw":yaw,"slow":slow,"delta":delta,"jump":jump,"ski":ski_held,"jet":jet_held,"height":collision_height,"blocked":tribes_blocked,"swim":swim}
 		Tribes.simulate(self,direction,slow,delta,jump)
 		return
-	var speed := (5.2 if slow else 9.4)*speed_multiplier*stance_speed()
+	if cs16_enabled:
+		CS16.simulate(self,direction,slow,delta,jump,swim)
+		return
+	var speed := movement_speed(slow)*stance_speed()
 	var stroke: Vector3=(basis*swim.limit_length(1.0)) if in_water and swim.is_finite() else Vector3.ZERO
 	if in_water:
 		speed*=.65
@@ -255,7 +297,7 @@ func apply_blast(impulse: Vector3) -> void:
 	velocity.y=clampf(velocity.y+impulse.y,-30.0,20.0)
 
 func step_up(travel: Vector3,height: float) -> bool:
-	if travel.length()<.001:return false
+	if travel.length()<(.000001 if cs16_enabled else .001):return false
 	# Match move_and_slide's recovery contacts. Without these, very small
 	# inward motions look clear here but are stopped by its wall recovery.
 	var obstacle:=KinematicCollision3D.new()
@@ -297,6 +339,7 @@ func step_up(travel: Vector3,height: float) -> bool:
 func reset_view() -> void:
 	prediction.clear();prediction_view_offset=Vector3.ZERO
 	travel_path.clear()
+	cs16_stamina=0;jump_held=false;jump_queued=false
 	water_jump_used=false;water_deep_time=0;water_exit_grace=0;water_boost=0;was_in_water=false
 	view_offset=0;previous_view_offset=0;floor_grace=0;stepped_last_frame=false
 	reset_physics_interpolation()
@@ -370,7 +413,7 @@ func correct_prediction(requested: Vector3) -> Vector3:
 
 func show_alive(alive: bool, is_local: bool) -> void:
 	alive=alive and not spectator
-	if alive_state and not alive:reset_jetpack();reset_tribes()
+	if alive_state and not alive:reset_jetpack();reset_tribes();cs16_stamina=0
 	alive_state = alive
 	local_player = is_local
 	collision_layer = 2 if alive else 0
@@ -378,8 +421,8 @@ func show_alive(alive: bool, is_local: bool) -> void:
 	if avatar:
 		avatar.dead = not alive
 		if not avatar_hash.is_empty():
-			avatar.process_mode = Node.PROCESS_MODE_DISABLED if frozen or is_local and not local_body_visible else Node.PROCESS_MODE_INHERIT
-			avatar.set_first_person(is_local and local_body_visible)
+			avatar.process_mode = Node.PROCESS_MODE_DISABLED if frozen or is_local and not (local_body_visible or local_ik_guide) else Node.PROCESS_MODE_INHERIT
+			avatar.set_first_person(is_local and (local_body_visible or local_ik_guide))
 		avatar.visible = alive and (not is_local or local_body_visible)
 	if label: label.visible = alive and not is_local
 
@@ -395,6 +438,11 @@ func set_avatar(model: Node3D, hash: String) -> void:
 
 func animate_fire(offhand: bool=false) -> void:
 	if avatar and not avatar_hash.is_empty(): avatar.fire(offhand)
+
+func set_local_ik_guide(value: bool) -> void:
+	value=value and local_player and alive_state and not gibbed and not spectator and not avatar_hash.is_empty()
+	if local_ik_guide==value:return
+	local_ik_guide=value;show_alive(alive_state,local_player)
 
 func set_local_body(value: bool) -> void:
 	value=value and local_player and alive_state and not gibbed and not avatar_hash.is_empty()
@@ -564,10 +612,10 @@ func emit_movement_sound(kind:String,where:Vector3) -> void:
 	if not replaying:movement_sound.emit(kind,where)
 
 func prediction_environment() -> Dictionary:
-	return {"in_water":in_water,"underwater":underwater,"water_surface":water_surface}
+	return {"in_water":in_water,"underwater":underwater,"water_surface":water_surface,"cs16_enabled":cs16_enabled,"cs16_max_speed":cs16_max_speed}
 
 func prediction_state() -> Dictionary:
-	return {"jump_held":jump_held,"jump_queued":jump_queued,"blast_velocity":blast_velocity,"floor_grace":floor_grace,"stepped_last_frame":stepped_last_frame,"water_jump_used":water_jump_used,"water_deep_time":water_deep_time,"water_exit_grace":water_exit_grace,"water_boost":water_boost,"was_in_water":was_in_water,"in_water":in_water,"underwater":underwater,"water_surface":water_surface}
+	return {"cs16_stamina":cs16_stamina,"jump_held":jump_held,"jump_queued":jump_queued,"blast_velocity":blast_velocity,"floor_grace":floor_grace,"stepped_last_frame":stepped_last_frame,"water_jump_used":water_jump_used,"water_deep_time":water_deep_time,"water_exit_grace":water_exit_grace,"water_boost":water_boost,"was_in_water":was_in_water,"in_water":in_water,"underwater":underwater,"water_surface":water_surface}
 
 func restore_prediction_state(state:Dictionary) -> void:
 	for field in prediction_state():

@@ -50,6 +50,7 @@ func build(value):
 		var replacement:=MeshInstance3D.new();replacement.name="TribesBody";replacement.mesh=result.mesh;replacement.skin=result.skin
 		avatar.skeleton.add_child(replacement);replacement.skeleton=NodePath("..");source_root.free();source_root=null;source_sk=null;body=replacement
 	body.set_meta("tribes_body",true);team=-99;last_first=false
+	body.set_meta("first_person_hide_shoulders",key=="heavy")
 	if not fallback:avatar.register_visual_mesh(body,true,true)
 func is_weapon(node: Node) -> bool:
 	while node!=avatar and node!=null:

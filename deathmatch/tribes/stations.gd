@@ -176,7 +176,9 @@ func at(id: int,kinds: Array=["inventory"]) -> int:
 	var p: Vector3=game.fighters[id].global_position;var team: int=game.players[id].team
 	for i in rows.size():
 		var row: Dictionary=rows[i];var offset: Vector3=p-row.position
-		if row.kind not in kinds or row.team!=team or not connected(row) or game.match_mode.kind=="st" and not assets.active(row.asset) or absf(offset.y)>.9 or Vector2(offset.x,offset.z).length()>1.5:continue
+		# Include the corners and approach to the 2.9 m service mat, rather
+		# than requiring the player's origin inside a small centre circle.
+		if row.kind not in kinds or row.team!=team or not connected(row) or game.match_mode.kind=="st" and not assets.active(row.asset) or absf(offset.y)>1.25 or Vector2(offset.x,offset.z).length()>2.5:continue
 		var ray:=PhysicsRayQueryParameters3D.create(p+Vector3.UP*.9,row.position+Vector3.UP*.9,1)
 		if game.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():return i
 	return -1

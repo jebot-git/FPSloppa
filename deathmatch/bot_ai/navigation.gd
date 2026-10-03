@@ -228,18 +228,23 @@ func landing_clear(point: Vector3) -> bool:
 	query.transform=Transform3D(Basis.IDENTITY,point+Vector3.UP*.89)
 	return game.get_world_3d().direct_space_state.intersect_shape(query,1).is_empty()
 
-func jump_clear(start: Vector3,end: Vector3,speed: float=6.0) -> bool:
+func jump_clear(start: Vector3,end: Vector3,speed: float=6.0,jump_speed: float=-1.0,gravity: float=-1.0) -> bool:
 	# Conservative hull samples for an ordinary jump, valid even for slow TF
 	# classes. No movement/teleport is applied by the planner.
 	var distance:=Vector2(end.x-start.x,end.z-start.z).length()
+	var cs: bool=game.match_mode.defusal.classic_movement()
+	if jump_speed<0:jump_speed=preload("res://deathmatch/movement/cs16.gd").JUMP_SPEED if cs else 7.4
+	if gravity<0:gravity=25.0 if cs else 20.0
 	if distance>4.8 or end.y-start.y>1.0 or end.y-start.y< -6.5:return false
-	var duration: float=(7.4+sqrt(maxf(0,7.4*7.4-40*(end.y-start.y))))/20.0
+	var discriminant:=jump_speed*jump_speed-2*gravity*(end.y-start.y)
+	if discriminant<0:return false
+	var duration: float=(jump_speed+sqrt(discriminant))/gravity
 	if distance>duration*speed:return false
 	var capsule:=CapsuleShape3D.new();capsule.radius=.31;capsule.height=1.65
 	var query:=PhysicsShapeQueryParameters3D.new();query.shape=capsule;query.collision_mask=1
 	for index in range(1,9):
 		var t:=duration*index/9.0
-		var point:=start.lerp(end,t/duration);point.y=start.y+7.4*t-10*t*t
+		var point:=start.lerp(end,t/duration);point.y=start.y+jump_speed*t-gravity*.5*t*t
 		query.transform=Transform3D(Basis.IDENTITY,point+Vector3.UP*.85)
 		if not game.get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return false
 	return true

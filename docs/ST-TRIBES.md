@@ -15,6 +15,16 @@ network source name is `st_stonehenge`. Ordinary CTF/arena maps cannot enter
 an ST rotation. Future imported `st_*.bsp` maps need flags and spawns for both
 teams, each team's inventory and generator markers, and playable bounds.
 
+ST maps cannot be selected or loaded in other modes, even through a configured
+map list. The Tribes loadout remains selectable in DM, TDM, CTF, KOTH and FT
+on those modes' maps. It retains armour, weapons, personal backpacks, skiing
+and jets; selected equipment is supplied each respawn without team-energy
+costs. Stations, deployables, command systems and vehicles require ST mode.
+
+In VR, the PDA rests flat on the offhand palm, with its casing ahead of the
+wrist and no forearm cuff. Heavy armour shoulder bridges and pauldrons are
+hidden in first person; other players still see the complete armour.
+
 ## Match and equipment rules
 
 - Touch the enemy flag to take it. Capture at your own flag while it is home.
@@ -33,7 +43,7 @@ teams, each team's inventory and generator markers, and playable bounds.
 - Existing Light/Medium/Heavy restrictions, weapon/ammo limits, backpacks,
   grenades, mines, repair gun and targeting laser remain in use. The armour
   HUD reads personal energy; armour condition is health.
-- Walk onto a powered friendly inventory pad to open the reused buy wheel.
+- Approach a powered friendly inventory pad to open the reused buy wheel automatically (within 2.5 m, with line of sight). Main-hand stick click reopens it; vehicle stations use the same controls.
   It repairs and resupplies, charges team energy and credits paid trade-ins.
   Purchases preserve damage and personal jet charge.
 - Each Stonehenge base has a damageable generator housing. Losing power
@@ -47,6 +57,37 @@ with reconnect/respawn farming prevented. `sv_tribes_infinite_energy 1` enables
 the reference game's unlimited buying-energy option. This does **not** make
 personal jet, weapon or pack energy unlimited. Empty reserves still permit
 a basic emergency spawn; unpaid equipment cannot earn trade credit.
+
+## Targeting laser and mortar
+
+The **TARGETING LASER** is a separate utility from the damaging **LASER RIFLE**.
+Hold primary fire to paint a surface or object. The server traces the weapon
+aim every 0.2 seconds, up to 1,000 m, consuming 3 personal energy per trace
+(minimum 5 to fire). It deals no damage. In VR it follows the weapon controller,
+not the headset. The hit point becomes a team-only LASER target. Releasing fire,
+switching weapons, death, team changes or aiming into empty sky removes it;
+the short 0.45-second lease only bridges accepted traces.
+
+A teammate with **Heavy armour and a mortar** sees a gold diamond at the target
+and, if a valid trajectory exists, a green aiming ring with flight time. Aim
+the mortar along that ring and fire. The same assistance supports the grenade
+launcher and friendly target beacons. Switching your own targeter to a mortar
+stops painting, so sustained laser guidance needs a teammate. Beacons persist
+until disabled or destroyed.
+
+The aiming display updates at 10 Hz, considers the eight nearest friendly
+designations/beacons, and chooses one by view direction with a preference for
+the previously selected target. It tries the low arc first, then the high arc,
+rejecting blocked paths and arrivals before the shell arms. Mortar calculations
+use about 74.16 m/s launch speed, 20 m/s² gravity, half the shooter's current
+velocity and a two-second arming time. At equal elevation while stationary,
+the ideal maximum range is 275 m. No valid arc means no green ring.
+
+The laser supplies an aiming reference; it neither redirects the weapon nor
+guides a shell after launch. A fired mortar follows its initial velocity and
+gravity even if the laser moves. Hits before arming bounce; armed impacts
+explode, with a 20 m blast radius. Heavy siege/escort bots also consume allied
+designations and aim before firing.
 
 ## Image enhancer
 
@@ -102,7 +143,7 @@ Existing bindings and item-use logic are reused:
 
 | Location/control | Action |
 |---|---|
-| Movement stick / jump click | Move / jump; hold jump to ski |
+| Movement stick / jump click | Move / jump; keep the click held to ski, including while the weapon wheel is open |
 | Weapon-hand A/X | Hold intrinsic jets |
 | Right joystick click | Dominant-hand weapon wheel; inventory wheel on a station |
 | Turn-stick up/down | Select shoulder grenade or mine, retaining the gun |
@@ -121,6 +162,9 @@ area, with chest controls taking precedence where crouching brings them close.
 Tracking loss, menus, death and respawn cancel held interactions. Authority
 checks reach, pose, map/life/sequence, inventory and throw velocity.
 The dominant hand keeps its weapon throughout these offhand interactions.
+For grenades and mines, only that aiming hand draws a direction guide. Deliberate
+offhand swings receive up to 4.8× speed assistance, capped at 40 m/s before adding
+the player’s skiing velocity. Gentle releases still drop the held item.
 
 ## Assets and limits
 

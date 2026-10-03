@@ -72,9 +72,24 @@ func run():
 	check(not rules.select_equipment(1,"light",[0,3,2],"energy",true) and s.tribes_class=="heavy" and rules.energy[bank]==money,"Remote base-refit request cannot equip or heal away from base")
 	s.cooldown=0;s.weapon=9;actor.velocity=Vector3.ZERO;clear_projectiles();combat.fire(1)
 	step_projectiles(2.05);check(g.projectiles.is_empty(),"Hand grenade detonates after its two-second fuse")
+	for left in [false,true]:
+		var pose: Dictionary=preload("res://deathmatch/vr/poses.gd").neutral();pose.left_handed=left
+		pose["right" if left else "left"].origin=Vector3(.3 if left else -.3,1.8,.1)
+		pose.weapon.basis=Basis(Vector3.RIGHT,PI/4)
+		s.physical=true;s.input_blocked=false;s.tribes_grenade=9;s.tribes_ammo[9]=2;g.clock+=1
+		actor.velocity=Vector3(8,0,0)
+		check(combat.physical_request(1,"arm",pose,Vector3.ZERO) and combat.physical_request(1,"throw",pose,Vector3(0,0,-12)),"Tribes accepts strong guided swing with either hand: "+str(left))
+		if not g.projectiles.is_empty():
+			var thrown: Dictionary=g.projectiles.values()[0]
+			var expected: Vector3=-pose.weapon.basis.z*40+actor.velocity
+			check(thrown.velocity.distance_to(expected)<.001,"Tribes retains 40 m/s throw plus skiing momentum: "+str(left))
+			var start: Vector3=thrown.position;step_projectiles(.5)
+			check(start.distance_to(thrown.position)>15,"Strong Tribes throw travels over 15 m in its first half-second: "+str(left))
+		clear_projectiles()
+	actor.velocity=Vector3.ZERO
 	var wheel=preload("res://deathmatch/tribes/buy_wheel.gd").new();wheel.open(s);wheel.select(202,rules,1);wheel.select(400,rules,1)
 	check(wheel.armour=="light" and wheel.guns.size()<=3 and not 7 in wheel.guns,"Buy wheel armour change removes incompatible mortar and excess guns")
-	var panel=preload("res://deathmatch/ui/defusal_panel.gd").new();g.add_child(panel);panel.setup(rules);panel.toggle();check(panel.tribes and panel.opened and panel.view.rows.size()==8,"Desktop reuses buy wheel with Tribes inventory and team energy")
+	var panel=preload("res://deathmatch/ui/defusal_panel.gd").new();g.add_child(panel);panel.setup(rules);panel.toggle();check(panel.tribes and panel.opened and panel.view.rows.size()==6 and panel.view.rows.all(func(row):return not row.buy and row.currency.is_empty()),"Desktop arena loadout menu omits ST infrastructure and team energy")
 	panel.close();panel.free()
 	g.armory.select("cs16");g._spawn(1);check(not rules.enabled() and g.armory.data(1).name=="GLOCK-18","CS arsenal remains isolated")
 	var report:={"checks":checks,"failures":failures};FileAccess.open("res://test-results/tribes-arsenal/mechanics.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "));print("TRIBES_ARSENAL ",JSON.stringify(report))

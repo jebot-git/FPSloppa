@@ -33,6 +33,7 @@ var local_station:=-1
 var funded_slots: Array=[1,1,1]
 func setup(rules) -> void:mode=rules;game=rules.game;enhancer.setup(game);remote.setup(self);commander.setup(self);combat.setup(self);deployables.setup(self);recovery.setup(self);targeting.setup(self);vehicles.name="TribesVehicles";add_child(vehicles);vehicles.setup(self)
 func enabled() -> bool:return preload("res://deathmatch/release_features.gd").TRIBES and game.armory.effective()=="tribes" and not game.lobby.active()
+func mode_enabled() -> bool:return enabled() and mode.kind=="st"
 func reset() -> void:
 	enhancer.reset()
 	if is_instance_valid(panel):panel.close()
@@ -46,7 +47,7 @@ func bank(id: int) -> int:
 	return team if mode.team_game() and team in [0,1] else 2
 func balance(id: int) -> int:return MAX_TEAM_ENERGY if infinite_energy else energy[bank(id)]
 func spend(id: int,amount: int) -> void:
-	if not infinite_energy:energy[bank(id)]=clampi(energy[bank(id)]-amount,0,MAX_TEAM_ENERGY)
+	if mode_enabled() and not infinite_energy:energy[bank(id)]=clampi(energy[bank(id)]-amount,0,MAX_TEAM_ENERGY)
 func energy_text(id: int) -> String:return str(deployables.available(id))+" REMOTE" if deployables.station(id)>=0 else "UNLIMITED" if infinite_energy else str(balance(id))
 func definition(id: int) -> Dictionary:return Armour.definition(game.players.get(id,{}).get("tribes_class","light"))
 func choose(key: String) -> void:
@@ -68,11 +69,12 @@ func select_class(id: int,key: String) -> bool:
 	s.tribes_next_guns=Arsenal.defaults(key) if guns.is_empty() else guns
 	return true
 func stations():
+	if not mode_enabled():return null
 	var runtime=game.get_node_or_null("Map/MapRuntime")
 	return runtime.tribes_stations if runtime else null
 func base_ctf() -> bool:
 	var pads=stations()
-	return enabled() and mode.kind in ["ctf","st"] and pads!=null and pads.rows.any(func(row):return row.kind=="inventory")
+	return mode_enabled() and pads!=null and pads.rows.any(func(row):return row.kind=="inventory")
 func carried_value(id: int) -> int:
 	if not game.players.has(id) or game.players[id].get("tribes_ammo",[]).size()!=12:return 0
 	var s: Dictionary=game.players[id]
@@ -92,8 +94,14 @@ func spawn(id: int) -> void:
 	if not CLASSES.has(key):key="light"
 	var weapons: Array=state.get("tribes_next_guns",Arsenal.defaults(key)).duplicate()
 	var pack: String=state.get("tribes_next_pack","energy")
+	if not mode_enabled() and deployables.Data.is_pack(pack):pack="energy"
 	if not Arsenal.valid_loadout(key,weapons,pack):weapons=Arsenal.defaults(key);pack="energy"
 	state.tribes_next=key;state.tribes_next_guns=weapons.duplicate();state.tribes_next_pack=pack
+	if not mode_enabled():
+		# Arena modes use the chosen kit without ST's shared reserve or fallback.
+		apply_equipment(id,key,weapons,pack)
+		state.tribes_paid=0;state.tribes_fallback=false
+		return
 	if base_ctf():
 		# Base Tribes CTF starts in Light with blaster, chaingun, disc and kit.
 		# Saved favourites are purchased at a station, never on respawn.
@@ -136,6 +144,7 @@ func tick(delta: float) -> void:
 	combat.tick(delta);recovery.tick(delta);targeting.tick()
 	var pads=stations()
 	if pads:pads.tick(self,delta)
+	if not mode_enabled():return
 	credit+=delta
 	while credit>=REPLENISH_SECONDS:
 		credit-=REPLENISH_SECONDS
@@ -193,6 +202,7 @@ func equipment_request(armour: String,weapons: Array,pack: String,refit: bool=fa
 func equipment_notice(ok: bool) -> void:
 	game.status("Inventory refitted." if ok else "Cannot refit: use a friendly inventory station with sufficient team energy.")
 func select_equipment(id: int,armour: String,weapons: Array,pack: String,refit: bool=false) -> bool:
+	if not mode_enabled() and (refit or deployables.Data.is_pack(pack)):return false
 	if not Arsenal.valid_loadout(armour,weapons,pack) or not select_class(id,armour):return false
 	game.players[id].tribes_next_guns=weapons.duplicate();game.players[id].tribes_next_pack=pack
 	if not refit:return true
@@ -325,7 +335,7 @@ func receive(data: Dictionary) -> void:
 		state.tribes_pack=row.pack;state.tribes_next_pack=row.next_pack;state.tribes_next_guns=row.guns.duplicate();state.tribes_ammo=row.ammo.duplicate();state.tribes_kit=row.kit;state.tribes_grenade=row.grenade;state.tribes_paid=row.paid;state.tribes_beacons=row.get("beacons",0)
 
 func can_refit(id: int) -> bool:
-	if vehicles.mounted(id) or not enabled() or not game.active or game.map_loading or not game.players.has(id) or not game.fighters.has(id):return false
+	if vehicles.mounted(id) or not mode_enabled() or not game.active or game.map_loading or not game.players.has(id) or not game.fighters.has(id):return false
 	var s: Dictionary=game.players[id]
 	if s.dead or s.spectator or game.intermission>0 or mode.special.blocked(id):return false
 	var pads=stations()
@@ -369,7 +379,7 @@ func open_inventory() -> void:
 	if not panel.opened:panel.toggle()
 func _process(_delta: float):
 	vehicles.update(_delta)
-	if not game.headless and enabled() and game.active and not is_instance_valid(command_view):
+	if not game.headless and mode_enabled() and game.active and not is_instance_valid(command_view):
 		command_view=load("res://deathmatch/tribes/command_view.gd").new();game.add_child(command_view);command_view.setup(self)
 	if is_instance_valid(command_view):command_view.update(_delta)
 	if is_instance_valid(panel) and panel.opened:panel.refresh()
@@ -394,8 +404,11 @@ func _process(_delta: float):
 	if game.is_vr():
 		var wheel=game.xr_rig.weapon_wheel
 		if not game.xr_rig.can_open_weapon_wheel():return
-		wheel.close();wheel.toggle(game.xr_rig.right.get_vector2("primary"))
-	else:open_inventory()
+		wheel.close();wheel.toggle(game.xr_rig.wheel_stick())
+		if not wheel.input.opened or not wheel.tribes_shop:return
+	else:
+		open_inventory()
+		if not is_instance_valid(panel) or not panel.opened:return
 	local_station=current
 func menu_open() -> bool:return enabled() and (pda_open() or is_instance_valid(panel) and panel.opened)
 func desktop_input(event: InputEvent) -> bool:

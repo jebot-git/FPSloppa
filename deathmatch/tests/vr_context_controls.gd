@@ -13,6 +13,7 @@ func run():
 	g.start_host("VR contextual controls",0,100,60,true,"de");g.bots.free();g.bots=null
 	g.bot_population.target=0;g.bot_population.count_target=0;g.set_process(false);g.set_physics_process(false)
 	Fixture.setup(g);await physics_frame;await physics_frame
+	if not g.hud:g.hud=load("res://deathmatch/interface.gd").new();g.add_child(g.hud);g.hud.setup(g)
 	g.xr_rig=load("res://deathmatch/vr/rig.gd").new();g.add_child(g.xr_rig);g.xr_rig.setup(g,true)
 	rig=g.xr_rig;rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false
 	rig.head.position=Vector3(0,1.65,0);rig.origin_offset=Vector3.ZERO;g.fighters[1].position=Fixture.point()
@@ -81,7 +82,8 @@ func run():
 	step();g.players[1].jetpack=false;g.fighters[1].reset_jetpack();step({"jetpack":true});g._physics_process(.016)
 	check(g.fighters[1].jetpack_state.activation==0,"A button cannot grant an unowned jetpack")
 	step();g.players[1].owned=[2,3];g.desired_weapon=2;step({},1)
-	check(g.desired_weapon==3,"Other loadouts retain turn-stick weapon cycling")
+	check(g.desired_weapon==2,"Turn-stick up leaves weapon selection to the wheel")
+	step();step({},-1);check(g.desired_weapon==2,"Turn-stick down does not cycle weapons")
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/cs16/rec-feedback/controls.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "));print("VR_CONTEXT_RESULT ",JSON.stringify(result))
 	g.disconnect_game();g.free();quit(0 if failures.is_empty() else 1)

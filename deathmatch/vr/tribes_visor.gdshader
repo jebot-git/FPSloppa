@@ -8,7 +8,10 @@ void fragment() {
 	// Map each runtime eye projection onto one head-centred digital image.
 	// Do not change the XR camera projection or stretch an image over eye UVs.
 	vec4 eye = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, 1.0, 1.0);
-	vec3 ray = mat3(head_view) * mat3(INV_VIEW_MATRIX) * eye.xyz;
+	// Multiview's inverse projection includes the eye transform. Remove its
+	// translation in homogeneous coordinates to get a direction, not a near-
+	// plane point measured from the head centre (which diverges between eyes).
+	vec3 ray = mat3(head_view) * mat3(INV_VIEW_MATRIX) * (eye.xyz - EYE_OFFSET * eye.w);
 	vec2 uv = vec2(0.5) + vec2(ray.x, -ray.y) / max(0.0001, -ray.z) / (2.0 * view_tangent);
 	ALBEDO = ray.z < 0.0 && all(greaterThanEqual(uv, vec2(0.0))) && all(lessThanEqual(uv, vec2(1.0))) ? texture(image, uv).rgb : vec3(0.0);
 }

@@ -125,4 +125,4 @@ func refresh_view() -> void:
 		viewport.render_target_update_mode=SubViewport.UPDATE_ONCE
 
 func pulse(strength: float) -> void:
-	rig.feedback(strength,.035,rig.left_handed)
+	rig.feedback(strength,.035)

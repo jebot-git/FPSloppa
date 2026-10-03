@@ -30,8 +30,16 @@ func run():
 	await physics_frame
 	r.apply_equipment(1,"heavy",[3,4,7],"energy");r.apply_equipment(-1,"heavy",[3,4,7],"energy")
 	var s: Dictionary=g.players[1];s.yaw=0;s.pitch=0
-	check(not g._native_trace_allowed(),"ST retains beacon, vehicle and equipment collision traces")
-	g.armory.select("tribes");g.match_mode.kind="tdm";check(not g._native_trace_allowed(),"Tribes loadout in classic modes retains specialised traces");g.match_mode.kind="st"
+	# Both current native traces and the reference path must retain overlays.
+	var beacon_point: Vector3=Fixture.ORIGIN+Vector3(0,1.45,-30)
+	r.targeting.beacons[999]={"team":0,"position":beacon_point,"normal":Vector3.UP,"hp":10.0}
+	var hit: Dictionary=g._trace(Fixture.ORIGIN+Vector3.UP*1.45,beacon_point-Vector3(0,0,2),1)
+	check(hit.get("beacon",-1)==999,"Active ST weapon trace preserves beacon collision")
+	r.targeting.beacons.erase(999)
+	g.match_mode.kind="tdm";s.weapon=11;s.fire=true
+	r.targeting.designate(1,{"hit":true,"position":beacon_point})
+	check(r.targeting.lasers.is_empty() and r.stations()==null,"Arena Tribes loadout does not activate ST designation or stations")
+	g.match_mode.kind="st"
 	check(fire_target() and r.targeting.lasers.has(1),"Firing targeter traces a real wall and publishes its hit")
 	var target: Vector3=r.targeting.lasers.get(1,{}).get("position",Vector3.INF)
 	check(target.distance_to(Fixture.ORIGIN+Vector3(0,1.45,-99.5))<.02,"Desktop designation agrees with crosshair ray")

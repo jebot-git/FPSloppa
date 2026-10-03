@@ -83,6 +83,8 @@ void FPSPose::prepare_live(Skeleton3D *sk,Node3D *rig,Dictionary ids,const Dicti
   sk->set_bone_pose_rotation(foot_index,((foot_parent>=0?sk->get_bone_global_pose(foot_parent).basis.inverse():Basis())*foot_rest.basis).get_rotation_quaternion());
   if(body.has(key+String("_foot")))orient(sk,foot_index,tracking.basis*Transform3D(body[key+String("_foot")]).basis*reference(foot_index));
   int hand=bone(side+String("Hand"));if(hand<0)continue;
+  // Keep authored reach when tracking or a prop target lies beyond the arm.
+  sk->set_bone_pose_position(hand,sk->get_bone_rest(hand).origin);
   if(!xr.is_empty()){
    Dictionary snaps=xr.get("snapped_hands",Dictionary());bool snapped=snaps.has(key),optical=!snapped&&body.has(key+String("_hand"));
    Transform3D target=tracking*Transform3D(snaps.get(key,xr[key]));
@@ -90,11 +92,9 @@ void FPSPose::prepare_live(Skeleton3D *sk,Node3D *rig,Dictionary ids,const Dicti
    Vector3 elbow=rig->to_global(Vector3(sign*.65,.85,.05));if(body.has(key+String("_elbow")))elbow=(tracking*Transform3D(body[key+String("_elbow")])).origin;
    chain(side,"Arm","Hand",target.origin,elbow);
    int parent=sk->get_bone_parent(hand);
-   sk->set_bone_pose_position(hand,sk->get_bone_global_pose(parent).affine_inverse()*sk->to_local(target.origin));
    Basis palm=optical?target.basis:target.basis*Basis(Vector3(0,0,-sign),Vector3(0,-1,0),Vector3(-sign,0,0));
    Basis desired=sk_ortho_inverse*palm;
    sk->set_bone_pose_rotation(hand,((parent>=0?sk->get_bone_global_pose(parent).basis.orthonormalized().inverse():Basis())*desired).get_rotation_quaternion());
-   if(snapped){Transform3D final_hand=sk->get_bone_global_pose(hand);final_hand.origin=sk->to_local(target.origin);final_hand.basis=desired.scaled(final_hand.basis.get_scale());sk->set_bone_global_pose(hand,final_hand);}
   }else{
    bool dual=int(rig->get("weapon_id"))==2;double recoil=rig->get(side_index==0&&dual?"offhand_recoil":"recoil");
    Vector3 grip(side_index==0?.10:.13,1.15,side_index==0?-.46:-.30);if(side_index==0&&dual)grip=Vector3(-.13,1.15,-.30);

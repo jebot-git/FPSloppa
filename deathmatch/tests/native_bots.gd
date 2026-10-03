@@ -61,6 +61,8 @@ func run() -> void:
 	var obstacle=Fixture.box(game,Fixture.point(0,-2)+Vector3.UP*.85,Vector3(3,.3,1))
 	await physics_frame
 	for trial in 300:
+		actor.configure_cs16(trial%4==3)
+		actor.cs16_stamina=.8 if trial%8==3 else 0.0
 		game.clock=20+trial*.137
 		game.match_mode.kind="tdm" if trial%3==0 else "dm"
 		game.armory.select(["doom","quake","ut99","cs16"][trial%4])

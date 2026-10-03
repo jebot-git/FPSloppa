@@ -145,6 +145,7 @@ Dictionary FPSCodec::snapshot_records(const Array &snapshot,int64_t recipient,Di
   if(replay.get_type()==Variant::DICTIONARY){
    Dictionary state=replay;Array wire;
    for(const char *field:{"jump_held","jump_queued","blast_velocity","floor_grace","stepped_last_frame","water_jump_used","water_deep_time","water_exit_grace","water_boost","was_in_water","in_water","underwater","water_surface"})wire.append(state[field]);
+   if(state.has("cs16_stamina"))wire.append(state["cs16_stamina"]);
    locomotion["replay"]=wire;
   }
   ids.append(id);records.append(Array::make(2,id,row,locomotion,ack));

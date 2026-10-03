@@ -1,17 +1,18 @@
 extends RefCounted
-const MAX_SPEED:=26.0
+const MAX_SPEED:=40.0
 const GRAVITY:=20.0
 static func launch(hand_velocity: Vector3) -> Vector3:
 	if not hand_velocity.is_finite():return Vector3.ZERO
 	var bounded:=hand_velocity.limit_length(12)
-	# Preserve gentle drops; a modest arm stroke can reach across a room.
-	var gain:=lerpf(1.0,2.4,clampf((bounded.length()-.65)/1.35,0,1))
+	# Preserve gentle drops; deliberate swings receive enough gain for ranged
+	# throws without requiring extreme controller speed.
+	var gain:=lerpf(1.0,4.8,clampf((bounded.length()-.65)/1.35,0,1))
 	return (bounded*gain).limit_length(MAX_SPEED)
 static func guided(pose: Dictionary,hand_velocity: Vector3) -> Vector3:
 	var velocity:=launch(hand_velocity)
 	if velocity.length()<.8 or not pose.has("weapon"):return velocity
-	# DE/TF assistance: free-hand aim supplies direction, throwing motion supplies
-	# power. Preview and authority share this function; gentle drops stay physical.
+	# Free-hand aim supplies direction, throwing motion supplies power.
+	# All physical grenade authorities share this rule; gentle drops stay physical.
 	return -pose.weapon.basis.z.normalized()*velocity.length()
 static func arc(space: PhysicsDirectSpaceState3D,start: Vector3,velocity: Vector3,duration: float,gravity: float=GRAVITY) -> PackedVector3Array:
 	var result:=PackedVector3Array([start])

@@ -13,15 +13,22 @@ static func support(slot: int) -> Vector3:
 static func support_pose(model: Transform3D,slot: int,left: bool) -> Transform3D:
 	# Palm faces up under the fore-end; fingers wrap inward from either side.
 	return Transform3D(model.basis.orthonormalized()*Basis(Vector3.BACK,PI/2 if left else -PI/2),model*support(slot))
-static func ammo_basis(_slot: int) -> Basis:
-	# Feed end points toward the controller's thumb (-Z), not along its +Y axis.
-	return Basis(Vector3.RIGHT,-PI/2)
+static func ammo_basis(slot: int) -> Basis:
+	# Pistols stand feed-first above the palm, leaving room for Index controllers.
+	return Basis.IDENTITY if slot in [1,2,10] else Basis(Vector3.RIGHT,-PI/2)
 static func ammo_pose(hand: Transform3D,slot: int,left: bool=false) -> Transform3D:
 	# Grip pose axes describe a controller, not the gun's magazine socket.
 	# Present cartridges forward and the magazine top above the curled fingers.
 	var offset:=Vector3(-.025 if left else .025,-.012,-.075) if slot in [3,4] else Vector3(0,-.025,-.045)
+	if slot in [1,2,10]:offset=Vector3(0,.09,-.045)
 	var basis:=ammo_basis(slot)
 	return hand*Transform3D(basis.scaled(Vector3.ONE*(1.0 if slot in [3,4] else .65)),offset)
+static func ammo_contact(hand: Transform3D,slot: int) -> Vector3:
+	# Top of the authored pistol magazine, relative to its MAG_POINTS origin.
+	# The server and held visual use the same pose; insertion never needs palms
+	# to meet. Long-gun and shell interactions retain their existing grip contact.
+	if slot not in [1,2,10]:return hand.origin
+	return ammo_pose(hand,slot)*Vector3(0,.131 if slot==10 else .111,0)
 static func make(slot: int) -> Node3D:
 	slot=clampi(slot,0,11)
 	if not cache.has(slot):

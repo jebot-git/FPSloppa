@@ -801,16 +801,16 @@ func steer_reference(id: int,brain: Dictionary,delta: float) -> void:
 			if not safe_floor:
 				var beyond: Vector3=actor.position+forward*3.0
 				var floor_hit: Dictionary=navigation.ray(beyond+Vector3.UP, beyond-Vector3.UP*1.2)
-				if not floor_hit.is_empty() and floor_hit.normal.y>.7 and not navigation.hazardous(floor_hit.position) and navigation.jump_clear(actor.position,floor_hit.position,9.4*actor.speed_multiplier):
+				if not floor_hit.is_empty() and floor_hit.normal.y>.7 and not navigation.hazardous(floor_hit.position) and navigation.jump_clear(actor.position,floor_hit.position,actor.movement_speed(),actor.jump_speed(),actor.movement_gravity()):
 					s.jump=not actor.jump_held
 				else:desired=Vector3.ZERO;brain.stuck+=delta
-			elif low and not middle and navigation.jump_clear(actor.position,actor.position+forward*2.5,9.4*actor.speed_multiplier):s.jump=not actor.jump_held
-			elif not high and not middle and not low and not riding_lift and remaining>7 and travel.length()>5 and not s.crouch and not s.prone and brain.goal_kind not in ["cover","defend","heal","repair","guard","ambush"]:
+			elif low and not middle and navigation.jump_clear(actor.position,actor.position+forward*2.5,actor.movement_speed(),actor.jump_speed(),actor.movement_gravity()):s.jump=not actor.jump_held
+			elif not actor.cs16_enabled and not high and not middle and not low and not riding_lift and remaining>7 and travel.length()>5 and not s.crouch and not s.prone and brain.goal_kind not in ["cover","defend","heal","repair","guard","ambush"]:
 				# Release every airborne frame; a fresh press on landing preserves
 				# Quake momentum without bypassing the jump edge/queue rules.
 				var ahead: Vector3=actor.position+forward*4.0
 				var floor_hit: Dictionary=navigation.ray(ahead+Vector3.UP*.6,ahead-Vector3.UP)
-				if not floor_hit.is_empty() and not navigation.hazardous(floor_hit.position) and navigation.jump_clear(actor.position,floor_hit.position,9.4*actor.speed_multiplier):s.jump=not actor.jump_held
+				if not floor_hit.is_empty() and not navigation.hazardous(floor_hit.position) and navigation.jump_clear(actor.position,floor_hit.position,actor.movement_speed(),actor.jump_speed(),actor.movement_gravity()):s.jump=not actor.jump_held
 		if low and middle and not s.prone:
 			var side:=forward.cross(Vector3.UP)*(1 if id%2==0 else -1)
 			if navigation.ray(actor.position+Vector3.UP,actor.position+side+Vector3.UP).is_empty():desired=(forward+side).normalized()

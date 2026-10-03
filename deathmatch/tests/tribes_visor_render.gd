@@ -21,6 +21,38 @@ func red_bounds(im: Image) -> Rect2i:
 			if c.r>.3 and c.r>c.g*2 and c.r>c.b*2:
 				lo=lo.min(Vector2i(x,y));hi=hi.max(Vector2i(x,y))
 	return Rect2i(lo,hi-lo+Vector2i.ONE)
+func stereo_projection(visor) -> void:
+	# Exercise the production fragment calculation with synthetic multiview
+	# matrices, including eye translation, asymmetric frusta and canted eyes.
+	var shader:=Shader.new()
+	shader.code=visor.material.shader.code.replace("INV_PROJECTION_MATRIX","test_inverse_projection").replace("EYE_OFFSET","test_eye_offset").replace("void vertex()", "uniform mat4 test_inverse_projection;\nuniform vec3 test_eye_offset;\nvoid vertex()")
+	var original: Shader=visor.material.shader
+	visor.material.shader=shader
+	var pattern:=Image.create(512,512,false,Image.FORMAT_RGB8);pattern.fill(Color.BLACK)
+	pattern.fill_rect(Rect2i(324,170,17,17),Color.RED)
+	visor.material.set_shader_parameter("image",ImageTexture.create_from_image(pattern))
+	visor.material.set_shader_parameter("head_view",Transform3D.IDENTITY)
+	var marker:=Vector2(332.5,178.5)/512.0
+	var ray:=Vector3((marker.x-.5)*2*sqrt(3.0),-(marker.y-.5)*2*sqrt(3.0),-1)
+	for near in [.025,.1,.3]:
+		for side in [-1.0,1.0]:
+			var eye:=Transform3D(Basis(Vector3.UP,side*.12),Vector3(side*.032,.003,.01))
+			var projection:=Projection.create_frustum(-near*(1.1+side*.2),near*(1.1-side*.2),-near*.9,near*1.1,near,100.0)
+			# Mobile renderer depth correction: reverse Z and framebuffer Y flip.
+			var correction:=Projection(Vector4(1,0,0,0),Vector4(0,-1,0,0),Vector4(0,0,-.5,0),Vector4(0,0,.5,1))
+			projection=correction*projection*Projection(eye.affine_inverse())
+			visor.material.set_shader_parameter("test_inverse_projection",projection.inverse())
+			visor.material.set_shader_parameter("test_eye_offset",eye.origin)
+			await frames()
+			var im:=root.get_texture().get_image();var bounds:=red_bounds(im)
+			# A direction (w=0) must land at the same apparent bearing in each
+			# eye, independent of IPD/near plane, while retaining its eye frustum.
+			var clip:=projection*Vector4(ray.x,ray.y,ray.z,0)
+			var expected:=(Vector2(clip.x,clip.y)/clip.w+Vector2.ONE)*.5*Vector2(im.get_size())
+			check(bounds.has_area() and Vector2(bounds.get_center()).distance_to(expected)<3,"Stereo visor bearing at near %.3f eye %.0f"%[near,side])
+			im.save_png("res://test-results/tribes-image-enhancer/stereo-%.3f-%s.png"%[near,"left" if side<0 else "right"])
+	visor.material.shader=original
+	visor.material.set_shader_parameter("image",visor.viewport.get_texture())
 func run():
 	root.size=Vector2i(1000,800);root.content_scale_size=Vector2i.ZERO
 	var stage:=Node3D.new();root.add_child(stage)
@@ -56,6 +88,7 @@ func run():
 		check(absf(float(bounds.size.x)/normal.size.x-amount)<amount*.2,"Visor rendered target grows %dx"%amount)
 		check(bounds.get_center().y<400 and bounds.get_center().x>500,"Visor preserves image orientation")
 		check(rig.head.fov==85,"Headset camera projection remains unchanged")
+	await stereo_projection(visor)
 	visor.disable();await frames()
 	check(not visor.screen.visible and visor.viewport.render_target_update_mode==SubViewport.UPDATE_DISABLED,"Release suspends viewport and overlay")
 	check(red_bounds(root.get_texture().get_image())==normal,"Normal view restored exactly")

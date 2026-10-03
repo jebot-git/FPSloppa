@@ -103,7 +103,10 @@ func pickup(id: int,key: int) -> bool:
 	if p.kit and not s.tribes_kit:s.tribes_kit=true;p.kit=false
 	if p.pack=="none" and p.guns.is_empty() and p.ammo.all(func(v):return v==0) and not p.kit and p.beacons==0 and not p.patch:rows.erase(key)
 	s.tribes_paid=mini(s.tribes_paid,refundable)
-	stats["pickups"]=int(stats.get("pickups",0))+1;return true
+	stats["pickups"]=int(stats.get("pickups",0))+1
+	if id==game.multiplayer.get_unique_id():game._pickup_feedback(id)
+	elif id>0:game._pickup_feedback.rpc_id(id,id)
+	return true
 func tick(delta: float):
 	if not rules.enabled() or not game.multiplayer.is_server():return
 	for key in rows.keys():

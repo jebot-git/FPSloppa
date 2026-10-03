@@ -2,9 +2,9 @@
   "id": "de_nuke_rebuilt",
   "title": "Nuke | Classic layout reconstruction",
   "format": 29,
-  "bytes": 7070988,
-  "sha256": "4ac1eaec5b7b69d6899ab2d3058f817a0690559eb7130d4d175fdd715eeffb1f",
-  "brushes": 248,
+  "bytes": 7145456,
+  "sha256": "614551c6dc279f991ac0f553cee610e4540abeb14d70a00224d1845db5351fb3",
+  "brushes": 255,
   "spawns": [
     [
       32,
@@ -265,6 +265,14 @@
       ]
     },
     {
+      "name": "Tunnel stair landing",
+      "point": [
+        726.5,
+        442.0,
+        0
+      ]
+    },
+    {
       "name": "Vent",
       "point": [
         426.0,
@@ -351,13 +359,23 @@
           0
         ],
         [
-          175,
-          332,
+          130,
+          356,
           0
         ],
         [
-          223,
-          332,
+          166,
+          356,
+          0
+        ],
+        [
+          180,
+          334,
+          0
+        ],
+        [
+          240,
+          334,
           0
         ],
         [
@@ -396,13 +414,23 @@
           0
         ],
         [
-          175,
-          332,
+          130,
+          356,
           0
         ],
         [
-          223,
-          332,
+          166,
+          356,
+          0
+        ],
+        [
+          180,
+          334,
+          0
+        ],
+        [
+          240,
+          334,
           0
         ],
         [
@@ -481,6 +509,26 @@
           0
         ],
         [
+          726,
+          268,
+          0
+        ],
+        [
+          686,
+          268,
+          0
+        ],
+        [
+          684,
+          235,
+          0
+        ],
+        [
+          645,
+          235,
+          0
+        ],
+        [
           615,
           249,
           0
@@ -526,7 +574,27 @@
           0
         ],
         [
-          617,
+          726,
+          268,
+          0
+        ],
+        [
+          686,
+          268,
+          0
+        ],
+        [
+          684,
+          235,
+          0
+        ],
+        [
+          645,
+          235,
+          0
+        ],
+        [
+          615,
           249,
           0
         ],
@@ -547,16 +615,16 @@
         ],
         [
           706,
-          446,
-          0
-        ],
-        [
-          732,
           443,
           0
         ],
         [
-          732,
+          734,
+          443,
+          0
+        ],
+        [
+          734,
           550,
           -256
         ],
@@ -598,6 +666,96 @@
         [
           479,
           351,
+          -256
+        ]
+      ]
+    },
+    {
+      "name": "Underground stair landing and flight 724",
+      "points": [
+        [
+          706,
+          443,
+          0
+        ],
+        [
+          724,
+          443,
+          0
+        ],
+        [
+          724,
+          453,
+          0
+        ],
+        [
+          724,
+          550,
+          -256
+        ],
+        [
+          734,
+          557,
+          -256
+        ]
+      ]
+    },
+    {
+      "name": "Underground stair landing and flight 734",
+      "points": [
+        [
+          706,
+          443,
+          0
+        ],
+        [
+          734,
+          443,
+          0
+        ],
+        [
+          734,
+          453,
+          0
+        ],
+        [
+          734,
+          550,
+          -256
+        ],
+        [
+          734,
+          557,
+          -256
+        ]
+      ]
+    },
+    {
+      "name": "Underground stair landing and flight 746",
+      "points": [
+        [
+          706,
+          443,
+          0
+        ],
+        [
+          746,
+          443,
+          0
+        ],
+        [
+          746,
+          453,
+          0
+        ],
+        [
+          746,
+          550,
+          -256
+        ],
+        [
+          734,
+          557,
           -256
         ]
       ]
@@ -677,13 +835,65 @@
         390,
         90
       ]
+    },
+    {
+      "name": "nuke-underground-landing",
+      "eye": [
+        710,
+        437,
+        54
+      ],
+      "look": [
+        735,
+        485,
+        -65
+      ]
+    },
+    {
+      "name": "nuke-stair-side",
+      "eye": [
+        697,
+        480,
+        54
+      ],
+      "look": [
+        725,
+        490,
+        45
+      ]
+    },
+    {
+      "name": "nuke-t-spawn-corners",
+      "eye": [
+        90,
+        338,
+        54
+      ],
+      "look": [
+        230,
+        345,
+        54
+      ]
+    },
+    {
+      "name": "nuke-ct-spawn-corners",
+      "eye": [
+        756,
+        249,
+        54
+      ],
+      "look": [
+        658,
+        250,
+        54
+      ]
     }
   ],
   "full_vis": true,
   "reference": "https://steamcommunity.com/sharedfiles/filedetails/?id=913388004",
   "theme": "industrial",
   "defusal": {
-    "sha256": "4ac1eaec5b7b69d6899ab2d3058f817a0690559eb7130d4d175fdd715eeffb1f",
+    "sha256": "614551c6dc279f991ac0f553cee610e4540abeb14d70a00224d1845db5351fb3",
     "sites": [
       [
         9.0,
@@ -874,6 +1084,678 @@
       "end": [
         427,
         350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 0,0 to [285, 333]",
+      "start": [
+        32,
+        329,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 0,0 to [310, 350]",
+      "start": [
+        32,
+        329,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 0,0 to [385, 320]",
+      "start": [
+        32,
+        329,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 1,0 to [285, 333]",
+      "start": [
+        39,
+        329,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 1,0 to [310, 350]",
+      "start": [
+        39,
+        329,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 1,0 to [385, 320]",
+      "start": [
+        39,
+        329,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 2,0 to [285, 333]",
+      "start": [
+        46,
+        329,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 2,0 to [310, 350]",
+      "start": [
+        46,
+        329,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 2,0 to [385, 320]",
+      "start": [
+        46,
+        329,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 3,0 to [285, 333]",
+      "start": [
+        53,
+        329,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 3,0 to [310, 350]",
+      "start": [
+        53,
+        329,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 3,0 to [385, 320]",
+      "start": [
+        53,
+        329,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 0,1 to [285, 333]",
+      "start": [
+        32,
+        338,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 0,1 to [310, 350]",
+      "start": [
+        32,
+        338,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 0,1 to [385, 320]",
+      "start": [
+        32,
+        338,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 1,1 to [285, 333]",
+      "start": [
+        39,
+        338,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 1,1 to [310, 350]",
+      "start": [
+        39,
+        338,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 1,1 to [385, 320]",
+      "start": [
+        39,
+        338,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 2,1 to [285, 333]",
+      "start": [
+        46,
+        338,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 2,1 to [310, 350]",
+      "start": [
+        46,
+        338,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 2,1 to [385, 320]",
+      "start": [
+        46,
+        338,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 3,1 to [285, 333]",
+      "start": [
+        53,
+        338,
+        48
+      ],
+      "end": [
+        285,
+        333,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 3,1 to [310, 350]",
+      "start": [
+        53,
+        338,
+        48
+      ],
+      "end": [
+        310,
+        350,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "T spawn corner blocks lane 3,1 to [385, 320]",
+      "start": [
+        53,
+        338,
+        48
+      ],
+      "end": [
+        385,
+        320,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 0,0 to [615, 235]",
+      "start": [
+        745,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 0,0 to [615, 260]",
+      "start": [
+        745,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 0,0 to [608, 306]",
+      "start": [
+        745,
+        240,
+        48
+      ],
+      "end": [
+        608,
+        306,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 1,0 to [615, 235]",
+      "start": [
+        752,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 1,0 to [615, 260]",
+      "start": [
+        752,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 1,0 to [608, 306]",
+      "start": [
+        752,
+        240,
+        48
+      ],
+      "end": [
+        608,
+        306,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 2,0 to [615, 235]",
+      "start": [
+        759,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 2,0 to [615, 260]",
+      "start": [
+        759,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 2,0 to [608, 306]",
+      "start": [
+        759,
+        240,
+        48
+      ],
+      "end": [
+        608,
+        306,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 3,0 to [615, 235]",
+      "start": [
+        766,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 3,0 to [615, 260]",
+      "start": [
+        766,
+        240,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 3,0 to [608, 306]",
+      "start": [
+        766,
+        240,
+        48
+      ],
+      "end": [
+        608,
+        306,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 0,1 to [615, 235]",
+      "start": [
+        745,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 0,1 to [615, 260]",
+      "start": [
+        745,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 0,1 to [608, 306]",
+      "start": [
+        745,
+        249,
+        48
+      ],
+      "end": [
+        608,
+        306,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 1,1 to [615, 235]",
+      "start": [
+        752,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 1,1 to [615, 260]",
+      "start": [
+        752,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 1,1 to [608, 306]",
+      "start": [
+        752,
+        249,
+        48
+      ],
+      "end": [
+        608,
+        306,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 2,1 to [615, 235]",
+      "start": [
+        759,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 2,1 to [615, 260]",
+      "start": [
+        759,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 2,1 to [608, 306]",
+      "start": [
+        759,
+        249,
+        48
+      ],
+      "end": [
+        608,
+        306,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 3,1 to [615, 235]",
+      "start": [
+        766,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        235,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 3,1 to [615, 260]",
+      "start": [
+        766,
+        249,
+        48
+      ],
+      "end": [
+        615,
+        260,
+        48
+      ],
+      "clear": false
+    },
+    {
+      "name": "CT spawn corner blocks lane 3,1 to [608, 306]",
+      "start": [
+        766,
+        249,
+        48
+      ],
+      "end": [
+        608,
+        306,
         48
       ],
       "clear": false
@@ -1382,6 +2264,672 @@
         600,
         265.5,
         192
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        722,
+        438,
+        8
+      ],
+      "end": [
+        722,
+        438,
+        -28
+      ],
+      "at": [
+        722,
+        438,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        722,
+        440,
+        8
+      ],
+      "end": [
+        722,
+        440,
+        -28
+      ],
+      "at": [
+        722,
+        440,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        722,
+        450,
+        8
+      ],
+      "end": [
+        722,
+        450,
+        -28
+      ],
+      "at": [
+        722,
+        450,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        722,
+        453,
+        8
+      ],
+      "end": [
+        722,
+        453,
+        -28
+      ],
+      "at": [
+        722,
+        453,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        722,
+        454,
+        8
+      ],
+      "end": [
+        722,
+        454,
+        -28
+      ],
+      "at": [
+        722,
+        454,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        724,
+        438,
+        8
+      ],
+      "end": [
+        724,
+        438,
+        -28
+      ],
+      "at": [
+        724,
+        438,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        724,
+        440,
+        8
+      ],
+      "end": [
+        724,
+        440,
+        -28
+      ],
+      "at": [
+        724,
+        440,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        724,
+        450,
+        8
+      ],
+      "end": [
+        724,
+        450,
+        -28
+      ],
+      "at": [
+        724,
+        450,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        724,
+        453,
+        8
+      ],
+      "end": [
+        724,
+        453,
+        -28
+      ],
+      "at": [
+        724,
+        453,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        724,
+        454,
+        8
+      ],
+      "end": [
+        724,
+        454,
+        -28
+      ],
+      "at": [
+        724,
+        454,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        734,
+        438,
+        8
+      ],
+      "end": [
+        734,
+        438,
+        -28
+      ],
+      "at": [
+        734,
+        438,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        734,
+        440,
+        8
+      ],
+      "end": [
+        734,
+        440,
+        -28
+      ],
+      "at": [
+        734,
+        440,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        734,
+        450,
+        8
+      ],
+      "end": [
+        734,
+        450,
+        -28
+      ],
+      "at": [
+        734,
+        450,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        734,
+        453,
+        8
+      ],
+      "end": [
+        734,
+        453,
+        -28
+      ],
+      "at": [
+        734,
+        453,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        734,
+        454,
+        8
+      ],
+      "end": [
+        734,
+        454,
+        -28
+      ],
+      "at": [
+        734,
+        454,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        746,
+        438,
+        8
+      ],
+      "end": [
+        746,
+        438,
+        -28
+      ],
+      "at": [
+        746,
+        438,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        746,
+        440,
+        8
+      ],
+      "end": [
+        746,
+        440,
+        -28
+      ],
+      "at": [
+        746,
+        440,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        746,
+        450,
+        8
+      ],
+      "end": [
+        746,
+        450,
+        -28
+      ],
+      "at": [
+        746,
+        450,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        746,
+        453,
+        8
+      ],
+      "end": [
+        746,
+        453,
+        -28
+      ],
+      "at": [
+        746,
+        453,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        746,
+        454,
+        8
+      ],
+      "end": [
+        746,
+        454,
+        -28
+      ],
+      "at": [
+        746,
+        454,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        748.5,
+        438,
+        8
+      ],
+      "end": [
+        748.5,
+        438,
+        -28
+      ],
+      "at": [
+        748.5,
+        438,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        748.5,
+        440,
+        8
+      ],
+      "end": [
+        748.5,
+        440,
+        -28
+      ],
+      "at": [
+        748.5,
+        440,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        748.5,
+        450,
+        8
+      ],
+      "end": [
+        748.5,
+        450,
+        -28
+      ],
+      "at": [
+        748.5,
+        450,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        748.5,
+        453,
+        8
+      ],
+      "end": [
+        748.5,
+        453,
+        -28
+      ],
+      "at": [
+        748.5,
+        453,
+        0
+      ]
+    },
+    {
+      "name": "Underground stair landing has no gap",
+      "start": [
+        748.5,
+        454,
+        8
+      ],
+      "end": [
+        748.5,
+        454,
+        -28
+      ],
+      "at": [
+        748.5,
+        454,
+        0
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        456,
+        24
+      ],
+      "end": [
+        725,
+        456,
+        24
+      ],
+      "at": [
+        718,
+        456,
+        24
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        456,
+        60
+      ],
+      "end": [
+        725,
+        456,
+        60
+      ],
+      "at": [
+        718,
+        456,
+        60
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        456,
+        120
+      ],
+      "end": [
+        725,
+        456,
+        120
+      ],
+      "at": [
+        718,
+        456,
+        120
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        470,
+        24
+      ],
+      "end": [
+        725,
+        470,
+        24
+      ],
+      "at": [
+        718,
+        470,
+        24
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        470,
+        60
+      ],
+      "end": [
+        725,
+        470,
+        60
+      ],
+      "at": [
+        718,
+        470,
+        60
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        470,
+        120
+      ],
+      "end": [
+        725,
+        470,
+        120
+      ],
+      "at": [
+        718,
+        470,
+        120
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        500,
+        24
+      ],
+      "end": [
+        725,
+        500,
+        24
+      ],
+      "at": [
+        718,
+        500,
+        24
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        500,
+        60
+      ],
+      "end": [
+        725,
+        500,
+        60
+      ],
+      "at": [
+        718,
+        500,
+        60
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        500,
+        120
+      ],
+      "end": [
+        725,
+        500,
+        120
+      ],
+      "at": [
+        718,
+        500,
+        120
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        525,
+        24
+      ],
+      "end": [
+        725,
+        525,
+        24
+      ],
+      "at": [
+        718,
+        525,
+        24
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        525,
+        60
+      ],
+      "end": [
+        725,
+        525,
+        60
+      ],
+      "at": [
+        718,
+        525,
+        60
+      ]
+    },
+    {
+      "name": "Garage side of underground stairs is sealed",
+      "start": [
+        712,
+        525,
+        120
+      ],
+      "end": [
+        725,
+        525,
+        120
+      ],
+      "at": [
+        718,
+        525,
+        120
       ]
     }
   ]

@@ -2,23 +2,33 @@ extends RefCounted
 ## Strip torso/head triangles from the local mesh, preserving arms, legs,
 ## materials and blend shapes. Never mutate the shared third-person resource.
 static var cache: Dictionary={}
-static func hidden_bone(sk: Skeleton3D,bone: int,hand: String="") -> bool:
+static func hidden_bone(sk: Skeleton3D,bone: int,hand: String="",shoulders: bool=false) -> bool:
 	while bone>=0:
 		var name: String=sk.get_bone_name(bone)
 		if not hand.is_empty() and name==hand.capitalize()+"Hand":return true
+		if shoulders and name in ["LeftShoulder","RightShoulder"]:return true
 		if name in ["LeftShoulder","RightShoulder","LeftUpperArm","RightUpperArm"]:return false
 		if name in ["Spine","Chest","UpperChest","Neck","Head"]:return true
 		bone=sk.get_bone_parent(bone)
 	return false
-static func masked(mesh: Mesh,skin: Skin,sk: Skeleton3D,hand: String="") -> Mesh:
+static func masked(mesh: Mesh,skin: Skin,sk: Skeleton3D,hand: String="",shoulders: bool=false) -> Mesh:
 	if not skin or not sk or not mesh is ArrayMesh:return mesh
-	var key:=str(mesh.get_instance_id())+":"+str(skin.get_instance_id())+":"+hand
+	var key:=str(mesh.get_instance_id())+":"+str(skin.get_instance_id())+":"+hand+":"+str(shoulders)
 	if cache.has(key):return cache[key]
 	var hidden: Dictionary={}
+	var upper_arms: Dictionary={}
 	for i in skin.get_bind_count():
 		var bone:=sk.find_bone(skin.get_bind_name(i)) if skin.get_bind_name(i)!=&"" else skin.get_bind_bone(i)
-		if bone>=0 and bone<sk.get_bone_count() and hidden_bone(sk,bone,hand):hidden[i]=true
-	if hidden.is_empty():cache[key]=mesh;return mesh
+		if bone<0 or bone>=sk.get_bone_count():continue
+		if hidden_bone(sk,bone,hand,shoulders):hidden[i]=true
+		var name: String=sk.get_bone_name(bone)
+		if shoulders and name in ["LeftUpperArm","RightUpperArm"]:
+			var elbow:=sk.find_bone(name.replace("UpperArm","LowerArm"))
+			if elbow<0:continue
+			var start:=sk.get_bone_global_rest(bone).origin
+			var axis:=sk.get_bone_global_rest(elbow).origin-start
+			if axis.length_squared()>.0001:upper_arms[i]={"start":start,"axis":axis/axis.length_squared()}
+	if hidden.is_empty() and upper_arms.is_empty():cache[key]=mesh;return mesh
 	var out:=ArrayMesh.new();out.blend_shape_mode=mesh.blend_shape_mode
 	var surfaces: Array[int]=[]
 	for i in mesh.get_blend_shape_count():out.add_blend_shape(mesh.get_blend_shape_name(i))
@@ -32,7 +42,13 @@ static func masked(mesh: Mesh,skin: Skin,sk: Skeleton3D,hand: String="") -> Mesh
 			for v in vertices.size():
 				var weight:=0.0
 				for j in stride:
-					if hidden.has(bones[v*stride+j]):weight+=weights[v*stride+j]
+					var bind: int=bones[v*stride+j]
+					if hidden.has(bind):weight+=weights[v*stride+j]
+					elif upper_arms.has(bind):
+						# Heavy pauldrons follow the proximal upper arm as well as
+						# the shoulder. Measure in rest space so VRM scaling works.
+						var arm: Dictionary=upper_arms[bind]
+						if (vertices[v]-arm.start).dot(arm.axis)<.8:weight+=weights[v*stride+j]
 				rejected[v]=1 if weight>.05 else 0
 			var source: PackedInt32Array=arrays[Mesh.ARRAY_INDEX] if arrays[Mesh.ARRAY_INDEX]!=null else PackedInt32Array()
 			if source.is_empty():source=PackedInt32Array(range(vertices.size()))
@@ -61,7 +77,7 @@ static func apply(node: MeshInstance3D,sk: Skeleton3D,enabled: bool,hand: String
 	if head_only:source_mesh=preload("res://deathmatch/tribes/head_mesh.gd").keep(source_mesh,node.skin,sk,node.get_meta("tribes_original_hands",[]))
 	if not source_mesh:node.hide();return
 	if enabled:
-		var replacement:=masked(source_mesh,node.skin,sk,hand)
+		var replacement:=masked(source_mesh,node.skin,sk,hand,node.get_meta("first_person_hide_shoulders",false))
 		if replacement:node.mesh=replacement
 		else:node.hide();return
 	else:node.mesh=source_mesh

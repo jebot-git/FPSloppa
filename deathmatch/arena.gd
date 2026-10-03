@@ -356,6 +356,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 				push_error("st_maplist requires dedicated Tribes CTF maps with team spawns, flags, inventory stations and bounds.");get_tree().quit(2);return
 			for map_id in mode_maplists[kind]:
 				if not map_catalog.any(func(row):return row.id==map_id):push_error("Unknown map in "+kind+"_maplist: "+str(map_id));get_tree().quit(2);return
+				if kind!="st" and map_catalog.any(func(row):return row.id==map_id and "st" in row.get("modes",[])):push_error("ST maps require ST mode: "+str(map_id));get_tree().quit(2);return
 	for row in map_catalog:
 		if row.get("imported",false):uploads.register_map(row)
 	map_rotation=mode_maplists[match_mode.kind].duplicate()
@@ -859,6 +860,7 @@ func _spawn(id: int) -> void:
 	fighters[id].configure_tribes(armory.effective()=="tribes" and not lobby.active())
 	match_mode.tribes.spawn(id)
 	match_mode.defusal.spawn_loadout(id)
+	_configure_cs16(id,state)
 	variant_combat.cancel_player(id)
 	if not lobby.active():match_mode.special.spawn(id);match_mode.fortress.spawn(id)
 	state.starting_weapons=state.owned.duplicate()
@@ -1092,13 +1094,14 @@ func _physics_process(delta: float) -> void:
 				fighters[mine].simulate_frozen(delta)
 			elif not players[mine].dead and not match_mode.special.blocked(mine) and not match_mode.defusal.movement_blocked() and not match_mode.fortress.walkers.mounted(mine) and not match_mode.tribes.vehicles.mounted(mine) and intermission<=0:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
-				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
-				if armory.effective()=="cs16" and not lobby.active():fighters[mine].speed_multiplier*=float(armory.data(players[mine].weapon).get("move_speed",1));speed*=float(armory.data(players[mine].weapon).get("move_speed",1))
+				if armory.effective()=="cs16" and not lobby.active():fighters[mine].speed_multiplier*=float(armory.data(players[mine].weapon).get("move_speed",1))
+				_configure_cs16(mine,command)
 				_update_crouch(mine,command.get("xr",{}),command)
 				fighters[mine].configure_jetpack(jetpacks.enabled() and players[mine].get("jetpack",false),command.get("input_blocked",false))
 				fighters[mine].jetpack_requested=input_delivery.jet_triggered
 				_configure_tribes(mine,command)
+				var speed: float=fighters[mine].movement_speed(command.slow)
 				fighters[mine].prediction_command={"move":command.move*(1.0-minf(room.length()*30/speed,1.0)),"yaw":local_yaw,"slow":command.slow,"delta":delta,"jump":command.get("jump",false),"swim":command.get("swim",Vector3.ZERO),"height":fighters[mine].collision_height,"room":room,"jet_request":fighters[mine].jetpack_requested,"jet_enabled":fighters[mine].jetpack_enabled,"jet_blocked":fighters[mine].jetpack_blocked,"speed":fighters[mine].speed_multiplier,"environment":fighters[mine].prediction_environment()}
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
@@ -1189,6 +1192,14 @@ func _interpolate_remote_players(delta: float) -> void:
 			fighters[id].position = fighters[id].position.lerp(fighters[id].target,minf(delta*16,1))
 			fighters[id].rotation.y = lerp_angle(fighters[id].rotation.y,fighters[id].target_yaw,minf(delta*16,1))
 
+func _configure_cs16(id: int,command: Dictionary) -> void:
+	var enabled: bool=match_mode.defusal.classic_movement()
+	var weapon: int=players[id].weapon
+	var scoped: bool=weapon==9 and command.get("alt_fire",false) and not command.get("input_blocked",false)
+	var speed: float=(150.0 if scoped else float(preload("res://deathmatch/counterstrike/arsenal.gd").SPEEDS[clampi(weapon,0,11)]))/32.0
+	if match_mode.defusal.gun_holstered(id):speed=250.0/32.0
+	fighters[id].configure_cs16(enabled,speed)
+
 func _configure_tribes(id: int,command: Dictionary) -> void:
 	var s: Dictionary=players[id]
 	var blocked: bool=command.get("input_blocked",false) or s.dead or s.spectator or intermission>0 or match_mode.special.blocked(id) or (multiplayer.is_server() and clock-s.last_input>.35)
@@ -1253,6 +1264,7 @@ func _server_tick(delta: float) -> void:
 			s.move=Vector2.ZERO;s.room=Vector3.ZERO;s.jump=false;s.jet_held=false;s.ski=false;s.fire=false;s.alt_fire=false
 		jetpacks.configure_player(id,s.get("input_blocked",false) or clock-s.last_input>.35)
 		_configure_tribes(id,s)
+		_configure_cs16(id,s)
 		if s.spectator:
 			if clock-s.last_input>.35:s.move=Vector2.ZERO;s.fly=0.0
 			_move_spectator(id,s.move,s.fly,s.yaw,s.slow,delta)
@@ -1291,7 +1303,7 @@ func _server_tick(delta: float) -> void:
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
 		if armory.effective()=="cs16":fighters[id].speed_multiplier*=float(armory.data(s.weapon).get("move_speed",1))
-		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,jump,s.get("swim",Vector3.ZERO))
+		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/fighters[id].movement_speed(s.slow),1.0)),s.yaw,s.slow,delta,jump,s.get("swim",Vector3.ZERO))
 		if not s.xr.is_empty():
 			var shift:=RoomScale.move_capsule(fighters[id],s.room,s.yaw,delta)
 			s.room-=shift
@@ -1436,6 +1448,7 @@ func _pickup_event(id: int,kind: String,item: int,weapon: int,dropped: bool=fals
 	if weapon<0 or weapon>=armory.SLOT_COUNT or (kind=="weapon" and (item<0 or item>=armory.SLOT_COUNT)):return
 	demos.event("_pickup_event",[id,kind,item,weapon,dropped])
 	if haptics:haptics.pickup(id,kind)
+	_pickup_feedback(id)
 	var listener: int=demos.selected_player if demos.playing else multiplayer.get_unique_id()
 	if id==listener:effects.pickup(pickup_sound(kind,item))
 	elif fighters.has(id):effects.play(pickup_sound(kind,item),fighters[id].position+Vector3.UP*.8,-8)
@@ -1443,6 +1456,10 @@ func _pickup_event(id: int,kind: String,item: int,weapon: int,dropped: bool=fals
 		desired_weapon = weapon
 		last_event = ((armory.data(item).name if dropped else armory.pickup_title(item)) if kind=="weapon" else kind.to_upper())+" acquired"
 		if hud: hud.toast(last_event)
+
+@rpc("authority","call_local","reliable",0)
+func _pickup_feedback(id: int) -> void:
+	if id==multiplayer.get_unique_id() and not demos.playing and is_instance_valid(xr_rig):xr_rig.pickup_feedback()
 
 func _update_melee(id: int) -> void:
 	if match_mode.defusal.combat_blocked(id):return
@@ -2117,7 +2134,9 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		# ST refits advance the life token without a death or teleport. Keep an
 		# open inventory page while resetting the old weapon/physical input state.
 		var inventory_refit: bool=id==mine and is_vr() and xr_rig.wheel_open() and xr_rig.weapon_wheel.tribes_shop and not s.dead and not row[7] and s.deaths==row[12] and match_mode.tribes.can_refit(id)
-		if not multiplayer.is_server():actor.configure_tribes(armory.effective()=="tribes" and not lobby.active(),row[7] or row[20] or pause>0 or match_mode.special.blocked(id))
+		if not multiplayer.is_server():
+			actor.configure_tribes(armory.effective()=="tribes" and not lobby.active(),row[7] or row[20] or pause>0 or match_mode.special.blocked(id))
+			_configure_cs16(id,s)
 		if not multiplayer.is_server():
 			s.jetpack=mode_state.get("locomotion",{}).get(id,{}).get("jetpack_owned",false)==true
 			actor.configure_jetpack(jetpacks.enabled() and s.jetpack and not row[7] and not row[20] and pause<=0 and not match_mode.special.blocked(id))
@@ -2599,11 +2618,12 @@ var loaded_pickup_rules:=""
 func _load_map(map_id: String) -> bool:
 	if map_id==lobby.ID:return lobby.build()
 	var pickup_rules: String=match_mode.kind+":"+armory.effective()
-	if current_map==map_id and loaded_pickup_rules==pickup_rules and $Map.get_child_count()>0: return true
 	var info: Dictionary = {}
 	for row in map_catalog:
 		if row.id==map_id: info=row; break
 	if info.is_empty(): return false
+	if "st" in info.get("modes",[]) and (match_mode.kind!="st" or armory.effective()!="tribes"):return false
+	if current_map==map_id and loaded_pickup_rules==pickup_rules and $Map.get_child_count()>0: return true
 	match_mode.defusal.Maps.register_map(info.path,info.sha256)
 	if match_mode.kind=="de" and not match_mode.defusal.Maps.supported(info.id,info.sha256):return false
 	if match_mode.kind=="as" and not Maps.supports_assault(info.path):return false

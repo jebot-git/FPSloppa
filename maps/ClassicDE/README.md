@@ -74,3 +74,11 @@ apartment occlusion, repairs the Aztec west canal and Train upper-hall routes,
 and supplies hash-bound bot lanes/holds for all five DE maps. After compiling
 new geometry, run `python3 tools/classic_de/tactics.py` and the documented
 tactical regression alongside the map route checks.
+
+Nuke's underground stair entrance now has a continuous top landing and a full
+side wall separating the descending flight from the garage floor. Offset solid
+corners on the T canyon and CT approach break the former straight spawn lanes,
+following the reference layout's enclosed approaches. The map regression probes
+the landing seam and side wall, checks 48 spawn-to-approach sightlines, and walks
+the left, centre and right of the stairs in both directions. The garage bot lane
+enters through the top landing. This remains an approximate layout study.

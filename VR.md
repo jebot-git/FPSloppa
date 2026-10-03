@@ -11,18 +11,18 @@ This is a PC OpenXR VR FPS built with Godot 4.7.2 and Godot XR Tools 4.5.1. Star
 | Action | Oculus Touch | Valve Index |
 |---|---|---|
 | Move, relative to headset direction | Left stick | Left stick |
-| Walk | Left stick click | Left stick click |
+| Walk | Unbound by default | Unbound by default |
 | Turn | Right stick left/right | Right stick left/right |
-| Weapon wheel | Right stick click, tilt and release to equip; click again to cancel | Right stick click, tilt and release to equip; click again to cancel |
-| Cycle owned weapons (wheel closed) | Right stick up/down | Right stick up/down |
+| Weapon wheel | Main-hand stick click, tilt and release to equip; click again to cancel | Main-hand stick click, tilt and release to equip; click again to cancel |
+| Select ability / grenade (wheel closed) | Turn stick up/down | Turn stick up/down |
 | Fire | Gun-hand trigger; other trigger fires second pistol in slot 2 | Gun-hand trigger; other trigger fires second pistol in slot 2 |
-| Jump / swim / respawn | Right A | Right A |
+| Jump / swim / ski | Movement stick click; hold to ski in Tribes | Movement stick click; hold to ski in Tribes |
 | Use nearby door | Left X | Left A |
 | Scoreboard | Left Y | Left B |
 | Menu | Right B or left menu | Right B |
 | Select menu controls | Point and trigger | Point and trigger |
 
-The [weapon wheel](docs/WEAPON-WHEEL.md) stays open until selection or cancellation and shows owned weapons with icons and ammunition. Selection always uses the physical right joystick, including mirrored controls.
+The [weapon wheel](docs/WEAPON-WHEEL.md) stays open until selection or cancellation and shows owned weapons with icons and ammunition. Opening and selection use the main-hand joystick by default, including mirrored controls. The other stick still moves the player while the wheel is open. Successful pickups give both controllers a soft, short pulse, scaled by the controller haptic strength setting.
 
 **Smooth turning is the default.** Open **TURN SETTINGS…** in the VR menu to select smooth or snap turning and adjust smooth speed (30–360°/s, default 120°/s) and snap angle (15–90°, default 30°). The large −/+ controls work with either controller pointer. Mode, speed and angle save immediately in the client config and load next launch. The menu also offers recentering and switching the gun hand. Recenter after changing play posture. Weapon grips sit at the controller’s palm position while orientation follows its independent aim pose, including roll. Local models, remote avatars and server muzzle positions use the same per-weapon grip anchors. The Doom, Quake and UT99 loadouts retain their classic arena ammo and automatic weapon cycles. The optional [CS 1.6 loadout](docs/CS16-LOADOUT.md) uses physical VR reloads: weapon-hand grip ejects a magazine; offhand grip draws a replacement from the contextual hip pouch, seats it and racks the action. The M3 needs a full offhand pump after each shot; the AWP needs its bolt cycled. The XM1014 loads individual shells and cycles automatically. For the M249, lift the feed cover, replace the box, close the cover and charge the gun. Hand roles mirror for left-handed use; menus and tracking loss cancel unfinished gestures.
 
@@ -36,7 +36,7 @@ Choose MODEL to preview any bundled VRM or import a self-contained custom VRM up
 
 Remote IK poses interpolate between the existing budgeted solves, and prepared distant-animation tracks sample at display cadence. Local tracked poses remain immediate. Teleports, death, tracking changes and weapon changes reset the remote blend. New distant clips are prepared in two-sample slices per frame and reused by avatar; full 21-solve preparation no longer runs in the live request path. Distance thresholds and the conservative XR LOD policy are unchanged. Weapon visuals are prepared during map loading and reused on equip, with independent per-instance reload actions.
 
-Head, hands and weapon poses are replicated. Remote avatars use smoothed tracked head orientation, crouching hip motion, arm IK and ground-aligned feet. Every model shares the same standing capsule and damage volumes; tracked crouching reduces their height together. Small physical steps and leaning move the shared movement/damage capsule horizontally toward the headset, with a 2 cm tolerance. Tracking offsets are limited to 0.75 m and room-scale motion to 2.4 m/s, sharing the normal locomotion speed budget. The server validates the request against the headset pose and performs collision checks. Only actual capsule travel is subtracted from the tracking origin and replicated poses, preserving headset/weapon world positions when walls block movement. Room-scale input cannot move the capsule vertically. Physical crouching can shorten its height while keeping its feet on the ground. Implausible/nonfinite/scaled poses are rejected. A muzzle through a wall cannot shoot. Losing gun-controller tracking blocks firing. Head penetration fades the view to black. Network position corrections sweep the player capsule against obstacles and preserve the interpolated camera position while converging. Delayed wall and ceiling stops do not produce recoil; these collision corrections are shared with desktop movement.
+Head, hands and weapon poses are replicated. Remote avatars use smoothed tracked head orientation, crouching hip motion, arm IK and ground-aligned feet. Every model shares the same body dimensions and damage volumes; DE uses flat-ended cylindrical collision for player stacking, and other modes use capsules; tracked crouching reduces their height together. Small physical steps and leaning move the shared movement/damage capsule horizontally toward the headset, with a 2 cm tolerance. Tracking offsets are limited to 0.75 m and room-scale motion to 2.4 m/s, sharing the normal locomotion speed budget. The server validates the request against the headset pose and performs collision checks. Only actual capsule travel is subtracted from the tracking origin and replicated poses, preserving headset/weapon world positions when walls block movement. Room-scale input cannot move the capsule vertically. Physical crouching can shorten its height while keeping its feet on the ground. Implausible/nonfinite/scaled poses are rejected. A muzzle through a wall cannot shoot. Losing gun-controller tracking blocks firing. Head penetration fades the view to black. Network position corrections sweep the player capsule against obstacles and preserve the interpolated camera position while converging. Delayed wall and ceiling stops do not produce recoil; these collision corrections are shared with desktop movement.
 
 Stair movement probes for reachable treads and snaps down to descending steps. A short visual height blend softens the step change in both desktop and VR while headset motion remains direct. Invisible map trigger volumes retain their behavior but no longer render opaque boxes, including on lqdm1.
 
@@ -154,6 +154,13 @@ movement, loss of focus and unstable poses prevent accidental calibration.
 Lower your arms for at least 0.55 seconds before repeating; there is a five-second
 cooldown. The existing manual calibration button remains available and also
 plays the completion cue on success. The cue follows the sound-effects volume.
+
+While **Settings → Tracking** is open, a transparent cyan skeleton shows your
+current solved IK locally. Look down to inspect the arms, hips and legs while
+moving or calibrating. It follows the active avatar, also works with controller-only
+tracking, and uses the selected avatar before joining a match. Closing the page
+or losing headset focus hides it. The overlay is never replicated to other
+players or included in scope views.
 
 ## Physical TF / AS interactions and close-surface shooting
 

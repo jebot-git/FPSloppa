@@ -54,7 +54,7 @@ func setup(arena: Node) -> void:
 	graphics_page.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var graphics_scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();graphics_scroll.custom_minimum_size.y=280;graphics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;graphics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;graphics_page.add_child(graphics_scroll)
 	var graphics_options:=VBoxContainer.new();graphics_options.add_theme_constant_override("separation",8);graphics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;graphics_scroll.add_child(graphics_options)
-	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.01 if row[0]=="music" else .1)
+	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.05)
 	controls.spatial_audio=button(audio_page,"",func():
 		values.spatial_audio="stereo" if values.spatial_audio=="steam_audio" else "steam_audio";game.spatial.apply_backend();save())
 	controls.output=button(audio_page,"",func():
@@ -117,7 +117,7 @@ func save() -> void:
 func refresh() -> void:
 	if book and book.current!=section:book.navigate(section)
 	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
-	tracking_status.text=game.xr_rig.tracking.status if game.is_vr() else "Connect a VR headset to configure tracking."
+	tracking_status.text=game.xr_rig.tracking.status+"\nLook down to inspect your live skeleton while calibrating." if game.is_vr() else "Connect a VR headset to configure tracking."
 	if game.is_vr():
 		controls.gun_hand.text="GUN HAND: "+("LEFT" if game.xr_rig.left_handed else "RIGHT")+" · SWAP"
 		controls.body.text="BODY TRACKING: "+("ON" if game.xr_rig.tracking.enabled else "OFF")

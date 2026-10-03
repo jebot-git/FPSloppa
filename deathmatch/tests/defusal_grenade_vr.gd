@@ -43,13 +43,20 @@ func run():
 		check(grenade_pose.basis.x.dot(hand.global_basis.x)>(.999) if not left else grenade_pose.basis.x.dot(-hand.global_basis.x)>.999,"Grenade safety lever faces the holding palm")
 		check(not rig.command(seq+1).fire and not rig.command(seq+1).offhand_fire,"Held utility blocks both gun triggers")
 		for i in 7:hand.position.z-=.06;frame()
+		rig.physical_actions.guide_elapsed=0;rig.physical_actions.update_guide(.02)
+		var guide_points: PackedVector3Array=rig.physical_actions.guide.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
+		check(guide_points.size()==2 and guide_points[0].distance_to((rig.global_transform*rig.sample_pose().weapon).origin)<.001,"Only the aiming-hand guide is drawn, left="+str(left))
 		b.inputs={"offhand_fire":true};frame()
 		check(u.flying.size()==1 and u.state(1).counts[0]==0,"Swing and grip release emits exactly one purchased HE")
 		if not u.flying.is_empty():
-			check(u.flying.values()[0].velocity.z<-3 and u.flying.values()[0].velocity.length()<=26.001,"Throw boost preserves bounded offhand power")
+			check(u.flying.values()[0].velocity.length()>10 and u.flying.values()[0].velocity.length()<=40.001,"Throw boost preserves bounded offhand power")
 			check(u.flying.values()[0].velocity.normalized().dot(-free_hand.basis.z)>.999,"DE throw follows the free hand's aim, independently of throwing direction")
 		check(not rig.physical_actions.hint.visible,"DE grenade guide uses geometry without floating text")
 		check(not rig.physical_actions.grenade.visible,"Released local model hides")
+		u.flying.clear();u.state(1).cooldown=0;u.state(1).counts=[1,2,1]
+		var strong_pose: Dictionary=rig.sample_pose()
+		check(u.physical_request(1,"arm",strong_pose,Vector3.ZERO) and u.physical_request(1,"throw",strong_pose,Vector3(0,0,-12)),"Authority accepts strong physical swing")
+		check(u.flying.size()==1 and is_equal_approx(u.flying.values()[0].velocity.length(),40),"Strong DE swing reaches 40 m/s without the former secondary speed clamp")
 		u.flying.clear();u.state(1).cooldown=0;b.inputs={};frame();u.equip(1,2)
 		check(u.state(1).shoulder==2 and u.selected(1)==-1 and not de.gun_holstered(1),"VR wheel chooses shoulder smoke without holstering gun")
 		hand.position=Vector3(.3 if left else -.3,1.8,.15);frame()

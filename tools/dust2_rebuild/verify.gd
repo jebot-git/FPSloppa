@@ -21,8 +21,9 @@ func walk(points: Array,label: String):
 		for frame in 1000:
 			await physics_frame
 			var delta: Vector3=target-actor.position
-			if Vector2(delta.x,delta.z).length()<.25 and absf(delta.y)<.65:reached=true;break
-			actor.simulate(Vector2(delta.x,delta.z).normalized(),0,true,1.0/60)
+			if Vector2(delta.x,delta.z).length()<(.20 if actor.cs16_enabled else .25) and absf(delta.y)<.65:reached=true;break
+			var move:=Vector2(delta.x,delta.z).limit_length(1) if actor.cs16_enabled else Vector2(delta.x,delta.z).normalized()
+			actor.simulate(move,0,true,1.0/60)
 		if not reached:
 			print("STUCK ",label," target=",points[i]," at=",plan(actor.position));ok=false;break
 	report.routes.append({"name":label,"passed":ok,"end":plan(actor.position)})
@@ -36,6 +37,7 @@ func run():
 	NavigationServer3D.map_set_cell_size(region.get_navigation_map(),region.navigation_mesh.cell_size)
 	if "--views" in OS.get_cmdline_user_args():await views();world.free();quit();return
 	actor=load("res://deathmatch/fighter.gd").new();actor.setup(1,"Dust2 audit",Color.WHITE);world.add_child(actor);actor.set_physics_process(false)
+	if "--cs16" in OS.get_cmdline_user_args():actor.configure_cs16(true)
 	await physics_frame;await physics_frame
 	var space=world.get_world_3d().direct_space_state
 	for arch in data.get("arch_checks",[]):

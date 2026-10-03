@@ -55,8 +55,13 @@ func open() -> void:
 	choice.choose(state.get("tribes_next","light") if tribes_menu else state.get("tf_next","soldier"));tool.choose(state.get("tf_tool","sentry"))
 	notice.text="Cost is paid from team energy each respawn. If funds run out, you receive free light armour; your queued choice remains selected. Health shows armour condition; ENERGY powers your jets." if tribes_menu else "Changes apply at your next respawn. Use E on desktop or weapon-hand A/X (ability binding) in VR for your class action. Engineer: turn-stick up/down selects sentry/dispenser. Class badges identify players regardless of avatar."
 	if tribes_menu and game.match_mode.tribes.base_ctf():notice.text="You spawn in Light armour with blaster, chaingun and disc. Save favourites here, then walk into a friendly inventory station to buy them. Carried equipment is traded in; ammunition uses the team reserve."
-	pack_choice.visible=tribes_menu;equipment.visible=tribes_menu;inventory_button.visible=tribes_menu
+	if tribes_menu and not game.match_mode.tribes.mode_enabled():notice.text="Your selected armour, weapons and backpack apply at the next respawn. ENERGY powers your jets and energy weapons."
+	pack_choice.visible=tribes_menu;equipment.visible=tribes_menu;inventory_button.visible=tribes_menu and game.match_mode.tribes.mode_enabled()
 	if tribes_menu:
+		var packs: Array=[]
+		for key in tribes_shop.A.PACKS:
+			if game.match_mode.tribes.mode_enabled() or not game.match_mode.tribes.deployables.Data.is_pack(key):packs.append({"id":key,"title":tribes_shop.A.PACKS[key].name})
+		pack_choice.configure(packs,"BACKPACK")
 		tribes_shop.open(state);pack_choice.choose(tribes_shop.pack);refresh_guns()
 	get_parent().move_child(self,-1);refresh();show()
 func _process(_delta: float) -> void:
@@ -68,6 +73,7 @@ func refresh() -> void:
 		var available: int=game.match_mode.tribes.energy[game.match_mode.tribes.bank(id)]
 		details.text="%d HEALTH · %d ENERGY · %.0f m/s WALK · %d GUNS\n\n%d TEAM ENERGY per spawn · AVAILABLE %d (+700 / 30s)\nCURRENT: %s · NEXT: %s%s"%[data.hp,data.energy,data.walk,data.guns,tribes_shop.A.cost(choice.value,tribes_shop.guns,pack_choice.value),available,state.get("tribes_class","light").to_upper(),state.get("tribes_next","light").to_upper(),"\nINSUFFICIENT FUNDS: light armour fallback" if available<tribes_shop.A.cost(choice.value,tribes_shop.guns,pack_choice.value) else ""]
 		if game.match_mode.tribes.base_ctf():details.text="%d HEALTH · %d ENERGY · %.0f m/s WALK · %d GUNS\n\nTEAM ENERGY %d (+700 / 30s) · REFIT %d\nCURRENT: %s · FAVOURITE: %s"%[data.hp,data.energy,data.walk,data.guns,available,game.match_mode.tribes.refit_cost(id,choice.value,tribes_shop.guns,pack_choice.value),state.get("tribes_class","light").to_upper(),state.get("tribes_next","light").to_upper()]
+		if not game.match_mode.tribes.mode_enabled():details.text="%d HEALTH · %d ENERGY · %.0f m/s WALK · %d GUNS\n\nCURRENT: %s · NEXT: %s"%[data.hp,data.energy,data.walk,data.guns,state.get("tribes_class","light").to_upper(),state.get("tribes_next","light").to_upper()]
 		inventory_button.disabled=not game.match_mode.tribes.can_refit(id) or not tribes_shop.A.valid_loadout(choice.value,tribes_shop.guns,pack_choice.value) or available<game.match_mode.tribes.refit_cost(id,choice.value,tribes_shop.guns,pack_choice.value)
 		tool.hide();return
 	var key: String=choice.value;var data: Dictionary=game.match_mode.fortress.class_definition(key)

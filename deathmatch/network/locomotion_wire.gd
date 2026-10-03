@@ -7,11 +7,13 @@ static func encode(state:Dictionary) -> Dictionary:
  if state.get("replay") is Dictionary:
   var row:Array=[]
   for field in FIELDS:row.append(state.replay[field])
+  if state.replay.has("cs16_stamina"):row.append(state.replay.cs16_stamina)
   result.replay=row
  return result
 static func decode(state:Dictionary) -> Dictionary:
  var result:=state.duplicate()
- if state.get("replay") is Array and state.replay.size()==FIELDS.size():
+ if state.get("replay") is Array and state.replay.size() in [FIELDS.size(),FIELDS.size()+1]:
   result.replay={}
   for i in FIELDS.size():result.replay[FIELDS[i]]=state.replay[i]
+  if state.replay.size()>FIELDS.size():result.replay.cs16_stamina=state.replay[-1]
  return result

@@ -47,7 +47,7 @@ func run() -> void:
 	var right:=XRControllerTracker.new();right.name="right_hand";XRServer.add_tracker(right)
 	left.set_input("primary",Vector2(.8,0));right.set_input("primary",Vector2.ZERO)
 	await process_frame
-	check(game.bindings.vr.weapon_wheel=="right:primary_click","Default wheel uses physical right joystick click")
+	check(game.bindings.vr.weapon_wheel=="weapon:primary_click","Default wheel uses main-hand joystick click")
 	right.set_input("primary_click",true);rig.poll_controls()
 	var wheel=rig.weapon_wheel
 	check(rig.wheel_open() and wheel.visible,"Right joystick click opens the VR wheel")
@@ -75,8 +75,13 @@ func run() -> void:
 	right.set_input("primary_click",false);rig.poll_controls();wheel.update(Vector2.ZERO)
 	right.set_input("trigger",1.0);left.set_input("trigger",1.0)
 	var command: Dictionary=rig.command(10)
-	check(not command.fire and not command.alt_fire and not command.offhand_fire and not command.melee and command.input_blocked,"Wheel suppresses combat commands")
+	check(not command.fire and not command.alt_fire and not command.offhand_fire and not command.melee and not command.input_blocked,"Wheel suppresses combat without blocking locomotion")
 	check(command.move.length()>.7,"Left joystick movement remains available")
+	var delivery=preload("res://deathmatch/network/movement_delivery.gd").new()
+	command.input_life=game.players[1].serial;delivery.sample(command,command.input_life);delivery.annotate(command)
+	game._accept_input(1,command)
+	var accepted: Dictionary=delivery.consume(game.players[1])
+	check(not accepted.is_empty() and accepted.move.length()>.7 and not game.players[1].input_blocked and not game.players[1].fire,"Authority retains movement and suppresses firing while the wheel is open")
 	right.set_input("primary",Vector2.RIGHT);wheel.update(Vector2.RIGHT)
 	check(rig.control_axis("turn")==Vector2.ZERO and game.desired_weapon==2,"Highlight consumes turning without changing weapon")
 	right.set_input("primary",Vector2.ZERO);wheel.update(Vector2.ZERO)
@@ -85,10 +90,42 @@ func run() -> void:
 	wheel.toggle(Vector2.ZERO);wheel.update(Vector2.RIGHT);right.set_input("primary_click",true);rig.poll_controls()
 	check(not rig.wheel_open() and game.desired_weapon==3,"Second click cancels without changing weapon")
 	right.set_input("primary_click",false);rig.poll_controls();wheel.update(Vector2.ZERO)
-	rig.left_controls=true;rig.left_handed=true;right.set_input("primary_click",true);rig.poll_controls()
-	right.set_input("primary",Vector2.RIGHT);wheel.update(Vector2.RIGHT)
-	check(rig.wheel_open() and rig.control_axis("move")==Vector2.ZERO and rig.control_axis("turn")==Vector2.ZERO,"Mirrored controls keep physical right selection and consume conflicting axes")
+	rig.left_controls=true;rig.left_handed=true;left.set_input("primary",Vector2.ZERO);left.set_input("primary_click",true);rig.poll_controls()
+	right.set_input("primary",Vector2.RIGHT);left.set_input("primary",Vector2.UP);wheel.update(Vector2.UP)
+	check(rig.wheel_open() and rig.control_axis("move")==Vector2.RIGHT and rig.control_axis("turn")==Vector2.ZERO,"Mirrored controls use main-hand selection and preserve offhand movement")
+	left.set_input("primary_click",false);rig.poll_controls()
+	for weapon_left in [false,true]:
+		for movement_left in [false,true]:
+			rig.left_handed=weapon_left;rig.left_controls=movement_left
+			var free=right if weapon_left else left
+			free.set_input("primary",Vector2.RIGHT)
+			check(rig.control_axis("move")==Vector2.RIGHT and rig.control_axis("turn")==Vector2.ZERO,"Free stick locomotion survives independent weapon/control handedness: "+str([weapon_left,movement_left]))
 	wheel.reset();rig.left_controls=false;rig.left_handed=false
+	game.armory.select("tribes");game.players[1].owned=[0,2,3];game.desired_weapon=3
+	var seq:=100
+	for mirrored in [false,true]:
+		rig.left_controls=mirrored;rig.left_handed=mirrored
+		var move=right if mirrored else left
+		left.set_input("primary",Vector2.ZERO);right.set_input("primary",Vector2.ZERO)
+		left.set_input("trigger",false);right.set_input("trigger",false)
+		move.set_input("primary_click",true);rig.poll_controls()
+		var ski: Dictionary=rig.command(seq);ski.input_life=game.players[1].serial;seq+=1
+		check(ski.jump and ski.ski and not rig.wheel_open(),"Jump press also enters held ski without opening wheel: "+str(mirrored))
+		var wire: Dictionary=preload("res://deathmatch/network/codec.gd").unpack(preload("res://deathmatch/network/input_delivery.gd").pack(ski))
+		game._accept_input(1,wire);game._configure_tribes(1,game.players[1])
+		game.fighters[1].simulate(Vector2.ZERO,0,false,1.0/60,true)
+		check(game.fighters[1].tribes_state.skiing,"Packed input activates authoritative ski: "+str(mirrored))
+		game.clock+=.1;game._configure_tribes(1,game.players[1])
+		check(game.fighters[1].ski_held,"A short packet gap preserves held ski: "+str(mirrored))
+		wheel.toggle(Vector2.ZERO);ski=rig.command(seq);ski.input_life=game.players[1].serial;seq+=1
+		check(ski.ski and ski.jump and not ski.input_blocked,"Weapon wheel preserves held ski and jump: "+str(mirrored))
+		game._accept_input(1,ski);game._configure_tribes(1,game.players[1])
+		check(game.fighters[1].ski_held,"Authority retains skiing while wheel is open: "+str(mirrored))
+		move.set_input("primary_click",false);rig.poll_controls();ski=rig.command(seq);ski.input_life=game.players[1].serial;seq+=1
+		game._accept_input(1,ski);game._configure_tribes(1,game.players[1])
+		check(not ski.jump and not game.fighters[1].ski_held,"Releasing jump ends ski normally: "+str(mirrored))
+		wheel.reset()
+	rig.left_controls=false;rig.left_handed=false;game.armory.select("doom");game.players[1].owned=[2,3,6,8];game.desired_weapon=3
 	wheel.toggle(Vector2.ZERO);wheel.update(Vector2.RIGHT);game.players[1].owned=[2,6,8];wheel.update(Vector2.RIGHT)
 	check(wheel.input.waiting_for_center and wheel.input.hover==-1,"Inventory changes rearm selection instead of changing highlighted slot")
 	wheel.update(Vector2.ZERO);check(rig.wheel_open() and game.desired_weapon==3,"Inventory change cannot accidentally commit on release")
@@ -123,7 +160,7 @@ func run() -> void:
 	game.bindings.vr.weapon_wheel="left:primary_click";check(game.bindings.save()==OK,"Wheel binding saves with existing controls")
 	var saved=load("res://deathmatch/settings/bindings.gd").new();saved.load_settings()
 	check(saved.vr.weapon_wheel=="left:primary_click","Wheel binding reloads")
-	game.bindings.vr.weapon_wheel="right:primary_click";game.bindings.save()
+	game.bindings.vr.weapon_wheel="weapon:primary_click";game.bindings.save()
 	for key in Icons.NAMES:
 		var icon=Icons.texture(key);check(icon!=null and icon.get_width()>=128 and icon.get_image().has_mipmaps(),"Icon imports: "+key)
 	wheel.reset();check(wheel.viewport.render_target_update_mode==SubViewport.UPDATE_DISABLED,"Closed wheel stops viewport rendering")
@@ -135,7 +172,7 @@ func run() -> void:
 	rig.left_handed=true;wheel.toggle(Vector2.ZERO);rig.simulated=false
 	check(rig.can_open_weapon_wheel() and rig.wheel_open(),"Tracked head and both controllers allow a left-dominant wheel")
 	left.invalidate_pose("grip");await process_frame;wheel.update(Vector2.ZERO)
-	check(not rig.wheel_open() and not wheel.visible,"Dominant grip tracking loss closes the wheel despite tracked right selection stick")
+	check(not rig.wheel_open() and not wheel.visible,"Dominant grip tracking loss closes the left-hand wheel")
 	wheel.toggle(Vector2.ZERO);check(not rig.wheel_open(),"Untracked dominant grip cannot reopen a stranded wheel")
 	rig.simulated=true;XRServer.remove_tracker(head_tracker)
 	XRServer.remove_tracker(left);XRServer.remove_tracker(right)

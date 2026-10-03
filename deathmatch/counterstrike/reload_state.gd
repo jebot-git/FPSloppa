@@ -39,6 +39,11 @@ static func rack_point(w: int,p: Dictionary) -> Vector3:
 	if w==9:return BOLT_PIVOT+Basis(Vector3.BACK,p.get("lift",0.0)*PI/3)*(RACK_POINTS[w]-BOLT_PIVOT)+Vector3.BACK*.10*p.stroke
 	if w==5:return hk_transform(p.stroke,p.get("lift",0.0))*RACK_POINTS[w]
 	return RACK_POINTS[w]+Vector3.BACK*(.105 if w==3 else .065)*p.stroke+Vector3.UP*.055*p.get("lift",0.0)
+static func rack_contact(w: int,p: Dictionary,weapon: Transform3D,hand: Vector3,radius: float=GRAB_RADIUS) -> bool:
+	var start:=weapon*rack_point(w,p)
+	# Extend the pistol slide grip 8 cm above the slide, in weapon orientation.
+	var end:=start+weapon.basis.y.normalized()*(.08 if w in [1,2,10] else 0.0)
+	return hand.distance_to(Geometry3D.get_closest_point_to_segment(hand,start,end))<radius
 static func hk_transform(stroke: float,lift: float) -> Transform3D:
 	var rotation:=Basis(Vector3.BACK,HK_ANGLE*lift)
 	return Transform3D(rotation,HK_PIVOT-rotation*HK_PIVOT+Vector3.BACK*.065*stroke)
@@ -189,7 +194,8 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 				# The replacement remains in the offhand; a distinct seating
 				# motion after the knock-out is required.
 				return clip
-			var close: bool=hand.origin.distance_to(weapon*MAG_POINTS[w])<INSERT_RADIUS
+			var contact: Vector3=load("res://deathmatch/counterstrike/models.gd").ammo_contact(hand,w)
+			var close: bool=contact.distance_to(weapon*MAG_POINTS[w])<INSERT_RADIUS
 			var aligned:=insertion_aligned(w,pose,hand)
 			if p.left_pouch and close and aligned and now-p.started>=.15 and (w!=8 or p.cover>.9):
 				if tube_fed(w):clip=mini(clip+1,mini(capacity,total))
@@ -251,7 +257,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 			p.grab="belt";p.carry=3;p.started=now;p.event+=1
 		elif w==8 and hand.origin.distance_to(cover_grip)<GRAB_RADIUS:
 			p.grab="cover";p.base=p.cover;p.anchor=local;p.started=now;p.event+=1
-		elif hand.origin.distance_to(weapon*rack_point(w,p))<GRAB_RADIUS and p.cover<.05 and (w!=3 or not p.ready) and (w!=8 or p.belt) and not p.hk_locked and not (p.ready and handguard_first(w,local)):
+		elif rack_contact(w,p,weapon,hand.origin) and p.cover<.05 and (w!=3 or not p.ready) and (w!=8 or p.belt) and not p.hk_locked and not (p.ready and handguard_first(w,local)):
 			p.grab="rack";p.anchor=local;p.started=now;p.pulled=false;p.event+=1
 			if w==9:p.bolt_offset=local-rack_point(w,p);p.bolt_high=rack_point(w,p).y
 			else:p.stroke=0.0

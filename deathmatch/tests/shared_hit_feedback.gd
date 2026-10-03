@@ -28,10 +28,24 @@ func run():
 	check(pulses.size()==1 and is_equal_approx(pulses[0].amplitude,.4) and is_equal_approx(pulses[0].duration,.06) and pulses[0].frequency==70,"Controller strength scales amplitude while retaining pulse duration and frequency")
 	for left in [false,true]:
 		rig.left_handed=left;pulses.clear();rig.weapon_wheel.pulse(.3)
-		check(pulses.size()==1 and pulses[0].hand=="right" and is_equal_approx(pulses[0].amplitude,.15),"Wheel haptics use saved strength on physical right controller with either handedness")
-	g.presentation.controller_haptic_strength=0;pulses.clear();rig.feedback(.8);rig.feedback(.8,.08,true);rig.weapon_wheel.pulse(.3)
+		check(pulses.size()==1 and pulses[0].hand==("left" if left else "right") and is_equal_approx(pulses[0].amplitude,.15),"Wheel haptics follow the main hand and saved strength")
+	for kind in ["health","armor","ammo","weapon","jetpack"]:
+		pulses.clear();g._pickup_event(1,kind,2,2)
+		check(pulses.size()==2 and pulses.all(func(p):return is_equal_approx(p.amplitude,.08) and p.duration<=.05),"Soft pickup rumble uses both controllers and saved strength: "+kind)
+	for state in ["remote","menu","unfocused","dead","demo"]:
+		pulses.clear();g.menu_open=state=="menu";rig.focused=state!="unfocused";g.players[1].dead=state=="dead";g.demos.playing=state=="demo"
+		g._pickup_feedback(-1 if state=="remote" else 1)
+		check(pulses.is_empty(),"No pickup rumble for "+state)
+	g.menu_open=false;rig.focused=true;g.players[1].dead=false;g.demos.playing=false
+	g.presentation.controller_haptic_strength=0;pulses.clear();g._pickup_feedback(1);rig.feedback(.8);rig.feedback(.8,.08,true);rig.weapon_wheel.pulse(.3)
 	check(pulses.is_empty(),"Zero controller strength disables both hands and wheel feedback")
 	g.presentation.controller_haptic_strength=1.0;pulses.clear();rig.left_handed=false
+	g.armory.select("tribes");g.match_mode.tribes.spawn(1);g.players[1].hp=1
+	var recovery=g.match_mode.tribes.recovery;var payload: Dictionary=recovery.empty_payload();payload.patch=true
+	var patch: int=recovery.create(0,payload,g.fighters[1].position+Vector3.UP*.65,Vector3.ZERO,"patch")
+	check(recovery.pickup(1,patch) and pulses.size()==2,"Accepted Tribes recovery pickup delivers controller rumble")
+	pulses.clear();check(not recovery.pickup(1,patch) and pulses.is_empty(),"Rejected or already consumed recovery pickup produces no rumble")
+	g.players[1].hp=100
 	fx=Visuals.new();g.add_child(fx);g.variant_visuals=fx;fx.set_process(false)
 	var ends:=PackedVector3Array([Fixture.point(0,-10)+Vector3.UP])
 	for rules in ["doom","quake","ut99","cs16"]:

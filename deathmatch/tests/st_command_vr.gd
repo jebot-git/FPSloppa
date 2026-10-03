@@ -17,9 +17,16 @@ func check_wrist(display,rig,label: String):
 	check(display.global_transform.is_equal_approx(hand.global_transform*attachment),label+" immediately inherits all wrist translation and roll")
 	hand.transform=old
 	var palm: Basis=hand.global_basis*preload("res://deathmatch/avatars/pose.gd").controller_hand_basis(not rig.left_handed)
-	check(display.global_basis.z.dot(-palm.z)>.999 and display.global_basis.y.dot(palm.y)>.999,label+" faces out from the anatomical wrist with its top toward the fingers")
+	var outward: Vector3=palm.z if display.handheld else -palm.z
+	check(display.screen.global_basis.z.dot(outward)>.999,label+" faces out from the palm" if display.handheld else label+" faces out from the wrist")
+	if display.handheld:
+		check(display.screen.global_basis.y.dot(palm.y)>.999,label+" rests flat along the fingers without sideways tilt")
+		var palm_frame: Transform3D=hand.global_transform*Transform3D(preload("res://deathmatch/avatars/pose.gd").controller_hand_basis(not rig.left_handed),Vector3.UP*.06)
+		var housing: MeshInstance3D=display.plate.get_node("Case")
+		var bounds: AABB= palm_frame.affine_inverse()*housing.global_transform*housing.get_aabb()
+		check(bounds.position.y>0 and bounds.position.z>=.04,label+" complete casing clears the forearm and palm")
 	var parts: Array=display.find_children("*","MeshInstance3D",true,false)
-	check(parts.size()==3 and parts.all(func(part):return part.layers==Wrist.LOCAL_LAYER),label+" uses a cuff, raised casing and local screen")
+	check(parts.size()==(2 if display.handheld else 3) and parts.all(func(part):return part.layers==Wrist.LOCAL_LAYER),label+" has local casing and screen, with cuffs only for wrist displays")
 	check(display.screen.material_override.cull_mode==BaseMaterial3D.CULL_BACK,label+" screen is opaque from behind")
 func capture_wrist(display,rig,file: String):
 	if not OS.get_cmdline_user_args().has("--capture-wrist"):return
@@ -32,7 +39,7 @@ func capture_wrist(display,rig,file: String):
 	for pointer in rig.pointers:
 		if pointer.visible:hidden.append(pointer);pointer.hide()
 	var front:=Transform3D(Basis(Vector3.UP,.18)*Basis(Vector3.RIGHT,-.32),Vector3(-.06,-.10,-.46))
-	hand.global_transform=rig.head.global_transform*front*Wrist.grip_pose(not rig.left_handed).affine_inverse()
+	hand.global_transform=rig.head.global_transform*front*Wrist.grip_pose(not rig.left_handed,display.handheld).affine_inverse()
 	for i in 6:await process_frame
 	await RenderingServer.frame_post_draw
 	check(root.get_texture().get_image().save_png("res://test-results/st-wrist-display/"+file+".png")==OK,"Capture "+file)
@@ -43,7 +50,7 @@ func run():
 	DirAccess.make_dir_recursive_absolute("res://test-results/st-wrist-display")
 	root.size=Vector2i(1280,900);root.position=Vector2i(6000,6000)
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.selected_map="ctf_raindance";g.start_host("PDA VR",0,100,60,true,"st");g.set_process(false);g.set_physics_process(false)
-	var r=g.match_mode.tribes;r.set_process(false);var rig=g.xr_rig;rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false;rig.focused=true;rig.blackout.hide()
+	var r=g.match_mode.tribes;r.set_process(false);var rig=g.xr_rig;rig.setup(g,true);rig.set_process(false);rig.calibration_pending=false;rig.tracking.enabled=false;rig.focused=true;rig.blackout.hide()
 	var left:=XRControllerTracker.new();left.name="left_hand";XRServer.add_tracker(left)
 	var right:=XRControllerTracker.new();right.name="right_hand";XRServer.add_tracker(right)
 	rig.head.position=Vector3(0,1.65,0);rig.left.position=Vector3(-.3,1.1,-.4);rig.right.position=Vector3(.3,1.1,-.4)

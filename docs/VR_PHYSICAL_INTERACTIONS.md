@@ -16,12 +16,11 @@ Current source uses `fpsloppa-52-defuse-snip`; older clients and servers cannot 
   shows the selected deployable. Support grip + offhand trigger also activates TF abilities. Explosive classes get a
   visible held grenade, released by grip release or trigger release during a throw.
   Recent hand displacement over roughly 100 ms supplies velocity, bounded to 12 m/s
-  before up to 2.4× assistance and a final 26 m/s cap. TF now uses the same free-hand
+  before up to 4.8× assistance and a final 40 m/s cap. TF uses the same free-hand
   aiming assistance as DE: aim with the weapon hand, swing the grenade hand for
-  power. The aiming line and held-ordnance arc use the server's launch calculation,
-  stopping at first world contact. Gentle releases keep their physical direction;
-  releasing a stationary hand drops with zero initial velocity. TF retains its
-  gravity and preview horizon (1.2 seconds, or 2 seconds for Demoman).
+  power. Only the aiming-hand line is drawn; the held grenade has no trajectory
+  arc. Gentle releases keep their physical direction;
+  releasing a stationary hand drops with zero initial velocity. TF retains its gravity and fuse timing.
   Holding expires after ten seconds;
   gameplay interruptions cancel it. Existing Use controls remain available.
 - AS consoles use visible caps centered on the same positions tested for hand

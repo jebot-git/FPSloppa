@@ -17,7 +17,8 @@ actual shoulder grab draws it. Point the
 free weapon hand along the aiming line, swing the grenade hand, then
 **release Grip**. Releasing the trigger during a deliberate stroke also throws.
 The free hand selects direction; the grenade-hand swing sets power. The
-trajectory preview uses the same guidance calculation as the server. A gentle
+aiming-hand line is the only guide; no arc is drawn from the held grenade.
+Deliberate swings receive up to 4.8× assistance, capped at 40 m/s. A gentle
 stationary release drops the grenade without steering it. Both hands
 are mirrored for left-handed players. No arm-mounted pouch is required.
 
@@ -32,7 +33,7 @@ announce an unavailable type. Without a selection, the first owned type is used.
 Grab the radio at its existing front shoulder position to use voice; the grenade
 Grip + Trigger chord takes priority while drawing or holding utility.
 Holding the gun's handguard or manipulating a reload prevents accidental grenade
-arming from the same grip/trigger inputs. DE uses the line and trajectory arc,
+arming from the same grip/trigger inputs. DE uses only the aiming-hand line,
 without floating grenade instructions. Held grenades align their top with the
 controller thumb axis and mirror the lever toward the palm, including remote
 VR players and the primary-hand fallback.

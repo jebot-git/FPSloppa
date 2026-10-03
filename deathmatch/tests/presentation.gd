@@ -55,17 +55,20 @@ func run():
 	var panel=g.hud.settings_panel
 	panel.config_path=path;panel.adjust("master",-.1)
 	check(is_equal_approx(Settings.read_settings(path).master,panel.values.master),"Menu adjustment applies and persists")
-	var music_before: float=panel.values.music
-	panel.controls.music.get_parent().get_child(3).pressed.emit()
-	check(is_equal_approx(panel.values.music,music_before+.01) and is_equal_approx(Settings.read_settings(path).music,panel.values.music),"Music button adjusts and persists one-percent increments")
+	for key in ["master","effects","music","announcer","voice"]:
+		panel.values[key]=.5
+		panel.controls[key].get_parent().get_child(3).pressed.emit()
+		check(is_equal_approx(panel.values[key],.55) and is_equal_approx(Settings.read_settings(path)[key],.55),key+" increases and persists in five-percent increments")
+		panel.controls[key].get_parent().get_child(1).pressed.emit()
+		check(is_equal_approx(panel.values[key],.5) and is_equal_approx(Settings.read_settings(path)[key],.5),key+" decreases and persists in five-percent increments")
 	check(panel.get_rect().size.y<=g.hud.get_child(0).size.y+1,"Settings panel fits the VR canvas")
 	check(panel.controls.announcer.get_global_rect().end.y<=640,"Announcer controls fit the VR audio page")
 	check(not panel.controls.has('soundtrack'),'Audio menu only exposes the original soundtrack')
 	panel.section="haptics";panel.refresh()
 	panel.controls.controller_haptic_strength.get_parent().get_child(1).pressed.emit()
 	check(is_equal_approx(Settings.read_settings(path).controller_haptic_strength,.9) and panel.controls.controller_haptic_strength.text=="90%","Haptic menu applies and persists controller strength independently of vest settings")
-	for mode in [0,1]:
-		panel.haptics_page.backend.select(mode);panel.haptics_page.refresh()
+	for mode in ["ble","osc"]:
+		panel.haptics_page.backend.choose(mode);panel.haptics_page.refresh()
 		await process_frame;await process_frame
 		panel.haptics_scroll.scroll_vertical=0
 		await process_frame;await process_frame
@@ -81,10 +84,11 @@ func run():
 	panel.section="graphics";panel.refresh()
 	await process_frame;await process_frame
 	check(panel.get_rect().size.y<=640,"Graphics page fits the VR canvas")
-	var graphics_scroll: ScrollContainer=panel.graphics_page.get_child(0)
+	panel.section="vr";panel.refresh();await process_frame;await process_frame
+	var graphics_scroll: ScrollContainer=panel.category_pages.vr.get_parent()
 	graphics_scroll.scroll_vertical=10000
 	await process_frame;await process_frame
-	check(graphics_scroll.get_global_rect().encloses(panel.controls.hud_y.get_global_rect()),"HUD controls remain reachable within the graphics drag-scroll area")
+	check(graphics_scroll.get_global_rect().encloses(panel.controls.hud_y.get_global_rect()),"HUD controls remain reachable within the VR rendering drag-scroll area")
 	panel.section="controls";panel.refresh();await process_frame;await process_frame
 	check(panel.get_rect().size.y<=640,"Controls page fits the VR canvas")
 	check(Settings.ALWAYS_ENABLED.all(func(key):return not panel.controls.has(key) and Settings.read_settings(path)[key]),"Default visual effects have no menu toggles and remain enabled")

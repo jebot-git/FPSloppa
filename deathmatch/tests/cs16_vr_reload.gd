@@ -31,8 +31,10 @@ func magazine():
 	var bag:=Reload.pouch(pose).origin
 	step(bag);step(bag,true)
 	check(cs.physical(1).carry==1,"Pouch supplies a held magazine only after ejection")
-	step(point(Reload.MAG_POINTS[g.players[1].weapon]),true,false,.20)
-	step(point(Reload.MAG_POINTS[g.players[1].weapon]))
+	var w: int=g.players[1].weapon
+	var at:=point(Reload.MAG_POINTS[w])-Models.ammo_contact(Transform3D(pose.weapon.basis*Models.ammo_basis(w).inverse(),Vector3.ZERO),w)
+	step(at,true,false,.20)
+	step(at)
 func cycle():
 	var w: int=g.players[1].weapon;var local: Vector3=Reload.RACK_POINTS[w]
 	step(point(local));step(point(local),true)
@@ -50,6 +52,27 @@ func cover(amount: float):
 	step(point(Reload.cover_point(cs.physical(1).cover)),true)
 	step(point(Reload.cover_point(amount)),true,false,.15)
 	step(point(Reload.cover_point(amount)))
+func index_clearance():
+	for handed in [false,true]:
+		for w in [1,2,10]:
+			prepare(w,handed)
+			pose.weapon.basis=Basis.from_euler(Vector3(.2,.4,-.25));pose["left" if handed else "right"]=pose.weapon
+			cs.physical(1).ready=false;step(Reload.pouch(pose).origin,false,true)
+			var bag:=Reload.pouch(pose).origin;step(bag);step(bag,true)
+			var basis: Basis=pose.weapon.basis*Models.ammo_basis(w).inverse()
+			var socket:=point(Reload.MAG_POINTS[w]);var hand:=socket-Models.ammo_contact(Transform3D(basis,Vector3.ZERO),w)
+			check(Models.ammo_pose(Transform3D.IDENTITY,w).basis.y.normalized().dot(Vector3.UP)>.99,"Pistol magazine points up from the palm: "+str(w))
+			check(hand.distance_to(pose.weapon.origin)>.20,"Pistol seating keeps controller centres over 20 cm apart: "+str(w)+" / "+str(handed))
+			step(hand,true,false,.2,false,basis*Basis(Vector3.RIGHT,PI))
+			check(not cs.physical(1).mag,"Upside-down pistol magazine cannot insert")
+			step(hand,true,false,.2,false,basis);step(hand)
+			check(cs.physical(1).mag and not cs.physical(1).ready,"Raised magazine tip seats in a tilted pistol in either hand")
+			var high: Vector3=point(Reload.RACK_POINTS[w])+pose.weapon.basis.y*.15
+			check(not Reload.rack_contact(w,cs.physical(1),Reload.model_pose(pose,w),high+pose.weapon.basis.y*.10),"Extended slide grab remains bounded")
+			step(high);step(high,true)
+			check(cs.physical(1).grab=="rack","Slide can be gripped above the controller collision zone")
+			step(high+pose.weapon.basis.z*.065*.65,true,false,.12);step(high+pose.weapon.basis.z*.065*.65)
+			check(cs.physical(1).ready,"High slide grip completes a real pull-and-release")
 func usp_silencer():
 	for handed in [false,true]:
 		prepare(2,handed)
@@ -181,6 +204,7 @@ func run():
 	check(cs.view[1].size()==Reload.ROW_SIZE and cs.view[1][5]&Reload.CHAMBERED,"Physical state survives snapshot validation")
 	var bad: Array=snapshot[1].duplicate();bad[6]=101;cs.receive({1:bad});check(cs.view.is_empty(),"Out-of-range action progress is rejected")
 	g.players[1].serial+=1;check(cs.physical(1).mag and cs.physical(1).ready,"New life starts with a seated and chambered spawn weapon")
+	index_clearance()
 	usp_silencer()
 	var result:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
 	FileAccess.open("res://test-results/cs16/vr-reload.json",FileAccess.WRITE).store_string(JSON.stringify(result,"  "))

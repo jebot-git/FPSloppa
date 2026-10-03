@@ -15,7 +15,7 @@ func run():
 	var game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);game.set_physics_process(false)
 	game.hud=preload("res://deathmatch/interface.gd").new();game.add_child(game.hud);game.hud.setup(game)
 	await process_frame;await process_frame
-	var quit_button: Control=game.hud.menu.get_node("QuitFooter")
+	var quit_button: Control=game.hud.menu_pages.get_node("QuitFooter")
 	check(quit_button.get_global_rect().end.y<=640 and quit_button.size.y>=44,"Quit remains inside the 640px VR canvas with a usable target")
 	game.hud.open_host();await process_frame;await process_frame
 	check(game.hud.host_panel.visible and game.hud.host_panel.size.y<=640,"Host button opens a separate setup menu that fits VR")

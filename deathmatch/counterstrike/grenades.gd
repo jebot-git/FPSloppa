@@ -124,7 +124,7 @@ func throw_grenade(id: int,override_velocity: Variant=null,physical_pose: Dictio
 	var direction: Vector3=game.W.direction(s.yaw,s.pitch)
 	var velocity: Vector3
 	if override_velocity is Vector3:
-		velocity=override_velocity.limit_length(26)
+		velocity=override_velocity.limit_length(26 if physical_pose.is_empty() else preload("res://deathmatch/vr/throw_ballistics.gd").MAX_SPEED)
 		if velocity.length()>.1:direction=velocity.normalized()
 	elif not s.xr.is_empty():
 		direction=-(rules.base_pose(id)*rules.Interaction.primary(s.xr)).basis.z
@@ -139,7 +139,7 @@ func throw_grenade(id: int,override_velocity: Variant=null,physical_pose: Dictio
 	var wall: Dictionary=rules.ray_surface(from,from+direction*.25)
 	var pos: Vector3=wall.position+wall.normal*.07 if not wall.is_empty() else from+direction*.18
 	u.counts[kind]-=1;u.cooldown=game.clock+.6;cancel(id)
-	next_id+=1;flying[next_id]={"kind":kind,"owner":id,"position":pos,"velocity":velocity.limit_length(28),"age":0.0,"ground":false}
+	next_id+=1;flying[next_id]={"kind":kind,"owner":id,"position":pos,"velocity":velocity.limit_length(28 if physical_pose.is_empty() else preload("res://deathmatch/vr/throw_ballistics.gd").MAX_SPEED),"age":0.0,"ground":false}
 	game.server_log.record("de_grenade",{"peer":id,"kind":NAMES[kind],"round":rules.round_id},1)
 	return true
 func tick(delta: float):

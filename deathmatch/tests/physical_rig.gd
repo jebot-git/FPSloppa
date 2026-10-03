@@ -22,7 +22,7 @@ func run() -> void:
 	bindings.inputs={"support":true,"offhand_fire":true,"ptt":true};rig._process(.02)
 	check(rig.physical_actions.gesture.held and tf.physical.armed.has(1),"Controller chord reaches authoritative arm through rig")
 	check(is_instance_valid(rig.physical_actions.grenade) and rig.physical_actions.grenade.visible,"Armed grenade and release hint render in support hand")
-	check(is_instance_valid(rig.physical_actions.guide) and rig.physical_actions.guide.global_transform.is_equal_approx(Transform3D.IDENTITY),"Throw arc uses world coordinates without doubling player transform")
+	check(is_instance_valid(rig.physical_actions.guide) and rig.physical_actions.guide.global_transform.is_equal_approx(Transform3D.IDENTITY),"Aim-hand guide uses world coordinates without doubling player transform")
 	check(not rig.command(1).offhand_fire and bindings.vr_pressed(rig,"ptt"),"Ability chord suppresses offhand fire while preserving PTT")
 	bindings.inputs={"offhand_fire":true};rig._process(.02)
 	check(tf.charges.has(1) and tf.charges[1].velocity==Vector3.ZERO,"Rig grip release drops one grenade")
@@ -90,12 +90,35 @@ func run() -> void:
 	check(rig.shoulder_radio.held and game.voice.radio_active,"Mirrored radio can be grabbed by right offhand")
 	rig.focused=false;rig._process(.02)
 	check(not game.voice.radio_active and not rig.shoulder_radio.model.visible,"Losing XR focus cancels radio transmission")
+	game.match_mode.kind="tdm";game.armory.select("tribes");rig.focused=true
+	var zoom=game.match_mode.tribes.enhancer
+	for left in [false,true]:
+		rig.left_handed=left;bindings.inputs={};rig._process(.02)
+		var radio_hand=rig.right if left else rig.left
+		radio_hand.position=rig.shoulder_radio.shoulder();rig._process(.02)
+		bindings.inputs={"support":true};rig._process(.02)
+		check(rig.shoulder_radio.held,"Tribes shoulder grip grabs radio: "+str(left))
+		radio_hand.position=Vector3(0,1.2,-.4)
+		bindings.inputs={"support":true,"offhand_fire":true,"alt_fire":true}
+		for frame in 3:rig._process(.02)
+		check(rig.shoulder_radio.held and game.voice.radio_active and not zoom.active,"Held Tribes radio owns trigger away from shoulder: "+str(left))
+		check(not rig.command(102).alt_fire and not rig.command(102).offhand_fire and not rig.physical_actions.busy(),"Tribes radio suppresses scope and grenade actions: "+str(left))
+		bindings.inputs={"support":true};rig._process(.02)
+		check(rig.shoulder_radio.held and not game.voice.radio_active,"Tribes trigger release stops transmission without dropping radio: "+str(left))
+		bindings.inputs={"support":true,"offhand_fire":true,"alt_fire":true};rig._process(.02)
+		check(game.voice.radio_active and not zoom.active,"Tribes radio can transmit again: "+str(left))
+		bindings.inputs={"offhand_fire":true,"alt_fire":true};rig._process(.02)
+		check(not rig.shoulder_radio.held and not game.voice.radio_active and not zoom.active,"Dropping radio with trigger down cannot reopen scope: "+str(left))
+		bindings.inputs={};rig._process(.02)
+		bindings.inputs={"offhand_fire":true,"alt_fire":true};rig._process(.02)
+		check(zoom.active,"Fresh trigger press restores Tribes scope after radio release: "+str(left))
+		bindings.inputs={};rig._process(.02)
 	var ballistics=preload("res://deathmatch/vr/throw_ballistics.gd")
 	check(ballistics.launch(Vector3.ZERO)==Vector3.ZERO and ballistics.launch(Vector3(.1,0,0))==Vector3(.1,0,0),"Gentle release remains a drop")
-	check(ballistics.launch(Vector3(0,2,-4)).is_equal_approx(Vector3(0,4.8,-9.6)) and ballistics.launch(Vector3(100,0,0)).length()<=26.001,"Physical throw has bounded strength boost")
+	check(ballistics.launch(Vector3(0,2,-4)).is_equal_approx(Vector3(0,9.6,-19.2)) and ballistics.launch(Vector3(100,0,0)).length()<=40.001,"Physical throw doubles deliberate swing gain and caps speed at 40 m/s")
 	var arc: PackedVector3Array=ballistics.arc(game.get_world_3d().direct_space_state,Fixture.point()+Vector3.UP,Vector3(20,3,0),1.2)
 	check(arc.size()>2 and arc[-1].x<Fixture.ORIGIN.x+10,"Throw guide stops at world collision before crossing fixture wall")
-	# Compare the actual rendered arc with the accepted authoritative projectile,
+	# Check the sole aiming-hand guide and the accepted authoritative projectile,
 	# including mirrored controllers and a turned player/aim different from swing.
 	game.match_mode.kind="tf";game.armory.apply_mode();rig.focused=true;bindings.physical_interactions=true
 	for role in ["soldier","demoman","pyro"]:
@@ -111,18 +134,15 @@ func run() -> void:
 			bindings.inputs={"support":true,"offhand_fire":true};rig._process(.02)
 			var actions=rig.physical_actions;var stroke:=Vector3(2,1,-3)
 			actions.gesture.velocity=stroke;actions.guide_elapsed=0
-			actions.update_guide(.02,rig.right if left else rig.left)
+			actions.update_guide(.02)
 			var vertices: PackedVector3Array=actions.guide.mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX]
 			var pose: Dictionary=rig.sample_pose();var aim: Transform3D=rig.global_transform*pose.weapon
-			check(vertices[0].distance_to(aim.origin)<.001 and vertices[1].distance_to(aim.origin-aim.basis.z*1.2)<.001,role+" free-hand aiming line matches mirrored/turned rig "+str(left))
+			check(vertices.size()==2 and vertices[0].distance_to(aim.origin)<.001 and vertices[1].distance_to(aim.origin-aim.basis.z*1.2)<.001,role+" only free-hand aiming line remains on mirrored/turned rig "+str(left))
 			actions.send("throw",pose,stroke)
 			check(tf.charges.has(1),role+" accepts guided throw from rig "+str(left))
 			if tf.charges.has(1):
 				var charge: Dictionary=tf.charges[1]
-				var shown_velocity: Vector3=(vertices[3]-vertices[2])*30+Vector3.UP*20.0/30
-				check(vertices[2].distance_to(charge.position)<.001 and shown_velocity.distance_to(charge.velocity)<.007,role+" rendered first arc step matches server origin, aim, speed and gravity "+str(left))
-				check(charge.velocity.normalized().distance_to(-aim.basis.z)<.001 and absf(charge.velocity.length()-stroke.length()*2.4)<.001,role+" free hand controls direction and throwing stroke controls power "+str(left))
-				check(vertices.size()<=2+2*(60 if role=="demoman" else 36),role+" preview retains its own fuse horizon")
+				check(charge.velocity.normalized().distance_to(-aim.basis.z)<.001 and absf(charge.velocity.length()-stroke.length()*4.8)<.001,role+" free hand controls direction and throwing stroke controls power "+str(left))
 			actions.reset();tf.charges.clear()
 	game.active=false;rig._process(.02)
 	check(not rig.gun.visible,"Inactive player state hides the weapon while the fighter still exists")

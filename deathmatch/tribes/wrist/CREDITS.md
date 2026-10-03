@@ -14,6 +14,8 @@ mipmap dependencies.
 Both exports use metres, with the live screen centred at the origin in XY and
 facing +Z. The 26 cm-wide PDA screen is 18 cm tall; the camera screen is 16:9.
 Bezels, opaque backs, fasteners, rear vents and two connected cuffs are included.
-At runtime the casing and screen turn 60° sideways (mirrored for each wrist) and
+The PDA uses only the casing and screen, resting flat on the offhand palm ahead
+of the wrist, with the screen facing away from the palm. Its cuffs are removed.
+For the remote camera, the casing and screen turn 60° sideways (mirrored for each wrist) and
 move 4 cm outward. Extended brackets keep the stationary cuffs connected. The
 Blender workshop previews these poses; GLB exports retain the neutral pivot.

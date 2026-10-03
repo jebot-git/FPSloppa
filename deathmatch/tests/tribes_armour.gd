@@ -12,7 +12,7 @@ func check(ok: bool,label: String):
 	if not ok:failures.append(label)
 func run():
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g)
-	g.selected_map="ctf_stonehenge";g.start_host("Tribes armour",0,100,30,true,"tdm","tribes")
+	g.start_host("Tribes armour",0,100,30,true,"tdm","tribes")
 	g.set_process(false);g.set_physics_process(false)
 	if is_instance_valid(g.bots):g.bots.free();g.bots=null
 	for id in g.players.keys():
@@ -31,7 +31,7 @@ func run():
 		check(not rules.select_class(1,key),"Class-request spam throttled: "+key)
 		g._spawn(1);var profile: Dictionary=rules.definition(1)
 		check(s.tribes_class==key and s.hp==profile.hp and s.armor==0 and a.tribes_state.armour==key,"Spawn applies class durability and movement together: "+key)
-		check(rules.energy[0]==before-A.cost(key,A.defaults(key),"energy") and rules.energy[1]==rules.INITIAL_ENERGY,"Only own team pays one spawn cost: "+key)
+		check(rules.energy[0]==before and rules.energy[1]==rules.INITIAL_ENERGY,"Arena loadouts do not spend ST team energy: "+key)
 		check(s.owned.filter(func(w):return w<8).size()==profile.guns and not rules.can_carry(1,6) and rules.can_carry(1,2),"Class gun capacity includes ammo pickup for an owned gun: "+key)
 		for hz in [30,60,120]:
 			a.position=Fixture.ORIGIN+Vector3.UP*.01;a.velocity=Vector3.ZERO;a.reset_tribes()
@@ -64,7 +64,7 @@ func run():
 		check(resource.name=="ENERGY" and resource.maximum==profile.energy and resource.health_max==profile.hp,"Shared desktop/VR vitals use class energy and health: "+key)
 		hud.update_status(s,60,20,0,false,false,"",false,g.armory.data(s.weapon),g.armory.max_ammo(),false,resource)
 		check(hud.values.resource_name=="ENERGY" and hud.values.resource_max==profile.energy,"VR armour gauge becomes energy gauge: "+key)
-		panel.open();check(panel.choice.value==key and "TEAM ENERGY" in panel.details.text,"Menu restores server-confirmed selection and budget: "+key)
+		panel.open();check(panel.choice.value==key and not "TEAM ENERGY" in panel.details.text and not panel.inventory_button.visible,"Arena menu restores selection without ST budget or purchases: "+key)
 		if DisplayServer.get_name()!="headless" and key=="heavy":
 			root.size=Vector2i(1280,900);panel.hide();hud.hide()
 			g.menu_open=true;g.hud.show_menu(true);g.hud.fortress_button.pressed.emit()
@@ -90,13 +90,13 @@ func run():
 	g._peer_left(55);check(rules.energy[0]==before,"Disconnect cannot mint team energy")
 	g.clock+=1;check(not rules.select_class(1,"invalid"),"Unknown class is rejected")
 	rules.energy[0]=0;g._spawn(1)
-	check(s.tribes_class=="light" and s.tribes_next=="heavy" and s.tribes_fallback and rules.energy[0]==0,"Empty bank supplies free light armour without changing requested class")
+	check(s.tribes_class=="heavy" and s.tribes_next=="heavy" and not s.tribes_fallback and rules.energy[0]==0,"Arena respawn keeps chosen armour regardless of ST bank")
 	rules.tick(29.9);check(rules.energy[0]==0,"Team-energy refill waits for full interval")
-	rules.tick(.2);check(rules.energy[0]==700,"Team energy replenishes every thirty seconds")
+	rules.tick(.2);check(rules.energy[0]==0 and rules.credit==0,"Arena modes do not replenish ST team energy")
 	var kit_cost:=A.cost("heavy",A.defaults("heavy"),"energy");rules.energy[0]=kit_cost+300
-	g._spawn(1);check(s.tribes_class=="heavy" and rules.energy[0]==300,"Queued heavy equipment returns when affordable")
+	g._spawn(1);check(s.tribes_class=="heavy" and rules.energy[0]==kit_cost+300,"Arena equipment leaves the team reserve unchanged")
 	rules.energy=[699999,700000,700000];rules.tick(60)
-	check(rules.energy==[700000,700000,700000],"Long ticks refill without exceeding team-energy cap")
+	check(rules.energy==[699999,700000,700000],"Long arena ticks leave ST economy inactive")
 	var snapshot: Dictionary=rules.snapshot()
 	check(rules.valid_snapshot(snapshot),"Production class and team-energy snapshot validates")
 	var bad: Dictionary=snapshot.duplicate(true);bad.energy[0]=-1

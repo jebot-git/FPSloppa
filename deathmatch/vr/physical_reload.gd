@@ -44,7 +44,7 @@ func claims_hand(primary: Transform3D,support: Transform3D,grip: bool) -> bool:
 	if row[5]&Reload.MAGAZINE and Reload.magazine_contact(w,float(row[7])/100,gun_pose,support.origin):return true
 	if w==8 and support.origin.distance_to(gun_pose*Reload.cover_point(float(row[7])/100))<Reload.GRAB_RADIUS*1.4:return true
 	if Reload.handguard_first(w,gun_pose.affine_inverse()*support.origin):return false
-	return w!=3 and support.origin.distance_to(gun_pose*Reload.RACK_POINTS[w])<Reload.GRAB_RADIUS*1.4
+	return w!=3 and Reload.rack_contact(w,{"stroke":float(row[6])/100,"lift":float(row[9])/100},gun_pose,support.origin,Reload.GRAB_RADIUS*1.4)
 func busy() -> bool:
 	return pump_held or last_row.size()==Reload.ROW_SIZE and (last_row[8]>0 or last_row[5]&(Reload.RACK_GRIP|Reload.COVER_GRIP|Reload.BELT_GRIP|Reload.MAG_GRIP)!=0)
 func support_weapon(primary: Transform3D,support: Transform3D,grip: bool,primary_grip: bool,valid: bool) -> Transform3D:

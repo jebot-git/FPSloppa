@@ -10,7 +10,6 @@ var hint: Label3D
 var available:=false
 var guide: MeshInstance3D
 var guide_elapsed:=0.0
-const Ballistics=preload("res://deathmatch/vr/throw_ballistics.gd")
 func setup(value) -> void:rig_ref=weakref(value);equipment.setup(self)
 func reset() -> void:
 	equipment.reset()
@@ -74,12 +73,12 @@ func update(delta: float,valid: bool) -> void:
 			if de and item>=0:
 				mesh.free();pin.free();grenade.add_child(load("res://deathmatch/counterstrike/grenade_visuals.gd").model(item))
 		grenade.global_transform=preload("res://deathmatch/counterstrike/grenade_visuals.gd").held_pose(support.global_transform,support==rig.left) if de else support.global_transform;grenade.visible=true
-		update_guide(delta,support)
+		update_guide(delta)
 	else:
 		if is_instance_valid(grenade):grenade.hide()
 		if is_instance_valid(guide):guide.hide()
 
-func update_guide(delta: float,hand: XRController3D) -> void:
+func update_guide(delta: float) -> void:
 	guide_elapsed-=delta
 	if guide_elapsed>0 and is_instance_valid(guide) and guide.visible:return
 	guide_elapsed=.1
@@ -87,23 +86,11 @@ func update_guide(delta: float,hand: XRController3D) -> void:
 		guide=MeshInstance3D.new();guide.mesh=ImmediateMesh.new();rig.add_child(guide);guide.top_level=true;guide.global_transform=Transform3D.IDENTITY
 		var material:=StandardMaterial3D.new();material.shading_mode=BaseMaterial3D.SHADING_MODE_UNSHADED;material.albedo_color=Color("e8c46c");guide.material_override=material;guide.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var mesh: ImmediateMesh=guide.mesh;mesh.clear_surfaces();guide.visible=true
-	var game=rig.game;var space: PhysicsDirectSpaceState3D=rig.get_world_3d().direct_space_state
-	var role: String=game.local_state().get("tf_class","")
-	var de: bool=game.match_mode.defusal.enabled()
-	var tribes: bool=game.match_mode.tribes.enabled()
 	var pose: Dictionary=rig.sample_pose()
-	var velocity: Vector3=rig.global_basis*Ballistics.guided(pose,gesture.velocity)
-	if tribes:velocity+=game.fighters[game.multiplayer.get_unique_id()].velocity
-	var mine: int=game.multiplayer.get_unique_id()
-	var chest: Vector3=game.fighters[mine].global_position+Vector3.UP*game.fighters[mine].torso_height()
-	var solution: Dictionary=preload("res://deathmatch/vr/weapon_clearance.gd").solve(space,chest,hand.global_position,hand.global_position,.12)
-	if solution.blocked:hint.text="BLOCKED · MOVE HAND CLEAR";return
-	hint.text="SWING + RELEASE GRIP TO THROW"
-	var points:=Ballistics.arc(space,solution.origin,velocity,2.0 if tribes else 1.5 if de else 2.0 if role=="demoman" else 1.2,20.0 if tribes else 12.5 if de else Ballistics.GRAVITY)
-	if points.size()<2:return
+	if not pose.has("weapon"):guide.hide();return
+	# Only the aiming hand draws a guide. The grenade hand supplies power;
+	# drawing a second arc there obscures the grenade and duplicates the aid.
 	mesh.surface_begin(Mesh.PRIMITIVE_LINES)
 	var aim: Transform3D=rig.global_transform*pose.weapon
 	mesh.surface_add_vertex(aim.origin);mesh.surface_add_vertex(aim.origin-aim.basis.z*1.2)
-	for i in points.size()-1:
-		mesh.surface_add_vertex(points[i]);mesh.surface_add_vertex(points[i+1])
 	mesh.surface_end()

@@ -87,4 +87,9 @@ Round-end and lobby voting instead use a shared 3×3 grid of complete map/mode/l
 
 `de` forces CS16 weapons and supports the Dust2, Nuke, Inferno, Aztec and Train BSP29 reconstructions, plus HE/flash/smoke utility. Buy during preparation, plant on the environment at A/B, or defend and defuse. Players have one life per round; the default is first to 16 with a side switch after 15 rounds. See [rules, economy and controls](docs/BOMB-DEFUSAL.md).
 
+On supported DE maps, DE uses CS 1.6 acceleration, friction, weapon speeds,
+air strafing, jump fatigue and bunny-hop limits for desktop, VR and bots.
+
 ST ships in 0.20v with Stonehenge, Raindance and Katabatic. It uses Tribes equipment, armour, skiing, energy-powered flight, team infrastructure and vehicles. See [ST rules and VR controls](docs/ST-TRIBES.md).
+
+ST maps are exclusive to ST mode, which requires the Tribes loadout. The Tribes loadout is also available in DM, TDM, CTF, KOTH and FT on their own maps: armour, weapons, backpacks, skiing and flight remain available, with the selected kit supplied each respawn. Team-energy purchases, base stations, deployables, command systems and vehicles belong to ST mode.

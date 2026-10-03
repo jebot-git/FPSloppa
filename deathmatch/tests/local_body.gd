@@ -47,7 +47,13 @@ func run() -> void:
 			var grip: Transform3D=avatar.tracking_transform()*actor.xr_pose.snapped_hands[side.to_lower()]
 			var expected: Transform3D=Transform3D(grip.basis*avatar.solver.controller_hand_basis(side=="Left"),grip.origin+grip.basis.y*.06)
 			var actual: Transform3D=avatar.skeleton.global_transform*avatar.skeleton.get_bone_global_pose(avatar.skeleton.find_bone(side+"Hand"))
-			check(actual.origin.distance_to(expected.origin)<.001 and actual.basis.orthonormalized().is_equal_approx(expected.basis),"Prop snap owns wrist position and orientation after arm IK: "+side+" / "+library.entries[hash].title)
+			var sk: Skeleton3D=avatar.skeleton
+			var upper:=sk.find_bone(side+"UpperArm");var lower:=sk.find_bone(side+"LowerArm");var hand:=sk.find_bone(side+"Hand")
+			var shoulder:=sk.to_global(sk.get_bone_global_pose(upper).origin)
+			var l1:=sk.to_global(sk.get_bone_global_rest(upper).origin).distance_to(sk.to_global(sk.get_bone_global_rest(lower).origin))
+			var l2:=sk.to_global(sk.get_bone_global_rest(lower).origin).distance_to(sk.to_global(sk.get_bone_global_rest(hand).origin))
+			var bounded:=shoulder+(expected.origin-shoulder).limit_length(l1+l2)
+			check(actual.origin.distance_to(bounded)<.003 and actual.basis.orthonormalized().is_equal_approx(expected.basis),"Prop snap preserves wrist orientation within authored reach: "+side+" / "+library.entries[hash].title)
 		actor.set_local_body(false)
 		actor.show_alive(true,false)
 		check(avatar.visible and not avatar.first_person,"Remote avatar retains full third-person mesh")

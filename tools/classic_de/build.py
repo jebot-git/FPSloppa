@@ -114,7 +114,14 @@ def nuke():
     a.room(459,148,530,279,-256,224,'Ramp descent');a.ramp(459,148,530,269,0,-256,'v')
     a.room(535,380,620,420,-256,-48,'Lower connector')
     a.room(587,402,640,565,-256,-48);a.room(620,524,749,565,-256,-48,'Outside tunnel')
-    a.room(720,440,749,556,-256,224,'Tunnel stairs');a.stairs(720,440,749,547,0,-256,'v')
+    a.room(720,440,749,556,-256,224,'Tunnel stairs')
+    a.room(704,430,749,454,0,224,'Tunnel stair landing')
+    # Overlapping garage/stair air volumes remove the garage floor here.
+    # Author a landing across that seam and enclose the descending flight,
+    # rather than leaving a lateral shaft along the upper garage floor.
+    a.block(704,430,749,454,-16,0,'floor')
+    a.stairs(720,452,749,547,0,-256,'v')
+    a.block(718,454,721,529,-256,224,'wall')
     # A broad, crouch-height vent descent preserves the A/B shortcut without
     # requiring ladder mechanics the engine does not currently provide.
     a.room(399,379,453,410,-256,108,'Vent');a.room(399,388,428,486,-256,108)
@@ -128,18 +135,44 @@ def nuke():
             a.structure_checks.append(dict(name='Heaven stair landing continuous',start=[u,v,200],end=[u,v,172],at=[u,v,192]))
     from classic_de.study_layout import nuke as study_nuke
     study_nuke(a)
+    # The reference canyon/CT approaches turn around solid corners. The
+    # rectangular room approximation otherwise exposes whole spawn corridors.
+    for u,v,U,V in [(140,325,152,347),(214,346,226,364),
+                    (700,222,712,257),(660,247,672,280)]:
+        a.block(u,v,U,V,0,256,'wall')
+    for side,targets in [(0,[[285,333,48],[310,350,48],[385,320,48]]),
+                         (1,[[615,235,48],[615,260,48],[608,306,48]])]:
+        start_u,start_v=(32,329) if side==0 else (745,240)
+        for j in range(2):
+            for i in range(4):
+                for target in targets:
+                    a.sightline_checks.append(dict(name=f'{"T" if side==0 else "CT"} spawn corner blocks lane {i},{j} to {target[:2]}',start=[start_u+i*7,start_v+j*9,48],end=target,clear=False))
+    for u in [722,724,734,746,748.5]:
+        for v in [438,440,450,453,454]:
+            a.structure_checks.append(dict(name='Underground stair landing has no gap',start=[u,v,8],end=[u,v,-28],at=[u,v,0]))
+    for v in [456,470,500,525]:
+        for z in [24,60,120]:
+            a.structure_checks.append(dict(name='Garage side of underground stairs is sealed',start=[712,v,z],end=[725,v,z],at=[718,v,z]))
     # Roof trusses, wall vents and riveted exterior panels.
     for v in [270,310,350,387]:a.block(435,v,565,v+2,328,342,'metal')
     for u in [444,477,510,543]:a.block(u,398.5,u+18,399.2,60,116,'vent')
     a.site(435,270,565,392,0,[478,348,0],wall=(495.5,398.6,509.5,398.8,[0,-1]))
     a.site(435,275,565,398,-256,[479,351,-256],wall=(436.2,335,436.4,357,[1,0]))
     a.team(0,32,329);a.team(1,745,240)
-    a.route('T lobby to A',[[62,338,0],[175,332,0],[223,332,0],[320,340,0],[380,323,0],[427,320,0],[461,320,0],[478,348,0]])
-    a.route('T radio ramp to B',[[62,338,0],[175,332,0],[223,332,0],[320,340,0],[385,316,0],[408,278,0],[408,248,0],[418,240,0],[420,195,0],[448,195,0],[448,143,0],[490,143,0],[490,270,-256],[457,285,-256],[457,350,-256],[479,351,-256]])
-    a.route('CT outside to A',[[766,249,0],[615,249,0],[608,306,0],[578,306,0],[552,306,0],[548,367,0],[478,367,0],[478,348,0]])
-    a.route('CT garage tunnel to B',[[766,249,0],[617,249,0],[608,379,0],[608,480,0],[704,480,0],[706,446,0],[732,443,0],[732,550,-256],[607,548,-256],[606,408,-256],[585,408,-256],[585,484,-256],[548,484,-256],[547,372,-256],[479,372,-256],[479,351,-256]])
+    t_approach=[[62,338,0],[130,356,0],[166,356,0],[180,334,0],[240,334,0],[320,340,0]]
+    ct_approach=[[766,249,0],[726,268,0],[686,268,0],[684,235,0],[645,235,0],[615,249,0]]
+    a.route('T lobby to A',t_approach+[[380,323,0],[427,320,0],[461,320,0],[478,348,0]])
+    a.route('T radio ramp to B',t_approach+[[385,316,0],[408,278,0],[408,248,0],[418,240,0],[420,195,0],[448,195,0],[448,143,0],[490,143,0],[490,270,-256],[457,285,-256],[457,350,-256],[479,351,-256]])
+    a.route('CT outside to A',ct_approach+[[608,306,0],[578,306,0],[552,306,0],[548,367,0],[478,367,0],[478,348,0]])
+    a.route('CT garage tunnel to B',ct_approach+[[608,379,0],[608,480,0],[704,480,0],[706,443,0],[734,443,0],[734,550,-256],[607,548,-256],[606,408,-256],[585,408,-256],[585,484,-256],[548,484,-256],[547,372,-256],[479,372,-256],[479,351,-256]])
+    for u in [724,734,746]:
+        a.route(f'Underground stair landing and flight {u}',[[706,443,0],[u,443,0],[u,453,0],[u,550,-256],[734,557,-256]])
     a.route('Heaven stairs to catwalk',[[585,306,0],[585,291,19],[585,275,122],[585,260,192],[552,245,192],[458,245,192]])
     a.views=[dict(name='nuke-upper',eye=[455,380,80],look=[515,293,95]),dict(name='nuke-lower',eye=[452,383,-175],look=[525,302,-154]),dict(name='nuke-outside',eye=[575,497,75],look=[401,390,90])]
+    a.views += [dict(name='nuke-underground-landing',eye=[710,437,54],look=[735,485,-65]),
+                dict(name='nuke-stair-side',eye=[697,480,54],look=[725,490,45]),
+                dict(name='nuke-t-spawn-corners',eye=[90,338,54],look=[230,345,54]),
+                dict(name='nuke-ct-spawn-corners',eye=[756,249,54],look=[658,250,54])]
     return a.finalize()
 
 def inferno():

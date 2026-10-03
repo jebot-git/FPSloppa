@@ -19,9 +19,11 @@ func rows(rules,id: int) -> Array:
 			result.append({"id":5000+i,"name":d.title,"detail":"LIGHT PILOT · %d PASSENGERS · USE TO BOARD"%(d.seats.size()-1),"icon":d.title,"ammo":d.price,"usable":cash>=d.price and rules.vehicles.count(rules.game.players[id].team,kind)<rules.vehicles.Data.TEAM_LIMIT})
 	elif page==0:
 		for row in [[200,"WEAPONS","ST WEAPONS"],[201,"BACKPACK","ST BACKPACK"],[202,"ARMOUR","ST ARMOUR"],[203,"PURCHASE / REFIT" if near else "SAVE FAVOURITES" if rules.base_ctf() else "QUEUE LOADOUT","ST REFIT"],[209,"FIELD EQUIPMENT","ST FIELD"],[205,"CARRIED WEAPONS","ST CARRIED"],[206,"DEPLOYABLES","ST DEPLOYABLES"],[207,"SENSOR NETWORK","ST NETWORK"]]:
+			if not rules.mode_enabled() and row[0] in [206,207]:continue
 			result.append({"id":row[0],"name":row[1],"icon":row[2],"caption":row[1],"ammo":maxi(0,cost) if row[0]==203 else -1,"usable":A.valid_loadout(armour,guns,pack) and (not near or cash>=cost and rules.deployables.can_shop(id,armour,pack)) if row[0]==203 else true})
 	elif page==209:
 		for row in [[204,"USE REPAIR KIT","ST KIT"],[210,"DROP BACKPACK","ST DROP PACK"],[211,"SHARE AMMUNITION","ST SHARE AMMO"],[212,"DROP HELD WEAPON","ST DROP WEAPON"],[213,"PLACE TARGET BEACON","ST BEACON"],[214,"BUY BEACONS · 5 ENERGY","ST BUY BEACONS"]]:
+			if not rules.mode_enabled() and row[0] in [213,214]:continue
 			var usable:=true
 			match row[0]:
 				204:usable=state.get("tribes_kit",false) and state.hp<rules.definition(id).hp
@@ -73,9 +75,12 @@ func rows(rules,id: int) -> Array:
 	if page==0 and result.size()>3 and cost<0:result[3]["detail"]="REFUND %d ENERGY"%-cost
 	if page!=0:result.append({"id":1000,"name":"BACK","icon":"ST BACK","ammo":-1,"usable":true})
 	for row in result:row.merge({"buy":true,"cash":cash,"currency":"ENERGY","heading":"INVENTORY","infinite_energy":rules.infinite_energy})
+	if not rules.mode_enabled():
+		for row in result:row.merge({"buy":false,"configure":true,"currency":"","ammo":-1},true)
 	return result
 func select(id: int,rules,peer: int) -> bool:
 	# True hands input to another view; purchases and field actions keep this menu.
+	if not rules.mode_enabled() and (id in [206,207,208,213,214,217,7000] or id>=2000):return false
 	if id in [5000,5001,5002]:rules.buy_vehicle(rules.vehicles.Data.KINDS[id-5000])
 	elif id==1000:page=0
 	elif id==1002:
@@ -96,6 +101,7 @@ func select(id: int,rules,peer: int) -> bool:
 		elif A.allowed(armour,id,pack) and guns.size()<rules.Armour.definition(armour).guns:guns.append(id)
 	elif id>=300 and id<300+A.PACKS.size():
 		var chosen: String=A.PACKS.keys()[id-300]
+		if not rules.mode_enabled() and rules.deployables.Data.is_pack(chosen):return false
 		if not rules.deployables.Data.allowed(armour,chosen):return false
 		pack=chosen;guns=guns.filter(func(w):return A.allowed(armour,w,pack));page=0
 	elif id in [400,401,402]:

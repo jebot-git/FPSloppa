@@ -15,6 +15,8 @@ func run():
  var authority:=Fighter.new();authority.setup(1,"Server",Color.WHITE);world.add_child(authority)
  var client:=Fighter.new();client.setup(2,"Client",Color.WHITE);world.add_child(client)
  for actor in [authority,client]:actor.collision_layer=0;actor.collision_mask=1;actor.quake_movement=true;actor.position=Vector3(0,.01,0)
+ if "--cs16" in OS.get_cmdline_user_args():
+  for actor in [authority,client]:actor.configure_cs16(true)
  client.movement_sound.connect(func(_kind,_where):sound_count+=1)
  await physics_frame;await physics_frame
  client.position.x=.15
@@ -26,6 +28,7 @@ func run():
   var move:=Vector2.RIGHT if tick<45 else Vector2(0,-1) if tick<100 else Vector2.LEFT if tick<160 else Vector2.ZERO
   var jump:=tick==70 or tick==130
   if tick==110:authority.apply_blast(Vector3(-3,4,0))
+  if authority.cs16_enabled and tick==115:authority.cs16_stamina=.8
   authority.simulate(move,0,false,dt,jump)
   snapshots.append({"seq":tick,"position":authority.position,"velocity":authority.velocity,"state":authority.locomotion_state()})
   if snapshots.size()>6:
@@ -44,6 +47,7 @@ func run():
  check(worst_after_settle<.04,"Replay converges after strafe, wall, steps, jumps and external impulse (error %.5f)"%worst_after_settle)
  check(duplicate_sounds==0,"Replay never duplicates movement sounds")
  check(client.position.x<3.7,"Replay does not penetrate the wall")
+ if authority.cs16_enabled:check(absf(client.cs16_stamina-authority.cs16_stamina)<.001,"Delayed authority restores and replays hidden CS jump fatigue")
  var before:=client.position
  client.prediction.queue_authority(1,Vector3(100,0,0),Vector3.ZERO,{})
  client.prediction.apply_pending(client)

@@ -116,7 +116,7 @@ func request_for(id: int,epoch: int,life: int,seq: int,kind: String,raw_pose: Di
 					if held.get("until",0)>game.clock and held.get("role","")==role and held.get("left_handed",false)==pose.left_handed:
 						var solution:=Clearance.solve(game.get_world_3d().direct_space_state,chest,position,position,.12)
 						if not solution.blocked:
-							# Apply the same bounded arm-stroke boost as the client guide; zero speed still drops.
+							# Shared arm-stroke boost keeps zero-speed releases as drops.
 							accepted=tf.throw_charge(id,solution.origin,body.basis*preload("res://deathmatch/vr/throw_ballistics.gd").guided(pose,velocity))
 	if kind in ["arm","throw"] and not accepted:armed.erase(id)
 	if id==multiplayer.get_unique_id():reply(epoch,life,seq,kind,accepted)

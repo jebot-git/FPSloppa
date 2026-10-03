@@ -47,7 +47,7 @@ func run():
 				Reload.sample(p,2,0,90,12,Poses.validate(pose),true,false,1.2)
 				check(not p.left_pouch,"Moving the body and hand together does not count as drawing ammo")
 				Room.rebase_pose(pose,Vector3(.10,0,.10))
-				var socket: Vector3=Reload.model_pose(pose,2)*Reload.MAG_POINTS[2];offhand(pose,socket)
+				var socket: Vector3=Reload.model_pose(pose,2)*Reload.MAG_POINTS[2];offhand(pose,socket-preload("res://deathmatch/counterstrike/models.gd").ammo_contact(Transform3D.IDENTITY,2))
 				pose["right" if left else "left"].basis=pose.weapon.basis*preload("res://deathmatch/counterstrike/models.gd").ammo_basis(2).inverse();pose.offhand_weapon=pose["right" if left else "left"]
 				var clip:=Reload.sample(p,2,0,90,12,Poses.validate(pose),true,false,1.4)
 				check(clip==12 and p.mag and not p.ready,"A deliberate hip-to-gun draw inserts ammo but still needs racking")

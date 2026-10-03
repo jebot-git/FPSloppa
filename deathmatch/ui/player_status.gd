@@ -22,7 +22,7 @@ static func read(game,id: int) -> Dictionary:
 			if ability.active>0:result.ability+=" · ACTIVE %.1fs"%ability.active
 	if game.armory.effective()=="tribes" and game.fighters.has(id):
 		result.ability=game.fighters[id].Tribes.status(game.fighters[id])+" · "+game.match_mode.tribes.Arsenal.PACKS[state.get("tribes_pack","energy")].name+" · SHOULDER: "+game.match_mode.tribes.Arsenal.NAMES[state.get("tribes_grenade",9)]
-		result.ability+=" · TEAM ENERGY "+game.match_mode.tribes.energy_text(id)
+		if game.match_mode.tribes.mode_enabled():result.ability+=" · TEAM ENERGY "+game.match_mode.tribes.energy_text(id)
 		if state.get("tribes_next","light")!=state.get("tribes_class","light"):result.ability+=(" · FAVOURITE: " if game.match_mode.tribes.base_ctf() else " · NEXT: ")+state.tribes_next.to_upper()
 	if game.armory.effective()=="cs16":result.ability=game.variant_combat.cs.label(id)
 	if game.match_mode.defusal.enabled() and state.get("vr_device",false) and state.get("physical",false):

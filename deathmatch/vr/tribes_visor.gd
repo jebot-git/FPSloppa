@@ -24,7 +24,7 @@ func prepare() -> void:
 	viewport.msaa_3d=Viewport.MSAA_DISABLED;viewport.audio_listener_enable_3d=false
 	add_child(viewport);viewport.world_3d=get_world_3d()
 	camera=Camera3D.new();camera.near=.025;camera.far=4000
-	camera.cull_mask=((1<<20)-1)&~Optic.SCOPE_LAYER
+	camera.cull_mask=((1<<20)-1)&~Optic.SCOPE_LAYER&~preload("res://deathmatch/vr/ik_guide.gd").LAYER
 	camera.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 	viewport.add_child(camera);camera.make_current()
 	var canvas:=CanvasLayer.new();viewport.add_child(canvas)

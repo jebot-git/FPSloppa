@@ -31,6 +31,7 @@ static func supports_assault(path: String) -> bool:
 	return entities.count('"info_as_objective"')==2 and entities.contains('"info_player_team1"') and entities.contains('"info_player_team2"')
 static func available_for_mode(row: Dictionary,mode: String) -> bool:
 	if mode=="st" and not Features.TRIBES or not Features.map_allowed(row.get("id","")):return false
+	if "st" in row.get("modes",[]) and mode!="st":return false
 	# Imported tags are exact; shipped IG arenas remain usable by IF.
 	if not row.has("modes"):return mode in ImportPolicy.DEFAULT_MODES
 	var kind: String="ig" if mode=="if" and not row.get("imported",false) else mode
@@ -40,13 +41,15 @@ static func choices_for_mode(rows: Array,mode: String,configured: Array=[]) -> A
 		if not Features.TRIBES:return []
 		var compatible: Array=rows.filter(func(row):return available_for_mode(row,mode) and supports_tribes(row.path)).map(func(row):return row.id)
 		return compatible if configured.is_empty() else configured.filter(func(id):return id in compatible)
-	if not configured.is_empty():return configured.duplicate()
+	if not configured.is_empty():
+		var st_maps: Array=rows.filter(func(row):return "st" in row.get("modes",[])).map(func(row):return row.id)
+		return configured.filter(func(id):return id not in st_maps)
 	return rows.filter(func(row):return available_for_mode(row,mode)).map(func(row):return row.id)
 static func inherited_maplist(rows: Array,mode: String,configured: Array) -> Array:
 	# Legacy fallback may share curated arenas, but must retain exact import tags.
 	return configured.filter(func(id):
 		for row in rows:
-			if row.id==id:return not row.get("imported",false) or available_for_mode(row,mode)
+			if row.id==id:return available_for_mode(row,mode) or not row.get("imported",false) and "st" not in row.get("modes",[])
 		return true)
 static func catalog() -> Array:
 	if DirAccess.dir_exists_absolute("user://maps"):

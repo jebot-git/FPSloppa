@@ -77,6 +77,7 @@ func move_observer(command: Dictionary,delta: float):
 	observer_position+=direction*(3.0 if command.slow else 7.0)*delta
 func setup(value):mode_ref=weakref(value);utility.setup(self)
 func enabled() -> bool:return mode.kind=="de" and not game.lobby.active()
+func classic_movement() -> bool:return enabled() and supported()
 func supported() -> bool:return Maps.supported(game.current_map,game.map_sha)
 func configure(settings: Dictionary):
 	prepare_seconds=float(settings.get("sv_de_prepare",15));round_seconds=float(settings.get("sv_de_roundtime",120));fuse_seconds=float(settings.get("sv_de_bombtime",45));win_limit=int(settings.get("sv_de_winlimit",16))

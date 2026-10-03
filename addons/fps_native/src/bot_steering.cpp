@@ -76,12 +76,12 @@ void FPSBots::steer(Object *ai,int64_t id,Dictionary brain,double delta){
   Dictionary landing=c.ray(look+up*.6,look-up*2.2);bool safe_floor=!landing.is_empty()&&v(landing,k.normal.value).y>.65&&!bool(c.navigation->call(k.hazardous.name,landing[k.position.value]));
   if(supported()){
    if(!safe_floor){Vector3 beyond=position+forward*3.;Dictionary floor=c.ray(beyond+up,beyond-up*1.2);
-    if(!floor.is_empty()&&v(floor,k.normal.value).y>.7&&!bool(c.navigation->call(k.hazardous.name,floor[k.position.value]))&&bool(c.navigation->call(k.jump_clear.name,position,floor[k.position.value],9.4*double(actor->get(k.speed_multiplier.name)))))state[k.jump.value]=!jump_held;
+    if(!floor.is_empty()&&v(floor,k.normal.value).y>.7&&!bool(c.navigation->call(k.hazardous.name,floor[k.position.value]))&&bool(c.navigation->call(k.jump_clear.name,position,floor[k.position.value],actor->call("movement_speed"),actor->call("jump_speed"),actor->call("movement_gravity"))))state[k.jump.value]=!jump_held;
     else{desired=Vector3();brain[k.stuck.value]=n(brain,k.stuck.value)+delta;}
-   }else if(low&&!middle&&bool(c.navigation->call(k.jump_clear.name,position,position+forward*2.5,9.4*double(actor->get(k.speed_multiplier.name)))))state[k.jump.value]=!jump_held;
-   else if(!high&&!middle&&!low&&!riding_lift&&remaining>7&&travel.length()>5&&!b(state,k.crouch.value)&&!b(state,k.prone.value)&&!one_of(s(brain,k.goal_kind.value),{"cover","defend","heal","repair","guard","ambush"})){
+   }else if(low&&!middle&&bool(c.navigation->call(k.jump_clear.name,position,position+forward*2.5,actor->call("movement_speed"),actor->call("jump_speed"),actor->call("movement_gravity"))))state[k.jump.value]=!jump_held;
+   else if(!bool(actor->get("cs16_enabled"))&&!high&&!middle&&!low&&!riding_lift&&remaining>7&&travel.length()>5&&!b(state,k.crouch.value)&&!b(state,k.prone.value)&&!one_of(s(brain,k.goal_kind.value),{"cover","defend","heal","repair","guard","ambush"})){
     Vector3 ahead=position+forward*4.;Dictionary floor=c.ray(ahead+up*.6,ahead-up);
-    if(!floor.is_empty()&&!bool(c.navigation->call(k.hazardous.name,floor[k.position.value]))&&bool(c.navigation->call(k.jump_clear.name,position,floor[k.position.value],9.4*double(actor->get(k.speed_multiplier.name)))))state[k.jump.value]=!jump_held;
+    if(!floor.is_empty()&&!bool(c.navigation->call(k.hazardous.name,floor[k.position.value]))&&bool(c.navigation->call(k.jump_clear.name,position,floor[k.position.value],actor->call("movement_speed"),actor->call("jump_speed"),actor->call("movement_gravity"))))state[k.jump.value]=!jump_held;
    }
   }
   if(low&&middle&&!b(state,k.prone.value)){Vector3 side=forward.cross(up)*(id%2==0?1:-1);if(c.ray(position+up,position+side+up).is_empty())desired=(forward+side).normalized();}

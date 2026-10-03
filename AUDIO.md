@@ -161,7 +161,7 @@ Validation: tests load and animate all five expression bindings on all three def
 
 **SETTINGS… → AUDIO** retains independent master, effects, music, announcer and
 voice levels. Music uses `ArenaMusic`, including its existing −12 dB trim and
-1% volume steps. Muting it does not affect effects or voice.
+5% volume steps, matching Master, Effects, Announcer and Voice. Muting it does not affect effects or voice.
 
 The title screen always plays internal **Dead Air**; the lobby always plays
 internal **Please Hold**. Gameplay normally has map ambience when no custom

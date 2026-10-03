@@ -48,6 +48,24 @@ func run() -> void:
 		avatar.xr_pose=pose;avatar.solver._process_modification_with_delta(.016)
 		var optical:Basis=avatar.skeleton.global_basis.orthonormalized()*avatar.skeleton.get_bone_global_pose(avatar.skeleton.find_bone("LeftHand")).basis.orthonormalized()
 		check(optical.is_equal_approx(pose.body.left_hand.basis),"Native optical wrist keeps humanoid bone axes")
+		# Reach must stay bounded across repeated solves and target sources.
+		for source in ["controller","optical","snapped"]:
+			for reach in [.3,3.0,4.0,.3]:
+				pose.body={};pose.snapped_hands={}
+				for side in ["left","right"]:
+					pose[side]=Transform3D(Basis.IDENTITY,Vector3(-.3 if side=="left" else .3,1.1,-reach))
+					if source=="optical":pose.body[side+"_hand"]=pose[side]
+					if source=="snapped":pose.snapped_hands[side]=pose[side]
+				avatar.xr_pose=pose;avatar.solver._process_modification_with_delta(.016)
+				for side in ["Left","Right"]:
+					var sk: Skeleton3D=avatar.skeleton
+					var upper:=sk.find_bone(side+"UpperArm");var lower:=sk.find_bone(side+"LowerArm");var hand:=sk.find_bone(side+"Hand")
+					var shoulder:=sk.get_bone_global_pose(upper).origin
+					var elbow:=sk.get_bone_global_pose(lower).origin;var wrist:=sk.get_bone_global_pose(hand).origin
+					var l1:=sk.get_bone_global_rest(upper).origin.distance_to(sk.get_bone_global_rest(lower).origin)
+					var l2:=sk.get_bone_global_rest(lower).origin.distance_to(sk.get_bone_global_rest(hand).origin)
+					check(absf(shoulder.distance_to(elbow)-l1)<.001 and absf(elbow.distance_to(wrist)-l2)<.001 and shoulder.distance_to(wrist)<=l1+l2+.001,"Authored arm lengths survive %s reach %.1f: %s / %s"%[source,reach,side,library.entries[hash].title])
+		pose.snapped_hands={}
 		for angle in [0.0,PI/2,-PI/2]:
 			var yaw:=Basis(Vector3.UP,angle)
 			pose.body={"hips":Transform3D(yaw,Vector3(0,.72,0)),"left_foot":Transform3D(yaw,yaw*Vector3(-.15,.08,0)),"right_foot":Transform3D(yaw,yaw*Vector3(.15,.08,0))}

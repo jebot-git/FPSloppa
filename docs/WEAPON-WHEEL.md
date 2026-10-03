@@ -1,6 +1,6 @@
 # VR weapon wheel
 
-Press the **physical right joystick** to open the wheel. It stays open without a timeout. Tilt towards a weapon to highlight it, then release the stick to its centre to equip it. Press the joystick again to cancel and keep the current weapon. Opening with a tilted stick requires centring it before selection.
+Press the **main-hand joystick** to open the wheel. It stays open without a timeout. Tilt towards a weapon to highlight it, then release the stick to its centre to equip it. Press the joystick again to cancel and keep the current weapon. Opening with a tilted stick requires centring it before selection.
 
 Returning the stick toward center preserves the highlighted sector, even if its
 axes recenter unevenly (for example, an Index diagonal sliding toward horizontal).
@@ -13,7 +13,7 @@ rolling with the wrist. Desktop purchase-wheel sizing is unchanged.
 
 Only owned weapons appear, clockwise in inventory order. Icons, names and ammo follow the active Doom, Quake or UT99 arsenal and TF class overrides. Empty weapons remain selectable and show a red ammo count. The equipped weapon has a rim marker; the highlighted weapon turns gold and appears by name in the centre.
 
-The wheel uses the physical right stick even with left-handed weapons or mirrored movement controls. The opening button can be changed through Settings → Controls → Bindings. While open, combat input and turning are suppressed; movement on the other stick remains available. A cancelled, tilted selection stick remains captured until it returns to centre. Existing vertical stick cycling works while the wheel is closed.
+The wheel is the default VR weapon selector and uses the main-hand stick, following weapon handedness. The opening button can be changed through Settings → Controls → Bindings. While open, combat input and turning are suppressed; movement on the other stick, jumping, skiing and jets remain available on both client and server. When weapon and movement handedness differ, movement temporarily uses the free stick. A cancelled, tilted selection stick remains captured until it returns to centre. With the wheel closed, turn-stick up/down selects contextual abilities or grenades; it does not change weapons. While holding the Tribes zoom trigger, it adjusts zoom range.
 
 Menus, scoreboard, focus/tracking loss, death, spectating, map changes and intermission close the wheel. It cannot open in the lobby, while frozen, mounted or handling a physical ability. Respawning clears its input state. Selection uses the ordinary desired-weapon command and existing server ownership validation.
 
@@ -29,3 +29,5 @@ the revised size still needs an in-headset readability check. See
 [the validation receipt](validation/hand-wheels-cs-lasers-2026-09-27.json).
 
 `godot --headless --xr-mode off --path . --script deathmatch/tests/weapon_wheel.gd` checks persistence, hysteresis, cancellation, inventory changes, real XRControllerTracker input, mirrored controls, combat suppression, server selection, lifecycle resets, saved bindings and icon coverage. The physical-rig and presentation regression tests also pass. Native GPU captures were inspected for Doom, Quake, UT99, a single-weapon inventory and the icon sheet. Physical-headset comfort, readability and controller behaviour still require headset testing.
+
+Approaching a powered friendly ST inventory or vehicle station automatically opens its purchase wheel within 2.5 m, including the corners of the service mat. Main-hand stick click reopens it after dismissal. Focus or interaction restrictions defer automatic opening until the wheel can actually appear. Leaving the station closes its purchase wheel.
