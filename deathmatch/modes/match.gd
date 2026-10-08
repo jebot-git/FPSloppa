@@ -33,6 +33,7 @@ var hill_owner:=-1 # -1 empty, -2 contested.
 var hill_credit:=0.0
 const HILL_SECONDS:=30.0
 var hills: Array=[]
+var hill_fixed:=false
 var hill_index:=0
 var hill_remaining:=HILL_SECONDS
 var hill_label: Label3D
@@ -69,7 +70,7 @@ func reset() -> void:
 	special.reset();fortress.reset();tribes.reset();assault.reset();titanball.reset();defusal.reset()
 	game.jetpacks.clear()
 	scores=[0,0];hill_owner=-1;hill_credit=0.0;flags.clear();bases.clear();captures.clear()
-	hills.clear();hill_index=0;hill_remaining=HILL_SECONDS
+	hills.clear();hill_fixed=false;hill_index=0;hill_remaining=HILL_SECONDS
 	if game.spawn_points.is_empty():return
 	# BSP spawn origins are known playable locations; custom maps get a conservative fallback.
 	var first: Vector3=game.spawn_points[0]
@@ -103,6 +104,10 @@ func reset() -> void:
 func vector(value: Array) -> Vector3:return Vector3(value[0],value[1],value[2])
 func prepare_hills() -> void:
 	if hills.is_empty():hills.append(hill)
+	if game.map_objectives.get("hill_authored",false):
+		hill_fixed=hills.size()==1
+		hill_index=0;hill=hills[0];hill_remaining=HILL_SECONDS
+		return
 	# Older/imported maps use distinct playable spawn floors as fallback sites.
 	var candidates: Array=game.spawn_points.duplicate()
 	while hills.size()<3:
@@ -129,12 +134,13 @@ func prepare_hills() -> void:
 			if hills.size()>=3:break
 	hill_index=0;hill=hills[0];hill_remaining=HILL_SECONDS
 func hill_timer_text() -> String:
+	if hill_fixed:return "FIXED HILL"
 	return "HILL %d/%d · MOVES IN %ds"%[hill_index+1,maxi(1,hills.size()),ceili(maxf(0,hill_remaining))]
 func tick_hill(delta: float) -> void:
 	# Split a long simulation step at the boundary: old-floor occupants never
 	# receive credit for time spent after the hill moved.
 	while delta>0 and game.intermission<=0:
-		var step:=minf(delta,hill_remaining)
+		var step:=delta if hill_fixed else minf(delta,hill_remaining)
 		var present: Array=[false,false]
 		for id in game.players:
 			var state: Dictionary=game.players[id]
@@ -147,8 +153,9 @@ func tick_hill(delta: float) -> void:
 			while hill_credit>=1.0:
 				scores[owner]+=1;hill_credit-=1.0;check_limit()
 				if game.intermission>0:return
-		hill_remaining-=step;delta-=step
-		if hill_remaining<=.00001:
+		if not hill_fixed:hill_remaining-=step
+		delta-=step
+		if not hill_fixed and hill_remaining<=.00001:
 			if not hills.is_empty():hill_index=(hill_index+1)%hills.size();hill=hills[hill_index]
 			hill_remaining=HILL_SECONDS;hill_owner=-1;hill_credit=0.0
 			clear_visuals()
@@ -254,13 +261,14 @@ func status(id: int=0) -> String:
 		text+=" · %s %d%% · %d km/h · %s"%[craft.name,roundi(scout.hp/craft.hp*100),roundi(scout.velocity.length()*3.6),"PILOT" if scout.pilot==id else "PASSENGER"]
 	return text+fortress.status(id)
 func snapshot() -> Dictionary:
-	return {"tribes":tribes.snapshot(),"defusal":defusal.snapshot(),"jetpacks":jetpacks,"jetpack_pickups":game.jetpacks.positions(),"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
+	return {"tribes":tribes.snapshot(),"defusal":defusal.snapshot(),"jetpacks":jetpacks,"jetpack_pickups":game.jetpacks.positions(),"announcer":game.announcer.allowed,"kind":kind,"scores":scores.duplicate(),"bases":bases.duplicate(),"captures":captures.duplicate(),"flags":flags.duplicate(true),"hill":hill,"owner":hill_owner,"hills":hills.duplicate(),"hill_fixed":hill_fixed,"hill_index":hill_index,"hill_remaining":hill_remaining,"limit":limit(),"friendly_fire":friendly_fire,"frozen":special.frozen.duplicate(),"freeze_reset":special.reset_at,"fortress":fortress.snapshot(),"assault":assault.snapshot(),"titanball":titanball.snapshot()}
 func receive(data: Dictionary) -> void:
 	if data.is_empty():return
 	game.announcer.policy(bool(data.get("announcer",true)))
 	special.frozen=data.get("frozen",{});special.reset_at=data.get("freeze_reset",0.0)
 	jetpacks=data.get("jetpacks",false)==true
 	kind=data.kind;fortress.receive(data.get("fortress",{}));scores=data.scores;bases=data.bases;captures=data.get("captures",bases);flags=data.flags;hill=data.hill;hill_owner=data.owner;friendly_fire=data.friendly_fire
+	hill_fixed=bool(data.get("hill_fixed",false))
 	hills=data.get("hills",[hill]);hill_index=int(data.get("hill_index",0));hill_remaining=float(data.get("hill_remaining",HILL_SECONDS))
 	assault.receive(data.get("assault",{}));titanball.receive(data.get("titanball",{}))
 	defusal.receive(data.get("defusal",{}));tribes.receive(data.get("tribes",{}))

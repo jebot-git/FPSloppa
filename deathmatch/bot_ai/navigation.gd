@@ -249,15 +249,19 @@ func jump_clear(start: Vector3,end: Vector3,speed: float=6.0,jump_speed: float=-
 		if not game.get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return false
 	return true
 
+func maximum_drop() -> float:
+	# These UT arenas use deep shafts with safe solid landings and no fall damage.
+	return 24.0 if game.current_map.begins_with("koth_ut_") else 6.5
 func drop_clear(start: Vector3,end: Vector3) -> bool:
 	var height:=start.y-end.y
-	if height<1.4 or height>6.5:return false
+	if height<1.4 or height>maximum_drop():return false
 	var duration:=sqrt(height/10)+.2
 	if Vector2(end.x-start.x,end.z-start.z).length()>duration*6:return false
 	var capsule:=CapsuleShape3D.new();capsule.radius=.33;capsule.height=1.65
 	var query:=PhysicsShapeQueryParameters3D.new();query.shape=capsule;query.collision_mask=1
-	for index in range(1,17):
-		var t:=duration*index/17.0
+	var samples:=maxi(16,ceili(height*4))
+	for index in range(1,samples+1):
+		var t:=duration*index/float(samples+1)
 		var point:=start.lerp(end,t/duration);point.y=start.y-10*pow(maxf(0,t-.2),2)
 		query.transform=Transform3D(Basis.IDENTITY,point+Vector3.UP*.85)
 		if not game.get_world_3d().direct_space_state.intersect_shape(query,1).is_empty():return false
@@ -303,10 +307,18 @@ func queue_jump_links() -> void:
 				da=minf(da,a.distance_to(objective.position));db=minf(db,b.distance_to(objective.position))
 			return da<db)
 		for index in mini(128,nearby.size()):jump_candidates.append(nearby[index])
-	var stride:=maxi(1,ceili(boundary.size()/(512.0 if game.match_mode.kind=="as" else 128.0)))
+	if game.current_map.begins_with("koth_ut_"):
+		var hill_edges: Array[Vector3]=[]
+		for point in boundary:
+			for hill:Vector3 in game.match_mode.hills:
+				if Vector2(point.x-hill.x,point.z-hill.z).length()<10:hill_edges.append(point);break
+		for index in mini(128,hill_edges.size()):jump_candidates.push_front(hill_edges[index])
+	var stride:=maxi(1,ceili(boundary.size()/(512.0 if game.match_mode.kind=="as" or game.current_map.begins_with("koth_ut_") else 128.0)))
 	for index in range(0,boundary.size(),stride):jump_candidates.append(boundary[index])
+func maximum_jump_links() -> int:
+	return 256 if game.current_map.begins_with("koth_ut_") else 96
 func update_jump_links() -> void:
-	if not ready() or jump_links>=96:return
+	if not ready() or jump_links>=maximum_jump_links():return
 	for work in 2:
 		if jump_cursor>=jump_candidates.size()*8:return
 		var start:=jump_candidates[jump_cursor/8]
@@ -316,13 +328,13 @@ func update_jump_links() -> void:
 		var end:=NavigationServer3D.map_get_closest_point(region.get_navigation_map(),probe)
 		# A lower platform can be hidden from a nearest-point query by the
 		# ledge we are standing on. Probe real ground below an exposed boundary.
-		var landing:=ray(probe+Vector3.UP*.3,probe-Vector3.UP*6.5)
+		var landing:=ray(probe+Vector3.UP*.3,probe-Vector3.UP*maximum_drop())
 		if not landing.is_empty() and landing.normal.y>.7 and start.y-landing.position.y>1.4:
 			var lower:=NavigationServer3D.map_get_closest_point(region.get_navigation_map(),landing.position)
 			if lower.distance_to(landing.position)<.6:end=lower
 		var distance:=start.distance_to(end)
 		var horizontal:=Vector2(end.x-start.x,end.z-start.z).length()
-		if horizontal<1.5 or horizontal>4.2 or Vector2(end.x-probe.x,end.z-probe.z).length()>1.5 or end.y-start.y>1 or start.y-end.y>6.5 or hazardous(end):continue
+		if horizontal<1.5 or horizontal>4.2 or Vector2(end.x-probe.x,end.z-probe.z).length()>1.5 or end.y-start.y>1 or start.y-end.y>maximum_drop() or hazardous(end):continue
 		if links.any(func(link):return start.distance_to(link.start)<1.5 and end.distance_to(link.end)<1.5):continue
 		var dropping: bool=start.y-end.y>1.4
 		if not (drop_clear(start,end) if dropping else jump_clear(start,end)):continue

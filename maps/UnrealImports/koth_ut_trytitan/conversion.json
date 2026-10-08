@@ -1,0 +1,298 @@
+{
+  "id": "koth_ut_trytitan",
+  "source": {
+    "name": "KOTH-(WTF)TryTitan",
+    "title": "Holy Shit Batman, it's My first Titan Map",
+    "author": "Original: Another Quality Edit By: Your Worst Nightmare",
+    "players": "Unknown",
+    "declared_capacity": null,
+    "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/W/koth-wtftrytitan_1afef2ae.html",
+    "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+    "mode": "koth",
+    "eligible": true,
+    "selection_reason": "KOTH-prefixed ChaosUT map",
+    "archive": "koth-(wtf)trytitan.zip",
+    "archive_sha1": "1afef2aececa075893f269c5d2c2422431a6a0e1",
+    "status": "downloaded",
+    "bytes": 7194156
+  },
+  "texture_sources": {
+    "utb2252909e711": {
+      "kind": "authored package texture",
+      "path": "(WTF)TryTitan.Ceiling.Ceiling3"
+    },
+    "ut703c897a125f": {
+      "kind": "authored package texture",
+      "path": "(WTF)TryTitan.Floor.az-floor"
+    },
+    "ut4baa20dd3d17": {
+      "kind": "authored package texture",
+      "path": "(WTF)TryTitan.Trim.Tilemos1"
+    },
+    "ut5ff47c3ba2b6": {
+      "kind": "authored package texture",
+      "path": "(WTF)TryTitan.Wall.BRIXG"
+    }
+  },
+  "source_faces": 468,
+  "spawns": 19,
+  "hill_points": 5,
+  "spawn_grounding": [
+    {
+      "actor": "PlayerStart0",
+      "source": [
+        365.33331298828125,
+        96.0,
+        -1007.9999389648438
+      ],
+      "floor": [
+        365.33331298828125,
+        96.0,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart1",
+      "source": [
+        -114.66668701171875,
+        -32.0,
+        -1007.9999389648438
+      ],
+      "floor": [
+        -114.66668701171875,
+        -32.0,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart2",
+      "source": [
+        -434.6667175292969,
+        32.0,
+        -1007.9999389648438
+      ],
+      "floor": [
+        -434.6667175292969,
+        32.0,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart3",
+      "source": [
+        -722.666748046875,
+        64.0,
+        -1007.9999389648438
+      ],
+      "floor": [
+        -722.666748046875,
+        64.0,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart4",
+      "source": [
+        399.62384033203125,
+        -184.18255615234375,
+        -983.8899536132812
+      ],
+      "floor": [
+        335.62384033203125,
+        -184.18255615234375,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart5",
+      "source": [
+        -951.779296875,
+        -201.73892211914062,
+        -983.9083251953125
+      ],
+      "floor": [
+        -951.779296875,
+        -201.73892211914062,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart6",
+      "source": [
+        -949.5135498046875,
+        175.56900024414062,
+        -983.9024658203125
+      ],
+      "floor": [
+        -949.5135498046875,
+        175.56900024414062,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart7",
+      "source": [
+        -946.8427734375,
+        936.2886352539062,
+        -983.8927001953125
+      ],
+      "floor": [
+        -946.8427734375,
+        936.2886352539062,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart8",
+      "source": [
+        -988.9678955078125,
+        -955.1528930664062,
+        -983.8681640625
+      ],
+      "floor": [
+        -988.9678955078125,
+        -955.1528930664062,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart9",
+      "source": [
+        175.12017822265625,
+        895.486328125,
+        -983.8966064453125
+      ],
+      "floor": [
+        175.12017822265625,
+        895.486328125,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart10",
+      "source": [
+        178.4035186767578,
+        -909.4671630859375,
+        -983.9105224609375
+      ],
+      "floor": [
+        178.4035186767578,
+        -909.4671630859375,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart11",
+      "source": [
+        610.0446166992188,
+        701.716552734375,
+        -919.9095458984375
+      ],
+      "floor": [
+        610.0446166992188,
+        701.716552734375,
+        -960.0
+      ]
+    },
+    {
+      "actor": "PlayerStart12",
+      "source": [
+        557.6785278320312,
+        -697.43994140625,
+        -919.904541015625
+      ],
+      "floor": [
+        557.6785278320312,
+        -697.43994140625,
+        -960.0
+      ]
+    },
+    {
+      "actor": "PlayerStart13",
+      "source": [
+        591.162109375,
+        -194.6046600341797,
+        -855.9036254882812
+      ],
+      "floor": [
+        591.162109375,
+        -194.6046600341797,
+        -896.0
+      ]
+    },
+    {
+      "actor": "PlayerStart14",
+      "source": [
+        550.3900756835938,
+        195.39877319335938,
+        -855.8939208984375
+      ],
+      "floor": [
+        550.3900756835938,
+        195.39877319335938,
+        -896.0
+      ]
+    },
+    {
+      "actor": "PlayerStart15",
+      "source": [
+        37.8837890625,
+        184.27542114257812,
+        -727.8939819335938
+      ],
+      "floor": [
+        37.8837890625,
+        184.27542114257812,
+        -768.0
+      ]
+    },
+    {
+      "actor": "PlayerStart16",
+      "source": [
+        88.61529541015625,
+        -193.60821533203125,
+        -727.9052734375
+      ],
+      "floor": [
+        88.61529541015625,
+        -193.60821533203125,
+        -768.0
+      ]
+    },
+    {
+      "actor": "PlayerStart17",
+      "source": [
+        -488.7868347167969,
+        -181.4045867919922,
+        -599.89501953125
+      ],
+      "floor": [
+        -488.7868347167969,
+        -181.4045867919922,
+        -640.0
+      ]
+    },
+    {
+      "actor": "PlayerStart18",
+      "source": [
+        -477.436767578125,
+        201.6639862060547,
+        -599.8942260742188
+      ],
+      "floor": [
+        -477.436767578125,
+        201.6639862060547,
+        -640.0
+      ]
+    }
+  ],
+  "traversal": [],
+  "adaptations": [
+    "12 ramps over 32-UU stairs for standard arena movement",
+    "Missing retail materials replaced with varied existing project materials",
+    "Scripted Chaos weapons mapped to classic arena pickups",
+    "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+  ],
+  "blockers": [],
+  "status": "staging"
+}

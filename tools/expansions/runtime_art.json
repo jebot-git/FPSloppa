@@ -1,0 +1,989 @@
+{
+  "failures": [],
+  "lighting": "Moving vehicles, weapons and service props use runtime lighting; level geometry uses audited baked atlases.",
+  "resources": {
+    "res://deathmatch/tribes/menu_icons/tribes_menu_armour.res": "05aa49cc920da61f8a05089fe1a11c64f87fd146a462f8065ae669cbe3969571",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_back.res": "57e1d0aadd0623768313a509cf931828ca7b7f8ff2913c2cb12568a928a1634e",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_backpack.res": "4f2f0eede14b3656f0e48b880971d06047edef93f26cd817f87f528c5634577f",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_beacon.res": "36bd58cc9bc7ff8ff8548f243a638ea1df494d23c6aa261c2bf893561dc0cc3d",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_buy_beacons.res": "d69e4b7376b0a4db2957e7a9e253f93bb17090ef97b236846cfd48b1dd40c354",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_carried.res": "f652c011c6f16ef5e5f6846b07f601b5810374f4a8719cb44f0e43d8d4c1554b",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_close_camera.res": "207e24c53ccbde5695a3c45ac4e20df5a7f24e2ffc804871a783160bf263f2e0",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_contacts.res": "e03f234406d6c0402fe226dd96dfcbad52558d9728a4c762e4f34ce0b08fb716",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_deployables.res": "c776c9d99b27587bd08ae824d6ae4607b446807d0a9f5e036fac59090ca90886",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_drop_pack.res": "35f3d803faeacc5ae580ec27eff44d28219adfdb7dc8c9298d4322070a17160a",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_drop_weapon.res": "20195102f7cd17e9408c0481036f0e4d92ce7f9efaecccc594df9f618578a1c8",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_field.res": "214e1ea90adfe4895c6bee11c3f383b1ee52737d54d8b4a153c3217df2240387",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_kit.res": "d80400bb3caa7cc1c85611d8a7e080b167636cfa4a3b670bfb10932ff051959e",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_network.res": "569f96edc1c2addc3154918ff0266e274b1c38e1ebe316d103c470e56f1b919f",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_next.res": "e1279be60c00d68589a0c6268608b0330f3bec5ecd3ef02e9cf38580e91140ff",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_refit.res": "d29adcc02a0481a11d84c58dd9fcdb2de87cb33c08f0842724020dda838c740e",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_release_turret.res": "92ff06231393d59347b39106432128beb7faf71d73065ec8fe0ab01d393ff05f",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_share_ammo.res": "14413f0f6dcef3683c79adba9f35343ca9e514496b43f24b3037a814b53b56de",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_turret_elf.res": "4c4fff31b29b40fad1bb715b6e70cc004bf82ab46b64f0faeaed683f2321a4bd",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_turret_fusion.res": "c5d09fd5ffc976e8be721e4763900b378b427e6432056511d67395ba324cbd70",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_turret_mini.res": "e9a625be59a255abdcaf145ca915c14fef174b30399e4a26d910f45c53f15c21",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_turret_missile.res": "ce08c6402f756745afedd1345504636e953dd0b19b955f64f16d8acaf0a9a1f8",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_turret_mortar.res": "b779243ed568f3ee61965c35e5d404cd3d7d0cf560891afb16c3de0ffc9c3d63",
+    "res://deathmatch/tribes/menu_icons/tribes_menu_weapons.res": "2a5bf8d36a27ec49dadd1fbc0d345c1bc5f032bc3462fdedc86e3cb326dddfc3",
+    "res://deathmatch/tribes/props/ammo_station.scn": "8d2f343c274231dfe6e8aff0ec3331c7417b482860a44a747c1889bf945bb693",
+    "res://deathmatch/tribes/props/base_sensor.scn": "79c0c1332166a64aaaf43e5914131371c1bc5b15ef2c8346c2c13165ec43e484",
+    "res://deathmatch/tribes/props/beacon.scn": "753558e479a2103c5a81721037f0f6d01d0bbbbbca2a9fafdb0bfe441d9af9f8",
+    "res://deathmatch/tribes/props/camera.scn": "4afa8a98489c5567f92fe3f2d621aecd9aaa8934884aab73646d10919bda8c3d",
+    "res://deathmatch/tribes/props/finish.res": "bf68edfbfd1eb12da7324fcb0cf2ecb1147d66ba75f1280c72742e741644fe75",
+    "res://deathmatch/tribes/props/fixed_elf.scn": "85c17840ae5a6212178f2c9f7ef6fdc6935bc1a4a5a1b0fcb142dbe5d9df74e2",
+    "res://deathmatch/tribes/props/fixed_fusion.scn": "4344a8089c7577bb153f1fc68dd913eb2fa348e54d17569a45eaa1762f776893",
+    "res://deathmatch/tribes/props/fixed_mini.scn": "7b159bfd38f6b6ddb502207dba341763de7f1945ac6a153b432bbe0e080e7d43",
+    "res://deathmatch/tribes/props/fixed_missile.scn": "cf7b511bbf59dfed72647d076b5a36d80db6bbfc35f2b2f1dae72fb293273e19",
+    "res://deathmatch/tribes/props/fixed_mortar.scn": "0fb4803d7ca41dc1c2224bf72b589b0fdef01a6685b0ca6ceee555e1f2e597b5",
+    "res://deathmatch/tribes/props/generator.scn": "45995139ebcbd87d1bf8ba46fcee40a6ac2fbc18dbb99531053963b343c67604",
+    "res://deathmatch/tribes/props/inventory.scn": "16b73b9fdb274a79e18925cc565a1d7980f9ae4d00e8454856aee68bc35db5cb",
+    "res://deathmatch/tribes/props/large_sensor.scn": "41266d0cf525ae10b1756cfade3ba304a4018794e8adbc90e9decfb5b7f9ce82",
+    "res://deathmatch/tribes/props/motion.scn": "6e8f2cf781e228a4b43da5e25044a06d8c30b17133899113781fbdb765f1e5e4",
+    "res://deathmatch/tribes/props/portable_generator.scn": "b1772ee57169e80db59df97cf36ad7a36566cfb7fc9912f1e2fb70e841956a36",
+    "res://deathmatch/tribes/props/pulse.scn": "0a74fcb237cc938547b77f5ab4e3e4dd41ab1093d6c375e825d7155856f24f05",
+    "res://deathmatch/tribes/props/remote_jammer.scn": "5f7e6f0e5b33f4ec167f97a6cf4025809ec4cc7ab52b27317509c32afdd05da2",
+    "res://deathmatch/tribes/props/solar.scn": "9e518ed7801e656ff853126f3b57714ca0829d832b16cd70f6032a68fd054d02",
+    "res://deathmatch/tribes/props/station_ammo.scn": "6086e055fb40fcf3904c01c0285e8366e8bdd3ca081b2ed06e7299002d58538e",
+    "res://deathmatch/tribes/props/station_command.scn": "3e72b46a61ae386db99fbdb84a15f6aca99c6ebdb788c472218b15addaf1f758",
+    "res://deathmatch/tribes/props/station_inventory.scn": "ee565360ca12faeaebed82f36057de86f9e1d0c67277e8429710eee0de09f48c",
+    "res://deathmatch/tribes/props/station_surround.scn": "1455b54c8428ee8417e42a6ed130c9b5442fa75c46297d0e22fb286e4448132b",
+    "res://deathmatch/tribes/props/station_vehicle.scn": "bbf127294707bb78ad92f682692e6e928c64ff05fc6a41372da0f0922aaafa88",
+    "res://deathmatch/tribes/props/turret.scn": "7e3d7bce877ccf197a79aa20d2523049f922c14a8739f3110604ca6d945d1e80",
+    "res://deathmatch/tribes/wrist/camera.scn": "bb1bfe17a6b7d7fc576ae42b41432b98c5be2ea6be75519a380cd20681fe708d",
+    "res://deathmatch/tribes/wrist/pda.scn": "0748d3a40983b541b7d9ac032dd56f47f64650e6e9eec94e9666f1e66a8a4699",
+    "res://deathmatch/vehicles/tribes/beowulf-icon.res": "9ca4eebfc41847037319abe4c8d96a0ed3c65fd097f8a5cfcae63a577fa21dc4",
+    "res://deathmatch/vehicles/tribes/beowulf.scn": "3969079e0e7fc3812661c0e712438480abb44b3701c15ea6413b9d9e6aa761f1",
+    "res://deathmatch/vehicles/tribes/havoc-icon.res": "570527b9167beda54d67774e29e41a602eba8645cc662f626987cb198f69866d",
+    "res://deathmatch/vehicles/tribes/havoc.scn": "893bfad1ab02202418c9ace172aa5b67ff67a59635bb84c8780f8e92685ad6bb",
+    "res://deathmatch/vehicles/tribes/hpc-icon.res": "a7342ccc26f10354f0c5fc0f668b51819833e1f163f0770c193518431901a7c7",
+    "res://deathmatch/vehicles/tribes/hpc.scn": "e2b66da57731eaae1140b99faa968dd468cc3d8cc981aff0536d3c9ebcf82de9",
+    "res://deathmatch/vehicles/tribes/jericho-icon.res": "ab6b88486f2bd0f2a70280e8cd10d74774dbc8bdf7174bf837b69e23e0b287f5",
+    "res://deathmatch/vehicles/tribes/jericho.scn": "051f3b7cb743a522b1b2b05eadd5798cb02b3fcbc3b00d62af0985a524c3020a",
+    "res://deathmatch/vehicles/tribes/lpc-icon.res": "8cd1e4f12833166ad8462e201d011bbf7425bec36799c64390430b98b500cc9f",
+    "res://deathmatch/vehicles/tribes/lpc.scn": "380d276095d7d64d3cc9985fb1f2eecbdab0f2fffe7118e5722da5fa74b14c9a",
+    "res://deathmatch/vehicles/tribes/scout-icon.res": "8be1616280a7c6156c7bb6d5756a4532b95349a89a80b7fef83b4683c94d0c14",
+    "res://deathmatch/vehicles/tribes/scout.scn": "56fb68558653a801b37baeff7b082dc3a18bbefc8f5d026d342dd9976de827dd",
+    "res://deathmatch/vehicles/tribes/shrike-icon.res": "70e3b118d4a3aa8266f5d65e4b17b20c3903861c2d0dd1d899b69178a19de187",
+    "res://deathmatch/vehicles/tribes/shrike.scn": "ec0ae69b8b50475b5fae6fb2ba2c599b239c08a4714844ca03117059fbfd281e",
+    "res://deathmatch/vehicles/tribes/thundersword-icon.res": "62d8cbb899a9f8a2de29a8c27cd9973b9400d4890d8e5f08b096f838e44c1b38",
+    "res://deathmatch/vehicles/tribes/thundersword.scn": "d5d08a39caad61efba6c5a0cb8d70399f856915d1c621a5b14ff5193977bb776",
+    "res://deathmatch/vehicles/tribes/turbine.res": "b66714951595d99bf555eca4a50a55dbf6fa20e82b8bb49bfdcfe317c574f664",
+    "res://deathmatch/vehicles/tribes/wildcat-icon.res": "626f2bc873304a606384bd260a1150add43b8a014e6115673c9769b506b87f4c",
+    "res://deathmatch/vehicles/tribes/wildcat.scn": "6ef5e66c4b1c87676c2b05d738c638a90ea9da891e82365c17008d3b3601e958",
+    "res://deathmatch/weapons/cs16/ak47.scn": "211071d223b7397e8617b586448a68b949f065fbe75c2744b092ecdcec6e08fb",
+    "res://deathmatch/weapons/cs16/awp.scn": "9552cb86c1eb04bc0bbee2c6b2587a1097fa50eadd92e157d10f981f55b0a772",
+    "res://deathmatch/weapons/cs16/deagle.scn": "a8d319cc6eef470e79de8426a7054571a6844ca310785a1685f9dea10b274508",
+    "res://deathmatch/weapons/cs16/finish.res": "8cbfafdbb2ab81267bfe80b708653d8aa053b8065fc821227f2697197704c75d",
+    "res://deathmatch/weapons/cs16/glock.scn": "33051c83466296c97badf706c04d0ec8e1c45325d6f2a9a614fa74ca037d7a63",
+    "res://deathmatch/weapons/cs16/knife.scn": "9aefaeae95724d28d8460f3ed972a919b6f0415bc992d223121aa82f94788494",
+    "res://deathmatch/weapons/cs16/m249.scn": "e841c75a287fa89737c9136c2513aa82dc201d2a1b385ced0fa88005de7351e4",
+    "res://deathmatch/weapons/cs16/m3.scn": "a3d77e2b796637ae8fe82f85ffbd1687956e409755d5eff5b7fc3ceda6ee1f64",
+    "res://deathmatch/weapons/cs16/m4a1.scn": "c4d0f0a468857adf10a27aa1da856c64c3a70bc91259ae09b421d095907717bc",
+    "res://deathmatch/weapons/cs16/magazine_pouch.scn": "fe8e316d995068a339243b837a796664aa5d8d92683264c503a454b801064f78",
+    "res://deathmatch/weapons/cs16/mp5.scn": "5e29737abeea0e43d011125f6be1ff8b4149a0ed68ecffaa070617ecdc4c37c6",
+    "res://deathmatch/weapons/cs16/p90.scn": "8a3cf8bcef1fbc434b1fa7da9039dbcd2cb6e18e07ec39c0b15b5975c63d7d4c",
+    "res://deathmatch/weapons/cs16/usp.scn": "6ff20944ed186f5f3b74b66d956082de80117750a852c497e9b62997967a6953",
+    "res://deathmatch/weapons/cs16/xm1014.scn": "9a74c53592bef0e0126c62f6c9da41d052242d72bb202fa3b6a72397aeddafcf",
+    "res://deathmatch/weapons/fidelity/cs16_0.scn": "84b74a0e6ba77d1477ec4ac60514d655accabf5549e47a7e8e4843b3e963822d",
+    "res://deathmatch/weapons/fidelity/cs16_0_albedo.res": "dbd57ddd0887ba4698e648cad05d9b2af8455a8efc18fd4b84074bd75224af20",
+    "res://deathmatch/weapons/fidelity/cs16_0_orm.res": "ca4497bc55415eb175c40ef7c4384f6df0d657bf71f52741005b13a4eca78648",
+    "res://deathmatch/weapons/fidelity/cs16_1.scn": "e4394c1b3955d5fe4a6a613654785d7d65e839fed0011ab2d74634033f21e478",
+    "res://deathmatch/weapons/fidelity/cs16_10.scn": "13463c892afa2ccc1d8befdd2cf84a20674b60af8d4f0dc62043407039a3b872",
+    "res://deathmatch/weapons/fidelity/cs16_10_albedo.res": "9605d25641001a1fd99611f5be8dac0b54b47bf09ef844849260f23aff85a6d4",
+    "res://deathmatch/weapons/fidelity/cs16_10_orm.res": "12019de9fd384d9517be7903b6e09a0eac1fdfe0c68cea1df53b4b15fafe9a40",
+    "res://deathmatch/weapons/fidelity/cs16_11.scn": "b6428447533087b07bfe9d51c85495f51022250769c496463dd39e611f3b8854",
+    "res://deathmatch/weapons/fidelity/cs16_11_albedo.res": "bd15ee40cbc790e96ee407c76d3097009f43baa0ab629381a4aaa47ad4c5b670",
+    "res://deathmatch/weapons/fidelity/cs16_11_orm.res": "4d4101d490d95035c99c7a6f453b6488ec0f7904601597f591718198d6e12cd7",
+    "res://deathmatch/weapons/fidelity/cs16_1_albedo.res": "c42b6ca23ed247dab158c3efa3062cf6d9fab924e978638429425cf8af5f3671",
+    "res://deathmatch/weapons/fidelity/cs16_1_orm.res": "bb3debd1ec24ffc5d257a68ad4529d46e34c9f5399d946bc3e903fee8c576b56",
+    "res://deathmatch/weapons/fidelity/cs16_2.scn": "20fb0d44c8ab5cbcb6c8d3823af4576faabb9014f6fa9f8ed85096594b268ce8",
+    "res://deathmatch/weapons/fidelity/cs16_2_albedo.res": "4319f13a7aa6028e139252a9fc54dfa2138f3213a0fa4f7892088407a69d8124",
+    "res://deathmatch/weapons/fidelity/cs16_2_orm.res": "6e02ece57e6aa232c4bcfaaf8c29ea2a38e5233e58fde8c1d653c9800f6736d9",
+    "res://deathmatch/weapons/fidelity/cs16_3.scn": "2cb93f52dbe6c55f8932008f8473ab38c9c48e5314559dfae8f411cde1b72505",
+    "res://deathmatch/weapons/fidelity/cs16_3_albedo.res": "d2a40e06c1e82418b5dbcf92c1b17206861cd1d10acef1db68b65fbfcba49743",
+    "res://deathmatch/weapons/fidelity/cs16_3_orm.res": "a27dd5851e323e056cc0d3c2e243e9ef0251f2f067d35029726dc42b77e3dcbe",
+    "res://deathmatch/weapons/fidelity/cs16_4.scn": "a0729eee4df1a71ead71d6295c764bf3bf02467bc0270cd9471489e8ece6c271",
+    "res://deathmatch/weapons/fidelity/cs16_4_albedo.res": "97d0f7f88a75461ff027435a63128421b480405c80cb1759aa78483a4c484b48",
+    "res://deathmatch/weapons/fidelity/cs16_4_orm.res": "d44bc0dda8fbad86fa50792d5d4327e002f6a9728bd0a3e72a26f35edf54bcde",
+    "res://deathmatch/weapons/fidelity/cs16_5.scn": "c9ddf60972050ced18178f92d3a8779aaef9037a2ca5ee9505d68043699ac282",
+    "res://deathmatch/weapons/fidelity/cs16_5_albedo.res": "194d101e66b459c34f8e5cbb8a7e89e38163c79066d553a1c8d6c5876fede0f7",
+    "res://deathmatch/weapons/fidelity/cs16_5_orm.res": "bb9d878c7b13118b490e94f351901a870cd8c2d239c0b3460157b3fba464aa91",
+    "res://deathmatch/weapons/fidelity/cs16_6.scn": "587d2d044ba5ebe5263682e866d2035ca7516766bf0850bc99ecdd0fd984ccbf",
+    "res://deathmatch/weapons/fidelity/cs16_6_albedo.res": "b31f630e281c2517608647e3b99f8ff386fdd8f965c384217907abc6db6092b6",
+    "res://deathmatch/weapons/fidelity/cs16_6_orm.res": "7872ff4055a6829c0102097019357a92acdc5cab908a8eea816f1411f829bcbc",
+    "res://deathmatch/weapons/fidelity/cs16_7.scn": "7413539edd99ea216562233af6bee25ab68b7c39fde75ad7014cd913f72cbf23",
+    "res://deathmatch/weapons/fidelity/cs16_7_albedo.res": "afe3de771802107c83603e99486b44c26c66ec9571497a8852b716bb495f6c77",
+    "res://deathmatch/weapons/fidelity/cs16_7_orm.res": "11c2f9867c72686523fbaa451582b04a843d15ef594bc51783d841c81aa6e5ed",
+    "res://deathmatch/weapons/fidelity/cs16_8.scn": "ea910ffed791e6f304cddb9b8b93955ad00d4b8b866867f12e8d88f9cdbc10d0",
+    "res://deathmatch/weapons/fidelity/cs16_8_albedo.res": "dac1586728247d0c985565b6ef6976f1cbccd6c54e34662e072f01757e5eddc1",
+    "res://deathmatch/weapons/fidelity/cs16_8_orm.res": "dc9c2107bad25ec9773681001e1b540d444e98011c3359abe8226b7ba9337d92",
+    "res://deathmatch/weapons/fidelity/cs16_9.scn": "dad564213aceea35eee686d73dd7c7bcbff5ee32ff90adaca1546347dd6e3201",
+    "res://deathmatch/weapons/fidelity/cs16_9_albedo.res": "af7c0011964cde34241c8603765e3a0c34574d02ac6bf5303cf7195f96ea8a5e",
+    "res://deathmatch/weapons/fidelity/cs16_9_orm.res": "630d6b37153a53972a7fa262f5eb463ce329644d3c7734dfd8848e1b2646f51f",
+    "res://deathmatch/weapons/tribes/ammo_pack.scn": "e65bc858f1a7d626f0496eede631ca8b86ab2b923d68846019905932a44f60ef",
+    "res://deathmatch/weapons/tribes/armour-finish.res": "1e934088fd7c399abc5a69dd00f713a1a9e6e484426ab659856edc1b55fa1e32",
+    "res://deathmatch/weapons/tribes/armour-suit.res": "4e82e3308f1b3b8a6f38fc0de48342e7db7a25a1ae95486c0c2b3408f67126e4",
+    "res://deathmatch/weapons/tribes/armour_heavy.scn": "7f4636b728ed3f5f5d1c93ed922493ba3e08bd664c3d8c6d68684078c90a6260",
+    "res://deathmatch/weapons/tribes/armour_light.scn": "f248f18c16891e2cf0ea5f7b13e62ae1576e5496b4706f306ace9fde796d24b3",
+    "res://deathmatch/weapons/tribes/armour_medium.scn": "01fb8ee3a480409c0b1ed83bd22e8d4b3d79e9413d7bc5750f0c7637af0ca6a7",
+    "res://deathmatch/weapons/tribes/blaster.scn": "b76cbf7149becdb1ff55f148eb2492c1605f5cd0c094526fb6d24f704f5f6268",
+    "res://deathmatch/weapons/tribes/body_heavy.scn": "3e909836914fadb9e51dfecf715d01c9c3dd9af1a2056d486ec79a676580eaa0",
+    "res://deathmatch/weapons/tribes/body_light.scn": "3c4d89631578c5d918701c9539ba28ea03df119ab33e9a9e2bacaf985ad8f579",
+    "res://deathmatch/weapons/tribes/body_medium.scn": "92f8c824a351bf1baa3b1dfbfe5c4f9dbc1140820898e44688b8008189105f35",
+    "res://deathmatch/weapons/tribes/chaingun.scn": "726fd538136cee684c55632d432fd4489520556f11ce4e64ed4805f4f2d2fa7f",
+    "res://deathmatch/weapons/tribes/disc.scn": "a8a3a7ed78a99dcbea04eff7c071eca329748b2a206c566dba7ebb785fee4a18",
+    "res://deathmatch/weapons/tribes/elf.scn": "48c6f09c664d022ab03b06077f2b4e550a36db3223a09bec6f969f00a4129467",
+    "res://deathmatch/weapons/tribes/energy_pack.scn": "ce65e201849608318d23e568ea0f0fb2a6f76965a8b4aa01f0acb1d1cdcf31c3",
+    "res://deathmatch/weapons/tribes/finish.res": "944e6c7d22f560bf30fba8d7a22cce9a69e24d57762173a85d6f2780c2952685",
+    "res://deathmatch/weapons/tribes/grenade.scn": "7b753e86c68f5ed56c67dd356f2a0a72c108d50c164219fde0fa6fd3a097ed9c",
+    "res://deathmatch/weapons/tribes/grenade_launcher.scn": "262813a4cea1fbcdddd865a3d03fce9fb392dfa0c81360b90f47f01aa93f2a4d",
+    "res://deathmatch/weapons/tribes/jammer_pack.scn": "68d9e9f9a7bc65bcf68ee7b434011dd9c211a57ec0962330dfd5db05b6447026",
+    "res://deathmatch/weapons/tribes/laser.scn": "253007a5632ad412cb927869c45718d95f5905c4437ef43d20f4a9181a7937bb",
+    "res://deathmatch/weapons/tribes/mine.scn": "e0ed95a6f98b21036c8cd8b6909ee209870a1f766daacd8cb866f95453117592",
+    "res://deathmatch/weapons/tribes/mortar.scn": "5b4b4905217a788792c46ec8d6f4c8d2c2228902ae008a26aec67d721432c09f",
+    "res://deathmatch/weapons/tribes/plasma.scn": "8a7cc099fed4b71f4126d4db86cbda843fc4985ceb7aa7f6a42cf78d098985ff",
+    "res://deathmatch/weapons/tribes/repair.scn": "72337f602b46bd592b7d91aacb58b7629b239b3efe4b6e4c53a9307c66603e94",
+    "res://deathmatch/weapons/tribes/repair_pack.scn": "9bcc98d894d2b6752b845b6b46c2d0315f47f6bd9b41c24ae8a44f4df2c7ac0e",
+    "res://deathmatch/weapons/tribes/shield_pack.scn": "6d3881574e76d1dc6bba79ac807302444358ad848fbb495a603a433df18fbd04",
+    "res://deathmatch/weapons/tribes/targeter.scn": "f4e276e42326454049bf554ee547d0af23332ace26513de2fe8288dd48a68e12",
+    "res://deathmatch/weapons/tribes/tribes_ammo_pack.res": "4ec5903f71a0741a88cd33281c1c58f189bdd6f7cab29148667f4347a2347fa1",
+    "res://deathmatch/weapons/tribes/tribes_blaster.res": "70b2f225e4ebc4b6516254817e3e8b2291e8e524349ad4f70c95b12b29fd56bc",
+    "res://deathmatch/weapons/tribes/tribes_chaingun.res": "9fcf93bf0d99189f36f7cbd584a8cabaa5d632971917931bfb150952609e5cb3",
+    "res://deathmatch/weapons/tribes/tribes_disc.res": "1c62fb757ee7271487064cc557d867c7d1afaa2543aa1ff1a6a778dacd8fa5be",
+    "res://deathmatch/weapons/tribes/tribes_elf.res": "37d3cfb4b7f71963be7694718498669adb209ac12c55fc697f00c60210c32544",
+    "res://deathmatch/weapons/tribes/tribes_energy_pack.res": "cb1435c72f984f4fb18c19f1cf7da0f8bbacb783cb8ccf0fb7d4d080fb9e0da3",
+    "res://deathmatch/weapons/tribes/tribes_grenade.res": "d5b2ae70266cb9ce3380522fa6206b374980ccd7e72a53d68888aef6d1fcf89f",
+    "res://deathmatch/weapons/tribes/tribes_grenade_launcher.res": "9292111b127cccd1dba0432d164104fc087a0ab10ee62dff524f5bd674063a40",
+    "res://deathmatch/weapons/tribes/tribes_heavy.res": "3041e251c933353d48cbbd8ebaba8c59a0185a1d78bf4d2391123b091d7b9a4a",
+    "res://deathmatch/weapons/tribes/tribes_jammer_pack.res": "3c1fcb6c81aee25b236004e95a7de50a5d3825d6933c01ac8784d1a3eacc5807",
+    "res://deathmatch/weapons/tribes/tribes_laser.res": "7d3e45dc2ab982a5bde822f61df2e037bb0e03f70c96934669d575205c809b7f",
+    "res://deathmatch/weapons/tribes/tribes_light.res": "bcab6ae1a3e2839138d714e73c2389e381e29eb99badf71b237d01fd8b8b75fe",
+    "res://deathmatch/weapons/tribes/tribes_medium.res": "a9d23b5571645b6170c2f8f7490faccf264950c5e86fa452fe1f510c6a915e90",
+    "res://deathmatch/weapons/tribes/tribes_mine.res": "6fa411c3821d92c0b3dc7464acd8c7e78687a99c83f36415d0838d585883d255",
+    "res://deathmatch/weapons/tribes/tribes_mortar.res": "2e428d22c8a282192a6146bbdcad910442d8fa95eede1cb13c6d68764d629600",
+    "res://deathmatch/weapons/tribes/tribes_motion_sensor.res": "18bbfc709ae64d715c69086f522f9bfdeddc5e7d18a08811569039828d75b195",
+    "res://deathmatch/weapons/tribes/tribes_no_pack.res": "1f5578429d87792d24a7f189212c8e2d9a64fa49def75d9717dc709c4e813c6b",
+    "res://deathmatch/weapons/tribes/tribes_plasma.res": "a8fed788fc50a7243728abaa7e67549f1504ec465da3f4618f4ea17d454d7c45",
+    "res://deathmatch/weapons/tribes/tribes_pulse_sensor.res": "6e808d41fe11a5c8752de2479ce79a7d918a80fd82f50e853e4ef57179a8fc3d",
+    "res://deathmatch/weapons/tribes/tribes_remote_ammo.res": "f62fe38e18b595000fc0a5137b10934bc4809a5ff4726d6c844140f89429f2d5",
+    "res://deathmatch/weapons/tribes/tribes_remote_camera.res": "a86373337d308355a609e62a3a297a3c317b1c3d81671333a4ef7cf3ff8c5aab",
+    "res://deathmatch/weapons/tribes/tribes_remote_inventory.res": "3f12a74e86dd565c4c478ee8d7432d5b3157084e1d5943942a680bd90c857287",
+    "res://deathmatch/weapons/tribes/tribes_remote_jammer.res": "50165d5b1e0c9d5f989836835adf3e21709c4c3165d2c84e8ff2185c9e544b32",
+    "res://deathmatch/weapons/tribes/tribes_remote_turret.res": "0e0729e93633ea347c195b82e8845ccc3b422e2943193db9e8caccc79991de9d",
+    "res://deathmatch/weapons/tribes/tribes_repair.res": "d2229d3be1ca64fd92facc7e26285edbb483d451785c0a567976eb8a128ae0a7",
+    "res://deathmatch/weapons/tribes/tribes_repair_pack.res": "5154c2ec05d3881689179a10b4a61ba0a42cbd985de0127196e8ee5cc88cfc0c",
+    "res://deathmatch/weapons/tribes/tribes_shield_pack.res": "babe94c992a6dc8db1cd201855607e209fb452cc2a0ffa479a4f2beb36512277",
+    "res://deathmatch/weapons/tribes/tribes_targeter.res": "63374ccd418374c04b1985acbbaff8c7f4992a9e0a88756adb6dec45b14f5e17"
+  },
+  "textures": [
+    {
+      "asset": "res://deathmatch/vehicles/tribes/beowulf-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/beowulf.scn:@MeshInstance3D@5:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/havoc-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/havoc.scn:@MeshInstance3D@4:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/hpc-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/hpc.scn:STHPC_ControlGrip:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/jericho-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/jericho.scn:@MeshInstance3D@7:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/lpc-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/lpc.scn:STLPC_ControlGrip:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/scout-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/scout.scn:STScout_ControlGrip:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/shrike-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/shrike.scn:@MeshInstance3D@3:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/thundersword-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/thundersword.scn:@MeshInstance3D@6:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/wildcat-icon.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 256
+    },
+    {
+      "asset": "res://deathmatch/vehicles/tribes/wildcat.scn:@MeshInstance3D@2:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_armour.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_back.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_backpack.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_beacon.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_buy_beacons.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_carried.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_close_camera.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_contacts.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_deployables.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_drop_pack.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_drop_weapon.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_field.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_kit.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_network.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_next.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_refit.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_release_turret.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_share_ammo.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_turret_elf.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_turret_fusion.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_turret_mini.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_turret_missile.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_turret_mortar.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/menu_icons/tribes_menu_weapons.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/tribes/props/ammo_station.scn:Body:0:0",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/ammo_pack.scn:ammo_pack:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/armour-finish.res",
+      "data_texture": false,
+      "height": 512,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/armour-suit.res",
+      "data_texture": false,
+      "height": 1024,
+      "mips": 11,
+      "valid": true,
+      "width": 2048
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_ammo_pack.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_blaster.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_chaingun.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_disc.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_elf.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_energy_pack.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_grenade.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_grenade_launcher.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_heavy.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_jammer_pack.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_laser.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_light.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_medium.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_mine.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_mortar.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_motion_sensor.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_no_pack.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_plasma.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_pulse_sensor.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_remote_ammo.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_remote_camera.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_remote_inventory.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_remote_jammer.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_remote_turret.res",
+      "data_texture": false,
+      "height": 320,
+      "mips": 8,
+      "valid": true,
+      "width": 320
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_repair.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_repair_pack.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_shield_pack.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/tribes/tribes_targeter.res",
+      "data_texture": false,
+      "height": 256,
+      "mips": 8,
+      "valid": true,
+      "width": 352
+    },
+    {
+      "asset": "res://deathmatch/weapons/cs16/ak47.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 10,
+      "valid": true,
+      "width": 1024
+    },
+    {
+      "asset": "res://deathmatch/weapons/cs16/magazine_pouch.scn:MagazinePouch:0:0",
+      "data_texture": false,
+      "height": 128,
+      "mips": 7,
+      "valid": true,
+      "width": 128
+    },
+    {
+      "asset": "res://deathmatch/weapons/cs16/magazine_pouch.scn:MagazinePouch:2:0",
+      "data_texture": false,
+      "height": 128,
+      "mips": 7,
+      "valid": true,
+      "width": 128
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_0.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_0.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_1.scn:GripPanelFastener:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_1.scn:GripPanelFastener:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_10.scn:GripPanelFastener:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_10.scn:GripPanelFastener:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_11.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_11.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_2.scn:GripPanelFastener:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_2.scn:GripPanelFastener:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_3.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_3.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_4.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_4.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_5.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_5.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_6.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_6.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_7.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_7.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_8.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_8.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_9.scn:Body:0:0",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    },
+    {
+      "asset": "res://deathmatch/weapons/fidelity/cs16_9.scn:Body:0:1",
+      "data_texture": false,
+      "height": 512,
+      "mips": 9,
+      "valid": true,
+      "width": 512
+    }
+  ]
+}

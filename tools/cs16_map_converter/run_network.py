@@ -22,7 +22,7 @@ def main():
                 assets=Path(work)/role;assets.mkdir()
                 env=dict(os.environ,XDG_CONFIG_HOME=str(assets/'config'),XDG_DATA_HOME=str(assets/'data'))
                 log=(output/f'network-{role}.log').open('w');logs.append(log)
-                cmd=['godot','--headless','--audio-driver','Dummy','--xr-mode','off','--path',str(ROOT),'--log-file',str(output/f'network-{role}-engine.log'),'--script','deathmatch/tests/cs_map_network.gd','--',role,str(a.map.resolve()),str(port),'--asset-root',str(assets)]
+                cmd=[os.environ.get('GODOT_BIN','godot'),'--headless','--audio-driver','Dummy','--xr-mode','off','--path',str(ROOT),'--log-file',str(output/f'network-{role}-engine.log'),'--script','deathmatch/tests/cs_map_network.gd','--',role,str(a.map.resolve()),str(port),'--asset-root',str(assets)]
                 processes.append(subprocess.Popen(cmd,stdout=log,stderr=subprocess.STDOUT,env=env))
                 if role=='server':time.sleep(2)
             for process in processes:process.wait(timeout=70)

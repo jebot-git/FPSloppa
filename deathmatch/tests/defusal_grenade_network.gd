@@ -18,7 +18,7 @@ func run():
 	else:await client_case()
 	print("UTILITY_NETWORK_RESULT ",role," ",JSON.stringify(failures));game.disconnect_game();game.free();quit(0 if failures.is_empty() else 1)
 func server_case():
-	game.dedicated=true;game.bind_address="127.0.0.1";game.selected_map="de_inferno_rebuilt"
+	game.dedicated=true;game.bind_address="127.0.0.1";game.selected_map="de_varq_inferno"
 	game.match_mode.configure({"sv_gametype":"de","sv_de_prepare":30});game.votes.enabled=false
 	game.start_host("Utility network",28987,20,10,false,"de")
 	check(await wait_for(func():return observer.seen.has("attacker ready") and observer.seen.has("defender ready"),20),"Two clients join new Inferno map")
@@ -108,4 +108,4 @@ func client_case():
 		if viewer and not u.clouds.is_empty() and u.states.values().any(func(a):return a.counts==[0,1,0]) and not sent.has("late smoke"):
 			sent["late smoke"]=true;observer.report.rpc_id(1,"late smoke")
 	check(observer.phase=="done","Utility network scenario completes")
-	check(game.current_map=="de_inferno_rebuilt","Map identity survives snapshots")
+	check(game.current_map=="de_varq_inferno","Map identity survives snapshots")

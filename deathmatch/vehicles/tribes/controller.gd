@@ -13,6 +13,9 @@ var locks: Dictionary={}
 var requests: Dictionary={}
 var impact_locks: Dictionary={}
 var view
+var deployment_held: Dictionary={}
+var deployment_locks: Dictionary={}
+var weapon_locks: Dictionary={}
 var render_motion=preload("res://deathmatch/vehicles/tribes/render_motion.gd").new()
 var render_frames: Dictionary={}
 var render_frame_number:=-1
@@ -26,7 +29,7 @@ func occupants(row: Dictionary) -> Array:return [row.pilot]+row.get("passengers"
 func seat_for(id: int,row: Dictionary) -> int:return occupants(row).find(id) if id!=0 else -1
 func transport_pilot(id: int) -> bool:
 	var key:=vehicle_for(id)
-	return key!=0 and rows[key].pilot==id and rows[key].get("kind","scout") in ["lpc","hpc"]
+	return key!=0 and rows[key].pilot==id and rows[key].get("kind","scout") in ["lpc","hpc","havoc"]
 func seat_position(row: Dictionary,slot: int) -> Vector3:return seat_frame(row)*definition(row).seats[slot]
 func render_frame(key: int) -> Transform3D:
 	# Whichever draws first (XR rig, avatar or hull) samples this render frame once.
@@ -43,6 +46,30 @@ func render_seat_position(id: int) -> Vector3:
 	var key:=vehicle_for(id)
 	if key==0:return Vector3.INF
 	return render_frame(key)*definition(rows[key]).seats[seat_for(id,rows[key])]
+func armed_seat(id: int) -> bool:
+	var key:=vehicle_for(id)
+	return key>0 and Data.weapon(rows[key].kind,seat_for(id,rows[key]))!=""
+func weapon_operator(id: int) -> bool:return piloting(id) or armed_seat(id)
+func mobile_station(id: int) -> int:
+	if not eligible(id,true) or mounted(id):return -1
+	var p: Vector3=game.fighters[id].position
+	for key in rows:
+		var row: Dictionary=rows[key]
+		if row.get("kind","")!="jericho" or not row.get("deployed",false) or row.team!=game.players[id].team or game.clock<row.ready:continue
+		var pad: Vector3=frame(row)*Vector3(0,-1.25,5.5)
+		if absf(p.y-pad.y)>1.4 or Vector2(p.x-pad.x,p.z-pad.z).length()>2.5:continue
+		if game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(p+Vector3.UP,pad+Vector3.UP,1)).is_empty():return key
+	return -1
+func deploy(key: int) -> bool:
+	if not multiplayer.is_server() or not rows.has(key):return false
+	var row: Dictionary=rows[key]
+	if row.kind!="jericho" or row.pilot==0 or not eligible(row.pilot) or row.ready>game.clock or float(deployment_locks.get(key,0.))>game.clock:return false
+	if not row.get("deployed",false):
+		if row.velocity.length()>1.5 or game.players[row.pilot].get("move",Vector2.ZERO).length()>.05:return false
+		var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(row.position,row.position-Vector3.UP*3,1,[bodies[key].get_rid()]))
+		if hit.is_empty() or hit.normal.y<.85:return false
+	row.deployed=not row.deployed;row.velocity=Vector3.ZERO;deployment_locks[key]=game.clock+1.
+	return true
 func mounted(id: int) -> bool:return vehicle_for(id)>0
 func piloting(id: int) -> bool:
 	var key:=vehicle_for(id);return key>0 and rows[key].pilot==id
@@ -72,10 +99,12 @@ func purchase(id: int,epoch: int,life: int,kind: String="scout") -> bool:
 	var index:=station(id)
 	if index<0 or rules.balance(id)<d.price or count(game.players[id].team,kind)>=Data.TEAM_LIMIT or rows.size()>=Data.MAX_VEHICLES:return false
 	var pose:=spawn_frame(index)
+	pose.origin.y+=maxf(0.,float(d.half.y)-.7)
 	if not clear_volume(pose,d.half+Vector3.ONE*.15):return false
 	# Reserve synchronously before spending: duplicate RPCs cannot overlap hulls.
 	var key:=next_id;next_id+=1
 	rows[key]={"position":pose.origin,"velocity":Vector3.ZERO,"yaw":pose.basis.get_euler().y,"pitch":0.0,"bank":0.0,"kind":kind,"passengers":[],"passenger_lives":[],"hp":d.hp,"pilot":0,"life":-1,"team":game.players[id].team,"owner_team":game.players[id].team,"ready":game.clock+3.0,"next_fire":0.0,"idle_until":game.clock+120.0}
+	if kind=="jericho":rows[key]["deployed"]=false
 	rows[key].passengers.resize(d.seats.size()-1);rows[key].passengers.fill(0)
 	rows[key].passenger_lives.resize(d.seats.size()-1);rows[key].passenger_lives.fill(-1)
 	make_body(key);rules.spend(id,d.price)
@@ -93,6 +122,7 @@ func reachable(id: int,key: int,slot: int) -> bool:
 func board(id: int,key: int,slot: int=-1) -> bool:
 	if not multiplayer.is_server() or not eligible(id) or not rows.has(key) or mounted(id) or game.clock<float(locks.get(id,0)):return false
 	var s: Dictionary=game.players[id];var row: Dictionary=rows[key]
+	if row.get("deployed",false) and row.team!=s.team:return false
 	if rules.mode.st.carried(id)>=0 or row.ready>game.clock:return false
 	var seats:=occupants(row)
 	if slot<0:
@@ -103,7 +133,7 @@ func board(id: int,key: int,slot: int=-1) -> bool:
 				var near: float=game.fighters[id].position.distance_squared_to(seat_position(row,i))
 				if seats[i]==0 and near<distance and reachable(id,key,i):slot=i;distance=near
 	if slot<0 or slot>=seats.size() or seats[slot]!=0 or slot==0 and s.tribes_class!="light" or not reachable(id,key,slot):return false
-	if slot==0:row.pilot=id;row.life=s.serial;row.team=s.team
+	if slot==0:row.pilot=id;row.life=s.serial;row.team=s.team;deployment_held[key]=false
 	else:row.passengers[slot-1]=id;row.passenger_lives[slot-1]=s.serial
 	row.idle_until=game.clock+120
 	bodies[key].add_collision_exception_with(game.fighters[id]);game.fighters[id].add_collision_exception_with(bodies[key])
@@ -141,7 +171,7 @@ func leave(id: int,force: bool=false) -> bool:
 		actor.render_mount=Callable();actor.clear_mounted_visuals()
 		actor.position=exit if exit!=Vector3.INF else seat_position(row,slot)+Vector3.UP*2.2
 		actor.velocity=row.velocity+Vector3.UP*5;actor.prediction.clear();actor.reset_view()
-	if slot==0:row.pilot=0;row.life=-1
+	if slot==0:row.pilot=0;row.life=-1;deployment_held[key]=false
 	else:row.passengers[slot-1]=0;row.passenger_lives[slot-1]=-1
 	row.idle_until=game.clock+120;locks[id]=game.clock+3
 	return true
@@ -154,7 +184,9 @@ func handle_player(id: int,jump: bool,delta: float=1.0/60) -> bool:
 		s.cooldown=maxf(0,s.cooldown-delta)
 		if eligible(id) and game.clock-s.last_input<=.35:
 			var held: Array=game.fire_delivery.begin_attempt(s,game.clock)
-			rules.combat.tick_input(id,delta)
+			if armed_seat(id):
+				if s.fire:fire(vehicle_for(id),id)
+			else:rules.combat.tick_input(id,delta)
 			game.fire_delivery.end_attempt(s,held)
 	return mounted(id)
 func departed(id: int):
@@ -166,7 +198,9 @@ func remove(key: int):
 	for id in occupants(rows[key]):
 		if id!=0:leave(id,true)
 	if is_instance_valid(bodies.get(key)):bodies[key].free()
-	bodies.erase(key);rows.erase(key)
+	bodies.erase(key);rows.erase(key);deployment_held.erase(key);deployment_locks.erase(key)
+	for lock in weapon_locks.keys():
+		if lock.x==key:weapon_locks.erase(lock)
 	for pair in impact_locks.keys():
 		if pair.x==key:impact_locks.erase(pair)
 	render_motion.erase(key);render_frames.erase(key)
@@ -187,7 +221,7 @@ func tick(delta: float):
 			var person: int=seats[slot]
 			if person!=0 and (not game.players.has(person) or game.players[person].dead or game.players[person].spectator or game.players[person].serial!=lives[slot]):leave(person,true)
 		var id: int=row.pilot
-		if occupants(row).all(func(person):return person==0) and game.clock>row.idle_until:remove(key);continue
+		if occupants(row).all(func(person):return person==0) and not row.get("deployed",false) and game.clock>row.idle_until:remove(key);continue
 		var s: Dictionary=game.players.get(id,{})
 		var enabled: bool=id!=0 and eligible(id) and game.clock-s.last_input<=.35
 		var control:=Data.controls(s if enabled else {})
@@ -230,21 +264,41 @@ func tick(delta: float):
 			if person!=0 and game.fighters.has(person):preload("res://deathmatch/movement/tribes.gd").energy_tick(game.fighters[person].tribes_state,false,delta)
 		if enabled:
 			var held: Array=game.fire_delivery.begin_attempt(s,game.clock)
-			if s.fire:fire(key)
+			if row.kind=="jericho":
+				if s.fire and not deployment_held.get(key,false):deploy(key)
+				deployment_held[key]=s.fire
+			elif s.fire:fire(key)
 			game.fire_delivery.end_attempt(s,held)
+		if row.get("deployed",false):base_defence(key)
 		if row.position.y<game.fall_limit:remove(key)
 	for key in rockets.keys():
 		var rocket: Dictionary=rockets[key];rocket.life-=delta
+		var shot:=Data.projectile(rocket.get("kind","scout"))
+		rocket.velocity.y-=float(shot.get("gravity",0.0))*delta
 		var end: Vector3=rocket.position+rocket.velocity*delta
 		var hit: Dictionary=game._trace(rocket.position,end,rocket.owner)
-		rocket.velocity+=rocket.direction*minf(Data.ROCKET_ACCEL*delta,maxf(0,Data.ROCKET_TERMINAL-rocket.speed));rocket.speed=minf(Data.ROCKET_TERMINAL,rocket.speed+Data.ROCKET_ACCEL*delta)
+		rocket.velocity+=rocket.direction*minf(shot.accel*delta,maxf(0,shot.terminal-rocket.speed));rocket.speed=minf(shot.terminal,rocket.speed+shot.accel*delta)
 		if hit.hit or rocket.life<=0:
 			var at: Vector3=hit.position if hit.hit else end
 			# Keep blast visibility rays outside the struck face. Starting exactly
 			# on it lets the shared ray bias begin inside a thin wall.
 			if hit.hit:at+=hit.get("surface_normal",-rocket.direction)*.08
-			rules.combat.blast(at,rocket.owner,{"name":"SCOUT ROCKET","splash":Data.ROCKET_DAMAGE,"blast_radius":Data.ROCKET_RADIUS,"kick":250.0,"turret_team":rocket.team if not game.players.has(rocket.owner) else -2})
-			game._ability_fx.rpc("explosion",at,at,rocket.team);rockets.erase(key)
+			if shot.radius>0:
+				rules.combat.blast(at,rocket.owner,{"name":shot.name,"splash":shot.damage,"blast_radius":shot.radius,"kick":250.0,"turret_team":rocket.team if not game.players.has(rocket.owner) else -2})
+				game._ability_fx.rpc("explosion",at,at,rocket.team)
+			elif hit.hit:
+				# A Shrike bolt is a direct blaster hit, never a Scout explosion.
+				var target_team: int=game.players.get(hit.id,{}).get("team",-2)
+				if hit.has("scout"):target_team=rows.get(hit.scout,{}).get("team",-2)
+				elif hit.has("generator"):target_team=int(hit.generator)
+				elif hit.has("base_asset"):target_team=rules.stations().assets.rows[hit.base_asset].team
+				elif hit.has("fixed_turret"):target_team=rules.stations().defences.rows[hit.fixed_turret].team
+				elif hit.has("deployable"):target_team=rules.deployables.rows.get(hit.deployable,{}).get("team",-2)
+				if rules.mode.friendly_fire or target_team!=rocket.team:
+					game._damage_map_hit(hit,rocket.owner,shot.damage,"Blaster")
+					if hit.id!=0:game._damage(hit.id,rocket.owner,shot.damage,shot.name,false,hit.position,rocket.direction)
+				game._ability_fx.rpc("scout_fire",at,at+rocket.direction*.3,rocket.team)
+			rockets.erase(key)
 		else:rocket.position=end
 func impact_player(key: int,victim: int,velocity: Vector3,direction: Vector3,point: Vector3) -> bool:
 	if not multiplayer.is_server() or not active() or not rows.has(key) or not game.players.has(victim) or not game.fighters.has(victim):return false
@@ -264,21 +318,47 @@ func impact_player(key: int,victim: int,velocity: Vector3,direction: Vector3,poi
 	actor.apply_blast(direction*minf(28,closing*.8)+Vector3.UP*minf(3,closing*.12))
 	game._damage(victim,row.pilot,roundi(d.ram*100/.66*minf(1,closing/d.speed)),d.name+" IMPACT",false,point,direction)
 	return true
-func fire(key: int) -> bool:
+func base_defence(key: int):
+	var row: Dictionary=rows[key]
+	if row.passengers[0]!=0 or game.clock<row.next_fire or rockets.size()>=64:return
+	var start: Vector3=row.position+Vector3.UP*2.5;var target:=Vector3.INF;var best:=60.0
+	for id in game.players:
+		var s: Dictionary=game.players[id]
+		if s.dead or s.spectator or s.team==row.team or not game.fighters.has(id):continue
+		var point: Vector3=game.fighters[id].position+Vector3.UP
+		var distance:=start.distance_to(point)
+		if distance>=best:continue
+		if not game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,point,1,[bodies[key].get_rid()])).is_empty():continue
+		target=point;best=distance
+	if target!=Vector3.INF:
+		launch(key,0,"jericho",start,(target-start).normalized());row.next_fire=game.clock+Data.projectile("jericho").cycle
+func launch(key: int,id: int,kind: String,start: Vector3,direction: Vector3):
+	var row: Dictionary=rows[key];var shot:=Data.projectile(kind)
+	rockets[next_rocket]={"position":start,"velocity":direction*shot.speed+row.velocity*(1.0 if kind=="thundersword" else .5),"direction":direction,"speed":shot.speed,"owner":id,"team":row.team,"life":shot.life,"kind":kind};next_rocket+=1
+	if game.players.has(id):game.players[id].invulnerable=0;game.players[id].shots+=1
+	game._ability_fx.rpc("scout_fire",start,start+direction*2,row.team)
+func fire(key: int,operator: int=0) -> bool:
 	if not multiplayer.is_server() or not rows.has(key) or rockets.size()>=64:return false
-	var row: Dictionary=rows[key];var id: int=row.pilot
-	if row.get("kind","scout")!="scout" or id==0 or not eligible(id) or game.clock<row.next_fire or game.clock<row.ready:return false
-	var pose:=frame(row);var muzzle: Vector3=Data.MUZZLE;muzzle.x*=1 if next_rocket%2 else -1
+	var row: Dictionary=rows[key];var id: int=operator if operator!=0 else row.pilot
+	var slot:=seat_for(id,row);var kind:=Data.weapon(row.kind,slot)
+	if kind=="" or id==0 or not eligible(id) or game.clock<row.ready:return false
+	# The pilot can fire the main weapon only while its dedicated seat is empty.
+	if slot==0 and row.kind in ["beowulf","thundersword"] and row.passengers[0]!=0:return false
+	var channel:=Vector2i(key,2 if kind=="tailgun" else 0)
+	if game.clock<float(weapon_locks.get(channel,0.)) or kind!="tailgun" and game.clock<row.next_fire:return false
+	var shot:=Data.projectile(kind);var pose:=frame(row);var state: Dictionary=game.players[id]
+	var direction:=pose.basis*Basis(Vector3.RIGHT,row.pitch)*Vector3.FORWARD
+	if slot>0 or kind=="beowulf":direction=Basis(Vector3.UP,state.yaw)*Basis(Vector3.RIGHT,clampf(state.pitch,-.7,.7))*Vector3.FORWARD
+	if state.get("vr_device",false) and not state.get("xr",{}).is_empty():direction=(Basis(Vector3.UP,state.yaw)*state.xr.weapon.basis*Vector3.FORWARD).normalized()
+	var muzzle: Vector3=shot.muzzle
+	if kind in ["scout","shrike"]:muzzle.x*=1 if next_rocket%2 else -1
 	var start: Vector3=pose*muzzle
+	if kind in ["beowulf","tailgun","jericho"]:start=row.position+Vector3.UP*shot.muzzle.y+direction*(4.5 if kind=="beowulf" else 1.5)
+	if kind=="thundersword":direction=Vector3.DOWN
 	var ray:=PhysicsRayQueryParameters3D.create(row.position,start,1,[bodies[key].get_rid()])
 	if not game.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():return false
-	var direction:=pose.basis*Basis(Vector3.RIGHT,row.pitch)*Vector3.FORWARD
-	var state: Dictionary=game.players[id]
-	if state.get("vr_device",false) and not state.get("xr",{}).is_empty():
-		direction=(Basis(Vector3.UP,state.yaw)*state.xr.weapon.basis*Vector3.FORWARD).normalized()
-	rockets[next_rocket]={"position":start,"velocity":direction*Data.ROCKET_SPEED+row.velocity*.5,"direction":direction,"speed":Data.ROCKET_SPEED,"owner":id,"team":row.team,"life":Data.ROCKET_LIFE};next_rocket+=1
-	row.next_fire=game.clock+Data.ROCKET_CYCLE;game.players[id].invulnerable=0;game.players[id].shots+=1
-	game._ability_fx.rpc("scout_fire",start,start+direction*2,row.team)
+	launch(key,id,kind,start,direction);weapon_locks[channel]=game.clock+shot.cycle
+	if kind!="tailgun":row.next_fire=game.clock+shot.cycle
 	return true
 func trace(start: Vector3,end: Vector3,hit: Dictionary,radius: float) -> Dictionary:
 	var distance:=start.distance_to(hit.position)
@@ -317,13 +397,16 @@ static func valid(data: Variant) -> bool:
 	var pilots: Array=[]
 	for key in data.rows:
 		var row=data.rows[key]
-		if not key is int or key<=0 or not row is Dictionary or row.size() not in [13,16]:return false
+		if not key is int or key<=0 or not row is Dictionary or row.size() not in [13,16,17]:return false
 		for field in ["position","velocity","yaw","pitch","bank","hp","pilot","life","team","owner_team","ready","next_fire","idle_until"]:
 			if not row.has(field):return false
 		var kind=row.get("kind","scout")
 		if not kind is String or kind not in Data.KINDS:return false
 		var d:=Data.definition(kind)
-		if row.size()==16:
+		if kind=="jericho":
+			if row.size()!=17 or not row.get("deployed") is bool:return false
+		elif row.size()==17:return false
+		if row.size()>=16:
 			if not row.has("kind") or not row.get("passengers") is Array or not row.get("passenger_lives") is Array or row.passengers.size()!=d.seats.size()-1 or row.passenger_lives.size()!=row.passengers.size():return false
 			for i in row.passengers.size():
 				var person=row.passengers[i];var life=row.passenger_lives[i]
@@ -341,7 +424,7 @@ static func valid(data: Variant) -> bool:
 			pilots.append(row.pilot)
 	for key in data.rockets:
 		var row=data.rockets[key]
-		if not key is int or key<=0 or not row is Dictionary or row.size()!=7:return false
+		if not key is int or key<=0 or not row is Dictionary or row.size() not in [7,8]:return false
 		for field in ["position","velocity","direction","speed","life","owner","team"]:
 			if not row.has(field):return false
 		if not row.team is int:return false
@@ -349,7 +432,10 @@ static func valid(data: Variant) -> bool:
 			if not row.get(field) is Vector3 or not row[field].is_finite() or row[field].length()>20000:return false
 		for field in ["speed","life"]:
 			if not (row.get(field) is int or row.get(field) is float) or not is_finite(float(row[field])):return false
-		if row.life<0 or row.life>Data.ROCKET_LIFE or row.speed<0 or row.speed>Data.ROCKET_TERMINAL or not row.owner is int or row.team not in [0,1] or absf(row.direction.length()-1)>.01:return false
+		if row.get("kind","scout") not in Data.ARMED:return false
+		var shot:=Data.projectile(row.get("kind","scout"))
+		if row.size()==8 and not row.has("kind"):return false
+		if row.life<0 or row.life>shot.life or row.speed<0 or row.speed>shot.terminal or not row.owner is int or row.team not in [0,1] or absf(row.direction.length()-1)>.01:return false
 	return true
 func receive(data: Dictionary):
 	if not valid(data):return

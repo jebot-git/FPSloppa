@@ -1,0 +1,189 @@
+[
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_mia.zip",
+    "sha256": "6e5491e9f797e2cf990c84eb9cbb9a9711d6552e4e39946db1b7dfa8caadbb8a",
+    "inspected": [
+      {
+        "member": "mia.wad",
+        "header_hex": "505741446f00000084980d0020446575",
+        "bytes": 892788
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Doom sector WAD geometry"
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_dchurch.zip",
+    "sha256": "e295d2ec00f92ea2a55e21c120641a8d0408f6b6d71b30cb45fff7c7c6bc1f01",
+    "inspected": [
+      {
+        "member": "dchurch.wad",
+        "header_hex": "505741440b0000000e730000e1ff2203",
+        "bytes": 29630
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Doom sector WAD geometry"
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_propain.zip",
+    "sha256": "6edbae4338779eabdbd0e4e83276049d0a2acb2f0d451781c82ffcd00c694f03",
+    "inspected": [
+      {
+        "member": "propain.wad",
+        "header_hex": "505741440b0000007b7e010037ff7000",
+        "bytes": 98091
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Doom sector WAD geometry"
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_refuge.zip",
+    "sha256": "aa1e85915a9f0cc8ab7ea8f06d62f23034759c64c29e6101c45079ef9fda5738",
+    "inspected": [
+      {
+        "member": "REFUGE.WAD",
+        "header_hex": "505741440b000000266a010003017e02",
+        "bytes": 92886
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Doom sector WAD geometry"
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_reality.zip",
+    "sha256": "87cd603076e39519ef4173e7f17e04d5120d8521f986c03663807a363e9bc67d",
+    "inspected": [
+      {
+        "member": "REALITY.WAD",
+        "header_hex": "505741440b00000033040200b907ba0c",
+        "bytes": 132323
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Doom sector WAD geometry"
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_landau.zip",
+    "sha256": "4b3162b0b7934f6367a2852a82314cd5ea5ee758be535fe9deb24f6b593a4e1d",
+    "inspected": [
+      {
+        "member": "LANDAU.WAD",
+        "header_hex": "5057414412000000806c020020446575",
+        "bytes": 159136
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Doom sector WAD geometry"
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_frozen_in_time.zip",
+    "sha256": "f0970cab7898aa54b791c5fa20db1dfe2f3d80335579e398e9255844db8685b7",
+    "inspected": [
+      {
+        "member": "frozen_in_time/4p_map_Frozen_in_Time.sgb",
+        "header_hex": "52656c6963204368756e6b790d0a1a00",
+        "bytes": 1125622
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Non-Quake game geometry; no supported BSP source"
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_green_hell.zip",
+    "sha256": "a8e22cf18e5c4848ebb607dd077b98126ac3197b0b3cf2e763913d121839cf43",
+    "inspected": [
+      {
+        "member": "green_hell/4p_map_Green_Hell.sgb",
+        "header_hex": "52656c6963204368756e6b790d0a1a00",
+        "bytes": 1173360
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Non-Quake game geometry; no supported BSP source"
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_duelingkeeps.zip",
+    "sha256": "3f5768d8a6779486361285b3b5a194d062746f83a8369c35444922de38f09f72",
+    "inspected": [
+      {
+        "member": "(2)DuelingKeeps.w3x",
+        "header_hex": "484d335700000000546865204475656c",
+        "bytes": 105465
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Non-Quake game geometry; no supported BSP source"
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_suddendeath.zip",
+    "sha256": "435c7e6a13296342169923de7fd60643eed7921031d77bd0cb84319b0eae118a",
+    "inspected": [
+      {
+        "member": "(2)SuddenDeath.w3x",
+        "header_hex": "484d33570000000053756464656e2044",
+        "bytes": 52225
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Non-Quake game geometry; no supported BSP source"
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_mushroommadness.zip",
+    "sha256": "dec23168a3789005e49ef11e35f8570da9c22d163705227d7a55eaf8fa04c6b0",
+    "inspected": [
+      {
+        "member": "(4)MushroomMadness.w3x",
+        "header_hex": "484d3357000000004d757368726f6f6d",
+        "bytes": 116580
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Non-Quake game geometry; no supported BSP source"
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_psycho.zip",
+    "sha256": "3b24cb210342939825d8853b18a239da2c7324b1471995f0644ce72fdc1d0657",
+    "inspected": [
+      {
+        "member": "psycho.map",
+        "header_hex": "07000000f8880000f382000078f1ffff",
+        "bytes": 54414
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Non-Quake game geometry; no supported BSP source"
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_spiritworld.zip",
+    "sha256": "6247279c3499b3b22ebb01a69a6e03675a9945318d35ae415b564cf96acd237e",
+    "inspected": [
+      {
+        "member": "spiritworld/DEADLYSPIRIT.DUEL",
+        "header_hex": "00000000000000000000000000000000",
+        "bytes": 13440
+      },
+      {
+        "member": "spiritworld/SPIRITWORLD.COOP",
+        "header_hex": "00000000000000000000000000000000",
+        "bytes": 13440
+      }
+    ],
+    "status": "requires separate converter",
+    "reason": "Non-Quake game geometry; no supported BSP source"
+  }
+]

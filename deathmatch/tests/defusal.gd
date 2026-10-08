@@ -19,10 +19,10 @@ func arm(id: int,site: int=0):
 	for i in 4:g.clock+=.2;de.digit(id,de.arm_code[de.arm_index])
 func run():
 	var cfg: Dictionary=Config.parse('set sv_gametype "de"\nset sv_weapon_rules "doom"')
-	check(not cfg.has("error") and cfg.values.sv_weapon_rules=="cs16" and cfg.values.map=="de_dust2_rebuilt" and cfg.values.maps==preload("res://deathmatch/modes/defusal_maps.gd").IDS,"Server DE config forces CS loadout and defaults to classic map rotation")
+	check(not cfg.has("error") and cfg.values.sv_weapon_rules=="cs16" and cfg.values.map=="de_varq_dust2" and cfg.values.maps==preload("res://deathmatch/modes/defusal_maps.gd").base_ids(),"Server DE config forces CS loadout and defaults to classic map rotation")
 	check(Config.parse('set sv_de_prepare "0"').has("error") and Config.parse('set sv_de_bombtime "999"').has("error"),"Invalid DE timers rejected")
 	g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g)
-	g.selected_map="de_dust2_rebuilt"
+	g.selected_map="de_varq_dust2"
 	g.start_host("Bomb test",0,20,10,true,"de","doom",27)
 	if is_instance_valid(g.bots):g.bots.free();g.bots=null
 	g.set_process(false);g.set_physics_process(false);de=g.match_mode.defusal
@@ -30,7 +30,7 @@ func run():
 	check(g.active and g.current_map==de.MAP and g.armory.effective()=="cs16","Practice starts DE on Dust2 with forced CS weapons")
 	check(not g._load_map("qsrc_dm1"),"Unsupported map cannot be loaded as DE")
 	var offered_maps: Array=g.maps_for_mode("de")
-	check(de.Maps.IDS.all(func(id):return id in offered_maps),"Host/votes expose all five built-in DE maps alongside installed conversions")
+	check(de.Maps.IDS.all(func(id):return id in offered_maps),"Host/votes expose retained built-in DE maps alongside installed conversions")
 	for role in 2:
 		for p in de.starts[role]:
 			var hit: Dictionary=g.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(p+Vector3.UP*.2,p-Vector3.UP*.3,1))
@@ -81,6 +81,8 @@ func run():
 	check(de.phase=="live","All attackers dead still requires bomb defusal")
 	var serial: int=s.serial;s.want_respawn=true;g.clock+=3.1;g._server_tick(.1)
 	check(s.dead and s.serial==serial,"Dead players cannot auto-respawn or press to respawn")
+	# Isolate cutter interaction from the weapon-use pickup priority at this site.
+	g.dropped_weapons.clear()
 	g.fighters[-1].position=de.bomb_position+Vector3(0,0,.7)
 	check(de.use(-1) and de.account(-1).tool,"CT equips purchased cutters near the bomb")
 	for wire in 3:g.clock+=.2;de.cut(-1,wire)

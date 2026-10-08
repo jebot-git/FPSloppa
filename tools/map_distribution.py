@@ -4,12 +4,16 @@ import hashlib,json
 ROOT=Path(__file__).resolve().parents[1]
 TF_MAPS={'tf_pressureworks':'Pressureworks','tf_vesper':'VesperAbbey'}
 AS_MAPS=('as_hislop','as_frigate')
-ST_MAPS=('ctf_stonehenge','ctf_raindance','ctf_katabatic')
+EXPANSIONS=json.loads((ROOT/'tools/expansions/catalog.json').read_text())
+ST_MAPS=('ctf_stonehenge','ctf_raindance','ctf_katabatic')+tuple(r['id'] for r in EXPANSIONS if r['mode']=='st')
+DE_EXPANSION=tuple(r['id'] for r in EXPANSIONS if r['mode']=='de')
+RETIRED_DE=set(json.loads((ROOT/'deathmatch/maps/retired.json').read_text()))
 DOC_SUFFIXES={'.md','.txt','.json','.png','.mp4','.map','.wad'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def distributable(path):
     p=Path(path)
-    if p.parts[:3] in {('tools','tribes','sources'),('tools','tribes','refined'),('tools','katabatic','local')}:return False
+    if p.stem in RETIRED_DE or any(p.name.startswith(key+'-') for key in RETIRED_DE):return False
+    if p.parts[:3] in {('tools','t2_classic','local'),('tools','varq_de','local'),('tools','tf_anniversary','local'),('tools','tribes','sources'),('tools','tribes','refined'),('tools','katabatic','local')}:return False
     if p.name.startswith('reference-') and p.parts[0]=='maps':return False
     if p.parts[:3] == ('docs','audio','skyward-relay'):return False
     if p.name.startswith('skyward_relay'):
@@ -86,3 +90,6 @@ def check_selection(paths):
     assert {Path(p).stem for p in names if p.startswith('maps/ctf_') and p.endswith('.bsp')}==ctf|set(ST_MAPS)
     assert set(rotation('ctf'))==ctf
     assert rotation('st')==list(ST_MAPS)
+
+    assert {Path(p).stem for p in names if p.startswith("maps/de_varq_") and p.endswith(".bsp")}==set(DE_EXPANSION)
+    assert set(DE_EXPANSION)<=set(rotation("de"))

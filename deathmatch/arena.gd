@@ -10,7 +10,7 @@ const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 var native_projectiles=preload("res://deathmatch/native/runtime.gd").projectiles()
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-71-native-special-trace"
+const PROTOCOL := "fpsloppa-72-st-classic-vehicles"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -1129,7 +1129,7 @@ func _predict_shots(id: int,command: Dictionary) -> void:
 	var s:Dictionary=players[id]
 	shot_prediction.sync(s.serial,s.weapon)
 	if headless or s.dead or s.spectator or command.get("input_blocked",false) or command.weapon!=s.weapon or intermission>0 or lobby.active() or match_mode.special.blocked(id):return
-	if match_mode.defusal.combat_blocked(id) or match_mode.fortress.walkers.mounted(id) or match_mode.tribes.vehicles.piloting(id):return
+	if match_mode.defusal.combat_blocked(id) or match_mode.fortress.walkers.mounted(id) or match_mode.tribes.vehicles.weapon_operator(id):return
 	if armory.effective()=="tribes" or armory.vr_physical_only(s.weapon) and (s.vr_device or command.has("xr")):return
 	var w:int=s.weapon
 	for offhand in [false,true]:
@@ -1918,6 +1918,7 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	if attacker!=victim and players.has(attacker): _hit_confirm.rpc(attacker)
 	if not impact.is_finite(): impact=fighters[victim].position+Vector3.UP
 	if direction.length()<.1 and fighters.has(attacker): direction=(fighters[victim].position-fighters[attacker].position).normalized()
+	if s.hp>0 and is_instance_valid(bots):bots.awareness.damaged(bots,victim,attacker,direction)
 	var gibbed: bool=s.hp==0 and (damage.x-old_hp>=25 or weapon_name in ["ROCKET LAUNCHER","BFG 9000","TITAN CRUSH"])
 	server_log.record("damage",{"victim":victim,"attacker":attacker,"damage":damage.x,"remaining_hp":s.hp,"remaining_armor":s.armor,"weapon":weapon_name,"fatal":s.hp==0,"gibbed":gibbed,"blast":blast,"hull_contact":hull_contact},2)
 	if s.hp==0 and match_mode.fortress.walkers.mounted(victim):
@@ -2592,7 +2593,7 @@ func _process(delta: float) -> void:
 	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead and not s.spectator and not match_mode.defusal.observing() else fighters[multiplayer.get_unique_id()].eye_height(),minf(1,delta*8))
 	camera.global_position = match_mode.defusal.observer_origin(fighters[multiplayer.get_unique_id()].render_position())+Vector3.UP*(camera_eye_height+fighters[multiplayer.get_unique_id()].render_view_offset())
 	fighters[multiplayer.get_unique_id()].rotation.y = local_yaw
-	viewmodel.visible = not match_mode.tribes.enhancer.active and not match_mode.tribes.vehicles.piloting(multiplayer.get_unique_id()) and not match_mode.defusal.gun_holstered(multiplayer.get_unique_id()) and not s.dead and not menu_open and not lobby.active()
+	viewmodel.visible = not match_mode.tribes.enhancer.active and not match_mode.tribes.vehicles.weapon_operator(multiplayer.get_unique_id()) and not match_mode.defusal.gun_holstered(multiplayer.get_unique_id()) and not s.dead and not menu_open and not lobby.active()
 	weapon_bob_time+=delta
 	weapon_bob_speed=lerpf(weapon_bob_speed,fighters[multiplayer.get_unique_id()].velocity.length(),1-exp(-12*delta))
 	var speed: float = weapon_bob_speed

@@ -25,7 +25,10 @@ func configure(arena: Node,level: Node) -> void:
    var baked: bool=mat is ShaderMaterial and mat.shader in [BAKED,preload("res://deathmatch/maps/quake_light.gdshader")]
    if not baked and not mat is BaseMaterial3D:continue
    var name:=str(mat.get_meta("bsp_texture_name",""))
-   if baked:shaded.append(mat)
+   if baked:
+    shaded.append(mat)
+    if mat.shader==preload("res://deathmatch/maps/quake_light.gdshader"):
+     mat.set_shader_parameter("minimum_baked_light",.30 if Atmosphere.Skies.canonical(str(game.current_map)).begins_with("ctf_t2_") else 0.0)
    if name.begins_with("*"):
     liquids.append({"material":mat,"offset":mat.uv1_offset if mat is BaseMaterial3D else Vector3.ZERO})
     if mat is BaseMaterial3D:drifting.append(liquids.back())

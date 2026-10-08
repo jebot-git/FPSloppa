@@ -1819,35 +1819,6 @@
     "distribution": "base"
   },
   {
-    "id": "de_inferno_rebuilt",
-    "title": "Inferno | Classic layout reconstruction",
-    "modes": [
-      "de"
-    ],
-    "path": "res://maps/de_inferno_rebuilt.bsp",
-    "scene": "res://maps/cache/de_inferno_rebuilt.scn",
-    "sha256": "209038cf9eea48574e843f2e252b71bb02664b50cd1a45f9998695f1955c18d9",
-    "distribution": "base",
-    "expansion": "classic-de"
-  },
-  {
-    "id": "de_dust2_rebuilt",
-    "title": "Dust2 | Classic layout reconstruction",
-    "modes": [
-      "dm",
-      "tdm",
-      "ig",
-      "ft",
-      "if",
-      "de"
-    ],
-    "path": "res://maps/de_dust2_rebuilt.bsp",
-    "scene": "res://maps/cache/de_dust2_rebuilt.scn",
-    "sha256": "d78fd878ca89bfb1d23e18b883d1e75b8343e551d5c44750ae1ed35a1bb46993",
-    "distribution": "base",
-    "expansion": "dust2-rebuilt"
-  },
-  {
     "id": "de_aztec_rebuilt",
     "title": "Aztec | Classic layout reconstruction",
     "modes": [
@@ -1856,18 +1827,6 @@
     "path": "res://maps/de_aztec_rebuilt.bsp",
     "scene": "res://maps/cache/de_aztec_rebuilt.scn",
     "sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b",
-    "distribution": "base",
-    "expansion": "classic-de"
-  },
-  {
-    "id": "de_nuke_rebuilt",
-    "title": "Nuke | Classic layout reconstruction",
-    "modes": [
-      "de"
-    ],
-    "path": "res://maps/de_nuke_rebuilt.bsp",
-    "scene": "res://maps/cache/de_nuke_rebuilt.scn",
-    "sha256": "614551c6dc279f991ac0f553cee610e4540abeb14d70a00224d1845db5351fb3",
     "distribution": "base",
     "expansion": "classic-de"
   },
@@ -1888,8 +1847,8 @@
     "title": "Stonehenge | Tribes terrain study",
     "path": "res://maps/ctf_stonehenge.bsp",
     "scene": "res://maps/cache/ctf_stonehenge.scn",
-    "sha256": "d0fe5f86de55623ea21c305de18058a2ea1f2aa1906a5ba5ab64f5b9bbca3f47",
-    "size": 10592496,
+    "sha256": "b4c5c4eaa50420fc260a3e358f758d84e887f9b6a2e7fd1ddc5a47347d42fa8e",
+    "size": 6827500,
     "modes": [
       "st"
     ],
@@ -1914,8 +1873,8 @@
     "title": "Raindance | Tribes CTF",
     "path": "res://maps/ctf_raindance.bsp",
     "scene": "res://maps/cache/ctf_raindance.scn",
-    "sha256": "48bc28440f0a2f08f1a9654d840b00b639bbfd6a4dfc2e5ade826966bde337b9",
-    "size": 9084348,
+    "sha256": "7c80ddf6586094bf942d06a6d8be1e1c1b3bd8a1f827adbc3148695658f75cbf",
+    "size": 5450004,
     "modes": [
       "st"
     ],
@@ -1940,8 +1899,8 @@
     "title": "Katabatic | Tribes 2 CTF",
     "path": "res://maps/ctf_katabatic.bsp",
     "scene": "res://maps/cache/ctf_katabatic.scn",
-    "sha256": "aa32b947a22e0206cc5a13268c5603a5da5e4bd1a3647849c5a2e7aa64e19038",
-    "size": 10653020,
+    "sha256": "e5951d56c2d379e4947632eb4e22e3e111775218b488bc3984f6b42b3b02edb3",
+    "size": 10770604,
     "modes": [
       "st"
     ],
@@ -1960,5 +1919,1483 @@
         -384.576
       ]
     }
+  },
+  {
+    "id": "ctf_t2_acidrain",
+    "title": "Acid Rain | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_acidrain.bsp",
+    "scene": "res://maps/cache/ctf_t2_acidrain.scn",
+    "sha256": "5a26ea879d0760b7e85e070a58d2c9a80cd8083e90bdb3c80554f6a8761168c9",
+    "size": 13841040,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_acidrain",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -154.46,
+        79.58,
+        471.59
+      ],
+      "blue": [
+        253.669,
+        80.3143,
+        -390.396
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_blastside",
+    "title": "Blastside | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_blastside.bsp",
+    "scene": "res://maps/cache/ctf_t2_blastside.scn",
+    "sha256": "04beca5f3f0c1a5f95414587a45a3e6390181d1357f1281f8510672c1ee60eee",
+    "size": 10034640,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_blastside",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -108.8174,
+        130.103,
+        -111.37114
+      ],
+      "blue": [
+        138.475,
+        155.423,
+        254.117
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_broadside",
+    "title": "Broadside | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_broadside.bsp",
+    "scene": "res://maps/cache/ctf_t2_broadside.scn",
+    "sha256": "f76fd185e41e381e4f957ae3ab8bdcab7a2dce9b6675222fdacfd3e20f27ba77",
+    "size": 10017528,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_broadside",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -103.2158,
+        137.103,
+        -102.0101
+      ],
+      "blue": [
+        131.624,
+        162.423,
+        245.603
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_confusco",
+    "title": "Confusco | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_confusco.bsp",
+    "scene": "res://maps/cache/ctf_t2_confusco.scn",
+    "sha256": "109b1742a43791851bbb80c9700db952056f8e7e5c39f476ec1ed40a88a339d8",
+    "size": 9947748,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_confusco",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        289.397,
+        220.228,
+        5.22518
+      ],
+      "blue": [
+        -295.99,
+        220.182,
+        5.15145
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_dangerouscrossing",
+    "title": "Dangerous Crossing | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_dangerouscrossing.bsp",
+    "scene": "res://maps/cache/ctf_t2_dangerouscrossing.scn",
+    "sha256": "f15f72b33016d01d33b9dec258e22fced52fb2f785345d1bfb9f8a202d73d1d6",
+    "size": 5593228,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_dangerouscrossing",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -277.94,
+        104.286,
+        -205.4191
+      ],
+      "blue": [
+        221.15,
+        110.852,
+        125.138
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_desertofdeath",
+    "title": "Desert of Death | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_desertofdeath.bsp",
+    "scene": "res://maps/cache/ctf_t2_desertofdeath.scn",
+    "sha256": "626f151ead8a595b41324a22ff4c2bbbe063c77c34aafc386312f6e2382ab68a",
+    "size": 5533104,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_desertofdeath",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        41.8228,
+        114.838,
+        606.545
+      ],
+      "blue": [
+        -188.046,
+        102.567,
+        -523.435
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_gorgon",
+    "title": "Gorgon | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_gorgon.bsp",
+    "scene": "res://maps/cache/ctf_t2_gorgon.scn",
+    "sha256": "ff6c7ceaa265fcec678403e7c8630b0c8167da32e119182925549c0be51eaca9",
+    "size": 8958664,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_gorgon",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        5.15,
+        53.6238,
+        -144.45
+      ],
+      "blue": [
+        5.142,
+        53.6238,
+        147.4846
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_hillside",
+    "title": "Hillside | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_hillside.bsp",
+    "scene": "res://maps/cache/ctf_t2_hillside.scn",
+    "sha256": "36a3c58a40abfd32225fc00dc1ebef9921568da4db1277a5314cebe6441ebfa3",
+    "size": 15467020,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_hillside",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -10.682,
+        247.079,
+        -499.938
+      ],
+      "blue": [
+        -17.434,
+        246.707,
+        494.058
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_iceridge",
+    "title": "IceRidge | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_iceridge.bsp",
+    "scene": "res://maps/cache/ctf_t2_iceridge.scn",
+    "sha256": "186489af98557247f1617322a9c528ec27f7ec41d3af463dcc31ce4f1f1eaa2d",
+    "size": 6187048,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_iceridge",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        73.8295,
+        132.715,
+        365.626
+      ],
+      "blue": [
+        20.1684,
+        150.3,
+        -405.1697
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_lakefront",
+    "title": "Lakefront | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_lakefront.bsp",
+    "scene": "res://maps/cache/ctf_t2_lakefront.scn",
+    "sha256": "95794d620a02822f910e41190600729c57aea7ce32c45477b3a4fec997d417fa",
+    "size": 11425400,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_lakefront",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        10.0,
+        188.65475,
+        383.4
+      ],
+      "blue": [
+        6.0,
+        188.65475,
+        -390.5
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_magmatic",
+    "title": "Magmatic | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_magmatic.bsp",
+    "scene": "res://maps/cache/ctf_t2_magmatic.scn",
+    "sha256": "29beb6ae33e918d887c0d89f67e7500ca77611181d6a10c5bd23b07a041f801f",
+    "size": 8971288,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_magmatic",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -503.021,
+        192.849,
+        8.2931
+      ],
+      "blue": [
+        522.691,
+        192.924,
+        9.762
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_ramparts",
+    "title": "Ramparts | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_ramparts.bsp",
+    "scene": "res://maps/cache/ctf_t2_ramparts.scn",
+    "sha256": "3b3e062f76008b0a9ed4e29442a3dbda6e380bccb1aaa7710fa9dd4826a463c8",
+    "size": 8023172,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_ramparts",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -9.09846,
+        213.159,
+        363.606
+      ],
+      "blue": [
+        -12.2402,
+        212.35,
+        -362.823
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_rollercoaster",
+    "title": "Rollercoaster | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_rollercoaster.bsp",
+    "scene": "res://maps/cache/ctf_t2_rollercoaster.scn",
+    "sha256": "5ae129c5a1f3e532961b6f9488e8907db54b0bf3c5dfb2b9b49e153ce9f6a191",
+    "size": 6911008,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_rollercoaster",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        390.161,
+        145.218,
+        37.7628
+      ],
+      "blue": [
+        -402.065,
+        144.494,
+        87.415
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_sandstorm",
+    "title": "Sandstorm | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_sandstorm.bsp",
+    "scene": "res://maps/cache/ctf_t2_sandstorm.scn",
+    "sha256": "9654fe1d76a7ef1e762e49d81ee7d8152d210bc154847e8ab4b13263430a3c48",
+    "size": 14116136,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_sandstorm",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        122.077,
+        167.958,
+        500.988
+      ],
+      "blue": [
+        -504.707,
+        168.175,
+        -133.23
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_scarabrae",
+    "title": "Scarabrae | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_scarabrae.bsp",
+    "scene": "res://maps/cache/ctf_t2_scarabrae.scn",
+    "sha256": "d013c0277c987c072e6a29fb125e33917656000308596d14cd98263ac6fbe185",
+    "size": 16044392,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_scarabrae",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -701.249,
+        242.415,
+        -280.886
+      ],
+      "blue": [
+        683.036,
+        233.327,
+        241.608
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_shockridge",
+    "title": "Shock Ridge | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_shockridge.bsp",
+    "scene": "res://maps/cache/ctf_t2_shockridge.scn",
+    "sha256": "9f7072b7bfb71845c9b2c3271bb8d146cf6c2759efc85365dd9c3efe35e2346a",
+    "size": 10611880,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_shockridge",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -21.91222,
+        368.453,
+        -534.861
+      ],
+      "blue": [
+        20.1497,
+        388.201,
+        524.989
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_snowblind",
+    "title": "Snowblind | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_snowblind.bsp",
+    "scene": "res://maps/cache/ctf_t2_snowblind.scn",
+    "sha256": "0c7a3284116b85bb189f0d5fd915914438e1f5fc3bb966a39fb3d0cff257100f",
+    "size": 6155356,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_snowblind",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        169.175,
+        185.128,
+        508.967
+      ],
+      "blue": [
+        -68.516,
+        190.635,
+        -431.49
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_starfallen",
+    "title": "Starfallen | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_starfallen.bsp",
+    "scene": "res://maps/cache/ctf_t2_starfallen.scn",
+    "sha256": "645435ba254c60c56c72a624d90c9ab1170264f865691138fc16901f35d24c18",
+    "size": 15650764,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_starfallen",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -517.701,
+        150.261,
+        -205.345
+      ],
+      "blue": [
+        189.746,
+        150.467,
+        500.77
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_subzero",
+    "title": "Sub-zero | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_subzero.bsp",
+    "scene": "res://maps/cache/ctf_t2_subzero.scn",
+    "sha256": "680c3351f82de3a54115e9b52caee13adadd40d09e0e05b89d1528913e6091c3",
+    "size": 7731604,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_subzero",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        403.175,
+        159.807,
+        28.638
+      ],
+      "blue": [
+        -411.059,
+        163.906,
+        12.279
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_surreal",
+    "title": "Surreal | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_surreal.bsp",
+    "scene": "res://maps/cache/ctf_t2_surreal.scn",
+    "sha256": "c0246d5f4139b10cb870ee1920d717a70fd884f66b1481497e08b701bd5cc992",
+    "size": 8746164,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_surreal",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -319.027,
+        242.728,
+        252.065
+      ],
+      "blue": [
+        251.228,
+        242.957,
+        -303.044
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_titan",
+    "title": "Titan | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_titan.bsp",
+    "scene": "res://maps/cache/ctf_t2_titan.scn",
+    "sha256": "84a6a56a1ee403fd83c260a2d3dd9ba266c5e0aa59a75a7e0f719106d9f0890f",
+    "size": 10075948,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_titan",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -391.01,
+        118.849,
+        3.368
+      ],
+      "blue": [
+        397.627,
+        118.849,
+        3.292
+      ]
+    }
+  },
+  {
+    "id": "ctf_t2_whitedwarf",
+    "title": "White Dwarf | Tribes 2 Classic",
+    "path": "res://maps/ctf_t2_whitedwarf.bsp",
+    "scene": "res://maps/cache/ctf_t2_whitedwarf.scn",
+    "sha256": "7a9d00381535d00d1e75ebd1eaf7636897979c7fbe71ebe1d56d359ca4071125",
+    "size": 12577048,
+    "modes": [
+      "st"
+    ],
+    "source_name": "ctf_t2_whitedwarf",
+    "distribution": "base",
+    "objectives": {
+      "red": [
+        -351.552,
+        150.624,
+        197.895
+      ],
+      "blue": [
+        164.776,
+        146.781,
+        -438.735
+      ]
+    }
+  },
+  {
+    "id": "de_varq_dust2",
+    "title": "Dust2 \u00b7 DE",
+    "path": "res://maps/de_varq_dust2.bsp",
+    "scene": "res://maps/cache/de_varq_dust2.scn",
+    "sha256": "2963de4eb2b25c6f96d3fbdb813830de7f634e5c29cc77d90763477bd007befa",
+    "size": 2948067,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_inferno",
+    "title": "Inferno \u00b7 DE",
+    "path": "res://maps/de_varq_inferno.bsp",
+    "scene": "res://maps/cache/de_varq_inferno.scn",
+    "sha256": "e9e0f425aaa30f9fd20a7cd52d62c804fb2374a5d0f8b3e2fa672ac37bc1c62d",
+    "size": 6660314,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_mirage",
+    "title": "Mirage \u00b7 DE",
+    "path": "res://maps/de_varq_mirage.bsp",
+    "scene": "res://maps/cache/de_varq_mirage.scn",
+    "sha256": "aa418939c11d8287769ce18d02fecc70fdfb1008489a5d892ab269119a08a508",
+    "size": 5003859,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_westwood",
+    "title": "Westwood \u00b7 DE",
+    "path": "res://maps/de_varq_westwood.bsp",
+    "scene": "res://maps/cache/de_varq_westwood.scn",
+    "sha256": "614f07af555a2977633617e71369700bfa4288b072b36b8a0f3ea88646b623e9",
+    "size": 2798976,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_tuscan",
+    "title": "Tuscan \u00b7 DE",
+    "path": "res://maps/de_varq_tuscan.bsp",
+    "scene": "res://maps/cache/de_varq_tuscan.scn",
+    "sha256": "fe3d2618890d9dd7cd7005819256365e4f99b4eabc579a175ff9a92b2a550c20",
+    "size": 5626586,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_abaddon",
+    "title": "Abaddon \u00b7 DE",
+    "path": "res://maps/de_varq_abaddon.bsp",
+    "scene": "res://maps/cache/de_varq_abaddon.scn",
+    "sha256": "dab9e8065116cc2510a4fea3d80cf8391dd28b21c4abaeb3486d2cb32fca246d",
+    "size": 2615550,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_nuke_rarea",
+    "title": "Nuke Rarea \u00b7 DE",
+    "path": "res://maps/de_varq_nuke_rarea.bsp",
+    "scene": "res://maps/cache/de_varq_nuke_rarea.scn",
+    "sha256": "5e650cdfd33980280da855fe12510ef5b0fd377fb1e76ae0f4e4ad4a6b705c5b",
+    "size": 4899271,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_rush_rc1",
+    "title": "Rush Rc1 \u00b7 DE",
+    "path": "res://maps/de_varq_rush_rc1.bsp",
+    "scene": "res://maps/cache/de_varq_rush_rc1.scn",
+    "sha256": "f677c509f60f213ae88b169c5506eac77e2f833b1746fab09efd5f79960b948f",
+    "size": 6382975,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_cpl_mill",
+    "title": "Cpl Mill \u00b7 DE",
+    "path": "res://maps/de_varq_cpl_mill.bsp",
+    "scene": "res://maps/cache/de_varq_cpl_mill.scn",
+    "sha256": "67bb9d33cc83af92366b0b516ac5b6d413b7963c67c55bda0d506a127b847d30",
+    "size": 3922545,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_cloister",
+    "title": "Cloister \u00b7 DE",
+    "path": "res://maps/de_varq_cloister.bsp",
+    "scene": "res://maps/cache/de_varq_cloister.scn",
+    "sha256": "e772da16a2169eb94b4561bbe4c20ae1ee1e6b6a9493198c2a0c9e12c5eed975",
+    "size": 5667105,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_licia",
+    "title": "Licia \u00b7 DE",
+    "path": "res://maps/de_varq_licia.bsp",
+    "scene": "res://maps/cache/de_varq_licia.scn",
+    "sha256": "99e1ea3bf3eb05e005636c88da1b1cd4e20e3e2e7910ada9c51f7ea512173047",
+    "size": 4174758,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_perfect_inferno",
+    "title": "Perfect Inferno \u00b7 DE",
+    "path": "res://maps/de_varq_perfect_inferno.bsp",
+    "scene": "res://maps/cache/de_varq_perfect_inferno.scn",
+    "sha256": "f72689b2a75d764a16bef09619bf423566a37fefa5446b0afa54bf298d554fd9",
+    "size": 8055132,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_santorini",
+    "title": "Santorini \u00b7 DE",
+    "path": "res://maps/de_varq_santorini.bsp",
+    "scene": "res://maps/cache/de_varq_santorini.scn",
+    "sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4",
+    "size": 9663353,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "de_varq_manufacture",
+    "title": "Manufacture \u00b7 DE",
+    "path": "res://maps/de_varq_manufacture.bsp",
+    "scene": "res://maps/cache/de_varq_manufacture.scn",
+    "sha256": "68fce0033e48a8a34d1a0b7c5ada28700e1fac10f35d906709e7ae4838d236e7",
+    "size": 7595551,
+    "modes": [
+      "de"
+    ],
+    "distribution": "base"
+  },
+  {
+    "id": "dm_q30_abattoir",
+    "title": "Abattoir (Q30)",
+    "author": "Evillair",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_abattoir.bsp",
+    "scene": "res://maps/cache/dm_q30_abattoir.scn",
+    "sha256": "1882769be5bc8250539d7b6ca80174c42c1cd35aad2a57c355345308266753ff",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_anfipit",
+    "title": "The Filth Pit (Q30)",
+    "author": "Annihilazor",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_anfipit.bsp",
+    "scene": "res://maps/cache/dm_q30_anfipit.scn",
+    "sha256": "3a15475bdee444a97208d9d7dbb9c18ef144dbe9f4103e2edb960ddc8f29628c",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_bloodcat",
+    "title": "Blood Cathedral (Q30)",
+    "author": "Evillair",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_bloodcat.bsp",
+    "scene": "res://maps/cache/dm_q30_bloodcat.scn",
+    "sha256": "55860322fc0615d0e8365008993c8d0a2cf3ca1687c02424d7d8725276303736",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_boombox",
+    "title": "Boombox (Q30)",
+    "author": "ChadQuad",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_boombox.bsp",
+    "scene": "res://maps/cache/dm_q30_boombox.scn",
+    "sha256": "016a08c331b03dfdc21a0499e5421792549951c493d7788e59a3e2dd740c6497",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_chew",
+    "title": "Chew & Swallow (Q30)",
+    "author": "Auhsan",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_chew.bsp",
+    "scene": "res://maps/cache/dm_q30_chew.scn",
+    "sha256": "a50fff66218380a6cfb9b3a440c2755d5c75e70bfcad69069aed21cbf9167218",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_citadel",
+    "title": "The Lost Citadel (Q30)",
+    "author": "Infiniti",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_citadel.bsp",
+    "scene": "res://maps/cache/dm_q30_citadel.scn",
+    "sha256": "32a0a8606b12b218538fd6cee922c948014423484b1271fe8a9cacc629353e60",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_colossus",
+    "title": "Colossus (Q30)",
+    "author": "Kwon & Makkon",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_colossus.bsp",
+    "scene": "res://maps/cache/dm_q30_colossus.scn",
+    "sha256": "a971725f2623d66bc980f0c79493c86280ec1c1e83e30545c99654ea0f49c258",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_defer",
+    "title": "Coup de Fer (Q30)",
+    "author": "BjarkeSTAR",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_defer.bsp",
+    "scene": "res://maps/cache/dm_q30_defer.scn",
+    "sha256": "6797225700eccd89842f2df31d37f6b1f1c64bb6f558a6932f6906b1bf16081f",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_emeto",
+    "title": "Emetomania (Q30)",
+    "author": "CommonCold",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_emeto.bsp",
+    "scene": "res://maps/cache/dm_q30_emeto.scn",
+    "sha256": "9edf44772e9204105298c556a803e2f25cd64be7e4f009b50b47b4d2115aaa3e",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_end",
+    "title": "Shub-Niggurath's Pit (extended) (Q30)",
+    "author": "Alice & Infiniti",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_end.bsp",
+    "scene": "res://maps/cache/dm_q30_end.scn",
+    "sha256": "45b62cac449fd95f141dbe08cac5c588fdb59751251f7f866f69b45d3e35fe28",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_garde1",
+    "title": "The Avant Garde Pt. 1 (Q30)",
+    "author": "FactoryDread",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_garde1.bsp",
+    "scene": "res://maps/cache/dm_q30_garde1.scn",
+    "sha256": "75ae8f5b67a4f6cc4bd8bff1d6fd44a62be8c4f3a0f71b63c4410dad8cd52c1e",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_garde2",
+    "title": "The Avant Garde Pt. 2 (Q30)",
+    "author": "C2070",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_garde2.bsp",
+    "scene": "res://maps/cache/dm_q30_garde2.scn",
+    "sha256": "b0fd27847e516126a9fc58caa420494a76750cd1894d102f2c2598bb5d170a4d",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_golem",
+    "title": "\u2022 GOLEM (Q30)",
+    "author": "Alice",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_golem.bsp",
+    "scene": "res://maps/cache/dm_q30_golem.scn",
+    "sha256": "9290354205c41b0fd5d208e1520394d50414b5706b395c62f1ee7d88dc9429ac",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_junction",
+    "title": "Junction (Q30)",
+    "author": "Avix & Rabbit",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_junction.bsp",
+    "scene": "res://maps/cache/dm_q30_junction.scn",
+    "sha256": "03977df4f323f2ae856da071f98c0d1200a17b09fa247ea705f5abc148729c6d",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_magenta",
+    "title": "Magenta Monstrosity (Q30)",
+    "author": "Zigg",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_magenta.bsp",
+    "scene": "res://maps/cache/dm_q30_magenta.scn",
+    "sha256": "c189cf3843b8e07ab9a596b8e9f1d87d3308c7df72779412526890ede0b9fe05",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_malignant",
+    "title": "Malignant (Q30)",
+    "author": "Mazu & Makkon",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_malignant.bsp",
+    "scene": "res://maps/cache/dm_q30_malignant.scn",
+    "sha256": "5a30513ddc72e7e5def01973dc7f4f35b728c03a24a8d681a1995b9d0e514282",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_overflow",
+    "title": "Overflow (Q30)",
+    "author": "FlikSwitch",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_overflow.bsp",
+    "scene": "res://maps/cache/dm_q30_overflow.scn",
+    "sha256": "0236ef9a1a6255ae154a29251a0cf05b9fa23b9c33ea9d154962d83be20988b3",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_quetzalli",
+    "title": "Quetzalli (Q30)",
+    "author": "Adib",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_quetzalli.bsp",
+    "scene": "res://maps/cache/dm_q30_quetzalli.scn",
+    "sha256": "d7f8689efcbb67f8ff4e95bc59297a6d5f4087b93c39096422b385a3fdf23486",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_rebound",
+    "title": "Rebound1 (Q30)",
+    "author": "IC",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_rebound.bsp",
+    "scene": "res://maps/cache/dm_q30_rebound.scn",
+    "sha256": "95a71022d6735d5af94a37c525f8f9a8a899ec080f1b312a864c648e9623a473",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_torment",
+    "title": "Chambers of Torment (Revisit) (Q30)",
+    "author": "Kwon",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_torment.bsp",
+    "scene": "res://maps/cache/dm_q30_torment.scn",
+    "sha256": "72924a61ee40d8f1eb718569937695b7fea5d0f648fdc38e200e7d94f681c259",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_violacea",
+    "title": "Violacea (Q30)",
+    "author": "Clenow",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_violacea.bsp",
+    "scene": "res://maps/cache/dm_q30_violacea.scn",
+    "sha256": "994836c21dabf379968c6d2c8e92d549eb0d7589588f76df6fad45f26ae14b8b",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_q30_ward",
+    "title": "The Desolated Ward (Q30)",
+    "author": "Trash Meister",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_q30_ward.bsp",
+    "scene": "res://maps/cache/dm_q30_ward.scn",
+    "sha256": "30cdb5632f74cb9d5af48e798877ab42ca1f83c47a0846c9395580f7a981237e",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_rcmd_spirit1dm1",
+    "title": "spirit1dm1 (RCMD)",
+    "author": "spirit",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_rcmd_spirit1dm1.bsp",
+    "scene": "res://maps/cache/dm_rcmd_spirit1dm1.scn",
+    "sha256": "a40f64f5c64fd578f3fd913dfbac53fe7ceaf8e3d50cd7e8788067aa5a637425",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_rcmd_spirit1dm2",
+    "title": "spirit1dm2 (RCMD)",
+    "author": "spirit",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_rcmd_spirit1dm2.bsp",
+    "scene": "res://maps/cache/dm_rcmd_spirit1dm2.scn",
+    "sha256": "b76445465a206a90837e116ecf084adb62c336787707059ed2c76f17e9cb3a2f",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_rcmd_spiritqwdm2",
+    "title": "spiritqwdm2 (RCMD)",
+    "author": "spirit",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_rcmd_spiritqwdm2.bsp",
+    "scene": "res://maps/cache/dm_rcmd_spiritqwdm2.scn",
+    "sha256": "b2de0e6f1d347319cb1d4c35e37f0fa0fc04127c773f3f7e65499a4140512885",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_rcmd_spirit1dm3",
+    "title": "spirit1dm3 (RCMD)",
+    "author": "spirit",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_rcmd_spirit1dm3.bsp",
+    "scene": "res://maps/cache/dm_rcmd_spirit1dm3.scn",
+    "sha256": "7fd8ffd6932b9bd55b871483a7332fd3bf5c79b9fab80a62fcb04f36d4ee17bd",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_rcmd_spirit1t3",
+    "title": "spirit1t3 (RCMD)",
+    "author": "spirit",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_rcmd_spirit1t3.bsp",
+    "scene": "res://maps/cache/dm_rcmd_spirit1t3.scn",
+    "sha256": "5417760c952a50e8b1950cfd96eae5131334e09f30976e727ede37a90037cc64",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_rcmd_spirit1dm3sp",
+    "title": "spirit1dm3sp (RCMD)",
+    "author": "spirit / negke",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_rcmd_spirit1dm3sp.bsp",
+    "scene": "res://maps/cache/dm_rcmd_spirit1dm3sp.scn",
+    "sha256": "cb062d04564b2b0a014919766c5f006c893abb3f74871b980fa812f7c395107b",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_local_q1q3hektik",
+    "title": "Hektik (Local)",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_local_q1q3hektik.bsp",
+    "scene": "res://maps/cache/dm_local_q1q3hektik.scn",
+    "sha256": "0e884c4483647d22958e1a5a6dfe5c69f105d74da688916785d568872957061c",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_local_q1q3toxicity",
+    "title": "Toxicity (Local)",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_local_q1q3toxicity.bsp",
+    "scene": "res://maps/cache/dm_local_q1q3toxicity.scn",
+    "sha256": "3f380c51babd5c6dfc0eff187efeef62517683d08e8d01f2d4d00a9b922c0503",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "dm_local_q3dm6qwt",
+    "title": "The Campgrounds (Local)",
+    "modes": [
+      "dm",
+      "tdm",
+      "ig",
+      "if",
+      "ft",
+      "cc"
+    ],
+    "path": "res://maps/dm_local_q3dm6qwt.bsp",
+    "scene": "res://maps/cache/dm_local_q3dm6qwt.scn",
+    "sha256": "b1023f86fc95801e20e259e5f6072ff06fe4dd2cdc143781537d72e955018036",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "koth_ut_buttnutt",
+    "title": "KOTH-(WTF)Buttnutt (UT KOTH)",
+    "author": "Original ChaosUT map author",
+    "modes": [
+      "koth"
+    ],
+    "path": "res://maps/koth_ut_buttnutt.bsp",
+    "scene": "res://maps/cache/koth_ut_buttnutt.scn",
+    "sha256": "983b4462b1809951808f1a8ea2578a97ed6a4997d45d3e34f3dffba5a8e71152",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      16
+    ]
+  },
+  {
+    "id": "koth_ut_cerebro",
+    "title": "KOTH_Cerebro (UT KOTH)",
+    "author": "LoQtUS",
+    "modes": [
+      "koth"
+    ],
+    "path": "res://maps/koth_ut_cerebro.bsp",
+    "scene": "res://maps/cache/koth_ut_cerebro.scn",
+    "sha256": "3242a660755d78c652fc7f0a9992425243a5d642ac754a436beac955f40ba589",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      16
+    ]
+  },
+  {
+    "id": "koth_ut_dungeon",
+    "title": "KOTH_Dungeon (UT KOTH)",
+    "author": "LoQtUS",
+    "modes": [
+      "koth"
+    ],
+    "path": "res://maps/koth_ut_dungeon.bsp",
+    "scene": "res://maps/cache/koth_ut_dungeon.scn",
+    "sha256": "86d2e0d74b912d1dde0985a81939285e1cb727d4528dcf21de992ba3eeaab8f6",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      11
+    ]
+  },
+  {
+    "id": "koth_ut_temple",
+    "title": "koth-The temple (UT KOTH)",
+    "author": "Tryman",
+    "modes": [
+      "koth"
+    ],
+    "path": "res://maps/koth_ut_temple.bsp",
+    "scene": "res://maps/cache/koth_ut_temple.scn",
+    "sha256": "a8f00f821257058ff76404de3be30c4384322a312c35a4c2d3c953b9562651b4",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "koth_ut_thunderdome",
+    "title": "KOTH-FbBeyondThunderdome][ (UT KOTH)",
+    "author": "Conversion from Marathon by Wolfchild - KOTH by Gor Gor",
+    "modes": [
+      "koth"
+    ],
+    "path": "res://maps/koth_ut_thunderdome.bsp",
+    "scene": "res://maps/cache/koth_ut_thunderdome.scn",
+    "sha256": "d5220faa3f181ee6d3042baec3e375270c5bab17e2dd6f79cbae36bcc08fbeb0",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      8
+    ]
+  },
+  {
+    "id": "koth_ut_trytitan",
+    "title": "KOTH-(WTF)TryTitan (UT KOTH)",
+    "author": "Another Quality Map by Your Worst Nightmare",
+    "modes": [
+      "koth"
+    ],
+    "path": "res://maps/koth_ut_trytitan.bsp",
+    "scene": "res://maps/cache/koth_ut_trytitan.scn",
+    "sha256": "72d2019685ee5ac5f2521af0b384d8d5936a4f521d8eb558bcd7558c4f8b185f",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      16
+    ]
+  },
+  {
+    "id": "koth_ut_wilderness",
+    "title": "KOTH_Wilderness (UT KOTH)",
+    "author": "by MassChAoS",
+    "modes": [
+      "koth"
+    ],
+    "path": "res://maps/koth_ut_wilderness.bsp",
+    "scene": "res://maps/cache/koth_ut_wilderness.scn",
+    "sha256": "55f6d1a8101f33bb8989d1e7479dea2ff2ce243cace2b3a0c27e96becc898f11",
+    "distribution": "local",
+    "recommended_players": [
+      2,
+      10
+    ]
   }
 ]

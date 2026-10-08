@@ -1,0 +1,147 @@
+{
+  "baked_faces": 2689,
+  "bsp_sha256": "86d2e0d74b912d1dde0985a81939285e1cb727d4528dcf21de992ba3eeaab8f6",
+  "checks": [
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -6.40740871429443,
+        -6.39988470077515,
+        7.78808689117432
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -6.23227834701538,
+        -6.39988470077515,
+        17.6381702423096
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        4.32232332229614,
+        -12.5999994277954,
+        12.7650890350342
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -15.8614139556885,
+        0.0,
+        12.8087205886841
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        16.1093616485596,
+        0.0,
+        12.7182235717773
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -0.064578503370285,
+        -12.8000078201294,
+        26.3533058166504
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -9.51929569244385,
+        -12.8000011444092,
+        32.1160011291504
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        11.2330808639526,
+        -12.8000001907349,
+        36.7736625671387
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        9.70455455780029,
+        -12.8000001907349,
+        -6.42167186737061
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -9.54569435119629,
+        -12.8000001907349,
+        -6.39661026000977
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        0.0991884097456932,
+        -12.8000001907349,
+        -0.855552494525909
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        0.0206920262426138,
+        0.800000011920929,
+        12.8491287231445
+      ],
+      "safe": true
+    }
+  ],
+  "failures": [],
+  "fixed": true,
+  "hill_nav_distance": [
+    0.172373414039612
+  ],
+  "hills": 1,
+  "id": "koth_ut_dungeon",
+  "invalid_light_faces": 0,
+  "jumps": 222,
+  "lifts": [],
+  "link_kinds": {
+    "drop": 220,
+    "jump": 2,
+    "trigger_teleport": 8
+  },
+  "links": 230,
+  "missing_routes": [],
+  "routes": 11,
+  "spawns": 11,
+  "total_routes": 11,
+  "unresolved_teleports": []
+}

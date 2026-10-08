@@ -1,0 +1,2359 @@
+[
+  {
+    "collection": "q30",
+    "archive": "q30-download",
+    "url": "https://www.slipseer.com/index.php?resources/q30-deathmatch-jam.628/download",
+    "bytes": 175738470,
+    "sha256": "cc28b0253fed69bd1452c460a0e46c9bc36a5d1a9a26f98b1ac1017d4dd21f7c",
+    "files": [
+      {
+        "name": "q30_deathmatch/bots/navigation/q30_malignant.nav",
+        "bytes": 11410
+      },
+      {
+        "name": "q30_deathmatch/descript.ion",
+        "bytes": 18
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_abattoir.txt",
+        "bytes": 1711
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_bloodcat.txt",
+        "bytes": 1710
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_citadel.txt",
+        "bytes": 2389
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_end.txt",
+        "bytes": 2664
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_junction.html",
+        "bytes": 1300
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_junction.md",
+        "bytes": 1171
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_malignant.txt",
+        "bytes": 2447
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_quetzalli.txt",
+        "bytes": 1470
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_rebound.txt",
+        "bytes": 2187
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_violacea.txt",
+        "bytes": 1617
+      },
+      {
+        "name": "q30_deathmatch/docs/q30_ward.txt",
+        "bytes": 604
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/bloodvalleybk.tga",
+        "bytes": 786476
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/bloodvalleydn.tga",
+        "bytes": 786476
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/bloodvalleyft.tga",
+        "bytes": 786476
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/bloodvalleylf.tga",
+        "bytes": 786476
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/bloodvalleyrt.tga",
+        "bytes": 786476
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/bloodvalleyup.tga",
+        "bytes": 786476
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/brightblue_bk.tga",
+        "bytes": 540890
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/brightblue_dn.tga",
+        "bytes": 781195
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/brightblue_ft.tga",
+        "bytes": 537939
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/brightblue_lf.tga",
+        "bytes": 542431
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/brightblue_readme.txt",
+        "bytes": 143
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/brightblue_rt.tga",
+        "bytes": 570972
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/brightblue_up.tga",
+        "bytes": 282168
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/doom2016_vortex_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/doom2016_vortex_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/doom2016_vortex_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/doom2016_vortex_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/doom2016_vortex_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/doom2016_vortex_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/doom2016_vortex_wind.cfg",
+        "bytes": 54
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/heaven_bk.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/heaven_dn.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/heaven_ft.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/heaven_lf.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/heaven_rt.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/heaven_up.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_beksinskisky1_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_beksinskisky1_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_beksinskisky1_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_beksinskisky1_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_beksinskisky1_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_beksinskisky1_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_bloodmoon1_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_bloodmoon1_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_bloodmoon1_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_bloodmoon1_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_bloodmoon1_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_bloodmoon1_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_cloudysky6_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_cloudysky6_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_cloudysky6_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_cloudysky6_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_cloudysky6_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_cloudysky6_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_colossus1_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_colossus1_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_colossus1_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_colossus1_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_colossus1_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_colossus1_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_dusk1_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_dusk1_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_dusk1_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_dusk1_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_dusk1_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_dusk1_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_nightsky1_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_nightsky1_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_nightsky1_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_nightsky1_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_nightsky1_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_nightsky1_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky4_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky4_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky4_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky4_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky4_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky4_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky7_bk.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky7_dn.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky7_ft.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky7_lf.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky7_rt.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_purplesky7_up.tga",
+        "bytes": 3145772
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_tealsky1_bk.tga",
+        "bytes": 2552838
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_tealsky1_dn.tga",
+        "bytes": 2658507
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_tealsky1_ft.tga",
+        "bytes": 2585971
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_tealsky1_lf.tga",
+        "bytes": 2539450
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_tealsky1_rt.tga",
+        "bytes": 2547389
+      },
+      {
+        "name": "q30_deathmatch/gfx/env/mak_tealsky1_up.tga",
+        "bytes": 2554843
+      },
+      {
+        "name": "q30_deathmatch/Header Image.png",
+        "bytes": 3892038
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_anfipit.loc",
+        "bytes": 37404
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_bloodcat.loc",
+        "bytes": 28400
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_citadel.loc",
+        "bytes": 10349
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_colossus.loc",
+        "bytes": 46846
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_defer.loc",
+        "bytes": 38598
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_end.loc",
+        "bytes": 22209
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_golem.loc",
+        "bytes": 4753
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_magenta.loc",
+        "bytes": 11298
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_malignant.loc",
+        "bytes": 37132
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_overflow.loc",
+        "bytes": 29153
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_quetzalli.loc",
+        "bytes": 7833
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_torment.loc",
+        "bytes": 14338
+      },
+      {
+        "name": "q30_deathmatch/locs/q30_violacea.loc",
+        "bytes": 34374
+      },
+      {
+        "name": "q30_deathmatch/manifest.json",
+        "bytes": 219
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_abattoir.bsp",
+        "bytes": 1310164
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_abattoir.lit",
+        "bytes": 233924
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_anfipit.bsp",
+        "bytes": 13400120
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_anfipit.lit",
+        "bytes": 1087304
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_bloodcat.bsp",
+        "bytes": 6890356
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_bloodcat.lit",
+        "bytes": 1154300
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_boombox.bsp",
+        "bytes": 2017708
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_boombox.lit",
+        "bytes": 698024
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_chew.bsp",
+        "bytes": 17132344
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_chew.lit",
+        "bytes": 3134960
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_citadel.bsp",
+        "bytes": 26735488
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_citadel.lit",
+        "bytes": 1060508
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_colossus.bsp",
+        "bytes": 15053284
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_colossus.lit",
+        "bytes": 1263428
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_defer.bsp",
+        "bytes": 11553068
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_emeto.bsp",
+        "bytes": 1831728
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_end.bsp",
+        "bytes": 15831064
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_end.lit",
+        "bytes": 1383740
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_garde1.bsp",
+        "bytes": 15463368
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_garde2.bsp",
+        "bytes": 23828012
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_garde2.lit",
+        "bytes": 2539640
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_golem.bsp",
+        "bytes": 2050000
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_junction.bsp",
+        "bytes": 16309244
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_junction.lit",
+        "bytes": 2221040
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_magenta.bsp",
+        "bytes": 10764600
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_magenta.lit",
+        "bytes": 395552
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_malignant.bsp",
+        "bytes": 15407836
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_malignant.lit",
+        "bytes": 1142384
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_overflow.bsp",
+        "bytes": 22605308
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_overflow.lit",
+        "bytes": 899060
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_quetzalli.bsp",
+        "bytes": 1809116
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_rebound.bsp",
+        "bytes": 1206000
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_torment.bsp",
+        "bytes": 8991988
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_violacea.bsp",
+        "bytes": 9734860
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_violacea.lit",
+        "bytes": 753920
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_ward.bsp",
+        "bytes": 1366964
+      },
+      {
+        "name": "q30_deathmatch/maps/q30_ward.lit",
+        "bytes": 286679
+      },
+      {
+        "name": "q30_deathmatch/maps/q30__start.bsp",
+        "bytes": 17894440
+      },
+      {
+        "name": "q30_deathmatch/maps/q30__start.lit",
+        "bytes": 950660
+      },
+      {
+        "name": "q30_deathmatch/quake.rc",
+        "bytes": 138
+      },
+      {
+        "name": "q30_deathmatch/src/q30_anfipit.map",
+        "bytes": 5315497
+      },
+      {
+        "name": "q30_deathmatch/src/q30_citadel.map",
+        "bytes": 3281149
+      },
+      {
+        "name": "q30_deathmatch/src/q30_colossus.map",
+        "bytes": 3892163
+      },
+      {
+        "name": "q30_deathmatch/src/q30_junction.map",
+        "bytes": 3495980
+      },
+      {
+        "name": "q30_deathmatch/src/q30_junction.py",
+        "bytes": 5880
+      },
+      {
+        "name": "q30_deathmatch/src/q30_magenta.map",
+        "bytes": 938751
+      },
+      {
+        "name": "q30_deathmatch/src/q30_malignant.map",
+        "bytes": 2872401
+      },
+      {
+        "name": "q30_deathmatch/src/q30_quetzalli.map",
+        "bytes": 738764
+      },
+      {
+        "name": "q30_deathmatch/src/q30_rebound.map",
+        "bytes": 654985
+      },
+      {
+        "name": "q30_deathmatch/src/q30_violacea.map",
+        "bytes": 3946722
+      },
+      {
+        "name": "readme.md",
+        "bytes": 2617
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake1",
+    "archive": "quake1_spirit1dm1.zip",
+    "url": "https://maps.rcmd.org/quake1/spirit1dm1/spirit1dm1.zip",
+    "bytes": 767322,
+    "sha256": "7f5cbfa5407d181db886659f0b0a968cd12cd71ce9623951383f05be6b6b40af",
+    "files": [
+      {
+        "name": "docs/spirit1dm1.txt",
+        "bytes": 2990
+      },
+      {
+        "name": "maps/spirit1dm1.bsp",
+        "bytes": 874396
+      },
+      {
+        "name": "maps/spirit1dm1.dlit",
+        "bytes": 399392
+      },
+      {
+        "name": "maps/spirit1dm1.lit",
+        "bytes": 399392
+      },
+      {
+        "name": "maps/spirit1dm1.map",
+        "bytes": 458362
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake1",
+    "archive": "quake1_spirit1dm2.zip",
+    "url": "https://maps.rcmd.org/quake1/spirit1dm2/spirit1dm2.zip",
+    "bytes": 1289884,
+    "sha256": "bd090ece21ffbf5dbc4df525fbf19e51b07a406265c12d76bb09f2ea7f31e3f4",
+    "files": [
+      {
+        "name": "id1/docs/spirit1dm2.txt",
+        "bytes": 12752
+      },
+      {
+        "name": "id1/docs/spiritqwdm2.txt",
+        "bytes": 28
+      },
+      {
+        "name": "id1/locs/spirit1dm2.loc",
+        "bytes": 338
+      },
+      {
+        "name": "id1/locs/spiritqwdm2.loc",
+        "bytes": 338
+      },
+      {
+        "name": "id1/maps/spirit1dm2.bsp",
+        "bytes": 838092
+      },
+      {
+        "name": "id1/maps/spirit1dm2.dlit",
+        "bytes": 187271
+      },
+      {
+        "name": "id1/maps/spirit1dm2.lit",
+        "bytes": 187271
+      },
+      {
+        "name": "id1/maps/spirit1dm2.map",
+        "bytes": 450162
+      },
+      {
+        "name": "id1/maps/spirit1dm2.way",
+        "bytes": 6754
+      },
+      {
+        "name": "id1/maps/spiritqwdm2.bsp",
+        "bytes": 835572
+      },
+      {
+        "name": "id1/maps/spiritqwdm2.dlit",
+        "bytes": 187055
+      },
+      {
+        "name": "id1/maps/spiritqwdm2.lit",
+        "bytes": 187055
+      },
+      {
+        "name": "id1/maps/spiritqwdm2.map",
+        "bytes": 448217
+      },
+      {
+        "name": "id1/maps/spiritqwdm2.way",
+        "bytes": 6754
+      },
+      {
+        "name": "qw/locs/spirit1dm2.loc",
+        "bytes": 162
+      },
+      {
+        "name": "qw/locs/spiritqwdm2.loc",
+        "bytes": 162
+      },
+      {
+        "name": "qw/radars/spirit1dm2.png",
+        "bytes": 2450
+      },
+      {
+        "name": "qw/radars/spiritqwdm2.png",
+        "bytes": 2450
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake1",
+    "archive": "quake1_spirit1dm3.zip",
+    "url": "https://maps.rcmd.org/quake1/spirit1dm3/spirit1dm3.zip",
+    "bytes": 1489134,
+    "sha256": "2fd865f9613b1025fd79f778bb906c77f8e83feee643ddf1cad0e6b884e0a417",
+    "files": [
+      {
+        "name": "id1/docs/spirit1dm3.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "id1/docs/spirit1dm3.txt",
+        "bytes": 8266
+      },
+      {
+        "name": "id1/locs/spirit1dm3.loc",
+        "bytes": 410
+      },
+      {
+        "name": "id1/locs/spirit1t3.loc",
+        "bytes": 417
+      },
+      {
+        "name": "id1/maps/spirit1dm3.bsp",
+        "bytes": 920492
+      },
+      {
+        "name": "id1/maps/spirit1dm3.dlit",
+        "bytes": 298019
+      },
+      {
+        "name": "id1/maps/spirit1dm3.lit",
+        "bytes": 298019
+      },
+      {
+        "name": "id1/maps/spirit1dm3.map",
+        "bytes": 524444
+      },
+      {
+        "name": "id1/maps/spirit1dm3.wa1",
+        "bytes": 7298
+      },
+      {
+        "name": "id1/maps/spirit1dm3.wa2",
+        "bytes": 7286
+      },
+      {
+        "name": "id1/maps/spirit1dm3.wa3",
+        "bytes": 110
+      },
+      {
+        "name": "id1/maps/spirit1dm3.way",
+        "bytes": 7102
+      },
+      {
+        "name": "id1/maps/spirit1t3.bsp",
+        "bytes": 768416
+      },
+      {
+        "name": "id1/maps/spirit1t3.dlit",
+        "bytes": 236567
+      },
+      {
+        "name": "id1/maps/spirit1t3.lit",
+        "bytes": 236567
+      },
+      {
+        "name": "id1/maps/spirit1t3.map",
+        "bytes": 446891
+      },
+      {
+        "name": "id1/maps/spirit1t3.wa1",
+        "bytes": 7265
+      },
+      {
+        "name": "id1/maps/spirit1t3.wa2",
+        "bytes": 2100
+      },
+      {
+        "name": "id1/maps/spirit1t3.way",
+        "bytes": 7136
+      },
+      {
+        "name": "id1/textures/levelshots/spirit1dm3.jpg",
+        "bytes": 32972
+      },
+      {
+        "name": "id1/textures/levelshots/spirit1t3.jpg",
+        "bytes": 29010
+      },
+      {
+        "name": "qw/locs/spirit1dm3.loc",
+        "bytes": 249
+      },
+      {
+        "name": "qw/locs/spirit1t3.loc",
+        "bytes": 239
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake1",
+    "archive": "quake1_spirit1dm3sp.zip",
+    "url": "https://maps.rcmd.org/quake1/spirit1dm3/negke_sp_remix/spirit1dm3sp.zip",
+    "bytes": 482015,
+    "sha256": "56ec8cb3b14bdbbdbb518c354d33690ce7e0dfa2a12c045b70c91ae82e664179",
+    "files": [
+      {
+        "name": "spirit1dm3sp.bsp",
+        "bytes": 964580
+      },
+      {
+        "name": "spirit1dm3sp.map",
+        "bytes": 595446
+      },
+      {
+        "name": "spirit1dm3sp.txt",
+        "bytes": 8880
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm1.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm1/spirit2dm1.zip",
+    "bytes": 562800,
+    "sha256": "dfbf042a38ab02e6632feafa6fc188ba5f38df1c03b13b12ecbf52c9a98d45da",
+    "files": [
+      {
+        "name": "baseq2/maps/spirit2dm1.loc",
+        "bytes": 250
+      },
+      {
+        "name": "baseq2/maps/spirit2dm1.bsp",
+        "bytes": 1126868
+      },
+      {
+        "name": "baseq2/maps/spirit2dm1.license",
+        "bytes": 17987
+      },
+      {
+        "name": "baseq2/maps/spirit2dm1.txt",
+        "bytes": 5689
+      },
+      {
+        "name": "eraser/routes/spirit2dm1.rtz",
+        "bytes": 12848
+      },
+      {
+        "name": "baseq2/maps/spirit2dm1.map",
+        "bytes": 1057796
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm2.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm2/spirit2dm2.zip",
+    "bytes": 3583814,
+    "sha256": "a61f33bd89bd9637f95d4f592a746086f12e9b0dbf681497415121352b74db52",
+    "files": [
+      {
+        "name": "docs/spirit2dm2.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "docs/spirit2dm2.txt",
+        "bytes": 7370
+      },
+      {
+        "name": "env/spirit2dm2/phobosbk.pcx",
+        "bytes": 18151
+      },
+      {
+        "name": "env/spirit2dm2/phobosbk.tga",
+        "bytes": 164007
+      },
+      {
+        "name": "env/spirit2dm2/phobosdn.pcx",
+        "bytes": 19097
+      },
+      {
+        "name": "env/spirit2dm2/phobosdn.tga",
+        "bytes": 192211
+      },
+      {
+        "name": "env/spirit2dm2/phobosft.pcx",
+        "bytes": 24877
+      },
+      {
+        "name": "env/spirit2dm2/phobosft.tga",
+        "bytes": 184929
+      },
+      {
+        "name": "env/spirit2dm2/phoboslf.pcx",
+        "bytes": 21583
+      },
+      {
+        "name": "env/spirit2dm2/phoboslf.tga",
+        "bytes": 183901
+      },
+      {
+        "name": "env/spirit2dm2/phobosrt.pcx",
+        "bytes": 19837
+      },
+      {
+        "name": "env/spirit2dm2/phobosrt.tga",
+        "bytes": 181386
+      },
+      {
+        "name": "env/spirit2dm2/phobosup.pcx",
+        "bytes": 14077
+      },
+      {
+        "name": "env/spirit2dm2/phobosup.tga",
+        "bytes": 179822
+      },
+      {
+        "name": "maps/spirit2dm2.bsp",
+        "bytes": 2070428
+      },
+      {
+        "name": "maps/spirit2dm2.loc",
+        "bytes": 276
+      },
+      {
+        "name": "maps/spirit2dm2.map",
+        "bytes": 1055817
+      },
+      {
+        "name": "maps/spirit2dm2ld.bsp",
+        "bytes": 1421252
+      },
+      {
+        "name": "maps/spirit2dm2ld.loc",
+        "bytes": 276
+      },
+      {
+        "name": "maps/spirit2dm2ld.map",
+        "bytes": 649454
+      },
+      {
+        "name": "sound/spirit2dm2/ambience.wav",
+        "bytes": 296290
+      },
+      {
+        "name": "sound/spirit2dm2/ambience3.wav",
+        "bytes": 241006
+      },
+      {
+        "name": "sound/spirit2dm2/flow.wav",
+        "bytes": 52270
+      },
+      {
+        "name": "sound/spirit2dm2/thunder.wav",
+        "bytes": 882044
+      },
+      {
+        "name": "textures/spirit2dm2ld/floor.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2ld/floor_detail.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2ld/wall.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2ld/wall_detail.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2ld/white.wal",
+        "bytes": 1460
+      },
+      {
+        "name": "textures/spirit2dm2/1r_clocktrim02.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_clocktrim02b.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/1r_clocktrim03.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_clock_pan02.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_floor.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_light01b.wal",
+        "bytes": 1460
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metbrick01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metpan01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metpan02.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metpan03.wal",
+        "bytes": 2820
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metpan05b.wal",
+        "bytes": 43620
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metpan06b.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metrim1.wal",
+        "bytes": 2820
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metrim1b.wal",
+        "bytes": 2820
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metwl01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_metwl02.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_plain_met01.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2/1r_plain_met02.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2/1r_squ_pan01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_squ_pan02.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_squ_pan02b.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/1r_squ_pan03.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_squ_pan03b.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/1r_squ_pan04.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_thickpan01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_thickpan02.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_thickpan03.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_thinpan01.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm2/1r_thinpan02.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm2/1r_thinpan03.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm2/1r_thinpan04.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm2/1r_trim02.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/1r_watmarker01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1r_yuk_sup01.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/1_concrete01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/1_th_trim04.wal",
+        "bytes": 2820
+      },
+      {
+        "name": "textures/spirit2dm2/1_th_trim06.wal",
+        "bytes": 2820
+      },
+      {
+        "name": "textures/spirit2dm2/3r_pipes01.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/achtung_clang_128.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/barrel_rst_sign.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/barrel_rst_top.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/crate_128.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm2/dec02r2_a.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2/e8trimlight_edge.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/floor1_l3_2a.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2/hh3_ms_light01.wal",
+        "bytes": 1460
+      },
+      {
+        "name": "textures/spirit2dm2/hh3_m_light03.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm2/mtl-well_l3_88c.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm2/white.wal",
+        "bytes": 1460
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm3.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm3/spirit2dm3.zip",
+    "bytes": 1200494,
+    "sha256": "e1554a2a479c21195d53fa1f2705621b2a0e3d732019227a6cb876528c50107e",
+    "files": [
+      {
+        "name": "baseq2/docs/spirit2dm3.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "baseq2/docs/spirit2dm3.txt",
+        "bytes": 6618
+      },
+      {
+        "name": "baseq2/maps/spirit2dm3.bsp",
+        "bytes": 1900788
+      },
+      {
+        "name": "baseq2/maps/spirit2dm3.loc",
+        "bytes": 180
+      },
+      {
+        "name": "baseq2/maps/spirit2dm3.map",
+        "bytes": 1392687
+      },
+      {
+        "name": "baseq2/sound/spirit2dm3/flow.wav",
+        "bytes": 52270
+      },
+      {
+        "name": "baseq2/sound/spirit2dm3/tele.wav",
+        "bytes": 241006
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm4.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm4/spirit2dm4.zip",
+    "bytes": 994516,
+    "sha256": "24370bba49425031fee8fb41c3133f37a4eadc0037a2f7ca0072d8251e5cd87d",
+    "files": [
+      {
+        "name": "spirit2dm4/baseq2/docs/spirit2dm4.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "spirit2dm4/baseq2/docs/spirit2dm4.txt",
+        "bytes": 5509
+      },
+      {
+        "name": "spirit2dm4/baseq2/maps/spirit2dm4.bsp",
+        "bytes": 1054228
+      },
+      {
+        "name": "spirit2dm4/baseq2/maps/spirit2dm4.loc",
+        "bytes": 166
+      },
+      {
+        "name": "spirit2dm4/baseq2/maps/spirit2dm4.map",
+        "bytes": 564772
+      },
+      {
+        "name": "spirit2dm4/baseq2/sound/spirit2dm4/fan.wav",
+        "bytes": 241006
+      },
+      {
+        "name": "spirit2dm4/baseq2/sound/spirit2dm4/flow.wav",
+        "bytes": 52270
+      },
+      {
+        "name": "spirit2dm4/baseq2/sound/spirit2dm4/machine.wav",
+        "bytes": 296290
+      },
+      {
+        "name": "spirit2dm4/spirit2dm4.txt",
+        "bytes": 5509
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm5.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm5/spirit2dm5.zip",
+    "bytes": 2255183,
+    "sha256": "5bbe85eb4e20a1eaf1207e54b88c6c2758c6c579e17f21e5a68c2a28b33b8ed2",
+    "files": [
+      {
+        "name": "docs/spirit2dm5.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "docs/spirit2dm5.txt",
+        "bytes": 7843
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_bk.pcx",
+        "bytes": 18664
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_bk.tga",
+        "bytes": 101466
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_dn.pcx",
+        "bytes": 3457
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_dn.tga",
+        "bytes": 2092
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_ft.pcx",
+        "bytes": 17927
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_ft.tga",
+        "bytes": 90279
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_lf.pcx",
+        "bytes": 17339
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_lf.tga",
+        "bytes": 84820
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_rt.pcx",
+        "bytes": 18157
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_rt.tga",
+        "bytes": 109035
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_up.pcx",
+        "bytes": 13716
+      },
+      {
+        "name": "env/spirit2dm5/grimmnight_up.tga",
+        "bytes": 90405
+      },
+      {
+        "name": "maps/spirit2dm5.bsp",
+        "bytes": 1706368
+      },
+      {
+        "name": "maps/spirit2dm5.loc",
+        "bytes": 152
+      },
+      {
+        "name": "maps/spirit2dm5.map",
+        "bytes": 1195419
+      },
+      {
+        "name": "sound/spirit2dm5/come_closer.wav",
+        "bytes": 256556
+      },
+      {
+        "name": "sound/spirit2dm5/df_pain.wav",
+        "bytes": 9555
+      },
+      {
+        "name": "sound/spirit2dm5/drone_beep.wav",
+        "bytes": 66394
+      },
+      {
+        "name": "sound/spirit2dm5/fan.wav",
+        "bytes": 241006
+      },
+      {
+        "name": "sound/spirit2dm5/flow.wav",
+        "bytes": 52270
+      },
+      {
+        "name": "sound/spirit2dm5/gong.wav",
+        "bytes": 68012
+      },
+      {
+        "name": "sound/spirit2dm5/join_us.wav",
+        "bytes": 206940
+      },
+      {
+        "name": "sound/spirit2dm5/machine.wav",
+        "bytes": 296290
+      },
+      {
+        "name": "sound/spirit2dm5/monster.wav",
+        "bytes": 422210
+      },
+      {
+        "name": "sound/spirit2dm5/we_feel_you.wav",
+        "bytes": 364076
+      },
+      {
+        "name": "sound/spirit2dm5/wind.wav",
+        "bytes": 66736
+      },
+      {
+        "name": "sound/spirit2dm5/wscream.wav",
+        "bytes": 603997
+      },
+      {
+        "name": "textures/spirit2dm5/base1_1.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/base1_3a1.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/base1_666.wal",
+        "bytes": 87140
+      },
+      {
+        "name": "textures/spirit2dm5/base2_2a.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/crate23.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/floor6b.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/floor7.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/hazard.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/laser04.wal",
+        "bytes": 440
+      },
+      {
+        "name": "textures/spirit2dm5/metal1_23.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm5/metal1_24.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/metal1_31a.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/metal1_40.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/metal1_42.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/metal1_52.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/metal2_12a.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/metal2_15.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm5/metal2_44.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/metal2_47.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm5/metal2_481.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/metal5_16.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm5/metal5_17.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm5/slight01.wal",
+        "bytes": 1460
+      },
+      {
+        "name": "textures/spirit2dm5/slight03.wal",
+        "bytes": 1460
+      },
+      {
+        "name": "textures/spirit2dm5/wlight4.wal",
+        "bytes": 2820
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm6.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm6/spirit2dm6.zip",
+    "bytes": 1634330,
+    "sha256": "826bc1779af6957e7bfa283609a4f780fd14e6a806c279ccc2355191a10c42ea",
+    "files": [
+      {
+        "name": "docs/spirit2dm6.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "docs/spirit2dm6.txt",
+        "bytes": 5778
+      },
+      {
+        "name": "env/spirit2dm6/vd_bk.pcx",
+        "bytes": 14918
+      },
+      {
+        "name": "env/spirit2dm6/vd_bk.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "env/spirit2dm6/vd_dn.pcx",
+        "bytes": 17247
+      },
+      {
+        "name": "env/spirit2dm6/vd_dn.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "env/spirit2dm6/vd_ft.pcx",
+        "bytes": 18410
+      },
+      {
+        "name": "env/spirit2dm6/vd_ft.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "env/spirit2dm6/vd_lf.pcx",
+        "bytes": 15239
+      },
+      {
+        "name": "env/spirit2dm6/vd_lf.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "env/spirit2dm6/vd_rt.pcx",
+        "bytes": 17304
+      },
+      {
+        "name": "env/spirit2dm6/vd_rt.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "env/spirit2dm6/vd_up.pcx",
+        "bytes": 8511
+      },
+      {
+        "name": "env/spirit2dm6/vd_up.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "maps/spirit2dm6.bsp",
+        "bytes": 1104364
+      },
+      {
+        "name": "maps/spirit2dm6.loc",
+        "bytes": 206
+      },
+      {
+        "name": "maps/spirit2dm6.map",
+        "bytes": 790357
+      },
+      {
+        "name": "sound/spirit2dm6/fan.wav",
+        "bytes": 241006
+      },
+      {
+        "name": "sound/spirit2dm6/flow.wav",
+        "bytes": 52270
+      },
+      {
+        "name": "sound/spirit2dm6/machine.wav",
+        "bytes": 296290
+      },
+      {
+        "name": "textures/spirit2dm6/qw_tele.wal",
+        "bytes": 87140
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm7.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm7/spirit2dm7.zip",
+    "bytes": 4040560,
+    "sha256": "ea6c9461a6eddb1de4ed3d01d2e9e2fcd6c9612206c3bb90aa9c2b71678f715a",
+    "files": [
+      {
+        "name": "docs/spirit2dm7.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "docs/spirit2dm7.txt",
+        "bytes": 7099
+      },
+      {
+        "name": "env/spirit2dm7/skybox_bk.pcx",
+        "bytes": 33632
+      },
+      {
+        "name": "env/spirit2dm7/skybox_bk.tga",
+        "bytes": 578811
+      },
+      {
+        "name": "env/spirit2dm7/skybox_dn.pcx",
+        "bytes": 64825
+      },
+      {
+        "name": "env/spirit2dm7/skybox_dn.tga",
+        "bytes": 768670
+      },
+      {
+        "name": "env/spirit2dm7/skybox_ft.pcx",
+        "bytes": 41844
+      },
+      {
+        "name": "env/spirit2dm7/skybox_ft.tga",
+        "bytes": 563660
+      },
+      {
+        "name": "env/spirit2dm7/skybox_lf.pcx",
+        "bytes": 29352
+      },
+      {
+        "name": "env/spirit2dm7/skybox_lf.tga",
+        "bytes": 607222
+      },
+      {
+        "name": "env/spirit2dm7/skybox_rt.pcx",
+        "bytes": 43403
+      },
+      {
+        "name": "env/spirit2dm7/skybox_rt.tga",
+        "bytes": 688665
+      },
+      {
+        "name": "env/spirit2dm7/skybox_up.pcx",
+        "bytes": 17986
+      },
+      {
+        "name": "env/spirit2dm7/skybox_up.tga",
+        "bytes": 522403
+      },
+      {
+        "name": "maps/spirit2dm7.bsp",
+        "bytes": 1937328
+      },
+      {
+        "name": "maps/spirit2dm7.loc",
+        "bytes": 216
+      },
+      {
+        "name": "maps/spirit2dm7.map",
+        "bytes": 1222727
+      },
+      {
+        "name": "sound/spirit2dm7/fan.wav",
+        "bytes": 241006
+      },
+      {
+        "name": "sound/spirit2dm7/flow.wav",
+        "bytes": 52270
+      },
+      {
+        "name": "sound/spirit2dm7/machine.wav",
+        "bytes": 296290
+      },
+      {
+        "name": "sound/spirit2dm7/wind.wav",
+        "bytes": 64874
+      },
+      {
+        "name": "textures/spirit2dm7/ALT_q2rl_blum13_1.wal",
+        "bytes": 65380
+      },
+      {
+        "name": "textures/spirit2dm7/dry_grass.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm7/q2rl_blum13_1.wal",
+        "bytes": 65380
+      },
+      {
+        "name": "textures/spirit2dm7/trans.wal",
+        "bytes": 440
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake2",
+    "archive": "quake2_spirit2dm9.zip",
+    "url": "https://maps.rcmd.org/quake2/spirit2dm9/spirit2dm9.zip",
+    "bytes": 1558919,
+    "sha256": "b3ab62b58d482541de0964225594e55bd24f81c7bfaa9c3d2526b5ba1aed0665",
+    "files": [
+      {
+        "name": "docs/spirit2dm9.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "docs/spirit2dm9.txt",
+        "bytes": 5965
+      },
+      {
+        "name": "env/spirit2dm9/phobosbk.pcx",
+        "bytes": 18151
+      },
+      {
+        "name": "env/spirit2dm9/phobosbk.tga",
+        "bytes": 164007
+      },
+      {
+        "name": "env/spirit2dm9/phobosdn.pcx",
+        "bytes": 19097
+      },
+      {
+        "name": "env/spirit2dm9/phobosdn.tga",
+        "bytes": 192211
+      },
+      {
+        "name": "env/spirit2dm9/phobosft.pcx",
+        "bytes": 24877
+      },
+      {
+        "name": "env/spirit2dm9/phobosft.tga",
+        "bytes": 184929
+      },
+      {
+        "name": "env/spirit2dm9/phoboslf.pcx",
+        "bytes": 21583
+      },
+      {
+        "name": "env/spirit2dm9/phoboslf.tga",
+        "bytes": 183901
+      },
+      {
+        "name": "env/spirit2dm9/phobosrt.pcx",
+        "bytes": 19837
+      },
+      {
+        "name": "env/spirit2dm9/phobosrt.tga",
+        "bytes": 181386
+      },
+      {
+        "name": "env/spirit2dm9/phobosup.pcx",
+        "bytes": 14077
+      },
+      {
+        "name": "env/spirit2dm9/phobosup.tga",
+        "bytes": 179822
+      },
+      {
+        "name": "maps/spirit2dm9.bsp",
+        "bytes": 1300456
+      },
+      {
+        "name": "maps/spirit2dm9.map",
+        "bytes": 942316
+      },
+      {
+        "name": "sound/spirit2dm9/flow.wav",
+        "bytes": 52270
+      },
+      {
+        "name": "sound/spirit2dm9/tele.wav",
+        "bytes": 241006
+      },
+      {
+        "name": "textures/spirit2dm9/bricks_1.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/cliff.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/concrete_1_hq.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/concrete_2.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/concrete_3.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/concrete_4.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/concrete_5.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/concrete_tile.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/dirt_1_hq.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/fan_frame.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/floor_1.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/floor_2.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/floor_3.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/metal_2.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/metal_4.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm9/metal_9_hq.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm9/pipe_inside.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm9/threadplate2_hq.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/threadplate3_hq.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/tile_1.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/trim_10.wal",
+        "bytes": 2820
+      },
+      {
+        "name": "textures/spirit2dm9/trim_4.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm9/trim_6.wal",
+        "bytes": 2820
+      },
+      {
+        "name": "textures/spirit2dm9/trim_8.wal",
+        "bytes": 5540
+      },
+      {
+        "name": "textures/spirit2dm9/trim_9.wal",
+        "bytes": 10980
+      },
+      {
+        "name": "textures/spirit2dm9/wall_7_hq.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/wood_1_hq.wal",
+        "bytes": 21860
+      },
+      {
+        "name": "textures/spirit2dm9/wood_support_hq.wal",
+        "bytes": 21860
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake3",
+    "archive": "quake3_spirit3dm1.zip",
+    "url": "https://maps.rcmd.org/quake3/spirit3dm1/spirit3dm1.zip",
+    "bytes": 1467570,
+    "sha256": "c163cd1d9b56e29ffe35f61dbeac8f55437b982a976c6051ca126fd58ac07626",
+    "files": [
+      {
+        "name": "spirit3dm1.pk3",
+        "bytes": 1480033
+      },
+      {
+        "name": "spirit3dm1.txt",
+        "bytes": 3675
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake3",
+    "archive": "quake3_spirit3t1.zip",
+    "url": "https://maps.rcmd.org/quake3/spirit3t1/spirit3t1.zip",
+    "bytes": 2203370,
+    "sha256": "f6481b23dfe34023c54042c42ce3e4499c24005c544c0d50e7ab112866f3ffb4",
+    "files": [
+      {
+        "name": "spirit3t1.pk3",
+        "bytes": 2214979
+      },
+      {
+        "name": "spirit3t1.txt",
+        "bytes": 3901
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake3",
+    "archive": "quake3_spirit3t2.zip",
+    "url": "https://maps.rcmd.org/quake3/spirit3t2/spirit3t2.zip",
+    "bytes": 5040244,
+    "sha256": "175a3f2ed120a5aef7161ebb9643f6418ff9d8e30ae72bda7125b1de2da14190",
+    "files": [
+      {
+        "name": "spirit3t2.pk3",
+        "bytes": 5083352
+      },
+      {
+        "name": "spirit3t2.txt",
+        "bytes": 3454
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake3",
+    "archive": "quake3_spirit3t3.zip",
+    "url": "https://maps.rcmd.org/quake3/spirit3t3/spirit3t3.zip",
+    "bytes": 11770682,
+    "sha256": "58875b42c925c23015c992c60c9ed327ac5103e8aa4b708efb5524f05c853717",
+    "files": [
+      {
+        "name": "spirit3t3.pk3",
+        "bytes": 11797696
+      },
+      {
+        "name": "spirit3t3.txt",
+        "bytes": 5903
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake3",
+    "archive": "quake3_spirit3t3a.zip",
+    "url": "https://maps.rcmd.org/quake3/spirit3t3a/spirit3t3a.zip",
+    "bytes": 11685919,
+    "sha256": "24874f7b0ba05a1f90037cf3d8b62483edec3979c0822124854b1350b97c4870",
+    "files": [
+      {
+        "name": "spirit3t3a.pk3",
+        "bytes": 11721080
+      },
+      {
+        "name": "spirit3t3a.txt",
+        "bytes": 4373
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_quake3",
+    "archive": "quake3_spirit3ctfduel1.zip",
+    "url": "https://maps.rcmd.org/quake3/spirit3ctfduel1/spirit3ctfduel1.zip",
+    "bytes": 2244296,
+    "sha256": "7530862003f6f5ca2fd78ec96c8f49a182ad269c667f3b4a87fdc22d84eb0e28",
+    "files": [
+      {
+        "name": "spirit3ctfduel1.pk3",
+        "bytes": 2263426
+      },
+      {
+        "name": "spirit3ctfduel1.txt",
+        "bytes": 5966
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_q2w",
+    "archive": "q2w_resurrection.zip",
+    "url": "https://maps.rcmd.org/q2w/resurrection/resurrection.zip",
+    "bytes": 6193471,
+    "sha256": "97b512c974673144a2a33c1c1b486d4dd66196543fca9bb4377adaeda02ce5ff",
+    "files": [
+      {
+        "name": "resurrection/map-resurrection.txt",
+        "bytes": 9093
+      },
+      {
+        "name": "resurrection/map-resurrection.license.txt",
+        "bytes": 17987
+      },
+      {
+        "name": "resurrection/map-resurrection.pak",
+        "bytes": 23639514
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_mia.zip",
+    "url": "https://maps.rcmd.org/doom/mia_episode/mia.zip",
+    "bytes": 444135,
+    "sha256": "6e5491e9f797e2cf990c84eb9cbb9a9711d6552e4e39946db1b7dfa8caadbb8a",
+    "files": [
+      {
+        "name": "mia.wad",
+        "bytes": 892788
+      },
+      {
+        "name": "MIA.gwa",
+        "bytes": 128734
+      },
+      {
+        "name": "mia.jpg",
+        "bytes": 21358
+      },
+      {
+        "name": "mia.txt",
+        "bytes": 7533
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_dchurch.zip",
+    "url": "https://maps.rcmd.org/doom/dchurch/dchurch.zip",
+    "bytes": 33209,
+    "sha256": "e295d2ec00f92ea2a55e21c120641a8d0408f6b6d71b30cb45fff7c7c6bc1f01",
+    "files": [
+      {
+        "name": "dchurch.wad",
+        "bytes": 29630
+      },
+      {
+        "name": "dchurch.gwa",
+        "bytes": 12710
+      },
+      {
+        "name": "dchurch.jpg",
+        "bytes": 15332
+      },
+      {
+        "name": "dchurch.txt",
+        "bytes": 4310
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_propain.zip",
+    "url": "https://maps.rcmd.org/doom/propain/propain.zip",
+    "bytes": 67177,
+    "sha256": "6edbae4338779eabdbd0e4e83276049d0a2acb2f0d451781c82ffcd00c694f03",
+    "files": [
+      {
+        "name": "propain.wad",
+        "bytes": 98091
+      },
+      {
+        "name": "propain.gwa",
+        "bytes": 30744
+      },
+      {
+        "name": "propain.jpg",
+        "bytes": 15151
+      },
+      {
+        "name": "propain.txt",
+        "bytes": 1878
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_refuge.zip",
+    "url": "https://maps.rcmd.org/doom/refuge/refuge.zip",
+    "bytes": 72000,
+    "sha256": "aa1e85915a9f0cc8ab7ea8f06d62f23034759c64c29e6101c45079ef9fda5738",
+    "files": [
+      {
+        "name": "REFUGE.WAD",
+        "bytes": 92886
+      },
+      {
+        "name": "REFUGE.gwa",
+        "bytes": 38368
+      },
+      {
+        "name": "refuge.jpg",
+        "bytes": 14201
+      },
+      {
+        "name": "refuge.txt",
+        "bytes": 5236
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_reality.zip",
+    "url": "https://maps.rcmd.org/doom/reality/reality.zip",
+    "bytes": 69080,
+    "sha256": "87cd603076e39519ef4173e7f17e04d5120d8521f986c03663807a363e9bc67d",
+    "files": [
+      {
+        "name": "REALITY.WAD",
+        "bytes": 132323
+      },
+      {
+        "name": "REALITY.gwa",
+        "bytes": 34494
+      },
+      {
+        "name": "reality.txt",
+        "bytes": 3883
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_doom",
+    "archive": "doom_landau.zip",
+    "url": "https://maps.rcmd.org/doom/landau/landau.zip",
+    "bytes": 81401,
+    "sha256": "4b3162b0b7934f6367a2852a82314cd5ea5ee758be535fe9deb24f6b593a4e1d",
+    "files": [
+      {
+        "name": "LANDAU.WAD",
+        "bytes": 159136
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_frozen_in_time.zip",
+    "url": "https://maps.rcmd.org/other/dow/frozen_in_time/frozen_in_time.zip",
+    "bytes": 1607628,
+    "sha256": "f0970cab7898aa54b791c5fa20db1dfe2f3d80335579e398e9255844db8685b7",
+    "files": [
+      {
+        "name": "frozen_in_time/4p_map_Frozen_in_Time.scar",
+        "bytes": 5798
+      },
+      {
+        "name": "frozen_in_time/4p_map_Frozen_in_Time.sgb",
+        "bytes": 1125622
+      },
+      {
+        "name": "frozen_in_time/4p_map_Frozen_in_Time.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "frozen_in_time/4p_map_Frozen_in_Time.txt",
+        "bytes": 4962
+      },
+      {
+        "name": "frozen_in_time/4p_map_Frozen_in_Time_icon.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "frozen_in_time/4p_map_Frozen_in_Time_mm.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "frozen_in_time/4p_map_Frozen_in_Time_mm_custom.tga",
+        "bytes": 196652
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_green_hell.zip",
+    "url": "https://maps.rcmd.org/other/dow/green_hell/green_hell.zip",
+    "bytes": 1961385,
+    "sha256": "a8e22cf18e5c4848ebb607dd077b98126ac3197b0b3cf2e763913d121839cf43",
+    "files": [
+      {
+        "name": "green_hell/4p_map_Green_Hell.sgb",
+        "bytes": 1173360
+      },
+      {
+        "name": "green_hell/4p_map_Green_Hell.tga",
+        "bytes": 4194322
+      },
+      {
+        "name": "green_hell/4p_map_Green_Hell.txt",
+        "bytes": 8191
+      },
+      {
+        "name": "green_hell/4p_map_Green_Hell_icon.tga",
+        "bytes": 49196
+      },
+      {
+        "name": "green_hell/4p_map_Green_Hell_mm.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "green_hell/4p_map_Green_Hell_mm_custom.tga",
+        "bytes": 196652
+      },
+      {
+        "name": "green_hell/baddecal.tga",
+        "bytes": 65580
+      },
+      {
+        "name": "green_hell/missingmodel.whm",
+        "bytes": 1750
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_duelingkeeps.zip",
+    "url": "https://maps.rcmd.org/other/warcraft3/duelingkeeps/duelingkeeps.zip",
+    "bytes": 105298,
+    "sha256": "3f5768d8a6779486361285b3b5a194d062746f83a8369c35444922de38f09f72",
+    "files": [
+      {
+        "name": "(2)DuelingKeeps.w3x",
+        "bytes": 105465
+      },
+      {
+        "name": "duelingkeeps.txt",
+        "bytes": 2346
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_suddendeath.zip",
+    "url": "https://maps.rcmd.org/other/warcraft3/suddendeath/suddendeath.zip",
+    "bytes": 52905,
+    "sha256": "435c7e6a13296342169923de7fd60643eed7921031d77bd0cb84319b0eae118a",
+    "files": [
+      {
+        "name": "(2)SuddenDeath.w3x",
+        "bytes": 52225
+      },
+      {
+        "name": "suddendeath.txt",
+        "bytes": 2664
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_mushroommadness.zip",
+    "url": "https://maps.rcmd.org/other/warcraft3/mushroommadness/mushroommadness.zip",
+    "bytes": 116317,
+    "sha256": "dec23168a3789005e49ef11e35f8570da9c22d163705227d7a55eaf8fa04c6b0",
+    "files": [
+      {
+        "name": "(4)MushroomMadness.w3x",
+        "bytes": 116580
+      },
+      {
+        "name": "mushroommadness.txt",
+        "bytes": 2689
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_psycho.zip",
+    "url": "https://maps.rcmd.org/other/duke3d/psycho/psycho.zip",
+    "bytes": 13770,
+    "sha256": "3b24cb210342939825d8853b18a239da2c7324b1471995f0644ce72fdc1d0657",
+    "files": [
+      {
+        "name": "psycho.map",
+        "bytes": 54414
+      }
+    ]
+  },
+  {
+    "collection": "rcmd_other",
+    "archive": "other_spiritworld.zip",
+    "url": "https://maps.rcmd.org/other/njam/spiritworld/spiritworld.zip",
+    "bytes": 46058,
+    "sha256": "6247279c3499b3b22ebb01a69a6e03675a9945318d35ae415b564cf96acd237e",
+    "files": [
+      {
+        "name": "spiritworld/DEADLYSPIRIT.DUEL",
+        "bytes": 13440
+      },
+      {
+        "name": "spiritworld/SPIRITWORLD.COOP",
+        "bytes": 13440
+      },
+      {
+        "name": "spiritworld/spiritworld.jpg",
+        "bytes": 41755
+      },
+      {
+        "name": "spiritworld/spiritworld.txt",
+        "bytes": 1825
+      }
+    ]
+  }
+]

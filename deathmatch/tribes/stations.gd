@@ -28,10 +28,13 @@ func configure(arena,entities: Array) -> void:
 			var dimensions:=str(e.get("size","")).split_floats(" ",false)
 			if dimensions.size()==3 and Array(dimensions).all(func(v):return is_finite(v) and v>0 and v<=8192):
 				boundary(node.global_position-Vector3.UP*.70,Vector3(dimensions[0],dimensions[1],dimensions[2]))
-		elif e.get("classname","") in ["info_tribes_inventory","info_tribes_ammo","info_tribes_command","info_tribes_vehicle"] and int(e.get("team",-1)) in [0,1]:
+		elif e.get("classname","") in ["info_tribes_inventory","info_tribes_ammo","info_tribes_command","info_tribes_vehicle"] and int(e.get("team",-2)) in [-1,0,1]:
 			var row:={"team":int(e.team),"position":node.global_position-Vector3.UP*.70,"kind":str(e.classname).trim_prefix("info_tribes_")}
 			row.merge(circuit(e))
 			if e.get("vehicle_spawn") is Vector3:row.vehicle_spawn=e.vehicle_spawn
+			elif e.get("vehicle_spawn") is String:
+				var values: PackedFloat64Array=e.vehicle_spawn.split_floats(" ",false)
+				if values.size()==3 and Array(values).all(func(v):return is_finite(v)):row.vehicle_spawn=Vector3(values[0],values[1],values[2])
 			row.frame=Transform3D(Basis(Vector3.UP,deg_to_rad(float(e.get("angle",0)))),row.position)
 			rows.append(row)
 			fixture(row,deg_to_rad(float(e.get("angle",0))))
@@ -73,11 +76,11 @@ func configure(arena,entities: Array) -> void:
 	assets.setup(self,entities);defences.setup(self,entities)
 
 static func circuit(e: Dictionary) -> Dictionary:
-	return {"power_group":str(e.get("power_group","base")).left(64),"power_sources":str(e.get("power_sources","")).left(512).split(",",false)}
+	return {"self_powered":str(e.get("self_powered","0"))=="1","power_group":str(e.get("power_group","base")).left(64),"power_sources":str(e.get("power_sources","")).left(512).split(",",false)}
 func source_hp(row: Dictionary) -> float:return health[row.team] if row.primary else row.hp
 func source_active(row: Dictionary) -> bool:return Health.enabled(source_hp(row),row.maximum)
 func connected(row: Dictionary) -> bool:
-	if game.match_mode.kind!="st":return true
+	if game.match_mode.kind!="st" or row.get("self_powered",false):return true
 	for source in generators:
 		if source.team!=row.team or not source_active(source):continue
 		if not row.get("power_sources",[]).is_empty():
@@ -178,7 +181,7 @@ func at(id: int,kinds: Array=["inventory"]) -> int:
 		var row: Dictionary=rows[i];var offset: Vector3=p-row.position
 		# Include the corners and approach to the 2.9 m service mat, rather
 		# than requiring the player's origin inside a small centre circle.
-		if row.kind not in kinds or row.team!=team or not connected(row) or game.match_mode.kind=="st" and not assets.active(row.asset) or absf(offset.y)>1.25 or Vector2(offset.x,offset.z).length()>2.5:continue
+		if row.kind not in kinds or row.team not in [-1,team] or not connected(row) or game.match_mode.kind=="st" and not assets.active(row.asset) or absf(offset.y)>1.25 or Vector2(offset.x,offset.z).length()>2.5:continue
 		var ray:=PhysicsRayQueryParameters3D.create(p+Vector3.UP*.9,row.position+Vector3.UP*.9,1)
 		if game.get_world_3d().direct_space_state.intersect_ray(ray).is_empty():return i
 	return -1
@@ -188,11 +191,11 @@ func tick(rules,delta: float) -> void:
 	if rows.is_empty():return
 	for id in game.players:
 		if game.match_mode.kind=="st":recover_pack(id)
-		if not rules.recovery.eligible(id) or at(id,["inventory","ammo"])<0:repair.erase(id);supply.erase(id);continue
+		if not rules.recovery.eligible(id) or (at(id,["inventory","ammo"])<0 and rules.vehicles.mobile_station(id)<0):repair.erase(id);supply.erase(id);continue
 		var s: Dictionary=game.players[id];var account: int=rules.bank(id)
 		# Native inventory stations service users while they remain on the pad.
 		# Fractional accumulation keeps healing independent of server tick rate.
-		if at(id)>=0 and rules.balance(id)>0 and s.hp<rules.definition(id).hp:
+		if (at(id)>=0 or rules.vehicles.mobile_station(id)>=0) and rules.balance(id)>0 and s.hp<rules.definition(id).hp:
 			repair[id]=float(repair.get(id,0.0))+delta*8.0
 			var amount: int=mini(int(repair[id]),rules.definition(id).hp-s.hp)
 			s.hp+=amount;repair[id]-=amount

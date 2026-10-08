@@ -1,0 +1,209 @@
+{
+  "baked_faces": 9149,
+  "bsp_sha256": "3242a660755d78c652fc7f0a9992425243a5d642ac754a436beac955f40ba589",
+  "checks": [
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -12.7884845733643,
+        0.400000035762787,
+        -60.0216598510742
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        12.7539081573486,
+        0.400000035762787,
+        -59.9846801757812
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        31.668041229248,
+        0.400000035762787,
+        -52.7690620422363
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        52.7791938781738,
+        0.400000035762787,
+        -31.6161231994629
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        59.8920402526855,
+        0.400000035762787,
+        -12.7925758361816
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        60.0631408691406,
+        0.400000035762787,
+        12.7962646484375
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        54.7619705200195,
+        0.400000035762787,
+        30.0881843566895
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        31.5347023010254,
+        0.400000035762787,
+        53.3691825866699
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        12.781343460083,
+        0.400000035762787,
+        59.9588317871094
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -12.8447008132935,
+        0.400000035762787,
+        59.9924545288086
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -33.2642936706543,
+        0.400000035762787,
+        52.0854721069336
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -52.7682609558105,
+        0.400000035762787,
+        32.410228729248
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -60.134407043457,
+        0.400000035762787,
+        12.8236389160156
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -60.1849555969238,
+        0.400000035762787,
+        -12.7763528823853
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -52.6599197387695,
+        0.400000035762787,
+        -32.2585296630859
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -30.9949226379395,
+        0.400000035762787,
+        -54.1083068847656
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        3.98064184188843,
+        0.800000011920929,
+        4.53338050842285
+      ],
+      "safe": true
+    }
+  ],
+  "failures": [],
+  "fixed": true,
+  "hill_nav_distance": [
+    0.100001513957977
+  ],
+  "hills": 1,
+  "id": "koth_ut_cerebro",
+  "invalid_light_faces": 0,
+  "jumps": 154,
+  "lifts": [
+    {
+      "base": -6.80000019073486,
+      "bounds": "[P: (43.87452, -0.8, 33.62452), S: (9.050968, 0.8, 9.050968)]",
+      "travel": 6.8
+    },
+    {
+      "base": -6.80000019073486,
+      "bounds": "[P: (34.82452, -0.8, 42.67451), S: (9.050968, 0.8, 9.050968)]",
+      "travel": 6.8
+    }
+  ],
+  "link_kinds": {
+    "drop": 142,
+    "jump": 12,
+    "lift": 2,
+    "trigger_teleport": 12
+  },
+  "links": 168,
+  "missing_routes": [],
+  "routes": 16,
+  "spawns": 16,
+  "total_routes": 16,
+  "unresolved_teleports": []
+}

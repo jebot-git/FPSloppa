@@ -1,5 +1,5 @@
 extends RefCounted
-## Static skies, with restrained distance haze on the three outdoor ST maps.
+## Static skies, with restrained distance haze on outdoor ST maps.
 const Skies=preload("res://deathmatch/maps/skies/catalog.gd")
 const PROFILES={
  "desert":[Color(.27,.46,.66),Color(.78,.72,.59)],
@@ -10,6 +10,29 @@ const PROFILES={
  "void":[Color(.013,.02,.06),Color(.11,.16,.25)]
 }
 const MAPS={
+ "ctf_t2_acidrain":"desert",
+ "ctf_t2_blastside":"works",
+ "ctf_t2_broadside":"works",
+ "ctf_t2_confusco":"desert",
+ "ctf_t2_dangerouscrossing":"works",
+ "ctf_t2_desertofdeath":"desert",
+ "ctf_t2_gorgon":"desert",
+ "ctf_t2_hillside":"works",
+ "ctf_t2_iceridge":"coast",
+ "ctf_t2_lakefront":"works",
+ "ctf_t2_magmatic":"inferno",
+ "ctf_t2_ramparts":"works",
+ "ctf_t2_rollercoaster":"desert",
+ "ctf_t2_sandstorm":"desert",
+ "ctf_t2_scarabrae":"works",
+ "ctf_t2_shockridge":"coast",
+ "ctf_t2_snowblind":"coast",
+ "ctf_t2_starfallen":"works",
+ "ctf_t2_subzero":"coast",
+ "ctf_t2_surreal":"works",
+ "ctf_t2_titan":"works",
+ "ctf_t2_whitedwarf":"inferno",
+
  "ctf_stonehenge":"works",
  "ctf_raindance":"works",
  "ctf_katabatic":"coast",
@@ -22,6 +45,29 @@ const MAPS={
  "ctf_tideworks":"coast","ctf_crucible":"works","ctf_confluence":"coast","ctf_deepvault":"abbey","ctf_crownreach":"abbey","ctf_skyfracture":"void"
 }
 const DISTANCE_FOG={
+ "ctf_t2_acidrain":[322.5,900.0,0.28,Color(0.25,0.25,0.32)],
+ "ctf_t2_blastside":[225.0,1170.0,0.2,Color(0.7,0.75,0.75)],
+ "ctf_t2_broadside":[225.0,1170.0,0.2,Color(0.7,0.75,0.75)],
+ "ctf_t2_confusco":[225.0,1080.0,0.28,Color(0.5,0.3,0.2)],
+ "ctf_t2_dangerouscrossing":[165.0,756.0,0.2,Color(0.7,0.7,0.7)],
+ "ctf_t2_desertofdeath":[150.0,810.0,0.28,Color(0.12,0.12,0.12)],
+ "ctf_t2_gorgon":[225.0,900.0,0.28,Color(0.8,0.5,0.35)],
+ "ctf_t2_hillside":[337.5,900.0,0.2,Color(0.57,0.64,0.8)],
+ "ctf_t2_iceridge":[225.0,1035.0,0.28,Color(0.6,0.6,0.65)],
+ "ctf_t2_lakefront":[225.0,855.0,0.2,Color(0.5,0.5,0.5)],
+ "ctf_t2_magmatic":[210.0,900.0,0.28,Color(0.8,0.383,0.12)],
+ "ctf_t2_ramparts":[206.2,810.0,0.28,Color(0.62,0.64,0.742)],
+ "ctf_t2_rollercoaster":[112.5,720.0,0.28,Color(0.8,0.7,0.5)],
+ "ctf_t2_sandstorm":[150.0,850.0,0.3,Color(0.8,0.6,0.4)],
+ "ctf_t2_scarabrae":[187.5,900.0,0.2,Color(0.7,0.75,0.8)],
+ "ctf_t2_shockridge":[150.0,900.0,0.28,Color(0.4,0.59,0.6)],
+ "ctf_t2_snowblind":[100.0,700.0,0.32,Color(0.65,0.65,0.65)],
+ "ctf_t2_starfallen":[315.0,1008.0,0.2,Color(0.26,0.41,0.44)],
+ "ctf_t2_subzero":[150.0,900.0,0.28,Color(0.65,0.65,0.7)],
+ "ctf_t2_surreal":[337.5,954.0,0.2,Color(0.5,0.6,0.75)],
+ "ctf_t2_titan":[262.5,810.0,0.2,Color(0.71,0.71,0.71)],
+ "ctf_t2_whitedwarf":[300.0,900.0,0.2,Color(0.12,0.22,0.12)],
+
  "ctf_stonehenge":[240.0,950.0,.22,Color(.43,.49,.53)],
  "ctf_raindance":[300.0,1200.0,.22,Color(.39,.47,.51)],
  "ctf_katabatic":[350.0,1400.0,.28,Color(.62,.70,.78)]

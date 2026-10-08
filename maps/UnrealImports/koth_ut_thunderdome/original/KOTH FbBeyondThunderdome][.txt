@@ -1,0 +1,120 @@
+================================================================
+Title                   : Beyond Thunderdome ][
+Version                 : 1.0
+Release Date            : April 17, 2000
+Fixes                   : None yet
+Filename                : KOTH-FbBeyondThunderdome][.unr
+Author                  : Wolfchild (Andy Fabans)
+Email Address           : wolfchild@flashcom.net
+Web Page                : http://frogblast.unrealengine.com
+Description             : Conversion of a map that appeared in Bungie
+                          Software's game Marathon Infinity.
+Where to get 
+this map                : http://frogblast.unrealengine.com
+                          http://www.planetunreal.com/nalicity
+                          KOTH mod may be found at
+                          http://frogblast.unrealengine.com
+                          http://www.geocities.com/kobuster/koth
+Other levels by author  : Unreal:
+                          DMFbWrathNoMore, DMFbE=MCWHAT, DMFbHouseofPain,
+                          DMFbBeyondThunderdome, DMFbControlledByGammaLight
+                          UT:
+                          DM-FbWrathNoMore][, DM-FbE=MCWhat][,
+                          DM-FbHouseofPain][, DM-FbBeyondThunderdome][, 
+                          DM-FbSandsSerif][
+Special thanks          : Gor Gor for writing the most excellent KOTH mod
+                          Dr. Bob for letting me test on his server
+                          Hobeaux for getting this whole thing started
+
+
+================================================================
+--- Play Information ---
+Game                         : Unreal Tournament 4.0 or higher
+Level Name                   : Beyond Thunderdome ][
+Single Player                : Botmatch - although the bots don't understand
+                               the hill very well
+Cooperative                  : no
+Deathmatch                   : no
+Dark Match                   : no
+True King of the Hill        : yes
+Difficulty Settings          : no
+New Sounds                   : yes
+New Graphics                 : no
+NewUnrealScript              : no
+External DLLs                : no
+Known bugs                   : Of course not.
+
+--- Construction ---
+Editor(s) used               : UnrealEd 2.24
+Construction Time            : About 20 minutes to add the KOTH stuff to the
+                               DM map
+
+
+Installation
+------------
+KOTH-FbBeyondThunderdome][.unr  : Maps directory
+KOTH2.u                         : Unreal Tournament System directory
+KOTH2.int                       : Unreal Tournament System directory
+
+
+Author's Notes
+--------------
+This map appeared with the game Marathon Infinity by Bungie Software.  It
+was a remake of the map Thunderdome from the original Marathon.  To get to
+the amplifier, the superhealth, or the sniper rifle you will need to learn to
+lift jump, altough you waste a bit of time doing it.
+This map implements true (Marathon-style) king of the hill with the help of
+Gor Gor's cool KOTH mod.  True king of the hill is scored by time on the hill
+area - not frags.  You will see a timer display on the left edge of your
+screen.  Whenever you are on the hill the numbers will turn blue and begin to
+accumulate time.  The scoreboard is ordered by time on the hill, although
+frags are shown also.  Depending on how the server is set up, the game will
+end when the max time is reached or the max hill time is reached.  See
+KOTH.txt for info on how to setup a KOTH server and start a KOTH game or go
+to Gor Gor's web site at
+http://www.geocities.com/kobuster/koth
+On this map the hill is the lava area in the center.  When you are on it your
+timer display will turn blue.
+To play the signature sound shoot at the ceiling above the arena.
+
+--- Frogblast: The Ventcore Project ---
+Hobeax at unrealengine.com started this initiative to revive Marathon maps in
+Unreal with DmDuality and then his awesome DMRoute66.  Being a Marathon
+fanatic myself I have signed on and begun converting Marathon maps as well.
+Although the Marathon engine is showing its age, those guys at Bungie (and
+later Double Aught) knew how to map - the net play on these old maps is still
+incredible with Unreal.
+
+--- What Is "Frogblast The Ventcore"? ---
+Bungie Software's original Marathon game their were human civilians who
+basically ran around and got in the way.  However as part of the plot of the
+game some of the civilians were captured by the aliens and 'assimilated'.
+that is, they were converted into kamikazes who would run at you and explode
+when they got close.  By the time of Marathon II: Durandal these assimilated
+humans could actually speak a few phrases such as, "Don't shoot!", "I'm out
+of ammo!", "I love you man!", and the immortal "Frogblast the ventcore!"
+
+
+Copyright / Permissions
+-----------------------
+This level is copyrighted by Andrew Fabans 2000. This level is based on one
+created by Bungie Software for Marathon.
+
+Authors may not NOT use this level as a base to build additional levels.
+
+You are NOT allowed to commercially exploit this level, i.e. put it on a CD
+or any other electronic medium that is sold for money without my explicit
+permission!
+
+You MAY distribute this level through any electronic network (Internet,
+FIDO, local BBS etc.), provided you include this file and leave the archive
+intact.
+
+----------------------
+UNREAL (c)1998 Epic Megagames, Inc. All Rights Reserved. Distributed by GT
+Interactive Software, Inc. under license. UNREAL and the UNREAL logo are
+registered trademarks of Epic Megagames, Inc. All other trademarks and trade
+names are properties of their respective owners.
+
+MARATHON, MARATHON II: DURANDAL, and MARATHON INFINITY (c) Bungie Software
+Products Corporation.  All rights reserved.

@@ -1,0 +1,106 @@
+{
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "30/1"
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0"
+      }
+    ],
+    "format": {
+      "duration": "280.333333",
+      "size": "308891412"
+    }
+  },
+  "sha256": "1e1f5c7b51d94bd6823ca5f8343a380c348ee1b79b9d7f6b097e6f34703651a3",
+  "server": {
+    "bsp_penetration_ready": true,
+    "bsp_sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4",
+    "clock": 393.316666666638,
+    "cs_movement_bots": 10,
+    "kills": 38,
+    "map": "de_varq_santorini",
+    "phase": "finished",
+    "pid": 194593,
+    "raw_travel_turn": 951.088260979004,
+    "round": 6,
+    "round_cap": 6,
+    "scores": [
+      3,
+      3
+    ],
+    "shots": 297,
+    "smooth_camera": true,
+    "smoothed_travel_turn": 733.501694430072,
+    "spectators": 0,
+    "teams": [
+      5,
+      5
+    ],
+    "travel_smoothing_samples": 42065,
+    "wallbang_firing_ticks": 0,
+    "wallbang_probes": 0
+  },
+  "completion": {
+    "bsp_penetration_ready": true,
+    "bsp_sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4",
+    "clock": 282.416666666738,
+    "cs_movement_bots": 10,
+    "kills": 38,
+    "map": "de_varq_santorini",
+    "phase": "finished",
+    "pid": 194594,
+    "raw_travel_turn": 0,
+    "round": 6,
+    "round_cap": 6,
+    "scores": [
+      3,
+      3
+    ],
+    "shots": 0,
+    "smooth_camera": true,
+    "smoothed_travel_turn": 0,
+    "spectators": 1,
+    "teams": [
+      5,
+      5
+    ],
+    "travel_smoothing_samples": 0,
+    "wallbang_firing_ticks": 0,
+    "wallbang_probes": 0
+  },
+  "travel_direction_variation_reduction": 0.22877641905174917,
+  "smoothing_test": {
+    "failures": [],
+    "raw_turn": 58.5499012470245,
+    "reduction": 0.881201957926298,
+    "smoothed_turn": 6.95561363175511
+  },
+  "wallbang_test": {
+    "failures": [],
+    "passed": true
+  },
+  "movement_checks": 51,
+  "full_decode_errors": "",
+  "audio_audit": [
+    "[Parsed_volumedetect_0 @ 0x716c48002140] mean_volume: -32.8 dB",
+    "[Parsed_volumedetect_0 @ 0x716c48002140] max_volume: -4.1 dB"
+  ],
+  "source_sha256": {
+    "deathmatch/bots.gd": "58cf96c3be474a24ecdc98c1710f7ac184c0dfcee20bf7f1ce1b724dd5b60675",
+    "deathmatch/bot_ai/wallbang.gd": "48f07e92b39a437c2546772ea66585e58e5a67b450f7326092febf2077268705",
+    "deathmatch/bot_ai/travel_smoothing.gd": "35335fd0bcd4dc716cf460c82e0d0da5a274f1e804f992ebcf1d1d6a32dbf208",
+    "tools/de_penetration/record_santorini.gd": "78c3c6f87c60c46d4304df74484cfae310007aacad31469c64fc0ef2bfb946aa"
+  }
+}

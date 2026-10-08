@@ -49,13 +49,13 @@ static func parse(source: String) -> Dictionary:
 	if values.sv_gametype=="st":
 		values.sv_weapon_rules="tribes"
 		if values.map=="qsrc_dm1":values.map="ctf_stonehenge"
-		if str(values.st_maplist).is_empty():values.st_maplist="ctf_stonehenge ctf_raindance ctf_katabatic"
+		if str(values.st_maplist).is_empty():values.st_maplist=" ".join(preload("res://deathmatch/maps/t2_classic.gd").installed_rotation())
 		if str(values.sv_maplist).is_empty():values.sv_maplist=values.st_maplist
 	if values.sv_gametype=="de":
 		values.sv_weapon_rules="cs16"
 		var de_maps=preload("res://deathmatch/modes/defusal_maps.gd")
 		if not de_maps.installed(values.map):values.map=de_maps.DEFAULT
-		if str(values.de_maplist).is_empty():values.de_maplist=" ".join(de_maps.IDS) if values.map in de_maps.IDS else values.map
+		if str(values.de_maplist).is_empty():values.de_maplist=" ".join(de_maps.base_ids()) if values.map in de_maps.base_ids() else values.map
 		if str(values.sv_maplist).is_empty():values.sv_maplist=values.de_maplist
 		for id in (str(values.de_maplist)+" "+str(values.sv_maplist)).split(" ",false):
 			if not de_maps.installed(id):return {"error":"DE maplists require an installed map with validated defusal objectives."}

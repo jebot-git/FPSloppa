@@ -16,7 +16,7 @@ static func clean(value):
 	return value
 static func identity(game) -> String:
 	var parts: Array=[VERSION,game.PROTOCOL]
-	for name in ["bots.gd","arena.gd","fighter.gd","bot_service/state.gd","bot_service/actions.gd","bot_service/worker.gd","modes/match.gd","modes/defusal.gd","counterstrike/grenades.gd","modes/tribes.gd","modes/fortress.gd","modes/assault.gd","modes/titanball.gd","maps/loader.gd","maps/runtime.gd","maps/manifest.json","tribes/command_state.gd"]:parts.append(FileAccess.get_sha256("res://deathmatch/"+name))
+	for name in ["bots.gd","counterstrike/penetration.gd","counterstrike/bsp_penetration.gd","arena.gd","fighter.gd","bot_service/state.gd","bot_service/actions.gd","bot_service/worker.gd","modes/match.gd","modes/defusal.gd","counterstrike/grenades.gd","modes/tribes.gd","modes/fortress.gd","modes/assault.gd","modes/titanball.gd","maps/loader.gd","maps/runtime.gd","maps/manifest.json","tribes/command_state.gd"]:parts.append(FileAccess.get_sha256("res://deathmatch/"+name))
 	var names:=DirAccess.get_files_at("res://deathmatch/bot_ai");names.sort()
 	for name in names:
 		if name.ends_with(".gd"):parts.append(FileAccess.get_sha256("res://deathmatch/bot_ai/"+name))

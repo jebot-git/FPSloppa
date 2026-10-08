@@ -1,0 +1,2715 @@
+[
+  {
+    "id": "koth_ut_trytitan",
+    "source": {
+      "name": "KOTH-(WTF)TryTitan",
+      "title": "Holy Shit Batman, it's My first Titan Map",
+      "author": "Original: Another Quality Edit By: Your Worst Nightmare",
+      "players": "Unknown",
+      "declared_capacity": null,
+      "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/W/koth-wtftrytitan_1afef2ae.html",
+      "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+      "mode": "koth",
+      "eligible": true,
+      "selection_reason": "KOTH-prefixed ChaosUT map",
+      "archive": "koth-(wtf)trytitan.zip",
+      "archive_sha1": "1afef2aececa075893f269c5d2c2422431a6a0e1",
+      "status": "downloaded",
+      "bytes": 7194156
+    },
+    "texture_sources": {
+      "utb2252909e711": {
+        "kind": "authored package texture",
+        "path": "(WTF)TryTitan.Ceiling.Ceiling3"
+      },
+      "ut703c897a125f": {
+        "kind": "authored package texture",
+        "path": "(WTF)TryTitan.Floor.az-floor"
+      },
+      "ut4baa20dd3d17": {
+        "kind": "authored package texture",
+        "path": "(WTF)TryTitan.Trim.Tilemos1"
+      },
+      "ut5ff47c3ba2b6": {
+        "kind": "authored package texture",
+        "path": "(WTF)TryTitan.Wall.BRIXG"
+      }
+    },
+    "source_faces": 456,
+    "spawns": 19,
+    "hill_points": 5,
+    "spawn_grounding": [
+      {
+        "actor": "PlayerStart0",
+        "source": [
+          365.33331298828125,
+          96.0,
+          -1007.9999389648438
+        ],
+        "floor": [
+          365.33331298828125,
+          96.0,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart1",
+        "source": [
+          -114.66668701171875,
+          -32.0,
+          -1007.9999389648438
+        ],
+        "floor": [
+          -114.66668701171875,
+          -32.0,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart2",
+        "source": [
+          -434.6667175292969,
+          32.0,
+          -1007.9999389648438
+        ],
+        "floor": [
+          -434.6667175292969,
+          32.0,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart3",
+        "source": [
+          -722.666748046875,
+          64.0,
+          -1007.9999389648438
+        ],
+        "floor": [
+          -722.666748046875,
+          64.0,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart4",
+        "source": [
+          399.62384033203125,
+          -184.18255615234375,
+          -983.8899536132812
+        ],
+        "floor": [
+          335.62384033203125,
+          -184.18255615234375,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart5",
+        "source": [
+          -951.779296875,
+          -201.73892211914062,
+          -983.9083251953125
+        ],
+        "floor": [
+          -951.779296875,
+          -201.73892211914062,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart6",
+        "source": [
+          -949.5135498046875,
+          175.56900024414062,
+          -983.9024658203125
+        ],
+        "floor": [
+          -949.5135498046875,
+          175.56900024414062,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart7",
+        "source": [
+          -946.8427734375,
+          936.2886352539062,
+          -983.8927001953125
+        ],
+        "floor": [
+          -946.8427734375,
+          936.2886352539062,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart8",
+        "source": [
+          -988.9678955078125,
+          -955.1528930664062,
+          -983.8681640625
+        ],
+        "floor": [
+          -988.9678955078125,
+          -955.1528930664062,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart9",
+        "source": [
+          175.12017822265625,
+          895.486328125,
+          -983.8966064453125
+        ],
+        "floor": [
+          175.12017822265625,
+          895.486328125,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart10",
+        "source": [
+          178.4035186767578,
+          -909.4671630859375,
+          -983.9105224609375
+        ],
+        "floor": [
+          178.4035186767578,
+          -909.4671630859375,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart11",
+        "source": [
+          610.0446166992188,
+          701.716552734375,
+          -919.9095458984375
+        ],
+        "floor": [
+          610.0446166992188,
+          701.716552734375,
+          -960.0
+        ]
+      },
+      {
+        "actor": "PlayerStart12",
+        "source": [
+          557.6785278320312,
+          -697.43994140625,
+          -919.904541015625
+        ],
+        "floor": [
+          557.6785278320312,
+          -697.43994140625,
+          -960.0
+        ]
+      },
+      {
+        "actor": "PlayerStart13",
+        "source": [
+          591.162109375,
+          -194.6046600341797,
+          -855.9036254882812
+        ],
+        "floor": [
+          591.162109375,
+          -194.6046600341797,
+          -896.0
+        ]
+      },
+      {
+        "actor": "PlayerStart14",
+        "source": [
+          550.3900756835938,
+          195.39877319335938,
+          -855.8939208984375
+        ],
+        "floor": [
+          550.3900756835938,
+          195.39877319335938,
+          -896.0
+        ]
+      },
+      {
+        "actor": "PlayerStart15",
+        "source": [
+          37.8837890625,
+          184.27542114257812,
+          -727.8939819335938
+        ],
+        "floor": [
+          37.8837890625,
+          184.27542114257812,
+          -768.0
+        ]
+      },
+      {
+        "actor": "PlayerStart16",
+        "source": [
+          88.61529541015625,
+          -193.60821533203125,
+          -727.9052734375
+        ],
+        "floor": [
+          88.61529541015625,
+          -193.60821533203125,
+          -768.0
+        ]
+      },
+      {
+        "actor": "PlayerStart17",
+        "source": [
+          -488.7868347167969,
+          -181.4045867919922,
+          -599.89501953125
+        ],
+        "floor": [
+          -488.7868347167969,
+          -181.4045867919922,
+          -640.0
+        ]
+      },
+      {
+        "actor": "PlayerStart18",
+        "source": [
+          -477.436767578125,
+          201.6639862060547,
+          -599.8942260742188
+        ],
+        "floor": [
+          -477.436767578125,
+          201.6639862060547,
+          -640.0
+        ]
+      }
+    ],
+    "traversal": [],
+    "adaptations": [
+      "Missing retail materials replaced with varied existing project materials",
+      "Scripted Chaos weapons mapped to classic arena pickups",
+      "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+    ],
+    "blockers": [],
+    "status": "staging"
+  },
+  {
+    "id": "koth_ut_thunderdome",
+    "source": {
+      "name": "KOTH-FbBeyondThunderdome][",
+      "title": "Fb - Beyond Thunderdome",
+      "author": "Original: from Marathon by Wolfchild - Edit By: GOR GOR",
+      "players": "Unknown",
+      "declared_capacity": null,
+      "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/F/koth-fbbeyondthunderdome_e0ca9030.html",
+      "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+      "mode": "koth",
+      "eligible": true,
+      "selection_reason": "KOTH-prefixed ChaosUT map",
+      "archive": "koth-fbbeyondtdome.zip",
+      "archive_sha1": "e0ca90305e132f042d865ae59adc9b98a63841ad",
+      "status": "downloaded",
+      "bytes": 139973
+    },
+    "texture_sources": {
+      "utbb541a315ade": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Base.Base5A",
+        "donor": "compbase"
+      },
+      "ut50c8f57549e9": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Base.EGGSA",
+        "donor": "ind_w02_grey1"
+      },
+      "ut3275027f2869": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Base.RIPPLE",
+        "donor": "ind_w04_blk1"
+      },
+      "ut4bd43dc0f3b3": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Ceiling.Hexwall2",
+        "donor": "metal_iron1_02"
+      },
+      "ut1ba0180d57d2": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Deco.dHull7a",
+        "donor": "ind_brk02_gry1"
+      },
+      "ut26896d1cd511": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Deco.dHull8",
+        "donor": "met_brn_block"
+      },
+      "ut419a0cec96ca": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Floor.FLOOR8D",
+        "donor": "med_flat5a"
+      },
+      "ut9f225e3b0183": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Floor.PANEL2",
+        "donor": "metal_iron1_07"
+      },
+      "ut5ff68318db82": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Floor.PANEL3A",
+        "donor": "met_brn_tile2"
+      },
+      "utdddd814326b0": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Floor.Scale",
+        "donor": "met_brn_tile2"
+      },
+      "ut0ff24b22478d": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Light.beam",
+        "donor": "tlight12"
+      },
+      "utf14b584a6b9c": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Wall.IRNWAL",
+        "donor": "met_brn_pan1"
+      },
+      "ut6d78b0c70cb4": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Wall.RIVWAL3",
+        "donor": "met_brn_block"
+      },
+      "ut35aeeeae7a86": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Wall.WALL101",
+        "donor": "met_brn_block"
+      },
+      "ut25aacf223e0c": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Wall.WALL3a",
+        "donor": "ind_brk02_gry1"
+      },
+      "utefa6a1a37527": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Wall.WALL3c",
+        "donor": "met_brn_pan1"
+      },
+      "ut2fb24a972255": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.Wall.dWallC2",
+        "donor": "ind_w04_rst1"
+      },
+      "ut5cfc76dab6f3": {
+        "kind": "existing project replacement",
+        "source": "DecayedS.pillar.DPillar4",
+        "donor": "ind_w04_grey1"
+      },
+      "ut0c50120b798d": {
+        "kind": "existing project replacement",
+        "source": "Engine.DefaultTexture",
+        "donor": "ind_w02_grey1"
+      },
+      "ut887d0be77af1": {
+        "kind": "existing project replacement",
+        "source": "LavaFX.lava5",
+        "donor": "*lava1"
+      },
+      "ut424da1164a96": {
+        "kind": "existing project replacement",
+        "source": "Skybox.Effects.NCld",
+        "donor": "sky_star"
+      },
+      "ut7036fdfcbc96": {
+        "kind": "existing project replacement",
+        "source": "Skybox.SkytstAX",
+        "donor": "sky_star"
+      }
+    },
+    "source_faces": 361,
+    "spawns": 8,
+    "hill_points": 3,
+    "spawn_grounding": [
+      {
+        "actor": "PlayerStart2",
+        "source": [
+          0.0,
+          -2336.0,
+          8.100090026855469
+        ],
+        "floor": [
+          0.0,
+          -2336.0,
+          -32.0
+        ]
+      },
+      {
+        "actor": "PlayerStart0",
+        "source": [
+          0.0,
+          2336.0,
+          0.0
+        ],
+        "floor": [
+          0.0,
+          2336.0,
+          -32.0
+        ]
+      },
+      {
+        "actor": "PlayerStart3",
+        "source": [
+          -2112.0,
+          0.0,
+          0.0
+        ],
+        "floor": [
+          -2112.0,
+          0.0,
+          -32.0
+        ]
+      },
+      {
+        "actor": "PlayerStart1",
+        "source": [
+          2112.0,
+          0.0,
+          0.0
+        ],
+        "floor": [
+          2112.0,
+          0.0,
+          -32.0
+        ]
+      },
+      {
+        "actor": "PlayerStart5",
+        "source": [
+          -928.0,
+          960.0,
+          8.100563049316406
+        ],
+        "floor": [
+          -928.0,
+          960.0,
+          -32.0
+        ]
+      },
+      {
+        "actor": "PlayerStart6",
+        "source": [
+          928.0,
+          960.0,
+          8.100563049316406
+        ],
+        "floor": [
+          928.0,
+          960.0,
+          -32.0
+        ]
+      },
+      {
+        "actor": "PlayerStart7",
+        "source": [
+          -928.0,
+          -960.0,
+          8.100563049316406
+        ],
+        "floor": [
+          -928.0,
+          -960.0,
+          -32.0
+        ]
+      },
+      {
+        "actor": "PlayerStart4",
+        "source": [
+          928.0,
+          -960.0,
+          8.100563049316406
+        ],
+        "floor": [
+          928.0,
+          -960.0,
+          -32.0
+        ]
+      }
+    ],
+    "traversal": [
+      {
+        "kind": "teleport",
+        "source": "Teleporter0",
+        "target": "Lower"
+      },
+      {
+        "kind": "teleport",
+        "source": "Teleporter2",
+        "target": "Upper"
+      },
+      {
+        "kind": "lift",
+        "source": "Mover13",
+        "travel": [
+          0.0,
+          0.0,
+          230.4
+        ]
+      },
+      {
+        "kind": "lift",
+        "source": "Mover15",
+        "travel": [
+          0.0,
+          0.0,
+          230.4
+        ]
+      },
+      {
+        "kind": "lift",
+        "source": "Mover17",
+        "travel": [
+          0.0,
+          0.0,
+          230.4
+        ]
+      },
+      {
+        "kind": "lift",
+        "source": "Mover18",
+        "travel": [
+          0.0,
+          0.0,
+          230.4
+        ]
+      }
+    ],
+    "adaptations": [
+      "Missing retail materials replaced with varied existing project materials",
+      "Scripted Chaos weapons mapped to classic arena pickups",
+      "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+    ],
+    "blockers": [],
+    "status": "staging"
+  },
+  {
+    "id": "koth_ut_dungeon",
+    "source": {
+      "name": "KOTH_Dungeon",
+      "title": "KOTH Dungeon",
+      "author": "LoQtUS",
+      "players": "2-8",
+      "declared_capacity": 8,
+      "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/D/koth_dungeon_3bd2686b.html",
+      "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+      "mode": "koth",
+      "eligible": true,
+      "selection_reason": "KOTH-prefixed ChaosUT map",
+      "archive": "KOTH_Dungeon.umod",
+      "archive_sha1": "3bd2686bbaef19e266878db46a7bc305c222804c",
+      "status": "downloaded",
+      "bytes": 5475175
+    },
+    "texture_sources": {
+      "utd02c48829b11": {
+        "kind": "existing project replacement",
+        "source": "Botpack.Ammocount.FlakAmmoLED",
+        "donor": "met_brn_block"
+      },
+      "utbc7bd4222d8c": {
+        "kind": "existing project replacement",
+        "source": "Botpack.Ammocount.FlakAmmoLEDBase",
+        "donor": "ind_w02_grey1"
+      },
+      "ut4f050b76754f": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Doors.loqtus_door1L"
+      },
+      "ut85549f6f7ddb": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Doors.loqtus_doorL"
+      },
+      "ut9e47d17b00d5": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Doors.loqtus_metal1"
+      },
+      "ut50002d1d050b": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Graf.mp02"
+      },
+      "utf6a28382a328": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Graf.mp21"
+      },
+      "utde211c9be500": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Graf.mp33"
+      },
+      "ut7e724391df52": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Graf.mp41"
+      },
+      "ut520c3a247a04": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.alg-brick"
+      },
+      "ut14890f6b4fec": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.bars1"
+      },
+      "ut84f9c69d92eb": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.base-fla"
+      },
+      "ut0631cb040d2c": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.bricks3a"
+      },
+      "utaec2ff33e756": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.bricksbra"
+      },
+      "ut361788e12d34": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.bricksc"
+      },
+      "utbabf33fae3f0": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.congo4"
+      },
+      "ut65e11f2dad6d": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.congo5"
+      },
+      "ut15dd6eaac916": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.rt_brabble"
+      },
+      "ut1ad728f7ab3b": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.rt_magbase7"
+      },
+      "uta3dbf88fc738": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.rtconk_4a"
+      },
+      "utdb106b6794f8": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.rtmagli"
+      },
+      "utc5cb4616d0b8": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.rtmg_base2"
+      },
+      "ut00a582900152": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.trimpo-4"
+      },
+      "utb1d7c0555b26": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Maggot.wallbanger-tr8"
+      },
+      "utd4d0a6cd0c1f": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Vid.Jump4"
+      },
+      "ut0ed9e8432a6f": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.Vid.SinVid1"
+      },
+      "ut69198dc47971": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.metal.Met1CL"
+      },
+      "utecd1f91eb048": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.walls.WallQ"
+      },
+      "ut0f89f7ed82e0": {
+        "kind": "authored package texture",
+        "path": "CUTDOM1.walls.WallQ2"
+      },
+      "ut15dee4aec47a": {
+        "kind": "existing project replacement",
+        "source": "GenIn.Cloth.Gclth5d",
+        "donor": "ind_w04_grey1"
+      },
+      "ut3c8bf3d84737": {
+        "kind": "existing project replacement",
+        "source": "GenIn.Glass.Glass",
+        "donor": "ind_w02_grey1"
+      },
+      "uta867990ce75b": {
+        "kind": "existing project replacement",
+        "source": "GenIn.Glass.Glassd",
+        "donor": "ind_w06_rst1"
+      },
+      "ut3fc8c3affda0": {
+        "kind": "authored package texture",
+        "path": "London.Enviroment.londonbk"
+      },
+      "utd7e0ce6e5996": {
+        "kind": "authored package texture",
+        "path": "London.Enviroment.londondn"
+      },
+      "ut3d09a060aa86": {
+        "kind": "authored package texture",
+        "path": "London.Enviroment.londonft"
+      },
+      "ut5b6b606ed738": {
+        "kind": "authored package texture",
+        "path": "London.Enviroment.londonlf"
+      },
+      "ut4d5089919bf0": {
+        "kind": "authored package texture",
+        "path": "London.Enviroment.londonrt"
+      },
+      "ut56d1c49e8f08": {
+        "kind": "authored package texture",
+        "path": "London.Enviroment.londonup"
+      },
+      "utbb7f3d3dd2bc": {
+        "kind": "existing project replacement",
+        "source": "SpaceFX.newneb1",
+        "donor": "met_brn_block"
+      },
+      "ut27f7c23d09e7": {
+        "kind": "existing project replacement",
+        "source": "UTtech1.Wall.Cliffbrk7",
+        "donor": "compbase"
+      },
+      "ute7a07a3f3a71": {
+        "kind": "existing project replacement",
+        "source": "UTtech2.Mask.nondetgr8",
+        "donor": "ind_w02_grey1"
+      },
+      "ut2075a0617f61": {
+        "kind": "existing project replacement",
+        "source": "UTtech3.Deco.L_pole1",
+        "donor": "ind_w02_grey1"
+      },
+      "ut25d2b3265d9e": {
+        "kind": "existing project replacement",
+        "source": "UTtech3.Glass.bolt",
+        "donor": "ind_w02_grey1"
+      },
+      "ut7130e8840370": {
+        "kind": "existing project replacement",
+        "source": "XFX.flareZw",
+        "donor": "metal_iron1_09"
+      }
+    },
+    "source_faces": 1384,
+    "spawns": 11,
+    "hill_points": 1,
+    "spawn_grounding": [
+      {
+        "actor": "PlayerStart0",
+        "source": [
+          34.22209930419922,
+          -3.967536449432373,
+          -471.89874267578125
+        ],
+        "floor": [
+          34.22209930419922,
+          -3.967536449432373,
+          -512.0
+        ]
+      },
+      {
+        "actor": "PlayerStart1",
+        "source": [
+          255.86441040039062,
+          381.8277587890625,
+          -471.8994140625
+        ],
+        "floor": [
+          255.86441040039062,
+          381.8277587890625,
+          -512.0
+        ]
+      },
+      {
+        "actor": "PlayerStart2",
+        "source": [
+          256.86688232421875,
+          -388.18218994140625,
+          -471.9002380371094
+        ],
+        "floor": [
+          256.86688232421875,
+          -388.18218994140625,
+          -512.0
+        ]
+      },
+      {
+        "actor": "PlayerStart3",
+        "source": [
+          -1470.946533203125,
+          -449.3232421875,
+          -471.9011535644531
+        ],
+        "floor": [
+          -1470.946533203125,
+          -449.3232421875,
+          -512.0
+        ]
+      },
+      {
+        "actor": "PlayerStart4",
+        "source": [
+          -1284.6400146484375,
+          380.7718200683594,
+          -471.9012145996094
+        ],
+        "floor": [
+          -1284.6400146484375,
+          380.7718200683594,
+          -512.0000610351562
+        ]
+      },
+      {
+        "actor": "PlayerStart5",
+        "source": [
+          -1054.1322021484375,
+          2.5831401348114014,
+          -471.8979187011719
+        ],
+        "floor": [
+          -1054.1322021484375,
+          2.5831401348114014,
+          -512.0003051757812
+        ]
+      },
+      {
+        "actor": "PlayerStart6",
+        "source": [
+          -508.72894287109375,
+          -644.3744506835938,
+          40.095848083496094
+        ],
+        "floor": [
+          -508.72894287109375,
+          -644.3744506835938,
+          0.0
+        ]
+      },
+      {
+        "actor": "PlayerStart7",
+        "source": [
+          -512.3488159179688,
+          634.45654296875,
+          40.10680389404297
+        ],
+        "floor": [
+          -512.3488159179688,
+          634.45654296875,
+          0.0
+        ]
+      },
+      {
+        "actor": "PlayerStart8",
+        "source": [
+          -510.60357666015625,
+          -172.89292907714844,
+          -463.900390625
+        ],
+        "floor": [
+          -510.60357666015625,
+          -172.89292907714844,
+          -504.0
+        ]
+      },
+      {
+        "actor": "PlayerStart9",
+        "source": [
+          -705.5267944335938,
+          249.2911376953125,
+          -215.89947509765625
+        ],
+        "floor": [
+          -705.5267944335938,
+          249.2911376953125,
+          -255.99539184570312
+        ]
+      },
+      {
+        "actor": "PlayerStart10",
+        "source": [
+          -311.5234680175781,
+          256.2963562011719,
+          -215.89947509765625
+        ],
+        "floor": [
+          -311.5234680175781,
+          256.2963562011719,
+          -255.99539184570312
+        ]
+      }
+    ],
+    "traversal": [
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo0",
+        "target": "warp2"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo1",
+        "target": "warp1"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo2",
+        "target": "warp4"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo3",
+        "target": "warp3"
+      },
+      {
+        "kind": "teleport",
+        "source": "VisibleTeleporter2",
+        "target": "tel7"
+      },
+      {
+        "kind": "teleport",
+        "source": "VisibleTeleporter3",
+        "target": "tel8"
+      },
+      {
+        "kind": "teleport",
+        "source": "VisibleTeleporter5",
+        "target": "tel1"
+      },
+      {
+        "kind": "teleport",
+        "source": "VisibleTeleporter7",
+        "target": "tel2"
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover6",
+        "travel": [
+          0.0,
+          0.0,
+          102.38735351562501
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover5",
+        "travel": [
+          0.0,
+          0.0,
+          102.4
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover7",
+        "travel": [
+          0.0,
+          0.0,
+          102.4
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover8",
+        "travel": [
+          0.0,
+          0.0,
+          102.4
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover12",
+        "travel": [
+          37.6,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover10",
+        "travel": [
+          0.0,
+          0.0,
+          -46.400000000000006
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover11",
+        "travel": [
+          -39.2,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover9",
+        "travel": [
+          0.0,
+          0.0,
+          56.800000000000004
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover4",
+        "travel": [
+          0.0,
+          0.0,
+          -151.20000000000002
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover0",
+        "travel": [
+          0.0,
+          0.0,
+          76.80000000000001
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover1",
+        "travel": [
+          0.0,
+          0.0,
+          76.80000000000001
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover2",
+        "travel": [
+          0.0,
+          0.0,
+          -151.20000000000002
+        ]
+      }
+    ],
+    "adaptations": [
+      "16 ramps over 32-UU stairs for standard arena movement",
+      "Missing retail materials replaced with varied existing project materials",
+      "Scripted Chaos weapons mapped to classic arena pickups",
+      "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+    ],
+    "blockers": [],
+    "status": "staging"
+  },
+  {
+    "id": "koth_ut_temple",
+    "source": {
+      "name": "koth-The temple",
+      "title": "koth-The temple",
+      "author": "Tryman",
+      "players": "2 - 4",
+      "declared_capacity": 4,
+      "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/T/koth-the-temple_67419101.html",
+      "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+      "mode": "koth",
+      "eligible": true,
+      "selection_reason": "KOTH-prefixed ChaosUT map",
+      "archive": "koth-The temple.zip",
+      "archive_sha1": "67419101d33a4ce75d517f0bd33f3519a8c9dc51",
+      "status": "downloaded",
+      "bytes": 124322
+    },
+    "texture_sources": {
+      "ut621bec6d0913": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Base.ABasic4",
+        "donor": "ind_w02_grey1"
+      },
+      "ut41099ca94ab7": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Base.A_bs3",
+        "donor": "ind_w04_blk1"
+      },
+      "utf2c25951c1ec": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Base.A_bsa",
+        "donor": "ind_w04_blk1"
+      },
+      "utda31ffbfe195": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Base.UNCARVD2",
+        "donor": "ind_w04_blk1"
+      },
+      "ut9a2b3e29f73c": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Deco.DCRL",
+        "donor": "met_brn_block"
+      },
+      "utc60c568c786e": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Floor.az-floor",
+        "donor": "med_flat5a"
+      },
+      "ut2d443a3580c5": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Pillar.HEADA1",
+        "donor": "met_brn_pan1"
+      },
+      "ut6122977595a6": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Trim.GOUGEDG",
+        "donor": "metal_iron1_04"
+      },
+      "ut94377f5be114": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Trim.TRIM2B",
+        "donor": "metal_iron1_04"
+      },
+      "ut2de0b782b781": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Wall.Basicrok",
+        "donor": "ind_w04_rst1"
+      },
+      "ut34788f51dca5": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Wall.WALLA3",
+        "donor": "met_brn_block"
+      },
+      "ut0eeef08dce3c": {
+        "kind": "existing project replacement",
+        "source": "NaliCast.Floor.Steps2",
+        "donor": "metal_iron1_07"
+      },
+      "utd3bfff1154dc": {
+        "kind": "existing project replacement",
+        "source": "NaliCast.Trim.ttrm2",
+        "donor": "metal_iron1_08"
+      },
+      "ut725b67c9dbc9": {
+        "kind": "existing project replacement",
+        "source": "Skybox.2nd.Lnd2_1",
+        "donor": "sky_star"
+      },
+      "ut26a5d0cda09e": {
+        "kind": "existing project replacement",
+        "source": "Skybox.2nd.Lnd2_1b",
+        "donor": "sky_star"
+      },
+      "ut104bcbffe371": {
+        "kind": "existing project replacement",
+        "source": "Skybox.2nd.Lnd2_2",
+        "donor": "sky_star"
+      },
+      "ut29896b953665": {
+        "kind": "existing project replacement",
+        "source": "Skybox.2nd.Lnd2_3",
+        "donor": "sky_star"
+      },
+      "ut5ba73c1f2f7b": {
+        "kind": "existing project replacement",
+        "source": "XbpFX.Nebula1",
+        "donor": "ind_brk02_gry1"
+      },
+      "utf6534fc208ba": {
+        "kind": "existing project replacement",
+        "source": "genfluid.Water.dgoop3",
+        "donor": "*water2"
+      },
+      "ut2d66df4ef774": {
+        "kind": "existing project replacement",
+        "source": "genfluid.sky.NghSky",
+        "donor": "sky_star"
+      }
+    },
+    "source_faces": 395,
+    "spawns": 8,
+    "hill_points": 1,
+    "spawn_grounding": [
+      {
+        "actor": "PlayerStart0",
+        "source": [
+          -711.802978515625,
+          643.623046875,
+          424.0
+        ],
+        "floor": [
+          -711.802978515625,
+          643.623046875,
+          384.0
+        ]
+      },
+      {
+        "actor": "PlayerStart1",
+        "source": [
+          -88.1770248413086,
+          968.2672119140625,
+          424.0
+        ],
+        "floor": [
+          -88.1770248413086,
+          968.2672119140625,
+          384.0
+        ]
+      },
+      {
+        "actor": "PlayerStart2",
+        "source": [
+          711.6425170898438,
+          655.4669189453125,
+          424.0
+        ],
+        "floor": [
+          711.6425170898438,
+          655.4669189453125,
+          384.0
+        ]
+      },
+      {
+        "actor": "PlayerStart3",
+        "source": [
+          966.2416381835938,
+          88.69271087646484,
+          424.0
+        ],
+        "floor": [
+          966.2416381835938,
+          88.69271087646484,
+          384.0
+        ]
+      },
+      {
+        "actor": "PlayerStart4",
+        "source": [
+          692.2178955078125,
+          -668.5430908203125,
+          424.0
+        ],
+        "floor": [
+          692.2178955078125,
+          -668.5430908203125,
+          384.0
+        ]
+      },
+      {
+        "actor": "PlayerStart5",
+        "source": [
+          73.91353607177734,
+          -988.2116088867188,
+          424.0
+        ],
+        "floor": [
+          73.91353607177734,
+          -988.2116088867188,
+          384.0
+        ]
+      },
+      {
+        "actor": "PlayerStart6",
+        "source": [
+          -679.051513671875,
+          -720.2394409179688,
+          424.0
+        ],
+        "floor": [
+          -679.051513671875,
+          -720.2394409179688,
+          384.0
+        ]
+      },
+      {
+        "actor": "PlayerStart7",
+        "source": [
+          -979.4327392578125,
+          -51.346134185791016,
+          424.0
+        ],
+        "floor": [
+          -979.4327392578125,
+          -51.346134185791016,
+          384.0
+        ]
+      }
+    ],
+    "traversal": [],
+    "adaptations": [
+      "8 authored liquid surfaces rebuilt as native water/lava volumes",
+      "Missing retail materials replaced with varied existing project materials",
+      "Scripted Chaos weapons mapped to classic arena pickups",
+      "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+    ],
+    "blockers": [],
+    "status": "staging"
+  },
+  {
+    "id": "koth_ut_cerebro",
+    "source": {
+      "name": "KOTH_Cerebro",
+      "title": "Cerebro",
+      "author": "LoQtUS",
+      "players": "4-16",
+      "declared_capacity": 16,
+      "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/C/koth_cerebro_406695db.html",
+      "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+      "mode": "koth",
+      "eligible": true,
+      "selection_reason": "KOTH-prefixed ChaosUT map",
+      "archive": "KOTH_Cerebro.umod",
+      "archive_sha1": "406695db8bce37794dea38636c3f7e7f46ece219",
+      "status": "downloaded",
+      "bytes": 11363632
+    },
+    "texture_sources": {
+      "ut6a880174bafc": {
+        "kind": "existing project replacement",
+        "source": "AlfaFX.Lion3",
+        "donor": "met_brn_block"
+      },
+      "utc2e6ed6c47c7": {
+        "kind": "existing project replacement",
+        "source": "ArenaTex.Arenaflr",
+        "donor": "met_brn_tile2"
+      },
+      "utd02c48829b11": {
+        "kind": "existing project replacement",
+        "source": "Botpack.Ammocount.FlakAmmoLED",
+        "donor": "met_brn_block"
+      },
+      "ut77902f36e552": {
+        "kind": "existing project replacement",
+        "source": "Crypt.Mask.C_chnm2",
+        "donor": "met_brn_pan1"
+      },
+      "utadd2cf5814a1": {
+        "kind": "existing project replacement",
+        "source": "Crypt.cRivtStl",
+        "donor": "metal_iron1_09"
+      },
+      "ut6586b9e06299": {
+        "kind": "existing project replacement",
+        "source": "Factory.Deco.FactDeco1",
+        "donor": "metal_iron1_09"
+      },
+      "utc6ccb6562db9": {
+        "kind": "existing project replacement",
+        "source": "FireEng.Water.JWwater1",
+        "donor": "*water2"
+      },
+      "utf32d4bcbb598": {
+        "kind": "existing project replacement",
+        "source": "GenIn.Deco.vScr2",
+        "donor": "metal_iron1_09"
+      },
+      "utd7715593ca65": {
+        "kind": "existing project replacement",
+        "source": "GenIn.Glass.Glassg",
+        "donor": "ind_w06_rst1"
+      },
+      "ut6146d88c2918": {
+        "kind": "existing project replacement",
+        "source": "GenIn.Glass.gls_db",
+        "donor": "met_brn_pan1"
+      },
+      "ut5370d3042429": {
+        "kind": "existing project replacement",
+        "source": "GenIn.Tiles.Tile2",
+        "donor": "ind_w04_grey1"
+      },
+      "utc2cd8277f65c": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Cement.hm_cement"
+      },
+      "ut1155655ca2ae": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Cement.hm_cement1"
+      },
+      "ute4e5347cafc2": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Cement.hm_cement11"
+      },
+      "ut15d7de966066": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Cement.hm_cement12"
+      },
+      "uta2b911117cd9": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Cement.hm_cement14"
+      },
+      "ut0d58ad303a3c": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Cement.hm_cement2"
+      },
+      "ut46b8ee7364f3": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Cement.hm_cement4"
+      },
+      "ut375cb5f823a8": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Custom.Logo_button"
+      },
+      "ut35a02c48cd29": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.DSC.Met1"
+      },
+      "ut61596bc2ec9b": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.DSC.Met1CL"
+      },
+      "utafe0f645a5a4": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_fiabwall1"
+      },
+      "ut80d2833d7d77": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_fiabwall2"
+      },
+      "ut984057f62adc": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_fiabwall3"
+      },
+      "utf816c97abfdd": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_tubewall1"
+      },
+      "uta61d4751eff4": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_tubewall2"
+      },
+      "ut0838d3f22013": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_tubewall3"
+      },
+      "utea9076efb920": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_tubewall4"
+      },
+      "utb164b439bc78": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Fiab.hm_tubewall5"
+      },
+      "utd5dc39441b39": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.HM_GR.hm_bl_door"
+      },
+      "utdbf674d69970": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.HM_GR.hm_gr_door"
+      },
+      "ut1bbc48296761": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.KOTH.Kcut1"
+      },
+      "ut8e184569e048": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.KOTH.Kcut2"
+      },
+      "ut9a5fb2c9d79f": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.KOTH.Koth1"
+      },
+      "utde5cf5f90d33": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.KOTH.Koth2"
+      },
+      "utb9a19d363a8e": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.KOTH.Kskull1"
+      },
+      "ut8f033f92fa7a": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.KOTH.Kskull2"
+      },
+      "ute2036eee0396": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.KOTH.Top"
+      },
+      "utfb32d8924c20": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MOD.hm_mod_br-Log"
+      },
+      "ut0abcbdb37236": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MOD.hm_mod_br15"
+      },
+      "uta90d9bd08084": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MOD.hm_mod_br4"
+      },
+      "utabc2d9e08b77": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MetL.hm_metalbrk1"
+      },
+      "utf31fa638b535": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MetL.hm_metalbrk2"
+      },
+      "ut035de9278556": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MetL.hm_pyfloor1"
+      },
+      "ut0e1e781cea41": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MetL.hm_pywall1"
+      },
+      "ut1cd9c2740e33": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.MetL.hm_pywall2"
+      },
+      "ut9026c4d6ef09": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Showdown.hm_pyfloor2"
+      },
+      "ut12241e6822fe": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Showdown.hm_rustwall1a"
+      },
+      "ut4413e758669d": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Showdown.hm_rustwall1a_LGO"
+      },
+      "ut327be9b0204f": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.Showdown.hm_rustwall1b"
+      },
+      "ut85b2c3bb574c": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.hm1.hm_1_decwall"
+      },
+      "ut783005ed0a8a": {
+        "kind": "authored package texture",
+        "path": "KOTH_LoQ1.hm1.hm_1_rgbrick1"
+      },
+      "ut2bc60b6ece98": {
+        "kind": "existing project replacement",
+        "source": "PlayrShp.Light.Lights9d",
+        "donor": "tlight12"
+      }
+    },
+    "source_faces": 3606,
+    "spawns": 16,
+    "hill_points": 1,
+    "spawn_grounding": [
+      {
+        "actor": "PlayerStart12",
+        "source": [
+          2164.332275390625,
+          1239.796875,
+          64.0
+        ],
+        "floor": [
+          2164.332275390625,
+          1239.796875,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart13",
+        "source": [
+          1290.3411865234375,
+          2106.396728515625,
+          64.0
+        ],
+        "floor": [
+          1290.3411865234375,
+          2106.396728515625,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart14",
+        "source": [
+          511.0541076660156,
+          2407.398193359375,
+          64.0
+        ],
+        "floor": [
+          511.0541076660156,
+          2407.398193359375,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart15",
+        "source": [
+          -512.945556640625,
+          2405.376220703125,
+          64.0
+        ],
+        "floor": [
+          -512.945556640625,
+          2405.376220703125,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart16",
+        "source": [
+          -1296.4091796875,
+          2110.73046875,
+          64.0
+        ],
+        "floor": [
+          -1296.4091796875,
+          2110.73046875,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart17",
+        "source": [
+          -2083.4189453125,
+          1330.57177734375,
+          64.0
+        ],
+        "floor": [
+          -2083.4189453125,
+          1330.57177734375,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart18",
+        "source": [
+          -2399.6982421875,
+          513.7880249023438,
+          64.0
+        ],
+        "floor": [
+          -2399.6982421875,
+          513.7880249023438,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart19",
+        "source": [
+          -2398.353271484375,
+          -511.25372314453125,
+          64.0
+        ],
+        "floor": [
+          -2398.353271484375,
+          -511.25372314453125,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart20",
+        "source": [
+          -2134.767333984375,
+          -1261.3880615234375,
+          64.0
+        ],
+        "floor": [
+          -2134.767333984375,
+          -1261.3880615234375,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart21",
+        "source": [
+          -1203.52734375,
+          -2190.478759765625,
+          64.0
+        ],
+        "floor": [
+          -1203.52734375,
+          -2190.478759765625,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart22",
+        "source": [
+          -511.8505859375,
+          -2402.525634765625,
+          64.0
+        ],
+        "floor": [
+          -511.8505859375,
+          -2402.525634765625,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart23",
+        "source": [
+          511.7030334472656,
+          -2395.681640625,
+          64.0
+        ],
+        "floor": [
+          511.7030334472656,
+          -2395.681640625,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart24",
+        "source": [
+          1264.6448974609375,
+          -2111.167724609375,
+          64.0
+        ],
+        "floor": [
+          1264.6448974609375,
+          -2111.167724609375,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart25",
+        "source": [
+          2110.762451171875,
+          -1266.7216796875,
+          64.0
+        ],
+        "floor": [
+          2110.762451171875,
+          -1266.7216796875,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart26",
+        "source": [
+          2399.38720703125,
+          -510.15631103515625,
+          64.0
+        ],
+        "floor": [
+          2399.38720703125,
+          -510.15631103515625,
+          16.0
+        ]
+      },
+      {
+        "actor": "PlayerStart27",
+        "source": [
+          2400.866455078125,
+          511.5393981933594,
+          64.0
+        ],
+        "floor": [
+          2400.866455078125,
+          511.5393981933594,
+          16.0
+        ]
+      }
+    ],
+    "traversal": [
+      {
+        "kind": "teleport",
+        "source": "Teleporter0",
+        "target": "tel4"
+      },
+      {
+        "kind": "teleport",
+        "source": "Teleporter3",
+        "target": "tel2"
+      },
+      {
+        "kind": "teleport",
+        "source": "Teleporter4",
+        "target": "tel5"
+      },
+      {
+        "kind": "teleport",
+        "source": "Teleporter7",
+        "target": "tel7"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo0",
+        "target": "w7"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo1",
+        "target": "w5"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo2",
+        "target": "w6"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo3",
+        "target": "w8"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo4",
+        "target": "w1"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo5",
+        "target": "w4"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo6",
+        "target": "w3"
+      },
+      {
+        "kind": "warp adapted as teleporter",
+        "source": "WarpZoneInfo7",
+        "target": "w2"
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover27",
+        "travel": [
+          0.0,
+          0.0,
+          194.4
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover26",
+        "travel": [
+          0.0,
+          0.0,
+          196.8
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover20",
+        "travel": [
+          0.0,
+          0.0,
+          30.400000000000002
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover18",
+        "travel": [
+          59.46171875,
+          59.46240234375,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover19",
+        "travel": [
+          -56.064282226562504,
+          -56.064550781250006,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover21",
+        "travel": [
+          0.0,
+          0.0,
+          30.400000000000002
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover14",
+        "travel": [
+          58.412109375,
+          58.628369140625004,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover15",
+        "travel": [
+          -57.23046875,
+          -56.808325195312506,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover2",
+        "travel": [
+          0.0,
+          0.0,
+          -19.200000000000003
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover22",
+        "travel": [
+          0.0,
+          0.0,
+          32.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover17",
+        "travel": [
+          64.0,
+          64.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover16",
+        "travel": [
+          -64.0,
+          -64.0,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover23",
+        "travel": [
+          0.0,
+          0.0,
+          30.400000000000002
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover13",
+        "travel": [
+          54.60869140625,
+          54.093310546875,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover12",
+        "travel": [
+          -54.6390625,
+          -55.248095703125,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover25",
+        "travel": [
+          0.0,
+          -0.039990234375,
+          31.98671875
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover9",
+        "travel": [
+          51.30224609375,
+          51.293066406250006,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover5",
+        "travel": [
+          -51.541748046875,
+          -51.4716796875,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover24",
+        "travel": [
+          0.0,
+          0.0,
+          34.458813476562504
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover10",
+        "travel": [
+          52.200390625000004,
+          52.426171875,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover11",
+        "travel": [
+          -52.01650390625,
+          -51.8490234375,
+          0.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover8",
+        "travel": [
+          0.0,
+          0.0,
+          199.20000000000002
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover7",
+        "travel": [
+          0.0,
+          0.0,
+          200.0
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover6",
+        "travel": [
+          0.0,
+          0.0,
+          204.8
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover4",
+        "travel": [
+          -38.8982421875,
+          -38.6619140625,
+          -3.4491455078125
+        ]
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover3",
+        "travel": [
+          -2.1769531250000003,
+          -1.65078125,
+          53.464453125000006
+        ]
+      },
+      {
+        "kind": "lift",
+        "source": "Mover1",
+        "travel": [
+          0.0,
+          0.0,
+          217.60000000000002
+        ]
+      },
+      {
+        "kind": "lift",
+        "source": "Mover0",
+        "travel": [
+          0.0,
+          0.0,
+          217.60000000000002
+        ]
+      }
+    ],
+    "adaptations": [
+      "35 authored liquid surfaces rebuilt as native water/lava volumes",
+      "Missing retail materials replaced with varied existing project materials",
+      "Scripted Chaos weapons mapped to classic arena pickups",
+      "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+    ],
+    "blockers": [],
+    "status": "staging"
+  },
+  {
+    "id": "koth_ut_wilderness",
+    "source": {
+      "name": "KOTH_Wilderness",
+      "title": "KOTH Wilderness",
+      "author": "MassChAoS",
+      "players": "4 - 12",
+      "declared_capacity": 12,
+      "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/W/koth_wilderness_83c8b304.html",
+      "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+      "mode": "koth",
+      "eligible": true,
+      "selection_reason": "KOTH-prefixed ChaosUT map",
+      "archive": "koth_wilderness_v1.zip",
+      "archive_sha1": "83c8b304a7fcfc9a88a8d0e8bc17bf286b6b5d98",
+      "status": "downloaded",
+      "bytes": 456583
+    },
+    "texture_sources": {
+      "utda31ffbfe195": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Base.UNCARVD2",
+        "donor": "ind_w04_blk1"
+      },
+      "utdc81a601f59e": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Floor.FLOOR2A",
+        "donor": "metal_iron1_07"
+      },
+      "ut880260674c50": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Panel.HIWALL1E",
+        "donor": "ind_w02_grey1"
+      },
+      "ut2613d666c33b": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Trim.GOUGEDE",
+        "donor": "metal_iron1_06"
+      },
+      "ut832c5778a208": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Trim.HEADB1",
+        "donor": "metal_iron1_06"
+      },
+      "ut3de6f5e13a99": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Trim.TRIM2A",
+        "donor": "met_brn_slat"
+      },
+      "ut94377f5be114": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Trim.TRIM2B",
+        "donor": "metal_iron1_04"
+      },
+      "utff81724d616c": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Wall.TRANS1A",
+        "donor": "ind_brk02_gry1"
+      },
+      "ut35429112b872": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Wall.TRANS3A",
+        "donor": "ind_w02_grey1"
+      },
+      "ut0c50120b798d": {
+        "kind": "existing project replacement",
+        "source": "Engine.DefaultTexture",
+        "donor": "ind_w02_grey1"
+      },
+      "ut129c38fd10ec": {
+        "kind": "existing project replacement",
+        "source": "GenEarth.Rock.Hotrck2",
+        "donor": "med_rock3"
+      },
+      "ut24bd5b510103": {
+        "kind": "existing project replacement",
+        "source": "GenEarth.Rock.Wrcka3a1",
+        "donor": "med_rock3"
+      },
+      "utbfa33e593278": {
+        "kind": "existing project replacement",
+        "source": "GenEarth.Rock.Wrcka4",
+        "donor": "med_rock3"
+      },
+      "ut5463d3c7398b": {
+        "kind": "existing project replacement",
+        "source": "GenEarth.Rock.Wrcka5",
+        "donor": "med_rock3"
+      },
+      "ut58cf55673403": {
+        "kind": "existing project replacement",
+        "source": "GenEarth.ground.Dirt_su2",
+        "donor": "med_rock3"
+      },
+      "ut1f852cd026e5": {
+        "kind": "existing project replacement",
+        "source": "GenEarth.ground.Grass",
+        "donor": "med_rock5"
+      },
+      "ut5a33071f9fda": {
+        "kind": "existing project replacement",
+        "source": "GenFX.Mask.moss-hng2",
+        "donor": "ind_w02_grey1"
+      },
+      "utdb3737dda09a": {
+        "kind": "existing project replacement",
+        "source": "NaliCast.Floor.n-floor6",
+        "donor": "metal_iron1_10"
+      },
+      "ut22e4aedcc702": {
+        "kind": "existing project replacement",
+        "source": "NaliFX.Urn",
+        "donor": "ind_w06_rst1"
+      },
+      "utb72ff5e1ae62": {
+        "kind": "existing project replacement",
+        "source": "genfluid.Water.wtr_1",
+        "donor": "*water2"
+      },
+      "utd6f7cd4f8c98": {
+        "kind": "existing project replacement",
+        "source": "genfluid.lava.MLava",
+        "donor": "*lava1"
+      },
+      "ut26f3fc87f158": {
+        "kind": "existing project replacement",
+        "source": "genfluid.lava.MLava2",
+        "donor": "*lava1"
+      },
+      "utbe631d74c955": {
+        "kind": "existing project replacement",
+        "source": "genfluid.sky.Skyblu",
+        "donor": "sky_star"
+      },
+      "utb00d99aca691": {
+        "kind": "existing project replacement",
+        "source": "genfluid.sky.Skytst10",
+        "donor": "sky_star"
+      },
+      "utd1d2023bf8b9": {
+        "kind": "existing project replacement",
+        "source": "genfluid.sky.gmist3",
+        "donor": "sky_star"
+      }
+    },
+    "source_faces": 2555,
+    "spawns": 10,
+    "hill_points": 1,
+    "spawn_grounding": [
+      {
+        "actor": "PlayerStart1",
+        "source": [
+          1238.51806640625,
+          -2494.038818359375,
+          -274.4134826660156
+        ],
+        "floor": [
+          1238.51806640625,
+          -2494.038818359375,
+          -309.51832238346447
+        ]
+      },
+      {
+        "actor": "PlayerStart2",
+        "source": [
+          1325.3612060546875,
+          -2273.940673828125,
+          -280.1083984375
+        ],
+        "floor": [
+          1325.3612060546875,
+          -2273.940673828125,
+          -311.65681398342423
+        ]
+      },
+      {
+        "actor": "PlayerStart3",
+        "source": [
+          1520.0,
+          -2112.0,
+          -272.0
+        ],
+        "floor": [
+          1520.0,
+          -2112.0,
+          -316.4497478589539
+        ]
+      },
+      {
+        "actor": "PlayerStart6",
+        "source": [
+          1265.81640625,
+          2455.90478515625,
+          -280.5594787597656
+        ],
+        "floor": [
+          1265.81640625,
+          2455.90478515625,
+          -310.19050996783716
+        ]
+      },
+      {
+        "actor": "PlayerStart7",
+        "source": [
+          1116.00830078125,
+          2521.791259765625,
+          -272.13775634765625
+        ],
+        "floor": [
+          1116.00830078125,
+          2521.791259765625,
+          -306.50152110299746
+        ]
+      },
+      {
+        "actor": "PlayerStart8",
+        "source": [
+          1426.2958984375,
+          2399.86376953125,
+          -277.8843688964844
+        ],
+        "floor": [
+          1426.2958984375,
+          2399.86376953125,
+          -314.1422791852799
+        ]
+      },
+      {
+        "actor": "PlayerStart11",
+        "source": [
+          1417.305419921875,
+          -2444.80224609375,
+          -280.1083984375
+        ],
+        "floor": [
+          1417.305419921875,
+          -2444.80224609375,
+          -313.9209183193091
+        ]
+      },
+      {
+        "actor": "PlayerStart14",
+        "source": [
+          1346.546875,
+          2556.49609375,
+          -280.5594787597656
+        ],
+        "floor": [
+          1346.546875,
+          2556.49609375,
+          -312.1784785049212
+        ]
+      },
+      {
+        "actor": "PlayerStart15",
+        "source": [
+          1494.2144775390625,
+          2509.972900390625,
+          -280.5594787597656
+        ],
+        "floor": [
+          1494.2144775390625,
+          2509.972900390625,
+          -315.8147579956715
+        ]
+      },
+      {
+        "actor": "PlayerStart19",
+        "source": [
+          1513.780517578125,
+          -2281.82568359375,
+          -280.1083984375
+        ],
+        "floor": [
+          1513.780517578125,
+          -2281.82568359375,
+          -316.2965945877903
+        ]
+      }
+    ],
+    "traversal": [
+      {
+        "kind": "teleport",
+        "source": "VisibleTeleporter0",
+        "target": "hiddent2"
+      },
+      {
+        "kind": "teleport",
+        "source": "VisibleTeleporter1",
+        "target": "hiddent3"
+      },
+      {
+        "kind": "proximity door",
+        "source": "Mover0",
+        "travel": [
+          0.0,
+          0.0,
+          -204.8
+        ]
+      }
+    ],
+    "adaptations": [
+      "3 authored liquid surfaces rebuilt as native water/lava volumes",
+      "Retained authored red/blue starts for two-team KOTH; green/gold team starts excluded",
+      "Missing retail materials replaced with varied existing project materials",
+      "Scripted Chaos weapons mapped to classic arena pickups",
+      "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+    ],
+    "blockers": [],
+    "status": "staging"
+  },
+  {
+    "id": "koth_ut_buttnutt",
+    "source": {
+      "name": "KOTH-(WTF)Buttnutt",
+      "title": "KOTH-(WTF)Buttnutt",
+      "author": "Unknown",
+      "players": "Unknown",
+      "declared_capacity": null,
+      "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/W/koth-wtfbuttnutt_7abdbf00.html",
+      "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+      "mode": "koth",
+      "eligible": true,
+      "selection_reason": "KOTH-prefixed ChaosUT map",
+      "archive": "buttnutt.zip",
+      "archive_sha1": "7abdbf0093c3434e9d9001cad8e7aa6dd5825ab0",
+      "status": "downloaded",
+      "bytes": 340736
+    },
+    "texture_sources": {
+      "ut50f15ce54411": {
+        "kind": "existing project replacement",
+        "source": "ASC-space.custom.eb_girder2",
+        "donor": "met_brn_slat"
+      },
+      "ut6084048e0a42": {
+        "kind": "existing project replacement",
+        "source": "AdesertS.8",
+        "donor": "ind_w04_grey1"
+      },
+      "utacc54f3f99ac": {
+        "kind": "existing project replacement",
+        "source": "Ancient.Floor.FLOOR1",
+        "donor": "med_flat5a"
+      },
+      "ut083d7e3956d2": {
+        "kind": "existing project replacement",
+        "source": "GenFluid.lava.shlava4s",
+        "donor": "*lava1"
+      },
+      "ut32015cab7e4f": {
+        "kind": "authored package texture",
+        "path": "KOTH-(WTF)butnugget.Test.mlb-rok3"
+      },
+      "ut613bacfb0ac9": {
+        "kind": "existing project replacement",
+        "source": "UTtech1.Deco.bmBox2c",
+        "donor": "ind_cont1_ylw1"
+      },
+      "ut771d08af4e4c": {
+        "kind": "existing project replacement",
+        "source": "UTtech1.Misc.mlb-rok3",
+        "donor": "ind_w02_grey1"
+      }
+    },
+    "source_faces": 1233,
+    "spawns": 16,
+    "hill_points": 13,
+    "spawn_grounding": [
+      {
+        "actor": "PlayerStart0",
+        "source": [
+          -1257.8800048828125,
+          -1120.1409912109375,
+          -1007.8947143554688
+        ],
+        "floor": [
+          -1257.8800048828125,
+          -1120.1409912109375,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart1",
+        "source": [
+          -1255.7764892578125,
+          -401.09521484375,
+          -1005.2280883789062
+        ],
+        "floor": [
+          -1255.7764892578125,
+          -401.09521484375,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart2",
+        "source": [
+          -1259.2137451171875,
+          159.85879516601562,
+          -1007.894775390625
+        ],
+        "floor": [
+          -1259.2137451171875,
+          159.85879516601562,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart3",
+        "source": [
+          -1252.54736328125,
+          846.5253295898438,
+          -1006.5614013671875
+        ],
+        "floor": [
+          -1252.54736328125,
+          846.5253295898438,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart4",
+        "source": [
+          -1078.08837890625,
+          1260.394287109375,
+          -1006.5614013671875
+        ],
+        "floor": [
+          -1078.08837890625,
+          1260.394287109375,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart5",
+        "source": [
+          -447.8785705566406,
+          1260.546875,
+          -1006.5614013671875
+        ],
+        "floor": [
+          -447.8785705566406,
+          1260.546875,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart6",
+        "source": [
+          186.5255584716797,
+          1259.2138671875,
+          -1006.5614013671875
+        ],
+        "floor": [
+          186.5255584716797,
+          1259.2138671875,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart7",
+        "source": [
+          839.0701904296875,
+          1244.558837890625,
+          -1005.2280883789062
+        ],
+        "floor": [
+          839.0701904296875,
+          1244.558837890625,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart8",
+        "source": [
+          1262.2486572265625,
+          -1028.264404296875,
+          -1007.8947143554688
+        ],
+        "floor": [
+          1262.2486572265625,
+          -1028.264404296875,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart9",
+        "source": [
+          1260.2415771484375,
+          -336.11358642578125,
+          -1007.894775390625
+        ],
+        "floor": [
+          1260.2415771484375,
+          -336.11358642578125,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart10",
+        "source": [
+          1261.323974609375,
+          255.80197143554688,
+          -1007.894775390625
+        ],
+        "floor": [
+          1261.323974609375,
+          255.80197143554688,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart11",
+        "source": [
+          1258.069091796875,
+          950.8172607421875,
+          -1005.2280883789062
+        ],
+        "floor": [
+          1258.069091796875,
+          950.8172607421875,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart12",
+        "source": [
+          462.6535949707031,
+          -1262.77685546875,
+          -1005.2280883789062
+        ],
+        "floor": [
+          462.6535949707031,
+          -1262.77685546875,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart13",
+        "source": [
+          1077.32080078125,
+          -1256.110595703125,
+          -1005.2280883789062
+        ],
+        "floor": [
+          1077.32080078125,
+          -1256.110595703125,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart14",
+        "source": [
+          -178.67965698242188,
+          -1254.7772216796875,
+          -1006.5614013671875
+        ],
+        "floor": [
+          -178.67965698242188,
+          -1254.7772216796875,
+          -1024.0
+        ]
+      },
+      {
+        "actor": "PlayerStart15",
+        "source": [
+          -837.3462524414062,
+          -1260.110595703125,
+          -1006.5614013671875
+        ],
+        "floor": [
+          -837.3462524414062,
+          -1260.110595703125,
+          -1024.0
+        ]
+      }
+    ],
+    "traversal": [],
+    "adaptations": [
+      "299 authored liquid surfaces rebuilt as native water/lava volumes",
+      "Missing retail materials replaced with varied existing project materials",
+      "Scripted Chaos weapons mapped to classic arena pickups",
+      "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+    ],
+    "blockers": [],
+    "status": "staging"
+  }
+]

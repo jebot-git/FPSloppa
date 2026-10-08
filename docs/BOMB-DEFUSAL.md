@@ -314,3 +314,50 @@ desktop bot runs do not measure headset performance or human multiplayer balance
 
 Map-specific bot lanes, entrance holds, bomb recovery/defuse roles and their
 CS 1.6 references are documented in the [map and tactics study](CS16-MAP-TACTICS-STUDY.md).
+
+### Bot fire through cover
+
+DE bots can briefly suppress a last observed position through cover. They use
+current weapon penetration power, material resistance, continuous solid
+thickness, real collision exits and remaining bullet range. Decisions expire
+after 0.65 seconds without a visual observation. Geometry queries are bounded
+and throttled; teammate safety is checked across the entire lane every frame.
+The decision never reads a hidden opponent's current position. Both native and
+GDScript combat paths call the same policy. Actual shots retain ordinary spread,
+ammo use, server authority and damage attenuation.
+
+`tools/de_penetration/bot_wallbang.gd` exercises actual Santorini cover, weapon
+eligibility, expired memory and a teammate behind cover. The CS movement suite
+checks speed, acceleration, jump fatigue, input edges and authoritative replay.
+
+
+DE travel steering now damps small grounded route corrections in world space.
+Stops, reversals, combat strafing, jumps, swimming and recovery retain immediate
+input. A floor/hazard/wall check rejects smoothing that would cut an unsafe
+corner. Native and reference steering share this input-only filter; CS
+acceleration, friction and jump fatigue are unchanged. The deterministic
+alternating-correction check reduces input variation by 88%, while live-match
+receipts report measured travel input variation separately from camera motion.
+
+DE awareness now tests exposed head and side points as well as the torso, and
+uses the observed exposed point for aim. A teammate can obstruct a firing lane
+without suppressing awareness of an opponent beyond it; the independent shot
+safety check still prevents firing through the teammate. Flash and smoke gates
+remain active. Nonfatal enemy damage supplies a short horizontal direction cue,
+forcing perception and letting an unengaged bot turn toward the hit. It supplies
+no hidden enemy position or last-seen memory. The cue interrupts bomb handling,
+expires after 1.1 seconds, and is invalid after respawn. This is shared by native,
+GDScript and delegated bot state paths.
+
+Validation: `tools/de_penetration/bot_awareness.gd` passes 24 checks across native
+and reference AI, including front acquisition/fire, exposed heads, friendly
+lanes, rear-hit acquisition, hidden shooters, movement attention, bomb
+interruption, expiry and respawn. Existing bot wallbang and humanization tests
+also pass.
+
+`tools/de_penetration/audit_lighting.gd` verifies all 16 DE maps and 48 current
+raw/BC7/ASTC caches: BSP identities, complete colour mipmaps, lossless lightmaps,
+valid samples and equivalent light data across codecs. The 2026-10-08 audit found
+no failures. `audit_unlit.py` additionally classifies every source face without
+light samples: only sky, utility surfaces and water are unlit; no ordinary
+opaque surface is missing its bake. Receipts are under `test-results/de-lighting`.

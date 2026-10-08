@@ -9,7 +9,7 @@ m=json.loads((ROOT/'deathmatch/assets/base_manifest.json').read_text());assert s
 expected={r['id'] for r in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()) if r.get('distribution','base')=='base'}
 with zipfile.ZipFile(base) as z:
  assert z.testzip() is None
- check_selection(z.namelist());actual={Path(p).stem for p in z.namelist() if p.endswith('.bsp')};assert actual==expected and len(actual)==25,(actual,expected)
+ check_selection(z.namelist());actual={Path(p).stem for p in z.namelist() if p.endswith('.bsp')};assert actual==expected,(actual,expected)
  assert not any(Path(n).name.startswith('lqdm') and Path(n).suffix in ['.bsp','.lit','.scn','.res'] for n in z.namelist())
  for r in m['files']:assert hashlib.sha256(z.read(r['path'])).hexdigest()==r['sha256'],r['path']
  for i in range(1,8):

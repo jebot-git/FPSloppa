@@ -4,8 +4,7 @@ extends RefCounted
 const Arsenal=preload("res://deathmatch/counterstrike/arsenal.gd")
 const Maps=preload("res://deathmatch/modes/defusal_maps.gd")
 const Interaction=preload("res://deathmatch/counterstrike/bomb_interaction.gd")
-const MAP="de_dust2_rebuilt"
-const MAP_HASH="6e26f8c6f8a25de7bf4523f743846fbf2e4b6302c69828dc7f56c6a49b4072f7"
+const MAP=Maps.DEFAULT
 const PRICES={1:400,2:500,3:1700,4:3000,5:1500,6:2500,7:3100,8:5750,9:4750,10:650,11:2350,100:650,101:1000,102:200,103:60,104:60,110:300,111:200,112:300}
 const GEAR={100:"KEVLAR",101:"VEST + HELMET",102:"DEFUSE CUTTERS",103:"PRIMARY AMMO",104:"PISTOL AMMO",110:"HE GRENADE",111:"FLASHBANG",112:"SMOKE GRENADE"}
 const PISTOLS=[1,2,10]
@@ -374,6 +373,7 @@ func bot_input(id: int) -> bool:
 	if carrier==0 and not planted and role(id)==0 and reachable(id,bomb_position):game.bots.action("de_use",[id])
 	var brain: Dictionary=game.bots.brains.get(id,{}) if is_instance_valid(game.bots) else {}
 	var threatened: bool=alive(int(brain.get("enemy",0))) or alive(int(brain.get("remembered_enemy",0))) and game.clock-float(brain.get("last_seen_at",-10))<.6
+	threatened=threatened or s.get("bot_hurt_serial",-1)==s.serial and game.clock<float(s.get("bot_hurt_until",0))
 	if threatened:
 		game.bots.action("de_bot_stow_objective",[id])
 		return false

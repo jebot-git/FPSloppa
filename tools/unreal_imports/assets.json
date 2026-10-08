@@ -1,0 +1,324 @@
+[
+  {
+    "baked_faces": 2754,
+    "bsp_sha256": "983b4462b1809951808f1a8ea2578a97ed6a4997d45d3e34f3dffba5a8e71152",
+    "codecs": [
+      {
+        "encoded_bytes": 1136064,
+        "format": "bc7",
+        "images": 4,
+        "path": "res://maps/cache/koth_ut_buttnutt-lightmap1-bc7.scn",
+        "raw_bytes": 3407868,
+        "sha256": "86795846cefae76639f11dfc332dbf3dc48379d570e24684db1a5a22231002e3"
+      },
+      {
+        "encoded_bytes": 1136064,
+        "format": "astc4",
+        "images": 4,
+        "path": "res://maps/cache/koth_ut_buttnutt-lightmap1-astc4.scn",
+        "raw_bytes": 3407868,
+        "sha256": "14d4510a133d4f53eab7f0c9b573528020c758fee2aa9fd9bfd9f05024fbefe0"
+      }
+    ],
+    "colour_textures": 7,
+    "failures": [],
+    "id": "koth_ut_buttnutt",
+    "light_atlases": 1,
+    "lossless_data_hash": "4b57b6b88f4281637e78d56dbc035cad0bb46646b991e16a62c7519de1105fce",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.338839530944824,
+      "occupancy_before": 0.0211774706840515,
+      "padded_luxels": 355299,
+      "patches": 2754,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 22899,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 322
+  },
+  {
+    "baked_faces": 9149,
+    "bsp_sha256": "3242a660755d78c652fc7f0a9992425243a5d642ac754a436beac955f40ba589",
+    "codecs": [
+      {
+        "encoded_bytes": 4545024,
+        "format": "bc7",
+        "images": 44,
+        "path": "res://maps/cache/koth_ut_cerebro-lightmap1-bc7.scn",
+        "raw_bytes": 13631448,
+        "sha256": "e14c223146c77827dd9d85be2454ee19b15596315c2e34bf945ec0de14d984a1"
+      },
+      {
+        "encoded_bytes": 4545024,
+        "format": "astc4",
+        "images": 44,
+        "path": "res://maps/cache/koth_ut_cerebro-lightmap1-astc4.scn",
+        "raw_bytes": 13631448,
+        "sha256": "8fcf1aee5fe9acb9c2d20bf69608cabf06f7fb1d1aa07614e1295c3af30e8fe8"
+      }
+    ],
+    "colour_textures": 65,
+    "failures": [],
+    "id": "koth_ut_cerebro",
+    "light_atlases": 1,
+    "lossless_data_hash": "95c7fb45ba28d674e0fdb2052a880a9b3a52422d811e68c5ee6b5ddcfc6c401d",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.824361801147461,
+      "occupancy_before": 0.0515226125717163,
+      "padded_luxels": 864406,
+      "patches": 9149,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 68622,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 140
+  },
+  {
+    "baked_faces": 2689,
+    "bsp_sha256": "86d2e0d74b912d1dde0985a81939285e1cb727d4528dcf21de992ba3eeaab8f6",
+    "codecs": [
+      {
+        "encoded_bytes": 3638080,
+        "format": "bc7",
+        "images": 26,
+        "path": "res://maps/cache/koth_ut_dungeon-lightmap1-bc7.scn",
+        "raw_bytes": 10911744,
+        "sha256": "1d8e7911bf78cbe7f53a2b3412e62d28f6b534cc0d613b6b5366cc06a7721a41"
+      },
+      {
+        "encoded_bytes": 3638080,
+        "format": "astc4",
+        "images": 26,
+        "path": "res://maps/cache/koth_ut_dungeon-lightmap1-astc4.scn",
+        "raw_bytes": 10911744,
+        "sha256": "94facb90c2b6777b4e7d7d6178b7e6269f9726671a4b0e4e68455f5761139df1"
+      }
+    ],
+    "colour_textures": 47,
+    "failures": [],
+    "id": "koth_ut_dungeon",
+    "light_atlases": 1,
+    "lossless_data_hash": "ebb1f61dd7c43e1590d8dac9bf8b86f6e5e04a29587ee740ae14b4e264611dce",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.254470825195312,
+      "occupancy_before": 0.015904426574707,
+      "padded_luxels": 266832,
+      "patches": 2689,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 21717,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 48
+  },
+  {
+    "baked_faces": 1455,
+    "bsp_sha256": "a8f00f821257058ff76404de3be30c4384322a312c35a4c2d3c953b9562651b4",
+    "codecs": [
+      {
+        "encoded_bytes": 2097312,
+        "format": "bc7",
+        "images": 6,
+        "path": "res://maps/cache/koth_ut_temple-lightmap1-bc7.scn",
+        "raw_bytes": 6291450,
+        "sha256": "ba32f2b523942114397ae9427ee8b542bc86303722c796cf81c4c9176af84f2c"
+      },
+      {
+        "encoded_bytes": 2097312,
+        "format": "astc4",
+        "images": 6,
+        "path": "res://maps/cache/koth_ut_temple-lightmap1-astc4.scn",
+        "raw_bytes": 6291450,
+        "sha256": "caccdf4ae0bc2e61c959263aae6d5a2784ea15cca7362470e767782212034106"
+      }
+    ],
+    "colour_textures": 13,
+    "failures": [],
+    "id": "koth_ut_temple",
+    "light_atlases": 1,
+    "lossless_data_hash": "b160721d6285ac467f74c94c34f6c5eb0a0108400ca032d564d985dddf51b111",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.874492645263672,
+      "occupancy_before": 0.0136639475822449,
+      "padded_luxels": 229243,
+      "patches": 1455,
+      "raw_bytes_after": 786432,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 11172,
+      "to": [
+        512,
+        512
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 36
+  },
+  {
+    "baked_faces": 3530,
+    "bsp_sha256": "d5220faa3f181ee6d3042baec3e375270c5bab17e2dd6f79cbae36bcc08fbeb0",
+    "codecs": [
+      {
+        "encoded_bytes": 2490592,
+        "format": "bc7",
+        "images": 8,
+        "path": "res://maps/cache/koth_ut_thunderdome-lightmap1-bc7.scn",
+        "raw_bytes": 7471098,
+        "sha256": "ec3334276ad7a7e070f247d836bbe695b033297d98c6a983f65aa71bd5563169"
+      },
+      {
+        "encoded_bytes": 2490592,
+        "format": "astc4",
+        "images": 8,
+        "path": "res://maps/cache/koth_ut_thunderdome-lightmap1-astc4.scn",
+        "raw_bytes": 7471098,
+        "sha256": "e848b7222ba58f82a5b81dd15f597cfe56ac0fb4de8b50e8fe3f49b9d21f31cb"
+      }
+    ],
+    "colour_textures": 22,
+    "failures": [],
+    "id": "koth_ut_thunderdome",
+    "light_atlases": 1,
+    "lossless_data_hash": "1782e386cca0ef6ca7d6edc0fc126e71b396c9143d7be1646effc4c8ab1632c7",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.790367126464844,
+      "occupancy_before": 0.0493979454040527,
+      "padded_luxels": 828760,
+      "patches": 3530,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 23658,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 12
+  },
+  {
+    "baked_faces": 1426,
+    "bsp_sha256": "72d2019685ee5ac5f2521af0b384d8d5936a4f521d8eb558bcd7558c4f8b185f",
+    "codecs": [
+      {
+        "encoded_bytes": 87408,
+        "format": "bc7",
+        "images": 1,
+        "path": "res://maps/cache/koth_ut_trytitan-lightmap1-bc7.scn",
+        "raw_bytes": 262143,
+        "sha256": "9e2e80d2fe27843797b5baffb40b27a142ae3dad5a74f6b4b24a622f96d1743a"
+      },
+      {
+        "encoded_bytes": 87408,
+        "format": "astc4",
+        "images": 1,
+        "path": "res://maps/cache/koth_ut_trytitan-lightmap1-astc4.scn",
+        "raw_bytes": 262143,
+        "sha256": "c08aa25cc7a5c0d4e2dfa2bd75f3630f9bc60d335f00e432191ff7c213a62183"
+      }
+    ],
+    "colour_textures": 4,
+    "failures": [],
+    "id": "koth_ut_trytitan",
+    "light_atlases": 1,
+    "lossless_data_hash": "a6d5a4950885103ddff5ce15fb8d4949f5cf48dd662f669f521df47fed9030b6",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.828964233398438,
+      "occupancy_before": 0.0129525661468506,
+      "padded_luxels": 217308,
+      "patches": 1426,
+      "raw_bytes_after": 786432,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 10377,
+      "to": [
+        512,
+        512
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 0
+  },
+  {
+    "baked_faces": 6330,
+    "bsp_sha256": "55f6d1a8101f33bb8989d1e7479dea2ff2ce243cace2b3a0c27e96becc898f11",
+    "codecs": [
+      {
+        "encoded_bytes": 2534272,
+        "format": "bc7",
+        "images": 8,
+        "path": "res://maps/cache/koth_ut_wilderness-lightmap1-bc7.scn",
+        "raw_bytes": 7602168,
+        "sha256": "ddd0e705ef1ca599fd6b7b117b80b7e3979f77aec394151aefde928bef18f467"
+      },
+      {
+        "encoded_bytes": 2534272,
+        "format": "astc4",
+        "images": 8,
+        "path": "res://maps/cache/koth_ut_wilderness-lightmap1-astc4.scn",
+        "raw_bytes": 7602168,
+        "sha256": "3040354d296c36cc36eff62014a3a448b7f24ecf41a14173a139c05f5afc9780"
+      }
+    ],
+    "colour_textures": 20,
+    "failures": [],
+    "id": "koth_ut_wilderness",
+    "light_atlases": 1,
+    "lossless_data_hash": "2abdab83ffabcfe7ee91fc6702a027e94cf0f83bf037a95bad0f8ada4639d09c",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.566272735595703,
+      "occupancy_before": 0.0353920459747314,
+      "padded_luxels": 593780,
+      "patches": 6330,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 48063,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 28
+  }
+]

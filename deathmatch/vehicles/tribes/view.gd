@@ -39,6 +39,7 @@ func update(delta: float):
 		model.global_transform=c.render_frame(key)
 		model.get_node("Turbine").pitch_scale=.8+minf(1,row.velocity.length()/d.speed)*.8
 		labels[key].text="%s · %d%% · %d km/h · %d/%d"%[d.name,roundi(row.hp/d.hp*100),roundi(row.velocity.length()*3.6),c.occupants(row).filter(func(id):return id!=0).size(),d.seats.size()]
+		if row.get("deployed",false):labels[key].text+=" · DEPLOYED · REAR INVENTORY"
 		labels[key].modulate=Color("e96b55") if row.team==0 else Color("5bb1f5")
 		# Fighter render origins and animated graphics read this same frame.
 		for person in c.occupants(row):
@@ -49,5 +50,5 @@ func update(delta: float):
 	for key in c.rockets:
 		if not shots.has(key):
 			var mesh:=MeshInstance3D.new();var sphere:=SphereMesh.new();sphere.radius=.09;sphere.height=.18;mesh.mesh=sphere
-			var mat:=StandardMaterial3D.new();mat.albedo_color=Color("ffb854");mat.emission_enabled=true;mat.emission=mat.albedo_color;mat.emission_energy_multiplier=2;mesh.material_override=mat;add_child(mesh);shots[key]=mesh
+			var mat:=StandardMaterial3D.new();mat.albedo_color=Color("80eaff") if c.rockets[key].get("kind","scout")=="shrike" else Color("ffb854");mat.emission_enabled=true;mat.emission=mat.albedo_color;mat.emission_energy_multiplier=2;mesh.material_override=mat;add_child(mesh);shots[key]=mesh
 		shots[key].global_position=c.rockets[key].position

@@ -84,7 +84,7 @@ func run():
  actor.reset_view();check(actor.cs16_stamina==0 and not actor.jump_held,"Respawn/reset clears fatigue and jump latch")
  actor.configure_cs16(false);check(is_equal_approx(actor.floor_snap_length,.6) and is_equal_approx(actor.movement_speed(),9.4),"Leaving CS profile restores arena movement")
  world.free();await process_frame
- var g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.selected_map="de_nuke_rebuilt";g.start_host("CS movement rules",0,20,10,true,"de")
+ var g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.selected_map="de_varq_nuke_rarea";g.start_host("CS movement rules",0,20,10,true,"de")
  g.set_process(false);g.set_physics_process(false)
  var id:=1;var s:Dictionary=g.players[id];var f=g.fighters[id]
  check(f.cs16_enabled and not f.tribes_enabled,"DE spawn on a supported map activates CS movement")

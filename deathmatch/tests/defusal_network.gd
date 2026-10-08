@@ -25,7 +25,7 @@ func run():
 	else:await client_case()
 	print("DEFUSAL_NETWORK_RESULT ",role," ",JSON.stringify(failures));game.disconnect_game();game.free();quit(0 if failures.is_empty() else 1)
 func server_case():
-	game.dedicated=true;game.bind_address="127.0.0.1";game.selected_map="de_dust2_rebuilt"
+	game.dedicated=true;game.bind_address="127.0.0.1";game.selected_map="de_varq_dust2"
 	game.match_mode.configure({"sv_gametype":"de","sv_de_prepare":30,"sv_de_winlimit":3});game.votes.enabled=false
 	game.start_host("DE network",28982,20,10,false,"de")
 	check(await wait_for(func():return observer.seen.has("attacker ready") and observer.seen.has("defender ready"),20),"Both playing clients join")

@@ -22,7 +22,7 @@ func run():
 		money=money or de.accounts.values().any(func(a):return a.cash==150)
 		code=code or de.defuse_index>0;cuts=cuts or de.cut_mask>0
 		if sample.is_empty() and not frame.snapshot[10].defusal.is_empty():sample=frame.duplicate(true)
-	check(g.current_map=="de_dust2_rebuilt" and g.armory.effective()=="cs16","Replay restores Dust2 and forced CS arsenal")
+	check(g.current_map=="de_varq_dust2" and g.armory.effective()=="cs16","Replay restores Dust2 and forced CS arsenal")
 	check(modes.has("prepare") and modes.has("live") and modes.has("post"),"Replay preserves preparation, live and round-result phases")
 	check(plant_sites.has(0) and plant_sites.has(1),"Replay contains both bomb sites")
 	check(kit and money and code and cuts,"Economy, kits, keypad progress and cut wires survive replay")

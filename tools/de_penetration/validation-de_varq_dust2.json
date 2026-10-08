@@ -1,0 +1,36 @@
+{
+  "failures": [],
+  "maps": [
+    {
+      "blocked": 219,
+      "bound_models": 11,
+      "bsp_sha256": "2963de4eb2b25c6f96d3fbdb813830de7f634e5c29cc77d90763477bd007befa",
+      "by_material": {
+        "concrete": 1
+      },
+      "id": "de_varq_dust2",
+      "max_node_visits": 77,
+      "max_query_us": 534,
+      "penetrated": 1,
+      "samples": [
+        {
+          "cost": 0.861624922285686,
+          "direction": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "entry": [
+            -83.4096069335938,
+            6.84195327758789,
+            7.99998474121094
+          ],
+          "retention": 0.5,
+          "role": "concrete",
+          "thickness": 0.215406230571421
+        }
+      ],
+      "tested": 220
+    }
+  ]
+}

@@ -365,7 +365,7 @@ func can_open_weapon_wheel() -> bool:
 	var state: Dictionary=game.local_state()
 	if state.is_empty() or state.get("dead",true) or state.get("spectator",false):return false
 	var id:=multiplayer.get_unique_id()
-	if game.match_mode.special.blocked(id) or game.match_mode.fortress.walkers.mounted(id) or game.match_mode.tribes.vehicles.piloting(id) or physical_actions.busy():return false
+	if game.match_mode.special.blocked(id) or game.match_mode.fortress.walkers.mounted(id) or game.match_mode.tribes.vehicles.weapon_operator(id) or physical_actions.busy():return false
 	if is_instance_valid(blackout) and blackout.visible:return false
 	var hand: XRController3D=left if left_handed else right
 	return simulated or head_tracked() and hand.get_has_tracking_data()
@@ -554,7 +554,7 @@ func _process(delta: float) -> void:
 			(left if left_handed else right).add_child(gun)
 			gun.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
 			gun_id=s.weapon;gun_rules=art_rules
-		gun.visible=not game.match_mode.tribes.pda_open() and not game.match_mode.tribes.operating(mine) and not game.match_mode.fortress.walkers.mounted(mine) and not game.match_mode.tribes.vehicles.piloting(mine) and not game.match_mode.defusal.gun_holstered(mine) and not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
+		gun.visible=not game.match_mode.tribes.pda_open() and not game.match_mode.tribes.operating(mine) and not game.match_mode.fortress.walkers.mounted(mine) and not game.match_mode.tribes.vehicles.weapon_operator(mine) and not game.match_mode.defusal.gun_holstered(mine) and not game.lobby.active() and not s.dead and not menu_visible and (simulated or ((left_aim if left_handed else right_aim).get_has_tracking_data() and (left if left_handed else right).get_has_tracking_data()))
 		var grip: XRController3D=left if left_handed else right
 		var aim: XRController3D=left_aim if left_handed else right_aim
 		weapon_kick.update(delta)

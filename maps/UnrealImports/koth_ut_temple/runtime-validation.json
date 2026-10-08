@@ -1,0 +1,115 @@
+{
+  "baked_faces": 1455,
+  "bsp_sha256": "a8f00f821257058ff76404de3be30c4384322a312c35a4c2d3c953b9562651b4",
+  "checks": [
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        1.28365337848663,
+        9.60000038146973,
+        24.485818862915
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        18.0059852600098,
+        9.60000038146973,
+        16.9762878417969
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        24.7052898406982,
+        9.60000038146973,
+        -1.84783840179443
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        16.7135772705078,
+        9.60000038146973,
+        -17.3054466247559
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -2.21731781959534,
+        9.60000038146973,
+        -24.1560401916504
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -16.3866729736328,
+        9.60000038146973,
+        -17.7910633087158
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -24.2066802978516,
+        9.60000038146973,
+        2.204425573349
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -16.090576171875,
+        9.60000038146973,
+        17.7950744628906
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -0.325807631015778,
+        -11.5999994277954,
+        0.562512993812561
+      ],
+      "safe": true
+    }
+  ],
+  "failures": [],
+  "fixed": true,
+  "hill_nav_distance": [
+    0.199999809265137
+  ],
+  "hills": 1,
+  "id": "koth_ut_temple",
+  "invalid_light_faces": 0,
+  "jumps": 209,
+  "lifts": [],
+  "link_kinds": {
+    "drop": 209
+  },
+  "links": 209,
+  "missing_routes": [],
+  "routes": 8,
+  "spawns": 8,
+  "total_routes": 8,
+  "unresolved_teleports": []
+}

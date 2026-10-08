@@ -1,0 +1,514 @@
+{
+  "id": "koth_ut_dungeon",
+  "source": {
+    "name": "KOTH_Dungeon",
+    "title": "KOTH Dungeon",
+    "author": "LoQtUS",
+    "players": "2-8",
+    "declared_capacity": 8,
+    "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/D/koth_dungeon_3bd2686b.html",
+    "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+    "mode": "koth",
+    "eligible": true,
+    "selection_reason": "KOTH-prefixed ChaosUT map",
+    "archive": "KOTH_Dungeon.umod",
+    "archive_sha1": "3bd2686bbaef19e266878db46a7bc305c222804c",
+    "status": "downloaded",
+    "bytes": 5475175
+  },
+  "texture_sources": {
+    "utd02c48829b11": {
+      "kind": "existing project replacement",
+      "source": "Botpack.Ammocount.FlakAmmoLED",
+      "donor": "met_brn_block"
+    },
+    "utbc7bd4222d8c": {
+      "kind": "existing project replacement",
+      "source": "Botpack.Ammocount.FlakAmmoLEDBase",
+      "donor": "ind_w02_grey1"
+    },
+    "ut4f050b76754f": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Doors.loqtus_door1L"
+    },
+    "ut85549f6f7ddb": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Doors.loqtus_doorL"
+    },
+    "ut9e47d17b00d5": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Doors.loqtus_metal1"
+    },
+    "ut50002d1d050b": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Graf.mp02"
+    },
+    "utf6a28382a328": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Graf.mp21"
+    },
+    "utde211c9be500": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Graf.mp33"
+    },
+    "ut7e724391df52": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Graf.mp41"
+    },
+    "ut520c3a247a04": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.alg-brick"
+    },
+    "ut14890f6b4fec": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.bars1"
+    },
+    "ut84f9c69d92eb": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.base-fla"
+    },
+    "ut0631cb040d2c": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.bricks3a"
+    },
+    "utaec2ff33e756": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.bricksbra"
+    },
+    "ut361788e12d34": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.bricksc"
+    },
+    "utbabf33fae3f0": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.congo4"
+    },
+    "ut65e11f2dad6d": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.congo5"
+    },
+    "ut15dd6eaac916": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.rt_brabble"
+    },
+    "ut1ad728f7ab3b": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.rt_magbase7"
+    },
+    "uta3dbf88fc738": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.rtconk_4a"
+    },
+    "utdb106b6794f8": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.rtmagli"
+    },
+    "utc5cb4616d0b8": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.rtmg_base2"
+    },
+    "ut00a582900152": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.trimpo-4"
+    },
+    "utb1d7c0555b26": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Maggot.wallbanger-tr8"
+    },
+    "utd4d0a6cd0c1f": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Vid.Jump4"
+    },
+    "ut0ed9e8432a6f": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.Vid.SinVid1"
+    },
+    "ut69198dc47971": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.metal.Met1CL"
+    },
+    "utecd1f91eb048": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.walls.WallQ"
+    },
+    "ut0f89f7ed82e0": {
+      "kind": "authored package texture",
+      "path": "CUTDOM1.walls.WallQ2"
+    },
+    "ut15dee4aec47a": {
+      "kind": "existing project replacement",
+      "source": "GenIn.Cloth.Gclth5d",
+      "donor": "ind_w04_grey1"
+    },
+    "ut3c8bf3d84737": {
+      "kind": "existing project replacement",
+      "source": "GenIn.Glass.Glass",
+      "donor": "ind_w02_grey1"
+    },
+    "uta867990ce75b": {
+      "kind": "existing project replacement",
+      "source": "GenIn.Glass.Glassd",
+      "donor": "ind_w06_rst1"
+    },
+    "ut3fc8c3affda0": {
+      "kind": "authored package texture",
+      "path": "London.Enviroment.londonbk"
+    },
+    "utd7e0ce6e5996": {
+      "kind": "authored package texture",
+      "path": "London.Enviroment.londondn"
+    },
+    "ut3d09a060aa86": {
+      "kind": "authored package texture",
+      "path": "London.Enviroment.londonft"
+    },
+    "ut5b6b606ed738": {
+      "kind": "authored package texture",
+      "path": "London.Enviroment.londonlf"
+    },
+    "ut4d5089919bf0": {
+      "kind": "authored package texture",
+      "path": "London.Enviroment.londonrt"
+    },
+    "ut56d1c49e8f08": {
+      "kind": "authored package texture",
+      "path": "London.Enviroment.londonup"
+    },
+    "utbb7f3d3dd2bc": {
+      "kind": "existing project replacement",
+      "source": "SpaceFX.newneb1",
+      "donor": "met_brn_block"
+    },
+    "ut27f7c23d09e7": {
+      "kind": "existing project replacement",
+      "source": "UTtech1.Wall.Cliffbrk7",
+      "donor": "compbase"
+    },
+    "ute7a07a3f3a71": {
+      "kind": "existing project replacement",
+      "source": "UTtech2.Mask.nondetgr8",
+      "donor": "ind_w02_grey1"
+    },
+    "ut2075a0617f61": {
+      "kind": "existing project replacement",
+      "source": "UTtech3.Deco.L_pole1",
+      "donor": "ind_w02_grey1"
+    },
+    "ut25d2b3265d9e": {
+      "kind": "existing project replacement",
+      "source": "UTtech3.Glass.bolt",
+      "donor": "ind_w02_grey1"
+    },
+    "ut7130e8840370": {
+      "kind": "existing project replacement",
+      "source": "XFX.flareZw",
+      "donor": "metal_iron1_09"
+    }
+  },
+  "source_faces": 1384,
+  "spawns": 11,
+  "hill_points": 1,
+  "spawn_grounding": [
+    {
+      "actor": "PlayerStart0",
+      "source": [
+        34.22209930419922,
+        -3.967536449432373,
+        -471.89874267578125
+      ],
+      "floor": [
+        34.22209930419922,
+        -3.967536449432373,
+        -512.0
+      ]
+    },
+    {
+      "actor": "PlayerStart1",
+      "source": [
+        255.86441040039062,
+        381.8277587890625,
+        -471.8994140625
+      ],
+      "floor": [
+        255.86441040039062,
+        381.8277587890625,
+        -512.0
+      ]
+    },
+    {
+      "actor": "PlayerStart2",
+      "source": [
+        256.86688232421875,
+        -388.18218994140625,
+        -471.9002380371094
+      ],
+      "floor": [
+        256.86688232421875,
+        -388.18218994140625,
+        -512.0
+      ]
+    },
+    {
+      "actor": "PlayerStart3",
+      "source": [
+        -1470.946533203125,
+        -449.3232421875,
+        -471.9011535644531
+      ],
+      "floor": [
+        -1470.946533203125,
+        -449.3232421875,
+        -512.0
+      ]
+    },
+    {
+      "actor": "PlayerStart4",
+      "source": [
+        -1284.6400146484375,
+        380.7718200683594,
+        -471.9012145996094
+      ],
+      "floor": [
+        -1284.6400146484375,
+        380.7718200683594,
+        -512.0000610351562
+      ]
+    },
+    {
+      "actor": "PlayerStart5",
+      "source": [
+        -1054.1322021484375,
+        2.5831401348114014,
+        -471.8979187011719
+      ],
+      "floor": [
+        -1054.1322021484375,
+        2.5831401348114014,
+        -512.0003051757812
+      ]
+    },
+    {
+      "actor": "PlayerStart6",
+      "source": [
+        -508.72894287109375,
+        -644.3744506835938,
+        40.095848083496094
+      ],
+      "floor": [
+        -508.72894287109375,
+        -644.3744506835938,
+        0.0
+      ]
+    },
+    {
+      "actor": "PlayerStart7",
+      "source": [
+        -512.3488159179688,
+        634.45654296875,
+        40.10680389404297
+      ],
+      "floor": [
+        -512.3488159179688,
+        634.45654296875,
+        0.0
+      ]
+    },
+    {
+      "actor": "PlayerStart8",
+      "source": [
+        -510.60357666015625,
+        -172.89292907714844,
+        -463.900390625
+      ],
+      "floor": [
+        -510.60357666015625,
+        -172.89292907714844,
+        -504.0
+      ]
+    },
+    {
+      "actor": "PlayerStart9",
+      "source": [
+        -705.5267944335938,
+        249.2911376953125,
+        -215.89947509765625
+      ],
+      "floor": [
+        -705.5267944335938,
+        249.2911376953125,
+        -255.99539184570312
+      ]
+    },
+    {
+      "actor": "PlayerStart10",
+      "source": [
+        -311.5234680175781,
+        256.2963562011719,
+        -215.89947509765625
+      ],
+      "floor": [
+        -311.5234680175781,
+        256.2963562011719,
+        -255.99539184570312
+      ]
+    }
+  ],
+  "traversal": [
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo0",
+      "target": "warp2"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo1",
+      "target": "warp1"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo2",
+      "target": "warp4"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo3",
+      "target": "warp3"
+    },
+    {
+      "kind": "teleport",
+      "source": "VisibleTeleporter2",
+      "target": "tel7"
+    },
+    {
+      "kind": "teleport",
+      "source": "VisibleTeleporter3",
+      "target": "tel8"
+    },
+    {
+      "kind": "teleport",
+      "source": "VisibleTeleporter5",
+      "target": "tel1"
+    },
+    {
+      "kind": "teleport",
+      "source": "VisibleTeleporter7",
+      "target": "tel2"
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover6",
+      "travel": [
+        0.0,
+        0.0,
+        102.38735351562501
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover5",
+      "travel": [
+        0.0,
+        0.0,
+        102.4
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover7",
+      "travel": [
+        0.0,
+        0.0,
+        102.4
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover8",
+      "travel": [
+        0.0,
+        0.0,
+        102.4
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover12",
+      "travel": [
+        37.6,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover10",
+      "travel": [
+        0.0,
+        0.0,
+        -46.400000000000006
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover11",
+      "travel": [
+        -39.2,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover9",
+      "travel": [
+        0.0,
+        0.0,
+        56.800000000000004
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover4",
+      "travel": [
+        0.0,
+        0.0,
+        -151.20000000000002
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover0",
+      "travel": [
+        0.0,
+        0.0,
+        76.80000000000001
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover1",
+      "travel": [
+        0.0,
+        0.0,
+        76.80000000000001
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover2",
+      "travel": [
+        0.0,
+        0.0,
+        -151.20000000000002
+      ]
+    }
+  ],
+  "adaptations": [
+    "16 ramps over 32-UU stairs for standard arena movement",
+    "Missing retail materials replaced with varied existing project materials",
+    "Scripted Chaos weapons mapped to classic arena pickups",
+    "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+  ],
+  "blockers": [],
+  "status": "staging"
+}

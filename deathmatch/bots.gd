@@ -2,6 +2,9 @@ extends Node
 ## Authority-only practice and dedicated-server AI. Decisions produce ordinary player inputs;
 ## movement, pickups, abilities, damage and objectives remain server-owned.
 var game
+var travel_smoothing=preload("res://deathmatch/bot_ai/travel_smoothing.gd").new()
+var awareness=preload("res://deathmatch/bot_ai/awareness.gd").new()
+var wallbang=preload("res://deathmatch/bot_ai/wallbang.gd").new()
 var native_ai=preload("res://deathmatch/native/runtime.gd").bots()
 var region: NavigationRegion3D
 var brains: Dictionary={}
@@ -104,6 +107,7 @@ func tick(delta: float) -> void:
 			brain.enemy=0;brain.next=game.clock;brain.plan_at=0.0
 		# Objective interactions may consume movement/fire, but never perception.
 		# A planter/defuser must still notice an approaching opponent.
+		awareness.before(self,id,brain,delta)
 		var flag_changed: bool=game.match_mode.kind=="st" and tribes.flag_changed(id,brain)
 		var thinking: bool=game.clock>=brain.next or flag_changed
 		if thinking:
@@ -126,6 +130,7 @@ func eye(id: int) -> Vector3:
 func target_position(id: int) -> Vector3:
 	return game.fighters[id].position+Vector3.UP*game.fighters[id].torso_height()
 func visible(id: int,other: int) -> bool:
+	if game.match_mode.kind=="de":return awareness.visible(self,id,other)
 	if game.match_mode.defusal.utility.flash_amount(id)>.35 or game.match_mode.defusal.utility.obscured(eye(id),target_position(other)):return false
 	var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(eye(id),target_position(other),3,[game.fighters[id].get_rid()]))
 	return hit.is_empty() or hit.collider==game.fighters[other] or game.match_mode.fortress.walkers.contact_pilot(hit)==other
@@ -139,8 +144,9 @@ func can_engage(id: int,other: int) -> bool:
 		if game.match_mode.fortress.can_fire(id,weapon) and can_harm_target(id,other,weapon):return true
 	return false
 func perceive(id: int,brain: Dictionary) -> void:
-	if native_ai:native_ai.perceive(self,id,brain);return
-	perceive_reference(id,brain)
+	if native_ai:native_ai.perceive(self,id,brain)
+	else:perceive_reference(id,brain)
+	awareness.observed(self,id,brain)
 
 func perceive_reference(id: int,brain: Dictionary) -> void:
 	var s: Dictionary=game.players[id]
@@ -517,8 +523,13 @@ func safe_shot(id: int,point: Vector3,explosive: bool=false) -> bool:
 			if friend!=id and alive(friend) and game.match_mode.same_team(id,friend) and game.fighters[friend].position.distance_to(point)<radius:return false
 	return true
 func combat(id: int,brain: Dictionary,delta: float=.2) -> void:
-	if native_ai:native_ai.combat(self,id,brain,delta);return
-	combat_reference(id,brain,delta)
+	var observed_base: Vector3=brain.seen_position
+	if game.match_mode.kind=="de" and brain.enemy!=0 and alive(brain.enemy) and brain.has("exposed_offset"):
+		brain.seen_position+=brain.exposed_offset-Vector3.UP*game.fighters[brain.enemy].torso_height()
+	if native_ai:native_ai.combat(self,id,brain,delta)
+	else:combat_reference(id,brain,delta)
+	brain.seen_position=observed_base
+	wallbang.apply(self,id,brain,delta)
 
 func combat_reference(id: int,brain: Dictionary,delta: float=.2) -> void:
 	var s: Dictionary=game.players[id]
@@ -687,8 +698,20 @@ func stop_radius(brain: Dictionary) -> float:
 		"objective":return 1.0 if game.match_mode.kind=="koth" else .4
 	return .35
 func steer(id: int,brain: Dictionary,delta: float) -> void:
-	if native_ai:native_ai.steer(self,id,brain,delta);return
-	steer_reference(id,brain,delta)
+	var tracking: bool=brain.get("wallbang_tracking",false) or brain.get("hurt_tracking",false)
+	var s: Dictionary=game.players[id];var yaw: float=s.yaw;var pitch: float=s.pitch
+	if native_ai:native_ai.steer(self,id,brain,delta)
+	else:steer_reference(id,brain,delta)
+	if tracking:
+		# Travel may turn an enemy-less search bot. Retain suppression aim while
+		# rotating the ordinary move input to preserve its planned world direction.
+		var move: Vector3=Basis(Vector3.UP,s.yaw-yaw)*Vector3(s.move.x,0,s.move.y)
+		s.move=Vector2(move.x,move.z);s.yaw=yaw;s.pitch=pitch
+
+	if game.current_map.begins_with("koth_ut_") and game.clock<brain.drop_until:
+		var remaining:=sqrt(maxf(0,game.fighters[id].position.y-brain.drop_end.y)/10.0)+.4
+		brain.drop_until=maxf(brain.drop_until,game.clock+remaining)
+	travel_smoothing.apply(self,id,brain,delta,yaw)
 
 func steer_reference(id: int,brain: Dictionary,delta: float) -> void:
 	if game.match_mode.kind=="st":tribes.steer(id,brain);return

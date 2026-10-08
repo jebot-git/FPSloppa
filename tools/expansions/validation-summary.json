@@ -1,0 +1,114 @@
+{
+  "mipmaps": {
+    "totals": {
+      "avatar": {
+        "assets": 17,
+        "data_samplers": 0,
+        "mipmapped": 350,
+        "one_pixel": 0,
+        "textures": 350
+      },
+      "import": {
+        "assets": 171,
+        "data_samplers": 0,
+        "mipmapped": 171,
+        "one_pixel": 0,
+        "textures": 171
+      },
+      "map": {
+        "assets": 117,
+        "data_samplers": 1981,
+        "mipmapped": 2072,
+        "one_pixel": 0,
+        "textures": 2072
+      },
+      "model": {
+        "assets": 167,
+        "data_samplers": 0,
+        "mipmapped": 248,
+        "one_pixel": 0,
+        "textures": 248
+      }
+    },
+    "failures": [],
+    "scope": "Full project audit before map retirement; remaining DE/ST caches independently reverified afterward."
+  },
+  "gameplay": {
+    "t2_vehicles": 139,
+    "transports": 93,
+    "transport_vr": 56,
+    "base_de_objectives": 30,
+    "network": [
+      "network-all",
+      "network-deployment"
+    ]
+  },
+  "map_renders": {
+    "maps": 36,
+    "images": 512,
+    "resolution": [
+      1920,
+      1080
+    ]
+  },
+  "vehicle_renders": {
+    "vehicles": 6,
+    "images": 36,
+    "resolution": [
+      1600,
+      1000
+    ]
+  },
+  "cache_variants": {
+    "de_st": 123,
+    "all_base": 204
+  },
+  "current_maps": {
+    "de": 16,
+    "st": 25,
+    "base_total": 68
+  },
+  "retired": [
+    "de_nuke_rebuilt",
+    "de_inferno_rebuilt",
+    "de_dust2_rebuilt",
+    "de_varq_dust2_xmas",
+    "de_varq_dust2_2006",
+    "de_varq_dust2_2009",
+    "de_varq_dust2_snow"
+  ],
+  "weather": {
+    "weather": {
+      "checks": 141,
+      "failures": [],
+      "graphics_checked": true
+    },
+    "files": {
+      "deathmatch/maps/weather.gd": "efe06a8d7f25e39f8fffcd1db6bc489d2bf2b3c7d0ee2ca4cba17a85e4571082",
+      "deathmatch/maps/weather.gdshader": "e8b963adf3b4713c2c2f77721064a3e117b22e91b024e54f012cbf23c15e2858",
+      "deathmatch/maps/atmosphere.gd": "727b006a1392f482a73e63ca2953e1f4b08fafdba14d2b8edeed9948e94d11bb",
+      "deathmatch/audio/ambience.gd": "46c36395f5f9c627f46c56f6efa4dab942b6dae4d6e7ca5751d9a8c0c87d0691",
+      "tools/t2_classic/atmosphere.json": "d6580130dcc81d382948faa74c594c0b55d2bdcccaee25ba48632b443b56e6ed"
+    }
+  },
+  "penetration": {
+    "converted_map_probes": 33159,
+    "successful_exits": 6290,
+    "combat_bsp_checks": 68,
+    "combat_authored_checks": 67,
+    "edge_cases": 18,
+    "retained_legacy_cover_checks": 270,
+    "network_server": {
+      "failures": [],
+      "passed": true,
+      "role": "server"
+    },
+    "network_client": {
+      "failures": [],
+      "passed": true,
+      "role": "client"
+    }
+  },
+  "defusal_rules_checks": 150,
+  "cs16_movement_checks": 51
+}

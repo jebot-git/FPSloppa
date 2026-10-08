@@ -1,0 +1,2958 @@
+{
+  "maps": [
+    {
+      "baked_faces": 5248,
+      "bsp_sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b",
+      "codecs": [
+        {
+          "encoded_bytes": 786512,
+          "format": "bc7",
+          "images": 3,
+          "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-bc7.scn",
+          "raw_bytes": 2359293,
+          "sha256": "f063a08486bda4ca432feed2fbeb272b6ed998e04caa4ec414eee67be5dbae6a"
+        },
+        {
+          "encoded_bytes": 786512,
+          "format": "astc4",
+          "images": 3,
+          "path": "res://maps/cache/de_aztec_rebuilt-lightmap1-astc4.scn",
+          "raw_bytes": 2359293,
+          "sha256": "9d095e8da41ba1cf00c875f060d22b6e7e250c334f97b500cd576c82f7236adb"
+        }
+      ],
+      "colour_textures": 11,
+      "failures": [],
+      "id": "de_aztec_rebuilt",
+      "light_atlases": 1,
+      "lossless_data_hash": "931fb1e52fa82da8ff012f57c6fdad6d2e51a4f473af1a5f370ee18f67b0a11e",
+      "packing": {
+        "from": [
+          2048,
+          2048
+        ],
+        "occupancy_after": 0.955206871032715,
+        "occupancy_before": 0.238801717758179,
+        "padded_luxels": 1001607,
+        "patches": 5248,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 12582912,
+        "remapped_vertices": 36918,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 30,
+      "assets": [
+        {
+          "path": "maps/de_aztec_rebuilt.bsp",
+          "sha256": "f3cd3da4470d56e391b54038e700c77c2f62fe862429807e0cd2daa793b3d58b"
+        },
+        {
+          "path": "maps/cache/de_aztec_rebuilt.scn",
+          "sha256": "ab3886a73403bcf7dd432f5993c6689614b364d9e149d829b0db2aa2e27dd3ae"
+        },
+        {
+          "path": "maps/cache/de_aztec_rebuilt-lightmap1.scn",
+          "sha256": "ab3886a73403bcf7dd432f5993c6689614b364d9e149d829b0db2aa2e27dd3ae"
+        },
+        {
+          "path": "maps/navigation/de_aztec_rebuilt.res",
+          "sha256": "7fdd790d08c63aa3f9d164f5f355ad8657b83722e1406b1d15739b17fda31da5"
+        },
+        {
+          "path": "maps/cache/de_aztec_rebuilt-lightmap1-bc7.scn",
+          "sha256": "f063a08486bda4ca432feed2fbeb272b6ed998e04caa4ec414eee67be5dbae6a"
+        },
+        {
+          "path": "maps/cache/de_aztec_rebuilt-lightmap1-astc4.scn",
+          "sha256": "9d095e8da41ba1cf00c875f060d22b6e7e250c334f97b500cd576c82f7236adb"
+        }
+      ]
+    },
+    {
+      "baked_faces": 12728,
+      "bsp_sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524",
+      "codecs": [
+        {
+          "encoded_bytes": 3495520,
+          "format": "bc7",
+          "images": 10,
+          "path": "res://maps/cache/de_train_rebuilt-lightmap1-bc7.scn",
+          "raw_bytes": 10485750,
+          "sha256": "3815811a9bc6ad4b95f085dba93697b8b38ce3ce35525c05e9921e5a09b45610"
+        },
+        {
+          "encoded_bytes": 3495520,
+          "format": "astc4",
+          "images": 10,
+          "path": "res://maps/cache/de_train_rebuilt-lightmap1-astc4.scn",
+          "raw_bytes": 10485750,
+          "sha256": "6984ad204068191fb74eae589d7048bacfa8371b2b681d6999a68a4a71b21761"
+        }
+      ],
+      "colour_textures": 15,
+      "failures": [],
+      "id": "de_train_rebuilt",
+      "light_atlases": 1,
+      "lossless_data_hash": "f8eb1a38ebb6a510e05cf412b45ce2a846bbe7b6bcadc8a58df9720a034f5718",
+      "packing": {
+        "from": [
+          2048,
+          2048
+        ],
+        "occupancy_after": 0.32044792175293,
+        "occupancy_before": 0.32044792175293,
+        "padded_luxels": 1344056,
+        "patches": 12728,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 12582912,
+        "remapped_vertices": 102807,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_train_rebuilt.bsp",
+          "sha256": "dd2da7cb5e622d6e09a3ada7045bbbfc94088f0fb0414c09c82e3b8575032524"
+        },
+        {
+          "path": "maps/cache/de_train_rebuilt.scn",
+          "sha256": "ccc339a1f7c960f7fb8df01c40d5cf44ed4b41b961e89f619fca69199e552707"
+        },
+        {
+          "path": "maps/cache/de_train_rebuilt-lightmap1.scn",
+          "sha256": "ccc339a1f7c960f7fb8df01c40d5cf44ed4b41b961e89f619fca69199e552707"
+        },
+        {
+          "path": "maps/navigation/de_train_rebuilt.res",
+          "sha256": "ac5f4dc0eb8cd2f8ec368597209256f0198270ab25de8574c3c3e1ae172df47f"
+        },
+        {
+          "path": "maps/cache/de_train_rebuilt-lightmap1-bc7.scn",
+          "sha256": "3815811a9bc6ad4b95f085dba93697b8b38ce3ce35525c05e9921e5a09b45610"
+        },
+        {
+          "path": "maps/cache/de_train_rebuilt-lightmap1-astc4.scn",
+          "sha256": "6984ad204068191fb74eae589d7048bacfa8371b2b681d6999a68a4a71b21761"
+        }
+      ]
+    },
+    {
+      "baked_faces": 29062,
+      "bsp_sha256": "b4c5c4eaa50420fc260a3e358f758d84e887f9b6a2e7fd1ddc5a47347d42fa8e",
+      "codecs": [
+        {
+          "encoded_bytes": 1398208,
+          "format": "bc7",
+          "images": 4,
+          "path": "res://maps/cache/ctf_stonehenge-lightmap1-bc7.scn",
+          "raw_bytes": 4194300,
+          "sha256": "96b508f5bd22f2a7b1198a7ca1240d104800ae08578267d330e08cbc646791f7"
+        },
+        {
+          "encoded_bytes": 1398208,
+          "format": "astc4",
+          "images": 4,
+          "path": "res://maps/cache/ctf_stonehenge-lightmap1-astc4.scn",
+          "raw_bytes": 4194300,
+          "sha256": "5c43656da54429083c1d93b01b157bc234dd93703fe6b22a5fc142ffffe64acb"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_stonehenge",
+      "light_atlases": 1,
+      "lossless_data_hash": "6df31fbfb312f0fc8e7a66ea89a8a6501cd4c1f02696d60181e4a80a3c5476ea",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.272809028625488,
+        "occupancy_before": 0.0682022571563721,
+        "padded_luxels": 1144244,
+        "patches": 29062,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 172509,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_stonehenge.bsp",
+          "sha256": "b4c5c4eaa50420fc260a3e358f758d84e887f9b6a2e7fd1ddc5a47347d42fa8e"
+        },
+        {
+          "path": "maps/cache/ctf_stonehenge.scn",
+          "sha256": "99c19fb31352356ab5d2fa31b39169af46d2c3cb1de42342634cac7c40328db6"
+        },
+        {
+          "path": "maps/cache/ctf_stonehenge-lightmap1.scn",
+          "sha256": "99c19fb31352356ab5d2fa31b39169af46d2c3cb1de42342634cac7c40328db6"
+        },
+        {
+          "path": "maps/navigation/ctf_stonehenge.res",
+          "sha256": "ca941f7d096033be9cc9df3d768673d0c41ae3d1f48821e1df813a94eab449fb"
+        },
+        {
+          "path": "maps/cache/ctf_stonehenge-lightmap1-bc7.scn",
+          "sha256": "96b508f5bd22f2a7b1198a7ca1240d104800ae08578267d330e08cbc646791f7"
+        },
+        {
+          "path": "maps/cache/ctf_stonehenge-lightmap1-astc4.scn",
+          "sha256": "5c43656da54429083c1d93b01b157bc234dd93703fe6b22a5fc142ffffe64acb"
+        }
+      ]
+    },
+    {
+      "baked_faces": 17858,
+      "bsp_sha256": "7c80ddf6586094bf942d06a6d8be1e1c1b3bd8a1f827adbc3148695658f75cbf",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_raindance-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "5ce541eb721737699f3b97579b888d07e4844b3aca05aaa4b492d99465b492ed"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_raindance-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "26eb01bdbc4a33c6bcea5b8f0e7e0fcbc4775add31017751ef780bb2a1e97bb6"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_raindance",
+      "light_atlases": 1,
+      "lossless_data_hash": "4a1eb1e25adbcb3cf59ad773e2a25d8ed590c935275b184db6c8faca4a33b226",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.771870613098145,
+        "occupancy_before": 0.048241913318634,
+        "padded_luxels": 809365,
+        "patches": 17858,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 94230,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_raindance.bsp",
+          "sha256": "7c80ddf6586094bf942d06a6d8be1e1c1b3bd8a1f827adbc3148695658f75cbf"
+        },
+        {
+          "path": "maps/cache/ctf_raindance.scn",
+          "sha256": "da4cf53ed82c571b08a7a0858bc381f377e349b4839f8d456eb821ab7a38e80a"
+        },
+        {
+          "path": "maps/cache/ctf_raindance-lightmap1.scn",
+          "sha256": "da4cf53ed82c571b08a7a0858bc381f377e349b4839f8d456eb821ab7a38e80a"
+        },
+        {
+          "path": "maps/navigation/ctf_raindance.res",
+          "sha256": "e04534fcfd3446dd290a76d54bed72c02d671504ce4723e4581194d412f660bf"
+        },
+        {
+          "path": "maps/cache/ctf_raindance-lightmap1-bc7.scn",
+          "sha256": "5ce541eb721737699f3b97579b888d07e4844b3aca05aaa4b492d99465b492ed"
+        },
+        {
+          "path": "maps/cache/ctf_raindance-lightmap1-astc4.scn",
+          "sha256": "26eb01bdbc4a33c6bcea5b8f0e7e0fcbc4775add31017751ef780bb2a1e97bb6"
+        }
+      ]
+    },
+    {
+      "baked_faces": 34167,
+      "bsp_sha256": "e5951d56c2d379e4947632eb4e22e3e111775218b488bc3984f6b42b3b02edb3",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_katabatic-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "90e99f36b5900baa63f59d1627e80d2522ec05981176bb0fe40fa252449a5ae3"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_katabatic-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "88e47c35908575f51748f788e5357919f54e736d707e44605faadd76bb54a07e"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_katabatic",
+      "light_atlases": 1,
+      "lossless_data_hash": "55eea4163c8139b224d5360ae266e8760dcf5e0c12d835f614f43302a27a0c1d",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.507519960403442,
+        "occupancy_before": 0.126879990100861,
+        "padded_luxels": 2128693,
+        "patches": 34167,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 192402,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_katabatic.bsp",
+          "sha256": "e5951d56c2d379e4947632eb4e22e3e111775218b488bc3984f6b42b3b02edb3"
+        },
+        {
+          "path": "maps/cache/ctf_katabatic.scn",
+          "sha256": "3682e3a98a7dd022e59486e86bfaeeb5b31b243cfc79afff0c6733a90dcd3d93"
+        },
+        {
+          "path": "maps/cache/ctf_katabatic-lightmap1.scn",
+          "sha256": "3682e3a98a7dd022e59486e86bfaeeb5b31b243cfc79afff0c6733a90dcd3d93"
+        },
+        {
+          "path": "maps/navigation/ctf_katabatic.res",
+          "sha256": "4ff36d18f4117b834201e0c96c3104812d86e7fe923e5ad3a57a724b3eba1d16"
+        },
+        {
+          "path": "maps/cache/ctf_katabatic-lightmap1-bc7.scn",
+          "sha256": "90e99f36b5900baa63f59d1627e80d2522ec05981176bb0fe40fa252449a5ae3"
+        },
+        {
+          "path": "maps/cache/ctf_katabatic-lightmap1-astc4.scn",
+          "sha256": "88e47c35908575f51748f788e5357919f54e736d707e44605faadd76bb54a07e"
+        }
+      ]
+    },
+    {
+      "baked_faces": 60822,
+      "bsp_sha256": "5a26ea879d0760b7e85e070a58d2c9a80cd8083e90bdb3c80554f6a8761168c9",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_acidrain-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "e267782aea97feb1a9f2b1198c55f73d00f27bc3b93c81c60fa45d442fcb3a85"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_acidrain-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "e56abb6e1593a6402dc2a4e50090062c4aa915d005c2dbc686e1e4fef1112c94"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_acidrain",
+      "light_atlases": 1,
+      "lossless_data_hash": "adeadc562a6bacd9b2343162651566f29cec01047a9074e72956c57d2addf3a3",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.389364957809448,
+        "occupancy_before": 0.0973412394523621,
+        "padded_luxels": 1633115,
+        "patches": 60822,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 375603,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 2944,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_acidrain.bsp",
+          "sha256": "5a26ea879d0760b7e85e070a58d2c9a80cd8083e90bdb3c80554f6a8761168c9"
+        },
+        {
+          "path": "maps/cache/ctf_t2_acidrain.scn",
+          "sha256": "ab011f153ccad93563c397a2af4489fd2bd4c5215f4eb9d49485438e6a314a14"
+        },
+        {
+          "path": "maps/cache/ctf_t2_acidrain-lightmap1.scn",
+          "sha256": "ab011f153ccad93563c397a2af4489fd2bd4c5215f4eb9d49485438e6a314a14"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_acidrain.res",
+          "sha256": "0a3c59baffc4375b0100d0cd16c3f47a4ce8eddf7e15c7045b11b726211956ad"
+        },
+        {
+          "path": "maps/cache/ctf_t2_acidrain-lightmap1-bc7.scn",
+          "sha256": "e267782aea97feb1a9f2b1198c55f73d00f27bc3b93c81c60fa45d442fcb3a85"
+        },
+        {
+          "path": "maps/cache/ctf_t2_acidrain-lightmap1-astc4.scn",
+          "sha256": "e56abb6e1593a6402dc2a4e50090062c4aa915d005c2dbc686e1e4fef1112c94"
+        }
+      ]
+    },
+    {
+      "baked_faces": 42045,
+      "bsp_sha256": "04beca5f3f0c1a5f95414587a45a3e6390181d1357f1281f8510672c1ee60eee",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_blastside-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "113a000a0fc6766415a1da696b7eff557ab8a5b87d69592e758dd155078e8fb8"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_blastside-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "fbf5d32fb4f90e262cda9ea57bd7c9d17dba9155f83ca609bde988924fd9407c"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_blastside",
+      "light_atlases": 1,
+      "lossless_data_hash": "ffd240ebb09e7814e5c3bc3a8fa301bc34580363ff9683a45410219fc2203dfa",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.287322998046875,
+        "occupancy_before": 0.0718307495117188,
+        "padded_luxels": 1205120,
+        "patches": 42045,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 240153,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_blastside.bsp",
+          "sha256": "04beca5f3f0c1a5f95414587a45a3e6390181d1357f1281f8510672c1ee60eee"
+        },
+        {
+          "path": "maps/cache/ctf_t2_blastside.scn",
+          "sha256": "318f237df81b0880936a12ca6fddbd44e080ef271f2e75ff15326b867f8b2903"
+        },
+        {
+          "path": "maps/cache/ctf_t2_blastside-lightmap1.scn",
+          "sha256": "318f237df81b0880936a12ca6fddbd44e080ef271f2e75ff15326b867f8b2903"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_blastside.res",
+          "sha256": "e2b026ec815264cb8c15246c88665f6cf042334af93efb9b9906ffae76fdbda1"
+        },
+        {
+          "path": "maps/cache/ctf_t2_blastside-lightmap1-bc7.scn",
+          "sha256": "113a000a0fc6766415a1da696b7eff557ab8a5b87d69592e758dd155078e8fb8"
+        },
+        {
+          "path": "maps/cache/ctf_t2_blastside-lightmap1-astc4.scn",
+          "sha256": "fbf5d32fb4f90e262cda9ea57bd7c9d17dba9155f83ca609bde988924fd9407c"
+        }
+      ]
+    },
+    {
+      "baked_faces": 41949,
+      "bsp_sha256": "f76fd185e41e381e4f957ae3ab8bdcab7a2dce9b6675222fdacfd3e20f27ba77",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_broadside-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "a8438c2155812ff7a4f0339b6db5abfead136240db4bb8d849513fa747e74750"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_broadside-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "e9352edb6cee892074f800af0e724b5dffaf433171bf6bf85fd422cc0f2976aa"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_broadside",
+      "light_atlases": 1,
+      "lossless_data_hash": "40751bf16a25670f39a4a228572dbb0b154ead4961c3a6b787341254b7bb5c81",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.286832332611084,
+        "occupancy_before": 0.071708083152771,
+        "padded_luxels": 1203062,
+        "patches": 41949,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 239664,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_broadside.bsp",
+          "sha256": "f76fd185e41e381e4f957ae3ab8bdcab7a2dce9b6675222fdacfd3e20f27ba77"
+        },
+        {
+          "path": "maps/cache/ctf_t2_broadside.scn",
+          "sha256": "6f8be0584232e12c15d783b713b51b585cab157f1cd70bbc709a22e30f15d873"
+        },
+        {
+          "path": "maps/cache/ctf_t2_broadside-lightmap1.scn",
+          "sha256": "6f8be0584232e12c15d783b713b51b585cab157f1cd70bbc709a22e30f15d873"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_broadside.res",
+          "sha256": "58eb3ac7a5fd7a4201c820b32db4e981da4c782c13c3ff34cc9931d7b066b537"
+        },
+        {
+          "path": "maps/cache/ctf_t2_broadside-lightmap1-bc7.scn",
+          "sha256": "a8438c2155812ff7a4f0339b6db5abfead136240db4bb8d849513fa747e74750"
+        },
+        {
+          "path": "maps/cache/ctf_t2_broadside-lightmap1-astc4.scn",
+          "sha256": "e9352edb6cee892074f800af0e724b5dffaf433171bf6bf85fd422cc0f2976aa"
+        }
+      ]
+    },
+    {
+      "baked_faces": 41491,
+      "bsp_sha256": "109b1742a43791851bbb80c9700db952056f8e7e5c39f476ec1ed40a88a339d8",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_confusco-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "5be4745243e1bab52e2c16c196246d412f49067981360d917f382baf78fecdea"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_confusco-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "cba9ab9b8091a7ea7e6b83f5539d4dafa4cc5fa54996050e7fd069ff5b951a07"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_confusco",
+      "light_atlases": 1,
+      "lossless_data_hash": "c4a046143ea5fd3d230228fdc542035b6838d3fca54f6ddb05198f407b600726",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.258696556091309,
+        "occupancy_before": 0.0646741390228271,
+        "padded_luxels": 1085052,
+        "patches": 41491,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 239265,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 616,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_confusco.bsp",
+          "sha256": "109b1742a43791851bbb80c9700db952056f8e7e5c39f476ec1ed40a88a339d8"
+        },
+        {
+          "path": "maps/cache/ctf_t2_confusco.scn",
+          "sha256": "b4187c0182233685805fc0cc11b8d46b6b69c5ebe8df5ed42885c122c2e1ea98"
+        },
+        {
+          "path": "maps/cache/ctf_t2_confusco-lightmap1.scn",
+          "sha256": "b4187c0182233685805fc0cc11b8d46b6b69c5ebe8df5ed42885c122c2e1ea98"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_confusco.res",
+          "sha256": "777e0a1a1dcbc19e7573cd23661c2eca270324d3fa9d54585f88939ec86f14ba"
+        },
+        {
+          "path": "maps/cache/ctf_t2_confusco-lightmap1-bc7.scn",
+          "sha256": "5be4745243e1bab52e2c16c196246d412f49067981360d917f382baf78fecdea"
+        },
+        {
+          "path": "maps/cache/ctf_t2_confusco-lightmap1-astc4.scn",
+          "sha256": "cba9ab9b8091a7ea7e6b83f5539d4dafa4cc5fa54996050e7fd069ff5b951a07"
+        }
+      ]
+    },
+    {
+      "baked_faces": 19922,
+      "bsp_sha256": "f15f72b33016d01d33b9dec258e22fced52fb2f785345d1bfb9f8a202d73d1d6",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_dangerouscrossing-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "80fefcc0d95d3e75a68403aaa952424274f76992926a396fa7f2a52a10423a4d"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_dangerouscrossing-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "54fffb0e47c5de6bf4e406fc1453c3c79e40770b05aa7bbfce2c6c105f59f7f2"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_dangerouscrossing",
+      "light_atlases": 1,
+      "lossless_data_hash": "d061c735e7f8f9ad7a9c10af2de2e3015dccdeaa6acbbacf1ec9ac945e2f229c",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.469327926635742,
+        "occupancy_before": 0.0293329954147339,
+        "padded_luxels": 492126,
+        "patches": 19922,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 104589,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_dangerouscrossing.bsp",
+          "sha256": "f15f72b33016d01d33b9dec258e22fced52fb2f785345d1bfb9f8a202d73d1d6"
+        },
+        {
+          "path": "maps/cache/ctf_t2_dangerouscrossing.scn",
+          "sha256": "b444533ffadd88a53271a920af95c109522135cd629f288b2c1a525a8524843f"
+        },
+        {
+          "path": "maps/cache/ctf_t2_dangerouscrossing-lightmap1.scn",
+          "sha256": "b444533ffadd88a53271a920af95c109522135cd629f288b2c1a525a8524843f"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_dangerouscrossing.res",
+          "sha256": "e65bc60d7c1e0e33f5be6829077ef7057696de5c2d70e42ae5f62c1fee25f569"
+        },
+        {
+          "path": "maps/cache/ctf_t2_dangerouscrossing-lightmap1-bc7.scn",
+          "sha256": "80fefcc0d95d3e75a68403aaa952424274f76992926a396fa7f2a52a10423a4d"
+        },
+        {
+          "path": "maps/cache/ctf_t2_dangerouscrossing-lightmap1-astc4.scn",
+          "sha256": "54fffb0e47c5de6bf4e406fc1453c3c79e40770b05aa7bbfce2c6c105f59f7f2"
+        }
+      ]
+    },
+    {
+      "baked_faces": 24040,
+      "bsp_sha256": "626f151ead8a595b41324a22ff4c2bbbe063c77c34aafc386312f6e2382ab68a",
+      "codecs": [
+        {
+          "encoded_bytes": 699104,
+          "format": "bc7",
+          "images": 2,
+          "path": "res://maps/cache/ctf_t2_desertofdeath-lightmap1-bc7.scn",
+          "raw_bytes": 2097150,
+          "sha256": "e2384c8c4d6ef33b53645c06441e9f325a7b12d9f0127c06d692fdeabbd3c6f3"
+        },
+        {
+          "encoded_bytes": 699104,
+          "format": "astc4",
+          "images": 2,
+          "path": "res://maps/cache/ctf_t2_desertofdeath-lightmap1-astc4.scn",
+          "raw_bytes": 2097150,
+          "sha256": "dac53741d1bf87e7c56303b86ecfbb87eb527cd0feb6dac6114230e3a831986a"
+        }
+      ],
+      "colour_textures": 4,
+      "failures": [],
+      "id": "ctf_t2_desertofdeath",
+      "light_atlases": 1,
+      "lossless_data_hash": "4f7375198f24a32a31d7271805bf4bba5da999e36de8b6da8ccc24136e060674",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.620124816894531,
+        "occupancy_before": 0.0387578010559082,
+        "padded_luxels": 650248,
+        "patches": 24040,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 122490,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_desertofdeath.bsp",
+          "sha256": "626f151ead8a595b41324a22ff4c2bbbe063c77c34aafc386312f6e2382ab68a"
+        },
+        {
+          "path": "maps/cache/ctf_t2_desertofdeath.scn",
+          "sha256": "d3a7da7ce57f983d06c7dd2dee063cf41c657f4e307ef0872739432b8c8d6049"
+        },
+        {
+          "path": "maps/cache/ctf_t2_desertofdeath-lightmap1.scn",
+          "sha256": "d3a7da7ce57f983d06c7dd2dee063cf41c657f4e307ef0872739432b8c8d6049"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_desertofdeath.res",
+          "sha256": "e0947282b3903c72b608a53b86ec3007ac3b43a7b22015753544bcac88c26167"
+        },
+        {
+          "path": "maps/cache/ctf_t2_desertofdeath-lightmap1-bc7.scn",
+          "sha256": "e2384c8c4d6ef33b53645c06441e9f325a7b12d9f0127c06d692fdeabbd3c6f3"
+        },
+        {
+          "path": "maps/cache/ctf_t2_desertofdeath-lightmap1-astc4.scn",
+          "sha256": "dac53741d1bf87e7c56303b86ecfbb87eb527cd0feb6dac6114230e3a831986a"
+        }
+      ]
+    },
+    {
+      "baked_faces": 41687,
+      "bsp_sha256": "ff6c7ceaa265fcec678403e7c8630b0c8167da32e119182925549c0be51eaca9",
+      "codecs": [
+        {
+          "encoded_bytes": 1048656,
+          "format": "bc7",
+          "images": 3,
+          "path": "res://maps/cache/ctf_t2_gorgon-lightmap1-bc7.scn",
+          "raw_bytes": 3145725,
+          "sha256": "cfcd3c1219ba1cffee3132a9f25967c7f2dfe702dd391bb80a335b9c4752810a"
+        },
+        {
+          "encoded_bytes": 1048656,
+          "format": "astc4",
+          "images": 3,
+          "path": "res://maps/cache/ctf_t2_gorgon-lightmap1-astc4.scn",
+          "raw_bytes": 3145725,
+          "sha256": "b22aa781bb50cf0f4f839d1b65af1bde379eb2bed3d05c7584d4460b80d15468"
+        }
+      ],
+      "colour_textures": 5,
+      "failures": [],
+      "id": "ctf_t2_gorgon",
+      "light_atlases": 1,
+      "lossless_data_hash": "60c56d1c54fd487a401a7fd9b9f61ece804adcd92540112a8947e1785ea63185",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.265688896179199,
+        "occupancy_before": 0.0664222240447998,
+        "padded_luxels": 1114380,
+        "patches": 41687,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 235731,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_gorgon.bsp",
+          "sha256": "ff6c7ceaa265fcec678403e7c8630b0c8167da32e119182925549c0be51eaca9"
+        },
+        {
+          "path": "maps/cache/ctf_t2_gorgon.scn",
+          "sha256": "e4d57f32734fd2c4a883b445beb175b797968b84955d0e9a153909b5830fe2bd"
+        },
+        {
+          "path": "maps/cache/ctf_t2_gorgon-lightmap1.scn",
+          "sha256": "e4d57f32734fd2c4a883b445beb175b797968b84955d0e9a153909b5830fe2bd"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_gorgon.res",
+          "sha256": "3b36aafed0eaff7e8e710363ad22ce17036e7c30a0c1b3ae99167143c6a0d1d7"
+        },
+        {
+          "path": "maps/cache/ctf_t2_gorgon-lightmap1-bc7.scn",
+          "sha256": "cfcd3c1219ba1cffee3132a9f25967c7f2dfe702dd391bb80a335b9c4752810a"
+        },
+        {
+          "path": "maps/cache/ctf_t2_gorgon-lightmap1-astc4.scn",
+          "sha256": "b22aa781bb50cf0f4f839d1b65af1bde379eb2bed3d05c7584d4460b80d15468"
+        }
+      ]
+    },
+    {
+      "baked_faces": 72408,
+      "bsp_sha256": "36a3c58a40abfd32225fc00dc1ebef9921568da4db1277a5314cebe6441ebfa3",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_hillside-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "acf35409a4b29f808035f23e601ba49f4b7cc61d1af701081381ff4cdd213307"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_hillside-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "67f578f4c90347fbfe241aa1006657321723e0dd078edd3d1d6ba5bf64d82c69"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_hillside",
+      "light_atlases": 1,
+      "lossless_data_hash": "9819219240f73384c846464f2b2cbfcb3b57bc67465211152cfcd492f7f30fbe",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.455809116363525,
+        "occupancy_before": 0.113952279090881,
+        "padded_luxels": 1911802,
+        "patches": 72408,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 415509,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_hillside.bsp",
+          "sha256": "36a3c58a40abfd32225fc00dc1ebef9921568da4db1277a5314cebe6441ebfa3"
+        },
+        {
+          "path": "maps/cache/ctf_t2_hillside.scn",
+          "sha256": "1d1f2e6ac3f3644585464716f6c0838ffdf364a6be99884409196668c8bb207b"
+        },
+        {
+          "path": "maps/cache/ctf_t2_hillside-lightmap1.scn",
+          "sha256": "1d1f2e6ac3f3644585464716f6c0838ffdf364a6be99884409196668c8bb207b"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_hillside.res",
+          "sha256": "c97e42f8441e17fd9dfbd21193f8422d1c6143602c2ee4f8f78238af452b9f17"
+        },
+        {
+          "path": "maps/cache/ctf_t2_hillside-lightmap1-bc7.scn",
+          "sha256": "acf35409a4b29f808035f23e601ba49f4b7cc61d1af701081381ff4cdd213307"
+        },
+        {
+          "path": "maps/cache/ctf_t2_hillside-lightmap1-astc4.scn",
+          "sha256": "67f578f4c90347fbfe241aa1006657321723e0dd078edd3d1d6ba5bf64d82c69"
+        }
+      ]
+    },
+    {
+      "baked_faces": 22028,
+      "bsp_sha256": "186489af98557247f1617322a9c528ec27f7ec41d3af463dcc31ce4f1f1eaa2d",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_iceridge-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "64d45c9a506200c1f638825cdb8be6b6afe80319ffd63f9834b60ad97de2cc17"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_iceridge-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "6bf2368f609e92c5b92f90effe4249f47b0ad1ec115488db05d6863fcf14e4d8"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_iceridge",
+      "light_atlases": 1,
+      "lossless_data_hash": "44e0f71437d000e674526b288f3df7b25226915ac1a56268efa6484470dfb3f4",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.577279090881348,
+        "occupancy_before": 0.0360799431800842,
+        "padded_luxels": 605321,
+        "patches": 22028,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 114627,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_iceridge.bsp",
+          "sha256": "186489af98557247f1617322a9c528ec27f7ec41d3af463dcc31ce4f1f1eaa2d"
+        },
+        {
+          "path": "maps/cache/ctf_t2_iceridge.scn",
+          "sha256": "217a1d5f39b03a1fc6f7f12a6896bf9c9c8998cc22f26f3d9060d691e288b693"
+        },
+        {
+          "path": "maps/cache/ctf_t2_iceridge-lightmap1.scn",
+          "sha256": "217a1d5f39b03a1fc6f7f12a6896bf9c9c8998cc22f26f3d9060d691e288b693"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_iceridge.res",
+          "sha256": "cb9f125331de0dd4f65cfa2e533f3d3da9020d9fe6b6f68a48c50d85d6917143"
+        },
+        {
+          "path": "maps/cache/ctf_t2_iceridge-lightmap1-bc7.scn",
+          "sha256": "64d45c9a506200c1f638825cdb8be6b6afe80319ffd63f9834b60ad97de2cc17"
+        },
+        {
+          "path": "maps/cache/ctf_t2_iceridge-lightmap1-astc4.scn",
+          "sha256": "6bf2368f609e92c5b92f90effe4249f47b0ad1ec115488db05d6863fcf14e4d8"
+        }
+      ]
+    },
+    {
+      "baked_faces": 49182,
+      "bsp_sha256": "95794d620a02822f910e41190600729c57aea7ce32c45477b3a4fec997d417fa",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_lakefront-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "5d1a3a84948ed587f77fa360cfc1da0a44a2e0b4b0bbb57ea63b4803fafbf13d"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_lakefront-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "23b831623ff68cd9ed3503147ba24ce6c56a4cad1b0933bbb479778a695763fa"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_lakefront",
+      "light_atlases": 1,
+      "lossless_data_hash": "dd415077381443b8a06e784c2b8cce23362edd24ea111b43bd72555f16b1560c",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.314141511917114,
+        "occupancy_before": 0.0785353779792786,
+        "padded_luxels": 1317605,
+        "patches": 49182,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 286755,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 1196,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_lakefront.bsp",
+          "sha256": "95794d620a02822f910e41190600729c57aea7ce32c45477b3a4fec997d417fa"
+        },
+        {
+          "path": "maps/cache/ctf_t2_lakefront.scn",
+          "sha256": "119d4e681c48a5eeaefd6cc3436e02b6bb79bfa40dbbc174147b84cd340bfd80"
+        },
+        {
+          "path": "maps/cache/ctf_t2_lakefront-lightmap1.scn",
+          "sha256": "119d4e681c48a5eeaefd6cc3436e02b6bb79bfa40dbbc174147b84cd340bfd80"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_lakefront.res",
+          "sha256": "751da72dca203941a1e3545755fe0e64946d80e79abb8f46f266c56ed5f69929"
+        },
+        {
+          "path": "maps/cache/ctf_t2_lakefront-lightmap1-bc7.scn",
+          "sha256": "5d1a3a84948ed587f77fa360cfc1da0a44a2e0b4b0bbb57ea63b4803fafbf13d"
+        },
+        {
+          "path": "maps/cache/ctf_t2_lakefront-lightmap1-astc4.scn",
+          "sha256": "23b831623ff68cd9ed3503147ba24ce6c56a4cad1b0933bbb479778a695763fa"
+        }
+      ]
+    },
+    {
+      "baked_faces": 36391,
+      "bsp_sha256": "29beb6ae33e918d887c0d89f67e7500ca77611181d6a10c5bd23b07a041f801f",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_magmatic-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "44615f49329973a36344ac5503c45f57d51bad484bd49a4823cda1a9bcec35c7"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_magmatic-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "49c69ced0d9f64babdbd3d22fbff8487095ccdffff7b38a9d274be47096f7eb9"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_magmatic",
+      "light_atlases": 1,
+      "lossless_data_hash": "1b3ca50639be1d3652cc366e879e1d2b6fc307261c8b4a15aa8d651f94e717a8",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.24153208732605,
+        "occupancy_before": 0.0603830218315125,
+        "padded_luxels": 1013059,
+        "patches": 36391,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 203268,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 258,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_magmatic.bsp",
+          "sha256": "29beb6ae33e918d887c0d89f67e7500ca77611181d6a10c5bd23b07a041f801f"
+        },
+        {
+          "path": "maps/cache/ctf_t2_magmatic.scn",
+          "sha256": "b1685791ae805b70f39d74fbcc8c3e2bd42b351b4ccb617461ca8a3ad66e0fdd"
+        },
+        {
+          "path": "maps/cache/ctf_t2_magmatic-lightmap1.scn",
+          "sha256": "b1685791ae805b70f39d74fbcc8c3e2bd42b351b4ccb617461ca8a3ad66e0fdd"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_magmatic.res",
+          "sha256": "d7b7402d00fa25a5d3d7f1168b81eec0cc6132c51924aab3deff9a37ce8c8825"
+        },
+        {
+          "path": "maps/cache/ctf_t2_magmatic-lightmap1-bc7.scn",
+          "sha256": "44615f49329973a36344ac5503c45f57d51bad484bd49a4823cda1a9bcec35c7"
+        },
+        {
+          "path": "maps/cache/ctf_t2_magmatic-lightmap1-astc4.scn",
+          "sha256": "49c69ced0d9f64babdbd3d22fbff8487095ccdffff7b38a9d274be47096f7eb9"
+        }
+      ]
+    },
+    {
+      "baked_faces": 29289,
+      "bsp_sha256": "3b3e062f76008b0a9ed4e29442a3dbda6e380bccb1aaa7710fa9dd4826a463c8",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_ramparts-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "0613d1808adc568657308d2c834c07d61ee219b84eaacce68a0a6d14d13606df"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_ramparts-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "634c3816886319ea7cc045819153bf87fc2b4c00fc9600b0d42f9a4917c1134e"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_ramparts",
+      "light_atlases": 1,
+      "lossless_data_hash": "f204a2dbd8100f53ceb880e66074f2c6e85468d3dd3119a598d705b57c0d4faf",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.911896705627441,
+        "occupancy_before": 0.0569935441017151,
+        "padded_luxels": 956193,
+        "patches": 29289,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 165258,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 458,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_ramparts.bsp",
+          "sha256": "3b3e062f76008b0a9ed4e29442a3dbda6e380bccb1aaa7710fa9dd4826a463c8"
+        },
+        {
+          "path": "maps/cache/ctf_t2_ramparts.scn",
+          "sha256": "f33bdc2ac9882759cc96624e283d92dde4312ee578f2921a0b243559fd4fdf9f"
+        },
+        {
+          "path": "maps/cache/ctf_t2_ramparts-lightmap1.scn",
+          "sha256": "f33bdc2ac9882759cc96624e283d92dde4312ee578f2921a0b243559fd4fdf9f"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_ramparts.res",
+          "sha256": "e76da34ef434490d284ed1f071b994d522ff74f0f29250e62fd470e54c78930c"
+        },
+        {
+          "path": "maps/cache/ctf_t2_ramparts-lightmap1-bc7.scn",
+          "sha256": "0613d1808adc568657308d2c834c07d61ee219b84eaacce68a0a6d14d13606df"
+        },
+        {
+          "path": "maps/cache/ctf_t2_ramparts-lightmap1-astc4.scn",
+          "sha256": "634c3816886319ea7cc045819153bf87fc2b4c00fc9600b0d42f9a4917c1134e"
+        }
+      ]
+    },
+    {
+      "baked_faces": 26314,
+      "bsp_sha256": "5ae129c5a1f3e532961b6f9488e8907db54b0bf3c5dfb2b9b49e153ce9f6a191",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_rollercoaster-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "582db6b8bb0c1d20324dc3e2b63cdba2eb6a3460adefe7cc51f3d7416a783cd8"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_rollercoaster-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "18036a3f2cd279c15d20f27f3019ee9497a2d7557655649723bd57c0c5a8e522"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_rollercoaster",
+      "light_atlases": 1,
+      "lossless_data_hash": "ef88ce9ea1db62c3e9bdf27dfb200602bf66915b57d7b69b3c218b1bae970109",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.653000831604004,
+        "occupancy_before": 0.0408125519752502,
+        "padded_luxels": 684721,
+        "patches": 26314,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 142329,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_rollercoaster.bsp",
+          "sha256": "5ae129c5a1f3e532961b6f9488e8907db54b0bf3c5dfb2b9b49e153ce9f6a191"
+        },
+        {
+          "path": "maps/cache/ctf_t2_rollercoaster.scn",
+          "sha256": "3dc5866a530db7561c885de17a4a05441ce528a96418b0ee061106c19b7a523c"
+        },
+        {
+          "path": "maps/cache/ctf_t2_rollercoaster-lightmap1.scn",
+          "sha256": "3dc5866a530db7561c885de17a4a05441ce528a96418b0ee061106c19b7a523c"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_rollercoaster.res",
+          "sha256": "7214c6deb31d34536f299c5bbe5d23141cfc4c4aa50ebfadf89f2e1138b91274"
+        },
+        {
+          "path": "maps/cache/ctf_t2_rollercoaster-lightmap1-bc7.scn",
+          "sha256": "582db6b8bb0c1d20324dc3e2b63cdba2eb6a3460adefe7cc51f3d7416a783cd8"
+        },
+        {
+          "path": "maps/cache/ctf_t2_rollercoaster-lightmap1-astc4.scn",
+          "sha256": "18036a3f2cd279c15d20f27f3019ee9497a2d7557655649723bd57c0c5a8e522"
+        }
+      ]
+    },
+    {
+      "baked_faces": 63695,
+      "bsp_sha256": "9654fe1d76a7ef1e762e49d81ee7d8152d210bc154847e8ab4b13263430a3c48",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_sandstorm-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "7f84a8aaa52781d611dc15208db7c4857d6cd177ade4bdfd4c731a3ab1f3f635"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_sandstorm-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "5e03aa05dfc7649812ef58f2760f2d187e18830fa234a1686d69aef324c43714"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_sandstorm",
+      "light_atlases": 1,
+      "lossless_data_hash": "640edf2e05a03b700562d9c5a04fcf0fa7ccb1e302dac2b2cc9f0c270dd31ef9",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.415303468704224,
+        "occupancy_before": 0.103825867176056,
+        "padded_luxels": 1741909,
+        "patches": 63695,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 354456,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_sandstorm.bsp",
+          "sha256": "9654fe1d76a7ef1e762e49d81ee7d8152d210bc154847e8ab4b13263430a3c48"
+        },
+        {
+          "path": "maps/cache/ctf_t2_sandstorm.scn",
+          "sha256": "d81a41e03ff3ab9159eb4d35f490f0fa7bf887416d3962b7b3b4c43f63c21d87"
+        },
+        {
+          "path": "maps/cache/ctf_t2_sandstorm-lightmap1.scn",
+          "sha256": "d81a41e03ff3ab9159eb4d35f490f0fa7bf887416d3962b7b3b4c43f63c21d87"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_sandstorm.res",
+          "sha256": "e0630e94a1cc98acd2c92e9e89fa5cfd3acea73a96a7d39504305d883ead7642"
+        },
+        {
+          "path": "maps/cache/ctf_t2_sandstorm-lightmap1-bc7.scn",
+          "sha256": "7f84a8aaa52781d611dc15208db7c4857d6cd177ade4bdfd4c731a3ab1f3f635"
+        },
+        {
+          "path": "maps/cache/ctf_t2_sandstorm-lightmap1-astc4.scn",
+          "sha256": "5e03aa05dfc7649812ef58f2760f2d187e18830fa234a1686d69aef324c43714"
+        }
+      ]
+    },
+    {
+      "baked_faces": 71559,
+      "bsp_sha256": "d013c0277c987c072e6a29fb125e33917656000308596d14cd98263ac6fbe185",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_scarabrae-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "1e7adcc119bdfb29ec70e9955c01d1e742525fae25b15cd0b3684f3203449a14"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_scarabrae-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "679adc88b16ff5cbb749e64df833556bbe2e019331fe5458d93e7f756c48525f"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_scarabrae",
+      "light_atlases": 1,
+      "lossless_data_hash": "c161a1727939c8638ad329809fd7c44726403431742463af1f4833e093e08277",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.524098634719849,
+        "occupancy_before": 0.131024658679962,
+        "padded_luxels": 2198229,
+        "patches": 71559,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 407949,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_scarabrae.bsp",
+          "sha256": "d013c0277c987c072e6a29fb125e33917656000308596d14cd98263ac6fbe185"
+        },
+        {
+          "path": "maps/cache/ctf_t2_scarabrae.scn",
+          "sha256": "ed4dc32f5e134d194e1bb637909315d8569974f42cacd8969d0ac293ad13088a"
+        },
+        {
+          "path": "maps/cache/ctf_t2_scarabrae-lightmap1.scn",
+          "sha256": "ed4dc32f5e134d194e1bb637909315d8569974f42cacd8969d0ac293ad13088a"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_scarabrae.res",
+          "sha256": "d3f3d233e301b4d99dcef767cceeb638fbeea8441e5103338515a8b16c597625"
+        },
+        {
+          "path": "maps/cache/ctf_t2_scarabrae-lightmap1-bc7.scn",
+          "sha256": "1e7adcc119bdfb29ec70e9955c01d1e742525fae25b15cd0b3684f3203449a14"
+        },
+        {
+          "path": "maps/cache/ctf_t2_scarabrae-lightmap1-astc4.scn",
+          "sha256": "679adc88b16ff5cbb749e64df833556bbe2e019331fe5458d93e7f756c48525f"
+        }
+      ]
+    },
+    {
+      "baked_faces": 46275,
+      "bsp_sha256": "9f7072b7bfb71845c9b2c3271bb8d146cf6c2759efc85365dd9c3efe35e2346a",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_shockridge-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "2107933f6d483a099ee7cb8263c654195e7faf0aa64949979fe5f8133996ad7f"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_shockridge-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "85a1b3751629b1be94e593ddda512cc65de52a42056525c606bcc219e8e7bc15"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_shockridge",
+      "light_atlases": 1,
+      "lossless_data_hash": "c0367a333d88851cd5ddd0aa8f17741763e7494d0f8b1c647bf8db353a2a1a22",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.292938470840454,
+        "occupancy_before": 0.0732346177101135,
+        "padded_luxels": 1228673,
+        "patches": 46275,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 262194,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 352,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_shockridge.bsp",
+          "sha256": "9f7072b7bfb71845c9b2c3271bb8d146cf6c2759efc85365dd9c3efe35e2346a"
+        },
+        {
+          "path": "maps/cache/ctf_t2_shockridge.scn",
+          "sha256": "cf081f745f606c48a68745c2c175d2f2cbe0592b70d23ec45daa417d22b39bd2"
+        },
+        {
+          "path": "maps/cache/ctf_t2_shockridge-lightmap1.scn",
+          "sha256": "cf081f745f606c48a68745c2c175d2f2cbe0592b70d23ec45daa417d22b39bd2"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_shockridge.res",
+          "sha256": "e65a841b8c8c96860fae3366f6bed9eedeef1ff8690ebd12e9ae9d54a2c34b4b"
+        },
+        {
+          "path": "maps/cache/ctf_t2_shockridge-lightmap1-bc7.scn",
+          "sha256": "2107933f6d483a099ee7cb8263c654195e7faf0aa64949979fe5f8133996ad7f"
+        },
+        {
+          "path": "maps/cache/ctf_t2_shockridge-lightmap1-astc4.scn",
+          "sha256": "85a1b3751629b1be94e593ddda512cc65de52a42056525c606bcc219e8e7bc15"
+        }
+      ]
+    },
+    {
+      "baked_faces": 21588,
+      "bsp_sha256": "0c7a3284116b85bb189f0d5fd915914438e1f5fc3bb966a39fb3d0cff257100f",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_snowblind-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "f47809f962c2b588408bd78c35b54e2e2026e50554b37045ab5fbce4b9a8350e"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_snowblind-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "f7b36ac138407b79ac2bf812b04eb197e10339bce89d09450226fedaceade426"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_snowblind",
+      "light_atlases": 1,
+      "lossless_data_hash": "0a88feaca7eb1ba2c9687ea3e481dbbb848cd133703ed46bb3177b33fe4eab94",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.590056419372559,
+        "occupancy_before": 0.0368785262107849,
+        "padded_luxels": 618719,
+        "patches": 21588,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 114441,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_snowblind.bsp",
+          "sha256": "0c7a3284116b85bb189f0d5fd915914438e1f5fc3bb966a39fb3d0cff257100f"
+        },
+        {
+          "path": "maps/cache/ctf_t2_snowblind.scn",
+          "sha256": "850452f3a3a2a264f3deee32420a0f657009f6f3829d794fa6e611a7bb3320a7"
+        },
+        {
+          "path": "maps/cache/ctf_t2_snowblind-lightmap1.scn",
+          "sha256": "850452f3a3a2a264f3deee32420a0f657009f6f3829d794fa6e611a7bb3320a7"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_snowblind.res",
+          "sha256": "4daa5602e78fd50efcbd6acdb2bd02ea435c398620c18fea8ab9e978a88510d1"
+        },
+        {
+          "path": "maps/cache/ctf_t2_snowblind-lightmap1-bc7.scn",
+          "sha256": "f47809f962c2b588408bd78c35b54e2e2026e50554b37045ab5fbce4b9a8350e"
+        },
+        {
+          "path": "maps/cache/ctf_t2_snowblind-lightmap1-astc4.scn",
+          "sha256": "f7b36ac138407b79ac2bf812b04eb197e10339bce89d09450226fedaceade426"
+        }
+      ]
+    },
+    {
+      "baked_faces": 72370,
+      "bsp_sha256": "645435ba254c60c56c72a624d90c9ab1170264f865691138fc16901f35d24c18",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_starfallen-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "ffd09184d4fe31d278de1a67dc0375e64be9ded21a2a2935c3a70e7246ddebde"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_starfallen-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "705405bb499a39d1189f5cbd7db5e15c7803f8c85ed717f147e16e3614058bbd"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_starfallen",
+      "light_atlases": 1,
+      "lossless_data_hash": "de6ebc93386239355de8a0dfbd5832dea143c074ae8f771aa388a941a5236478",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.459332942962646,
+        "occupancy_before": 0.114833235740662,
+        "padded_luxels": 1926582,
+        "patches": 72370,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 423150,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 1276,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_starfallen.bsp",
+          "sha256": "645435ba254c60c56c72a624d90c9ab1170264f865691138fc16901f35d24c18"
+        },
+        {
+          "path": "maps/cache/ctf_t2_starfallen.scn",
+          "sha256": "fc72376bdf9d40127820863e195395283704a49602955849486a45cadb6a6e1b"
+        },
+        {
+          "path": "maps/cache/ctf_t2_starfallen-lightmap1.scn",
+          "sha256": "fc72376bdf9d40127820863e195395283704a49602955849486a45cadb6a6e1b"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_starfallen.res",
+          "sha256": "7c3d19ba31821af2f5ce15806dc2298ed4f6f8b12b4d06c7440cbf1817129c87"
+        },
+        {
+          "path": "maps/cache/ctf_t2_starfallen-lightmap1-bc7.scn",
+          "sha256": "ffd09184d4fe31d278de1a67dc0375e64be9ded21a2a2935c3a70e7246ddebde"
+        },
+        {
+          "path": "maps/cache/ctf_t2_starfallen-lightmap1-astc4.scn",
+          "sha256": "705405bb499a39d1189f5cbd7db5e15c7803f8c85ed717f147e16e3614058bbd"
+        }
+      ]
+    },
+    {
+      "baked_faces": 30800,
+      "bsp_sha256": "680c3351f82de3a54115e9b52caee13adadd40d09e0e05b89d1528913e6091c3",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_subzero-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "14d8c63892ea5b1f6f49facfb89784adbb8cbba6a7e111df793dcde974dd4212"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_subzero-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "f6a53899afaddac591d187c6d14e08b9775b2575934766a82956286eb45cf2a2"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_subzero",
+      "light_atlases": 1,
+      "lossless_data_hash": "326729b167949d555a512da28674474cbe7483abc9343da5c6db81b8db85740f",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.779773712158203,
+        "occupancy_before": 0.0487358570098877,
+        "padded_luxels": 817652,
+        "patches": 30800,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 167331,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_subzero.bsp",
+          "sha256": "680c3351f82de3a54115e9b52caee13adadd40d09e0e05b89d1528913e6091c3"
+        },
+        {
+          "path": "maps/cache/ctf_t2_subzero.scn",
+          "sha256": "17f2591b429a6cf72dac4b37e36addbc18466db24f1d0d7837d72f836cfbfed1"
+        },
+        {
+          "path": "maps/cache/ctf_t2_subzero-lightmap1.scn",
+          "sha256": "17f2591b429a6cf72dac4b37e36addbc18466db24f1d0d7837d72f836cfbfed1"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_subzero.res",
+          "sha256": "cd6c61595b404ae4661c1af93b4939dc31acab1d33eac9f44eae2b9d173b6279"
+        },
+        {
+          "path": "maps/cache/ctf_t2_subzero-lightmap1-bc7.scn",
+          "sha256": "14d8c63892ea5b1f6f49facfb89784adbb8cbba6a7e111df793dcde974dd4212"
+        },
+        {
+          "path": "maps/cache/ctf_t2_subzero-lightmap1-astc4.scn",
+          "sha256": "f6a53899afaddac591d187c6d14e08b9775b2575934766a82956286eb45cf2a2"
+        }
+      ]
+    },
+    {
+      "baked_faces": 35179,
+      "bsp_sha256": "c0246d5f4139b10cb870ee1920d717a70fd884f66b1481497e08b701bd5cc992",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_surreal-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "25669eb9209821506c4a3239efb5c108631ff2e8318c7ca50a38139912b2d60d"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_surreal-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "657f507bf49b0f423a13af8e8889daaf7370e6e9163bd1c7fbc39ee11b73ac86"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_surreal",
+      "light_atlases": 1,
+      "lossless_data_hash": "759650f46f74966e7b2ec56031a3281443362441716e13c87a690a853688af5f",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.913750648498535,
+        "occupancy_before": 0.0571094155311584,
+        "padded_luxels": 958137,
+        "patches": 35179,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 195318,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 194,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_surreal.bsp",
+          "sha256": "c0246d5f4139b10cb870ee1920d717a70fd884f66b1481497e08b701bd5cc992"
+        },
+        {
+          "path": "maps/cache/ctf_t2_surreal.scn",
+          "sha256": "ffd6155e5adad2f05673b681e9b5fb979f9e981730ef918079c4ed9c42a91ae1"
+        },
+        {
+          "path": "maps/cache/ctf_t2_surreal-lightmap1.scn",
+          "sha256": "ffd6155e5adad2f05673b681e9b5fb979f9e981730ef918079c4ed9c42a91ae1"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_surreal.res",
+          "sha256": "dd15e985d12866608da9d07fccbbb2e84e86b955189c232cbebadcc46c6b24f3"
+        },
+        {
+          "path": "maps/cache/ctf_t2_surreal-lightmap1-bc7.scn",
+          "sha256": "25669eb9209821506c4a3239efb5c108631ff2e8318c7ca50a38139912b2d60d"
+        },
+        {
+          "path": "maps/cache/ctf_t2_surreal-lightmap1-astc4.scn",
+          "sha256": "657f507bf49b0f423a13af8e8889daaf7370e6e9163bd1c7fbc39ee11b73ac86"
+        }
+      ]
+    },
+    {
+      "baked_faces": 42223,
+      "bsp_sha256": "84a6a56a1ee403fd83c260a2d3dd9ba266c5e0aa59a75a7e0f719106d9f0890f",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_titan-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "2dd82e284dea54c1569ce3f607170b02681fe268d5baceba99204383fd10af01"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_titan-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "43981d1acf2de17bc76259582ac82a54382f867f5b84c34f6668b5b7fd61b6ec"
+        }
+      ],
+      "colour_textures": 7,
+      "failures": [],
+      "id": "ctf_t2_titan",
+      "light_atlases": 1,
+      "lossless_data_hash": "8aa76bf27eaf781c30c643a804cd97943be3936072e269c1592ee8a9f6d61d83",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.276556730270386,
+        "occupancy_before": 0.0691391825675964,
+        "padded_luxels": 1159963,
+        "patches": 42223,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 230253,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_titan.bsp",
+          "sha256": "84a6a56a1ee403fd83c260a2d3dd9ba266c5e0aa59a75a7e0f719106d9f0890f"
+        },
+        {
+          "path": "maps/cache/ctf_t2_titan.scn",
+          "sha256": "c43c09846df15ea0997309e9a9652ca32f2ac01d3899fbedd66c477670c80bfb"
+        },
+        {
+          "path": "maps/cache/ctf_t2_titan-lightmap1.scn",
+          "sha256": "c43c09846df15ea0997309e9a9652ca32f2ac01d3899fbedd66c477670c80bfb"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_titan.res",
+          "sha256": "9bdda07e00032d047a502610af2508be1d0bd75179e7a18d6fbd3e9fab244adc"
+        },
+        {
+          "path": "maps/cache/ctf_t2_titan-lightmap1-bc7.scn",
+          "sha256": "2dd82e284dea54c1569ce3f607170b02681fe268d5baceba99204383fd10af01"
+        },
+        {
+          "path": "maps/cache/ctf_t2_titan-lightmap1-astc4.scn",
+          "sha256": "43981d1acf2de17bc76259582ac82a54382f867f5b84c34f6668b5b7fd61b6ec"
+        }
+      ]
+    },
+    {
+      "baked_faces": 57510,
+      "bsp_sha256": "7a9d00381535d00d1e75ebd1eaf7636897979c7fbe71ebe1d56d359ca4071125",
+      "codecs": [
+        {
+          "encoded_bytes": 1747760,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_whitedwarf-lightmap1-bc7.scn",
+          "raw_bytes": 5242875,
+          "sha256": "ecd1c3306f80ae4fb55c316585d9be6abec806ea27c14108fd2f339c31e36fc8"
+        },
+        {
+          "encoded_bytes": 1747760,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/ctf_t2_whitedwarf-lightmap1-astc4.scn",
+          "raw_bytes": 5242875,
+          "sha256": "2c738b0c6aad253decba9da9c2a380e2852eeb1630527e1a1722f79d888950ef"
+        }
+      ],
+      "colour_textures": 8,
+      "failures": [],
+      "id": "ctf_t2_whitedwarf",
+      "light_atlases": 1,
+      "lossless_data_hash": "3c2b401a08c81101273e227dc085fbfa71d175a0eea854a42b12df8104f21108",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.341374635696411,
+        "occupancy_before": 0.0853436589241028,
+        "padded_luxels": 1431829,
+        "patches": 57510,
+        "raw_bytes_after": 12582912,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 331467,
+        "to": [
+          2048,
+          2048
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 694,
+      "assets": [
+        {
+          "path": "maps/ctf_t2_whitedwarf.bsp",
+          "sha256": "7a9d00381535d00d1e75ebd1eaf7636897979c7fbe71ebe1d56d359ca4071125"
+        },
+        {
+          "path": "maps/cache/ctf_t2_whitedwarf.scn",
+          "sha256": "e9c5ae85537c0d8b644284605ebdee15ce99b363b98cc1ae6f52d8758c60b4ad"
+        },
+        {
+          "path": "maps/cache/ctf_t2_whitedwarf-lightmap1.scn",
+          "sha256": "e9c5ae85537c0d8b644284605ebdee15ce99b363b98cc1ae6f52d8758c60b4ad"
+        },
+        {
+          "path": "maps/navigation/ctf_t2_whitedwarf.res",
+          "sha256": "c03e1a4d06a45aae1bea6df02bdbbb643c3ffa940ef8774c614606dc266efa62"
+        },
+        {
+          "path": "maps/cache/ctf_t2_whitedwarf-lightmap1-bc7.scn",
+          "sha256": "ecd1c3306f80ae4fb55c316585d9be6abec806ea27c14108fd2f339c31e36fc8"
+        },
+        {
+          "path": "maps/cache/ctf_t2_whitedwarf-lightmap1-astc4.scn",
+          "sha256": "2c738b0c6aad253decba9da9c2a380e2852eeb1630527e1a1722f79d888950ef"
+        }
+      ]
+    },
+    {
+      "baked_faces": 3834,
+      "bsp_sha256": "2963de4eb2b25c6f96d3fbdb813830de7f634e5c29cc77d90763477bd007befa",
+      "codecs": [
+        {
+          "encoded_bytes": 951504,
+          "format": "bc7",
+          "images": 19,
+          "path": "res://maps/cache/de_varq_dust2-lightmap1-bc7.scn",
+          "raw_bytes": 2850663,
+          "sha256": "481f4e7ddf1606ddcd99ab08f7f55116ce40d47717005644c8fa44bded77eef3"
+        },
+        {
+          "encoded_bytes": 951504,
+          "format": "astc4",
+          "images": 19,
+          "path": "res://maps/cache/de_varq_dust2-lightmap1-astc4.scn",
+          "raw_bytes": 2850663,
+          "sha256": "afa6aebb461ec038c0db0d9e27181f5f8a8033a29dcb8dbbcb544948a1f2bc5d"
+        }
+      ],
+      "colour_textures": 32,
+      "failures": [],
+      "id": "de_varq_dust2",
+      "light_atlases": 1,
+      "lossless_data_hash": "8625b657539f47654398694c05d4e177fbd84ca955255f905b388ed855cae46f",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.266648292541504,
+        "occupancy_before": 0.016665518283844,
+        "padded_luxels": 279601,
+        "patches": 3834,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 26790,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_dust2.bsp",
+          "sha256": "2963de4eb2b25c6f96d3fbdb813830de7f634e5c29cc77d90763477bd007befa"
+        },
+        {
+          "path": "maps/cache/de_varq_dust2.scn",
+          "sha256": "78a92f4744d08c78d7dda2e0ae9141a1fb972e129b4919fa848cc9481912b185"
+        },
+        {
+          "path": "maps/cache/de_varq_dust2-lightmap1.scn",
+          "sha256": "78a92f4744d08c78d7dda2e0ae9141a1fb972e129b4919fa848cc9481912b185"
+        },
+        {
+          "path": "maps/navigation/de_varq_dust2.res",
+          "sha256": "30942a3e2e28573521d867cfb905caf68cf4fc7961e54d6a6cb28f2fa3c18bc7"
+        },
+        {
+          "path": "maps/cache/de_varq_dust2-lightmap1-bc7.scn",
+          "sha256": "481f4e7ddf1606ddcd99ab08f7f55116ce40d47717005644c8fa44bded77eef3"
+        },
+        {
+          "path": "maps/cache/de_varq_dust2-lightmap1-astc4.scn",
+          "sha256": "afa6aebb461ec038c0db0d9e27181f5f8a8033a29dcb8dbbcb544948a1f2bc5d"
+        }
+      ]
+    },
+    {
+      "baked_faces": 7457,
+      "bsp_sha256": "e9e0f425aaa30f9fd20a7cd52d62c804fb2374a5d0f8b3e2fa672ac37bc1c62d",
+      "codecs": [
+        {
+          "encoded_bytes": 2614240,
+          "format": "bc7",
+          "images": 33,
+          "path": "res://maps/cache/de_varq_inferno-lightmap1-bc7.scn",
+          "raw_bytes": 7839711,
+          "sha256": "6be8bc7a59eac7d59671a0072ac166cb0a19220b18c732152d9c1143aaa15fa5"
+        },
+        {
+          "encoded_bytes": 2614240,
+          "format": "astc4",
+          "images": 33,
+          "path": "res://maps/cache/de_varq_inferno-lightmap1-astc4.scn",
+          "raw_bytes": 7839711,
+          "sha256": "7219f2a36d68bee7ef2535724850d524526c1e40355a4162eaeb4a3b161896b1"
+        }
+      ],
+      "colour_textures": 80,
+      "failures": [],
+      "id": "de_varq_inferno",
+      "light_atlases": 1,
+      "lossless_data_hash": "3723f5b5ca09febdd28ada131a36dad653f232c0cf472cf040409e53acd0a659",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.596718788146973,
+        "occupancy_before": 0.0372949242591858,
+        "padded_luxels": 625705,
+        "patches": 7457,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 55251,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_inferno.bsp",
+          "sha256": "e9e0f425aaa30f9fd20a7cd52d62c804fb2374a5d0f8b3e2fa672ac37bc1c62d"
+        },
+        {
+          "path": "maps/cache/de_varq_inferno.scn",
+          "sha256": "c473530a9bb98523daeedf93f59ead468730f9becbf82a1a26125496d5f655c2"
+        },
+        {
+          "path": "maps/cache/de_varq_inferno-lightmap1.scn",
+          "sha256": "c473530a9bb98523daeedf93f59ead468730f9becbf82a1a26125496d5f655c2"
+        },
+        {
+          "path": "maps/navigation/de_varq_inferno.res",
+          "sha256": "43c042a536a22a931ccbdf91179d67b50bb285be7af3768d2e774a13e3619202"
+        },
+        {
+          "path": "maps/cache/de_varq_inferno-lightmap1-bc7.scn",
+          "sha256": "6be8bc7a59eac7d59671a0072ac166cb0a19220b18c732152d9c1143aaa15fa5"
+        },
+        {
+          "path": "maps/cache/de_varq_inferno-lightmap1-astc4.scn",
+          "sha256": "7219f2a36d68bee7ef2535724850d524526c1e40355a4162eaeb4a3b161896b1"
+        }
+      ]
+    },
+    {
+      "baked_faces": 5283,
+      "bsp_sha256": "aa418939c11d8287769ce18d02fecc70fdfb1008489a5d892ab269119a08a508",
+      "codecs": [
+        {
+          "encoded_bytes": 2544816,
+          "format": "bc7",
+          "images": 34,
+          "path": "res://maps/cache/de_varq_mirage-lightmap1-bc7.scn",
+          "raw_bytes": 7630836,
+          "sha256": "b2549d5ede9240e2f56737775617adeb5b9b6417257d83c0d3930532bdf2edf1"
+        },
+        {
+          "encoded_bytes": 2544816,
+          "format": "astc4",
+          "images": 34,
+          "path": "res://maps/cache/de_varq_mirage-lightmap1-astc4.scn",
+          "raw_bytes": 7630836,
+          "sha256": "498da266af12c0c2ae97769ecc615d7186cea3431280e44f21c2d6416bee7eb5"
+        }
+      ],
+      "colour_textures": 63,
+      "failures": [],
+      "id": "de_varq_mirage",
+      "light_atlases": 1,
+      "lossless_data_hash": "02cffc892691d446422407ea0d26e3e17d9cb7e834f2541890f3559f649970e0",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.366745948791504,
+        "occupancy_before": 0.022921621799469,
+        "padded_luxels": 384561,
+        "patches": 5283,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 39648,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_mirage.bsp",
+          "sha256": "aa418939c11d8287769ce18d02fecc70fdfb1008489a5d892ab269119a08a508"
+        },
+        {
+          "path": "maps/cache/de_varq_mirage.scn",
+          "sha256": "c436ef31eba1b168ad32955eed6ebd34020d7ac4fad53a6b4dfa6b7cb054fc3a"
+        },
+        {
+          "path": "maps/cache/de_varq_mirage-lightmap1.scn",
+          "sha256": "c436ef31eba1b168ad32955eed6ebd34020d7ac4fad53a6b4dfa6b7cb054fc3a"
+        },
+        {
+          "path": "maps/navigation/de_varq_mirage.res",
+          "sha256": "fab99d09a24ee9414f80da71820a25c9d50522ce7d069f00b212a9bac7f28557"
+        },
+        {
+          "path": "maps/cache/de_varq_mirage-lightmap1-bc7.scn",
+          "sha256": "b2549d5ede9240e2f56737775617adeb5b9b6417257d83c0d3930532bdf2edf1"
+        },
+        {
+          "path": "maps/cache/de_varq_mirage-lightmap1-astc4.scn",
+          "sha256": "498da266af12c0c2ae97769ecc615d7186cea3431280e44f21c2d6416bee7eb5"
+        }
+      ]
+    },
+    {
+      "baked_faces": 4679,
+      "bsp_sha256": "614f07af555a2977633617e71369700bfa4288b072b36b8a0f3ea88646b623e9",
+      "codecs": [
+        {
+          "encoded_bytes": 621360,
+          "format": "bc7",
+          "images": 18,
+          "path": "res://maps/cache/de_varq_westwood-lightmap1-bc7.scn",
+          "raw_bytes": 1860615,
+          "sha256": "4b59129a911a095850ece9d40736e81f10f5d9f6794282a25d1926bd082932a2"
+        },
+        {
+          "encoded_bytes": 621360,
+          "format": "astc4",
+          "images": 18,
+          "path": "res://maps/cache/de_varq_westwood-lightmap1-astc4.scn",
+          "raw_bytes": 1860615,
+          "sha256": "ce392dbe3055670e70d0e601625213b2d4dd63bf1d77e3a78284a81f93ad2df0"
+        }
+      ],
+      "colour_textures": 50,
+      "failures": [],
+      "id": "de_varq_westwood",
+      "light_atlases": 1,
+      "lossless_data_hash": "67d2978cae2817db40ff0b8dea3c79200e2bf9c120cffe7510c457ce626920c1",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.253890037536621,
+        "occupancy_before": 0.0158681273460388,
+        "padded_luxels": 266223,
+        "patches": 4679,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 36486,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_westwood.bsp",
+          "sha256": "614f07af555a2977633617e71369700bfa4288b072b36b8a0f3ea88646b623e9"
+        },
+        {
+          "path": "maps/cache/de_varq_westwood.scn",
+          "sha256": "7ff0ac0b638837ab9f714899ac4fda995eaffc2fac0941a68bf2b75869b0ea28"
+        },
+        {
+          "path": "maps/cache/de_varq_westwood-lightmap1.scn",
+          "sha256": "7ff0ac0b638837ab9f714899ac4fda995eaffc2fac0941a68bf2b75869b0ea28"
+        },
+        {
+          "path": "maps/navigation/de_varq_westwood.res",
+          "sha256": "19d1fe8ba10187b486530f15181d9104ef571fa05e38018ba928e9029838326b"
+        },
+        {
+          "path": "maps/cache/de_varq_westwood-lightmap1-bc7.scn",
+          "sha256": "4b59129a911a095850ece9d40736e81f10f5d9f6794282a25d1926bd082932a2"
+        },
+        {
+          "path": "maps/cache/de_varq_westwood-lightmap1-astc4.scn",
+          "sha256": "ce392dbe3055670e70d0e601625213b2d4dd63bf1d77e3a78284a81f93ad2df0"
+        }
+      ]
+    },
+    {
+      "baked_faces": 6873,
+      "bsp_sha256": "fe3d2618890d9dd7cd7005819256365e4f99b4eabc579a175ff9a92b2a550c20",
+      "codecs": [
+        {
+          "encoded_bytes": 2049488,
+          "format": "bc7",
+          "images": 25,
+          "path": "res://maps/cache/de_varq_tuscan-lightmap1-bc7.scn",
+          "raw_bytes": 6146019,
+          "sha256": "fc1f79185309e960f7533c114b9d3ae07ca8fce07d3de0702b0d0eec4445a5ed"
+        },
+        {
+          "encoded_bytes": 2049488,
+          "format": "astc4",
+          "images": 25,
+          "path": "res://maps/cache/de_varq_tuscan-lightmap1-astc4.scn",
+          "raw_bytes": 6146019,
+          "sha256": "ba04c8f58eb7d9135a9caa808f05240f002ee40cfccd12748c9db94c0d9fa6b8"
+        }
+      ],
+      "colour_textures": 40,
+      "failures": [],
+      "id": "de_varq_tuscan",
+      "light_atlases": 1,
+      "lossless_data_hash": "3aad085845f82445576e3b2fd6323dabd3622646e97f0ab5bdf2791517fc65df",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.48409366607666,
+        "occupancy_before": 0.0302558541297913,
+        "padded_luxels": 507609,
+        "patches": 6873,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 51612,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_tuscan.bsp",
+          "sha256": "fe3d2618890d9dd7cd7005819256365e4f99b4eabc579a175ff9a92b2a550c20"
+        },
+        {
+          "path": "maps/cache/de_varq_tuscan.scn",
+          "sha256": "39a9e8075aabe5f771db2fba37b900d06483c162027489459a8149141b1f6be7"
+        },
+        {
+          "path": "maps/cache/de_varq_tuscan-lightmap1.scn",
+          "sha256": "39a9e8075aabe5f771db2fba37b900d06483c162027489459a8149141b1f6be7"
+        },
+        {
+          "path": "maps/navigation/de_varq_tuscan.res",
+          "sha256": "4531167ae67ae2c671f27af5eea767fb59e82261b21a0fb0228161d4f1d09fd9"
+        },
+        {
+          "path": "maps/cache/de_varq_tuscan-lightmap1-bc7.scn",
+          "sha256": "fc1f79185309e960f7533c114b9d3ae07ca8fce07d3de0702b0d0eec4445a5ed"
+        },
+        {
+          "path": "maps/cache/de_varq_tuscan-lightmap1-astc4.scn",
+          "sha256": "ba04c8f58eb7d9135a9caa808f05240f002ee40cfccd12748c9db94c0d9fa6b8"
+        }
+      ]
+    },
+    {
+      "baked_faces": 3563,
+      "bsp_sha256": "dab9e8065116cc2510a4fea3d80cf8391dd28b21c4abaeb3486d2cb32fca246d",
+      "codecs": [
+        {
+          "encoded_bytes": 795600,
+          "format": "bc7",
+          "images": 10,
+          "path": "res://maps/cache/de_varq_abaddon-lightmap1-bc7.scn",
+          "raw_bytes": 2383656,
+          "sha256": "7b1dd800480add54671cac8f48a87320fbdf55706c8db5cdea06cb478278477e"
+        },
+        {
+          "encoded_bytes": 795600,
+          "format": "astc4",
+          "images": 10,
+          "path": "res://maps/cache/de_varq_abaddon-lightmap1-astc4.scn",
+          "raw_bytes": 2383656,
+          "sha256": "f259736b84a0c0f5250181e71cea943901bf05af419200302cc0db162ab3bc7d"
+        }
+      ],
+      "colour_textures": 21,
+      "failures": [],
+      "id": "de_varq_abaddon",
+      "light_atlases": 1,
+      "lossless_data_hash": "dbb43ab0a3e3ce3feb5d8adc08a71c71413cb23f34310d54cb1298182a2283ac",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.306488037109375,
+        "occupancy_before": 0.0191555023193359,
+        "padded_luxels": 321376,
+        "patches": 3563,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 25653,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_abaddon.bsp",
+          "sha256": "dab9e8065116cc2510a4fea3d80cf8391dd28b21c4abaeb3486d2cb32fca246d"
+        },
+        {
+          "path": "maps/cache/de_varq_abaddon.scn",
+          "sha256": "bf3963bc227030a5cf6989c1735859fdf713ceabaa7cef291f30806d2a8dcbe4"
+        },
+        {
+          "path": "maps/cache/de_varq_abaddon-lightmap1.scn",
+          "sha256": "bf3963bc227030a5cf6989c1735859fdf713ceabaa7cef291f30806d2a8dcbe4"
+        },
+        {
+          "path": "maps/navigation/de_varq_abaddon.res",
+          "sha256": "092e7d493261c98a1e7fcd688f4915f27f1b5b053ea21d18abf5f4ddf39fd689"
+        },
+        {
+          "path": "maps/cache/de_varq_abaddon-lightmap1-bc7.scn",
+          "sha256": "7b1dd800480add54671cac8f48a87320fbdf55706c8db5cdea06cb478278477e"
+        },
+        {
+          "path": "maps/cache/de_varq_abaddon-lightmap1-astc4.scn",
+          "sha256": "f259736b84a0c0f5250181e71cea943901bf05af419200302cc0db162ab3bc7d"
+        }
+      ]
+    },
+    {
+      "baked_faces": 6979,
+      "bsp_sha256": "5e650cdfd33980280da855fe12510ef5b0fd377fb1e76ae0f4e4ad4a6b705c5b",
+      "codecs": [
+        {
+          "encoded_bytes": 1551728,
+          "format": "bc7",
+          "images": 22,
+          "path": "res://maps/cache/de_varq_nuke_rarea-lightmap1-bc7.scn",
+          "raw_bytes": 4653036,
+          "sha256": "8f2ee5800182fd837029f2ee1e2c5b66bae3d6816eaa2e6aa4b924d2810241c8"
+        },
+        {
+          "encoded_bytes": 1551728,
+          "format": "astc4",
+          "images": 22,
+          "path": "res://maps/cache/de_varq_nuke_rarea-lightmap1-astc4.scn",
+          "raw_bytes": 4653036,
+          "sha256": "4a81ef11462f4e8ff7f79d861c580a993e615db213af4418b1f3e33127f6e4be"
+        }
+      ],
+      "colour_textures": 44,
+      "failures": [],
+      "id": "de_varq_nuke_rarea",
+      "light_atlases": 1,
+      "lossless_data_hash": "62358869a1b433160a1a245f78ddc0ba858d30d555a544d21e2fcb97e4cfb2bf",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.707477569580078,
+        "occupancy_before": 0.0442173480987549,
+        "padded_luxels": 741844,
+        "patches": 6979,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 56109,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 144,
+      "assets": [
+        {
+          "path": "maps/de_varq_nuke_rarea.bsp",
+          "sha256": "5e650cdfd33980280da855fe12510ef5b0fd377fb1e76ae0f4e4ad4a6b705c5b"
+        },
+        {
+          "path": "maps/cache/de_varq_nuke_rarea.scn",
+          "sha256": "aeb463c86db756e76db9c4dc86fde9a7000dd34320bad8ab4e51aba99845bae8"
+        },
+        {
+          "path": "maps/cache/de_varq_nuke_rarea-lightmap1.scn",
+          "sha256": "aeb463c86db756e76db9c4dc86fde9a7000dd34320bad8ab4e51aba99845bae8"
+        },
+        {
+          "path": "maps/navigation/de_varq_nuke_rarea.res",
+          "sha256": "6fccb82ad17343b79152fad826c3ca9a49e2067c7ab934d8a2087ae8ea8e06d1"
+        },
+        {
+          "path": "maps/cache/de_varq_nuke_rarea-lightmap1-bc7.scn",
+          "sha256": "8f2ee5800182fd837029f2ee1e2c5b66bae3d6816eaa2e6aa4b924d2810241c8"
+        },
+        {
+          "path": "maps/cache/de_varq_nuke_rarea-lightmap1-astc4.scn",
+          "sha256": "4a81ef11462f4e8ff7f79d861c580a993e615db213af4418b1f3e33127f6e4be"
+        }
+      ]
+    },
+    {
+      "baked_faces": 7647,
+      "bsp_sha256": "f677c509f60f213ae88b169c5506eac77e2f833b1746fab09efd5f79960b948f",
+      "codecs": [
+        {
+          "encoded_bytes": 2567152,
+          "format": "bc7",
+          "images": 39,
+          "path": "res://maps/cache/de_varq_rush_rc1-lightmap1-bc7.scn",
+          "raw_bytes": 7696323,
+          "sha256": "4b335abc6a19ad7af172beff8c3167dc467e1604d650d187082830b6d3429428"
+        },
+        {
+          "encoded_bytes": 2567152,
+          "format": "astc4",
+          "images": 39,
+          "path": "res://maps/cache/de_varq_rush_rc1-lightmap1-astc4.scn",
+          "raw_bytes": 7696323,
+          "sha256": "ac999429b38236902d9b6e386d4100d9a80f8091d654fc30a9b4394bbc86b220"
+        }
+      ],
+      "colour_textures": 62,
+      "failures": [],
+      "id": "de_varq_rush_rc1",
+      "light_atlases": 1,
+      "lossless_data_hash": "555d457f7545a9565acbee421334a689ea7691a6ea5852489d23cbdc37236b99",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.531570434570312,
+        "occupancy_before": 0.0332231521606445,
+        "padded_luxels": 557392,
+        "patches": 7647,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 55770,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 6,
+      "assets": [
+        {
+          "path": "maps/de_varq_rush_rc1.bsp",
+          "sha256": "f677c509f60f213ae88b169c5506eac77e2f833b1746fab09efd5f79960b948f"
+        },
+        {
+          "path": "maps/cache/de_varq_rush_rc1.scn",
+          "sha256": "c4eb8aa8c2c2e121c853034892174fde406cc95c2fcfddc747a25761811f830e"
+        },
+        {
+          "path": "maps/cache/de_varq_rush_rc1-lightmap1.scn",
+          "sha256": "c4eb8aa8c2c2e121c853034892174fde406cc95c2fcfddc747a25761811f830e"
+        },
+        {
+          "path": "maps/navigation/de_varq_rush_rc1.res",
+          "sha256": "0c5df224341065298320d0b2429261c27c9262e4aa372e62ad49d698ca32d564"
+        },
+        {
+          "path": "maps/cache/de_varq_rush_rc1-lightmap1-bc7.scn",
+          "sha256": "4b335abc6a19ad7af172beff8c3167dc467e1604d650d187082830b6d3429428"
+        },
+        {
+          "path": "maps/cache/de_varq_rush_rc1-lightmap1-astc4.scn",
+          "sha256": "ac999429b38236902d9b6e386d4100d9a80f8091d654fc30a9b4394bbc86b220"
+        }
+      ]
+    },
+    {
+      "baked_faces": 5821,
+      "bsp_sha256": "67bb9d33cc83af92366b0b516ac5b6d413b7963c67c55bda0d506a127b847d30",
+      "codecs": [
+        {
+          "encoded_bytes": 1524736,
+          "format": "bc7",
+          "images": 19,
+          "path": "res://maps/cache/de_varq_cpl_mill-lightmap1-bc7.scn",
+          "raw_bytes": 4571151,
+          "sha256": "b96321d034cfdb523b4d2bc04f6bf11eee4154e9b651fd896a5a15780b30460b"
+        },
+        {
+          "encoded_bytes": 1524736,
+          "format": "astc4",
+          "images": 19,
+          "path": "res://maps/cache/de_varq_cpl_mill-lightmap1-astc4.scn",
+          "raw_bytes": 4571151,
+          "sha256": "39b7a273a22a264d03c58f025eeeb1bb967df1715a2537bc9817bf3f431d25db"
+        }
+      ],
+      "colour_textures": 63,
+      "failures": [],
+      "id": "de_varq_cpl_mill",
+      "light_atlases": 1,
+      "lossless_data_hash": "3ab0c3d801bb1e9420d52a3246874f979fad17af683434c12d3b4a5fe14d1a4a",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.397956848144531,
+        "occupancy_before": 0.0248723030090332,
+        "padded_luxels": 417288,
+        "patches": 5821,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 41706,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_cpl_mill.bsp",
+          "sha256": "67bb9d33cc83af92366b0b516ac5b6d413b7963c67c55bda0d506a127b847d30"
+        },
+        {
+          "path": "maps/cache/de_varq_cpl_mill.scn",
+          "sha256": "9dbb9c96f7947f45efa7e526f329a3b3b799d3eb384c57f8213885f3abba0b88"
+        },
+        {
+          "path": "maps/cache/de_varq_cpl_mill-lightmap1.scn",
+          "sha256": "9dbb9c96f7947f45efa7e526f329a3b3b799d3eb384c57f8213885f3abba0b88"
+        },
+        {
+          "path": "maps/navigation/de_varq_cpl_mill.res",
+          "sha256": "36e8966f9c834d6070ea74ab8e02d00f505046ed4b18f17177d4f37187db3295"
+        },
+        {
+          "path": "maps/cache/de_varq_cpl_mill-lightmap1-bc7.scn",
+          "sha256": "b96321d034cfdb523b4d2bc04f6bf11eee4154e9b651fd896a5a15780b30460b"
+        },
+        {
+          "path": "maps/cache/de_varq_cpl_mill-lightmap1-astc4.scn",
+          "sha256": "39b7a273a22a264d03c58f025eeeb1bb967df1715a2537bc9817bf3f431d25db"
+        }
+      ]
+    },
+    {
+      "baked_faces": 10672,
+      "bsp_sha256": "e772da16a2169eb94b4561bbe4c20ae1ee1e6b6a9493198c2a0c9e12c5eed975",
+      "codecs": [
+        {
+          "encoded_bytes": 2079632,
+          "format": "bc7",
+          "images": 24,
+          "path": "res://maps/cache/de_varq_cloister-lightmap1-bc7.scn",
+          "raw_bytes": 6236094,
+          "sha256": "84b0615bcfdc052c4aafb24412c21ffd42cfefbebeb8c0a498529ad9ff2f3167"
+        },
+        {
+          "encoded_bytes": 2079632,
+          "format": "astc4",
+          "images": 24,
+          "path": "res://maps/cache/de_varq_cloister-lightmap1-astc4.scn",
+          "raw_bytes": 6236094,
+          "sha256": "24cc7800cb74fb24b82b2455817388dcc27f4f10f014f0a01b5520629607d758"
+        }
+      ],
+      "colour_textures": 31,
+      "failures": [],
+      "id": "de_varq_cloister",
+      "light_atlases": 1,
+      "lossless_data_hash": "9038b4be3662679c91a004394da71ffdb62eda891f021eaa5f99c36cdc90c61b",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.7265625,
+        "occupancy_before": 0.04541015625,
+        "padded_luxels": 761856,
+        "patches": 10672,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 77862,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_cloister.bsp",
+          "sha256": "e772da16a2169eb94b4561bbe4c20ae1ee1e6b6a9493198c2a0c9e12c5eed975"
+        },
+        {
+          "path": "maps/cache/de_varq_cloister.scn",
+          "sha256": "6716e7f4eb75adaf5410f62eb854a1ba1f73364f61bb4bb54b239d5544a1c8ae"
+        },
+        {
+          "path": "maps/cache/de_varq_cloister-lightmap1.scn",
+          "sha256": "6716e7f4eb75adaf5410f62eb854a1ba1f73364f61bb4bb54b239d5544a1c8ae"
+        },
+        {
+          "path": "maps/navigation/de_varq_cloister.res",
+          "sha256": "7016e48df5ac9ec10463026614eee07021f9be6ffc95fa224bb4e14ea9ed8960"
+        },
+        {
+          "path": "maps/cache/de_varq_cloister-lightmap1-bc7.scn",
+          "sha256": "84b0615bcfdc052c4aafb24412c21ffd42cfefbebeb8c0a498529ad9ff2f3167"
+        },
+        {
+          "path": "maps/cache/de_varq_cloister-lightmap1-astc4.scn",
+          "sha256": "24cc7800cb74fb24b82b2455817388dcc27f4f10f014f0a01b5520629607d758"
+        }
+      ]
+    },
+    {
+      "baked_faces": 2860,
+      "bsp_sha256": "99e1ea3bf3eb05e005636c88da1b1cd4e20e3e2e7910ada9c51f7ea512173047",
+      "codecs": [
+        {
+          "encoded_bytes": 1922976,
+          "format": "bc7",
+          "images": 22,
+          "path": "res://maps/cache/de_varq_licia-lightmap1-bc7.scn",
+          "raw_bytes": 5767146,
+          "sha256": "dd4e64bf769eba7cca58dfe43ba61c20204d7cee9989d3097d51d5a6b701590d"
+        },
+        {
+          "encoded_bytes": 1922976,
+          "format": "astc4",
+          "images": 22,
+          "path": "res://maps/cache/de_varq_licia-lightmap1-astc4.scn",
+          "raw_bytes": 5767146,
+          "sha256": "3508c2adf276c4d0d2bb0374355fe7399152a2d5f15e1c0ae91d42eb9d801582"
+        }
+      ],
+      "colour_textures": 54,
+      "failures": [],
+      "id": "de_varq_licia",
+      "light_atlases": 1,
+      "lossless_data_hash": "5a98d685731c3258f953d8e50df345a5e503d3a52c225e05d4fe68a3da31bba7",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.827152252197266,
+        "occupancy_before": 0.0129242539405823,
+        "padded_luxels": 216833,
+        "patches": 2860,
+        "raw_bytes_after": 786432,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 21462,
+        "to": [
+          512,
+          512
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_licia.bsp",
+          "sha256": "99e1ea3bf3eb05e005636c88da1b1cd4e20e3e2e7910ada9c51f7ea512173047"
+        },
+        {
+          "path": "maps/cache/de_varq_licia.scn",
+          "sha256": "6f815b65df375b2f751b92b97641a19a7bc58684cb5b780d161e189f1ef55de9"
+        },
+        {
+          "path": "maps/cache/de_varq_licia-lightmap1.scn",
+          "sha256": "6f815b65df375b2f751b92b97641a19a7bc58684cb5b780d161e189f1ef55de9"
+        },
+        {
+          "path": "maps/navigation/de_varq_licia.res",
+          "sha256": "8d0fd6e86b3f8bfb72279911443b2501ccf3672f2b272ee56b00978266eeac1d"
+        },
+        {
+          "path": "maps/cache/de_varq_licia-lightmap1-bc7.scn",
+          "sha256": "dd4e64bf769eba7cca58dfe43ba61c20204d7cee9989d3097d51d5a6b701590d"
+        },
+        {
+          "path": "maps/cache/de_varq_licia-lightmap1-astc4.scn",
+          "sha256": "3508c2adf276c4d0d2bb0374355fe7399152a2d5f15e1c0ae91d42eb9d801582"
+        }
+      ]
+    },
+    {
+      "baked_faces": 13325,
+      "bsp_sha256": "f72689b2a75d764a16bef09619bf423566a37fefa5446b0afa54bf298d554fd9",
+      "codecs": [
+        {
+          "encoded_bytes": 2881296,
+          "format": "bc7",
+          "images": 34,
+          "path": "res://maps/cache/de_varq_perfect_inferno-lightmap1-bc7.scn",
+          "raw_bytes": 8639355,
+          "sha256": "4fc4523981664dede0340ec9b380942c2409c543ff788ba942dff4f579eca110"
+        },
+        {
+          "encoded_bytes": 2881296,
+          "format": "astc4",
+          "images": 34,
+          "path": "res://maps/cache/de_varq_perfect_inferno-lightmap1-astc4.scn",
+          "raw_bytes": 8639355,
+          "sha256": "4cfb9f214a1a569ab2f56838da0a240201362819ca775238f565b415fd22410d"
+        }
+      ],
+      "colour_textures": 107,
+      "failures": [],
+      "id": "de_varq_perfect_inferno",
+      "light_atlases": 1,
+      "lossless_data_hash": "c93e27c4252ae044bf2e2469321dcd16ad65c5c488559244651d0c4142f071ef",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.80112361907959,
+        "occupancy_before": 0.0500702261924744,
+        "padded_luxels": 840039,
+        "patches": 13325,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 98049,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_perfect_inferno.bsp",
+          "sha256": "f72689b2a75d764a16bef09619bf423566a37fefa5446b0afa54bf298d554fd9"
+        },
+        {
+          "path": "maps/cache/de_varq_perfect_inferno.scn",
+          "sha256": "171215d10a6bfb366c7c933c0d1c6fefb73fbf2bd60985164270f4407cdb92ae"
+        },
+        {
+          "path": "maps/cache/de_varq_perfect_inferno-lightmap1.scn",
+          "sha256": "171215d10a6bfb366c7c933c0d1c6fefb73fbf2bd60985164270f4407cdb92ae"
+        },
+        {
+          "path": "maps/navigation/de_varq_perfect_inferno.res",
+          "sha256": "b024aef5a14512a03cf8cbac32152f03b5e2d694cf0f5abba0b56bd945c06559"
+        },
+        {
+          "path": "maps/cache/de_varq_perfect_inferno-lightmap1-bc7.scn",
+          "sha256": "4fc4523981664dede0340ec9b380942c2409c543ff788ba942dff4f579eca110"
+        },
+        {
+          "path": "maps/cache/de_varq_perfect_inferno-lightmap1-astc4.scn",
+          "sha256": "4cfb9f214a1a569ab2f56838da0a240201362819ca775238f565b415fd22410d"
+        }
+      ]
+    },
+    {
+      "baked_faces": 10416,
+      "bsp_sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4",
+      "codecs": [
+        {
+          "encoded_bytes": 4327184,
+          "format": "bc7",
+          "images": 57,
+          "path": "res://maps/cache/de_varq_santorini-lightmap1-bc7.scn",
+          "raw_bytes": 12976125,
+          "sha256": "d504351599350c776a2d27f1e6128df1f41273fd028f72a9600ad820232e9255"
+        },
+        {
+          "encoded_bytes": 4327184,
+          "format": "astc4",
+          "images": 57,
+          "path": "res://maps/cache/de_varq_santorini-lightmap1-astc4.scn",
+          "raw_bytes": 12976125,
+          "sha256": "6b14cd1efc7454b47149c86d9c4f4197edfc2138b02a929aaa376971fcd25d59"
+        }
+      ],
+      "colour_textures": 66,
+      "failures": [],
+      "id": "de_varq_santorini",
+      "light_atlases": 1,
+      "lossless_data_hash": "5402394b4267df86850f72c1b8b4569d37bf65fdfe3e154bd7bd11f2a9b9d283",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.747823715209961,
+        "occupancy_before": 0.0467389822006226,
+        "padded_luxels": 784150,
+        "patches": 10416,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 74925,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 1,
+      "assets": [
+        {
+          "path": "maps/de_varq_santorini.bsp",
+          "sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4"
+        },
+        {
+          "path": "maps/cache/de_varq_santorini.scn",
+          "sha256": "f7246821cdc1e25188799882794043fc4d21d2d922a44d10c8e8acba3525d612"
+        },
+        {
+          "path": "maps/cache/de_varq_santorini-lightmap1.scn",
+          "sha256": "f7246821cdc1e25188799882794043fc4d21d2d922a44d10c8e8acba3525d612"
+        },
+        {
+          "path": "maps/navigation/de_varq_santorini.res",
+          "sha256": "4e4c7dfc5cf8f5220079ae43aa24181e42566d0e503ffcbca8f2a6ae512a6ea6"
+        },
+        {
+          "path": "maps/cache/de_varq_santorini-lightmap1-bc7.scn",
+          "sha256": "d504351599350c776a2d27f1e6128df1f41273fd028f72a9600ad820232e9255"
+        },
+        {
+          "path": "maps/cache/de_varq_santorini-lightmap1-astc4.scn",
+          "sha256": "6b14cd1efc7454b47149c86d9c4f4197edfc2138b02a929aaa376971fcd25d59"
+        }
+      ]
+    },
+    {
+      "baked_faces": 10152,
+      "bsp_sha256": "68fce0033e48a8a34d1a0b7c5ada28700e1fac10f35d906709e7ae4838d236e7",
+      "codecs": [
+        {
+          "encoded_bytes": 2867888,
+          "format": "bc7",
+          "images": 47,
+          "path": "res://maps/cache/de_varq_manufacture-lightmap1-bc7.scn",
+          "raw_bytes": 8597415,
+          "sha256": "bb1cd848bb1ffdcd4d45b3705cfc14b8d32ec9f57cfc90df5217aa00b60b79d4"
+        },
+        {
+          "encoded_bytes": 2867888,
+          "format": "astc4",
+          "images": 47,
+          "path": "res://maps/cache/de_varq_manufacture-lightmap1-astc4.scn",
+          "raw_bytes": 8597415,
+          "sha256": "61585b7e29303ab6ad62d31f74b2c2c99ad9f502786696110715f8a6aaa9a691"
+        }
+      ],
+      "colour_textures": 77,
+      "failures": [],
+      "id": "de_varq_manufacture",
+      "light_atlases": 1,
+      "lossless_data_hash": "f0e1783f5b29217c4c3a290dab1b2336ba5db590da479e5f5613d28985257b54",
+      "packing": {
+        "from": [
+          4096,
+          4096
+        ],
+        "occupancy_after": 0.854781150817871,
+        "occupancy_before": 0.0534238219261169,
+        "padded_luxels": 896303,
+        "patches": 10152,
+        "raw_bytes_after": 3145728,
+        "raw_bytes_before": 50331648,
+        "remapped_vertices": 76974,
+        "to": [
+          1024,
+          1024
+        ]
+      },
+      "rgb": true,
+      "unlit_faces": 0,
+      "assets": [
+        {
+          "path": "maps/de_varq_manufacture.bsp",
+          "sha256": "68fce0033e48a8a34d1a0b7c5ada28700e1fac10f35d906709e7ae4838d236e7"
+        },
+        {
+          "path": "maps/cache/de_varq_manufacture.scn",
+          "sha256": "41174ae7d87766130b27ea5428cb7ec99f35596735fcf7ce9ee433076b895f2f"
+        },
+        {
+          "path": "maps/cache/de_varq_manufacture-lightmap1.scn",
+          "sha256": "41174ae7d87766130b27ea5428cb7ec99f35596735fcf7ce9ee433076b895f2f"
+        },
+        {
+          "path": "maps/navigation/de_varq_manufacture.res",
+          "sha256": "c52f0ad750aed16f391abf02d39993b3beea0740aaa598f0f90b22b095f411f2"
+        },
+        {
+          "path": "maps/cache/de_varq_manufacture-lightmap1-bc7.scn",
+          "sha256": "bb1cd848bb1ffdcd4d45b3705cfc14b8d32ec9f57cfc90df5217aa00b60b79d4"
+        },
+        {
+          "path": "maps/cache/de_varq_manufacture-lightmap1-astc4.scn",
+          "sha256": "61585b7e29303ab6ad62d31f74b2c2c99ad9f502786696110715f8a6aaa9a691"
+        }
+      ]
+    }
+  ],
+  "expected_maps": 41,
+  "complete": true
+}

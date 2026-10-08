@@ -162,3 +162,31 @@ __pycache__/
 
 # Krita autosave backups; keep the editable .kra originals.
 *.kra~
+
+# Pinned T2 source inputs and local compiler products.
+/tools/t2_classic/local/
+/maps/T2Classic/
+/maps/ctf_t2_*
+/maps/cache/ctf_t2_*
+/maps/navigation/ctf_t2_*
+
+# Downloaded Varq DE inputs and compiled base-bundle conversions.
+/tools/varq_de/local/
+/maps/de_varq_*.bsp
+
+# Source TF anniversary archive and inspection artifacts.
+/tools/tf_anniversary/local/
+
+# Arena conversion inputs and generated maps.
+/tools/arena_imports/local/
+/maps/ArenaImports/
+/maps/dm_q30_*.bsp
+/maps/dm_rcmd_*.bsp
+/maps/dm_local_*.bsp
+
+# Downloaded Unreal source archives and conversion scratch files.
+tools/unreal_imports/local/
+
+# Generated Unreal conversion geometry and texture banks stay with local assets.
+/maps/UnrealImports/**/*.map
+/maps/UnrealImports/**/*.wad

@@ -1,7 +1,34 @@
 extends Node3D
 ## One instanced draw, analytic falling particles, no particle bodies/networking.
 ## A small, cached overhead survey keeps precipitation above terrain and roofs.
-const PROFILES={"ctf_katabatic":"snow","ctf_raindance":"rain"}
+const PROFILES={"ctf_katabatic":"snow","ctf_raindance":"rain",
+ "ctf_t2_acidrain":"rain",
+ "ctf_t2_confusco":"dust",
+ "ctf_t2_desertofdeath":"dust",
+ "ctf_t2_gorgon":"dust",
+ "ctf_t2_iceridge":"snow",
+ "ctf_t2_magmatic":"ash",
+ "ctf_t2_ramparts":"snow",
+ "ctf_t2_rollercoaster":"dust",
+ "ctf_t2_sandstorm":"dust",
+ "ctf_t2_shockridge":"snow",
+ "ctf_t2_snowblind":"snow",
+ "ctf_t2_subzero":"snow",
+}
+const CEILINGS={"ctf_katabatic":359.9,"ctf_raindance":319.9,
+ "ctf_t2_acidrain":449.9,
+ "ctf_t2_confusco":805.9625,
+ "ctf_t2_desertofdeath":449.9,
+ "ctf_t2_gorgon":449.9,
+ "ctf_t2_iceridge":449.9,
+ "ctf_t2_magmatic":449.9,
+ "ctf_t2_ramparts":449.9,
+ "ctf_t2_rollercoaster":449.9,
+ "ctf_t2_sandstorm":449.9,
+ "ctf_t2_shockridge":609.9,
+ "ctf_t2_snowblind":508.7125,
+ "ctf_t2_subzero":449.9,
+}
 const GRID:=8
 const CELL:=4.0
 const COUNT:=512
@@ -16,12 +43,15 @@ var tick:=0.0
 var sample_count:=0
 var survey_ceiling:=1000.0
 func configure(map: String) -> void:
-	kind=str(PROFILES.get(preload("res://deathmatch/maps/skies/catalog.gd").canonical(map),""))
+	map=preload("res://deathmatch/maps/skies/catalog.gd").canonical(map)
+	kind=str(PROFILES.get(map,""))
 	if kind.is_empty():set_physics_process(false);return
 	# BSP sky brushes can have collision. Start inside the authored sky seal.
-	survey_ceiling=359.9 if kind=="snow" else 319.9
+	survey_ceiling=float(CEILINGS[map])
 	material=ShaderMaterial.new();material.shader=preload("res://deathmatch/maps/weather.gdshader")
 	material.set_shader_parameter("rain",kind=="rain")
+	material.set_shader_parameter("airborne",kind in ["dust","ash"])
+	material.set_shader_parameter("ash",kind=="ash")
 	roof_image=Image.create(GRID,GRID,false,Image.FORMAT_RF);roof_image.fill(Color(1000,0,0))
 	roof_texture=ImageTexture.create_from_image(roof_image);material.set_shader_parameter("roof_map",roof_texture)
 	var mesh:=QuadMesh.new();mesh.size=Vector2.ONE;mesh.material=material

@@ -22,7 +22,7 @@ func update(held: bool,allowed: bool) -> void:
 	active=held and released
 func allowed() -> bool:
 	var s: Dictionary=game.local_state();var id: int=game.multiplayer.get_unique_id()
-	return game.match_mode.tribes.enabled() and game.active and not s.is_empty() and not s.get("dead",true) and not s.get("spectator",false) and not game.menu_open and not game.match_mode.tribes.menu_open() and not game.map_loading and not game.quitting and not game.demos.playing and game.intermission<=0 and not game.match_mode.tribes.operating(id) and not game.match_mode.tribes.vehicles.piloting(id) and not game.match_mode.special.blocked(id) and not (game.hud and game.hud.chat.has_focus())
+	return game.match_mode.tribes.enabled() and game.active and not s.is_empty() and not s.get("dead",true) and not s.get("spectator",false) and not game.menu_open and not game.match_mode.tribes.menu_open() and not game.map_loading and not game.quitting and not game.demos.playing and game.intermission<=0 and not game.match_mode.tribes.operating(id) and not game.match_mode.tribes.vehicles.weapon_operator(id) and not game.match_mode.special.blocked(id) and not (game.hud and game.hud.chat.has_focus())
 func desktop_update() -> void:
 	update(game.bindings.pressed("alt_fire"),allowed() and DisplayServer.window_is_focused())
 func desktop_input(event: InputEvent) -> bool:

@@ -1,0 +1,455 @@
+{
+  "notes": "Source fog colors/ranges adapted to restrained ST depth haze. Ice Ridge adds snow consistent with its snowfall ambience; desert wind carries dust; Magmatic carries ash. Clear maps retain wind beds without precipitation. Survey starts inside each compiled sky seal.",
+  "maps": [
+    {
+      "id": "ctf_t2_acidrain",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/AcidRain.mis",
+      "source_fog_distance": "430",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.250000 0.250000 0.320000 0.100000",
+      "source_precipitation": [
+        "rain"
+      ],
+      "weather": "rain",
+      "fog": [
+        322.5,
+        900.0,
+        0.28,
+        [
+          0.25,
+          0.25,
+          0.32
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_blastside",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Blastside_nef.mis",
+      "source_fog_distance": "300",
+      "source_visible_distance": "650",
+      "source_fog_color": "0.700000 0.750000 0.750000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        225.0,
+        1170.0,
+        0.2,
+        [
+          0.7,
+          0.75,
+          0.75
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_broadside",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Broadside_nef.mis",
+      "source_fog_distance": "300",
+      "source_visible_distance": "650",
+      "source_fog_color": "0.700000 0.750000 0.750000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        225.0,
+        1170.0,
+        0.2,
+        [
+          0.7,
+          0.75,
+          0.75
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_confusco",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Confusco.mis",
+      "source_fog_distance": "300",
+      "source_visible_distance": "600",
+      "source_fog_color": "0.500000 0.300000 0.200000 1.000000",
+      "source_precipitation": [],
+      "weather": "dust",
+      "fog": [
+        225.0,
+        1080.0,
+        0.28,
+        [
+          0.5,
+          0.3,
+          0.2
+        ]
+      ],
+      "survey_ceiling": 805.9625
+    },
+    {
+      "id": "ctf_t2_dangerouscrossing",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/DangerousCrossing_nef.mis",
+      "source_fog_distance": "220",
+      "source_visible_distance": "420",
+      "source_fog_color": "0.700000 0.700000 0.700000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        165.0,
+        756.0,
+        0.2,
+        [
+          0.7,
+          0.7,
+          0.7
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_desertofdeath",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/DesertofDeath_nef.mis",
+      "source_fog_distance": "200",
+      "source_visible_distance": "450",
+      "source_fog_color": "0.000000 0.000000 0.000000 1.000000",
+      "source_precipitation": [],
+      "weather": "dust",
+      "fog": [
+        150.0,
+        810.0,
+        0.28,
+        [
+          0.12,
+          0.12,
+          0.12
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_gorgon",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Gorgon.mis",
+      "source_fog_distance": "300",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.900000 0.500000 0.350000 1.000000",
+      "source_precipitation": [],
+      "weather": "dust",
+      "fog": [
+        225.0,
+        900.0,
+        0.28,
+        [
+          0.8,
+          0.5,
+          0.35
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_hillside",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Hillside.mis",
+      "source_fog_distance": "450",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.570000 0.640000 0.970000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        337.5,
+        900.0,
+        0.2,
+        [
+          0.57,
+          0.64,
+          0.8
+        ]
+      ],
+      "survey_ceiling": 736.275
+    },
+    {
+      "id": "ctf_t2_iceridge",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/IceRidge_nef.mis",
+      "source_fog_distance": "300",
+      "source_visible_distance": "575",
+      "source_fog_color": "0.600000 0.600000 0.650000 1.000000",
+      "source_precipitation": [],
+      "weather": "snow",
+      "fog": [
+        225.0,
+        1035.0,
+        0.28,
+        [
+          0.6,
+          0.6,
+          0.65
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_lakefront",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Lakefront.mis",
+      "source_fog_distance": "300",
+      "source_visible_distance": "475",
+      "source_fog_color": "0.500000 0.500000 0.500000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        225.0,
+        855.0,
+        0.2,
+        [
+          0.5,
+          0.5,
+          0.5
+        ]
+      ],
+      "survey_ceiling": 468.18125
+    },
+    {
+      "id": "ctf_t2_magmatic",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Magmatic.mis",
+      "source_fog_distance": "280",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.913700 0.383000 0.071800 0.000000",
+      "source_precipitation": [],
+      "weather": "ash",
+      "fog": [
+        210.0,
+        900.0,
+        0.28,
+        [
+          0.8,
+          0.383,
+          0.12
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_ramparts",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Ramparts.mis",
+      "source_fog_distance": "275",
+      "source_visible_distance": "450",
+      "source_fog_color": "0.620000 0.640000 0.742000 1.000000",
+      "source_precipitation": [
+        "snow"
+      ],
+      "weather": "snow",
+      "fog": [
+        206.25,
+        810.0,
+        0.28,
+        [
+          0.62,
+          0.64,
+          0.742
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_rollercoaster",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Rollercoaster_nef.mis",
+      "source_fog_distance": "150",
+      "source_visible_distance": "400",
+      "source_fog_color": "0.850000 0.700000 0.500000 1.000000",
+      "source_precipitation": [],
+      "weather": "dust",
+      "fog": [
+        112.5,
+        720.0,
+        0.28,
+        [
+          0.8,
+          0.7,
+          0.5
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_sandstorm",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Sandstorm.mis",
+      "source_fog_distance": "300",
+      "source_visible_distance": "550",
+      "source_fog_color": "0.950000 0.600000 0.400000 1.000000",
+      "source_precipitation": [],
+      "weather": "dust",
+      "fog": [
+        150,
+        850,
+        0.3,
+        [
+          0.8,
+          0.6,
+          0.4
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_scarabrae",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Scarabrae_nef.mis",
+      "source_fog_distance": "250",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.700000 0.750000 0.850000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        187.5,
+        900.0,
+        0.2,
+        [
+          0.7,
+          0.75,
+          0.8
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_shockridge",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/ShockRidge.mis",
+      "source_fog_distance": "200",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.400000 0.590000 0.600000 1.000000",
+      "source_precipitation": [
+        "snow"
+      ],
+      "weather": "snow",
+      "fog": [
+        150.0,
+        900.0,
+        0.28,
+        [
+          0.4,
+          0.59,
+          0.6
+        ]
+      ],
+      "survey_ceiling": 609.9
+    },
+    {
+      "id": "ctf_t2_snowblind",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Snowblind_nef.mis",
+      "source_fog_distance": "150",
+      "source_visible_distance": "450",
+      "source_fog_color": "0.650000 0.650000 0.650000 1.000000",
+      "source_precipitation": [
+        "snow"
+      ],
+      "weather": "snow",
+      "fog": [
+        100,
+        700,
+        0.32,
+        [
+          0.65,
+          0.65,
+          0.65
+        ]
+      ],
+      "survey_ceiling": 508.7125
+    },
+    {
+      "id": "ctf_t2_starfallen",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Starfallen.mis",
+      "source_fog_distance": "420",
+      "source_visible_distance": "560",
+      "source_fog_color": "0.260000 0.410000 0.440000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        315.0,
+        1008.0,
+        0.2,
+        [
+          0.26,
+          0.41,
+          0.44
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_subzero",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/SubZero.mis",
+      "source_fog_distance": "200",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.650000 0.650000 0.700000 1.000000",
+      "source_precipitation": [
+        "snow"
+      ],
+      "weather": "snow",
+      "fog": [
+        150.0,
+        900.0,
+        0.28,
+        [
+          0.65,
+          0.65,
+          0.7
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_surreal",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Surreal.mis",
+      "source_fog_distance": "450",
+      "source_visible_distance": "530",
+      "source_fog_color": "0.500000 0.600000 0.750000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        337.5,
+        954.0,
+        0.2,
+        [
+          0.5,
+          0.6,
+          0.75
+        ]
+      ],
+      "survey_ceiling": 592.9
+    },
+    {
+      "id": "ctf_t2_titan",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Titan.mis",
+      "source_fog_distance": "350",
+      "source_visible_distance": "450",
+      "source_fog_color": "0.710000 0.710000 0.710000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        262.5,
+        810.0,
+        0.2,
+        [
+          0.71,
+          0.71,
+          0.71
+        ]
+      ],
+      "survey_ceiling": 449.9
+    },
+    {
+      "id": "ctf_t2_whitedwarf",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/WhiteDwarf.mis",
+      "source_fog_distance": "400",
+      "source_visible_distance": "500",
+      "source_fog_color": "0.090000 0.220000 0.090000 1.000000",
+      "source_precipitation": [],
+      "weather": "",
+      "fog": [
+        300.0,
+        900.0,
+        0.2,
+        [
+          0.12,
+          0.22,
+          0.12
+        ]
+      ],
+      "survey_ceiling": 449.9
+    }
+  ]
+}

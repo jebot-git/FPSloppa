@@ -455,7 +455,7 @@ func _process(_delta: float) -> void:
 	_update_jetpack_visual()
 	prediction_view_offset*=exp(-12.0*_delta)
 	if not avatar:return
-	var unarmed: bool=get_parent().match_mode.tribes.vehicles.piloting(peer_id) or get_parent().lobby.active() or get_parent().match_mode.defusal.gun_holstered(peer_id)
+	var unarmed: bool=get_parent().match_mode.tribes.vehicles.weapon_operator(peer_id) or get_parent().lobby.active() or get_parent().match_mode.defusal.gun_holstered(peer_id)
 	if avatar:
 		if avatar_hash.is_empty():
 			for weapon in avatar.find_children("WeaponModel","Node3D",true,false):weapon.visible=not unarmed and alive_state

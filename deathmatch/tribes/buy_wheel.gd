@@ -16,7 +16,7 @@ func rows(rules,id: int) -> Array:
 	if page==0 and rules.vehicles.station(id)>=0:
 		for i in rules.vehicles.Data.KINDS.size():
 			var kind: String=rules.vehicles.Data.KINDS[i];var d: Dictionary=rules.vehicles.Data.definition(kind)
-			result.append({"id":5000+i,"name":d.title,"detail":"LIGHT PILOT · %d PASSENGERS · USE TO BOARD"%(d.seats.size()-1),"icon":d.title,"ammo":d.price,"usable":cash>=d.price and rules.vehicles.count(rules.game.players[id].team,kind)<rules.vehicles.Data.TEAM_LIMIT})
+			result.append({"id":5000+i,"name":d.title,"detail":"FIRE: DEPLOY / PACK · REAR INVENTORY" if kind=="jericho" else "PILOT + BOMBARDIER + TAIL GUNNER" if kind=="thundersword" else "PILOT + MORTAR GUNNER" if kind=="beowulf" else "LIGHT PILOT · %d PASSENGERS · USE TO BOARD"%(d.seats.size()-1),"icon":d.title,"ammo":d.price,"usable":cash>=d.price and rules.vehicles.count(rules.game.players[id].team,kind)<rules.vehicles.Data.TEAM_LIMIT})
 	elif page==0:
 		for row in [[200,"WEAPONS","ST WEAPONS"],[201,"BACKPACK","ST BACKPACK"],[202,"ARMOUR","ST ARMOUR"],[203,"PURCHASE / REFIT" if near else "SAVE FAVOURITES" if rules.base_ctf() else "QUEUE LOADOUT","ST REFIT"],[209,"FIELD EQUIPMENT","ST FIELD"],[205,"CARRIED WEAPONS","ST CARRIED"],[206,"DEPLOYABLES","ST DEPLOYABLES"],[207,"SENSOR NETWORK","ST NETWORK"]]:
 			if not rules.mode_enabled() and row[0] in [206,207]:continue
@@ -72,7 +72,7 @@ func rows(rules,id: int) -> Array:
 	elif page==202:
 		for i in 3:
 			var key: String=["light","medium","heavy"][i];result.append({"id":400+i,"name":key.to_upper()+" ARMOUR","icon":key.to_upper()+" ARMOUR","ammo":rules.CLASSES[key].cost,"usable":rules.deployables.station(id)<0 or key==state.tribes_class})
-	if page==0 and result.size()>3 and cost<0:result[3]["detail"]="REFUND %d ENERGY"%-cost
+	if page==0 and rules.vehicles.station(id)<0 and result.size()>3 and cost<0:result[3]["detail"]="REFUND %d ENERGY"%-cost
 	if page!=0:result.append({"id":1000,"name":"BACK","icon":"ST BACK","ammo":-1,"usable":true})
 	for row in result:row.merge({"buy":true,"cash":cash,"currency":"ENERGY","heading":"INVENTORY","infinite_energy":rules.infinite_energy})
 	if not rules.mode_enabled():
@@ -81,7 +81,7 @@ func rows(rules,id: int) -> Array:
 func select(id: int,rules,peer: int) -> bool:
 	# True hands input to another view; purchases and field actions keep this menu.
 	if not rules.mode_enabled() and (id in [206,207,208,213,214,217,7000] or id>=2000):return false
-	if id in [5000,5001,5002]:rules.buy_vehicle(rules.vehicles.Data.KINDS[id-5000])
+	if id>=5000 and id<5000+rules.vehicles.Data.KINDS.size():rules.buy_vehicle(rules.vehicles.Data.KINDS[id-5000])
 	elif id==1000:page=0
 	elif id==1002:
 		var pads=rules.stations();var count: int=pads.defences.rows.filter(func(row):return row.team==rules.game.players[peer].team).size() if pads else 0

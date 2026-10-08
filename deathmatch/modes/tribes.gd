@@ -339,13 +339,15 @@ func can_refit(id: int) -> bool:
 	var s: Dictionary=game.players[id]
 	if s.dead or s.spectator or game.intermission>0 or mode.special.blocked(id):return false
 	var pads=stations()
-	if deployables.station(id)>=0:return true
+	if deployables.station(id)>=0 or vehicles.mobile_station(id)>=0:return true
 	if pads and not pads.rows.is_empty():return pads.at(id)>=0
 	for point in mode.spawns(s.team):
 		if game.fighters[id].position.distance_to(point)<5:return true
 	return false
 func inventory_station(id: int) -> int:
 	if vehicles.mounted(id) or not deployables.accessible(id):return -1
+	var mobile: int=vehicles.mobile_station(id)
+	if mobile>=0:return 3000+mobile
 	var pads=stations()
 	var index: int=pads.at(id,["inventory","command"]) if pads else -1
 	if index>=0:return index

@@ -22,7 +22,7 @@ func run():
 	FileAccess.open("res://test-results/defusal/bomb-recovery-network-"+role+".json",FileAccess.WRITE).store_string(JSON.stringify({"passed":failures.is_empty(),"failures":failures},"  "))
 	print("DE_RECOVERY_NETWORK_RESULT ",role," ",JSON.stringify(failures));game.disconnect_game();game.free();await process_frame;quit(0 if failures.is_empty() else 1)
 func server_case():
-	game.dedicated=true;game.bind_address="127.0.0.1";game.selected_map="de_dust2_rebuilt";game.bot_population.count_target=0
+	game.dedicated=true;game.bind_address="127.0.0.1";game.selected_map="de_varq_dust2";game.bot_population.count_target=0
 	game.match_mode.configure({"sv_gametype":"de","sv_de_prepare":30});game.votes.enabled=false;game.lobby.enabled=false
 	game.start_host("DE bomb recovery",28981,20,10,false,"de")
 	check(await wait_for(func():return ["carrier","rescuer","defender"].all(func(name):return observer.seen.has(name+" ready")),20),"Three remote players join the recovery test")

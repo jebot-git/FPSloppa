@@ -1,0 +1,2565 @@
+[
+  {
+    "id": "dm_rcmd_spirit2dm1",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm1/spirit2dm1.zip",
+    "archive_sha256": "dfbf042a38ab02e6632feafa6fc188ba5f38df1c03b13b12ecbf52c9a98d45da",
+    "member": "baseq2/maps/spirit2dm1.map",
+    "source_sha256": "7292164f40660aed74efd362a788a78351e2037003a86c4c58cf9eefa4e3fc04",
+    "surface_emitters": {
+      "sky_star": {
+        "source": "e1u1/sky1",
+        "source_radiance": 800.0,
+        "light": 56.568542494923804
+      },
+      "emit000": {
+        "source": "e3u1/+0btshoot2",
+        "source_radiance": 20000.0,
+        "light": 282.842712474619
+      },
+      "emit001": {
+        "source": "e1u1/sewer1",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit002": {
+        "source": "e2u3/rlight1_2",
+        "source_radiance": 20000.0,
+        "light": 282.842712474619
+      },
+      "emit003": {
+        "source": "e2u3/rlight1_2",
+        "source_radiance": 16000.0,
+        "light": 252.98221281347034
+      },
+      "emit004": {
+        "source": "e2u3/prwlt2_2",
+        "source_radiance": 6000.0,
+        "light": 154.91933384829667
+      },
+      "emit005": {
+        "source": "e1u1/baselt_b",
+        "source_radiance": 25000.0,
+        "light": 316.22776601683796
+      },
+      "emit006": {
+        "source": "e1u1/baselt_b",
+        "source_radiance": 30000.0,
+        "light": 346.41016151377545
+      },
+      "emit007": {
+        "source": "e1u1/baselt_b",
+        "source_radiance": 2.0,
+        "light": 40.0
+      },
+      "emit008": {
+        "source": "e1u1/baselt_2",
+        "source_radiance": 15000.0,
+        "light": 244.94897427831782
+      },
+      "emit009": {
+        "source": "e2u3/rlight1_2",
+        "source_radiance": 25000.0,
+        "light": 316.22776601683796
+      }
+    },
+    "texture_mapping": {
+      "e2u3/rmetal3_1": "metal_copp_04",
+      "e1u1/c_met5_1": "ind_w04_grey1",
+      "e1u1/clip": "clip",
+      "e1u1/floor3_1": "metal_iron1_10",
+      "e1u1/sky1": "sky_star",
+      "e1u1/yellow1_4": "metal_iron1_09",
+      "e1u1/grate1_4": "metal_iron1_07",
+      "e3u1/+0btshoot2": "ind_w04_grey1",
+      "e1u3/grass1_7": "ind_w02_grey1",
+      "e1u1/sewer1": "emit001",
+      "e3u3/awater": "*water2",
+      "e2u3/rmtl36_4": "metal_copp_04",
+      "e2u3/bmetal12_1": "metal_iron1_01",
+      "e2u3/rlight1_2": "emit002",
+      "e2u3/bmetal11_1": "metal_iron1_05",
+      "e2u3/prwlt2_2": "emit004",
+      "e1u1/wswall1_2": "ind_w02_grey1",
+      "e1u1/wswall1_1": "metal_iron1_09",
+      "e2u3/thinm1_2": "metal_iron1_09",
+      "e2u3/window5_1": "met_brn_pan1",
+      "e1u1/exitdr01_1": "ind_dp01_blk1",
+      "e1u1/baselt_b": "emit005",
+      "e2u1/mine14_1": "ind_w04_rst1",
+      "e2u3/rmetal3_2": "metal_copp_04",
+      "e2u3/rmtl37_1": "met_brn_block",
+      "e2u3/rmetal3_4": "metal_iron1_05",
+      "e2u3/wplat1_2": "ind_brk02_gry1",
+      "e2u3/rmetal4_2": "metal_iron1_05",
+      "e1u1/baselt_2": "emit008",
+      "e2u3/bmetal11_2": "metal_iron1_05",
+      "trigger": "trigger",
+      "e1u1/floor3_2": "metal_iron1_07",
+      "e1u1/doorbot": "ind_dp01_blk1"
+    },
+    "texture_sources": {
+      "metal_copp_04": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_10": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_07": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_01": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_05": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_dp01_blk1": {
+        "kind": "existing project donor",
+        "category": "door|dr[0-9]",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_blk1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk02_gry1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "compbase": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 26,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm1/dm_rcmd_spirit2dm1.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm2",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm2/spirit2dm2.zip",
+    "archive_sha256": "a61f33bd89bd9637f95d4f592a746086f12e9b0dbf681497415121352b74db52",
+    "member": "maps/spirit2dm2.map",
+    "source_sha256": "764699f1f4518a6af9816c8e78664368f07411efdbc1369945327cd21793cea7",
+    "surface_emitters": {
+      "emit000": {
+        "source": "spirit2dm2/1r_light01b",
+        "source_radiance": 50.0,
+        "light": 40.0
+      },
+      "emit001": {
+        "source": "spirit2dm2/1r_light01b",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit002": {
+        "source": "spirit2dm2/hh3_ms_light01",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit003": {
+        "source": "spirit2dm2/hh3_m_light03",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit004": {
+        "source": "spirit2dm2/hh3_ms_light01",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit005": {
+        "source": "spirit2dm2/3r_pipes01",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit006": {
+        "source": "spirit2dm2/1r_metpan06b",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit007": {
+        "source": "spirit2dm2/hh3_m_light03",
+        "source_radiance": 500.0,
+        "light": 44.721359549995796
+      }
+    },
+    "texture_mapping": {
+      "spirit2dm2/1r_metpan02": "metal_iron1_09",
+      "spirit2dm2/floor1_l3_2a": "metal_iron1_10",
+      "spirit2dm2/1r_metrim1b": "metal_iron1_08",
+      "e1u1/sewer1": "met_brn_pan1",
+      "spirit2dm2/1_th_trim04": "met_brn_slat",
+      "spirit2dm2/1r_squ_pan01": "ind_w02_grey1",
+      "spirit2dm2/1r_squ_pan02b": "ind_w04_rst1",
+      "spirit2dm2/1r_metpan01": "met_brn_pan1",
+      "spirit2dm2/white": "metal_iron1_09",
+      "spirit2dm2/1r_thinpan03": "ind_w04_grey1",
+      "spirit2dm2/1r_metpan05b": "met_brn_block",
+      "spirit2dm2/1r_floor": "metal_iron1_10",
+      "spirit2dm2/e8trimlight_edge": "tlight12",
+      "spirit2dm2/1r_metbrick01": "med_csl_brk11",
+      "spirit2dm2/3r_pipes01": "ind_w04_grey1",
+      "spirit2dm2/1r_yuk_sup01": "met_brn_pan1",
+      "spirit2dm2/1r_plain_met01": "ind_w04_grey1",
+      "e1u1/clip": "clip",
+      "spirit2dm2/1r_thinpan04": "ind_w04_grey1",
+      "spirit2dm2/dec02r2_a": "metal_iron1_09",
+      "spirit2dm2/1r_squ_pan02": "ind_w06_rst1",
+      "spirit2dm2/1r_metwl02": "ind_w02_grey1",
+      "spirit2dm2/1r_clocktrim02b": "metal_iron1_08",
+      "spirit2dm2/1r_trim02": "metal_iron1_06",
+      "spirit2dm2/1r_clock_pan02": "ind_w06_rst1",
+      "spirit2dm2/1r_metrim1": "metal_iron1_08",
+      "spirit2dm2/1r_metwl01": "met_brn_pan1",
+      "spirit2dm2/1r_thinpan01": "ind_w04_grey1",
+      "spirit2dm2/1_th_trim06": "met_brn_slat",
+      "spirit2dm2/1r_thickpan03": "ind_w04_rst1",
+      "e1u1/hint": "metal_iron1_09",
+      "spirit2dm2/crate_128": "ind_cont2_blk1",
+      "spirit2dm2/1r_clocktrim02": "metal_iron1_08",
+      "e1u1/bluwter": "ind_w04_rst1",
+      "spirit2dm2/achtung_clang_128": "metal_iron1_10",
+      "spirit2dm2/1r_light01b": "emit001",
+      "spirit2dm2/1r_squ_pan04": "ind_w04_grey1",
+      "spirit2dm2/hh3_ms_light01": "emit004",
+      "spirit2dm2/1r_thickpan02": "met_brn_block",
+      "spirit2dm2/1r_clocktrim03": "met_brn_slat",
+      "spirit2dm2/hh3_m_light03": "emit003",
+      "spirit2dm2/mtl-well_l3_88c": "metal_iron1_05",
+      "spirit2dm2/1r_plain_met02": "ind_w02_grey1",
+      "spirit2dm2/1r_metpan03": "ind_w04_rst1",
+      "spirit2dm2/1r_watmarker01": "ind_w02_grey1",
+      "spirit2dm2/1r_squ_pan03b": "ind_w06_rst1",
+      "spirit2dm2/1r_metpan06b": "emit006",
+      "spirit2dm2/1r_squ_pan03": "ind_w04_rst1",
+      "spirit2dm2/1r_thinpan02": "ind_w02_grey1",
+      "spirit2dm2/1_concrete01": "met_brn_pan1",
+      "spirit2dm2/1r_thickpan01": "ind_w02_grey1",
+      "spirit2dm2/barrel_rst_top": "met_brn_block",
+      "spirit2dm2/barrel_rst_sign": "ind_w06_rst1",
+      "trigger": "trigger",
+      "e1u1/trigger": "trigger"
+    },
+    "texture_sources": {
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_10": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_08": {
+        "kind": "existing project donor",
+        "category": "trim|border|beam|girder|support|edge",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_slat": {
+        "kind": "existing project donor",
+        "category": "trim|border|beam|girder|support|edge",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_csl_brk11": {
+        "kind": "existing project donor",
+        "category": "brick|block|wall.*stone",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w06_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_06": {
+        "kind": "existing project donor",
+        "category": "trim|border|beam|girder|support|edge",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont2_blk1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_05": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk02_gry1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 24,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm2/dm_rcmd_spirit2dm2.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm2ld",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm2/spirit2dm2.zip",
+    "archive_sha256": "a61f33bd89bd9637f95d4f592a746086f12e9b0dbf681497415121352b74db52",
+    "member": "maps/spirit2dm2ld.map",
+    "source_sha256": "739695f6397e2368fdd543d9d126b9c9ee628c4e805a512e5e01116c99227cb6",
+    "surface_emitters": {
+      "emit000": {
+        "source": "spirit2dm2ld/white",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit001": {
+        "source": "spirit2dm2ld/white",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit002": {
+        "source": "spirit2dm2ld/wall",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit003": {
+        "source": "spirit2dm2ld/wall_detail",
+        "source_radiance": 100.0,
+        "light": 40.0
+      }
+    },
+    "texture_mapping": {
+      "spirit2dm2ld/floor_detail": "med_flat5a",
+      "e1u1/bluwter": "ind_w04_rst1",
+      "spirit2dm2ld/wall_detail": "met_brn_pan1",
+      "spirit2dm2ld/white": "ind_brk02_gry1",
+      "spirit2dm2ld/wall": "metal_iron1_09",
+      "spirit2dm2ld/floor": "med_flat5a",
+      "spirit2dm2/white": "metal_iron1_09",
+      "e1u1/clip": "clip",
+      "e1u1/hint": "metal_iron1_09",
+      "trigger": "trigger",
+      "e1u1/trigger": "trigger"
+    },
+    "texture_sources": {
+      "med_flat5a": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk02_gry1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 9,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm2ld/dm_rcmd_spirit2dm2ld.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm3",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm3/spirit2dm3.zip",
+    "archive_sha256": "e1554a2a479c21195d53fa1f2705621b2a0e3d732019227a6cb876528c50107e",
+    "member": "baseq2/maps/spirit2dm3.map",
+    "source_sha256": "cb7d7c26ea0baad1f213e4b28cee48ffe1708f3a90f1199e122a737aeb62d4ec",
+    "surface_emitters": {
+      "emit000": {
+        "source": "e1u1/brlava",
+        "source_radiance": 150.0,
+        "light": 40.0
+      },
+      "emit001": {
+        "source": "e1u1/sewer1",
+        "source_radiance": 50.0,
+        "light": 40.0
+      },
+      "emit002": {
+        "source": "e1u1/brlava",
+        "source_radiance": 400.0,
+        "light": 40.0
+      },
+      "sky_star": {
+        "source": "e1u1/sky1",
+        "source_radiance": 200.0,
+        "light": 40.0
+      },
+      "emit003": {
+        "source": "e1u1/ceil1_2",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit004": {
+        "source": "e1u1/ceil1_4",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit005": {
+        "source": "e1u1/brlava",
+        "source_radiance": 700.0,
+        "light": 52.91502622129181
+      },
+      "emit006": {
+        "source": "e1u1/ceil1_1",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit007": {
+        "source": "e1u1/ceil1_1",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit008": {
+        "source": "e1u2/light1_4",
+        "source_radiance": 2500.0,
+        "light": 100.0
+      },
+      "emit009": {
+        "source": "e1u1/floor3_1",
+        "source_radiance": 2500.0,
+        "light": 100.0
+      },
+      "emit010": {
+        "source": "e1u3/jaildr1_3",
+        "source_radiance": 50.0,
+        "light": 40.0
+      },
+      "emit011": {
+        "source": "e1u1/brlava",
+        "source_radiance": 60.0,
+        "light": 40.0
+      }
+    },
+    "texture_mapping": {
+      "e3u1/c_met51a": "met_brn_block",
+      "e2u3/blum13_1": "ind_w04_rst1",
+      "e1u1/floor3_1": "metal_iron1_10",
+      "e1u1/florr1_2": "ind_w04_grey1",
+      "e1u1/brlava": "emit005",
+      "e3u1/c_met5_1": "metal_iron1_09",
+      "e1u1/c_met7_1": "ind_w04_rst1",
+      "e1u1/sewer1": "emit001",
+      "e1u1/box3_1": "ind_cont2_blk1",
+      "e1u1/clip": "clip",
+      "e1u1/sky1": "sky_star",
+      "e1u1/tram01_1": "ind_w04_grey1",
+      "e1u2/metal5_1": "met_brn_block",
+      "e1u1/ceil1_2": "emit003",
+      "e1u1/yellow1_4": "metal_iron1_09",
+      "e1u1/ceil1_4": "emit004",
+      "e1u2/metals_1": "met_brn_block",
+      "e1u2/metal13_3": "metal_copp_04",
+      "e1u1/box3_5": "ind_cont2_blk1",
+      "e1u1/box3_2": "ind_cont1_ylw1",
+      "e1u1/grnx2_3": "metal_iron1_09",
+      "e1u1/box3_6": "ind_cont2_blk1",
+      "e1u1/box3_3": "ind_cont1_ylw1",
+      "e1u1/florr1_8": "metal_iron1_09",
+      "e1u1/pipe1_3": "met_brn_pan1",
+      "e1u1/ceil1_1": "emit006",
+      "e1u1/comp3_6": "ind_w02_grey1",
+      "e1u1/comp7_1": "compbase",
+      "e1u1/comp3_7": "ind_w04_blk1",
+      "e1u1/comp5_4": "ind_w02_grey1",
+      "e1u2/light1_4": "emit008",
+      "e1u1/metal3_6": "met_brn_block",
+      "e1u1/rocks19_1": "med_cobstn1_2",
+      "e1u2/rocks19_1": "med_cobstn1_2",
+      "e1u1/bluwter": "ind_w04_rst1",
+      "e1u2/window4_2": "ind_w04_rst1",
+      "e2u3/dopfish": "ind_w06_rst1",
+      "e1u1/grass1_3": "ind_w04_grey1",
+      "e1u2/metal2_3": "metal_iron1_05",
+      "e1u2/metal5_2": "metal_iron1_01",
+      "e1u2/metal13_1": "metal_iron1_01",
+      "e1u1/box3_4": "ind_cont1_ylw1",
+      "e1u1/doorbot": "ind_dp01_blk1",
+      "e1u3/jaildr1_3": "emit010",
+      "e2u2/mine03_2": "met_brn_block",
+      "e1u1/ggrate7_1": "met_brn_tile2",
+      "e1u2/metal8_1": "metal_iron1_05",
+      "e1u2/metal13_2": "metal_copp_04",
+      "e1u2/metal12_2": "met_brn_block",
+      "e1u2/metal9_3": "metal_copp_04",
+      "e1u2/metal8_5": "metal_copp_04",
+      "e1u2/metal4_1": "met_brn_block",
+      "e1u2/metal6_3": "metal_iron1_01",
+      "e1u2/metal6_1": "met_brn_block",
+      "e1u2/metal12_1": "met_brn_block",
+      "e1u1/origin": "met_brn_block",
+      "trigger": "trigger",
+      "e1u1/trigger": "trigger"
+    },
+    "texture_sources": {
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_10": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont2_blk1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_copp_04": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont1_ylw1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "compbase": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_blk1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_cobstn1_2": {
+        "kind": "existing project donor",
+        "category": "rock|stone|grnd|ground|dirt|sand",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w06_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_05": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_01": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_dp01_blk1": {
+        "kind": "existing project donor",
+        "category": "door|dr[0-9]",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_dp01_rst1": {
+        "kind": "existing project donor",
+        "category": "door|dr[0-9]",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_tile2": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 33,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm3/dm_rcmd_spirit2dm3.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm4",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm4/spirit2dm4.zip",
+    "archive_sha256": "24370bba49425031fee8fb41c3133f37a4eadc0037a2f7ca0072d8251e5cd87d",
+    "member": "spirit2dm4/baseq2/maps/spirit2dm4.map",
+    "source_sha256": "e09d3345dcfc4e740659ce980becf372c45b84cd047723660e091d4600df1bd7",
+    "surface_emitters": {
+      "emit000": {
+        "source": "e1u1/brlava",
+        "source_radiance": 200.0,
+        "light": 40.0
+      },
+      "sky_star": {
+        "source": "e1u1/sky1",
+        "source_radiance": 150.0,
+        "light": 40.0
+      },
+      "emit001": {
+        "source": "e2u3/baselt_wht",
+        "source_radiance": 1000.0,
+        "light": 63.245553203367585
+      },
+      "emit002": {
+        "source": "e1u1/brlava",
+        "source_radiance": 300.0,
+        "light": 40.0
+      },
+      "emit003": {
+        "source": "e2u3/baselt_d",
+        "source_radiance": 1000.0,
+        "light": 63.245553203367585
+      },
+      "emit004": {
+        "source": "e2u3/wstlt1_5",
+        "source_radiance": 2000.0,
+        "light": 89.44271909999159
+      },
+      "emit005": {
+        "source": "e2u3/wstlt1_5",
+        "source_radiance": 4000.0,
+        "light": 126.49110640673517
+      },
+      "emit006": {
+        "source": "e1u1/ceil1_1",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit007": {
+        "source": "e2u3/ceil1_4",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit008": {
+        "source": "e2u3/baselt_blu",
+        "source_radiance": 1000.0,
+        "light": 63.245553203367585
+      },
+      "emit009": {
+        "source": "e2u3/ceil1_2",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit010": {
+        "source": "e2u3/baselt_d",
+        "source_radiance": 2000.0,
+        "light": 89.44271909999159
+      },
+      "emit011": {
+        "source": "e2u3/baselt_d",
+        "source_radiance": 500.0,
+        "light": 44.721359549995796
+      }
+    },
+    "texture_mapping": {
+      "e2u3/rmetal6_1": "metal_copp_04",
+      "e2u3/florr2_7": "ind_w04_grey1",
+      "e2u3/florr1_2": "ind_w02_grey1",
+      "e1u1/clip": "clip",
+      "e2u3/wires2_1": "ind_w02_grey1",
+      "e2u3/floor1_6": "med_flat5a",
+      "e2u3/floor2_5": "med_flat5a",
+      "e2u3/rmtl36_4": "metal_copp_04",
+      "e2u3/thinm1_2": "metal_iron1_09",
+      "e2u3/lead1_2": "ind_brk02_gry1",
+      "e1u1/brlava": "emit002",
+      "e2u3/metal2_2": "metal_copp_04",
+      "e2u3/bmtb13_1": "metal_iron1_09",
+      "e2u3/pow4_2": "ind_w04_grey1",
+      "e2u3/bmetal12_1": "metal_iron1_01",
+      "e2u3/window5_1": "met_brn_pan1",
+      "e1u1/sky1": "sky_star",
+      "e1u1/hint": "metal_iron1_09",
+      "e2u3/floor3_7": "metal_iron1_07",
+      "e2u3/dopfish": "ind_w06_rst1",
+      "e2u3/baselt_wht": "emit001",
+      "e2u3/mach1_2": "ind_w04_grey1",
+      "e2u3/rocks17_2": "med_rock3",
+      "e2u3/lead2_1": "met_brn_pan1",
+      "e2u3/pipe1_4": "ind_w02_grey1",
+      "e2u3/metal4_2": "metal_iron1_01",
+      "e2u3/yellow1_4": "ind_w06_rst1",
+      "e2u3/baselt_d": "ind_w02_grey1",
+      "e2u3/wstlt1_5": "emit004",
+      "e1u1/box3_5": "ind_cont2_blk1",
+      "e1u1/box3_2": "ind_cont1_ylw1",
+      "e1u1/box3_4": "ind_cont1_ylw1",
+      "e1u1/box3_1": "ind_cont2_blk1",
+      "e1u1/box3_6": "ind_cont2_blk1",
+      "e1u1/box3_3": "ind_cont1_ylw1",
+      "e1u1/florr1_8": "metal_iron1_09",
+      "e1u1/ceil1_1": "emit006",
+      "e2u3/floor1_8": "med_flat5a",
+      "e2u3/ceil1_4": "emit007",
+      "e2u3/bmetal11_2": "metal_iron1_05",
+      "e2u3/baselt_blu": "emit008",
+      "e2u3/bmetal11_1": "metal_iron1_05",
+      "e1u1/bluwter": "ind_w04_rst1",
+      "e2u3/thinm1_3": "ind_w02_grey1",
+      "e2u3/ceil1_2": "emit009",
+      "e1u1/trigger": "trigger",
+      "trigger": "trigger",
+      "e2u3/rocks19_1": "med_rock5",
+      "e2u3/origin": "ind_brk02_gry1"
+    },
+    "texture_sources": {
+      "metal_copp_04": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "ceil|roof",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_flat5a": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk02_gry1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_01": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_07": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w06_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_blk1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_rock3": {
+        "kind": "existing project donor",
+        "category": "rock|stone|grnd|ground|dirt|sand",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont2_blk1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont1_ylw1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_05": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "stn_gw10_blu1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_rock5": {
+        "kind": "existing project donor",
+        "category": "rock|stone|grnd|ground|dirt|sand",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 30,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm4/dm_rcmd_spirit2dm4.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm5",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm5/spirit2dm5.zip",
+    "archive_sha256": "5bbe85eb4e20a1eaf1207e54b88c6c2758c6c579e17f21e5a68c2a28b33b8ed2",
+    "member": "maps/spirit2dm5.map",
+    "source_sha256": "e06580e0965cdf24e0725932bf95dcf03d28496bd1b327da7bb126e0842a1203",
+    "surface_emitters": {
+      "emit000": {
+        "source": "spirit2dm5/slight03",
+        "source_radiance": 800.0,
+        "light": 56.568542494923804
+      },
+      "emit001": {
+        "source": "spirit2dm5/laser04",
+        "source_radiance": 15000.0,
+        "light": 244.94897427831782
+      },
+      "emit002": {
+        "source": "spirit2dm5/metal2_44",
+        "source_radiance": 15000.0,
+        "light": 244.94897427831782
+      },
+      "emit003": {
+        "source": "e1u1/ceil1_7",
+        "source_radiance": 15000.0,
+        "light": 244.94897427831782
+      },
+      "emit004": {
+        "source": "spirit2dm5/laser04",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit005": {
+        "source": "spirit2dm5/wlight4",
+        "source_radiance": 8000.0,
+        "light": 178.88543819998318
+      },
+      "emit006": {
+        "source": "spirit2dm5/slight01",
+        "source_radiance": 6000.0,
+        "light": 154.91933384829667
+      },
+      "emit007": {
+        "source": "spirit2dm5/slight03",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit008": {
+        "source": "e1u1/plite1_1",
+        "source_radiance": 20000.0,
+        "light": 282.842712474619
+      },
+      "emit009": {
+        "source": "spirit2dm5/metal2_44",
+        "source_radiance": 20000.0,
+        "light": 282.842712474619
+      },
+      "emit010": {
+        "source": "e1u1/ceil1_3",
+        "source_radiance": 2000.0,
+        "light": 89.44271909999159
+      },
+      "emit011": {
+        "source": "spirit2dm5/metal2_44",
+        "source_radiance": 2000.0,
+        "light": 89.44271909999159
+      },
+      "emit012": {
+        "source": "spirit2dm5/metal1_42",
+        "source_radiance": 15000.0,
+        "light": 244.94897427831782
+      },
+      "emit013": {
+        "source": "e1u1/ceil1_8",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit014": {
+        "source": "spirit2dm5/metal2_44",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit015": {
+        "source": "e1u1/ceil1_3",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit016": {
+        "source": "spirit2dm5/base1_3a1",
+        "source_radiance": 8000.0,
+        "light": 178.88543819998318
+      },
+      "emit017": {
+        "source": "e1u1/ceil1_7",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit018": {
+        "source": "e1u1/ceil1_3",
+        "source_radiance": 8000.0,
+        "light": 178.88543819998318
+      },
+      "emit019": {
+        "source": "e1u1/ceil1_3",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit020": {
+        "source": "e2u1/w_white",
+        "source_radiance": 3000.0,
+        "light": 109.54451150103323
+      },
+      "emit021": {
+        "source": "spirit2dm5/metal2_44",
+        "source_radiance": 800.0,
+        "light": 56.568542494923804
+      },
+      "emit022": {
+        "source": "e2u1/w_white",
+        "source_radiance": 1500.0,
+        "light": 77.45966692414834
+      },
+      "emit023": {
+        "source": "e1u1/brlava",
+        "source_radiance": 150.0,
+        "light": 40.0
+      }
+    },
+    "texture_mapping": {
+      "spirit2dm5/metal1_42": "metal_iron1_01",
+      "spirit2dm5/metal2_12a": "metal_iron1_05",
+      "spirit2dm5/metal2_44": "metal_copp_04",
+      "spirit2dm5/base1_3a1": "compbase",
+      "spirit2dm5/metal1_23": "metal_iron1_05",
+      "spirit2dm5/hazard": "ind_w06_rst1",
+      "e1u1/sky1": "sky_star",
+      "spirit2dm5/floor6b": "met_brn_tile2",
+      "spirit2dm5/metal2_481": "metal_iron1_01",
+      "spirit2dm5/base2_2a": "ind_w04_blk1",
+      "spirit2dm5/metal1_24": "metal_iron1_01",
+      "spirit2dm5/metal2_47": "met_brn_block",
+      "e1u1/clip": "clip",
+      "e1u1/bluwter": "ind_w04_rst1",
+      "spirit2dm5/metal1_40": "metal_iron1_01",
+      "spirit2dm5/metal5_16": "metal_copp_04",
+      "spirit2dm5/crate23": "ind_cont1_ylw1",
+      "spirit2dm5/floor7": "med_flat5a",
+      "spirit2dm5/slight03": "emit000",
+      "spirit2dm5/base1_1": "ind_w02_grey1",
+      "e1u1/ceil1_8": "metal_iron1_13",
+      "e1u1/floor3_1": "metal_iron1_10",
+      "e1u1/sewer1": "met_brn_pan1",
+      "e1u1/trigger": "trigger",
+      "spirit2dm5/laser04": "emit001",
+      "spirit2dm5/metal1_52": "metal_iron1_01",
+      "spirit2dm5/metal5_17": "metal_iron1_05",
+      "e1u1/ceil1_7": "emit017",
+      "spirit2dm5/wlight4": "emit005",
+      "spirit2dm5/slight01": "emit006",
+      "spirit2dm5/metal2_15": "metal_copp_04",
+      "e1u1/plite1_1": "emit008",
+      "e1u1/ceil1_3": "emit019",
+      "e1u2/window4_2": "ind_w04_rst1",
+      "spirit2dm5/metal1_31a": "metal_iron1_01",
+      "e1u1/baslt3_1": "ind_brk02_gry1",
+      "e1u1/wndow0_1": "ind_w04_grey1",
+      "e2u1/w_white": "ind_brk02_gry1",
+      "e1u1/pipe1_3": "met_brn_pan1",
+      "e2u3/tlava1_3": "*lava1",
+      "spirit2dm5/base1_666": "ind_w02_grey1",
+      "e1u1/rocks19_1": "med_cobstn1_2",
+      "e1u1/brlava": "emit023",
+      "trigger": "trigger",
+      "e2u3/dopfish": "ind_w06_rst1"
+    },
+    "texture_sources": {
+      "metal_iron1_01": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_05": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_copp_04": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "compbase": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w06_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_tile2": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_blk1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont1_ylw1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_flat5a": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_13": {
+        "kind": "existing project donor",
+        "category": "ceil|roof",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_10": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk02_gry1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_cobstn1_2": {
+        "kind": "existing project donor",
+        "category": "rock|stone|grnd|ground|dirt|sand",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 45,
+    "status": "unsupported",
+    "reason": "qbsp failed: t/tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm5/arena.wad\nProcessing hull 0...\n---- Brush_LoadEntity ----\n\n  1%\n  2%\n  3%\n  4%\n  5%\n  6%\n  7%\n  8%\n  9%\n 10%\n 11%\n 12%\n 13%\n 14%\n 16%\n 17%\n 18%\n 19%\n 20%\n 21%\n 22%\n 23%\n 24%\n 25%\n 26%\n 27%\n 28%\n 29%\n 30%\n 31%\n 32%\n 33%\n 34%\n 35%\n 36%\n 37%\n 38%\n 39%\n 40%\n 41%\n 42%\n 43%\n 44%\n 45%\n 46%\n 47%\n 48%\n 49%\n 50%\n 51%\n 52%\n 53%\n 54%\n 55%\n 56%\n 57%\n 58%\n 59%\n 60%\n 61%\n 62%\n 63%\n 65%\n 66%\n 67%\n 68%\n 69%\n 70%\n 71%\n 72%\n 73%\n 74%\n 75%\n 76%\n 77%\n 78%\n 79%\n 80%\n 81%\n 82%\n 83%\n 84%\n 85%\n 86%\n 87%\n 88%\n 89%\n 90%\n 91%\n 92%\n 93%\n 94%\n 95%\n 96%\n 97%\n 98%************ ERROR ************\nbrush->faces >= MAX_FACES (128), source brush on line 17477\n"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm6",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm6/spirit2dm6.zip",
+    "archive_sha256": "826bc1779af6957e7bfa283609a4f780fd14e6a806c279ccc2355191a10c42ea",
+    "member": "maps/spirit2dm6.map",
+    "source_sha256": "7fd924b5fbd03644627f0274c88fbda49db63974cd92d966a54db4f2bb202a63",
+    "surface_emitters": {
+      "emit000": {
+        "source": "e2u3/sewer1_300",
+        "source_radiance": 400.0,
+        "light": 40.0
+      },
+      "emit001": {
+        "source": "e2u3/sewer1_300",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit002": {
+        "source": "e2u3/sewer1_300",
+        "source_radiance": 300.0,
+        "light": 40.0
+      },
+      "emit003": {
+        "source": "e2u3/sewer1_300",
+        "source_radiance": 200.0,
+        "light": 40.0
+      },
+      "emit004": {
+        "source": "e1u2/ceil1_4",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit005": {
+        "source": "e2u2/flesh1_1",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit006": {
+        "source": "e1u2/ceil1_8",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit007": {
+        "source": "e1u1/jaildr1_3",
+        "source_radiance": 200.0,
+        "light": 40.0
+      },
+      "sky_star": {
+        "source": "e1u1/sky1",
+        "source_radiance": 120.0,
+        "light": 40.0
+      },
+      "emit008": {
+        "source": "e1u2/ceil1_8",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit009": {
+        "source": "e1u1/baselt_2",
+        "source_radiance": 1000.0,
+        "light": 63.245553203367585
+      },
+      "emit010": {
+        "source": "e1u1/baselt_4",
+        "source_radiance": 3000.0,
+        "light": 109.54451150103323
+      },
+      "emit011": {
+        "source": "e1u2/light03_2",
+        "source_radiance": 200.0,
+        "light": 40.0
+      },
+      "emit012": {
+        "source": "e1u2/ceil1_4",
+        "source_radiance": 3000.0,
+        "light": 109.54451150103323
+      },
+      "emit013": {
+        "source": "e1u2/ceil1_4",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit014": {
+        "source": "e1u2/ceil1_8",
+        "source_radiance": 4000.0,
+        "light": 126.49110640673517
+      },
+      "emit015": {
+        "source": "e1u2/ceil1_8",
+        "source_radiance": 3000.0,
+        "light": 109.54451150103323
+      },
+      "emit016": {
+        "source": "e1u2/ceil1_7",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit017": {
+        "source": "e1u2/ceil1_7",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit018": {
+        "source": "e1u1/ceil1_3",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit019": {
+        "source": "e1u1/ceil1_3",
+        "source_radiance": 3000.0,
+        "light": 109.54451150103323
+      },
+      "emit020": {
+        "source": "e1u1/ceil1_3",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit021": {
+        "source": "e2u3/sewer1_300",
+        "source_radiance": 500.0,
+        "light": 44.721359549995796
+      }
+    },
+    "texture_mapping": {
+      "e1u4/fmet1_2": "ind_w04_rst1",
+      "e2u1/metal3_1": "met_brn_block",
+      "e2u1/metal36_2": "metal_iron1_01",
+      "e2u3/floor2_5": "med_flat5a",
+      "e1u2/metal6_2": "metal_iron1_01",
+      "e2u2/bmetal13_1": "metal_iron1_01",
+      "e2u3/sewer1_300": "ind_w04_grey1",
+      "e2u1/metal36_4": "metal_iron1_01",
+      "e1u1/metal1_3": "met_brn_block",
+      "e2u3/blbk1_2": "ind_w04_rst1",
+      "e1u1/metal1_5": "metal_iron1_01",
+      "e2u3/blbk2_1": "ind_w04_rst1",
+      "e2u3/floor2_8": "met_brn_tile2",
+      "e1u1/box3_3": "ind_cont1_ylw1",
+      "e1u1/floor3_2": "metal_iron1_07",
+      "e2u3/flr1_2": "metal_iron1_07",
+      "e1u1/metal1_8": "met_brn_block",
+      "e2u3/metal16_1": "metal_iron1_05",
+      "e1u1/clip": "clip",
+      "e2u2/bmetal11_1": "met_brn_block",
+      "e2u1/metal36_1": "metal_iron1_01",
+      "e2u3/green3_1": "ind_w02_grey1",
+      "e2u2/metal36_4": "metal_iron1_05",
+      "e2u3/metal17_1": "metal_iron1_01",
+      "e2u2/metal37_1": "metal_iron1_01",
+      "e2u3/metal1_2": "metal_iron1_05",
+      "e2u1/rocks21_1": "med_rock5",
+      "e1u2/ceil1_4": "emit004",
+      "e2u2/flesh1_1": "emit005",
+      "e1u1/support1_3": "metal_iron1_04",
+      "e1u1/grate1_4": "metal_iron1_07",
+      "spirit2dm6/qw_tele": "ind_dp01_blu1",
+      "e1u2/ceil1_8": "emit006",
+      "e2u2/metal24_1": "met_brn_block",
+      "e2u3/metal5_2": "metal_iron1_05",
+      "e1u1/box3_1": "ind_cont2_blk1",
+      "e2u3/lead1_1": "metal_iron1_09",
+      "e1u2/metal6_1": "met_brn_block",
+      "e2u2/bmetal11_2": "metal_iron1_05",
+      "e1u1/hint": "metal_iron1_09",
+      "e2u3/grnx2_1": "ind_w04_rst1",
+      "e1u1/jaildr1_3": "ind_dp01_blk1",
+      "e1u1/sky1": "sky_star",
+      "e2u3/dopfish": "ind_w06_rst1",
+      "e1u1/box3_2": "ind_cont1_ylw1",
+      "e1u1/box1_5": "ind_cont1_ylw1",
+      "e1u1/box3_7": "ind_cont2_blk1",
+      "e2u1/thinm1_1": "ind_w04_grey1",
+      "e1u1/baselt_2": "emit009",
+      "e2u3/pipe1_4": "ind_w02_grey1",
+      "e2u1/metal36_3": "metal_iron1_05",
+      "e1u1/baselt_4": "emit010",
+      "e3u1/pow2_1": "ind_w04_grey1",
+      "e1u2/light03_2": "tlight12",
+      "e2u3/florr1_1": "metal_iron1_09",
+      "e1u2/ceil1_7": "emit016",
+      "e1u1/ceil1_3": "emit020",
+      "e2u3/metl10_2": "ind_w04_grey1",
+      "e1u1/rpip2_2": "ind_w04_grey1",
+      "e1u1/metal1_2": "metal_copp_04",
+      "e2u3/lead2_1": "met_brn_pan1",
+      "e1u1/trigger": "trigger",
+      "trigger": "trigger",
+      "e1u2/btactmach2": "metal_iron1_09"
+    },
+    "texture_sources": {
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_01": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_flat5a": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_tile2": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont1_ylw1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_07": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_05": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_rock5": {
+        "kind": "existing project donor",
+        "category": "rock|stone|grnd|ground|dirt|sand",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_13": {
+        "kind": "existing project donor",
+        "category": "ceil|roof",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_04": {
+        "kind": "existing project donor",
+        "category": "trim|border|beam|girder|support|edge",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_dp01_blu1": {
+        "kind": "existing project donor",
+        "category": "tele",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont2_blk1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_dp01_blk1": {
+        "kind": "existing project donor",
+        "category": "door|dr[0-9]",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w06_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "compbase": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_copp_04": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 45,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm6/dm_rcmd_spirit2dm6.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm7",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm7/spirit2dm7.zip",
+    "archive_sha256": "ea6c9461a6eddb1de4ed3d01d2e9e2fcd6c9612206c3bb90aa9c2b71678f715a",
+    "member": "maps/spirit2dm7.map",
+    "source_sha256": "3eca3b6d780423dda49853d35f26df98c61d5a7adf1f9f29419e90640dbcfc88",
+    "surface_emitters": {
+      "emit000": {
+        "source": "e1u2/ceil1_8",
+        "source_radiance": 4000.0,
+        "light": 126.49110640673517
+      },
+      "emit001": {
+        "source": "e1u2/support1_10",
+        "source_radiance": 500.0,
+        "light": 44.721359549995796
+      },
+      "emit002": {
+        "source": "e1u1/wslt1_5",
+        "source_radiance": 1000.0,
+        "light": 63.245553203367585
+      },
+      "emit003": {
+        "source": "e1u3/troof5_3",
+        "source_radiance": 1500.0,
+        "light": 77.45966692414834
+      },
+      "sky_star": {
+        "source": "e1u1/sky1",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit004": {
+        "source": "e1u2/ceil1_8",
+        "source_radiance": 10000.0,
+        "light": 200.0
+      },
+      "emit005": {
+        "source": "e1u2/ceil1_8",
+        "source_radiance": 500.0,
+        "light": 44.721359549995796
+      },
+      "emit006": {
+        "source": "e1u2/ceil1_7",
+        "source_radiance": 4000.0,
+        "light": 126.49110640673517
+      },
+      "emit007": {
+        "source": "e1u2/ceil1_4",
+        "source_radiance": 4000.0,
+        "light": 126.49110640673517
+      }
+    },
+    "texture_mapping": {
+      "e1u2/ceil1_8": "emit004",
+      "e1u1/floor3_2": "metal_iron1_07",
+      "e2u3/blum13_1": "ind_w04_rst1",
+      "e1u2/support1_10": "emit001",
+      "e2u3/blume7_2": "met_brn_block",
+      "e2u2/floor1_5": "metal_iron1_10",
+      "e1u1/rocks19_1": "med_cobstn1_2",
+      "e1u1/clip": "clip",
+      "e1u1/grass1_3": "ind_w04_grey1",
+      "e1u1/wndow0_1": "ind_w04_grey1",
+      "e1u1/wslt1_5": "emit002",
+      "e1u1/bluwter": "ind_w04_rst1",
+      "e1u3/troof5_3": "emit003",
+      "e1u1/sky1": "sky_star",
+      "e1u3/fmet1_2": "ind_w04_grey1",
+      "e1u1/grass1_4": "ind_w02_grey1",
+      "e1u2/ceil1_7": "emit006",
+      "e1u1/box3_6": "ind_cont2_blk1",
+      "e1u1/box3_3": "ind_cont1_ylw1",
+      "e1u1/box3_4": "ind_cont1_ylw1",
+      "e1u1/doorbot": "ind_dp01_blk1",
+      "e1u1/box3_1": "ind_cont2_blk1",
+      "e1u2/ceil1_4": "emit007",
+      "e1u2/rocks19_1": "med_cobstn1_2",
+      "e1u1/pip01_4": "ind_w02_grey1",
+      "e1u1/sewer1": "met_brn_pan1",
+      "spirit2dm7/trans": "ind_w06_rst1",
+      "spirit2dm7/dry_grass": "ind_w02_grey1",
+      "spirit2dm7/q2rl_blum13_1": "ind_w06_rst1",
+      "e1u1/p_tub1_1": "met_brn_block",
+      "e1u1/trigger": "trigger",
+      "trigger": "trigger"
+    },
+    "texture_sources": {
+      "metal_iron1_13": {
+        "kind": "existing project donor",
+        "category": "ceil|roof",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_07": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_slat": {
+        "kind": "existing project donor",
+        "category": "trim|border|beam|girder|support|edge",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_10": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_cobstn1_2": {
+        "kind": "existing project donor",
+        "category": "rock|stone|grnd|ground|dirt|sand",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "ceil|roof",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont2_blk1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_cont1_ylw1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_dp01_blk1": {
+        "kind": "existing project donor",
+        "category": "door|dr[0-9]",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w06_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 21,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm7/dm_rcmd_spirit2dm7.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit2dm9",
+    "collection": "rcmd_quake2",
+    "source_url": "https://maps.rcmd.org/quake2/spirit2dm9/spirit2dm9.zip",
+    "archive_sha256": "b3ab62b58d482541de0964225594e55bd24f81c7bfaa9c3d2526b5ba1aed0665",
+    "member": "maps/spirit2dm9.map",
+    "source_sha256": "0ffa35be73501d799356f7416eb3a8531a256445937327bffdab29dd7d3f78d7",
+    "surface_emitters": {
+      "emit000": {
+        "source": "spirit2dm9/floor_3",
+        "source_radiance": 50.0,
+        "light": 40.0
+      },
+      "emit001": {
+        "source": "spirit2dm9/trim_9",
+        "source_radiance": 50.0,
+        "light": 40.0
+      },
+      "sky_star": {
+        "source": "e1u1/sky1",
+        "source_radiance": 50.0,
+        "light": 40.0
+      },
+      "emit002": {
+        "source": "e1u2/light03_2",
+        "source_radiance": 3000.0,
+        "light": 109.54451150103323
+      },
+      "emit003": {
+        "source": "e1u2/light03_2",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit004": {
+        "source": "e1u1/wslt1_5",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit005": {
+        "source": "e1u2/light03_2",
+        "source_radiance": 2000.0,
+        "light": 89.44271909999159
+      },
+      "emit006": {
+        "source": "e1u2/ceil1_4",
+        "source_radiance": 5000.0,
+        "light": 141.4213562373095
+      },
+      "emit007": {
+        "source": "e1u2/light1_4",
+        "source_radiance": 2500.0,
+        "light": 100.0
+      },
+      "emit008": {
+        "source": "e1u1/wslt1_5",
+        "source_radiance": 2000.0,
+        "light": 89.44271909999159
+      }
+    },
+    "texture_mapping": {
+      "spirit2dm9/floor_3": "metal_iron1_07",
+      "spirit2dm9/trim_9": "metal_iron1_08",
+      "spirit2dm9/bricks_1": "med_csl_brk11",
+      "spirit2dm9/trim_6": "metal_iron1_04",
+      "spirit2dm9/concrete_1_hq": "metal_iron1_09",
+      "spirit2dm9/tile_1": "met_brn_block",
+      "spirit2dm9/dirt_1_hq": "med_rock3",
+      "spirit2dm9/concrete_tile": "ind_w02_grey1",
+      "spirit2dm9/floor_1": "med_flat5a",
+      "spirit2dm9/concrete_5": "met_brn_block",
+      "spirit2dm9/wall_7_hq": "ind_w04_grey1",
+      "spirit2dm9/concrete_3": "ind_w06_rst1",
+      "e1u1/bluwter": "ind_w04_rst1",
+      "spirit2dm9/concrete_4": "ind_w04_rst1",
+      "spirit2dm9/trim_10": "metal_iron1_08",
+      "spirit2dm9/trim_4": "metal_iron1_04",
+      "spirit2dm9/fan_frame": "met_brn_pan1",
+      "spirit2dm9/metal_4": "met_brn_block",
+      "spirit2dm9/metal_2": "metal_copp_04",
+      "spirit2dm9/floor_2": "metal_iron1_10",
+      "spirit2dm9/wood_1_hq": "med_wood4",
+      "e1u1/sky1": "sky_star",
+      "spirit2dm9/trim_8": "metal_iron1_04",
+      "e1u1/clip": "clip",
+      "spirit2dm9/threadplate2_hq": "metal_copp_04",
+      "e1u2/light03_2": "emit002",
+      "e1u1/wslt1_5": "emit008",
+      "spirit2dm9/threadplate3_hq": "metal_iron1_05",
+      "e1u2/ceil1_4": "emit006",
+      "e1u1/floor3_3": "metal_iron1_07",
+      "spirit2dm9/wood_support_hq": "med_wood4",
+      "spirit2dm9/cliff": "ind_w04_rst1",
+      "e1u1/floor3_1": "metal_iron1_10",
+      "e1u2/light1_4": "emit007",
+      "spirit2dm9/pipe_inside": "ind_w06_rst1",
+      "spirit2dm9/concrete_2": "ind_brk02_gry1",
+      "e1u2/wndow1_2": "met_brn_block",
+      "e1u1/trigger": "trigger",
+      "trigger": "trigger"
+    },
+    "texture_sources": {
+      "metal_iron1_07": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_08": {
+        "kind": "existing project donor",
+        "category": "trim|border|beam|girder|support|edge",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_csl_brk11": {
+        "kind": "existing project donor",
+        "category": "brick|block|wall.*stone",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_04": {
+        "kind": "existing project donor",
+        "category": "trim|border|beam|girder|support|edge",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_09": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_rock3": {
+        "kind": "existing project donor",
+        "category": "rock|stone|grnd|ground|dirt|sand",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_flat5a": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_grey1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w06_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_rst1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_pan1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_copp_04": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_10": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_wood4": {
+        "kind": "existing project donor",
+        "category": "wood|timber",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_05": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_13": {
+        "kind": "existing project donor",
+        "category": "ceil|roof",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk02_gry1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      }
+    },
+    "unique_colour_materials": 28,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit2dm9/dm_rcmd_spirit2dm9.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit3dm1",
+    "collection": "rcmd_quake3",
+    "source_url": "https://maps.rcmd.org/quake3/spirit3dm1/spirit3dm1.zip",
+    "archive_sha256": "c163cd1d9b56e29ffe35f61dbeac8f55437b982a976c6051ca126fd58ac07626",
+    "member": "maps/spirit3dm1.map",
+    "source_sha256": "f8d44b28bbc28428752f20f07129acef705d92dec0a694a34d10510fe0983993",
+    "status": "unsupported",
+    "reason": "Curved patches/brush primitives require a separate geometry adapter; not discarded"
+  },
+  {
+    "id": "dm_rcmd_spirit3t1",
+    "collection": "rcmd_quake3",
+    "source_url": "https://maps.rcmd.org/quake3/spirit3t1/spirit3t1.zip",
+    "archive_sha256": "f6481b23dfe34023c54042c42ce3e4499c24005c544c0d50e7ab112866f3ffb4",
+    "member": "maps/spirit3t1.map",
+    "source_sha256": "a9addd025263805c05e2e64ad56936cfbea2774e24c57460f2567b2b9c25a087",
+    "surface_emitters": {
+      "emit000": {
+        "source": "gothic_light/ironcrosslt2_1000",
+        "source_radiance": 0.0,
+        "light": 180.0
+      }
+    },
+    "texture_mapping": {
+      "gothic_floor/largerblock3b_ow": "med_csl_brk11",
+      "gothic_floor/largerblock3b": "med_csl_brk11",
+      "gothic_block/killblock": "ind_brk01_brwn",
+      "gothic_block/blocks10": "med_csl_brk15",
+      "base_floor/clangdark": "metal_iron1_07",
+      "gothic_floor/xq1metalbig_ow": "metal_iron1_10",
+      "liquids/slime1": "*slime1",
+      "base_floor/clang_floor3blava": "*lava1",
+      "spirit3t1/angkor_01": "rca21c3e2fd0dd",
+      "gothic_light/ironcrosslt2_1000": "emit000",
+      "gothic_block/xgkc_lower": "med_csl_brk15",
+      "gothic_block/blocks18cblood": "med_csl_brk15",
+      "common/botclip": "clip",
+      "base_wall/metalblack03": "ind_w02_grey1",
+      "gothic_block/killblock_j": "med_csl_brk15",
+      "gothic_block/blocks18c_3": "ind_brk02_gry1",
+      "gothic_block/killblock_j2": "ind_brk01_brwn",
+      "common/clip": "clip",
+      "gothic_floor/xq1metalbig": "metal_iron1_07",
+      "gothic_block/blocks18c": "med_csl_brk15",
+      "gothic_floor/q1metal7_98d_256x256": "metal_iron1_10",
+      "base_floor/concretefloor1": "med_flat5a",
+      "skies/hellsky2bright": "sky_star",
+      "gothic_block/blocks18d": "med_csl_brk11",
+      "base_wall/rusted": "ind_w04_blk1",
+      "gothic_block/blocks17g": "ind_brk01_brwn",
+      "gothic_floor/q1metal7_99": "metal_iron1_07",
+      "spirit3t1/blocks18c_3_evilwindow": "rc6e416d03201b",
+      "gothic_wall/metalciclesdark": "metal_copp_04",
+      "spirit3t1/backtowerfinal": "rcf666c5a503c1",
+      "common/donotenter": "met_brn_block",
+      "gothic_block/blocks18cbloodhead": "med_csl_brk15",
+      "base_floor/clangdarkspot": "metal_iron1_07",
+      "base_floor/clang_floor": "metal_iron1_10",
+      "base_floor/clangdark_ow2": "metal_iron1_07",
+      "gothic_floor/pent_metalbridge06": "met_brn_tile2",
+      "liquids/clear_ripple1": "ind_brk02_gry1",
+      "spirit3t1/angkor_08": "rc75105eb08f9f",
+      "gothic_floor/q1metal7_99_broke": "met_brn_tile2",
+      "gothic_wall/metalciclesdark_pipe": "met_brn_block",
+      "base_object/boxQ3_3": "ind_cont1_ylw1",
+      "gothic_floor/q1metal7_99spot": "met_brn_tile2",
+      "base_object/boxq3_4": "ind_cont1_ylw1",
+      "base_object/boxQ3_3b": "ind_cont1_ylw1",
+      "base_wall/steed2f": "ind_w04_blk1",
+      "spirit3t1/qw_teleporter": "rc2e8245106a12",
+      "common/trigger": "trigger"
+    },
+    "texture_sources": {
+      "med_csl_brk11": {
+        "kind": "existing project donor",
+        "category": "brick|block|wall.*stone",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk01_brwn": {
+        "kind": "existing project donor",
+        "category": "brick|block|wall.*stone",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_csl_brk15": {
+        "kind": "existing project donor",
+        "category": "brick|block|wall.*stone",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_07": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "metal_iron1_10": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "rca21c3e2fd0dd": {
+        "kind": "packaged image",
+        "member": "textures/spirit3t1/angkor_01.tga",
+        "sha256": "d7a15b6fd17c40911693b2181ffd18e632af2e40100a0c5a12e9c39d4f2b0bc5",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "tlight12": {
+        "kind": "existing project donor",
+        "category": "light|ceil1_1|ceil1_2",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w02_grey1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_brk02_gry1": {
+        "kind": "existing project donor",
+        "category": "wall",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "med_flat5a": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "ind_w04_blk1": {
+        "kind": "existing project donor",
+        "category": "comp|tech|base|panel",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "rc6e416d03201b": {
+        "kind": "packaged image",
+        "member": "textures/spirit3t1/blocks18c_3_evilwindow.jpg",
+        "sha256": "5acd1c2b85d71256206015e3039f63c55e52e7c4e129da27b34e6465384110d8",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 512
+      },
+      "metal_copp_04": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "rcf666c5a503c1": {
+        "kind": "packaged image",
+        "member": "textures/spirit3t1/backtowerfinal.jpg",
+        "sha256": "f5cc4299ad88e2b2fb842c4ede0499c72fcaecddc37d18bf26939d2b4e1f1ffd",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 448,
+        "height": 1024
+      },
+      "met_brn_block": {
+        "kind": "existing project donor",
+        "category": "metal|mtl|rust|plate",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "met_brn_tile2": {
+        "kind": "existing project donor",
+        "category": "floor|flr|clang|grate|grid|step|stair",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "rc75105eb08f9f": {
+        "kind": "packaged image",
+        "member": "textures/spirit3t1/angkor_08.tga",
+        "sha256": "baaed2c03cbbea95df45a9f96980623acd1ab452e09b4df2023c58ab751b4fe7",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "ind_cont1_ylw1": {
+        "kind": "existing project donor",
+        "category": "crate|box|cont",
+        "license": "Existing LibreQuake/Makkon project notices; original donor pixels and four mip levels retained"
+      },
+      "rc2e8245106a12": {
+        "kind": "packaged image",
+        "member": "textures/spirit3t1/qw_teleporter.tga",
+        "sha256": "59fd745ccbdd2525bb29733e8864b24f007fef783c13a1ebceaf788f6fbba847",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      }
+    },
+    "unique_colour_materials": 22,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_spirit3t1/dm_rcmd_spirit3t1.bsp"
+  },
+  {
+    "id": "dm_rcmd_spirit3t2",
+    "collection": "rcmd_quake3",
+    "source_url": "https://maps.rcmd.org/quake3/spirit3t2/spirit3t2.zip",
+    "archive_sha256": "175a3f2ed120a5aef7161ebb9643f6418ff9d8e30ae72bda7125b1de2da14190",
+    "member": "maps/spirit3t2.map",
+    "source_sha256": "0843cb177c169f37608006e72c68096796d7d8255aeab220e05c16828243cdeb",
+    "status": "unsupported",
+    "reason": "Curved patches/brush primitives require a separate geometry adapter; not discarded"
+  },
+  {
+    "id": "dm_rcmd_spirit3t3",
+    "collection": "rcmd_quake3",
+    "source_url": "https://maps.rcmd.org/quake3/spirit3t3/spirit3t3.zip",
+    "archive_sha256": "58875b42c925c23015c992c60c9ed327ac5103e8aa4b708efb5524f05c853717",
+    "member": "maps/spirit3t3.map",
+    "source_sha256": "04775a4e9df113760c2885f3a310a61dd51e891d2b2c45a612d50611faedf199",
+    "status": "unsupported",
+    "reason": "Curved patches/brush primitives require a separate geometry adapter; not discarded"
+  },
+  {
+    "id": "dm_rcmd_spirit3t3a",
+    "collection": "rcmd_quake3",
+    "source_url": "https://maps.rcmd.org/quake3/spirit3t3a/spirit3t3a.zip",
+    "archive_sha256": "24874f7b0ba05a1f90037cf3d8b62483edec3979c0822124854b1350b97c4870",
+    "member": "maps/spirit3t3a.map",
+    "source_sha256": "2722aa4ce71eeaa9c6499fb3adb48c5df7ae7358552c701c37f3765cfd786661",
+    "status": "unsupported",
+    "reason": "Curved patches/brush primitives require a separate geometry adapter; not discarded"
+  },
+  {
+    "id": "dm_rcmd_spirit3ctfduel1",
+    "collection": "rcmd_quake3",
+    "source_url": "https://maps.rcmd.org/quake3/spirit3ctfduel1/spirit3ctfduel1.zip",
+    "archive_sha256": "7530862003f6f5ca2fd78ec96c8f49a182ad269c667f3b4a87fdc22d84eb0e28",
+    "member": "maps/spirit3ctfduel1.map",
+    "source_sha256": "ac0b9c862a88f8b0776441a105ae2eeefbd7aec62f65cd4ad9b075417b0cc46c",
+    "status": "unsupported",
+    "reason": "Curved patches/brush primitives require a separate geometry adapter; not discarded"
+  },
+  {
+    "id": "dm_rcmd_resurrection",
+    "collection": "rcmd_q2w",
+    "source_url": "https://maps.rcmd.org/q2w/resurrection/resurrection.zip",
+    "archive_sha256": "97b512c974673144a2a33c1c1b486d4dd66196543fca9bb4377adaeda02ce5ff",
+    "member": "maps/resurrection.map",
+    "source_sha256": "8f2d8d3d936c6f4ebeb42338fd789e9458fed593aba185b213c9cd1ebf5d55f7",
+    "surface_emitters": {
+      "sky_star": {
+        "source": "e1u1/sky1",
+        "source_radiance": 800.0,
+        "light": 56.568542494923804
+      },
+      "emit000": {
+        "source": "e1u1/sewer1",
+        "source_radiance": 100.0,
+        "light": 40.0
+      },
+      "emit001": {
+        "source": "resurrection/eq2_32caplight",
+        "source_radiance": 20000.0,
+        "light": 282.842712474619
+      },
+      "emit002": {
+        "source": "resurrection/eq2_32caplight",
+        "source_radiance": 16000.0,
+        "light": 252.98221281347034
+      },
+      "emit003": {
+        "source": "resurrection/eq2_bmtl",
+        "source_radiance": 6000.0,
+        "light": 154.91933384829667
+      },
+      "emit004": {
+        "source": "resurrection/eq2_baselt03",
+        "source_radiance": 6000.0,
+        "light": 154.91933384829667
+      },
+      "emit005": {
+        "source": "resurrection/eq2_baselt04",
+        "source_radiance": 6000.0,
+        "light": 154.91933384829667
+      },
+      "emit006": {
+        "source": "e1u1/baselt_b",
+        "source_radiance": 25000.0,
+        "light": 316.22776601683796
+      },
+      "emit007": {
+        "source": "e1u1/baselt_b",
+        "source_radiance": 30000.0,
+        "light": 346.41016151377545
+      },
+      "emit008": {
+        "source": "e1u1/baselt_b",
+        "source_radiance": 2.0,
+        "light": 40.0
+      },
+      "emit009": {
+        "source": "e1u1/baselt_2",
+        "source_radiance": 15000.0,
+        "light": 244.94897427831782
+      },
+      "emit010": {
+        "source": "resurrection/eq2_32caplight",
+        "source_radiance": 25000.0,
+        "light": 316.22776601683796
+      }
+    },
+    "texture_mapping": {
+      "resurrection/eq2_bmtl": "rcbe0cf7607a85",
+      "resurrection/eq2_steptop01": "rc66505aac8e89",
+      "resurrection/eq2_stepside_01": "rc93c269bb58ac",
+      "resurrection/eq2_floor_05": "rc05cd33e64d77",
+      "common/clip": "clip",
+      "resurrection/eq2_floor_07": "rcc97b0eeb9450",
+      "e1u1/sky1": "sky_star",
+      "common/hint": "rc387e774b7bb2",
+      "e1u1/yellow1_4": "rc9ffdfa3730e8",
+      "resurrection/eq2_floor_01": "rccf022fdae9d7",
+      "resurrection/eq2_wire": "rc4320bbff84a6",
+      "e3u1/grass1_3": "rc5db14091455f",
+      "resurrection/eq2_telegoo": "rcf91a6868165d",
+      "e1u3/grass1_7": "rc50212ba03bf1",
+      "e1u1/sewer1": "emit000",
+      "resurrection/eq2_trimh_03": "rc71c12a44717b",
+      "resurrection/eq2_floor_02": "rc33e1619559da",
+      "resurrection/eq2_32caplight": "emit001",
+      "resurrection/eq2_bmtl_05": "rc0cd2417f7627",
+      "resurrection/eq2_baselt03": "emit004",
+      "resurrection/eq2_rock_03": "rc0796d67703c6",
+      "resurrection/eq2_baselt04": "emit005",
+      "e1u1/wswall1_2": "rc62e661c88fac",
+      "e1u1/wswall1_1": "rc33c653b7a622",
+      "resurrection/eq2_trim_01": "rc6dbf9b623f49",
+      "e2u3/window5_1": "rc64c715eb03fc",
+      "resurrection/eq2_bigmet_01": "rc6dc66eca1f42",
+      "e1u1/baselt_b": "emit006",
+      "resurrection/eq2_trim_void": "rc8fb79caf356c",
+      "resurrection/eq2_trimv_09b": "rc45208f615178",
+      "resurrection/eq2_bmtl_08b": "rcfbc4bbcfee42",
+      "resurrection/eq2_trimv_03": "rc58f7b07834f5",
+      "resurrection/eq2_trimh_03cc": "rcdcf9978d7629",
+      "e2u3/wplat1_2": "rc22a71885c707",
+      "e1u1/baselt_2": "emit009",
+      "resurrection/eq2_bmtl_04": "rc5142fe0bb248",
+      "resurrection/eq2_trimv_05": "rcad6fc27a660a",
+      "resurrection/eq2_bmtl_07": "rc124b6cee3e91",
+      "resurrection/eq2_bmtl_03": "rc040db4b5144d",
+      "resurrection/eq2_trimv_12b": "rcebf476295daa",
+      "resurrection/eq2_trimv_mini02": "rc9e4d2ac45306",
+      "common/caulk": "skip",
+      "resurrection/eq2_wires_01": "rc876636bd7cf5",
+      "e1u1/brwater": "*water2",
+      "trigger": "trigger",
+      "e1u1/floor3_2": "rc65cd06911389",
+      "e1u1/doorbot": "rc2d431e3a59f8"
+    },
+    "texture_sources": {
+      "rcbe0cf7607a85": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_bmtl.tga",
+        "sha256": "f1c52f200254620bb67621d1ae1af41209b712ee244ff0e8641b9de3f17b0cf7",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 256
+      },
+      "rc66505aac8e89": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_steptop01.tga",
+        "sha256": "cf565cd837f56a2da1c1848dda7fbb186b5a861b08baba35c4ef0ac453f21deb",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 32
+      },
+      "rc93c269bb58ac": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_stepside_01.tga",
+        "sha256": "0207500e67830ea8c3bf2ffd1c7161372278826b02d9a7e06d1a2c305a7852bd",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 16
+      },
+      "rc05cd33e64d77": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_floor_05.tga",
+        "sha256": "3c5677c64cca00c0ab953e022d59b7a194a6108f95d6257678937057d79b938e",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rcc97b0eeb9450": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_floor_07.tga",
+        "sha256": "dc464b0ad508cd7d3291ff36d448ce47f938cfb077aa3c9e0974d2e11445d915",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 128
+      },
+      "rc387e774b7bb2": {
+        "kind": "packaged image",
+        "member": "textures/common/hint.tga",
+        "sha256": "137e37bbd341d021a8f8edd0f8e1b4148adeb902c366b0e94902d62ee0a42725",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 64
+      },
+      "rc9ffdfa3730e8": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/yellow1_4.tga",
+        "sha256": "059e381792ffd750b97d2f9670961371a722aa1e218adeab17d4d5b37bb4f2a9",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 16
+      },
+      "rccf022fdae9d7": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_floor_01.tga",
+        "sha256": "a3a872734ad43d31e1d56725767c2b3528238dd2dab827ec15ed643413ddf62f",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 128
+      },
+      "rc4320bbff84a6": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_wire.tga",
+        "sha256": "6248aeb51947d91e499560111774c6b7693889270d7d975b9555765844ea6add",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 128
+      },
+      "rc5db14091455f": {
+        "kind": "packaged image",
+        "member": "textures/e3u1/grass1_3.tga",
+        "sha256": "a78c6af872997230ef37083cadb3a76ea504de773ccc86260db67a68d6db69d4",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 64
+      },
+      "rcf91a6868165d": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_telegoo.tga",
+        "sha256": "0c14781ad21319409fa207cd116cab427f86db7c8e2ed3ce4c13faa78cc8883f",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rc50212ba03bf1": {
+        "kind": "packaged image",
+        "member": "textures/e1u3/grass1_7.tga",
+        "sha256": "89fc8a1abd3238a8dd77968488097314b81400963821c5fb818face9c738db58",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 64
+      },
+      "rc3e44ddb3236b": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/sewer1.tga",
+        "sha256": "c5e93b6a138a9aeead5673cc596422ea393e12fc30f66a86865acd02dadbfb6c",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 64
+      },
+      "rc71c12a44717b": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trimh_03.tga",
+        "sha256": "3e9308148353f3e401302f9b2afe38a1666ffd1bd05a098f68df82c2823c57fb",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 128
+      },
+      "rc33e1619559da": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_floor_02.tga",
+        "sha256": "4fdeafaef943ead0d3fcab4d4c932125b4ae42bd0017880abe429734ec119b2b",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 128
+      },
+      "rcb28a4f6a51f2": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_32caplight.tga",
+        "sha256": "980820aece2101e2f7aa7ff83681a46b6c672dfa18d4f5cc0466f6054a189758",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 32,
+        "height": 32
+      },
+      "rc0cd2417f7627": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_bmtl_05.tga",
+        "sha256": "e887a1167e4c10236d6a8a900f4308459d30fd577f54e6b857722c3d7b45a572",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rc8ecdde3373f9": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_baselt03.tga",
+        "sha256": "07c7a1eef9f778e0b51113f6c3242097a5c667d3adb910791f2f8ba727930ef7",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 128
+      },
+      "rc0796d67703c6": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_rock_03.tga",
+        "sha256": "43af0e5e9089b89ce563c135693846352ece9b8a2c4e05c57c071cfce39c1b4b",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rc41751eb32e56": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_baselt04.tga",
+        "sha256": "df73d48d43ba3114f162d2d7829533706a8f78792ca0ec5b92d705f7b897ba59",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 128
+      },
+      "rc62e661c88fac": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/wswall1_2.tga",
+        "sha256": "c1c141654c18458b9f74d6aa10ea78f85f957fb92816d2770b8e72a8aff2549d",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 240,
+        "height": 128
+      },
+      "rc33c653b7a622": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/wswall1_1.tga",
+        "sha256": "7a258071de0dc955ea288f8c49383ed057632aebb7f26bb6a483329e8d36d1a3",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 240,
+        "height": 128
+      },
+      "rc6dbf9b623f49": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trim_01.tga",
+        "sha256": "2b315dba37ebba88bba0ea397fc72ec413cccd96a9f660cc7e685c9a012af95f",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 128
+      },
+      "rc64c715eb03fc": {
+        "kind": "packaged image",
+        "member": "textures/e2u3/window5_1.tga",
+        "sha256": "818e8de03aa1ded3406b4450b7284f86b06817c48d9d1db61694bb2ff92a5ead",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 128
+      },
+      "rc6dc66eca1f42": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_bigmet_01.tga",
+        "sha256": "7d9fd2f6e1628b67d21ff43a1a9ca51e32c822484c0290d9c7ba19ace3177cc4",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rcd7bfe5a8423e": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/baselt_b.tga",
+        "sha256": "7564c93bae0a3f71ed62c728e07aa6aa07d93c517feb3f10cef9860f813b3de2",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 16,
+        "height": 16
+      },
+      "rc8fb79caf356c": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trim_void.tga",
+        "sha256": "2ec8cc157c95349b1c251b9d5e69f0404f7f511ea97bb862209b1609435e3e2a",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 128
+      },
+      "rc45208f615178": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trimv_09b.tga",
+        "sha256": "73eead84eb1389dc92e6751e0d453df2acd180b57745f599b3a895486eb9fae0",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 256
+      },
+      "rcfbc4bbcfee42": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_bmtl_08b.tga",
+        "sha256": "7a45027cc7cb94eca707d6f0de3197e1168566a11a3313c2c2654f753b5853b5",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rc58f7b07834f5": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trimv_03.tga",
+        "sha256": "6f96bf597240c8b14852f0cfd8c18f2c5a5c7afd4f739aab6cef5df3a7b6eafa",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 256
+      },
+      "rcdcf9978d7629": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trimh_03cc.tga",
+        "sha256": "d3946cf8bff209c74a9c509b5ca6d5d76eb008ceed9585533de8f7d35a691d2d",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 256
+      },
+      "rc22a71885c707": {
+        "kind": "packaged image",
+        "member": "textures/e2u3/wplat1_2.tga",
+        "sha256": "7b8bee569c325929656b2ad34c50330987aed78a52d1b968062e79a07d1ca6d3",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 32,
+        "height": 64
+      },
+      "rc779ce3299639": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/baselt_2.tga",
+        "sha256": "305c3e8865846610c8c2b9ee0ded204f35fa5557b7e2fd16e854e18f1842d720",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 32,
+        "height": 128
+      },
+      "rc5142fe0bb248": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_bmtl_04.tga",
+        "sha256": "92149095352be1bee1bffc97a38b1808638b059c1ae938e43607c55e4f7027b9",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rcad6fc27a660a": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trimv_05.tga",
+        "sha256": "88da5120d79812d852da40b9e343d5c0ecd84d7459e1c0b468d6368f71c4418c",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 128,
+        "height": 256
+      },
+      "rc124b6cee3e91": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_bmtl_07.tga",
+        "sha256": "031272accae7e425e1c878675dc6da149585e2178a7a9cdf0ebe29fc2bcad18a",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rc040db4b5144d": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_bmtl_03.tga",
+        "sha256": "2bf1007f3008695c605fb47b31f5251e679b54c17acf7bb67ee25fbdda53144f",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rcebf476295daa": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trimv_12b.tga",
+        "sha256": "ff5830f7a6a64515f9004fa6e758c83614594df013cdb6bf791aa83ae31fc1b9",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 256
+      },
+      "rc9e4d2ac45306": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_trimv_mini02.tga",
+        "sha256": "2cd3eb201d0f6bb69654a29a7b900659210cdefc1849426c2c7c3171b15d612f",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 32
+      },
+      "rc876636bd7cf5": {
+        "kind": "packaged image",
+        "member": "textures/resurrection/eq2_wires_01.tga",
+        "sha256": "c803b956569db4d02ef9460e2e6a12d761aa8e3663389ecd258ef7c8e20c9a90",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 256,
+        "height": 256
+      },
+      "rc65cd06911389": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/floor3_2.tga",
+        "sha256": "b510bec45eaa8a29fe294d3ab5f1efa3d5eb73fb073ecba234cb41711e30a9f3",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 64
+      },
+      "rc2d431e3a59f8": {
+        "kind": "packaged image",
+        "member": "textures/e1u1/doorbot.tga",
+        "sha256": "080f50819f9e342da49af526ff7294a5e7f6bb1ba0e8f74e8b1eb6e53a5fb2df",
+        "conversion": "Quake palette, Lanczos mipmaps",
+        "width": 64,
+        "height": 64
+      }
+    },
+    "unique_colour_materials": 50,
+    "status": "compiled",
+    "compiled": "tools/arena_imports/local/rcmd-source-conversion/dm_rcmd_resurrection/dm_rcmd_resurrection.bsp"
+  }
+]

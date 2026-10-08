@@ -12,8 +12,11 @@ static func supports_tribes(path: String) -> bool:
 	if offset+length>file.get_length() or length>1048576:return false
 	file.seek(offset);var entities:=file.get_buffer(length).get_string_from_ascii()
 	# Dedicated terrain arenas need flags, team spawns, inventory and a safe edge.
-	for entity in ["item_flag_team1","item_flag_team2","info_player_team1","info_player_team2","info_tribes_inventory","info_playable_bounds"]:
+	var classic:=entities.contains('"_fpsloppa_st_classic" "1"')
+	for entity in ["item_flag_team1","item_flag_team2","info_player_team1","info_player_team2","info_playable_bounds"]:
 		if not entities.contains('"'+entity+'"'):return false
+	# Classic missions include intentional station-free and self-powered layouts.
+	if classic:return true
 	for classes in [["info_tribes_inventory"],["info_tribes_generator","info_tribes_solar","info_tribes_portable_generator"]]:
 		for team in [0,1]:
 			var found:=false
@@ -67,6 +70,8 @@ static func catalog() -> Array:
 		var hash:=FileAccess.get_sha256(row.path)
 		if hash!=row.sha256:row.custom=true;row.scene=Paths.folder("maps")+"cache/"+hash+".scn";row.sha256=hash
 		row.size=preload("res://deathmatch/network/disk_worker.gd").size(row.path)
+		# Bundled conversions use the same hash-bound embedded objectives as imports.
+		if "de" in row.get("modes",[]):preload("res://deathmatch/modes/defusal_maps.gd").register_map(row.path,hash)
 		result.append(row);known[row.path]=true
 	for filename in DirAccess.get_files_at(Paths.folder("maps")):
 		if filename.get_extension().to_lower()!="bsp":continue
@@ -293,7 +298,10 @@ static func validate_geometry(path: String) -> String:
 	if sizes[0]>2_000_000: return "Map entity data is too large."
 	var records: Dictionary={1:20,3:12,6:40,7:28 if bsp2 else 20,12:8 if bsp2 else 4,13:4,14:64}
 	for i in records:
-		if sizes[i]%records[i]!=0 or sizes[i]/records[i]>262144: return "Invalid or excessive BSP geometry records."
+		# Faces normally reference several edges. BSP2 terrain/interior maps
+		# can exceed 262K surfedges while remaining under the 25 MB file cap.
+		var limit:=1048576 if i==13 else 262144
+		if sizes[i]%records[i]!=0 or sizes[i]/records[i]>limit: return "Invalid or excessive BSP geometry records."
 	if sizes[14]/64>4096: return "Too many brush models."
 	for i in range(int(sizes[3]/4)):
 		var value:=bytes.decode_float(offsets[3]+i*4)

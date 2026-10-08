@@ -18,7 +18,7 @@ func run():
 	var role: String=OS.get_cmdline_user_args()[0]
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);game.voice.test_receive=true
 	if role=="server":
-		game.dedicated=true;game.bind_address="127.0.0.1";game.match_mode.configure({"sv_gametype":"de"});game.selected_map="de_dust2_rebuilt"
+		game.dedicated=true;game.bind_address="127.0.0.1";game.match_mode.configure({"sv_gametype":"de"});game.selected_map="de_varq_dust2"
 		game.start_host("DE voice",28987,20,10,false,"de")
 		check(await wait_for(func():return game.players.size()==4),"Four voice/observer clients joined")
 		for id in game.players:

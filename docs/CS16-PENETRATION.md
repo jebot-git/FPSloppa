@@ -1,4 +1,30 @@
-# CS shoot-through cover and DE map restoration
+# CS shoot-through cover and DE maps
+
+## Current base game (2026-10-08)
+
+All 16 installed DE maps support bounded, server-authoritative penetration: the
+14 converted maps use hash-bound BSP solid trees and surface roles; retained
+Aztec and Train use authored convex metadata. Legacy Nuke, Inferno and Dust2
+and the four requested Dust2 variants are retired.
+
+The converted backend follows actual solid entry/exit intervals, including
+active translated brush models, and confirms each exit against live physics.
+Material roles are adapted from texture names with explicit overrides and a
+concrete fallback; they are not a claim of exact retail CS material parity.
+Missing or mismatched metadata, malformed trees, unsupported transforms and
+query budget exhaustion fail closed. Profiles ship in the game PCK; BSPs and
+lightmap caches remain unchanged.
+
+Validation: 33,159 converted-map face probes, 6,290 successful exits, 68 real
+combat fixture checks, 18 malformed-data/geometry edge cases and a two-process
+ENet wallbang on converted Inferno pass. The retained authored backend also
+passes 67 combat and 270 map-cover checks. See
+[conversion validation](../tools/de_penetration/validation.json).
+
+## Historical reconstruction work
+
+The following describes the earlier five-map authoring work, including three
+subsequently retired maps. Current weapon behavior below remains applicable.
 
 Implemented 2026-09-27 in the working build. All five reconstructed DE BSP29
 maps embed authored collision/material volumes. Eligible CS weapons can damage

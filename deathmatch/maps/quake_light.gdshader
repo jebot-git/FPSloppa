@@ -11,6 +11,8 @@ uniform sampler2D glow_linear : source_color, filter_linear_mipmap, repeat_enabl
 uniform int texture_filter_mode = 2;
 // FPSloppa baked lighting: cached scenes are upgraded by filtering.gd.
 uniform bool contrast_lighting = false;
+// Adapted ST interiors need readable shade; classic Quake maps retain zero.
+uniform float minimum_baked_light : hint_range(0.0, 0.5) = 0.0;
 uniform bool has_glow = false;
 uniform bool alpha_cutout = false;
 uniform vec4 base_colour : source_color = vec4(1.0);
@@ -32,9 +34,9 @@ void fragment() {
     vec3 baked = texture(bake_texture, UV2).rgb;
     // Quake multiplies palette colour by twice the byte light sample. Perform
     // that multiplication in display space, then return to Godot's linear space.
-    // No artificial minimum, square-root lift, sunlight, or ambient fill.
+    // The default has no artificial minimum; adapted ST maps opt into a shade floor.
     vec3 display_base = mix(base * 12.92, 1.055 * pow(max(base, vec3(0.0)), vec3(1.0 / 2.4)) - 0.055, step(vec3(0.0031308), base));
-    vec3 lit = display_base * clamp(baked * 2.0, vec3(0.0), vec3(1.0));
+    vec3 lit = display_base * clamp(baked * 2.0, vec3(minimum_baked_light), vec3(1.0));
     EMISSION = mix(lit / 12.92, pow((lit + 0.055) / 1.055, vec3(2.4)), step(vec3(0.04045), lit));
     ALBEDO = base * 0.10;
     if (has_glow) {

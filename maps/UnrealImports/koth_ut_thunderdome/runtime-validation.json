@@ -1,0 +1,160 @@
+{
+  "baked_faces": 3530,
+  "bsp_sha256": "d5220faa3f181ee6d3042baec3e375270c5bab17e2dd6f79cbae36bcc08fbeb0",
+  "checks": [
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        24.0,
+        -0.800000011920929,
+        -23.2000007629395
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        24.0,
+        -0.800000011920929,
+        23.2000007629395
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -24.0,
+        -0.800000011920929,
+        -23.2000007629395
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -24.0,
+        -0.800000011920929,
+        23.2000007629395
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        0.0,
+        -0.800000011920929,
+        -52.7999992370605
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        0.0,
+        -0.800000011920929,
+        52.7999992370605
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -58.4000015258789,
+        -0.800000011920929,
+        0.0
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        58.4000015258789,
+        -0.800000011920929,
+        0.0
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        0.0,
+        -8.60000038146973,
+        0.0
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        -2.40000009536743,
+        -8.60000038146973,
+        0.0
+      ],
+      "safe": true
+    },
+    {
+      "blocked": false,
+      "floor": true,
+      "point": [
+        2.40000009536743,
+        -8.60000038146973,
+        0.0
+      ],
+      "safe": true
+    }
+  ],
+  "failures": [],
+  "fixed": false,
+  "hill_nav_distance": [
+    0.200000762939453,
+    0.200000762939453,
+    0.200000762939453
+  ],
+  "hills": 3,
+  "id": "koth_ut_thunderdome",
+  "invalid_light_faces": 0,
+  "jumps": 198,
+  "lifts": [
+    {
+      "base": -7.19999980926514,
+      "bounds": "[P: (-32.8, -15.2, -27.2), S: (23.2, 7.20001, 16.0)]",
+      "travel": 7.2
+    },
+    {
+      "base": -7.19999980926514,
+      "bounds": "[P: (9.6, -15.2, 11.2), S: (23.2, 7.20001, 16.0)]",
+      "travel": 7.2
+    },
+    {
+      "base": -7.19999980926514,
+      "bounds": "[P: (9.599999, -15.2, -27.2), S: (23.2, 7.20001, 16.0)]",
+      "travel": 7.2
+    },
+    {
+      "base": -7.19999980926514,
+      "bounds": "[P: (-32.8, -15.2, 11.2), S: (23.2, 7.20001, 16.0)]",
+      "travel": 7.2
+    }
+  ],
+  "link_kinds": {
+    "drop": 168,
+    "jump": 30,
+    "lift": 4
+  },
+  "links": 202,
+  "missing_routes": [],
+  "routes": 24,
+  "spawns": 8,
+  "total_routes": 24,
+  "unresolved_teleports": []
+}

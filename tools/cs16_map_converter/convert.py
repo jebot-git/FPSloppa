@@ -13,12 +13,17 @@ from bsp import BSP, ConversionError, bounded_read, entity_bytes, pack, require
 from textures import Wads, convert as convert_textures, records
 from entities import convert as convert_entities
 
-VERSION = '1.0'
+VERSION = '1.1'
 
 
 def convert(raw, wads, title, sites=None, replace_missing=False, texture_rules=None):
     bsp = BSP(raw)
-    tex, palettes, textures = convert_textures(bsp.lumps[2], wads, replace_missing, texture_rules)
+    require(len(bsp.lumps[2])>=4, 'Missing texture table')
+    count=struct.unpack_from('<i',bsp.lumps[2])[0]
+    require(0<count<=2048, 'Invalid texture table')
+    referenced={bsp.texinfo[face[4]][8] for face in bsp.faces}
+    unused_slots=set(range(count))-referenced
+    tex, palettes, textures = convert_textures(bsp.lumps[2], wads, replace_missing, texture_rules, unused_slots)
     require(all(0 <= row[8] < len(textures) for row in bsp.texinfo), 'Texinfo references missing texture')
     rows, layout, changes, warnings = convert_entities(bsp, title, sites)
     replacements = [r for r in textures if r['source'].startswith('generated:')]

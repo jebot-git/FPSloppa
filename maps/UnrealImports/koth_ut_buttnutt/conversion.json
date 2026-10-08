@@ -1,0 +1,277 @@
+{
+  "id": "koth_ut_buttnutt",
+  "source": {
+    "name": "KOTH-(WTF)Buttnutt",
+    "title": "KOTH-(WTF)Buttnutt",
+    "author": "Unknown",
+    "players": "Unknown",
+    "declared_capacity": null,
+    "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/W/koth-wtfbuttnutt_7abdbf00.html",
+    "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+    "mode": "koth",
+    "eligible": true,
+    "selection_reason": "KOTH-prefixed ChaosUT map",
+    "archive": "buttnutt.zip",
+    "archive_sha1": "7abdbf0093c3434e9d9001cad8e7aa6dd5825ab0",
+    "status": "downloaded",
+    "bytes": 340736
+  },
+  "texture_sources": {
+    "ut50f15ce54411": {
+      "kind": "existing project replacement",
+      "source": "ASC-space.custom.eb_girder2",
+      "donor": "met_brn_slat"
+    },
+    "ut6084048e0a42": {
+      "kind": "existing project replacement",
+      "source": "AdesertS.8",
+      "donor": "ind_w04_grey1"
+    },
+    "utacc54f3f99ac": {
+      "kind": "existing project replacement",
+      "source": "Ancient.Floor.FLOOR1",
+      "donor": "med_flat5a"
+    },
+    "ut083d7e3956d2": {
+      "kind": "existing project replacement",
+      "source": "GenFluid.lava.shlava4s",
+      "donor": "*lava1"
+    },
+    "ut32015cab7e4f": {
+      "kind": "authored package texture",
+      "path": "KOTH-(WTF)butnugget.Test.mlb-rok3"
+    },
+    "ut613bacfb0ac9": {
+      "kind": "existing project replacement",
+      "source": "UTtech1.Deco.bmBox2c",
+      "donor": "ind_cont1_ylw1"
+    },
+    "ut771d08af4e4c": {
+      "kind": "existing project replacement",
+      "source": "UTtech1.Misc.mlb-rok3",
+      "donor": "ind_w02_grey1"
+    }
+  },
+  "source_faces": 1233,
+  "spawns": 16,
+  "hill_points": 13,
+  "spawn_grounding": [
+    {
+      "actor": "PlayerStart0",
+      "source": [
+        -1257.8800048828125,
+        -1120.1409912109375,
+        -1007.8947143554688
+      ],
+      "floor": [
+        -1257.8800048828125,
+        -1120.1409912109375,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart1",
+      "source": [
+        -1255.7764892578125,
+        -401.09521484375,
+        -1005.2280883789062
+      ],
+      "floor": [
+        -1255.7764892578125,
+        -401.09521484375,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart2",
+      "source": [
+        -1259.2137451171875,
+        159.85879516601562,
+        -1007.894775390625
+      ],
+      "floor": [
+        -1259.2137451171875,
+        159.85879516601562,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart3",
+      "source": [
+        -1252.54736328125,
+        846.5253295898438,
+        -1006.5614013671875
+      ],
+      "floor": [
+        -1252.54736328125,
+        846.5253295898438,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart4",
+      "source": [
+        -1078.08837890625,
+        1260.394287109375,
+        -1006.5614013671875
+      ],
+      "floor": [
+        -1078.08837890625,
+        1260.394287109375,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart5",
+      "source": [
+        -447.8785705566406,
+        1260.546875,
+        -1006.5614013671875
+      ],
+      "floor": [
+        -447.8785705566406,
+        1260.546875,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart6",
+      "source": [
+        186.5255584716797,
+        1259.2138671875,
+        -1006.5614013671875
+      ],
+      "floor": [
+        186.5255584716797,
+        1259.2138671875,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart7",
+      "source": [
+        839.0701904296875,
+        1244.558837890625,
+        -1005.2280883789062
+      ],
+      "floor": [
+        839.0701904296875,
+        1244.558837890625,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart8",
+      "source": [
+        1262.2486572265625,
+        -1028.264404296875,
+        -1007.8947143554688
+      ],
+      "floor": [
+        1262.2486572265625,
+        -1028.264404296875,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart9",
+      "source": [
+        1260.2415771484375,
+        -336.11358642578125,
+        -1007.894775390625
+      ],
+      "floor": [
+        1260.2415771484375,
+        -336.11358642578125,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart10",
+      "source": [
+        1261.323974609375,
+        255.80197143554688,
+        -1007.894775390625
+      ],
+      "floor": [
+        1261.323974609375,
+        255.80197143554688,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart11",
+      "source": [
+        1258.069091796875,
+        950.8172607421875,
+        -1005.2280883789062
+      ],
+      "floor": [
+        1258.069091796875,
+        950.8172607421875,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart12",
+      "source": [
+        462.6535949707031,
+        -1262.77685546875,
+        -1005.2280883789062
+      ],
+      "floor": [
+        462.6535949707031,
+        -1262.77685546875,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart13",
+      "source": [
+        1077.32080078125,
+        -1256.110595703125,
+        -1005.2280883789062
+      ],
+      "floor": [
+        1077.32080078125,
+        -1256.110595703125,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart14",
+      "source": [
+        -178.67965698242188,
+        -1254.7772216796875,
+        -1006.5614013671875
+      ],
+      "floor": [
+        -178.67965698242188,
+        -1254.7772216796875,
+        -1024.0
+      ]
+    },
+    {
+      "actor": "PlayerStart15",
+      "source": [
+        -837.3462524414062,
+        -1260.110595703125,
+        -1006.5614013671875
+      ],
+      "floor": [
+        -837.3462524414062,
+        -1260.110595703125,
+        -1024.0
+      ]
+    }
+  ],
+  "traversal": [],
+  "adaptations": [
+    "299 authored liquid surfaces rebuilt as native water/lava volumes",
+    "Missing retail materials replaced with varied existing project materials",
+    "Scripted Chaos weapons mapped to classic arena pickups",
+    "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+  ],
+  "blockers": [],
+  "status": "staging"
+}

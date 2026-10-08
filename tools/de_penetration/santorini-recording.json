@@ -1,0 +1,94 @@
+{
+  "media": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "width": 1280,
+        "height": 720,
+        "r_frame_rate": "30/1"
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2,
+        "r_frame_rate": "0/0"
+      }
+    ],
+    "format": {
+      "duration": "190.300000",
+      "size": "145501986"
+    }
+  },
+  "sha256": "efaf775a6b500eb5ab3c684abcfeca8c1a0a49566d6a005ee86dfe1081bce1ef",
+  "server": {
+    "bsp_penetration_ready": true,
+    "bsp_sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4",
+    "clock": 284.55000000007,
+    "cs_movement_bots": 10,
+    "kills": 27,
+    "map": "de_varq_santorini",
+    "phase": "finished",
+    "pid": 190576,
+    "round": 4,
+    "round_cap": 6,
+    "scores": [
+      0,
+      4
+    ],
+    "shots": 220,
+    "spectators": 0,
+    "teams": [
+      5,
+      5
+    ],
+    "wallbang_firing_ticks": 0,
+    "wallbang_probes": 0
+  },
+  "completion": {
+    "bsp_penetration_ready": true,
+    "bsp_sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4",
+    "clock": 192.183333333378,
+    "cs_movement_bots": 10,
+    "kills": 27,
+    "map": "de_varq_santorini",
+    "phase": "finished",
+    "pid": 190577,
+    "round": 4,
+    "round_cap": 6,
+    "scores": [
+      0,
+      4
+    ],
+    "shots": 0,
+    "spectators": 1,
+    "teams": [
+      5,
+      5
+    ],
+    "wallbang_firing_ticks": 0,
+    "wallbang_probes": 0
+  },
+  "wallbang_test": {
+    "failures": [],
+    "passed": true
+  },
+  "movement_checks": 51,
+  "reaction_trials": 240,
+  "reaction_failures": [],
+  "audio_audit": [
+    "[Parsed_volumedetect_0 @ 0x7bfb80002140] mean_volume: -30.3 dB",
+    "[Parsed_volumedetect_0 @ 0x7bfb80002140] max_volume: -4.0 dB"
+  ],
+  "full_video_decode_errors": "",
+  "full_video_decode_passed": true,
+  "post_recording_validation": "Native and scripted steering now preserve wallbang aim; verified after this match, which had no wallbang attempts.",
+  "bot_movement_regression_passed": true,
+  "current_policy_sha256": {
+    "deathmatch/bot_ai/wallbang.gd": "48f07e92b39a437c2546772ea66585e58e5a67b450f7326092febf2077268705",
+    "deathmatch/bots.gd": "c292b05206d2009079b6468541ec8ac2f59fc2f0408c41ce70e74fac721b6701"
+  }
+}

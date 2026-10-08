@@ -60,8 +60,9 @@ def parse_entities(data):
         while i < len(tokens) and tokens[i][0] != '}':
             require(i + 1 < len(tokens) and tokens[i][0] == tokens[i+1][0] == 'text', 'Expected entity key/value')
             # Some compilers repeat identical editor keys (including classname).
-            # Conflicting duplicates remain ambiguous and are rejected.
-            require(tokens[i][1] not in row or row[tokens[i][1]] == tokens[i+1][1], 'Conflicting duplicate entity key: ' + tokens[i][1])
+            # Editor mapversion has no gameplay meaning; keep its last value.
+            # Conflicting gameplay keys remain ambiguous and are rejected.
+            require(tokens[i][1] == 'mapversion' or tokens[i][1] not in row or row[tokens[i][1]] == tokens[i+1][1], 'Conflicting duplicate entity key: ' + tokens[i][1])
             row[tokens[i][1]] = tokens[i+1][1]
             i += 2
         require(i < len(tokens), 'Unterminated entity')

@@ -1,0 +1,982 @@
+{
+  "repository": "https://github.com/exogen/t2-mapper",
+  "commit": "abe5198e5020554fe1f1620231c188d48f00f045",
+  "catalog": "https://playt2.com/maps",
+  "pack": "Classic_maps_v1.vl2",
+  "maps": [
+    {
+      "id": "ctf_t2_acidrain",
+      "title": "Acid Rain",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/AcidRain.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/AcidRain.ter",
+      "interiors": {
+        "pbunk7a_CC.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbunk7a_CC.dif",
+        "pvbay1.dif": "docs/base/@vl2/interiors.vl2/interiors/pvbay1.dif",
+        "ptowr2.dif": "docs/base/@vl2/interiors.vl2/interiors/ptowr2.dif",
+        "pspir2.dif": "docs/base/@vl2/interiors.vl2/interiors/pspir2.dif",
+        "pspir5.dif": "docs/base/@vl2/interiors.vl2/interiors/pspir5.dif",
+        "prock7.dif": "docs/base/@vl2/interiors.vl2/interiors/prock7.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_blastside",
+      "title": "Blastside",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Blastside_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Broadside_nef.ter",
+      "interiors": {
+        "dbase_broadside_nef.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_broadside_nef.dif",
+        "dplat1.dif": "docs/base/@vl2/interiors.vl2/interiors/dplat1.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_broadside",
+      "title": "Broadside",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Broadside_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Broadside_nef.ter",
+      "interiors": {
+        "dbase_broadside_nef.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_broadside_nef.dif",
+        "dplat1.dif": "docs/base/@vl2/interiors.vl2/interiors/dplat1.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_confusco",
+      "title": "Confusco",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Confusco.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Confusco.ter",
+      "interiors": {
+        "dbunk_nefcliffside.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefcliffside.dif",
+        "btf_turretplatform_c.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/btf_turretplatform_c.dif",
+        "bmisc3.dif": "docs/base/@vl2/interiors.vl2/interiors/bmisc3.dif",
+        "dmisc_nefflagstand3.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefflagstand3.dif",
+        "bbrdg8.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdg8.dif",
+        "bbrdg9.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdg9.dif",
+        "bbrdg7.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdg7.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_dangerouscrossing",
+      "title": "Dangerous Crossing",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/DangerousCrossing_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/DangerousCrossing_nef.ter",
+      "interiors": {
+        "dbunk_nefdcbunk.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefdcbunk.dif",
+        "dmisc1.dif": "docs/base/@vl2/interiors.vl2/interiors/dmisc1.dif",
+        "dbrdg3.dif": "docs/base/@vl2/interiors.vl2/interiors/dbrdg3.dif",
+        "dbrdg3a.dif": "docs/base/@vl2/interiors.vl2/interiors/dbrdg3a.dif",
+        "dbunk_nefsmall.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefsmall.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_desertofdeath",
+      "title": "Desert of Death",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/DesertofDeath_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/DesertofDeath_nef.ter",
+      "interiors": {
+        "ruin1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin1.dif",
+        "ruin4.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin4.dif",
+        "ruin3.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin3.dif",
+        "ruin2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin2.dif",
+        "ruinarch.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruinarch.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_gorgon",
+      "title": "Gorgon",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Gorgon.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Gorgon.ter",
+      "interiors": {
+        "pbunk5.dif": "docs/base/@vl2/interiors.vl2/interiors/pbunk5.dif",
+        "pbase_nef_giant.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbase_nef_giant.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_hillside",
+      "title": "Hillside",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Hillside.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Hillside.ter",
+      "interiors": {
+        "bmisc_nefledge1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bmisc_nefledge1.dif",
+        "bmisc_nefvbay.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bmisc_nefvbay.dif",
+        "bbase_nefhillside.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bbase_nefhillside.dif",
+        "bmisc8.dif": "docs/base/@vl2/interiors.vl2/interiors/bmisc8.dif",
+        "bbunkd.dif": "docs/base/@vl2/interiors.vl2/interiors/bbunkd.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_iceridge",
+      "title": "IceRidge",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/IceRidge_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/IceRidge_nef.ter",
+      "interiors": {
+        "dbunk_nefsmall.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefsmall.dif",
+        "dbase_neficeridge.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_neficeridge.dif",
+        "dmisc1.dif": "docs/base/@vl2/interiors.vl2/interiors/dmisc1.dif",
+        "dmisc_nefobj2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefobj2.dif",
+        "dmisc_nefplat1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefplat1.dif",
+        "dmisc_neftower3.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_neftower3.dif",
+        "srockc.dif": "docs/base/@vl2/interiors.vl2/interiors/srockc.dif",
+        "srockb.dif": "docs/base/@vl2/interiors.vl2/interiors/srockb.dif",
+        "srocka.dif": "docs/base/@vl2/interiors.vl2/interiors/srocka.dif",
+        "srock8.dif": "docs/base/@vl2/interiors.vl2/interiors/srock8.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_lakefront",
+      "title": "Lakefront",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Lakefront.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Lakefront.ter",
+      "interiors": {
+        "bbunke.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bbunke.dif",
+        "bbunk8.dif": "docs/base/@vl2/interiors.vl2/interiors/bbunk8.dif",
+        "bbrdgb.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdgb.dif",
+        "bbrdg0.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdg0.dif",
+        "bplat3.dif": "docs/base/@vl2/interiors.vl2/interiors/bplat3.dif",
+        "dpole1.dif": "docs/base/@vl2/interiors.vl2/interiors/dpole1.dif",
+        "bbrdg2.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdg2.dif",
+        "bbrdg5.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdg5.dif",
+        "bbrdga.dif": "docs/base/@vl2/interiors.vl2/interiors/bbrdga.dif",
+        "bmisc1.dif": "docs/base/@vl2/interiors.vl2/interiors/bmisc1.dif",
+        "bbase_ccb5.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bbase_ccb5.dif",
+        "bbunkc.dif": "docs/base/@vl2/interiors.vl2/interiors/bbunkc.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_magmatic",
+      "title": "Magmatic",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Magmatic.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Magmatic.ter",
+      "interiors": {
+        "infbutch_blackairinv13.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/infbutch_blackairinv13.dif",
+        "infbutch_blackbase5618_final.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/infbutch_blackbase5618_final.dif",
+        "infbutch_blackturret8.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/infbutch_blackturret8.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_raindance",
+      "title": "Raindance",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Raindance_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Raindance_nef.ter",
+      "interiors": {
+        "dbase_nefRaindance.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_nefRaindance.dif",
+        "dbunk_nefsmall.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefsmall.dif",
+        "dmisc_nefobj2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefobj2.dif",
+        "dmisc_nefplug1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefplug1.dif",
+        "dtowr_classic1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dtowr_classic1.dif",
+        "dmisc_nefobj1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefobj1.dif",
+        "dmisc_neftower2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_neftower2.dif",
+        "dmisc_neftower1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_neftower1.dif",
+        "dmisc_nefrdbridge1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefrdbridge1.dif"
+      },
+      "existing": "ctf_raindance"
+    },
+    {
+      "id": "ctf_t2_ramparts",
+      "title": "Ramparts",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Ramparts.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Ramparts.ter",
+      "interiors": {
+        "bplat3.dif": "docs/base/@vl2/interiors.vl2/interiors/bplat3.dif",
+        "ram_base.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ram_base.dif",
+        "ram_wall4.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ram_wall4.dif",
+        "ram_tower.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ram_tower.dif",
+        "dpole1.dif": "docs/base/@vl2/interiors.vl2/interiors/dpole1.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_rollercoaster",
+      "title": "Rollercoaster",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Rollercoaster_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Rollercoaster_nef.ter",
+      "interiors": {
+        "dbase_neffloat2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_neffloat2.dif",
+        "dbase_neffloat1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_neffloat1.dif",
+        "dmisc_nefbridge.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefbridge.dif",
+        "dbunk_vbunk1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_vbunk1.dif",
+        "dplat1.dif": "docs/base/@vl2/interiors.vl2/interiors/dplat1.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_sandstorm",
+      "title": "Sandstorm",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Sandstorm.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Sandstorm.ter",
+      "interiors": {
+        "pbase_nef_vbase1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbase_nef_vbase1.dif",
+        "pplat3.dif": "docs/base/@vl2/interiors.vl2/interiors/pplat3.dif",
+        "pmisca.dif": "docs/base/@vl2/interiors.vl2/interiors/pmisca.dif",
+        "pbunk4a_CC.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbunk4a_CC.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_scarabrae",
+      "title": "Scarabrae",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Scarabrae_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Scarabrae_nef.ter",
+      "interiors": {
+        "dbase_tokrz_scarabrae.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_tokrz_scarabrae.dif",
+        "dbunk_nefdcbunk.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefdcbunk.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_shockridge",
+      "title": "Shock Ridge",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/ShockRidge.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/ShockRidge.ter",
+      "interiors": {
+        "rilke_domain2_mainbase.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_mainbase.dif",
+        "rilke_domain_turretbase1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain_turretbase1.dif",
+        "rilke_domain2_boundrymarker2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_boundrymarker2.dif",
+        "rilke_domain2_boundrymarker.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_boundrymarker.dif",
+        "rilke_domain2_bridge1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_bridge1.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_snowblind",
+      "title": "Snowblind",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Snowblind_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Snowblind_nef.ter",
+      "interiors": {
+        "dbunk_snowblind.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_snowblind.dif",
+        "smiscb.dif": "docs/base/@vl2/interiors.vl2/interiors/smiscb.dif",
+        "dtowr_classic1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dtowr_classic1.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_starfallen",
+      "title": "Starfallen",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Starfallen.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Starfallen.ter",
+      "interiors": {
+        "bmisc6.dif": "docs/base/@vl2/interiors.vl2/interiors/bmisc6.dif",
+        "Starfallen.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/Starfallen.dif",
+        "flagbridge.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/flagbridge.dif",
+        "btowr6.dif": "docs/base/@vl2/interiors.vl2/interiors/btowr6.dif",
+        "brock6.dif": "docs/base/@vl2/interiors.vl2/interiors/brock6.dif",
+        "brock8.dif": "docs/base/@vl2/interiors.vl2/interiors/brock8.dif",
+        "brock7.dif": "docs/base/@vl2/interiors.vl2/interiors/brock7.dif",
+        "brockc.dif": "docs/base/@vl2/interiors.vl2/interiors/brockc.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_stonehenge",
+      "title": "Stonehenge",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Stonehenge_nef.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Stonehenge_nef.ter",
+      "interiors": {
+        "dmisc_stonehenge2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_stonehenge2.dif",
+        "dbunk_stonehenge1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_stonehenge1.dif",
+        "dmisc_stonehenge3.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_stonehenge3.dif",
+        "dmisc_stonehenge1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_stonehenge1.dif"
+      },
+      "existing": "ctf_stonehenge"
+    },
+    {
+      "id": "ctf_t2_subzero",
+      "title": "Sub-zero",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/SubZero.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/SubZero.ter",
+      "interiors": {
+        "smisca.dif": "docs/base/@vl2/interiors.vl2/interiors/smisca.dif",
+        "sbunk_nef1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/sbunk_nef1.dif",
+        "sspir3.dif": "docs/base/@vl2/interiors.vl2/interiors/sspir3.dif",
+        "sspir4.dif": "docs/base/@vl2/interiors.vl2/interiors/sspir4.dif",
+        "sspir2.dif": "docs/base/@vl2/interiors.vl2/interiors/sspir2.dif",
+        "srocka.dif": "docs/base/@vl2/interiors.vl2/interiors/srocka.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_surreal",
+      "title": "Surreal",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Surreal.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Surreal.ter",
+      "interiors": {
+        "dbunk_nef_invbunk1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nef_invbunk1.dif",
+        "dmisc1.dif": "docs/base/@vl2/interiors.vl2/interiors/dmisc1.dif",
+        "dmisc_nefflagstand2.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefflagstand2.dif",
+        "siege.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/siege.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_titan",
+      "title": "Titan",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/Titan.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Titan.ter",
+      "interiors": {
+        "btowr5.dif": "docs/base/@vl2/interiors.vl2/interiors/btowr5.dif",
+        "t_bbase_ccb2a.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bbase_ccb2a.dif",
+        "t_bwall2a_cnr_CC.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bwall2a_cnr_CC.dif",
+        "t_bwall2a_lrg_CC.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bwall2a_lrg_CC.dif",
+        "t_bmisc_tunl_ccb1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bmisc_tunl_ccb1.dif",
+        "bbunkd.dif": "docs/base/@vl2/interiors.vl2/interiors/bbunkd.dif"
+      },
+      "existing": ""
+    },
+    {
+      "id": "ctf_t2_whitedwarf",
+      "title": "White Dwarf",
+      "mission": "docs/base/@vl2/Classic_maps_v1.vl2/missions/WhiteDwarf.mis",
+      "terrain": "docs/base/@vl2/Classic_maps_v1.vl2/terrains/WhiteDwarf.ter",
+      "interiors": {
+        "rilke_whitedwarf_mainbase.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_mainbase.dif",
+        "rilke_whitedwarf_towerbunker.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_towerbunker.dif",
+        "rilke_whitedwarf_platform1.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_platform1.dif",
+        "rilke_whitedwarf_bridge.dif": "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_bridge.dif"
+      },
+      "existing": ""
+    }
+  ],
+  "files": {
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/Starfallen.dif": {
+      "sha256": "154669e6159b9fea8ed80620df4437c7edcb66ae8f730ac0cabae9025ce67f2e",
+      "bytes": 960800
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bbase_ccb5.dif": {
+      "sha256": "cb46d93d8283eb754f5742d8f6b4b109204c5dd4282ff7684854bde9a545f6a8",
+      "bytes": 401268
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bbase_nefhillside.dif": {
+      "sha256": "246a15c9eb27f5add18e335b1a695c87a5d7447109ce8c6a8fb4fc9dec007da7",
+      "bytes": 1059050
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bbunke.dif": {
+      "sha256": "52f5d632109126f6b943f32422d4e6c3bddf029dff604251cb302e7f3a0347c5",
+      "bytes": 45004
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bmisc_nefledge1.dif": {
+      "sha256": "7fb4bf2912a397c112e680284b2b853a103053742329fe4b388a1b501e23e9c4",
+      "bytes": 30288
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/bmisc_nefvbay.dif": {
+      "sha256": "d0d54ea99c3d8e4ac2abf5dc4d7ae7b8cef36399e5c575d1263ca517419ed172",
+      "bytes": 113554
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/btf_turretplatform_c.dif": {
+      "sha256": "aa59ec33ee6a60e66bb3ef2778e843d35267145c4ada56bcb9195c12a5aa1038",
+      "bytes": 34793
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_broadside_nef.dif": {
+      "sha256": "ae381077d2655b5c44ac86cd6bb1924f78ee2b9ec8fbcd942aa8efce5f34e55e",
+      "bytes": 988255
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_nefRaindance.dif": {
+      "sha256": "49e7c63825306ee2e96089fc9c02d3c62f70707a38f00612fc9a2f12c298095b",
+      "bytes": 172437
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_neffloat1.dif": {
+      "sha256": "f0b9848e4f99de6ac863fafaea2babc606cbab3ef25a747e3deda4818c915061",
+      "bytes": 110840
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_neffloat2.dif": {
+      "sha256": "a66c1e1e2323bfa74ecd92857f30d9abc92b924e78756fec6242c0cb39b56acd",
+      "bytes": 61289
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_neficeridge.dif": {
+      "sha256": "3df03c58cc430708f8bedd182b4afd91b450a70d76d79456af6df71a137b7d83",
+      "bytes": 98886
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbase_tokrz_scarabrae.dif": {
+      "sha256": "b73ffcf80392c985efa665afe9a94e8d510b34e7a0e0f731498cf6239373465e",
+      "bytes": 2013798
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nef_invbunk1.dif": {
+      "sha256": "0ffb14f2ce2ad8c5b3078ab42eea776d567424a093aa08984a53e49e6c9cb615",
+      "bytes": 68240
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefcliffside.dif": {
+      "sha256": "c9b49dec60cde9429441c1687fdf4da08de35353aa79a7c9a31b45e56c7c3b14",
+      "bytes": 159952
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefdcbunk.dif": {
+      "sha256": "1099c78b5f7a69b70433cf02de27b067a734a37843220e1a2c3907a2fb6269d7",
+      "bytes": 37017
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_nefsmall.dif": {
+      "sha256": "51d3dd5594794a052da0f331973f9e0ede0638970fbb964a45b1848a4838fddf",
+      "bytes": 19022
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_snowblind.dif": {
+      "sha256": "2cf7d3dcb557e9e5941f0af2804053cc851c541e386b8935738fd709ff2593b7",
+      "bytes": 68559
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_stonehenge1.dif": {
+      "sha256": "f1fb291d749ab35942bd400df02cf1e634d3f8d14839be88289d9c1f519570d2",
+      "bytes": 97138
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dbunk_vbunk1.dif": {
+      "sha256": "52bd6eaf14e967daac472030dc0b28273d409167d77a55dfb0ab3bf8ada1807b",
+      "bytes": 24570
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefbridge.dif": {
+      "sha256": "5d037aaa5df424e65584ec4050f49d2e6111dd63180f6868370532bbcdd659bc",
+      "bytes": 4755
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefflagstand2.dif": {
+      "sha256": "4b93c5e6c8a3e9722f48004d32e6f9980f4031a44d28dd0c0547ab75790de786",
+      "bytes": 70046
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefflagstand3.dif": {
+      "sha256": "1ba80805f6630e4cd1cb4062c1ffe985b651e5858a3cffedbd35d74c9d12603b",
+      "bytes": 112348
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefobj1.dif": {
+      "sha256": "43254ef9addfd0a54dcfffb8e7d1a350f5aaeec5afabc4e80cb5e435afad97db",
+      "bytes": 7862
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefobj2.dif": {
+      "sha256": "8a12adb4ca63d563a4ba84a0f5707112bf240a765460ca7be66553c4b1f2318c",
+      "bytes": 7902
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefplat1.dif": {
+      "sha256": "193708683bdac2ec4122168b17fdc93fbc40386ce0ca30e4c77d8552a1769331",
+      "bytes": 7177
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefplug1.dif": {
+      "sha256": "fe4cda950d7d838c025b319a89d789f4a2bdb4eb56831e3090a88f201321fede",
+      "bytes": 4540
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_nefrdbridge1.dif": {
+      "sha256": "8172de532aea82649d780787472fe6174f1f590340fcc37e7bdb9116259a579d",
+      "bytes": 53432
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_neftower1.dif": {
+      "sha256": "89961271f534590eaadc1c54ae12f7ffdd8dacb744712ef76815035adeee9914",
+      "bytes": 9364
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_neftower2.dif": {
+      "sha256": "fe3ae5ca099757d52de3555f3c19fdb7fe242922223f3a63d454af419c9218ef",
+      "bytes": 12133
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_neftower3.dif": {
+      "sha256": "1ac0a0caa0363cf9c926b1c72d57aba6a4edb0cd74a71b2d2661abfc5ba43ed4",
+      "bytes": 8695
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_stonehenge1.dif": {
+      "sha256": "382ee048d844ab4cf8de71fc40b654a6c5ef795c400a57b8c7c0691edcd1246b",
+      "bytes": 13888
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_stonehenge2.dif": {
+      "sha256": "eb7d0759e4cbd03ceaea34c50f8d7370de554efabd583f824695464f3390567f",
+      "bytes": 12293
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dmisc_stonehenge3.dif": {
+      "sha256": "342ee460f89b276ebd872e72c9d60d9e1d1520824203b0dd723861a11c97ad19",
+      "bytes": 7114
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/dtowr_classic1.dif": {
+      "sha256": "531b58676f40ceafa56a666c25446135affecc154a9814d87d615db6498dcf2c",
+      "bytes": 102249
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/flagbridge.dif": {
+      "sha256": "a398dc63a228d0b4c43ef276c4116cbb8089c722e0b6c419553675e12fb6b905",
+      "bytes": 93112
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/infbutch_blackairinv13.dif": {
+      "sha256": "8d12738cddf56f3bfc1137b61c970203f3274fc30de8b77664b46cf33fe22ad7",
+      "bytes": 144273
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/infbutch_blackbase5618_final.dif": {
+      "sha256": "0e8fb7e9ac0794550036af3c2554e38d3f448421e732ad1f4c0afe5fcafbaccd",
+      "bytes": 908674
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/infbutch_blackturret8.dif": {
+      "sha256": "8848f07001be5a000853080a52bc57e03d9168ee04e70af64e8ba55791c35806",
+      "bytes": 36357
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbase_nef_giant.dif": {
+      "sha256": "3b0a29cc52795450011177260630675f4451f38e137c88f2ebab8032a9b032bb",
+      "bytes": 2240003
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbase_nef_vbase1.dif": {
+      "sha256": "cf88e230f9e0ce6c5ea4be0fd8a5bacdc1d812d91a1fb6b614556a4f8474c42b",
+      "bytes": 987543
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbunk4a_CC.dif": {
+      "sha256": "805ba9deef8afd5a0f0eb1b564a0c5336bd465dc6d60f2f0ea308e410a02e68d",
+      "bytes": 73296
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/pbunk7a_CC.dif": {
+      "sha256": "8222dd6c71beccb99472798288fa34d4d04545d833bbac5e2188a2e87007783c",
+      "bytes": 77494
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ram_base.dif": {
+      "sha256": "045af9237d6266cc74030a0868e864e72c825229d567e8d9b61bff86707553b6",
+      "bytes": 429552
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ram_tower.dif": {
+      "sha256": "5ff4a95a2cfd1a8d281c0bd741ffd85d3d591cc9df791aaf0df359ece8ecab54",
+      "bytes": 22117
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ram_wall4.dif": {
+      "sha256": "5bfbcc612d500e82f9b819cab3a63a841ac07a2add57ab2cd5d307185cf165d3",
+      "bytes": 39045
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_boundrymarker.dif": {
+      "sha256": "fe19a17a58c37ec090e8e17305b6332b629c0a1c5ec824709847c9341e90a53e",
+      "bytes": 19292
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_boundrymarker2.dif": {
+      "sha256": "d961f8d49e4eac6bac6a8840768f82498a567bd812842f2c3031d1ad9bb2a410",
+      "bytes": 14956
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_bridge1.dif": {
+      "sha256": "8b5855bd2667104a1ef49915a198102e6b8f3e16578dc1cb4155e0d8d121f99f",
+      "bytes": 26660
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain2_mainbase.dif": {
+      "sha256": "654bfdb5279e31330ddcb8268b632a48c69968a128a260c543b6223fadc9f0fc",
+      "bytes": 453899
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_domain_turretbase1.dif": {
+      "sha256": "a73ec1cb48ca7ff7570139012a2534cb24a99713be616532de6233f90eba013c",
+      "bytes": 11184
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_bridge.dif": {
+      "sha256": "e88ff9ec81a183e83fb8eb9ef91cb51115f038236eda41a181969f7ef88e7b1e",
+      "bytes": 253664
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_mainbase.dif": {
+      "sha256": "576fc0a9b9641ab07eaae6d98fecb95c7e7f133f7ed5ee8b8a2fbb8a071322e6",
+      "bytes": 699951
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_platform1.dif": {
+      "sha256": "0f83ae3979a3c8a8809a14f6acf5e7f5cb698b476785b3ae89a673964ea3c837",
+      "bytes": 18907
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/rilke_whitedwarf_towerbunker.dif": {
+      "sha256": "688d08c1bbe0ad12c875e94a53b48f644944c886b0c8aceeba32b26f20a790fe",
+      "bytes": 355296
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin1.dif": {
+      "sha256": "f6d4ed3c8f5521a0e747fc351f0aaf1a4e94d24099e73c60fdc3b2e7060e1eb4",
+      "bytes": 58387
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin2.dif": {
+      "sha256": "553269c5f5af40994c92b4679cac03892cc1d95530caf97cf8a21df6db238576",
+      "bytes": 33198
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin3.dif": {
+      "sha256": "c8cf642e82ba35a740b6af66d21fd353550de25aed8dd5703a5c5eda64b1b720",
+      "bytes": 43154
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruin4.dif": {
+      "sha256": "3e17da65195581dfa4f00248fa5ff94b7cca5d4f377f14b0a3f052ea265d3eac",
+      "bytes": 8001
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/ruinarch.dif": {
+      "sha256": "a2903424b12740800dda19870843c32e67cc7a6e80486618ccc98434c4aad4ee",
+      "bytes": 10082
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/sbunk_nef1.dif": {
+      "sha256": "bd52c685ea008cdee3004316a74519298043d1112d645da69ec72d42cb8a76a4",
+      "bytes": 430605
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/siege.dif": {
+      "sha256": "8d6f93f43520b93b16942629e0399517fd1651cc7620d3fdf4397f4780bb46d0",
+      "bytes": 409936
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bbase_ccb2a.dif": {
+      "sha256": "97f1e227a95fb982d667ad56670d3e1005963a1645f71771deb0ce3ff8d87d6a",
+      "bytes": 74182
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bmisc_tunl_ccb1.dif": {
+      "sha256": "870e4339ae0d81dec3d6a1253c24cbb09eb5b674f001ac5a2fa3187957ad5f8b",
+      "bytes": 259873
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bwall2a_cnr_CC.dif": {
+      "sha256": "cac586b50900bff50721e40141a0aa6f025a6fdfe1eb14db46bca46e8922ba65",
+      "bytes": 39010
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/interiors/t_bwall2a_lrg_CC.dif": {
+      "sha256": "2ec97dcfbb763def4336d7d9027984239351c4e19192e2abc0fb205466ffa410",
+      "bytes": 20568
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/AcidRain.mis": {
+      "sha256": "a61dda0a4e7cbd8a86916f8d88645f4c59df27491f0cb0b4d04e60a0c6562a4a",
+      "bytes": 35939
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Blastside_nef.mis": {
+      "sha256": "79ef98c2bc1fc7f984822cce88a0d00decf894b234c000e43f152a441170d0e6",
+      "bytes": 37188
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Broadside_nef.mis": {
+      "sha256": "e50e3fedc017bff3c433f0f5cf4b2494289217a75c919b9229b3477b374a5bbf",
+      "bytes": 36924
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Confusco.mis": {
+      "sha256": "6f86d04b7b1c2ba22fa67dee758a9887784fbde27af5f9a96fb4beecf2e03e06",
+      "bytes": 39178
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/DangerousCrossing_nef.mis": {
+      "sha256": "9e9a4f082d5456f851ac7e97d17cb00dff2e8e53bfe54a6ca6e48ea92291bf7f",
+      "bytes": 59981
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/DesertofDeath_nef.mis": {
+      "sha256": "0fe0c2e7dec98a7688e665a94cc37b5de069c01d3189f7b4d17768b202b1754f",
+      "bytes": 86806
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Gorgon.mis": {
+      "sha256": "660384d76ac5dbbf5eb00f9d7fc9c52aafead2b05f1314963175dcc0b6313262",
+      "bytes": 74145
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Hillside.mis": {
+      "sha256": "551331bd88472008d621587ab399e0324595bf36c6f58709b5bbe092eb4a50fe",
+      "bytes": 50858
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/IceRidge_nef.mis": {
+      "sha256": "8f02b18b4e75d4a84251df9d0d06f11898dcb91bbb23dc352417cf12be29f87d",
+      "bytes": 46018
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Lakefront.mis": {
+      "sha256": "d3343a162902a6a6df40ea2fb7fc5292f71f2839a7f93312871914fff1845523",
+      "bytes": 47195
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Magmatic.mis": {
+      "sha256": "123a7e11fec775f7bb65d6afc72753c194b6e0529c7c3c49f823e2d4bab755ec",
+      "bytes": 37957
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Raindance_nef.mis": {
+      "sha256": "b47f7303d976f39df98309126a13084f8d3dcca72785a207642e630280fe2177",
+      "bytes": 45116
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Ramparts.mis": {
+      "sha256": "19f6fe6a9174e03e77910925e70320f3d1be7433f7bd580dd981f0a0c5fb57f0",
+      "bytes": 148561
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Rollercoaster_nef.mis": {
+      "sha256": "ecbadbd5cb91dad264f969750dc21aafd22fd9b5b92d40fcc1bd5948e3b95e16",
+      "bytes": 63732
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Sandstorm.mis": {
+      "sha256": "a6b043c19292cf3b91d949aaca026d765ca59653217b07dcb2b52c22615396fd",
+      "bytes": 46363
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Scarabrae_nef.mis": {
+      "sha256": "b5087952b53b48f87a684939bf8831126802d7bbf0659b730eeada91d4761e15",
+      "bytes": 72426
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/ShockRidge.mis": {
+      "sha256": "8abb3afdd971a2f18492feed35ede3aa4026792f809b29e10df26bd982d65c68",
+      "bytes": 60533
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Snowblind_nef.mis": {
+      "sha256": "c6cce2e899306c6ee28504b58f9a5018c48484e22906a2610ca12161fc4f9b71",
+      "bytes": 41591
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Starfallen.mis": {
+      "sha256": "f307785482740f308af8da7c10e761ab652921b88413f3e95775dc2ad2976eba",
+      "bytes": 34667
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Stonehenge_nef.mis": {
+      "sha256": "5ca2ecd6cf29e04ea284f9ba4f2abb3103bd71d55ca4d47c21bda872365e393e",
+      "bytes": 37982
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/SubZero.mis": {
+      "sha256": "77c47e20730a8cf0b930be13a592e3daf0176c83d2aa4623192602c7d69299c7",
+      "bytes": 31525
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Surreal.mis": {
+      "sha256": "4b182e9bb5658487d32068b8cccf0c678173d08e4ea3df98f84a72c20cd086d1",
+      "bytes": 29637
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/Titan.mis": {
+      "sha256": "623152d16d756e792134fce9cfc40fa75218f51d7e998e98d594fd4e536aaa47",
+      "bytes": 48319
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/missions/WhiteDwarf.mis": {
+      "sha256": "cf6f10e9ca2ddb1a3533c8e81dffc61e81ea6814fd10f2f12c46eb658f385a17",
+      "bytes": 44562
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/AcidRain.ter": {
+      "sha256": "57c913f2a03085e32cfa11682b69e45dc4c36e50a160ab853539e594c06b5011",
+      "bytes": 459012
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Broadside_nef.ter": {
+      "sha256": "6d4eac38acb3c1c20f3aaf45c21639cfb87345d0eba31130ce8138ec00f258ea",
+      "bytes": 460306
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Confusco.ter": {
+      "sha256": "e1fc2617b7dbd84f001b6011cfbc881c0ec6022f74a88e086a808cf92d5dc39c",
+      "bytes": 460448
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/DangerousCrossing_nef.ter": {
+      "sha256": "753932399291943df3fe40222df20fbcc2a8dde3c46dbd333046725cb5bdbea4",
+      "bytes": 460306
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/DesertofDeath_nef.ter": {
+      "sha256": "e2bf4bce9b01a8b1a78d1bb5fb3896a50f9afc54101e57a1b6a7b9dc2fccdaf7",
+      "bytes": 394387
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Gorgon.ter": {
+      "sha256": "9b854590c2ddeee644bdef71cf12f04e41b9d9c1d106677f2675ac9f37cc5e7f",
+      "bytes": 395016
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Hillside.ter": {
+      "sha256": "598e1b46ee420e4f2d604320613512c35294936c160358c2a470f6f7536a49a5",
+      "bytes": 460300
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/IceRidge_nef.ter": {
+      "sha256": "1b2d0c940031af72d6616242c6bad3cb977c3983ce70b05cda1ced3c2d72d8f4",
+      "bytes": 460635
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Lakefront.ter": {
+      "sha256": "33751b18361b256d66bbad30567efff456453d0bead9e42690e3d6ab38a0323a",
+      "bytes": 394849
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Magmatic.ter": {
+      "sha256": "db41d17992e7f4ed5be184f18fcb9d82e4d421239df7a7030afa9877ae4ce0c5",
+      "bytes": 460853
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Raindance_nef.ter": {
+      "sha256": "ab8451a716f70ac11d4ff3b369ff534b5aa0a5eeedff2508800ac996fc7c1c6c",
+      "bytes": 460303
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Ramparts.ter": {
+      "sha256": "50945c3c13c22f5f0755e4b2743d8401ef99e4a0970e22659a7219783b9f80c4",
+      "bytes": 458852
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Rollercoaster_nef.ter": {
+      "sha256": "588600ba6d9bbbc6f8710b826c23a88c63b03ca2a40182d5473f92cce5b7af9f",
+      "bytes": 393263
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Sandstorm.ter": {
+      "sha256": "8546c2804d3205f8fd085579230b863fc52591f1c6edceb318169620109bae1e",
+      "bytes": 460319
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Scarabrae_nef.ter": {
+      "sha256": "c97d4950982166849867b05b6089077f268fca0afbec6e65bf3a71ef95842ab1",
+      "bytes": 460443
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/ShockRidge.ter": {
+      "sha256": "62adcde1dd44eff0a9b270b3a37ccbb6d534a0407ab6e877711a3b44c59532b9",
+      "bytes": 458954
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Snowblind_nef.ter": {
+      "sha256": "69fb29425c6104d23aa2f223323312df00e8af2285a4be705250787263f08fc1",
+      "bytes": 393401
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Starfallen.ter": {
+      "sha256": "391ac43a759198224fb181d0013763c0f88e50bca6575b18a40c5543965b2e9c",
+      "bytes": 458971
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Stonehenge_nef.ter": {
+      "sha256": "d2bb26c148e66f4add44a46269680d5f2408e25f62f7c526bc3542f462ac1360",
+      "bytes": 460306
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/SubZero.ter": {
+      "sha256": "750ef2fcc2d8669afea67e7b0fdae94ff1605267a36df9e9da056c2da36c4e0d",
+      "bytes": 460954
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Surreal.ter": {
+      "sha256": "736d47025579e794164aa5a8c0fc446464564e56cc7db168f9c4eebcb1131c80",
+      "bytes": 393407
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/Titan.ter": {
+      "sha256": "1847f79ec251ba02f2fafc2470658a2c0ed562cc338ef3c06e4d3cda8a274846",
+      "bytes": 460482
+    },
+    "docs/base/@vl2/Classic_maps_v1.vl2/terrains/WhiteDwarf.ter": {
+      "sha256": "6803e5db532cb1b83109e6f2feb13f0a4f7522856d5cf0d7e057f80d4c401af3",
+      "bytes": 524508
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdg0.dif": {
+      "sha256": "6377f95162da9468a870393f3bcfa290cf712afc7557594a36d30e030fec8530",
+      "bytes": 316499
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdg2.dif": {
+      "sha256": "9c20585c2c7c70564dd10ba03c400b46c03a72e16e76e0aeae67ec143c8b2bb5",
+      "bytes": 442610
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdg5.dif": {
+      "sha256": "aef975433a142984f52da9f9d10c22d6d2672b634a11e4a90eab382ed9497733",
+      "bytes": 37217
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdg7.dif": {
+      "sha256": "9c24541ecf8a1136ed6299434b3655cf267be9066bcc22fd965eb5f1219657d8",
+      "bytes": 24471
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdg8.dif": {
+      "sha256": "0c9bf530aaac181855de1ea418b5199e11639e08c94d6b8c805a7b7f06234988",
+      "bytes": 55847
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdg9.dif": {
+      "sha256": "4d53e6fa248eb82eff96ada5c716faeebe76fc5bd1f45ab68d7770df3e059ce2",
+      "bytes": 21670
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdga.dif": {
+      "sha256": "a1d87338714412a7e4aba4ea83e62bde3c25b1e82c17530809d6e739035f290e",
+      "bytes": 149659
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbrdgb.dif": {
+      "sha256": "605850b867e7b95d910411587904537c6f94360d76a7e71da70eeede308a88fc",
+      "bytes": 108047
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbunk8.dif": {
+      "sha256": "5f36b43271767071ac203c51e4168696a278e8a5c60d2c655e61f1e5196651f9",
+      "bytes": 175692
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbunkc.dif": {
+      "sha256": "d46d0b1f623fe5152cd1ad3938f80051532f7a37929e321851796cc796a4273b",
+      "bytes": 270431
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bbunkd.dif": {
+      "sha256": "3fc970554bdbd6fa11d9c54a5f396b24ac16f3b72fc9e5056d2e015bcf362c2f",
+      "bytes": 71623
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bmisc1.dif": {
+      "sha256": "9a112a271c3f3ff19f987505e1d90cee352d0ae442a6708751aff36cb96cdd5e",
+      "bytes": 27850
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bmisc3.dif": {
+      "sha256": "dc452bf16598b6ef124097b7ac95f5b3af48e8bd24c5e1942946f659a084d0aa",
+      "bytes": 19523
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bmisc6.dif": {
+      "sha256": "21c2d2834cfdacd5f3793cc0487f5bea3bd2fa73a2edf9964cbda16fac4e20e4",
+      "bytes": 32797
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bmisc8.dif": {
+      "sha256": "06fb02e4c61d3e4ee32d2fca8c8ebafba860cffed31a8a8d41bcd8fae69bf8ff",
+      "bytes": 32853
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/bplat3.dif": {
+      "sha256": "8248223fd23ff81805c3510d8b3cf150e3e3c98734794e57e03378aec373fe18",
+      "bytes": 51845
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/brock6.dif": {
+      "sha256": "b1d63521721e526166b57acdb0b96d353010deb1b2a695b0daeb37b8a18832b8",
+      "bytes": 102619
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/brock7.dif": {
+      "sha256": "72bad069472d0525686e14ba623665b51004863c195ddf2d815c32f8ac2a84ce",
+      "bytes": 88729
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/brock8.dif": {
+      "sha256": "826bec467343d35f029b0061ad35b1694d1a62a0e05315308a6401c8b0d9e51a",
+      "bytes": 80585
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/brockc.dif": {
+      "sha256": "5d3e0d323c376d361f89771d9d745768ec29b44c4a8b61d2120db1c4c4f013ae",
+      "bytes": 177081
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/btowr5.dif": {
+      "sha256": "9c613837bba85160ab8e85da49b23a659507265a7c09d3c3560aca166e1b1e69",
+      "bytes": 338569
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/btowr6.dif": {
+      "sha256": "540beb52ec7a7236ee04afde3d08efeddba4d579b7f2792916c9a77a910356c0",
+      "bytes": 942421
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/dbrdg3.dif": {
+      "sha256": "0043d7f1c4b3977cbe3ea6f0195ea94c0e8aea7535fd15210c5edcdbbe701491",
+      "bytes": 297322
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/dbrdg3a.dif": {
+      "sha256": "a02d856382c28bbd1c8f2116458f5320488796c58bf2e4b967239a2564d47730",
+      "bytes": 20514
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/dmisc1.dif": {
+      "sha256": "4cf7e451f00226113fdd2fdd49ad56e9c7ffe693c3816d3494d36fdb4e57111b",
+      "bytes": 92556
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/dplat1.dif": {
+      "sha256": "e3191e932c8c416c270edaf8d8b1015e2a506e5d2e0ace7b526ce49726393a79",
+      "bytes": 86111
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/dpole1.dif": {
+      "sha256": "4494943aee3a2d691e0c61b863b868fd0f271e27460574109082680658fbe2d7",
+      "bytes": 13399
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/pbunk5.dif": {
+      "sha256": "5646f157c585da0620618e9476bdb0a1d2830c57b439b6c8b4a21d7ff82c4a5a",
+      "bytes": 142229
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/pmisca.dif": {
+      "sha256": "1f567d103f424337a1d708b996c8c6a920acc59363e35ca34daba18c83bd3e4d",
+      "bytes": 104579
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/pplat3.dif": {
+      "sha256": "d57bf6cd0b6e570ad851d4ed67ca5cb52ca4a7e17fd56beeb0e44236bdda6150",
+      "bytes": 297842
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/prock7.dif": {
+      "sha256": "647c9dec4c19672948adf633bc7b1b62d5ed70465cf24d8ae71a93270cc0776d",
+      "bytes": 97797
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/pspir2.dif": {
+      "sha256": "ec91eb0f62ce904446c0ca566b2c7c02604a627c9f230bf4bf111f6654118d81",
+      "bytes": 199794
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/pspir5.dif": {
+      "sha256": "75855b200d8a63fc72ade791ee3fe85bc7a46eafa63256792760e033a81ba8ff",
+      "bytes": 207635
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/ptowr2.dif": {
+      "sha256": "f8a2327c1c4f385e4771338ecc9370b3d29881335786dcf342e49f8edd8af720",
+      "bytes": 123415
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/pvbay1.dif": {
+      "sha256": "30c5ab65d03cd7ead67e962b521d1fea681d9e830236d7a6d0ea8dad99dbef2e",
+      "bytes": 984075
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/smisca.dif": {
+      "sha256": "f3d91b3413967922fbf2bb871e7e799aa226c28123f571239541bd313ac1cf96",
+      "bytes": 193871
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/smiscb.dif": {
+      "sha256": "cce6596985d262e39924bcfa6314930f454f98054a3874a9e1a571ae59544ce0",
+      "bytes": 31214
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/srock8.dif": {
+      "sha256": "ad49587c74c37d4e915b17c535cde00d19383e6fb538bd1edc97889fdc3aac90",
+      "bytes": 73211
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/srocka.dif": {
+      "sha256": "872c297032a4b48f93f26ef1a501fc4d6267e0a8f58c9b15ae1664b20096c36b",
+      "bytes": 229563
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/srockb.dif": {
+      "sha256": "1c65c2213ebd433f468d826dede02546ed416ec44c58faabe935aaab8c022701",
+      "bytes": 163904
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/srockc.dif": {
+      "sha256": "5f1e2725d999c731b514ae2d49e85e51c4553ce41ad4dcfd528a2fe0e6a15921",
+      "bytes": 182486
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/sspir2.dif": {
+      "sha256": "a5881fcdd5c7ca61997ddcc875b635d1b84c6b1cc7dac74c0aea88496dbe19e6",
+      "bytes": 176088
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/sspir3.dif": {
+      "sha256": "5aeeb98eb940a2daf540c8deb90dcc29152530c7274ef66c4aafd492ac42178a",
+      "bytes": 177896
+    },
+    "docs/base/@vl2/interiors.vl2/interiors/sspir4.dif": {
+      "sha256": "166428e7cdf9ed3f95793ae101ec3adf5e91262fd2a54417f7806109f27e77b6",
+      "bytes": 716173
+    },
+    "src/dif/dif.ts": {
+      "sha256": "1c41be26ebdcbda6e7fbc7a57bf68431833de7d2891625c468c569c65ad89aa6",
+      "bytes": 21799
+    }
+  }
+}

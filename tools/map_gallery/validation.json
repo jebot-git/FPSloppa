@@ -1,0 +1,2312 @@
+{
+  "maps": 36,
+  "images": 512,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "renderer": "Godot Mobile Vulkan",
+  "all_logs_pass": true,
+  "results": [
+    {
+      "id": "ctf_t2_acidrain",
+      "mode": "st",
+      "bsp_sha256": "5a26ea879d0760b7e85e070a58d2c9a80cd8083e90bdb3c80554f6a8761168c9",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "a784c32bd9607c4d0ac1012f1059551011b4217c8b45ad8cef6a8f70950ae28f"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "7f958e102a5ad9a0779f66ca0ca42409bcdd4328d5154914e79c223070f04f6c"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "63cea521926120bab0bc68849e05b18fa936d921827412db985ec417d4b93ea9"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "def4c0f46c599a4bc31316de31019918715d14d6f66f7babeaa27cd671fd2982"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "fb901e28cf5014692648ff3caa87de7de680b1de7bd33f583a01c3ffbe3646d8"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "060c6284f72b815fb9259a57488051e71fda3b536b50423adfb71d6abf4ac934"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "7a97fb80f6fdb6bab24b1b1711a63ea9ca4fa2d83bd8f29284e310ad800e669a"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "e1cf9e13a51c01c9862970df9a5888f2c764ddda3bdcfaadd2d72b1c66acdfc4"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "47bb532122f5bcce2d9a99aa14aa7348631db3377069ee03fe759a86e70e1ee4"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "5c427dc0d870f1a612cebdd3d70e636d954b5b7b705b63a414b3e41bad4dac79"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "57fde87b293c80b3fdc19aa3c5361e0af405a197c841c11c89675e7c278d9411"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "7d338bf94ff380904b1091f4e2146b6554821d8dd5f004e936ba0e01489784f6"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "45ef35109e700f034b2dab00cfbb3e0005215790feb59a6d0e10cafeb19b32a7"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "c16bbca34c6552446d1c64537f4fae2ee8975eb94e11ada13fd68f174979c856"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "6d3f4f10f870ee3c852890142eaa73dc8fc5b95d59cb9e9c0792b1572b21bc0c"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_blastside",
+      "mode": "st",
+      "bsp_sha256": "04beca5f3f0c1a5f95414587a45a3e6390181d1357f1281f8510672c1ee60eee",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "fde6972a6992fdf464eef3dc494475bd8125da0ad1b5e70b1b0125937297b192"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "f134c2c156ee4add9232e929dd7c7859d117f9d377f63d7c7479e4fdea5d4b2b"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "f809ec4390138d4002a64ab23caa98369e9fba5c6fa0941b2328f4bdb99f57d7"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "5cc166cca322e08fada01153679a1e69db958eab2719246398d704b254f6f482"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "7a95df22547bb865cc94d6aa7a8060d09ab70439fd04eaf17f628c90abbc2855"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "18484b204c8037809e76ccd3049bee4e7d5c1a3bb5d79dea82c31962f8bc18dc"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "c710ba52d1221a972212bfdf4b7b10b226da9aa44d9caa92ed122cdf5e05ab78"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "264a08775c9ff8b9bb8d07d903ee3de329902c4dc10ff5b9ca9b7987322595f9"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "09d95d731cb705959d55631585d1cac8196ac6837a8fc26d785c1c9900c7774b"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "57618cb03e65dc69268fe20bc79234a37c537154287e96e6c1a5ed1d989041e4"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "1acd390c058a403db43896a876e33e7021836f14634de58f1be33edb49fd66d0"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "9b79c1bd1cfd228da276278386838ccde7a24c3cb97b20a78e7d7500046ca008"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "45eb1b5cf74684cdba9d42b64913f34105b5724744aa1de8c998967527ee590a"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "2cd8b5f383f98d48569de68703e5ee7a647c1de8a0d6fdc5ad734f4d949ef40b"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "c5b5a0d66e8277d6b97e98fe80632e857a732da14db82613cc3b79412f21f015"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_broadside",
+      "mode": "st",
+      "bsp_sha256": "f76fd185e41e381e4f957ae3ab8bdcab7a2dce9b6675222fdacfd3e20f27ba77",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "4b1cac7ea6274df61d4714eac8fe959ea1294df5ccb4d90a1eb83c2b2ee0edaf"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "35bb7b71c3ee12b8e61ea45993a7ad05fef81f6ca6234da8d382e04f47f2a643"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "ec65716b2066dd4e5bb6f1edb75c70b84aecf5b29526a49bec3d19ba911e5a32"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "ea2ba49d62ea9ebe187160f75eccb7608602db6a0792aec8c308ba01f0a807d2"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "3118903aab011d7d67a7047854936d30979b4d89d68f09dfa5842c15b95e89df"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "08dc1d2c7e6abb50c662c958ad8c22d3b5031dcbd27b8c150b6b9b85067c7ce1"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "8e0c312dbf9b2800038e9cacfdb99adc403b05629bd2158b433004e60b73fcfd"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "1d581b3979a30d39b28d7cee4ea7476d44efde9bb2c8330117fba99e7ae78ae1"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "0f72fdd3d7b6f2884a750726181493772edeb9a53eba5256aa66891423c9c367"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "e9689d9cc7eb2c57072359509310b43680efa04bea4e8963a6637dd3d87c458a"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "01e745c84d86aa859efc7841e1db16696f860c12044ac5a5394d094c0ffa434b"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "cfbf620ff5b684732cc2be52c10c4ff40c3a2953a6a1a49ca18f98ab49af3de8"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "5d8291746c6c6706b05b76e2f2f338aa94d7ec14ab86a345a1458fc43118e372"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "06e55dc45a6c9298164d3b6a69913051c36bd426670075098072390b9d58d4c0"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "3bb997bcccb0b96734e61267af5030508f4cb9da2d86419a13602e6da9ad8287"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_confusco",
+      "mode": "st",
+      "bsp_sha256": "109b1742a43791851bbb80c9700db952056f8e7e5c39f476ec1ed40a88a339d8",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "92baaf119ac1a4a7bfdfe49724f3cace1edbd3cb8a71399774f1d9c65d54f3ef"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "29d7e823dee9c2d908b6261514a8469fdd9cc139572853562688eeceb7044acc"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "c847eade61234c06ceadce1e7f42e10c6f98191ecc557fb84573d6879c6b6aaf"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "b3e16450cc3a3294ee009e19b1595bcb3adccec095a0528f770fd41f03437bd7"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "87ec256e5609eb8ad8fe15d17195025f98456661fc317f375f4d07c5d68a9a97"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "e4729ae44ad2fec00d3a9909fcbc58d5747b11b5206d0309670d07fb0b9a71d4"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "ea11b2403517caed383f066d9bf2885b6c4bd69ff514f685e913800345450aab"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "9a1484910066f5b2a99d0f91a413d3ac30c2c1d0af2e1d6f864c32d4d772310e"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "976538053b81bc838a28bb09347d9a1a186a087022c0208573edd14ac927e357"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "5610a318b5f947ab9a582d80fdef36b99edd84415512a9f77581e4d9fce86cfd"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "be38feefaed2aab79a2f7a26fd8ede59f190866a5ebdb58fdd45a759dd3c3862"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "a3991424014a565e2490eb793cd4917cde3cf4eddcb339b0de3f07e545c13e07"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "bd53887c291bb10cde28f6ebae9acb6b6c49a069bcb9a1ebe8e363a20ec0bb4e"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "f7f67578731b0651256fadd4fe6b04420aa0f7930e854f5a13f6952e3912038d"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "b86b4a0431123fe086edd700cced0a4af94d2f2ca1811fea35332ff0d4ce20ed"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_dangerouscrossing",
+      "mode": "st",
+      "bsp_sha256": "f15f72b33016d01d33b9dec258e22fced52fb2f785345d1bfb9f8a202d73d1d6",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "644bc6dc343fa4de302d14e3e2a59788624119374cecd61b0cc8e4ca473072b3"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "1928bfd6b345312fb907d31224748b0411507691875fec8c20c87469feec929f"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "af5068e8915e55c61fa166045a0fd9c9bbc135041affdf7ef07af90463bab3af"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "d07190994631739337fe57d73bd6cf281b8c54a6adb41befd0caceb2d913cf7c"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "d96b426427cfda45b9a649da34c1a7083515eb56b3176d61ff223a61d0028554"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "29a60f8db73970a328abeb457e4603a328e5c543002d6d7f77dcf53ddd5ef2cb"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "c2638729eda67be1e8df58fd5a4e85276919f9e68c892f76caa9cd646976ae08"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "fc32b922a74641a8db24929723c4077274cdb8bc3395bd82f73267f36b50992c"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "d7dbeb7b6a9268ea88f4236a37e5fb6dc5652734e32bb4144fae9a705e4523fb"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "9998b60993f2283264a6bcdc339c31998f6e3e8e060828ee86f88377420cd169"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "f6a2982f8c6e133d89bea02c2428eddc6a1abcf9c9b908d67a5b484bb698c6b9"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "593d345131c6b086e683362974547098380d1a7eefc7c5e1ab565e3329dfb5f7"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "902381123560b866398c9d3d89009fbbb1471a7240d33c562771fcb7264f2649"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "d551e4ddcebd64e82a9858b2e8b740b560d295d1e86539790a5375ac455c820d"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "a4763ae6252f34d6a588415c7866d9c5ce3f8e3c99dc3ad8189175bce77b8b51"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_desertofdeath",
+      "mode": "st",
+      "bsp_sha256": "626f151ead8a595b41324a22ff4c2bbbe063c77c34aafc386312f6e2382ab68a",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "da84d267da30bb61bdcc8fc9b02c21cf20d2b67cc86a2d36fcb3fb2086b0d1bf"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "b4238ec584c658979035e8ed1b9f2c96f3e33906e604b632cfb79a16e57ba3de"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "11296e17b84da2b7d82d5542eca5fbebe1c665bc0814fe608f5df98bec15849d"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "d3f3a815f964b5acc9efa6650a31c8aad17374f974c4ce7926e0ef6f8b56e5a3"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "ae0f3789828771b767511640e710ffb9b91bd3add5b5a55b7d4709dd9c07f825"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "417a9b697a7c2501d1473a69ac370fa67c13b5288af2569438d045186e9dec1f"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "aac51d23eeffd131858a6a61937d305cf16b8a0b5edb67e237dfff5b1eb2b144"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "16851feeb114d40effd62e948f3eb56bbb0c74063fa66ea05dafc63b219de566"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "fd9c3c8bc6edef2d7d3b2eee5ade61ebe4ab27d1eca336835e1eb4c34f0747f1"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "f7f63bb264f8124d5fda19d6e7c73ee9860a85cef50d74aab78a3a23067297d1"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "2812810cec39f3948de5d674a06cd3ccd4bceca3e6b86791df01f956950f39b7"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "1cb8d4321f5b9037feb096790829611c791a13ff45fc5680ae13a6312a0f183a"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "d62f403b4e4fdc10226602822a2fb03e66b10ff97013765f8fa3536ed357851f"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "2d48e8721045795f5b46c3f046a57c4847ef999a18f323a8e8ce4f63cbba76a9"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "5f14cf580a0c45a4a4f317919a98eeb4179a2e8e5fbf0f2e209b4d04e0239c5a"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_gorgon",
+      "mode": "st",
+      "bsp_sha256": "ff6c7ceaa265fcec678403e7c8630b0c8167da32e119182925549c0be51eaca9",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "3ad59755e6e9ee814c5208b9c496a3ccedc936e8698c533b5e2891aea5388a71"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "4875c0e36b68b6b92d0a1c26a3e9a1b95e58c23ecc7a9e7e5e51b8a809cce33d"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "201e4ea07267450b79f899546a7e34dc2f9af148c731ffbc267114e5e4ec8f12"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "cd74b8226071f704666ee9de4cb3cce6168afa06b5432839ce26eb13a9f5e257"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "59a0352f71ba45e7b12a92073f11fd1928c686d26f6f774d6cb93b4359cc8a44"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "8933a0dd6ccd6325a089682a65d881d42c125dcdb548410afbcaeed9f9f5f2d6"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "741ae2a45a6ffafaafc7bd220d2ca81f5f76e20ba15b82fe8b8cc7582e46dccb"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "b1667b26c4f6222a462539fcc78dff96e31e6ce7ee454a419f731f6c74d35c8f"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "e0473deaa7aece1eb2c1f4cf44badc34e9b7f777c464badc964e564509010bdf"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "d3748c1935d196b273fc95acb415b603aa1791cf989927566cca7040d9d56da6"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "017cad44be13ad6cae26c10f58ab0ade9e98ddb4a5e63fa03d3d3255dfd52b56"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "298faa6504c4fb34624d71ce59c9033f3aaeff2748a9d8fa985b0e70e9ecad22"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "53f795e1f45337214671652c80dbf8f380e87e6d4d620c5a2a1f1efabbd5a43e"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "eb2aee7ff0923af48823d81dfe0b3f58a14d57b7935e2a1fc01b98f3c5821724"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "fb90b6be8633acebbcf5b43436bb3285af5a1be3936ffd5ac326ba977d269b51"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_hillside",
+      "mode": "st",
+      "bsp_sha256": "36a3c58a40abfd32225fc00dc1ebef9921568da4db1277a5314cebe6441ebfa3",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "300a5de1ad0445817487076ba5cb3745a903e515e2228dea70cafd9011d70d25"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "367447e51724be1fbc8a44fbc90d3342a4732a68ab4dba182122d632a1f92362"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "7bc6410ea5c120d3676567fdd91e8eed4d40ccc262563354cb23d8bf0f964a05"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "64235d95e28d7ead731f212f45d0f8a546c7ad70782af95e77398bf1cd258c46"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "558f0a8386fc5a97010755a2d4470f44723b7b97cbd08b8295f21e57b0f89326"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "13b10a5a806ddaf34eb685a507b58e2918bb407760906b597622ee882fee9eca"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "92e695c48afe64e92c0576f94364bc9b03a2dfe979898c33a666b0d4c5effef4"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "d6c3354b5a7093973894df5bdfbef790f4a51420bf031d7cdd706dd77da2ced0"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "f911f190e2f5576f86f0840b31b42512f717cc34e9e1b52b8e5f1d39c9b0289c"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "407a7646960da51ef7af5cd3ec3152e8f9e20a344096ebff80e3cbd7304f4859"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "766c6f1614d2c30ab4273084c11077646bd63a9538132e6516a1dca64a24e2a3"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "b0c7fd7118b3b85af292444f5a0a9d71c6f1a1d4fd93690c78f685219544f88a"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "14a91ae994fc526d8db88785ee2d36d5b8ebf16acd159b5ef2c2d3f437572cb8"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "69312d0996b1844fe1a7c56ca12f8b7f2a283d9d706314ce12d9765f6e317eb5"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "30db879fd4565a605bd3f7285451d1cc0d7bba7eb30c2191823a0afe2d4a9ceb"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_iceridge",
+      "mode": "st",
+      "bsp_sha256": "186489af98557247f1617322a9c528ec27f7ec41d3af463dcc31ce4f1f1eaa2d",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "2d889c7d8af223622a0cfb6a136d77d724a46e43c8382fb8a325221a10a94e6d"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "d39379c2cf23031db1c003624a4f66bf1e83bd6ba033c78dda5f162191a17d12"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "969b6cb9b56c2efb2d99e4c14c8f98d551993a44bc6f84d52b65358f1d5cb21a"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "04a4fc1b87338049295b3efa3c0f16e927d5e94f6bfb6b3ab372541e584222ad"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "9500fd2d2049eb82b3f6ddf3c037d1a586f756715171c31d6bb5f23b61d8a840"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "defd9d69d9d8f4fa0578c42d22a9f92deb0be6417f00f5d494ca1d20dd9b2533"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "50e04b87362d065bacc30508f4b5da847326f8908cbc97578f28186d7b8d536c"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "7c38dcf21471588688c9835ff060665b3fad4578a7c10c320ae61390c1c85050"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "68d0bccfac63a32b2ac219ba7346b68c0b475b5ac35e081c9f6d0bbcf185ac1f"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "ec6079c4ec658c3be524ed4b1cd8261910aaa08584b3bdb62b725a9e50e7758f"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "e483d3bef2c1432dc001d708cc58cb1b1a9c36a6ce1492f7309ff509148e3c09"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "11a8d8c1bddf752b12c79ea3638d598a30784cd9c9612151f5b84755d3e2cd5d"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "ebd2fb384747757117f21388272360972445d2c0174819d606107c1b08816270"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "f6d458feace3c488da78438dd1224aabbde9713f3e797afbc377461aec3e0f3b"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "745b80405aa5402260896df065e3457082cac25356ecbe6a2c3292a9b134f632"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_lakefront",
+      "mode": "st",
+      "bsp_sha256": "95794d620a02822f910e41190600729c57aea7ce32c45477b3a4fec997d417fa",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "f45cafbe9b61851c113b4ccdf8a5429fb61628c9fe7a0de59e46f095591cd163"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "814b87e355854afaa5b2178ce778bafd21bb700a6bff37a41f1224902c041819"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "c80d58efa6d20571a72749740b816a5e0bb164e6e0ccb398d70cc8da3ed4cfb6"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "dba66eb85933ca96dd786a1bfb00e76e243d6ee2391869caf327df7699d56f13"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "76dc44cf1857c647535cd7e3cb5048bfcda961f03a50f3556488376be686a202"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "300c444d5bf7f6716fd1c7035fdb3d44587882e9ad3e155130866cfe5e897e61"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "cab9ec474ab3277514e67e28cd4fcd34c9e2cdf07eb9fab315d5ac1138c97a64"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "668f99df0fb76cccb876f2210c14de3ae8322ec26c0791516cb56fbc5057ace1"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "2fca69b4f083d0a31afeac056abb470fdd0cf4c6553c133e911ed491549bfe67"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "91ba82891f7c4b9eb0a0201ada189a2fe306175f5c6487e9fbc4fc5e56107c15"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "53839c2401a962bf68baada87ed0de216bd1bbe59b2188fdfe7ceac1e3723020"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "aff761b7331362cef4f1569de0930c7e68f8ddb26774af6aca106acca128d36c"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "b064e886048e0c15bad22b966fbf30dfef94fbe6c3432988db513faca8512240"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "15b8877aa324489704bb89e7f48e302933d7605e3b178a148f473fa9c8916a65"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "6c8f4c3c25935606b5c27697c0f1feb4431650adc59e4aa48c7d685f4c140a01"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_magmatic",
+      "mode": "st",
+      "bsp_sha256": "29beb6ae33e918d887c0d89f67e7500ca77611181d6a10c5bd23b07a041f801f",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "73b532f2ed2a6d31896980c8ad9cb32f925a9c6534cc926b7f38341c2042a434"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "c3bbfb18ddf3d3db1afc18568cd2a8468ac1c502cbb13de1e1ade81bc00f42c5"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "42ff74778d199fa764479b57d4049bd3c82059b504c6d723529e6d9faeaa42fb"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "f6f081fea87172e063f289e08f863e7d5901b77dd78c3cb1ba2ebc5175226332"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "aacac62a6d4e9ca7b32faf0f3aa9a503d102b5984eb5c5ca1bc8fc5555e9cb54"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "27e59782c5a3dd64265855a4900c5dde2a6b9ea8f99f02ba65860ba88f792e89"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "bbf9ee3535aeeb143e59ea18f243f352065eadd0afe6ce6a9eeb4871a37b9bae"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "403b8abe5d0217f32ee7bd3154b4f0fe0d9a1f840ee679f53754ea6a6e80dbef"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "564c9d257dd61185baca52069f7c25a7488963f8f704e9a4561ed7be3733f21f"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "5f5a10741e77c5b92e30bb041c3c666311300d4291d167b54d5083ff57d424d3"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "34fd0b5d3c93617577c1952ac9f3e19af9e4328a1acce221ae92ab8d9badc320"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "7f5e396321f39345809579b1968840c0e7ec304b99ed5e8c6ec86fa973ea13c8"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "7b5309664cd89df4d7ec26abb1160b7a1d792d2032121dd68eb2a89e3266681a"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "99c029af644c50abaa1056ff2541158d4f56205e1641d5b1debe20c014db6755"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "5e42c3019fb9c565971fc886f11706f994a1940674e1c2fb39b0deb69f88a033"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_ramparts",
+      "mode": "st",
+      "bsp_sha256": "3b3e062f76008b0a9ed4e29442a3dbda6e380bccb1aaa7710fa9dd4826a463c8",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "0f7cbd0a5038b196992cd48e999405726ee812e9a9fb8b9c6301490e7937e0eb"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "945a1266c7f46a0add54b125f8788671ba5f690557b80b947bdf288a7b0797e7"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "3dd69cf57b0dc7849d8bad187cdbcdb0488b5a7a012d7d86fa9f188a156a134b"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "c6854957f87084726e3c994f0e5dbd7a83ccdcb1473d211486780f9aeb66ecf1"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "ade8dbb9364d3e432023ad5e347978d870ee30cc364160524d1c02ca1ba5c1c2"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "691480e9aa7ccecb2235e433119ff5c6e93ec5e69e6b720d9142b6591756d836"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "767a9364839cb1359944e14d275c42160fcd78caf5d7ea0b502924c03471addf"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "7306c9f9083725301d1213efd9dccfc699d4ec2fd146fca3bcf89abb9ec1119a"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "e1377349710958cef65ca479411da7de80f0bc49da812d84fdc1d6657d9eff1b"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "d3c4be29187bc017a32d0c73177f41429f629fcf9bbbec1e35756bd46ad336a4"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "a77ca28ace5e4c607b346b67650f80f7a350ff4c8b963d0130a989d62b5dddb5"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "ed222c7fb6ebcacca9e0266e50bb55e7afc15db3801ab0388888add9df841339"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "3b08132c314e2cffe7b9acb0a66a7072bc0e9ff68c52cc98daddbbe7da1726c5"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "b16eebf20f13659cdb1aa91491b275c9a086ac79db3d56e4c88e82427c0c4ebc"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "5cefa11919c553f0ee21f103b9620b611be7ee00d17f731b54e05c29164b12d3"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_rollercoaster",
+      "mode": "st",
+      "bsp_sha256": "5ae129c5a1f3e532961b6f9488e8907db54b0bf3c5dfb2b9b49e153ce9f6a191",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "05a0475442afec9aef1057a3aaa7b570ac0e5b3c5997881cc43f36d061ff1b3b"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "eb686b61496424c46ea7f44390b5bd059cfb4e3f21d4a7e34d0f42cbd2340631"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "e5f2b1e3d424a6dc6aed9b9b16c8af876bc25e279ac2372dd03a417ca5306f2b"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "3005444ee5b80164f7bf5fa5cb2a0016a6a0591d0d6e7ce74b639da1d53c8ff5"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "5de2fc8d43a5ec20f0bb52cc9508a40bc2d2bf4de09e70e2d39698b8165bc8de"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "979e5fed3873fe241e9129393c245ee326dee088e377c5e6984c0f6600e38398"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "6878db3a9c50f8c35bd36f029e45ea7022b05c0d8735f97572197fc7e37e2daf"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "c4186493240307db8e414aef25d5d7f415c9671e8b69e79a0db4b2ddfb6ea45d"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "dbc43f59d6710d35f6910b2a52ee8cd5f0002d01041e1a8c30d2042ef34014df"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "b1a4481e71f02d0d71dfe2201b6b1aaaf750c1a83fcaa8cdd0ed9006c6f0de15"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "cec1172ee097032f00d6f59dc041bbfd85e776e4717d2d9b5b73e56c8062835d"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "828dfe863619e0ff1c59d4fd6a8f88b5bcf548755bd061a9656d8b2d99319e7c"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "85ad31d2928e1ff37040335410e7899766bdcc25cf0a6d65a09ea9706a0eba0f"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "2384df17df03ada1a459191b022cf95fc18b2e86eaea8cf148d6c3969711738f"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "82b0095157d91b94dbc564c51bc25619d950ed832c6c04f8aafee9e194b431f8"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_sandstorm",
+      "mode": "st",
+      "bsp_sha256": "9654fe1d76a7ef1e762e49d81ee7d8152d210bc154847e8ab4b13263430a3c48",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "24a1b1a6b80faed071236713bcea83ec7af73c9ebe97a3de4efb75d5b3b4c878"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "4f0b217f023c5986e0c804e8c283bbb06cf778a13c9f3c8acd5132aff51d5188"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "ec627ab8ab1be89319522de9a620af35c923ff0a129adaa0438948a3f9fc72e4"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "bd9876780ae43040e3fd6981632d4182c746d6b8cd3c8202970e80b69e2fcba5"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "0ac8a25d87b4ff24fa1c9fff90ff8bc2e120a8141e5a91fa7cdfec03666fab4b"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "98f600946f67821c638a067d96a3b88e94a33abbaee158d6fa5e4b2bc9c86c8a"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "cfd089d501e716cdbf3484f17053ecb760be5835e83dbadc1bab5663cf40491f"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "8e98437cbd516c0b0dac98b726670850e0631ca38f0891065b2f772715a6938e"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "0d3716e2a67c2326e25b18ae6edcaa360b702d7c129633a2a107273fe74ede0e"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "139e8531ef0ce533f48d5ad252b93e519ce49dc8503934c5a5011bc56ac89719"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "bb5b05e5834b666ba7c5dd24c8ccc644a8e8d168001593d339cb1ebf3851a9ea"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "b100c0afe76955658ec0b0f22151efc0c32f90a60559a76dfac2e934af416453"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "63af00e90cb5393e676b885a55df67a830f7e702e91171945c27f2bab3002d29"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "94f4ad475d00fa5a0725a4ad54c194163b78f27957d1f90653ced7a80a6269c2"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "027ea5d67806edc8eabf966be31c94a686b4fd78ec6334a609207b890ab6b0dc"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_scarabrae",
+      "mode": "st",
+      "bsp_sha256": "d013c0277c987c072e6a29fb125e33917656000308596d14cd98263ac6fbe185",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "17ea80c95cc1b4afe6a67e45de8476f04a5339c3c92448ea0ac4cab0df9fb39d"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "da5263c51908b635201de8b8c130494deec4fcb65aa575c42cfe9af40df8a1de"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "b6b841427dbdde2420da3ffa2d4be53301bd51a5d0e41f07b339c07d1bc590ad"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "5bbaa227d5e6d40020f4e4c7397f7c90f6176ff382326d7f75c522e9fbdf55b6"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "1cb4850d3fccdd427e86f375e5468e4a253c47af775afd312d24e649959440c2"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "885fad8ef71d403346a68589d56f25cdcbaa07ab6e9938878d316ae753477e83"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "908c5795450dbb0d1ab9a9f0e599ad9b4b397793325fbb2458ea0b4abe466c12"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "a6c4070f2e74aeb51166db1cb8e612f1d801853d4596a8d8cf5c9e3d720697ed"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "4f1a289fdffc2f2049aac5e4deb429f8915c5db83f7ed70bdbf5ade27d8099ca"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "a124696affad92f9db4b5667f5a2c80b689af26c54544122a943c0a579ac9e6c"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "fe1e08d87abae669dbecae54e3bdbb5b00c9d264d01e15d999b8590547be7f18"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "677a2cb6f89f4a6a169119af534723b54e5c546d51606144185d5462f177979d"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "6e883b38e3079aaf9b0ea0c5fdb33637fb906dbe22f67717bf7d4c04b65c65e6"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "17f6b9221979bb5d92a02255a36ac69b422913c3a6a7d136c18b62d5d65420fc"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "2aaf5720bd84eea2727b085a70ffa139477d4aa15366b2bac227d48772f90cfa"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_shockridge",
+      "mode": "st",
+      "bsp_sha256": "9f7072b7bfb71845c9b2c3271bb8d146cf6c2759efc85365dd9c3efe35e2346a",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "40f5147f8cc6b23cadc377039a748cde8c70538b58bf70c6f9babb34a3833909"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "00c9652f40586623c88bb418eddcd59e00d80997a2994889e1335740a9ff5855"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "69c07d2919bc95be98c9dcf8805aef2c4b291a944c174b27d01de4f04a5caed8"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "a21927cc6f7b4d516e12eadc5c3ef44ed708ab4ae05da1447170de3d14806135"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "d5597b0672f5580631f0cbde9e70a03aed1d2ba231ed9ea03cb538b3134785b4"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "c7062de7139a3c6753cac8fb67c1565c91cd526beed38bc43bbf140de621ed28"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "4e3510f33d73dbfb91838a197f5d8e896657d41139a0d5a266701a9a3325e95a"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "33ebbc801e709600b562b0822b2f36ea92a662d662ce4d4b34b0fa195c4f89a5"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "f7d9c09b8ad120162f4b34adad282435b22806beb1eb2dd06c343751aa61081d"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "b6e5e4dea29054c7e2dc050825e8cbde42c8fdf59ed27211237629a143dac6a4"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "f4549a7bf7e48355fc85e4b3251115006f5679b4516894a81bfa4404d5237dfe"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "9ed848ed58845565c2ab20d8037b05623eeee6dcd8d3513f74bcec03ea20894a"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "b0d5622445c7b5a036fee1aa50fc4aa326049ff65a626fc961e7644ee65d040a"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "1e33b670733d282c79b242c9f8663963ad72dd99aa5dd483cf12745ffed07f7a"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "e9c0ad5d4c590b13d297f1c2bbbb70b74ccff05de72bcb40dfc6410d7eebd1d3"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_snowblind",
+      "mode": "st",
+      "bsp_sha256": "0c7a3284116b85bb189f0d5fd915914438e1f5fc3bb966a39fb3d0cff257100f",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "c567973c8210553085669f769985efef350058e473e5a5d9a2216239844e70be"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "fd21c240b22f4de5e2b48c32ef3f72786fee1b5e5907b2f7cc3974c55127ba01"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "f09b102f5411a600cd276969dd2aada0d83510583fe5b540209d25eb7e0cb7ef"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "d5234b442bf0faa6c0e7c316dbc141bf916564154a9cff4ebf2d2db34eda19b2"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "47ab3771f07ab465ef0d1b0a90fd21bfee55ddddc676f0ca5b3ca07004f0a07d"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "824c470b0533b4c2ca668556be5f0a226cba65dc44b7e0e242880978609083b8"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "a7d9205c4899ab074e9c846452cb45c1feccc4fb96bee537864c9a52bf00bf66"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "229f5b545e663f2ea505a1ab4cb14ece92becdd953eeba926dc17871ab59f602"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "159bd467bac4c93bf60a688db2abe8fbd24f5cbac0ddfb66c8d01feb82d668dc"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "fb42f825dea08481cdcfca7a9570eb7c38b1e54fc262444444c78e5612615fe1"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "6a5cb62773bacdc73f17ba9578720bc9097b7c3abe75a5546d43764ece464548"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "5423fdc7be5cf98a891b996a40642049338f4a5a7104f7f585e991d05560a9c8"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "21f70c224e727502884caf55a9cc38380548dcefe9b2496d31d697772118468d"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "81a1b96d3acc968d3f2846a1a34a8df8d0fe277ee9b40b1fd08656ebe1d30165"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "c4233346dbb595670b414f7762e6867d697778680bc69e3429ec512960762f05"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_starfallen",
+      "mode": "st",
+      "bsp_sha256": "645435ba254c60c56c72a624d90c9ab1170264f865691138fc16901f35d24c18",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "2e191e1f68a0d65e95b9292bbb5745a592ac4fdccf991324f18df43077722718"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "22f81a091b0f32211007813c2942d9dd1ad424847759ad652cc8de7d608613af"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "eabeee473425b6406209d8f467dd34da3ee6193d4e498cc14afd653d3532119c"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "c477b23852281801434eb6f622e4b4e76655951b5093faef4133dcad3b8e8bc6"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "a91cecb4f466aa5273c78a92c89f5897ddf6f1b66395bea82178f83b360778f3"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "aed33ea2e2bc9ff717231a8833b8f67d1c757367e8e28c02ef3faaa5011e262b"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "aa8a1417c539839b24dad596b30f3bebc7edfcc7c4911d58d27e424e63fa8c00"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "ca13727613682684e1751d4d2bf8c4afd2036595d614be7d497a46f1fcb0ec4c"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "9f0c081f5cb384bec67cea14ded25e2ad1452fe59a0491cbafecabc1b7b09a57"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "20e87c2f7b83da92fb1a4b87bb6bf08a5c94492fb3dbe603524f458c120a044d"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "346f2f09f0c3457499ba334724203449336eb8b8118dca8bcfb48e67e33b1222"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "6443345b7f4c66cba1d3cc57ff49cd3029ef70f23c5258211ff12ac44d8d60c7"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "8c81334ef806d16e6e7c52fd3a7ff170bba3a7af57b19e76a4bc4904c70fd444"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "6667d560a3defa73a0022ed2234cf4cb3c9606fafb9fe0f58f9d4f409ebbbb5f"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "19312a93be6ca5b51d1114c653d94191505431ed8ac17ad4dd92afd462813d3c"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_subzero",
+      "mode": "st",
+      "bsp_sha256": "680c3351f82de3a54115e9b52caee13adadd40d09e0e05b89d1528913e6091c3",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "5c2413e0f952a10243865977796ceac10559bac25c48d4728e3150a9cfff2ed0"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "f192751febcbf1fa1e9fd6fa94c0f252b3c1bf206ba5c3702540f33dd20ae54e"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "97d3b153e140139ba5bc4103cf105d63ca2a3b16704ed25da3adbebf3ea1f2f2"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "fd841458ecb94a3f5fbf5f81645875a85bdac7823cc43f91b60aec9ee7836a31"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "9941f08bf7d8d850326c5137fd13584ef340e340640f6d38b145002ba36b43f9"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "fb2b043c42a58925ed1b76372ebabb2ec1df9c99690e0ad07956ecebbf3010f8"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "6b6e09fcbbbeb062c3c785a5dced8a537593e8c884fd5e389e4aae5761c12bec"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "c29d49fe6e9b92734ba9549e3294477375e227520e580d20ec189717e2271a01"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "389b173f12633594db4896cc557f065b92715a368003c96784152f7be56da136"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "a7937e75ffcdec563801e1e93bc3daea27c63cbd9f5cd106d7f4cd5777bd8631"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "f5dff8b3ff34da2c7dbb0983d186905366675f724e2f8bbeae14517d17a209b2"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "c6763f248371b5c7984c6394383b8ed6ba6848d03ab78791c6e47c15e4fe0397"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "b5cec020e693f09124c1b2ec3b0d6082596469fa721c21e6dcf20e49e1c45dc3"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "fa76e74d9abcb0b24f510ef5ec0e219f3e113f45d343f4bd60f0ffdf34f0b8bb"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "fe4462d30efb6ff07bef2063448356898855eee4fc576bd3bded41885967d3dd"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_surreal",
+      "mode": "st",
+      "bsp_sha256": "c0246d5f4139b10cb870ee1920d717a70fd884f66b1481497e08b701bd5cc992",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "f4239b391dea4d32636fe25a2ba57704b2dcbf25dabeff23a6882d0a7ce6f6e9"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "bd536ee7b2032641951f3d2b06201aaf58f3a8d6fe7c6af271adca3803203625"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "6705babb7eac2c379a98485ddccfe7bcaabb32d9d64ea7505b687f1508800108"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "fe6abfda7642dc7cdaac4859d0ad785b96e491b2fff34cd501399aacc06fea7d"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "009c45efc8f9f491e9ebbd06d3bac5781dbf420d095fef5a11f81ead23020f3b"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "eae4b9e5e1b98044942e007901539170c9a4a84c7cb372e40fead285518c9595"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "64c399b917618ad242af95403f221d6559897f345405d2548028c450f9d97159"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "9ed53f72122e288c6e04f370ec17824011afa774f864992faff8e1fa05992ca4"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "605e943792561939eb9fe59462620655d6c88e752da90280ce16ee5df6acc2f3"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "ad74a15cae6b9aa890f7ed0e13dff7b3277028e7d796392a39746b853d7bf766"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "e153e13fdb0c85affb59a067fc66da0fa9572000354937631bbd2b9bc2a3e358"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "4cff1855445887a81ee104ad87abba25385486012358a65ba5bd704fda49b3b3"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "ac37721decae48b22a1dfbe2ce916f96a153f87ed0f72b126fac337df1eb43e5"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "9bfc424ed9daa17bdbe57effe281ba98ae16d446339baa13818503923064425e"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "e0168efdfe18b95a75e1b6ed079efbb70abc1734f67a7792ca181e2f295756ee"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_titan",
+      "mode": "st",
+      "bsp_sha256": "84a6a56a1ee403fd83c260a2d3dd9ba266c5e0aa59a75a7e0f719106d9f0890f",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "14f1b49386b8618f3f18d2dcbc8a0b7205ed3484b41e328542f3103464759f6b"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "0c85bd7070d09ad5176007aa94c244a7c087eb5e5c938c191c69036bc1141a58"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "af49bd00f08bf9e5ad7d50c738274bddb6ca4bb83d77899fe43dc2c4e82dd5b5"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "bef4f28469db3ea55e5e36f670b1e4617e9f2fe42ee7b17b1057ecdab3090e77"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "fb7f7a7e3dc28a2b7976c9c4722d0eead0facabe2e660c57023de61475474eda"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "2f5a80b09cff561307ff8e73854f9f5df5ae1ec3d0a31790e5ea4030875455a4"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "eeeff003eaff22b00f775a01b6b976a475584c4104790a39c9b5cfdfe5e2a1ee"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "8a16de47b1f1e27cd535b389912eee5df27d6c246efd32f94f24bf2eb07fa67c"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "224d7ad7ec6cbe50d9ca880b59ef9c38f06e7c60fc3ec5ba04e7f4ce8026dfc8"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "3c1b37dfe14706495246871a5a274cbcc61e95323037d3810f03cec489fccfa4"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "d42595a8191e4187f334d49b8db2f06274e7fc8ff04eb81230775aecbe35f381"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "ceeba1056f0ec229f42188fd0e4efdea4870f842a183954ede0143b8e9a4a374"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "f0daf38d9e107e698ce2fdf36cbe6b9d90a6ec793107365ace5703dc071ab2b5"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "5b278ff203b4f0c855c1eb8b4536e991f09fa6ec9214178bc269ac42b16b93d0"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "7d019cddf5daa53854a1894afa7b75e91a9c0fbe11a616e9f24d0994a3c8dc98"
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_whitedwarf",
+      "mode": "st",
+      "bsp_sha256": "7a9d00381535d00d1e75ebd1eaf7636897979c7fbe71ebe1d56d359ca4071125",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "7624414768b27c0bc36bf155bd26bb4115d16251c7ea433383279e877cc752ea"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "e5e7a33b80a18898c84fc39fd887b2a290a0aeee454f019f87afc2f508113c3a"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "38719d2748b4fc58cadaadf8a29a56bf3005b33e9b27830c0648f91b6a06bfcc"
+        },
+        {
+          "file": "04-base-0.png",
+          "sha256": "8114e8a566b2650c0a8a74af22bdd51b67d3fdbc5c80df0cd9338d3b4f372860"
+        },
+        {
+          "file": "05-flag-0-north.png",
+          "sha256": "b7a1a406b1327cac24650804092a410f6c4fdb530f2e63acfd9e1ab66bf58f07"
+        },
+        {
+          "file": "05-flag-0-east.png",
+          "sha256": "9d640c5dfce3eae4dbcb960861c1f86b47330dc4168c10690f3872553f9af24b"
+        },
+        {
+          "file": "05-flag-0-south.png",
+          "sha256": "f72446c508ebbf2aee8628deacc726494b3460649bb66ac483e7c30f728b5f1b"
+        },
+        {
+          "file": "05-flag-0-west.png",
+          "sha256": "e5c87c159713e2bb53180087616bfc1a788c74394bacde7b95fbd5bbe84f2785"
+        },
+        {
+          "file": "06-spawn-0.png",
+          "sha256": "d2b61f156ef70001a7bfe24a17b7945ac9fc534f564e32c351cee67e6323f0ef"
+        },
+        {
+          "file": "04-base-1.png",
+          "sha256": "5c82081ff44784f60da366540e13d7913bce383c477e6782ad6bf280d2b0852d"
+        },
+        {
+          "file": "05-flag-1-north.png",
+          "sha256": "13f4620867b43e822dc6e29cf3c77822ca9dbfc8d9566a4d4b4cb5655995f59e"
+        },
+        {
+          "file": "05-flag-1-east.png",
+          "sha256": "357fe3d676762abfb8a50febd6fb0e300af508202906368f132a1a11ede651d6"
+        },
+        {
+          "file": "05-flag-1-south.png",
+          "sha256": "5d7a671f4eee4dd6a255582d755e91a611105f8f806d01e84763b40a63ce9cad"
+        },
+        {
+          "file": "05-flag-1-west.png",
+          "sha256": "2fb9fba5990402119115a980e8a2a6ccb7c9b932cbd37fa1f4b11fcf465feed4"
+        },
+        {
+          "file": "06-spawn-1.png",
+          "sha256": "93faa70f22ad109b1c9194033b46c554d0a270ccc0735ec3771fd9c7c243f5b6"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_dust2",
+      "mode": "de",
+      "bsp_sha256": "2963de4eb2b25c6f96d3fbdb813830de7f634e5c29cc77d90763477bd007befa",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "677bd90911a57d5960f606cd22617c0c2d3ac3677ee1dd03b1e8c329108bb8a9"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "dc98bf1868696f151f19381bacf8def66f1adb432875df184dc5b4d6db48297d"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "4a1efb6e7f5f6f18a08d5b2c457bef079958039f364328dd71958a58a5729f4d"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "0d996cc2d17c55238002aa84e34ce7f6269757ab6f77ebb7efbca9f67cb634b5"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "0332855e3169b01bc4a6b73242f3a9e6dd1c2d8244ce39be202c2d4464a504dc"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "095aff52f5d8cef87133bfacc8f318c56a8b3e38020b88025ae9a5756a183641"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "57d77fe8659566331b2ebc20d0c94379b89ec0ea66e6301b09f24961aa0c16c4"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "e3d628e4d1571bd3a283a3783cc119003e71dfa0022eab24b00e0e7ad0c7f674"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "52a75acde0e3442a4b843ab248ee3ccf9ed01eb8535ac099660ccaff9c2db23a"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "60683a3dab2aa5d32f680f5f271c380e0d457e8bcee5556fcc9d55152a777bb9"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "144d06154a99268746308cf0f93e0b7c36eaf5a3405db4cc166ad1fa5ede6b4d"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "f3fe71831d829f4d4bef517af7b6e8886a4934d6adb68b085d4533693d1dabcd"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "a0bd39f2530ad18ccb8e4b05f901bd08a25a7d3afd408cc0adaab12a19269614"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_inferno",
+      "mode": "de",
+      "bsp_sha256": "e9e0f425aaa30f9fd20a7cd52d62c804fb2374a5d0f8b3e2fa672ac37bc1c62d",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "e04f091636b62652826ee777e047a81431cd2af433f6189acfa2df2709d74b07"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "d19bde04ea7404536854e461ddd8f09165eb49d0b613e19ed54cbd008ab72ffa"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "124f0c5c336c2eef717088920a3b258f8d1e85fe25faa99efdf320101c9ec65f"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "eca125378dfc6531e13d7f541ee6d828557eb6b9972e836ed7359bc9bfa39b18"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "4b9b3c97302ae6b214afa2d5c46547b87184cd33bb913f7f87f2c71123534be7"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "e81b49eb72cbcd332967ff56c80801f2755947ce73bb0dad4c03389ececb8e24"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "16d0b2046143bfabc2d3d061f90759c55bc1f700be739ea5af0db4efaec47a47"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "75b9a42a05e39bc3fd5492e8c81a1d9a67d37981e88ee8c84a9cc810029f98dc"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "dcff8a3b00dfc115f3a8420b4035a4cf54647341ce87eed23b798d4c5655534e"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "c4bb72d0f025746f7e1bf622cb7b0d367be6d5feaa2b8c16138486015c0c120a"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "3ef33e7911a6bdddd377c123e78bbf8b183b8c8e578fbd694a3e2c2170fc86cd"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "5f92a44247bc164965ea9b50c8ea1343bcd2f2a8b8e3cafdd09bd638b46bcd6a"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "43d547731a71c6350e1f7b7f38d7ac5a95b8c89de8cb905d28a9f768dc10fab8"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_mirage",
+      "mode": "de",
+      "bsp_sha256": "aa418939c11d8287769ce18d02fecc70fdfb1008489a5d892ab269119a08a508",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "38631c1e36dff31bf1ea26f7852253b341568f1b051c8fbc350ce77fcdac2420"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "164256a11cd18f4c9e919cddd856a8affc42cfdb70f10a5d11b5b510dc4832e0"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "a51215fb0092060010621b75fb12d1dcd1a47b2e07d3072ef4715b5d0a4228b5"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "1de9dd4c52ca3971dfcc977e33b9e426be459f806667ef08f8872f13247fc456"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "016659431a18845ef049c310ba204d1fb5e81d602d6699a6826e1549774f1a7d"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "dbd207b306c3e1c5561e6f54a69b3cc272c46321f54e03d30b8a668093b85dca"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "ff4ad611bdb5628ae043a0a33e515b7ca602996a57aa017884abec5f4762ef60"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "20d8d2f12213f210fa4ce94261283d8b0f9da14dc1cf9eb567bf6214866ca75f"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "e193855e81a51e34f8a8446a3b267d84bdbfad75059857042143fca7f5188e57"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "fd7485d17faa36ceada6be1ef59c7024ccb3f1c36c46f099cec0b6a654f94222"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "87502aba9cb4647e460bf2bbe4c173af965e00884172545b4aeb2fcee9a5791e"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "135b7f12cd3458dc4c2480b09afc64292323197345eddfdcb71381f317bbb1e0"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "c62545d675110d40ae2131a1919db50e5c38f5878baf9b37cdc5c74cb1659b94"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_westwood",
+      "mode": "de",
+      "bsp_sha256": "614f07af555a2977633617e71369700bfa4288b072b36b8a0f3ea88646b623e9",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "6fe73eb04330f6db0528e00f958f2b80e9f09a543c24dc23a4349a768ad53e88"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "06d88347ee352e4e5fe31bd7bb3a43a871edec212a46aaae33fde36d6d06e611"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "684eefc3ca3940556bd8bac4bb2eda1f6eb9e2704742d141a83004f29f499f18"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "af9b872e1f1fe48b4f31ba675fbe0c5ab607831ff47702d7bc3ea3c7af898cb5"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "89c7fd044955307d0253fe7d5871a2481783d9080c96fa69447c300fb62400bc"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "820fcbd17e8437a19f42325b54d5761f6d1145848f8567f7f3c6276f0c778ae5"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "1b3e33af107b88213d66851b96bd2dbf359cd15b89d2e0f1a289eab9e2cf8b95"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "d29ada44fc464474f20827b5298879fb3fbc964965666b1a59f207c3c767a3b6"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "6b5c5c82f5a31a0acaf649e9ed0d8ef90e3cf6f16e5e74272fc0371efab503ff"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "868cf82e5d91d84a0ba89644f94f5852279cc85da6ae87c941a012e413377a1a"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "d5f1e735db069dd65ea472374c84bc3ed08efd353375719d8eec8edb8596e5be"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "df5897a5e6ad10fc09d18b7ae1d3a5eb3827e553944fafdfef040c21da7c89e7"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "94fb753a39a2755ce942f6d830ae78965f895ad3e2fcd354c6d0b6837163d676"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_tuscan",
+      "mode": "de",
+      "bsp_sha256": "fe3d2618890d9dd7cd7005819256365e4f99b4eabc579a175ff9a92b2a550c20",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "97d93fc14f89921c76c56b1dc76737ff0d10d55fa63b36c025234dd6a0a830c4"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "2630969910ebf8ad156b7417fd8637baab2d464b26d9dbaf7293df489df9fe57"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "a83a8d90c3694e346e96b7e7a86b44bbeb0778bdcaa91eb2e20b4bf9d1b28655"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "a657578f2853257d9cc0b9e0cc2233000065bbb41f0285b99bf5d357a895ba42"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "f7b7a9f18e7bfc390e428b2bdd18e806551b4331b32363f4518e80dc8ea65c8d"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "75c68e328c27a51c7d23f7830395c383bd0abb02645b88b660d4e0afbd7db180"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "2ab628f4351b7a37d9aae09cdae3f13988495e6fbc3e6570aadafd2ca0bfd54b"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "d2e543e4ddc5270729f97cbf28317a803721112b1473029fcc1738229d0f9be1"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "2a98da5bbcde54e05b8bdad7688799837f97aeca139136527f195909ee4a4cac"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "11fd0c37a3198814280174c54116d79d21ce0a8115f256327ff8ae26bcbfbc26"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "eb16e0c7d179462eb7d81294eca9a33ff85cb5dc715bcb72881b8f9934e6062a"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "a40d1043481ccc0963215986c3aa56876cf1cbcfacb7e1b87fee4429b8439eac"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "c86137bbaf711375fec0838dc2158ce710d94d5ba58812406982e4890548c8f7"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_abaddon",
+      "mode": "de",
+      "bsp_sha256": "dab9e8065116cc2510a4fea3d80cf8391dd28b21c4abaeb3486d2cb32fca246d",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "317c7605c4b00708426285a2997573bb6b6fbadee6aa58e9807452b282aa97b3"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "0e3badd8cd7699ba1b2534a344c13bc8e5bf6537e5c4e9cb0b5919b78d878a35"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "c7a147cfac143780f55b13ec0a274c89b7372bff0e468851777756d9fa992be0"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "28c3741445737415eded1d4bbc7a9b33de801d9695520b43bf3d885432f50041"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "381d12824342a51cc06c4b291dad35b88453ac673ade075b96cb211aae88d252"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "f6220df2c1b99c84cf633af1b3bfb9d6134a2ed18c0b1acb04db12c7bf6a5fb2"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "f9ed5eb280e2329f42add9c72b2647a3cabd705ff6bcdd0ac1fb0d0399d15494"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "7224c6e0eea565f2ba4850201b2b1199941abe58cdb2de4f60d557427166e4ff"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "b1da3968f352d75b7b9b6d1030a2d28980aa8dbd1e167aaf65c5b1b51f16eb96"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "7ff0ddeac0cd39dcbee45adb2600ba0c7d3076120f4c8cb6055e6ca4fa6be336"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "2338b03b6e5d7bc867c36a4cb43bdb072eb7d1d5a20643c4915f00eede2d69de"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "e3fbb4870ded0d063a29beec7739055fc8e24918d910f259e396a1904fe1d880"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "81e3d7fd9413403d79cb0585db891d8d322b6eea0a2f4dc804d5bddc3725cc80"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_nuke_rarea",
+      "mode": "de",
+      "bsp_sha256": "5e650cdfd33980280da855fe12510ef5b0fd377fb1e76ae0f4e4ad4a6b705c5b",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "6df631e6c819af5010527272c7b9435891c0e65b31129052ab159f727ba2b523"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "1a036008b60212bd0a8573c83f1a63c914734bbc160d2996d7f9e4fbd63adb92"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "cacbbcc56822b77c95db68069a1bd125e93a019ad37fb22c794c6c2cd0043bea"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "143937ba85964252736d1ee70f9384ea61fd43239a5b2f84b7de96a1567eb702"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "c7351d248558dc18582f263cd1feb8299d7a07ddc0df3f6cc783779e52c35a73"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "cb79e24e62e0a451cf22580586faf0e81c2b52fddbf278a84515c7b01d989509"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "a43780d74a61b12a7d60433889593624a81cf8c6bd4c3db84ea40f2fdb9bef62"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "742f4046b3376aa190426bc2fa927a0d23642f8a0249c40bf943636872247cc7"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "3f32f6860b14ab54f448f24cb411d80d53b4f72adbe9c374de07aefb3d933fb9"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "49e9a0f1f1adf9f7d89834833743df676e3414d28aed872e219a137eda1a6a24"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "8e9d9e91bdd5a37c65cda910c2a94b0a1df1f871fbe8949446ee993127233fa4"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "89794554f6ab4d576be26e828e0b3ed5443c172271fca1c536a3f6a94fff4aab"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "8f729b69c36037fceb34d78f121242b08b180030576154882bfc65fb82d9c01f"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_rush_rc1",
+      "mode": "de",
+      "bsp_sha256": "f677c509f60f213ae88b169c5506eac77e2f833b1746fab09efd5f79960b948f",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "283e9e9f2cbbda0e78dec86bf208eb7e247c4c77eec512e4b9abeac8479496f3"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "06a9a15f461e64afd9adf537ece8c9974b3fb470695aeeecec0676a8a70dabcb"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "6c1d9726eeb48c44ae7792cda37c6e5ffef32dfb9f0ed52503230fdd539b3d1e"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "36f736866164e673d393fd714cb7e76ce6d06b9a8c19d827d6f2daf07e9f06dd"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "cba1d913915d87b34f191593c68babd2c2465cdf185ce20e70e1843ad5c3d443"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "9a3b4f4bb9faa881d9c16f42450d81ba98e3d42c480628d1ecc1c8604d2d9d34"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "21abd21f174e1184ef04a1aee2042485a23328d75ceec9b60153f3e58c6054ba"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "905be3c0117a374388584fdb87459125b156b6e0a3845f4ee6255782d7a686f0"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "554c69250e2e5db24fb97ab2e22fc2b992950829cd68ac87772d5253cbbac873"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "c6b597a0cb703c91b25b26f5ad7f631e5b8a1a92cf359b5928434c957f3eb263"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "2c920191e2b63816d52cd44a899f8bb515b52c31a32d46c17b07336eed151383"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "d41c07971bfa2fa5d852f0647f468b18a30e3ad09de2a34075ebe74fc3606976"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "1605acccc531518e3dd5292e0ffcf307d585209ab9008fb5d3073d893c023410"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_cpl_mill",
+      "mode": "de",
+      "bsp_sha256": "67bb9d33cc83af92366b0b516ac5b6d413b7963c67c55bda0d506a127b847d30",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "3e92907ea26ee2cec537e239e2dc83244a52c5b2d38ccebc1b3f880f468b19a9"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "97c96d0b97ab66c1fd1dfdb468b14407d02265bfe25774f6e8c45209ff388679"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "233b390269361294e04fc6eaed320c266778c0195ad9b65668a16c5f978cc75d"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "5751ee4c485670d1507cd77024ac8e1bb5f9758d5363ff2f78f98d02d05e923a"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "cc456ba4b0eea91e7304bebbd1f641b34be7045f8a911561bae070113bcf2c3d"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "3979a6ca7f5fe0035eb0f6d200583d2b1ace9ccf061af2fba07aea4f75d25271"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "8f4a9f5f2eaf1d8a218a901d4807639d8bfbda9fa00f43f3cb286f37ae5a202d"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "584ac77e772e00d2bbb879fca19d3494ffe65d20581212db4ba22d1f66701b98"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "22ed64893011b14be10c95f68d95e4c6fa37ec29afdd105779cdfb698dc1bc13"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "2b3fb2cc8926eca66c17b83cb04652bca6e4d8571e5eadca19ae021bfef9e2d7"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "f05966119d80d11dac663aeb521db22149d47bd9e348ff320132e9a30e0ec5f8"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "e04f1ec3d944f9013374458e1d4b36dd4993904f1ab8439a0c6e090a5ad455cd"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "2680c8bd7faa62588ae0eb8d4e381dfbe1bb34bb93a253a95acdf956cc3c563b"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_cloister",
+      "mode": "de",
+      "bsp_sha256": "e772da16a2169eb94b4561bbe4c20ae1ee1e6b6a9493198c2a0c9e12c5eed975",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "abc6f7e30f958d976e40b0e977981ac236ed945da87e71516e0ad46944136208"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "f8629a621b653e9f336d24b80926d4b01715520398e3bdcaec30089c852aa793"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "c921cd636ebc76517198a7b10b5a249530de72fe0431c352408ffbf2cdc725db"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "9d48435c14b88b911b767f514d24ad2511771c6920cbb12396a986c592e80f01"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "ba2370cc15ec065b896654d2235dff1279d279995fe20e1595bfa6a0690529ee"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "5badd5ae0e2a7d79fdd35990b702c79a535dc280cb6170015c96759da0e72ed9"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "16d8e225cf78879a2b5f20664b7200947f0eae9a35e8dba885c2ba4250723ef8"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "8c78a8da8f85a399329d13928fa6e9947c309febe0f5c1ab385abfeab25ae11a"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "eacb9fa37f95ca953d4fdb979e91d81fcc620e4010d7b743fe6bd09c69427819"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "d6de6bda57c39bcad6a7ac7919095bc362ba8499e30a1b595de8e34e01e836ba"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "00c093cf7c74e63c0f089faccf22b53983d492b9b6fc92b7855a32b9a82486df"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "2c2e99edfc63ea515e22ded6b1a7a42ed480e6f542e0fbc2d74d7075bacd664c"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "235411f9ec90052874ff206a6b47c50c28de8d9b640665a322f86235ddd48e9f"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_licia",
+      "mode": "de",
+      "bsp_sha256": "99e1ea3bf3eb05e005636c88da1b1cd4e20e3e2e7910ada9c51f7ea512173047",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "5689ad5723783198329170ce9ce2c41c7d869548f8ad9c41226b055670527394"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "b512e07ee0e361fee51dfc021868b8f3e95959e866c2e2ff7bc9ae40ccf54542"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "12d81ab669bd5cb52d9dc5e3bcd782548f3de5ddfa3d1f174a21524e6a23f721"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "da7328b586c847b30a187b8ca5857fe11071d00f04b8ab9e9ecf0101911365c1"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "f528f08abe819bfb8f2aad41a3433e2a2bf3cd3786c8997f6c1cb61d1a04c205"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "ac4010f9d84a66809681d65aef03bbe0210edb0703c0d326b53e4ceb18e8c885"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "b6d24577fee0d215463b1104e487ad4710d24f86ce27df35533da3c2530a3e1d"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "e20f5df1a83f2c34e6400868c88287bc1ac0a044b712e0063eb0e6a464b9c498"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "2497a69f9091462786102184224b05981d5eb1688b952aec71a92a67999e723a"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "2d1e377be71988b9aab72f5bed1898eb88fae053d4351f99e210039f7534d31a"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "c4373a173859a9fde4fd8cde3977913bbf802aacf62029f3dc7c97e101613b66"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "75655bfde9991b564e5953ee04fe5cb392685376e649e762ee92263dee5aa119"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "884af13b2d6b5c4ff6300e5d1ff7107986798b0fd78a262b4fcff14512f5be44"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_perfect_inferno",
+      "mode": "de",
+      "bsp_sha256": "f72689b2a75d764a16bef09619bf423566a37fefa5446b0afa54bf298d554fd9",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "c52250bed505a58b600ed3605dc75a294376a16c69fbb610e7c13126eea9c514"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "15945b20834f5c042283d9548418ffc6ff9bba48b2c844771ebbcb0404f067af"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "b92723d46677e194c6c6e33b76626fff4c81234de9b496225a654f68387c5f82"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "6cc9adcdd778d515a91fddaf3c9eb23058da672557ce215b810d0b90da065a40"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "f956b813c4562f875b9f324e370011d4b60dd9d2bb779e0ddde2e4664e5fab92"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "ec5cffe138b33560151c1c7435b637cd70e2d3d6193f789c94ee3a1e6830c98f"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "c1756d0a1e11638f0102793dd6db0f71f28e1e59a5ad2fe371adc6c91f3fad1b"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "43f52dfeff36d303cf832348c504752b10962efe4d15531125b21ff2f02c8137"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "71104e2304b64bc59ebf60b085f513f20195d4bf405ff375755ad8db141cb246"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "e3e189e59e767b7b3331b293938e2a5d38fa49f133c282d05f95aa5428b918f4"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "c4ce5f163b11b94022a0f0029c7421e849f6b7f6679efb33aefd1a85255fd12a"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "b98885174a8693662a993ba0222a602a8db7262ea8728e446f89c4a3913db0f8"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "48b5aef0eef0650e0353ab4ccb8c8015bbb84e47da32ad992d4df4c9f77cd63e"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_santorini",
+      "mode": "de",
+      "bsp_sha256": "5a62b73ce1ef9cf31f4c3d6ad082078793841c0296414753acd13d5a5df386c4",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "f1dc4729529ddc75e3eb8506ff4df5b3eb44b4e9b796c224508fae7599902080"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "3c1a552e2ae9e80680579bb380146b87a76d19f923d598bfa582084af1ea5fa4"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "4bdf2080d26c844a5aa66dfc2daaab0a1bc5875690ff9fbc3769da54603a2336"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "816f2112c6839dbbd2fef5d536b670c208f5d1508610352e1f76b0d13bd9fe01"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "0f8c3cded379ce565f551db1afa034697044ab139e041810418e8868e8db9827"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "7f1e120363e243b260c2429ac4a00cff569212795d6076bc09ff3b5fbc2d511b"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "ef700484f282e9d3e9c31d96bee7057e8f22c73c48fe18435713aa1dc4618d11"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "767a7677ba01d57eec0dff46e4b62bf5589706a00347749d760e96ab911add81"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "89557eda86f32d279189a3764a38ba413cc67a4e8014b35389a0f00e511725bd"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "699b6a40f68bfba97b93d76900a8c360bd54643f20dcf2ac33f516a7e5500a59"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "8b82bb40f0dfff5abc2ebeed7e1fc6d6267fe4de8c417831a8e8a59f3a74d966"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "b2157d6b4ac4092a8e6114c5122f2b04e0d6697f89926a4bfba2db3ce710b5be"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "386e5a03676afdf9eb658b630a2132a8eb34b74000c87ef418bf8cb34ae34838"
+        }
+      ]
+    },
+    {
+      "id": "de_varq_manufacture",
+      "mode": "de",
+      "bsp_sha256": "68fce0033e48a8a34d1a0b7c5ada28700e1fac10f35d906709e7ae4838d236e7",
+      "captures": [
+        {
+          "file": "01-top-overview.png",
+          "sha256": "1a731e345f969b082c41013636bce2be5d8b15d37da5a48eb7ab031934ed7c3c"
+        },
+        {
+          "file": "02-full-overview.png",
+          "sha256": "94b78880ab4e7ad5623086e6fca4812253a9ded9f1cdbdbada59ad8ef0edfe1b"
+        },
+        {
+          "file": "03-reverse-overview.png",
+          "sha256": "0de032ca1b9747bdfe901f83e6c15fb13e5c4d8ae759575d2f9104cebbd73bc2"
+        },
+        {
+          "file": "04-spawn-0.png",
+          "sha256": "e4e91adb71be01cf592115df2b02bd3ec52aaf3eb0be700e8cb5f86e66d216fe"
+        },
+        {
+          "file": "04-spawn-1.png",
+          "sha256": "8ae1dacee0cf6d7169d263b239d871378a2e791442aaaa316ef81303b531e793"
+        },
+        {
+          "file": "05-site-0-north.png",
+          "sha256": "3f156e7fcaa1c0b98f1bb2bf744978970482f4ddbc1122f3e0f048cb8b997da5"
+        },
+        {
+          "file": "05-site-0-east.png",
+          "sha256": "37166853ff5f32f008798251e9c73ec324a1dccd70c3bd3ea6713aef0f689230"
+        },
+        {
+          "file": "05-site-0-south.png",
+          "sha256": "5758236814679fc7b9c21f9fad38f9004a325961905b3ddef3225249459fc929"
+        },
+        {
+          "file": "05-site-0-west.png",
+          "sha256": "64ff1aa5b25fb88af3be0ba04955c52d98e784f35b39298583d76cb3a4736d28"
+        },
+        {
+          "file": "05-site-1-north.png",
+          "sha256": "eab940850085e331c951d0e1eedf51be822aa9149daac9919c1bacf461619e57"
+        },
+        {
+          "file": "05-site-1-east.png",
+          "sha256": "59d0adc7d501ba95a32cf3d4f425a5669de7c882006c8e87a64d3c48b210b5af"
+        },
+        {
+          "file": "05-site-1-south.png",
+          "sha256": "dc1d9398a5ed762f195fecb48a37e43e4d8c0829a0e3717bc60530e3f7b209a5"
+        },
+        {
+          "file": "05-site-1-west.png",
+          "sha256": "c15aee5b57d64d8e9d09ef39a1d9949d19b5ab5ba4f5c5e79159fc51ae1c8bfe"
+        }
+      ]
+    }
+  ]
+}

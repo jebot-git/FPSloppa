@@ -13,11 +13,14 @@ var brushes: Array=[]
 var tree: Array=[]
 var movers: Array=[]
 var map_root: Node3D
+var bsp_cover
 var ready:=false
 var queries:=0
 
 func open(path: String,root: Node3D) -> bool:
-	ready=false;brushes.clear();tree.clear();movers.clear();map_root=root
+	ready=false;bsp_cover=null;brushes.clear();tree.clear();movers.clear();map_root=root
+	var candidate=preload("res://deathmatch/counterstrike/bsp_penetration.gd").new()
+	if candidate.open(path,root):bsp_cover=candidate;ready=true;return true
 	var bytes:=FileAccess.get_file_as_bytes(path)
 	if bytes.size()<124 or bytes.size()>25_000_000 or bytes.decode_u32(0)!=29:return false
 	var end:=124
@@ -59,7 +62,7 @@ static func decode_brushes(values) -> Array:
 	return result
 
 func configure(data,root: Node3D) -> bool:
-	ready=false;brushes.clear();tree.clear();movers.clear();map_root=root
+	ready=false;bsp_cover=null;brushes.clear();tree.clear();movers.clear();map_root=root
 	if not data is Dictionary or data.get("version")!=1 or not data.get("tree") is Array or not data.get("movers") is Array:return false
 	brushes=decode_brushes(data.get("static"))
 	if brushes.is_empty() or data.tree.is_empty() or data.tree.size()>MAX_BRUSHES*2 or data.movers.size()>128:return false
@@ -110,6 +113,8 @@ static func clip(brush: Dictionary,start: Vector3,direction: Vector3,limit: floa
 	return {"enter":maxf(0,enter),"leave":leave,"material":material}
 
 func intervals(start: Vector3,direction: Vector3,limit: float) -> Array:
+	if bsp_cover:
+		var result: Array=bsp_cover.intervals(start,direction,limit);queries=bsp_cover.visits;return result
 	queries=0
 	var found: Array=[];var stack: Array=[0];var visited:=0
 	while not stack.is_empty():

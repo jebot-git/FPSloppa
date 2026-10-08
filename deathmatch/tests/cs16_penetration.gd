@@ -35,6 +35,12 @@ func run():
 	var body:=StaticBody3D.new();var shape:=CollisionShape3D.new();var triangles:=ConcavePolygonShape3D.new();triangles.set_faces(faces);shape.shape=triangles;body.add_child(shape);fixture.add_child(body)
 	var runtime=game.get_node("Map/MapRuntime")
 	check(runtime.ballistics.configure(data,fixture),"Server binds exact authored fixture volumes")
+	if OS.get_cmdline_user_args().has("--bsp-cover"):
+		var profile: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://test-results/de-restoration/bsp-cover.json"))
+		var anchor:=Node3D.new();fixture.add_child(anchor);anchor.position=shift
+		var backend=preload("res://deathmatch/counterstrike/bsp_penetration.gd").new()
+		check(backend.configure(profile,anchor),"Compiled BSP point hull binds to independent collision fixture")
+		runtime.ballistics.bsp_cover=backend
 	await physics_frame;await physics_frame
 	for row in [[6,0.0,true],[7,0.0,true],[8,0.0,true],[10,0.0,true],[9,0.0,true],
 				[1,0.0,false],[2,0.0,false],[3,0.0,false],[4,0.0,false],[5,0.0,false],[11,0.0,false],
@@ -72,5 +78,6 @@ func run():
 	reset(6,0);runtime.ballistics.ready=false;await physics_frame;game.variant_combat.cs.shoot(1)
 	check(game.players[-1].hp==5000,"Maps without valid metadata retain wall blocking")
 	var report:={"checks":checks,"failures":failures,"passed":failures.is_empty()}
-	FileAccess.open("res://test-results/de-restoration/penetration-combat.json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
+	var suffix:="-bsp" if OS.get_cmdline_user_args().has("--bsp-cover") else ""
+	FileAccess.open("res://test-results/de-restoration/penetration-combat"+suffix+".json",FileAccess.WRITE).store_string(JSON.stringify(report,"  "))
 	print("CS16_PENETRATION_RESULT ",JSON.stringify(report));game.free();quit(0 if failures.is_empty() else 1)

@@ -1,9 +1,12 @@
 extends RefCounted
 ## Curated objectives are bound to compiled BSP hashes, including renamed copies.
-const DEFAULT="de_dust2_rebuilt"
-const IDS=[DEFAULT,"de_nuke_rebuilt","de_inferno_rebuilt","de_aztec_rebuilt","de_train_rebuilt"]
+const DEFAULT="de_varq_dust2"
+const IDS=["de_aztec_rebuilt","de_train_rebuilt"]
 static var bank: Dictionary={}
 static var converted: Dictionary={}
+static func base_ids() -> Array:
+	var rows: Array=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/maps/manifest.json"))
+	return rows.filter(func(row):return row.get("distribution","base")=="base" and "de" in row.get("modes",[])).map(func(row):return row.id)
 static func entries() -> Dictionary:
 	if bank.is_empty():
 		var data=JSON.parse_string(FileAccess.get_file_as_string("res://deathmatch/maps/defusal.json"))
@@ -11,7 +14,12 @@ static func entries() -> Dictionary:
 	return bank
 static func resolve(id: String,hash: String="") -> Dictionary:
 	var rows:=entries()
-	if hash.is_empty():return rows.get(id,{})
+	if hash.is_empty():
+		if rows.has(id):return rows[id]
+		if installed(id):
+			var path:=preload("res://deathmatch/assets/paths.gd").folder("maps")+id+".bsp"
+			return converted.get(FileAccess.get_sha256(path),{})
+		return {}
 	for row in rows.values():
 		if row.sha256==hash:return row
 	return converted.get(hash,{})
@@ -61,6 +69,7 @@ static func register_map(path: String,hash: String) -> Dictionary:
 	converted[hash]=data
 	return data
 static func installed(id: String) -> bool:
+	if not preload("res://deathmatch/release_features.gd").map_allowed(id):return false
 	if id in IDS:return true
 	if id.is_empty() or id.length()>80 or not id.is_valid_filename() or id.contains(".."):return false
 	var path:=preload("res://deathmatch/assets/paths.gd").folder("maps")+id+".bsp"

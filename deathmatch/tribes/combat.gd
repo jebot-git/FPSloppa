@@ -31,7 +31,7 @@ func tick_input(id: int,_delta: float):
 func fire(id: int) -> bool:
 	if not game.multiplayer.is_server() or not rules.enabled() or not game.players.has(id):return false
 	var pads=rules.stations()
-	if rules.vehicles.piloting(id) or pads and pads.defences.operated(id)>=0:return false
+	if rules.vehicles.weapon_operator(id) or pads and pads.defences.operated(id)>=0:return false
 	var s: Dictionary=game.players[id];var w: int=s.weapon
 	if not game.armory.valid(w) or w not in s.owned or s.dead or s.spectator or s.cooldown>0 or s.get("input_blocked",false) or game.intermission>0 or game.match_mode.special.blocked(id):return false
 	if w==2 and spins.get(id,0.0)<1:return false
@@ -224,7 +224,7 @@ func damage_mine(id: int,points: float):
 func physical_request(id: int,kind: String,pose: Dictionary,velocity: Vector3) -> bool:
 	if kind=="cancel":held.erase(id);return true
 	var pads=rules.stations()
-	if rules.vehicles.piloting(id) or pads and pads.defences.operated(id)>=0:held.erase(id);return false
+	if rules.vehicles.weapon_operator(id) or pads and pads.defences.operated(id)>=0:held.erase(id);return false
 	if pose.is_empty() or not velocity.is_finite() or velocity.length()>30 or not game.players[id].get("physical",false) or game.players[id].get("input_blocked",false):held.erase(id);return false
 	var s: Dictionary=game.players[id];var w: int=s.get("tribes_grenade",9)
 	var hand: String="right" if pose.left_handed else "left"

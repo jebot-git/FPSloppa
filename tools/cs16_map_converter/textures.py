@@ -51,24 +51,26 @@ def texture(data):
     return name, width, height, pixels, data[end+2:end+770]
 
 
-def records(lump):
+def records(lump, unused_slots=()):
     require(len(lump) >= 4, 'Missing texture table')
     count = struct.unpack_from('<i', lump)[0]
     require(0 < count <= 2048 and 4+count*4 <= len(lump), 'Invalid texture table')
     starts = list(struct.unpack_from('<'+str(count)+'i', lump, 4))
-    require(all(4+count*4 <= p <= len(lump)-40 for p in starts), 'Missing/invalid texture slot; supply a complete compiled CS map')
-    require(len(set(starts)) == count, 'Duplicate texture record offsets')
-    limits = {p: q for p, q in zip(sorted(starts), sorted(starts)[1:]+[len(lump)])}
-    return [texture(lump[p:limits[p]]) for p in starts]
+    require(all(4+count*4 <= p <= len(lump)-40 or p == -1 and i in unused_slots for i,p in enumerate(starts)), 'Missing/invalid texture slot; supply a complete compiled CS map')
+    present=[p for p in starts if p>=0]
+    require(len(set(present)) == len(present), 'Duplicate texture record offsets')
+    limits = {p: q for p, q in zip(sorted(present), sorted(present)[1:]+[len(lump)])}
+    return [texture(lump[p:limits[p]]) if p>=0 else ('__unused_'+str(i),16,16,None,None) for i,p in enumerate(starts)]
 
 
-def convert(lump, wads, replace_missing=False, rules=None):
-    rows = records(lump)
+def convert(lump, wads, replace_missing=False, rules=None, unused_slots=()):
+    rows = records(lump, unused_slots)
+    holes={i for i in unused_slots if struct.unpack_from('<i',lump,4+i*4)[0]==-1}
     count = len(rows)
     rules = rules or {}
     from replacements import COLOURS, generate
     require(isinstance(rules, dict) and all(isinstance(k, str) and v in COLOURS for k,v in rules.items()), 'Texture rules must map exact texture names to replacement categories')
-    missing = [name for name, _, _, mips, _ in rows if mips is None and name not in wads.entries]
+    missing = [name for i,(name, _, _, mips, _) in enumerate(rows) if i not in holes and mips is None and name not in wads.entries]
     require(replace_missing or not missing, 'Missing textures ('+str(len(missing))+'): '+', '.join(missing)+'; provide WADs with --wad/--wad-dir or explicitly use --replace-missing')
     table = bytearray(struct.pack('<I', count)+bytes(count*4))
     palettes = bytearray(struct.pack('<II', 1, count))
@@ -93,8 +95,8 @@ def convert(lump, wads, replace_missing=False, rules=None):
         require(total <= 33_554_432, 'Map textures exceed engine 32-megapixel budget')
         if mips is None:
             mips, palette, replacement = generate(name, width, height, rules.get(name))
-            source = 'generated:'+replacement
-        target = 'skip' if name in ['aaatrigger', 'null', 'hint', 'origin', 'clip'] else '*'+name[1:] if name.startswith('!') else name
+            source = 'unused-slot' if i in holes else 'generated:'+replacement
+        target = 'skip' if i in holes or name in ['aaatrigger', 'null', 'hint', 'origin', 'clip'] else '*'+name[1:] if name.startswith('!') else name
         tile = bytearray(struct.pack('<16s6I', target.encode(), width, height, 0, 0, 0, 0))
         for mip, pixels in enumerate(mips):
             struct.pack_into('<I', tile, 24+mip*4, len(tile)); tile.extend(pixels)

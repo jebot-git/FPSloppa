@@ -38,6 +38,11 @@ names win. Duplicate names are reported. If a supplied texture's dimensions
 differ, its mip levels are resampled to the compiled dimensions to retain the
 map's UV scale; this is reported explicitly. Editor paths embedded in a BSP are
 never opened automatically. Missing textures fail conversion with their names.
+Unused `-1` texture-table slots receive invisible placeholders without changing
+geometry or texture indices. Missing slots referenced by actual faces still fail.
+Repeated editor `mapversion` metadata uses its last value; conflicting gameplay
+keys remain rejected.
+
 Original maps are never overwritten; differing existing outputs are rejected.
 Use another output directory after changing conversion options.
 

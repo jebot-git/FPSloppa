@@ -90,6 +90,7 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			game.tf_resupply[0 if kind.ends_with("red") else 1].append(node.global_position-Vector3.UP*.70)
 		elif kind=="misc_librequake_fixture":fixtures.append(e)
 		elif kind=="info_koth_control":
+			if int(e.get("hill_authored",0))==1:game.map_objectives["hill_authored"]=true
 			var point: Vector3=node.global_position-Vector3.UP*.70
 			if not game.map_objectives.has("hill_markers"):game.map_objectives.hill_markers=[]
 			game.map_objectives.hill_markers.append({"position":point,"order":int(e.get("hill_index",0))})
@@ -107,6 +108,7 @@ func configure(arena: Node, root: Node3D, bsp_path: String="") -> void:
 			var direction := Vector3.UP if angle==-1 else Vector3.DOWN if angle==-2 else Vector3(-sin(deg_to_rad(angle)),0,-cos(deg_to_rad(angle)))
 			var distance := absf(direction.dot(b.size))-float(e.get("lip",8))*Loader.SCALE
 			game.gates.append({"node":node,"base":node.position.y,"base_position":node.position,"travel":direction*maxf(distance,.5),"center":b.get_center(),"open":false,"until":0.0,"bsp":true,"as_unlock":int(e.get("as_unlock",0))})
+			if e.has("ut_travel"):game.gates.back().travel=Loader.point(e.ut_travel)
 			var target: String=e.get("targetname","")
 			if not target.is_empty():
 				if not gate_targets.has(target):gate_targets[target]=[]

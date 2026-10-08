@@ -1,0 +1,1218 @@
+{
+  "maps": 31,
+  "baked_faces": 272492,
+  "full_mip_colour_slots": 1466,
+  "fully_connected_spawn_networks": 8,
+  "failures": [],
+  "results": [
+    {
+      "id": "dm_q30_abattoir",
+      "collection": "q30",
+      "sha256": "1882769be5bc8250539d7b6ca80174c42c1cd35aad2a57c355345308266753ff",
+      "baked_faces": 3399,
+      "colour_texture_slots_with_full_mips": 48,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 60560,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/dm_q30_abattoir-lightmap1-bc7.scn",
+          "raw_bytes": 180276,
+          "sha256": "7e82da1ab3dce73fe9f8a0de3fb8dbccd212f18148e7509d77856a9694676502"
+        },
+        {
+          "encoded_bytes": 60560,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/dm_q30_abattoir-lightmap1-astc4.scn",
+          "raw_bytes": 180276,
+          "sha256": "12204ca1ffb99460c36467468d24ed7a2b3a595242027caf64ef54b1eb39dac2"
+        }
+      ],
+      "safe_spawns": 6,
+      "spawns": 6,
+      "spawn_routes": [
+        30,
+        30
+      ],
+      "pickup_routes": [
+        32,
+        34
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_anfipit",
+      "collection": "q30",
+      "sha256": "3a15475bdee444a97208d9d7dbb9c18ef144dbe9f4103e2edb960ddc8f29628c",
+      "baked_faces": 22585,
+      "colour_texture_slots_with_full_mips": 33,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 6510528,
+          "format": "bc7",
+          "images": 22,
+          "path": "res://maps/cache/dm_q30_anfipit-lightmap1-bc7.scn",
+          "raw_bytes": 19529712,
+          "sha256": "46a3808250cef69da203fe1dba1e0a341f75c023942984e1081db5ffca3ac2ee"
+        },
+        {
+          "encoded_bytes": 6510528,
+          "format": "astc4",
+          "images": 22,
+          "path": "res://maps/cache/dm_q30_anfipit-lightmap1-astc4.scn",
+          "raw_bytes": 19529712,
+          "sha256": "c0d6bed35bac4e3377597445d2b88561979c3dacf8834d4b1adfa66b66db3199"
+        }
+      ],
+      "safe_spawns": 9,
+      "spawns": 9,
+      "spawn_routes": [
+        40,
+        72
+      ],
+      "pickup_routes": [
+        34,
+        41
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_bloodcat",
+      "collection": "q30",
+      "sha256": "55860322fc0615d0e8365008993c8d0a2cf3ca1687c02424d7d8725276303736",
+      "baked_faces": 9176,
+      "colour_texture_slots_with_full_mips": 101,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 3480576,
+          "format": "bc7",
+          "images": 42,
+          "path": "res://maps/cache/dm_q30_bloodcat-lightmap1-bc7.scn",
+          "raw_bytes": 10436661,
+          "sha256": "15098919995005b2cda3d34ae4a6648d1f22c957c450df300622419b787ab402"
+        },
+        {
+          "encoded_bytes": 3480576,
+          "format": "astc4",
+          "images": 42,
+          "path": "res://maps/cache/dm_q30_bloodcat-lightmap1-astc4.scn",
+          "raw_bytes": 10436661,
+          "sha256": "3dd3e780d0607253aab96f297046b3eb4a65daedeae3ec5775bcd5c6ab5efae2"
+        }
+      ],
+      "safe_spawns": 6,
+      "spawns": 6,
+      "spawn_routes": [
+        30,
+        30
+      ],
+      "pickup_routes": [
+        26,
+        32
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_boombox",
+      "collection": "q30",
+      "sha256": "016a08c331b03dfdc21a0499e5421792549951c493d7788e59a3e2dd740c6497",
+      "baked_faces": 7394,
+      "colour_texture_slots_with_full_mips": 25,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 688448,
+          "format": "bc7",
+          "images": 9,
+          "path": "res://maps/cache/dm_q30_boombox-lightmap1-bc7.scn",
+          "raw_bytes": 2064363,
+          "sha256": "2a4885d13c95d48d177e7fdfdd98a648e621d085c04b1fa68a9c815ab43e25bc"
+        },
+        {
+          "encoded_bytes": 688448,
+          "format": "astc4",
+          "images": 9,
+          "path": "res://maps/cache/dm_q30_boombox-lightmap1-astc4.scn",
+          "raw_bytes": 2064363,
+          "sha256": "47ed1a7cb5a870d87d5e59b3db3890a0e466f09788815bd56af0c86a92d17c25"
+        }
+      ],
+      "safe_spawns": 3,
+      "spawns": 3,
+      "spawn_routes": [
+        4,
+        6
+      ],
+      "pickup_routes": [
+        36,
+        63
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_chew",
+      "collection": "q30",
+      "sha256": "a50fff66218380a6cfb9b3a440c2755d5c75e70bfcad69069aed21cbf9167218",
+      "baked_faces": 32338,
+      "colour_texture_slots_with_full_mips": 46,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 3583168,
+          "format": "bc7",
+          "images": 20,
+          "path": "res://maps/cache/dm_q30_chew-lightmap1-bc7.scn",
+          "raw_bytes": 10747884,
+          "sha256": "298a69dec8427d09eaa808f2a551f68ce45e2b6ded5e147ec1e163f56ca63d65"
+        },
+        {
+          "encoded_bytes": 3583168,
+          "format": "astc4",
+          "images": 20,
+          "path": "res://maps/cache/dm_q30_chew-lightmap1-astc4.scn",
+          "raw_bytes": 10747884,
+          "sha256": "0f5b759e4bcc5bbe53b7b756fb4f78a20a628ca9d3150cccf9707054cf633460"
+        }
+      ],
+      "safe_spawns": 12,
+      "spawns": 12,
+      "spawn_routes": [
+        15,
+        132
+      ],
+      "pickup_routes": [
+        33,
+        83
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_citadel",
+      "collection": "q30",
+      "sha256": "32a0a8606b12b218538fd6cee922c948014423484b1271fe8a9cacc629353e60",
+      "baked_faces": 12398,
+      "colour_texture_slots_with_full_mips": 71,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 18526096,
+          "format": "bc7",
+          "images": 47,
+          "path": "res://maps/cache/dm_q30_citadel-lightmap1-bc7.scn",
+          "raw_bytes": 55574481,
+          "sha256": "d88c3e3ce4d6f571066cbe26969a80a4fde86026a3285c22fa10a6ba82d9b2d5"
+        },
+        {
+          "encoded_bytes": 18526096,
+          "format": "astc4",
+          "images": 47,
+          "path": "res://maps/cache/dm_q30_citadel-lightmap1-astc4.scn",
+          "raw_bytes": 55574481,
+          "sha256": "b400b4ac5f6496de5ad75034cfd000a2fc3b3385025e51fca1a81299e495188e"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        49,
+        56
+      ],
+      "pickup_routes": [
+        32,
+        40
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_colossus",
+      "collection": "q30",
+      "sha256": "a971725f2623d66bc980f0c79493c86280ec1c1e83e30545c99654ea0f49c258",
+      "baked_faces": 15777,
+      "colour_texture_slots_with_full_mips": 49,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 7209792,
+          "format": "bc7",
+          "images": 26,
+          "path": "res://maps/cache/dm_q30_colossus-lightmap1-bc7.scn",
+          "raw_bytes": 21626880,
+          "sha256": "4c7c2dbc7d8caabd8ef3259b10de495747296a05288d25282a13ac906d464c19"
+        },
+        {
+          "encoded_bytes": 7209792,
+          "format": "astc4",
+          "images": 26,
+          "path": "res://maps/cache/dm_q30_colossus-lightmap1-astc4.scn",
+          "raw_bytes": 21626880,
+          "sha256": "1286b99ef3d82beefe2ba7daf233bcdd81073f5d68367eab315f8e63d344e4cc"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        49,
+        56
+      ],
+      "pickup_routes": [
+        26,
+        38
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_defer",
+      "collection": "q30",
+      "sha256": "6797225700eccd89842f2df31d37f6b1f1c64bb6f558a6932f6906b1bf16081f",
+      "baked_faces": 21448,
+      "colour_texture_slots_with_full_mips": 147,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 300544,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/dm_q30_defer-lightmap1-bc7.scn",
+          "raw_bytes": 901110,
+          "sha256": "92bff86417aae186590f5e0d343662a00ad21d31412a7676c4ea9259848df55c"
+        },
+        {
+          "encoded_bytes": 300544,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/dm_q30_defer-lightmap1-astc4.scn",
+          "raw_bytes": 901110,
+          "sha256": "0ccefbdd6211b32e053e3b65e7f722b31aebccbc3cc2d3440120007c829ac16f"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        56,
+        56
+      ],
+      "pickup_routes": [
+        29,
+        37
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_emeto",
+      "collection": "q30",
+      "sha256": "9edf44772e9204105298c556a803e2f25cd64be7e4f009b50b47b4d2115aaa3e",
+      "baked_faces": 2763,
+      "colour_texture_slots_with_full_mips": 109,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 114800,
+          "format": "bc7",
+          "images": 2,
+          "path": "res://maps/cache/dm_q30_emeto-lightmap1-bc7.scn",
+          "raw_bytes": 344055,
+          "sha256": "73349bce6c459d889e32df30260d8e30e9533f629d23f92b4cc1a57cc9be5987"
+        },
+        {
+          "encoded_bytes": 114800,
+          "format": "astc4",
+          "images": 2,
+          "path": "res://maps/cache/dm_q30_emeto-lightmap1-astc4.scn",
+          "raw_bytes": 344055,
+          "sha256": "6fc58653c280b2d9d8718604f765229c0b2527e955ec8737b8cd9b43a6a485b1"
+        }
+      ],
+      "safe_spawns": 10,
+      "spawns": 10,
+      "spawn_routes": [
+        38,
+        90
+      ],
+      "pickup_routes": [
+        29,
+        33
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_end",
+      "collection": "q30",
+      "sha256": "45b62cac449fd95f141dbe08cac5c588fdb59751251f7f866f69b45d3e35fe28",
+      "baked_faces": 12958,
+      "colour_texture_slots_with_full_mips": 47,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 10530208,
+          "format": "bc7",
+          "images": 28,
+          "path": "res://maps/cache/dm_q30_end-lightmap1-bc7.scn",
+          "raw_bytes": 31588326,
+          "sha256": "2ab6f4454769b997c9d7a094a369d28d25a91fb9ba44c1b540279c902d00eab8"
+        },
+        {
+          "encoded_bytes": 10530208,
+          "format": "astc4",
+          "images": 28,
+          "path": "res://maps/cache/dm_q30_end-lightmap1-astc4.scn",
+          "raw_bytes": 31588326,
+          "sha256": "2ed8a0834abb431d652fd41dacab60220c7c093d73809ba8f0aa786b22fab2f5"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        42,
+        56
+      ],
+      "pickup_routes": [
+        25,
+        33
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_garde1",
+      "collection": "q30",
+      "sha256": "75ae8f5b67a4f6cc4bd8bff1d6fd44a62be8c4f3a0f71b63c4410dad8cd52c1e",
+      "baked_faces": 8471,
+      "colour_texture_slots_with_full_mips": 50,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 11098432,
+          "format": "bc7",
+          "images": 36,
+          "path": "res://maps/cache/dm_q30_garde1-lightmap1-bc7.scn",
+          "raw_bytes": 33292260,
+          "sha256": "3e82a514e20d7bc3d72fd152e205ba5c855358b9cdac0574d34ea423415cd092"
+        },
+        {
+          "encoded_bytes": 11098432,
+          "format": "astc4",
+          "images": 36,
+          "path": "res://maps/cache/dm_q30_garde1-lightmap1-astc4.scn",
+          "raw_bytes": 33292260,
+          "sha256": "646e8a8bc0e6e80b9339c747b5e0c219d98f2824b45ded4c164ca92d2c3d7478"
+        }
+      ],
+      "safe_spawns": 4,
+      "spawns": 4,
+      "spawn_routes": [
+        12,
+        12
+      ],
+      "pickup_routes": [
+        33,
+        34
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_garde2",
+      "collection": "q30",
+      "sha256": "b0fd27847e516126a9fc58caa420494a76750cd1894d102f2c2598bb5d170a4d",
+      "baked_faces": 23542,
+      "colour_texture_slots_with_full_mips": 63,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 16997088,
+          "format": "bc7",
+          "images": 52,
+          "path": "res://maps/cache/dm_q30_garde2-lightmap1-bc7.scn",
+          "raw_bytes": 50986962,
+          "sha256": "eb2c92f6faea35e8c84b32be3d785333b3cf6881f14a3cf45dd713f99961a810"
+        },
+        {
+          "encoded_bytes": 16997088,
+          "format": "astc4",
+          "images": 52,
+          "path": "res://maps/cache/dm_q30_garde2-lightmap1-astc4.scn",
+          "raw_bytes": 50986962,
+          "sha256": "049b036be88f46fb4efb8b5ad48e1eb2ffa06fa3b910bece74fe3661848fdea8"
+        }
+      ],
+      "safe_spawns": 4,
+      "spawns": 4,
+      "spawn_routes": [
+        4,
+        12
+      ],
+      "pickup_routes": [
+        26,
+        34
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_golem",
+      "collection": "q30",
+      "sha256": "9290354205c41b0fd5d208e1520394d50414b5706b395c62f1ee7d88dc9429ac",
+      "baked_faces": 3025,
+      "colour_texture_slots_with_full_mips": 15,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 1048736,
+          "format": "bc7",
+          "images": 6,
+          "path": "res://maps/cache/dm_q30_golem-lightmap1-bc7.scn",
+          "raw_bytes": 3145722,
+          "sha256": "715eb460d802acca4bdacaeafa470ab0a4f30eb3c76b4cb38d6d3d594d611c4e"
+        },
+        {
+          "encoded_bytes": 1048736,
+          "format": "astc4",
+          "images": 6,
+          "path": "res://maps/cache/dm_q30_golem-lightmap1-astc4.scn",
+          "raw_bytes": 3145722,
+          "sha256": "efec98f50b5337dab7bb0bdd2bd9a6cd776e1b43e3cdd0b21134ead2022e4d63"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        49,
+        56
+      ],
+      "pickup_routes": [
+        51,
+        54
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_junction",
+      "collection": "q30",
+      "sha256": "03977df4f323f2ae856da071f98c0d1200a17b09fa247ea705f5abc148729c6d",
+      "baked_faces": 8014,
+      "colour_texture_slots_with_full_mips": 55,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 9875040,
+          "format": "bc7",
+          "images": 34,
+          "path": "res://maps/cache/dm_q30_junction-lightmap1-bc7.scn",
+          "raw_bytes": 29622246,
+          "sha256": "9ed37886951a72998498f6ca5933e695747cb53fd17aa9ffaba771b97941f0ac"
+        },
+        {
+          "encoded_bytes": 9875040,
+          "format": "astc4",
+          "images": 34,
+          "path": "res://maps/cache/dm_q30_junction-lightmap1-astc4.scn",
+          "raw_bytes": 29622246,
+          "sha256": "78de57c60f951882f85654dfb6ad89041ba57e4cf5e98896ec1ce917388a771c"
+        }
+      ],
+      "safe_spawns": 10,
+      "spawns": 10,
+      "spawn_routes": [
+        3,
+        90
+      ],
+      "pickup_routes": [
+        24,
+        44
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_magenta",
+      "collection": "q30",
+      "sha256": "c189cf3843b8e07ab9a596b8e9f1d87d3308c7df72779412526890ede0b9fe05",
+      "baked_faces": 2631,
+      "colour_texture_slots_with_full_mips": 31,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 7690144,
+          "format": "bc7",
+          "images": 22,
+          "path": "res://maps/cache/dm_q30_magenta-lightmap1-bc7.scn",
+          "raw_bytes": 23068650,
+          "sha256": "d1220bbe82f1bf14c1e6e26bcc5029ac1a4c577c3d9fca7463b9adbfda5d83ee"
+        },
+        {
+          "encoded_bytes": 7690144,
+          "format": "astc4",
+          "images": 22,
+          "path": "res://maps/cache/dm_q30_magenta-lightmap1-astc4.scn",
+          "raw_bytes": 23068650,
+          "sha256": "5a4d20298933e754404df62280e8f00310951df0dd1756c28cf500a618cd4307"
+        }
+      ],
+      "safe_spawns": 6,
+      "spawns": 6,
+      "spawn_routes": [
+        30,
+        30
+      ],
+      "pickup_routes": [
+        32,
+        33
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_malignant",
+      "collection": "q30",
+      "sha256": "5a30513ddc72e7e5def01973dc7f4f35b728c03a24a8d681a1995b9d0e514282",
+      "baked_faces": 13386,
+      "colour_texture_slots_with_full_mips": 35,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 9088448,
+          "format": "bc7",
+          "images": 26,
+          "path": "res://maps/cache/dm_q30_malignant-lightmap1-bc7.scn",
+          "raw_bytes": 27262968,
+          "sha256": "2f675a1dc8ff1650c7cde4763f0edbf34d199aa1b93d4d8acb5f20a5b31bf93f"
+        },
+        {
+          "encoded_bytes": 9088448,
+          "format": "astc4",
+          "images": 26,
+          "path": "res://maps/cache/dm_q30_malignant-lightmap1-astc4.scn",
+          "raw_bytes": 27262968,
+          "sha256": "af52ed33d02f278ab0592f88a2ed670374900f342245b88bfd26c9fe6420788b"
+        }
+      ],
+      "safe_spawns": 12,
+      "spawns": 12,
+      "spawn_routes": [
+        100,
+        132
+      ],
+      "pickup_routes": [
+        48,
+        64
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_overflow",
+      "collection": "q30",
+      "sha256": "0236ef9a1a6255ae154a29251a0cf05b9fa23b9c33ea9d154962d83be20988b3",
+      "baked_faces": 11941,
+      "colour_texture_slots_with_full_mips": 64,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 18002016,
+          "format": "bc7",
+          "images": 54,
+          "path": "res://maps/cache/dm_q30_overflow-lightmap1-bc7.scn",
+          "raw_bytes": 54001614,
+          "sha256": "dabb18995898740f764870c6a0a6d913db3d780c6698ed9684cb9be8a271dad4"
+        },
+        {
+          "encoded_bytes": 18002016,
+          "format": "astc4",
+          "images": 54,
+          "path": "res://maps/cache/dm_q30_overflow-lightmap1-astc4.scn",
+          "raw_bytes": 54001614,
+          "sha256": "915b7d5812816a03cb38b98f41ffc81da9f235d55d8a6c8bc486e7e6c921ddeb"
+        }
+      ],
+      "safe_spawns": 10,
+      "spawns": 10,
+      "spawn_routes": [
+        72,
+        90
+      ],
+      "pickup_routes": [
+        40,
+        50
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_quetzalli",
+      "collection": "q30",
+      "sha256": "d7f8689efcbb67f8ff4e95bc59297a6d5f4087b93c39096422b385a3fdf23486",
+      "baked_faces": 2810,
+      "colour_texture_slots_with_full_mips": 29,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 568144,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/dm_q30_quetzalli-lightmap1-bc7.scn",
+          "raw_bytes": 1703937,
+          "sha256": "2dd5dd22398fc9001f2e696282517a43b92292a5164a9cdfe5a3e7cd6a9a1f69"
+        },
+        {
+          "encoded_bytes": 568144,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/dm_q30_quetzalli-lightmap1-astc4.scn",
+          "raw_bytes": 1703937,
+          "sha256": "379ede4db7b0f1edd733ec1a9988728af7452772d33228f458f319b031411817"
+        }
+      ],
+      "safe_spawns": 4,
+      "spawns": 4,
+      "spawn_routes": [
+        7,
+        12
+      ],
+      "pickup_routes": [
+        16,
+        20
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_rebound",
+      "collection": "q30",
+      "sha256": "95a71022d6735d5af94a37c525f8f9a8a899ec080f1b312a864c648e9623a473",
+      "baked_faces": 2348,
+      "colour_texture_slots_with_full_mips": 18,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 262224,
+          "format": "bc7",
+          "images": 3,
+          "path": "res://maps/cache/dm_q30_rebound-lightmap1-bc7.scn",
+          "raw_bytes": 786429,
+          "sha256": "552f8a330a2a14189ec5b29ae72eb9be2fa172c6820368eafbbb3ff1c4ea908f"
+        },
+        {
+          "encoded_bytes": 262224,
+          "format": "astc4",
+          "images": 3,
+          "path": "res://maps/cache/dm_q30_rebound-lightmap1-astc4.scn",
+          "raw_bytes": 786429,
+          "sha256": "a26ebae8492e76b526e0738ef768eda66ab994c2f433edf6ca3a5cd4b1b80083"
+        }
+      ],
+      "safe_spawns": 5,
+      "spawns": 5,
+      "spawn_routes": [
+        9,
+        20
+      ],
+      "pickup_routes": [
+        17,
+        36
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_torment",
+      "collection": "q30",
+      "sha256": "72924a61ee40d8f1eb718569937695b7fea5d0f648fdc38e200e7d94f681c259",
+      "baked_faces": 5349,
+      "colour_texture_slots_with_full_mips": 37,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 4282032,
+          "format": "bc7",
+          "images": 13,
+          "path": "res://maps/cache/dm_q30_torment-lightmap1-bc7.scn",
+          "raw_bytes": 12845043,
+          "sha256": "5efebe61f838ea14d34d7db3cda6569918d5e3159bf724038ccac45d642d07ff"
+        },
+        {
+          "encoded_bytes": 4282032,
+          "format": "astc4",
+          "images": 13,
+          "path": "res://maps/cache/dm_q30_torment-lightmap1-astc4.scn",
+          "raw_bytes": 12845043,
+          "sha256": "5b19885c3480911c277da00c08792275f9b6f40d9469774d2ef0bc1717dcaf39"
+        }
+      ],
+      "safe_spawns": 6,
+      "spawns": 6,
+      "spawn_routes": [
+        25,
+        30
+      ],
+      "pickup_routes": [
+        23,
+        26
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_violacea",
+      "collection": "q30",
+      "sha256": "994836c21dabf379968c6d2c8e92d549eb0d7589588f76df6fad45f26ae14b8b",
+      "baked_faces": 8248,
+      "colour_texture_slots_with_full_mips": 27,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 6641488,
+          "format": "bc7",
+          "images": 19,
+          "path": "res://maps/cache/dm_q30_violacea-lightmap1-bc7.scn",
+          "raw_bytes": 19922925,
+          "sha256": "e41767e4e6556004b59d7aeaf784540f1018eae99b6f59ad83ef93c7b4beb4e4"
+        },
+        {
+          "encoded_bytes": 6641488,
+          "format": "astc4",
+          "images": 19,
+          "path": "res://maps/cache/dm_q30_violacea-lightmap1-astc4.scn",
+          "raw_bytes": 19922925,
+          "sha256": "29e631ca0e64afb1df9c7d480f80c53e5458bfb32a7ea33ef5a91260ec718230"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        49,
+        56
+      ],
+      "pickup_routes": [
+        34,
+        46
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_q30_ward",
+      "collection": "q30",
+      "sha256": "30cdb5632f74cb9d5af48e798877ab42ca1f83c47a0846c9395580f7a981237e",
+      "baked_faces": 3879,
+      "colour_texture_slots_with_full_mips": 39,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 213344,
+          "format": "bc7",
+          "images": 8,
+          "path": "res://maps/cache/dm_q30_ward-lightmap1-bc7.scn",
+          "raw_bytes": 638967,
+          "sha256": "205a317274e130c1d2aed99033df8896e1bd95f608cbb44844439adf82603046"
+        },
+        {
+          "encoded_bytes": 213344,
+          "format": "astc4",
+          "images": 8,
+          "path": "res://maps/cache/dm_q30_ward-lightmap1-astc4.scn",
+          "raw_bytes": 638967,
+          "sha256": "b389d4298785d25fe1e24368b4598c92c597b8cf3cd0adcb0a4798f195df184d"
+        }
+      ],
+      "safe_spawns": 7,
+      "spawns": 7,
+      "spawn_routes": [
+        42,
+        42
+      ],
+      "pickup_routes": [
+        15,
+        17
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_rcmd_spirit1dm1",
+      "collection": "rcmd_quake1",
+      "sha256": "a40f64f5c64fd578f3fd913dfbac53fe7ceaf8e3d50cd7e8788067aa5a637425",
+      "baked_faces": 3058,
+      "colour_texture_slots_with_full_mips": 43,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 0,
+          "format": "bc7",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm1-lightmap1-bc7.scn",
+          "raw_bytes": 0,
+          "sha256": "9aed362354ae254a91544fd84f22d505e4a07512c4a6a10be2a5abc7c8aff794"
+        },
+        {
+          "encoded_bytes": 0,
+          "format": "astc4",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm1-lightmap1-astc4.scn",
+          "raw_bytes": 0,
+          "sha256": "0a29af0c144479856477619c4d2fc78c13b0cf0f25e4dc752f978eb9da2d4145"
+        }
+      ],
+      "safe_spawns": 9,
+      "spawns": 9,
+      "spawn_routes": [
+        72,
+        72
+      ],
+      "pickup_routes": [
+        36,
+        56
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_rcmd_spirit1dm2",
+      "collection": "rcmd_quake1",
+      "sha256": "b76445465a206a90837e116ecf084adb62c336787707059ed2c76f17e9cb3a2f",
+      "baked_faces": 3453,
+      "colour_texture_slots_with_full_mips": 34,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 0,
+          "format": "bc7",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm2-lightmap1-bc7.scn",
+          "raw_bytes": 0,
+          "sha256": "ad7f86dd6896c1c4debbcbe91722ea5d996ab6a35a0c41c621b606907043d068"
+        },
+        {
+          "encoded_bytes": 0,
+          "format": "astc4",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm2-lightmap1-astc4.scn",
+          "raw_bytes": 0,
+          "sha256": "f62937669c943bd99ba7a3ea7127177bfaeb9480f0b833c96bad6cf1125baa5c"
+        }
+      ],
+      "safe_spawns": 6,
+      "spawns": 6,
+      "spawn_routes": [
+        21,
+        30
+      ],
+      "pickup_routes": [
+        15,
+        20
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_rcmd_spiritqwdm2",
+      "collection": "rcmd_quake1",
+      "sha256": "b2de0e6f1d347319cb1d4c35e37f0fa0fc04127c773f3f7e65499a4140512885",
+      "baked_faces": 3444,
+      "colour_texture_slots_with_full_mips": 34,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 0,
+          "format": "bc7",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spiritqwdm2-lightmap1-bc7.scn",
+          "raw_bytes": 0,
+          "sha256": "e1c01e1411fd63a6a2c256a96e9b7c61e27904d3d39226649fcc878714e48627"
+        },
+        {
+          "encoded_bytes": 0,
+          "format": "astc4",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spiritqwdm2-lightmap1-astc4.scn",
+          "raw_bytes": 0,
+          "sha256": "e2400000179335b85f8e9c98e9ece8a19cc0e5f573e3612f59d5c3b156a2efef"
+        }
+      ],
+      "safe_spawns": 6,
+      "spawns": 6,
+      "spawn_routes": [
+        18,
+        30
+      ],
+      "pickup_routes": [
+        15,
+        20
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_rcmd_spirit1dm3",
+      "collection": "rcmd_quake1",
+      "sha256": "7fd8ffd6932b9bd55b871483a7332fd3bf5c79b9fab80a62fcb04f36d4ee17bd",
+      "baked_faces": 3661,
+      "colour_texture_slots_with_full_mips": 35,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 0,
+          "format": "bc7",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm3-lightmap1-bc7.scn",
+          "raw_bytes": 0,
+          "sha256": "a5b7bb07e1884fc8af75408d4f9eaf3d9b2732558b860281457f604dd99be0d9"
+        },
+        {
+          "encoded_bytes": 0,
+          "format": "astc4",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm3-lightmap1-astc4.scn",
+          "raw_bytes": 0,
+          "sha256": "bffe21bd6a1be9c50642742febc4b710e4a6bf889b9e814a2c75f3cb3cba4696"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        22,
+        56
+      ],
+      "pickup_routes": [
+        24,
+        37
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_rcmd_spirit1t3",
+      "collection": "rcmd_quake1",
+      "sha256": "5417760c952a50e8b1950cfd96eae5131334e09f30976e727ede37a90037cc64",
+      "baked_faces": 3016,
+      "colour_texture_slots_with_full_mips": 31,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 0,
+          "format": "bc7",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1t3-lightmap1-bc7.scn",
+          "raw_bytes": 0,
+          "sha256": "ba46c63257d78b218cd136e8254b418b5d2ad4aa8112c4837419870074b14bdf"
+        },
+        {
+          "encoded_bytes": 0,
+          "format": "astc4",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1t3-lightmap1-astc4.scn",
+          "raw_bytes": 0,
+          "sha256": "61533ca35e9eb3d8cc841c9408d520681f6d1bf36e7e720b0539dcad403cc4c0"
+        }
+      ],
+      "safe_spawns": 7,
+      "spawns": 7,
+      "spawn_routes": [
+        30,
+        42
+      ],
+      "pickup_routes": [
+        24,
+        32
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_rcmd_spirit1dm3sp",
+      "collection": "rcmd_quake1",
+      "sha256": "cb062d04564b2b0a014919766c5f006c893abb3f74871b980fa812f7c395107b",
+      "baked_faces": 3352,
+      "colour_texture_slots_with_full_mips": 34,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 0,
+          "format": "bc7",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm3sp-lightmap1-bc7.scn",
+          "raw_bytes": 0,
+          "sha256": "98ca96b558013c934a25b680a62d747aa2f562eb15be9216575debcc4a269dc1"
+        },
+        {
+          "encoded_bytes": 0,
+          "format": "astc4",
+          "images": 0,
+          "path": "res://maps/cache/dm_rcmd_spirit1dm3sp-lightmap1-astc4.scn",
+          "raw_bytes": 0,
+          "sha256": "19244711b5eed65c799caa18f75021f905fa3eacf2ad9920975a05059c84dfa5"
+        }
+      ],
+      "safe_spawns": 8,
+      "spawns": 8,
+      "spawn_routes": [
+        19,
+        56
+      ],
+      "pickup_routes": [
+        25,
+        38
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_local_q1q3hektik",
+      "collection": "home",
+      "sha256": "0e884c4483647d22958e1a5a6dfe5c69f105d74da688916785d568872957061c",
+      "baked_faces": 3593,
+      "colour_texture_slots_with_full_mips": 36,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 442784,
+          "format": "bc7",
+          "images": 8,
+          "path": "res://maps/cache/dm_local_q1q3hektik-lightmap1-bc7.scn",
+          "raw_bytes": 1327134,
+          "sha256": "6a259588162c1d662ba8b231f899d8a8858ada7a57fc63a0250515fd629b5aec"
+        },
+        {
+          "encoded_bytes": 442784,
+          "format": "astc4",
+          "images": 8,
+          "path": "res://maps/cache/dm_local_q1q3hektik-lightmap1-astc4.scn",
+          "raw_bytes": 1327134,
+          "sha256": "b00ee8fdf1d160af0525777b75fd52693e97b22963ad2f9369c2688107ba87a7"
+        }
+      ],
+      "safe_spawns": 10,
+      "spawns": 10,
+      "spawn_routes": [
+        90,
+        90
+      ],
+      "pickup_routes": [
+        33,
+        34
+      ],
+      "fully_connected": true,
+      "failures": []
+    },
+    {
+      "id": "dm_local_q1q3toxicity",
+      "collection": "home",
+      "sha256": "3f380c51babd5c6dfc0eff187efeef62517683d08e8d01f2d4d00a9b922c0503",
+      "baked_faces": 8428,
+      "colour_texture_slots_with_full_mips": 37,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 262320,
+          "format": "bc7",
+          "images": 5,
+          "path": "res://maps/cache/dm_local_q1q3toxicity-lightmap1-bc7.scn",
+          "raw_bytes": 786435,
+          "sha256": "8cb82acc979b326f08f7f6a4c339aed602ba50d8d8d4c74db98cb90dde557864"
+        },
+        {
+          "encoded_bytes": 262320,
+          "format": "astc4",
+          "images": 5,
+          "path": "res://maps/cache/dm_local_q1q3toxicity-lightmap1-astc4.scn",
+          "raw_bytes": 786435,
+          "sha256": "f1df89c63efc349e91550dfc95426a041838e76a99ff10e6d52a5af00c0f3903"
+        }
+      ],
+      "safe_spawns": 7,
+      "spawns": 7,
+      "spawn_routes": [
+        36,
+        42
+      ],
+      "pickup_routes": [
+        28,
+        29
+      ],
+      "fully_connected": false,
+      "failures": []
+    },
+    {
+      "id": "dm_local_q3dm6qwt",
+      "collection": "home",
+      "sha256": "b1023f86fc95801e20e259e5f6072ff06fe4dd2cdc143781537d72e955018036",
+      "baked_faces": 6607,
+      "colour_texture_slots_with_full_mips": 43,
+      "light_atlases": 1,
+      "lightmaps_lossless_unmipped": true,
+      "codecs": [
+        {
+          "encoded_bytes": 87408,
+          "format": "bc7",
+          "images": 1,
+          "path": "res://maps/cache/dm_local_q3dm6qwt-lightmap1-bc7.scn",
+          "raw_bytes": 262143,
+          "sha256": "39142410e9d66b98aac219516a5400fc4f6aea912bdddad07a91d54a8ba58abe"
+        },
+        {
+          "encoded_bytes": 87408,
+          "format": "astc4",
+          "images": 1,
+          "path": "res://maps/cache/dm_local_q3dm6qwt-lightmap1-astc4.scn",
+          "raw_bytes": 262143,
+          "sha256": "ed4478c6a013ca4c75a8a6f53d24acd61e134f0492ea03248c5cb9d627a2e8a4"
+        }
+      ],
+      "safe_spawns": 10,
+      "spawns": 10,
+      "spawn_routes": [
+        74,
+        90
+      ],
+      "pickup_routes": [
+        40,
+        44
+      ],
+      "fully_connected": false,
+      "failures": []
+    }
+  ]
+}

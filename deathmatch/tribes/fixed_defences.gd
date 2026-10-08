@@ -15,7 +15,7 @@ func setup(value,entities: Array):
 		if e.get("classname","") not in ["info_tribes_turret_socket","info_tribes_turret"] or int(e.get("team",-1)) not in [0,1]:continue
 		var kind: String=e.get("type","fusion")
 		if not Data.TYPES.has(kind):continue
-		rows.append({"kind":kind,"power_group":pads.circuit(e).power_group,"power_sources":pads.circuit(e).power_sources,"team":int(e.team),"position":entity.global_position-Vector3.UP*.70,"hp":Data.hp(kind),"energy":Data.TYPES[kind].energy,"aim":-Basis(Vector3.UP,deg_to_rad(float(e.get("angle",0)))).z,"operator":0,"target":0,"fire_at":0.0})
+		rows.append({"kind":kind,"self_powered":pads.circuit(e).self_powered,"power_group":pads.circuit(e).power_group,"power_sources":pads.circuit(e).power_sources,"team":int(e.team),"position":entity.global_position-Vector3.UP*.70,"hp":Data.hp(kind),"energy":Data.TYPES[kind].energy,"aim":-Basis(Vector3.UP,deg_to_rad(float(e.get("angle",0)))).z,"operator":0,"target":0,"fire_at":0.0})
 	rows.sort_custom(func(a,b):return a.team<b.team or a.team==b.team and a.position.x<b.position.x)
 	for key in rows.size():fixture(key)
 func reset():

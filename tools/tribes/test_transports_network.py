@@ -7,10 +7,10 @@ processes=[]
 try:
  for role,delay in [('server',2),('pilot',1),('passenger',1),('viewer',0)]:
   with (out/f'{role}.log').open('w') as log:
-   p=subprocess.Popen(['godot','--headless','--xr-mode','off','--path',str(root),'--script','deathmatch/tests/st_transports_network.gd','--',role],stdout=log,stderr=subprocess.STDOUT,env=dict(os.environ,XDG_DATA_HOME=f'/tmp/transports-network-{role}',XDG_CONFIG_HOME=f'/tmp/transports-network-{role}'))
+   p=subprocess.Popen([os.environ.get('GODOT_BIN','godot'),'--headless','--xr-mode','off','--path',str(root),'--script','deathmatch/tests/st_transports_network.gd','--',role]+(['--t2'] if os.environ.get('T2_VEHICLES')=='1' else [])+(['--jericho'] if os.environ.get('T2_JERICHO')=='1' else []),stdout=log,stderr=subprocess.STDOUT,env=dict(os.environ,XDG_DATA_HOME=f'/tmp/transports-network-{role}',XDG_CONFIG_HOME=f'/tmp/transports-network-{role}'))
   processes.append((role,p));time.sleep(delay)
  for role,p in processes:
-  p.wait(timeout=120)
+  p.wait(timeout=260 if os.environ.get("T2_VEHICLES")=="1" else 120)
   text=(out/f'{role}.log').read_text();print(role,p.returncode,'\n'+'\n'.join(x for x in text.splitlines() if x.startswith(('PASS','FAIL','TRANSPORT_NETWORK'))))
   assert p.returncode==0 and f'TRANSPORT_NETWORK_RESULT {role} []' in text and 'SCRIPT ERROR' not in text
 finally:

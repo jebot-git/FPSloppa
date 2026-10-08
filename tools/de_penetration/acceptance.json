@@ -1,0 +1,34 @@
+{
+  "combat_authored": {
+    "checks": 67,
+    "failures": [],
+    "passed": true
+  },
+  "combat_bsp": {
+    "checks": 68,
+    "failures": [],
+    "passed": true
+  },
+  "edge_cases": {
+    "checks": 18,
+    "failures": []
+  },
+  "network_server": {
+    "failures": [],
+    "passed": true,
+    "role": "server"
+  },
+  "network_client": {
+    "failures": [],
+    "passed": true,
+    "role": "client"
+  },
+  "map_probes": 33159,
+  "successful_exits": 6290,
+  "runtime_sha256": {
+    "deathmatch/counterstrike/penetration.gd": "79a5a789440d40281ee36663f060eb2608e05cc4f95ec144bf72e22b076b0cd1",
+    "deathmatch/counterstrike/bsp_penetration.gd": "2263c2ad43c1aee453fa03ebb4bf03189acd87657a096e979b9a9430d1c9300e",
+    "deathmatch/counterstrike/combat.gd": "8a2cb9d2852ff41c4adcc4e62a5370d9442904f6f990db3c509d887380953275",
+    "deathmatch/maps/penetration/index.json": "13cb6318cef10aff6db6eff8fddd2a7e8708d4f745f8fd54970b95419f2c78cb"
+  }
+}

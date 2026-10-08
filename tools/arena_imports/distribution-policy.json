@@ -1,0 +1,23 @@
+{
+  "rcmd": "Native Quake BSP maps only; source adaptations excluded by user request",
+  "excluded_ids": [
+    "dm_rcmd_resurrection",
+    "dm_rcmd_spirit2dm1",
+    "dm_rcmd_spirit2dm2",
+    "dm_rcmd_spirit2dm2ld",
+    "dm_rcmd_spirit2dm3",
+    "dm_rcmd_spirit2dm4",
+    "dm_rcmd_spirit2dm6",
+    "dm_rcmd_spirit2dm7",
+    "dm_rcmd_spirit2dm9",
+    "dm_rcmd_spirit3t1"
+  ],
+  "retained_rcmd": [
+    "dm_rcmd_spirit1dm1",
+    "dm_rcmd_spirit1dm2",
+    "dm_rcmd_spiritqwdm2",
+    "dm_rcmd_spirit1dm3",
+    "dm_rcmd_spirit1t3",
+    "dm_rcmd_spirit1dm3sp"
+  ]
+}

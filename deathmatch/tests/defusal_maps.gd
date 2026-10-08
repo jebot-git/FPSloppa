@@ -9,11 +9,11 @@ func check(ok: bool,label: String):
 	checks+=1;print("PASS " if ok else "FAIL ",label)
 	if not ok:failures.append(label)
 func run():
-	check(Maps.entries().size()==5,"All five DE layouts registered")
+	check(Maps.entries().size()==2,"Both retained legacy DE layouts registered")
 	check(Config.parse('set sv_gametype "de"\nset de_maplist "qsrc_dm1"').has("error"),"DE rejects unsupported rotation maps")
 	for id in Maps.IDS:
 		var cfg: Dictionary=Config.parse('set sv_gametype "de"\nmap '+id)
-		check(cfg.values.map==id and cfg.values.sv_weapon_rules=="cs16" and cfg.values.maps.size()==5,"Configuration honors selected map and five-map rotation: "+id)
+		check(cfg.values.map==id and cfg.values.sv_weapon_rules=="cs16" and cfg.values.maps.size()==Maps.base_ids().size(),"Configuration honors selected map and base DE rotation: "+id)
 		var hash: String=FileAccess.get_sha256("res://maps/"+id+".bsp")
 		check(Maps.supported(id,hash) and Maps.supported("renamed_copy",hash) and not Maps.supported(id,"invalid"),"Objective registry validates compiled hash: "+id)
 		g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g);g.selected_map=id;g.start_host("Map objectives",0,20,10,true,"de")

@@ -1,0 +1,780 @@
+{
+  "id": "koth_ut_cerebro",
+  "source": {
+    "name": "KOTH_Cerebro",
+    "title": "Cerebro",
+    "author": "LoQtUS",
+    "players": "4-16",
+    "declared_capacity": 16,
+    "page": "https://unrealarchive.org/unreal-tournament/maps/chaosut/C/koth_cerebro_406695db.html",
+    "index": "https://unrealarchive.org/unreal-tournament/maps/chaosut/index.html",
+    "mode": "koth",
+    "eligible": true,
+    "selection_reason": "KOTH-prefixed ChaosUT map",
+    "archive": "KOTH_Cerebro.umod",
+    "archive_sha1": "406695db8bce37794dea38636c3f7e7f46ece219",
+    "status": "downloaded",
+    "bytes": 11363632
+  },
+  "texture_sources": {
+    "ut6a880174bafc": {
+      "kind": "existing project replacement",
+      "source": "AlfaFX.Lion3",
+      "donor": "met_brn_block"
+    },
+    "utc2e6ed6c47c7": {
+      "kind": "existing project replacement",
+      "source": "ArenaTex.Arenaflr",
+      "donor": "met_brn_tile2"
+    },
+    "utd02c48829b11": {
+      "kind": "existing project replacement",
+      "source": "Botpack.Ammocount.FlakAmmoLED",
+      "donor": "met_brn_block"
+    },
+    "ut77902f36e552": {
+      "kind": "existing project replacement",
+      "source": "Crypt.Mask.C_chnm2",
+      "donor": "met_brn_pan1"
+    },
+    "utadd2cf5814a1": {
+      "kind": "existing project replacement",
+      "source": "Crypt.cRivtStl",
+      "donor": "metal_iron1_09"
+    },
+    "ut6586b9e06299": {
+      "kind": "existing project replacement",
+      "source": "Factory.Deco.FactDeco1",
+      "donor": "metal_iron1_09"
+    },
+    "utc6ccb6562db9": {
+      "kind": "existing project replacement",
+      "source": "FireEng.Water.JWwater1",
+      "donor": "*water2"
+    },
+    "utf32d4bcbb598": {
+      "kind": "existing project replacement",
+      "source": "GenIn.Deco.vScr2",
+      "donor": "metal_iron1_09"
+    },
+    "utd7715593ca65": {
+      "kind": "existing project replacement",
+      "source": "GenIn.Glass.Glassg",
+      "donor": "ind_w06_rst1"
+    },
+    "ut6146d88c2918": {
+      "kind": "existing project replacement",
+      "source": "GenIn.Glass.gls_db",
+      "donor": "met_brn_pan1"
+    },
+    "ut5370d3042429": {
+      "kind": "existing project replacement",
+      "source": "GenIn.Tiles.Tile2",
+      "donor": "ind_w04_grey1"
+    },
+    "utc2cd8277f65c": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Cement.hm_cement"
+    },
+    "ut1155655ca2ae": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Cement.hm_cement1"
+    },
+    "ute4e5347cafc2": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Cement.hm_cement11"
+    },
+    "ut15d7de966066": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Cement.hm_cement12"
+    },
+    "uta2b911117cd9": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Cement.hm_cement14"
+    },
+    "ut0d58ad303a3c": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Cement.hm_cement2"
+    },
+    "ut46b8ee7364f3": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Cement.hm_cement4"
+    },
+    "ut375cb5f823a8": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Custom.Logo_button"
+    },
+    "ut35a02c48cd29": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.DSC.Met1"
+    },
+    "ut61596bc2ec9b": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.DSC.Met1CL"
+    },
+    "utafe0f645a5a4": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_fiabwall1"
+    },
+    "ut80d2833d7d77": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_fiabwall2"
+    },
+    "ut984057f62adc": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_fiabwall3"
+    },
+    "utf816c97abfdd": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_tubewall1"
+    },
+    "uta61d4751eff4": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_tubewall2"
+    },
+    "ut0838d3f22013": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_tubewall3"
+    },
+    "utea9076efb920": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_tubewall4"
+    },
+    "utb164b439bc78": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Fiab.hm_tubewall5"
+    },
+    "utd5dc39441b39": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.HM_GR.hm_bl_door"
+    },
+    "utdbf674d69970": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.HM_GR.hm_gr_door"
+    },
+    "ut1bbc48296761": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.KOTH.Kcut1"
+    },
+    "ut8e184569e048": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.KOTH.Kcut2"
+    },
+    "ut9a5fb2c9d79f": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.KOTH.Koth1"
+    },
+    "utde5cf5f90d33": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.KOTH.Koth2"
+    },
+    "utb9a19d363a8e": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.KOTH.Kskull1"
+    },
+    "ut8f033f92fa7a": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.KOTH.Kskull2"
+    },
+    "ute2036eee0396": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.KOTH.Top"
+    },
+    "utfb32d8924c20": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MOD.hm_mod_br-Log"
+    },
+    "ut0abcbdb37236": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MOD.hm_mod_br15"
+    },
+    "uta90d9bd08084": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MOD.hm_mod_br4"
+    },
+    "utabc2d9e08b77": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MetL.hm_metalbrk1"
+    },
+    "utf31fa638b535": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MetL.hm_metalbrk2"
+    },
+    "ut035de9278556": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MetL.hm_pyfloor1"
+    },
+    "ut0e1e781cea41": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MetL.hm_pywall1"
+    },
+    "ut1cd9c2740e33": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.MetL.hm_pywall2"
+    },
+    "ut9026c4d6ef09": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Showdown.hm_pyfloor2"
+    },
+    "ut12241e6822fe": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Showdown.hm_rustwall1a"
+    },
+    "ut4413e758669d": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Showdown.hm_rustwall1a_LGO"
+    },
+    "ut327be9b0204f": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.Showdown.hm_rustwall1b"
+    },
+    "ut85b2c3bb574c": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.hm1.hm_1_decwall"
+    },
+    "ut783005ed0a8a": {
+      "kind": "authored package texture",
+      "path": "KOTH_LoQ1.hm1.hm_1_rgbrick1"
+    },
+    "ut2bc60b6ece98": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Light.Lights9d",
+      "donor": "tlight12"
+    }
+  },
+  "source_faces": 3606,
+  "spawns": 16,
+  "hill_points": 1,
+  "spawn_grounding": [
+    {
+      "actor": "PlayerStart12",
+      "source": [
+        2164.332275390625,
+        1239.796875,
+        64.0
+      ],
+      "floor": [
+        2164.332275390625,
+        1239.796875,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart13",
+      "source": [
+        1290.3411865234375,
+        2106.396728515625,
+        64.0
+      ],
+      "floor": [
+        1290.3411865234375,
+        2106.396728515625,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart14",
+      "source": [
+        511.0541076660156,
+        2407.398193359375,
+        64.0
+      ],
+      "floor": [
+        511.0541076660156,
+        2407.398193359375,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart15",
+      "source": [
+        -512.945556640625,
+        2405.376220703125,
+        64.0
+      ],
+      "floor": [
+        -512.945556640625,
+        2405.376220703125,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart16",
+      "source": [
+        -1296.4091796875,
+        2110.73046875,
+        64.0
+      ],
+      "floor": [
+        -1296.4091796875,
+        2110.73046875,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart17",
+      "source": [
+        -2083.4189453125,
+        1330.57177734375,
+        64.0
+      ],
+      "floor": [
+        -2083.4189453125,
+        1330.57177734375,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart18",
+      "source": [
+        -2399.6982421875,
+        513.7880249023438,
+        64.0
+      ],
+      "floor": [
+        -2399.6982421875,
+        513.7880249023438,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart19",
+      "source": [
+        -2398.353271484375,
+        -511.25372314453125,
+        64.0
+      ],
+      "floor": [
+        -2398.353271484375,
+        -511.25372314453125,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart20",
+      "source": [
+        -2134.767333984375,
+        -1261.3880615234375,
+        64.0
+      ],
+      "floor": [
+        -2134.767333984375,
+        -1261.3880615234375,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart21",
+      "source": [
+        -1203.52734375,
+        -2190.478759765625,
+        64.0
+      ],
+      "floor": [
+        -1203.52734375,
+        -2190.478759765625,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart22",
+      "source": [
+        -511.8505859375,
+        -2402.525634765625,
+        64.0
+      ],
+      "floor": [
+        -511.8505859375,
+        -2402.525634765625,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart23",
+      "source": [
+        511.7030334472656,
+        -2395.681640625,
+        64.0
+      ],
+      "floor": [
+        511.7030334472656,
+        -2395.681640625,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart24",
+      "source": [
+        1264.6448974609375,
+        -2111.167724609375,
+        64.0
+      ],
+      "floor": [
+        1264.6448974609375,
+        -2111.167724609375,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart25",
+      "source": [
+        2110.762451171875,
+        -1266.7216796875,
+        64.0
+      ],
+      "floor": [
+        2110.762451171875,
+        -1266.7216796875,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart26",
+      "source": [
+        2399.38720703125,
+        -510.15631103515625,
+        64.0
+      ],
+      "floor": [
+        2399.38720703125,
+        -510.15631103515625,
+        16.0
+      ]
+    },
+    {
+      "actor": "PlayerStart27",
+      "source": [
+        2400.866455078125,
+        511.5393981933594,
+        64.0
+      ],
+      "floor": [
+        2400.866455078125,
+        511.5393981933594,
+        16.0
+      ]
+    }
+  ],
+  "traversal": [
+    {
+      "kind": "teleport",
+      "source": "Teleporter0",
+      "target": "tel4"
+    },
+    {
+      "kind": "teleport",
+      "source": "Teleporter3",
+      "target": "tel2"
+    },
+    {
+      "kind": "teleport",
+      "source": "Teleporter4",
+      "target": "tel5"
+    },
+    {
+      "kind": "teleport",
+      "source": "Teleporter7",
+      "target": "tel7"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo0",
+      "target": "w7"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo1",
+      "target": "w5"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo2",
+      "target": "w6"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo3",
+      "target": "w8"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo4",
+      "target": "w1"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo5",
+      "target": "w4"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo6",
+      "target": "w3"
+    },
+    {
+      "kind": "warp adapted as teleporter",
+      "source": "WarpZoneInfo7",
+      "target": "w2"
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover27",
+      "travel": [
+        0.0,
+        0.0,
+        194.4
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover26",
+      "travel": [
+        0.0,
+        0.0,
+        196.8
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover20",
+      "travel": [
+        0.0,
+        0.0,
+        30.400000000000002
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover18",
+      "travel": [
+        59.46171875,
+        59.46240234375,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover19",
+      "travel": [
+        -56.064282226562504,
+        -56.064550781250006,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover21",
+      "travel": [
+        0.0,
+        0.0,
+        30.400000000000002
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover14",
+      "travel": [
+        58.412109375,
+        58.628369140625004,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover15",
+      "travel": [
+        -57.23046875,
+        -56.808325195312506,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover2",
+      "travel": [
+        0.0,
+        0.0,
+        -19.200000000000003
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover22",
+      "travel": [
+        0.0,
+        0.0,
+        32.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover17",
+      "travel": [
+        64.0,
+        64.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover16",
+      "travel": [
+        -64.0,
+        -64.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover23",
+      "travel": [
+        0.0,
+        0.0,
+        30.400000000000002
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover13",
+      "travel": [
+        54.60869140625,
+        54.093310546875,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover12",
+      "travel": [
+        -54.6390625,
+        -55.248095703125,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover25",
+      "travel": [
+        0.0,
+        -0.039990234375,
+        31.98671875
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover9",
+      "travel": [
+        51.30224609375,
+        51.293066406250006,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover5",
+      "travel": [
+        -51.541748046875,
+        -51.4716796875,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover24",
+      "travel": [
+        0.0,
+        0.0,
+        34.458813476562504
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover10",
+      "travel": [
+        52.200390625000004,
+        52.426171875,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover11",
+      "travel": [
+        -52.01650390625,
+        -51.8490234375,
+        0.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover8",
+      "travel": [
+        0.0,
+        0.0,
+        199.20000000000002
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover7",
+      "travel": [
+        0.0,
+        0.0,
+        200.0
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover6",
+      "travel": [
+        0.0,
+        0.0,
+        204.8
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover4",
+      "travel": [
+        -38.8982421875,
+        -38.6619140625,
+        -3.4491455078125
+      ]
+    },
+    {
+      "kind": "proximity door",
+      "source": "Mover3",
+      "travel": [
+        -2.1769531250000003,
+        -1.65078125,
+        53.464453125000006
+      ]
+    },
+    {
+      "kind": "lift",
+      "source": "Mover1",
+      "travel": [
+        0.0,
+        0.0,
+        217.60000000000002
+      ]
+    },
+    {
+      "kind": "lift",
+      "source": "Mover0",
+      "travel": [
+        0.0,
+        0.0,
+        217.60000000000002
+      ]
+    }
+  ],
+  "adaptations": [
+    "35 authored liquid surfaces rebuilt as native water/lava volumes",
+    "Missing retail materials replaced with varied existing project materials",
+    "Scripted Chaos weapons mapped to classic arena pickups",
+    "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+  ],
+  "blockers": [],
+  "status": "staging"
+}

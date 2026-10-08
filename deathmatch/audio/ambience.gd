@@ -3,7 +3,30 @@ extends Node
 ## soften outdoor sound indoors; close combat ducks only this environmental bus.
 const ROOT:="res://deathmatch/audio/modes/ambient_"
 const PROFILES=["tech","gothic","arena","desert","industrial","coast","alpine","rain","void","inferno"]
-const MAP_PROFILES={"de_dust2_rebuilt":"desert","de_inferno_rebuilt":"desert","de_nuke_rebuilt":"industrial","de_train_rebuilt":"industrial","de_aztec_rebuilt":"rain","ctf_raindance":"rain","ctf_katabatic":"alpine","ctf_stonehenge":"alpine","as_frigate":"coast","as_hislop":"industrial","tf_pressureworks":"industrial"}
+const MAP_PROFILES={
+ "ctf_t2_acidrain":"rain",
+ "ctf_t2_blastside":"coast",
+ "ctf_t2_broadside":"coast",
+ "ctf_t2_confusco":"desert",
+ "ctf_t2_dangerouscrossing":"coast",
+ "ctf_t2_desertofdeath":"desert",
+ "ctf_t2_gorgon":"desert",
+ "ctf_t2_hillside":"coast",
+ "ctf_t2_iceridge":"alpine",
+ "ctf_t2_lakefront":"coast",
+ "ctf_t2_magmatic":"inferno",
+ "ctf_t2_ramparts":"alpine",
+ "ctf_t2_rollercoaster":"desert",
+ "ctf_t2_sandstorm":"desert",
+ "ctf_t2_scarabrae":"coast",
+ "ctf_t2_shockridge":"alpine",
+ "ctf_t2_snowblind":"alpine",
+ "ctf_t2_starfallen":"coast",
+ "ctf_t2_subzero":"alpine",
+ "ctf_t2_surreal":"inferno",
+ "ctf_t2_titan":"coast",
+ "ctf_t2_whitedwarf":"coast",
+"de_dust2_rebuilt":"desert","de_inferno_rebuilt":"desert","de_nuke_rebuilt":"industrial","de_train_rebuilt":"industrial","de_aztec_rebuilt":"rain","ctf_raindance":"rain","ctf_katabatic":"alpine","ctf_stonehenge":"alpine","as_frigate":"coast","as_hislop":"industrial","tf_pressureworks":"industrial"}
 var game
 var spatial
 var streams: Dictionary={}

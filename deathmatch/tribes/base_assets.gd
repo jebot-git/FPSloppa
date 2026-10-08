@@ -13,7 +13,7 @@ func setup(value,entities: Array):
 	pads=value
 	for station in pads.rows:
 		station.asset=rows.size()
-		rows.append({"kind":station.kind,"power_group":station.power_group,"power_sources":station.power_sources,"team":station.team,"frame":station.frame,"hp":HP,"parts":STATION_PARTS,"point":station.frame*Vector3(0,2.4,1.57),"approach":station.position,"label":station.get("label"),"visual":station.get("visual")})
+		rows.append({"kind":station.kind,"self_powered":station.get("self_powered",false),"power_group":station.power_group,"power_sources":station.power_sources,"team":station.team,"frame":station.frame,"hp":HP,"parts":STATION_PARTS,"point":station.frame*Vector3(0,2.4,1.57),"approach":station.position,"label":station.get("label"),"visual":station.get("visual")})
 	var sensors: Array=[]
 	for entity in entities:
 		var data: Dictionary=entity.attributes
@@ -25,7 +25,7 @@ func setup(value,entities: Array):
 		var fallback: float=[2.38086,-.639979][team] if pads.game.current_map=="ctf_stonehenge" else 0.0
 		var yaw: float=deg_to_rad(float(data.angle)) if data.has("angle") else fallback
 		var frame:=Transform3D(Basis(Vector3.UP,yaw),entity.global_position-Vector3.UP*.70)
-		sensors.append({"kind":"pulse","energy":100.0,"power_group":pads.circuit(data).power_group,"power_sources":pads.circuit(data).power_sources,"team":team,"frame":frame,"hp":HP*(1.5 if large else 1),"maximum":HP*(1.5 if large else 1),"range":400.0 if large else SENSOR_RANGE,"large":large,"parts":SENSOR_PARTS,"point":frame*Vector3(0,5,.6),"approach":frame*Vector3(0,0,3.4)})
+		sensors.append({"kind":"pulse","self_powered":pads.circuit(data).self_powered,"energy":100.0,"power_group":pads.circuit(data).power_group,"power_sources":pads.circuit(data).power_sources,"team":team,"frame":frame,"hp":HP*(1.5 if large else 1),"maximum":HP*(1.5 if large else 1),"range":400.0 if large else SENSOR_RANGE,"large":large,"parts":SENSOR_PARTS,"point":frame*Vector3(0,5,.6),"approach":frame*Vector3(0,0,3.4)})
 	sensors.sort_custom(func(a,b):return a.team<b.team or a.team==b.team and a.frame.origin.x<b.frame.origin.x)
 	for row in sensors:
 		# Raindance's Oracle occupies a tight roof beside the original spawns.

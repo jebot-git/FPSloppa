@@ -12,7 +12,7 @@ func run():
 	var roof:=StaticBody3D.new();var collision:=CollisionShape3D.new();var box:=BoxShape3D.new();box.size=Vector3(100,1,100);collision.shape=box;roof.add_child(collision);world.add_child(roof);roof.position.y=8
 	var camera:=Camera3D.new();world.add_child(camera);camera.position=Vector3(0,3,10);camera.make_current()
 	await physics_frame;await physics_frame
-	for map in ["ctf_katabatic","ctf_raindance"]:
+	for map in Weather.PROFILES:
 		var weather:=Weather.new();world.add_child(weather);weather.configure(map);weather.set_physics_process(false)
 		weather.update_roofs(camera.position)
 		check(weather.field.multimesh.instance_count==512 and weather.field.multimesh.mesh.get_surface_count()==1,"One bounded instanced precipitation draw: "+map)
@@ -24,11 +24,15 @@ func run():
 		weather.update_roofs(Vector3(10000,3,10000))
 		check(weather.roof_cache.size()==64 and weather.roof_cache.values().all(func(h):return h < -100),"Teleport replaces old roof mask: "+map)
 		var env:=Environment.new();Atmosphere.distance_fog(env,map)
-		check(env.fog_enabled and env.fog_mode==Environment.FOG_MODE_DEPTH and not env.volumetric_fog_enabled and env.fog_density<.281 and env.fog_depth_begin>=300,"Distant-only bounded depth haze: "+map)
+		check(env.fog_enabled and env.fog_mode==Environment.FOG_MODE_DEPTH and not env.volumetric_fog_enabled and env.fog_density<=.32 and env.fog_depth_begin>=100 and env.fog_depth_end>env.fog_depth_begin,"Distant-only bounded depth haze: "+map)
 		weather.update_roofs(camera.position);weather.material.set_shader_parameter("focus",camera.position)
 		for i in 3:await process_frame
 		if DisplayServer.get_name()!="headless":await RenderingServer.frame_post_draw
 		weather.free()
+	for map in Atmosphere.DISTANCE_FOG:
+		var fog:=Environment.new();Atmosphere.distance_fog(fog,map)
+		check(fog.fog_enabled and fog.fog_depth_end>fog.fog_depth_begin and fog.fog_density<=.32,"Valid restrained fog: "+map)
+		check(preload("res://deathmatch/audio/ambience.gd").MAP_PROFILES.has(map),"Map has matching ambient bed: "+map)
 	var env:=Environment.new();Atmosphere.distance_fog(env,"ctf_stonehenge")
 	check(env.fog_enabled and env.fog_depth_begin==240 and env.fog_depth_end==950 and not env.volumetric_fog_enabled,"Stonehenge uses shorter-range distance haze")
 	var untouched:=Environment.new();Atmosphere.distance_fog(untouched,"external-map")

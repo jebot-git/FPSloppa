@@ -1,4 +1,7 @@
-# ST vehicles — Scout, LPC and HPC
+# ST vehicles — Scout, LPC, HPC and Tribes 2 additions
+
+Wildcat, Shrike and Havoc now use this same lifecycle and control scheme. See
+[Tribes 2 Classic](ST-T2-CLASSIC.md) for their roles, build instructions and limits.
 
 Implemented in `experimental/st-raindance`, 29 September 2026. ST remains
 excluded from the release branch. All three original vehicle roles now have a
@@ -202,3 +205,35 @@ The next controls pass extends stick lift to the Scout, with raw dominant
 controller rocket aiming and cosmetic pitch on all VR craft. Both-handed input,
 independent rocket direction and pure-versus-lateral ascent have regression
 coverage. See [PDA and remote controls](ST-COMMAND.md) and its validation receipt.
+
+## Remaining Tribes 2 roles
+
+Beowulf, Thundersword and Jericho are available alongside the existing fleet.
+They use the same native purchase, authoritative seats, collision, damage,
+network snapshots, repair and ejection lifecycle, and the shared ST panel atlas.
+Role references: https://playt2.com/guides. Physics and balance are adapted to ST.
+
+| Vehicle | Energy | HP | Crew | Role |
+| --- | ---: | ---: | --- | --- |
+| Beowulf | 1100 | 600 | Light pilot + gunner | Ground-following grav tank; ballistic mortar |
+| Thundersword | 1250 | 500 | Light pilot + bombardier + tail gunner | Gravity bombs; independent rear blaster |
+| Jericho | 1500 | 850 | Light driver + gunner | Ground vehicle; deployable inventory and defensive turret |
+
+Use boards, movement steers, Fire operates the assigned weapon, and Jump or Use
+exits. Heavy and Medium crew can occupy weapon seats. The tank/bomber pilot can
+fire the main weapon when its crew seat is empty; an occupied crew seat takes
+over, preventing duplicate firing. Gunner aim follows mouse/headset weapon aim.
+Ground craft follow terrain and ignore flight lift; Jericho cannot strafe.
+
+Jericho's driver presses Fire while stopped on level ground to deploy or pack
+up. Holding Fire does not repeatedly toggle. A deployed base stays in place and
+persists while unoccupied. Its rear service point permits friendly refits and
+provides the same team-funded healing/ammunition service as fixed inventory.
+Enemies cannot use it or board it while deployed. Its turret fires at visible
+enemies within 60 m when no gunner is aboard; a gunner takes manual control.
+This adaptation does not add Source/Torque physics or retail asset fidelity.
+The six models are original meshes with original ST atlas artwork.
+
+`deathmatch/tests/st_t2_vehicles.gd` covers purchasing, crew roles, ballistic
+shots, deployment, service restrictions, snapshots and destruction. The ENet
+transport harness with `T2_VEHICLES=1` covers Havoc and all three added vehicles.

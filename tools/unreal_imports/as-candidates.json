@@ -1,0 +1,908 @@
+{
+  "criterion": "Actual objective compatibility with switches/destructible targets; objective count is secondary. No escort, NPC-kill, driveable-vehicle or puzzle-chain objectives.",
+  "selection_basis": "Decoded package actor properties and event recipients from 383 capacity-qualified archives, plus source archive player declarations. This is a conversion-readiness recommendation, not playtested balance.",
+  "runtime_note": "AS currently checks for exactly two steps. Maps with additional ordinary objectives need a bounded objective-count extension, not a new mechanic; do not merge or drop their stages.",
+  "candidates": [
+    {
+      "rank": 1,
+      "name": "AS-Pumpfac",
+      "priority": "First batch",
+      "players": "2-8",
+      "page": "https://unrealarchive.org/unreal-tournament/maps/assault/P/as-pumpfac_d4e7195c.html",
+      "archive_sha1": "d4e7195cdd750406bea4f23bc5f2dcde2644c901",
+      "source_sha256": "b1dab5fcf94b79b1dbd8c0f424d15e42adf235d5cd5d82c61c8d357ba1e3e926",
+      "player_starts": 8,
+      "world_polygons": 3565,
+      "implementation": "Shaft switch, destructible hall target, final pump-engine switch.",
+      "caveat": "No moving brushes or dispatchers; preserve the three stages rather than merging them.",
+      "objectives": [
+        {
+          "actor": "FortStandard0",
+          "title": "",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": false,
+          "fallback": "Hall",
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "bSayDestroyed": false,
+            "DefensePriority": 64,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "pitt",
+            "FallBackFort": "Hall",
+            "FortName": "",
+            "DestroyedMessage": "",
+            "FootRegion": {
+              "raw": "01df04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "01dd04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Shaft",
+            "Region": {
+              "raw": "01dd04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              1128.501953125,
+              -2412.658447265625,
+              -198.89627075195312
+            ],
+            "OldLocation": [
+              1525.0162353515625,
+              -2479.921875,
+              0.0
+            ],
+            "CollisionRadius": 64.0,
+            "CollisionHeight": 64.0
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard1",
+          "title": "Pumpengine",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": true,
+          "fallback": null,
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "bFinalFort": true,
+            "DefensePriority": 32,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "mus",
+            "FortName": "Pumpengine",
+            "DestroyedMessage": "is turned on !",
+            "FootRegion": {
+              "raw": "01ffffffff00",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "010004000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "ViewRotation": [
+              0,
+              19252,
+              0
+            ],
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Endfort",
+            "Region": {
+              "raw": "010004000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -1128.76123046875,
+              -2628.0830078125,
+              569.8296508789062
+            ],
+            "Rotation": [
+              0,
+              19252,
+              0
+            ],
+            "OldLocation": [
+              -1006.1819458007812,
+              -2034.1407470703125,
+              0.0
+            ],
+            "CollisionRadius": 64.0,
+            "CollisionHeight": 64.0
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard2",
+          "title": "Hall",
+          "interaction": "damage -> existing destructible target",
+          "health": 100,
+          "final": false,
+          "fallback": "Endfort",
+          "properties": {
+            "bSelfDisplayed": false,
+            "bSayDestroyed": false,
+            "DefensePriority": 47,
+            "DefenseTime": 3,
+            "NearestPathNodeTag": "ollon",
+            "FallBackFort": "Endfort",
+            "FootRegion": {
+              "raw": "01d900000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "01db00000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Hall",
+            "Region": {
+              "raw": "01db00000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              1590.137939453125,
+              -3475.497314453125,
+              427.5986633300781
+            ],
+            "OldLocation": [
+              1335.428955078125,
+              -2529.538818359375,
+              0.0
+            ]
+          },
+          "event_recipients": []
+        }
+      ],
+      "status": "recommended for conversion; not installed"
+    },
+    {
+      "rank": 2,
+      "name": "AS-Skyville",
+      "priority": "First batch",
+      "players": "2-8",
+      "page": "https://unrealarchive.org/unreal-tournament/maps/assault/S/as-skyville_0a85f343.html",
+      "archive_sha1": "0a85f343c06950c3f0d426896320ae4684f6b328",
+      "source_sha256": "0480c1033e8c9dc07899346957d1cbd838b1451d9176ddc706e144694f3e1a53",
+      "player_starts": 8,
+      "world_polygons": 5155,
+      "implementation": "Ventilation switch, destructible hall target, final fusebox switch.",
+      "caveat": "No moving brushes or dispatchers. Geometry, spawns and routes still need runtime conversion.",
+      "objectives": [
+        {
+          "actor": "FortStandard0",
+          "title": "Fusebox",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": true,
+          "fallback": null,
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "bFinalFort": true,
+            "DefensePriority": 32,
+            "DefenseTime": 4,
+            "NearestPathNodeTag": "Barn",
+            "FortName": "Fusebox",
+            "DestroyedMessage": "is disconected !",
+            "FootRegion": {
+              "raw": "01e400000004",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "01e400000004",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Fusebox",
+            "Region": {
+              "raw": "01e400000004",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -253.87876892089844,
+              -4272.8642578125,
+              535.7565307617188
+            ],
+            "OldLocation": [
+              -1138.922607421875,
+              -148.811279296875,
+              0.0
+            ],
+            "CollisionRadius": 40.0,
+            "CollisionHeight": 40.0
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard1",
+          "title": "Ventilation",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": false,
+          "fallback": "Hall",
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "bFlashing": false,
+            "bSayDestroyed": false,
+            "DefensePriority": 98,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "Kuk",
+            "FallBackFort": "Hall",
+            "FortName": "Ventilation",
+            "FootRegion": {
+              "raw": "01c504000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "01dc04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "ViewRotation": [
+              0,
+              -15372,
+              0
+            ],
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Ventilation",
+            "Region": {
+              "raw": "01dc04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              541.9935913085938,
+              -954.1998901367188,
+              853.51123046875
+            ],
+            "Rotation": [
+              0,
+              -15372,
+              0
+            ],
+            "OldLocation": [
+              -1135.1021728515625,
+              -132.69415283203125,
+              0.0
+            ],
+            "CollisionRadius": 40.0,
+            "CollisionHeight": 40.0
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard2",
+          "title": "Hall",
+          "interaction": "damage -> existing destructible target",
+          "health": 100,
+          "final": false,
+          "fallback": "Fusebox",
+          "properties": {
+            "bSelfDisplayed": false,
+            "bFlashing": false,
+            "bSayDestroyed": false,
+            "DefensePriority": 62,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "Fitta",
+            "FallBackFort": "Fusebox",
+            "FortName": "Hall",
+            "FootRegion": {
+              "raw": "014900000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "014900000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Hall",
+            "Region": {
+              "raw": "014900000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -2.6794705390930176,
+              -2342.93896484375,
+              484.29449462890625
+            ],
+            "OldLocation": [
+              -1120.65185546875,
+              -152.75729370117188,
+              0.0
+            ],
+            "CollisionRadius": 40.0,
+            "CollisionHeight": 40.0
+          },
+          "event_recipients": []
+        }
+      ],
+      "status": "recommended for conversion; not installed"
+    },
+    {
+      "rank": 3,
+      "name": "AS-Twintower",
+      "priority": "First batch",
+      "players": "2-10",
+      "page": "https://unrealarchive.org/unreal-tournament/maps/assault/T/as-twintower_d473a205.html",
+      "archive_sha1": "d473a205925d545a9cf47fcf6de2ee066cc2f76e",
+      "source_sha256": "147e904fcd3988a4d13b5193692ec12062aff452a330ada3a7a28ee4c854bf03",
+      "player_starts": 10,
+      "world_polygons": 4920,
+      "implementation": "Bridge control followed by final control switch.",
+      "caveat": "One ordinary lift is traversal, not a separate objective mechanic; validate its navigation.",
+      "objectives": [
+        {
+          "actor": "FortStandard0",
+          "title": "Bridge",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": false,
+          "fallback": "Endfort",
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "DefensePriority": 96,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "kuk",
+            "FallBackFort": "Endfort",
+            "FortName": "Bridge",
+            "FootRegion": {
+              "raw": "010d04000008",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "010e04000008",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Bridge",
+            "Region": {
+              "raw": "010e04000008",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -1186.1796875,
+              -13.695249557495117,
+              -784.4317016601562
+            ],
+            "OldLocation": [
+              -1152.530517578125,
+              -13.235763549804688,
+              0.0
+            ],
+            "CollisionRadius": 64.0,
+            "CollisionHeight": 32.0
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard1",
+          "title": "End",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": true,
+          "fallback": null,
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "bFinalFort": true,
+            "DefensePriority": 46,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "mus",
+            "FortName": "End",
+            "FootRegion": {
+              "raw": "012106000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "013106000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Endfort",
+            "Region": {
+              "raw": "013106000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -197.8522491455078,
+              1492.7838134765625,
+              -1181.2635498046875
+            ],
+            "OldLocation": [
+              -109.56944274902344,
+              1480.0921630859375,
+              0.0
+            ],
+            "CollisionRadius": 64.0
+          },
+          "event_recipients": []
+        }
+      ],
+      "status": "recommended for conversion; not installed"
+    },
+    {
+      "rank": 4,
+      "name": "AS-Atlantica",
+      "priority": "First batch",
+      "players": "2-8",
+      "page": "https://unrealarchive.org/unreal-tournament/maps/assault/A/as-atlantica_a5b511b3.html",
+      "archive_sha1": "a5b511b39ebb4da5e6037a572b890b781dd5875f",
+      "source_sha256": "356d88ba0f5e02c8c0f2c24c7197fe5281fb9f73498fece352fe312803df55b0",
+      "player_starts": 8,
+      "world_polygons": 4046,
+      "implementation": "Generator, power switch and lighthouse control switches.",
+      "caveat": "Two moving brushes and triggered lighting can follow ordinary switch events; preserve water traversal.",
+      "objectives": [
+        {
+          "actor": "FortStandard0",
+          "title": "Generator",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": false,
+          "fallback": "Powerswitch",
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "DefensePriority": 96,
+            "DefenseTime": 3,
+            "NearestPathNodeTag": "ken",
+            "FallBackFort": "Powerswitch",
+            "FortName": "Generator",
+            "DestroyedMessage": "is running!",
+            "FootRegion": {
+              "raw": "01fc03000003",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "01fc03000003",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Generator",
+            "Region": {
+              "raw": "01fc03000003",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -433.373046875,
+              181.97006225585938,
+              -1744.7401123046875
+            ],
+            "OldLocation": [
+              -638.8785400390625,
+              233.6540985107422,
+              0.0
+            ],
+            "CollisionRadius": 44.0
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard1",
+          "title": "Powerswitch",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": false,
+          "fallback": "Light",
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "DefensePriority": 64,
+            "DefenseTime": 3,
+            "NearestPathNodeTag": "blues",
+            "FallBackFort": "Light",
+            "FortName": "Powerswitch",
+            "DestroyedMessage": "is turned on!",
+            "FootRegion": {
+              "raw": "01c904000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "01c904000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Powerswitch",
+            "Region": {
+              "raw": "01c904000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -475.90692138671875,
+              997.4664916992188,
+              -689.1033325195312
+            ],
+            "OldLocation": [
+              -578.365966796875,
+              1092.041748046875,
+              0.0
+            ],
+            "CollisionRadius": 44.0
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard2",
+          "title": "Light",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": true,
+          "fallback": null,
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "bFinalFort": true,
+            "DefensePriority": 32,
+            "DefenseTime": 3,
+            "NearestPathNodeTag": "petter",
+            "EndCamTag": "Cam",
+            "FortName": "Light",
+            "DestroyedMessage": "is on !",
+            "FootRegion": {
+              "raw": "01ee04000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "01ed04000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "Light",
+            "Event": "lt1",
+            "Region": {
+              "raw": "01ed04000002",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              -360.916748046875,
+              483.1412658691406,
+              -211.94497680664062
+            ],
+            "OldLocation": [
+              -309.622314453125,
+              500.7356262207031,
+              0.0
+            ]
+          },
+          "event_recipients": [
+            {
+              "name": "TriggerLight1",
+              "class": "Engine.TriggerLight",
+              "properties": {
+                "InitialState": "TriggerTurnsOn",
+                "Tag": "lt1"
+              }
+            }
+          ]
+        }
+      ],
+      "status": "recommended for conversion; not installed"
+    },
+    {
+      "rank": 5,
+      "name": "AS-HyperBlast",
+      "priority": "Second batch",
+      "players": "12",
+      "page": "https://unrealarchive.org/unreal-tournament/maps/assault/H/as-hyperblast_37840f7e.html",
+      "archive_sha1": "37840f7eafdb8647c32186837dd7ec17e99b9ed4",
+      "source_sha256": "61110e0385ecf0c9a722569b72f760beb3d15cef681a3fc8008dfe729a1468cd",
+      "player_starts": 18,
+      "world_polygons": 3478,
+      "implementation": "Disable the middle and lower control buttons.",
+      "caveat": "Mission events open three brushes. The two dispatchers loop cosmetic sky/star events; do not treat the ship theme as a vehicle objective.",
+      "objectives": [
+        {
+          "actor": "FortStandard1",
+          "title": "HB Middle button",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": false,
+          "fallback": null,
+          "properties": {
+            "bTriggerOnly": true,
+            "bSayDestroyed": false,
+            "FortName": "HB Middle button",
+            "DestroyedMessage": "has been disabled!",
+            "FootRegion": {
+              "raw": "4e017203000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "4e017203000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "bHidden": true,
+            "Level": {
+              "object": 1
+            },
+            "Tag": "FortStandard1",
+            "Event": "mission1",
+            "Base": {
+              "object": 1
+            },
+            "Region": {
+              "raw": "4e017203000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              282.3437805175781,
+              -6834.35400390625,
+              254.54177856445312
+            ],
+            "OldLocation": [
+              272.0,
+              -6848.0,
+              215.59999084472656
+            ]
+          },
+          "event_recipients": [
+            {
+              "name": "Mover2",
+              "class": "Engine.Mover",
+              "properties": {
+                "InitialState": "TriggerOpenTimed",
+                "Tag": "mission1"
+              }
+            }
+          ]
+        },
+        {
+          "actor": "FortStandard0",
+          "title": "HB Lower button",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": true,
+          "fallback": null,
+          "properties": {
+            "bTriggerOnly": true,
+            "bSayDestroyed": false,
+            "bFinalFort": true,
+            "EndCamTag": "Cam",
+            "FortName": "HB Lower button",
+            "DestroyedMessage": "has been disabled!",
+            "FootRegion": {
+              "raw": "1ff402000003",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "1ff402000003",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "bHidden": true,
+            "Level": {
+              "object": 1
+            },
+            "Tag": "FortStandard",
+            "Event": "mission2",
+            "Base": {
+              "object": 1
+            },
+            "Region": {
+              "raw": "1ff402000003",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              284.36737060546875,
+              -6834.41455078125,
+              -75.75057983398438
+            ],
+            "OldLocation": [
+              272.0,
+              -6848.0,
+              215.59999084472656
+            ]
+          },
+          "event_recipients": [
+            {
+              "name": "Mover3",
+              "class": "Engine.Mover",
+              "properties": {
+                "InitialState": "TriggerOpenTimed",
+                "Tag": "mission2"
+              }
+            },
+            {
+              "name": "Mover16",
+              "class": "Engine.Mover",
+              "properties": {
+                "InitialState": "TriggerOpenTimed",
+                "Tag": "mission2"
+              }
+            }
+          ]
+        }
+      ],
+      "status": "recommended for conversion; not installed"
+    },
+    {
+      "rank": 6,
+      "name": "AS-UrbanAssault",
+      "priority": "Second batch",
+      "players": "2-10",
+      "page": "https://unrealarchive.org/unreal-tournament/maps/assault/U/as-urbanassault_b12b697d.html",
+      "archive_sha1": "b12b697d4fac2782e3256849a8ca8454ad0d91a2",
+      "source_sha256": "761485d0c3beb796bbe6a2c94155c160937d50535bc0764784348a14a694f465",
+      "player_starts": 15,
+      "world_polygons": 8526,
+      "implementation": "Destroy the radio, then activate the final control.",
+      "caveat": "Two AssaultRandomizer actors and team-triggered spawn toggles need explicit checkpoint mapping or documented removal of randomization.",
+      "objectives": [
+        {
+          "actor": "FortStandard0",
+          "title": "Radio",
+          "interaction": "damage -> existing destructible target",
+          "health": 100,
+          "final": false,
+          "fallback": "cd",
+          "properties": {
+            "bSelfDisplayed": false,
+            "DefensePriority": 96,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "dick",
+            "FallBackFort": "cd",
+            "FortName": "Radio",
+            "FootRegion": {
+              "raw": "015d04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "015d04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "radio",
+            "Region": {
+              "raw": "015d04000001",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              3126.5,
+              -1109.6494140625,
+              -439.6739807128906
+            ],
+            "OldLocation": [
+              3158.6298828125,
+              -1098.31884765625,
+              0.0
+            ]
+          },
+          "event_recipients": []
+        },
+        {
+          "actor": "FortStandard1",
+          "title": "cd",
+          "interaction": "trigger/touch -> existing switch",
+          "health": 100,
+          "final": true,
+          "fallback": null,
+          "properties": {
+            "bSelfDisplayed": false,
+            "bTriggerOnly": true,
+            "bFinalFort": true,
+            "DefensePriority": 61,
+            "DefenseTime": 5,
+            "NearestPathNodeTag": "petter",
+            "FortName": "cd",
+            "FootRegion": {
+              "raw": "013c08000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "HeadRegion": {
+              "raw": "013c08000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Level": {
+              "object": 1
+            },
+            "Tag": "cd",
+            "Region": {
+              "raw": "013c08000006",
+              "type": 10,
+              "struct": "PointRegion"
+            },
+            "Location": [
+              8499.4716796875,
+              -904.0103149414062,
+              -127.31954956054688
+            ],
+            "OldLocation": [
+              7074.21044921875,
+              -560.9133911132812,
+              0.0
+            ]
+          },
+          "event_recipients": []
+        }
+      ],
+      "status": "recommended for conversion; not installed"
+    }
+  ],
+  "deprioritized": [
+    {
+      "name": "AS-Hankz2",
+      "reason": "Final kill-Nalis/Cyberninja event depends on scripted NPC behavior."
+    },
+    {
+      "name": "AS-SubmarineBase",
+      "reason": "182 TriggeredDeath actors and several cannons require more than the apparent simple FortStandard list to be validated."
+    },
+    {
+      "name": "AS-300kB3TheWarehouse",
+      "reason": "Thirteen linked mm1/mm2 damage targets require checking grouped completion/event semantics; not a first simple-switch conversion."
+    }
+  ]
+}

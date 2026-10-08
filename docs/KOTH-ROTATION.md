@@ -36,3 +36,30 @@ godot --path . --xr-mode off --script res://tools/koth/views.gd
 ```
 
 The geometry checks cover every team spawn's path to every hill, paths between hills, sixteen floor samples around each scoring circle, box-player clearance, supplies and site separation. Network checks use a dedicated server, an observer and a late joiner. Bot tests use eight ordinary combat bots for two full rotation cycles per map. Render checks inspect the actual floating countdowns and gong playback. Final results are in `maps/KOTH/VALIDATION.md` and `test-results/koth-rotation/`.
+
+## Authored Unreal hill sets
+
+Converted UT maps mark `info_koth_control` with `hill_authored=1` and retain
+ordered authored hill markers. One marker creates a fixed hill, with no
+movement countdown or spurious move announcements. Multiple markers retain
+the existing 30-second rotation, contention and scoring rules; no extra
+spawn-derived hills are synthesized. `hill_fixed` is included in snapshots,
+with a false default for older recordings. Ordinary existing maps retain
+their established three-site fallback. `tools/koth/rules.gd` covers fixed
+scoring across timer boundaries, two authored hills, and late-join state.
+
+Installed ChaosUT conversions use these authored hill counts:
+
+| Map | Hills | Behavior |
+| --- | ---: | --- |
+| Buttnutt | 13 | Rotation |
+| TryTitan | 5 | Rotation |
+| Thunderdome | 3 | Rotation |
+| Cerebro | 1 | Fixed |
+| Dungeon | 1 | Fixed |
+| Temple | 1 | Fixed |
+| Wilderness | 1 | Fixed |
+
+The conversion validator checked 88 safe starts and all 372 directed
+spawn-to-hill routes. This establishes route connectivity; live combat and
+objective performance are recorded separately in `tools/unreal_imports/live-bots.json`.

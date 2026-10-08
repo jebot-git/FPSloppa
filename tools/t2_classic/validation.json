@@ -1,0 +1,799 @@
+{
+  "date": "2026-10-08",
+  "base_commit": "8fbf5c8",
+  "godot": "4.7.2.stable.official.ed1daf0bf",
+  "source_commit": "abe5198e5020554fe1f1620231c188d48f00f045",
+  "compiler": "ericw-tools 0.18.1",
+  "maps": [
+    {
+      "id": "ctf_t2_acidrain",
+      "bsp_sha256": "5a26ea879d0760b7e85e070a58d2c9a80cd8083e90bdb3c80554f6a8761168c9",
+      "bytes": 13841040,
+      "physics_checks": 56,
+      "match_checks": 65,
+      "navigation_polygons": 84461,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_blastside",
+      "bsp_sha256": "04beca5f3f0c1a5f95414587a45a3e6390181d1357f1281f8510672c1ee60eee",
+      "bytes": 10034640,
+      "physics_checks": 68,
+      "match_checks": 61,
+      "navigation_polygons": 60993,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(-85.99344, 180.1031, -106.5869)",
+          "team": 0
+        },
+        {
+          "spawn": "(-63.36344, 123.1031, -112.7241)",
+          "team": 0
+        },
+        {
+          "spawn": "(-119.3522, 81.10313, -105.0325)",
+          "team": 0
+        },
+        {
+          "spawn": "(-98.66093, 123.1031, -165.8609)",
+          "team": 0
+        },
+        {
+          "spawn": "(-118.6159, 123.1031, -60.42406)",
+          "team": 0
+        },
+        {
+          "spawn": "(-164.4787, 123.1031, -127.8609)",
+          "team": 0
+        },
+        {
+          "spawn": "(-120.6562, 190.1031, -128.6244)",
+          "team": 0
+        },
+        {
+          "spawn": "(-108.3109, 130.1031, -113.9088)",
+          "team": 0
+        },
+        {
+          "spawn": "(115.1981, 205.4231, 252.5116)",
+          "team": 1
+        },
+        {
+          "spawn": "(93.63125, 148.4231, 261.7122)",
+          "team": 1
+        },
+        {
+          "spawn": "(148.0234, 106.4231, 246.37)",
+          "team": 1
+        },
+        {
+          "spawn": "(135.9222, 148.4231, 309.4713)",
+          "team": 1
+        },
+        {
+          "spawn": "(141.14, 148.4231, 202.2897)",
+          "team": 1
+        },
+        {
+          "spawn": "(195.8681, 148.4231, 262.7544)",
+          "team": 1
+        },
+        {
+          "spawn": "(152.5697, 215.4231, 269.5565)",
+          "team": 1
+        },
+        {
+          "spawn": "(138.3125, 155.4231, 256.6847)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_broadside",
+      "bsp_sha256": "f76fd185e41e381e4f957ae3ab8bdcab7a2dce9b6675222fdacfd3e20f27ba77",
+      "bytes": 10017528,
+      "physics_checks": 60,
+      "match_checks": 53,
+      "navigation_polygons": 60981,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(-63.36344, 123.1031, -112.7241)",
+          "team": 0
+        },
+        {
+          "spawn": "(-118.6159, 123.1031, -60.42406)",
+          "team": 0
+        },
+        {
+          "spawn": "(-86.69594, 180.1031, -115.8037)",
+          "team": 0
+        },
+        {
+          "spawn": "(-98.99, 81.10313, -119.0978)",
+          "team": 0
+        },
+        {
+          "spawn": "(-138.7775, 180.1031, -131.345)",
+          "team": 0
+        },
+        {
+          "spawn": "(-98.66093, 123.1031, -165.8609)",
+          "team": 0
+        },
+        {
+          "spawn": "(-164.4787, 123.1031, -127.8609)",
+          "team": 0
+        },
+        {
+          "spawn": "(-104.9925, 137.1031, -102.1609)",
+          "team": 0
+        },
+        {
+          "spawn": "(93.63125, 148.4231, 261.7122)",
+          "team": 1
+        },
+        {
+          "spawn": "(141.14, 148.4231, 202.2897)",
+          "team": 1
+        },
+        {
+          "spawn": "(117.1656, 205.4231, 261.5434)",
+          "team": 1
+        },
+        {
+          "spawn": "(129.7966, 106.4231, 263.11)",
+          "team": 1
+        },
+        {
+          "spawn": "(170.8931, 205.4231, 269.7509)",
+          "team": 1
+        },
+        {
+          "spawn": "(135.9222, 148.4231, 309.4713)",
+          "team": 1
+        },
+        {
+          "spawn": "(195.8681, 148.4231, 262.7544)",
+          "team": 1
+        },
+        {
+          "spawn": "(133.405, 162.4231, 245.5069)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_confusco",
+      "bsp_sha256": "109b1742a43791851bbb80c9700db952056f8e7e5c39f476ec1ed40a88a339d8",
+      "bytes": 9947748,
+      "physics_checks": 56,
+      "match_checks": 49,
+      "navigation_polygons": 41031,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(42.105, 542.8625, -679.75)",
+          "team": 0
+        },
+        {
+          "spawn": "(-26.04144, 539.5562, -729.4031)",
+          "team": 0
+        },
+        {
+          "spawn": "(8.306313, 570.7906, -692.8688)",
+          "team": 0
+        },
+        {
+          "spawn": "(36.45844, 602.3312, -734.1031)",
+          "team": 0
+        },
+        {
+          "spawn": "(-45.54156, 559.8218, -686.1031)",
+          "team": 0
+        },
+        {
+          "spawn": "(36.62531, 538.2219, -729.4031)",
+          "team": 0
+        },
+        {
+          "spawn": "(-29.54144, 606.6968, -740.1031)",
+          "team": 0
+        },
+        {
+          "spawn": "(13.29187, 536.2219, -643.5687)",
+          "team": 0
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_dangerouscrossing",
+      "bsp_sha256": "f15f72b33016d01d33b9dec258e22fced52fb2f785345d1bfb9f8a202d73d1d6",
+      "bytes": 5593228,
+      "physics_checks": 48,
+      "match_checks": 41,
+      "navigation_polygons": 32155,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_desertofdeath",
+      "bsp_sha256": "626f151ead8a595b41324a22ff4c2bbbe063c77c34aafc386312f6e2382ab68a",
+      "bytes": 5533104,
+      "physics_checks": 36,
+      "match_checks": 29,
+      "navigation_polygons": 44845,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_gorgon",
+      "bsp_sha256": "ff6c7ceaa265fcec678403e7c8630b0c8167da32e119182925549c0be51eaca9",
+      "bytes": 8958664,
+      "physics_checks": 40,
+      "match_checks": 35,
+      "navigation_polygons": 18483,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(-134.3491, 80.04501, -156.8909)",
+          "team": 0
+        },
+        {
+          "spawn": "(85.40781, 137.0494, -165.6872)",
+          "team": 0
+        },
+        {
+          "spawn": "(30.951, 83.63813, -247.3909)",
+          "team": 0
+        },
+        {
+          "spawn": "(-54.95781, 133.7253, -141.8297)",
+          "team": 0
+        },
+        {
+          "spawn": "(127.4078, 97.26875, -245.095)",
+          "team": 0
+        },
+        {
+          "spawn": "(-134.3491, 79.21969, -246.8909)",
+          "team": 0
+        },
+        {
+          "spawn": "(-42.94906, 73.86, 253.7091)",
+          "team": 1
+        },
+        {
+          "spawn": "(61.14312, 53.62375, 139.5191)",
+          "team": 1
+        },
+        {
+          "spawn": "(-90.94907, 139.2372, 163.7091)",
+          "team": 1
+        },
+        {
+          "spawn": "(40.55094, 73.1575, 247.4091)",
+          "team": 1
+        },
+        {
+          "spawn": "(63.02031, 138.4103, 159.7134)",
+          "team": 1
+        },
+        {
+          "spawn": "(-126.9491, 101.1012, 247.7091)",
+          "team": 1
+        },
+        {
+          "spawn": "(142.5509, 82.30063, 253.4091)",
+          "team": 1
+        },
+        {
+          "spawn": "(-37.69031, 53.62375, 155.8522)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_hillside",
+      "bsp_sha256": "36a3c58a40abfd32225fc00dc1ebef9921568da4db1277a5314cebe6441ebfa3",
+      "bytes": 15467020,
+      "physics_checks": 72,
+      "match_checks": 81,
+      "navigation_polygons": 46486,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_iceridge",
+      "bsp_sha256": "186489af98557247f1617322a9c528ec27f7ec41d3af463dcc31ce4f1f1eaa2d",
+      "bytes": 6187048,
+      "physics_checks": 48,
+      "match_checks": 41,
+      "navigation_polygons": 39319,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(100.5, 92.60532, 362.5)",
+          "team": 0
+        },
+        {
+          "spawn": "(70.5, 93.62688, 410.5)",
+          "team": 0
+        },
+        {
+          "spawn": "(46.5, 91.75594, 368.5)",
+          "team": 0
+        },
+        {
+          "spawn": "(34.04313, 104.6853, 408.2031)",
+          "team": 0
+        },
+        {
+          "spawn": "(118.5, 94.06063, 404.5)",
+          "team": 0
+        },
+        {
+          "spawn": "(34.5, 94.96281, 320.5)",
+          "team": 0
+        },
+        {
+          "spawn": "(112.5, 91.59969, 320.5)",
+          "team": 0
+        },
+        {
+          "spawn": "(74.55782, 132.715, 366.1219)",
+          "team": 0
+        },
+        {
+          "spawn": "(-0.5, 111.2459, -401.5)",
+          "team": 1
+        },
+        {
+          "spawn": "(53.5, 117.5722, -407.5)",
+          "team": 1
+        },
+        {
+          "spawn": "(17.5, 110.8575, -449.5)",
+          "team": 1
+        },
+        {
+          "spawn": "(-24.5, 105.8631, -437.5)",
+          "team": 1
+        },
+        {
+          "spawn": "(-18.85356, 111.9644, -359.8531)",
+          "team": 1
+        },
+        {
+          "spawn": "(59.69125, 111.2097, -359.9625)",
+          "team": 1
+        },
+        {
+          "spawn": "(65.5, 114.7753, -449.5)",
+          "team": 1
+        },
+        {
+          "spawn": "(19.44203, 150.3, -405.6156)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_lakefront",
+      "bsp_sha256": "95794d620a02822f910e41190600729c57aea7ce32c45477b3a4fec997d417fa",
+      "bytes": 11425400,
+      "physics_checks": 52,
+      "match_checks": 61,
+      "navigation_polygons": 53335,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_magmatic",
+      "bsp_sha256": "29beb6ae33e918d887c0d89f67e7500ca77611181d6a10c5bd23b07a041f801f",
+      "bytes": 8971288,
+      "physics_checks": 68,
+      "match_checks": 77,
+      "navigation_polygons": 60049,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_ramparts",
+      "bsp_sha256": "3b3e062f76008b0a9ed4e29442a3dbda6e380bccb1aaa7710fa9dd4826a463c8",
+      "bytes": 8023172,
+      "physics_checks": 64,
+      "match_checks": 57,
+      "navigation_polygons": 44390,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(-144.3687, 192.13, 381.5438)",
+          "team": 0
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_rollercoaster",
+      "bsp_sha256": "5ae129c5a1f3e532961b6f9488e8907db54b0bf3c5dfb2b9b49e153ce9f6a191",
+      "bytes": 6911008,
+      "physics_checks": 44,
+      "match_checks": 53,
+      "navigation_polygons": 67061,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(410.1781, 141.7181, 66.41312)",
+          "team": 0
+        },
+        {
+          "spawn": "(385.9094, 159.4381, -68.75719)",
+          "team": 0
+        },
+        {
+          "spawn": "(358.1656, 141.795, -48.68969)",
+          "team": 0
+        },
+        {
+          "spawn": "(387.5031, 141.285, -10.70269)",
+          "team": 0
+        },
+        {
+          "spawn": "(404.1656, 141.795, -98.02281)",
+          "team": 0
+        },
+        {
+          "spawn": "(420.1656, 141.795, -48.68969)",
+          "team": 0
+        },
+        {
+          "spawn": "(352.1656, 141.795, -98.02281)",
+          "team": 0
+        },
+        {
+          "spawn": "(388.5125, 145.2181, 39.41312)",
+          "team": 0
+        },
+        {
+          "spawn": "(-394.0406, 140.9941, 57.06375)",
+          "team": 1
+        },
+        {
+          "spawn": "(-382.0406, 140.9941, 116.0638)",
+          "team": 1
+        },
+        {
+          "spawn": "(-404.7188, 156.0219, -20.25778)",
+          "team": 1
+        },
+        {
+          "spawn": "(-434.0531, 141.0219, 0.960966)",
+          "team": 1
+        },
+        {
+          "spawn": "(-388.0531, 141.0219, -48.3725)",
+          "team": 1
+        },
+        {
+          "spawn": "(-372.0531, 141.0219, 0.960966)",
+          "team": 1
+        },
+        {
+          "spawn": "(-440.0531, 141.0219, -48.3725)",
+          "team": 1
+        },
+        {
+          "spawn": "(-403.7062, 144.4941, 89.06375)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_sandstorm",
+      "bsp_sha256": "9654fe1d76a7ef1e762e49d81ee7d8152d210bc154847e8ab4b13263430a3c48",
+      "bytes": 14116136,
+      "physics_checks": 68,
+      "match_checks": 77,
+      "navigation_polygons": 77118,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(558.5563, 106.3047, 537.8563)",
+          "team": 0
+        },
+        {
+          "spawn": "(575.6656, 88.30469, 466.8031)",
+          "team": 0
+        },
+        {
+          "spawn": "(655.6781, 108.3047, 497.8844)",
+          "team": 0
+        },
+        {
+          "spawn": "(496.1031, 90.30469, 500.3875)",
+          "team": 0
+        },
+        {
+          "spawn": "(-545.7344, 105.0316, -581.625)",
+          "team": 1
+        },
+        {
+          "spawn": "(-498.9062, 105.0316, -654.4031)",
+          "team": 1
+        },
+        {
+          "spawn": "(-422.0219, 105.0316, -561.9188)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_scarabrae",
+      "bsp_sha256": "d013c0277c987c072e6a29fb125e33917656000308596d14cd98263ac6fbe185",
+      "bytes": 16044392,
+      "physics_checks": 54,
+      "match_checks": 64,
+      "navigation_polygons": 44356,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(-647.6188, 206.54, -316.2281)",
+          "team": 0
+        },
+        {
+          "spawn": "(-766.925, 206.54, -339.8594)",
+          "team": 0
+        },
+        {
+          "spawn": "(-641.9156, 206.54, -231.3256)",
+          "team": 0
+        },
+        {
+          "spawn": "(-672.1813, 262.54, -359.0875)",
+          "team": 0
+        },
+        {
+          "spawn": "(-766.5812, 206.54, -230.9444)",
+          "team": 0
+        },
+        {
+          "spawn": "(-701.7906, 146.54, -318.2656)",
+          "team": 0
+        },
+        {
+          "spawn": "(-721.7375, 206.54, -399.9688)",
+          "team": 0
+        },
+        {
+          "spawn": "(-701.3625, 242.415, -278.2669)",
+          "team": 0
+        },
+        {
+          "spawn": "(629.35, 197.4519, 276.8653)",
+          "team": 1
+        },
+        {
+          "spawn": "(748.6188, 197.4519, 300.6869)",
+          "team": 1
+        },
+        {
+          "spawn": "(623.7812, 197.4519, 191.9531)",
+          "team": 1
+        },
+        {
+          "spawn": "(653.8438, 253.4519, 319.7625)",
+          "team": 1
+        },
+        {
+          "spawn": "(748.45, 197.4519, 191.7703)",
+          "team": 1
+        },
+        {
+          "spawn": "(683.5187, 137.4519, 278.9887)",
+          "team": 1
+        },
+        {
+          "spawn": "(703.3344, 197.4519, 360.7219)",
+          "team": 1
+        },
+        {
+          "spawn": "(683.1531, 233.3269, 238.9891)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_shockridge",
+      "bsp_sha256": "9f7072b7bfb71845c9b2c3271bb8d146cf6c2759efc85365dd9c3efe35e2346a",
+      "bytes": 10611880,
+      "physics_checks": 52,
+      "match_checks": 61,
+      "navigation_polygons": 73414,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_snowblind",
+      "bsp_sha256": "0c7a3284116b85bb189f0d5fd915914438e1f5fc3bb966a39fb3d0cff257100f",
+      "bytes": 6155356,
+      "physics_checks": 52,
+      "match_checks": 45,
+      "navigation_polygons": 36147,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(-201.0822, 217.0941, 150.1775)",
+          "team": 0
+        },
+        {
+          "spawn": "(260.4741, 138.7169, 582.75)",
+          "team": 0
+        },
+        {
+          "spawn": "(-271.9581, 197.4572, 207.6881)",
+          "team": 0
+        },
+        {
+          "spawn": "(-157.9581, 160.2775, 81.68813)",
+          "team": 0
+        },
+        {
+          "spawn": "(266.4741, 106.3581, 462.75)",
+          "team": 0
+        },
+        {
+          "spawn": "(-148.4431, 139.3166, 205.2028)",
+          "team": 0
+        },
+        {
+          "spawn": "(-208.4734, 217.1041, 147.1159)",
+          "team": 0
+        },
+        {
+          "spawn": "(167.8331, 185.1281, 508.5219)",
+          "team": 0
+        },
+        {
+          "spawn": "(-147.7794, 122.4909, -435.5531)",
+          "team": 1
+        },
+        {
+          "spawn": "(-8.365, 146.0912, -334.9656)",
+          "team": 1
+        },
+        {
+          "spawn": "(64.54906, 210.2825, 69.39062)",
+          "team": 1
+        },
+        {
+          "spawn": "(-128.365, 119.6447, -336.4656)",
+          "team": 1
+        },
+        {
+          "spawn": "(196.5491, 185.2375, -68.60938)",
+          "team": 1
+        },
+        {
+          "spawn": "(58.54906, 161.6566, -50.60938)",
+          "team": 1
+        },
+        {
+          "spawn": "(196.5491, 217.45, 69.39062)",
+          "team": 1
+        },
+        {
+          "spawn": "(-67.39781, 190.635, -430.5969)",
+          "team": 1
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_starfallen",
+      "bsp_sha256": "645435ba254c60c56c72a624d90c9ab1170264f865691138fc16901f35d24c18",
+      "bytes": 15650764,
+      "physics_checks": 68,
+      "match_checks": 77,
+      "navigation_polygons": 92109,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_subzero",
+      "bsp_sha256": "680c3351f82de3a54115e9b52caee13adadd40d09e0e05b89d1528913e6091c3",
+      "bytes": 7731604,
+      "physics_checks": 52,
+      "match_checks": 45,
+      "navigation_polygons": 36089,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_surreal",
+      "bsp_sha256": "c0246d5f4139b10cb870ee1920d717a70fd884f66b1481497e08b701bd5cc992",
+      "bytes": 8746164,
+      "physics_checks": 52,
+      "match_checks": 45,
+      "navigation_polygons": 50916,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    },
+    {
+      "id": "ctf_t2_titan",
+      "bsp_sha256": "84a6a56a1ee403fd83c260a2d3dd9ba266c5e0aa59a75a7e0f719106d9f0890f",
+      "bytes": 10075948,
+      "physics_checks": 52,
+      "match_checks": 45,
+      "navigation_polygons": 50825,
+      "route_graph_checks": 16,
+      "route_graph_failures": [
+        {
+          "spawn": "(-394.0187, 172.3513, -102.62)",
+          "team": 0
+        }
+      ]
+    },
+    {
+      "id": "ctf_t2_whitedwarf",
+      "bsp_sha256": "7a9d00381535d00d1e75ebd1eaf7636897979c7fbe71ebe1d56d359ca4071125",
+      "bytes": 12577048,
+      "physics_checks": 60,
+      "match_checks": 53,
+      "navigation_polygons": 100696,
+      "route_graph_checks": 16,
+      "route_graph_failures": []
+    }
+  ],
+  "regressions": [
+    {
+      "test": "st_scout.gd",
+      "passed_checks": 55,
+      "log_sha256": "d66f9d9df036b9cf838b69df909448f0d21c1e0eaf8035899e874e38ccfd767c"
+    },
+    {
+      "test": "st_transports.gd",
+      "passed_checks": 93,
+      "log_sha256": "c059f6b4761637b4c93494e7fcd792551d9a767aab328a9d5a4e6c26a4f675d0"
+    },
+    {
+      "test": "st_t2_vehicles.gd",
+      "passed_checks": 62,
+      "log_sha256": "3371dd0b97f37806fb0aaeddd130813566041a4a69bb745040870d084252a4ec"
+    },
+    {
+      "test": "st_transport_vr.gd -- --vr-test --no-bots",
+      "passed_checks": 56,
+      "log_sha256": "1e9045d89304def2c0c54b8f3ba55df934e9c9015a7c14edc894eab2a5d0b3ed"
+    },
+    {
+      "test": "st_vehicle_impacts.gd",
+      "passed_checks": 37,
+      "log_sha256": "d5a3f4f8814fbbedac17ebde591b0ac593b5fe459f4671ee7f9961fd359fb20f"
+    },
+    {
+      "test": "st_tribes.gd",
+      "passed_checks": 59,
+      "log_sha256": "674b204a86023058c23821d73d47b41afd7060cbc287bd9d8099638d2eaed1ec"
+    },
+    {
+      "test": "T2_VEHICLES=1 test_transports_network.py",
+      "passed_checks": 24,
+      "log_sha256": "15fb7c4344a7fc30c3bc3525677876d2a93bbfee6cebd4c99977d27c3ad20a28"
+    }
+  ],
+  "summary": {
+    "new_maps": 22,
+    "physics_checks": 1222,
+    "match_checks": 1215,
+    "full_route_graph_maps": 11,
+    "route_graph_maps_needing_work": 11,
+    "regression_checks": 386
+  },
+  "limitations": [
+    "Route graph failures are retained explicitly; terrain/portal route completeness is not claimed.",
+    "Decorative DTS scenery, original render-only detail, forcefields and mission-specific scripting are not reproduced.",
+    "Only Wildcat, Shrike and Havoc vehicle adaptations are added; Bomber, Beowulf and Jericho are not implemented.",
+    "Headset performance, long-running bot matches and competitive balance are not validated."
+  ]
+}

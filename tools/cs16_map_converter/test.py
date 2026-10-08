@@ -38,6 +38,29 @@ class ConverterTests(unittest.TestCase):
         lumps=self.source.lumps.copy();lumps[0]=entity_bytes(entities)
         result=bytearray(pack(lumps,{}));struct.pack_into('<i',result,0,30);return bytes(result)
 
+    def test_repeated_editor_version_does_not_change_gameplay_keys(self):
+        self.assertEqual(parse_entities(b'{"classname" "worldspawn" "mapversion" "220" "mapversion" "221"}')[0]['mapversion'],'221')
+        with self.assertRaises(ConversionError):
+            parse_entities(b'{"classname" "worldspawn" "origin" "0 0 0" "origin" "1 0 0"}')
+
+    def test_texture_count_is_bounded_before_unused_slot_scan(self):
+        lumps=self.source.lumps.copy();lumps[2]=struct.pack('<i',2147483647)
+        with self.assertRaises(ConversionError):
+            self.run_convert(struct.pack('<i',30)+pack(lumps,{})[4:])
+
+    def test_unused_negative_texture_slot(self):
+        lumps=self.source.lumps.copy();old=lumps[2];count=struct.unpack_from('<i',old)[0]
+        offsets=struct.unpack_from('<'+'i'*count,old,4)
+        lumps[2]=struct.pack('<i',count+1)+struct.pack('<'+'i'*(count+1),*[p+4 for p in offsets],-1)+old[4+4*count:]
+        output,report=self.run_convert(struct.pack('<i',30)+pack(lumps,{})[4:])
+        self.assertEqual(report['textures'][-1]['source'],'unused-slot')
+        self.assertEqual(report['textures'][-1]['output_name'],'skip')
+        # An absent slot used by real faces is still rejected, even with replacements.
+        texinfo=bytearray(lumps[6]);index=self.source.faces[0][4]
+        struct.pack_into('<i',texinfo,index*40+32,count);lumps[6]=bytes(texinfo)
+        with self.assertRaises(ConversionError):
+            convert(struct.pack('<i',30)+pack(lumps,{})[4:],Wads([FIXTURE/'external.wad']),'Broken',replace_missing=True)
+
     def test_geometry_preserved(self):
         target=BSP(self.output,29)
         for i in [1,3,4,5,6,9,10,11,12,13,14]:self.assertEqual(target.lumps[i],self.source.lumps[i])

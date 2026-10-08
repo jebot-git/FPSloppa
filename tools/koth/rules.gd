@@ -37,6 +37,16 @@ func run():
  check(mode.hill_remaining==before,"Intermission freezes hill movement")
  g.intermission=0;mode.reset()
  check(mode.hills.size()>=3 and mode.hill_index==0 and mode.hill_remaining==30,"Round restart restores the first site and full countdown")
+ g.map_objectives["hill_authored"]=true;mode.hills=[sites[0]];mode.prepare_hills()
+ mode.scores=[0,0];mode.hill_credit=0;mode.hill_owner=-1
+ g.fighters[1].position=sites[0];g.fighters[2].position=sites[0]+Vector3.RIGHT*50
+ mode.tick_hill(91.)
+ check(mode.hills.size()==1 and mode.hill_fixed and mode.hill==sites[0] and mode.scores==[91,0],"Single authored imported hill stays fixed and scores across rotation boundaries")
+ check(mode.hill_timer_text()=="FIXED HILL","Fixed hill does not advertise a move countdown")
+ replica.receive(mode.snapshot());check(replica.hill_fixed and replica.hills.size()==1,"Fixed hill policy reaches late-joining clients")
+ mode.hills=[sites[0],sites[1]];mode.prepare_hills();mode.tick_hill(30.)
+ check(not mode.hill_fixed and mode.hills.size()==2 and mode.hill==sites[1],"Multiple authored imported hills retain exact count and existing timed rotation")
+ g.map_objectives.erase("hill_authored");mode.reset()
  var sounds: Array=[];g.round_clock.round_ended.connect(func():sounds.append(true))
  g._end_round();g._end_round()
  check(sounds.size()==1,"Round end emits exactly one gong even if end is requested twice")
@@ -54,5 +64,6 @@ func run():
  check(mode.kind=="dm" and not g.current_map.begins_with("koth_"),"Mode vote leaves KOTH-only arena for DM")
  g.votes.change_mode("koth")
  check(mode.kind=="koth" and g.current_map in g.maps_for_mode("koth"),"Mode vote enters a rebuilt KOTH arena")
+ DirAccess.make_dir_recursive_absolute("res://test-results/koth-rotation")
  FileAccess.open("res://test-results/koth-rotation/rules.json",FileAccess.WRITE).store_string(JSON.stringify({"failures":failures},"  "))
  g.free();print("KOTH_RULES_RESULT ",JSON.stringify(failures));quit(0 if failures.is_empty() else 1)

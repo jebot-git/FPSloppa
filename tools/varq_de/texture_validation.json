@@ -1,0 +1,1216 @@
+[
+  {
+    "map": "de_varq_dust2",
+    "before_sha256": "c7c119c49d192d7aa88bb7f17568c7e27bbfb7e4c3ce7fb0744127b13e98a34b",
+    "after_sha256": "2963de4eb2b25c6f96d3fbdb813830de7f634e5c29cc77d90763477bd007befa",
+    "preserved_nontexture_lumps": true,
+    "runtime_checks": 220,
+    "textures": [
+      {
+        "texture": "+0~fifties_lgt2",
+        "donor_texture": "+0~fifties_lgt2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "+a~fifties_lgt2",
+        "donor_texture": "+a~fifties_lgt2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "aaatrigger",
+        "donor_texture": "aaatrigger",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "black",
+        "donor_texture": "black",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "clip",
+        "donor_texture": "clip",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "generic011",
+        "donor_texture": "generic011",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sky",
+        "donor_texture": "sky",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "white",
+        "donor_texture": "white",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "-0cssandwall",
+        "donor_texture": "-0cssandwall",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-0sand",
+        "donor_texture": "-0sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-1cssandwall",
+        "donor_texture": "-1cssandwall",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-1sand",
+        "donor_texture": "-1sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-2sand",
+        "donor_texture": "-2sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-3sand",
+        "donor_texture": "-3sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "mltrycrtesd",
+        "donor_texture": "mltrycrtesd",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "mltrycrtesd2",
+        "donor_texture": "mltrycrtesd2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "mltrycrtetp",
+        "donor_texture": "mltrycrtetp",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandccrete",
+        "donor_texture": "sandccrete",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtlrgsd",
+        "donor_texture": "sandcrtlrgsd",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtlrgtp",
+        "donor_texture": "sandcrtlrgtp",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtsmsd",
+        "donor_texture": "sandcrtsmsd",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtsmtp",
+        "donor_texture": "sandcrtsmtp",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandroad",
+        "donor_texture": "sandroad",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandroadtgta",
+        "donor_texture": "sandroad",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandroadtgtb",
+        "donor_texture": "sandroad",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandtrim",
+        "donor_texture": "sandtrim",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandwlldoor",
+        "donor_texture": "sandwlldoor",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandwlldoor2",
+        "donor_texture": "sandwlldoor2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandwllwndw",
+        "donor_texture": "sandwllwndw",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      }
+    ]
+  },
+  {
+    "map": "de_varq_westwood",
+    "before_sha256": "6918ea7cc63c4f3018c984930df01230f560e4833c291cf5ee2a810c116fb086",
+    "after_sha256": "614f07af555a2977633617e71369700bfa4288b072b36b8a0f3ea88646b623e9",
+    "preserved_nontexture_lumps": true,
+    "runtime_checks": 208,
+    "textures": [
+      {
+        "texture": "+0~light4a",
+        "donor_texture": "+0~light6a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "+a~light4a",
+        "donor_texture": "+a~light6a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "aaatrigger",
+        "donor_texture": "aaatrigger",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "black",
+        "donor_texture": "black",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "clip",
+        "donor_texture": "clip",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "crete3_wall02",
+        "donor_texture": "pk_concrete02a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "generic014h",
+        "donor_texture": "generic034",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "generic102b",
+        "donor_texture": "generic034a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "glass_med",
+        "donor_texture": "glass_med",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "lab1_comp3f",
+        "donor_texture": "~lab1_comp7b",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_office_rats/assets/de_office_rats.bsp",
+        "source_sha256": "28d008427aa7fd84b58f127ce9c4ba0a3c0db1dbd72534af36f0cf82bab816ad"
+      },
+      {
+        "texture": "ngin_door",
+        "donor_texture": "babtech_dr1c",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "origin",
+        "donor_texture": "origin",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "out_galv1",
+        "donor_texture": "out_galv1",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "paper3",
+        "donor_texture": "paper3",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "rope",
+        "donor_texture": "rope",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_office_rats/assets/de_office_rats.bsp",
+        "source_sha256": "28d008427aa7fd84b58f127ce9c4ba0a3c0db1dbd72534af36f0cf82bab816ad"
+      },
+      {
+        "texture": "silo2_wet4",
+        "donor_texture": "silo2_wet4d",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      },
+      {
+        "texture": "sky",
+        "donor_texture": "sky",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "trrm_wood2",
+        "donor_texture": "eastwood01",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "{blue",
+        "donor_texture": "{blue",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "{ladder2",
+        "donor_texture": "{ladder2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "~lab1_comp3f",
+        "donor_texture": "~lab1_comp7b",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_office_rats/assets/de_office_rats.bsp",
+        "source_sha256": "28d008427aa7fd84b58f127ce9c4ba0a3c0db1dbd72534af36f0cf82bab816ad"
+      },
+      {
+        "texture": "~spotyellow",
+        "donor_texture": "light_yellow",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_santorini/assets/de_santorini.wad",
+        "source_sha256": "744a2a003bee4d02397ef4508a6aa0829c7146c5c6a47107c45ae80d058ba95c"
+      },
+      {
+        "texture": "~trn_lt1",
+        "donor_texture": "~light3a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_nuke2x2_snow/assets/de_nuke2x2_snow.bsp",
+        "source_sha256": "08cad584ac56cc40581cc9776397fdcc541c56438a6abe269300bc157dfde62f"
+      },
+      {
+        "texture": "~trn_lt1b",
+        "donor_texture": "~light3b",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_nuke2x2_snow/assets/de_nuke2x2_snow.bsp",
+        "source_sha256": "08cad584ac56cc40581cc9776397fdcc541c56438a6abe269300bc157dfde62f"
+      },
+      {
+        "texture": "ccwall",
+        "donor_texture": "nmww_wall1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_westwood/assets/de_westwood.bsp",
+        "source_sha256": "e4b187ccc0992d1bf0d32e75f8597a895aab9e70368d56d33603c48f7c4eeade"
+      },
+      {
+        "texture": "chestdrawers",
+        "donor_texture": "fifties_dsk5a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_office_rats/assets/de_office_rats.bsp",
+        "source_sha256": "28d008427aa7fd84b58f127ce9c4ba0a3c0db1dbd72534af36f0cf82bab816ad"
+      },
+      {
+        "texture": "concrete",
+        "donor_texture": "pk_concrete02a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "oakdoor",
+        "donor_texture": "dr_oldwd04",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_perfect_inferno/assets/de_perfect_inferno.bsp",
+        "source_sha256": "4d6960e6ca29a07b82aa1219262446f2b21845f80c58c1c6e585773dffb5ca1b"
+      },
+      {
+        "texture": "olddoor",
+        "donor_texture": "bhdc_door1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_westwood/assets/de_westwood.bsp",
+        "source_sha256": "e4b187ccc0992d1bf0d32e75f8597a895aab9e70368d56d33603c48f7c4eeade"
+      },
+      {
+        "texture": "oldradio",
+        "donor_texture": "radio01",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_nuke_rarea/assets/de_nuke_rarea.bsp",
+        "source_sha256": "1664a9a47c4fa5b6cb3578f27330c14c2e5786b6428dc0b09cd4ab989fd006eb"
+      },
+      {
+        "texture": "oldwood",
+        "donor_texture": "eastwood02",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "redrug",
+        "donor_texture": "cxruga",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "shutteredwindow",
+        "donor_texture": "eastwndwn1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_mirage/assets/de_mirage.bsp",
+        "source_sha256": "e6d7c8b1fca8d1a069102a5664ee641afa7564b17668b67de8775f58ed046df4"
+      },
+      {
+        "texture": "wbarrelside",
+        "donor_texture": "nmww_crate1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_westwood/assets/de_westwood.bsp",
+        "source_sha256": "e4b187ccc0992d1bf0d32e75f8597a895aab9e70368d56d33603c48f7c4eeade"
+      },
+      {
+        "texture": "wbarreltop",
+        "donor_texture": "nmww_crate2",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_westwood/assets/de_westwood.bsp",
+        "source_sha256": "e4b187ccc0992d1bf0d32e75f8597a895aab9e70368d56d33603c48f7c4eeade"
+      },
+      {
+        "texture": "wlpaper",
+        "donor_texture": "nmww_wall1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_westwood/assets/de_westwood.bsp",
+        "source_sha256": "e4b187ccc0992d1bf0d32e75f8597a895aab9e70368d56d33603c48f7c4eeade"
+      }
+    ]
+  },
+  {
+    "map": "de_varq_abaddon",
+    "before_sha256": "aa495fd61bfca8fda5b937b30374b5862ed8f331f31eae9874e0a8c239486253",
+    "after_sha256": "dab9e8065116cc2510a4fea3d80cf8391dd28b21c4abaeb3486d2cb32fca246d",
+    "preserved_nontexture_lumps": true,
+    "runtime_checks": 182,
+    "textures": [
+      {
+        "texture": "-0c2a4e_w1",
+        "donor_texture": "c2a4e_w1b",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      },
+      {
+        "texture": "-1c2a4e_w1",
+        "donor_texture": "c2a4e_w1b",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      },
+      {
+        "texture": "aaatrigger",
+        "donor_texture": "aaatrigger",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "black",
+        "donor_texture": "black",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "clip",
+        "donor_texture": "clip",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "sky",
+        "donor_texture": "sky",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "white",
+        "donor_texture": "white",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "{ladder2",
+        "donor_texture": "{ladder2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "{out_net1b",
+        "donor_texture": "{out_net1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "-0cssandwall",
+        "donor_texture": "-0cssandwall",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-0sand",
+        "donor_texture": "-0sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-1cssandwall",
+        "donor_texture": "-1cssandwall",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-1sand",
+        "donor_texture": "-1sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-2sand",
+        "donor_texture": "-2sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "-3sand",
+        "donor_texture": "-3sand",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "mltrycrtesd",
+        "donor_texture": "mltrycrtesd",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "mltrycrtetp",
+        "donor_texture": "mltrycrtetp",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandccrete",
+        "donor_texture": "sandccrete",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtlrgsd",
+        "donor_texture": "sandcrtlrgsd",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtlrgtp",
+        "donor_texture": "sandcrtlrgtp",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtsmsd",
+        "donor_texture": "sandcrtsmsd",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandcrtsmtp",
+        "donor_texture": "sandcrtsmtp",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandroad",
+        "donor_texture": "sandroad",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandroadtgta",
+        "donor_texture": "sandroad",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandroadtgtb",
+        "donor_texture": "sandroad",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandtrim",
+        "donor_texture": "sandtrim",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandwlldoor",
+        "donor_texture": "sandwlldoor",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sandwllwndw",
+        "donor_texture": "sandwllwndw",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      }
+    ]
+  },
+  {
+    "map": "de_varq_perfect_inferno",
+    "before_sha256": "c95b7440a097e331369c05cb33cfcb1b0fd7d421df6298d478ad4383f2551ba0",
+    "after_sha256": "f72689b2a75d764a16bef09619bf423566a37fefa5446b0afa54bf298d554fd9",
+    "preserved_nontexture_lumps": true,
+    "runtime_checks": 428,
+    "textures": [
+      {
+        "texture": "+0~generic86",
+        "donor_texture": "+0~generic86",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "+a~generic86",
+        "donor_texture": "+a~generic86",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "-0glassbrick",
+        "donor_texture": "glassblue1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "-1glassbrick",
+        "donor_texture": "glassblue1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "-2glassbrick",
+        "donor_texture": "glassblue1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "-3glassbrick",
+        "donor_texture": "glassblue1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "-4glassbrick",
+        "donor_texture": "glassblue1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "aaatrigger",
+        "donor_texture": "aaatrigger",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "c1a2_flr1",
+        "donor_texture": "crete4_flr01",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "clip",
+        "donor_texture": "clip",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "crete3_wall01",
+        "donor_texture": "pk_concrete02a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "drkmtlt_bord11",
+        "donor_texture": "drkmtlt_bord11",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "fifties_dr1",
+        "donor_texture": "fifties_dr1",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "fifties_wall03",
+        "donor_texture": "ital_wall3b",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno2se/assets/de_inferno2se.bsp",
+        "source_sha256": "d68afa1b5c5f54b9fe666aec2c14e78c735d418f06bf2d13b2178e9c88ea3414"
+      },
+      {
+        "texture": "fifties_wall14",
+        "donor_texture": "ital_wall4a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno2se/assets/de_inferno2se.bsp",
+        "source_sha256": "d68afa1b5c5f54b9fe666aec2c14e78c735d418f06bf2d13b2178e9c88ea3414"
+      },
+      {
+        "texture": "generic039",
+        "donor_texture": "generic039",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "glassblue1",
+        "donor_texture": "glassblue1",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "glass_bright",
+        "donor_texture": "glassblue1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "lab1_floor6",
+        "donor_texture": "lab1_bluxflr1b",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "lab1_gear3",
+        "donor_texture": "metal_bord07",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      },
+      {
+        "texture": "metal_bord01",
+        "donor_texture": "metal_bord07",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      },
+      {
+        "texture": "out_tnt2",
+        "donor_texture": "out_galv1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "pfab_bks1a",
+        "donor_texture": "pfab_bks1a",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "pfab_bks1b",
+        "donor_texture": "pfab_bks1b",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "prefabbook1",
+        "donor_texture": "prefabbook1",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "prefabbook2",
+        "donor_texture": "prefabbook2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "prefabbook3",
+        "donor_texture": "prefabbook3",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "prefab_pot1",
+        "donor_texture": "pfab_trsh1a",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_office_rats/assets/de_office_rats.bsp",
+        "source_sha256": "28d008427aa7fd84b58f127ce9c4ba0a3c0db1dbd72534af36f0cf82bab816ad"
+      },
+      {
+        "texture": "sign4",
+        "donor_texture": "sign4",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "trrm_wood2",
+        "donor_texture": "eastwood01",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "water4b",
+        "donor_texture": "!waterblue",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_office_rats/assets/de_office_rats.bsp",
+        "source_sha256": "28d008427aa7fd84b58f127ce9c4ba0a3c0db1dbd72534af36f0cf82bab816ad"
+      },
+      {
+        "texture": "{grass2",
+        "donor_texture": "{grass1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      },
+      {
+        "texture": "{ladder3b",
+        "donor_texture": "{ladder3b",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "pi_floorst4",
+        "donor_texture": "pi_steptop1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_mirage/assets/de_mirage.bsp",
+        "source_sha256": "e6d7c8b1fca8d1a069102a5664ee641afa7564b17668b67de8775f58ed046df4"
+      },
+      {
+        "texture": "pi_grnmetal",
+        "donor_texture": "pi_grnmetal",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "pi_wood1",
+        "donor_texture": "pi_wood1",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_mirage/assets/de_mirage.bsp",
+        "source_sha256": "e6d7c8b1fca8d1a069102a5664ee641afa7564b17668b67de8775f58ed046df4"
+      },
+      {
+        "texture": "pi_wood3",
+        "donor_texture": "pi_wood2",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_mirage/assets/de_mirage.bsp",
+        "source_sha256": "e6d7c8b1fca8d1a069102a5664ee641afa7564b17668b67de8775f58ed046df4"
+      },
+      {
+        "texture": "black",
+        "donor_texture": "black",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_licia/assets/de_licia.bsp",
+        "source_sha256": "9af31a404cce40a3bc0b5d18e61b190b9af98b7527cf7912a2b13b9fd0f3ca82"
+      },
+      {
+        "texture": "rope",
+        "donor_texture": "rope",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_office_rats/assets/de_office_rats.bsp",
+        "source_sha256": "28d008427aa7fd84b58f127ce9c4ba0a3c0db1dbd72534af36f0cf82bab816ad"
+      },
+      {
+        "texture": "sky",
+        "donor_texture": "sky",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "tk_doorpanel",
+        "donor_texture": "eastdoor1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "tk_fabricltbrn",
+        "donor_texture": "m_carpet2",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "tk_mod-wood",
+        "donor_texture": "eastwood01",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "tk_mod-wooddrk",
+        "donor_texture": "eastwood02",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "tk_opencrate4",
+        "donor_texture": "eastcratelgsd",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "tk_stonefloor",
+        "donor_texture": "i_ground1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "tk_stonewallhi",
+        "donor_texture": "wall_stone_sm",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno2se/assets/de_inferno2se.bsp",
+        "source_sha256": "d68afa1b5c5f54b9fe666aec2c14e78c735d418f06bf2d13b2178e9c88ea3414"
+      },
+      {
+        "texture": "tk_templewall",
+        "donor_texture": "i_rough1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno2se/assets/de_inferno2se.bsp",
+        "source_sha256": "d68afa1b5c5f54b9fe666aec2c14e78c735d418f06bf2d13b2178e9c88ea3414"
+      },
+      {
+        "texture": "tk_wicker2tp",
+        "donor_texture": "eastcratelgtp",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "tk_wickeropn1",
+        "donor_texture": "eastcratelgsd",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "tk_wickeropn2",
+        "donor_texture": "eastcratelgsd",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "tk_wickeropn3",
+        "donor_texture": "eastcratelgsd",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "tk_window",
+        "donor_texture": "eastwndwn1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_mirage/assets/de_mirage.bsp",
+        "source_sha256": "e6d7c8b1fca8d1a069102a5664ee641afa7564b17668b67de8775f58ed046df4"
+      },
+      {
+        "texture": "tk_windowsml",
+        "donor_texture": "eastwndwn0",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "tk_woodbrd",
+        "donor_texture": "pi_wood1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_mirage/assets/de_mirage.bsp",
+        "source_sha256": "e6d7c8b1fca8d1a069102a5664ee641afa7564b17668b67de8775f58ed046df4"
+      },
+      {
+        "texture": "cxwoodd",
+        "donor_texture": "cxwoodd",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "cxwoodm",
+        "donor_texture": "cxwoodm",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "origin",
+        "donor_texture": "origin",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cpl_mill/assets/de_cpl_mill.bsp",
+        "source_sha256": "2e4fa701b75cab18a54e2010a07372a241b9fefdd18ebd071d2b34873d9d6898"
+      },
+      {
+        "texture": "{cxgate",
+        "donor_texture": "{gate",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_nuke2x2/assets/de_nuke2x2.bsp",
+        "source_sha256": "5bdfab0fc353791414b9ec4a6f407466650d6b4f48a8b5a1f9c8c979a3819425"
+      },
+      {
+        "texture": "{cxivyb",
+        "donor_texture": "{cuivyb",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      },
+      {
+        "texture": "-0cstrike_fj2dk",
+        "donor_texture": "-0cstrike_fj2dk",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "-0cstrike_fr4gr",
+        "donor_texture": "i_ground1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "-1cstrike_fr4gr",
+        "donor_texture": "i_ground1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "-1cstrike_we4al",
+        "donor_texture": "-1cstrike_we4al",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "-2cstrike_fr4gr",
+        "donor_texture": "i_ground1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "-3cstrike_fr4gr",
+        "donor_texture": "i_ground1",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno/assets/de_inferno.bsp",
+        "source_sha256": "d5dcf0aa4d36a0d446ed22e45b841ebc0b9e9d6c8d73b0151ba0d75afd908d5b"
+      },
+      {
+        "texture": "cstrike_wr4ccdr",
+        "donor_texture": "ital_wall4d",
+        "match": "material-alias",
+        "source": "tools/varq_de/local/de_inferno2se/assets/de_inferno2se.bsp",
+        "source_sha256": "d68afa1b5c5f54b9fe666aec2c14e78c735d418f06bf2d13b2178e9c88ea3414"
+      },
+      {
+        "texture": "{cstrike_oe4ven",
+        "donor_texture": "{cstrike_oe4ven",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_manufacture/assets/de_manufacture.wad",
+        "source_sha256": "1a18cfedc602c79ced7a7df18a81fd6af7312957c17b626f0121b2c10a4ae236"
+      }
+    ]
+  },
+  {
+    "map": "de_varq_dust2_snow",
+    "before_sha256": "729aebdc8683b5410d41dcb6d065142dbfad227f83a9dbfa4a090eb50e451a86",
+    "after_sha256": "7cdb9b901840fb967c6678e604bc449f420001b26f5051cc75163cee391b2ec5",
+    "preserved_nontexture_lumps": true,
+    "runtime_checks": 217,
+    "textures": [
+      {
+        "texture": "+0~fifties_lgt2",
+        "donor_texture": "+0~fifties_lgt2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "+a~fifties_lgt2",
+        "donor_texture": "+a~fifties_lgt2",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "aaatrigger",
+        "donor_texture": "aaatrigger",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "clip",
+        "donor_texture": "clip",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      },
+      {
+        "texture": "generic011",
+        "donor_texture": "generic011",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_dust2_2009/assets/de_dust2_2009.bsp",
+        "source_sha256": "8666e60a61eeaa13cc4fc4f08826e2942ff774fe2a45f556412621970fae3b8f"
+      },
+      {
+        "texture": "sky",
+        "donor_texture": "sky",
+        "match": "exact-name",
+        "source": "tools/varq_de/local/de_cloister/assets/de_cloister.bsp",
+        "source_sha256": "0f2ebd35bbb82d17a967696ac898f7e496dd991451b9ccd9afc5d67be3d7a4da"
+      }
+    ]
+  }
+]

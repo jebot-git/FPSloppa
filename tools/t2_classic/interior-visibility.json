@@ -1,0 +1,334 @@
+{
+  "floor": 0.3,
+  "scope": "ctf_t2_* imported maps only",
+  "comparison": [
+    {
+      "map": "gorgon",
+      "view": "05-flag-0-north.png",
+      "median_before": 0.035541176470588236,
+      "median_after": 0.09997411764705882,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.10411844135802469
+    },
+    {
+      "map": "gorgon",
+      "view": "05-flag-0-east.png",
+      "median_before": 0.03557725490196078,
+      "median_after": 0.09942352941176469,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.10218942901234568
+    },
+    {
+      "map": "gorgon",
+      "view": "05-flag-0-south.png",
+      "median_before": 0.03332313725490196,
+      "median_after": 0.09578509803921567,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.08545524691358025
+    },
+    {
+      "map": "gorgon",
+      "view": "05-flag-0-west.png",
+      "median_before": 0.0361278431372549,
+      "median_after": 0.09997411764705882,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.07455632716049383
+    },
+    {
+      "map": "gorgon",
+      "view": "05-flag-1-north.png",
+      "median_before": 0.03387372549019608,
+      "median_after": 0.0963356862745098,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.06804591049382716
+    },
+    {
+      "map": "gorgon",
+      "view": "05-flag-1-east.png",
+      "median_before": 0.03529411764705882,
+      "median_after": 0.09887294117647058,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.11226851851851852
+    },
+    {
+      "map": "gorgon",
+      "view": "05-flag-1-south.png",
+      "median_before": 0.03529411764705882,
+      "median_after": 0.09915607843137254,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.11902006172839506
+    },
+    {
+      "map": "gorgon",
+      "view": "05-flag-1-west.png",
+      "median_before": 0.0361278431372549,
+      "median_after": 0.09942352941176469,
+      "dark_fraction_before": 1.0,
+      "dark_fraction_after": 0.10397376543209877
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-0-north.png",
+      "median_before": 0.05601882352941176,
+      "median_after": 0.12240235294117646,
+      "dark_fraction_before": 0.7533757716049383,
+      "dark_fraction_after": 0.07585841049382716
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-0-east.png",
+      "median_before": 0.039781960784313716,
+      "median_after": 0.10671607843137255,
+      "dark_fraction_before": 0.9990354938271605,
+      "dark_fraction_after": 0.13855131172839505
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-0-south.png",
+      "median_before": 0.11400862745098038,
+      "median_after": 0.13554117647058822,
+      "dark_fraction_before": 0.4340277777777778,
+      "dark_fraction_after": 0.07262731481481481
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-0-west.png",
+      "median_before": 0.1983121568627451,
+      "median_after": 0.1983435294117647,
+      "dark_fraction_before": 0.10021219135802469,
+      "dark_fraction_after": 0.005835262345679012
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-1-north.png",
+      "median_before": 0.05236470588235294,
+      "median_after": 0.1114713725490196,
+      "dark_fraction_before": 0.9984567901234568,
+      "dark_fraction_after": 0.09153163580246913
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-1-east.png",
+      "median_before": 0.058823529411764705,
+      "median_after": 0.12549019607843137,
+      "dark_fraction_before": 0.8199266975308642,
+      "dark_fraction_after": 0.06741898148148148
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-1-south.png",
+      "median_before": 0.1777850980392157,
+      "median_after": 0.17783921568627453,
+      "dark_fraction_before": 0.3059895833333333,
+      "dark_fraction_after": 0.02199074074074074
+    },
+    {
+      "map": "desertofdeath",
+      "view": "05-flag-1-west.png",
+      "median_before": 0.15432549019607844,
+      "median_after": 0.15432549019607844,
+      "dark_fraction_before": 0.30299961419753085,
+      "dark_fraction_after": 0.025028935185185185
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-0-north.png",
+      "median_before": 0.1893521568627451,
+      "median_after": 0.1904533333333333,
+      "dark_fraction_before": 0.45611496913580246,
+      "dark_fraction_after": 0.2507716049382716
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-0-east.png",
+      "median_before": 0.05461882352941176,
+      "median_after": 0.1198729411764706,
+      "dark_fraction_before": 0.6576485339506173,
+      "dark_fraction_after": 0.1779513888888889
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-0-south.png",
+      "median_before": 0.1218,
+      "median_after": 0.13721098039215684,
+      "dark_fraction_before": 0.47400655864197533,
+      "dark_fraction_after": 0.037953317901234566
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-0-west.png",
+      "median_before": 0.196078431372549,
+      "median_after": 0.196078431372549,
+      "dark_fraction_before": 0.11752507716049383,
+      "dark_fraction_after": 0.04870756172839506
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-1-north.png",
+      "median_before": 0.057981960784313724,
+      "median_after": 0.12549019607843137,
+      "dark_fraction_before": 0.7155671296296297,
+      "dark_fraction_after": 0.049479166666666664
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-1-east.png",
+      "median_before": 0.058823529411764705,
+      "median_after": 0.12941176470588234,
+      "dark_fraction_before": 0.6860050154320988,
+      "dark_fraction_after": 0.053578317901234566
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-1-south.png",
+      "median_before": 0.1893521568627451,
+      "median_after": 0.1898823529411765,
+      "dark_fraction_before": 0.39265046296296297,
+      "dark_fraction_after": 0.20124421296296297
+    },
+    {
+      "map": "snowblind",
+      "view": "05-flag-1-west.png",
+      "median_before": 0.14297764705882354,
+      "median_after": 0.14606313725490197,
+      "dark_fraction_before": 0.4721257716049383,
+      "dark_fraction_after": 0.19516782407407407
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-0-north.png",
+      "median_before": 0.24224705882352943,
+      "median_after": 0.24278980392156863,
+      "dark_fraction_before": 0.24348958333333334,
+      "dark_fraction_after": 0.015817901234567902
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-0-east.png",
+      "median_before": 0.22684392156862745,
+      "median_after": 0.22739921568627453,
+      "dark_fraction_before": 0.23548418209876543,
+      "dark_fraction_after": 0.008439429012345678
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-0-south.png",
+      "median_before": 0.20783294117647058,
+      "median_after": 0.20783294117647058,
+      "dark_fraction_before": 0.0,
+      "dark_fraction_after": 0.0
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-0-west.png",
+      "median_before": 0.24313725490196075,
+      "median_after": 0.24313725490196075,
+      "dark_fraction_before": 0.039448302469135804,
+      "dark_fraction_after": 0.0033757716049382714
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-1-north.png",
+      "median_before": 0.0557356862745098,
+      "median_after": 0.12549019607843137,
+      "dark_fraction_before": 0.7510127314814815,
+      "dark_fraction_after": 0.06298225308641975
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-1-east.png",
+      "median_before": 0.207843137254902,
+      "median_after": 0.20896784313725492,
+      "dark_fraction_before": 0.43928433641975306,
+      "dark_fraction_after": 0.030285493827160493
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-1-south.png",
+      "median_before": 0.24086509803921569,
+      "median_after": 0.24088313725490196,
+      "dark_fraction_before": 0.13917824074074073,
+      "dark_fraction_after": 0.008728780864197531
+    },
+    {
+      "map": "ramparts",
+      "view": "05-flag-1-west.png",
+      "median_before": 0.23749176470588235,
+      "median_after": 0.23749960784313726,
+      "dark_fraction_before": 0.24098186728395063,
+      "dark_fraction_after": 0.013503086419753086
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-0-north.png",
+      "median_before": 0.09888862745098038,
+      "median_after": 0.1411764705882353,
+      "dark_fraction_before": 0.46108217592592593,
+      "dark_fraction_after": 0.03684413580246913
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-0-east.png",
+      "median_before": 0.058823529411764705,
+      "median_after": 0.13024549019607842,
+      "dark_fraction_before": 0.6396122685185185,
+      "dark_fraction_after": 0.046537422839506175
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-0-south.png",
+      "median_before": 0.21259843137254902,
+      "median_after": 0.21259843137254902,
+      "dark_fraction_before": 0.37601273148148145,
+      "dark_fraction_after": 0.018132716049382717
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-0-west.png",
+      "median_before": 0.23584470588235296,
+      "median_after": 0.23584470588235296,
+      "dark_fraction_before": 0.12099729938271606,
+      "dark_fraction_after": 0.0060281635802469135
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-1-north.png",
+      "median_before": 0.20613960784313726,
+      "median_after": 0.2064227450980392,
+      "dark_fraction_before": 0.4033082561728395,
+      "dark_fraction_after": 0.01861496913580247
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-1-east.png",
+      "median_before": 0.058823529411764705,
+      "median_after": 0.12941176470588234,
+      "dark_fraction_before": 0.5359760802469136,
+      "dark_fraction_after": 0.04306520061728395
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-1-south.png",
+      "median_before": 0.23160392156862744,
+      "median_after": 0.2316556862745098,
+      "dark_fraction_before": 0.15687692901234568,
+      "dark_fraction_after": 0.012249228395061729
+    },
+    {
+      "map": "scarabrae",
+      "view": "05-flag-1-west.png",
+      "median_before": 0.22944862745098038,
+      "median_after": 0.22942509803921568,
+      "dark_fraction_before": 0.018566743827160493,
+      "dark_fraction_after": 0.0008680555555555555
+    }
+  ],
+  "shader_validation": {
+    "checks": 15,
+    "failures": []
+  },
+  "source_sha256": {
+    "deathmatch/maps/quake_light.gdshader": "cf0a84fc091ac437fadf01666f024e384a1de7a8531efcad14359da3870eb19e",
+    "deathmatch/maps/surface_motion.gd": "8bce2bc21ba153955362c8dd4d584c96d1112bca598a63c36ac302f9de91f7d9"
+  }
+}
