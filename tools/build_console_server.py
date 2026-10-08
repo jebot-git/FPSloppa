@@ -16,7 +16,7 @@ import tarfile
 import tempfile
 import urllib.request
 
-from build_gameplay_native import require_build
+from build_gameplay_native import require_build, require_portable_linux
 ROOT = Path(__file__).resolve().parents[1]
 NATIVE_LIBRARY = "addons/fps_native/bin/libfpsloppa_native.server.so"
 NATIVE_DESCRIPTOR = "addons/fps_native/fps_native.gdextension"
@@ -72,6 +72,7 @@ def allowed(path):
 
 
 def native_dependencies(library):
+    require_portable_linux(library)
     dependencies = subprocess.check_output(['ldd', str(library)], text=True)
     if re.search(r'lib(?:X11|Xext|Xcursor|Xrandr|wayland|vulkan|GL\.|EGL|asound|pulse|openxr|SDL|speechd|fontconfig|freetype|harfbuzz|dbus|phonon|opus|ogg|vorbis|mp3)', dependencies, re.I):
         raise RuntimeError('Client dependency in server gameplay extension:\n'+dependencies)

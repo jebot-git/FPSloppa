@@ -30,6 +30,11 @@ Quest APK checks cover manifest/version, signature, current code/assets, Vulkan-
 runtime, ARM64 libraries and 16 KiB alignment. Windows is cross-built and audited.
 No new native Windows, physical-headset or haptic-vest playtest is claimed.
 
+Deployment caught a host-built gameplay library requiring glibc 2.43. Both Linux
+gameplay libraries were rebuilt with the Ubuntu 22.04 container, and release
+packaging now rejects libraries requiring glibc newer than 2.35. The rebuilt
+server loads its extension successfully on the Ubuntu 24.04 deployment host.
+
 The deployment configuration has 16 human seats, all modes enabled, a lobby, no
 local/worker bots and UDP 7779 queries. TB/TF/CC are excluded only from the ballot.
 DE uses a 20-second purchase phase and `sv_de_winlimit 4`: first to four wins,

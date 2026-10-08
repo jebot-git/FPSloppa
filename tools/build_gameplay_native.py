@@ -1,6 +1,6 @@
 """Build optional gameplay acceleration; portable desktop builds use existing containers."""
 from pathlib import Path
-import argparse, hashlib, json, os, platform, shutil, subprocess, tarfile, tempfile, urllib.request
+import argparse, hashlib, json, os, platform, re, shutil, subprocess, tarfile, tempfile, urllib.request
 ROOT=Path(__file__).resolve().parents[1]
 ADDON=ROOT/'addons/fps_native'
 REVISION='507ed9d840c01a3c5b2a39af8bb4000bfac30bf5'
@@ -21,6 +21,12 @@ def source():
         extracted=Path(tmp)/('godot-cpp-'+REVISION)
         (extracted/'.fps_revision').write_text(REVISION+'\n');os.replace(extracted,dest)
     return dest
+
+def require_portable_linux(library):
+    symbols=subprocess.check_output(['objdump','-T',str(library)],text=True)
+    versions=[tuple(map(int,v.split('.'))) for v in re.findall(r'\bGLIBC_([0-9.]+)',symbols)]
+    if versions and max(versions)>(2,35):
+        raise RuntimeError('Linux release library requires glibc newer than Ubuntu 22.04; rebuild with --container: '+str(library))
 
 def require_build(target, server=False):
     label=target+('-server' if server else '')
