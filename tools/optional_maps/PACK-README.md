@@ -43,7 +43,7 @@ BSPs as imports but may offer them under unrelated modes.
 
 Files in `rotations/` are examples for each supported mode, including compatible
 multi-mode maps from the DM category. Copy only IDs whose maps you installed into
-your existing `maps/<tag>_maplist.txt`; the game accepts at most 32 IDs per list.
+your existing `maps/<tag>_maplist.txt`; the game accepts at most 128 IDs per list in 0.22v and later (32 in earlier releases).
 An explicit `<tag>_maplist` in `server.cfg` takes precedence. Per-category examples
 containing only that category's maps install under
 `maps/OptionalMapPack/categories/<tag>/`.

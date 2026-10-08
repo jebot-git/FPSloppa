@@ -1,0 +1,186 @@
+[
+  {
+    "baked_faces": 5395,
+    "bsp_sha256": "b20c018106555d5e02352b317567e193c1910aefff01b6561cf149889d463258",
+    "codecs": [
+      {
+        "encoded_bytes": 4675312,
+        "format": "bc7",
+        "images": 15,
+        "path": "res://maps/cache/as_ut_pumpfac-lightmap1-bc7.scn",
+        "raw_bytes": 14024691,
+        "sha256": "aff7c2130b7b173120a643c5344ac8c9c0b6938f8767893a7f7e96a03db1edbe"
+      },
+      {
+        "encoded_bytes": 4675312,
+        "format": "astc4",
+        "images": 15,
+        "path": "res://maps/cache/as_ut_pumpfac-lightmap1-astc4.scn",
+        "raw_bytes": 14024691,
+        "sha256": "d341fbbdc9574108941f55ec94743f57ab04fe7b2fcfe69660e807f891b8bacb"
+      }
+    ],
+    "colour_textures": 54,
+    "failures": [],
+    "id": "as_ut_pumpfac",
+    "light_atlases": 1,
+    "lossless_data_hash": "da2aca6c35f808cee871dd80b714f4e34024a1aa2e242bc7ded741aef0396c60",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.439027786254883,
+      "occupancy_before": 0.0274392366409302,
+      "padded_luxels": 460354,
+      "patches": 5395,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 45702,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 50
+  },
+  {
+    "baked_faces": 7570,
+    "bsp_sha256": "f0909179b527e06cd435bb36ff7532e34d5410ba8cf2ebd1731521b4186eb9a0",
+    "codecs": [
+      {
+        "encoded_bytes": 5636688,
+        "format": "bc7",
+        "images": 21,
+        "path": "res://maps/cache/as_ut_skyville-lightmap1-bc7.scn",
+        "raw_bytes": 16908273,
+        "sha256": "ab02c9de598e44fe701c0fd6e2fd31260dd8076241868e003abed70c01d70584"
+      },
+      {
+        "encoded_bytes": 5636688,
+        "format": "astc4",
+        "images": 21,
+        "path": "res://maps/cache/as_ut_skyville-lightmap1-astc4.scn",
+        "raw_bytes": 16908273,
+        "sha256": "4958bde568de623e3e3d4c9d6a5c50e1d283026238cf1d4e12c1364edb50fc42"
+      }
+    ],
+    "colour_textures": 70,
+    "failures": [],
+    "id": "as_ut_skyville",
+    "light_atlases": 1,
+    "lossless_data_hash": "06e299cbbd67eb3503583c8cd1156876511a38267aff2bc6161e0439592ce02e",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.588561058044434,
+      "occupancy_before": 0.0367850661277771,
+      "padded_luxels": 617151,
+      "patches": 7570,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 64317,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 0
+  },
+  {
+    "baked_faces": 7548,
+    "bsp_sha256": "ebd949b8b165b128a8aa3117b2d9ce290ba775c664667f7cc70457f2049a1a71",
+    "codecs": [
+      {
+        "encoded_bytes": 5723968,
+        "format": "bc7",
+        "images": 18,
+        "path": "res://maps/cache/as_ut_twintower-lightmap1-bc7.scn",
+        "raw_bytes": 17170416,
+        "sha256": "db10c53a2b14fef28ef283e0113be9270777be677c88b33572b446803dd56f70"
+      },
+      {
+        "encoded_bytes": 5723968,
+        "format": "astc4",
+        "images": 18,
+        "path": "res://maps/cache/as_ut_twintower-lightmap1-astc4.scn",
+        "raw_bytes": 17170416,
+        "sha256": "22852eca75fd9152e40f48de1d783551464502433ba837abfd056ba8fef9e1c9"
+      }
+    ],
+    "colour_textures": 72,
+    "failures": [],
+    "id": "as_ut_twintower",
+    "light_atlases": 1,
+    "lossless_data_hash": "5d37a13caf0ce171edb39f4af220891b3fa4e5e756a60350ce8b5c89f91361d2",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.868659973144531,
+      "occupancy_before": 0.0542912483215332,
+      "padded_luxels": 910856,
+      "patches": 7548,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 62127,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 0
+  },
+  {
+    "baked_faces": 8009,
+    "bsp_sha256": "e3c496f154027821306f9876de103148db720b7a953a937033d5efc71d52c54e",
+    "codecs": [
+      {
+        "encoded_bytes": 4675312,
+        "format": "bc7",
+        "images": 15,
+        "path": "res://maps/cache/as_ut_atlantica-lightmap1-bc7.scn",
+        "raw_bytes": 14024691,
+        "sha256": "2e15d87d7d3e831ead68f63f7413d96ba67b5fbff80beb26d69b137e07c34e56"
+      },
+      {
+        "encoded_bytes": 4675312,
+        "format": "astc4",
+        "images": 15,
+        "path": "res://maps/cache/as_ut_atlantica-lightmap1-astc4.scn",
+        "raw_bytes": 14024691,
+        "sha256": "5cdc634e6315400d43f2d98498612dd469c53854f1852ed76dfe10e5fe1ca0f3"
+      }
+    ],
+    "colour_textures": 55,
+    "failures": [],
+    "id": "as_ut_atlantica",
+    "light_atlases": 1,
+    "lossless_data_hash": "45ee3577c8ef8c729a9cf15d1eddefdebbbd1a85dd907fe82aa9277f3b759730",
+    "packing": {
+      "from": [
+        4096,
+        4096
+      ],
+      "occupancy_after": 0.940176010131836,
+      "occupancy_before": 0.0587610006332397,
+      "padded_luxels": 985846,
+      "patches": 8009,
+      "raw_bytes_after": 3145728,
+      "raw_bytes_before": 50331648,
+      "remapped_vertices": 66024,
+      "to": [
+        1024,
+        1024
+      ]
+    },
+    "rgb": true,
+    "unlit_faces": 200
+  }
+]

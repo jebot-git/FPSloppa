@@ -31,7 +31,8 @@ static func supports_assault(path: String) -> bool:
 	file.seek(4);var offset:=file.get_32();var length:=file.get_32()
 	if offset+length>file.get_length() or length>1048576:return false
 	file.seek(offset);var entities:=file.get_buffer(length).get_string_from_ascii()
-	return entities.count('"info_as_objective"')==2 and entities.contains('"info_player_team1"') and entities.contains('"info_player_team2"')
+	var count:=entities.count('"info_as_objective"')
+	return count>=1 and count<=preload("res://deathmatch/modes/assault.gd").MAX_OBJECTIVES and entities.contains('"info_player_team1"') and entities.contains('"info_player_team2"')
 static func available_for_mode(row: Dictionary,mode: String) -> bool:
 	if mode=="st" and not Features.TRIBES or not Features.map_allowed(row.get("id","")):return false
 	if "st" in row.get("modes",[]) and mode!="st":return false

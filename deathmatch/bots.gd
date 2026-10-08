@@ -31,7 +31,7 @@ func setup(arena: Node) -> void:
 	add_child(region)
 	var nav_map: RID=region.get_navigation_map()
 	var cached: String=preload("res://deathmatch/assets/paths.gd").folder("maps")+"navigation/"+game.current_map+".res"
-	if ResourceLoader.exists(cached):
+	if ResourceLoader.exists(cached) and not OS.get_cmdline_user_args().has("--rebuild-navigation"):
 		var mesh:NavigationMesh=load(cached)
 		NavigationServer3D.map_set_cell_size(nav_map,mesh.cell_size)
 		region.navigation_mesh=mesh
@@ -61,7 +61,7 @@ static func new_mesh(map_id:String="") -> NavigationMesh:
 	mesh.geometry_parsed_geometry_type=NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
 	mesh.geometry_collision_mask=1
 	mesh.agent_radius=.4
-	mesh.agent_height=1.7
+	mesh.agent_height=1.3 if map_id.begins_with("as_ut_") else 1.7
 	mesh.agent_max_climb=.5
 	mesh.agent_max_slope=48
 	mesh.cell_size=.1 if map_id=="qsrc_dm3" else .2
@@ -708,7 +708,7 @@ func steer(id: int,brain: Dictionary,delta: float) -> void:
 		var move: Vector3=Basis(Vector3.UP,s.yaw-yaw)*Vector3(s.move.x,0,s.move.y)
 		s.move=Vector2(move.x,move.z);s.yaw=yaw;s.pitch=pitch
 
-	if game.current_map.begins_with("koth_ut_") and game.clock<brain.drop_until:
+	if (game.current_map.begins_with("koth_ut_") or game.current_map.begins_with("as_ut_")) and game.clock<brain.drop_until:
 		var remaining:=sqrt(maxf(0,game.fighters[id].position.y-brain.drop_end.y)/10.0)+.4
 		brain.drop_until=maxf(brain.drop_until,game.clock+remaining)
 	travel_smoothing.apply(self,id,brain,delta,yaw)

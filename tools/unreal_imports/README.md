@@ -21,8 +21,7 @@ geometry, plus actor/objective inventories. These are review artifacts, not
 installed game maps. `retry_archives.py` handles uncommon archive codecs via
 7-Zip/unar through stdout without running installers or UnrealScript.
 All 390 selected archives reached geometry extraction; `summary.json`
-distinguishes that result from playable installation: all seven KOTH maps are
-now installed; Assault remains an evaluated conversion shortlist.
+distinguishes that result from playable installation: all seven KOTH maps and four Assault maps are now installed.
 
 ## Gameplay gates
 
@@ -78,7 +77,7 @@ The verified render gallery contains 76 full-resolution 1920×1080 images,
 with current BSP hashes and no renderer script errors. `gallery.json` records
 the packaged gallery checksum.
 
-## Assault shortlist
+## Assault conversions
 
 `as-candidates.json` ranks actual objective implementation suitability rather
 than objective count. First batch: Pumpfac, Skyville, Twintower, Atlantica.
@@ -87,9 +86,28 @@ FortStandard properties, outgoing event recipients, declared capacity and the
 specific adapter work. Ordinary trigger/touch objectives map to switches;
 damage objectives map to destructible targets. NPC-kill objectives, complex
 scripted death chains and grouped target logic are not first-batch candidates.
-The current AS two-step limit would need a bounded extension for otherwise
-simple three-step maps; their objectives should not be merged or dropped.
-No Assault map has been installed by this shortlist work.
+The previous two-step limit has been extended without merging or dropping stages.
+Pumpfac, Skyville, Twintower and Atlantica are now installed. Their 11 original
+FortStandard stages map to the existing switch/destructible mechanics, with
+source team 1 mapped to the initial attacking role. The runtime supports a
+bounded one-to-eight-stage sequence. Rotating wall levers retain static artwork
+beside working native consoles; cosmetic UnrealScript event chains are omitted.
+
+Validation covers all 34 starts, each attacker start's approach, the complete
+objective sequence, and a defensive route from every defender start. All four
+maps pass objective locking, defender rejection, damage depletion, role swap,
+return-leg scoring and snapshot restoration. Skyville retains a one-way rooftop
+approach: four defender-to-first-objective routes are unavailable; defenders can
+reach later objectives. This is recorded rather than treated as full coverage.
+
+Short stair treads receive continuous ramps where necessary. Pumpfac retains
+its shaft route using three explicit stair ramps. Atlantica receives a short
+outer stair connector and a 0.6 m console offset within the original generator
+activation zone. The original geometry and all adaptations remain documented.
+`as-installed.json`, `as-validation.json`, `as-assets.json` and `as-live-bots.json`
+record the installed content and separate mechanics, asset and combat checks.
+The scope is final as part of the 0.22v expansion; the remaining shortlist is
+historical research, not planned expansion content.
 
 ## Commands
 
@@ -106,6 +124,11 @@ python3 tools/unreal_imports/soak.py
 python3 tools/unreal_imports/render.py buttnutt cerebro dungeon temple thunderdome trytitan wilderness
 python3 tools/unreal_imports/package_gallery.py
 python3 tools/unreal_imports/as_candidates.py
+/tmp/st-tools-env/bin/python tools/unreal_imports/build_as.py
+python3 tools/unreal_imports/validate_as.py
+/tmp/st-tools-env/bin/python tools/unreal_imports/install_as.py
+python3 tools/unreal_imports/prepare_as.py
+python3 tools/unreal_imports/soak_as.py
 ```
 
 Python conversion dependencies: Pillow, NumPy, Shapely, libarchive-c; optional 7-Zip and unar/lsar.

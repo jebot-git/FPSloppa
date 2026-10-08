@@ -1,0 +1,71 @@
+{
+  "maps": [
+    {
+      "id": "as_ut_pumpfac",
+      "bsp_sha256": "b20c018106555d5e02352b317567e193c1910aefff01b6561cf149889d463258",
+      "seconds": 90.0166666666628,
+      "bots": 8,
+      "maximum_stage_observed": 0,
+      "shots": 344,
+      "max_stall": 3.04999999999983,
+      "counts": {
+        "damage": 83,
+        "match_event": 9,
+        "pickup": 48,
+        "spawn": 8,
+        "team_chat_activity": 6
+      },
+      "receipt": "test-results/as-imports/as_ut_pumpfac-soak.json"
+    },
+    {
+      "id": "as_ut_skyville",
+      "bsp_sha256": "f0909179b527e06cd435bb36ff7532e34d5410ba8cf2ebd1731521b4186eb9a0",
+      "seconds": 90.0166666666628,
+      "bots": 8,
+      "maximum_stage_observed": 2,
+      "shots": 177,
+      "max_stall": 2.03333333333333,
+      "counts": {
+        "damage": 45,
+        "match_event": 7,
+        "pickup": 35,
+        "spawn": 5,
+        "team_chat_activity": 2
+      },
+      "receipt": "test-results/as-imports/as_ut_skyville-soak.json"
+    },
+    {
+      "id": "as_ut_twintower",
+      "bsp_sha256": "ebd949b8b165b128a8aa3117b2d9ce290ba775c664667f7cc70457f2049a1a71",
+      "seconds": 90.0166666666628,
+      "bots": 8,
+      "maximum_stage_observed": 0,
+      "shots": 0,
+      "max_stall": 3.04999999999983,
+      "counts": {
+        "engine_diagnostic": 1,
+        "pickup": 34,
+        "team_chat_activity": 2
+      },
+      "receipt": "test-results/as-imports/as_ut_twintower-soak.json"
+    },
+    {
+      "id": "as_ut_atlantica",
+      "bsp_sha256": "e3c496f154027821306f9876de103148db720b7a953a937033d5efc71d52c54e",
+      "seconds": 90.0166666666628,
+      "bots": 8,
+      "maximum_stage_observed": 3,
+      "shots": 133,
+      "max_stall": 2.03333333333322,
+      "counts": {
+        "damage": 39,
+        "match_event": 10,
+        "pickup": 31,
+        "spawn": 12,
+        "team_chat_activity": 4
+      },
+      "receipt": "test-results/as-imports/as_ut_atlantica-soak.json"
+    }
+  ],
+  "note": "90-second combat smoke tests are separate from objective/routing acceptance. Low or zero stage progress is reported explicitly; these are not demonstrations of balanced full matches."
+}

@@ -19,6 +19,12 @@ files={
     'Source.zip':ROOT.parent/'FPSloppa-Deathmatch.zip',
 }
 if not args.desktop_only:files['Quest.apk']=BUILDS/'Android/FPSloppa-Quest.apk'
+# The finalized expansion is an explicit, independently verified release asset.
+expansion_lock=ROOT/'tools/final_expansion/manifest.json'
+if expansion_lock.exists() and json.loads(expansion_lock.read_text())['release']==VERSION:
+    subprocess.run([sys.executable,str(ROOT/'tools/final_expansion/build.py'),'--verify-only'],check=True)
+    files['Final-Expansion.zip']=BUILDS/f'FPSloppa-{VERSION}-Final-Expansion.zip'
+
 expected={f'FPSloppa-{VERSION}-{label}' for label in files}|{'BUILD-MANIFEST.json','SHA256SUMS','RELEASE-NOTES.md'}
 OUT.mkdir(parents=True,exist_ok=True)
 unexpected={p.name for p in OUT.iterdir()}-expected

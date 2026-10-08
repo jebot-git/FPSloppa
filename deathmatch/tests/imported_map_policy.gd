@@ -26,6 +26,9 @@ func run() -> void:
 	var inherited_rows: Array=[{"id":"base","modes":["ig"]},{"id":"ig_import","modes":["ig"],"imported":true},{"id":"plain","modes":Policy.DEFAULT_MODES,"imported":true}]
 	check(Maps.inherited_maplist(inherited_rows,"if",["base","ig_import","plain"])==["base","plain"],"Legacy IF fallback excludes IG-only imports after maplist reload")
 	var config=preload("res://deathmatch/server/config.gd")
+	var long_list: String=" ".join(Array(range(config.MAX_MAPS)).map(func(i):return "map_"+str(i)+"x".repeat(60)))
+	check(not config.parse('set dm_maplist "'+long_list+'"').has("error"),"Expanded rotations accept maximum count and text length")
+	check(config.parse('set dm_maplist "'+long_list+' extra"').has("error"),"Expanded rotations still reject overflow")
 	var defaults: Dictionary=config.parse('set ig_maplist "qsrc_dm1"').values
 	defaults.mode_maps["if"].append("if_extra")
 	check(defaults.mode_maps.ig==["qsrc_dm1"],"Legacy IF fallback copies IG without sharing mutable storage")
@@ -52,8 +55,8 @@ func run() -> void:
 	uploads.register_map(plain)
 	check(["dm","tdm","ig","ft","if"].all(func(mode):return "plain" in registry.mode_maplists[mode]) and not "plain" in registry.mode_maplists.tf and not registry.mode_maplists.has("ctf"),"Untagged import enters all five arena lists and no objective lists")
 	check(registry.map_rotation==registry.mode_maplists.dm,"Current rotation receives eligible imports")
-	registry.mode_maplists.koth=Array(range(32)).map(func(index):return "map"+str(index))
-	check(uploads.register_map({"id":"overflow","modes":["koth"]})==["koth"] and registry.mode_maplists.koth.size()==32,"Full maplists are reported without exceeding the server limit")
+	registry.mode_maplists.koth=Array(range(preload("res://deathmatch/server/config.gd").MAX_MAPS)).map(func(index):return "map"+str(index))
+	check(uploads.register_map({"id":"overflow","modes":["koth"]})==["koth"] and registry.mode_maplists.koth.size()==preload("res://deathmatch/server/config.gd").MAX_MAPS,"Full maplists are reported without exceeding the server limit")
 	for frame in 120:
 		await process_frame
 		if FileAccess.file_exists(Maps.Paths.folder("maps")+"if_maplist.txt"):break

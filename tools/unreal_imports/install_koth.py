@@ -4,7 +4,7 @@ import json,hashlib,shutil
 from attempt import members,LOCAL
 HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[1]
 rows=json.loads((ROOT/'deathmatch/maps/manifest.json').read_text());installed=[]
-for folder in sorted((HERE/'local/candidates').iterdir()):
+for folder in sorted((HERE/'local/candidates').glob('koth_ut_*')):
  name=folder.name;path=folder/(name+'.bsp');receipt=json.loads((folder/'runtime-validation.json').read_text());conversion=json.loads((folder/'conversion.json').read_text());sha=hashlib.sha256(path.read_bytes()).hexdigest()
  assert receipt['bsp_sha256']==sha,(name,'stale runtime validation')
  assert not receipt['failures'] and not conversion['blockers'],(name,receipt['failures'],conversion['blockers'])

@@ -4,6 +4,7 @@ func _initialize():run.call_deferred()
 func run():
  var path: String=OS.get_cmdline_user_args()[0];var id: String=path.get_file().get_basename()
  var g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g)
+ g.map_catalog=g.map_catalog.filter(func(row):return row.id!=id)
  g.map_catalog.append({"id":id,"title":id,"path":path,"scene":path.get_basename()+".scn","sha256":FileAccess.get_sha256(path),"modes":["koth"]})
  g.selected_map=id;g.start_host("UT KOTH validation",0,100,10,true,"koth","quake");g.set_process(false);g.set_physics_process(false)
  if g.current_map!=id:push_error("Map load failed: "+id);quit(1);return

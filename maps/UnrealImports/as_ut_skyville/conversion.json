@@ -1,0 +1,534 @@
+{
+  "id": "as_ut_skyville",
+  "source": {
+    "name": "AS-Skyville",
+    "title": "Skyville",
+    "author": "LeTigre",
+    "players": "2-8",
+    "declared_capacity": 8,
+    "page": "https://unrealarchive.org/unreal-tournament/maps/assault/S/as-skyville_0a85f343.html",
+    "index": "https://unrealarchive.org/unreal-tournament/maps/assault/S/index.html",
+    "mode": "as",
+    "eligible": true,
+    "selection_reason": "Explicit capacity at least 8",
+    "archive": "as-skyville.zip",
+    "archive_sha1": "0a85f343c06950c3f0d426896320ae4684f6b328",
+    "status": "downloaded",
+    "bytes": 1073177
+  },
+  "texture_sources": {
+    "utc9a07ab3fb1e": {
+      "kind": "existing project replacement",
+      "source": "ASskyvill2",
+      "donor": "sky_star"
+    },
+    "ut9ee1ba724994": {
+      "kind": "authored package texture",
+      "path": "DieH.Base.subw1"
+    },
+    "ut41f88a410ed0": {
+      "kind": "authored package texture",
+      "path": "DieH.bwall"
+    },
+    "ut915e245aa2d0": {
+      "kind": "authored package texture",
+      "path": "DieH.bwall2"
+    },
+    "ut1ce4b5074fa1": {
+      "kind": "authored package texture",
+      "path": "DieH.bwall3"
+    },
+    "uta05ed0ec0356": {
+      "kind": "authored package texture",
+      "path": "DieH.bwall4"
+    },
+    "ut4887833dd5e3": {
+      "kind": "authored package texture",
+      "path": "DieH.bwall5"
+    },
+    "ut16c0ab5288f6": {
+      "kind": "authored package texture",
+      "path": "DieH.fence"
+    },
+    "uta73034f870bf": {
+      "kind": "authored package texture",
+      "path": "DieH.mt1"
+    },
+    "ut677e9d54c6dc": {
+      "kind": "authored package texture",
+      "path": "DieH.mt2"
+    },
+    "utcd7e5bdfe6e6": {
+      "kind": "authored package texture",
+      "path": "DieH.mt3"
+    },
+    "utff1d4caa23a2": {
+      "kind": "authored package texture",
+      "path": "DieH.mts"
+    },
+    "ut6823328ed88b": {
+      "kind": "authored package texture",
+      "path": "DieH.mwall"
+    },
+    "ut8b5f6db899ce": {
+      "kind": "authored package texture",
+      "path": "DieH.mwall2"
+    },
+    "ut4628f002fef4": {
+      "kind": "existing project replacement",
+      "source": "GreatFire.anchot",
+      "donor": "met_brn_pan1"
+    },
+    "ut23e90af64330": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.Baseiro2",
+      "donor": "ind_w04_blk1"
+    },
+    "ut00b029511616": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.Ironwalx",
+      "donor": "compbase"
+    },
+    "ut66b6ceddf70e": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.MCMETL",
+      "donor": "ind_w04_blk1"
+    },
+    "ute08aecbfe683": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.Mcmeta",
+      "donor": "ind_w02_grey1"
+    },
+    "utcde7753cbe60": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.Mdialmtl",
+      "donor": "ind_w04_blk1"
+    },
+    "ute68016159fd8": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.mred1",
+      "donor": "ind_w02_grey1"
+    },
+    "ut197f706f9fb2": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.rockm2",
+      "donor": "med_rock3"
+    },
+    "ut2303ddaf0c11": {
+      "kind": "existing project replacement",
+      "source": "Mine.Deco.MMCRATE2",
+      "donor": "ind_cont1_ylw1"
+    },
+    "ut6c07f53de83e": {
+      "kind": "existing project replacement",
+      "source": "Mine.Deco.MVENT1",
+      "donor": "ind_w04_grey1"
+    },
+    "utf80bf671791a": {
+      "kind": "existing project replacement",
+      "source": "Mine.Floor.Mfloorx",
+      "donor": "metal_iron1_10"
+    },
+    "ut057737e33638": {
+      "kind": "existing project replacement",
+      "source": "Mine.Floor.Woodmai2",
+      "donor": "med_wood4"
+    },
+    "utaf42dddd1772": {
+      "kind": "existing project replacement",
+      "source": "Mine.Floor.mFloor",
+      "donor": "met_brn_tile2"
+    },
+    "ut3ab74c32a376": {
+      "kind": "existing project replacement",
+      "source": "Mine.Light.mLight3",
+      "donor": "tlight12"
+    },
+    "ut3e7e6bb3aa3a": {
+      "kind": "existing project replacement",
+      "source": "Mine.Panel.MCONTROL",
+      "donor": "ind_cont1_ylw1"
+    },
+    "ut6b75ab0267ba": {
+      "kind": "existing project replacement",
+      "source": "Mine.pillar.Girderm3",
+      "donor": "metal_iron1_06"
+    },
+    "ut0d7d3d914b94": {
+      "kind": "existing project replacement",
+      "source": "Mine.pillar.mPillar1",
+      "donor": "met_brn_block"
+    },
+    "utb14dee52f20d": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Base.Blakm_d",
+      "donor": "compbase"
+    },
+    "ut7cd1af83d964": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Base.Blakmetl",
+      "donor": "compbase"
+    },
+    "utcee6770d0c2c": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Floor.TREADFLR",
+      "donor": "med_flat5a"
+    },
+    "utff91f59d617b": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Light.lights9a",
+      "donor": "tlight12"
+    },
+    "ut1ec76a35c79b": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Trim.Sockets1",
+      "donor": "metal_iron1_04"
+    },
+    "ut609b63ec90fa": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Caution2",
+      "donor": "ind_w04_rst1"
+    },
+    "ut0162d51eb362": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Chair",
+      "donor": "met_brn_pan1"
+    },
+    "utc352b137b826": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Locker",
+      "donor": "met_brn_block"
+    },
+    "ute7df1a914cd7": {
+      "kind": "existing project replacement",
+      "source": "RainFX.R-G-Lites",
+      "donor": "met_brn_pan1"
+    },
+    "ut918c2326d4c8": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Rtrim1a",
+      "donor": "metal_iron1_04"
+    },
+    "ut05855ced8d90": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Rtrim1b",
+      "donor": "metal_iron1_04"
+    },
+    "ut502500f60c2f": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Sglass",
+      "donor": "ind_w04_grey1"
+    },
+    "uta0824c1ad09d": {
+      "kind": "existing project replacement",
+      "source": "RainFX.mtl-bmps",
+      "donor": "metal_copp_04"
+    },
+    "ut08a975cc7f81": {
+      "kind": "existing project replacement",
+      "source": "RainFX.runner",
+      "donor": "ind_w04_grey1"
+    },
+    "ut17334fcb8c81": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc18",
+      "donor": "ind_w04_grey1"
+    },
+    "ut39fa475b5989": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc19",
+      "donor": "ind_w04_grey1"
+    },
+    "ut74d8cd248420": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc22",
+      "donor": "met_brn_block"
+    },
+    "ut0a789abbd603": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc26",
+      "donor": "met_brn_pan1"
+    },
+    "ut4eed17685191": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc27",
+      "donor": "ind_w04_grey1"
+    },
+    "ut6044147aa8e4": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc28",
+      "donor": "ind_w04_rst1"
+    },
+    "ut062f587a65a0": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc35",
+      "donor": "ind_w02_grey1"
+    },
+    "uteceff08021a5": {
+      "kind": "existing project replacement",
+      "source": "Slums.Harbour.Garbage1",
+      "donor": "metal_iron1_09"
+    },
+    "ut8ffaccca444c": {
+      "kind": "existing project replacement",
+      "source": "Slums.Harbour.Gdoor01",
+      "donor": "ind_dp01_rst1"
+    },
+    "utca1ed206b91c": {
+      "kind": "existing project replacement",
+      "source": "Slums.Lights.Light8",
+      "donor": "tlight12"
+    },
+    "ut32b4f70941a6": {
+      "kind": "existing project replacement",
+      "source": "Slums.Miscellaneous.Door03",
+      "donor": "ind_dp01_grey1"
+    },
+    "uta385dceaee05": {
+      "kind": "existing project replacement",
+      "source": "Slums.Miscellaneous.Gravel1",
+      "donor": "metal_iron1_09"
+    },
+    "utc7f29af632ff": {
+      "kind": "existing project replacement",
+      "source": "Slums.Signs.Bnews01",
+      "donor": "ind_w04_grey1"
+    },
+    "utbbfb67ca325a": {
+      "kind": "existing project replacement",
+      "source": "Slums.Stone.StoneP15",
+      "donor": "med_rock3"
+    },
+    "ut226ab5a6481e": {
+      "kind": "existing project replacement",
+      "source": "Slums.brick.Brickw02",
+      "donor": "med_csl_brk11"
+    },
+    "ut6c0aabca544f": {
+      "kind": "existing project replacement",
+      "source": "Slums.metal.Metalr02",
+      "donor": "metal_iron1_01"
+    },
+    "utee042c63ed99": {
+      "kind": "existing project replacement",
+      "source": "Slums.metal.Metalr06",
+      "donor": "met_brn_block"
+    },
+    "ute6349d5a0428": {
+      "kind": "existing project replacement",
+      "source": "TrenchesFX.Grate10",
+      "donor": "metal_iron1_07"
+    },
+    "ut2f3226cd911e": {
+      "kind": "existing project replacement",
+      "source": "UTtech1.Light.Ylight3b",
+      "donor": "tlight12"
+    },
+    "ut2ca4221ec0a0": {
+      "kind": "existing project replacement",
+      "source": "UTtech1.Window.rClifWn2",
+      "donor": "ind_w02_grey1"
+    },
+    "ut11f38562c3af": {
+      "kind": "existing project replacement",
+      "source": "city.Black",
+      "donor": "ind_w04_rst1"
+    },
+    "utdf1657f2bee6": {
+      "kind": "existing project replacement",
+      "source": "city.BlackRib",
+      "donor": "met_brn_block"
+    },
+    "uta43887875158": {
+      "kind": "existing project replacement",
+      "source": "city.Blackdoor",
+      "donor": "ind_dp01_grey1"
+    },
+    "ute05246337df7": {
+      "kind": "existing project replacement",
+      "source": "city.Sidewalk2",
+      "donor": "ind_w06_rst1"
+    },
+    "ut29db9ec84eac": {
+      "kind": "existing project replacement",
+      "source": "genfluid.Sky.Skytst7",
+      "donor": "sky_star"
+    }
+  },
+  "source_faces": 5248,
+  "spawns": 8,
+  "hill_points": 0,
+  "spawn_grounding": [
+    {
+      "actor": "PlayerStart0",
+      "source": [
+        164.31593322753906,
+        384.27593994140625,
+        -81.53076171875
+      ],
+      "floor": [
+        164.31593322753906,
+        384.27593994140625,
+        -128.0
+      ]
+    },
+    {
+      "actor": "PlayerStart1",
+      "source": [
+        -553.6619873046875,
+        385.1912841796875,
+        -73.805419921875
+      ],
+      "floor": [
+        -553.6619873046875,
+        385.1912841796875,
+        -128.0
+      ]
+    },
+    {
+      "actor": "PlayerStart2",
+      "source": [
+        -969.8436279296875,
+        -3869.52783203125,
+        590.6044311523438
+      ],
+      "floor": [
+        -969.8436279296875,
+        -3869.52783203125,
+        544.0
+      ]
+    },
+    {
+      "actor": "PlayerStart3",
+      "source": [
+        -963.8607177734375,
+        -3805.482177734375,
+        590.6044311523438
+      ],
+      "floor": [
+        -963.8607177734375,
+        -3805.482177734375,
+        544.0
+      ]
+    },
+    {
+      "actor": "PlayerStart4",
+      "source": [
+        -1042.07958984375,
+        -3764.483642578125,
+        590.6044311523438
+      ],
+      "floor": [
+        -1042.07958984375,
+        -3764.483642578125,
+        544.0
+      ]
+    },
+    {
+      "actor": "PlayerStart5",
+      "source": [
+        -963.104248046875,
+        -3682.38671875,
+        590.6044311523438
+      ],
+      "floor": [
+        -963.104248046875,
+        -3682.38671875,
+        544.0
+      ]
+    },
+    {
+      "actor": "PlayerStart6",
+      "source": [
+        -400.4847106933594,
+        416.12762451171875,
+        -73.805419921875
+      ],
+      "floor": [
+        -400.4847106933594,
+        416.12762451171875,
+        -128.0
+      ]
+    },
+    {
+      "actor": "PlayerStart7",
+      "source": [
+        416.6338195800781,
+        391.75115966796875,
+        -81.53076171875
+      ],
+      "floor": [
+        416.6338195800781,
+        391.75115966796875,
+        -128.0
+      ]
+    }
+  ],
+  "traversal": [],
+  "adaptations": [
+    "8 short-tread stair flights bridged with continuous ramps",
+    "93 ramps over tall authored stairs for standard arena movement",
+    "0 authored liquid surfaces rebuilt as native water/lava volumes",
+    "Retained authored red/blue starts for two-team KOTH; green/gold team starts excluded",
+    "Authored FortStandard sequence mapped to native switches/destructible targets; UT team 1 becomes initial attacking role",
+    "Missing retail materials replaced with varied existing project materials",
+    "Scripted Chaos weapons mapped to classic arena pickups",
+    "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+  ],
+  "blockers": [],
+  "status": "staging",
+  "assault_objectives": [
+    {
+      "actor": "FortStandard1",
+      "step": 1,
+      "title": "Ventilation",
+      "health": 0,
+      "source": [
+        541.9935913085938,
+        -954.1998901367188,
+        853.51123046875
+      ],
+      "origin": [
+        433.594873046875,
+        -763.359912109375,
+        576.0
+      ],
+      "interaction": "switch"
+    },
+    {
+      "actor": "FortStandard2",
+      "step": 2,
+      "title": "Hall",
+      "health": 100,
+      "source": [
+        -2.6794705390930176,
+        -2342.93896484375,
+        484.29449462890625
+      ],
+      "origin": [
+        -2.1435764312744143,
+        -1874.351171875,
+        355.2
+      ],
+      "interaction": "destructible"
+    },
+    {
+      "actor": "FortStandard0",
+      "step": 3,
+      "title": "Fusebox",
+      "health": 0,
+      "source": [
+        -253.87876892089844,
+        -4272.8642578125,
+        535.7565307617188
+      ],
+      "origin": [
+        -203.10301513671877,
+        -3418.2914062500004,
+        406.4
+      ],
+      "interaction": "switch"
+    }
+  ],
+  "mode": "as"
+}

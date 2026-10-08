@@ -31,8 +31,8 @@ def transform(poly,p):
  matrix=rot@np.diag(scale);out['points']=((np.array(poly['points'])-p.get('PrePivot',[0,0,0]))@matrix.T+p.get('Location',[0,0,0])).tolist();out['normal']=(np.linalg.inv(matrix).T@np.array(poly['normal'])).tolist()
  return out
 
-def build(row):
- name='koth_ut_'+IDS[row['name']];out=LOCAL/'candidates'/name;out.mkdir(parents=True,exist_ok=True)
+def build(row, assault=None):
+ name=assault["id"] if assault else 'koth_ut_'+IDS[row['name']];out=LOCAL/'candidates'/name;out.mkdir(parents=True,exist_ok=True)
  files=members((LOCAL/'archives'/row['archive_sha1']).read_bytes());source=LOCAL/'converted'/row['archive_sha1'][:12];model=json.load(gzip.open(source/'world.json.gz'));actors=json.loads((source/'actors.json').read_text());attempt=json.loads((source/'attempt.json').read_text());pkg=Package(files[attempt['member']])
  packs={Path(n).stem.lower():Package(b) for n,b in files.items() if n.lower().endswith(('.utx','.unr'))}
  materials=Materials(wad_textures((ROOT/'tools/fortressone/librequake.wad').read_bytes()),{});bank=materials.bank;bank['skip']=rename(bank['met_brn_pan1'],'skip');bank['trigger']=rename(bank['met_brn_pan1'],'trigger')
@@ -52,24 +52,72 @@ def build(row):
   alias='sky_star' if f['flags']&128 else textures[f['texture']]
   return prism(f,alias)
  brushes=[];liquid_brushes=[];liquid_groups={}
- if name in ['koth_ut_trytitan','koth_ut_dungeon']:
-  ramps=[]
+ if assault or name in ['koth_ut_trytitan','koth_ut_dungeon']:
+  ramps=[];stair_faces=[];adapt_steps=assault and name!='as_ut_twintower'
   for f in model['polygons']:
    ps=np.array(f['points']);normal=np.array(f['normal']);height=np.ptp(ps[:,2])
-   if abs(normal[2])>.001 or not 31.9<height<32.1:continue
+   if abs(normal[2])>.001 or not (12<height<40 if adapt_steps else 31.9<height<32.1):continue
    top=ps[np.abs(ps[:,2]-ps[:,2].max())<.01]
    if len(top)<2:continue
    a,b=max(((a,b) for a in top for b in top),key=lambda pair:np.linalg.norm(pair[0]-pair[1]))
-   if np.linalg.norm(a-b)<64:continue
-   center=(a+b)*.5;low=center+normal*(height*1.7);low[2]-=height
+   if np.linalg.norm(a-b)<(40 if adapt_steps else 64):continue
+   ramp_run=height*(.95 if adapt_steps else 1.7)
+   center=(a+b)*.5;low=center+normal*ramp_run;low[2]-=height
    floor=floor_at(model['polygons'],low+np.array([0,0,2]),8)
    upper=floor_at(model['polygons'],center-normal*2+np.array([0,0,2]),8)
    if floor is None or upper is None or abs(floor[2]-low[2])>2 or abs(upper[2]-center[2])>2:continue
-   ramp_points=np.array([a-normal*.5,b-normal*.5,b+normal*height*1.7-np.array([0,0,height]),a+normal*height*1.7-np.array([0,0,height])]);ramp_points[:,2]+=.15
+   ramp_points=np.array([a-normal*.5,b-normal*.5,b+normal*ramp_run-np.array([0,0,height]),a+normal*ramp_run-np.array([0,0,height])]);ramp_points[:,2]+=.15
    n=np.cross(ramp_points[1]-ramp_points[0],ramp_points[2]-ramp_points[0]);n/=np.linalg.norm(n)
    if n[2]<0:n=-n
+   stair_faces.append((f,a,b,height,normal))
    ramps.append(dict(points=ramp_points.tolist(),normal=n.tolist(),uv_texels=[[q[0],q[1]] for q in ramp_points],texture=f['texture'],flags=0))
-  model['polygons']+=ramps;adaptations.append(str(len(ramps))+' ramps over 32-UU stairs for standard arena movement')
+  if adapt_steps:
+   # Join collinear stair runs into continuous walking surfaces. Short isolated
+   # treads can vanish during capsule erosion even when every rise is legal.
+   groups={}
+   for f,a,b,h,n in stair_faces:
+    axis=0 if abs(n[0])>.999 else 1 if abs(n[1])>.999 else -1
+    if axis<0:continue
+    cross=1-axis;key=(axis,round(n[axis]),round(min(a[cross],b[cross])),round(max(a[cross],b[cross])))
+    groups.setdefault(key,[]).append((f,a,b,h,n))
+   flights=[]
+   for key,faces in groups.items():
+    faces.sort(key=lambda r:r[1][2]);chain=[]
+    for item in faces:
+     if chain and (item[1][2]-chain[-1][1][2]>40.1 or abs(item[1][key[0]]-chain[-1][1][key[0]])>80):
+      if len(chain)>=3:flights.append(chain)
+      chain=[]
+     chain.append(item)
+    if len(chain)>=3:flights.append(chain)
+   for chain in flights:
+    first=chain[0];last=chain[-1];axis=0 if abs(first[4][0])>.999 else 1;cross=1-axis;n=first[4]
+    low=sorted([first[1],first[2]],key=lambda q:q[cross]);high=sorted([last[1],last[2]],key=lambda q:q[cross])
+    ps=np.array([high[0]-n*.5,high[1]-n*.5,low[1]+n*2-np.array([0,0,first[3]]),low[0]+n*2-np.array([0,0,first[3]])]);ps[:,2]+=.2
+    normal=np.cross(ps[1]-ps[0],ps[2]-ps[0]);normal/=np.linalg.norm(normal)
+    if normal[2]<0:normal=-normal
+    if normal[2]<.68:continue
+    ramps.append(dict(points=ps.tolist(),normal=normal.tolist(),uv_texels=[[q[0],q[1]] for q in ps],texture=last[0]['texture'],flags=0))
+   adaptations.append(str(len(flights))+' short-tread stair flights bridged with continuous ramps')
+  if name=='as_ut_pumpfac':
+   # The original shaft stair treads split into narrow CSG fragments. Preserve
+   # that route with three continuous ramps over the authored stair flights.
+   for coords in [
+    [[1088,-2688,-352],[1232,-2688,-352],[1232,-2432,-240],[1088,-2432,-240]],
+    [[1232,-2416,-240],[1232,-2272,-240],[1440,-2272,-128],[1440,-2416,-128]],
+    [[1392,-2784,-432],[1392,-2640,-432],[1232,-2640,-352],[1232,-2784,-352]]]:
+    ps=np.array(coords,dtype=float);ps[:,2]+=.3;normal=np.cross(ps[1]-ps[0],ps[2]-ps[0]);normal/=np.linalg.norm(normal)
+    if normal[2]<0:normal=-normal
+    ramps.append(dict(points=ps.tolist(),normal=normal.tolist(),uv_texels=[[q[0],q[1]] for q in ps],texture=next(f['texture'] for f in model['polygons'] if f['normal'][2]>.9),flags=0))
+   adaptations.append('Three continuous shaft-stair ramps retain the original approach to Shaft and Hall')
+  if name=='as_ut_atlantica':
+   # Close the short gap at the outer lighthouse stair landing with a stone
+   # ramp; both endpoints remain on the authored stair route.
+   ps=np.array([[-352,876,-1696],[-400,876,-1696],[-400,944,-1680],[-352,944,-1680]],dtype=float);ps[:,2]+=.3
+   normal=np.cross(ps[1]-ps[0],ps[2]-ps[0]);normal/=np.linalg.norm(normal)
+   if normal[2]<0:normal=-normal
+   ramps.append(dict(points=ps.tolist(),normal=normal.tolist(),uv_texels=[[q[0],q[1]] for q in ps],texture=next(f['texture'] for f in model['polygons'] if f['normal'][2]>.9),flags=0))
+   adaptations.append('Short stone connector preserves the outer lighthouse stair landing')
+  model['polygons']+=ramps;adaptations.append(str(len(ramps))+' ramps over tall authored stairs for standard arena movement')
  for f in model['polygons']:
   if f['flags']&8:
    lower=f['texture'].lower()
@@ -155,23 +203,43 @@ def build(row):
   p=actor['properties'];travel=np.array(p.get('KeyPos[1]',[0,0,0]))*.8
   if not polys:raise ValueError("Empty moving brush")
   extent=np.ptp(np.array([q for f in polys for q in f['points']]),axis=0)
-  lift=abs(travel[0])+abs(travel[1])<.1 and travel[2]>48 and extent[2]<min(extent[0],extent[1])*.5 and 'Trigger' not in p.get('InitialState','')
+  lift=abs(travel[0])+abs(travel[1])<.1 and abs(travel[2])>48 and extent[2]<min(extent[0],extent[1])*.5 and 'Trigger' not in p.get('InitialState','')
   if lift:
    raised=[]
    for f in polys:
-    f=copy.deepcopy(f);f['points']=(np.array(f['points'])+travel/.8).tolist();raised.append(surface(f))
-   entities.append(ent({'classname':'func_plat','height':travel[2]})[:-1]+'\n'+'\n'.join(raised)+'\n}')
+    f=copy.deepcopy(f);f['points']=(np.array(f['points'])+np.maximum(travel,0)/.8).tolist();raised.append(surface(f))
+   entities.append(ent({'classname':'func_plat','height':abs(travel[2])})[:-1]+'\n'+'\n'.join(raised)+'\n}')
+  elif assault and np.linalg.norm(travel)<.1:
+   # Rotating wall levers become the native objective console at the Fort marker.
+   brushes.extend(surface(f) for f in polys)
   else:
    entities.append(ent({'classname':'func_door','ut_travel':point(travel),'speed':np.linalg.norm(travel)/max(.1,p.get('MoveTime',1.0)),'wait':p.get('StayOpenTime',4)})[:-1]+'\n'+'\n'.join(surface(f) for f in polys)+'\n}')
-  traversal.append(dict(kind='lift' if lift else 'proximity door',source=actor['name'],travel=travel.tolist()))
+  traversal.append(dict(kind='lift' if lift else 'static switch lever' if assault and np.linalg.norm(travel)<.1 else 'proximity door',source=actor['name'],travel=travel.tolist()))
+ if assault:
+  for loc,p in starts:p['TeamNumber']=1-p.get('TeamNumber',0) # UT team 1 attacks; native role 0 attacks first.
+  by_name={a['name']:a for a in actors}
+  objective_details=[]
+  for i,objective in enumerate(assault['objectives']):
+   actor=by_name[objective['actor']];p=actor['properties'];loc=np.array(p['Location'],dtype=float)
+   if name=='as_ut_atlantica' and actor['name']=='FortStandard0':
+    loc+=np.array([0,24,0]);adaptations.append('Generator console moved 0.6 m within its authored activation zone to retain a clear exit beside the lever')
+   floor=floor_at(model['polygons'],loc,512)
+   if floor is None:raise ValueError('No floor under AS objective '+actor['name'])
+   q=floor*.8;q[2]+=22.4
+   health=0 if p.get('bTriggerOnly',False) else max(1,p.get('Health',100))
+   title=objective['title'] or p.get('FortName') or p.get('Tag',actor['name'])
+   entities.append(ent({'classname':'info_as_objective','origin':point(q),'step':i+1,'health':health,'title':title}))
+   objective_details.append(dict(actor=actor['name'],step=i+1,title=title,health=health,source=loc.tolist(),origin=q.tolist(),interaction='switch' if health==0 else 'destructible'))
+  adaptations.append('Authored FortStandard sequence mapped to native switches/destructible targets; UT team 1 becomes initial attacking role')
  for i,(loc,p) in enumerate(starts):
   entities.append(ent({'classname':'info_player_team'+str(1+(p.get('TeamNumber',0) if len(authored_teams)>1 else i%2)),'origin':point(loc),'angle':p.get('Rotation',[0,0,0])[1]*360/65536}))
  for i,hill in enumerate(hills):entities.append(ent({'classname':'info_koth_control','origin':point(hill),'hill_index':i,'hill_authored':1}))
- if not starts or not hills:raise ValueError('No starts or hills')
+ if not starts or not (assault or hills):raise ValueError('No starts or objectives')
  entities.append(ent({'classname':'info_player_start','origin':point(starts[0][0])}))
  world=ent({'classname':'worldspawn','wad':'textures.wad','message':row['name']+' — ChaosUT adaptation','_fpsloppa_bake':'1','_fpsloppa_atlas':'4096','_fpsloppa_light_response':'quake','_minlight':'64','_bounce':'1'})[:-1]+'\n'+'\n'.join(brushes)+'\n}'
  (out/(name+'.map')).write_text(world+'\n'+'\n'.join(entities));(out/'textures.wad').write_bytes(wad(bank))
  report=dict(id=name,source=row,texture_sources=sources,source_faces=len(model['polygons']),spawns=len(starts),hill_points=len(hills),spawn_grounding=spawn_fixes,traversal=traversal,adaptations=adaptations+['Missing retail materials replaced with varied existing project materials','Scripted Chaos weapons mapped to classic arena pickups','Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed'],blockers=blockers,status='staging')
+ if assault:report['assault_objectives']=objective_details;report['mode']='as'
  (out/'conversion.json').write_text(json.dumps(report,indent=2)+'\n')
  for stage,args in [('qbsp',['-noclip']),('light',['-extra','-bspxlit','-threads','2'])]:
   with (out/(stage+'.log')).open('w') as log:run=subprocess.run([str(COMPILER/stage),*args,str(out/(name+('.map' if stage=='qbsp' else '.bsp')))],cwd=out,stdout=log,stderr=subprocess.STDOUT,timeout=600)

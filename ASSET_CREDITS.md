@@ -236,3 +236,12 @@ notices are retained in `maps/UnrealImports/`; unknown authors remain marked
 unknown. Supplied texture pixels are palette-converted; missing retail texture
 packages use the existing separately licensed Makkon/LibreQuake materials.
 Source geometry and textures are not relicensed as original CC0 assets.
+
+### Final expansion: UT Assault conversions
+
+AS-Pumpfac, AS-Skyville, AS-Twintower and AS-Atlantica are original maps by
+T. Ahlén / T. Ahlen, obtained from Unreal Archive. Their original notices and
+conversion provenance are retained under `maps/UnrealImports/as_ut_*/`.
+Supplied artwork keeps its original terms; missing retail texture packages use
+the documented Makkon/LibreQuake project replacements. Conversion does not
+relicense the originals. No UnrealScript or source archive executables are run.

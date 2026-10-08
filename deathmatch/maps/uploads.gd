@@ -95,7 +95,7 @@ func register_map(row: Dictionary) -> Array:
 					if not name in maps:maps.append(name)
 		if maps.is_empty():maps=Maps.choices_for_mode(game.map_catalog.filter(func(entry):return entry.id!=row.id),mode).slice(0,31)
 		if not row.id in maps:
-			if maps.size()<32:maps.append(row.id)
+			if maps.size()<preload("res://deathmatch/server/config.gd").MAX_MAPS:maps.append(row.id)
 			else:full.append(mode)
 		game.mode_maplists[mode]=maps
 		if mode==game.match_mode.kind:game.map_rotation=maps.duplicate()

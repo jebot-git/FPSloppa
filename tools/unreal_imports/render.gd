@@ -28,12 +28,13 @@ func capture(name: String,eye: Vector3,target: Vector3,overview: bool=false,size
 func run():
  var path: String=OS.get_cmdline_user_args()[0];var key=path.get_file().get_basename()
  var plan: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(path.get_base_dir()+"/render-plan.json"))
- folder="res://test-results/koth-gallery/"+key;DirAccess.make_dir_recursive_absolute(folder)
+ folder=("res://test-results/as-gallery/" if plan.mode=="as" else "res://test-results/koth-gallery/")+key;DirAccess.make_dir_recursive_absolute(folder)
  root.size=Vector2i(960,540);root.content_scale_size=root.size
  g=load("res://deathmatch/arena.tscn").instantiate();root.add_child(g)
- g.map_catalog.append({"id":key,"title":key,"path":path,"scene":path.get_basename()+".scn","sha256":FileAccess.get_sha256(path),"modes":["koth"]});g.selected_map=key
+ g.map_catalog.append({"id":key,"title":key,"path":path,"scene":path.get_basename()+".scn","sha256":FileAccess.get_sha256(path),"modes":[plan.mode]});g.selected_map=key
  g.start_host("Map gallery",0,100,15,true,plan.mode,"quake")
  if g.current_map!=key:push_error("Wrong map loaded");quit(1);return
+ if plan.mode=="as":g.match_mode.draw_objectives()
  g.set_process(false);g.set_physics_process(false);g.menu_open=false;g.hud.hide()
  for id in g.players:g.players[id].spectator=true;g.fighters[id].hide()
  if g.has_node("Menu"):g.get_node("Menu").hide()
@@ -48,7 +49,17 @@ func run():
  await capture("02-full-overview",center+Vector3(1.,1.15,1.)*(extent+30),center,true,diagonal_size)
  await capture("03-reverse-overview",center+Vector3(-1.,1.15,-1.)*(extent+30),center,true,diagonal_size)
  for row in plan.views:
-  await capture(row.name,v(row.eye),v(row.target))
+  var eye: Vector3=v(row.eye);var target: Vector3=v(row.target)
+  if plan.mode=="as" and "objective" in row.name:
+   target=eye-Vector3.UP*.4
+   var best:=0.0
+   for index in 16:
+    var angle:=TAU*index/16.0
+    var desired:=target+Vector3(cos(angle)*3,.8,sin(angle)*3)
+    var hit=g.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(target,desired,1))
+    var candidate: Vector3=desired if hit.is_empty() else target.lerp(hit.position,.8)
+    if candidate.distance_to(target)>best:best=candidate.distance_to(target);eye=candidate
+  await capture(row.name,eye,target)
  FileAccess.open(folder+"/renders.json",FileAccess.WRITE).store_string(JSON.stringify({"id":key,"mode":plan.mode,"renderer":RenderingServer.get_current_rendering_method(),"bsp_sha256":FileAccess.get_sha256(path),"captures":captures},"  "))
  g.disconnect_game("Render complete");render_view.queue_free();g.queue_free()
  for frame in 4:await process_frame

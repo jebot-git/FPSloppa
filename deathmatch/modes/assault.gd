@@ -1,5 +1,6 @@
 extends RefCounted
 ## Experimental UT99-style paired assaults. Only the server advances objectives.
+const MAX_OBJECTIVES := 8
 var mode_ref: WeakRef
 var mode:
 	get:return mode_ref.get_ref()
@@ -23,7 +24,7 @@ func supported() -> bool:
 	for row in game.map_assault:
 		if row.kind=="info_as_objective":steps.append(int(row.get("step",0)))
 	steps.sort()
-	return steps==[1,2] and not game.ctf_spawns[0].is_empty() and not game.ctf_spawns[1].is_empty()
+	return not steps.is_empty() and steps.size()<=MAX_OBJECTIVES and steps==Array(range(1,steps.size()+1)) and not game.ctf_spawns[0].is_empty() and not game.ctf_spawns[1].is_empty()
 func reset() -> void:
 	leg=0;attacking=0;stage=0;checkpoint=0;budget=0;first_time=-1;first_finished=false;switching=false;finished=false;message=""
 	objectives.clear()
@@ -54,7 +55,7 @@ func spawns(team: int) -> Array:
 		result.append(row.position)
 	return result if not result.is_empty() else game.ctf_spawns[0 if team==attacking else 1]
 func tick(_delta: float) -> void:
-	if not enabled() or not game.multiplayer.is_server() or finished or switching or objectives.size()!=2:return
+	if not enabled() or not game.multiplayer.is_server() or finished or switching or objectives.is_empty() or objectives.size()>MAX_OBJECTIVES:return
 	if budget<=0:budget=game.round_left
 	for id in game.players:
 		var s: Dictionary=game.players[id]

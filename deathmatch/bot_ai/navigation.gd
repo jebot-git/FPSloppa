@@ -251,7 +251,7 @@ func jump_clear(start: Vector3,end: Vector3,speed: float=6.0,jump_speed: float=-
 
 func maximum_drop() -> float:
 	# These UT arenas use deep shafts with safe solid landings and no fall damage.
-	return 24.0 if game.current_map.begins_with("koth_ut_") else 6.5
+	return 24.0 if game.current_map.begins_with("koth_ut_") or game.current_map.begins_with("as_ut_") else 6.5
 func drop_clear(start: Vector3,end: Vector3) -> bool:
 	var height:=start.y-end.y
 	if height<1.4 or height>maximum_drop():return false
@@ -316,15 +316,18 @@ func queue_jump_links() -> void:
 	var stride:=maxi(1,ceili(boundary.size()/(512.0 if game.match_mode.kind=="as" or game.current_map.begins_with("koth_ut_") else 128.0)))
 	for index in range(0,boundary.size(),stride):jump_candidates.append(boundary[index])
 func maximum_jump_links() -> int:
-	return 256 if game.current_map.begins_with("koth_ut_") else 96
+	return 256 if game.current_map.begins_with("koth_ut_") or game.current_map.begins_with("as_ut_") else 96
+func jump_work_per_candidate() -> int:
+	return 24 if game.current_map.begins_with("as_ut_") else 8
 func update_jump_links() -> void:
 	if not ready() or jump_links>=maximum_jump_links():return
 	for work in 2:
-		if jump_cursor>=jump_candidates.size()*8:return
-		var start:=jump_candidates[jump_cursor/8]
+		if jump_cursor>=jump_candidates.size()*jump_work_per_candidate():return
+		var start:=jump_candidates[jump_cursor/jump_work_per_candidate()]
 		var angle:=TAU*float(jump_cursor%8)/8.0
 		jump_cursor+=1
-		var probe:=start+Vector3(cos(angle),0,sin(angle))*3.5
+		var probe_distance: float=[1.2,2.2,3.5][((jump_cursor-1)%24)/8] if game.current_map.begins_with("as_ut_") else 3.5
+		var probe:=start+Vector3(cos(angle),0,sin(angle))*probe_distance
 		var end:=NavigationServer3D.map_get_closest_point(region.get_navigation_map(),probe)
 		# A lower platform can be hidden from a nearest-point query by the
 		# ledge we are standing on. Probe real ground below an exposed boundary.
@@ -334,7 +337,7 @@ func update_jump_links() -> void:
 			if lower.distance_to(landing.position)<.6:end=lower
 		var distance:=start.distance_to(end)
 		var horizontal:=Vector2(end.x-start.x,end.z-start.z).length()
-		if horizontal<1.5 or horizontal>4.2 or Vector2(end.x-probe.x,end.z-probe.z).length()>1.5 or end.y-start.y>1 or start.y-end.y>maximum_drop() or hazardous(end):continue
+		if horizontal<(.6 if game.current_map.begins_with("as_ut_") else 1.5) or horizontal>4.2 or Vector2(end.x-probe.x,end.z-probe.z).length()>1.5 or end.y-start.y>1 or start.y-end.y>maximum_drop() or hazardous(end):continue
 		if links.any(func(link):return start.distance_to(link.start)<1.5 and end.distance_to(link.end)<1.5):continue
 		var dropping: bool=start.y-end.y>1.4
 		if not (drop_clear(start,end) if dropping else jump_clear(start,end)):continue

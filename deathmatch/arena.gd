@@ -350,7 +350,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 		if mode_maplists[kind].is_empty():mode_maplists[kind]=Maps.choices_for_mode(map_catalog,kind) if kind=="st" else settings.maps.duplicate()
 		if kind=="if" and str(settings.if_maplist).is_empty() and str(settings.sv_maplist).is_empty() and not FileAccess.file_exists(Maps.Paths.folder("maps")+"if_maplist.txt"):
 			mode_maplists[kind]=Maps.inherited_maplist(map_catalog,kind,mode_maplists[kind])
-		if mode_maplists[kind].size()>32:push_error(kind+" maplist exceeds 32 maps");get_tree().quit(2);return
+		if mode_maplists[kind].size()>preload("res://deathmatch/server/config.gd").MAX_MAPS:push_error(kind+" maplist exceeds %d maps"%preload("res://deathmatch/server/config.gd").MAX_MAPS);get_tree().quit(2);return
 		if kind in votes.allowed_modes:
 			if kind=="st" and mode_maplists[kind]!=Maps.choices_for_mode(map_catalog,kind,mode_maplists[kind]):
 				push_error("st_maplist requires dedicated Tribes CTF maps with team spawns, flags, inventory stations and bounds.");get_tree().quit(2);return

@@ -1,0 +1,498 @@
+{
+  "id": "as_ut_atlantica",
+  "source": {
+    "name": "AS-Atlantica",
+    "title": "Atlantica Lighthouse",
+    "author": "LeTigre",
+    "players": "2-8",
+    "declared_capacity": 8,
+    "page": "https://unrealarchive.org/unreal-tournament/maps/assault/A/as-atlantica_a5b511b3.html",
+    "index": "https://unrealarchive.org/unreal-tournament/maps/assault/A/index.html",
+    "mode": "as",
+    "eligible": true,
+    "selection_reason": "Explicit capacity at least 8",
+    "archive": "as-atlantica.zip",
+    "archive_sha1": "a5b511b39ebb4da5e6037a572b890b781dd5875f",
+    "status": "downloaded",
+    "bytes": 535696
+  },
+  "texture_sources": {
+    "utc43ed5bfabf2": {
+      "kind": "existing project replacement",
+      "source": "DDayFX.DavHrzn1",
+      "donor": "ind_brk02_gry1"
+    },
+    "ute4a86fa817a9": {
+      "kind": "existing project replacement",
+      "source": "DDayFX.waterDD!",
+      "donor": "*water2"
+    },
+    "ut0221c216638a": {
+      "kind": "existing project replacement",
+      "source": "GenEarth.Ground.Dirt2",
+      "donor": "med_rock5"
+    },
+    "ut9bc0134e04e8": {
+      "kind": "existing project replacement",
+      "source": "GenEarth.Ground.mGrass7",
+      "donor": "med_cobstn1_2"
+    },
+    "ut7b427f78829d": {
+      "kind": "existing project replacement",
+      "source": "GenEarth.Rock.Wrcka2",
+      "donor": "med_rock5"
+    },
+    "ut00f5f000990e": {
+      "kind": "existing project replacement",
+      "source": "Indus5.Galleon.ShpWod11",
+      "donor": "ind_w02_grey1"
+    },
+    "uta3494f62b529": {
+      "kind": "existing project replacement",
+      "source": "Indus6.Woods.DeckRf1",
+      "donor": "med_wood4"
+    },
+    "ut3975892d3b7b": {
+      "kind": "existing project replacement",
+      "source": "Metalmys.MysIrn10",
+      "donor": "metal_iron1_05"
+    },
+    "ut049830814a97": {
+      "kind": "existing project replacement",
+      "source": "Metalmys.MysIrn13",
+      "donor": "metal_iron1_05"
+    },
+    "utfa95ea9f4c44": {
+      "kind": "existing project replacement",
+      "source": "Metalmys.MysIrn9a",
+      "donor": "metal_iron1_05"
+    },
+    "ut27548450856f": {
+      "kind": "existing project replacement",
+      "source": "Metalmys.MysIron5",
+      "donor": "metal_iron1_01"
+    },
+    "ut0de927258733": {
+      "kind": "existing project replacement",
+      "source": "Metalmys.MysLite5",
+      "donor": "metal_iron1_05"
+    },
+    "ut697ae9337f12": {
+      "kind": "existing project replacement",
+      "source": "Metalmys.MysMetl1",
+      "donor": "metal_iron1_05"
+    },
+    "ut471a57b3d3bf": {
+      "kind": "existing project replacement",
+      "source": "Metalmys.NaziBox4",
+      "donor": "ind_cont1_ylw1"
+    },
+    "ut00b029511616": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.Ironwalx",
+      "donor": "compbase"
+    },
+    "ut66b6ceddf70e": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.MCMETL",
+      "donor": "ind_w04_blk1"
+    },
+    "utcde7753cbe60": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.Mdialmtl",
+      "donor": "ind_w04_blk1"
+    },
+    "ut116567ee6134": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.Rockwall",
+      "donor": "med_rock3"
+    },
+    "ute68016159fd8": {
+      "kind": "existing project replacement",
+      "source": "Mine.Base.mred1",
+      "donor": "ind_w02_grey1"
+    },
+    "utaf42dddd1772": {
+      "kind": "existing project replacement",
+      "source": "Mine.Floor.mFloor",
+      "donor": "met_brn_tile2"
+    },
+    "ut3ab74c32a376": {
+      "kind": "existing project replacement",
+      "source": "Mine.Light.mLight3",
+      "donor": "tlight12"
+    },
+    "ut527580e033f1": {
+      "kind": "existing project replacement",
+      "source": "Mine.Panel.Ring2",
+      "donor": "ind_w04_blk1"
+    },
+    "utc12ac2e0d537": {
+      "kind": "existing project replacement",
+      "source": "Mine.Window.MWINDOW1",
+      "donor": "met_brn_block"
+    },
+    "utac2e513bddc5": {
+      "kind": "existing project replacement",
+      "source": "Mine.pillar.SDWALL5",
+      "donor": "ind_w06_rst1"
+    },
+    "ut444f8d52d08d": {
+      "kind": "existing project replacement",
+      "source": "NaliCast.Base.metal2",
+      "donor": "ind_w04_blk1"
+    },
+    "ut9c22324f8312": {
+      "kind": "existing project replacement",
+      "source": "NaliCast.Deco.bookcas1",
+      "donor": "ind_w06_rst1"
+    },
+    "ute0a23acc15e6": {
+      "kind": "existing project replacement",
+      "source": "NaliCast.Deco.bookcas2",
+      "donor": "met_brn_block"
+    },
+    "ut5411ce6549e0": {
+      "kind": "existing project replacement",
+      "source": "NaliCast.Panel.Wood2A",
+      "donor": "med_wood4"
+    },
+    "ut1780dd0d958e": {
+      "kind": "existing project replacement",
+      "source": "NaliCast.Panel.wood1a",
+      "donor": "med_wood4"
+    },
+    "ut8ad93b0e3d9e": {
+      "kind": "existing project replacement",
+      "source": "NaliCast.Wall.oldwall3",
+      "donor": "metal_iron1_09"
+    },
+    "utbb6b13660bf1": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Base.Blakm31d",
+      "donor": "compbase"
+    },
+    "utff91f59d617b": {
+      "kind": "existing project replacement",
+      "source": "PlayrShp.Light.lights9a",
+      "donor": "tlight12"
+    },
+    "ut2e5599e4d8ca": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Concrete-rok",
+      "donor": "ind_w04_grey1"
+    },
+    "utb6e82bf9caf2": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Paint",
+      "donor": "ind_w02_grey1"
+    },
+    "ute7df1a914cd7": {
+      "kind": "existing project replacement",
+      "source": "RainFX.R-G-Lites",
+      "donor": "met_brn_pan1"
+    },
+    "ut1ae2fa0e092a": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Rmetl",
+      "donor": "met_brn_block"
+    },
+    "utd23a036d642b": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Rtrim1",
+      "donor": "met_brn_slat"
+    },
+    "ut918c2326d4c8": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Rtrim1a",
+      "donor": "metal_iron1_04"
+    },
+    "ut9b93f109f756": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Spanel",
+      "donor": "ind_w02_grey1"
+    },
+    "utd73564fffc54": {
+      "kind": "existing project replacement",
+      "source": "RainFX.Table1",
+      "donor": "ind_w04_grey1"
+    },
+    "uta0824c1ad09d": {
+      "kind": "existing project replacement",
+      "source": "RainFX.mtl-bmps",
+      "donor": "metal_copp_04"
+    },
+    "ut33725d3ecd5b": {
+      "kind": "existing project replacement",
+      "source": "RainFX.mtl-bmps2",
+      "donor": "metal_iron1_01"
+    },
+    "ut99d71a9a505c": {
+      "kind": "existing project replacement",
+      "source": "RainFX.r-plates-g",
+      "donor": "metal_iron1_01"
+    },
+    "ut6d94a7f7b5bb": {
+      "kind": "existing project replacement",
+      "source": "ShaneSky.moon-2",
+      "donor": "sky_star"
+    },
+    "ut062f587a65a0": {
+      "kind": "existing project replacement",
+      "source": "Slums.Concrete.Conc35",
+      "donor": "ind_w02_grey1"
+    },
+    "ut226ab5a6481e": {
+      "kind": "existing project replacement",
+      "source": "Slums.brick.Brickw02",
+      "donor": "med_csl_brk11"
+    },
+    "utb1b98f59dbe9": {
+      "kind": "existing project replacement",
+      "source": "Slums.metal.Metal10",
+      "donor": "metal_iron1_01"
+    },
+    "uta1d6733b962a": {
+      "kind": "existing project replacement",
+      "source": "TrenchesFX.Brick09",
+      "donor": "ind_brk02_gry1"
+    },
+    "ut0ee0f888cf48": {
+      "kind": "existing project replacement",
+      "source": "TrenchesFX.Conc27",
+      "donor": "ind_w04_rst1"
+    },
+    "ut75733f1bd5c6": {
+      "kind": "existing project replacement",
+      "source": "TrenchesFX.Conc30",
+      "donor": "ind_w02_grey1"
+    },
+    "utfe0a03a6dbb7": {
+      "kind": "existing project replacement",
+      "source": "TrenchesFX.Metalr02",
+      "donor": "metal_copp_04"
+    },
+    "ut2fb4633784bb": {
+      "kind": "existing project replacement",
+      "source": "city.Blacksteps",
+      "donor": "met_brn_tile2"
+    },
+    "ut91d1d5bb521e": {
+      "kind": "existing project replacement",
+      "source": "city.Grate3",
+      "donor": "metal_iron1_10"
+    },
+    "utf3face25d7fa": {
+      "kind": "existing project replacement",
+      "source": "city.Skyblu",
+      "donor": "sky_star"
+    },
+    "ute9c0a2525cf2": {
+      "kind": "existing project replacement",
+      "source": "genfluid.Sky.NghSky3",
+      "donor": "sky_star"
+    },
+    "ut1e15242b3fff": {
+      "kind": "existing project replacement",
+      "source": "genfluid.Sky.pSky1c",
+      "donor": "sky_star"
+    }
+  },
+  "source_faces": 4176,
+  "spawns": 8,
+  "hill_points": 0,
+  "spawn_grounding": [
+    {
+      "actor": "PlayerStart0",
+      "source": [
+        14.390003204345703,
+        385.26751708984375,
+        -671.04345703125
+      ],
+      "floor": [
+        14.390003204345703,
+        385.26751708984375,
+        -720.0
+      ]
+    },
+    {
+      "actor": "PlayerStart1",
+      "source": [
+        -1550.588134765625,
+        318.95086669921875,
+        -2229.74169921875
+      ],
+      "floor": [
+        -1550.588134765625,
+        318.95086669921875,
+        -2288.0
+      ]
+    },
+    {
+      "actor": "PlayerStart2",
+      "source": [
+        -1448.1885986328125,
+        337.15557861328125,
+        -2229.74169921875
+      ],
+      "floor": [
+        -1448.1885986328125,
+        337.15557861328125,
+        -2288.0
+      ]
+    },
+    {
+      "actor": "PlayerStart3",
+      "source": [
+        -1579.3802490234375,
+        423.02264404296875,
+        -2229.74169921875
+      ],
+      "floor": [
+        -1579.3802490234375,
+        423.02264404296875,
+        -2288.0
+      ]
+    },
+    {
+      "actor": "PlayerStart4",
+      "source": [
+        153.6126708984375,
+        303.4985046386719,
+        -671.04345703125
+      ],
+      "floor": [
+        153.6126708984375,
+        303.4985046386719,
+        -720.0
+      ]
+    },
+    {
+      "actor": "PlayerStart5",
+      "source": [
+        50.983612060546875,
+        201.74581909179688,
+        -669.6366577148438
+      ],
+      "floor": [
+        50.983612060546875,
+        201.74581909179688,
+        -720.0
+      ]
+    },
+    {
+      "actor": "PlayerStart6",
+      "source": [
+        26.53863525390625,
+        297.3442077636719,
+        -667.9569091796875
+      ],
+      "floor": [
+        26.53863525390625,
+        297.3442077636719,
+        -720.0
+      ]
+    },
+    {
+      "actor": "PlayerStart7",
+      "source": [
+        -1454.849365234375,
+        481.8230895996094,
+        -2229.74169921875
+      ],
+      "floor": [
+        -1454.849365234375,
+        481.8230895996094,
+        -2288.0
+      ]
+    }
+  ],
+  "traversal": [
+    {
+      "kind": "static switch lever",
+      "source": "Mover0",
+      "travel": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "kind": "static switch lever",
+      "source": "Mover1",
+      "travel": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "adaptations": [
+    "8 short-tread stair flights bridged with continuous ramps",
+    "Short stone connector preserves the outer lighthouse stair landing",
+    "130 ramps over tall authored stairs for standard arena movement",
+    "99 authored liquid surfaces rebuilt as native water/lava volumes",
+    "Retained authored red/blue starts for two-team KOTH; green/gold team starts excluded",
+    "Generator console moved 0.6 m within its authored activation zone to retain a clear exit beside the lever",
+    "Authored FortStandard sequence mapped to native switches/destructible targets; UT team 1 becomes initial attacking role",
+    "Missing retail materials replaced with varied existing project materials",
+    "Scripted Chaos weapons mapped to classic arena pickups",
+    "Moving brushes adapted to ordinary proximity doors and lifts; original script events not executed"
+  ],
+  "blockers": [],
+  "status": "staging",
+  "assault_objectives": [
+    {
+      "actor": "FortStandard0",
+      "step": 1,
+      "title": "Generator",
+      "health": 0,
+      "source": [
+        -433.373046875,
+        205.97006225585938,
+        -1744.7401123046875
+      ],
+      "origin": [
+        -346.6984375,
+        164.77604980468752,
+        -1424.0
+      ],
+      "interaction": "switch"
+    },
+    {
+      "actor": "FortStandard1",
+      "step": 2,
+      "title": "Powerswitch",
+      "health": 0,
+      "source": [
+        -475.90692138671875,
+        997.4664916992188,
+        -689.1033325195312
+      ],
+      "origin": [
+        -380.725537109375,
+        797.973193359375,
+        -592.0000000000001
+      ],
+      "interaction": "switch"
+    },
+    {
+      "actor": "FortStandard2",
+      "step": 3,
+      "title": "Light",
+      "health": 0,
+      "source": [
+        -360.916748046875,
+        483.1412658691406,
+        -211.94497680664062
+      ],
+      "origin": [
+        -288.7333984375,
+        386.5130126953125,
+        -182.4
+      ],
+      "interaction": "switch"
+    }
+  ],
+  "mode": "as"
+}
