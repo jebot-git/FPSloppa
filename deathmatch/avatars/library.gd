@@ -44,6 +44,7 @@ func prepare_avatar(hash:String) -> bool:
 
 var selected := ""
 var last_error := ""
+var launch_avatar_applied:=false
 var pinned: Array = []
 const CACHE_BUDGET := 1_000_000_000
 
@@ -78,6 +79,12 @@ func reload() -> void:
 		if valid_hash(hash) and not entries.has(hash) and FileAccess.file_exists(CACHE+hash+".vrm"):
 			register_file(CACHE+hash+".vrm", false)
 		if entries.has(hash): selected = hash
+
+	# An explicit launcher choice wins over the shared saved avatar for this run.
+	if not launch_avatar_applied:
+		launch_avatar_applied=true
+		var args:=OS.get_cmdline_user_args();var index:=args.find("--avatar")
+		if index>=0 and index+1<args.size() and valid_hash(args[index+1]) and entries.has(args[index+1]):selected=args[index+1]
 
 static func valid_hash(value: String) -> bool:
 	if value.length() != 64: return false

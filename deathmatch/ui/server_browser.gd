@@ -146,4 +146,4 @@ func join_selected(spectator: bool) -> void:
 	var row: Dictionary=directory.rows[selected]
 	interface.address_field.text=row.address;interface.port_field.value=int(row.game_port);interface.spectator_choice.button_pressed=spectator
 	interface.save_preferences();close()
-	game.start_join(interface.name_field.text,row.address,int(row.game_port),spectator)
+	game.start_join(interface.display_name(),row.address,int(row.game_port),spectator)

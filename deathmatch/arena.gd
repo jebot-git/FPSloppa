@@ -10,7 +10,7 @@ const Profile = preload("res://deathmatch/profile.gd")
 const HitDetection = preload("res://deathmatch/hit_detection.gd")
 var native_projectiles=preload("res://deathmatch/native/runtime.gd").projectiles()
 const ProjectileTargets=preload("res://deathmatch/projectile_targets.gd")
-const PROTOCOL := "fpsloppa-72-st-classic-vehicles"
+const PROTOCOL := "fpsloppa-73-player-identity"
 const Melee=preload("res://deathmatch/melee.gd")
 const MAX_PLAYERS := 8 # In-game hosts include the playing host.
 const SERVER_MAX_PLAYERS := preload("res://deathmatch/server/config.gd").MAX_CLIENTS
@@ -186,7 +186,7 @@ func _ready() -> void:
 	armory.setup(self);variant_combat.setup(self)
 	votes=preload("res://deathmatch/modes/votes.gd").new();votes.name="PlayerVotes";add_child(votes);votes.setup(self)
 	if not OS.has_feature("dedicated_server"):
-		nickname=Profile.load_name()
+		nickname=Profile.display_name()
 		presentation=Presentation.read_settings()
 	announcer=preload("res://deathmatch/audio/announcer.gd").new();announcer.name="Announcer";add_child(announcer);announcer.setup(self)
 	if not OS.has_feature("dedicated_server"):
@@ -552,7 +552,7 @@ func _connection_failed() -> void:
 	else:disconnect_game("Connection failed. Check address and UDP port.")
 
 func clean_name(value: String) -> String:
-	return Profile.clean(value)
+	return Profile.Names.clean(value,Profile.Names.DISPLAY_LIMIT,"Marine",true)
 
 func _connected() -> void:
 	connect_addresses.clear();connect_address_deadline=0

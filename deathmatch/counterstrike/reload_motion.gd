@@ -32,6 +32,9 @@ static func swept(motion: Dictionary,point: Vector3,radius: float) -> bool:
 	return (motion.from+segment*along).distance_to(point)*SCALE<radius
 static func slap(motion: Dictionary,point: Vector3,radius: float) -> bool:
 	if not motion.get("valid",false) or motion.hand_step.length()<.022 or motion.support_step.length()/motion.dt<.50:return false
+	# Reaching up from the magazine to get above the handle is preparation,
+	# not the downward/sideways strike that knocks it out of the notch.
+	if motion.hand_step.y>maxf(absf(motion.hand_step.x),absf(motion.hand_step.z))*.75:return false
 	if not swept(motion,point,radius):return false
 	# Accept approach or pass-through, but not a hand simply withdrawing from
 	# inside the forgiving palm-sized contact region.

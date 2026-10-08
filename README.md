@@ -2,6 +2,8 @@
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
+[Desktop launcher](docs/DESKTOP-LAUNCHER.md): run `./run-launcher.sh` for shared server favourites, live player/map status, BSP/VRM preloading and submission, and a custom BGM playlist editor.
+
 [0.21v build notes](docs/RELEASE-0.21v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
 **New in 0.21v:** revised weapon models and audio, ambient and pressure music, VR menu organization, Tribes zoom, avatar caching, Jolt physics and shutdown fixes. An optional Linux bot worker can run AI separately from the dedicated server. Linux, Windows and experimental Quest clients remain release targets; dedicated server and bot worker are Linux-only.

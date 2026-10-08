@@ -29,7 +29,7 @@ var match_status: Label
 var team_badge: Label
 var ability_notice: Label
 var carrier_notice: Label
-var kill_feed: Label
+var kill_feed: RichTextLabel
 var center_message: Label
 var toast_label: Label
 var grenade_notice
@@ -40,6 +40,7 @@ var scoreboard: PanelContainer
 var scores: Label
 var score_table
 var suicide: Button
+var clan_field: LineEdit
 var name_field: LineEdit
 var address_field: LineEdit
 var port_field: SpinBox
@@ -101,7 +102,7 @@ func setup(arena: Node) -> void:
 	for index in 3:
 		var line: Label=[team_badge,ability_notice,carrier_notice][index]
 		line.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT);line.offset_left=-720;line.offset_right=-24;line.offset_top=18+index*27;line.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-	kill_feed = text(hud,"",15,Color("c3b499"))
+	kill_feed = Profile.Names.rich_label(0,150,15);hud.add_child(kill_feed)
 	kill_feed.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	kill_feed.offset_left = -580
 	kill_feed.offset_top = 108
@@ -221,13 +222,17 @@ func _build_menu(root: Control) -> void:
 	player_page.add_child(identity)
 	text(identity,"CALLSIGN",14).custom_minimum_size.x = 110
 	name_field = LineEdit.new()
-	name_field.text = game.nickname
-	name_field.max_length = 18
+	name_field.text = Profile.load_name()
+	name_field.max_length = Profile.Names.INPUT_LIMIT
 	name_field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	identity.add_child(name_field)
+	text(identity,"CLAN",14);clan_field=LineEdit.new();clan_field.text=Profile.load_clan();clan_field.max_length=Profile.Names.INPUT_LIMIT;clan_field.custom_minimum_size.x=130;identity.add_child(clan_field)
+	clan_field.focus_exited.connect(save_preferences)
+	clan_field.text_submitted.connect(func(_value):clan_field.release_focus())
+	clan_field.tooltip_text="8 visible characters. ^0–^7 colours; shown as [CLAN] before your name."
 	name_field.focus_exited.connect(save_preferences)
 	name_field.text_submitted.connect(func(_value): name_field.release_focus())
-	name_field.tooltip_text = "Saved for your next match. In VR, select this field to open the keyboard."
+	name_field.tooltip_text = "18 visible characters; ^0–^7 colours. Saved for your next match. Select in VR to type."
 	avatar_picker = preload("res://deathmatch/avatars/picker.gd").new()
 	add_child(avatar_picker)
 	avatar_picker.setup(game.avatars)
@@ -306,9 +311,9 @@ func _build_menu(root: Control) -> void:
 	de_buy_row.add_child(de_buy_seconds);text(de_buy_row,"seconds",14)
 	var host_space:=Control.new();host_space.size_flags_vertical=Control.SIZE_EXPAND_FILL;host_column.add_child(host_space)
 	var host_actions:=HBoxContainer.new();host_column.add_child(host_actions)
-	var start_host:=button(host_actions,"START HOST",func():game.start_host(name_field.text,int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value,weapon_choice.value,int(de_buy_seconds.value)))
+	var start_host:=button(host_actions,"START HOST",func():game.start_host(display_name(),int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value,weapon_choice.value,int(de_buy_seconds.value)))
 	start_host.custom_minimum_size.y=48
-	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,host_mode.value,weapon_choice.value,int(de_buy_seconds.value)))
+	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(display_name(),0,int(frags.value),int(minutes.value),true,host_mode.value,weapon_choice.value,int(de_buy_seconds.value)))
 	start_practice.custom_minimum_size.y=48
 	button(host_column,"BACK",host_panel.hide).custom_minimum_size.y=44
 	spectator_choice=CheckButton.new();spectator_choice.text="Join as spectator";spectator_choice.custom_minimum_size.y=36
@@ -316,7 +321,7 @@ func _build_menu(root: Control) -> void:
 	var actions := HBoxContainer.new()
 	play_page.add_child(actions)
 	var host := button(actions,"HOST MATCH…",open_host)
-	var join := button(actions,"JOIN MATCH",func(): game.start_join(name_field.text,address_field.text,int(port_field.value),spectator_choice.button_pressed))
+	var join := button(actions,"JOIN MATCH",func(): game.start_join(display_name(),address_field.text,int(port_field.value),spectator_choice.button_pressed))
 	server_browser=preload("res://deathmatch/ui/server_browser.gd").new();root.add_child(server_browser);server_browser.setup(game,self)
 	var browse := button(actions,"BROWSE SERVERS…",server_browser.open)
 	launch_buttons = [host,join,browse]
@@ -382,10 +387,13 @@ func _build_menu(root: Control) -> void:
 	var connection_overlay=preload("res://deathmatch/network/loading_overlay.gd").new()
 	root.add_child(connection_overlay);connection_overlay.setup(game)
 
+func display_name() -> String:return Profile.Names.display(name_field.text,clan_field.text)
+
 func save_preferences() -> void:
 	name_field.text = Profile.clean(name_field.text,Profile.system_name())
-	game.nickname = name_field.text
-	var error := Profile.save(name_field.text,address_field.text)
+	clan_field.text=Profile.Names.clean(clan_field.text,Profile.Names.CLAN_LIMIT,"")
+	game.nickname = display_name()
+	var error := Profile.save_identity(name_field.text,clan_field.text,address_field.text)
 	if error!=OK: game.status("Could not save callsign: "+error_string(error))
 
 func button(parent: Node,title: String,action: Callable) -> Button:
@@ -494,7 +502,7 @@ func _process(_delta: float) -> void:
 	var lines := PackedStringArray()
 	for entry in game.feed:
 		if entry.until>game.clock: lines.append(entry.text)
-	kill_feed.text = "\n".join(lines)
+	Profile.Names.paint(kill_feed,"\n".join(lines),Color("c3b499"))
 	hit.visible = game.hit_flash>0
 	var burning: bool=game.match_mode.fortress.burning(viewed_id)
 	damage.color=Color(1,.22,.025,.055+.015*sin(game.clock*4)) if burning and game.hurt_flash<.1 else Color(.55,.025,.018,game.hurt_flash*.28)

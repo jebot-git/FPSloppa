@@ -58,8 +58,8 @@ func run():
 	catalog.scan(folder+"/absent",[]);check(catalog.choose("dm","map").key=="silent","Absent or empty collection leaves gameplay silent")
 	for key in Music.TRACKS:
 		var path: String="res://deathmatch/audio/music/"+Music.TRACKS[key]+".ogg"
-		var stream=load(path);check(stream.get_length()>90 and stream.get_length()<160,key+" retains its full original internal cue")
-	check(Music.TRACKS.keys()==["title","lobby"],"Title and lobby retain their original context tracks")
+		var stream=load(path);check(stream.get_length()>20 and stream.get_length()<600,key+" loads its approved context theme")
+	check(Music.TRACKS.keys()==["title","lobby"],"Title and lobby use their dedicated context tracks")
 	var game:=FakeGame.new();root.add_child(game)
 	var server:=Music.new();game.add_child(server);game.headless=true;server.setup(game,folder+"/server-not-created")
 	check(server.players.is_empty() and server.worker==null and not DirAccess.dir_exists_absolute(folder+"/server-not-created"),"Dedicated server creates no music folder, resources or worker");server.free();game.headless=false
@@ -69,7 +69,7 @@ func run():
 	Settings.bus_volume("ArenaMusic",0);check(AudioServer.is_bus_mute(bus),"Music mute still works")
 	Settings.bus_volume("ArenaMusic",.01);check(not AudioServer.is_bus_mute(bus) and is_equal_approx(AudioServer.get_bus_volume_db(bus),-52),"Quiet music setting unmutes correctly")
 	AudioServer.set_bus_mute(bus,true)
-	check(await ready_track(music,"dead_air.ogg"),"Title always starts internal Dead Air despite custom music")
+	check(await ready_track(music,"contexts/title.ogg"),"Title always starts Shadows Awaken Within despite custom music")
 	check(music.players[music.current].stream.loop,"Internal title cue loops")
 	check(not music.has_custom_bgm(),"Internal title music does not count as custom BGM")
 	game.active=true
@@ -90,14 +90,16 @@ func run():
 	game.match_mode.kind="tf";game.current_map="unknown"
 	check(await ready_track(music,"collection/2.OGG"),"M3U track loads directly without editor import")
 	game.lobby.in_lobby=true
-	check(await ready_track(music,"please_hold.ogg"),"Lobby always selects internal Please Hold")
+	check(await ready_track(music,"contexts/lobby.ogg"),"Lobby always selects Singularity — Calm")
 	check(music.has_custom_bgm(),"Outgoing custom track suppresses ambience through its crossfade")
 	music._process(3)
 	check(not music.has_custom_bgm(),"Completed custom crossfade releases ambience suppression")
 	game.lobby.in_lobby=false;game.match_mode.kind="st";music._process(.01);game.active=false
-	check(await ready_track(music,"dead_air.ogg"),"A stale async gameplay load cannot replace title music after disconnect")
+	check(await ready_track(music,"contexts/title.ogg"),"A stale async gameplay load cannot replace title music after disconnect")
 	game.active=true;music.folder=folder+"/empty";music.refresh();music._process(3)
-	check(music.selected=="silent" and music.players.all(func(p):return not p.playing),"Empty folder fades out built-in music and leaves gameplay silent")
+	check(await ready_track(music,"modes/st.ogg"),"Empty folder selects bundled mode fallback")
+	game.match_mode.kind="unassigned";music.refresh();music._process(3)
+	check(music.selected=="silent" and music.players.all(func(p):return not p.playing),"Unknown mode retains ambience without bundled BGM")
 	check(not music.has_custom_bgm(),"No matching custom queue allows map ambience")
 	DirAccess.make_dir_recursive_absolute(folder+"/bad");FileAccess.open(folder+"/bad/01.ogg",FileAccess.WRITE).store_string("not ogg")
 	DirAccess.copy_absolute(fixture,folder+"/bad/02.ogg");music.folder=folder+"/bad";music.refresh()

@@ -233,12 +233,13 @@ func label(id: int) -> String:
 		if row[8]==Reload.REMOVED_MAG:prompt="HELD MAGAZINE: %d"%row[11]
 		elif row[5]&Reload.MAG_GRIP:prompt="PULL MAGAZINE CLEAR"
 		elif row[5]&Reload.PUMP_HOLD:prompt="GRIP WEAPON TO TAKE BACK" if row[5]&Reload.CHAMBERED else "SWING BACK + FORWARD"
-		elif row[5]&Reload.HK_LOCK:prompt="SLAP COCKING HANDLE"
 		elif row[8]>0:prompt="LAY BELT ON FEED TRAY" if row[8]==3 else "INSERT SHELL" if row[8]==2 else "BUMP OLD MAGAZINE" if s.weapon==6 and row[5]&Reload.MAGAZINE else "INSERT MAGAZINE"
+		elif row[5]&Reload.HK_LOCK:prompt="DRAW MAGAZINE" if not row[5]&Reload.MAGAZINE else "EJECT MAGAZINE" if row[2]<=0 else "SLAP COCKING HANDLE"
 		elif s.weapon==8 and row[7]>90 and row[2]>0 and not row[5]&Reload.BELT_SEATED:prompt="GRAB + LAY FEED BELT"
 		elif row[7]>.0:prompt=("EJECT AMMO BOX" if row[5]&Reload.CHAMBERED or row[2]==0 else "CLOSE FEED COVER") if row[5]&Reload.MAGAZINE else "DRAW AMMO BOX"
 		elif not row[5]&Reload.MAGAZINE:prompt="DRAW MAGAZINE"
 		elif not row[5]&Reload.CHAMBERED and row[2]>0:prompt="PUMP / SWING" if s.weapon==3 else "RAISE · PULL · CLOSE · LOCK" if s.weapon==9 else "RACK / SIDE FLICK" if s.weapon in [1,2,10] and row[5]&Reload.SLIDE_LOCK else "RACK"
+		elif s.weapon==5 and row[2]==0:prompt="PULL BACK + LIFT TO LOCK"
 		elif row[2]==0:prompt="DRAW SHELL" if Reload.tube_fed(s.weapon) else "OPEN FEED COVER" if s.weapon==8 else "EJECT MAGAZINE"
 	return (prompt+" · " if not prompt.is_empty() else "RELOADING · " if row[3]>0 else "")+"%d / %d"%[row[2],maxi(0,s.ammo[d.ammo]-row[2])]+(" · BURST" if s.weapon==1 and row[4] else " · SEMI" if s.weapon==1 else " · SUPPRESSED" if row[4] else "")
 func suppressed(id: int) -> bool:

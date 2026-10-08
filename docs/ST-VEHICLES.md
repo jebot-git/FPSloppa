@@ -5,7 +5,8 @@ Wildcat, Shrike and Havoc now use this same lifecycle and control scheme. See
 
 Implemented in `experimental/st-raindance`, 29 September 2026. ST remains
 excluded from the release branch. All three original vehicle roles now have a
-playable implementation; autonomous bot purchasing/piloting remains later work.
+playable implementation. Light bots now purchase and pilot Scout/Shrike air support;
+transport crew and passenger tactics remain later work.
 
 Both existing Raindance vehicle-pad landmarks have powered purchase terminals.
 Use the inventory wheel at a friendly terminal to select a vehicle. Purchases
@@ -123,7 +124,7 @@ Clients interpolate craft/seats without vehicle-specific input replay prediction
 so high-latency responsiveness needs testing.
 
 Actual headset ergonomics, dedicated seated pilot poses, physical cockpit-stick
-manipulation, and autonomous bot flight/transport tactics remain outstanding.
+manipulation, and autonomous transport/passenger tactics remain outstanding.
 Passengers currently use standing avatar poses at their deck stations. No
 contested human vehicle match or VR headset session was run in this pass.
 
@@ -237,3 +238,24 @@ The six models are original meshes with original ST atlas artwork.
 `deathmatch/tests/st_t2_vehicles.gd` covers purchasing, crew roles, ballistic
 shots, deployment, service restrictions, snapshots and destruction. The ENet
 transport harness with `T2_VEHICLES=1` covers Havoc and all three added vehicles.
+
+## Bot air support and live viewing (8 October 2026)
+
+ST reserves at most two Light pilots per team (one per six bots). They walk to
+a powered vehicle terminal, spend normal team energy, wait for construction,
+board a reachable cockpit and fly with ordinary thrust/jet/aim inputs. Shared
+bays launch one craft at a time. Pilots probe covered exits and nearby obstacles,
+patrol public midfield approaches, and fire only at perceived, exposed enemies.
+Flag carriers retain their objective; stranded pilots can eject and return to
+infantry work. This is basic Scout/Shrike support, not transport tactics.
+
+`deathmatch/tests/st_vehicle_bots.gd` checks paid purchases, construction delay,
+boarding, physical takeoff/cruise, covered-bay departure and weapon fire.
+
+For a full 16v16 visible test, use `tools/tribes/run_live.py --team-size 16
+--map ctf_t2_scarabrae --local-view --continuous --seconds 1800 --output <empty-dir>`.
+The local authority camera leaves all 32 player slots available to bots; the
+normal separate ENet observer requires a spare player slot. `--continuous`
+disables research capture cutoffs only for the viewing session. Serve its actual
+viewport with `python3 tools/tribes/live_view.py --output <same-dir>` and open
+`http://127.0.0.1:8787`. The feed and match telemetry stay on loopback.

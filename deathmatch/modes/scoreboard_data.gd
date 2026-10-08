@@ -6,7 +6,7 @@ static func capture(game) -> Dictionary:
 		if team_game and a.team!=b.team:return a.team<b.team
 		if a.kills!=b.kills:return a.kills>b.kills
 		if a.deaths!=b.deaths:return a.deaths<b.deaths
-		return a.name.naturalnocasecmp_to(b.name)<0)
+		return preload("res://deathmatch/ui/name_style.gd").plain(a.name).naturalnocasecmp_to(preload("res://deathmatch/ui/name_style.gd").plain(b.name))<0)
 	var result: Array=[]
 	for p in ranked:
 		result.append({"name":p.name,"team":p.team,"kills":p.kills,"deaths":p.deaths,"ping":p.ping,"class_name":p.get("tribes_class","light").to_upper() if game.match_mode.tribes.enabled() else game.match_mode.fortress.CLASSES.get(p.get("tf_class","soldier"),{}).get("name","UNKNOWN")})

@@ -106,7 +106,7 @@ func refresh(delta: float) -> void:
 	for id in voice.game.players:
 		if id==multiplayer.get_unique_id() or id<1: continue
 		var check:=CheckButton.new()
-		check.text="Mute "+str(voice.game.players[id].name);check.custom_minimum_size.y=44
+		check.text="Mute "+preload("res://deathmatch/ui/name_style.gd").plain(str(voice.game.players[id].name));check.custom_minimum_size.y=44
 		check.button_pressed=voice.muted.has(id)
 		check.toggled.connect(func(value): voice.set_muted(id,value))
 		peers.add_child(check)

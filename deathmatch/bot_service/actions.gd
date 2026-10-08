@@ -1,6 +1,6 @@
 extends RefCounted
 ## The only non-input operations a worker may request. No arbitrary method dispatch.
-const SIGNATURES={"team_chat":[TYPE_INT,TYPE_STRING],"st_order_complete":[TYPE_INT],"tf_action":[TYPE_INT,TYPE_STRING],"st_kit":[TYPE_INT],"st_refit":[TYPE_INT,TYPE_STRING,TYPE_ARRAY,TYPE_STRING,TYPE_BOOL],"st_beacon_buy":[TYPE_INT],"st_deploy":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3],"st_beacon":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3],"st_drop":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3],"de_buy":[TYPE_INT,TYPE_INT],"de_use":[TYPE_INT],"de_plant":[TYPE_INT,TYPE_INT],"de_digit":[TYPE_INT,TYPE_INT],"de_lock_defuse":[TYPE_INT],"de_cut":[TYPE_INT,TYPE_INT],"de_bot_stow_objective":[TYPE_INT],"de_hold":[TYPE_INT],"de_tool":[TYPE_INT],"de_equip":[TYPE_INT,TYPE_INT],"de_throw":[TYPE_INT,TYPE_VECTOR3],"de_cancel":[TYPE_INT]}
+const SIGNATURES={"st_vehicle_buy":[TYPE_INT,TYPE_STRING],"st_vehicle_board":[TYPE_INT,TYPE_INT],"st_vehicle_leave":[TYPE_INT],"team_chat":[TYPE_INT,TYPE_STRING],"st_order_complete":[TYPE_INT],"tf_action":[TYPE_INT,TYPE_STRING],"st_kit":[TYPE_INT],"st_refit":[TYPE_INT,TYPE_STRING,TYPE_ARRAY,TYPE_STRING,TYPE_BOOL],"st_beacon_buy":[TYPE_INT],"st_deploy":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3],"st_beacon":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3],"st_drop":[TYPE_INT,TYPE_VECTOR3,TYPE_VECTOR3],"de_buy":[TYPE_INT,TYPE_INT],"de_use":[TYPE_INT],"de_plant":[TYPE_INT,TYPE_INT],"de_digit":[TYPE_INT,TYPE_INT],"de_lock_defuse":[TYPE_INT],"de_cut":[TYPE_INT,TYPE_INT],"de_bot_stow_objective":[TYPE_INT],"de_hold":[TYPE_INT],"de_tool":[TYPE_INT],"de_equip":[TYPE_INT,TYPE_INT],"de_throw":[TYPE_INT,TYPE_VECTOR3],"de_cancel":[TYPE_INT]}
 static func valid(kind: String,args: Array) -> bool:
 	if not SIGNATURES.has(kind) or args.size()!=SIGNATURES[kind].size():return false
 	for i in args.size():
@@ -31,6 +31,9 @@ static func execute(game,kind: String,args: Array):
 		"tf_action":
 			if args[1] not in ["sentry","dispenser"]:return false
 			game.players[id].tf_tool=args[1];game.match_mode.fortress.action(id);return true
+		"st_vehicle_buy":return st.vehicles.purchase(id,game.map_epoch,game.players[id].serial,args[1])
+		"st_vehicle_board":return st.vehicles.board(id,args[1],0)
+		"st_vehicle_leave":return st.vehicles.leave(id)
 		"st_kit":return st.kit(id)
 		"st_refit":return st.select_equipment(id,args[1],args[2],args[3],args[4])
 		"st_beacon_buy":return st.targeting.buy(id)

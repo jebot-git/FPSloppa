@@ -54,6 +54,11 @@ for _,folder,binary in targets:
     package_files[folder]=selected
     def stage(source,out):
         out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,out);selected.add(out.relative_to(dest).as_posix())
+    # The desktop frontend is a scene in the same client PCK, sharing its runtime.
+    from launcher.package_manifest import write_wrapper, write_manifest
+    launcher_name=write_wrapper(dest,folder)
+    selected.add(launcher_name)
+    stage(root/'docs/DESKTOP-LAUNCHER.md',dest/'docs/DESKTOP-LAUNCHER.md')
     asset_manifest=json.loads((root/"deathmatch/assets/base_manifest.json").read_text())
     for row in asset_manifest["files"]:
         source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);stage(source,destination)
@@ -78,6 +83,8 @@ for _,folder,binary in targets:
         for label,mode in [('VR','on'),('Desktop','off')]:
             selected.add(f'Play-{label}.cmd')
             (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --xr-mode '+mode+' %*\r\n').encode())
+
+    write_manifest(root,dest,selected,folder)
 
 if '--stage-only' in sys.argv:
     print('STAGED binary folders, assets, launchers and license notices',flush=True)

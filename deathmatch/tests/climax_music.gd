@@ -123,15 +123,18 @@ func run():
 	mode.kind="dm";game.current_map="other";game.players[1].kills=18
 	var music:=Music.new();game.add_child(music);game.music=music;music.setup(game,folder+"/playback");music.set_process(false)
 	var ambience:=Ambience.new();game.add_child(ambience);ambience.setup(game,{"enclosure":0.0});ambience.set_process(false)
-	for i in 160:ambience._process(.025)
-	check(ambience.players[ambience.selected].playing and music.selected=="silent","Normal gameplay starts ambience only")
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("ArenaMusic"),-12)
+	check(await ready_track(music,"modes/dm.ogg"),"Normal gameplay starts mode fallback")
+	for i in 160:music._process(.025);ambience._process(.025)
+	check(ambience.players[ambience.selected].playing and music.selected=="builtin:mode:dm","Mode default blends with live ambience")
+	check(not music.has_custom_bgm() and music.ambience_gain()>.69 and music.ambience_gain()<.72,"Mode music leaves a partial ambience bed")
 	game.players[1].kills=19
 	check(await ready_track(music,"tower_defense_climax.ogg"),"Trigger loads bundled cue asynchronously")
 	check(not music.has_custom_bgm(),"Bundled cue does not masquerade as custom BGM")
 	check(music.players[music.current].stream.loop and is_equal_approx(music.players[music.current].stream.loop_offset,Music.WIN_LOOP_OFFSET),"Bundled cue loops at authored offset")
-	check(music.ambience_gain()>.98 and music.players[music.current].volume_db < -25,"Entry fades up from silence while ambience remains")
+	check(music.ambience_gain()>.69 and music.players[music.current].volume_db < -25,"Climax fades up from mode BGM with ambience remaining")
 	for i in 50:music._process(.025);ambience._process(.025)
-	check(music.ambience_gain()>.5 and music.ambience_gain()<.8 and ambience.gains[ambience.selected]>0,"Mid-crossfade both ambience and cue are audible")
+	check(music.ambience_gain()>.4 and music.ambience_gain()<.65 and ambience.gains[ambience.selected]>0,"Mid-crossfade both ambience and cue are audible")
 	for i in 160:music._process(.025);ambience._process(.025)
 	check(music.worker==null and music.prepared==null,"Internal cue has no redundant prefetch worker")
 	check(not ambience.players[ambience.selected].playing,"Full cue suspends ambience bed")
@@ -139,10 +142,10 @@ func run():
 	await create_timer(.18).timeout
 	var playback: float=music.players[music.current].get_playback_position()
 	check(playback>=Music.WIN_LOOP_OFFSET and playback<Music.WIN_LOOP_OFFSET+.5,"Actual Ogg playback wraps to authored loop offset without restarting buildup")
-	game.players[1].kills=18;music._process(.01)
+	game.players[1].kills=18;check(await ready_track(music,"modes/dm.ogg"),"Cue end restores the mode default asynchronously")
 	check(music.players[1-music.current].playing and music.ambience_gain()<.02,"End begins outgoing fade without abrupt stop")
 	for i in 160:music._process(.025);ambience._process(.025)
-	check(music.players.all(func(p):return not p.playing) and ambience.players[ambience.selected].playing,"End returns smoothly to ambience")
+	check(music.players[music.current].playing and music.playing_path.ends_with("modes/dm.ogg") and ambience.players[ambience.selected].playing,"End returns smoothly to mode BGM plus ambience")
 	put("playback/dm_01.ogg");music.refresh()
 	check(await ready_track(music,"dm_01.ogg"),"Ordinary custom BGM loads")
 	music._process(3);var generation: int=music.generation
@@ -159,17 +162,19 @@ func run():
 	# Also verify win-only folders fade naturally from ambience, including rapid reversal.
 	music.folder=folder+"/win-only";DirAccess.make_dir_recursive_absolute(music.folder)
 	DirAccess.copy_absolute(fixture,music.folder.path_join("win_01.ogg"));game.players[1].kills=18;music.refresh();music._process(3)
+	check(await ready_track(music,"modes/dm.ogg"),"Win-only custom folder retains ordinary mode fallback")
 	for i in 160:ambience._process(.025)
 	game.players[1].kills=19;ambience._process(.025)
 	check(ambience.players[ambience.selected].playing,"Pending custom win load does not cut ambience")
 	check(await ready_track(music,"win-only/win_01.ogg"),"Win-only custom replacement starts")
 	music._process(.3);var gain: float=db_to_linear(music.players[music.current].volume_db)
-	game.players[1].kills=18;music._process(.001)
-	check(music.players[1-music.current].playing and absf(music.outgoing_gain-gain)<.001,"Rapid cue reversal preserves actual outgoing level")
+	game.players[1].kills=18
+	check(await ready_track(music,"modes/dm.ogg"),"Rapid reversal restores mode fallback")
+	check(music.players[1-music.current].playing and music.outgoing_gain>=gain and music.outgoing_gain<=1.0,"Rapid cue reversal retains an audible outgoing track without gain boost")
 	for i in 120:music._process(.025);ambience._process(.025)
 	check(ambience.players[ambience.selected].playing,"Rapid reversal recovers ambience")
 	game.players[1].kills=19;music._process(.01);game.active=false
-	check(await ready_track(music,"dead_air.ogg"),"Stale cue worker cannot replace title after disconnect")
+	check(await ready_track(music,"contexts/title.ogg"),"Stale cue worker cannot replace title after disconnect")
 	ambience.clear();music.stop();ambience.free();music.free();game.free()
 	# Let the audio server retire stopped playback objects before tree shutdown.
 	await create_timer(.15).timeout

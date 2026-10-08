@@ -86,10 +86,11 @@ for target in ['Quest']:
                 if source.suffix not in {'.scn','.res','.gd','.json','.md'}:continue
                 assert z.read('assets/'+source.relative_to(root).as_posix())==source.read_bytes(), ('Missing or stale ST asset',source)
         assert b'const TRIBES := true' in z.read('assets/deathmatch/release_features.gd')
-        music_imports={Path(n).name for n in z.namelist() if n.startswith('assets/deathmatch/audio/music/') and n.endswith('.ogg.import')}
-        assert music_imports=={'dead_air.ogg.import','please_hold.ogg.import','tower_defense_climax.ogg.import'}, 'Title, lobby and conditional climax BGM should ship'
+        music_rows=json.loads((root/'deathmatch/audio/music/contexts.json').read_text())+json.loads((root/'deathmatch/audio/music/modes.json').read_text())+[json.loads((root/'deathmatch/audio/music/climax.json').read_text())]
+        music_imports={n.removeprefix('assets/deathmatch/audio/music/') for n in z.namelist() if n.startswith('assets/deathmatch/audio/music/') and n.endswith('.ogg.import')}
+        assert music_imports=={row['stem']+'.ogg.import' for row in music_rows}, 'Current context, mode and climax themes should ship'
         assert not any(n.startswith('assets/bgm/') for n in z.namelist()), 'Client-owned music must not enter APKs'
-        audio_files=[root/'deathmatch/icon-final.png']+list((root/'deathmatch/audio/music').glob('*.ogg'))
+        audio_files=[root/'deathmatch/icon-final.png']+[root/'deathmatch/audio/music'/(row['stem']+'.ogg') for row in music_rows]
         audio_files += [root/'deathmatch/audio'/(name+'.wav') for name in ['round_gong','round_tick','door_open','door_close','teleport','jump_pad','calibration_complete','saw_grind','flag_capture','spawn','power_spawn','pickup_health','pickup_armor','pickup_ammo','pickup_weapon','pickup_mega']]
         audio_files += list((root/'deathmatch/audio/recorded').glob('pain_*.wav'))
         audio_files += list((root/'deathmatch/audio/announcer').glob('*.ogg'))

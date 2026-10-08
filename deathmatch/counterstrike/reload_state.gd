@@ -142,7 +142,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 		eject_mag(p);clip=mini(clip,1) if p.ready else 0
 	# A palm can hit the raised latch downward or from the side. A single fresh
 	# sweep may cross it between packets; require real hand motion, not gun motion.
-	if w==5 and p.hk_locked and p.grab.is_empty() and not grip:
+	if w==5 and p.hk_locked and p.mag and clip>0 and p.grab.is_empty() and not grip:
 		if Motion.slap(motion,rack_point(w,p),HK_SLAP_RADIUS):
 			chamber(p,clip);p.gestures={}
 	var pump_requested: bool=w==3 and pose.get("pump",false) and grip and not eject
@@ -228,15 +228,25 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 			p.cover=1.0 if p.cover>.8 else 0.0 if p.cover<.2 else p.base
 			p.grab="";p.event+=1
 	elif p.grab=="rack":
+		if p.hk_locked:
+			# The notch owns the handle until a separate release action. Continued
+			# grip samples must not drag its visual pose forward/down again.
+			p.stroke=1.0;p.lift=1.0
+			if released:p.grab=""
+			return clip
 		if grip:
 			if w==9:
 				bolt(p,local,clip,now);return clip
+			if w==5 and not motion.get("valid",false):
+				if not motion.get("duplicate",false):p.anchor=local;p.started=now;p.stroke=0.0;p.lift=0.0;p.pulled=false
+				return clip
 			var travel: float=.105 if w==3 else .10 if w==9 else .065
 			p.stroke=clampf((local.z-p.anchor.z)/travel,0,1)
 			if p.stroke>.90 and now-p.started>=MIN_STROKE_TIME:p.pulled=true
-			if w==5 and p.pulled:
+			if w==5 and p.pulled and p.stroke>.90:
 				p.lift=clampf((local.y-p.anchor.y)/.037,0,1)
 				if p.lift>.75:p.hk_locked=true;p.lift=1.0;p.stroke=1.0;p.ready=false
+			elif w==5:p.lift=0.0
 			if p.hk_locked:return clip
 			if p.pulled and p.stroke<.12 and now-p.started>=MIN_STROKE_TIME*1.5:
 				chamber(p,clip);p.grab=""

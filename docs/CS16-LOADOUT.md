@@ -60,9 +60,16 @@ The existing death-drop policy excludes the starting knife and USP.
   catch to knock the old magazine out, then seat the replacement. Rack only if
   the chamber was empty.
   The normal reload-button ejection remains available.
-- VR MP5: pull the charging handle fully back, lift it into the locking notch and
-  let go. After inserting the magazine, slap the handle downward with the free
-  offhand to release it. Sideways palm swipes also count, using one fresh swept contact over a 20 cm region. Slow touches, withdrawal and tracking jumps cannot release it. A normal pull-and-release rack also chambers the gun.
+- VR MP5 (including the DE loadout): **pull back → lift and lock → replace
+  magazine → slap**. Grip the charging handle, pull it fully rearward, lift into
+  the notch and let go. The handle stays raised and back while changing magazines,
+  including after extra grip samples or a menu interruption. Seat a loaded
+  magazine, release grip, then strike downward with the free offhand. Sideways
+  palm swipes also count, using fresh swept contact over the existing 20 cm region.
+  Reaching upward from the magazine, slow touches, withdrawal, tracking jumps and
+  slaps before a loaded magazine is seated cannot finish the reload. The HUD
+  requests drawing/inserting the magazine before prompting for the slap.
+  A normal pull-and-release rack remains available.
 - VR shotguns: draw individual shells from the pouch and insert them underneath
   the receiver. A fore-end grip overlapping the hip cannot draw a shell, and
   taking over the pump clears any carried shell. The **M3 requires a complete back-and-forward pump stroke** after
@@ -293,3 +300,10 @@ The follow-up video-feedback changes and live WiVRn test are recorded in
 Gesture thresholds still need a physical-headset comfort/playability pass.
 The engine reports shutdown ObjectDB/resource warnings also seen in the baseline;
 these runs do not establish a leak-free application shutdown.
+
+The HK sequence has a dedicated authority regression in
+`deathmatch/tests/cs16_hk_slap.gd` (DE, either hand, empty and tactical reloads,
+notch retention, magazine-first prompts, invalid motion and ammunition checks).
+Run `python3 tools/cs16/run_network.py --hk-only` for its isolated DE ENet
+server/client sequence; the full network fixture also includes the magazine swap
+between locking and slapping.

@@ -3,7 +3,7 @@
 from pathlib import Path
 import argparse, json, os, subprocess, tempfile, time
 ROOT=Path(__file__).resolve().parents[1]
-TESTS='native_acceleration native_codec native_network_packing native_bots native_rewind native_shot_history native_avatar_channels native_springs frame_smoothness render_motion cs16_accuracy cs16_mag_pull defusal defusal_bot_behavior foveation client_preferences network_delivery avatar_runtime_cache avatar_surface_compile menu_navigation bhaptics_profile bhaptics_native effect_resources weapon_audio_levels weapon_actions weapon_presentation tribes_image_enhancer tribes_arsenal cs16_sights cs16_art weapon_setup climax_music mode_audio music release_scope'.split()
+TESTS='native_acceleration native_codec native_network_packing native_bots native_rewind native_shot_history native_avatar_channels native_springs frame_smoothness render_motion cs16_accuracy cs16_mag_pull cs16_hk_slap defusal defusal_bot_behavior foveation client_preferences network_delivery avatar_runtime_cache avatar_surface_compile menu_navigation bhaptics_profile bhaptics_native effect_resources weapon_audio_levels weapon_actions weapon_presentation tribes_image_enhancer tribes_arsenal cs16_sights cs16_art weapon_setup climax_music mode_audio music release_scope'.split()
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('tests',nargs='*',default=TESTS)

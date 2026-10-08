@@ -22,9 +22,14 @@ var recorder
 var travel_samples: Array=[]
 var travel_at:=0.0
 var last_view_clock:=0.0
+var live_frame_at:=0
 var navigation_metrics
 func _initialize():run.call_deferred()
-func write(name: String,value):FileAccess.open(options.output+"/"+name,FileAccess.WRITE).store_string(JSON.stringify(value,"  "))
+func write(name: String,value):
+	var path: String=options.output+"/"+name
+	var file:=FileAccess.open(path+".tmp",FileAccess.WRITE)
+	file.store_string(JSON.stringify(value,"  "));file.close()
+	DirAccess.rename_absolute(path+".tmp",path)
 func run():
 	options=JSON.parse_string(OS.get_cmdline_user_args()[0]);seed(int(options.get("seed",9281)))
 	DirAccess.make_dir_recursive_absolute(options.output)
@@ -48,6 +53,7 @@ func run():
 		var director:=Director.new();director.session=self;director.process_priority=100;root.add_child(director)
 		write("viewer.json",{"pid":OS.get_process_id(),"peer":game.multiplayer.get_unique_id(),"spectator":game.local_state().spectator,"map":game.current_map})
 		print("ST_LIVE_VIEW_READY")
+		RenderingServer.frame_post_draw.connect(stream_frame)
 		if options.get("record",false):
 			recorder=preload("res://tools/tribes/live_recorder.gd").new();recorder.start(options.output)
 			RenderingServer.frame_post_draw.connect(record_frame)
@@ -77,6 +83,7 @@ func run():
 		start=game.clock
 		if options.get("navigation_metrics",false):navigation_metrics=preload("res://tools/tribes/navigation_metrics.gd").new();navigation_metrics.setup(game,options.output)
 		var speed: int=int(options.get("speed",1));Engine.time_scale=speed;Engine.physics_ticks_per_second=60*speed;Engine.max_physics_steps_per_frame=32
+		if options.get("local_view",false):setup_authority_view()
 		print("ST_LIVE_SERVER_READY ",OS.get_process_id())
 		while game.active:
 			await physics_frame
@@ -85,7 +92,7 @@ func run():
 			if game.clock>=travel_at:travel_at=game.clock+1;sample_travel()
 			observe_flags()
 			if game.clock>=sample_at:sample_at=game.clock+5;sample()
-			if capture_deadline.expired(game.clock-start):termination_reason=capture_deadline.reason(game.clock-start);break
+			if not options.get("continuous",false) and capture_deadline.expired(game.clock-start):termination_reason=capture_deadline.reason(game.clock-start);break
 			if game.intermission>0:termination_reason="match_finished";break
 			if float(options.get("seconds",0))>0 and game.clock-start>=float(options.seconds):termination_reason="duration_reached";break
 		if termination_reason=="running":termination_reason="disconnected"
@@ -103,11 +110,30 @@ func flag_event(kind: String,team: int,carrier: int):
 		var actor=game.fighters[carrier];var brain: Dictionary=game.bots.brains.get(carrier,{})
 		row.merge({"position":actor.position,"velocity":actor.velocity,"hp":game.players[carrier].hp,"energy":actor.tribes_state.energy,"pack":game.players[carrier].tribes_pack,"role":brain.get("role",""),"goal":brain.get("goal_key",""),"phase":brain.get("travel_phase","")})
 	flag_events.append(row);write("flag-events.json",flag_events)
+func setup_authority_view():
+	root.title="ST LIVE · "+game.current_map+" · %dv%d"%[int(options.get("team_size",6)),int(options.get("team_size",6))];root.mode=Window.MODE_WINDOWED;root.size=Vector2i(1280,800);root.position=Vector2i(50,50)
+	root.content_scale_size=root.size;Engine.max_fps=60
+	game.voice.set_mode(0);game.menu_open=false;game.hud.hide();Input.mouse_mode=Input.MOUSE_MODE_VISIBLE
+	if not is_instance_valid(game.camera):
+		game.camera=Camera3D.new();game.add_child(game.camera);game.camera.make_current()
+	game.camera.far=2200;game.camera.physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF
+	var layer:=CanvasLayer.new();root.add_child(layer);layer.layer=100
+	var background:=ColorRect.new();background.color=Color(.025,.035,.05,.88);background.size=Vector2(1280,102);layer.add_child(background)
+	overlay=Label.new();overlay.position=Vector2(20,8);overlay.add_theme_font_size_override("font_size",21);layer.add_child(overlay)
+	var director:=Director.new();director.session=self;director.process_priority=100;root.add_child(director)
+	RenderingServer.frame_post_draw.connect(stream_frame)
+	write("viewer.json",{"pid":OS.get_process_id(),"authority_camera":true,"map":game.current_map})
+func stream_frame():
+	if Time.get_ticks_msec()<live_frame_at:return
+	live_frame_at=Time.get_ticks_msec()+200
+	var frame:=root.get_texture().get_image()
+	frame.save_jpg(options.output+"/live-next.jpg",.8)
+	DirAccess.rename_absolute(options.output+"/live-next.jpg",options.output+"/live.jpg")
 func record_frame():
 	if recorder and is_instance_valid(game) and game.active:recorder.capture(root,game.snapshot_view_time,focus,watched_speed())
 func watched_speed() -> float:
 	if not game.fighters.has(focus):return 0.0
-	var velocity: Vector3=game.fighters[focus].visual_velocity
+	var velocity: Vector3=game.fighters[focus].velocity if game.multiplayer.is_server() else game.fighters[focus].visual_velocity
 	return Vector2(velocity.x,velocity.z).length()*3.6
 func observe_flags():
 	capture_deadline.observe(game.clock-start,game.match_mode.scores)
@@ -148,6 +174,9 @@ func sample():
 		bots[-1].merge({"serial":s.serial,"velocity":game.fighters[id].velocity,"refilling":brain.get("refilling",false),"waypoint":brain.path[brain.step] if not brain.is_empty() and brain.step<brain.path.size() else brain.get("goal",Vector3.ZERO),"tower_phase":tower.get("phase",""),"tower_stage":tower.get("stage",Vector3.ZERO)})
 	var row:={"pid":OS.get_process_id(),"clock":game.clock,"seconds":game.clock-start,"teams":teams,"spectators":spectators,"scores":game.match_mode.scores.duplicate(),"flags":game.match_mode.flags.duplicate(true),"generators":game.match_mode.tribes.stations().health.duplicate(),"base_assets":game.match_mode.tribes.stations().assets.snapshot(),"deployables":game.match_mode.tribes.deployables.snapshot().rows,"tactics":game.bots.tribes.tactics.stats.duplicate(),"offense":game.bots.tribes.offense.stats.duplicate(),"fixed_defences":game.match_mode.tribes.stations().defences.snapshot(),"fixed_fire":game.match_mode.tribes.stations().defences.stats.duplicate(),"field_recovery":game.match_mode.tribes.recovery.stats.duplicate(),"targeting":game.match_mode.tribes.targeting.stats.duplicate(),"loot":game.match_mode.tribes.recovery.rows.size(),"waves":game.bots.tribes.tactics.waves.duplicate(true),"bots":bots}
 	row.merge(capture_deadline.snapshot());row.termination_reason=termination_reason
+	row.vehicles=game.match_mode.tribes.vehicles.snapshot()
+	row.vehicle_ai=game.bots.tribes.vehicles.stats.duplicate(true)
+	row.vehicle_plans=game.bots.tribes.vehicles.plans.duplicate(true)
 	row.capture_planner=game.bots.tribes.capture.stats.duplicate()
 	write("server.json",row);samples.append(row)
 	if samples.size()%12==0:write("samples.json",samples)
@@ -158,16 +187,18 @@ func direct():
 	var carrier:=0
 	for flag in game.match_mode.flags:
 		if flag.carrier in alive:carrier=flag.carrier;break
-	var view_clock: float=maxf(0,game.snapshot_view_time)
+	var view_clock: float=game.clock if game.multiplayer.is_server() else maxf(0,game.snapshot_view_time)
 	last_view_clock=maxf(last_view_clock,view_clock)
-	if not alive.is_empty() and (focus not in alive or view_clock-focus_at>45 or carrier!=0 and carrier!=focus):
+	if not alive.is_empty() and (focus not in alive or view_clock-focus_at>20 or carrier!=0 and carrier!=focus):
 		# Follow whole approaches instead of cutting every 2.5 wall seconds
 		# in a 4x run. Public flag carriers take immediate camera priority.
-		focus=alive[int(view_clock/45)%alive.size()]
+		focus=alive[int(view_clock/20)%alive.size()]
 		var telemetry=JSON.parse_string(FileAccess.get_file_as_string(str(options.get("telemetry_output",options.output))+"/server.json"))
 		if telemetry is Dictionary:
 			var attackers: Array=telemetry.get("bots",[]).filter(func(row):return row.id in alive and row.role=="capper" and row.goal=="st:flag")
-			if not attackers.is_empty():focus=int(attackers[int(view_clock/45)%attackers.size()].id)
+			if not attackers.is_empty():focus=int(attackers[int(view_clock/20)%attackers.size()].id)
+		var pilots: Array=alive.filter(func(id):return game.match_mode.tribes.vehicles.piloting(id))
+		if not pilots.is_empty():focus=pilots[int(view_clock/20)%pilots.size()]
 		if carrier!=0:focus=carrier
 		focus_at=view_clock
 	if game.fighters.has(focus):
@@ -179,9 +210,13 @@ func direct():
 		# Narrow bunker passages can push a chase camera inside avatar hair.
 		# Prefer the usual shoulder view, then a clear side/overhead vantage.
 		var offsets: Array=[Vector3(2.4,2.3,5.5),Vector3(-2.4,2.3,5.5),Vector3(4,2,1),Vector3(-4,2,1),Vector3(0,4,0),Vector3(0,1.8,-4)]
+		var fleet=game.match_mode.tribes.vehicles;var vehicle: int=fleet.vehicle_for(focus);var excluded: Array[RID]=[]
+		if vehicle!=0:
+			offsets=[Vector3(8,7,18),Vector3(-8,7,18),Vector3(0,14,12)]
+			if fleet.bodies.has(vehicle):excluded.append(fleet.bodies[vehicle].get_rid())
 		for index in offsets.size():
 			var wanted: Vector3=eye+basis*offsets[index]
-			var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(eye,wanted,1))
+			var hit: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(eye,wanted,1,excluded))
 			var point: Vector3=hit.position+hit.normal*.3 if not hit.is_empty() else wanted
 			var score: float=point.distance_to(eye)-index*.2
 			if score>clearance:best=point;clearance=score
@@ -192,6 +227,8 @@ func direct():
 	for i in game.match_mode.flags.size():
 		var f: Dictionary=game.match_mode.flags[i];names.append(("RED" if i==0 else "BLUE")+": "+("CARRIED" if f.carrier else "DROPPED" if f.dropped else "HOME"))
 	var watched: String=game.players[focus].name+" · "+game.players[focus].tribes_class.to_upper() if game.players.has(focus) else "Overview"
+	var craft: int=game.match_mode.tribes.vehicles.vehicle_for(focus)
+	if craft!=0:watched+=" · "+str(game.match_mode.tribes.vehicles.rows[craft].kind).to_upper()+" PILOT"
 	var speed:=watched_speed()
 	var team_size:=clampi(int(options.get("team_size",6)),1,16)
 	overlay.text="LIVE %dv%d · ST TRIBES · %s     RED %d : %d BLUE     %02d:%02d\n%s     %s\nWatching %s     SPEED %.0f km/h horizontal"%[team_size,team_size,game.current_map.trim_prefix("ctf_").to_upper(),game.match_mode.scores[0],game.match_mode.scores[1],int(game.round_left)/60,int(game.round_left)%60,names[0],names[1],watched,speed]

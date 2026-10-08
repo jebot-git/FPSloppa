@@ -1,5 +1,5 @@
 """Real local ENet server/client integration, with isolated test preferences."""
-import os, subprocess, time
+import os, subprocess, time, sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];OUT=ROOT/'test-results/cs16';OUT.mkdir(exist_ok=True)
 env=dict(os.environ,XDG_CONFIG_HOME='/tmp/cs16-net-config',XDG_DATA_HOME='/tmp/cs16-net-data')
@@ -7,7 +7,7 @@ cmd=['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','death
 processes=[];logs=[]
 try:
  for role in ['server','client']:
-  log=open(OUT/f'network-{role}.log','w');logs.append(log);processes.append(subprocess.Popen(cmd+[role],stdout=log,stderr=subprocess.STDOUT,env=env))
+  log=open(OUT/f'network-{role}.log','w');logs.append(log);processes.append(subprocess.Popen(cmd+[role]+(['--hk-only'] if '--hk-only' in sys.argv else []),stdout=log,stderr=subprocess.STDOUT,env=env))
   if role=='server':time.sleep(1)
  for proc in processes:proc.wait(timeout=110)
  for role,proc in zip(['server','client'],processes):

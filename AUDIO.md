@@ -163,11 +163,31 @@ Validation: tests load and animate all five expression bindings on all three def
 voice levels. Music uses `ArenaMusic`, including its existing −12 dB trim and
 5% volume steps, matching Master, Effects, Announcer and Voice. Muting it does not affect effects or voice.
 
-The title screen always plays internal **Dead Air**; the lobby always plays
-internal **Please Hold**. Gameplay normally has map ambience when no custom
-track matches; matching ordinary custom BGM suspends it. A conditional climax
-cue, **Tower Defense Theme** by DST (CC0), blends in over 2.5 seconds as ambience
-fades away, and fades back to ambience when the condition ends. It uses the
+The title screen plays **Shadows Awaken Within**; the lobby plays
+**Singularity — Calm**, both CC0 recordings by vitalezzz. These bundled themes
+loop continuously and crossfade when the context changes. Gameplay uses bundled CC0 mode music with map ambience
+when no custom track matches; matching ordinary custom BGM suspends ambience.
+The mode defaults leave the environmental bed audible (about 3 dB lower at full
+music volume, about 1.25 dB for Bomb Defusal). Lowering or muting default music
+restores that bed, independently of effects and voice. Existing combat ducking
+and indoor filtering still apply to ambience.
+
+The approved mode defaults are Silver Bullet (DM), Brute Force (TDM), Chase (CTF),
+Open Warfare (KOTH), Final Hour (IG), Black Diamond (IF), Energetic Electro Tune
+(FT), Megasong (CC), Devoted Guard (TF), The 9th Circle (TB), Fight for Better Future
+(AS), Infiltration (DE), and Singularity — Action (ST). These are bundled resources,
+not files placed in the user's `bgm/`.
+Custom map → mode → global playlists override the bundled defaults.
+
+Defaults are stereo Vorbis, trimmed of near-silent edges and circularly blended
+at their loop boundary. Constant-gain normalization targets −22 LUFS (−25 for
+Bomb Defusal); no dynamic compression is added. Authored loop sources receive a
+40 ms seam repair; full songs use a 2.5-second circular overlap. Source hashes,
+exact edits and render measurements are recorded in the music credits/manifest.
+
+A conditional climax cue, **Tower Defense Theme** by DST (CC0), blends in over
+2.5 seconds as mode music and ambience fade away, then returns to the mode music
+and ambience when the condition ends. It uses the
 original's 1:35–2:50 section, with the buildup on entry and a 40-bar repeat at
 130 BPM. Music stays on the Music slider in desktop and VR.
 

@@ -1,5 +1,7 @@
 extends Node
-const TRACKS={"title":"dead_air","lobby":"please_hold"}
+const TRACKS={"title":"contexts/title","lobby":"contexts/lobby"}
+const DEFAULT_MODES=["dm","tdm","ctf","koth","ig","if","cc","as","de","st","ft","tb","tf"]
+const MODE_ROOT:="res://deathmatch/audio/music/modes/"
 const WIN_TRACK:="res://deathmatch/audio/music/tower_defense_climax.ogg"
 # 75-second edit, with a beat-aligned 40-bar loop at the source's 130 BPM.
 const WIN_LOOP_OFFSET:=1.15385416666667
@@ -58,8 +60,13 @@ func has_custom_bgm(include_climax: bool=true) -> bool:
 	return false
 func ambience_gain() -> float:
 	var power:=0.0
+	var bus:=AudioServer.get_bus_index("ArenaMusic")
+	var mode_gain:=0.0 if bus<0 or AudioServer.is_bus_mute(bus) else clampf(db_to_linear(AudioServer.get_bus_volume_db(bus)+12.0),0.0,1.0)
 	for player in players:
-		if player.playing and player.get_meta("climax",false):power+=pow(db_to_linear(player.volume_db),2)
+		if not player.playing:continue
+		var level:=pow(db_to_linear(player.volume_db),2)
+		if player.get_meta("climax",false):power+=level
+		elif player.get_meta("mode_default",false):power+=level*float(player.get_meta("ambience_mask",.5))*mode_gain*mode_gain
 	return sqrt(maxf(0.0,1.0-power))
 func refresh(rescan: bool=true) -> void:
 	context=desired_context()
@@ -75,6 +82,8 @@ func refresh(rescan: bool=true) -> void:
 		if context.ends_with("|win") and choice.tracks.is_empty():
 			choice=catalog.choose(game.match_mode.kind,game.current_map)
 			if choice.tracks.is_empty():choice={"key":"builtin:win","tracks":[WIN_TRACK]}
+		if choice.tracks.is_empty() and game.match_mode.kind in DEFAULT_MODES:
+			choice={"key":"builtin:mode:"+game.match_mode.kind,"tracks":[MODE_ROOT+game.match_mode.kind+".ogg"]}
 	if TRACKS.has(context):catalog_context="" # Re-entering gameplay rescans custom files.
 	if selected==choice.key and tracks==choice.tracks:
 		failed.clear();exhausted=false
@@ -95,7 +104,7 @@ static func load_track(path: String) -> AudioStreamOggVorbis:
 	return stream if stream and stream.get_length()>0 else null
 func request_next() -> void:
 	if worker or prepared or tracks.is_empty() or exhausted:return
-	if not need_next and (TRACKS.has(selected) or selected=="builtin:win"):return
+	if not need_next and (TRACKS.has(selected) or selected.begins_with("builtin:")):return
 	for offset in tracks.size():
 		var next: int=(index+1+offset)%tracks.size()
 		if tracks[next] in failed:continue
@@ -115,6 +124,8 @@ func transition(stream: AudioStreamOggVorbis,path: String) -> void:
 	current=1-outgoing;players[current].stop();players[current].stream=stream;playing_path=path
 	players[current].set_meta("custom_bgm",not path.is_empty() and not path.begins_with("res://"))
 	players[current].set_meta("climax",path==WIN_TRACK or selected.begins_with("win:"))
+	players[current].set_meta("mode_default",path.begins_with(MODE_ROOT))
+	players[current].set_meta("ambience_mask",.25 if path==MODE_ROOT+"de.ogg" else .5)
 	fade=0.0
 	players[current].volume_db=-80
 	if stream:players[current].play()

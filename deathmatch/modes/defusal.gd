@@ -91,6 +91,11 @@ func reset():
 func load_layout():
 	var layout:=Maps.resolve(game.current_map,game.map_sha)
 	if layout.is_empty():layout=Maps.resolve(MAP)
+	# A launcher preload can start with an empty asset folder. Other modes and
+	# disconnects also reset DE state, even when its optional default is absent.
+	if layout.is_empty():
+		sites.clear();starts=[[],[]];site_bounds.clear();site_volumes.clear()
+		spawn_yaws=[PI,0.0];individual_yaws.clear();return
 	sites=layout.sites.map(func(p):return Maps.vector(p));starts=[[],[]];site_bounds.clear();site_volumes.clear()
 	for team in 2:starts[team]=layout.starts[team].map(func(p):return Maps.vector(p))
 	for bounds in layout.bounds:site_bounds.append(AABB(Maps.vector(bounds.min),Maps.vector(bounds.max)-Maps.vector(bounds.min)))

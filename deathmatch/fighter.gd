@@ -100,7 +100,7 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	if DisplayServer.get_name() == "headless": return
 	avatar = Art.marine(color)
 	add_child(avatar)
-	label = Label3D.new()
+	label = preload("res://deathmatch/ui/colored_nametag.gd").new()
 	label.text = nickname
 	label.position.y = 2.0
 	label.font_size = 28
@@ -522,7 +522,9 @@ var class_badge: Label3D
 func set_nametag(nickname: String,team: int,color: Color) -> void:
 	if not label:return
 	# Shape supplements colour without another floating panel or through-wall marker.
-	label.text=("◆ " if team==0 else "● " if team==1 else "")+nickname
+	if label.has_method("set_player_name"):
+		label.call("set_player_name",nickname,team,color);return
+	label.text=("◆ " if team==0 else "● " if team==1 else "")+preload("res://deathmatch/ui/name_style.gd").plain(nickname)
 	label.modulate=color.lightened(.2 if team in [0,1] else .4)
 func set_class_badge(title: String,color: Color) -> void:
 	if title.is_empty():

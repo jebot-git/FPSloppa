@@ -1,10 +1,45 @@
 # Built-in music
 
-**Dead Air** (title, 113 seconds), **Please Hold** (lobby, 103 seconds), and the
-conditional **Tower Defense Theme — Climax Loop** (75 seconds) are bundled.
-The title/lobby Ogg renders and eight-channel MOD sources are unchanged.
+**Shadows Awaken Within** (main menu), **Singularity — Calm** (lobby), and the
+conditional **Tower Defense Theme — Climax Loop** are bundled.
 Gameplay also supports client-owned Ogg music from the external `bgm` folder;
 see [AUDIO.md](../../../AUDIO.md) for cue conditions and playlist rules.
+
+## Default mode soundtrack — CC0 1.0
+
+The approved OpenGameArt recordings are bundled under `modes/` as edited stereo
+Vorbis loops. Each linked submission lists CC0. All source and output SHA-256
+hashes, exact trim/overlap points, durations and loudness measurements are in
+[`modes.json`](modes.json).
+
+| Mode | Recording | Creator |
+| --- | --- | --- |
+| DM | [Silver Bullet](https://opengameart.org/content/silver-bullet) | vitalezzz |
+| TDM | [Brute Force, loop version](https://opengameart.org/content/brute-force) | vitalezzz |
+| CTF | [Chase](https://opengameart.org/content/chase-2) | Adiutorium |
+| KOTH | [Open Warfare, original](https://opengameart.org/content/open-warfare) | Ruskerdax |
+| IG | [Final Hour](https://opengameart.org/content/final-hour) | isaiah658 |
+| IF | [Black Diamond](https://opengameart.org/content/black-diamond) | Joth |
+| FT | [Energetic Electro Tune](https://opengameart.org/content/energetic-electro-tune) | TinyWorlds |
+| CC | [Megasong](https://opengameart.org/content/megasong) | Emma_MA |
+| TF | [Devoted Guard](https://opengameart.org/content/devoted-guard) | vitalezzz |
+| TB | [The 9th Circle](https://opengameart.org/content/the-9th-circle) | Joth |
+| AS | [Fight for Better Future](https://opengameart.org/content/fight-for-better-future-rockmetal) | nene |
+| DE | [Infiltration](https://opengameart.org/content/infiltration) | Adiutorium |
+| ST | [Singularity, Action version](https://opengameart.org/content/singularity-0) | vitalezzz |
+
+Rebuild with `python3 tools/prepare_mode_music.py` (FFmpeg and NumPy). Original
+downloads are cached in `~/.cache/fpsloppa-oga-mode-music`, outside exports. Once
+recorded, source hashes are checked before processing; changed upstream files
+are rejected. `--only dm tdm` rebuilds selected modes. Edits remove near-silent
+edges, circularly overlap full songs by 2.5 seconds (40 ms for authored loops),
+and apply constant gain toward −22 LUFS / −25 for DE, with −4 dBTP headroom before
+Vorbis encoding. No generated instrumentation is added. These edits remain CC0.
+
+`python3 tools/validate_soundtrack.py` checks decoded duration, finite PCM,
+loop-boundary steps, loudness, true peaks and hashes. Native playback/overrides
+and ambience transitions are checked by `deathmatch/tests/default_mode_music.gd`,
+`music.gd`, and `climax_music.gd`.
 
 ## Tower Defense Theme — CC0 1.0
 
@@ -27,12 +62,29 @@ The tool requires FFmpeg and NumPy and checks the original download's hash.
 boundary, duration, loudness, peak and hash. This CC0 edit retains the original
 license. The full downloaded MP3 is not bundled.
 
-## Title and lobby renders
+## Main-menu and lobby themes — CC0 1.0
 
-`scores.json` lists the two retained renders and their hashes. Run
-`python3 tools/generate_tracker_music.py title lobby` to regenerate them, or
-`python3 tools/validate_soundtrack.py` to audit the retained audio. Historical
-composition material under `docs/audio/` is not included in game exports.
+Both replacements are by **vitalezzz**, approved after OpenGameArt previews:
+
+| Context | Recording | Source audio |
+| --- | --- | --- |
+| Main menu | [Shadows Awaken Within](https://opengameart.org/content/shadows-awaken-within) | [WAV](https://opengameart.org/sites/default/files/shadows_awaken_within.wav) |
+| Lobby | [Singularity — Calm](https://opengameart.org/content/singularity-0) | [WAV](https://opengameart.org/sites/default/files/singularity_calm.wav) |
+
+The OGA pages list CC0. [`contexts.json`](contexts.json) records source/output
+hashes, exact trim and loop edits, loudness measurements and durations. Rebuild
+with `python3 tools/prepare_context_music.py`; `--only title` or `--only lobby`
+limits regeneration. The shared mode pipeline applies constant gain toward
+−22 LUFS, trims near-silent edges, and circularly overlaps the title by 2.5 seconds
+and the authored lobby loop by 40 ms. These edits remain CC0. Playback uses the
+existing Music slider, mute, and context crossfade; custom gameplay playlists
+retain their established precedence.
+
+Legacy **Dead Air** and **Please Hold** recordings, MOD sources and `scores.json`
+remain in the source tree for historical reproducibility; export presets exclude
+them. `tools/generate_tracker_music.py` only regenerates those legacy recordings,
+not the active themes. The instrument provenance below applies to those earlier
+tracker compositions. Historical material under `docs/audio/` is also excluded.
 
 ## Recorded instrument sources — CC0 1.0
 

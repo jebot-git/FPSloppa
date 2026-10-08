@@ -90,7 +90,7 @@ func tick(delta: float) -> void:
 	if ready_to_walk:
 		navigation.install_links();navigation.update_jump_links()
 	teamplay.tick()
-	if game.match_mode.kind=="st":tribes.tactics.tick()
+	if game.match_mode.kind=="st":tribes.tactics.tick();tribes.vehicles.recruit()
 	for id in brains.keys():
 		if not game.players.has(id) or not game.fighters.has(id):brains.erase(id)
 	for id in game.players:
@@ -115,6 +115,7 @@ func tick(delta: float) -> void:
 			perceive(id,brain)
 		if game.match_mode.defusal.bot_input(id):s.move=Vector2.ZERO;s.fire=false;s.alt_fire=false;s.melee=false;s.jump=false;continue
 		if titanball.pilot_input(id,brain):continue
+		if tribes.vehicles.tick(id,brain,delta):continue
 		if thinking and game.clock>=brain.plan_at:
 			plan(id,brain);brain.plan_at=game.clock+.8
 		if map_triggers.tick(id,brain,delta):continue

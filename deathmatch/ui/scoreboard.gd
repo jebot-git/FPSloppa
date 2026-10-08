@@ -1,10 +1,11 @@
 extends PanelContainer
+const Names=preload("res://deathmatch/ui/name_style.gd")
 const FONT=preload("res://deathmatch/ui/BebasNeue-Regular.ttf")
 const RED=Color("ff9c88")
 const BLUE=Color("91caff")
 var title: Label
 var summary: Label
-var observers: Label
+var observers: RichTextLabel
 var footer: Label
 var rows: Array=[]
 var headers: Array=[]
@@ -19,7 +20,10 @@ func label(parent: Node,width: float,size: int) -> Label:
 func cells(parent: Node) -> Array:
 	var box:=HBoxContainer.new();parent.add_child(box);box.add_theme_constant_override("separation",8)
 	var result: Array=[]
-	for width in [30,290,116,70,70,70]:result.append(label(box,width,22))
+	for width in [30,290,116,70,70,70]:
+		if result.size()==1:
+			var name_cell:=Names.rich_label(width,24,22);name_cell.add_theme_font_override("normal_font",FONT);box.add_child(name_cell);result.append(name_cell)
+		else:result.append(label(box,width,22))
 	result[1].size_flags_horizontal=Control.SIZE_EXPAND_FILL
 	for i in [0,3,4,5]:result[i].horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
 	return result
@@ -40,14 +44,14 @@ func setup() -> void:
 		var style:=StyleBoxFlat.new();style.bg_color=Color("202630") if i%2==0 else Color("181e27")
 		line.add_theme_stylebox_override("panel",style)
 		rows.append({"panel":line,"style":style,"cells":cells(line)})
-	observers=label(column,0,17);footer=label(column,0,16)
+	observers=Names.rich_label(0,24,17);column.add_child(observers);footer=label(column,0,16)
 	hide()
 static func capture(game) -> Dictionary:return preload("res://deathmatch/modes/scoreboard_data.gd").capture(game)
 func refresh(game) -> void:refresh_data(capture(game))
 func refresh_data(data: Dictionary,wall: bool=false) -> void:
 	var team_game: bool=data.team_game
 	var tf: bool=data.tf
-	title.text=data.title;summary.text=data.summary
+	title.text=Names.plain(data.title);summary.text=data.summary
 	headers[3].text="SCORE" if data.get("st",false) else "FRAGS"
 	var ranked: Array=data.ranked
 	headers[2].visible=tf
@@ -59,10 +63,12 @@ func refresh_data(data: Dictionary,wall: bool=false) -> void:
 		row.style.bg_color=Color(colour.r*.12,colour.g*.12,colour.b*.12,.98) if team_game else Color("202630") if i%2==0 else Color("181e27")
 		var values: Array=[str(i+1),player.name,player.class_name,str(player.kills),str(player.deaths),str(player.ping)]
 		for j in range(6):
-			row.cells[j].text=values[j];row.cells[j].add_theme_color_override("font_color",colour)
+			row.cells[j].add_theme_color_override("font_color",colour)
+			if j==1:Names.paint(row.cells[j],values[j],colour)
+			else:row.cells[j].text=values[j]
 		row.cells[2].visible=tf
 	var names:=PackedStringArray(data.spectators)
-	observers.text="SPECTATORS (%d): "%names.size()+", ".join(names)
+	Names.paint(observers,"SPECTATORS (%d): "%names.size()+", ".join(names))
 	observers.visible=not names.is_empty()
 	footer.text=("LAST ROUND   ·   " if wall else "HOLD SCORES TO VIEW   ·   ")+"%d PLAYERS"%ranked.size()
 	if ranked.size()>16:footer.text+="   ·   SHOWING FIRST 16 (HIGHER LIMITS UNSUPPORTED)"

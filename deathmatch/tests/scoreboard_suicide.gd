@@ -3,8 +3,9 @@ var failures: Array=[]
 class TestBindings extends RefCounted:
 	var held:=false
 	var two_handed:=true
+	var vr:={"scores":"scores","menu":"menu","use":"use","ability":"ability","weapon_wheel":"wheel"}
 	func pressed(action: String) -> bool:return held and action=="scores"
-	func vr_pressed(_rig,action: String) -> bool:return held and action=="scores"
+	func vr_pressed(rig,action: String) -> bool:return rig.focused and held and action=="scores"
 func check(ok: bool,label: String) -> void:
 	print("PASS " if ok else "FAIL ",label)
 	if not ok:failures.append(label)

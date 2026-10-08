@@ -11,7 +11,7 @@ provide the reference. The community scripts are not authenticated retail source
 
 | System | What remains |
 |---|---|
-| Vehicles | Scout, LPC/HPC, purchasing, piloting, passengers, damage/repair and theft now work. Autonomous bot pilots/transport tactics, dedicated seated avatar poses and vehicle input prediction remain. See [vehicles](ST-VEHICLES.md). |
+| Vehicles | Scout, LPC/HPC, purchasing, piloting, passengers, damage/repair and theft now work. Scout/Shrike bot purchasing and piloting now work; transport/passenger tactics, dedicated seated avatar poses and vehicle input prediction remain. See [vehicles](ST-VEHICLES.md). |
 | Commander/PDA | First pass includes terrain map, coverage circles, voluntary hierarchy, move/attack/defend orders, acknowledgements and waypoints. Teammate camera, repair orders, objective briefing and richer selection remain. See [command controls](ST-COMMAND.md). |
 | Fixed defence fidelity | Fusion, mini-fusion, ELF, missile and manual mortar turrets, manual control and large pulse sensors now work. Powered equipment shields and original disable thresholds now work; retail-engine timing/heat fidelity remains. Stonehenge uses two fusion turrets at project sockets, not verified stock placement. |
 | Complete base infrastructure | Multiple generators/solar sources, individual power links, equipment shields/thresholds and distinct station fixtures now work. Command terminals open the PDA, and Raindance vehicle pads provide purchases; full commander fidelity remains incomplete. Stonehenge retains its referenced inventory/generator placement. |

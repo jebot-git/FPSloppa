@@ -11,7 +11,8 @@ var tactics=preload("res://deathmatch/bot_ai/tribes_tactics.gd").new()
 var avoidance=preload("res://deathmatch/bot_ai/tribes_avoidance.gd").new()
 var travel=preload("res://deathmatch/bot_ai/tribes_travel.gd").new()
 var capture=preload("res://deathmatch/bot_ai/tribes_capture.gd").new()
-func setup(value):ai_ref=weakref(value);routes.ai=value;equipment.ai=value;tactics.ai=value;offense.ai=value;construction.ai=value;avoidance.ai=value;travel.ai=value;capture.ai=value
+var vehicles=preload("res://deathmatch/bot_ai/tribes_vehicles.gd").new()
+func setup(value):ai_ref=weakref(value);routes.ai=value;equipment.ai=value;tactics.ai=value;offense.ai=value;construction.ai=value;avoidance.ai=value;travel.ai=value;capture.ai=value;vehicles.ai=value
 
 var assignments: Dictionary={}
 var assignment_state: Dictionary={}

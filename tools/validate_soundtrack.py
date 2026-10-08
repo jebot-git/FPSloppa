@@ -7,7 +7,7 @@ MUSIC=ROOT/'deathmatch/audio/music'
 
 def main():
     rows=[]; failures=[]
-    for score in json.loads((MUSIC/'scores.json').read_text())+[json.loads((MUSIC/'climax.json').read_text())]:
+    for score in json.loads((MUSIC/'contexts.json').read_text())+[json.loads((MUSIC/'climax.json').read_text())]+json.loads((MUSIC/'modes.json').read_text()):
         path=MUSIC/(score['stem']+'.ogg')
         raw=subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-f','f32le','-ar','32000','-ac','2','-'])
         samples=np.frombuffer(raw,dtype='<f4').reshape(-1,2)

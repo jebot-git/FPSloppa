@@ -60,7 +60,7 @@ func gesture(label: String,w: int):
 		await hand_step(w,model*(Reload.RACK_POINTS[w]+Vector3.BACK*.065+Vector3.UP*.055),true)
 		await hand_step(w,model*(Reload.RACK_POINTS[w]+Vector3.BACK*.065+Vector3.UP*.055))
 	elif label=="MP5 slap":
-		var latch: Vector3=Reload.RACK_POINTS[w]+Vector3.BACK*.065+Vector3.UP*.055
+		var latch: Vector3=Reload.hk_transform(1,1)*Reload.RACK_POINTS[w]
 		await hand_step(w,model*(latch+Vector3.UP*.19))
 		for offset in [.12,.05,-.02]:await motion_step(w,model*(latch+Vector3.UP*offset))
 	elif label.begins_with("AWP bolt"):
@@ -105,6 +105,14 @@ func gesture(label: String,w: int):
 	elif label.ends_with("shot"):
 		await hand_step(w,bag,false,false,true);await hand_step(w,bag)
 	else:await hand_step(w,bag)
+func hk_sequence(id: int) -> void:
+	var s: Dictionary=game.players[id]
+	s.serial+=1;s.weapon=5;s.cooldown=0
+	await publish("MP5 ready",[5,30,7,0,0]);await publish("MP5 notch",[5,30,67,100,0,0,100,100])
+	var mp5_ammo: Array=s.ammo.duplicate()
+	await publish("MP5 eject",[5,0,65,100,0,0,100,0]);await publish("MP5 draw",[5,0,65,100,0,1,100,0])
+	await publish("MP5 insert",[5,30,67,100,0,0,100,0]);await publish("MP5 slap",[5,30,7,0,0])
+	check(s.ammo==mp5_ammo,"Remote MP5 lock, magazine swap and slap preserve ammunition")
 func run():
 	role=OS.get_cmdline_user_args()[0]
 	game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game);Fixture.setup(game)
@@ -115,7 +123,12 @@ func run():
 		check(await wait_for(func():return game.players.size()==1 and observer.seen.has("ready"),20),"Remote client joins CS16 server")
 		game.set_physics_process(false);game.set_process(false)
 		game.input_delivery.guards.clear() # Fresh budget after freezing the authority clock.
-		if game.players.size()==1:
+		if game.players.size()==1 and OS.get_cmdline_user_args().has("--hk-only"):
+			var id: int=game.players.keys()[0]
+			game.match_mode.kind="de";game.match_mode.defusal.phase="live"
+			game.players[id].merge({"weapon":5,"owned":range(12),"ammo":[60,64,300,40],"dead":false,"spectator":false,"hp":2000,"invulnerable":0,"cooldown":0.0,"input_blocked":false,"reload":false,"reload_grip":false,"fire":false,"held":false,"alt_fire":false,"vr_device":true},true)
+			await hk_sequence(id)
+		if game.players.size()==1 and not OS.get_cmdline_user_args().has("--hk-only"):
 			var id: int=game.players.keys()[0];var s: Dictionary=game.players[id];var cs=game.variant_combat.cs
 			s.merge({"weapon":2,"owned":range(12),"ammo":[60,64,300,40],"dead":false,"spectator":false,"hp":2000,"invulnerable":0,"cooldown":0.0,"input_blocked":false,"reload":false,"fire":false,"held":false,"alt_fire":false},true)
 			cs.state(id).clips[2]=5;await publish("partial magazine",[2,5,false,false])
@@ -154,8 +167,7 @@ func run():
 			check(s.ammo[2]==300,"Remote ammo-box reload conserves the shared reserve")
 			s.serial+=1;s.weapon=6;s.cooldown=0;cs.state(id).clips[6]=10
 			await publish("AK ready",[6,10,7,0,0]);await publish("AK draw",[6,10,7,0,1]);await publish("AK bump",[6,1,5,0,1]);await publish("AK insert",[6,30,7,0,0]);await publish("AK rack",[6,30,7,0,0])
-			s.serial+=1;s.weapon=5;s.cooldown=0
-			await publish("MP5 ready",[5,30,7,0,0]);await publish("MP5 notch",[5,30,67,100,0,0,100,100]);await publish("MP5 slap",[5,30,7,0,0])
+			await hk_sequence(id)
 			s.serial+=1;s.weapon=9;s.cooldown=0
 			await publish("AWP ready",[9,10,7,0,0]);await publish("AWP bolt raise",[9,10,11,0,0,0,100,100]);await publish("AWP bolt pull",[9,10,11,100,0,0,100,100]);await publish("AWP bolt close",[9,10,11,0,0,0,100,100]);await publish("AWP bolt lock",[9,10,7,0,0,0,0,100])
 			s.serial+=1;s.weapon=2;s.cooldown=0
