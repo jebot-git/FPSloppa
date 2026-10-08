@@ -18,7 +18,7 @@ targets=[('Linux PC','Linux','FPSloppa.x86_64'),('Windows PC','Windows','FPSlopp
 if '--package-only' not in sys.argv and '--stage-only' not in sys.argv:
     markers=[]
     try:
-        for name in ['Builds','dist','external-tools','tools','docs','materials','textures','maps','vrm','bgm']:
+        for name in ['Builds','dist','output','external-tools','tools','docs','materials','textures','maps','vrm','bgm']:
             marker=root/name/'.gdignore'
             if marker.parent.is_dir() and not marker.exists():marker.touch();markers.append(marker)
         for preset,folder,binary in targets:
@@ -59,9 +59,22 @@ for _,folder,binary in targets:
     launcher_name=write_wrapper(dest,folder)
     selected.add(launcher_name)
     stage(root/'docs/DESKTOP-LAUNCHER.md',dest/'docs/DESKTOP-LAUNCHER.md')
+    # Use the portable manual so packaged clients do not expose source-tree links.
+    with zipfile.ZipFile(root/'output/FPSloppa-Manual.zip') as manual:
+        for info in manual.infolist():
+            relative=Path(info.filename).relative_to('FPSloppa-Manual')
+            assert '..' not in relative.parts and not relative.is_absolute()
+            if info.is_dir():continue
+            out=dest/'docs/manual'/relative
+            out.parent.mkdir(parents=True,exist_ok=True)
+            out.write_bytes(manual.read(info))
+            selected.add(out.relative_to(dest).as_posix())
     asset_manifest=json.loads((root/"deathmatch/assets/base_manifest.json").read_text())
     for row in asset_manifest["files"]:
-        source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);stage(source,destination)
+        source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True)
+        if row['path'] in asset_manifest.get('maplists',{}):
+            destination.write_text(asset_manifest['maplists'][row['path']]);selected.add(row['path'])
+        else:stage(source,destination)
     for name in ['ST-TRIBES.md','ST-T2-CLASSIC.md','ST-VEHICLES.md','ST-COMMAND.md','ST-WRIST-DISPLAY.md','ST-KATABATIC.md','TRIBES-LOADOUT.md','TRIBES-ARMOUR-SOURCES.md','EXTERNAL-ASSETS.md','ARCHIVED-EXTRAS.md','RENDERER-SUPPORT.md','SERVER-BROWSER.md','BOMB-DEFUSAL.md','CS16-LOADOUT.md','CS16-GRENADES.md','CS16-PENETRATION.md','DE-MAP-FIDELITY.md','BULLET-MARKS.md','VR_PHYSICAL_INTERACTIONS.md','TEXTURE-MIPMAPS.md','XR-FOVEATION.md','WEAPON-WHEEL.md','WEAPON-RESPAWNS.md','ARENA-JETPACKS.md','TITANBALL.md','RELEASE-'+(root/'VERSION').read_text().strip()+'.md']:
         stage(root/'docs'/name,dest/'docs'/name)
     for name in ['AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','EYES.md','PERFORMANCE.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
@@ -130,7 +143,8 @@ with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:
         # Versioned import files are authored policy (mips, normals, sky codecs,
         # raw WAD handling); unversioned editor metadata is excluded by Git.
         if f.suffix in {'.pyc','.log','.mp4','.bak','.tmp','.blend1','.blend2','.keystore','.jks','.p12'} or f.name=='.DS_Store' or f.name=='.env' or f.name.startswith('.env.'):continue
-        z.write(f,Path('Godot')/rel)
+        if name in asset_manifest.get('maplists',{}):z.writestr(str(Path('Godot')/rel),asset_manifest['maplists'][name])
+        else:z.write(f,Path('Godot')/rel)
 archives.append(archive)
 archive=root.parent/'FPSloppa-Master-Server.zip'
 with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as z:

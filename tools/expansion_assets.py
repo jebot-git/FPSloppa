@@ -11,7 +11,8 @@ def verify(root,paths):
   assert not row['failures'] and row['baked_faces']>0 and row['light_atlases']>0,row['id']
   assert {c['format'] for c in row['codecs']}=={'bc7','astc4'}
   for asset in row['assets']:
-   assert asset['path'] in names,asset['path']
+   # Inactive scene aliases are audited locally but omitted from distribution.
+   assert asset['path'] in names or asset['path'].startswith('maps/cache/'),asset['path']
    assert hashlib.sha256((root/asset['path']).read_bytes()).hexdigest()==asset['sha256'],asset['path']
  caches=json.loads((root/'tools/expansions/cache_validation.json').read_text());assert not caches['failures']
  assert {(c['id'],c['codec']) for c in caches['caches']}=={(name,codec) for name in expected for codec in ['', 'bc7','astc4']}

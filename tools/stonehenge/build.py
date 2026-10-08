@@ -173,7 +173,9 @@ class Stonehenge(Arena):
             self.probes['stations'].append(dict(team=team,position=game(p)))
         box((-3,-11,34),(3,-8,37),TRIM);box((-2.7,-11.15,35), (2.7,-11,36),paint)
         self.marker('info_tribes_generator',local((0,-9,34.05)),team=team)
-        for i,(x,y,h) in enumerate([(-10,-5,34),(-10,0,34),(10,-5,34),(10,0,34),(-11,-8,40),(11,-8,40),(-11,8,40),(11,8,40)]):
+        # Keep the lower east spawn off an exact triangulation seam: a vertical
+        # floor ray can miss the shared edge after BSP compilation.
+        for i,(x,y,h) in enumerate([(-10,-5,34),(-10,0,34),(10,-5,34),(9.5,0,34),(-11,-8,40),(11,-8,40),(-11,8,40),(11,8,40)]):
             p=local((x,y,h+.06));self.marker('info_player_team'+str(team+1),p,angle=math.degrees(angle)-(90 if x>0 else -90))
             self.probes['spawns'].append(dict(team=team,position=game(p)))
             if team==0 and i==0:self.marker('info_player_start',p)

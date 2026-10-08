@@ -190,3 +190,6 @@ tools/unreal_imports/local/
 # Generated Unreal conversion geometry and texture banks stay with local assets.
 /maps/UnrealImports/**/*.map
 /maps/UnrealImports/**/*.wad
+
+# Generated manual delivery copies; canonical manual is under docs/manual.
+/output/

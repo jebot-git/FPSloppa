@@ -23,7 +23,8 @@ func run() -> void:
 	check(game.voice.get_script().resource_path.ends_with("/relay.gd") and game.voice.mic==null,"Voice uses packet relay without microphone")
 	check(game.spatial==null and game.music==null and game.permissions==null,"No client audio or permission services")
 	for row in game.map_catalog:
-		game.match_mode.kind="dm"
+		# ST and DE now enforce mode-exclusive maps before loading them.
+		game.match_mode.kind=str(row.get("modes",["dm"])[0])
 		check(game._load_map(row.id),"Load server map "+row.id)
 		await get_tree().physics_frame
 		var runtime=game.get_node("Map/MapRuntime")

@@ -11,11 +11,12 @@ func run() -> void:
 		var raw: String=str(row.scene).get_basename()+"-lightmap1.scn"
 		if DictionaryTextures.has_missing(row.path):raw=raw.get_basename()+"-textures-"+DictionaryTextures.version()+".scn"
 		var digest:=FileAccess.get_sha256(row.path)
+		if digest!=str(row.sha256):failures.append("Catalog BSP checksum mismatch: "+str(row.id))
 		for codec in ["","bc7","astc4"]:
 			var path: String=raw if codec.is_empty() else Loader.compressed_scene_path(raw,codec)
 			var packed:=ResourceLoader.load(path,"PackedScene",ResourceLoader.CACHE_MODE_IGNORE) as PackedScene
 			var valid:=packed!=null and Loader.cache_matches(packed,digest,codec)
-			records.append({"map":row.id,"codec":codec,"path":path,"source_matches":valid})
+			records.append({"map":row.id,"codec":codec,"path":path,"source_matches":valid,"sha256":FileAccess.get_sha256(path),"bsp_sha256":digest})
 			if not valid:failures.append(path)
 			packed=null
 		await process_frame

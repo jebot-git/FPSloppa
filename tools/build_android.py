@@ -71,7 +71,7 @@ try:
     # Export filters do not stop the editor's pre-export import scan. These
     # directories are excluded by both Android presets and contain generated
     # engine/build trees or authoring sources, not APK resources.
-    for name in ['Builds', 'dist', 'external-tools', 'tools', 'docs', 'materials', 'textures', 'maps', 'vrm']:
+    for name in ['Builds', 'dist', 'output', 'external-tools', 'tools', 'docs', 'materials', 'textures', 'maps', 'vrm']:
         folder = root/name
         marker = folder/'.gdignore'
         if folder.is_dir() and not marker.exists():

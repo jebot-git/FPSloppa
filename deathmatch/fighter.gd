@@ -100,7 +100,7 @@ func setup(id: int, nickname: String, color: Color) -> void:
 	if DisplayServer.get_name() == "headless": return
 	avatar = Art.marine(color)
 	add_child(avatar)
-	label = preload("res://deathmatch/ui/colored_nametag.gd").new()
+	label = load("res://deathmatch/ui/colored_nametag.gd").new()
 	label.text = nickname
 	label.position.y = 2.0
 	label.font_size = 28

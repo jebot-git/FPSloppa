@@ -1,6 +1,6 @@
 {
 "classname" "worldspawn"
-"message" "Stonehenge | Tribes terrain study"
+"message" "Stonehenge | Tribes CTF"
 "wad" "stonehenge.wad"
 "_fpsloppa_bake" "1"
 "_fpsloppa_atlas" "4096"
@@ -27874,7 +27874,7 @@
 }
 {
 "classname" "info_player_team1"
-"origin" "-4137.26 4443.26 4026.06"
+"origin" "-4125.78 4454.4 4026.06"
 "angle" "-135.83536310331658"
 }
 {
@@ -27908,6 +27908,7 @@
 "classname" "info_tribes_sensor"
 "origin" "-4758.37 5606.43 4532.51"
 "team" "0"
+"angle" "136.41322961151718"
 }
 {
 "classname" "item_flag_team1"
@@ -27947,7 +27948,7 @@
 }
 {
 "classname" "info_player_team2"
-"origin" "3522.61 -4422.91 4501.57"
+"origin" "3512.82 -4435.57 4501.57"
 "angle" "52.26885827775419"
 }
 {
@@ -27981,6 +27982,7 @@
 "classname" "info_tribes_sensor"
 "origin" "4502.46 -5394.53 5073.06"
 "team" "1"
+"angle" "-36.66809567700291"
 }
 {
 "classname" "item_flag_team2"

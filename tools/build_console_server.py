@@ -54,6 +54,8 @@ CLIENT_FILES.update({'deathmatch/tribes/command_view.gd', 'deathmatch/tribes/tur
 
 def allowed(path):
     if path == NATIVE_DESCRIPTOR: return True
+    # Shared Q3 name parsing is pure data logic used by authoritative scoreboards.
+    if path == 'deathmatch/ui/name_style.gd': return True
     if path.startswith(CLIENT_PREFIXES) or path in CLIENT_FILES:
         return False
     if path.startswith('addons/') and path not in {'addons/bsp_importer/bsp_reader.gd', 'addons/bsp_importer/gsrc_wad_reader.gd', 'addons/bsp_importer/collision_surface_info.gd', 'addons/bsp_importer/clipper.gd'}:
@@ -244,7 +246,8 @@ script=ExtResource("1")
     license_target.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(ROOT/'addons/fps_native/GODOT-CPP-LICENSE.md', license_target)
     package_files.add(license_target.relative_to(dest).as_posix())
-    assets = json.loads((ROOT / 'deathmatch/assets/base_manifest.json').read_text())['files']
+    asset_manifest = json.loads((ROOT / 'deathmatch/assets/base_manifest.json').read_text())
+    assets = asset_manifest['files']
     for row in assets:
         path = Path(row['path'])
         if path.suffix in {'.scn', '.lit'} or 'cache' in path.parts:
@@ -252,7 +255,9 @@ script=ExtResource("1")
             (dest/path).unlink(missing_ok=True)
             continue
         package_files.add(path.as_posix())
-        target = dest / path;target.parent.mkdir(parents=True, exist_ok=True);shutil.copy2(ROOT / path, target)
+        target = dest / path;target.parent.mkdir(parents=True, exist_ok=True)
+        if path.as_posix() in asset_manifest.get('maplists',{}):target.write_text(asset_manifest['maplists'][path.as_posix()])
+        else:shutil.copy2(ROOT / path, target)
     if not (dest / 'server.cfg').exists():shutil.copy2(ROOT / 'server.cfg', dest / 'server.cfg')
     for name in ['docs/ST-TRIBES.md', 'docs/ST-VEHICLES.md', 'docs/ST-COMMAND.md', 'docs/SERVER-BROWSER.md', 'docs/BOMB-DEFUSAL.md', 'docs/CS16-LOADOUT.md', 'docs/CS16-GRENADES.md', 'docs/ARENA-JETPACKS.md', 'docs/WEAPON-RESPAWNS.md', 'docs/TITANBALL.md', 'SERVER.md', 'VOICE.md', 'TF.md', 'AS.md', 'GAMEMODES.md', 'ASSET_CREDITS.md', 'GODOT-LICENSE.txt', 'GODOT-COPYRIGHT.txt']:
         (dest / name).parent.mkdir(parents=True, exist_ok=True)

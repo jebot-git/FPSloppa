@@ -14,6 +14,14 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
         if label in {'Linux','Windows'}:
             assert prefix+'bgm/' in names, ('Missing custom music folder',label)
             assert {n for n in names if n.startswith(prefix+'bgm/')}=={prefix+'bgm/'}, ('User music leaked into release',label)
+            install=json.loads(z.read(prefix+'INSTALL-MANIFEST.json'))
+            assert install['version']==VERSION and install['platform']==label
+            owned={prefix+row['path'] for row in install['files']}
+            assert owned=={n for n in names if not n.endswith('/')} - {prefix+'INSTALL-MANIFEST.json'}, ('Incomplete updater file ownership',label)
+            for row in install['files']:
+                data=z.read(prefix+row['path'])
+                assert len(data)==row['bytes'] and hashlib.sha256(data).hexdigest()==row['sha256'], ('Updater manifest mismatch',label,row['path'])
+            assert prefix+'docs/manual/index.html' in owned and prefix+'docs/manual/FPSloppa-Player-Manual.pdf' in owned
         assert len(names)==len(z.infolist()), 'Duplicate archive entries'
         for name in names:
             p=Path(name)
@@ -42,7 +50,7 @@ for label,filename,prefix in [('Linux','FPSloppa-Linux.zip','FPSloppa-Linux/'),(
                 assert prefix+source in names,source
             for source in ['tools/master_server/server.py','tools/master_server/issue_token.py','deathmatch/ui/server_browser.gd','deathmatch/ui/server_directory.gd','deathmatch/server/discovery.gd','deathmatch/server/discovery_protocol.gd']:
                 assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale discovery source',source)
-            for source in ['deathmatch/arena.gd','deathmatch/counterstrike/grenades.gd','deathmatch/counterstrike/reload_state.gd','deathmatch/counterstrike/combat.gd','deathmatch/counterstrike/bomb_interaction.gd','deathmatch/vr/physical_reload.gd','deathmatch/vr/gaze_vrs.gd','deathmatch/vr/hip_mount.gd','deathmatch/pickups/cutter_model.gd','deathmatch/effects/bullet_marks.gd','deathmatch/tests/cs16_mag_pull.gd','deathmatch/tests/defusal_grenade_network.gd','tools/audit_release_map_caches.gd','docs/RELEASE-'+VERSION+'.md','maps/Dust2Rebuilt/de_dust2_rebuilt.map','maps/Cindercoil/tb_cindercoil.map']:
+            for source in ['deathmatch/arena.gd','deathmatch/counterstrike/grenades.gd','deathmatch/counterstrike/reload_state.gd','deathmatch/counterstrike/combat.gd','deathmatch/counterstrike/bomb_interaction.gd','deathmatch/vr/physical_reload.gd','deathmatch/vr/gaze_vrs.gd','deathmatch/vr/hip_mount.gd','deathmatch/pickups/cutter_model.gd','deathmatch/effects/bullet_marks.gd','deathmatch/tests/cs16_mag_pull.gd','deathmatch/tests/defusal_grenade_network.gd','tools/audit_release_map_caches.gd','docs/RELEASE-'+VERSION+'.md','maps/ClassicDE/de_aztec_rebuilt/de_aztec_rebuilt.map','maps/Cindercoil/tb_cindercoil.map']:
                 assert z.read(prefix+source)==(ROOT/source).read_bytes(),('Missing or stale release source',source)
             # Authored texture import settings must survive a fresh source checkout.
             for source in ROOT.glob('deathmatch/**/*.import'):

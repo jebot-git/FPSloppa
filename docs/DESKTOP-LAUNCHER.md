@@ -130,8 +130,9 @@ repository and file ownership hashes. Source checkouts and older unmanaged
 packages are never overwritten by the launcher. Install an updater-enabled
 package once to enter this update channel. Every subsequent published client ZIP
 must contain its generated install manifest and expose an API SHA-256 digest.
-The current 0.21v public packages predate this updater. The 0.22v expansion is still
-a draft as checked on 2026-10-08; publication is required for anonymous delivery.
+The 0.21v packages predate this updater. Install a full 0.22v client package
+to enter the managed update channel. Draft releases and expansion-only archives
+are not offered as client updates.
 
 The installer runs from a separate copy of the current runtime, waits for all
 registered clients, launchers and asset workers to close, and uses a journal plus

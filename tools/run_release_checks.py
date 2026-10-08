@@ -22,8 +22,16 @@ def main():
         start=time.monotonic();log=out/(name+'.log')
         with tempfile.TemporaryDirectory(prefix='fps-release-'+name+'-') as temp:
             env=dict(os.environ,XDG_CONFIG_HOME=temp+'/config',XDG_DATA_HOME=temp+'/data')
+            # Installed player imports must not expand or destabilize the release
+            # fixtures. Keep maps available and expose only bundled avatars.
+            assets=Path(temp)/'assets';assets.mkdir()
+            (assets/'maps').symlink_to(ROOT/'maps',target_is_directory=True)
+            (assets/'vrm').mkdir();(assets/'bgm').mkdir()
+            for avatar in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):
+                source=ROOT/avatar['path'].removeprefix('res://')
+                (assets/'vrm'/source.name).symlink_to(source)
             if name=='bhaptics_native':env['DBUS_SYSTEM_BUS_ADDRESS']='unix:path=/tmp/fpsloppa-bhaptics-unavailable.sock'
-            command=[os.environ.get('GODOT_BIN','godot'),'--headless','--xr-mode','off','--path',str(ROOT),'--script','res://deathmatch/tests/'+name+'.gd','--','--client-config',temp+'/client.cfg']
+            command=[os.environ.get('GODOT_BIN','godot'),'--headless','--xr-mode','off','--path',str(ROOT),'--script','res://deathmatch/tests/'+name+'.gd','--','--client-config',temp+'/client.cfg','--asset-root',str(assets)]
             if name in {'music','climax_music'}:
                 command=command[:command.index('--')+1]+[temp+'/music',str(ROOT/'deathmatch/audio/music/please_hold.ogg'),temp+'/music-result.json','--client-config',temp+'/client.cfg']
             try:

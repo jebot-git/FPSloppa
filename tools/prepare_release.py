@@ -17,6 +17,7 @@ files={
     'Bot-Worker-Linux.zip':ROOT.parent/'FPSloppa-Bot-Worker-Linux.zip',
     'Master-Server.zip':ROOT.parent/'FPSloppa-Master-Server.zip',
     'Source.zip':ROOT.parent/'FPSloppa-Deathmatch.zip',
+    'Manual.zip':ROOT/'output/FPSloppa-Manual.zip',
 }
 if not args.desktop_only:files['Quest.apk']=BUILDS/'Android/FPSloppa-Quest.apk'
 # The finalized expansion is an explicit, independently verified release asset.
@@ -32,6 +33,7 @@ if unexpected:raise SystemExit('Unexpected staged release assets: '+str(sorted(u
 rows=[]
 for label,source in files.items():
     assert source.is_file(),source
+    assert source.stat().st_size<2_000_000_000,('Release asset exceeds conservative GitHub size limit',source)
     with zipfile.ZipFile(source) as archive:
         assert archive.testzip() is None,source
         for name in archive.namelist():

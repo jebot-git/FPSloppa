@@ -75,17 +75,22 @@ def rotation(mode):
 
 def check_selection(paths):
     names={str(p) for p in paths}
+    # Source lists include the frozen optional expansion. The base builder filters
+    # its packaged copies to bundled maps; source files retain the full selection.
+    expansion=json.loads((ROOT/'tools/final_expansion/manifest.json').read_text())
+    for mode, expected in expansion['rotations'].items():
+        assert rotation(mode)==expected, 'Unreviewed rotation: '+mode
     assert all(distributable(p) for p in names),'Retired TF or Tiny AS asset selected'
     assert {Path(p).stem for p in names if p.startswith('maps/tf_') and p.endswith('.bsp')}==set(TF_MAPS)
     assert {Path(p).stem for p in names if p.startswith('maps/as_') and p.endswith('.bsp')}==set(AS_MAPS)
-    assert rotation('as')==list(AS_MAPS)
+    assert set(AS_MAPS)<=set(rotation('as'))
 
     quake={'qsrc_dm'+str(i) for i in range(1,8)}
     cc={'cc_hyperborea','cc_psychofuge','cc_ghostquarter','cc_basement'}
     assert {Path(p).stem for p in names if p.startswith('maps/qsrc_dm') and p.endswith('.bsp')}==quake
     assert {Path(p).stem for p in names if p.startswith('maps/cc_') and p.endswith('.bsp')}==cc
-    for mode in ['dm','tdm','ig','ft','if']:assert rotation(mode)==['qsrc_dm'+str(i) for i in range(1,8)]
-    assert set(rotation('cc'))==cc
+    for mode in ['dm','tdm','ig','ft','if']:assert quake<=set(rotation(mode))
+    assert cc<=set(rotation('cc'))
     ctf={'ctf_tideworks','ctf_crucible','ctf_confluence','ctf_deepvault','ctf_crownreach','ctf_skyfracture'}
     assert {Path(p).stem for p in names if p.startswith('maps/ctf_') and p.endswith('.bsp')}==ctf|set(ST_MAPS)
     assert set(rotation('ctf'))==ctf

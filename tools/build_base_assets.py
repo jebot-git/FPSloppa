@@ -1,7 +1,7 @@
 """Build the internal offline asset installer; not a separate release download."""
 from pathlib import Path
-import argparse,hashlib,json,zipfile
-from map_distribution import tf_files, distributable, check_selection
+import argparse,hashlib,json,zipfile,subprocess,os,shutil
+from map_distribution import tf_files, distributable, check_selection, rotation
 ROOT=Path(__file__).resolve().parents[1]
 def sha(data):return hashlib.sha256(data).hexdigest()
 version=(ROOT/'VERSION').read_text().strip()
@@ -9,23 +9,26 @@ texture_version=json.loads((ROOT/'deathmatch/maps/texture_replacements/manifest.
 parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path);args=parser.parse_args()
 out=args.output or ROOT.parent/'Builds'/f'FPSloppa-{version}-Base-Assets.zip';out.parent.mkdir(parents=True,exist_ok=True)
 files=[]
+# Package only the cache variants selected by the current runtime. Plain scene
+# aliases and inactive texture-dictionary aliases needlessly duplicated hundreds
+# of megabytes in every download and could exceed GitHub's asset-size limit.
+godot=os.environ.get('GODOT_BIN') or shutil.which('godot')
+if not godot:raise SystemExit('Set GODOT_BIN or install Godot on PATH')
+subprocess.run([godot,'--headless','--xr-mode','off','--path',str(ROOT),'--script','res://tools/audit_release_map_caches.gd'],check=True)
+audit=json.loads((ROOT/'test-results'/('release-'+version)/'map-caches.json').read_text())
+assert not audit['failures'],audit['failures']
+active_caches={r['path'].removeprefix('res://') for r in audit['records']}
+base_ids={r['id'] for r in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()) if r.get('distribution','base')=='base'}
+maplists={'maps/'+mode+'_maplist.txt':'\n'.join(id for id in rotation(mode) if id in base_ids)+'\n' for mode in ['dm','tdm','ctf','koth','ig','ft','if','cc','tf','tb','as','de','st']}
+assert all(text.strip() for text in maplists.values()),'Empty bundled rotation'
 # Select known base assets only. Never package players' downloaded/imported files.
 paths=[]
 for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
  if row.get('distribution','base')!='base':continue
- paths.extend([row['path'].removeprefix('res://'),row['scene'].removeprefix('res://'),'maps/navigation/'+row['id']+'.res'])
- cache=row['scene'].removeprefix('res://').removesuffix('.scn')+'-lightmap1.scn'
- if (ROOT/cache).is_file():paths.append(cache)
- # Missing-texture maps use this exact dictionary-versioned cache at runtime.
- # Include only the active version, not arbitrary older cache files.
- texture_cache=cache.removesuffix('.scn')+'-textures-'+str(texture_version)+'.scn'
- if (ROOT/texture_cache).is_file():paths.append(texture_cache)
- for active in [cache,texture_cache]:
-  for codec in ['bc7','astc4']:
-   candidate=active.removesuffix('.scn')+'-'+codec+'.scn'
-   if (ROOT/candidate).is_file():paths.append(candidate)
+ paths.extend([row['path'].removeprefix('res://'),'maps/navigation/'+row['id']+'.res'])
  lit='maps/'+row['id']+'.lit'
  if (ROOT/lit).is_file():paths.append(lit)
+paths.extend(sorted(active_caches))
 for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
 paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','if','cc','tf','tb','as','de','st'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
 # Validate TF bake/navigation lineage without shipping development receipts.
@@ -49,7 +52,7 @@ from expansion_assets import verify
 verify(ROOT,paths)
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
  for path in sorted(set(paths)):
-  data=(ROOT/path).read_bytes();archive.writestr(path,data);files.append({'path':path,'size':len(data),'sha256':sha(data)})
-manifest={'version':version,'delivery':'bundled','sha256':sha(out.read_bytes()),'files':files}
+  data=maplists[path].encode() if path in maplists else (ROOT/path).read_bytes();archive.writestr(path,data);files.append({'path':path,'size':len(data),'sha256':sha(data)})
+manifest={'version':version,'delivery':'bundled','sha256':sha(out.read_bytes()),'maplists':maplists,'files':files}
 (ROOT/'deathmatch/assets/base_manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print(out,out.stat().st_size,manifest['sha256'])

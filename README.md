@@ -2,15 +2,17 @@
 
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
+[Illustrated player manual](docs/manual/index.html) · [Hyperlinked PDF manual](docs/manual/FPSloppa-Player-Manual.pdf)
+
 [Desktop launcher](docs/DESKTOP-LAUNCHER.md): run `./run-launcher.sh` for shared server favourites, live player/map status, BSP/VRM preloading and submission, and a custom BGM playlist editor.
 
-[0.21v build notes](docs/RELEASE-0.21v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
+[0.22v build notes](docs/RELEASE-0.22v.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
 
-**New in 0.21v:** revised weapon models and audio, ambient and pressure music, VR menu organization, Tribes zoom, avatar caching, Jolt physics and shutdown fixes. An optional Linux bot worker can run AI separately from the dedicated server. Linux, Windows and experimental Quest clients remain release targets; dedicated server and bot worker are Linux-only.
+**New in 0.22v:** a desktop launcher with VR-first play, direct joining, coloured names/clan tags, avatar selection, favourites, asset transfers, playlists and transactional GitHub updates. Includes the approved CC0 soundtrack, corrected HK slap, ST vehicle bots, expansion support and an illustrated player manual. Linux, Windows and experimental Quest clients remain release targets; dedicated server and bot worker are Linux-only.
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
-FPSloppa is a PC OpenXR and desktop online arena shooter with seven base Quake deathmatch arenas, dedicated objective/CC maps and an optional 53-map community pack, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
+FPSloppa is a PC OpenXR and desktop online arena shooter with seven base Quake deathmatch arenas, dedicated objective/CC maps and a separate final expansion with 78 maps, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
 See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Click the right joystick to open the [weapon wheel](docs/WEAPON-WHEEL.md), tilt and release to equip, or click again to cancel. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG, IF and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
 
