@@ -33,7 +33,9 @@ if unexpected:raise SystemExit('Unexpected staged release assets: '+str(sorted(u
 rows=[]
 for label,source in files.items():
     assert source.is_file(),source
-    assert source.stat().st_size<2_000_000_000,('Release asset exceeds conservative GitHub size limit',source)
+    # GitHub documents a per-asset limit of 2 GiB (not decimal GB).
+    # https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases
+    assert source.stat().st_size<2*1024**3,('Release asset exceeds GitHub 2 GiB size limit',source)
     with zipfile.ZipFile(source) as archive:
         assert archive.testzip() is None,source
         for name in archive.namelist():
