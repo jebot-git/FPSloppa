@@ -6,8 +6,10 @@ var arrived := 0.0
 var jitter := 0.0
 var render_time := -1.0
 var delay := .075
+var last_advance:=-1.0
+var underruns:=0
 func reset() -> void:
-	tracks.clear(); server_time = -1; arrived = 0; jitter = 0; render_time = -1; delay = .075
+	tracks.clear(); server_time = -1; arrived = 0; jitter = 0; render_time = -1; delay = .075;last_advance=-1.0;underruns=0
 func push(id: int, stamp: float, position: Vector3, velocity: Vector3, yaw: float, serial: int, now: float) -> void:
 	if stamp < 0 or not is_finite(stamp): return
 	if stamp > server_time:
@@ -22,8 +24,17 @@ func push(id: int, stamp: float, position: Vector3, velocity: Vector3, yaw: floa
 	tracks[id] = samples
 func advance(now: float) -> float:
 	if server_time < 0: return -1
-	var target := minf(server_time,server_time+maxf(0,now-arrived)-delay)
-	render_time = maxf(render_time,target)
+	var target := server_time+maxf(0,now-arrived)-delay
+	if render_time<0 or last_advance<0:
+		render_time=minf(server_time,target)
+	else:
+		var elapsed:=clampf(now-last_advance,0,.1)
+		# Gently refill/drain the buffer instead of freezing when delay grows.
+		var rate:=clampf(1.0+(target-render_time)*2.0,.9,1.1)
+		var next:=render_time+elapsed*rate
+		if next>server_time:underruns+=1
+		render_time=minf(server_time,next)
+	last_advance=now
 	return render_time
 func sample(id: int) -> Dictionary:
 	var samples: Array = tracks.get(id,[])

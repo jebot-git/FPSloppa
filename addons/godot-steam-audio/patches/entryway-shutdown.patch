@@ -1,0 +1,59 @@
+--- a/src/register_types.cpp
++++ b/src/register_types.cpp
+@@ -43,9 +43,11 @@
+ 
+ void uninit_ext(ModuleInitializationLevel p_level) {
+ 	if (p_level == MODULE_INITIALIZATION_LEVEL_SERVERS) {
+-		// Should call this to not leak, but thread->wait_for_finish() crashes...
+-		// the program is exiting anyway so I'm not too concerned
+-		// memdelete(srv);
++		// Scene players are already retired; join reflection work before releasing SDK state.
++		if (srv) {
++			memdelete(srv);
++			srv = nullptr;
++		}
+ 	}
+ }
+ 
+--- a/src/server.cpp
++++ b/src/server.cpp
+@@ -225,7 +225,6 @@
+ 	IPLSceneSettings scene_cfg = create_scene_cfg(global_state.ctx);
+ 	IPLerror err = iplSceneCreate(global_state.ctx, &scene_cfg, &global_state.scene);
+ 	handleErr(err);
+-	global_state.scene = iplSceneRetain(global_state.scene);
+ 	for (auto m : static_meshes_to_add) {
+ 		iplStaticMeshAdd(m, global_state.scene);
+ 	}
+@@ -338,11 +337,19 @@
+ }
+ 
+ SteamAudioServer::~SteamAudioServer() {
+-	is_running.store(false);
++	{
++		// Share the wait predicate's mutex so notification cannot be lost.
++		std::lock_guard<std::mutex> lock(refl_mux);
++		is_running.store(false);
++	}
+ 	cv.notify_one();
+-	if (refl_thread.is_valid()) { refl_thread->wait_to_finish(); refl_thread.unref(); }
+-
+-	if (!self->is_global_state_init.load()) {
++	if (refl_thread.is_valid()) {
++		if (refl_thread->is_started()) refl_thread->wait_to_finish();
++		refl_thread.unref();
++	}
++
++	if (!is_global_state_init.load()) {
++		self = nullptr;
+ 		return;
+ 	}
+ 	SteamAudio::log(SteamAudio::log_debug, "destroying steam audio server");
+@@ -353,6 +360,7 @@
+ 	iplSimulatorRelease(&self->global_state.sim);
+ 	iplSceneRelease(&self->global_state.scene);
+ 	iplContextRelease(&self->global_state.ctx);
++	self = nullptr;
+ }
+ 
+ void SteamAudioServer::_bind_methods() {

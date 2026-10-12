@@ -109,3 +109,8 @@ __pycache__/
 
 # Pinned CC0 source recordings can be fetched with tools/cq_audio/fetch_samples.py.
 /tools/cq_audio/samples/
+
+# Optional avatar and codec acceleration build products.
+/addons/fps_native/build-*/
+/addons/fps_native/bin/
+/addons/fps_native/fps_native.gdextension

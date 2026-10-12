@@ -44,11 +44,11 @@ func open(path: String) -> void:
 			var name:=f.get_buffer(24).get_string_from_ascii();var offset:=f.get_32();var length:=f.get_32()
 			if name=="LMSHIFT" and length==lumps[7].y/(20 if version==29 else 28) and offset+length<=f.get_length():
 				var saved:=f.get_position();f.seek(offset);var values:=f.get_buffer(length);f.seek(saved)
-				if Array(values).all(func(value):return value>=3 and value<=5):scales=values
+				if Array(values).all(func(value):return value>=3 and value<=6):scales=values
 			if name=="RGBLIGHTING" and length==lighting.size()*3 and offset+length<=f.get_length():
 				var saved:=f.get_position();f.seek(offset);rgb=f.get_buffer(length);f.seek(saved)
 	# Large authored BSP cities may trade baked-light density for bounded file size.
-	default_spacing=32.0 if world.contains('"_lightmap_scale" "32"') else 16.0
+	default_spacing=64.0 if world.contains('"_lightmap_scale" "64"') else 32.0 if world.contains('"_lightmap_scale" "32"') else 16.0
 	atlas_size=4096 if world.contains('"_fpsloppa_atlas" "4096"') else 2048 if world.contains('"_fpsloppa_atlas" "2048"') else SIZE
 	quake_response=world.contains('"_fpsloppa_light_response" "quake"')
 	night_response=world.contains('"_fpsloppa_light_response" "night"')

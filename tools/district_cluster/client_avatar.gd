@@ -40,6 +40,7 @@ func fetch(hash: String) -> void:
 func create(hash: String) -> Node3D:
 	if not library.entries.has(hash):fetch(hash);return null
 	if Time.get_ticks_msec()<int(render_failed.get(hash,0)):return null
+	if not library.prepare_avatar(hash):return null
 	var model:=library.create_avatar(hash)
 	if model==null:render_failed[hash]=Time.get_ticks_msec()+30000
 	return model

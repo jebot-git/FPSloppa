@@ -1,4 +1,5 @@
 extends Node3D
+const Metrics=preload("res://deathmatch/avatars/animation_metrics.gd")
 var unarmed:=false
 ## Shared humanoid locomotion and aiming, retargeted by the VRM plugin.
 const Pose = preload("res://deathmatch/avatars/pose.gd")
@@ -6,6 +7,8 @@ const Art = preload("res://deathmatch/art.gd")
 const RestBounds = preload("res://deathmatch/avatars/rest_bounds.gd")
 var target_xr_pose: Dictionary={}
 var xr_pose: Dictionary={}
+var native_tracking=preload("res://deathmatch/native/runtime.gd").pose()
+var native_interpolation:bool=native_tracking!=null and native_tracking.has_method("interpolate_tracking") and not OS.get_cmdline_user_args().has("--gdscript-avatar-channels")
 var pain:=0.0
 var pain_direction:=Vector3.ZERO
 var skeleton: Skeleton3D
@@ -49,6 +52,44 @@ var neutral_foot_heights:Dictionary={"left":.08,"right":.08}
 var first_person := false
 var secondary_nodes: Array[Node]=[]
 var visual_meshes: Array[MeshInstance3D]=[]
+var avatar_hash:=""
+var distance_lod
+# Runtime A/B switch for the close animation benchmark; does not change mesh LOD.
+var animation_optimized:=true
+var secondary_motion_enabled:=true # Diagnostic isolation; normal gameplay keeps cosmetics.
+var animation_sleeping:=false
+var animation_hidden_time:=0.0
+var animation_visibility: VisibleOnScreenNotifier3D
+func update_animation_budget(delta: float) -> void:
+	var camera:=get_viewport().get_camera_3d()
+	var xr:=XRServer.primary_interface
+	var protected_view:=first_person or preview_mode>=0 or camera is XRCamera3D or (xr!=null and xr.is_initialized())
+	if animation_visibility==null and DisplayServer.get_name()!="headless":
+		animation_visibility=VisibleOnScreenNotifier3D.new()
+		# Includes extended hands, crouch/prone and generous body motion. Godot's
+		# notifier sees all active viewport cameras, including mirror/scope views.
+		animation_visibility.aabb=AABB(Vector3(-2,-1,-2),Vector3(4,5,4))
+		add_child(animation_visibility)
+	var hidden:=not is_visible_in_tree() or (animation_visibility!=null and not animation_visibility.is_on_screen())
+	animation_hidden_time=animation_hidden_time+delta if hidden and not protected_view else 0.0
+	var sleeping:=animation_optimized and animation_hidden_time>.5
+	if animation_sleeping and not sleeping:
+		xr_pose=target_xr_pose.duplicate(true)
+		solver.reset_interpolation();solver.floor_tick=0;solver.floor_heights.clear()
+	animation_sleeping=sleeping
+	for secondary in secondary_nodes:
+		secondary.simplify_animation=animation_optimized and not protected_view
+		secondary.optimize_collisions=animation_optimized
+		secondary.animation_rate=45.0 if animation_optimized and not protected_view else 0.0
+		secondary.animation_suspended=sleeping or not secondary_motion_enabled
+		secondary.profile_animation=Metrics.enabled
+		secondary.update_native_state()
+
+
+func enable_distance_lod() -> void:
+	if distance_lod!=null:return
+	distance_lod=preload("res://deathmatch/avatars/distance_lod.gd").new()
+	skeleton.add_child(distance_lod);distance_lod.setup(self)
 
 func configure(root: Node3D) -> bool:
 	process_priority=-10
@@ -73,17 +114,23 @@ func configure(root: Node3D) -> bool:
 		neutral_foot_heights[side.to_lower()]=(skeleton_transform*skeleton.get_bone_global_rest(skeleton.find_bone(side+"Foot")).origin).y
 	# All meshes are cosmetic: no imported physics, lights, cameras or audio.
 	strip_nonvisual(root)
+	# Retargeting can leave non-humanoid helpers in pre-conversion poses.
+	skeleton.reset_bone_poses()
 	solver = Pose.new()
 	solver.rig = self
 	skeleton.add_child(solver)
 	mouth=preload("res://deathmatch/avatars/mouth.gd").new()
 	add_child(mouth)
 	mouth.setup(model)
+	mouth.rig=self
 	eyes=preload("res://deathmatch/avatars/eyes.gd").new()
 	eyes.rig=self
 	skeleton.add_child(eyes)
 	eyes.setup(model)
 	mouth.external_mixer=true;mouth.mixer=eyes.apply_morphs
+	# Secondary motion follows humanoid IK and expression modifiers.
+	for secondary in secondary_nodes:
+		if is_instance_valid(secondary.native_simulator):skeleton.move_child(secondary.native_simulator,-1)
 	build_animations()
 	set_weapon(2)
 	return true
@@ -116,20 +163,27 @@ func strip_nonvisual(node: Node) -> void:
 			child.free()
 		else: strip_nonvisual(child)
 	if node is MeshInstance3D:
-		visual_meshes.append(node)
-		node.set_meta("arena_first_person",(node.layers&(1<<19))!=0)
-		node.set_meta("arena_third_person",(node.layers&1)!=0)
-		node.visible=bool(node.get_meta("arena_third_person"))
-		node.layers = 1
-		node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		# MToon outlines add a second draw for every material surface.
+		register_visual_mesh(node,(node.layers&(1<<19))!=0,(node.layers&1)!=0)
+		# MToon outlines add a second draw for every imported material surface.
 		for surface in range(node.mesh.get_surface_count()):
 			var material: Material=node.get_active_material(surface)
 			if material:
 				preload("res://deathmatch/avatars/lighting.gd").prepare(material)
-				if not material.has_meta("arena_outline"): material.set_meta("arena_outline",material.next_pass)
+				if not material.has_meta("arena_outline"):material.set_meta("arena_outline",material.next_pass)
 				material.next_pass=null
-		node.visibility_range_end = 65
+
+func register_visual_mesh(node: MeshInstance3D,local_visible: bool,remote_visible: bool) -> void:
+	# Runtime replacement bodies must join the same view/hand-mask lifecycle as
+	# imported avatar meshes, including transitions before their next update.
+	if node not in visual_meshes:visual_meshes.append(node)
+	node.set_meta("arena_first_person",local_visible)
+	node.set_meta("arena_third_person",remote_visible)
+	node.visible=local_visible if first_person else remote_visible
+	node.layers=1
+	node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	node.visibility_range_end=0 if distance_lod else 65
+	if distance_lod:node.lod_bias=1.5
+	if first_person and local_visible:preload("res://deathmatch/avatars/first_person_mask.gd").apply(node,skeleton,true)
 
 func set_first_person(value: bool) -> void:
 	if first_person==value: return
@@ -142,6 +196,7 @@ func set_first_person(value: bool) -> void:
 	for secondary in secondary_nodes:secondary.set_local_body(value)
 	for mesh in visual_meshes:
 		mesh.visible=bool(mesh.get_meta("arena_first_person" if value else "arena_third_person"))
+		if mesh.get_meta("arena_first_person"):preload("res://deathmatch/avatars/first_person_mask.gd").apply(mesh,skeleton,value)
 	if gun: gun.visible=not value and not dead
 	if offhand_gun: offhand_gun.visible=not value and not dead
 
@@ -183,8 +238,9 @@ func set_weapon(value: int, rules_override: String="") -> void:
 	add_child(gun)
 
 func hurt(direction: Vector3, strength: float) -> void:
-	pain=minf(1.0,strength/40.0)
-	pain_direction=global_basis.inverse()*direction
+	pain=maxf(pain,clampf(strength/45.0,.25,1.0))
+	pain_direction=global_basis.inverse()*direction.normalized()
+	if solver:solver.solve_tick=0.0
 
 func fire(offhand: bool=false) -> void:
 	if offhand: offhand_recoil=1.0
@@ -199,8 +255,14 @@ func tracking_transform() -> Transform3D:
 	return actor.global_transform
 
 func _process(delta: float) -> void:
+	var started:=Metrics.begin()
+	update_animation(delta)
+	Metrics.end("rig",started)
+func update_animation(delta: float) -> void:
 	if not is_instance_valid(skeleton): return
+	update_animation_budget(delta)
 	if dead:
+		if distance_lod:distance_lod.full_pose()
 		death_time=minf(death_time+delta,preload("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
 		# Death owns the skeleton: live trackers, breathing and weapon IK stop here.
 		motion.pause()
@@ -215,19 +277,8 @@ func _process(delta: float) -> void:
 		position.x=0;position.z=0;rotation.y=0
 	if target_xr_pose.is_empty(): xr_pose.clear()
 	elif xr_pose.is_empty() or first_person: xr_pose=target_xr_pose.duplicate()
-	else:
-		for key in ["head","left","right","weapon"]: xr_pose[key]=xr_pose[key].interpolate_with(target_xr_pose[key],minf(1.0,delta*22))
-		if target_xr_pose.has("offhand_weapon"):
-			xr_pose.offhand_weapon=xr_pose.get("offhand_weapon",target_xr_pose.offhand_weapon).interpolate_with(target_xr_pose.offhand_weapon,minf(1.0,delta*22))
-		else: xr_pose.erase("offhand_weapon")
-		xr_pose.left_handed=target_xr_pose.left_handed
-		xr_pose.face=target_xr_pose.get("face",{})
-		var next_body: Dictionary=target_xr_pose.get("body",{})
-		var previous: Dictionary=xr_pose.get("body",{})
-		var body: Dictionary={}
-		for key in next_body:
-			body[key]=previous[key].interpolate_with(next_body[key],minf(1,delta*18)) if previous.has(key) and next_body[key] is Transform3D else next_body[key]
-		xr_pose.body=body
+	elif native_interpolation:native_tracking.interpolate_tracking(xr_pose,target_xr_pose,delta)
+	else:interpolate_tracking_reference(delta)
 	# Rotate only the rendered body; controller/head poses retain their tracking frame.
 	body_heading=preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,body_heading)
 	var physical_yaw:=body_heading
@@ -237,18 +288,19 @@ func _process(delta: float) -> void:
 		movement = Vector3.FORWARD*speed
 		if preview_mode==3 and fmod(phase,1.0)<delta: fire()
 	var clip := "idle" if speed<.2 else "walk" if speed<6.0 else "run"
-	if motion.current_animation!=clip or not motion.is_playing(): motion.play(clip,.18)
 	gait.update(delta,Basis(Vector3.UP,-physical_yaw)*movement,stance,grounded,target_xr_pose.get("body",{}),tracked_leg_animation)
+	var generic: bool=distance_lod.update(delta) if distance_lod else false
+	if not generic and (motion.current_animation!=clip or not motion.is_playing()): motion.play(clip,.18)
 	# Preview firing has its own clock, including when standing still.
 	phase+=delta
 	recoil = move_toward(recoil,0.0,delta*7)
 	offhand_recoil=move_toward(offhand_recoil,0.0,delta*7)
-	pain=move_toward(pain,0.0,delta*3.5)
+	pain=move_toward(pain,0.0,delta*2.8)
 	death_time = 0
-	rotation.x = 0.0 if first_person else pain*pain_direction.z*.12
-	rotation.z = 0.0 if first_person else -pain*pain_direction.x*.12
+	rotation.x = 0.0 if first_person else pain*pain_direction.z*.16
+	rotation.z = 0.0 if first_person else -pain*pain_direction.x*.16
 	if not first_person:position.y = 0
-	if gun and not xr_pose.is_empty() and not dead:
+	if gun and not xr_pose.is_empty() and not dead and not generic:
 		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id,Art.VR_SCALE,weapon_rules)
 		gun.visible=not unarmed and not first_person
 		if offhand_gun:
@@ -266,3 +318,17 @@ func _process(delta: float) -> void:
 		grip.origin.y-=1.65-collider_height
 		offhand_gun.transform=Art.held_transform(grip,2,.48)
 		offhand_gun.visible=not unarmed and not dead and not first_person
+
+func interpolate_tracking_reference(delta: float) -> void:
+	for key in ["head","left","right","weapon"]: xr_pose[key]=xr_pose[key].interpolate_with(target_xr_pose[key],minf(1.0,delta*22))
+	if target_xr_pose.has("offhand_weapon"):
+		xr_pose.offhand_weapon=xr_pose.get("offhand_weapon",target_xr_pose.offhand_weapon).interpolate_with(target_xr_pose.offhand_weapon,minf(1.0,delta*22))
+	else: xr_pose.erase("offhand_weapon")
+	xr_pose.left_handed=target_xr_pose.left_handed
+	xr_pose.face=target_xr_pose.get("face",{})
+	var next_body: Dictionary=target_xr_pose.get("body",{})
+	var previous: Dictionary=xr_pose.get("body",{})
+	var body: Dictionary={}
+	for key in next_body:
+		body[key]=previous[key].interpolate_with(next_body[key],minf(1,delta*18)) if previous.has(key) and next_body[key] is Transform3D else next_body[key]
+	xr_pose.body=body

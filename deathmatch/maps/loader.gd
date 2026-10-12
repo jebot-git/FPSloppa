@@ -136,6 +136,8 @@ static func validate(path: String) -> String:
 		var offset := f.get_32()
 		var length := f.get_32()
 		if offset<0 or length<0 or offset+length>f.get_length(): return "BSP lump extends beyond file."
+	var extension_error: String=preload("res://deathmatch/maps/bsp_extensions.gd").directory(path).get("error", "")
+	if not extension_error.is_empty():return extension_error
 	return validate_geometry(path)
 static func read(path: String,server_geometry: bool=false) -> Node3D:
 	if not validate(path).is_empty(): return null

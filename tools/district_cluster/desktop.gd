@@ -245,6 +245,7 @@ func update_snapshot(data: Dictionary) -> void:
 			if custom:
 				if bodies.has(id):bodies[id].free()
 				var holder:=Node3D.new();world.add_child(holder);holder.add_child(custom);holder.set_meta("avatar",hash);bodies[id]=holder
+				custom.enable_distance_lod()
 				var tag:=Label3D.new();tag.text="●";tag.modulate=Color(1,.2,.25) if int(row.state.team)==0 else Color(.15,.5,1);tag.position=Vector3(0,1.95,0);tag.font_size=24;tag.billboard=BaseMaterial3D.BILLBOARD_ENABLED;holder.add_child(tag)
 		if not bodies.has(id):
 			var mesh:=MeshInstance3D.new();var box:=BoxMesh.new();box.size=Vector3(.7,1.65,.6);mesh.mesh=box

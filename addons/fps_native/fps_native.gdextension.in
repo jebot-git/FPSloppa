@@ -1,0 +1,9 @@
+[configuration]
+entry_symbol = "fpsloppa_native_init"
+compatibility_minimum = "4.7"
+reloadable = false
+
+[libraries]
+linux.x86_64 = "res://addons/fps_native/bin/libfpsloppa_native.so"
+windows.x86_64 = "res://addons/fps_native/bin/libfpsloppa_native.dll"
+android.arm64 = "res://addons/fps_native/bin/libfpsloppa_native.android.so"

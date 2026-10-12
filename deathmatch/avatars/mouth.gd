@@ -5,6 +5,7 @@ var binds: Array=[[],[],[],[],[]]
 var weights:=PackedFloat32Array([0,0,0,0,0])
 var target:=PackedFloat32Array([0,0,0,0,0])
 var remaining:=0.0
+var rig
 var external_mixer:=false
 var mixer: Callable
 func setup(model: Node) -> void:
@@ -31,6 +32,9 @@ func speak(value: PackedFloat32Array) -> void:
 	if value.size()!=5: return
 	target=value.duplicate(); remaining=.12
 func _process(delta: float) -> void:
+	if rig and rig.animation_sleeping:
+		remaining-=delta
+		return
 	if remaining<=0 and weights==PackedFloat32Array([0,0,0,0,0]): return
 	remaining-=delta
 	if remaining<=0: target=PackedFloat32Array([0,0,0,0,0])
@@ -38,13 +42,14 @@ func _process(delta: float) -> void:
 	for i in range(5):
 		weights[i]=lerpf(weights[i],target[i],1-exp(-delta*(28 if target[i]>weights[i] else 16)))
 		if target[i]==0 and weights[i]<.001: weights[i]=0
+		if external_mixer and rig and rig.animation_optimized:continue
 		for bind in binds[i]:
 			if not is_instance_valid(bind[0]): continue
 			var mesh: MeshInstance3D=bind[0]
 			if not totals.has(mesh): totals[mesh]={}
 			totals[mesh][bind[1]]=float(totals[mesh].get(bind[1],0))+weights[i]*bind[2]
 	if external_mixer:
-		if mixer.is_valid():mixer.call()
+		if mixer.is_valid() and (not rig or not rig.animation_optimized):mixer.call()
 		return
 	for mesh in totals:
 		for shape in totals[mesh]: mesh.set_blend_shape_value(shape,clampf(totals[mesh][shape],0,.999))

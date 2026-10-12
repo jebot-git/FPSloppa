@@ -1,6 +1,8 @@
 extends RefCounted
 ## Independent state records; loss of one datagram never blocks another entity.
 const Codec = preload("res://deathmatch/network/snapshot_codec.gd")
+var native_packer=preload("res://deathmatch/network/codec.gd").native_codec
+var native_packing_enabled=not OS.get_cmdline_user_args().has("--gdscript-network-packing")
 const BUDGET = 1100 # Leaves room for the Godot RPC and transport envelope.
 var sequence := 0
 var epoch := -1
@@ -31,30 +33,56 @@ func packets(snapshot: Array) -> Dictionary:
 	for row in snapshot[7]:
 		shots.append(row[0]); records.append([3,row[0],row,mode.get("ordnance",{}).get(row[0],{})])
 	records.append([4,0,ids,shots,mode.keys()])
-	var result: Dictionary = {"normal":[],"large":[]}
-	var batch: Array = []
-	for record in records:
-		var record_bytes := Codec.encode(record)
-		# Resend unchanged control state once per second for joins and loss recovery.
-		if record[0] in [0,1,4] and not (record[0] == 0 and record[1] in [2,3,12,13]):
-			var key := str(record[0])+":"+str(record[1])
-			var bytes := record_bytes
-			if cached.has(key) and cached[key].bytes == bytes and snapshot[12] - cached[key].time < 1.0: continue
-			cached[key] = {"bytes":bytes,"time":snapshot[12]}
-		var trial := batch.duplicate(); trial.append(record_bytes)
-		var encoded := Codec.pack([snapshot[9],sequence,snapshot[12],trial])
-		if encoded.size() > BUDGET and not batch.is_empty():
-			result.normal.append(Codec.pack([snapshot[9],sequence,snapshot[12],batch])); batch = [record_bytes]
-			encoded = Codec.pack([snapshot[9],sequence,snapshot[12],batch])
-		else: batch = trial
-		if encoded.size() > BUDGET:
-			# Rare oversized objective/control record: reliable delivery on a separate
-			# channel. Ordinary player poses and projectile records fit one datagram.
-			result.large.append(encoded); stats.large_records += 1; batch = []
-	if not batch.is_empty(): result.normal.append(Codec.pack([snapshot[9],sequence,snapshot[12],batch]))
-	for bytes in result.normal + result.large:
-		stats.sent_bytes += bytes.size(); stats.sent_packets += 1; stats.max_packet = maxi(stats.max_packet,bytes.size())
+	var result:Dictionary={"normal":[],"large":[]};var encoded_records:Array=[]
+	var batch:Array=native_packer.encode_records(records) if native_packing_enabled and native_packer and native_packer.has_method("encode_records") else []
+	for index in records.size():
+		var record:Array=records[index]
+		var bytes:PackedByteArray=batch[index] if batch.size()==records.size() else Codec.encode(record)
+		if record[0] in [0,1,4] and not (record[0]==0 and record[1] in [2,3,12,13]):
+			var key:=str(record[0])+":"+str(record[1])
+			if cached.has(key) and cached[key].bytes==bytes and snapshot[12]-cached[key].time<1.:continue
+			cached[key]={"bytes":bytes,"time":snapshot[12]}
+		encoded_records.append(bytes)
+	_pack_records(encoded_records,[snapshot[9],sequence,snapshot[12]],result)
+	for bytes in result.normal+result.large:
+		stats.sent_bytes+=bytes.size();stats.sent_packets+=1;stats.max_packet=maxi(stats.max_packet,bytes.size())
 	return result
+
+func _pack_records(records: Array,header: Array,result: Dictionary) -> void:
+	if native_packing_enabled and native_packer and native_packer.has_method("pack_records"):
+		var packed:Dictionary=native_packer.pack_records(records,header)
+		result.normal.append_array(packed.normal);result.large.append_array(packed.large)
+		stats.large_records+=packed.large.size()
+		if packed.invalid:push_error("Snapshot record exceeds codec limit")
+		return
+	_pack_records_reference(records,header,result)
+
+func _pack_records_reference(records: Array,header: Array,result: Dictionary) -> void:
+	# Search packet-sized prefixes instead of recompressing after every record.
+	# Every emitted candidate is checked: compression need not be monotonic.
+	var cursor:=0;var previous_count:=8
+	while cursor<records.size():
+		var remaining:=records.size()-cursor
+		var count:=mini(previous_count,remaining)
+		var low:=0;var high:=remaining+1
+		var accepted:=PackedByteArray()
+		while true:
+			var bytes:=Codec.pack([header[0],header[1],header[2],records.slice(cursor,cursor+count)])
+			if not bytes.is_empty() and bytes.size()<=BUDGET:
+				low=count;accepted=bytes
+				if low==remaining:break
+				if high==remaining+1:count=mini(remaining,maxi(low+1,low*2));continue
+			else:
+				high=count
+				if count==1:
+					# A single oversized record still uses the reliable channel.
+					if not bytes.is_empty():result.large.append(bytes);stats.large_records+=1
+					else:push_error("Snapshot record exceeds codec limit")
+					low=1;break
+			if high-low<=1:break
+			count=(low+high)/2
+		if not accepted.is_empty():result.normal.append(accepted)
+		cursor+=low;previous_count=maxi(1,low)
 
 func receive(bytes: PackedByteArray, expected_epoch: int) -> bool:
 	var message = Codec.unpack(bytes)
