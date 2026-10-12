@@ -1,0 +1,10 @@
+{
+  "color_tolerance": 0.005,
+  "gpu": "Intel(R) Graphics (ADL-N)",
+  "height_tolerance_m": 0.02,
+  "maximum_color_error": 0.00000303983688354492,
+  "maximum_height_error_m": 0.000332832336425781,
+  "passed": true,
+  "samples": 18689,
+  "scope": "Exact GPU shader surface function versus CPU deterministic source, world grid and fractional probes. Readback/sync used only for this separate correctness check."
+}

@@ -1,0 +1,629 @@
+{
+  "area_km2": 4.194304,
+  "cache_capacity": 384,
+  "cache_height_color_bytes": 12979200,
+  "coarse_samples": [
+    129,
+    129
+  ],
+  "cpu": "Intel(R) N95",
+  "date": "2026-10-12",
+  "engine": "4.7.2-stable (official)",
+  "extent_m": [
+    2048,
+    2048
+  ],
+  "generation_ms": {
+    "max": 34.189,
+    "median": 7.172,
+    "p95": 13.222,
+    "p99": 19.022
+  },
+  "gpu": "Intel(R) Graphics (ADL-N)",
+  "load_retain_radius_m": [
+    256.0,
+    320.0
+  ],
+  "peak_jobs": 2,
+  "peak_resident": 291,
+  "placements": [
+    {
+      "kind": "town",
+      "position_m": [
+        -768.0,
+        14.0,
+        -768.0
+      ]
+    },
+    {
+      "kind": "factory",
+      "position_m": [
+        -256.0,
+        18.0,
+        -768.0
+      ]
+    },
+    {
+      "kind": "port",
+      "position_m": [
+        256.0,
+        2.40000009536743,
+        -768.0
+      ]
+    },
+    {
+      "kind": "military",
+      "position_m": [
+        768.0,
+        24.0,
+        -768.0
+      ]
+    },
+    {
+      "kind": "factory",
+      "position_m": [
+        -768.0,
+        18.0,
+        -256.0
+      ]
+    },
+    {
+      "kind": "port",
+      "position_m": [
+        -256.0,
+        2.40000009536743,
+        -256.0
+      ]
+    },
+    {
+      "kind": "military",
+      "position_m": [
+        256.0,
+        24.0,
+        -256.0
+      ]
+    },
+    {
+      "kind": "town",
+      "position_m": [
+        768.0,
+        14.0,
+        -256.0
+      ]
+    },
+    {
+      "kind": "port",
+      "position_m": [
+        -768.0,
+        2.40000009536743,
+        256.0
+      ]
+    },
+    {
+      "kind": "military",
+      "position_m": [
+        -256.0,
+        24.0,
+        256.0
+      ]
+    },
+    {
+      "kind": "town",
+      "position_m": [
+        256.0,
+        14.0,
+        256.0
+      ]
+    },
+    {
+      "kind": "factory",
+      "position_m": [
+        768.0,
+        18.0,
+        256.0
+      ]
+    },
+    {
+      "kind": "military",
+      "position_m": [
+        -768.0,
+        24.0,
+        768.0
+      ]
+    },
+    {
+      "kind": "town",
+      "position_m": [
+        -256.0,
+        14.0,
+        768.0
+      ]
+    },
+    {
+      "kind": "factory",
+      "position_m": [
+        256.0,
+        18.0,
+        768.0
+      ]
+    },
+    {
+      "kind": "port",
+      "position_m": [
+        768.0,
+        2.40000009536743,
+        768.0
+      ]
+    }
+  ],
+  "renderer": "mobile",
+  "resolution": [
+    1440,
+    900
+  ],
+  "rows": [
+    {
+      "case": "paced_flyby_raster_lod_0",
+      "column_compute_gpu_ms": {
+        "max": 0.0,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0
+      },
+      "discarded_jobs": 0,
+      "draw_calls": {
+        "max": 9.0,
+        "median": 7.0,
+        "p95": 8.0,
+        "p99": 9.0
+      },
+      "duration_seconds": 20.002116,
+      "evicted_tiles": 1571,
+      "frame_ms": {
+        "max": 8.24,
+        "median": 2.261,
+        "p95": 4.462,
+        "p99": 5.367
+      },
+      "frames_over_16_67_ms_percent": 0.0,
+      "loaded_tiles": 1626,
+      "lod_counts_end": [
+        6,
+        14,
+        31,
+        10
+      ],
+      "moving": true,
+      "path_m_per_frame": 0.0,
+      "path_m_per_second": 160.0,
+      "pending_tiles": {
+        "max": 18,
+        "median": 5,
+        "p95": 17,
+        "p99": 18
+      },
+      "primitives": {
+        "max": 50124.0,
+        "median": 41148.0,
+        "p95": 45878.0,
+        "p99": 47868.0
+      },
+      "render_cpu_ms": {
+        "max": 1.942999958992,
+        "median": 0.215000003576279,
+        "p95": 0.46900001168251,
+        "p99": 1.22099995613098
+      },
+      "resident_tiles": {
+        "max": 291,
+        "median": 276,
+        "p95": 289,
+        "p99": 289
+      },
+      "samples": 7459,
+      "stream_update_cpu_ms": {
+        "max": 4.015,
+        "median": 0.539,
+        "p95": 1.004,
+        "p99": 1.654
+      },
+      "structure_lod_counts_end": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "viewport_gpu_ms": {
+        "max": 1.96899998188019,
+        "median": 1.36099994182587,
+        "p95": 1.60500001907349,
+        "p99": 1.7150000333786
+      },
+      "visible_fine_tiles": {
+        "max": 84,
+        "median": 66,
+        "p95": 70,
+        "p99": 78
+      },
+      "visible_sites_end": 1,
+      "warmup": 120
+    },
+    {
+      "case": "paced_flyby_columns_quarter_1",
+      "column_compute_gpu_ms": {
+        "max": 2.869635,
+        "median": 0.2225,
+        "p95": 0.274531,
+        "p99": 2.411823
+      },
+      "discarded_jobs": 0,
+      "draw_calls": {
+        "max": 5.0,
+        "median": 3.0,
+        "p95": 4.0,
+        "p99": 5.0
+      },
+      "duration_seconds": 20.003057,
+      "evicted_tiles": 1571,
+      "frame_ms": {
+        "max": 10.428,
+        "median": 2.529,
+        "p95": 4.638,
+        "p99": 5.881
+      },
+      "frames_over_16_67_ms_percent": 0.0,
+      "loaded_tiles": 1626,
+      "lod_counts_end": [
+        6,
+        14,
+        31,
+        10
+      ],
+      "moving": true,
+      "path_m_per_frame": 0.0,
+      "path_m_per_second": 160.0,
+      "pending_tiles": {
+        "max": 18,
+        "median": 5,
+        "p95": 17,
+        "p99": 18
+      },
+      "primitives": {
+        "max": 5646.0,
+        "median": 666.0,
+        "p95": 4232.0,
+        "p99": 5646.0
+      },
+      "render_cpu_ms": {
+        "max": 2.58800005912781,
+        "median": 0.224000006914139,
+        "p95": 0.479999989271164,
+        "p99": 1.22800004482269
+      },
+      "resident_tiles": {
+        "max": 291,
+        "median": 275,
+        "p95": 289,
+        "p99": 289
+      },
+      "samples": 6819,
+      "stream_update_cpu_ms": {
+        "max": 3.799,
+        "median": 0.458,
+        "p95": 0.937,
+        "p99": 1.385
+      },
+      "structure_lod_counts_end": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "viewport_gpu_ms": {
+        "max": 3.68199992179871,
+        "median": 1.41700005531311,
+        "p95": 1.68099999427795,
+        "p99": 1.817999958992
+      },
+      "visible_fine_tiles": {
+        "max": 84,
+        "median": 66,
+        "p95": 70,
+        "p99": 78
+      },
+      "visible_sites_end": 1,
+      "warmup": 120
+    },
+    {
+      "case": "paced_flyby_columns_full_reference_2",
+      "column_compute_gpu_ms": {
+        "max": 5.300937,
+        "median": 1.438386,
+        "p95": 3.713906,
+        "p99": 3.92776
+      },
+      "discarded_jobs": 0,
+      "draw_calls": {
+        "max": 5.0,
+        "median": 3.0,
+        "p95": 4.0,
+        "p99": 5.0
+      },
+      "duration_seconds": 20.001947,
+      "evicted_tiles": 1571,
+      "frame_ms": {
+        "max": 10.323,
+        "median": 4.26,
+        "p95": 6.633,
+        "p99": 7.864
+      },
+      "frames_over_16_67_ms_percent": 0.0,
+      "loaded_tiles": 1626,
+      "lod_counts_end": [
+        6,
+        14,
+        32,
+        9
+      ],
+      "moving": true,
+      "path_m_per_frame": 0.0,
+      "path_m_per_second": 160.0,
+      "pending_tiles": {
+        "max": 18,
+        "median": 6,
+        "p95": 17,
+        "p99": 18
+      },
+      "primitives": {
+        "max": 5646.0,
+        "median": 666.0,
+        "p95": 4232.0,
+        "p99": 5646.0
+      },
+      "render_cpu_ms": {
+        "max": 2.65000009536743,
+        "median": 0.358000010251999,
+        "p95": 0.657000005245209,
+        "p99": 1.03600001335144
+      },
+      "resident_tiles": {
+        "max": 290,
+        "median": 275,
+        "p95": 289,
+        "p99": 289
+      },
+      "samples": 4246,
+      "stream_update_cpu_ms": {
+        "max": 3.955,
+        "median": 0.736,
+        "p95": 1.306,
+        "p99": 2.171
+      },
+      "structure_lod_counts_end": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "viewport_gpu_ms": {
+        "max": 3.94000005722046,
+        "median": 1.73599994182587,
+        "p95": 2.00799989700317,
+        "p99": 2.15100002288818
+      },
+      "visible_fine_tiles": {
+        "max": 83,
+        "median": 66,
+        "p95": 70,
+        "p99": 78
+      },
+      "visible_sites_end": 1,
+      "warmup": 120
+    },
+    {
+      "case": "paced_flyby_raster_lod_3",
+      "column_compute_gpu_ms": {
+        "max": 0.0,
+        "median": 0.0,
+        "p95": 0.0,
+        "p99": 0.0
+      },
+      "discarded_jobs": 0,
+      "draw_calls": {
+        "max": 9.0,
+        "median": 7.0,
+        "p95": 8.0,
+        "p99": 9.0
+      },
+      "duration_seconds": 20.000413,
+      "evicted_tiles": 1570,
+      "frame_ms": {
+        "max": 7.631,
+        "median": 2.281,
+        "p95": 4.373,
+        "p99": 5.402
+      },
+      "frames_over_16_67_ms_percent": 0.0,
+      "loaded_tiles": 1626,
+      "lod_counts_end": [
+        6,
+        14,
+        31,
+        10
+      ],
+      "moving": true,
+      "path_m_per_frame": 0.0,
+      "path_m_per_second": 160.0,
+      "pending_tiles": {
+        "max": 18,
+        "median": 5,
+        "p95": 17,
+        "p99": 18
+      },
+      "primitives": {
+        "max": 50124.0,
+        "median": 41084.0,
+        "p95": 45894.0,
+        "p99": 47820.0
+      },
+      "render_cpu_ms": {
+        "max": 2.14599990844727,
+        "median": 0.216999992728233,
+        "p95": 0.451999992132187,
+        "p99": 1.22000002861023
+      },
+      "resident_tiles": {
+        "max": 291,
+        "median": 275,
+        "p95": 289,
+        "p99": 289
+      },
+      "samples": 7464,
+      "stream_update_cpu_ms": {
+        "max": 3.729,
+        "median": 0.552,
+        "p95": 0.999,
+        "p99": 1.557
+      },
+      "structure_lod_counts_end": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "viewport_gpu_ms": {
+        "max": 1.93400001525879,
+        "median": 1.36500000953674,
+        "p95": 1.62100005149841,
+        "p99": 1.75199997425079
+      },
+      "visible_fine_tiles": {
+        "max": 84,
+        "median": 66,
+        "p95": 70,
+        "p99": 78
+      },
+      "visible_sites_end": 1,
+      "warmup": 120
+    }
+  ],
+  "scope": "Render prototype: deterministic procedural tiles generated on two workers, bounded resident GPU arrays, coarse fallback, shared polygon structures. Static cases settled; moving cases stream on the measured path. Classic columns share page table/tiles and use yaw-only projection; reduced resolution and different sampling are quality tradeoffs. No avatars, collision, networking, combat, shadows or XR.",
+  "setup_ms": 65.918,
+  "structure_cutoff_m": 550.0,
+  "structure_triangles": [
+    {
+      "kind": "town",
+      "lod_triangles": [
+        2224,
+        352,
+        216
+      ]
+    },
+    {
+      "kind": "factory",
+      "lod_triangles": [
+        5008,
+        4230,
+        86
+      ]
+    },
+    {
+      "kind": "port",
+      "lod_triangles": [
+        1588,
+        460,
+        432
+      ]
+    },
+    {
+      "kind": "military",
+      "lod_triangles": [
+        576,
+        360,
+        204
+      ]
+    }
+  ],
+  "tile_grid": [
+    64,
+    64
+  ],
+  "tile_m": 32,
+  "tile_samples": [
+    65,
+    65
+  ],
+  "upload_ms": {
+    "max": 1.691,
+    "median": 0.044,
+    "p95": 0.162,
+    "p99": 0.22
+  },
+  "uploads_per_frame": 2,
+  "view_distance_m": 640,
+  "workers": 2
+}
