@@ -1,0 +1,4543 @@
+{
+  "evaluation": {
+    "upstream_commit": "b2330430776a95a1545f03fc7bf16927f8cadc59",
+    "fork_commit": "82c1daa768a81c853aa7771dfbaaac75b00fbf36",
+    "scope": "Offline lossless cache/fetch reorder, per-vertex byte checks including every morph stream; simulated cache metrics are not measured GPU timings. Packers tested with named nodes/materials, extras and quantization disabled.",
+    "models": [
+      {
+        "model": "sample_d.vrm",
+        "source_sha256": "9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7",
+        "output_sha256": "7f461d3edfdcf54e21c9e09c8b77984a93f97e905ad73f8152ff0868d45432df",
+        "source_bytes": 16851352,
+        "output_bytes": 82939232,
+        "checks": 1221,
+        "processing_seconds": 0.612318311999843,
+        "surfaces": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 2148,
+            "triangles": 496,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0544354915618896,
+            "acmr_after": 0.9435483813285828,
+            "transforms_before": 523,
+            "transforms_after": 468
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 2148,
+            "triangles": 96,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0520833730697632,
+            "acmr_after": 0.8854166865348816,
+            "transforms_before": 101,
+            "transforms_after": 85
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 2148,
+            "triangles": 384,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.0234375,
+            "acmr_after": 1.0234375,
+            "transforms_before": 393,
+            "transforms_after": 393
+          },
+          {
+            "mesh": 0,
+            "primitive": 3,
+            "vertices": 2148,
+            "triangles": 224,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.0491071939468384,
+            "acmr_after": 1.0491071939468384,
+            "transforms_before": 235,
+            "transforms_after": 235
+          },
+          {
+            "mesh": 0,
+            "primitive": 4,
+            "vertices": 2148,
+            "triangles": 160,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.006250023841858,
+            "acmr_after": 1.006250023841858,
+            "transforms_before": 161,
+            "transforms_after": 161
+          },
+          {
+            "mesh": 0,
+            "primitive": 5,
+            "vertices": 2148,
+            "triangles": 192,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9791666865348816,
+            "acmr_after": 0.796875,
+            "transforms_before": 188,
+            "transforms_after": 153
+          },
+          {
+            "mesh": 0,
+            "primitive": 6,
+            "vertices": 2148,
+            "triangles": 192,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.984375,
+            "acmr_after": 0.984375,
+            "transforms_before": 189,
+            "transforms_after": 189
+          },
+          {
+            "mesh": 0,
+            "primitive": 7,
+            "vertices": 2148,
+            "triangles": 1064,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9633458852767944,
+            "acmr_after": 0.7998120188713074,
+            "transforms_before": 1025,
+            "transforms_after": 851
+          },
+          {
+            "mesh": 0,
+            "primitive": 8,
+            "vertices": 2148,
+            "triangles": 278,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.8776978254318237,
+            "acmr_after": 0.7949640154838562,
+            "transforms_before": 244,
+            "transforms_after": 221
+          },
+          {
+            "mesh": 0,
+            "primitive": 9,
+            "vertices": 2148,
+            "triangles": 64,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.9375,
+            "acmr_after": 0.9375,
+            "transforms_before": 60,
+            "transforms_after": 60
+          },
+          {
+            "mesh": 1,
+            "primitive": 0,
+            "vertices": 7798,
+            "triangles": 4360,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.013073444366455,
+            "acmr_after": 0.817889928817749,
+            "transforms_before": 4417,
+            "transforms_after": 3566
+          },
+          {
+            "mesh": 1,
+            "primitive": 1,
+            "vertices": 7798,
+            "triangles": 844,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.971563994884491,
+            "acmr_after": 0.8080568909645081,
+            "transforms_before": 820,
+            "transforms_after": 682
+          },
+          {
+            "mesh": 1,
+            "primitive": 2,
+            "vertices": 7798,
+            "triangles": 2302,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9578627347946167,
+            "acmr_after": 0.853171169757843,
+            "transforms_before": 2205,
+            "transforms_after": 1964
+          },
+          {
+            "mesh": 1,
+            "primitive": 3,
+            "vertices": 7798,
+            "triangles": 226,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9424778819084167,
+            "acmr_after": 0.8097345232963562,
+            "transforms_before": 213,
+            "transforms_after": 183
+          },
+          {
+            "mesh": 1,
+            "primitive": 4,
+            "vertices": 7798,
+            "triangles": 2065,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0290557146072388,
+            "acmr_after": 0.8595641851425171,
+            "transforms_before": 2125,
+            "transforms_after": 1775
+          },
+          {
+            "mesh": 1,
+            "primitive": 5,
+            "vertices": 7798,
+            "triangles": 214,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1214953660964966,
+            "acmr_after": 1.0841121673583984,
+            "transforms_before": 240,
+            "transforms_after": 232
+          },
+          {
+            "mesh": 1,
+            "primitive": 6,
+            "vertices": 7798,
+            "triangles": 700,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1842857599258423,
+            "acmr_after": 1.1200000047683716,
+            "transforms_before": 829,
+            "transforms_after": 784
+          },
+          {
+            "mesh": 1,
+            "primitive": 7,
+            "vertices": 7798,
+            "triangles": 540,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1740740537643433,
+            "acmr_after": 1.0962963104248047,
+            "transforms_before": 634,
+            "transforms_after": 592
+          },
+          {
+            "mesh": 1,
+            "primitive": 8,
+            "vertices": 7798,
+            "triangles": 394,
+            "morph_targets": 0,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.989847719669342,
+            "acmr_after": 0.989847719669342,
+            "transforms_before": 390,
+            "transforms_after": 390
+          },
+          {
+            "mesh": 2,
+            "primitive": 0,
+            "vertices": 15206,
+            "triangles": 516,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0852713584899902,
+            "acmr_after": 0.8468992114067078,
+            "transforms_before": 560,
+            "transforms_after": 437
+          },
+          {
+            "mesh": 2,
+            "primitive": 1,
+            "vertices": 15206,
+            "triangles": 524,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.087786316871643,
+            "acmr_after": 0.8454198241233826,
+            "transforms_before": 570,
+            "transforms_after": 443
+          },
+          {
+            "mesh": 2,
+            "primitive": 2,
+            "vertices": 15206,
+            "triangles": 532,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0864661931991577,
+            "acmr_after": 0.847744345664978,
+            "transforms_before": 578,
+            "transforms_after": 451
+          },
+          {
+            "mesh": 2,
+            "primitive": 3,
+            "vertices": 15206,
+            "triangles": 540,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0814814567565918,
+            "acmr_after": 0.8370370268821716,
+            "transforms_before": 584,
+            "transforms_after": 452
+          },
+          {
+            "mesh": 2,
+            "primitive": 4,
+            "vertices": 15206,
+            "triangles": 540,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0814814567565918,
+            "acmr_after": 0.8370370268821716,
+            "transforms_before": 584,
+            "transforms_after": 452
+          },
+          {
+            "mesh": 2,
+            "primitive": 5,
+            "vertices": 15206,
+            "triangles": 540,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0814814567565918,
+            "acmr_after": 0.8370370268821716,
+            "transforms_before": 584,
+            "transforms_after": 452
+          },
+          {
+            "mesh": 2,
+            "primitive": 6,
+            "vertices": 15206,
+            "triangles": 548,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.087591290473938,
+            "acmr_after": 0.8448905348777771,
+            "transforms_before": 596,
+            "transforms_after": 463
+          },
+          {
+            "mesh": 2,
+            "primitive": 7,
+            "vertices": 15206,
+            "triangles": 548,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.087591290473938,
+            "acmr_after": 0.8448905348777771,
+            "transforms_before": 596,
+            "transforms_after": 463
+          },
+          {
+            "mesh": 2,
+            "primitive": 8,
+            "vertices": 15206,
+            "triangles": 548,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.087591290473938,
+            "acmr_after": 0.8448905348777771,
+            "transforms_before": 596,
+            "transforms_after": 463
+          },
+          {
+            "mesh": 2,
+            "primitive": 9,
+            "vertices": 15206,
+            "triangles": 548,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.087591290473938,
+            "acmr_after": 0.8448905348777771,
+            "transforms_before": 596,
+            "transforms_after": 463
+          },
+          {
+            "mesh": 2,
+            "primitive": 10,
+            "vertices": 15206,
+            "triangles": 540,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0814814567565918,
+            "acmr_after": 0.8370370268821716,
+            "transforms_before": 584,
+            "transforms_after": 452
+          },
+          {
+            "mesh": 2,
+            "primitive": 11,
+            "vertices": 15206,
+            "triangles": 540,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0814814567565918,
+            "acmr_after": 0.8370370268821716,
+            "transforms_before": 584,
+            "transforms_after": 452
+          },
+          {
+            "mesh": 2,
+            "primitive": 12,
+            "vertices": 15206,
+            "triangles": 540,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0814814567565918,
+            "acmr_after": 0.8370370268821716,
+            "transforms_before": 584,
+            "transforms_after": 452
+          },
+          {
+            "mesh": 2,
+            "primitive": 13,
+            "vertices": 15206,
+            "triangles": 532,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0864661931991577,
+            "acmr_after": 0.847744345664978,
+            "transforms_before": 578,
+            "transforms_after": 451
+          },
+          {
+            "mesh": 2,
+            "primitive": 14,
+            "vertices": 15206,
+            "triangles": 524,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.087786316871643,
+            "acmr_after": 0.8454198241233826,
+            "transforms_before": 570,
+            "transforms_after": 443
+          },
+          {
+            "mesh": 2,
+            "primitive": 15,
+            "vertices": 15206,
+            "triangles": 524,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.087786316871643,
+            "acmr_after": 0.8454198241233826,
+            "transforms_before": 570,
+            "transforms_after": 443
+          },
+          {
+            "mesh": 2,
+            "primitive": 16,
+            "vertices": 15206,
+            "triangles": 516,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0852713584899902,
+            "acmr_after": 0.8468992114067078,
+            "transforms_before": 560,
+            "transforms_after": 437
+          },
+          {
+            "mesh": 2,
+            "primitive": 17,
+            "vertices": 15206,
+            "triangles": 508,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0866141319274902,
+            "acmr_after": 0.8484252095222473,
+            "transforms_before": 552,
+            "transforms_after": 431
+          },
+          {
+            "mesh": 2,
+            "primitive": 18,
+            "vertices": 15206,
+            "triangles": 500,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0880000591278076,
+            "acmr_after": 0.843999981880188,
+            "transforms_before": 544,
+            "transforms_after": 422
+          },
+          {
+            "mesh": 2,
+            "primitive": 19,
+            "vertices": 15206,
+            "triangles": 492,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0894309282302856,
+            "acmr_after": 0.8455284833908081,
+            "transforms_before": 536,
+            "transforms_after": 416
+          },
+          {
+            "mesh": 2,
+            "primitive": 20,
+            "vertices": 15206,
+            "triangles": 516,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0852713584899902,
+            "acmr_after": 0.8468992114067078,
+            "transforms_before": 560,
+            "transforms_after": 437
+          },
+          {
+            "mesh": 2,
+            "primitive": 21,
+            "vertices": 15206,
+            "triangles": 500,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0880000591278076,
+            "acmr_after": 0.843999981880188,
+            "transforms_before": 544,
+            "transforms_after": 422
+          },
+          {
+            "mesh": 2,
+            "primitive": 22,
+            "vertices": 15206,
+            "triangles": 508,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0866141319274902,
+            "acmr_after": 0.8484252095222473,
+            "transforms_before": 552,
+            "transforms_after": 431
+          },
+          {
+            "mesh": 2,
+            "primitive": 23,
+            "vertices": 15206,
+            "triangles": 500,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0880000591278076,
+            "acmr_after": 0.843999981880188,
+            "transforms_before": 544,
+            "transforms_after": 422
+          },
+          {
+            "mesh": 2,
+            "primitive": 24,
+            "vertices": 15206,
+            "triangles": 252,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8650793433189392,
+            "transforms_before": 280,
+            "transforms_after": 218
+          },
+          {
+            "mesh": 2,
+            "primitive": 25,
+            "vertices": 15206,
+            "triangles": 460,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0913043022155762,
+            "acmr_after": 0.843478262424469,
+            "transforms_before": 502,
+            "transforms_after": 388
+          },
+          {
+            "mesh": 2,
+            "primitive": 26,
+            "vertices": 15206,
+            "triangles": 348,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0977011919021606,
+            "acmr_after": 0.8505747318267822,
+            "transforms_before": 382,
+            "transforms_after": 296
+          },
+          {
+            "mesh": 2,
+            "primitive": 27,
+            "vertices": 15206,
+            "triangles": 444,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.090090036392212,
+            "acmr_after": 0.8490990996360779,
+            "transforms_before": 484,
+            "transforms_after": 377
+          },
+          {
+            "mesh": 2,
+            "primitive": 28,
+            "vertices": 15206,
+            "triangles": 396,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0909091234207153,
+            "acmr_after": 0.8535353541374207,
+            "transforms_before": 432,
+            "transforms_after": 338
+          },
+          {
+            "mesh": 2,
+            "primitive": 29,
+            "vertices": 15206,
+            "triangles": 324,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0987653732299805,
+            "acmr_after": 0.8580247163772583,
+            "transforms_before": 356,
+            "transforms_after": 278
+          },
+          {
+            "mesh": 2,
+            "primitive": 30,
+            "vertices": 15206,
+            "triangles": 364,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.076923131942749,
+            "acmr_after": 0.8543956279754639,
+            "transforms_before": 392,
+            "transforms_after": 311
+          },
+          {
+            "mesh": 2,
+            "primitive": 31,
+            "vertices": 15206,
+            "triangles": 380,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0947368144989014,
+            "acmr_after": 0.8500000238418579,
+            "transforms_before": 416,
+            "transforms_after": 323
+          },
+          {
+            "mesh": 2,
+            "primitive": 32,
+            "vertices": 15206,
+            "triangles": 380,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0947368144989014,
+            "acmr_after": 0.8500000238418579,
+            "transforms_before": 416,
+            "transforms_after": 323
+          },
+          {
+            "mesh": 2,
+            "primitive": 33,
+            "vertices": 15206,
+            "triangles": 388,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0927834510803223,
+            "acmr_after": 0.8402062058448792,
+            "transforms_before": 424,
+            "transforms_after": 326
+          },
+          {
+            "mesh": 2,
+            "primitive": 34,
+            "vertices": 15206,
+            "triangles": 244,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0819672346115112,
+            "acmr_after": 0.868852436542511,
+            "transforms_before": 264,
+            "transforms_after": 212
+          },
+          {
+            "mesh": 2,
+            "primitive": 35,
+            "vertices": 15206,
+            "triangles": 260,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1076923608779907,
+            "acmr_after": 0.8615384697914124,
+            "transforms_before": 288,
+            "transforms_after": 224
+          },
+          {
+            "mesh": 2,
+            "primitive": 36,
+            "vertices": 15206,
+            "triangles": 268,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1044776439666748,
+            "acmr_after": 0.858208954334259,
+            "transforms_before": 296,
+            "transforms_after": 230
+          },
+          {
+            "mesh": 2,
+            "primitive": 37,
+            "vertices": 15206,
+            "triangles": 284,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1056338548660278,
+            "acmr_after": 0.8626760840415955,
+            "transforms_before": 314,
+            "transforms_after": 245
+          },
+          {
+            "mesh": 2,
+            "primitive": 38,
+            "vertices": 15206,
+            "triangles": 316,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.094936728477478,
+            "acmr_after": 0.857594907283783,
+            "transforms_before": 346,
+            "transforms_after": 271
+          },
+          {
+            "mesh": 2,
+            "primitive": 39,
+            "vertices": 15206,
+            "triangles": 236,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0847457647323608,
+            "acmr_after": 0.8474576473236084,
+            "transforms_before": 256,
+            "transforms_after": 200
+          },
+          {
+            "mesh": 2,
+            "primitive": 40,
+            "vertices": 15206,
+            "triangles": 60,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0166666507720947,
+            "acmr_after": 0.9833333492279053,
+            "transforms_before": 61,
+            "transforms_after": 59
+          },
+          {
+            "mesh": 2,
+            "primitive": 41,
+            "vertices": 15206,
+            "triangles": 52,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.076923131942749,
+            "acmr_after": 1.0192307233810425,
+            "transforms_before": 56,
+            "transforms_after": 53
+          },
+          {
+            "mesh": 2,
+            "primitive": 42,
+            "vertices": 15206,
+            "triangles": 52,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.076923131942749,
+            "acmr_after": 1.0192307233810425,
+            "transforms_before": 56,
+            "transforms_after": 53
+          },
+          {
+            "mesh": 2,
+            "primitive": 43,
+            "vertices": 15206,
+            "triangles": 516,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0852713584899902,
+            "acmr_after": 0.8468992114067078,
+            "transforms_before": 560,
+            "transforms_after": 437
+          },
+          {
+            "mesh": 2,
+            "primitive": 44,
+            "vertices": 15206,
+            "triangles": 460,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0913043022155762,
+            "acmr_after": 0.843478262424469,
+            "transforms_before": 502,
+            "transforms_after": 388
+          },
+          {
+            "mesh": 2,
+            "primitive": 45,
+            "vertices": 15206,
+            "triangles": 492,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0894309282302856,
+            "acmr_after": 0.8455284833908081,
+            "transforms_before": 536,
+            "transforms_after": 416
+          }
+        ],
+        "simulated_transforms_before": 36317,
+        "simulated_transforms_after": 29600,
+        "cache_only": {
+          "output_sha256": "441118bc79a146ef97b1beea73733ada98573719da790ae19893bfb90f068d2f",
+          "bytes": 16851352,
+          "changed_bytes": 124082,
+          "optimized_primitives": 59,
+          "checks": 61,
+          "all_non_index_bytes_identical": true,
+          "transparent_triangles_unchanged": true
+        },
+        "gltfpack": [
+          {
+            "repository": "zeux",
+            "returncode": 0,
+            "stderr": "",
+            "valid_json": true,
+            "extensions": [],
+            "nodes_before": 144,
+            "nodes_after": 144,
+            "meshes_before": 3,
+            "meshes_after": 3,
+            "vrm_present": false
+          },
+          {
+            "repository": "infosia",
+            "returncode": 0,
+            "stderr": "",
+            "valid_json": true,
+            "extensions": [
+              "VRM"
+            ],
+            "nodes_before": 144,
+            "nodes_after": 147,
+            "meshes_before": 3,
+            "meshes_after": 3,
+            "vrm_present": true,
+            "humanoid_reference_mismatches": [
+              {
+                "bone": "hips",
+                "expected": "J_Bip_C_Hips",
+                "actual": "Root",
+                "index": 5
+              },
+              {
+                "bone": "leftUpperLeg",
+                "expected": "J_Bip_L_UpperLeg",
+                "actual": "J_Bip_R_Thumb2",
+                "index": 115
+              },
+              {
+                "bone": "rightUpperLeg",
+                "expected": "J_Bip_R_UpperLeg",
+                "actual": "J_Bip_L_Foot",
+                "index": 128
+              },
+              {
+                "bone": "leftLowerLeg",
+                "expected": "J_Bip_L_LowerLeg",
+                "actual": "J_Sec_L_SkirtFront_end",
+                "index": 123
+              },
+              {
+                "bone": "rightLowerLeg",
+                "expected": "J_Bip_R_LowerLeg",
+                "actual": "J_Sec_R_SkirtFront_end",
+                "index": 136
+              },
+              {
+                "bone": "leftFoot",
+                "expected": "J_Bip_L_Foot",
+                "actual": "J_Sec_L_SkirtSide_end",
+                "index": 125
+              },
+              {
+                "bone": "rightFoot",
+                "expected": "J_Bip_R_Foot",
+                "actual": "J_Sec_R_SkirtSide_end",
+                "index": 138
+              },
+              {
+                "bone": "spine",
+                "expected": "J_Bip_C_Spine",
+                "actual": "Global",
+                "index": 6
+              },
+              {
+                "bone": "chest",
+                "expected": "J_Bip_C_Chest",
+                "actual": "Position",
+                "index": 7
+              },
+              {
+                "bone": "neck",
+                "expected": "J_Bip_C_Neck",
+                "actual": "J_Sec_L_Bust2",
+                "index": 13
+              },
+              {
+                "bone": "head",
+                "expected": "J_Bip_C_Head",
+                "actual": "J_Sec_R_Bust1",
+                "index": 14
+              },
+              {
+                "bone": "leftShoulder",
+                "expected": "J_Bip_L_Shoulder",
+                "actual": "HairJoint-e9356468-a496-4b6f-b576-dc4a5b963d4d",
+                "index": 63
+              },
+              {
+                "bone": "rightShoulder",
+                "expected": "J_Bip_R_Shoulder",
+                "actual": "J_Bip_L_Thumb2",
+                "index": 89
+              },
+              {
+                "bone": "leftUpperArm",
+                "expected": "J_Bip_L_UpperArm",
+                "actual": "HairJoint-a3d11577-b757-46db-8937-6176fcaa4e65",
+                "index": 64
+              },
+              {
+                "bone": "rightUpperArm",
+                "expected": "J_Bip_R_UpperArm",
+                "actual": "J_Bip_L_Thumb3",
+                "index": 90
+              },
+              {
+                "bone": "leftLowerArm",
+                "expected": "J_Bip_L_LowerArm",
+                "actual": "J_Bip_L_Shoulder",
+                "index": 66
+              },
+              {
+                "bone": "rightLowerArm",
+                "expected": "J_Bip_R_LowerArm",
+                "actual": "J_Bip_R_Shoulder",
+                "index": 92
+              },
+              {
+                "bone": "leftHand",
+                "expected": "J_Bip_L_Hand",
+                "actual": "J_Sec_L_UpperArm",
+                "index": 68
+              },
+              {
+                "bone": "rightHand",
+                "expected": "J_Bip_R_Hand",
+                "actual": "J_Sec_R_UpperArm",
+                "index": 94
+              },
+              {
+                "bone": "leftToes",
+                "expected": "J_Bip_L_ToeBase",
+                "actual": "J_Bip_L_LowerLeg",
+                "index": 126
+              },
+              {
+                "bone": "rightToes",
+                "expected": "J_Bip_R_ToeBase",
+                "actual": "J_Bip_R_LowerLeg",
+                "index": 139
+              },
+              {
+                "bone": "leftEye",
+                "expected": "J_Adj_L_FaceEye",
+                "actual": "J_Bip_C_Neck",
+                "index": 16
+              },
+              {
+                "bone": "rightEye",
+                "expected": "J_Adj_R_FaceEye",
+                "actual": "J_Adj_L_FaceEyeSet",
+                "index": 18
+              },
+              {
+                "bone": "leftThumbProximal",
+                "expected": "J_Bip_L_Thumb1",
+                "actual": "J_Bip_L_Ring2",
+                "index": 85
+              },
+              {
+                "bone": "leftThumbIntermediate",
+                "expected": "J_Bip_L_Thumb2",
+                "actual": "J_Bip_L_Ring3",
+                "index": 86
+              },
+              {
+                "bone": "leftThumbDistal",
+                "expected": "J_Bip_L_Thumb3",
+                "actual": "J_Bip_L_Ring3_end",
+                "index": 87
+              },
+              {
+                "bone": "leftIndexProximal",
+                "expected": "J_Bip_L_Index1",
+                "actual": "J_Bip_L_LowerArm",
+                "index": 69
+              },
+              {
+                "bone": "leftIndexIntermediate",
+                "expected": "J_Bip_L_Index2",
+                "actual": "J_Sec_L_LowerArm",
+                "index": 70
+              },
+              {
+                "bone": "leftIndexDistal",
+                "expected": "J_Bip_L_Index3",
+                "actual": "J_Bip_L_Hand",
+                "index": 71
+              },
+              {
+                "bone": "leftMiddleProximal",
+                "expected": "J_Bip_L_Middle1",
+                "actual": "J_Bip_L_Little2",
+                "index": 77
+              },
+              {
+                "bone": "leftMiddleIntermediate",
+                "expected": "J_Bip_L_Middle2",
+                "actual": "J_Bip_L_Little3",
+                "index": 78
+              },
+              {
+                "bone": "leftMiddleDistal",
+                "expected": "J_Bip_L_Middle3",
+                "actual": "J_Bip_L_Little3_end",
+                "index": 79
+              },
+              {
+                "bone": "leftRingProximal",
+                "expected": "J_Bip_L_Ring1",
+                "actual": "J_Bip_L_Middle2",
+                "index": 81
+              },
+              {
+                "bone": "leftRingIntermediate",
+                "expected": "J_Bip_L_Ring2",
+                "actual": "J_Bip_L_Middle3",
+                "index": 82
+              },
+              {
+                "bone": "leftRingDistal",
+                "expected": "J_Bip_L_Ring3",
+                "actual": "J_Bip_L_Middle3_end",
+                "index": 83
+              },
+              {
+                "bone": "leftLittleProximal",
+                "expected": "J_Bip_L_Little1",
+                "actual": "J_Bip_L_Index2",
+                "index": 73
+              },
+              {
+                "bone": "leftLittleIntermediate",
+                "expected": "J_Bip_L_Little2",
+                "actual": "J_Bip_L_Index3",
+                "index": 74
+              },
+              {
+                "bone": "leftLittleDistal",
+                "expected": "J_Bip_L_Little3",
+                "actual": "J_Bip_L_Index3_end",
+                "index": 75
+              },
+              {
+                "bone": "rightThumbProximal",
+                "expected": "J_Bip_R_Thumb1",
+                "actual": "J_Bip_R_Ring2",
+                "index": 111
+              },
+              {
+                "bone": "rightThumbIntermediate",
+                "expected": "J_Bip_R_Thumb2",
+                "actual": "J_Bip_R_Ring3",
+                "index": 112
+              },
+              {
+                "bone": "rightThumbDistal",
+                "expected": "J_Bip_R_Thumb3",
+                "actual": "J_Bip_R_Ring3_end",
+                "index": 113
+              },
+              {
+                "bone": "rightIndexProximal",
+                "expected": "J_Bip_R_Index1",
+                "actual": "J_Bip_R_LowerArm",
+                "index": 95
+              },
+              {
+                "bone": "rightIndexIntermediate",
+                "expected": "J_Bip_R_Index2",
+                "actual": "J_Sec_R_LowerArm",
+                "index": 96
+              },
+              {
+                "bone": "rightIndexDistal",
+                "expected": "J_Bip_R_Index3",
+                "actual": "J_Bip_R_Hand",
+                "index": 97
+              },
+              {
+                "bone": "rightMiddleProximal",
+                "expected": "J_Bip_R_Middle1",
+                "actual": "J_Bip_R_Little2",
+                "index": 103
+              },
+              {
+                "bone": "rightMiddleIntermediate",
+                "expected": "J_Bip_R_Middle2",
+                "actual": "J_Bip_R_Little3",
+                "index": 104
+              },
+              {
+                "bone": "rightMiddleDistal",
+                "expected": "J_Bip_R_Middle3",
+                "actual": "J_Bip_R_Little3_end",
+                "index": 105
+              },
+              {
+                "bone": "rightRingProximal",
+                "expected": "J_Bip_R_Ring1",
+                "actual": "J_Bip_R_Middle2",
+                "index": 107
+              },
+              {
+                "bone": "rightRingIntermediate",
+                "expected": "J_Bip_R_Ring2",
+                "actual": "J_Bip_R_Middle3",
+                "index": 108
+              },
+              {
+                "bone": "rightRingDistal",
+                "expected": "J_Bip_R_Ring3",
+                "actual": "J_Bip_R_Middle3_end",
+                "index": 109
+              },
+              {
+                "bone": "rightLittleProximal",
+                "expected": "J_Bip_R_Little1",
+                "actual": "J_Bip_R_Index2",
+                "index": 99
+              },
+              {
+                "bone": "rightLittleIntermediate",
+                "expected": "J_Bip_R_Little2",
+                "actual": "J_Bip_R_Index3",
+                "index": 100
+              },
+              {
+                "bone": "rightLittleDistal",
+                "expected": "J_Bip_R_Little3",
+                "actual": "J_Bip_R_Index3_end",
+                "index": 101
+              },
+              {
+                "bone": "upperChest",
+                "expected": "J_Bip_C_UpperChest",
+                "actual": "J_Bip_C_Hips",
+                "index": 8
+              }
+            ],
+            "vrm_extension_identical": false
+          }
+        ]
+      },
+      {
+        "model": "sample_f.vrm",
+        "source_sha256": "d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb",
+        "output_sha256": "53b87a48b4167f691d80794f7f45a8170451206d2036500588c19e1b295d70c2",
+        "source_bytes": 14198800,
+        "output_bytes": 75240632,
+        "checks": 1323,
+        "processing_seconds": 0.5451963849991444,
+        "surfaces": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 2148,
+            "triangles": 496,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0544354915618896,
+            "acmr_after": 0.9435483813285828,
+            "transforms_before": 523,
+            "transforms_after": 468
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 2148,
+            "triangles": 96,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0520833730697632,
+            "acmr_after": 0.8854166865348816,
+            "transforms_before": 101,
+            "transforms_after": 85
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 2148,
+            "triangles": 384,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.0234375,
+            "acmr_after": 1.0234375,
+            "transforms_before": 393,
+            "transforms_after": 393
+          },
+          {
+            "mesh": 0,
+            "primitive": 3,
+            "vertices": 2148,
+            "triangles": 224,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.0491071939468384,
+            "acmr_after": 1.0491071939468384,
+            "transforms_before": 235,
+            "transforms_after": 235
+          },
+          {
+            "mesh": 0,
+            "primitive": 4,
+            "vertices": 2148,
+            "triangles": 160,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.006250023841858,
+            "acmr_after": 1.006250023841858,
+            "transforms_before": 161,
+            "transforms_after": 161
+          },
+          {
+            "mesh": 0,
+            "primitive": 5,
+            "vertices": 2148,
+            "triangles": 192,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9791666865348816,
+            "acmr_after": 0.796875,
+            "transforms_before": 188,
+            "transforms_after": 153
+          },
+          {
+            "mesh": 0,
+            "primitive": 6,
+            "vertices": 2148,
+            "triangles": 192,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.984375,
+            "acmr_after": 0.984375,
+            "transforms_before": 189,
+            "transforms_after": 189
+          },
+          {
+            "mesh": 0,
+            "primitive": 7,
+            "vertices": 2148,
+            "triangles": 1064,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9633458852767944,
+            "acmr_after": 0.7998120188713074,
+            "transforms_before": 1025,
+            "transforms_after": 851
+          },
+          {
+            "mesh": 0,
+            "primitive": 8,
+            "vertices": 2148,
+            "triangles": 278,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.8776978254318237,
+            "acmr_after": 0.7949640154838562,
+            "transforms_before": 244,
+            "transforms_after": 221
+          },
+          {
+            "mesh": 0,
+            "primitive": 9,
+            "vertices": 2148,
+            "triangles": 64,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.9375,
+            "acmr_after": 0.9375,
+            "transforms_before": 60,
+            "transforms_after": 60
+          },
+          {
+            "mesh": 1,
+            "primitive": 0,
+            "vertices": 7244,
+            "triangles": 4360,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.013073444366455,
+            "acmr_after": 0.817889928817749,
+            "transforms_before": 4417,
+            "transforms_after": 3566
+          },
+          {
+            "mesh": 1,
+            "primitive": 1,
+            "vertices": 7244,
+            "triangles": 1756,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9544419050216675,
+            "acmr_after": 0.8382688164710999,
+            "transforms_before": 1676,
+            "transforms_after": 1472
+          },
+          {
+            "mesh": 1,
+            "primitive": 2,
+            "vertices": 7244,
+            "triangles": 2302,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9578627347946167,
+            "acmr_after": 0.853171169757843,
+            "transforms_before": 2205,
+            "transforms_after": 1964
+          },
+          {
+            "mesh": 1,
+            "primitive": 3,
+            "vertices": 7244,
+            "triangles": 226,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9424778819084167,
+            "acmr_after": 0.8097345232963562,
+            "transforms_before": 213,
+            "transforms_after": 183
+          },
+          {
+            "mesh": 1,
+            "primitive": 4,
+            "vertices": 7244,
+            "triangles": 2118,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0047214031219482,
+            "acmr_after": 0.8248347640037537,
+            "transforms_before": 2128,
+            "transforms_after": 1747
+          },
+          {
+            "mesh": 1,
+            "primitive": 5,
+            "vertices": 7244,
+            "triangles": 724,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9848066568374634,
+            "acmr_after": 0.8259668350219727,
+            "transforms_before": 713,
+            "transforms_after": 598
+          },
+          {
+            "mesh": 1,
+            "primitive": 6,
+            "vertices": 7244,
+            "triangles": 394,
+            "morph_targets": 0,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.989847719669342,
+            "acmr_after": 0.989847719669342,
+            "transforms_before": 390,
+            "transforms_after": 390
+          },
+          {
+            "mesh": 2,
+            "primitive": 0,
+            "vertices": 9694,
+            "triangles": 172,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1279069185256958,
+            "acmr_after": 0.8837209343910217,
+            "transforms_before": 194,
+            "transforms_after": 152
+          },
+          {
+            "mesh": 2,
+            "primitive": 1,
+            "vertices": 9694,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 2,
+            "vertices": 9694,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 3,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 4,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 5,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 6,
+            "vertices": 9694,
+            "triangles": 212,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1226415634155273,
+            "acmr_after": 0.8726415038108826,
+            "transforms_before": 238,
+            "transforms_after": 185
+          },
+          {
+            "mesh": 2,
+            "primitive": 7,
+            "vertices": 9694,
+            "triangles": 212,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1226415634155273,
+            "acmr_after": 0.8726415038108826,
+            "transforms_before": 238,
+            "transforms_after": 185
+          },
+          {
+            "mesh": 2,
+            "primitive": 8,
+            "vertices": 9694,
+            "triangles": 220,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.118181824684143,
+            "acmr_after": 0.8681818246841431,
+            "transforms_before": 246,
+            "transforms_after": 191
+          },
+          {
+            "mesh": 2,
+            "primitive": 9,
+            "vertices": 9694,
+            "triangles": 220,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.118181824684143,
+            "acmr_after": 0.8681818246841431,
+            "transforms_before": 246,
+            "transforms_after": 191
+          },
+          {
+            "mesh": 2,
+            "primitive": 10,
+            "vertices": 9694,
+            "triangles": 220,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.118181824684143,
+            "acmr_after": 0.8681818246841431,
+            "transforms_before": 246,
+            "transforms_after": 191
+          },
+          {
+            "mesh": 2,
+            "primitive": 11,
+            "vertices": 9694,
+            "triangles": 220,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.118181824684143,
+            "acmr_after": 0.8681818246841431,
+            "transforms_before": 246,
+            "transforms_after": 191
+          },
+          {
+            "mesh": 2,
+            "primitive": 12,
+            "vertices": 9694,
+            "triangles": 220,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.118181824684143,
+            "acmr_after": 0.8681818246841431,
+            "transforms_before": 246,
+            "transforms_after": 191
+          },
+          {
+            "mesh": 2,
+            "primitive": 13,
+            "vertices": 9694,
+            "triangles": 212,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1226415634155273,
+            "acmr_after": 0.8726415038108826,
+            "transforms_before": 238,
+            "transforms_after": 185
+          },
+          {
+            "mesh": 2,
+            "primitive": 14,
+            "vertices": 9694,
+            "triangles": 212,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1226415634155273,
+            "acmr_after": 0.8726415038108826,
+            "transforms_before": 238,
+            "transforms_after": 185
+          },
+          {
+            "mesh": 2,
+            "primitive": 15,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 16,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 17,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 18,
+            "vertices": 9694,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 19,
+            "vertices": 9694,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 20,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 21,
+            "vertices": 9694,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 22,
+            "vertices": 9694,
+            "triangles": 156,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1282051801681519,
+            "acmr_after": 0.8589743375778198,
+            "transforms_before": 176,
+            "transforms_after": 134
+          },
+          {
+            "mesh": 2,
+            "primitive": 23,
+            "vertices": 9694,
+            "triangles": 156,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1282051801681519,
+            "acmr_after": 0.8589743375778198,
+            "transforms_before": 176,
+            "transforms_after": 134
+          },
+          {
+            "mesh": 2,
+            "primitive": 24,
+            "vertices": 9694,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 25,
+            "vertices": 9694,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 26,
+            "vertices": 9694,
+            "triangles": 164,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1341463327407837,
+            "acmr_after": 0.8902438879013062,
+            "transforms_before": 186,
+            "transforms_after": 146
+          },
+          {
+            "mesh": 2,
+            "primitive": 27,
+            "vertices": 9694,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 28,
+            "vertices": 9694,
+            "triangles": 172,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1279069185256958,
+            "acmr_after": 0.8837209343910217,
+            "transforms_before": 194,
+            "transforms_after": 152
+          },
+          {
+            "mesh": 2,
+            "primitive": 29,
+            "vertices": 9694,
+            "triangles": 156,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1282051801681519,
+            "acmr_after": 0.8589743375778198,
+            "transforms_before": 176,
+            "transforms_after": 134
+          },
+          {
+            "mesh": 2,
+            "primitive": 30,
+            "vertices": 9694,
+            "triangles": 156,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1282051801681519,
+            "acmr_after": 0.8589743375778198,
+            "transforms_before": 176,
+            "transforms_after": 134
+          },
+          {
+            "mesh": 2,
+            "primitive": 31,
+            "vertices": 9694,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 32,
+            "vertices": 9694,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 33,
+            "vertices": 9694,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 34,
+            "vertices": 9694,
+            "triangles": 172,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1279069185256958,
+            "acmr_after": 0.8837209343910217,
+            "transforms_before": 194,
+            "transforms_after": 152
+          },
+          {
+            "mesh": 2,
+            "primitive": 35,
+            "vertices": 9694,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 36,
+            "vertices": 9694,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 37,
+            "vertices": 9694,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 38,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 39,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 40,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 41,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 42,
+            "vertices": 9694,
+            "triangles": 172,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1279069185256958,
+            "acmr_after": 0.8837209343910217,
+            "transforms_before": 194,
+            "transforms_after": 152
+          },
+          {
+            "mesh": 2,
+            "primitive": 43,
+            "vertices": 9694,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 44,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 45,
+            "vertices": 9694,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 46,
+            "vertices": 9694,
+            "triangles": 132,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1515151262283325,
+            "acmr_after": 0.9015151262283325,
+            "transforms_before": 152,
+            "transforms_after": 119
+          },
+          {
+            "mesh": 2,
+            "primitive": 47,
+            "vertices": 9694,
+            "triangles": 124,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0967742204666138,
+            "acmr_after": 0.9112903475761414,
+            "transforms_before": 136,
+            "transforms_after": 113
+          },
+          {
+            "mesh": 2,
+            "primitive": 48,
+            "vertices": 9694,
+            "triangles": 116,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1034482717514038,
+            "acmr_after": 0.8965517282485962,
+            "transforms_before": 128,
+            "transforms_after": 104
+          },
+          {
+            "mesh": 2,
+            "primitive": 49,
+            "vertices": 9694,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 50,
+            "vertices": 9694,
+            "triangles": 132,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1515151262283325,
+            "acmr_after": 0.9015151262283325,
+            "transforms_before": 152,
+            "transforms_after": 119
+          },
+          {
+            "mesh": 2,
+            "primitive": 51,
+            "vertices": 9694,
+            "triangles": 84,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1904761791229248,
+            "acmr_after": 0.9404761791229248,
+            "transforms_before": 100,
+            "transforms_after": 79
+          },
+          {
+            "mesh": 2,
+            "primitive": 52,
+            "vertices": 9694,
+            "triangles": 356,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0786516666412354,
+            "acmr_after": 0.8567415475845337,
+            "transforms_before": 384,
+            "transforms_after": 305
+          },
+          {
+            "mesh": 2,
+            "primitive": 53,
+            "vertices": 9694,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 54,
+            "vertices": 9694,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 55,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 56,
+            "vertices": 9694,
+            "triangles": 68,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.2352941036224365,
+            "acmr_after": 0.9852941036224365,
+            "transforms_before": 84,
+            "transforms_after": 67
+          },
+          {
+            "mesh": 2,
+            "primitive": 57,
+            "vertices": 9694,
+            "triangles": 164,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1341463327407837,
+            "acmr_after": 0.8902438879013062,
+            "transforms_before": 186,
+            "transforms_after": 146
+          },
+          {
+            "mesh": 2,
+            "primitive": 58,
+            "vertices": 9694,
+            "triangles": 164,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1341463327407837,
+            "acmr_after": 0.8902438879013062,
+            "transforms_before": 186,
+            "transforms_after": 146
+          },
+          {
+            "mesh": 2,
+            "primitive": 59,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 60,
+            "vertices": 9694,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 61,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 62,
+            "vertices": 9694,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 63,
+            "vertices": 9694,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 64,
+            "vertices": 9694,
+            "triangles": 340,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.100000023841858,
+            "acmr_after": 0.8529411554336548,
+            "transforms_before": 374,
+            "transforms_after": 290
+          }
+        ],
+        "simulated_transforms_before": 28279,
+        "simulated_transforms_after": 23244,
+        "cache_only": {
+          "output_sha256": "bcf5d9a02c129e69997bacea30e8dec418ff7514168fba880ac0264e2510f0e0",
+          "bytes": 14198800,
+          "changed_bytes": 97730,
+          "optimized_primitives": 76,
+          "checks": 78,
+          "all_non_index_bytes_identical": true,
+          "transparent_triangles_unchanged": true
+        },
+        "gltfpack": [
+          {
+            "repository": "zeux",
+            "returncode": 0,
+            "stderr": "",
+            "valid_json": true,
+            "extensions": [],
+            "nodes_before": 164,
+            "nodes_after": 164,
+            "meshes_before": 3,
+            "meshes_after": 3,
+            "vrm_present": false
+          },
+          {
+            "repository": "infosia",
+            "returncode": 0,
+            "stderr": "",
+            "valid_json": true,
+            "extensions": [
+              "VRM"
+            ],
+            "nodes_before": 164,
+            "nodes_after": 167,
+            "meshes_before": 3,
+            "meshes_after": 3,
+            "vrm_present": true,
+            "humanoid_reference_mismatches": [
+              {
+                "bone": "hips",
+                "expected": "J_Bip_C_Hips",
+                "actual": "Root",
+                "index": 5
+              },
+              {
+                "bone": "leftUpperLeg",
+                "expected": "J_Bip_L_UpperLeg",
+                "actual": "J_Bip_R_Thumb3_end",
+                "index": 135
+              },
+              {
+                "bone": "rightUpperLeg",
+                "expected": "J_Bip_R_UpperLeg",
+                "actual": "J_Bip_L_Foot",
+                "index": 148
+              },
+              {
+                "bone": "leftLowerLeg",
+                "expected": "J_Bip_L_LowerLeg",
+                "actual": "J_Sec_L_SkirtFront1",
+                "index": 143
+              },
+              {
+                "bone": "rightLowerLeg",
+                "expected": "J_Bip_R_LowerLeg",
+                "actual": "J_Sec_R_SkirtFront1",
+                "index": 156
+              },
+              {
+                "bone": "leftFoot",
+                "expected": "J_Bip_L_Foot",
+                "actual": "J_Sec_L_SkirtFront2_end",
+                "index": 145
+              },
+              {
+                "bone": "rightFoot",
+                "expected": "J_Bip_R_Foot",
+                "actual": "J_Sec_R_SkirtFront2_end",
+                "index": 158
+              },
+              {
+                "bone": "spine",
+                "expected": "J_Bip_C_Spine",
+                "actual": "J_Sec_R_SkirtSide1",
+                "index": 12
+              },
+              {
+                "bone": "chest",
+                "expected": "J_Bip_C_Chest",
+                "actual": "J_Sec_R_SkirtSide2",
+                "index": 13
+              },
+              {
+                "bone": "neck",
+                "expected": "J_Bip_C_Neck",
+                "actual": "J_Sec_L_Bust2",
+                "index": 19
+              },
+              {
+                "bone": "head",
+                "expected": "J_Bip_C_Head",
+                "actual": "J_Sec_R_Bust1",
+                "index": 20
+              },
+              {
+                "bone": "leftShoulder",
+                "expected": "J_Bip_L_Shoulder",
+                "actual": "HairJoint-2e967519-8070-4a03-8818-5a50fe8746a1",
+                "index": 75
+              },
+              {
+                "bone": "rightShoulder",
+                "expected": "J_Bip_R_Shoulder",
+                "actual": "J_Bip_L_Thumb3_end",
+                "index": 105
+              },
+              {
+                "bone": "leftUpperArm",
+                "expected": "J_Bip_L_UpperArm",
+                "actual": "HairJoint-874ec9f8-4eb7-4589-91aa-ee4f1c846494",
+                "index": 76
+              },
+              {
+                "bone": "rightUpperArm",
+                "expected": "J_Bip_R_UpperArm",
+                "actual": "J_Sec_L_TipSleeve",
+                "index": 106
+              },
+              {
+                "bone": "leftLowerArm",
+                "expected": "J_Bip_L_LowerArm",
+                "actual": "J_Bip_L_Shoulder",
+                "index": 78
+              },
+              {
+                "bone": "rightLowerArm",
+                "expected": "J_Bip_R_LowerArm",
+                "actual": "J_Bip_R_Shoulder",
+                "index": 108
+              },
+              {
+                "bone": "leftHand",
+                "expected": "J_Bip_L_Hand",
+                "actual": "J_Sec_L_LowerArm",
+                "index": 82
+              },
+              {
+                "bone": "rightHand",
+                "expected": "J_Bip_R_Hand",
+                "actual": "J_Sec_R_LowerArm",
+                "index": 112
+              },
+              {
+                "bone": "leftToes",
+                "expected": "J_Bip_L_ToeBase",
+                "actual": "J_Bip_L_LowerLeg",
+                "index": 146
+              },
+              {
+                "bone": "rightToes",
+                "expected": "J_Bip_R_ToeBase",
+                "actual": "J_Bip_R_LowerLeg",
+                "index": 159
+              },
+              {
+                "bone": "leftEye",
+                "expected": "J_Adj_L_FaceEye",
+                "actual": "J_Bip_C_Neck",
+                "index": 22
+              },
+              {
+                "bone": "rightEye",
+                "expected": "J_Adj_R_FaceEye",
+                "actual": "J_Adj_L_FaceEyeSet",
+                "index": 24
+              },
+              {
+                "bone": "leftThumbProximal",
+                "expected": "J_Bip_L_Thumb1",
+                "actual": "J_Bip_L_Ring2",
+                "index": 99
+              },
+              {
+                "bone": "leftThumbIntermediate",
+                "expected": "J_Bip_L_Thumb2",
+                "actual": "J_Bip_L_Ring3",
+                "index": 100
+              },
+              {
+                "bone": "leftThumbDistal",
+                "expected": "J_Bip_L_Thumb3",
+                "actual": "J_Bip_L_Ring3_end",
+                "index": 101
+              },
+              {
+                "bone": "leftIndexProximal",
+                "expected": "J_Bip_L_Index1",
+                "actual": "J_Sec_L_LowerSleeve",
+                "index": 83
+              },
+              {
+                "bone": "leftIndexIntermediate",
+                "expected": "J_Bip_L_Index2",
+                "actual": "J_Sec_L_LowerSleeve_end",
+                "index": 84
+              },
+              {
+                "bone": "leftIndexDistal",
+                "expected": "J_Bip_L_Index3",
+                "actual": "J_Bip_L_Hand",
+                "index": 85
+              },
+              {
+                "bone": "leftMiddleProximal",
+                "expected": "J_Bip_L_Middle1",
+                "actual": "J_Bip_L_Little2",
+                "index": 91
+              },
+              {
+                "bone": "leftMiddleIntermediate",
+                "expected": "J_Bip_L_Middle2",
+                "actual": "J_Bip_L_Little3",
+                "index": 92
+              },
+              {
+                "bone": "leftMiddleDistal",
+                "expected": "J_Bip_L_Middle3",
+                "actual": "J_Bip_L_Little3_end",
+                "index": 93
+              },
+              {
+                "bone": "leftRingProximal",
+                "expected": "J_Bip_L_Ring1",
+                "actual": "J_Bip_L_Middle2",
+                "index": 95
+              },
+              {
+                "bone": "leftRingIntermediate",
+                "expected": "J_Bip_L_Ring2",
+                "actual": "J_Bip_L_Middle3",
+                "index": 96
+              },
+              {
+                "bone": "leftRingDistal",
+                "expected": "J_Bip_L_Ring3",
+                "actual": "J_Bip_L_Middle3_end",
+                "index": 97
+              },
+              {
+                "bone": "leftLittleProximal",
+                "expected": "J_Bip_L_Little1",
+                "actual": "J_Bip_L_Index2",
+                "index": 87
+              },
+              {
+                "bone": "leftLittleIntermediate",
+                "expected": "J_Bip_L_Little2",
+                "actual": "J_Bip_L_Index3",
+                "index": 88
+              },
+              {
+                "bone": "leftLittleDistal",
+                "expected": "J_Bip_L_Little3",
+                "actual": "J_Bip_L_Index3_end",
+                "index": 89
+              },
+              {
+                "bone": "rightThumbProximal",
+                "expected": "J_Bip_R_Thumb1",
+                "actual": "J_Bip_R_Ring2",
+                "index": 129
+              },
+              {
+                "bone": "rightThumbIntermediate",
+                "expected": "J_Bip_R_Thumb2",
+                "actual": "J_Bip_R_Ring3",
+                "index": 130
+              },
+              {
+                "bone": "rightThumbDistal",
+                "expected": "J_Bip_R_Thumb3",
+                "actual": "J_Bip_R_Ring3_end",
+                "index": 131
+              },
+              {
+                "bone": "rightIndexProximal",
+                "expected": "J_Bip_R_Index1",
+                "actual": "J_Sec_R_LowerSleeve",
+                "index": 113
+              },
+              {
+                "bone": "rightIndexIntermediate",
+                "expected": "J_Bip_R_Index2",
+                "actual": "J_Sec_R_LowerSleeve_end",
+                "index": 114
+              },
+              {
+                "bone": "rightIndexDistal",
+                "expected": "J_Bip_R_Index3",
+                "actual": "J_Bip_R_Hand",
+                "index": 115
+              },
+              {
+                "bone": "rightMiddleProximal",
+                "expected": "J_Bip_R_Middle1",
+                "actual": "J_Bip_R_Little2",
+                "index": 121
+              },
+              {
+                "bone": "rightMiddleIntermediate",
+                "expected": "J_Bip_R_Middle2",
+                "actual": "J_Bip_R_Little3",
+                "index": 122
+              },
+              {
+                "bone": "rightMiddleDistal",
+                "expected": "J_Bip_R_Middle3",
+                "actual": "J_Bip_R_Little3_end",
+                "index": 123
+              },
+              {
+                "bone": "rightRingProximal",
+                "expected": "J_Bip_R_Ring1",
+                "actual": "J_Bip_R_Middle2",
+                "index": 125
+              },
+              {
+                "bone": "rightRingIntermediate",
+                "expected": "J_Bip_R_Ring2",
+                "actual": "J_Bip_R_Middle3",
+                "index": 126
+              },
+              {
+                "bone": "rightRingDistal",
+                "expected": "J_Bip_R_Ring3",
+                "actual": "J_Bip_R_Middle3_end",
+                "index": 127
+              },
+              {
+                "bone": "rightLittleProximal",
+                "expected": "J_Bip_R_Little1",
+                "actual": "J_Bip_R_Index2",
+                "index": 117
+              },
+              {
+                "bone": "rightLittleIntermediate",
+                "expected": "J_Bip_R_Little2",
+                "actual": "J_Bip_R_Index3",
+                "index": 118
+              },
+              {
+                "bone": "rightLittleDistal",
+                "expected": "J_Bip_R_Little3",
+                "actual": "J_Bip_R_Index3_end",
+                "index": 119
+              },
+              {
+                "bone": "upperChest",
+                "expected": "J_Bip_C_UpperChest",
+                "actual": "J_Sec_R_SkirtSide2_end",
+                "index": 14
+              }
+            ],
+            "vrm_extension_identical": false
+          }
+        ]
+      },
+      {
+        "model": "sample_g.vrm",
+        "source_sha256": "ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0",
+        "output_sha256": "e092a2fc548055574f383b4461c242d35433c719c3a948b2358bb56f374feab4",
+        "source_bytes": 15321932,
+        "output_bytes": 80532208,
+        "checks": 1293,
+        "processing_seconds": 0.6023116109972761,
+        "surfaces": [
+          {
+            "mesh": 0,
+            "primitive": 0,
+            "vertices": 2148,
+            "triangles": 496,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0544354915618896,
+            "acmr_after": 0.9435483813285828,
+            "transforms_before": 523,
+            "transforms_after": 468
+          },
+          {
+            "mesh": 0,
+            "primitive": 1,
+            "vertices": 2148,
+            "triangles": 96,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0520833730697632,
+            "acmr_after": 0.8854166865348816,
+            "transforms_before": 101,
+            "transforms_after": 85
+          },
+          {
+            "mesh": 0,
+            "primitive": 2,
+            "vertices": 2148,
+            "triangles": 384,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.0234375,
+            "acmr_after": 1.0234375,
+            "transforms_before": 393,
+            "transforms_after": 393
+          },
+          {
+            "mesh": 0,
+            "primitive": 3,
+            "vertices": 2148,
+            "triangles": 224,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.0491071939468384,
+            "acmr_after": 1.0491071939468384,
+            "transforms_before": 235,
+            "transforms_after": 235
+          },
+          {
+            "mesh": 0,
+            "primitive": 4,
+            "vertices": 2148,
+            "triangles": 160,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 1.006250023841858,
+            "acmr_after": 1.006250023841858,
+            "transforms_before": 161,
+            "transforms_after": 161
+          },
+          {
+            "mesh": 0,
+            "primitive": 5,
+            "vertices": 2148,
+            "triangles": 192,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9791666865348816,
+            "acmr_after": 0.796875,
+            "transforms_before": 188,
+            "transforms_after": 153
+          },
+          {
+            "mesh": 0,
+            "primitive": 6,
+            "vertices": 2148,
+            "triangles": 192,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.984375,
+            "acmr_after": 0.984375,
+            "transforms_before": 189,
+            "transforms_after": 189
+          },
+          {
+            "mesh": 0,
+            "primitive": 7,
+            "vertices": 2148,
+            "triangles": 1064,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9633458852767944,
+            "acmr_after": 0.7998120188713074,
+            "transforms_before": 1025,
+            "transforms_after": 851
+          },
+          {
+            "mesh": 0,
+            "primitive": 8,
+            "vertices": 2148,
+            "triangles": 278,
+            "morph_targets": 41,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.8776978254318237,
+            "acmr_after": 0.7949640154838562,
+            "transforms_before": 244,
+            "transforms_after": 221
+          },
+          {
+            "mesh": 0,
+            "primitive": 9,
+            "vertices": 2148,
+            "triangles": 64,
+            "morph_targets": 41,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.9375,
+            "acmr_after": 0.9375,
+            "transforms_before": 60,
+            "transforms_after": 60
+          },
+          {
+            "mesh": 1,
+            "primitive": 0,
+            "vertices": 7244,
+            "triangles": 4360,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.013073444366455,
+            "acmr_after": 0.817889928817749,
+            "transforms_before": 4417,
+            "transforms_after": 3566
+          },
+          {
+            "mesh": 1,
+            "primitive": 1,
+            "vertices": 7244,
+            "triangles": 1756,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9544419050216675,
+            "acmr_after": 0.8382688164710999,
+            "transforms_before": 1676,
+            "transforms_after": 1472
+          },
+          {
+            "mesh": 1,
+            "primitive": 2,
+            "vertices": 7244,
+            "triangles": 2302,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9578627347946167,
+            "acmr_after": 0.853171169757843,
+            "transforms_before": 2205,
+            "transforms_after": 1964
+          },
+          {
+            "mesh": 1,
+            "primitive": 3,
+            "vertices": 7244,
+            "triangles": 226,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9424778819084167,
+            "acmr_after": 0.8097345232963562,
+            "transforms_before": 213,
+            "transforms_after": 183
+          },
+          {
+            "mesh": 1,
+            "primitive": 4,
+            "vertices": 7244,
+            "triangles": 2118,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0047214031219482,
+            "acmr_after": 0.8248347640037537,
+            "transforms_before": 2128,
+            "transforms_after": 1747
+          },
+          {
+            "mesh": 1,
+            "primitive": 5,
+            "vertices": 7244,
+            "triangles": 724,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 0.9848066568374634,
+            "acmr_after": 0.8259668350219727,
+            "transforms_before": 713,
+            "transforms_after": 598
+          },
+          {
+            "mesh": 1,
+            "primitive": 6,
+            "vertices": 7244,
+            "triangles": 394,
+            "morph_targets": 0,
+            "transparent_order_preserved": true,
+            "acmr_before": 0.989847719669342,
+            "acmr_after": 0.989847719669342,
+            "transforms_before": 390,
+            "transforms_after": 390
+          },
+          {
+            "mesh": 2,
+            "primitive": 0,
+            "vertices": 11734,
+            "triangles": 332,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1024096012115479,
+            "acmr_after": 0.8554216623306274,
+            "transforms_before": 366,
+            "transforms_after": 284
+          },
+          {
+            "mesh": 2,
+            "primitive": 1,
+            "vertices": 11734,
+            "triangles": 356,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0786516666412354,
+            "acmr_after": 0.8567415475845337,
+            "transforms_before": 384,
+            "transforms_after": 305
+          },
+          {
+            "mesh": 2,
+            "primitive": 2,
+            "vertices": 11734,
+            "triangles": 372,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0967742204666138,
+            "acmr_after": 0.852150559425354,
+            "transforms_before": 408,
+            "transforms_after": 317
+          },
+          {
+            "mesh": 2,
+            "primitive": 3,
+            "vertices": 11734,
+            "triangles": 396,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0909091234207153,
+            "acmr_after": 0.8535353541374207,
+            "transforms_before": 432,
+            "transforms_after": 338
+          },
+          {
+            "mesh": 2,
+            "primitive": 4,
+            "vertices": 11734,
+            "triangles": 412,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0922330617904663,
+            "acmr_after": 0.8495145440101624,
+            "transforms_before": 450,
+            "transforms_after": 350
+          },
+          {
+            "mesh": 2,
+            "primitive": 5,
+            "vertices": 11734,
+            "triangles": 412,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0922330617904663,
+            "acmr_after": 0.8495145440101624,
+            "transforms_before": 450,
+            "transforms_after": 350
+          },
+          {
+            "mesh": 2,
+            "primitive": 6,
+            "vertices": 11734,
+            "triangles": 420,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.085714340209961,
+            "acmr_after": 0.8476190567016602,
+            "transforms_before": 456,
+            "transforms_after": 356
+          },
+          {
+            "mesh": 2,
+            "primitive": 7,
+            "vertices": 11734,
+            "triangles": 404,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0940593481063843,
+            "acmr_after": 0.8514851331710815,
+            "transforms_before": 442,
+            "transforms_after": 344
+          },
+          {
+            "mesh": 2,
+            "primitive": 8,
+            "vertices": 11734,
+            "triangles": 372,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0967742204666138,
+            "acmr_after": 0.852150559425354,
+            "transforms_before": 408,
+            "transforms_after": 317
+          },
+          {
+            "mesh": 2,
+            "primitive": 9,
+            "vertices": 11734,
+            "triangles": 356,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0786516666412354,
+            "acmr_after": 0.8567415475845337,
+            "transforms_before": 384,
+            "transforms_after": 305
+          },
+          {
+            "mesh": 2,
+            "primitive": 10,
+            "vertices": 11734,
+            "triangles": 332,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1024096012115479,
+            "acmr_after": 0.8554216623306274,
+            "transforms_before": 366,
+            "transforms_after": 284
+          },
+          {
+            "mesh": 2,
+            "primitive": 11,
+            "vertices": 11734,
+            "triangles": 692,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0838149785995483,
+            "acmr_after": 0.8381502628326416,
+            "transforms_before": 750,
+            "transforms_after": 580
+          },
+          {
+            "mesh": 2,
+            "primitive": 12,
+            "vertices": 11734,
+            "triangles": 652,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0828220844268799,
+            "acmr_after": 0.8404908180236816,
+            "transforms_before": 706,
+            "transforms_after": 548
+          },
+          {
+            "mesh": 2,
+            "primitive": 13,
+            "vertices": 11734,
+            "triangles": 628,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0828025341033936,
+            "acmr_after": 0.843949019908905,
+            "transforms_before": 680,
+            "transforms_after": 530
+          },
+          {
+            "mesh": 2,
+            "primitive": 14,
+            "vertices": 11734,
+            "triangles": 652,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0828220844268799,
+            "acmr_after": 0.8404908180236816,
+            "transforms_before": 706,
+            "transforms_after": 548
+          },
+          {
+            "mesh": 2,
+            "primitive": 15,
+            "vertices": 11734,
+            "triangles": 124,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0967742204666138,
+            "acmr_after": 0.9112903475761414,
+            "transforms_before": 136,
+            "transforms_after": 113
+          },
+          {
+            "mesh": 2,
+            "primitive": 16,
+            "vertices": 11734,
+            "triangles": 124,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0967742204666138,
+            "acmr_after": 0.9112903475761414,
+            "transforms_before": 136,
+            "transforms_after": 113
+          },
+          {
+            "mesh": 2,
+            "primitive": 17,
+            "vertices": 11734,
+            "triangles": 132,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1515151262283325,
+            "acmr_after": 0.9015151262283325,
+            "transforms_before": 152,
+            "transforms_after": 119
+          },
+          {
+            "mesh": 2,
+            "primitive": 18,
+            "vertices": 11734,
+            "triangles": 140,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1428571939468384,
+            "acmr_after": 0.8928571343421936,
+            "transforms_before": 160,
+            "transforms_after": 125
+          },
+          {
+            "mesh": 2,
+            "primitive": 19,
+            "vertices": 11734,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 20,
+            "vertices": 11734,
+            "triangles": 124,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0967742204666138,
+            "acmr_after": 0.9112903475761414,
+            "transforms_before": 136,
+            "transforms_after": 113
+          },
+          {
+            "mesh": 2,
+            "primitive": 21,
+            "vertices": 11734,
+            "triangles": 132,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1515151262283325,
+            "acmr_after": 0.9015151262283325,
+            "transforms_before": 152,
+            "transforms_after": 119
+          },
+          {
+            "mesh": 2,
+            "primitive": 22,
+            "vertices": 11734,
+            "triangles": 140,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1428571939468384,
+            "acmr_after": 0.8928571343421936,
+            "transforms_before": 160,
+            "transforms_after": 125
+          },
+          {
+            "mesh": 2,
+            "primitive": 23,
+            "vertices": 11734,
+            "triangles": 156,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1282051801681519,
+            "acmr_after": 0.8589743375778198,
+            "transforms_before": 176,
+            "transforms_after": 134
+          },
+          {
+            "mesh": 2,
+            "primitive": 24,
+            "vertices": 11734,
+            "triangles": 148,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1351351737976074,
+            "acmr_after": 0.8851351141929626,
+            "transforms_before": 168,
+            "transforms_after": 131
+          },
+          {
+            "mesh": 2,
+            "primitive": 25,
+            "vertices": 11734,
+            "triangles": 252,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8650793433189392,
+            "transforms_before": 280,
+            "transforms_after": 218
+          },
+          {
+            "mesh": 2,
+            "primitive": 26,
+            "vertices": 11734,
+            "triangles": 252,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8650793433189392,
+            "transforms_before": 280,
+            "transforms_after": 218
+          },
+          {
+            "mesh": 2,
+            "primitive": 27,
+            "vertices": 11734,
+            "triangles": 260,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1076923608779907,
+            "acmr_after": 0.8615384697914124,
+            "transforms_before": 288,
+            "transforms_after": 224
+          },
+          {
+            "mesh": 2,
+            "primitive": 28,
+            "vertices": 11734,
+            "triangles": 244,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0819672346115112,
+            "acmr_after": 0.868852436542511,
+            "transforms_before": 264,
+            "transforms_after": 212
+          },
+          {
+            "mesh": 2,
+            "primitive": 29,
+            "vertices": 11734,
+            "triangles": 260,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1076923608779907,
+            "acmr_after": 0.8615384697914124,
+            "transforms_before": 288,
+            "transforms_after": 224
+          },
+          {
+            "mesh": 2,
+            "primitive": 30,
+            "vertices": 11734,
+            "triangles": 244,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0819672346115112,
+            "acmr_after": 0.868852436542511,
+            "transforms_before": 264,
+            "transforms_after": 212
+          },
+          {
+            "mesh": 2,
+            "primitive": 31,
+            "vertices": 11734,
+            "triangles": 252,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8650793433189392,
+            "transforms_before": 280,
+            "transforms_after": 218
+          },
+          {
+            "mesh": 2,
+            "primitive": 32,
+            "vertices": 11734,
+            "triangles": 252,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8650793433189392,
+            "transforms_before": 280,
+            "transforms_after": 218
+          },
+          {
+            "mesh": 2,
+            "primitive": 33,
+            "vertices": 11734,
+            "triangles": 260,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1076923608779907,
+            "acmr_after": 0.8615384697914124,
+            "transforms_before": 288,
+            "transforms_after": 224
+          },
+          {
+            "mesh": 2,
+            "primitive": 34,
+            "vertices": 11734,
+            "triangles": 252,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8650793433189392,
+            "transforms_before": 280,
+            "transforms_after": 218
+          },
+          {
+            "mesh": 2,
+            "primitive": 35,
+            "vertices": 11734,
+            "triangles": 268,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1044776439666748,
+            "acmr_after": 0.858208954334259,
+            "transforms_before": 296,
+            "transforms_after": 230
+          },
+          {
+            "mesh": 2,
+            "primitive": 36,
+            "vertices": 11734,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 37,
+            "vertices": 11734,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 38,
+            "vertices": 11734,
+            "triangles": 172,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1279069185256958,
+            "acmr_after": 0.8837209343910217,
+            "transforms_before": 194,
+            "transforms_after": 152
+          },
+          {
+            "mesh": 2,
+            "primitive": 39,
+            "vertices": 11734,
+            "triangles": 180,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1111111640930176,
+            "acmr_after": 0.8777777552604675,
+            "transforms_before": 200,
+            "transforms_after": 158
+          },
+          {
+            "mesh": 2,
+            "primitive": 40,
+            "vertices": 11734,
+            "triangles": 172,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1279069185256958,
+            "acmr_after": 0.8837209343910217,
+            "transforms_before": 194,
+            "transforms_after": 152
+          },
+          {
+            "mesh": 2,
+            "primitive": 41,
+            "vertices": 11734,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 42,
+            "vertices": 11734,
+            "triangles": 212,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1226415634155273,
+            "acmr_after": 0.8726415038108826,
+            "transforms_before": 238,
+            "transforms_after": 185
+          },
+          {
+            "mesh": 2,
+            "primitive": 43,
+            "vertices": 11734,
+            "triangles": 212,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1226415634155273,
+            "acmr_after": 0.8726415038108826,
+            "transforms_before": 238,
+            "transforms_after": 185
+          },
+          {
+            "mesh": 2,
+            "primitive": 44,
+            "vertices": 11734,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 45,
+            "vertices": 11734,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 46,
+            "vertices": 11734,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 47,
+            "vertices": 11734,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 48,
+            "vertices": 11734,
+            "triangles": 212,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1226415634155273,
+            "acmr_after": 0.8726415038108826,
+            "transforms_before": 238,
+            "transforms_after": 185
+          },
+          {
+            "mesh": 2,
+            "primitive": 49,
+            "vertices": 11734,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 50,
+            "vertices": 11734,
+            "triangles": 196,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1122448444366455,
+            "acmr_after": 0.8826530575752258,
+            "transforms_before": 218,
+            "transforms_after": 173
+          },
+          {
+            "mesh": 2,
+            "primitive": 51,
+            "vertices": 11734,
+            "triangles": 188,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.127659559249878,
+            "acmr_after": 0.8723404407501221,
+            "transforms_before": 212,
+            "transforms_after": 164
+          },
+          {
+            "mesh": 2,
+            "primitive": 52,
+            "vertices": 11734,
+            "triangles": 204,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1176470518112183,
+            "acmr_after": 0.8774510025978088,
+            "transforms_before": 228,
+            "transforms_after": 179
+          },
+          {
+            "mesh": 2,
+            "primitive": 53,
+            "vertices": 11734,
+            "triangles": 36,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0555555820465088,
+            "acmr_after": 1.0555555820465088,
+            "transforms_before": 38,
+            "transforms_after": 38
+          },
+          {
+            "mesh": 2,
+            "primitive": 54,
+            "vertices": 11734,
+            "triangles": 24,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0833333730697632,
+            "acmr_after": 1.0833333730697632,
+            "transforms_before": 26,
+            "transforms_after": 26
+          },
+          {
+            "mesh": 2,
+            "primitive": 55,
+            "vertices": 11734,
+            "triangles": 38,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.105263113975525,
+            "acmr_after": 1.105263113975525,
+            "transforms_before": 42,
+            "transforms_after": 42
+          },
+          {
+            "mesh": 2,
+            "primitive": 56,
+            "vertices": 11734,
+            "triangles": 40,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.100000023841858,
+            "acmr_after": 1.100000023841858,
+            "transforms_before": 44,
+            "transforms_after": 44
+          },
+          {
+            "mesh": 2,
+            "primitive": 57,
+            "vertices": 11734,
+            "triangles": 28,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.0714285373687744,
+            "acmr_after": 1.0714285373687744,
+            "transforms_before": 30,
+            "transforms_after": 30
+          },
+          {
+            "mesh": 2,
+            "primitive": 58,
+            "vertices": 11734,
+            "triangles": 164,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1341463327407837,
+            "acmr_after": 0.8902438879013062,
+            "transforms_before": 186,
+            "transforms_after": 146
+          },
+          {
+            "mesh": 2,
+            "primitive": 59,
+            "vertices": 11734,
+            "triangles": 164,
+            "morph_targets": 0,
+            "transparent_order_preserved": false,
+            "acmr_before": 1.1341463327407837,
+            "acmr_after": 0.8902438879013062,
+            "transforms_before": 186,
+            "transforms_after": 146
+          }
+        ],
+        "simulated_transforms_before": 31159,
+        "simulated_transforms_after": 25517,
+        "cache_only": {
+          "output_sha256": "465d22f3c6e331da52792ee6197f9185e8945016d9028cc7cb6dba856e4d4dc2",
+          "bytes": 15321932,
+          "changed_bytes": 109696,
+          "optimized_primitives": 71,
+          "checks": 73,
+          "all_non_index_bytes_identical": true,
+          "transparent_triangles_unchanged": true
+        },
+        "gltfpack": [
+          {
+            "repository": "zeux",
+            "returncode": 0,
+            "stderr": "",
+            "valid_json": true,
+            "extensions": [],
+            "nodes_before": 171,
+            "nodes_after": 171,
+            "meshes_before": 3,
+            "meshes_after": 3,
+            "vrm_present": false
+          },
+          {
+            "repository": "infosia",
+            "returncode": 0,
+            "stderr": "",
+            "valid_json": true,
+            "extensions": [
+              "VRM"
+            ],
+            "nodes_before": 171,
+            "nodes_after": 174,
+            "meshes_before": 3,
+            "meshes_after": 3,
+            "vrm_present": true,
+            "humanoid_reference_mismatches": [
+              {
+                "bone": "hips",
+                "expected": "J_Bip_C_Hips",
+                "actual": "Root",
+                "index": 5
+              },
+              {
+                "bone": "leftUpperLeg",
+                "expected": "J_Bip_L_UpperLeg",
+                "actual": "J_Bip_R_Thumb3_end",
+                "index": 142
+              },
+              {
+                "bone": "rightUpperLeg",
+                "expected": "J_Bip_R_UpperLeg",
+                "actual": "J_Bip_L_Foot",
+                "index": 155
+              },
+              {
+                "bone": "leftLowerLeg",
+                "expected": "J_Bip_L_LowerLeg",
+                "actual": "J_Sec_L_SkirtFront1",
+                "index": 150
+              },
+              {
+                "bone": "rightLowerLeg",
+                "expected": "J_Bip_R_LowerLeg",
+                "actual": "J_Sec_R_SkirtFront1",
+                "index": 163
+              },
+              {
+                "bone": "leftFoot",
+                "expected": "J_Bip_L_Foot",
+                "actual": "J_Sec_L_SkirtFront2_end",
+                "index": 152
+              },
+              {
+                "bone": "rightFoot",
+                "expected": "J_Bip_R_Foot",
+                "actual": "J_Sec_R_SkirtFront2_end",
+                "index": 165
+              },
+              {
+                "bone": "spine",
+                "expected": "J_Bip_C_Spine",
+                "actual": "J_Sec_R_SkirtSide1",
+                "index": 12
+              },
+              {
+                "bone": "chest",
+                "expected": "J_Bip_C_Chest",
+                "actual": "J_Sec_R_SkirtSide2",
+                "index": 13
+              },
+              {
+                "bone": "neck",
+                "expected": "J_Bip_C_Neck",
+                "actual": "J_Sec_L_Bust2",
+                "index": 19
+              },
+              {
+                "bone": "head",
+                "expected": "J_Bip_C_Head",
+                "actual": "J_Sec_R_Bust1",
+                "index": 20
+              },
+              {
+                "bone": "leftShoulder",
+                "expected": "J_Bip_L_Shoulder",
+                "actual": "HairJoint-24ec00c8-2328-42a1-a9e6-75c6a3df8450",
+                "index": 82
+              },
+              {
+                "bone": "rightShoulder",
+                "expected": "J_Bip_R_Shoulder",
+                "actual": "J_Bip_L_Thumb3_end",
+                "index": 112
+              },
+              {
+                "bone": "leftUpperArm",
+                "expected": "J_Bip_L_UpperArm",
+                "actual": "HairJoint-e0485d33-abc0-4f37-bddf-304079602215",
+                "index": 83
+              },
+              {
+                "bone": "rightUpperArm",
+                "expected": "J_Bip_R_UpperArm",
+                "actual": "J_Sec_L_TipSleeve",
+                "index": 113
+              },
+              {
+                "bone": "leftLowerArm",
+                "expected": "J_Bip_L_LowerArm",
+                "actual": "J_Bip_L_Shoulder",
+                "index": 85
+              },
+              {
+                "bone": "rightLowerArm",
+                "expected": "J_Bip_R_LowerArm",
+                "actual": "J_Bip_R_Shoulder",
+                "index": 115
+              },
+              {
+                "bone": "leftHand",
+                "expected": "J_Bip_L_Hand",
+                "actual": "J_Sec_L_LowerArm",
+                "index": 89
+              },
+              {
+                "bone": "rightHand",
+                "expected": "J_Bip_R_Hand",
+                "actual": "J_Sec_R_LowerArm",
+                "index": 119
+              },
+              {
+                "bone": "leftToes",
+                "expected": "J_Bip_L_ToeBase",
+                "actual": "J_Bip_L_LowerLeg",
+                "index": 153
+              },
+              {
+                "bone": "rightToes",
+                "expected": "J_Bip_R_ToeBase",
+                "actual": "J_Bip_R_LowerLeg",
+                "index": 166
+              },
+              {
+                "bone": "leftEye",
+                "expected": "J_Adj_L_FaceEye",
+                "actual": "J_Bip_C_Neck",
+                "index": 22
+              },
+              {
+                "bone": "rightEye",
+                "expected": "J_Adj_R_FaceEye",
+                "actual": "J_Adj_L_FaceEyeSet",
+                "index": 24
+              },
+              {
+                "bone": "leftThumbProximal",
+                "expected": "J_Bip_L_Thumb1",
+                "actual": "J_Bip_L_Ring2",
+                "index": 106
+              },
+              {
+                "bone": "leftThumbIntermediate",
+                "expected": "J_Bip_L_Thumb2",
+                "actual": "J_Bip_L_Ring3",
+                "index": 107
+              },
+              {
+                "bone": "leftThumbDistal",
+                "expected": "J_Bip_L_Thumb3",
+                "actual": "J_Bip_L_Ring3_end",
+                "index": 108
+              },
+              {
+                "bone": "leftIndexProximal",
+                "expected": "J_Bip_L_Index1",
+                "actual": "J_Sec_L_LowerSleeve",
+                "index": 90
+              },
+              {
+                "bone": "leftIndexIntermediate",
+                "expected": "J_Bip_L_Index2",
+                "actual": "J_Sec_L_LowerSleeve_end",
+                "index": 91
+              },
+              {
+                "bone": "leftIndexDistal",
+                "expected": "J_Bip_L_Index3",
+                "actual": "J_Bip_L_Hand",
+                "index": 92
+              },
+              {
+                "bone": "leftMiddleProximal",
+                "expected": "J_Bip_L_Middle1",
+                "actual": "J_Bip_L_Little2",
+                "index": 98
+              },
+              {
+                "bone": "leftMiddleIntermediate",
+                "expected": "J_Bip_L_Middle2",
+                "actual": "J_Bip_L_Little3",
+                "index": 99
+              },
+              {
+                "bone": "leftMiddleDistal",
+                "expected": "J_Bip_L_Middle3",
+                "actual": "J_Bip_L_Little3_end",
+                "index": 100
+              },
+              {
+                "bone": "leftRingProximal",
+                "expected": "J_Bip_L_Ring1",
+                "actual": "J_Bip_L_Middle2",
+                "index": 102
+              },
+              {
+                "bone": "leftRingIntermediate",
+                "expected": "J_Bip_L_Ring2",
+                "actual": "J_Bip_L_Middle3",
+                "index": 103
+              },
+              {
+                "bone": "leftRingDistal",
+                "expected": "J_Bip_L_Ring3",
+                "actual": "J_Bip_L_Middle3_end",
+                "index": 104
+              },
+              {
+                "bone": "leftLittleProximal",
+                "expected": "J_Bip_L_Little1",
+                "actual": "J_Bip_L_Index2",
+                "index": 94
+              },
+              {
+                "bone": "leftLittleIntermediate",
+                "expected": "J_Bip_L_Little2",
+                "actual": "J_Bip_L_Index3",
+                "index": 95
+              },
+              {
+                "bone": "leftLittleDistal",
+                "expected": "J_Bip_L_Little3",
+                "actual": "J_Bip_L_Index3_end",
+                "index": 96
+              },
+              {
+                "bone": "rightThumbProximal",
+                "expected": "J_Bip_R_Thumb1",
+                "actual": "J_Bip_R_Ring2",
+                "index": 136
+              },
+              {
+                "bone": "rightThumbIntermediate",
+                "expected": "J_Bip_R_Thumb2",
+                "actual": "J_Bip_R_Ring3",
+                "index": 137
+              },
+              {
+                "bone": "rightThumbDistal",
+                "expected": "J_Bip_R_Thumb3",
+                "actual": "J_Bip_R_Ring3_end",
+                "index": 138
+              },
+              {
+                "bone": "rightIndexProximal",
+                "expected": "J_Bip_R_Index1",
+                "actual": "J_Sec_R_LowerSleeve",
+                "index": 120
+              },
+              {
+                "bone": "rightIndexIntermediate",
+                "expected": "J_Bip_R_Index2",
+                "actual": "J_Sec_R_LowerSleeve_end",
+                "index": 121
+              },
+              {
+                "bone": "rightIndexDistal",
+                "expected": "J_Bip_R_Index3",
+                "actual": "J_Bip_R_Hand",
+                "index": 122
+              },
+              {
+                "bone": "rightMiddleProximal",
+                "expected": "J_Bip_R_Middle1",
+                "actual": "J_Bip_R_Little2",
+                "index": 128
+              },
+              {
+                "bone": "rightMiddleIntermediate",
+                "expected": "J_Bip_R_Middle2",
+                "actual": "J_Bip_R_Little3",
+                "index": 129
+              },
+              {
+                "bone": "rightMiddleDistal",
+                "expected": "J_Bip_R_Middle3",
+                "actual": "J_Bip_R_Little3_end",
+                "index": 130
+              },
+              {
+                "bone": "rightRingProximal",
+                "expected": "J_Bip_R_Ring1",
+                "actual": "J_Bip_R_Middle2",
+                "index": 132
+              },
+              {
+                "bone": "rightRingIntermediate",
+                "expected": "J_Bip_R_Ring2",
+                "actual": "J_Bip_R_Middle3",
+                "index": 133
+              },
+              {
+                "bone": "rightRingDistal",
+                "expected": "J_Bip_R_Ring3",
+                "actual": "J_Bip_R_Middle3_end",
+                "index": 134
+              },
+              {
+                "bone": "rightLittleProximal",
+                "expected": "J_Bip_R_Little1",
+                "actual": "J_Bip_R_Index2",
+                "index": 124
+              },
+              {
+                "bone": "rightLittleIntermediate",
+                "expected": "J_Bip_R_Little2",
+                "actual": "J_Bip_R_Index3",
+                "index": 125
+              },
+              {
+                "bone": "rightLittleDistal",
+                "expected": "J_Bip_R_Little3",
+                "actual": "J_Bip_R_Index3_end",
+                "index": 126
+              },
+              {
+                "bone": "upperChest",
+                "expected": "J_Bip_C_UpperChest",
+                "actual": "J_Sec_R_SkirtSide2_end",
+                "index": 14
+              }
+            ],
+            "vrm_extension_identical": false
+          }
+        ]
+      }
+    ]
+  },
+  "godot_validation": {
+    "checks": 3785,
+    "failures": [],
+    "models": [
+      {
+        "changes": {
+          "changed_instances": 4,
+          "unique_meshes": 4
+        },
+        "checks": 1251,
+        "mesh_nodes": 4,
+        "model": "d"
+      },
+      {
+        "changes": {
+          "changed_instances": 4,
+          "unique_meshes": 4
+        },
+        "checks": 1250,
+        "mesh_nodes": 4,
+        "model": "f"
+      },
+      {
+        "changes": {
+          "changed_instances": 4,
+          "unique_meshes": 4
+        },
+        "checks": 1278,
+        "mesh_nodes": 4,
+        "model": "g"
+      }
+    ],
+    "scope": "Index-only local VRMs pass application validation. Tested post-decode prototype uses built-in meshoptimizer via SurfaceTool; encoded/decoded non-index, morph, node-path and skin-bind equality. No shipped import path modified."
+  },
+  "rendering": {
+    "cpu": "Intel(R) N95",
+    "engine": "4.7.2-stable (official)",
+    "gpu": "Intel(R) Graphics (ADL-N)",
+    "preparation": [
+      {
+        "changed_instances": 4,
+        "model": "d",
+        "optimization_ms": 87.28,
+        "unique_meshes": 4
+      },
+      {
+        "changed_instances": 4,
+        "model": "f",
+        "optimization_ms": 102.325,
+        "unique_meshes": 4
+      },
+      {
+        "changed_instances": 4,
+        "model": "g",
+        "optimization_ms": 83.569,
+        "unique_meshes": 4
+      }
+    ],
+    "renderer": "mobile",
+    "resolution": [
+      1440,
+      900
+    ],
+    "rows": [
+      {
+        "case": "d_original_0",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.253,
+          "p95": 18.418,
+          "p99": 21.119
+        },
+        "frames_over_60fps_budget_percent": 28.3333333333333,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 438992.0,
+          "p95": 438992.0,
+          "p99": 438992.0
+        },
+        "render_cpu_ms": {
+          "median": 1.30599999427795,
+          "p95": 1.75800001621246,
+          "p99": 2.33200001716614
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 7.31300020217896,
+          "p95": 9.8439998626709,
+          "p99": 9.91199970245361
+        }
+      },
+      {
+        "case": "d_cache_only_1",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.639,
+          "p95": 18.939,
+          "p99": 21.195
+        },
+        "frames_over_60fps_budget_percent": 30.8333333333333,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 438992.0,
+          "p95": 438992.0,
+          "p99": 438992.0
+        },
+        "render_cpu_ms": {
+          "median": 1.22399997711182,
+          "p95": 1.70000004768372,
+          "p99": 2.34800004959106
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 7.35400009155273,
+          "p95": 9.85900020599365,
+          "p99": 9.93000030517578
+        }
+      },
+      {
+        "case": "d_cache_only_2",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.391,
+          "p95": 19.192,
+          "p99": 21.682
+        },
+        "frames_over_60fps_budget_percent": 33.3333333333333,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 438992.0,
+          "p95": 438992.0,
+          "p99": 438992.0
+        },
+        "render_cpu_ms": {
+          "median": 1.22000002861023,
+          "p95": 1.69200003147125,
+          "p99": 2.11199998855591
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 7.3600001335144,
+          "p95": 9.88099956512451,
+          "p99": 9.98400020599365
+        }
+      },
+      {
+        "case": "d_original_3",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.557,
+          "p95": 19.649,
+          "p99": 23.594
+        },
+        "frames_over_60fps_budget_percent": 33.6111111111111,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 438992.0,
+          "p95": 438992.0,
+          "p99": 438992.0
+        },
+        "render_cpu_ms": {
+          "median": 1.24500000476837,
+          "p95": 1.67900002002716,
+          "p99": 2.10400009155273
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 7.4850001335144,
+          "p95": 9.89700031280518,
+          "p99": 10.4479999542236
+        }
+      },
+      {
+        "case": "f_original_4",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.527,
+          "p95": 18.64,
+          "p99": 20.504
+        },
+        "frames_over_60fps_budget_percent": 32.7777777777778,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 350168.0,
+          "p95": 352312.0,
+          "p99": 352312.0
+        },
+        "render_cpu_ms": {
+          "median": 1.34300005435944,
+          "p95": 1.74800002574921,
+          "p99": 2.16899991035461
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 6.46999979019165,
+          "p95": 8.83100032806396,
+          "p99": 9.11800003051758
+        }
+      },
+      {
+        "case": "f_cache_only_5",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.564,
+          "p95": 19.322,
+          "p99": 22.812
+        },
+        "frames_over_60fps_budget_percent": 33.8888888888889,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 350168.0,
+          "p95": 352312.0,
+          "p99": 352312.0
+        },
+        "render_cpu_ms": {
+          "median": 1.21399998664856,
+          "p95": 1.64699995517731,
+          "p99": 2.13499999046326
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 6.48600006103516,
+          "p95": 8.82499980926514,
+          "p99": 9.6870002746582
+        }
+      },
+      {
+        "case": "f_cache_only_6",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.615,
+          "p95": 19.116,
+          "p99": 21.518
+        },
+        "frames_over_60fps_budget_percent": 33.3333333333333,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 350168.0,
+          "p95": 352312.0,
+          "p99": 352312.0
+        },
+        "render_cpu_ms": {
+          "median": 1.21300005912781,
+          "p95": 1.59099996089935,
+          "p99": 2.13000011444092
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 6.52199983596802,
+          "p95": 9.08100032806396,
+          "p99": 9.46500015258789
+        }
+      },
+      {
+        "case": "f_original_7",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.46,
+          "p95": 19.014,
+          "p99": 21.111
+        },
+        "frames_over_60fps_budget_percent": 33.0555555555556,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 350168.0,
+          "p95": 352312.0,
+          "p99": 352312.0
+        },
+        "render_cpu_ms": {
+          "median": 1.19200003147125,
+          "p95": 1.59800004959106,
+          "p99": 2.12800002098083
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 6.51999998092651,
+          "p95": 9.07600021362305,
+          "p99": 9.22500038146973
+        }
+      },
+      {
+        "case": "g_original_8",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.664,
+          "p95": 19.877,
+          "p99": 21.195
+        },
+        "frames_over_60fps_budget_percent": 33.8888888888889,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 377760.0,
+          "p95": 379880.0,
+          "p99": 379880.0
+        },
+        "render_cpu_ms": {
+          "median": 1.30499994754791,
+          "p95": 1.72000002861023,
+          "p99": 2.18300008773804
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 6.9520001411438,
+          "p95": 9.39799976348877,
+          "p99": 9.4689998626709
+        }
+      },
+      {
+        "case": "g_cache_only_9",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.745,
+          "p95": 19.778,
+          "p99": 21.99
+        },
+        "frames_over_60fps_budget_percent": 33.8888888888889,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 377760.0,
+          "p95": 379880.0,
+          "p99": 379880.0
+        },
+        "render_cpu_ms": {
+          "median": 1.20500004291534,
+          "p95": 1.6599999666214,
+          "p99": 2.44099998474121
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 7.05700016021729,
+          "p95": 9.88099956512451,
+          "p99": 10.0129995346069
+        }
+      },
+      {
+        "case": "g_cache_only_10",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.623,
+          "p95": 18.824,
+          "p99": 20.604
+        },
+        "frames_over_60fps_budget_percent": 32.5,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 377760.0,
+          "p95": 379880.0,
+          "p99": 379880.0
+        },
+        "render_cpu_ms": {
+          "median": 1.24399995803833,
+          "p95": 1.58599996566772,
+          "p99": 1.98800003528595
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 6.94500017166138,
+          "p95": 9.34799957275391,
+          "p99": 9.48499965667725
+        }
+      },
+      {
+        "case": "g_original_11",
+        "column_compute_gpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "column_dispatch_cpu_ms": {
+          "median": 0,
+          "p95": 0,
+          "p99": 0
+        },
+        "draw_calls": {
+          "median": 165.0,
+          "p95": 165.0,
+          "p99": 165.0
+        },
+        "factory_lod": 0,
+        "factory_triangles": 5340,
+        "frame_ms": {
+          "median": 12.653,
+          "p95": 19.1,
+          "p99": 20.768
+        },
+        "frames_over_60fps_budget_percent": 33.3333333333333,
+        "internal_resolution": [
+          1440,
+          900
+        ],
+        "lod_patch_counts": [
+          4,
+          6,
+          18,
+          16
+        ],
+        "lod_triangles": 63232,
+        "primitives": {
+          "median": 377760.0,
+          "p95": 379880.0,
+          "p99": 379880.0
+        },
+        "render_cpu_ms": {
+          "median": 1.2059999704361,
+          "p95": 1.56299996376038,
+          "p99": 1.9889999628067
+        },
+        "samples": 360,
+        "viewport_gpu_ms": {
+          "median": 6.9539999961853,
+          "p95": 9.46700000762939,
+          "p99": 9.70499992370605
+        }
+      }
+    ],
+    "scope": "32 animated copies per bundled model; original/cache/cache/original, springs off, existing distance and mesh LOD. Identical map. Candidate copies retain completed original LOD buffers. Post-decode local scene candidates change only opaque/cutout base index buffers using Godot built-in meshoptimizer. No networking, combat or XR."
+  },
+  "source_sha256": {
+    "tools/meshoptimizer/benchmark.gd": "771b1ac03d0c101ea1c129b77130dfd735c5ab3a560e09e3d5ab3dbbe6ae975a",
+    "tools/meshoptimizer/evaluate_vrm.py": "fc17995f2baeb916e177e0f401f2b693fad85cf56b24bb20cd3c619ef57a5aaf",
+    "tools/meshoptimizer/index_cache.gd": "ba3eb612d4da9abbaa92bbf1055c095a5b5b720e05f19546ffc779d548eee424",
+    "tools/meshoptimizer/validate_import.gd": "eda5a177bd15482aca217024cd4e06dd496d845157b3469a11fca3c0fa01db18"
+  },
+  "notes": [
+    "Full cache/fetch GLB derivatives are deliberately uncompact correctness probes, not uploadable VRM outputs.",
+    "Raw VRM index reordering may change generated tangent rounding; the GPU benchmark tests the post-decode encoded-index prototype instead.",
+    "Final A/B retains original completed LOD buffers. Earlier independent-simplification trial discarded.",
+    "No production VRM importer or runtime import hook enabled. Original source VRM files and manifest untouched."
+  ]
+}
