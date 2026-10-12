@@ -1,0 +1,2053 @@
+{
+  "cpu": "Intel(R) N95",
+  "engine": "4.7.2-stable (official)",
+  "gpu": "Intel(R) Graphics (ADL-N)",
+  "renderer": "mobile",
+  "resolution": [
+    1440,
+    900
+  ],
+  "rows": [
+    {
+      "case": "baseline_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 2.076,
+        "p95": 4.489,
+        "p99": 5.123
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 67676.0,
+        "p95": 67676.0,
+        "p99": 67676.0
+      },
+      "render_cpu_ms": {
+        "median": 0.360000014305115,
+        "p95": 0.570999979972839,
+        "p99": 2.31500005722046
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.29100000858307,
+        "p95": 1.49699997901917,
+        "p99": 1.54299998283386
+      }
+    },
+    {
+      "case": "native_csg_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 13190,
+      "frame_ms": {
+        "median": 2.121,
+        "p95": 4.292,
+        "p99": 4.384
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 75526.0,
+        "p95": 75526.0,
+        "p99": 75526.0
+      },
+      "render_cpu_ms": {
+        "median": 0.335999995470047,
+        "p95": 0.555999994277954,
+        "p99": 1.5900000333786
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.33000004291534,
+        "p95": 1.52199995517731,
+        "p99": 1.55200004577637
+      }
+    },
+    {
+      "case": "openscad_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 13024,
+      "frame_ms": {
+        "median": 2.071,
+        "p95": 4.338,
+        "p99": 4.474
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 75360.0,
+        "p95": 75360.0,
+        "p99": 75360.0
+      },
+      "render_cpu_ms": {
+        "median": 0.356000006198883,
+        "p95": 0.513999998569489,
+        "p99": 0.680000007152557
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.30499994754791,
+        "p95": 1.49600005149841,
+        "p99": 1.53699994087219
+      }
+    },
+    {
+      "case": "blender_planar_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 13372,
+      "frame_ms": {
+        "median": 2.034,
+        "p95": 4.575,
+        "p99": 4.794
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 75708.0,
+        "p95": 75708.0,
+        "p99": 75708.0
+      },
+      "render_cpu_ms": {
+        "median": 0.282000005245209,
+        "p95": 0.649999976158142,
+        "p99": 1.38699996471405
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.32000005245209,
+        "p95": 1.49300003051758,
+        "p99": 1.54999995231628
+      }
+    },
+    {
+      "case": "greedy_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 8738,
+      "frame_ms": {
+        "median": 2.037,
+        "p95": 4.579,
+        "p99": 4.697
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 71074.0,
+        "p95": 71074.0,
+        "p99": 71074.0
+      },
+      "render_cpu_ms": {
+        "median": 0.344999998807907,
+        "p95": 0.582000017166138,
+        "p99": 0.796000003814697
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.31500005722046,
+        "p95": 1.44700002670288,
+        "p99": 1.51400005817413
+      }
+    },
+    {
+      "case": "culled_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.038,
+        "p95": 4.467,
+        "p99": 4.624
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 67344.0,
+        "p95": 67344.0,
+        "p99": 67344.0
+      },
+      "render_cpu_ms": {
+        "median": 0.368000000715256,
+        "p95": 0.527999997138977,
+        "p99": 0.722000002861023
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.31099998950958,
+        "p95": 1.53299999237061,
+        "p99": 1.56200003623962
+      }
+    },
+    {
+      "case": "factory_lod_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.119,
+        "p95": 4.406,
+        "p99": 5.119
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 67344.0,
+        "p95": 67344.0,
+        "p99": 67344.0
+      },
+      "render_cpu_ms": {
+        "median": 0.331999987363815,
+        "p95": 0.560999989509583,
+        "p99": 1.16600000858307
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.32299995422363,
+        "p95": 1.53100001811981,
+        "p99": 1.61699998378754
+      }
+    },
+    {
+      "case": "voxel_fine_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 45.0,
+        "p95": 45.0,
+        "p99": 45.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.519,
+        "p95": 4.902,
+        "p99": 6.313
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        44,
+        0,
+        0
+      ],
+      "lod_triangles": 65216,
+      "primitives": {
+        "median": 70224.0,
+        "p95": 70224.0,
+        "p99": 70224.0
+      },
+      "render_cpu_ms": {
+        "median": 0.349999994039536,
+        "p95": 0.628000020980835,
+        "p99": 0.916999995708466
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.68400001525879,
+        "p95": 1.89699995517731,
+        "p99": 1.97300004959106
+      }
+    },
+    {
+      "case": "voxel_lod_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 45.0,
+        "p95": 45.0,
+        "p99": 45.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.039,
+        "p95": 4.159,
+        "p99": 4.437
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        12,
+        28
+      ],
+      "lod_triangles": 10100,
+      "primitives": {
+        "median": 15108.0,
+        "p95": 15108.0,
+        "p99": 15108.0
+      },
+      "render_cpu_ms": {
+        "median": 0.381999999284744,
+        "p95": 0.638999998569489,
+        "p99": 0.833999991416931
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.19200003147125,
+        "p95": 1.38999998569489,
+        "p99": 1.41799998283386
+      }
+    },
+    {
+      "case": "voxel_merged_fine_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.681,
+        "p95": 4.999,
+        "p99": 6.688
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 114414,
+      "primitives": {
+        "median": 119422.0,
+        "p95": 119422.0,
+        "p99": 119422.0
+      },
+      "render_cpu_ms": {
+        "median": 0.358999997377396,
+        "p95": 0.564999997615814,
+        "p99": 0.940999984741211
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.83700001239777,
+        "p95": 2.11199998855591,
+        "p99": 2.18400001525879
+      }
+    },
+    {
+      "case": "voxel_merged_coarse_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.197,
+        "p95": 4.625,
+        "p99": 4.831
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 8166,
+      "primitives": {
+        "median": 13174.0,
+        "p95": 13174.0,
+        "p99": 13174.0
+      },
+      "render_cpu_ms": {
+        "median": 0.349000006914139,
+        "p95": 0.596000015735626,
+        "p99": 2.42700004577637
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.48699998855591,
+        "p95": 1.66199994087219,
+        "p99": 1.75
+      }
+    },
+    {
+      "case": "voxel_merged_fine_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.575,
+        "p95": 4.946,
+        "p99": 5.119
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 114414,
+      "primitives": {
+        "median": 119422.0,
+        "p95": 119422.0,
+        "p99": 119422.0
+      },
+      "render_cpu_ms": {
+        "median": 0.379000008106232,
+        "p95": 0.592999994754791,
+        "p99": 2.46700000762939
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.81599998474121,
+        "p95": 2.09200000762939,
+        "p99": 2.12400007247925
+      }
+    },
+    {
+      "case": "voxel_lod_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 45.0,
+        "p95": 45.0,
+        "p99": 45.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.281,
+        "p95": 4.417,
+        "p99": 4.716
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        12,
+        28
+      ],
+      "lod_triangles": 10100,
+      "primitives": {
+        "median": 15108.0,
+        "p95": 15108.0,
+        "p99": 15108.0
+      },
+      "render_cpu_ms": {
+        "median": 0.374000012874603,
+        "p95": 0.647000014781952,
+        "p99": 0.834999978542328
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.442999958992,
+        "p95": 1.64900004863739,
+        "p99": 1.68499994277954
+      }
+    },
+    {
+      "case": "culled_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.134,
+        "p95": 4.284,
+        "p99": 4.54
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 67344.0,
+        "p95": 67344.0,
+        "p99": 67344.0
+      },
+      "render_cpu_ms": {
+        "median": 0.342000007629395,
+        "p95": 0.558000028133392,
+        "p99": 0.708000004291534
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.32200002670288,
+        "p95": 1.51999998092651,
+        "p99": 1.54799997806549
+      }
+    },
+    {
+      "case": "native_csg_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 13190,
+      "frame_ms": {
+        "median": 2.104,
+        "p95": 4.241,
+        "p99": 4.55
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 75526.0,
+        "p95": 75526.0,
+        "p99": 75526.0
+      },
+      "render_cpu_ms": {
+        "median": 0.32600000500679,
+        "p95": 0.605000019073486,
+        "p99": 0.921999990940094
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.31500005722046,
+        "p95": 1.50699996948242,
+        "p99": 1.53999996185303
+      }
+    },
+    {
+      "case": "baseline_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 2.127,
+        "p95": 4.295,
+        "p99": 4.597
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 67676.0,
+        "p95": 67676.0,
+        "p99": 67676.0
+      },
+      "render_cpu_ms": {
+        "median": 0.361999988555908,
+        "p95": 0.547999978065491,
+        "p99": 2.07200002670288
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.31400001049042,
+        "p95": 1.51699995994568,
+        "p99": 1.53799998760223
+      }
+    },
+    {
+      "case": "baseline_diagonal",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 2.049,
+        "p95": 4.657,
+        "p99": 6.012
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        5,
+        13,
+        27
+      ],
+      "lod_triangles": 59840,
+      "primitives": {
+        "median": 65180.0,
+        "p95": 65180.0,
+        "p99": 65180.0
+      },
+      "render_cpu_ms": {
+        "median": 0.296000003814697,
+        "p95": 0.577000021934509,
+        "p99": 0.754000008106232
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.30400002002716,
+        "p95": 1.49100005626678,
+        "p99": 1.58299994468689
+      }
+    },
+    {
+      "case": "culled_diagonal",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.086,
+        "p95": 4.218,
+        "p99": 4.442
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        5,
+        13,
+        27
+      ],
+      "lod_triangles": 59840,
+      "primitives": {
+        "median": 64848.0,
+        "p95": 64848.0,
+        "p99": 64848.0
+      },
+      "render_cpu_ms": {
+        "median": 0.368000000715256,
+        "p95": 0.51800000667572,
+        "p99": 1.41600000858307
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.27699995040894,
+        "p95": 1.47800004482269,
+        "p99": 1.51600003242493
+      }
+    },
+    {
+      "case": "voxel_lod_diagonal",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 50.0,
+        "p95": 50.0,
+        "p99": 50.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.019,
+        "p95": 3.993,
+        "p99": 4.18
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        11,
+        35
+      ],
+      "lod_triangles": 12934,
+      "primitives": {
+        "median": 17752.0,
+        "p95": 17752.0,
+        "p99": 17752.0
+      },
+      "render_cpu_ms": {
+        "median": 0.363999992609024,
+        "p95": 0.638000011444092,
+        "p99": 0.870999991893768
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.12300002574921,
+        "p95": 1.30299997329712,
+        "p99": 1.31700003147125
+      }
+    },
+    {
+      "case": "baseline_interior",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 2.42,
+        "p95": 4.596,
+        "p99": 4.968
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        2
+      ],
+      "lod_triangles": 59264,
+      "primitives": {
+        "median": 64604.0,
+        "p95": 64604.0,
+        "p99": 64604.0
+      },
+      "render_cpu_ms": {
+        "median": 0.382999986410141,
+        "p95": 0.564000010490417,
+        "p99": 0.690999984741211
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.62600004673004,
+        "p95": 1.82599997520447,
+        "p99": 1.85300004482269
+      }
+    },
+    {
+      "case": "culled_interior",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.609,
+        "p95": 5.019,
+        "p99": 6.597
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        2
+      ],
+      "lod_triangles": 59264,
+      "primitives": {
+        "median": 64272.0,
+        "p95": 64272.0,
+        "p99": 64272.0
+      },
+      "render_cpu_ms": {
+        "median": 0.354000002145767,
+        "p95": 0.591000020503998,
+        "p99": 0.903999984264374
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.82200002670288,
+        "p95": 2.04299998283386,
+        "p99": 2.15599989891052
+      }
+    },
+    {
+      "case": "factory_lod_interior",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 2.585,
+        "p95": 4.732,
+        "p99": 4.892
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        2
+      ],
+      "lod_triangles": 59264,
+      "primitives": {
+        "median": 64272.0,
+        "p95": 64272.0,
+        "p99": 64272.0
+      },
+      "render_cpu_ms": {
+        "median": 0.398999989032745,
+        "p95": 0.583000004291534,
+        "p99": 2.35899996757507
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.75100004673004,
+        "p95": 1.9650000333786,
+        "p99": 2.01099991798401
+      }
+    },
+    {
+      "case": "baseline_flyby",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 2.198,
+        "p95": 4.071,
+        "p99": 4.373
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        0,
+        0,
+        8,
+        56
+      ],
+      "lod_triangles": 15872,
+      "primitives": {
+        "median": 39964.0,
+        "p95": 71068.0,
+        "p99": 77084.0
+      },
+      "render_cpu_ms": {
+        "median": 0.305000007152557,
+        "p95": 0.570999979972839,
+        "p99": 1.72599995136261
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.23199999332428,
+        "p95": 1.50300002098083,
+        "p99": 1.63300001621246
+      }
+    },
+    {
+      "case": "factory_lod_flyby",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 2,
+      "factory_triangles": 86,
+      "frame_ms": {
+        "median": 2.223,
+        "p95": 4.252,
+        "p99": 4.882
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        0,
+        0,
+        8,
+        56
+      ],
+      "lod_triangles": 15872,
+      "primitives": {
+        "median": 38854.0,
+        "p95": 70736.0,
+        "p99": 76752.0
+      },
+      "render_cpu_ms": {
+        "median": 0.264999985694885,
+        "p95": 0.574999988079071,
+        "p99": 1.72000002861023
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.27100002765656,
+        "p95": 1.62000000476837,
+        "p99": 1.72500002384186
+      }
+    },
+    {
+      "case": "voxel_lod_flyby",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 61.0,
+        "p95": 65.0,
+        "p99": 65.0
+      },
+      "factory_lod": 2,
+      "factory_triangles": 86,
+      "frame_ms": {
+        "median": 2.515,
+        "p95": 4.704,
+        "p99": 5.573
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        0,
+        0,
+        64
+      ],
+      "lod_triangles": 8166,
+      "primitives": {
+        "median": 9616.0,
+        "p95": 22496.0,
+        "p99": 23764.0
+      },
+      "render_cpu_ms": {
+        "median": 0.365000009536743,
+        "p95": 0.644999980926514,
+        "p99": 1.49000000953674
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.39400005340576,
+        "p95": 2.17899990081787,
+        "p99": 2.44000005722046
+      }
+    },
+    {
+      "case": "baseline_far",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 1.708,
+        "p95": 3.699,
+        "p99": 3.856
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        0,
+        0,
+        10,
+        54
+      ],
+      "lod_triangles": 16768,
+      "primitives": {
+        "median": 22108.0,
+        "p95": 22108.0,
+        "p99": 22108.0
+      },
+      "render_cpu_ms": {
+        "median": 0.279000014066696,
+        "p95": 0.483999997377396,
+        "p99": 0.625
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 0.870000004768372,
+        "p95": 1.02699995040894,
+        "p99": 1.03900003433228
+      }
+    },
+    {
+      "case": "factory_lod_far",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "factory_lod": 2,
+      "factory_triangles": 86,
+      "frame_ms": {
+        "median": 1.742,
+        "p95": 3.789,
+        "p99": 4.027
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        0,
+        0,
+        10,
+        54
+      ],
+      "lod_triangles": 16768,
+      "primitives": {
+        "median": 16854.0,
+        "p95": 16854.0,
+        "p99": 16854.0
+      },
+      "render_cpu_ms": {
+        "median": 0.291000008583069,
+        "p95": 0.472000002861023,
+        "p99": 0.695999979972839
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 0.922999978065491,
+        "p95": 1.08899998664856,
+        "p99": 1.11000001430511
+      }
+    },
+    {
+      "case": "voxel_lod_far",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 65.0,
+        "p95": 65.0,
+        "p99": 65.0
+      },
+      "factory_lod": 2,
+      "factory_triangles": 86,
+      "frame_ms": {
+        "median": 1.765,
+        "p95": 3.807,
+        "p99": 4.142
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        0,
+        2,
+        62
+      ],
+      "lod_triangles": 9204,
+      "primitives": {
+        "median": 9290.0,
+        "p95": 9290.0,
+        "p99": 9290.0
+      },
+      "render_cpu_ms": {
+        "median": 0.31700000166893,
+        "p95": 0.642000019550323,
+        "p99": 0.783999979496002
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 0.879999995231628,
+        "p95": 1.03999996185303,
+        "p99": 1.04900002479553
+      }
+    },
+    {
+      "case": "voxel_merged_coarse_far",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "factory_lod": 2,
+      "factory_triangles": 86,
+      "frame_ms": {
+        "median": 1.964,
+        "p95": 4.087,
+        "p99": 4.25
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 8166,
+      "primitives": {
+        "median": 8252.0,
+        "p95": 8252.0,
+        "p99": 8252.0
+      },
+      "render_cpu_ms": {
+        "median": 0.312000006437302,
+        "p95": 0.523000001907349,
+        "p99": 1.22399997711182
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.15600001811981,
+        "p95": 1.36600005626678,
+        "p99": 1.39400005340576
+      }
+    },
+    {
+      "case": "baseline_32_d_29",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 165.0,
+        "p95": 165.0,
+        "p99": 165.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 12.576,
+        "p95": 18.367,
+        "p99": 22.465
+      },
+      "frames_over_60fps_budget_percent": 25.2777777777778,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 438992.0,
+        "p95": 438992.0,
+        "p99": 438992.0
+      },
+      "render_cpu_ms": {
+        "median": 1.36600005626678,
+        "p95": 1.86500000953674,
+        "p99": 2.33400011062622
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.45800018310547,
+        "p95": 9.90299987792969,
+        "p99": 10.0939998626709
+      }
+    },
+    {
+      "case": "factory_lod_32_d_30",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 165.0,
+        "p95": 165.0,
+        "p99": 165.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 12.339,
+        "p95": 18.317,
+        "p99": 20.21
+      },
+      "frames_over_60fps_budget_percent": 31.1111111111111,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 438660.0,
+        "p95": 438660.0,
+        "p99": 438660.0
+      },
+      "render_cpu_ms": {
+        "median": 1.31700003147125,
+        "p95": 1.82200002670288,
+        "p99": 2.42300009727478
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.37099981307983,
+        "p95": 9.87600040435791,
+        "p99": 9.9379997253418
+      }
+    },
+    {
+      "case": "voxel_merged_fine_32_d_31",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 162.0,
+        "p95": 162.0,
+        "p99": 162.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 12.549,
+        "p95": 18.788,
+        "p99": 20.456
+      },
+      "frames_over_60fps_budget_percent": 31.9444444444444,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 114414,
+      "primitives": {
+        "median": 489842.0,
+        "p95": 489842.0,
+        "p99": 489842.0
+      },
+      "render_cpu_ms": {
+        "median": 1.28999996185303,
+        "p95": 1.70799994468689,
+        "p99": 2.07399988174438
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.67899990081787,
+        "p95": 10.2430000305176,
+        "p99": 10.3140001296997
+      }
+    },
+    {
+      "case": "voxel_lod_32_d_32",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 203.0,
+        "p95": 203.0,
+        "p99": 203.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 12.92,
+        "p95": 19.429,
+        "p99": 22.167
+      },
+      "frames_over_60fps_budget_percent": 33.6111111111111,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        12,
+        28
+      ],
+      "lod_triangles": 10100,
+      "primitives": {
+        "median": 381056.0,
+        "p95": 381056.0,
+        "p99": 381056.0
+      },
+      "render_cpu_ms": {
+        "median": 1.37000000476837,
+        "p95": 1.80499994754791,
+        "p99": 2.49900007247925
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.36100006103516,
+        "p95": 9.83399963378906,
+        "p99": 9.93200016021729
+      }
+    },
+    {
+      "case": "factory_lod_32_d_33",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 165.0,
+        "p95": 165.0,
+        "p99": 165.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5008,
+      "frame_ms": {
+        "median": 12.609,
+        "p95": 19.184,
+        "p99": 20.108
+      },
+      "frames_over_60fps_budget_percent": 30.2777777777778,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 438660.0,
+        "p95": 438660.0,
+        "p99": 438660.0
+      },
+      "render_cpu_ms": {
+        "median": 1.3309999704361,
+        "p95": 1.82500004768372,
+        "p99": 2.4539999961853
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.5,
+        "p95": 9.97900009155273,
+        "p99": 10.1520004272461
+      }
+    },
+    {
+      "case": "baseline_32_d_34",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 165.0,
+        "p95": 165.0,
+        "p99": 165.0
+      },
+      "factory_lod": 0,
+      "factory_triangles": 5340,
+      "frame_ms": {
+        "median": 12.286,
+        "p95": 18.222,
+        "p99": 20.195
+      },
+      "frames_over_60fps_budget_percent": 27.5,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 438992.0,
+        "p95": 438992.0,
+        "p99": 438992.0
+      },
+      "render_cpu_ms": {
+        "median": 1.307000041008,
+        "p95": 1.74899995326996,
+        "p99": 2.25999999046326
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.36600017547607,
+        "p95": 9.91100025177002,
+        "p99": 10.0570001602173
+      }
+    }
+  ],
+  "scope": "Same generated terrain source and factory envelope. Factory union/cleanup tests use heightfield patch terrain. Voxel cases change terrain geometry and color sampling. 32 animated copies of bundled D, springs off and production distance LOD; mono, no networking/combat/collision/XR.",
+  "setup_times": {
+    "baseline_ms": 4.705,
+    "blender_planar_ms": 17.383,
+    "culled_ms": 9.406,
+    "factory_lod_ms": 8.658,
+    "greedy_ms": 10.278,
+    "native_csg_ms": 8.257,
+    "openscad_ms": 5.422,
+    "voxel_fine_ms": 142.294,
+    "voxel_lod_ms": 111.46,
+    "voxel_merged_coarse_ms": 123.605,
+    "voxel_merged_fine_ms": 115.619
+  },
+  "geometry": {
+    "checks": 471,
+    "failures": [],
+    "scope": "Triangle segment intersections and runtime visual LOD; no gameplay collision certification.",
+    "stationary_voxel_counts": [
+      4,
+      12,
+      28
+    ],
+    "variants": [
+      {
+        "index_sha256": "e04f8b5ac25aecd365e60877371102515baacde5de4d2a15a9db68caf2b93c18",
+        "triangles": 5340,
+        "variant": "baseline",
+        "vertex_sha256": "0a4e2eb9641cf33a64736f31c23f04efea1386cc3bf991f11840d6695ac15eb9",
+        "vertices": 10680
+      },
+      {
+        "index_sha256": "87bc9693104e46281e58f4b8a8891d8ee4aa91adeafaf6b31a6cd5b45872712f",
+        "triangles": 13190,
+        "variant": "native_csg",
+        "vertex_sha256": "44b75a73b5bf14653398e0e50c349fdd5ceed20b10ca25a5b72914d55e97f2a5",
+        "vertices": 19549
+      },
+      {
+        "index_sha256": "2d414e8ffb8a76dc99be476bdbab8c9011d095c71db40b6e09b5bd4f6acb4cde",
+        "triangles": 13024,
+        "variant": "openscad",
+        "vertex_sha256": "a90e240f16733d2c74b2afe0eccd77914285213d79aa1d3e40eae712e053cb74",
+        "vertices": 19616
+      },
+      {
+        "index_sha256": "e4a5bf6148adbceef293b702cfc4fb4eed056b71bf6fc4c3a78626eb4ddcc459",
+        "triangles": 13372,
+        "variant": "blender_planar",
+        "vertex_sha256": "9c82bff37d234251cc5e59a0215fd31d69e1ac7767ece9da49aa1225ad772a29",
+        "vertices": 20143
+      },
+      {
+        "index_sha256": "e88326a58f12d3e4d3f1c788fb8e1efdd7ccb4dac4a09501c25433135de60739",
+        "triangles": 8738,
+        "variant": "greedy",
+        "vertex_sha256": "9c2538c54e15562f73bf6a1dc68617761cd62ec30608e8af2935a1a9794aada0",
+        "vertices": 16891
+      },
+      {
+        "index_sha256": "10b2c2f1101a2d526a7fe4baa4c3ce7d3381d4740014cf2b7b3228874a6b71cb",
+        "triangles": 5008,
+        "variant": "culled",
+        "vertex_sha256": "a11bddbcc877fd50bfe7af3323c6ffd262c5bd900ca57bf50fe253aef01c4023",
+        "vertices": 9537
+      }
+    ]
+  },
+  "culling": [
+    {
+      "variant": "culled",
+      "source_triangles": 5340,
+      "triangles": 5008,
+      "fully_hidden_quads_removed": 166
+    },
+    {
+      "variant": "medium",
+      "source_triangles": 4464,
+      "triangles": 4230,
+      "fully_hidden_quads_removed": 117
+    },
+    {
+      "variant": "proxy",
+      "source_triangles": 96,
+      "triangles": 86,
+      "fully_hidden_quads_removed": 5
+    }
+  ],
+  "blender": {
+    "blender": "5.2.1 LTS",
+    "variants": [
+      {
+        "variant": "planar",
+        "vertices": 6038,
+        "triangles": 13372,
+        "bounds": [
+          [
+            -52.375,
+            48.375
+          ],
+          [
+            2.2699999809265137,
+            32.75
+          ],
+          [
+            -30.375,
+            23.5
+          ]
+        ]
+      },
+      {
+        "variant": "lod1",
+        "vertices": 3029,
+        "triangles": 7354,
+        "bounds": [
+          [
+            -52.28499984741211,
+            48.28750228881836
+          ],
+          [
+            2.3480000495910645,
+            32.75
+          ],
+          [
+            -30.285001754760742,
+            23.5
+          ]
+        ]
+      },
+      {
+        "variant": "lod2",
+        "vertices": 1727,
+        "triangles": 4750,
+        "bounds": [
+          [
+            -52.25312805175781,
+            48.25833511352539
+          ],
+          [
+            2.4000000953674316,
+            32.189998626708984
+          ],
+          [
+            -30.247224807739258,
+            23.5
+          ]
+        ]
+      }
+    ]
+  },
+  "mesher": {
+    "solid_box_quads": 6,
+    "cavity_quads": 12,
+    "cavity_volume": 26.0
+  },
+  "voxel_full_triangle_counts": [
+    114414,
+    30428,
+    8166
+  ],
+  "source_sha256": {
+    "tools/voxelspace/bake_csg.gd": "befb2743d19a958adcd874a522cf7fb2f55ce4444a30100bc7c186478bf41a68",
+    "tools/voxelspace/bake_meshes.gd": "6e54e6ced4426a81fb9906747ae0013fa9d5fa76662215621b8f474c42066d90",
+    "tools/voxelspace/blender_factory_cleanup.py": "2409a67de88afd1f5a487f4146800bc759b216f0647b2f26d1afa468b79db266",
+    "tools/voxelspace/column_renderer.gd": "cd88f93d4170b600f46e74fbd7a88df832d98c0476b41669e64b86a561424e49",
+    "tools/voxelspace/composite.gdshader": "10c696d0bad11c592e2d74d5c44eb33a2f501e37ef594dcb7c7165eb0247c198",
+    "tools/voxelspace/cull_factory_faces.py": "e483547a08c685e8942e0512fc0b87d857021a7621e34b569b9debdde037b911",
+    "tools/voxelspace/export_factory.gd": "63b73c51ae2f51a3c0dcb3cc2413c575f5a3d18bd48effbf02530881ddc094e3",
+    "tools/voxelspace/factory_lod.gd": "486756ac60f12ea70b371837df9c364c4e0d87382a9bfb9449f2b7b8bfadbfd9",
+    "tools/voxelspace/factory_map.gd": "d67788918d3139fa26ead7261dba99927405806befb307ef03fdcea42fd67451",
+    "tools/voxelspace/factory_proxy.gdshader": "896051ab7dd6566f583d91af19df16547aae3e20fbb73d2a76da14e58ccd3f38",
+    "tools/voxelspace/greedy_mesh.py": "33c98f75129ee77ec600b4aa0b980eba5037518f844b86fedeab000bb84c0737",
+    "tools/voxelspace/openscad_mcp_bake.py": "ba724bf2b806bafdab6f0fb075dde25bcaaeec2ede22fbb3f24c0888b695935f",
+    "tools/voxelspace/optimization.gd": "fafaedfe977409f71f20defd25d230571a586a265a3d714d4e239d0388fb5c31",
+    "tools/voxelspace/patch.gdshader": "0c89913f6ce9743ba2c63b10add4ba8c72e1c89f56a55f6d6cc5bf32b8438855",
+    "tools/voxelspace/patch_terrain.gd": "09367dba2d899feba2baf0ceedde826cae5bda9056f32860a83d5d8ef7241984",
+    "tools/voxelspace/run.gd": "ec86a8000a7c0a6e06264dd83c31bcbfece960a984f330455974ccf887673333",
+    "tools/voxelspace/validate.gd": "4104bea5367c77f94c2af38571c5a4e102d928ec7dfcaa074a37021d26de1cdc",
+    "tools/voxelspace/validate_optimization.gd": "9d4ce14fe6ce32c3775d38db91c7a8a2e631e695227cbb992dc6d068df164c77",
+    "tools/voxelspace/validate_rendering.py": "550f2674a93530d34959cad3f19da677c97d9d195bd22db919308a27dc7d5c5d",
+    "tools/voxelspace/voxel_surface.gdshader": "cf70f0cd87a5d1e14d42bd3f047ffa08b61741b5ba3a7c0a828466ee8cd6095a",
+    "tools/voxelspace/voxel_terrain.gd": "bde88124fbddf0596eba1701778e15e84987d584d02ee2b6af3acd43f9bdee17"
+  },
+  "asset_sha256": {
+    "tools/voxelspace/assets/factory.csg": "6acaa9f9269bf7ca0ea1e145f7f45784d0731dca14ae3b201827426783c408b8",
+    "tools/voxelspace/assets/factory.palette.json": "484414bd990a6681b777fe4f1950446d5f9eccade6eb6e7989db5b32419ec638",
+    "tools/voxelspace/assets/factory.scad": "92894ed8b8b903d27b7605d1a626a4392b9ab86275e3262230eaf70c93f43329",
+    "tools/voxelspace/assets/factory_blender_lod1.res": "556ff17221644d57eed45236c8c74934545d62aecd68038a7a4a0a3c260b66b9",
+    "tools/voxelspace/assets/factory_blender_lod2.res": "05f8f1ebb7bc632807e5f6dbbbcb59ef400138593e08b0e94239352d16d8b7f0",
+    "tools/voxelspace/assets/factory_blender_planar.res": "49934d3bb319f71d08c7f0e8bf247b02146b5b308c5e1c0c0228f1a93fbbc9a1",
+    "tools/voxelspace/assets/factory_culled.res": "51edb22c9771cdea6c62a4d084314abe292a4274b32704d49cd7f6371efe1be9",
+    "tools/voxelspace/assets/factory_greedy.res": "31bb413af030955b08ee92cc6b7e710b98d76aaece38707b5e5665cad4ce3060",
+    "tools/voxelspace/assets/factory_medium.res": "a1d7c8d1983715b03598b297376edb9e81792b73624232dcc7287ca82d2ff5be",
+    "tools/voxelspace/assets/factory_native_csg.res": "5a19804808e3b4e91ceda5df0b3bca760812d0fe95f4d7b85d6d07034d431220",
+    "tools/voxelspace/assets/factory_openscad.res": "d449a4f414b5dad91f99fedf61a87a336c93c6e75c4cba1b72ec2441798572ae",
+    "tools/voxelspace/assets/factory_proxy.res": "5a4b572116ad8c1189b19bd13829df8a76b02974a9e1bfdb7ceb559c1d120b89",
+    "tools/voxelspace/assets/terrain-voxels-merged.vxz": "a299af77d6a5450d7a2c0ddd80d7ed58648a342716b13c711dc783ad89efa228",
+    "tools/voxelspace/assets/terrain-voxels.vxz": "ddfdbe19e35d7ee6265e80846c37e56048c6d6249cec331e18075dc43b7ceedc"
+  },
+  "openscad": {
+    "version": "2021.01",
+    "mcp_repository": "https://github.com/RobertCoop/openscad-mcp",
+    "mcp_commit": "bde0b238c29c45408fef6f54aae7a1a14d5b64ee",
+    "mcp_tools_exercised": [
+      "check_openscad",
+      "validate",
+      "export_model"
+    ],
+    "scad_off_triangles": 13372,
+    "imported_csg_triangles": 13024,
+    "unit_m": 1
+  },
+  "validation_notes": [
+    "471 geometry and runtime LOD checks passed. Stair probe moved 0.6 metres off the column intersecting step 11; Boolean union legitimately removes that hidden face.",
+    "Factory and terrain triangle/LOD fields are final-frame snapshots; draw/primitive counters are percentiles over sampled frames.",
+    "One warmup of 120 frames and 360 samples per case. 35 cases; reverse-order front repeats and 32-avatar repeats.",
+    "First trial discarded after stationary-camera LOD bug. Only corrected rendering/optimization.json included."
+  ]
+}
