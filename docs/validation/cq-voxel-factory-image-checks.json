@@ -1,0 +1,36 @@
+{
+  "checks": [
+    {
+      "name": "columns_hybrid sky above terrain",
+      "pass": true
+    },
+    {
+      "name": "columns_solid sky above terrain",
+      "pass": true
+    },
+    {
+      "name": "front opaque factory depth parity",
+      "pass": true,
+      "factory_pixels": 157227,
+      "matching_fraction": 1.0
+    },
+    {
+      "name": "diagonal opaque factory depth parity",
+      "pass": true,
+      "factory_pixels": 65345,
+      "matching_fraction": 1.0
+    },
+    {
+      "name": "interior_storey2 opaque factory depth parity",
+      "pass": true,
+      "factory_pixels": 51661,
+      "matching_fraction": 1.0
+    },
+    {
+      "name": "displaced LOD terrain covers foreground like full mesh",
+      "pass": true,
+      "sky_leak_pixels": 0
+    }
+  ],
+  "scope": "Saved RGB captures: screen orientation, opaque facade agreement, foreground terrain coverage; not exhaustive per-pixel depth validation."
+}

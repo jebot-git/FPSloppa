@@ -1,0 +1,1540 @@
+{
+  "cpu": "Intel(R) N95",
+  "date": "2026-10-12",
+  "districts_base_commit": "9a3e9c8",
+  "engine": "4.7.2-stable (official)",
+  "gpu": "Intel(R) Graphics (ADL-N)",
+  "map": {
+    "extent_m": 250.0,
+    "factory_boxes": 445,
+    "factory_storeys": 4,
+    "factory_triangles": 5340,
+    "floor_y_m": [
+      2.4,
+      6.4,
+      10.4,
+      14.4
+    ],
+    "generation_ms": 681.891,
+    "height_range_m": [
+      -3.53884220123291,
+      19.1419563293457
+    ],
+    "height_samples": [
+      513,
+      513
+    ],
+    "roof_y_m": 18.4,
+    "seed": 1977
+  },
+  "opennova_reference_commit": "a092ba28f3c7a729520f4d5014cfd6f5fed348b5",
+  "output_resolution": [
+    1440,
+    900
+  ],
+  "renderer": "mobile",
+  "rows": [
+    {
+      "case": "raster_full_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 3.016,
+        "p95": 5.648,
+        "p99": 6.998
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 529628.0,
+        "p95": 529628.0,
+        "p99": 529628.0
+      },
+      "render_cpu_ms": {
+        "median": 0.395000010728836,
+        "p95": 0.639999985694885,
+        "p99": 2.1949999332428
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 2.25200009346008,
+        "p95": 2.56200003623962,
+        "p99": 2.62599992752075
+      }
+    },
+    {
+      "case": "patch_lod_front",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "frame_ms": {
+        "median": 2.086,
+        "p95": 4.193,
+        "p99": 4.852
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 67676.0,
+        "p95": 67676.0,
+        "p99": 67676.0
+      },
+      "render_cpu_ms": {
+        "median": 0.368999987840652,
+        "p95": 0.579999983310699,
+        "p99": 0.846000015735626
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.29700005054474,
+        "p95": 1.48800003528595,
+        "p99": 1.51600003242493
+      }
+    },
+    {
+      "case": "columns_solid_front",
+      "column_compute_gpu_ms": {
+        "median": 1.363021,
+        "p95": 3.654792,
+        "p99": 3.732864
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.047,
+        "p95": 0.083,
+        "p99": 0.095
+      },
+      "draw_calls": {
+        "median": 1.0,
+        "p95": 1.0,
+        "p99": 1.0
+      },
+      "frame_ms": {
+        "median": 3.813,
+        "p95": 6.211,
+        "p99": 6.682
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "render_cpu_ms": {
+        "median": 0.462999999523163,
+        "p95": 0.749000012874603,
+        "p99": 2.4210000038147
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.63699996471405,
+        "p95": 1.82500004768372,
+        "p99": 1.90400004386902
+      }
+    },
+    {
+      "case": "columns_hybrid_front",
+      "column_compute_gpu_ms": {
+        "median": 1.271354,
+        "p95": 3.772239,
+        "p99": 3.871093
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.045,
+        "p95": 0.079,
+        "p99": 0.19
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 3.867,
+        "p95": 6.45,
+        "p99": 6.662
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.456000000238419,
+        "p95": 0.75900000333786,
+        "p99": 2.56399989128113
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.78299999237061,
+        "p95": 1.99100005626678,
+        "p99": 2.125
+      }
+    },
+    {
+      "case": "columns_hybrid_half_front",
+      "column_compute_gpu_ms": {
+        "median": 0.447552,
+        "p95": 2.640572,
+        "p99": 2.912239
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.029,
+        "p95": 0.043,
+        "p99": 0.06
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 2.757,
+        "p95": 5.192,
+        "p99": 5.375
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        720,
+        450
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.409999996423721,
+        "p95": 0.632000029087067,
+        "p99": 1.16600000858307
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.55599999427795,
+        "p95": 1.82700002193451,
+        "p99": 1.87800002098083
+      }
+    },
+    {
+      "case": "columns_hybrid_quarter_front",
+      "column_compute_gpu_ms": {
+        "median": 0.309479,
+        "p95": 0.365886,
+        "p99": 2.492135
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.027,
+        "p95": 0.038,
+        "p99": 0.06
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 2.599,
+        "p95": 4.708,
+        "p99": 4.919
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        360,
+        225
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.375,
+        "p95": 0.579999983310699,
+        "p99": 1.91299998760223
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.50199997425079,
+        "p95": 1.72200000286102,
+        "p99": 1.78299999237061
+      }
+    },
+    {
+      "case": "columns_hybrid_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 1.269895,
+        "p95": 1.566822,
+        "p99": 3.960729
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.046,
+        "p95": 0.086,
+        "p99": 0.156
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 4.095,
+        "p95": 6.549,
+        "p99": 7.613
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.384999990463257,
+        "p95": 0.829999983310699,
+        "p99": 2.67300009727478
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.85500001907349,
+        "p95": 2.17899990081787,
+        "p99": 2.45799994468689
+      }
+    },
+    {
+      "case": "patch_lod_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "frame_ms": {
+        "median": 2.032,
+        "p95": 4.307,
+        "p99": 4.512
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        16,
+        18
+      ],
+      "lod_triangles": 62336,
+      "primitives": {
+        "median": 67676.0,
+        "p95": 67676.0,
+        "p99": 67676.0
+      },
+      "render_cpu_ms": {
+        "median": 0.351000010967255,
+        "p95": 0.535000026226044,
+        "p99": 0.740000009536743
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.30200004577637,
+        "p95": 1.52999997138977,
+        "p99": 1.56500005722046
+      }
+    },
+    {
+      "case": "raster_full_front_repeat",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 3.098,
+        "p95": 5.249,
+        "p99": 5.355
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 529628.0,
+        "p95": 529628.0,
+        "p99": 529628.0
+      },
+      "render_cpu_ms": {
+        "median": 0.381999999284744,
+        "p95": 0.541999995708466,
+        "p99": 0.783999979496002
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 2.25099992752075,
+        "p95": 2.55599999427795,
+        "p99": 2.59699988365173
+      }
+    },
+    {
+      "case": "raster_full_diagonal",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 3.291,
+        "p95": 5.625,
+        "p99": 6.3
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 529628.0,
+        "p95": 529628.0,
+        "p99": 529628.0
+      },
+      "render_cpu_ms": {
+        "median": 0.391999989748001,
+        "p95": 0.625999987125397,
+        "p99": 2.18199992179871
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 2.4300000667572,
+        "p95": 2.75699996948242,
+        "p99": 2.79800009727478
+      }
+    },
+    {
+      "case": "patch_lod_diagonal",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "frame_ms": {
+        "median": 1.974,
+        "p95": 4.294,
+        "p99": 4.421
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        5,
+        13,
+        27
+      ],
+      "lod_triangles": 59840,
+      "primitives": {
+        "median": 65180.0,
+        "p95": 65180.0,
+        "p99": 65180.0
+      },
+      "render_cpu_ms": {
+        "median": 0.316000014543533,
+        "p95": 0.542999982833862,
+        "p99": 1.92499995231628
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.24000000953674,
+        "p95": 1.432000041008,
+        "p99": 1.47300004959106
+      }
+    },
+    {
+      "case": "columns_hybrid_diagonal",
+      "column_compute_gpu_ms": {
+        "median": 1.297552,
+        "p95": 3.553698,
+        "p99": 3.663125
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.04,
+        "p95": 0.084,
+        "p99": 0.132
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 3.958,
+        "p95": 6.202,
+        "p99": 6.461
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.479000002145767,
+        "p95": 0.72299998998642,
+        "p99": 2.27600002288818
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.73199999332428,
+        "p95": 1.9889999628067,
+        "p99": 2.07100009918213
+      }
+    },
+    {
+      "case": "columns_solid_diagonal",
+      "column_compute_gpu_ms": {
+        "median": 1.615781,
+        "p95": 3.825729,
+        "p99": 3.899895
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.043,
+        "p95": 0.082,
+        "p99": 0.234
+      },
+      "draw_calls": {
+        "median": 1.0,
+        "p95": 1.0,
+        "p99": 1.0
+      },
+      "frame_ms": {
+        "median": 4.125,
+        "p95": 6.318,
+        "p99": 6.648
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "render_cpu_ms": {
+        "median": 0.397000014781952,
+        "p95": 0.660000026226044,
+        "p99": 1.76999998092651
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.60399997234344,
+        "p95": 1.80200004577637,
+        "p99": 1.87000000476837
+      }
+    },
+    {
+      "case": "patch_lod_interior_storey2",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "frame_ms": {
+        "median": 2.501,
+        "p95": 4.645,
+        "p99": 4.863
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        14,
+        30,
+        1
+      ],
+      "lod_triangles": 86464,
+      "primitives": {
+        "median": 91804.0,
+        "p95": 91804.0,
+        "p99": 91804.0
+      },
+      "render_cpu_ms": {
+        "median": 0.388999998569489,
+        "p95": 0.59799998998642,
+        "p99": 2.11999988555908
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.70200002193451,
+        "p95": 1.91299998760223,
+        "p99": 1.94799995422363
+      }
+    },
+    {
+      "case": "columns_hybrid_interior_storey2",
+      "column_compute_gpu_ms": {
+        "median": 1.32651,
+        "p95": 3.490885,
+        "p99": 3.732656
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.043,
+        "p95": 0.091,
+        "p99": 0.123
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 4.745,
+        "p95": 7.135,
+        "p99": 8.105
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.45100000500679,
+        "p95": 0.667999982833862,
+        "p99": 1.03699994087219
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 2.37100005149841,
+        "p95": 2.79099988937378,
+        "p99": 2.95799994468689
+      }
+    },
+    {
+      "case": "raster_full_flyby",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 3.232,
+        "p95": 5.364,
+        "p99": 5.555
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 529628.0,
+        "p95": 529628.0,
+        "p99": 529628.0
+      },
+      "render_cpu_ms": {
+        "median": 0.404000014066696,
+        "p95": 0.675000011920929,
+        "p99": 2.01600003242493
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 2.37299990653992,
+        "p95": 2.67799997329712,
+        "p99": 2.83699989318848
+      }
+    },
+    {
+      "case": "patch_lod_flyby",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "frame_ms": {
+        "median": 2.306,
+        "p95": 4.094,
+        "p99": 4.533
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        4,
+        18,
+        22
+      ],
+      "lod_triangles": 59776,
+      "primitives": {
+        "median": 67292.0,
+        "p95": 75100.0,
+        "p99": 77084.0
+      },
+      "render_cpu_ms": {
+        "median": 0.303999990224838,
+        "p95": 0.528999984264374,
+        "p99": 0.680999994277954
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.32799994945526,
+        "p95": 1.62300002574921,
+        "p99": 1.71099996566772
+      }
+    },
+    {
+      "case": "columns_hybrid_flyby",
+      "column_compute_gpu_ms": {
+        "median": 1.39323,
+        "p95": 3.654479,
+        "p99": 4.09526
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.048,
+        "p95": 0.099,
+        "p99": 0.145
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 4.104,
+        "p95": 6.479,
+        "p99": 7.798
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.451999992132187,
+        "p95": 0.795000016689301,
+        "p99": 1.37699997425079
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.82099997997284,
+        "p95": 2.08599996566772,
+        "p99": 2.23300004005432
+      }
+    },
+    {
+      "case": "raster_full_avatar_camera_map_only",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 2.974,
+        "p95": 5.385,
+        "p99": 6.066
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 529628.0,
+        "p95": 529628.0,
+        "p99": 529628.0
+      },
+      "render_cpu_ms": {
+        "median": 0.400999993085861,
+        "p95": 0.64300000667572,
+        "p99": 1.84599995613098
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 2.2260000705719,
+        "p95": 2.52300000190735,
+        "p99": 2.58500003814697
+      }
+    },
+    {
+      "case": "patch_lod_avatar_camera_map_only",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 5.0,
+        "p95": 5.0,
+        "p99": 5.0
+      },
+      "frame_ms": {
+        "median": 2.109,
+        "p95": 4.302,
+        "p99": 4.825
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 68572.0,
+        "p95": 68572.0,
+        "p99": 68572.0
+      },
+      "render_cpu_ms": {
+        "median": 0.367000013589859,
+        "p95": 0.601000010967255,
+        "p99": 0.783999979496002
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.33700001239777,
+        "p95": 1.55499994754791,
+        "p99": 1.58599996566772
+      }
+    },
+    {
+      "case": "columns_hybrid_avatar_camera_map_only",
+      "column_compute_gpu_ms": {
+        "median": 1.295469,
+        "p95": 3.476614,
+        "p99": 3.597447
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.04,
+        "p95": 0.081,
+        "p99": 0.1
+      },
+      "draw_calls": {
+        "median": 2.0,
+        "p95": 2.0,
+        "p99": 2.0
+      },
+      "frame_ms": {
+        "median": 4.1,
+        "p95": 6.24,
+        "p99": 6.947
+      },
+      "frames_over_60fps_budget_percent": 0.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 5342.0,
+        "p95": 5342.0,
+        "p99": 5342.0
+      },
+      "render_cpu_ms": {
+        "median": 0.428000003099442,
+        "p95": 1.16600000858307,
+        "p99": 2.45199990272522
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 1.8639999628067,
+        "p95": 2.08299994468689,
+        "p99": 2.15799999237061
+      }
+    },
+    {
+      "case": "raster_full_32_sample_d",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 162.0,
+        "p95": 162.0,
+        "p99": 162.0
+      },
+      "frame_ms": {
+        "median": 12.958,
+        "p95": 19.436,
+        "p99": 22.6
+      },
+      "frames_over_60fps_budget_percent": 33.0555555555556,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 900048.0,
+        "p95": 900048.0,
+        "p99": 900048.0
+      },
+      "render_cpu_ms": {
+        "median": 1.40600001811981,
+        "p95": 1.93900001049042,
+        "p99": 2.3510000705719
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 8.27299976348877,
+        "p95": 11.3059997558594,
+        "p99": 11.3920001983643
+      }
+    },
+    {
+      "case": "patch_lod_32_sample_d",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 165.0,
+        "p95": 165.0,
+        "p99": 165.0
+      },
+      "frame_ms": {
+        "median": 14.463,
+        "p95": 23.325,
+        "p99": 36.096
+      },
+      "frames_over_60fps_budget_percent": 42.2222222222222,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 438992.0,
+        "p95": 438992.0,
+        "p99": 438992.0
+      },
+      "render_cpu_ms": {
+        "median": 1.42200005054474,
+        "p95": 2.34800004959106,
+        "p99": 3.6710000038147
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.57200002670288,
+        "p95": 10.4160003662109,
+        "p99": 10.9409999847412
+      }
+    },
+    {
+      "case": "columns_hybrid_32_sample_d",
+      "column_compute_gpu_ms": {
+        "median": 1.402292,
+        "p95": 1.668282,
+        "p99": 3.12224
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.03,
+        "p95": 0.057,
+        "p99": 0.083
+      },
+      "draw_calls": {
+        "median": 162.0,
+        "p95": 162.0,
+        "p99": 162.0
+      },
+      "frame_ms": {
+        "median": 18.229,
+        "p95": 30.764,
+        "p99": 36.921
+      },
+      "frames_over_60fps_budget_percent": 60.8333333333333,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 375762.0,
+        "p95": 375762.0,
+        "p99": 375762.0
+      },
+      "render_cpu_ms": {
+        "median": 1.48699998855591,
+        "p95": 2.49200010299683,
+        "p99": 3.44700002670288
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 8.41399955749512,
+        "p95": 10.4320001602173,
+        "p99": 11.2419996261597
+      }
+    },
+    {
+      "case": "raster_full_32_sample_f",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 162.0,
+        "p95": 162.0,
+        "p99": 162.0
+      },
+      "frame_ms": {
+        "median": 14.962,
+        "p95": 25.162,
+        "p99": 32.502
+      },
+      "frames_over_60fps_budget_percent": 45.0,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 813368.0,
+        "p95": 813368.0,
+        "p99": 813368.0
+      },
+      "render_cpu_ms": {
+        "median": 1.33899998664856,
+        "p95": 2.19099998474121,
+        "p99": 3.01799988746643
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.39699983596802,
+        "p95": 9.83300018310547,
+        "p99": 11.0550003051758
+      }
+    },
+    {
+      "case": "patch_lod_32_sample_f",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 165.0,
+        "p95": 165.0,
+        "p99": 165.0
+      },
+      "frame_ms": {
+        "median": 13.089,
+        "p95": 23.342,
+        "p99": 29.001
+      },
+      "frames_over_60fps_budget_percent": 39.1666666666667,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 350168.0,
+        "p95": 352312.0,
+        "p99": 352312.0
+      },
+      "render_cpu_ms": {
+        "median": 1.34700000286102,
+        "p95": 2.24300003051758,
+        "p99": 2.77699995040894
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 6.5,
+        "p95": 9.70300006866455,
+        "p99": 10.4010000228882
+      }
+    },
+    {
+      "case": "columns_hybrid_32_sample_f",
+      "column_compute_gpu_ms": {
+        "median": 1.351459,
+        "p95": 4.278489,
+        "p99": 4.52
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.023,
+        "p95": 0.043,
+        "p99": 0.083
+      },
+      "draw_calls": {
+        "median": 162.0,
+        "p95": 162.0,
+        "p99": 162.0
+      },
+      "frame_ms": {
+        "median": 14.244,
+        "p95": 21.144,
+        "p99": 22.778
+      },
+      "frames_over_60fps_budget_percent": 38.6111111111111,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 286938.0,
+        "p95": 289082.0,
+        "p99": 289082.0
+      },
+      "render_cpu_ms": {
+        "median": 1.29200005531311,
+        "p95": 1.83399999141693,
+        "p99": 2.33699989318848
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 6.92999982833862,
+        "p95": 10.0579996109009,
+        "p99": 10.1700000762939
+      }
+    },
+    {
+      "case": "raster_full_32_sample_g",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 162.0,
+        "p95": 162.0,
+        "p99": 162.0
+      },
+      "frame_ms": {
+        "median": 13.079,
+        "p95": 20.248,
+        "p99": 21.651
+      },
+      "frames_over_60fps_budget_percent": 34.7222222222222,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 838816.0,
+        "p95": 840936.0,
+        "p99": 840936.0
+      },
+      "render_cpu_ms": {
+        "median": 1.30799996852875,
+        "p95": 1.83299994468689,
+        "p99": 2.26600003242493
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.76200008392334,
+        "p95": 10.8249998092651,
+        "p99": 10.9270000457764
+      }
+    },
+    {
+      "case": "patch_lod_32_sample_g",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 165.0,
+        "p95": 165.0,
+        "p99": 165.0
+      },
+      "frame_ms": {
+        "median": 13.128,
+        "p95": 20.038,
+        "p99": 21.038
+      },
+      "frames_over_60fps_budget_percent": 34.1666666666667,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [
+        4,
+        6,
+        18,
+        16
+      ],
+      "lod_triangles": 63232,
+      "primitives": {
+        "median": 377760.0,
+        "p95": 379880.0,
+        "p99": 379880.0
+      },
+      "render_cpu_ms": {
+        "median": 1.31099998950958,
+        "p95": 1.83200001716614,
+        "p99": 2.13199996948242
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 6.95900011062622,
+        "p95": 9.92099952697754,
+        "p99": 10.1029996871948
+      }
+    },
+    {
+      "case": "columns_hybrid_32_sample_g",
+      "column_compute_gpu_ms": {
+        "median": 1.356458,
+        "p95": 1.581354,
+        "p99": 4.40802
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0.025,
+        "p95": 0.041,
+        "p99": 0.059
+      },
+      "draw_calls": {
+        "median": 162.0,
+        "p95": 162.0,
+        "p99": 162.0
+      },
+      "frame_ms": {
+        "median": 13.846,
+        "p95": 20.45,
+        "p99": 22.585
+      },
+      "frames_over_60fps_budget_percent": 36.9444444444444,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 314530.0,
+        "p95": 316650.0,
+        "p99": 316650.0
+      },
+      "render_cpu_ms": {
+        "median": 1.27199995517731,
+        "p95": 1.82099997997284,
+        "p99": 2.2739999294281
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 7.44000005722046,
+        "p95": 10.6199998855591,
+        "p99": 10.8819999694824
+      }
+    },
+    {
+      "case": "existing_bsp_district40_context",
+      "column_compute_gpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "column_dispatch_cpu_ms": {
+        "median": 0,
+        "p95": 0,
+        "p99": 0
+      },
+      "draw_calls": {
+        "median": 9.0,
+        "p95": 9.0,
+        "p99": 9.0
+      },
+      "frame_ms": {
+        "median": 19.773,
+        "p95": 22.965,
+        "p99": 24.238
+      },
+      "frames_over_60fps_budget_percent": 99.4444444444444,
+      "internal_resolution": [
+        1440,
+        900
+      ],
+      "lod_patch_counts": [],
+      "lod_triangles": 0,
+      "primitives": {
+        "median": 29755.0,
+        "p95": 29755.0,
+        "p99": 29755.0
+      },
+      "render_cpu_ms": {
+        "median": 1.71800005435944,
+        "p95": 2.60899996757507,
+        "p99": 3.54699993133545
+      },
+      "samples": 360,
+      "viewport_gpu_ms": {
+        "median": 16.0030002593994,
+        "p95": 16.2749996185303,
+        "p99": 16.5359992980957
+      }
+    }
+  ],
+  "scope": "Generated factory terrain, static and deterministic moving camera; 32 animated copies per bundled VRM with springs off and production distance LOD. Matched raster/patch/column-hybrid input and factory geometry; BSP is a different-content context case. Mono, no networking/combat/XR; columns support yaw-only cameras.",
+  "setup_times": {
+    "columns_hybrid_half_ms": 10.305,
+    "columns_hybrid_ms": 7.732,
+    "columns_hybrid_quarter_ms": 10.861,
+    "columns_solid_ms": 6.952,
+    "map_generation_ms": 838.126,
+    "patch_lod_ms": 5.183,
+    "raster_full_ms": 2.327,
+    "raster_mesh_ms": 132.39
+  },
+  "source_sha256": {
+    "tools/voxelspace/column_renderer.gd": "cd88f93d4170b600f46e74fbd7a88df832d98c0476b41669e64b86a561424e49",
+    "tools/voxelspace/columns.glsl": "3e494e3871c20faf99d6fa06d2639b977ef472fe8168781a7df7b5962c3e6f0b",
+    "tools/voxelspace/composite.gdshader": "10c696d0bad11c592e2d74d5c44eb33a2f501e37ef594dcb7c7165eb0247c198",
+    "tools/voxelspace/factory_map.gd": "d67788918d3139fa26ead7261dba99927405806befb307ef03fdcea42fd67451",
+    "tools/voxelspace/patch.gdshader": "0c89913f6ce9743ba2c63b10add4ba8c72e1c89f56a55f6d6cc5bf32b8438855",
+    "tools/voxelspace/patch_terrain.gd": "09367dba2d899feba2baf0ceedde826cae5bda9056f32860a83d5d8ef7241984",
+    "tools/voxelspace/run.gd": "ec86a8000a7c0a6e06264dd83c31bcbfece960a984f330455974ccf887673333",
+    "tools/voxelspace/validate.gd": "4104bea5367c77f94c2af38571c5a4e102d928ec7dfcaa074a37021d26de1cdc",
+    "tools/voxelspace/validate_rendering.py": "550f2674a93530d34959cad3f19da677c97d9d195bd22db919308a27dc7d5c5d"
+  },
+  "avatar_acceleration": "Locally built optional FPS native extension from the filtered districts integration; same binary for every renderer. Not a portable release build.",
+  "measurement_notes": [
+    "120 warmup and 360 sampled frames per case, uncapped and vsync disabled. No screenshot/readback within the sampled interval.",
+    "Wall-clock frame time is the primary whole-client metric. Viewport GPU time and custom column dispatch GPU time are separate measurements; neither viewport time alone nor a sum of percentile values is whole-frame GPU latency.",
+    "32-rig cases use 32 animated shared copies of one bundled VRM per case, production distance LOD, springs disabled, four rows at 12\u201318m camera depth. No unique-avatar, networking, combat or XR certification.",
+    "Terrain and factory use unshaded colors. Factory collision/gameplay integration is not implemented. Columns march to 250m with yaw-only projection; the raster camera far plane is 300m.",
+    "Static front cases repeat in reverse order; 32-rig renderer comparisons are one sequence per model and show appreciable host/animation timing variation. Do not interpret small differences as a reliable terrain ranking under avatar load.",
+    "The BSP case uses different content/materials/sky and runs last; it is context, not an equivalent-content replacement comparison."
+  ]
+}
