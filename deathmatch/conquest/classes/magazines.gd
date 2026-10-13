@@ -18,7 +18,7 @@ func state(id:int) -> Dictionary:
 		if not c.clips.has(s.weapon):c.clips[s.weapon]=mini(d.magazine,s.ammo[d.ammo])
 		c.clips[s.weapon]=mini(c.clips[s.weapon],s.ammo[d.ammo])
 	return c
-func geometry(w:int) -> int:return 12 if w==5 else 2 if w in [2,9] else 7
+func geometry(w:int) -> int:return 12 if w in [5,11] else 2 if w in [2,9,3] else 7
 func tick(id:int) -> bool:
 	var s:Dictionary=game.players[id];var c:=state(id);var w:int=s.weapon;var d:Dictionary=game.armory.data(w)
 	if d.ammo<0:return true

@@ -26,6 +26,18 @@ func role(id:int) -> String:return states.get(id,{}).get("class","shocktroop")
 func choose(id:int,value:String) -> bool:
 	if not authority() or not game.players.has(id) or value not in CLASSES:return false
 	ensure(id).next=value;return true # Applied on spawn; changing class cannot refill gear.
+func choose_equipment(id:int,role_name:String,weapon:int,secondary:bool) -> bool:
+	if not authority() or not game.players.has(id) or role_name not in CLASSES:return false
+	var state:=ensure(id)
+	if weapon not in progression.unlocked(role_name,state.xp[role_name],secondary):return false
+	var key:="secondary_choices" if secondary else "primary_choices"
+	if not state.has(key):state[key]={}
+	state[key][role_name]=weapon;return true
+func equipment(id:int,secondary:bool=false) -> int:
+	var state:=ensure(id);var role_name:String=state["class"]
+	var unlocked:Array=progression.unlocked(role_name,state.xp[role_name],secondary)
+	var choice:int=state.get("secondary_choices" if secondary else "primary_choices",{}).get(role_name,unlocked[0])
+	return choice if choice in unlocked else unlocked[0]
 func spawn(id:int) -> void:
 	if not authority():return
 	var s:=ensure(id);s["class"]=s.next;s.cloak_until=0.0
@@ -102,7 +114,7 @@ func transfer(key:int,target:int,requested:int) -> int:
 	var amount:int=mini(requested,box.remaining)
 	if box.kind=="health":amount=mini(amount,maxi(0,100-s.hp));s.hp+=amount
 	else:
-		var limits:Array=[42,0,0,0] if role(target)=="scout" else [14,0,9,0] if role(target)=="technician" else [14,120,0,0]
+		var limits:Array=game.armory.loadout_capacity(s)
 		var restored:=0
 		for i in limits.size():
 			var n:int=mini(amount-restored,maxi(0,limits[i]-s.ammo[i]));s.ammo[i]+=n;restored+=n

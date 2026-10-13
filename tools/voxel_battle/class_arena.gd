@@ -17,6 +17,12 @@ func _ready() -> void:
 		var page=hud.menu_pages.pages.get("player")
 		if page:
 			for role in classes.CLASSES:hud.button(page,"CQ CLASS: "+role.to_upper(),func():request_class(role))
+			for role in classes.CLASSES:
+				for secondary in [false,true]:
+					for row in (classes.progression.secondaries if secondary else classes.progression.tracks)[role]:
+						var weapon:int=row.weapon
+						var button:Button=hud.button(page,armory.data(weapon).name,func():request_equipment(role,weapon,secondary))
+						equipment_buttons.append({"button":button,"role":role,"weapon":weapon,"secondary":secondary,"xp":row.xp})
 func start_host(player_name:String,port:int,frags:int,minutes:int,training:bool,mode:String="tdm",weapon_rules:String="ut99") -> void:
 	super.start_host(player_name,port,frags,minutes,training,mode,weapon_rules)
 	votes.allowed_modes=["tdm"]
@@ -28,7 +34,7 @@ func _spawn(id:int) -> void:
 	spotting.spotted.erase(id)
 	classes.spawn(id)
 	grenades.cancel(id);grenades.state(id).counts=[1 if classes.role(id)=="shocktroop" else 0,0,0];grenades.state(id).shoulder=0 if classes.role(id)=="shocktroop" else -1
-	players[id].cq_class=classes.role(id)
+	players[id].cq_class=classes.role(id);players[id].cq_id=id
 	super._spawn(id)
 	fighters[id].jetpack_attach_raise=.10
 	fighters[id].configure_jetpack(jetpack_allowed_for(id))
@@ -68,6 +74,8 @@ func _server_tick(delta:float) -> void:
 		tick_class_tools(delta)
 		grenades.tick(delta)
 		spotting.tick(self)
+		variant_combat.vehicle_lock.tick(self,delta)
+		variant_combat.vehicle_lock.guide(self,delta)
 		for medic in players:
 			if not classes.alive(medic) or classes.role(medic)!="medic":continue
 			var s:Dictionary=players[medic]
@@ -296,27 +304,32 @@ func _weapon_visuals():
 		variant_visuals=preload("res://deathmatch/conquest/classes/visuals.gd").new();variant_visuals.name="CQWeaponEffects";add_child(variant_visuals);variant_visuals.illumination.connect(_weapon_illumination)
 	return variant_visuals
 func shot_color(id:int,weapon:int) -> Color:
-	if weapon in [4,5]:return Color("ff3c39") if players.get(id,{}).get("team",0)==0 else Color("3b8dff")
+	if weapon in [0,1,4,5,10,11]:return Color("ff3c39") if players.get(id,{}).get("team",0)==0 else Color("3b8dff")
 	return super.shot_color(id,weapon)
 func shot_emission(id:int,weapon:int) -> Dictionary:
 	var recipe:=super.shot_emission(id,weapon)
-	if weapon in [4,5]:recipe.color=shot_color(id,weapon)
+	if weapon in [0,1,4,5,10,11]:recipe.color=shot_color(id,weapon)
 	if weapon==9:recipe.radius=.4;recipe.energy=.12
 	return recipe
 func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 	_play_shot_fx(id,weapon,false,alternate)
 	if headless:return
 	if id==multiplayer.get_unique_id():visual_cooldown=armory.data(weapon,alternate).cycle
-	if weapon in [2,9]:
+	if weapon in [0,1]:
+		var pose:Transform3D=_weapon_transform(id);var point:Vector3=pose*preload("res://deathmatch/conquest/classes/models.gd").muzzle(weapon,"cq_"+classes.role(id))
+		_weapon_illumination(point,point,shot_emission(id,weapon),id)
+		var flash:=Node3D.new();add_child(flash);flash.position=point;flash.basis=pose.basis
+		Art.box(flash,Vector3(0,0,-.02),Vector3(.04,.04,.06),Art.material(shot_color(id,weapon),0,5));get_tree().create_timer(.045).timeout.connect(flash.queue_free)
+	if weapon in [2,3,9]:
 		var sound:=AudioStreamPlayer3D.new();sound.stream=load("res://deathmatch/audio/cq_weapons/"+("pistol_suppressed" if weapon==9 else "pistol")+".wav");sound.bus="ArenaEffects";sound.volume_db=-12 if weapon==9 else -4;sound.max_distance=18 if weapon==9 else 90;add_child(sound);sound.position=_weapon_transform(id).origin;sound.finished.connect(sound.queue_free);sound.play()
-	elif weapon==4:spatial.play("ut99_weapon_7",_weapon_transform(id).origin,-5)
-	elif weapon==5:spatial.play("weapon_8",_weapon_transform(id).origin,-6)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-1-classes-reload"
+	elif weapon in [0,1,4,10]:spatial.play("ut99_weapon_7",_weapon_transform(id).origin,-5)
+	elif weapon in [5,11]:spatial.play("weapon_8",_weapon_transform(id).origin,-6)
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-2-progression"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
 	classes.downed.erase(id);classes.injecting.erase(id);classes.weapon_used(id)
-	grenades.on_death(id);variant_combat.salvos.erase(id)
+	grenades.on_death(id);variant_combat.cancel_player(id)
 
 static func map_identity() -> String:
 	var digest:=HashingContext.new();digest.start(HashingContext.HASH_SHA256)
@@ -330,4 +343,62 @@ func _load_map(map_id:String) -> bool:
 func _peer_left(id:int) -> void:
 	super._peer_left(id)
 	classes.states.erase(id);classes.downed.erase(id);classes.injecting.erase(id);designations.erase(id);throw_sequence.erase(id)
-	variant_combat.magazines.states.erase(id)
+	variant_combat.magazines.states.erase(id);variant_combat.vehicle_lock.locks.erase(id);spotting.spotted.erase(id)
+
+func _trace(start:Vector3,end:Vector3,exclude:int,rewind:float=0.0,radius:float=0.0,movement_start:Dictionary={},candidates:Variant=null) -> Dictionary:
+	var hit:Dictionary=super._trace(start,end,exclude,rewind,radius,movement_start,candidates)
+	if not hit.hit:return hit
+	var contact:Dictionary=get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(start,hit.position+(end-start).normalized()*.05,1))
+	if not contact.is_empty():
+		for vehicle in get_tree().get_nodes_in_group("cq_repairable_vehicles"):
+			if vehicle.hp>0 and vehicle.owns_collider(contact.collider):hit["cq_vehicle"]=vehicle;break
+	return hit
+func _damage_map_hit(hit:Dictionary,id:int,amount:float) -> void:
+	if multiplayer.is_server() and hit.has("cq_vehicle"):
+		var vehicle=hit.cq_vehicle
+		vehicle.damage(players.get(id,{}).get("team",-1),int(amount))
+		if variant_combat.active_projectile>=0:vehicle.set_meta("cq_direct_projectile",variant_combat.active_projectile)
+	super._damage_map_hit(hit,id,amount)
+var equipment_buttons:Array=[]
+func request_equipment(role_name:String,weapon:int,secondary:bool) -> void:
+	if multiplayer.is_server():classes.choose_equipment(multiplayer.get_unique_id(),role_name,weapon,secondary)
+	else:_cq_equipment.rpc_id(1,role_name,weapon,secondary)
+@rpc("any_peer","call_remote","reliable",0)
+func _cq_equipment(role_name:String,weapon:int,secondary:bool) -> void:
+	if multiplayer.is_server():classes.choose_equipment(multiplayer.get_remote_sender_id(),role_name,weapon,secondary)
+func equipment_menu() -> void:
+	var state:Dictionary=classes.states.get(multiplayer.get_unique_id(),{})
+	for row in equipment_buttons:
+		var xp:int=state.get("xp",{}).get(row.role,0)
+		row.button.disabled=state.is_empty() or xp<row.xp
+		var choice:int=state.get("secondary_choices" if row.secondary else "primary_choices",{}).get(row.role,8 if row.role=="scout" else 2) if row.secondary else state.get("primary_choices",{}).get(row.role,classes.progression.STARTERS[row.role][0])
+		row.button.text=("✓ " if choice==row.weapon else "")+row.role.to_upper()+" "+("SECONDARY: " if row.secondary else "PRIMARY: ")+armory.data(row.weapon).name+(" · %d / %d XP"%[xp,row.xp] if xp<row.xp else "")
+func _process(delta:float) -> void:
+	super._process(delta)
+	if menu_open:equipment_menu()
+	if headless or not active:return
+	var state:Dictionary=local_state()
+	if not is_vr() and not state.is_empty() and state.weapon in [1,9,10]:
+		var base:float=float(presentation.get("fov",85.0));var steps:Array=[1.5] if state.weapon==1 else [2.0,4.0,8.0] if state.weapon==10 else [1.5,3.0,6.0]
+		if desktop_optic_weapon!=state.weapon:desktop_optic_weapon=state.weapon;desktop_optic_index=0;desktop_optic_zoom=steps[0]
+		if not menu_open and Input.is_action_just_pressed("ui_up"):desktop_optic_index=mini(steps.size()-1,desktop_optic_index+1)
+		if not menu_open and Input.is_action_just_pressed("ui_down"):desktop_optic_index=maxi(0,desktop_optic_index-1)
+		desktop_optic_zoom=lerpf(desktop_optic_zoom,steps[desktop_optic_index],1-exp(-delta*10))
+		camera.fov=preload("res://deathmatch/vr/sniper_scope.gd").zoom_fov(base,desktop_optic_zoom) if bindings.pressed("alt_fire") and not menu_open else base
+	var lock:Dictionary=variant_combat.vehicle_lock.locks.get(multiplayer.get_unique_id(),{})
+	var model:Node3D=xr_rig.gun if is_vr() else viewmodel
+	if is_instance_valid(model):
+		var screen:=model.find_child("GuidanceMonitor",true,false) as Label3D
+		if screen and state.get("weapon",-1)==5:screen.text="SALVO"
+		elif screen:screen.text="LOCK" if lock.get("ready",false) else "%d%%"%int(lock.get("elapsed",0.0)/1.5*100) if not lock.is_empty() else "SEARCH"
+var desktop_optic_weapon:=-1
+var desktop_optic_index:=0
+var desktop_optic_zoom:=1.5
+
+@rpc("authority","call_local","unreliable",1)
+func _cq_beam_impacts(start:Vector3,ends:PackedVector3Array,weapon:int,team:int) -> void:
+	if is_instance_valid(district_worker):district_worker.event("_cq_beam_impacts",[start,ends,weapon,team])
+	demos.event("_cq_beam_impacts",[start,ends,weapon,team])
+	if headless:return
+	var definition:Dictionary=armory.data(weapon).duplicate();definition.color=Color("ff3c39") if team==0 else Color("3b8dff")
+	_weapon_visuals().impacts("ut99",start,ends,weapon,definition)

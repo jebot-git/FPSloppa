@@ -13,16 +13,19 @@ var zoom_index:=0
 var zoom:=1.5
 var zoom_latched:=false
 const CQ_ZOOMS=[1.5,3.0,6.0]
+var zoom_steps:Array=CQ_ZOOMS.duplicate()
 static func zoom_fov(base:float,magnification:float) -> float:return rad_to_deg(2*atan(tan(deg_to_rad(base)*.5)/magnification))
 func step_zoom(axis:float) -> void:
 	if absf(axis)<.25:zoom_latched=false
 	elif absf(axis)>.6 and not zoom_latched:
-		zoom_index=clampi(zoom_index+(1 if axis>0 else -1),0,2);zoom_latched=true
+		zoom_index=clampi(zoom_index+(1 if axis>0 else -1),0,zoom_steps.size()-1);zoom_latched=true
 func setup(owner_rig) -> void:rig=owner_rig
 func attach(model: Node3D) -> void:
 	if is_instance_valid(weapon) and weapon==model:return
 	if is_instance_valid(lens):lens.queue_free()
 	weapon=model
+	zoom_steps=model.get_meta("zoom_steps",CQ_ZOOMS).duplicate() if is_instance_valid(model) else CQ_ZOOMS.duplicate()
+	zoom_index=0;zoom=zoom_steps[0];zoom_latched=false
 	if not is_instance_valid(model) or not model.has_meta("scope_rear"):return
 	if not viewport:
 		viewport=SubViewport.new();viewport.name="SniperOptic";viewport.size=Vector2i(384,384) if OS.has_feature("android") else Vector2i(512,512)
@@ -35,6 +38,7 @@ func attach(model: Node3D) -> void:
 	lens.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	model.add_child(lens);lens.position=model.get_meta("scope_rear")
 	surface=ShaderMaterial.new();surface.shader=preload("res://deathmatch/vr/sniper_scope.gdshader");surface.set_shader_parameter("optic",viewport.get_texture());lens.material_override=surface
+	surface.set_shader_parameter("red_dot",model.get_meta("red_dot",false))
 	mask_weapon(model)
 static func mask_weapon(node: Node) -> void:
 	if node is VisualInstance3D:node.layers=SCOPE_LAYER
@@ -50,6 +54,7 @@ func disable() -> void:
 	if surface:surface.set_shader_parameter("enabled",false)
 func update_view(model: Node3D,eye_poses: Array,shot: Transform3D,allowed: bool) -> void:
 	attach(model);disable()
+	if camera:camera.far=300.0 if model and model.has_meta("cq_zoom") else 220.0
 	if camera:camera.fov=zoom_fov(float(rig.game.presentation.get("fov",85.0)),zoom) if model and model.has_meta("cq_zoom") and rig else FOV
 	if not allowed or not is_instance_valid(lens) or not is_instance_valid(weapon):return
 	var optic:=Transform3D(weapon.global_basis.orthonormalized(),lens.global_position)
@@ -69,10 +74,11 @@ func update_view(model: Node3D,eye_poses: Array,shot: Transform3D,allowed: bool)
 	surface.set_shader_parameter("world_to_optic",optic.affine_inverse())
 func update_rig() -> void:
 	if not rig or not is_instance_valid(rig.gun) or not rig.gun.has_meta("scope_rear"):disable();return
+	attach(rig.gun)
 	if rig.gun.has_meta("cq_zoom"):
 		var controller:XRController3D=rig.left if rig.left_handed else rig.right
 		step_zoom(controller.get_vector2("primary").y if rig.focused and not rig.game.menu_open else 0.0)
-		zoom=lerpf(zoom,CQ_ZOOMS[zoom_index],1-exp(-get_process_delta_time()*10))
+		zoom=lerpf(zoom,zoom_steps[zoom_index],1-exp(-get_process_delta_time()*10))
 	var poses: Array=[];var xr:=XRServer.find_interface("OpenXR")
 	if not rig.simulated and xr and xr.is_initialized():
 		for eye in mini(2,xr.get_view_count()):poses.append(xr.get_transform_for_view(eye,rig.origin.global_transform))

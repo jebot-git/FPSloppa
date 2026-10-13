@@ -1,0 +1,122 @@
+{
+  "models": {
+    "pistol": {
+      "exported_triangles": 2637,
+      "runtime_total_triangles": 2637,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "scout_pistol": {
+      "exported_triangles": 4605,
+      "runtime_total_triangles": 4607,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "carbine": {
+      "exported_triangles": 4942,
+      "runtime_total_triangles": 4944,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "designator": {
+      "exported_triangles": 5720,
+      "runtime_total_triangles": 5722,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "massacre": {
+      "exported_triangles": 3922,
+      "runtime_total_triangles": 3934,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "repair_kit": {
+      "exported_triangles": 779,
+      "runtime_total_triangles": 779,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": false
+    },
+    "ammo_box": {
+      "exported_triangles": 152,
+      "runtime_total_triangles": 152,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": false
+    },
+    "health_box": {
+      "exported_triangles": 780,
+      "runtime_total_triangles": 780,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": false
+    },
+    "grenade": {
+      "exported_triangles": 780,
+      "runtime_total_triangles": 780,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": false
+    },
+    "injector": {
+      "exported_triangles": 168,
+      "runtime_total_triangles": 168,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": false
+    },
+    "smg": {
+      "exported_triangles": 5002,
+      "runtime_total_triangles": 5004,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "assault_rifle": {
+      "exported_triangles": 5374,
+      "runtime_total_triangles": 5376,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "burst_pistol": {
+      "exported_triangles": 5720,
+      "runtime_total_triangles": 5722,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "beam_pistol": {
+      "exported_triangles": 5469,
+      "runtime_total_triangles": 5471,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    },
+    "guided_launcher": {
+      "exported_triangles": 3538,
+      "runtime_total_triangles": 3550,
+      "materials": 1,
+      "baked_textures": 1,
+      "optimization_pending": true
+    }
+  },
+  "case_dimensions_metres": {
+    "health_box": [
+      0.4005134105682373,
+      0.16991069167852402,
+      0.12620380194857717
+    ],
+    "ammo_box": [
+      0.1538461595773697,
+      0.4000000059604645,
+      0.1538461735154435
+    ]
+  },
+  "errors": []
+}

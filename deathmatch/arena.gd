@@ -2187,7 +2187,7 @@ func _projectile_end(id: int,pos: Vector3,weapon: int) -> void:
 		projectiles.erase(id)
 	if headless: return
 	if armory.experimental():
-		var explosive: bool=weapon in ([4,6] if armory.kind=="quake" else [1,3,4,6,8,10])
+		var explosive: bool=float(projectile_definition.get("splash",0))>0 if not projectile_definition.is_empty() else weapon in ([4,6] if armory.kind=="quake" else [1,3,4,6,8,10])
 		spatial.play(armory.kind+("_explosion" if explosive else "_bounce"),pos,-8 if explosive else -18)
 		_weapon_visuals().burst(armory.kind,pos,weapon,projectile_kind,projectile_definition)
 		return

@@ -27,7 +27,7 @@ func snapshot() -> Dictionary:
 	data["class_mode"]={"clock":game.clock}
 	var magazines:Dictionary=game.variant_combat.magazines.snapshot()
 	# Individual records stay within the UDP budget at the 32-player district target.
-	for id in game.classes.states:data["cp:"+str(id)]={"state":game.classes.states[id].duplicate(true),"mag":magazines.get(id,{}),"spot":game.spotting.spotted.get(id,[0.0,0.0]).duplicate()}
+	for id in game.classes.states:data["cp:"+str(id)]={"state":game.classes.states[id].duplicate(true),"mag":magazines.get(id,{}),"spot":game.spotting.spotted.get(id,[0.0,0.0]).duplicate(),"lock":game.variant_combat.vehicle_lock.locks.get(id,{}).duplicate(true)}
 	return data
 func receive(data:Dictionary) -> void:
 	super.receive(data)
@@ -39,6 +39,7 @@ func receive(data:Dictionary) -> void:
 	var grenades:Dictionary={"inventory":{},"shots":[],"smoke":[],"blind":{}}
 	var magazines:Dictionary={}
 	game.spotting.spotted.clear()
+	game.variant_combat.vehicle_lock.locks.clear()
 	for key in data:
 		for pair in [["cd:","downed"],["ci:","injecting"],["cb:","dispensers"],["cl:","designations"]]:
 			if str(key).begins_with(pair[0]):common[pair[1]][str(key).trim_prefix(pair[0]).to_int()]=data[key].duplicate(true)
@@ -49,6 +50,7 @@ func receive(data:Dictionary) -> void:
 		var spot:Array=row.get("spot",[0.0,0.0]).duplicate()
 		for team in 2:spot[team]+=offset
 		game.spotting.spotted[id]=spot
+		if not row.get("lock",{}).is_empty():game.variant_combat.vehicle_lock.locks[id]=row.lock.duplicate(true)
 		var state:Dictionary=row.state.duplicate(true)
 		state.cloak_until+=offset;state.cloak_ready+=offset;state.dispenser_ready+=offset;common.states[id]=state
 		if not row.mag.is_empty():

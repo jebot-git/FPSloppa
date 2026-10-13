@@ -1,10 +1,20 @@
 extends "res://deathmatch/experimental/visuals.gd"
+func beam(color:Color,start:Vector3,end:Vector3) -> void:
+	var ray:=Node3D.new();add_child(ray);ray.position=(start+end)*.5
+	if start.distance_to(end)>.001:ray.look_at(end)
+	Art.barrel(ray,Vector3.ZERO,.012,start.distance_to(end),energy_material(color))
+	get_tree().create_timer(.12).timeout.connect(ray.queue_free)
 func impacts(_rules:String,start:Vector3,ends:PackedVector3Array,weapon:int,definition:Dictionary={}) -> void:
+	if definition.get("cq_beam",false):
+		for end in ends:beam(definition.color,start,end);burst("ut99",end,weapon,"energy",{"cq_effect":"energy","color":definition.color})
+		return
 	var bullet:=definition.duplicate();bullet.kind="hitscan"
 	super.impacts("cs16",start,ends,weapon,bullet)
 func energy_material(color:Color) -> StandardMaterial3D:
 	var result:=material(color);result.emission_enabled=true;result.emission=color;result.emission_energy_multiplier=2.0;return result
 func projectile(rules:String,definition:Dictionary) -> Node3D:
+	if definition.get("cq_bullet",false):
+		var bullet:=Node3D.new();Art.barrel(bullet,Vector3.ZERO,.009,.25,energy_material(Color("ffe5a5")));return bullet
 	if not definition.has("cq_effect"):return super.projectile(rules,definition)
 	var root:=Node3D.new();var color:Color=definition.color
 	root.set_meta("cq_effect",definition.cq_effect);root.set_meta("color",color);root.set_meta("trail_time",0.0)
@@ -23,6 +33,7 @@ func travel(node:Node3D,velocity:Vector3,delta:float,stuck:bool) -> void:
 		node.set_meta("trail_time",0.0);particle(node.global_position,-velocity.normalized()*.5,node.get_meta("color"),.04,.15)
 	else:node.set_meta("trail_time",time)
 func burst(rules:String,pos:Vector3,weapon:int,kind:String="",definition:Dictionary={}) -> void:
+	if definition.get("cq_bullet",false):super.burst("cs16",pos,2,"hitscan",definition);return
 	if not definition.has("cq_effect"):super.burst(rules,pos,weapon,kind,definition);return
 	var color:Color=definition.color;var ordnance:bool=definition.cq_effect=="ordnance"
 	globe(pos,color,2.5 if ordnance else .3,.32 if ordnance else .15)

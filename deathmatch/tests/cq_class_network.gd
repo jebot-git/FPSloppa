@@ -28,8 +28,9 @@ func run()->void:
 			game.spotting.spotted[id]=[game.clock+10.0,game.clock+10.0]
 			game._send_snapshot()
 			await create_timer(5).timeout
-			game.classes.weapon_used(id)
-			await create_timer(3).timeout
+			game.classes.weapon_used(id);game.classes.award(id,1500)
+			check(await wait_for(func():return game.classes.states[id].get("primary_choices",{}).get("scout",-1)==10 and game.classes.states[id].get("secondary_choices",{}).get("scout",-1)==0),"Authenticated client selects unlocked progression weapons")
+			game._spawn(id);game._send_snapshot();await create_timer(3).timeout
 	else:
 		game.clock=500 # Deliberately different clocks exercise relative deadline replication.
 		game.start_join("Scout network","127.0.0.1",28779)
@@ -43,4 +44,7 @@ func run()->void:
 			check(game.local_state().ammo[0]==42,"Class pouch ammunition replicates")
 			check(game.spotting.spotted.get(id,[0,0])[0]-game.clock>5 and game.spotting.spotted[id][0]-game.clock<=10,"Team spotting deadline replicates with client clock offset")
 			check(await wait_for(func():return game.classes.role(id)=="scout" and not game.classes.cloaked(id)),"Weapon reveal replicates")
+			game.request_equipment("scout",10,false);game.request_equipment("scout",0,true)
+			check(await wait_for(func():return game.local_state().weapon==10 and game.local_state().owned==[10,0]),"Selected progression weapons replicate on respawn")
+			check(game.local_state().ammo[1]==40 and game.local_state().ammo[3]==36,"Selected pouch capacities replicate")
 	print("CQ_CLASS_NETWORK_RESULT ",role," ",JSON.stringify(failures));game.disconnect_game();game.free();quit(0 if failures.is_empty() else 1)

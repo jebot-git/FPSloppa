@@ -9,3 +9,11 @@ func owns_collider(collider:Node) -> bool:
 func repair(request_team:int,amount:int) -> int:
 	if not multiplayer.is_server() or request_team!=team or hp<=0 or amount<=0:return 0
 	var restored:=mini(amount,maxi(0,max_hp-hp));hp+=restored;return restored
+
+@export var aircraft:=false
+signal destroyed
+func damage(attacker_team:int,amount:int) -> int:
+	if not multiplayer.is_server() or attacker_team==team or hp<=0 or amount<=0:return 0
+	var dealt:=mini(hp,amount);hp-=dealt
+	if hp==0:destroyed.emit()
+	return dealt

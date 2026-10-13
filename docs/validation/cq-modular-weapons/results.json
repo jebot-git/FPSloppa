@@ -1,0 +1,87 @@
+{
+  "class_rules": {
+    "checks": 19,
+    "result": [
+      "CQ_CLASSES_RESULT []"
+    ],
+    "failures": []
+  },
+  "class_integration_32_players": {
+    "checks": 33,
+    "result": [
+      "CQ_CLASS_INTEGRATION_RESULT []"
+    ],
+    "failures": [],
+    "snapshots": [
+      {
+        "large_records": 0,
+        "max_packet": 1091,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 9121,
+        "sent_packets": 9,
+        "stale_records": 0
+      },
+      {
+        "large_records": 1,
+        "max_packet": 1243,
+        "player_update_gaps": 0,
+        "player_updates": 0,
+        "received_packets": 0,
+        "sent_bytes": 15459,
+        "sent_packets": 15,
+        "stale_records": 0
+      }
+    ]
+  },
+  "progression": {
+    "checks": 53,
+    "result": [
+      "CQ_PROGRESSION_RESULT []"
+    ],
+    "failures": []
+  },
+  "modular_models": {
+    "checks": 45,
+    "result": [
+      "CQ_MODULAR_MODELS_RESULT []"
+    ],
+    "failures": []
+  },
+  "spotting": {
+    "checks": 19,
+    "result": [
+      "CQ_SPOTTING_RESULT []"
+    ],
+    "failures": []
+  },
+  "network_server": {
+    "checks": 3,
+    "result": [
+      "CQ_CLASS_NETWORK_RESULT server []"
+    ],
+    "failures": []
+  },
+  "network_client": {
+    "checks": 8,
+    "result": [
+      "CQ_CLASS_NETWORK_RESULT client []"
+    ],
+    "failures": []
+  },
+  "progression_vulkan": {
+    "checks": 53,
+    "result": [
+      "CQ_PROGRESSION_RESULT []"
+    ],
+    "failures": []
+  },
+  "menu_navigation_vulkan": {
+    "checks": 28,
+    "result": [
+      "MENU_NAVIGATION_RESULT []"
+    ],
+    "failures": []
+  }
+}
