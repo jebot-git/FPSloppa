@@ -325,7 +325,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 	if cq_maps.enabled and settings.sv_cq_backend!="districts":push_error("Independent district maps require the districts backend.");get_tree().quit(2);return
 	if args.has("--cq-external-workers") and (not cq_profile or settings.sv_cq_backend!="districts"):
 		push_error("External workers require CQ with sv_cq_backend districts.");get_tree().quit(2);return
-	if (settings.sv_gametype=="cq")!=cq_profile:
+	if (settings.sv_gametype=="cq")!=cq_profile and not has_method("draw_class_players"):
 		push_error("CQ requires its separate launch script and a CQ-only config.");get_tree().quit(2);return
 	if not armory.select(_arg_value(args,"--weapons",settings.sv_weapon_rules)):push_error("Unknown weapon ruleset");get_tree().quit(2);return
 	lobby.enabled=settings.sv_lobby==1;lobby.seconds=settings.sv_lobby_seconds
@@ -437,6 +437,8 @@ func _pickup_art(p: Dictionary) -> Node3D:
 	root.add_child(label)
 	return root
 
+func host_player_limit() -> int:return MAX_PLAYERS
+func practice_bots_count() -> int:return 3
 func start_host(player_name: String,port: int,frags: int,minutes: int,training: bool, mode: String="dm",weapon_rules: String="doom") -> void:
 	if loading.blocking:return
 	if cq_profile and (not dedicated or match_mode.kind!="cq"):status("CQ uses its dedicated experimental server launcher.");return
@@ -454,7 +456,7 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 		var hills: Array=maps_for_mode(match_mode.kind)
 		if hills.is_empty():status("No compatible arenas installed.");return
 		selected_map=hills[0]
-	max_clients=clampi(max_clients,2,64) if cq_profile else clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else MAX_PLAYERS
+	max_clients=clampi(max_clients,2,64) if cq_profile else clampi(max_clients,1,SERVER_MAX_PLAYERS) if dedicated else host_player_limit()
 	if not _load_map(selected_map):
 		status("Could not load the selected map.")
 		return
@@ -488,8 +490,8 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 		gate.node.position = gate.base_position if gate.has("base_position") else Vector3(gate.node.position.x,gate.base,gate.node.position.z)
 	active = true
 	if not dedicated: _add_player(1,nickname)
-	if training and not is_instance_valid(district_worker):
-		for id in [-1,-2,-3]: _add_player(id,"Bot "+str(-id))
+	if training and practice_bots_count()>0 and not is_instance_valid(district_worker):
+		for i in practice_bots_count():_add_player(-i-1,"Bot "+str(i+1))
 		bots=create_bot_controller()
 		add_child(bots)
 		bots.setup(self)
@@ -633,6 +635,10 @@ func _new_state(player_name: String,id: int) -> Dictionary:
 func create_bot_controller() -> Node:
 	return preload("res://deathmatch/bots.gd").new()
 
+func jetpack_allowed_for(_id:int) -> bool:return jetpack_allowed()
+func player_incapacitated(_id:int) -> bool:return false
+func on_player_died(_id:int) -> void:pass
+func defer_lethal(_victim:int,_attacker:int,_weapon:String,_gibbed:bool,_headshot:bool,_bypass:bool) -> bool:return false
 func jetpack_allowed() -> bool:
 	return match_mode.kind=="cq"
 
@@ -643,7 +649,7 @@ func _create_fighter(id: int) -> void:
 	actor.set_nametag(players[id].name,team,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
 	actor.movement_sound.connect(_fighter_movement_sound.bind(id))
 	actor.quake_movement = true
-	actor.configure_jetpack(jetpack_allowed() and not lobby.active())
+	actor.configure_jetpack(jetpack_allowed_for(id) and not lobby.active())
 	actor.spectator=players[id].spectator
 	add_child(actor)
 	if not headless:load("res://deathmatch/maps/filtering.gd").new().apply(actor,int(presentation.get("texture_filter",2)),false)
@@ -899,6 +905,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.button_index==MOUSE_BUTTON_LEFT: fire_down = event.pressed and not menu_open
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.physical_keycode==KEY_ESCAPE:
+			if menu_open and hud and hud.menu_back():return
 			menu_open = not menu_open
 			fire_down = false
 			if hud: hud.show_menu(menu_open)
@@ -1064,12 +1071,12 @@ func _physics_process(delta: float) -> void:
 				_move_spectator(mine,command.move,command.fly,command.yaw,command.slow,delta)
 			if match_mode.special.frozen.has(mine) and intermission<=0:
 				fighters[mine].simulate_frozen(delta)
-			elif not players[mine].dead and not match_mode.special.blocked(mine) and not match_mode.fortress.walkers.mounted(mine) and intermission<=0:
+			elif not players[mine].dead and not player_incapacitated(mine) and not match_mode.special.blocked(mine) and not match_mode.fortress.walkers.mounted(mine) and intermission<=0:
 				var room:=RoomScale.validate(command.get("room"),command.get("xr",{}))
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
 				_update_crouch(mine,command.get("xr",{}),command)
-				fighters[mine].configure_jetpack(jetpack_allowed() and not lobby.active(),command.get("input_blocked",false))
+				fighters[mine].configure_jetpack(jetpack_allowed_for(mine) and not lobby.active(),command.get("input_blocked",false))
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
@@ -1190,6 +1197,11 @@ func _server_tick(delta: float) -> void:
 		if s.dead:
 			if clock>=s.respawn_at and (s.want_respawn or s.get("suicide_respawn",false) or clock>s.respawn_at+3 or id<0): _spawn(id)
 			continue
+		if player_incapacitated(id):
+			fighters[id].update_height(.65,true)
+			fighters[id].configure_jetpack(false)
+			fighters[id].simulate(Vector2.ZERO,s.yaw,true,delta,false,Vector3.ZERO)
+			continue
 		if clock-s.last_input>.35:
 			s.move = Vector2.ZERO
 			s.room=Vector3.ZERO;s.swim=Vector3.ZERO
@@ -1201,7 +1213,7 @@ func _server_tick(delta: float) -> void:
 		if match_mode.fortress.walkers.handle_player(id,jump):continue
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
-		fighters[id].configure_jetpack(jetpack_allowed(),s.get("input_blocked",false))
+		fighters[id].configure_jetpack(jetpack_allowed_for(id),s.get("input_blocked",false))
 		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,jump,s.get("swim",Vector3.ZERO))
 		if not s.xr.is_empty():
 			var shift:=RoomScale.move_capsule(fighters[id],s.room,s.yaw,delta)
@@ -1634,7 +1646,7 @@ func _blast(pos: Vector3,owner_id: int,damage: int,radius: float,weapon_name: St
 		# Self splash costs health but permits a healthy player to rocket jump.
 		_damage(id,owner_id,maxi(1,int(damage*falloff*(.5 if id==owner_id else 1.0))),weapon_name,false,target,push,true,match_mode.fortress.walkers.mounted(id))
 
-func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: bool = false,impact: Vector3=Vector3.INF,direction: Vector3=Vector3.ZERO,blast: bool=false,hull_contact: bool=false,heavy_automatic: bool=false) -> void:
+func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: bool = false,impact: Vector3=Vector3.INF,direction: Vector3=Vector3.ZERO,blast: bool=false,hull_contact: bool=false,heavy_automatic: bool=false,headshot:bool=false) -> void:
 	if is_instance_valid(district_worker) and district_worker.has_method("no_fire") and district_worker.no_fire():return
 	if lobby.active():return
 	if not multiplayer.is_server() or not players.has(victim): return
@@ -1669,6 +1681,9 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	if not impact.is_finite(): impact=fighters[victim].position+Vector3.UP
 	if direction.length()<.1 and fighters.has(attacker): direction=(fighters[victim].position-fighters[attacker].position).normalized()
 	var gibbed: bool=s.hp==0 and (damage.x-old_hp>=25 or weapon_name in ["ROCKET LAUNCHER","BFG 9000","TITAN CRUSH"])
+	if s.hp==0 and defer_lethal(victim,attacker,weapon_name,gibbed,headshot,bypass):
+		_hurt_fx.rpc(victim,impact,direction,damage.x,false,false,randi(),false,weapon_name,blast)
+		return
 	server_log.record("damage",{"victim":victim,"attacker":attacker,"damage":damage.x,"remaining_hp":s.hp,"remaining_armor":s.armor,"weapon":weapon_name,"fatal":s.hp==0,"gibbed":gibbed,"blast":blast,"hull_contact":hull_contact},2)
 	if s.hp==0 and match_mode.fortress.walkers.mounted(victim):
 		s.dead=true;match_mode.fortress.walkers.leave(victim,true)
@@ -1676,6 +1691,7 @@ func _damage(victim: int,attacker: int,amount: int,weapon_name: String,bypass: b
 	if s.hp>0: return
 	var already_frozen: bool=telefrag and match_mode.special.frozen.has(victim)
 	s.dead = true
+	on_player_died(victim)
 	if telefrag:match_mode.special.frozen.erase(victim)
 	if not already_frozen:s.deaths += 1
 	s.fire = false
@@ -1871,7 +1887,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		if not fighters.has(id): continue
 		var s: Dictionary = players[id]
 		var actor = fighters[id]
-		actor.configure_jetpack(jetpack_allowed() and not lobby.active() and not row[7] and not row[20] and pause<=0)
+		actor.configure_jetpack(jetpack_allowed_for(id) and not lobby.active() and not row[7] and not row[20] and pause<=0)
 		if not multiplayer.is_server():
 			s.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"offhand_cooldown":row[19],"spectator":row[20]},true)
 			var old_blast:Vector2=actor.blast_velocity
@@ -2095,6 +2111,9 @@ func _shot_fx(id: int,weapon: int,offhand: bool=false) -> void:
 	if id==multiplayer.get_unique_id() and not multiplayer.is_server() and clock-predicted<.5: return
 	_play_shot_fx(id,weapon,offhand)
 
+func shot_emission(_id:int,_weapon:int) -> Dictionary:
+	return preload("res://deathmatch/lighting/weapon_emission.gd").recipe("muzzle")
+func shot_color(_id:int,weapon:int) -> Color:return armory.color(weapon)
 func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false) -> void:
 	if fighters.has(id): fighters[id].animate_fire(offhand)
 	if headless: return
@@ -2115,8 +2134,8 @@ func _play_shot_fx(id: int,weapon: int,offhand: bool=false,alternate: bool=false
 			if is_instance_valid(model):
 				flash.global_position=model.to_global(model.get_meta("muzzle",Vector3(0,0,-.6)))
 				flash.global_basis=model.global_basis.orthonormalized()
-			_weapon_illumination(flash.global_position,flash.global_position,preload("res://deathmatch/lighting/weapon_emission.gd").recipe("muzzle"),id)
-			var spark := Art.box(flash,Vector3(0,0,-.05),Vector3(.08,.07,.10),Art.material(armory.color(weapon),0,5))
+			_weapon_illumination(flash.global_position,flash.global_position,shot_emission(id,weapon),id)
+			var spark := Art.box(flash,Vector3(0,0,-.05),Vector3(.08,.07,.10),Art.material(shot_color(id,weapon),0,5))
 			spark.rotation.z = randf()*PI
 			get_tree().create_timer(.055).timeout.connect(flash.queue_free)
 	if fighters.has(id):

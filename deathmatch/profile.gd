@@ -2,13 +2,27 @@ extends RefCounted
 ## Local callsign preferences, shared by desktop, VR and command-line launches.
 const DEFAULT_PATH := "user://deathmatch.cfg"
 
+const Names=preload("res://deathmatch/ui/name_style.gd")
 static func clean(value: String, fallback: String = "Marine") -> String:
-	var output := ""
-	for character in value.strip_edges().left(64):
-		if character.unicode_at(0)>=32 and character.unicode_at(0)!=127 and character not in ["[","]"]:
-			output += character
-	output = output.strip_edges().left(18)
-	return fallback if output.is_empty() else output
+	return Names.clean(value,Names.NAME_LIMIT,fallback)
+
+static func load_clan(path: String = "") -> String:
+	var args:=OS.get_cmdline_user_args();var index:=args.find("--clan")
+	if index>=0 and index+1<args.size():return Names.clean(args[index+1],Names.CLAN_LIMIT,"")
+	var config:=ConfigFile.new()
+	if config.load(config_path() if path.is_empty() else path)==OK:return Names.clean(str(config.get_value("player","clan","")),Names.CLAN_LIMIT,"")
+	return ""
+
+static func display_name() -> String:return Names.display(load_name(),load_clan())
+
+static func save_identity(value: String,clan: String,address: String,path: String="") -> Error:
+	if path.is_empty():path=config_path()
+	var config:=ConfigFile.new();var error:=config.load(path)
+	if error!=OK and error!=ERR_FILE_NOT_FOUND:return error
+	config.set_value("player","name",clean(value,system_name()))
+	config.set_value("player","clan",Names.clean(clan,Names.CLAN_LIMIT,""))
+	config.set_value("network","address",address)
+	return config.save(path)
 
 static func config_path() -> String:
 	var args := OS.get_cmdline_user_args()

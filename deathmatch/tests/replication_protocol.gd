@@ -12,7 +12,9 @@ func _initialize() -> void:
 	pose.body.left_curls = PackedFloat32Array([.1,.2,.3,.4,.5]); pose.body.right_curls = pose.body.left_curls
 	pose.face = {"look":Vector2(.1,.1),"blink":Vector2(.2,.1),"gaze":true,"lids":true,"expression":PackedFloat32Array([.1,.2,.1,.2,.1])}
 	var decoded = Codec.unpack(Codec.pack(pose))
-	check(decoded is Dictionary and not Poses.validate(decoded).is_empty(),"Compact full-body pose passes gameplay validation")
+	check(decoded is Dictionary and Poses.validate(decoded).is_empty(),"Vertex-only gameplay rejects unsupported body/face trackers")
+	var supported:Dictionary=decoded.duplicate();supported.erase("body");supported.erase("face")
+	check(not Poses.validate(supported).is_empty(),"Compact head/hand pose passes gameplay validation")
 	check(decoded.body.hips.origin.distance_to(pose.body.hips.origin)<.0001 and decoded.body.hips.basis.get_rotation_quaternion().angle_to(pose.body.hips.basis.get_rotation_quaternion())<.001,"Pose position/rotation error remains below tolerance")
 	for value in [0,1,-1,2147483647,-2147483648,9999999999,"名前 🦊",PackedByteArray(),PackedFloat32Array(),true,false]:
 		check(Codec.unpack(Codec.pack(value)) == value,"Codec round trip: "+str(value))

@@ -1,0 +1,59 @@
+{
+	"hardware": "Intel(R) Graphics (ADL-N)",
+	"renderer": "forward_plus",
+	"resolution": [
+		1440,
+		900
+	],
+	"scope": "Settled oblique overview captures of authored river channels, water surfaces and road bridges in the full streamed terrain, hybrid forest and undergrowth renderer. No physics, AI or avatars; no performance claim from captures.",
+	"sites": [
+		{
+			"bridge_sections": 11,
+			"name": "western-canyon",
+			"terrain_resident": 242,
+			"triangles_by_lod": [
+				6260,
+				5252,
+				120
+			],
+			"visible_structure_sites": 0,
+			"water_triangles": 11123
+		},
+		{
+			"bridge_sections": 11,
+			"name": "northern-gorge",
+			"terrain_resident": 240,
+			"triangles_by_lod": [
+				3276,
+				2868,
+				84
+			],
+			"visible_structure_sites": 0,
+			"water_triangles": 11123
+		},
+		{
+			"bridge_sections": 11,
+			"name": "expedition",
+			"terrain_resident": 240,
+			"triangles_by_lod": [
+				2572,
+				2092,
+				300
+			],
+			"visible_structure_sites": 0,
+			"water_triangles": 11123
+		},
+		{
+			"bridge_sections": 11,
+			"name": "port-estuary",
+			"terrain_resident": 239,
+			"triangles_by_lod": [
+				3984,
+				3408,
+				192
+			],
+			"visible_structure_sites": 1,
+			"water_triangles": 11123
+		}
+	]
+}

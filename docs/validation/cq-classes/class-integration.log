@@ -1,0 +1,47 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=0 practice=false
+PASS CQ prototype can host
+PASS Technician carries launcher plus two spare three-charge packs
+PASS Scout has five spare pistol magazines and designator
+PASS Energy primary has three spare cells; secondary has one spare magazine
+PASS Jetpack restricted to shocktroop
+PASS Real lethal damage incapacitates without awarding a death
+PASS Ordinary follow-up damage preserves the bleed timer
+DM_EVENT CQ integration  →  CQ integration   ·   DOBRYL P-1
+PASS Headshot finisher causes immediate death
+DM_EVENT CQ integration  →  CQ integration   ·   DOBRYL P-1
+PASS Lethal headshot never enters revive state
+DM_EVENT CQ integration  →  CQ integration   ·   MASSACRE GUN
+PASS Overkill retains gibbing and immediate death
+PASS Medic deploys health box
+PASS Health box budget counts actual restored health
+PASS Full-health ally cannot drain box or farm XP
+PASS Technician deploys ammo box
+PASS Ammo box refills class pouch capacity and counts rounds
+PASS Launcher starts with three loaded charges
+PASS Launcher spends full pack and blocks fire during reload
+PASS One reload seats all three charges without creating ammunition
+PASS Enemy designation beam limited to three metres
+PASS Distant enemy beam invisible
+PASS CQ host admits the district target of 32 players
+PASS One launcher trigger emits three ordered blasts and spends one pack
+PASS Launcher blast and energy impact retain blue firing team
+PASS Carbine fires a travelling blaster bolt rather than a hitscan beam
+PASS Carbine bolt and impact retain red firing team
+PASS Repair kit vehicle component accepts only actual allied repair
+PASS Held repair tool repairs the allied hull through its own collision surface
+CQ_32_SNAPSHOT {"large_records":0,"max_packet":1081,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":6938,"sent_packets":7,"stale_records":0}
+PASS 32 class players fit independent UDP snapshot packets
+CQ_32_STRESS_SNAPSHOT {"large_records":1,"max_packet":1243,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":13274,"sent_packets":13,"stale_records":0}
+PASS 32 ability records remain UDP sized; membership alone uses reliable fallback
+PASS Launcher reload enters from the side; carbine retains its magazine geometry
+PASS Removing an ordnance pack cannot retain a chambered launcher charge
+PASS Scout zoom steps to 3x once per stick deflection
+PASS Scout zoom selects 1.5x, 3x and 6x with neutral rearming
+CQ_CLASS_INTEGRATION_RESULT []
+Disconnected.
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

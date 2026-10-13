@@ -1,18 +1,24 @@
 extends PanelContainer
 const Preferences=preload("res://deathmatch/settings/preferences.gd")
+const Foveation=preload("res://deathmatch/vr/foveation.gd")
 var game
 var values: Dictionary={}
 var controls: Dictionary={}
 var notice: Label
-var section:="audio"
+var section:="home"
+var book
+var category_pages: Dictionary={}
 var config_path:=""
 var audio_page: VBoxContainer
 var graphics_page: VBoxContainer
-var page_spacer: Control
 var input_page: VBoxContainer
-var vr_page: VBoxContainer
-var vr_notice: Label
+var tracking_page: VBoxContainer
+var tracking_status: Label
+var foveation_status: Label
+var foveation_mode:=""
+var foveation_poll:=0.0
 var haptics_page: VBoxContainer
+var haptics_scroll: ScrollContainer
 func setup(arena: Node) -> void:
 	game=arena;values=game.presentation;name="AudioGraphicsSettings";hide()
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -22,29 +28,33 @@ func setup(arena: Node) -> void:
 	add_theme_stylebox_override("panel",style)
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",8);add_child(column)
 	var title:=Label.new();title.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"));title.text="SETTINGS";title.add_theme_font_size_override("font_size",28);column.add_child(title)
-	var tabs:=HBoxContainer.new();column.add_child(tabs)
-	button(tabs,"AUDIO",func():section="audio";refresh())
-	button(tabs,"GRAPHICS",func():section="graphics";refresh())
-	button(tabs,"CONTROLS",func():section="controls";refresh())
-	button(tabs,"VR",func():section="vr";refresh())
-	button(tabs,"HAPTICS",func():section="haptics";refresh())
-	haptics_page=load("res://deathmatch/haptics/panel.gd").new();column.add_child(haptics_page);haptics_page.setup(game)
+	haptics_scroll=preload("res://deathmatch/ui/drag_scroll.gd").new();haptics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;haptics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;column.add_child(haptics_scroll)
+	var haptics_options:=VBoxContainer.new();haptics_options.add_theme_constant_override("separation",8);haptics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;haptics_scroll.add_child(haptics_options)
+	stepper(haptics_options,"controller_haptic_strength","Controller strength",.1)
+	haptics_options.add_child(HSeparator.new())
+	haptics_page=load("res://deathmatch/haptics/panel.gd").new();haptics_options.add_child(haptics_page);haptics_page.setup(game)
 	input_page=VBoxContainer.new();input_page.add_theme_constant_override("separation",8);column.add_child(input_page)
-	vr_page=VBoxContainer.new();vr_page.add_theme_constant_override("separation",8);column.add_child(vr_page)
+	tracking_page=VBoxContainer.new();tracking_page.add_theme_constant_override("separation",8);column.add_child(tracking_page)
 	button(input_page,"BINDINGS…",func():game.hud.open_bindings())
 	controls.vr_controls=button(input_page,"VR CONTROLS…",func():
 		if game.is_vr():game.xr_rig.turn_panel.open())
 	controls.gun_hand=button(input_page,"SWAP GUN HAND",func():
 		if game.is_vr():game.xr_rig.left_handed=not game.xr_rig.left_handed;refresh())
-	controls.recenter=button(vr_page,"RECENTER VR",func():
+	controls.recenter=button(tracking_page,"RECENTER VR",func():
 		if game.is_vr():game.xr_rig.recenter();refresh())
-	vr_notice=Label.new();vr_notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;vr_page.add_child(vr_notice)
+	controls.calibrate=button(tracking_page,"CALIBRATE BODY",func():
+		if game.is_vr():game.xr_rig.tracking.calibrate();refresh())
+	controls.osc=button(tracking_page,"SLIMEVR OSC",func():
+		if game.is_vr():game.xr_rig.tracking.toggle_osc();refresh())
+	controls.body=button(tracking_page,"BODY TRACKING",func():
+		if game.is_vr():game.xr_rig.tracking.enabled=not game.xr_rig.tracking.enabled;refresh())
+	tracking_status=Label.new();tracking_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;tracking_page.add_child(tracking_status)
 	audio_page=VBoxContainer.new();audio_page.add_theme_constant_override("separation",8);column.add_child(audio_page)
 	graphics_page=VBoxContainer.new();graphics_page.add_theme_constant_override("separation",8);column.add_child(graphics_page)
 	graphics_page.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	var graphics_scroll:=preload("res://deathmatch/ui/drag_scroll.gd").new();graphics_scroll.custom_minimum_size.y=280;graphics_scroll.size_flags_vertical=Control.SIZE_EXPAND_FILL;graphics_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED;graphics_page.add_child(graphics_scroll)
 	var graphics_options:=VBoxContainer.new();graphics_options.add_theme_constant_override("separation",8);graphics_options.size_flags_horizontal=Control.SIZE_EXPAND_FILL;graphics_scroll.add_child(graphics_options)
-	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.01 if row[0]=="music" else .1)
+	for row in [["master","Master volume"],["effects","Sound effects"],["music","Music"],["announcer","Announcer"],["voice","Voice playback"]]:stepper(audio_page,row[0],row[1],.05)
 	controls.spatial_audio=button(audio_page,"",func():
 		values.spatial_audio="stereo" if values.spatial_audio=="steam_audio" else "steam_audio";game.spatial.apply_backend();save())
 	controls.output=button(audio_page,"",func():
@@ -56,17 +66,40 @@ func setup(arena: Node) -> void:
 	controls.texture_filter=button(graphics_options,"",func():values.texture_filter=(int(values.texture_filter)+1)%3;save())
 	controls.contrast_lighting=button(graphics_options,"",func():values.contrast_lighting=not values.get("contrast_lighting",false);save())
 	controls.msaa=button(graphics_options,"",func():values.msaa=(int(values.msaa)+1)%4;save())
+	controls.foveation_level=button(graphics_options,"",func():values.foveation_level=(int(values.foveation_level)+1)%4;save())
+	controls.fovea_size=button(graphics_options,"",func():values.fovea_size=(int(values.fovea_size)+1)%4;save())
+	foveation_status=Label.new();foveation_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;graphics_options.add_child(foveation_status)
+	controls.spring_bones=button(graphics_options,"",func():values.spring_bones=not values.spring_bones;save())
 	controls.shadows=button(graphics_options,"",func():values.shadows=not values.shadows;save())
 	controls.fullscreen=button(graphics_options,"",func():values.fullscreen=not values.fullscreen;save())
 	stepper(graphics_options,"fov","Desktop field of view",5)
 	stepper(graphics_options,"hud_scale","VR HUD size",.1)
 	stepper(graphics_options,"hud_y","VR HUD height",.05)
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Changes apply immediately and are saved.";column.add_child(notice)
-	page_spacer=Control.new();page_spacer.size_flags_vertical=Control.SIZE_EXPAND_FILL;column.add_child(page_spacer)
-	button(column,"BACK",hide)
+	book=preload("res://deathmatch/ui/menu_pages.gd").new();add_child(book)
+	for entry in [["home","SETTINGS"],["audio","AUDIO VOLUMES"],["devices","AUDIO DEVICES & VOICE"],["graphics","GRAPHICS QUALITY"],["vr","VR RENDERING & HUD"],["desktop","DESKTOP DISPLAY"],["controls","CONTROLS"],["tracking","TRACKING"],["haptics","HAPTICS"]]:
+		category_pages[entry[0]]=book.add_page(entry[0],entry[1],"audio" if entry[0]=="devices" else "graphics" if entry[0] in ["vr","desktop"] else "home")
+	for entry in [["audio","AUDIO"],["graphics","GRAPHICS"],["controls","CONTROLS"],["tracking","TRACKING"],["haptics","HAPTICS"]]:book.link("home",entry[0],entry[1])
+	for child in audio_page.get_children():
+		child.reparent(category_pages.devices if child is Button else category_pages.audio)
+	book.link("audio","devices","DEVICES & VOICE")
+	for child in graphics_options.get_children():child.reparent(category_pages.graphics)
+	for control in [controls.foveation_level,controls.fovea_size,foveation_status,controls.hud_scale.get_parent(),controls.hud_y.get_parent()]:control.reparent(category_pages.vr)
+	for control in [controls.fullscreen,controls.fov.get_parent()]:control.reparent(category_pages.desktop)
+	book.link("graphics","vr","VR RENDERING & HUD")
+	book.link("graphics","desktop","DESKTOP DISPLAY")
+	for child in input_page.get_children():child.reparent(category_pages.controls)
+	for child in tracking_page.get_children():child.reparent(category_pages.tracking)
+	for child in haptics_options.get_children():child.reparent(category_pages.haptics)
+	notice.reparent(book);book.move_child(notice,book.back_button.get_index())
+	column.queue_free()
+	audio_page=category_pages.audio;graphics_page=category_pages.graphics;input_page=category_pages.controls;tracking_page=category_pages.tracking
+	haptics_scroll=category_pages.haptics.get_parent()
+	book.page_changed.connect(func(id):section=id;refresh())
+	book.closed.connect(hide)
 	refresh()
 func button(parent: Node,title: String,action: Callable) -> Button:
-	var control:=Button.new();control.text=title;control.custom_minimum_size=Vector2(76,44);control.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(control);control.pressed.connect(action);return control
+	var control:=Button.new();control.text=title;control.custom_minimum_size=Vector2(76,52);control.size_flags_horizontal=Control.SIZE_EXPAND_FILL;parent.add_child(control);control.pressed.connect(action);return control
 func stepper(parent: Node,key: String,title: String,step: float) -> void:
 	var row:=HBoxContainer.new();parent.add_child(row)
 	var label:=Label.new();label.text=title;label.custom_minimum_size.x=220;label.size_flags_horizontal=Control.SIZE_EXPAND_FILL;row.add_child(label)
@@ -82,25 +115,44 @@ func save() -> void:
 	notice.text="Saved. Changes applied." if err==OK else "Settings applied; saving failed: "+error_string(err)
 	refresh()
 func refresh() -> void:
-	page_spacer.visible=section!="graphics"
-	haptics_page.visible=section=="haptics"
-	notice.visible=section!="haptics"
-	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics";input_page.visible=section=="controls";vr_page.visible=section=="vr"
-	for key in ["vr_controls","gun_hand","recenter"]:controls[key].disabled=not game.is_vr()
-	vr_notice.text="Headset and controller poses only. UT99 avatars use original model animations."
+	if book and book.current!=section:book.navigate(section)
+	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
+	tracking_status.text=game.xr_rig.tracking.status+"\nLook down to inspect your live skeleton while calibrating." if game.is_vr() else "Connect a VR headset to configure tracking."
 	if game.is_vr():
 		controls.gun_hand.text="GUN HAND: "+("LEFT" if game.xr_rig.left_handed else "RIGHT")+" · SWAP"
+		controls.body.text="BODY TRACKING: "+("ON" if game.xr_rig.tracking.enabled else "OFF")
+		controls.osc.text="SLIMEVR OSC: "+("ON" if game.xr_rig.tracking.udp!=null else "OFF")
 	values.voice=game.voice.volume
-	for key in ["master","effects","voice","music","announcer","render_scale"]:controls[key].text="%d%%"%roundi(values[key]*100)
+	for key in ["master","effects","voice","music","announcer","render_scale","controller_haptic_strength"]:controls[key].text="%d%%"%roundi(values[key]*100)
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()
 	controls.hud_scale.text="%d%%"%roundi(values.hud_scale*100)
 	controls.hud_y.text="%+.0f cm"%(values.hud_y*100)
 	controls.texture_filter.text="TEXTURES: "+["PIXELATED + MIPMAPS","TRILINEAR","ANISOTROPIC"][int(values.texture_filter)]
 	controls.contrast_lighting.text="BAKED LIGHTING: "+("CONTRAST (EXPERIMENTAL)" if values.get("contrast_lighting",false) else "CLASSIC")
 	controls.msaa.text="ANTI-ALIASING: "+["OFF","2× MSAA","4× MSAA","8× MSAA"][int(values.msaa)]
+	refresh_foveation(XRServer.find_interface("OpenXR"))
+	controls.spring_bones.text="AVATAR SPRING BONES: "+("ON" if values.spring_bones else "OFF")
 	controls.shadows.text="SHADOWS: "+("ON" if values.shadows else "OFF")
 	controls.fullscreen.text="DISPLAY: "+("FULLSCREEN" if values.fullscreen else "WINDOWED");controls.fullscreen.visible=not game.is_vr() and not OS.has_feature("android")
 	controls.spatial_audio.text="SPATIAL AUDIO: "+("STEAM AUDIO HRTF (HEADPHONES)" if values.spatial_audio=="steam_audio" else "STANDARD STEREO")
 	controls.output.text="OUTPUT: "+AudioServer.output_device+" (select to cycle)"
+func go_back() -> void:book.go_back()
 func open() -> void:
-	refresh();get_parent().move_child(self,-1);show()
+	section="home";refresh();get_parent().move_child(self,-1);show()
+
+func refresh_foveation(xr) -> void:
+	foveation_mode=Foveation.mode(xr)
+	var gaze:=foveation_mode=="gaze"
+	controls.foveation_level.visible=not gaze
+	controls.fovea_size.visible=gaze
+	controls.foveation_level.text="VR STATIC FOVEATION: "+Foveation.LABELS[int(values.foveation_level)]
+	controls.fovea_size.text="VR FOVEA SIZE: "+Foveation.SIZE_LABELS[int(values.fovea_size)]
+	foveation_status.text=Foveation.description(xr,int(values.foveation_level),int(values.fovea_size))
+
+func _process(delta: float) -> void:
+	if not is_visible_in_tree() or section!="vr":return
+	foveation_poll+=delta
+	if foveation_poll<.5:return
+	foveation_poll=0.0
+	var xr=XRServer.find_interface("OpenXR")
+	if Foveation.mode(xr)!=foveation_mode:refresh_foveation(xr)

@@ -52,6 +52,7 @@ static func model_id(id: int,rules: String) -> int:
 	return clampi(id,0,9)
 
 static func muzzle(id: int,rules: String="doom") -> Vector3:
+	if rules.begins_with("cq_"):return preload("res://deathmatch/conquest/classes/models.gd").muzzle(id,rules)
 	if rules=="sentry":return Vector3(0,0,-.855534)
 	if rules=="tf_sniper" or (rules=="ut99" and id==9):return Vector3(0,.10827,-1.039774)
 	if rules=="tf_flame":return Vector3(0,.035,-.785)
@@ -65,6 +66,7 @@ static func muzzle(id: int,rules: String="doom") -> Vector3:
 	return Vector3(0,.05,.22-WEAPON_LENGTHS[id])
 
 static func held_transform(pose: Transform3D, id: int, size: float = VR_SCALE,rules: String="doom") -> Transform3D:
+	if rules.begins_with("cq_"):return Transform3D(pose.basis.scaled(Vector3.ONE*size),pose.origin)
 	var grip: Vector3=Vector3(0,-.055,.06) if rules=="tf_flame" else Vector3(0,-.17,.09) if rules=="ut99" and id==0 else GRIPS[model_id(id,rules)]
 	if rules=="tf_sniper" or (rules=="ut99" and id==9):grip=SNIPER_GRIP
 	return Transform3D(pose.basis.scaled(Vector3.ONE*size),pose.origin-pose.basis*(grip*size))
@@ -83,6 +85,7 @@ static func desktop_hand(left: bool, pitch: float, recoil: float, dual_pistols: 
 	return pivot+Basis(Vector3.RIGHT,pitch)*(grip-pivot)+Vector3(0,0,recoil*.035)
 
 static func weapon(id: int,filter_mode: int=2,rules: String="doom") -> Node3D:
+	if rules.begins_with("cq_"):return preload("res://deathmatch/conquest/classes/models.gd").weapon(id,rules)
 	var slot:=id
 	id=model_id(id,rules)
 	var root := Node3D.new()

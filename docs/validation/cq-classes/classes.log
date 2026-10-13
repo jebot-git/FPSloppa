@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS Medic cannot cloak
+PASS Scout becomes invisible
+PASS Cloak lasts ten seconds
+PASS Expiry preserves thirty-second cooldown
+PASS Cloak ready thirty seconds after activation
+PASS Weapon use breaks cloak immediately
+PASS Respawn cannot reset cloak cooldown
+PASS Lethal headshot bypasses incapacitation
+PASS Gibbing bypasses incapacitation
+PASS Ordinary lethal hit incapacitates
+PASS Ten-second bleed timer
+PASS Enemies cannot pause death timer
+PASS Chest injection pauses remaining death timer
+PASS Broken contact resumes countdown and resets injection
+PASS Short injection cannot revive
+PASS Three continuous seconds revives
+PASS Only completed revival awards XP
+PASS Bleedout finalizes exactly once
+PASS Expired incapacitation cannot duplicate kills
+CQ_CLASSES_RESULT []

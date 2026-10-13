@@ -110,6 +110,11 @@ func select_class(id: int,class_id: String,tool: String="sentry") -> bool:
 	game.players[id].tf_next=class_id;game.players[id].tf_tool=tool
 	return true
 func weapon_data(id: int,weapon: int) -> Dictionary:
+	if game.has_method("draw_class_players"):
+		var cq_data:Dictionary=game.armory.data(weapon).duplicate()
+		if weapon==6:cq_data.name="HEALING DISPENSER" if game.classes.role(id)=="medic" else "AMMO DISPENSER"
+		if weapon==7:cq_data.name="REVIVAL INJECTOR" if game.classes.role(id)=="medic" else "VEHICLE REPAIR TOOL"
+		return cq_data
 	if weapon==0 and walkers.mounted(id):return game.W.DATA[0]
 	var data: Dictionary=game.armory.data(weapon)
 	if not enabled():return data
@@ -147,6 +152,7 @@ func revealed(id: int) -> void:
 	if game.players.has(id):game.players[id].tf_disguise={}
 	if effects.get(id,{}).get("kind","")=="spy":effects.erase(id)
 func cloaked(id: int) -> bool:
+	if game.has_method("draw_class_players"):return game.classes.cloaked(id)
 	return enabled() and effects.get(id,{}).get("kind","")=="spy" and effects[id].until>game.clock
 func carrying(id: int) -> bool:
 	for flag in mode.flags:if flag.carrier==id:return true
@@ -435,6 +441,7 @@ func status(id: int) -> String:
 	var ability:=ability_state(id)
 	return " · "+definition(id).name+" · USE "+ability.label+": "+("READY" if ability.ready else "%.1fs"%[ability.remaining])+ (" · NEXT: "+s.get("tf_next","soldier").to_upper() if s.get("tf_next","soldier")!=s.get("tf_class","soldier") else "")
 func draw() -> void:
+	if game.has_method("draw_class_players"):game.draw_class_players();return
 	if game.headless:return
 	var mine: int=game.demos.selected_player if game.demos.playing else multiplayer.get_unique_id()
 	for id in game.fighters:
@@ -568,6 +575,7 @@ func ability_state(id: int) -> Dictionary:
 	return {"label":labels[role],"remaining":remaining,"fraction":1-clampf(remaining/total,0,1),"active":active_left,"ready":remaining<=0}
 
 func art_rules(id: int,weapon: int) -> String:
+	if game.has_method("draw_class_players"):return "cq_"+game.classes.role(id)
 	if weapon==0 and walkers.mounted(id):return "doom"
 	if enabled() and weapon==9 and game.players.get(id,{}).get("tf_class","")=="sniper":return "tf_sniper"
 	if enabled() and weapon==7 and game.players.get(id,{}).get("tf_class","")=="pyro":return "tf_flame"

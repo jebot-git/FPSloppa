@@ -15,22 +15,25 @@ func reset() -> void:
 	gesture.held=false;gesture.latched=true;gesture.busy=true;gesture.samples.clear();available=false
 	if is_instance_valid(grenade):grenade.hide()
 	if is_instance_valid(guide):guide.hide()
-func busy() -> bool:return available and rig.game.match_mode.fortress.enabled() and gesture.busy
+func busy() -> bool:return available and (rig.game.match_mode.fortress.enabled() or rig.game.has_method("class_throw")) and gesture.busy
 func reply(seq: int,kind: String,accepted: bool) -> void:
 	if seq!=sequence:return
 	if not accepted:gesture.held=false
 	if accepted and kind in ["arm","throw","ability"]:rig.feedback(.4,.08,true)
 func send(kind: String,pose: Dictionary,velocity:=Vector3.ZERO) -> void:
-	sequence+=1;rig.game.match_mode.fortress.physical.submit(kind,pose,velocity,sequence)
+	sequence+=1
+	if rig.game.has_method("class_throw"):rig.game.class_throw(kind,pose,velocity,sequence);return
+	rig.game.match_mode.fortress.physical.submit(kind,pose,velocity,sequence)
 func update(delta: float,valid: bool) -> void:
 	var game=rig.game
-	available=valid and game.active and not game.map_loading and game.bindings.physical_interactions and game.match_mode.kind in ["tf","tb","as"] and not game.lobby.active() and game.intermission<=0 and not game.match_mode.special.blocked(game.multiplayer.get_unique_id()) and not rig.blackout.visible
+	available=valid and game.active and not game.map_loading and game.bindings.physical_interactions and (game.match_mode.kind in ["tf","tb","as"] or game.has_method("class_throw") and game.classes.role(game.multiplayer.get_unique_id())=="shocktroop") and not game.lobby.active() and game.intermission<=0 and not game.match_mode.special.blocked(game.multiplayer.get_unique_id()) and not rig.blackout.visible
 	var support: XRController3D=rig.right if rig.left_handed else rig.left
 	var grip: bool=game.bindings.vr_pressed(rig,"support")
 	var trigger: bool=game.bindings.vr_pressed(rig,"offhand_fire")
 	var pose: Dictionary=rig.sample_pose() if available else {}
-	var result: String=gesture.sample(support.position-rig.head.position,delta,grip,trigger,available and game.match_mode.fortress.enabled() and not pose.is_empty())
-	if result=="arm":
+	var result: String=gesture.sample(support.position-rig.head.position,delta,grip,trigger,available and (game.match_mode.fortress.enabled() or game.has_method("class_throw")) and not pose.is_empty())
+	if result=="arm" and game.has_method("class_throw"):send("arm",pose)
+	elif result=="arm":
 		var role: String=game.local_state().get("tf_class","")
 		var pipe: bool=game.match_mode.fortress.charges.has(game.multiplayer.get_unique_id())
 		if game.match_mode.fortress.walkers.mounted(game.multiplayer.get_unique_id()) or not role in ["soldier","demoman","pyro"] or pipe:
@@ -39,10 +42,13 @@ func update(delta: float,valid: bool) -> void:
 	elif result in ["throw","cancel"]:send(result,pose,gesture.velocity)
 	if gesture.held:
 		if not is_instance_valid(grenade):
-			grenade=Node3D.new();rig.add_child(grenade)
-			var mesh:=MeshInstance3D.new();var sphere:=SphereMesh.new();sphere.radius=.065;sphere.height=.13;mesh.mesh=sphere
-			mesh.material_override=preload("res://deathmatch/art.gd").material(Color("d4aa52"),.25,.4);grenade.add_child(mesh)
-			var pin:=MeshInstance3D.new();var ring:=TorusMesh.new();ring.inner_radius=.012;ring.outer_radius=.020;pin.mesh=ring;pin.position.y=.09;pin.rotation.x=PI/2;pin.material_override=preload("res://deathmatch/art.gd").material(Color("bbbbbb"));grenade.add_child(pin)
+			if game.has_method("class_throw"):
+				grenade=load("res://deathmatch/conquest/classes/grenade_visuals.gd").model(0);rig.add_child(grenade)
+			else:
+				grenade=Node3D.new();rig.add_child(grenade)
+				var mesh:=MeshInstance3D.new();var sphere:=SphereMesh.new();sphere.radius=.065;sphere.height=.13;mesh.mesh=sphere
+				mesh.material_override=preload("res://deathmatch/art.gd").material(Color("d4aa52"),.25,.4);grenade.add_child(mesh)
+				var pin:=MeshInstance3D.new();var ring:=TorusMesh.new();ring.inner_radius=.012;ring.outer_radius=.020;pin.mesh=ring;pin.position.y=.09;pin.rotation.x=PI/2;pin.material_override=preload("res://deathmatch/art.gd").material(Color("bbbbbb"));grenade.add_child(pin)
 			hint=Label3D.new();hint.text="SWING + RELEASE GRIP TO THROW";hint.font_size=24;hint.pixel_size=.0015;hint.position.y=.16;hint.billboard=BaseMaterial3D.BILLBOARD_ENABLED;grenade.add_child(hint)
 		grenade.global_transform=support.global_transform;grenade.visible=true
 		update_guide(delta,support)
@@ -67,6 +73,10 @@ func update_guide(delta: float,hand: XRController3D) -> void:
 	if solution.blocked:hint.text="BLOCKED · MOVE HAND CLEAR";return
 	hint.text="SWING + RELEASE GRIP TO THROW"
 	var points:=Ballistics.arc(space,solution.origin,velocity,2.0 if role=="demoman" else 1.2)
+	if game.has_method("class_throw"):
+		var cq_ballistics=preload("res://deathmatch/conquest/classes/throw_ballistics.gd")
+		velocity=rig.global_basis*cq_ballistics.guided(rig.sample_pose(),gesture.velocity)
+		points=cq_ballistics.arc(space,solution.origin,velocity,1.5,12.5)
 	if points.size()<2:return
 	mesh.surface_begin(Mesh.PRIMITIVE_LINES)
 	for i in points.size()-1:

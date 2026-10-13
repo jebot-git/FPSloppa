@@ -275,6 +275,7 @@ func update_seated(body: Dictionary) -> void:
 	seated_active=seated
 	origin_offset.y=seated_height_offset if seated_active else 0.0
 func toggle_menu() -> void:
+	if game.menu_open and game.hud and game.hud.menu_back():return
 	game.menu_open=not game.menu_open or not game.active
 	game.hud.show_menu(game.menu_open)
 	scores=false

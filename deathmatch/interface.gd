@@ -11,6 +11,11 @@ var weapon_choice
 var preferred_host_weapons:="doom"
 var avatar_picker: Window
 var avatar_status: Label
+var menu_pages
+var match_category: Button
+var play_category: Button
+var clan_field: LineEdit
+var server_browser: PanelContainer
 var menu: Control
 var status: Label
 var chat: LineEdit
@@ -192,35 +197,33 @@ func _build_menu(root: Control) -> void:
 	dim.color = Color(.035,.025,.02,.94)
 	menu.add_child(dim)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	var menu_scroll:=ScrollContainer.new();menu.add_child(menu_scroll);menu_scroll.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	menu_scroll.offset_bottom=-56
-	menu_scroll.name="MainMenuScroll"
-	menu_scroll.horizontal_scroll_mode=ScrollContainer.SCROLL_MODE_DISABLED
-	var center := CenterContainer.new()
-	center.size_flags_horizontal=Control.SIZE_EXPAND_FILL;center.size_flags_vertical=Control.SIZE_EXPAND_FILL
-	menu_scroll.add_child(center)
-	var panel := PanelContainer.new()
-	panel.custom_minimum_size = Vector2(650,0)
-	panel.add_theme_stylebox_override("panel",panel_style(Color("122027")))
-	center.add_child(panel)
-	var column := VBoxContainer.new()
-	column.add_theme_constant_override("separation",6)
-	panel.add_child(column)
-	var logo:=text(column,"FPSloppa",40,Color("d7a966"))
-	logo.add_theme_font_override("font",preload("res://deathmatch/ui/BebasNeue-Regular.ttf"))
-	logo.add_theme_color_override("font_shadow_color",Color("7e211b"));logo.add_theme_constant_override("shadow_offset_y",3)
-	text(column,"ARENA COMBAT  /  2–8 PLAYERS",17,Color("c39860"))
+	var panel := PanelContainer.new();menu.add_child(panel)
+	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	panel.add_theme_stylebox_override("panel",preload("res://deathmatch/ui/iron_theme.gd").panel(24))
+	menu_pages=preload("res://deathmatch/ui/menu_pages.gd").new();panel.add_child(menu_pages)
+	var column: VBoxContainer=menu_pages.add_page("home","FPSloppa")
+	var player_page: VBoxContainer=menu_pages.add_page("player","PLAYER & VOICE")
+	var play_page: VBoxContainer=menu_pages.add_page("play","PLAY")
+	var match_page: VBoxContainer=menu_pages.add_page("match","MATCH")
+	var library_page: VBoxContainer=menu_pages.add_page("library","LIBRARY & HELP")
+	menu_pages.page_changed.connect(func(id):menu_pages.back_button.visible=id!="home" or game.active)
+	menu_pages.closed.connect(func():
+		if game.active:resume.pressed.emit())
 	var identity := HBoxContainer.new()
-	column.add_child(identity)
+	player_page.add_child(identity)
 	text(identity,"CALLSIGN",14).custom_minimum_size.x = 110
 	name_field = LineEdit.new()
-	name_field.text = game.nickname
-	name_field.max_length = 18
+	name_field.text = Profile.load_name()
+	name_field.max_length = Profile.Names.INPUT_LIMIT
 	name_field.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	identity.add_child(name_field)
+	text(identity,"CLAN",14);clan_field=LineEdit.new();clan_field.text=Profile.load_clan();clan_field.max_length=Profile.Names.INPUT_LIMIT;clan_field.custom_minimum_size.x=130;identity.add_child(clan_field)
+	clan_field.focus_exited.connect(save_preferences)
+	clan_field.text_submitted.connect(func(_value):clan_field.release_focus())
+	clan_field.tooltip_text="8 visible characters. ^0–^7 colours; shown as [CLAN] before your name."
 	name_field.focus_exited.connect(save_preferences)
 	name_field.text_submitted.connect(func(_value): name_field.release_focus())
-	name_field.tooltip_text = "Saved for your next match. In VR, select this field to open the keyboard."
+	name_field.tooltip_text = "18 visible characters; ^0–^7 colours. Saved for your next match. Select in VR to type."
 	avatar_picker = preload("res://deathmatch/avatars/picker.gd").new()
 	add_child(avatar_picker)
 	avatar_picker.setup(game.avatars)
@@ -229,9 +232,9 @@ func _build_menu(root: Control) -> void:
 		game.voice.panel.reparent(root)
 		game.voice.panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		voice_button=button(identity,"VOICE…",game.voice.panel.open)
-	button(identity,"SETTINGS…",func():settings_panel.open())
+	button(column,"SETTINGS…",func():settings_panel.open())
 	var connection := HBoxContainer.new()
-	column.add_child(connection)
+	play_page.add_child(connection)
 	text(connection,"HOST ADDRESS",14).custom_minimum_size.x = 110
 	address_field = LineEdit.new()
 	address_field.text = "127.0.0.1"
@@ -296,24 +299,26 @@ func _build_menu(root: Control) -> void:
 	text(rules,"minutes",14)
 	var host_space:=Control.new();host_space.size_flags_vertical=Control.SIZE_EXPAND_FILL;host_column.add_child(host_space)
 	var host_actions:=HBoxContainer.new();host_column.add_child(host_actions)
-	var start_host:=button(host_actions,"START HOST",func():game.start_host(name_field.text,int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value,weapon_choice.value))
+	var start_host:=button(host_actions,"START HOST",func():game.start_host(display_name(),int(host_port.value),int(frags.value),int(minutes.value),false,host_mode.value,weapon_choice.value))
 	start_host.custom_minimum_size.y=48
-	var start_practice:=button(host_actions,"PRACTICE VS BOTS",func():game.start_host(name_field.text,0,int(frags.value),int(minutes.value),true,host_mode.value,weapon_choice.value))
+	var start_practice:=button(host_actions,"PRACTICE" if game.has_method("draw_class_players") else "PRACTICE VS BOTS",func():game.start_host(display_name(),0,int(frags.value),int(minutes.value),true,host_mode.value,weapon_choice.value))
 	start_practice.custom_minimum_size.y=48
 	button(host_column,"BACK",host_panel.hide).custom_minimum_size.y=44
 	spectator_choice=CheckButton.new();spectator_choice.text="Join as spectator";spectator_choice.custom_minimum_size.y=36
-	column.add_child(spectator_choice)
+	play_page.add_child(spectator_choice)
 	var actions := HBoxContainer.new()
-	column.add_child(actions)
+	play_page.add_child(actions)
 	var host := button(actions,"HOST MATCH…",open_host)
-	var join := button(actions,"JOIN MATCH",func(): game.start_join(name_field.text,address_field.text,int(port_field.value),spectator_choice.button_pressed))
-	launch_buttons = [host,join]
+	var join := button(actions,"JOIN MATCH",func(): game.start_join(display_name(),address_field.text,int(port_field.value),spectator_choice.button_pressed))
+	server_browser=preload("res://deathmatch/ui/server_browser.gd").new();root.add_child(server_browser);server_browser.setup(game,self)
+	var browse := button(actions,"BROWSE SERVERS…",server_browser.open)
+	launch_buttons = [host,join,browse]
 	resume = button(column,"RESUME",func():
 		game.menu_open = false
 		show_menu(false)
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if game.is_vr() else Input.MOUSE_MODE_CAPTURED
 	)
-	var session_actions:=HBoxContainer.new();column.add_child(session_actions)
+	var session_actions:=VBoxContainer.new();match_page.add_child(session_actions)
 	suicide=button(session_actions,"SUICIDE · −1 FRAG",func():
 		game.request_suicide()
 		game.menu_open=false;show_menu(false)
@@ -327,26 +332,41 @@ func _build_menu(root: Control) -> void:
 	var fortress_panel=preload("res://deathmatch/modes/fortress_panel.gd").new();get_child(0).add_child(fortress_panel);fortress_panel.setup(game)
 	fortress_button=button(session_actions,"TF CLASS…",fortress_panel.open)
 	votes_button=button(session_actions,"TEAMS & VOTES…",func():open_votes())
-	session_map_import=button(column,"IMPORT BSP…",bsp_dialog.open)
+	session_map_import=button(library_page,"IMPORT BSP…",bsp_dialog.open)
 	vr_actions=HBoxContainer.new()
-	column.add_child(vr_actions)
+	match_page.add_child(vr_actions)
 	button(vr_actions,"CHAT",func():
 		if game.active:
 			show_menu(false)
 			open_chat())
 	team_chat_button=button(vr_actions,"TEAM CHAT",func():
 		show_menu(false);open_chat(true))
-	var feature_actions:=HBoxContainer.new();column.add_child(feature_actions)
+	var feature_actions:=HBoxContainer.new();library_page.add_child(feature_actions)
 	button(feature_actions,"DEMOS…",open_demos)
+	button(feature_actions,"ASSETS…",assets_panel.open)
 	status = text(column,"LAN / direct IP · Internet hosts must forward the selected UDP port.",14,Color("ae9571"))
 	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	status.custom_minimum_size = Vector2(590,32)
-	controls=text(column,"WASD  Move   SHIFT  Walk   MOUSE  Aim / fire   1–7 / WHEEL  Weapons\nE  Door   F  Weapon whip   TAB  Scores   ENTER  Chat   ESC  Menu\nSPACE  Jump / swim in Quake maps; respawn when dead.",13,Color("859b9e"))
-	var quit_button:=button(menu,"QUIT",func(): game.request_quit())
-	quit_button.name="QuitFooter"
-	quit_button.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	quit_button.offset_top=-52;quit_button.offset_bottom=-4;quit_button.offset_left=8;quit_button.offset_right=-8
-	if game.cq_profile:port_field.value=7787
+	status.custom_minimum_size = Vector2(0,32)
+	controls=text(library_page,"WASD  Move   SHIFT  Walk   MOUSE  Aim / fire   1–7 / WHEEL  Weapons\nE  Door   F  Weapon whip   TAB  Scores   ENTER  Chat   ESC  Menu\nSPACE  Jump / swim in Quake maps; respawn when dead.",13,Color("859b9e"))
+	play_category=menu_pages.link("home","play","PLAY")
+	match_category=menu_pages.link("home","match","MATCH ACTIONS")
+	menu_pages.link("home","player","PLAYER & VOICE")
+	menu_pages.link("home","library","LIBRARY & HELP")
+	# Keep primary actions first and diagnostics last; the index fits a VR panel.
+	column.move_child(resume,0);column.move_child(play_category,1);column.move_child(match_category,2)
+	column.move_child(status,-1)
+	var quit_button:=button(menu_pages,"QUIT",func():game.request_quit());quit_button.name="QuitFooter"
+	# Host categories keep match rules and networking out of the arena picker.
+	var host_book=preload("res://deathmatch/ui/menu_pages.gd").new();host_panel.add_child(host_book)
+	var arena_page: VBoxContainer=host_book.add_page("home","HOST MATCH")
+	var rules_page: VBoxContainer=host_book.add_page("rules","RULES & LIMITS")
+	var network_page: VBoxContainer=host_book.add_page("network","NETWORK")
+	map_row.reparent(arena_page);host_mode.reparent(arena_page);weapon_choice.reparent(arena_page)
+	rules.reparent(rules_page);host_network.reparent(network_page)
+	host_book.link("home","rules","RULES & LIMITS");host_book.link("home","network","NETWORK")
+	host_actions.reparent(host_book);host_book.move_child(host_actions,host_book.back_button.get_index())
+	host_book.closed.connect(host_panel.hide);host_panel.set_meta("menu_book",host_book)
+	host_column.queue_free()
 	var config := ConfigFile.new()
 	if config.load(Profile.config_path())==OK:
 		address_field.text = str(config.get_value("network","address","127.0.0.1"))
@@ -355,38 +375,52 @@ func _build_menu(root: Control) -> void:
 	var connection_overlay=preload("res://deathmatch/network/loading_overlay.gd").new()
 	root.add_child(connection_overlay);connection_overlay.setup(game)
 
+func display_name() -> String:return Profile.Names.display(name_field.text,clan_field.text)
+
 func save_preferences() -> void:
 	name_field.text = Profile.clean(name_field.text,Profile.system_name())
-	game.nickname = name_field.text
-	var error := Profile.save(name_field.text,address_field.text)
+	clan_field.text=Profile.Names.clean(clan_field.text,Profile.Names.CLAN_LIMIT,"")
+	game.nickname = display_name()
+	var error := Profile.save_identity(name_field.text,clan_field.text,address_field.text)
 	if error!=OK: game.status("Could not save callsign: "+error_string(error))
 
 func button(parent: Node,title: String,action: Callable) -> Button:
 	var b := Button.new()
 	b.text = title
-	b.custom_minimum_size.y = 34
+	b.custom_minimum_size.y = 52
 	b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	b.add_theme_font_size_override("font_size",15)
+	b.add_theme_font_size_override("font_size",18)
 	parent.add_child(b)
 	b.pressed.connect(action)
 	return b
 
 func show_menu(open: bool) -> void:
 	menu.visible = open
+	play_category.visible=not game.active
+	match_category.visible=game.active
+	menu_pages.back_button.visible=game.active
+	if open:menu_pages.navigate("home")
 	if open:scoreboard.hide()
 	resume.visible = game.active
-	spectator_choice.visible=not game.active and not game.cq_profile
+	spectator_choice.visible=not game.active
 	leave.visible = game.active
 	suicide.visible = game.active
-	votes_button.visible=game.active and not game.cq_profile
+	votes_button.visible=game.active
 	if votes_panel and not open:votes_panel.hide()
 	if next_match_panel and not open:next_match_panel.hide()
-	for b in launch_buttons: b.visible = not game.active and (not game.cq_profile or b==launch_buttons[1])
+	if server_browser and (not open or game.active):server_browser.close()
+	for b in launch_buttons: b.visible = not game.active
 	if not open:
 		preload("res://deathmatch/ui/choice.gd").close_all(get_tree())
 		if settings_panel:settings_panel.hide()
 		if host_panel:host_panel.hide()
 		if game.voice and game.voice.panel: game.voice.panel.hide()
+		for node in get_child(0).get_children():
+			if node!=menu and node is Control and node.has_method("open") and node.visible:
+				if node.has_method("close_panel"):node.close_panel()
+				elif node.has_method("close"):node.close()
+				else:node.hide()
+		if avatar_picker:avatar_picker.hide()
 		save_preferences()
 
 func open_chat(team_only: bool=false) -> void:
@@ -498,6 +532,9 @@ func _import_bsp(path: String) -> void:
 			for peer in multiplayer.get_peers():game.votes.offer(peer)
 
 func refresh_maps() -> void:
+	if game.has_method("draw_class_players"):
+		if is_instance_valid(weapon_choice):weapon_choice.configure([{"id":"ut99","title":"CQ CLASSES"}],"LOADOUT");weapon_choice.choose("ut99");weapon_choice.trigger.disabled=true
+		map_choice.configure([{"id":"voxel_jungle","title":"Jungle Frontier"}],"CQ MAP");map_choice.choose("voxel_jungle");return
 	if game.cq_profile:
 		game.selected_map=game.match_mode.conquest.MAP_ID
 		map_choice.configure([{"id":game.selected_map,"title":"Vesper Megalopolis · CONQUEST"}],"CQ MAP")
@@ -524,7 +561,7 @@ func refresh_maps() -> void:
 
 func open_host() -> void:
 	if game.cq_profile:return
-	refresh_maps();host_panel.get_parent().move_child(host_panel,-1);host_panel.show()
+	refresh_maps();host_panel.get_parent().move_child(host_panel,-1);host_panel.get_meta("menu_book").navigate("home");host_panel.show()
 
 var bindings_panel
 func open_bindings() -> void:
@@ -542,3 +579,21 @@ func open_votes() -> void:
 	var data: Dictionary=game.lobby.snapshot() if game.multiplayer.is_server() else game.lobby.view
 	if not data.is_empty():next_match_panel.open()
 	else:votes_panel.open()
+
+func menu_back() -> bool:
+	for selector in get_tree().get_nodes_in_group("arena_selectors"):
+		if selector.get_viewport()==get_viewport() and selector.popup.visible:
+			selector.close_popup();return true
+	var panels: Array=get_child(0).get_children();panels.reverse()
+	for node in panels:
+		if node==menu or not node is Control or not node.is_visible_in_tree():continue
+		if node.has_meta("menu_book"):
+			node.get_meta("menu_book").go_back();return true
+		if node.has_method("open"):
+			if node.has_method("go_back"):node.go_back()
+			elif node.has_method("close_panel"):node.close_panel()
+			elif node.has_method("close"):node.close()
+			else:node.hide()
+			return true
+	if menu_pages.current!="home":menu_pages.go_back();return true
+	return not game.active

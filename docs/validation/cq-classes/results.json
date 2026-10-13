@@ -1,0 +1,47 @@
+{
+  "classes": {
+    "passed_assertions": 19,
+    "failed_assertions": 0,
+    "script_errors": 0
+  },
+  "class-integration": {
+    "passed_assertions": 33,
+    "failed_assertions": 0,
+    "script_errors": 0
+  },
+  "class-network-server": {
+    "passed_assertions": 2,
+    "failed_assertions": 0,
+    "script_errors": 0
+  },
+  "class-network-client": {
+    "passed_assertions": 5,
+    "failed_assertions": 0,
+    "script_errors": 0
+  },
+  "menu": {
+    "passed_assertions": 28,
+    "failed_assertions": 0,
+    "script_errors": 0
+  },
+  "CQ_32_SNAPSHOT": {
+    "large_records": 0,
+    "max_packet": 1081,
+    "player_update_gaps": 0,
+    "player_updates": 0,
+    "received_packets": 0,
+    "sent_bytes": 6938,
+    "sent_packets": 7,
+    "stale_records": 0
+  },
+  "CQ_32_STRESS_SNAPSHOT": {
+    "large_records": 1,
+    "max_packet": 1243,
+    "player_update_gaps": 0,
+    "player_updates": 0,
+    "received_packets": 0,
+    "sent_bytes": 13274,
+    "sent_packets": 13,
+    "stale_records": 0
+  }
+}

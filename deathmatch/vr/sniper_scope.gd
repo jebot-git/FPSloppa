@@ -9,6 +9,15 @@ var surface: ShaderMaterial
 var weapon: Node3D
 var active:=false
 var rig
+var zoom_index:=0
+var zoom:=1.5
+var zoom_latched:=false
+const CQ_ZOOMS=[1.5,3.0,6.0]
+static func zoom_fov(base:float,magnification:float) -> float:return rad_to_deg(2*atan(tan(deg_to_rad(base)*.5)/magnification))
+func step_zoom(axis:float) -> void:
+	if absf(axis)<.25:zoom_latched=false
+	elif absf(axis)>.6 and not zoom_latched:
+		zoom_index=clampi(zoom_index+(1 if axis>0 else -1),0,2);zoom_latched=true
 func setup(owner_rig) -> void:rig=owner_rig
 func attach(model: Node3D) -> void:
 	if is_instance_valid(weapon) and weapon==model:return
@@ -41,6 +50,7 @@ func disable() -> void:
 	if surface:surface.set_shader_parameter("enabled",false)
 func update_view(model: Node3D,eye_poses: Array,shot: Transform3D,allowed: bool) -> void:
 	attach(model);disable()
+	if camera:camera.fov=zoom_fov(float(rig.game.presentation.get("fov",85.0)),zoom) if model and model.has_meta("cq_zoom") and rig else FOV
 	if not allowed or not is_instance_valid(lens) or not is_instance_valid(weapon):return
 	var optic:=Transform3D(weapon.global_basis.orthonormalized(),lens.global_position)
 	var quality:=0.0;var nearest:=Vector3.ZERO
@@ -59,6 +69,10 @@ func update_view(model: Node3D,eye_poses: Array,shot: Transform3D,allowed: bool)
 	surface.set_shader_parameter("world_to_optic",optic.affine_inverse())
 func update_rig() -> void:
 	if not rig or not is_instance_valid(rig.gun) or not rig.gun.has_meta("scope_rear"):disable();return
+	if rig.gun.has_meta("cq_zoom"):
+		var controller:XRController3D=rig.left if rig.left_handed else rig.right
+		step_zoom(controller.get_vector2("primary").y if rig.focused and not rig.game.menu_open else 0.0)
+		zoom=lerpf(zoom,CQ_ZOOMS[zoom_index],1-exp(-get_process_delta_time()*10))
 	var poses: Array=[];var xr:=XRServer.find_interface("OpenXR")
 	if not rig.simulated and xr and xr.is_initialized():
 		for eye in mini(2,xr.get_view_count()):poses.append(xr.get_transform_for_view(eye,rig.origin.global_transform))

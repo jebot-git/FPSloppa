@@ -89,7 +89,7 @@ func fire(id: int,alternate: bool=false,charge: float=0.0) -> bool:
 			if kind=="sniper" and hit.id!=0 and not hit.get("vehicle",false) and hit.get("headshot",false):damage=int(d.get("head_damage",100))
 			if melee_reaches:game._damage_map_hit(hit,id,damage)
 			if hit.id!=0 and melee_reaches:
-				game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false) and d.range>3 and d.name!="FLAMETHROWER",d.get("heavy_automatic",false))
+				game._damage(hit.id,id,damage,d.name,false,hit.position,direction,false,hit.get("vehicle",false) and d.range>3 and d.name!="FLAMETHROWER",d.get("heavy_automatic",false),hit.get("headshot",false))
 				if d.name=="FLAMETHROWER":game.match_mode.fortress.ignite(hit.id,id)
 			if hit.has("building") and melee_reaches:game.match_mode.fortress.damage_building(hit.building,id,damage)
 			if kind=="hammer" and hit.hit and hit.id==0 and not hit.has("building"):
@@ -168,8 +168,8 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) ->
 			if hit.id!=0 or hit.has("building"):
 				var damage: int=int(d.damage)+randi_range(0,int(d.get("direct_random",0)))
 				if hit.id!=0 and not hit.get("vehicle",false) and d.has("head_damage") and hit.get("headshot",false):damage=d.head_damage
-				if float(d.get("splash",0))==0 or (game.armory.kind=="quake" and d.kind=="rocket"):
-					if hit.id!=0:game._damage(hit.id,p.owner,damage,d.name,false,hit.position,p.velocity.normalized(),false,hit.get("vehicle",false),d.get("heavy_automatic",false))
+				if float(d.get("splash",0))==0 or ((game.armory.kind=="quake" or d.get("quake_rocket",false)) and d.kind=="rocket"):
+					if hit.id!=0:game._damage(hit.id,p.owner,damage,d.name,false,hit.position,p.velocity.normalized(),false,hit.get("vehicle",false),d.get("heavy_automatic",false),hit.get("headshot",false))
 					if hit.has("building") and float(d.get("splash",0))==0:game.match_mode.fortress.damage_building(hit.building,p.owner,damage)
 				if hit.id!=0:
 					if d.get("incendiary",false):game.match_mode.fortress.ignite(hit.id,p.owner)
@@ -177,7 +177,7 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) ->
 					if d.get("pierce_players",false) and not hit.get("vehicle",false):
 						if not p.has("pierced"):p["pierced"]={}
 						p.pierced[hit.id]=true;p.position=hit.position;return
-				explode(id,hit.position,hit.id if game.armory.kind=="quake" and d.kind=="rocket" else 0,hit.id if hit.get("vehicle",false) else 0);return
+				explode(id,hit.position,hit.id if (game.armory.kind=="quake" or d.get("quake_rocket",false)) and d.kind=="rocket" else 0,hit.id if hit.get("vehicle",false) else 0);return
 			var ray: Dictionary=game.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(p.position,end+p.velocity.normalized()*(d.radius+.2),1))
 			var normal: Vector3=ray.get("normal",-p.velocity.normalized())
 			p.position=hit.position+normal*(d.radius+.015)
@@ -196,7 +196,7 @@ func tick_projectile(id: int,delta: float,movement_start: Dictionary,targets) ->
 func explode(id: int,where: Vector3,ignore: int=0,hull_impact: int=0) -> void:
 	if not game.projectiles.has(id):return
 	var p: Dictionary=game.projectiles[id];var d: Dictionary=p.definition
-	if float(d.get("splash",0))>0:blast(where,p.owner,int(d.splash),float(d.blast_radius),d.name,ignore,game.armory.kind=="quake" and not d.get("incendiary",false),hull_impact,d.get("incendiary",false))
+	if float(d.get("splash",0))>0:blast(where,p.owner,int(d.splash),float(d.blast_radius),d.name,ignore,(game.armory.kind=="quake" or d.get("quake_rocket",false)) and not d.get("incendiary",false),hull_impact,d.get("incendiary",false))
 	if d.kind=="flak_shell":
 		for i in 6:launch(p.owner,4,where+Vector3.UP*.15,Vector3(randf_range(-1,1),randf_range(.1,1),randf_range(-1,1)).normalized(),{"fragment":true})
 	game._projectile_end.rpc(id,where,p.weapon)

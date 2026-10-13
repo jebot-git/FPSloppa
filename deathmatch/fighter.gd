@@ -405,6 +405,7 @@ func set_class_badge(title: String,color: Color) -> void:
 
 var cloak_material: ShaderMaterial
 var cloak_meshes: Array=[]
+var jetpack_attach_raise:=0.0
 var cloak_active:=false
 var cloak_visibility:=1.0
 var cloak_avatar: Node3D
@@ -465,5 +466,5 @@ func _update_jetpack_visual() -> void:
 	var pose:=Transform3D(Basis(Vector3.RIGHT,-deg_to_rad(77) if stance=="prone" else 0.0),Vector3(0,maxf(.30,.78-(1.65-collision_height)),0))
 	if avatar_hash.is_empty() and is_instance_valid(avatar):pose=avatar.transform*avatar.get_node("Upper").transform
 	else:pose=Transform3D(Basis(Vector3.UP,preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose)),Vector3.ZERO)*pose
-	jetpack_model.transform=pose*Transform3D(Basis.IDENTITY,Vector3(0,.24,.25))
+	jetpack_model.transform=pose*Transform3D(Basis.IDENTITY,Vector3(0,.24+jetpack_attach_raise,.25))
 	jetpack_model.set_exhaust(jetpack_state.mode!=0 and jetpack_state.age<(1.5 if jetpack_state.mode==2 else Jetpack.BURN_TIME))

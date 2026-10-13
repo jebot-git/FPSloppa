@@ -1,0 +1,20 @@
+shader_type spatial;
+render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabled;
+uniform float density = 1.0;
+varying vec2 seed;
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.0-2.0*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
+void vertex(){
+	seed=MODEL_MATRIX[3].xz;
+	MODELVIEW_MATRIX=VIEW_MATRIX*mat4(INV_VIEW_MATRIX[0],INV_VIEW_MATRIX[1],INV_VIEW_MATRIX[2],MODEL_MATRIX[3]);
+	MODELVIEW_MATRIX[0]*=length(MODEL_MATRIX[0].xyz);
+	MODELVIEW_MATRIX[1]*=length(MODEL_MATRIX[1].xyz);
+}
+void fragment(){
+	vec2 p=UV*2.0-1.0;
+	float n=noise(UV*6.0+seed+vec2(TIME*.08,-TIME*.06));
+	n=.65*n+.35*noise(UV*13.0+seed-vec2(TIME*.09));
+	float edge=1.0-smoothstep(.32+n*.18,1.0,length(p));
+	ALBEDO=vec3(.46,.49,.47)*(.8+n*.3);
+	ALPHA=edge*(.48+n*.36)*density;
+}
