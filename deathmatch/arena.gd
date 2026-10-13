@@ -2216,7 +2216,7 @@ func _process(delta: float) -> void:
 		model_weapon = s.weapon;model_art_rules=art_rules
 	camera.rotation = Vector3(local_pitch,local_yaw,0)
 	camera_eye_height = lerpf(camera_eye_height,.35 if s.dead and not s.spectator and not cq_client.waiting() else fighters[multiplayer.get_unique_id()].eye_height(),minf(1,delta*8))
-	camera.global_position = fighters[multiplayer.get_unique_id()].render_position()+Vector3.UP*(camera_eye_height+fighters[multiplayer.get_unique_id()].view_offset)
+	camera.global_position = fighters[multiplayer.get_unique_id()].render_position()+Vector3.UP*(camera_eye_height+fighters[multiplayer.get_unique_id()].view_offset+water_view_raise(fighters[multiplayer.get_unique_id()],camera_eye_height+fighters[multiplayer.get_unique_id()].view_offset))
 	fighters[multiplayer.get_unique_id()].rotation.y = local_yaw
 	viewmodel.visible = not s.dead and not menu_open and not lobby.active()
 	var speed: float = fighters[multiplayer.get_unique_id()].velocity.length()
@@ -2534,3 +2534,6 @@ func _cq_event(epoch: int,generation: int,method: String,args: Array) -> void:cq
 @rpc("authority","call_remote","reliable",0)
 func _cq_capacity(epoch: int,counts: Array,revision: int) -> void:
 	if cq_profile and epoch==map_epoch:cq_client.capacity(counts,revision)
+
+## Visual comfort offset only; authority, hitboxes and breath retain physical depth.
+func water_view_raise(_actor,_eye_height:float) -> float:return 0.0

@@ -1,0 +1,62 @@
+{
+	"checks": 8352,
+	"errors": [],
+	"physics_scope": "Six flat pad ground slabs plus the production near-LOD collision descriptions, actual Fighter.simulate doorway/stair/bridge traversal; full terrain heightfield tested separately.",
+	"road_samples": 7981,
+	"sites": [
+		{
+			"buildings": 2,
+			"name": "west ridge relay",
+			"triangles": [
+				1828,
+				1468,
+				360
+			]
+		},
+		{
+			"buildings": 2,
+			"name": "canyon crossing",
+			"triangles": [
+				1168,
+				904,
+				288
+			]
+		},
+		{
+			"buildings": 2,
+			"name": "river expedition camp",
+			"triangles": [
+				1052,
+				860,
+				292
+			]
+		},
+		{
+			"buildings": 3,
+			"name": "canopy outpost",
+			"triangles": [
+				2924,
+				2612,
+				212
+			]
+		},
+		{
+			"buildings": 2,
+			"name": "summit observatory",
+			"triangles": [
+				1744,
+				1346,
+				174
+			]
+		},
+		{
+			"buildings": 1,
+			"name": "east ruins",
+			"triangles": [
+				980,
+				752,
+				468
+			]
+		}
+	]
+}

@@ -17,7 +17,7 @@ func _ready() -> void:
 	add_child(world)
 	points=[{"name":"Canopy edge","position":Vector3(-1000,0,-300),"direction":Vector3(.8,-.08,-1)}, {"name":"Canyon overlook","position":Vector3(-300,0,180),"direction":Vector3(-1,-.16,-.3)}, {"name":"Mountain foothills","position":Vector3(850,0,-1080),"direction":Vector3(.6,-.12,-1)}]
 	points.append({"name":"Prone canopy","position":Vector3(-1000,0,-300),"direction":Vector3(.8,0,-1),"eye_height":.45})
-	for site in Landscape.sites()+Landscape.FUTURE_SITES:points.append({"name":site.name,"position":site.position,"direction":Vector3(.6,-.2,-1)})
+	for site in Landscape.sites():points.append({"name":site.name,"position":site.position,"direction":Vector3(.6,-.2,-1)})
 	panel=CanvasLayer.new();add_child(panel)
 	var column:=VBoxContainer.new();column.position=Vector2(16,16);panel.add_child(column)
 	var title:=Label.new();title.text="JUNGLE FRONTIER · 8 km²\nRMB look · WASD move · Q/E down/up · Shift fast · L site labels";column.add_child(title)

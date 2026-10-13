@@ -1,5 +1,6 @@
 extends RefCounted
 ## Shared geometry descriptions feed render LODs, physics, and entry validation.
+const Outer=preload("res://tools/voxel_battle/outer_architecture.gd")
 const Builder=preload("res://tools/streamed_heightfield/structures.gd").Builder
 var boxes: Array=[]
 var render_boxes: Array=[]
@@ -64,7 +65,7 @@ func building(p: Vector3,size: Vector2,floors: int,color: Color,role: String) ->
 				box(p+Vector3(w/2-1.5,y+(step+1)*.2-.1,-d/2+.5+step*.5),Vector3(2.4,.2,.52),Color(.55,.54,.47))
 			box(p+Vector3(w/2-1.5,y+3.1,-d/2+8.6),Vector3(2.4,.2,1.4),Color(.55,.54,.47))
 	# Pitched roofs are retained at near and middle detail.
-	builder.roof(p+Vector3(0,h+.11,0),Vector3(w+.5,1.3,d+.5),Color(.31,.34,.31) if kind else Color(.43,.25,.18))
+	if role!="observatory":builder.roof(p+Vector3(0,h+.11,0),Vector3(w+.5,1.3,d+.5),Color(.31,.34,.31) if kind else Color(.43,.25,.18))
 func make(site_kind: int,lod: int) -> ArrayMesh:
 	kind=site_kind;level=lod;builder=Builder.new()
 	for spec in specifications():
@@ -104,11 +105,12 @@ func make(site_kind: int,lod: int) -> ArrayMesh:
 						box(p+Vector3(0,f*STOREY+1,0),Vector3(2,.8,.7),Color(.25,.32,.29))
 						box(p+Vector3(0,f*STOREY+1.65,-.25),Vector3(1.7,.55,.18),Color(.22,.48,.42),false)
 				for x in [19.0,25.0]:box(Vector3(x,1,-27),Vector3(2,2,3),Color(.33,.40,.36))
+	Outer.decorate(self)
 	return builder.finish()
 func generate() -> Array:
 	boxes.clear();render_boxes.clear();buildings.clear()
 	var result: Array=[]
-	for k in 5:
+	for k in 11:
 		result.append([])
 		for lod in 3:result[k].append(make(k,lod))
 	return result
@@ -148,6 +150,7 @@ static func specifications() -> Array:
 	rows.append(spec(4,Vector3(-23,0,-23),Vector2(20,22),2,Color(.55,.60,.50),"radar control"))
 	rows.append(spec(4,Vector3(23,0,-23),Vector2(18,20),1,Color(.43,.49,.40),"generator house"))
 	rows.append(spec(4,Vector3(23,0,23),Vector2(20,22),2,Color(.53,.58,.51),"communications"))
+	rows.append_array(Outer.specifications())
 	return rows
 static func spec(k: int,p: Vector3,size: Vector2,floors: int,color: Color,role: String) -> Dictionary:
 	return {"kind":k,"center":p,"size":size,"floors":floors,"color":color,"role":role}

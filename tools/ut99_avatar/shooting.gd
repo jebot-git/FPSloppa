@@ -25,7 +25,7 @@ func prepare_avatars() -> bool:
 	if not super.prepare_avatars():return false
 	actor_ids=game.players.keys();actor_ids.sort();rng.seed=1977
 	game.frag_limit=100000
-	var point:Vector3=Landscape.FUTURE_SITES[3].position
+	var point:Vector3=Landscape.ADDITIONAL_SITES[3].position
 	for i in actor_ids.size():
 		var id:int=actor_ids[i];var actor=game.fighters[id]
 		var x:float=point.x+(i%8-3.5)*2;var z:float=point.z-int(i/8)*2.5

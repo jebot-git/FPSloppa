@@ -35,6 +35,9 @@ var water_deep_time:=0.0
 var water_exit_grace:=0.0
 var water_boost:=0.0
 var was_in_water:=false
+var stroke_only_water:=false
+var swim_water_level:=0.0
+var swim_eye_height:=1.48
 var in_water := false
 var underwater:=false
 var air_left:=12.0
@@ -137,7 +140,9 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	var stroke: Vector3=(basis*swim.limit_length(1.0)) if in_water and swim.is_finite() else Vector3.ZERO
 	if in_water:
 		speed*=.65
-		direction=(direction+stroke).limit_length(1.0)
+		direction=stroke if stroke_only_water else (direction+stroke).limit_length(1.0)
+		if stroke_only_water:jump=false;jump_queued=false
+	var swim_vertical_before:=velocity.y
 	var raw_jump:=jump
 	if Jetpack.tick(self,direction,delta,raw_jump):
 		jump_held=raw_jump
@@ -149,7 +154,7 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 	if jump and not jump_held:jump_queued=true
 	elif not jump:jump_queued=false
 	var grounded:=is_supported() and velocity.y<=0
-	var surface_jump:=stance!="prone" and quake_movement and not water_jump_used and (in_water and water_surface or water_exit_grace>0) and (jump or stroke.y>.15) and velocity.y>-.5
+	var surface_jump:=not stroke_only_water and stance!="prone" and quake_movement and not water_jump_used and (in_water and water_surface or water_exit_grace>0) and (jump or stroke.y>.15) and velocity.y>-.5
 	var jumping:=quake_movement and jump_queued and grounded and not in_water or surface_jump
 	if surface_jump:water_jump_used=true;water_exit_grace=0;water_boost=.25
 	velocity.x-=blast_velocity.x;velocity.z-=blast_velocity.y
@@ -177,6 +182,11 @@ func simulate(input: Vector2, yaw: float, slow: bool, delta: float, jump: bool =
 		# Level strokes must not hold the swimmer at zero vertical velocity.
 		if absf(stroke.y)>.05 and not jump and water_boost<=0:velocity.y=move_toward(velocity.y,stroke.y*speed,24.0*delta)
 		velocity.y=maxf(velocity.y,-speed if stroke.y<-.05 else -2.0);jump_queued=false
+		if stroke_only_water and stroke.length()>.05:
+			# Active strokes bring the physical head above water; releasing sinks.
+			var gap:=swim_water_level+.15-(position.y+swim_eye_height)
+			var rise:=clampf(gap*4.0,-1.0,3.0)
+			velocity.y=move_toward(swim_vertical_before,rise,8.0*delta)
 	jump_held = raw_jump
 	floor_grace=.1 if is_supported() else maxf(0,floor_grace-delta)
 	var was_grounded:=is_on_floor() or floor_grace>0

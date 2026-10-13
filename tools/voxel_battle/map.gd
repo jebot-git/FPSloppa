@@ -18,8 +18,10 @@ var collision_rows: Dictionary={}
 var geometry: Array=[]
 var spawn_positions: Array[Vector3]=[]
 var routes: Array[Vector3]=[]
+var waterways
 func build(graphics: bool, physics: bool=true) -> void:
 	physics_enabled=physics
+	Landscape.Hydrology.prepare()
 	var meshes:=layout.generate()
 	if physics:
 		var body:=StaticBody3D.new();body.name="TerrainCollision";add_child(body)
@@ -51,11 +53,12 @@ func build(graphics: bool, physics: bool=true) -> void:
 		structures=Structures.new();structures.placements=Landscape.sites();structures.factory_base_offset=0
 		structures.world_aabb=AABB(Vector3(-LIMIT,Landscape.MIN_HEIGHT,-LIMIT),Vector3(Landscape.EXTENT,Landscape.MAX_HEIGHT-Landscape.MIN_HEIGHT+40,Landscape.EXTENT))
 		structures.meshes=meshes;add_child(structures);structures.setup()
-		for site in Landscape.sites()+Landscape.FUTURE_SITES:
+		for site in Landscape.sites():
 			var label:=Label3D.new();label.text=site.name.to_upper();label.position=site.position+Vector3(0,14,0)
 			label.visible=false;label.font_size=64;label.pixel_size=.035;label.billboard=BaseMaterial3D.BILLBOARD_ENABLED;add_child(label)
 		environment=Scenery.new();add_child(environment);environment.setup(terrain)
 		grass=Grass.new();add_child(grass);grass.setup(terrain)
+	waterways=preload("res://tools/voxel_battle/waterways.gd").new();add_child(waterways);waterways.build(self,graphics,physics)
 func add_box(p: Vector3,size: Vector3) -> void:
 	var body:=StaticBody3D.new();body.position=p;add_child(body)
 	var shape:=BoxShape3D.new();shape.size=size
@@ -80,7 +83,7 @@ func update_view(camera: Camera3D) -> void:
 	if terrain!=null:terrain.tick(camera);structures.update(camera);environment.update(camera);grass.update(camera)
 
 static func collision_cache_path() -> String:
-	var fingerprint:=FileAccess.get_sha256("res://tools/voxel_battle/landscape.gd")+FileAccess.get_sha256("res://tools/voxel_battle/architecture.gd")
+	var fingerprint:=FileAccess.get_sha256("res://tools/voxel_battle/landscape.gd")+FileAccess.get_sha256("res://tools/voxel_battle/architecture.gd")+FileAccess.get_sha256("res://tools/voxel_battle/outer_architecture.gd")+FileAccess.get_sha256("res://tools/voxel_battle/hydrology.gd")+FileAccess.get_sha256("res://tools/voxel_battle/waterways.gd")
 	return "user://jungle-heightmap-%s.res"%fingerprint.sha256_text().left(16)
 static func terrain_collision() -> HeightMapShape3D:
 	var path:=collision_cache_path()
@@ -91,13 +94,13 @@ static func terrain_collision() -> HeightMapShape3D:
 	for z in COLLISION_SIDE:
 		for x in COLLISION_SIDE:
 			var px:=x*spacing-LIMIT;var pz:=z*spacing-LIMIT
-			heights[z*COLLISION_SIDE+x]=NAN if Landscape.water_mask(px,pz)>.5 else Landscape.surface(px,pz).x/spacing
+			heights[z*COLLISION_SIDE+x]=Landscape.surface(px,pz).x/spacing
 	var shape:=HeightMapShape3D.new();shape.map_width=COLLISION_SIDE;shape.map_depth=COLLISION_SIDE;shape.map_data=heights
 	assert(ResourceSaver.save(shape,path,ResourceSaver.FLAG_COMPRESS)==OK)
 	return shape
 
 func navigation_source_chunk(bounds: AABB,heights: PackedFloat32Array) -> NavigationMeshSourceGeometryData3D:
-	# Explicit finite faces keep heightmap water-hole NaNs away from Recast.
+	# River beds collide but are excluded from walking navigation.
 	var data:=NavigationMeshSourceGeometryData3D.new()
 	var step:=Landscape.EXTENT/(COLLISION_SIDE-1)
 	var faces:=PackedVector3Array()
@@ -109,8 +112,8 @@ func navigation_source_chunk(bounds: AABB,heights: PackedFloat32Array) -> Naviga
 			var b:=Vector3((x+1)*step-LIMIT,heights[z*COLLISION_SIDE+x+1]*step,z*step-LIMIT)
 			var c:=Vector3(x*step-LIMIT,heights[(z+1)*COLLISION_SIDE+x]*step,(z+1)*step-LIMIT)
 			var d:=Vector3((x+1)*step-LIMIT,heights[(z+1)*COLLISION_SIDE+x+1]*step,(z+1)*step-LIMIT)
-			if a.is_finite() and b.is_finite() and c.is_finite():faces.append_array(PackedVector3Array([a,b,c]))
-			if b.is_finite() and d.is_finite() and c.is_finite():faces.append_array(PackedVector3Array([b,d,c]))
+			if a.is_finite() and b.is_finite() and c.is_finite() and Landscape.water_mask((a.x+b.x+c.x)/3,(a.z+b.z+c.z)/3)<.5:faces.append_array(PackedVector3Array([a,b,c]))
+			if b.is_finite() and d.is_finite() and c.is_finite() and Landscape.water_mask((b.x+d.x+c.x)/3,(b.z+d.z+c.z)/3)<.5:faces.append_array(PackedVector3Array([b,d,c]))
 	if not faces.is_empty():data.add_faces(faces,Transform3D.IDENTITY)
 	for row in layout.boxes:
 		var center: Vector3=Landscape.CENTERS[row.kind]+row.center
@@ -128,4 +131,5 @@ func navigation_source_chunk(bounds: AABB,heights: PackedFloat32Array) -> Naviga
 			for row in collision_rows.get(Vector2i(x,z),[]):
 				if row.kind==2:continue
 				data.add_mesh_array(trunks[row.kind],Transform3D(Basis(Vector3.UP,row.angle).scaled(Vector3.ONE*row.scale),row.position+Vector3.UP*8.5*row.scale))
+	if waterways!=null:waterways.navigation_source(data,bounds)
 	return data

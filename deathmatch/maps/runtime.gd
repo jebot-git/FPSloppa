@@ -287,6 +287,9 @@ func _physics_process(_delta: float) -> void:
 			var pose:Dictionary=actor.xr_pose if id==multiplayer.get_unique_id() and game.is_vr() else state.get("xr",{})
 			var eye:Vector3=pose.get("head",Transform3D(Basis.IDENTITY,Vector3.UP*1.48)).origin
 			actor.underwater=contents.liquid(contents.at(actor.global_transform*eye))
+			if actor.stroke_only_water:
+				actor.swim_eye_height=eye.y
+				actor.swim_water_level=contents.water_level(actor.global_position)
 			if multiplayer.is_server() and kind in [-4,-5] and game.clock>=hurt_until.get(id,0):
 				hurt_until[id]=game.clock+.6;game._damage(id,id,20,"LAVA" if kind==-5 else "SLIME",true)
 		var air:Dictionary=breath.get(id,{"left":12.0,"next":0.0,"damage":2,"serial":state.serial})

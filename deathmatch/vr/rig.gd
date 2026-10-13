@@ -301,7 +301,8 @@ func _process(delta: float) -> void:
 	var living: bool=actor!=null and not game.local_state().get("dead",true) and not game.local_state().get("spectator",false)
 	var swimming: bool=living and actor.in_water and focused and tracked_hands and not game.menu_open and not scores and game.intermission<=0 and not game.match_mode.special.blocked(mine)
 	swim_input=swim_detector.sample(head.transform,left.position,right.position,delta,swimming)
-	origin.position=origin_offset+Vector3.UP*(actor.view_offset if actor else 0.0)
+	water_view_offset=game.water_view_raise(actor,origin_offset.y+head.position.y+actor.view_offset) if actor else 0.0
+	origin.position=origin_offset+Vector3.UP*((actor.view_offset if actor else 0.0)+water_view_offset)
 	if calibration_pending and (simulated or head.position.y>.5): recenter()
 	if actor and not game.menu_open and focused:
 		var stick: Vector2=game.bindings.axis(self,"turn")
@@ -418,14 +419,17 @@ func apply_turn(axis: float,delta: float) -> void:
 func save_turn_settings() -> Error:
 	turn_latched=false
 	return Preferences.save_settings({"smooth_turn":smooth_turn,"turn_speed":turn_speed,"snap_angle":snap_angle,"left_controls":left_controls,"seated":seated})
+var water_view_offset:=0.0
 func sample_pose() -> Dictionary:
+	var physical_origin:=origin.transform
+	physical_origin.origin.y-=water_view_offset
 	var aim: XRController3D=left_aim if left_handed else right_aim
 	var hand: XRController3D=left if left_handed else right
-	var pose: Dictionary={"head":origin.transform*head.transform,"left":origin.transform*left.transform,"right":origin.transform*right.transform,"weapon":origin.transform*weapon_pose(),"left_handed":left_handed,"height":crouch_height}
+	var pose: Dictionary={"head":physical_origin*head.transform,"left":physical_origin*left.transform,"right":physical_origin*right.transform,"weapon":physical_origin*weapon_pose(),"left_handed":left_handed,"height":crouch_height}
 	var other_hand: XRController3D=right if left_handed else left
 	var other_aim: XRController3D=right_aim if left_handed else left_aim
 	if simulated or (other_hand.get_has_tracking_data() and other_aim.get_has_tracking_data()):
-		pose.offhand_weapon=origin.transform*Poses.held_weapon(other_hand.transform,other_aim.transform)
+		pose.offhand_weapon=physical_origin*Poses.held_weapon(other_hand.transform,other_aim.transform)
 	return Poses.validate(pose)
 
 func command(sequence: int) -> Dictionary:

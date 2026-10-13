@@ -11,7 +11,9 @@ func _load_map(_map_id: String) -> bool:
 	current_map="voxel_jungle";map_title="Jungle Frontier";map_sha="local-procedural-jungle-8km2-v1"
 	fall_limit=-48
 	var runtime=preload("res://deathmatch/maps/runtime.gd").new();runtime.name="MapRuntime";$Map.add_child(runtime)
-	runtime.game=self;runtime.triggers.setup(runtime,[])
+	runtime.game=self;runtime.process_physics_priority=-50
+	runtime.contents=preload("res://tools/voxel_battle/water_contents.gd").new();runtime.has_contents=true
+	runtime.triggers.setup(runtime,[])
 	return true
 func create_bot_controller() -> Node:
 	return preload("res://tools/voxel_battle/bots.gd").new()
@@ -30,11 +32,10 @@ func _update_crouch(id: int,pose: Dictionary,command: Dictionary={}) -> void:
 	super._update_crouch(id,pose,command)
 	if not players[id].crouch and not players[id].prone and pose.is_empty():fighters[id].update_height(1.70)
 
-func _physics_process(delta: float) -> void:
-	super._physics_process(delta)
-	_check_water()
-func _check_water() -> void:
-	if not multiplayer.is_server() or not is_instance_valid(battle_map):return
-	for id in players:
-		if not players[id].dead and not players[id].spectator and battle_map.Landscape.in_water(fighters[id].position):
-			_damage(id,id,100000,"WATER",true)
+func _create_fighter(id:int) -> void:
+	super._create_fighter(id)
+	fighters[id].stroke_only_water=true
+func water_view_raise(actor,eye_height:float) -> float:
+	if not actor.underwater:return 0.0
+	var water:=BattleMap.Landscape.water_sample(actor.position.x,actor.position.z)
+	return maxf(0,water.y+.12-(actor.render_position().y+eye_height)) if water.x>.5 else 0.0

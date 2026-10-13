@@ -1,0 +1,65 @@
+{
+	"additional_sites": [
+		{
+			"name": "west ridge relay",
+			"position": "(-1050.0, 110.0, 350.0)",
+			"radius": 40.0
+		},
+		{
+			"name": "canyon crossing",
+			"position": "(-400.0, 48.0, -350.0)",
+			"radius": 35.0
+		},
+		{
+			"name": "river expedition camp",
+			"position": "(250.0, 58.0, 1000.0)",
+			"radius": 45.0
+		},
+		{
+			"name": "canopy outpost",
+			"position": "(350.0, 100.0, -280.0)",
+			"radius": 42.0
+		},
+		{
+			"name": "summit observatory",
+			"position": "(-200.0, 350.0, -1100.0)",
+			"radius": 38.0
+		},
+		{
+			"name": "east ruins",
+			"position": "(1100.0, 175.0, 450.0)",
+			"radius": 50.0
+		}
+	],
+	"area_m2": 8000000.0,
+	"checks": 12968,
+	"elevation_m": [
+		-8.0,
+		481.101684570312
+	],
+	"errors": [],
+	"extent_m": 2828.42712474619,
+	"feature_totals_sampled": [
+		3540,
+		2521,
+		922
+	],
+	"road_earthworks": {
+		"connector_length_ratios": [
+			1.13062594590839,
+			1.18045049242592,
+			1.18340185531319,
+			1.18079166811401,
+			1.20678034651067,
+			1.2683987638139,
+			1.20490638778069,
+			1.20490611056211
+		],
+		"max_transition_width_m": 220.0,
+		"maximum_bank_drop_m": 2.32218933105469,
+		"support_samples": 475
+	},
+	"road_samples": 3686,
+	"rock_formations": 6,
+	"terrain_rocks": "heightfield formations; no rock mesh species"
+}

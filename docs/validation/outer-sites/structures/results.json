@@ -1,0 +1,71 @@
+{
+	"hardware": "Intel(R) Graphics (ADL-N)",
+	"renderer": "forward_plus",
+	"resolution": [
+		1440,
+		900
+	],
+	"scope": "Settled oblique overview captures with near structure LOD forced for design review of each authored site in the full streamed terrain, hybrid forest and undergrowth renderer. No physics, AI or avatars; no performance claim from captures.",
+	"sites": [
+		{
+			"name": "west ridge relay",
+			"terrain_resident": 245,
+			"triangles_by_lod": [
+				1828,
+				1468,
+				360
+			],
+			"visible_structure_sites": 1
+		},
+		{
+			"name": "canyon crossing",
+			"terrain_resident": 238,
+			"triangles_by_lod": [
+				1168,
+				904,
+				288
+			],
+			"visible_structure_sites": 1
+		},
+		{
+			"name": "river expedition camp",
+			"terrain_resident": 240,
+			"triangles_by_lod": [
+				1052,
+				860,
+				292
+			],
+			"visible_structure_sites": 1
+		},
+		{
+			"name": "canopy outpost",
+			"terrain_resident": 245,
+			"triangles_by_lod": [
+				2924,
+				2612,
+				212
+			],
+			"visible_structure_sites": 1
+		},
+		{
+			"name": "summit observatory",
+			"terrain_resident": 240,
+			"triangles_by_lod": [
+				1744,
+				1346,
+				174
+			],
+			"visible_structure_sites": 1
+		},
+		{
+			"name": "east ruins",
+			"terrain_resident": 240,
+			"triangles_by_lod": [
+				980,
+				752,
+				468
+			],
+			"visible_structure_sites": 1
+		}
+	]
+}

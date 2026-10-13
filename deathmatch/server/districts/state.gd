@@ -1,8 +1,8 @@
 extends RefCounted
 ## Trusted local worker state. Never accepted directly from public clients.
-const SCHEMA:=4
+const SCHEMA:=5
 const DEADLINES=["respawn_at","invulnerable","last_input","melee_ready_at","offhand_melee_ready_at","use_at","chat_at"]
-const BODY=["jetpack_state","jetpack_enabled","collision_height","stance","blast_velocity","jump_held","jump_queued","floor_grace","stepped_last_frame","water_boost","water_exit_grace","water_deep_time","was_in_water","in_water","underwater","water_jump_used","air_left"]
+const BODY=["jetpack_state","jetpack_enabled","collision_height","stance","blast_velocity","jump_held","jump_queued","floor_grace","stepped_last_frame","stroke_only_water","swim_water_level","swim_eye_height","water_boost","water_exit_grace","water_deep_time","was_in_water","in_water","underwater","water_jump_used","air_left"]
 const MELEE=["melee_state","offhand_melee_state","left_kick","right_kick"]
 static func shift(state: Dictionary,offset: float) -> void:
 	for key in DEADLINES:

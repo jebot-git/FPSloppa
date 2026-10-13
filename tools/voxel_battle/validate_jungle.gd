@@ -21,11 +21,11 @@ func _initialize() -> void:
 			overview.set_pixel(x,z,c)
 	check(low>=Landscape.MIN_HEIGHT and high<Landscape.MAX_HEIGHT,"terrain within culling bounds")
 	check(high-low>350,"mountain relief exceeds 350 metres")
-	for site in Landscape.FUTURE_SITES:
+	for site in Landscape.ADDITIONAL_SITES:
 		var c: Vector3=site.position
 		for offset in [Vector2.ZERO,Vector2(site.radius*.8,0),Vector2(0,-site.radius*.8)]:
-			check(absf(Landscape.surface(c.x+offset.x,c.z+offset.y).x-c.y)<.001,"future building pad flat "+site.name)
-			check(not Landscape.planting_allowed(Vector2(c.x+offset.x,c.z+offset.y)),"future building pad clear "+site.name)
+			check(absf(Landscape.surface(c.x+offset.x,c.z+offset.y).x-c.y)<.001,"additional building pad flat "+site.name)
+			check(not Landscape.planting_allowed(Vector2(c.x+offset.x,c.z+offset.y)),"additional building pad clear "+site.name)
 	var totals: Array=[0,0,0]
 	for z in range(0,Landscape.GRID,4):
 		for x in range(0,Landscape.GRID,4):
@@ -62,22 +62,20 @@ func _initialize() -> void:
 		var midpoint: Vector3=road.a.lerp(road.b,.5)
 		var relief:=absf(Landscape.natural(midpoint.x,midpoint.z)-midpoint.y)
 		var outdoor:=Landscape.water_mask(midpoint.x,midpoint.z)<.01
-		for site in Landscape.sites()+Landscape.FUTURE_SITES:
+		for site in Landscape.sites():
 			var radius: float=site.get("radius",90)+25
 			if Vector2(midpoint.x-site.position.x,midpoint.z-site.position.z).length()<radius:outdoor=false
 		if relief>20 and outdoor and absf(Landscape.surface(midpoint.x,midpoint.z).x-midpoint.y)<2:
 			for sign in [-1,1]:
 				var bank: Vector3=midpoint+side*sign*(road.width+Landscape.ROAD_SHOULDER+4)
+				if Landscape.water_mask(bank.x,bank.z)>.01:continue # River-cut banks use separate bridge decks.
 				var drop:=absf(Landscape.surface(bank.x,bank.z).x-midpoint.y)
 				check(drop<relief*.30+3,"raised/cut road has broad supporting bank "+str(bank))
 				bank_drop_max=maxf(bank_drop_max,drop);embankment_samples+=1
 	check(embankment_samples>50,"broad earthworks exercised across elevated roads")
 	var curvature: Array=[]
-	for start_index in range(10,10+8*36,36):
-		var distance:=0.0
-		for i in range(start_index,start_index+36):distance+=Landscape.main_roads[i].delta.length()
-		var first: Vector3=Landscape.main_roads[start_index].a;var last: Vector3=Landscape.main_roads[start_index+35].b
-		var ratio:=distance/Vector2(last.x-first.x,last.z-first.z).length();curvature.append(ratio)
+	for connector in Landscape.connectors.slice(0,8):
+		var ratio:float=connector.length/connector.straight_length;curvature.append(ratio)
 		check(ratio>1.025,"POI connector follows curved intermediate waypoints")
 	for lane in Landscape.access_roads:
 		var near:=Landscape.nearest_road(Vector2(lane.b.x,lane.b.z),Landscape.road_bins)
@@ -86,9 +84,9 @@ func _initialize() -> void:
 	for z in range(start,ceili(Map.LIMIT)+1,4):
 		var x: float=Landscape.CENTERS[2].x+sin(maxf(0,z-Landscape.CENTERS[2].z-68)*.003)*28
 		check(Landscape.water_mask(x,z)>.99,"water connects port to world edge")
-		check(absf(Landscape.surface(x,z).x)<.001,"continuous sea level")
-		check(Landscape.in_water(Vector3(x,.1,z)),"water remains lethal")
+		check(absf(Landscape.surface(x,z).x+8)<.001,"solid estuary bed")
+		check(Landscape.in_water(Vector3(x,-.1,z)),"swimmable water volume")
 	var output:="res://test-results/jungle-terrain"
 	DirAccess.make_dir_recursive_absolute(output);overview.save_png(output+"/terrain-overview.png")
-	var report:={"checks":checks,"errors":errors,"area_m2":Landscape.EXTENT*Landscape.EXTENT,"extent_m":Landscape.EXTENT,"elevation_m":[low,high],"future_sites":Landscape.FUTURE_SITES,"feature_totals_sampled":totals,"road_samples":road_samples,"road_earthworks":{"support_samples":embankment_samples,"maximum_bank_drop_m":bank_drop_max,"max_transition_width_m":Landscape.MAX_EARTHWORK,"connector_length_ratios":curvature},"rock_formations":Landscape.ROCK_FORMATIONS.size(),"terrain_rocks":"heightfield formations; no rock mesh species"}
+	var report:={"checks":checks,"errors":errors,"area_m2":Landscape.EXTENT*Landscape.EXTENT,"extent_m":Landscape.EXTENT,"elevation_m":[low,high],"additional_sites":Landscape.ADDITIONAL_SITES,"feature_totals_sampled":totals,"road_samples":road_samples,"road_earthworks":{"support_samples":embankment_samples,"maximum_bank_drop_m":bank_drop_max,"max_transition_width_m":Landscape.MAX_EARTHWORK,"connector_length_ratios":curvature},"rock_formations":Landscape.ROCK_FORMATIONS.size(),"terrain_rocks":"heightfield formations; no rock mesh species"}
 	FileAccess.open(output+"/results.json",FileAccess.WRITE).store_string(JSON.stringify(report,"\t"));print(JSON.stringify(report));quit(0 if errors.is_empty() else 1)

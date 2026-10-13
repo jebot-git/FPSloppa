@@ -1,20 +1,126 @@
 {
   "units": "metres",
   "world_area_m2": 8000000,
-  "world_side_m": 2828.4271247461903,
+  "world_side_m": 2828.42712474619,
   "existing_sites": [
-    {"name":"town","position":[-850,55,-600]},
-    {"name":"factory","position":[750,110,-720]},
-    {"name":"port","position":[-650,2.4,750]},
-    {"name":"military","position":[700,135,600]},
-    {"name":"radar","position":[0,85,4]}
+    {
+      "name": "town",
+      "position": [
+        -850,
+        55,
+        -600
+      ],
+      "kind": 0
+    },
+    {
+      "name": "factory",
+      "position": [
+        750,
+        110,
+        -720
+      ],
+      "kind": 1
+    },
+    {
+      "name": "port",
+      "position": [
+        -650,
+        2.4,
+        750
+      ],
+      "kind": 2
+    },
+    {
+      "name": "military",
+      "position": [
+        700,
+        135,
+        600
+      ],
+      "kind": 3
+    },
+    {
+      "name": "radar",
+      "position": [
+        0,
+        85,
+        4
+      ],
+      "kind": 4
+    },
+    {
+      "name": "west ridge relay",
+      "position": [
+        -1050,
+        110,
+        350
+      ],
+      "pad_half_width_m": 40,
+      "kind": 5,
+      "design": "Communications relay",
+      "features": "Two-storey control building, power room, 33 m lattice mast, small dish and battery banks"
+    },
+    {
+      "name": "canyon crossing",
+      "position": [
+        -400,
+        48,
+        -350
+      ],
+      "pad_half_width_m": 35,
+      "kind": 6,
+      "design": "Steel truss crossing",
+      "features": "58 m low bridge deck, open side approaches, guardhouse and inspection office"
+    },
+    {
+      "name": "river expedition camp",
+      "position": [
+        250,
+        58,
+        1000
+      ],
+      "pad_half_width_m": 45,
+      "kind": 7,
+      "design": "Expedition camp",
+      "features": "Field laboratory, bunkhouse, two walk-through canvas tents, water tank and weather mast"
+    },
+    {
+      "name": "canopy outpost",
+      "position": [
+        350,
+        100,
+        -280
+      ],
+      "pad_half_width_m": 42,
+      "kind": 8,
+      "design": "Timber canopy outpost",
+      "features": "Three-storey watchtower, two-storey quarters, storehouse and open log shelter"
+    },
+    {
+      "name": "summit observatory",
+      "position": [
+        -200,
+        350,
+        -1100
+      ],
+      "pad_half_width_m": 38,
+      "kind": 9,
+      "design": "Summit observatory",
+      "features": "Two-storey telescope building with slotted dome, instrument lab and weather terrace"
+    },
+    {
+      "name": "east ruins",
+      "position": [
+        1100,
+        175,
+        450
+      ],
+      "pad_half_width_m": 50,
+      "kind": 10,
+      "design": "Ruined stone precinct",
+      "features": "Three open courtyards, column-and-lintel ruins, altar and archaeology shelter"
+    }
   ],
-  "reserved_sites": [
-    {"name":"west ridge relay","position":[-1050,110,350],"pad_half_width_m":40},
-    {"name":"canyon crossing","position":[-400,48,-350],"pad_half_width_m":35},
-    {"name":"river expedition camp","position":[250,58,1000],"pad_half_width_m":45},
-    {"name":"canopy outpost","position":[350,100,-280],"pad_half_width_m":42},
-    {"name":"summit observatory","position":[-200,350,-1100],"pad_half_width_m":38},
-    {"name":"east ruins","position":[1100,175,450],"pad_half_width_m":50}
-  ]
+  "reserved_sites": [],
+  "structure_lods": "Three shared opaque meshes per site, near physical collision independent of visual LOD and residency."
 }

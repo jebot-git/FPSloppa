@@ -14,10 +14,10 @@ func run() -> void:
 	for position in map.spawn_positions:
 		var hit:=space.intersect_ray(PhysicsRayQueryParameters3D.create(position+Vector3.UP*.3,position-Vector3.UP,1))
 		check(not hit.is_empty(),"spawn remains physically grounded")
-	for site in Map.Landscape.FUTURE_SITES:
+	for site in Map.Landscape.ADDITIONAL_SITES:
 		var p: Vector3=site.position
 		var hit:=space.intersect_ray(PhysicsRayQueryParameters3D.create(p+Vector3.UP*.3,p-Vector3.UP,1))
-		check(not hit.is_empty() and absf(hit.position.y-p.y)<.02,"reserved site physically grounded "+site.name)
+		check(not hit.is_empty() and hit.position.y>=p.y-.02 and hit.position.y<=p.y+.4,"authored site has ground within step height "+site.name)
 	for x in [-Map.LIMIT+5,Map.LIMIT-5]:
 		for z in [-Map.LIMIT+5,Map.LIMIT-5]:
 			var p:=Vector3(x,Map.Landscape.surface(x,z).x,z)
@@ -25,10 +25,16 @@ func run() -> void:
 			check(not hit.is_empty(),"terrain collision reaches world corner")
 	var port: Vector3=Map.Landscape.CENTERS[2]
 	var water:=Vector3(port.x,0,port.z+200)
-	check(space.intersect_ray(PhysicsRayQueryParameters3D.create(water+Vector3.UP,water-Vector3.UP*2,1)).is_empty(),"water has no walkable heightfield collider")
+	var bed:Dictionary=space.intersect_ray(PhysicsRayQueryParameters3D.create(water,water-Vector3.UP*12,1))
+	check(not bed.is_empty() and absf(bed.position.y+8)<.1,"solid seabed stops sinking")
+	check(space.intersect_ray(PhysicsRayQueryParameters3D.create(water+Vector3.UP,water-Vector3.UP*2,1)).is_empty(),"water surface has no collider")
+	for bridge in map.waterways.bridges:
+		var p:Vector3=bridge.frame.origin
+		var hit:Dictionary=space.intersect_ray(PhysicsRayQueryParameters3D.create(p+Vector3.UP,p-Vector3.UP,1))
+		check(not hit.is_empty(),"road crossing retains solid bridge deck")
 	for row in map.geometry:
 		if row.size.y==680:check(absf(row.get_center().x)>Map.LIMIT or absf(row.get_center().z)>Map.LIMIT,"boundary beyond road extent")
-	var report:={"checks":checks,"errors":errors,"environment_colliders":map.environment_colliders,"wall_boxes":map.geometry.size(),"setup_seconds":(Time.get_ticks_msec()-begin)/1000.0,"heightmap_samples":Map.COLLISION_SIDE*Map.COLLISION_SIDE}
+	var report:={"checks":checks,"errors":errors,"environment_colliders":map.environment_colliders,"wall_boxes":map.geometry.size(),"setup_seconds":(Time.get_ticks_msec()-begin)/1000.0,"heightmap_samples":Map.COLLISION_SIDE*Map.COLLISION_SIDE,"river_bridge_sections":map.waterways.bridges.size()}
 	if OS.get_cmdline_user_args().has("--nav"):
 		var start:=Time.get_ticks_msec()
 		var chunks=await preload("res://tools/voxel_battle/jungle_navigation.gd").build(map)
@@ -74,7 +80,7 @@ func run() -> void:
 			polygons+=child.navigation_mesh.get_polygon_count()
 			for vertex in child.navigation_mesh.get_vertices():
 				if Map.Landscape.in_water(vertex):submerged+=1
-		check(submerged==0,"navmesh has no lethal water vertices")
+		check(submerged==0,"navmesh has no submerged walking vertices")
 		report.navigation={"polygons":polygons,"chunks":chunks.get_meta("chunks"),"seam_links":chunks.get_meta("seam_links"),"seconds":(Time.get_ticks_msec()-start)/1000.0,"cache":preload("res://tools/voxel_battle/jungle_navigation.gd").cache_path(map),"water_vertices":submerged}
 
 	report.checks=checks;report.errors=errors
