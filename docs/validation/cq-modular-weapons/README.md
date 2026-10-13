@@ -1,5 +1,7 @@
 Shared CQ firearm prototype, Godot 4.7.2 / Blender 4.5.9, 2026-10-13.
 
+This records the initial detailed prototype. Current runtime exports have since been [optimised and rebaked](../cq-weapon-optimization/README.md), retaining these detailed authoring files as source references.
+
 ![Shared firearm progression](family.png)
 
 All ten firearms are rebuilt from the original CC0 carbine modules, following the supplied orange/black reference. The receiver, grip, bridge, housings and finish stay consistent across classes. The discarded T2 decimation studies are not used. Models preserve manufactured bevels, clean normals and one baked 1,024×1,024 atlas/material. Geometry optimisation is deferred: exported firearms currently contain 2,637–5,720 triangles, explicitly marked `optimization_pending` in the manifest. Utility cases/tools retain their earlier budget.

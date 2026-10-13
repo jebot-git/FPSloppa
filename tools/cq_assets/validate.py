@@ -10,7 +10,7 @@ for name,info in manifest.items():
  assert triangles==info['triangles'],(name,triangles)
  if not info.get('optimization_pending',False):assert triangles+runtime<1000,(name,triangles)
  assert len(data.get('images',[]))==len(data.get('textures',[]))==len(data.get('materials',[]))==1,name
- if info.get('optimization_pending',False):
+ if info.get('texture_size')==[1024,1024]:
   assert all('TEXCOORD_0' in p['attributes'] and 'TEXCOORD_1' not in p['attributes'] for mesh in data['meshes'] for p in mesh['primitives']),name
   png=(assets/(name+'.png')).read_bytes();assert struct.unpack_from('>II',png,16)==(1024,1024),name
   assert 'InsertedAmmo' in [n.get('name') for n in data['nodes']],name

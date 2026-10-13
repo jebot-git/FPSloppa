@@ -1,0 +1,164 @@
+{
+  "engine": "4.7.2-stable (official)",
+  "gpu": "Intel(R) Graphics (ADL-N)",
+  "msaa": 4,
+  "renderer": "forward_plus",
+  "resolution": [
+    1280,
+    800
+  ],
+  "samples": [
+    {
+      "cpu_ms": {
+        "median": 0.674000024795532,
+        "p95": 0.865000009536743
+      },
+      "draw_calls": {
+        "median": 30.0,
+        "p95": 30.0
+      },
+      "frame_ms": {
+        "median": 12.778,
+        "p95": 14.286
+      },
+      "gpu_ms": {
+        "median": 12.2279996871948,
+        "p95": 13.1579999923706
+      },
+      "pass": 0,
+      "primitives": {
+        "median": 148029.0,
+        "p95": 148029.0
+      },
+      "samples": 240,
+      "variant": "baseline"
+    },
+    {
+      "cpu_ms": {
+        "median": 0.686999976634979,
+        "p95": 1.16600000858307
+      },
+      "draw_calls": {
+        "median": 30.0,
+        "p95": 30.0
+      },
+      "frame_ms": {
+        "median": 11.401,
+        "p95": 12.428
+      },
+      "gpu_ms": {
+        "median": 10.8660001754761,
+        "p95": 11.5860004425049
+      },
+      "pass": 1,
+      "primitives": {
+        "median": 27498.0,
+        "p95": 27498.0
+      },
+      "samples": 240,
+      "variant": "optimized"
+    },
+    {
+      "cpu_ms": {
+        "median": 0.689000010490417,
+        "p95": 0.950999975204468
+      },
+      "draw_calls": {
+        "median": 30.0,
+        "p95": 30.0
+      },
+      "frame_ms": {
+        "median": 12.702,
+        "p95": 13.264
+      },
+      "gpu_ms": {
+        "median": 12.1639995574951,
+        "p95": 12.460000038147
+      },
+      "pass": 2,
+      "primitives": {
+        "median": 148029.0,
+        "p95": 148029.0
+      },
+      "samples": 240,
+      "variant": "baseline"
+    },
+    {
+      "cpu_ms": {
+        "median": 0.689999997615814,
+        "p95": 1.16299998760223
+      },
+      "draw_calls": {
+        "median": 30.0,
+        "p95": 30.0
+      },
+      "frame_ms": {
+        "median": 11.323,
+        "p95": 12.652
+      },
+      "gpu_ms": {
+        "median": 10.7659997940063,
+        "p95": 11.7810001373291
+      },
+      "pass": 3,
+      "primitives": {
+        "median": 27498.0,
+        "p95": 27498.0
+      },
+      "samples": 240,
+      "variant": "optimized"
+    },
+    {
+      "cpu_ms": {
+        "median": 0.689000010490417,
+        "p95": 1.07700002193451
+      },
+      "draw_calls": {
+        "median": 30.0,
+        "p95": 30.0
+      },
+      "frame_ms": {
+        "median": 12.707,
+        "p95": 13.213
+      },
+      "gpu_ms": {
+        "median": 12.1850004196167,
+        "p95": 12.4709997177124
+      },
+      "pass": 4,
+      "primitives": {
+        "median": 148029.0,
+        "p95": 148029.0
+      },
+      "samples": 240,
+      "variant": "baseline"
+    },
+    {
+      "cpu_ms": {
+        "median": 0.684000015258789,
+        "p95": 1.12899994850159
+      },
+      "draw_calls": {
+        "median": 30.0,
+        "p95": 30.0
+      },
+      "frame_ms": {
+        "median": 11.335,
+        "p95": 12.22
+      },
+      "gpu_ms": {
+        "median": 10.8229999542236,
+        "p95": 11.4440002441406
+      },
+      "pass": 5,
+      "primitives": {
+        "median": 27498.0,
+        "p95": 27498.0
+      },
+      "samples": 240,
+      "variant": "optimized"
+    }
+  ],
+  "vsync": false,
+  "weapons": 32
+}

@@ -1,11 +1,12 @@
-"""Author the CQ weapon family from Felix Kütt's original carbine, without decimation.
-Blender: --python build_modular.py -- SOURCE_DIR OUTPUT_DIR [--only NAME]
+"""Author the CQ weapon family from Felix Kütt's original carbine, without collapse decimation.
+Blender: --python build_modular.py -- SOURCE_DIR OUTPUT_DIR [--only NAME] [--optimized] [--audit]
 """
 import bpy,bmesh,math,json,sys
 from pathlib import Path
 from mathutils import Vector,Matrix
 args=sys.argv[sys.argv.index('--')+1:];src=Path(args[0]).resolve();out=Path(args[1]).resolve()
-repo=Path(__file__).resolve().parents[2];authoring=Path(__file__).with_name('modular_authoring');authoring.mkdir(exist_ok=True)
+optimized='--optimized' in args
+repo=Path(__file__).resolve().parents[2];authoring=Path(__file__).with_name('optimized_authoring' if optimized else 'modular_authoring');authoring.mkdir(exist_ok=True)
 manifest=json.loads((out/'manifest.json').read_text())
 for obsolete in ('akira','beam_rifle'):manifest.pop(obsolete,None)
 def clear():
@@ -65,7 +66,7 @@ def box(name,p,size,material,scale,bevel=True):
 
 def tube(name,y,z,r,length,scale,x=0,material=None):
  # An open bore with an actual wall and lip, instead of a capped cylinder.
- n=16;verts=[]
+ n=8 if optimized else 16;verts=[]
  for yy,rr in [(y-length/2,r),(y+length/2,r),(y-length/2,r*.65),(y+length/2,r*.65)]:
   for i in range(n):
    t=math.tau*i/n;verts.append(tuple((Vector((x+rr*math.cos(t),yy,z+rr*math.sin(t)))-Vector((0,-3,-2)))*scale))
@@ -152,16 +153,30 @@ for name in names:
   objects.append(box('Upper ceramic charge mark',(0,6.2,3.12),(1.1,.72,.12),white,scale))
  # A real movable charging handle, using the common receiver slot.
  handle=box('ChargingHandle',(.95,-1.7,1.75),(.8,.75,.38),steel,scale);objects.append(handle)
- # Preserve clean hard surfaces. Chamfers supply highlights; no mesh reduction.
+ # Keep source housing chamfers; optimized receiver edges get one bevel segment.
  for obj in objects:
   bpy.context.view_layer.objects.active=obj
-  bevel=obj.modifiers.new('Small manufactured bevel','BEVEL');bevel.width=.045*scale;bevel.segments=2;bevel.limit_method=select_enum(bevel,'limit_method','ANGLE')
-  try:bpy.ops.object.modifier_apply(modifier=bevel.name)
+  if optimized:
+   bm=bmesh.new();bm.from_mesh(obj.data)
+   bmesh.ops.remove_doubles(bm,verts=list(bm.verts),dist=.000001)
+   bmesh.ops.dissolve_limit(bm,angle_limit=math.radians(.5),verts=list(bm.verts),edges=list(bm.edges),delimit={'MATERIAL'})
+   bm.to_mesh(obj.data);bm.free();obj.data.update()
+  bevel=obj.modifiers.new('Small manufactured bevel','BEVEL');bevel.width=.045*scale;bevel.segments=1 if optimized else 2;bevel.limit_method=select_enum(bevel,'limit_method','ANGLE');bevel.angle_limit=math.radians(60) if optimized else math.radians(30)
+  bevel_name=bevel.name
+  if optimized and obj.name!='Receiver':
+   obj.modifiers.remove(bevel)
+  try:
+   if bevel_name in obj.modifiers:bpy.ops.object.modifier_apply(modifier=bevel_name)
   except RuntimeError:obj.modifiers.clear()
   for face in obj.data.polygons:face.use_smooth=True
   obj.data.set_sharp_from_angle(angle=math.radians(35))
   normal=obj.modifiers.new('Area weighted normals','WEIGHTED_NORMAL');normal.keep_sharp=True
   bpy.ops.object.modifier_apply(modifier=normal.name)
+ if '--audit' in args:
+  rows=[]
+  for obj in objects:
+   obj.data.calc_loop_triangles();rows.append((obj.name,len(obj.data.loop_triangles)))
+  print('GEOMETRY_AUDIT',name,sum(r[1] for r in rows),rows,flush=True);continue
  # Keep the editable individual modules in the Blender authoring file.
  raw_collection=bpy.data.collections.new(name+' editable modules');bpy.context.scene.collection.children.link(raw_collection)
  for obj in objects:
@@ -200,6 +215,7 @@ for name in names:
  image.filepath_raw=str(out/(name+'.png'));image.file_format=select_enum(image,'file_format','PNG');image.save();image.pack()
  # Preserve the movable handle's baked UVs when separating it from the body.
  target.data.calc_loop_triangles();count=len(target.data.loop_triangles)
+ if optimized:assert count<1000,(name,count)
  exported=[target]
  handle.name='EditableChargingHandle'
  for group_name,node_name in [('ChargingHandleMesh','ChargingHandle'),('InsertedAmmoMesh','InsertedAmmo')]:
@@ -220,7 +236,7 @@ for name in names:
  bpy.ops.export_scene.gltf(filepath=str(out/(name+'.glb')),export_format='GLB',use_selection=True,export_yup=True)
  bounds=[[min((o.matrix_world@v.co)[i] for o in exported for v in o.data.vertices),max((o.matrix_world@v.co)[i] for o in exported for v in o.data.vertices)] for i in range(3)]
  tip=8.85 if name=='scout_pistol' else 8.15 if name=='beam_pistol' else 6.3 if pistol else end+2.05 if heavy else end+2
- data={'triangles':count,'materials':1,'textures':1,'texture_size':[1024,1024],'bounds_blender':bounds,'muzzle':game_point((0,tip,1.12),scale),'construction':'original carbine modules; authored variants; no decimation','optimization_pending':True}
+ data={'triangles':count,'materials':1,'textures':1,'texture_size':[1024,1024],'bounds_blender':bounds,'muzzle':game_point((0,tip,1.12),scale),'construction':'original carbine modules; selective bevels, planar dissolve and octagonal bores' if optimized else 'original carbine modules; authored variants; no decimation','optimization_pending':not optimized}
  if name in ('carbine','smg','burst_pistol','designator'):data['red_dot_position']=game_point((0,-1.1,4.0),scale)
  if name=='assault_rifle':data.update(scope_rear=game_point((0,-1.3,4.0),scale),scope_front=game_point((0,-.9,4.0),scale),scope_radius=.65*scale,zoom_steps=[1.5],red_dot=True)
  if name in ('beam_pistol','scout_pistol'):data.update(scope_rear=game_point((0,-4.22,4.3),scale),scope_front=game_point((0,3.22,4.3),scale),scope_radius=.6*scale,zoom_steps=[2.0,4.0,8.0] if name=='beam_pistol' else [1.5,3.0,6.0])
@@ -231,4 +247,4 @@ for name in names:
    if node.type=='TEX_IMAGE':material.node_tree.nodes.remove(node)
  bpy.ops.wm.save_as_mainfile(filepath=str(authoring/(name+'.blend')),compress=True)
  print('CQ_MODULAR',name,count,flush=True)
-(out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+if '--audit' not in args:(out/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')

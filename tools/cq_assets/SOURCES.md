@@ -19,7 +19,7 @@ The current firearm family replaces the failed T2 decimation experiment and rebu
 
 `modular_finish.kra` is the editable orange/graphite/ceramic/steel palette painted through Krita MCP. `modular_authoring/*.blend` retains the named editable modules and the corresponding baked export. Blender 4.5.9 LTS and Blender MCP were used to author and inspect the new family. The exported weapons have one 1,024×1,024 atlas and one material each; charging handles and magazines/packs retain that atlas on separate movable nodes. Source render visibility is disabled during the target AO bake. Source UV maps are replaced with one square atlas UV map.
 
-Geometry optimization is deliberately deferred at the user's request: these are shape/finish prototypes, with manufactured bevels and weighted normals, and **are not under the earlier 1,000-triangle limit**. The manifest marks them `optimization_pending`. Tools/cases retain their previous limits. Rebuild the family after fetching the pinned carbine and sight sources:
+The initial detailed prototype deliberately deferred geometry optimization at the user's request: those are shape/finish prototypes, with manufactured bevels and weighted normals, and **are not under the earlier 1,000-triangle limit**. The initial manifest marked them `optimization_pending`; the optimised runtime exports clear this flag. Tools/cases retain their previous limits. Rebuild the family after fetching the pinned carbine and sight sources:
 
 ```sh
 blender -b --python tools/cq_assets/build_modular.py -- test-results/weapon-sources deathmatch/weapons/cq
@@ -27,3 +27,5 @@ python3 tools/cq_assets/validate.py
 ```
 
 The original `build.py` rebuilds the legacy set; run `build_modular.py` afterwards to restore the current family. New finish artwork and authored modules are CC0, matching the carbine and sight sources.
+
+The subsequent optimisation pass now supplies current runtime exports below 1,000 triangles, including reload parts. It preserves the original detailed `modular_authoring` set; editable optimised modules are in `optimized_authoring`. Material-preserving planar dissolve, selective receiver bevels and eight-sided open bores reduce geometry without collapse decimation. The target geometry is unwrapped and rebaked to the same 1K palette/AO atlas. Use `build_modular.py ... --optimized` to rebuild current runtime assets, or append `--audit` for geometry counts without baking. See [validation and rendering comparison](../../docs/validation/cq-weapon-optimization/README.md).

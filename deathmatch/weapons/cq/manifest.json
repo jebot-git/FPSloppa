@@ -1,6 +1,6 @@
 {
   "pistol": {
-    "triangles": 2637,
+    "triangles": 595,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -9,8 +9,8 @@
     ],
     "bounds_blender": [
       [
-        -0.05920639634132385,
-        0.059206414967775345
+        -0.05950000882148743,
+        0.05950001999735832
       ],
       [
         -0.07349999994039536,
@@ -26,11 +26,11 @@
       0.10919999331235886,
       -0.3255000114440918
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false
   },
   "scout_pistol": {
-    "triangles": 4605,
+    "triangles": 899,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -39,8 +39,8 @@
     ],
     "bounds_blender": [
       [
-        -0.05920639634132385,
-        0.059206414967775345
+        -0.05950000882148743,
+        0.05950001999735832
       ],
       [
         -0.2773750126361847,
@@ -56,8 +56,8 @@
       0.10919999331235886,
       -0.41475000977516174
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "scope_rear": [
       0.0,
       0.22050000727176666,
@@ -76,7 +76,7 @@
     ]
   },
   "carbine": {
-    "triangles": 4942,
+    "triangles": 903,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -85,15 +85,15 @@
     ],
     "bounds_blender": [
       [
-        -0.06768368184566498,
-        0.06768369674682617
+        -0.06800001114606857,
+        0.06800001859664917
       ],
       [
         -0.11999999731779099,
         0.6399999856948853
       ],
       [
-        -0.0881347507238388,
+        -0.08819694072008133,
         0.2587713301181793
       ]
     ],
@@ -102,8 +102,8 @@
       0.12479998916387558,
       -0.6399999856948853
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "red_dot_position": [
       0.0,
       0.23999999463558197,
@@ -111,7 +111,7 @@
     ]
   },
   "designator": {
-    "triangles": 5720,
+    "triangles": 955,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -137,8 +137,8 @@
       0.10919999331235886,
       -0.3255000114440918
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "red_dot_position": [
       0.0,
       0.21000000834465027,
@@ -146,7 +146,7 @@
     ]
   },
   "massacre": {
-    "triangles": 3922,
+    "triangles": 788,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -156,14 +156,14 @@
     "bounds_blender": [
       [
         -0.1090250015258789,
-        0.07707679271697998
+        0.07735002785921097
       ],
       [
         -0.2773750126361847,
         0.6142500042915344
       ],
       [
-        -0.0771179124712944,
+        -0.07717232406139374,
         0.23887500166893005
       ]
     ],
@@ -172,8 +172,8 @@
       0.10919999331235886,
       -0.6142500042915344
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "pack_entry": [
       -0.10849999636411667,
       0.08924999833106995,
@@ -316,7 +316,7 @@
     ]
   },
   "smg": {
-    "triangles": 5002,
+    "triangles": 903,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -325,15 +325,15 @@
     ],
     "bounds_blender": [
       [
-        -0.06766679137945175,
-        0.06766680628061295
+        -0.06800001114606857,
+        0.06800001859664917
       ],
       [
         -0.11999999731779099,
         0.5479999780654907
       ],
       [
-        -0.0881347507238388,
+        -0.08819694072008133,
         0.2587713301181793
       ]
     ],
@@ -342,8 +342,8 @@
       0.12479998916387558,
       -0.5479999780654907
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "red_dot_position": [
       0.0,
       0.23999999463558197,
@@ -351,7 +351,7 @@
     ]
   },
   "assault_rifle": {
-    "triangles": 5374,
+    "triangles": 951,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -360,15 +360,15 @@
     ],
     "bounds_blender": [
       [
-        -0.059237778186798096,
-        0.05923779308795929
+        -0.05950000882148743,
+        0.05950001999735832
       ],
       [
         -0.2773750126361847,
         0.612500011920929
       ],
       [
-        -0.0771179124712944,
+        -0.07717232406139374,
         0.226424902677536
       ]
     ],
@@ -377,8 +377,8 @@
       0.10919999331235886,
       -0.612500011920929
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "scope_rear": [
       0.0,
       0.21000000834465027,
@@ -396,7 +396,7 @@
     "red_dot": true
   },
   "burst_pistol": {
-    "triangles": 5720,
+    "triangles": 955,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -422,8 +422,8 @@
       0.10919999331235886,
       -0.3255000114440918
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "red_dot_position": [
       0.0,
       0.21000000834465027,
@@ -431,7 +431,7 @@
     ]
   },
   "beam_pistol": {
-    "triangles": 5469,
+    "triangles": 995,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -457,8 +457,8 @@
       0.10919999331235886,
       -0.39024999737739563
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "scope_rear": [
       0.0,
       0.22050000727176666,
@@ -477,7 +477,7 @@
     ]
   },
   "guided_launcher": {
-    "triangles": 3538,
+    "triangles": 724,
     "materials": 1,
     "textures": 1,
     "texture_size": [
@@ -487,14 +487,14 @@
     "bounds_blender": [
       [
         -0.1090250015258789,
-        0.07707679271697998
+        0.07735002785921097
       ],
       [
         -0.2773750126361847,
         0.6142500042915344
       ],
       [
-        -0.0771179124712944,
+        -0.07717232406139374,
         0.23887500166893005
       ]
     ],
@@ -503,8 +503,8 @@
       0.10919999331235886,
       -0.6142500042915344
     ],
-    "construction": "original carbine modules; authored variants; no decimation",
-    "optimization_pending": true,
+    "construction": "original carbine modules; selective bevels, planar dissolve and octagonal bores",
+    "optimization_pending": false,
     "pack_entry": [
       -0.10849999636411667,
       0.08924999833106995,

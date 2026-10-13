@@ -1,0 +1,101 @@
+{
+  "models": {
+    "pistol": {
+      "triangles_before": 2637,
+      "triangles_after": 595,
+      "reduction_percent": 77.44,
+      "glb_bytes_before": 570740,
+      "glb_bytes_after": 479088,
+      "max_bounds_change_metres": 0.0002936124801635742,
+      "functional_markers_unchanged": true
+    },
+    "scout_pistol": {
+      "triangles_before": 4605,
+      "triangles_after": 899,
+      "reduction_percent": 80.48,
+      "glb_bytes_before": 578012,
+      "glb_bytes_after": 434416,
+      "max_bounds_change_metres": 0.0002936124801635742,
+      "functional_markers_unchanged": true
+    },
+    "carbine": {
+      "triangles_before": 4942,
+      "triangles_after": 903,
+      "reduction_percent": 81.73,
+      "glb_bytes_before": 656420,
+      "glb_bytes_after": 481800,
+      "max_bounds_change_metres": 0.00031632930040359497,
+      "functional_markers_unchanged": true
+    },
+    "designator": {
+      "triangles_before": 5720,
+      "triangles_after": 955,
+      "reduction_percent": 83.3,
+      "glb_bytes_before": 801684,
+      "glb_bytes_after": 573028,
+      "max_bounds_change_metres": 0.0,
+      "functional_markers_unchanged": true
+    },
+    "massacre": {
+      "triangles_before": 3922,
+      "triangles_after": 788,
+      "reduction_percent": 79.91,
+      "glb_bytes_before": 616624,
+      "glb_bytes_after": 465852,
+      "max_bounds_change_metres": 0.00027323514223098755,
+      "functional_markers_unchanged": true
+    },
+    "smg": {
+      "triangles_before": 5002,
+      "triangles_after": 903,
+      "reduction_percent": 81.95,
+      "glb_bytes_before": 697416,
+      "glb_bytes_after": 496200,
+      "max_bounds_change_metres": 0.0003332197666168213,
+      "functional_markers_unchanged": true
+    },
+    "assault_rifle": {
+      "triangles_before": 5374,
+      "triangles_after": 951,
+      "reduction_percent": 82.3,
+      "glb_bytes_before": 672464,
+      "glb_bytes_after": 475472,
+      "max_bounds_change_metres": 0.00026223063468933105,
+      "functional_markers_unchanged": true
+    },
+    "burst_pistol": {
+      "triangles_before": 5720,
+      "triangles_after": 955,
+      "reduction_percent": 83.3,
+      "glb_bytes_before": 801692,
+      "glb_bytes_after": 573032,
+      "max_bounds_change_metres": 0.0,
+      "functional_markers_unchanged": true
+    },
+    "beam_pistol": {
+      "triangles_before": 5469,
+      "triangles_after": 995,
+      "reduction_percent": 81.81,
+      "glb_bytes_before": 678364,
+      "glb_bytes_after": 484812,
+      "max_bounds_change_metres": 0.0,
+      "functional_markers_unchanged": true
+    },
+    "guided_launcher": {
+      "triangles_before": 3538,
+      "triangles_after": 724,
+      "reduction_percent": 79.54,
+      "glb_bytes_before": 627164,
+      "glb_bytes_after": 488144,
+      "max_bounds_change_metres": 0.00027323514223098755,
+      "functional_markers_unchanged": true
+    }
+  },
+  "totals": {
+    "triangles_before": 46929,
+    "triangles_after": 8668,
+    "glb_bytes_before": 6700580,
+    "glb_bytes_after": 4951844
+  },
+  "errors": []
+}
