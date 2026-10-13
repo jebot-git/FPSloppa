@@ -1,0 +1,46 @@
+{
+  "implementation": {
+    "avatar_format": "UT99 vertex animation; existing VRM skeleton LOD code is separate",
+    "ik_nominal_distance_m": 12,
+    "ik_exit_m": 13.8,
+    "ik_enter_m": 10.2,
+    "ik_fade_seconds": 0.15,
+    "mesh_nominal_distance_m": [
+      18,
+      45
+    ],
+    "mesh_exit_m": [
+      20.7,
+      51.75
+    ],
+    "mesh_enter_m": [
+      15.3,
+      38.25
+    ],
+    "fov_reference_degrees": 85,
+    "xr_policy": "Physical distance from active XRCamera3D; local first-person and previews remain full detail. XR rendering performance not measured.",
+    "mesh_policy": "Shared full / approximately 50% / approximately 25% triangle index meshes. Positions, original animated vertex IDs, skin UVs, IK weights, material and conservative animation/IK bounds are unchanged between tiers. Animation textures are shared and never resampled.",
+    "preparation": "Generate once per decoded model/skin during library preparation, never in an avatar frame update. Inputs over 30000 corners retain full geometry. Rejected altered attributes also retain full geometry.",
+    "fallback": "GPU original vertex animation continues every frame. Stop CPU head/arm solves after distance fade. Retire shader IK flags once. Fade held weapon presentation with IK; death and lost tracking disable IK immediately.",
+    "overrides": "distance_ik_enabled and mesh_lod_enabled support independent comparisons; set_first_person, preview_mode and missing camera retain full detail."
+  },
+  "limitations": [
+    "Index-only simplification uses the reference shape; no all-frame geometric error bound is claimed. Magnified review images show loss of small face/limb details at the far tier; deployed only at small projected size.",
+    "Mesh transitions use hysteresis, without geomorphing. Vertex buffers and animation texture memory are not reduced; the optimization reduces submitted triangles and vertex shader work.",
+    "32-avatar timing is an isolated mono Vulkan render test, not an admission-limit result for the jungle map, combat, networking or actual stereo XR. Both baseline and optimized cases use the new full-detail indexed mesh and shader; repeated cases show CPU/GPU timing variation."
+  ],
+  "commands": {
+    "validation": "godot --headless --path . --xr-mode off --script deathmatch/tests/ut99_lod.gd",
+    "avatars": "godot --headless --path . --xr-mode off --script deathmatch/tests/ut99_avatars.gd",
+    "ik": "godot --headless --path . --xr-mode off --script deathmatch/tests/ut99_ik.gd",
+    "benchmark": "godot --path . --xr-mode off --rendering-method mobile --rendering-driver vulkan --script tools/ut99_avatar/benchmark_lod.gd",
+    "review": "godot --path . --xr-mode off --rendering-method mobile --rendering-driver vulkan --script tools/ut99_avatar/review_lod.gd"
+  },
+  "review": "Screenshots of run, crouch, jump and early death compare full/medium/far rows at the same magnified size; these intentionally expose far-detail loss. Layout screenshots come from measured benchmark cases.",
+  "environment": {
+    "cpu": "Intel N95",
+    "gpu": "Intel Graphics ADL-N",
+    "godot": "4.7.2 stable official ed1daf0bf",
+    "date": "2026-10-13"
+  }
+}

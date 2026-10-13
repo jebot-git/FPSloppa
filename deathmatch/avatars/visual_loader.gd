@@ -35,7 +35,8 @@ static func prepare_avatar(library:Node,hash:String,_wait:bool=false) -> bool:
 	mesh.surface_set_material(0,material)
 	var b:Array=m.bounds;mesh.custom_aabb=AABB(Vector3(b[0],b[1],b[2]),Vector3(b[3],b[4],b[5])).grow(.03)
 	if m.has("arm_profile") or m.has("ik_profile"):mesh.custom_aabb=mesh.custom_aabb.merge(AABB(Vector3(-1.7,-1,-1.7),Vector3(3.4,5,3.4)))
-	library.scenes[hash]={"mesh":mesh,"clips":m.clips,"arm_profile":m.get("ik_profile",{})};library.touch_scene(hash);library.prune_scenes(hash);library.last_error=""
+	var lods:=preload("res://deathmatch/avatars/vertex_lod.gd").build(mesh)
+	library.scenes[hash]={"mesh":lods[0],"lod_meshes":lods,"clips":m.clips,"arm_profile":m.get("ik_profile",{})};library.touch_scene(hash);library.prune_scenes(hash);library.last_error=""
 	return true
 static func create_avatar(library:Node,hash:String) -> Node3D:
 	if not prepare_avatar(library,hash,true):return null

@@ -1,6 +1,19 @@
 extends Node3D
 ## Original UT99 vertex animation. Shared mesh/skin/frame texture; instance uniforms only.
 const Art=preload("res://deathmatch/art.gd")
+const LOD=preload("res://deathmatch/avatars/vertex_lod.gd")
+const IK=preload("res://deathmatch/avatars/controller_arms.gd")
+const IK_DISTANCE:=12.0
+const IK_FADE_SECONDS:=.15
+var distance_ik_enabled:=true
+var mesh_lod_enabled:=true
+var first_person:=false
+var ik_near:=true
+var ik_weight:=0.0
+var mesh_tier:=0
+var effective_distance:=0.0
+var lod_meshes:Array=[]
+var ik_uniforms_active:=false
 var avatar_hash:=""
 var unarmed:=false
 var target_xr_pose:Dictionary={}
@@ -32,9 +45,11 @@ var firing:=0.0
 var selected_sequence:="" # Preview can select any original clip.
 func configure(data:Dictionary) -> void:
 	clips=data.clips;arm_profile=data.get("arm_profile",{})
+	lod_meshes=data.get("lod_meshes",[data.mesh,data.mesh,data.mesh])
 	visual=MeshInstance3D.new();visual.mesh=data.mesh;add_child(visual)
 	visual.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 func set_first_person(value:bool) -> void:
+	first_person=value
 	visible=not value # No head hiding, skeleton, body IK or expression channels.
 var weapon_rules:="doom"
 func set_weapon(id:int,rules_override:String="") -> void:
@@ -79,9 +94,18 @@ func _process(delta:float) -> void:
 	var a:=floori(frame);var b:=mini(a+1,int(clip.count)-1) if dead else (a+1)%int(clip.count)
 	var frames:=Vector3(int(clip.start)+a,int(clip.start)+b,frame-a)
 	visual.set_instance_shader_parameter("animation_frames",frames)
-	var arm_start:=Time.get_ticks_usec()
-	tracked_arms_active=preload("res://deathmatch/avatars/controller_arms.gd").update(visual,arm_profile,target_xr_pose if tracked_arms_enabled and not dead else {},frames)
-	arm_update_ms=(Time.get_ticks_usec()-arm_start)/1000.0
+	update_lod(delta)
+	arm_update_ms=0.0
+	tracked_arms_active=false
+	if ik_weight>0:
+		var arm_start:=Time.get_ticks_usec()
+		tracked_arms_active=IK.update(visual,arm_profile,target_xr_pose,frames)
+		arm_update_ms=(Time.get_ticks_usec()-arm_start)/1000.0
+		ik_uniforms_active=true
+	elif ik_uniforms_active:
+		visual.set_instance_shader_parameter("tracked_arms",false)
+		visual.set_instance_shader_parameter("tracked_head",false)
+		ik_uniforms_active=false
 	visual.scale=Vector3.ONE
 	visual.rotation=Vector3.ZERO
 	if stance=="prone" and not dead:
@@ -94,8 +118,23 @@ func _process(delta:float) -> void:
 		var offhand:bool=held==offhand_gun
 		var id:int=2 if offhand else weapon_id
 		var pose_key:="offhand_weapon" if offhand else "weapon"
-		if target_xr_pose.has(pose_key):
-			held.transform=Art.held_transform(target_xr_pose[pose_key],id,Art.VR_SCALE,weapon_rules)
-		else:
-			var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch),Art.desktop_hand(offhand,aim_pitch,0,offhand))
-			held.transform=Art.held_transform(grip,id,.48,weapon_rules)
+		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch),Art.desktop_hand(offhand,aim_pitch,0,offhand))
+		held.transform=Art.held_transform(grip,id,.48,weapon_rules)
+		if ik_weight>0 and target_xr_pose.has(pose_key):
+			held.transform=held.transform.interpolate_with(Art.held_transform(target_xr_pose[pose_key],id,Art.VR_SCALE,weapon_rules),ik_weight)
+func update_lod(delta:float) -> void:
+	var camera:=get_viewport().get_camera_3d()
+	effective_distance=LOD.effective_distance(global_position,camera)
+	var detailed:=first_person or preview_mode>=0 or camera==null
+	if detailed or not distance_ik_enabled:ik_near=true
+	elif ik_near and effective_distance>IK_DISTANCE*1.15:ik_near=false
+	elif not ik_near and effective_distance<IK_DISTANCE*.85:ik_near=true
+	var eligible:=tracked_arms_enabled and not dead and arm_profile.has("sockets") and target_xr_pose.has("head")
+	var desired:=1.0 if ik_near and eligible else 0.0
+	# Only distance transitions fade. Death/lost tracking retires stale IK at once.
+	var weight:=move_toward(ik_weight,desired,maxf(0,delta)/IK_FADE_SECONDS) if eligible else 0.0
+	if weight!=ik_weight:
+		ik_weight=weight;visual.set_instance_shader_parameter("ik_weight",ik_weight)
+	var tier:=0 if detailed or not mesh_lod_enabled else LOD.choose_tier(mesh_tier,effective_distance)
+	if tier!=mesh_tier:
+		mesh_tier=tier;visual.mesh=lod_meshes[tier]
