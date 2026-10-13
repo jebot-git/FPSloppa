@@ -1,0 +1,719 @@
+{
+	"by_view": {
+		"Canopy edge/billboard": {
+			"draw_calls": {
+				"max": 32.0,
+				"p50": 32.0,
+				"p95": 32.0,
+				"p99": 32.0,
+				"samples": 4756
+			},
+			"foliage_triangles": {
+				"max": 2166,
+				"p50": 2166,
+				"p95": 2166,
+				"p99": 2166,
+				"samples": 4756
+			},
+			"frame_ms": {
+				"max": 8.656,
+				"p50": 3.139,
+				"p95": 5.211,
+				"p99": 6.88,
+				"samples": 4756
+			},
+			"frames": 4756,
+			"resident_features": {
+				"max": 3739,
+				"p50": 3739,
+				"p95": 3739,
+				"p99": 3739,
+				"samples": 4756
+			},
+			"settled_frames": 4756,
+			"viewport_gpu_ms": {
+				"max": 6.13599982857704,
+				"p50": 2.35599994659424,
+				"p95": 4.59999990463257,
+				"p99": 5.45000022649765,
+				"samples": 4756
+			},
+			"visible_features": {
+				"max": 949,
+				"p50": 949,
+				"p95": 949,
+				"p99": 949,
+				"samples": 4756
+			}
+		},
+		"Canopy edge/hybrid": {
+			"draw_calls": {
+				"max": 32.0,
+				"p50": 32.0,
+				"p95": 32.0,
+				"p99": 32.0,
+				"samples": 7353
+			},
+			"foliage_triangles": {
+				"max": 52962,
+				"p50": 52962,
+				"p95": 52962,
+				"p99": 52962,
+				"samples": 7353
+			},
+			"frame_ms": {
+				"max": 6.677,
+				"p50": 1.925,
+				"p95": 4.266,
+				"p99": 5.043,
+				"samples": 7353
+			},
+			"frames": 7353,
+			"resident_features": {
+				"max": 3739,
+				"p50": 3739,
+				"p95": 3739,
+				"p99": 3739,
+				"samples": 7353
+			},
+			"settled_frames": 7353,
+			"viewport_gpu_ms": {
+				"max": 6.01000019907951,
+				"p50": 0.533000007271767,
+				"p95": 3.57399989664555,
+				"p99": 4.32400007545948,
+				"samples": 7353
+			},
+			"visible_features": {
+				"max": 949,
+				"p50": 949,
+				"p95": 949,
+				"p99": 949,
+				"samples": 7353
+			}
+		},
+		"Canopy edge/mesh": {
+			"draw_calls": {
+				"max": 32.0,
+				"p50": 32.0,
+				"p95": 32.0,
+				"p99": 32.0,
+				"samples": 7360
+			},
+			"foliage_triangles": {
+				"max": 147326,
+				"p50": 147326,
+				"p95": 147326,
+				"p99": 147326,
+				"samples": 7360
+			},
+			"frame_ms": {
+				"max": 6.123,
+				"p50": 1.921,
+				"p95": 4.287,
+				"p99": 5.111,
+				"samples": 7360
+			},
+			"frames": 7360,
+			"resident_features": {
+				"max": 3739,
+				"p50": 3739,
+				"p95": 3739,
+				"p99": 3739,
+				"samples": 7360
+			},
+			"settled_frames": 7360,
+			"viewport_gpu_ms": {
+				"max": 5.34599986672401,
+				"p50": 0.54899999499321,
+				"p95": 3.48400005698204,
+				"p99": 4.32699996232986,
+				"samples": 7360
+			},
+			"visible_features": {
+				"max": 949,
+				"p50": 949,
+				"p95": 949,
+				"p99": 949,
+				"samples": 7360
+			}
+		},
+		"Canopy edge/svo": {
+			"draw_calls": {
+				"max": 32.0,
+				"p50": 32.0,
+				"p95": 32.0,
+				"p99": 32.0,
+				"samples": 274
+			},
+			"foliage_triangles": {
+				"max": 10596,
+				"p50": 10596,
+				"p95": 10596,
+				"p99": 10596,
+				"samples": 274
+			},
+			"frame_ms": {
+				"max": 59.132,
+				"p50": 54.661,
+				"p95": 56.912,
+				"p99": 57.399,
+				"samples": 274
+			},
+			"frames": 274,
+			"resident_features": {
+				"max": 3739,
+				"p50": 3739,
+				"p95": 3739,
+				"p99": 3739,
+				"samples": 274
+			},
+			"settled_frames": 274,
+			"viewport_gpu_ms": {
+				"max": 59.1159992218018,
+				"p50": 54.5279998779297,
+				"p95": 56.7870006561279,
+				"p99": 57.3169994354248,
+				"samples": 274
+			},
+			"visible_features": {
+				"max": 949,
+				"p50": 949,
+				"p95": 949,
+				"p99": 949,
+				"samples": 274
+			}
+		},
+		"Canyon overlook/billboard": {
+			"draw_calls": {
+				"max": 30.0,
+				"p50": 30.0,
+				"p95": 30.0,
+				"p99": 30.0,
+				"samples": 6414
+			},
+			"foliage_triangles": {
+				"max": 2226,
+				"p50": 2226,
+				"p95": 2226,
+				"p99": 2226,
+				"samples": 6414
+			},
+			"frame_ms": {
+				"max": 5.83,
+				"p50": 2.241,
+				"p95": 4.513,
+				"p99": 5.324,
+				"samples": 6414
+			},
+			"frames": 6414,
+			"resident_features": {
+				"max": 3659,
+				"p50": 3659,
+				"p95": 3659,
+				"p99": 3659,
+				"samples": 6414
+			},
+			"settled_frames": 6414,
+			"viewport_gpu_ms": {
+				"max": 5.69600015878677,
+				"p50": 0.864000022411346,
+				"p95": 4.14299994707108,
+				"p99": 4.89699995517731,
+				"samples": 6414
+			},
+			"visible_features": {
+				"max": 967,
+				"p50": 967,
+				"p95": 967,
+				"p99": 967,
+				"samples": 6414
+			}
+		},
+		"Canyon overlook/hybrid": {
+			"draw_calls": {
+				"max": 30.0,
+				"p50": 30.0,
+				"p95": 30.0,
+				"p99": 30.0,
+				"samples": 7462
+			},
+			"foliage_triangles": {
+				"max": 44976,
+				"p50": 44976,
+				"p95": 44976,
+				"p99": 44976,
+				"samples": 7462
+			},
+			"frame_ms": {
+				"max": 6.246,
+				"p50": 1.89,
+				"p95": 4.238,
+				"p99": 4.945,
+				"samples": 7462
+			},
+			"frames": 7462,
+			"resident_features": {
+				"max": 3659,
+				"p50": 3659,
+				"p95": 3659,
+				"p99": 3659,
+				"samples": 7462
+			},
+			"settled_frames": 7462,
+			"viewport_gpu_ms": {
+				"max": 5.61300012469292,
+				"p50": 0.510999992489815,
+				"p95": 3.53499993681908,
+				"p99": 4.36800000071526,
+				"samples": 7462
+			},
+			"visible_features": {
+				"max": 967,
+				"p50": 967,
+				"p95": 967,
+				"p99": 967,
+				"samples": 7462
+			}
+		},
+		"Canyon overlook/mesh": {
+			"draw_calls": {
+				"max": 30.0,
+				"p50": 30.0,
+				"p95": 30.0,
+				"p99": 30.0,
+				"samples": 7359
+			},
+			"foliage_triangles": {
+				"max": 146962,
+				"p50": 146962,
+				"p95": 146962,
+				"p99": 146962,
+				"samples": 7359
+			},
+			"frame_ms": {
+				"max": 6.324,
+				"p50": 1.922,
+				"p95": 4.285,
+				"p99": 5.065,
+				"samples": 7359
+			},
+			"frames": 7359,
+			"resident_features": {
+				"max": 3659,
+				"p50": 3659,
+				"p95": 3659,
+				"p99": 3659,
+				"samples": 7359
+			},
+			"settled_frames": 7359,
+			"viewport_gpu_ms": {
+				"max": 5.51800017058849,
+				"p50": 0.530000016093254,
+				"p95": 3.54700012505054,
+				"p99": 4.40600010752678,
+				"samples": 7359
+			},
+			"visible_features": {
+				"max": 967,
+				"p50": 967,
+				"p95": 967,
+				"p99": 967,
+				"samples": 7359
+			}
+		},
+		"Canyon overlook/svo": {
+			"draw_calls": {
+				"max": 30.0,
+				"p50": 30.0,
+				"p95": 30.0,
+				"p99": 30.0,
+				"samples": 356
+			},
+			"foliage_triangles": {
+				"max": 10626,
+				"p50": 10626,
+				"p95": 10626,
+				"p99": 10626,
+				"samples": 356
+			},
+			"frame_ms": {
+				"max": 44.943,
+				"p50": 41.873,
+				"p95": 44.447,
+				"p99": 44.838,
+				"samples": 356
+			},
+			"frames": 356,
+			"resident_features": {
+				"max": 3659,
+				"p50": 3659,
+				"p95": 3659,
+				"p99": 3659,
+				"samples": 356
+			},
+			"settled_frames": 356,
+			"viewport_gpu_ms": {
+				"max": 44.8150005340576,
+				"p50": 41.7919998168945,
+				"p95": 44.2770004272461,
+				"p99": 44.6659984588623,
+				"samples": 356
+			},
+			"visible_features": {
+				"max": 967,
+				"p50": 967,
+				"p95": 967,
+				"p99": 967,
+				"samples": 356
+			}
+		},
+		"Mountain foothills/billboard": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 9102
+			},
+			"foliage_triangles": {
+				"max": 186,
+				"p50": 186,
+				"p95": 186,
+				"p99": 186,
+				"samples": 9102
+			},
+			"frame_ms": {
+				"max": 6.394,
+				"p50": 1.102,
+				"p95": 4.023,
+				"p99": 4.875,
+				"samples": 9102
+			},
+			"frames": 9102,
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 9102
+			},
+			"settled_frames": 9102,
+			"viewport_gpu_ms": {
+				"max": 4.04099999368191,
+				"p50": 0.373999997973442,
+				"p95": 0.58500000834465,
+				"p99": 0.703000009059906,
+				"samples": 9102
+			},
+			"visible_features": {
+				"max": 87,
+				"p50": 87,
+				"p95": 87,
+				"p99": 87,
+				"samples": 9102
+			}
+		},
+		"Mountain foothills/hybrid": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 9173
+			},
+			"foliage_triangles": {
+				"max": 186,
+				"p50": 186,
+				"p95": 186,
+				"p99": 186,
+				"samples": 9173
+			},
+			"frame_ms": {
+				"max": 7.701,
+				"p50": 1.046,
+				"p95": 3.972,
+				"p99": 4.787,
+				"samples": 9173
+			},
+			"frames": 9173,
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 9173
+			},
+			"settled_frames": 9173,
+			"viewport_gpu_ms": {
+				"max": 1.71900004148483,
+				"p50": 0.375,
+				"p95": 0.583000004291534,
+				"p99": 0.704000025987625,
+				"samples": 9173
+			},
+			"visible_features": {
+				"max": 87,
+				"p50": 87,
+				"p95": 87,
+				"p99": 87,
+				"samples": 9173
+			}
+		},
+		"Mountain foothills/mesh": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 9148
+			},
+			"foliage_triangles": {
+				"max": 12036,
+				"p50": 12036,
+				"p95": 12036,
+				"p99": 12036,
+				"samples": 9148
+			},
+			"frame_ms": {
+				"max": 6.548,
+				"p50": 1.049,
+				"p95": 4.013,
+				"p99": 4.882,
+				"samples": 9148
+			},
+			"frames": 9148,
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 9148
+			},
+			"settled_frames": 9148,
+			"viewport_gpu_ms": {
+				"max": 1.88599994778633,
+				"p50": 0.372000008821487,
+				"p95": 0.58500000834465,
+				"p99": 0.708000004291534,
+				"samples": 9148
+			},
+			"visible_features": {
+				"max": 87,
+				"p50": 87,
+				"p95": 87,
+				"p99": 87,
+				"samples": 9148
+			}
+		},
+		"Mountain foothills/svo": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 1968
+			},
+			"foliage_triangles": {
+				"max": 996,
+				"p50": 996,
+				"p95": 996,
+				"p99": 996,
+				"samples": 1968
+			},
+			"frame_ms": {
+				"max": 10.822,
+				"p50": 7.516,
+				"p95": 9.909,
+				"p99": 10.314,
+				"samples": 1968
+			},
+			"frames": 1968,
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 1968
+			},
+			"settled_frames": 1968,
+			"viewport_gpu_ms": {
+				"max": 10.6560001373291,
+				"p50": 7.39100003242493,
+				"p95": 9.73800015449524,
+				"p99": 10.1080000400543,
+				"samples": 1968
+			},
+			"visible_features": {
+				"max": 87,
+				"p50": 87,
+				"p95": 87,
+				"p99": 87,
+				"samples": 1968
+			}
+		}
+	},
+	"draw_calls": {
+		"max": 32.0,
+		"p50": 30.0,
+		"p95": 32.0,
+		"p99": 32.0,
+		"samples": 70725
+	},
+	"environment_draws": {
+		"max": 9,
+		"p50": 9,
+		"p95": 9,
+		"p99": 9,
+		"samples": 70725
+	},
+	"environment_update_ms": {
+		"max": 8.743,
+		"p50": 2.67,
+		"p95": 3.342,
+		"p99": 3.342,
+		"samples": 70725
+	},
+	"frame_ms": {
+		"max": 59.132,
+		"p50": 1.914,
+		"p95": 4.988,
+		"p99": 9.974,
+		"samples": 70725
+	},
+	"frames_over_16_67ms_percent": 0.890774125132556,
+	"hardware": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+	"live_readback_encode_ms": {},
+	"primitives": {
+		"max": 442152.0,
+		"p50": 152680.0,
+		"p95": 442152.0,
+		"p99": 442152.0,
+		"samples": 70725
+	},
+	"render_cpu_ms": {
+		"max": 0.841000013053417,
+		"p50": 0.0599999986588955,
+		"p95": 0.124000001698732,
+		"p99": 0.172000002115965,
+		"samples": 70725
+	},
+	"renderer": "Vulkan Mobile",
+	"samples": 70725,
+	"scope": "Foliage renderer comparison; identical shared terrain, sites, seeded instances, frustum and LOD policy. No physics, AI or avatars. Stationary, settled views, shader warmups and screenshots excluded.",
+	"static_memory_mb": {
+		"max": 111.505041122437,
+		"p50": 95.2229022979736,
+		"p95": 110.949407577515,
+		"p99": 111.505041122437,
+		"samples": 70725
+	},
+	"stereo": {
+		"eye_size": [
+			2160,
+			2376
+		],
+		"eyes": 2,
+		"ipd_m": 0.064,
+		"type": "simulated independent eye viewports"
+	},
+	"streaming": {
+		"capacity": 384,
+		"evicted": 490,
+		"generation_ms": {
+			"max": 52.382,
+			"p50": 37.287,
+			"p95": 44.97,
+			"p99": 48.029,
+			"samples": 729
+		},
+		"peak_jobs": 2,
+		"peak_resident": 245,
+		"uploads_ms": {
+			"max": 0.105,
+			"p50": 0.027,
+			"p95": 0.043,
+			"p99": 0.055,
+			"samples": 729
+		}
+	},
+	"svo": [
+		{
+			"bytes": 98304,
+			"kind": 0,
+			"lod": 0,
+			"nodes": 5145,
+			"occupied": 6412,
+			"resolution": 32
+		},
+		{
+			"bytes": 32768,
+			"kind": 0,
+			"lod": 1,
+			"nodes": 1257,
+			"occupied": 818,
+			"resolution": 16
+		},
+		{
+			"bytes": 16384,
+			"kind": 0,
+			"lod": 2,
+			"nodes": 321,
+			"occupied": 116,
+			"resolution": 8
+		},
+		{
+			"bytes": 49152,
+			"kind": 1,
+			"lod": 0,
+			"nodes": 2105,
+			"occupied": 1044,
+			"resolution": 32
+		},
+		{
+			"bytes": 16384,
+			"kind": 1,
+			"lod": 1,
+			"nodes": 841,
+			"occupied": 220,
+			"resolution": 16
+		},
+		{
+			"bytes": 16384,
+			"kind": 1,
+			"lod": 2,
+			"nodes": 201,
+			"occupied": 28,
+			"resolution": 8
+		}
+	],
+	"svo_asset_streaming": {
+		"evictions": 14,
+		"peak_uploads_per_frame": 2,
+		"resident_bytes_at_end": 0,
+		"uploads": 14
+	},
+	"terrain_tiles": {
+		"max": 245,
+		"p50": 245,
+		"p95": 245,
+		"p99": 245,
+		"samples": 70725
+	},
+	"units": "milliseconds, MB, counts",
+	"video_memory_mb": {
+		"max": 199.596832275391,
+		"p50": 196.596832275391,
+		"p95": 196.596832275391,
+		"p99": 197.596832275391,
+		"samples": 70725
+	},
+	"viewport_gpu_ms": {
+		"max": 59.1159992218018,
+		"p50": 0.511999994516373,
+		"p95": 4.33899986743927,
+		"p99": 9.8289999961853,
+		"samples": 70725
+	},
+	"wall_seconds": 230.857073
+}

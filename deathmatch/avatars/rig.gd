@@ -1,334 +1,101 @@
 extends Node3D
-const Metrics=preload("res://deathmatch/avatars/animation_metrics.gd")
+## Original UT99 vertex animation. Shared mesh/skin/frame texture; instance uniforms only.
+const Art=preload("res://deathmatch/art.gd")
+var avatar_hash:=""
 var unarmed:=false
-## Shared humanoid locomotion and aiming, retargeted by the VRM plugin.
-const Pose = preload("res://deathmatch/avatars/pose.gd")
-const Art = preload("res://deathmatch/art.gd")
-const RestBounds = preload("res://deathmatch/avatars/rest_bounds.gd")
-var target_xr_pose: Dictionary={}
-var xr_pose: Dictionary={}
-var native_tracking=preload("res://deathmatch/native/runtime.gd").pose()
-var native_interpolation:bool=native_tracking!=null and native_tracking.has_method("interpolate_tracking") and not OS.get_cmdline_user_args().has("--gdscript-avatar-channels")
-var pain:=0.0
-var pain_direction:=Vector3.ZERO
-var skeleton: Skeleton3D
-var model: Node3D
-var motion: AnimationPlayer
-var solver
-var mouth
-var eyes
-var speed := 0.0
-var movement := Vector3.ZERO
+var target_xr_pose:Dictionary={}
+var speed:=0.0
+var movement:=Vector3.ZERO
 var stance:="stand"
 var collider_height:=1.65
 var grounded:=true
-var tracked_leg_animation:=false
-var gait=preload("res://deathmatch/avatars/locomotion.gd").new()
-var aim_pitch := 0.0
-var phase := 0.0
-var recoil := 0.0
-var offhand_recoil := 0.0
-var dead := false:
+var aim_pitch:=0.0
+var body_height:=1.7
+var dead:=false:
 	set(value):
-		if dead==value:return
+		if dead!=value:death_time=0.0
 		dead=value
-		death_time=0.0
-		if dead and is_inside_tree():death_basis=get_parent().global_basis.orthonormalized()
-		if solver:solver.reset_death()
-		if not dead:
-			gait=preload("res://deathmatch/avatars/locomotion.gd").new()
-			pain=0.0;recoil=0.0;offhand_recoil=0.0
-var death_time := 0.0
-var death_basis:=Basis.IDENTITY
-var preview_mode := -1
-var weapon_id := -1
-var gun: Node3D
-var offhand_gun: Node3D
-var body_height := 1.70
-var body_heading:=0.0
-var scale_factor := 1.0
-var neutral_hip_height:=.92
-var neutral_foot_heights:Dictionary={"left":.08,"right":.08}
-var first_person := false
-var secondary_nodes: Array[Node]=[]
-var visual_meshes: Array[MeshInstance3D]=[]
-var avatar_hash:=""
-var distance_lod
-# Runtime A/B switch for the close animation benchmark; does not change mesh LOD.
-var animation_optimized:=true
-var secondary_motion_enabled:=true # Diagnostic isolation; normal gameplay keeps cosmetics.
-var animation_sleeping:=false
-var animation_hidden_time:=0.0
-var animation_visibility: VisibleOnScreenNotifier3D
-func update_animation_budget(delta: float) -> void:
-	var camera:=get_viewport().get_camera_3d()
-	var xr:=XRServer.primary_interface
-	var protected_view:=first_person or preview_mode>=0 or camera is XRCamera3D or (xr!=null and xr.is_initialized())
-	if animation_visibility==null and DisplayServer.get_name()!="headless":
-		animation_visibility=VisibleOnScreenNotifier3D.new()
-		# Includes extended hands, crouch/prone and generous body motion. Godot's
-		# notifier sees all active viewport cameras, including mirror/scope views.
-		animation_visibility.aabb=AABB(Vector3(-2,-1,-2),Vector3(4,5,4))
-		add_child(animation_visibility)
-	var hidden:=not is_visible_in_tree() or (animation_visibility!=null and not animation_visibility.is_on_screen())
-	animation_hidden_time=animation_hidden_time+delta if hidden and not protected_view else 0.0
-	var sleeping:=animation_optimized and animation_hidden_time>.5
-	if animation_sleeping and not sleeping:
-		xr_pose=target_xr_pose.duplicate(true)
-		solver.reset_interpolation();solver.floor_tick=0;solver.floor_heights.clear()
-	animation_sleeping=sleeping
-	for secondary in secondary_nodes:
-		secondary.simplify_animation=animation_optimized and not protected_view
-		secondary.optimize_collisions=animation_optimized
-		secondary.animation_rate=45.0 if animation_optimized and not protected_view else 0.0
-		secondary.animation_suspended=sleeping or not secondary_motion_enabled
-		secondary.profile_animation=Metrics.enabled
-		secondary.update_native_state()
-
-
-func enable_distance_lod() -> void:
-	if distance_lod!=null:return
-	distance_lod=preload("res://deathmatch/avatars/distance_lod.gd").new()
-	skeleton.add_child(distance_lod);distance_lod.setup(self)
-
-func configure(root: Node3D) -> bool:
-	process_priority=-10
-	model = root
-	model.rotation.y += PI
-	skeleton = find_skeleton(root)
-	if not skeleton: return false
-	for bone in ["Hips","Head","LeftUpperArm","LeftLowerArm","LeftHand","RightUpperArm","RightLowerArm","RightHand","LeftUpperLeg","LeftLowerLeg","LeftFoot","RightUpperLeg","RightLowerLeg","RightFoot"]:
-		if skeleton.find_bone(bone)<0: return false
-	var local_bounds:AABB=root.get_meta(RestBounds.CACHE_KEY) if root.has_meta(RestBounds.CACHE_KEY) else RestBounds.measure(root)
-	var bounds:AABB=root.transform*local_bounds
-	if bounds.size.y<.05 or bounds.size.y>1000 or not bounds.size.is_finite(): return false
-	scale_factor = body_height/bounds.size.y
-	model.scale *= scale_factor
-	model.position *= scale_factor
-	model.position.y -= bounds.position.y*scale_factor
-	var transforms:Dictionary={}
-	RestBounds.collect(model,model.transform,transforms)
-	var skeleton_transform:Transform3D=transforms[skeleton]
-	neutral_hip_height=(skeleton_transform*skeleton.get_bone_global_rest(skeleton.find_bone("Hips")).origin).y
-	for side in ["Left","Right"]:
-		neutral_foot_heights[side.to_lower()]=(skeleton_transform*skeleton.get_bone_global_rest(skeleton.find_bone(side+"Foot")).origin).y
-	# All meshes are cosmetic: no imported physics, lights, cameras or audio.
-	strip_nonvisual(root)
-	# Retargeting can leave non-humanoid helpers in pre-conversion poses.
-	skeleton.reset_bone_poses()
-	solver = Pose.new()
-	solver.rig = self
-	skeleton.add_child(solver)
-	mouth=preload("res://deathmatch/avatars/mouth.gd").new()
-	add_child(mouth)
-	mouth.setup(model)
-	mouth.rig=self
-	eyes=preload("res://deathmatch/avatars/eyes.gd").new()
-	eyes.rig=self
-	skeleton.add_child(eyes)
-	eyes.setup(model)
-	mouth.external_mixer=true;mouth.mixer=eyes.apply_morphs
-	# Secondary motion follows humanoid IK and expression modifiers.
-	for secondary in secondary_nodes:
-		if is_instance_valid(secondary.native_simulator):skeleton.move_child(secondary.native_simulator,-1)
-	build_animations()
-	set_weapon(2)
-	return true
-
-func find_skeleton(node: Node) -> Skeleton3D:
-	if node is Skeleton3D and node.find_bone("Hips")>=0: return node
-	for child in node.get_children():
-		var found := find_skeleton(child)
-		if found: return found
-	return null
-
-func mesh_bounds(node: Node3D, parent_transform: Transform3D) -> AABB:
-	return parent_transform*node.transform*RestBounds.measure(node)
-
-func fit_tracked_hips(pose: Transform3D) -> Transform3D:
-	# Tracking calibration uses a .92 m pelvis and .08 m ankle reference.
-	# Retarget the neutral stance to this uniformly scaled model's proportions;
-	# preserve the tracked displacement, including crouches and lifted feet.
-	pose.origin.y+=neutral_hip_height-.92
-	return pose
-
-func fit_tracked_foot(side: String,pose: Transform3D) -> Transform3D:
-	pose.origin.y+=float(neutral_foot_heights.get(side,.08))-.08
-	return pose
-
-func strip_nonvisual(node: Node) -> void:
-	if node is VRMSecondary:secondary_nodes.append(node)
-	for child in node.get_children():
-		if child is CollisionObject3D or child is Camera3D or child is Light3D or child is AudioStreamPlayer3D:
-			child.free()
-		else: strip_nonvisual(child)
-	if node is MeshInstance3D:
-		register_visual_mesh(node,(node.layers&(1<<19))!=0,(node.layers&1)!=0)
-		# MToon outlines add a second draw for every imported material surface.
-		for surface in range(node.mesh.get_surface_count()):
-			var material: Material=node.get_active_material(surface)
-			if material:
-				preload("res://deathmatch/avatars/lighting.gd").prepare(material)
-				if not material.has_meta("arena_outline"):material.set_meta("arena_outline",material.next_pass)
-				material.next_pass=null
-
-func register_visual_mesh(node: MeshInstance3D,local_visible: bool,remote_visible: bool) -> void:
-	# Runtime replacement bodies must join the same view/hand-mask lifecycle as
-	# imported avatar meshes, including transitions before their next update.
-	if node not in visual_meshes:visual_meshes.append(node)
-	node.set_meta("arena_first_person",local_visible)
-	node.set_meta("arena_third_person",remote_visible)
-	node.visible=local_visible if first_person else remote_visible
-	node.layers=1
-	node.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	node.visibility_range_end=0 if distance_lod else 65
-	if distance_lod:node.lod_bias=1.5
-	if first_person and local_visible:preload("res://deathmatch/avatars/first_person_mask.gd").apply(node,skeleton,true)
-
-func set_first_person(value: bool) -> void:
-	if first_person==value: return
-	first_person=value
-	# The capsule moves on physics ticks; tracked rendering owns this transform.
-	# Keep that parent motion from shifting the mesh between VR/IK updates.
-	top_level=value
-	transform=tracking_transform() if value else Transform3D.IDENTITY
-	physics_interpolation_mode=Node.PHYSICS_INTERPOLATION_MODE_OFF if value else Node.PHYSICS_INTERPOLATION_MODE_INHERIT
-	for secondary in secondary_nodes:secondary.set_local_body(value)
-	for mesh in visual_meshes:
-		mesh.visible=bool(mesh.get_meta("arena_first_person" if value else "arena_third_person"))
-		if mesh.get_meta("arena_first_person"):preload("res://deathmatch/avatars/first_person_mask.gd").apply(mesh,skeleton,value)
-	if gun: gun.visible=not value and not dead
-	if offhand_gun: offhand_gun.visible=not value and not dead
-
-func build_animations() -> void:
-	motion = AnimationPlayer.new()
-	motion.name = "ArenaAnimations"
-	add_child(motion)
-	var library := AnimationLibrary.new()
-	var hips := skeleton.find_bone("Hips")
-	var rest := skeleton.get_bone_rest(hips).origin
-	for clip in ["idle","walk","run"]:
-		var anim := Animation.new()
-		anim.length = 2.4 if clip=="idle" else .8 if clip=="walk" else .52
-		anim.loop_mode = Animation.LOOP_LINEAR
-		var track := anim.add_track(Animation.TYPE_POSITION_3D)
-		anim.track_set_path(track,NodePath(str(get_path_to(skeleton))+":Hips"))
-		for i in range(17):
-			var t := float(i)/16
-			var bob := sin(t*TAU)*.006 if clip=="idle" else absf(sin(t*TAU))*(.018 if clip=="walk" else .032)
-			anim.position_track_insert_key(track,t*anim.length,rest+Vector3.UP*bob/scale_factor)
-		library.add_animation(clip,anim)
-	motion.add_animation_library("",library)
-	motion.play("idle")
-
+var death_time:=0.0
+var preview_mode:=-1
+var weapon_id:=-1
+var gun:Node3D
+var offhand_gun:Node3D
+var visual:MeshInstance3D
+var arm_profile:Dictionary={}
+var tracked_arms_enabled:=true
+var tracked_arms_active:=false
+var arm_update_ms:=0.0
+var clips:Array=[]
+var clip_name:=""
+var time:=0.0
+var firing:=0.0
+var selected_sequence:="" # Preview can select any original clip.
+func configure(data:Dictionary) -> void:
+	clips=data.clips;arm_profile=data.get("arm_profile",{})
+	visual=MeshInstance3D.new();visual.mesh=data.mesh;add_child(visual)
+	visual.cast_shadow=GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+func set_first_person(value:bool) -> void:
+	visible=not value # No head hiding, skeleton, body IK or expression channels.
 var weapon_rules:="doom"
-func set_weapon(value: int, rules_override: String="") -> void:
+func set_weapon(id:int,rules_override:String="") -> void:
 	var arena=get_parent().get_parent() if get_parent() else null
-	var rules: String=rules_override if not rules_override.is_empty() else arena.match_mode.fortress.art_rules(get_parent().peer_id,value) if arena and "armory" in arena else "doom"
-	if value==weapon_id and rules==weapon_rules:return
-	weapon_rules=rules
-	weapon_id = value
-	if is_instance_valid(gun): gun.free()
-	if is_instance_valid(offhand_gun): offhand_gun.free()
-	offhand_gun=null
-	if value==2 and weapon_rules=="doom":
-		offhand_gun=Art.weapon(2);add_child(offhand_gun)
-	gun = Art.weapon(value,2,weapon_rules)
-	gun.scale = Vector3.ONE*.48
-	add_child(gun)
-
-func hurt(direction: Vector3, strength: float) -> void:
-	pain=maxf(pain,clampf(strength/45.0,.25,1.0))
-	pain_direction=global_basis.inverse()*direction.normalized()
-	if solver:solver.solve_tick=0.0
-
-func fire(offhand: bool=false) -> void:
-	if offhand: offhand_recoil=1.0
-	else: recoil = 1.0
-
-func tracking_transform() -> Transform3D:
-	var actor=get_parent()
-	if first_person and actor.has_method("render_position"):
-		var game=actor.get_parent()
-		if game.is_vr():return game.xr_rig.global_transform
-		return Transform3D(Basis(Vector3.UP,game.local_yaw),actor.render_position())
-	return actor.global_transform
-
-func _process(delta: float) -> void:
-	var started:=Metrics.begin()
-	update_animation(delta)
-	Metrics.end("rig",started)
-func update_animation(delta: float) -> void:
-	if not is_instance_valid(skeleton): return
-	update_animation_budget(delta)
-	if dead:
-		if distance_lod:distance_lod.full_pose()
-		death_time=minf(death_time+delta,preload("res://deathmatch/avatars/death_pose.gd").VISIBLE_TIME)
-		# Death owns the skeleton: live trackers, breathing and weapon IK stop here.
-		motion.pause()
-		xr_pose.clear()
-		if not first_person:transform=Transform3D(get_parent().global_basis.inverse()*death_basis,Vector3.ZERO)
-		if gun:gun.hide()
-		if offhand_gun:offhand_gun.hide()
-		return
-	if first_person:
-		global_transform=tracking_transform()
-	else:
-		position.x=0;position.z=0;rotation.y=0
-	if target_xr_pose.is_empty(): xr_pose.clear()
-	elif xr_pose.is_empty() or first_person: xr_pose=target_xr_pose.duplicate()
-	elif native_interpolation:native_tracking.interpolate_tracking(xr_pose,target_xr_pose,delta)
-	else:interpolate_tracking_reference(delta)
-	# Rotate only the rendered body; controller/head poses retain their tracking frame.
-	body_heading=preload("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,body_heading)
-	var physical_yaw:=body_heading
-	global_basis=tracking_transform().basis*Basis(Vector3.UP,physical_yaw)
-	if preview_mode>=0:
-		speed = [0.0,4.0,9.4,0.0][preview_mode]
-		movement = Vector3.FORWARD*speed
-		if preview_mode==3 and fmod(phase,1.0)<delta: fire()
-	var clip := "idle" if speed<.2 else "walk" if speed<6.0 else "run"
-	gait.update(delta,Basis(Vector3.UP,-physical_yaw)*movement,stance,grounded,target_xr_pose.get("body",{}),tracked_leg_animation)
-	var generic: bool=distance_lod.update(delta) if distance_lod else false
-	if not generic and (motion.current_animation!=clip or not motion.is_playing()): motion.play(clip,.18)
-	# Preview firing has its own clock, including when standing still.
-	phase+=delta
-	recoil = move_toward(recoil,0.0,delta*7)
-	offhand_recoil=move_toward(offhand_recoil,0.0,delta*7)
-	pain=move_toward(pain,0.0,delta*2.8)
-	death_time = 0
-	rotation.x = 0.0 if first_person else pain*pain_direction.z*.16
-	rotation.z = 0.0 if first_person else -pain*pain_direction.x*.16
-	if not first_person:position.y = 0
-	if gun and not xr_pose.is_empty() and not dead and not generic:
-		gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.weapon,weapon_id,Art.VR_SCALE,weapon_rules)
-		gun.visible=not unarmed and not first_person
-		if offhand_gun:
-			offhand_gun.visible=not unarmed and not first_person and xr_pose.has("offhand_weapon")
-			if xr_pose.has("offhand_weapon"): offhand_gun.global_transform=Art.held_transform(get_parent().global_transform*xr_pose.offhand_weapon,2)
-		return
-	if gun:
-		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+recoil*.12),Art.desktop_hand(false,aim_pitch,recoil))
-		grip.origin.y-=1.65-collider_height
-		gun.transform=Art.held_transform(grip,weapon_id,.48,weapon_rules)
-		gun.visible = not unarmed and not dead and not first_person
-
-	if offhand_gun:
-		var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch+offhand_recoil*.12),Art.desktop_hand(true,aim_pitch,offhand_recoil,true))
-		grip.origin.y-=1.65-collider_height
-		offhand_gun.transform=Art.held_transform(grip,2,.48)
-		offhand_gun.visible=not unarmed and not dead and not first_person
-
-func interpolate_tracking_reference(delta: float) -> void:
-	for key in ["head","left","right","weapon"]: xr_pose[key]=xr_pose[key].interpolate_with(target_xr_pose[key],minf(1.0,delta*22))
-	if target_xr_pose.has("offhand_weapon"):
-		xr_pose.offhand_weapon=xr_pose.get("offhand_weapon",target_xr_pose.offhand_weapon).interpolate_with(target_xr_pose.offhand_weapon,minf(1.0,delta*22))
-	else: xr_pose.erase("offhand_weapon")
-	xr_pose.left_handed=target_xr_pose.left_handed
-	xr_pose.face=target_xr_pose.get("face",{})
-	var next_body: Dictionary=target_xr_pose.get("body",{})
-	var previous: Dictionary=xr_pose.get("body",{})
-	var body: Dictionary={}
-	for key in next_body:
-		body[key]=previous[key].interpolate_with(next_body[key],minf(1,delta*18)) if previous.has(key) and next_body[key] is Transform3D else next_body[key]
-	xr_pose.body=body
+	var rules:String=rules_override if not rules_override.is_empty() else arena.match_mode.fortress.art_rules(get_parent().peer_id,id) if arena and "armory" in arena else "doom"
+	if weapon_id==id and weapon_rules==rules:return
+	weapon_id=id;weapon_rules=rules
+	if is_instance_valid(gun):gun.free()
+	if is_instance_valid(offhand_gun):offhand_gun.free()
+	gun=Art.weapon(id,2,rules);add_child(gun)
+	offhand_gun=Art.weapon(2) if id==2 and rules=="doom" else null
+	if offhand_gun:add_child(offhand_gun)
+func fire(_offhand:bool=false) -> void:firing=.3
+func hurt(_direction:Vector3,_amount:float) -> void:pass
+func choose_clip() -> Dictionary:
+	var names:Array=[]
+	if not selected_sequence.is_empty():names=[selected_sequence]
+	elif dead:names=["Dead1","Death","Dead2"]
+	elif preview_mode==3 or (preview_mode<0 and firing>0 and speed<=.1):names=["StillFrRp","Fire","StillFrSm","AimLg"]
+	elif preview_mode<0 and not grounded:names=["JumpLg","JumpSm","Jump"]
+	elif preview_mode<0 and stance in ["crouch","prone"]:names=["DuckWlkL","DuckWlkS","Crouch"]
+	elif preview_mode==2 or speed>3:names=["RunLg","RunSm","Run"]
+	elif preview_mode==1 or speed>.1:names=["WalkLg","WalkSm","Walk"]
+	elif not grounded:names=["JumpLg","JumpSm","Jump"]
+	elif stance in ["crouch","prone"]:names=["DuckWlkL","DuckWlkS","Crouch"]
+	else:names=["Breath1","Breath2","Idle","StillLg","StillSm"]
+	for name in names:
+		for clip in clips:
+			if str(clip.name).to_lower()==str(name).to_lower():return clip
+	# Unknown clips fall back to a stable original frame rather than playing All.
+	for clip in clips:
+		if str(clip.name).to_lower()!="all":return clip
+	return clips[0]
+func _process(delta:float) -> void:
+	firing=maxf(0,firing-delta)
+	if dead:death_time+=delta
+	if visual==null:return
+	var clip:=choose_clip()
+	if clip_name!=clip.name:clip_name=clip.name;time=0
+	time+=delta
+	var frame:=minf(time*float(clip.fps),float(clip.count)-1) if dead else fposmod(time*float(clip.fps),float(clip.count))
+	var a:=floori(frame);var b:=mini(a+1,int(clip.count)-1) if dead else (a+1)%int(clip.count)
+	var frames:=Vector3(int(clip.start)+a,int(clip.start)+b,frame-a)
+	visual.set_instance_shader_parameter("animation_frames",frames)
+	var arm_start:=Time.get_ticks_usec()
+	tracked_arms_active=preload("res://deathmatch/avatars/controller_arms.gd").update(visual,arm_profile,target_xr_pose if tracked_arms_enabled and not dead else {},frames)
+	arm_update_ms=(Time.get_ticks_usec()-arm_start)/1000.0
+	visual.scale=Vector3.ONE
+	visual.rotation=Vector3.ZERO
+	if stance=="prone" and not dead:
+		visual.rotation.x=-PI/2;visual.position=Vector3(0,.3,.4)
+	else:visual.position=Vector3.ZERO
+	if not dead and stance=="crouch" and not (clip_name.to_lower().begins_with("duck") or clip_name.to_lower()=="crouch"):visual.scale.y=.65
+	for held in [gun,offhand_gun]:
+		if not is_instance_valid(held):continue
+		held.visible=not unarmed and not dead
+		var offhand:bool=held==offhand_gun
+		var id:int=2 if offhand else weapon_id
+		var pose_key:="offhand_weapon" if offhand else "weapon"
+		if target_xr_pose.has(pose_key):
+			held.transform=Art.held_transform(target_xr_pose[pose_key],id,Art.VR_SCALE,weapon_rules)
+		else:
+			var grip:=Transform3D(Basis(Vector3.RIGHT,aim_pitch),Art.desktop_hand(offhand,aim_pitch,0,offhand))
+			held.transform=Art.held_transform(grip,id,.48,weapon_rules)

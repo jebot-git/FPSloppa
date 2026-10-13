@@ -1,3 +1,5 @@
+> Voxelspace branch: this is historical documentation. Current UT99 avatars and supported headset/controller input are documented in [UT99 avatars](docs/UT99-AVATARS.md). VRM, full body, gaze and facial tracking are removed.
+
 # VRM eye tracking
 
 Gaze and measured blinks are cosmetic and replicate with the existing XR pose snapshots. All peers must use the same current game protocol. Eye tracking never affects aim, collision or damage.

@@ -12,4 +12,4 @@ func _initialize() -> void:
 	var error:=Policy.settings_error(values)
 	if not error.is_empty():push_error(error);quit(1);return
 	if not FileAccess.file_exists("res://deathmatch/rendering_policy.gd") and not FileAccess.file_exists("res://deathmatch/rendering_policy.gd.remap"):push_error("Missing runtime renderer guard");quit(1);return
-	print("EXPORTED_RENDERER_POLICY ",JSON.stringify({"pack":args[0],"method":"mobile","driver":"vulkan","passed":true}));quit()
+	print("EXPORTED_RENDERER_POLICY ",JSON.stringify({"pack":args[0],"method":"forward_plus","driver":"vulkan","passed":true}));quit()

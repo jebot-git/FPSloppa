@@ -12,7 +12,7 @@ func setup(arena: Node) -> void:
 	theme=preload("res://deathmatch/ui/iron_theme.gd").theme()
 	var column:=VBoxContainer.new();column.add_theme_constant_override("separation",18);add_child(column)
 	var title:=Label.new();title.text="MAPS AND PLAYER MODELS";column.add_child(title)
-	var paths:=Label.new();paths.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;paths.text="Drop BSP maps and VRM models into these folders, then rescan:\n\n"+Paths.folder("maps")+"\n"+Paths.folder("vrm");column.add_child(paths)
+	var paths:=Label.new();paths.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;paths.text="Drop BSP maps and UT99 models into these folders, then rescan:\n\n"+Paths.folder("maps")+"\n"+Paths.folder("ut99");column.add_child(paths)
 	notice=Label.new();notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;notice.text="Models must be at most 25 MB. Host maps download automatically when joining. Standalone APKs include the base files automatically.";column.add_child(notice)
 	download=button(column,"REPAIR INCLUDED MAPS AND MODELS",install)
 	download.visible=FileAccess.file_exists("res://deathmatch/assets/offline-base.zip")
@@ -28,7 +28,7 @@ func manifest() -> Dictionary:
 func install() -> void:
 	if busy or game.active:notice.text="Leave the match before installing or rescanning assets.";return
 	var archive:="res://deathmatch/assets/offline-base.zip"
-	if not FileAccess.file_exists(archive):notice.text="Restore maps/ and vrm/ from your FPSloppa release archive.";return
+	if not FileAccess.file_exists(archive):notice.text="Restore maps/ and ut99/ from your FPSloppa release archive.";return
 	busy=true;download.disabled=true;notice.text="Verifying and installing included assets…"
 	if not disk.submit(install_archive.bind(manifest(),archive,Paths.root()),func(message):
 		finish(message)

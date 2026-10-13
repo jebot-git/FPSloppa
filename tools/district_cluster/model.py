@@ -124,7 +124,7 @@ def apply(state, message, gateway, now):
         actor=authenticate_actor(state,message)
         if op=='set_avatar':
             digest=message.get('avatar')
-            require(isinstance(digest,str) and len(digest)==64 and all(c in '0123456789abcdef' for c in digest),'Invalid VRM hash')
+            require(isinstance(digest,str) and len(digest)==64 and all(c in '0123456789abcdef' for c in digest),'Invalid UT99 avatar hash')
             actor['avatar']=digest
         return public_actor(actor)
     if op == 'register_gateway':

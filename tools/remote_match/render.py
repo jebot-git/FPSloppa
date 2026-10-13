@@ -32,7 +32,7 @@ def main():
         with tempfile.TemporaryDirectory(prefix='render-', dir=pieces) as temporary:
             avi = Path(temporary).resolve() / 'capture.avi'
             config = dict(demo=str(args.demo.resolve()), start=float(start), end=float(end), screenshot=str((pieces / f'{index:03}.png').resolve()))
-            cmd = ['godot', '--path', str(ROOT), '--xr-mode', 'off', '--rendering-method', 'mobile',
+            cmd = ['godot', '--path', str(ROOT), '--xr-mode', 'off', '--rendering-method', 'forward_plus',
                    '--audio-driver', 'Dummy', '--resolution', '1280x720', '--fixed-fps', '30', '--disable-vsync',
                    '--write-movie', str(avi), '--script', 'res://tools/remote_match/movie.gd', '--', json.dumps(config),
                    '--asset-root', str(ROOT)]

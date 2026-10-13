@@ -1,4 +1,4 @@
-"""Private master HTTP service: static campaign page and bounded VRM-only storage.
+"""Private master HTTP service: static campaign page and bounded UT99 avatar-only storage.
 
 Expose through a TLS proxy, or access over the playtest WireGuard network.
 Only this validated path may change a player's content-addressed avatar hash.
@@ -40,44 +40,44 @@ def server(address, store, root, binary, status_file, budget=5_000_000_000):
                 try:self.result(200,Path(status_file).read_bytes(),'text/html; charset=utf-8')
                 except FileNotFoundError:self.result(503,{'error':'Campaign status not ready'})
                 return
-            match=re.fullmatch(r'/vrm/([0-9a-f]{64})\.vrm',self.path)
+            match=re.fullmatch(r'/utavatar/([0-9a-f]{64})\.utavatar',self.path)
             if not match:self.result(404,{'error':'Not found'});return
-            path=root/(match[1]+'.vrm')
+            path=root/(match[1]+'.utavatar')
             try:
                 with path.open('rb') as file:
                     self.send_response(200);self.send_header('Content-Type','application/octet-stream')
                     self.send_header('Content-Length',str(path.stat().st_size));self.send_header('Cache-Control','public, max-age=31536000, immutable');self.end_headers()
                     while data:=file.read(65536):pace(len(data));self.wfile.write(data)
-            except FileNotFoundError:self.result(404,{'error':'VRM not found'})
+            except FileNotFoundError:self.result(404,{'error':'UT99 avatar not found'})
         def do_POST(self):
-            if self.path!='/vrm':self.result(404,{'error':'Only VRM content is accepted'});return
+            if self.path!='/utavatar':self.result(404,{'error':'Only UT99 avatar content is accepted'});return
             if self.headers.get('Transfer-Encoding') or self.headers.get('Content-Type')!='application/octet-stream':
-                self.result(415,{'error':'Use a length-delimited binary VRM'});return
+                self.result(415,{'error':'Use a length-delimited binary UT99 avatar'});return
             try:
                 size=int(self.headers.get('Content-Length','0'))
-                if not 28<=size<=MAX_BYTES:raise ValueError('VRM must be at most 25 MB')
+                if not 28<=size<=MAX_BYTES:raise ValueError('UT99 avatar must be at most 25 MB')
                 store.execute(dict(op='profile',**self.auth()),None)
-            except (ValueError,KeyError):self.result(403,{'error':'Invalid session or VRM size'});return
-            if not upload_lock.acquire(blocking=False):self.result(429,{'error':'VRM validation busy; retry shortly'});return
+            except (ValueError,KeyError):self.result(403,{'error':'Invalid session or UT99 avatar size'});return
+            if not upload_lock.acquire(blocking=False):self.result(429,{'error':'UT99 avatar validation busy; retry shortly'});return
             temporary=None
             try:
-                if sum(p.stat().st_size for p in root.glob('*.vrm'))+size>budget:
-                    self.result(507,{'error':'VRM storage budget reached'});return
+                if sum(p.stat().st_size for p in root.glob('*.utavatar'))+size>budget:
+                    self.result(507,{'error':'UT99 avatar storage budget reached'});return
                 with tempfile.NamedTemporaryFile(dir=root,suffix='.upload',delete=False) as file:
                     temporary=Path(file.name);remaining=size;digest=hashlib.sha256()
                     while remaining:
                         chunk=self.rfile.read(min(65536,remaining))
                         if not chunk:raise ValueError('Incomplete upload')
                         file.write(chunk);digest.update(chunk);remaining-=len(chunk)
-                result=subprocess.run([str(Path(binary).resolve()),'--','--cq-service','vrm','--file',str(temporary.resolve())],
+                result=subprocess.run([str(Path(binary).resolve()),'--','--cq-service','utavatar','--file',str(temporary.resolve())],
                     capture_output=True,timeout=20,cwd=root)
-                if result.returncode or b'VRM_ACCEPT' not in result.stdout:raise ValueError('Invalid or unsupported VRM')
-                sha=digest.hexdigest();target=root/(sha+'.vrm')
+                if result.returncode or b'UTAVATAR_ACCEPT' not in result.stdout:raise ValueError('Invalid or unsupported UT99 avatar')
+                sha=digest.hexdigest();target=root/(sha+'.utavatar')
                 temporary.replace(target);temporary=None
                 store.execute(dict(op='set_avatar',avatar=sha,**self.auth()),None)
                 self.result(200,dict(hash=sha,size=size))
             except (ValueError,OSError,subprocess.TimeoutExpired):
-                self.result(400,{'error':'VRM upload or validation failed'})
+                self.result(400,{'error':'UT99 avatar upload or validation failed'})
             finally:
                 if temporary:temporary.unlink(missing_ok=True)
                 upload_lock.release()

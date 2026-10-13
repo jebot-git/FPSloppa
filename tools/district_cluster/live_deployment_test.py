@@ -130,7 +130,7 @@ async def run(out,binary,seconds,client_binary=None):
         await asyncio.sleep(.7);await request(0,'resume');await request(0,'leave')
         config.write_private(out/'identity.json',dict(actor='live0',resume='secret0'))
         config.write_private(out/'client.json',dict(address=['127.0.0.1',49620],district='d40',token=settings['client_token'],team=1,name='Returning client',content_url='http://127.0.0.1:49700',identity_file=str(out/'identity.json'),smoke_output=str(out/'desktop.png'),require_avatar=True))
-        command=[str(client_binary.resolve()),'--rendering-method','mobile','--rendering-driver','vulkan','--',str(out/'client.json')] if client_binary else [str(ROOT/'launch-conquest.sh'),str(out/'client.json')]
+        command=[str(client_binary.resolve()),'--rendering-method','forward_plus','--rendering-driver','vulkan','--',str(out/'client.json')] if client_binary else [str(ROOT/'launch-conquest.sh'),str(out/'client.json')]
         desktop=await asyncio.create_subprocess_exec(*command,cwd=ROOT,stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
         try:output=await asyncio.wait_for(desktop.communicate(),35)
         except BaseException:desktop.kill();await desktop.wait();raise

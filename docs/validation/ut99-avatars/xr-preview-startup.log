@@ -1,0 +1,98 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+LOG in xrCreateInstance: Instance created
+	createInfo->applicationInfo.applicationName: FPSloppa
+	createInfo->applicationInfo.applicationVersion: 1
+	createInfo->applicationInfo.engineName: Godot Engine
+	createInfo->applicationInfo.engineVersion: 40702
+	createInfo->applicationInfo.apiVersion: 1.1.62
+	appinfo.detected.engine.name: (null)
+	appinfo.detected.engine.version: 0.0.0
+	quirks.disable_vulkan_format_depth: false
+	quirks.disable_vulkan_format_depth_stencil: false
+	quirks.disable_quad_views: false
+	quirks.no_validation_error_in_create_ref_space: true
+	quirks.skip_end_session: false
+	quirks.parallel_views: false
+	quirks.no_texture_source_alpha: false
+	quirks.ignore_invalid_swapchain_usage_bits: false
+
+OpenXR: Created instance for OpenXR 1.1.62
+OpenXR: Running on OpenXR runtime:  WiVRn 'v26.9-pro1-cqp1'   26.9.0
+LOG in xrGetSystem: Selected devices
+	Head: 'WiVRn HMD'
+	Eyes: 'WiVRn Eye Tracker'
+	Left: 'WiVRn left controller'
+	Right: 'WiVRn right controller'
+	Gamepad: 'WiVRn Gamepad'
+	Hand-Tracking Left (unobstructed): 'WiVRn left controller'
+	Hand-Tracking Right (unobstructed): 'WiVRn right controller'
+	Hand-Tracking Left (conforming): '<none>'
+	Hand-Tracking Right (conforming): '<none>'
+OpenXR: XrGraphicsRequirementsVulkan2KHR:
+ - minApiVersionSupported:  1.0.0
+ - maxApiVersionSupported:  1023.1023.1023
+LOG in xrCreateVulkanInstanceKHR: Creation of VkInstance:
+	result: VK_SUCCESS
+	vulkanInstance: 0x383eb6c0
+	extensions:
+		VK_KHR_external_fence_capabilities
+		VK_KHR_external_memory_capabilities
+		VK_KHR_external_semaphore_capabilities
+		VK_KHR_get_physical_device_properties2
+		VK_EXT_debug_utils
+		VK_KHR_surface
+		VK_KHR_xlib_surface
+		VK_EXT_swapchain_colorspace
+LOG in xrGetVulkanGraphicsDeviceKHR: Creation of VkDevice:
+	result: VK_SUCCESS
+	vulkanDevice: 0x385b59b0
+	vulkanInstance: 0x383eb6c0
+	external_fence_fd: true
+	external_semaphore_fd: true
+	timelineSemaphore: true
+	extensions:
+		VK_KHR_dedicated_allocation
+		VK_KHR_external_fence
+		VK_KHR_external_memory
+		VK_KHR_external_semaphore
+		VK_KHR_get_memory_requirements2
+		VK_KHR_external_memory_fd
+		VK_KHR_16bit_storage
+		VK_KHR_acceleration_structure
+		VK_KHR_buffer_device_address
+		VK_KHR_create_renderpass2
+		VK_KHR_deferred_host_operations
+		VK_KHR_depth_stencil_resolve
+		VK_KHR_driver_properties
+		VK_KHR_fragment_shading_rate
+		VK_KHR_image_format_list
+		VK_KHR_maintenance2
+		VK_KHR_multiview
+		VK_KHR_ray_tracing_pipeline
+		VK_KHR_shader_float16_int8
+		VK_KHR_storage_buffer_storage_class
+		VK_KHR_swapchain
+		VK_KHR_synchronization2
+		VK_KHR_vulkan_memory_model
+		VK_EXT_pipeline_creation_cache_control
+		VK_EXT_subgroup_size_control
+		VK_KHR_external_semaphore_fd
+		VK_KHR_external_fence_fd
+		VK_KHR_timeline_semaphore
+Vulkan 1.4.363 - Forward Mobile - Using Device #0: Intel - Intel(R) Arc(tm) A770 Graphics (DG2)
+
+UT99_XR_PREVIEW runtime={ &"XRRuntimeName": "WiVRn \'v26.9-pro1-cqp1\'", &"XRRuntimeVersion": "26.9.0", &"OpenXRSystemName": "Meta Quest Pro on WiVRn", &"OpenXRVendorID": 0 }
+WARNING: Object picking can't be used when stereo rendering, this will be turned off!
+     at: _process_picking (scene/main/viewport.cpp:801)
+XR_TRACKER left_hand 2
+XR_POSE default true [X: (0.888945, -0.269692, -0.370192), Y: (0.248465, 0.962946, -0.104884), Z: (0.384761, 0.001256, 0.923015), O: (-0.408079, 1.464314, 0.424657)]
+XR_POSE grip true [X: (0.851634, -0.268666, -0.450042), Y: (0.523912, 0.46148, 0.715928), Z: (0.01534, -0.845491, 0.53377), O: (-0.404902, 1.437103, 0.467395)]
+XR_POSE aim true [X: (0.888945, -0.269692, -0.370192), Y: (0.248465, 0.962946, -0.104884), Z: (0.384761, 0.001256, 0.923015), O: (-0.408079, 1.464314, 0.424657)]
+XR_TRACKER right_hand 2
+XR_POSE default true [X: (0.695199, 0.038939, -0.717762), Y: (0.143089, 0.971051, 0.191271), Z: (0.704432, -0.235676, 0.669502), O: (-0.31919, 1.480739, 0.357162)]
+XR_POSE grip true [X: (0.753949, 0.01825, -0.65668), Y: (0.626806, 0.279262, 0.727411), Z: (0.196661, -0.960042, 0.19911), O: (-0.291051, 1.442245, 0.374694)]
+XR_POSE aim true [X: (0.695199, 0.038939, -0.717762), Y: (0.143089, 0.971051, 0.191271), Z: (0.704432, -0.235676, 0.669502), O: (-0.31919, 1.480739, 0.357162)]
+XR_TRACKER head 1
+XR_POSE default true [X: (0.772071, 0.0318, -0.63474), Y: (0.001378, 0.998661, 0.051708), Z: (0.635535, -0.040797, 0.770994), O: (-0.320677, 1.874436, 0.469121)]
+OpenXR head space location not valid (check tracking?)
+OpenXR head space location not valid (check tracking?)

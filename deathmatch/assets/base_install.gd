@@ -6,7 +6,7 @@ static func install(data: Dictionary,archive: String,directory: String) -> Strin
 	if zip.open(archive)!=OK:return "Cannot open asset archive."
 	for row in data.files:
 		var relative: String=row.path
-		if not (relative.begins_with("maps/") or relative.begins_with("vrm/")) or relative.contains("..") or relative.contains("\\"):
+		if not (relative.begins_with("maps/") or relative.begins_with("ut99/")) or relative.contains("..") or relative.contains("\\"):
 			zip.close();return "Invalid asset path."
 		var bytes:=zip.read_file(relative)
 		var hash:=HashingContext.new();hash.start(HashingContext.HASH_SHA256);hash.update(bytes)

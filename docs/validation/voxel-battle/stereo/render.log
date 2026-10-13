@@ -1,0 +1,88 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+LOG in xrCreateInstance: Instance created
+	createInfo->applicationInfo.applicationName: FPSloppa
+	createInfo->applicationInfo.applicationVersion: 1
+	createInfo->applicationInfo.engineName: Godot Engine
+	createInfo->applicationInfo.engineVersion: 40702
+	createInfo->applicationInfo.apiVersion: 1.1.62
+	appinfo.detected.engine.name: (null)
+	appinfo.detected.engine.version: 0.0.0
+	quirks.disable_vulkan_format_depth: false
+	quirks.disable_vulkan_format_depth_stencil: false
+	quirks.disable_quad_views: false
+	quirks.no_validation_error_in_create_ref_space: true
+	quirks.skip_end_session: false
+	quirks.parallel_views: false
+	quirks.no_texture_source_alpha: false
+	quirks.ignore_invalid_swapchain_usage_bits: false
+
+OpenXR: Created instance for OpenXR 1.1.62
+OpenXR: Running on OpenXR runtime:  WiVRn 'v26.9-pro1-cqp1'   26.9.0
+LOG in xrGetSystem: Selected devices
+	Head: 'WiVRn HMD'
+	Eyes: 'WiVRn Eye Tracker'
+	Left: 'WiVRn left hand interaction'
+	Right: 'WiVRn right hand interaction'
+	Gamepad: 'WiVRn Gamepad'
+	Hand-Tracking Left (unobstructed): 'WiVRn left controller'
+	Hand-Tracking Right (unobstructed): 'WiVRn right controller'
+	Hand-Tracking Left (conforming): '<none>'
+	Hand-Tracking Right (conforming): '<none>'
+OpenXR: XrGraphicsRequirementsVulkan2KHR:
+ - minApiVersionSupported:  1.0.0
+ - maxApiVersionSupported:  1023.1023.1023
+LOG in xrCreateVulkanInstanceKHR: Creation of VkInstance:
+	result: VK_SUCCESS
+	vulkanInstance: 0x27d921c0
+	extensions:
+		VK_KHR_external_fence_capabilities
+		VK_KHR_external_memory_capabilities
+		VK_KHR_external_semaphore_capabilities
+		VK_KHR_get_physical_device_properties2
+		VK_EXT_debug_utils
+		VK_KHR_surface
+		VK_KHR_xlib_surface
+		VK_EXT_swapchain_colorspace
+LOG in xrGetVulkanGraphicsDeviceKHR: Creation of VkDevice:
+	result: VK_SUCCESS
+	vulkanDevice: 0x27e76cc0
+	vulkanInstance: 0x27d921c0
+	external_fence_fd: true
+	external_semaphore_fd: true
+	timelineSemaphore: true
+	extensions:
+		VK_KHR_dedicated_allocation
+		VK_KHR_external_fence
+		VK_KHR_external_memory
+		VK_KHR_external_semaphore
+		VK_KHR_get_memory_requirements2
+		VK_KHR_external_memory_fd
+		VK_KHR_16bit_storage
+		VK_KHR_acceleration_structure
+		VK_KHR_buffer_device_address
+		VK_KHR_create_renderpass2
+		VK_KHR_deferred_host_operations
+		VK_KHR_depth_stencil_resolve
+		VK_KHR_driver_properties
+		VK_KHR_fragment_shading_rate
+		VK_KHR_image_format_list
+		VK_KHR_maintenance2
+		VK_KHR_multiview
+		VK_KHR_ray_tracing_pipeline
+		VK_KHR_shader_float16_int8
+		VK_KHR_storage_buffer_storage_class
+		VK_KHR_swapchain
+		VK_KHR_synchronization2
+		VK_KHR_vulkan_memory_model
+		VK_EXT_pipeline_creation_cache_control
+		VK_EXT_subgroup_size_control
+		VK_KHR_external_semaphore_fd
+		VK_KHR_external_fence_fd
+		VK_KHR_timeline_semaphore
+Vulkan 1.4.363 - Forward Mobile - Using Device #0: Intel - Intel(R) Arc(tm) A770 Graphics (DG2)
+
+FACE_TRACKING_SOURCES extension=true visual=1 audio=0
+STEREO_SCENE_READY point=(37.42462, 20.0, 2.021225) views=2 avatars=32 AI=0 springs=off
+STEREO_TEXTURE eye=0 format=36 size=2160x2376
+STEREO_TEXTURE eye=1 format=36 size=2160x2376
+STEREO_RESULT {"ai_nodes":0,"animation":"live idle, humanoid IK, expressions, conservative full-detail XR pose policy","avatar_centers_in_frustum":{"max":32,"p50":32,"p95":32,"p99":32,"samples":4311},"avatar_prepass":{"avatars":32,"enabled":true,"inactive_spring_systems":32,"index_cache":true,"preparation_ms":1492.189,"prepared_models":[{"changed_instances":4,"hash":"9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7","surface_compile":{"surfaces_after":23,"surfaces_before":72},"unique_meshes":4},{"changed_instances":4,"hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","surface_compile":{"surfaces_after":20,"surfaces_before":87},"unique_meshes":4},{"changed_instances":4,"hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","surface_compile":{"surfaces_after":20,"surfaces_before":82},"unique_meshes":4}],"springs_enabled":false,"surface_compile":true},"avatars":32,"display_refresh_hz":72.0,"engine":"4.7.2-stable (fedora)","fixed_head_view":true,"gpu":"Intel(R) Arc(tm) A770 Graphics (DG2)","limits":"One random map location, standing animated crowd; real OpenXR pacing/tracking and runtime foveation settings. No combat, AI, network or avatar movement. Render workload, not headset encode/decode or motion-to-photon latency.","navigation_baked":false,"per_eye_size":"(2160.0, 2376.0)","performance":{"by_view":{"OpenXR stereo 32 animated avatars":{"draw_calls":{"max":176.0,"p50":176.0,"p95":176.0,"p99":176.0,"samples":4311},"frame_ms":{"max":21.055,"p50":13.608,"p95":18.661,"p99":19.541,"samples":4311},"frames":4311,"settled_frames":4311,"viewport_gpu_ms":{"max":8.64200019836426,"p50":3.87599992752075,"p95":5.52400016784668,"p99":6.36199998855591,"samples":4311}}},"draw_calls":{"max":176.0,"p50":176.0,"p95":176.0,"p99":176.0,"samples":4311},"environment_draws":{"max":6,"p50":6,"p95":6,"p99":6,"samples":4311},"environment_update_ms":{"max":1.898,"p50":0.906,"p95":1.101,"p99":1.775,"samples":4311},"frame_ms":{"max":21.055,"p50":13.608,"p95":18.661,"p99":19.541,"samples":4311},"frames_over_16_67ms_percent":32.5214567385757,"live_readback_encode_ms":{},"primitives":{"max":462937.0,"p50":462937.0,"p95":462937.0,"p99":462937.0,"samples":4311},"render_cpu_ms":{"max":1.9190000295639,"p50":0.846000015735626,"p95":0.967999994754791,"p99":1.16600000858307,"samples":4311},"samples":4311,"static_memory_mb":{"max":147.28573513031,"p50":146.325392723083,"p95":147.28573513031,"p99":147.28573513031,"samples":4311},"terrain_tiles":{"max":239,"p50":239,"p95":239,"p99":239,"samples":4311},"units":"milliseconds, MB, counts","video_memory_mb":{"max":677.802551269531,"p50":677.802551269531,"p95":677.802551269531,"p99":677.802551269531,"samples":4311},"viewport_gpu_ms":{"max":8.64200019836426,"p50":3.87599992752075,"p95":5.52400016784668,"p99":6.36199998855591,"samples":4311},"wall_seconds":60.003383},"random_point_m":[37.4246215820312,20.0,2.02122497558594],"renderer":"mobile","seconds":60.002483,"seed":20261012,"springs_enabled":false,"views":2,"xr_interface":"OpenXR","xr_system":{"OpenXRSystemName":"Meta Quest Pro on WiVRn","OpenXRVendorID":0,"XRRuntimeName":"WiVRn 'v26.9-pro1-cqp1'","XRRuntimeVersion":"26.9.0"}}

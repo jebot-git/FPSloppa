@@ -1,0 +1,43 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+MODEL res://deathmatch/avatars/models/base/soldier.utavatar
+PASS Arm lengths are invariant over extreme targets and every animated socket
+PASS Elbow bend remains within 15–145 degrees without hyperextension
+PASS Coincident, unreachable and pole-aligned targets never produce nonfinite transforms
+PASS Shoulders remain attached to animated torso sockets; forearms attach to elbows
+PASS Neck IK keeps native segment length through crouch, run and death sockets
+PASS Head orientation respects 50° pitch, 75° yaw and 25° roll bounds
+PASS Complete left/right arms and head/neck regions replace sparse capsule masks
+MODEL res://deathmatch/avatars/models/base/commando.utavatar
+PASS Arm lengths are invariant over extreme targets and every animated socket
+PASS Elbow bend remains within 15–145 degrees without hyperextension
+PASS Coincident, unreachable and pole-aligned targets never produce nonfinite transforms
+PASS Shoulders remain attached to animated torso sockets; forearms attach to elbows
+PASS Neck IK keeps native segment length through crouch, run and death sockets
+PASS Head orientation respects 50° pitch, 75° yaw and 25° roll bounds
+PASS Complete left/right arms and head/neck regions replace sparse capsule masks
+MODEL res://deathmatch/avatars/models/base/sgirl.utavatar
+PASS Arm lengths are invariant over extreme targets and every animated socket
+PASS Elbow bend remains within 15–145 degrees without hyperextension
+PASS Coincident, unreachable and pole-aligned targets never produce nonfinite transforms
+PASS Shoulders remain attached to animated torso sockets; forearms attach to elbows
+PASS Neck IK keeps native segment length through crouch, run and death sockets
+PASS Head orientation respects 50° pitch, 75° yaw and 25° roll bounds
+PASS Complete left/right arms and head/neck regions replace sparse capsule masks
+MODEL res://deathmatch/avatars/models/base/fcommando.utavatar
+PASS Arm lengths are invariant over extreme targets and every animated socket
+PASS Elbow bend remains within 15–145 degrees without hyperextension
+PASS Coincident, unreachable and pole-aligned targets never produce nonfinite transforms
+PASS Shoulders remain attached to animated torso sockets; forearms attach to elbows
+PASS Neck IK keeps native segment length through crouch, run and death sockets
+PASS Head orientation respects 50° pitch, 75° yaw and 25° roll bounds
+PASS Complete left/right arms and head/neck regions replace sparse capsule masks
+MODEL res://deathmatch/avatars/models/base/boss.utavatar
+PASS Arm lengths are invariant over extreme targets and every animated socket
+PASS Elbow bend remains within 15–145 degrees without hyperextension
+PASS Coincident, unreachable and pole-aligned targets never produce nonfinite transforms
+PASS Shoulders remain attached to animated torso sockets; forearms attach to elbows
+PASS Neck IK keeps native segment length through crouch, run and death sockets
+PASS Head orientation respects 50° pitch, 75° yaw and 25° roll bounds
+PASS Complete left/right arms and head/neck regions replace sparse capsule masks
+UT99_IK_RESULT {"arm_cases":62316,"failures":[],"models":5}

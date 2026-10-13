@@ -1,0 +1,53 @@
+{
+  "upstream_commit": "1c3d05bbcf1aa7fb4e9768dfdbe94cd4744fde14",
+  "scope": "Offline Godot 4.7.2 Vulkan Mobile rendered 16v16 match, spring motion off, surface/index preparation on, live JPEG capture every two seconds and automatic ground-camera tour. Startup/model/nav warmup is outside timed frames. No XR/network validation.",
+  "checks": {
+    "geometry": {
+      "exit_code": 0,
+      "report": "geometry.json",
+      "passed_assertions": 65403
+    },
+    "bot_tactics": {
+      "exit_code": 0,
+      "result": "BOT_TACTICS_RESULT []",
+      "passed_assertions": 27
+    },
+    "team_modes": {
+      "exit_code": 0,
+      "result": "TEAM_MODES_RESULT []",
+      "passed_assertions": 33
+    },
+    "streaming": {
+      "exit_code": 0,
+      "result": "STREAMED_HEIGHTFIELD_VALIDATION {\"checks\":27509,\"errors\":[],\"peak_jobs\":2,\"peak_resident\":258,\"tile_evictions\":4808,\"tile_loads\":4808}"
+    },
+    "jetpack": {
+      "exit_code": 0,
+      "result": "CQ_JETPACK_RESULT {\"checks\":44,\"failures\":[],\"flights\":[{\"air_seconds\":2.03333333333334,\"apex_metres\":6.80678749084473,\"horizontal_metres\":32.4933197498322,\"hz\":30},{\"air_seconds\":2.05,\"apex_metres\":6.72690105438232,\"horizontal_metres\":32.7666401863098,\"hz\":60},{\"air_seconds\":2.05,\"apex_metres\":6.72498559951782,\"horizontal_metres\":32.7766463458538,\"hz\":120}]}",
+      "passed_assertions": 44
+    },
+    "environment": {
+      "exit_code": 0,
+      "report": "environment.json",
+      "passed_assertions": 263
+    },
+    "avatar_prepass": {
+      "exit_code": 0,
+      "result": "AVATAR_PREPASS_VALIDATION {\"checks\":1086,\"errors\":[],\"models\":[{\"changed_instances\":4,\"unique_meshes\":4},{\"changed_instances\":4,\"unique_meshes\":4},{\"changed_instances\":4,\"unique_meshes\":4}]}"
+    },
+    "water": {
+      "exit_code": 0,
+      "report": "water.json",
+      "passed_assertions": 1251
+    },
+    "rendered_match": {
+      "completed": true,
+      "report": "match.json",
+      "result": "RED WINS \u00b7 100 : 93",
+      "simulation_seconds": 247.650000000089,
+      "process": "observer left open after completion",
+      "rendered_frames": 3230,
+      "bot_ai_share_of_physics_percent": 66.6454695275553
+    }
+  }
+}

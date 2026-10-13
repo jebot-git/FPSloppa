@@ -31,7 +31,7 @@ func run() -> void:
 			check(not game.avatars.expected.has("a".repeat(64)),"server rejects oversized advertisement")
 		check(await wait_for(func(): return game.avatars.library.entries.has(hash)),"server validated client upload")
 		var restarted_library=preload("res://deathmatch/avatars/library.gd").new();root.add_child(restarted_library)
-		check(restarted_library.entries.has(hash) and restarted_library.entries[hash].path.begins_with(preload("res://deathmatch/assets/paths.gd").folder("vrm")),"Server library rediscovers uploaded VRM after restart")
+		check(restarted_library.entries.has(hash) and restarted_library.entries[hash].path.begins_with(preload("res://deathmatch/assets/paths.gd").folder("ut99")),"Server library rediscovers uploaded UT99 vertex avatar after restart")
 		restarted_library.free()
 		check(await wait_for(func(): return game.feed.any(func(row): return "ASSET_OK" in row.text)),"second client verified download")
 		check(await wait_for(func(): return game.feed.any(func(row): return "REJOIN_OK" in row.text)),"late join cache and avatar selection")
@@ -40,7 +40,7 @@ func run() -> void:
 	else:
 		if role=="uploader":
 			var imported: String = game.avatars.library.register_file(args[1])
-			check(imported==hash,"custom VRM imported locally")
+			check(imported==hash,"custom UT99 vertex avatar imported locally")
 			game.avatars.library.selected=hash
 		else: check(not game.avatars.library.entries.has(hash),"receiver starts without custom asset")
 		game.start_join(role,"127.0.0.1",27878)
@@ -49,8 +49,12 @@ func run() -> void:
 			check(await wait_for(func(): return game.avatars.library.entries.has(hash)),"server asset download completed")
 			if game.avatars.library.entries.has(hash):
 				check(FileAccess.get_sha256(game.avatars.library.entries[hash].path)==hash,"download SHA256 matches uploader")
+				var received:=preload("res://deathmatch/avatars/ut_format.gd").read(game.avatars.library.entries[hash].path)
+				var expected:=preload("res://deathmatch/avatars/ut_format.gd").read(args[1])
+				if expected.manifest.has("source_skin_hash"):
+					check(received.manifest.source_skin_hash==expected.manifest.source_skin_hash and received.manifest.base_model==expected.manifest.base_model and received.skin==expected.skin,"Receiver has the exact imported UTX skin atlas and correct base model")
 				var avatar = game.avatars.library.create_avatar(hash)
-				check(avatar!=null,"downloaded VRM is renderable and rigged")
+				check(avatar!=null,"downloaded UT99 vertex avatar is renderable and animated")
 				if avatar: avatar.free()
 			game.chat_send("ASSET_OK")
 			await create_timer(1).timeout

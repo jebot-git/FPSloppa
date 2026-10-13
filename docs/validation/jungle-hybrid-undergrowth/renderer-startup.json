@@ -1,0 +1,20 @@
+[
+  {
+    "method": "gl_compatibility",
+    "driver": "opengl3",
+    "exit": 2,
+    "passed": true
+  },
+  {
+    "method": "mobile",
+    "driver": "vulkan",
+    "exit": 2,
+    "passed": true
+  },
+  {
+    "method": "forward_plus",
+    "driver": "vulkan",
+    "exit": 0,
+    "passed": true
+  }
+]

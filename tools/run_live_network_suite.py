@@ -129,7 +129,7 @@ def main():
                     log = (out / f'client-{index:02}.log').open('w')
                     handles.append(log)
                     display = ['--headless', '--audio-driver', 'Dummy'] if args.headless or not observer else [
-                        '--rendering-method', 'mobile', '--rendering-driver', 'vulkan',
+                        '--rendering-method', 'forward_plus', '--rendering-driver', 'vulkan',
                         '--resolution', '1280x720', '--audio-driver', 'Dummy']
                     processes.append(subprocess.Popen([
                         'godot', *display, '--xr-mode', 'off', '--max-fps', '60', '--path', str(ROOT),

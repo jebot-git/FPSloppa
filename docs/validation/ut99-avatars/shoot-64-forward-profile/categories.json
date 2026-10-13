@@ -1,0 +1,464 @@
+{
+  "categories": {
+    "avatar_update": {
+      "calls": 59776,
+      "exclusive_ms": 1021.92899999967,
+      "exclusive_ms_per_render": {
+        "max": 5.23799991607666,
+        "p50": 1.06799972057343,
+        "p95": 1.18299973011017,
+        "p99": 1.55600047111511,
+        "samples": 934
+      },
+      "inclusive_ms": 2249.63599999995,
+      "inclusive_ms_per_render": {
+        "max": 6.44000148773193,
+        "p50": 2.36700081825256,
+        "p95": 2.59599995613098,
+        "p99": 3.45300030708313,
+        "samples": 934
+      }
+    },
+    "benchmark_tick": {
+      "calls": 6456,
+      "exclusive_ms": 11128.793,
+      "exclusive_ms_per_render": {
+        "max": 16.3759994506836,
+        "p50": 13.5839996337891,
+        "p95": 14.386999130249,
+        "p99": 14.9149990081787,
+        "samples": 934
+      },
+      "inclusive_ms": 90762.8609999997,
+      "inclusive_ms_per_render": {
+        "max": 143.276992797852,
+        "p50": 106.95100402832,
+        "p95": 129.505004882812,
+        "p99": 136.574005126953,
+        "samples": 934
+      }
+    },
+    "combat_input": {
+      "calls": 413120,
+      "exclusive_ms": 4591.61700001282,
+      "exclusive_ms_per_render": {
+        "max": 12.7309923171997,
+        "p50": 4.86899566650391,
+        "p95": 9.20700740814209,
+        "p99": 10.4460172653198,
+        "samples": 934
+      },
+      "inclusive_ms": 14809.3530000105,
+      "inclusive_ms_per_render": {
+        "max": 48.5311050415039,
+        "p50": 13.2029972076416,
+        "p95": 33.8980560302734,
+        "p99": 41.2910690307617,
+        "samples": 934
+      }
+    },
+    "effects_impacts": {
+      "calls": 30008,
+      "exclusive_ms": 1146.43499999998,
+      "exclusive_ms_per_render": {
+        "max": 4.33499956130981,
+        "p50": 0.960000038146973,
+        "p95": 2.74700045585632,
+        "p99": 3.47799968719482,
+        "samples": 934
+      },
+      "inclusive_ms": 1423.16499999997,
+      "inclusive_ms_per_render": {
+        "max": 5.19699954986572,
+        "p50": 1.18200016021729,
+        "p95": 3.3970000743866,
+        "p99": 4.32699918746948,
+        "samples": 934
+      }
+    },
+    "effects_pool_acquire": {
+      "calls": 30008,
+      "exclusive_ms": 46.902000000001,
+      "exclusive_ms_per_render": {
+        "max": 0.187999978661537,
+        "p50": 0.0389999970793724,
+        "p95": 0.115999944508076,
+        "p99": 0.149000003933907,
+        "samples": 934
+      },
+      "inclusive_ms": 46.902000000001,
+      "inclusive_ms_per_render": {
+        "max": 0.187999978661537,
+        "p50": 0.0389999970793724,
+        "p95": 0.115999944508076,
+        "p99": 0.149000003933907,
+        "samples": 934
+      }
+    },
+    "effects_spawn": {
+      "calls": 30008,
+      "exclusive_ms": 229.82800000005,
+      "exclusive_ms_per_render": {
+        "max": 0.731999933719635,
+        "p50": 0.188999980688095,
+        "p95": 0.562000036239624,
+        "p99": 0.668000102043152,
+        "samples": 934
+      },
+      "inclusive_ms": 229.82800000005,
+      "inclusive_ms_per_render": {
+        "max": 0.731999933719635,
+        "p50": 0.188999980688095,
+        "p95": 0.562000036239624,
+        "p99": 0.668000102043152,
+        "samples": 934
+      }
+    },
+    "effects_update": {
+      "calls": 934,
+      "exclusive_ms": 175.881,
+      "exclusive_ms_per_render": {
+        "max": 1.44700002670288,
+        "p50": 0.208000004291534,
+        "p95": 0.307000011205673,
+        "p99": 0.351000010967255,
+        "samples": 934
+      },
+      "inclusive_ms": 175.881,
+      "inclusive_ms_per_render": {
+        "max": 1.44700002670288,
+        "p50": 0.208000004291534,
+        "p95": 0.307000011205673,
+        "p99": 0.351000010967255,
+        "samples": 934
+      }
+    },
+    "fighter_visual_update": {
+      "calls": 59776,
+      "exclusive_ms": 620.884999999117,
+      "exclusive_ms_per_render": {
+        "max": 186.42204284668,
+        "p50": 0.458000153303146,
+        "p95": 0.519999861717224,
+        "p99": 0.603000223636627,
+        "samples": 934
+      },
+      "inclusive_ms": 620.884999999117,
+      "inclusive_ms_per_render": {
+        "max": 186.42204284668,
+        "p50": 0.458000153303146,
+        "p95": 0.519999861717224,
+        "p99": 0.603000223636627,
+        "samples": 934
+      }
+    },
+    "game_scene_update": {
+      "calls": 933,
+      "exclusive_ms": 676.519,
+      "exclusive_ms_per_render": {
+        "max": 1.39600002765656,
+        "p50": 0.708000004291534,
+        "p95": 0.810000002384186,
+        "p99": 1.0460000038147,
+        "samples": 934
+      },
+      "inclusive_ms": 676.519,
+      "inclusive_ms_per_render": {
+        "max": 1.39600002765656,
+        "p50": 0.708000004291534,
+        "p95": 0.810000002384186,
+        "p99": 1.0460000038147,
+        "samples": 934
+      }
+    },
+    "gameplay_tick": {
+      "calls": 6455,
+      "exclusive_ms": 470.621,
+      "exclusive_ms_per_render": {
+        "max": 1.70699989795685,
+        "p50": 0.560000002384186,
+        "p95": 0.629000008106232,
+        "p99": 0.712000012397766,
+        "samples": 934
+      },
+      "inclusive_ms": 79634.0679999997,
+      "inclusive_ms_per_render": {
+        "max": 129.540985107422,
+        "p50": 93.2409973144531,
+        "p95": 115.741996765137,
+        "p99": 122.842010498047,
+        "samples": 934
+      }
+    },
+    "history": {
+      "calls": 6455,
+      "exclusive_ms": 1203.516,
+      "exclusive_ms_per_render": {
+        "max": 3.21500015258789,
+        "p50": 1.42599999904633,
+        "p95": 1.63300013542175,
+        "p99": 1.93999981880188,
+        "samples": 934
+      },
+      "inclusive_ms": 1203.516,
+      "inclusive_ms_per_render": {
+        "max": 3.21500015258789,
+        "p50": 1.42599999904633,
+        "p95": 1.63300013542175,
+        "p99": 1.93999981880188,
+        "samples": 934
+      }
+    },
+    "hit_trace": {
+      "calls": 30008,
+      "exclusive_ms": 5808.91599999995,
+      "exclusive_ms_per_render": {
+        "max": 21.9819984436035,
+        "p50": 4.73899936676025,
+        "p95": 14.0940008163452,
+        "p99": 17.9039993286133,
+        "samples": 934
+      },
+      "inclusive_ms": 5808.91599999995,
+      "inclusive_ms_per_render": {
+        "max": 21.9819984436035,
+        "p50": 4.73899936676025,
+        "p95": 14.0940008163452,
+        "p99": 17.9039993286133,
+        "samples": 934
+      }
+    },
+    "impact_dispatch": {
+      "calls": 30008,
+      "exclusive_ms": 1121.17499999994,
+      "exclusive_ms_per_render": {
+        "max": 4.67300081253052,
+        "p50": 0.978999853134155,
+        "p95": 2.80200052261353,
+        "p99": 3.37500023841858,
+        "samples": 934
+      },
+      "inclusive_ms": 2544.34000000005,
+      "inclusive_ms_per_render": {
+        "max": 9.86999988555908,
+        "p50": 2.14400005340576,
+        "p95": 6.13200044631958,
+        "p99": 7.83100175857544,
+        "samples": 934
+      }
+    },
+    "melee": {
+      "calls": 413120,
+      "exclusive_ms": 2622.90300000476,
+      "exclusive_ms_per_render": {
+        "max": 4.12301683425903,
+        "p50": 3.19100880622864,
+        "p95": 3.40401315689087,
+        "p99": 3.57701206207275,
+        "samples": 934
+      },
+      "inclusive_ms": 2622.90300000476,
+      "inclusive_ms_per_render": {
+        "max": 4.12301683425903,
+        "p50": 3.19100880622864,
+        "p95": 3.40401315689087,
+        "p99": 3.57701206207275,
+        "samples": 934
+      }
+    },
+    "movement_collision": {
+      "calls": 413120,
+      "exclusive_ms": 37495.5880000076,
+      "exclusive_ms_per_render": {
+        "max": 49.9860496520996,
+        "p50": 45.9940185546875,
+        "p95": 47.9130096435547,
+        "p99": 48.7640228271484,
+        "samples": 934
+      },
+      "inclusive_ms": 37495.5880000076,
+      "inclusive_ms_per_render": {
+        "max": 49.9860496520996,
+        "p50": 45.9940185546875,
+        "p95": 47.9130096435547,
+        "p99": 48.7640228271484,
+        "samples": 934
+      }
+    },
+    "pickup_collection": {
+      "calls": 413120,
+      "exclusive_ms": 705.340999996004,
+      "exclusive_ms_per_render": {
+        "max": 1.7039989233017,
+        "p50": 0.850996375083923,
+        "p95": 0.937995672225952,
+        "p99": 0.992995619773865,
+        "samples": 934
+      },
+      "inclusive_ms": 705.340999996004,
+      "inclusive_ms_per_render": {
+        "max": 1.7039989233017,
+        "p50": 0.850996375083923,
+        "p95": 0.937995672225952,
+        "p99": 0.992995619773865,
+        "samples": 934
+      }
+    },
+    "projectiles": {
+      "calls": 6455,
+      "exclusive_ms": 11.1740000000002,
+      "exclusive_ms_per_render": {
+        "max": 0.0379999987781048,
+        "p50": 0.0130000011995435,
+        "p95": 0.0160000007599592,
+        "p99": 0.017000000923872,
+        "samples": 934
+      },
+      "inclusive_ms": 11.1740000000002,
+      "inclusive_ms_per_render": {
+        "max": 0.0379999987781048,
+        "p50": 0.0130000011995435,
+        "p95": 0.0160000007599592,
+        "p99": 0.017000000923872,
+        "samples": 934
+      }
+    },
+    "server_tick": {
+      "calls": 6455,
+      "exclusive_ms": 20410.0579999999,
+      "exclusive_ms_per_render": {
+        "max": 28.6889972686768,
+        "p50": 24.9489994049072,
+        "p95": 26.3769989013672,
+        "p99": 27.189998626709,
+        "samples": 934
+      },
+      "inclusive_ms": 76054.417,
+      "inclusive_ms_per_render": {
+        "max": 125.641006469727,
+        "p50": 88.7630004882812,
+        "p95": 111.304992675781,
+        "p99": 118.325012207031,
+        "samples": 934
+      }
+    },
+    "shot_fx_dispatch": {
+      "calls": 30008,
+      "exclusive_ms": 586.957999999956,
+      "exclusive_ms_per_render": {
+        "max": 2.37199997901917,
+        "p50": 0.475999981164932,
+        "p95": 1.41499984264374,
+        "p99": 1.79200041294098,
+        "samples": 934
+      },
+      "inclusive_ms": 586.957999999956,
+      "inclusive_ms_per_render": {
+        "max": 2.37199997901917,
+        "p50": 0.475999981164932,
+        "p95": 1.41499984264374,
+        "p99": 1.79200041294098,
+        "samples": 934
+      }
+    },
+    "shot_solution": {
+      "calls": 30008,
+      "exclusive_ms": 1277.52199999998,
+      "exclusive_ms_per_render": {
+        "max": 4.27900123596191,
+        "p50": 1.04299998283386,
+        "p95": 3.09100031852722,
+        "p99": 3.88500046730042,
+        "samples": 934
+      },
+      "inclusive_ms": 1277.52199999998,
+      "inclusive_ms_per_render": {
+        "max": 4.27900123596191,
+        "p50": 1.04299998283386,
+        "p95": 3.09100031852722,
+        "p99": 3.88500046730042,
+        "samples": 934
+      }
+    },
+    "snapshot": {
+      "calls": 2151,
+      "exclusive_ms": 1905.514,
+      "exclusive_ms_per_render": {
+        "max": 4.11299991607666,
+        "p50": 1.90900003910065,
+        "p95": 2.8510000705719,
+        "p99": 3.2810001373291,
+        "samples": 934
+      },
+      "inclusive_ms": 1905.514,
+      "inclusive_ms_per_render": {
+        "max": 4.11299991607666,
+        "p50": 1.90900003910065,
+        "p95": 2.8510000705719,
+        "p99": 3.2810001373291,
+        "samples": 934
+      }
+    },
+    "tracked_head_neck_arms_ik": {
+      "calls": 59776,
+      "exclusive_ms": 1227.70700000006,
+      "exclusive_ms_per_render": {
+        "max": 2.46599984169006,
+        "p50": 1.29600024223328,
+        "p95": 1.43199992179871,
+        "p99": 1.69799995422363,
+        "samples": 934
+      },
+      "inclusive_ms": 1227.70700000006,
+      "inclusive_ms_per_render": {
+        "max": 2.46599984169006,
+        "p50": 1.29600024223328,
+        "p95": 1.43199992179871,
+        "p99": 1.69799995422363,
+        "samples": 934
+      }
+    }
+  },
+  "frames": 934,
+  "grass_actual_refresh_ms": {},
+  "map_update_ms": {
+    "max": 0.153,
+    "p50": 0.018,
+    "p95": 0.023,
+    "p99": 0.033,
+    "samples": 933
+  },
+  "partial_frame_cpu_ms": {
+    "benchmark_tick": "(58.355, 8.296)",
+    "combat_input": "(1.752001, 1.752001)",
+    "gameplay_tick": "(50.059, 0.368)",
+    "history": "(1.018, 1.018)",
+    "melee": "(1.955003, 1.955003)",
+    "movement_collision": "(28.291, 28.291)",
+    "pickup_collection": "(0.506, 0.506)",
+    "projectiles": "(0.007, 0.007)",
+    "server_tick": "(47.85699, 15.346)",
+    "snapshot": "(0.816, 0.816)"
+  },
+  "roster": "Same seven World Leaders skins as historical 64 test, rebuilt with accepted constrained IK.",
+  "scope": "CPU timings use nested benchmark-only wrappers; exclusive values subtract recorded child scopes. Unwrapped engine/scene work remains unmeasured. GPU counters overlap CPU. Wall intervals sampled at frame_post_draw; warmup excluded. Profiler adds clock/counter and CSV overhead.",
+  "simulation_seconds": 107.583333333329,
+  "terrain": {
+    "capacity": 384,
+    "grass_distance_m": 96.0,
+    "grass_draws": 4,
+    "grass_instances": 625,
+    "resident": 242,
+    "settled": true
+  },
+  "tree_actual_refresh_ms": {},
+  "wall_frame_ms": {
+    "max": 215.578,
+    "p50": 138.469,
+    "p95": 178.466,
+    "p99": 193.842,
+    "samples": 934
+  },
+  "wall_render_fps": 7.78702957670574,
+  "wall_seconds": 120.010766
+}

@@ -1,0 +1,39 @@
+{
+  "baseline": {
+    "wall_seconds": 120.026923,
+    "simulation_seconds": 119.966666666661,
+    "frame_samples": 5737,
+    "csv_percentiles_verified": true,
+    "zero_ai_nav": true,
+    "shots": 16820,
+    "reloads": 584,
+    "all_32_shooting": true,
+    "distinct_nonempty_2160x2376_eye_images": true
+  },
+  "pooled": {
+    "wall_seconds": 120.042498,
+    "simulation_seconds": 119.983333333328,
+    "frame_samples": 6801,
+    "csv_percentiles_verified": true,
+    "zero_ai_nav": true,
+    "shots": 16832,
+    "reloads": 584,
+    "all_32_shooting": true,
+    "distinct_nonempty_2160x2376_eye_images": true
+  },
+  "matched_settings_verified": true,
+  "pool": {
+    "active_at_end": 12,
+    "capacity": 64,
+    "emissions": 16832,
+    "evictions": 0,
+    "fallbacks": 0,
+    "free_at_end": 52,
+    "invariants_ok": true,
+    "materials_created_before_measurement": 64,
+    "method": "Shared immutable unit crossed-ribbon mesh, 64 persistent nodes with individual materials configured once; per-shot transform/color/visibility and original linear fade. Multi-point streaks use original path.",
+    "nodes_created_before_measurement": 64,
+    "peak_active": 32,
+    "preparation_ms": 5.957
+  }
+}

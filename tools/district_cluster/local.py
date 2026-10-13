@@ -87,7 +87,7 @@ def run(args):
     private(root / 'client.json', dict(address=[address[0], address[1]+100],
             district=client_district, token=settings['client_token'], campaign_id=settings['campaign_id'], team=0, name='CQ Explorer', content_url=f'http://127.0.0.1:{args.base_port+200}'))
     commands = [('coordinator', [sys.executable, '-m', 'tools.district_cluster', 'coordinator',
-        '--config', str(path), '--database', str(root / 'control.sqlite'), '--status-file', str(root/'www/index.html'), '--content-listen', f'127.0.0.1:{args.base_port+200}', '--content-root',str(root/'vrm'),'--worker-binary',str(binary)])]
+        '--config', str(path), '--database', str(root / 'control.sqlite'), '--status-file', str(root/'www/index.html'), '--content-listen', f'127.0.0.1:{args.base_port+200}', '--content-root',str(root/'ut99'),'--worker-binary',str(binary)])]
     for gateway in gateways:
         commands.append((gateway, [sys.executable, '-m', 'tools.district_cluster', 'gateway',
             '--config', str(path), '--name', gateway, '--wait-lease']))

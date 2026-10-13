@@ -1,0 +1,119 @@
+{
+  "source": {
+    "author": "VRoid Project / pixiv",
+    "hash": "9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7",
+    "license": "CC0",
+    "path": "res://vrm/sample_d.vrm",
+    "size": 16851352.0,
+    "title": "VRoid Sample D",
+    "version": "0.x"
+  },
+  "original_triangles": 34475,
+  "triangles": 671,
+  "vertices": 999,
+  "frames": [
+    "idle01",
+    "idle02",
+    "idle03",
+    "idle04",
+    "idle05",
+    "idle06",
+    "walk01",
+    "walk02",
+    "walk03",
+    "walk04",
+    "walk05",
+    "walk06",
+    "walk07",
+    "walk08",
+    "run01",
+    "run02",
+    "run03",
+    "run04",
+    "run05",
+    "run06",
+    "run07",
+    "run08",
+    "attack01",
+    "attack02",
+    "attack03",
+    "attack04",
+    "attack05",
+    "attack06",
+    "pain01",
+    "pain02",
+    "pain03",
+    "pain04",
+    "death01",
+    "death02",
+    "death03",
+    "death04",
+    "death05",
+    "death06",
+    "death07",
+    "death08"
+  ],
+  "clips": [
+    {
+      "name": "idle",
+      "start": 0,
+      "count": 6,
+      "fps": 6,
+      "loop": true
+    },
+    {
+      "name": "walk",
+      "start": 6,
+      "count": 8,
+      "fps": 10,
+      "loop": true
+    },
+    {
+      "name": "run",
+      "start": 14,
+      "count": 8,
+      "fps": 14,
+      "loop": true
+    },
+    {
+      "name": "attack",
+      "start": 22,
+      "count": 6,
+      "fps": 12,
+      "loop": false
+    },
+    {
+      "name": "pain",
+      "start": 28,
+      "count": 4,
+      "fps": 12,
+      "loop": false
+    },
+    {
+      "name": "death",
+      "start": 32,
+      "count": 8,
+      "fps": 10,
+      "loop": false
+    }
+  ],
+  "mdl": "sample_d.mdl",
+  "format": "Quake IDPO version 6",
+  "palette": "palette.lmp",
+  "height_m": 1.7,
+  "quake_height_units": 56,
+  "tracking": false,
+  "skeleton": false,
+  "morphs": false,
+  "springs": false,
+  "source_bytes": 16851352,
+  "mdl_bytes": 249308,
+  "mdl_sha256": "fcb6ae9d5410979486f2335e8d01421194c6f488c733955c2e286251585671fd",
+  "quantization_max_error_m": 0.004719699167448654,
+  "skin_size": [
+    256,
+    256
+  ],
+  "skin": "sample_d-skin.png",
+  "fullbright_indices_used": 0
+}

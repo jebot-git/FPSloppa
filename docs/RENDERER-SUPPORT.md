@@ -1,3 +1,11 @@
+# Renderer support — voxelspace prototype
+
+This prototype supports **Vulkan Forward+ only**. Project settings pin `forward_plus` on desktop and mobile targets, and Vulkan on Linux, Windows and Android. OpenGL and Direct3D fallbacks are disabled. The runtime guard checks the actual method/driver, rejecting Mobile, Compatibility/OpenGL, Direct3D and Metal overrides before gameplay. Headless servers and tests remain allowed.
+
+Launchers, generated release/CQ launchers, rendering test runners and Android/export validators use the same policy. Current jungle foliage comparisons use Forward+. Previous Mobile timings and physical Quest checks below are historical and do not validate this configuration on standalone Android hardware.
+
+## Historical Mobile renderer validation
+
 # Renderer support — updated 20 September 2026
 
 FPSloppa requires **Mobile/Vulkan** for Linux, Windows and standalone Quest. Client settings explicitly select Vulkan; both OpenGL/GLES and Direct3D fallback are disabled. At startup the client checks the actual renderer and driver, rejecting command-line overrides to OpenGL, Direct3D, Metal or Forward+ with an explanatory error and exit code 2 before game initialization. Headless server and test processes require no graphics API and remain allowed. Pico is excluded from current and future releases.

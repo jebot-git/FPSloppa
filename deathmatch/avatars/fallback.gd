@@ -1,5 +1,5 @@
 extends Node3D
-## The download/error fallback uses the same gait as a loaded VRM.
+## The download/error fallback uses the same gait as a downloaded avatar.
 var gait=preload("res://deathmatch/avatars/locomotion.gd").new()
 const Death=preload("res://deathmatch/avatars/death_pose.gd")
 var dead:=false:
@@ -54,7 +54,6 @@ func animate(delta: float,movement: Vector3,stance: String,height: float,grounde
 	var pelvis:=Vector3(0,.78-(1.65-height)+gait.bob,0)
 	pelvis.y=maxf(.30,pelvis.y)-gait.landing*.25
 	pelvis=pelvis.lerp(Vector3(0,.32,.30),gait.prone_blend)
-	if body.has("hips"):pelvis=body.hips.origin
 	$Upper.position=pelvis
 	$Upper.rotation.x=-deg_to_rad(77)*gait.prone_blend
 	$Upper/Head.rotation.x=-$Upper.rotation.x
@@ -65,7 +64,6 @@ func animate(delta: float,movement: Vector3,stance: String,height: float,grounde
 		var key: String=side.to_lower()
 		var hip:=pelvis+Vector3(sign_side*.18,0,0)
 		var foot: Vector3=Vector3(sign_side*.18,.10,0)+gait.offsets[key]
-		if body.has(key+"_foot"):foot=body[key+"_foot"].origin+gait.offsets[key]*gait.assist_weight*.6
 		var axis: Vector3=(foot-hip).normalized()
 		var distance:=clampf(hip.distance_to(foot),.02,.719)
 		foot=hip+axis*distance

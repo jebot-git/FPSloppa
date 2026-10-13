@@ -1,0 +1,32 @@
+{
+  "teams": [
+    16,
+    16
+  ],
+  "models": {
+    "ranger_q": 11,
+    "ranger_2022_433888": 11,
+    "ranger_2022_198356": 10
+  },
+  "wall_seconds": 120.022915,
+  "simulation_seconds": 119.949999999994,
+  "csv_percentiles_verified": true,
+  "frame_samples": 5972,
+  "all_32_fired_beyond_first_magazine": true,
+  "minimum_shots_per_actor": 76,
+  "shots_per_30_sim_seconds": {
+    "0": 4288,
+    "1": 4304,
+    "2": 4044,
+    "3": 4184
+  },
+  "zero_ai_and_navigation": true,
+  "eye_resolution": [
+    2160,
+    2376
+  ],
+  "distinct_eye_images": true,
+  "mean_absolute_eye_pixel_difference": 1.6975069626304193,
+  "prepass": true,
+  "springs_enabled": false
+}

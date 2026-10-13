@@ -8,7 +8,6 @@ class FakePermissions extends Permissions:
 	func request_system(permission: String) -> bool:
 		requested.append(permission)
 		return false
-	func tracking_permissions() -> Array: return QUEST_TRACKING
 	func answer(permission: String,value: bool) -> void:
 		if value: allowed.append(permission)
 		permission_result(permission,value)
@@ -20,34 +19,22 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	var access:=FakePermissions.new();root.add_child(access)
 	access.request(Permissions.MICROPHONE)
-	access.request_tracking()
 	await process_frame
-	check(access.requested==[Permissions.MICROPHONE],"Microphone and tracking dialogs serialize")
+	check(access.requested==[Permissions.MICROPHONE],"Only microphone permission is requested")
 	access.answer(Permissions.MICROPHONE,false)
 	await process_frame
-	check(access.current==Permissions.QUEST_TRACKING[0],"Microphone denial continues tracking requests")
-	for permission in Permissions.QUEST_TRACKING:
-		access.answer(permission,true)
-		await process_frame
-	check(access.pending.is_empty() and access.current.is_empty(),"All tracking permissions complete")
+	check(access.pending.is_empty() and access.current.is_empty(),"Denial completes permission queue")
 	var count:=access.requested.size()
 	access.request(Permissions.MICROPHONE)
 	await process_frame
-	check(access.requested.size()==count,"Denied permissions do not cause repeated automatic prompts")
+	check(access.requested.size()==count,"Denied permissions do not repeat automatically")
 	access.request(Permissions.MICROPHONE,true)
 	await process_frame
-	check(access.requested.size()==count+1,"Explicit retry requests denied microphone again")
+	check(access.requested.size()==count+1,"Explicit microphone retry works")
 	access.answer(Permissions.MICROPHONE,true)
-	access.request_tracking()
+	access.request(Permissions.MICROPHONE)
 	await process_frame
-	check(access.requested.size()==count+1,"Granted tracking permissions skip dialogs")
-	var tracking_permission: String=Permissions.QUEST_TRACKING[0]
-	access.allowed.erase(tracking_permission)
-	access.permission_result(tracking_permission,false)
-	check(access.tracking_status().contains("denied"),"Tracking denial is visible in menu status")
-	access.allowed.append(tracking_permission)
-	access.request(tracking_permission)
-	check(access.tracking_status().is_empty(),"Granting access in system settings clears stale denial")
+	check(access.requested.size()==count+1,"Granted microphone skips dialogs")
 	access.free()
 	var game=load("res://deathmatch/arena.tscn").instantiate();root.add_child(game)
 	game.voice.set_process(false)

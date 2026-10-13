@@ -16,7 +16,6 @@ func team_channel() -> bool:return false
 func set_mode(value: int,_persist: bool=false) -> void:mode=clampi(value,0,2)
 func remove_peer(id: int) -> void:guard.erase(id)
 func reset() -> void:guard.clear();sequence=0;game.voice_enabled=true
-func mouth_pose(_id: int) -> PackedFloat32Array:return PackedFloat32Array([0,0,0,0,0])
 
 func team_available(id: int=0) -> bool:
 	if id==0:id=multiplayer.get_unique_id()

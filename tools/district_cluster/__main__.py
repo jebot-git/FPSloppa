@@ -88,7 +88,7 @@ def main():
     parser.add_argument('--request')
     parser.add_argument('--status-file')
     parser.add_argument('--content-listen')
-    parser.add_argument('--content-root',default='test-results/cq-content/vrm')
+    parser.add_argument('--content-root',default='test-results/cq-content/ut99')
     parser.add_argument('--worker-binary',default='Builds/CQLive/FPSloppaServer.x86_64')
     args=parser.parse_args()
     try:asyncio.run(run(args))

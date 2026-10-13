@@ -1,0 +1,100 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.363 - Forward Mobile - Using Device #0: Intel - Intel(R) Arc(tm) A770 Graphics (DG2)
+
+DM_HOST_READY port=0 practice=true
+VRM_PREPASS {"avatars":32,"enabled":true,"inactive_spring_systems":0,"index_cache":true,"preparation_ms":1741.925,"prepared_models":[{"changed_instances":2,"hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","surface_compile":{"surfaces_after":2,"surfaces_before":2},"unique_meshes":2},{"changed_instances":2,"hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","surface_compile":{"surfaces_after":2,"surfaces_before":2},"unique_meshes":2},{"changed_instances":2,"hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","surface_compile":{"surfaces_after":2,"surfaces_before":2},"unique_meshes":2}],"springs_enabled":false,"surface_compile":true}
+VALLEY_BUILD_READY buildings=24 collision_boxes=1533
+VALLEY_NAV_READY polygons=32944
+COMPARISON_READY vrm teams=[16, 16] assignments=[{"id":-1028,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1027,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1026,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1025,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1024,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1023,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1022,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1021,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1020,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1019,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1018,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1017,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1016,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1015,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1014,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1013,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1012,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1011,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1010,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1009,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1008,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1007,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1006,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1005,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1004,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1003,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1002,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1001,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1000,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-3,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-2,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0}]
+DM_EVENT Bot 2  →  Bot 23   ·   AK-47
+DM_EVENT Bot 9  →  Bot 18   ·   M4A1
+DM_EVENT Bot 26  →  Bot 1   ·   AK-47
+DM_EVENT Bot 16  →  Bot 21   ·   AK-47
+DM_EVENT Bot 19  →  Bot 3   ·   M4A1
+DM_EVENT Bot 27  →  Bot 20   ·   M4A1
+DM_EVENT Bot 28  →  Bot 13   ·   AK-47
+DM_EVENT Bot 22  →  Bot 2   ·   AWP
+DM_EVENT Bot 8  →  Bot 21   ·   AK-47
+DM_EVENT Bot 17  →  Bot 4   ·   M4A1
+DM_EVENT Bot 5  →  Bot 16   ·   M4A1
+DM_EVENT Bot 25  →  Bot 10   ·   M4A1
+DM_EVENT Bot 3  →  Bot 15   ·   AK-47
+DM_EVENT Bot 22  →  Bot 25   ·   AWP
+DM_EVENT Bot 7  →  Bot 22   ·   AWP
+DM_EVENT Bot 21  →  Bot 14   ·   M4A1
+DM_EVENT Bot 2  →  Bot 21   ·   AK-47
+DM_EVENT Bot 11  →  Bot 22   ·   M4A1
+DM_EVENT Bot 1  →  Bot 20   ·   M4A1
+DM_EVENT Bot 25  →  Bot 2   ·   M4A1
+DM_EVENT Bot 16  →  Bot 25   ·   AK-47
+DM_EVENT Bot 26  →  Bot 23   ·   AK-47
+DM_EVENT Bot 29  →  Bot 4   ·   M4A1
+DM_EVENT Bot 29  →  Bot 3   ·   M4A1
+DM_EVENT Bot 2  →  Bot 9   ·   AK-47
+DM_EVENT Bot 2  →  Bot 24   ·   AWP
+DM_EVENT Bot 2  →  Bot 8   ·   AWP
+DM_EVENT Bot 13  →  Bot 6   ·   M4A1
+DM_EVENT Bot 24  →  Bot 13   ·   AK-47
+DM_EVENT Bot 23  →  Bot 2   ·   AWP
+VALLEY_PROGRESS seconds=30 scores=[13, 17] boosts=32
+DM_EVENT Bot 25  →  Bot 26   ·   M4A1
+DM_EVENT Bot 3  →  Bot 23   ·   AK-47
+DM_EVENT Bot 13  →  Bot 24   ·   M4A1
+DM_EVENT Bot 19  →  Bot 10   ·   M4A1
+DM_EVENT Bot 2  →  Bot 1   ·   AWP
+DM_EVENT Bot 4  →  Bot 15   ·   AK-47
+DM_EVENT Bot 21  →  Bot 28   ·   M4A1
+DM_EVENT Bot 2  →  Bot 12   ·   AWP
+DM_EVENT Bot 8  →  Bot 2   ·   AK-47
+DM_EVENT Bot 8  →  Bot 5   ·   AK-47
+DM_EVENT Bot 1  →  Bot 24   ·   M4A1
+DM_EVENT Bot 18  →  Bot 11   ·   AK-47
+DM_EVENT Bot 26  →  Bot 21   ·   AK-47
+DM_EVENT Bot 12  →  Bot 27   ·   AK-47
+DM_EVENT Bot 29  →  Bot 18   ·   M4A1
+DM_EVENT Bot 13  →  Bot 1   ·   M4A1
+DM_EVENT Bot 11  →  Bot 12   ·   M4A1
+DM_EVENT Bot 26  →  Bot 21   ·   AK-47
+DM_EVENT Bot 25  →  Bot 6   ·   M4A1
+DM_EVENT Bot 15  →  Bot 20   ·   AWP
+DM_EVENT Bot 18  →  Bot 5   ·   AK-47
+DM_EVENT Bot 23  →  Bot 16   ·   AWP
+DM_EVENT Bot 5  →  Bot 8   ·   M4A1
+DM_EVENT Bot 2  →  Bot 12   ·   AWP
+DM_EVENT Bot 20  →  Bot 27   ·   AK-47
+DM_EVENT Bot 28  →  Bot 25   ·   AK-47
+VALLEY_PROGRESS seconds=60 scores=[24, 32] boosts=54
+DM_EVENT Bot 5  →  Bot 26   ·   M4A1
+DM_EVENT Bot 8  →  Bot 1   ·   AK-47
+DM_EVENT Bot 10  →  Bot 2   ·   AK-47
+DM_EVENT Bot 3  →  Bot 5   ·   AK-47
+DM_EVENT Bot 17  →  Bot 12   ·   M4A1
+DM_EVENT Bot 20  →  Bot 25   ·   AK-47
+DM_EVENT Bot 8  →  Bot 15   ·   AK-47
+DM_EVENT Bot 8  →  Bot 17   ·   AK-47
+DM_EVENT Bot 1  →  Bot 20   ·   M4A1
+DM_EVENT Bot 27  →  Bot 2   ·   M4A1
+DM_EVENT Bot 17  →  Bot 6   ·   M4A1
+DM_EVENT Bot 3  →  Bot 24   ·   M4A1
+DM_EVENT Bot 18  →  Bot 11   ·   AK-47
+DM_EVENT Bot 4  →  Bot 27   ·   AK-47
+DM_EVENT Bot 2  →  Bot 26   ·   AWP
+DM_EVENT Bot 19  →  Bot 6   ·   M4A1
+DM_EVENT Bot 5  →  Bot 8   ·   M4A1
+DM_EVENT Bot 14  →  Bot 9   ·   AWP
+DM_EVENT Bot 24  →  Bot 2   ·   AK-47
+DM_EVENT Bot 7  →  Bot 28   ·   AWP
+DM_EVENT Bot 29  →  Bot 6   ·   M4A1
+VALLEY_PROGRESS seconds=90 scores=[34, 43] boosts=72
+DM_EVENT Bot 8  →  Bot 27   ·   AK-47
+DM_EVENT Bot 1  →  Bot 13   ·   AWP
+DM_EVENT Bot 5  →  Bot 8   ·   M4A1
+DM_EVENT Bot 3  →  Bot 15   ·   AK-47
+DM_EVENT Bot 5  →  Bot 18   ·   M4A1
+DM_EVENT Bot 8  →  Bot 11   ·   AK-47
+DM_EVENT Bot 29  →  Bot 6   ·   DESERT EAGLE
+DM_EVENT Bot 19  →  Bot 22   ·   M4A1
+DM_EVENT Bot 20  →  Bot 5   ·   AK-47
+DM_EVENT Bot 9  →  Bot 18   ·   M4A1
+COMPARISON_RESULT {"assignments":[{"id":-1028,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1027,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1026,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1025,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1024,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1023,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1022,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1021,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1020,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1019,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1018,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1017,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1016,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1015,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1014,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1013,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1012,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1011,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1010,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1009,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1008,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1007,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1006,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-1005,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-1004,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1003,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0},{"id":-1002,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":1},{"id":-1001,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":0},{"id":-1000,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":1},{"id":-3,"model":"ranger_2022_198356","source_hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","team":0},{"id":-2,"model":"ranger_q","source_hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","team":1},{"id":-1,"model":"ranger_2022_433888","source_hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","team":0}],"avatar_prepass":{"avatars":32,"enabled":true,"inactive_spring_systems":0,"index_cache":true,"preparation_ms":1741.925,"prepared_models":[{"changed_instances":2,"hash":"0e52a74e11a9bdd92a2641431c4c1946e6a039078ed322ae8f89e9b216084e3f","surface_compile":{"surfaces_after":2,"surfaces_before":2},"unique_meshes":2},{"changed_instances":2,"hash":"4577b325347f54944fa2201a9ed9cd23366905ee447529006d15f0d3506752bd","surface_compile":{"surfaces_after":2,"surfaces_before":2},"unique_meshes":2},{"changed_instances":2,"hash":"56f5a6295be02de85471aeaff55d0006dd25a8523e8a141ba60eaab2f5ffad49","surface_compile":{"surfaces_after":2,"surfaces_before":2},"unique_meshes":2}],"springs_enabled":false,"surface_compile":true},"bot_ai_ms":{"max":121.518,"p50":6.099,"p95":31.411,"p99":51.377,"samples":6590},"camera_position":"(0.0, 260.0, 170.0)","damage":{"AK-47":4060,"AWP":1605,"DESERT EAGLE":115,"M4A1":4284},"engine":"4.7.2-stable (fedora)","events":{"damage":481,"match_event":87,"spawn":86},"fov":90,"gpu":"Intel(R) Arc(tm) A770 Graphics (DG2)","ipd_m":0.064,"jetpacks":true,"limits":"One seeded match per representation. Same source avatars and gameplay settings, but low-poly MDL geometry/materials/pose system versus optimized VRM. Combat divergence is recorded, not suppressed.","loadout":"cs","mode":"tdm","per_eye_size":[2160,2376],"performance":{"by_view":{"fixed stereo overview":{"draw_calls":{"max":583.0,"p50":523.0,"p95":565.0,"p99":569.0,"samples":1076},"frame_ms":{"max":148.799,"p50":108.948,"p95":139.63,"p99":145.568,"samples":1076},"frames":1076,"settled_frames":1076,"viewport_gpu_ms":{"max":5.40499985218048,"p50":2.56499999761581,"p95":3.91399991512299,"p99":4.3309999704361,"samples":1076}}},"draw_calls":{"max":583.0,"p50":523.0,"p95":565.0,"p99":569.0,"samples":1076},"environment_draws":{"max":3,"p50":3,"p95":3,"p99":3,"samples":1076},"environment_update_ms":{"max":1.325,"p50":1.325,"p95":1.325,"p99":1.325,"samples":1076},"frame_ms":{"max":148.799,"p50":108.948,"p95":139.63,"p99":145.568,"samples":1076},"frames_over_16_67ms_percent":99.5353159851301,"live_readback_encode_ms":{},"primitives":{"max":699344.0,"p50":661628.0,"p95":696922.0,"p99":697896.0,"samples":1076},"render_cpu_ms":{"max":1.57500004768372,"p50":0.729999989271164,"p95":0.944000035524368,"p99":1.11999997496605,"samples":1076},"samples":1076,"static_memory_mb":{"max":241.788596153259,"p50":239.800375938416,"p95":241.340670585632,"p99":241.627093315125,"samples":1076},"terrain_tiles":{"max":238,"p50":238,"p95":238,"p99":238,"samples":1076},"units":"milliseconds, MB, counts","video_memory_mb":{"max":545.940231323242,"p50":545.912826538086,"p95":545.930557250977,"p99":545.933853149414,"samples":1076},"viewport_gpu_ms":{"max":5.40499985218048,"p50":2.56499999761581,"p95":3.91399991512299,"p99":4.3309999704361,"samples":1076},"wall_seconds":120.013152},"physics_ms":{"max":143.557,"p50":11.255,"p95":36.273,"p99":60.062,"samples":6590},"representation":"vrm","scores":[39,48],"seed":1977,"simulation_seconds":109.833333333328,"springs":false,"stereo":"two desktop viewports, identical fixed cameras","teams":[16,16],"wall_seconds":120.014549}
+Disconnected.

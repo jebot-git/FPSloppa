@@ -52,7 +52,7 @@ def main():
                    '--audio-driver', 'Dummy' if not observer else 'PulseAudio',
                    '--log-file', str(OUT / (tag + '-engine.log'))]
             if not observer: cmd += ['--headless']
-            else: cmd += ['--resolution', '1280x720', '--position', '60,60', '--rendering-method', 'mobile']
+            else: cmd += ['--resolution', '1280x720', '--position', '60,60', '--rendering-method', 'forward_plus']
             cmd += ['--script', 'res://tools/remote_match/client.gd', '--', json.dumps(options),
                     '--client-config', str(config), '--asset-root', str(ROOT)]
             env = dict(os.environ, XDG_DATA_HOME='/tmp/fpsloppa-all-modes-' + tag)

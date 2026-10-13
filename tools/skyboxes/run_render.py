@@ -10,7 +10,7 @@ if __name__=='__main__':
     label='stereo' if args.stereo else 'render'
     with (out/(label+'.log')).open('w') as log:
         process=subprocess.Popen(['godot','--xr-mode','off','--audio-driver','Dummy','--path',str(ROOT),
-                                  '--rendering-method','mobile','--log-file',str(out/(label+'-engine.log')),
+                                  '--rendering-method','forward_plus','--log-file',str(out/(label+'-engine.log')),
                                   '--script','res://tools/skyboxes/'+label+'.gd'],stdout=log,stderr=subprocess.STDOUT)
         try:code=process.wait(timeout=360)
         finally:

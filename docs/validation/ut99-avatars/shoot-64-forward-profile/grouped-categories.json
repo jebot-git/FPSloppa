@@ -1,0 +1,117 @@
+{
+  "units": "milliseconds per rendered post-draw interval",
+  "group_scopes": {
+    "Movement and collision calls": [
+      "movement_collision"
+    ],
+    "Other server gameplay, melee, pickups, history and snapshots": [
+      "server_tick",
+      "gameplay_tick",
+      "melee",
+      "pickup_collection",
+      "projectiles",
+      "history",
+      "snapshot"
+    ],
+    "Synthetic input and benchmark tick bookkeeping": [
+      "benchmark_tick"
+    ],
+    "Weapon hit traces and shot solution": [
+      "hit_trace",
+      "shot_solution"
+    ],
+    "Firing/reload input state, excluding nested traces/effects": [
+      "combat_input"
+    ],
+    "Impact and shot effects dispatch/construction/pool": [
+      "impact_dispatch",
+      "shot_fx_dispatch",
+      "effects_impacts",
+      "effects_spawn",
+      "effects_pool_acquire"
+    ],
+    "Tracked head/neck/two-arm IK": [
+      "tracked_head_neck_arms_ik"
+    ],
+    "Other avatar animation and held-weapon updates": [
+      "avatar_update"
+    ],
+    "General scene visual update": [
+      "game_scene_update"
+    ],
+    "Fighter visual update": [
+      "fighter_visual_update"
+    ],
+    "Effects animation and expiry": [
+      "effects_update"
+    ]
+  },
+  "groups": {
+    "Movement and collision calls": {
+      "mean": 40.1148964632502,
+      "p50": 45.9940185546875,
+      "p95": 47.9130096435547,
+      "max": 49.9860496520996
+    },
+    "Other server gameplay, melee, pickups, history and snapshots": {
+      "mean": 29.238882099913194,
+      "p50": 33.37800746038557,
+      "p95": 35.39300421532245,
+      "max": 38.619998602196624
+    },
+    "Synthetic input and benchmark tick bookkeeping": {
+      "mean": 11.9063136843083,
+      "p50": 13.5839996337891,
+      "p95": 14.386999130249,
+      "max": 16.3759994506836
+    },
+    "Weapon hit traces and shot solution": {
+      "mean": 7.587192784029615,
+      "p50": 5.78500044345856,
+      "p95": 17.164995193481488,
+      "max": 26.260999679565412
+    },
+    "Firing/reload input state, excluding nested traces/effects": {
+      "mean": 4.914201071769063,
+      "p50": 4.86899566650391,
+      "p95": 9.20700740814209,
+      "max": 12.7309923171997
+    },
+    "Impact and shot effects dispatch/construction/pool": {
+      "mean": 3.352567517882656,
+      "p50": 2.62099986523389,
+      "p95": 7.51599928736687,
+      "max": 12.24200035631657
+    },
+    "Tracked head/neck/two-arm IK": {
+      "mean": 1.3144617362757567,
+      "p50": 1.29600024223328,
+      "p95": 1.43199992179871,
+      "max": 2.46599984169006
+    },
+    "Other avatar animation and held-weapon updates": {
+      "mean": 1.094142173418907,
+      "p50": 1.06799972057343,
+      "p95": 1.18299973011017,
+      "max": 5.23799991607666
+    },
+    "General scene visual update": {
+      "mean": 0.7243244105539182,
+      "p50": 0.70800000429153,
+      "p95": 0.81000000238419,
+      "max": 1.39600002765656
+    },
+    "Fighter visual update": {
+      "mean": 0.6647593072382239,
+      "p50": 0.45800015330315,
+      "p95": 0.51999986171722,
+      "max": 186.42204284668
+    },
+    "Effects animation and expiry": {
+      "mean": 0.18830942187550015,
+      "p50": 0.20800000429153,
+      "p95": 0.30700001120567,
+      "max": 1.44700002670288
+    }
+  }
+}

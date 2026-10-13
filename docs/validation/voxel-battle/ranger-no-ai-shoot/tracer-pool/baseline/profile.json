@@ -1,0 +1,439 @@
+{
+  "limits": "Inclusive scopes, diagnostic overhead; movement wrapper copies the original server loop and adds timers only.",
+  "scopes": {
+    "arena_physics": {
+      "calls": 7198,
+      "max_usec": 30897,
+      "mean_call_ms": 5.4957682689636,
+      "per_render_frame_ms": {
+        "max": 30.897,
+        "p50": 4.125,
+        "p95": 16.622,
+        "p99": 19.518,
+        "samples": 5735
+      },
+      "total_ms": 39558.54,
+      "usec": 39558540
+    },
+    "arena_render_process": {
+      "calls": 5737,
+      "max_usec": 2313,
+      "mean_call_ms": 0.444630468886177,
+      "per_render_frame_ms": {
+        "max": 2.313,
+        "p50": 0.424,
+        "p95": 0.607,
+        "p99": 0.756,
+        "samples": 5736
+      },
+      "total_ms": 2550.845,
+      "usec": 2550845
+    },
+    "avatar_movement_collision": {
+      "calls": 230336,
+      "max_usec": 1191,
+      "mean_call_ms": 0.0684663231105863,
+      "per_render_frame_ms": {
+        "max": 17.528,
+        "p50": 2.227,
+        "p95": 4.769,
+        "p99": 6.649,
+        "samples": 5735
+      },
+      "total_ms": 15770.259,
+      "usec": 15770259
+    },
+    "cs_fire": {
+      "calls": 64676,
+      "max_usec": 15199,
+      "mean_call_ms": 0.190708392603129,
+      "per_render_frame_ms": {
+        "max": 26.574,
+        "p50": 0.028,
+        "p95": 10.707,
+        "p99": 14.086,
+        "samples": 5735
+      },
+      "total_ms": 12334.256,
+      "usec": 12334256
+    },
+    "cs_weapon_input": {
+      "calls": 230336,
+      "max_usec": 15220,
+      "mean_call_ms": 0.0593023409280356,
+      "per_render_frame_ms": {
+        "max": 26.923,
+        "p50": 0.212,
+        "p95": 11.025,
+        "p99": 14.498,
+        "samples": 5735
+      },
+      "total_ms": 13659.464,
+      "usec": 13659464
+    },
+    "fx_particle_enqueue": {
+      "calls": 33640,
+      "max_usec": 93,
+      "mean_call_ms": 0.00128680142687277,
+      "per_render_frame_ms": {
+        "max": 0.122,
+        "p50": 0.0,
+        "p95": 0.034,
+        "p99": 0.055,
+        "samples": 5726
+      },
+      "total_ms": 43.288,
+      "usec": 43288
+    },
+    "fx_render_update": {
+      "calls": 5726,
+      "max_usec": 928,
+      "mean_call_ms": 0.11865228780999,
+      "per_render_frame_ms": {
+        "max": 0.928,
+        "p50": 0.115,
+        "p95": 0.266,
+        "p99": 0.315,
+        "samples": 5725
+      },
+      "total_ms": 679.403,
+      "usec": 679403
+    },
+    "history": {
+      "calls": 7198,
+      "max_usec": 733,
+      "mean_call_ms": 0.101631981105863,
+      "per_render_frame_ms": {
+        "max": 0.812,
+        "p50": 0.109,
+        "p95": 0.243,
+        "p99": 0.322,
+        "samples": 5735
+      },
+      "total_ms": 731.547,
+      "usec": 731547
+    },
+    "hit_trace": {
+      "calls": 16820,
+      "max_usec": 898,
+      "mean_call_ms": 0.129516230677765,
+      "per_render_frame_ms": {
+        "max": 4.027,
+        "p50": 0.0,
+        "p95": 1.685,
+        "p99": 2.877,
+        "samples": 5726
+      },
+      "total_ms": 2178.463,
+      "usec": 2178463
+    },
+    "impact_audio": {
+      "calls": 8080,
+      "max_usec": 604,
+      "mean_call_ms": 0.0664326732673267,
+      "per_render_frame_ms": {
+        "max": 2.04,
+        "p50": 0.0,
+        "p95": 0.483,
+        "p99": 0.669,
+        "samples": 5726
+      },
+      "total_ms": 536.776,
+      "usec": 536776
+    },
+    "impact_effects": {
+      "calls": 16820,
+      "max_usec": 14746,
+      "mean_call_ms": 0.480852794292509,
+      "per_render_frame_ms": {
+        "max": 19.631,
+        "p50": 0.0,
+        "p95": 7.52,
+        "p99": 8.835,
+        "samples": 5726
+      },
+      "total_ms": 8087.944,
+      "usec": 8087944
+    },
+    "impact_illumination": {
+      "calls": 16820,
+      "max_usec": 146,
+      "mean_call_ms": 0.0167800237812128,
+      "per_render_frame_ms": {
+        "max": 0.496,
+        "p50": 0.0,
+        "p95": 0.229,
+        "p99": 0.373,
+        "samples": 5726
+      },
+      "total_ms": 282.24,
+      "usec": 282240
+    },
+    "impact_surface_ray": {
+      "calls": 16820,
+      "max_usec": 572,
+      "mean_call_ms": 0.00549375743162901,
+      "per_render_frame_ms": {
+        "max": 0.67,
+        "p50": 0.0,
+        "p95": 0.074,
+        "p99": 0.115,
+        "samples": 5726
+      },
+      "total_ms": 92.405,
+      "usec": 92405
+    },
+    "impact_visuals": {
+      "calls": 16820,
+      "max_usec": 14295,
+      "mean_call_ms": 0.434085434007134,
+      "per_render_frame_ms": {
+        "max": 17.15,
+        "p50": 0.0,
+        "p95": 6.887,
+        "p99": 7.829,
+        "samples": 5726
+      },
+      "total_ms": 7301.317,
+      "usec": 7301317
+    },
+    "pickups": {
+      "calls": 230336,
+      "max_usec": 306,
+      "mean_call_ms": 0.00158452868852459,
+      "per_render_frame_ms": {
+        "max": 0.354,
+        "p50": 0.048,
+        "p95": 0.125,
+        "p99": 0.156,
+        "samples": 5735
+      },
+      "total_ms": 364.974,
+      "usec": 364974
+    },
+    "projectiles": {
+      "calls": 7198,
+      "max_usec": 60,
+      "mean_call_ms": 0.00150722422895249,
+      "per_render_frame_ms": {
+        "max": 0.063,
+        "p50": 0.002,
+        "p95": 0.004,
+        "p99": 0.005,
+        "samples": 5735
+      },
+      "total_ms": 10.849,
+      "usec": 10849
+    },
+    "server_tick": {
+      "calls": 7198,
+      "max_usec": 30786,
+      "mean_call_ms": 5.13153250903029,
+      "per_render_frame_ms": {
+        "max": 30.786,
+        "p50": 3.542,
+        "p95": 15.879,
+        "p99": 18.839,
+        "samples": 5735
+      },
+      "total_ms": 36936.771,
+      "usec": 36936771
+    },
+    "shot_effects": {
+      "calls": 16820,
+      "max_usec": 477,
+      "mean_call_ms": 0.0228867419738407,
+      "per_render_frame_ms": {
+        "max": 0.891,
+        "p50": 0.0,
+        "p95": 0.292,
+        "p99": 0.489,
+        "samples": 5726
+      },
+      "total_ms": 384.955,
+      "usec": 384955
+    },
+    "shot_solution": {
+      "calls": 16820,
+      "max_usec": 756,
+      "mean_call_ms": 0.00710475624256837,
+      "per_render_frame_ms": {
+        "max": 0.835,
+        "p50": 0.0,
+        "p95": 0.092,
+        "p99": 0.148,
+        "samples": 5726
+      },
+      "total_ms": 119.502,
+      "usec": 119502
+    },
+    "snapshot": {
+      "calls": 2399,
+      "max_usec": 2271,
+      "mean_call_ms": 0.535702375989996,
+      "per_render_frame_ms": {
+        "max": 2.271,
+        "p50": 0.0,
+        "p95": 0.601,
+        "p99": 0.738,
+        "samples": 5732
+      },
+      "total_ms": 1285.15,
+      "usec": 1285150
+    },
+    "tracer_add_to_scene": {
+      "calls": 16820,
+      "max_usec": 114,
+      "mean_call_ms": 0.00448692033293698,
+      "per_render_frame_ms": {
+        "max": 0.157,
+        "p50": 0.0,
+        "p95": 0.062,
+        "p99": 0.091,
+        "samples": 5726
+      },
+      "total_ms": 75.47,
+      "usec": 75470
+    },
+    "tracer_capacity_eviction": {
+      "calls": 16820,
+      "max_usec": 702,
+      "mean_call_ms": 0.000465160523186683,
+      "per_render_frame_ms": {
+        "max": 0.704,
+        "p50": 0.0,
+        "p95": 0.007,
+        "p99": 0.009,
+        "samples": 5726
+      },
+      "total_ms": 7.824,
+      "usec": 7824
+    },
+    "tracer_material_assign": {
+      "calls": 16820,
+      "max_usec": 7418,
+      "mean_call_ms": 0.316931807372176,
+      "per_render_frame_ms": {
+        "max": 7.529,
+        "p50": 0.0,
+        "p95": 5.357,
+        "p99": 5.668,
+        "samples": 5726
+      },
+      "total_ms": 5330.793,
+      "usec": 5330793
+    },
+    "tracer_material_create": {
+      "calls": 16820,
+      "max_usec": 126,
+      "mean_call_ms": 0.0119931034482759,
+      "per_render_frame_ms": {
+        "max": 0.342,
+        "p50": 0.0,
+        "p95": 0.166,
+        "p99": 0.241,
+        "samples": 5726
+      },
+      "total_ms": 201.724,
+      "usec": 201724
+    },
+    "tracer_mesh_assign": {
+      "calls": 16820,
+      "max_usec": 80,
+      "mean_call_ms": 0.00501587395957194,
+      "per_render_frame_ms": {
+        "max": 0.242,
+        "p50": 0.0,
+        "p95": 0.068,
+        "p99": 0.101,
+        "samples": 5726
+      },
+      "total_ms": 84.367,
+      "usec": 84367
+    },
+    "tracer_mesh_build": {
+      "calls": 16820,
+      "max_usec": 428,
+      "mean_call_ms": 0.0229195005945303,
+      "per_render_frame_ms": {
+        "max": 0.906,
+        "p50": 0.0,
+        "p95": 0.315,
+        "p99": 0.457,
+        "samples": 5726
+      },
+      "total_ms": 385.506,
+      "usec": 385506
+    },
+    "tracer_node_create": {
+      "calls": 16820,
+      "max_usec": 77,
+      "mean_call_ms": 0.00219803804994055,
+      "per_render_frame_ms": {
+        "max": 0.1,
+        "p50": 0.0,
+        "p95": 0.03,
+        "p99": 0.045,
+        "samples": 5726
+      },
+      "total_ms": 36.971,
+      "usec": 36971
+    },
+    "tracer_shadow_assign": {
+      "calls": 16820,
+      "max_usec": 33,
+      "mean_call_ms": 0.000759631391200951,
+      "per_render_frame_ms": {
+        "max": 0.038,
+        "p50": 0.0,
+        "p95": 0.012,
+        "p99": 0.015,
+        "samples": 5726
+      },
+      "total_ms": 12.777,
+      "usec": 12777
+    },
+    "tracer_shape_setup": {
+      "calls": 16820,
+      "max_usec": 7570,
+      "mean_call_ms": 0.357793341260404,
+      "per_render_frame_ms": {
+        "max": 8.083,
+        "p50": 0.0,
+        "p95": 5.914,
+        "p99": 6.357,
+        "samples": 5726
+      },
+      "total_ms": 6018.084,
+      "usec": 6018084
+    },
+    "tracer_transform_bookkeeping": {
+      "calls": 16820,
+      "max_usec": 79,
+      "mean_call_ms": 0.00281611177170036,
+      "per_render_frame_ms": {
+        "max": 0.136,
+        "p50": 0.0,
+        "p95": 0.038,
+        "p99": 0.058,
+        "samples": 5726
+      },
+      "total_ms": 47.367,
+      "usec": 47367
+    },
+    "water_killzone": {
+      "calls": 7198,
+      "max_usec": 320,
+      "mean_call_ms": 0.0311358710752987,
+      "per_render_frame_ms": {
+        "max": 0.355,
+        "p50": 0.032,
+        "p95": 0.071,
+        "p99": 0.096,
+        "samples": 5735
+      },
+      "total_ms": 224.116,
+      "usec": 224116
+    }
+  }
+}

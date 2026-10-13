@@ -150,7 +150,7 @@ func _catalog(data: Dictionary) -> void:
 			checking[hash]=true
 			game.loading.begin_item("model:"+hash,size,"Player model")
 			var epoch:=generation
-			if not disk.submit(Jobs.model_file.bind(Library.CACHE+hash+".vrm",hash,Library.CACHE,false),func(info):
+			if not disk.submit(Jobs.model_file.bind(Library.CACHE+hash+".utavatar",hash,Library.CACHE,false),func(info):
 				if epoch!=generation:return
 				checking.erase(hash)
 				if not info.has("error") and info.size==size:

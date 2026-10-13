@@ -31,10 +31,6 @@ func _process(_delta: float) -> void:
 		voice.meter=opusencoder.get_rms()
 		voice.hangover=.25 if voice.meter>voice.threshold and allowed else maxf(0,voice.hangover-.02)
 		if currentlytalking:
-			var mono: PackedFloat32Array=opusencoder.get_current_chunk_16khz(false)
-			var mouth:=PackedVector2Array()
-			for sample in mono:mouth.append(Vector2.ONE*sample)
-			voice.animate_mouth(voice.multiplayer.get_unique_id(),mouth)
 			processopuschunk()
 func _exit_tree() -> void:
 	if owns_capture:AudioServer.set_input_device_active(false);owns_capture=false

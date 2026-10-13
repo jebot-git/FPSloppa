@@ -7,4 +7,4 @@ if [[ "${1:-}" == "--benchmark" ]]; then
   mode_args=()
   shift
 fi
-exec "$godot_bin" --path . --xr-mode off --rendering-method mobile --rendering-driver vulkan --script tools/voxelspace/run.gd -- "${mode_args[@]}" "$@"
+exec "$godot_bin" --path . --xr-mode off --rendering-method forward_plus --rendering-driver vulkan --script tools/voxelspace/run.gd -- "${mode_args[@]}" "$@"

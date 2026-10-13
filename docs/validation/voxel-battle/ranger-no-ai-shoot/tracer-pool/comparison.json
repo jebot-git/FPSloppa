@@ -1,0 +1,241 @@
+{
+  "frame_ms": {
+    "baseline": {
+      "max": 134.216333333333,
+      "p50": 18.134,
+      "p95": 37.868,
+      "p99": 45.537,
+      "samples": 5737
+    },
+    "pooled": {
+      "max": 141.988333333333,
+      "p50": 16.849,
+      "p95": 29.531,
+      "p99": 35.55,
+      "samples": 6801
+    },
+    "median_reduction_percent": 7.086136539097831
+  },
+  "viewport_gpu_ms": {
+    "baseline": {
+      "max": 5.81300014257431,
+      "p50": 2.67299991846085,
+      "p95": 3.97100001573563,
+      "p99": 4.49800008535385,
+      "samples": 5737
+    },
+    "pooled": {
+      "max": 6.283999979496,
+      "p50": 2.71099990606308,
+      "p95": 3.94000005722046,
+      "p99": 4.51800000667572,
+      "samples": 6801
+    },
+    "median_reduction_percent": -1.4216232233972725
+  },
+  "render_cpu_ms": {
+    "baseline": {
+      "max": 2.51699995994568,
+      "p50": 0.897000014781952,
+      "p95": 1.35300004482269,
+      "p99": 1.60700005292892,
+      "samples": 5737
+    },
+    "pooled": {
+      "max": 1.90000003576279,
+      "p50": 0.869999974966049,
+      "p95": 1.10500001907349,
+      "p99": 1.29300001263618,
+      "samples": 6801
+    },
+    "median_reduction_percent": 3.0100378339978473
+  },
+  "draw_calls": {
+    "baseline": {
+      "max": 635.0,
+      "p50": 567.0,
+      "p95": 595.0,
+      "p99": 617.0,
+      "samples": 5737
+    },
+    "pooled": {
+      "max": 635.0,
+      "p50": 569.0,
+      "p95": 595.0,
+      "p99": 619.0,
+      "samples": 6801
+    },
+    "median_reduction_percent": -0.3527336860670305
+  },
+  "primitives": {
+    "baseline": {
+      "max": 1125698.0,
+      "p50": 1116868.0,
+      "p95": 1122338.0,
+      "p99": 1124066.0,
+      "samples": 5737
+    },
+    "pooled": {
+      "max": 1127378.0,
+      "p50": 1117202.0,
+      "p95": 1122770.0,
+      "p99": 1124592.0,
+      "samples": 6801
+    },
+    "median_reduction_percent": -0.029905055924239754
+  },
+  "impact_effects": {
+    "baseline": {
+      "calls": 16820,
+      "max_usec": 14746,
+      "mean_call_ms": 0.480852794292509,
+      "per_render_frame_ms": {
+        "max": 19.631,
+        "p50": 0.0,
+        "p95": 7.52,
+        "p99": 8.835,
+        "samples": 5726
+      },
+      "total_ms": 8087.944,
+      "usec": 8087944
+    },
+    "pooled": {
+      "calls": 16832,
+      "max_usec": 832,
+      "mean_call_ms": 0.0947651497148289,
+      "per_render_frame_ms": {
+        "max": 4.139,
+        "p50": 0.0,
+        "p95": 1.252,
+        "p99": 1.847,
+        "samples": 6792
+      },
+      "total_ms": 1595.087,
+      "usec": 1595087
+    },
+    "mean_call_reduction_percent": 80.29227430106562
+  },
+  "impact_visuals": {
+    "baseline": {
+      "calls": 16820,
+      "max_usec": 14295,
+      "mean_call_ms": 0.434085434007134,
+      "per_render_frame_ms": {
+        "max": 17.15,
+        "p50": 0.0,
+        "p95": 6.887,
+        "p99": 7.829,
+        "samples": 5726
+      },
+      "total_ms": 7301.317,
+      "usec": 7301317
+    },
+    "pooled": {
+      "calls": 16832,
+      "max_usec": 805,
+      "mean_call_ms": 0.0510864424904943,
+      "per_render_frame_ms": {
+        "max": 1.572,
+        "p50": 0.0,
+        "p95": 0.652,
+        "p99": 1.0,
+        "samples": 6792
+      },
+      "total_ms": 859.887,
+      "usec": 859887
+    },
+    "mean_call_reduction_percent": 88.23124701077745
+  },
+  "avatar_movement_collision": {
+    "baseline": {
+      "calls": 230336,
+      "max_usec": 1191,
+      "mean_call_ms": 0.0684663231105863,
+      "per_render_frame_ms": {
+        "max": 17.528,
+        "p50": 2.227,
+        "p95": 4.769,
+        "p99": 6.649,
+        "samples": 5735
+      },
+      "total_ms": 15770.259,
+      "usec": 15770259
+    },
+    "pooled": {
+      "calls": 230368,
+      "max_usec": 1611,
+      "mean_call_ms": 0.0682382969856925,
+      "per_render_frame_ms": {
+        "max": 16.777,
+        "p50": 2.154,
+        "p95": 4.419,
+        "p99": 4.815,
+        "samples": 6801
+      },
+      "total_ms": 15719.92,
+      "usec": 15719920
+    },
+    "mean_call_reduction_percent": 0.3330485916784087
+  },
+  "cs_weapon_input": {
+    "baseline": {
+      "calls": 230336,
+      "max_usec": 15220,
+      "mean_call_ms": 0.0593023409280356,
+      "per_render_frame_ms": {
+        "max": 26.923,
+        "p50": 0.212,
+        "p95": 11.025,
+        "p99": 14.498,
+        "samples": 5735
+      },
+      "total_ms": 13659.464,
+      "usec": 13659464
+    },
+    "pooled": {
+      "calls": 230368,
+      "max_usec": 1649,
+      "mean_call_ms": 0.0309387631962773,
+      "per_render_frame_ms": {
+        "max": 11.614,
+        "p50": 0.198,
+        "p95": 4.708,
+        "p99": 6.887,
+        "samples": 6801
+      },
+      "total_ms": 7127.301,
+      "usec": 7127301
+    },
+    "mean_call_reduction_percent": 47.828765758468094
+  },
+  "physics_ms": {
+    "baseline": {
+      "max": 30.903,
+      "p50": 3.782,
+      "p95": 14.8,
+      "p99": 17.202,
+      "samples": 7198
+    },
+    "pooled": {
+      "max": 15.502,
+      "p50": 3.782,
+      "p95": 8.591,
+      "p99": 10.539,
+      "samples": 7199
+    }
+  },
+  "pool": {
+    "active_at_end": 12,
+    "capacity": 64,
+    "emissions": 16832,
+    "evictions": 0,
+    "fallbacks": 0,
+    "free_at_end": 52,
+    "invariants_ok": true,
+    "materials_created_before_measurement": 64,
+    "method": "Shared immutable unit crossed-ribbon mesh, 64 persistent nodes with individual materials configured once; per-shot transform/color/visibility and original linear fade. Multi-point streaks use original path.",
+    "nodes_created_before_measurement": 64,
+    "peak_active": 32,
+    "preparation_ms": 5.957
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "source_sha256": {
+    "docs/validation/ut99-avatars/shoot-64-arms/result.json": "6b46b7342b50710a5a1a27831ffdbc5c543452910ffde09b70e868c18b58fb2e",
+    "docs/validation/ut99-avatars/shoot-64-arms/frames.csv.gz": "4438a0f8d9c63e3be2182a88752e1c2fe526053beff564fa834d924ae017d6da"
+  },
+  "avatars": 64,
+  "renderer": "mobile",
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "valid": true,
+  "wall_seconds": 120.022006,
+  "simulation_seconds": 110.299999999995,
+  "rendered_samples": 1130,
+  "physics_ticks": 6618,
+  "trailing_ticks_after_last_render_sample": 1,
+  "wall_average_frame_ms": 106.21416460176992,
+  "wall_average_render_fps": 9.414940123563673,
+  "ticks_per_render_mean": 5.856637168141593,
+  "ticks_per_render": {
+    "samples": 1130,
+    "p50": 7,
+    "p95": 8,
+    "p99": 8,
+    "max": 8
+  },
+  "reported_process_delta_ms": {
+    "max": 147.735333333333,
+    "p50": 121.234333333333,
+    "p95": 140.979,
+    "p99": 145.609,
+    "samples": 1130
+  },
+  "gameplay_cpu_ms_per_tick": {
+    "max": 36.422,
+    "p50": 9.554,
+    "p95": 19.949,
+    "p99": 25.215,
+    "samples": 6618
+  },
+  "synthetic_pose_cpu_ms_per_tick": {
+    "max": 1.594,
+    "p50": 0.748,
+    "p95": 0.875,
+    "p99": 1.245,
+    "samples": 6618
+  },
+  "arm_update_cpu_ms_per_render": {
+    "max": 1.061,
+    "p50": 0.517,
+    "p95": 0.577,
+    "p99": 0.626,
+    "samples": 1130
+  },
+  "combined_eye_render_cpu_ms": {
+    "max": 2.9760000705719,
+    "p50": 1.29199999570847,
+    "p95": 1.4909999370575,
+    "p99": 1.72600001096725,
+    "samples": 1130
+  },
+  "combined_eye_gpu_ms": {
+    "max": 7.67799973487854,
+    "p50": 4.27300000190735,
+    "p95": 6.42700004577637,
+    "p99": 6.93500018119812,
+    "samples": 1130
+  },
+  "draw_calls": {
+    "max": 1161.0,
+    "p50": 1087.0,
+    "p95": 1107.0,
+    "p99": 1129.0,
+    "samples": 1130
+  },
+  "ai_work_calls": 0,
+  "shots": 31144,
+  "pool": {
+    "activations": 31144,
+    "active": 24,
+    "allocated_nodes": 64,
+    "capacity": 64,
+    "curved_tracers": 0,
+    "evictions": 1336,
+    "free": 40,
+    "invariants_ok": true,
+    "peak_active": 64,
+    "straight_tracers": 31144
+  },
+  "limits": [
+    "Historical Mobile renderer and early arm approximation; predates accepted constrained IK and Forward+.",
+    "Gameplay timer wraps game._physics_process only; engine physics and other callbacks are not separately timed.",
+    "Counters use mixed per-tick and per-render units; medians cannot form an additive frame budget.",
+    "CSV contains process deltas and cumulative simulation time, not per-render wall timestamps.",
+    "Environment update_ms is a retained last-refresh value in this stationary run; exclude it from per-frame cost.",
+    "No separate timings for collision, weapon traces, impacts, animation, head IK or native XR/encoding."
+  ]
+}

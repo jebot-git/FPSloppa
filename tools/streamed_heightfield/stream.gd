@@ -1,6 +1,16 @@
 extends Node3D
 ## Bounded GPU array cache; two CPU jobs, two uploads/frame, coarse fallback throughout.
 const Landscape = preload("res://tools/streamed_heightfield/landscape.gd")
+signal tile_loaded(coord: Vector2i, data: Dictionary)
+signal tile_evicted(coord: Vector2i)
+var source = Landscape.new()
+var coarse_segments := 64
+var extent := 2048.0
+var tile_side := 32.0
+var grid := 64
+var min_height := -8.0
+var max_height := 44.0
+var tile_bounds: Dictionary = {}
 const CAPACITY := 384
 const LOAD_RADIUS := 256.0
 const RETAIN_RADIUS := 320.0
@@ -50,6 +60,9 @@ var jobs_started := 0
 var height_color_uploads := 0
 
 func setup() -> void:
+	extent = source.EXTENT
+	tile_side = source.TILE
+	grid = source.GRID
 	var height_images: Array[Image] = []
 	var color_images: Array[Image] = []
 	var empty_height := Image.create(Landscape.SAMPLES, Landscape.SAMPLES, false, Image.FORMAT_RF)
@@ -60,13 +73,13 @@ func setup() -> void:
 		free_slots.append(slot)
 	assert(height_tiles.create_from_images(height_images) == OK)
 	assert(color_tiles.create_from_images(color_images) == OK)
-	page_image = Image.create(Landscape.GRID, Landscape.GRID, false, Image.FORMAT_RF)
+	page_image = Image.create(grid, grid, false, Image.FORMAT_RF)
 	pages.set_image(page_image)
-	var coarse := Landscape.coarse_images()
+	var coarse := source.coarse_images()
 	coarse_heights.set_image(coarse[0])
 	coarse_colors.set_image(coarse[1])
 	for segments in SEGMENTS:
-		var mesh := patch_mesh(segments, Landscape.TILE, true)
+		var mesh := patch_mesh(segments, tile_side, true, min_height, max_height)
 		mesh.surface_set_material(0, material(false))
 		meshes.append(mesh)
 		var group := MultiMeshInstance3D.new()
@@ -82,9 +95,9 @@ func setup() -> void:
 		group.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		add_child(group)
 		groups.append(group)
-	coarse_node.mesh = patch_mesh(64, Landscape.EXTENT, false)
+	coarse_node.mesh = patch_mesh(coarse_segments, extent, false, min_height, max_height)
 	coarse_node.mesh.surface_set_material(0, material(true))
-	coarse_node.position = Vector3(-1024, 0, -1024)
+	coarse_node.position = Vector3(-extent / 2, 0, -extent / 2)
 	coarse_node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(coarse_node)
 	for mesh in meshes: atlas_materials.append(mesh.surface_get_material(0))
@@ -95,8 +108,8 @@ func setup() -> void:
 	analytic_coarse_material = analytic_material.duplicate()
 	analytic_coarse_material.set_shader_parameter("coarse", true)
 
-static func world_bounds() -> AABB:
-	return AABB(Vector3(-1024, -8, -1024), Vector3(2048, 52, 2048))
+func world_bounds() -> AABB:
+	return AABB(Vector3(-extent / 2, min_height, -extent / 2), Vector3(extent, max_height - min_height, extent))
 
 func material(coarse: bool) -> ShaderMaterial:
 	var result := ShaderMaterial.new()
@@ -104,9 +117,12 @@ func material(coarse: bool) -> ShaderMaterial:
 	for key in ["height_tiles", "color_tiles", "pages", "coarse_heights", "coarse_colors"]:
 		result.set_shader_parameter(key, get(key))
 	result.set_shader_parameter("coarse", coarse)
+	result.set_shader_parameter("world_extent", extent)
+	result.set_shader_parameter("tile_side", tile_side)
+	result.set_shader_parameter("world_grid", grid)
 	return result
 
-static func patch_mesh(segments: int, side: float, skirts: bool) -> ArrayMesh:
+static func patch_mesh(segments: int, side: float, skirts: bool, low: float = -8, high: float = 44) -> ArrayMesh:
 	var vertices := PackedVector3Array()
 	var uv := PackedVector2Array()
 	var colors := PackedColorArray()
@@ -142,7 +158,7 @@ static func patch_mesh(segments: int, side: float, skirts: bool) -> ArrayMesh:
 	arrays[Mesh.ARRAY_INDEX] = indices
 	var mesh := ArrayMesh.new()
 	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, arrays)
-	mesh.custom_aabb = AABB(Vector3(0, -8, 0), Vector3(side, 52, side))
+	mesh.custom_aabb = AABB(Vector3(0, low, 0), Vector3(side, high - low, side))
 	return mesh
 
 func set_raster(enabled: bool) -> void:
@@ -160,27 +176,27 @@ func set_analytic(enabled: bool) -> void:
 
 func select_tiles(camera: Camera3D) -> void:
 	var p := Vector2(camera.global_position.x, camera.global_position.z)
-	var cell := Vector2i(floori((p.x + 1024) / 32), floori((p.y + 1024) / 32))
+	var cell := Vector2i(floori((p.x + extent / 2) / tile_side), floori((p.y + extent / 2) / tile_side))
 	if cell == last_cell: return
 	last_cell = cell
 	desired.clear()
 	queue.clear()
 	selection_candidates = 0
 	# Only inspect a local rectangle, never all 4,096 world tiles.
-	var span := ceili((LOAD_RADIUS + 23) / 32)
-	for z in range(maxi(0, cell.y - span), mini(64, cell.y + span + 1)):
-		for x in range(maxi(0, cell.x - span), mini(64, cell.x + span + 1)):
+	var span := ceili((LOAD_RADIUS + tile_side * .7072) / tile_side)
+	for z in range(maxi(0, cell.y - span), mini(grid, cell.y + span + 1)):
+		for x in range(maxi(0, cell.x - span), mini(grid, cell.x + span + 1)):
 			selection_candidates += 1
 			var key := Vector2i(x, z)
-			var center := Vector2(x * 32 - 1008, z * 32 - 1008)
-			if center.distance_to(p) <= LOAD_RADIUS + 23:
+			var center := Vector2((x + .5) * tile_side - extent / 2, (z + .5) * tile_side - extent / 2)
+			if center.distance_to(p) <= LOAD_RADIUS + tile_side * .7072:
 				desired[key] = true
 				if not analytic_enabled and not resident.has(key) and not running.has(key): queue.append(key)
-	queue.sort_custom(func(a: Vector2i, b: Vector2i) -> bool: return (Vector2(a) * 32 - Vector2.ONE * 1008).distance_squared_to(p) < (Vector2(b) * 32 - Vector2.ONE * 1008).distance_squared_to(p))
+	queue.sort_custom(func(a: Vector2i, b: Vector2i) -> bool: return (Vector2(a) * tile_side - Vector2.ONE * (extent / 2 - tile_side / 2)).distance_squared_to(p) < (Vector2(b) * tile_side - Vector2.ONE * (extent / 2 - tile_side / 2)).distance_squared_to(p))
 	var changed := false
 	for key in resident.keys():
-		var center := Vector2(key) * 32 - Vector2.ONE * 1008
-		if center.distance_to(p) > RETAIN_RADIUS + 23:
+		var center := Vector2(key) * tile_side - Vector2.ONE * (extent / 2 - tile_side / 2)
+		if center.distance_to(p) > RETAIN_RADIUS + tile_side * .7072:
 			evict(key)
 			changed = true
 	if changed: pages.update(page_image)
@@ -188,11 +204,17 @@ func select_tiles(camera: Camera3D) -> void:
 func evict(key: Vector2i) -> void:
 	free_slots.append(resident[key])
 	resident.erase(key)
+	tile_bounds.erase(key)
+	tile_evicted.emit(key)
 	page_image.set_pixel(key.x, key.y, Color(0, 0, 0))
 	evicted_total += 1
 
 func generate_job(coord: Vector2i) -> void:
-	var data := Landscape.generate_tile(coord)
+	var begin := Time.get_ticks_usec()
+	var data := source.generate_tile(coord)
+	var heights: Array = Array(data.heights.to_float32_array())
+	data.height_bounds = Vector2(heights.min(), heights.max())
+	data.generation_ms = (Time.get_ticks_usec() - begin) / 1000.0
 	mutex.lock()
 	completed.append(data)
 	mutex.unlock()
@@ -242,7 +264,7 @@ func tick(camera: Camera3D) -> void:
 			var far_distance := -1.0
 			for old in resident:
 				if desired.has(old): continue
-				var distance: float = (Vector2(old) * 32 - Vector2.ONE * 1008).distance_squared_to(Vector2(camera.position.x, camera.position.z))
+				var distance: float = (Vector2(old) * tile_side - Vector2.ONE * (extent / 2 - tile_side / 2)).distance_squared_to(Vector2(camera.position.x, camera.position.z))
 				if distance > far_distance: far_distance = distance; farthest = old
 			if farthest.x >= 0: evict(farthest)
 		if free_slots.is_empty(): discarded_jobs += 1; continue
@@ -251,8 +273,11 @@ func tick(camera: Camera3D) -> void:
 		height_tiles.update_layer(Image.create_from_data(65, 65, false, Image.FORMAT_RF, data.heights), slot)
 		color_tiles.update_layer(Image.create_from_data(65, 65, false, Image.FORMAT_RGBA8, data.colors), slot)
 		resident[key] = slot
+		var height_range: Vector2 = data.height_bounds
+		tile_bounds[key] = AABB(Vector3(key.x * tile_side - extent / 2, height_range.x - 3, key.y * tile_side - extent / 2), Vector3(tile_side, height_range.y - height_range.x + 3, tile_side))
 		page_image.set_pixel(key.x, key.y, Color(slot + 1, 0, 0))
 		loaded_total += 1
+		tile_loaded.emit(key,data)
 		height_color_uploads += 1
 		peak_resident = maxi(peak_resident, resident.size())
 		upload_times.append((Time.get_ticks_usec() - upload_start) / 1000.0)
@@ -285,10 +310,10 @@ func update_visibility(camera: Camera3D) -> void:
 	terrain_triangles = 0
 	var planes := camera.get_frustum()
 	for key in resident:
-		var origin := Vector3(key.x * 32 - 1024, 0, key.y * 32 - 1024)
-		var bounds := AABB(origin + Vector3(0, -8, 0), Vector3(32, 52, 32))
+		var origin := Vector3(key.x * tile_side - extent / 2, 0, key.y * tile_side - extent / 2)
+		var bounds: AABB = tile_bounds.get(key, AABB(origin + Vector3(0, min_height, 0), Vector3(tile_side, max_height - min_height, tile_side)))
 		if culling_enabled and outside_frustum(bounds, planes): continue
-		var nearest := Vector3(clampf(camera.position.x, origin.x, origin.x + 32), camera.position.y, clampf(camera.position.z, origin.z, origin.z + 32))
+		var nearest := Vector3(clampf(camera.position.x, origin.x, origin.x + tile_side), camera.position.y, clampf(camera.position.z, origin.z, origin.z + tile_side))
 		var distance := nearest.distance_to(camera.position)
 		var family := 0 if force_fine or distance < 48 else 1 if distance < 112 else 2 if distance < 208 else 3
 		if raster_enabled:

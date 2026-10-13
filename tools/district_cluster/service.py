@@ -31,7 +31,7 @@ def commands(path):
                  '--status-file',str(root/'www/index.html')]
         if row.get('etcd'):command+=['--etcd',*row['etcd'].split()]
         if row.get('content_listen'):
-            command+=['--content-listen',row['content_listen'],'--content-root',str(root/'vrm'),
+            command+=['--content-listen',row['content_listen'],'--content-root',str(root/'ut99'),
                       '--worker-binary',str(binary)]
         result.append(('master',command))
     elif row['role']=='workers':

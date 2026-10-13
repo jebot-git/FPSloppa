@@ -1,0 +1,178 @@
+{
+  "ai_nodes": 0,
+  "animation": "live idle, humanoid IK, expressions, conservative full-detail XR pose policy",
+  "avatar_centers_in_frustum": {
+    "max": 32,
+    "p50": 32,
+    "p95": 32,
+    "p99": 32,
+    "samples": 4311
+  },
+  "avatar_prepass": {
+    "avatars": 32,
+    "enabled": true,
+    "inactive_spring_systems": 32,
+    "index_cache": true,
+    "preparation_ms": 1492.189,
+    "prepared_models": [
+      {
+        "changed_instances": 4,
+        "hash": "9adf1b44e959d2688d62c2dd558e74315d6aa40e3bf8d281390b7a85dc0df9b7",
+        "surface_compile": {
+          "surfaces_after": 23,
+          "surfaces_before": 72
+        },
+        "unique_meshes": 4
+      },
+      {
+        "changed_instances": 4,
+        "hash": "d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb",
+        "surface_compile": {
+          "surfaces_after": 20,
+          "surfaces_before": 87
+        },
+        "unique_meshes": 4
+      },
+      {
+        "changed_instances": 4,
+        "hash": "ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0",
+        "surface_compile": {
+          "surfaces_after": 20,
+          "surfaces_before": 82
+        },
+        "unique_meshes": 4
+      }
+    ],
+    "springs_enabled": false,
+    "surface_compile": true
+  },
+  "avatars": 32,
+  "display_refresh_hz": 72.0,
+  "engine": "4.7.2-stable (fedora)",
+  "fixed_head_view": true,
+  "gpu": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+  "limits": "One random map location, standing animated crowd; real OpenXR pacing/tracking and runtime foveation settings. No combat, AI, network or avatar movement. Render workload, not headset encode/decode or motion-to-photon latency.",
+  "navigation_baked": false,
+  "per_eye_size": "(2160.0, 2376.0)",
+  "performance": {
+    "by_view": {
+      "OpenXR stereo 32 animated avatars": {
+        "draw_calls": {
+          "max": 176.0,
+          "p50": 176.0,
+          "p95": 176.0,
+          "p99": 176.0,
+          "samples": 4311
+        },
+        "frame_ms": {
+          "max": 21.055,
+          "p50": 13.608,
+          "p95": 18.661,
+          "p99": 19.541,
+          "samples": 4311
+        },
+        "frames": 4311,
+        "settled_frames": 4311,
+        "viewport_gpu_ms": {
+          "max": 8.64200019836426,
+          "p50": 3.87599992752075,
+          "p95": 5.52400016784668,
+          "p99": 6.36199998855591,
+          "samples": 4311
+        }
+      }
+    },
+    "draw_calls": {
+      "max": 176.0,
+      "p50": 176.0,
+      "p95": 176.0,
+      "p99": 176.0,
+      "samples": 4311
+    },
+    "environment_draws": {
+      "max": 6,
+      "p50": 6,
+      "p95": 6,
+      "p99": 6,
+      "samples": 4311
+    },
+    "environment_update_ms": {
+      "max": 1.898,
+      "p50": 0.906,
+      "p95": 1.101,
+      "p99": 1.775,
+      "samples": 4311
+    },
+    "frame_ms": {
+      "max": 21.055,
+      "p50": 13.608,
+      "p95": 18.661,
+      "p99": 19.541,
+      "samples": 4311
+    },
+    "frames_over_16_67ms_percent": 32.5214567385757,
+    "live_readback_encode_ms": {},
+    "primitives": {
+      "max": 462937.0,
+      "p50": 462937.0,
+      "p95": 462937.0,
+      "p99": 462937.0,
+      "samples": 4311
+    },
+    "render_cpu_ms": {
+      "max": 1.9190000295639,
+      "p50": 0.846000015735626,
+      "p95": 0.967999994754791,
+      "p99": 1.16600000858307,
+      "samples": 4311
+    },
+    "samples": 4311,
+    "static_memory_mb": {
+      "max": 147.28573513031,
+      "p50": 146.325392723083,
+      "p95": 147.28573513031,
+      "p99": 147.28573513031,
+      "samples": 4311
+    },
+    "terrain_tiles": {
+      "max": 239,
+      "p50": 239,
+      "p95": 239,
+      "p99": 239,
+      "samples": 4311
+    },
+    "units": "milliseconds, MB, counts",
+    "video_memory_mb": {
+      "max": 677.802551269531,
+      "p50": 677.802551269531,
+      "p95": 677.802551269531,
+      "p99": 677.802551269531,
+      "samples": 4311
+    },
+    "viewport_gpu_ms": {
+      "max": 8.64200019836426,
+      "p50": 3.87599992752075,
+      "p95": 5.52400016784668,
+      "p99": 6.36199998855591,
+      "samples": 4311
+    },
+    "wall_seconds": 60.003383
+  },
+  "random_point_m": [
+    37.4246215820312,
+    20.0,
+    2.02122497558594
+  ],
+  "renderer": "mobile",
+  "seconds": 60.002483,
+  "seed": 20261012,
+  "springs_enabled": false,
+  "views": 2,
+  "xr_interface": "OpenXR",
+  "xr_system": {
+    "OpenXRSystemName": "Meta Quest Pro on WiVRn",
+    "OpenXRVendorID": 0,
+    "XRRuntimeName": "WiVRn 'v26.9-pro1-cqp1'",
+    "XRRuntimeVersion": "26.9.0"
+  }
+}

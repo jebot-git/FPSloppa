@@ -1,3 +1,5 @@
+> Voxelspace branch: this is historical documentation. Current UT99 avatars and supported headset/controller input are documented in [UT99 avatars](docs/UT99-AVATARS.md). VRM, full body, gaze and facial tracking are removed.
+
 # Optional body and hand tracking
 
 Body tracking animates VRM models and replicates to other players. In VR, valid body joints also show your own avatar from the shoulders down. The VRM first-person mesh hides the head/hair, replaces the controller gloves with avatar hands, and suppresses the duplicate avatar weapon. Local IK uses current tracking every frame; remote avatars keep their full meshes and smoothing. The movement and damage capsules stay aligned through bounded, collision-checked headset room-scale movement; body joints remain cosmetic. Capsule dimensions and controller-driven weapon aim stay unified. Missing joints fall back to the existing head/controller IK and animated, ground-adjusted feet. All clients and servers must use this release's `entryway-13-team-modes` protocol.

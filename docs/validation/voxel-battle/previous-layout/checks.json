@@ -1,0 +1,41 @@
+{
+  "upstream_commit": "1c3d05bbcf1aa7fb4e9768dfdbe94cd4744fde14",
+  "scope": "Offline Godot 4.7.2 authority simulation and Vulkan Mobile rendered smoke; no XR or network-client validation. Rendered screenshots freeze the match after 15 seconds. Full match is headless. Tick timings are diagnostics, not an isolated benchmark.",
+  "checks": {
+    "geometry": {
+      "exit_code": 0,
+      "result": "VALLEY_VALIDATION {\"buildings\":24,\"checks\":64327,\"environment_colliders\":1001,\"errors\":[],\"feature_totals\":[973,126,888],\"navigation_polygons\":32051,\"road_samples\":680}"
+    },
+    "full_match": {
+      "exit_code": 0,
+      "result": "VALLEY_RESULT {\"areas_visited\":[1,2,0,3,4],\"buildings\":24,\"completed\":true,\"damage\":{\"AK-47\":8980,\"AWP\":4518,\"DESERT EAGLE\":69,\"M4A1\":7820},\"deaths\":193,\"distance_m\":{\"-1028\":1360.71247467515,\"-1027\":1538.74775958604,\"-1026\":1251.33872226282,\"-1025\":1542.10329484497,\"-1024\":1473.4099341074,\"-1023\":1598.6748747456,\"-1022\":1593.14476014689,\"-1021\":1529.55876434497,\"-1020\":1272.49906883569,\"-1019\":1432.37458887807,\"-1018\":1616.96630940735,\"-1017\":1534.79536906991,\"-1016\":1778.2414769443,\"-1015\":1668.67883036123,\"-1014\":1558.32796477346,\"-1013\":1523.11422206199,\"-1012\":1674.20879643387,\"-1011\":1617.16064403743,\"-1010\":1684.85829169842,\"-1009\":1628.24521294665,\"-1008\":1346.52663803298,\"-1007\":1571.70333756777,\"-1006\":1700.58997790213,\"-1005\":1645.38643932447,\"-1004\":1528.50268785469,\"-1003\":1532.91224617022,\"-1002\":1546.02203452869,\"-1001\":1551.40420805215,\"-1000\":1542.30207703305,\"-3\":1542.69528252624,\"-2\":1619.75331621287,\"-1\":1629.27899205289},\"engine\":\"4.7.2-stable (fedora)\",\"environment_colliders\":1001,\"events\":{\"damage\":975,\"match_event\":194,\"round_ended\":1,\"spawn\":190},\"friendly_hits\":0,\"height_m\":1.7,\"interior_storeys_visited\":[\"4:0\",\"16:0\",\"5:0\",\"7:0\",\"9:0\",\"2:0\",\"13:0\",\"7:1\",\"9:1\",\"13:1\",\"21:0\",\"21:1\",\"22:0\",\"15:0\",\"23:0\",\"1:0\",\"11:0\",\"23:1\",\"8:0\",\"6:0\",\"6:1\",\"11:1\",\"12:0\",\"19:0\",\"17:0\",\"19:1\",\"18:0\",\"3:0\",\"1:1\",\"14:0\",\"20:0\",\"14:1\",\"20:1\"],\"jetpack_activations\":167,\"jetpack_requests\":166,\"loadout\":\"cs-style\",\"mode\":\"tdm\",\"navigation_polygons\":32051,\"physics_ms_p50\":8.695,\"physics_ms_p95\":32.572,\"reloads\":234,\"result\":\"RED WINS \u00b7 100 : 93\",\"scores\":[100,93],\"seconds\":187.100000000041,\"seed\":1977,\"shots\":8343,\"snipers\":[4,4],\"teams\":[16,16]}"
+    },
+    "rendered_smoke": {
+      "exit_code": 0,
+      "result": "VALLEY_RESULT {\"areas_visited\":[1,2,0,3,4],\"buildings\":24,\"completed\":false,\"damage\":{\"AK-47\":1460,\"AWP\":402,\"M4A1\":1241},\"deaths\":23,\"distance_m\":{\"-1028\":164.945589870214,\"-1027\":115.553834198974,\"-1026\":105.592267318629,\"-1025\":115.374384880532,\"-1024\":117.997690488119,\"-1023\":119.003539377823,\"-1022\":92.1471577100456,\"-1021\":113.928997354582,\"-1020\":130.016601127805,\"-1019\":124.53510018508,\"-1018\":138.193332213908,\"-1017\":139.58311350178,\"-1016\":112.973388206214,\"-1015\":119.573168962263,\"-1014\":136.665453437716,\"-1013\":147.748354012525,\"-1012\":122.667766468599,\"-1011\":128.472171625821,\"-1010\":127.621716701891,\"-1009\":154.444957869127,\"-1008\":140.00990591757,\"-1007\":127.24456688948,\"-1006\":122.226939922199,\"-1005\":152.928173210472,\"-1004\":119.898421667516,\"-1003\":137.398551609367,\"-1002\":171.342144798124,\"-1001\":135.854804090224,\"-1000\":153.577024922241,\"-3\":144.164914218243,\"-2\":152.619246650487,\"-1\":135.020421252586},\"engine\":\"4.7.2-stable (fedora)\",\"environment\":{\"draw_calls\":6,\"lod_counts\":[[10,101,230],[0,0,77],[5,0,133]],\"peak_features\":2526,\"resident_features\":2526,\"resident_tiles\":280,\"triangles\":12694,\"update_ms\":1.776,\"visible_features\":556},\"environment_colliders\":1001,\"events\":{\"damage\":152,\"match_event\":23,\"spawn\":19},\"friendly_hits\":0,\"height_m\":1.7,\"interior_storeys_visited\":[\"4:0\"],\"jetpack_activations\":12,\"jetpack_requests\":12,\"loadout\":\"cs-style\",\"mode\":\"tdm\",\"navigation_polygons\":32051,\"physics_ms_p50\":12.98,\"physics_ms_p95\":46.162,\"reloads\":26,\"result\":\"IN PROGRESS\",\"scores\":[12,11],\"seconds\":15.0000000000003,\"seed\":1977,\"shots\":1194,\"snipers\":[4,4],\"streaming\":{\"evicted\":746,\"loaded\":1026,\"peak_jobs\":2,\"peak_resident\":289},\"teams\":[16,16]}"
+    },
+    "bot_tactics": {
+      "exit_code": 0,
+      "result": "BOT_TACTICS_RESULT []",
+      "passed_assertions": 27
+    },
+    "team_modes": {
+      "exit_code": 0,
+      "result": "TEAM_MODES_RESULT []",
+      "passed_assertions": 33
+    },
+    "streaming": {
+      "exit_code": 0,
+      "result": "STREAMED_HEIGHTFIELD_VALIDATION {\"checks\":27509,\"errors\":[],\"peak_jobs\":2,\"peak_resident\":258,\"tile_evictions\":4808,\"tile_loads\":4808}"
+    },
+    "jetpack": {
+      "exit_code": 0,
+      "result": "CQ_JETPACK_RESULT {\"checks\":44,\"failures\":[],\"flights\":[{\"air_seconds\":2.03333333333334,\"apex_metres\":6.80678749084473,\"horizontal_metres\":32.4933197498322,\"hz\":30},{\"air_seconds\":2.05,\"apex_metres\":6.72690105438232,\"horizontal_metres\":32.7666401863098,\"hz\":60},{\"air_seconds\":2.05,\"apex_metres\":6.72498559951782,\"horizontal_metres\":32.7766463458538,\"hz\":120}]}",
+      "passed_assertions": 44
+    },
+    "environment": {
+      "exit_code": 0,
+      "result": "ENVIRONMENT_VALIDATION {\"checks\":263,\"draw_calls\":3,\"errors\":[],\"evicted\":479,\"loaded\":717,\"lod_counts\":[[1020,0,0],[144,0,0],[531,0,0]],\"peak_features\":2568,\"peak_jobs\":2,\"peak_tiles\":241,\"resident_features\":2327}"
+    }
+  }
+}

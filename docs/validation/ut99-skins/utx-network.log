@@ -1,0 +1,468 @@
+server 0 Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+Attempting to import /tmp/entryway-avatar-test-h_p1rco5/assets-server/maps/qsrc_dm1.bsp
+Material path pattern: res://deathmatch/maps/materials/{texture_name}.tres
+BSP version: 29
+ 
+Has BSPX.
+BSPX entry: RGBLIGHTING
+clipnodes offset: 143232 clipnodes_size: 19024 num_clipnodes: 2378
+num_textures: 32
+Could not load res://deathmatch/maps/textures/metal_iron1_01.png
+metal_iron1_01: Need to create a material.
+Reading texture from bsp file at 328628
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/city4_7.png
+city4_7: Need to create a material.
+Reading texture from bsp file at 676828
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bricka2_4.png
+bricka2_4: Need to create a material.
+Reading texture from bsp file at 682308
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/lava1.png
+lava1: Need to create a material.
+Reading texture from bsp file at 687788
+Creating material with texture.
+Emission enabled.
+Could not load res://deathmatch/maps/textures/ind_w02_grey1.png
+ind_w02_grey1: Need to create a material.
+Reading texture from bsp file at 693268
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_3.png
+bodiesa3_3: Need to create a material.
+Reading texture from bsp file at 1041468
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_2.png
+bodiesa3_2: Need to create a material.
+Reading texture from bsp file at 1052388
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_1.png
+bodiesa3_1: Need to create a material.
+Reading texture from bsp file at 1063308
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa2_4.png
+bodiesa2_4: Need to create a material.
+Reading texture from bsp file at 1074228
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop3_4.png
+cop3_4: Need to create a material.
+Reading texture from bsp file at 1085148
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/metal_copp_01.png
+metal_copp_01: Need to create a material.
+Reading texture from bsp file at 1090628
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/metal_copp_04.png
+metal_copp_04: Need to create a material.
+Reading texture from bsp file at 1438828
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/teleport.png
+teleport: Need to create a material.
+Reading texture from bsp file at 1787028
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung02_5.png
+dung02_5: Need to create a material.
+Reading texture from bsp file at 1792508
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop1_5.png
+cop1_5: Need to create a material.
+Reading texture from bsp file at 1797988
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung02_1.png
+dung02_1: Need to create a material.
+Reading texture from bsp file at 1803468
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop1_7.png
+cop1_7: Need to create a material.
+Reading texture from bsp file at 1808948
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_3.png
+dung01_3: Need to create a material.
+Reading texture from bsp file at 1814428
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_2.png
+dung01_2: Need to create a material.
+Reading texture from bsp file at 1819908
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_4.png
+dung01_4: Need to create a material.
+Reading texture from bsp file at 1825388
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_5.png
+dung01_5: Need to create a material.
+Reading texture from bsp file at 1830868
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_1.png
+dung01_1: Need to create a material.
+Reading texture from bsp file at 1836348
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa2_1.png
+bodiesa2_1: Need to create a material.
+Reading texture from bsp file at 1858148
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/door05_3.png
+door05_3: Need to create a material.
+Reading texture from bsp file at 1869068
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+0floorsw.png
++0floorsw: Need to create a material.
+Reading texture from bsp file at 1869448
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+0button.png
++0button: Need to create a material.
+Reading texture from bsp file at 1874928
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bricka2_6.png
+bricka2_6: Need to create a material.
+Reading texture from bsp file at 1878028
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+1button.png
++1button: Need to create a material.
+Reading texture from bsp file at 1888988
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+2button.png
++2button: Need to create a material.
+Reading texture from bsp file at 1892088
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+3button.png
++3button: Need to create a material.
+Reading texture from bsp file at 1895188
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+abutton.png
++abutton: Need to create a material.
+Reading texture from bsp file at 1898288
+Creating material with texture.
+BSP read complete.
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+ISOLATED_CACHE /tmp/entryway-avatar-test-h_p1rco5/server/godot/app_userdata/FPSloppa
+DM_HOST_READY port=27878 practice=false
+DM_EVENT receiver joined the arena.
+DM_EVENT uploader joined the arena.
+PASS two clients joined
+PASS server rejects oversized advertisement
+PASS server validated client upload
+PASS Server library rediscovers uploaded UT99 vertex avatar after restart
+DM_EVENT [chat activity]
+PASS second client verified download
+DM_EVENT receiver left the arena.
+DM_EVENT receiver joined the arena.
+DM_EVENT [chat activity]
+PASS late join cache and avatar selection
+DM_EVENT AVATAR_DONE
+DM_EVENT receiver left the arena.
+DM_EVENT uploader left the arena.
+AVATAR_NETWORK_RESULT server {"failures":[]}
+Test complete
+
+uploader 0 Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+Attempting to import /tmp/entryway-avatar-test-h_p1rco5/assets-uploader/maps/qsrc_dm1.bsp
+Material path pattern: res://deathmatch/maps/materials/{texture_name}.tres
+BSP version: 29
+ 
+Has BSPX.
+BSPX entry: RGBLIGHTING
+clipnodes offset: 143232 clipnodes_size: 19024 num_clipnodes: 2378
+num_textures: 32
+Could not load res://deathmatch/maps/textures/metal_iron1_01.png
+metal_iron1_01: Need to create a material.
+Reading texture from bsp file at 328628
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/city4_7.png
+city4_7: Need to create a material.
+Reading texture from bsp file at 676828
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bricka2_4.png
+bricka2_4: Need to create a material.
+Reading texture from bsp file at 682308
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/lava1.png
+lava1: Need to create a material.
+Reading texture from bsp file at 687788
+Creating material with texture.
+Emission enabled.
+Could not load res://deathmatch/maps/textures/ind_w02_grey1.png
+ind_w02_grey1: Need to create a material.
+Reading texture from bsp file at 693268
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_3.png
+bodiesa3_3: Need to create a material.
+Reading texture from bsp file at 1041468
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_2.png
+bodiesa3_2: Need to create a material.
+Reading texture from bsp file at 1052388
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_1.png
+bodiesa3_1: Need to create a material.
+Reading texture from bsp file at 1063308
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa2_4.png
+bodiesa2_4: Need to create a material.
+Reading texture from bsp file at 1074228
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop3_4.png
+cop3_4: Need to create a material.
+Reading texture from bsp file at 1085148
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/metal_copp_01.png
+metal_copp_01: Need to create a material.
+Reading texture from bsp file at 1090628
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/metal_copp_04.png
+metal_copp_04: Need to create a material.
+Reading texture from bsp file at 1438828
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/teleport.png
+teleport: Need to create a material.
+Reading texture from bsp file at 1787028
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung02_5.png
+dung02_5: Need to create a material.
+Reading texture from bsp file at 1792508
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop1_5.png
+cop1_5: Need to create a material.
+Reading texture from bsp file at 1797988
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung02_1.png
+dung02_1: Need to create a material.
+Reading texture from bsp file at 1803468
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop1_7.png
+cop1_7: Need to create a material.
+Reading texture from bsp file at 1808948
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_3.png
+dung01_3: Need to create a material.
+Reading texture from bsp file at 1814428
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_2.png
+dung01_2: Need to create a material.
+Reading texture from bsp file at 1819908
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_4.png
+dung01_4: Need to create a material.
+Reading texture from bsp file at 1825388
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_5.png
+dung01_5: Need to create a material.
+Reading texture from bsp file at 1830868
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_1.png
+dung01_1: Need to create a material.
+Reading texture from bsp file at 1836348
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa2_1.png
+bodiesa2_1: Need to create a material.
+Reading texture from bsp file at 1858148
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/door05_3.png
+door05_3: Need to create a material.
+Reading texture from bsp file at 1869068
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+0floorsw.png
++0floorsw: Need to create a material.
+Reading texture from bsp file at 1869448
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+0button.png
++0button: Need to create a material.
+Reading texture from bsp file at 1874928
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bricka2_6.png
+bricka2_6: Need to create a material.
+Reading texture from bsp file at 1878028
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+1button.png
++1button: Need to create a material.
+Reading texture from bsp file at 1888988
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+2button.png
++2button: Need to create a material.
+Reading texture from bsp file at 1892088
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+3button.png
++3button: Need to create a material.
+Reading texture from bsp file at 1895188
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+abutton.png
++abutton: Need to create a material.
+Reading texture from bsp file at 1898288
+Creating material with texture.
+BSP read complete.
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+ISOLATED_CACHE /tmp/entryway-avatar-test-h_p1rco5/uploader/godot/app_userdata/FPSloppa
+PASS custom UT99 vertex avatar imported locally
+Connecting to 127.0.0.1:27878…
+DM_EVENT uploader joined the arena.
+PASS joined
+DM_EVENT receiver: ASSET_OK
+DM_EVENT receiver left the arena.
+DM_EVENT receiver joined the arena.
+DM_EVENT receiver: REJOIN_OK
+DM_EVENT AVATAR_DONE
+DM_EVENT receiver left the arena.
+PASS network scenario complete
+AVATAR_NETWORK_RESULT uploader {"failures":[]}
+Test complete
+
+receiver 0 Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+Attempting to import /tmp/entryway-avatar-test-h_p1rco5/assets-receiver/maps/qsrc_dm1.bsp
+Material path pattern: res://deathmatch/maps/materials/{texture_name}.tres
+BSP version: 29
+ 
+Has BSPX.
+BSPX entry: RGBLIGHTING
+clipnodes offset: 143232 clipnodes_size: 19024 num_clipnodes: 2378
+num_textures: 32
+Could not load res://deathmatch/maps/textures/metal_iron1_01.png
+metal_iron1_01: Need to create a material.
+Reading texture from bsp file at 328628
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/city4_7.png
+city4_7: Need to create a material.
+Reading texture from bsp file at 676828
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bricka2_4.png
+bricka2_4: Need to create a material.
+Reading texture from bsp file at 682308
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/lava1.png
+lava1: Need to create a material.
+Reading texture from bsp file at 687788
+Creating material with texture.
+Emission enabled.
+Could not load res://deathmatch/maps/textures/ind_w02_grey1.png
+ind_w02_grey1: Need to create a material.
+Reading texture from bsp file at 693268
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_3.png
+bodiesa3_3: Need to create a material.
+Reading texture from bsp file at 1041468
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_2.png
+bodiesa3_2: Need to create a material.
+Reading texture from bsp file at 1052388
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa3_1.png
+bodiesa3_1: Need to create a material.
+Reading texture from bsp file at 1063308
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa2_4.png
+bodiesa2_4: Need to create a material.
+Reading texture from bsp file at 1074228
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop3_4.png
+cop3_4: Need to create a material.
+Reading texture from bsp file at 1085148
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/metal_copp_01.png
+metal_copp_01: Need to create a material.
+Reading texture from bsp file at 1090628
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/metal_copp_04.png
+metal_copp_04: Need to create a material.
+Reading texture from bsp file at 1438828
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/teleport.png
+teleport: Need to create a material.
+Reading texture from bsp file at 1787028
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung02_5.png
+dung02_5: Need to create a material.
+Reading texture from bsp file at 1792508
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop1_5.png
+cop1_5: Need to create a material.
+Reading texture from bsp file at 1797988
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung02_1.png
+dung02_1: Need to create a material.
+Reading texture from bsp file at 1803468
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/cop1_7.png
+cop1_7: Need to create a material.
+Reading texture from bsp file at 1808948
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_3.png
+dung01_3: Need to create a material.
+Reading texture from bsp file at 1814428
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_2.png
+dung01_2: Need to create a material.
+Reading texture from bsp file at 1819908
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_4.png
+dung01_4: Need to create a material.
+Reading texture from bsp file at 1825388
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_5.png
+dung01_5: Need to create a material.
+Reading texture from bsp file at 1830868
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/dung01_1.png
+dung01_1: Need to create a material.
+Reading texture from bsp file at 1836348
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bodiesa2_1.png
+bodiesa2_1: Need to create a material.
+Reading texture from bsp file at 1858148
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/door05_3.png
+door05_3: Need to create a material.
+Reading texture from bsp file at 1869068
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+0floorsw.png
++0floorsw: Need to create a material.
+Reading texture from bsp file at 1869448
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+0button.png
++0button: Need to create a material.
+Reading texture from bsp file at 1874928
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/bricka2_6.png
+bricka2_6: Need to create a material.
+Reading texture from bsp file at 1878028
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+1button.png
++1button: Need to create a material.
+Reading texture from bsp file at 1888988
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+2button.png
++2button: Need to create a material.
+Reading texture from bsp file at 1892088
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+3button.png
++3button: Need to create a material.
+Reading texture from bsp file at 1895188
+Creating material with texture.
+Could not load res://deathmatch/maps/textures/+abutton.png
++abutton: Need to create a material.
+Reading texture from bsp file at 1898288
+Creating material with texture.
+BSP read complete.
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+ISOLATED_CACHE /tmp/entryway-avatar-test-h_p1rco5/receiver/godot/app_userdata/FPSloppa
+PASS receiver starts without custom asset
+Connecting to 127.0.0.1:27878…
+DM_EVENT receiver joined the arena.
+PASS joined
+DM_EVENT uploader joined the arena.
+PASS server asset download completed
+PASS download SHA256 matches uploader
+PASS Receiver has the exact imported UTX skin atlas and correct base model
+PASS downloaded UT99 vertex avatar is renderable and animated
+DM_EVENT receiver: ASSET_OK
+Avatar rejoin test
+Connecting to 127.0.0.1:27878…
+DM_EVENT receiver joined the arena.
+PASS late join receives custom model identity
+PASS cached avatar avoids repeat transfer
+DM_EVENT receiver: REJOIN_OK
+DM_EVENT AVATAR_DONE
+PASS network scenario complete
+AVATAR_NETWORK_RESULT receiver {"failures":[]}
+Test complete
+

@@ -139,8 +139,8 @@ func run() -> void:
 	main_menu.queue_free();label.show()
 	auth={"actor":joined.result.identity,"resume":joined.result.resume};await follow(joined.result)
 	avatars=preload("res://tools/district_cluster/client_avatar.gd").new();root.add_child(avatars);avatars.setup(str(settings.get("content_url","")))
-	if not str(settings.get("vrm","")).is_empty():
-		var error: String=await avatars.upload(settings.vrm,auth)
+	if not str(settings.get("utavatar","")).is_empty():
+		var error: String=await avatars.upload(settings.utavatar,auth)
 		if not error.is_empty():push_warning(error)
 	moderator=preload("res://tools/district_cluster/moderator_menu.gd").new();canvas.add_child(moderator);moderator.setup(self)
 	global_voice=preload("res://tools/district_cluster/moderator_voice.gd").new();root.add_child(global_voice);global_voice.setup(self,canvas)
@@ -157,7 +157,7 @@ func smoke() -> void:
 		if body.has_meta("avatar"):
 			custom_count+=1
 			if settings.get("require_avatar",false):camera.position=body.position+Vector3(3,2.2,4);camera.look_at(body.position+Vector3.UP*.9)
-	if settings.get("require_avatar",false) and custom_count==0:push_error("Remote custom VRM was not instantiated");quit(4);return
+	if settings.get("require_avatar",false) and custom_count==0:push_error("Remote custom UT99 avatar was not instantiated");quit(4);return
 	for frame in 5:await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png(settings.smoke_output)

@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS All five stock UT99 archetypes have prepared templates
+PASS Auto-recognition selects Soldier from its package and layout
+PASS Skin families detected for Soldier
+PASS Build skin for Soldier: OK
+PASS Imported Soldier passes server validator
+PASS Skin import preserves Soldier geometry, IK and every original animation
+PASS Imported Soldier is SHA-addressed for existing multiplayer transfer
+PASS Imported Soldier loads into production render rig
+PASS Auto-recognition selects Commando from its package and layout
+PASS Skin families detected for Commando
+PASS Build skin for Commando: OK
+PASS Imported Commando passes server validator
+PASS Skin import preserves Commando geometry, IK and every original animation
+PASS Imported Commando is SHA-addressed for existing multiplayer transfer
+PASS Imported Commando loads into production render rig
+PASS Auto-recognition selects SGirl from its package and layout
+PASS Skin families detected for SGirl
+PASS Build skin for SGirl: OK
+PASS Imported SGirl passes server validator
+PASS Skin import preserves SGirl geometry, IK and every original animation
+PASS Imported SGirl is SHA-addressed for existing multiplayer transfer
+PASS Imported SGirl loads into production render rig
+PASS Auto-recognition selects FCommando from its package and layout
+PASS Skin families detected for FCommando
+PASS Build skin for FCommando: OK
+PASS Imported FCommando passes server validator
+PASS Skin import preserves FCommando geometry, IK and every original animation
+PASS Imported FCommando is SHA-addressed for existing multiplayer transfer
+PASS Imported FCommando loads into production render rig
+PASS Auto-recognition selects Boss from its package and layout
+PASS Skin families detected for Boss
+PASS Build skin for Boss: OK
+PASS Imported Boss passes server validator
+PASS Skin import preserves Boss geometry, IK and every original animation
+PASS Imported Boss is SHA-addressed for existing multiplayer transfer
+PASS Imported Boss loads into production render rig
+PASS Different World Leaders faces have distinct hashes; repeat imports are deterministic
+PASS Ambiguous layouts retain a compatible selection and report uncertainty
+PASS Renamed Commando recognized by face slot 2
+PASS Renamed female Commando recognized by three-slot layout
+PASS Filename never overrides missing required texture slots
+PASS Manual model override remains available for compatible texture layouts
+PASS Incomplete skin family rejected without publication
+UTX_IMPORT_RESULT []

@@ -1,9 +1,7 @@
 extends Node
-## One permission dialog at a time; voice and tracking share this queue.
+## One permission dialog at a time; microphone access uses this queue.
 signal completed(permission: String, granted: bool)
 const MICROPHONE := "android.permission.RECORD_AUDIO"
-const QUEST_TRACKING := ["com.oculus.permission.BODY_TRACKING","com.oculus.permission.HAND_TRACKING","com.oculus.permission.EYE_TRACKING","com.oculus.permission.FACE_TRACKING"]
-const PICO_TRACKING := ["com.picovr.permission.EYE_TRACKING"]
 var pending: Array[String]=[]
 var current := ""
 var attempted: Dictionary={}
@@ -17,11 +15,6 @@ func granted(permission: String) -> bool:
 	return not is_android() or OS.get_granted_permissions().has(permission)
 func request_system(permission: String) -> bool: return OS.request_permission(permission)
 
-func tracking_permissions() -> Array:
-	if OS.has_feature("quest_xr"): return QUEST_TRACKING
-	if OS.has_feature("pico_xr"): return PICO_TRACKING
-	return []
-
 func request(permission: String, retry: bool=false) -> void:
 	if granted(permission):
 		permission_result(permission,true)
@@ -32,10 +25,6 @@ func request(permission: String, retry: bool=false) -> void:
 		return
 	pending.append(permission)
 	_next.call_deferred()
-
-func request_tracking(retry: bool=false) -> void:
-	if not is_android(): return
-	for permission in tracking_permissions(): request(permission,retry)
 
 func _next() -> void:
 	if not current.is_empty() or pending.is_empty(): return
@@ -49,11 +38,3 @@ func permission_result(permission: String, allowed: bool) -> void:
 		current=""
 		_next.call_deferred()
 	completed.emit(permission,allowed)
-
-func tracking_status() -> String:
-	var denied: Array[String]=[]
-	for permission in tracking_permissions():
-		if results.has(permission) and not results[permission]: denied.append(permission.get_slice(".",3).replace("_"," ").to_lower())
-	if not denied.is_empty(): return "Tracking access denied: "+", ".join(denied)+". Use headset app permissions or RETRY ACCESS."
-	if not current.is_empty(): return "Waiting for headset permission approval"
-	return ""

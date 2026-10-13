@@ -1,5 +1,5 @@
 extends Node3D
-## Local tracking mirror: isolated camera preview of the same avatar and IK inputs.
+## Local tracking mirror: isolated camera preview of the same UT99 avatar and game animations.
 ## No additional work or nodes on dedicated servers, no extra network pose stream.
 var game
 var viewport: SubViewport
@@ -26,7 +26,7 @@ func setup(arena: Node) -> void:
 	screen=MeshInstance3D.new();var quad:=QuadMesh.new();quad.size=Vector2(1.0,1.5);screen.mesh=quad;add_child(screen)
 	var shader:=Shader.new();shader.code="shader_type spatial; render_mode unshaded; uniform sampler2D reflection : source_color; void fragment(){ ALBEDO=texture(reflection,vec2(1.0-UV.x,UV.y)).rgb; }"
 	var material:=ShaderMaterial.new();material.shader=shader;material.set_shader_parameter("reflection",viewport.get_texture());screen.material_override=material
-	var label:=Label3D.new();label.text="TRACKING MIRROR\nYOUR AVATAR";label.font_size=32;label.pixel_size=.0025;label.position=Vector3(0,.9,.02);label.modulate=Color("e5d5ad");add_child(label)
+	var label:=Label3D.new();label.text="AVATAR MIRROR\nYOUR AVATAR";label.font_size=32;label.pixel_size=.0025;label.position=Vector3(0,.9,.02);label.modulate=Color("e5d5ad");add_child(label)
 func _process(delta: float) -> void:
 	if not game or not game.active:return
 	accumulator+=delta
@@ -46,7 +46,6 @@ func _process(delta: float) -> void:
 	preview_root.rotation.y=actor.rotation.y-global_rotation.y
 	avatar.target_xr_pose=actor.xr_pose.duplicate(true);avatar.speed=actor.visual_velocity.length();avatar.movement=actor.basis.inverse()*actor.visual_velocity;avatar.aim_pitch=actor.visual_pitch
 	avatar.set_first_person(false);avatar.unarmed=true
-	if avatar.mouth:avatar.mouth.speak(game.voice.mouth_pose(game.multiplayer.get_unique_id()))
 	if avatar.gun:avatar.gun.hide()
 	if avatar.offhand_gun:avatar.offhand_gun.hide()
 	viewport.render_target_update_mode=SubViewport.UPDATE_ONCE

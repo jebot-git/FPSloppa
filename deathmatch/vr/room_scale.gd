@@ -20,5 +20,3 @@ static func rebase_pose(pose: Dictionary,shift: Vector3) -> void:
 	for key in ["head","left","right","weapon"]:
 		pose[key].origin-=shift
 	if pose.has("offhand_weapon"): pose.offhand_weapon.origin-=shift
-	for key in pose.get("body",{}):
-		if pose.body[key] is Transform3D: pose.body[key].origin-=shift

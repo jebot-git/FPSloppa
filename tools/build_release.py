@@ -54,7 +54,7 @@ for _,folder,binary in targets:
         source=root/row["path"];destination=dest/row["path"];destination.parent.mkdir(parents=True,exist_ok=True);stage(source,destination)
     for name in ['EXTERNAL-ASSETS.md','ARCHIVED-EXTRAS.md','RENDERER-SUPPORT.md']:
         stage(root/'docs'/name,dest/'docs'/name)
-    for name in ['AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','EYES.md','PERFORMANCE.md','TRACKING.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
+    for name in ['AVATAR_LIGHTING.md','MAP_LIGHTING.md','TF.md','AS.md','PERFORMANCE.md','AUDIO.md','README.md','VR.md','VOICE.md','SERVER.md','GAMEMODES.md','STANDALONE.md','client.example.cfg','ASSET_CREDITS.md','AVATARS.md','MAPS.md','GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt']:
         stage(root/name,dest/name)
     for source in list((root/'addons').rglob('*'))+list((root/'deathmatch/audio').rglob('*'))+list((root/'deathmatch/ui').rglob('*'))+list((root/'deathmatch/movement').rglob('*')):
         if source.is_file() and ('license' in source.name.lower() or 'copying' in source.name.lower() or source.name in {'SOURCES.md','THIRDPARTY.md','OFL.txt','CREDITS.txt'}):
@@ -71,21 +71,21 @@ for _,folder,binary in targets:
         if folder=='Linux':
             name=f'Play-Conquest-{label}.sh'
             launcher=dest/name
-            launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\naddress="${1:-127.0.0.1}"\nif (( $# )); then shift; fi\nexec "$game_dir/FPSloppa.x86_64" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' -- --experimental-cq --connect "$address" --port 7787 "$@"\n')
+            launcher.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\naddress="${1:-127.0.0.1}"\nif (( $# )); then shift; fi\nexec "$game_dir/FPSloppa.x86_64" --rendering-method forward_plus --rendering-driver vulkan --xr-mode '+mode+' -- --experimental-cq --connect "$address" --port 7787 "$@"\n')
             launcher.chmod(0o755)
         else:
             name=f'Play-Conquest-{label}.cmd'
-            (dest/name).write_bytes(('@echo off\r\nset "address=%~1"\r\nif "%address%"=="" set "address=127.0.0.1"\r\n"%~dp0FPSloppa.exe" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' -- --experimental-cq --connect "%address%" --port 7787\r\n').encode())
+            (dest/name).write_bytes(('@echo off\r\nset "address=%~1"\r\nif "%address%"=="" set "address=127.0.0.1"\r\n"%~dp0FPSloppa.exe" --rendering-method forward_plus --rendering-driver vulkan --xr-mode '+mode+' -- --experimental-cq --connect "%address%" --port 7787\r\n').encode())
         selected.add(name)
     if folder=='Linux':
         for label,mode in [('VR','on'),('Desktop','off')]:
             selected.add(f'Play-{label}.sh');f=dest/f'Play-{label}.sh'
-            f.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$game_dir/FPSloppa.x86_64" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' "$@"\n');f.chmod(0o755)
+            f.write_text('#!/usr/bin/env bash\nset -euo pipefail\ngame_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"\nexec "$game_dir/FPSloppa.x86_64" --rendering-method forward_plus --rendering-driver vulkan --xr-mode '+mode+' "$@"\n');f.chmod(0o755)
     else:
         stage(root/"tools"/"Diagnose-VR.cmd",dest/"Diagnose-VR.cmd")
         for label,mode in [('VR','on'),('Desktop','off')]:
             selected.add(f'Play-{label}.cmd')
-            (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --rendering-method mobile --rendering-driver vulkan --xr-mode '+mode+' %*\r\n').encode())
+            (dest/f'Play-{label}.cmd').write_bytes(('@echo off\r\n"%~dp0FPSloppa.exe" --rendering-method forward_plus --rendering-driver vulkan --xr-mode '+mode+' %*\r\n').encode())
 
 if '--stage-only' in sys.argv:
     print('STAGED binary folders, assets, launchers and license notices',flush=True)
@@ -109,7 +109,7 @@ for folder,name in [('Linux','FPSloppa-Linux.zip'),('Windows','FPSloppa-Windows.
             if folder=='Server' and rel.as_posix() not in server_files:continue
             if rel.parts[0] in {'demos','video-output'} or f.suffix=='.log':continue
             if rel.name in {'Entryway.x86_64','Entryway.exe','Entryway.pck','EntrywayServer.x86_64','EntrywayServer.pck'}:continue
-            if rel.parts[0] in {'maps','vrm'} and rel.as_posix() not in {row['path'] for row in asset_manifest['files']}:continue
+            if rel.parts[0] in {'maps','ut99'} and rel.as_posix() not in {row['path'] for row in asset_manifest['files']}:continue
             if f.is_file():z.write(root/'server.cfg' if folder=='Server' and rel.as_posix()=='server.cfg' else f,Path('FPSloppa-'+folder)/rel)
     archives.append(archive)
 archive=root.parent/'FPSloppa-Deathmatch.zip'

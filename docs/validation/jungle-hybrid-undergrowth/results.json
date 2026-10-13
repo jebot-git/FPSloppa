@@ -1,0 +1,2019 @@
+{
+	"by_view": {
+		"Canopy edge/hybrid-144m": {
+			"draw_calls": {
+				"max": 50.0,
+				"p50": 50.0,
+				"p95": 50.0,
+				"p99": 50.0,
+				"samples": 2808
+			},
+			"foliage_triangles": {
+				"max": 50550,
+				"p50": 49366,
+				"p95": 50482,
+				"p99": 50550,
+				"samples": 2808
+			},
+			"frame_ms": {
+				"max": 16.744,
+				"p50": 3.687,
+				"p95": 14.922,
+				"p99": 15.348,
+				"samples": 2808
+			},
+			"frames": 2808,
+			"grass_draws": {
+				"max": 9,
+				"p50": 9,
+				"p95": 9,
+				"p99": 9,
+				"samples": 2808
+			},
+			"grass_far": {
+				"max": 706,
+				"p50": 687,
+				"p95": 706,
+				"p99": 706,
+				"samples": 2808
+			},
+			"grass_max_distance": {
+				"max": 143.994613647461,
+				"p50": 143.654602050781,
+				"p95": 143.953079223633,
+				"p99": 143.981597900391,
+				"samples": 2808
+			},
+			"grass_refresh_ms": {
+				"max": 12.003,
+				"p50": 10.841,
+				"p95": 11.312,
+				"p99": 11.431,
+				"samples": 425
+			},
+			"grass_triangles": {
+				"max": 44234,
+				"p50": 42854,
+				"p95": 43988,
+				"p99": 44232,
+				"samples": 2808
+			},
+			"grass_update_ms": {
+				"max": 12.003,
+				"p50": 0.0,
+				"p95": 11.032,
+				"p99": 11.285,
+				"samples": 2808
+			},
+			"grass_visible": {
+				"max": 1339,
+				"p50": 1332,
+				"p95": 1338,
+				"p99": 1339,
+				"samples": 2808
+			},
+			"resident_features": {
+				"max": 3682,
+				"p50": 3682,
+				"p95": 3682,
+				"p99": 3682,
+				"samples": 2808
+			},
+			"settled_frames": 2808,
+			"viewport_gpu_ms": {
+				"max": 3.23100000619888,
+				"p50": 1.442999958992,
+				"p95": 2.08999997377396,
+				"p99": 2.56599998474121,
+				"samples": 2808
+			},
+			"visible_features": {
+				"max": 942,
+				"p50": 937,
+				"p95": 941,
+				"p99": 942,
+				"samples": 2808
+			}
+		},
+		"Canopy edge/hybrid-24m": {
+			"draw_calls": {
+				"max": 42.0,
+				"p50": 42.0,
+				"p95": 42.0,
+				"p99": 42.0,
+				"samples": 4030
+			},
+			"foliage_triangles": {
+				"max": 50550,
+				"p50": 49366,
+				"p95": 50482,
+				"p99": 50550,
+				"samples": 4030
+			},
+			"frame_ms": {
+				"max": 7.573,
+				"p50": 3.547,
+				"p95": 4.974,
+				"p99": 5.468,
+				"samples": 4030
+			},
+			"frames": 4030,
+			"grass_draws": {
+				"max": 5,
+				"p50": 5,
+				"p95": 5,
+				"p99": 5,
+				"samples": 4030
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4030
+			},
+			"grass_max_distance": {
+				"max": 23.9997806549072,
+				"p50": 23.9728488922119,
+				"p95": 23.9984836578369,
+				"p99": 23.9995632171631,
+				"samples": 4030
+			},
+			"grass_refresh_ms": {
+				"max": 1.826,
+				"p50": 1.287,
+				"p95": 1.396,
+				"p99": 1.611,
+				"samples": 426
+			},
+			"grass_triangles": {
+				"max": 29712,
+				"p50": 29076,
+				"p95": 29520,
+				"p99": 29668,
+				"samples": 4030
+			},
+			"grass_update_ms": {
+				"max": 1.826,
+				"p50": 0.0,
+				"p95": 1.289,
+				"p99": 1.362,
+				"samples": 4030
+			},
+			"grass_visible": {
+				"max": 356,
+				"p50": 353,
+				"p95": 356,
+				"p99": 356,
+				"samples": 4030
+			},
+			"resident_features": {
+				"max": 3682,
+				"p50": 3682,
+				"p95": 3682,
+				"p99": 3682,
+				"samples": 4030
+			},
+			"settled_frames": 4030,
+			"viewport_gpu_ms": {
+				"max": 2.84400010108948,
+				"p50": 1.317999958992,
+				"p95": 1.88099998235703,
+				"p99": 2.35100001096725,
+				"samples": 4030
+			},
+			"visible_features": {
+				"max": 942,
+				"p50": 937,
+				"p95": 941,
+				"p99": 942,
+				"samples": 4030
+			}
+		},
+		"Canopy edge/hybrid-64m": {
+			"draw_calls": {
+				"max": 50.0,
+				"p50": 50.0,
+				"p95": 50.0,
+				"p99": 50.0,
+				"samples": 3696
+			},
+			"foliage_triangles": {
+				"max": 50550,
+				"p50": 49366,
+				"p95": 50482,
+				"p99": 50550,
+				"samples": 3696
+			},
+			"frame_ms": {
+				"max": 9.68,
+				"p50": 3.581,
+				"p95": 7.652,
+				"p99": 8.033,
+				"samples": 3696
+			},
+			"frames": 3696,
+			"grass_draws": {
+				"max": 9,
+				"p50": 9,
+				"p95": 9,
+				"p99": 9,
+				"samples": 3696
+			},
+			"grass_far": {
+				"max": 388,
+				"p50": 382,
+				"p95": 387,
+				"p99": 388,
+				"samples": 3696
+			},
+			"grass_max_distance": {
+				"max": 63.9999542236328,
+				"p50": 63.8867874145508,
+				"p95": 63.9914512634277,
+				"p99": 63.9971961975098,
+				"samples": 3696
+			},
+			"grass_refresh_ms": {
+				"max": 4.828,
+				"p50": 3.861,
+				"p95": 4.046,
+				"p99": 4.355,
+				"samples": 427
+			},
+			"grass_triangles": {
+				"max": 43632,
+				"p50": 42202,
+				"p95": 43394,
+				"p99": 43630,
+				"samples": 3696
+			},
+			"grass_update_ms": {
+				"max": 4.828,
+				"p50": 0.0,
+				"p95": 3.879,
+				"p99": 4.002,
+				"samples": 3696
+			},
+			"grass_visible": {
+				"max": 1038,
+				"p50": 1021,
+				"p95": 1038,
+				"p99": 1038,
+				"samples": 3696
+			},
+			"resident_features": {
+				"max": 3682,
+				"p50": 3682,
+				"p95": 3682,
+				"p99": 3682,
+				"samples": 3696
+			},
+			"settled_frames": 3696,
+			"viewport_gpu_ms": {
+				"max": 3.2379999756813,
+				"p50": 1.43800002336502,
+				"p95": 2.02999997138977,
+				"p99": 2.50299996137619,
+				"samples": 3696
+			},
+			"visible_features": {
+				"max": 942,
+				"p50": 937,
+				"p95": 941,
+				"p99": 942,
+				"samples": 3696
+			}
+		},
+		"Canopy edge/hybrid-96m": {
+			"draw_calls": {
+				"max": 50.0,
+				"p50": 50.0,
+				"p95": 50.0,
+				"p99": 50.0,
+				"samples": 3421
+			},
+			"foliage_triangles": {
+				"max": 50550,
+				"p50": 49366,
+				"p95": 50482,
+				"p99": 50550,
+				"samples": 3421
+			},
+			"frame_ms": {
+				"max": 12.835,
+				"p50": 3.649,
+				"p95": 9.64,
+				"p99": 10.089,
+				"samples": 3421
+			},
+			"frames": 3421,
+			"grass_draws": {
+				"max": 9,
+				"p50": 9,
+				"p95": 9,
+				"p99": 9,
+				"samples": 3421
+			},
+			"grass_far": {
+				"max": 553,
+				"p50": 544,
+				"p95": 551,
+				"p99": 552,
+				"samples": 3421
+			},
+			"grass_max_distance": {
+				"max": 95.9997634887695,
+				"p50": 95.9125595092773,
+				"p95": 95.9953536987305,
+				"p99": 95.9983367919922,
+				"samples": 3421
+			},
+			"grass_refresh_ms": {
+				"max": 6.791,
+				"p50": 5.736,
+				"p95": 6.032,
+				"p99": 6.308,
+				"samples": 428
+			},
+			"grass_triangles": {
+				"max": 43944,
+				"p50": 42526,
+				"p95": 43702,
+				"p99": 43942,
+				"samples": 3421
+			},
+			"grass_update_ms": {
+				"max": 6.791,
+				"p50": 0.0,
+				"p95": 5.777,
+				"p99": 5.981,
+				"samples": 3421
+			},
+			"grass_visible": {
+				"max": 1195,
+				"p50": 1184,
+				"p95": 1193,
+				"p99": 1194,
+				"samples": 3421
+			},
+			"resident_features": {
+				"max": 3682,
+				"p50": 3682,
+				"p95": 3682,
+				"p99": 3682,
+				"samples": 3421
+			},
+			"settled_frames": 3421,
+			"viewport_gpu_ms": {
+				"max": 3.25000005960464,
+				"p50": 1.35100001096725,
+				"p95": 2.09399998188019,
+				"p99": 2.48799991607666,
+				"samples": 3421
+			},
+			"visible_features": {
+				"max": 942,
+				"p50": 937,
+				"p95": 941,
+				"p99": 942,
+				"samples": 3421
+			}
+		},
+		"Canopy edge/off": {
+			"draw_calls": {
+				"max": 32.0,
+				"p50": 32.0,
+				"p95": 32.0,
+				"p99": 32.0,
+				"samples": 4258
+			},
+			"foliage_triangles": {
+				"max": 50550,
+				"p50": 49366,
+				"p95": 50482,
+				"p99": 50550,
+				"samples": 4258
+			},
+			"frame_ms": {
+				"max": 6.053,
+				"p50": 3.452,
+				"p95": 4.057,
+				"p99": 4.442,
+				"samples": 4258
+			},
+			"frames": 4258,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4258
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4258
+			},
+			"grass_max_distance": {
+				"max": 95.9733276367188,
+				"p50": 95.9733276367188,
+				"p95": 95.9733276367188,
+				"p99": 95.9733276367188,
+				"samples": 4258
+			},
+			"grass_refresh_ms": {},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4258
+			},
+			"grass_update_ms": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 4258
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4258
+			},
+			"resident_features": {
+				"max": 3682,
+				"p50": 3682,
+				"p95": 3682,
+				"p99": 3682,
+				"samples": 4258
+			},
+			"settled_frames": 4258,
+			"viewport_gpu_ms": {
+				"max": 3.10099989175797,
+				"p50": 1.27799999713898,
+				"p95": 1.9210000038147,
+				"p99": 2.41399997472763,
+				"samples": 4258
+			},
+			"visible_features": {
+				"max": 942,
+				"p50": 937,
+				"p95": 941,
+				"p99": 942,
+				"samples": 4258
+			}
+		},
+		"Canyon overlook/hybrid-144m": {
+			"draw_calls": {
+				"max": 46.0,
+				"p50": 42.0,
+				"p95": 46.0,
+				"p99": 46.0,
+				"samples": 3218
+			},
+			"foliage_triangles": {
+				"max": 47834,
+				"p50": 47056,
+				"p95": 47832,
+				"p99": 47834,
+				"samples": 3218
+			},
+			"frame_ms": {
+				"max": 17.653,
+				"p50": 3.633,
+				"p95": 11.441,
+				"p99": 11.804,
+				"samples": 3218
+			},
+			"frames": 3218,
+			"grass_draws": {
+				"max": 8,
+				"p50": 6,
+				"p95": 8,
+				"p99": 8,
+				"samples": 3218
+			},
+			"grass_far": {
+				"max": 687,
+				"p50": 686,
+				"p95": 687,
+				"p99": 687,
+				"samples": 3218
+			},
+			"grass_max_distance": {
+				"max": 143.99365234375,
+				"p50": 124.757331848145,
+				"p95": 143.985824584961,
+				"p99": 143.993347167969,
+				"samples": 3218
+			},
+			"grass_refresh_ms": {
+				"max": 10.171,
+				"p50": 7.481,
+				"p95": 7.783,
+				"p99": 8.255,
+				"samples": 423
+			},
+			"grass_triangles": {
+				"max": 39242,
+				"p50": 36608,
+				"p95": 39240,
+				"p99": 39242,
+				"samples": 3218
+			},
+			"grass_update_ms": {
+				"max": 10.171,
+				"p50": 0.0,
+				"p95": 7.578,
+				"p99": 7.759,
+				"samples": 3218
+			},
+			"grass_visible": {
+				"max": 1177,
+				"p50": 1131,
+				"p95": 1175,
+				"p99": 1176,
+				"samples": 3218
+			},
+			"resident_features": {
+				"max": 3635,
+				"p50": 3635,
+				"p95": 3635,
+				"p99": 3635,
+				"samples": 3218
+			},
+			"settled_frames": 3218,
+			"viewport_gpu_ms": {
+				"max": 2.98400002717972,
+				"p50": 1.34500002861023,
+				"p95": 2.00599998235703,
+				"p99": 2.51600003242493,
+				"samples": 3218
+			},
+			"visible_features": {
+				"max": 1008,
+				"p50": 1003,
+				"p95": 1006,
+				"p99": 1007,
+				"samples": 3218
+			}
+		},
+		"Canyon overlook/hybrid-24m": {
+			"draw_calls": {
+				"max": 34.0,
+				"p50": 34.0,
+				"p95": 34.0,
+				"p99": 34.0,
+				"samples": 3805
+			},
+			"foliage_triangles": {
+				"max": 47834,
+				"p50": 47056,
+				"p95": 47832,
+				"p99": 47834,
+				"samples": 3805
+			},
+			"frame_ms": {
+				"max": 7.795,
+				"p50": 3.796,
+				"p95": 5.178,
+				"p99": 5.613,
+				"samples": 3805
+			},
+			"frames": 3805,
+			"grass_draws": {
+				"max": 2,
+				"p50": 2,
+				"p95": 2,
+				"p99": 2,
+				"samples": 3805
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 3805
+			},
+			"grass_max_distance": {
+				"max": 23.9998989105225,
+				"p50": 23.9501361846924,
+				"p95": 23.9970035552979,
+				"p99": 23.9994945526123,
+				"samples": 3805
+			},
+			"grass_refresh_ms": {
+				"max": 1.86,
+				"p50": 1.258,
+				"p95": 1.368,
+				"p99": 1.47,
+				"samples": 425
+			},
+			"grass_triangles": {
+				"max": 33392,
+				"p50": 31892,
+				"p95": 33200,
+				"p99": 33244,
+				"samples": 3805
+			},
+			"grass_update_ms": {
+				"max": 1.86,
+				"p50": 0.0,
+				"p95": 1.266,
+				"p99": 1.342,
+				"samples": 3805
+			},
+			"grass_visible": {
+				"max": 398,
+				"p50": 369,
+				"p95": 397,
+				"p99": 398,
+				"samples": 3805
+			},
+			"resident_features": {
+				"max": 3635,
+				"p50": 3635,
+				"p95": 3635,
+				"p99": 3635,
+				"samples": 3805
+			},
+			"settled_frames": 3805,
+			"viewport_gpu_ms": {
+				"max": 3.04899996519089,
+				"p50": 1.3759999871254,
+				"p95": 2.02499997615814,
+				"p99": 2.45200002193451,
+				"samples": 3805
+			},
+			"visible_features": {
+				"max": 1008,
+				"p50": 1003,
+				"p95": 1006,
+				"p99": 1007,
+				"samples": 3805
+			}
+		},
+		"Canyon overlook/hybrid-64m": {
+			"draw_calls": {
+				"max": 46.0,
+				"p50": 42.0,
+				"p95": 46.0,
+				"p99": 46.0,
+				"samples": 3468
+			},
+			"foliage_triangles": {
+				"max": 47834,
+				"p50": 46926,
+				"p95": 47832,
+				"p99": 47834,
+				"samples": 3468
+			},
+			"frame_ms": {
+				"max": 10.881,
+				"p50": 3.802,
+				"p95": 8.141,
+				"p99": 8.68,
+				"samples": 3468
+			},
+			"frames": 3468,
+			"grass_draws": {
+				"max": 8,
+				"p50": 6,
+				"p95": 8,
+				"p99": 8,
+				"samples": 3468
+			},
+			"grass_far": {
+				"max": 545,
+				"p50": 500,
+				"p95": 545,
+				"p99": 545,
+				"samples": 3468
+			},
+			"grass_max_distance": {
+				"max": 63.9998474121094,
+				"p50": 63.9469413757324,
+				"p95": 63.9966926574707,
+				"p99": 63.9993095397949,
+				"samples": 3468
+			},
+			"grass_refresh_ms": {
+				"max": 5.423,
+				"p50": 4.116,
+				"p95": 4.344,
+				"p99": 4.649,
+				"samples": 424
+			},
+			"grass_triangles": {
+				"max": 38824,
+				"p50": 36192,
+				"p95": 38824,
+				"p99": 38824,
+				"samples": 3468
+			},
+			"grass_update_ms": {
+				"max": 5.423,
+				"p50": 0.0,
+				"p95": 4.136,
+				"p99": 4.298,
+				"samples": 3468
+			},
+			"grass_visible": {
+				"max": 968,
+				"p50": 945,
+				"p95": 967,
+				"p99": 967,
+				"samples": 3468
+			},
+			"resident_features": {
+				"max": 3635,
+				"p50": 3635,
+				"p95": 3635,
+				"p99": 3635,
+				"samples": 3468
+			},
+			"settled_frames": 3468,
+			"viewport_gpu_ms": {
+				"max": 3.70399987697601,
+				"p50": 1.55699998140335,
+				"p95": 2.37799996137619,
+				"p99": 2.83899998664856,
+				"samples": 3468
+			},
+			"visible_features": {
+				"max": 1008,
+				"p50": 1003,
+				"p95": 1006,
+				"p99": 1007,
+				"samples": 3468
+			}
+		},
+		"Canyon overlook/hybrid-96m": {
+			"draw_calls": {
+				"max": 46.0,
+				"p50": 42.0,
+				"p95": 46.0,
+				"p99": 46.0,
+				"samples": 3430
+			},
+			"foliage_triangles": {
+				"max": 47834,
+				"p50": 47056,
+				"p95": 47832,
+				"p99": 47834,
+				"samples": 3430
+			},
+			"frame_ms": {
+				"max": 12.79,
+				"p50": 3.632,
+				"p95": 9.518,
+				"p99": 9.895,
+				"samples": 3430
+			},
+			"frames": 3430,
+			"grass_draws": {
+				"max": 8,
+				"p50": 6,
+				"p95": 8,
+				"p99": 8,
+				"samples": 3430
+			},
+			"grass_far": {
+				"max": 675,
+				"p50": 655,
+				"p95": 672,
+				"p99": 674,
+				"samples": 3430
+			},
+			"grass_max_distance": {
+				"max": 95.9972152709961,
+				"p50": 95.6842498779297,
+				"p95": 95.96484375,
+				"p99": 95.9940719604492,
+				"samples": 3430
+			},
+			"grass_refresh_ms": {
+				"max": 6.17,
+				"p50": 5.617,
+				"p95": 5.91,
+				"p99": 6.025,
+				"samples": 430
+			},
+			"grass_triangles": {
+				"max": 39170,
+				"p50": 36544,
+				"p95": 39168,
+				"p99": 39170,
+				"samples": 3430
+			},
+			"grass_update_ms": {
+				"max": 6.17,
+				"p50": 0.0,
+				"p95": 5.666,
+				"p99": 5.869,
+				"samples": 3430
+			},
+			"grass_visible": {
+				"max": 1139,
+				"p50": 1099,
+				"p95": 1139,
+				"p99": 1139,
+				"samples": 3430
+			},
+			"resident_features": {
+				"max": 3635,
+				"p50": 3635,
+				"p95": 3635,
+				"p99": 3635,
+				"samples": 3430
+			},
+			"settled_frames": 3430,
+			"viewport_gpu_ms": {
+				"max": 3.02999997138977,
+				"p50": 1.33600002527237,
+				"p95": 1.98500001430511,
+				"p99": 2.32299995422363,
+				"samples": 3430
+			},
+			"visible_features": {
+				"max": 1008,
+				"p50": 1003,
+				"p95": 1006,
+				"p99": 1007,
+				"samples": 3430
+			}
+		},
+		"Canyon overlook/off": {
+			"draw_calls": {
+				"max": 30.0,
+				"p50": 30.0,
+				"p95": 30.0,
+				"p99": 30.0,
+				"samples": 3934
+			},
+			"foliage_triangles": {
+				"max": 47834,
+				"p50": 47056,
+				"p95": 47832,
+				"p99": 47834,
+				"samples": 3934
+			},
+			"frame_ms": {
+				"max": 9.263,
+				"p50": 3.76,
+				"p95": 4.366,
+				"p99": 5.042,
+				"samples": 3934
+			},
+			"frames": 3934,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 3934
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 3934
+			},
+			"grass_max_distance": {
+				"max": 112.248291015625,
+				"p50": 112.248291015625,
+				"p95": 112.248291015625,
+				"p99": 112.248291015625,
+				"samples": 3934
+			},
+			"grass_refresh_ms": {},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 3934
+			},
+			"grass_update_ms": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 3934
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 3934
+			},
+			"resident_features": {
+				"max": 3635,
+				"p50": 3635,
+				"p95": 3635,
+				"p99": 3635,
+				"samples": 3934
+			},
+			"settled_frames": 3934,
+			"viewport_gpu_ms": {
+				"max": 3.33099985122681,
+				"p50": 1.26800000667572,
+				"p95": 1.91500002145767,
+				"p99": 2.32599997520447,
+				"samples": 3934
+			},
+			"visible_features": {
+				"max": 1008,
+				"p50": 1003,
+				"p95": 1006,
+				"p99": 1007,
+				"samples": 3934
+			}
+		},
+		"Mountain foothills/hybrid-144m": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 12211
+			},
+			"foliage_triangles": {
+				"max": 190,
+				"p50": 186,
+				"p95": 190,
+				"p99": 190,
+				"samples": 12211
+			},
+			"frame_ms": {
+				"max": 3.84,
+				"p50": 1.192,
+				"p95": 1.47,
+				"p99": 1.954,
+				"samples": 12211
+			},
+			"frames": 12211,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12211
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12211
+			},
+			"grass_max_distance": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 12211
+			},
+			"grass_refresh_ms": {
+				"max": 0.222,
+				"p50": 0.144,
+				"p95": 0.179,
+				"p99": 0.219,
+				"samples": 442
+			},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12211
+			},
+			"grass_update_ms": {
+				"max": 0.222,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.149,
+				"samples": 12211
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12211
+			},
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 12211
+			},
+			"settled_frames": 12211,
+			"viewport_gpu_ms": {
+				"max": 1.24799999594688,
+				"p50": 0.736999988555908,
+				"p95": 0.96900001168251,
+				"p99": 1.04999998211861,
+				"samples": 12211
+			},
+			"visible_features": {
+				"max": 95,
+				"p50": 93,
+				"p95": 95,
+				"p99": 95,
+				"samples": 12211
+			}
+		},
+		"Mountain foothills/hybrid-24m": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 12435
+			},
+			"foliage_triangles": {
+				"max": 190,
+				"p50": 186,
+				"p95": 190,
+				"p99": 190,
+				"samples": 12435
+			},
+			"frame_ms": {
+				"max": 3.274,
+				"p50": 1.172,
+				"p95": 1.435,
+				"p99": 1.786,
+				"samples": 12435
+			},
+			"frames": 12435,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12435
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12435
+			},
+			"grass_max_distance": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 12435
+			},
+			"grass_refresh_ms": {
+				"max": 0.09,
+				"p50": 0.047,
+				"p95": 0.055,
+				"p99": 0.074,
+				"samples": 442
+			},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12435
+			},
+			"grass_update_ms": {
+				"max": 0.09,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.048,
+				"samples": 12435
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12435
+			},
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 12435
+			},
+			"settled_frames": 12435,
+			"viewport_gpu_ms": {
+				"max": 1.24700000882149,
+				"p50": 0.737000018358231,
+				"p95": 0.968999981880188,
+				"p99": 1.02499997615814,
+				"samples": 12435
+			},
+			"visible_features": {
+				"max": 95,
+				"p50": 93,
+				"p95": 95,
+				"p99": 95,
+				"samples": 12435
+			}
+		},
+		"Mountain foothills/hybrid-64m": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 12463
+			},
+			"foliage_triangles": {
+				"max": 190,
+				"p50": 186,
+				"p95": 190,
+				"p99": 190,
+				"samples": 12463
+			},
+			"frame_ms": {
+				"max": 3.015,
+				"p50": 1.172,
+				"p95": 1.425,
+				"p99": 1.693,
+				"samples": 12463
+			},
+			"frames": 12463,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12463
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12463
+			},
+			"grass_max_distance": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 12463
+			},
+			"grass_refresh_ms": {
+				"max": 0.189,
+				"p50": 0.082,
+				"p95": 0.094,
+				"p99": 0.114,
+				"samples": 443
+			},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12463
+			},
+			"grass_update_ms": {
+				"max": 0.189,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.084,
+				"samples": 12463
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12463
+			},
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 12463
+			},
+			"settled_frames": 12463,
+			"viewport_gpu_ms": {
+				"max": 1.27499997615814,
+				"p50": 0.737000018358231,
+				"p95": 0.971000015735626,
+				"p99": 1.07199999690056,
+				"samples": 12463
+			},
+			"visible_features": {
+				"max": 95,
+				"p50": 93,
+				"p95": 95,
+				"p99": 95,
+				"samples": 12463
+			}
+		},
+		"Mountain foothills/hybrid-96m": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 12403
+			},
+			"foliage_triangles": {
+				"max": 190,
+				"p50": 186,
+				"p95": 190,
+				"p99": 190,
+				"samples": 12403
+			},
+			"frame_ms": {
+				"max": 3.862,
+				"p50": 1.173,
+				"p95": 1.452,
+				"p99": 1.877,
+				"samples": 12403
+			},
+			"frames": 12403,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12403
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12403
+			},
+			"grass_max_distance": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 12403
+			},
+			"grass_refresh_ms": {
+				"max": 0.185,
+				"p50": 0.108,
+				"p95": 0.132,
+				"p99": 0.169,
+				"samples": 442
+			},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12403
+			},
+			"grass_update_ms": {
+				"max": 0.185,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.11,
+				"samples": 12403
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12403
+			},
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 12403
+			},
+			"settled_frames": 12403,
+			"viewport_gpu_ms": {
+				"max": 1.28499999642372,
+				"p50": 0.736999988555908,
+				"p95": 0.968999981880188,
+				"p99": 1.04399996995926,
+				"samples": 12403
+			},
+			"visible_features": {
+				"max": 95,
+				"p50": 93,
+				"p95": 95,
+				"p99": 95,
+				"samples": 12403
+			}
+		},
+		"Mountain foothills/off": {
+			"draw_calls": {
+				"max": 18.0,
+				"p50": 18.0,
+				"p95": 18.0,
+				"p99": 18.0,
+				"samples": 12429
+			},
+			"foliage_triangles": {
+				"max": 190,
+				"p50": 186,
+				"p95": 190,
+				"p99": 190,
+				"samples": 12429
+			},
+			"frame_ms": {
+				"max": 3.285,
+				"p50": 1.172,
+				"p95": 1.464,
+				"p99": 1.746,
+				"samples": 12429
+			},
+			"frames": 12429,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12429
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12429
+			},
+			"grass_max_distance": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 12429
+			},
+			"grass_refresh_ms": {},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12429
+			},
+			"grass_update_ms": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 12429
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 12429
+			},
+			"resident_features": {
+				"max": 1187,
+				"p50": 1187,
+				"p95": 1187,
+				"p99": 1187,
+				"samples": 12429
+			},
+			"settled_frames": 12429,
+			"viewport_gpu_ms": {
+				"max": 1.33599996566772,
+				"p50": 0.736999988555908,
+				"p95": 0.968999981880188,
+				"p99": 1.04899996519089,
+				"samples": 12429
+			},
+			"visible_features": {
+				"max": 95,
+				"p50": 93,
+				"p95": 95,
+				"p99": 95,
+				"samples": 12429
+			}
+		},
+		"Prone canopy/hybrid-144m": {
+			"draw_calls": {
+				"max": 50.0,
+				"p50": 50.0,
+				"p95": 50.0,
+				"p99": 50.0,
+				"samples": 2809
+			},
+			"foliage_triangles": {
+				"max": 50046,
+				"p50": 49162,
+				"p95": 50046,
+				"p99": 50046,
+				"samples": 2809
+			},
+			"frame_ms": {
+				"max": 18.014,
+				"p50": 3.6,
+				"p95": 15.25,
+				"p99": 15.737,
+				"samples": 2809
+			},
+			"frames": 2809,
+			"grass_draws": {
+				"max": 9,
+				"p50": 9,
+				"p95": 9,
+				"p99": 9,
+				"samples": 2809
+			},
+			"grass_far": {
+				"max": 728,
+				"p50": 707,
+				"p95": 727,
+				"p99": 728,
+				"samples": 2809
+			},
+			"grass_max_distance": {
+				"max": 143.996307373047,
+				"p50": 143.566970825195,
+				"p95": 143.974044799805,
+				"p99": 143.98486328125,
+				"samples": 2809
+			},
+			"grass_refresh_ms": {
+				"max": 14.145,
+				"p50": 11.3,
+				"p95": 11.688,
+				"p99": 12.81,
+				"samples": 423
+			},
+			"grass_triangles": {
+				"max": 44196,
+				"p50": 43084,
+				"p95": 44076,
+				"p99": 44196,
+				"samples": 2809
+			},
+			"grass_update_ms": {
+				"max": 14.145,
+				"p50": 0.0,
+				"p95": 11.426,
+				"p99": 11.655,
+				"samples": 2809
+			},
+			"grass_visible": {
+				"max": 1372,
+				"p50": 1353,
+				"p95": 1371,
+				"p99": 1372,
+				"samples": 2809
+			},
+			"resident_features": {
+				"max": 3698,
+				"p50": 3698,
+				"p95": 3698,
+				"p99": 3698,
+				"samples": 2809
+			},
+			"settled_frames": 2809,
+			"viewport_gpu_ms": {
+				"max": 3.20899999141693,
+				"p50": 1.4559999704361,
+				"p95": 2.08799993991852,
+				"p99": 2.54099994897842,
+				"samples": 2809
+			},
+			"visible_features": {
+				"max": 946,
+				"p50": 942,
+				"p95": 944,
+				"p99": 945,
+				"samples": 2809
+			}
+		},
+		"Prone canopy/hybrid-24m": {
+			"draw_calls": {
+				"max": 42.0,
+				"p50": 42.0,
+				"p95": 42.0,
+				"p99": 42.0,
+				"samples": 4176
+			},
+			"foliage_triangles": {
+				"max": 50046,
+				"p50": 49158,
+				"p95": 50046,
+				"p99": 50046,
+				"samples": 4176
+			},
+			"frame_ms": {
+				"max": 9.717,
+				"p50": 3.423,
+				"p95": 4.822,
+				"p99": 5.238,
+				"samples": 4176
+			},
+			"frames": 4176,
+			"grass_draws": {
+				"max": 5,
+				"p50": 5,
+				"p95": 5,
+				"p99": 5,
+				"samples": 4176
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4176
+			},
+			"grass_max_distance": {
+				"max": 23.9999828338623,
+				"p50": 23.9755611419678,
+				"p95": 23.9987010955811,
+				"p99": 23.9998397827148,
+				"samples": 4176
+			},
+			"grass_refresh_ms": {
+				"max": 2.643,
+				"p50": 1.284,
+				"p95": 1.383,
+				"p99": 1.441,
+				"samples": 427
+			},
+			"grass_triangles": {
+				"max": 29936,
+				"p50": 29228,
+				"p95": 29772,
+				"p99": 29936,
+				"samples": 4176
+			},
+			"grass_update_ms": {
+				"max": 2.643,
+				"p50": 0.0,
+				"p95": 1.285,
+				"p99": 1.358,
+				"samples": 4176
+			},
+			"grass_visible": {
+				"max": 362,
+				"p50": 356,
+				"p95": 360,
+				"p99": 361,
+				"samples": 4176
+			},
+			"resident_features": {
+				"max": 3698,
+				"p50": 3698,
+				"p95": 3698,
+				"p99": 3698,
+				"samples": 4176
+			},
+			"settled_frames": 4176,
+			"viewport_gpu_ms": {
+				"max": 2.84899997711182,
+				"p50": 1.3649999499321,
+				"p95": 1.99000000953674,
+				"p99": 2.33799993991852,
+				"samples": 4176
+			},
+			"visible_features": {
+				"max": 946,
+				"p50": 942,
+				"p95": 944,
+				"p99": 946,
+				"samples": 4176
+			}
+		},
+		"Prone canopy/hybrid-64m": {
+			"draw_calls": {
+				"max": 50.0,
+				"p50": 50.0,
+				"p95": 50.0,
+				"p99": 50.0,
+				"samples": 3786
+			},
+			"foliage_triangles": {
+				"max": 50046,
+				"p50": 49160,
+				"p95": 50046,
+				"p99": 50046,
+				"samples": 3786
+			},
+			"frame_ms": {
+				"max": 11.426,
+				"p50": 3.484,
+				"p95": 7.612,
+				"p99": 7.938,
+				"samples": 3786
+			},
+			"frames": 3786,
+			"grass_draws": {
+				"max": 9,
+				"p50": 9,
+				"p95": 9,
+				"p99": 9,
+				"samples": 3786
+			},
+			"grass_far": {
+				"max": 409,
+				"p50": 399,
+				"p95": 407,
+				"p99": 409,
+				"samples": 3786
+			},
+			"grass_max_distance": {
+				"max": 63.9997291564941,
+				"p50": 63.8762893676758,
+				"p95": 63.993335723877,
+				"p99": 63.9985694885254,
+				"samples": 3786
+			},
+			"grass_refresh_ms": {
+				"max": 4.458,
+				"p50": 3.942,
+				"p95": 4.099,
+				"p99": 4.218,
+				"samples": 425
+			},
+			"grass_triangles": {
+				"max": 43576,
+				"p50": 42452,
+				"p95": 43494,
+				"p99": 43574,
+				"samples": 3786
+			},
+			"grass_update_ms": {
+				"max": 4.458,
+				"p50": 0.0,
+				"p95": 3.952,
+				"p99": 4.073,
+				"samples": 3786
+			},
+			"grass_visible": {
+				"max": 1053,
+				"p50": 1046,
+				"p95": 1051,
+				"p99": 1053,
+				"samples": 3786
+			},
+			"resident_features": {
+				"max": 3698,
+				"p50": 3698,
+				"p95": 3698,
+				"p99": 3698,
+				"samples": 3786
+			},
+			"settled_frames": 3786,
+			"viewport_gpu_ms": {
+				"max": 3.1159999370575,
+				"p50": 1.47699999809265,
+				"p95": 2.13699996471405,
+				"p99": 2.54100000858307,
+				"samples": 3786
+			},
+			"visible_features": {
+				"max": 946,
+				"p50": 942,
+				"p95": 944,
+				"p99": 946,
+				"samples": 3786
+			}
+		},
+		"Prone canopy/hybrid-96m": {
+			"draw_calls": {
+				"max": 50.0,
+				"p50": 50.0,
+				"p95": 50.0,
+				"p99": 50.0,
+				"samples": 3500
+			},
+			"foliage_triangles": {
+				"max": 50046,
+				"p50": 49162,
+				"p95": 50046,
+				"p99": 50046,
+				"samples": 3500
+			},
+			"frame_ms": {
+				"max": 10.835,
+				"p50": 3.509,
+				"p95": 9.785,
+				"p99": 10.179,
+				"samples": 3500
+			},
+			"frames": 3500,
+			"grass_draws": {
+				"max": 9,
+				"p50": 9,
+				"p95": 9,
+				"p99": 9,
+				"samples": 3500
+			},
+			"grass_far": {
+				"max": 615,
+				"p50": 587,
+				"p95": 613,
+				"p99": 615,
+				"samples": 3500
+			},
+			"grass_max_distance": {
+				"max": 95.9999008178711,
+				"p50": 95.9231796264648,
+				"p95": 95.9939651489258,
+				"p99": 95.9986267089844,
+				"samples": 3500
+			},
+			"grass_refresh_ms": {
+				"max": 6.836,
+				"p50": 6.016,
+				"p95": 6.344,
+				"p99": 6.439,
+				"samples": 434
+			},
+			"grass_triangles": {
+				"max": 43912,
+				"p50": 42836,
+				"p95": 43824,
+				"p99": 43908,
+				"samples": 3500
+			},
+			"grass_update_ms": {
+				"max": 6.836,
+				"p50": 0.0,
+				"p95": 6.084,
+				"p99": 6.312,
+				"samples": 3500
+			},
+			"grass_visible": {
+				"max": 1259,
+				"p50": 1230,
+				"p95": 1257,
+				"p99": 1259,
+				"samples": 3500
+			},
+			"resident_features": {
+				"max": 3698,
+				"p50": 3698,
+				"p95": 3698,
+				"p99": 3698,
+				"samples": 3500
+			},
+			"settled_frames": 3500,
+			"viewport_gpu_ms": {
+				"max": 3.11400008201599,
+				"p50": 1.44400000572205,
+				"p95": 2.14999997615814,
+				"p99": 2.45600003004074,
+				"samples": 3500
+			},
+			"visible_features": {
+				"max": 946,
+				"p50": 942,
+				"p95": 944,
+				"p99": 946,
+				"samples": 3500
+			}
+		},
+		"Prone canopy/off": {
+			"draw_calls": {
+				"max": 32.0,
+				"p50": 32.0,
+				"p95": 32.0,
+				"p99": 32.0,
+				"samples": 4445
+			},
+			"foliage_triangles": {
+				"max": 50046,
+				"p50": 49160,
+				"p95": 50046,
+				"p99": 50046,
+				"samples": 4445
+			},
+			"frame_ms": {
+				"max": 5.537,
+				"p50": 3.338,
+				"p95": 3.699,
+				"p99": 4.068,
+				"samples": 4445
+			},
+			"frames": 4445,
+			"grass_draws": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4445
+			},
+			"grass_far": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4445
+			},
+			"grass_max_distance": {
+				"max": 143.667556762695,
+				"p50": 143.667556762695,
+				"p95": 143.667556762695,
+				"p99": 143.667556762695,
+				"samples": 4445
+			},
+			"grass_refresh_ms": {},
+			"grass_triangles": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4445
+			},
+			"grass_update_ms": {
+				"max": 0.0,
+				"p50": 0.0,
+				"p95": 0.0,
+				"p99": 0.0,
+				"samples": 4445
+			},
+			"grass_visible": {
+				"max": 0,
+				"p50": 0,
+				"p95": 0,
+				"p99": 0,
+				"samples": 4445
+			},
+			"resident_features": {
+				"max": 3698,
+				"p50": 3698,
+				"p95": 3698,
+				"p99": 3698,
+				"samples": 4445
+			},
+			"settled_frames": 4445,
+			"viewport_gpu_ms": {
+				"max": 3.03800004720688,
+				"p50": 1.32499998807907,
+				"p95": 2.00400000810623,
+				"p99": 2.26499998569489,
+				"samples": 4445
+			},
+			"visible_features": {
+				"max": 946,
+				"p50": 942,
+				"p95": 944,
+				"p99": 946,
+				"samples": 4445
+			}
+		}
+	},
+	"draw_calls": {
+		"max": 50.0,
+		"p50": 18.0,
+		"p95": 50.0,
+		"p99": 50.0,
+		"samples": 116725
+	},
+	"driver": "vulkan",
+	"environment_draws": {
+		"max": 9,
+		"p50": 3,
+		"p95": 9,
+		"p99": 9,
+		"samples": 116725
+	},
+	"environment_update_ms": {
+		"max": 6.941,
+		"p50": 0.479,
+		"p95": 2.702,
+		"p99": 2.906,
+		"samples": 116725
+	},
+	"frame_ms": {
+		"max": 18.014,
+		"p50": 1.428,
+		"p95": 4.454,
+		"p99": 11.19,
+		"samples": 116725
+	},
+	"frames_over_16_67ms_percent": 0.00856714499892911,
+	"grass": {
+		"capacity_total": 2048,
+		"max_draws_per_eye": 12,
+		"modes": [
+			"off",
+			24,
+			64,
+			96,
+			144
+		],
+		"peak_resident_tufts": 119824,
+		"refresh_hz": 30,
+		"refreshes": 11049,
+		"tested": true,
+		"tested_distances_m": [
+			24,
+			64,
+			96,
+			144
+		]
+	},
+	"hardware": "Intel(R) Arc(tm) A770 Graphics (DG2)",
+	"live_readback_encode_ms": {},
+	"modes": [
+		"hybrid"
+	],
+	"primitives": {
+		"max": 335208.0,
+		"p50": 126196.0,
+		"p95": 332100.0,
+		"p99": 333984.0,
+		"samples": 116725
+	},
+	"render_cpu_ms": {
+		"max": 1.42099994421005,
+		"p50": 0.0800000000745058,
+		"p95": 0.156999997794628,
+		"p99": 0.19200000166893,
+		"samples": 116725
+	},
+	"renderer": "forward_plus",
+	"samples": 116725,
+	"scope": "Hybrid trees held constant; waist-high canopy and large bushes, near/mid meshes and far cutout cards, at matched render distances. Matched 5-second, ±2 m walking/yaw sweep at 1.7 m standing / 0.45 m prone height, shared terrain, no AI/physics/avatars, six-second warmups and screenshots excluded.",
+	"static_memory_mb": {
+		"max": 169.244109153748,
+		"p50": 124.941630363464,
+		"p95": 167.375315666199,
+		"p99": 168.911177635193,
+		"samples": 116725
+	},
+	"stereo": {
+		"eye_size": [
+			2160,
+			2376
+		],
+		"eyes": 2,
+		"ipd_m": 0.064,
+		"type": "simulated independent eye viewports"
+	},
+	"streaming": {
+		"capacity": 384,
+		"evicted": 728,
+		"generation_ms": {
+			"max": 148.563,
+			"p50": 60.138,
+			"p95": 98.744,
+			"p99": 134.556,
+			"samples": 973
+		},
+		"peak_jobs": 2,
+		"peak_resident": 245,
+		"uploads_ms": {
+			"max": 0.142,
+			"p50": 0.028,
+			"p95": 0.04,
+			"p99": 0.048,
+			"samples": 973
+		}
+	},
+	"svo": [],
+	"svo_asset_streaming": {
+		"evictions": 0,
+		"peak_uploads_per_frame": 0,
+		"resident_bytes_at_end": 0,
+		"uploads": 0
+	},
+	"terrain_tiles": {
+		"max": 245,
+		"p50": 240,
+		"p95": 245,
+		"p99": 245,
+		"samples": 116725
+	},
+	"units": "milliseconds, MB, counts",
+	"video_memory_mb": {
+		"max": 354.696258544922,
+		"p50": 354.696258544922,
+		"p95": 354.696258544922,
+		"p99": 354.696258544922,
+		"samples": 116725
+	},
+	"viewport_gpu_ms": {
+		"max": 3.70399987697601,
+		"p50": 0.951999962329865,
+		"p95": 1.875,
+		"p99": 2.27300006151199,
+		"samples": 116725
+	},
+	"wall_seconds": 453.330374
+}

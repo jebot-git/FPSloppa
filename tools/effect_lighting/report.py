@@ -7,7 +7,7 @@ import statistics
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'test-results/effect-lighting'
 data = json.loads((OUT / 'result.json').read_text())
-assert data['renderer'] == 'mobile' and len(data['models']) == 8
+assert data['renderer'] == 'forward_plus' and len(data['models']) == 8
 assert len(data['records']) == 30
 assert 'ERROR:' not in (OUT / 'render.log').read_text()
 summary = []

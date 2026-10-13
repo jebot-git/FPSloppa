@@ -1,0 +1,13 @@
+{
+  "seconds": 60.009206,
+  "frames": 424,
+  "simulation_seconds": 49.3666666666651,
+  "physics_ticks": 2962,
+  "bot_ticks": 2962,
+  "bot_share_of_authoritative_physics_percent": 70.18403703082654,
+  "planning_share_of_bot_cpu_percent": 44.4988076867711,
+  "steering_share_of_bot_cpu_percent": 36.19405748631951,
+  "rig_mean_ms_per_render_frame": 1.2348349056603776,
+  "scope_sums_consistent": true,
+  "note": "Inclusive scope families overlap. Do not sum bot planning/steering with nav child scopes."
+}

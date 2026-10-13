@@ -43,11 +43,15 @@ static func new_mesh(map_id:String="") -> NavigationMesh:
 	var mesh:=NavigationMesh.new()
 	mesh.geometry_parsed_geometry_type=NavigationMesh.PARSED_GEOMETRY_STATIC_COLLIDERS
 	mesh.geometry_collision_mask=1
-	mesh.agent_radius=.4
+	mesh.agent_radius=.3 if map_id in ["voxel_valley","voxel_jungle"] else .4
 	mesh.agent_height=1.7
 	mesh.agent_max_climb=.5
 	mesh.agent_max_slope=48
-	mesh.cell_size=.1 if map_id=="qsrc_dm3" else .2
+	mesh.cell_size=.3 if map_id in ["voxel_valley","voxel_jungle"] else .1 if map_id=="qsrc_dm3" else .2
+	if map_id in ["voxel_valley","voxel_jungle"]:
+		mesh.edge_max_length=8.1
+		mesh.edge_max_error=1.0
+		mesh.set_meta("merge_rasterizer_cell_scale",.0001)
 	mesh.cell_height=.1
 	return mesh
 

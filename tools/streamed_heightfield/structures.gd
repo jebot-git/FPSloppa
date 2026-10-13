@@ -1,9 +1,11 @@
 extends Node3D
+var world_aabb := AABB(Vector3(-1024, -5, -1024), Vector3(2048, 85, 2048))
 ## Generated town/port/base and the existing synthetic factory. Shared LOD meshes.
 const Landscape = preload("res://tools/streamed_heightfield/landscape.gd")
 const Stream = preload("res://tools/streamed_heightfield/stream.gd")
 const FAR_DISTANCE := 550.0
 var placements := Landscape.sites()
+var factory_base_offset := 2.4
 var meshes: Array = []
 var groups: Array = []
 var counts: Array = []
@@ -139,23 +141,25 @@ static func military(level: int) -> ArrayMesh:
 	return b.finish()
 
 func setup() -> void:
-	meshes = [[], [], [], []]
-	groups = [[], [], [], []]
-	for level in 3:
-		meshes[0].append(town(level))
-		meshes[1].append(load("res://tools/voxelspace/assets/factory_" + ["culled", "medium", "proxy"][level] + ".res"))
-		meshes[2].append(port(level))
-		meshes[3].append(military(level))
-	for kind in 4:
+	if meshes.is_empty():
+		meshes = [[], [], [], []]
+		for level in 3:
+			meshes[0].append(town(level))
+			meshes[1].append(load("res://tools/voxelspace/assets/factory_" + ["culled", "medium", "proxy"][level] + ".res"))
+			meshes[2].append(port(level))
+			meshes[3].append(military(level))
+	groups = []
+	for kind in meshes.size():
+		groups.append([])
 		for level in 3:
 			var group := MultiMeshInstance3D.new()
 			group.physics_interpolation_mode = Node.PHYSICS_INTERPOLATION_MODE_OFF
 			group.multimesh = MultiMesh.new()
 			group.multimesh.transform_format = MultiMesh.TRANSFORM_3D
 			group.multimesh.mesh = meshes[kind][level]
-			group.multimesh.instance_count = 4
+			group.multimesh.instance_count = placements.size()
 			group.multimesh.visible_instance_count = 0
-			group.multimesh.custom_aabb = AABB(Vector3(-1024, -5, -1024), Vector3(2048, 85, 2048))
+			group.multimesh.custom_aabb = world_aabb
 			group.custom_aabb = group.multimesh.custom_aabb
 			group.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			add_child(group)
@@ -165,7 +169,8 @@ func update(camera: Camera3D) -> void:
 	if last_position == camera.global_position and last_rotation == camera.global_rotation: return
 	last_position = camera.global_position
 	last_rotation = camera.global_rotation
-	counts = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+	counts = []
+	for kind in meshes.size(): counts.append([0, 0, 0])
 	visible_sites = 0
 	triangles = 0
 	var planes := camera.get_frustum()
@@ -173,7 +178,7 @@ func update(camera: Camera3D) -> void:
 		var site: Dictionary = placements[i]
 		var kind: int = site.kind
 		var origin: Vector3 = site.position
-		if kind == 1: origin.y -= 2.4
+		if kind == 1: origin.y -= factory_base_offset
 		var bounds: AABB = meshes[kind][0].get_aabb()
 		bounds.position += origin
 		var nearest := Vector3(clampf(camera.position.x, bounds.position.x, bounds.end.x), clampf(camera.position.y, bounds.position.y, bounds.end.y), clampf(camera.position.z, bounds.position.z, bounds.end.z))
@@ -190,7 +195,7 @@ func update(camera: Camera3D) -> void:
 		counts[kind][level] += 1
 		visible_sites += 1
 		triangles += meshes[kind][level].surface_get_array_index_len(0) / 3
-	for kind in 4:
+	for kind in meshes.size():
 		for level in 3:
 			groups[kind][level].multimesh.visible_instance_count = counts[kind][level]
 			groups[kind][level].visible = counts[kind][level] > 0

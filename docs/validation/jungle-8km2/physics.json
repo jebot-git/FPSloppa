@@ -1,0 +1,28 @@
+{
+	"checks": 97,
+	"environment_colliders": 93214,
+	"errors": [],
+	"heightmap_samples": 2030625,
+	"navigation": {
+		"cache": "user://jungle-navigation-chunks-02825a691a519966-06f668ec.scn",
+		"chunks": 196,
+		"polygons": 1144828,
+		"seam_links": 180,
+		"seconds": 6.457,
+		"water_vertices": 0
+	},
+	"setup_seconds": 3.22,
+	"staged_routing": {
+		"legs_per_poi": [
+			12,
+			12,
+			11,
+			11,
+			1
+		],
+		"max_leg_distance_m": 120.0,
+		"native_search_limit_polygons": 4096,
+		"road_graph_nodes": 359
+	},
+	"wall_boxes": 1533
+}

@@ -6,7 +6,7 @@ TEXT={'.gd','.tscn','.tres','.gdshader','.gdshaderinc'}
 def build(output,templates,godot):
     output=output.resolve();work=output/'pack';work.mkdir(parents=True,exist_ok=True)
     selected={};pending=['tools/district_cluster/client_entry.tscn','tools/district_cluster/desktop.gd','deathmatch/avatars/visual_loader.gd','deathmatch/avatars/models/manifest.json','maps/CampaignDistricts/manifest.json']
-    for pattern in ['addons/vrm/**/*','addons/Godot-MToon-Shader/**/*','deathmatch/weapons/**/*','deathmatch/audio/cq/*.ogg','deathmatch/audio/cq/manifest.json','maps/CampaignDistricts/district_*/presentation.scn']:
+    for pattern in ['deathmatch/avatars/models/**/*.utavatar','deathmatch/weapons/**/*','deathmatch/audio/cq/*.ogg','deathmatch/audio/cq/manifest.json','maps/CampaignDistricts/district_*/presentation.scn']:
         pending += [str(p.relative_to(ROOT)) for p in ROOT.glob(pattern) if p.is_file() and p.suffix not in {'.uid','.import','.md','.blend','.wav','.py'} and '.git' not in p.parts]
     while pending:
         path=pending.pop();source=ROOT/path
@@ -30,7 +30,7 @@ config/name="FPSloppa Conquest"
 config/version="'''+version+'''"
 run/main_loop_type="CQDesktop"
 run/main_scene="res://tools/district_cluster/client_entry.tscn"
-config/features=PackedStringArray("4.7", "Mobile")
+config/features=PackedStringArray("4.7", "Forward Plus")
 [audio]
 driver/enable_input=true
 [display]
@@ -43,8 +43,8 @@ rendering_device/driver.windows="vulkan"
 rendering_device/driver.linuxbsd="vulkan"
 rendering_device/fallback_to_d3d12=false
 rendering_device/fallback_to_opengl3=false
-renderer/rendering_method="mobile"
-renderer/rendering_method.mobile="mobile"
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.mobile="forward_plus"
 occlusion_culling/use_occlusion_culling=true
 [xr]
 openxr/enabled=false
@@ -69,15 +69,12 @@ openxr/enabled=false
         folder=output/platform;folder.mkdir(exist_ok=True);shutil.copy2(templates/template,folder/name);(folder/name).chmod(0o755);shutil.copy2(pack,folder/'FPSloppaCQ.pck')
         for path in ['GODOT-LICENSE.txt','GODOT-COPYRIGHT.txt','ASSET_CREDITS.md','docs/CQ-MODERATION.md','docs/CQ-CLIENT.md','docs/CQ-AUDIO.md']:
             shutil.copy2(ROOT/path,folder/Path(path).name)
-        for addon in ['vrm','Godot-MToon-Shader']:
-            for source in (ROOT/'addons'/addon).rglob('*LICENSE*'):
-                target=folder/'licenses'/addon/source.name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)
         for source in (ROOT/'maps/Makkon').glob('*'):
             if source.name in ['README.txt','Makkon_License.txt']:
                 target=folder/'licenses/Makkon'/source.name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)
         if platform=='Linux':
-            launcher=folder/'launch-conquest.sh';launcher.write_text('#!/bin/sh\nset -eu\nclient_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)\nif [ "$#" -gt 0 ]; then config=$(realpath -- "$1"); shift; set -- "$config" "$@"; fi\nexec "$client_dir/FPSloppaCQ.x86_64" --rendering-method mobile --rendering-driver vulkan -- "$@"\n');launcher.chmod(0o755)
-        else:(folder/'launch-conquest.bat').write_text('@echo off\r\nif "%~1"=="" (\r\n  "%~dp0FPSloppaCQ.exe" --rendering-method mobile --rendering-driver vulkan\r\n) else (\r\n  "%~dp0FPSloppaCQ.exe" --rendering-method mobile --rendering-driver vulkan -- "%~f1"\r\n)\r\n')
+            launcher=folder/'launch-conquest.sh';launcher.write_text('#!/bin/sh\nset -eu\nclient_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)\nif [ "$#" -gt 0 ]; then config=$(realpath -- "$1"); shift; set -- "$config" "$@"; fi\nexec "$client_dir/FPSloppaCQ.x86_64" --rendering-method forward_plus --rendering-driver vulkan -- "$@"\n');launcher.chmod(0o755)
+        else:(folder/'launch-conquest.bat').write_text('@echo off\r\nif "%~1"=="" (\r\n  "%~dp0FPSloppaCQ.exe" --rendering-method forward_plus --rendering-driver vulkan\r\n) else (\r\n  "%~dp0FPSloppaCQ.exe" --rendering-method forward_plus --rendering-driver vulkan -- "%~f1"\r\n)\r\n')
     report=dict(version=version,resources=len(selected),maps=sum(p.endswith('/presentation.scn') for p in selected),pack_bytes=pack.stat().st_size,pack_sha256=hashlib.file_digest(pack.open('rb'),'sha256').hexdigest(),files=sorted(selected))
     (output/'client-build.json').write_text(json.dumps(report,indent=2)+'\n');print('CQ_CLIENTS_BUILT',report['maps'],report['pack_bytes'])
 if __name__=='__main__':

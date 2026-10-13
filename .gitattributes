@@ -1,0 +1,4 @@
+# Unified diff context lines must preserve their leading space before tabs.
+/docs/*.patch whitespace=-space-before-tab
+# Retain raw benchmark stdout exactly, including blank/whitespace lines.
+/docs/validation/**/*.log -whitespace

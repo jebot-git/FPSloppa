@@ -1,0 +1,13 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+
+PASS Only microphone permission is requested
+PASS Denial completes permission queue
+PASS Denied permissions do not repeat automatically
+PASS Explicit microphone retry works
+PASS Granted microphone skips dialogs
+MAP_READY qsrc_dm1 spawns=7 pickups=25
+PASS Permission denial preserves PTT and supports listening
+PASS Late grant cannot enable a disabled microphone
+PASS Host policy stops capture without discarding selected mode
+PASS Reconnect preserves mode and headless server never captures
+PERMISSIONS_RESULT []

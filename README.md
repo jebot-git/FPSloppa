@@ -3,6 +3,64 @@
 This checkout is the isolated CQ experiment. Use `Play-Conquest-Desktop` or `Play-Conquest-VR` in the Windows/Linux package, passing a CQ server address. The temporary public testing server has been shut down. Windows, Linux and Quest remain project release targets; this CQ prerelease ships PC builds only. Pico releases are discontinued.
 
 
+## Voxelspace jungle: 8 km²
+
+The current voxelspace map is **Jungle Frontier**, a 2,828.427 m square with
+mountains up to 481 m, canyons, hills, terrain rock formations, jungle foliage,
+five existing settlements and six clear pads for future structures.
+Run `./launch-jungle-preview.sh` for the free camera, site selector and
+mesh/billboard/sparse-octree renderer selector, constrained undergrowth toggle
+and prone-height view. Hybrid trees remain the default. Roads use broad terrain
+embankments and curved connectors. The normal 16v16 CS TDM launcher
+remains `./launch-voxel-battle.sh`.
+
+[Map, authoring assets, performance comparison and validation](docs/JUNGLE-8KM2.md).
+Earlier valley/VRM/MDL comparison receipts remain in
+[docs/validation/voxel-battle](docs/validation/voxel-battle); current jungle
+measurements are documented separately because the terrain and foliage changed.
+
+### Jungle 16v16 bot TDM
+
+`./launch-voxel-battle.sh` opens the local match and observer camera. Set
+`GODOT_BIN` if Godot 4.7.2 is not on PATH. WASD moves, Q/E changes height,
+Shift accelerates, RMB looks and 1–5 visits the five existing structure sets.
+The structures retain 1.70 m actors, 2.0 × 2.4 m door clearance, 3.2 m storeys,
+0.20 m stair risers, 48 entrances and 38 interior storeys. Military and radar
+walls have open gates in every visual LOD; roads are checked against all LODs.
+
+The scenario retains authoritative movement, collision, damage, respawn and
+TDM scoring: 16 bots per team, friendly fire off, 100 kills or 10 minutes.
+The local CS-style loadout gives Red AK-47s, Blue M4A1s, eight AWP specialists,
+Desert Eagles, knives and armour, with finite magazines/reserves and reloads.
+These are gameplay approximations using bundled weapon art, without CS economy
+or bomb rules. The existing CQ jetpack checks launch clearance and a walkable
+landing. Water kills through armour/spawn protection, uses normal TDM respawn
+and suicide scoring, and awards no enemy frag. Quays and piers remain safe.
+
+This branch uses UT99 models and original vertex animations. The default
+selection is the seven World Leaders faces by EvilGrins on UT99's Soldier.
+UTX skin imports use five prepared base models with constrained head, neck and arm IK;
+model recognition remains editable.
+VRM import/rendering, spring bones, full body tracking, gaze, expressions and
+speech-driven facial animation are removed from the active game. Headset and
+controller poses still drive VR gameplay. See [UT99 avatars](docs/UT99-AVATARS.md).
+
+```bash
+./launch-voxel-battle.sh --headless --simulate --seconds 120
+./launch-voxel-battle.sh --simulate --live --keep-open --tour --output res://test-results/jungle-match
+# Optional live JPEG/telemetry viewer: http://127.0.0.1:8766
+python3 tools/voxel_battle/live_view.py --directory test-results/jungle-match
+```
+
+`--seconds N` caps the simulation; `--output` chooses its report directory.
+Reports include score, shots, deaths, damage, reloads, jetpack activations,
+interior visits, travel and physics/bot-AI timings. Rendered runs include raw
+frames, GPU/render CPU timing, memory, streaming and foliage statistics.
+`--tour` cycles viewpoints; manual camera choices stop the tour. `--live`
+exports camera/telemetry every two seconds and measures readback overhead.
+The full-world collision and chunk navigation caches are built on first use.
+This launcher remains an offline desktop/headless scenario.
+
 ![SloP: a classic Doom cover parody starring the bundled VRM avatars, with broken body tracking and a VR skeleton waiting two weeks.](docs/art/slop-title-parody.png)
 
 [CQ prerelease notes](docs/RELEASE-0.15v-cq-experimental.md) · [Published releases](https://github.com/jebot-git/FPSloppa/releases)
@@ -11,19 +69,21 @@ This checkout is the isolated CQ experiment. Use `Play-Conquest-Desktop` or `Pla
 
 The separate Community Maps and Original TF Arenas downloads are retired from 0.12v onward. Pressureworks and Vesper Abbey remain bundled for TF, and Assault retains its full-sized variants. User imports remain supported. See [archive policy](docs/ARCHIVED-EXTRAS.md).
 
-FPSloppa is a PC OpenXR and desktop online arena shooter with seven base Quake deathmatch arenas, dedicated objective/CC maps and an optional 53-map community pack, Quake I BSP imports, textured 3D weapons and VRM avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
+FPSloppa is a PC OpenXR and desktop online arena shooter with seven base Quake deathmatch arenas, dedicated objective/CC maps and an optional 53-map community pack, Quake I BSP imports, textured 3D weapons and UT99 vertex avatars. Practice starts an offline match against three bots on the selected BSP map. The original Entryway map has been removed. See [MAPS.md](MAPS.md) for arenas, custom imports and supported entities. Vulkan **Forward+** is the only supported graphical renderer. Open `project.godot` in **Godot 4.7.2** and press **F5**, or run `./run-vr.sh` on Linux with an active OpenXR runtime. Use `./run-desktop.sh` for mouse and keyboard. On another system, set `GODOT_BIN` or open the project in Godot.
 
-See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus, IK and validation limits. Custom VRM avatars have a **25 MB** limit; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG, IF and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
+See [VR.md](VR.md) for Touch / Index controls, tracked weapons, VR menus and validation limits. Player-imported UTX skins have a **25 MB** limit and an editable suggested base model; missing BSP maps download automatically from the host. Normal multiplayer modes spawn with **only dual pistols and 50 shared bullets**; IG, IF and CC use their mode-specific weapons, and TF uses class loadouts. Blood, gibs, pain reactions and spatial sound effects are included.
 
-The separate [portable avatar converter](tools/avatar_converter/README.md) prepares FBX/glTF source avatars as VRM on Windows and Linux, with manual humanoid mapping and optional texture resizing. It can extract source models from Unity packages; assembled Unity prefabs and VRChat-specific shaders/components require preparation in their source editor. [Download Linux/Windows releases](https://github.com/jebot-git/AvatarConverter/releases/tag/v0.1.0) or build from its [independent repository](https://github.com/jebot-git/AvatarConverter).
-
-The additional [UT Avatar Converter](tools/ut_avatar_converter/README.md) turns original UT99 model and skin packages into experimental VRM avatars on Linux and Windows. It includes archive extraction, material selection, editable rig landmarks and a pose preview, with tested Female Soldier, Female Commando and Rumiko presets. [Download Linux/Windows releases](https://github.com/jebot-git/UTAvatarConverter/releases/tag/v0.1.0) or build from its [independent repository](https://github.com/jebot-git/UTAvatarConverter). The separate [experimental MDL Avatar Converter](https://github.com/jebot-git/MDLAvatarConverter/releases/tag/v0.1.0) now supports Quake MDL/PAK input, palette and frame/skin selection, editable rigging and VRM export. GoldSrc MDL is unsupported.
+This branch's [UT99 importer](tools/ut99_avatar/convert.py) reuses package extraction
+from the earlier [UT Avatar Converter](tools/ut_avatar_converter/README.md), then
+keeps the original mesh animation without skeleton conversion. Older VRM/MDL
+converter experiments and their receipts are historical and do not enable VRM
+support in this branch.
 
 PC binaries: use Play-VR or Play-Desktop in the Linux/Windows ZIP. The optional Linux server ZIP runs without installing Godot. See [SERVER.md](SERVER.md) for `server.cfg`, [VOICE.md](VOICE.md) for voice chat, and [STANDALONE.md](STANDALONE.md) for Quest/Pico APK installation and device-testing limitations. Smooth turning now defaults on.
 
 For VR callsign editing, saved-name configuration and the system-username fallback, see [VR callsign setup](VR.md#callsign). Use 0.14v clients and servers together to receive all fixes. The protocol is `fpsloppa-36-bsp-triggers`.
 
-Maps and avatars now live beside the executable in `maps/` and `vrm/`, outside the Godot package. Current standalone APKs include the base maps and models and install them automatically on first launch. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Instafreeze, Freeze Tag and Chainsaw Circus are available.
+Maps and avatars now live beside the executable in `maps/` and `ut99/`, outside the Godot package. Current standalone APKs include the base maps and models and install them automatically on first launch. See [external asset setup](docs/EXTERNAL-ASSETS.md). Left-handed controls, seated mode, Instagib, Instafreeze, Freeze Tag and Chainsaw Circus are available.
 
 ## Play online
 
@@ -122,11 +182,11 @@ Behavior references: [id Software's original weapon routines](https://github.com
 
 Optional [bHaptics vest feedback](BHAPTICS.md) includes the FPSloppa Vest v1 weapon/hit/hazard/healing profile. Native Bluetooth is preferred on Linux/Windows x86_64 (Linux X40 tested; Windows build unvalidated); OSC remains available. Enable it in Settings → Haptics. This revision uses protocol `fpsloppa-33-haptic-damage-context`; update clients and servers together.
 
-Optional [body tracking](TRACKING.md), [recorded spatial audio and speech-driven VRM mouths](AUDIO.md) are included in protocol `fpsloppa-29-acknowledged-movement`. Update the server and every client together.
+This branch uses UT99 vertex avatars with headset and controller poses only; see [UT99 avatars](docs/UT99-AVATARS.md). Update the server and every client together for the UT99 protocol suffix.
 
-Eye-tracked VRM gaze and measured blinking are automatic on supported OpenXR runtimes/models; see [EYES.md](EYES.md). See [PERFORMANCE.md](PERFORMANCE.md) for rendering changes, profiling commands and hardware-validation limits. The generated launcher artwork is documented in [ICON.md](ICON.md).
+See [PERFORMANCE.md](PERFORMANCE.md) for rendering changes, profiling commands and hardware-validation limits. The generated launcher artwork is documented in [ICON.md](ICON.md).
 
-Voice starts in push-to-talk mode (**V** / VR off-hand grip). The voice controls are selectable inside the VR menu; Android requests microphone and vendor tracking access with a retry option. Tracked VR players can look down at their own head-hidden avatar body for an IK reference. See [VOICE.md](VOICE.md) and [TRACKING.md](TRACKING.md).
+Voice starts in push-to-talk mode (**V** / VR off-hand grip). The voice controls are selectable inside the VR menu; Android requests microphone access with a retry option. See [VOICE.md](VOICE.md).
 
 Every held weapon can perform a short-range weapon whip: press **F** on desktop or swing the weapon in VR. It deals **10 damage** before armor, with **0.8 seconds** between attacks and at most one victim per swing. A deliberate VR swing is required; resting the weapon against a player does no damage. The server checks range, walls, cooldown and normal spawn protection. VR swings require slowing the weapon before swinging again.
 
@@ -155,7 +215,7 @@ Hit registration, latency simulation and test limitations: [network testing](NET
 
 ## VR menus and voting
 
-The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → Tracking contains recentering, body calibration, SlimeVR OSC and body tracking. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Instafreeze, Freeze Tag, Chainsaw Circus, Team Fortress and Assault (up to eight players). Lobby voting is on the wall, with a camera-based tracking mirror alongside it. VR dropdowns support joystick scrolling and trigger-held dragging, including the TF class selector. Closing the menu closes every open dropdown. Flag captures produce a short fanfare and a team/player banner.
+The main menu fits the VR canvas without scrolling, with Quit fixed at the bottom. Settings → Controls contains Bindings, VR Controls and Swap Gun Hand. Settings → VR contains recentering and the supported headset/controller input description. Demo controls use two compact columns. Match setup lives behind Host Match, offering DM, TDM, CTF, KOTH, Instagib, Instafreeze, Freeze Tag, Chainsaw Circus, Team Fortress and Assault (up to eight players). Lobby voting is on the wall, with a camera-based avatar mirror alongside it. VR dropdowns support joystick scrolling and trigger-held dragging, including the TF class selector. Closing the menu closes every open dropdown. Flag captures produce a short fanfare and a team/player banner.
 
 Round-end voting presents a shared 3×3 grid of nine random, valid map/mode/loadout combinations. Click a card to cast or change your vote. The same choices and votes carry into the waiting-room wall when the lobby is enabled (controller pointer in VR; aim and click on desktop). The highest tally wins at the end of the countdown; ties and no-vote results use the first tied card in grid order. If the server permits fewer than nine combinations, unused slots are disabled. Normal in-match proposals still use mode/map/loadout selectors and majority Yes/No votes. Active in-game votes display their target, counts and remaining time on desktop and VR HUDs. Matching clients and server are required (`fpsloppa-37-match-ballot`).
 
@@ -165,3 +225,5 @@ underwater approach and locked gun-control bridge. Enable Assault through
 `sv_gametype` / `sv_gametypes` and `as_maplist`, just like TF. See [AS.md](AS.md).
 
 Experimental Doom / Quake I / UT99 weapon selection and controls: [Weapon variants](docs/WEAPON_VARIANTS.md). Doom remains the default.
+
+Weapon effects reuse a bounded shape pool and shared straight-tracer geometry. [Runtime design, validation and main-branch port](docs/POOLED-WEAPON-FX.md).

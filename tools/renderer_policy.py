@@ -24,9 +24,9 @@ def exported_scalars(data):
 
 def verify_android_renderer(archive):
     values = exported_scalars(archive.read('assets/project.binary'))
-    assert values.get('rendering/renderer/rendering_method') == 'mobile'
-    assert values.get('rendering/renderer/rendering_method.mobile', 'mobile') == 'mobile'
+    assert values.get('rendering/renderer/rendering_method', 'forward_plus') == 'forward_plus'
+    assert values.get('rendering/renderer/rendering_method.mobile', 'forward_plus') == 'forward_plus'
     assert values.get('rendering/rendering_device/driver.android', 'vulkan') == 'vulkan'
     assert values.get('rendering/rendering_device/fallback_to_opengl3', True) is False
     assert values.get('rendering/rendering_device/fallback_to_d3d12', True) is False
-    return {'method': 'mobile', 'android_driver': 'vulkan', 'opengl_fallback': False, 'd3d12_fallback': False}
+    return {'method': 'forward_plus', 'android_driver': 'vulkan', 'opengl_fallback': False, 'd3d12_fallback': False}

@@ -114,3 +114,15 @@ __pycache__/
 /addons/fps_native/build-*/
 /addons/fps_native/bin/
 /addons/fps_native/fps_native.gdextension
+
+/ut99/
+
+# Krita recovery copies; retain authored .kra sources.
+*.kra~
+
+# Preserve the mipmapped authored jungle billboard import policy.
+!/experimental-assets/jungle/*.png.import
+
+# Godot imports of archived benchmark CSVs and source snapshots.
+/docs/validation/**/*.translation
+/docs/validation/**/*.uid

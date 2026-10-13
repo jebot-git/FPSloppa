@@ -28,7 +28,7 @@ async def run(out):
         await eventually(ready,50)
         config.write_private(out/'client.json',dict(address=['127.0.0.1',50020],district='d41',team=0,token=settings['client_token'],campaign_id=settings['campaign_id'],
             identity_file=str(out/'identity.json'),smoke_output=str(out/'unused.png'),audio_recording=str(out/'combat-transition.wav'),music_volume=.8,ambience_volume=.7))
-        client=await asyncio.create_subprocess_exec('godot','--path',str(ROOT),'--xr-mode','off','--rendering-method','mobile','--rendering-driver','vulkan','--script','tools/district_cluster/audio_live_client.gd','--',str(out/'client.json'),stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
+        client=await asyncio.create_subprocess_exec('godot','--path',str(ROOT),'--xr-mode','off','--rendering-method','forward_plus','--rendering-driver','vulkan','--script','tools/district_cluster/audio_live_client.gd','--',str(out/'client.json'),stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
         try:result=await asyncio.wait_for(client.communicate(),50)
         except BaseException:client.kill();await client.wait();raise
         output=result[0].decode();(out/'client.log').write_text(output)

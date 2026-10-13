@@ -1,0 +1,107 @@
+Godot Engine v4.7.2.stable.fedora.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.363 - Forward Mobile - Using Device #0: Intel - Intel(R) Arc(tm) A770 Graphics (DG2)
+
+DM_HOST_READY port=0 practice=true
+VRM_PREPASS {"animation":"GPU vertex frames","avatars":32,"enabled":false,"runtime_skeletons":0,"springs_enabled":false}
+VALLEY_BUILD_READY buildings=24 collision_boxes=1533
+VALLEY_NAV_READY polygons=32944
+COMPARISON_READY mdl teams=[16, 16] assignments=[{"id":-1028,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1027,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1026,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1025,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1024,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1023,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1022,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1021,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1020,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1019,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1018,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1017,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1016,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1015,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1014,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1013,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1012,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1011,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1010,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1009,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1008,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1007,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1006,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1005,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1004,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1003,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1002,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1001,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1000,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-3,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-2,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0}]
+DM_EVENT Bot 9  →  Bot 18   ·   M4A1
+DM_EVENT Bot 2  →  Bot 23   ·   AK-47
+DM_EVENT Bot 11  →  Bot 3   ·   M4A1
+DM_EVENT Bot 17  →  Bot 6   ·   M4A1
+DM_EVENT Bot 26  →  Bot 1   ·   AK-47
+DM_EVENT Bot 3  →  Bot 20   ·   M4A1
+DM_EVENT Bot 4  →  Bot 15   ·   AK-47
+DM_EVENT Bot 16  →  Bot 21   ·   AK-47
+DM_EVENT Bot 12  →  Bot 5   ·   AK-47
+DM_EVENT Bot 14  →  Bot 13   ·   AWP
+DM_EVENT Bot 9  →  Bot 26   ·   M4A1
+DM_EVENT Bot 10  →  Bot 2   ·   AK-47
+DM_EVENT Bot 29  →  Bot 18   ·   M4A1
+DM_EVENT Bot 15  →  Bot 26   ·   AWP
+DM_EVENT Bot 25  →  Bot 22   ·   M4A1
+DM_EVENT Bot 3  →  Bot 5   ·   AK-47
+DM_EVENT Bot 3  →  Bot 20   ·   M4A1
+DM_EVENT Bot 9  →  Bot 16   ·   M4A1
+DM_EVENT Bot 4  →  Bot 17   ·   AK-47
+DM_EVENT Bot 3  →  Bot 18   ·   M4A1
+DM_EVENT Bot 15  →  Bot 4   ·   AWP
+DM_EVENT Bot 2  →  Bot 12   ·   AWP
+DM_EVENT Bot 13  →  Bot 8   ·   M4A1
+DM_EVENT Bot 19  →  Bot 20   ·   M4A1
+DM_EVENT Bot 18  →  Bot 23   ·   AK-47
+DM_EVENT Bot 14  →  Bot 21   ·   AWP
+DM_EVENT Bot 3  →  Bot 11   ·   AK-47
+DM_EVENT Bot 24  →  Bot 2   ·   AK-47
+DM_EVENT Bot 4  →  Bot 1   ·   AK-47
+DM_EVENT Bot 7  →  Bot 22   ·   AWP
+DM_EVENT Bot 14  →  Bot 17   ·   AWP
+DM_EVENT Bot 6  →  Bot 13   ·   AWP
+DM_EVENT Bot 16  →  Bot 5   ·   AK-47
+DM_EVENT Bot 9  →  Bot 4   ·   M4A1
+DM_EVENT Bot 18  →  Bot 25   ·   AK-47
+DM_EVENT Bot 9  →  Bot 16   ·   M4A1
+DM_EVENT Bot 20  →  Bot 7   ·   AK-47
+DM_EVENT Bot 2  →  Bot 29   ·   AK-47
+DM_EVENT Bot 20  →  Bot 3   ·   AK-47
+DM_EVENT Bot 24  →  Bot 5   ·   AK-47
+VALLEY_PROGRESS seconds=30 scores=[22, 18] boosts=38
+DM_EVENT Bot 8  →  Bot 25   ·   AK-47
+DM_EVENT Bot 10  →  Bot 15   ·   AK-47
+DM_EVENT Bot 2  →  Bot 23   ·   AK-47
+DM_EVENT Bot 21  →  Bot 2   ·   M4A1
+DM_EVENT Bot 25  →  Bot 10   ·   M4A1
+DM_EVENT Bot 5  →  Bot 4   ·   M4A1
+DM_EVENT Bot 15  →  Bot 24   ·   AWP
+DM_EVENT Bot 15  →  Bot 6   ·   AWP
+DM_EVENT Bot 6  →  Bot 5   ·   AWP
+DM_EVENT Bot 23  →  Bot 8   ·   AWP
+DM_EVENT Bot 14  →  Bot 15   ·   AWP
+DM_EVENT Bot 24  →  Bot 2   ·   AK-47
+DM_EVENT Bot 3  →  Bot 3   ·   M4A1
+DM_EVENT Bot 4  →  Bot 3   ·   AK-47
+DM_EVENT Bot 18  →  Bot 25   ·   AK-47
+DM_EVENT Bot 5  →  Bot 24   ·   M4A1
+DM_EVENT Bot 14  →  Bot 5   ·   AWP
+VALLEY_PROGRESS seconds=60 scores=[31, 26] boosts=53
+DM_EVENT Bot 8  →  Bot 2   ·   AK-47
+DM_EVENT Bot 11  →  Bot 24   ·   M4A1
+DM_EVENT Bot 2  →  Bot 1   ·   AK-47
+DM_EVENT Bot 27  →  Bot 26   ·   M4A1
+DM_EVENT Bot 24  →  Bot 23   ·   AK-47
+DM_EVENT Bot 25  →  Bot 22   ·   M4A1
+DM_EVENT Bot 1  →  Bot 14   ·   M4A1
+DM_EVENT Bot 1  →  Bot 1   ·   M4A1
+DM_EVENT Bot 5  →  Bot 28   ·   M4A1
+DM_EVENT Bot 12  →  Bot 5   ·   AK-47
+DM_EVENT Bot 2  →  Bot 22   ·   AWP
+DM_EVENT Bot 16  →  Bot 11   ·   AK-47
+DM_EVENT Bot 4  →  Bot 2   ·   AK-47
+DM_EVENT Bot 17  →  Bot 16   ·   M4A1
+DM_EVENT Bot 12  →  Bot 3   ·   AK-47
+DM_EVENT Bot 2  →  Bot 1   ·   AWP
+DM_EVENT Bot 10  →  Bot 11   ·   AK-47
+DM_EVENT Bot 27  →  Bot 24   ·   M4A1
+DM_EVENT Bot 24  →  Bot 2   ·   AK-47
+DM_EVENT Bot 11  →  Bot 28   ·   M4A1
+DM_EVENT Bot 29  →  Bot 3   ·   M4A1
+VALLEY_PROGRESS seconds=90 scores=[40, 38] boosts=73
+DM_EVENT Bot 12  →  Bot 7   ·   AK-47
+DM_EVENT Bot 15  →  Bot 1   ·   AWP
+DM_EVENT Bot 2  →  Bot 10   ·   AWP
+DM_EVENT Bot 3  →  Bot 19   ·   AK-47
+DM_EVENT Bot 16  →  Bot 7   ·   AK-47
+DM_EVENT Bot 2  →  Bot 26   ·   AWP
+DM_EVENT Bot 10  →  Bot 2   ·   AK-47
+DM_EVENT Bot 1  →  Bot 4   ·   M4A1
+DM_EVENT Bot 25  →  Bot 8   ·   M4A1
+DM_EVENT Bot 17  →  Bot 1   ·   M4A1
+DM_EVENT Bot 4  →  Bot 27   ·   AK-47
+DM_EVENT Bot 29  →  Bot 6   ·   M4A1
+DM_EVENT Bot 9  →  Bot 12   ·   M4A1
+DM_EVENT Bot 9  →  Bot 14   ·   M4A1
+DM_EVENT Bot 17  →  Bot 8   ·   M4A1
+DM_EVENT Bot 3  →  Bot 10   ·   M4A1
+COMPARISON_RESULT {"assignments":[{"id":-1028,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1027,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1026,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1025,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1024,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1023,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1022,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1021,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1020,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1019,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1018,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1017,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1016,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1015,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1014,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1013,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1012,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1011,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1010,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1009,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1008,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1007,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1006,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-1005,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-1004,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1003,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0},{"id":-1002,"model":"sample_f","source_hash":"d8eff1ed09b41afb94e30da27997560fb901dde925c813f835ab1986708521bb","team":1},{"id":-1001,"model":"sample_g","source_hash":"ad5750ce944b708155abb7ac6807e19d7f5e73a939f0ee32daf0539acfca57c0","team":0},{"id":-1000,"model":"hairsample_female","source_hash":"d9ef39f04e54b3684d31a8db47efe4c2537b80f1bc15dedce3ae3d1d2acebda2","team":1},{"id":-3,"model":"hairsample_male","source_hash":"4af2194f90ba846f3b13c00b50b14262419062d2171d17de922bcce2f89979c7","team":0},{"id":-2,"model":"sample_d_darkness","source_hash":"037951ea624ff5ab8ef302e00abe74edfe823f381f009a8455f962e62357d42a","team":1},{"id":-1,"model":"sample_e","source_hash":"aea824cc43a95dd022a57d460ed901534a45fc2ac195f26ffc4d0d5beb0d7911","team":0}],"avatar_prepass":{"animation":"GPU vertex frames","avatars":32,"enabled":false,"runtime_skeletons":0,"springs_enabled":false},"bot_ai_ms":{"max":122.286,"p50":6.181,"p95":29.461,"p99":43.881,"samples":6797},"camera_position":"(0.0, 260.0, 170.0)","damage":{"AK-47":4540,"AWP":2273,"M4A1":4267},"engine":"4.7.2-stable (fedora)","events":{"damage":507,"match_event":94,"spawn":93},"fov":90,"gpu":"Intel(R) Arc(tm) A770 Graphics (DG2)","ipd_m":0.064,"jetpacks":true,"limits":"One seeded match per representation. Same source avatars and gameplay settings, but low-poly MDL geometry/materials/pose system versus optimized VRM. Combat divergence is recorded, not suppressed.","loadout":"cs","mode":"tdm","per_eye_size":[2160,2376],"performance":{"by_view":{"fixed stereo overview":{"draw_calls":{"max":603.0,"p50":515.0,"p95":583.0,"p99":595.0,"samples":2381},"frame_ms":{"max":147.034,"p50":34.599,"p95":129.386,"p99":139.785,"samples":2381},"frames":2381,"settled_frames":2381,"viewport_gpu_ms":{"max":4.92800015211105,"p50":1.0,"p95":3.2399999499321,"p99":4.05300003290176,"samples":2381}}},"draw_calls":{"max":603.0,"p50":515.0,"p95":583.0,"p99":595.0,"samples":2381},"environment_draws":{"max":3,"p50":3,"p95":3,"p99":3,"samples":2381},"environment_update_ms":{"max":1.345,"p50":1.345,"p95":1.345,"p99":1.345,"samples":2381},"frame_ms":{"max":147.034,"p50":34.599,"p95":129.386,"p99":139.785,"samples":2381},"frames_over_16_67ms_percent":76.2704745905082,"live_readback_encode_ms":{},"primitives":{"max":295252.0,"p50":287594.0,"p95":292588.0,"p99":293764.0,"samples":2381},"render_cpu_ms":{"max":1.52299997210503,"p50":0.644000008702278,"p95":0.910999983549118,"p99":1.05300000309944,"samples":2381},"samples":2381,"static_memory_mb":{"max":232.712083816528,"p50":231.404691696167,"p95":232.18630027771,"p99":232.37640953064,"samples":2381},"terrain_tiles":{"max":238,"p50":238,"p95":238,"p99":238,"samples":2381},"units":"milliseconds, MB, counts","video_memory_mb":{"max":466.365737915039,"p50":405.116485595703,"p95":405.143890380859,"p99":405.15234375,"samples":2381},"viewport_gpu_ms":{"max":4.92800015211105,"p50":1.0,"p95":3.2399999499321,"p99":4.05300003290176,"samples":2381},"wall_seconds":120.024337},"physics_ms":{"max":129.031,"p50":11.138,"p95":34.042,"p99":50.361,"samples":6797},"representation":"mdl","scores":[45,49],"seed":1977,"simulation_seconds":113.283333333328,"springs":false,"stereo":"two desktop viewports, identical fixed cameras","teams":[16,16],"wall_seconds":120.026812}
+Disconnected.

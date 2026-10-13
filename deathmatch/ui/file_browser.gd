@@ -52,7 +52,7 @@ func clear_selection() -> void:
  selected_path="";accept_button.disabled=true;accept_button.text="SELECT A ."+extension.to_upper()+" FILE"
 func show_locations() -> void:
  clear_selection();current_dir="";path_edit.text="";up.disabled=true;rows.clear();page=0
- var locations: Array=[{"label":"Home","path":OS.get_environment("USERPROFILE") if OS.has_feature("windows") else OS.get_environment("HOME")},{"label":"Downloads","path":OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)},{"label":"Game maps","path":preload("res://deathmatch/assets/paths.gd").folder("maps")},{"label":"Game models","path":preload("res://deathmatch/assets/paths.gd").folder("vrm")}]
+ var locations: Array=[{"label":"Home","path":OS.get_environment("USERPROFILE") if OS.has_feature("windows") else OS.get_environment("HOME")},{"label":"Downloads","path":OS.get_system_dir(OS.SYSTEM_DIR_DOWNLOADS)},{"label":"Game maps","path":preload("res://deathmatch/assets/paths.gd").folder("maps")},{"label":"Game models","path":preload("res://deathmatch/assets/paths.gd").folder("ut99")}]
  for i in DirAccess.get_drive_count():locations.append({"label":DirAccess.get_drive_name(i),"path":DirAccess.get_drive_name(i)})
  if not OS.has_feature("windows"):locations.append({"label":"Filesystem root","path":"/"})
  var seen: Dictionary={}

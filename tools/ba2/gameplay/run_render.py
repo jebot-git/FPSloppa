@@ -10,7 +10,7 @@ out.mkdir(parents=True, exist_ok=True)
 env = dict(os.environ, XDG_DATA_HOME='/tmp/fpsloppa-ba2-data')
 with (out / 'render.log').open('w') as log:
     result = subprocess.run(['godot', '--path', str(root), '--xr-mode', 'off',
-        '--audio-driver', 'Dummy', '--rendering-method', 'mobile', '--rendering-driver', 'vulkan',
+        '--audio-driver', 'Dummy', '--rendering-method', 'forward_plus', '--rendering-driver', 'vulkan',
         '--script', 'res://tools/ba2/gameplay/render.gd'], env=env, stdout=log,
         stderr=subprocess.STDOUT, timeout=120)
 print((out / 'render.log').read_text())

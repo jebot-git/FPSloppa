@@ -1,0 +1,23 @@
+[
+  {
+    "run": "shoot-32-arms",
+    "samples": 13880,
+    "csv_percentiles_verified": true,
+    "all_stream_settled": true,
+    "wall_mean_frame_ms": 8.645881844380403
+  },
+  {
+    "run": "shoot-32-native",
+    "samples": 3702,
+    "csv_percentiles_verified": true,
+    "all_stream_settled": true,
+    "wall_mean_frame_ms": 8.107565640194489
+  },
+  {
+    "run": "shoot-64-arms",
+    "samples": 1130,
+    "csv_percentiles_verified": true,
+    "all_stream_settled": true,
+    "wall_mean_frame_ms": 106.21416460176992
+  }
+]

@@ -35,8 +35,8 @@ config/name="bHaptics native smoke test"
 config/icon="res://icon.png"
 run/main_scene="res://smoke.tscn"
 [rendering]
-renderer/rendering_method="mobile"
-renderer/rendering_method.mobile="mobile"
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.mobile="forward_plus"
 rendering_device/fallback_to_opengl3=false
 textures/vram_compression/import_etc2_astc=true
 [editor_plugins]

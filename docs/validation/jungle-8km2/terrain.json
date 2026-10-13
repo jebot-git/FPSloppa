@@ -1,0 +1,50 @@
+{
+	"area_m2": 8000000.0,
+	"checks": 11836,
+	"elevation_m": [
+		0.0,
+		481.101684570312
+	],
+	"errors": [],
+	"extent_m": 2828.42712474619,
+	"feature_totals_sampled": [
+		3680,
+		2571,
+		937
+	],
+	"future_sites": [
+		{
+			"name": "west ridge relay",
+			"position": "(-1050.0, 110.0, 350.0)",
+			"radius": 40.0
+		},
+		{
+			"name": "canyon crossing",
+			"position": "(-400.0, 48.0, -350.0)",
+			"radius": 35.0
+		},
+		{
+			"name": "river expedition camp",
+			"position": "(250.0, 58.0, 1000.0)",
+			"radius": 45.0
+		},
+		{
+			"name": "canopy outpost",
+			"position": "(350.0, 100.0, -280.0)",
+			"radius": 42.0
+		},
+		{
+			"name": "summit observatory",
+			"position": "(-200.0, 350.0, -1100.0)",
+			"radius": 38.0
+		},
+		{
+			"name": "east ruins",
+			"position": "(1100.0, 175.0, 450.0)",
+			"radius": 50.0
+		}
+	],
+	"road_samples": 2857,
+	"rock_formations": 6,
+	"terrain_rocks": "heightfield formations; no rock mesh species"
+}

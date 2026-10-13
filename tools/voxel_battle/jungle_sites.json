@@ -1,0 +1,20 @@
+{
+  "units": "metres",
+  "world_area_m2": 8000000,
+  "world_side_m": 2828.4271247461903,
+  "existing_sites": [
+    {"name":"town","position":[-850,55,-600]},
+    {"name":"factory","position":[750,110,-720]},
+    {"name":"port","position":[-650,2.4,750]},
+    {"name":"military","position":[700,135,600]},
+    {"name":"radar","position":[0,85,4]}
+  ],
+  "reserved_sites": [
+    {"name":"west ridge relay","position":[-1050,110,350],"pad_half_width_m":40},
+    {"name":"canyon crossing","position":[-400,48,-350],"pad_half_width_m":35},
+    {"name":"river expedition camp","position":[250,58,1000],"pad_half_width_m":45},
+    {"name":"canopy outpost","position":[350,100,-280],"pad_half_width_m":42},
+    {"name":"summit observatory","position":[-200,350,-1100],"pad_half_width_m":38},
+    {"name":"east ruins","position":[1100,175,450],"pad_half_width_m":50}
+  ]
+}

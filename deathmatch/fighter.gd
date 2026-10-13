@@ -26,7 +26,6 @@ var quake_movement := false
 var collision_height:=1.65
 var stance:="stand"
 var visual_grounded:=true
-var tracked_leg_animation:=false
 const CROUCH_SPEED:=.55
 const PRONE_SPEED:=.18
 var body_shape: CollisionShape3D
@@ -106,13 +105,12 @@ func configure_jetpack(enabled: bool,blocked: bool=false) -> void:
 func reset_jetpack() -> void:
 	jetpack_state=Jetpack.fresh();jetpack_requested=false
 func locomotion_state() -> Dictionary:
-	var state:={"height":collision_height,"grounded":is_supported(),"assist":tracked_leg_animation}
+	var state:={"height":collision_height,"grounded":is_supported()}
 	if jetpack_enabled:state.jetpack=jetpack_state.duplicate(true)
 	return state
 func receive_locomotion(state: Dictionary) -> void:
 	update_height(float(state.get("height",xr_pose.get("height",1.65))),true)
 	visual_grounded=state.get("grounded",absf(visual_velocity.y)<.5)==true
-	tracked_leg_animation=state.get("assist",false)==true
 func update_height(requested: float,force: bool=false) -> void:
 	if not is_instance_valid(body_shape) or not is_finite(requested):return
 	requested=clampf(requested,.65,1.65)
@@ -333,7 +331,7 @@ func _process(_delta: float) -> void:
 	var displayed_velocity: Vector3=velocity if local_player else visual_velocity
 	if avatar_hash.is_empty():
 		if alive_state:avatar.rotation.y=load("res://deathmatch/vr/body_basis.gd").head_yaw(xr_pose,avatar.rotation.y)
-		avatar.animate(_delta,avatar.global_basis.inverse()*displayed_velocity,stance,collision_height,is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded,xr_pose.get("body",{}),tracked_leg_animation)
+		avatar.animate(_delta,avatar.global_basis.inverse()*displayed_velocity,stance,collision_height,is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded,{},false)
 		return
 	avatar.target_xr_pose=xr_pose
 	avatar.speed = Vector2(displayed_velocity.x,displayed_velocity.z).length()
@@ -341,7 +339,6 @@ func _process(_delta: float) -> void:
 	avatar.stance=stance
 	avatar.collider_height=collision_height
 	avatar.grounded=is_supported() if local_player or get_parent().multiplayer.is_server() else visual_grounded
-	avatar.tracked_leg_animation=tracked_leg_animation
 	avatar.aim_pitch = visual_pitch
 	avatar.set_weapon(visual_weapon)
 

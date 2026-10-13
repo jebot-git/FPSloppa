@@ -1,7 +1,6 @@
 extends "res://deathmatch/voice/relay.gd"
 const Speaker=preload("res://addons/twovoip/voiphelper/two_voip_speaker.gd")
 const Microphone=preload("res://deathmatch/voice/microphone.gd")
-const Visemes=preload("res://deathmatch/voice/visemes.gd")
 const Preferences=preload("res://deathmatch/voice/preferences.gd")
 var input_device:="Default"
 const Permissions=preload("res://deathmatch/vr/permissions.gd")
@@ -12,7 +11,6 @@ var meter:=0.0
 var message:="Push-to-talk · hold V / off-hand grip"
 var hangover:=0.0
 var streams: Dictionary={}
-var mouth_poses: Dictionary={}
 var received_packets:=0
 var decoded_packets:=0
 var permission_wait:=false
@@ -77,7 +75,6 @@ func set_mode(value: int,persist: bool=false) -> void:
 func retry_access() -> void:
 	if mode>0 and not game.headless:
 		game.permissions.request(Permissions.MICROPHONE,true)
-	game.permissions.request_tracking(true)
 
 func start_capture() -> void:
 	if mic or mode==0 or game.headless or not game.voice_enabled or not game.permissions.granted(Permissions.MICROPHONE): return
@@ -124,9 +121,6 @@ func _process(delta: float) -> void:
 		if speaker.audio_stream_playback_opus:
 			var peak: float=speaker.audio_stream_playback_opus.get_chunk_max()
 			if peak>.001:decoded_peak=maxf(decoded_peak,peak)
-			var audible: bool=speaker.inopusstream or speaker.audio_stream_playback_opus.queue_length_frames()>0
-			var opening: float=clampf(sqrt(maxf(0,peak-.004))*2.6,0,.9) if audible else 0.0
-			set_mouth_pose(id,PackedFloat32Array([opening,0,0,0,0]))
 
 	if panel:panel.refresh(delta)
 
@@ -158,32 +152,20 @@ func remove_stream(id: int) -> void:
 			state.player.stop();state.player.stream=null
 			state.speaker.audio_stream_playback_opus=null;state.speaker.audiostreamopus=null
 			state.player.queue_free()
-		streams.erase(id);mouth_poses.erase(id)
+		streams.erase(id)
 
 func remove_peer(id: int) -> void:
 	remove_stream(id); guard.erase(id); muted.erase(id);channel_serial.erase(id)
 
 func reset() -> void:
 	for id in streams.keys(): remove_stream(id)
-	guard.clear(); muted.clear();mouth_poses.clear();channel_serial.clear(); sequence=0;set_radio(false)
+	guard.clear(); muted.clear();channel_serial.clear(); sequence=0;set_radio(false)
 	game.voice_enabled=true
 	set_mode(mode)
 
 func _exit_tree() -> void:
 	for id in streams.keys():remove_stream(id)
 	stop_capture()
-
-func animate_mouth(id: int,samples: PackedVector2Array) -> void:
-	set_mouth_pose(id,Visemes.analyze(samples))
-func set_mouth_pose(id: int,weights: PackedFloat32Array) -> void:
-	mouth_poses[id]={"weights":weights,"until":game.clock+.14}
-	if not game.fighters.has(id):return
-	var actor=game.fighters[id]
-	if actor.avatar_hash.is_empty() or not is_instance_valid(actor.avatar) or actor.avatar.dead:return
-	if actor.avatar.mouth:actor.avatar.mouth.speak(weights)
-func mouth_pose(id: int) -> PackedFloat32Array:
-	var state: Dictionary=mouth_poses.get(id,{})
-	return state.weights if state.get("until",0)>game.clock else PackedFloat32Array([0,0,0,0,0])
 
 func _receive_audio(id: int,serial: int,data: PackedByteArray,team_only: bool=false) -> void:
 	if not game.voice_enabled or not game.players.has(id) or id==multiplayer.get_unique_id() or muted_all or muted.has(id) or not valid_packet(data):return

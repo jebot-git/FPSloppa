@@ -1,0 +1,275 @@
+{
+  "avatar_scopes": {
+    "eyes": [
+      9534,
+      831
+    ],
+    "morph": [
+      1406,
+      680
+    ],
+    "pose": [
+      249650,
+      1999
+    ],
+    "rig": [
+      523570,
+      13600
+    ]
+  },
+  "limits": "Inclusive nested scopes; do not add parent and child times. Diagnostic overhead included. Frame buckets collect prior render callbacks and current physics ticks.",
+  "scopes": {
+    "arena_physics": {
+      "calls": 2962,
+      "max_usec": 122531,
+      "mean_call_ms": 17.1660546927752,
+      "per_render_frame_ms": {
+        "max": 418.225,
+        "p50": 113.864,
+        "p95": 211.984,
+        "p99": 326.453,
+        "samples": 421
+      },
+      "total_ms": 50845.854,
+      "usec": 50845854
+    },
+    "arena_render_process": {
+      "calls": 424,
+      "max_usec": 914,
+      "mean_call_ms": 0.454971698113208,
+      "per_render_frame_ms": {
+        "max": 0.914,
+        "p50": 0.427,
+        "p95": 0.672,
+        "p99": 0.791,
+        "samples": 423
+      },
+      "total_ms": 192.908,
+      "usec": 192908
+    },
+    "bot_combat": {
+      "calls": 88989,
+      "max_usec": 717,
+      "mean_call_ms": 0.0243063749452179,
+      "per_render_frame_ms": {
+        "max": 13.609,
+        "p50": 5.16,
+        "p95": 9.533,
+        "p99": 11.561,
+        "samples": 421
+      },
+      "total_ms": 2163.0,
+      "usec": 2163000
+    },
+    "bot_jetpack_safety": {
+      "calls": 88989,
+      "max_usec": 1062,
+      "mean_call_ms": 0.00250424209733787,
+      "per_render_frame_ms": {
+        "max": 2.388,
+        "p50": 0.457,
+        "p95": 1.4,
+        "p99": 1.514,
+        "samples": 421
+      },
+      "total_ms": 222.85,
+      "usec": 222850
+    },
+    "bot_perception": {
+      "calls": 6953,
+      "max_usec": 790,
+      "mean_call_ms": 0.201701280023012,
+      "per_render_frame_ms": {
+        "max": 7.688,
+        "p50": 3.368,
+        "p95": 5.036,
+        "p99": 6.179,
+        "samples": 421
+      },
+      "total_ms": 1402.429,
+      "usec": 1402429
+    },
+    "bot_planning": {
+      "calls": 1854,
+      "max_usec": 54465,
+      "mean_call_ms": 8.56510194174757,
+      "per_render_frame_ms": {
+        "max": 289.775,
+        "p50": 28.988,
+        "p95": 98.171,
+        "p99": 205.932,
+        "samples": 421
+      },
+      "total_ms": 15879.699,
+      "usec": 15879699
+    },
+    "bot_steering": {
+      "calls": 88989,
+      "max_usec": 1894,
+      "mean_call_ms": 0.145142579419928,
+      "per_render_frame_ms": {
+        "max": 53.583,
+        "p50": 32.06,
+        "p95": 39.285,
+        "p99": 41.989,
+        "samples": 421
+      },
+      "total_ms": 12916.093,
+      "usec": 12916093
+    },
+    "bot_tick": {
+      "calls": 2962,
+      "max_usec": 119537,
+      "mean_call_ms": 12.0478301823093,
+      "per_render_frame_ms": {
+        "max": 375.015,
+        "p50": 73.733,
+        "p95": 168.645,
+        "p99": 282.751,
+        "samples": 421
+      },
+      "total_ms": 35685.673,
+      "usec": 35685673
+    },
+    "history": {
+      "calls": 2962,
+      "max_usec": 301,
+      "mean_call_ms": 0.10715496286293,
+      "per_render_frame_ms": {
+        "max": 1.273,
+        "p50": 0.787,
+        "p95": 0.975,
+        "p99": 1.16,
+        "samples": 421
+      },
+      "total_ms": 317.393,
+      "usec": 317393
+    },
+    "nav_active_links": {
+      "calls": 393208,
+      "max_usec": 705,
+      "mean_call_ms": 0.0083547333726679,
+      "per_render_frame_ms": {
+        "max": 14.371,
+        "p50": 8.36,
+        "p95": 10.621,
+        "p99": 11.88,
+        "samples": 421
+      },
+      "total_ms": 3285.148,
+      "usec": 3285148
+    },
+    "nav_jump_link_updates": {
+      "calls": 2962,
+      "max_usec": 9798,
+      "mean_call_ms": 0.804866981769075,
+      "per_render_frame_ms": {
+        "max": 52.619,
+        "p50": 0.034,
+        "p95": 39.926,
+        "p99": 50.342,
+        "samples": 421
+      },
+      "total_ms": 2384.016,
+      "usec": 2384016
+    },
+    "nav_path_queries": {
+      "calls": 6211,
+      "max_usec": 5572,
+      "mean_call_ms": 2.13623377877958,
+      "per_render_frame_ms": {
+        "max": 245.166,
+        "p50": 23.863,
+        "p95": 78.055,
+        "p99": 159.725,
+        "samples": 421
+      },
+      "total_ms": 13268.148,
+      "usec": 13268148
+    },
+    "nav_rays": {
+      "calls": 360004,
+      "max_usec": 512,
+      "mean_call_ms": 0.004175164720392,
+      "per_render_frame_ms": {
+        "max": 5.99,
+        "p50": 3.76,
+        "p95": 4.677,
+        "p99": 5.173,
+        "samples": 421
+      },
+      "total_ms": 1503.076,
+      "usec": 1503076
+    },
+    "pickups": {
+      "calls": 88962,
+      "max_usec": 79,
+      "mean_call_ms": 0.00176429261932061,
+      "per_render_frame_ms": {
+        "max": 0.608,
+        "p50": 0.398,
+        "p95": 0.481,
+        "p99": 0.54,
+        "samples": 421
+      },
+      "total_ms": 156.955,
+      "usec": 156955
+    },
+    "projectiles": {
+      "calls": 2962,
+      "max_usec": 63,
+      "mean_call_ms": 0.00196590141796084,
+      "per_render_frame_ms": {
+        "max": 0.072,
+        "p50": 0.014,
+        "p95": 0.017,
+        "p99": 0.023,
+        "samples": 421
+      },
+      "total_ms": 5.823,
+      "usec": 5823
+    },
+    "server_tick": {
+      "calls": 2962,
+      "max_usec": 121873,
+      "mean_call_ms": 16.8064861580013,
+      "per_render_frame_ms": {
+        "max": 416.166,
+        "p50": 111.266,
+        "p95": 208.4,
+        "p99": 323.458,
+        "samples": 421
+      },
+      "total_ms": 49780.812,
+      "usec": 49780812
+    },
+    "snapshot": {
+      "calls": 987,
+      "max_usec": 1761,
+      "mean_call_ms": 0.587413373860182,
+      "per_render_frame_ms": {
+        "max": 2.6,
+        "p50": 1.382,
+        "p95": 2.045,
+        "p99": 2.23,
+        "samples": 420
+      },
+      "total_ms": 579.777,
+      "usec": 579777
+    },
+    "water_killzone": {
+      "calls": 2962,
+      "max_usec": 1011,
+      "mean_call_ms": 0.0320898041863606,
+      "per_render_frame_ms": {
+        "max": 1.224,
+        "p50": 0.234,
+        "p95": 0.293,
+        "p99": 0.348,
+        "samples": 421
+      },
+      "total_ms": 95.05,
+      "usec": 95050
+    }
+  }
+}

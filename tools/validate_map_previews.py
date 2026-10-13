@@ -20,7 +20,7 @@ with tempfile.TemporaryDirectory(prefix='fps-map-previews-') as directory:
   def command(role,render=False):
    config=assets['uploader' if role=='prepare' else role]
    cmd=[godot,'--path',str(ROOT),'--xr-mode','off','--audio-driver','Dummy']
-   cmd+=['--rendering-method','mobile','--rendering-driver','vulkan'] if render else ['--headless']
+   cmd+=['--rendering-method','forward_plus','--rendering-driver','vulkan'] if render else ['--headless']
    return cmd+['--script','res://deathmatch/tests/map_preview_network.gd','--',role,str(source),digest,str(OUT/(case+'-'+role+'.json')),'--asset-root',str(config)]
   with (OUT/(case+'-prepare.log')).open('w') as log:
    prepared=subprocess.run(command('prepare',True),env=dict(os.environ,XDG_DATA_HOME=str(temp/'profiles-prepare')),stdout=log,stderr=subprocess.STDOUT,timeout=90)

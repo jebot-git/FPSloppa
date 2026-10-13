@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('suite', choices=['coverage', 'mtoon', 'shimmer', 'emission', 'ao', 'distribution-ao', 'material-audit', 'static', 'presentation', 'vesper-hole', 'surfaces', 'presentation-ui', 'candidates789', 'static-assets'])
-    parser.add_argument('--renderer', choices=['mobile'], default='mobile', help='Vulkan Mobile is the only supported renderer')
+    parser.add_argument('--renderer', choices=['forward_plus'], default='forward_plus', help='Vulkan Forward+ is the only supported renderer')
     parser.add_argument('--only-map', help='Coverage only: comma-separated maps to repeat, preserving other existing results')
     parser.add_argument('--depth-prepass', choices=['on', 'off'], help='Diagnostic isolated project override (shimmer/coverage)')
     parser.add_argument('--contrast', action='store_true', help='Static-assets suite: repeat with Contrast lighting')

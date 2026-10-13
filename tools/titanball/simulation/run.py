@@ -21,7 +21,7 @@ for profile in a.profiles:
  name=f'{a.name}-{profile}-{a.seed}'
  options={'profile':profile,'revision':a.name,'pilot_damage':a.pilot_damage,'pilot_healing':a.pilot_healing,'pilot_health':a.pilot_health,'seconds':a.seconds,'seed':a.seed,'speed':a.speed,'record':a.record,'output':str(out/(name+'.json'))}
  cmd=['godot','--path',str(root),'--log-file',str(out/(name+'-engine.log')),'--xr-mode','off','--audio-driver','Dummy','--script','res://tools/titanball/simulation/match.gd']
- cmd+=['--headless','--fixed-fps','60'] if a.headless else ['--rendering-method','mobile','--rendering-driver','vulkan','--max-fps','60']
+ cmd+=['--headless','--fixed-fps','60'] if a.headless else ['--rendering-method','forward_plus','--rendering-driver','vulkan','--max-fps','60']
  if a.record:cmd+=['--write-movie',str(out/(name+'.avi')),'--fixed-fps','30','--disable-vsync']
  print('START',name,flush=True)
  with (out/(name+'.log')).open('w') as log:

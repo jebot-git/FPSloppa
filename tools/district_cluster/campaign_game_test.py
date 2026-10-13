@@ -66,7 +66,7 @@ async def run(binary,out):
         processes.append(subprocess.Popen(['godot','--headless','--xr-mode','off','--path',str(ROOT),'--script','tools/district_cluster/edge_main.gd','--',str(edge_path.resolve())],stdout=log,stderr=subprocess.STDOUT))
         client_path=out/'client.json';config.write_private(client_path,dict(address=['127.0.0.1',47520],token=settings['client_token'],district='d40',team=0,name='Vulkan campaign probe',smoke_output=str((out/'desktop.png').resolve())))
         await asyncio.sleep(.5)
-        result=await asyncio.create_subprocess_exec('godot','--path',str(ROOT),'--xr-mode','off','--rendering-method','mobile','--rendering-driver','vulkan','--resolution','1280x720','--script','tools/district_cluster/desktop.gd','--',str(client_path.resolve()),stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
+        result=await asyncio.create_subprocess_exec('godot','--path',str(ROOT),'--xr-mode','off','--rendering-method','forward_plus','--rendering-driver','vulkan','--resolution','1280x720','--script','tools/district_cluster/desktop.gd','--',str(client_path.resolve()),stdout=asyncio.subprocess.PIPE,stderr=asyncio.subprocess.STDOUT)
         output=await asyncio.wait_for(result.communicate(),25);(out/'desktop.log').write_bytes(output[0])
         assert result.returncode==0 and b'CAMPAIGN_DESKTOP_SMOKE' in output[0],output[0].decode()
         return dict(scope='Two real Godot BSP workers, regional gateways, durable coordinator and Vulkan desktop over loopback.',checks=['distinct_campaign_BSP_boot','hub_no_fire','controlled_terminal_handoff','contested_capture_pauses','worker_measured_30_point_capture','lost_relay_locks_terminal','live_Vulkan_hub_scoreboard'],captured_owner=1)

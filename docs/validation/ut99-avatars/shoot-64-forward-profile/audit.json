@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": 255,
+  "render_frames": 933,
+  "category_frames": 934,
+  "all_stream_settled": true,
+  "wall_sample_total_ms": 119943.04,
+  "profiled_exclusive_cpu_total_ms": 94427.44732626132,
+  "unattributed_wall_total_ms": 25515.592673738676,
+  "note": "Unattributed wall time includes unwrapped engine/scene/thread/wait work and profiler overhead; it is not a measured physics category. Process and post-draw sample counts differ at the window boundary."
+}

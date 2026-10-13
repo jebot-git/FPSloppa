@@ -68,10 +68,6 @@ static func impact_motors(direction: Vector3,body_basis: Basis) -> Array:
 func body_basis() -> Basis:
 	if game.is_vr():
 		var rig=game.xr_rig
-		if rig.tracking:
-			var body: Dictionary=rig.tracking.sample()
-			for role in ["chest","hips"]:
-				if body.has(role):return Basis(Vector3.UP,(rig.global_basis*body[role].basis).get_euler().y)
 		return Basis(Vector3.UP,rig.head.global_rotation.y)
 	return Basis(Vector3.UP,game.local_yaw)
 func hurt(id: int,direction: Vector3,amount: int,dead: bool,screen_only: bool=false,impact: Vector3=Vector3.INF,weapon: String="",blast: bool=false) -> void:

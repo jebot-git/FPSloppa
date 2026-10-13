@@ -62,7 +62,7 @@ func manifest(peer: int) -> Dictionary:
 		if departing!=0:data.erase(departing)
 	var defaults:Array=game.avatars.library.entries.keys()
 	if not defaults.is_empty():
-		var hash:String=defaults[posmod(peer,mini(3,defaults.size()))]
+		var hash:String=defaults[posmod(peer,defaults.size())]
 		data[peer]={"hash":hash,"size":game.avatars.library.entries[hash].size}
 	return data
 func offer(peer: int) -> void:

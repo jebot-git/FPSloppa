@@ -174,3 +174,25 @@ Original CQ score and eleven procedural district soundscapes: CC0-1.0.
 Recorded orchestral instruments: VSCO 2 Community Edition by Sam Gossner,
 Simon Dalzell and Elan Hickler / Soundemote, CC0-1.0.
 See `deathmatch/audio/cq/SOURCES.md` and `tools/cq_audio/samples.json`.
+
+## Voxelspace UT99 experiment: World Leaders
+
+Default `.utavatar` selections reuse EvilGrins's World Leaders skins and Epic
+Games's UT99 Soldier vertex model. Source archive and SHA-1, original author
+notice, importer provenance and local-use details: [UT99 avatars](docs/UT99-AVATARS.md).
+These retain original author terms and are not relabelled CC0. The independent
+Field Marine test asset is original FPSloppa contributor work dedicated to CC0.
+The importer follows the MIT-licensed UTAvatarConverter vertex layout/axes and
+reuses its independently supplied UE Viewer extraction helper; no helper binary
+is bundled into the game.
+
+The prepared Male Commando, Female Soldier, Female Commando and Boss/Xan
+models and stock skins also come from the local UT99 installation (BotPack and
+CommandoSkins, SGirlSkins, FCommandoSkins, BossSkins). Original Epic Games /
+Digital Extremes asset terms apply. These conversions are not CC0. Player UTX
+imports retain the imported artist's terms; source packages are not bundled.
+
+The four mixed jungle undergrowth meshes and their baked billboard atlas are
+original procedural project assets. `tools/voxel_battle/undergrowth_assets.gd`
+authors curved upright grass and compound bush crowns;
+`bake_undergrowth.gd` renders their atlas. No external foliage package is used.

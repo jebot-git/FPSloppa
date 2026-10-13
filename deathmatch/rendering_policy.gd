@@ -1,13 +1,13 @@
 extends RefCounted
 ## Check the active backend too: command-line overrides bypass project defaults.
 static func supported(method: String,driver: String,headless: bool=false) -> bool:
-	return headless or method=="mobile" and driver=="vulkan"
+	return headless or method=="forward_plus" and driver=="vulkan"
 static func startup_error() -> String:
 	if supported(RenderingServer.get_current_rendering_method(),RenderingServer.get_current_rendering_driver_name(),DisplayServer.get_name()=="headless"):return ""
-	return "FPSloppa requires Vulkan with the Mobile renderer. OpenGL, Direct3D and other rendering backends are unsupported. Remove renderer overrides or launch with --rendering-method mobile --rendering-driver vulkan."
+	return "FPSloppa requires Vulkan with the Forward+ renderer. OpenGL, Direct3D and other rendering backends are unsupported. Remove renderer overrides or launch with --rendering-method forward_plus --rendering-driver vulkan."
 static func settings_error(values: Dictionary) -> String:
 	for key in ["rendering/renderer/rendering_method","rendering/renderer/rendering_method.mobile"]:
-		if values.get(key,values.get("rendering/renderer/rendering_method"))!="mobile":return key+" must be mobile"
+		if values.get(key,values.get("rendering/renderer/rendering_method","forward_plus"))!="forward_plus":return key+" must be forward_plus"
 	for suffix in ["",".windows",".linuxbsd",".android"]:
 		var key: String="rendering/rendering_device/driver"+suffix
 		# Godot omits default-valued settings in project.binary. Vulkan is

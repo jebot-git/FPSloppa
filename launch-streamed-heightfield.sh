@@ -12,4 +12,4 @@ if [[ "${1:-}" == "--benchmark" || "${1:-}" == "--smoke" || "${1:-}" == "--paced
   if [[ "$1" == "--gpu-shader" ]]; then mode_args=(--gpu-shader); fi
   shift
 fi
-exec "$godot_bin" --path . --xr-mode off --rendering-method mobile --rendering-driver vulkan --script tools/streamed_heightfield/run.gd -- "${mode_args[@]}" "$@"
+exec "$godot_bin" --path . --xr-mode off --rendering-method forward_plus --rendering-driver vulkan --script tools/streamed_heightfield/run.gd -- "${mode_args[@]}" "$@"

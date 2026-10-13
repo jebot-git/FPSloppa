@@ -94,8 +94,6 @@ static func pack_reference(command:Dictionary) -> PackedByteArray:
 	var wire:=command.duplicate(true)
 	while bytes.size()>1100:
 		if wire.get("move_commands",[]).size()>2:wire.move_commands.pop_front()
-		elif wire.get("xr",{}).has("face"):wire.xr.erase("face")
-		elif wire.get("xr",{}).get("body",{}).size()>1:wire.xr=preload("res://deathmatch/vr/poses.gd").gameplay(wire.xr)
 		elif wire.get("fire_events",[]).size()>1:wire.fire_events.pop_back()
 		elif wire.get("move_commands",[]).size()>1:wire.move_commands.pop_front()
 		else:return PackedByteArray()

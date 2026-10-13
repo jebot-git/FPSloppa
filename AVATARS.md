@@ -1,3 +1,5 @@
+> Voxelspace branch: this is historical documentation. Current UT99 avatars and supported headset/controller input are documented in [UT99 avatars](docs/UT99-AVATARS.md). VRM, full body, gaze and facial tracking are removed.
+
 ## 0.4v avatar storage
 
 Default and imported VRMs now live in external `vrm/`. Dedicated servers persist received models there across restarts. The per-model limit remains 25 MiB. See [external assets](docs/EXTERNAL-ASSETS.md).

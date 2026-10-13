@@ -9,4 +9,4 @@ if [[ ! -f "$1" ]]; then
   echo "CQ client configuration missing: $1. Start ./launch-conquest.sh --server or generate a client-config for the remote cluster." >&2
   exit 2
 fi
-exec "${GODOT_BIN:-godot}" --path "$campaign_root" --xr-mode off --rendering-method mobile --rendering-driver vulkan --script tools/district_cluster/desktop.gd -- "$1"
+exec "${GODOT_BIN:-godot}" --path "$campaign_root" --xr-mode off --rendering-method forward_plus --rendering-driver vulkan --script tools/district_cluster/desktop.gd -- "$1"

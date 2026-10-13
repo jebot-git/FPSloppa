@@ -388,7 +388,7 @@ func _start_dedicated(args: PackedStringArray) -> void:
 
 func network_player_limit() -> int:return 64 if cq_profile else SERVER_MAX_PLAYERS
 
-func connection_protocol() -> String:return (match_mode.conquest.PROTOCOL+"-"+cq_maps.PROFILE if cq_maps.enabled else match_mode.conquest.PROTOCOL) if cq_profile else PROTOCOL
+func connection_protocol() -> String:return ((match_mode.conquest.PROTOCOL+"-"+cq_maps.PROFILE if cq_maps.enabled else match_mode.conquest.PROTOCOL) if cq_profile else PROTOCOL)+"-ut99-vertex1"
 
 func _arg_value(args: PackedStringArray,key: String,fallback: String) -> String:
 	var i := args.find(key)
@@ -490,10 +490,10 @@ func start_host(player_name: String,port: int,frags: int,minutes: int,training: 
 	if not dedicated: _add_player(1,nickname)
 	if training and not is_instance_valid(district_worker):
 		for id in [-1,-2,-3]: _add_player(id,"Bot "+str(-id))
-		bots=preload("res://deathmatch/bots.gd").new()
+		bots=create_bot_controller()
 		add_child(bots)
 		bots.setup(self)
-	if dedicated:bot_population.refresh_navigation()
+	if dedicated and not training:bot_population.refresh_navigation()
 	bot_population.maintain()
 	menu_open = dedicated
 	if hud: hud.show_menu(menu_open)
@@ -628,7 +628,13 @@ func _rejected(reason: String) -> void:
 	disconnect_game(reason)
 
 func _new_state(player_name: String,id: int) -> Dictionary:
-	return {"tf_class":"soldier","tf_next":"soldier","tf_tool":"sentry","tf_disguise":{},"name":clean_name(player_name),"spectator":false,"team":-1,"fly":0.0,"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"offhand_cooldown":0.0,"offhand_held":false,"offhand_fire":false,"alt_fire":false,"input_blocked":false,"weapon_zoom":false,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"crouch":false,"prone":false,"leg_assist":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"xr":{},"vr_device":false,"room":Vector3.ZERO,"swim":Vector3.ZERO}
+	return {"tf_class":"soldier","tf_next":"soldier","tf_tool":"sentry","tf_disguise":{},"name":clean_name(player_name),"spectator":false,"team":-1,"fly":0.0,"color":posmod(id,8),"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"kills":0,"deaths":0,"ping":0,"dead":false,"serial":0,"cooldown":0.0,"offhand_cooldown":0.0,"offhand_held":false,"offhand_fire":false,"alt_fire":false,"input_blocked":false,"weapon_zoom":false,"charge":0.0,"invulnerable":0.0,"respawn_at":0.0,"last_input":clock,"last_seq":-1,"move":Vector2.ZERO,"yaw":0.0,"pitch":0.0,"fire":false,"held":false,"slow":false,"crouch":false,"prone":false,"chat_at":0.0,"use_at":0.0,"want_respawn":false,"jump":false,"shots":0,"melee":false,"melee_state":{},"melee_seq":-1,"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"xr":{},"vr_device":false,"room":Vector3.ZERO,"swim":Vector3.ZERO}
+
+func create_bot_controller() -> Node:
+	return preload("res://deathmatch/bots.gd").new()
+
+func jetpack_allowed() -> bool:
+	return match_mode.kind=="cq"
 
 func _create_fighter(id: int) -> void:
 	var actor = Fighter.new()
@@ -637,7 +643,7 @@ func _create_fighter(id: int) -> void:
 	actor.set_nametag(players[id].name,team,match_mode.COLORS[team] if team>=0 else COLORS[players[id].color])
 	actor.movement_sound.connect(_fighter_movement_sound.bind(id))
 	actor.quake_movement = true
-	actor.configure_jetpack(match_mode.kind=="cq" and not lobby.active())
+	actor.configure_jetpack(jetpack_allowed() and not lobby.active())
 	actor.spectator=players[id].spectator
 	add_child(actor)
 	if not headless:load("res://deathmatch/maps/filtering.gd").new().apply(actor,int(presentation.get("texture_filter",2)),false)
@@ -654,7 +660,7 @@ func _add_player(id: int,player_name: String,spectator: bool=false,bot_class: St
 	_spawn(id)
 	var defaults: Array = avatars.library.entries.keys()
 	if not defaults.is_empty():
-		var hash: String = defaults[posmod(id,mini(3,defaults.size()))]
+		var hash: String = defaults[posmod(id,defaults.size())]
 		avatars.choices[id] = {"hash":hash,"size":avatars.library.entries[hash].size}
 	_broadcast_roster()
 	if is_instance_valid(district_gateway):district_gateway.admit(id)
@@ -855,7 +861,7 @@ func _spawn(id: int) -> void:
 	fighters[id].update_height(1.65,true)
 	if id==multiplayer.get_unique_id():prone_toggle=false
 	fighters[id].gibbed=false
-	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"left_kick":{},"right_kick":{},"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"alt_fire":false,"input_blocked":false,"weapon_zoom":false,"charge":0.0,"invulnerable":clock+1.5,"swim":Vector3.ZERO,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false,"crouch":false,"prone":false},true)
+	state.merge({"hp":100,"armor":0,"tier":1,"ammo":[50,0,0,0],"owned":[2],"weapon":2,"dead":false,"melee":false,"melee_state":{},"melee_seq":-1,"melee_ready_at":0.0,"offhand_melee_state":{},"offhand_melee_seq":-1,"cooldown":.3,"offhand_cooldown":.3,"offhand_held":false,"offhand_fire":false,"alt_fire":false,"input_blocked":false,"weapon_zoom":false,"charge":0.0,"invulnerable":clock+1.5,"swim":Vector3.ZERO,"move":Vector2.ZERO,"fire":false,"held":false,"yaw":0.0,"pitch":0.0,"want_respawn":false,"crouch":false,"prone":false},true)
 	armory.spawn_loadout(state)
 	variant_combat.cancel_player(id)
 	if not lobby.active():match_mode.special.spawn(id);match_mode.fortress.spawn(id)
@@ -943,7 +949,7 @@ func _local_command() -> Dictionary:
 		return command
 	var blocked: bool = menu_open or (hud != null and hud.chat.has_focus())
 	var move := Vector2.ZERO if blocked else Vector2(float(bindings.pressed("right"))-float(bindings.pressed("left")),float(bindings.pressed("back"))-float(bindings.pressed("forward"))).limit_length(1)
-	return {"seq":sequence,"move":move,"fly":0.0 if blocked else float(bindings.pressed("jump"))-float(bindings.pressed("down")),"yaw":local_yaw,"pitch":local_pitch,"fire":bindings.pressed("fire") and not blocked,"input_blocked":blocked,"alt_fire":not blocked and bindings.pressed("alt_fire"),"offhand_fire":armory.dual() and not blocked and bindings.pressed("offhand_fire") and desired_weapon==2,"melee":not blocked and bindings.pressed("melee"),"weapon":desired_weapon,"slow":bindings.pressed("slow"),"crouch":not blocked and bindings.pressed("crouch"),"prone":prone_toggle,"leg_assist":bindings.tracked_leg_animation,"jump":not blocked and bindings.pressed("jump"),"respawn":not blocked and (bindings.pressed("fire") or bindings.pressed("jump"))}
+	return {"seq":sequence,"move":move,"fly":0.0 if blocked else float(bindings.pressed("jump"))-float(bindings.pressed("down")),"yaw":local_yaw,"pitch":local_pitch,"fire":bindings.pressed("fire") and not blocked,"input_blocked":blocked,"alt_fire":not blocked and bindings.pressed("alt_fire"),"offhand_fire":armory.dual() and not blocked and bindings.pressed("offhand_fire") and desired_weapon==2,"melee":not blocked and bindings.pressed("melee"),"weapon":desired_weapon,"slow":bindings.pressed("slow"),"crouch":not blocked and bindings.pressed("crouch"),"prone":prone_toggle,"jump":not blocked and bindings.pressed("jump"),"respawn":not blocked and (bindings.pressed("fire") or bindings.pressed("jump"))}
 
 @rpc("any_peer","call_remote","unreliable_ordered",2)
 func _input_command(command: Dictionary) -> void:
@@ -1001,7 +1007,6 @@ func _accept_input(id: int,command: Dictionary) -> void:
 	s.jump = command.get("jump",false)==true
 	s.crouch=command.get("crouch",false)==true
 	s.prone=command.get("prone",false)==true
-	s.leg_assist=command.get("leg_assist",false)==true
 	s.physical=command.get("physical",false)==true
 	s.vr_device=command.has("xr")
 	s.xr=VRPoses.validate(command.get("xr",{}))
@@ -1064,7 +1069,7 @@ func _physics_process(delta: float) -> void:
 				var speed: float=(5.2 if command.slow else 9.4)*(1.0 if lobby.active() else match_mode.fortress.speed(mine))
 				fighters[mine].speed_multiplier=1.0 if lobby.active() else match_mode.fortress.speed(mine)
 				_update_crouch(mine,command.get("xr",{}),command)
-				fighters[mine].configure_jetpack(match_mode.kind=="cq" and not lobby.active(),command.get("input_blocked",false))
+				fighters[mine].configure_jetpack(jetpack_allowed() and not lobby.active(),command.get("input_blocked",false))
 				fighters[mine].simulate(command.move*(1.0-minf(room.length()*30/speed,1.0)),local_yaw,command.slow,delta,command.get("jump",false),command.get("swim",Vector3.ZERO))
 				if is_vr():
 					var actual:=RoomScale.move_capsule(fighters[mine],room,local_yaw,delta)
@@ -1196,7 +1201,7 @@ func _server_tick(delta: float) -> void:
 		if match_mode.fortress.walkers.handle_player(id,jump):continue
 		_update_crouch(id,s.xr)
 		fighters[id].speed_multiplier=match_mode.fortress.speed(id)
-		fighters[id].configure_jetpack(match_mode.kind=="cq",s.get("input_blocked",false))
+		fighters[id].configure_jetpack(jetpack_allowed(),s.get("input_blocked",false))
 		fighters[id].simulate(s.move*(1.0-minf(s.room.length()*30/((5.2 if s.slow else 9.4)*fighters[id].speed_multiplier),1.0)),s.yaw,s.slow,delta,jump,s.get("swim",Vector3.ZERO))
 		if not s.xr.is_empty():
 			var shift:=RoomScale.move_capsule(fighters[id],s.room,s.yaw,delta)
@@ -1329,44 +1334,15 @@ func _update_melee(id: int) -> void:
 	if match_mode.fixed_loadout() or match_mode.special.blocked(id):return
 	_update_melee_hand(id,false)
 	_update_melee_hand(id,true)
-	_update_melee_foot(id,"left")
-	_update_melee_foot(id,"right")
 
 func _begin_melee(id: int,state: Dictionary,delay: float=Melee.COOLDOWN,block_fire: bool=true) -> void:
 	var s: Dictionary=players[id]
 	s.melee_ready_at=clock+delay
-	for other in [s.melee_state,s.offhand_melee_state,s.get("left_kick",{}),s.get("right_kick",{})]:
+	for other in [s.melee_state,s.offhand_melee_state]:
 		if not is_same(other,state):other.swing_until=0.0
 	s.invulnerable=0
 	if block_fire:
 		s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
-
-func _update_melee_foot(id: int,side: String) -> void:
-	var s: Dictionary=players[id]
-	if not s.vr_device:return
-	var key:=side+"_kick"
-	if not s.has(key):s[key]={}
-	var state: Dictionary=s[key]
-	if s.get("melee_ready_at",0.0)>clock:state.ready_at=maxf(state.get("ready_at",0.0),s.melee_ready_at)
-	if not multiplayer.is_server() or not s.vr_device or not s.melee or s.dead or intermission>0 or clock-s.last_input>.35 or s.charge>0 or s.xr.is_empty():
-		Melee.reset_motion(state);return
-	if state.get("seq",-1)==s.last_seq:return
-	state.seq=s.last_seq
-	var swing:=Melee.sample_foot(state,s.xr,clock,side)
-	if swing.is_empty():return
-	if swing.started:_begin_melee(id,state,Melee.COOLDOWN,false)
-	var frame:=Transform3D(Basis(Vector3.UP,s.yaw),fighters[id].position)*Transform3D(Basis.IDENTITY,s.xr.head.origin)
-	var body: Vector3=fighters[id].position+Vector3.UP*fighters[id].torso_height()
-	for segment in swing.segments:
-		var start: Vector3=frame*segment[0];var end: Vector3=frame*segment[1]
-		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,start,1)).is_empty():continue
-		var hit:=_trace(start,end,id,0,Melee.KICK_RADIUS)
-		if hit.id==0:continue
-		if not get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(body,hit.position,1)).is_empty():continue
-		state.hit=true
-		s.cooldown=maxf(s.cooldown,.3);s.offhand_cooldown=maxf(s.offhand_cooldown,.3)
-		_damage(hit.id,id,Melee.DAMAGE,"KICK",false,hit.position,(end-start).normalized())
-		return
 
 func _update_melee_hand(id: int,offhand: bool) -> void:
 	if match_mode.fixed_loadout() or match_mode.special.blocked(id):return
@@ -1895,7 +1871,7 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 		if not fighters.has(id): continue
 		var s: Dictionary = players[id]
 		var actor = fighters[id]
-		actor.configure_jetpack(match_mode.kind=="cq" and not lobby.active() and not row[7] and not row[20] and pause<=0)
+		actor.configure_jetpack(jetpack_allowed() and not lobby.active() and not row[7] and not row[20] and pause<=0)
 		if not multiplayer.is_server():
 			s.merge({"yaw":row[3],"pitch":row[4],"hp":row[5],"armor":row[6],"dead":row[7],"weapon":row[8],"ammo":row[9],"owned":row[10],"kills":row[11],"deaths":row[12],"ping":row[13],"serial":row[14],"cooldown":row[17],"offhand_cooldown":row[19],"spectator":row[20]},true)
 			var old_blast:Vector2=actor.blast_velocity
@@ -1939,7 +1915,6 @@ func _snapshot(data: Array,items: PackedByteArray,remaining: float,pause: float,
 			actor.Jetpack.reconcile(actor,mode_state.get("locomotion",{}).get(id,{}).get("jetpack",{}))
 		actor.visual_velocity = row[2]
 		if id!=mine or demos.playing:actor.visual_grounded=mode_state.get("locomotion",{}).get(id,{}).get("grounded",absf(row[2].y)<.5)
-		if not multiplayer.is_server():actor.tracked_leg_animation=mode_state.get("locomotion",{}).get(id,{}).get("assist",false)
 		actor.visual_pitch = row[4]
 		actor.visual_weapon = row[8]
 		actor.spectator=s.spectator
@@ -2343,7 +2318,6 @@ func _update_crouch(id: int,pose: Dictionary,command: Dictionary={}) -> void:
 	elif prone:requested=.65
 	elif state.get("crouch",false)==true:requested=1.05
 	actor.update_height(requested)
-	actor.tracked_leg_animation=state.get("leg_assist",false)==true
 	if not pose.is_empty():pose.height=actor.collision_height
 func _shot_origin(id: int, offhand: bool=false) -> Vector3:
 	return _shot_solution(id,offhand).origin

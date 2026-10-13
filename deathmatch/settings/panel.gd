@@ -10,8 +10,8 @@ var audio_page: VBoxContainer
 var graphics_page: VBoxContainer
 var page_spacer: Control
 var input_page: VBoxContainer
-var tracking_page: VBoxContainer
-var tracking_status: Label
+var vr_page: VBoxContainer
+var vr_notice: Label
 var haptics_page: VBoxContainer
 func setup(arena: Node) -> void:
 	game=arena;values=game.presentation;name="AudioGraphicsSettings";hide()
@@ -26,25 +26,19 @@ func setup(arena: Node) -> void:
 	button(tabs,"AUDIO",func():section="audio";refresh())
 	button(tabs,"GRAPHICS",func():section="graphics";refresh())
 	button(tabs,"CONTROLS",func():section="controls";refresh())
-	button(tabs,"TRACKING",func():section="tracking";refresh())
+	button(tabs,"VR",func():section="vr";refresh())
 	button(tabs,"HAPTICS",func():section="haptics";refresh())
 	haptics_page=load("res://deathmatch/haptics/panel.gd").new();column.add_child(haptics_page);haptics_page.setup(game)
 	input_page=VBoxContainer.new();input_page.add_theme_constant_override("separation",8);column.add_child(input_page)
-	tracking_page=VBoxContainer.new();tracking_page.add_theme_constant_override("separation",8);column.add_child(tracking_page)
+	vr_page=VBoxContainer.new();vr_page.add_theme_constant_override("separation",8);column.add_child(vr_page)
 	button(input_page,"BINDINGS…",func():game.hud.open_bindings())
 	controls.vr_controls=button(input_page,"VR CONTROLS…",func():
 		if game.is_vr():game.xr_rig.turn_panel.open())
 	controls.gun_hand=button(input_page,"SWAP GUN HAND",func():
 		if game.is_vr():game.xr_rig.left_handed=not game.xr_rig.left_handed;refresh())
-	controls.recenter=button(tracking_page,"RECENTER VR",func():
+	controls.recenter=button(vr_page,"RECENTER VR",func():
 		if game.is_vr():game.xr_rig.recenter();refresh())
-	controls.calibrate=button(tracking_page,"CALIBRATE BODY",func():
-		if game.is_vr():game.xr_rig.tracking.calibrate();refresh())
-	controls.osc=button(tracking_page,"SLIMEVR OSC",func():
-		if game.is_vr():game.xr_rig.tracking.toggle_osc();refresh())
-	controls.body=button(tracking_page,"BODY TRACKING",func():
-		if game.is_vr():game.xr_rig.tracking.enabled=not game.xr_rig.tracking.enabled;refresh())
-	tracking_status=Label.new();tracking_status.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;tracking_page.add_child(tracking_status)
+	vr_notice=Label.new();vr_notice.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART;vr_page.add_child(vr_notice)
 	audio_page=VBoxContainer.new();audio_page.add_theme_constant_override("separation",8);column.add_child(audio_page)
 	graphics_page=VBoxContainer.new();graphics_page.add_theme_constant_override("separation",8);column.add_child(graphics_page)
 	graphics_page.size_flags_vertical=Control.SIZE_EXPAND_FILL
@@ -91,13 +85,11 @@ func refresh() -> void:
 	page_spacer.visible=section!="graphics"
 	haptics_page.visible=section=="haptics"
 	notice.visible=section!="haptics"
-	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics";input_page.visible=section=="controls";tracking_page.visible=section=="tracking"
-	for key in ["vr_controls","gun_hand","recenter","calibrate","osc","body"]:controls[key].disabled=not game.is_vr()
-	tracking_status.text=game.xr_rig.tracking.status if game.is_vr() else "Connect a VR headset to configure tracking."
+	audio_page.visible=section=="audio";graphics_page.visible=section=="graphics";input_page.visible=section=="controls";vr_page.visible=section=="vr"
+	for key in ["vr_controls","gun_hand","recenter"]:controls[key].disabled=not game.is_vr()
+	vr_notice.text="Headset and controller poses only. UT99 avatars use original model animations."
 	if game.is_vr():
 		controls.gun_hand.text="GUN HAND: "+("LEFT" if game.xr_rig.left_handed else "RIGHT")+" · SWAP"
-		controls.body.text="BODY TRACKING: "+("ON" if game.xr_rig.tracking.enabled else "OFF")
-		controls.osc.text="SLIMEVR OSC: "+("ON" if game.xr_rig.tracking.udp!=null else "OFF")
 	values.voice=game.voice.volume
 	for key in ["master","effects","voice","music","announcer","render_scale"]:controls[key].text="%d%%"%roundi(values[key]*100)
 	controls.fov.text="%d°"%roundi(values.fov);controls.fov.get_parent().visible=not game.is_vr()

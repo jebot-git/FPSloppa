@@ -11,15 +11,11 @@ var physical_actions=preload("res://deathmatch/vr/physical_actions.gd").new()
 var shoulder_radio=preload("res://deathmatch/vr/shoulder_radio.gd").new()
 var support_aim=preload("res://deathmatch/vr/aim_support.gd").new()
 var swim_detector=preload("res://deathmatch/vr/swim_strokes.gd").new()
-var t_pose_detector=preload("res://deathmatch/vr/t_pose.gd").new()
 var swim_input:=Vector3.ZERO
-var calibration_sound: AudioStreamPlayer
 var crouch_detector=preload("res://deathmatch/vr/physical_crouch.gd").new()
 var crouch_height:=1.65
 var jump_detector=preload("res://deathmatch/vr/physical_jump.gd").new()
 var game
-var tracking
-var eyes
 var enabled:=false
 var simulated:=false
 var origin: XROrigin3D
@@ -110,8 +106,6 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 		# Full-rate PC shading keeps streamed headset imagery and the HUD clear.
 		get_viewport().vrs_mode=Viewport.VRS_XR if OS.has_feature("android") else Viewport.VRS_DISABLED
 		if xr.has_signal("session_begun"): xr.connect("session_begun",configure_refresh_rate)
-		if xr.has_signal("session_begun"): xr.connect("session_begun",configure_hands)
-		configure_hands()
 		print("XR_RUNTIME ",JSON.stringify(xr.get_system_info()))
 		configure_refresh_rate()
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
@@ -123,13 +117,7 @@ func setup(arena: Node, test_mode: bool=false) -> bool:
 		right.position=Vector3(.25,1.2,-.4)
 		left_aim.transform=left.transform
 		right_aim.transform=right.transform
-	tracking=preload("res://deathmatch/vr/tracking.gd").new()
-	add_child(tracking)
-	tracking.setup(self)
-	tracking.calibration_completed.connect(_body_calibrated)
-	eyes=preload("res://deathmatch/vr/eyes.gd").new()
-	add_child(eyes)
-	eyes.setup(self)
+
 	build_ui()
 	head.make_current()
 	game.camera=head
@@ -238,7 +226,7 @@ func place_menu() -> void:
 	panel.global_transform=Transform3D(Basis(Vector3.UP,yaw),head.global_position+Basis(Vector3.UP,yaw)*Vector3(0,-.05,-1.8))
 	keyboard.global_transform=panel.global_transform*Transform3D(Basis(Vector3.RIGHT,-.2),Vector3(0,-1.0,.15))
 func recenter() -> void:
-	support_aim.reset();jump_detector.reset();crouch_detector.reset();swim_detector.reset();swim_input=Vector3.ZERO;t_pose_detector.reset()
+	support_aim.reset();jump_detector.reset();crouch_detector.reset();swim_detector.reset();swim_input=Vector3.ZERO
 	if not enabled: return
 	if seated:
 		# Translate the tracking space, preserving real-world reach and movement.
@@ -250,11 +238,10 @@ func recenter() -> void:
 	origin_offset=Vector3(-head.position.x,0,-head.position.z)
 	origin.position.x=origin_offset.x;origin.position.z=origin_offset.z
 	calibration_pending=false
-	if tracking: tracking.corrections.clear();tracking.native_corrections.clear();tracking.native_foot_offsets.clear()
 	place_menu()
 func on_spawn() -> void:
 	physical_actions.reset();shoulder_radio.reset()
-	swim_detector.reset();swim_input=Vector3.ZERO;t_pose_detector.reset()
+	swim_detector.reset();swim_input=Vector3.ZERO
 	origin_offset=Vector3(-head.position.x,0,-head.position.z)
 	scores=false
 func movement_hand() -> XRController3D: return right if left_controls else left
@@ -285,7 +272,7 @@ func weapon_pose() -> Transform3D:
 	var valid: bool=game.bindings.two_handed and not physical_actions.busy() and not shoulder_radio.held and not game.menu_open and not scores and focused and (simulated or (hand.get_has_tracking_data() and aim.get_has_tracking_data() and other.get_has_tracking_data()))
 	return support_aim.solve(held,other.transform,game.local_state().get("weapon",game.desired_weapon),game.bindings.vr_pressed(self,"support"),valid)
 func update_seated(body: Dictionary) -> void:
-	seated_active=seated and not (tracking and tracking.has_body_pose(body))
+	seated_active=seated
 	origin_offset.y=seated_height_offset if seated_active else 0.0
 func toggle_menu() -> void:
 	game.menu_open=not game.menu_open or not game.active
@@ -299,9 +286,6 @@ func _process(delta: float) -> void:
 	poll_controls()
 	left.visible=simulated or left.get_has_tracking_data()
 	right.visible=simulated or right.get_has_tracking_data()
-	var fingers: Dictionary=tracking.sample() if tracking else {}
-	for i in range(hand_animators.size()):
-		hand_animators[i].curls=fingers.get("left_curls" if i==0 else "right_curls",PackedFloat32Array([0,0,0,0,0]))
 	var mine:=multiplayer.get_unique_id()
 	# During departure/shutdown a fighter can outlive the active player state.
 	# Do not build weapon/avatar visuals from an empty local-state dictionary.
@@ -310,24 +294,13 @@ func _process(delta: float) -> void:
 		global_transform=Transform3D(Basis(Vector3.UP,game.local_yaw),actor.render_position())
 	elif not game.spawn_points.is_empty():
 		global_transform=Transform3D(Basis(Vector3.UP,game.spawn_yaws[0] if not game.spawn_yaws.is_empty() else 0.0),game.spawn_points[0])
-	update_seated(fingers)
+	update_seated({})
 	crouch_height=crouch_detector.sample(head.position.y,game.bindings.physical_crouch and not seated_active and focused and head_tracked() and not calibration_pending,game.bindings.physical_prone)
 	jump_detector.sample(head.position.y,delta,game.bindings.physical_jump and not seated_active and not calibration_pending and focused and not game.menu_open and head_tracked() and actor!=null and not game.local_state().get("dead",true),actor!=null and actor.is_supported())
 	var tracked_hands: bool=head_tracked() and (simulated or left.get_has_tracking_data() and right.get_has_tracking_data())
 	var living: bool=actor!=null and not game.local_state().get("dead",true) and not game.local_state().get("spectator",false)
 	var swimming: bool=living and actor.in_water and focused and tracked_hands and not game.menu_open and not scores and game.intermission<=0 and not game.match_mode.special.blocked(mine)
 	swim_input=swim_detector.sample(head.transform,left.position,right.position,delta,swimming)
-	var can_calibrate: bool=focused and tracked_hands and not seated and not calibration_pending and tracking!=null and tracking.enabled and (actor==null or living and actor.is_supported() and not actor.in_water and not game.match_mode.special.blocked(mine))
-	var calibrate_now: bool=t_pose_detector.sample(head.transform,left.position,right.position,delta,can_calibrate)
-	# Query extra trackers only during a candidate gesture, not every idle frame.
-	if t_pose_detector.held>0 or calibrate_now:
-		if not tracking.full_body_available():t_pose_detector.reset();t_pose_detector.latched=false
-		elif calibrate_now:
-			# Recenter first: it clears old corrections and updates the tracking origin.
-			# reset() preserves the detector latch/cooldown, so holding the pose cannot loop.
-			recenter()
-			tracking.calibrate(true)
-	if tracking and t_pose_detector.held>0:tracking.status="Hold T-pose · %.1f s"%maxf(0,t_pose_detector.HOLD_SECONDS-t_pose_detector.held)
 	origin.position=origin_offset+Vector3.UP*(actor.view_offset if actor else 0.0)
 	if calibration_pending and (simulated or head.position.y>.5): recenter()
 	if actor and not game.menu_open and focused:
@@ -404,10 +377,10 @@ func _process(delta: float) -> void:
 			var other_aim:XRController3D=right_aim if left_handed else left_aim
 			aim_guides[1].update(clear_weapon_pose(Poses.held_weapon(other_grip.global_transform,other_aim.global_transform),2),2,offhand_gun.visible)
 		else:aim_guides[1].hide()
-		# Local IK reads current tracking directly; it must not wait for a network echo.
+		# Headset/controller poses control aiming; UT99 bodies use vertex animation.
 		var pose:=sample_pose()
 		actor.xr_pose=pose
-		actor.set_local_body(not menu_visible and focused and not pose.is_empty())
+		actor.set_local_body(false)
 		for model in hand_models: model.visible=not actor.local_body_visible
 		var from: Vector3=actor.position+Vector3.UP*actor.torso_height()
 		var wall:=PhysicsRayQueryParameters3D.create(from,head.global_position,1)
@@ -453,10 +426,6 @@ func sample_pose() -> Dictionary:
 	var other_aim: XRController3D=right_aim if left_handed else left_aim
 	if simulated or (other_hand.get_has_tracking_data() and other_aim.get_has_tracking_data()):
 		pose.offhand_weapon=origin.transform*Poses.held_weapon(other_hand.transform,other_aim.transform)
-	pose.body=tracking.sample() if tracking else {}
-	for i in range(hand_animators.size()):
-		hand_animators[i].curls=pose.body.get("left_curls" if i==0 else "right_curls",PackedFloat32Array([0,0,0,0,0]))
-	pose.face=eyes.sample() if eyes else {}
 	return Poses.validate(pose)
 
 func command(sequence: int) -> Dictionary:
@@ -477,15 +446,7 @@ func command(sequence: int) -> Dictionary:
 		var horizontal:=Vector3(pose.head.origin.x,0,pose.head.origin.z)
 		room=RoomScale.request(horizontal)
 	var jump: bool=game.bindings.vr_pressed(self,"jump") or jump_detector.consume()
-	return {"seq":sequence,"fly":game.bindings.axis(self,"turn").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not shoulder_radio.held and not blocked and tracked and not pose.is_empty() and not blackout.visible,"physical":physical_actions.available and not shoulder_radio.held,"input_blocked":blocked or not tracked or blackout.visible,"alt_fire":not physical_weapon and game.bindings.vr_pressed(self,"alt_fire") and not physical_actions.busy() and not shoulder_radio.held and not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and not physical_actions.busy() and not shoulder_radio.held and game.armory.dual() and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not physical_weapon and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":game.bindings.vr_pressed(self,"slow"),"prone":crouch_detector.prone,"leg_assist":game.bindings.tracked_leg_animation,"jump":not blocked and jump,"respawn":not blocked and (trigger or game.bindings.vr_pressed(self,"jump")),"xr":pose,"room":room,"swim":swim_input if not blocked and not pose.is_empty() else Vector3.ZERO}
-func _body_calibrated() -> void:
-	if not is_instance_valid(calibration_sound):
-		calibration_sound=AudioStreamPlayer.new();calibration_sound.bus="ArenaEffects";calibration_sound.volume_db=-10
-		calibration_sound.stream=preload("res://deathmatch/audio/calibration_complete.wav");add_child(calibration_sound)
-	calibration_sound.play()
-	feedback(.25,.06)
-	if game:game.status("Body tracking calibrated")
-
+	return {"seq":sequence,"fly":game.bindings.axis(self,"turn").y if game.local_state().get("spectator",false) and not blocked else 0.0,"move":Vector2(movement.x,movement.z).limit_length(1),"yaw":game.local_yaw,"pitch":0.0,"melee":not shoulder_radio.held and not blocked and tracked and not pose.is_empty() and not blackout.visible,"physical":physical_actions.available and not shoulder_radio.held,"input_blocked":blocked or not tracked or blackout.visible,"alt_fire":not physical_weapon and game.bindings.vr_pressed(self,"alt_fire") and not physical_actions.busy() and not shoulder_radio.held and not blocked and tracked and not pose.is_empty() and not blackout.visible,"offhand_fire":other_trigger and not physical_actions.busy() and not shoulder_radio.held and game.armory.dual() and game.desired_weapon==2 and not blocked and pose.has("offhand_weapon") and not blackout.visible,"fire":trigger and not physical_weapon and not blocked and tracked and not pose.is_empty() and not blackout.visible,"weapon":game.desired_weapon,"slow":game.bindings.vr_pressed(self,"slow"),"prone":crouch_detector.prone,"jump":not blocked and jump,"respawn":not blocked and (trigger or game.bindings.vr_pressed(self,"jump")),"xr":pose,"room":room,"swim":swim_input if not blocked and not pose.is_empty() else Vector3.ZERO}
 func feedback(strength: float,seconds: float=.08,offhand: bool=false) -> void:
 	var use_left:=left_handed!=offhand
 	if enabled and not simulated: (left if use_left else right).trigger_haptic_pulse("haptic",0,clampf(strength,0,1),seconds,0)
@@ -506,11 +467,6 @@ func configure_refresh_rate() -> void:
 		if rate>=72.0: preferred=minf(preferred,rate)
 	if preferred<1000: xr.set_display_refresh_rate(preferred)
 
-func configure_hands() -> void:
-	var xr:=XRServer.find_interface("OpenXR") as OpenXRInterface
-	if xr and xr.is_initialized():
-		xr.set_motion_range(OpenXRInterface.HAND_LEFT,OpenXRInterface.HAND_MOTION_RANGE_UNOBSTRUCTED)
-		xr.set_motion_range(OpenXRInterface.HAND_RIGHT,OpenXRInterface.HAND_MOTION_RANGE_UNOBSTRUCTED)
 
 func _objective_hud(s: Dictionary) -> String:
 	var mode=game.match_mode

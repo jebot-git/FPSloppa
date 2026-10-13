@@ -13,7 +13,7 @@ config_version=5
 config/name="FPSloppa"
 config/version="0.16v-cq-experimental"
 run/main_scene="res://deathmatch/arena.tscn"
-config/features=PackedStringArray("4.7", "Mobile")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://deathmatch/icon-final.png"
 run/flush_stdout_on_print.dedicated_server=true
 
@@ -34,7 +34,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/entryway_export/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg", "res://addons/bsp_importer/plugin.cfg", "res://addons/vrm/plugin.cfg", "res://addons/Godot-MToon-Shader/plugin.cfg", "res://addons/openscad_import/plugin.cfg")
+enabled=PackedStringArray("res://addons/entryway_export/plugin.cfg", "res://addons/godot-xr-tools/plugin.cfg", "res://addons/bsp_importer/plugin.cfg", "res://addons/openscad_import/plugin.cfg")
 
 [filesystem]
 
@@ -57,8 +57,8 @@ rendering_device/driver.linuxbsd="vulkan"
 rendering_device/driver.android="vulkan"
 rendering_device/fallback_to_d3d12=false
 rendering_device/fallback_to_opengl3=false
-renderer/rendering_method="mobile"
-renderer/rendering_method.mobile="mobile"
+renderer/rendering_method="forward_plus"
+renderer/rendering_method.mobile="forward_plus"
 textures/vram_compression/import_etc2_astc=true
 occlusion_culling/use_occlusion_culling=true
 
@@ -68,12 +68,12 @@ openxr/enabled=true
 openxr/default_action_map="res://deathmatch/vr/actions.tres"
 openxr/foveation_level=2
 openxr/foveation_dynamic=true
-openxr/extensions/hand_tracking=true
-openxr/extensions/hand_tracking_unobstructed_data_source=true
-openxr/extensions/hand_tracking_controller_data_source=true
-openxr/extensions/eye_gaze_interaction=true
+openxr/extensions/hand_tracking=false
+openxr/extensions/hand_tracking_unobstructed_data_source=false
+openxr/extensions/hand_tracking_controller_data_source=false
+openxr/extensions/eye_gaze_interaction=false
 shaders/enabled=true
-openxr/extensions/meta/body_tracking=true
-openxr/extensions/meta/face_tracking=true
+openxr/extensions/meta/body_tracking=false
+openxr/extensions/meta/face_tracking=false
 openxr/extensions/automatically_request_runtime_permissions=false
 openxr/enabled.dedicated_server=false

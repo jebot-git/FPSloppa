@@ -19,7 +19,7 @@ def run(command,name,timeout=600):
  if code or 'SCRIPT ERROR:' in text or 'Shader compilation failed' in text:raise SystemExit(f'{name} failed; see {OUT/(name+".log")}')
  print(name,'passed',flush=True)
 def godot(script,headless=False):
- return ['godot',*(['--headless'] if headless else []),'--xr-mode','off','--audio-driver','Dummy','--path',str(ROOT),'--rendering-method','mobile','--log-file',str(OUT/(script+'-engine.log')),'--script','res://tools/lighting_experiment/candidates1011/'+script+'.gd']
+ return ['godot',*(['--headless'] if headless else []),'--xr-mode','off','--audio-driver','Dummy','--path',str(ROOT),'--rendering-method','forward_plus','--log-file',str(OUT/(script+'-engine.log')),'--script','res://tools/lighting_experiment/candidates1011/'+script+'.gd']
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('phase',choices=['prepare','capture','render','fixtures','audit','all']);a=p.parse_args();OUT.mkdir(exist_ok=True)
  if a.phase in ['prepare','all']:

@@ -7,7 +7,7 @@ OUT = ROOT / 'test-results/effect-lighting'
 OUT.mkdir(parents=True, exist_ok=True)
 with (OUT / 'render.log').open('w') as log:
     result = subprocess.run(
-        ['godot', '--xr-mode', 'off', '--path', str(ROOT), '--rendering-method', 'mobile',
+        ['godot', '--xr-mode', 'off', '--path', str(ROOT), '--rendering-method', 'forward_plus',
          '--audio-driver', 'Dummy', '--script', 'res://tools/effect_lighting/render.gd'],
         cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, timeout=240)
 print('Exit:', result.returncode, 'Log:', OUT / 'render.log')

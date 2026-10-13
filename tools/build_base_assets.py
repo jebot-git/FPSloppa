@@ -26,7 +26,8 @@ for row in json.loads((ROOT/'deathmatch/maps/manifest.json').read_text()):
    if (ROOT/candidate).is_file():paths.append(candidate)
  lit='maps/'+row['id']+'.lit'
  if (ROOT/lit).is_file():paths.append(lit)
-for row in json.loads((ROOT/'deathmatch/avatars/models/manifest.json').read_text()):paths.append(row['path'].removeprefix('res://'))
+# UT99 defaults are self-contained resources included inside the PCK/APK.
+# Do not duplicate them or retired VRM assets in the external map installer.
 paths.extend('maps/'+mode+'_maplist.txt' for mode in ['dm','tdm','ctf','koth','ig','ft','if','cc','tf','tb','as'] if (ROOT/'maps'/(mode+'_maplist.txt')).is_file())
 # CQ assets are explicit, so exports never scoop up compiler logs or local maps.
 paths.extend(['maps/Benchmark1km/prototype_km1.bsp','maps/Benchmark1km/zones-lightmap1.scn','maps/Benchmark1km/zones-lightmap1-textures-'+str(texture_version)+'.scn','maps/navigation/prototype_km1.res','maps/Benchmark1km/texture-sources.json','maps/Benchmark1km/README.md'])
@@ -40,9 +41,9 @@ for folder in ['Ashfall','CC','CTFStudies','Frigate','HiSlop','KOTH','Quake','Ma
   if p.is_file() and (p.suffix.lower()=='.txt' and any(token in name for token in ['license','licence','copying','credits','cc0','gnu']) or name in {'texture-sources.json','sources.md','sources.json'}):
    paths.append(str(p.relative_to(ROOT)))
 paths.extend(str(p.relative_to(ROOT)) for p in (ROOT/'maps').glob('LibreQuake-*.txt'))
-paths.extend(['maps/README.txt','vrm/README.txt'])
+paths.append('maps/README.txt')
 paths=[p for p in paths if distributable(p)]
-assert all(Path(p).parts[0] in {'maps','vrm'} for p in paths)
+assert all(Path(p).parts[0] in {'maps'} for p in paths)
 assert all(Path(p).suffix.lower() not in {'.log','.mp4','.png','.map','.wad'} for p in paths)
 check_selection(paths)
 with zipfile.ZipFile(out,'w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
