@@ -23,7 +23,7 @@ const INSERT_RADIUS:=.095
 const MIN_STROKE_TIME:=.10
 const USP_SUPPRESSOR_RADIUS:=.16
 const RACK_POINTS=[Vector3.ZERO,Vector3(.04,.09,.055),Vector3(.04,.09,.055),Vector3(0,.055,-.51),Vector3(.079,.101,-.19),Vector3(-.044,.144,-.445),Vector3(.084,.106,-.19),Vector3(.04,.09,.055),Vector3(.114,.078,-.29),Vector3(.077,.043,.006),Vector3(0,.15,-.04),Vector3(.09,.106,-.438),Vector3(.04,.09,.055)]
-const MAG_POINTS=[Vector3.ZERO,Vector3(0,-.12,.066),Vector3(0,-.09,.02),Vector3(0,.02,-.235),Vector3(0,.02,-.235),Vector3(0,-.06,-.237),Vector3(0,-.08,-.275),Vector3(0,-.06,.02),Vector3(-.027,-.13,-.335),Vector3(0,-.09,-.291),Vector3(0,-.14,.058),Vector3(0,.153,-.224),Vector3(-.07,.015,.02)]
+const MAG_POINTS=[Vector3.ZERO,Vector3(0,-.12,.066),Vector3(0,-.09,.02),Vector3(0,.02,-.235),Vector3(0,.02,-.235),Vector3(0,-.06,-.237),Vector3(0,-.08,-.275),Vector3(0,-.06,.02),Vector3(-.027,-.13,-.335),Vector3(0,-.09,-.291),Vector3(0,-.14,.058),Vector3(0,.153,-.224),Vector3(-.1085,.08925,-.189)]
 const COVER_POINT:=Vector3(0,.23,-.10)
 const COVER_PIVOT:=Vector3(0,.145,-.424)
 const BOLT_PIVOT:=Vector3(0,.085,-.14)
@@ -40,6 +40,7 @@ static func rack_point(w: int,p: Dictionary) -> Vector3:
 	if w==5:return hk_transform(p.stroke,p.get("lift",0.0))*RACK_POINTS[w]
 	return RACK_POINTS[w]+Vector3.BACK*(.105 if w==3 else .065)*p.stroke+Vector3.UP*.055*p.get("lift",0.0)
 static func rack_contact(w: int,p: Dictionary,weapon: Transform3D,hand: Vector3,radius: float=GRAB_RADIUS) -> bool:
+	if w==12:return false # Ordnance packs arm themselves on insertion.
 	var start:=weapon*rack_point(w,p)
 	# Extend the pistol slide grip 8 cm above the slide, in weapon orientation.
 	var end:=start+weapon.basis.y.normalized()*(.08 if w in [1,2,10] else 0.0)
@@ -87,7 +88,7 @@ static func usp_suppressor_contact(pose: Dictionary) -> bool:
 static func wants_pouch(w: int,p: Dictionary,clip: int,total: int,capacity: int) -> bool:
 	return total>clip and clip<capacity and (tube_fed(w) or not p.mag or w==6)
 static func can_fire(p: Dictionary,w: int) -> bool:
-	return p.ready and p.cover<.05 and p.grab not in ["rack","cover","belt","pump"] and p.stroke<.05 and p.lift<.05 and not p.hk_locked and not p.pump_hold and (w!=8 or p.mag and p.belt)
+	return p.ready and p.cover<.05 and p.grab not in ["rack","cover","belt","pump"] and p.stroke<.05 and p.lift<.05 and not p.hk_locked and not p.pump_hold and (w!=8 or p.mag and p.belt) and (w!=12 or p.mag)
 static func chamber(p: Dictionary,clip: int):
 	p.ready=p.mag and clip>0 and p.cover<.05 and (p.weapon!=8 or p.belt);p.locked=p.mag and clip==0;p.stroke=0.0;p.pulled=false;p.lift=0.0;p.bolt_stage=0;p.hk_locked=false;p.event+=1
 static func eject_mag(p: Dictionary):
@@ -177,6 +178,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 			# volumes from immediately reseating a just-extracted magazine.
 			if (p.removed_depth-depth)*.65>=.025 and hand.origin.distance_to(weapon*MAG_POINTS[w])<INSERT_RADIUS and insertion_aligned(w,pose,hand) and now-p.started>=.06 and (w!=8 or p.cover>.9):
 				clip=mini(clip+int(p.carried_rounds),mini(capacity,total));p.mag=true
+				if w==12:chamber(p,clip)
 				if w==8:p.belt=false;p.belt_progress=0.0
 				clear_carry(p);p.grab="";p.event+=1
 	elif p.grab=="ammo":
@@ -199,6 +201,7 @@ static func sample(p: Dictionary,w: int,clip: int,total: int,capacity: int,pose:
 			if p.left_pouch and close and aligned and now-p.started>=.15 and (w!=8 or p.cover>.9):
 				if tube_fed(w):clip=mini(clip+1,mini(capacity,total))
 				else:p.mag=true;clip=mini(capacity,total)
+				if w==12:chamber(p,clip)
 				if w==8:p.belt=false;p.belt_progress=0.0
 				clear_carry(p);p.grab="";p.event+=1
 	elif p.grab=="hk_release":

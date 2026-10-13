@@ -10,11 +10,11 @@ func run() -> void:
 		var model:=Models.weapon(id,"cq_shocktroop");root.add_child(model)
 		var handle=model.find_child("ChargingHandle",true,false)
 		var magazine=model.find_child("InsertedAmmo",true,false)
-		check(handle!=null and magazine!=null,"Weapon %d has authored reload parts"%id)
-		if handle and magazine:
-			var rest:Vector3=handle.position
-			Models.animate_reload(model,{"stroke":1.0,"mag":false});check(handle.position.is_equal_approx(rest+Vector3(0,0,.065)) and not magazine.visible,"Weapon %d rack stroke preserves fitted handle origin"%id)
-			Models.animate_reload(model,{"stroke":0.0,"mag":true});check(handle.position.is_equal_approx(rest) and magazine.visible,"Weapon %d seats magazine and returns handle"%id)
+		check((handle==null if id in [5,11] else handle!=null) and magazine!=null,"Weapon %d has authored reload parts; launchers omit cocking handles"%id)
+		if magazine:
+			var rest:Vector3=handle.position if handle else Vector3.ZERO
+			Models.animate_reload(model,{"stroke":1.0,"mag":false});check((not handle or handle.position.is_equal_approx(rest+Vector3(0,0,.065))) and not magazine.visible,"Weapon %d rack stroke preserves fitted handle origin"%id)
+			Models.animate_reload(model,{"stroke":0.0,"mag":true});check((not handle or handle.position.is_equal_approx(rest)) and magazine.visible,"Weapon %d seats magazine and returns handle"%id)
 			var held:=Models.ammunition(model,id);check(held.transform==Transform3D.IDENTITY and held.get_aabb().get_center().length()<.00001,"Weapon %d pouch magazine uses centered authored geometry"%id);held.free()
 		if id in [1,9,10]:
 			var optic=preload("res://deathmatch/vr/sniper_scope.gd").new();root.add_child(optic);optic.attach(model)

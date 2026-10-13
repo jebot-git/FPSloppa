@@ -10,7 +10,8 @@ func check(ok:bool,label:String) -> void:
 func _initialize() -> void:run.call_deferred()
 func run() -> void:
 	var scene=load("res://tools/voxel_battle/class_arena.tscn").instantiate();scene.set_script(TestArena);root.add_child(scene);scene.set_process(false);scene.set_physics_process(false)
-	scene.start_host("CQ progression",0,100,10,false,"tdm","ut99")
+	scene.start_host("CQ progression",28781,100,10,false,"tdm","ut99")
+	if not scene.active:scene.free();quit(1);return
 	var ids={"shocktroop":1,"scout":2,"medic":3,"technician":4}
 	for role in ids:
 		var id:int=ids[role]
@@ -25,7 +26,7 @@ func run() -> void:
 		check(not scene.classes.choose_equipment(id,role,0,true),role+" burst pistol locked at 1000 XP")
 		scene.classes.award(id,500);check(scene.classes.choose_equipment(id,role,0,true),role+" burst pistol unlocks at 1500 XP")
 		scene._spawn(id);check(scene.players[id].owned[1]==0 and scene.players[id].ammo[3]==36,role+" burst pistol has loaded cell plus one spare")
-	check(scene.players[1].ammo[1]==144 and scene.players[2].ammo[1]==40 and scene.players[3].ammo[1]==160 and scene.players[4].ammo[2]==3,"Selected primary capacities: 3 spare magazines/cells, 2 ordnance packs")
+	check(scene.players[1].ammo[1]==144 and scene.players[2].ammo[1]==40 and scene.players[3].ammo[1]==160 and scene.players[4].ammo[2]==9,"Selected primary capacities: 3 spare magazines/cells, 2 ordnance packs")
 	check(not scene.classes.choose_equipment(3,"medic",11,false) and not scene.classes.choose_equipment(99,"scout",10,false),"Authority rejects another class's weapon and unknown player")
 	var s:Dictionary=scene.players[3];s.weapon=0;s.fire=true;s.last_input=scene.clock;s.cooldown=0;s.input_blocked=false
 	var before:int=scene.projectiles.size();scene.variant_combat.tick_input(3,.016)
@@ -60,7 +61,19 @@ func run() -> void:
 	check(locking.locks.has(4) and not locking.locks[4].ready,"Enemy aircraft requires continuous acquisition dwell")
 	scene.clock+=.2;tech.last_input=scene.clock;locking.tick(scene,.2)
 	check(locking.locks.get(4,{}).get("ready",false),"Enemy aircraft locks after 1.5 seconds of clear aim")
-	before=scene.projectiles.size();check(scene.variant_combat.fire(4) and scene.projectiles.size()==before+1 and tech.ammo[2]==2,"Locked Guided launcher launches one charge and retains two spare packs")
+	before=scene.projectiles.size();tech.fire=true;scene.variant_combat.tick_input(4,.016);tech.fire=false
+	check(scene.projectiles.size()==before+1 and tech.ammo[2]==8 and scene.variant_combat.magazines.loaded(4)==2,"Guided shot spends one charge; two remain in pack plus two spare three-charge packs")
+	check(not scene.variant_combat.magazines.tick(4) and scene.variant_combat.magazines.states[4].cycling==11,"Guided launcher internally reloads after a shot without changing packs")
+	tech.cooldown=0;check(not scene.variant_combat.fire(4),"Charge reload blocks another shot even if firing cooldown has elapsed")
+	scene.clock+=2.71;tech.last_input=scene.clock
+	check(scene.variant_combat.magazines.tick(4) and scene.variant_combat.magazines.loaded(4)==2 and tech.ammo[2]==8,"Internal reload readies the next charge without creating ammo or needing a rack")
+	for remaining in [1,0]:
+		tech.cooldown=0;tech.fire=true;tech.last_input=scene.clock;scene.variant_combat.tick_input(4,.016);tech.fire=false
+		check(scene.variant_combat.magazines.loaded(4)==remaining and tech.ammo[2]==6+remaining,"Each guided shot consumes exactly one pack charge")
+		check(not scene.variant_combat.magazines.tick(4),"Guided launcher blocks firing during charge or empty-pack reload")
+		if remaining==0:check(scene.variant_combat.magazines.states[4].reloading==11 and scene.variant_combat.magazines.states[4].cycling==-1,"Third shot empties the pack and starts replacement instead of internal cycling")
+		scene.clock+=2.71;tech.last_input=scene.clock
+		check(scene.variant_combat.magazines.tick(4) and scene.variant_combat.magazines.loaded(4)==(remaining if remaining>0 else 3) and tech.ammo[2]==6+remaining,"Reload retains remaining charges or seats a fresh three-charge pack")
 	var guided:Dictionary=scene.projectiles.values()[-1];guided.velocity=Vector3(10,0,-30)
 	var desired:Vector3=(vehicle.global_position-guided.position).normalized();var angle:float=guided.velocity.angle_to(desired);locking.guide(scene,.1)
 	check(guided.velocity.angle_to(desired)<angle,"Guided ordnance turns toward its acquired hull")

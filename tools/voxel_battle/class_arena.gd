@@ -324,7 +324,7 @@ func _play_variant_shot_fx(id:int,weapon:int,alternate:bool) -> void:
 		var sound:=AudioStreamPlayer3D.new();sound.stream=load("res://deathmatch/audio/cq_weapons/"+("pistol_suppressed" if weapon==9 else "pistol")+".wav");sound.bus="ArenaEffects";sound.volume_db=-12 if weapon==9 else -4;sound.max_distance=18 if weapon==9 else 90;add_child(sound);sound.position=_weapon_transform(id).origin;sound.finished.connect(sound.queue_free);sound.play()
 	elif weapon in [0,1,4,10]:spatial.play("ut99_weapon_7",_weapon_transform(id).origin,-5)
 	elif weapon in [5,11]:spatial.play("weapon_8",_weapon_transform(id).origin,-6)
-const CLASS_PROTOCOL:="fpsloppa-cq-frontier-2-progression"
+const CLASS_PROTOCOL:="fpsloppa-cq-frontier-3-pack-launchers"
 func connection_protocol() -> String:return CLASS_PROTOCOL
 func _collect(_id:int) -> void:pass # CQ resupplies through its class dispensers.
 func on_player_died(id:int) -> void:
@@ -343,7 +343,7 @@ func _load_map(map_id:String) -> bool:
 func _peer_left(id:int) -> void:
 	super._peer_left(id)
 	classes.states.erase(id);classes.downed.erase(id);classes.injecting.erase(id);designations.erase(id);throw_sequence.erase(id)
-	variant_combat.magazines.states.erase(id);variant_combat.vehicle_lock.locks.erase(id);spotting.spotted.erase(id)
+	variant_combat.magazines.states.erase(id);variant_combat.charges.erase(id);variant_combat.vehicle_lock.locks.erase(id);spotting.spotted.erase(id)
 
 func _trace(start:Vector3,end:Vector3,exclude:int,rewind:float=0.0,radius:float=0.0,movement_start:Dictionary={},candidates:Variant=null) -> Dictionary:
 	var hit:Dictionary=super._trace(start,end,exclude,rewind,radius,movement_start,candidates)
@@ -389,8 +389,12 @@ func _process(delta:float) -> void:
 	var model:Node3D=xr_rig.gun if is_vr() else viewmodel
 	if is_instance_valid(model):
 		var screen:=model.find_child("GuidanceMonitor",true,false) as Label3D
-		if screen and state.get("weapon",-1)==5:screen.text="SALVO"
-		elif screen:screen.text="LOCK" if lock.get("ready",false) else "%d%%"%int(lock.get("elapsed",0.0)/1.5*100) if not lock.is_empty() else "SEARCH"
+		if screen and state.get("weapon",-1)==5:
+			var charge:Dictionary=variant_combat.charges.get(multiplayer.get_unique_id(),{})
+			screen.text="%d%%"%clampi(int((1-(charge.at-clock)/armory.data(5).charge_time)*100),0,100) if not charge.is_empty() else "SALVO"
+		elif screen:
+			var mag:Dictionary=variant_combat.magazines.states.get(multiplayer.get_unique_id(),{})
+			screen.text="RELOAD" if mag.get("cycling",-1)==11 else "PACK" if mag.get("clips",{}).get(11,1)==0 else "LOCK" if lock.get("ready",false) else "%d%%"%int(lock.get("elapsed",0.0)/1.5*100) if not lock.is_empty() else "SEARCH"
 var desktop_optic_weapon:=-1
 var desktop_optic_index:=0
 var desktop_optic_zoom:=1.5

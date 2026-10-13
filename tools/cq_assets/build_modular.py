@@ -76,8 +76,10 @@ def tube(name,y,z,r,length,scale,x=0,material=None):
  mesh=bpy.data.meshes.new(name);mesh.from_pydata(verts,[],faces);mesh.materials.append(material or black);mesh.update()
  obj=bpy.data.objects.new(name,mesh);bpy.context.collection.objects.link(obj);return obj
 
-def stock(scale):
- return [box('Skeleton stock upper',(0,-8,1.65),(1.35,5, .55),black,scale),box('Skeleton stock lower',(0,-8,.15),(1.35,5,.42),black,scale),box('Stock butt',(0,-10.6,.85),(1.35,.65,2.35),black,scale),box('Orange cheek rest',(0,-7.1,1.95),(1.5,3.6,.55),paint,scale)]
+def stock(scale,front=-5.5):
+ # Keep the butt in place and extend both rails into the shortened pistol receiver.
+ center=(front-10.5)/2;length=front+10.5
+ return [box('Skeleton stock upper',(0,center,1.65),(1.35,length,.55),black,scale),box('Skeleton stock lower',(0,center,.15),(1.35,length,.42),black,scale),box('Stock butt',(0,-10.6,.85),(1.35,.65,2.35),black,scale),box('Orange cheek rest',(0,-7.1,1.95),(1.5,3.6,.55),paint,scale)]
 def windows(scale,ys,z=1.15,x=1.72):
  result=[]
  for side in [-1,1]:
@@ -109,7 +111,7 @@ def scope(scale):
 def game_point(p,scale):
  q=(Vector(p)-Vector((0,-3,-2)))*scale;return [q.x,q.z,-q.y]
 names=['pistol','scout_pistol','designator','carbine','massacre','smg','assault_rifle','beam_pistol','guided_launcher','burst_pistol']
-if '--only' in args:names=[args[args.index('--only')+1]]
+if '--only' in args:names=args[args.index('--only')+1].split(',')
 for name in names:
  clear();scale=.04 if name in ('carbine','smg') else .035
  pistol=name in ('pistol','scout_pistol','designator','beam_pistol','burst_pistol');heavy=name in ('massacre','guided_launcher')
@@ -121,10 +123,10 @@ for name in names:
   objects.append(part('Collar','Collar',scale,lambda v:ranged(v,11,12,4.5,5.4)))
   objects.append(part('Bore','Bore',scale,lambda v:ranged(v,11.9,13,5.3,6.3)))
   if name in ('beam_pistol','burst_pistol','designator'):objects+=windows(scale,[1.55,2.5,3.45])
-  objects.append(box('Pistol cell',(0,-3.6,-4.05),(1.12,1.22,.72),black,scale))
+  objects.append(box('Pistol cell',(0,-3.25,-4.05),(1.18,1.82,.72),black,scale))
   if name in ('beam_pistol','scout_pistol'):
    objects+=scope(scale);objects.append(tube('Beam emitter' if name=='beam_pistol' else 'Suppressor',7.1,1.12,.55 if name=='beam_pistol' else .75,2.1 if name=='beam_pistol' else 3.5,scale))
-   if name=='scout_pistol':objects+=stock(scale)
+   if name=='scout_pistol':objects+=stock(scale,front=-4.4)
   elif name=='pistol':
    objects+=[box('Rear iron left',(-.38,-3.6,3.13),(.18,.38,.42),black,scale),box('Rear iron right',(.38,-3.6,3.13),(.18,.38,.42),black,scale),box('Front iron blade',(0,4.0,3.12),(.16,.35,.42),black,scale)]
   else:objects+=dot_sight(scale,y=-1.2)
@@ -141,7 +143,9 @@ for name in names:
    objects+=stock(scale)
    positions=[(-.85,.55),(.85,.55),(0,2.0)] if name=='massacre' else [(0,.3),(0,2.0)]
    for i,(x,z) in enumerate(positions):objects.append(tube('Ordnance bore '+str(i+1),end+.5,z,.78,3.1,scale,x=x))
+   objects.append(box('Fixed pack socket',(-1.4,2.4,.55),(1.2,2.15,2.3),black,scale))
    objects.append(box('Side ordnance pack',(-2.25,2.4,.55),(1.55,2.65,2.7),paint,scale));objects.append(box('Pack white band',(-3.07,2.4,.55),(.09,.48,2.5),white,scale))
+   objects.append(box('Monitor pedestal',(0,-1.5,3.05),(1.4,.75,1.2),black,scale))
    objects.append(box('Monitor frame',(0,-1.5,4.05),(2.15,.42,1.55),black,scale));objects.append(box('Monitor glass',(0,-1.74,4.05),(1.82,.08,1.2),black,scale))
   else:
    objects.append(part('Collar','Collar',scale,lambda v:ranged(v,11,12,end,end+1)))
@@ -152,7 +156,9 @@ for name in names:
    if name=='assault_rifle':objects+=stock(scale)
   objects.append(box('Upper ceramic charge mark',(0,6.2,3.12),(1.1,.72,.12),white,scale))
  # A real movable charging handle, using the common receiver slot.
- handle=box('ChargingHandle',(.95,-1.7,1.75),(.8,.75,.38),steel,scale);objects.append(handle)
+ handle=None
+ if not heavy:
+  handle=box('ChargingHandle',(.95,-1.7,1.75),(.8,.75,.38),steel,scale);objects.append(handle)
  # Keep source housing chamfers; optimized receiver edges get one bevel segment.
  for obj in objects:
   bpy.context.view_layer.objects.active=obj
@@ -217,7 +223,7 @@ for name in names:
  target.data.calc_loop_triangles();count=len(target.data.loop_triangles)
  if optimized:assert count<1000,(name,count)
  exported=[target]
- handle.name='EditableChargingHandle'
+ if handle:handle.name='EditableChargingHandle'
  for group_name,node_name in [('ChargingHandleMesh','ChargingHandle'),('InsertedAmmoMesh','InsertedAmmo')]:
   group=target.vertex_groups.get(group_name)
   if group is None:continue

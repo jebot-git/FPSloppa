@@ -1,5 +1,7 @@
 CQ firearm optimisation, Godot 4.7.2 / Blender 4.5.9, 2026-10-13.
 
+This captures the initial optimisation benchmark. Subsequent [fitting corrections, launcher mechanics and current stats](../cq-weapon-fittings/README.md) retain the triangle budget and update the current runtime assets.
+
 ![Optimised shared firearm family](family.png)
 
 The current runtime firearms are rebuilt from the same original modules, with selective one-segment receiver bevels, existing housing chamfers, material-preserving planar edge dissolve and eight-sided open bores/scopes. Small windows, handles, packs and stock struts retain their shape without additional bevel geometry. The requested red-dot sight retains its source shape after dissolving redundant planar edges. No collapse decimation or voxel remeshing is used. Each weapon is freshly unwrapped and baked to one 1,024×1,024 colour/AO atlas, keeping the orange/graphite/ceramic/steel palette. Eight-sided scope collars and suppressors are visibly more angular at close range.

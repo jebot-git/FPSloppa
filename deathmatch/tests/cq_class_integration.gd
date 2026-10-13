@@ -13,7 +13,7 @@ func _initialize() -> void:run.call_deferred()
 func run() -> void:
 	var scene=load("res://tools/voxel_battle/class_arena.tscn").instantiate();scene.set_script(TestArena)
 	root.add_child(scene);scene.set_process(false);scene.set_physics_process(false)
-	scene.start_host("CQ integration",0,100,10,false,"tdm","ut99")
+	scene.start_host("CQ integration",28782,100,10,false,"tdm","ut99")
 	check(scene.players.has(1),"CQ prototype can host")
 	if not scene.players.has(1):quit(1);return
 	scene._add_player(2,"Medic");scene._add_player(3,"Technician");scene._add_player(4,"Scout")
@@ -56,9 +56,19 @@ func run() -> void:
 	check(scene.max_clients==32,"CQ host admits the district target of 32 players")
 	scene.players[3].team=1;s.fire=true;s.cooldown=0;s.last_input=scene.clock;scene.fighters[3].position=Vector3(8,3,0)
 	var before:int=scene.projectiles.size();scene.variant_combat.tick_input(3,.016)
+	check(scene.projectiles.size()==before and s.ammo[2]==6,"Launcher charge-up starts without launching or spending its pack")
+	scene.clock+=.1;s.last_input=scene.clock;s.fire=false;scene.variant_combat.tick_input(3,.1)
+	check(not scene.variant_combat.charges.has(3) and scene.projectiles.size()==before and s.ammo[2]==6,"Releasing during ramp-up cancels without spending a pack")
+	s.fire=true;scene.variant_combat.tick_input(3,.016);s.last_input=scene.clock-.5;scene.variant_combat.tick_input(3,.016)
+	check(not scene.variant_combat.charges.has(3),"Stale input cancels pending launcher charge")
+	s.last_input=scene.clock;scene.variant_combat.tick_input(3,.016)
+	scene.clock+=.351;s.last_input=scene.clock;scene.variant_combat.tick_input(3,.351)
 	s.fire=false
 	for n in 2:scene.clock+=.151;s.last_input=scene.clock;scene.variant_combat.tick_input(3,.151)
 	check(scene.projectiles.size()==before+3 and s.ammo[2]==3 and mags.loaded(3)==0,"One launcher trigger emits three ordered blasts and spends one pack")
+	check(mags.states[3].reloading==5,"T1 starts empty-pack replacement after completing its salvo")
+	scene.clock+=2.71;s.last_input=scene.clock
+	check(mags.tick(3) and mags.loaded(3)==3 and s.ammo[2]==3,"T1 reload seats a fresh three-charge pack without a cocking step")
 	var blue:Dictionary=scene.variant_combat.definition(3,5,{"cq_team":1})
 	check(blue.cq_effect=="ordnance" and blue.color.is_equal_approx(Color("3b8dff")),"Launcher blast and energy impact retain blue firing team")
 	scene._spawn(1);scene.players[1].team=0;scene.players[1].weapon=4;scene.players[1].fire=true;scene.players[1].last_input=scene.clock;scene.players[1].cooldown=0;scene.fighters[1].position=Vector3(0,3,0)
