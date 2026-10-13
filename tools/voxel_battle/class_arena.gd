@@ -1,5 +1,6 @@
 extends "res://tools/voxel_battle/arena.gd"
 ## Standalone playable class prototype; historical rendering benchmarks keep their own arena.
+var spotting=preload("res://deathmatch/conquest/classes/spotting.gd").new()
 var classes=preload("res://deathmatch/conquest/classes/rules.gd").new()
 func _ready() -> void:
 	classes.setup(self);grenade_adapter.setup(self);grenades.setup(grenade_adapter)
@@ -24,6 +25,7 @@ func host_player_limit() -> int:return 32
 func practice_bots_count() -> int:return 0
 func network_player_limit() -> int:return 32
 func _spawn(id:int) -> void:
+	spotting.spotted.erase(id)
 	classes.spawn(id)
 	grenades.cancel(id);grenades.state(id).counts=[1 if classes.role(id)=="shocktroop" else 0,0,0];grenades.state(id).shoulder=0 if classes.role(id)=="shocktroop" else -1
 	players[id].cq_class=classes.role(id)
@@ -65,6 +67,7 @@ func _server_tick(delta:float) -> void:
 	if active and not lobby.active() and intermission<=0:
 		tick_class_tools(delta)
 		grenades.tick(delta)
+		spotting.tick(self)
 		for medic in players:
 			if not classes.alive(medic) or classes.role(medic)!="medic":continue
 			var s:Dictionary=players[medic]
@@ -102,12 +105,21 @@ func draw_class_players() -> void:
 		var friendly:bool=id==mine or match_mode.same_team(id,mine)
 		var team:int=players[id].team
 		var tint:Color=match_mode.COLORS[maxi(0,team)]
-		fighters[id].set_class_badge(classes.role(id).to_upper(),tint)
+		fighters[id].set_class_badge("",tint)
 		fighters[id].set_cloak_visual(classes.cloaked(id),friendly,tint,get_process_delta_time())
 		# Full enemy invisibility includes the weapon, nameplate, badge and shadows.
 		if classes.cloaked(id) and not friendly:
 			fighters[id].cloak_visibility=0.0
 			if fighters[id].cloak_material:fighters[id].cloak_material.set_shader_parameter("visibility",0.0)
+		var tag:Label3D=fighters[id].label
+		if tag:
+			tag.font=spotting.font()
+			tag.text=spotting.ICONS[classes.role(id)]+" "+players[id].name
+			tag.modulate=tint.lightened(.2)
+			tag.no_depth_test=true
+			tag.fixed_size=true
+			tag.pixel_size=.0015
+			tag.visible=spotting.visible(self,mine,id)
 func request_class(role:String) -> void:
 	if multiplayer.is_server():classes.choose(multiplayer.get_unique_id(),role)
 	else:_cq_class.rpc_id(1,role)

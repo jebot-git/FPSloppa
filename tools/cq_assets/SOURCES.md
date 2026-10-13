@@ -12,3 +12,5 @@ blender -b --factory-startup --python tools/cq_assets/build.py -- test-results/w
 ```
 
 Krita GUI `/usr/bin/krita` with the Krita MCP addon was used for painting. Blender MCP was unavailable in this session, so Blender's batch Python API performed the bakes. Runtime gallery/effect checks use Vulkan Forward+ in `preview.gd` and `preview_fx.gd`.
+
+Class icons are original CC0 vector glyphs in the bundled 1.6 KB font, with ordinary text using Godot’s fallback font. Regenerate with `uv run --with fonttools python tools/cq_assets/build_class_icons.py`; render with `--script tools/cq_assets/preview_names.gd`. Private-use codepoints avoid platform emoji substitution.

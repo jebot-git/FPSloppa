@@ -76,6 +76,7 @@ func run() -> void:
 	check(vehicle.hp==603,"Held repair tool repairs the allied hull through its own collision surface")
 	for id in range(5,33):
 		scene._add_player(id,"CQ snapshot %d"%id);scene.classes.choose(id,scene.classes.CLASSES[id%4]);scene._spawn(id);scene.variant_combat.magazines.state(id);scene.classes.award(id,id*37)
+	for id in scene.players:scene.spotting.spotted[id]=[scene.clock+10,scene.clock+9]
 	var rows:Array=[]
 	for id in scene.players:
 		var player:Dictionary=scene.players[id];var fighter=scene.fighters[id]

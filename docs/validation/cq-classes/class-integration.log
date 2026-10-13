@@ -31,9 +31,9 @@ PASS Carbine fires a travelling blaster bolt rather than a hitscan beam
 PASS Carbine bolt and impact retain red firing team
 PASS Repair kit vehicle component accepts only actual allied repair
 PASS Held repair tool repairs the allied hull through its own collision surface
-CQ_32_SNAPSHOT {"large_records":0,"max_packet":1081,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":6938,"sent_packets":7,"stale_records":0}
+CQ_32_SNAPSHOT {"large_records":0,"max_packet":1100,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":7065,"sent_packets":7,"stale_records":0}
 PASS 32 class players fit independent UDP snapshot packets
-CQ_32_STRESS_SNAPSHOT {"large_records":1,"max_packet":1243,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":13274,"sent_packets":13,"stale_records":0}
+CQ_32_STRESS_SNAPSHOT {"large_records":1,"max_packet":1243,"player_update_gaps":0,"player_updates":0,"received_packets":0,"sent_bytes":13402,"sent_packets":13,"stale_records":0}
 PASS 32 ability records remain UDP sized; membership alone uses reliable fallback
 PASS Launcher reload enters from the side; carbine retains its magazine geometry
 PASS Removing an ordnance pack cannot retain a chambered launcher charge

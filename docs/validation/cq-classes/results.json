@@ -15,7 +15,7 @@
     "script_errors": 0
   },
   "class-network-client": {
-    "passed_assertions": 5,
+    "passed_assertions": 6,
     "failed_assertions": 0,
     "script_errors": 0
   },
@@ -26,11 +26,11 @@
   },
   "CQ_32_SNAPSHOT": {
     "large_records": 0,
-    "max_packet": 1081,
+    "max_packet": 1100,
     "player_update_gaps": 0,
     "player_updates": 0,
     "received_packets": 0,
-    "sent_bytes": 6938,
+    "sent_bytes": 7065,
     "sent_packets": 7,
     "stale_records": 0
   },
@@ -40,8 +40,18 @@
     "player_update_gaps": 0,
     "player_updates": 0,
     "received_packets": 0,
-    "sent_bytes": 13274,
+    "sent_bytes": 13402,
     "sent_packets": 13,
     "stale_records": 0
+  },
+  "spotting": {
+    "passed_assertions": 19,
+    "failed_assertions": 0,
+    "script_errors": 0
+  },
+  "spotting-visual": {
+    "passed_assertions": 23,
+    "failed_assertions": 0,
+    "script_errors": 0
   }
 }

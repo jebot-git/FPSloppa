@@ -25,6 +25,7 @@ func run()->void:
 		if game.players.size()==1:
 			var id:int=game.players.keys()[0];game._spawn(id);game.players[id].fire=false;game.players[id].alt_fire=false
 			check(game.classes.cloak(id),"Authority activates cloak")
+			game.spotting.spotted[id]=[game.clock+10.0,game.clock+10.0]
 			game._send_snapshot()
 			await create_timer(5).timeout
 			game.classes.weapon_used(id)
@@ -40,5 +41,6 @@ func run()->void:
 			check(await wait_for(func():return game.classes.role(id)=="scout" and game.classes.cloaked(id)),"Class and cloak replicate despite clock offset")
 			check(game.classes.states.get(id,{}).get("cloak_ready",0.0)-game.clock>20,"Client receives relative cloak cooldown")
 			check(game.local_state().ammo[0]==42,"Class pouch ammunition replicates")
+			check(game.spotting.spotted.get(id,[0,0])[0]-game.clock>5 and game.spotting.spotted[id][0]-game.clock<=10,"Team spotting deadline replicates with client clock offset")
 			check(await wait_for(func():return game.classes.role(id)=="scout" and not game.classes.cloaked(id)),"Weapon reveal replicates")
 	print("CQ_CLASS_NETWORK_RESULT ",role," ",JSON.stringify(failures));game.disconnect_game();game.free();quit(0 if failures.is_empty() else 1)

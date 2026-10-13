@@ -6,6 +6,7 @@ PASS Client joins packaged procedural CQ map
 PASS Class and cloak replicate despite clock offset
 PASS Client receives relative cloak cooldown
 PASS Class pouch ammunition replicates
+PASS Team spotting deadline replicates with client clock offset
 PASS Weapon reveal replicates
 CQ_CLASS_NETWORK_RESULT client []
 Disconnected.

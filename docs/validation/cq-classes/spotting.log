@@ -1,0 +1,28 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+DM_HOST_READY port=0 practice=false
+PASS Allied name/icon visible at 100 metres without LOS requirement
+PASS Allied name/icon hidden beyond 100 metres
+PASS Ordinary spotter cannot reveal enemy beyond 50 metres
+PASS LOS at 50 metres reveals enemy to the entire team
+PASS Enemy label persists for almost ten seconds after contact loss
+PASS Enemy label expires exactly ten seconds after last LOS
+PASS Scout LOS at 100 metres shares enemy label with distant allies
+PASS Scout cannot spot beyond 100 metres
+PASS Solid cover blocks initial spotting at both head and chest
+PASS Removing cover allows spotting on the next scan
+PASS Cloak hides name/icon and cannot generate new spotting
+PASS Dead spotters cannot reveal enemies
+PASS Incapacitated spotters cannot reveal enemies
+PASS Team spotting deadlines included in player snapshots
+PASS Round reset clears prior sightings
+PASS Bundled icon font renders shocktroop class icon
+PASS Bundled icon font renders scout class icon
+PASS Bundled icon font renders medic class icon
+PASS Bundled icon font renders technician class icon
+CQ_SPOTTING_RESULT []
+Disconnected.
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 3 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
